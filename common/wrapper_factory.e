@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision:$"
 
 
-deferred class WRAPPER_FACTORY [ITEM->WRAPPER]
+deferred class WRAPPER_FACTORY [ITEM_->WRAPPER]
 
 inherit
 	WRAPPER undefine copy,fill_tagged_out_memory end
@@ -18,7 +18,7 @@ inherit
 		end
 
 feature {NONE} -- Implementation
-	new_item: ITEM is
+	new_item: ITEM_ is
 			-- Materialize an Eiffel object. This feature contains
 			-- something that can be considered "black magic" by purists:
 			-- creating an object at run-time of type `ITEM' without
@@ -29,7 +29,7 @@ feature {NONE} -- Implementation
 			-- TYPED_INTERNALS. Why do this because SmartEiffel explictly
 			-- forbid to create an object of a generic type, without
 			-- knowing its effective type.
-		local internal: TYPED_INTERNALS[like Current]
+		local internal: TYPED_INTERNALS[ITEM_]
 		do
 			create internal.make_blank -- magically create a new ITEM
 			internal.set_object_can_be_retrieved -- prepare it to be released from the magic couldron

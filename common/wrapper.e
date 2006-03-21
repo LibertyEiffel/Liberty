@@ -15,6 +15,7 @@ feature {WRAPPER} -- syntactic sugar
 		alias "NULL"
 			-- Another possible implementation is
 			-- once Result := default_pointer end
+			-- or just Null: POINTER is do end
 		end
 feature {WRAPPER} -- Implementation
 	from_pointer (a_ptr: POINTER) is do	handle:=a_ptr	end

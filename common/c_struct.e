@@ -61,6 +61,8 @@ feature {NONE} -- Destroying
 feature
 	calloc (a_number,a_size: INTEGER): POINTER is
 		external "C use <stdlib.h>"
+		alias "se_calloc"
+		ensure Result.is_not_null
 		end
 
 	free (a_ptr: POINTER) is
