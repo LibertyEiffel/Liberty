@@ -1,0 +1,23 @@
+indexing
+	description: "."
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
+
+class
+inherit
+
+	_EXTERNALS
+	C_STRUCT
+	
+creation make
+
+feature {NONE} -- size
+	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof()"
+		end
+
+feature {NONE} -- Creation
+end

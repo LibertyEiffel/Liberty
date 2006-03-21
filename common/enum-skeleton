@@ -1,0 +1,15 @@
+indexing
+	description: "Enum "
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
+
+deferred class
+feature  -- enum
+	is_valid_ (a_ :INTEGER): BOOLEAN is
+		do	
+			Result:=()
+		end
+
+end
