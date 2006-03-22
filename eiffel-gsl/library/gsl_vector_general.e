@@ -7,7 +7,9 @@ indexing
 -- todo: do the copy html doc trick and implemtn everything
 
 deferred class GSL_VECTOR_GENERAL[G_]
-	
+
+inherit WRAPPER
+
 feature {NONE} -- Creation
 	
 	make (a_size: INTEGER) is
@@ -52,5 +54,4 @@ feature -- VEctor size
 feature {}
 	cleanup: CLEANUP
 
-	handle: POINTER
 end
