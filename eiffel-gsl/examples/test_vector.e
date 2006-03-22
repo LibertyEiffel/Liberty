@@ -10,8 +10,8 @@ creation make
 feature make is
 		local i: INTEGER
 		do
-			vector_64.make (10)
-			vector_32.make (10)
+			create vector_64.make (10)
+			create vector_32.make (10)
 			print ("Foo%N")
 			from i:=0 until i>=10 loop
 				vector_64.put (0.123456789 * i, i)

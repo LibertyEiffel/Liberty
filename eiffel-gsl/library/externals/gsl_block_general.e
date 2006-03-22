@@ -55,7 +55,7 @@ feature -- public interface
 			if is_not_null then
 				gsl_free(handle)
 			end
-			handle := gsl_alloc(a_count)
+			set_handle(gsl_alloc(a_count))
 		ensure
 			count = a_count
 			is_not_null
@@ -70,7 +70,7 @@ feature -- public interface
 			if is_not_null then
 				gsl_free(handle)
 			end
-			handle := gsl_calloc(a_count)
+			set_handle(gsl_calloc(a_count))
 		ensure
 			count = a_count
 			is_not_null
@@ -98,8 +98,8 @@ feature {} -- dispose
 			end
 		end
 		
-feature {} -- External calls
-	gsl_count(ptr: POINTER): INTEGER is
+feature {} -- External struct
+	gsl_size(ptr: POINTER): INTEGER is
 			-- the 'size' field of the block
 		require
 			ptr = handle
@@ -115,6 +115,7 @@ feature {} -- External calls
 		deferred
 		end
 
+feature {} -- External calls
 	gsl_alloc(a_count: INTEGER): POINTER is
 			-- allocate a blocfree the block pointed by 'ptr'
 			-- the 'count' field of the block
