@@ -6,10 +6,13 @@ indexing
 	revision: "$Revision$"
 
 deferred class GSL_BLOCK_GENERAL[TYPE_]
+	
 inherit
 	WRAPPER
+	DISPOSABLE
 	TRAVERSABLE[TYPE_]
 		redefine count end
+			
 feature -- public interface
 	count: INTEGER is
 			-- the count of size field of the block
@@ -44,25 +47,29 @@ feature -- public interface
 			Result.is_not_null
 		end
 
-	alloc(a_count: INTEGER) is
+	make(a_count: INTEGER) is
 			-- allocate a block but don't initialize the values
 		require
 			a_count >= 0
-			is_null
 		do
-			handle := gsl_malloc(a_count)
+			if is_not_null then
+				gsl_free(handle)
+			end
+			handle := gsl_alloc(a_count)
 		ensure
 			count = a_count
 			is_not_null
 			data.is_not_null
 		end	
 
-	alloc_and_fill_with_zero(a_count: INTEGER) is
+	make_with_zero(a_count: INTEGER) is
 			-- allocate a block and initialize its values to zero
 		require
 			a_count >= 0
-			is_null
 		do
+			if is_not_null then
+				gsl_free(handle)
+			end
 			handle := gsl_calloc(a_count)
 		ensure
 			count = a_count
@@ -82,6 +89,15 @@ feature -- public interface
 			is_null
 		end
 
+feature {} -- dispose
+	dispose is
+			-- called when the current is sawn as garbage
+		do
+			if is_not_null then
+				free
+			end
+		end
+		
 feature {} -- External calls
 	gsl_count(ptr: POINTER): INTEGER is
 			-- the 'size' field of the block
