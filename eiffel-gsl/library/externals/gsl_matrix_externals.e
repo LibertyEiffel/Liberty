@@ -12,7 +12,7 @@ feature {NONE} -- External calls
 		external "C use <gsl/gsl_matrix.h>"
 		end
 	
-	gsl_matrix_calloc (n1: INTEGER, n2: INTEGER): POINTER is
+	gsl_matrix_calloc (n1,n2: INTEGER): POINTER is
 		external "C use <gsl/gsl_matrix.h>"
 		end
 	

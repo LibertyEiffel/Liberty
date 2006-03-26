@@ -55,36 +55,52 @@ indexing
 class GSL_MATRIX
 inherit
 
-	C_STRUCT rename make as allocate_struct redefine copy,dispose end
-	GSL_MATRIX_EXTERNALS
-	GSL_MATRIX_STRUCT
+	COLLECTION2 [REAL]
+
+	ANY
+		rename is_equal as is_equal_generic
+		undefine copy, fill_tagged_out_memory -- Since we use COLLECTON2's implementation
+		end
 	
-creation make, make_zero, from_collection
+	C_STRUCT
+	rename
+		make as allocate_struct
+		is_equal as is_equal_generic
+		size as c_structure_size
+		--unnecessary undefine is_equal , fill_tagged_out_memory
+		-- redefine copy no! it's already undefined!
+		redefine dispose
+		end
 	
-feature {NONE} -- Creation
-	
+creation make, make_zero, from_collection, from_collection2
+
+feature {NONE} -- Creating
 	make (rows, columns: INTEGER) is
 		require
 			valid_rows: rows > 0
 			valid_columns: columns > 0 
 			-- Creates a matrix of size `rows' by `columns'. Matrix's elements are uninitialized
 		do
-			-- returns a pointer to a newly initialized matrix struct. A
-			-- new block is allocated for the elements of the matrix, and
-			-- stored in the block component of the matrix struct. The
-			-- block is "owned" by the matrix, and will be deallocated
-			-- when the matrix is deallocated.
-
-			handle := gsl_matrix_alloc (rows,columns)
-			
-			-- The functions for allocating memory to a matrix follow the
-			-- style of malloc and free. They also perform their own
-			-- error checking. If there is insufficient memory available
-			-- to allocate a vector then the functions call the GSL error
-			-- handler (with an error number of GSL_ENOMEM) in addition
-			-- to returning a null pointer. Thus if you use the library
-			-- error handler to abort your program then it isn't
-			-- necessary to check every alloc.
+			if handle.is_not_null
+			then gsl_matrix_free (handle)
+			else
+				-- returns a pointer to a newly initialized matrix struct. A
+				-- new block is allocated for the elements of the matrix, and
+				-- stored in the block component of the matrix struct. The
+				-- block is "owned" by the matrix, and will be deallocated
+				-- when the matrix is deallocated.
+				
+				handle := gsl_matrix_alloc (rows,columns)
+				
+				-- The functions for allocating memory to a matrix follow the
+				-- style of malloc and free. They also perform their own
+				-- error checking. If there is insufficient memory available
+				-- to allocate a vector then the functions call the GSL error
+				-- handler (with an error number of GSL_ENOMEM) in addition
+				-- to returning a null pointer. Thus if you use the library
+				-- error handler to abort your program then it isn't
+				-- necessary to check every alloc.
+			end
 		end
 	
 	make_zero  (rows, columns: INTEGER) is
@@ -97,11 +113,46 @@ feature {NONE} -- Creation
 			handle :=  gsl_matrix_calloc (rows,columns)
 		end
 	
-	from_collection (a_collection: COLLECTION2[REAL]) is
-		require valid_collection: a_collection/=Void
+feature {ANY} -- Creating or initializing: 
+	
+	from_collection, from_collection2 (model: COLLECTION2[like item]) is
+			--  Uses `model' to initialize Current.
+			-- TODO: from_collection or from_collection2: which is the "best" name for this feature?
+		local i,j: INTEGER
 		do
-		ensure implemented: False
+			handle:=gsl_matrix_alloc (model.count1 , model.count2 )
+			from i:=model.lower1 until i<model.upper1 loop
+				from j:=model.lower2 until j<model.upper2 loop
+					put (item(i,j),i,j)
+					j:=j+1
+				end
+				i:=i+1
+			end				
 		end
+
+	from_model (model: COLLECTION[COLLECTION[REAL]]) is
+			-- The `model' is used to fill line by line Current.
+			-- Assume all sub-collections of `model' have the same
+			-- number of lines.
+		local i,j,cols,model_lower: INTEGER; subcollection: COLLECTION[REAL]
+		do
+			model_lower := model.lower
+			cols := model.item(model.lower).count
+			handle:=gsl_matrix_alloc(model.count, cols)
+
+			from i:=model.lower until i<model.upper loop
+				subcollection := model.item (i)
+					check coherent_subcollection_length: subcollection.count = cols end
+				from j:=subcollection.lower until j<subcollection.upper loop
+					put (subcollection.item(j),
+						  i-model_lower,
+						  j-subcollection.lower)
+					j:=j+1
+				end
+				i:=i+1
+			end
+		end
+
 feature {NONE} -- Disposing
 	dispose is
 		do
@@ -116,11 +167,8 @@ feature {NONE} -- Disposing
 		end
 	
 feature -- Accessing
-
-	item (i, j: INTEGER): REAL is
+	item(i, j: INTEGER): REAL is
 			-- the (i,j)-th element of Current matrix m
-		require
-			is_valid_index (i,j)
 		do
 			-- If i or j lie outside the allowed range of 0 to n1-1 and 0
 			-- to n2-1 then the error handler is invoked and 0 is
@@ -130,11 +178,21 @@ feature -- Accessing
 
 	put (an_x: REAL; i,j: INTEGER) is
 			-- Sets the value of the (i,j)-th element of Current matrix to `an_x'.
-		require
-			is_valid_index (i,j)
 		do
 			gsl_matrix_set (handle, i,j, an_x)
 			-- This function sets the value of the (i,j)-th element of a matrix m to x. If i or j lies outside the allowed range of 0 to n1-1 and 0 to n2-1 then the error handler is invoked. 
+		end
+
+	force (element: like item; line, column: INTEGER) is
+			-- Put `element' at position (`line',`column'). Collection is
+			-- resized first when (`line',`column') is not inside current
+			-- bounds. New bounds are initialized with default values.
+			-- Required to be a COLLECTION2
+		obsolete "currently not implemented"
+		do
+			-- Nothing
+		ensure then
+			implemented: False
 		end
 
 	-- Note: currently wrapping double * gsl_matrix_ptr (gsl_matrix *
@@ -147,7 +205,7 @@ feature -- Accessing
 	-- 2006-03-19
 
 feature -- Initializing matrix elements
-	set_all (an_x: REAL) is
+	set_all_with (an_x: REAL) is
 			-- sets all the elements of Current matrix to the value `an_x'. 
 		do
 			gsl_matrix_set_all (handle, an_x)
@@ -289,7 +347,7 @@ feature -- Copying matrices
 	copy (other: like Current) is
 			-- copies the elements of the `other' matrix into the
 			-- Current. The two matrices must have the same size.
-		require
+		require else 
 			valid_other: other /= Void
 			same_size: has_same_size (other)
 		local res:INTEGER
@@ -297,7 +355,7 @@ feature -- Copying matrices
 			res:=gsl_matrix_memcpy (handle,other.handle)
 		end
 
-	swap (other: like Current) is
+	swap_with (other: like Current) is
 			-- Exchanges the elements of the matrices Current and `other'
 			-- by copying. The two matrices must have the same size.
 		require
@@ -306,7 +364,8 @@ feature -- Copying matrices
 		local res:INTEGER
 		do
 			res:=gsl_matrix_swap (handle,other.handle)
-			
+		end
+	
 feature -- Copying rows and columns
 	-- TODO: Eiffelize this "Features described in this section copy a
 	-- row or column of a matrix into a vector. This allows the
@@ -501,13 +560,13 @@ feature -- Finding maximum and minimum elements of matrices
 	-- several equal minimum or maximum elements then the first
 	-- elements found are returned, searching in row-major order.
 
-feature -- Matrix properties
-	is_null: BOOLEAN is
+feature -- Matrix properties,  looking and comparison:
+	all_default, is_null: BOOLEAN is
 			-- Are  all the elements of the matrix zero?
 		do
 			Result := (gsl_matrix_isnull (handle)).to_boolean
 		end
-	
+
 feature -- Matrix size
 	is_valid_index	(i,j: INTEGER): BOOLEAN is
 		do
@@ -525,13 +584,35 @@ feature -- Matrix size
 			Result:= a_j.in_range (0,column_number-1)
 		end
 
-	row_number: INTEGER is
+feature {ANY} -- Counting:
+	count1: INTEGER is
+			-- Size of the first dimension.
+		do
+			Result := upper1 + 1
+		end
+
+	count2: INTEGER is
+			-- Size of the second dimension.
+		do
+			Result := upper2 + 1
+		end
+
+	count: INTEGER is
+			-- Total number of elements.
+		do
+			Result := line_count * column_count
+		end
+
+feature {ANY} -- Indexing:
+	lower1, lower2: INTEGER is 0
+
+	upper1, row_number: INTEGER is
 		do
 			Result:=get_size1(handle)
 			-- ensure positive: Result > 0
 		end
 	
-	column_number: INTEGER is
+	upper2, column_number: INTEGER is
 		do
 			Result:=get_size2(handle)
 			-- ensure positive: Result > 0
@@ -543,4 +624,280 @@ feature -- Matrix size
 			Result := ((row_number = other.row_number) and
 						  (column_number = other.column_number))
 		end
+
+-- FROM COLLECTON2!!!!
+
+feature {ANY}
+	swap (line1, column1, line2, column2: INTEGER) is
+			-- Swap the element at index (`line1',`column1') with the
+			-- the element at index (`line2',`column2').
+		local temp: like item
+		do
+			temp := item (line1,column1)
+			put (item(line2,column2), line1, column1)
+			put (temp, line2, column2)
+		end
+
+feature {ANY} -- Miscellaneous features:
+	occurrences, fast_occurrences (an_x: like item): INTEGER is
+			-- Number of occurrences using `='.
+			-- `occurrences' and `fast_occurrences' are the same feature		
+		local i,j: INTEGER
+		do
+			from i:=lower1 until i<upper1 loop
+				from j:=lower2 until j<upper2 loop
+					if item(i,j) = an_x then Result := Result+1 end
+					j:=j+1
+				end
+				i:=i+1
+			end
+		end
+
+	has, fast_has (x: like item): BOOLEAN is
+			--  Search if a element x is in the array using `='. `has'
+			--  and `fast_has' are the same feature
+		local i,j: INTEGER
+		do
+			from i:=lower1 until Result=False or else i<upper1 loop
+				from j:=lower2 until Result=False or else j<upper2 loop
+					if item(i,j) = x then Result := True end
+					j:=j+1
+				end
+				i:=i+1
+			end
+		end
+
+	replace_all (old_value, new_value: like item) is
+			-- Replace all occurrences of the element `old_value' by `new_value'
+			-- using `is_equal' for comparison.
+			-- See also `fast_replace_all' to choose the apropriate one.
+		obsolete "Unimplemented!"
+		do
+			-- Nothing
+		ensure then implemented: False
+		end
+
+	fast_replace_all (old_value, new_value: like item) is
+			-- Replace all occurrences of the element `old_value' by `new_value'
+			-- using operator `=' for comparison.
+			-- See also `replace_all' to choose the apropriate one.
+		obsolete "Unimplemented!"
+		do
+			-- Nothing
+		ensure then implemented: False
+		end
+
+	sub_collection2 (line_min, line_max, column_min, column_max: INTEGER): like Current is
+			-- Create a new object using selected area of `Current'.
+		obsolete "Unimplemented!"
+		do
+			-- Nothing
+		ensure then implemented: False
+		end
+
+	-- TODO: Check if this COLLECTON2 needs to be implemented
+feature {} -- Implement manifest generic creation.
+	manifest_put (index: INTEGER; element: like item) is
+		obsolete "tentative implementation"
+		do
+			put (element, index\\count1, index//count1)
+		end
+
+feature {NONE} -- External calls
+
+	gsl_matrix_alloc (a_n1, a_n2: INTEGER): POINTER is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+	
+	gsl_matrix_calloc (n1,n2: INTEGER): POINTER is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+	
+	gsl_matrix_free (a_gsl_matrix: POINTER) is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_get (a_gsl_matrix: POINTER; a_i, a_j: INTEGER): REAL is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_set (a_gsl_matrix: POINTER; a_i, a_j: INTEGER; an_x: REAL) is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_ptr (a_gsl_matrix: POINTER; a_i, a_j: INTEGER): POINTER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_set_all (a_gsl_matrix: POINTER; an_x: REAL) is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_set_zero (a_gsl_matrix: POINTER)  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_set_identity (a_gsl_matrix: POINTER)  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_fwrite (a_stream, a_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_fread (a_stream, a_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_fprintf (a_stream, a_gsl_matrix, a_format: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+	
+	gsl_matrix_fscanf (a_stream, a_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+	
+	-- TODO: gsl_matrix_view gsl_matrix_submatrix (a_gsl_matrix: POINTER, k1: INTEGER, k2: INTEGER, n1: INTEGER, n2: INTEGER)
+	-- TODO gsl_matrix_const_view gsl_matrix_const_submatrix (const a_gsl_matrix: POINTER, k1: INTEGER, k2: INTEGER, n1: INTEGER, n2: INTEGER)
+
+	-- TODO: gsl_matrix_view gsl_matrix_view_array (double * base, n1: INTEGER, n2: INTEGER)
+	-- TODO: gsl_matrix_const_view gsl_matrix_const_view_array (const double * base, n1: INTEGER, n2: INTEGER)
+
+	-- TODO: gsl_matrix_view gsl_matrix_view_array_with_tda (double * base, n1: INTEGER, n2: INTEGER, tda: INTEGER)
+	-- TODO: gsl_matrix_const_view gsl_matrix_const_view_array_with_tda (const double * base, n1: INTEGER, n2: INTEGER, tda: INTEGER)
+
+	-- TODO: gsl_matrix_view gsl_matrix_view_vector (gsl_vector * v, n1: INTEGER, n2: INTEGER)
+	-- TODO: gsl_matrix_const_view gsl_matrix_const_view_vector (const gsl_vector * v, n1: INTEGER, n2: INTEGER)
+
+	-- TODO: gsl_matrix_view gsl_matrix_view_vector_with_tda (gsl_vector * v, n1: INTEGER, n2: INTEGER, tda: INTEGER)
+	-- TODO: gsl_matrix_const_view gsl_matrix_const_view_vector_with_tda (const gsl_vector * v, n1: INTEGER, n2: INTEGER, tda: INTEGER)
+
+	gsl_matrix_memcpy (a_dest, a_src: POINTER): INTEGER   is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_swap (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_get_row (a_vector, a_gsl_matrix: POINTER; an_i: INTEGER): INTEGER   is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_get_col (a_gsl_vector, a_gsl_matrix: POINTER; a_j: INTEGER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_set_row (a_gsl_matrix: POINTER; an_i: INTEGER; a_gsl_vector: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_set_col (a_gsl_matrix: POINTER; an_j: INTEGER; a_gsl_vector: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_swap_rows (a_gsl_matrix: POINTER; an_i, a_j: INTEGER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_swap_columns (a_gsl_matrix: POINTER; an_i, a_j: INTEGER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_swap_rowcol (a_gsl_matrix: POINTER; an_i, a_j: INTEGER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_transpose_memcpy (a_gsl_matrix_dest, a_gsl_matrix_src: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_transpose (a_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+
+	gsl_matrix_add (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_sub (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_mul_elements (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+	
+	gsl_matrix_div_elements (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+	
+	gsl_matrix_scale (a_gsl_matrix: POINTER; a_scale: REAL): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+	
+	gsl_matrix_add_constant (a_gsl_matrix: POINTER; a_constant: REAL): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	
+	gsl_matrix_max (a_gsl_matrix: POINTER): REAL  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+	
+	gsl_matrix_min (a_gsl_matrix: POINTER): REAL  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_minmax (a_gsl_matrix, a_min_out, a_max_out: POINTER)  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_max_index (a_gsl_matrix, an_imax_ptr, a_jmax_ptr: POINTER)  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+	gsl_matrix_min_index (a_gsl_matrix, an_imin_ptr, a_jmin_ptr: POINTER)  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+		-- TODO: void gsl_matrix_minmax_index (const a_gsl_matrix: POINTER, size_t * imin, size_t * imax)
+		-- Documentation and declaration mismatch! This function returns the indices of the minimum and maximum values in the matrix m, storing them in (imin,jmin) and (imax,jmax). When there are several equal minimum or maximum elements then the first elements found are returned, searching in row-major order. 
+	
+	gsl_matrix_isnull (a_gsl_matrix: POINTER): INTEGER  is
+		external "C use <gsl/gsl_matrix.h>"
+		end
+
+feature {NONE} -- Accessing gsl_matrix struct
+
+	c_structure_size: INTEGER is
+		external "C  use <gsl/gsl_matrix.h>"
+		alias "sizeof(gsl_matrix)"
+		end
+	
+	get_size1 (a_matrix: POINTER): INTEGER is
+		external "C struct gsl_matrix get size1 use <gsl/gsl_matrix.h>"
+		end
+
+	get_size2 (a_matrix: POINTER): INTEGER is
+		external "C struct gsl_matrix get size2 use <gsl/gsl_matrix.h>"
+		end
+
+	get_tda (a_matrix: POINTER): INTEGER is
+		external "C struct gsl_matrix get  use <gsl/gsl_matrix.h>"
+		end
+
+	get_data (a_matrix: POINTER): POINTER is
+		external "C struct gsl_matrix get  use <gsl/gsl_matrix.h>"
+		end
+	
+	get_block  (a_matrix: POINTER): POINTER is
+		external "C struct gsl_matrix get  use <gsl/gsl_matrix.h>"
+		end
+
+	get_owner (a_matrix: POINTER): INTEGER is
+		external "C struct gsl_matrix get  use <gsl/gsl_matrix.h>"
+		end
+
 end

@@ -1,4 +1,4 @@
-system  test_matrix
+system  "test_matrix"
 
 root TEST_MATRIX : make
 
@@ -17,7 +17,7 @@ default -- section of the system
 cluster -- section
 		"../../common"
 		"../library/externals"
-		"../library/plugins"
+		-- removed "../library/plugins"
 		"../library"
 		"."
 	standard: "${path_lib}/loadpath.se"
