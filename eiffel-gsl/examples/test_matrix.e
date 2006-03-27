@@ -11,10 +11,12 @@ feature make is
 		local i,j: INTEGER
 		do
 			create matrix.make (10,3)
+			create matrix32.make (10,3)
 			print ("Foo%N")
 			from i:=0 until i>=10 loop
 				from j:=0 until j>=3 loop
-					matrix.put (0.23+10*i+j, i, j)
+					matrix.put (0.23 + 10 * i + j, i, j)
+					matrix32.put ((0.23 + 10 * i + j).force_to_real_32, i, j)
 					j := j+1
 				end
 				i:=i+1
@@ -26,6 +28,7 @@ feature make is
 					-- Shame on Paolo for such an inefficient print. TODO:
 					-- provide something as easy but performing
 					print ("m("+i.out+","+j.out+") = "+matrix.item(i,j).out +"%N")
+					print ("m("+i.out+","+j.out+") = "+matrix32.item(i,j).out +"%N")
 					j := j+1
 				end
 				i:=i+1
@@ -34,14 +37,20 @@ feature make is
 			try_to_access_outside_boundaries
 			print ("Foo bar%N")
 
-			create matrix.from_collection ( {ARRAY2[REAL] 0,3, 0,3,
+			create matrix.from_collection2 ( {ARRAY2[REAL] 0,3, 0,3,
 														<< 1.0, 2.0, 3.0, 4.0;
 															2.0, 3.0, 4.0, 5.0;
 															0.0, 0.0, 9.0, 8.0;
 															4.0, 4.0, 3.0, 3.0>>})
+--			create matrix32.from_collection2 ( {ARRAY2[REAL_32] 0,3, 0,3,
+--														<< 1.0, 2.0, 3.0, 4.0;
+--															2.0, 3.0, 4.0, 5.0;
+--															0.0, 0.0, 9.0, 8.0;
+--															4.0, 4.0, 3.0, 3.0>>})
 		end
 
-	matrix: GSL_MATRIX
+	matrix: GSL_MATRIX_REAL_64
+	matrix32: GSL_MATRIX_REAL_32
 
 	try_to_access_outside_boundaries is
 		local tried: BOOLEAN
