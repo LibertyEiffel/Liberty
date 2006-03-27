@@ -9,11 +9,13 @@ indexing
 deferred class C_STRUCT
 
 inherit
-	WRAPPER 
-	DISPOSABLE -- Note: use this instead of "MEMORY redefine dispose end" to define dispose 
-	ANY undefine is_equal, copy end
+	WRAPPER undefine is_equal, copy, fill_tagged_out_memory end
+		-- Note: use the following instead of "MEMORY redefine dispose
+		-- end" to define dispose
+	DISPOSABLE undefine is_equal, copy, fill_tagged_out_memory end
+	ANY undefine is_equal, copy, fill_tagged_out_memory end
 	
-insert EXCEPTIONS export {NONE} all end
+insert EXCEPTIONS export {NONE} all undefine is_equal, copy, fill_tagged_out_memory end
 	
 feature {NONE} -- Initialization
 	make is

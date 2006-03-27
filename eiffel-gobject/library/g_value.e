@@ -11,6 +11,7 @@ class G_VALUE
 
 inherit
 	C_STRUCT redefine dispose end
+	GLIB_MEMORY_ALLOCATION export {NONE} all end
 	G_VALUE_EXTERNALS
 	G_TYPE_EXTERNALS
 	

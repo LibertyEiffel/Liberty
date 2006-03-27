@@ -50,7 +50,7 @@ inherit
 	G_LIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
 	C_STRUCT
 		rename exists as wrapped_object_exists
-		undefine copy,fill_tagged_out_memory
+		-- undefine copy,fill_tagged_out_memory
 		redefine make
 		end
 	
@@ -281,7 +281,7 @@ feature
 		ensure positive: Result >= 0 
 		end
 
-	is_empty: BOOLEAN is 
+	empty, is_empty: BOOLEAN is 
 		do
 			Result:= (handle.is_null)
 		end

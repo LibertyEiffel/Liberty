@@ -8,7 +8,8 @@ indexing
 class ITERATOR_ON_G_LIST [ITEM->WRAPPER]
 inherit
 	ITERATOR [ITEM]
-	WRAPPER 
+	WRAPPER
+	WRAPPER_FACTORY [ITEM]
 	G_LIST_EXTERNALS
 	
 creation make
