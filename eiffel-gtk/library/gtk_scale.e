@@ -1,0 +1,194 @@
+indexing
+	description: "GtkScale -- Base class for GtkHScale and GtkVScale."
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
+
+			-- A GtkScale is a slider control used to select a numeric
+			-- value. To use it, you'll probably want to investigate the
+			-- methods on its base class, GtkRange, in addition to the
+			-- methods for GtkScale itself. To set the value of a scale,
+			-- you would normally use gtk_range_set_value(). To detect
+			-- changes to the value, you would normally use the
+			-- "value_changed" signal.
+
+			-- The GtkScale widget is an abstract class, used only for
+			-- deriving the subclasses GtkHScale and GtkVScale. To create
+			-- a scale widget, call gtk_hscale_new_with_range() or
+			-- gtk_vscale_new_with_range().
+
+deferred class GTK_SCALE
+inherit
+
+	GTK_RANGE
+	GTK_SCALE_EXTERNALS
+	
+feature -- digits
+
+	digits: INTEGER is
+			-- the number of decimal places that are displayed in the value.
+		do
+			Result := gtk_scale_get_digits (handle)
+
+	set_digits (some_digits: INTEGER) is
+			-- Sets the number of decimal places that are displayed in
+			-- the value. Also causes the value of the adjustment to be
+			-- rounded off to this number of digits, so the retrieved
+			-- value matches the value the user saw. `some_digits' : the
+			-- number of decimal places to display, e.g. use 1 to display
+			-- 1.0, 2 to display 1.00 etc.
+		do
+			gtk_scale_set_digits (handle, some_digits)
+		end
+
+feature -- Draw value
+	set_draw_value is
+			-- Specifies whether the current value is displayed as a string next to the slider.
+		do
+			gtk_scale_set_draw_value (handle,1)
+		end
+
+	is_value_drawn: BOOLEAN is
+			-- Is the current value is displayed as a string next to the
+			-- slider?
+		do
+			Result := (gtk_scale_get_draw_value (handle)).to_boolean
+		end
+	
+feature -- position
+	display_on_left is
+			-- Display the current value on the left.
+		do
+			gtk_scale_set_value_pos (handle, gtk_pos_left)
+		end
+
+	display_on_right is
+			-- Display the current value on the right.
+		do
+			gtk_scale_set_value_pos (handle, gtk_pos_right)
+		end
+
+	display_on_top is
+			-- Display the current value on the top.
+		do
+			gtk_scale_set_value_pos (handle, gtk_pos_top)
+		end
+
+	display_on_bottom is
+			-- Display the current value on the bottom.
+		do
+			gtk_scale_set_value_pos (handle, gtk_pos_bottom)
+		end
+
+	is_displayed_on_left: BOOLEAN is
+			-- Is  the current value displayed on the left?
+		do
+			Result := gtk_scale_get_value_pos (handle) = gtk_pos_left
+		end
+
+	is_displayed_on_right: BOOLEAN is
+			-- Is  the current value displayed on the right?
+		do
+			Result := gtk_scale_get_value_pos (handle) = gtk_pos_right
+		end
+
+	is_displayed_on_top: BOOLEAN is
+			-- Is  the current value displayed on the top?
+		do
+			Result := gtk_scale_get_value_pos (handle) = gtk_pos_top
+		end
+
+	is_displayed_on_bottom: BOOLEAN is
+			-- Is  the current value displayed on the bottom?
+		do
+			Result := gtk_scale_get_value_pos (handle) = gtk_pos_bottom
+		end
+
+	-- TODO: gtk_scale_get_layout () PangoLayout* gtk_scale_get_layout
+	-- (GtkScale *scale); Gets the PangoLayout used to display the
+	-- scale. The returned object is owned by the scale so does not
+	-- need to be freed by the caller.  scale : A GtkScale Returns :
+	-- the PangoLayout for this scale, or NULL if the draw_value
+	-- property is FALSE.
+
+feature
+	layout_offsets: [REAL,REAL] is
+			-- Obtains the coordinates where the scale will draw the
+			-- PangoLayout representing the text in the scale. Remember
+			-- when using the PangoLayout function you need to convert to
+			-- and from pixels using PANGO_PIXELS() or PANGO_SCALE. If
+			-- the draw_value property is FALSE, the return values are
+			-- undefined.
+		local an_x,an_y: REAL
+		do
+			gtk_scale_get_layout_offsets (handle, $an_x, $an_y)
+			create Result.make_2 (an_x, an_y)
+		end
+	
+
+feature -- TODO: Property Details
+-- The "digits" property
+
+--   "digits"               gint                  : Read / Write
+
+-- The number of decimal places that are displayed in the value.
+
+-- Allowed values: [-1,64]
+
+-- Default value: 1
+-- The "draw-value" property
+
+--   "draw-value"           gboolean              : Read / Write
+
+-- Whether the current value is displayed as a string next to the slider.
+
+-- Default value: TRUE
+-- The "value-pos" property
+
+--   "value-pos"            GtkPositionType       : Read / Write
+
+-- The position in which the current value is displayed.
+
+-- Default value: GTK_POS_TOP
+-- Style Property Details
+-- The "slider-length" style property
+
+--   "slider-length"        gint                  : Read
+
+-- Length of scale's slider.
+
+-- Allowed values: >= 0
+
+-- Default value: 31
+-- The "value-spacing" style property
+
+--   "value-spacing"        gint                  : Read
+
+-- Space between value text and the slider/trough area.
+
+-- Allowed values: >= 0
+
+-- Default value: 2
+-- Signal Details
+-- The "format-value" signal
+
+-- gchar*      user_function                  (GtkScale *scale,
+--                                             gdouble arg1,
+--                                             gpointer user_data);
+
+-- Signal which allows you to change how the scale value is displayed. Connect a signal handler which returns an allocated string representing value. That string will then be used to display the scale's value. Here's an example signal handler which displays a value 1.0 as with "-->1.0<--".
+
+-- static gchar*
+-- format_value_callback (GtkScale *scale,
+--                        gdouble   value)
+-- {
+--   return g_strdup_printf ("-->%0.*g<--",
+--                           gtk_scale_get_digits (scale), value);
+-- }
+
+-- scale : 	the object which received the signal.
+-- arg1 : 	
+-- user_data : 	user data set when the signal handler was connected.
+-- Returns : 	allocated string representing value
+end

@@ -1,0 +1,66 @@
+indexing
+	description: "Enum  GtkSpinType"
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
+
+deferred class  GTK_SPIN_TYPE
+feature  -- enum
+	is_valid_gtk_spin_type (a_spin_type :INTEGER): BOOLEAN is
+		do	
+			Result := ((a_spin_type = gtk_spin_step_forward) or else
+						  (a_spin_type = gtk_spin_step_backward) or else
+						  (a_spin_type = gtk_spin_page_forward) or else
+						  (a_spin_type = gtk_spin_page_backward) or else
+						  (a_spin_type = gtk_spin_home) or else
+						  (a_spin_type = gtk_spin_end) or else
+						  (a_spin_type = gtk_spin_user_defined))
+		end
+
+	gtk_spin_step_forward: INTEGER is
+			-- These values spin a GtkSpinButton by the relevant values of the spin button's GtkAdjustment.
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SPIN_STEP_FORWARD"
+		end
+	
+	gtk_spin_step_backward: INTEGER is
+			-- These values spin a GtkSpinButton by the relevant values of the spin
+			-- button's GtkAdjustment.
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SPIN_STEP_BACKWARD"
+		end
+	
+	gtk_spin_page_forward: INTEGER is
+			-- These values spin a GtkSpinButton by the relevant values of the spin
+			-- button's GtkAdjustment.
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SPIN_PAGE_FORWARD"
+		end
+	
+	gtk_spin_page_backward: INTEGER is
+			-- These values spin a GtkSpinButton by the relevant values of the spin
+			-- button's GtkAdjustment.
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SPIN_PAGE_BACKWARD"
+		end
+	
+	gtk_spin_home: INTEGER is
+			-- These set the spin button's value to the minimum or maxmimum
+			-- possible values, (set by its GtkAdjustment), respectively.
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SPIN_HOME"
+		end
+	
+	gtk_spin_end: INTEGER is
+			-- These set the spin button's value to the minimum or maxmimum possible values, (set by its GtkAdjustment), respectively.
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SPIN_END"
+		end
+	
+	gtk_spin_user_defined: INTEGER is
+			-- The programmer must specify the exact amount to spin the GtkSpinButton.
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SPIN_USER_DEFINED"
+		end
+end
