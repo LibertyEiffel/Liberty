@@ -38,8 +38,8 @@ feature make is
 --															4.0, 4.0, 3.0, 3.0>>})
 		end
 
-	vector_64: GSL_VECTOR_64
-	vector_32: GSL_VECTOR_32
+	vector_64: GSL_VECTOR_REAL_64
+	vector_32: GSL_VECTOR_REAL_32
 
 --	try_to_access_outside_boundaries is
 --		local tried: BOOLEAN

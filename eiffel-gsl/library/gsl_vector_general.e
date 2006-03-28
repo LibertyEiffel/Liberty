@@ -10,8 +10,7 @@ deferred class GSL_VECTOR_GENERAL[TYPE_]
 inherit
 	WRAPPER
 		redefine copy end
-	DISPOSABLE
-		redefine copy end
+
 	TRAVERSABLE[TYPE_]
 		redefine count, copy end
 	
@@ -103,7 +102,7 @@ feature -- Accessing
 			definition: item(i) = x
 		end
 	
-feature -- VEctor size
+feature -- Vector size
 	same_as (other: like Current): BOOLEAN is
 		require
 			valid_other: other /= Void

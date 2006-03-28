@@ -10,8 +10,8 @@ creation make
 feature make is
 		local i,j: INTEGER
 		do
-			create matrix.make (10,3)
-			create matrix32.make (10,3)
+			create matrix.make (10, 3)
+			create matrix32.make (10, 3)
 			print ("Foo%N")
 			from i:=0 until i>=10 loop
 				from j:=0 until j>=3 loop
@@ -55,7 +55,7 @@ feature make is
 	try_to_access_outside_boundaries is
 		local tried: BOOLEAN
 		do
-			if not tried then print (matrix.item(20,20).out) end
+			if not tried then print (matrix.item(10,3).out) end
 		rescue
 			print ("Shameful access outside buondaries!%N")
 			tried := True

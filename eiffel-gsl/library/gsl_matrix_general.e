@@ -53,19 +53,28 @@ indexing
 			-- owner field is zero and any underlying block will not be
 			-- freed.
 
+
+
+	-- TODO: line/row/column count is confusing with collection2. Is 
+	-- this efficent?
 class GSL_MATRIX_GENERAL[TYPE_]
 inherit
 	
 	COLLECTION2 [TYPE_]
 
-	C_STRUCT -- TODO: use WRAPPER ???
+	WRAPPER
 		rename
-			make as make_c_struct
 			is_equal as is_equal_generic
-		redefine
-			dispose
 		end
-	
+
+	ANY
+		rename
+			is_equal as is_equal_generic
+		undefine
+			out,
+			copy,
+			fill_tagged_out_memory
+		end
 	
 feature {NONE} -- Creating
 	make (rows, columns: INTEGER) is
@@ -348,17 +357,29 @@ feature -- Row and column views
 feature -- Copying matrices
 	copy (other: like Current) is
 			-- copies the elements of the `other' matrix into the
-			-- Current. The two matrices must have the same size.
-		require else 
-			valid_other: other /= Void
-			same_size: has_same_size (other)
+			-- Current.
 		local
 			res: INTEGER
 		do
-			res := gsl_matrix_memcpy (handle, other.handle)
-			check
-				-- TODO: res prüfen
-				True
+			if other.is_null then
+				if handle.is_not_null then
+					gsl_matrix_free(handle)
+					handle := default_pointer
+				end
+			else
+				if handle.is_not_null and then not has_same_size(other) then
+					gsl_matrix_free(handle)
+					handle := default_pointer
+				end
+				if is_null then
+					make(other.line_count, other.column_count)
+				end
+				
+				res := gsl_matrix_memcpy (handle, other.handle)
+				check
+					-- TODO: check result
+					True
+				end
 			end
 		end
 
@@ -615,31 +636,31 @@ feature -- Matrix properties,  looking and comparison:
 feature -- Matrix size
 	is_valid_index	(i, j: INTEGER): BOOLEAN is
 		do
-			Result := (i.in_range(0, row_number - 1) and
-						  j.in_range(0, column_number - 1))
+			Result := (i.in_range(0, row_upper ) and
+						  j.in_range(0, column_upper))
 		end
 				
 	is_valid_row (an_i: INTEGER): BOOLEAN is
 		do
-			Result:= an_i.in_range (0, row_number - 1)
+			Result:= an_i.in_range (0, row_upper)
 		end
 
 	is_valid_column (a_j: INTEGER): BOOLEAN is
 		do
-			Result:= a_j.in_range (0, column_number - 1)
+			Result:= a_j.in_range (0, column_upper)
 		end
 
 feature {ANY} -- Counting:
 	count1: INTEGER is
 			-- Size of the first dimension.
 		do
-			Result := upper1 + 1
+			Result := get_size1(handle)
 		end
 
 	count2: INTEGER is
 			-- Size of the second dimension.
 		do
-			Result := upper2 + 1
+			Result := get_size2(handle)
 		end
 
 	count: INTEGER is
@@ -651,23 +672,21 @@ feature {ANY} -- Counting:
 feature {ANY} -- Indexing:
 	lower1, lower2: INTEGER is 0
 
-	upper1, row_number: INTEGER is
+	upper1, row_upper: INTEGER is
 		do
-			Result := get_size1(handle)
-			-- ensure positive: Result > 0
+			Result := line_count - 1
 		end
 	
-	upper2, column_number: INTEGER is
+	upper2, column_upper: INTEGER is
 		do
-			Result := get_size2(handle)
-			-- ensure positive: Result > 0
+			Result := column_count - 1
 		end
 
 	has_same_size (other: like Current): BOOLEAN is
 		require valid_other:other/=Void
 		do
-			Result := ((row_number = other.row_number) and
-						  (column_number = other.column_number))
+			Result := ((line_count = other.line_count) and
+						  (column_count = other.column_count))
 		end
 
 -- FROM COLLECTON2!!!!
@@ -772,7 +791,6 @@ feature {} -- Implement manifest generic creation.
 		end
 
 feature {} -- External calls
-
 	gsl_matrix_alloc (a_n1, a_n2: INTEGER): POINTER is
 		deferred
 		end
@@ -826,24 +844,29 @@ feature {} -- External calls
 	gsl_matrix_fwrite (a_stream, a_gsl_matrix: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			a_stream.is_not_null
 		deferred
 		end
 
 	gsl_matrix_fread (a_stream, a_gsl_matrix: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			a_stream.is_not_null
 		deferred
 		end
 
 	gsl_matrix_fprintf (a_stream, a_gsl_matrix, a_format: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			a_stream.is_not_null
+			a_format.is_not_null
 		deferred
 		end
 	
 	gsl_matrix_fscanf (a_stream, a_gsl_matrix: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			a_stream.is_not_null
 		deferred
 		end
 	
@@ -864,37 +887,43 @@ feature {} -- External calls
 
 	gsl_matrix_memcpy (a_dest, a_src: POINTER): INTEGER   is
 		require
-			a_gsl_matrix.is_not_null
+			valid_source: a_src.is_not_null
+			valid_dest: a_dest.is_not_null
 		deferred
 		end
 
 	gsl_matrix_swap (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			another_gsl_matrix.is_not_null
 		deferred
 		end
 
 	gsl_matrix_get_row (a_vector, a_gsl_matrix: POINTER; an_i: INTEGER): INTEGER   is
 		require
-			a_gsl_matrix.is_not_null
+			valid_matrix: a_gsl_matrix.is_not_null
+		   valid_vector: a_vector.is_not_null
 		deferred
 		end
 
 	gsl_matrix_get_col (a_gsl_vector, a_gsl_matrix: POINTER; a_j: INTEGER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			a_gsl_vector.is_not_null
 		deferred
 		end
 
 	gsl_matrix_set_row (a_gsl_matrix: POINTER; an_i: INTEGER; a_gsl_vector: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			a_gsl_vector.is_not_null
 		deferred
 		end
 
 	gsl_matrix_set_col (a_gsl_matrix: POINTER; an_j: INTEGER; a_gsl_vector: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			a_gsl_vector.is_not_null
 		deferred
 		end
 
@@ -918,7 +947,8 @@ feature {} -- External calls
 
 	gsl_matrix_transpose_memcpy (a_gsl_matrix_dest, a_gsl_matrix_src: POINTER): INTEGER  is
 		require
-			a_gsl_matrix.is_not_null
+			valid_source: a_gsl_matrix_src.is_not_null
+			valid_destination: a_gsl_matrix_dest.is_not_null
 		deferred
 		end
 
@@ -932,24 +962,28 @@ feature {} -- External calls
 	gsl_matrix_add (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			another_gsl_matrix.is_not_null
 		deferred
 		end
 
 	gsl_matrix_sub (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			another_gsl_matrix.is_not_null
 		deferred
 		end
 
 	gsl_matrix_mul_elements (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			another_gsl_matrix.is_not_null
 		deferred
 		end
 	
 	gsl_matrix_div_elements (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
+			another_gsl_matrix.is_not_null
 		deferred
 		end
 	
@@ -979,18 +1013,23 @@ feature {} -- External calls
 		end
 
 	gsl_matrix_minmax (a_gsl_matrix, a_min_out, a_max_out: POINTER)  is
+--TODO
 		require
 			a_gsl_matrix.is_not_null
+			a_min_out.is_not_null
+			a_max_out.is_not_null
 		deferred
 		end
 
 	gsl_matrix_max_index (a_gsl_matrix, an_imax_ptr, a_jmax_ptr: POINTER)  is
+-- TODO
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
 	gsl_matrix_min_index (a_gsl_matrix, an_imin_ptr, a_jmin_ptr: POINTER)  is
+-- TODO
 		require
 			a_gsl_matrix.is_not_null
 		deferred
