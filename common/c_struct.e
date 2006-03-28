@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision "$Revision:$"
 
 
 deferred class C_STRUCT
@@ -12,7 +12,6 @@ inherit
 	WRAPPER undefine is_equal, copy, fill_tagged_out_memory end
 		-- Note: use the following instead of "MEMORY redefine dispose
 		-- end" to define dispose
-	DISPOSABLE undefine is_equal, copy, fill_tagged_out_memory end
 	ANY undefine is_equal, copy, fill_tagged_out_memory end
 	
 insert EXCEPTIONS export {NONE} all undefine is_equal, copy, fill_tagged_out_memory end
@@ -37,7 +36,7 @@ feature {NONE} -- Access to C features
 	size: INTEGER is
 			-- sizeof (wrapped_structure), speaking in C. TODO: shall be a NATURAL
 		deferred
-		ensure positive: Result>0 -- TODO: having NATURAL it is plainly useless
+		ensure positive: Result > 0 -- TODO: having NATURAL it is plainly useless
 		end
 
 	is_shared: BOOLEAN 
