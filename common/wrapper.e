@@ -32,6 +32,12 @@ feature {WRAPPER} -- Implementation
 		do
 			handle := a_ptr
 		end
+
+	from_pointer (a_ptr: POINTER) is
+		obsolete "use from_external_pointer instead"
+		do
+			from_external_pointer(a_ptr)
+		end
 	
 	handle: POINTER
 			-- Pointer to the underlying C "thing" (i.e. a struct)
