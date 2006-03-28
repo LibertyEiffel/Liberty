@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision:$"
 -- todo: do the copy html doc trick and implemtn everything
 
-class GSL_VECTOR_64
+class GSL_VECTOR_REAL_64
 inherit
 	GSL_VECTOR_GENERAL[REAL_64]
 		redefine make_from_block
