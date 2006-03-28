@@ -6,7 +6,6 @@ indexing
 	revision "$REvision:$"
 
 deferred class WRAPPER
-
 inherit
 	DISPOSABLE
 	undefine
@@ -15,6 +14,9 @@ inherit
 		fill_tagged_out_memory
 	end
 	
+insert
+	EXCEPTIONS
+
 feature {WRAPPER} -- syntactic sugar
 	Null: POINTER is
 			-- NULL. Just a shorthand for `default_pointer' more
@@ -39,7 +41,43 @@ feature {WRAPPER} -- Implementation
 			from_external_pointer(a_ptr)
 		end
 	
+feature {ANY} -- Implementation
+	is_null: BOOLEAN is
+		do
+			Result := handle.is_null
+		ensure
+			definition: Result = handle.is_null
+		end
+
+	is_not_null: BOOLEAN is
+		do
+			Result := handle.is_not_null
+		ensure
+			definition: Result = handle.is_not_null
+		end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
+	set_handle (a_ptr: POINTER) is
+		do
+			if a_ptr.is_null then
+				raise_exception(No_more_memory)
+			end
+			handle := a_ptr
+		ensure
+			definition: handle = a_ptr
+			not_null: handle.is_not_null
+		end
+	
+	clear_handle is
+		local
+			null: POINTER
+		do
+			handle := null
+		ensure
+			is_null
+		end
+	
 	handle: POINTER
-			-- Pointer to the underlying C "thing" (i.e. a struct)
+		-- Pointer to the underlying C "thing" (i.e. a struct)
 end
 	
