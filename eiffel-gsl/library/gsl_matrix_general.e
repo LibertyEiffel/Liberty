@@ -65,6 +65,8 @@ inherit
 	WRAPPER
 		rename
 			is_equal as is_equal_generic
+		undefine
+			fill_tagged_out_memory
 		end
 
 	ANY
@@ -570,7 +572,7 @@ feature -- Matrix operations
 		local
 			res: INTEGER
 		do
-			res := gsl_matrix_div_elements (handle, other.handle)
+			res := gsl_matrix_div_elements (handle, other.handle)			
 		end
 
 	scale (an_x: REAL) is
@@ -627,7 +629,7 @@ feature -- Finding maximum and minimum elements of matrices
 	-- elements found are returned, searching in row-major order.
 
 feature -- Matrix properties,  looking and comparison:
-	all_default, is_null: BOOLEAN is
+	all_default: BOOLEAN is
 			-- Are  all the elements of the matrix zero?
 		do
 			Result := (gsl_matrix_isnull (handle)).to_boolean

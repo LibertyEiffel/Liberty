@@ -10,12 +10,14 @@ inherit
 	DISPOSABLE
 	undefine
 		is_equal,
-		copy,
-		fill_tagged_out_memory
+		copy
 	end
 	
 insert
 	EXCEPTIONS
+		undefine
+			copy
+		end
 
 feature {WRAPPER} -- syntactic sugar
 	Null: POINTER is
