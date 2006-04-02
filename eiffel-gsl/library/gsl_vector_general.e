@@ -9,7 +9,6 @@ indexing
 deferred class GSL_VECTOR_GENERAL[TYPE_]
 inherit
 	WRAPPER
-		redefine copy end
 
 	TRAVERSABLE[TYPE_]
 		redefine count, copy end

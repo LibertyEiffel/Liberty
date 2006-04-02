@@ -8,7 +8,7 @@ indexing
 class GTK_TREE_PATH
 
 inherit
-	C_STRUCT redefine make, dispose end
+	SHARED_C_STRUCT redefine make, dispose end
 
 insert
 	GTK_TREE_MODEL_EXTERNALS

@@ -22,7 +22,8 @@ inherit
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
 	G_OBJECT_EXTERNALS
 	G_VALUE_EXTERNALS
-
+	ANY
+	
 feature 
 	store_eiffel_wrapper is
 			-- Store a pointer to Current into the underlying

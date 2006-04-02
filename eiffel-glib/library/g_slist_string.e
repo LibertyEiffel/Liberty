@@ -25,8 +25,8 @@ inherit
 -- 			swap
 -- 		end
 	G_SLIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
-	C_STRUCT
-		rename exists as wrapped_object_exists
+	SHARED_C_STRUCT
+		rename is_not_null as wrapped_object_exists
 		undefine copy,fill_tagged_out_memory
 		redefine make
 		end

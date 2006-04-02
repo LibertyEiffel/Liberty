@@ -25,7 +25,7 @@ inherit
 	GTK_BIN redefine make end
 	GTK_ALIGNMENT_EXTERNALS
 		-- TODO: GtkAlignment implements AtkImplementorIface.
-	C_STRUCT
+	SHARED_C_STRUCT
 	
 creation make
 

@@ -9,7 +9,7 @@ class GTK_FRAME
 inherit
 	GTK_BIN redefine make end
 	GTK_FRAME_EXTERNALS
-	C_STRUCT
+	SHARED_C_STRUCT
 	
 creation make
 

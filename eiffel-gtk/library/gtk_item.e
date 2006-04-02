@@ -9,7 +9,7 @@ deferred class GTK_ITEM
 inherit
 	GTK_BIN
 	GTK_ITEM_EXTERNALS
-	C_STRUCT
+	SHARED_C_STRUCT
 	-- GtkItem implements AtkImplementorIface.
 
 feature

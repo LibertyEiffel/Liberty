@@ -9,7 +9,7 @@ class GTK_TREE_ROW_REFERENCE
 inherit
 
 	GTK_TREE_MODEL_EXTERNALS
-	C_STRUCT rename make as allocate_gtktreerowreference redefine dispose end
+	SHARED_C_STRUCT rename make as allocate_gtktreerowreference redefine dispose end
 	
 creation make
 

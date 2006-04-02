@@ -77,6 +77,14 @@ inherit
 			copy,
 			fill_tagged_out_memory
 		end
+
+--insert
+--	GSL_ERRNO
+--		rename
+--			is_equal as is_equal_generic
+--		undefine
+--			copy, fill_tagged_out_memory
+--		end
 	
 feature {NONE} -- Creating
 	make (rows, columns: INTEGER) is
@@ -89,7 +97,7 @@ feature {NONE} -- Creating
 				gsl_matrix_free (handle)
 			end
 				
-			handle := gsl_matrix_alloc (rows,columns)
+			set_handle(gsl_matrix_alloc (rows,columns))
 				
 		end
 	
@@ -103,7 +111,7 @@ feature {NONE} -- Creating
 			if handle.is_not_null then
 				gsl_matrix_free(handle)
 			end
-			handle := gsl_matrix_calloc (rows, columns)
+			set_handle(gsl_matrix_calloc (rows, columns))
 		end
 	
 feature {ANY} -- Creating or initializing: 
@@ -141,7 +149,7 @@ feature {ANY} -- Creating or initializing:
 		do
 			model_lower := model.lower
 			cols := model.item(model.lower).count
-			handle := gsl_matrix_alloc(model.count, cols)
+			set_handle(gsl_matrix_alloc(model.count, cols))
 
 			from
 				i := model.lower
@@ -394,7 +402,7 @@ feature -- Copying matrices
 		local
 			res: INTEGER
 		do
-			res := gsl_matrix_swap (handle, other.handle)
+		res := gsl_matrix_swap (handle, other.handle)
 			check
 				-- TODO: res prüfen
 				True
@@ -572,7 +580,8 @@ feature -- Matrix operations
 		local
 			res: INTEGER
 		do
-			res := gsl_matrix_div_elements (handle, other.handle)			
+			res := gsl_matrix_div_elements (handle, other.handle)
+
 		end
 
 	scale (an_x: REAL) is
@@ -1088,5 +1097,7 @@ feature {NONE} -- external structure
 		deferred
 		end
 
+invariant
+	valid_handle: handle /= default_pointer
 	
 end

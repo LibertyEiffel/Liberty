@@ -8,7 +8,7 @@ indexing
 class GTK_TREE_ITER
 
 inherit
-	C_STRUCT redefine dispose end
+	SHARED_C_STRUCT redefine dispose end
 	
 insert
 	GTK_TREE_ITER_EXTERNALS rename set_stamp as set_stamp_internal end

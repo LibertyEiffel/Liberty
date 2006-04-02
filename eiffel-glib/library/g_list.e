@@ -48,9 +48,9 @@ inherit
 		end
 	WRAPPER_FACTORY [ITEM]	
 	G_LIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
-	C_STRUCT
+	SHARED_C_STRUCT
 		rename exists as wrapped_object_exists
-		-- undefine copy,fill_tagged_out_memory
+		undefine fill_tagged_out_memory, copy
 		redefine make
 		end
 	
@@ -193,7 +193,7 @@ feature
 			Result:=g_list_index(handle,element.handle)
 		end
 
-	index_of (element: like first): INTEGER is
+	index_of (element: like first; start_index: INTEGER): INTEGER is
 		do
 			Result:=first_index_of(element)
 		end
@@ -208,7 +208,7 @@ feature
 			not_yet_implemented -- TODO
 		end
 
-	fast_index_of (element: like first): INTEGER is do not_yet_implemented end
+	fast_index_of (element: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
 
 	fast_reverse_index_of (element: like first; start_index: INTEGER): INTEGER  is
 			-- Using basic = comparison, gives the index of the first

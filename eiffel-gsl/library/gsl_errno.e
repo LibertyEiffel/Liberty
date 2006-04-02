@@ -22,7 +22,7 @@ feature
 			is_success
 		end
 
-	set(new_code: like code) is
+	set_code(new_code: like code) is
 			-- Set 'code' to 'new_code'
 		do
 			code := new_code
@@ -30,7 +30,7 @@ feature
 			code = new_code
 		end
 
-	add(added_code: like code) is
+	add_code(added_code: like code) is
 			-- If is_success then set 'code' to 'added' code 
 			-- otherwise do nothing
 		do

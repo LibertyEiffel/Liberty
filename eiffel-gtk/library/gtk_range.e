@@ -9,7 +9,7 @@ deferred class GTK_RANGE
 inherit
 	GTK_WIDGET
 	GTK_RANGE_EXTERNALS
-	C_STRUCT
+	SHARED_C_STRUCT
 	
 creation make
 
