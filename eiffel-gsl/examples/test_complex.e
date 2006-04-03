@@ -11,16 +11,23 @@ create make
 	
 feature make is
 		local
-			c: GSL_COMPLEX_REAL_64
+			c, d, e: GSL_COMPLEX_REAL_64
 		do
 			create c.make_polar(3.0, 1.57)
+			create d.make_polar(3.0, -1.57)
+			create e.make_zero
+			e.copy(c)
+			e.add(d)
+			print("c = " + c.out + "%N")
+			print("d = " + d.out + "%N")
+			print("e = " + e.out + "%N")
 			
-			print(c.out + "%N")
 			c.set_real(-3)
 			c.set_imag(0)
 			c.set_imag(c.imag + 1.0)
 			print(c.out + "%N")
 			create c.make_rect(3.0, 1.7)
+			
 		end
 
 end

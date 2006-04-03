@@ -5,7 +5,6 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
-	-- TODO: use all the return values of the functions. Currently discarded.
 
 	-- TODO: the nature of a complex number is expanded, but it's not 
 	-- easy to implement this. Probably imposible with current (2.2) 
@@ -15,43 +14,23 @@ indexing
 	-- additionally we'd need the possibility to get the address of 
 	-- the embeded value.
 
-	-- TODO: it could be a good idea to redefine copy, to copy the 
-	-- external struct, too. This would lead to a "more" expanded 
-	-- GSL_COMPLEX
-
-	-- TODO: creation of some arbitrary complex seem inefficient with 
-	-- all these calls to make, perhabs we can "inline" the call to calloc
-
 	-- I always used _imag as in the wrapped lib. Would you prefer 
 	-- some other name? e. g. set_imaginary()?
 
-	-- what is the story about out, fill_tagged_out_memory, to_string 
-	-- and friends?
-	
 deferred class GSL_COMPLEX_GENERAL[TYPE_->COMPARABLE]
 
 inherit C_STRUCT
 		redefine
-			out
+			out, copy
 		end
 	
 feature {NONE} -- Creating
--- TODO: implement this?
---	make_zero is
---			-- Create a complex number with value (0 + 0i)
---		do
---			make
---			set_real(0)
---			set_real
---		end
-
 	make_rect (a, b: TYPE_) is
 			-- Creates complex number with value (a + bi)
 		do
 			make
-			-- TODO: should we call gsl_set_real(a) here? -> speedup
-			set_real(a)
-			set_imag(b)
+			gsl_set_real(handle, a)
+			gsl_set_imag(handle, b)
 		end
 	
 	make_polar(r, theta: TYPE_) is
@@ -91,27 +70,16 @@ feature
 			Result := handle = other.handle
 				or else (size = other.size and memcmp(handle, other.handle, size) = 0)
 		end
-	-- todo: copy
-feature  -- Arithmetic operations
 
-	add (other: like Current) is
-			-- adds `other' to Current
-		local
-			res: INTEGER
+feature -- copying
+	copy(other: like Current) is
 		do
-			-- TODO
-		ensure
-			nyi: False
+			check
+				equal_sizes: size = other.size
+			end
+			memcpy(handle, other.handle, size)
 		end
-
-	sub (other: like Current) is
-			-- Subtract  `other' from Current
-		do
-			-- tODO
-		ensure
-			nyi: False
-		end
-
+	
 feature -- Printing
 	-- TODO: implement in nice way
 	out: STRING is
@@ -137,37 +105,56 @@ feature {}
 
 feature {} -- External calls
 
---TODO: postconditions
 	gsl_complex_p_real (ptr: POINTER): TYPE_ is
+		require
+			not_null_ptr: ptr.is_not_null
 		external "C macro signature (gsl_complex*) use <gsl/gsl_complex.h>"
 		alias "GSL_COMPLEX_P_REAL"
 		end
 	
 	gsl_complex_p_imag (ptr: POINTER): TYPE_ is
+		require
+			not_null_ptr: ptr.is_not_null
 		external "C macro signature (gsl_complex*) use <gsl/gsl_complex.h>"
 		alias "GSL_COMPLEX_P_IMAG"
 		end
 
 	gsl_set_complex (ptr: POINTER; a, b: TYPE_)  is
+		require
+			not_null_ptr: ptr.is_not_null
 		deferred
 		end
 
 	gsl_set_real(ptr: POINTER; a: TYPE_) is
+		require
+			not_null_ptr: ptr.is_not_null
 		deferred
+		ensure
+			value_set: gsl_complex_p_real(ptr) = a
 		end
 
 	gsl_set_imag(ptr: POINTER; b: TYPE_) is
+		require
+			not_null_ptr: ptr.is_not_null
 		deferred
+		ensure
+			value_set: gsl_complex_p_imag(ptr) = b
 		end
 
 	gsl_complex_polar(ptr: POINTER; r, theta: TYPE_) is
+		require
+			not_null_ptr: ptr.is_not_null
 		deferred
 		end
 
-	-- TODO: what is size_t exactly? NATURAL?
 	memcmp(a, b: POINTER; len: INTEGER): INTEGER is
-		external "C"
+		external "C use <string.h>"
 		end
+			
+	memcpy(a, b: POINTER; len: INTEGER) is
+		external "C use <string.h>"
+		end
+			
 	
 invariant
 	valid_handle: handle /= default_pointer
