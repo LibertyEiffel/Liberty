@@ -15,13 +15,17 @@ inherit
 	-- TODO: G_INTERFACE 
 	-- Prerequisites: GtkTreeSortable requires GtkTreeModel and GObject.
 	GTK_TREE_MODEL
-		-- Note: GTK_TREE_MODEL already requires G_OBJECT
+		rename make as undefined_make
+		export {NONE} undefined_make
+		undefine undefined_make -- Since it is deferred
+		end
+	-- Note: GTK_TREE_MODEL already requires G_OBJECT
 	
 		-- Known Implementations: GtkTreeSortable is implemented by
 		-- GtkTreeModelSort, GtkTreeStore and GtkListStore.
 
+insert
 	GTK_SORT_TYPE
-	
 	GTK_TREE_SORTABLE_EXTERNALS
 		
 feature 
@@ -80,10 +84,8 @@ feature
 			-- Returns : 	TRUE if the sort column is not one of the special sort column ids.
 		local a_column: INTEGER
 		do
-			is_sort_column_id_special := (gtk_tree_sortable_get_sort_column_id (handle,
-																									  $a_column,
-																									  $Result
-																									  )).to_boolean
+			is_sort_column_id_not_special := (gtk_tree_sortable_get_sort_column_id (handle, $a_column,
+																											$Result)).to_boolean
 		ensure is_valid_gtk_sort_type (Result)
 		end
 	

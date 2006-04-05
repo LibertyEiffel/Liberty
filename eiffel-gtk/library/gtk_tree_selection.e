@@ -40,13 +40,7 @@ inherit
 	G_OBJECT
 	GTK_TREE_SELECTION_EXTERNALS
 
-creation from_pointer
-
-feature {NONE} -- size
-	size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkTreeSelection)"
-		end
+creation from_external_pointer
 
 feature -- selection mode
 	set_single_mode is
@@ -132,7 +126,7 @@ feature -- View
 	tree_view: GTK_TREE_VIEW is
 			-- the tree view associated with selection.
 		do
-			create Result.from_pointer (gtk_tree_selection_get_tree_view (handle))
+			create Result.from_external_pointer (gtk_tree_selection_get_tree_view (handle))
 		ensure result_not_void: Result/=Void
 		end
 
@@ -172,7 +166,7 @@ feature -- selections
 
 	selected_rows: G_LIST [GTK_TREE_PATH] is
 		do
-			create Result.from_pointer (gtk_tree_selection_get_selected_rows(handle,Null))
+			create Result.from_external_pointer (gtk_tree_selection_get_selected_rows(handle,Null))
 			-- gtk_tree_selection_get_selected_rows Creates a list of
 			-- path of all selected rows. Additionally, if you are
 			-- planning on modifying the model after calling this
@@ -265,7 +259,7 @@ feature -- selections
 		require
 			multiple_mode: is_mode_multiple
 			valid_start: a_start /= Void
-			valid_end: a_end /= Void
+			valid_end: an_end /= Void
 		do
 			gtk_tree_selection_select_range (handle, a_start.handle, an_end.handle)
 		end
@@ -280,7 +274,7 @@ feature -- selections
 		require
 			multiple_mode: is_mode_multiple
 			valid_start: a_start /= Void
-			valid_end: a_end /= Void
+			valid_end: an_end /= Void
 		do
 			gtk_tree_selection_unselect_range (handle, a_start.handle, an_end.handle)
 		end

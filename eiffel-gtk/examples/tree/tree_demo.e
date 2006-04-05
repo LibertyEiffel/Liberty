@@ -10,6 +10,7 @@ class TREE_DEMO
 
 inherit
 	GTK_MAIN
+	G_TYPE_EXTERNALS
 		-- TODO: This class is necessary when creating GTK_LIST_STOREs,
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
@@ -67,8 +68,8 @@ feature
 			age_column.add_attribute (renderer, "text", age_column_n)
 
 			create Result.make
-			Result.insert (name_column, name_column_n)
-			Result.insert (age_column, age_column_n)
+			Result.insert_column (name_column, name_column_n)
+			Result.insert_column (age_column, age_column_n)
 			-- Note: both xxx_column_n was -1. Paolo 2005-06-12
 			
 			Result.set_model (model)
@@ -114,7 +115,8 @@ feature
 			from iter.start
 			until not iter.is_valid
 			loop -- print each name ...
-				print (model.value_at (iter, name_column_n).string)
+				print (model.value (iter, name_column_n).string)
+				-- Note: Is "model.value" clear enough or "model.value_at" would be clearer?
 				iter.next -- Move to next row
 				if iter.is_valid then print (", ")
 				else print ("%N")
@@ -128,7 +130,7 @@ feature
 			print ("Tree paths demo%N")
 			create path.make_first
 			print ("First: ") print (path.to_string) print ("%N")
-			create path.make_from_string ("1:3:2")
+			create path.from_string ("1:3:2")
 			print ("From string: ") print (path.to_string) print ("%N")
 		end
 

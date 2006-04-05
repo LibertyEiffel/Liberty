@@ -119,7 +119,7 @@ feature
 		local ptr: POINTER
 		do
 			ptr:=gtk_container_get_children(handle)
-			create Result.from_pointer (ptr)
+			create Result.from_external_pointer (ptr)
 		ensure result_not_void: Result/=Void
 		end
 

@@ -1,7 +1,7 @@
 indexing
 	description: "[
 					  Wrapper for a generic C structure, that is shared with external
-                 code, handle will not be freed on dispose of the
+					  code, handle will not be freed on dispose of the
 					  Eiffel wrapper object, if is_shared is true
 					  ]"
 	copyright: "(C) 2006"
@@ -37,7 +37,7 @@ feature {} -- Destroying
 				free (handle) -- if necessary
 				handle:= default_pointer
 			end
-		ensure
+		ensure then
 			now_null: is_null
 		end
 	

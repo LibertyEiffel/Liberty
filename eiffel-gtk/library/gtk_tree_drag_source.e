@@ -1,9 +1,15 @@
--- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
--- Top  |  Description  |  Object Hierarchy
--- GtkTreeView drag-and-drop
+indexing
+	description: "GtkTreeView drag-and-drop Interface for drag-and-drop support in GtkTreeView."
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
--- GtkTreeView drag-and-drop %GÅ‚Äî%@ Interfaces for drag-and-drop support in GtkTreeView
+deferred class GTK_TREE_DRAG_SOURCE
+--inherit C_STRUCT
 	
+feature {NONE} -- External calls
+
 -- Synopsis
 
 -- #include <gtk/gtk.h>
@@ -190,3 +196,4 @@
 -- Returns : 	TRUE if selection_data had target type GTK_TREE_MODEL_ROW and is
 -- 		otherwise valid
 end
+

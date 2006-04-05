@@ -33,7 +33,7 @@ inherit
 	GTK_FILE_FILTER_EXTERNALS
 	GTK_FILE_FILTER_INFO_EXTERNALS
 	GTK_FILE_FILTER_FLAGS
-creation make, with_pattern, with_mime_type, from_pointer
+creation make, with_pattern, with_mime_type, from_external_pointer
 
 feature {NONE} -- Creation
 	make is

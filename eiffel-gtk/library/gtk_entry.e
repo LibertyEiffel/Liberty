@@ -21,7 +21,7 @@ inherit
 		-- GtkEntry implements AtkImplementorIface, GtkCellEditable and GtkEditable.
 insert
 	GTK_ENTRY_EXTERNALS
-creation make, from_pointer
+creation make, from_external_pointer
 feature {NONE} -- Creation
 	make is
 			-- Creates a new GtkEntry widget.
@@ -259,7 +259,7 @@ feature -- Alignment
 	completion: GTK_ENTRY_COMPLETION is
 			-- the auxiliary completion object currently in use by entry.
 		do
-			create Result.from_pointer (gtk_entry_get_completion(handle))
+			create Result.from_external_pointer (gtk_entry_get_completion(handle))
 		end
 
 	

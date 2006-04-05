@@ -9,7 +9,7 @@ class TOGGLED_CALLBACK
 
 inherit
 	G_SIGNALS
-	WRAPPER undefine from_pointer end
+	WRAPPER undefine from_external_pointer end
 creation make
 feature
 	make (a_radio_button: GTK_RADIO_BUTTON; a_procedure: PROCEDURE[TUPLE[GTK_RADIO_BUTTON]]) is

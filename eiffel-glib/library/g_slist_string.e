@@ -37,7 +37,7 @@ inherit
 		undefine copy,fill_tagged_out_memory
 		end
 
-creation make, from_pointer
+creation make, from_external_pointer
 
 feature
 	make is

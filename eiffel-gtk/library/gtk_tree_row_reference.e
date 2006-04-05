@@ -75,7 +75,7 @@ feature -- Queries
 		do
 			ptr := gtk_tree_row_reference_get_model (handle)
 			if ptr.is_not_null
-			then create Result.from_pointer (handle)
+			then create Result.from_external_pointer (handle)
 			end
 		end
 
@@ -86,7 +86,7 @@ feature -- Queries
 		do
 			ptr :=  gtk_tree_row_reference_get_path (handle)
 			if ptr.is_not_null
-			then create Result.from_pointer (handle)
+			then create Result.from_external_pointer (handle)
 			end
 		ensure is_valid implies Result /= Void
 		end

@@ -8,18 +8,18 @@ indexing
 class GTK_TREE_PATH
 
 inherit
-	SHARED_C_STRUCT redefine make, dispose end
-
+	SHARED_C_STRUCT redefine dispose end
+	
 insert
 	GTK_TREE_MODEL_EXTERNALS
 
-creation make, from_pointer, from_string, first, from_path
+creation make, from_external_pointer, from_string, first, from_path
 
-feature {NONE} -- size
-	size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkTreePath)"
-		end
+-- feature  -- size
+-- 	size: INTEGER is
+-- 		external "C inline use <gtk/gtk.h>"
+-- 		alias "sizeof(GtkTreePath)"
+-- 		end
 
 feature {NONE} -- Creation
 	make is
@@ -47,7 +47,7 @@ feature {NONE} -- Creation
 	-- : first integer ... : list of integers terminated by -1 Returns
 	-- : A newly created GtkTreePath.
 
-	first is
+	make_first is
 			-- Creates a new GtkTreePath. The string representation of
 			-- this path is "0"
 		do
@@ -103,7 +103,7 @@ feature
 			-- Currently crudely implemented as a NATIVE_ARRAY[INTEGER] that should contain depth-elements.		
 		obsolete "TODO: This is a crude implementation. indices shall be at least a FAST_ARRAY[INTEGER] to be useable"
 		do
-			Result := Result.from_pointer (gtk_tree_path_get_indices (handle))
+			Result := Result.from_external_pointer (gtk_tree_path_get_indices (handle))
 		end
 
 feature -- Disposing

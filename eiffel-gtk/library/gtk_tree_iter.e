@@ -12,8 +12,9 @@ inherit
 	
 insert
 	GTK_TREE_ITER_EXTERNALS rename set_stamp as set_stamp_internal end
+	GTK_TREE_MODEL_EXTERNALS
 		
-creation make, from_model, from_pointer
+creation make, from_model, from_external_pointer
 
 feature -- Creation
 	from_model (a_model: GTK_TREE_MODEL) is
@@ -22,35 +23,36 @@ feature -- Creation
 		end
 feature
 
-	is_last_action_successful: BOOLEAN
-			-- Is last action made on Current successful?
+	is_valid: BOOLEAN
+			-- Is last action made on Current successful, making it
+			-- valid?
 
-	first is
+	start, first is
 		do
 			-- If parent is NULL returns the first node, equivalent to gtk_tree_model_get_iter_first (tree_model, iter);
-			is_last_action_successful:=(gtk_tree_model_iter_children (tree_model.handle,
+			is_valid:=(gtk_tree_model_iter_children (tree_model.handle,
 																						 Null)).to_boolean
 		end
 	
 	next is
 			-- Points Current to the node following it at the current
 			-- level. If there is no next position
-			-- `is_last_action_successful' will be False and Current is
+			-- `is_valid' will be False and Current is
 			-- set to be invalid.
 		do
-			is_last_action_successful:=(gtk_tree_model_iter_next (tree_model.handle,
+			is_valid:=(gtk_tree_model_iter_next (tree_model.handle,
 																					handle)).to_boolean
 		end
 	
 	next_children is
 			-- Sets Current iterator to point to the first child of
 			-- `tree_model'. If parent has no children
-			-- `is_last_action_successful' will be False. Current will
+			-- `is_valid' will be False. Current will
 			-- remain a valid node after this function has been called.
 
 
 		do
-			is_last_action_successful:=(gtk_tree_model_iter_children (tree_model.handle,
+			is_valid:=(gtk_tree_model_iter_children (tree_model.handle,
 																						 handle)).to_boolean
 		end
 
@@ -84,10 +86,10 @@ feature
 			-- Sets Current to be the child of `a_parent', using
 			-- `an_index'. The first index is 0. If n is too big, or
 			-- parent has no children, iter is set to an invalid iterator
-			-- and `is_last_action_successful' will be False. `a_parent'
+			-- and `is_valid' will be False. `a_parent'
 			-- will remain a valid node after this function has been
 			-- called. As a special case, if `a_parent' is Void, then the
-			-- nth root node is set. `is_last_action_successful' is True,
+			-- nth root node is set. `is_valid' is True,
 			-- if `a_parent' has an nth child.
 
 			-- Note: Is `to_nth_child' a better name than `to_nth_child_of'?
@@ -95,19 +97,19 @@ feature
 		local parent_ptr: POINTER
 		do
 			if a_parent/=Void then parent_ptr := a_parent.handle end
-			is_last_action_successful:=(gtk_tree_model_iter_nth_child (tree_model.handle,handle,
+			is_valid:=(gtk_tree_model_iter_nth_child (tree_model.handle,handle,
 																						  parent_ptr, an_index)).to_boolean
 		end
 
 	to_parent (a_child: like Current) is
 			-- Sets Current to be the parent of `a_child'. If child is at
 			-- the toplevel it doesn't have a parent, then iter is set to
-			-- an invalid iterator and `is_last_action_successful' will
+			-- an invalid iterator and `is_valid' will
 			-- be False. `a_child' will remain a valid node after this
 			-- function has been called.
 		require valid_child: a_child /= Void
 		do
-			is_last_action_successful:=(gtk_tree_model_iter_parent (tree_model.handle,handle,
+			is_valid:=(gtk_tree_model_iter_parent (tree_model.handle,handle,
 																					  a_child.handle)).to_boolean
 		end
 
@@ -124,7 +126,7 @@ feature
 			-- Collector free it.
 		end
 
-feature {NONE} -- size
+feature  -- size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeIter)"
@@ -133,7 +135,7 @@ feature {NONE} -- size
 	dispose is
 		do
 			if handle.is_not_null then gtk_tree_iter_free (handle) end
-			handle:= Null 
+			handle:= default_pointer
 		end
 
 feature

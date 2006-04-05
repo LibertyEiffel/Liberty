@@ -15,10 +15,10 @@ feature {NONE}
 
 	-- unwrappable since variadic GtkListStore* gtk_list_store_new (gint n_columns, ...);
 	
-	gtk_list_store_newv (n_columns: INTEGER, GType *types): POINTER is -- GtkListStore*
+	gtk_list_store_newv (n_columns: INTEGER; types: POINTER): POINTER is -- GtkListStore*
 		external "C use <gtk/gtk.h>"
 		end
-	gtk_list_store_set_column_types (a_gtk_list_store: POINTER, n_columns: INTEGER; some_gtypes: NATIVE_ARRAY[INTEGER]) is
+	gtk_list_store_set_column_types (a_gtk_list_store: POINTER; n_columns: INTEGER; some_gtypes: NATIVE_ARRAY[INTEGER]) is
 		external "C use <gtk/gtk.h>"
 		end
 

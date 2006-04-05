@@ -611,7 +611,7 @@ feature -- Dialog's parts
 	vbox: GTK_VBOX is
 			-- main part of the dialog box
 		do
-			create Result.from_pointer (get_vbox(handle))
+			create Result.from_external_pointer (get_vbox(handle))
 		ensure result_not_void: Result /= Void
 		end
 
@@ -620,7 +620,7 @@ feature -- Dialog's parts
 			--  buttons into the dialog which may perform functions such
 			--  as cancel, ok, or apply
 		do
-			create Result.from_pointer (get_action_area(handle))
+			create Result.from_external_pointer (get_action_area(handle))
 		ensure result_bot_void: Result /= Void
 		end
 

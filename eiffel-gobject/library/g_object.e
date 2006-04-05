@@ -42,7 +42,7 @@ feature {NONE} -- Implementation
 	
 feature -- Disposing
 	dispose is
-			-- Dispise the g_object, calling unref and setting its handle to Null.
+			-- Dispise the g_object, calling unref and setting its handle to default_pointer.
 		
 			-- TODO: once the iusse explained in the debug tense in the implementation is 
 			-- solved put a "require is_a_gobject: g_is_object (handle)" precondition
@@ -62,7 +62,7 @@ feature -- Disposing
 
 			end
 			unref
-			handle := Null
+			handle := default_pointer
 		end
 	
 feature -- Reference count
@@ -159,7 +159,7 @@ feature -- Properties
 		do
 			ptr := malloc_g_value
 			g_object_get_property (handle,property_name.to_external,ptr)
-			create Result.from_pointer (ptr)
+			create Result.from_external_pointer (ptr)
 		end
 end
 

@@ -16,7 +16,7 @@ inherit
 	G_TYPE_EXTERNALS
 	
 creation
-	make, from_pointer,
+	make, from_external_pointer,
 	make_boolean, make_integer, make_natural, make_real, make_string,
 	from_boolean, from_integer, from_natural, from_real, from_string
 
@@ -305,11 +305,12 @@ feature {ANY} -- Pointer
 	-- g_param_spec_* ()
 
 	
-feature {NONE} -- size
+feature -- size
 	size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValue)"
 		end
+	
 feature 	{NONE} -- Disposing
 	dispose is
 		do

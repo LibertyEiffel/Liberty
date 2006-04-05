@@ -401,7 +401,7 @@ feature -- mnemonic widget
 	-- 			if widget_ptr.is_not_null
 	-- 			then
 	-- 				-- TODO: create the right widget, not just a generic GTK_WIDGET
-	-- 				create Result.from_pointer (widget_ptr)
+	-- 				create Result.from_external_pointer (widget_ptr)
 	-- 			else check Result=Void end
 	-- 		end
 

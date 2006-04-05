@@ -58,7 +58,7 @@ inherit
 		undefine copy,fill_tagged_out_memory
 		end
 
-creation make, from_pointer
+creation make, from_external_pointer
 
 feature {NONE} -- Implementation
 	materialize: like first is
@@ -92,20 +92,20 @@ feature
 		do
 			-- TODO: baby, how to implementd something like this?
 			Result := materialize
-			Result.from_pointer (g_slist_get_data (handle))
+			Result.from_external_pointer (g_slist_get_data (handle))
 			-- why isn't it legal?
 		end
 
 	last: like first is 
 		do
 			Result := materialize
-			Result.from_pointer (g_slist_get_data (g_slist_last (handle)))
+			Result.from_external_pointer (g_slist_get_data (g_slist_last (handle)))
 		end
 
 	item (i: INTEGER): like first is
 		do
 			Result := materialize
-			Result.from_pointer (g_slist_nth_data (handle, i))
+			Result.from_external_pointer (g_slist_nth_data (handle, i))
 		end
 
 	put (an_item: like first; i: INTEGER) is

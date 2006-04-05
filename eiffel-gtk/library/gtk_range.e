@@ -18,7 +18,7 @@ feature -- The adjustment
 	adjustment: GTK_ADJUSTMENT is
 			-- the GtkAdjustment which is the "model" object for GtkRange. 
 		do
-			create Result.from_pointer (gtk_range_get_adjustment (handle))
+			create Result.from_external_pointer (gtk_range_get_adjustment (handle))
 			-- GTK documentation says "See gtk_range_set_adjustment() for
 			-- details. The return value does not have a reference added,
 			-- so should not be unreferenced." Instead we just add a

@@ -23,7 +23,7 @@ inherit
 	G_OBJECT redefine make end
 	GTK_ENTRY_COMPLETION_EXTERNALS
 		-- GtkEntryCompletion implements GtkCellLayout.
-creation make, from_pointer
+creation make, from_external_pointer
 feature {NONE} -- Creation
 
 	make is
@@ -36,7 +36,7 @@ feature
 	entry: GTK_ENTRY is
 			-- the entry completion has been attached to.
 		do
-			create Result.from_pointer (gtk_entry_completion_get_entry (handle))
+			create Result.from_external_pointer (gtk_entry_completion_get_entry (handle))
 		end
 
 --  TODO: requires GTK_TREE_MODEL	set_model (a_model: GTK_TREE_MODEL) is
@@ -59,7 +59,7 @@ feature
 			-- the model the GtkEntryCompletion is using as data source
 		require is_model_set
 		do
-			create Result.from_pointer (gtk_entry_completion_get_model (handle))
+			create Result.from_external_pointer (gtk_entry_completion_get_model (handle))
 		end
 	
 	is_model_set: BOOLEAN is

@@ -54,7 +54,7 @@ inherit
 		redefine make
 		end
 	
-creation make, from_pointer
+creation make, from_external_pointer
 
 feature
 	make is
@@ -66,7 +66,7 @@ feature
 		require not empty
 		do
 			Result := new_item
-			Result.from_pointer (g_list_get_data (handle))
+			Result.from_external_pointer (g_list_get_data (handle))
 		ensure Result/=Void
 		end
 
@@ -74,14 +74,14 @@ feature
 		require not empty
 		do
 			Result := new_item
-			Result.from_pointer (g_list_get_data (g_list_last (handle)))
+			Result.from_external_pointer (g_list_get_data (g_list_last (handle)))
 		end
 
 	item (i: INTEGER): like first is
 		require not empty
 		do
 			Result := new_item
-			Result.from_pointer (g_list_nth_data (handle, i))
+			Result.from_external_pointer (g_list_nth_data (handle, i))
 		end
 
 	put (an_item: like first; i: INTEGER) is

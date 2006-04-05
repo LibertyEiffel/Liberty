@@ -501,7 +501,7 @@ feature -- Name, filenames and uris
 			-- files in the current folder cannot be represented as local
 			-- filenames they will be ignored. (See `uris')
 		do
-			create Result.from_pointer (gtk_file_chooser_get_filenames (handle))
+			create Result.from_external_pointer (gtk_file_chooser_get_filenames (handle))
 			-- TODO: the GSList returned contains the filenames of all
 			-- selected files and subfolders in the current folder. Free
 			-- the returned list with g_slist_free(), and the filenames
@@ -621,7 +621,7 @@ feature -- Name, filenames and uris
 			-- selected files and subfolders in the current folder of
 			-- chooser. The names are full absolute URIs.
 		do
-			create Result.from_pointer (gtk_file_chooser_get_uris (handle))
+			create Result.from_external_pointer (gtk_file_chooser_get_uris (handle))
 		ensure uri_not_void: Result/=Void
 		end
 
@@ -679,7 +679,7 @@ feature -- Preview
 		do
 			-- TODO: find a way to return the "correct" type/heir of GTK_WIDGET
 			
-			-- create Result.from_pointer (gtk_file_chooser_get_preview_widget(handle))
+			-- create Result.from_external_pointer (gtk_file_chooser_get_preview_widget(handle))
 				check
 					preview_widget_implemented: False
 				end
@@ -814,7 +814,7 @@ feature -- Filters
 	filters: G_SLIST [GTK_FILE_FILTER] is
 			-- The current set of user-selectable filters; see `add_filter', `remove_filter'.		
 		do
-			create Result.from_pointer (gtk_file_chooser_list_filters (handle))
+			create Result.from_external_pointer (gtk_file_chooser_list_filters (handle))
 			-- TODO: Eiffelize this peculiar memory handling: The
 			-- contents of the list are owned by GTK+, but you must free
 			-- the list itself with g_slist_free() when you are done with
@@ -847,7 +847,7 @@ feature -- Filters
 		do
 			filter_ptr := gtk_file_chooser_get_filter (handle)
 			if filter_ptr.is_not_null
-			then create Result.from_pointer (filter_ptr)
+			then create Result.from_external_pointer (filter_ptr)
 			end
 		end
 
@@ -906,7 +906,7 @@ require valid_folder: a_folder /= Void
 		do
 			folders_ptr := gtk_file_chooser_list_shortcut_folders (handle)
 			if folders_ptr.is_not_null
-			then create Result.from_pointer (folders_ptr)
+			then create Result.from_external_pointer (folders_ptr)
 				-- TODO: handle this peculiar memory management: . Free
 				-- the returned list with g_slist_free(), and the
 				-- filenames with g_free().
@@ -950,7 +950,7 @@ require valid_folder: a_folder /= Void
 		do
 			a_gslist := gtk_file_chooser_list_shortcut_folder_uris (handle)
 			if a_gslist.is_not_null
-			then create Result.from_pointer (a_gslist)
+			then create Result.from_external_pointer (a_gslist)
 				-- TODO: handle this peculiar memory management: Free the
 				-- returned list with g_slist_free(), and the URIs with
 				-- g_free().

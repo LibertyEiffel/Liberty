@@ -10,7 +10,7 @@ inherit
 	GTK_BOX 
 	GTK_VBOX_EXTERNALS
 		-- GtkHBox implements AtkImplementorIface.
-creation make, from_pointer
+creation make, from_external_pointer
 
 feature {NONE} -- Creation
 	make (an_homogeneous: BOOLEAN; a_spacing: INTEGER) is

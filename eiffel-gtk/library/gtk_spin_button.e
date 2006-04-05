@@ -27,14 +27,14 @@ indexing
 --    GtkAdjustment *spinner_adj;
 
 --    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (50.0, 0.0, 100.0, 1.0, 5.0, 5.0);
-   
+	
 --    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 --    gtk_container_set_border_width (GTK_CONTAINER (window), 5);
-   
+	
 --    /* creates the spinner, with no decimal places */
 --    spinner = gtk_spin_button_new (spinner_adj, 1.0, 0);
 --    gtk_container_add (GTK_CONTAINER (window), spinner);
-   
+	
 --    gtk_widget_show_all (window);
 --    return;
 -- }
@@ -56,14 +56,14 @@ indexing
 --    GtkAdjustment *spinner_adj;
 
 --    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (2.500, 0.0, 5.0, 0.001, 0.1, 0.1);
-   
+	
 --    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 --    gtk_container_set_border_width (GTK_CONTAINER (window), 5);
-   
+	
 --    /* creates the spinner, with three decimal places */
 --    spinner = gtk_spin_button_new (spinner_adj, 0.001, 3);
 --    gtk_container_add (GTK_CONTAINER (window), spinner);
-   
+	
 --    gtk_widget_show_all (window);
 --    return;
 -- }
@@ -139,7 +139,7 @@ feature -- Configuration
 	adjustment: GTK_ADJUSTMENT is
 			-- the adjustment associated with a GtkSpinButton
 		do
-			create Result.from_pointer (gtk_spin_button_get_adjustment (handle))
+			create Result.from_external_pointer (gtk_spin_button_get_adjustment (handle))
 		ensure Result/=Void
 		end
 

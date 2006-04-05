@@ -15,13 +15,12 @@ indexing
 			-- entry.
 
 class GTK_CELL_RENDERER_TEXT
-inherit
-	GTK_CELL_RENDERER
-	GTK_CELL_RENDERER_TEXT_EXTERNALS
+inherit GTK_CELL_RENDERER redefine make end
+insert GTK_CELL_RENDERER_TEXT_EXTERNALS
 
 creation make
 
-feature {NONE} -- size
+feature -- size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererText)"
@@ -52,7 +51,7 @@ feature {NONE} -- Creation
 			-- too slow (ie, a massive number of cells displayed). If
 			-- number_of_rows is -1, then the fixed height is unset, and
 			-- the height is determined by the properties again.
-		ensure valid_number_of_rows: number_of_rows >= -1
+		require valid_number_of_rows: number_of_rows >= -1
 		do
 			gtk_cell_renderer_text_set_fixed_height_from_font (handle,number_of_rows)
 		end

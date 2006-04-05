@@ -77,13 +77,10 @@ indexing
 	
 class GTK_LIST_STORE
 inherit
-	G_OBJECT
-
-		-- Implemented Interfaces
-	GTK_TREE_MODEL
+	GTK_TREE_MODEL 
 	GTK_TREE_DRAG_SOURCE
 	GTK_TREE_DRAG_DEST
-	GTK_TREE_SORTABLE
+	GTK_TREE_SORTABLE 
 	
 insert GTK_LIST_STORE_EXTERNALS
 	
@@ -91,7 +88,7 @@ creation make
 
 feature {NONE} -- Creation
 
-	make (some_columns: ARRAYED_COLLECTION[INTEGER])
+	make (some_columns: ARRAYED_COLLECTION[INTEGER]) is
 		-- Creates a new list store. `some_columns' is a list of
 		-- integers; each integer is the G_TYPE of an actual
 		-- column. Note that only types derived from standard GObject
@@ -145,7 +142,70 @@ feature {NONE} -- Unwrapped code
 -- iter : 	A valid GtkTreeIter for the row being modified
 	-- var_args : 	va_list of column/value pairs
 
-feature -- Setters
+feature -- Easy to use setters
+	
+	-- Note: wrapping gtk_list_store_set is problematic since it's a
+	-- variadic function but also its not-variadic variant
+	-- (gtk_list_store_set_valist) is not easy to use from within
+	-- ewg-wrapped libraries since currently it's not easy/possible to
+	-- wrap va_list-using functions. Using the plain
+	-- gtk_list_store_set_value can be an answer but I haven't checked
+	-- its performance (2005-05-16 Paolo)
+
+	set_string (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_string: STRING) is
+		require
+			a_column_contains_a_string: -- TODO
+			valid_iterator: an_iterator/=Void
+		local value: G_VALUE
+		do
+			create value.make_string (a_string)
+			set_value (an_iterator, a_column, value)
+		end
+	
+	set_natural (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_natural: INTEGER) is
+		require
+			a_column_contains_a_natural: -- TODO
+			valid_natural: a_natural >= 0
+			valid_iterator: an_iterator/=Void
+		local value: G_VALUE
+		do
+			create value.make_natural (a_natural)
+			set_value (an_iterator, a_column, value)
+		end
+
+	set_integer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_integer: INTEGER) is
+		require
+			a_column_contains_a_integer: -- TODO
+			valid_iterator: an_iterator/=Void				
+		local value: G_VALUE
+		do
+			create value.make_integer (an_integer)
+			set_value (an_iterator, a_column, value)
+		end
+	
+	set_double (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_double: REAL) is
+		require
+			a_column_contains_a_double: -- TODO
+			valid_iterator: an_iterator/=Void				
+		local
+			value: G_VALUE
+		do
+			create value.make_double (a_double)
+			set_value (an_iterator, a_column, value)
+		end
+	
+	set_boolean (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_boolean: BOOLEAN) is
+		require
+			valid_iterator: an_iterator/=Void
+			a_column_contains_a_boolean: -- TODO
+		local
+			value: G_VALUE
+		do
+			create value.make_boolean (a_boolean)
+			set_value (an_iterator, a_column, value)
+		end
+feature -- Setter
+	
 	set_value (an_iterator: GTK_TREE_ITERATOR; a_column: INTEGER; a_value: G_VALUE) is
 			-- Sets the data in the cell specified by `an_iterator' and
 			-- `a_column'. The type of `a_value' must be convertible to
@@ -161,18 +221,18 @@ feature -- Setters
 			gtk_list_store_set_value (handle, an_iterator.handle, a_column, a_value.handle)
 		end
 	
-	is_iterator_valid: BOOLEAN
+	is_last_iterator_valid: BOOLEAN
 			-- Is the last iterator passed as an argument still valid?
 	
 	remove (an_iterator: GTK_TREE_ITERATOR) is
 			-- Removes the given row from the list store. After being
 			-- removed, `an_iterator' is set to be the next valid row, or
 			-- invalidated if it pointed to the last row in the list
-			-- store; in this case `is_iterator_valid' will be False
+			-- store; in this case `is_last_iterator_valid' will be False
 		require
 			valid_iterator: an_iterator/=Void
 		do
-			is_iterator_valid := gtk_list_store_remove (handle,an_iterator.handle).to_boolean
+			is_last_iterator_valid := gtk_list_store_remove (handle,an_iterator.handle).to_boolean
 		end
 	
 	put (an_iterator: GTK_TREE_ITERATOR; a_position: INTEGER) is

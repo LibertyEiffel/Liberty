@@ -30,7 +30,7 @@ inherit
 	GTK_OBJECT rename make as make_gtk_object end
 	GTK_ADJUSTMENT_EXTERNALS
 	
-creation make, from_pointer
+creation make, from_external_pointer
 
 feature {NONE} -- size
 	size: INTEGER is

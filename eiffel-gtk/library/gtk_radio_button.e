@@ -164,7 +164,7 @@ feature -- group
 	group: G_SLIST[GTK_RADIO_BUTTON] is
 			-- the group assigned to a radio button.
 		do
-			create Result.from_pointer (gtk_radio_button_get_group(handle))
+			create Result.from_external_pointer (gtk_radio_button_get_group(handle))
 		end
 
 feature -- Property Details TODO

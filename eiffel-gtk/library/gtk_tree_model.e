@@ -27,7 +27,11 @@ inherit
 
 	--   G_INTERFACE
 	-- Prerequisites: GtkTreeModel requires GObject.
-	G_OBJECT redefine make end
+	G_OBJECT
+		rename make as undefined_make
+		export {NONE} undefined_make
+		undefine undefined_make -- Since it is deferred
+		end
 	
 		-- Known Derived Interfaces: GtkTreeModel is required by
 		-- GtkTreeSortable.
@@ -93,7 +97,7 @@ feature
 			end
 		end
 
-	get_iterator_first: GTK_TREE_ITERATOR is
+	get_iterator_first: GTK_TREE_ITER is
 			-- Gets an first iterator to the first element in the tree
 			-- (the one at the path "0"). Void if the tree is empty.
 		local gbool: INTEGER
@@ -106,21 +110,21 @@ feature
 			end
 		end
 
-	path (an_iterator: GTK_TREE_ITERATOR) is
+	path (an_iterator: GTK_TREE_ITER): GTK_TREE_PATH is
 			-- A newly-created GtkTreePath referenced by `an_iterator'.
 		require valid_iterator: an_iterator/=Void
 		do
-			create Result.from_pointer (gtk_tree_model_get_path (handle, an_iterator.handle))
+			create Result.from_external_pointer (gtk_tree_model_get_path (handle, an_iterator.handle))
 		end
 
-	value (an_iterator: GTK_TREE_ITERATOR; a_column: INTEGER): G_VALUE is
+	value (an_iterator: GTK_TREE_ITER; a_column: INTEGER): G_VALUE is
 			-- The value at `a_column' on the row referred by `an_iterator'.
 		do
 			create Result.make 
-			gtk_tree_model_get_value (handle, an_iterator, a_column, a_value.handle)
-			-- Note for eGTK developer: When done with value,
-			-- g_value_unset() needs to be called to free any allocated
-			-- memory. Already implemented into G_VALUE
+			gtk_tree_model_get_value (handle, an_iterator, a_column, Result.handle)
+			-- Note: When done with value, g_value_unset() needs to be
+			-- called to free any allocated memory. This should be
+			-- already implemented into G_VALUE
 		end
 
 	-- TODO: gtk_tree_model_ref_node ()

@@ -5,9 +5,9 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class GtkCellRendererMode
+deferred class GTK_CELL_RENDERER_MODE
 feature  -- enum
-	is_valid_ (a_ :INTEGER): BOOLEAN is
+	is_valid_gtk_cell_renderer_mode (a_mode :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_mode = gtk_cell_renderer_mode_inert) or else
 						(a_mode = gtk_cell_renderer_mode_activatable) or else

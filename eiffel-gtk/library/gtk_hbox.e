@@ -13,7 +13,7 @@ indexing
 class GTK_HBOX
 inherit GTK_BOX -- GtkHBox also implements AtkImplementorIface.
 insert GTK_HBOX_EXTERNALS
-creation make, from_pointer
+creation make, from_external_pointer
 
 feature {NONE} -- Creation
 	make (an_homogeneous: BOOLEAN; a_spacing: INTEGER) is

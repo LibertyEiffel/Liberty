@@ -38,7 +38,7 @@ feature -- Iterator's features
 	item: ITEM is
 		do
 			Result := new_item
-			Result.from_pointer (g_list_get_data (current_element))
+			Result.from_external_pointer (g_list_get_data (current_element))
 		end
 	
 	next is

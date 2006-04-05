@@ -28,7 +28,7 @@ creation
 	with_label,
 	with_mnemonic,
 	from_stock,
-	from_pointer
+	from_external_pointer
 	
 feature {NONE} -- Creation
 
