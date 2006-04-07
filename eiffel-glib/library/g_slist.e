@@ -33,24 +33,28 @@ indexing
 
 class G_SLIST [ITEM->WRAPPER]
 inherit
-	LINKED_COLLECTION [ITEM]
-		redefine
-			append_collection,
-			clear_all,
-			has,
-			fast_has,
-			fast_first_index_of,
-			first_index_of,
-			reverse,
-			upper,
-			swap
-		end
-	G_SLIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
+-- TODO: uncomment this when possible:
+-- Temporary commented out to let some example work with SnartEiffel 
+-- version 2.2 and SVN
+-- 	LINKED_COLLECTION [ITEM]
+-- 		redefine
+-- 			append_collection,
+-- 			clear_all,
+-- 			has,
+-- 			fast_has,
+-- 			fast_first_index_of,
+-- 			first_index_of,
+-- 			reverse,
+-- 			upper,
+-- 			swap
+-- 		end
 	SHARED_C_STRUCT
 		rename exists as wrapped_object_exists
 		undefine copy,fill_tagged_out_memory
-		redefine make
 		end
+
+insert
+	G_SLIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
 	
 	INTERNALS_HANDLER
 		-- needed to materialize an object of type ITEM, without knowing

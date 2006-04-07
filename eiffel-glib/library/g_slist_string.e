@@ -28,7 +28,6 @@ inherit
 	SHARED_C_STRUCT
 		rename is_not_null as wrapped_object_exists
 		undefine copy,fill_tagged_out_memory
-		redefine make
 		end
 	
 	INTERNALS_HANDLER

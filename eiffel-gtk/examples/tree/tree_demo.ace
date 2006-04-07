@@ -32,12 +32,7 @@ default -- section of the system
 cluster -- section
 		"../../library"
 		"../../library/externals"
-		"../../../eiffel-glib/library"
-		"../../../eiffel-glib/library/core"
-		"../../../eiffel-glib/library/data_types"
-		"../../../eiffel-glib/library/externals"
-		"../../../eiffel-glib/library/fundamentals"
-		"../../../eiffel-glib/library/utilities"
+		glib: "../../../eiffel-glib/loadpath.se"
 		"../../../eiffel-gobject/library/"
 		"../../../eiffel-gobject/library/externals"
 		"../../../common"

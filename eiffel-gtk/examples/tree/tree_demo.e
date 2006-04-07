@@ -90,19 +90,19 @@ feature {NONE}  -- Creation
 		do
 			
 				-- Create a GTK window toplevel window
-			create window.make_top_level
+			create window.make
 			window.set_title (window_title)
 
 			-- It is a good idea to do this for all windows
-			window.connect_destroy_signal_receiver_agent (agent on_destroy)
+			print("TODO: window.connect_destroy_signal_receiver_agent (agent on_destroy)%N")
 
 			view.show
 			window.add (view)
 			window.show
 
 			selection := view.selection
-			selection.set_select_function (agent on_select)
-			gtk_main.run_main_loop
+			print ("TODO: uncooment selection.set_select_function (agent on_select)%N")
+			run_gtk_main_loop
 		end
 
 feature
@@ -141,9 +141,9 @@ feature -- Agents
 			paths_demo
 			traverse_model
 			print ("Using GTK_TREE_MODEL.for_each to print its content:%N")
-			model.for_each (agent print_person)
+			print ("TODO: in tree_demo on_destroy model.for_each (agent print_person)%N")
 			print ("If GTK_TREE_MODEL.for_each is implemented correctly you should see above each person's name and age.%N")
-			gtk_main.quit_main_loop
+			-- TODO: Uncomment this!!! gtk_main.quit_main_loop
 		end
 
 	print_person (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER): BOOLEAN is

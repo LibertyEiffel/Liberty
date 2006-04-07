@@ -15,10 +15,10 @@ inherit
 	-- TODO: G_INTERFACE 
 	-- Prerequisites: GtkTreeSortable requires GtkTreeModel and GObject.
 	GTK_TREE_MODEL
-		rename make as undefined_make
-		export {NONE} undefined_make
-		undefine undefined_make -- Since it is deferred
-		end
+		--rename make as undefined_make
+		--export {NONE} undefined_make
+		--undefine undefined_make -- Since it is deferred
+		--end
 	-- Note: GTK_TREE_MODEL already requires G_OBJECT
 	
 		-- Known Implementations: GtkTreeSortable is implemented by

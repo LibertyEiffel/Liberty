@@ -14,10 +14,10 @@ insert
 	GTK_TREE_ITER_EXTERNALS rename set_stamp as set_stamp_internal end
 	GTK_TREE_MODEL_EXTERNALS
 		
-creation make, from_model, from_external_pointer
+creation make, make_from_model, from_model, from_external_pointer
 
 feature -- Creation
-	from_model (a_model: GTK_TREE_MODEL) is
+	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
 		do
 			tree_model := a_model
 		end

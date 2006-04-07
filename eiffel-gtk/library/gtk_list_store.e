@@ -156,10 +156,10 @@ feature -- Easy to use setters
 		require
 			a_column_contains_a_string: -- TODO
 			valid_iterator: an_iterator/=Void
-		local value: G_VALUE
+		local a_value: G_VALUE
 		do
-			create value.make_string (a_string)
-			set_value (an_iterator, a_column, value)
+			create a_value.make_string (a_string)
+			set_value (an_iterator, a_column, a_value)
 		end
 	
 	set_natural (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_natural: INTEGER) is
@@ -167,20 +167,20 @@ feature -- Easy to use setters
 			a_column_contains_a_natural: -- TODO
 			valid_natural: a_natural >= 0
 			valid_iterator: an_iterator/=Void
-		local value: G_VALUE
+		local a_value: G_VALUE
 		do
-			create value.make_natural (a_natural)
-			set_value (an_iterator, a_column, value)
+			create a_value.make_natural (a_natural)
+			set_value (an_iterator, a_column, a_value)
 		end
 
 	set_integer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_integer: INTEGER) is
 		require
 			a_column_contains_a_integer: -- TODO
 			valid_iterator: an_iterator/=Void				
-		local value: G_VALUE
+		local a_value: G_VALUE
 		do
-			create value.make_integer (an_integer)
-			set_value (an_iterator, a_column, value)
+			create a_value.make_integer (an_integer)
+			set_value (an_iterator, a_column, a_value)
 		end
 	
 	set_double (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_double: REAL) is
@@ -188,10 +188,10 @@ feature -- Easy to use setters
 			a_column_contains_a_double: -- TODO
 			valid_iterator: an_iterator/=Void				
 		local
-			value: G_VALUE
+			a_value: G_VALUE
 		do
-			create value.make_double (a_double)
-			set_value (an_iterator, a_column, value)
+			create a_value.make_double (a_double)
+			set_value (an_iterator, a_column, a_value)
 		end
 	
 	set_boolean (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_boolean: BOOLEAN) is
@@ -199,14 +199,14 @@ feature -- Easy to use setters
 			valid_iterator: an_iterator/=Void
 			a_column_contains_a_boolean: -- TODO
 		local
-			value: G_VALUE
+			a_value: G_VALUE
 		do
-			create value.make_boolean (a_boolean)
-			set_value (an_iterator, a_column, value)
+			create a_value.make_boolean (a_boolean)
+			set_value (an_iterator, a_column, a_value)
 		end
 feature -- Setter
 	
-	set_value (an_iterator: GTK_TREE_ITERATOR; a_column: INTEGER; a_value: G_VALUE) is
+	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
 			-- Sets the data in the cell specified by `an_iterator' and
 			-- `a_column'. The type of `a_value' must be convertible to
 			-- the type of the column.
@@ -224,7 +224,7 @@ feature -- Setter
 	is_last_iterator_valid: BOOLEAN
 			-- Is the last iterator passed as an argument still valid?
 	
-	remove (an_iterator: GTK_TREE_ITERATOR) is
+	remove (an_iterator: GTK_TREE_ITER) is
 			-- Removes the given row from the list store. After being
 			-- removed, `an_iterator' is set to be the next valid row, or
 			-- invalidated if it pointed to the last row in the list
@@ -235,7 +235,7 @@ feature -- Setter
 			is_last_iterator_valid := gtk_list_store_remove (handle,an_iterator.handle).to_boolean
 		end
 	
-	put (an_iterator: GTK_TREE_ITERATOR; a_position: INTEGER) is
+	put (an_iterator: GTK_TREE_ITER; a_position: INTEGER) is
 			-- Creates a new row at position. iter will be changed to
 			-- point to this new row. If position is larger than the
 			-- number of rows on the list, then the new row will be
@@ -248,7 +248,7 @@ feature -- Setter
 			gtk_list_store_insert (handle, an_iterator.handle, a_position)
 		end
 
-	put_before, insert_before  (an_iterator, a_sibling: GTK_TREE_ITERATOR) is
+	put_before, insert_before  (an_iterator, a_sibling: GTK_TREE_ITER) is
 			-- Inserts a new row before `a_sibling'. `an_iterator' iter will
 			-- be changed to point to this new row. The row will be empty
 			-- after this function is called. To fill in values, you need
@@ -261,7 +261,7 @@ feature -- Setter
 			gtk_list_store_insert_before (handle, an_iterator.handle, a_sibling.handle)
 		end
 
-	add_last (an_iterator: GTK_TREE_ITERATOR) is
+	add_last (an_iterator: GTK_TREE_ITER) is
 			-- Append the row referred by `an_iterator' to the end of the
 			-- list. `an_iterator' will be changed to point to this new
 			-- row. The row will be empty after this function is
@@ -274,7 +274,7 @@ feature -- Setter
 		end
 
 
-	put_after, insert_after (an_iterator, a_sibling: GTK_TREE_ITERATOR) is
+	put_after, insert_after (an_iterator, a_sibling: GTK_TREE_ITER) is
 			-- Inserts a new row after `a_sibling'. `an_iterator' iter
 			-- will be changed to point to this new row. The row will be
 			-- empty after this function is called. To fill in values,
@@ -286,7 +286,7 @@ feature -- Setter
 			gtk_list_store_insert_after (handle, an_iterator.handle, a_sibling.handle)
 		end
 
-	add_first (an_iterator: GTK_TREE_ITERATOR) is
+	add_first (an_iterator: GTK_TREE_ITER) is
 			-- Prepend the row to the beginning of the list. `an_iterator' iter will
 			-- be changed to point to this new row. The row will be empty
 			-- after this function is called. To fill in values, you need
@@ -330,7 +330,7 @@ feature -- Setter
 -- ... : 	pairs of column number and value, terminated with -1
 
 
-	insert_with_values (an_iterator: GTK_TREE_ITERATOR;
+	insert_with_values (an_iterator: GTK_TREE_ITER;
 							  a_position: INTEGER;
 							  some_columns: ARRAYED_COLLECTION[INTEGER];
 							  some_values: ARRAYED_COLLECTION[G_VALUE]) is
@@ -371,7 +371,7 @@ feature -- Setter
 															)
 		end
 
-	prepend (an_iterator: GTK_TREE_ITERATOR) is
+	prepend (an_iterator: GTK_TREE_ITER) is
 			-- Prepends a new row. `an_iterator' will be changed to
 			-- point to this new row. The row will be empty after this
 			-- function is called. To fill in values, you need to call
@@ -383,7 +383,7 @@ feature -- Setter
 			gtk_list_store_prepend (handle, an_iterator.handle)
 		end
 
-	append  (an_iterator: GTK_TREE_ITERATOR) is
+	append  (an_iterator: GTK_TREE_ITER) is
 			-- Append a new row. `an_iterator' will be changed to
 			-- point to this new row. The row will be empty after this
 			-- function is called. To fill in values, you need to call
@@ -401,7 +401,7 @@ feature -- Setter
 			gtk_list_store_clear (handle)
 		end
 
-	is_iterator_valid (an_iterator: GTK_TREE_ITERATOR): BOOLEAN is
+	is_iterator_valid (an_iterator: GTK_TREE_ITER): BOOLEAN is
 			-- Is `an_iterator0 valid for Current GtkListStore?
 
 			-- Warning: this query is slow. Only use it for debugging
@@ -426,7 +426,7 @@ feature -- Setter
 			gtk_list_store_reorder (handle, a_new_order.to_external)
 		end 
 
-	swap (an_iterator, another: GTK_TREE_ITERATOR) is
+	swap (an_iterator, another: GTK_TREE_ITER) is
 			-- Swaps `an_iterator' and `another' in store. Note that this
 			-- function only works with unsorted stores.
 		require
@@ -437,7 +437,7 @@ feature -- Setter
 			gtk_list_store_swap (handle, an_iterator.handle, another.handle)
 		end
 
-	move_before (an_iterator, a_position: GTK_TREE_ITERATOR) is
+	move_before (an_iterator, a_position: GTK_TREE_ITER) is
 			-- Moves iter in store to the position before position. Note
 			-- that this function only works with unsorted stores.
 		require
@@ -448,7 +448,7 @@ feature -- Setter
 			gtk_list_store_move_before (handle,an_iterator.handle, a_position.handle)
 		end
 
-	move_last  (an_iterator: GTK_TREE_ITERATOR) is
+	move_last  (an_iterator: GTK_TREE_ITER) is
 			-- Moves iter in store to the end of the list. Note that this
 			-- function only works with unsorted stores.
 		require
@@ -459,7 +459,7 @@ feature -- Setter
 		end
 
 	
-	move_after  (an_iterator, a_position: GTK_TREE_ITERATOR) is
+	move_after  (an_iterator, a_position: GTK_TREE_ITER) is
 			-- Moves iter in store to the position after position. Note
 			-- that this function only works with unsorted stores. 
 		require
@@ -470,7 +470,7 @@ feature -- Setter
 			gtk_list_store_move_after  (handle,an_iterator.handle, a_position.handle)
 		end
 
-	move_first  (an_iterator, a_position: GTK_TREE_ITERATOR) is
+	move_first  (an_iterator, a_position: GTK_TREE_ITER) is
 			-- Moves iter in store to the start of the list. Note that
 			-- this function only works with unsorted stores.
 		require

@@ -33,26 +33,33 @@ indexing
 
 class G_LIST [ITEM->WRAPPER]
 inherit
-	LINKED_COLLECTION [ITEM]
-		redefine
-			append_collection,
-			clear_all,
-			has,
-			fast_has,
-			fast_first_index_of,
-			first_index_of,
-			get_new_iterator,
-			reverse,
-			upper,
-			swap
-		end
-	WRAPPER_FACTORY [ITEM]	
-	G_LIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
+-- TODO: uncomment this when possible:
+-- Temporary commented out to let some example work with SnartEiffel 
+-- version 2.2 and SVN
+-- 	LINKED_COLLECTION [ITEM]
+-- 		redefine
+-- 			append_collection,
+-- 			clear_all,
+-- 			has,
+-- 			fast_has,
+-- 			fast_first_index_of,
+-- 			first_index_of,
+-- 			get_new_iterator,
+-- 			reverse,
+-- 			upper,
+-- 			swap
+-- 		end
 	SHARED_C_STRUCT
 		rename exists as wrapped_object_exists
 		undefine fill_tagged_out_memory, copy
-		redefine make
+		-- unnecessary redifining: it's already deferred: redefine make
 		end
+	-- Note: Shall the wrapper factory be inserted rather than 
+	-- inherited?
+	WRAPPER_FACTORY [ITEM]	
+	
+insert
+	G_LIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
 	
 creation make, from_external_pointer
 

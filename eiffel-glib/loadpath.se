@@ -1,0 +1,7 @@
+library/
+library/core/
+library/data_types/
+library/externals/
+library/fundamentals/
+library/utilities/
+../loadpath.se
