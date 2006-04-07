@@ -26,7 +26,7 @@ insert
 	GTK_TREE_VIEW_COLUMN_SIZING
 	GTK_SORT_TYPE
 	
-creation make
+creation make, from_external_pointer
 
 feature
 
@@ -72,7 +72,7 @@ feature
 			-- between cells for which expand is True.
 		require valid_cell: a_cell/=Void
 		do
-			gtk_tree_view_column_pack_start (handle, a_cell.handle, does_expand)
+			gtk_tree_view_column_pack_start (handle, a_cell.handle, does_expand.to_integer)
 		end
 
 	pack_end (a_cell: GTK_CELL_RENDERER; does_expand: BOOLEAN) is
@@ -82,7 +82,7 @@ feature
 			-- for which expand is True.
 		require valid_cell: a_cell/=Void
 		do
-			gtk_tree_view_column_pack_end (handle, a_cell.handle, does_expand)
+			gtk_tree_view_column_pack_end (handle, a_cell.handle, does_expand.to_integer)
 		end
 
 	clear is
@@ -456,7 +456,7 @@ feature -- Clickability
 			-- the column header. The alignment determines its location
 			-- inside the button 0.0 for left, 0.5 for center, 1.0 for
 			-- right.
-		require valid_align: xalign.in_range (0.0, 1.0)
+		require valid_align: xalign.in_range ({REAL_32 0.0}, {REAL_32 1.0})
 		do
 			gtk_tree_view_column_set_alignment (handle, xalign)
 		end
@@ -466,7 +466,7 @@ feature -- Clickability
 			-- range between 0.0 and 1.0.
 		do
 			Result := gtk_tree_view_column_get_alignment (handle)
-		ensure valid: Result.in_range (0.0, 1.0)
+		ensure valid: Result.in_range ({REAL_32 0.0}, {REAL_32 1.0})
 		end
 
 feature -- Reorderability

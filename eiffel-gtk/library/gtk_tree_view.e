@@ -11,8 +11,10 @@ inherit
 	GTK_TREE_VIEW_EXTERNALS
 
 -- GtkTreeView implements AtkImplementorIface.
-	
-creation make, with_model
+
+insert
+	WRAPPER_FACTORY [GTK_TREE_MODEL]
+creation make, with_model, from_external_pointer
 
 feature {NONE} -- Creation
 	make is
@@ -32,10 +34,15 @@ feature
 	model: GTK_TREE_MODEL is
 			-- The model the GtkTreeView is based on. Void if the model
 			-- is unset.
+		obsolete "TODO: check if GTK_TREE_VIEW.model has memory leaks"
 		local ptr: POINTER
 		do
 			ptr := gtk_tree_view_get_model (handle)
-			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
+			if ptr.is_not_null then
+				Result := new_item
+				Result.from_external_pointer (ptr)
+			end
+			not_yet_implemented
 		end
 	
 	set_model (a_model: GTK_TREE_MODEL) is
@@ -367,8 +374,8 @@ feature
 			-- `row_align' : 	The vertical alignment of the row specified by path.
 			-- `col_align' : 	The horizontal alignment of the column specified by column.
 		require either_column_or_path_not_void: a_column/=Void or a_path/=Void
-			valid_row_align: row_align.in_range (0.0, 1.0)
-			valid_col_align: col_align.in_range (0.0, 1.0)
+			valid_row_align: row_align.in_range ({REAL_32 0.0}, {REAL_32 1.0})
+			valid_col_align: col_align.in_range ({REAL_32 0.0}, {REAL_32 1.0})
 		local column_ptr, path_ptr: POINTER
 		do
 			if a_column/=Void then column_ptr := a_column.handle end
@@ -393,11 +400,12 @@ feature
 			-- `a_path' : 	A GtkTreePath
 			-- `a_focus_column' : 	A GtkTreeViewColumn, or Void
 			-- `start_editing' : 	TRUE if the specified cell should start being edited.
+		require valid_path: a_path /= Void
 		local col_ptr: POINTER
 		do
 			if a_focus_column=Void
-			then gtk_tree_view_set_cursor (handle, default_pointer, start_editing.to_integer)
-			else gtk_tree_view_set_cursor (handle, a_focus_column.handle, start_editing.to_integer)
+			then gtk_tree_view_set_cursor (handle, a_path.handle, default_pointer, start_editing.to_integer)
+			else gtk_tree_view_set_cursor (handle, a_path.handle, a_focus_column.handle, start_editing.to_integer)
 			end
 		end
 
@@ -425,10 +433,10 @@ feature
 		require valid_path: a_path /= Void
 		local column_ptr,cell_ptr: POINTER
 		do
-			if a_focus_column/=Void then column_ptr := a_focus_column end
-			if a_focus_cell/=Void then cell_ptr := a_focus_cell end
+			if a_focus_column/=Void then column_ptr := a_focus_column.handle end
+			if a_focus_cell/=Void then cell_ptr := a_focus_cell.handle end
 			
-			gtk_tree_view_set_cursor_on_cell (handle, column_ptr, cell_ptr,
+			gtk_tree_view_set_cursor_on_cell (handle, a_path.handle, column_ptr, cell_ptr,
 														 start_editing.to_integer)
 		end
 

@@ -148,7 +148,7 @@ feature
 		local a_width, an_height: INTEGER
 		do
 			gtk_cell_renderer_get_fixed_size (handle, $a_width, $an_height)
-			create Result.make (a_width, an_height)
+			create Result.make_2 (a_width, an_height)
 		end
 
 	set_fixed_size (a_width, an_height: INTEGER) is

@@ -11,7 +11,7 @@ feature  -- enum
 	are_valid_gtk_tree_model_flags (some_flags: INTEGER): BOOLEAN is
 		do	
 			Result:=(some_flags & (gtk_tree_model_iters_persist |
-										  gtk_tree_model_list_only))
+										  gtk_tree_model_list_only)).to_boolean
 		end
 	
 	gtk_tree_model_iters_persist: INTEGER is 

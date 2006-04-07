@@ -88,7 +88,7 @@ creation make
 
 feature {NONE} -- Creation
 
-	make (some_columns: ARRAYED_COLLECTION[INTEGER]) is
+	make (some_columns: ARRAY[INTEGER]) is
 		-- Creates a new list store. `some_columns' is a list of
 		-- integers; each integer is the G_TYPE of an actual
 		-- column. Note that only types derived from standard GObject
@@ -100,7 +100,7 @@ feature {NONE} -- Creation
 
 		-- TODO: make this more eiffelish
 
-		-- Note: ARRAYED_COLLECTION seems to be the more general class
+		-- Note: ARRAY seems to be the more general class
 		-- that fits the task. Feel free to change it. Paolo 2006-02-22
 		do
 			handle := gtk_list_store_newv (some_columns.count, some_columns.to_external)
@@ -158,7 +158,7 @@ feature -- Easy to use setters
 			valid_iterator: an_iterator/=Void
 		local a_value: G_VALUE
 		do
-			create a_value.make_string (a_string)
+			create a_value.from_string (a_string)
 			set_value (an_iterator, a_column, a_value)
 		end
 	
@@ -169,7 +169,7 @@ feature -- Easy to use setters
 			valid_iterator: an_iterator/=Void
 		local a_value: G_VALUE
 		do
-			create a_value.make_natural (a_natural)
+			create a_value.from_natural (a_natural)
 			set_value (an_iterator, a_column, a_value)
 		end
 
@@ -179,18 +179,18 @@ feature -- Easy to use setters
 			valid_iterator: an_iterator/=Void				
 		local a_value: G_VALUE
 		do
-			create a_value.make_integer (an_integer)
+			create a_value.from_integer (an_integer)
 			set_value (an_iterator, a_column, a_value)
 		end
 	
-	set_double (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_double: REAL) is
+	set_real (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_real: REAL) is
 		require
 			a_column_contains_a_double: -- TODO
 			valid_iterator: an_iterator/=Void				
 		local
 			a_value: G_VALUE
 		do
-			create a_value.make_double (a_double)
+			create a_value.from_real (a_real)
 			set_value (an_iterator, a_column, a_value)
 		end
 	
@@ -201,7 +201,7 @@ feature -- Easy to use setters
 		local
 			a_value: G_VALUE
 		do
-			create a_value.make_boolean (a_boolean)
+			create a_value.from_boolean (a_boolean)
 			set_value (an_iterator, a_column, a_value)
 		end
 feature -- Setter
@@ -332,8 +332,8 @@ feature -- Setter
 
 	insert_with_values (an_iterator: GTK_TREE_ITER;
 							  a_position: INTEGER;
-							  some_columns: ARRAYED_COLLECTION[INTEGER];
-							  some_values: ARRAYED_COLLECTION[G_VALUE]) is
+							  some_columns: ARRAY[INTEGER];
+							  some_values: ARRAY[G_VALUE]) is
 			-- Creates a new row at `a_position'. `an_iterator' will be
 			-- changed to point to this new row. If position is larger
 			-- than the number of rows on the list, then the new row will
@@ -352,7 +352,7 @@ feature -- Setter
 
 			-- `some_columns' contains the column numbers; each column
 			-- will be set with the corresponding value in `some_values'
-		require columns_n_equals_values_n: some_columns.count = some_values
+		require columns_n_equals_values_n: some_columns.count = some_values.count
 		do
 			-- Uses a variant of gtk_list_store_insert_with_values()
 			-- which takes the columns and values as two arrays, instead
@@ -362,7 +362,8 @@ feature -- Setter
 			-- list_store : 	A GtkListStore
 			-- iter : 	An unset GtkTreeIter to set to the new row
 			-- position : 	position to insert the new row
-
+			not_yet_implemented
+			-- TODO: some_values.to_external is an array of pointers to the Eiffel wrappers!!!
 			gtk_list_store_insert_with_valuesv (handle, an_iterator.handle,
 															a_position,
 															some_columns.to_external, -- gint *columns an array of column numbers
@@ -412,7 +413,7 @@ feature -- Setter
 		end
 
 	
-	reorder (a_new_order: ARRAYED_COLLECTION[INTEGER]) is
+	reorder (a_new_order: ARRAY[INTEGER]) is
 			-- Reorders store to follow the order indicated by
 			-- `a_new_order'. Note that this function only works with
 			-- unsorted stores. `a_new_order' is the array of integers

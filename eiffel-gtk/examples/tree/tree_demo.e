@@ -88,7 +88,8 @@ feature {NONE}  -- Creation
 			-- Run the demo
 		local selection: GTK_TREE_SELECTION
 		do
-			
+			initialize_gtk
+						
 				-- Create a GTK window toplevel window
 			create window.make
 			window.set_title (window_title)

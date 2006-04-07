@@ -48,7 +48,8 @@ feature {NONE}
 
 	-- unwrappable since variadic gtk_list_store_insert_with_values (a_gtk_list_store, a_gtktreeiter: POINTER, a_position: INTEGER, ...) is
 
-	gtk_list_store_insert_with_valuesv (a_gtk_list_store, a_gtktreeiter: POINTER; a_position: INTEGER; some_columns: NATIVE_ARRAY[INTEGER]; some_gvalues: NATIVE_ARRAY[POINTER];  n_values: INTEGER) is
+	gtk_list_store_insert_with_valuesv (a_gtk_list_store, a_gtktreeiter: POINTER; a_position: INTEGER; some_columns, some_gvalues: POINTER;  n_values: INTEGER) is
+		-- Note some_columns was a NATIVE_ARRAY[INTEGER] and some_gvalues a NATIVE_ARRAY[POINTER];
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -68,7 +69,8 @@ feature {NONE}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_list_store_reorder (a_gtk_list_store: POINTER; a_new_order: NATIVE_ARRAY[INTEGER]) is
+	gtk_list_store_reorder (a_gtk_list_store: POINTER; a_new_order: POINTER) is
+			-- Note: a_new_order was NATIVE_ARRAY[INTEGER]
 		external "C use <gtk/gtk.h>"
 		end
 

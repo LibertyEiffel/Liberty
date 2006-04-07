@@ -22,7 +22,7 @@ default -- section of the system
 		 -- flag in traditional command line mode.
 
 	no_style_warning (no);
-	no_warning (no);
+	no_warning (yes); -- shall be no
 	verbose (no);
 	manifest_string_trace (no);
 	high_memory_compiler (no);	

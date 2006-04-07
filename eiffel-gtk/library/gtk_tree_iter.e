@@ -18,6 +18,7 @@ creation make, make_from_model, from_model, from_external_pointer
 
 feature -- Creation
 	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
+		require valid_model: a_model/=Void
 		do
 			tree_model := a_model
 		end
@@ -28,10 +29,9 @@ feature
 			-- valid?
 
 	start, first is
+			-- Initializes Current with the first iterator in the tree (the one at the path "0") and returns TRUE. Returns FALSE if the tree is empty.
 		do
-			-- If parent is NULL returns the first node, equivalent to gtk_tree_model_get_iter_first (tree_model, iter);
-			is_valid:=(gtk_tree_model_iter_children (tree_model.handle,
-																						 Null)).to_boolean
+			is_valid:=(gtk_tree_model_get_iter_first (tree_model.handle, handle)).to_boolean
 		end
 	
 	next is
@@ -40,21 +40,23 @@ feature
 			-- `is_valid' will be False and Current is
 			-- set to be invalid.
 		do
-			is_valid:=(gtk_tree_model_iter_next (tree_model.handle,
-																					handle)).to_boolean
+			is_valid:=(gtk_tree_model_iter_next (tree_model.handle,handle)).to_boolean
 		end
 	
-	next_children is
+	to_children_of (a_parent: GTK_TREE_ITER) is
 			-- Sets Current iterator to point to the first child of
-			-- `tree_model'. If parent has no children
-			-- `is_valid' will be False. Current will
-			-- remain a valid node after this function has been called.
-
-
+			-- `tree_model'. If parent has no children `is_valid' will be
+			-- False. Current will remain a valid node after this
+			-- function has been called. If `a_parent' is Void returns
+			-- the first node, equivalent to `first'
 		do
-			is_valid:=(gtk_tree_model_iter_children (tree_model.handle,
-																						 handle)).to_boolean
+			if a_parent=Void then
+				is_valid:=(gtk_tree_model_iter_children (tree_model.handle, handle, default_pointer)).to_boolean
+			else
+				is_valid:=(gtk_tree_model_iter_children (tree_model.handle, handle, a_parent.handle)).to_boolean	
+			end
 		end
+			
 
 
 	has_child: BOOLEAN is
@@ -78,7 +80,7 @@ feature
 	toplevel_nodes_count: INTEGER is
 			-- Number of toplevel nodes of `tree_model'
 		do
-			Result := gtk_tree_model_iter_n_children (tree_model.handle,Null)
+			Result := gtk_tree_model_iter_n_children (tree_model.handle,default_pointer)
 		end
 
 

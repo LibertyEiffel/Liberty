@@ -54,7 +54,7 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_view_get_headers_visible (a_gtktreeview: POINTER): POINTER is -- gboolean
+	gtk_tree_view_get_headers_visible (a_gtktreeview: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
 	

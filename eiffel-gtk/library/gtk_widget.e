@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GTK_WIDGET
+deferred class GTK_WIDGET
 
 inherit
 	GTK_OBJECT

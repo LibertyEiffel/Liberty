@@ -19,10 +19,11 @@ deferred class G_OBJECT
 
 inherit
 	C_STRUCT redefine dispose end
+	ANY
+insert
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
 	G_OBJECT_EXTERNALS
 	G_VALUE_EXTERNALS
-	ANY
 	
 feature 
 	store_eiffel_wrapper is

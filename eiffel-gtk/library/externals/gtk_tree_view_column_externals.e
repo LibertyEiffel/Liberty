@@ -192,7 +192,7 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_view_column_cell_get_size (a_tree_column, a_gdkrectangle, an_x_offset, an_y_offset, a_width, an_height: POINTER): INTEGER is
+	gtk_tree_view_column_cell_get_size (a_tree_column, a_gdkrectangle, an_x_offset, an_y_offset, a_width, an_height: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 	

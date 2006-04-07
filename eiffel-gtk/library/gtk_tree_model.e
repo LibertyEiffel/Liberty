@@ -117,11 +117,11 @@ feature
 			create Result.from_external_pointer (gtk_tree_model_get_path (handle, an_iterator.handle))
 		end
 
-	value (an_iterator: GTK_TREE_ITER; a_column: INTEGER): G_VALUE is
+	value_at,value (an_iterator: GTK_TREE_ITER; a_column: INTEGER): G_VALUE is
 			-- The value at `a_column' on the row referred by `an_iterator'.
 		do
 			create Result.make 
-			gtk_tree_model_get_value (handle, an_iterator, a_column, Result.handle)
+			gtk_tree_model_get_value (handle, an_iterator.handle, a_column, Result.handle)
 			-- Note: When done with value, g_value_unset() needs to be
 			-- called to free any allocated memory. This should be
 			-- already implemented into G_VALUE
