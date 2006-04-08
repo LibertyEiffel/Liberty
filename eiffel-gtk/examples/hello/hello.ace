@@ -41,7 +41,7 @@ default -- section of the system
 		 -- Yes is the equivalent of the -no_style_warning flag in traditional
 		 -- command line mode.
 
-	no_warning (no);
+	no_warning (yes);
 		 -- My humble opinion is that you should always write no here.
 		 -- Yes is the equivalent of the -no_warning flag in traditional
 		 -- command line mode.
@@ -63,21 +63,12 @@ default -- section of the system
 		 -- The equivalent of the -relax flag.
 
 cluster -- section
-		"../../../library/gtk"
-		"../../../library/gtk/externals"
-		"../../../library/glib"
-		"../../../library/glib/core"
-		"../../../library/glib/data_types"
-		"../../../library/glib/externals"
-		"../../../library/glib/fundamentals"
-		"../../../library/glib/utilities"
-		"../../../library/gobject"
-		"../../../library/gobject/externals"
-		"../../../library/support"
-		"../../../library/"
-		--"../../../library/tmp"
+		gtk: "../../loadpath.se"
+		glib: "../../../eiffel-glib/loadpath.se"
+		gobject: "../../../eiffel-gobject/loadpath.se"
 
 		"."
+
 	-- The cluster section is an ordered list of clusters. Roughly speaking,
 	-- a cluster can be considered as a directory where Eiffel source files
 	-- are to be searched for. Thus, the order of this list of clusters is

@@ -159,7 +159,7 @@ feature
 
 feature {NONE} -- Implementation
 	tree_model: GTK_TREE_MODEL
-			-- Reference to the tree model. Could be just a POINTER but
-			-- in this case we're not sure that the model is still alive
-			-- when the iterator tries to access it...
+			-- Reference to the tree model. It could have been just a
+			-- POINTER but in this case we would not be sure that the
+			-- model is still alive when the iterator tries to access it.
 end

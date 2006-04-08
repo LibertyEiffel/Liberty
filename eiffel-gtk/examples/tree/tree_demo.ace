@@ -30,12 +30,9 @@ default -- section of the system
 	relax (yes);
 
 cluster -- section
-		"../../library"
-		"../../library/externals"
+		gtk: "../../loadpath.se"
 		glib: "../../../eiffel-glib/loadpath.se"
-		"../../../eiffel-gobject/library/"
-		"../../../eiffel-gobject/library/externals"
-		"../../../common"
+		gobject: "../../../eiffel-gobject/loadpath.se"
 
 		"."
 

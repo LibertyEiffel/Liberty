@@ -1,16 +1,17 @@
 class MY_WINDOW
-inherit
-	GTK_WINDOW redefine make end
-	GTK_MAIN
+inherit GTK_WINDOW redefine make end
+insert GTK_MAIN
 creation make
 feature {NONE}
 	make is
 		do
 			Precursor
-			connect (Current, "destroy", $on_destroy)
+			create destroy_callback.make(Current, agent on_destroy)
+			--connect (Current, "destroy", $on_destroy)
 		end
 
 feature -- callback
+	destroy_callback: DESTROY_CALLBACK 
 	on_destroy (a_ptr: POINTER) is
 		do
 			handle:=Null

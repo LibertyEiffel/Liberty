@@ -102,7 +102,7 @@ feature {NONE}  -- Creation
 			window.show
 
 			selection := view.selection
-			print ("TODO: uncooment selection.set_select_function (agent on_select)%N")
+			print ("TODO: uncomment selection.set_select_function (agent on_select)%N")
 			run_gtk_main_loop
 		end
 

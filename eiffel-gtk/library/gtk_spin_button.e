@@ -198,7 +198,7 @@ feature -- update policy
 			gtk_spin_button_set_update_policy (handle, gtk_update_if_valid)
 		end
 
-	is_policy_always_update: BOOLEAB is
+	is_policy_always_update: BOOLEAN is
 			-- Is the value always displayed when refreshing the GtkSpinButton?
 		do
 			Result:=(gtk_spin_button_get_update_policy (handle)=gtk_update_always)
