@@ -25,7 +25,12 @@ feature {NONE} -- creation
 			print ("button is at: "+button.to_pointer.to_string+"%N")
 			gtk_main
 		end
-
+feature -- Disposing
+	dispose is
+		do
+			print ("Disposing HELLO%N")
+		end
+	
 feature
 	window: MY_WINDOW
 			-- the window

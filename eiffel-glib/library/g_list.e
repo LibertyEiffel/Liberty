@@ -51,8 +51,7 @@ inherit
 -- 		end
 	SHARED_C_STRUCT
 		rename exists as wrapped_object_exists
-		undefine fill_tagged_out_memory, copy
-		-- unnecessary redifining: it's already deferred: redefine make
+		undefine fill_tagged_out_memory
 		end
 	-- Note: Shall the wrapper factory be inserted rather than 
 	-- inherited?
@@ -66,7 +65,7 @@ creation make, from_external_pointer
 feature
 	make is
 		do
-			handle := Null
+			handle := default_pointer
 		end
 
 	first: ITEM is
@@ -171,7 +170,7 @@ feature
 			-- added to the GAllocator free list.
 		do
 			g_list_free (handle)
-			handle := Null -- default_pointer
+			handle := default_pointer
 		end
 
 	has (x: like first): BOOLEAN is

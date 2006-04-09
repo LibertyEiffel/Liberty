@@ -41,7 +41,7 @@ default -- section of the system
 		 -- Yes is the equivalent of the -no_style_warning flag in traditional
 		 -- command line mode.
 
-	no_warning (yes);
+	no_warning (no);
 		 -- My humble opinion is that you should always write no here.
 		 -- Yes is the equivalent of the -no_warning flag in traditional
 		 -- command line mode.

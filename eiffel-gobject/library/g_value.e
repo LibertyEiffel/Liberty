@@ -316,9 +316,9 @@ feature 	{NONE} -- Disposing
 		do
 			g_value_unset (handle)
 			g_free (handle)
-			handle := Null
+			handle := default_pointer
 		end
 	
-invariant exists: exists
+invariant handle_not_null: is_not_null
 
 end

@@ -32,7 +32,7 @@ feature -- Iterator's features
 	
 	is_off: BOOLEAN is
 		do
-			Result:=(current_element=Null)
+			Result:=(current_element.is_null)
 		end
 	
 	item: ITEM is
