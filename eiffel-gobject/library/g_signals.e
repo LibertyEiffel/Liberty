@@ -3,11 +3,8 @@ indexing
 
 	
 class G_SIGNALS
-	
-inherit
-	WRAPPER
-	G_SIGNAL_EXTERNAL
-	
+inherit WRAPPER
+insert G_SIGNAL_EXTERNAL
 feature
 
 	query (an_id: INTEGER): G_SIGNAL_QUERY is
@@ -59,6 +56,7 @@ feature
 			-- Connects `a function' callback to a signal named
 			-- `a_signal_name' for `an_object' (i.e. when `an_object'
 			-- emits `a_signal_name' `a_function_pointer' will be called)
+		obsolete "See also CALLBACK class"
 		require
 			valid_object: an_object /= Void
 			valid_signal_name: a_signal_name /= Void

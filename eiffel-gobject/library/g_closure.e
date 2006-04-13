@@ -214,21 +214,24 @@ feature -- Reference counting and memory handling
 
 feature -- Invoking
 
-	invoke (some_parameters: G_ARRAY[G_VALUE]): G_VALUE is
-		local
+	invoke (some_parameters: G_VALUE_ARRAY): G_VALUE is
+			-- 	Invokes the closure, i.e. executes the callback
+			-- 	represented by the closure.
 		do
+			create Result.make 
 			g_closure_invoke (handle, Result.handle,
-									guint n_param_values, const GValue *param_values, invocation_hint: POINTER);
+									some_parameters.count, some.parameters.to_external,
+									default_pointer -- invocation_hint : a context-dependent invocation hint
+									)
 
--- 	Invokes the closure, i.e. executes the callback represented by the closure.
+
 
 -- 	closure : a GClosure 
 -- 	return_value : a GValue to store the return value. May be NULL if the callback of closure doesn't return 
 -- 							a value. 
 -- 	n_param_values : the length of the param_values array 
 -- 	param_values : an array of GValues holding the arguments on which to invoke the callback of closure 
--- 	invocation_hint : a context-depend
--- ent invocation hint 
+-- 	
 
 -- 	--------------------------------------------------------------------------------------------------------
 

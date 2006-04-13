@@ -14,12 +14,13 @@ indexing
 class G_VALUE_ARRAY
 inherit
 	SHARED_C_STRUCT
--- insert WRAPPER_FACTORY [G_VALUE]
+		-- "insert WRAPPER_FACTORY [G_VALUE]" is not necessary since
+		-- this class is not generic.
 	
 creation make
 
 feature {NONE} -- Creation
-	make (n_prealloced: INTEGER)is
+	make (n_prealloced: INTEGER) is
 			-- Allocate and initialize a new GValueArray, optionally
 			-- preserve space for `n_prealloced' elements. New arrays
 			-- always contain 0 elements, regardless of the value of
@@ -38,7 +39,13 @@ feature {NONE} -- Creation
 		end
 
 feature -- Array-like features
-   count: INTEGER is
+	to_external: POINTER is
+			-- Gives C access into the internal `storage' of the G_VALUE_ARRAY.
+		do
+			Result:=get_values (handle)
+		end
+
+	count: INTEGER is
 			-- Number of available indices.
 		do
 			Result := get_n_values(handle)

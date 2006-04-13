@@ -129,7 +129,12 @@ feature -- Signals
 	-- 		`destroy_callback' special feature."  local
 	-- 		destroy_command: DESTROY_CALLBACK do create
 	-- 		destroy_command.make (Current) end
-	
+
+-- 	connect_to_destroy_signal (a_procedure: PROCEDURE) is
+-- 		do
+-- 			connect (Current, destroy_signal_name, $a_procedure)
+-- 		end
+			
 feature {NONE} -- Signal names
 	destroy_signal_name: STRING is "destroy"
 end

@@ -10,7 +10,8 @@ indexing
 class G_VALUE
 
 inherit
-	C_STRUCT redefine dispose end
+	SHARED_C_STRUCT
+insert
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
 	G_VALUE_EXTERNALS
 	G_TYPE_EXTERNALS
@@ -21,6 +22,12 @@ creation
 	from_boolean, from_integer, from_natural, from_real, from_string
 
 feature {NONE} -- Creation
+	make is
+			-- Create a undefined GValue.
+		do
+			handle := malloc_g_value
+		end
+	
 	make_boolean is
 			-- create a new boolean G_VALUE
 		local ptr: POINTER

@@ -18,7 +18,7 @@ deferred class G_OBJECT
 	-- described in detail in Signals(3).
 
 inherit
-	C_STRUCT redefine dispose end
+	SHARED_C_STRUCT redefine dispose end
 	ANY
 insert
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
@@ -52,8 +52,7 @@ feature -- Disposing
 			-- cleans its handle. The actual reclaiming of the memory
 			-- allocated on the C side is left to gobject runtime.
 			debug
-				if g_is_object (handle) /= 0
-				 then
+				if g_is_object (handle) /= 0 then
 					print (once "Eiffel is disposing g_object ") print (generator)
 					print (once " (at ") print (handle.out) print (once ")%N")
 				else

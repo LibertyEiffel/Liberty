@@ -416,7 +416,8 @@ feature -- Properties
 
 -- Since 2.6
 
--- Signals
+feature -- Signals
+			
 
 -- "activate"  void        user_function      (GtkButton *widget,
 --                                             gpointer   user_data)      : Run first / Action

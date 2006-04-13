@@ -8,7 +8,6 @@ indexing
 class DESTROY_CALLBACK
 inherit
 	CALLBACK redefine object end
-	G_SIGNALS
 creation make
 
 feature {NONE} -- Creation
