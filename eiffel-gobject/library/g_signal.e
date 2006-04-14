@@ -65,6 +65,12 @@ indexing
 			-- matches any detail argument passed in to emission.
 
 class G_SIGNAL
+insert
+	G_SIGNAL_EXTERNALS
+	G_SIGNAL_FLAGS
+	G_SIGNAL_INVOCATION_HINT
+	G_SIGNAL_MATCH_TYPE
+	
 	
 feature -- Unwrapped C 
 
@@ -151,6 +157,10 @@ feature {NONE} -- Creation
 			-- separator can be used, but they cannot be mixed.
 
 			-- Note: Class-level closure and accumulator are currently not implemented;
+		require
+			valid_gobject: a_gobject /= Void
+			valid_flags: are_valid_signal_flags (some_flags)
+			valid_return_type: 
 		do
 			-- guint g_signal_newv (const gchar *signal_name, Type itype,
 			-- GSignalFlags signal_flags, GClosure *class_closure,
@@ -627,6 +637,7 @@ feature {NONE} -- Creation
 -- Since 2.4
 
 -- [11] Although signals can deal with any kind of instantiatable type, i'm referring to those types as "object types" in the following, simply because that is the context most users will encounter signals in.
+
 end
 
 
