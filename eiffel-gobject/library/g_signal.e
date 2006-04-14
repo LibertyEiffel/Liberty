@@ -66,154 +66,124 @@ indexing
 
 class G_SIGNAL
 	
-feature 
+feature -- Unwrapped C 
 
--- GSignalAccumulator ()
+	-- GSignalAccumulator ()
 
--- gboolean    (*GSignalAccumulator)           (GSignalInvocationHint *ihint,
---                                              GValue *return_accu,
---                                              const GValue *handler_return,
---                                              gpointer data);
+	-- gboolean    (*GSignalAccumulator)           (GSignalInvocationHint *ihint,
+	--                                              GValue *return_accu,
+	--                                              const GValue *handler_return,
+	--                                              gpointer data);
 
--- The signal accumulator is a special callback function that can be used to collect return values of the various callbacks that are called during a signal emission. The signal accumulator is specified at signal creation time, if it is left NULL, no accumulation of callback return values is performed. The return value of signal emissions is then the value returned by the last callback.
--- ihint : 	Signal invocation hint, see GSignalInvocationHint.
--- return_accu : 	Accumulator to collect callback return values in, this is the return value of the current signal emission.
--- handler_return : 	A GValue holding the return value of the signal handler.
--- data : 	Callback data that was specified when creating the signal.
--- Returns : 	The accumulator function returns whether the signal emission should be aborted. Returning FALSE means to abort the current emission and TRUE is returned for continuation.
--- GSignalCMarshaller
+	-- The signal accumulator is a special callback function that can be used to collect return values of the various callbacks that are called during a signal emission. The signal accumulator is specified at signal creation time, if it is left NULL, no accumulation of callback return values is performed. The return value of signal emissions is then the value returned by the last callback.
+	-- ihint : 	Signal invocation hint, see GSignalInvocationHint.
+	-- return_accu : 	Accumulator to collect callback return values in, this is the return value of the current signal emission.
+	-- handler_return : 	A GValue holding the return value of the signal handler.
+	-- data : 	Callback data that was specified when creating the signal.
+	-- Returns : 	The accumulator function returns whether the signal emission should be aborted. Returning FALSE means to abort the current emission and TRUE is returned for continuation.
+	-- GSignalCMarshaller
 
--- typedef GClosureMarshal			 GSignalCMarshaller;
+	-- typedef GClosureMarshal			 GSignalCMarshaller;
 
--- This is the signature of marshaller functions, required to marshall arrays of parameter values to signal emissions into C language callback invocations. It is merely an alias to GClosureMarshal since the GClosure mechanism takes over responsibility of actual function invocation for the signal system.
--- GSignalEmissionHook ()
+	-- This is the signature of marshaller functions, required to marshall arrays of parameter values to signal emissions into C language callback invocations. It is merely an alias to GClosureMarshal since the GClosure mechanism takes over responsibility of actual function invocation for the signal system.
+	-- GSignalEmissionHook ()
 
--- gboolean    (*GSignalEmissionHook)          (GSignalInvocationHint *ihint,
---                                              guint n_param_values,
---                                              const GValue *param_values,
---                                              gpointer data);
+	-- gboolean    (*GSignalEmissionHook)          (GSignalInvocationHint *ihint,
+	--                                              guint n_param_values,
+	--                                              const GValue *param_values,
+	--                                              gpointer data);
 
--- A simple function pointer to get invoked when the signal is emitted. This allows you to tie a hook to the signal type, so that it will trap all emissions of that signal, from any object.
+	-- A simple function pointer to get invoked when the signal is emitted. This allows you to tie a hook to the signal type, so that it will trap all emissions of that signal, from any object.
 
--- You may not attach these to signals created with the G_SIGNAL_NO_HOOKS flag.
--- ihint : 	Signal invocation hint, see GSignalInvocationHint.
--- n_param_values : 	the number of parameters to the function, including the instance on which the signal was emitted.
--- param_values : 	the instance on which the signal was emitted, followed by the parameters of the emission.
--- data : 	user data associated with the hook.
--- Returns : 	whether it wants to stay connected. If it returns FALSE, the signal hook is disconnected (and destroyed).
+	-- You may not attach these to signals created with the G_SIGNAL_NO_HOOKS flag.
+	-- ihint : 	Signal invocation hint, see GSignalInvocationHint.
+	-- n_param_values : 	the number of parameters to the function, including the instance on which the signal was emitted.
+	-- param_values : 	the instance on which the signal was emitted, followed by the parameters of the emission.
+	-- data : 	user data associated with the hook.
+	-- Returns : 	whether it wants to stay connected. If it returns FALSE, the signal hook is disconnected (and destroyed).
 
 	
--- G_SIGNAL_TYPE_STATIC_SCOPE
+	-- G_SIGNAL_TYPE_STATIC_SCOPE
 
--- #define	G_SIGNAL_TYPE_STATIC_SCOPE (G_TYPE_FLAG_RESERVED_ID_BIT)
+	-- #define	G_SIGNAL_TYPE_STATIC_SCOPE (G_TYPE_FLAG_RESERVED_ID_BIT)
 
--- This macro flags signal argument types for which the signal system may assume that instances thereof remain persistent across all signal emissions they are used in. This is only useful for non ref-counted, value-copy types.
+	-- This macro flags signal argument types for which the signal system may assume that instances thereof remain persistent across all signal emissions they are used in. This is only useful for non ref-counted, value-copy types.
 
--- To flag a signal argument in this way, add | G_SIGNAL_TYPE_STATIC_SCOPE to the corresponding argument of g_signal_new().
+	-- To flag a signal argument in this way, add | G_SIGNAL_TYPE_STATIC_SCOPE to the corresponding argument of g_signal_new().
 
---     g_signal_new ("size_request",
--- 		  G_TYPE_FROM_CLASS (gobject_class),
--- 		  G_SIGNAL_RUN_FIRST,
--- 		  G_STRUCT_OFFSET (GtkWidgetClass, size_request),
--- 		  NULL, NULL,
--- 		  _gtk_marshal_VOID__BOXED,
--- 		  G_TYPE_NONE, 1,
--- 		  GTK_TYPE_REQUISITION | G_SIGNAL_TYPE_STATIC_SCOPE);
+	--     g_signal_new ("size_request",
+	-- 		  G_TYPE_FROM_CLASS (gobject_class),
+	-- 		  G_SIGNAL_RUN_FIRST,
+	-- 		  G_STRUCT_OFFSET (GtkWidgetClass, size_request),
+	-- 		  NULL, NULL,
+	-- 		  _gtk_marshal_VOID__BOXED,
+	-- 		  G_TYPE_NONE, 1,
+	-- 		  GTK_TYPE_REQUISITION | G_SIGNAL_TYPE_STATIC_SCOPE);
 
--- G_SIGNAL_MATCH_MASK
+	-- G_SIGNAL_MATCH_MASK
 
--- #define G_SIGNAL_MATCH_MASK  0x3f
+	-- #define G_SIGNAL_MATCH_MASK  0x3f
 
--- A mask for all GSignalMatchType bits.
--- G_SIGNAL_FLAGS_MASK
+	-- A mask for all GSignalMatchType bits.
+	-- G_SIGNAL_FLAGS_MASK
 
--- #define G_SIGNAL_FLAGS_MASK  0x7f
+	-- #define G_SIGNAL_FLAGS_MASK  0x7f
 
--- A mask for all GSignalFlags bits.
--- g_signal_new ()
+	-- A mask for all GSignalFlags bits.
 
--- guint       g_signal_new                    (const gchar *signal_name,
---                                              GType itype,
---                                              GSignalFlags signal_flags,
---                                              guint class_offset,
---                                              GSignalAccumulator accumulator,
---                                              gpointer accu_data,
---                                              GSignalCMarshaller c_marshaller,
---                                              GType return_type,
---                                              guint n_params,
---                                              ...);
 
--- Creates a new signal. (This is usually done in the class initializer.)
+	-- NOTE: g_signal_new is unwrappeble since variadic. g_signal_newv is
+	-- wrapped and provides the same functionality
+feature {NONE} -- Creation
+	
+	make (a_gobject: G_OBJECT; some_flags: INTEGER;
+			a_return_type: INTEGER; parameters_types: ARRAY[INTEGER]) is
+			-- Creates a new signal. This is usually done in the
+			-- GObject's class initializer at C level.
 
--- A signal name consists of segments consisting of ASCII letters and digits, separated by either the '-' or '_' character. The first character of a signal name must be a letter. Names which violate these rules lead to undefined behaviour of the GSignal system.
+			-- A signal name consists of segments consisting of ASCII
+			-- letters and digits, separated by either the '-' or '_'
+			-- character. The first character of a signal name must be a
+			-- letter. Names which violate these rules lead to undefined
+			-- behaviour of the GSignal system.
 
--- When registering a signal and looking up a signal, either separator can be used, but they cannot be mixed.
--- signal_name : 	the name for the signal
--- itype : 	the type this signal pertains to. It will also pertain to types which are derived from this type.
--- signal_flags : 	a combination of GSignalFlags specifying detail of when the default handler is to be invoked. You should at least specify G_SIGNAL_RUN_FIRST or G_SIGNAL_RUN_LAST.
--- class_offset : 	The offset of the function pointer in the class structure for this type. Used to invoke a class method generically.
--- accumulator : 	the accumulator for this signal; may be NULL.
--- accu_data : 	user data for the accumulator.
--- c_marshaller : 	the function to translate arrays of parameter values to signal emissions into C language callback invocations.
--- return_type : 	the type of return value, or G_TYPE_NONE for a signal without a return value.
--- n_params : 	the number of parameter types to follow.
--- ... : 	a list of types, one for each parameter.
--- Returns : 	the signal id
--- g_signal_newv ()
+			-- When registering a signal and looking up a signal, either
+			-- separator can be used, but they cannot be mixed.
 
--- guint       g_signal_newv                   (const gchar *signal_name,
---                                              GType itype,
---                                              GSignalFlags signal_flags,
---                                              GClosure *class_closure,
---                                              GSignalAccumulator accumulator,
---                                              gpointer accu_data,
---                                              GSignalCMarshaller c_marshaller,
---                                              GType return_type,
---                                              guint n_params,
---                                              GType *param_types);
+			-- Note: Class-level closure and accumulator are currently not implemented;
+		do
+			-- guint g_signal_newv (const gchar *signal_name, Type itype,
+			-- GSignalFlags signal_flags, GClosure *class_closure,
+			-- GSignalAccumulator accumulator, gpointer accu_data,
+			-- GSignalCMarshaller c_marshaller, GType return_type, guint
+			-- n_params, GType *param_types);
+			
+			-- Creates a new signal. (This is usually done in the class initializer.)
 
--- Creates a new signal. (This is usually done in the class initializer.)
+			-- A signal name consists of segments consisting of ASCII
+			-- letters and digits, separated by either the '-' or '_'
+			-- character. The first character of a signal name must be a
+			-- letter. Names which violate these rules lead to undefined
+			-- behaviour of the GSignal system.
 
--- See g_signal_new() for details on allowed signal names.
--- signal_name : 	the name for the signal
--- itype : 	the type this signal pertains to. It will also pertain to types which are derived from this type.
--- signal_flags : 	a combination of GSignalFlags specifying detail of when the default handler is to be invoked. You should at least specify G_SIGNAL_RUN_FIRST or G_SIGNAL_RUN_LAST.
--- class_closure : 	The closure to invoke on signal emission.
--- accumulator : 	the accumulator for this signal; may be NULL.
--- accu_data : 	user data for the accumulator.
--- c_marshaller : 	the function to translate arrays of parameter values to signal emissions into C language callback invocations.
--- return_type : 	the type of return value, or G_TYPE_NONE for a signal without a return value.
--- n_params : 	the length of param_types.
--- param_types : 	an array types, one for each parameter.
--- Returns : 	the signal id
--- g_signal_new_valist ()
+			-- When registering a signal and looking up a signal, either separator can be used, but they cannot be mixed.
+			-- signal_name : 	the name for the signal
+			-- itype : 	the type this signal pertains to. It will also pertain to types which are derived from this type.
+			-- signal_flags : 	a combination of GSignalFlags specifying detail of when the default handler is to be invoked. You should at least specify G_SIGNAL_RUN_FIRST or G_SIGNAL_RUN_LAST.
+			-- class_closure : 	The closure to invoke on signal emission.
+			-- accumulator : 	the accumulator for this signal; may be NULL.
+			-- accu_data : 	user data for the accumulator.
+			-- c_marshaller : 	the function to translate arrays of parameter values to signal emissions into C language callback invocations.
+			-- return_type : 	the type of return value, or G_TYPE_NONE for a signal without a return value.
+			-- n_params : 	the length of param_types.
+			-- param_types : 	an array types, one for each parameter.
+			-- Returns : 	the signal id
+			signal_id := g_signal_newv (a_name.to_external, a_gobject.type,
+		end
+			
+	-- g_signal_new_valist is unwrappable since it uses va_list
 
--- guint       g_signal_new_valist             (const gchar *signal_name,
---                                              GType itype,
---                                              GSignalFlags signal_flags,
---                                              GClosure *class_closure,
---                                              GSignalAccumulator accumulator,
---                                              gpointer accu_data,
---                                              GSignalCMarshaller c_marshaller,
---                                              GType return_type,
---                                              guint n_params,
---                                              va_list args);
-
--- Creates a new signal. (This is usually done in the class initializer.)
-
--- See g_signal_new() for details on allowed signal names.
--- signal_name : 	the name for the signal
--- itype : 	the type this signal pertains to. It will also pertain to types which are derived from this type.
--- signal_flags : 	a combination of GSignalFlags specifying detail of when the default handler is to be invoked. You should at least specify G_SIGNAL_RUN_FIRST or G_SIGNAL_RUN_LAST.
--- class_closure : 	The closure to invoke on signal emission.
--- accumulator : 	the accumulator for this signal; may be NULL.
--- accu_data : 	user data for the accumulator.
--- c_marshaller : 	the function to translate arrays of parameter values to signal emissions into C language callback invocations.
--- return_type : 	the type of return value, or G_TYPE_NONE for a signal without a return value.
--- n_params : 	the number of parameter types in args.
--- args : 	va_list of GType, one for each parameter.
--- Returns : 	the signal id
-
+	
 	-- g_signal_list_ids ()
 
 -- guint*      g_signal_list_ids               (GType itype,
@@ -657,5 +627,6 @@ feature
 -- Since 2.4
 
 -- [11] Although signals can deal with any kind of instantiatable type, i'm referring to those types as "object types" in the following, simply because that is the context most users will encounter signals in.
-									 end
-									 
+end
+
+

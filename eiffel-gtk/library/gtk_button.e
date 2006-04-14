@@ -17,7 +17,8 @@ class GTK_BUTTON
 
 inherit
 	WRAPPER
-	GTK_BIN redefine make end
+	GTK_BIN -- redefine make end
+insert
 	GTK_BUTTON_EXTERNALS 
 
 		-- Implemented Interfaces GtkButton implements

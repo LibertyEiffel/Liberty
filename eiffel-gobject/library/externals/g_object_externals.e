@@ -311,11 +311,14 @@ feature {NONE} -- External calls
 	-- object : 	a GObject instance.
 	-- G_OBJECT_TYPE()
 
-	-- #define G_OBJECT_TYPE(object)       (G_TYPE_FROM_INSTANCE (object))
+	g_object_type(an_object: POINTER): INTEGER is
+			-- Return the type id of an object.
+			-- object : 	Object to return the type id for.
+			-- Returns : 	Type id of object.
+		external "C macro use  <glib-object.h>"
+		alias "G_OBJECT_TYPE"
+		end
 
-	-- Return the type id of an object.
-	-- object : 	Object to return the type id for.
-	-- Returns : 	Type id of object.
 	-- G_OBJECT_TYPE_NAME()
 
 	-- #define G_OBJECT_TYPE_NAME(object)  (g_type_name (G_OBJECT_TYPE (object)))

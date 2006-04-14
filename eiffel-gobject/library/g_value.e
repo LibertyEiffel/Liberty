@@ -10,7 +10,7 @@ indexing
 class G_VALUE
 
 inherit
-	SHARED_C_STRUCT
+	SHARED_C_STRUCT redefine dispose end
 insert
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
 	G_VALUE_EXTERNALS

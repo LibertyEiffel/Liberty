@@ -19,7 +19,7 @@ creation
 	
 feature 
 	quark: INTEGER_32
-			-- Interal representation. TODO: Shall be instead a
+			-- Integer representation. TODO: Shall be instead a
 			-- NATURAL_32 since in C it's a guint32
 
 	from_string (a_string: STRING) is

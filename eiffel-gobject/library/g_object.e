@@ -41,6 +41,12 @@ feature {NONE} -- Implementation
 			-- gobject.
 		"eiffel-wrapper"
 	
+feature {WRAPPER} -- GObject type system implementation.
+	type: INTEGER is
+		do
+			Result := g_object_type (handle)
+		end
+
 feature -- Disposing
 	dispose is
 			-- Dispise the g_object, calling unref and setting its handle to default_pointer.
