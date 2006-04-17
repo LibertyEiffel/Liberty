@@ -55,27 +55,40 @@ indexing
 			-- they point to go away.
 
 class G_CLOSURE
-inherit
-	SHARED_C_STRUCT
+inherit C_STRUCT undefine make end
 	
-creation make
+creation make, link_to
 
 feature -- Callback
-	callback is 
+	callback (an_object: like object) is 
 			-- The feature that Current G_CLOSURE will execute.
+		require valid_object: an_object /= Void 
 		do
-			-- Note: I'm pretty sure this feature *cannot* be deferred 
-			-- with current release of SmartEiffel
+			-- Note: I'm pretty sure this feature *cannot* be deferred
+			-- with current release of SmartEiffel, since it needs to
+			-- determine the address of this feature when compiled to a C
+			-- function
 		end
 
-feature -- Creation 
-	make  is
+	object: G_OBJECT 
+feature -- Creation
+	link_to (an_object: like object) is
 			-- Creates a new closure which invokes 'callback'
 		
 			-- TODO: add destroy_notify callback support
+		obsolete "This can be rubbish. Paolo 2006-04-17"
+		require valid_object: an_object /= Void 
 		do
-			handle := g_cclosure_new_swap ($callback, default_pointer, -- user data
-													 $Current -- destroy callback
+			-- Note: the following implementation will make the C
+			-- GClosure to call Eiffel's `callback' feature of
+			-- `Current'. We pass the address of callback and of Current,
+			-- which no destroy_callback since the user_data, which is
+			-- actually a pointer to Current is handled by the Eiffel
+			-- garbage collector.
+			object := an_object
+			handle := g_cclosure_new_swap ($callback,
+													 $object, -- as user_data
+													 default_pointer -- i.e.: NULL as destroy callback
 													 )
 			-- g_cclosure_new_swap creates a new closure which invokes
 			-- callback_func with user_data with user_data as the first
@@ -90,9 +103,7 @@ feature -- Creation
 			-- 	callback_func : the function to invoke 
 			-- 	user_data : user data to pass to callback_func 
 			-- 	destroy_data : destroy notify to be called when user_data is no longer used 
-			-- 	Returns : a new GCClosure 
-
-			
+			-- 	Returns : a new GCClosure 			
 		end
 
 
@@ -215,23 +226,26 @@ feature -- Reference counting and memory handling
 feature -- Invoking
 
 	invoke (some_parameters: G_VALUE_ARRAY): G_VALUE is
-			-- 	Invokes the closure, i.e. executes the callback
-			-- 	represented by the closure.
+			-- Invokes the closure, i.e. executes the callback
+			-- represented by the closure.
+
+			-- Heirs of g_closure which will implements callback for more specific
+		require valid_parameters: some_parameters /= Void
 		do
 			create Result.make 
 			g_closure_invoke (handle, Result.handle,
-									some_parameters.count, some.parameters.to_external,
+									some_parameters.count, some_parameters.to_external,
 									default_pointer -- invocation_hint : a context-dependent invocation hint
 									)
+			-- closure : a GClosure return_value : a GValue to store the
+			-- return value. May be NULL if the callback of closure
+			-- doesn't return a value.  n_param_values : the length of
+			-- the param_values array param_values : an array of GValues
+			-- holding the arguments on which to invoke the callback of
+			-- closure --
 
+		end
 
-
--- 	closure : a GClosure 
--- 	return_value : a GValue to store the return value. May be NULL if the callback of closure doesn't return 
--- 							a value. 
--- 	n_param_values : the length of the param_values array 
--- 	param_values : an array of GValues holding the arguments on which to invoke the callback of closure 
--- 	
 
 -- 	--------------------------------------------------------------------------------------------------------
 
@@ -744,7 +758,7 @@ feature -- Invoking
 --  #define g_cclosure_marshal_BOOL__FLAGS
 
 -- 	Another name for g_cclosure_marshal_BOOLEAN__FLAGS().
-feature {NONE} -- size
+feature -- size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GCLosure)"

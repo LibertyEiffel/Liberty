@@ -14,6 +14,9 @@ indexing
 class G_VALUE_ARRAY
 inherit
 	SHARED_C_STRUCT
+		rename make as make_struct 
+		undefine free
+		end
 		-- "insert WRAPPER_FACTORY [G_VALUE]" is not necessary since
 		-- this class is not generic.
 	
@@ -84,7 +87,7 @@ feature -- Array-like features
 			valid_index: an_index.in_range (0,count-1)
 			valid_value: a_value/=Void
 		do
-			handle:=g_value_array_insert(handle,an_index, a_value)
+			handle:=g_value_array_insert(handle,an_index, a_value.handle)
 		ensure number_increased: count = old count + 1
 		end
 
@@ -123,13 +126,6 @@ feature -- Array-like features
 	-- user_data : 	extra data argument provided for compare_func
 	-- Returns : 	the GValueArray passed in as value_array
 
-feature -- Memory handling
-	free is
-			-- Free a GValueArray including its contents.
-		do
-			g_value_array_free (handle)
-		end
-		
 feature {NONE} -- External calls
 	g_value_array_get_nth (a_value_array: POINTER; an_index: INTEGER): POINTER is -- GValue
 		obsolete "an_index is a guint"
@@ -146,8 +142,10 @@ feature {NONE} -- External calls
 		external "C use <glib-object.h>"
 		end
 	
-	g_value_array_free (a_value_array: POINTER) is
+	free (a_value_array: POINTER) is
+			-- Actually it is g_value_array_free
 		external "C use <glib-object.h>"
+		alias "g_value_array_free"
 		end
 	
 	g_value_array_append (a_value_array, a_value: POINTER): POINTER is -- GValueArray

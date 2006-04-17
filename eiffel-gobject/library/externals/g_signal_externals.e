@@ -1,7 +1,7 @@
 indexing
 	descriptio: "External calls for G_SIGNAL"
 
-deferred class G_SIGNAL_EXTERNAL
+deferred class G_SIGNAL_EXTERNALS
 inherit
 	G_SIGNAL_FLAGS
 	G_SIGNAL_MATCH_TYPE
@@ -110,17 +110,31 @@ feature {NONE} -- External calls
 		external "C use <glib-object.h>"
 		ensure positive: Result>=0 -- TODO: Result is actually a gulong!
 		end
-	
--- gulong      g_signal_connect_data           (gpointer instance,
---                                              const gchar *detailed_signal,
---                                              GCallback c_handler,
---                                              gpointer data,
---                                              GClosureNotify destroy_data,
---                                              GConnectFlags connect_flags);
--- gulong      g_signal_connect_closure        (gpointer instance,
---                                              const gchar *detailed_signal,
---                                              GClosure *closure,
---                                              gboolean after);
+
+	g_signal_connect_data (an_instance, a_detailed_signal, c_handler, data, destroy_data: POINTER
+								  connect_flags: INTEGER): INTEGER_64 is
+			-- Result is actually gulong, i.e. a NATURAL_64
+		require
+			valid_instance: an_instance.is_not_null
+			valid_detailed_signal: a_detailed_signal.is_not_null
+			valid_c_handler: c_handler.is_not_null
+			valid_data: data.is_not_null
+			valid_flags: are_valid_signal_flags(connect_flags)
+		external "C use <glib-object.h>"
+		ensure positive: Result>=0 -- TODO: Result is actually a gulong!
+		end
+		
+	g_signal_connect_closure (an_instance, a_detailed_signal, a_closure: POINTER
+									  after: INTEGER): INTEGER_64 is
+			-- Result is actually gulong, i.e. a NATURAL_64
+		require
+			valid_instance: an_instance.is_not_null
+			valid_detailed_signal: a_detailed_signal.is_not_null
+			valid_cclosure: a_closure.is_not_null
+		external "C use <glib-object.h>"
+		ensure positive: Result>=0 -- TODO: Result is actually a gulong!
+		end
+
 -- gulong      g_signal_connect_closure_by_id  (gpointer instance,
 --                                              guint signal_id,
 --                                              GQuark detail,

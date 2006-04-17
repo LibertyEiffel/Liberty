@@ -13,71 +13,24 @@ G_VALUE_EXAMPLE: make
 default -- section of the system
 
 	assertion (all);
-		-- The default level of assertion checking for the system.
-		-- Choose the appropriate value: boost, no, require, ensure,
-		-- invariant, loop, check, all.
-
 	assertion_flat_check (no);
-		-- In flat mode each assertion will be executed in no_check mode.
-		-- This means that while checking assertion, no other assertion will
-		-- be checked. This mode has only sense in assertion modes from
-		-- require to debug.
-
 	debug (no);
-		-- The default debug level for the system.
-		-- Choose yes, no, or any "key" you wish.
-
 	trace (no);
-		-- The default trace mode for the system. Choose yes or no.
-
 	collect (yes);
-		 -- Choose yes here to add garbage collector support to your system.
-		 -- Choose no here to indicate that you don't want the garbage collector
-		 -- to be included in your system; no is the equivalent of the -no_gc
-		 -- flag in traditional command line mode.
-
 	no_style_warning (no);
-		 -- My humble opinion is that you should always write no here.
-		 -- Yes is the equivalent of the -no_style_warning flag in traditional
-		 -- command line mode.
-
 	no_warning (no);
-		 -- My humble opinion is that you should always write no here.
-		 -- Yes is the equivalent of the -no_warning flag in traditional
-		 -- command line mode.
-
 	verbose (no);
-		 -- The equivalent of the -verbose flag. (Also note that the -verbose
-		 -- flag is still accepted in ACE file mode.)
-
 	manifest_string_trace (no);
-		 -- The equivalent of the -manifest_string_trace flag.
-
 	high_memory_compiler (no);	
-		 -- The equivalent of the -high_memory_compiler flag.
-
-	profile (yes);
-		 -- The equivalent of the -profile flag.
-
+	profile (no);
 	relax (yes);
-		 -- The equivalent of the -relax flag.
 
 cluster -- section
--- "../../library/gtk"
---	"../../library/gtk/externals"
-		"../../library/glib"
-		"../../library/glib/core"
-		"../../library/glib/data_types"
-		"../../library/glib/externals"
-		"../../library/glib/fundamentals"
-		"../../library/glib/utilities"
-		"../../library/gobject"
-		"../../library/gobject/externals"
-		"../../library/support"
-		"../../library/"
-		--"../../library/tmp"
+		glib: "../../eiffel-glib/loadpath.se"
+		gobject: "../loadpath.se"
 
 		"."
+
 	-- The cluster section is an ordered list of clusters. Roughly speaking,
 	-- a cluster can be considered as a directory where Eiffel source files
 	-- are to be searched for. Thus, the order of this list of clusters is
@@ -176,11 +129,11 @@ generate -- section
 	-- To decide which C compiler options are to be passed, you need to use
 	-- this keyword as well as a good understanding of your C compiler.
 	-- Update and uncomment the following line:
-	c_compiler_options : "$(pkg-config --cflags gobject-2.0)"
+	c_compiler_options : "$(pkg-config --cflags gtk+-2.0)"
 
 	-- Some options are to be passed only to the linker. Update and uncomment
 	-- the following line:
-	linker_options : "$(pkg-config --libs gobject-2.0)"
+	linker_options : "$(pkg-config --libs gtk+-2.0)"
 
 	-- For the equivalent of the -no_main flag of the traditional command line
 	-- mode, uncomment the following line:

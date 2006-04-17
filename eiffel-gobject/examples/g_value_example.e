@@ -11,11 +11,11 @@ creation make
 feature make is
 		do
 			g_type_init
-			create bool.make_boolean (True)
-			create int.make_integer (-12)
-			create uint.make_natural (23)
-			create real.make_real (23.53)
-			create string.make_string ("Foo")
+			create bool.from_boolean (True)
+			create int.from_integer (-12)
+			create uint.from_natural (23)
+			create real.from_real (23.53)
+			create string.from_string ("Foo")
 			check
 				correct_bool: bool.is_boolean
 				correct_int: int.is_integer

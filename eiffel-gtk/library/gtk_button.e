@@ -20,7 +20,7 @@ inherit
 	GTK_BIN -- redefine make end
 insert
 	GTK_BUTTON_EXTERNALS 
-
+	G_SIGNALS
 		-- Implemented Interfaces GtkButton implements
 		-- AtkImplementorIface.
 		
@@ -418,9 +418,28 @@ feature -- Properties
 -- Since 2.6
 
 feature -- Signals
-			
+	clicked_signal_string: STRING is "clicked"
+	connect_to_clicked_callback (a_callback: CLICKED_CALLBACK) is
+		local handler_id: INTEGER_64
+		do
+			handler_id := g_signal_connect_data (handle,
+															 clicked_signal_string.to_external,
+															 a_callback.handle,
+															 Current.to_pointer,
+															 default_pointer, -- i.e. NULL meaning no GClosureNotify callback
+															 g_connect_swapped -- To invoke the callback with Eiffel object address as first argument
+															 )
+		end
 
--- "activate"  void        user_function      (GtkButton *widget,
+	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+		require valid_procedure: a_procedure /= Void
+		local clicked_callback: CLICKED_CALLBACK
+		do
+			create clicked_callback.make
+			clicked_callback.connect (Current, a_procedure)
+		end
+	
+			-- "activate"  void        user_function      (GtkButton *widget,
 --                                             gpointer   user_data)      : Run first / Action
 -- "clicked"   void        user_function      (GtkButton *button,
 --                                             gpointer   user_data)      : Run first / Action

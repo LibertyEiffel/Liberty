@@ -20,3 +20,5 @@ feature -- setters and getters
 -- guint signal_id; 	The signal id of the signal invoking the callback
 -- GQuark detail; 	The detail passed on for this emission
 -- GSignalFlags run_type; 	The stage the signal emission is currently in, this field will contain one of G_SIGNAL_RUN_FIRST, G_SIGNAL_RUN_LAST or G_SIGNAL_RUN_CLEANUP.
+end
+

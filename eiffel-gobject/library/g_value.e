@@ -25,7 +25,8 @@ feature {NONE} -- Creation
 	make is
 			-- Create a undefined GValue.
 		do
-			handle := malloc_g_value
+			handle := g_value_init(malloc_g_value, g_type_invalid)
+		ensure not is_valid
 		end
 	
 	make_boolean is
@@ -137,11 +138,16 @@ feature {ANY}
 		end
 
 	type: INTEGER is
-			-- GType of Current value (actually an INTEGER).
+			-- GType numerical value
 		do
 			Result := g_value_type (handle)
 		end
 
+	is_valid: BOOLEAN is
+		do
+			Result := (type /= g_type_invalid)
+		end
+	
 feature {ANY} -- Boolean
 	is_boolean: BOOLEAN is
 			-- Is current value a boolean?
@@ -312,12 +318,12 @@ feature {ANY} -- Pointer
 	-- g_param_spec_* ()
 
 	
-feature -- size
+feature 
 	size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValue)"
 		end
-	
+
 feature 	{NONE} -- Disposing
 	dispose is
 		do

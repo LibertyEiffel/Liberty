@@ -2,7 +2,6 @@ class MY_BUTTON
 inherit GTK_BUTTON redefine with_label end
 creation make,with_label
 feature
-	--foo is
 	foo (my_handle: POINTER) is
 		do
 			print ("clicked signal with my-button%N")

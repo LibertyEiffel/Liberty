@@ -4,7 +4,7 @@ indexing
 	
 class G_SIGNALS
 inherit WRAPPER
-insert G_SIGNAL_EXTERNAL
+insert G_SIGNAL_EXTERNALS
 feature
 
 	query (an_id: INTEGER): G_SIGNAL_QUERY is
