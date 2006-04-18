@@ -62,6 +62,7 @@
 		-- * Because of the floating reference count, you don't need to worry about
 		-- reference counting for widgets and toplevel windows, unless you explicitly
 		-- call g_object_ref() yourself.
+
 indexing
 	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
@@ -122,19 +123,30 @@ feature -- Signals
 	-- object : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 
-	-- connect_to_destroy_signal (a_callback:
-	-- 		FUNCTION[TUPLE[GTK_OBJECT],INTEGER]) is obsolete "use
-	-- 		DESTROY_CALLBACK! Work In Progress: currectly it doesn't
-	-- 		connect `a_callback' but invokes the fixed
-	-- 		`destroy_callback' special feature."  local
-	-- 		destroy_command: DESTROY_CALLBACK do create
-	-- 		destroy_command.make (Current) end
+	connect_agent_to_destroy_signal (a_procedure: PROCEDURE[TUPLE[GTK_OBJECT]]) is
+			-- Connect `a_procedure' but invokes the fixed
+			-- 		`destroy_callback' special feature."  local
+			-- 		destroy_command: DESTROY_CALLBACK do create
+			-- 		destroy_command.make (Current) end
+		local destroy_callback: DESTROY_CALLBACK
+		do
+			create destroy_callback.make_and_connect_to (Current, a_procedure)
+			-- The above is just a shorter version of 
+			-- create destroy_callback.make
+			-- destroy_callback.connect (Current, a_procedure)
+		end
+	
+	-- TODO: implement a enable_on_destroy and on_destroy
 
--- 	connect_to_destroy_signal (a_procedure: PROCEDURE) is
--- 		do
--- 			connect (Current, destroy_signal_name, $a_procedure)
--- 		end
-			
+	enable_on_destroy is
+		do
+			connect (Current, destroy_signal_name, $on_destroy)
+		end
+
+	on_destroy is
+		deferred
+		end
+		
 feature {NONE} -- Signal names
 	destroy_signal_name: STRING is "destroy"
 end

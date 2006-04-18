@@ -53,10 +53,13 @@ feature
 	connect (an_object: G_OBJECT;
 				a_signal_name: STRING;
 				a_function_pointer: POINTER) is
-			-- Connects `a function' callback to a signal named
+			-- Directly connect `a_function' to the signal named
 			-- `a_signal_name' for `an_object' (i.e. when `an_object'
 			-- emits `a_signal_name' `a_function_pointer' will be called)
-		obsolete "See also CALLBACK class"
+
+			-- Note: this function must be always called in this way:
+			-- connect(Current,"my-signal",$a_feature_of_current). If you
+			-- need a more flexible approach you can use CALLBACKs.
 		require
 			valid_object: an_object /= Void
 			valid_signal_name: a_signal_name /= Void
