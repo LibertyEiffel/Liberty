@@ -38,6 +38,7 @@ feature {NONE} -- Creation
 			-- the button, use `add' (of GTK_CONTAINER)
 		do
 			handle := gtk_button_new 
+			store_eiffel_wrapper
 		end
 
 	with_label (a_label: STRING) is
@@ -46,6 +47,7 @@ feature {NONE} -- Creation
 		require valid_label: a_label/=Void
 		do
 			handle := gtk_button_new_with_label (a_label.to_external)
+			store_eiffel_wrapper
 		end
 	
 	with_mnemonic (a_label: STRING) is
@@ -58,6 +60,7 @@ feature {NONE} -- Creation
 		require valid_label: a_label/=Void
 		do
 			handle := gtk_button_new_with_mnemonic (a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 	from_stock (a_stock: STRING) is
@@ -72,6 +75,7 @@ feature {NONE} -- Creation
 			valid_stock: True -- TODO
 		do
 			handle :=  gtk_button_new_from_stock (a_stock.to_external)
+			store_eiffel_wrapper
 		end
 
 feature 
@@ -418,17 +422,16 @@ feature -- Properties
 -- Since 2.6
 
 feature -- Signals
-	clicked_signal_string: STRING is "clicked"
-	connect_to_clicked_callback (a_callback: CLICKED_CALLBACK) is
-		local handler_id: INTEGER_64
+	clicked_signal_name: STRING is "clicked"
+	enable_on_clicked is
+			-- Connects "clicked" signal to `on_clicked' feature.
 		do
-			handler_id := g_signal_connect_data (handle,
-															 clicked_signal_string.to_external,
-															 a_callback.handle,
-															 Current.to_pointer,
-															 default_pointer, -- i.e. NULL meaning no GClosureNotify callback
-															 g_connect_swapped -- To invoke the callback with Eiffel object address as first argument
-															 )
+			connect (Current, clicked_signal_name, $on_clicked)
+		end
+
+	on_clicked is
+			-- Built-in clicked signal handler; empty by design; redefine it.
+		do
 		end
 
 	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is

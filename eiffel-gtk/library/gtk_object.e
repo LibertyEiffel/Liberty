@@ -130,7 +130,8 @@ feature -- Signals
 			-- 		destroy_command.make (Current) end
 		local destroy_callback: DESTROY_CALLBACK
 		do
-			create destroy_callback.make_and_connect_to (Current, a_procedure)
+			create destroy_callback.make
+			destroy_callback.connect (Current, a_procedure)
 			-- The above is just a shorter version of 
 			-- create destroy_callback.make
 			-- destroy_callback.connect (Current, a_procedure)

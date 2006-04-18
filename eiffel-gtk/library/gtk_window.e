@@ -20,6 +20,7 @@ feature {NONE} -- Creation
 			-- a frame by default
 		do
 			handle := gtk_window_new (gtk_window_toplevel)
+			store_eiffel_wrapper
 		end
 
 feature

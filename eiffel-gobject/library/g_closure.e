@@ -60,7 +60,7 @@ inherit C_STRUCT undefine make end
 creation make, link_to
 
 feature -- Callback
-	callback (instance,user_data: POINTER) is -- (an_object: like object) is 
+	callback (instance: POINTER) is  
 			-- The feature that Current G_CLOSURE will execute.
 			-- require valid_object: an_object /= Void 
 		do
@@ -70,7 +70,8 @@ feature -- Callback
 			-- function
 		end
 
-	object: G_OBJECT 
+	object: G_OBJECT
+	
 feature -- Creation
 	link_to (an_object: like object) is
 			-- Creates a new closure which invokes 'callback'

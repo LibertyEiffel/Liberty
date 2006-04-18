@@ -24,6 +24,7 @@ insert
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
 	G_OBJECT_EXTERNALS
 	G_VALUE_EXTERNALS
+	SHARED_EIFFEL_KEY
 	
 feature 
 	store_eiffel_wrapper is
@@ -32,15 +33,17 @@ feature
 			-- wrapper object when a C feature returns a generic object
 			-- (i.e. the preview widget set in GTK_FILE_CHOOSER). 
 		do
-			set_data (eiffel_key_label, Current)
+			set_qdata (eiffel_key, Current)
 		end
-	
-feature {NONE} -- Implementation
-	eiffel_key_label: STRING is
-			-- The key used to store a pointer to Current into the underlying
-			-- gobject.
-		"eiffel-wrapper"
-	
+
+	is_eiffel_wrapper_stored: BOOLEAN is
+			-- Has a pointer to the Current Eiffel wrapper been stored
+			-- into the underlying GObject's qdata property with the
+			-- GQuark `eiffel_key' (which is currently "eiffel-wrapper")?
+		do
+			Result := has_qdata (eiffel_key)
+		end
+
 feature {WRAPPER} -- GObject type system implementation.
 	type: INTEGER is
 		do
@@ -114,44 +117,87 @@ feature -- Properties
 			g_object_thaw_notify (handle)
 		end
 
-	get_data (key: STRING): ANY is
+	get_data (a_key: STRING): ANY is
 			-- Gets a named field from the objects table of associations (see
-			-- set_data).  `key': name of the key for that association; Void if no
-			-- `key' field is present
+			-- set_data).  `a_key': name of the key for that association; Void if no
+			-- `a_key' field is present
+		require valid_key: a_key /= Void
 		local ptr: POINTER
 		do
 			-- Note: wrappers that needs to store C pointers and do other low-level
 			-- stuff are invited to use g_object_get_data directly
 			-- Note: Perhaps it is better to use GQuarks and g_object_get_qdata
-			ptr := g_object_get_data (handle, key.to_external)
+			ptr := g_object_get_data (handle, a_key.to_external)
 			if ptr.is_not_null then Result:=ptr.to_any end
 		end
 	
-	set_data (key: STRING; data: ANY) is
-			-- Store a reference to `data' under the name `key'. Each object
+	set_data (a_key: STRING; data: ANY) is
+			-- Store a reference to `data' under the name `a_key'. Each object
 			-- carries around a table of associations from strings to pointers. If
 			-- the object already had an association with that name, the old
 			-- association will be destroyed.
 
-			-- key : 	name of the key
+			-- a_key : 	name of the key
+			-- data : 	data to associate with that key
+		require
+			valid_key: a_key /= Void
+			data_not_expanded: not data.is_expanded_type
+		do
+			-- Note: a_key is not duplicated since g_object_set_data requires a const
+			-- gchar *;
+			g_object_set_data (handle,a_key.to_external, data.to_pointer)
+		end
+
+	steal_data (a_key: STRING): ANY is
+			-- Remove a specified datum from the object's data associations, --
+			-- without invoking the association's destroy handler. Void if there's
+			-- no data with `a_key'
+		require valid_key: a_key /= Void
+		local ptr: POINTER
+		do
+			ptr := g_object_steal_data (handle, a_key.to_external)
+			if ptr.is_not_null then Result:=ptr.to_any end
+		end
+
+feature -- Quark-based data storing and retrieving
+	has_qdata (a_key: G_QUARK): BOOLEAN is
+			-- Is `a_key' field present in table of associations (see
+			-- set_qdata)? `a_key': a GQuark, naming the user data
+			-- pointer
+		do
+			Result := (g_object_get_qdata (handle, a_key.quark).is_not_null)
+		end
+
+	get_qdata (a_key: G_QUARK): ANY is
+			-- Gets a named field from the objects table of associations (see
+			-- set_data). `a_key': a GQuark, naming the user data pointer; Void if no
+			-- `a_key' field is present
+		local ptr: POINTER
+		do
+			-- Note: wrappers that needs to store C pointers and do other low-level
+			-- stuff are invited to use g_object_get_data directly
+			-- Note: Perhaps it is better to use GQuarks and g_object_get_qdata
+			ptr := g_object_get_qdata (handle, a_key.quark)
+			if ptr.is_not_null then Result:=ptr.to_any end
+		ensure 
+			result_not_expanded: not Result.is_expanded_type
+		end
+	
+	set_qdata (a_key: G_QUARK; data: ANY) is
+			-- Store a reference to `data' under the GQuark `a_key'. Each object
+			-- carries around a table of associations from strings to pointers. If
+			-- the object already had an association with that name, the old
+			-- association will be destroyed.
+
+			-- a_key : 	name of the key
 			-- data : 	data to associate with that key
 		require
 			data_not_expanded: not data.is_expanded_type
 		do
-			-- Note: key is not duplicated since g_object_set_data requires a const
-			-- gchar *;
-			g_object_set_data (handle,key.to_external, data.to_pointer)
+			g_object_set_qdata (handle,a_key.quark, data.to_pointer)
 		end
 
-	steal_data (key: STRING): ANY is
-			-- Remove a specified datum from the object's data associations, --
-			-- without invoking the association's destroy handler. Void if there's
-			-- no data with `key'
-		local ptr: POINTER
-		do
-			ptr := g_object_steal_data (handle, key.to_external)
-			if ptr.is_not_null then Result:=ptr.to_any end
-		end
+feature -- Property getter/setter
 
 	set_property (property_name: STRING; a_value: G_VALUE) is
 			-- Sets a `property_name' property on Current object to `a_value'
@@ -167,5 +213,8 @@ feature -- Properties
 			g_object_get_property (handle,property_name.to_external,ptr)
 			create Result.from_external_pointer (ptr)
 		end
+	
+-- These invariant fail somehow. TODO: discover why. Paolo 2006-04-18
+	--eiffel_wrapper_is_stored: is_eiffel_wrapper_stored = True
 end
 

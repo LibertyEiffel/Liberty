@@ -755,27 +755,29 @@ feature {NONE} -- External calls
 	
 	-- g_object_get_qdata ()
 
-	-- gpointer    g_object_get_qdata              (GObject *object,
-	--                                              GQuark quark);
-
-	-- This function gets back user data pointers stored via g_object_set_qdata().
-	-- object : 	The GObject to get a stored user data pointer from
-	-- quark : 	A GQuark, naming the user data pointer
-	-- Returns : 	The user data pointer set, or NULL
-		-- external "C use <glib-object.h>"
-		-- end
-	-- g_object_set_qdata ()
-
-	-- void        g_object_set_qdata              (GObject *object,
-	--                                              GQuark quark,
-	--                                              gpointer data);
-
-	-- This sets an opaque, named pointer on an object. The name is specified through a GQuark (retrived e.g. via g_quark_from_static_string()), and the pointer can be gotten back from the object with g_object_get_qdata() until the object is finalized. Setting a previously set user data pointer, overrides (frees) the old pointer set, using NULL as pointer essentially removes the data stored.
-	-- object : 	The GObject to set store a user data pointer
-	-- quark : 	A GQuark, naming the user data pointer
-	-- data : 	An opaque user data pointer
-		-- external "C use <glib-object.h>"
-		-- end
+	g_object_get_qdata (a_object: POINTER; a_quark: INTEGER_32): POINTER is
+			-- This function gets back user data pointers stored via g_object_set_qdata().
+			-- object : 	The GObject to get a stored user data pointer from
+			-- quark : 	A GQuark, naming the user data pointer
+			-- Returns : 	The user data pointer set, or NULL
+		external "C use <glib-object.h>"
+		end
+	
+	g_object_set_qdata (an_object: POINTER; a_quark: INTEGER_32; some_data: POINTER) is
+			-- This sets an opaque, named pointer on an object. The name
+			-- is specified through a GQuark (retrived e.g. via
+			-- g_quark_from_static_string()), and the pointer can be
+			-- gotten back from the object with g_object_get_qdata()
+			-- until the object is finalized. Setting a previously set
+			-- user data pointer, overrides (frees) the old pointer set,
+			-- using NULL as pointer essentially removes the data stored.
+		
+			-- object : 	The GObject to set store a user data pointer
+			-- quark : 	A GQuark, naming the user data pointer
+			-- data : 	An opaque user data pointer
+		external "C use <glib-object.h>"
+		end
+	
 	-- g_object_set_qdata_full ()
 
 	-- void        g_object_set_qdata_full         (GObject *object,

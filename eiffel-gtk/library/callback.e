@@ -8,15 +8,20 @@ indexing
 	
 deferred class CALLBACK
 inherit G_CLOSURE
+insert G_SIGNAL_EXTERNALS
 
 feature
 	make is
 		do
+			-- Using the _swap version is the key here. When the callback
+			-- is invoked the first parameter of the C function will be
+			-- the address of Eiffel's Current
 			handle := g_cclosure_new_swap ($callback,
 													 Current.to_pointer, -- as user_data
 													 default_pointer -- i.e.: NULL as destroy callback
 													 )
 		end
+	
 	signal_name: STRING is
 			-- The name of the signal that Current callback will connect to.
 		deferred

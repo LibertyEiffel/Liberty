@@ -39,7 +39,7 @@ feature
 			-- the window
 	title: STRING is "Wow my first Eiffel window!"
 			-- window title
-	button: GTK_BUTTON -- MY_BUTTON
+	button: MY_BUTTON
 			-- the button
 	label: STRING is "Hello world from eiffel-gtk!"
 			-- button's label
