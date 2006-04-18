@@ -6,8 +6,7 @@ feature {NONE}
 	make is
 		do
 			Precursor
-			--create destroy_callback.make(Current, agent on_destroy)
-			connect (Current, "destroy", $on_destroy)
+			enable_on_destroy
 		end
 
 feature -- callback

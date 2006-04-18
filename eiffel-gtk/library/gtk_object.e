@@ -139,6 +139,7 @@ feature -- Signals
 	-- TODO: implement a enable_on_destroy and on_destroy
 
 	enable_on_destroy is
+			-- Connects "destroy" signal to `on_destroy' feature.
 		do
 			connect (Current, destroy_signal_name, $on_destroy)
 		end
