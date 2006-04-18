@@ -23,7 +23,7 @@ default -- section of the system
 		-- be checked. This mode has only sense in assertion modes from
 		-- require to debug.
 
-	debug (no);
+	debug (yes);
 		-- The default debug level for the system.
 		-- Choose yes, no, or any "key" you wish.
 
