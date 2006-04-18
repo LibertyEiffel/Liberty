@@ -32,11 +32,11 @@ feature {NONE} -- Creation
 		do
 			handle := g_value_array_new (n_prealloced);
 		end
-
+feature -- Duplication
 	copy (a_source: like Current) is
 			-- Construct an exact copy of a GValueArray by duplicating
 			-- all its contents.
-		require valid_source: a_source /= Void
+		require else valid_source: a_source /= Void
 		do
 			handle := g_value_array_copy (a_source.handle)
 		end
@@ -128,12 +128,12 @@ feature -- Array-like features
 
 feature {NONE} -- External calls
 	g_value_array_get_nth (a_value_array: POINTER; an_index: INTEGER): POINTER is -- GValue
-		obsolete "an_index is a guint"
+			-- Note: an_index is a guint, a NATURAL
 		external "C use <glib-object.h>"
 		end
 
 	g_value_array_new (n_prealloced: INTEGER): POINTER is -- GValueArray
-		obsolete "n_prealloced is a guint"
+			-- Note: n_prealloced is a guint, a NATURAL
 		external "C use <glib-object.h>"
 		end
 	
@@ -157,7 +157,7 @@ feature {NONE} -- External calls
 		end
 
 	g_value_array_insert (a_value_array: POINTER; an_index: INTEGER; a_value: POINTER): POINTER is -- GValueArray
-		obsolete "an_index is a guint"
+			-- Note: an_index is a guint, a NATURAL
 		external "C use <glib-object.h>"
 		end
 
@@ -189,7 +189,7 @@ feature {NONE} -- GValueArray struct
 		external "C struct get values use <glib-object.h>"
 		end
 	
-feature {NONE} -- size
+feature -- Size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GValueArray)"

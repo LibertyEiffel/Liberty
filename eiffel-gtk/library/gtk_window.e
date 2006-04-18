@@ -7,7 +7,7 @@ indexing
 class GTK_WINDOW
 
 inherit
-	GTK_BIN undefine make redefine make end
+	GTK_BIN 
 	GTK_WINDOW_EXTERNALS
 	GTK_WINDOW_TYPE
 

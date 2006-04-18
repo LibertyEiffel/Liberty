@@ -60,9 +60,9 @@ inherit C_STRUCT undefine make end
 creation make, link_to
 
 feature -- Callback
-	callback (an_object: like object) is 
+	callback (instance,user_data: POINTER) is -- (an_object: like object) is 
 			-- The feature that Current G_CLOSURE will execute.
-		require valid_object: an_object /= Void 
+			-- require valid_object: an_object /= Void 
 		do
 			-- Note: I'm pretty sure this feature *cannot* be deferred
 			-- with current release of SmartEiffel, since it needs to
@@ -833,7 +833,7 @@ feature {NONE} -- Externals
 		end
 
 	g_closure_new_object (sizeof_closure: INTEGER; an_object: POINTER): POINTER is -- GClosure
-		obsolete "sizeof_closure is a guint"
+		-- Note: sizeof_closure is a guint/NATURAL
 		external "C use <glib-object.h>"
 		end
 
@@ -850,7 +850,7 @@ feature {NONE} -- Externals
 		end
 	
 	g_closure_invoke (a_closure, a_return_value: POINTER; n_param_values: INTEGER; const_gvalue_param_values, invocation_hint: POINTER) is
-		obsolete "n_param_values is guint"
+		 -- Note: n_param_values is guint, i.e. a NATURAL
 		external "C use <glib-object.h>"
 		end
 	
@@ -875,7 +875,7 @@ feature {NONE} -- Externals
 		end
 	
 	g_closure_new_simple (sizeof_closure: INTEGER; data: POINTER): POINTER is -- GClosure
-		obsolete "sizeof_closure is a guint"
+		-- Note sizeof_closure is a guint/NATURAL
 		external "C use <glib-object.h>"
 		end
 	
@@ -908,21 +908,21 @@ feature {NONE} -- Externals
 
 	g_cclosure_marshal_void__void (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
 											 const_gvalue_param_values, invocation_hint, marshal_data: POINTER) is
-		obsolete "n_param_values is a guint"
+		-- Note: n_param_values is a guint/NATURAL
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__VOID"
 		end
 	
 	g_cclosure_marshal_void__boolean	(a_closure, a_return_value: POINTER; n_param_values: INTEGER;
 												 const_gvalue_param_values, invocation_hint, marshal_data: POINTER) is
-		obsolete "n_param_values is a guint"
+		-- Note: n_param_values is a guint/NATURAL
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__BOOLEAN"
 		end
 	
 	g_cclosure_marshal_void__char (a_closure, a_return_value: POINTER; n_param_values: INTEGER;
 											 const_gvalue_param_values, invocation_hint, marshal_data: POINTER) is
-		obsolete "n_param_values is a guint"
+		-- Note: n_param_values is a guint/NATURAL
 		external "C use <glib-object.h>"
 		alias "g_cclosure_marshal_VOID__CHAR"
 		end

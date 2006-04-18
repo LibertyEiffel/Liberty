@@ -26,7 +26,7 @@ feature {NONE} -- Creation
 			-- Create a undefined GValue.
 		do
 			handle := g_value_init(malloc_g_value, g_type_invalid)
-		ensure not is_valid
+		ensure then not is_valid
 		end
 	
 	make_boolean is

@@ -8,23 +8,35 @@ indexing
 class CLICKED_CALLBACK
 inherit
 	CALLBACK
-		redefine object, callback
+		rename object as button
+		redefine button, callback
 		end
 insert G_SIGNAL_EXTERNALS
 creation make, connect
 feature
-	object: GTK_OBJECT
+	button: GTK_BUTTON
 
 feature
-	callback (a_button: GTK_BUTTON) is
+	callback (instance,user_data: POINTER) is --  a_button: GTK_BUTTON) is
 		do
 			-- Empty by design.
-			print ("FOO%N")
-			procedure.call ([a_button])
+			print ("Callback: instance=") print (instance.to_string)
+			print (" user_data=") print (user_data.to_string)
+			print ("%N")
+			create button.from_external_pointer (instance)
+			procedure.call ([button])
 		end
 
 	connect (a_button: GTK_BUTTON; a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
 		do
+			debug
+				print ("CLICKED_CALLBACK.connect (a_button=") print (a_button.to_pointer.to_string)
+				print (" a_button.handle=") print (a_button.handle.to_string)
+				print (") Current=") print (to_pointer.to_string)
+				print (" Current.handle=") print (handle.to_string)
+				print ("%N")
+			end
+					 
 			handler_id := g_signal_connect_closure (a_button.handle,
 																 signal_name.to_external,
 																 handle,

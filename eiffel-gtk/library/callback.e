@@ -7,10 +7,7 @@ indexing
 
 	
 deferred class CALLBACK
-inherit
-	G_CLOSURE
-		redefine make
-		end
+inherit G_CLOSURE
 
 feature
 	make is
