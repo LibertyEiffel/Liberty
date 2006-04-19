@@ -263,7 +263,7 @@ feature -- Alignment
 		end
 
 	
-	-- Property Details
+feature -- Property Details
 	-- The "activates-default" property
 	
 	--   "activates-default"    gboolean              : Read / Write
@@ -363,35 +363,81 @@ feature -- Alignment
 
 -- Since 2.4
 -- Signal Details
--- The "activate" signal
+feature -- The "activate" signal
+	activate_signal_name: STRING is "activate"
 
--- void        user_function                  (GtkEntry *entry,
---                                             gpointer  user_data)      : Run last / Action
+	on_activate is
+			-- Built-in activate signal handler; empty by design; redefine it.
+		do
+		end
 
--- entry : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "backspace" signal
+	enable_on_activate is
+			-- Connects "activate" signal to `on_activate' feature.
+		do
+			connect (Current, activate_signal_name, $on_activate)
+		end
 
--- void        user_function                  (GtkEntry *entry,
---                                             gpointer  user_data)      : Run last / Action
+	-- TODO: implement connect_agent_to_activate_signal (a_procedure:
+	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- inspiration.
 
--- entry : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "copy-clipboard" signal
+feature -- The "backspace" signal
+	backspace_signal_name: STRING is "backspace"
 
--- void        user_function                  (GtkEntry *entry,
---                                             gpointer  user_data)      : Run last / Action
+	on_backspace is
+			-- Built-in backspace signal handler; empty by design; redefine it.
+		local a_foo: INTEGER
+		do
+			a_foo := 12 -- Dummy instructions
+		end
 
--- entry : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "cut-clipboard" signal
+	enable_on_backspace is
+			-- Connects "backspace" signal to `on_backspace' feature.
+		do
+			connect (Current, backspace_signal_name, $on_backspace)
+		end
 
--- void        user_function                  (GtkEntry *entry,
---                                             gpointer  user_data)      : Run last / Action
+	-- TODO: implement connect_agent_to_backspace_signal (a_procedure:
+	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- inspiration.
+	
+feature -- The "copy-clipboard" signal
+	copy_clipboard_signal_name: STRING is "copy-clipboard"
 
--- entry : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "delete-from-cursor" signal
+	on_copy_clipboard is
+			-- Built-in copy-clipboard signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_copy_clipboard is
+			-- Connects "copy_clipboard" signal to `on_copy_clipboard' feature.
+		do
+			connect (Current, copy_clipboard_signal_name, $on_copy_clipboard)
+		end
+
+	-- TODO: implement connect_agent_to_backspace_signal (a_procedure:
+	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- inspiration.
+
+feature -- The "cut-clipboard" signal
+	cut_clipboard_signal_name: STRING is "cut-clipboard"
+
+	on_cut_clipboard is
+			-- Built-in cut_clipboard signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_cut_clipboard is
+			-- Connects "cut_clipboard" signal to `on_cut_clipboard' feature.
+		do
+			connect (Current, cut_clipboard_signal_name, $on_cut_clipboard)
+		end
+
+	-- TODO: implement connect_agent_to_cut_clipboard_signal (a_procedure:
+	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- inspiration.
+
+feature -- The "delete-from-cursor" signal
 
 -- void        user_function                  (GtkEntry     *entry,
 --                                             GtkDeleteType arg1,
@@ -402,7 +448,7 @@ feature -- Alignment
 -- arg1 : 	
 -- arg2 : 	
 -- user_data : 	user data set when the signal handler was connected.
--- The "insert-at-cursor" signal
+feature -- The "insert-at-cursor" signal
 
 -- void        user_function                  (GtkEntry *entry,
 --                                             gchar    *arg1,
@@ -410,8 +456,9 @@ feature -- Alignment
 
 -- entry : 	the object which received the signal.
 -- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "move-cursor" signal
+	-- user_data : 	user data set when the signal handler was connected.
+	
+feature -- The "move-cursor" signal
 
 -- void        user_function                  (GtkEntry       *entry,
 --                                             GtkMovementStep arg1,
@@ -424,14 +471,26 @@ feature -- Alignment
 -- arg2 : 	
 -- arg3 : 	
 -- user_data : 	user data set when the signal handler was connected.
--- The "paste-clipboard" signal
 
--- void        user_function                  (GtkEntry *entry,
---                                             gpointer  user_data)      : Run last / Action
+feature -- The "paste-clipboard" signal
+	paste_clipboard_signal_name: STRING is "paste-clipboard"
 
--- entry : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "populate-popup" signal
+	on_paste_clipboard is
+			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_paste_clipboard is
+			-- Connects "paste-clipboard" signal to `on_paste_clipboard' feature.
+		do
+			connect (Current, paste_clipboard_signal_name, $on_paste_clipboard)
+		end
+
+	-- TODO: implement connect_agent_to_paste_clipboard_signal (a_procedure:
+	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- inspiration.
+
+feature -- The "populate-popup" signal
 
 -- void        user_function                  (GtkEntry *entry,
 --                                             GtkMenu  *arg1,
@@ -447,10 +506,4 @@ feature -- Alignment
 
 -- entry : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
--- See Also
-
--- GtkTextView 	
-
--- a widget for handling multi-line text entry.
-
 end
