@@ -1,14 +1,13 @@
 indexing
-	description: "Generic callback for the clicked signal"
+	description: "Generic callback for the activate signal"
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"
 	
-class CLICKED_CALLBACK
+class ACTIVATE_CALLBACK
 inherit
 	CALLBACK
-		-- rename object as button
 		redefine object, callback
 		end
 creation make 
@@ -27,7 +26,7 @@ feature
 	connect (an_object: GTK_BUTTON; a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
 		do
 			debug
-				print ("CLICKED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
+				print ("ACTIVATE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
 				print (" an_object.handle=") print (an_object.handle.to_string)
 				print (") Current=") print (to_pointer.to_string)
 				print (" Current.handle=") print (handle.to_string)
@@ -42,7 +41,7 @@ feature
 			procedure:=a_procedure
 		end
 
-		signal_name: STRING is "clicked"
+		signal_name: STRING is "activate"
 
 	procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]
 end

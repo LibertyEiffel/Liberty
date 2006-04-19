@@ -421,18 +421,59 @@ feature -- Properties
 
 -- Since 2.6
 
-feature -- Signals
+feature -- The "activate" signal
+	activate_signal_name: STRING is "activate"
+	enable_on_activate is
+			-- Connects "activate" signal to `on_activate' feature.
+		do
+			connect (Current, activate_signal_name, $on_activate)
+		end
+
+	on_activate is
+			-- Built-in activate signal handler; empty by design; redefine it.
+
+			-- The "activate" signal on GtkButton is an action signal and
+			-- emitting it causes the button to animate press then
+			-- release. Applications should never connect to this signal,
+			-- but use the "activate" signal.
+		
+		do
+		end
+
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+		require valid_procedure: a_procedure /= Void
+		local activate_callback: ACTIVATE_CALLBACK
+		do
+			create activate_callback.make
+			activate_callback.connect (Current, a_procedure)
+		end
+
+feature -- The "clicked" signal
+-- button : 	the object that received the signal
+-- user_data : 	user data set when the signal handler was connected.
+
 	clicked_signal_name: STRING is "clicked"
+
+	on_clicked is
+			-- Built-in clicked signal handler; empty by design; redefine it.
+		local a_foo: INTEGER
+		do
+			a_foo := 12 -- Dummy instructions
+		end
+
 	enable_on_clicked is
 			-- Connects "clicked" signal to `on_clicked' feature.
+
+			-- Emitted when the button has been activated (pressed and released).
+		
+			-- Emitted when a button clicked on by the mouse and the
+			-- cursor stays on the button. If the cursor is not on the
+			-- button when the mouse button is released, the signal is
+			-- not emitted.
 		do
 			connect (Current, clicked_signal_name, $on_clicked)
 		end
 
-	on_clicked is
-			-- Built-in clicked signal handler; empty by design; redefine it.
-		do
-		end
 
 	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
 		require valid_procedure: a_procedure /= Void
@@ -441,89 +482,6 @@ feature -- Signals
 			create clicked_callback.make
 			clicked_callback.connect (Current, a_procedure)
 		end
-	
-			-- "activate"  void        user_function      (GtkButton *widget,
---                                             gpointer   user_data)      : Run first / Action
--- "clicked"   void        user_function      (GtkButton *button,
---                                             gpointer   user_data)      : Run first / Action
--- "enter"     void        user_function      (GtkButton *button,
---                                             gpointer   user_data)      : Run first
--- "leave"     void        user_function      (GtkButton *button,
---                                             gpointer   user_data)      : Run first
--- "pressed"   void        user_function      (GtkButton *button,
---                                             gpointer   user_data)      : Run first
--- "released"  void        user_function      (GtkButton *button,
---                                             gpointer   user_data)      : Run first
-
-	-- Signal Details
--- The "activate" signal
-
--- void        user_function                  (GtkButton *widget,
---                                             gpointer   user_data)      : Run first / Action
-
--- The "activate" signal on GtkButton is an action signal and emitting it causes the button to animate press then release. Applications should never connect to this signal, but use the "clicked" signal.
-
--- widget : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "clicked" signal
-
--- void        user_function                  (GtkButton *button,
---                                             gpointer   user_data)      : Run first / Action
-
--- Emitted when the button has been activated (pressed and released).
-
--- Emitted when a button clicked on by the mouse and the cursor stays on the button. If the cursor is not on the button when the mouse button is released, the signal is not emitted.
--- button : 	the object that received the signal
--- user_data : 	user data set when the signal handler was connected.
--- The "enter" signal
-
--- void        user_function                  (GtkButton *button,
---                                             gpointer   user_data)      : Run first
-
--- Emitted when the pointer enters the button.
-
--- Deprecated: Use the GtkWidget::enter-notify-event signal.
-
--- Emitted when the mouse cursor enters the region of the button.
--- button : 	the object that received the signal
--- user_data : 	user data set when the signal handler was connected.
--- The "leave" signal
-
--- void        user_function                  (GtkButton *button,
---                                             gpointer   user_data)      : Run first
-
--- Emitted when the pointer leaves the button.
-
--- Deprecated: Use the GtkWidget::leave-notify-event signal.
-
--- Emitted when the mouse cursor leaves the region of the button.
--- button : 	the object that received the signal
--- user_data : 	user data set when the signal handler was connected.
--- The "pressed" signal
-
--- void        user_function                  (GtkButton *button,
---                                             gpointer   user_data)      : Run first
-
--- Emitted when the button is pressed.
-
--- Deprecated: Use the GtkWidget::button-press-event signal.
-
--- Emitted when the button is initially pressed.
--- button : 	the object that received the signal
--- user_data : 	user data set when the signal handler was connected.
--- The "released" signal
-
--- void        user_function                  (GtkButton *button,
---                                             gpointer   user_data)      : Run first
-
--- Emitted when the button is released.
-
--- Deprecated: Use the GtkWidget::button-release-event signal.
-
--- Emitted when a button which is pressed is released, no matter where the mouse cursor is.
--- button : 	the object that received the signal
--- user_data : 	user data set when the signal handler was connected.
-
 end
 
 	
