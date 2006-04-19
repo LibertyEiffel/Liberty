@@ -21,8 +21,11 @@ indexing
 class GTK_ENTRY_COMPLETION
 inherit
 	G_OBJECT redefine make end
-	GTK_ENTRY_COMPLETION_EXTERNALS
 		-- GtkEntryCompletion implements GtkCellLayout.
+insert
+	GTK_ENTRY_COMPLETION_EXTERNALS
+	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
+	
 creation make, from_external_pointer
 feature {NONE} -- Creation
 
@@ -52,14 +55,15 @@ feature
 	unset_model is
 			-- Unsets the model for GtkEntryCompletion. 
 		do
-			gtk_entry_completion_set_model  (handle, Null)
+			gtk_entry_completion_set_model  (handle, default_pointer)
 		end
 
 	model: GTK_TREE_MODEL is
 			-- the model the GtkEntryCompletion is using as data source
 		require is_model_set
 		do
-			create Result.from_external_pointer (gtk_entry_completion_get_model (handle))
+			Result := (retrieve_eiffel_wrapper_from_gobject_pointer
+						  (gtk_entry_completion_get_model (handle)))
 		end
 	
 	is_model_set: BOOLEAN is

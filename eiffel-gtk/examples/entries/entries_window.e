@@ -8,7 +8,7 @@ feature make is
 		do
 			Precursor
 			check is_entries_window_a_g_object: g_is_object (handle) /= 0 end
-			set_title (once "Entries demo")
+			set_title (title_string)
 			midscreen
 			create vbox.make (True,10)
 			create entry_box.make (True,10)
@@ -38,9 +38,10 @@ feature make is
 			real_spin_box.pack_start_defaults (real_spin_label)
 			real_spin_box.pack_start_defaults (real_spin)
 
-			connect (Current, "destroy", $on_destroy)
+			enable_on_destroy
 		end
-
+feature -- labels
+	title_string: STRING is "Entries demo"
 feature -- Widgets
 	vbox: GTK_VBOX
 	entry_box, integer_spin_box, real_spin_box: GTK_HBOX
@@ -49,7 +50,7 @@ feature -- Widgets
 	integer_spin: INTEGER_SPIN
 	real_spin: REAL_SPIN
 	
-feature {NONE} -- Callbacks
+feature -- Callbacks
 	on_destroy is
 		do
 			print ("Entries demo ending%N")

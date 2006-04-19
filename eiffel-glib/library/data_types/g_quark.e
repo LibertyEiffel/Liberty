@@ -6,11 +6,8 @@ indexing
 	revision "$REvision:$"
 	
 expanded class G_QUARK
-	
-inherit
-	G_QUARK_EXTERNALS
-
-	ANY redefine is_equal end
+inherit ANY  redefine is_equal end	
+insert G_QUARK_EXTERNALS undefine is_equal end
 	
 creation
 	default_create,

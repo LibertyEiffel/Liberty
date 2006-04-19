@@ -27,7 +27,7 @@ feature -- Editing
 			-- editing was initiated through programatic means.
 		do
 			if a_gdkevent=Void
-			then gtk_cell_editable_start_editing (handle, Null)
+			then gtk_cell_editable_start_editing (handle, default_pointer)
 			else gtk_cell_editable_start_editing (handle, a_gdkevent.handle)
 			end
 		end

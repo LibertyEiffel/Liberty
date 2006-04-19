@@ -136,7 +136,7 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_spin_button_get_update_policy (a_spin_button: POINTER;) is
+	gtk_spin_button_get_update_policy (a_spin_button: POINTER): INTEGER is
 		require valid_spin_button: a_spin_button.is_not_null
 		external "C use <gtk/gtk.h>"
 		end

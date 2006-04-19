@@ -208,7 +208,7 @@ feature -- update policy
 			-- Is the value displayed only if it is valid within the bounds of the
 			-- spin button's GtkAdjustment? 
 		do
-			Result:=(gtk_spin_button_set_update_policy (handle)=gtk_update_if_valid)
+			Result:=(gtk_spin_button_get_update_policy (handle)=gtk_update_if_valid)
 		end
 
 
@@ -258,7 +258,7 @@ feature -- Wrapping
 	unset_wrap is
 			-- Unset wrapping. See `set_wrap'
 		do
-			gtk_spin_button_set_wrap (handle, 1)
+			gtk_spin_button_set_wrap (handle, 0)
 		end
 
 	is_wrap_set: BOOLEAN is
