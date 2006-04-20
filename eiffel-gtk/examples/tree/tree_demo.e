@@ -29,9 +29,8 @@ feature
 			iter: GTK_TREE_ITER
 		once 
 			create Result.make (<<g_type_string, g_type_uint>>)
-			-- TODO: change design to remove explicit reference to
-			-- g_type_*; it's ugly, or better it feels mostly unEiffelish
-			-- to me. Paolo 2005-06-01
+			-- TODO: change design to remove explicit reference to g_type_*; it's
+			-- ugly, or better it feels mostly unEiffelish to me. Paolo 2005-06-01
 			
 			-- Append three rows and fill in some data
 			create iter.make_from_model (Result)
@@ -47,6 +46,11 @@ feature
 			Result.append (iter)
 			Result.set_string (iter, name_column_n, "Andreas Leitner")
 			Result.set_natural (iter, age_column_n, 31)
+
+			print ("Model's count: "+iter.toplevel_nodes_count.out+"%N")
+			check
+				corrent_number_of_elements: iter.toplevel_nodes_count = 3
+			end
 		end
 
 	renderer: GTK_CELL_RENDERER
@@ -90,12 +94,12 @@ feature {NONE}  -- Creation
 		do
 			initialize_gtk
 						
-				-- Create a GTK window toplevel window
+			-- Create a GTK window toplevel window
 			create window.make
 			window.set_title (window_title)
 
 			-- It is a good idea to do this for all windows
-			print("TODO: window.connect_destroy_signal_receiver_agent (agent on_destroy)%N")
+			window.connect_agent_to_destroy_signal (agent on_destroy)
 
 			view.show
 			window.add (view)
@@ -144,7 +148,7 @@ feature -- Agents
 			print ("Using GTK_TREE_MODEL.for_each to print its content:%N")
 			print ("TODO: in tree_demo on_destroy model.for_each (agent print_person)%N")
 			print ("If GTK_TREE_MODEL.for_each is implemented correctly you should see above each person's name and age.%N")
-			-- TODO: Uncomment this!!! gtk_main.quit_main_loop
+			gtk_quit
 		end
 
 	print_person (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER): BOOLEAN is

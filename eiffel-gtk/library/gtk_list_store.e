@@ -6,64 +6,68 @@ indexing
 	revision: "$Revision:$"
 	notes: "GTK_LIST_STORE has some features that are deliberately similar to COLLECTION's" 
 	
--- Description 
+			-- Description 
 
--- The GtkListStore object is a list model for use with a GtkTreeView widget. It implements the GtkTreeModel interface, and consequentialy, can use all of the methods available there. It also implements the GtkTreeSortable interface so it can be sorted by the view. Finally, it also implements the tree drag and drop interfaces.
+			-- The GtkListStore object is a list model for use with a GtkTreeView
+			-- widget. It implements the GtkTreeModel interface, and
+			-- consequentialy, can use all of the methods available there. It also
+			-- implements the GtkTreeSortable interface so it can be sorted by the
+			-- view. Finally, it also implements the tree drag and drop interfaces.
 
--- The GtkListStore can accept most GObject types as a column type, though it can't accept all custom types. Internally, it will keep a copy of data passed in (such as a string or a boxed pointer). Columns that accept GObjects are handled a little differently. The GtkListStore will keep a reference to the object instead of copying the value. As a result, if the object is modified, it is up to the application writer to call gtk_tree_model_row_changed to emit the "row_changed" signal. This most commonly affects lists with GdkPixbufs stored.
+			-- The GtkListStore can accept most GObject types as a column type,
+			-- though it can't accept all custom types. Internally, it will keep a
+			-- copy of data passed in (such as a string or a boxed
+			-- pointer). Columns that accept GObjects are handled a little
+			-- differently. The GtkListStore will keep a reference to the object
+			-- instead of copying the value. As a result, if the object is
+			-- modified, it is up to the application writer to call
+			-- gtk_tree_model_row_changed to emit the "row_changed" signal. This
+			-- most commonly affects lists with GdkPixbufs stored.
 
--- Example 5. Creating a simple list store. TODO: Eiffelize this example
+			-- Example 5. Creating a simple list store. TODO: Eiffelize this example
 
--- enum {
---   COLUMN_STRING,
---   COLUMN_INT,
---   COLUMN_BOOLEAN,
---   N_COLUMNS
--- };
+			-- enum { COLUMN_STRING, COLUMN_INT, COLUMN_BOOLEAN, N_COLUMNS };
 
--- {
---   GtkListStore *list_store;
---   GtkTreePath *path;
---   GtkTreeIter iter;
---   gint i;
+			-- {
+			--   GtkListStore *list_store;
+			--   GtkTreePath *path;
+			--   GtkTreeIter iter;
+			--   gint i;
+	
+			-- list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING,
+			--                                    G_TYPE_INT, G_TYPE_BOOLEAN);
+	
+			--   for (i = 0; i < 10; i++) {
+			--       gchar *some_data;
+	
+			--       some_data = get_some_data (i);
+	
+			--       /* Add a new row to the model */
+			--       gtk_list_store_append (list_store, &iter);
+			--       gtk_list_store_set (list_store, &iter,
+			--                           COLUMN_STRING, some_data,
+			--                           COLUMN_INT, i,
+			--                           COLUMN_BOOLEAN,  FALSE,
+			--                           -1);
+	
+			--       /* As the store will keep a copy of the string internally, we
+			--        * free some_data.
+			--        */
+			--       g_free (some_data);
+			--     }
 
---   list_store = gtk_list_store_new (N_COLUMNS,
---                                    G_TYPE_STRING,
---                                    G_TYPE_INT,
---                                    G_TYPE_BOOLEAN);
+			--   /* Modify a particular row */
+			--   path = gtk_tree_path_new_from_string ("4");
+			--   gtk_tree_model_get_iter (GTK_TREE_MODEL (list_store),
+			--                            &iter,
+			--                            path);
+			--   gtk_tree_path_free (path);
+			--   gtk_list_store_set (list_store, &iter,
+			--                       COLUMN_BOOLEAN, TRUE,
+			--                       -1);
+			-- }
 
---   for (i = 0; i < 10; i++)
---     {
---       gchar *some_data;
-
---       some_data = get_some_data (i);
-
---       /* Add a new row to the model */
---       gtk_list_store_append (list_store, &iter);
---       gtk_list_store_set (list_store, &iter,
---                           COLUMN_STRING, some_data,
---                           COLUMN_INT, i,
---                           COLUMN_BOOLEAN,  FALSE,
---                           -1);
-
---       /* As the store will keep a copy of the string internally, we
---        * free some_data.
---        */
---       g_free (some_data);
---     }
-
---   /* Modify a particular row */
---   path = gtk_tree_path_new_from_string ("4");
---   gtk_tree_model_get_iter (GTK_TREE_MODEL (list_store),
---                            &iter,
---                            path);
---   gtk_tree_path_free (path);
---   gtk_list_store_set (list_store, &iter,
---                       COLUMN_BOOLEAN, TRUE,
---                       -1);
--- }
-
--- Performance Considerations
+			-- Performance Considerations
 
 			-- Internally, the GtkListStore was implemented with a linked list
 			-- with a tail pointer prior to GTK+ 2.6. As a result, it was fast at
@@ -73,7 +77,6 @@ indexing
 			-- exists. Thus, if access to a particular row is needed often and
 			-- your code is expected to run on older versions of GTK+, it is worth
 			-- keeping the iter around.
-
 	
 class GTK_LIST_STORE
 inherit
@@ -89,68 +92,73 @@ creation make
 feature {NONE} -- Creation
 
 	make (some_columns: ARRAY[INTEGER]) is
-		-- Creates a new list store. `some_columns' is a list of
-		-- integers; each integer is the G_TYPE of an actual
-		-- column. Note that only types derived from standard GObject
-		-- fundamental types are supported.
+			-- Creates a new list store. `some_columns' is a list of integers; each
+			-- integer is the G_TYPE of an actual column. Note that only types
+			-- derived from standard GObject fundamental types are supported.
 	
-		-- As an example, make (<<g_type_int, g_type_string,
-		-- gdk_type_pixbuf>>) will create a new GtkListStore with three
-		-- columns, of type int, string and GdkPixbuf respectively.
-
-		-- TODO: make this more eiffelish
-
-		-- Note: ARRAY seems to be the more general class
-		-- that fits the task. Feel free to change it. Paolo 2006-02-22
+			-- As an example, make (<<g_type_int, g_type_string, gdk_type_pixbuf>>)
+			-- will create a new GtkListStore with three columns, of type int,
+			-- string and GdkPixbuf respectively.
+		
+			-- TODO: make this more eiffelish
+		
+			-- Note: ARRAY seems to be the more general class that fits the
+			-- task. Feel free to change it. Paolo 2006-02-22
 		do
 			handle := gtk_list_store_newv (some_columns.count, some_columns.to_external)
 		end
 
 feature {NONE} -- Unwrapped code
 	
--- gtk_list_store_set_column_types ()
+	-- gtk_list_store_set_column_types ()
+	
+	-- void gtk_list_store_set_column_types (GtkListStore *list_store, gint
+	-- n_columns, GType *types);
+	
+	-- This function is meant primarily for GObjects that inherit from
+	-- GtkListStore, and should only be used when constructing a new
+	-- GtkListStore. It will not function after a row has been added, or a method
+	-- on the GtkTreeModel interface is called.
 
--- void        gtk_list_store_set_column_types (GtkListStore *list_store,
---                                              gint n_columns,
---                                              GType *types);
+	-- list_store : 	A GtkListStore
+	-- n_columns : 	Number of columns for the list store
+	-- types : 	An array length n of GTypes
+	
+	-- gtk_list_store_set ()
 
--- This function is meant primarily for GObjects that inherit from GtkListStore, and should only be used when constructing a new GtkListStore. It will not function after a row has been added, or a method on the GtkTreeModel interface is called.
+	-- void gtk_list_store_set (GtkListStore *list_store, GtkTreeIter *iter,
+	-- ...);
 
--- list_store : 	A GtkListStore
--- n_columns : 	Number of columns for the list store
--- types : 	An array length n of GTypes
--- gtk_list_store_set ()
+	-- Sets the value of one or more cells in the row referenced by iter. The
+	-- variable argument list should contain integer column numbers, each column
+	-- number followed by the value to be set. The list is terminated by a
+	-- -1. For example, to set column 0 with type G_TYPE_STRING to "Foo", you
+	-- would write gtk_list_store_set (store, iter, 0, "Foo", -1).
 
--- void        gtk_list_store_set              (GtkListStore *list_store,
---                                              GtkTreeIter *iter,
---                                              ...);
+	-- list_store : 	a GtkListStore
+	-- iter : 	row iterator
+	-- ... : 	pairs of column number and value, terminated with -1
+	
+	-- gtk_list_store_set_valist ()
+	
+	-- void gtk_list_store_set_valist (GtkListStore *list_store, GtkTreeIter
+	-- *iter, va_list var_args);
 
--- Sets the value of one or more cells in the row referenced by iter. The variable argument list should contain integer column numbers, each column number followed by the value to be set. The list is terminated by a -1. For example, to set column 0 with type G_TYPE_STRING to "Foo", you would write gtk_list_store_set (store, iter, 0, "Foo", -1).
+	-- See gtk_list_store_set(); this version takes a va_list for use by language
+	-- bindings.
 
--- list_store : 	a GtkListStore
--- iter : 	row iterator
--- ... : 	pairs of column number and value, terminated with -1
--- gtk_list_store_set_valist ()
-
--- void        gtk_list_store_set_valist       (GtkListStore *list_store,
---                                              GtkTreeIter *iter,
---                                              va_list var_args);
-
--- See gtk_list_store_set(); this version takes a va_list for use by language bindings.
-
--- list_store : 	A GtkListStore
--- iter : 	A valid GtkTreeIter for the row being modified
+	-- list_store : 	A GtkListStore
+	-- iter : 	A valid GtkTreeIter for the row being modified
 	-- var_args : 	va_list of column/value pairs
 
 feature -- Easy to use setters
 	
-	-- Note: wrapping gtk_list_store_set is problematic since it's a
-	-- variadic function but also its not-variadic variant
-	-- (gtk_list_store_set_valist) is not easy to use from within
-	-- ewg-wrapped libraries since currently it's not easy/possible to
-	-- wrap va_list-using functions. Using the plain
-	-- gtk_list_store_set_value can be an answer but I haven't checked
-	-- its performance (2005-05-16 Paolo)
+	-- Note: wrapping gtk_list_store_set is problematic since it's a variadic
+	-- function but also its not-variadic variant (gtk_list_store_set_valist) is
+	-- not easy to use from within ewg-wrapped libraries since currently it's not
+	-- easy/possible to wrap va_list-using functions. Using the plain
+	-- gtk_list_store_set_value can be an answer but I haven't checked its
+	-- performance (2005-05-16 Paolo)
 
 	set_string (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_string: STRING) is
 		require
@@ -204,21 +212,20 @@ feature -- Easy to use setters
 			create a_value.from_boolean (a_boolean)
 			set_value (an_iterator, a_column, a_value)
 		end
-feature -- Setter
-	
+
+feature -- Generic setter
 	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
 			-- Sets the data in the cell specified by `an_iterator' and
-			-- `a_column'. The type of `a_value' must be convertible to
-			-- the type of the column.
+			-- `a_column'. The type of `a_value' must be convertible to the type of
+			-- the column.
 		
-			-- `an_iterator': 	A valid GtkTreeIter for the row being modified
-			-- `a_column' : 	column number to modify
-			-- `a_value' : 	new value for the cell
+			-- `an_iterator': A valid GtkTreeIter for the row being modified
+			-- `a_column' : column number to modify
+			-- `a_value' : new value for the cell
 		require
 			valid_iterator: an_iterator/=Void
-			valid_value: a_value /= Void -- and then Eiffelize "The type
-			-- of `a_value' must be convertible to the type of the
-			-- column."
+			valid_value: a_value /= Void -- and then Eiffelize "The type of
+			-- `a_value' must be convertible to the type of the column."
 		do
 			gtk_list_store_set_value (handle, an_iterator.handle, a_column, a_value.handle)
 		end
@@ -227,10 +234,10 @@ feature -- Setter
 			-- Is the last iterator passed as an argument still valid?
 	
 	remove (an_iterator: GTK_TREE_ITER) is
-			-- Removes the given row from the list store. After being
-			-- removed, `an_iterator' is set to be the next valid row, or
-			-- invalidated if it pointed to the last row in the list
-			-- store; in this case `is_last_iterator_valid' will be False
+			-- Removes the given row from the list store. After being removed,
+			-- `an_iterator' is set to be the next valid row, or invalidated if it
+			-- pointed to the last row in the list store; in this case
+			-- `is_last_iterator_valid' will be False
 		require
 			valid_iterator: an_iterator/=Void
 		do
@@ -326,40 +333,37 @@ feature -- Setter
 	-- gtk_list_store_insert_with_values() should generally be
 	-- preferred when inserting rows in a sorted list store.
 
--- list_store : 	A GtkListStore
--- iter : 	An unset GtkTreeIter to set to the new row
--- position : 	position to insert the new row
--- ... : 	pairs of column number and value, terminated with -1
+	-- list_store : 	A GtkListStore
+	-- iter : 	An unset GtkTreeIter to set to the new row
+	-- position : 	position to insert the new row
+	-- ... : 	pairs of column number and value, terminated with -1
 
 
 	insert_with_values (an_iterator: GTK_TREE_ITER;
 							  a_position: INTEGER;
 							  some_columns: ARRAY[INTEGER];
 							  some_values: ARRAY[G_VALUE]) is
-			-- Creates a new row at `a_position'. `an_iterator' will be
-			-- changed to point to this new row. If position is larger
-			-- than the number of rows on the list, then the new row will
-			-- be appended to the list. The row will be filled with the
-			-- values given to this function.
-
-			-- `insert_with_values' has the same effect as calling `put'
-			-- (known as insert in C) and `set_values' with the
-			-- difference that the former will only emit a row_inserted
-			-- signal, while the latter will emit row_inserted,
-			-- row_changed and, if the list store is sorted,
-			-- rows_reordered. Since emitting the rows_reordered signal
-			-- repeatedly can affect the performance of the program,
-			-- insert_with_values should generally be preferred when
-			-- inserting rows in a sorted list store.
+			-- Creates a new row at `a_position'. `an_iterator' will be changed to
+			-- point to this new row. If position is larger than the number of rows
+			-- on the list, then the new row will be appended to the list. The row
+			-- will be filled with the values given to this function.
+		
+			-- `insert_with_values' has the same effect as calling `put' (known as
+			-- insert in C) and `set_values' with the difference that the former
+			-- will only emit a row_inserted signal, while the latter will emit
+			-- row_inserted, row_changed and, if the list store is sorted,
+			-- rows_reordered. Since emitting the rows_reordered signal repeatedly
+			-- can affect the performance of the program, insert_with_values should
+			-- generally be preferred when inserting rows in a sorted list store.
 
 			-- `some_columns' contains the column numbers; each column
 			-- will be set with the corresponding value in `some_values'
 		require columns_n_equals_values_n: some_columns.count = some_values.count
 		do
-			-- Uses a variant of gtk_list_store_insert_with_values()
-			-- which takes the columns and values as two arrays, instead
-			-- of varargs. This function is mainly intended for
-			-- language-bindings. (PS Paolo: No, I couldn't believe it!)
+			-- Uses a variant of gtk_list_store_insert_with_values() which takes
+			-- the columns and values as two arrays, instead of varargs. This
+			-- function is mainly intended for language-bindings. (PS Paolo: No, I
+			-- couldn't believe it!)
 			
 			-- list_store : 	A GtkListStore
 			-- iter : 	An unset GtkTreeIter to set to the new row
@@ -368,9 +372,14 @@ feature -- Setter
 			-- TODO: some_values.to_external is an array of pointers to the Eiffel wrappers!!!
 			gtk_list_store_insert_with_valuesv (handle, an_iterator.handle,
 															a_position,
-															some_columns.to_external, -- gint *columns an array of column numbers
-															some_values.to_external, -- GValue *values an array of GValues
-															some_values.count -- gint n_values the length of the columns and values arrays
+															-- gint *columns an array of column numbers
+															some_columns.to_external,
+															-- GValue *values an array of
+															-- GValues
+															some_values.to_external,
+															-- gint n_values the length of the
+															-- columns and values arrays
+															some_values.count 
 															)
 		end
 
@@ -387,12 +396,12 @@ feature -- Setter
 		end
 
 	append  (an_iterator: GTK_TREE_ITER) is
-			-- Append a new row. `an_iterator' will be changed to
-			-- point to this new row. The row will be empty after this
-			-- function is called. To fill in values, you need to call
-			-- `set_values'
+			-- Append a new row. `an_iterator' will be changed to point to this new
+			-- row. The row will be empty after this function is called. To fill in
+			-- values, you need to call `set_values'
 		
-			-- TODO: C documentation says that `an_iterator` shall be unset. Is it true?
+			-- TODO: C documentation says that `an_iterator` shall be unset. Is it
+			-- true?
 		require valid_iterator: an_iterator/=Void
 		do
 			gtk_list_store_append  (handle, an_iterator.handle)
@@ -405,7 +414,7 @@ feature -- Setter
 		end
 
 	is_iterator_valid (an_iterator: GTK_TREE_ITER): BOOLEAN is
-			-- Is `an_iterator0 valid for Current GtkListStore?
+			-- Is `an_iterator' valid for Current GtkListStore?
 
 			-- Warning: this query is slow. Only use it for debugging
 			-- and/or testing purposes.
@@ -492,6 +501,6 @@ feature
 		obsolete "GTK_LIST_STORE.is_sorted implementation missing. Returning False"
 		do
 			Result := False
+		ensure implemented: False
 		end
-	
 end

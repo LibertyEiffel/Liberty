@@ -4,28 +4,85 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
--- Description
 
--- The GtkTreeModel interface defines a generic tree interface for use by the GtkTreeView widget. It is an abstract interface, and is designed to be usable with any appropriate data structure. The programmer just has to implement this interface on their own data type for it to be viewable by a GtkTreeView widget.
+			-- Description
 
--- The model is represented as a hierarchical tree of strongly-typed, columned data. In other words, the model can be seen as a tree where every node has different values depending on which column is being queried. The type of data found in a column is determined by using the GType system (ie. G_TYPE_INT, GTK_TYPE_BUTTON, G_TYPE_POINTER, etc.). The types are homogeneous per column across all nodes. It is important to note that this interface only provides a way of examining a model and observing changes. The implementation of each individual model decides how and if changes are made.
+			-- The GtkTreeModel interface defines a generic tree interface for use
+			-- by the GtkTreeView widget. It is an abstract interface, and is
+			-- designed to be usable with any appropriate data structure. The
+			-- programmer just has to implement this interface on their own data
+			-- type for it to be viewable by a GtkTreeView widget.
 
--- In order to make life simpler for programmers who do not need to write their own specialized model, two generic models are provided %GÅ‚Äî%@ the GtkTreeStore and the GtkListStore. To use these, the developer simply pushes data into these models as necessary. These models provide the data structure as well as all appropriate tree interfaces. As a result, implementing drag and drop, sorting, and storing data is trivial. For the vast majority of trees and lists, these two models are sufficient.
+			-- The model is represented as a hierarchical tree of strongly-typed,
+			-- columned data. In other words, the model can be seen as a tree where
+			-- every node has different values depending on which column is being
+			-- queried. The type of data found in a column is determined by using
+			-- the GType system (ie. G_TYPE_INT, GTK_TYPE_BUTTON, G_TYPE_POINTER,
+			-- etc.). The types are homogeneous per column across all nodes. It is
+			-- important to note that this interface only provides a way of
+			-- examining a model and observing changes. The implementation of each
+			-- individual model decides how and if changes are made.
 
--- Models are accessed on a node/column level of granularity. One can query for the value of a model at a certain node and a certain column on that node. There are two structures used to reference a particular node in a model. They are the GtkTreePath and the GtkTreeIter [4] Most of the interface consists of operations on a GtkTreeIter.
+			-- In order to make life simpler for programmers who do not need to
+			-- write their own specialized model, two generic models are provided:
+			-- the GtkTreeStore and the GtkListStore. To use these, the developer
+			-- simply pushes data into these models as necessary. These models
+			-- provide the data structure as well as all appropriate tree
+			-- interfaces. As a result, implementing drag and drop, sorting, and
+			-- storing data is trivial. For the vast majority of trees and lists,
+			-- these two models are sufficient.
 
--- A path is essentially a potential node. It is a location on a model that may or may not actually correspond to a node on a specific model. The GtkTreePath struct can be converted into either an array of unsigned integers or a string. The string form is a list of numbers separated by a colon. Each number refers to the offset at that level. Thus, the path í°»0í°… refers to the root node and the path í°»2:4í°… refers to the fifth child of the third node.
+			-- Models are accessed on a node/column level of granularity. One can
+			-- query for the value of a model at a certain node and a certain
+			-- column on that node. There are two structures used to reference a
+			-- particular node in a model. They are the GtkTreePath and the
+			-- GtkTreeIter [4] Most of the interface consists of operations on a
+			-- GtkTreeIter.
 
--- By contrast, a GtkTreeIter is a reference to a specific node on a specific model. It is a generic struct with an integer and three generic pointers. These are filled in by the model in a model-specific way. One can convert a path to an iterator by calling gtk_tree_model_get_iter(). These iterators are the primary way of accessing a model and are similar to the iterators used by GtkTextBuffer. They are generally statically allocated on the stack and only used for a short time. The model interface defines a set of operations using them for navigating the model.
+			-- A path is essentially a potential node. It is a location on a model
+			-- that may or may not actually correspond to a node on a specific
+			-- model. The GtkTreePath struct can be converted into either an array
+			-- of unsigned integers or a string. The string form is a list of
+			-- numbers separated by a colon. Each number refers to the offset at
+			-- that level. Thus, the path 0: refers to the
+			-- root node and the path í°»2:4í°… refers to the
+			-- fifth child of the third node.
 
--- It is expected that models fill in the iterator with private data. For example, the GtkListStore model, which is internally a simple linked list, stores a list node in one of the pointers. The GtkTreeModelSort stores an array and an offset in two of the pointers. Additionally, there is an integer field. This field is generally filled with a unique stamp per model. This stamp is for catching errors resulting from using invalid iterators with a model.
+			-- By contrast, a GtkTreeIter is a reference to a specific node on a
+			-- specific model. It is a generic struct with an integer and three
+			-- generic pointers. These are filled in by the model in a
+			-- model-specific way. One can convert a path to an iterator by calling
+			-- gtk_tree_model_get_iter(). These iterators are the primary way of
+			-- accessing a model and are similar to the iterators used by
+			-- GtkTextBuffer. They are generally statically allocated on the stack
+			-- and only used for a short time. The model interface defines a set of
+			-- operations using them for navigating the model.
 
--- The lifecycle of an iterator can be a little confusing at first. Iterators are expected to always be valid for as long as the model is unchanged (and doesn't emit a signal). The model is considered to own all outstanding iterators and nothing needs to be done to free them from the user's point of view. Additionally, some models guarantee that an iterator is valid for as long as the node it refers to is valid (most notably the GtkTreeStore and GtkListStore). Although generally uninteresting, as one always has to allow for the case where iterators do not persist beyond a signal, some very important performance enhancements were made in the sort model. As a result, the GTK_TREE_MODEL_ITERS_PERSIST flag was added to indicate this behavior.
+			-- It is expected that models fill in the iterator with private
+			-- data. For example, the GtkListStore model, which is internally a
+			-- simple linked list, stores a list node in one of the pointers. The
+			-- GtkTreeModelSort stores an array and an offset in two of the
+			-- pointers. Additionally, there is an integer field. This field is
+			-- generally filled with a unique stamp per model. This stamp is for
+			-- catching errors resulting from using invalid iterators with a model.
+
+			-- The lifecycle of an iterator can be a little confusing at
+			-- first. Iterators are expected to always be valid for as long as the
+			-- model is unchanged (and doesn't emit a signal). The model is
+			-- considered to own all outstanding iterators and nothing needs to be
+			-- done to free them from the user's point of view. Additionally, some
+			-- models guarantee that an iterator is valid for as long as the node
+			-- it refers to is valid (most notably the GtkTreeStore and
+			-- GtkListStore). Although generally uninteresting, as one always has
+			-- to allow for the case where iterators do not persist beyond a
+			-- signal, some very important performance enhancements were made in
+			-- the sort model. As a result, the GTK_TREE_MODEL_ITERS_PERSIST flag
+			-- was added to indicate this behavior.
 
 deferred class GTK_TREE_MODEL
 inherit
 
-	--   G_INTERFACE
+	-- G_INTERFACE
 	-- Prerequisites: GtkTreeModel requires GObject.
 	G_OBJECT
 		rename make as undefined_make
@@ -39,7 +96,7 @@ inherit
 		-- Known Implementations: GtkTreeModel is implemented by
 		-- GtkTreeModelSort, GtkTreeStore, GtkListStore and
 		-- GtkTreeModelFilter.
-	
+insert	
 	GTK_TREE_MODEL_EXTERNALS
 	GTK_TREE_MODEL_FLAGS
 feature
