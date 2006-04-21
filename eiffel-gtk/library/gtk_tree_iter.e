@@ -13,13 +13,16 @@ inherit
 insert
 	GTK_TREE_ITER_EXTERNALS rename set_stamp as set_stamp_internal end
 	GTK_TREE_MODEL_EXTERNALS
-		
+	GLIB_MEMORY_ALLOCATION
+	
 creation make, make_from_model, from_model, from_external_pointer
 
 feature -- Creation
 	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
+		obsolete "check if g_malloc0 is required!"
 		require valid_model: a_model/=Void
 		do
+			handle := g_malloc (size) -- Note: Perhaps g_malloc0 is needed!
 			tree_model := a_model
 		end
 
