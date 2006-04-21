@@ -186,29 +186,39 @@ feature
 
 	-- TODO: gtk_tree_model_ref_node ()
 
-	-- void        gtk_tree_model_ref_node         (GtkTreeModel *tree_model,
-	--                                              GtkTreeIter *iter);
+	-- void gtk_tree_model_ref_node (GtkTreeModel *tree_model,
+	-- GtkTreeIter *iter);
 	
-	-- Lets the tree ref the node. This is an optional method for models to implement. To be more specific, models may ignore this call as it exists primarily for performance reasons.
+	-- Lets the tree ref the node. This is an optional method for
+	-- models to implement. To be more specific, models may ignore this
+	-- call as it exists primarily for performance reasons.
 	
-	-- This function is primarily meant as a way for views to let caching model know when nodes are being displayed (and hence, whether or not to cache that node.) For example, a file-system based model would not want to keep the entire file-hierarchy in memory, just the sections that are currently being displayed by every current view.
+	-- This function is primarily meant as a way for views to let
+	-- caching model know when nodes are being displayed (and hence,
+	-- whether or not to cache that node.) For example, a file-system
+	-- based model would not want to keep the entire file-hierarchy in
+	-- memory, just the sections that are currently being displayed by
+	-- every current view.
 	
-	-- A model should be expected to be able to get an iter independent of its reffed state.
+	-- A model should be expected to be able to get an iter independent
+	-- of its reffed state.
 
-	-- tree_model : 	A GtkTreeModel.
-	-- iter : 	The GtkTreeIter.
+	-- tree_model : A GtkTreeModel.  iter : The GtkTreeIter.
 	
 	-- TODO: gtk_tree_model_unref_node ()
 	
-	-- void        gtk_tree_model_unref_node       (GtkTreeModel *tree_model,
-	--                                              GtkTreeIter *iter);
+	-- void gtk_tree_model_unref_node (GtkTreeModel *tree_model,
+	-- GtkTreeIter *iter);
 	
-	-- Lets the tree unref the node. This is an optional method for models to implement. To be more specific, models may ignore this call as it exists primarily for performance reasons.
+	-- Lets the tree unref the node. This is an optional method for
+	-- models to implement. To be more specific, models may ignore this
+	-- call as it exists primarily for performance reasons.
 	
-	-- For more information on what this means, see gtk_tree_model_ref_node(). Please note that nodes that are deleted are not unreffed.
+	-- For more information on what this means, see
+	-- gtk_tree_model_ref_node(). Please note that nodes that are
+	-- deleted are not unreffed.
 	
-	-- tree_model : 	A GtkTreeModel.
-	-- iter : 	The GtkTreeIter.
+	-- tree_model : A GtkTreeModel.  iter : The GtkTreeIter.
 	
 	-- Note: gtk_tree_model_get () is unwrappable. Left here for reference
 	
