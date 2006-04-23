@@ -14,11 +14,7 @@ feature
 
 feature
 	callback (instance: POINTER) is --  
-			obsolete "DESTROY_CALLBACK.callback unimplemented, since it %
-						%requires retriving a live Eiffel object from an %
-						%underlying GObject"
 		do
-			-- Empty by design.
 			print ("Callback: instance=") print (instance.to_string)	print ("%N")
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			check

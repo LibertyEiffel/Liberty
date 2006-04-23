@@ -125,9 +125,7 @@ feature -- Signals
 
 	connect_agent_to_destroy_signal (a_procedure: PROCEDURE[TUPLE[GTK_OBJECT]]) is
 			-- Connect `a_procedure' but invokes the fixed
-			-- 		`destroy_callback' special feature."  local
-			-- 		destroy_command: DESTROY_CALLBACK do create
-			-- 		destroy_command.make (Current) end
+			-- `destroy_callback' special feature."
 		local destroy_callback: DESTROY_CALLBACK
 		do
 			create destroy_callback.make

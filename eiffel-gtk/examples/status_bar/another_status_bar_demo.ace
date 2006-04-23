@@ -1,6 +1,6 @@
-	system "statusbar_demo"
+system "another_status_bar_demo"
 
-root STATUS_BAR_DEMO: make
+root ANOTHER_STATUS_BAR_DEMO: make
 
 default -- section of the system
 	assertion (all); 

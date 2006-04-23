@@ -98,29 +98,24 @@ feature -- selection mode
 		end
 
 	
--- gtk_tree_selection_set_select_function ()
+	set_select_function (a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
+			-- Sets the selection function. If set, this function is
+			-- called before any node is selected or unselected, giving
+			-- some control over which nodes are selected. The select
+			-- function should return TRUE if the state of the node may
+			-- be toggled, and FALSE if the state of the node should be
+			-- left unchanged.
+		local select_callback: GTK_TREE_SELECT_FUNCTION
+		do
+			create select_callback.make (Current, a_function)
+		end
 
--- void        gtk_tree_selection_set_select_function
---                                             (GtkTreeSelection *selection,
---                                              GtkTreeSelectionFunc func,
---                                              gpointer data,
---                                              GtkDestroyNotify destroy);
-
--- Sets the selection function. If set, this function is called before any node is selected or unselected, giving some control over which nodes are selected. The select function should return TRUE if the state of the node may be toggled, and FALSE if the state of the node should be left unchanged.
-
--- selection : 	A GtkTreeSelection.
--- func : 	The selection function.
--- data : 	The selection function's data.
--- destroy : 	The destroy function for user data. May be NULL.
--- gtk_tree_selection_get_user_data ()
-
--- gpointer    gtk_tree_selection_get_user_data
---                                             (GtkTreeSelection *selection);
-
--- Returns the user data for the selection function.
-
--- selection : 	A GtkTreeSelection.
-	-- Returns : 	The user data.
+	-- Note: not wrapping gtk_tree_selection_get_user_data, since it is not useful.
+		
+	-- gpointer gtk_tree_selection_get_user_data (GtkTreeSelection
+	-- *selection); Returns the user data for the selection
+	-- function. selection : A GtkTreeSelection.  Returns : The user
+	-- data.
 
 feature -- View	
 	tree_view: GTK_TREE_VIEW is
@@ -166,7 +161,7 @@ feature -- selections
 
 	selected_rows: G_LIST [GTK_TREE_PATH] is
 		do
-			create Result.from_external_pointer (gtk_tree_selection_get_selected_rows(handle,Null))
+			create Result.from_external_pointer (gtk_tree_selection_get_selected_rows(handle,default_pointer))
 			-- gtk_tree_selection_get_selected_rows Creates a list of
 			-- path of all selected rows. Additionally, if you are
 			-- planning on modifying the model after calling this
@@ -325,5 +320,4 @@ feature -- selections
 -- path : 	The GtkTreePath of a selected row
 -- iter : 	A GtkTreeIter pointing to a selected row
 -- data : 	user data
-
 end

@@ -251,17 +251,20 @@ feature
 	
 	-- Note: unwrappable gtk_tree_model_get_valist since it uses va_list 
 
-	-- TODO: for_each (a_test: PREDICATE[TUPLE[TUPLE 1[E_]]]) is
+	-- TODO: for_each (a_test: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]) is
+-- 			-- Calls func on each node in model in a depth-first
+-- 			-- fashion. If `a_test' returns TRUE, then the tree ceases to
+-- 			-- be walked, and gtk_tree_model_foreach() returns.
 	
--- void        gtk_tree_model_foreach          (GtkTreeModel *model,
-	--                                              GtkTreeModelForeachFunc func,
-	--                                              gpointer user_data);
-	
-	-- Calls func on each node in model in a depth-first fashion. If func returns TRUE, then the tree ceases to be walked, and gtk_tree_model_foreach() returns.
-	
-	-- model : 	A GtkTreeModel
-	-- func : 	A function to be called on each row
-	-- user_data : 	User data to passed to func.
+-- 			-- model : 	A GtkTreeModel
+-- 			-- func : 	A function to be called on each row
+-- 			-- user_data : 	User data to passed to func.
+-- 		local for_each_callback: FOR_EACH_CALLBACK
+-- 		do
+-- 			create for_each_callback.make
+-- 			gtk_tree_model_foreach (handle, GtkTreeModel *model,
+-- 			-- GtkTreeModelForeachFunc func, gpointer user_data);
+-- 		end
 
 
 	row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
@@ -399,12 +402,8 @@ feature -- Signal Details
 -- arg2 : 	
 -- arg3 : 	
 -- user_data : 	user data set when the signal handler was connected.
--- See Also
 
--- GtkTreeView, GtkTreeStore, GtkListStore, GtkTreeDnd, GtkTreeSortable
-
--- [4] Here, iter is short for ’¡Èiterator’¡É
-feature {NONE} -- Moved here from top
+feature {NONE} -- Moved here from top - unwrapped code 
 
 -- GtkTreeModel
 

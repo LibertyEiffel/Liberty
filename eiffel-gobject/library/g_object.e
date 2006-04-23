@@ -52,28 +52,35 @@ feature {WRAPPER} -- GObject type system implementation.
 
 feature -- Disposing
 	dispose is
-			-- Dispise the g_object, calling unref and setting its handle to default_pointer.
+			-- Dispose the g_object, calling unref and setting its handle to default_pointer.
 		
 			-- TODO: once the iusse explained in the debug tense in the implementation is 
 			-- solved put a "require is_a_gobject: g_is_object (handle)" precondition
 		do
 			-- Note: when Eiffel dispose a G_OBJECT it just unref it and
 			-- cleans its handle. The actual reclaiming of the memory
-			-- allocated on the C side is left to gobject runtime.
-			debug
-				if g_is_object (handle) /= 0 then
-					print (once "Eiffel is disposing g_object ") print (generator)
-					print (once " (at ") print (handle.out) print (once ")%N")
-				else
-					print (once "Eiffel is disposing a ") print (generator)
-					print (once " (at ") print (handle.out) print (once "). It's handle is NOT a g_object!%N")
+			-- alloca ted on the C side is left to gobject runtime.
+			if is_g_object then
+				debug
+					print ("Eiffel is disposing g_object ") print (generator)
+					print (" (at ") print (handle.out) print (")%N")
 				end
-
+				unref
+			else
+				debug
+					print ("Eiffel is disposing a ") print (generator)
+					print (" (at ") print (handle.out) print ("). It's handle is NOT a g_object!%N")
+				end
 			end
-			unref
 			handle := default_pointer
 		end
-	
+
+feature {NONE} -- Disposing helper
+	is_g_object: BOOLEAN is
+			-- Is current handle a pointer to a g_object?
+		do
+			Result := (g_is_object (handle) /= 0)
+		end
 feature -- Reference count
 	ref is
 			-- Increases the reference count of object.
@@ -212,8 +219,7 @@ feature -- Property getter/setter
 			ptr := malloc_g_value
 			g_object_get_property (handle,property_name.to_external,ptr)
 			create Result.from_external_pointer (ptr)
-		end
-	
+		end	
 -- These invariant fail somehow. TODO: discover why. Paolo 2006-04-18
 	--eiffel_wrapper_is_stored: is_eiffel_wrapper_stored = True
 end

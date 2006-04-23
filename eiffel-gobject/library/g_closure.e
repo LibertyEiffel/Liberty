@@ -77,7 +77,6 @@ feature -- Creation
 			-- Creates a new closure which invokes 'callback'
 		
 			-- TODO: add destroy_notify callback support
-		obsolete "This can be rubbish. Paolo 2006-04-17"
 		require valid_object: an_object /= Void 
 		do
 			-- Note: the following implementation will make the C
@@ -230,7 +229,8 @@ feature -- Invoking
 			-- Invokes the closure, i.e. executes the callback
 			-- represented by the closure.
 
-			-- Heirs of g_closure which will implements callback for more specific
+			-- Heirs of g_closure which will implements callback for more
+			-- specific closures.
 		require valid_parameters: some_parameters /= Void
 		do
 			create Result.make 

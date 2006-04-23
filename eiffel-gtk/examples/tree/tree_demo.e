@@ -106,7 +106,7 @@ feature {NONE}  -- Creation
 			window.show
 
 			selection := view.selection
-			print ("TODO: uncomment selection.set_select_function (agent on_select)%N")
+			selection.set_select_function (agent on_select)
 			run_gtk_main_loop
 		end
 
@@ -115,6 +115,7 @@ feature
 		require valid_model: model /= Void
 		local iter:  GTK_TREE_ITER
 		do
+			print (view.cursor.out)
 			print ("Iterating over names%N")
 			create iter.make_from_model (model)	  
 			from iter.start

@@ -440,13 +440,21 @@ feature
 														 start_editing.to_integer)
 		end
 
-	-- gtk_tree_view_get_cursor ()
-	
-	-- void        gtk_tree_view_get_cursor        (GtkTreeView *tree_view,
-	--                                              GtkTreePath **path,
-	--                                              GtkTreeViewColumn **focus_column);
-
-	-- Fills in path and focus_column with the current path and focus column. If the cursor isn't currently set, then *path will be NULL. If no column currently has focus, then *focus_column will be NULL.
+	cursor: TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN] is
+			-- The path and focus column with the current path and focus column. If the cursor isn't currently set, then path will be Void. If no column currently has focus, then *focus_column will be NULL.
+		local
+			path_ptr, column_ptr: POINTER;
+			a_path: GTK_TREE_PATH;
+			a_column: GTK_TREE_VIEW_COLUMN
+		do
+			gtk_tree_view_get_cursor (handle, path_ptr.to_pointer, column_ptr.to_pointer)
+			--(GtkTreeView *tree_view, GtkTreePath **path,
+			--GtkTreeViewColumn **focus_column);
+			if path_ptr.is_not_null then create a_path.from_external_pointer (path_ptr) end
+			if column_ptr.is_not_null then create a_column.from_external_pointer (column_ptr) end
+			create Result.make_2 (a_path, a_column)
+		end
+			
 
 	-- The returned GtkTreePath must be freed with gtk_tree_path_free() when you are done with it.
 
