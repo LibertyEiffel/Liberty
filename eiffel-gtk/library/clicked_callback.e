@@ -11,6 +11,9 @@ inherit
 		-- rename object as button
 		redefine object, callback
 		end
+	
+insert G_OBJECT_RETRIEVER [GTK_BUTTON]
+	
 creation make 
 feature
 	object: GTK_BUTTON
@@ -20,7 +23,15 @@ feature
 		do
 			-- Empty by design.
 			print ("Callback: instance=") print (instance.to_string)	print ("%N")
-			create object.from_external_pointer (instance)
+			-- The following is written with the implicit requirement 
+			-- that the button is actually created bu the Eiffel 
+			-- application. 
+			check
+				eiffel_created_the_button: has_eiffel_wrapper_stored (instance)
+			end
+			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			-- The above line replaces "create object.from_external_pointer
+			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])
 		end
 

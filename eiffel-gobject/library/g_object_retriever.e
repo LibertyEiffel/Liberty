@@ -19,6 +19,7 @@ feature
 			pointer_has_stored_wrapper: has_eiffel_wrapper_stored (a_pointer)
 		do
 			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
+		ensure Result/=Void
 		end
 
 	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
