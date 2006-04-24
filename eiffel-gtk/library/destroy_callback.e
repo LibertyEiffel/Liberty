@@ -15,7 +15,9 @@ feature
 feature
 	callback (instance: POINTER) is --  
 		do
-			print ("Callback: instance=") print (instance.to_string)	print ("%N")
+			debug
+				print ("Callback: instance=") print (instance.to_string)	print ("%N")
+			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			check
 				object_not_void: object /= Void

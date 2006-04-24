@@ -11,13 +11,11 @@ indexing
 
 deferred class GTK_BIN
 
-inherit
-	GTK_CONTAINER
-	GTK_BIN_EXTERNALS
-		-- Implemented Interfaces: GtkBin implements AtkImplementorIface.
+inherit GTK_CONTAINER
+	-- Implemented Interfaces: GtkBin implements AtkImplementorIface.
+insert GTK_BIN_EXTERNALS
 
 feature
-
 	child: GTK_WIDGET is
 			-- the child of the GTK_BIN, or Void if the bin contains no
 			-- child widget. The widget does not have a reference added,

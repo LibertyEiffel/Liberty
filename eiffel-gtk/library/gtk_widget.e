@@ -7,10 +7,10 @@ indexing
 
 deferred class GTK_WIDGET
 
-inherit
-	GTK_OBJECT
+inherit GTK_OBJECT
 
-	GTK_WIDGET_EXTERNALS
+insert GTK_WIDGET_EXTERNALS
+	
 feature
 	show is
 		do

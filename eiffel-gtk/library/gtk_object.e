@@ -71,11 +71,10 @@ indexing
 
 deferred class GTK_OBJECT
 
-inherit
-	G_OBJECT
+inherit G_OBJECT
 
+insert
 	GTK_OBJECT_EXTERNALS
-
 	G_SIGNALS
 
 feature

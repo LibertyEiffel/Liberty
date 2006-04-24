@@ -15,9 +15,7 @@ indexing
 
 class GTK_BUTTON
 
-inherit
-	WRAPPER
-	GTK_BIN -- redefine make end
+inherit GTK_BIN -- redefine make end
 insert
 	GTK_BUTTON_EXTERNALS 
 	G_SIGNALS

@@ -18,7 +18,7 @@ deferred class G_OBJECT
 	-- described in detail in Signals(3).
 
 inherit
-	SHARED_C_STRUCT redefine dispose end
+	SHARED_C_STRUCT redefine from_external_pointer, dispose end
 	ANY
 insert
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
@@ -49,6 +49,13 @@ feature {WRAPPER} -- GObject type system implementation.
 		do
 			Result := g_object_type (handle)
 		end
+feature -- Creating
+	from_external_pointer (a_ptr: POINTER) is
+		require pointer_not_null: a_ptr.is_not_null
+		do
+			Precursor (a_ptr)
+			ref -- Let's add a reference to the underlying g_object
+		end
 
 feature -- Disposing
 	dispose is
@@ -60,16 +67,19 @@ feature -- Disposing
 			-- Note: when Eiffel dispose a G_OBJECT it just unref it and
 			-- cleans its handle. The actual reclaiming of the memory
 			-- alloca ted on the C side is left to gobject runtime.
-			if is_g_object then
-				debug
-					print ("Eiffel is disposing g_object ") print (generator)
-					print (" (at ") print (handle.out) print (")%N")
-				end
-				unref
+			debug
+				print ("Eiffel is disposing g_object ") print (generator)
+				print (" (at ") print (handle.out) print (")%N")
+			end	
+			if is_g_object then unref
 			else
-				debug
-					print ("Eiffel is disposing a ") print (generator)
-					print (" (at ") print (handle.out) print ("). It's handle is NOT a g_object!%N")
+				debug print ("It's handle is not a g_object! Please see the notes in G_OBJECT.dispose%N")
+					-- Note: for the above perhaps dispose has been called
+					-- after GTK libraries has already shut down. This
+					-- could be a "feature" instead of a bug, since it is
+					-- possible that this part of dispose won't be called
+					-- if the garbage collector is called during
+					-- application normal usage. Paolo 2006-04-24
 				end
 			end
 			handle := default_pointer

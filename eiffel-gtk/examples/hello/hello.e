@@ -29,7 +29,9 @@ feature {NONE} -- creation
 			button.connect_agent_to_clicked_signal (agent on_clicked)
 			button.show
 			window.show
-			print ("button is at: "+button.to_pointer.to_string+"%N")
+			debug
+				print ("button is at: "+button.to_pointer.to_string+"%N")
+			end
 			gtk_main
 		end
 feature -- Disposing

@@ -6,11 +6,11 @@ indexing
 							 
 deferred class GTK_CONTAINER
 
-inherit
-	GTK_WIDGET
-	GTK_CONTAINER_EXTERNALS
-		-- Implemented Interfaces: GtkContainer implements
-		-- AtkImplementorIface.
+inherit GTK_WIDGET
+	-- Implemented Interfaces: GtkContainer implements
+	-- AtkImplementorIface.
+
+insert GTK_CONTAINER_EXTERNALS
 
 feature
 	add (a_widget: GTK_WIDGET) is

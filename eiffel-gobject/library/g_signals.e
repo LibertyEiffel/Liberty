@@ -3,7 +3,7 @@ indexing
 
 	
 class G_SIGNALS
-inherit WRAPPER
+inherit WRAPPER_HANDLER
 insert G_SIGNAL_EXTERNALS
 feature
 
@@ -77,9 +77,10 @@ feature
 			-- g_signal_connect_swapped is necessary because SmartEiffel
 			-- expect a pointer to an Eiffel object as first parameter of
 			-- each function.
-			print ("connect("+an_object.to_pointer.to_string+
-					 ", `"+a_signal_name+"', "+
-					 a_function_pointer.to_string+")%N")
+			debug 
+				print ("connect("+an_object.to_pointer.to_string+
+						 ", `"+a_signal_name+"', "+
+						 a_function_pointer.to_string+")%N")
+			end
 		end
-
 end

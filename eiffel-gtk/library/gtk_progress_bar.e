@@ -7,10 +7,8 @@ indexing
 
 class GTK_PROGRESS_BAR
 
-inherit
-	WRAPPER
-	GTK_BIN redefine make end
-	GTK_PROGRESS_BAR_EXTERNALS
+inherit GTK_BIN redefine make end
+insert GTK_PROGRESS_BAR_EXTERNALS
 	
 creation
 	make

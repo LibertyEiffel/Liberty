@@ -21,8 +21,9 @@ feature
 feature
 	callback (instance: POINTER) is --  a_button: GTK_BUTTON) is
 		do
-			-- Empty by design.
-			print ("Callback: instance=") print (instance.to_string)	print ("%N")
+			debug
+				print ("Callback: instance=") print (instance.to_string)	print ("%N")
+			end
 			-- The following is written with the implicit requirement 
 			-- that the button is actually created bu the Eiffel 
 			-- application. 
