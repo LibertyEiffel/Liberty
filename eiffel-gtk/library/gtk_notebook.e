@@ -24,6 +24,7 @@ class GTK_NOTEBOOK
 inherit GTK_CONTAINER
    -- GtkNotebook implements AtkImplementorIface.
 insert 
+	G_OBJECT_RETRIEVER [GTK_WIDGET]
 	GTK_POSITION_TYPE
 	GTK_PACK_TYPE
 creation make
@@ -285,318 +286,228 @@ feature {NONE} -- Creation
 		ensure hidden: are_tabs_shown=False
 		end
 
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_show_border ()
-
-	--  void        gtk_notebook_set_show_border    (GtkNotebook *notebook,
-	--                                               gboolean show_border);
-
-	--    Sets whether a bevel will be drawn around the notebook pages. This only has a visual effect when
-	--    the tabs are not shown. See gtk_notebook_set_show_tabs().
-
-	--    notebook :    a GtkNotebook
-	--    show_border : TRUE if a bevel should be drawn around the notebook.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_scrollable ()
-
-	--  void        gtk_notebook_set_scrollable     (GtkNotebook *notebook,
-	--                                               gboolean scrollable);
-
-	--    Sets whether the tab label area will have arrows for scrolling if there are too many tabs to fit in
-	--    the area.
-
-	--    notebook :   a GtkNotebook
-	--    scrollable : TRUE if scroll arrows should be added
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_tab_border ()
-
-	--  void        gtk_notebook_set_tab_border     (GtkNotebook *notebook,
-	--                                               guint border_width);
-
-	--   Warning
-
-	--    gtk_notebook_set_tab_border is deprecated and should not be used in newly-written code.
-
-	--    Sets the width the border around the tab labels in a notebook. This is equivalent to calling
-	--    gtk_notebook_set_tab_hborder (notebook, border_width) followed by gtk_notebook_set_tab_vborder
-	--    (notebook, border_width).
-
-	--    notebook :     a GtkNotebook
-	--    border_width : width of the border around the tab labels.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_popup_enable ()
-
-	--  void        gtk_notebook_popup_enable       (GtkNotebook *notebook);
-
-	--    Enables the popup menu: if the user clicks with the right mouse button on the bookmarks, a menu
-	--    with all the pages will be popped up.
-
-	--    notebook : a GtkNotebook
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_popup_disable ()
-
-	--  void        gtk_notebook_popup_disable      (GtkNotebook *notebook);
-
-	--    Disables the popup menu.
-
-	--    notebook : a GtkNotebook
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_get_current_page ()
-
-	--  gint        gtk_notebook_get_current_page   (GtkNotebook *notebook);
-
-	--    Returns the page number of the current page.
-
-	--    notebook : a GtkNotebook
-	--    Returns :  the index (starting from 0) of the current page in the notebook. If the notebook has no
-	--               pages, then -1 will be returned.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_get_menu_label ()
-
-	--  GtkWidget*  gtk_notebook_get_menu_label     (GtkNotebook *notebook,
-	--                                               GtkWidget *child);
-
-	--    Retrieves the menu label widget of the page containing child.
-
-	--    notebook : a GtkNotebook
-	--    child :    a widget contained in a page of notebook
-	--    Returns :  the menu label, or NULL if the notebook page does not have a menu label other than the
-	--               default (the tab label).
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_get_nth_page ()
-
-	--  GtkWidget*  gtk_notebook_get_nth_page       (GtkNotebook *notebook,
-	--                                               gint page_num);
-
-	--    Returns the child widget contained in page number page_num.
-
-	--    notebook : a GtkNotebook
-	--    page_num : the index of a page in the noteobok, or -1 to get the last page.
-	--    Returns :  the child widget, or NULL if page_num is out of bounds.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_get_n_pages ()
-
-	--  gint        gtk_notebook_get_n_pages        (GtkNotebook *notebook);
-
-	--    Gets the number of pages in a notebook.
-
-	--    notebook : a GtkNotebook
-	--    Returns :  the number of pages in the notebook.
-
-	--    Since 2.2
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_get_tab_label ()
-
-	--  GtkWidget*  gtk_notebook_get_tab_label      (GtkNotebook *notebook,
-	--                                               GtkWidget *child);
-
-	--    Returns the tab label widget for the page child. NULL is returned if child is not in notebook or if
-	--    no tab label has specifically been set for child.
-
-	--    notebook : a GtkNotebook
-	--    child :    the page
-	--    Returns :  the tab label
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_query_tab_label_packing ()
-
-	--  void        gtk_notebook_query_tab_label_packing
-	--                                              (GtkNotebook *notebook,
-	--                                               GtkWidget *child,
-	--                                               gboolean *expand,
-	--                                               gboolean *fill,
-	--                                               GtkPackType *pack_type);
-
-	--    Query the packing attributes for the tab label of the page containing child.
-
-	--    notebook :  a GtkNotebook
-	--    child :     the page
-	--    expand :    location to store the expand value (or NULL)
-	--    fill :      location to store the fill value (or NULL)
-	--    pack_type : location to store the pack_type (or NULL)
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_homogeneous_tabs ()
-
-	--  void        gtk_notebook_set_homogeneous_tabs
-	--                                              (GtkNotebook *notebook,
-	--                                               gboolean homogeneous);
-
-	--   Warning
-
-	--    gtk_notebook_set_homogeneous_tabs is deprecated and should not be used in newly-written code.
-
-	--    Sets whether the tabs must have all the same size or not.
-
-	--    notebook :    a GtkNotebook
-	--    homogeneous : TRUE if all tabs should be the same size.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_menu_label ()
-
-	--  void        gtk_notebook_set_menu_label     (GtkNotebook *notebook,
-	--                                               GtkWidget *child,
-	--                                               GtkWidget *menu_label);
-
-	--    Changes the menu label for the page containing child.
-
-	--    notebook :   a GtkNotebook
-	--    child :      the child widget
-	--    menu_label : the menu label, or NULL for default
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_menu_label_text ()
-
-	--  void        gtk_notebook_set_menu_label_text
-	--                                              (GtkNotebook *notebook,
-	--                                               GtkWidget *child,
-	--                                               const gchar *menu_text);
-
-	--    Creates a new label and sets it as the menu label of child.
-
-	--    notebook :  a GtkNotebook
-	--    child :     the child widget
-	--    menu_text : the label text
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_tab_hborder ()
-
-	--  void        gtk_notebook_set_tab_hborder    (GtkNotebook *notebook,
-	--                                               guint tab_hborder);
-
-	--   Warning
-
-	--    gtk_notebook_set_tab_hborder is deprecated and should not be used in newly-written code.
-
-	--    Sets the width of the horizontal border of tab labels.
-
-	--    notebook :    a GtkNotebook
-	--    tab_hborder : width of the horizontal border of tab labels.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_tab_label ()
-
-	--  void        gtk_notebook_set_tab_label      (GtkNotebook *notebook,
-	--                                               GtkWidget *child,
-	--                                               GtkWidget *tab_label);
-
-	--    Changes the tab label for child. If NULL is specified for tab_label, then the page will have the
-	--    label 'page N'.
-
-	--    notebook :  a GtkNotebook
-	--    child :     the page
-	--    tab_label : the tab label widget to use, or NULL for default tab label.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_tab_label_packing ()
-
-	--  void        gtk_notebook_set_tab_label_packing
-	--                                              (GtkNotebook *notebook,
-	--                                               GtkWidget *child,
-	--                                               gboolean expand,
-	--                                               gboolean fill,
-	--                                               GtkPackType pack_type);
-
-	--    Sets the packing parameters for the tab label of the page containing child. See
-	--    gtk_box_pack_start() for the exact meaning of the parameters.
-
-	--    notebook :  a GtkNotebook
-	--    child :     the child widget
-	--    expand :    whether to expand the bookmark or not
-	--    fill :      whether the bookmark should fill the allocated area or not
-	--    pack_type : the position of the bookmark
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_tab_label_text ()
-
-	--  void        gtk_notebook_set_tab_label_text (GtkNotebook *notebook,
-	--                                               GtkWidget *child,
-	--                                               const gchar *tab_text);
-
-	--    Creates a new label and sets it as the tab label for the page containing child.
-
-	--    notebook : a GtkNotebook
-	--    child :    the page
-	--    tab_text : the label text
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_tab_vborder ()
-
-	--  void        gtk_notebook_set_tab_vborder    (GtkNotebook *notebook,
-	--                                               guint tab_vborder);
-
-	--   Warning
-
-	--    gtk_notebook_set_tab_vborder is deprecated and should not be used in newly-written code.
-
-	--    Sets the width of the vertical border of tab labels.
-
-	--    notebook :    a GtkNotebook
-	--    tab_vborder : width of the vertical border of tab labels.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_get_menu_label_text ()
-
-	--  const gchar* gtk_notebook_get_menu_label_text
-	--                                              (GtkNotebook *notebook,
-	--                                               GtkWidget *child);
-
-	--    Retrieves the text of the menu label for the page containing child.
-
-	--    notebook : a GtkNotebook
-	--    child :    the child widget of a page of the notebook.
-	--    Returns :  value: the text of the tab label, or NULL if the widget does not have a menu label other
-	--               than the default menu label, or the menu label widget is not a GtkLabel. The string is
-	--               owned by the widget and must not be freed.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_get_scrollable ()
-
-	--  gboolean    gtk_notebook_get_scrollable     (GtkNotebook *notebook);
-
-	--    Returns whether the tab label area has arrows for scrolling. See gtk_notebook_set_scrollable().
-
-	--    notebook : a GtkNotebook
-	--    Returns :  TRUE if arrows for scrolling are present
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_get_show_border ()
-
-	--  gboolean    gtk_notebook_get_show_border    (GtkNotebook *notebook);
-
-	--    Returns whether a bevel will be drawn around the notebook pages. See
-	--    gtk_notebook_set_show_border().
+	show_border is
+			-- Show a bevel will be drawn around the notebook pages. This
+			-- only has a visual effect when the tabs are not shown. 
+		do
+			gtk_notebook_set_show_border (handle,1)
+		end
+
+	hide_border is
+			-- Hide the bevel that is drawn around the notebook
+			-- pages. This bevel is visible only when the tabs are not
+			-- shown.
+		do
+			gtk_notebook_set_show_border (handle,0)
+		end
+
+	set_scrollable is
+			-- Sets the tab label area to show arrows for scrolling if
+			-- there are too many tabs to fit in the area.
+		do
+			gtk_notebook_set_scrollable (handle,1)
+		end
+
+	unset_scrollable is
+			-- Unset scrollable. See 'set_scrollable'
+		do
+			gtk_notebook_set_scrollable (handle,1)
+		end
+
+	enable_popup is
+			-- Enables the popup menu: if the user clicks with the right
+			-- mouse button on the bookmarks, a menu with all the pages
+			-- will be popped up.
+		do
+			gtk_notebook_popup_enable (handle)
+		end
+
+	disable_popup is
+			--    Disables the popup menu.q
+		do
+			gtk_notebook_popup_disable (handle)
+		end 
+
+	current_page_index: INTEGER is
+			-- The page number of the current page, starting from 0. If
+			-- the notebook has no pages, then -1 will be returned.
+		do
+			Result:= gtk_notebook_get_current_page (handle)
+		end
+
+	menu_label (a_child: GTK_WIDGET): GTK_WIDGET is
+			-- The menu label widget of the page containing `a_child'.
+			-- Void if the notebook page does not have a menu label other
+			-- than the default (the tab label).
+		require valid_child: a_child /= Void
+		local ptr: POINTER
+		do
+			ptr := gtk_notebook_get_menu_label (handle, a_child.handle)
+			if ptr.is_not_null then
+				Result := retrieve_eiffel_wrapper_from_gobject_pointer(ptr)
+			end
+		end
+
+	nth_page (a_page_num: INTEGER): GTK_WIDGET is
+			-- The child widget contained in page number
+			-- `a_page_num'. Set `a_page__num' to -1 to get the last
+			-- page.  Void if `a_page_num' is out of bounds.
+		local ptr: POINTER
+		do
+			ptr := gtk_notebook_get_nth_page (handle, a_page_num)
+			if ptr.is_not_null then
+				Result := retrieve_eiffel_wrapper_from_gobject_pointer(ptr)
+			end
+		end
+
+	n_pages: INTEGER is
+			-- the number of pages in the notebook.
+		do
+			Result := gtk_notebook_get_n_pages (handle)
+		end
+
+	tab_label (a_child: GTK_WIDGET): GTK_WIDGET is
+			-- The tab label widget for the page child. Void if child is
+			-- not in notebook or if no tab label has specifically been
+			-- set for child.
+		require valid_child: a_child /= Void
+		local ptr: POINTER
+		do
+			-- Note: see also the note in `set_tab_label_text' postcondition
+			ptr := gtk_notebook_get_tab_label (handle, a_child.handle)
+			if ptr.is_not_null then
+				Result := retrieve_eiffel_wrapper_from_gobject_pointer(ptr)
+			end
+		end
+
+	tab_label_packing  (a_child: GTK_WIDGET): TUPLE[BOOLEAN,BOOLEAN,INTEGER] is
+		require valid_child: a_child /= Void
+		local an_expand, a_fill, a_pack_type: INTEGER
+		do
+			gtk_notebook_query_tab_label_packing
+			(handle, a_child.handle, an_expand.to_pointer,
+			 a_fill.to_pointer, a_pack_type.to_pointer)
+			-- Query the packing attributes for the tab label of the page
+			-- containing child. `notebook' : a GtkNotebook child : the page expand :
+			--    location to store the expand value (or NULL) fill :
+			--    location to store the fill value (or NULL) pack_type :
+			--    location to store the pack_type (or NULL)
+			create Result.make_3 (an_expand.to_boolean,
+										 a_fill.to_boolean, a_pack_type)
+		end
+	
+	set_menu_label (a_child, a_menu_label: GTK_WIDGET) is
+			-- Changes the menu label for the page containing child.
+		require
+			valid_child: a_child /= Void
+			valid_label: a_menu_label /= Void
+		do
+			gtk_notebook_set_menu_label (handle, a_child.handle,
+												  a_menu_label.handle)
+		end
+
+	set_default_menu_label (a_child: GTK_WIDGET) is
+			-- Set the menu label for the page containing child to the default.
+		require valid_child: a_child /= Void
+		do
+			gtk_notebook_set_menu_label (handle, a_child.handle, default_pointer)
+		end
+
+
+	set_menu_label_text (a_child: GTK_WIDGET; a_text: STRING) is
+			--    Creates a new label and sets it as the menu label of child.
+		require
+			valid_child: a_child /= Void
+			valid_text: a_text /= Void
+		do
+			gtk_notebook_set_menu_label_text  (handle, a_child.handle, a_text.handle)
+		end
+	
+	set_tab_label (a_child, a_tab_label: GTK_WIDGET) is
+			-- Changes the tab label for child. If NULL is specified for
+			-- tab_label, then the page will have the label 'page N'.
+		require
+			valid_child: a_child /= Void
+			valid_label: a_tab_label /= Void
+		do
+			gtk_notebook_set_tab_label (handle, a_child.handle,
+												 a_tab_label.handle)
+		end
+
+	set_default_tab_label (a_child: GTK_WIDGET) is
+			-- Changes the tab label for child to the default label 'page N'.
+		require
+			valid_child: a_child /= Void
+		do
+			gtk_notebook_set_tab_label (handle, a_child.handle, default_pointer)
+		end
+
+	set_tab_label_packing (a_child: GTK_WIDGET; expand,fill: BOOLEAN;
+								  a_pack_type: INTEGER) is
+			-- Sets the packing parameters for the tab label of the page
+			-- containing child. See GTK_BOX.pack_start for the exact
+			-- meaning of the parameters. `expand': whether to expand the
+			-- bookmark or not; `fill': whether the bookmark should fill
+			-- the allocated area or not `a_pack_type': the position of
+			-- the bookmark
+
+		require
+			valid_child: a_child /= Void
+			valid_packing: is_valid_gtk_pack_type (a_pack_type)
+		do
+			gtk_notebook_set_tab_label_packing (handle, a_child.handle,
+															expand.to_integer,
+															fill.to_integer,
+															a_pack_type)
+		end
+
+	set_tab_label_text (a_child: GTK_WIDGET; a_tab_text: STRING) is
+			-- Creates a new label and sets it as the tab label for the
+			-- page containing child.
+		require
+			valid_child: a_child /= Void
+			valid_tab_text: a_tab_text /= Void
+		do
+			gtk_notebook_set_tab_label_text (handle, a_child.handle,
+														a_tab_text.handle)
+			debug
+				print ("TODO: check if in GTK_NOTEBOOK.set_tab_label_text shall the wrapper of the newly created label be created also?")
+			end
+		ensure
+			label_wrapper_exists: tab_label (a_child) /= Void
+			-- Note: This should trigger an exception in
+			-- `G_OBJECT_RETRIEVER.retrieve_eiffel_wrapper_from_gobject_pointer'
+			-- if the wrapper actually has to be created. 
+		end
+
+	menu_label_text (a_child: GTK_WIDGET): STRING is
+			-- The text of the menu label for the page containing
+			-- child. Void if the widget does not have a menu label other
+			-- than the default menu label, or the menu label widget is
+			-- not a GtkLabel
+		require valid_child: a_child /= Void
+		local	ptr: POINTER
+		do
+			ptr:=gtk_notebook_get_menu_label_text (handle, a_child.handle)
+			-- gtk_notebook_get_menu_label_text returns the text of the
+			-- tab label, or NULL . The string is owned by the widget and
+			-- must not be freed.
+			if ptr.is_not_null then create Result.from_external_copy (ptr) end
+		end
+
+	
+	is_scrollable: BOOLEAN is
+			-- Does the tab label area has arrows for scrolling?. See set_scrollable.
+		do
+			Result:=(gtk_notebook_get_scrollable(handle).to_boolean)
+		end
+
+	is_border_shown: BOOLEAN is
+			--    Returns whether a bevel will be drawn around the notebook pages. See
+			--    gtk_notebook_set_show_border().
+		do
+			Result:=gtk_notebook_get_show_border(handle).to_boolean
+			
 
 	--    notebook : a GtkNotebook
 	--    Returns :  TRUE if the bevel is drawn
@@ -620,9 +531,7 @@ feature {NONE} -- Creation
 			-- tab label, or NULL if the tab label widget is not a
 			-- GtkLabel. The string is owned by the widget and must not
 			-- be freed.
-			if ptr.is_not_null then 
-				create Result.from_external_copy (ptr) 
-			end
+			if ptr.is_not_null then create Result.from_external_copy (ptr) end
 		end
 
 	--    ---------------------------------------------------------------------------------------------------
@@ -893,10 +802,6 @@ feature -- Properties
 --    Since 2.4
 feature -- Signals
 
---  "change-current-page"
---              void        user_function      (GtkNotebook *notebook,
---                                              gint         arg1,
---                                              gpointer     user_data)      : Run last / Action
 --  "focus-tab" gboolean    user_function      (GtkNotebook    *notebook,
 --                                              GtkNotebookTab *arg1,
 --                                              gpointer        user_data)      : Run last / Action
@@ -916,7 +821,24 @@ feature -- Signals
 
 -- Signal Details
 
---   The "change-current-page" signal
+feature --   The "change-current-page" signal
+	change_current_page_signal_name: STRING is"change-current-page"
+
+	on_change_current_page (a_page_number: INTEGER) is
+		do
+		end
+
+	enable_on_change_current_page is
+			-- Connects "clicked" signal to `on_change_current_page' feature.
+
+		do
+			connect (Current, change_current_page_signal_name, $on_change_current_page)
+		end
+
+--  "change-current-page"
+--              void        user_function      (GtkNotebook *notebook,
+--                                              gint         arg1,
+--                                              gpointer     user_data)      : Run last / Action
 
 --  void        user_function                  (GtkNotebook *notebook,
 --                                              gint         arg1,

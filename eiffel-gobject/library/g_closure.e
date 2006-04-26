@@ -229,8 +229,9 @@ feature -- Invoking
 			-- Invokes the closure, i.e. executes the callback
 			-- represented by the closure.
 
-			-- Heirs of g_closure which will implements callback for more
-			-- specific closures.
+			-- Heirs of G_CLOSURE which will implements callback for more
+			-- specific closures. Note: the previous could be wrong. 
+			-- Paolo 2006-04-26
 		require valid_parameters: some_parameters /= Void
 		do
 			create Result.make 
