@@ -7,9 +7,9 @@ indexing
 
 class TOGGLED_CALLBACK
 
-inherit
-	G_SIGNALS
-	WRAPPER undefine from_external_pointer end
+inherit WRAPPER undefine from_external_pointer end
+insert G_SIGNALS
+
 creation make
 feature
 	make (a_radio_button: GTK_RADIO_BUTTON; a_procedure: PROCEDURE[TUPLE[GTK_RADIO_BUTTON]]) is
@@ -31,6 +31,11 @@ feature {NONE} -- Implementation
 	hidden_callback is
 		do
 			procedure.call ([radio_button])
+		end
+
+	dispose is
+		do
+			-- Nothing
 		end
 end
 

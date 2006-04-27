@@ -388,10 +388,10 @@ feature {NONE} -- Creation
 			(handle, a_child.handle, an_expand.to_pointer,
 			 a_fill.to_pointer, a_pack_type.to_pointer)
 			-- Query the packing attributes for the tab label of the page
-			-- containing child. `notebook' : a GtkNotebook child : the page expand :
-			--    location to store the expand value (or NULL) fill :
-			--    location to store the fill value (or NULL) pack_type :
-			--    location to store the pack_type (or NULL)
+			-- containing child. `notebook' : a GtkNotebook child : the
+			-- page expand : location to store the expand value (or NULL)
+			-- fill : location to store the fill value (or NULL)
+			-- pack_type : location to store the pack_type (or NULL)
 			create Result.make_3 (an_expand.to_boolean,
 										 a_fill.to_boolean, a_pack_type)
 		end

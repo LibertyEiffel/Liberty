@@ -68,7 +68,7 @@ feature {NONE} -- Creation
 	empty is
 			-- Creates a new empty label
 		do
-			handle:=gtk_label_new(Null)
+			handle:=gtk_label_new(default_pointer)
 		end
 
 	with_label (a_label: STRING) is
@@ -101,7 +101,7 @@ feature {NONE} -- Creation
 			handle:=gtk_label_new_with_mnemonic(a_label.to_external)
 		end
 
-		with_markup_label (a_label: STRING) is
+	with_markup_label (a_label: STRING) is
 			-- Creates a new GtkLabel, containing the text in
 			-- `a_label', formatted using Pango markup language.
 

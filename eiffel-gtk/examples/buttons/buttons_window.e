@@ -51,7 +51,7 @@ feature -- Strings
 											We need volunteers. Would help us?
 											]"
 											
-feature {NONE} -- Callbacks
+feature  -- Callbacks
 	smarteiffel_choosen: TOGGLED_CALLBACK
 	on_destroy is
 		do

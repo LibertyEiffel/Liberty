@@ -30,18 +30,9 @@ default -- section of the system
 	relax (yes);
 
 cluster -- section
-		"../../../library/gtk"
-		"../../../library/gtk/externals"
-		"../../../library/glib"
-		"../../../library/glib/core"
-		"../../../library/glib/data_types"
-		"../../../library/glib/externals"
-		"../../../library/glib/fundamentals"
-		"../../../library/glib/utilities"
-		"../../../library/gobject"
-		"../../../library/gobject/externals"
-		"../../../library/support"
-		"../../../library/"
+		gtk: "../../loadpath.se"
+		glib: "../../../eiffel-glib/loadpath.se"
+		gobject: "../../../eiffel-gobject/loadpath.se"
 
 		"."
 

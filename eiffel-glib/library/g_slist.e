@@ -88,7 +88,7 @@ feature {NONE} -- Implementation
 feature
 	make is
 		do
-			handle := Null
+			handle := default_pointer
 			--create factory_item
 		end
 
@@ -192,7 +192,7 @@ feature
 			-- added to the GAllocator free list.
 		do
 			g_slist_free (handle)
-			handle := default_pointer -- Null
+			handle := default_pointer 
 		end
 
 	has (x: like first): BOOLEAN is
