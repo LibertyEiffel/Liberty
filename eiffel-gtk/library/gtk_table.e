@@ -39,15 +39,23 @@ indexing
 			-- nrows and ncols are 16bit integers storing the number of rows and
 			-- columns the table has.
 
-	
+-- See Also
+
+--    GtkVBox For packing widgets vertically only.
+--    GtkHBox For packing widgets horizontally only.
+
+
+			-- TODO: wrap read-only access to the content of children,
+			-- rows and columns fields of the GtkTable C structure.
+
 class GTK_TABLE
-inherit GTK_CONTAINER
+inherit GTK_CONTAINER rename make as make_c_struct end
 	-- GtkTable implements AtkImplementorIface interface asasdasd
 insert GTK_ATTACH_OPTIONS
 creation make
 
 feature {NONE} -- Creation
-	make (rows, columns: INTEGER; homogeneus: BOOLEAN) is
+	make (rows, columns: INTEGER; homogeneous: BOOLEAN) is
 			-- Used to create a new table widget. An initial size must be given by
 			-- specifying how many rows and columns the table should have, although
 			-- this can be changed later with `resize'. rows and columns must both
@@ -65,7 +73,7 @@ feature {NONE} -- Creation
 			rows_fits_natural_16: rows.in_range (0,65535)
 			columns_fits_natural_16: columns.in_range (0,65535)				  
 		do
-			handle :=gtk_table_new (rows, columns, homogeneous)
+			handle :=gtk_table_new (rows, columns, homogeneous.to_integer)
 		end
 	
 feature
@@ -79,7 +87,7 @@ feature
 			rows_fits_natural_16: rows.in_range (0,65535)
 			columns_fits_natural_16: columns.in_range (0,65535)				  
 		do
-			handle:=gtk_table_resize (handle, rows, columns)
+			gtk_table_resize (handle, rows, columns)
 		end
 
 	attach (a_child: GTK_WIDGET; left_attach, right_attach, top_attach, bottom_attach: INTEGER;
@@ -114,8 +122,8 @@ feature
 			-- `ypadding': The amount of padding above and below the child widget.
 		require
 			valid_child: a_child /= Void
-			valid_x_options: are_valid_gtk_attack_options(xoptions)
-			valid_y_options: are_valid_gtk_attack_options(yoptions)
+			valid_x_options: are_valid_gtk_attach_options(xoptions)
+			valid_y_options: are_valid_gtk_attach_options(yoptions)
 			left_attach_fits_natural_16: left_attach.in_range (0,65535)
 			right_attach_fits_natural_16: right_attach.in_range (0,65535)
 			top_attach_fits_natural_16: top_attach.in_range (0,65535)
@@ -164,8 +172,8 @@ feature
 			-- changed. `a_spacing': number of pixels that the spacing should take
 			-- up.
 		require
-			row_fits_natural_16: row_attach.in_range (0,65535)
-			spacing_fits_natural_16: spacing.in_range (0,65535)
+			row_fits_natural_16: a_row.in_range (0,65535)
+			spacing_fits_natural_16: a_spacing.in_range (0,65535)
 		do
 			gtk_table_set_row_spacing (handle, a_row, a_spacing)
 		end
@@ -177,10 +185,10 @@ feature
 			-- `a_column' : the column whose spacing should be changed.
 			-- `a_spacing' : number of pixels that the spacing should take up.
 		require
-			column_fits_natural_16: column_attach.in_range (0,65535)
-			spacing_fits_natural_16: spacing.in_range (0,65535)
+			column_fits_natural_16: a_column.in_range (0,65535)
+			spacing_fits_natural_16: a_spacing.in_range (0,65535)
 		do
-			gtk_table_set_col_spacing (handle, a_row, a_spacing)
+			gtk_table_set_col_spacing (handle, a_column, a_spacing)
 		end
 
 	set_row_spacings (a_spacing: INTEGER) is
@@ -234,44 +242,42 @@ feature
 		end
 
 	
---   gtk_table_get_row_spacing ()
+	row_spacing (a_row: INTEGER): INTEGER is
+			-- The amount of space between `a_row', and its next row. See
+			-- `set_row_spacing'. 0 indicates the first row
 
---  guint       gtk_table_get_row_spacing       (GtkTable *table,
---                                               guint row);
+			-- Note: both a_row and Result shall be NATURAL since they're
+			-- guint. Perhaps `a_row' shall be even NATURAL_16, since it
+			-- should fit 0.65535
+		require row_fits_natural_16: a_row.in_range (0,65535)
+		do
+			Result:=gtk_table_get_row_spacing (handle, a_row)
+		ensure positive: Result>=0
+		end
 
---    Gets the amount of space between row row, and row row + 1. See
---    gtk_table_set_row_spacing().
+	col_spacing  (a_column: INTEGER): INTEGER is
+			-- The amount of space between `a_column', and its next row. See
+			-- `set_row_spacing'. 0 indicates the first column
 
---    table :   a GtkTable
---    row :     a row in the table, 0 indicates the first row
---    Returns : the row spacing
+			-- Note: both a_column and Result shall be NATURAL since they're
+			-- guint. Perhaps `a_column' shall be even NATURAL_16, since it
+			-- should fit 0.65535
+		require row_fits_natural_16: a_column.in_range (0,65535)
+		do
+			Result:=gtk_table_get_row_spacing (handle, a_column)
+		ensure positive: Result>=0
+		end
 
---    --------------------------------------------------------------------------
+	default_col_spacing: INTEGER is
+			-- The default column spacing for the table. This is the
+			-- spacing that will be used for newly added columns. (See
+			-- `set_col_spacings')
+		do
+			Result := gtk_table_get_default_col_spacing (handle)
+		ensure positive: Result>=0
+		end
 
---   gtk_table_get_col_spacing ()
 
---  guint       gtk_table_get_col_spacing       (GtkTable *table,
---                                               guint column);
-
---    Gets the amount of space between column col, and column col + 1. See
---    gtk_table_set_col_spacing().
-
---    table :   a GtkTable
---    column :  a column in the table, 0 indicates the first column
---    Returns : the column spacing
-
---    --------------------------------------------------------------------------
-
---   gtk_table_get_default_col_spacing ()
-
---  guint       gtk_table_get_default_col_spacing
---                                              (GtkTable *table);
-
---    Gets the default column spacing for the table. This is the spacing that
---    will be used for newly added columns. (See gtk_table_set_col_spacings())
-
---    table :   a GtkTable
---    Returns : value: the default column spacing
 -- Properties
 
 
@@ -437,65 +443,91 @@ feature
 
 --    Default value: 0
 
--- See Also
+feature {NONE} -- size
+ 	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTable)"
+		end
 
---    GtkVBox For packing widgets vertically only.
---    GtkHBox For packing widgets horizontally only.
--- feature {NONE} -- size
--- 	size: INTEGER is
--- 		external "C inline use <gtk/gtk.h>"
--- 		alias "sizeof(GtkTable)"
--- 		end
+feature {NONE} -- External calls
+-- #include <gtk/gtk.h>
+-- GtkTable;
+-- GtkTableChild;
+	-- GtkTableRowCol;
+	gtk_table_new (rows,  columns, homogeneous: INTEGER): POINTER is -- GtkWidget*
+		external "C use <gtk/gtk.h>"
+		end
 
--- feature {NONE} -- External calls
+	gtk_table_resize (a_table: POINTER; rows, columns: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
 
---  #include <gtk/gtk.h>
+	gtk_table_attach (a_table, a_child: POINTER;
+							left_attach, right_attach, top_attach, bottom_attach: INTEGER; -- Note  those all all guint, therefore should be NATURAL
+							xoptions, yoptions: INTEGER; -- GtkAttachOptions
+							xpadding, ypadding: INTEGER -- Note: these are guint, therefore should be NATURAL
+							) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_table_attach_defaults (a_table: POINTER; a_widget: POINTER;
+										left_attach, right_attach, 
+										top_attach, bottom_attach: INTEGER -- Note: these are guint, therefore should be NATURAL
+										) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_table_set_row_spacing (a_table: POINTER;
+										a_row, a_spacing: INTEGER; -- shall be NATURAL, since they are guint
+										) is
+		external "C use <gtk/gtk.h>"
+		end
 
+	gtk_table_set_col_spacing (a_table: POINTER; 
+										a_column, spacing: INTEGER; -- shall be NATURAL, since it's guint
+										) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_table_set_row_spacings (a_table: POINTER;
+										 a_spacing: INTEGER; -- shall be NATURAL, since it's guint
+										 ) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_table_set_col_spacings (a_table: POINTER;
+										 a_spacing: INTEGER; -- shall be NATURAL, since it's guint
+										 ) is
+		external "C use <gtk/gtk.h>"
+		end
 
---              GtkTable;
---              GtkTableChild;
---              GtkTableRowCol;
---  GtkWidget*  gtk_table_new                   (guint rows,
---                                               guint columns,
---                                               gboolean homogeneous);
---  void        gtk_table_resize                (GtkTable *table,
---                                               guint rows,
---                                               guint columns);
---  void        gtk_table_attach                (GtkTable *table,
---                                               GtkWidget *child,
---                                               guint left_attach,
---                                               guint right_attach,
---                                               guint top_attach,
---                                               guint bottom_attach,
---                                               GtkAttachOptions xoptions,
---                                               GtkAttachOptions yoptions,
---                                               guint xpadding,
---                                               guint ypadding);
---  void        gtk_table_attach_defaults       (GtkTable *table,
---                                               GtkWidget *widget,
---                                               guint left_attach,
---                                               guint right_attach,
---                                               guint top_attach,
---                                               guint bottom_attach);
---  void        gtk_table_set_row_spacing       (GtkTable *table,
---                                               guint row,
---                                               guint spacing);
---  void        gtk_table_set_col_spacing       (GtkTable *table,
---                                               guint column,
---                                               guint spacing);
---  void        gtk_table_set_row_spacings      (GtkTable *table,
---                                               guint spacing);
---  void        gtk_table_set_col_spacings      (GtkTable *table,
---                                               guint spacing);
---  void        gtk_table_set_homogeneous       (GtkTable *table,
---                                               gboolean homogeneous);
---  guint       gtk_table_get_default_row_spacing
---                                              (GtkTable *table);
---  gboolean    gtk_table_get_homogeneous       (GtkTable *table);
---  guint       gtk_table_get_row_spacing       (GtkTable *table,
---                                               guint row);
---  guint       gtk_table_get_col_spacing       (GtkTable *table,
---                                               guint column);
---  guint       gtk_table_get_default_col_spacing
---                                              (GtkTable *table);
+	gtk_table_set_homogeneous (a_table: POINTER;
+										homogeneous: INTEGER -- gboolean
+										) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_table_get_default_row_spacing (a_table: POINTER): INTEGER is -- guint 
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_table_get_homogeneous (a_table: POINTER): INTEGER is -- gboolean 
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_table_get_row_spacing (a_table: POINTER;
+										a_row: INTEGER; -- shall be NATURAL, since it's guint
+										): INTEGER is -- guint 
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_table_get_col_spacing (a_table: POINTER;
+										a_column: INTEGER; -- shall be NATURAL, since it's guint
+										): INTEGER is -- guint 
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_table_get_default_col_spacing (a_table: POINTER): INTEGER is -- guint 
+		external "C use <gtk/gtk.h>"
+		end
 end
