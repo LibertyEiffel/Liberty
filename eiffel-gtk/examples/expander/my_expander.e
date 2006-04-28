@@ -21,9 +21,9 @@ feature make (a_statusbar: GTK_STATUS_BAR) is
 				statusbar.pop
 			end
 			if is_expanded then
-				statusbar.push ("The expander is expanded.")
+				statusbar.push ("The expander clicked when it was expanded.")
 			else
-				statusbar.push ("The expander is collapsed.")
+				statusbar.push ("The expander clicked when it was collapsed.")
 			end
 		end
 	statusbar: GTK_STATUS_BAR

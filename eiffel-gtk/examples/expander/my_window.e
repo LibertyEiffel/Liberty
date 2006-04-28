@@ -36,7 +36,6 @@ feature -- Strings
 	label_string: STRING is "[
 									 See on the <b><big>statusbar</big> below</b> the signals emitted
 									 by the expander.
-									 Yes, I know that the statusbar is wrong... 
 									 ]"
 end
 	
