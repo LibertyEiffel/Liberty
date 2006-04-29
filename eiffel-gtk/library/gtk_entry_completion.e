@@ -1,4 +1,4 @@
-indexing
+
 	description: "GtkEntryCompletion -- Completion functionality for GtkEntry"
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
@@ -7,16 +7,41 @@ indexing
 
 			-- Description
 
--- GtkEntryCompletion is an auxiliary object to be used in conjunction with GtkEntry to provide the completion functionality. It implements the GtkCellLayout interface, to allow the user to add extra cells to the GtkTreeView with completion matches.
+			-- GtkEntryCompletion is an auxiliary object to be used in
+			-- conjunction with GtkEntry to provide the completion
+			-- functionality. It implements the GtkCellLayout interface,
+			-- to allow the user to add extra cells to the GtkTreeView
+			-- with completion matches.
+	
+			-- "Completion functionality" means that when the user
+			-- modifies the text in the entry, GtkEntryCompletion checks
+			-- which rows in the model match the current content of the
+			-- entry, and displays a list of matches. By default, the
+			-- matching is done by comparing the entry text
+			-- case-insensitively against the text column of the model
+			-- (see gtk_entry_completion_set_text_column()), but this can
+			-- be overridden with a custom match function (see
+			-- gtk_entry_completion_set_match_func()).
 
--- "Completion functionality" means that when the user modifies the text in the entry, GtkEntryCompletion checks which rows in the model match the current content of the entry, and displays a list of matches. By default, the matching is done by comparing the entry text case-insensitively against the text column of the model (see gtk_entry_completion_set_text_column()), but this can be overridden with a custom match function (see gtk_entry_completion_set_match_func()).
+			-- When the user selects a completion, the content of the
+			-- entry is updated. By default, the content of the entry is
+			-- replaced by the text column of the model, but this can be
+			-- overridden by connecting to the ::match-selected signal
+			-- and updating the entry in the signal handler. Note that
+			-- you should return TRUE from the signal handler to suppress
+			-- the default behaviour.  To add completion functionality to
+			-- an entry, use gtk_entry_set_completion().
+	
+			-- In addition to regular completion matches, which will be
+			-- inserted into the entry when they are selected,
+			-- GtkEntryCompletion also allows to display "actions" in the
+			-- popup window. Their appearance is similar to menuitems, to
+			-- differentiate them clearly from completion strings. When
+			-- an action is selected, the ::action-activated signal is
+			-- emitted.
 
--- When the user selects a completion, the content of the entry is updated. By default, the content of the entry is replaced by the text column of the model, but this can be overridden by connecting to the ::match-selected signal and updating the entry in the signal handler. Note that you should return TRUE from the signal handler to suppress the default behaviour.
 
--- To add completion functionality to an entry, use gtk_entry_set_completion().
-
--- In addition to regular completion matches, which will be inserted into the entry when they are selected, GtkEntryCompletion also allows to display "actions" in the popup window. Their appearance is similar to menuitems, to differentiate them clearly from completion strings. When an action is selected, the ::action-activated signal is emitted.
-
+	
 	
 class GTK_ENTRY_COMPLETION
 inherit

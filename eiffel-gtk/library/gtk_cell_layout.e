@@ -1,112 +1,39 @@
--- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
--- Top  |  Description  |  Object Hierarchy
--- GtkCellLayout
+indexing
+	description: "GTK_CELL_LAYOUT: terface for packing cells."
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
--- GtkCellLayout %GÅ‚Äî%@ An interface for packing cells
+
+
+			-- Known Implementations: GtkCellLayout is implemented by
+			-- GtkCellView, GtkEntryCompletion, GtkTreeViewColumn,
+			-- GtkComboBox, GtkIconView and GtkComboBoxEntry. 
+
+			-- Description:  GtkCellLayout is an interface to be
+			-- implemented by all objects which want to provide a
+			-- GtkTreeViewColumn-like API for packing cells, setting
+			-- attributes and data funcs.
+
+
+class GTK_CELL_LAYOUT
+inherit
+	-- Note: since "GtkCellLayout requires GObject" I assume it is actually a
+	-- G_OBJECT: GObject type system lacks multiple inheritance. Paolo
+	-- 2006-04-28.
 	
+	-- GtkCellLayout should also inherit from G_INTERFACE (GInterface)
+	G_OBJECT
+			
+creation make
+feature {NONE} -- Creation
+end
 -- Synopsis
 
 -- #include <gtk/gtk.h>
 
 
---             GtkCellLayout;
---             GtkCellLayoutIface;
--- void        (*GtkCellLayoutDataFunc)        (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              GtkTreeModel *tree_model,
---                                              GtkTreeIter *iter,
---                                              gpointer data);
--- void        gtk_cell_layout_pack_start      (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              gboolean expand);
--- void        gtk_cell_layout_pack_end        (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              gboolean expand);
--- void        gtk_cell_layout_reorder         (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              gint position);
--- void        gtk_cell_layout_clear           (GtkCellLayout *cell_layout);
--- void        gtk_cell_layout_set_attributes  (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              ...);
--- void        gtk_cell_layout_add_attribute   (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              const gchar *attribute,
---                                              gint column);
--- void        gtk_cell_layout_set_cell_data_func
---                                             (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              GtkCellLayoutDataFunc func,
---                                              gpointer func_data,
---                                              GDestroyNotify destroy);
--- void        gtk_cell_layout_clear_attributes
---                                             (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell);
-
-
-
--- Object Hierarchy
-
---   GInterface
---    +----GtkCellLayout
-
--- Prerequisites
-
--- GtkCellLayout requires GObject.
--- Known Implementations
-
--- GtkCellLayout is implemented by GtkCellView, GtkEntryCompletion, GtkTreeViewColumn, GtkComboBox, GtkIconView and GtkComboBoxEntry.
--- Description
-
--- GtkCellLayout is an interface to be implemented by all objects which want to provide a GtkTreeViewColumn-like API for packing cells, setting attributes and data funcs.
--- Details
--- GtkCellLayout
-
--- typedef struct _GtkCellLayout GtkCellLayout;
-
--- GtkCellLayoutIface
-
--- typedef struct {
---   GTypeInterface g_iface;
-
---   /* Virtual Table */
---   void (* pack_start)         (GtkCellLayout         *cell_layout,
---                                GtkCellRenderer       *cell,
---                                gboolean               expand);
---   void (* pack_end)           (GtkCellLayout         *cell_layout,
---                                GtkCellRenderer       *cell,
---                                gboolean               expand);
---   void (* clear)              (GtkCellLayout         *cell_layout);
---   void (* add_attribute)      (GtkCellLayout         *cell_layout,
---                                GtkCellRenderer       *cell,
---                                const gchar           *attribute,
---                                gint                   column);
---   void (* set_cell_data_func) (GtkCellLayout         *cell_layout,
---                                GtkCellRenderer       *cell,
---                                GtkCellLayoutDataFunc  func,
---                                gpointer               func_data,
---                                GDestroyNotify         destroy);
---   void (* clear_attributes)   (GtkCellLayout         *cell_layout,
---                                GtkCellRenderer       *cell);
---   void (* reorder)            (GtkCellLayout         *cell_layout,
---                                GtkCellRenderer       *cell,
---                                gint                   position);
--- } GtkCellLayoutIface;
-
--- GtkCellLayoutDataFunc ()
-
--- void        (*GtkCellLayoutDataFunc)        (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              GtkTreeModel *tree_model,
---                                              GtkTreeIter *iter,
---                                              gpointer data);
-
--- A function which should set the value of cell_layout's cell renderer(s) as appropriate.
--- cell_layout : 	a GtkCellLayout
--- cell : 	the cell renderer whose value is to be set
--- tree_model : 	the model
--- iter : 	a GtkTreeIter indicating the row to set the value for
--- data : 	user data passed to gtk_cell_layout_set_cell_data_func()
 -- gtk_cell_layout_pack_start ()
 
 -- void        gtk_cell_layout_pack_start      (GtkCellLayout *cell_layout,
@@ -218,3 +145,90 @@
 
 -- Since 2.4
 
+feature {NONE} -- size
+	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtlCellLayout)"
+		end
+
+feature {NONE}	-- External calls
+
+	-- Structs: GtkCellLayout  GtkCellLayoutIface
+
+	-- void (*GtkCellLayoutDataFunc) (a_cell_layout: POINTER,
+	-- GtkCellRenderer *cell, GtkTreeModel *tree_model, GtkTreeIter
+	-- *iter, gpointer data);
+
+	gtk_cell_layout_pack_start (a_cell_layout, a_cell_renderer: POINTER;
+										 a_expand_bool: INTEGER ) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_cell_layout_pack_end (a_cell_layout, a_cell_renderer: POINTER;
+									  a_expand_bool: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_cell_layout_reorder (a_cell_layout, a_cell_renderer: POINTER;
+									 a_position: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_cell_layout_clear (a_cell_layout: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	-- gtk_cell_layout_set_attributes is variadic, therefore it cannot
+	-- be wrapped correctly. It is therefore wrapped many times with a
+	-- growing number of arguments as (gtk_cell_layout_set_attributes, .
+
+	gtk_cell_layout_set_attributes (a_cell_layout: POINTER, a_cell_renderer: POINTER, ...) is
+		external "C use <gtk/gtk.h>"
+		end
+
+ gtk_cell_layout_add_attribute (a_cell_layout: POINTER, a_cell_renderer: POINTER, const gchar *attribute, a_column: INTEGER) is
+ 	external "C use <gtk/gtk.h>"
+		end
+
+ gtk_cell_layout_set_cell_data_func
+-- (a_cell_layout: POINTER, a_cell_renderer: POINTER, GtkCellLayoutDataFunc func, gpointer func_data, GDestroyNotify destroy) is
+ 	external "C use <gtk/gtk.h>"
+		end
+
+ gtk_cell_layout_clear_attributes
+-- (a_cell_layout: POINTER, a_cell_renderer: POINTER) is
+ 	external "C use <gtk/gtk.h>"
+		end
+
+-- GtkCellLayout is an interface to be implemented by all objects which want to provide a GtkTreeViewColumn-like API for packing cells, setting attributes and data funcs.
+-- Details
+-- GtkCellLayout
+
+-- typedef struct _GtkCellLayout GtkCellLayout;
+
+-- GtkCellLayoutIface
+
+-- typedef struct {
+-- GTypeInterface g_iface;
+
+-- /* Virtual Table */
+-- void (* pack_start) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gboolean expand);
+-- void (* pack_end) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gboolean expand);
+-- void (* clear) (GtkCellLayout *cell_layout);
+-- void (* add_attribute) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, const gchar *attribute, gint column);
+-- void (* set_cell_data_func) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, GtkCellLayoutDataFunc func, gpointer func_data, GDestroyNotify destroy);
+-- void (* clear_attributes) (GtkCellLayout *cell_layout, GtkCellRenderer *cell);
+-- void (* reorder) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gint position);
+-- } GtkCellLayoutIface;
+
+-- GtkCellLayoutDataFunc ()
+
+-- void (*GtkCellLayoutDataFunc) (a_cell_layout: POINTER, GtkCellRenderer *cell, GtkTreeModel *tree_model, GtkTreeIter *iter, gpointer data);
+
+-- A function which should set the value of cell_layout's cell renderer(s) as appropriate.
+-- cell_layout : 	a GtkCellLayout
+-- cell : 	the cell renderer whose value is to be set
+-- tree_model : 	the model
+-- iter : 	a GtkTreeIter indicating the row to set the value for
+-- data : 	user data passed to gtk_cell_layout_set_cell_data_func()
+end
