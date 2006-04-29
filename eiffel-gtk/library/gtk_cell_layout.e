@@ -180,14 +180,52 @@ feature {NONE}	-- External calls
 	
 	-- gtk_cell_layout_set_attributes is variadic, therefore it cannot
 	-- be wrapped correctly. It is therefore wrapped many times with a
-	-- growing number of arguments as (gtk_cell_layout_set_attributes, .
-
-	gtk_cell_layout_set_attributes (a_cell_layout: POINTER, a_cell_renderer: POINTER, ...) is
+	-- growing number of arguments as (gtk_cell_layout_set_attribute,
+	-- gtk_cell_layout_set_two_attributes,
+	-- gtk_cell_layout_set_three_attributes,
+	-- gtk_cell_layout_set_four_attributes).
+	
+	gtk_cell_layout_set_attribute (a_cell_layout, a_cell_renderer: POINTER;
+		an_attribute: POINTER; a_column: INTEGER;
+		terminator: POINTER) is
+		require valid_terminator: terminator.is_null
 		external "C use <gtk/gtk.h>"
+		alias "gtk_cell_layout_set_attributes"
 		end
 
- gtk_cell_layout_add_attribute (a_cell_layout: POINTER, a_cell_renderer: POINTER, const gchar *attribute, a_column: INTEGER) is
- 	external "C use <gtk/gtk.h>"
+	gtk_cell_layout_set_two_attributes (a_cell_layout, a_cell_renderer: POINTER;
+		first_attribute: POINTER; first_column: INTEGER;
+		second_attribute: POINTER; second_column: INTEGER;
+		terminator: POINTER) is
+		require valid_terminator: terminator.is_null
+		external "C use <gtk/gtk.h>"
+		alias "gtk_cell_layout_set_attributes"
+		end
+
+	gtk_cell_layout_set_three_attributes (a_cell_layout, a_cell_renderer: POINTER;
+		first_attribute: POINTER; first_column: INTEGER;
+		second_attribute: POINTER; second_column: INTEGER;
+		third_attribute: POINTER; third_column: INTEGER;
+		terminator: POINTER) is
+		require valid_terminator: terminator.is_null
+		external "C use <gtk/gtk.h>"
+		alias "gtk_cell_layout_set_attributes"
+		end
+
+	gtk_cell_layout_set_four_attributes (a_cell_layout: POINTER, a_cell_renderer: POINTER;
+		first_attribute: POINTER; first_column: INTEGER;
+		second_attribute: POINTER; second_column: INTEGER;
+		third_attribute: POINTER; third_column: INTEGER;
+		fourth_attribute: POINTER; fourth_column: INTEGER;
+		terminator: POINTER) is
+		require valid_terminator: terminator.is_null
+		external "C use <gtk/gtk.h>"
+		alias "gtk_cell_layout_set_attributes"
+		end
+	
+	gtk_cell_layout_add_attribute (a_cell_layout, a_cell_renderer: POINTER; attribute: POINTER; a_column: INTEGER) is
+		require valid_terminator: terminator.is_null
+		external "C use <gtk/gtk.h>"
 		end
 
  gtk_cell_layout_set_cell_data_func
