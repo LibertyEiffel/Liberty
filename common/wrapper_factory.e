@@ -9,7 +9,7 @@ indexing
 deferred class WRAPPER_FACTORY [ITEM_->WRAPPER]
 
 inherit
-	WRAPPER undefine fill_tagged_out_memory end
+	WRAPPER_HANDLER -- undefine fill_tagged_out_memory end
 
 	INTERNALS_HANDLER
 		-- needed to materialize an object of type ITEM, without knowing

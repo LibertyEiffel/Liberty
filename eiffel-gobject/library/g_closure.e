@@ -55,7 +55,7 @@ indexing
 			-- they point to go away.
 
 class G_CLOSURE
-inherit C_STRUCT undefine make end
+inherit SHARED_C_STRUCT undefine make redefine dispose end
 	
 creation make, link_to
 
@@ -222,7 +222,12 @@ feature -- Reference counting and memory handling
 		do
 			g_closure_unref (handle)
 		end
-
+feature -- Memory handling
+	dispose is
+		do
+			-- Note: memory handling is done by gobject
+			unref
+		end
 feature -- Invoking
 
 	invoke (some_parameters: G_VALUE_ARRAY): G_VALUE is

@@ -8,12 +8,12 @@ indexing
 class GTK_TREE_VIEW
 inherit
 	GTK_CONTAINER redefine make end
-	GTK_TREE_VIEW_EXTERNALS
 
 -- GtkTreeView implements AtkImplementorIface.
-
 insert
 	WRAPPER_FACTORY [GTK_TREE_MODEL]
+	GTK_TREE_VIEW_EXTERNALS
+
 creation make, with_model, from_external_pointer
 
 feature {NONE} -- Creation

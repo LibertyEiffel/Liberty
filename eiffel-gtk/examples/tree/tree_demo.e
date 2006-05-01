@@ -106,7 +106,7 @@ feature {NONE}  -- Creation
 			window.show
 
 			selection := view.selection
-			selection.set_select_function (agent on_select)
+			--selection.set_select_function (agent on_select)
 			run_gtk_main_loop
 		end
 
@@ -115,7 +115,6 @@ feature
 		require valid_model: model /= Void
 		local iter:  GTK_TREE_ITER
 		do
-			print (view.cursor.out)
 			print ("Iterating over names%N")
 			create iter.make_from_model (model)	  
 			from iter.start
@@ -133,7 +132,7 @@ feature
 	paths_demo is
 		local path: GTK_TREE_PATH
 		do
-			print ("Tree paths demo%N")
+			print ("Tree paths demo:%N")
 			create path.make_first
 			print ("First: ") print (path.to_string) print ("%N")
 			create path.from_string ("1:3:2")
@@ -143,8 +142,9 @@ feature
 feature -- Agents
 	on_destroy (a_gtk_object: GTK_OBJECT) is
 		do
-			print ("on destroy has been called%N")
+			print ("Tree demo is quitting.%N")
 			paths_demo
+			print ("Traversing model:%N")
 			traverse_model
 			print ("Using GTK_TREE_MODEL.for_each to print its content:%N")
 			print ("TODO: in tree_demo on_destroy model.for_each (agent print_person)%N")

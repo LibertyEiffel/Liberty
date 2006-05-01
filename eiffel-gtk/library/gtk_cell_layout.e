@@ -38,59 +38,55 @@ feature
       end
    
    pack_end (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
-	 -- Packs the cell to the end of Current cell layout. If
-	 -- expand is FALSE, then the cell is allocated no more space
-	 -- than it needs. Any unused space is divided evenly between
-	 -- cells for which expand is TRUE.
-
-	 -- Note that reusing the same cell renderer is not supported.
+			-- Packs the cell to the end of Current cell layout. If expand is
+			-- FALSE, then the cell is allocated no more space than it needs. Any
+			-- unused space is divided evenly between cells for which expand is
+			-- TRUE.
+		
+			-- Note that reusing the same cell renderer is not supported.
       require valid_renderer: a_cell_renderer /= Void
       do
-	 gtk_cell_layout_pack_end (handle, a_cell_renderer.handle, expand.to_boolena)
+			gtk_cell_layout_pack_end (handle, a_cell_renderer.handle, expand.to_boolena)
       end
    
    reorder  (a_cell_renderer: GTK_CELL_RENDERER; a_position: INTEGER) is
+			-- Re-inserts cell at position. Note that cell has already to be packed
+			-- into cell_layout for this to function properly.
+      require
+			valid_renderer: a_cell_renderer /= Void
+			-- TODO: cell shall be already inserted
       do
--- void        gtk_cell_layout_reorder         (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              gint position);
+			gtk_cell_layout_reorder (handle, a_cell_renderer.handle a_position)
+		end
 
--- Re-inserts cell at position. Note that cell has already to be packed into cell_layout for this to function properly.
 
--- cell_layout : 	A GtkCellLayout.
--- cell : 	A GtkCellRenderer to reorder.
--- position : 	New position to insert cell at.
+	clear is
+			-- Unsets all the mappings on all renderers on cell_layout and removes
+			-- all renderers from cell_layout.
+		do
+			gtk_cell_layout_clear (handle)
+		end			
 
--- Since 2.4
--- gtk_cell_layout_clear ()
+	
+	-- gtk_cell_layout_set_attributes ()
+	
+	-- void gtk_cell_layout_set_attributes (GtkCellLayout *cell_layout,
+	-- GtkCellRenderer *cell, ...);
 
--- void        gtk_cell_layout_clear           (GtkCellLayout *cell_layout);
+	-- Sets the attributes in list as the attributes of cell_layout. The
+	-- attributes should be in attribute/column order, as in
+	-- gtk_cell_layout_add_attribute(). All existing attributes are removed, and
+	-- replaced with the new attributes.
+	
+	-- cell_layout : 	A GtkCellLayout.
+	-- cell : 	A GtkCellRenderer.
+	-- ... : 	A NULL-terminated list of attributes.
 
--- Unsets all the mappings on all renderers on cell_layout and removes all renderers from cell_layout.
+	-- gtk_cell_layout_add_attribute ()
 
--- cell_layout : 	A GtkCellLayout.
-
--- Since 2.4
--- gtk_cell_layout_set_attributes ()
-
--- void        gtk_cell_layout_set_attributes  (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              ...);
-
--- Sets the attributes in list as the attributes of cell_layout. The attributes should be in attribute/column order, as in gtk_cell_layout_add_attribute(). All existing attributes are removed, and replaced with the new attributes.
-
--- cell_layout : 	A GtkCellLayout.
--- cell : 	A GtkCellRenderer.
--- ... : 	A NULL-terminated list of attributes.
-
--- Since 2.4
--- gtk_cell_layout_add_attribute ()
-
--- void        gtk_cell_layout_add_attribute   (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              const gchar *attribute,
---                                              gint column);
-
+	-- void gtk_cell_layout_add_attribute (GtkCellLayout *cell_layout,
+	-- GtkCellRenderer *cell, const gchar *attribute, gint column);
+	
 -- Adds an attribute mapping to the list in cell_layout. The column is the column of the model to get a value from, and the attribute is the parameter on cell to be set from the value. So for example if column 2 of the model contains strings, you could have the "text" attribute of a GtkCellRendererText get its values from column 2.
 
 -- cell_layout : 	A GtkCellLayout.
