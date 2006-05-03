@@ -106,6 +106,7 @@ feature {NONE} -- Creation
 			-- task. Feel free to change it. Paolo 2006-02-22
 		do
 			handle := gtk_list_store_newv (some_columns.count, some_columns.to_external)
+			store_eiffel_wrapper
 		end
 
 feature {NONE} -- Unwrapped code

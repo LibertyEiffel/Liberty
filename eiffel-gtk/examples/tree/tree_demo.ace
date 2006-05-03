@@ -1,3 +1,4 @@
+
 system
 "tree_demo"
 
@@ -6,12 +7,12 @@ root
  TREE_DEMO: make
 
 default -- section of the system
-	assertion (all); 
+	assertion (check); 
 	-- Choose the appropriate value: boost, no, require, ensure, invariant, loop, check, all.
 
 	assertion_flat_check (no);
 	
-	debug (no);
+	debug (yes);
 	
 	trace (no);
 	
@@ -30,16 +31,25 @@ default -- section of the system
 	relax (yes);
 
 cluster -- section
-		gtk: "../../loadpath.se"
-		glib: "../../../eiffel-glib/loadpath.se"
-		gobject: "../../../eiffel-gobject/loadpath.se"
-
-		"."
-
+	gtk: "../../loadpath.se"
+	glib: "../../../eiffel-glib/loadpath.se"
+	gobject: "../../../eiffel-gobject/loadpath.se"
+	"."
 
 	standard: "${path_lib}/loadpath.se"
 
 external -- section for elements written in another language
+   -- Directories where to search for C .h files:
+   -- unused   
+   external_header_path: ". ../../library/externals" 
+   -- /usr/include/gtk-2.0 /usr/lib/gtk-2.0/include /usr/include/atk-1.0 /usr/include/cairo /usr/include/pango-1.0 /usr/include/glib-2.0 /usr/lib/glib-2.0/include"
+   -- here we should put $(pkg-config --cflags gtk+-2.0) instead of 
+   -- all those explict paths
+	 
+	 -- External C files to be considered;
+   external_c_files: "callbacks.c"
+   
+   -- No cecil calls used!   cecil ("eiffel-gtk-external-calls.se")
 
 
 generate -- section

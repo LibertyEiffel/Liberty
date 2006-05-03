@@ -1,55 +1,71 @@
 indexing
-	description: "Generic callback for the destroy signal"
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision "$Revision:$"
+   description: "Generic callback for the destroy signal"
+   copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+   license: "LGPL v2 or later"
+   date: "$Date:$"
+   revision "$Revision:$"
 	
 class GTK_TREE_SELECT_FUNCTION
 inherit WRAPPER_HANDLER -- It wraps a callback function
 insert
-	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
-	GTK_TREE_SELECTION_EXTERNALS
+   G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
+   GTK_TREE_SELECTION_EXTERNALS
 creation make
 feature
-	make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
-		do
-			function := a_function
-			gtk_tree_selection_set_select_function (a_selection.handle, 
-																 $on_callback, -- selection function
-																 $callback, -- Current.to_pointer, --a_function.to_pointer, -- The selection function's data.
-																 default_pointer -- The destroy function for user data. May be and indeed it is NULL.
-																 )
-		end
-	
+   make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
+      local array: NATIVE_ARRAY [POINTER]; callback_ptr: POINTER
+      do
+	 function := a_function
+	 gtk_tree_selection_set_select_function (a_selection.handle, 
+						 $low_level_callback, -- selection function
+						 callback_array ($callback), -- The selection function's data.
+						 default_pointer -- destroy function for user data. May be and indeed it is NULL.
+						 )
+      end
+   
+feature {NONE} -- 
+   callback_array (a_callback_pointer: POINTER): POINTER is
+      -- This call is required because we need to build an array with 
+      -- the address of an Eiffel feature (namely callback). `$' 
+      -- operator thought can be used only in a feature call. Hence this.
+      do
+	 Result:= {NATIVE_ARRAY[POINTER] <<a_callback_pointer ,Current.to_pointer>>}.to_external
+      end
+	 
+   low_level_callback (selection, model, path: POINTER; path_currently_selected: INTEGER; data: POINTER): INTEGER is
+	 -- Low level callback will be called by GTK; it will call
+	 -- `callback'.
+      external "C use <callbacks.h>"
+      alias "EiffelGtkTreeSelectionFunc"
+      end 
+
 feature
-
-
-	
-	on_callback (selection,model,path: POINTER; path_currently_selected: INTEGER; instance: POINTER) is
-		do
-		end
-
-	callback (selection,model,path: POINTER; path_currently_selected: INTEGER, instance: POINTER) is
-		local
-			a_selection: GTK_TREE_SELECTION
-			a_model: GTK_TREE_MODEL
-			a_path: GTK_TREE_PATH
-		do
-			debug
-				print ("Gtk tree select function callback:")
-				print (" selection=") print(selection.to_string) 
-				print (" model=") print(model.to_string) 
-				print (" path=") print(path.to_string) 
-				print (" path_currently_selected=") print(path_currently_selected.to_string) 
-				--print (" instance=") print (instance.to_string)
-				print ("%N")
-			end
-			create a_selection.from_external_pointer (selection)
-			a_model := retrieve_eiffel_wrapper_from_gobject_pointer (model)
-			create a_path.from_external_pointer (path)
-			print ("function.call ([a_selection,a_model,a_path,path_currently_selected.to_boolean])%N")
-		end
-
-	function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]
+   callback (selection_ptr, model_ptr,path_ptr: POINTER; path_currently_selected: INTEGER): INTEGER is --; instance: POINTER) is
+      local
+	 a_selection: GTK_TREE_SELECTION;
+	 a_model: GTK_TREE_MODEL
+	 a_path: GTK_TREE_PATH
+      do
+	 debug
+	    print ("Gtk tree select function callback:")
+	    print (" selection=") print(selection_ptr.to_string) 
+	    print (" model=") print(model_ptr.to_string) 
+	    print (" path=") print(path_ptr.to_string) 
+	    print (" path_currently_selected=") print(path_currently_selected.to_string) 
+	    --print (" instance=") print (instance.to_string)
+	    print ("%N")
+	 end
+	 create a_selection.from_external_pointer (selection_ptr)
+	 a_model := eiffel_wrapper_from_gobject_pointer (model_ptr)
+	 debug
+	    if a_model = Void then
+	       print ("Warning! In GTK_TREE_SELECT_FUNCTION.callback model_ptr does not have a stored Eiffel wrapper. We cannot recreate it, since GTK_TREE_MODEL is deferred. This can be a bug or a source of other bugs. Be warned! Paolo 2006-05-03%N")
+	    end
+	 end
+	 create a_path.from_external_pointer (path_ptr)
+	 Result := (function.item ([a_selection,a_model,a_path,
+				    path_currently_selected.to_boolean]).to_integer)
+      end
+   
+   function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]
 end
