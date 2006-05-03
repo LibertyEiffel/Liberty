@@ -142,8 +142,23 @@ feature -- Divider position
 			Result := gtk_paned_get_position (handle)
 		end
 
-feature -- Property Details
--- The "max-position" property
+feature -- Properties
+
+--   "max-position"         gint                  : Read
+--   "min-position"         gint                  : Read
+--   "position"             gint                  : Read / Write
+--   "position-set"         gboolean              : Read / Write
+
+-- Child Properties
+
+--   "resize"               gboolean              : Read / Write
+--   "shrink"               gboolean              : Read / Write
+
+-- Style Properties
+
+--   "handle-size"          gint                  : Read
+
+	-- The "max-position" property
 
 --   "max-position"         gint                  : Read
 
@@ -210,7 +225,7 @@ feature -- Property Details
 -- Allowed values: >= 0
 
 -- Default value: 5
--- Signal Details
+feature -- Signal Details
 -- The "accept-position" signal
 
 -- gboolean    user_function                  (GtkPaned *paned,
@@ -265,21 +280,6 @@ feature -- Property Details
 -- paned : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
 -- Returns : 	
--- Properties
-
---   "max-position"         gint                  : Read
---   "min-position"         gint                  : Read
---   "position"             gint                  : Read / Write
---   "position-set"         gboolean              : Read / Write
-
--- Child Properties
-
---   "resize"               gboolean              : Read / Write
---   "shrink"               gboolean              : Read / Write
-
--- Style Properties
-
---   "handle-size"          gint                  : Read
 
 -- Signals
 

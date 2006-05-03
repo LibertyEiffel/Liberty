@@ -6,8 +6,7 @@ indexing
 	revision "$Revision:$"
 	
 class GTK_TREE_SELECT_FUNCTION
-inherit
-	WRAPPER_HANDLER -- It wraps a callback function
+inherit WRAPPER_HANDLER -- It wraps a callback function
 insert
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 	GTK_TREE_SELECTION_EXTERNALS
@@ -17,16 +16,23 @@ feature
 		do
 			function := a_function
 			gtk_tree_selection_set_select_function (a_selection.handle, 
-																 $callback, -- selection function
-																 a_function.to_pointer, -- The selection function's data.
+																 $on_callback, -- selection function
+																 $callback, -- Current.to_pointer, --a_function.to_pointer, -- The selection function's data.
 																 default_pointer -- The destroy function for user data. May be and indeed it is NULL.
 																 )
 		end
 	
 feature
-	callback (selection,model,path: POINTER; path_currently_selected: INTEGER) is --; instance: POINTER) is
+
+
+	
+	on_callback (selection,model,path: POINTER; path_currently_selected: INTEGER; instance: POINTER) is
+		do
+		end
+
+	callback (selection,model,path: POINTER; path_currently_selected: INTEGER, instance: POINTER) is
 		local
-			a_selection: GTK_TREE_SELECTION;
+			a_selection: GTK_TREE_SELECTION
 			a_model: GTK_TREE_MODEL
 			a_path: GTK_TREE_PATH
 		do

@@ -1,0 +1,186 @@
+* (Done for G_OBJECTs see G_OBJECT_RETRIEVER; not a totally generic
+   solution, but covers most of our needs) Generic data structure now
+   re-create an object every time it delivers an object to the eiffel
+   world, of the most generic type possible, without checking if
+   there's already an eiffel wrapper and if the wrapper can be of a
+   more specific type. i.e.: having a widgets: G_LIST[GTK_WIDGET]
+   calling widgets.first will always create a new GTK_WIDGET object -
+   which is actually wrong - even the first widget is actually a
+   GTK_BUTTON and there's already a wrapper.
+
+* Eiffelize the examples found in GTK+ documentation
+
+* add precondition to external classes. The most obvious is i.e.:
+   gtk_entry_set_text (an_entry, a_text: POINTER) is require
+   valid_entry: an_entry.is_not_null
+
+* wrapping properties.
+
+* GTK_EDITABLE.insert_text implementation missing!
+
+* GTK_ENTRY_COMPLETION.set_model 
+
+* wrap Dynamic Loading of Modules
+   (/usr/share/doc/libgtk2.0-doc/glib/glib-Dynamic-Loading-of-Modules.html), 
+ 
+   GObject (partial)
+        GtkObject (partial)
+            GtkWidget (partial)
+                GtkContainer (partial)
+                    GtkBin (partial)
+                        GtkWindow (partial)
+                            GtkDialog (almost)
+                                GtkAboutDialog
+                                GtkColorSelectionDialog
+                                GtkFileChooserDialog 
+                                GtkFileSelection (almost)
+                                GtkFontSelectionDialog
+                                GtkInputDialog
+                                GtkMessageDialog
+                            GtkPlug
+                        GtkAlignment (partial)
+                        GtkFrame  (partial property missing)
+                            GtkAspectFrame 
+                        GtkButton (partial) 
+                            GtkToggleButton (done)
+                                GtkCheckButton (done)
+                                    GtkRadioButton (almost)
+                            GtkColorButton
+                            GtkFontButton
+                            GtkOptionMenu
+                        GtkItem (partial)
+                            GtkMenuItem
+                                GtkCheckMenuItem
+                                    GtkRadioMenuItem
+                                GtkImageMenuItem
+                                GtkSeparatorMenuItem
+                                GtkTearoffMenuItem
+                            GtkListItem
+                            GtkTreeItem
+                        GtkComboBox
+                            GtkComboBoxEntry
+                        GtkEventBox
+                        GtkExpander (almost)
+                        GtkHandleBox
+                        GtkToolItem
+                            GtkToolButton
+                                GtkMenuToolButton
+                                GtkToggleToolButton
+                                    GtkRadioToolButton
+                            GtkSeparatorToolItem
+                        GtkScrolledWindow
+                        GtkViewport
+                    GtkBox (almost)
+                        GtkButtonBox
+                            GtkHButtonBox
+                            GtkVButtonBox
+                        GtkVBox
+                            GtkColorSelection
+                            GtkFileChooserWidget
+                            GtkFontSelection
+                            GtkGammaCurve
+                        GtkHBox
+                            GtkCombo
+                            GtkFileChooserButton
+                            GtkStatusbar
+                    GtkCList
+                        GtkCTree
+                    GtkFixed
+                    GtkPaned (done almost)
+                        GtkHPaned (done almost)
+                        GtkVPaned (done almost)
+                    GtkIconView
+                    GtkLayout
+                    GtkList
+                    GtkMenuShell
+                        GtkMenuBar
+                        GtkMenu
+                    GtkNotebook (done almost, no example though)
+                    GtkSocket
+                    GtkTable
+                    GtkTextView
+                    GtkToolbar
+                    GtkTree
+                    GtkTreeView 
+                GtkMisc
+                    GtkLabel (done almost)
+                        GtkAccelLabel
+                        GtkTipsQuery
+                    GtkArrow
+                    GtkImage (done)
+                    GtkPixmap
+                GtkCalendar
+                GtkCellView 
+                GtkDrawingArea
+                    GtkCurve
+                GtkEntry (partially)
+                    GtkSpinButton (partially)
+                GtkRuler
+                    GtkHRuler
+                    GtkVRuler
+                GtkRange (mostly; missing most properties)
+                    GtkScale (mostly; missing most properties)
+                        GtkHScale (done)
+                        GtkVScale (done)
+                    GtkScrollbar
+                        GtkHScrollbar
+                        GtkVScrollbar
+                GtkSeparator
+                    GtkHSeparator
+                    GtkVSeparator
+                GtkInvisible
+                GtkOldEditable
+                    GtkText
+                GtkPreview
+                GtkProgress [Deprecated]
+                    GtkProgressBar
+            GtkAdjustment (almost done)
+            GtkCellRenderer (partially)
+                GtkCellRendererText
+                    GtkCellRendererCombo
+                GtkCellRendererPixbuf
+                GtkCellRendererProgress
+                GtkCellRendererToggle
+            GtkFileFilter
+            GtkItemFactory
+            GtkTooltips
+            GtkTreeViewColumn
+        GtkAccelGroup
+        GtkAccelMap
+        AtkObject
+            GtkAccessible
+        GtkAction
+            GtkToggleAction
+                GtkRadioAction
+        GtkActionGroup
+        GtkEntryCompletion (needs GtkTreeModel)
+        GtkIconFactory
+        GtkIconTheme
+        GtkIMContext
+            GtkIMContextSimple
+            GtkIMMulticontext
+        GtkListStore
+        GtkRcStyle
+        GtkSettings
+        GtkSizeGroup
+        GtkStyle
+        GtkTextBuffer
+        GtkTextChildAnchor
+        GtkTextMark
+        GtkTextTag
+        GtkTextTagTable
+        GtkTreeModelFilter
+        GtkTreeModelSort
+        GtkTreeSelection
+        GtkTreeStore
+        GtkUIManager
+        GtkWindowGroup
+    GInterface
+        GtkCellEditable (partial)
+        GtkCellLayout
+        GtkEditable (mostly)
+        GtkFileChooser
+        GtkTreeModel
+        GtkTreeDragSource
+        GtkTreeDragDest
+        GtkTreeSortable
