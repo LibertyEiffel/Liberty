@@ -180,7 +180,7 @@ deferred class GTK_FILE_CHOOSER
 inherit
 	-- "Prerequisites: GtkFileChooser requires GtkWidget." IMHO this
 	-- means that GTK_FILE_CHOOSER is a
-	GTK_WIDGET undefine make end
+	GTK_WIDGET 
 		-- Known Implementations: GtkFileChooser is implemented by
 		-- GtkFileChooserWidget, GtkFileChooserButton and
 		-- GtkFileChooserDialog.
@@ -874,7 +874,7 @@ feature -- Shortcuts folders
 			-- TODO: Create G_ERROR
 			is_last_action_successful := gtk_file_chooser_add_shortcut_folder (handle,
 																									 a_folder.to_external,
-																									 Null -- TODO: it will be last_error.handle when G_ERROR exists
+																									 default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
 																									 ).to_boolean
 		end
 
@@ -890,7 +890,7 @@ require valid_folder: a_folder /= Void
 		do
 			is_last_action_successful := gtk_file_chooser_remove_shortcut_folder  (handle,
 																										  a_folder.to_external,
-																										  Null -- TODO: it will be last_error.handle when G_ERROR exists
+																										  default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
 																										  ).to_boolean
 		end
 
@@ -929,7 +929,7 @@ require valid_folder: a_folder /= Void
 		do
 			is_last_action_successful := ( gtk_file_chooser_add_shortcut_folder_uri
 													 (handle, an_uri.to_external,
-													  Null -- TODO: it will be last_error.handle when G_ERROR exists
+													  default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
 													  ).to_boolean )
 		end
 
@@ -940,7 +940,7 @@ require valid_folder: a_folder /= Void
 		do
 			is_last_action_successful := ( gtk_file_chooser_remove_shortcut_folder_uri
 													 (handle, an_uri.to_external,
-													  Null -- TODO: it will be last_error.handle when G_ERROR exists
+													  default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
 													  ).to_boolean )
 		end
 

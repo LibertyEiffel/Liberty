@@ -32,7 +32,7 @@ feature -- Initialisation
 			initialize_gtk								
 			run_some_dialogs
 			show_file_dialogs
-			--run_files_dialog
+			run_files_dialog
 		end
 
 	run_some_dialogs is
@@ -84,7 +84,7 @@ feature -- Initialisation
 		end
 
 	show_file_dialogs is
-		local filename: STRING; filenames: G_SLIST_STRING
+		local filename: STRING
 		do
 			create file_chooser.make_open ("Choose the Eiffelest file you have",Void,
 													 <<["Sure", {INTEGER 1}],
@@ -98,24 +98,24 @@ feature -- Initialisation
 			end
 		end
 
--- 	run_files_dialog is
--- 		local filenames: GS_LIST_STRING
--- 		do
--- 			create file_chooser.make_open ("Choose some files")
--- 			file_chooser.add_ok_cancel_buttons
--- 			file_chooser.allow_multiple
+	run_files_dialog is
+		local filenames: G_SLIST_STRING
+		do
+			create file_chooser.make_open ("Choose some files",Void,Void)
+			file_chooser.add_ok_cancel_buttons
+			file_chooser.allow_multiple_selections
 			
--- 			answer := file_chooser.run
--- 			print ("Answer: ") print (answer.out)
--- 			filenames := file_chooser.filenames
--- 			from filenames.start print("Choosen files are:%N")
--- 			until filenames.off -- after
--- 			loop
--- 				print (filenames.iteration_item) print ("%N")
--- 				filenames.forth
--- 			end
--- 			print ("No more%N")
--- 		end
+			answer := file_chooser.run
+			print ("Answer is "+answer.out+".%N")
+			filenames := file_chooser.filenames
+			print (filenames.count.out + " files choosen. TODO: implement %
+												  %G_SLIST_STRING.get_new_iterator%N")
+			-- from filenames.start print("Choosen files are:%N") until
+			-- filenames.off -- after loop print
+			-- (filenames.iteration_item) print ("%N") filenames.forth
+			-- end print ("No more%N")
+		end
+
 	my_rescue is
 		local failing_message: GTK_MESSAGE_DIALOG; an_answer: INTEGER
 		do

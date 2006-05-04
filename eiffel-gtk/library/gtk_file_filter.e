@@ -28,8 +28,8 @@ indexing
 
 class GTK_FILE_FILTER
 inherit
-
-	GTK_OBJECT redefine make end
+	GTK_OBJECT
+insert
 	GTK_FILE_FILTER_EXTERNALS
 	GTK_FILE_FILTER_INFO_EXTERNALS
 	GTK_FILE_FILTER_FLAGS
@@ -79,7 +79,7 @@ feature -- Filter name
 			-- that will be displayed in the file selector user interface
 			-- if there is a selectable list of filters.
 		do
-			gtk_file_filter_set_name (handle, Null)
+			gtk_file_filter_set_name (handle, default_pointer)
 		end
 
 	name: STRING is

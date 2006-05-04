@@ -27,9 +27,10 @@ indexing
 
 deferred class GTK_BOX
 inherit
-	GTK_CONTAINER rename make as make_container undefine make_container end
-	GTK_BOX_EXTERNALS
+	GTK_CONTAINER rename make as make_container end
 	-- GtkBox implements AtkImplementorIface.
+	
+insert GTK_BOX_EXTERNALS
 
 feature
 	pack_start (a_widget: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER) is

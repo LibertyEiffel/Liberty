@@ -55,7 +55,7 @@ indexing
 			-- they point to go away.
 
 class G_CLOSURE
-inherit SHARED_C_STRUCT undefine make redefine dispose end
+inherit SHARED_C_STRUCT redefine dispose end
 	
 creation make, link_to
 

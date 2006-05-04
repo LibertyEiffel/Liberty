@@ -91,7 +91,8 @@ feature
 		end
 
 	put (an_item: like first; i: INTEGER) is
-		require else valid_item: an_item/=Void 
+		require -- else 
+      	      valid_item: an_item/=Void 
 		do
 			g_list_set_data (g_list_nth(handle,i), an_item.handle)
 		end

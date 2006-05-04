@@ -25,15 +25,14 @@ inherit
 -- 			swap
 -- 		end
 	G_SLIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
-	SHARED_C_STRUCT
-		rename is_not_null as wrapped_object_exists
-		undefine copy,fill_tagged_out_memory
-		end
+	SHARED_C_STRUCT rename is_not_null as wrapped_object_exists end
 	
+insert
+	-- TODO: inserting INTERNALS_HANDLER is NOT necessary. Remove it
 	INTERNALS_HANDLER
 		-- needed to materialize an object of type STRING, without knowing
 		-- which type STRING will really be.
-		undefine copy,fill_tagged_out_memory
+		undefine copy 
 		end
 
 creation make, from_external_pointer
@@ -41,7 +40,7 @@ creation make, from_external_pointer
 feature
 	make is
 		do
-			handle := Null
+			handle := default_pointer
 			--create factory_item
 		end
 
@@ -61,7 +60,8 @@ feature
 		end
 
 	put (a_string: like first; i: INTEGER) is
-		require else valid_item: a_string/=Void
+		require -- else
+			valid_item: a_string/=Void
 		do
 			g_slist_set_data (g_slist_nth(handle,i), a_string.to_external)
 		end
@@ -142,7 +142,7 @@ feature
 			-- added to the GAllocator free list.
 		do
 			g_slist_free (handle)
-			handle := Null -- default_pointer
+			handle := default_pointer
 		end
 
 	has (x: like first): BOOLEAN is
@@ -276,7 +276,8 @@ feature
 	upper,count: INTEGER is 
 		do
 			Result:=g_slist_length(handle)
-		ensure then positive: Result >= 0 
+		ensure -- then
+			positive: Result >= 0 
 		end
 
 	is_empty: BOOLEAN is 

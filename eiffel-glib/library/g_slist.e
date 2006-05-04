@@ -50,7 +50,7 @@ inherit
 -- 		end
 	SHARED_C_STRUCT
 		rename exists as wrapped_object_exists
-		undefine copy,fill_tagged_out_memory
+		-- undefine copy,fill_tagged_out_memory
 		end
 
 insert
@@ -59,7 +59,7 @@ insert
 	INTERNALS_HANDLER
 		-- needed to materialize an object of type ITEM, without knowing
 		-- which type ITEM will really be.
-		undefine copy,fill_tagged_out_memory
+		undefine copy
 		end
 
 creation make, from_external_pointer
@@ -113,7 +113,8 @@ feature
 		end
 
 	put (an_item: like first; i: INTEGER) is
-		require else valid_item: an_item/=Void 
+		require -- else 
+      	      valid_item: an_item/=Void 
 		do
 			g_slist_set_data (g_slist_nth(handle,i), an_item.handle)
 		end
@@ -369,7 +370,8 @@ feature
 			
 	prepend  (an_item: like first) is
 			-- Adds a new element on to the start of the list.
-		require valid_item: an_item/=Void
+		require
+			valid_item: an_item/=Void
 		do
 			handle := g_slist_prepend (handle,an_item.handle)
 			-- Note: The return value is the new start of the list, which

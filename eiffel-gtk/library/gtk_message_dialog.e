@@ -50,7 +50,7 @@ inherit
 	
 creation new,with_markup ,from_external_pointer
 
-feature {NONE} -- size
+feature -- size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof()"
@@ -72,7 +72,7 @@ feature {NONE} -- Creation
 			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
 			if a_parent=Void then
-				handle:=gtk_message_dialog_new(Null,some_flags,a_type,some_buttons,a_message.to_external)
+				handle:=gtk_message_dialog_new(default_pointer,some_flags,a_type,some_buttons,a_message.to_external)
 			else
 				handle:=gtk_message_dialog_new(a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external)
 			end
@@ -108,7 +108,7 @@ feature {NONE} -- Creation
 		do
 			if a_parent=Void then
 				handle := (gtk_message_dialog_new_with_markup
-							  (Null,some_flags,a_type,some_buttons,a_message.to_external))
+							  (default_pointer,some_flags,a_type,some_buttons,a_message.to_external))
 			else
 				handle := (gtk_message_dialog_new_with_markup
 							  (a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external))
@@ -139,7 +139,7 @@ feature -- Dialog's message
 	unset_secondary_text is
 			-- Remove any secondary text of the message dialog.
 		do
-			gtk_message_dialog_format_secondary_text (handle, Null)
+			gtk_message_dialog_format_secondary_text (handle, default_pointer)
 		end
 	
 
@@ -171,7 +171,7 @@ feature -- Dialog's message
 	unset_secondary_markup is
 			-- Unsets the secondary text of the message dialog.
 		do
-			gtk_message_dialog_format_secondary_markup (handle, Null)
+			gtk_message_dialog_format_secondary_markup (handle, default_pointer)
 		end
 
 feature	-- Property Details

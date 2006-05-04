@@ -133,7 +133,7 @@ feature {NONE} -- Creation
 		do
 			if a_title/=Void then title_ptr := a_title.to_external end
 			if a_parent/=Void then parent_ptr := a_parent.handle end
-			handle := gtk_file_chooser_dialog_new (title_ptr, parent_ptr, gtk_file_chooser_action_open, Null)
+			handle := gtk_file_chooser_dialog_new (title_ptr, parent_ptr, gtk_file_chooser_action_open, default_pointer)
 			store_eiffel_wrapper
 			if some_buttons/=Void then
 				from iterator := some_buttons.get_new_iterator; iterator.start
