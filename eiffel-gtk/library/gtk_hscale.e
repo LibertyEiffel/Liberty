@@ -32,6 +32,7 @@ feature {NONE} -- Creation
 		require valid_adjustment: an_adjustment /= Void
 		do
 			handle := gtk_hscale_new (an_adjustment.handle)
+			store_eiffel_wrapper
 		end
 
 	with_range (a_min, a_max, a_step: REAL) is
@@ -55,6 +56,7 @@ feature {NONE} -- Creation
 
 		do
 			handle:=gtk_hscale_new_with_range (a_min, a_max, a_step)
+			store_eiffel_wrapper
 		end
 end
 	

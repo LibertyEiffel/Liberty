@@ -20,5 +20,6 @@ feature {NONE} -- Creation
 			-- by default between children.
 		do
 			handle := gtk_vbox_new (an_homogeneous.to_integer, a_spacing)
+			store_eiffel_wrapper
 		end
 end

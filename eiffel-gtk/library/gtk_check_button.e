@@ -17,12 +17,14 @@ feature {NONE} -- Creation
 			-- Creates a new GtkCheckButton.
 		do
 			handle :=  gtk_check_button_new
+			store_eiffel_wrapper
 		end
 
 	with_label (a_label: STRING) is
 			-- Creates a new GtkCheckButton with a GtkLabel to the right of it.
 		do
 			handle :=  gtk_check_button_new_with_label (a_label.to_external)
+			store_eiffel_wrapper
 		end
 	
 	with_mnemonic (a_label: STRING) is
@@ -32,6 +34,7 @@ feature {NONE} -- Creation
 			-- button.
 		do
 			handle := gtk_check_button_new_with_mnemonic (a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 feature -- Style Properties TODO

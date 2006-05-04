@@ -51,6 +51,7 @@ feature {NONE} -- Creation
 		do
 			handle := gtk_adjustment_new (a_value, a_lower, an_upper,
 													a_step_increment, a_page_increment, a_page_size)
+			store_eiffel_wrapper		
 		end
 
 feature

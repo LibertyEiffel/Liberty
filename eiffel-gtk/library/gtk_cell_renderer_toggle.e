@@ -37,6 +37,7 @@ feature {NONE} -- Creation
 			-- of the model.
 		do
 			handle := gtk_cell_renderer_toggle_new
+			store_eiffel_wrapper
 		end
 
 feature 

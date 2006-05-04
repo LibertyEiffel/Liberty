@@ -34,6 +34,7 @@ feature
 			-- (i.e. the preview widget set in GTK_FILE_CHOOSER). 
 		do
 			set_qdata (eiffel_key, Current)
+		ensure stored: is_eiffel_wrapper_stored
 		end
 
 	is_eiffel_wrapper_stored: BOOLEAN is
@@ -186,14 +187,11 @@ feature -- Quark-based data storing and retrieving
 		end
 
 	get_qdata (a_key: G_QUARK): ANY is
-			-- Gets a named field from the objects table of associations (see
-			-- set_data). `a_key': a GQuark, naming the user data pointer; Void if no
-			-- `a_key' field is present
+			-- Gets a named field from the objects table of associations
+			-- (see set_data). `a_key': a GQuark, naming the user data
+			-- pointer; Void if no `a_key' field is present
 		local ptr: POINTER
 		do
-			-- Note: wrappers that needs to store C pointers and do other low-level
-			-- stuff are invited to use g_object_get_data directly
-			-- Note: Perhaps it is better to use GQuarks and g_object_get_qdata
 			ptr := g_object_get_qdata (handle, a_key.quark)
 			if ptr.is_not_null then Result:=ptr.to_any end
 		ensure 
@@ -201,10 +199,10 @@ feature -- Quark-based data storing and retrieving
 		end
 	
 	set_qdata (a_key: G_QUARK; data: ANY) is
-			-- Store a reference to `data' under the GQuark `a_key'. Each object
-			-- carries around a table of associations from strings to pointers. If
-			-- the object already had an association with that name, the old
-			-- association will be destroyed.
+			-- Store a reference to `data' under the GQuark `a_key'. Each
+			-- object carries around a table of associations from strings
+			-- to pointers. If the object already had an association with
+			-- that name, the old association will be destroyed.
 
 			-- a_key : 	name of the key
 			-- data : 	data to associate with that key
@@ -229,8 +227,12 @@ feature -- Property getter/setter
 			ptr := malloc_g_value
 			g_object_get_property (handle,property_name.to_external,ptr)
 			create Result.from_external_pointer (ptr)
-		end	
--- These invariant fail somehow. TODO: discover why. Paolo 2006-04-18
-	--eiffel_wrapper_is_stored: is_eiffel_wrapper_stored = True
+		end
+
+invariant
+	-- TODO: this makes all programs to fail. TODO: discover why. Paolo
+	-- 2006-04-18
+
+	-- stored_eiffel_wrapper: is_eiffel_wrapper_stored
 end
 

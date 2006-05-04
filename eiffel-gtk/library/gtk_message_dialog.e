@@ -76,6 +76,7 @@ feature {NONE} -- Creation
 			else
 				handle:=gtk_message_dialog_new(a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external)
 			end
+			store_eiffel_wrapper
 		end
 	
 	with_markup (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
@@ -112,6 +113,7 @@ feature {NONE} -- Creation
 				handle := (gtk_message_dialog_new_with_markup
 							  (a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external))
 			end
+			store_eiffel_wrapper
 		end
 	
 feature -- Dialog's message

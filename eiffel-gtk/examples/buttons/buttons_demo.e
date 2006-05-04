@@ -1,13 +1,13 @@
 class BUTTONS_DEMO
-inherit GTK_MAIN
+insert GTK -- instead of "inherit GTK_MAIN"
 creation make
 feature
 	make is
 		do
-			initialize_gtk								
+			gtk.initialize -- instead of "initialize_gtk"
 			create window.make
 			window.show_all
-			gtk_main
+			gtk.run_main_loop -- instead of "gtk_main"
 		end
 	window: BUTTONS_WINDOW
 end

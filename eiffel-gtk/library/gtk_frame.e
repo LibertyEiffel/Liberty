@@ -25,6 +25,7 @@ feature {NONE} -- Creation
 			-- the label is omitted).
 		do
 			handle := gtk_frame_new (a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 feature -- label

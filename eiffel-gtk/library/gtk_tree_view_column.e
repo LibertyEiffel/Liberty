@@ -34,6 +34,7 @@ feature
 			-- Creates a new GtkTreeViewColumn.
 		do
 			handle := gtk_tree_view_column_new
+			store_eiffel_wrapper
 		end
 
 	-- TODO: mimick variadic gtk_tree_view_column_new_with_attributes ()

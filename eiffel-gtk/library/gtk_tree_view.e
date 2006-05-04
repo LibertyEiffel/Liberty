@@ -21,6 +21,7 @@ feature {NONE} -- Creation
 			-- Creates a new GtkTreeView widget.
 		do
 			handle := gtk_tree_view_new
+			store_eiffel_wrapper
 		end
 
 	with_model (a_model: GTK_TREE_MODEL) is
@@ -28,6 +29,7 @@ feature {NONE} -- Creation
 		require valid_model: a_model /= Void
 		do
 			handle := gtk_tree_view_new_with_model (a_model.handle)
+			store_eiffel_wrapper
 		end
 
 feature

@@ -39,6 +39,7 @@ feature {NONE} -- Creation
 			-- the GtkTreeView
 		do
 			handle := gtk_cell_renderer_text_new
+			store_eiffel_wrapper
 		end
 
 	set_fixed_height_from_font (number_of_rows: INTEGER) is

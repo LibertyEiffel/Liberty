@@ -1,5 +1,5 @@
 indexing
-	description: "."
+	description: "GtkFileFilter - used to restrict the files shown in a GtkFileChoose."
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
@@ -47,6 +47,7 @@ feature {NONE} -- Creation
 			-- See also `with_pattern', `with_mime_type'
 		do
 			handle := gtk_file_filter_new
+			store_eiffel_wrapper
 		end
 
 	with_pattern  (a_pattern: STRING) is

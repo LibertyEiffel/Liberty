@@ -50,7 +50,8 @@ feature {NONE} -- Creation
    make is
 	 -- Creates a new GtkEntryCompletion object.
       do
-	 handle := gtk_entry_completion_new
+			handle := gtk_entry_completion_new
+			store_eiffel_wrapper			
       end
    
 feature

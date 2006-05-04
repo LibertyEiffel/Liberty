@@ -45,6 +45,7 @@ feature {NONE} -- Creation
 			-- the GtkTreeView.
 		do
 			handle := gtk_cell_renderer_combo_new
+			store_eiffel_wrapper
 		end
 
 feature -- TODO: Property Details

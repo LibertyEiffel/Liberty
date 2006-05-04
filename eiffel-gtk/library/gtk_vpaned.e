@@ -30,6 +30,7 @@ feature {NONE} -- Creation
 			-- Create a new GtkVpaned
 		do
 			handle:=gtk_vpaned_new
+			store_eiffel_wrapper
 		end
    
 

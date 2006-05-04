@@ -69,6 +69,7 @@ feature {NONE} -- Creation
 			-- Creates a new empty label
 		do
 			handle:=gtk_label_new(default_pointer)
+			store_eiffel_wrapper
 		end
 
 	with_label (a_label: STRING) is
@@ -78,6 +79,7 @@ feature {NONE} -- Creation
 			-- In gtk_label_new You can pass Void to get an empty label
 			-- widget.w
 			handle:=gtk_label_new(a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 	with_mnemonic (a_label: STRING) is
@@ -99,6 +101,7 @@ feature {NONE} -- Creation
 		require valid_label: a_label/=Void
 		do
 			handle:=gtk_label_new_with_mnemonic(a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 	with_markup_label (a_label: STRING) is
@@ -108,6 +111,7 @@ feature {NONE} -- Creation
 		require valid_label: a_label/=Void
 		do
 			handle:=gtk_label_new(a_label.to_external)
+			store_eiffel_wrapper
 			use_markup
 		ensure is_marked_up
 		end

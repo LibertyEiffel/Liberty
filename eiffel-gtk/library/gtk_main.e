@@ -6,12 +6,12 @@ indexing
 	revision "$REvision:$"
 
 	
-deferred class GTK_MAIN
+class GTK_MAIN
 
-inherit
+insert
 	ARGUMENTS
 	GTK_MAIN_EXTERNALS
-
+creation default_create
 feature
 
 	disable_setlocale is
@@ -32,7 +32,7 @@ feature
 
 	-- TODO: wrap gtk_parse_args ()
 
-	initialize_gtk is
+	initialize, initialize_gtk is
 			-- Initialize everything needed to operate the GTK toolkit and parses
 			-- some standard command line options. argc and argv are adjusted
 			-- accordingly so your own code will never see those standard
@@ -52,19 +52,21 @@ feature
 			argc := argument_count
 			argv := command_arguments.to_external
 			gtk_init ($argc, $argv)
+			is_initialized := True
+		ensure initialized: is_initialized = True
 		end
 
-	is_gtk_initialized: BOOLEAN
+	is_initialized: BOOLEAN
 			-- Have gtk been successfully initilized?
 	
 	try_initilizing_gtk is
-		-- Try initiliazint GTK toolkit. If successful
+		-- Try initiliazing GTK toolkit. If successful
 		-- `is_gtk_initialized' will be True.
 		local argc: INTEGER; argv: POINTER
 		do
 			argc := argument_count
 			argv := command_arguments.to_external
-			is_gtk_initialized := gtk_init_check ($argc, $argv).to_boolean
+			is_initialized := gtk_init_check ($argc, $argv).to_boolean
 		end
 	
 	-- TODO: wrap gtk_init_with_args ()
@@ -87,7 +89,7 @@ feature
 			Result:=gtk_events_pending.to_boolean
 		end
 
-	run_gtk_main_loop is
+	run_main_loop, run_gtk_main_loop is
 			-- Runs the main loop until (C function) gtk_main_quit() is
 			-- called. You can nest calls to gtk_main(). In that case
 			-- gtk_main_quit() will make the innermost invocation of the

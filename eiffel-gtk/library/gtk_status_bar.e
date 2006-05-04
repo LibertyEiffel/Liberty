@@ -81,6 +81,7 @@ feature {NONE} -- Creation
 			-- create context_ids.make
 			create message_ids.make
 			context_id := gtk_statusbar_get_context_id (handle, eiffel_context_id.to_external)
+			store_eiffel_wrapper
 		end
 
 feature {NONE} -- Context ids

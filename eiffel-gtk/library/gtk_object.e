@@ -1,30 +1,33 @@
 		-- Description
 
-		-- GtkObject is the base class for all widgets, and for a few non-widget
-		-- objects such as GtkAdjustment. GtkObject predates GObject; non-widgets
-		-- that derive from GtkObject rather than GObject do so for backward
-		-- compatibility reasons.
+		-- GtkObject is the base class for all widgets, and for a few
+		-- non-widget objects such as GtkAdjustment. GtkObject predates
+		-- GObject; non-widgets that derive from GtkObject rather than
+		-- GObject do so for backward compatibility reasons.
 
-		-- The most interesting difference between GtkObject and GObject is the
-		-- "floating" reference count. A GObject is created with a reference count of
-		-- 1, owned by the creator of the GObject. (The owner of a reference is the
-		-- code section that has the right to call g_object_unref() in order to
-		-- remove that reference.) A GtkObject is created with a reference count of 1
-		-- also, but it isn't owned by anyone; calling g_object_unref() on the
-		-- newly-created GtkObject is incorrect. Instead, the initial reference count
-		-- of a GtkObject is "floating". The floating reference can be removed by
-		-- anyone at any time, by calling gtk_object_sink(). gtk_object_sink() does
-		-- nothing if an object is already sunk (has no floating reference).
+		-- The most interesting difference between GtkObject and GObject
+		-- is the "floating" reference count. A GObject is created with
+		-- a reference count of 1, owned by the creator of the
+		-- GObject. (The owner of a reference is the code section that
+		-- has the right to call g_object_unref() in order to remove
+		-- that reference.) A GtkObject is created with a reference
+		-- count of 1 also, but it isn't owned by anyone; calling
+		-- g_object_unref() on the newly-created GtkObject is
+		-- incorrect. Instead, the initial reference count of a
+		-- GtkObject is "floating". The floating reference can be
+		-- removed by anyone at any time, by calling
+		-- gtk_object_sink(). gtk_object_sink() does nothing if an
+		-- object is already sunk (has no floating reference).
 
-		-- When you add a widget to its parent container, the parent container will
-		-- do this:
+		-- When you add a widget to its parent container, the parent
+		-- container will do this:
 
 		--   g_object_ref (G_OBJECT (child_widget));
 		--   gtk_object_sink (GTK_OBJECT (child_widget));
 
-		-- This means that the container now owns a reference to the child widget
-		-- (since it called g_object_ref()), and the child widget has no floating
-		-- reference.
+		-- This means that the container now owns a reference to the
+		-- child widget (since it called g_object_ref()), and the child
+		-- widget has no floating reference.
 
 		-- The purpose of the floating reference is to keep the child widget alive
 		-- until you add it to a parent container:

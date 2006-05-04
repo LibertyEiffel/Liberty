@@ -19,6 +19,7 @@ feature {NONE} -- Initialization
 			-- Create a new GtkProgressBar.
 		do
 			handle := gtk_progress_bar_new
+			store_eiffel_wrapper
 		end
 
 feature -- Element change

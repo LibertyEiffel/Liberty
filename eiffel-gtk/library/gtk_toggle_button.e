@@ -54,6 +54,7 @@ feature {NONE} -- Creation
 			-- into the button, as GTK_BUTTON.make.
 		do
 			handle :=  gtk_toggle_button_new
+			store_eiffel_wrapper
 		end
 
 
@@ -61,6 +62,7 @@ feature {NONE} -- Creation
 			-- Creates a new toggle button with a text `a_label'.
 		do
 			handle :=  gtk_toggle_button_new_with_label (a_label.to_external)
+			store_eiffel_wrapper
 		end
 	
 	with_mnemonic (a_label: STRING) is
@@ -69,6 +71,7 @@ feature {NONE} -- Creation
 			-- underscores in label indicate the mnemonic for the button.
 		do
 			handle := gtk_toggle_button_new_with_mnemonic (a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 feature 

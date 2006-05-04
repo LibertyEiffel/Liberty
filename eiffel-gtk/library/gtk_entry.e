@@ -27,6 +27,7 @@ feature {NONE} -- Creation
 			-- Creates a new GtkEntry widget.
 		do
 			handle:=gtk_entry_new
+			store_eiffel_wrapper
 		end
 
 feature

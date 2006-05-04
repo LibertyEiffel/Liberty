@@ -100,9 +100,8 @@ indexing
 
 
 class GTK_DIALOG
-inherit
-
-	GTK_WINDOW redefine make end
+inherit GTK_WINDOW redefine make end
+insert
 	GTK_DIALOG_EXTERNALS
 		rename
 			gtk_dialog_modal as modal_dialog,
@@ -122,6 +121,7 @@ feature {NONE} -- Creation
 			-- action_area.
 		do
 			handle := gtk_dialog_new
+			store_eiffel_wrapper
 		end
 
 	

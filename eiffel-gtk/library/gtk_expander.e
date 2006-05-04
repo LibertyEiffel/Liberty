@@ -56,7 +56,7 @@ inherit
 		-- Implemented Interfaces: GtkExpander implements AtkImplementorIface.
 insert G_OBJECT_RETRIEVER [GTK_WIDGET]	
 
-creation make
+creation make, make_with_mnemonic
 
 feature {NONE} -- Creation
 
@@ -69,6 +69,7 @@ feature {NONE} -- Creation
 		require valid_label: a_label /= Void
 		do
 			handle:=gtk_expander_new(a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 	make_with_mnemonic (a_label: STRING) is
@@ -86,7 +87,9 @@ feature {NONE} -- Creation
 		require valid_label: a_label /= Void
 		do
 			handle:=gtk_expander_new_with_mnemonic(a_label.to_external);
+			store_eiffel_wrapper
 		end
+
 feature 
 	set_expanded is
 			-- Reveales the child widget to be revealed

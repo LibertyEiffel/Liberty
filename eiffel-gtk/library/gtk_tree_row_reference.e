@@ -31,6 +31,7 @@ feature {NONE} -- Creation
 			valid_path: a_path /= Void
 		do
 			handle:= gtk_tree_row_reference_new (a_model.handle, a_path.handle)
+			store_eiffel_wrapper
 		end
 
 	from_reference (another: like Current) is

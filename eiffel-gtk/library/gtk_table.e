@@ -74,6 +74,7 @@ feature {NONE} -- Creation
 			columns_fits_natural_16: columns.in_range (0,65535)				  
 		do
 			handle :=gtk_table_new (rows, columns, homogeneous.to_integer)
+			store_eiffel_wrapper
 		end
 	
 feature

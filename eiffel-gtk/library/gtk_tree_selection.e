@@ -107,7 +107,7 @@ feature -- selection mode
 	 -- left unchanged.
       local select_callback: GTK_TREE_SELECT_FUNCTION
       do
-	 create select_callback.make (Current, a_function)
+			create select_callback.make (Current, a_function)
       end
 		
    -- Note: not wrapping gtk_tree_selection_get_user_data, since it is not useful.

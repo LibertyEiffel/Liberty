@@ -89,6 +89,7 @@ feature {NONE} -- Creation
 		do
 			handle:=gtk_spin_button_new (an_adjustment.handle,
 												  a_climb_rate, some_digits)
+			store_eiffel_wrapper
 		end
 
 	with_range (a_min,a_max,a_step: REAL) is

@@ -40,6 +40,7 @@ feature {NONE} -- Creation
 			--    Creates a new GtkNotebook widget with no pages.
 		do  
 			handle := gtk_notebook_new
+			store_eiffel_wrapper
 		end
 
 	append_page (a_child, a_tab_label: GTK_WIDGET) is

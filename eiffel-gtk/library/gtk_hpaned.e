@@ -26,6 +26,7 @@ feature {NONE} -- Creation
 			-- Create a new GtkHPaned
 		do
 			handle:=gtk_hpaned_new
+			store_eiffel_wrapper
 		end
    
 

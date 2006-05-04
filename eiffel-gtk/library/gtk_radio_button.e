@@ -80,6 +80,7 @@ feature {NONE} -- Creation
 		do
 			if a_group/=Void then ptr:=a_group.handle end
 			handle := gtk_radio_button_new (ptr)
+			store_eiffel_wrapper
 		end
 	
 	from_widget (a_widget: GTK_RADIO_BUTTON) is
@@ -89,6 +90,7 @@ feature {NONE} -- Creation
 		require valid_widget: a_widget /= Void
 		do
 			handle := gtk_radio_button_new_from_widget (a_widget.handle)
+			store_eiffel_wrapper
 		end
 
 	with_label (a_group: G_SLIST[GTK_RADIO_BUTTON]; a_label: STRING) is
@@ -102,6 +104,7 @@ feature {NONE} -- Creation
 		do
 			if a_group/=Void then ptr:=a_group.handle end
 			handle := gtk_radio_button_new_with_label (ptr, a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 	with_label_from_widget (a_widget: GTK_RADIO_BUTTON; a_label: STRING) is
@@ -114,6 +117,7 @@ feature {NONE} -- Creation
 		do
 			handle:=gtk_radio_button_new_with_label_from_widget (a_widget.handle,
 																				  a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 
@@ -127,6 +131,7 @@ feature {NONE} -- Creation
 			valid_label: a_label /= Void
 		do
 			handle := gtk_radio_button_new_with_mnemonic (a_group.handle, a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 	with_mnemonic_from_widget (a_widget: GTK_RADIO_BUTTON; a_label: STRING) is
@@ -139,6 +144,7 @@ feature {NONE} -- Creation
 			valid_label: a_label /= Void
 		do
 			handle:=gtk_radio_button_new_with_mnemonic_from_widget (a_widget.handle, a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 feature -- group

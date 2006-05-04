@@ -21,6 +21,7 @@ feature {NONE} -- Initialization
 			-- Create an empty gtk_image widget.
 		do
 			handle := gtk_image_new
+			store_eiffel_wrapper
 		end
 
 	from_file (filename: STRING) is
@@ -31,6 +32,7 @@ feature {NONE} -- Initialization
 			valid_filename: filename/=Void
 		do
 			handle := gtk_image_new_from_file (filename.to_external)
+			store_eiffel_wrapper
 		end
 
 	-- Todo : Write gdk_visual, gdk_pixmap, ...
