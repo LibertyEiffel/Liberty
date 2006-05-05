@@ -252,11 +252,11 @@ feature -- selections
 	 -- `a_start' : 	The initial node of the range.
 	 -- `an_end' : 	The final node of the range.
       require
-	 multiple_mode: is_mode_multiple
-	 valid_start: a_start /= Void
-	 valid_end: an_end /= Void
+			multiple_mode: is_mode_multiple
+			valid_start: a_start /= Void
+			valid_end: an_end /= Void
       do
-	 gtk_tree_selection_select_range (handle, a_start.handle, an_end.handle)
+			gtk_tree_selection_select_range (handle, a_start.handle, an_end.handle)
       end
 
    unselect_range (a_start,an_end: GTK_TREE_PATH) is
@@ -267,11 +267,11 @@ feature -- selections
 	 -- `a_start' : 	The initial node of the range.
 	 -- `an_end' : 	The final node of the range.
       require
-	 multiple_mode: is_mode_multiple
-	 valid_start: a_start /= Void
-	 valid_end: an_end /= Void
+			multiple_mode: is_mode_multiple
+			valid_start: a_start /= Void
+			valid_end: an_end /= Void
       do
-	 gtk_tree_selection_unselect_range (handle, a_start.handle, an_end.handle)
+			gtk_tree_selection_unselect_range (handle, a_start.handle, an_end.handle)
       end
 	
 

@@ -28,7 +28,6 @@ feature {NONE} -- Creation
 			-- Creates a new GtkTreePath. This structure refers to a row.
 		do
 			handle:= gtk_tree_path_new 
-			store_eiffel_wrapper
 		end
 
 	from_string (a_path: STRING) is
@@ -42,7 +41,6 @@ feature {NONE} -- Creation
 		require path_not_void: a_path /= Void
 		do
 			handle := gtk_tree_path_new_from_string (a_path.to_external)
-			store_eiffel_wrapper
 		end
 	
 	-- unwrappable varargs function GtkTreePath*
@@ -56,14 +54,12 @@ feature {NONE} -- Creation
 			-- this path is "0"
 		do
 			handle := gtk_tree_path_new_first
-			store_eiffel_wrapper
 		end
 
 	from_path (a_path: like Current) is
 			-- Creates a new GtkTreePath as a copy of path.
 		do
 			handle := gtk_tree_path_copy (a_path.handle)
-			store_eiffel_wrapper
 		end
 
 feature
