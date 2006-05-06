@@ -11,16 +11,13 @@ indexing
 			-- high-level and a low-level API.
 	
 			-- The low-level API consists of the GTK+ DND API, augmented
-			-- by some treeview utility functions:
-			-- gtk_tree_view_set_drag_dest_row(),
-			-- gtk_tree_view_get_drag_dest_row(),
-			-- gtk_tree_view_get_dest_row_at_pos(),
-			-- gtk_tree_view_create_row_drag_icon(),
-			-- gtk_tree_set_row_drag_data() and
-			-- gtk_tree_get_row_drag_data(). This API leaves a lot of
-			-- flexibility, but nothing is done automatically, and
-			-- implementing advanced features like hover-to-open-rows or
-			-- autoscrolling on top of this API is a lot of work.
+			-- by some treeview utility functions: GTK_TREE_VIEW's
+			-- set_drag_dest_row, get_drag_dest_row, get_dest_row_at_pos,
+			-- create_row_drag_icon, set_row_drag_data and
+			-- get_row_drag_data. This API leaves a lot of flexibility,
+			-- but nothing is done automatically, and implementing
+			-- advanced features like hover-to-open-rows or autoscrolling
+			-- on top of this API is a lot of work.
 	
 			-- On the other hand, if you write to the high-level API,
 			-- then all the bookkeeping of rows is done for you, as well
@@ -78,49 +75,7 @@ feature --
 						  (handle, a_path.handle, a_selection_data.handle)).to_boolean
 		end
 
-	delete_data (a_path: GTK_TREE_PATH) is
-			-- Try to delete the row at `a_path', because it was moved
-			-- somewhere else via drag-and-drop.
-			-- `is_last_action_successful' will be False if the deletion
-			-- fails because path no longer exists, or for some
-			-- model-specific reason. Should robustly handle a path no
-			-- longer found in the model!
-		require valid_path: a_path /= Void
-		do
-			is_last_action_successful := 
-				(gtk_tree_drag_source_drag_data_delete 
-				 (handle, a_path.handle)).to_boolean
-		end
 
-	get_data (a_path: GTK_TREE_PATH; a_selection_data: GTK_SELECTION_DATA) is
-			-- Try to fill in `a_selection_data' with a representation of
-			-- the row at path. `is_last_action_successful' will be True
-			-- if data of the required type was provided.
-			-- a_selection_data.target (Note: currently unimplemented;
-			-- Paolo 2006-05-05) gives the required type of the
-			-- data. Should robustly handle a path no longer found in the
-			-- model!
-
-			-- `a_path' : 	row that was dragged
-
-			-- `a_selection_data' : 	a GtkSelectionData to fill with data from the dragged row
-		do
-			is_last_action_successful :=
-				(gtk_tree_drag_source_drag_data_get
-				 (handle, a_path.handle, a_selection_data.handle)).to_boolean
-		end
-
- 
-	-- Note: QUESTO VA NELLA SORGENTE!
-	is_row_draggable (a_path: GTK_TREE_PATH): BOOLEAN is
-			-- Can `a_path' (i.e.: a particular row) be used as the
-			-- source of a DND operation? If the source doesn't implement
-			-- this interface, the row is assumed draggable. Note: This
-			-- is a feature of GtkTreeDragSource
-		do
-			Result := (gtk_tree_drag_source_row_draggable 
-						  (handle, a_path.handle)).to_boolean
-		end
 
 feature -- TODO: GtkTreeDragDestIface
 
@@ -164,26 +119,6 @@ feature -- TODO: GtkTreeDragDestIface
 	-- path : 	row in tree_model
 	-- Returns : 	TRUE if selection_data had target type GTK_TREE_MODEL_ROW and is otherwise valid
 feature {NONE} -- External calls
-	
-	gtk_tree_drag_source_drag_data_delete (a_drag_source: POINTER; -- GtkTreeDragSource*
-														a_path: POINTER -- GtkTreePath*
-														): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_tree_drag_source_drag_data_get (a_drag_source: POINTER -- GtkTreeDragSource*
-													a_path: POINTER; -- GtkTreePath*
-													a_selection_data: POINTER -- GtkSelectionData*
-													): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_tree_drag_source_row_draggable (a_drag_source: POINTER; -- GtkTreeDragSource*
-													a_path: POINTER -- GtkTreePath*
-													): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
-
 	gtk_tree_drag_dest_drag_data_received (a_drag_dest: POINTER; -- GtkTreeDragDest*
 														a_dest: POINTER; -- GtkTreePath*
 														a_selection_data: POINTER -- GtkSelectionData*
@@ -193,7 +128,7 @@ feature {NONE} -- External calls
 	
 	gtk_tree_drag_dest_row_drop_possible (a_drag_dest: POINTER; -- GtkTreeDragDest*
 													  a_dest_path: POINTER; -- GtkTreePath *
-													  a_selection_data: POINTER; -- GtkSelectionData
+													  a_selection_data: POINTER -- GtkSelectionData
 													  ): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
@@ -212,11 +147,11 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	-- GtkTreeDragSource
+feature {NONE}	-- TODO: wrap - if necessary - GtkTreeDragSourceIface
 	
 	-- typedef struct _GtkTreeDragSource GtkTreeDragSource;
 
-	-- GtkTreeDragSourceIface
+
 
 	-- typedef struct {
 	--   GTypeInterface g_iface;
