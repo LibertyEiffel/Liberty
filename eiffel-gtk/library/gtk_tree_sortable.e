@@ -19,7 +19,8 @@ inherit
 		--export {NONE} undefined_make
 		--undefine undefined_make -- Since it is deferred
 		--end
-	-- Note: GTK_TREE_MODEL already requires G_OBJECT
+	
+		-- Note: GTK_TREE_MODEL already requires G_OBJECT
 	
 		-- Known Implementations: GtkTreeSortable is implemented by
 		-- GtkTreeModelSort, GtkTreeStore and GtkListStore.

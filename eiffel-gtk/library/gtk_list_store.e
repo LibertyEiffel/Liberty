@@ -80,10 +80,11 @@ indexing
 	
 class GTK_LIST_STORE
 inherit
-	GTK_TREE_MODEL 
-	GTK_TREE_DRAG_SOURCE
-	GTK_TREE_DRAG_DEST
-	GTK_TREE_SORTABLE 
+	GTK_TREE_MODEL rename make as make_struct end 
+	GTK_TREE_SORTABLE rename make as make_struct end 
+	GTK_TREE_DRAG_SOURCE rename make as make_struct end 
+	GTK_TREE_DRAG_DEST rename make as make_struct end 
+
 	
 insert GTK_LIST_STORE_EXTERNALS
 	

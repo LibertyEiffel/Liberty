@@ -26,8 +26,8 @@ indexing
 			-- GtkTreeDragDest interfaces.
 
 deferred class GTK_TREE_DRAG_DEST
-	-- inherit C_STRUCT
-	
+inherit G_OBJECT
+   
 	-- Object Hierarchy: inherits from GInterface
 
 	-- Known Implementations: GtkTreeDragSource is implemented by
@@ -52,7 +52,7 @@ feature --
 		do
 			is_last_action_successful :=
 				(gtk_tree_drag_dest_drag_data_received
-				 (handle, a_path.handle, a_selection_data.handle)).to_external
+				 (handle, a_path.handle, a_selection_data.handle)).to_boolean
 		end
 	
 	is_row_drop_possible (a_path: GTK_TREE_PATH; a_selection_data: GTK_SELECTION_DATA): BOOLEAN is
@@ -133,19 +133,19 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_set_row_drag_data (a_selection_data: POINTER; -- GtkSelectionData*
-										 a_tree_model: POINTER; -- GtkTreeModel*
-										 a_path: POINTER; -- GtkTreePath*
-										 ): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
+-- 	gtk_tree_set_row_drag_data (a_selection_data: POINTER; -- GtkSelectionData*
+-- 										 a_tree_model: POINTER; -- GtkTreeModel*
+-- 										 a_path: POINTER; -- GtkTreePath*
+-- 										 ): INTEGER is -- gboolean
+-- 		external "C use <gtk/gtk.h>"
+-- 		end
 	
-	gtk_tree_get_row_drag_data (a_selection_data: POINTER; -- GtkSelectionData
-										 a_tree_model_handle: POINTER -- GtkTreeModel **
-										 a_path_handle: POINTER -- GtkTreePath **path
-										 ): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
+-- 	gtk_tree_get_row_drag_data (a_selection_data: POINTER; -- GtkSelectionData
+-- 										 a_tree_model_handle: POINTER -- GtkTreeModel **
+-- 										 a_path_handle: POINTER -- GtkTreePath **path
+-- 										 ): INTEGER is -- gboolean
+-- 		external "C use <gtk/gtk.h>"
+-- 		end
 
 feature {NONE}	-- TODO: wrap - if necessary - GtkTreeDragSourceIface
 	

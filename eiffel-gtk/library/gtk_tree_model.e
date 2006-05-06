@@ -85,10 +85,16 @@ inherit
 	-- G_INTERFACE
 	-- Prerequisites: GtkTreeModel requires GObject.
 	G_OBJECT
-		rename make as undefined_make
-		export {NONE} undefined_make
-		undefine undefined_make -- Since it is deferred
-		end
+		-- TODO: remove the following commented code; it is not 
+		-- ncessary, since GTK_TREE_MODEL is already deferred. Paolo 
+		-- 2006-05-06
+	
+		-- rename make as undefined_make
+		-- export {NONE} undefined_make
+		-- undefine undefined_make -- Since it is deferred
+		-- end
+
+		-- TODO: end
 	
 		-- Known Derived Interfaces: GtkTreeModel is required by
 		-- GtkTreeSortable.

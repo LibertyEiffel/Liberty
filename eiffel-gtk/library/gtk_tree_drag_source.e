@@ -23,32 +23,35 @@ indexing
 -- the GtkTreeDragSource and GtkTreeDragDest interfaces.
 
 deferred class GTK_TREE_DRAG_SOURCE
-	-- Note: GtkTreeDragSource inherits from GInterface, but GInterface
-	-- doesn't have an Eiffel wrapper now, at I suspect that the
+inherit 
+   G_OBJECT
+	
+      -- Note: GtkTreeDragSource inherits from GInterface, but GInterface
+      -- doesn't have an Eiffel wrapper now, at I suspect that the
 	-- generic GInterface wouldn't even need one. Paolo 2006-05-06
 
 	-- GtkTreeDragSource is implemented by GtkTreeModelSort,
 	-- GtkTreeStore, GtkListStore and GtkTreeModelFilter.
 feature 
-	is_last_action_successful: BOOLEAN
+	is_action_successful: BOOLEAN
 
 	delete_data (a_path: GTK_TREE_PATH) is
 			-- Try to delete the row at `a_path', because it was moved
 			-- somewhere else via drag-and-drop.
-			-- `is_last_action_successful' will be False if the deletion
+			-- `is_action_successful' will be False if the deletion
 			-- fails because path no longer exists, or for some
 			-- model-specific reason. Should robustly handle a path no
 			-- longer found in the model!
 		require valid_path: a_path /= Void
 		do
-			is_last_action_successful := 
-				(gtk_tree_drag_source_drag_data_delete 
-				 (handle, a_path.handle)).to_boolean
+		   is_action_successful := 
+		      (gtk_tree_drag_source_drag_data_delete 
+		       (handle, a_path.handle)).to_boolean
 		end
-
-	get_data (a_path: GTK_TREE_PATH; a_selection_data: GTK_SELECTION_DATA) is
+	
+	data (a_path: GTK_TREE_PATH): GTK_SELECTION_DATA is
 			-- Try to fill in `a_selection_data' with a representation of
-			-- the row at path. `is_last_action_successful' will be True
+			-- the row at path. `is_action_successful' will be True
 			-- if data of the required type was provided.
 			-- a_selection_data.target (Note: currently unimplemented;
 			-- Paolo 2006-05-05) gives the required type of the
@@ -60,9 +63,10 @@ feature
 			-- `a_selection_data' : 	a GtkSelectionData to fill with data from the dragged row
 		obsolete "TODO: please implement `data (a_path: GTK_TREE_PATH): GTK_SELECTION_DATA'"
 		do
-			is_last_action_successful :=
+			create Result.make 
+			is_action_successful :=
 				(gtk_tree_drag_source_drag_data_get
-				 (handle, a_path.handle, a_selection_data.handle)).to_boolean
+				 (handle, a_path.handle, Result.handle)).to_boolean
 		end
 
  
@@ -133,19 +137,19 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_set_row_drag_data (a_selection_data: POINTER; -- GtkSelectionData*
-										 a_tree_model: POINTER; -- GtkTreeModel*
-										 a_path: POINTER; -- GtkTreePath*
-										 ): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
+-- 	gtk_tree_set_row_drag_data (a_selection_data: POINTER; -- GtkSelectionData*
+-- 										 a_tree_model: POINTER; -- GtkTreeModel*
+-- 										 a_path: POINTER; -- GtkTreePath*
+-- 										 ): INTEGER is -- gboolean
+-- 		external "C use <gtk/gtk.h>"
+-- 		end
 	
-	gtk_tree_get_row_drag_data (a_selection_data: POINTER; -- GtkSelectionData
-										 a_tree_model_handle: POINTER -- GtkTreeModel **
-										 a_path_handle: POINTER -- GtkTreePath **path
-										 ): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
+-- 	gtk_tree_get_row_drag_data (a_selection_data: POINTER; -- GtkSelectionData
+-- 										 a_tree_model_handle: POINTER -- GtkTreeModel **
+-- 										 a_path_handle: POINTER -- GtkTreePath **path
+-- 										 ): INTEGER is -- gboolean
+-- 		external "C use <gtk/gtk.h>"
+-- 		end
 
 feature {NONE}	-- TODO: wrap - if necessary - GtkTreeDragSourceIface
 	

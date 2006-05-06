@@ -41,13 +41,13 @@ cluster -- section
 external -- section for elements written in another language
    -- Directories where to search for C .h files:
    -- unused   
-   external_header_path: ". ../../library/externals" 
+   external_header_path: ". ../../library/externals"
    -- /usr/include/gtk-2.0 /usr/lib/gtk-2.0/include /usr/include/atk-1.0 /usr/include/cairo /usr/include/pango-1.0 /usr/include/glib-2.0 /usr/lib/glib-2.0/include"
    -- here we should put $(pkg-config --cflags gtk+-2.0) instead of 
    -- all those explict paths
 	 
 	 -- External C files to be considered;
-   external_c_files: "callbacks.c"
+   external_c_files: "../../library/externals/callbacks.c"
    
    -- No cecil calls used!   cecil ("eiffel-gtk-external-calls.se")
 
