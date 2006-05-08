@@ -211,6 +211,42 @@ feature -- Quark-based data storing and retrieving
 		do
 			g_object_set_qdata (handle,a_key.quark, data.to_pointer)
 		end
+	
+feature -- Properties query
+	find_property (a_property_name: STRING): G_PARAM_SPEC is
+			-- Find the parameter's spec for `a_property_name'. Can be
+			-- Void if the class doesn't have a property of that name.
+		require valid_name: a_property_name /= Void
+		local ptr: POINTER
+		do
+			ptr:=g_object_class_find_property (handle,a_property_name.to_external)
+			if ptr.is_not_null then
+				create Result.from_external_pointer (ptr)
+			end
+		end
+
+	has_property (a_property_name: STRING): BOOLEAN is
+			-- Does Current has a property named `a_property_name'?
+		require valid_name: a_property_name /= Void
+		local ptr: POINTER
+		do
+			Result:= (g_object_class_find_property
+						 (g_object_get_class(handle),a_property_name.to_external).is_not_null)
+		end
+	
+	properties: FAST_ARRAY[G_PARAM_SPEC] is
+		obsolete "TODO: entirely!"
+		do
+			-- TODO: using g_object_class_list_properties (oclass,n_properties:
+			-- POINTER): POINTER is Returns an array of GParamSpec* for
+			-- all properties of a class.  oclass: a GObjectClass
+			-- n_properties: return location for the length of the
+			-- returned array (i.e. a guint *). Returns: an array of
+			-- GParamSpec* (i.e. a GParamSpec**) which should be freed
+			-- after use
+		ensure implemented: False
+		end
+	
 
 feature -- Property getter/setter
 
@@ -220,7 +256,7 @@ feature -- Property getter/setter
 			valid_name: a_property_name /= Void
 			valid_value: a_value /= Void
 		do
-			g_object_set_property (handle, property_name.to_external, a_value.handle)
+			g_object_set_property (handle, a_property_name.to_external, a_value.handle)
 		end
 	
 	get_property (a_property_name: STRING): G_VALUE is
@@ -230,23 +266,31 @@ feature -- Property getter/setter
 		local ptr: POINTER
 		do
 			ptr := malloc_g_value
-			g_object_get_property (handle,property_name.to_external,ptr)
+			g_object_get_property (handle,a_property_name.to_external,ptr)
 			create Result.from_external_pointer (ptr)
 		end
 
 	-- TODO: implement has_property  (a_property_name: STRING): BOOLEAN is
 	-- require  valid_name: a_property_name /= Void do	end
 
+	set_string_property (a_property_name, a_value: STRING) is
+		require 
+			valid_name: a_property_name /= Void
+			valid_value: a_value /= Void
+		do
+			g_object_set_string_property (handle,a_property_name.to_external, a_value.to_external)
+		end
+	
 	get_string_property (a_property_name: STRING): STRING is
 			-- Gets the property named `a_property_name' of an
 			-- object. Can be Void. TODO: this is complemetely untested!
 			-- Test it, for example in GTK_CELL_RENDERER_PROGRESS
 		require 
 			valid_name: a_property_name /= Void
-			-- has_property: has_property (a_property_name)
+			has_property: has_property (a_property_name)
 		local ptr: POINTER
 		do
-			g_object_get_one_property (handle,property_name.to_external,address_of (ptr))
+			g_object_get_one_property (handle,a_property_name.to_external,address_of (ptr))
 			if ptr.is_not_null then
 				create Result.from_external (ptr) 
 			end

@@ -48,7 +48,7 @@ feature -- Editing
 		end
 
 
-	-- The "editing-done" signal
+feature -- The "editing-done" signal
 
 	-- void        user_function                  (GtkCellEditable *celleditable,
 	--                                             gpointer         user_data)         : Run last

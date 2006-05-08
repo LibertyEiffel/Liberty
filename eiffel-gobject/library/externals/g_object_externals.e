@@ -302,12 +302,16 @@ feature {NONE} -- External calls
 
 	-- Checks whether class "is a" valid GObjectClass structure of type G_TYPE_OBJECT or derived.
 	-- class : 	a GObjectClass
-	-- G_OBJECT_GET_CLASS()
 
-	-- #define G_OBJECT_GET_CLASS(object)  (G_TYPE_INSTANCE_GET_CLASS ((object), G_TYPE_OBJECT, GObjectClass))
-
-	-- Returns the class structure associated to a GObject instance.
-	-- object : 	a GObject instance.
+	g_object_get_class (an_object: POINTER): POINTER is
+			-- Returns the class structure associated to a GObject
+			-- instance.  #define G_OBJECT_GET_CLASS(object)
+			-- (G_TYPE_INSTANCE_GET_CLASS ((object), G_TYPE_OBJECT,
+			-- GObjectClass))
+		external "C macro use  <glib-object.h>"
+		alias "G_OBJECT_GET_CLASS"
+		end
+		
 	-- G_OBJECT_TYPE()
 
 	g_object_type(an_object: POINTER): INTEGER is
@@ -639,7 +643,28 @@ feature {NONE} -- External calls
 	-- object : 	a GObject
 	-- signal_spec : 	the spec for the first signal
 	-- ... : 	GCallback for the first signal, followed by data for the first signal, followed optionally by more signal spec/callback/data triples, followed by NULL
-	-- g_object_set ()
+
+
+feature {NONE} -- Property low-level setters
+	-- g_object_set is variadic; we wrap it with various kind of basic 
+	--types
+
+	g_object_set_integer_property (an_object, a_property_name: POINTER; an_integer: INTEGER) is
+		require
+			valid_object: an_object.is_not_null
+			valid_name: a_property_name.is_not_null
+		external "C use <glib-object.h>"
+		alias "g_object_set"
+		end
+
+	g_object_set_string_property (an_object, a_property_name, a_string: POINTER) is
+		require
+			valid_object: an_object.is_not_null
+			valid_name: a_property_name.is_not_null
+			valid_string: a_string.is_not_null
+		external "C use <glib-object.h>"
+		alias "g_object_set"
+		end
 
 	-- void        g_object_set                    (gpointer object,
 	--                                              const gchar *first_property_name,
@@ -652,6 +677,7 @@ feature {NONE} -- External calls
 		-- external "C use <glib-object.h>"
 		-- end
 
+feature {NONE} -- Low-level properties getters
 	-- Note: g_object_get since it is variadic is wrapped many times
 	-- with various name and various number of parameters. Paolo
 	-- 2006-05-08

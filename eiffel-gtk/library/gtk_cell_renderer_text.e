@@ -42,6 +42,7 @@ feature {NONE} -- Creation
 			store_eiffel_wrapper
 		end
 
+feature
 	set_fixed_height_from_font (number_of_rows: INTEGER) is
 			-- Sets the height of a renderer to explicitly be determined
 			-- by the "font" and "y_pad" property set on it. Further

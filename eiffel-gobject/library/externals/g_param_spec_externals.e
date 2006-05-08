@@ -121,7 +121,7 @@ feature {ANY} -- enum GParamFlags
 	g_param_static_nick: INTEGER is 64 -- 1 < < 6,
 	g_param_static_blurb: INTEGER is 128 -- 1 < < 7
 
-	g_param_readable_bit: INTEGER is 0, 
+	g_param_readable_bit: INTEGER is 0
 	g_param_writable_bit: INTEGER_8 is 1 
 	g_param_construct_bit: INTEGER_8 is 2
 	g_param_construct_only_bit: INTEGER_8 is 3
@@ -335,7 +335,7 @@ feature {NONE} -- boolean parameter specification
 		end
 
 	g_param_spec_boolean (name,nick,blurb: POINTER;
-								 default,flags: INTEGER): POINTER is
+								 a_default,flags: INTEGER): POINTER is
 		external "C"
 		end
 	

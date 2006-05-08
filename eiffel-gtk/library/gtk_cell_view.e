@@ -120,14 +120,12 @@ feature
 			-- allocated and should be freed with g_list_free() when no
 			-- longer needed.
 		end
-feature -- Properties
 
-	--   "background"           gchararray            : Write
-	--   "background-gdk"       GdkColor              : Read / Write
-	--   "background-set"       gboolean              : Read / Write
-	
-	-- Property Details
-	-- The "background" property
+feature 	-- The "background" property
+	set_backgroud_color_name (a_color_name: STRING) is
+		do
+			set_string_property (background_property_name, a_color_name.to_external)
+		end
 	
 	--   "background"           gchararray            : Write
 	
