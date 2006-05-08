@@ -214,14 +214,19 @@ feature -- Quark-based data storing and retrieving
 
 feature -- Property getter/setter
 
-	set_property (property_name: STRING; a_value: G_VALUE) is
-			-- Sets a `property_name' property on Current object to `a_value'
+	set_property (a_property_name: STRING; a_value: G_VALUE) is
+			-- Sets `a_property_name' property on Current object to `a_value'
+		require 
+			valid_name: a_property_name /= Void
+			valid_value: a_value /= Void
 		do
 			g_object_set_property (handle, property_name.to_external, a_value.handle)
 		end
 	
-	get_property (property_name: STRING): G_VALUE is
-			-- Gets the property name `property_name' of an object.
+	get_property (a_property_name: STRING): G_VALUE is
+			-- Gets the property name `a_property_name' of an object.
+		require 
+			valid_name: a_property_name /= Void
 		local ptr: POINTER
 		do
 			ptr := malloc_g_value
@@ -229,6 +234,26 @@ feature -- Property getter/setter
 			create Result.from_external_pointer (ptr)
 		end
 
+	-- TODO: implement has_property  (a_property_name: STRING): BOOLEAN is
+	-- require  valid_name: a_property_name /= Void do	end
+
+	get_string_property (a_property_name: STRING): STRING is
+			-- Gets the property named `a_property_name' of an
+			-- object. Can be Void. TODO: this is complemetely untested!
+			-- Test it, for example in GTK_CELL_RENDERER_PROGRESS
+		require 
+			valid_name: a_property_name /= Void
+			-- has_property: has_property (a_property_name)
+		local ptr: POINTER
+		do
+			g_object_get_one_property (handle,property_name.to_external,address_of (ptr))
+			if ptr.is_not_null then
+				create Result.from_external (ptr) 
+			end
+		end
+
+	-- TODO: provide get_[string|integer|real|...]_property that does
+	-- not allocate a temporary G_VALUE
 invariant
 	-- TODO: this makes all programs to fail. TODO: discover why. Paolo
 	-- 2006-04-18

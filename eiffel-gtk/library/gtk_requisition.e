@@ -1,0 +1,81 @@
+indexing
+	description: "A GtkRequisition represents the desired size of a widget. See the section called `Siz Requisition' in GTK_WIDGET for more informations."
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
+
+			-- 	Size Requisition
+
+			-- The size requisition of a widget is it's desired width and
+			-- height. This is represented by a GtkRequisition.
+
+			-- How a widget determines its desired size depends on the
+			-- widget. A GtkLabel, for example, requests enough space to
+			-- display all its text. Container widgets generally base
+			-- their size request on the requisitions of their children.
+
+			-- The size requisition phase of the widget layout process
+			-- operates top-down. It starts at a top-level widget,
+			-- typically a GtkWindow. The top-level widget asks its child
+			-- for its size requisition by calling
+			-- gtk_widget_size_request(). To determine its requisition,
+			-- the child asks its own children for their requisitions and
+			-- so on. Finally, the top-level widget will get a
+			-- requisition back from its child.
+
+class GTK_REQUISITION
+inherit C_STRUCT
+creation make,from_external_pointer
+
+feature {NONE} -- size
+	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkRequisition)"
+		end
+
+feature 
+   width: INTEGER is
+			-- the widget's desired width
+		do
+			Result := get_width_external (handle)
+		end
+	
+	set_width (a_width: INTEGER) is
+		do
+			set_width_external (a_width)
+		end
+
+   height: INTEGER is
+			-- the widget's desired height
+		do
+			Result:=get_height_external (handle)
+		end
+	
+	set_height (an_height: INTEGER) is
+		do
+			set_height_external (an_height)
+		end
+
+feature {NONE} -- Structure access
+	get_width_external (ptr: POINTER): INTEGER is
+		require valid_ptr: ptr.is_not_null
+		external "C struct GtkRequisition get width use <gtk/gtk.h>"
+		end
+
+	set_width_external (ptr: POINTER; a_width:INTEGER) is
+		require valid_ptr: ptr.is_not_null
+		external "C struct GtkRequisition set width use <gtk/gtk.h>"
+		end
+
+	get_height_external (ptr: POINTER): INTEGER is
+		require valid_ptr: ptr.is_not_null
+		external "C struct GtkRequisition get height use <gtk/gtk.h>"
+		end
+
+	set_height_external (ptr: POINTER; an_height:INTEGER) is
+		require valid_ptr: ptr.is_not_null
+		external "C struct GtkRequisition set height use <gtk/gtk.h>"
+		end
+	
+end

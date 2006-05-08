@@ -1,60 +1,54 @@
--- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
--- Top  |  Description  |  Object Hierarchy  |  Properties
--- GtkCellRendererProgress
+indexing
+	description: "GtkCellRendererProgress %GÅ‚Äî%@ Renders numbers as progress bars."
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
--- GtkCellRendererProgress %GÅ‚Äî%@ Renders numbers as progress bars
-	
--- Synopsis
+class GTK_CELL_RENDERER_PROGRESS
+inherit GTK_CELL_RENDERER redefine make	
+creation make, from_external_pointer
 
--- #include <gtk/gtk.h>
+feature {NONE} -- size
+	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkCellRendererProgress)"
+		end
 
+feature {NONE} -- Creation
+	make is
+			-- Creates a new GtkCellRendererProgress.
+		do
+			handle := gtk_cell_renderer_progress_new 
+		end 
 
---             GtkCellRendererProgress;
--- GtkCellRenderer* gtk_cell_renderer_progress_new
---                                             (void);
-
-
-
--- Object Hierarchy
-
---   GObject
---    +----GtkObject
---          +----GtkCellRenderer
---                +----GtkCellRendererProgress
-
--- Properties
-
+feature -- Properties
+			
 --   "text"                 gchararray            : Read / Write
 --   "value"                gint                  : Read / Write
-
--- Description
-
--- Details
--- GtkCellRendererProgress
-
--- typedef struct _GtkCellRendererProgress GtkCellRendererProgress;
-
--- gtk_cell_renderer_progress_new ()
-
--- GtkCellRenderer* gtk_cell_renderer_progress_new
---                                             (void);
-
--- Creates a new GtkCellRendererProgress.
-
--- Returns : 	the new cell renderer
-
--- Since 2.6
 -- Property Details
--- The "text" property
+feature -- The "text" property
+	text: STRING is
+			-- The "text" property determines the label which will be
+			-- drawn over the progress bar. Setting this property to Void
+			-- causes the default label to be displayed. Setting this
+			-- property to an empty string causes no label to be
+			-- displayed.
+		do
+			Result:= get_string_property(text_property_name)
+		end
 
---   "text"                 gchararray            : Read / Write
+	set_text (a_text: STRING) is
+			-- Set text property
+		obsolete "Please provide a more direct implementation. Currently there is a temporary G_VALUE object"
+		require valid_text: a_text /= Void
+		do
+			set_property (create {G_VALUE}.from_string(a_text))
+		end
 
--- The "text" property determines the label which will be drawn over the progress bar. Setting this property to NULL causes the default label to be displayed. Setting this property to an empty string causes no label to be displayed.
+	-- Default value: NULL
 
--- Default value: NULL
-
--- Since 2.6
--- The "value" property
+feature -- The "value" property
 
 --   "value"                gint                  : Read / Write
 
@@ -65,3 +59,12 @@
 -- Default value: 0
 
 -- Since 2.6
+feature {NONE} -- Properties names
+	text_property_name: STRING is "text"
+	value_property_name: STRING is "value"
+
+feature {NONE} -- External calls
+	gtk_cell_renderer_progress_new: POINTER is
+		external "C use <gtk/gtk.h>"
+		end
+end

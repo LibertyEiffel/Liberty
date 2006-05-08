@@ -1,187 +1,195 @@
--- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
--- Top  |  Description  |  Object Hierarchy  |  Properties
--- GtkCellView
+indexing
+	description: "GtkCellView, a widget displaying a single row of a GtkTreeModel."
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
+			-- Description: A GtkCellView displays a single row of a
+			-- GtkTreeModel, using cell renderers just like
+			-- GtkTreeView. GtkCellView doesn't support some of the more
+			-- complex features of GtkTreeView, like cell editing and
+			-- drag and drop.
 
--- GtkCellView %GÅ‚Äî%@ A widget displaying a single row of a GtkTreeModel
+class GTK_CELL_VIEW
+inherit
+	GTK_WIDGET
+	GTK_CELL_LAYOUT
+		-- GtkCellView also implements AtkImplementorIface.
+creation make
+
+
+feature {NONE} -- Creation
+
+	make is 
+			-- Creates a new GtkCellView widget.
+		do
+			handle := gtk_cell_view_new 
+		end
+
+	make_with_text (a_text: STRING) is
+			-- Creates a new GtkCellView widget, adds a
+			-- GtkCellRendererText to it, and makes its show `a_text'.
+		require valide_text: a_text /= Void
+		do
+			handle:=gtk_cell_view_new_with_text (a_text.to_external)
+		end
 	
--- Synopsis
+	new_with_markup (a_markup: STRING) is
+			-- Creates a new GtkCellView widget, adds a
+			-- GtkCellRendererText to it, and makes its show
+			-- `a_markup'. The text can be marked up with the Pango text
+			-- markup language.
+		require valid_text: a_markup /= Void
+		do
+			handle := gtk_cell_view_new_with_markup (a_markup.to_external)
+		end
 
--- #include <gtk/gtk.h>
+	make_with_pixbuf (a_pixbuf: GDK_PIXBUF) is
+		-- Creates a new GtkCellView widget, adds a
+		-- GtkCellRendererPixbuf to it, and makes its show `a_pixbuf'.
+		do
+			handle:=gtk_cell_view_new_with_pixbuf (a_pixbuf.handle)
+		endl
 
+feature
+	set_model (a_model: GTK_TREE_MODEL) is
+			-- Sets the model for cell_view. If Current already has a
+			-- model set, it will remove it before setting the new model.
+		require valid_model: a_model /= Void
+		do
+			gtk_cell_view_set_model (handle, a_model.handle)
+		end
 
---             GtkCellView;
--- GtkWidget*  gtk_cell_view_new               (void);
--- GtkWidget*  gtk_cell_view_new_with_text     (const gchar *text);
--- GtkWidget*  gtk_cell_view_new_with_markup   (const gchar *markup);
--- GtkWidget*  gtk_cell_view_new_with_pixbuf   (GdkPixbuf *pixbuf);
--- void        gtk_cell_view_set_model         (GtkCellView *cell_view,
---                                              GtkTreeModel *model);
--- void        gtk_cell_view_set_displayed_row (GtkCellView *cell_view,
---                                              GtkTreePath *path);
--- GtkTreePath* gtk_cell_view_get_displayed_row
---                                             (GtkCellView *cell_view);
--- gboolean    gtk_cell_view_get_size_of_row   (GtkCellView *cell_view,
---                                              GtkTreePath *path,
---                                              GtkRequisition *requisition);
--- void        gtk_cell_view_set_background_color
---                                             (GtkCellView *cell_view,
---                                              const GdkColor *color);
--- GList*      gtk_cell_view_get_cell_renderers
---                                             (GtkCellView *cell_view);
+	unset_model is
+			-- Unset the old model.
+		do
+			gtk_cell_view_set_model (handle, default_pointer)
+		end
 
+	set_displayed_row (a_path: GTK_TREE_PATH) is
+			-- Sets the row of the model that is currently displayed by
+			-- the GtkCellView. If the `a_path' is unset, then the
+			-- contents of the cellview "stick" at their last value; this
+			-- is not normally a desired result, but may be a needed
+			-- intermediate state if say, the model for the GtkCellView
+			-- becomes temporarily empty.
+		require valid_path: a_path /= Void
+		do
+			gtk_cell_view_set_displayed_row (handle, a_path.handle)
+		end
 
+	unset_displayed_row is
+			-- Unset the displayed row; it is not normally a desired
+			-- result, but may be a needed intermediate state if say, the
+			-- model for the GtkCellView becomes temporarily empty.
+		do
+			gtk_cell_view_set_displayed_row (handle, default_pointer)
+		end
 
--- Object Hierarchy
+	displayed_row: GTK_TREE_PATH is
+			-- A GtkTreePath referring to the currently displayed row. It
+			-- is Void ff no row is currently displayed.
+		do
+			ptr := gtk_cell_view_get_displayed_row (handle)
+			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
+		end
 
---   GObject
---    +----GtkObject
---          +----GtkWidget
---                +----GtkCellView
+	size_of_row (a_path: GTK_TREE_PATH): GTK_REQUISITION is
+			-- the size needed by Current to display the model row pointed to by `a_path'.
+		require valid_path: a_path /= Void
+		local shall_be_true: INTEGER
+		do
+			create Result.make
+			shall_be_true:=gtk_cell_view_get_size_of_row (handle, a_path.handle,
+																		 Result.handle)
+		end
 
--- Implemented Interfaces
+	set_background_color (a_color: GDK_COLOR) is
+			-- Sets the background color of view.
+		do
+			gtk_cell_view_set_background_color (handle, a_color.handle)
+		end
 
--- GtkCellView implements AtkImplementorIface and GtkCellLayout.
--- Properties
+	cell_renderers: G_LIST [GTK_CELL_RENDERER] is
+			-- the cell renderers which have been added to Current
+			-- cell_view.
+		do
+			create Result.make (gtk_cell_view_get_cell_renderers (handle))
+			debug print (once "Warning! Possible memory problems in GTK_CELL_VIEW.cell_renderers%N") end
+			-- TODO: The returned list, but not the renderers has been newly
+			-- allocated and should be freed with g_list_free() when no
+			-- longer needed.
+		end
+feature -- Properties
 
---   "background"           gchararray            : Write
---   "background-gdk"       GdkColor              : Read / Write
---   "background-set"       gboolean              : Read / Write
+	--   "background"           gchararray            : Write
+	--   "background-gdk"       GdkColor              : Read / Write
+	--   "background-set"       gboolean              : Read / Write
+	
+	-- Property Details
+	-- The "background" property
+	
+	--   "background"           gchararray            : Write
+	
+	-- Background color as a string.
 
--- Description
+	-- Default value: NULL
+	-- The "background-gdk" property
 
--- A GtkCellView displays a single row of a GtkTreeModel, using cell renderers just like GtkTreeView. GtkCellView doesn't support some of the more complex features of GtkTreeView, like cell editing and drag and drop.
--- Details
--- GtkCellView
+	--   "background-gdk"       GdkColor              : Read / Write
 
--- typedef struct _GtkCellView GtkCellView;
+	-- Background color as a GdkColor.
+	-- The "background-set" property
 
--- gtk_cell_view_new ()
+	--   "background-set"       gboolean              : Read / Write
 
--- GtkWidget*  gtk_cell_view_new               (void);
+	-- Whether this tag affects the background color.
 
--- Creates a new GtkCellView widget.
+	-- Default value: FALSE
 
--- Returns : 	A newly created GtkCellView widget.
+feature {NONE} -- size
+	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkCellView)"
+		end
 
--- Since 2.6
--- gtk_cell_view_new_with_text ()
+feature {NONE} -- External calls
+	gtk_cell_view_new: POINTER  is
+		external "C use <gtk/gtk.h>"
+		end
 
--- GtkWidget*  gtk_cell_view_new_with_text     (const gchar *text);
+	gtk_cell_view_new_with_text (a_text: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
--- Creates a new GtkCellView widget, adds a GtkCellRendererText to it, and makes its show text.
+	gtk_cell_view_new_with_markup (a_markup: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
--- text : 	the text to display in the cell view
--- Returns : 	A newly created GtkCellView widget.
+	gtk_cell_view_new_with_pixbuf (a_pixbuf: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
--- Since 2.6
--- gtk_cell_view_new_with_markup ()
+	gtk_cell_view_set_model (a_cell_view, a_model: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_cell_view_set_displayed_row (a_cell_view, a_path: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
 
--- GtkWidget*  gtk_cell_view_new_with_markup   (const gchar *markup);
+	gtk_cell_view_get_displayed_row (a_cell_view: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
+	gtk_cell_view_get_size_of_row (a_cell_view, a_path, a_gtk_requisiton: POINTER): INTEGER is -- gboolean
+		external "C use <gtk/gtk.h>"
+		end
 
--- Creates a new GtkCellView widget, adds a GtkCellRendererText to it, and makes its show markup. The text can text can be marked up with the Pango text markup language.
-
--- markup : 	the text to display in the cell view
--- Returns : 	A newly created GtkCellView widget.
-
--- Since 2.6
--- gtk_cell_view_new_with_pixbuf ()
-
--- GtkWidget*  gtk_cell_view_new_with_pixbuf   (GdkPixbuf *pixbuf);
-
--- Creates a new GtkCellView widget, adds a GtkCellRendererPixbuf to it, and makes its show pixbuf.
-
--- pixbuf : 	the image to display in the cell view
--- Returns : 	A newly created GtkCellView widget.
-
--- Since 2.6
--- gtk_cell_view_set_model ()
-
--- void        gtk_cell_view_set_model         (GtkCellView *cell_view,
---                                              GtkTreeModel *model);
-
--- Sets the model for cell_view. If cell_view already has a model set, it will remove it before setting the new model. If model is NULL, then it will unset the old model.
-
--- cell_view : 	a GtkCellView
--- model : 	a GtkTreeModel
-
--- Since 2.6
--- gtk_cell_view_set_displayed_row ()
-
--- void        gtk_cell_view_set_displayed_row (GtkCellView *cell_view,
---                                              GtkTreePath *path);
-
--- Sets the row of the model that is currently displayed by the GtkCellView. If the path is unset, then the contents of the cellview "stick" at their last value; this is not normally a desired result, but may be a needed intermediate state if say, the model for the GtkCellView becomes temporarily empty.
-
--- cell_view : 	a GtkCellView
--- path : 	a GtkTreePath or NULL to unset.
-
--- Since 2.6
--- gtk_cell_view_get_displayed_row ()
-
--- GtkTreePath* gtk_cell_view_get_displayed_row
---                                             (GtkCellView *cell_view);
-
--- Returns a GtkTreePath referring to the currently displayed row. If no row is currently displayed, NULL is returned.
-
--- cell_view : 	a GtkCellView
--- Returns : 	the currently displayed row or NULL
-
--- Since 2.6
--- gtk_cell_view_get_size_of_row ()
-
--- gboolean    gtk_cell_view_get_size_of_row   (GtkCellView *cell_view,
---                                              GtkTreePath *path,
---                                              GtkRequisition *requisition);
-
--- Sets requisition to the size needed by cell_view to display the model row pointed to by path.
-
--- cell_view : 	a GtkCellView
--- path : 	a GtkTreePath
--- requisition : 	return location for the size
--- Returns : 	TRUE
-
--- Since 2.6
--- gtk_cell_view_set_background_color ()
-
--- void        gtk_cell_view_set_background_color
---                                             (GtkCellView *cell_view,
---                                              const GdkColor *color);
-
--- Sets the background color of view.
-
--- cell_view : 	a GtkCellView
--- color : 	the new background color
-
--- Since 2.6
--- gtk_cell_view_get_cell_renderers ()
-
--- GList*      gtk_cell_view_get_cell_renderers
---                                             (GtkCellView *cell_view);
-
--- Returns the cell renderers which have been added to cell_view.
-
--- cell_view : 	a GtkCellView
--- Returns : 	a list of cell renderers. The list, but not the renderers has been newly allocated and should be freed with g_list_free() when no longer needed.
-
--- Since 2.6
--- Property Details
--- The "background" property
-
---   "background"           gchararray            : Write
-
--- Background color as a string.
-
--- Default value: NULL
--- The "background-gdk" property
-
---   "background-gdk"       GdkColor              : Read / Write
-
--- Background color as a GdkColor.
--- The "background-set" property
-
---   "background-set"       gboolean              : Read / Write
-
--- Whether this tag affects the background color.
-
--- Default value: FALSE
+	gtk_cell_view_set_background_color (a_cell_view a_gdk_color: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_cell_view_get_cell_renderers (a_cell_view: POINTER): POINTER is -- GList*
+		external "C use <gtk/gtk.h>"
+		end
 end

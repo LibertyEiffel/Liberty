@@ -36,8 +36,7 @@ feature {NONE} -- External calls
 	-- void        g_object_class_install_property (GObjectClass *oclass,
 	--                                              guint property_id,
 	--                                              GParamSpec *pspec);
-	-- GParamSpec* g_object_class_find_property    (GObjectClass *oclass,
-	--                                              const gchar *property_name);
+
 	-- GParamSpec** g_object_class_list_properties (GObjectClass *oclass,
 	--                                              guint *n_properties);
 	-- void        g_object_class_override_property
@@ -652,11 +651,26 @@ feature {NONE} -- External calls
 	-- ... : 	value for the first property, followed optionally by more name/value pairs, followed by NULL
 		-- external "C use <glib-object.h>"
 		-- end
-	-- g_object_get ()
 
-	-- void        g_object_get                    (gpointer object,
-	--                                              const gchar *first_property_name,
-	--                                              ...);
+	-- Note: g_object_get since it is variadic is wrapped many times
+	-- with various name and various number of parameters. Paolo
+	-- 2006-05-08
+
+	-- void g_object_get (gpointer object, const gchar
+	-- *first_property_name, ...);
+	
+	g_object_get_one_property (object, a_property_name, its_address: POINTER) is
+		external "C use <glib-object.h>"
+		alias "g_object_get"
+		end
+	g_object_get_two_properties (object, first_property_name, first_address, second_property_name, second_address: POINTER) is
+		external "C use <glib-object.h>"
+		alias "g_object_get"
+		end
+	g_object_get_three_properties (object, first_property_name, first_address,second_property_name, second_address, third_property_name, third_address: POINTER) is
+		external "C use <glib-object.h>"
+		alias "g_object_get"
+		end
 
 	-- Gets properties of an object.
 
