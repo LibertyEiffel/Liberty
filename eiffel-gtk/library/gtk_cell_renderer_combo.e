@@ -5,12 +5,10 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Description
-
-			-- GtkCellRendererCombo renders text in a cell like
-			-- GtkCellRendererText from which it is derived. But while
-			-- GtkCellRendererText offers a simple entry to edit the
-			-- text, GtkCellRendererCombo offers a GtkComboBox or
+			-- Description: GtkCellRendererCombo renders text in a cell
+			-- like GtkCellRendererText from which it is derived. But
+			-- while GtkCellRendererText offers a simple entry to edit
+			-- the text, GtkCellRendererCombo offers a GtkComboBox or
 			-- GtkComboBoxEntry widget to edit the text. The values to
 			-- display in the combo box are taken from the tree model
 			-- specified in the model property.
@@ -24,7 +22,7 @@ indexing
 class GTK_CELL_RENDERER_COMBO
 inherit
 	GTK_CELL_RENDERER_TEXT redefine make end
-	GTK_CELL_RENDERER_COMBo_EXTERNALS
+	GTK_CELL_RENDERER_COMBO_EXTERNALS
 creation make
 
 feature {NONE} -- size

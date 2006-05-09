@@ -302,8 +302,6 @@ feature -- Label
 	-- Returns : 	a GtkWidget or NULL in case there is no image
 
 feature -- Properties
--- TODO: Properties
-
 --   "focus-on-click"       gboolean              : Read / Write
 --   "image"                GtkWidget             : Read / Write
 --   "label"                gchararray            : Read / Write / Construct
@@ -312,14 +310,6 @@ feature -- Properties
 --   "use-underline"        gboolean              : Read / Write / Construct
 --   "xalign"               gfloat                : Read / Write
 --   "yalign"               gfloat                : Read / Write
-
--- Style Properties
-
---   "child-displacement-x" gint                  : Read
---   "child-displacement-y" gint                  : Read
---   "default-border"       GtkBorder             : Read
---   "default-outside-border" GtkBorder             : Read
---   "displace-focus"       gboolean              : Read
 
 	-- Property Details
 -- The "focus-on-click" property
@@ -384,6 +374,15 @@ feature -- Properties
 -- Default value: 0.5
 
 -- Since 2.4
+
+feature -- Style Properties
+
+--   "child-displacement-x" gint                  : Read
+--   "child-displacement-y" gint                  : Read
+--   "default-border"       GtkBorder             : Read
+--   "default-outside-border" GtkBorder             : Read
+--   "displace-focus"       gboolean              : Read
+
 -- Style Property Details
 -- The "child-displacement-x" style property
 
@@ -471,7 +470,6 @@ feature -- The "clicked" signal
 		do
 			connect (Current, clicked_signal_name, $on_clicked)
 		end
-
 
 	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
 		require valid_procedure: a_procedure /= Void

@@ -1,7 +1,7 @@
 # Eiffel wrapper library for GTK
 prefix=/home/paolo/Eiffel/eiffel-libraries   # this defines a variable
-
 libdir=${prefix}/eiffel-gtk/library
+foo_bar=Boogie!
 
 Name: Eiffel-GTK      # human-readable name
 Description: Eiffel wrapper library for the GTK (Gimp ToolKit) # human-readable description

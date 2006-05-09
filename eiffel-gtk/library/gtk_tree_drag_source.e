@@ -61,7 +61,6 @@ feature
 			-- `a_path' : 	row that was dragged
 
 			-- `a_selection_data' : 	a GtkSelectionData to fill with data from the dragged row
-		obsolete "TODO: please implement `data (a_path: GTK_TREE_PATH): GTK_SELECTION_DATA'"
 		do
 			create Result.make 
 			is_action_successful :=
@@ -69,8 +68,6 @@ feature
 				 (handle, a_path.handle, Result.handle)).to_boolean
 		end
 
- 
-	-- Note: QUESTO VA NELLA SORGENTE!
 	is_row_draggable (a_path: GTK_TREE_PATH): BOOLEAN is
 			-- Can `a_path' (i.e.: a particular row) be used as the
 			-- source of a DND operation? If the source doesn't implement
