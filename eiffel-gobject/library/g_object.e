@@ -68,13 +68,13 @@ feature -- Disposing
 			-- Note: when Eiffel dispose a G_OBJECT it just unref it and
 			-- cleans its handle. The actual reclaiming of the memory
 			-- alloca ted on the C side is left to gobject runtime.
-			debug
-				print ("Eiffel is disposing g_object ") print (generator)
-				print (" (at ") print (handle.out) print (")%N")
-			end	
 			if is_g_object then unref
 			else
-				debug print ("It's handle is not a g_object! Please see the notes in G_OBJECT.dispose%N")
+				debug
+					print ("Disposing g_object ") print (generator)
+					print (" (at ") print (handle.out) print ("). handle is not a g_object.%N")
+					print_notice
+					-- Please see the notes in G_OBJECT.dispose
 					-- Note: for the above perhaps dispose has been called
 					-- after GTK libraries has already shut down. This
 					-- could be a "feature" instead of a bug, since it is
@@ -87,6 +87,23 @@ feature -- Disposing
 		end
 
 feature {NONE} -- Disposing helper
+	print_notice is
+			-- Print once a copy of the note that has been put in 
+			-- `dispose' source code.
+		once
+			print ("[
+					  Please see the notes in G_OBJECT.dispose.
+					  Perhaps dispose has been called after 
+					  GTK libraries has already shut down. This
+					  could be the correct behavious and not a bug, since it is
+					  possible that this part of dispose  won't be called
+					  if  the garbage collector is called during
+					  application normal usage. 
+					       Paolo 2006-04-24
+					  
+					  ]")
+			end
+					  
 	is_g_object: BOOLEAN is
 			-- Is current handle a pointer to a g_object?
 		do

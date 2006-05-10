@@ -21,11 +21,11 @@ default -- section of the system
 	relax (yes);
 
 cluster -- section
-		gtk: "../../loadpath.se"
-		glib: "../../../eiffel-glib/loadpath.se"
-		gobject: "../../../eiffel-gobject/loadpath.se"
+	gtk: "${eiffel_libraries}/eiffel-gtk/loadpath.se"
+	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
+	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
 
-		"."
+	buttons_demo: "."
 
 
 --    optional_cluster_name: "cluster_path_using_system_file_notation_here"

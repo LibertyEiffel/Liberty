@@ -1,0 +1,4 @@
+To use this library you shall add in your SmartEiffel configuration
+file, in the [Environment] section an entry like:
+
+eiffel_libraries: /path/to/your/copy/of/eiffel-libraries/

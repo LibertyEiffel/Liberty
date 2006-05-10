@@ -19,11 +19,11 @@ default -- section of the system
 	relax (yes);
 
 cluster -- section
-		gtk: "../../loadpath.se"
-		glib: "../../../eiffel-glib/loadpath.se"
-		gobject: "../../../eiffel-gobject/loadpath.se"
+	gtk: "${eiffel_libraries}/eiffel-gtk/loadpath.se"
+	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
+	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
 
-		"."
+	progress_bar_demo: "."
 
 	standard: "${path_lib}/loadpath.se"
 
