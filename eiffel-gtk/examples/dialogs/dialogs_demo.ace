@@ -30,19 +30,12 @@ default -- section of the system
 	relax (yes);
 
 cluster -- section
-		"../../library"
-		"../../library/externals"
-		"../../../eiffel-glib/library"
-		"../../../eiffel-glib/library/core"
-		"../../../eiffel-glib/library/data_types"
-		"../../../eiffel-glib/library/externals"
-		"../../../eiffel-glib/library/fundamentals"
-		"../../../eiffel-glib/library/utilities"
-		"../../../eiffel-gobject/library/"
-		"../../../eiffel-gobject/library/externals"
-		"../../../common"
+	gtk: "${eiffel_libraries}/eiffel-gtk/loadpath.se"
+	gdk: "${eiffel_libraries}/eiffel-gdk/loadpath.se"
+	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
+	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
 
-		"."
+	dialogs_demo: "."
 
 
 --    optional_cluster_name: "cluster_path_using_system_file_notation_here"
