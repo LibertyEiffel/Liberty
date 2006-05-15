@@ -55,7 +55,7 @@ inherit
 		end
 	-- Note: Shall the wrapper factory be inserted rather than 
 	-- inherited?
-	WRAPPER_FACTORY [ITEM]	
+	WRAPPER_FACTORY [ITEM] undefine copy,is_equal end
 	
 insert
 	G_LIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
