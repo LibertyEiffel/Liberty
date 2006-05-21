@@ -25,7 +25,6 @@ feature
 			-- like 'update' or 'insert').
 		deferred 
 		end
-
 	
 	close is
 			-- Close the cursor.
