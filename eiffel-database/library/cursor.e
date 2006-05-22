@@ -9,7 +9,7 @@ indexing
 			-- to manage the context of a fetch operation.
 
 deferred class CURSOR
-inherit
+-- inherit
 	-- TODO: Should be an ITERABLE
 
 feature 

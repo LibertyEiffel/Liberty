@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class RESULT_ROW
-
+inherit FAST_ARRAY [ANY]
 feature -- Type queries
 	is_integer (a_column: INTEGER): BOOLEAN is
 			-- Is the type in `a_column' an INTEGER?
@@ -58,17 +58,6 @@ feature -- Column queries
 		require
 			valid_column: valid_index (a_column)
 			is_integer: is_boolean (a_column)
-		deferred
-		end
-	
-feature  -- provided by traversable to be implemented by concrete implementations
-	valid_index (i: INTEGER_32): BOOLEAN is
-			-- The number of elements in Current result row
-		deferred
-		end
-	
-	count: INTEGER_32 is
-			-- Number of available elements
 		deferred
 		end
 	

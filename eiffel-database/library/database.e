@@ -20,8 +20,19 @@ feature
 		deferred 
 		end
 
+	execute (some_sql: STRING) is
+			-- execute `some_sql'. If it contains one or more queries 
+			-- `result_set' will contain the result of the queries.
+		deferred
+		end
+
+	result_set: RESULT_SET [RESULT_ROW] is
+			-- Results of the last `execute' command.
+		deferred
+		end
+
 	cursor: CURSOR is
-		-- Get a new cursor
+			-- Get a new cursor
 		deferred 
 		end
 end

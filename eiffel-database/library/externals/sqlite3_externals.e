@@ -637,13 +637,13 @@ feature {NONE} -- External calls
 	-- The collation sequence is returned to SQLite by a collation-needed
 	-- callback using the sqlite3_create_collation() or
 	-- sqlite3_create_collation16() APIs, described above.
-		external "plug_in"
-		alias "{
-			location "${eiffel_libraries}plugins"
-			module_name: "sqlite3"
-			feature_name: ""
-			}"
-		end
+	-- 		external "plug_in"
+	-- 		alias "{
+	-- 			location "${eiffel_libraries}plugins"
+	-- 			module_name: "sqlite3"
+	-- 			feature_name: ""
+	-- 			}"
+	-- 		end
 
 	-- -----------------------------------------------------------------------
 
@@ -1344,7 +1344,7 @@ feature {NONE} -- External calls
 			}"
 		end
 
-	sqlite3_free(a_c_string: POINTER): is
+	sqlite3_free(a_c_string: POINTER): INTEGER is
 			-- Use this routine to free memory obtained from
 			-- sqlite3_mprintf() or sqlite3_vmprintf().
 		external "plug_in"
@@ -1748,7 +1748,7 @@ feature {NONE} -- External calls
 	-- transaction is not rolled back and remains active. The sqlite3_exec()
 	-- call returns SQLITE_ABORT.
 
-	 sqlite3_reset (a_statement: POINTER): INTEGER is
+	sqlite3_reset (a_statement: POINTER): INTEGER is
 			-- The sqlite3_reset() function is called to reset a prepared
 			-- SQL statement obtained by a previous call to
 			-- sqlite3_prepare() or sqlite3_prepare16() back to it's

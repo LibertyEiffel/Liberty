@@ -7,9 +7,11 @@ indexing
 
 class SQLITE_DATABASE
 inherit
-	DATABASE
+	DATABASE redefine result_set end
 	C_STRUCT
 insert SQLITE3_EXTERNALS
+creation connect
+feature result_set: SQLITE_RESULT_SET
 feature 
 	connect (a_connection_string: STRING) is
 			-- Try to connect to an SQLite database. `last_action_result'
@@ -17,7 +19,7 @@ feature
 			-- will be true if database is usable; i.e. readable and
 			-- writable.
 		do
-			last_action_result := sqlite3_open (a_connection_string.to_external
+			last_action_result := sqlite3_open (a_connection_string.to_external,
 														  address_of (handle))
 			debug
 				inspect last_action_result
@@ -33,7 +35,7 @@ feature
 				when 	sqlite_perm then 
 					-- Access permission denied
 					print ("Access permission denied%N")
-				when sqlite_abort
+				when sqlite_abort then
 					-- Callback routine requested an abort 
 					print ("Callback routine requested an abort %N")
 				when sqlite_busy then 
@@ -120,12 +122,48 @@ feature
 			Result := (last_action_result=sqlite_ok)
 		end
 
+	execute (some_sql: STRING) is
+		-- Current implementation uses the plain sqlite3_exec which 
+		-- always strings as result. TODO: improve it using prepared 
+		-- statement which allows typed results.
+		do
+			create hidden_result_set.make
+			last_action_result := sqlite3_exec (handle,
+															some_sql.to_external,
+															$accumulator_callback,
+															Current.to_pointer, 
+															default_pointer -- as char **error_msg, since it is currently not used
+															)
+		end
+	
 	cursor: CURSOR is
-		-- Get a new cursor
+			-- Get a new cursor
+		obsolete "to be removed"
 		do 
 		end
 
 	last_action_result: INTEGER
 			-- the result code of the last call to sqlite3_open
 feature {} -- Implementation
+	accumulator_callback (n_columns: INTEGER; 
+								 values: NATIVE_ARRAY[POINTER];
+								 column_names: NATIVE_ARRAY[POINTER]): INTEGER is
+		require hidden_result_set_present: hidden_result_set/=Void
+		local i: INTEGER; a_tuple: SQLITE_RESULT_ROW
+		do
+			create a_tuple.make(n_columns)
+			from i := 0 until i <= n_columns
+			loop
+				a_tuple.put (i, create {STRING}.from_external_copy(values.item(i)))
+				i:=i+1
+			end
+			hidden_result_set.add_last (a_tuple)
+			if True -- ok
+			 then Result := 0
+			else -- something went wrong: aborting
+				Result := -1 -- Anything non-zero will fit here
+			end
+		end
+	
+	hidden_result_set: SQLITE_RESULT_SET
 end
