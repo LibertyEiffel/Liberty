@@ -6,7 +6,8 @@ indexing
 	revision: "$Revision:$"
 
 deferred class RESULT_ROW
-inherit FAST_ARRAY [ANY]
+inherit TRAVERSABLE [ANY] 
+
 feature -- Type queries
 	is_integer (a_column: INTEGER): BOOLEAN is
 			-- Is the type in `a_column' an INTEGER?

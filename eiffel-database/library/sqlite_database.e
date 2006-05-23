@@ -7,11 +7,14 @@ indexing
 
 class SQLITE_DATABASE
 inherit
-	DATABASE redefine result_set end
+	DATABASE 
 	C_STRUCT
 insert SQLITE3_EXTERNALS
 creation connect
-feature result_set: SQLITE_RESULT_SET
+
+feature 
+	result_set: SQLITE_RESULT_SET 
+
 feature 
 	connect (a_connection_string: STRING) is
 			-- Try to connect to an SQLite database. `last_action_result'
@@ -20,7 +23,8 @@ feature
 			-- writable.
 		do
 			last_action_result := sqlite3_open (a_connection_string.to_external,
-														  address_of (handle))
+															$handle)
+			check changed_handle: handle.is_not_null end
 			debug
 				inspect last_action_result
 				when sqlite_ok then
@@ -127,7 +131,7 @@ feature
 		-- always strings as result. TODO: improve it using prepared 
 		-- statement which allows typed results.
 		do
-			create hidden_result_set.make
+			create result_set.make
 			last_action_result := sqlite3_exec (handle,
 															some_sql.to_external,
 															$accumulator_callback,
@@ -148,22 +152,34 @@ feature {} -- Implementation
 	accumulator_callback (n_columns: INTEGER; 
 								 values: NATIVE_ARRAY[POINTER];
 								 column_names: NATIVE_ARRAY[POINTER]): INTEGER is
-		require hidden_result_set_present: hidden_result_set/=Void
-		local i: INTEGER; a_tuple: SQLITE_RESULT_ROW
+		require result_set_present: result_set/=Void
+		local i: INTEGER; a_tuple: SQLITE_RESULT_ROW; a_value,column_name: STRING; 
 		do
+			debug print ("SQLITE_DATABASE.accumulator_callback ("+n_columns.out+", [") end
 			create a_tuple.make(n_columns)
-			from i := 0 until i <= n_columns
+			from i := 0 until i >= n_columns
 			loop
-				a_tuple.put (i, create {STRING}.from_external_copy(values.item(i)))
+				create a_value.from_external_copy(values.item(i))
+				debug print ("'"+a_value+"' ") end
+				a_tuple.put (a_value ,i)
 				i:=i+1
 			end
-			hidden_result_set.add_last (a_tuple)
-			if True -- ok
-			 then Result := 0
-			else -- something went wrong: aborting
-				Result := -1 -- Anything non-zero will fit here
+			result_set.add_last (a_tuple)
+
+			debug 
+				print ("], [")
+				from i := 0 until i >= n_columns
+				loop
+					create column_name.from_external_copy(column_names.item(i))
+					print ("'"+column_name+"' ") 
+					i:=i+1
+				end
+				print ("])%N")
 			end
+			
+			Result := 0 -- 0 means "ok, go on"; anything else blocks the query with an error
+		ensure 
+			result_set_grown: old result_set.count < result_set.count
 		end
 	
-	hidden_result_set: SQLITE_RESULT_SET
 end

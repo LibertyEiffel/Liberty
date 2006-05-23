@@ -6,7 +6,8 @@ indexing
 	revision: "$Revision:$"
 
 deferred class RESULT_SET [ROW-> RESULT_ROW] 
-inherit LINKED_LIST [ROW] -- TRAVERSABLE [RESULT_ROW]
+inherit TRAVERSABLE [ROW] undefine fill_tagged_out_memory end
+
 feature 
 
 -- features inherited from TRAVERSABLE 	

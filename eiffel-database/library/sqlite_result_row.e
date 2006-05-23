@@ -7,8 +7,8 @@ indexing
 
 class SQLITE_RESULT_ROW
 inherit 
-	RESULT_ROW
-	-- FAST_ARRAY [STRING]
+	RESULT_ROW undefine fill_tagged_out_memory end
+	FAST_ARRAY [STRING] undefine copy, is_equal end
 creation make
 
 feature -- Type queries
