@@ -8,10 +8,17 @@ indexing
 class SQLITE_DATABASE
 inherit
 	DATABASE 
-	C_STRUCT
+	C_STRUCT redefine dispose end
 insert SQLITE3_EXTERNALS
 creation connect
 
+feature dispose is
+		local res: INTEGER
+		do
+			res:=sqlite3_close (handle)
+			handle:=default_pointer
+			--TODO: handle res
+		end
 feature 
 	result_set: SQLITE_RESULT_SET 
 
@@ -148,6 +155,17 @@ feature
 
 	last_action_result: INTEGER
 			-- the result code of the last call to sqlite3_open
+feature -- Prepared queries and commands
+	prepare_command (some_sql: STRING): SQLITE_PREPARED_COMMAND is
+		do
+			create Result.make (Current,some_sql)
+		end
+
+	prepare_query (some_sql: STRING): SQLITE_PREPARED_QUERY is
+		do
+			create Result.make (Current,some_sql)
+		end
+
 feature {} -- Implementation
 	accumulator_callback (n_columns: INTEGER; 
 								 values: NATIVE_ARRAY[POINTER];

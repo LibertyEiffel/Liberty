@@ -412,7 +412,7 @@ feature {NONE} -- External calls
 		alias "{
 			location: "${eiffel_libraries}plugins"
 			module_name: "sqlite3"
-			feature_name: "sqlite3_bind_duoble"
+			feature_name: "sqlite3_bind_double"
 			}"
 		end
 
@@ -491,7 +491,7 @@ feature {NONE} -- External calls
 		alias "{
 			location: "${eiffel_libraries}plugins"
 			module_name: "sqlite3"
-			feature_name: "SQLITE3_TRANSIENT"
+			feature_name: "SQLITE_TRANSIENT"
 			}"
 		end
 
@@ -825,56 +825,69 @@ feature {NONE} -- External calls
 			}"
 		end
 	
-	sqlite_integer: INTEGER is
-			-- #define SQLITE_INTEGER 1
-		external "plug_in"
-		alias "{
-			location: "${eiffel_libraries}plugins"
-			module_name: "sqlite3"
-			feature_name: "SQLITE_INTEGER"
-			}"
-		end
 
-	sqlite_float: INTEGER is
-			-- #define SQLITE_FLOAT 2
-		external "plug_in"
-		alias "{
-			location: "${eiffel_libraries}plugins"
-			module_name: "sqlite3"
-			feature_name: "SQLITE_FLOAT"
-			}"
-		end
 
-	sqlite_text: INTEGER is
-			-- #define SQLITE_TEXT 3
-		external "plug_in"
-		alias "{
-			location: "${eiffel_libraries}plugins"
-			module_name: "sqlite3"
-			feature_name: "SQLITE_TEXT"
-			}"
-		end
+feature {WRAPPER} -- SQLite type codes
+	sqlite_integer: INTEGER is 1
+	sqlite_float: INTEGER is 2
+	sqlite_text: INTEGER is 3
+	sqlite_blob: INTEGER is 4
+	sqlite_null: INTEGER is 5
 
-	sqlite_blob: INTEGER is
-			-- #define SQLITE_BLOB 4
-		external "plug_in"
-		alias "{
-			location: "${eiffel_libraries}plugins"
-			module_name: "sqlite3"
-			feature_name: "SQLITE_BLOB"
-			}"
-		end
+			-- These should be actually plugins or external features. Sadly
+			-- they can't be used in inspect statements.
+	
+			--  	sqlite_integer: INTEGER is
+			-- 			-- #define SQLITE_INTEGER 1
+			-- 		external "plug_in"
+			-- 		alias "{
+			-- 			location: "${eiffel_libraries}plugins"
+			-- 			module_name: "sqlite3"
+			-- 			feature_name: "SQLITE_INTEGER"
+			-- 			}"
+			-- 		end
 
-	sqlite_null: INTEGER is
-			-- #define SQLITE_NULL 5
-		external "plug_in"
-		alias "{
-			location: "${eiffel_libraries}plugins"
-			module_name: "sqlite3"
-			feature_name: "SQLITE_NULL"
-			}"
-		end
+			-- 	sqlite_float: INTEGER is
+			-- 			-- #define SQLITE_FLOAT 2
+			-- 		external "plug_in"
+			-- 		alias "{
+			-- 			location: "${eiffel_libraries}plugins"
+			-- 			module_name: "sqlite3"
+			-- 			feature_name: "SQLITE_FLOAT"
+			-- 			}"
+			-- 		end
 
+			-- 	sqlite_text: INTEGER is
+			-- 			-- #define SQLITE_TEXT 3
+			-- 		external "plug_in"
+			-- 		alias "{
+			-- 			location: "${eiffel_libraries}plugins"
+			-- 			module_name: "sqlite3"
+			-- 			feature_name: "SQLITE_TEXT"
+			-- 			}"
+			-- 		end
+
+			-- 	sqlite_blob: INTEGER is
+			-- 			-- #define SQLITE_BLOB 4
+			-- 		external "plug_in"
+			-- 		alias "{
+			-- 			location: "${eiffel_libraries}plugins"
+			-- 			module_name: "sqlite3"
+			-- 			feature_name: "SQLITE_BLOB"
+			-- 			}"
+			-- 		end
+
+			-- 	sqlite_null: INTEGER is
+			-- 			-- #define SQLITE_NULL 5
+			-- 		external "plug_in"
+			-- 		alias "{
+			-- 			location: "${eiffel_libraries}plugins"
+			-- 			module_name: "sqlite3"
+			-- 			feature_name: "SQLITE_NULL"
+			-- 			}"
+			-- 		end
+
+feature {} -- external calls
 	-- These routines return information about the information in a
 	-- single column of the current result row of a query. In every
 	-- case the first argument is a pointer to the SQL statement that

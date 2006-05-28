@@ -8,12 +8,11 @@ indexing
 class SQLITE_RESULT_SET
 inherit
 	-- Features inheriting
- 	RESULT_SET [SQLITE_RESULT_ROW]
+	RESULT_SET [SQLITE_RESULT_ROW]
 	-- Implementation
 	LINKED_LIST [SQLITE_RESULT_ROW]
 		undefine copy, is_equal 
 		end
 creation make
 -- feature get_new_iterator: ITERATOR [SQLITE_RESULT_ROW] is do end
-
 end

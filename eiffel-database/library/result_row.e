@@ -61,5 +61,4 @@ feature -- Column queries
 			is_integer: is_boolean (a_column)
 		deferred
 		end
-	
 end
