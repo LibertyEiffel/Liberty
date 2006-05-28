@@ -14,9 +14,11 @@ inherit
 	-- GTK_CELL_EDITABLE is a GTK_WIDGET. Poor GTK programmers, they
 	-- don't have Eiffel's multiple inheritance. I assume it is. Paolo
 	-- 2006-01-21
-	GTK_WIDGET undefine make end
-		-- GtkCellEditable is implemented by GtkEntry, GtkComboBox,
-		-- GtkSpinButton and GtkComboBoxEntry.
+	
+	GTK_WIDGET -- DELETE: undefine make end
+
+			-- GtkCellEditable is implemented by GtkEntry, GtkComboBox,
+			-- GtkSpinButton and GtkComboBoxEntry.
 insert
 	GTK_CELL_EDITABLE_EXTERNALS
 

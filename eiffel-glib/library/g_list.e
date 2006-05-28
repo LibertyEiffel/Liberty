@@ -55,7 +55,7 @@ inherit
 		end
 	-- Note: Shall the wrapper factory be inserted rather than 
 	-- inherited?
-	WRAPPER_FACTORY [ITEM] undefine copy,is_equal end
+	WRAPPER_FACTORY [ITEM] -- undefine copy,is_equal end
 	
 insert
 	G_LIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
@@ -92,7 +92,7 @@ feature
 
 	put (an_item: like first; i: INTEGER) is
 		require -- else 
-      	      valid_item: an_item/=Void 
+					valid_item: an_item/=Void 
 		do
 			g_list_set_data (g_list_nth(handle,i), an_item.handle)
 		end

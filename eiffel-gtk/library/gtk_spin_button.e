@@ -71,9 +71,9 @@ indexing
 class GTK_SPIN_BUTTON
 inherit
 	GTK_ENTRY rename make as as_entry end
-	GTK_SPIN_BUTTON_EXTERNALS
 		-- GtkSpinButton implements AtkImplementorIface, GtkCellEditable and
 		-- GtkEditable.
+insert GTK_SPIN_BUTTON_EXTERNALS
 	
 creation make
 

@@ -54,7 +54,7 @@ inherit
 		end
 
 insert
-	G_SLIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
+	G_SLIST_EXTERNALS -- undefine copy,is_equal,fill_tagged_out_memory end
 	
 	INTERNALS_HANDLER
 		-- needed to materialize an object of type ITEM, without knowing
@@ -114,7 +114,7 @@ feature
 
 	put (an_item: like first; i: INTEGER) is
 		require -- else 
-      	      valid_item: an_item/=Void 
+					valid_item: an_item/=Void 
 		do
 			g_slist_set_data (g_slist_nth(handle,i), an_item.handle)
 		end

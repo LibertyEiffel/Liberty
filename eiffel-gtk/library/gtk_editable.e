@@ -42,7 +42,8 @@ indexing
 
 deferred class GTK_EDITABLE
 inherit
-	GTK_WIDGET undefine make end
+	GTK_WIDGET
+		-- DELETE: undefine make end
 		-- TODO check this, since I'm not sure. Indeed any known
 		-- implementation is a GTK_WIDGET, therefore it shouldn't bring
 		-- any harm.
@@ -187,18 +188,39 @@ feature
 			Result := (gtk_editable_get_editable(handle)).to_boolean
 		end
 
-feature -- TODO specific signals callbacks
+feature -- The "changed" signal
+	changed_signal_name: STRING is "changed"
+	enable_on_changed is
+			-- Connects "changed" signal to `on_changed' feature.
+		do
+			connect (Current, changed_signal_name, $on_changed)
+		end
+
+	on_changed is
+			-- Built-in changed signal handler; empty by design; redefine it.
+
+			-- Indicates that the user has changed the contents of the widget.
+		deferred 
+		end
+
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
+		require valid_procedure: a_procedure /= Void
+		local changed_callback: CHANGED_CALLBACK
+		do
+			create changed_callback.make
+			changed_callback.connect (Current, a_procedure)
+		end
 	
 	-- Signal Details
 	-- The "changed" signal
 	
 	-- void user_function (GtkEditable *editable, gpointer user_data);
 
-	-- Indicates that the user has changed the contents of the widget.
+	
 	-- editable : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 
-	-- The "delete-text" signal
+feature	-- The "delete-text" signal
 
 	-- void user_function (GtkEditable *editable, gint `a_start', gint
 	-- `an_end', gpointer user_data);

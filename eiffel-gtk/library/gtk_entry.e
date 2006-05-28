@@ -15,7 +15,7 @@ indexing
 
 class GTK_ENTRY
 inherit
-	GTK_WIDGET undefine make end --rename make as make_gtk_widget end
+	GTK_WIDGET -- DELETE: undefine make end --rename make as make_gtk_widget end
 	GTK_EDITABLE 
 	GTK_CELL_EDITABLE
 		-- GtkEntry implements AtkImplementorIface, GtkCellEditable and GtkEditable.

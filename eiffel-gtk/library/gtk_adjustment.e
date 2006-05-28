@@ -32,7 +32,7 @@ inherit
 	
 creation make, from_external_pointer
 
-feature {NONE} -- size
+feature 
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAdjustment)"
