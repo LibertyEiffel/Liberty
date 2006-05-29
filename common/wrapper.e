@@ -15,7 +15,7 @@ inherit
 	
 insert
 	EXCEPTIONS
-		export {NONE} all
+		export {} all
 		undefine
 			is_equal,
 			copy

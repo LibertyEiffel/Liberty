@@ -6,5 +6,5 @@ indexing
 	revision: "$Revision:$"
 
 deferred class _EXTERNALS
-feature {NONE} -- External calls
+feature {} -- External calls
 end

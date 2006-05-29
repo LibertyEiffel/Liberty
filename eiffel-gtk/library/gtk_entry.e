@@ -492,15 +492,44 @@ feature -- The "paste-clipboard" signal
 	-- inspiration.
 
 feature -- The "populate-popup" signal
+	populate_popup_signal_name: STRING is "populate-popup"
 
--- void        user_function                  (GtkEntry *entry,
---                                             GtkMenu  *arg1,
---                                             gpointer  user_data)      : Run last
+	on_populate_popup is
+			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
+		do
+		end
 
--- entry : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "toggle-overwrite" signal
+	enable_on_populate_popup is
+			-- Connects "paste-clipboard" signal to `on_populate_popup' feature.
+		do
+			connect (Current, populate_popup_signal_name, $hidden_on_populate_popup)
+		end
+
+	-- TODO: implement connect_agent_to_populate_popup_signal (a_procedure:
+	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
+	-- inspiration.
+
+feature {} -- populate-popup signal implementation
+	hidden_on_populate_popup (a_gtk_menu, a_gtk_entry: POINTER) is
+		require 
+			menu_not_null: a_gtk_menu.is_not_null
+			entry_not_null: a_gtk_entry.is_not_null -- Otherwise very bad things are happening.
+		local a_menu: GTK_MENU
+		do
+			a_menu := retrieve(a_gtk_menu)
+			check a_menu_not_void: a_menu /= Void end
+			on_populate_popup (a_menu)
+		end
+	-- void user_function (GtkEntry *entry, GtkMenu *arg1, gpointer
+	--                                             user_data) : Run
+	--                                             last
+	
+	-- entry : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was 
+	-- connected.
+
+feature -- The "toggle-overwrite" signal
 
 -- void        user_function                  (GtkEntry *entry,
 --                                             gpointer  user_data)      : Run last / Action

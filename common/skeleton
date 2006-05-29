@@ -19,5 +19,5 @@ feature -- size
 		alias "sizeof()"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 end

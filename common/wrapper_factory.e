@@ -17,7 +17,7 @@ inherit
 		undefine copy,fill_tagged_out_memory
 		end
 
-feature {NONE} -- Implementation
+feature {} -- Implementation
 	new_item: ITEM_ is
 			-- Materialize an Eiffel object. This feature contains
 			-- something that can be considered "black magic" by purists:
