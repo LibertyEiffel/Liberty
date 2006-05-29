@@ -287,342 +287,381 @@ feature
 			gtk_menu_set_active (handle, an_index)
 		end
 
--- -----------------------------------------------------------------------
+	set_tearoff is
+			-- Changes the tearoff state of the menu. A menu is normally
+			-- displayed as drop down menu which persists as long as the
+			-- menu is active. It can also be displayed as a tearoff menu
+			-- which persists until it is closed or reattached.
+		do
+			gtk_menu_set_tearoff_state (handle, 1)
+		ensure is_torn_off
+		end
 
--- gtk_menu_set_tearoff_state ()
+	unset_tearoff is
+			-- Changes the tearoff state of the menu. A menu is normally
+			-- displayed as drop down menu which persists as long as the
+			-- menu is active. It can also be displayed as a tearoff menu
+			-- which persists until it is closed or reattached.
+		do
+			gtk_menu_set_tearoff_state (handle, 0)
+		ensure not is_torn_off
+		end
 
--- void gtk_menu_set_tearoff_state (GtkMenu *menu,
--- gboolean torn_off);
 
--- Changes the tearoff state of the menu. A menu is normally displayed as
--- drop down menu which persists as long as the menu is active. It can
--- also be displayed as a tearoff menu which persists until it is closed
--- or reattached.
+	-- gtk_menu_attach_to_widget ()
 
--- menu : a GtkMenu.
--- torn_off : If TRUE, menu is displayed as a tearoff menu.
+	-- void gtk_menu_attach_to_widget (GtkMenu *menu, GtkWidget
+	-- *attach_widget, GtkMenuDetachFunc detacher);
 
--- -----------------------------------------------------------------------
+	-- Attaches the menu to the widget and provides a callback function
+	-- that will be invoked when the menu calls gtk_menu_detach()
+	-- during its destruction.
 
--- gtk_menu_attach_to_widget ()
+	-- menu : a GtkMenu.
+	-- attach_widget : the GtkWidget that the menu will be attached to.
+	-- detacher : the user supplied callback function that will be called
+	-- when the menu calls gtk_menu_detach(), or NULL
 
--- void gtk_menu_attach_to_widget (GtkMenu *menu,
--- GtkWidget *attach_widget,
--- GtkMenuDetachFunc detacher);
+	-- gtk_menu_detach ()
 
--- Attaches the menu to the widget and provides a callback function that
--- will be invoked when the menu calls gtk_menu_detach() during its
--- destruction.
+	-- void gtk_menu_detach (GtkMenu *menu);
+	
+	-- Detaches the menu from the widget to which it had been
+	-- attached. This function will call the callback function,
+	-- detacher, provided when the gtk_menu_attach_to_widget() function
+	-- was called.
 
--- menu : a GtkMenu.
--- attach_widget : the GtkWidget that the menu will be attached to.
--- detacher : the user supplied callback function that will be called
--- when the menu calls gtk_menu_detach(), or NULL
+	-- menu : a GtkMenu.
 
--- -----------------------------------------------------------------------
+	-- -----------------------------------------------------------------------
 
--- gtk_menu_detach ()
+	-- gtk_menu_get_attach_widget ()
 
--- void gtk_menu_detach (GtkMenu *menu);
+	-- GtkWidget* gtk_menu_get_attach_widget (GtkMenu *menu);
 
--- Detaches the menu from the widget to which it had been attached. This
--- function will call the callback function, detacher, provided when the
--- gtk_menu_attach_to_widget() function was called.
+	-- Returns the GtkWidget that the menu is attached to.
 
--- menu : a GtkMenu.
+	-- menu : a GtkMenu.
+	-- Returns : the GtkWidget that the menu is attached to.
 
--- -----------------------------------------------------------------------
+	-- -----------------------------------------------------------------------
 
--- gtk_menu_get_attach_widget ()
+	-- gtk_menu_get_for_attach_widget ()
 
--- GtkWidget* gtk_menu_get_attach_widget (GtkMenu *menu);
+	-- GList* gtk_menu_get_for_attach_widget (GtkWidget *widget);
 
--- Returns the GtkWidget that the menu is attached to.
+	-- widget : a GtkWidget * Returns a list of the menus which are attached
+	-- to this widget. This list is owned by GTK+ and must not be
+	-- modified.
+	-- Returns : the list of menus attached to his widget.
 
--- menu : a GtkMenu.
--- Returns : the GtkWidget that the menu is attached to.
+	-- Since 2.6
 
--- -----------------------------------------------------------------------
+	-- -----------------------------------------------------------------------
 
--- gtk_menu_get_for_attach_widget ()
+	-- GtkMenuPositionFunc ()
 
--- GList* gtk_menu_get_for_attach_widget (GtkWidget *widget);
+	-- void (*GtkMenuPositionFunc) (GtkMenu *menu,
+	-- gint *x,
+	-- gint *y,
+	-- gboolean *push_in,
+	-- gpointer user_data);
 
--- widget : a GtkWidget * Returns a list of the menus which are attached
--- to this widget. This list is owned by GTK+ and must not be
--- modified.
--- Returns : the list of menus attached to his widget.
+	-- A user function supplied when calling gtk_menu_popup() which controls
+	-- the positioning of the menu when it is displayed. The function sets the
+	-- x and y parameters to the coordinates where the menu is to be drawn.
 
--- Since 2.6
+	-- menu : a GtkMenu.
+	-- x : address of the gint representing the horizontal position
+	-- where the menu shall be drawn. This is an output parameter.
+	-- y : address of the gint representing the vertical position
+	-- where the menu shall be drawn. This is an output parameter.
+	-- push_in : whether the menu should be pushed in to be completely
+	-- inside the screen instead of just clamped to the size to
+	-- the screen.
+	-- user_data : the data supplied by the user in the gtk_menu_popup() data
+	-- parameter.
 
--- -----------------------------------------------------------------------
+	-- -----------------------------------------------------------------------
 
--- GtkMenuPositionFunc ()
+	-- GtkMenuDetachFunc ()
 
--- void (*GtkMenuPositionFunc) (GtkMenu *menu,
--- gint *x,
--- gint *y,
--- gboolean *push_in,
--- gpointer user_data);
+	-- void (*GtkMenuDetachFunc) (GtkWidget *attach_widget,
+	-- GtkMenu *menu);
 
--- A user function supplied when calling gtk_menu_popup() which controls
--- the positioning of the menu when it is displayed. The function sets the
--- x and y parameters to the coordinates where the menu is to be drawn.
+	-- A user function supplied when calling gtk_menu_attach_to_widget() which
+	-- will be called when the menu is later detached from the widget.
 
--- menu : a GtkMenu.
--- x : address of the gint representing the horizontal position
--- where the menu shall be drawn. This is an output parameter.
--- y : address of the gint representing the vertical position
--- where the menu shall be drawn. This is an output parameter.
--- push_in : whether the menu should be pushed in to be completely
--- inside the screen instead of just clamped to the size to
--- the screen.
--- user_data : the data supplied by the user in the gtk_menu_popup() data
--- parameter.
+	-- attach_widget : the GtkWidget that the menu is being detached from.
+	-- menu : the GtkMenu being detached.
 
--- -----------------------------------------------------------------------
+	-- -----------------------------------------------------------------------
 
--- GtkMenuDetachFunc ()
+	-- gtk_menu_set_monitor ()
 
--- void (*GtkMenuDetachFunc) (GtkWidget *attach_widget,
--- GtkMenu *menu);
+	-- void gtk_menu_set_monitor (GtkMenu *menu,
+	-- gint monitor_num);
 
--- A user function supplied when calling gtk_menu_attach_to_widget() which
--- will be called when the menu is later detached from the widget.
+	-- Informs GTK+ on which monitor a menu should be popped up. See
+	-- gdk_screen_get_monitor_geometry().
 
--- attach_widget : the GtkWidget that the menu is being detached from.
--- menu : the GtkMenu being detached.
+	-- This function should be called from a GtkMenuPositionFunc if the menu
+	-- should not appear on the same monitor as the pointer. This information
+	-- can't be reliably inferred from the coordinates returned by a
+	-- GtkMenuPositionFunc, since, for very long menus, these coordinates may
+	-- extend beyond the monitor boundaries or even the screen boundaries.
 
--- -----------------------------------------------------------------------
+	-- menu : a GtkMenu
+	-- monitor_num : the number of the monitor on which the menu should be
+	-- popped up
 
--- gtk_menu_set_monitor ()
+	-- Since 2.4
 
--- void gtk_menu_set_monitor (GtkMenu *menu,
--- gint monitor_num);
+	-- Properties
 
--- Informs GTK+ on which monitor a menu should be popped up. See
--- gdk_screen_get_monitor_geometry().
 
--- This function should be called from a GtkMenuPositionFunc if the menu
--- should not appear on the same monitor as the pointer. This information
--- can't be reliably inferred from the coordinates returned by a
--- GtkMenuPositionFunc, since, for very long menus, these coordinates may
--- extend beyond the monitor boundaries or even the screen boundaries.
+	-- "tearoff-state" gboolean : Read / Write
+	-- "tearoff-title" gchararray : Read / Write
 
--- menu : a GtkMenu
--- monitor_num : the number of the monitor on which the menu should be
--- popped up
+	-- Child Properties
 
--- Since 2.4
 
--- Properties
+	-- "bottom-attach" gint : Read / Write
+	-- "left-attach" gint : Read / Write
+	-- "right-attach" gint : Read / Write
+	-- "top-attach" gint : Read / Write
 
+	-- Style Properties
 
--- "tearoff-state" gboolean : Read / Write
--- "tearoff-title" gchararray : Read / Write
 
--- Child Properties
+	-- "horizontal-offset" gint : Read
+	-- "vertical-offset" gint : Read
+	-- "vertical-padding" gint : Read
 
 
--- "bottom-attach" gint : Read / Write
--- "left-attach" gint : Read / Write
--- "right-attach" gint : Read / Write
--- "top-attach" gint : Read / Write
+	-- Property Details
 
--- Style Properties
+	-- The "tearoff-state" property
 
+	-- "tearoff-state" gboolean : Read / Write
 
--- "horizontal-offset" gint : Read
--- "vertical-offset" gint : Read
--- "vertical-padding" gint : Read
+	-- A boolean that indicates whether the menu is torn-off.
 
+	-- Default value: FALSE
 
--- Property Details
+	-- Since 2.6
 
--- The "tearoff-state" property
+	-- -----------------------------------------------------------------------
 
--- "tearoff-state" gboolean : Read / Write
+	-- The "tearoff-title" property
 
--- A boolean that indicates whether the menu is torn-off.
+	-- "tearoff-title" gchararray : Read / Write
 
--- Default value: FALSE
+	-- A title that may be displayed by the window manager when this menu is
+	-- torn-off.
 
--- Since 2.6
+	-- Default value: ""
 
--- -----------------------------------------------------------------------
+	-- Child Property Details
 
--- The "tearoff-title" property
+	-- The "bottom-attach" child property
 
--- "tearoff-title" gchararray : Read / Write
+	-- "bottom-attach" gint : Read / Write
 
--- A title that may be displayed by the window manager when this menu is
--- torn-off.
+	-- The row number to attach the bottom of the child to.
 
--- Default value: ""
+	-- Allowed values: >= -1
 
--- Child Property Details
+	-- Default value: -1
 
--- The "bottom-attach" child property
+	-- -----------------------------------------------------------------------
 
--- "bottom-attach" gint : Read / Write
+	-- The "left-attach" child property
 
--- The row number to attach the bottom of the child to.
+	-- "left-attach" gint : Read / Write
 
--- Allowed values: >= -1
+	-- The column number to attach the left side of the child to.
 
--- Default value: -1
+	-- Allowed values: >= -1
 
--- -----------------------------------------------------------------------
+	-- Default value: -1
 
--- The "left-attach" child property
+	-- -----------------------------------------------------------------------
 
--- "left-attach" gint : Read / Write
+	-- The "right-attach" child property
 
--- The column number to attach the left side of the child to.
+	-- "right-attach" gint : Read / Write
 
--- Allowed values: >= -1
+	-- The column number to attach the right side of the child to.
 
--- Default value: -1
+	-- Allowed values: >= -1
 
--- -----------------------------------------------------------------------
+	-- Default value: -1
 
--- The "right-attach" child property
+	-- -----------------------------------------------------------------------
 
--- "right-attach" gint : Read / Write
+	-- The "top-attach" child property
 
--- The column number to attach the right side of the child to.
+	-- "top-attach" gint : Read / Write
 
--- Allowed values: >= -1
+	-- The row number to attach the top of the child to.
 
--- Default value: -1
+	-- Allowed values: >= -1
 
--- -----------------------------------------------------------------------
+	-- Default value: -1
 
--- The "top-attach" child property
+	-- Style Property Details
 
--- "top-attach" gint : Read / Write
+	-- The "horizontal-offset" style property
 
--- The row number to attach the top of the child to.
+	-- "horizontal-offset" gint : Read
 
--- Allowed values: >= -1
+	-- When the menu is a submenu, position it this number of pixels offset
+	-- horizontally.
 
--- Default value: -1
+	-- Default value: -2
 
--- Style Property Details
+	-- -----------------------------------------------------------------------
 
--- The "horizontal-offset" style property
+	-- The "vertical-offset" style property
 
--- "horizontal-offset" gint : Read
+	-- "vertical-offset" gint : Read
 
--- When the menu is a submenu, position it this number of pixels offset
--- horizontally.
+	-- When the menu is a submenu, position it this number of pixels offset
+	-- vertically.
 
--- Default value: -2
+	-- Default value: 0
 
--- -----------------------------------------------------------------------
+	-- -----------------------------------------------------------------------
 
--- The "vertical-offset" style property
+	-- The "vertical-padding" style property
 
--- "vertical-offset" gint : Read
+	-- "vertical-padding" gint : Read
 
--- When the menu is a submenu, position it this number of pixels offset
--- vertically.
+	-- Extra space at the top and bottom of the menu.
 
--- Default value: 0
+	-- Allowed values: >= 0
 
--- -----------------------------------------------------------------------
+	-- Default value: 1
+	-- Signals
 
--- The "vertical-padding" style property
 
--- "vertical-padding" gint : Read
+	-- "move-scroll"
+	-- void user_function (GtkMenu *menu,
+	-- GtkScrollType *arg1,
+	-- gpointer user_data) : Run last / Action
 
--- Extra space at the top and bottom of the menu.
 
--- Allowed values: >= 0
+	-- Signal Details
 
--- Default value: 1
--- Signals
+	-- The "move-scroll" signal
 
+	-- void user_function (GtkMenu *menu,
+	-- GtkScrollType *arg1,
+	-- gpointer user_data) : Run last / Action
 
--- "move-scroll"
--- void user_function (GtkMenu *menu,
--- GtkScrollType *arg1,
--- gpointer user_data) : Run last / Action
-
-
--- Signal Details
-
--- The "move-scroll" signal
-
--- void user_function (GtkMenu *menu,
--- GtkScrollType *arg1,
--- gpointer user_data) : Run last / Action
-
--- menu : the object which received the signal.
--- arg1 :
--- user_data : user data set when the signal handler was connected.
+	-- menu : the object which received the signal.
+	-- arg1 :
+	-- user_data : user data set when the signal handler was connected.
 
 feature {} -- External calls
+	gtk_menu_new: POINTER is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_set_screen (a_menu: POINTER; a_gdkscreen: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_reorder_child (a_menu: POINTER; a_child: POINTER; a_position: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_attach (a_menu: POINTER; a_child: POINTER;
+						  left_attach, right_attach, top_attach, bottom_attach: INTEGER) is
+		-- left_attach, right_attach, top_attach, bottom_attach should be NATURAL since they're guint
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_popup (a_menu, parent_menu_shell, parent_menu_item, a_gtkmenupositionfunc, some_data: POINTER;
+						 a_button: INTEGER; an_activate_time:  INTEGER_32) is
+			-- Note: a_button shall be a NATURAL
+			-- Note: an_activate_time shall be a NATURAL_32
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_set_accel_group (a_menu: POINTER; an_accel_group: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	
+	gtk_menu_get_accel_group (a_menu: POINTER): POINTER is --  GtkAccelGroup *
+		external "C use <gtk/gtk.h>"
+		end
 
- #include <gtk/gtk.h>
+	gtk_menu_set_accel_path (a_menu: POINTER; a_path: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_set_title (a_menu: POINTER; a_title: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
 
+	gtk_menu_get_tearoff_state (a_menu: POINTER): INTEGER is --	gboolean
+		external "C use <gtk/gtk.h>"
+		end
+	
 
- GtkMenu;
- GtkWidget* gtk_menu_new (void);
- void gtk_menu_set_screen (GtkMenu *menu,
- GdkScreen *screen);
- #define gtk_menu_append (menu,child)
- #define gtk_menu_prepend (menu,child)
- #define gtk_menu_insert (menu,child,pos)
- void gtk_menu_reorder_child (GtkMenu *menu,
- GtkWidget *child,
- gint position);
- void gtk_menu_attach (GtkMenu *menu,
- GtkWidget *child,
- guint left_attach,
- guint right_attach,
- guint top_attach,
- guint bottom_attach);
- void gtk_menu_popup (GtkMenu *menu,
- GtkWidget *parent_menu_shell,
- GtkWidget *parent_menu_item,
- GtkMenuPositionFunc func,
- gpointer data,
- guint button,
- guint32 activate_time);
- void gtk_menu_set_accel_group (GtkMenu *menu,
- GtkAccelGroup *accel_group);
- GtkAccelGroup* gtk_menu_get_accel_group (GtkMenu *menu);
- void gtk_menu_set_accel_path (GtkMenu *menu,
- const gchar *accel_path);
- void gtk_menu_set_title (GtkMenu *menu,
- const gchar *title);
- gboolean gtk_menu_get_tearoff_state (GtkMenu *menu);
- const gchar* gtk_menu_get_title (GtkMenu *menu);
+	gtk_menu_get_title (a_menu: POINTER): POINTER is -- 	const gchar*
+		external "C use <gtk/gtk.h>"
+		end
 
- void gtk_menu_popdown (GtkMenu *menu);
- void gtk_menu_reposition (GtkMenu *menu);
- GtkWidget* gtk_menu_get_active (GtkMenu *menu);
- void gtk_menu_set_active (GtkMenu *menu,
- guint index_);
- void gtk_menu_set_tearoff_state (GtkMenu *menu,
- gboolean torn_off);
- void gtk_menu_attach_to_widget (GtkMenu *menu,
- GtkWidget *attach_widget,
- GtkMenuDetachFunc detacher);
- void gtk_menu_detach (GtkMenu *menu);
- GtkWidget* gtk_menu_get_attach_widget (GtkMenu *menu);
- GList* gtk_menu_get_for_attach_widget (GtkWidget *widget);
- void (*GtkMenuPositionFunc) (GtkMenu *menu,
- gint *x,
- gint *y,
- gboolean *push_in,
- gpointer user_data);
- void (*GtkMenuDetachFunc) (GtkWidget *attach_widget,
- GtkMenu *menu);
- void gtk_menu_set_monitor (GtkMenu *menu,
- gint monitor_num);
+	gtk_menu_popdown (a_menu: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_reposition (a_menu: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_get_active (a_menu: POINTER): POINTER is -- GtkWidget*
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_set_active (a_menu: POINTER; an_index: INTEGER) is
+			-- Note: an_index shall be NATURAL
+		external "C use <gtk/gtk.h>"
+		end
+	
 
+	gtk_menu_set_tearoff_state (a_menu: POINTER; a_torn_off: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_attach_to_widget (a_menu, an_attach_widget, a_gtk_menu_detach_func: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_detach (a_menu: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_get_attach_widget (a_menu: POINTER) is -- GtkWidget*
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_get_for_attach_widget (a_widget: POINTER) is -- GList*
+		external "C use <gtk/gtk.h>"
+		end
+	
+	-- void (*GtkMenuPositionFunc) (a_menu: POINTER,gint *x,gint
+	-- *y,gboolean *push_in,gpointer user_data) 
 
+	-- void (*GtkMenuDetachFunc) (GtkWidget *attach_widget, a_menu: POINTER) 
 
+	gtk_menu_set_monitor (a_menu: POINTER; a_monitor_num: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
 end
