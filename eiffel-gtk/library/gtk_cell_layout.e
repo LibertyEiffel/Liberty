@@ -34,7 +34,7 @@ feature
 	 -- Note that reusing the same cell renderer is not supported.
       require valid_renderer: a_cell_renderer /= Void
       do
-	 gtk_cell_layout_pack_start (handle, a_cell_renderer.handle, expand.to_boolena)
+	 gtk_cell_layout_pack_start (handle, a_cell_renderer.handle, expand.to_integer)
       end
    
    pack_end (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
@@ -46,7 +46,7 @@ feature
 			-- Note that reusing the same cell renderer is not supported.
       require valid_renderer: a_cell_renderer /= Void
       do
-			gtk_cell_layout_pack_end (handle, a_cell_renderer.handle, expand.to_boolena)
+			gtk_cell_layout_pack_end (handle, a_cell_renderer.handle, expand.to_integer)
       end
    
    reorder  (a_cell_renderer: GTK_CELL_RENDERER; a_position: INTEGER) is
@@ -129,7 +129,7 @@ feature
 feature {NONE} -- size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtlCellLayout)"
+		alias "sizeof(GtkCellLayout)"
 		end
 
 feature {NONE}	-- External calls
@@ -204,50 +204,45 @@ feature {NONE}	-- External calls
 		alias "gtk_cell_layout_set_attributes"
 		end
 	
-	gtk_cell_layout_add_attribute (a_cell_layout, a_cell_renderer: POINTER; attribute: POINTER; a_column: INTEGER) is
+	gtk_cell_layout_add_attribute (a_cell_layout, a_cell_renderer:
+		POINTER; attribute: POINTER; a_column: INTEGER; terminator: POINTER) is
 		require valid_terminator: terminator.is_null
 		external "C use <gtk/gtk.h>"
 		end
 
- gtk_cell_layout_set_cell_data_func
--- (a_cell_layout: POINTER, a_cell_renderer: POINTER, GtkCellLayoutDataFunc func, gpointer func_data, GDestroyNotify destroy) is
- 	external "C use <gtk/gtk.h>"
-		end
+	-- gtk_cell_layout_set_cell_data_func (a_cell_layout: POINTER, a_cell_renderer: POINTER, GtkCellLayoutDataFunc func, gpointer func_data, GDestroyNotify destroy) is	external "C use <gtk/gtk.h>"	end
 
- gtk_cell_layout_clear_attributes
--- (a_cell_layout: POINTER, a_cell_renderer: POINTER) is
- 	external "C use <gtk/gtk.h>"
-		end
+	-- gtk_cell_layout_clear_attributes (a_cell_layout: POINTER, a_cell_renderer: POINTER) is	external "C use <gtk/gtk.h>"	end
+	
+	-- GtkCellLayout is an interface to be implemented by all objects which want to provide a GtkTreeViewColumn-like API for packing cells, setting attributes and data funcs.
+	-- Details
+	-- GtkCellLayout
+	
+	-- typedef struct _GtkCellLayout GtkCellLayout;
 
--- GtkCellLayout is an interface to be implemented by all objects which want to provide a GtkTreeViewColumn-like API for packing cells, setting attributes and data funcs.
--- Details
--- GtkCellLayout
+	-- GtkCellLayoutIface
 
--- typedef struct _GtkCellLayout GtkCellLayout;
+	-- typedef struct {
+	-- GTypeInterface g_iface;
 
--- GtkCellLayoutIface
+	-- /* Virtual Table */
+	-- void (* pack_start) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gboolean expand);
+	-- void (* pack_end) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gboolean expand);
+	-- void (* clear) (GtkCellLayout *cell_layout);
+	-- void (* add_attribute) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, const gchar *attribute, gint column);
+	-- void (* set_cell_data_func) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, GtkCellLayoutDataFunc func, gpointer func_data, GDestroyNotify destroy);
+	-- void (* clear_attributes) (GtkCellLayout *cell_layout, GtkCellRenderer *cell);
+	-- void (* reorder) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gint position);
+	-- } GtkCellLayoutIface;
 
--- typedef struct {
--- GTypeInterface g_iface;
+	-- GtkCellLayoutDataFunc ()
 
--- /* Virtual Table */
--- void (* pack_start) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gboolean expand);
--- void (* pack_end) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gboolean expand);
--- void (* clear) (GtkCellLayout *cell_layout);
--- void (* add_attribute) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, const gchar *attribute, gint column);
--- void (* set_cell_data_func) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, GtkCellLayoutDataFunc func, gpointer func_data, GDestroyNotify destroy);
--- void (* clear_attributes) (GtkCellLayout *cell_layout, GtkCellRenderer *cell);
--- void (* reorder) (GtkCellLayout *cell_layout, GtkCellRenderer *cell, gint position);
--- } GtkCellLayoutIface;
+	-- void (*GtkCellLayoutDataFunc) (a_cell_layout: POINTER, GtkCellRenderer *cell, GtkTreeModel *tree_model, GtkTreeIter *iter, gpointer data);
 
--- GtkCellLayoutDataFunc ()
-
--- void (*GtkCellLayoutDataFunc) (a_cell_layout: POINTER, GtkCellRenderer *cell, GtkTreeModel *tree_model, GtkTreeIter *iter, gpointer data);
-
--- A function which should set the value of cell_layout's cell renderer(s) as appropriate.
--- cell_layout : 	a GtkCellLayout
--- cell : 	the cell renderer whose value is to be set
--- tree_model : 	the model
--- iter : 	a GtkTreeIter indicating the row to set the value for
--- data : 	user data passed to gtk_cell_layout_set_cell_data_func()
+	-- A function which should set the value of cell_layout's cell renderer(s) as appropriate.
+	-- cell_layout : 	a GtkCellLayout
+	-- cell : 	the cell renderer whose value is to be set
+	-- tree_model : 	the model
+	-- iter : 	a GtkTreeIter indicating the row to set the value for
+	-- data : 	user data passed to gtk_cell_layout_set_cell_data_func()
 end

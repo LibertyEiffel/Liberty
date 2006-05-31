@@ -64,7 +64,7 @@ indexing
 	
 class GTK_MENU
 inherit
-	GTK_MENU_SHELL
+	GTK_MENU_SHELL redefine size end
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
 		-- GtkMenu implements AtkImplementorIface interface.
 
@@ -98,7 +98,7 @@ feature
 		require 
 			valid_child: a_child/=Void
 		do
-			gtk_menu_reorder_child (handle, a_child.handle, a_position)
+			gtk_menu_reorder_child (handle, a_child.handle, a_new_position)
 		end
  
 	attach (a_child: GTK_WIDGET; 
@@ -227,7 +227,7 @@ feature
 
 	-- -----------------------------------------------------------------------
 
-	set_title (a_string: STRING) is
+	set_title (a_title: STRING) is
 			-- Sets `a_title' as the title for the menu. The title is
 			-- displayed when the menu is shown as a tearoff menu.
 		require title_not_void: a_title /= Void
@@ -242,7 +242,7 @@ feature
 		do
 			ptr := gtk_menu_get_title (handle)
 			if ptr.is_not_null then 
-				create Result.make_from_external_copy (ptr)
+				create Result.from_external_copy (ptr)
 			end
 		end
 
@@ -308,7 +308,7 @@ feature
 		end
 
 
-	-- gtk_menu_attach_to_widget ()
+	-- TODO: wrap gtk_menu_attach_to_widget ()
 
 	-- void gtk_menu_attach_to_widget (GtkMenu *menu, GtkWidget
 	-- *attach_widget, GtkMenuDetachFunc detacher);
@@ -322,7 +322,7 @@ feature
 	-- detacher : the user supplied callback function that will be called
 	-- when the menu calls gtk_menu_detach(), or NULL
 
-	-- gtk_menu_detach ()
+	-- TODO: wrap gtk_menu_detach ()
 
 	-- void gtk_menu_detach (GtkMenu *menu);
 	
@@ -335,7 +335,7 @@ feature
 
 	-- -----------------------------------------------------------------------
 
-	-- gtk_menu_get_attach_widget ()
+	-- TODO: wrap gtk_menu_get_attach_widget ()
 
 	-- GtkWidget* gtk_menu_get_attach_widget (GtkMenu *menu);
 
@@ -346,7 +346,7 @@ feature
 
 	-- -----------------------------------------------------------------------
 
-	-- gtk_menu_get_for_attach_widget ()
+	-- TODO: wrap gtk_menu_get_for_attach_widget ()
 
 	-- GList* gtk_menu_get_for_attach_widget (GtkWidget *widget);
 
@@ -397,7 +397,7 @@ feature
 
 	-- -----------------------------------------------------------------------
 
-	-- gtk_menu_set_monitor ()
+	-- TODO: wrap  gtk_menu_set_monitor ()
 
 	-- void gtk_menu_set_monitor (GtkMenu *menu,
 	-- gint monitor_num);
@@ -417,30 +417,9 @@ feature
 
 	-- Since 2.4
 
-	-- Properties
-
-
+feature -- Properties
 	-- "tearoff-state" gboolean : Read / Write
 	-- "tearoff-title" gchararray : Read / Write
-
-	-- Child Properties
-
-
-	-- "bottom-attach" gint : Read / Write
-	-- "left-attach" gint : Read / Write
-	-- "right-attach" gint : Read / Write
-	-- "top-attach" gint : Read / Write
-
-	-- Style Properties
-
-
-	-- "horizontal-offset" gint : Read
-	-- "vertical-offset" gint : Read
-	-- "vertical-padding" gint : Read
-
-
-	-- Property Details
-
 	-- The "tearoff-state" property
 
 	-- "tearoff-state" gboolean : Read / Write
@@ -462,6 +441,13 @@ feature
 
 	-- Default value: ""
 
+feature -- Child Properties
+
+
+	-- "bottom-attach" gint : Read / Write
+	-- "left-attach" gint : Read / Write
+	-- "right-attach" gint : Read / Write
+	-- "top-attach" gint : Read / Write
 	-- Child Property Details
 
 	-- The "bottom-attach" child property
@@ -510,6 +496,11 @@ feature
 
 	-- Default value: -1
 
+feature -- Style Properties
+	-- "horizontal-offset" gint : Read
+	-- "vertical-offset" gint : Read
+	-- "vertical-padding" gint : Read
+
 	-- Style Property Details
 
 	-- The "horizontal-offset" style property
@@ -552,7 +543,7 @@ feature
 	-- gpointer user_data) : Run last / Action
 
 
-	-- Signal Details
+feature -- Signal Details
 
 	-- The "move-scroll" signal
 

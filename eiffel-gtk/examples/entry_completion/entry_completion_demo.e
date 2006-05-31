@@ -1,20 +1,22 @@
 class ENTRY_COMPLETION_DEMO
 inherit GTK_MAIN
-insert G_TYPE_EXTERNALS
-		-- TODO: This insertion is necessary when creating the programmers,
-		-- since it requires explicit reference to g_type_*; it's ugly,
-		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
 creation make
 feature
 	make is
 		do
 			initialize_gtk
 			create_window
-			set_up_completion
 			window.show_all
+			window.connect_agent_to_destroy_signal (agent on_destroy_window(?))
 			gtk_main
 		end
-
+	on_destroy_window (an_obj: GTK_OBJECT) is
+		local a_win: GTK_WINDOW
+		do
+			a_win ::= an_obj
+			print ("Quitting%N")
+			gtk_quit
+		end
 feature
 	create_window is
 		do

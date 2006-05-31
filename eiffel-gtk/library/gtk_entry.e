@@ -19,6 +19,7 @@ inherit
 	GTK_EDITABLE 
 	GTK_CELL_EDITABLE
 		-- GtkEntry implements AtkImplementorIface, GtkCellEditable and GtkEditable.
+	G_OBJECT_RETRIEVER [GTK_MENU]
 insert
 	GTK_ENTRY_EXTERNALS
 creation make, from_external_pointer
@@ -494,8 +495,9 @@ feature -- The "paste-clipboard" signal
 feature -- The "populate-popup" signal
 	populate_popup_signal_name: STRING is "populate-popup"
 
-	on_populate_popup is
+	on_populate_popup (a_menu: GTK_MENU) is
 			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
+		require menu_not_void: a_menu/=Void 
 		do
 		end
 
@@ -516,7 +518,7 @@ feature {} -- populate-popup signal implementation
 			entry_not_null: a_gtk_entry.is_not_null -- Otherwise very bad things are happening.
 		local a_menu: GTK_MENU
 		do
-			a_menu := retrieve(a_gtk_menu)
+			a_menu := retrieve_eiffel_wrapper_from_gobject_pointer(a_gtk_menu)
 			check a_menu_not_void: a_menu /= Void end
 			on_populate_popup (a_menu)
 		end

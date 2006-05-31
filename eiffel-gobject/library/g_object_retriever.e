@@ -11,7 +11,7 @@ insert
 	G_OBJECT_EXTERNALS
 	SHARED_EIFFEL_KEY
 	
-feature
+feature {WRAPPER}
    retrieve_eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
 	 -- Retrieve the eiffel wrapper object from gobject's `a_pointer'
       require
@@ -36,7 +36,7 @@ feature
 	 Result:=	(g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
       end
 
-feature {NONE} -- External call
+feature {} -- External call
 	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: INTEGER_32): ITEM_ is
 			-- This function gets back the Eiffel wrapper stored using `g_object_set_qdata'
 		external "C use <glib-object.h>"

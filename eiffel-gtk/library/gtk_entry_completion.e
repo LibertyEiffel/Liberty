@@ -40,7 +40,7 @@ class GTK_ENTRY_COMPLETION
 inherit
 	G_OBJECT redefine make end
 		-- GtkEntryCompletion implements GtkCellLayout.
-	insert
+insert
 	GTK_ENTRY_COMPLETION_EXTERNALS
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 	

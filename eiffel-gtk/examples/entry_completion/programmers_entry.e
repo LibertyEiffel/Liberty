@@ -6,27 +6,31 @@ indexing
 	revision: "$Revision:$"
 
 class PROGRAMMERS_ENTRY
-inherit
-	GTK_ENTRY redefine make end 
+inherit GTK_COMBO_BOX_ENTRY redefine make end 
+insert G_TYPE_EXTERNALS
+	-- TODO: This insertion is necessary when creating the programmers,
+	-- since it requires explicit reference to g_type_*; it's ugly, or
+	-- better it feels mostly unEiffelish to me. Paolo 2006-05-30
 	
 creation make
 
 feature 
 	make is
 		do
-			Precursor
-			create completion.make
-			set_completion (completion)
+			with_model (programmers, name_column_n)
+			create completion.make 
 			completion.set_model (programmers)
+			entry.set_completion (completion)
 		end
-
 
 feature -- Programmers' model columns
 	name_column_n: INTEGER is 0
 	proficiency_column_n: INTEGER is 1
 	columns_n: INTEGER is 2
 
-feature 
+feature  {} -- Implementation
+	completion: GTK_ENTRY_COMPLETION
+
 	programmers_array: FAST_ARRAY[TUPLE[STRING,INTEGER]] is
 			-- Programmers name and Eiffelliness level
 		do

@@ -316,9 +316,8 @@ feature -- Property getter/setter
 	-- TODO: provide get_[string|integer|real|...]_property that does
 	-- not allocate a temporary G_VALUE
 invariant
-	-- TODO: this makes all programs to fail. TODO: discover why. Paolo
-	-- 2006-04-18
-
-	-- stored_eiffel_wrapper: is_eiffel_wrapper_stored
+	-- TODO: the following invariant makes all programs to fail. TODO:
+	-- discover why. Paolo 2006-04-18 "stored_eiffel_wrapper:
+	-- is_eiffel_wrapper_stored"
 end
 

@@ -47,6 +47,9 @@ feature
 	insert_child (a_child: GTK_WIDGET; a_position: INTEGER) is
 			-- Adds a new GtkMenuItem to the menu shell's item list at
 			-- `a_position'. Positions are numbered from 0 to n-1.
+		require 
+			widget_not_void: a_child /= Void
+			valid_position: a_position>=0
 		do
 			gtk_menu_shell_insert  (handle, a_child.handle, a_position)
 		end
@@ -61,6 +64,7 @@ feature
 
 	select_item (a_menu_item: GTK_WIDGET) is
 			-- Selects `a_menu_item' (a GtkMenuItem) from the menu shell.
+		require item_not_void: a_menu_item /= Void
 		do
 			gtk_menu_shell_select_item (handle, a_menu_item.handle)
 		end
@@ -89,6 +93,7 @@ feature
 			-- Activates `a_menu_item' within the menu shell. If
 			-- `force_deactivate' is True, force the deactivation of the
 			-- menu shell after the menu item is activated.
+		require item_not_void: a_menu_item /= Void
 		do
 			gtk_menu_shell_activate_item (handle, a_menu_item.handle, force_deactivate.to_integer)
 		end
@@ -147,29 +152,13 @@ feature
 			gtk_menu_shell_set_take_focus (handle,0)
 		end
 	
---    menu_shell : a GtkMenuShell
---    take_focus : TRUE if the menu shell should take the keyboard focus on
---                 popup.
+	is_focus_taken: BOOLEAN is
+			-- Will the menu shell will take the keyboard focus on popup.
+		do
+			Result:=(gtk_menu_shell_get_take_focus(handle).to_boolean)
+		end
 
---    Since 2.8
-
---    -----------------------------------------------------------------------
-
---   gtk_menu_shell_get_take_focus ()
-
---  gboolean    gtk_menu_shell_get_take_focus   (GtkMenuShell *menu_shell);
-
---    Returns TRUE if the menu shell will take the keyboard focus on popup.
-
---    menu_shell : a GtkMenuShell
---    Returns :    TRUE if the menu shell will take the keyboard focus on
---                 popup.
-
---    Since 2.8
-
--- Properties
-
-
+feature -- TODO: Properties
 --    "take-focus"           gboolean              : Read / Write
 
 -- Property Details
@@ -186,7 +175,7 @@ feature
 
 --    Since 2.8
 
--- Signals
+feature -- TODO: Signals
 
 
 --  "activate-current"

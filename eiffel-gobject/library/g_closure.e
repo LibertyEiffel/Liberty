@@ -227,6 +227,7 @@ feature -- Memory handling
 		do
 			-- Note: memory handling is done by gobject
 			unref
+			handle:=default_pointer
 		end
 feature -- Invoking
 

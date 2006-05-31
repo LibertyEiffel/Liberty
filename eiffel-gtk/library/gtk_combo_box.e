@@ -4,314 +4,285 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
+	
+			-- Description: A GtkComboBox is a widget that allows the
+			-- user to choose from a list of valid choices. The
+			-- GtkComboBox displays the selected choice. When activated,
+			-- the GtkComboBox displays a popup which allows the user to
+			-- make a new choice. The style in which the selected value
+			-- is displayed, and the style of the popup is determined by
+			-- the current theme. It may be similar to a GtkOptionMenu,
+			-- or similar to a Windows-style combo box.
 
+			-- Unlike its predecessors GtkCombo and GtkOptionMenu, the
+			-- GtkComboBox uses the model-view pattern; the list of valid
+			-- choices is specified in the form of a tree model, and the
+			-- display of the choices can be adapted to the data in the
+			-- model by using cell renderers, as you would in a tree
+			-- view. This is possible since GtkComboBox implements the
+			-- GtkCellLayout interface. The tree model holding the valid
+			-- choices is not restricted to a flat list, it can be a real
+			-- tree, and the popup will reflect the tree structure.
+
+			-- In addition to the model-view API, GtkComboBox offers a
+			-- simple API which is suitable for text-only combo boxes,
+			-- and hides the complexity of managing the data in a
+			-- model. It consists of the functions `with_text',
+			-- `append_text', `insert_text', `prepend_text',
+			-- `remove_text' and `active_text'.
+	
 class GTK_COMBO_BOX
 inherit
 	GTK_BIN
+	GTK_CELL_EDITABLE redefine size end
+	GTK_CELL_LAYOUT redefine size end
+		-- GtkComboBox also implements AtkImplementorIface interface.
 
-	-- GtkComboBox implements AtkImplementorIface, GtkCellEditable and
-	-- GtkCellLayout interfaces.
-	
-creation make
-
-feature -- size
-	size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkComboBox)"
+insert
+	G_OBJECT_RETRIEVER [GTK_TREE_MODEL] 
+		rename 
+			retrieve_eiffel_wrapper_from_gobject_pointer as retrieve_model_wrapper_from_pointer,
+			eiffel_wrapper_from_gobject_pointer as model_wrapper_from_pointer,
+			g_object_get_eiffel_wrapper as g_object_get_model_wrapper
+		export {WRAPPER} all 
 		end
 
-feature {NONE} -- Creation
+creation make, with_text_only
+
+feature {} -- Creation
+	make is
+			-- Creates a new empty GtkComboBox.
+		do
+			handle := gtk_combo_box_new 
+			is_text_only:=False
+		ensure no_text_only: not is_text_only
+		end
+
+
+	with_model (a_model: GTK_TREE_MODEL) is
+			-- Creates a new GtkComboBox with `a_model'.
+		do
+			handle := gtk_combo_box_new_with_model (handle)
+			is_text_only:=False
+		ensure no_text_only: not is_text_only
+		end
+
+feature -- Model-related features
+	wrap_width: INTEGER is
+			-- the wrap width which is used to determine the number of
+			-- columns for the popup menu. If the wrap width is larger
+			-- than 1, the combo box is in table mode.
+		require no_simple_api: not is_text_only
+		do
+			Result:=gtk_combo_box_get_wrap_width (handle)
+		end
+
+	set_wrap_width (a_width: INTEGER) is
+			-- Sets the wrap width of combo_box to be `a_width'. The wrap
+			-- width is basically the preferred number of columns when
+			-- you want the popup to be layed out in a table.
+		require no_simple_api: not is_text_only
+		do
+			gtk_combo_box_set_wrap_width    (handle, a_width)
+		end
+
+	row_span_column: INTEGER is
+			-- the column with row span information for combo_box.
+		require no_simple_api: not is_text_only
+		do
+			Result := gtk_combo_box_get_row_span_column (handle)
+		end
+
+	set_row_span_column (a_row_span: INTEGER) is
+			-- Sets the column with row span information for combo_box to
+			-- be row_span. The row span column contains integers which
+			-- indicate how many rows an item should span.
+		require no_simple_api: not is_text_only
+		do
+			gtk_combo_box_set_row_span_column (handle, a_row_span)
+		end
+
+	column_span_column: INTEGER is
+			-- the column with column span information for combo_box.
+		require no_simple_api: not is_text_only
+		do
+			Result:= gtk_combo_box_get_column_span_column (handle)
+		end
+
+	set_column_span_column (a_column_span: INTEGER) is
+			-- Sets the column with column span information for combo_box
+			-- to be column_span. The column span column contains
+			-- integers which indicate how many columns an item should
+			-- span.
+		require no_simple_api: not is_text_only
+		do
+			gtk_combo_box_set_column_span_column (handle, a_column_span)
+		end
+
+	active_column: INTEGER is
+			-- the index of the currently active item, or -1 if there's
+			-- no active item. If the model is a non-flat treemodel, and
+			-- the active item is not an immediate child of the root of
+			-- the tree, this function returns the result of the C call
+			-- "gtk_tree_path_get_indices (path)[0]", where path is the
+			-- GtkTreePath of the active item.
+		require no_simple_api: not is_text_only
+		do
+			Result := gtk_combo_box_get_active (handle)
+		end
+
+	set_active (an_index: INTEGER) is
+			-- Sets the active item of combo_box to be the item at index.
+		require no_simple_api: not is_text_only
+		do
+			gtk_combo_box_set_active (handle,an_index)
+		end
+
+	active_iter: GTK_TREE_ITER is
+			-- An iterator pointing to the current active item, if it
+			-- exists. Otherwise Void
+		require no_simple_api: not is_text_only
+		local gbool: INTEGER; 
+		do
+			create Result.make -- a newly allocated iterator
+			gbool := gtk_combo_box_get_active_iter (handle, Result.handle)
+			if gbool=0 then Result:=Void end
+		end
+
+	set_active_iter (an_iterator: GTK_TREE_ITER) is
+			-- Sets the current active item to be the one referenced by
+			-- `an_iterator' that must correspond to a path of depth one.
+		require 
+			no_simple_api: not is_text_only
+			-- TODO: an_iterator.depth = 1
+		do
+			gtk_combo_box_set_active_iter (handle, an_iterator.handle)
+		end
+	
+
+	model: GTK_TREE_MODEL is
+			-- the GtkTreeModel which is acting as data source for
+			-- combo_box.
+		require no_simple_api: not is_text_only
+		local model_ptr: POINTER
+		do
+			model_ptr := gtk_combo_box_get_model (handle)
+			Result := retrieve_model_wrapper_from_pointer (model_ptr)
+		end
+	
+	set_model (a_model: GTK_TREE_MODEL) is
+			-- Sets the model used by combo_box to be model. Will unset a
+			-- previously set model (if applicable). If model is NULL,
+			-- then it will unset the model.
+
+			-- Note that this function does not clear the cell renderers,
+			-- you have to call `cell_layout_clear' yourself if you need
+			-- to set up different cell renderers for the new model.
+		require 
+			no_simple_api: not is_text_only
+			model_not_void: a_model /= Void
+		do
+			gtk_combo_box_set_model (handle, a_model.handle)
+		end
+
+	unset_model is
+			-- Unsets the model used by combo box.
+		require no_simple_api: not is_text_only
+		do
+			gtk_combo_box_set_model (handle, default_pointer)
+		end
+
+
+feature {} -- Simplified, text-only API creation
+	with_text_only is
+			-- Convenience constructor of a new text combo box, which
+			-- will display only strings. If you use this function to
+			-- create a text combo box, you should only manipulate its
+			-- data source with the following convenience functions:
+			-- `append_text', `insert_text', `prepend_text'' and
+			-- `remove_text' as the "simple_api" preconditions state.
+		do
+			handle := gtk_combo_box_new_text 
+			is_text_only:=True
+		ensure text_only: is_text_only
+		end
+
+feature -- Simplified, text-only API
+	is_text_only: BOOLEAN
+	append_text (a_text: STRING) is
+			-- Appends `a_text' to the list of strings stored in combo box.		
+		require 
+			simple_api: is_text_only
+			text_not_void: a_text /= Void
+		do
+			gtk_combo_box_append_text (handle, a_text.to_external)
+		end
+
+	insert_text (a_text: STRING; a_position: INTEGER) is
+			-- Inserts `a_text' at `a_position' in the list of strings
+			-- stored in combo_box.
+		require 
+			simple_api: is_text_only
+			text_not_void: a_text /= Void
+		do
+			gtk_combo_box_insert_text (handle, a_position, a_text.to_external)
+		end
+
+	prepend_text (a_text: STRING) is
+			-- Prepends `a_text' to the list of strings stored in combo box.		
+		require 
+			simple_api: is_text_only
+			text_not_void: a_text /= Void
+		do
+			gtk_combo_box_prepend_text (handle, a_text.to_external)
+		end
+
+	remove_text (a_position: INTEGER) is
+			-- Removes the string at `a_position' from combo box. 
+		require simple_api: is_text_only
+		do
+			gtk_combo_box_remove_text (handle, a_position)
+		end
+
+	active_text: STRING is
+			-- The currently active string in combo_box or Void if none
+			-- is selected.
+		require simple_api: is_text_only
+		local ptr: POINTER
+		do
+			ptr := gtk_combo_box_get_active_text (handle)
+			-- Returns : a newly allocated string containing the
+			-- currently active text.
+			if ptr.is_not_null then create Result.from_external(ptr) end
+		end
+
+feature -- For accessibility technologies
+	popup is
+			-- Pops up the menu or dropdown list of combo box. This
+			-- function is mostly intended for use by accessibility
+			-- technologies; applications should have little use for it.
+		do
+			gtk_combo_box_popup (handle)
+		end
+
+	popdown is
+			-- Hides the menu or dropdown list of combo_box.  This
+			-- function is mostly intended for use by accessibility
+			-- technologies; applications should have little use for it.
+		do
+			gtk_combo_box_popdown (handle)
+		end
+
+	-- TODO: popup_accessible_object: ATK_OBJECT is AtkObject*
+	-- gtk_combo_box_get_popup_accessible (GtkComboBox *combo_box);
+	-- Gets the accessible object corresponding to the combo box's
+	-- popup. This function is mostly intended for use by accessibility
+	-- technologies; applications should have little use for it.
 
-
-feature -- Properties
-
-	--   "active"               gint                  : Read / Write
-	--   "add-tearoffs"         gboolean              : Read / Write
-	--   "column-span-column"   gint                  : Read / Write
-	--   "focus-on-click"       gboolean              : Read / Write
-	--   "has-frame"            gboolean              : Read / Write
-	--   "model"                GtkTreeModel          : Read / Write
-	--   "row-span-column"      gint                  : Read / Write
-	--   "wrap-width"           gint                  : Read / Write
-
-	-- Style Properties
-
-	--   "appears-as-list"      gboolean              : Read
-
-	-- Signals
-
-	-- "changed"   void        user_function      (GtkComboBox *widget,
-	--                                             gpointer     user_data)      : Run last
-
-	-- Description
-
-	-- A GtkComboBox is a widget that allows the user to choose from a list of valid choices. The GtkComboBox displays the selected choice. When activated, the GtkComboBox displays a popup which allows the user to make a new choice. The style in which the selected value is displayed, and the style of the popup is determined by the current theme. It may be similar to a GtkOptionMenu, or similar to a Windows-style combo box.
-
-	-- Unlike its predecessors GtkCombo and GtkOptionMenu, the GtkComboBox uses the model-view pattern; the list of valid choices is specified in the form of a tree model, and the display of the choices can be adapted to the data in the model by using cell renderers, as you would in a tree view. This is possible since GtkComboBox implements the GtkCellLayout interface. The tree model holding the valid choices is not restricted to a flat list, it can be a real tree, and the popup will reflect the tree structure.
-
-	-- In addition to the model-view API, GtkComboBox offers a simple API which is suitable for text-only combo boxes, and hides the complexity of managing the data in a model. It consists of the functions gtk_combo_box_new_text(), gtk_combo_box_append_text(), gtk_combo_box_insert_text(), gtk_combo_box_prepend_text(), gtk_combo_box_remove_text() and gtk_combo_box_get_active_text().
-	-- Details
-	-- 
-
-	-- typedef struct _GtkComboBox GtkComboBox;
-
-	-- gtk_combo_box_new ()
-
-	-- GtkWidget*  gtk_combo_box_new               (void);
-
-	-- Creates a new empty GtkComboBox.
-
-	-- Returns : 	A new GtkComboBox.
-
-	-- Since 2.4
-	-- gtk_combo_box_new_with_model ()
-
-	-- GtkWidget*  gtk_combo_box_new_with_model    (GtkTreeModel *model);
-
-	-- Creates a new GtkComboBox with the model initialized to model.
-
-	-- model : 	A GtkTreeModel.
-	-- Returns : 	A new GtkComboBox.
-
-	-- Since 2.4
-	-- gtk_combo_box_get_wrap_width ()
-
-	-- gint        gtk_combo_box_get_wrap_width    (GtkComboBox *combo_box);
-
-	-- Returns the wrap width which is used to determine the number of columns for the popup menu. If the wrap width is larger than 1, the combo box is in table mode.
-
-	-- combo_box : 	A GtkComboBox.
-	-- Returns : 	the wrap width.
-
-	-- Since 2.6
-	-- gtk_combo_box_set_wrap_width ()
-
-	-- void        gtk_combo_box_set_wrap_width    (GtkComboBox *combo_box,
-	--                                              gint width);
-
-	-- Sets the wrap width of combo_box to be width. The wrap width is basically the preferred number of columns when you want the popup to be layed out in a table.
-
-	-- combo_box : 	A GtkComboBox.
-	-- width : 	Preferred number of columns.
-
-	-- Since 2.4
-	-- gtk_combo_box_get_row_span_column ()
-
-	-- gint        gtk_combo_box_get_row_span_column
-	--                                             (GtkComboBox *combo_box);
-
-	-- Returns the column with row span information for combo_box.
-
-	-- combo_box : 	A GtkComboBox.
-	-- Returns : 	the row span column.
-
-	-- Since 2.6
-	-- gtk_combo_box_set_row_span_column ()
-
-	-- void        gtk_combo_box_set_row_span_column
-	--                                             (GtkComboBox *combo_box,
-	--                                              gint row_span);
-
-	-- Sets the column with row span information for combo_box to be row_span. The row span column contains integers which indicate how many rows an item should span.
-
-	-- combo_box : 	A GtkComboBox.
-	-- row_span : 	A column in the model passed during construction.
-
-	-- Since 2.4
-	-- gtk_combo_box_get_column_span_column ()
-
-	-- gint        gtk_combo_box_get_column_span_column
-	--                                             (GtkComboBox *combo_box);
-
-	-- Returns the column with column span information for combo_box.
-
-	-- combo_box : 	A GtkComboBox.
-	-- Returns : 	the column span column.
-
-	-- Since 2.6
-	-- gtk_combo_box_set_column_span_column ()
-
-	-- void        gtk_combo_box_set_column_span_column
-	--                                             (GtkComboBox *combo_box,
-	--                                              gint column_span);
-
-	-- Sets the column with column span information for combo_box to be column_span. The column span column contains integers which indicate how many columns an item should span.
-
-	-- combo_box : 	A GtkComboBox.
-	-- column_span : 	A column in the model passed during construction.
-
-	-- Since 2.4
-	-- gtk_combo_box_get_active ()
-
-	-- gint        gtk_combo_box_get_active        (GtkComboBox *combo_box);
-
-	-- Returns the index of the currently active item, or -1 if there's no active item. If the model is a non-flat treemodel, and the active item is not an immediate child of the root of the tree, this function returns gtk_tree_path_get_indices (path)[0], where path is the GtkTreePath of the active item.
-
-	-- combo_box : 	A GtkComboBox.
-	-- Returns : 	An integer which is the index of the currently active item, or -1 if there's no active item.
-
-	-- Since 2.4
-	-- gtk_combo_box_set_active ()
-
-	-- void        gtk_combo_box_set_active        (GtkComboBox *combo_box,
-	--                                              gint index_);
-
-	-- Sets the active item of combo_box to be the item at index.
-
-	-- combo_box : 	A GtkComboBox.
-	-- index_ : 	An index in the model passed during construction, or -1 to have no active item.
-
-	-- Since 2.4
-	-- gtk_combo_box_get_active_iter ()
-
-	-- gboolean    gtk_combo_box_get_active_iter   (GtkComboBox *combo_box,
-	--                                              GtkTreeIter *iter);
-
-	-- Sets iter to point to the current active item, if it exists.
-
-	-- combo_box : 	A GtkComboBox
-	-- iter : 	The uninitialized GtkTreeIter.
-	-- Returns : 	TRUE, if iter was set
-
-	-- Since 2.4
-	-- gtk_combo_box_set_active_iter ()
-
-	-- void        gtk_combo_box_set_active_iter   (GtkComboBox *combo_box,
-	--                                              GtkTreeIter *iter);
-
-	-- Sets the current active item to be the one referenced by iter. iter must correspond to a path of depth one.
-
-	-- combo_box : 	A GtkComboBox
-	-- iter : 	The GtkTreeIter.
-
-	-- Since 2.4
-	-- gtk_combo_box_get_model ()
-
-	-- GtkTreeModel* gtk_combo_box_get_model       (GtkComboBox *combo_box);
-
-	-- Returns the GtkTreeModel which is acting as data source for combo_box.
-
-	-- combo_box : 	A GtkComboBox.
-	-- Returns : 	A GtkTreeModel which was passed during construction.
-
-	-- Since 2.4
-	-- gtk_combo_box_set_model ()
-
-	-- void        gtk_combo_box_set_model         (GtkComboBox *combo_box,
-	--                                              GtkTreeModel *model);
-
-	-- Sets the model used by combo_box to be model. Will unset a previously set model (if applicable). If model is NULL, then it will unset the model.
-
-	-- Note that this function does not clear the cell renderers, you have to call gtk_combo_box_cell_layout_clear() yourself if you need to set up different cell renderers for the new model.
-
-	-- combo_box : 	A GtkComboBox.
-	-- model : 	A GtkTreeModel.
-
-	-- Since 2.4
-	-- gtk_combo_box_new_text ()
-
-	-- GtkWidget*  gtk_combo_box_new_text          (void);
-
-	-- Convenience function which constructs a new text combo box, which is a GtkComboBox just displaying strings. If you use this function to create a text combo box, you should only manipulate its data source with the following convenience functions: gtk_combo_box_append_text(), gtk_combo_box_insert_text(), gtk_combo_box_prepend_text() and gtk_combo_box_remove_text().
-
-	-- Returns : 	A new text combo box.
-
-	-- Since 2.4
-	-- gtk_combo_box_append_text ()
-
-	-- void        gtk_combo_box_append_text       (GtkComboBox *combo_box,
-	--                                              const gchar *text);
-
-	-- Appends string to the list of strings stored in combo_box. Note that you can only use this function with combo boxes constructed with gtk_combo_box_new_text().
-
-	-- combo_box : 	A GtkComboBox constructed using gtk_combo_box_new_text().
-	-- text : 	A string.
-
-	-- Since 2.4
-	-- gtk_combo_box_insert_text ()
-
-	-- void        gtk_combo_box_insert_text       (GtkComboBox *combo_box,
-	--                                              gint position,
-	--                                              const gchar *text);
-
-	-- Inserts string at position in the list of strings stored in combo_box. Note that you can only use this function with combo boxes constructed with gtk_combo_box_new_text().
-
-	-- combo_box : 	A GtkComboBox constructed using gtk_combo_box_new_text().
-	-- position : 	An index to insert text.
-	-- text : 	A string.
-
-	-- Since 2.4
-	-- gtk_combo_box_prepend_text ()
-
-	-- void        gtk_combo_box_prepend_text      (GtkComboBox *combo_box,
-	--                                              const gchar *text);
-
-	-- Prepends string to the list of strings stored in combo_box. Note that you can only use this function with combo boxes constructed with gtk_combo_box_new_text().
-
-	-- combo_box : 	A GtkComboBox constructed with gtk_combo_box_new_text().
-	-- text : 	A string.
-
-	-- Since 2.4
-	-- gtk_combo_box_remove_text ()
-
-	-- void        gtk_combo_box_remove_text       (GtkComboBox *combo_box,
-	--                                              gint position);
-
-	-- Removes the string at position from combo_box. Note that you can only use this function with combo boxes constructed with gtk_combo_box_new_text().
-
-	-- combo_box : 	A GtkComboBox constructed with gtk_combo_box_new_text().
-	-- position : 	Index of the item to remove.
-
-	-- Since 2.4
-	-- gtk_combo_box_get_active_text ()
-
-	-- gchar*      gtk_combo_box_get_active_text   (GtkComboBox *combo_box);
-
-	-- Returns the currently active string in combo_box or NULL if none is selected. Note that you can only use this function with combo boxes constructed with gtk_combo_box_new_text() and with GtkComboBoxEntrys.
-
-	-- combo_box : 	A GtkComboBox constructed with gtk_combo_box_new_text().
-	-- Returns : 	a newly allocated string containing the currently active text.
-
-	-- Since 2.6
-	-- gtk_combo_box_popup ()
-
-	-- void        gtk_combo_box_popup             (GtkComboBox *combo_box);
-
-	-- Pops up the menu or dropdown list of combo_box.
-
-	-- This function is mostly intended for use by accessibility technologies; applications should have little use for it.
-
-	-- combo_box : 	a GtkComboBox
-
-	-- Since 2.4
-	-- gtk_combo_box_popdown ()
-
-	-- void        gtk_combo_box_popdown           (GtkComboBox *combo_box);
-
-	-- Hides the menu or dropdown list of combo_box.
-
-	-- This function is mostly intended for use by accessibility technologies; applications should have little use for it.
-
-	-- combo_box : 	a GtkComboBox
-
-	-- Since 2.4
-	-- gtk_combo_box_get_popup_accessible ()
-
-	-- AtkObject*  gtk_combo_box_get_popup_accessible
-	--                                             (GtkComboBox *combo_box);
-
-	-- Gets the accessible object corresponding to the combo box's popup.
-
-	-- This function is mostly intended for use by accessibility technologies; applications should have little use for it.
-
-	-- combo_box : 	a GtkComboBox
-	-- Returns : 	the accessible object corresponding to the combo box's popup.
-
-	-- Since 2.6
 	-- gtk_combo_box_get_row_separator_func ()
 
 	-- GtkTreeViewRowSeparatorFunc gtk_combo_box_get_row_separator_func
-	--                                             (GtkComboBox *combo_box);
+	-- (GtkComboBox *combo_box);
 
 	-- Returns the current row separator function.
 
@@ -321,11 +292,11 @@ feature -- Properties
 	-- Since 2.6
 	-- gtk_combo_box_set_row_separator_func ()
 
-	-- void        gtk_combo_box_set_row_separator_func
-	--                                             (GtkComboBox *combo_box,
-	--                                              GtkTreeViewRowSeparatorFunc func,
-	--                                              gpointer data,
-	--                                              GtkDestroyNotify destroy);
+	-- void gtk_combo_box_set_row_separator_func
+	-- (GtkComboBox *combo_box,
+	-- GtkTreeViewRowSeparatorFunc func,
+	-- gpointer data,
+	-- GtkDestroyNotify destroy);
 
 	-- Sets the row separator function, which is used to determine whether a row should be drawn as a separator. If the row separator function is NULL, no separators are drawn. This is the default value.
 
@@ -337,8 +308,8 @@ feature -- Properties
 	-- Since 2.6
 	-- gtk_combo_box_set_add_tearoffs ()
 
-	-- void        gtk_combo_box_set_add_tearoffs  (GtkComboBox *combo_box,
-	--                                              gboolean add_tearoffs);
+	-- void gtk_combo_box_set_add_tearoffs (GtkComboBox *combo_box,
+	-- gboolean add_tearoffs);
 
 	-- Sets whether the popup menu should have a tearoff menu item.
 
@@ -348,7 +319,7 @@ feature -- Properties
 	-- Since 2.6
 	-- gtk_combo_box_get_add_tearoffs ()
 
-	-- gboolean    gtk_combo_box_get_add_tearoffs  (GtkComboBox *combo_box);
+	-- gboolean gtk_combo_box_get_add_tearoffs (GtkComboBox *combo_box);
 
 	-- Gets the current value of the :add-tearoffs property.
 
@@ -356,9 +327,9 @@ feature -- Properties
 	-- Returns : 	the current value of the :add-tearoffs property.
 	-- gtk_combo_box_set_focus_on_click ()
 
-	-- void        gtk_combo_box_set_focus_on_click
-	--                                             (GtkComboBox *combo,
-	--                                              gboolean focus_on_click);
+	-- void gtk_combo_box_set_focus_on_click
+	-- (GtkComboBox *combo,
+	-- gboolean focus_on_click);
 
 	-- Sets whether the combo box will grab focus when it is clicked with the mouse. Making mouse clicks not grab focus is useful in places like toolbars where you don't want the keyboard focus removed from the main area of the application.
 
@@ -368,8 +339,8 @@ feature -- Properties
 	-- Since 2.6
 	-- gtk_combo_box_get_focus_on_click ()
 
-	-- gboolean    gtk_combo_box_get_focus_on_click
-	--                                             (GtkComboBox *combo);
+	-- gboolean gtk_combo_box_get_focus_on_click
+	-- (GtkComboBox *combo);
 
 	-- Returns whether the combo box grabs focus when it is clicked with the mouse. See gtk_combo_box_set_focus_on_click().
 
@@ -377,10 +348,25 @@ feature -- Properties
 	-- Returns : 	TRUE if the combo box grabs focus when it is clicked with the mouse.
 
 	-- Since 2.6
+feature -- Properties
+
+	-- "active" gint : Read / Write
+	-- "add-tearoffs" gboolean : Read / Write
+	-- "column-span-column" gint : Read / Write
+	-- "focus-on-click" gboolean : Read / Write
+	-- "has-frame" gboolean : Read / Write
+	-- "model" GtkTreeModel : Read / Write
+	-- "row-span-column" gint : Read / Write
+	-- "wrap-width" gint : Read / Write
+
+	-- Style Properties
+
+	-- "appears-as-list" gboolean : Read
+
 	-- Property Details
 	-- The "active" property
 
-	--   "active"               gint                  : Read / Write
+	-- "active" gint : Read / Write
 
 	-- The item which is currently active. If the model is a non-flat treemodel, and the active item is not an immediate child of the root of the tree, this property has the value gtk_tree_path_get_indices (path)[0], where path is the GtkTreePath of the active item.
 
@@ -391,7 +377,7 @@ feature -- Properties
 	-- Since 2.4
 	-- The "add-tearoffs" property
 
-	--   "add-tearoffs"         gboolean              : Read / Write
+	-- "add-tearoffs" gboolean : Read / Write
 
 	-- The add-tearoffs property controls whether generated menus have tearoff menu items.
 
@@ -402,7 +388,7 @@ feature -- Properties
 	-- Since 2.6
 	-- The "column-span-column" property
 
-	--   "column-span-column"   gint                  : Read / Write
+	-- "column-span-column" gint : Read / Write
 
 	-- If this is set to a non-negative value, it must be the index of a column of type G_TYPE_INT in the model.
 
@@ -415,14 +401,14 @@ feature -- Properties
 	-- Since 2.4
 	-- The "focus-on-click" property
 
-	--   "focus-on-click"       gboolean              : Read / Write
+	-- "focus-on-click" gboolean : Read / Write
 
 	-- Whether the combo box grabs focus when it is clicked with the mouse.
 
 	-- Default value: TRUE
 	-- The "has-frame" property
 
-	--   "has-frame"            gboolean              : Read / Write
+	-- "has-frame" gboolean : Read / Write
 
 	-- The has-frame property controls whether a frame is drawn around the entry.
 
@@ -431,14 +417,14 @@ feature -- Properties
 	-- Since 2.6
 	-- The "model" property
 
-	--   "model"                GtkTreeModel          : Read / Write
+	-- "model" GtkTreeModel : Read / Write
 
 	-- The model from which the combo box takes the values shown in the list.
 
 	-- Since 2.4
 	-- The "row-span-column" property
 
-	--   "row-span-column"      gint                  : Read / Write
+	-- "row-span-column" gint : Read / Write
 
 	-- If this is set to a non-negative value, it must be the index of a column of type G_TYPE_INT in the model.
 
@@ -451,7 +437,7 @@ feature -- Properties
 	-- Since 2.4
 	-- The "wrap-width" property
 
-	--   "wrap-width"           gint                  : Read / Write
+	-- "wrap-width" gint : Read / Write
 
 	-- If wrap-width is set to a positive value, the list will be displayed in multiple columns, the number of columns is determined by wrap-width.
 
@@ -463,16 +449,21 @@ feature -- Properties
 	-- Style Property Details
 	-- The "appears-as-list" style property
 
-	--   "appears-as-list"      gboolean              : Read
+	-- "appears-as-list" gboolean : Read
 
 	-- Whether dropdowns should look like lists rather than menus.
 
 	-- Default value: FALSE
+feature -- Signals
+
+	-- "changed" void user_function (GtkComboBox *widget,
+	-- gpointer user_data) : Run last
+
 	-- Signal Details
 	-- The "changed" signal
 
-	-- void        user_function                  (GtkComboBox *widget,
-	--                                             gpointer     user_data)      : Run last
+	-- void user_function (GtkComboBox *widget,
+	-- gpointer user_data) : Run last
 
 	-- The changed signal is emitted when the active item is changed. The can be due to the user selecting a different item from the list, or due to a call to gtk_combo_box_set_active_iter(). It will also be emitted while typing into a GtkComboBoxEntry, as well as when selecting an item from the GtkComboBoxEntry's list.
 
@@ -483,6 +474,12 @@ feature -- Properties
 	-- See Also
 
 	-- GtkComboBoxEntry, GtkTreeModel, GtkCellRenderer
+
+feature -- size
+	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkComboBox)"
+		end
 
 feature {} -- External calls
 	gtk_combo_box_new: POINTER is -- 	GtkWidget*
@@ -497,7 +494,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_combo_box_set_wrap_width (a_combo_box: POINTER; a_width: INTEGER): INTEGER is
+	gtk_combo_box_set_wrap_width (a_combo_box: POINTER; a_width: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -505,7 +502,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_combo_box_set_row_span_column (a_combo_box: POINTER; a_row_span: INTEGER): INTEGER is
+	gtk_combo_box_set_row_span_column (a_combo_box: POINTER; a_row_span: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -513,7 +510,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_combo_box_set_column_span_column (a_combo_box: POINTER; a_column_span: INTEGER): INTEGER is
+	gtk_combo_box_set_column_span_column (a_combo_box: POINTER; a_column_span: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -521,7 +518,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_combo_box_set_active (a_combo_box: POINTER; an_index: INTEGER): INTEGER is
+	gtk_combo_box_set_active (a_combo_box: POINTER; an_index: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -541,7 +538,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_combo_box_new_text is -- GtkWidget*
+	gtk_combo_box_new_text: POINTER is -- GtkWidget*
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -585,7 +582,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_combo_box_set_add_tearoffs (a_combo_box: POINTER, gboolean add_tearoffs) is
+	gtk_combo_box_set_add_tearoffs (a_combo_box: POINTER; add_tearoffs: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -593,7 +590,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_combo_box_set_focus_on_click (a_combo_box: POINTER; gboolean focus_on_click) is
+	gtk_combo_box_set_focus_on_click (a_combo_box: POINTER; focus_on_click: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 	
