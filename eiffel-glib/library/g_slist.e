@@ -50,7 +50,7 @@ inherit
 -- 		end
 	SHARED_C_STRUCT
 		rename exists as wrapped_object_exists
-		-- undefine copy,fill_tagged_out_memory
+		redefine copy
 		end
 
 insert
