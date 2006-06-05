@@ -12,7 +12,7 @@ inherit
 	GTK_IMAGE_EXTERNALS
 	
 creation
-	make,from_file
+	make, from_file, from_external_pointer
 	
 feature {NONE} -- Initialization
 

@@ -12,7 +12,7 @@ inherit
 	GTK_WINDOW_TYPE
 
 creation
-	make
+	make,from_external_pointer
 
 feature {NONE} -- Creation
 	make is
