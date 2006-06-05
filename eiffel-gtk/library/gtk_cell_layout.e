@@ -1,61 +1,77 @@
 indexing
-   description: "GTK_CELL_LAYOUT: interface for packing cells."
-   copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
-   license: "LGPL v2 or later"
-   date: "$Date:$"
-   revision: "$Revision:$"
-   
-	 -- Known Implementations: GtkCellLayout is implemented by
-	 -- GtkCellView, GtkEntryCompletion, GtkTreeViewColumn,
-	 -- GtkComboBox, GtkIconView and GtkComboBoxEntry.
-   
-	 -- Description: GtkCellLayout is an interface to be
-	 -- implemented by all objects which want to provide a
-	 -- GtkTreeViewColumn-like API for packing cells, setting
-	 -- attributes and data funcs.
-   
+	description: "GTK_CELL_LAYOUT: interface for packing cells."
+	copyright: "[
+					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+					]"					
+	date: "$Date:$"
+	revision: "$Revision:$"
+	
+	-- Known Implementations: GtkCellLayout is implemented by
+	-- GtkCellView, GtkEntryCompletion, GtkTreeViewColumn,
+	-- GtkComboBox, GtkIconView and GtkComboBoxEntry.
+	
+	-- Description: GtkCellLayout is an interface to be
+	-- implemented by all objects which want to provide a
+	-- GtkTreeViewColumn-like API for packing cells, setting
+	-- attributes and data funcs.
+	
 
 deferred class GTK_CELL_LAYOUT
 inherit
-   -- Note: since "GtkCellLayout requires GObject" I assume it is
-   -- actually a G_OBJECT: GObject type system lacks multiple
-   -- inheritance. Paolo 2006-04-28.
-   
-   -- GtkCellLayout should also inherit from G_INTERFACE (GInterface)
-   G_OBJECT
+	-- Note: since "GtkCellLayout requires GObject" I assume it is
+	-- actually a G_OBJECT: GObject type system lacks multiple
+	-- inheritance. Paolo 2006-04-28.
+	
+	-- GtkCellLayout should also inherit from G_INTERFACE (GInterface)
+	G_OBJECT
 			
 feature 
-   pack_start (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
-	 -- Packs the cell into the beginning of Current cell
-	 -- layout. If expand is FALSE, then the cell is allocated no
-	 -- more space than it needs. Any unused space is divided
-	 -- evenly between cells for which expand is TRUE.
+	pack_start (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
+	-- Packs the cell into the beginning of Current cell
+	-- layout. If expand is FALSE, then the cell is allocated no
+	-- more space than it needs. Any unused space is divided
+	-- evenly between cells for which expand is TRUE.
 
-	 -- Note that reusing the same cell renderer is not supported.
-      require valid_renderer: a_cell_renderer /= Void
-      do
-	 gtk_cell_layout_pack_start (handle, a_cell_renderer.handle, expand.to_integer)
-      end
-   
-   pack_end (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
+	-- Note that reusing the same cell renderer is not supported.
+		require valid_renderer: a_cell_renderer /= Void
+		do
+	gtk_cell_layout_pack_start (handle, a_cell_renderer.handle, expand.to_integer)
+		end
+	
+	pack_end (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
 			-- Packs the cell to the end of Current cell layout. If expand is
 			-- FALSE, then the cell is allocated no more space than it needs. Any
 			-- unused space is divided evenly between cells for which expand is
 			-- TRUE.
 		
 			-- Note that reusing the same cell renderer is not supported.
-      require valid_renderer: a_cell_renderer /= Void
-      do
+		require valid_renderer: a_cell_renderer /= Void
+		do
 			gtk_cell_layout_pack_end (handle, a_cell_renderer.handle, expand.to_integer)
-      end
-   
-   reorder  (a_cell_renderer: GTK_CELL_RENDERER; a_position: INTEGER) is
+		end
+	
+	reorder  (a_cell_renderer: GTK_CELL_RENDERER; a_position: INTEGER) is
 			-- Re-inserts cell at position. Note that cell has already to be packed
 			-- into cell_layout for this to function properly.
-      require
+		require
 			valid_renderer: a_cell_renderer /= Void
 			-- TODO: cell shall be already inserted
-      do
+		do
 			gtk_cell_layout_reorder (handle, a_cell_renderer.handle a_position)
 		end
 

@@ -1,33 +1,51 @@
 indexing
 	description: "GtkTreeView drag-and-drop Interface for drag-and-drop support in GtkTreeView."
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
-	license: "LGPL v2 or later"
+	copyright: "[
+					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
-
+	
 			-- Description: GTK+ supports Drag-and-Drop in tree views
 			-- with a high-level and a low-level API.
 
 			-- The low-level API consists of the GTK+ DND API, augmented
-			-- by some treeview utility functions, wrapped into GTK_TREE_VIEW:
-			-- set_drag_dest_row, get_drag_dest_row, get_dest_row_at_pos,
-			-- create_row_drag_icon, _set_row_drag_data() and
+			-- by some treeview utility functions, wrapped into
+			-- GTK_TREE_VIEW: set_drag_dest_row, get_drag_dest_row,
+			-- get_dest_row_at_pos, create_row_drag_icon,
+			-- _set_row_drag_data() and
 			-- gtk_tree_get_row_drag_data(). This API leaves a lot of
 			-- flexibility, but nothing is done automatically, and
 			-- implementing advanced features like hover-to-open-rows or
 			-- autoscrolling on top of this API is a lot of work.
-
--- On the other hand, if you write to the high-level API, then all the
--- bookkeeping of rows is done for you, as well as things like
--- hover-to-open and auto-scroll, but your models have to implement
--- the GtkTreeDragSource and GtkTreeDragDest interfaces.
+	
+			-- On the other hand, if you write to the high-level API,
+			-- then all the bookkeeping of rows is done for you, as well
+			-- as things like hover-to-open and auto-scroll, but your
+			-- models have to implement the GtkTreeDragSource and
+			-- GtkTreeDragDest interfaces.
 
 deferred class GTK_TREE_DRAG_SOURCE
 inherit 
-   G_OBJECT
+	G_OBJECT
 	
-      -- Note: GtkTreeDragSource inherits from GInterface, but GInterface
-      -- doesn't have an Eiffel wrapper now, at I suspect that the
+		-- Note: GtkTreeDragSource inherits from GInterface, but GInterface
+		-- doesn't have an Eiffel wrapper now, at I suspect that the
 	-- generic GInterface wouldn't even need one. Paolo 2006-05-06
 
 	-- GtkTreeDragSource is implemented by GtkTreeModelSort,
@@ -44,9 +62,9 @@ feature
 			-- longer found in the model!
 		require valid_path: a_path /= Void
 		do
-		   is_action_successful := 
-		      (gtk_tree_drag_source_drag_data_delete 
-		       (handle, a_path.handle)).to_boolean
+			is_action_successful := 
+				(gtk_tree_drag_source_drag_data_delete 
+				 (handle, a_path.handle)).to_boolean
 		end
 	
 	data (a_path: GTK_TREE_PATH): GTK_SELECTION_DATA is
