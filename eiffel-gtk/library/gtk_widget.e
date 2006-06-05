@@ -13,6 +13,7 @@ insert GTK_WIDGET_EXTERNALS
 	
 feature
 	show is
+			-- Flags widget to be displayed.
 		do
 			gtk_widget_show (handle)
 		end
@@ -22,6 +23,14 @@ feature
 			-- widget is a container).
 		do
 			gtk_widget_show_all (handle)
+		end
+
+
+	hide is
+			-- Reverses the effects of `show' causing the widget to be hidden
+			-- (invisible to the user).
+		do
+			gtk_widget_hide (handle)
 		end
 
 -- widget : 	a GtkWidget
@@ -3374,3 +3383,4 @@ feature
 
 end
 	
+ 
