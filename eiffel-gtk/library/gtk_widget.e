@@ -1064,17 +1064,6 @@ feature
 -- This function is only for use in widget implementations. Should be called by implementations of the remove method on GtkContainer, to dissociate a child from the container.
 
 -- widget : 	a GtkWidget
--- gtk_widget_show ()
-
--- void        gtk_widget_show                 (GtkWidget *widget);
-
--- Flags a widget to be displayed. Any widget that isn't shown will not appear on the screen. If you want to show all the widgets in a container, it's easier to call gtk_widget_show_all() on the container, instead of individually showing the widgets.
-
--- Remember that you have to show the containers containing a widget, in addition to the widget itself, before it will appear onscreen.
-
--- When a toplevel container is shown, it is immediately realized and mapped; other shown widgets are realized and mapped when their toplevel container is realized and mapped.
-
--- widget : 	a GtkWidget
 -- gtk_widget_show_now ()
 
 -- void        gtk_widget_show_now             (GtkWidget *widget);
@@ -1082,16 +1071,8 @@ feature
 -- Shows a widget. If the widget is an unmapped toplevel widget (i.e. a GtkWindow that has not yet been shown), enter the main loop and wait for the window to actually be mapped. Be careful; because the main loop is running, anything can happen during this function.
 
 -- widget : 	a GtkWidget
--- gtk_widget_hide ()
 
--- void        gtk_widget_hide                 (GtkWidget *widget);
-
--- Reverses the effects of gtk_widget_show(), causing the widget to be hidden (invisible to the user).
-
--- widget : 	a GtkWidget
-
-
-											-- gtk_widget_hide_all ()
+-- gtk_widget_hide_all ()
 
 -- void        gtk_widget_hide_all             (GtkWidget *widget);
 

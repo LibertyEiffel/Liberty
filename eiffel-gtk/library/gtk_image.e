@@ -8,7 +8,6 @@ indexing
 class GTK_IMAGE
 
 inherit
-	WRAPPER
 	GTK_MISC redefine make end
 	GTK_IMAGE_EXTERNALS
 	
