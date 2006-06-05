@@ -1,4 +1,128 @@
+This project aims to provide Eiffel wrappers of many of the major
+libraries used in the Free Software.
+
+It will support the GNU Eiffel compiler SmartEiffel (
+http://smarteiffel.loria.fr/ ).
+
+Some of the libraries that shall be wrapped are:
+* GTK+ The GIMP Toolkit
+* GSL - GNU Scientific Library
+* GNU Triangulated Surface Library
+* BLAS (Basic Linear Algebra)
+* Gnome libraries (Gnome-vfs GConf)
+* GNU Transport Layer Security Library could be wrapped
+* All the database APIs (Postgresql, MySQL, SQLite, Firebird, GnomeDB, ODBC et cetera).
+
+USAGE:
+
 To use this library you shall add in your SmartEiffel configuration
 file, in the [Environment] section an entry like:
 
 eiffel_libraries: /path/to/your/copy/of/eiffel-libraries/
+
+COMMITS POLICY:
+
+1) there is no strict rule... 
+
+2) ideally each commit should provide compilable code and working
+   examples.
+
+3) provided examples and classes *can* be unfinished and uncomplete
+   *can* contain warnings, empty features and so on. My motto is
+   "something is better than nothing"
+
+4) it is nice to tell other developers what are you working on; an
+   email on eiffel-libraries-devel@gna.org suffice.
+
+5) I promise I won't track you with a 9-tail cat to bash you if you commit uncompilable code.
+
+6) another motto I use is: "Compiling code is the king. Good design is
+   the queen. Amazing performance is their prince... but the kingdom
+   can go on for a while with a king alone"
+
+Otherwise.... happy hacking!
+	      Paolo
+
+VARIOUS NOTES:
+
+Some random notes I almost copied my my previous work in Eiffel
+Wrapper Generator GTK2 example.
+
+* It will not strive - at least now - for perfection.
+
+* the sole target of this branch is to provide usable wrappers of a
+fundamental - namely GTK+ v.2.x for the GNU Eiffel compiler.
+
+* Conscius compiler-specific code will be avoided as much as
+possible... I'm not a zealot. I recognize the value of
+interoperability. But I don't have enough time to check the code with
+all the possible OS (Linux, Windows)/ Eiffel compiler (GNU, ISE, VE) /
+C compiler. I work on Debian Ubuntu with the GNU compiler on x86 and
+PowerPc. I value CPU portability more than compiler portability since
+my laptop is an Ubuntu iBook G3. As far as I can say using SmartEiffel
+with a GCC will produce code that will run on almost every computing
+facility produces in the last 20 years.
+
+* Compiler specific code will be used when any other alternative is
+awkward, incovenient, inefficient or just clumsy.
+
+Some example: G_LIST and any other generic GLib data structures... ISE
+requires "class G_SLIST [ITEM -> G_OBJECT create make_shared end]" and
+rejects "class G_SLIST [ITEM -> G_OBJECT]"; GNU compiler rejects the
+former and accepts the latter. Alternatives are:
+
+  1) using gepp (Gobo Eiffer PreProcessor) or
+
+  2) using something like a factory. It factories are like the one I
+found in feature new_event of class GDK_EVENT_FACTORY (on 2005-06-20),
+then I think that the gepp solution is much better.
+
+For now I will work out only the GNU compiler version. Anyone is
+warmly welcome to add support for other compilers, expecially Visual
+Eiffel.
+
+* Feature specific of a particular compiler's kernel library (for
+example ARRAY.to_external) will be used when an attempt to write
+compiler-portable code failed. Those features are labelled by an
+obsolete clause. Please feel free to fix them.
+
+* GTK+ wrappers classes are built from original GTK+ C
+documentation. Every html page text is copied in the corrisponding
+Eiffel source code file, entirely commented out, then progressively
+Eiffelized from top to bottom. Difficoult features will be sketched
+out in comments; callbacks and signals are currently put into TODO
+comments. This behaviour is not meant to pile rubbish, but to quickly
+know how much work we still have to do. And currently (2005-06-20)
+it's quite a lot. Too much to get lost in details that I would like to
+have time to fix. Those who have time are welcome to spend it on
+letter-case of describing comments of boolean queries or on whenever
+there's a space between a function and its open parenthesis. Tell me
+I'm too much untidy and wild but I think that this kind of things are
+- at least for me - not worth the effort (see (a) below). This also
+means that it is a derivative work of GTK+ Documentation; being a
+derivative work we must abide GTK+ license which is LGPL.
+
+Now some quotes to set the mood of this project:
+
+(a) `In contrast, one of my favorite mantras is "perfect is the enemy
+of good" [1] and the idea is that "good enough" is actually a lot more
+flexible than some idealized perfection.'
+	Linus Torvald [3]
+
+
+"Had the first versions of other imperfect specifications such as
+TCP/IP waited ten years for those in disagreement to work out their
+differences, the Web might still be hiding somewhere in the back of
+inventor Tim Berners-Lee's mind" [2]
+	David Berlind August 7, 2003 on techupdate.zdnet.com
+
+20 June 2005, Paolo Redaelli aka Tybor
+
+
+[1] Actually the mantra is attribuited to Soviet Admiral
+S.G. Gorshkov.
+
+[2] http://techupdate.zdnet.com/techupdate/stories/main/0,14179,2914447,00.html
+
+[3] http://os.newsforge.com/article.pl?sid=05/06/09/2128249 "Linus
+compares Linux and BSDs"
