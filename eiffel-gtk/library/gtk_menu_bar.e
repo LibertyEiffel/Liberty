@@ -21,19 +21,20 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
--- Description
-
---    The GtkMenuBar is a subclass of GtkMenuShell which contains one to many
---    GtkMenuItem. The result is a standard menu bar which can hold many menu
---    items. GtkMenuBar allows for a shadow type to be set for aesthetic
---    purposes. The shadow types are defined in the
---    gtk_menu_bar_set_shadow_type function.
+			-- Description: The GtkMenuBar is a subclass of GtkMenuShell
+			-- which contains one to many GtkMenuItem. The result is a
+			-- standard menu bar which can hold many menu
+			-- items. GtkMenuBar allows for a shadow type to be set for
+			-- aesthetic purposes. The shadow types are defined in the
+			-- gtk_menu_bar_set_shadow_type function.
 
 class GTK_MENU_BAR
 inherit
 	GTK_MENU_SHELL
 	-- GtkMenuBar implements AtkImplementorIface.
 		
+insert 
+	GTK_PACK_DIRECTION
 creation make
 
 
@@ -44,21 +45,8 @@ feature {} -- Creation
 			handle := gtk_menu_bar_new
 		end
 	
--- 	-----------------------------------------------------------------------
-
---   enum GtkPackDirection
-
---  typedef enum
---  {
--- 	GTK_PACK_DIRECTION_LTR,
--- 	GTK_PACK_DIRECTION_RTL,
--- 	GTK_PACK_DIRECTION_TTB,
--- 	GTK_PACK_DIRECTION_BTT
---  } GtkPackDirection;
-
--- 	-----------------------------------------------------------------------
-
---   gtk_menu_bar_set_pack_direction ()
+feature 
+	set_pack_direction (a_direction: INTEGER)
 
 --  void        gtk_menu_bar_set_pack_direction (GtkMenuBar *menubar,
 -- 															 GtkPackDirection pack_dir);
