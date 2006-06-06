@@ -419,24 +419,12 @@ feature {C_STRUCT}
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_OBJECT"
 		end
-	
-	-- #define     G_TYPE_PARAM_OBJECT
-	--             GParamSpecObject;
-	-- GParamSpec* g_param_spec_object             (const gchar *name,
-	--                                              const gchar *nick,
-	--                                              const gchar *blurb,
-	--                                              GType object_type,
-	--                                              GParamFlags flags);
-	-- void        g_value_set_object              (GValue *value,
-	--                                              gpointer v_object);
-	-- void        g_value_take_object             (GValue *value,
-	--                                              gpointer v_object);
-	-- void        g_value_set_object_take_ownership
-	--                                             (GValue *value,
-	--                                              gpointer v_object);
-	-- gpointer    g_value_get_object              (const GValue *value);
-	-- GObject*    g_value_dup_object              (const GValue *value);
-
+	g_value_set_object (gvalue, pointer: POINTER) is
+		external "C use <glib-object.h>"
+		end
+	g_value_get_object (gvalue: POINTER): POINTER is
+		external "C use <glib-object.h>"
+		end
 
 	-- #define     G_IS_PARAM_SPEC_UNICHAR         (pspec)
 	-- #define     G_PARAM_SPEC_UNICHAR            (pspec)

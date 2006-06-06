@@ -19,7 +19,8 @@ insert
 creation
 	make, from_external_pointer,
 	make_boolean, make_integer, make_natural, make_real, make_string,
-	from_boolean, from_integer, from_natural, from_real, from_string
+	make_object, from_boolean, from_integer, from_natural, from_real,
+    from_string, from_object
 
 feature {NONE} -- Creation
 	make is
@@ -72,6 +73,13 @@ feature {NONE} -- Creation
 		ensure is_string: is_string
 		end
 
+	make_object is
+			-- create a new object G_VALUE
+		do
+			handle := g_value_init (malloc_g_value, g_type_object)
+		ensure is_object: is_object
+		end
+
 	from_boolean (a_boolean: BOOLEAN) is
 			-- create a new boolean G_VALUE
 		local ptr: POINTER
@@ -109,7 +117,7 @@ feature {NONE} -- Creation
 			is_natural: is_natural
 			value_set: natural = a_natural
 		end
-	
+
 	from_real (a_real: REAL) is
 			-- create a new real G_VALUE (Note: using C type `double'
 		do
@@ -128,6 +136,16 @@ feature {NONE} -- Creation
 		ensure
 			is_string: is_string
 			value_set: string.is_equal(a_string)
+		end
+
+	from_object (an_object: G_OBJECT) is
+			-- create a new object G_VALUE
+		do
+			handle := g_value_init (malloc_g_value, g_type_object)
+			set_object (an_object)
+		ensure
+			is_object: is_object
+			value_set: object.is_equal(an_object.handle)
 		end
 
 feature {ANY}
@@ -290,6 +308,30 @@ feature {ANY} -- String
 			g_value_set_string (handle, a_value.to_external)
 		end
 
+feature {ANY} -- Object
+
+	is_object: BOOLEAN is
+			-- Is current value an object?
+		do
+			Result := g_value_holds_object(handle).to_boolean
+		end
+
+	object: POINTER is
+			-- If current value is an string, returns it.
+		require
+			is_object: is_object
+		do
+			Result := g_value_get_object (handle)
+		end
+
+	set_object (a_value: G_OBJECT) is
+			-- If the current value is an object, set it.
+		require
+			is_object: is_object
+		do
+			g_value_set_object (handle, a_value.handle)
+		end
+
 feature {ANY} -- Pointer
 
 	is_pointer: BOOLEAN is
@@ -317,8 +359,7 @@ feature {ANY} -- Pointer
 	-- TODO: wrap all Parameter specification functions, such as
 	-- g_param_spec_* ()
 
-	
-feature 
+feature
 	size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValue)"
