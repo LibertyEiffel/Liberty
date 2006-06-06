@@ -1,0 +1,62 @@
+class GTK_TEXT_VIEW
+
+inherit GTK_CONTAINER
+
+insert GTK_TEXT_VIEW_EXTERNALS
+
+creation
+	make, make_with_buffer, from_external_pointer
+
+feature {NONE} -- Creation
+
+	make is
+			-- Creates a new GTK_TEXT_VIEW. If you don't call
+			-- set_buffer() before using the text view, an empty
+			-- default buffer will be created for you. Get
+			-- the buffer with get_buffer(). If you want to
+			-- specify your own buffer, consider `make_with_buffer'.
+		do
+			handle := gtk_text_view_new
+			store_eiffel_wrapper
+		end
+
+	make_with_buffer (a_buffer: GTK_TEXT_BUFFER) is
+			-- Creates a new GTK_TEXT_VIEW widget displaying the buffer
+			-- `a_buffer'. One buffer can be shared among many widgets.
+			-- `a_buffer' may be Void to create a default buffer, in which
+			-- case this function is equivalent to `make'.
+			-- The text view adds its own reference count to the buffer;
+			-- it does not take over an existing reference.
+		do
+			handle := gtk_text_view_new_with_buffer (a_buffer.handle)
+			store_eiffel_wrapper
+		end
+
+feature -- Operations
+
+	set_buffer (a_buffer: GTK_TEXT_BUFFER) is
+			-- Sets `a_buffer' as the buffer being displayed.
+			-- The previous buffer displayed by the text view is unreferenced,
+			-- and a reference is added to `a_buffer'.
+			-- If you owned a reference to `a_buffer' before passing it
+			-- to this function, you must remove that reference yourself;
+			-- GTK_TEXT_VIEW will not "adopt" it.
+		require
+			buffer_not_null: a_buffer /= Void
+		do
+			gtk_text_view_set_buffer (handle, a_buffer.handle)
+		ensure
+			buffer_is_set: get_buffer /= Void -- XXX: is this ok?
+		end
+
+feature -- Access
+
+	get_buffer: GTK_TEXT_BUFFER is
+			-- Returns the GTK_TEXT_BUFFER being displayed by this text view.
+			-- The reference count on the buffer is not incremented;
+			-- the caller of this function won't own a new reference.
+		do
+			create Result.from_external_pointer (gtk_text_view_get_buffer (handle))
+		end
+
+end -- class GTK_TEXT_VIEW

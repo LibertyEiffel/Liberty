@@ -78,7 +78,7 @@ inherit
 		-- Implemented Interfaces: GtkLabel implements
 		-- AtkImplementorIface.
 	
-creation empty, with_label, with_mnemonic, with_markup_label
+creation empty, with_label, with_mnemonic, with_markup_label, from_external_pointer
 
 feature {NONE} -- Creation
 	empty is

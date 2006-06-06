@@ -4,7 +4,8 @@ inherit G_OBJECT
 
 insert GTK_TEXT_BUFFER_EXTERNALS
 
-creation make
+creation
+	make, from_external_pointer
 
 feature {NONE} -- Creation
 
