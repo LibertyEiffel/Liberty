@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 	notes: "GTK_LIST_STORE has some features that are deliberately similar to COLLECTION's" 
@@ -228,6 +228,17 @@ feature -- Easy to use setters
 			a_value: G_VALUE
 		do
 			create a_value.from_boolean (a_boolean)
+			set_value (an_iterator, a_column, a_value)
+		end
+
+	set_object (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_object: G_OBJECT) is
+		require
+			valid_iterator: an_iterator/=Void
+			a_column_contains_an_object: -- TODO
+		local
+			a_value: G_VALUE
+		do
+			create a_value.from_object (an_object)
 			set_value (an_iterator, a_column, a_value)
 		end
 

@@ -16,7 +16,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+					]"
 class GTK_IMAGE_EXTERNALS
 feature {NONE} -- External calls
 	gtk_image_new : POINTER is
@@ -26,8 +26,16 @@ feature {NONE} -- External calls
 	gtk_image_new_from_file (filename: POINTER) : POINTER  is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
+	gtk_image_new_from_pixbuf (a_pixbuf: POINTER) : POINTER  is
+		external "C use <gtk/gtk.h>"
+		end
+
 	gtk_image_set_from_file (image: POINTER;filename: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_image_set_from_pixbuf (image: POINTER; pixbuf: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 

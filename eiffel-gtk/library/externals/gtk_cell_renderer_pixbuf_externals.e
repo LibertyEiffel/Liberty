@@ -17,19 +17,25 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_CELL_RENDERER_PIXBUF_EXTERNALS
 feature {NONE} -- External calls
+
+	gtk_cell_renderer_pixbuf_new: POINTER is -- GtkCellRenderer*
+		external "C use <gtk/gtk.h>"
+		ensure not_null: Result.is_not_null
+		end
+
 end
 -- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
 -- Top  |  Description  |  Object Hierarchy  |  Properties
 -- GtkCellRendererPixbuf
 
 -- GtkCellRendererPixbuf %GÅ‚Äî%@ Renders a pixbuf in a cell
-	
+
 -- Synopsis
 
 -- #include <gtk/gtk.h>

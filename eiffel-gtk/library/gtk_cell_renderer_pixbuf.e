@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -35,13 +35,17 @@ indexing
 			-- is set to a pixbuf, it renders that one.
 
 class GTK_CELL_RENDERER_PIXBUF
+
 inherit GTK_CELL_RENDERER
+
+insert GTK_CELL_RENDERER_PIXBUF_EXTERNALS
+
 creation make
 
 feature {NONE} -- size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkCellRendererePixbug)"
+		alias "sizeof(GtkCellRendererPixbuf)"
 		end
 
 feature {NONE} -- Creation
@@ -56,12 +60,7 @@ feature {NONE} -- Creation
 			-- GtkTreeView.
 		do
 			handle:=gtk_cell_renderer_pixbuf_new
-		end
-
-feature {NONE} -- External call
-	gtk_cell_renderer_pixbuf_new: POINTER is -- GtkCellRenderer*
-		external "C use <gtk/gtk.h>"
-		ensure not_null: Result.is_not_null
+			store_eiffel_wrapper
 		end
 
 feature -- Properties

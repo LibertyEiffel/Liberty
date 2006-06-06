@@ -29,7 +29,7 @@ inherit
 	GTK_IMAGE_EXTERNALS
 	
 creation
-	make, from_file, from_external_pointer
+	make, from_file, from_external_pointer, from_pixbuf
 	
 feature {NONE} -- Initialization
 
@@ -44,10 +44,20 @@ feature {NONE} -- Initialization
 			-- Create a `gtk_image' displaying the file `filename'.
 			-- If the file isn't found or can't be loaded, the
 			-- resulting `gtk_image' will display a "broken image" icon.
-		require 
+		require
 			valid_filename: filename/=Void
 		do
 			handle := gtk_image_new_from_file (filename.to_external)
+			store_eiffel_wrapper
+		end
+
+
+	from_pixbuf (pic: GDK_PIXBUF) is
+            -- Creates a new GtkImage displaying pixbuf.
+		require
+			valid_pixbuf: pic /= Void
+		do
+			handle := gtk_image_new_from_pixbuf (pic.handle)
 			store_eiffel_wrapper
 		end
 
@@ -57,7 +67,6 @@ feature {NONE} -- Initialization
 
 	-- Todo : GtkWidget*  gtk_image_new_from_icon_set ()
 	-- Todo : GtkWidget*  gtk_image_new_from_image ()
-	-- Todo : GtkWidget*  gtk_image_new_from_pixbuf ()
 	-- Todo : GtkWidget*  gtk_image_new_from_pixmap ()
 	-- Todo : GtkWidget*  gtk_image_new_from_stock ()
 	-- Todo : GtkWidget*  gtk_image_new_from_animation ()
@@ -68,10 +77,18 @@ feature -- Element change
 			-- Set the `gtk_image' displaying the file `filename'.
 			-- If the file isn't found or can't be loaded, the 
 			-- resulting gtk_image will display a "broken image" icon.
-		require 
+		require
 			valid_filename: filename/=Void
 		do
 			gtk_image_set_from_file (handle,filename.to_external)
+		end
+
+	set_from_pixbuf (pixbuf: GDK_PIXBUF) is
+            -- See gtk_image_new_from_pixbuf() for details.
+		require
+			valid_pixbuf: pixbuf /= Void
+		do
+			gtk_image_set_from_pixbuf (handle, pixbuf.handle)
 		end
 
 feature -- Status setting
@@ -100,5 +117,3 @@ feature -- Status report
 			Result := gtk_image_get_pixel_size (handle)
 		end
 end
-
-	
