@@ -131,7 +131,7 @@ feature -- Disposing
 			-- Frees path. 
 		do
 			gtk_tree_path_free (handle)
-			handle := Null
+			handle := default_pointer
 		end
 
 feature -- Comparing

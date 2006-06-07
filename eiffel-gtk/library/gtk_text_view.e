@@ -11,9 +11,9 @@ feature {NONE} -- Creation
 
 	make is
 			-- Creates a new GTK_TEXT_VIEW. If you don't call
-			-- set_buffer() before using the text view, an empty
+			-- `set_buffer' before using the text view, an empty
 			-- default buffer will be created for you. Get
-			-- the buffer with get_buffer(). If you want to
+			-- the buffer with `get_buffer'. If you want to
 			-- specify your own buffer, consider `make_with_buffer'.
 		do
 			handle := gtk_text_view_new

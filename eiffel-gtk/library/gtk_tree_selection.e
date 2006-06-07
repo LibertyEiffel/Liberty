@@ -146,7 +146,7 @@ feature -- View
 	-- Is there a selected node?
 		require not_multiple: not is_mode_multiple
 		do
-	Result:=(gtk_tree_selection_get_selected (handle, Null, Null)).to_boolean
+	Result:=(gtk_tree_selection_get_selected (handle, default_pointer, default_pointer)).to_boolean
 		end
 	
 feature -- selections
@@ -159,7 +159,7 @@ feature -- selections
 		local discarded_result: INTEGER
 		do
 	create Result.make
-	discarded_result := gtk_tree_selection_get_selected (handle, Null, Result.handle)
+	discarded_result := gtk_tree_selection_get_selected (handle, default_pointer, Result.handle)
 		end
 	
 	-- TODO: gtk_tree_selection_selected_foreach ()

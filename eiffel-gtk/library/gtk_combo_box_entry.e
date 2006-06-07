@@ -63,7 +63,7 @@ inherit
 	-- GtkComboBox, i.e.: AtkImplementorIface, GtkCellEditable and
 	-- GtkCellLayout.
 	
-creation make
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is
