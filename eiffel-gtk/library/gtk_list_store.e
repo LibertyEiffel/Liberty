@@ -496,7 +496,7 @@ feature -- Generic setter
 			unsorted_store: not is_sorted
 			valid_iterator: an_iterator/=Void
 		do
-			gtk_list_store_move_before (handle,an_iterator.handle, Null)
+			gtk_list_store_move_before (handle,an_iterator.handle, default_pointer)
 		end
 
 	
@@ -511,15 +511,14 @@ feature -- Generic setter
 			gtk_list_store_move_after  (handle,an_iterator.handle, a_position.handle)
 		end
 
-	move_first  (an_iterator, a_position: GTK_TREE_ITER) is
-			-- Moves iter in store to the start of the list. Note that
-			-- this function only works with unsorted stores.
+	move_first  (an_iterator: GTK_TREE_ITER) is
+			-- Moves item pointed to by `an_iterator' to the start of the list.
+			-- Note that this function only works with unsorted stores.
 		require
 			unsorted_store: not is_sorted
 			valid_iterator: an_iterator/=Void
-			valid_position: a_position/=Void
 		do
-			gtk_list_store_move_after  (handle,an_iterator.handle, a_position.handle)
+			gtk_list_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
 	
 feature

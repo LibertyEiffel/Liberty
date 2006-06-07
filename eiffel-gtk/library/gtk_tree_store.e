@@ -1,329 +1,406 @@
--- -- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
--- -- Top  |  Description  |  Object Hierarchy
--- -- GtkTreeStore
+indexing
+	description: "GtkTreeStore -- A tree-like data structure that can be used with the GtkTreeView."
+	copyright: "[
+					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
 
--- -- GtkTreeStore %GÅ‚Äî%@ A tree-like data structure that can be used with the GtkTreeView
-	
--- -- Synopsis
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+					]"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
--- -- #include <gtk/gtk.h>
+class GTK_TREE_STORE
 
+inherit
+	GTK_TREE_MODEL rename make as make_struct end
+	GTK_TREE_SORTABLE rename make as make_struct end
+	GTK_TREE_DRAG_SOURCE rename make as make_struct end
+	GTK_TREE_DRAG_DEST rename make as make_struct end
 
+insert GTK_TREE_STORE_EXTERNALS
+
+creation make
+
+feature {NONE} -- Creation
+
+	make (some_columns: ARRAY[INTEGER]) is
+			-- Creates a new tree store. `some_columns' is an array of integers; each
+			-- integer is the G_TYPE of an actual column. Note that only types
+			-- derived from standard GObject fundamental types are supported.
+		do
+			handle := gtk_tree_store_newv (some_columns.count, some_columns.to_external)
+			store_eiffel_wrapper
+		end
+
+feature -- Easy to use setters
+
+	set_string (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_string: STRING) is
+		require
+			a_column_contains_a_string: -- TODO
+			valid_iterator: an_iterator/=Void
+		local a_value: G_VALUE
+		do
+			create a_value.from_string (a_string)
+			set_value (an_iterator, a_column, a_value)
+		end
+
+	set_natural (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_natural: INTEGER) is
+		require
+			a_column_contains_a_natural: -- TODO
+			valid_natural: a_natural >= 0
+			valid_iterator: an_iterator/=Void
+		local a_value: G_VALUE
+		do
+			create a_value.from_natural (a_natural)
+			set_value (an_iterator, a_column, a_value)
+		end
+
+	set_integer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_integer: INTEGER) is
+		require
+			a_column_contains_a_integer: -- TODO
+			valid_iterator: an_iterator/=Void
+		local a_value: G_VALUE
+		do
+			create a_value.from_integer (an_integer)
+			set_value (an_iterator, a_column, a_value)
+		end
+
+	set_real (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_real: REAL) is
+		require
+			a_column_contains_a_double: -- TODO
+			valid_iterator: an_iterator/=Void
+		local
+			a_value: G_VALUE
+		do
+			create a_value.from_real (a_real)
+			set_value (an_iterator, a_column, a_value)
+		end
+
+	set_boolean (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_boolean: BOOLEAN) is
+		require
+			valid_iterator: an_iterator/=Void
+			a_column_contains_a_boolean: -- TODO
+		local
+			a_value: G_VALUE
+		do
+			create a_value.from_boolean (a_boolean)
+			set_value (an_iterator, a_column, a_value)
+		end
+
+	set_object (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_object: G_OBJECT) is
+		require
+			valid_iterator: an_iterator/=Void
+			a_column_contains_an_object: -- TODO
+		local
+			a_value: G_VALUE
+		do
+			create a_value.from_object (an_object)
+			set_value (an_iterator, a_column, a_value)
+		end
+
+feature -- Generic setter
+	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
+			-- Sets the data in the cell specified by `an_iterator' and
+			-- `a_column'. The type of `a_value' must be convertible to the type of
+			-- the column.
+		
+			-- `an_iterator': A valid GtkTreeIter for the row being modified
+			-- `a_column' : column number to modify
+			-- `a_value' : new value for the cell
+		require
+			valid_iterator: an_iterator/=Void
+			valid_value: a_value /= Void -- and then Eiffelize "The type of
+			-- `a_value' must be convertible to the type of the column."
+		do
+			gtk_tree_store_set_value (handle, an_iterator.handle, a_column, a_value.handle)
+		end
+
+	is_last_iterator_valid: BOOLEAN
+			-- Is the last iterator passed as an argument still valid?
+
+	remove (an_iterator: GTK_TREE_ITER) is
+			-- Removes the given row from the list store. After being removed,
+			-- `an_iterator' is set to be the next valid row, or invalidated if it
+			-- pointed to the last row in the list store; in this case
+			-- `is_last_iterator_valid' will be False
+		require
+			valid_iterator: an_iterator/=Void
+		do
+			is_last_iterator_valid := gtk_tree_store_remove (handle,an_iterator.handle).to_boolean
+		end
+
+	put (an_iterator, a_parent: GTK_TREE_ITER; a_position: INTEGER) is
+			-- Creates a new row at position. If `a_parent' is non-NULL, 
+			-- then the row will be made a child of parent. Otherwise,
+			-- the row will be created at the toplevel. If `a_position' is
+			-- larger than the number of rows at that level, then the
+			-- new row will be inserted to the end of the list. `iter' will
+			-- be changed to point to this new row. The row will be empty
+			-- after this function is called. To fill in values, you need
+			-- to call some of the set_* methods.
+		require
+			valid_iterator: an_iterator/=Void
+		local
+			parent_pointer: POINTER
+		do
+			if a_parent /= Void then parent_pointer := a_parent.handle end
+			gtk_tree_store_insert (handle, an_iterator.handle, a_parent.handle, a_position)
+		end
+
+	put_before, insert_before  (an_iterator, a_parent, a_sibling: GTK_TREE_ITER) is
+			-- Inserts a new row before `a_sibling'. If `a_sibling' is Void,
+			-- then the row will be appended to `a_parent''s children. If
+			-- `a_parent' and `a_sibling' are Void, then the row will be
+			-- appended to the toplevel. If both `a_sibling' and `a_parent'
+			-- are set, then `a_parent' must be the parent of `a_sibling'.
+			-- When `a_sibling' is set, `a_parent' is optional.
+			--
+			-- `an_iterator' will be changed to point to this new row.
+			-- The row will be empty after this function is called.
+			-- To fill in values, you need to call some of the set_* methods.
+		require
+			valid_iterator: an_iterator /= Void
+		local
+			parent_pointer, sibling_pointer: POINTER
+		do
+			if a_parent /= Void then parent_pointer := a_parent.handle end
+			if a_sibling /= Void then sibling_pointer := a_sibling.handle end
+			gtk_tree_store_insert_before (handle, an_iterator.handle,
+										 a_parent.handle, a_sibling.handle)
+		end
+
+	put_after, insert_after (an_iterator, a_parent, a_sibling: GTK_TREE_ITER) is
+			-- Inserts a new row after `a_sibling'. If `a_sibling' is Void,
+			-- then the row will be prepended to `a_parent''s children.
+			-- If `a_parent' and `a_sibling' are Void, then the row will
+			-- be prepended to the toplevel. If both `a_sibling' and
+			-- `a_parent' are set, then `a_parent' must be the parent of
+			-- `a_sibling'. When `a_sibling' is set, `a_parent' is optional.
+			--
+			-- `an_iterator' will be changed to point to this new row.
+			-- The row will be empty after this function is called.
+			-- To fill in values, you need to call some of the set_* methods.
+		require
+			valid_iterator: an_iterator /= Void
+		local
+			parent_pointer, sibling_pointer: POINTER
+		do
+			if a_parent /= Void then parent_pointer := a_parent.handle end
+			if a_sibling /= Void then sibling_pointer := a_sibling.handle end
+			gtk_tree_store_insert_after (handle, an_iterator.handle,
+										 parent_pointer, sibling_pointer)
+		end
+
+	insert_with_values (an_iterator, a_parent: GTK_TREE_ITER;
+							  a_position: INTEGER;
+							  some_columns: ARRAY[INTEGER];
+							  some_values: ARRAY[G_VALUE]) is
+			-- Creates a new row at `a_position'. `an_iterator' will be
+			-- changed to point to this new row. If `a_position' is larger
+			-- than the number of rows on the list, then the new row will
+			-- be appended to the list. The row will be filled with the
+			-- values given to this function.
+			--
+			-- Calling store.insert_with_values (iter, parent, position, cols, vals)
+			-- has the same effect as calling
+			--
+			-- store.put (iter, parent, position)
+			-- store.set (iter, cols, vals);
+			--
+			-- with the difference that the former will only emit a 
+			-- row_inserted signal, while the latter will emit row_inserted,
+			-- row_changed and if the tree store is sorted, rows_reordered.
+			-- Since emitting the rows_reordered signal repeatedly can affect
+			-- the performance of the program, insert_with_values should
+			-- generally be preferred when inserting rows in a sorted tree store.
+			--
+			-- `some_columns' contains the column numbers; each column
+			-- will be set with the corresponding value in `some_values'
+		require columns_n_equals_values_n: some_columns.count = some_values.count
+		do
+			not_yet_implemented
+			-- TODO: some_values.to_external is an array of pointers to the Eiffel wrappers!!!
+			gtk_tree_store_insert_with_valuesv (handle, an_iterator.handle,
+															a_parent.handle,
+															a_position,
+															-- gint *columns an array of column numbers
+															some_columns.to_external,
+															-- GValue *values an array of
+															-- GValues
+															some_values.to_external,
+															-- gint n_values the length of the
+															-- columns and values arrays
+															some_values.count 
+															)
+		end
+
+	add_first, prepend (an_iterator, a_parent: GTK_TREE_ITER) is
+			-- Prepends a new row to tree store. If `a_parent' is non-Void,
+			-- then it will prepend the new row before the first child of
+			-- `a_parent', otherwise it will prepend a row to the top
+			-- level. `an_iterator' will be changed to point to this new
+			-- row. The row will be empty after this function is called.
+			-- To fill in values, you need to call some set_* method.
+		require valid_iterator: an_iterator /= Void
+		local
+			parent_pointer: POINTER
+		do
+			if a_parent /= Void then parent_pointer := a_parent.handle end
+			gtk_tree_store_prepend (handle, an_iterator.handle, parent_pointer)
+		end
+
+	add_last, append (an_iterator, a_parent: GTK_TREE_ITER) is
+			-- Appends a new row to tree store. If `a_parent' is non-Void,
+			-- then it will append the new row after the last child of
+			-- `a_parent', otherwise it will append a row to the top level.
+			-- iter will be changed to point to this new row. The row will
+			-- be empty after this function is called. To fill in values,
+			-- you need to call some set_* method
+		require valid_iterator: an_iterator /= Void
+		local
+			parent_pointer: POINTER
+		do
+			if a_parent /= Void then parent_pointer := a_parent.handle end
+			gtk_tree_store_append  (handle, an_iterator.handle, parent_pointer)
+		end
+
+	is_ancestor(an_iterator, a_descendant: GTK_TREE_ITER): BOOLEAN is
+			-- Returns True if `an_iterator' is an ancestor of `a_descendant'.
+			-- That is, `an_iterator' is the parent (or grandparent or
+			-- great-grandparent or ...) of `a_descendant).
+		require
+			valid_iterators: an_iterator /= Void and a_descendant /= Void
+		do
+			Result := gtk_tree_store_is_ancestor(handle, an_iterator.handle,
+								 a_descendant.handle).to_boolean
+		end
+
+	iter_depth(an_iterator: GTK_TREE_ITER): INTEGER is
+			-- Returns the depth of `an_iterator'. This will be 0 for
+			-- anything on the root level, 1 for anything down a level, etc.
+		require
+			valid_iterators: an_iterator /= Void
+		do
+			Result := gtk_tree_store_iter_depth(handle, an_iterator.handle)
+		end
+
+	clear is
+			-- Removes all rows from the tree store.
+		do
+			gtk_tree_store_clear (handle)
+		end
+
+	is_iterator_valid (an_iterator: GTK_TREE_ITER): BOOLEAN is
+			-- Is `an_iterator' valid for Current GtkTreeStore?
+			--
+			-- Warning: this query is slow. Only use it for debugging
+			-- and/or testing purposes.
+		require
+			valid_iterator: an_iterator/=Void
+		do
+			Result:=(gtk_tree_store_iter_is_valid(handle,an_iterator.handle)).to_boolean
+		end
+
+	reorder (a_parent: GTK_TREE_ITER; a_new_order: ARRAY[INTEGER]) is
+			-- Reorders the children of `a_parent' to follow the order
+			-- indicated by `a_new_order'. Note that this function only
+			-- works with unsorted stores.
+			-- `a_new_order' is the array of integers
+			-- mapping the new position of each child to its old position
+			-- before the re-ordering, i.e. a_new_order.item(newpos) =
+			-- oldpos.
+		require
+			unsorted_store: not is_sorted
+			valid_order: a_new_order /= Void
+		do
+			gtk_tree_store_reorder (handle, a_parent.handle, a_new_order.to_external)
+		end
+
+	swap (a, b: GTK_TREE_ITER) is
+			-- Swaps `a' and `b' in the same level of tree store.
+			-- Note that this function only works with unsorted stores.
+		require
+			unsorted_store: not is_sorted
+			valid_iterators: a /= Void and b /= Void
+		do
+			gtk_tree_store_swap (handle, a.handle, b.handle)
+		end
+
+	move_before (an_iterator, a_position: GTK_TREE_ITER) is
+			-- Moves `an_iterator' in tree store to the position before
+			-- `a_position'. `an_iterator' and `a_position' should be in
+			-- the same level. Note that this function only works with
+			-- unsorted stores.
+		require
+			unsorted_store: not is_sorted
+			valid_iterator: an_iterator/=Void
+			valid_position: a_position/=Void
+		do
+			gtk_tree_store_move_before (handle,an_iterator.handle, a_position.handle)
+		end
+
+	move_last  (an_iterator: GTK_TREE_ITER) is
+			-- Moves `an_iterator' in store to the end of the level. Note that this
+			-- function only works with unsorted stores.
+		require
+			unsorted_store: not is_sorted
+			valid_iterator: an_iterator /= Void
+		do
+			gtk_tree_store_move_before (handle, an_iterator.handle, default_pointer)
+		end
+
+	move_after  (an_iterator, a_position: GTK_TREE_ITER) is
+			-- Moves `an_iterator' in store to the position after
+			-- `a_position'. Note that this function only works with unsorted stores. 
+		require
+			unsorted_store: not is_sorted
+			valid_iterator: an_iterator/=Void
+			valid_position: a_position/=Void
+		do
+			gtk_tree_store_move_after (handle, an_iterator.handle, a_position.handle)
+		end
+
+	move_first  (an_iterator: GTK_TREE_ITER) is
+			-- Moves item pointed to by `an_iterator' to the start of the
+			-- level. Note that this function only works with unsorted stores.
+		require
+			unsorted_store: not is_sorted
+			valid_iterator: an_iterator/=Void
+		do
+			gtk_tree_store_move_after (handle, an_iterator.handle, default_pointer)
+		end
+
+feature
+	is_sorted: BOOLEAN is
+			-- Is Current GTK_LIST_STORE sorted? Note: this is a dummy -
+			-- empty - feature now. It is useful in some precondition of
+			-- features requiring unsorted stores.
+		obsolete "GTK_LIST_STORE.is_sorted implementation missing. Returning False"
+		do
+			Result := False
+		ensure implemented: False
+		end
+end
+
+-- TODO:
 -- --             GtkTreeStore;
--- -- GtkTreeStore* gtk_tree_store_new            (gint n_columns,
--- --                                              ...);
 -- -- GtkTreeStore* gtk_tree_store_newv           (gint n_columns,
--- --                                              GType *types);
--- -- void        gtk_tree_store_set_column_types (GtkTreeStore *tree_store,
--- --                                              gint n_columns,
--- --                                              GType *types);
--- -- void        gtk_tree_store_set_value        (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              gint column,
--- --                                              GValue *value);
+
 -- -- void        gtk_tree_store_set              (GtkTreeStore *tree_store,
 -- --                                              GtkTreeIter *iter,
 -- --                                              ...);
 -- -- void        gtk_tree_store_set_valist       (GtkTreeStore *tree_store,
 -- --                                              GtkTreeIter *iter,
 -- --                                              va_list var_args);
--- -- gboolean    gtk_tree_store_remove           (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter);
--- -- void        gtk_tree_store_insert           (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent,
--- --                                              gint position);
--- -- void        gtk_tree_store_insert_before    (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent,
--- --                                              GtkTreeIter *sibling);
--- -- void        gtk_tree_store_insert_after     (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent,
--- --                                              GtkTreeIter *sibling);
--- -- void        gtk_tree_store_prepend          (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent);
--- -- void        gtk_tree_store_append           (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent);
--- -- gboolean    gtk_tree_store_is_ancestor      (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *descendant);
--- -- gint        gtk_tree_store_iter_depth       (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter);
--- -- void        gtk_tree_store_clear            (GtkTreeStore *tree_store);
--- -- gboolean    gtk_tree_store_iter_is_valid    (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter);
--- -- void        gtk_tree_store_reorder          (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *parent,
--- --                                              gint *new_order);
--- -- void        gtk_tree_store_swap             (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *a,
--- --                                              GtkTreeIter *b);
--- -- void        gtk_tree_store_move_before      (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *position);
--- -- void        gtk_tree_store_move_after       (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *position);
-
-
-
--- -- Object Hierarchy
-
--- --   GObject
--- --    +----GtkTreeStore
-
--- -- Implemented Interfaces
-
--- -- GtkTreeStore implements GtkTreeModel, GtkTreeDragSource, GtkTreeDragDest and GtkTreeSortable.
--- -- Description
-
--- -- The GtkTreeStore object is a list model for use with a GtkTreeView widget. It implements the GtkTreeModel interface, and consequentialy, can use all of the methods available there. It also implements the GtkTreeSortable interface so it can be sorted by the view. Finally, it also implements the tree drag and drop interfaces.
--- -- Details
--- -- GtkTreeStore
-
--- -- typedef struct _GtkTreeStore GtkTreeStore;
-
--- -- gtk_tree_store_new ()
-
--- -- GtkTreeStore* gtk_tree_store_new            (gint n_columns,
--- --                                              ...);
-
--- -- Creates a new tree store as with n_columns columns each of the types passed in. Note that only types derived from standard GObject fundamental types are supported.
-
--- -- As an example, gtk_tree_store_new (3, G_TYPE_INT, G_TYPE_STRING, GDK_TYPE_PIXBUF); will create a new GtkTreeStore with three columns, of type int, string and GdkPixbuf respectively.
-
--- -- n_columns : 	number of columns in the tree store
--- -- ... : 	all GType types for the columns, from first to last
--- -- Returns : 	a new GtkTreeStore
--- -- gtk_tree_store_newv ()
-
--- -- GtkTreeStore* gtk_tree_store_newv           (gint n_columns,
--- --                                              GType *types);
-
--- -- Non vararg creation function. Used primarily by language bindings.
-
--- -- n_columns : 	number of columns in the tree store
--- -- types : 	an array of GType types for the columns, from first to last
--- -- Returns : 	a new GtkTreeStore
--- -- gtk_tree_store_set_column_types ()
-
--- -- void        gtk_tree_store_set_column_types (GtkTreeStore *tree_store,
--- --                                              gint n_columns,
--- --                                              GType *types);
-
--- -- This function is meant primarily for GObjects that inherit from GtkTreeStore, and should only be used when constructing a new GtkTreeStore. It will not function after a row has been added, or a method on the GtkTreeModel interface is called.
-
--- -- tree_store : 	A GtkTreeStore
--- -- n_columns : 	Number of columns for the tree store
--- -- types : 	An array of GType types, one for each column
--- -- gtk_tree_store_set_value ()
-
--- -- void        gtk_tree_store_set_value        (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              gint column,
--- --                                              GValue *value);
-
--- -- Sets the data in the cell specified by iter and column. The type of value must be convertible to the type of the column.
-
--- -- tree_store : 	a GtkTreeStore
--- -- iter : 	A valid GtkTreeIter for the row being modified
--- -- column : 	column number to modify
--- -- value : 	new value for the cell
--- -- gtk_tree_store_set ()
-
--- -- void        gtk_tree_store_set              (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              ...);
-
--- -- Sets the value of one or more cells in the row referenced by iter. The variable argument list should contain integer column numbers, each column number followed by the value to be set. The list is terminated by a -1. For example, to set column 0 with type G_TYPE_STRING to "Foo", you would write gtk_tree_store_set (store, iter, 0, "Foo", -1).
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	A valid GtkTreeIter for the row being modified
--- -- ... : 	pairs of column number and value, terminated with -1
--- -- gtk_tree_store_set_valist ()
-
--- -- void        gtk_tree_store_set_valist       (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              va_list var_args);
-
--- -- See gtk_tree_store_set(); this version takes a va_list for use by language bindings.
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	A valid GtkTreeIter for the row being modified
--- -- var_args : 	va_list of column/value pairs
--- -- gtk_tree_store_remove ()
-
--- -- gboolean    gtk_tree_store_remove           (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter);
-
--- -- Removes iter from tree_store. After being removed, iter is set to the next valid row at that level, or invalidated if it previously pointed to the last one.
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	A valid GtkTreeIter
--- -- Returns : 	TRUE if iter is still valid, FALSE if not.
--- -- gtk_tree_store_insert ()
-
--- -- void        gtk_tree_store_insert           (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent,
--- --                                              gint position);
-
--- -- Creates a new row at position. If parent is non-NULL, then the row will be made a child of parent. Otherwise, the row will be created at the toplevel. If position is larger than the number of rows at that level, then the new row will be inserted to the end of the list. iter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call gtk_tree_store_set() or gtk_tree_store_set_value().
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	An unset GtkTreeIter to set to the new row
--- -- parent : 	A valid GtkTreeIter, or NULL
--- -- position : 	position to insert the new row
--- -- gtk_tree_store_insert_before ()
-
--- -- void        gtk_tree_store_insert_before    (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent,
--- --                                              GtkTreeIter *sibling);
-
--- -- Inserts a new row before sibling. If sibling is NULL, then the row will be appended to parent 's children. If parent and sibling are NULL, then the row will be appended to the toplevel. If both sibling and parent are set, then parent must be the parent of sibling. When sibling is set, parent is optional.
-
--- -- iter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call gtk_tree_store_set() or gtk_tree_store_set_value().
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	An unset GtkTreeIter to set to the new row
--- -- parent : 	A valid GtkTreeIter, or NULL
--- -- sibling : 	A valid GtkTreeIter, or NULL
--- -- gtk_tree_store_insert_after ()
-
--- -- void        gtk_tree_store_insert_after     (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent,
--- --                                              GtkTreeIter *sibling);
-
--- -- Inserts a new row after sibling. If sibling is NULL, then the row will be prepended to parent 's children. If parent and sibling are NULL, then the row will be prepended to the toplevel. If both sibling and parent are set, then parent must be the parent of sibling. When sibling is set, parent is optional.
-
--- -- iter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call gtk_tree_store_set() or gtk_tree_store_set_value().
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	An unset GtkTreeIter to set to the new row
--- -- parent : 	A valid GtkTreeIter, or NULL
--- -- sibling : 	A valid GtkTreeIter, or NULL
--- -- gtk_tree_store_prepend ()
-
--- -- void        gtk_tree_store_prepend          (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent);
-
--- -- Prepends a new row to tree_store. If parent is non-NULL, then it will prepend the new row before the first child of parent, otherwise it will prepend a row to the top level. iter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call gtk_tree_store_set() or gtk_tree_store_set_value().
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	An unset GtkTreeIter to set to the prepended row
--- -- parent : 	A valid GtkTreeIter, or NULL
--- -- gtk_tree_store_append ()
-
--- -- void        gtk_tree_store_append           (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *parent);
-
--- -- Appends a new row to tree_store. If parent is non-NULL, then it will append the new row after the last child of parent, otherwise it will append a row to the top level. iter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call gtk_tree_store_set() or gtk_tree_store_set_value().
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	An unset GtkTreeIter to set to the appended row
--- -- parent : 	A valid GtkTreeIter, or NULL
--- -- gtk_tree_store_is_ancestor ()
-
--- -- gboolean    gtk_tree_store_is_ancestor      (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *descendant);
-
--- -- Returns TRUE if iter is an ancestor of descendant. That is, iter is the parent (or grandparent or great-grandparent) of descendant.
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	A valid GtkTreeIter
--- -- descendant : 	A valid GtkTreeIter
--- -- Returns : 	TRUE, if iter is an ancestor of descendant
--- -- gtk_tree_store_iter_depth ()
-
--- -- gint        gtk_tree_store_iter_depth       (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter);
-
--- -- Returns the depth of iter. This will be 0 for anything on the root level, 1 for anything down a level, etc.
-
--- -- tree_store : 	A GtkTreeStore
--- -- iter : 	A valid GtkTreeIter
--- -- Returns : 	The depth of iter
--- -- gtk_tree_store_clear ()
-
--- -- void        gtk_tree_store_clear            (GtkTreeStore *tree_store);
-
--- -- Removes all rows from tree_store
-
--- -- tree_store : 	a GtkTreeStore
--- -- gtk_tree_store_iter_is_valid ()
-
--- -- gboolean    gtk_tree_store_iter_is_valid    (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter);
-
--- -- WARNING: This function is slow. Only use it for debugging and/or testing purposes.
-
--- -- Checks if the given iter is a valid iter for this GtkTreeStore.
-
--- -- tree_store : 	A GtkTreeStore.
--- -- iter : 	A GtkTreeIter.
--- -- Returns : 	TRUE if the iter is valid, FALSE if the iter is invalid.
-
--- -- Since 2.2
--- -- gtk_tree_store_reorder ()
-
--- -- void        gtk_tree_store_reorder          (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *parent,
--- --                                              gint *new_order);
-
--- -- Reorders the children of parent in tree_store to follow the order indicated by new_order. Note that this function only works with unsorted stores.
-
--- -- tree_store : 	A GtkTreeStore.
--- -- parent : 	A GtkTreeIter.
--- -- new_order : 	an array of integers mapping the new position of each child to its old position before the re-ordering, i.e. new_order[newpos] = oldpos.
-
--- -- Since 2.2
--- -- gtk_tree_store_swap ()
-
--- -- void        gtk_tree_store_swap             (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *a,
--- --                                              GtkTreeIter *b);
-
--- -- Swaps a and b in the same level of tree_store. Note that this function only works with unsorted stores.
-
--- -- tree_store : 	A GtkTreeStore.
--- -- a : 	A GtkTreeIter.
--- -- b : 	Another GtkTreeIter.
-
--- -- Since 2.2
--- -- gtk_tree_store_move_before ()
-
--- -- void        gtk_tree_store_move_before      (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *position);
-
--- -- Moves iter in tree_store to the position before position. iter and position should be in the same level. Note that this function only works with unsorted stores. If position is NULL, iter will be moved to the end of the level.
-
--- -- tree_store : 	A GtkTreeStore.
--- -- iter : 	A GtkTreeIter.
--- -- position : 	A GtkTreeIter or NULL.
-
--- -- Since 2.2
--- -- gtk_tree_store_move_after ()
-
--- -- void        gtk_tree_store_move_after       (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              GtkTreeIter *position);
-
--- -- Moves iter in tree_store to the position after position. iter and position should be in the same level. Note that this function only works with unsorted stores. If position is NULL, iter will be moved to the start of the level.
-
--- -- tree_store : 	A GtkTreeStore.
--- -- iter : 	A GtkTreeIter.
--- -- position : 	A GtkTreeIter.
-
--- -- Since 2.2
--- -- See Also
-
--- -- GtkTreeModel, GtkTreeStore
