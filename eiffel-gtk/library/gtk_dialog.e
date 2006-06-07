@@ -127,7 +127,7 @@ insert
 	GTK_DIALOG_STRUCT
 	GTK_STOCK_ITEMS
 		-- GtkDialog implements AtkImplementorIface.	
-creation new,make
+creation new, make, from_external_pointer
 
 feature {NONE} -- Creation
 
