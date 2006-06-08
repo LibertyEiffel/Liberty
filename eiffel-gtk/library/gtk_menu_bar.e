@@ -31,10 +31,9 @@ indexing
 class GTK_MENU_BAR
 inherit
 	GTK_MENU_SHELL
-	-- GtkMenuBar implements AtkImplementorIface.
-		
-insert 
-	GTK_PACK_DIRECTION
+		-- GtkMenuBar implements AtkImplementorIface.
+	
+insert GTK_PACK_DIRECTION
 creation make
 
 
@@ -44,80 +43,57 @@ feature {} -- Creation
 		do
 			handle := gtk_menu_bar_new
 		end
+
+feature
+	set_pack_direction (a_direction: INTEGER) is
+			-- 	Sets how items should be packed inside a menubar.
+		require
+			valid_direction: is_valid_pack_direction (a_direction)
+		do
+			gtk_menu_bar_set_pack_direction (handle, a_direction)
+		end
+
+	pack_direction: INTEGER is
+			--  the current pack direction of the menubar.
+		do
+			Result:= gtk_menu_bar_get_pack_direction(handle)
+		ensure valid_result:is_valid_pack_direction (Result)			
+		end
 	
-feature 
-	set_pack_direction (a_direction: INTEGER)
-
---  void        gtk_menu_bar_set_pack_direction (GtkMenuBar *menubar,
--- 															 GtkPackDirection pack_dir);
-
--- 	Sets how items should be packed inside a menubar.
-
--- 	menubar :  a GtkMenuBar.
--- 	pack_dir : a new GtkPackDirection.
-
--- 	Since 2.8
-
--- 	-----------------------------------------------------------------------
-
---   gtk_menu_bar_get_pack_direction ()
-
---  GtkPackDirection gtk_menu_bar_get_pack_direction
--- 															(GtkMenuBar *menubar);
-
--- 	Retrieves the current pack direction of the menubar. See
--- 	gtk_menu_bar_set_pack_direction().
-
--- 	menubar : a GtkMenuBar
--- 	Returns : the pack direction
-
--- 	Since 2.8
-
--- 	-----------------------------------------------------------------------
-
---   gtk_menu_bar_set_child_pack_direction ()
-
---  void        gtk_menu_bar_set_child_pack_direction
--- 															(GtkMenuBar *menubar,
--- 															 GtkPackDirection child_pack_dir);
-
--- 	Sets how widgets should be packed inside the children of a menubar.
-
--- 	menubar :        a GtkMenuBar.
--- 	child_pack_dir : a new GtkPackDirection.
-
--- 	Since 2.8
-
--- 	-----------------------------------------------------------------------
-
---   gtk_menu_bar_get_child_pack_direction ()
-
---  GtkPackDirection gtk_menu_bar_get_child_pack_direction
--- 															(GtkMenuBar *menubar);
-
--- 	Retrieves the current child pack direction of the menubar. See
--- 	gtk_menu_bar_set_child_pack_direction().
-
--- 	menubar : a GtkMenuBar
--- 	Returns : the child pack direction
-
--- 	Since 2.8
-
--- Properties
+	-- TODO: provide more meaningful boolean queries like
+	-- is_trl_pack_direction
 
 
--- 	"child-pack-direction" GtkPackDirection      : Read / Write
--- 	"pack-direction"       GtkPackDirection      : Read / Write
+	set_child_pack_direction (a_direction: INTEGER) is
+			-- Sets how widgets should be packed inside the children of a
+			-- menubar.
+		require
+			valid_direction: is_valid_pack_direction (a_direction)
+		do
+        gtk_menu_bar_set_child_pack_direction (handle, a_direction)
+		end
 
--- Style Properties
 
+	child_pack_direction: INTEGER is
+			-- the current child pack direction of the menubar. See
+			-- `set_child_pack_direction'.
+		do
+			Result:= gtk_menu_bar_get_child_pack_direction (handle)
+		end
 
--- 	"internal-padding"     gint                  : Read
--- 	"shadow-type"          GtkShadowType         : Read
+feature -- Properties
+
+	-- Note: "child-pack-direction" and "pack-direction" shall not be
+	-- wrapped since there already are functions accessing them. 
+
+feature -- Style Properties
+	-- 	"internal-padding"     gint                  : Read
+	-- 	"shadow-type"          GtkShadowType         : Read
+	
 -- Property Details
-
---   The "child-pack-direction" property
-
+	
+	--   The "child-pack-direction" property
+	
 -- 	"child-pack-direction" GtkPackDirection      : Read / Write
 
 -- 	The pack direction of the menubar. It determines how the widgets

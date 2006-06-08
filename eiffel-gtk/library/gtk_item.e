@@ -24,9 +24,9 @@ itndexing
 deferred class GTK_ITEM
 inherit
 	GTK_BIN
+		-- GtkItem implements AtkImplementorIface.
+insert
 	GTK_ITEM_EXTERNALS
-	SHARED_C_STRUCT
-	-- GtkItem implements AtkImplementorIface.
 
 feature
 	select_signal is
