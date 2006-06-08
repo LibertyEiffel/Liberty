@@ -178,7 +178,7 @@ feature -- Generic setter
 			if a_parent /= Void then parent_pointer := a_parent.handle end
 			if a_sibling /= Void then sibling_pointer := a_sibling.handle end
 			gtk_tree_store_insert_before (handle, an_iterator.handle,
-										 a_parent.handle, a_sibling.handle)
+										 parent_pointer, sibling_pointer)
 		end
 
 	put_after, insert_after (an_iterator, a_parent, a_sibling: GTK_TREE_ITER) is
