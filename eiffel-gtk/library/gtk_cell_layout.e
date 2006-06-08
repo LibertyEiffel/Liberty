@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 	
@@ -39,8 +39,8 @@ inherit
 	
 	-- GtkCellLayout should also inherit from G_INTERFACE (GInterface)
 	G_OBJECT
-			
-feature 
+
+feature
 	pack_start (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
 	-- Packs the cell into the beginning of Current cell
 	-- layout. If expand is FALSE, then the cell is allocated no
@@ -64,7 +64,7 @@ feature
 		do
 			gtk_cell_layout_pack_end (handle, a_cell_renderer.handle, expand.to_integer)
 		end
-	
+
 	reorder  (a_cell_renderer: GTK_CELL_RENDERER; a_position: INTEGER) is
 			-- Re-inserts cell at position. Note that cell has already to be packed
 			-- into cell_layout for this to function properly.
@@ -72,7 +72,7 @@ feature
 			valid_renderer: a_cell_renderer /= Void
 			-- TODO: cell shall be already inserted
 		do
-			gtk_cell_layout_reorder (handle, a_cell_renderer.handle a_position)
+			gtk_cell_layout_reorder (handle, a_cell_renderer.handle, a_position)
 		end
 
 
@@ -142,7 +142,7 @@ feature
 
 -- Since 2.4
 
-feature {NONE} -- size
+feature {WRAPPER} -- size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellLayout)"
@@ -209,7 +209,7 @@ feature {NONE}	-- External calls
 		alias "gtk_cell_layout_set_attributes"
 		end
 
-	gtk_cell_layout_set_four_attributes (a_cell_layout: POINTER, a_cell_renderer: POINTER;
+	gtk_cell_layout_set_four_attributes (a_cell_layout, a_cell_renderer: POINTER;
 		first_attribute: POINTER; first_column: INTEGER;
 		second_attribute: POINTER; second_column: INTEGER;
 		third_attribute: POINTER; third_column: INTEGER;

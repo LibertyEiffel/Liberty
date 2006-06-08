@@ -54,7 +54,7 @@ indexing
 	
 class GTK_ENTRY_COMPLETION
 inherit
-	G_OBJECT redefine make end
+	G_OBJECT
 		-- GtkEntryCompletion implements GtkCellLayout.
 insert
 	GTK_ENTRY_COMPLETION_EXTERNALS

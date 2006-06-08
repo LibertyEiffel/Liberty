@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 	
@@ -50,13 +50,13 @@ indexing
 class GTK_COMBO_BOX
 inherit
 	GTK_BIN
-	GTK_CELL_EDITABLE redefine size end
+	GTK_CELL_EDITABLE
 	GTK_CELL_LAYOUT redefine size end
 		-- GtkComboBox also implements AtkImplementorIface interface.
 
 insert
-	G_OBJECT_RETRIEVER [GTK_TREE_MODEL] 
-		rename 
+	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
+		rename
 			retrieve_eiffel_wrapper_from_gobject_pointer as retrieve_model_wrapper_from_pointer,
 			eiffel_wrapper_from_gobject_pointer as model_wrapper_from_pointer,
 			g_object_get_eiffel_wrapper as g_object_get_model_wrapper
@@ -69,9 +69,9 @@ feature {} -- Creation
 	make is
 			-- Creates a new empty GtkComboBox.
 		do
-			handle := gtk_combo_box_new 
+			handle := gtk_combo_box_new
 			is_text_only:=False
-		ensure no_text_only: not is_text_only
+		ensure then no_text_only: not is_text_only
 		end
 
 
@@ -594,7 +594,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_combo_box_set_row_separator_func (a_combo_box: POINTER; a_gtktreeviewrowseparatorfunc: POINTER; some_data; a_gtkdestroynotify: POINTER) is
+	gtk_combo_box_set_row_separator_func (a_combo_box: POINTER; a_gtktreeviewrowseparatorfunc: POINTER; some_data: POINTER; a_gtkdestroynotify: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 	

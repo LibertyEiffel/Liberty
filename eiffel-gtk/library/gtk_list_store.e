@@ -308,7 +308,7 @@ feature -- Generic setter
 		require
 			valid_iterator: an_iterator/=Void
 		do
-			gtk_list_store_insert_before (handle, an_iterator.handle, Null)
+			gtk_list_store_insert_before (handle, an_iterator.handle, default_pointer)
 		end
 
 
@@ -332,7 +332,7 @@ feature -- Generic setter
 		require
 			valid_iterator: an_iterator/=Void
 		do
-			gtk_list_store_insert_after (handle, an_iterator.handle, Null)
+			gtk_list_store_insert_after (handle, an_iterator.handle, default_pointer)
 		end
 
 	-- Unwrappable: variadic gtk_list_store_insert_with_values ()

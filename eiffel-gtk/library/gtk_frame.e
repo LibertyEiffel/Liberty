@@ -57,7 +57,7 @@ feature -- label
 
 	remove_label is
 		do
-			gtk_frame_set_label (handle, Null)
+			gtk_frame_set_label (handle, default_pointer)
 		end
 	
 	set_label (a_label: STRING) is
@@ -121,7 +121,7 @@ feature -- Alignments
 			-- the X alignement
 		local al: REAL_32
 		do
-			gtk_frame_get_label_align (handle, $al,Null)
+			gtk_frame_get_label_align (handle, $al, default_pointer)
 			Result := al.force_to_real_32
 			-- TODO postcondition
 		end
@@ -130,7 +130,7 @@ feature -- Alignments
 			-- the Y alignement
 		local al: REAL_32
 		do
-			gtk_frame_get_label_align (handle, $al,Null)
+			gtk_frame_get_label_align (handle, $al, default_pointer)
 			Result := al.force_to_real_32
 			-- TODO postcondition
 		end

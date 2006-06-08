@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 	
@@ -95,7 +95,7 @@ feature {} -- Creation
 		do
 			handle := gtk_combo_box_entry_new_text 
 			is_text_only:=True
-		ensure text_only: is_text_only
+		ensure then text_only: is_text_only
 		end
 
 feature

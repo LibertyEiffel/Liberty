@@ -42,7 +42,7 @@ insert GTK_CELL_RENDERER_PIXBUF_EXTERNALS
 
 creation make
 
-feature {NONE} -- size
+feature {WRAPPER} -- size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererPixbuf)"

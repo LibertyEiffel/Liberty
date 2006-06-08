@@ -53,7 +53,7 @@ feature {NONE} -- Creation
 			-- create a path of depth 3 pointing to the 11th child of the
 			-- root node, the 5th child of that 11th child, and the 1st
 			-- child of that 5th child. If an invalid path string is
-			-- passed in, this object will "not exists" (i.e. exists = False)
+			-- passed in, this object will "is_null" (i.e. is_null = True)
 		require path_not_void: a_path /= Void
 		do
 			handle := gtk_tree_path_new_from_string (a_path.to_external)
@@ -84,7 +84,7 @@ feature
 			-- is a ':' separated list of numbers. For example,
 			-- "4:10:0:3" would be an acceptable return value for this
 			-- string.
-		require exists
+		require is_not_null
 		do
 			create Result.from_external (gtk_tree_path_to_string (handle))
 			-- gtk_tree_path_to_string returns a newly-allocated
@@ -141,8 +141,8 @@ feature -- Comparing
 			-- -1 is returned. If `another' appears before Current, then 1 is
 			-- returned. If the two nodes are equal, then 0 is returned.
 		require
-			exists: exists
-			valid_another: another /= Void implies another.exists
+			exists: is_not_null
+			valid_another: another /= Void implies another.is_not_null
 		do
 			Result:= gtk_tree_path_compare (handle, another.handle)
 		end

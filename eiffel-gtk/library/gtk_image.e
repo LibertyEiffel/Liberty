@@ -25,7 +25,7 @@ indexing
 class GTK_IMAGE
 
 inherit
-	GTK_MISC redefine make end
+	GTK_MISC
 	GTK_IMAGE_EXTERNALS
 	
 creation

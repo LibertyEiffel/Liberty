@@ -23,7 +23,7 @@ indexing
 
 class GTK_TREE_VIEW
 inherit
-	GTK_CONTAINER redefine make end
+	GTK_CONTAINER
 
 -- GtkTreeView implements AtkImplementorIface.
 insert
@@ -75,7 +75,7 @@ feature
 	unset_model  is
 			-- Unset the old model.
 		do
-			gtk_tree_view_set_model (handle, Null)
+			gtk_tree_view_set_model (handle, default_pointer)
 		end
 
 feature 
@@ -127,7 +127,7 @@ feature
 	unset_vadjustment  is
 			-- Unsets the GtkAdjustment for the current vertical aspect.
 		do
-			gtk_tree_view_set_vadjustment   (handle, Null)
+			gtk_tree_view_set_vadjustment   (handle, default_pointer)
 		end
 	
 	are_headers_visible: BOOLEAN is
@@ -301,7 +301,7 @@ feature
 			if a_base /= Void then 
 				gtk_tree_view_move_column_after (handle, a_column.handle, a_base.handle)
 			else
-				gtk_tree_view_move_column_after (handle, a_column.handle, Null)
+				gtk_tree_view_move_column_after (handle, a_column.handle, default_pointer)
 			end
 		end
 
@@ -314,7 +314,7 @@ feature
 			-- set the expander column to a hidden column.
 		do
 			if a_column = Void then
-				gtk_tree_view_set_expander_column (handle, Null)
+				gtk_tree_view_set_expander_column (handle, default_pointer)
 			else
 				gtk_tree_view_set_expander_column (handle, a_column.handle)
 			end

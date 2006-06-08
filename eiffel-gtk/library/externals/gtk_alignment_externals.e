@@ -21,7 +21,7 @@ indexing
 	date: "$Date:$"
 	revision: "$REvision:$"
 
-class GTK_ALIGMENT_EXTERNALS
+class GTK_ALIGNMENT_EXTERNALS
 
 feature {NONE} -- external calls
 
@@ -29,7 +29,7 @@ feature {NONE} -- external calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_alignment_set (alignment: POINTER, xalign, yalign, xscale, yscale: REAL_32) is
+	gtk_alignment_set (alignment: POINTER; xalign, yalign, xscale, yscale: REAL_32) is
 		external "C use <gtk/gtk.h>"
 		end
 

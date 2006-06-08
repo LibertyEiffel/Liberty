@@ -22,10 +22,10 @@ indexing
 
 class GTK_ALIGNMENT
 inherit
-	GTK_BIN redefine make end
+	GTK_BIN rename make as make_bin end
 	GTK_ALIGNMENT_EXTERNALS
 		-- TODO: GtkAlignment implements AtkImplementorIface.
-	SHARED_C_STRUCT
+	--SHARED_C_STRUCT
 	
 creation make
 
@@ -84,27 +84,27 @@ feature -- paddings
 	top_padding: INTEGER is
 			-- Top padding
 		do
-			gtk_alignment_get_padding (handle,$Result,Null,Null,Null)
+			gtk_alignment_get_padding (handle,$Result, default_pointer, default_pointer, default_pointer)
 		ensure positive: Result>=0
 		end
 	
 	bottom_padding: INTEGER is
 			-- Bottom padding
 		do
-			gtk_alignment_get_padding (handle,Null,$Result,Null,Null)
+			gtk_alignment_get_padding (handle, default_pointer,$Result, default_pointer, default_pointer)
 		ensure positive: Result>=0
 		end
 
 	left_padding: INTEGER is
 			-- Left padding
 		do
-			gtk_alignment_get_padding (handle,Null,Null,$Result,Null)
+			gtk_alignment_get_padding (handle, default_pointer, default_pointer,$Result, default_pointer)
 		ensure positive: Result>=0
 		end
 	right_padding: INTEGER is
 			-- Right padding
 		do
-			gtk_alignment_get_padding (handle,Null,Null,Null,$Result)
+			gtk_alignment_get_padding (handle, default_pointer, default_pointer, default_pointer, $Result)
 		ensure positive: Result>=0
 		end
 

@@ -34,7 +34,7 @@ indexing
 class GTK_TREE_VIEW_COLUMN
 
 inherit
-	GTK_OBJECT redefine make end
+	GTK_OBJECT
 		-- GtkTreeViewColumn implements GtkCellLayout.
 
 insert

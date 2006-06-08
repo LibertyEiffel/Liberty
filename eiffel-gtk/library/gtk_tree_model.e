@@ -363,7 +363,7 @@ feature
 		do
 			if an_iter /= Void then gtk_tree_model_rows_reordered (handle, a_path.handle, an_iter.handle,
 																					 a_new_order.to_external)
-			else gtk_tree_model_rows_reordered (handle, a_path.handle, Null,
+			else gtk_tree_model_rows_reordered (handle, a_path.handle, default_pointer,
 															a_new_order.to_external)
 			end
 		end
