@@ -64,7 +64,7 @@ inherit
 		-- Implemented Interfaces: GtkMessageDialog implements
 		-- AtkImplementorIface.
 	
-creation new,with_markup ,from_external_pointer
+creation new, with_markup ,from_external_pointer
 
 feature -- size
 	size: INTEGER is

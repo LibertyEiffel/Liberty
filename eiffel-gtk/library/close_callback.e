@@ -1,11 +1,11 @@
 indexing
-	description: "Generic callback for the clicked signal"
+	description: "Generic callback for the close signal"
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class CLICKED_CALLBACK
+class CLOSE_CALLBACK
 
 inherit
 	CALLBACK
@@ -13,18 +13,20 @@ inherit
 		redefine object, callback
 		end
 
-insert G_OBJECT_RETRIEVER [GTK_BUTTON]
+insert G_OBJECT_RETRIEVER [GTK_DIALOG]
 
 creation make
 
 feature
-	object: GTK_BUTTON
+	object: GTK_DIALOG
 
 feature
-	callback (instance: POINTER) is --  a_button: GTK_BUTTON) is
+	callback (instance: POINTER) is --  a_button: GTK_DIALOG) is
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
+				print ("is_object: "+g_is_object (instance).out+"%N")
+				print ("type: "+g_object_type (instance).out+"%N")
 			end
 			-- The following is written with the implicit requirement 
 			-- that the button is actually created bu the Eiffel 
@@ -38,10 +40,10 @@ feature
 			procedure.call ([object])
 		end
 
-	connect (an_object: GTK_BUTTON; a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+	connect (an_object: GTK_DIALOG; a_procedure: PROCEDURE [ANY, TUPLE[GTK_DIALOG]]) is
 		do
 			debug
-				print ("CLICKED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
+				print ("CLOSE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
 				print (" an_object.handle=") print (an_object.handle.to_string)
 				print (") Current=") print (to_pointer.to_string)
 				print (" Current.handle=") print (handle.to_string)
@@ -49,14 +51,14 @@ feature
 			end
 					 
 			handler_id := g_signal_connect_closure (an_object.handle,
-																 signal_name.to_external,
-																 handle,
-																 0 -- i.e. call it before default handler
-																 )
+													 signal_name.to_external,
+													 handle,
+													 0 -- i.e. call it before default handler
+													 )
 			procedure:=a_procedure
 		end
 
-		signal_name: STRING is "clicked"
+		signal_name: STRING is "close"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]
+	procedure: PROCEDURE [ANY, TUPLE[GTK_DIALOG]]
 end

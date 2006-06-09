@@ -222,7 +222,8 @@ feature -- Running dialog
 			-- gtk_dialog_run() is a very bad idea, because your post-run
 			-- code won't know whether the dialog was destroyed or not.
 
-			-- After gtk_dialog_run() returns, you are responsible for hiding or destroying the dialog if you wish to do so.
+			-- After gtk_dialog_run() returns, you are responsible for
+			-- hiding or destroying the dialog if you wish to do so.
 
 			-- Typical usage of this function might be:
 
@@ -238,8 +239,13 @@ feature -- Running dialog
 			--     }
 			--   gtk_widget_destroy (dialog);
 
-			-- Note that even though the recursive main loop gives the effect of a modal dialog (it prevents the user from interacting with other windows in the same window group while the dialog is run), callbacks such as timeouts, IO channel watches, DND drops, etc, will be triggered during a gtk_dialog_run() call.
-		
+			-- Note that even though the recursive main loop gives the
+			-- effect of a modal dialog (it prevents the user from
+			-- interacting with other windows in the same window group
+			-- while the dialog is run), callbacks such as timeouts, IO
+			-- channel watches, DND drops, etc, will be triggered during a
+			-- gtk_dialog_run() call.
+			
 			-- dialog : 	a GtkDialog
 			-- Returns : 	response ID
 		end
@@ -350,7 +356,9 @@ feature -- default response
 --                                              gint response_id,
 --                                              gboolean setting);
 
--- Calls gtk_widget_set_sensitive (widget, setting) for each widget in the dialog's action area with the given response_id. A convenient way to sensitize/desensitize dialog buttons.
+-- Calls gtk_widget_set_sensitive (widget, setting) for each widget in
+-- the dialog's action area with the given response_id. A convenient way to
+-- sensitize/desensitize dialog buttons.
 
 -- dialog : 	a GtkDialog
 -- response_id : 	a response ID
@@ -487,7 +495,11 @@ feature -- default response
 --                                             gint       arg1,
 --                                             gpointer   user_data)      : Run last
 
--- Emitted when an action widget is clicked, the dialog receives a delete event, or the application programmer calls gtk_dialog_response(). On a delete event, the response ID is GTK_RESPONSE_NONE. Otherwise, it depends on which action widget was clicked.
+-- Emitted when an action widget is clicked, the dialog receives a
+-- delete event, or the application programmer calls gtk_dialog_response().
+-- On a delete event, the response ID is GTK_RESPONSE_NONE. Otherwise, it
+-- depends on which action widget was clicked.
+
 -- dialog : 	the object which received the signal.
 -- arg1 : 	the response ID
 -- user_data : 	user data set when the signal handler was connected.
@@ -638,6 +650,29 @@ feature -- Dialog's parts
 		do
 			create Result.from_external_pointer (get_action_area(handle))
 		ensure result_bot_void: Result /= Void
+		end
+
+feature -- The "close" signal
+	close_signal_name: STRING is "close"
+	enable_on_close is
+			-- Connects "close" signal to `on_close' feature.
+		do
+			connect (Current, close_signal_name, $on_close)
+		end
+
+	on_close is
+			-- Built-in close signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_close_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_DIALOG]]) is
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local close_callback: CLOSE_CALLBACK
+		do
+			create close_callback.make
+			close_callback.connect (Current, a_procedure)
 		end
 
 -- 	content_area_border: INTEGER is
