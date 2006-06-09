@@ -27,7 +27,7 @@ inherit GTK_CONTAINER
 
 insert
 	GTK_TEXT_VIEW_EXTERNALS
-	G_OBJECT_RETRIEVER [GTK_TEXT_VIEW]
+	G_OBJECT_RETRIEVER [GTK_TEXT_BUFFER]
 
 
 creation
@@ -81,11 +81,15 @@ feature -- Access
 			-- Returns the GTK_TEXT_BUFFER being displayed by this text view.
 			-- The reference count on the buffer is not incremented;
 			-- the caller of this function won't own a new reference.
+		local
+			c_buff: POINTER
 		do
-			if is_eiffel_wrapper_stored then
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer (handle).buffer
+			c_buff := gtk_text_view_get_buffer (handle)
+			if has_eiffel_wrapper_stored (c_buff) then
+				Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_buff)
 			else
-				create Result.from_external_pointer (gtk_text_view_get_buffer (handle))
+				create Result.from_external_pointer (c_buff)
+				Result.store_eiffel_wrapper
 			end
 		end
 
