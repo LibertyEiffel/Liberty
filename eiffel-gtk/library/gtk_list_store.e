@@ -17,11 +17,11 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
-	notes: "GTK_LIST_STORE has some features that are deliberately similar to COLLECTION's" 
-	
+	notes: "GTK_LIST_STORE has some features that are deliberately similar to COLLECTION's"
+
 			-- Description 
 
 			-- The GtkListStore object is a list model for use with a GtkTreeView
@@ -49,15 +49,15 @@ indexing
 			--   GtkTreePath *path;
 			--   GtkTreeIter iter;
 			--   gint i;
-	
+			
 			-- list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING,
 			--                                    G_TYPE_INT, G_TYPE_BOOLEAN);
-	
+			
 			--   for (i = 0; i < 10; i++) {
 			--       gchar *some_data;
-	
+			
 			--       some_data = get_some_data (i);
-	
+			
 			--       /* Add a new row to the model */
 			--       gtk_list_store_append (list_store, &iter);
 			--       gtk_list_store_set (list_store, &iter,
@@ -65,13 +65,13 @@ indexing
 			--                           COLUMN_INT, i,
 			--                           COLUMN_BOOLEAN,  FALSE,
 			--                           -1);
-	
+			
 			--       /* As the store will keep a copy of the string internally, we
 			--        * free some_data.
 			--        */
 			--       g_free (some_data);
 			--     }
-
+			
 			--   /* Modify a particular row */
 			--   path = gtk_tree_path_new_from_string ("4");
 			--   gtk_tree_model_get_iter (GTK_TREE_MODEL (list_store),
@@ -96,10 +96,10 @@ indexing
 	
 class GTK_LIST_STORE
 inherit
-	GTK_TREE_MODEL rename make as make_struct end 
-	GTK_TREE_SORTABLE rename make as make_struct end 
-	GTK_TREE_DRAG_SOURCE rename make as make_struct end 
-	GTK_TREE_DRAG_DEST rename make as make_struct end 
+	GTK_TREE_MODEL rename make as make_struct end
+	GTK_TREE_SORTABLE rename make as make_struct end
+	GTK_TREE_DRAG_SOURCE rename make as make_struct end
+	GTK_TREE_DRAG_DEST rename make as make_struct end
 
 	
 insert GTK_LIST_STORE_EXTERNALS
@@ -400,16 +400,16 @@ feature -- Generic setter
 			not_yet_implemented
 			-- TODO: some_values.to_external is an array of pointers to the Eiffel wrappers!!!
 			gtk_list_store_insert_with_valuesv (handle, an_iterator.handle,
-															a_position,
-															-- gint *columns an array of column numbers
-															some_columns.to_external,
-															-- GValue *values an array of
-															-- GValues
-															some_values.to_external,
-															-- gint n_values the length of the
-															-- columns and values arrays
-															some_values.count 
-															)
+												a_position,
+												-- gint *columns an array of column numbers
+												some_columns.to_external,
+												-- GValue *values an array of
+												-- GValues
+												some_values.to_external,
+												-- gint n_values the length of the
+												-- columns and values arrays
+												some_values.count
+												)
 		end
 
 	prepend (an_iterator: GTK_TREE_ITER) is
@@ -444,7 +444,7 @@ feature -- Generic setter
 
 	is_iterator_valid (an_iterator: GTK_TREE_ITER): BOOLEAN is
 			-- Is `an_iterator' valid for Current GtkListStore?
-
+			
 			-- Warning: this query is slow. Only use it for debugging
 			-- and/or testing purposes.
 		require valid_iterator: an_iterator/=Void
@@ -452,7 +452,6 @@ feature -- Generic setter
 			Result:=(gtk_list_store_iter_is_valid(handle,an_iterator.handle)).to_boolean
 		end
 
-	
 	reorder (a_new_order: ARRAY[INTEGER]) is
 			-- Reorders store to follow the order indicated by
 			-- `a_new_order'. Note that this function only works with
@@ -465,7 +464,7 @@ feature -- Generic setter
 			valid_order: a_new_order /= Void
 		do
 			gtk_list_store_reorder (handle, a_new_order.to_external)
-		end 
+		end
 
 	swap (an_iterator, another: GTK_TREE_ITER) is
 			-- Swaps `an_iterator' and `another' in store. Note that this
@@ -499,7 +498,6 @@ feature -- Generic setter
 			gtk_list_store_move_before (handle,an_iterator.handle, default_pointer)
 		end
 
-	
 	move_after  (an_iterator, a_position: GTK_TREE_ITER) is
 			-- Moves iter in store to the position after position. Note
 			-- that this function only works with unsorted stores. 
@@ -521,6 +519,7 @@ feature -- Generic setter
 			gtk_list_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
 	
+
 feature
 	is_sorted: BOOLEAN is
 			-- Is Current GTK_LIST_STORE sorted? Note: this is a dummy -
@@ -531,4 +530,5 @@ feature
 			Result := False
 		ensure implemented: False
 		end
+
 end

@@ -21,7 +21,7 @@ feature
 	object: GTK_DIALOG
 
 feature
-	callback (instance: POINTER) is --  a_button: GTK_DIALOG) is
+	callback (instance: POINTER) is
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
