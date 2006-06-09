@@ -1,3 +1,26 @@
+indexing
+	description: "Multiline text view widget"
+	copyright: "[
+					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+					]"
+	date: "$Date:$"
+	revision: "$Revision:$"
+
 class GTK_TEXT_VIEW
 
 inherit GTK_CONTAINER
@@ -58,5 +81,26 @@ feature -- Access
 		do
 			create Result.from_external_pointer (gtk_text_view_get_buffer (handle))
 		end
+
+feature -- Properties
+
+--  "accepts-tab"          gboolean              : Read / Write
+--  "buffer"               GtkTextBuffer         : Read / Write
+--  "cursor-visible"       gboolean              : Read / Write
+--  "editable"             gboolean              : Read / Write
+--  "indent"               gint                  : Read / Write
+--  "justification"        GtkJustification      : Read / Write
+--  "left-margin"          gint                  : Read / Write
+--  "overwrite"            gboolean              : Read / Write
+--  "pixels-above-lines"   gint                  : Read / Write
+--  "pixels-below-lines"   gint                  : Read / Write
+--  "pixels-inside-wrap"   gint                  : Read / Write
+--  "right-margin"         gint                  : Read / Write
+--  "tabs"                 PangoTabArray         : Read / Write
+--  "wrap-mode"            GtkWrapMode           : Read / Write
+
+-- Style properties:
+--  "error-underline-color" GdkColor              : Read
+
 
 end -- class GTK_TEXT_VIEW

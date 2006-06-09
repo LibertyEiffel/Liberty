@@ -426,6 +426,9 @@ feature {C_STRUCT}
 		external "C use <glib-object.h>"
 		end
 
+-- FIXME: I am not sure if we will need g_value_take_object. And I am
+-- almost sure that we don't need g_value_dup_object **trixx, 20060608
+
 	-- #define     G_IS_PARAM_SPEC_UNICHAR         (pspec)
 	-- #define     G_PARAM_SPEC_UNICHAR            (pspec)
 	-- #define     G_TYPE_PARAM_UNICHAR

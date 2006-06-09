@@ -53,7 +53,7 @@ feature {NONE} -- Initialization
 
 
 	from_pixbuf (pic: GDK_PIXBUF) is
-            -- Creates a new GtkImage displaying pixbuf.
+            -- Creates a new GtkImage displaying `pic'.
 		require
 			valid_pixbuf: pic /= Void
 		do
@@ -84,7 +84,7 @@ feature -- Element change
 		end
 
 	set_from_pixbuf (pixbuf: GDK_PIXBUF) is
-            -- See gtk_image_new_from_pixbuf() for details.
+            -- See `from_pixbuf' for details.
 		require
 			valid_pixbuf: pixbuf /= Void
 		do
