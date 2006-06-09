@@ -154,7 +154,7 @@ feature
 		require valid_path: a_path /= Void
 		local gbool: INTEGER
 		do
-			create Result.make
+			create Result.from_model(Current)
 			gbool := gtk_tree_model_get_iter (handle, Result.handle, a_path.handle)
 			if (gbool=0) then
 				Result := Void

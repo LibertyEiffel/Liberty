@@ -62,7 +62,7 @@ feature
 			end
 			not_yet_implemented
 		end
-	
+
 	set_model (a_model: GTK_TREE_MODEL) is
 			-- Sets the model for a GtkTreeView. If the tree view already
 			-- has a model set, it will remove it before setting the new
@@ -78,7 +78,7 @@ feature
 			gtk_tree_view_set_model (handle, default_pointer)
 		end
 
-feature 
+feature
 	selection: GTK_TREE_SELECTION is
 			-- the GtkTreeSelection associated with tree view.
 		do
@@ -421,9 +421,12 @@ feature
 		require valid_path: a_path /= Void
 		local col_ptr: POINTER
 		do
-			if a_focus_column=Void
-			then gtk_tree_view_set_cursor (handle, a_path.handle, default_pointer, start_editing.to_integer)
-			else gtk_tree_view_set_cursor (handle, a_path.handle, a_focus_column.handle, start_editing.to_integer)
+			if a_focus_column=Void then
+				gtk_tree_view_set_cursor (handle, a_path.handle,
+						default_pointer, start_editing.to_integer)
+			else
+				gtk_tree_view_set_cursor (handle, a_path.handle,
+						a_focus_column.handle, start_editing.to_integer)
 			end
 		end
 
@@ -465,16 +468,72 @@ feature
 			a_path: GTK_TREE_PATH;
 			a_column: GTK_TREE_VIEW_COLUMN
 		do
-			gtk_tree_view_get_cursor (handle, path_ptr.to_pointer, column_ptr.to_pointer)
+			gtk_tree_view_get_cursor (handle, $path_ptr, $column_ptr)
 			--(GtkTreeView *tree_view, GtkTreePath **path,
 			--GtkTreeViewColumn **focus_column);
 			if path_ptr.is_not_null then create a_path.from_external_pointer (path_ptr) end
 			if column_ptr.is_not_null then create a_column.from_external_pointer (column_ptr) end
 			create Result.make_2 (a_path, a_column)
 		end
-			
 
-	-- The returned GtkTreePath must be freed with gtk_tree_path_free() when you are done with it.
+	expand_row(a_path: GTK_TREE_PATH; open_all: BOOLEAN): BOOLEAN is
+			-- Opens the row so its children are visible.
+			-- `open_all' indicates whether to recursively expand, or
+			-- just expand immediate children
+			-- Returns True if the row existed and had children
+		require
+			a_path /= Void
+		do
+			Result := gtk_tree_view_expand_row(handle, a_path.handle, open_all.to_integer) > 0
+		end
+
+	collapse_row(a_path: GTK_TREE_PATH): BOOLEAN is
+			-- Collapses a row (hides its child rows, if they exist).
+			-- Returns True if the row was collapsed.
+		require
+			a_path /= Void
+		do
+			Result := gtk_tree_view_collapse_row(handle, a_path.handle) > 0
+		end
+
+	expand_all is
+			-- Recursively expands all nodes in the tree_view.
+		do
+			gtk_tree_view_expand_all(handle)
+		end
+
+	collapse_all is
+			-- Recursively collapses all visible, expanded nodes in tree_view.
+		do
+			gtk_tree_view_collapse_all(handle)
+		end
+
+	set_reorderable(a_reorderable: BOOLEAN) is
+			-- This function is a convenience function to allow you to
+			-- reorder models that support the GtkDragSourceIface and the
+			-- GtkDragDestIface. Both GtkTreeStore and GtkListStore support
+			-- these. If `a_reorderable' is True, then the user can reorder
+			-- the model by dragging and dropping rows. The developer can
+			-- listen to these changes by connecting to the model's
+			-- row_inserted and row_deleted signals.
+			--
+			-- This function does not give you any degree of control over
+			-- the order.  *Any* reordering is allowed. If more control
+			-- is needed, you should probably handle drag and drop manually.
+		do
+			gtk_tree_view_set_reorderable(handle, a_reorderable.to_integer)
+		ensure
+			is_reorderable = a_reorderable
+		end
+
+	is_reorderable: BOOLEAN is
+			-- Retrieves whether the user can reorder the tree via
+			-- drag-and-drop. See set_reorderable().
+			-- Returns True if the tree can be reordered.
+		do
+			Result := gtk_tree_view_get_reorderable(handle) > 0
+		end
+
 
 	-- tree_view : 	A GtkTreeView
 	-- path : 	A pointer to be filled with the current cursor path, or NULL
@@ -490,22 +549,6 @@ feature
 	-- tree_view : 	A GtkTreeView
 	-- path : 	The GtkTreePath to be activated.
 	-- column : 	The GtkTreeViewColumn to be activated.
-	-- gtk_tree_view_expand_all ()
-
-	-- void        gtk_tree_view_expand_all        (GtkTreeView *tree_view);
-
-	-- Recursively expands all nodes in the tree_view.
-
-	-- tree_view : 	A GtkTreeView.
-	-- gtk_tree_view_collapse_all ()
-
-	-- void        gtk_tree_view_collapse_all      (GtkTreeView *tree_view);
-
-	-- Recursively collapses all visible, expanded nodes in tree_view.
-
-	-- tree_view : 	A GtkTreeView.
-	-- gtk_tree_view_expand_to_path ()
-
 	-- void        gtk_tree_view_expand_to_path    (GtkTreeView *tree_view,
 	--                                              GtkTreePath *path);
 
@@ -515,28 +558,7 @@ feature
 	-- path : 	path to a row.
 
 	-- Since 2.2
-	-- gtk_tree_view_expand_row ()
 
-	-- gboolean    gtk_tree_view_expand_row        (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path,
-	--                                              gboolean open_all);
-
-	-- Opens the row so its children are visible.
-
-	-- tree_view : 	a GtkTreeView
-	-- path : 	path to a row
-	-- open_all : 	whether to recursively expand, or just expand immediate children
-	-- Returns : 	TRUE if the row existed and had children
-	-- gtk_tree_view_collapse_row ()
-
-	-- gboolean    gtk_tree_view_collapse_row      (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path);
-
-	-- Collapses a row (hides its child rows, if they exist).
-
-	-- tree_view : 	a GtkTreeView
-	-- path : 	path to a row in the tree_view
-	-- Returns : 	TRUE if the row was collapsed.
 	-- gtk_tree_view_map_expanded_rows ()
 
 	-- void        gtk_tree_view_map_expanded_rows (GtkTreeView *tree_view,
@@ -558,25 +580,6 @@ feature
 	-- tree_view : 	A GtkTreeView.
 	-- path : 	A GtkTreePath to test expansion state.
 	-- Returns : 	TRUE if path is expanded.
-	-- gtk_tree_view_set_reorderable ()
-
-	-- void        gtk_tree_view_set_reorderable   (GtkTreeView *tree_view,
-	--                                              gboolean reorderable);
-
-	-- This function is a convenience function to allow you to reorder models that support the GtkDragSourceIface and the GtkDragDestIface. Both GtkTreeStore and GtkListStore support these. If reorderable is TRUE, then the user can reorder the model by dragging and dropping rows. The developer can listen to these changes by connecting to the model's row_inserted and row_deleted signals.
-
-	-- This function does not give you any degree of control over the order -- any reordering is allowed. If more control is needed, you should probably handle drag and drop manually.
-
-	-- tree_view : 	A GtkTreeView.
-	-- reorderable : 	TRUE, if the tree can be reordered.
-	-- gtk_tree_view_get_reorderable ()
-
-	-- gboolean    gtk_tree_view_get_reorderable   (GtkTreeView *tree_view);
-
-	-- Retrieves whether the user can reorder the tree via drag-and-drop. See gtk_tree_view_set_reorderable().
-
-	-- tree_view : 	a GtkTreeView
-	-- Returns : 	TRUE if the tree can be reordered.
 	-- gtk_tree_view_get_path_at_pos ()
 
 	-- gboolean    gtk_tree_view_get_path_at_pos   (GtkTreeView *tree_view,
@@ -1383,11 +1386,6 @@ feature
 	-- void        gtk_tree_view_collapse_all      (GtkTreeView *tree_view);
 	-- void        gtk_tree_view_expand_to_path    (GtkTreeView *tree_view,
 	--                                              GtkTreePath *path);
-	-- gboolean    gtk_tree_view_expand_row        (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path,
-	--                                              gboolean open_all);
-	-- gboolean    gtk_tree_view_collapse_row      (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path);
 	-- void        gtk_tree_view_map_expanded_rows (GtkTreeView *tree_view,
 	--                                              GtkTreeViewMappingFunc func,
 	--                                              gpointer data);
@@ -2062,28 +2060,6 @@ feature
 	-- path : 	path to a row.
 
 	-- Since 2.2
-	-- gtk_tree_view_expand_row ()
-
-	-- gboolean    gtk_tree_view_expand_row        (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path,
-	--                                              gboolean open_all);
-
-	-- Opens the row so its children are visible.
-
-	-- tree_view : 	a GtkTreeView
-	-- path : 	path to a row
-	-- open_all : 	whether to recursively expand, or just expand immediate children
-	-- Returns : 	TRUE if the row existed and had children
-	-- gtk_tree_view_collapse_row ()
-
-	-- gboolean    gtk_tree_view_collapse_row      (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path);
-
-	-- Collapses a row (hides its child rows, if they exist).
-
-	-- tree_view : 	a GtkTreeView
-	-- path : 	path to a row in the tree_view
-	-- Returns : 	TRUE if the row was collapsed.
 	-- gtk_tree_view_map_expanded_rows ()
 
 	-- void        gtk_tree_view_map_expanded_rows (GtkTreeView *tree_view,
