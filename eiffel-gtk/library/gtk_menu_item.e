@@ -41,6 +41,7 @@ feature {} -- Creation
 			-- Creates a new GtkMenuItem.
 		do
 			handle :=  gtk_menu_item_new
+			store_eiffel_wrapper			
 		end
 
 	with_label (a_label: STRING) is
@@ -48,6 +49,7 @@ feature {} -- Creation
 		require label_not_void: a_label /= Void
 		do
 			handle := gtk_menu_item_new_with_label (a_label.to_external)
+			store_eiffel_wrapper
 		end
 
 	with_mnemonic (a_label: STRING) is
@@ -55,6 +57,7 @@ feature {} -- Creation
 			-- in label indicate the mnemonic for the menu item.
 		require label_not_void: a_label /= Void
 		do
+			store_eiffel_wrapper
 			handle := gtk_menu_item_new_with_mnemonic (a_label.to_external)
 		end
 

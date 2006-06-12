@@ -50,6 +50,7 @@ feature {NONE} -- Creation
 			-- space, from 0 to 1. The values are similar to xscale.
 		do
 			handle := gtk_alignment_new (xalign,yalign,xscale,yscale)
+			store_eiffel_wrapper
 		end
 feature
 	set (xalign, yalign, xscale, yscale: REAL) is

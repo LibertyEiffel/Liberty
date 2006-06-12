@@ -35,7 +35,8 @@ feature {NONE} -- Creation
 	make is
 			-- Creates a new GtkCellRendererProgress.
 		do
-			handle := gtk_cell_renderer_progress_new 
+			handle := gtk_cell_renderer_progress_new
+			store_eiffel_wrapper
 		end 
 
 feature -- Properties

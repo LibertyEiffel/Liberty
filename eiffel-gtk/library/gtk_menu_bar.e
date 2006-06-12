@@ -42,6 +42,7 @@ feature {} -- Creation
 			-- Creates the new GtkMenuBar
 		do
 			handle := gtk_menu_bar_new
+			store_eiffel_wrapper
 		end
 
 feature
@@ -70,7 +71,7 @@ feature
 		require
 			valid_direction: is_valid_pack_direction (a_direction)
 		do
-        gtk_menu_bar_set_child_pack_direction (handle, a_direction)
+		  gtk_menu_bar_set_child_pack_direction (handle, a_direction)
 		end
 
 

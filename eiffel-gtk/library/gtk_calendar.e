@@ -62,6 +62,7 @@ feature {NONE} -- Creation
 			-- selected.
 		do
 			handle := gtk_calendar_new
+			store_eiffel_wrapper
 		end
 
 

@@ -32,6 +32,8 @@ feature {NONE} -- Creation
 			handle := gtk_aspect_frame_new (a_label.to_external,
 													  an_xalign, an_yalign, a_ratio,
 													  obey_child.to_integer)
+			store_eiffel_wrapper
+
 		end
 
 

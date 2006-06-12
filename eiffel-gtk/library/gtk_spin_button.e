@@ -127,6 +127,7 @@ feature {NONE} -- Creation
 
 		do
 			handle:=gtk_spin_button_new_with_range  (a_min, a_max, a_step)
+			store_eiffel_wrapper
 		end
 
 feature -- Configuration

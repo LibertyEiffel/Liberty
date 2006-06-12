@@ -72,7 +72,8 @@ feature {} -- Creation
 			-- `set_model' and a text_column using
 			-- `set_text_column'.
 		do
-			handle := gtk_combo_box_entry_new 
+			handle := gtk_combo_box_entry_new
+			store_eiffel_wrapper			
 		end
 	
 	with_model (a_model: GTK_TREE_MODEL; a_text_column: INTEGER) is
@@ -83,6 +84,7 @@ feature {} -- Creation
 			-- data manipulation API.
 		do
 			handle := gtk_combo_box_entry_new_with_model (a_model.handle, a_text_column)
+			store_eiffel_wrapper
 		end
 
 	with_text_only is
@@ -94,6 +96,7 @@ feature {} -- Creation
 			-- `insert_text', `prepend_text' and `remove_text'.
 		do
 			handle := gtk_combo_box_entry_new_text 
+			store_eiffel_wrapper
 			is_text_only:=True
 		ensure then text_only: is_text_only
 		end

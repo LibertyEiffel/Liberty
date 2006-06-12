@@ -39,7 +39,8 @@ feature {NONE} -- Creation
 	make is 
 			-- Creates a new GtkCellView widget.
 		do
-			handle := gtk_cell_view_new 
+			handle := gtk_cell_view_new
+			store_eiffel_wrapper			
 		end
 
 	make_with_text (a_text: STRING) is
@@ -48,6 +49,7 @@ feature {NONE} -- Creation
 		require valide_text: a_text /= Void
 		do
 			handle:=gtk_cell_view_new_with_text (a_text.to_external)
+			store_eiffel_wrapper
 		end
 	
 	new_with_markup (a_markup: STRING) is
@@ -58,6 +60,7 @@ feature {NONE} -- Creation
 		require valid_text: a_markup /= Void
 		do
 			handle := gtk_cell_view_new_with_markup (a_markup.to_external)
+			store_eiffel_wrapper
 		end
 
 	make_with_pixbuf (a_pixbuf: GDK_PIXBUF) is
@@ -65,6 +68,7 @@ feature {NONE} -- Creation
 		-- GtkCellRendererPixbuf to it, and makes its show `a_pixbuf'.
 		do
 			handle:=gtk_cell_view_new_with_pixbuf (a_pixbuf.handle)
+			store_eiffel_wrapper
 		endl
 
 feature
