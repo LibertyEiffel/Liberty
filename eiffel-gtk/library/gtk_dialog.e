@@ -131,13 +131,19 @@ creation new, make, from_external_pointer
 
 feature {NONE} -- Creation
 
-	new,make is
+	make is
 			-- Creates a new dialog box. Widgets should not be packed
 			-- into this GtkWindow directly, but into the vbox and
 			-- action_area.
 		do
 			handle := gtk_dialog_new
 			store_eiffel_wrapper
+		end
+
+	new is
+		obsolete "use `make' instead."
+		do
+			make
 		end
 
 	

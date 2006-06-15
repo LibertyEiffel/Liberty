@@ -57,14 +57,16 @@ indexing
 
 class GTK_MESSAGE_DIALOG
 inherit
-
-	GTK_DIALOG rename new as new_dialog -- redefine new end
+	GTK_DIALOG
+		rename
+			new as new_dialog -- redefine new end
+			make as make_dialog -- redefine make end
 		end
 	GTK_MESSAGE_DIALOG_EXTERNALS
 		-- Implemented Interfaces: GtkMessageDialog implements
 		-- AtkImplementorIface.
-	
-creation new, with_markup ,from_external_pointer
+
+creation new, make, with_markup, from_external_pointer
 
 feature -- size
 	size: INTEGER is
@@ -73,7 +75,7 @@ feature -- size
 		end
 
 feature {NONE} -- Creation
-	new (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
+	make (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
 			-- Creates a new message dialog, which is a simple dialog
 			-- with an icon indicating the dialog `a_type' (error,
 			-- warning, etc.) and some text the user may want to
@@ -93,6 +95,12 @@ feature {NONE} -- Creation
 				handle:=gtk_message_dialog_new(a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external)
 			end
 			store_eiffel_wrapper
+		end
+	
+	new (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
+		obsolete "use `make' instead."
+		do
+			make (a_parent, some_flags, a_type, some_buttons, a_message)
 		end
 	
 	with_markup (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
