@@ -37,7 +37,7 @@ feature -- Creation
 	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
 		require valid_model: a_model/=Void
 		do
-			handle := g_malloc (size)
+			handle := g_try_malloc (size)
 			tree_model := a_model
 		end
 

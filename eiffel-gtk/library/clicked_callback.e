@@ -38,6 +38,13 @@ feature
 			procedure.call ([object])
 		end
 
+	callback_pointer: POINTER is
+		do
+			Result := get_callback_pointer ($callback)
+		ensure
+			Result.is_not_null
+		end
+
 	connect (an_object: GTK_BUTTON; a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
 		do
 			debug
@@ -49,10 +56,10 @@ feature
 			end
 					 
 			handler_id := g_signal_connect_closure (an_object.handle,
-																 signal_name.to_external,
-																 handle,
-																 0 -- i.e. call it before default handler
-																 )
+													 signal_name.to_external,
+													 handle,
+													 0 -- i.e. call it before default handler
+													 )
 			procedure:=a_procedure
 		end
 

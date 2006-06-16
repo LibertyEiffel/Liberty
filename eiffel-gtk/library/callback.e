@@ -17,13 +17,13 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"
 
-	
 deferred class CALLBACK
+
 inherit G_CLOSURE
 insert G_SIGNAL_EXTERNALS
 
@@ -33,12 +33,12 @@ feature
 			-- Using the _swap version is the key here. When the callback
 			-- is invoked the first parameter of the C function will be
 			-- the address of Eiffel's Current
-			handle := g_cclosure_new_swap ($callback,
-													 Current.to_pointer, -- as user_data
-													 default_pointer -- i.e.: NULL as destroy callback
-													 )
+			handle := g_cclosure_new_swap (callback_pointer,
+											 Current.to_pointer, -- as user_data
+											 default_pointer -- i.e.: NULL as destroy callback
+											 )
 		end
-	
+
 	signal_name: STRING is
 			-- The name of the signal that Current callback will connect to.
 		deferred
@@ -46,5 +46,16 @@ feature
 
 	handler_id: INTEGER_64
 			-- The numerical id of Current 
- end
-	
+
+feature {NONE} -- Auxiliar
+
+	get_callback_pointer (pointer: POINTER): POINTER is
+			-- Identity on pointers. Workaround for SE's stupidity
+			-- accepting $feature only as argument
+		do
+			Result := pointer
+		ensure
+			Result = pointer
+		end
+
+end

@@ -21,23 +21,45 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"
-	
+
 class ACTIVATE_CALLBACK
+
 inherit
 	CALLBACK
 		redefine object, callback
 		end
-creation make 
+
+insert G_OBJECT_RETRIEVER [GTK_BUTTON]
+
+creation make
+
 feature
 	object: GTK_BUTTON
 
 feature
+
 	callback (instance: POINTER) is --  a_button: GTK_BUTTON) is
 		do
-			-- Empty by design.
-			print ("Callback: instance=") print (instance.to_string)	print ("%N")
-			create object.from_external_pointer (instance)
+			debug
+				print ("Callback: instance=") print (instance.to_string) print ("%N")
+			end
+			-- The following is written with the implicit requirement 
+			-- that the button is actually created bu the Eiffel 
+			-- application. 
+			check
+				eiffel_created_the_button: has_eiffel_wrapper_stored (instance)
+			end
+			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			-- The above line replaces "create object.from_external_pointer
+			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])
+		end
+
+	callback_pointer: POINTER is
+		do
+			Result := get_callback_pointer ($callback)
+		ensure
+			Result.is_not_null
 		end
 
 	connect (an_object: GTK_BUTTON; a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
@@ -51,10 +73,10 @@ feature
 			end
 					 
 			handler_id := g_signal_connect_closure (an_object.handle,
-																 signal_name.to_external,
-																 handle,
-																 0 -- i.e. call it before default handler
-																 )
+													 signal_name.to_external,
+													 handle,
+													 0 -- i.e. call it before default handler
+													 )
 			procedure:=a_procedure
 		end
 

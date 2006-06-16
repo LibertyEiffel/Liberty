@@ -93,8 +93,9 @@ indexing
 			-- exists. Thus, if access to a particular row is needed often and
 			-- your code is expected to run on older versions of GTK+, it is worth
 			-- keeping the iter around.
-	
+
 class GTK_LIST_STORE
+
 inherit
 	GTK_TREE_MODEL rename make as make_struct end
 	GTK_TREE_SORTABLE rename make as make_struct end

@@ -9,7 +9,6 @@ class CLOSE_CALLBACK
 
 inherit
 	CALLBACK
-		-- rename object as button
 		redefine object, callback
 		end
 
@@ -29,15 +28,22 @@ feature
 				print ("type: "+g_object_type (instance).out+"%N")
 			end
 			-- The following is written with the implicit requirement 
-			-- that the button is actually created bu the Eiffel 
+			-- that the dialog is actually created bu the Eiffel 
 			-- application. 
 			check
-				eiffel_created_the_button: has_eiffel_wrapper_stored (instance)
+				eiffel_created_the_dialog: has_eiffel_wrapper_stored (instance)
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			-- The above line replaces "create object.from_external_pointer
 			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])
+		end
+
+	callback_pointer: POINTER is
+		do
+			Result := get_callback_pointer ($callback)
+		ensure
+			Result.is_not_null
 		end
 
 	connect (an_object: GTK_DIALOG; a_procedure: PROCEDURE [ANY, TUPLE[GTK_DIALOG]]) is

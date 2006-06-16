@@ -36,31 +36,35 @@ indexing
 			-- it usually more convenient to let GObject create a closure
 			-- automatically by using one of the g_signal_connect_*()
 			-- functions which take a callback function/user data pair.
-	
+			
 			-- Using closures has a number of important advantages over a
 			-- simple callback function/data pointer combination:
-	
+			
 			-- o Closures allow the callee to get the types of the
 			-- callback parameters, which means that language bindings
 			-- don't have to write individual glue for each callback
 			-- type.
-	
+			
 			-- o The reference counting of GClosure makes it easy to
 			-- handle reentrancy right; if a callback is removed while it
 			-- is being invoked, the closure and it's parameters won't be
 			-- freed until the invocation finishes.
-	
+			
 			-- o g_closure_invalidate() and invalidation notifiers allow
 			-- callbacks to be automatically removed when the objects
 			-- they point to go away.
 
-class G_CLOSURE
-inherit SHARED_C_STRUCT redefine dispose end
-	
-creation make, link_to
+deferred class G_CLOSURE
+
+inherit
+	SHARED_C_STRUCT redefine dispose end
 
 feature -- Callback
-	callback (instance: POINTER) is  
+	callback (instance: POINTER) is
+		obsolete "[
+					use `callback_pointer' instead. For further details please
+					check CLICKED_CALLBACK as explanatory example.
+				  ]"
 			-- The feature that Current G_CLOSURE will execute.
 			-- require valid_object: an_object /= Void 
 		do
@@ -70,14 +74,17 @@ feature -- Callback
 			-- function
 		end
 
-	object: G_OBJECT
+feature -- Callback pointer
+	callback_pointer: POINTER is deferred end
 	
+	object: G_OBJECT
+
 feature -- Creation
 	link_to (an_object: like object) is
 			-- Creates a new closure which invokes 'callback'
-		
+			
 			-- TODO: add destroy_notify callback support
-		require valid_object: an_object /= Void 
+		require valid_object: an_object /= Void
 		do
 			-- Note: the following implementation will make the C
 			-- GClosure to call Eiffel's `callback' feature of
@@ -86,10 +93,10 @@ feature -- Creation
 			-- actually a pointer to Current is handled by the Eiffel
 			-- garbage collector.
 			object := an_object
-			handle := g_cclosure_new_swap ($callback,
-													 $object, -- as user_data
-													 default_pointer -- i.e.: NULL as destroy callback
-													 )
+			handle := g_cclosure_new_swap (callback_pointer,
+											 $object, -- as user_data
+											 default_pointer -- i.e.: NULL as destroy callback
+											 )
 			-- g_cclosure_new_swap creates a new closure which invokes
 			-- callback_func with user_data with user_data as the first
 			-- parameter. Note: this exchange is necessary to allow us to
@@ -99,7 +106,7 @@ feature -- Creation
 			-- see also g_cclosure_new that creates a new closure which
 			-- invokes callback_func with user_data with user_data as the
 			-- last parameter.
-
+			
 			-- 	callback_func : the function to invoke 
 			-- 	user_data : user data to pass to callback_func 
 			-- 	destroy_data : destroy notify to be called when user_data is no longer used 

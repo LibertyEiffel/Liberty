@@ -26,7 +26,9 @@ class CHANGE_CURRENT_PAGE_CALLBACK
 inherit
 	G_SIGNALS
 	WRAPPER undefine from_external_pointer end
+
 creation make
+
 feature
 	make (a_notebook: GTK_NOTEBOOK; a_procedure: PROCEDURE[TUPLE[GTK_NOTEBOOK]]) is
 		require valid_notebook: a_notebook/=Void
@@ -49,4 +51,3 @@ feature {NONE} -- Implementation
 			procedure.call ([notebook])
 		end
 end
-
