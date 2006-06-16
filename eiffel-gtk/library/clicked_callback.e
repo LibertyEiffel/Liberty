@@ -7,11 +7,7 @@ indexing
 
 class CLICKED_CALLBACK
 
-inherit
-	CALLBACK
-		-- rename object as button
-		redefine object, callback
-		end
+inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [GTK_BUTTON]
 

@@ -59,21 +59,6 @@ deferred class G_CLOSURE
 inherit
 	SHARED_C_STRUCT redefine dispose end
 
-feature -- Callback
-	callback (instance: POINTER) is
-		obsolete "[
-					use `callback_pointer' instead. For further details please
-					check CLICKED_CALLBACK as explanatory example.
-				  ]"
-			-- The feature that Current G_CLOSURE will execute.
-			-- require valid_object: an_object /= Void 
-		do
-			-- Note: I'm pretty sure this feature *cannot* be deferred
-			-- with current release of SmartEiffel, since it needs to
-			-- determine the address of this feature when compiled to a C
-			-- function
-		end
-
 feature -- Callback pointer
 	callback_pointer: POINTER is deferred end
 	

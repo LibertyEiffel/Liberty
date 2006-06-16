@@ -7,10 +7,7 @@ indexing
 
 class CLOSE_CALLBACK
 
-inherit
-	CALLBACK
-		redefine object, callback
-		end
+inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [GTK_DIALOG]
 

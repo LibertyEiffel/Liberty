@@ -27,7 +27,7 @@ deferred class GTK_WIDGET
 inherit GTK_OBJECT
 
 insert GTK_WIDGET_EXTERNALS
-	
+
 feature
 	show is
 			-- Flags widget to be displayed.
@@ -48,6 +48,30 @@ feature
 			-- (invisible to the user).
 		do
 			gtk_widget_hide (handle)
+		end
+
+feature -- The "delete_event" signal
+	delete_event_signal_name: STRING is "delete_event"
+
+	enable_on_delete_event is
+			-- Connects "delete_event" signal to `on_delete_event' feature.
+		do
+			connect (Current, delete_event_signal_name, $on_delete_event)
+		end
+
+	on_delete_event is
+			-- Built-in delete_event signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_delete_event_signal (a_function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local delete_event_callback: DELETE_EVENT_CALLBACK
+		do
+			create delete_event_callback.make
+			delete_event_callback.connect (Current, a_function)
 		end
 
 -- widget : 	a GtkWidget
