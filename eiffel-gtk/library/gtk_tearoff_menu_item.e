@@ -19,10 +19,31 @@ indexing
 					02110-1301 USA
 				]"
 
+	gtk_description: "[ 
+							A GtkTearoffMenuItem is a special GtkMenuItem which is used to
+							tear off and reattach its menu. 
+					When its menu is shown normally, the GtkTearoffMenuItem is drawn as a dotted line indicating that the menu can be torn off. Activating it causes
+							its menu to be torn off and displayed in its own window as a
+							tearoff -- menu.
+							
+							When its menu is shown as a tearoff menu, the GtkTearoffMenuItem is drawn as a dotted line which has a left
+							pointing arrow graphic indicating that the tearoff menu can be reattached. Activating it will erase the
+							tearoff menu window.
+							]"
+
 class GTK_TEAROFF_MENU_ITEM
 inherit GTK_MENU_ITEM
-
+	-- TODO: GtkTearoffMenuItem implements AtkImplementorIface.
 creation make
+
+feature {} -- Creation
+
+	make is
+			--    Creates a new GtkTearoffMenuItem.
+		do
+			handle :=  gtk_tearoff_menu_item_new
+			store_eiffel_wrapper
+		end 
 
 feature -- size
 	size: INTEGER is
@@ -30,65 +51,10 @@ feature -- size
 		alias "sizeof(GtkTearoffMenuItem)"
 		end
 
-feature {} -- Creation
- 
+feature {} -- External features
 
--- Synopsis
+	gtk_tearoff_menu_item_new: POINTER is  -- GtkWidget*
+		external "C use <gtk/gtk.h>"
+		end
 
-
---  #include <gtk/gtk.h>
-
-
---              GtkTearoffMenuItem;
---  GtkWidget*  gtk_tearoff_menu_item_new       (void);
-
-
-
--- Object Hierarchy
-
-
---    GObject
---     +----GInitiallyUnowned
---           +----GtkObject
---                 +----GtkWidget
---                       +----GtkContainer
---                             +----GtkBin
---                                   +----GtkItem
---                                         +----GtkMenuItem
---                                               +----GtkTearoffMenuItem
-
--- Implemented Interfaces
-
---    GtkTearoffMenuItem implements AtkImplementorIface.
-
--- Description
-
---    A GtkTearoffMenuItem is a special GtkMenuItem which is used to tear off and reattach its menu.
-
---    When its menu is shown normally, the GtkTearoffMenuItem is drawn as a dotted line indicating that the menu
---    can be torn off. Activating it causes its menu to be torn off and displayed in its own window as a tearoff
---    menu.
-
---    When its menu is shown as a tearoff menu, the GtkTearoffMenuItem is drawn as a dotted line which has a left
---    pointing arrow graphic indicating that the tearoff menu can be reattached. Activating it will erase the
---    tearoff menu window.
-
--- Details
-
---   GtkTearoffMenuItem
-
---  typedef struct _GtkTearoffMenuItem GtkTearoffMenuItem;
-
---    The GtkTearoffMenuItem-struct struct contains private data only, and should be accessed using the functions
---    below.
-
---    ------------------------------------------------------------------------------------------------------------
-
---   gtk_tearoff_menu_item_new ()
-
---  GtkWidget*  gtk_tearoff_menu_item_new       (void);
-
---    Creates a new GtkTearoffMenuItem.
-
---    Returns : a new GtkTearoffMenuItem.
 end

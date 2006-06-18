@@ -1,5 +1,5 @@
 indexing
-	description: "."
+	description: "GtkSeparatorMenuItem -- A separator used in menus."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -19,10 +19,23 @@ indexing
 					02110-1301 USA
 					]"					
 
+					-- Description: The GtkSeparatorMenuItem is a separator
+					-- used to group items within a menu. It displays a
+					-- horizontal line with a shadow to make it appear
+					-- sunken into the interface.
+
 class GTK_SEPARATOR_MENU_ITEM
 inherit GTK_MENU_ITEM
-	
+	-- TODO: GtkSeparatorMenuItem implements AtkImplementorIface.	
 creation make
+
+feature {} -- Creation
+	make is
+			-- Creates a new GtkSeparatorMenuItem.
+		do
+			handle := gtk_separator_menu_item_new 
+			store_eiffel_wrapper
+		end
 
 feature -- size
 	size: INTEGER is
@@ -30,61 +43,9 @@ feature -- size
 		alias "sizeof(GtkSeparatorMenuItem)"
 		end
 
-feature {} -- Creation
+feature {} -- External features
+   gtk_separator_menu_item_new: POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
---    
-
---    GtkSeparatorMenuItem -- A separator used in menus
-
--- Synopsis
-
-
---  #include <gtk/gtk.h>
-
-
---              GtkSeparatorMenuItem;
---  GtkWidget*  gtk_separator_menu_item_new     (void);
-
-
-
--- Object Hierarchy
-
-
---    GObject
---     +----GInitiallyUnowned
---           +----GtkObject
---                 +----GtkWidget
---                       +----GtkContainer
---                             +----GtkBin
---                                   +----GtkItem
---                                         +----GtkMenuItem
---                                               +----GtkSeparatorMenuItem
-
--- Implemented Interfaces
-
---    GtkSeparatorMenuItem implements AtkImplementorIface.
-
--- Description
-
---    The GtkSeparatorMenuItem is a separator used to group items within a menu. It displays a horizontal line
---    with a shadow to make it appear sunken into the interface.
-
--- Details
-
---   GtkSeparatorMenuItem
-
---  typedef struct _GtkSeparatorMenuItem GtkSeparatorMenuItem;
-
---    The GtkSeparatorMenuItem-struct struct contains private data only, and should be accessed using the
---    functions below.
-
---    ------------------------------------------------------------------------------------------------------------
-
---   gtk_separator_menu_item_new ()
-
---  GtkWidget*  gtk_separator_menu_item_new     (void);
-
---    Creates a new GtkSeparatorMenuItem.
-
---    Returns : a new GtkSeparatorMenuItem.
 end
