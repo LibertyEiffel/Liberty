@@ -23,8 +23,6 @@ indexing
 
 deferred class GTK_ITEM_EXTERNALS
 	
-creation make
-
 feature {NONE} -- externals 
 	gtk_item_select (an_item: POINTER) is external "C use <gtk/gtk.h>" end
 	gtk_item_deselect (an_item: POINTER) is external "C use <gtk/gtk.h>" end

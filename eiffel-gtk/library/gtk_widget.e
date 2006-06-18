@@ -50,30 +50,6 @@ feature
 			gtk_widget_hide (handle)
 		end
 
-feature -- The "delete_event" signal
-	delete_event_signal_name: STRING is "delete_event"
-
-	enable_on_delete_event is
-			-- Connects "delete_event" signal to `on_delete_event' feature.
-		do
-			connect (Current, delete_event_signal_name, $on_delete_event)
-		end
-
-	on_delete_event is
-			-- Built-in delete_event signal handler; empty by design; redefine it.
-		do
-		end
-
-	connect_agent_to_delete_event_signal (a_function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
-		require
-			valid_function: a_function /= Void
-			wrapper_is_stored: is_eiffel_wrapper_stored
-		local delete_event_callback: DELETE_EVENT_CALLBACK
-		do
-			create delete_event_callback.make
-			delete_event_callback.connect (Current, a_function)
-		end
-
 -- widget : 	a GtkWidget
 	
 	-- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
@@ -447,7 +423,7 @@ feature -- The "delete_event" signal
 --   "interior-focus"       gboolean              : Read
 --   "secondary-cursor-color" GdkColor              : Read
 
--- Signals
+feature -- Signals
 
 -- "accel-closures-changed"
 --             void        user_function      (GtkWidget *widget,
@@ -476,10 +452,36 @@ feature -- The "delete_event" signal
 --             gboolean    user_function      (GtkWidget         *widget,
 --                                             GdkEventConfigure *event,
 --                                             gpointer           user_data)      : Run last
--- "delete-event"
---             gboolean    user_function      (GtkWidget *widget,
---                                             GdkEvent  *event,
---                                             gpointer   user_data)      : Run last
+
+	delete_event_signal_name: STRING is "delete-event"
+
+	enable_on_delete_event is
+			-- Connects "delete-event" signal to `on_delete_event' feature.
+		do
+			connect (Current, delete_event_signal_name, $on_delete_event)
+		end
+
+	on_delete_event: INTEGER is
+			-- Built-in delete-event signal handler; empty by design; redefine it.
+
+			-- The delete-event signal is emitted if a user requests that a
+			-- toplevel window is closed. The default handler for this signal
+			-- destroys the window.
+			-- finish with "Result := 1" to stop other handlers.
+		do
+		end
+
+	connect_agent_to_delete_event_signal (a_function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			delete_event_callback: DELETE_EVENT_CALLBACK
+		do
+			create delete_event_callback.make
+			delete_event_callback.connect (Current, a_function)
+		end
+
 -- "destroy-event"
 --             gboolean    user_function      (GtkWidget *widget,
 --                                             GdkEvent  *event,
@@ -2721,18 +2723,6 @@ feature -- The "delete_event" signal
 
 -- widget : 	the object which received the signal.
 -- event : 	
--- user_data : 	user data set when the signal handler was connected.
--- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
--- The "delete-event" signal
-
--- gboolean    user_function                  (GtkWidget *widget,
--- 														  GdkEvent  *event,
--- 														  gpointer   user_data)      : Run last
-
--- The ::delete-event signal is emitted if a user requests that a toplevel window is closed. The default handler for this signal destroys the window. Connecting gtk_widget_hide_on_delete() to this signal will cause the window to be hidden instead, so that it can later be shown again without reconstructing it.
-
--- widget : 	the object which received the signal.
--- event : 	the event which triggered this signal
 -- user_data : 	user data set when the signal handler was connected.
 -- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
 -- The "destroy-event" signal

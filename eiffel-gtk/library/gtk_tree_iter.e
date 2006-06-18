@@ -39,6 +39,8 @@ feature -- Creation
 		do
 			handle := g_try_malloc (size)
 			tree_model := a_model
+		ensure
+			handle.is_not_null
 		end
 
 feature
