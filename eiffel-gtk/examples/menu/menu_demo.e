@@ -32,7 +32,14 @@ feature
 			file_menu.set_submenu (file_submenu)
 			edit_menu.set_submenu (edit_submenu)
 			view_menu.set_submenu (view_submenu)
-			
+
+			file_submenu.append (open_menu)
+			file_submenu.append (save_menu)
+			file_submenu.append (file_menu_separator)
+			file_submenu.append (quit_menu)
+
+			edit_submenu.append (view_all_menu)
+			edit_submenu.append (view_some_menu)
 			window.show_all
 			gtk.run_main_loop 
 		end
