@@ -30,7 +30,7 @@ indexing
 
 class GTK_MENU_BAR
 inherit
-	GTK_MENU_SHELL
+	GTK_MENU_SHELL redefine size end
 		-- GtkMenuBar implements AtkImplementorIface.
 	
 insert GTK_PACK_DIRECTION
@@ -80,6 +80,7 @@ feature
 			-- `set_child_pack_direction'.
 		do
 			Result:= gtk_menu_bar_get_child_pack_direction (handle)
+		ensure is_valid_pack_direction (Result)
 		end
 
 feature -- Properties
@@ -155,29 +156,20 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	--  enum        GtkPackDirection;
-	--  void        gtk_menu_bar_set_pack_direction (GtkMenuBar *menubar,
-	-- 															 GtkPackDirection pack_dir);
-	--  GtkPackDirection gtk_menu_bar_get_pack_direction
-	-- 															(GtkMenuBar *menubar);
-	--  void        gtk_menu_bar_set_child_pack_direction
-	-- 															(GtkMenuBar *menubar,
-	-- 															 GtkPackDirection child_pack_dir);
-	--  GtkPackDirection gtk_menu_bar_get_child_pack_direction
-	-- 															(GtkMenuBar *menubar);
+	gtk_menu_bar_set_pack_direction (a_menubar: POINTER; a_pack_dir: INTEGER)  is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_bar_get_pack_direction (a_menubar: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_bar_set_child_pack_direction (a_menubar: POINTER; a_child_pack_dir: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+	
+	gtk_menu_bar_get_child_pack_direction (a_menubar: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+	
 end
-
--- This library is free software; you can redistribute it and/or
--- modify it under the terms of the GNU Lesser General Public License
--- as published by the Free Software Foundation; either version 2.1 of
--- the License, or (at your option) any later version.
-
--- This library is distributed in the hope that it will be useful, but
--- WITHOUT ANY WARRANTY; without even the implied warranty of
--- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
--- Lesser General Public License for more details.
-
--- You should have received a copy of the GNU Lesser General Public
--- License along with this library; if not, write to the Free Software
--- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
--- 02110-1301 USA

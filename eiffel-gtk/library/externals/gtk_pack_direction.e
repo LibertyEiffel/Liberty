@@ -24,9 +24,9 @@ feature  -- enum
 	is_valid_pack_direction (a_direction :INTEGER): BOOLEAN is
 		do	
 			Result := ((a_direction = gtk_pack_direction_ltr) or else
-							a_direction = gtk_pack_direction_rtl) or else
-							a_direction = gtk_pack_direction_ttb) or else
-							a_direction = gtk_pack_direction_btt))
+						  (a_direction = gtk_pack_direction_rtl) or else
+						  (a_direction = gtk_pack_direction_ttb) or else
+						  (a_direction = gtk_pack_direction_btt))
 		end
 
 	gtk_pack_direction_ltr: INTEGER is

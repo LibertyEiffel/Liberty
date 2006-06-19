@@ -32,8 +32,8 @@ inherit
 	GTK_ITEM
 	
 		-- GtkMenuItem implements AtkImplementorIface.
-insert
-	G_OBJECT_RETRIEVER [
+insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+	
 creation make, with_label, with_mnemonic
 
 feature {} -- Creation

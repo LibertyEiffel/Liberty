@@ -30,7 +30,7 @@ indexing
 					-- value.
 
 class GTK_CHECK_MENU_ITEM
-inherit GTK_MENU_ITEM
+inherit GTK_MENU_ITEM redefine make, size end
 	-- Known heirs: GtkRadioMenuItem
 
 	-- GtkCheckMenuItem implements AtkImplementorIface.

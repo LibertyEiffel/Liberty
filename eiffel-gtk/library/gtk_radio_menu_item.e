@@ -49,7 +49,7 @@ indexing
 
 class GTK_RADIO_MENU_ITEM
 
-inherit GTK_MENU_ITEM
+inherit GTK_MENU_ITEM redefine size end
 	-- TODO: GtkRadioMenuItem implements AtkImplementorIface.
 insert G_SIGNALS
 creation 
