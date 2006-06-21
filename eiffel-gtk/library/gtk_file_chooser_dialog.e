@@ -123,13 +123,14 @@ inherit
 		-- Implemented Interfaces: GtkFileChooserDialog implements
 		-- AtkImplementorIface and GtkFileChooser.
 	
-creation make_open
+creation
+	make_open, make_save
 
 feature {NONE} -- Creation
 	make_open (a_title: STRING; a_parent: GTK_WINDOW; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]]) is
 			-- Creates a new GTK_FILE_CHOOSER_DIALOG to open a file. `a_title' is the title  of
 			-- the dialog, or Void; `a_parent' - if not Void - is the
-			-- transient parent of the dialog; `an_action' is the Open or save mode for the dialog
+			-- transient parent of the dialog;
 			-- first_button_text : 	stock ID or text to go in the first button, or NULL
 			-- ... : 	response ID for the first button, then additional (button, id) pairs, ending with NULL
 			-- Returns : 	a new GtkFileChooserDialog
@@ -137,8 +138,19 @@ feature {NONE} -- Creation
 			making (a_title, a_parent, gtk_file_chooser_action_open, some_buttons)
 		end
 
+	make_save (a_title: STRING; a_parent: GTK_WINDOW; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]]) is
+			-- Creates a new GTK_FILE_CHOOSER_DIALOG to save a file. `a_title' is the title  of
+			-- the dialog, or Void; `a_parent' - if not Void - is the
+			-- transient parent of the dialog;
+			-- first_button_text : 	stock ID or text to go in the first button, or NULL
+			-- ... : 	response ID for the first button, then additional (button, id) pairs, ending with NULL
+			-- Returns : 	a new GtkFileChooserDialog
+		do
+			making (a_title, a_parent, gtk_file_chooser_action_save, some_buttons)
+		end
+
 	making (a_title: STRING; a_parent: GTK_WINDOW; an_action: INTEGER; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]]) is
-			-- Creates a new GTK_FILE_CHOOSER_DIALOG to open a file. `a_title' is the title  of
+			-- Creates a new GTK_FILE_CHOOSER_DIALOG. `a_title' is the title  of
 			-- the dialog, or Void; `a_parent' - if not Void - is the
 			-- transient parent of the dialog; `an_action' is the Open or save mode for the dialog
 			-- first_button_text : 	stock ID or text to go in the first button, or NULL
@@ -149,7 +161,7 @@ feature {NONE} -- Creation
 		do
 			if a_title/=Void then title_ptr := a_title.to_external end
 			if a_parent/=Void then parent_ptr := a_parent.handle end
-			handle := gtk_file_chooser_dialog_new (title_ptr, parent_ptr, gtk_file_chooser_action_open, default_pointer)
+			handle := gtk_file_chooser_dialog_new (title_ptr, parent_ptr, an_action, default_pointer)
 			store_eiffel_wrapper
 			if some_buttons/=Void then
 				from iterator := some_buttons.get_new_iterator; iterator.start
