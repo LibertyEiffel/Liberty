@@ -22,16 +22,18 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class ACTIVATE_CALLBACK
+class ACTIVATE_CALLBACK [W -> G_OBJECT]
 
-inherit CALLBACK redefine object end
+inherit
+	CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_BUTTON]
+insert
+	G_OBJECT_RETRIEVER [W]
 
 creation make
 
 feature
-	object: GTK_BUTTON
+	object: W
 
 feature
 
@@ -59,7 +61,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_BUTTON; a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+	connect (an_object: W; a_procedure: PROCEDURE [ANY, TUPLE[W]]) is
 		do
 			debug
 				print ("ACTIVATE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -77,7 +79,8 @@ feature
 			procedure:=a_procedure
 		end
 
-		signal_name: STRING is "activate"
+	signal_name: STRING is "activate"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]
+	procedure: PROCEDURE [ANY, TUPLE[W]]
+
 end

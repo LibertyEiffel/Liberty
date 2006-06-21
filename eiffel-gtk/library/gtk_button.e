@@ -454,8 +454,10 @@ feature -- The "activate" signal
 		end
 
 	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
-		require valid_procedure: a_procedure /= Void
-		local activate_callback: ACTIVATE_CALLBACK
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			activate_callback: ACTIVATE_CALLBACK[like Current]
 		do
 			create activate_callback.make
 			activate_callback.connect (Current, a_procedure)
