@@ -12,29 +12,29 @@ insert
 	SHARED_EIFFEL_KEY
 	
 feature {WRAPPER}
-   retrieve_eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
-	 -- Retrieve the eiffel wrapper object from gobject's `a_pointer'
-      require
-	 pointer_not_null: a_pointer.is_not_null
-	 pointer_has_stored_wrapper: has_eiffel_wrapper_stored (a_pointer)
-      do
-	 Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
-      ensure not_void: Result/=Void
-      end
-   
-   eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
-	 -- Retrieve the eiffel wrapper object from gobject's 
-	 -- `a_pointer'. Can be Void if the GObject referred by `a_pointer' 
-	 -- hasn't an Eiffel wrapper
-      require pointer_not_null: a_pointer.is_not_null
-      do
-	 Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
-      end
-   
-   has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
-      do
-	 Result:=	(g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
-      end
+	retrieve_eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
+			-- Retrieve the eiffel wrapper object from gobject's `a_pointer'
+		require
+			pointer_not_null: a_pointer.is_not_null
+			pointer_has_stored_wrapper: has_eiffel_wrapper_stored (a_pointer)
+		do
+			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
+		ensure not_void: Result/=Void
+		end
+	
+	eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
+			-- Retrieve the eiffel wrapper object from gobject's 
+			-- `a_pointer'. Can be Void if the GObject referred by `a_pointer' 
+			-- hasn't an Eiffel wrapper
+		require pointer_not_null: a_pointer.is_not_null
+		do
+			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
+		end
+	
+	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
+		do
+			Result:=	(g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
+		end
 
 feature {} -- External call
 	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: INTEGER_32): ITEM_ is

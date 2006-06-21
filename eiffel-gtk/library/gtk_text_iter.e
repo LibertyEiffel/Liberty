@@ -131,6 +131,7 @@ feature
 			-- occur in normal text as well, so it is not a reliable
 			-- indicator that a pixbuf or widget is in the buffer.
 		obsolete "this is wrong! should be UNICODE_STRING!"
+		require valid_end: an_end /= Void
 		do
 			create Result.from_external_copy (gtk_text_iter_get_slice (handle,
 																						  an_end.handle))
@@ -143,40 +144,44 @@ feature
 			-- character and byte offsets in the buffer. If you want
 			-- offsets to correspond, see `slice'.
 		obsolete "this is wrong! should be UNICODE_STRING!"
+		require valid_end: an_end /= Void
 		do
 			create Result.from_external_copy(gtk_text_iter_get_text(handle,
 																					  an_end.handle))
 		end
 	
-	-- gtk_text_iter_get_visible_slice ()
+	visible_slice (an_end: GTK_TEXT_ITER): STRING is
+			-- Like `slice', but invisible text is not
+			-- included. Invisible text is usually invisible because a
+			-- GtkTextTag with the "invisible" attribute turned on has
+			-- been applied to it.
+		require valid_end: an_end /= Void
+		do
+			create Result.from_external_copy (gtk_text_iter_get_visible_slice (handle, an_end.handle))
+		end
 
-	-- gchar*      gtk_text_iter_get_visible_slice (const GtkTextIter *start,
-	-- 															const GtkTextIter *end);
+	visible_text (an_end: GTK_TEXT_ITER): STRING is
+			-- Like `text', but invisible text is not included. Invisible
+			-- text is usually invisible because a GtkTextTag with the
+			-- "invisible" attribute turned on has been applied to it.
+		require valid_end: an_end /= Void
+		do
+			create Result.from_external_copy (gtk_text_iter_get_visible_text  (handle, an_end.handle))
+		end
 
-	-- Like gtk_text_iter_get_slice(), but invisible text is not included. Invisible text is usually invisible because a GtkTextTag with the "invisible" attribute turned on has been applied to it.
+	pixbuf: GDK_PIXBUF is
+			-- The pixbuf at Current iter position, if any. Otherwise Void
+		local ptr: POINTER
+		do
+			ptr := gtk_text_iter_get_pixbuf (handle)
+			if ptr.is_not_null then
+				create Result.from_external_pointer (ptr)
+			end
+		end
 
-	-- start : 	iterator at start of range
-	-- end : 	iterator at end of range
-	-- Returns : 	slice of text from the buffer
-	-- gtk_text_iter_get_visible_text ()
 
-	-- gchar*      gtk_text_iter_get_visible_text  (const GtkTextIter *start,
-	-- 															const GtkTextIter *end);
-
-	-- Like gtk_text_iter_get_text(), but invisible text is not included. Invisible text is usually invisible because a GtkTextTag with the "invisible" attribute turned on has been applied to it.
-
-	-- start : 	iterator at start of range
-	-- end : 	iterator at end of range
-	-- Returns : 	string containing visible text in the range
-	-- gtk_text_iter_get_pixbuf ()
-
-	-- GdkPixbuf*  gtk_text_iter_get_pixbuf        (const GtkTextIter *iter);
-
-	-- If the element at iter is a pixbuf, the pixbuf is returned (with no new reference count added). Otherwise, NULL is returned.
-
-	-- iter : 	an iterator
-	-- Returns : 	the pixbuf at iter
-	-- gtk_text_iter_get_marks ()
+	marks: G_SLIST [GTK_TEXT_MARK] is
+		
 
 	-- GSList*     gtk_text_iter_get_marks         (const GtkTextIter *iter);
 
