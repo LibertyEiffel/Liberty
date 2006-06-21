@@ -33,10 +33,10 @@ feature {} -- Destroying
 			-- Action to be executed just before garbage collection reclaims an 
 			-- object; frees the memory pointed by `handle'
 		do
-			if is_shared and then handle.is_not_null then
+			if not is_shared then
 				free (handle) -- if necessary
-				handle:= default_pointer
 			end
+			handle:= default_pointer
 		ensure then
 			now_null: is_null
 		end

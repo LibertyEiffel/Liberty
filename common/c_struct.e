@@ -47,10 +47,8 @@ feature {} -- Destroying
 			-- Frees the external pointer. Shall be called just before 
 			-- the garbage collector removes the wrapper object.
 		do
-			if is_not_null then
-				free (handle) -- if necessary
-				handle:= default_pointer -- null
-			end
+			free (handle) -- if necessary. free(NULL) is a NOP
+			handle:= default_pointer -- null
 		ensure
 			cleared: is_null
 		end
