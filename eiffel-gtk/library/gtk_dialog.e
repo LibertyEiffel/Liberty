@@ -644,17 +644,30 @@ feature -- Dialog's parts
 	
 	vbox: GTK_VBOX is
 			-- main part of the dialog box
+		local
+			retriever: G_RETRIEVER [GTK_VBOX]
 		do
-			create Result.from_external_pointer (get_vbox(handle))
-		ensure result_not_void: Result /= Void
+			if retriever.has_eiffel_wrapper_stored (get_vbox (handle)) then
+				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (get_vbox (handle))
+			else
+				create Result.from_external_pointer (get_vbox(handle))
+			end
+		ensure
+			result_not_void: Result /= Void
 		end
 
 	action_area: GTK_HBOX is
 			--  bottom area of the dialog. Generally used for packing
 			--  buttons into the dialog which may perform functions such
 			--  as cancel, ok, or apply
+		local
+			retriever: G_RETRIEVER [GTK_HBOX]
 		do
-			create Result.from_external_pointer (get_action_area(handle))
+			if retriever.has_eiffel_wrapper_stored (get_action_area (handle)) then
+				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (get_action_area (handle))
+			else
+				create Result.from_external_pointer (get_action_area(handle))
+			end
 		ensure result_bot_void: Result /= Void
 		end
 
