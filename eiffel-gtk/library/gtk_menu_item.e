@@ -32,9 +32,11 @@ inherit
 	GTK_ITEM
 	
 		-- GtkMenuItem implements AtkImplementorIface.
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
-	
-creation make, with_label, with_mnemonic
+
+insert
+	G_OBJECT_RETRIEVER  [GTK_WIDGET]
+
+creation make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -240,19 +242,31 @@ feature
 
 --    Default value: 5
 
--- Signal Details
+feature -- Signals
 
---   The "activate" signal
+	activate_signal_name: STRING is "activate"
 
---  void        user_function                  (GtkMenuItem *menuitem,
---                                              gpointer     user_data)      : Run first / Action
+	on_activate is
+			-- Built-in activate signal handler; empty by design; redefine it.
+		do
+		end
 
---    Emitted when the item is activated.
+	enable_on_activate is
+			-- Connects "activate" signal to `on_activate' feature.
+			-- Emitted when the item is activated.
+		do
+			connect (Current, activate_signal_name, $on_activate)
+		end
 
---    menuitem :  the object which received the signal.
---    user_data : user data set when the signal handler was connected.
-
---    -----------------------------------------------------------------------
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_MENU_ITEM]]) is
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			activate_callback: ACTIVATE_CALLBACK [like Current]
+		do
+			create activate_callback.make
+			activate_callback.connect (Current, a_procedure)
+		end
 
 --   The "activate-item" signal
 
