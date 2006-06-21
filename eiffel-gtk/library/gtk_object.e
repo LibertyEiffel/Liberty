@@ -90,7 +90,9 @@ indexing
 
 deferred class GTK_OBJECT
 
-inherit G_OBJECT
+inherit
+	G_OBJECT
+		redefine store_eiffel_wrapper end
 
 insert
 	GTK_OBJECT_EXTERNALS
@@ -129,6 +131,13 @@ feature
 --   "user-data"            gpointer              : Read / Write
 
 -- Anonymous User Data Pointer.
+
+	store_eiffel_wrapper is
+		do
+			Precursor
+			ref -- This takes care of sinking the object and/or adding a reference
+		end
+
 feature -- Signals
 	-- The "destroy" signal
 

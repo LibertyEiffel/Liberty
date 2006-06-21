@@ -51,7 +51,7 @@ class GTK_COMBO_BOX
 inherit
 	GTK_BIN
 	GTK_CELL_EDITABLE
-	GTK_CELL_LAYOUT redefine size end
+	GTK_CELL_LAYOUT undefine store_eiffel_wrapper redefine size end
 		-- GtkComboBox also implements AtkImplementorIface interface.
 
 insert
