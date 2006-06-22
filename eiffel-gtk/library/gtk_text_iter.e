@@ -17,24 +17,30 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 
-					gtk_documentation: "[
-											  You may wish to begin by reading the text widget conceptual
-											  overview which gives an overview of all the objects and data
-											  types related to the text widget and how they work together.
-											  ]"
+	gtk_documentation:	"[
+							  You may wish to begin by reading the text widget conceptual
+							  overview which gives an overview of all the objects and data
+							  types related to the text widget and how they work together.
+						  ]"
 
-											  
+
 class GTK_TEXT_ITER
 
-inherit C_STRUCT 
+inherit
+	C_STRUCT
+		-- XXX: please check this!
+		rename twin as c_twin
+		redefine free
+		end
 
 creation make, from_external_pointer
 
 feature {} -- Creation
-	
-feature  
+
+feature
+
 	buffer: GTK_TEXT_BUFFER is
 			-- the GtkTextBuffer this iterator is associated with.
 		do
@@ -134,7 +140,7 @@ feature
 		require valid_end: an_end /= Void
 		do
 			create Result.from_external_copy (gtk_text_iter_get_slice (handle,
-																						  an_end.handle))
+																	   an_end.handle))
 		end
 	
 	text (an_end: GTK_TREE_ITER): STRING is
@@ -147,7 +153,7 @@ feature
 		require valid_end: an_end /= Void
 		do
 			create Result.from_external_copy(gtk_text_iter_get_text(handle,
-																					  an_end.handle))
+																	an_end.handle))
 		end
 	
 	visible_slice (an_end: GTK_TEXT_ITER): STRING is
@@ -157,7 +163,8 @@ feature
 			-- been applied to it.
 		require valid_end: an_end /= Void
 		do
-			create Result.from_external_copy (gtk_text_iter_get_visible_slice (handle, an_end.handle))
+			create Result.from_external_copy (gtk_text_iter_get_visible_slice (handle,
+																			   an_end.handle))
 		end
 
 	visible_text (an_end: GTK_TEXT_ITER): STRING is
@@ -166,7 +173,7 @@ feature
 			-- "invisible" attribute turned on has been applied to it.
 		require valid_end: an_end /= Void
 		do
-			create Result.from_external_copy (gtk_text_iter_get_visible_text  (handle, an_end.handle))
+			create Result.from_external_copy (gtk_text_iter_get_visible_text (handle, an_end.handle))
 		end
 
 	pixbuf: GDK_PIXBUF is
@@ -181,7 +188,9 @@ feature
 
 
 	marks: G_SLIST [GTK_TEXT_MARK] is
-		
+		-- XXX: to complete? was committed with no implementation at all.
+		do
+		end
 
 	-- GSList*     gtk_text_iter_get_marks         (const GtkTextIter *iter);
 
@@ -957,6 +966,7 @@ feature
 	-- second : 	another GtkTextIter
 
 feature -- size
+
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextIter)"
