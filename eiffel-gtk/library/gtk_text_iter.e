@@ -31,8 +31,7 @@ class GTK_TEXT_ITER
 inherit
 	C_STRUCT
 		-- XXX: please check this!
-		rename twin as c_twin
-		redefine free
+		rename twin as c_twin, free as c_free
 		end
 
 creation make, from_external_pointer
@@ -44,7 +43,7 @@ feature
 	buffer: GTK_TEXT_BUFFER is
 			-- the GtkTextBuffer this iterator is associated with.
 		do
-			create Result.from_external (gtk_text_iter_get_buffer (handle))
+			create Result.from_external_pointer (gtk_text_iter_get_buffer (handle))
 		end
 
 	twin: like Current is
@@ -1314,12 +1313,12 @@ feature {} -- External call
 	
 	
 	gtk_text_iter_forward_search (an_iter: POINTER; a_string: POINTER; some_flags: INTEGER; an_match_start: POINTER; an_match_end: POINTER; a_limit: POINTER): INTEGER is -- gboolean
-		require valid_flags: are_valid_search_flags (some_flags)
+		require --valid_flags: are_valid_search_flags (some_flags)
 		external "C use <gtk/gtk.h>"
 		end
 	
 	gtk_text_iter_backward_search (an_iter: POINTER; a_string: POINTER; some_flags: INTEGER; a_match_start: POINTER; a_match_end: POINTER; a_limit: POINTER): INTEGER is -- gboolean
-		require valid_flags: are_valid_search_flags (some_flags)
+		require --valid_flags: are_valid_search_flags (some_flags)
 		external "C use <gtk/gtk.h>"
 		end
 	

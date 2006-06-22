@@ -18,7 +18,7 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					
-					]"
+				]"
 
 					-- Description
 
@@ -53,12 +53,14 @@ indexing
 					-- Marks are typically created using the
 					-- gtk_text_buffer_create_mark() function.
 
-class GTK_TEXT_MARK 
+class GTK_TEXT_MARK
+
 inherit G_OBJECT
 
 creation from_external_pointer
 
 feature
+
 	set_visible is
 			-- Makes the mark visible; the insertion point is normally
 			-- visible, i.e. you can see it as a vertical bar. Also, the
@@ -69,8 +71,8 @@ feature
 			gtk_text_mark_set_visible (handle, 1)
 		ensure visible: is_visible
 		end
-	
-	set_visible is
+
+	set_invisible is
 			-- Makes the mark invisible; see also `set_visible'
 		do
 			gtk_text_mark_set_visible (handle, 0)
@@ -80,7 +82,7 @@ feature
 	is_visible: BOOLEAN is
 			-- Is the mark visible ? (i.e. a cursor is displayed for it)
 		do
-			Result := (gtk_text_mark_get_visible (handle).to_boolean) 
+			Result := (gtk_text_mark_get_visible (handle).to_boolean)
 		end
 
 	is_deleted: BOOLEAN is
@@ -88,7 +90,7 @@ feature
 			-- `GTK_TEXT_BUFFER.delete_mark'?. Marks can't be used once
 			-- deleted.
 		do
-			Result := (gtk_text_mark_get_deleted (handle).to_boolean) 
+			Result := (gtk_text_mark_get_deleted (handle).to_boolean)
 		end
 
 	name: STRING is
