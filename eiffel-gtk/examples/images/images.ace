@@ -64,6 +64,7 @@ default -- section of the system
 
 cluster -- section
 	gtk: "${eiffel_libraries}/eiffel-gtk/loadpath.se"
+	gdk: "${eiffel_libraries}/eiffel-gdk/loadpath.se"
 	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
 	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
 
