@@ -25,7 +25,12 @@ inherit
 -- 			swap
 -- 		end
 	G_SLIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
-	SHARED_C_STRUCT rename is_not_null as wrapped_object_exists end
+	SHARED_C_STRUCT
+		rename
+			is_not_null as wrapped_object_exists
+		redefine
+			dispose
+		end
 	
 insert
 	-- TODO: inserting INTERNALS_HANDLER is NOT necessary. Remove it
@@ -295,6 +300,15 @@ feature
 		ensure valid: Result/=Void
 		end
 
+feature -- Memory management
+
+	dispose is
+		do
+			-- We override the default dispose routine; list nodes are not
+			-- allocated with malloc() so we should not use free()
+			g_slist_free (handle)
+			handle:= default_pointer
+		end
 
 	-- Glib's doc, useful for implementing unimplemented
 	
