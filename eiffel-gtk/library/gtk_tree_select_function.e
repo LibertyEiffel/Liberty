@@ -61,6 +61,7 @@ feature
 	a_selection: GTK_TREE_SELECTION;
 	a_model: GTK_TREE_MODEL
 	a_path: GTK_TREE_PATH
+	r: G_RETRIEVER [GTK_TREE_SELECTION]
 		do
 	debug
 		 print ("Gtk tree select function callback:")
@@ -71,7 +72,11 @@ feature
 		 --print (" instance=") print (instance.to_string)
 		 print ("%N")
 	end
-	create a_selection.from_external_pointer (selection_ptr)
+	if r.has_eiffel_wrapper_stored (selection_ptr) then
+		a_selection := r.eiffel_wrapper_from_gobject_pointer (selection_ptr)
+	else
+		create a_selection.from_external_pointer (selection_ptr)
+	end
 	a_model := eiffel_wrapper_from_gobject_pointer (model_ptr)
 	debug
 		 if a_model = Void then
