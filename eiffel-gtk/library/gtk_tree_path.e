@@ -24,7 +24,12 @@ indexing
 class GTK_TREE_PATH
 
 inherit
-	SHARED_C_STRUCT redefine dispose end
+	SHARED_C_STRUCT
+		redefine
+			dispose,
+			copy,
+			from_external_pointer -- To solve sr #1143 
+		end
 
 insert
 	GTK_TREE_MODEL_EXTERNALS
@@ -40,10 +45,24 @@ creation
 -- 		end
 
 feature {NONE} -- Creation
+
+	from_external_pointer (a_ptr: POINTER) is
+		require pointer_not_null: a_ptr.is_not_null
+		do
+			handle := a_ptr
+			-- TODO: check if making the path shared solves the bug
+			-- iussed in sr #1143 (see
+			-- https://gna.org/support/index.php?func=detailitem&item_id=1143
+			-- for further informations)
+			is_shared := True
+		end
+
+
+	
 	make is
 			-- Creates a new GtkTreePath. This structure refers to a row.
 		do
-			handle := gtk_tree_path_new 
+			handle := gtk_tree_path_new
 		end
 
 	from_string (a_path: STRING) is
@@ -79,6 +98,12 @@ feature {NONE} -- Creation
 		end
 
 feature
+	copy (a_path: like Current) is
+			-- Makes Current a copy of `a_path'.
+		do
+			handle := gtk_tree_path_copy (a_path.handle)
+		end
+
 	to_string: STRING is
 			-- Generates a string representation of the path. This string
 			-- is a ':' separated list of numbers. For example,
@@ -143,7 +168,7 @@ feature -- Disposing
 	dispose is
 			-- Frees path. 
 		do
-			if handle.is_not_null then gtk_tree_path_free (handle) end
+			if not is_shared and handle.is_not_null then gtk_tree_path_free (handle) end
 			handle := default_pointer
 		end
 

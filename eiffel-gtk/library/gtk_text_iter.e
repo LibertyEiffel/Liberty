@@ -17,26 +17,34 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-				]"
-
+					]"
+				
 	gtk_documentation:	"[
-							  You may wish to begin by reading the text widget conceptual
-							  overview which gives an overview of all the objects and data
-							  types related to the text widget and how they work together.
-						  ]"
-
+								 You may wish to begin by reading the text widget conceptual
+								 overview which gives an overview of all the objects and data
+								 types related to the text widget and how they work together.
+								 ]"
 
 class GTK_TEXT_ITER
 
 inherit
 	C_STRUCT
-		-- XXX: please check this!
-		rename twin as c_twin, free as c_free
+		redefine copy, dispose 
 		end
 
 creation make, from_external_pointer
 
-feature {} -- Creation
+feature {} -- Disposing
+
+	dispose is
+			-- Free an iterator allocated on the heap. This function is
+			-- intended for use in language bindings, and is not
+			-- especially useful for applications, because iterators can
+			-- simply be allocated on the stack.
+		do
+			gtk_text_iter_free (handle)
+			handle := default_pointer
+		end
 
 feature
 
@@ -46,22 +54,15 @@ feature
 			create Result.from_external_pointer (gtk_text_iter_get_buffer (handle))
 		end
 
-	twin: like Current is
-			-- Creates a dynamically-allocated copy of an iterator. This
-			-- function is not useful in applications, because iterators
-			-- can be copied with a simple assignment (GtkTextIter
-			-- i=j;). The function is used by language bindings.
+	copy (another: like Current) is
+			-- Copy `another' into Current. A new dynamically-allocated
+			-- copy of the underlying iterator is made.
 		do
-			create Result.from_external_pointer (gtk_text_iter_copy (handle))
-		end
-
-	free is
-			-- Free an iterator allocated on the heap. This function is
-			-- intended for use in language bindings, and is not
-			-- especially useful for applications, because iterators can
-			-- simply be allocated on the stack.
-		do
-			gtk_text_iter_free (handle)
+			-- Using `gtk_text_iter_copy', a function used by language
+			-- bindings.  It is not useful in applications, because
+			-- iterators can be copied with a simple assignment
+			-- (GtkTextIter i=j;).
+			handle := gtk_text_iter_copy (handle)
 		end
 
 	offset: INTEGER is
@@ -139,7 +140,7 @@ feature
 		require valid_end: an_end /= Void
 		do
 			create Result.from_external_copy (gtk_text_iter_get_slice (handle,
-																	   an_end.handle))
+																		an_end.handle))
 		end
 	
 	text (an_end: GTK_TREE_ITER): STRING is
@@ -163,7 +164,7 @@ feature
 		require valid_end: an_end /= Void
 		do
 			create Result.from_external_copy (gtk_text_iter_get_visible_slice (handle,
-																			   an_end.handle))
+																				an_end.handle))
 		end
 
 	visible_text (an_end: GTK_TEXT_ITER): STRING is
