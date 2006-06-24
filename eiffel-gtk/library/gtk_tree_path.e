@@ -153,7 +153,7 @@ feature
 			-- i.e.: "10:4:0" would create a path of depth 3 pointing to
 			-- the 11th child of the root node, the 5th child of that
 			-- 11th child, and the 1st child of that 5th child.
-			create {FAST_ARRAY} Result.make (depth-1)
+			create {FAST_ARRAY[INTEGER]} Result.make (depth-1)
 			from i:=0 until i<=depth
 			loop
 				Result.put (c_array.item(i), i)
