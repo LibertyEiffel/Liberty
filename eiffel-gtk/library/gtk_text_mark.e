@@ -1,5 +1,5 @@
 indexing
-	description: "GtkTextMark œôòô A position in the buffer preserved across buffer modifications."
+	description: "GtkTextMark -- a position in the buffer preserved across buffer modifications."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -103,25 +103,29 @@ feature
 			end
 		end
 
-	-- buffer: GTK_TEXT_BUFFER is
-		
+	buffer: GTK_TEXT_BUFFER is 
+			-- the buffer this mark is located inside, or Void if the
+			-- mark is deleted.
+		local ptr: POINTER; retriever: G_RETRIEVER [GTK_TEXT_BUFFER]
+		do
+			ptr:=gtk_text_mark_get_buffer (handle)
+			if ptr.is_not_void then
+				Result:=retriever.eiffel_wrapper_from_gobject_pointer(ptr)
+				if Result=Void then
+					create Result.from_external_pointer (ptr)
+				end
+			end
+		end
 
--- GtkTextBuffer* gtk_text_mark_get_buffer (GtkTextMark *mark);
-
--- Gets the buffer this mark is located inside, or NULL if the mark is deleted.
-
--- mark : 	a GtkTextMark
--- Returns : 	the mark's GtkTextBuffer
--- gtk_text_mark_get_left_gravity ()
-
--- gboolean gtk_text_mark_get_left_gravity (GtkTextMark *mark);
-
--- Determines whether the mark has left gravity.
-
--- mark : 	a GtkTextMark
--- Returns : 	TRUE if the mark has left gravity, FALSE otherwise
-
--- [3] "left" and "right" here refer to logical direction (left is the toward the start of the buffer); in some languages such as Hebrew the logically-leftmost text is not actually on the left when displayed.
+	has_left_gravity: BOOLEAN is 
+			-- Does the mark have left gravity? "left" and "right" here
+			-- refer to logical direction (left is the toward the start
+			-- of the buffer); in some languages such as Hebrew the
+			-- logically-leftmost text is not actually on the left when
+			-- displayed.
+		do
+			Result:=(gtk_text_mark_get_left_gravity (handle).to_boolean)
+		end
 
 feature -- size
 	size: INTEGER is

@@ -114,7 +114,15 @@ feature
 			gtk_main
 		end
 
+	
 	gtk_nesting_level: INTEGER is
+		obsolete "use nesting level instead"
+		do
+			Result := nesting_level
+		end
+	
+	nesting_level: INTEGER is
+		do
 			-- the nesting level of the current invocation of the main
 			-- loop. This can be useful when calling gtk_quit_add().
 		do
@@ -122,6 +130,13 @@ feature
 		end
 
 	gtk_quit is
+		obsolete "use quit instead"
+		do
+			quit
+		end
+	
+	quit is
+		do
 			-- Makes the innermost invocation of the main loop return
 			-- when it regains control.
 		do
@@ -130,6 +145,12 @@ feature
 
 	
 	gtk_main_iteration is
+		obsolete "use main_iteration"
+		do
+			main_iteration
+		end
+	
+	main_iteration is
 		-- Runs a single iteration of the mainloop. If no events are
 		-- waiting to be processed GTK+ will block until the next event
 		-- is noticed. If you don't want to block look at
@@ -142,7 +163,13 @@ feature
 		end
 
 	gtk_main_iteration_not_blocking is
-				local called_on_innermost_mainloop: INTEGER
+		obsolete "use not_blocking_main_iteration"
+		do
+			not_blocking_main_iteration
+		end
+	
+	not_blocking_main_iteration is
+		local called_on_innermost_mainloop: INTEGER
 		do
 			-- TODO: expose called_on_innermost_mainloop in an intelligent way
 			called_on_innermost_mainloop:=gtk_main_iteration_do (0)
