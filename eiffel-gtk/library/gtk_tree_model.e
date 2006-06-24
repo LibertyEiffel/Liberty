@@ -156,9 +156,9 @@ feature
 		do
 			create Result.from_model(Current)
 			gbool := gtk_tree_model_get_iter (handle, Result.handle, a_path.handle)
-			if (gbool=0) then
-				Result := Void
+			if (gbool = 0) then
 				Result.dispose	-- Should be also called by Eiffel's garbage collector but it is nevertheless worth to call it: it is safe and avoid a memory leak in the case you compile without a GC
+				Result := Void
 			end
 		end
 	
@@ -169,10 +169,10 @@ feature
 		local gbool: INTEGER
 		do
 			create Result.make
-			gbool:= gtk_tree_model_get_iter_from_string (handle, Result.handle, a_path_string.to_external);
-			if (gbool=0) then
-				Result := Void
+			gbool := gtk_tree_model_get_iter_from_string (handle, Result.handle, a_path_string.to_external);
+			if (gbool = 0) then
 				Result.dispose	-- See get_new_iterator for info
+				Result := Void
 			end
 		end
 
@@ -182,10 +182,10 @@ feature
 		local gbool: INTEGER
 		do
 			create Result.make
-			gbool:= gtk_tree_model_get_iter_first (handle, Result.handle)
-			if (gbool=0) then
-				Result := Void
+			gbool := gtk_tree_model_get_iter_first (handle, Result.handle)
+			if (gbool = 0) then
 				Result.dispose	-- See get_new_iterator for info
+				Result := Void
 			end
 		end
 
