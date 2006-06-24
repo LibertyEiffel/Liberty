@@ -114,16 +114,29 @@ feature
 			Result:=gtk_tree_path_get_depth(handle)
 		end
 
-	indices: NATIVE_ARRAY [INTEGER] is
+	indices: ARRAYED_COLLECTION [INTEGER] is
 			-- the current indices of path. This is an array of integers,
 			-- each representing a node in a tree.
 
-			-- Currently crudely implemented as a NATIVE_ARRAY[INTEGER] that should contain depth-elements.		
-		obsolete "TODO: This is a crude implementation. indices shall be at least a FAST_ARRAY[INTEGER] to be useable"
+			-- Note: currently implemented as a FAST_ARRAY
+		local c_array: NATIVE_ARRAY [INTEGER]; i: INTEGER
 		do
 			-- The following seems an hack. Indeed it's the "normal" way
 			-- to create a NATIVE_ARRAY from a C pointer to that array
-			Result := Result.from_pointer (gtk_tree_path_get_indices (handle))
+			c_array := c_array.from_pointer (gtk_tree_path_get_indices (handle))
+
+			-- i.e.: "10:4:0" would create a path of depth 3 pointing to
+			-- the 11th child of the root node, the 5th child of that
+			-- 11th child, and the 1st child of that 5th child.
+			create {FAST_ARRAY} Result.make (depth-1)
+			from i:=0 until i<=depth
+			loop
+				Result.put (c_array.item(i), i)
+				i:=i+1
+			end
+		ensure
+			result_not_void: Result /= Void
+			correct_result_count: Result.count = depth
 		end
 
 feature -- Disposing
