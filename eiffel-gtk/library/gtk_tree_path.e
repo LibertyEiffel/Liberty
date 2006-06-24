@@ -43,7 +43,7 @@ feature {NONE} -- Creation
 	make is
 			-- Creates a new GtkTreePath. This structure refers to a row.
 		do
-			handle:= gtk_tree_path_new 
+			handle := gtk_tree_path_new 
 		end
 
 	from_string (a_path: STRING) is
@@ -130,7 +130,7 @@ feature -- Disposing
 	dispose is
 			-- Frees path. 
 		do
-			gtk_tree_path_free (handle)
+			if handle.is_not_null then gtk_tree_path_free (handle) end
 			handle := default_pointer
 		end
 
