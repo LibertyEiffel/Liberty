@@ -17,10 +17,9 @@ insert
 	G_TYPE_EXTERNALS
 	
 creation
-	make, from_external_pointer,
-	make_boolean, make_integer, make_natural, make_real, make_string,
-	make_object, from_boolean, from_integer, from_natural, from_real,
-    from_string, from_object
+	make, from_external_pointer, with_gtype
+	make_boolean, make_integer, make_natural, make_real, make_string, make_object,
+	from_boolean, from_integer, from_natural, from_real, from_string, from_object
 
 feature {NONE} -- Creation
 	make is
@@ -29,7 +28,22 @@ feature {NONE} -- Creation
 			handle := g_value_init(malloc_g_value, g_type_invalid)
 		ensure then not is_valid
 		end
-	
+
+	with_gtype (a_gtype: INTEGER) is
+			-- Create a GValue that holds values of a_gtype type index. A
+			-- GType is a numerical value which represents the unique
+			-- identifier of a type registered in the GObject type
+			-- system. Fundamental types are provided by G_TYPE_EXTERNALS
+			-- (use insert when you need it).
+
+			-- TODO: forcing end-user to inherit from an external class
+			-- is a temporary solution; provide higher level/more
+			-- Eiffellish API.
+
+			-- TODO: implement "require is_valid_gtype (a_gtype)"
+		do
+			handle := g_value_init(malloc_g_value, a_gtype)
+		end
 	make_boolean is
 			-- create a new boolean G_VALUE
 		local ptr: POINTER

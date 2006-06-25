@@ -6,7 +6,7 @@ indexing
 
 class G_TYPE_EXTERNALS
 
-feature {NONE} -- external calls
+feature {} -- external calls
 
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
 	-- 2006-01-07)
@@ -1129,8 +1129,8 @@ feature {NONE} -- External calls
 	-- CODE : 	Custom code that gets inserted in the *_get_type() function.
 
 	-- Since 2.4
-	-- G_TYPE_INVALID
 
+feature --  numerical values of fundamental GTypes
 	g_type_invalid: INTEGER is
 			-- An invalid GType, used as error return value in some functions which
 			-- return a GType.
