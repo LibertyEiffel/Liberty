@@ -63,43 +63,8 @@ default -- section of the system
 		 -- The equivalent of the -relax flag.
 
 cluster -- section
-		"../../library/glib"
-		"../../library/glib/core"
-		"../../library/glib/data_types"
-		"../../library/glib/externals"
-		"../../library/glib/fundamentals"
-		"../../library/glib/utilities"
-		"../../library/gobject"
-		"../../library/support"
-
-		"."
-	-- The cluster section is an ordered list of clusters. Roughly speaking,
-	-- a cluster can be considered as a directory where Eiffel source files
-	-- are to be searched for. Thus, the order of this list of clusters is
-	-- important because clusters are considered sequentially while
-	-- searching for an Eiffel source file. Each cluster is described
-	-- as follows:
-
---    optional_cluster_name: "cluster_path_using_system_file_notation_here"
---       default -- at this cluster level
---          assertion (require)
---          debug (no);
---          trace (no);
---       option -- for this cluster
---          assertion (loop) : CLASS_NAME1, CLASS_NAME2;
---          assertion (all)  : CLASS_NAME3, CLASS_NAME4;
---          -- ...
---          debug (yes) : CLASS_NAME1, CLASS_NAME2, ...;
---          debug ("KEY") : CLASS_NAME1, CLASS_NAME2, ...;
---          -- ...
---          trace : CLASS_NAME1, CLASS_NAME2;
---          trace : CLASS_NAME3, CLASS_NAME4;
---          -- ...
---       end -- of one cluster
-
-	-- Pull in SmartEiffel's standard library. Always put this last so 
-	-- that you can override options for parts of the library.
-
+	current: "."
+	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
 	standard: "${path_lib}/loadpath.se"
 
 external -- section for elements written in another language

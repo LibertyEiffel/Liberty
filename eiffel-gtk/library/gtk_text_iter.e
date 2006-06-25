@@ -188,16 +188,16 @@ feature
 
 
 	marks: G_SLIST [GTK_TEXT_MARK] is
-		-- XXX: to complete? was committed with no implementation at all.
+			-- a list of all GtkTextMark at this location. Because marks
+			-- are not iterable (they don't take up any "space" in the
+			-- buffer, they are just marks in between iterable
+			-- locations), multiple marks can exist in the same
+			-- place. The returned list is not in any meaningful order.
 		do
+			create Result.from_external_pointer (gtk_text_iter_get_marks(handle))
+		ensure result_not_void: Result /= Void
 		end
 
-	-- GSList*     gtk_text_iter_get_marks         (const GtkTextIter *iter);
-
-	-- Returns a list of all GtkTextMark at this location. Because marks are not iterable (they don't take up any "space" in the buffer, they are just marks in between iterable locations), multiple marks can exist in the same place. The returned list is not in any meaningful order.
-
-	-- iter : 	an iterator
-	-- Returns : 	list of GtkTextMark
 	-- gtk_text_iter_get_toggled_tags ()
 
 	-- GSList*     gtk_text_iter_get_toggled_tags  (const GtkTextIter *iter,

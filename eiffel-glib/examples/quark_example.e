@@ -29,9 +29,9 @@ feature
 			(once "While string `Bombolo' ").print_on(std_output)
 			create unexisting.try_string (once "Bombolo")
 			if unexisting.is_valid then
-				(" has a quark! Something's wrong!%N").print_on(std_output)
+				(once " has a quark! Something's wrong!%N").print_on(std_output)
 			else
-				(" doesn't have a quark (correctly)%N").print_on(std_output)
+				(once " doesn't have a quark (correctly)%N").print_on(std_output)
 			end
 		end
 end	

@@ -102,6 +102,76 @@ I'm too much untidy and wild but I think that this kind of things are
 means that it is a derivative work of GTK+ Documentation; being a
 derivative work we must abide GTK+ license which is LGPL.
 
+* All the infrastructure of GTK+, including GObject are explicitly
+designed to make the life easy for people writing wrappers for
+loosely-typed languages such as Python, Perl and other scriptiong
+languages. This (sadly) means that life for heavily/strongly-typed
+languages such as Eiffel are make annoying. Objects like closures and
+other amenities like that won't be wrapped until the rest is done and
+working. (Paolo 2006-01-06)
+
+* (optional) boolean features shall have a query, a setter and a
+unsetter; i.e. `is_stock_item', 'set_stock_item' and
+`unset_stock_item'
+
+* (optional) classes using enums shall provide high-level queries such
+as `is_relief_normal' along with direct query of the enum value. Both
+variant are useful: the first for `if button.is_relief_normal then
+...', the other for `inspect button.relief when gtk_relief_normal then
+.... '.
+
+* C enum are wrapped in classes with similar name (i.e.:
+GTK_RESIZE_MODE wraps GtkResizeMode). They are inherited by the
+"external" class that uses that enum; the high-level class shall
+provide enum-agnostic features: i.e. calls and queries that makes the
+use of enum at Eiffel level redundant. i.e.: GTK_RELIEF_STYLE is
+inherited by GTK_BUTTON_EXTERNALS and GTK_BUTTON provides high-level
+queries like is_relief_normal and calls such as set_no_relief.
+
+* Since all the classes have been worked out from GTK+ documentation
+they can be a derived work of GTK+ and hence having some copyright
+iusses. As a temporary measure I've assigned copyright to me (Paolo
+Redaelli) and the same license of GTK+ (i.e. Lesser General Public
+License v.2 or later) until things get more clear.
+
+* How to wrap C types that have different sizes on different architectures?
+Infact see the following tentative corrispondence table:
+
+C variables	PowerPc (G3)	Eiffel
+char		1		CHARACTER
+short		2		INTEGER_16
+int		4		INTEGER
+long		4		INTEGER
+long long	8		INTEGER_64
+float		4		REAL_32
+double		8		REAL_64
+long double	8		REAL_64
+
+See http://en.wikipedia.org/wiki/C_variable_types_and_declarations
+
+* How to wrap unsigned variables (unsigned short, unsigned int,
+unsigned long)?  Until now I've happily turned every uint into a
+INTEGER, relaying on the silent C conversions, but this is clearly a
+work-around and not a long-term neither sustainable soluction. In my
+humble opinion a correct solution shall be to introduce NATURAL and
+NATURAL_x classes into SmartEiffel. Some of the first usage of INTEGER
+in place of an unsigned value are not marked. The other are marked by
+a TODO. Perhaps the new plugin subsystem can help here.
+
+* Unwrapped features:
+
+** Every deprecated function, enum, macro will NEVER be wrapped
+
+** (Unsure of this; still to be defined) Any function dealing with
+basic C types (that have notoriously "undefined" lenght and precision)
+when there are versions that uses types which are guaranteed to be the
+same size across all platforms; for example g_param_spec_long won't be
+wrapped, while g_param_spec_int64 will.
+
+** From gobject:
+GTypePlugin, an interface for dynamically loadable types
+GTypeModule Type loading modules
+
 Now some quotes to set the mood of this project:
 
 (a) `In contrast, one of my favorite mantras is "perfect is the enemy
