@@ -122,11 +122,10 @@ feature
 		end
 	
 	nesting_level: INTEGER is
-		do
 			-- the nesting level of the current invocation of the main
 			-- loop. This can be useful when calling gtk_quit_add().
 		do
-			Result:=gtk_main_level
+			Result := gtk_main_level
 		end
 
 	gtk_quit is
@@ -136,7 +135,6 @@ feature
 		end
 	
 	quit is
-		do
 			-- Makes the innermost invocation of the main loop return
 			-- when it regains control.
 		do
