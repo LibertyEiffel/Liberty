@@ -109,7 +109,7 @@ feature
 		local ptr: POINTER; retriever: G_RETRIEVER [GTK_TEXT_BUFFER]
 		do
 			ptr:=gtk_text_mark_get_buffer (handle)
-			if ptr.is_not_void then
+			if ptr.is_not_null then
 				Result:=retriever.eiffel_wrapper_from_gobject_pointer(ptr)
 				if Result=Void then
 					create Result.from_external_pointer (ptr)

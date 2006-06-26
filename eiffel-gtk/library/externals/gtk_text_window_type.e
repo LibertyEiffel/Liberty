@@ -9,7 +9,7 @@ deferred class GTK_TEXT_WINDOW_TYPE
 feature  -- enum
 	is_valid_text_window_type (a_type :INTEGER): BOOLEAN is
 		do	
-			Result:=((a_type = gtk_text_windowl_private) or else
+			Result:=((a_type = gtk_text_window_private) or else
 						(a_type = gtk_text_window_widget) or else
 						(a_type = gtk_text_window_text) or else
 						(a_type = gtk_text_window_left) or else

@@ -33,6 +33,7 @@ inherit
 
 insert
 	GTK_TREE_MODEL_EXTERNALS
+		redefine copy end
 
 creation
 	make, make_first, 
@@ -44,7 +45,7 @@ creation
 -- 		alias "sizeof(GtkTreePath)"
 -- 		end
 
-feature {NONE} -- Creation
+feature -- Redefined features
 
 	from_external_pointer (a_ptr: POINTER) is
 		require pointer_not_null: a_ptr.is_not_null
@@ -57,8 +58,8 @@ feature {NONE} -- Creation
 			is_shared := True
 		end
 
+feature {NONE} -- Creation
 
-	
 	make is
 			-- Creates a new GtkTreePath. This structure refers to a row.
 		do
