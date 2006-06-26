@@ -57,7 +57,7 @@ inherit
 
 insert
 	G_SLIST_EXTERNALS -- undefine copy,is_equal,fill_tagged_out_memory end
-	
+		undefine copy end
 	INTERNALS_HANDLER
 		-- needed to materialize an object of type ITEM, without knowing
 		-- which type ITEM will really be.
