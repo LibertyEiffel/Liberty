@@ -181,7 +181,7 @@ feature
 			-- (the one at the path "0"). Void if the tree is empty.
 		local gbool: INTEGER
 		do
-			create Result.make
+			create Result.from_model (Current)
 			gbool := gtk_tree_model_get_iter_first (handle, Result.handle)
 			if (gbool = 0) then
 				Result.dispose	-- See get_new_iterator for info
