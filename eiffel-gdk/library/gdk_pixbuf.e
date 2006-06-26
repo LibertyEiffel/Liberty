@@ -1,19 +1,40 @@
 indexing
-	description: "The GdkPixbuf structure contains information that describes an image in memory."
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
-	license: "LGPL v2 or later"
+	description: "GdkPixbuf -- Information that describes an image."
+	copyright: "[
+					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
+
+			-- The GdkPixbuf structure contains information that describes
+			-- an image in memory.
 
 class GDK_PIXBUF
 
 inherit G_OBJECT
+	rename make as g_object_make end
 
 insert
 	GDK_PIXBUF_EXTERNALS
+	GDK_COLORSPACE
 
 creation
-	from_external_pointer, from_file, from_file_at_size
+	make, from_external_pointer, from_file, from_file_at_size
 
 feature {NONE} -- Creation
 
@@ -44,6 +65,21 @@ feature {NONE} -- Creation
 			filename /= Void
 		do
 			set_handle (gdk_pixbuf_new_from_file_at_size(filename.to_external, a_width, a_height, default_pointer))
+			store_eiffel_wrapper
+		ensure
+			handle.is_not_null
+			is_g_object
+		end
+
+	make(a_alpha: BOOLEAN; a_width, a_height: INTEGER) is
+		-- Creates a new GdkPixbuf structure and allocates a buffer for it.
+		-- The buffer has an optimal rowstride. Note that the buffer is not
+		-- cleared; you will have to fill it completely yourself.
+		require
+			a_width >= 0
+			a_height >= 0
+		do
+			set_handle(gdk_pixbuf_new(gdk_colorspace_rgb, a_alpha.to_integer, 8, a_width, a_height))
 			store_eiffel_wrapper
 		ensure
 			handle.is_not_null

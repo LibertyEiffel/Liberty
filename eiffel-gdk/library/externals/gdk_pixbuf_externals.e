@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -30,6 +30,10 @@ feature {NONE} -- External calls
 		end
 
 	gdk_pixbuf_new_from_file_at_size(filename: POINTER; a_width, a_height: INTEGER; error_dummy: POINTER): POINTER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_new(a_colorspace, a_alpha, a_bps, a_width, a_height: INTEGER): POINTER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
