@@ -717,90 +717,89 @@ feature {} -- integer parameter specification
 							 some_flags: INTEGER): POINTER is
 		external "C use <glib-object.h>"
 		end
-Prev 	Up 	Home 	GObject Reference Manual 	Next
-Top  |  Description
-GParamSpec
-
-GParamSpec œôòô Metadata for parameter specifications
-	
-Synopsis
-
-#include <glib-object.h>
-
-
-#define     G_TYPE_IS_PARAM                 (type)
-#define     G_PARAM_SPEC                    (pspec)
-#define     G_IS_PARAM_SPEC                 (pspec)
-#define     G_PARAM_SPEC_CLASS              (pclass)
-#define     G_IS_PARAM_SPEC_CLASS           (pclass)
-#define     G_PARAM_SPEC_GET_CLASS          (pspec)
-#define     G_PARAM_SPEC_TYPE               (pspec)
-#define     G_PARAM_SPEC_TYPE_NAME          (pspec)
-#define     G_PARAM_SPEC_VALUE_TYPE         (pspec)
-				GParamSpec;
-				GParamSpecClass;
-enum        GParamFlags;
-#define     G_PARAM_READWRITE
-#define     G_PARAM_MASK
-#define     G_PARAM_USER_SHIFT
-GParamSpec* g_param_spec_ref                (GParamSpec *pspec);
-void        g_param_spec_unref              (GParamSpec *pspec);
-void        g_param_spec_sink               (GParamSpec *pspec);
-GParamSpec* g_param_spec_ref_sink           (GParamSpec *pspec);
-void        g_param_value_set_default       (GParamSpec *pspec,
-															GValue *value);
-gboolean    g_param_value_defaults          (GParamSpec *pspec,
-															GValue *value);
-gboolean    g_param_value_validate          (GParamSpec *pspec,
-															GValue *value);
-gboolean    g_param_value_convert           (GParamSpec *pspec,
-															const GValue *src_value,
-															GValue *dest_value,
-															gboolean strict_validation);
-gint        g_param_values_cmp              (GParamSpec *pspec,
-															const GValue *value1,
-															const GValue *value2);
-const gchar* g_param_spec_get_name          (GParamSpec *pspec);
-const gchar* g_param_spec_get_nick          (GParamSpec *pspec);
-const gchar* g_param_spec_get_blurb         (GParamSpec *pspec);
-gpointer    g_param_spec_get_qdata          (GParamSpec *pspec,
-															GQuark quark);
-void        g_param_spec_set_qdata          (GParamSpec *pspec,
-															GQuark quark,
-															gpointer data);
-void        g_param_spec_set_qdata_full     (GParamSpec *pspec,
-															GQuark quark,
-															gpointer data,
-															GDestroyNotify destroy);
-gpointer    g_param_spec_steal_qdata        (GParamSpec *pspec,
-															GQuark quark);
-GParamSpec* g_param_spec_get_redirect_target
-														  (GParamSpec *pspec);
-gpointer    g_param_spec_internal           (GType param_type,
-															const gchar *name,
-															const gchar *nick,
-															const gchar *blurb,
-															GParamFlags flags);
-				GParamSpecTypeInfo;
-GType       g_param_type_register_static    (const gchar *name,
-															const GParamSpecTypeInfo *pspec_info);
-				GParamSpecPool;
-GParamSpecPool* g_param_spec_pool_new       (gboolean type_prefixing);
-void        g_param_spec_pool_insert        (GParamSpecPool *pool,
-															GParamSpec *pspec,
-															GType owner_type);
-void        g_param_spec_pool_remove        (GParamSpecPool *pool,
-															GParamSpec *pspec);
-GParamSpec* g_param_spec_pool_lookup        (GParamSpecPool *pool,
-															const gchar *param_name,
-															GType owner_type,
-															gboolean walk_ancestors);
-GParamSpec** g_param_spec_pool_list         (GParamSpecPool *pool,
-															GType owner_type,
-															guint *n_pspecs_p);
-GList*      g_param_spec_pool_list_owned    (GParamSpecPool *pool,
-															GType owner_type);
-
-	
+-- Prev 	Up 	Home 	GObject Reference Manual 	Next
+-- Top  |  Description
+-- GParamSpec
+-- 
+-- GParamSpec œôòô Metadata for parameter specifications
+-- 	
+-- Synopsis
+-- 
+-- #include <glib-object.h>
+-- 
+-- 
+-- #define     G_TYPE_IS_PARAM                 (type)
+-- #define     G_PARAM_SPEC                    (pspec)
+-- #define     G_IS_PARAM_SPEC                 (pspec)
+-- #define     G_PARAM_SPEC_CLASS              (pclass)
+-- #define     G_IS_PARAM_SPEC_CLASS           (pclass)
+-- #define     G_PARAM_SPEC_GET_CLASS          (pspec)
+-- #define     G_PARAM_SPEC_TYPE               (pspec)
+-- #define     G_PARAM_SPEC_TYPE_NAME          (pspec)
+-- #define     G_PARAM_SPEC_VALUE_TYPE         (pspec)
+-- 				GParamSpec;
+-- 				GParamSpecClass;
+-- enum        GParamFlags;
+-- #define     G_PARAM_READWRITE
+-- #define     G_PARAM_MASK
+-- #define     G_PARAM_USER_SHIFT
+-- GParamSpec* g_param_spec_ref                (GParamSpec *pspec);
+-- void        g_param_spec_unref              (GParamSpec *pspec);
+-- void        g_param_spec_sink               (GParamSpec *pspec);
+-- GParamSpec* g_param_spec_ref_sink           (GParamSpec *pspec);
+-- void        g_param_value_set_default       (GParamSpec *pspec,
+-- 															GValue *value);
+-- gboolean    g_param_value_defaults          (GParamSpec *pspec,
+-- 															GValue *value);
+-- gboolean    g_param_value_validate          (GParamSpec *pspec,
+-- 															GValue *value);
+-- gboolean    g_param_value_convert           (GParamSpec *pspec,
+-- 															const GValue *src_value,
+-- 															GValue *dest_value,
+-- 															gboolean strict_validation);
+-- gint        g_param_values_cmp              (GParamSpec *pspec,
+-- 															const GValue *value1,
+-- 															const GValue *value2);
+-- const gchar* g_param_spec_get_name          (GParamSpec *pspec);
+-- const gchar* g_param_spec_get_nick          (GParamSpec *pspec);
+-- const gchar* g_param_spec_get_blurb         (GParamSpec *pspec);
+-- gpointer    g_param_spec_get_qdata          (GParamSpec *pspec,
+-- 															GQuark quark);
+-- void        g_param_spec_set_qdata          (GParamSpec *pspec,
+-- 															GQuark quark,
+-- 															gpointer data);
+-- void        g_param_spec_set_qdata_full     (GParamSpec *pspec,
+-- 															GQuark quark,
+-- 															gpointer data,
+-- 															GDestroyNotify destroy);
+-- gpointer    g_param_spec_steal_qdata        (GParamSpec *pspec,
+-- 															GQuark quark);
+-- GParamSpec* g_param_spec_get_redirect_target
+-- 														  (GParamSpec *pspec);
+-- gpointer    g_param_spec_internal           (GType param_type,
+-- 															const gchar *name,
+-- 															const gchar *nick,
+-- 															const gchar *blurb,
+-- 															GParamFlags flags);
+-- 				GParamSpecTypeInfo;
+-- GType       g_param_type_register_static    (const gchar *name,
+-- 															const GParamSpecTypeInfo *pspec_info);
+-- 				GParamSpecPool;
+-- GParamSpecPool* g_param_spec_pool_new       (gboolean type_prefixing);
+-- void        g_param_spec_pool_insert        (GParamSpecPool *pool,
+-- 															GParamSpec *pspec,
+-- 															GType owner_type);
+-- void        g_param_spec_pool_remove        (GParamSpecPool *pool,
+-- 															GParamSpec *pspec);
+-- GParamSpec* g_param_spec_pool_lookup        (GParamSpecPool *pool,
+-- 															const gchar *param_name,
+-- 															GType owner_type,
+-- 															gboolean walk_ancestors);
+-- GParamSpec** g_param_spec_pool_list         (GParamSpecPool *pool,
+-- 															GType owner_type,
+-- 															guint *n_pspecs_p);
+-- GList*      g_param_spec_pool_list_owned    (GParamSpecPool *pool,
+-- 															GType owner_type);
+-- 
+-- 	
 end
-	

@@ -17,7 +17,7 @@ insert
 	G_TYPE_EXTERNALS
 	
 creation
-	make, from_external_pointer, with_gtype
+	make, from_external_pointer, with_gtype,
 	make_boolean, make_integer, make_natural, make_real, make_string, make_object,
 	from_boolean, from_integer, from_natural, from_real, from_string, from_object
 
