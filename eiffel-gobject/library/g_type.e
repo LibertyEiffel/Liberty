@@ -1,5 +1,5 @@
 indexing
-	description: "GType — The GLib Runtime type identification and management system."
+	description: "GType - the GLib Runtime type identification and management system."
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"

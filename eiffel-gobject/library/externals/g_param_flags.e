@@ -45,7 +45,8 @@ feature  -- enum
 		end
 
 	g_param_lax_validation: INTEGER is
-			-- upon parameter conversion (see g_param_value_convert()) strict validation is not required
+			-- upon parameter conversion (see g_param_value_convert())
+			-- strict validation is not required
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_LAX_VALIDATION"
 		end
@@ -56,6 +57,14 @@ feature  -- enum
 			-- of the parameter. Since 2.8
 		external "C macro use <glib-object.h>"
 		alias "G_PARAM_STATIC_NAME"
+		end
+
+	g_param_static_nick: INTEGER is
+			-- the string used as nick when constructing the parameter is
+			-- guaranteed to remain valid and unmodified for the lifetime
+			-- of the parameter. Since 2.8
+		external "C macro use <glib-object.h>"
+		alias "G_PARAM_STATIC_NICK"
 		end
 
 	g_param_static_blurb: INTEGER is

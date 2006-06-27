@@ -29,39 +29,41 @@ indexing
 							]"
 
 class G_PARAM_SPEC
-inherit C_STRUCT
+inherit SHARED_C_STRUCT
+insert G_PARAM_SPEC_EXTERNALS
 creation
-	make,from_external_pointer
-	
+	from_external_pointer,
+	make_boolean, make_integer
+
 feature -- Flags
 	flags: INTEGER is
-		obsolete "TODO: it is not implemented"
 		do
+			Result := get_flags (handle)
+		ensure are_valid_param_flags (Result)
 		end
 	
 	is_readable: BOOLEAN is
 			-- Is Current parameter readable?
-		obsolete "TODO: it is not implemented"
 		do
-			--Result:= flags.bit_test(g_param_readable_bit)
+			Result:= (flags & g_param_readable).to_boolean
 		end
+	
 	is_writable: BOOLEAN is
 			-- Is Current parameter writable?
-		obsolete "TODO: it is not implemented"
 		do
-			--Result:= flags.bit_test(g_param_writable_bit)
+			Result:= (flags & g_param_writable).to_boolean
 		end
+
 	is_set_at_construction: BOOLEAN is
 			-- Will the parameter be set upon object construction?
-		obsolete "TODO: it is not implemented"
 		do
-			--			Result:= flags.bit_test(g_param_construct_bit)
+			Result:= (flags & g_param_construct).to_boolean
 		end
+	
 	is_set_only_at_construction: BOOLEAN is
 			-- Will the parameter only be set upon object construction?
-		obsolete "TODO: it is not implemented"
 		do
-			--Result:= flags.bit_test(g_param_construct_only_bit)
+			Result:= (flags & g_param_construct_only).to_boolean
 		end
 
 	-- TODO: find a better, not-clashing name for is_readable: BOOLEAN
@@ -73,24 +75,23 @@ feature -- Flags
 			-- Is the string used as name when constructing the parameter
 			-- guaranteed to remain valid and unmodified for the lifetime
 			-- of the parameter?
-		obsolete "TODO: it is not implemented"
 		do
-			--Result:= flags.bit_test(g_param_static_name_bit)
+			Result:= (flags & g_param_static_name).to_boolean
 		end
 	
 	is_static_blurb: BOOLEAN is
 			-- Is the string used as blurb when constructing the parameter
 			-- guaranteed to remain valid and unmodified for the lifetime
 			-- of the parameter?
-		obsolete "TODO: it is not implemented"
 		do
-			--Result:= flags.bit_test(g_param_static_blurb_bit)
+			Result:= (flags & g_param_static_blurb).to_boolean
 		end
 
 	is_readwrite: BOOLEAN is
 			-- Is parameter read/write?
 		do
-			Result := is_readable and is_writable
+			Result := (flags & g_param_readwrite).to_boolean
+		ensure definition: Result implies (is_readable and is_writable)
 		end
 
 feature
@@ -105,8 +106,9 @@ feature
 	is_default_value (a_value: G_VALUE): BOOLEAN is
 			-- Does `a_value' contains the default value specified in
 			-- Current?
-		require valid_value: a_value /= Void
-			-- TODO a GValue of correct type for current
+		require 
+			value_not_void: a_value /= Void
+			correct_value_type: a_value.type = value_gtype
 		do
 			Result:=(g_param_value_defaults(handle,a_value.handle)).to_boolean
 		end
@@ -178,628 +180,710 @@ feature -- name validity
 			not_yet_implemented
 		end
 
--- G_TYPE_IS_PARAM()
-
--- #define G_TYPE_IS_PARAM(type)		(G_TYPE_FUNDAMENTAL (type) == G_TYPE_PARAM)
-
--- Returns whether type "is a" G_TYPE_PARAM.
--- type : 	a GType ID
--- G_PARAM_SPEC()
-
--- #define G_PARAM_SPEC(pspec)		(G_TYPE_CHECK_INSTANCE_CAST ((pspec), G_TYPE_PARAM, GParamSpec))
-
--- Casts a derived GParamSpec object (e.g. of type GParamSpecInt) into a GParamSpec object.
--- pspec : 	a valid GParamSpec
--- G_IS_PARAM_SPEC()
-
--- #define G_IS_PARAM_SPEC(pspec)		(G_TYPE_CHECK_INSTANCE_TYPE ((pspec), G_TYPE_PARAM))
-
--- Checks whether pspec "is a" valid GParamSpec structure of type G_TYPE_PARAM or derived.
--- pspec : 	a GParamSpec
--- G_PARAM_SPEC_CLASS()
-
--- #define G_PARAM_SPEC_CLASS(pclass)      (G_TYPE_CHECK_CLASS_CAST ((pclass), G_TYPE_PARAM, GParamSpecClass))
-
--- Casts a derived GParamSpecClass structure into a GParamSpecClass structure.
--- pclass : 	a valid GParamSpecClass
--- G_IS_PARAM_SPEC_CLASS()
-
--- #define G_IS_PARAM_SPEC_CLASS(pclass)   (G_TYPE_CHECK_CLASS_TYPE ((pclass), G_TYPE_PARAM))
-
--- Checks whether pclass "is a" valid GParamSpecClass structure of type G_TYPE_PARAM or derived.
--- pclass : 	a GParamSpecClass
--- G_PARAM_SPEC_GET_CLASS()
-
--- #define G_PARAM_SPEC_GET_CLASS(pspec)	(G_TYPE_INSTANCE_GET_CLASS ((pspec), G_TYPE_PARAM, GParamSpecClass))
-
--- Retrieves the GParamSpecClass of a GParamSpec.
--- pspec : 	a valid GParamSpec
--- G_PARAM_SPEC_TYPE()
-
--- #define G_PARAM_SPEC_TYPE(pspec)	(G_TYPE_FROM_INSTANCE (pspec))
-
--- Retrieves the GType of this pspec.
--- pspec : 	a valid GParamSpec
--- G_PARAM_SPEC_TYPE_NAME()
-
--- #define G_PARAM_SPEC_TYPE_NAME(pspec)	(g_type_name (G_PARAM_SPEC_TYPE (pspec)))
-
--- Retrieves the GType name of this pspec.
--- pspec : 	a valid GParamSpec
--- G_PARAM_SPEC_VALUE_TYPE()
-
--- #define	G_PARAM_SPEC_VALUE_TYPE(pspec)	(G_PARAM_SPEC (pspec)->value_type)
-
--- Retrieves the GType to initialize a GValue for this parameter.
--- pspec : 	a valid GParamSpec
--- GParamSpec
-
--- typedef struct {
---   GTypeInstance  g_type_instance;
-
---   gchar         *name;
---   GParamFlags    flags;
---   GType		 value_type;
---   GType		 owner_type;	/* class or interface using this property */
--- } GParamSpec;
-
--- All fields of the GParamSpec struct are private and should not be used directly, except for the following:
--- GTypeInstance g_type_instance; 	private GTypeInstance portion
--- gchar *name; 	name of this parameter
--- GParamFlags flags; 	GParamFlags flags for this parameter
--- GType value_type; 	the GValue type for this parameter
--- GType owner_type; 	GType type that uses (introduces) this paremeter
--- GParamSpecClass
-
--- typedef struct {
---   GTypeClass      g_type_class;
-
---   GType		  value_type;
-
---   void	        (*finalize)		(GParamSpec   *pspec);
-
---   /* GParam methods */
---   void          (*value_set_default)    (GParamSpec   *pspec,
--- 					 GValue       *value);
---   gboolean      (*value_validate)       (GParamSpec   *pspec,
--- 					 GValue       *value);
---   gint          (*values_cmp)           (GParamSpec   *pspec,
--- 					 const GValue *value1,
--- 					 const GValue *value2);
--- } GParamSpecClass;
-
--- The class structure for the GParamSpec type. Normally, GParamSpec classes are filled by g_param_type_register_static().
--- GTypeClass g_type_class; 	the parent class
--- GType value_type; 	the GValue type for this parameter
--- finalize () 	The instance finalization function (optional), should chain up to the finalize method of the parent class.
--- value_set_default () 	Resets a value to the default value for this type (recommended, the default is g_value_reset()), see g_param_value_set_default().
--- value_validate () 	Ensures that the contents of value comply with the specifications set out by this type (optional), see g_param_value_set_validate().
--- values_cmp () 	Compares value1 with value2 according to this type (recommended, the default is memcmp()), see g_param_values_cmp().
--- enum GParamFlags
-
--- typedef enum
--- {
---   G_PARAM_READABLE            = 1 << 0,
---   G_PARAM_WRITABLE            = 1 << 1,
---   G_PARAM_CONSTRUCT	      = 1 << 2,
---   G_PARAM_CONSTRUCT_ONLY      = 1 << 3,
---   G_PARAM_LAX_VALIDATION      = 1 << 4,
---   G_PARAM_STATIC_NAME	      = 1 << 5,
--- #ifndef G_DISABLE_DEPRECATED
---   G_PARAM_PRIVATE	      = G_PARAM_STATIC_NAME,
--- #endif
---   G_PARAM_STATIC_NICK	      = 1 << 6,
---   G_PARAM_STATIC_BLURB	      = 1 << 7
--- } GParamFlags;
-
--- Through the GParamFlags flag values, certain aspects of parameters can be configured.
--- G_PARAM_READABLE 	the parameter is readable
--- G_PARAM_WRITABLE 	the parameter is writable
--- G_PARAM_CONSTRUCT 	the parameter will be set upon object construction
--- G_PARAM_CONSTRUCT_ONLY 	the parameter will only be set upon object construction
--- G_PARAM_LAX_VALIDATION 	upon parameter conversion (see g_param_value_convert()) strict validation is not required
--- G_PARAM_STATIC_NAME 	the string used as name when constructing the parameter is guaranteed to remain valid and unmodified for the lifetime of the parameter. Since 2.8
--- G_PARAM_STATIC_BLURB 	the string used as blurb when constructing the parameter is guaranteed to remain valid and unmodified for the lifetime of the parameter. Since 2.8
--- G_PARAM_READWRITE
-
--- #define	G_PARAM_READWRITE	(G_PARAM_READABLE | G_PARAM_WRITABLE)
-
--- GParamFlags value alias for G_PARAM_READABLE | G_PARAM_WRITABLE.
--- G_PARAM_MASK
-
--- #define	G_PARAM_MASK		(0x000000ff)
-
--- Mask containing the bits of GParamSpec.flags which are reserved for GLib.
--- G_PARAM_USER_SHIFT
-
--- #define	G_PARAM_USER_SHIFT	(8)
-
--- Minimum shift count to be used for user defined flags, to be stored in GParamSpec.flags.
--- g_param_spec_ref ()
-
--- GParamSpec* g_param_spec_ref                (GParamSpec *pspec);
-
--- Increments the reference count of pspec.
--- pspec : 	a valid GParamSpec
--- Returns : 	the GParamSpec that was passed into this function
--- g_param_spec_unref ()
-
--- void        g_param_spec_unref              (GParamSpec *pspec);
-
--- Decrements the reference count of a pspec.
--- pspec : 	a valid GParamSpec
--- g_param_spec_sink ()
-
--- void        g_param_spec_sink               (GParamSpec *pspec);
-
--- The initial reference count of a newly created GParamSpec is 1, even though no one has explicitly called g_param_spec_ref() on it yet. So the initial reference count is flagged as "floating", until someone calls g_param_spec_ref (pspec); g_param_spec_sink (pspec); in sequence on it, taking over the initial reference count (thus ending up with a pspec that has a reference count of 1 still, but is not flagged "floating" anymore).
--- pspec : 	a valid GParamSpec
--- g_param_spec_ref_sink ()
-
--- GParamSpec* g_param_spec_ref_sink           (GParamSpec *pspec);
-
--- Convenience function to ref and sink a GParamSpec.
--- pspec : 	a valid GParamSpec
--- Returns : 	the GParamSpec that was passed into this function
-
--- Since 2.10
--- g_param_value_set_default ()
-
--- void        g_param_value_set_default       (GParamSpec *pspec,
---                                              GValue *value);
-
--- Sets value to its default value as specified in pspec.
--- pspec : 	a valid GParamSpec
--- value : 	a GValue of correct type for pspec
--- g_param_value_defaults ()
-
--- gboolean    g_param_value_defaults          (GParamSpec *pspec,
---                                              GValue *value);
-
--- Checks whether value contains the default value as specified in pspec.
--- pspec : 	a valid GParamSpec
--- value : 	a GValue of correct type for pspec
--- Returns : 	whether value contains the canonical defualt for this pspec
--- g_param_value_validate ()
-
--- gboolean    g_param_value_validate          (GParamSpec *pspec,
---                                              GValue *value);
-
--- Ensures that the contents of value comply with the specifications set out by pspec. For example, a GParamSpecInt might require that integers stored in value may not be smaller than -42 and not be greater than +42. If value contains an integer outside of this range, it is modified accordingly, so the resulting value will fit into the range -42 .. +42.
--- pspec : 	a valid GParamSpec
--- value : 	a GValue of correct type for pspec
--- Returns : 	whether modifying value was necessary to ensure validity
--- g_param_value_convert ()
-
--- gboolean    g_param_value_convert           (GParamSpec *pspec,
---                                              const GValue *src_value,
---                                              GValue *dest_value,
---                                              gboolean strict_validation);
-
--- Transforms src_value into dest_value if possible, and then validates dest_value, in order for it to conform to pspec. If strict_validation is TRUE this function will only succeed if the transformed dest_value complied to pspec without modifications. See also g_value_type_transformable(), g_value_transform() and g_param_value_validate().
--- pspec : 	a valid GParamSpec
--- src_value : 	souce GValue
--- dest_value : 	destination GValue of correct type for pspec
--- strict_validation : 	TRUE requires dest_value to conform to pspec without modifications
--- Returns : 	TRUE if transformation and validation were successful, FALSE otherwise and dest_value is left untouched.
--- g_param_values_cmp ()
-
--- gint        g_param_values_cmp              (GParamSpec *pspec,
---                                              const GValue *value1,
---                                              const GValue *value2);
-
--- Compares value1 with value2 according to pspec, and return -1, 0 or +1, if value1 is found to be less than, equal to or greater than value2, respectively.
--- pspec : 	a valid GParamSpec
--- value1 : 	a GValue of correct type for pspec
--- value2 : 	a GValue of correct type for pspec
--- Returns : 	-1, 0 or +1, for a less than, equal to or greater than result
--- g_param_spec_get_name ()
-
--- const gchar* g_param_spec_get_name          (GParamSpec *pspec);
-
--- Returns the name of a GParamSpec.
--- pspec : 	a valid GParamSpec
--- Returns : 	the name of pspec.
--- g_param_spec_get_nick ()
-
--- const gchar* g_param_spec_get_nick          (GParamSpec *pspec);
-
--- Returns the nickname of a GParamSpec.
--- pspec : 	a valid GParamSpec
--- Returns : 	the nickname of pspec.
--- g_param_spec_get_blurb ()
-
--- const gchar* g_param_spec_get_blurb         (GParamSpec *pspec);
-
--- Returns the short description of a GParamSpec.
--- pspec : 	a valid GParamSpec
--- Returns : 	the short description of pspec.
--- g_param_spec_get_qdata ()
-
--- gpointer    g_param_spec_get_qdata          (GParamSpec *pspec,
---                                              GQuark quark);
-
--- Gets back user data pointers stored via g_param_spec_set_qdata().
--- pspec : 	a valid GParamSpec
--- quark : 	a GQuark, naming the user data pointer
--- Returns : 	the user data pointer set, or NULL
--- g_param_spec_set_qdata ()
-
--- void        g_param_spec_set_qdata          (GParamSpec *pspec,
---                                              GQuark quark,
---                                              gpointer data);
-
--- Sets an opaque, named pointer on a GParamSpec. The name is specified through a GQuark (retrieved e.g. via g_quark_from_static_string()), and the pointer can be gotten back from the pspec with g_param_spec_get_qdata(). Setting a previously set user data pointer, overrides (frees) the old pointer set, using NULL as pointer essentially removes the data stored.
--- pspec : 	the GParamSpec to set store a user data pointer
--- quark : 	a GQuark, naming the user data pointer
--- data : 	an opaque user data pointer
--- g_param_spec_set_qdata_full ()
-
--- void        g_param_spec_set_qdata_full     (GParamSpec *pspec,
---                                              GQuark quark,
---                                              gpointer data,
---                                              GDestroyNotify destroy);
-
--- This function works like g_param_spec_set_qdata(), but in addition, a void (*destroy) (gpointer) function may be specified which is called with data as argument when the pspec is finalized, or the data is being overwritten by a call to g_param_spec_set_qdata() with the same quark.
--- pspec : 	the GParamSpec to set store a user data pointer
--- quark : 	a GQuark, naming the user data pointer
--- data : 	an opaque user data pointer
--- destroy : 	function to invoke with data as argument, when data needs to be freed
--- g_param_spec_steal_qdata ()
-
--- gpointer    g_param_spec_steal_qdata        (GParamSpec *pspec,
---                                              GQuark quark);
-
--- Gets back user data pointers stored via g_param_spec_set_qdata() and removes the data from pspec without invoking it's destroy() function (if any was set). Usually, calling this function is only required to update user data pointers with a destroy notifier.
--- pspec : 	the GParamSpec to get a stored user data pointer from
--- quark : 	a GQuark, naming the user data pointer
--- Returns : 	the user data pointer set, or NULL
--- g_param_spec_get_redirect_target ()
-
--- GParamSpec* g_param_spec_get_redirect_target
---                                             (GParamSpec *pspec);
-
--- If the paramspec redirects operations to another paramspec, returns that paramspec. Redirect is used typically for providing a new implementation of a property in a derived type while preserving all the properties from the parent type. Redirection is established by creating a property of type GParamSpecOverride. See g_object_override_property() for an example of the use of this capability.
--- pspec : 	a GParamSpec
--- Returns : 	paramspec to which requests on this paramspec should be redirected, or NULL if none.
-
--- Since 2.4
--- g_param_spec_internal ()
-
--- gpointer    g_param_spec_internal           (GType param_type,
---                                              const gchar *name,
---                                              const gchar *nick,
---                                              const gchar *blurb,
---                                              GParamFlags flags);
-
--- Creates a new GParamSpec instance.
-
--- A property name consists of segments consisting of ASCII letters and digits, separated by either the '-' or '_' character. The first character of a property name must be a letter. Names which violate these rules lead to undefined behaviour.
-
--- When creating and looking up a GParamSpec, either separator can be used, but they cannot be mixed. Using '-' is considerably more efficient and in fact required when using property names as detail strings for signals.
--- param_type : 	the GType for the property; must be derived from G_TYPE_PARAM
--- name : 	the canonical name of the property
--- nick : 	the nickname of the property
--- blurb : 	a short description of the property
--- flags : 	a combination of GParamFlags
--- Returns : 	a newly allocated GParamSpec instance
--- GParamSpecTypeInfo
-
--- typedef struct {
---   /* type system portion */
---   guint16         instance_size;                               /* obligatory */
---   guint16         n_preallocs;                                 /* optional */
---   void		(*instance_init)	(GParamSpec   *pspec); /* optional */
-
---   /* class portion */
---   GType           value_type;				       /* obligatory */
---   void          (*finalize)             (GParamSpec   *pspec); /* optional */
---   void          (*value_set_default)    (GParamSpec   *pspec,  /* recommended */
--- 					 GValue       *value);
---   gboolean      (*value_validate)       (GParamSpec   *pspec,  /* optional */
--- 					 GValue       *value);
---   gint          (*values_cmp)           (GParamSpec   *pspec,  /* recommended */
--- 					 const GValue *value1,
--- 					 const GValue *value2);
--- } GParamSpecTypeInfo;
-
--- This structure is used to provide the type system with the information required to initialize and destruct (finalize) a parameter's class and instances thereof. The initialized structure is passed to the g_param_type_register_static() The type system will perform a deep copy of this structure, so it's memory does not need to be persistent across invocation of g_param_type_register_static().
--- guint16 instance_size; 	Size of the instance (object) structure.
--- guint16 n_preallocs; 	Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are allocated with the slice allocator now.
--- instance_init () 	Location of the instance initialization function (optional).
--- GType value_type; 	The GType of values conforming to this GParamSpec
--- finalize () 	The instance finalization function (optional).
--- value_set_default () 	Resets a value to the default value for pspec (recommended, the default is g_value_reset()), see g_param_value_set_default().
--- value_validate () 	Ensures that the contents of value comply with the specifications set out by pspec (optional), see g_param_value_set_validate().
--- values_cmp () 	Compares value1 with value2 according to pspec (recommended, the default is memcmp()), see g_param_values_cmp().
--- g_param_type_register_static ()
-
--- GType       g_param_type_register_static    (const gchar *name,
---                                              const GParamSpecTypeInfo *pspec_info);
-
--- Registers name as the name of a new static type derived from G_TYPE_PARAM. The type system uses the information contained in the GParamSpecTypeInfo structure pointed to by info to manage the GParamSpec type and its instances.
--- name : 	0-terminated string used as the name of the new GParamSpec type.
--- pspec_info : 	The GParamSpecTypeInfo for this GParamSpec type.
--- Returns : 	The new type identifier.
--- GParamSpecPool
-
--- typedef struct _GParamSpecPool GParamSpecPool;
-
--- A GParamSpecPool maintains a collection of GParamSpecs which can be quickly accessed by owner and name. The implementation of the GObject property system uses such a pool to store the GParamSpecs of the properties all object types.
--- g_param_spec_pool_new ()
-
--- GParamSpecPool* g_param_spec_pool_new       (gboolean type_prefixing);
-
--- Creates a new GParamSpecPool.
-
--- If type_prefixing is TRUE, lookups in the newly created pool will allow to specify the owner as a colon-separated prefix of the property name, like "GtkContainer:border-width". This feature is deprecated, so you should always set type_prefixing to FALSE.
--- type_prefixing : 	Whether the pool will support type-prefixed property names.
--- Returns : 	a newly allocated GParamSpecPool.
--- g_param_spec_pool_insert ()
-
--- void        g_param_spec_pool_insert        (GParamSpecPool *pool,
---                                              GParamSpec *pspec,
---                                              GType owner_type);
-
--- Inserts a GParamSpec in the pool.
--- pool : 	a GParamSpecPool.
--- pspec : 	the GParamSpec to insert
--- owner_type : 	a GType identifying the owner of pspec
--- g_param_spec_pool_remove ()
-
--- void        g_param_spec_pool_remove        (GParamSpecPool *pool,
---                                              GParamSpec *pspec);
-
--- Removes a GParamSpec from the pool.
--- pool : 	a GParamSpecPool
--- pspec : 	the GParamSpec to remove
--- g_param_spec_pool_lookup ()
-
--- GParamSpec* g_param_spec_pool_lookup        (GParamSpecPool *pool,
---                                              const gchar *param_name,
---                                              GType owner_type,
---                                              gboolean walk_ancestors);
-
--- Looks up a GParamSpec in the pool.
--- pool : 	a GParamSpecPool
--- param_name : 	the name to look for
--- owner_type : 	the owner to look for
--- walk_ancestors : 	If TRUE, also try to find a GParamSpec with param_name owned by an ancestor of owner_type.
--- Returns : 	The found GParamSpec, or NULL if no matching GParamSpec was found.
--- g_param_spec_pool_list ()
-
--- GParamSpec** g_param_spec_pool_list         (GParamSpecPool *pool,
---                                              GType owner_type,
---                                              guint *n_pspecs_p);
-
--- Gets an array of all GParamSpecs owned by owner_type in the pool.
--- pool : 	a GParamSpecPool
--- owner_type : 	the owner to look for
--- n_pspecs_p : 	return location for the length of the returned array
--- Returns : 	a newly allocated array containing pointers to all GParamSpecs owned by owner_type in the pool
--- g_param_spec_pool_list_owned ()
-
--- GList*      g_param_spec_pool_list_owned    (GParamSpecPool *pool,
---                                              GType owner_type);
-
--- Gets an GList of all GParamSpecs owned by owner_type in the pool.
--- pool : 	a GParamSpecPool
--- owner_type : 	the owner to look for
--- Returns : 	a GList of all GParamSpecs owned by owner_type in the poolGParamSpecs.
--- See Also
-
--- g_object_class_install_property(), g_object_set(), g_object_get(), g_object_set_property(), g_object_get_property(), g_value_register_transform_func()
-
-feature {} -- External calls
-	g_type_is_param (type: INTEGER): INTEGER is
-		-- Is `type' a G_TYPE_PARAM?
-		external "C macro G_TYPE_IS_PARAM use <glib-object.h>"
+	type_name: STRING is
+			-- the GType name of this parameter spec.
+		do
+			create Result.from_external_copy (g_param_spec_type(handle))
+		ensure result_not_void: Result /= Void
 		end
 
-	g_param_spec_ref (spec: POINTER): POINTER is
-		external "C use <glib-object.h>"
+	value_gtype: INTEGER is
+			-- the GType to initialize a GValue for this parameter.
+		do
+			Result:= g_param_spec_value_type (handle)
+			ensure 
+				is_valid_gtype: -- TODO: since this require a somehow
+				-- complete G_TYPES class
 		end
 
-	g_param_spec_unref (spec: POINTER) is
-		external "C use <glib-object.h>"
+feature {} -- Creation
+	make_boolean (a_name,a_nick,a_blurb: STRING; a_default: BOOLEAN; some_flags: INTEGER) is
+			-- Creates a new G_PARAM_SPEC_BOOLEAN.
+			-- `a_name' is the canonical name of the property specified,
+			-- `a_nick' is the nick name for the property specified,
+			-- `a_blurb' is a description of the property specified.
+			--`a_default' is the default value for the property
+			--`some_flags' are flags for the property specified
+		require
+			valid_flags: are_valid_param_flags (some_flags)
+		do
+			handle := g_param_spec_boolean(a_name.to_external,
+													 a_nick.to_external,
+													 a_blurb.to_external,
+													 a_default.to_integer,
+													 some_flags)
+		ensure is_boolean: is_boolean
 		end
-
-	g_param_spec_sink (spec: POINTER) is
-		external "C use <glib-object.h>"
-		end
-
-	g_param_value_set_default (spec,value: POINTER) is
-		external "C use <glib-object.h>"
+	
+	make_integer (a_name,a_nick,a_blurb: STRING;
+					  a_min,a_max,a_default: INTEGER; some_flags: INTEGER) is
+			-- Creates a parameter specification for an integer setting.
+			-- `a_name' is the canonical name of the property specified,
+			-- `a_nick' is the nick name for the property specified,
+			-- `a_blurb' is a description of the property specified.
+			--`a_default' is the default value for the property
+			--`some_flags' are flags for the property specified
+		require
+			max_greater_than_min: a_min < a_max
+				default_in_range: a_default.in_range (a_min, a_max)
+		do
+			handle := g_param_spec_int (a_name.to_external, a_nick.to_external, a_blurb.to_external,
+												 a_min, a_max, a_default,
+												 some_flags)
+		ensure is_integer: is_integer
 		end
 
 	
-	g_param_value_defaults (spec, value: POINTER): INTEGER is
-		external "C use <glib-object.h>"
-		end
-
-	g_param_value_validate (spec,value: POINTER): INTEGER is
-		external "C use <glib-object.h>"
-		end
-
-	g_param_value_convert (spec,src,dest: POINTER; strict_validation: INTEGER): INTEGER is
-		external "C use <glib-object.h>"
-		end
-
-	g_param_values_cmp (spec,value1,value2: POINTER): INTEGER is
-		external "C use <glib-object.h>"
-		end
-
-	g_param_spec_get_name (spec: POINTER): POINTER is
-		external "C use <glib-object.h>"
-		end
-
-	g_param_spec_get_nick (spec: POINTER): POINTER is
-		external "C use <glib-object.h>"
-		end
-	g_param_spec_get_blurb (spec: POINTER): POINTER is
-		external "C use <glib-object.h>"
-		end
-
-	g_param_spec_get_qdata (spec,quark: POINTER): POINTER is
-		external "C use <glib-object.h>"
-		end
-
-	g_param_spec_set_qdata (spec,quark,data: POINTER) is
-		external "C use <glib-object.h>"
+feature -- Boolean parameter
+	is_boolean: BOOLEAN is
+		-- Is this a boolean parameter?
+		do
+			Result := g_is_param_spec_boolean (handle).to_boolean
 		end
 	
-
-	g_param_spec_internal (gtype: INTEGER; a_name, a_nick, a_blurb: POINTER; some_flags: INTEGER): POINTER is
-		external "C use <glib-object.h>"
+	default_boolean: BOOLEAN is
+		-- default boolean value
+		do
+			Result := default_gboolean(handle).to_boolean
 		end
 
-feature {} -- boolean parameter specification
+feature -- Integer parameter
+	is_integer: BOOLEAN is
+			-- Is this an integer parameter?
+		do
+			Result := g_is_param_spec_int (handle).to_boolean
+		end
+
+	default_integer: INTEGER is
+			-- The default integer value
+		require is_integer: is_integer
+		do
+			Result := get_default_int (handle)
+		end
+
+	minimum_integer: INTEGER is
+			-- The minimum integer value
+		require is_integer: is_integer
+		do
+			Result := get_min_int (handle)
+		end
+
+	maximum_integer: INTEGER is
+			-- The maximum integer value
+		require is_integer: is_integer
+		do
+			Result := get_max_int (handle)
+		end
+
+feature {} -- Natural parameter
+	is_natural: BOOLEAN is
+			-- Is this a natural parameter?
+		do
+			Result := (g_is_param_spec_uint (handle).to_boolean)
+		end
+
+	default_natural: INTEGER is
+			-- The default natural value
+		require is_natural: is_natural
+		do
+			Result := get_default_uint (handle)
+		end
+
+	minimum_natural: INTEGER is
+			-- The minimum natural value
+		require is_natural: is_natural
+		do
+			Result := get_min_uint (handle)
+		end
+
+	maximum_natural: INTEGER is
+			-- The maximum natural value
+		require is_natural: is_natural
+		do
+			Result := get_max_uint (handle)
+		end
+
+feature {} -- Unwrapped API
 	
-	default_gboolean (spec:POINTER): INTEGER is
-		external "C struct GParamSpecBoolean get default_value use <glib-object.h>"
-		end
+--   GParamSpec
 
-	g_param_spec_boolean (a_name, a_nick, a_blurb: POINTER;
-								 a_default, some_flags: INTEGER): POINTER is
-		external "C use <glib-object.h>"
-		end
-	
-feature {} -- character parameter specification
-	min_char (spec: POINTER): INTEGER is
-		external "C struct GParamSpecChar get minumum use <glib-object.h>"
-		end
-	
-	max_char (spec: POINTER): INTEGER is
-		external "C struct GParamSpecChar get maximum use <glib-object.h>"
-		end
-	
-	def_char (spec: POINTER): INTEGER is
-		external "C struct GParamSpecChar get defualt_value use <glib-object.h>"
-		end
-	
-	g_param_spec_char (a_name, a_nick, a_blurb: POINTER;
-							 min_c,max_c,default_char, some_flags: INTEGER_8): POINTER is
-		external "C use <glib-object.h>"
-		end
+--  typedef struct {
+--    GTypeInstance  g_type_instance;
 
+--    gchar         *name;
+--    GParamFlags    flags;
+--    GType          value_type;
+--    GType          owner_type;    /* class or interface using this property */
+--  } GParamSpec;
 
-feature {} -- integer parameter specification
-	min_int (spec: POINTER): INTEGER is
-		external "C struct GParamSpecInt get minumum use <glib-object.h>"
-		end
-	max_int (spec: POINTER): INTEGER is
-		external "C struct GParamSpecInt get maximum use <glib-object.h>"
-		end
-	def_int (spec: POINTER): INTEGER is
-		external "C struct GParamSpecInt get defualt_value use <glib-object.h>"
-		end
+--    All fields of the GParamSpec struct are private and should not be used
+--    directly, except for the following:
 
-	g_param_spec_int (a_name, a_nick, a_blurb: POINTER;
-							min_i, max_i, def_i, some_flags: INTEGER) is
-		external "C use <glib-object.h>"
-		end
+--    GTypeInstance g_type_instance; private GTypeInstance portion
+--    gchar *name;                   name of this parameter
+--    GParamFlags flags;             GParamFlags flags for this parameter
+--    GType value_type;              the GValue type for this parameter
+--    GType owner_type;              GType type that uses (introduces) this
+--                                   paremeter
 
+--    -----------------------------------------------------------------------
 
-feature {} -- integer parameter specification
-	
-	min_long (spec: POINTER): INTEGER_64 is
-		external "C struct GParamSpecLong minumum use <glib-object.h>"
-		end
-	max_long (spec: POINTER): INTEGER_64 is
-		external "C struct GParamSpecLong maximum use <glib-object.h>"
-		end
-	default_long (spec: POINTER): INTEGER_64 is
-		external "C struct GParamSpecLong default_long use <glib-object.h>"
-		end
-	
-	g_param_spec_long (a_name, a_nick, a_blurb: POINTER;
-							 a_min,a_max,a_default: INTEGER_64;
-							 some_flags: INTEGER): POINTER is
-		external "C use <glib-object.h>"
-		end
--- Prev 	Up 	Home 	GObject Reference Manual 	Next
--- Top  |  Description
--- GParamSpec
--- 
--- GParamSpec œôòô Metadata for parameter specifications
--- 	
--- Synopsis
--- 
--- #include <glib-object.h>
--- 
--- 
--- #define     G_TYPE_IS_PARAM                 (type)
--- #define     G_PARAM_SPEC                    (pspec)
--- #define     G_IS_PARAM_SPEC                 (pspec)
--- #define     G_PARAM_SPEC_CLASS              (pclass)
--- #define     G_IS_PARAM_SPEC_CLASS           (pclass)
--- #define     G_PARAM_SPEC_GET_CLASS          (pspec)
--- #define     G_PARAM_SPEC_TYPE               (pspec)
--- #define     G_PARAM_SPEC_TYPE_NAME          (pspec)
--- #define     G_PARAM_SPEC_VALUE_TYPE         (pspec)
--- 				GParamSpec;
--- 				GParamSpecClass;
--- enum        GParamFlags;
--- #define     G_PARAM_READWRITE
--- #define     G_PARAM_MASK
--- #define     G_PARAM_USER_SHIFT
--- GParamSpec* g_param_spec_ref                (GParamSpec *pspec);
--- void        g_param_spec_unref              (GParamSpec *pspec);
--- void        g_param_spec_sink               (GParamSpec *pspec);
--- GParamSpec* g_param_spec_ref_sink           (GParamSpec *pspec);
--- void        g_param_value_set_default       (GParamSpec *pspec,
--- 															GValue *value);
--- gboolean    g_param_value_defaults          (GParamSpec *pspec,
--- 															GValue *value);
--- gboolean    g_param_value_validate          (GParamSpec *pspec,
--- 															GValue *value);
--- gboolean    g_param_value_convert           (GParamSpec *pspec,
--- 															const GValue *src_value,
--- 															GValue *dest_value,
--- 															gboolean strict_validation);
--- gint        g_param_values_cmp              (GParamSpec *pspec,
--- 															const GValue *value1,
--- 															const GValue *value2);
--- const gchar* g_param_spec_get_name          (GParamSpec *pspec);
--- const gchar* g_param_spec_get_nick          (GParamSpec *pspec);
--- const gchar* g_param_spec_get_blurb         (GParamSpec *pspec);
--- gpointer    g_param_spec_get_qdata          (GParamSpec *pspec,
--- 															GQuark quark);
--- void        g_param_spec_set_qdata          (GParamSpec *pspec,
--- 															GQuark quark,
--- 															gpointer data);
--- void        g_param_spec_set_qdata_full     (GParamSpec *pspec,
--- 															GQuark quark,
--- 															gpointer data,
--- 															GDestroyNotify destroy);
--- gpointer    g_param_spec_steal_qdata        (GParamSpec *pspec,
--- 															GQuark quark);
--- GParamSpec* g_param_spec_get_redirect_target
--- 														  (GParamSpec *pspec);
--- gpointer    g_param_spec_internal           (GType param_type,
--- 															const gchar *name,
--- 															const gchar *nick,
--- 															const gchar *blurb,
--- 															GParamFlags flags);
--- 				GParamSpecTypeInfo;
--- GType       g_param_type_register_static    (const gchar *name,
--- 															const GParamSpecTypeInfo *pspec_info);
--- 				GParamSpecPool;
--- GParamSpecPool* g_param_spec_pool_new       (gboolean type_prefixing);
--- void        g_param_spec_pool_insert        (GParamSpecPool *pool,
--- 															GParamSpec *pspec,
--- 															GType owner_type);
--- void        g_param_spec_pool_remove        (GParamSpecPool *pool,
--- 															GParamSpec *pspec);
--- GParamSpec* g_param_spec_pool_lookup        (GParamSpecPool *pool,
--- 															const gchar *param_name,
--- 															GType owner_type,
--- 															gboolean walk_ancestors);
--- GParamSpec** g_param_spec_pool_list         (GParamSpecPool *pool,
--- 															GType owner_type,
--- 															guint *n_pspecs_p);
--- GList*      g_param_spec_pool_list_owned    (GParamSpecPool *pool,
--- 															GType owner_type);
--- 
--- 	
+--   GParamSpecClass
+
+--  typedef struct {
+--    GTypeClass      g_type_class;
+
+--    GType           value_type;
+
+--    void          (*finalize)             (GParamSpec   *pspec);
+
+--    /* GParam methods */
+--    void          (*value_set_default)    (GParamSpec   *pspec,
+--                                           GValue       *value);
+--    gboolean      (*value_validate)       (GParamSpec   *pspec,
+--                                           GValue       *value);
+--    gint          (*values_cmp)           (GParamSpec   *pspec,
+--                                           const GValue *value1,
+--                                           const GValue *value2);
+--  } GParamSpecClass;
+
+--    The class structure for the GParamSpec type. Normally, GParamSpec
+--    classes are filled by g_param_type_register_static().
+
+--    GTypeClass g_type_class; the parent class
+--    GType value_type;        the GValue type for this parameter
+--    finalize ()              The instance finalization function (optional),
+--                             should chain up to the finalize method of the
+--                             parent class.
+--    value_set_default ()     Resets a value to the default value for this
+--                             type (recommended, the default is
+--                             g_value_reset()), see
+--                             g_param_value_set_default().
+--    value_validate ()        Ensures that the contents of value comply with
+--                             the specifications set out by this type
+--                             (optional), see g_param_value_set_validate().
+--    values_cmp ()            Compares value1 with value2 according to this
+--                             type (recommended, the default is memcmp()),
+--                             see g_param_values_cmp().
+
+--    -----------------------------------------------------------------------
+
+--   enum GParamFlags
+
+--  typedef enum
+--  {
+--    G_PARAM_READABLE            = 1 << 0,
+--    G_PARAM_WRITABLE            = 1 << 1,
+--    G_PARAM_CONSTRUCT           = 1 << 2,
+--    G_PARAM_CONSTRUCT_ONLY      = 1 << 3,
+--    G_PARAM_LAX_VALIDATION      = 1 << 4,
+--    G_PARAM_STATIC_NAME         = 1 << 5,
+--  #ifndef G_DISABLE_DEPRECATED
+--    G_PARAM_PRIVATE             = G_PARAM_STATIC_NAME,
+--  #endif
+--    G_PARAM_STATIC_NICK         = 1 << 6,
+--    G_PARAM_STATIC_BLURB        = 1 << 7
+--  } GParamFlags;
+
+--    Through the GParamFlags flag values, certain aspects of parameters can
+--    be configured.
+
+--    G_PARAM_READABLE       the parameter is readable
+--    G_PARAM_WRITABLE       the parameter is writable
+--    G_PARAM_CONSTRUCT      the parameter will be set upon object
+--                           construction
+--    G_PARAM_CONSTRUCT_ONLY the parameter will only be set upon object
+--                           construction
+--    G_PARAM_LAX_VALIDATION upon parameter conversion (see
+--                           g_param_value_convert()) strict validation is
+--                           not required
+--    G_PARAM_STATIC_NAME    the string used as name when constructing the
+--                           parameter is guaranteed to remain valid and
+--                           unmodified for the lifetime of the parameter.
+--                           Since 2.8
+--    G_PARAM_STATIC_BLURB   the string used as blurb when constructing the
+--                           parameter is guaranteed to remain valid and
+--                           unmodified for the lifetime of the parameter.
+--                           Since 2.8
+
+--    -----------------------------------------------------------------------
+
+--   G_PARAM_READWRITE
+
+--  #define G_PARAM_READWRITE       (G_PARAM_READABLE | G_PARAM_WRITABLE)
+
+--    GParamFlags value alias for G_PARAM_READABLE | G_PARAM_WRITABLE.
+
+--    -----------------------------------------------------------------------
+
+--   G_PARAM_MASK
+
+--  #define G_PARAM_MASK            (0x000000ff)
+
+--    Mask containing the bits of GParamSpec.flags which are reserved for
+--    GLib.
+
+--    -----------------------------------------------------------------------
+
+--   G_PARAM_USER_SHIFT
+
+--  #define G_PARAM_USER_SHIFT      (8)
+
+--    Minimum shift count to be used for user defined flags, to be stored in
+--    GParamSpec.flags.
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_ref ()
+
+--  GParamSpec* g_param_spec_ref                (GParamSpec *pspec);
+
+--    Increments the reference count of pspec.
+
+--    pspec :   a valid GParamSpec
+--    Returns : the GParamSpec that was passed into this function
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_unref ()
+
+--  void        g_param_spec_unref              (GParamSpec *pspec);
+
+--    Decrements the reference count of a pspec.
+
+--    pspec : a valid GParamSpec
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_sink ()
+
+--  void        g_param_spec_sink               (GParamSpec *pspec);
+
+--    The initial reference count of a newly created GParamSpec is 1, even
+--    though no one has explicitly called g_param_spec_ref() on it yet. So
+--    the initial reference count is flagged as "floating", until someone
+--    calls g_param_spec_ref (pspec); g_param_spec_sink (pspec); in sequence
+--    on it, taking over the initial reference count (thus ending up with a
+--    pspec that has a reference count of 1 still, but is not flagged
+--    "floating" anymore).
+
+--    pspec : a valid GParamSpec
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_ref_sink ()
+
+--  GParamSpec* g_param_spec_ref_sink           (GParamSpec *pspec);
+
+--    Convenience function to ref and sink a GParamSpec.
+
+--    pspec :   a valid GParamSpec
+--    Returns : the GParamSpec that was passed into this function
+
+--    Since 2.10
+
+--    -----------------------------------------------------------------------
+
+--   g_param_value_set_default ()
+
+--  void        g_param_value_set_default       (GParamSpec *pspec,
+--                                               GValue *value);
+
+--    Sets value to its default value as specified in pspec.
+
+--    pspec : a valid GParamSpec
+--    value : a GValue of correct type for pspec
+
+--    -----------------------------------------------------------------------
+
+--   g_param_value_defaults ()
+
+--  gboolean    g_param_value_defaults          (GParamSpec *pspec,
+--                                               GValue *value);
+
+--    Checks whether value contains the default value as specified in pspec.
+
+--    pspec :   a valid GParamSpec
+--    value :   a GValue of correct type for pspec
+--    Returns : whether value contains the canonical defualt for this pspec
+
+--    -----------------------------------------------------------------------
+
+--   g_param_value_validate ()
+
+--  gboolean    g_param_value_validate          (GParamSpec *pspec,
+--                                               GValue *value);
+
+--    Ensures that the contents of value comply with the specifications set
+--    out by pspec. For example, a GParamSpecInt might require that integers
+--    stored in value may not be smaller than -42 and not be greater than
+--    +42. If value contains an integer outside of this range, it is modified
+--    accordingly, so the resulting value will fit into the range -42 .. +42.
+
+--    pspec :   a valid GParamSpec
+--    value :   a GValue of correct type for pspec
+--    Returns : whether modifying value was necessary to ensure validity
+
+--    -----------------------------------------------------------------------
+
+--   g_param_value_convert ()
+
+--  gboolean    g_param_value_convert           (GParamSpec *pspec,
+--                                               const GValue *src_value,
+--                                               GValue *dest_value,
+--                                               gboolean strict_validation);
+
+--    Transforms src_value into dest_value if possible, and then validates
+--    dest_value, in order for it to conform to pspec. If strict_validation
+--    is TRUE this function will only succeed if the transformed dest_value
+--    complied to pspec without modifications. See also
+--    g_value_type_transformable(), g_value_transform() and
+--    g_param_value_validate().
+
+--    pspec :             a valid GParamSpec
+--    src_value :         souce GValue
+--    dest_value :        destination GValue of correct type for pspec
+--    strict_validation : TRUE requires dest_value to conform to pspec
+--                        without modifications
+--    Returns :           TRUE if transformation and validation were
+--                        successful, FALSE otherwise and dest_value is left
+--                        untouched.
+
+--    -----------------------------------------------------------------------
+
+--   g_param_values_cmp ()
+
+--  gint        g_param_values_cmp              (GParamSpec *pspec,
+--                                               const GValue *value1,
+--                                               const GValue *value2);
+
+--    Compares value1 with value2 according to pspec, and return -1, 0 or +1,
+--    if value1 is found to be less than, equal to or greater than value2,
+--    respectively.
+
+--    pspec :   a valid GParamSpec
+--    value1 :  a GValue of correct type for pspec
+--    value2 :  a GValue of correct type for pspec
+--    Returns : -1, 0 or +1, for a less than, equal to or greater than result
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_get_name ()
+
+--  const gchar* g_param_spec_get_name          (GParamSpec *pspec);
+
+--    Returns the name of a GParamSpec.
+
+--    pspec :   a valid GParamSpec
+--    Returns : the name of pspec.
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_get_nick ()
+
+--  const gchar* g_param_spec_get_nick          (GParamSpec *pspec);
+
+--    Returns the nickname of a GParamSpec.
+
+--    pspec :   a valid GParamSpec
+--    Returns : the nickname of pspec.
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_get_blurb ()
+
+--  const gchar* g_param_spec_get_blurb         (GParamSpec *pspec);
+
+--    Returns the short description of a GParamSpec.
+
+--    pspec :   a valid GParamSpec
+--    Returns : the short description of pspec.
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_get_qdata ()
+
+--  gpointer    g_param_spec_get_qdata          (GParamSpec *pspec,
+--                                               GQuark quark);
+
+--    Gets back user data pointers stored via g_param_spec_set_qdata().
+
+--    pspec :   a valid GParamSpec
+--    quark :   a GQuark, naming the user data pointer
+--    Returns : the user data pointer set, or NULL
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_set_qdata ()
+
+--  void        g_param_spec_set_qdata          (GParamSpec *pspec,
+--                                               GQuark quark,
+--                                               gpointer data);
+
+--    Sets an opaque, named pointer on a GParamSpec. The name is specified
+--    through a GQuark (retrieved e.g. via g_quark_from_static_string()), and
+--    the pointer can be gotten back from the pspec with
+--    g_param_spec_get_qdata(). Setting a previously set user data pointer,
+--    overrides (frees) the old pointer set, using NULL as pointer
+--    essentially removes the data stored.
+
+--    pspec : the GParamSpec to set store a user data pointer
+--    quark : a GQuark, naming the user data pointer
+--    data :  an opaque user data pointer
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_set_qdata_full ()
+
+--  void        g_param_spec_set_qdata_full     (GParamSpec *pspec,
+--                                               GQuark quark,
+--                                               gpointer data,
+--                                               GDestroyNotify destroy);
+
+--    This function works like g_param_spec_set_qdata(), but in addition, a
+--    void (*destroy) (gpointer) function may be specified which is called
+--    with data as argument when the pspec is finalized, or the data is being
+--    overwritten by a call to g_param_spec_set_qdata() with the same quark.
+
+--    pspec :   the GParamSpec to set store a user data pointer
+--    quark :   a GQuark, naming the user data pointer
+--    data :    an opaque user data pointer
+--    destroy : function to invoke with data as argument, when data needs to
+--              be freed
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_steal_qdata ()
+
+--  gpointer    g_param_spec_steal_qdata        (GParamSpec *pspec,
+--                                               GQuark quark);
+
+--    Gets back user data pointers stored via g_param_spec_set_qdata() and
+--    removes the data from pspec without invoking it's destroy() function
+--    (if any was set). Usually, calling this function is only required to
+--    update user data pointers with a destroy notifier.
+
+--    pspec :   the GParamSpec to get a stored user data pointer from
+--    quark :   a GQuark, naming the user data pointer
+--    Returns : the user data pointer set, or NULL
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_get_redirect_target ()
+
+--  GParamSpec* g_param_spec_get_redirect_target
+--                                              (GParamSpec *pspec);
+
+--    If the paramspec redirects operations to another paramspec, returns
+--    that paramspec. Redirect is used typically for providing a new
+--    implementation of a property in a derived type while preserving all the
+--    properties from the parent type. Redirection is established by creating
+--    a property of type GParamSpecOverride. See g_object_override_property()
+--    for an example of the use of this capability.
+
+--    pspec :   a GParamSpec
+--    Returns : paramspec to which requests on this paramspec should be
+--              redirected, or NULL if none.
+
+--    Since 2.4
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_internal ()
+
+--  gpointer    g_param_spec_internal           (GType param_type,
+--                                               const gchar *name,
+--                                               const gchar *nick,
+--                                               const gchar *blurb,
+--                                               GParamFlags flags);
+
+--    Creates a new GParamSpec instance.
+
+--    A property name consists of segments consisting of ASCII letters and
+--    digits, separated by either the '-' or '_' character. The first
+--    character of a property name must be a letter. Names which violate
+--    these rules lead to undefined behaviour.
+
+--    When creating and looking up a GParamSpec, either separator can be
+--    used, but they cannot be mixed. Using '-' is considerably more
+--    efficient and in fact required when using property names as detail
+--    strings for signals.
+
+--    param_type : the GType for the property; must be derived from
+--                 G_TYPE_PARAM
+--    name :       the canonical name of the property
+--    nick :       the nickname of the property
+--    blurb :      a short description of the property
+--    flags :      a combination of GParamFlags
+--    Returns :    a newly allocated GParamSpec instance
+
+--    -----------------------------------------------------------------------
+
+--   GParamSpecTypeInfo
+
+--  typedef struct {
+--    /* type system portion */
+--    guint16         instance_size;                               /* obligatory */
+--    guint16         n_preallocs;                                 /* optional */
+--    void          (*instance_init)        (GParamSpec   *pspec); /* optional */
+
+--    /* class portion */
+--    GType           value_type;                                  /* obligatory */
+--    void          (*finalize)             (GParamSpec   *pspec); /* optional */
+--    void          (*value_set_default)    (GParamSpec   *pspec,  /* recommended */
+--                                           GValue       *value);
+--    gboolean      (*value_validate)       (GParamSpec   *pspec,  /* optional */
+--                                           GValue       *value);
+--    gint          (*values_cmp)           (GParamSpec   *pspec,  /* recommended */
+--                                           const GValue *value1,
+--                                           const GValue *value2);
+--  } GParamSpecTypeInfo;
+
+--    This structure is used to provide the type system with the information
+--    required to initialize and destruct (finalize) a parameter's class and
+--    instances thereof. The initialized structure is passed to the
+--    g_param_type_register_static() The type system will perform a deep copy
+--    of this structure, so it's memory does not need to be persistent across
+--    invocation of g_param_type_register_static().
+
+--    guint16 instance_size; Size of the instance (object) structure.
+--    guint16 n_preallocs;   Prior to GLib 2.10, it specified the number of
+--                           pre-allocated (cached) instances to reserve
+--                           memory for (0 indicates no caching). Since GLib
+--                           2.10, it is ignored, since instances are
+--                           allocated with the slice allocator now.
+--    instance_init ()       Location of the instance initialization function
+--                           (optional).
+--    GType value_type;      The GType of values conforming to this
+--                           GParamSpec
+--    finalize ()            The instance finalization function (optional).
+--    value_set_default ()   Resets a value to the default value for pspec
+--                           (recommended, the default is g_value_reset()),
+--                           see g_param_value_set_default().
+--    value_validate ()      Ensures that the contents of value comply with
+--                           the specifications set out by pspec (optional),
+--                           see g_param_value_set_validate().
+--    values_cmp ()          Compares value1 with value2 according to pspec
+--                           (recommended, the default is memcmp()), see
+--                           g_param_values_cmp().
+
+--    -----------------------------------------------------------------------
+
+--   g_param_type_register_static ()
+
+--  GType       g_param_type_register_static    (const gchar *name,
+--                                               const GParamSpecTypeInfo *pspec_info);
+
+--    Registers name as the name of a new static type derived from
+--    G_TYPE_PARAM. The type system uses the information contained in the
+--    GParamSpecTypeInfo structure pointed to by info to manage the
+--    GParamSpec type and its instances.
+
+--    name :       0-terminated string used as the name of the new GParamSpec
+--                 type.
+--    pspec_info : The GParamSpecTypeInfo for this GParamSpec type.
+--    Returns :    The new type identifier.
+
+--    -----------------------------------------------------------------------
+
+--   GParamSpecPool
+
+--  typedef struct _GParamSpecPool GParamSpecPool;
+
+--    A GParamSpecPool maintains a collection of GParamSpecs which can be
+--    quickly accessed by owner and name. The implementation of the GObject
+--    property system uses such a pool to store the GParamSpecs of the
+--    properties all object types.
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_pool_new ()
+
+--  GParamSpecPool* g_param_spec_pool_new       (gboolean type_prefixing);
+
+--    Creates a new GParamSpecPool.
+
+--    If type_prefixing is TRUE, lookups in the newly created pool will allow
+--    to specify the owner as a colon-separated prefix of the property name,
+--    like "GtkContainer:border-width". This feature is deprecated, so you
+--    should always set type_prefixing to FALSE.
+
+--    type_prefixing : Whether the pool will support type-prefixed property
+--                     names.
+--    Returns :        a newly allocated GParamSpecPool.
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_pool_insert ()
+
+--  void        g_param_spec_pool_insert        (GParamSpecPool *pool,
+--                                               GParamSpec *pspec,
+--                                               GType owner_type);
+
+--    Inserts a GParamSpec in the pool.
+
+--    pool :       a GParamSpecPool.
+--    pspec :      the GParamSpec to insert
+--    owner_type : a GType identifying the owner of pspec
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_pool_remove ()
+
+--  void        g_param_spec_pool_remove        (GParamSpecPool *pool,
+--                                               GParamSpec *pspec);
+
+--    Removes a GParamSpec from the pool.
+
+--    pool :  a GParamSpecPool
+--    pspec : the GParamSpec to remove
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_pool_lookup ()
+
+--  GParamSpec* g_param_spec_pool_lookup        (GParamSpecPool *pool,
+--                                               const gchar *param_name,
+--                                               GType owner_type,
+--                                               gboolean walk_ancestors);
+
+--    Looks up a GParamSpec in the pool.
+
+--    pool :           a GParamSpecPool
+--    param_name :     the name to look for
+--    owner_type :     the owner to look for
+--    walk_ancestors : If TRUE, also try to find a GParamSpec with param_name
+--                     owned by an ancestor of owner_type.
+--    Returns :        The found GParamSpec, or NULL if no matching
+--                     GParamSpec was found.
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_pool_list ()
+
+--  GParamSpec** g_param_spec_pool_list         (GParamSpecPool *pool,
+--                                               GType owner_type,
+--                                               guint *n_pspecs_p);
+
+--    Gets an array of all GParamSpecs owned by owner_type in the pool.
+
+--    pool :       a GParamSpecPool
+--    owner_type : the owner to look for
+--    n_pspecs_p : return location for the length of the returned array
+--    Returns :    a newly allocated array containing pointers to all
+--                 GParamSpecs owned by owner_type in the pool
+
+--    -----------------------------------------------------------------------
+
+--   g_param_spec_pool_list_owned ()
+
+--  GList*      g_param_spec_pool_list_owned    (GParamSpecPool *pool,
+--                                               GType owner_type);
+
+--    Gets an GList of all GParamSpecs owned by owner_type in the pool.
+
+--    pool :       a GParamSpecPool
+--    owner_type : the owner to look for
+--    Returns :    a GList of all GParamSpecs owned by owner_type in the
+--                 poolGParamSpecs.
 end

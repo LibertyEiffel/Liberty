@@ -26,10 +26,9 @@ default -- section of the system
 	relax (yes);
 
 cluster -- section
-		glib: "../../eiffel-glib/loadpath.se"
-		gobject: "../loadpath.se"
-
-		"."
+	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
+	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
+	current: "."
 
 	-- The cluster section is an ordered list of clusters. Roughly speaking,
 	-- a cluster can be considered as a directory where Eiffel source files

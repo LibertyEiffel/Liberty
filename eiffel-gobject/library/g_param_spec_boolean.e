@@ -1,16 +1,40 @@
 indexing
 
-	description: "Boolean GParamSpec"
-	copyright: "Copyright (c) 2005, Paolo Redaelli"
+	description: "Boolean GParamSpec Metadata for parameter specifications""
+	copyright: "[
+					Copyright (C) ) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+					]"
+	gtk_description: "[
+							GParamSpec is an object structure that encapsulates the metadata
+							required to specify parameters, such as e.g. GObject properties.
+	
+							Parameter names need to start with a letter (a-z or
+							A-Z). Subsequent characters can be letters, numbers or a '-'. All
+							other characters are replaced by a '-' during construction.
+							]"
+	copyright: "Copyright (c"
 	license: "LGPL"
 	date: "$Date:  $"
 	revision: "$ $"
 
 class G_PARAM_SPEC_BOOLEAN
 
-inherit
-
-	G_PARAM_SPEC
+inherit G_PARAM_SPEC
 
 creation
 	make
@@ -35,7 +59,7 @@ feature -- Creation
 feature
 	default: BOOLEAN is
 		do
-			Result := default_gboolean.to_boolean
+			Result := default_gboolean(handle).to_boolean
 		end
 end
 	

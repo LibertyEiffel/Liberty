@@ -79,9 +79,19 @@ feature {} -- External calls
 	-- All fields of the GParamSpec struct are private and should not be used directly, except for the following:
 	-- GTypeInstance g_type_instance; 	private GTypeInstance portion
 	-- gchar *name; 	name of this parameter
-	-- GParamFlags flags; 	GParamFlags flags for this parameter
-	-- GType value_type; 	the GValue type for this parameter
-	-- GType owner_type; 	GType type that uses (introduces) this paremeter
+	get_flags (a_spec: POINTER): INTEGER is
+			-- GParamSpec.flags: GParamFlags flags for this parameter
+		external "C struct GParamSpec get flags use <glib-object.h>"
+		end
+
+	get_value_type (a_spec: POINTER): INTEGER is
+			-- GType value_type: the GValue type for this parameter
+		external "C struct GParamSpec get value_type use <glib-object.h>"
+		end
+	get_owner_type (a_spec: POINTER): INTEGER is
+			-- GType owner_type; GType type that uses (introduces) this paremeterq
+		external "C struct GParamSpec get owner_type use <glib-object.h>"
+		end
 
 	-- TODO: wrap in necessary access to GParamSpecClass struct
 	
@@ -135,7 +145,7 @@ feature {} -- External calls
 		external "C use  <glib-object.h>"
 		end
 
-	g_param_value_defaults (a_g_param_spec: POINTER, a_value: POINTER): INTEGER is -- gboolean
+	g_param_value_defaults (a_g_param_spec: POINTER; a_value: POINTER): INTEGER is -- gboolean
 			-- Checks whether value contains the default value as specified in pspec.
 		external "C use <glib-object.h>"
 		end
@@ -151,7 +161,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 	
-	g_param_value_convert (a_g_param_spec, a_const_src_value, a_dest_value: POINTER, strict_validation_bool: INTEGER): INTEGER is -- gboolean
+	g_param_value_convert (a_g_param_spec, a_const_src_value, a_dest_value: POINTER; strict_validation_bool: INTEGER): INTEGER is -- gboolean
 			-- Transforms src_value into dest_value if possible, and then
 			-- validates dest_value, in order for it to conform to
 			-- pspec. If strict_validation is TRUE this function will
@@ -176,7 +186,6 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 		
-
 	g_param_spec_get_name (a_g_param_spec: POINTER): POINTER is -- const gchar*
 			-- Returns the name of a GParamSpec.
 			-- pspec : a valid GParamSpec
@@ -184,7 +193,6 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 	
-
 	g_param_spec_get_nick (a_g_param_spec: POINTER): POINTER is -- const gchar*
 			-- Returns the nickname of a GParamSpec.
 			-- pspec : a valid GParamSpec
@@ -199,8 +207,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-
-	g_param_spec_get_qdata (a_g_param_spec: POINTER, GQuark quark): POINTER is -- gpointer
+	g_param_spec_get_qdata (a_g_param_spec: POINTER;a_quark: INTEGER_32): POINTER is -- gpointer
 			-- Gets back user data pointers stored via g_param_spec_set_qdata().
 			-- pspec : a valid GParamSpec
 			-- quark : a GQuark, naming the user data pointer
@@ -365,7 +372,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-	g_param_spec_pool_lookup (a_spec_pool_pool: POINTER, a_const_param_name: POINTER, GType owner_type, walk_ancestors_bool: INTEGER): POINTER is -- GParamSpec* 
+	g_param_spec_pool_lookup (a_spec_pool_pool, a_const_param_name: POINTER; an_owner_type: INTEGER; walk_ancestors_bool: INTEGER): POINTER is -- GParamSpec* 
 			-- Looks up a GParamSpec in the pool.
 			-- pool : a GParamSpecPool
 			-- param_name : the name to look for
@@ -385,7 +392,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 		
-	g_param_spec_pool_list_owned (a_spec_pool: POINTER; an_owner_type): POINTER is -- -- GList*
+	g_param_spec_pool_list_owned (a_spec_pool: POINTER; an_owner_type: INTEGER): POINTER is -- -- GList*
 			-- Gets an GList of all GParamSpecs owned by owner_type in the pool.
 			-- pool : a GParamSpecPool
 			-- owner_type : the owner to look for
@@ -402,25 +409,27 @@ feature {} -- External calls for parameter specs of boolean type
 		alias "G_IS_PARAM_SPEC_BOOLEAN"
 		end
 
-	g_type_param_boolean: INTEGER) is
+	g_type_param_boolean: INTEGER is
 		-- -- The GType of GParamSpecBoolean.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_BOOLEAN"
 		end
 
-	-- TODO: wrap if necessary GParamSpecBoolean
-	
 	-- typedef struct {
-	-- GParamSpec parent_instance;
-	
+	-- GParamSpec parent_instance;	
 	-- gboolean default_value;
+	default_gboolean (spec:POINTER): INTEGER is
+			-- gboolean default_value; default value for the property specified
+		external "C struct GParamSpecBoolean get default_value use <glib-object.h>"
+		end
+
 	-- } GParamSpecBoolean;
 	
 	-- A GParamSpec derived structure that contains the meta data for boolean properties.
 	-- GParamSpec parent_instance; private GParamSpec portion
-	-- gboolean default_value; default value for the property specified
 	
-	g_param_spec_boolean (a_const_name, a_const_nick, a_const_blurb: POINTER;  default_bool_value: INTEGER; some_flags): POINTER is -- GParamSpec*
+	
+	g_param_spec_boolean (a_const_name, a_const_nick, a_const_blurb: POINTER;  default_bool_value: INTEGER; some_flags: INTEGER): POINTER is -- GParamSpec*
 			-- Creates a new GParamSpecBoolean instance specifying a G_TYPE_BOOLEAN property.
 		
 			-- See g_param_spec_internal() for details on property names.
@@ -447,22 +456,28 @@ feature {} -- External calls for parameter specs of char type
 		alias "G_TYPE_PARAM_CHAR"
 		end
 
-	-- TODO: wrap if necessary GParamSpecChar
-	
 	-- typedef struct {
 	-- GParamSpec parent_instance;
-	
 	-- gint8 minimum;
+	min_char (spec: POINTER): INTEGER_8 is
+			-- gint8 minimum; minimum value for the property specified
+		external "C struct GParamSpecChar get minumum use <glib-object.h>"
+		end
 	-- gint8 maximum;
-	-- gint8 default_value;
-	-- } GParamSpecChar;
+	max_char (spec: POINTER): INTEGER is
+			-- gint8 maximum; maximum value for the property specified
+		external "C struct GParamSpecChar get maximum use <glib-object.h>"
+		end
+	-- gint8 default_value;	
+	def_char (spec: POINTER): INTEGER is
+			-- gint8 default_value; default value for the property specified
+		external "C struct GParamSpecChar get default_value use <glib-object.h>"
+		end
+	-- } GParamSpecChar, a GParamSpec derived structure that contains
+	-- the meta data for character properties.  GParamSpec
+	-- parent_instance; private GParamSpec portion
 	
-	-- A GParamSpec derived structure that contains the meta data for character properties.
-	-- GParamSpec parent_instance; private GParamSpec portion
-	-- gint8 minimum; minimum value for the property specified
-	-- gint8 maximum; maximum value for the property specified
-	-- gint8 default_value; default value for the property specified
-
+	
 	g_param_spec_char (a_const_name, a_const_nick, a_const_blurb: POINTER;
 							 a_minimum, a_maximum, a_default_value: INTEGER_8; some_flags: INTEGER): POINTER is -- GParamSpec*
 			-- Creates a new GParamSpecChar instance specifying a G_TYPE_CHAR property.
@@ -536,22 +551,28 @@ feature {} -- External calls for parameter specs of integer type
 		alias "G_TYPE_PARAM_INT"
 		end
 	
-
-	-- TODO: wrap if necessary GParamSpecInt
-	
 	-- typedef struct {
 	-- GParamSpec parent_instance;
-	
 	-- gint minimum;
+	get_min_int (spec: POINTER): INTEGER is
+			-- gint minimum; minimum value for the property specified
+		external "C struct GParamSpecInt get minumum use <glib-object.h>"
+		end
 	-- gint maximum;
+	get_max_int (spec: POINTER): INTEGER is
+			-- gint maximum; maximum value for the property specified
+		external "C struct GParamSpecInt get maximum use <glib-object.h>"
+		end
 	-- gint default_value;
+	get_default_int (spec: POINTER): INTEGER is
+		external "C struct GParamSpecInt get default_value use <glib-object.h>"
+		end
 	-- } GParamSpecInt;
 
 	-- A GParamSpec derived structure that contains the meta data for integer properties.
 	-- GParamSpec parent_instance; private GParamSpec portion
-	-- gint minimum; minimum value for the property specified
-	-- gint maximum; maximum value for the property specified
-	-- gint default_value; default value for the property specified
+	
+		-- gint default_value; default value for the property specified
 	
 	g_param_spec_int (a_const_name, a_const_nick, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: INTEGER; some_flags: INTEGER): POINTER is -- GParamSpec* 
 			-- Creates a new GParamSpecInt instance specifying a G_TYPE_INT property.
@@ -588,8 +609,17 @@ feature {} -- External calls for parameter specs of unsigned integer type
 	-- GParamSpec parent_instance;
  
 	-- guint minimum;
+	get_min_uint (spec: POINTER): INTEGER is
+		external "C struct GParamSpecUInt get minimum use <glib-object.h>"
+		end
 	-- guint maximum;
+	get_max_uint (spec: POINTER): INTEGER is
+		external "C struct GParamSpecUInt get maximum use <glib-object.h>"
+		end
 	-- guint default_value;
+	get_default_uint (spec: POINTER): INTEGER is
+		external "C struct GParamSpecUInt get default_value use <glib-object.h>"
+		end
 	-- } GParamSpecUInt;
 
 	-- A GParamSpec derived structure that contains the meta data for unsigned integer properties.
@@ -628,23 +658,31 @@ feature {} -- External calls for parameter specs of long type
 		alias "G_TYPE_PARAM_LONG"
 		end
 
-	-- TODO: wrap if necessary GParamSpecLong
-
 	-- typedef struct {
 	-- GParamSpec parent_instance;
  
 	-- glong minimum;
+	min_long (spec: POINTER): INTEGER_64 is
+			-- glong minimum; minimum value for the property specified
+		external "C struct GParamSpecLong minumum use <glib-object.h>"
+		end
 	-- glong maximum;
+	max_long (spec: POINTER): INTEGER_64 is
+			-- glong maximum; maximum value for the property specified
+		external "C struct GParamSpecLong maximum use <glib-object.h>"
+		end
 	-- glong default_value;
-	-- } GParamSpecLong;
+	default_long (spec: POINTER): INTEGER_64 is
+			-- glong default_value; default value for the property specified
+		external "C struct GParamSpecLong default_long use <glib-object.h>"
+		end
+	-- } GParamSpecLong, a GParamSpec derived structure that contains
+	-- the meta data for long integer properties.  GParamSpec
+	-- parent_instance; private GParamSpec portion
 
-	-- A GParamSpec derived structure that contains the meta data for long integer properties.
-	-- GParamSpec parent_instance; private GParamSpec portion
-	-- glong minimum; minimum value for the property specified
-	-- glong maximum; maximum value for the property specified
-	-- glong default_value; default value for the property specified
-
-	g_param_spec_long (a_const_name: POINTER, a_const_nick: POINTER, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: INTEGER_64; some_flags: INTEGER): POINTER is -- GParamSpec* 
+	g_param_spec_long (a_const_name, a_const_nick, a_const_blurb: POINTER;
+							 a_minimum, a_maximum, a_default_value: INTEGER_64;
+							 some_flags: INTEGER): POINTER is -- GParamSpec* 
 			-- Creates a new GParamSpecLong instance specifying a G_TYPE_LONG property.
 
 			-- See g_param_spec_internal() for details on property names.
@@ -689,7 +727,8 @@ feature {} -- External calls for parameter specs of unsigned long type
 	-- gulong maximum; maximum value for the property specified
 	-- gulong default_value; default value for the property specified
 
-	g_param_spec_ulong (a_const_name: POINTER, a_const_nick: POINTER, a_const_blurb: POINTER;a_minimum,  a_maximum, a_default_value: INTEGER_64; some_flags: INTEGER ): POINTER is -- GParamSpec* 
+	g_param_spec_ulong (a_const_name, a_const_nick, a_const_blurb: POINTER;
+							  a_minimum, a_maximum, a_default_value: INTEGER_64; some_flags: INTEGER): POINTER is -- GParamSpec* 
 			-- Creates a new GParamSpecULong instance specifying a G_TYPE_ULONG property.
 		
 			-- See g_param_spec_internal() for details on property names.
@@ -713,7 +752,7 @@ feature {} -- External calls for parameter specs of int64 type
 		alias "G_IS_PARAM_SPEC_INT"
 		end
 
-	g_type_param_int 64: INTEGER is
+	g_type_param_int_64: INTEGER is
 			-- The GType of GParamSpecInt64.
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_PARAM_INT"
@@ -780,7 +819,7 @@ feature {} -- External calls for parameter specs of uint64 type
 	-- guint64 maximum; maximum value for the property specified
 	-- guint64 default_value; default value for the property specified
 
-	g_param_spec_uint64 (a_const_name, a_const_nick, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: INTEGER_64; some_flags): POINTER is -- GParamSpec*
+	g_param_spec_uint64 (a_const_name, a_const_nick, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: INTEGER_64; some_flags: INTEGER): POINTER is -- GParamSpec*
 			-- Creates a new GParamSpecUInt64 instance specifying a G_TYPE_UINT64 property.
 		
 			-- See g_param_spec_internal() for details on property names.
@@ -828,7 +867,7 @@ feature {} -- External calls for parameter specs of float type
 	-- gfloat default_value; default value for the property specified
 	-- gfloat epsilon; values closer than epsilon will be considered identical by g_param_values_cmp(); the default value is 1e-30.
 	
-	g_param_spec_float (a_const_name, a_const_nick, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: REAL_32; some_flags): POINTER is -- GParamSpec* 
+	g_param_spec_float (a_const_name, a_const_nick, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: REAL_32; some_flags: INTEGER): POINTER is -- GParamSpec* 
 			-- Creates a new GParamSpecFloat instance specifying a G_TYPE_FLOAT property.
 
 			-- See g_param_spec_internal() for details on property names.
@@ -1158,7 +1197,7 @@ feature {} -- External calls for parameter specs of pointer type
 
 	-- A GParamSpec derived structure that contains the meta data for pointer properties.
 
-	g_param_spec_pointer (a_const_name, a_const_nick, a_const_blurb: POINTER; some_flags): POINTER is -- GParamSpec* 
+	g_param_spec_pointer (a_const_name, a_const_nick, a_const_blurb: POINTER; some_flags: INTEGER): POINTER is -- GParamSpec* 
 			-- Creates a new GParamSpecPoiner instance specifying a pointer property.
 
 			-- See g_param_spec_internal() for details on property names.

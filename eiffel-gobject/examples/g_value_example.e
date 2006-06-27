@@ -5,8 +5,9 @@ indexing
 	revision "$REvision:$"
 
 class G_VALUE_EXAMPLE
-
-inherit G_TYPE_EXTERNALS
+insert
+	G_TYPE_EXTERNALS
+	G_PARAM_FLAGS
 creation make
 feature make is
 		do
@@ -16,6 +17,8 @@ feature make is
 			create uint.from_natural (23)
 			create real.from_real (23.53)
 			create string.from_string ("Foo")
+			create int_param.make_integer ("int-foo", "integer parameter", "an integer parameter",
+													 -5,12,3, g_param_readable)
 			check
 				correct_bool: bool.is_boolean
 				correct_int: int.is_integer
@@ -28,9 +31,11 @@ feature make is
 			print ("uint is "+uint.natural.to_string+"%N")
 			print ("real is "+real.real.to_string+"%N")
 			print ("string is '"+string.string+"'%N")
+			print (int_param.name + " has default " + int_param.default_integer.out + "%N")
 		end
 
 feature -- generic values
 	bool, int, uint, real, string: G_VALUE
+	int_param: G_PARAM_SPEC
 end
 	
