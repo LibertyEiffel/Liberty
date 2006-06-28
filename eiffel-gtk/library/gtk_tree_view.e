@@ -419,7 +419,6 @@ feature
 			-- `a_focus_column' : 	A GtkTreeViewColumn, or Void
 			-- `start_editing' : 	TRUE if the specified cell should start being edited.
 		require valid_path: a_path /= Void
-		local col_ptr: POINTER
 		do
 			if a_focus_column=Void then
 				gtk_tree_view_set_cursor (handle, a_path.handle,
