@@ -395,9 +395,15 @@ feature -- The "activate" signal
 			connect (Current, activate_signal_name, $on_activate)
 		end
 
-	-- TODO: implement connect_agent_to_activate_signal (a_procedure:
-	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
-	-- inspiration.
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ENTRY]]) is
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			activate_callback: ACTIVATE_CALLBACK[like Current]
+		do
+			create activate_callback.make
+			activate_callback.connect (Current, a_procedure)
+		end
 
 feature -- The "backspace" signal
 	backspace_signal_name: STRING is "backspace"
