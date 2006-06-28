@@ -27,7 +27,9 @@ indexing
 class GDK_PIXBUF
 
 inherit G_OBJECT
-	rename make as g_object_make end
+	rename
+		make as g_object_make
+	redefine dispose end
 
 insert
 	GDK_PIXBUF_EXTERNALS
@@ -43,14 +45,17 @@ feature {NONE} -- Creation
 			-- The file format is detected automatically. 
 		require
 			filename /= Void
+		local
+			ptr: POINTER
 		do
-			-- 20060608: FIXME: no error handling at the moment, check second argument of
-			-- gdk_pixbuf_new_from_file **trixx
-			set_handle (gdk_pixbuf_new_from_file(filename.to_external, default_pointer))
-			store_eiffel_wrapper
+			ptr := gdk_pixbuf_new_from_file(filename.to_external, default_pointer)
+			if ptr.is_not_null then
+				set_handle(ptr)
+				is_valid := True
+				store_eiffel_wrapper
+			end
 		ensure
-			handle.is_not_null
-			is_g_object
+			is_valid = is_g_object
 		end
 
 	from_file_at_size(filename: STRING; a_width, a_height: INTEGER) is
@@ -63,12 +68,17 @@ feature {NONE} -- Creation
 			a_width >= -1
 			a_height >= -1
 			filename /= Void
+		local
+			ptr: POINTER
 		do
-			set_handle (gdk_pixbuf_new_from_file_at_size(filename.to_external, a_width, a_height, default_pointer))
-			store_eiffel_wrapper
+			ptr := gdk_pixbuf_new_from_file_at_size(filename.to_external, a_width, a_height, default_pointer)
+			if ptr.is_not_null then
+				set_handle(ptr)
+				is_valid := True
+				store_eiffel_wrapper
+			end
 		ensure
-			handle.is_not_null
-			is_g_object
+			is_valid = is_g_object
 		end
 
 	make(a_alpha: BOOLEAN; a_width, a_height: INTEGER) is
@@ -78,12 +88,17 @@ feature {NONE} -- Creation
 		require
 			a_width >= 0
 			a_height >= 0
+		local
+			ptr: POINTER
 		do
-			set_handle(gdk_pixbuf_new(gdk_colorspace_rgb, a_alpha.to_integer, 8, a_width, a_height))
-			store_eiffel_wrapper
+			ptr := gdk_pixbuf_new(gdk_colorspace_rgb, a_alpha.to_integer, 8, a_width, a_height)
+			if ptr.is_not_null then
+				set_handle(ptr)
+				is_valid := True
+				store_eiffel_wrapper
+			end
 		ensure
-			handle.is_not_null
-			is_g_object
+			is_valid = is_g_object
 		end
 
 -- gdk_pixbuf_new_from_file_at_scale ()
@@ -201,6 +216,20 @@ feature -- Properties
 -- Default value: 1
 -- 
  
+
+feature -- Disposing
+
+	dispose is
+		do
+			if is_valid then
+				Precursor
+			end
+		end
+
+feature -- Error reporting
+
+	is_valid: BOOLEAN
+
 feature {WRAPPER} -- size
 
 	size: INTEGER is
