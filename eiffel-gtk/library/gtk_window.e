@@ -1283,7 +1283,7 @@ feature -- various queries
 -- 		--end
 
 
-	set_icon (icon: GDK_PIXPBUF) is
+	set_icon (icon: GDK_PIXBUF) is
 			-- Sets up the icon representing Current. This icon is
 			-- used when the window is minimized (also known as iconified).
 			-- Some window managers or desktop environments may also place
