@@ -1368,19 +1368,9 @@ feature {NONE} -- External calls
 		--external "C use <gtk/gtk.h>"
 		--end
 
-
--- void        gtk_window_set_icon             (GtkWindow *window,
---                                              GdkPixbuf *icon);
-
--- Sets up the icon representing a GtkWindow. This icon is used when the window is minimized (also known as iconified). Some window managers or desktop environments may also place it in the window frame, or display it in other contexts.
-
--- The icon should be provided in whatever size it was naturally drawn; that is, don't scale the image before passing it to GTK+. Scaling is postponed until the last minute, when the desired final size is known, to allow best quality.
-
--- If you have your icon hand-drawn in multiple sizes, use gtk_window_set_icon_list(). Then the best size will be used.
-
--- This function is equivalent to calling gtk_window_set_icon_list() with a 1-element list.
-
--- See also gtk_window_set_default_icon_list() to set the icon for all windows in your application in one go.
+	gtk_window_set_icon (window, icon: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- window : 	a GtkWindow
 -- icon : 	icon image, or NULL

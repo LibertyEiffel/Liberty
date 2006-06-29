@@ -54,34 +54,34 @@ feature {NONE}
 	gtk_text_buffer_insert (a_buffer, an_iter: POINTER; a_text_const_string: POINTER; len: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_buffer_insert_at_cursor (a_buffer: POINTER;
-												 a_text_const_string: POINTER;
-												 len: INTEGER) is
+		                              a_text_const_string: POINTER;
+		                              len: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_buffer_insert_interactive (a_buffer: POINTER; a_iter: POINTER;
-										a_text_const_string: POINTER;
-										len: INTEGER;
-										default_editable: BOOLEAN) : INTEGER is
+		                                a_text_const_string: POINTER;
+		                                len: INTEGER;
+		                                default_editable: INTEGER) : INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_buffer_insert_interactive_at_cursor (a_buffer: POINTER;
-												  a_text_const_string: POINTER;
-												  len: INTEGER;
-												  default_editable: BOOLEAN) : INTEGER is
+		                                          a_text_const_string: POINTER;
+		                                          len: INTEGER;
+		                                          default_editable: INTEGER) : INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_buffer_insert_range (a_buffer: POINTER; a_iter: POINTER; a_start: POINTER; a_end: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-		
+
 	gtk_text_buffer_insert_range_interactive (a_buffer: POINTER; a_iter: POINTER;
-											  a_start: POINTER; a_end: POINTER;
-											  default_editable: BOOLEAN) is
+		                                      a_start: POINTER; a_end: POINTER;
+		                                      default_editable: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -99,17 +99,20 @@ feature {NONE}
 		end
 
 	gtk_text_buffer_delete_interactive (a_buffer: POINTER; a_start_iter: POINTER;
-													a_end_iter: POINTER; default_editable: BOOLEAN): INTEGER is
+		                                a_end_iter: POINTER;
+		                                default_editable: INTEGER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_buffer_backspace (a_buffer: POINTER; a_iter: POINTER;
-								a_interactive: INTEGER; a_default_editable: INTEGER) : INTEGER is
+		                       a_interactive: INTEGER;
+		                       a_default_editable: INTEGER) : INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_buffer_get_slice (a_buffer: POINTER; a_start: POINTER;
-								a_end: POINTER; a_include_hidden_chars: INTEGER) : POINTER is
+		                       a_end: POINTER;
+		                       a_include_hidden_chars: INTEGER) : POINTER is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -121,12 +124,12 @@ feature {NONE}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_buffer_create_child_anchor (a_buffer: POINTER; a_iter: POINTER) : POINTER is -- GtkTextChildAnchor*
+	gtk_text_buffer_create_child_anchor (a_buffer: POINTER; a_iter: POINTER) : POINTER is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_buffer_create_mark (a_buffer: POINTER; a_mark_name_const_string: POINTER;
-										  a_where: POINTER; a_left_gravity: INTEGER): POINTER is -- GtkTextMark*
+		                         a_where: POINTER; a_left_gravity: INTEGER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -135,8 +138,8 @@ feature {NONE}
 		end
 
 	gtk_text_buffer_move_mark_by_name (a_buffer: POINTER;
-												  a_name_const_string: POINTER;
-												  a_where: POINTER) is
+		                               a_name_const_string: POINTER;
+		                               a_where: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -177,12 +180,12 @@ feature {NONE}
 		end
 
 	gtk_text_buffer_apply_tag_by_name (a_buffer: POINTER; a_name_const_string: POINTER;
-										a_start: POINTER; a_end: POINTER) is
+		                             a_start: POINTER; a_end: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_buffer_remove_tag_by_name (a_buffer, a_name_const_string: POINTER;
-													a_start: POINTER; a_end: POINTER) is
+		                                a_start: POINTER; a_end: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -191,12 +194,12 @@ feature {NONE}
 		end
 
 	gtk_text_buffer_create_tag (a_buffer: POINTER; a_tag_name_const_string: POINTER;
-										 a_first_property_name_const_string: POINTER): POINTER is -- GtkTextTag*
+		                        a_first_property_name_const_string: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_buffer_get_iter_at_line_offset (a_buffer: POINTER; a_iter: POINTER;
-														  line_number: INTEGER; char_offset: INTEGER) is
+		                                     line_number: INTEGER; char_offset: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -207,9 +210,9 @@ feature {NONE}
 	gtk_text_buffer_get_iter_at_line (a_buffer: POINTER; a_iter: POINTER; line_number: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_buffer_get_iter_at_line_index (a_buffer: POINTER; a_iter: POINTER;
-											line_number: INTEGER; byte_index: INTEGER) is
+	                                        line_number: INTEGER; byte_index: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -233,7 +236,7 @@ feature {NONE}
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_buffer_get_modified (a_buffer: POINTER): INTEGER is -- gboolean
+	gtk_text_buffer_get_modified (a_buffer: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -242,12 +245,13 @@ feature {NONE}
 		end
 
 	gtk_text_buffer_delete_selection (a_buffer: POINTER; a_interactive: INTEGER;
-												 a_default_editable: INTEGER): INTEGER is
+		                              a_default_editable: INTEGER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_buffer_paste_clipboard (a_buffer: POINTER; a_clipboard: POINTER;
-												a_override_location: POINTER; a_default_editable: INTEGER) is
+		                             a_override_location: POINTER;
+		                             a_default_editable: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -256,7 +260,7 @@ feature {NONE}
 		end
 
 	gtk_text_buffer_cut_clipboard (a_buffer: POINTER; a_clipboard: POINTER;
-									a_default_editable: INTEGER) is
+		                           a_default_editable: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 

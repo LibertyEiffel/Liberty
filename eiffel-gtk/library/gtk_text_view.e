@@ -17,22 +17,22 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 	
 	gtk_description: "[
-							You may wish to begin by reading the text widget conceptual overview
-							which gives an overview of all the objects and data types related to
-							the text widget and how they work together.
-							]"
-							
+						You may wish to begin by reading the text widget conceptual overview
+						which gives an overview of all the objects and data types related to
+						the text widget and how they work together.
+					]"
+
 class GTK_TEXT_VIEW
 
 inherit GTK_CONTAINER
 
 	-- TODO: GtkTextView implements AtkImplementorIface.
-	
+
 insert
 	GTK_TEXT_VIEW_EXTERNALS
 	G_OBJECT_RETRIEVER [GTK_TEXT_BUFFER]
