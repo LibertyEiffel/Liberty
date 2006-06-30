@@ -1573,20 +1573,11 @@ feature -- The "row_activated" signal
 
 	on_row_activated is
 			-- Built-in row_activated signal handler; empty by design; redefine it.
-		local a_foo: INTEGER
 		do
-			a_foo := 12 -- Dummy instructions
 		end
 
 	enable_on_row_activated is
 			-- Connects "row_activated" signal to `on_row_activated' feature.
-
-			-- Emitted when the button has been activated (pressed and released).
-		
-			-- Emitted when a button row_activated on by the mouse and the
-			-- cursor stays on the button. If the cursor is not on the
-			-- button when the mouse button is released, the signal is
-			-- not emitted.
 		do
 			connect (Current, row_activated_signal_name, $on_row_activated)
 		end
