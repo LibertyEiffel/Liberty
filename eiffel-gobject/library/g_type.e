@@ -41,9 +41,11 @@ indexing
 			-- length limit. The first character needs to be a letter
 			-- (a-z or A-Z) or an underscore '_'. Subsequent characters
 			-- can be letters, numbers or any of '-_+'.
-	
+
 class G_TYPE
+
 insert G_TYPE_EXTERNALS
+
 feature
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
 	-- 2006-01-07)
@@ -154,20 +156,20 @@ feature
 -- typedef struct {
 --   /* interface types, classed types, instantiated types */
 --   guint16                class_size;
-  
+
 --   GBaseInitFunc          base_init;
 --   GBaseFinalizeFunc      base_finalize;
-  
+
 --   /* interface types, classed types, instantiated types */
 --   GClassInitFunc         class_init;
 --   GClassFinalizeFunc     class_finalize;
 --   gconstpointer          class_data;
-  
+
 --   /* instantiated types */
 --   guint16                instance_size;
 --   guint16                n_preallocs;
 --   GInstanceInitFunc      instance_init;
-  
+
 --   /* value handling */
 --   const GTypeValueTable	*value_table;
 -- } GTypeInfo;
@@ -249,16 +251,12 @@ feature
 -- }
 
 -- gchar *collect_format; 	A string format describing how to collect the contents of this value, bit-by-bit. Each character in the format represents an argument to be collected, the characters themselves indicate the type of the argument. Currently supported arguments are:
-	
 
 -- 'i' - Integers. passed as collect_values[].v_int.
-	
 
 -- 'l' - Longs. passed as collect_values[].v_long.
-	
 
 -- 'd' - Doubles. passed as collect_values[].v_double.
-	
 
 -- 'p' - Pointers. passed as collect_values[].v_pointer.
 -- It should be noted, that for variable argument list construction, ANSI C promotes every type smaller than an integer to an int, and floats to doubles. So for collection of short int or char, 'i' needs to be used, and for collection of floats 'd'.
@@ -738,16 +736,12 @@ feature
 --                                              gpointer class_data);
 
 -- A callback function used by the type system to initialize the class of a specific type. This function should initialize all static class members. The initialization process of a class involves:
-	
 
 -- 1 - Copying common members from the parent class over to the derived class structure.
-	
 
 -- 2 - Zero initialization of the remaining members not copied over from the parent class.
-	
 
 -- 3 - Invocation of the GBaseInitFunc() initializers of all parent types and the class' type.
-	
 
 -- 4 - Invocation of the class' GClassInitFunc() initializer.
 
@@ -1286,6 +1280,4 @@ feature
 
 -- First available fundamental type number to create new fundamental type id with G_TYPE_MAKE_FUNDAMENTAL().
 
-	
 end
-	

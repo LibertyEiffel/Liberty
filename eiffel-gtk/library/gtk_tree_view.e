@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -298,7 +298,7 @@ feature
 			-- position.
 		require valid_column: a_column/=Void
 		do
-			if a_base /= Void then 
+			if a_base /= Void then
 				gtk_tree_view_move_column_after (handle, a_column.handle, a_base.handle)
 			else
 				gtk_tree_view_move_column_after (handle, a_column.handle, default_pointer)
@@ -373,19 +373,19 @@ feature
 			-- placed. Both are expected to be between 0.0 and 1.0. 0.0
 			-- means left/top alignment, 1.0 means right/bottom
 			-- alignment, 0.5 means center.
-		
+			
 			-- If `use_align' is False, then the alignment arguments are
 			-- ignored, and the tree does the minimum amount of work to
 			-- scroll the cell onto the screen. This means that the cell
 			-- will be scrolled to the edge closest to its current
 			-- position. If the cell is currently visible on the screen,
 			-- nothing is done.
-		
+			
 			-- This function only works if the model is set, and `a_path'
 			-- is a valid row on the model. If the model changes before
 			-- the tree_view is realized, the centered `a_path' will be
 			-- modified to reflect this change.
-
+			
 			-- `a_path' : 	The path of the row to move to, or Void.
 			-- `a_column' : 	The GtkTreeViewColumn to move horizontally to, or Void.
 			-- `use_align' : 	whether to use alignment arguments, or FALSE.
@@ -400,9 +400,9 @@ feature
 			if a_path/=Void then path_ptr := a_path.handle end
 			
 			gtk_tree_view_scroll_to_cell (handle, a_path.handle, a_column.handle,
-													use_align.to_integer, row_align, col_align)
+			                              use_align.to_integer, row_align, col_align)
 		end
-	
+
 	set_cursor (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN; start_editing: BOOLEAN) is
 			-- Sets the current keyboard focus to be at `a_path', and
 			-- selects it. This is useful when you want to focus the
@@ -414,7 +414,7 @@ feature
 			-- gtk_widget_grab_focus (tree_view) in order to give
 			-- keyboard focus to the widget. Please note that editing can
 			-- only happen when the widget is realized.
-
+			
 			-- `a_path' : 	A GtkTreePath
 			-- `a_focus_column' : 	A GtkTreeViewColumn, or Void
 			-- `start_editing' : 	TRUE if the specified cell should start being edited.
@@ -422,15 +422,15 @@ feature
 		do
 			if a_focus_column=Void then
 				gtk_tree_view_set_cursor (handle, a_path.handle,
-						default_pointer, start_editing.to_integer)
+				                          default_pointer, start_editing.to_integer)
 			else
 				gtk_tree_view_set_cursor (handle, a_path.handle,
-						a_focus_column.handle, start_editing.to_integer)
+				                          a_focus_column.handle, start_editing.to_integer)
 			end
 		end
 
 	set_cursor_on_cell (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN;
-							  a_focus_cell: GTK_CELL_RENDERER; start_editing: BOOLEAN) is
+			            a_focus_cell: GTK_CELL_RENDERER; start_editing: BOOLEAN) is
 			-- Sets the current keyboard focus to be at `a_path', and selects
 			-- it. This is useful when you want to focus the user's
 			-- attention on a particular row. If `a_focus_column' is not
@@ -457,7 +457,7 @@ feature
 			if a_focus_cell/=Void then cell_ptr := a_focus_cell.handle end
 			
 			gtk_tree_view_set_cursor_on_cell (handle, a_path.handle, column_ptr, cell_ptr,
-														 start_editing.to_integer)
+			                                  start_editing.to_integer)
 		end
 
 	cursor: TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN] is
@@ -1561,11 +1561,46 @@ feature
 	--                                             GtkMovementStep arg1,
 	--                                             gint arg2,
 	--                                             gpointer user_data);
+
+feature -- The "row_activated" signal
 	-- "row-activated"
 	--             void        user_function      (GtkTreeView *treeview,
 	--                                             GtkTreePath *arg1,
 	--                                             GtkTreeViewColumn *arg2,
 	--                                             gpointer user_data);
+
+	row_activated_signal_name: STRING is "row_activated"
+
+	on_row_activated is
+			-- Built-in row_activated signal handler; empty by design; redefine it.
+		local a_foo: INTEGER
+		do
+			a_foo := 12 -- Dummy instructions
+		end
+
+	enable_on_row_activated is
+			-- Connects "row_activated" signal to `on_row_activated' feature.
+
+			-- Emitted when the button has been activated (pressed and released).
+		
+			-- Emitted when a button row_activated on by the mouse and the
+			-- cursor stays on the button. If the cursor is not on the
+			-- button when the mouse button is released, the signal is
+			-- not emitted.
+		do
+			connect (Current, row_activated_signal_name, $on_row_activated)
+		end
+
+	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH,
+	                                                                          GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW
+	                                                                          ]]) is
+		require valid_procedure: a_procedure /= Void
+		local row_activated_callback: ROW_ACTIVATED_CALLBACK
+		do
+			create row_activated_callback.make
+			row_activated_callback.connect (Current, a_procedure)
+		end
+
 	-- "row-collapsed"
 	--             void        user_function      (GtkTreeView *treeview,
 	--                                             GtkTreeIter *arg1,

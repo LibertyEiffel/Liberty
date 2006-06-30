@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the activate signal"
+	description: "Generic callback for the row_activated signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					
@@ -22,22 +22,24 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class ACTIVATE_CALLBACK [W -> G_OBJECT]
+class ROW_ACTIVATED_CALLBACK
 
 inherit
 	CALLBACK redefine object end
 
-insert
-	G_OBJECT_RETRIEVER [W]
-
 creation make
 
 feature
-	object: W
+	object: GTK_TREE_VIEW
 
 feature
 
-	callback (instance: POINTER) is --  a_button: GTK_BUTTON) is
+	callback (tree_path, tree_view_col, instance: POINTER) is
+		local
+			tree_path_obj: GTK_TREE_PATH
+			tree_view_col_obj: GTK_TREE_VIEW_COLUMN
+			g_tree_view: G_OBJECT_RETRIEVER [GTK_TREE_VIEW]
+			g_tree_view_col: G_OBJECT_RETRIEVER [GTK_TREE_VIEW_COLUMN]
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -46,12 +48,13 @@ feature
 			-- that the button is actually created bu the Eiffel 
 			-- application. 
 			check
-				eiffel_created_the_button: has_eiffel_wrapper_stored (instance)
+				eiffel_created_the_tree_view: g_tree_view.has_eiffel_wrapper_stored (instance)
+				eiffel_created_the_tree_view_col: g_tree_view_col.has_eiffel_wrapper_stored (tree_view_col)
 			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			-- The above line replaces "create object.from_external_pointer
-			-- (instance)" which continuosly creates new Eiffel wrappers
-			procedure.call ([object])
+			object := g_tree_view.retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			create tree_path_obj.from_external_pointer (tree_path)
+			tree_view_col_obj := g_tree_view_col.retrieve_eiffel_wrapper_from_gobject_pointer (tree_view_col)
+			procedure.call ([tree_path_obj, tree_view_col_obj, object])
 		end
 
 	callback_pointer: POINTER is
@@ -61,10 +64,11 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: W; a_procedure: PROCEDURE [ANY, TUPLE[W]]) is
+	connect (an_object: GTK_TREE_VIEW;
+	         a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
 		do
 			debug
-				print ("ACTIVATE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
+				print ("ROW_ACTIVATED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
 				print (" an_object.handle=") print (an_object.handle.to_string)
 				print (") Current=") print (to_pointer.to_string)
 				print (" Current.handle=") print (handle.to_string)
@@ -72,15 +76,15 @@ feature
 			end
 					 
 			handler_id := g_signal_connect_closure (an_object.handle,
-													 signal_name.to_external,
-													 handle,
-													 0 -- i.e. call it before default handler
-													 )
+			                                        signal_name.to_external,
+			                                        handle,
+			                                        0 -- i.e. call it before default handler
+			                                       )
 			procedure:=a_procedure
 		end
 
-	signal_name: STRING is "activate"
+	signal_name: STRING is "row_activated"
 
-	procedure: PROCEDURE [ANY, TUPLE[W]]
+	procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]
 
 end

@@ -20,13 +20,14 @@ deferred class G_OBJECT
 inherit
 	SHARED_C_STRUCT redefine from_external_pointer, dispose end
 	ANY
+
 insert
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
 	G_OBJECT_EXTERNALS
 	G_VALUE_EXTERNALS
 	SHARED_EIFFEL_KEY
-	
-feature 
+
+feature
 	store_eiffel_wrapper is
 			-- Store a pointer to Current into the underlying
 			-- gobject. This pointer will be used to retrieve the Eiffel
@@ -87,6 +88,7 @@ feature -- Disposing
 		end
 
 feature {NONE} -- Disposing helper
+
 	print_notice is
 			-- Print once a copy of the note that has been put in 
 			-- `dispose' source code.
@@ -101,14 +103,15 @@ feature {NONE} -- Disposing helper
 					  application normal usage. 
 					       Paolo 2006-04-24
 					  
-					  ]")
+				  ]")
 			end
-					  
+
 	is_g_object: BOOLEAN is
 			-- Is current handle a pointer to a g_object?
 		do
 			Result := (g_is_object (handle) /= 0)
 		end
+
 feature -- Reference count
 	ref is
 			-- Increases the reference count of object.

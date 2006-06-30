@@ -45,6 +45,7 @@ feature
 	notebook: GTK_NOTEBOOK
 			-- object connected to signal callback
 	procedure: PROCEDURE[TUPLE[GTK_NOTEBOOK]]
+
 feature {NONE} -- Implementation
 	hidden_callback is
 		do

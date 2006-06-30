@@ -11,11 +11,12 @@ class G_VALUE
 
 inherit
 	SHARED_C_STRUCT redefine dispose end
+
 insert
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
 	G_VALUE_EXTERNALS
 	G_TYPE_EXTERNALS
-	
+
 creation
 	make, from_external_pointer, with_gtype,
 	make_boolean, make_integer, make_natural, make_real, make_string, make_object,
@@ -35,15 +36,16 @@ feature {NONE} -- Creation
 			-- identifier of a type registered in the GObject type
 			-- system. Fundamental types are provided by G_TYPE_EXTERNALS
 			-- (use insert when you need it).
-
+			
 			-- TODO: forcing end-user to inherit from an external class
 			-- is a temporary solution; provide higher level/more
 			-- Eiffellish API.
-
+			
 			-- TODO: implement "require is_valid_gtype (a_gtype)"
 		do
 			handle := g_value_init(malloc_g_value, a_gtype)
 		end
+
 	make_boolean is
 			-- create a new boolean G_VALUE
 		local ptr: POINTER
@@ -72,7 +74,7 @@ feature {NONE} -- Creation
 			handle := g_value_init (malloc_g_value, g_type_uint)
 		ensure is_natural: is_natural
 		end
-	
+
 	make_real is
 			-- create a new real G_VALUE (Note: using C type `double'
 		do
