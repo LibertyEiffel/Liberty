@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -233,17 +233,16 @@ feature -- Generic setter
 			not_yet_implemented
 			-- TODO: some_values.to_external is an array of pointers to the Eiffel wrappers!!!
 			gtk_tree_store_insert_with_valuesv (handle, an_iterator.handle,
-															a_parent.handle,
-															a_position,
-															-- gint *columns an array of column numbers
-															some_columns.to_external,
-															-- GValue *values an array of
-															-- GValues
-															some_values.to_external,
-															-- gint n_values the length of the
-															-- columns and values arrays
-															some_values.count 
-															)
+			                                    a_parent.handle,
+			                                    a_position,
+			                                    -- gint *columns an array of column numbers
+			                                    some_columns.to_external,
+			                                    -- GValue *values an array of GValues
+			                                    some_values.to_external,
+			                                    -- gint n_values the length of the
+			                                    -- columns and values arrays
+			                                    some_values.count
+			                                   )
 		end
 
 	add_first, prepend (an_iterator, a_parent: GTK_TREE_ITER) is

@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -96,31 +96,33 @@ indexing
 			-- was added to indicate this behavior.
 
 deferred class GTK_TREE_MODEL
-inherit
 
+inherit
 	-- G_INTERFACE
 	-- Prerequisites: GtkTreeModel requires GObject.
 	G_OBJECT
 		-- TODO: remove the following commented code; it is not 
 		-- ncessary, since GTK_TREE_MODEL is already deferred. Paolo 
 		-- 2006-05-06
-	
+		
 		-- rename make as undefined_make
 		-- export {NONE} undefined_make
 		-- undefine undefined_make -- Since it is deferred
 		-- end
-
+		
 		-- TODO: end
-	
+		
 		-- Known Derived Interfaces: GtkTreeModel is required by
 		-- GtkTreeSortable.
-
+		
 		-- Known Implementations: GtkTreeModel is implemented by
 		-- GtkTreeModelSort, GtkTreeStore, GtkListStore and
 		-- GtkTreeModelFilter.
-insert	
+
+insert
 	GTK_TREE_MODEL_EXTERNALS
 	GTK_TREE_MODEL_FLAGS
+
 feature
 	flags: INTEGER is
 			-- The set of flags supported by Current's interface. The
@@ -140,8 +142,7 @@ feature
 
 	column_type (a_column_number: INTEGER): INTEGER is
 			-- the type of the column; it is a G_TYPE integer
-
-		-- TODO: require: valid_column_number: a_column_number.in_range (0,columns_count)
+			-- TODO: require: valid_column_number: a_column_number.in_range (0,columns_count)
 		do
 			Result := gtk_tree_model_get_column_type  (handle, a_column_number)
 			-- TODO: ensure is_g_type (Result)
@@ -157,11 +158,14 @@ feature
 			create Result.from_model(Current)
 			gbool := gtk_tree_model_get_iter (handle, Result.handle, a_path.handle)
 			if (gbool = 0) then
-				Result.dispose	-- Should be also called by Eiffel's garbage collector but it is nevertheless worth to call it: it is safe and avoid a memory leak in the case you compile without a GC
+				-- Should be also called by Eiffel's garbage collector but
+				-- it is nevertheless worth to call it: it is safe and avoid a
+				-- memory leak in the case you compile without a GC
+				Result.dispose
 				Result := Void
 			end
 		end
-	
+
 	get_iterator_from_string (a_path_string: STRING): GTK_TREE_ITER is
 			-- Gets a new iterator pointing to `a_path_string', if it exists. If it cannot be
 			-- valid it will be Void
@@ -171,7 +175,7 @@ feature
 			create Result.make
 			gbool := gtk_tree_model_get_iter_from_string (handle, Result.handle, a_path_string.to_external);
 			if (gbool = 0) then
-				Result.dispose	-- See get_new_iterator for info
+				Result.dispose -- See get_new_iterator for info
 				Result := Void
 			end
 		end
@@ -184,7 +188,7 @@ feature
 			create Result.from_model (Current)
 			gbool := gtk_tree_model_get_iter_first (handle, Result.handle)
 			if (gbool = 0) then
-				Result.dispose	-- See get_new_iterator for info
+				Result.dispose -- See get_new_iterator for info
 				Result := Void
 			end
 		end
@@ -253,7 +257,7 @@ feature
 	-- ensure
 	-- Result /= Void
 	-- Result.count = some_columns.count
-		
+	
 	-- void gtk_tree_model_get (GtkTreeModel *tree_model, GtkTreeIter
 	-- *iter, ...);
 	
@@ -288,7 +292,6 @@ feature
 -- 			-- GtkTreeModelForeachFunc func, gpointer user_data);
 -- 		end
 
-
 	row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
 			-- Emits the "row_changed" signal on tree_model. `a_path'
 			-- points to the changed row, `an_iter' is a valid
@@ -317,9 +320,9 @@ feature
 			-- Emits the "row_has_child_toggled" signal on Current. This
 			-- should be called by models after the child state of a node
 			-- changes.
-
+			
 			-- `a_path' is a GtkTreePath pointing to the changed row
-		
+			
 			-- `a_iter' is a valid GtkTreeIter pointing to the changed
 			-- row		
 		require
@@ -346,14 +349,14 @@ feature
 			-- Emits the "rows_reordered" signal on tree_model. This
 			-- should be called by models when their rows have been
 			-- reordered.
-
+			
 			-- `a_path' is a GtkTreePath pointing to the tree node whose
 			-- children have been reordered
-		
+			
 			-- `an_iter' is a valid GtkTreeIter pointing to the node
 			-- whose children have been reordered; Void if the depth of
 			-- path is 0.
-		
+			
 			-- a_new_order: an array of integers mapping the current
 			-- position of each child to its old position before the
 			-- re-ordering, i.e. new_order[newpos] = oldpos.
@@ -361,13 +364,14 @@ feature
 			valid_path: a_path/=Void
 			valid_order: a_new_order /= Void
 		do
-			if an_iter /= Void then gtk_tree_model_rows_reordered (handle, a_path.handle, an_iter.handle,
-																					 a_new_order.to_external)
+			if an_iter /= Void then
+				gtk_tree_model_rows_reordered (handle, a_path.handle, an_iter.handle,
+				                               a_new_order.to_external)
 			else gtk_tree_model_rows_reordered (handle, a_path.handle, default_pointer,
-															a_new_order.to_external)
+			                                    a_new_order.to_external)
 			end
 		end
-	
+
 feature -- Signal Details
 -- The "row-changed" signal
 
@@ -533,8 +537,7 @@ feature {NONE} -- Moved here from top - unwrapped code
 -- } GtkTreeModelFlags;
 
 -- These flags indicate various properties of a GtkTreeModel. They are returned by gtk_tree_model_get_flags(), and must be static for the lifetime of the object. A more complete description of GTK_TREE_MODEL_ITERS_PERSIST can be found in the overview of this section.
-												 -- GTK_TREE_MODEL_ITERS_PERSIST 	Iterators survive all signals emitted by the tree.
-												 -- GTK_TREE_MODEL_LIST_ONLY 	The model is a list only, and never has children
-												 
-												 
+-- GTK_TREE_MODEL_ITERS_PERSIST 	Iterators survive all signals emitted by the tree.
+-- GTK_TREE_MODEL_LIST_ONLY 	The model is a list only, and never has children
+
 end

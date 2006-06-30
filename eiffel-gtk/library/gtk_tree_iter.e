@@ -25,12 +25,12 @@ class GTK_TREE_ITER
 
 inherit
 	C_STRUCT redefine dispose end
-	
+
 insert
 	GTK_TREE_ITER_EXTERNALS rename set_stamp as set_stamp_internal end
 	GTK_TREE_MODEL_EXTERNALS
 	GLIB_MEMORY_ALLOCATION
-	
+
 creation make, make_from_model, from_model, from_external_pointer
 
 feature -- Creation
@@ -53,7 +53,7 @@ feature
 		do
 			is_valid:=(gtk_tree_model_get_iter_first (tree_model.handle, handle)).to_boolean
 		end
-	
+
 	next is
 			-- Points Current to the node following it at the current
 			-- level. If there is no next position
@@ -62,7 +62,7 @@ feature
 		do
 			is_valid:=(gtk_tree_model_iter_next (tree_model.handle,handle)).to_boolean
 		end
-	
+
 	to_children_of (a_parent: GTK_TREE_ITER) is
 			-- Sets Current iterator to point to the first child of
 			-- `tree_model'. If parent has no children `is_valid' will be
@@ -80,10 +80,9 @@ feature
 	has_child: BOOLEAN is
 			-- Does Current iterator have children?
 		do
-			Result:=(gtk_tree_model_iter_has_child (tree_model.handle,
-																 handle)).to_boolean
+			Result := (gtk_tree_model_iter_has_child (tree_model.handle,
+			           handle)).to_boolean
 		end
-
 
 	n_children, children_count: INTEGER is
 			-- Number of children that Current iter has. As a special case, if iter
@@ -93,13 +92,12 @@ feature
 		do
 			Result := gtk_tree_model_iter_n_children (tree_model.handle, handle)
 		end
-	
+
 	toplevel_nodes_count: INTEGER is
 			-- Number of toplevel nodes of `tree_model'
 		do
 			Result := gtk_tree_model_iter_n_children (tree_model.handle,default_pointer)
 		end
-
 
 	to_nth_child_of (a_parent: like Current; an_index: INTEGER) is
 			-- Sets Current to be the child of `a_parent', using `an_index'. The
@@ -115,8 +113,8 @@ feature
 		local parent_ptr: POINTER
 		do
 			if a_parent/=Void then parent_ptr := a_parent.handle end
-			is_valid:=(gtk_tree_model_iter_nth_child  (tree_model.handle,handle,
-																	 parent_ptr, an_index)).to_boolean
+			is_valid := (gtk_tree_model_iter_nth_child  (tree_model.handle,handle,
+			             parent_ptr, an_index)).to_boolean
 		end
 
 	to_parent (a_child: like Current) is
@@ -126,8 +124,8 @@ feature
 			-- node after this function has been called.
 		require valid_child: a_child /= Void
 		do
-			is_valid:=(gtk_tree_model_iter_parent (tree_model.handle,handle,
-																a_child.handle)).to_boolean
+			is_valid := (gtk_tree_model_iter_parent (tree_model.handle,handle,
+			             a_child.handle)).to_boolean
 		end
 
 	to_string: STRING is
