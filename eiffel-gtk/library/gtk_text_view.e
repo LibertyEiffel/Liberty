@@ -121,105 +121,101 @@ feature -- Properties
 feature -- Style properties:
 --  "error-underline-color" GdkColor              : Read
 
-feature {} -- Unwrapped code
---   gtk_text_view_scroll_to_mark ()
+feature 
+	scroll_to_mark (a_mark: GTK_TEXT_MARK; within_margin: REAL;
+						 use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
+			-- Scrolls Current so that `a_mark' is on the screen in the
+			-- position indicated by `an_x_align' and `an_y_align'. An
+			-- alignment of 0.0 indicates left or top, 1.0 indicates
+			-- right or bottom, 0.5 means center. If use_align is False,
+			-- the text scrolls the minimal distance to get the mark
+			-- onscreen, possibly not scrolling at all. The effective
+			-- screen for purposes of this function is reduced by a
+			-- margin of size within_margin.
 
---  void        gtk_text_view_scroll_to_mark    (GtkTextView *text_view,
--- 															 GtkTextMark *mark,
--- 															 gdouble within_margin,
--- 															 gboolean use_align,
--- 															 gdouble xalign,
--- 															 gdouble yalign);
+			-- `within_margin' : margin as a [0.0,0.5) fraction of screen size
+		
+			-- `use_align' : whether to use alignment arguments (if
+			-- FALSE, just get the mark onscreen)
+		
+			-- `an_x_align' horizontal alignment of mark within visible
+			-- area.
+		
+			-- `an_y_align' vertical alignment of mark within visible
+			-- area
+		require mark_not_void: a_mark /= Void
+		do
+			gtk_text_view_scroll_to_mark (a_mark.handle, within_margin,
+													use_align.to_integer, an_x_align, an_y_align)
+		end
 
--- 	Scrolls text_view so that mark is on the screen in the position
--- 	indicated by xalign and yalign. An alignment of 0.0 indicates left or
--- 	top, 1.0 indicates right or bottom, 0.5 means center. If use_align is
--- 	FALSE, the text scrolls the minimal distance to get the mark onscreen,
--- 	possibly not scrolling at all. The effective screen for purposes of
--- 	this function is reduced by a margin of size within_margin.
+	has_scrolled: BOOLEAN
+			-- Has last `scroll_to_iter' have produced a scrolling?
+	
+	scroll_to_iter (an_iter: GTK_TEXT_ITER; within_margin: REAL;
+						 use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
+			-- Scrolls text_view so that iter is on the screen in the
+			-- position indicated by xalign and yalign. An alignment of
+			-- 0.0 indicates left or top, 1.0 indicates right or bottom,
+			-- 0.5 means center. If use_align is FALSE, the text scrolls
+			-- the minimal distance to get the mark onscreen, possibly
+			-- not scrolling at all. The effective screen for purposes of
+			-- this function is reduced by a margin of size
+			-- within_margin. NOTE: This function uses the
+			-- currently-computed height of the lines in the text
+			-- buffer. Note that line heights are computed in an idle
+			-- handler; so this function may not have the desired effect
+			-- if it's called before the height computations. To avoid
+			-- oddness, consider using `scroll_to_mark' which saves a
+			-- point to be scrolled to after line validation.
 
--- 	text_view :     a GtkTextView
--- 	mark :          a GtkTextMark
--- 	within_margin : margin as a [0.0,0.5) fraction of screen size
--- 	use_align :     whether to use alignment arguments (if FALSE, just get
--- 						 the mark onscreen)
--- 	xalign :        horizontal alignment of mark within visible area.
--- 	yalign :        vertical alignment of mark within visible area
+			-- `within_margin' : margin as a [0.0,0.5) fraction of screen size
+		
+			-- `use_align': whether to use alignment arguments (if FALSE,
+			-- just get the mark onscreen)
+		
+			-- `an_x_align': horizontal alignment of mark within visible
+			-- area.
+		
+			-- `an_y_align': vertical alignment of mark within visible
+			-- area
 
--- 	-----------------------------------------------------------------------
+			-- `has_scrolled' will be True if scrolling occurred
+		require iter_not_void: an_iter /= Void
+		do
+			has_scrolled := ( gtk_text_view_scroll_to_iter
+									(handle, an_iter.handle, within_margin,
+									 use_align.to_integer, an_x_align, an_y_align) )
+		end
 
---   gtk_text_view_scroll_to_iter ()
+	mark_onscreen (a_mark: GTK_TEXT_MARK) is
+			-- Scrolls text view the minimum distance such that `a_mark'
+			-- is contained within the visible area of the widget.
+		require mark_not_void: a_mark /= Void
+		do
+			gtk_text_view_scroll_mark_onscreen (handle, a_mark.handle)
+		end
+	
+	move_mark_onscreen (a_mark: GTK_TEXT_MARK): BOOLEAN is
+			-- Moves a mark within the buffer so that it's located within
+			-- the currently-visible text area.
+		
+			-- Returns : TRUE if the mark moved (wasn't already onscreen)
+		require mark_not_void: a_mark /= Void
+		do
+			Result := (gtk_text_view_move_mark_onscreen (handle, a_mark.handle)).to_boolean
+		end
 
---  gboolean    gtk_text_view_scroll_to_iter    (GtkTextView *text_view,
--- 															 GtkTextIter *iter,
--- 															 gdouble within_margin,
--- 															 gboolean use_align,
--- 															 gdouble xalign,
--- 															 gdouble yalign);
+	-- gtk_text_view_place_cursor_onscreen ()
+	
+	-- gboolean gtk_text_view_place_cursor_onscreen (GtkTextView
+	-- *text_view);
+	
+	-- Moves the cursor to the currently visible region of the buffer,
+	-- it it isn't there already.
 
--- 	Scrolls text_view so that iter is on the screen in the position
--- 	indicated by xalign and yalign. An alignment of 0.0 indicates left or
--- 	top, 1.0 indicates right or bottom, 0.5 means center. If use_align is
--- 	FALSE, the text scrolls the minimal distance to get the mark onscreen,
--- 	possibly not scrolling at all. The effective screen for purposes of
--- 	this function is reduced by a margin of size within_margin. NOTE: This
--- 	function uses the currently-computed height of the lines in the text
--- 	buffer. Note that line heights are computed in an idle handler; so this
--- 	function may not have the desired effect if it's called before the
--- 	height computations. To avoid oddness, consider using
--- 	gtk_text_view_scroll_to_mark() which saves a point to be scrolled to
--- 	after line validation.
-
--- 	text_view :     a GtkTextView
--- 	iter :          a GtkTextIter
--- 	within_margin : margin as a [0.0,0.5) fraction of screen size
--- 	use_align :     whether to use alignment arguments (if FALSE, just get
--- 						 the mark onscreen)
--- 	xalign :        horizontal alignment of mark within visible area.
--- 	yalign :        vertical alignment of mark within visible area
--- 	Returns :       TRUE if scrolling occurred
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_scroll_mark_onscreen ()
-
---  void        gtk_text_view_scroll_mark_onscreen
--- 															(GtkTextView *text_view,
--- 															 GtkTextMark *mark);
-
--- 	Scrolls text_view the minimum distance such that mark is contained
--- 	within the visible area of the widget.
-
--- 	text_view : a GtkTextView
--- 	mark :      a mark in the buffer for text_view
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_move_mark_onscreen ()
-
---  gboolean    gtk_text_view_move_mark_onscreen
--- 															(GtkTextView *text_view,
--- 															 GtkTextMark *mark);
-
--- 	Moves a mark within the buffer so that it's located within the
--- 	currently-visible text area.
-
--- 	text_view : a GtkTextView
--- 	mark :      a GtkTextMark
--- 	Returns :   TRUE if the mark moved (wasn't already onscreen)
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_place_cursor_onscreen ()
-
---  gboolean    gtk_text_view_place_cursor_onscreen
--- 															(GtkTextView *text_view);
-
--- 	Moves the cursor to the currently visible region of the buffer, it it
--- 	isn't there already.
-
--- 	text_view : a GtkTextView
--- 	Returns :   TRUE if the cursor had to be moved.
+	-- 	text_view : a GtkTextView
+	-- 	Returns :   TRUE if the cursor had to be moved.
 
 -- 	-----------------------------------------------------------------------
 

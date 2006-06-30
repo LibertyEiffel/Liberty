@@ -198,17 +198,23 @@ feature
 		ensure result_not_void: Result /= Void
 		end
 
-	-- gtk_text_iter_get_toggled_tags ()
+	toggled_tags (toggled_on: BOOLEAN): G_SLIST [GTK_TEXT_TAG] is
+			-- a list of GtkTextTag that are toggled on or off at this
+			-- point. (If toggled_on is TRUE, the list contains tags that
+			-- are toggled on.) If a tag is toggled on at iter, then some
+			-- non-empty range of characters following iter has that tag
+			-- applied to it. If a tag is toggled off, then some
+			-- non-empty range following iter does not have the tag
+			-- applied to it.
 
-	-- GSList*     gtk_text_iter_get_toggled_tags  (const GtkTextIter *iter,
-	-- 															gboolean toggled_on);
-
-	-- Returns a list of GtkTextTag that are toggled on or off at this point. (If toggled_on is TRUE, the list contains tags that are toggled on.) If a tag is toggled on at iter, then some non-empty range of characters following iter has that tag applied to it. If a tag is toggled off, then some non-empty range following iter does not have the tag applied to it.
-
-	-- iter : 	an iterator
-	-- toggled_on : 	TRUE to get toggled-on tags
-	-- Returns : 	tags toggled at this point
-	-- gtk_text_iter_get_child_anchor ()
+			-- iter : 	an iterator
+			-- toggled_on : 	TRUE to get toggled-on tags
+		do
+			create Result.from_external_pointer
+			(gtk_text_iter_get_toggled_tags (handle, toggled_on.to_integer))
+		end
+	
+	-- TODO: gtk_text_iter_get_child_anchor ()
 
 	-- GtkTextChildAnchor* gtk_text_iter_get_child_anchor
 	-- 														  (const GtkTextIter *iter);
@@ -217,6 +223,7 @@ feature
 
 	-- iter : 	an iterator
 	-- Returns : 	the anchor at iter
+	
 	-- gtk_text_iter_begins_tag ()
 
 	-- gboolean    gtk_text_iter_begins_tag        (const GtkTextIter *iter,
@@ -257,14 +264,19 @@ feature
 	-- iter : 	an iterator
 	-- tag : 	a GtkTextTag
 	-- Returns : 	whether iter is tagged with tag
-	-- gtk_text_iter_get_tags ()
 
-	-- GSList*     gtk_text_iter_get_tags          (const GtkTextIter *iter);
+	tags: G_SLIST [GTK_TEXT_ITER] is
+			-- a list of tags that apply to iter, in ascending order of
+			-- priority (highest-priority tags are last).
 
-	-- Returns a list of tags that apply to iter, in ascending order of priority (highest-priority tags are last). The GtkTextTag in the list don't have a reference added, but you have to free the list itself.
+			-- TODO: Gtk docs says" The GtkTextTag in the list don't have
+			-- a reference added, but you have to free the list
+			-- itself". Check if this should be translated into a
+			-- particular Eiffel implementation
+		do
+			create Result.from_external_pointer (gtk_text_iter_get_tags (handle))
+		end
 
-	-- iter : 	a GtkTextIter
-	-- Returns : 	list of GtkTextTag
 	-- gtk_text_iter_editable ()
 
 	-- gboolean    gtk_text_iter_editable          (const GtkTextIter *iter,
