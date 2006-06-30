@@ -363,7 +363,7 @@ feature {} -- External calls
 			-- owner_type : a GType identifying the owner of pspec
 		external "C use <glib-object.h>"
 		end
-
+ 
 
 	g_param_spec_pool_remove (a_spec_pool, a_g_param_spec: POINTER) is
 			-- Removes a GParamSpec from the pool.

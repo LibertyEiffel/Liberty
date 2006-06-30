@@ -1,0 +1,876 @@
+indexing
+	description: "   GtkTextTag -- A tag that can be applied to text in a GtkTextBuffer."
+	copyright: "[
+					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+				]"
+
+				-- You may wish to begin by reading the text widget --
+				-- conceptual overview which gives an overview of all the
+				-- objects and -- data types related to the text widget
+				-- and how they work together.
+
+				-- Tags should be in the GtkTextTagTable for a given
+				-- GtkTextBuffer before using them with that buffer.
+
+				-- gtk_text_buffer_create_tag() is the best way to create
+				-- tags. See gtk-demo for numerous examples.
+
+				-- The "invisible" property was not implemented for GTK+
+				-- 2.0; it's planned to be implemented in future releases.
+
+
+class GTK_TEXT_TAG
+inherit G_OBJECT
+creation with_name
+
+feature {} -- Creation
+	with_name (a_name: STRING) is
+			-- Creates a GtkTextTag. Configure the tag using object
+			-- arguments, i.e. using G_OBJECT.set().
+
+			-- TODO: Gtk allow for void name. Check why. Paolo 2006-06-30
+		do
+			if a_name = Void then
+				handle:= gtk_text_tag_new (default_pointer)
+			else 
+				handle:= gtk_text_tag_new (a_name.to_external)
+			end
+			store_eiffel_wrapper
+		end
+
+feature 
+	priority: INTEGER is
+			-- the tag priority.
+		do
+			Result := gtk_text_tag_get_priority (handle)
+		end
+
+	set_priority (a_priority: INTEGER) is
+			-- Sets the priority of a GtkTextTag. Valid priorities are
+			-- start at 0 and go to one less than
+			-- gtk_text_tag_table_get_size(). Each tag in a table has a
+			-- unique priority; setting the priority of one tag shifts
+			-- the priorities of all the other tags in the table to
+			-- maintain a unique priority for each tag. Higher priority
+			-- tags "win" if two tags both set the same text
+			-- attribute. When adding a tag to a tag table, it will be
+			-- assigned the highest priority in the table by default; so
+			-- normally the precedence of a set of tags is the order in
+			-- which they were added to the table, or created with
+			-- gtk_text_buffer_create_tag(), which adds the tag to the
+			-- buffer's table automatically.
+		do
+			gtk_text_tag_set_priority (handle, a_priority)
+		end
+
+
+	-- TODO: wrap gtk_text_tag_event ()
+
+	--  gboolean gtk_text_tag_event (GtkTextTag *tag, GObject
+	--  *event_object, GdkEvent *event, const GtkTextIter *iter);
+
+	--    Emits the "event" signal on the GtkTextTag.
+	
+	--    tag :          a GtkTextTag
+	--    event_object : object that received the event, such as a widget
+	--    event :        the event
+	--    iter :         location where the event was received
+	--    Returns :      result of signal emission (whether the event was handled)
+	
+feature -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_property
+
+--    "background"           gchararray            : Write
+--    "background-full-height" gboolean              : Read / Write
+--    "background-full-height-set" gboolean              : Read / Write
+--    "background-gdk"       GdkColor              : Read / Write
+--    "background-set"       gboolean              : Read / Write
+--    "background-stipple"   GdkPixmap             : Read / Write
+--    "background-stipple-set" gboolean              : Read / Write
+--    "direction"            GtkTextDirection      : Read / Write
+--    "editable"             gboolean              : Read / Write
+--    "editable-set"         gboolean              : Read / Write
+--    "family"               gchararray            : Read / Write
+--    "family-set"           gboolean              : Read / Write
+--    "font"                 gchararray            : Read / Write
+--    "font-desc"            PangoFontDescription  : Read / Write
+--    "foreground"           gchararray            : Write
+--    "foreground-gdk"       GdkColor              : Read / Write
+--    "foreground-set"       gboolean              : Read / Write
+--    "foreground-stipple"   GdkPixmap             : Read / Write
+--    "foreground-stipple-set" gboolean              : Read / Write
+--    "indent"               gint                  : Read / Write
+--    "indent-set"           gboolean              : Read / Write
+--    "invisible"            gboolean              : Read / Write
+--    "invisible-set"        gboolean              : Read / Write
+--    "justification"        GtkJustification      : Read / Write
+--    "justification-set"    gboolean              : Read / Write
+--    "language"             gchararray            : Read / Write
+--    "language-set"         gboolean              : Read / Write
+--    "left-margin"          gint                  : Read / Write
+--    "left-margin-set"      gboolean              : Read / Write
+--    "name"                 gchararray            : Read / Write / Construct Only
+--    "paragraph-background" gchararray            : Write
+--    "paragraph-background-gdk" GdkColor              : Read / Write
+--    "paragraph-background-set" gboolean              : Read / Write
+--    "pixels-above-lines"   gint                  : Read / Write
+--    "pixels-above-lines-set" gboolean              : Read / Write
+--    "pixels-below-lines"   gint                  : Read / Write
+--    "pixels-below-lines-set" gboolean              : Read / Write
+--    "pixels-inside-wrap"   gint                  : Read / Write
+--    "pixels-inside-wrap-set" gboolean              : Read / Write
+--    "right-margin"         gint                  : Read / Write
+--    "right-margin-set"     gboolean              : Read / Write
+--    "rise"                 gint                  : Read / Write
+--    "rise-set"             gboolean              : Read / Write
+--    "scale"                gdouble               : Read / Write
+--    "scale-set"            gboolean              : Read / Write
+--    "size"                 gint                  : Read / Write
+--    "size-points"          gdouble               : Read / Write
+--    "size-set"             gboolean              : Read / Write
+--    "stretch"              PangoStretch          : Read / Write
+--    "stretch-set"          gboolean              : Read / Write
+--    "strikethrough"        gboolean              : Read / Write
+--    "strikethrough-set"    gboolean              : Read / Write
+--    "style"                PangoStyle            : Read / Write
+--    "style-set"            gboolean              : Read / Write
+--    "tabs"                 PangoTabArray         : Read / Write
+--    "tabs-set"             gboolean              : Read / Write
+--    "underline"            PangoUnderline        : Read / Write
+--    "underline-set"        gboolean              : Read / Write
+--    "variant"              PangoVariant          : Read / Write
+--    "variant-set"          gboolean              : Read / Write
+--    "weight"               gint                  : Read / Write
+--    "weight-set"           gboolean              : Read / Write
+--    "wrap-mode"            GtkWrapMode           : Read / Write
+--    "wrap-mode-set"        gboolean              : Read / Write
+
+-- Property Details
+
+--   The "background" property
+
+--    "background"           gchararray            : Write
+
+--    Background color as a string.
+
+--    Default value: NULL
+
+--    -------------------------------------------------------------------------------------
+
+--   The "background-full-height" property
+
+--    "background-full-height" gboolean              : Read / Write
+
+--    Whether the background color fills the entire line height or only the height of the
+--    tagged characters.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "background-full-height-set" property
+
+--    "background-full-height-set" gboolean              : Read / Write
+
+--    Whether this tag affects background height.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "background-gdk" property
+
+--    "background-gdk"       GdkColor              : Read / Write
+
+--    Background color as a (possibly unallocated) GdkColor.
+
+--    -------------------------------------------------------------------------------------
+
+--   The "background-set" property
+
+--    "background-set"       gboolean              : Read / Write
+
+--    Whether this tag affects the background color.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "background-stipple" property
+
+--    "background-stipple"   GdkPixmap             : Read / Write
+
+--    Bitmap to use as a mask when drawing the text background.
+
+--    -------------------------------------------------------------------------------------
+
+--   The "background-stipple-set" property
+
+--    "background-stipple-set" gboolean              : Read / Write
+
+--    Whether this tag affects the background stipple.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "direction" property
+
+--    "direction"            GtkTextDirection      : Read / Write
+
+--    Text direction, e.g. right-to-left or left-to-right.
+
+--    Default value: GTK_TEXT_DIR_NONE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "editable" property
+
+--    "editable"             gboolean              : Read / Write
+
+--    Whether the text can be modified by the user.
+
+--    Default value: TRUE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "editable-set" property
+
+--    "editable-set"         gboolean              : Read / Write
+
+--    Whether this tag affects text editability.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "family" property
+
+--    "family"               gchararray            : Read / Write
+
+--    Name of the font family, e.g. Sans, Helvetica, Times, Monospace.
+
+--    Default value: NULL
+
+--    -------------------------------------------------------------------------------------
+
+--   The "family-set" property
+
+--    "family-set"           gboolean              : Read / Write
+
+--    Whether this tag affects the font family.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "font" property
+
+--    "font"                 gchararray            : Read / Write
+
+--    Font description as string, e.g. \"Sans Italic 12\".
+
+--    Note that the initial value of this property depends on the internals of
+--    PangoFontDescription.
+
+--    Default value: NULL
+
+--    -------------------------------------------------------------------------------------
+
+--   The "font-desc" property
+
+--    "font-desc"            PangoFontDescription  : Read / Write
+
+--    Font description as a PangoFontDescription struct.
+
+--    -------------------------------------------------------------------------------------
+
+--   The "foreground" property
+
+--    "foreground"           gchararray            : Write
+
+--    Foreground color as a string.
+
+--    Default value: NULL
+
+--    -------------------------------------------------------------------------------------
+
+--   The "foreground-gdk" property
+
+--    "foreground-gdk"       GdkColor              : Read / Write
+
+--    Foreground color as a (possibly unallocated) GdkColor.
+
+--    -------------------------------------------------------------------------------------
+
+--   The "foreground-set" property
+
+--    "foreground-set"       gboolean              : Read / Write
+
+--    Whether this tag affects the foreground color.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "foreground-stipple" property
+
+--    "foreground-stipple"   GdkPixmap             : Read / Write
+
+--    Bitmap to use as a mask when drawing the text foreground.
+
+--    -------------------------------------------------------------------------------------
+
+--   The "foreground-stipple-set" property
+
+--    "foreground-stipple-set" gboolean              : Read / Write
+
+--    Whether this tag affects the foreground stipple.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "indent" property
+
+--    "indent"               gint                  : Read / Write
+
+--    Amount to indent the paragraph, in pixels.
+
+--    Default value: 0
+
+--    -------------------------------------------------------------------------------------
+
+--   The "indent-set" property
+
+--    "indent-set"           gboolean              : Read / Write
+
+--    Whether this tag affects indentation.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "invisible" property
+
+--    "invisible"            gboolean              : Read / Write
+
+--    Whether this text is hidden.
+
+--    Note that there may still be problems with the support for invisible text, in
+--    particular when navigating programmatically inside a buffer containing invisible
+--    segments.
+
+--    Default value: FALSE
+
+--    Since 2.8
+
+--    -------------------------------------------------------------------------------------
+
+--   The "invisible-set" property
+
+--    "invisible-set"        gboolean              : Read / Write
+
+--    Whether this tag affects text visibility.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "justification" property
+
+--    "justification"        GtkJustification      : Read / Write
+
+--    Left, right, or center justification.
+
+--    Default value: GTK_JUSTIFY_LEFT
+
+--    -------------------------------------------------------------------------------------
+
+--   The "justification-set" property
+
+--    "justification-set"    gboolean              : Read / Write
+
+--    Whether this tag affects paragraph justification.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "language" property
+
+--    "language"             gchararray            : Read / Write
+
+--    The language this text is in, as an ISO code. Pango can use this as a hint when
+--    rendering the text. If not set, an appropriate default will be used.
+
+--    Note that the initial value of this property depends on the current locale, see also
+--    gtk_get_default_language().
+
+--    Default value: NULL
+
+--    -------------------------------------------------------------------------------------
+
+--   The "language-set" property
+
+--    "language-set"         gboolean              : Read / Write
+
+--    Whether this tag affects the language the text is rendered as.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "left-margin" property
+
+--    "left-margin"          gint                  : Read / Write
+
+--    Width of the left margin in pixels.
+
+--    Allowed values: >= 0
+
+--    Default value: 0
+
+--    -------------------------------------------------------------------------------------
+
+--   The "left-margin-set" property
+
+--    "left-margin-set"      gboolean              : Read / Write
+
+--    Whether this tag affects the left margin.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "name" property
+
+--    "name"                 gchararray            : Read / Write / Construct Only
+
+--    Name used to refer to the text tag. NULL for anonymous tags.
+
+--    Default value: NULL
+
+--    -------------------------------------------------------------------------------------
+
+--   The "paragraph-background" property
+
+--    "paragraph-background" gchararray            : Write
+
+--    The paragraph background color as a string.
+
+--    Default value: NULL
+
+--    Since 2.8
+
+--    -------------------------------------------------------------------------------------
+
+--   The "paragraph-background-gdk" property
+
+--    "paragraph-background-gdk" GdkColor              : Read / Write
+
+--    The paragraph background color as a as a (possibly unallocated) GdkColor.
+
+--    Since 2.8
+
+--    -------------------------------------------------------------------------------------
+
+--   The "paragraph-background-set" property
+
+--    "paragraph-background-set" gboolean              : Read / Write
+
+--    Whether this tag affects the paragraph background color.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "pixels-above-lines" property
+
+--    "pixels-above-lines"   gint                  : Read / Write
+
+--    Pixels of blank space above paragraphs.
+
+--    Allowed values: >= 0
+
+--    Default value: 0
+
+--    -------------------------------------------------------------------------------------
+
+--   The "pixels-above-lines-set" property
+
+--    "pixels-above-lines-set" gboolean              : Read / Write
+
+--    Whether this tag affects the number of pixels above lines.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "pixels-below-lines" property
+
+--    "pixels-below-lines"   gint                  : Read / Write
+
+--    Pixels of blank space below paragraphs.
+
+--    Allowed values: >= 0
+
+--    Default value: 0
+
+--    -------------------------------------------------------------------------------------
+
+--   The "pixels-below-lines-set" property
+
+--    "pixels-below-lines-set" gboolean              : Read / Write
+
+--    Whether this tag affects the number of pixels above lines.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "pixels-inside-wrap" property
+
+--    "pixels-inside-wrap"   gint                  : Read / Write
+
+--    Pixels of blank space between wrapped lines in a paragraph.
+
+--    Allowed values: >= 0
+
+--    Default value: 0
+
+--    -------------------------------------------------------------------------------------
+
+--   The "pixels-inside-wrap-set" property
+
+--    "pixels-inside-wrap-set" gboolean              : Read / Write
+
+--    Whether this tag affects the number of pixels between wrapped lines.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "right-margin" property
+
+--    "right-margin"         gint                  : Read / Write
+
+--    Width of the right margin in pixels.
+
+--    Allowed values: >= 0
+
+--    Default value: 0
+
+--    -------------------------------------------------------------------------------------
+
+--   The "right-margin-set" property
+
+--    "right-margin-set"     gboolean              : Read / Write
+
+--    Whether this tag affects the right margin.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "rise" property
+
+--    "rise"                 gint                  : Read / Write
+
+--    Offset of text above the baseline (below the baseline if rise is negative) in Pango
+--    units.
+
+--    Default value: 0
+
+--    -------------------------------------------------------------------------------------
+
+--   The "rise-set" property
+
+--    "rise-set"             gboolean              : Read / Write
+
+--    Whether this tag affects the rise.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "scale" property
+
+--    "scale"                gdouble               : Read / Write
+
+--    Font size as a scale factor relative to the default font size. This properly adapts
+--    to theme changes etc. so is recommended. Pango predefines some scales such as
+--    PANGO_SCALE_X_LARGE.
+
+--    Allowed values: >= 0
+
+--    Default value: 1
+
+--    -------------------------------------------------------------------------------------
+
+--   The "scale-set" property
+
+--    "scale-set"            gboolean              : Read / Write
+
+--    Whether this tag scales the font size by a factor.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "size" property
+
+--    "size"                 gint                  : Read / Write
+
+--    Font size in Pango units.
+
+--    Allowed values: >= 0
+
+--    Default value: 0
+
+--    -------------------------------------------------------------------------------------
+
+--   The "size-points" property
+
+--    "size-points"          gdouble               : Read / Write
+
+--    Font size in points.
+
+--    Allowed values: >= 0
+
+--    Default value: 0
+
+--    -------------------------------------------------------------------------------------
+
+--   The "size-set" property
+
+--    "size-set"             gboolean              : Read / Write
+
+--    Whether this tag affects the font size.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "stretch" property
+
+--    "stretch"              PangoStretch          : Read / Write
+
+--    Font stretch as a PangoStretch, e.g. PANGO_STRETCH_CONDENSED.
+
+--    Default value: PANGO_STRETCH_NORMAL
+
+--    -------------------------------------------------------------------------------------
+
+--   The "stretch-set" property
+
+--    "stretch-set"          gboolean              : Read / Write
+
+--    Whether this tag affects the font stretch.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "strikethrough" property
+
+--    "strikethrough"        gboolean              : Read / Write
+
+--    Whether to strike through the text.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "strikethrough-set" property
+
+--    "strikethrough-set"    gboolean              : Read / Write
+
+--    Whether this tag affects strikethrough.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "style" property
+
+--    "style"                PangoStyle            : Read / Write
+
+--    Font style as a PangoStyle, e.g. PANGO_STYLE_ITALIC.
+
+--    Default value: PANGO_STYLE_NORMAL
+
+--    -------------------------------------------------------------------------------------
+
+--   The "style-set" property
+
+--    "style-set"            gboolean              : Read / Write
+
+--    Whether this tag affects the font style.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "tabs" property
+
+--    "tabs"                 PangoTabArray         : Read / Write
+
+--    Custom tabs for this text.
+
+--    -------------------------------------------------------------------------------------
+
+--   The "tabs-set" property
+
+--    "tabs-set"             gboolean              : Read / Write
+
+--    Whether this tag affects tabs.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "underline" property
+
+--    "underline"            PangoUnderline        : Read / Write
+
+--    Style of underline for this text.
+
+--    Default value: PANGO_UNDERLINE_NONE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "underline-set" property
+
+--    "underline-set"        gboolean              : Read / Write
+
+--    Whether this tag affects underlining.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "variant" property
+
+--    "variant"              PangoVariant          : Read / Write
+
+--    Font variant as a PangoVariant, e.g. PANGO_VARIANT_SMALL_CAPS.
+
+--    Default value: PANGO_VARIANT_NORMAL
+
+--    -------------------------------------------------------------------------------------
+
+--   The "variant-set" property
+
+--    "variant-set"          gboolean              : Read / Write
+
+--    Whether this tag affects the font variant.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "weight" property
+
+--    "weight"               gint                  : Read / Write
+
+--    Font weight as an integer, see predefined values in PangoWeight; for example,
+--    PANGO_WEIGHT_BOLD.
+
+--    Allowed values: >= 0
+
+--    Default value: 400
+
+--    -------------------------------------------------------------------------------------
+
+--   The "weight-set" property
+
+--    "weight-set"           gboolean              : Read / Write
+
+--    Whether this tag affects the font weight.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "wrap-mode" property
+
+--    "wrap-mode"            GtkWrapMode           : Read / Write
+
+--    Whether to wrap lines never, at word boundaries, or at character boundaries.
+
+--    Default value: GTK_WRAP_NONE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "wrap-mode-set" property
+
+--    "wrap-mode-set"        gboolean              : Read / Write
+
+--    Whether this tag affects line wrap mode.
+
+--    Default value: FALSE
+
+feature -- TODO: Signals
+
+
+--  "event"     gboolean    user_function      (GtkTextTag  *texttag,
+--                                              GObject     *arg1,
+--                                              GdkEvent    *event,
+--                                              GtkTextIter *arg2,
+--                                              gpointer     user_data)      : Run last
+
+
+-- Signal Details
+
+--   The "event" signal
+
+--  gboolean    user_function                  (GtkTextTag  *texttag,
+--                                              GObject     *arg1,
+--                                              GdkEvent    *event,
+--                                              GtkTextIter *arg2,
+--                                              gpointer     user_data)      : Run last
+
+--    texttag :   the object which received the signal.
+--    arg1 :
+--    event :
+--    arg2 :
+--    user_data : user data set when the signal handler was connected.
+--    Returns :
+
+feature -- size
+	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTextTag)"
+		end
+
+feature {} -- External calls
+	gtk_text_tag_new (a_const_name: POINTER): POINTER is -- GtkTextTag*
+		external "C use <gtk/gtk.h>"
+		end
+	gtk_text_tag_get_priority (a_gtktexttag: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_text_tag_set_priority (a_gtktexttag: POINTER; a_priority: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_text_tag_event (a_gtktexttag, an_event_object, a_gdkevent,  a_const_gtktextiter: POINTER): INTEGER is -- gboolean
+		external "C use <gtk/gtk.h>"
+		end
+end
