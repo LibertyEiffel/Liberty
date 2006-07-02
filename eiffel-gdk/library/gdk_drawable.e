@@ -1,0 +1,704 @@
+indexing
+	description: "GDK_DRAWABLE - Drawing Primitives œôòô Functions for drawing points, lines, arcs, and text."
+	copyright: "[
+					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+					]"
+
+	-- Description: These functions provide support for drawing points,
+	-- lines, arcs and text onto what are called
+	-- 'drawables'. Drawables, as the name suggests, are things which
+	-- support drawing onto them, and are either GdkWindow or GdkPixmap
+	-- objects.
+
+	-- Many of the drawing operations take a GdkGC argument, which
+	-- represents a graphics context. This GdkGC contains a number of
+	-- drawing attributes such as foreground color, background color
+	-- and line width, and is used to reduce the number of arguments
+	-- needed for each drawing operation. See the Graphics Contexts
+	-- section for more information.
+
+	-- Some of the drawing operations take Pango data structures like
+	-- PangoContext, PangoLayout or PangoLayoutLine as arguments. If
+	-- you're using GTK+, the ususal way to obtain these structures is
+	-- via gtk_widget_create_pango_context() or
+	-- gtk_widget_create_pango_layout().
+
+deferred class GDK_DRAWABLE
+inherit G_OBJEC
+	-- Object Hierarchy
+	
+	--   GObject
+	--    +----GdkDrawable
+	--          +----GdkWindow
+	--          +----GdkPixmap
+
+creation make, from_external_pointer
+	
+feature {} -- Creation
+	
+feature -- size
+	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof()"
+		end
+	
+feature 
+	-- TODO: display: GDK_DISPLAY is
+	-- the GdkDisplay associated with a GdkDrawable.
+	-- do
+	-- create Result.from_external_pointer (gdk_drawable_get_display (handle))
+	-- end
+	
+	-- TODO: screen: GDK_SCREEN is
+	-- the GdkScreen associated with a GdkDrawable.
+	-- do
+	-- create Result.from_external_pointer (gdk_drawable_get_screen (handle))
+	-- end
+	
+	-- TODO: visual: GDK_VISUAL is
+	-- the GdkVisual describing the pixel format of drawable.
+	-- do
+	-- create Result.from_external_pointer (gdk_drawable_get_visual (handle))
+	-- end
+
+	-- TODO: gdk_drawable_set_colormap ()
+
+	-- void        gdk_drawable_set_colormap       (GdkDrawable *drawable,
+	--                                              GdkColormap *colormap);
+
+	-- Sets the colormap associated with drawable. Normally this will happen automatically when the drawable is created; you only need to use this function if the drawable-creating function did not have a way to determine the colormap, and you then use drawable operations that require a colormap. The colormap for all drawables and graphics contexts you intend to use together should match. i.e. when using a GdkGC to draw to a drawable, or copying one drawable to another, the colormaps should match.
+
+	-- drawable : 	a GdkDrawable
+	-- colormap : 	a GdkColormap
+	-- gdk_drawable_get_colormap ()
+
+	-- GdkColormap* gdk_drawable_get_colormap      (GdkDrawable *drawable);
+
+	-- Gets the colormap for drawable, if one is set; returns NULL otherwise.
+
+	-- drawable : 	a GdkDrawable
+	-- Returns : 	the colormap, or NULL
+
+
+	depth: INTEGER is
+			-- the bit depth of the drawable, that is, the number of bits
+			-- that make up a pixel in the drawable's visual. Examples
+			-- are 8 bits per pixel, 24 bits per pixel, etc.
+		do
+			Result := gdk_drawable_get_depth (handle)
+		end
+
+	size: TUPLE [INTEGER, INTEGER] is
+			-- width and height with the size of drawable. On the X11
+			-- platform, if drawable is a GdkWindow, the returned size is
+			-- the size reported in the most-recently-processed configure
+			-- event, rather than the current size on the X server.
+		local a_width, an_height: INTEGER
+		do
+			gdk_drawable_get_size (handle, $a_width, $an_height)
+			create Result.make_2 (a_width, an_height)
+		ensure not_void: Result /= Void
+		end
+
+	width: INTEGER is
+			-- width of the drawable. On the X11 platform, if drawable is
+			-- a GdkWindow, the returned size is the size reported in the
+			-- most-recently-processed configure event, rather than the
+			-- current size on the X server.
+		local a_width, an_height: INTEGER
+		do
+			gdk_drawable_get_size (handle, $Result, default_pointer)
+		end
+
+	height: INTEGER is
+			-- height of the drawable. On the X11 platform, if drawable is
+			-- a GdkWindow, the returned size is the size reported in the
+			-- most-recently-processed configure event, rather than the
+			-- current size on the X server.
+		local a_height, an_height: INTEGER
+		do
+			gdk_drawable_get_size (handle, default_pointer, $Result)
+		end
+
+	clip_region: GDK_REGION is
+			-- the region of a drawable that potentially can be written
+			-- to by drawing primitives. This region will not take into
+			-- account the clip region for the GC, and may also not take
+			-- into account other factors such as if the window is
+			-- obscured by other windows, but no area outside of this
+			-- region will be affected by drawing primitives.
+		do
+			create Result.from_external_pointer (gdk_drawable_get_clip_region (handle))
+		end
+
+	visible_region: GDK_REGION is
+			-- the region of a drawable that is potentially visible. This
+			-- does not necessarily take into account if the window is
+			-- obscured by other windows, but no area outside of this
+			-- region is visible.
+		do
+			create Result.from_external_pointer (gdk_drawable_get_visible_region (handle))
+		end
+	
+	-- gdk_draw_point ()
+
+	-- void        gdk_draw_point                  (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              gint x,
+	--                                              gint y);
+
+	-- Draws a point, using the foreground color and other attributes of the GdkGC.
+
+	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
+	-- gc : 	a GdkGC.
+	-- x : 	the x coordinate of the point.
+	-- y : 	the y coordinate of the point.
+	-- gdk_draw_points ()
+
+	-- void        gdk_draw_points                 (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              GdkPoint *points,
+	--                                              gint npoints);
+
+	-- Draws a number of points, using the foreground color and other attributes of the GdkGC.
+
+	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
+	-- gc : 	a GdkGC.
+	-- points : 	an array of GdkPoint structures.
+	-- npoints : 	the number of points to be drawn.
+	-- gdk_draw_line ()
+
+	-- void        gdk_draw_line                   (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              gint x1_,
+	--                                              gint y1_,
+	--                                              gint x2_,
+	--                                              gint y2_);
+
+	-- Draws a line, using the foreground color and other attributes of the GdkGC.
+
+	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
+	-- gc : 	a GdkGC.
+	-- x1_ : 	the x coordinate of the start point.
+	-- y1_ : 	the y coordinate of the start point.
+	-- x2_ : 	the x coordinate of the end point.
+	-- y2_ : 	the y coordinate of the end point.
+	-- gdk_draw_lines ()
+
+	-- void        gdk_draw_lines                  (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              GdkPoint *points,
+	--                                              gint npoints);
+
+	-- Draws a series of lines connecting the given points. The way in which joins between lines are draw is determined by the GdkCapStyle value in the GdkGC. This can be set with gdk_gc_set_line_attributes().
+
+	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
+	-- gc : 	a GdkGC.
+	-- points : 	an array of GdkPoint structures specifying the endpoints of the
+	-- npoints : 	the size of the points array.
+	-- gdk_draw_pixbuf ()
+
+	-- void        gdk_draw_pixbuf                 (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              GdkPixbuf *pixbuf,
+	--                                              gint src_x,
+	--                                              gint src_y,
+	--                                              gint dest_x,
+	--                                              gint dest_y,
+	--                                              gint width,
+	--                                              gint height,
+	--                                              GdkRgbDither dither,
+	--                                              gint x_dither,
+	--                                              gint y_dither);
+
+	-- Renders a rectangular portion of a pixbuf to a drawable. The destination drawable must have a colormap. All windows have a colormap, however, pixmaps only have colormap by default if they were created with a non-NULL window argument. Otherwise a colormap must be set on them with gdk_drawable_set_colormap().
+
+	-- On older X servers, rendering pixbufs with an alpha channel involves round trips to the X server, and may be somewhat slow.
+
+	-- The clip mask of gc is ignored, but clip rectangles and clip regions work fine.
+
+	-- drawable : 	Destination drawable.
+	-- gc : 	a GdkGC, used for clipping, or NULL
+	-- pixbuf : 	a GdkPixbuf
+	-- src_x : 	Source X coordinate within pixbuf.
+	-- src_y : 	Source Y coordinates within pixbuf.
+	-- dest_x : 	Destination X coordinate within drawable.
+	-- dest_y : 	Destination Y coordinate within drawable.
+	-- width : 	Width of region to render, in pixels, or -1 to use pixbuf width.
+	-- height : 	Height of region to render, in pixels, or -1 to use pixbuf height.
+	-- dither : 	Dithering mode for GdkRGB.
+	-- x_dither : 	X offset for dither.
+	-- y_dither : 	Y offset for dither.
+
+	-- Since 2.2
+	-- gdk_draw_segments ()
+
+	-- void        gdk_draw_segments               (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              GdkSegment *segs,
+	--                                              gint nsegs);
+
+	-- Draws a number of unconnected lines.
+
+	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
+	-- gc : 	a GdkGC.
+	-- segs : 	an array of GdkSegment structures specifying the start and end points of the lines to be drawn.
+	-- nsegs : 	the number of line segments to draw, i.e. the size of the segs array.
+	-- GdkSegment
+
+	-- typedef struct {
+	--   gint x1;
+	--   gint y1;
+	--   gint x2;
+	--   gint y2;
+	-- } GdkSegment;
+
+	-- Specifies the start and end point of a line for use by the gdk_draw_segments() function.
+	-- gint x1; 	the x coordinate of the start point.
+	-- gint y1; 	the y coordinate of the start point.
+	-- gint x2; 	the x coordinate of the end point.
+	-- gint y2; 	the y coordinate of the end point.
+	-- gdk_draw_rectangle ()
+
+	-- void        gdk_draw_rectangle              (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              gboolean filled,
+	--                                              gint x,
+	--                                              gint y,
+	--                                              gint width,
+	--                                              gint height);
+
+	-- Draws a rectangular outline or filled rectangle, using the foreground color and other attributes of the GdkGC.
+
+	-- A rectangle drawn filled is 1 pixel smaller in both dimensions than a rectangle outlined. Calling gdk_draw_rectangle (window, gc, TRUE, 0, 0, 20, 20) results in a filled rectangle 20 pixels wide and 20 pixels high. Calling gdk_draw_rectangle (window, gc, FALSE, 0, 0, 20, 20) results in an outlined rectangle with corners at (0, 0), (0, 20), (20, 20), and (20, 0), which makes it 21 pixels wide and 21 pixels high.
+
+	-- Note
+
+	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
+	-- gc : 	a GdkGC.
+	-- filled : 	TRUE if the rectangle should be filled.
+	-- x : 	the x coordinate of the left edge of the rectangle.
+	-- y : 	the y coordinate of the top edge of the rectangle.
+	-- width : 	the width of the rectangle.
+	-- height : 	the height of the rectangle.
+	-- gdk_draw_arc ()
+
+	-- void        gdk_draw_arc                    (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              gboolean filled,
+	--                                              gint x,
+	--                                              gint y,
+	--                                              gint width,
+	--                                              gint height,
+	--                                              gint angle1,
+	--                                              gint angle2);
+
+	-- Draws an arc or a filled 'pie slice'. The arc is defined by the bounding rectangle of the entire ellipse, and the start and end angles of the part of the ellipse to be drawn.
+
+	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
+	-- gc : 	a GdkGC.
+	-- filled : 	TRUE if the arc should be filled, producing a 'pie slice'.
+	-- x : 	the x coordinate of the left edge of the bounding rectangle.
+	-- y : 	the y coordinate of the top edge of the bounding rectangle.
+	-- width : 	the width of the bounding rectangle.
+	-- height : 	the height of the bounding rectangle.
+	-- angle1 : 	the start angle of the arc, relative to the 3 o'clock position, counter-clockwise, in 1/64ths of a degree.
+	-- angle2 : 	the end angle of the arc, relative to angle1, in 1/64ths of a degree.
+	-- gdk_draw_polygon ()
+
+	-- void        gdk_draw_polygon                (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              gboolean filled,
+	--                                              GdkPoint *points,
+	--                                              gint npoints);
+
+	-- Draws an outlined or filled polygon.
+
+	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
+	-- gc : 	a GdkGC.
+	-- filled : 	TRUE if the polygon should be filled. The polygon is closed automatically, connecting the last point to the first point if necessary.
+	-- points : 	an array of GdkPoint structures specifying the points making up the polygon.
+	-- npoints : 	the number of points.
+	-- gdk_draw_trapezoids ()
+
+	-- void        gdk_draw_trapezoids             (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              GdkTrapezoid *trapezoids,
+	--                                              gint n_trapezoids);
+
+	-- Draws a set of anti-aliased trapezoids. The trapezoids are combined using saturation addition, then drawn over the background as a set. This is low level functionality used internally to implement rotated underlines and backgrouds when rendering a PangoLayout and is likely not useful for applications.
+
+	-- drawable : 	a GdkDrawable
+	-- gc : 	a GdkGC
+	-- trapezoids : 	an array of GdkTrapezoid structures
+	-- n_trapezoids : 	the number of trapezoids to draw
+
+	-- Since 2.6
+	-- GdkTrapezoid
+
+	-- typedef struct {
+	--   double y1, x11, x21, y2, x12, x22;
+	-- } GdkTrapezoid;
+
+	-- Specifies a trapezpoid for use by the gdk_draw_trapezoids(). The trapezoids used here have parallel, horizontal top and bottom edges.
+	-- double y1; 	the y coordinate of the start point.
+	-- double x11; 	the x coordinate of the top left corner
+	-- double x21; 	the x coordinate of the top right corner
+	-- double y2; 	the y coordinate of the end point.
+	-- double x12; 	the x coordinate of the bottom left corner
+	-- double x22; 	the x coordinate of the bottom right corner
+	-- gdk_draw_glyphs ()
+
+	-- void        gdk_draw_glyphs                 (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              PangoFont *font,
+	--                                              gint x,
+	--                                              gint y,
+	--                                              PangoGlyphString *glyphs);
+
+	-- This is a low-level function; 99% of text rendering should be done using gdk_draw_layout() instead.
+
+	-- A glyph is a single image in a font. This function draws a sequence of glyphs. To obtain a sequence of glyphs you have to understand a lot about internationalized text handling, which you don't want to understand; thus, use gdk_draw_layout() instead of this function, gdk_draw_layout() handles the details.
+
+	-- drawable : 	a GdkDrawable
+	-- gc : 	a GdkGC
+	-- font : 	font to be used
+	-- x : 	X coordinate of baseline origin
+	-- y : 	Y coordinate of baseline origin
+	-- glyphs : 	the glyph string to draw
+	-- gdk_draw_glyphs_transformed ()
+
+	-- void        gdk_draw_glyphs_transformed     (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              PangoMatrix *matrix,
+	--                                              PangoFont *font,
+	--                                              gint x,
+	--                                              gint y,
+	--                                              PangoGlyphString *glyphs);
+
+	-- Renders a PangoGlyphString onto a drawable, possibly transforming the layed-out coordinates through a transformation matrix. Note that the transformation matrix for font is not changed, so to produce correct rendering results, the font must have been loaded using a PangoContext with an identical transformation matrix to that passed in to this function.
+
+	-- See also gdk_draw_glyphs(), gdk_draw_layout().
+
+	-- drawable : 	a GdkDrawable
+	-- gc : 	a GdkGC
+	-- matrix : 	a PangoMatrix, or NULL to use an identity transformation
+	-- font : 	the font in which to draw the string
+	-- x : 	the x position of the start of the string (in Pango units in user space coordinates)
+	-- y : 	the y position of the baseline (in Pango units in user space coordinates)
+	-- glyphs : 	the glyph string to draw
+
+	-- Since 2.6
+	-- gdk_draw_layout_line ()
+
+	-- void        gdk_draw_layout_line            (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              gint x,
+	--                                              gint y,
+	--                                              PangoLayoutLine *line);
+
+	-- Render a PangoLayoutLine onto an GDK drawable
+
+	-- If the layout's PangoContext has a transformation matrix set, then x and y specify the position of the left edge of the baseline (left is in before-tranform user coordinates) in after-transform device coordinates.
+
+	-- drawable : 	the drawable on which to draw the line
+	-- gc : 	base graphics to use
+	-- x : 	the x position of start of string (in pixels)
+	-- y : 	the y position of baseline (in pixels)
+	-- line : 	a PangoLayoutLine
+	-- gdk_draw_layout_line_with_colors ()
+
+	-- void        gdk_draw_layout_line_with_colors
+	--                                             (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              gint x,
+	--                                              gint y,
+	--                                              PangoLayoutLine *line,
+	--                                              const GdkColor *foreground,
+	--                                              const GdkColor *background);
+
+	-- Render a PangoLayoutLine onto a GdkDrawable, overriding the layout's normal colors with foreground and/or background. foreground and background need not be allocated.
+
+	-- If the layout's PangoContext has a transformation matrix set, then x and y specify the position of the left edge of the baseline (left is in before-tranform user coordinates) in after-transform device coordinates.
+
+	-- drawable : 	the drawable on which to draw the line
+	-- gc : 	base graphics to use
+	-- x : 	the x position of start of string (in pixels)
+	-- y : 	the y position of baseline (in pixels)
+	-- line : 	a PangoLayoutLine
+	-- foreground : 	foreground override color, or NULL for none
+	-- background : 	background override color, or NULL for none
+	-- gdk_draw_layout ()
+
+	-- void        gdk_draw_layout                 (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              gint x,
+	--                                              gint y,
+	--                                              PangoLayout *layout);
+
+	-- Render a PangoLayout onto a GDK drawable
+
+	-- If the layout's PangoContext has a transformation matrix set, then x and y specify the position of the top left corner of the bounding box (in device space) of the transformed layout.
+
+	-- If you're using GTK+, the usual way to obtain a PangoLayout is gtk_widget_create_pango_layout().
+
+	-- drawable : 	the drawable on which to draw string
+	-- gc : 	base graphics context to use
+	-- x : 	the X position of the left of the layout (in pixels)
+	-- y : 	the Y position of the top of the layout (in pixels)
+	-- layout : 	a PangoLayout
+	-- gdk_draw_layout_with_colors ()
+
+	-- void        gdk_draw_layout_with_colors     (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              gint x,
+	--                                              gint y,
+	--                                              PangoLayout *layout,
+	--                                              const GdkColor *foreground,
+	--                                              const GdkColor *background);
+
+	-- Render a PangoLayout onto a GdkDrawable, overriding the layout's normal colors with foreground and/or background. foreground and background need not be allocated.
+
+	-- If the layout's PangoContext has a transformation matrix set, then x and y specify the position of the top left corner of the bounding box (in device space) of the transformed layout.
+
+	-- If you're using GTK+, the ususal way to obtain a PangoLayout is gtk_widget_create_pango_layout().
+
+	-- drawable : 	the drawable on which to draw string
+	-- gc : 	base graphics context to use
+	-- x : 	the X position of the left of the layout (in pixels)
+	-- y : 	the Y position of the top of the layout (in pixels)
+	-- layout : 	a PangoLayout
+	-- foreground : 	foreground override color, or NULL for none
+	-- background : 	background override color, or NULL for none
+	-- gdk_draw_drawable ()
+
+	-- void        gdk_draw_drawable               (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              GdkDrawable *src,
+	--                                              gint xsrc,
+	--                                              gint ysrc,
+	--                                              gint xdest,
+	--                                              gint ydest,
+	--                                              gint width,
+	--                                              gint height);
+
+	-- Copies the width x height region of src at coordinates (xsrc, ysrc) to coordinates (xdest, ydest) in drawable. width and/or height may be given as -1, in which case the entire src drawable will be copied.
+
+	-- Most fields in gc are not used for this operation, but notably the clip mask or clip region will be honored.
+
+	-- The source and destination drawables must have the same visual and colormap, or errors will result. (On X11, failure to match visual/colormap results in a BadMatch error from the X server.) A common cause of this problem is an attempt to draw a bitmap to a color drawable. The way to draw a bitmap is to set the bitmap as the stipple on the GdkGC, set the fill mode to GDK_STIPPLED, and then draw the rectangle.
+
+	-- drawable : 	a GdkDrawable
+	-- gc : 	a GdkGC sharing the drawable's visual and colormap
+	-- src : 	the source GdkDrawable, which may be the same as drawable
+	-- xsrc : 	X position in src of rectangle to draw
+	-- ysrc : 	Y position in src of rectangle to draw
+	-- xdest : 	X position in drawable where the rectangle should be drawn
+	-- ydest : 	Y position in drawable where the rectangle should be drawn
+	-- width : 	width of rectangle to draw, or -1 for entire src width
+	-- height : 	height of rectangle to draw, or -1 for entire src height
+	-- gdk_draw_image ()
+
+	-- void        gdk_draw_image                  (GdkDrawable *drawable,
+	--                                              GdkGC *gc,
+	--                                              GdkImage *image,
+	--                                              gint xsrc,
+	--                                              gint ysrc,
+	--                                              gint xdest,
+	--                                              gint ydest,
+	--                                              gint width,
+	--                                              gint height);
+
+	-- Draws a GdkImage onto a drawable. The depth of the GdkImage must match the depth of the GdkDrawable.
+
+	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
+	-- gc : 	a GdkGC.
+	-- image : 	the GdkImage to draw.
+	-- xsrc : 	the left edge of the source rectangle within image.
+	-- ysrc : 	the top of the source rectangle within image.
+	-- xdest : 	the x coordinate of the destination within drawable.
+	-- ydest : 	the y coordinate of the destination within drawable.
+	-- width : 	the width of the area to be copied, or -1 to make the area extend to the right edge of image.
+	-- height : 	the height of the area to be copied, or -1 to make the area extend to the bottom edge of image.
+	-- gdk_drawable_get_image ()
+
+	-- GdkImage*   gdk_drawable_get_image          (GdkDrawable *drawable,
+	--                                              gint x,
+	--                                              gint y,
+	--                                              gint width,
+	--                                              gint height);
+
+	-- A GdkImage stores client-side image data (pixels). In contrast, GdkPixmap and GdkWindow are server-side objects. gdk_drawable_get_image() obtains the pixels from a server-side drawable as a client-side GdkImage. The format of a GdkImage depends on the GdkVisual of the current display, which makes manipulating GdkImage extremely difficult; therefore, in most cases you should use gdk_pixbuf_get_from_drawable() instead of this lower-level function. A GdkPixbuf contains image data in a canonicalized RGB format, rather than a display-dependent format. Of course, there's a convenience vs. speed tradeoff here, so you'll want to think about what makes sense for your application.
+
+	-- x, y, width, and height define the region of drawable to obtain as an image.
+
+	-- You would usually copy image data to the client side if you intend to examine the values of individual pixels, for example to darken an image or add a red tint. It would be prohibitively slow to make a round-trip request to the windowing system for each pixel, so instead you get all of them at once, modify them, then copy them all back at once.
+
+	-- If the X server or other windowing system backend is on the local machine, this function may use shared memory to avoid copying the image data.
+
+	-- If the source drawable is a GdkWindow and partially offscreen or obscured, then the obscured portions of the returned image will contain undefined data.
+
+	-- drawable : 	a GdkDrawable
+	-- x : 	x coordinate on drawable
+	-- y : 	y coordinate on drawable
+	-- width : 	width of region to get
+	-- height : 	height or region to get
+	-- Returns : 	a GdkImage containing the contents of drawable
+	-- gdk_drawable_copy_to_image ()
+
+	-- GdkImage*   gdk_drawable_copy_to_image      (GdkDrawable *drawable,
+	--                                              GdkImage *image,
+	--                                              gint src_x,
+	--                                              gint src_y,
+	--                                              gint dest_x,
+	--                                              gint dest_y,
+	--                                              gint width,
+	--                                              gint height);
+
+	-- Copies a portion of drawable into the client side image structure image. If image is NULL, creates a new image of size width x height and copies into that. See gdk_drawable_get_image() for further details.
+
+	-- drawable : 	a GdkDrawable
+	-- image : 	a GdkDrawable, or NULL if a new image should be created.
+	-- src_x : 	x coordinate on drawable
+	-- src_y : 	y coordinate on drawable
+	-- dest_x : 	x coordinate within image. Must be 0 if image is NULL
+	-- dest_y : 	y coordinate within image. Must be 0 if image is NULL
+	-- width : 	width of region to get
+	-- height : 	height or region to get
+	-- Returns : 	image, or a new a GdkImage containing the contents of drawable
+
+	-- Since 2.4
+	
+feature {} -- External calls
+	gdk_drawable_get_display (a_gdkdrawable: POINTER): POINTER is -- GdkDisplay*
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_get_screen (a_gdkdrawable: POINTER): POINTER is -- GdkScreen*
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_get_visual (a_gdkdrawable: POINTER): POINTER is -- GdkVisual*
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_set_colormap (a_gdkdrawable, a_gdkcolormap: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_get_colormap (a_gdkdrawable: POINTER): POINTER is -- GdkColormap*
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_get_depth (a_gdkdrawable: POINTER): INTEGER is -- gint
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_get_size (a_gdkdrawable, gint_width, gint_height: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_get_clip_region (a_gdkdrawable: POINTER): POINTER is -- GdkRegion*
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_get_visible_region (a_gdkdrawable: POINTER): POINTER is -- GdkRegion*
+		external "C use <gdk/gdk.h>"
+		end
+	
+
+	gdk_draw_point (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+
+	gdk_draw_points (a_gdkdrawable, a_gdkgc, some_points: POINTER;  npoints: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_line (a_gdkdrawable: POINTER, a_gdk_gc: POINTER; an_x1, an_y1, an_x2, an_y2: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_lines (a_gdkdrawable, a_gdk_gc; some_gdk_points: POINTER; gint npoints) is
+		external "C use <gdk/gdk.h>"
+		end
+
+	gdk_draw_pixbuf (a_gdkdrawable, a_gdk_gc, a_gdkpixbuf: POINTER; src_x, src_y, dest_x, dest_y, width,  height: INTEGER; gdkrgbdither: INTEGER; x_dither, y_dither: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_segments (a_gdkdrawable, a_gdk_gc, some_gdksegment: POINTER; nsegs: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+
+	gdk_draw_rectangle (a_gdkdrawable, a_gdk_gc: POINTER; gboolean_filled: INTEGER; an_x, an_y, a_width, an_height: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_arc (a_gdkdrawable, a_gdk_gc: POINTER; gboolean_filled: INTEGER; an_x, an_y, a_width, an_height, angle1, angle2: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_polygon (a_gdkdrawable, a_gdk_gc: POINTER; boolean_filled: INTEGER; some_gdkpoint: POINTER; npoints: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+
+	gdk_draw_trapezoids (a_gdkdrawable, a_gdk_gc, some_gdktrapezoid: POINTER; n_trapezoids: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_glyphs (a_gdkdrawable, a_gdk_gc, a_pangofont: POINTER; an_x, an_y: INTEGER; some_pangoglyphstring: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+
+	gdk_draw_glyphs_transformed (a_gdkdrawable, a_gdk_gc, a_pangomatrix, a_pangofont: POINTER; an_x, an_y: INTEGERM; some_pangoglyphstring: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_layout_line (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayoutline: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_layout_line_with_colors (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayoutline, a_const_gdkcolor_foreground, const_gdkcolor_background: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_layout (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayout: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_draw_layout_with_colors (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayout, const_gdkcolor_foreground, const_gdkcolor_background: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+		
+	gdk_draw_drawable (a_gdkdrawable, a_gdk_gc, a_src_gdkdrawable: POINTER; a_xsrc, a_ysrc, a_xdest, a_ydest, a_width, an_height: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+ 
+	gdk_draw_image (a_gdkdrawable, a_gdk_gc, a_gdkimage: POINTER; a_xsrc, a_ysrc, a_xdest, a_ydest, a_width, an_height: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_get_image (a_gdkdrawable: POINTER; an_x, an_y, a_width, an_height: INTEGER): POINTER is -- GdkImage*
+		external "C use <gdk/gdk.h>"
+		end
+	
+	gdk_drawable_copy_to_image (a_gdkdrawable, a_gdkimage: POINTER; a_src_x, a_src_y, a_dest_x, a_dest_y, a_width, an_height: INTEGER): POINTER is -- GdkImage*
+		external "C use <gdk/gdk.h>"
+		end
+end

@@ -261,158 +261,128 @@ feature
 			-- edge of the line.
 		end
 
--- 	-----------------------------------------------------------------------
+	-- TODO: uncomment this once the TUPLE bug get solved.
+	-- 	line_y_range (an_iterator): TUPLE [INTEGER, INTEGER] is
+	-- 			-- Gets the y coordinate of the top of the line containing
+	-- 			-- iter, and the height of the line. The coordinate is a
+	-- 			-- buffer coordinate; convert to window coordinates with
+	-- 			-- `buffer_to_window_coords'.
+	-- 		require iterator_not_void: an_iterator/=Void
+	-- 		local y,height: INTEGER
+	-- 		do
+	-- 			gtk_text_view_get_line_yrange (handle, an_iterator.handle,
+	-- 													 $y, $height)
+	-- 			create Result.make_2 (y,height)
+	-- 		end
 
---   gtk_text_view_get_line_yrange ()
+	iter_at_location (an_x, an_y: INTEGER): GTK_TEXT_ITER is
+			-- Retrieves the iterator at buffer coordinates `an_x' and
+			-- `an_y'. Buffer coordinates are coordinates for the entire
+			-- buffer, not just the currently-displayed portion. If you
+			-- have coordinates from an event, you have to convert those
+			-- to buffer coordinates with `window_to_buffer_coords'.
+		require iterator_not_void: an_iterator/=Void
+		do
+			create Result.make
+			gtk_text_view_get_iter_at_location (handle, Result.handle, an_x, an_y)
+		ensure result_not_void: Result /= Void
+		end
+	
 
---  void        gtk_text_view_get_line_yrange   (GtkTextView *text_view,
--- 															 const GtkTextIter *iter,
--- 															 gint *y,
--- 															 gint *height);
+	-- TODO:  gtk_text_view_get_iter_at_position ()
+	
+	--  void gtk_text_view_get_iter_at_position (GtkTextView
+	--  *text_view, GtkTextIter *iter, gint *trailing, gint x, gint y);
 
--- 	Gets the y coordinate of the top of the line containing iter, and the
--- 	height of the line. The coordinate is a buffer coordinate; convert to
--- 	window coordinates with gtk_text_view_buffer_to_window_coords().
+	-- 	Retrieves the iterator pointing to the character at buffer coordinates
+	-- 	x and y. Buffer coordinates are coordinates for the entire buffer, not
+	-- 	just the currently-displayed portion. If you have coordinates from an
+	-- 	event, you have to convert those to buffer coordinates with
+	-- 	gtk_text_view_window_to_buffer_coords().
+	
+	-- 	Note that this is different from gtk_text_view_get_iter_at_location(),
+	-- 	which returns cursor locations, i.e. positions between characters.
 
--- 	text_view : a GtkTextView
--- 	iter :      a GtkTextIter
--- 	y :         return location for a y coordinate
--- 	height :    return location for a height
+	-- 	text_view : a GtkTextView
+	-- 	iter :      a GtkTextIter
+	-- 	trailing :  location to store an integer indicating where in the
+	-- 					grapheme the user clicked. It will either be zero, or the
+	-- 					number of characters in the grapheme. 0 represents the
+	-- 					trailing edge of the grapheme.
+	-- 	x :         x position, in buffer coordinates
+	-- 	y :         y position, in buffer coordinates
+	
+	-- 	Since 2.6
 
--- 	-----------------------------------------------------------------------
 
---   gtk_text_view_get_iter_at_location ()
+	buffer_to_window_coords (a_window_type: INTEGER;
+									 buffer_x, buffer_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+			-- Converts coordinate (buffer_x, buffer_y) to coordinates
+			-- for the window of `a_widndow_type' (except gtk_text_window_private). Result is
+			-- [window_x,window_y].
+		
+			-- Note that you can't convert coordinates for a nonexisting
+			-- window (see `set_border_window_size').
+		
+			-- 	win :       a GtkTextWindowType 
+		require
+			valid_window_type: is_valid_text_window_type (a_window_type)
+			window_type_is_not_private: a_window_type /= gtk_text_window_private
+		local window_x, window_y: INTEGER
+		do
+			gtk_text_view_buffer_to_window_coords
+			(handle, a_window_type, buffer_x, buffer_y, $window_x, $window_y)
+			create Result.make_2 (window_x, window_y)
+		end
 
---  void        gtk_text_view_get_iter_at_location
--- 															(GtkTextView *text_view,
--- 															 GtkTextIter *iter,
--- 															 gint x,
--- 															 gint y);
+	window_to_buffer_coords (a_window_type: INTEGER;
+									 window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+			-- Converts coordinates on the window identified by win to
+			-- buffer coordinates, storing the result in
+			-- (buffer_x,buffer_y).
 
--- 	Retrieves the iterator at buffer coordinates x and y. Buffer
--- 	coordinates are coordinates for the entire buffer, not just the
--- 	currently-displayed portion. If you have coordinates from an event, you
--- 	have to convert those to buffer coordinates with
--- 	gtk_text_view_window_to_buffer_coords().
+			-- Note that you can't convert coordinates for a nonexisting
+			-- window (see `set_border_window_size').
 
--- 	text_view : a GtkTextView
--- 	iter :      a GtkTextIter
--- 	x :         x position, in buffer coordinates
--- 	y :         y position, in buffer coordinates
+		require
+			valid_window_type: is_valid_text_window_type (a_window_type)
+			window_type_is_not_private: a_window_type /= gtk_text_window_private
+		local buffer_x, buffer_y: INTEGER
+		do
+			gtk_text_view_window_to_buffer_coords
+			(handle, a_window_type,, window_x, window_y, $buffer_x, $buffer_y)
+			create Result.make_2 (buffer_x, buffer_y)
+		end
 
--- 	-----------------------------------------------------------------------
+	window (a_window_type: INTEGER) : GDK_WINDOW is
+			-- The GDK_WINDOW corresponding to an area of the text view;
+			-- possible windows include the overall widget window, child
+			-- windows on the left, right, top, bottom, and the window
+			-- that displays the text buffer. Windows are Void and
+			-- nonexistent if their width or height is 0, and are
+			-- nonexistent before the widget has been realized.
+		require valid_window_type: is_valid_text_window_type (a_window_type)
+		local ptr: POINTER
+		do
+			ptr := gtk_text_view_get_window (handle, a_window_type)
+			if ptr.is_not_null then
+				create Result.from_external_pointer (ptr)
+			end
+		end
 
---   gtk_text_view_get_iter_at_position ()
 
---  void        gtk_text_view_get_iter_at_position
--- 															(GtkTextView *text_view,
--- 															 GtkTextIter *iter,
--- 															 gint *trailing,
--- 															 gint x,
--- 															 gint y);
-
--- 	Retrieves the iterator pointing to the character at buffer coordinates
--- 	x and y. Buffer coordinates are coordinates for the entire buffer, not
--- 	just the currently-displayed portion. If you have coordinates from an
--- 	event, you have to convert those to buffer coordinates with
--- 	gtk_text_view_window_to_buffer_coords().
-
--- 	Note that this is different from gtk_text_view_get_iter_at_location(),
--- 	which returns cursor locations, i.e. positions between characters.
-
--- 	text_view : a GtkTextView
--- 	iter :      a GtkTextIter
--- 	trailing :  location to store an integer indicating where in the
--- 					grapheme the user clicked. It will either be zero, or the
--- 					number of characters in the grapheme. 0 represents the
--- 					trailing edge of the grapheme.
--- 	x :         x position, in buffer coordinates
--- 	y :         y position, in buffer coordinates
-
--- 	Since 2.6
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_buffer_to_window_coords ()
-
---  void        gtk_text_view_buffer_to_window_coords
--- 															(GtkTextView *text_view,
--- 															 GtkTextWindowType win,
--- 															 gint buffer_x,
--- 															 gint buffer_y,
--- 															 gint *window_x,
--- 															 gint *window_y);
-
--- 	Converts coordinate (buffer_x, buffer_y) to coordinates for the window
--- 	win, and stores the result in (window_x, window_y).
-
--- 	Note that you can't convert coordinates for a nonexisting window (see
--- 	gtk_text_view_set_border_window_size()).
-
--- 	text_view : a GtkTextView
--- 	win :       a GtkTextWindowType except GTK_TEXT_WINDOW_PRIVATE
--- 	buffer_x :  buffer x coordinate
--- 	buffer_y :  buffer y coordinate
--- 	window_x :  window x coordinate return location
--- 	window_y :  window y coordinate return location
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_window_to_buffer_coords ()
-
---  void        gtk_text_view_window_to_buffer_coords
--- 															(GtkTextView *text_view,
--- 															 GtkTextWindowType win,
--- 															 gint window_x,
--- 															 gint window_y,
--- 															 gint *buffer_x,
--- 															 gint *buffer_y);
-
--- 	Converts coordinates on the window identified by win to buffer
--- 	coordinates, storing the result in (buffer_x,buffer_y).
-
--- 	Note that you can't convert coordinates for a nonexisting window (see
--- 	gtk_text_view_set_border_window_size()).
-
--- 	text_view : a GtkTextView
--- 	win :       a GtkTextWindowType except GTK_TEXT_WINDOW_PRIVATE
--- 	window_x :  window x coordinate
--- 	window_y :  window y coordinate
--- 	buffer_x :  buffer x coordinate return location
--- 	buffer_y :  buffer y coordinate return location
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_window ()
-
---  GdkWindow*  gtk_text_view_get_window        (GtkTextView *text_view,
--- 															 GtkTextWindowType win);
-
--- 	Retrieves the GdkWindow corresponding to an area of the text view;
--- 	possible windows include the overall widget window, child windows on
--- 	the left, right, top, bottom, and the window that displays the text
--- 	buffer. Windows are NULL and nonexistent if their width or height is 0,
--- 	and are nonexistent before the widget has been realized.
-
--- 	text_view : a GtkTextView
--- 	win :       window to get
--- 	Returns :   a GdkWindow, or NULL
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_window_type ()
-
---  GtkTextWindowType gtk_text_view_get_window_type
--- 															(GtkTextView *text_view,
--- 															 GdkWindow *window);
-
--- 	Usually used to find out which window an event corresponds to. If you
--- 	connect to an event signal on text_view, this function should be called
--- 	on event->window to see which window it was.
-
--- 	text_view : a GtkTextView
--- 	window :    a window type
--- 	Returns :   the window type.
+	-- TODO: window_type: INTEGER is 
+	
+	--  GtkTextWindowType gtk_text_view_get_window_type (GtkTextView
+	--  *text_view, GdkWindow *window);
+	
+	-- 	Usually used to find out which window an event corresponds to. If you
+	-- 	connect to an event signal on text_view, this function should be called
+	-- 	on event->window to see which window it was.
+	
+	-- 	text_view : a GtkTextView
+	-- 	window :    a window type
+	-- 	Returns :   the window type.
 
 -- 	-----------------------------------------------------------------------
 

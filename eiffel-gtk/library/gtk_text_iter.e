@@ -32,7 +32,7 @@ inherit
 		redefine copy, dispose 
 		end
 
-creation make, from_external_pointer
+creation make, from_external_pointer, copy
 
 feature {} -- Disposing
 
@@ -62,7 +62,8 @@ feature
 			-- bindings.  It is not useful in applications, because
 			-- iterators can be copied with a simple assignment
 			-- (GtkTextIter i=j;).
-			handle := gtk_text_iter_copy (handle)
+			if handle.is_not_null then dispose end -- Frees any previously used resource
+			handle := gtk_text_iter_copy (another.handle)
 		end
 
 	offset: INTEGER is
@@ -214,26 +215,26 @@ feature
 			(gtk_text_iter_get_toggled_tags (handle, toggled_on.to_integer))
 		end
 	
-	-- TODO: gtk_text_iter_get_child_anchor ()
+	child_anchor: GTK_CHILD_ANCHOR is
+			-- The anchor (with no new reference count added) at
+			-- Current's location, if it exists . Void otherwise.
+		local ptr: POINTER
+		do
+			ptr := gtk_text_iter_get_child_anchor (handle)
+			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
+		end
 
-	-- GtkTextChildAnchor* gtk_text_iter_get_child_anchor
-	-- 														  (const GtkTextIter *iter);
+	begins_tag (a_tag: GTK_TEXT_TAG): BOOLEAN is
+			-- Is `a_tag' is toggled on at exactly this point? If `a_tag'
+			-- is Void, returns TRUE if any tag is toggled on at this
+			-- point. Note that this feature is True if iter is the start
+			-- of the tagged range; `has_tag' tells you whether an
+			-- iterator is within a tagged range.
+		do
+			Result := gtk_text_iter_begins_tag (handle, a_tag.handle).to_boolean
+		end
 
-	-- If the location at iter contains a child anchor, the anchor is returned (with no new reference count added). Otherwise, NULL is returned.
-
-	-- iter : 	an iterator
-	-- Returns : 	the anchor at iter
 	
-	-- gtk_text_iter_begins_tag ()
-
-	-- gboolean    gtk_text_iter_begins_tag        (const GtkTextIter *iter,
-	-- 															GtkTextTag *tag);
-
-	-- Returns TRUE if tag is toggled on at exactly this point. If tag is NULL, returns TRUE if any tag is toggled on at this point. Note that the gtk_text_iter_begins_tag() returns TRUE if iter is the start of the tagged range; gtk_text_iter_has_tag() tells you whether an iterator is within a tagged range.
-
-	-- iter : 	an iterator
-	-- tag : 	a GtkTextTag, or NULL
-	-- Returns : 	whether iter is the start of a range tagged with tag
 	-- gtk_text_iter_ends_tag ()
 
 	-- gboolean    gtk_text_iter_ends_tag          (const GtkTextIter *iter,
@@ -1054,7 +1055,7 @@ feature {} -- External call
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_text_iter_get_child_anchor (an_iter: POINTER): POINTER is --GtkTextChildAnchor* 
+	gtk_text_iter_get_child_anchor (an_iter: POINTER): POINTER is -- GtkTextChildAnchor*  
 		external "C use <gtk/gtk.h>"
 		end
 	
