@@ -1,5 +1,5 @@
 indexing
-	description: "Enum "
+	description: "GdkPoint is a simple structure containing an x and y coordinate of a point.."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -18,12 +18,40 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+class GDK_POINT
+inherit
+	C_STRUCT
 
-deferred class
-feature  -- enum
-	is_valid_ (a_ :INTEGER): BOOLEAN is
-		do	
-			Result:=()
+creation make, from_external_pointer
+
+feature -- size
+	size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GdkPoint)"
 		end
 
+feature -- Getters
+	x: INTEGER is
+			-- x coordinate of the point
+		do
+			Result := get_x (handle)
+		end
+
+	y: INTEGER is
+			-- y coordinate of the point.
+		do
+			Result := get_y (handle)
+		end
+
+feature -- TODO: Setters (if needed)
+	
+feature {} -- Struct accesing
+
+	get_x (span: POINTER): INTEGER is
+		external "C struct GdkPoint get x use <gdk/gdk.h>"
+		end
+
+	get_y (span: POINTER): INTEGER is
+		external "C struct GdkPoint get y use <gdk/gdk.h>"
+		end
 end

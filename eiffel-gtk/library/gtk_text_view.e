@@ -206,66 +206,60 @@ feature
 			Result := (gtk_text_view_move_mark_onscreen (handle, a_mark.handle)).to_boolean
 		end
 
-	-- gtk_text_view_place_cursor_onscreen ()
+	have_been_cursor_moved: BOOLEAN
+			-- Had last feature call moded the cursor?
 	
-	-- gboolean gtk_text_view_place_cursor_onscreen (GtkTextView
-	-- *text_view);
-	
-	-- Moves the cursor to the currently visible region of the buffer,
-	-- it it isn't there already.
+	place_cursor_onscreen is
+			-- Moves the cursor to the currently visible region of the
+			-- buffer, if it isn't there already.
+			-- `have_been_cursor_moved' will be true if the cursor had to
+			-- be moved.
 
-	-- 	text_view : a GtkTextView
-	-- 	Returns :   TRUE if the cursor had to be moved.
+		do
+			have_been_cursor_moved:= gtk_text_view_place_cursor_onscreen (handle).to_boolean
+		end
 
--- 	-----------------------------------------------------------------------
 
---   gtk_text_view_get_visible_rect ()
+	visible_rect: GDK_RECTANGLE is
+			-- the currently-visible region of the buffer, in buffer
+			-- coordinates. Convert to window coordinates with
+			-- `buffer_to_window_coords'.
+		do
+			create Result.make
+			gtk_text_view_get_visible_rect (handle, Result.handle)
+		end
 
---  void        gtk_text_view_get_visible_rect  (GtkTextView *text_view,
--- 															 GdkRectangle *visible_rect);
+	iter_location (an_iterator: GTK_TEXT_ITER): GDK_RECTANGLE is
+			-- A rectangle which roughly contains the character at
+			-- `an_iterator'. The rectangle position is in buffer
+			-- coordinates; use `buffer_to_window_coords' to convert
+			-- these coordinates to coordinates for one of the windows in
+			-- the text view.
+		require iterator_not_void: an_iterator/=Void
+		do
+			create Result.make
+			gtk_text_view_get_iter_location (handle, an_iterator.handle, Result.handle)
+		end
 
--- 	Fills visible_rect with the currently-visible region of the buffer, in
--- 	buffer coordinates. Convert to window coordinates with
--- 	gtk_text_view_buffer_to_window_coords().
+	set_iter_line_at_y (an_iterator: GTK_TEXT_ITER; a_y: INTEGER) is
+			-- Sets `an_iterator' at the start of the line containing the
+			-- coordinate `an_y'. `an_y' is in buffer coordinates,
+			-- convert from window coordinates with
+			-- `window_to_buffer_coords'.
 
--- 	text_view :    a GtkTextView
--- 	visible_rect : rectangle to fill
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_iter_location ()
-
---  void        gtk_text_view_get_iter_location (GtkTextView *text_view,
--- 															 const GtkTextIter *iter,
--- 															 GdkRectangle *location);
-
--- 	Gets a rectangle which roughly contains the character at iter. The
--- 	rectangle position is in buffer coordinates; use
--- 	gtk_text_view_buffer_to_window_coords() to convert these coordinates to
--- 	coordinates for one of the windows in the text view.
-
--- 	text_view : a GtkTextView
--- 	iter :      a GtkTextIter
--- 	location :  bounds of the character at iter
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_line_at_y ()
-
---  void        gtk_text_view_get_line_at_y     (GtkTextView *text_view,
--- 															 GtkTextIter *target_iter,
--- 															 gint y,
--- 															 gint *line_top);
-
--- 	Gets the GtkTextIter at the start of the line containing the coordinate
--- 	y. y is in buffer coordinates, convert from window coordinates with
--- 	gtk_text_view_window_to_buffer_coords(). If non-NULL, line_top will be
--- 	filled with the coordinate of the top edge of the line.
-
--- 	text_view :   a GtkTextView
--- 	target_iter : a GtkTextIter
--- 	y :           a y coordinate
--- 	line_top :    return location for top coordinate of the line
+			-- TODO: retrieve the location for top coordinate of the line
+		require iterator_not_void: an_iterator/=Void
+		do
+			gtk_text_view_get_line_at_y (handle, an_iterator.handle, an_y,
+												  default_pointer -- gint *line_top
+												  )
+			-- Gets the GtkTextIter at the start of the line containing
+			-- the coordinate y. y is in buffer coordinates, convert from
+			-- window coordinates with
+			-- gtk_text_view_window_to_buffer_coords(). If non-NULL,
+			-- line_top will be filled with the coordinate of the top
+			-- edge of the line.
+		end
 
 -- 	-----------------------------------------------------------------------
 
@@ -1073,7 +1067,7 @@ feature
 -- 	The priority at which the text view validates onscreen lines in an idle
 -- 	job in the background.
 
--- Property Details
+feature -- TODO: Property Details
 
 --   The "accepts-tab" property
 

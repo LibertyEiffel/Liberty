@@ -1,5 +1,5 @@
 indexing
-	description: "."
+	description: "A GdkSpan represents a horizontal line of pixels starting at the pixel with coordinates x, y and ending before x + width, y."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -17,21 +17,51 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-				]"
-class
-inherit
-    
-	_EXTERNALS
-	C_STRUCT
+					]"
+					
+class GDK_SPAN
+inherit C_STRUCT
 
 creation make, from_external_pointer
 
-feature {} -- Creation
+feature -- Getters
+	x: INTEGER is
+			-- x coordinate of the first pixel.
+		do
+			Result := get_x (handle)
+		end
 
+	y: INTEGER is
+			-- y coordinate of the first pixel.
+		do
+			Result := get_y (handle)
+		end
+
+	width: INTEGER is
+			-- number of pixels in the span.
+		do
+			Result := get_width (handle)
+		end
+
+feature -- TODO: Setters (if needed)
+	
 feature -- size
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
-		alias "sizeof()"
+		alias "sizeof(GdkSpan)"
 		end
-feature {} -- External calls
+
+feature {} -- Struct accesing
+
+	get_x (span: POINTER): INTEGER is
+		external "C struct GdkSpan get x use <gdk/gdk.h>"
+		end
+
+	get_y (span: POINTER): INTEGER is
+		external "C struct GdkSpan get y use <gdk/gdk.h>"
+		end
+	
+	get_width (span: POINTER): INTEGER is
+		external "C struct GdkSpan get width use <gdk/gdk.h>"
+		end
 end

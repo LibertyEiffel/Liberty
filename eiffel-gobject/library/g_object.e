@@ -87,7 +87,7 @@ feature -- Disposing
 			handle := default_pointer
 		end
 
-feature {NONE} -- Disposing helper
+feature {} -- Disposing helper
 
 	print_notice is
 			-- Print once a copy of the note that has been put in 
