@@ -1547,9 +1547,33 @@ feature
 	-- "columns-changed"
 	--             void        user_function      (GtkTreeView *treeview,
 	--                                             gpointer user_data);
+
+feature -- The "cursor_changed" signal
 	-- "cursor-changed"
 	--             void        user_function      (GtkTreeView *treeview,
 	--                                             gpointer user_data);
+
+	cursor_changed_signal_name: STRING is "cursor_changed"
+
+	on_cursor_changed is
+			-- Built-in cursor_changed signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_cursor_changed is
+			-- Connects "cursor_changed" signal to `on_cursor_changed' feature.
+		do
+			connect (Current, cursor_changed_signal_name, $on_cursor_changed)
+		end
+
+	connect_agent_to_cursor_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_VIEW]]) is
+		require valid_procedure: a_procedure /= Void
+		local cursor_changed_callback: CURSOR_CHANGED_CALLBACK
+		do
+			create cursor_changed_callback.make
+			cursor_changed_callback.connect (Current, a_procedure)
+		end
+
 	-- "expand-collapse-cursor-row"
 	--             gboolean    user_function      (GtkTreeView *treeview,
 	--                                             gboolean arg1,
@@ -1582,9 +1606,9 @@ feature -- The "row_activated" signal
 			connect (Current, row_activated_signal_name, $on_row_activated)
 		end
 
-	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH,
-	                                                                          GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW
-	                                                                          ]]) is
+	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY,
+	                                                               TUPLE[GTK_TREE_PATH,
+	                                                                     GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
 		local row_activated_callback: ROW_ACTIVATED_CALLBACK
 		do

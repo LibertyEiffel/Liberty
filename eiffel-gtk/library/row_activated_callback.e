@@ -38,8 +38,8 @@ feature
 		local
 			tree_path_obj: GTK_TREE_PATH
 			tree_view_col_obj: GTK_TREE_VIEW_COLUMN
-			g_tree_view: G_OBJECT_RETRIEVER [GTK_TREE_VIEW]
-			g_tree_view_col: G_OBJECT_RETRIEVER [GTK_TREE_VIEW_COLUMN]
+			g_tree_view: G_RETRIEVER [GTK_TREE_VIEW]
+			g_tree_view_col: G_RETRIEVER [GTK_TREE_VIEW_COLUMN]
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -52,8 +52,8 @@ feature
 				eiffel_created_the_tree_view_col: g_tree_view_col.has_eiffel_wrapper_stored (tree_view_col)
 			end
 			object := g_tree_view.retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create tree_path_obj.from_external_pointer (tree_path)
 			tree_view_col_obj := g_tree_view_col.retrieve_eiffel_wrapper_from_gobject_pointer (tree_view_col)
+			create tree_path_obj.from_external_pointer (tree_path)
 			procedure.call ([tree_path_obj, tree_view_col_obj, object])
 		end
 
