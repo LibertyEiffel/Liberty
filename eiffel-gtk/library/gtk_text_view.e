@@ -145,7 +145,7 @@ feature
 			-- area
 		require mark_not_void: a_mark /= Void
 		do
-			gtk_text_view_scroll_to_mark (a_mark.handle, within_margin,
+			gtk_text_view_scroll_to_mark (handle, a_mark.handle, within_margin,
 													use_align.to_integer, an_x_align, an_y_align)
 		end
 
@@ -185,7 +185,7 @@ feature
 		do
 			has_scrolled := ( gtk_text_view_scroll_to_iter
 									(handle, an_iter.handle, within_margin,
-									 use_align.to_integer, an_x_align, an_y_align) )
+									 use_align.to_integer, an_x_align, an_y_align) ).to_boolean
 		end
 
 	mark_onscreen (a_mark: GTK_TEXT_MARK) is

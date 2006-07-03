@@ -27,7 +27,8 @@ insert
 	GDK_FILL_RULE
 	GDK_OVERLAP_TYPE
 creation
-	make, from_poligon, from_rectangle, copy
+	make, from_polygon, from_external_pointer, from_rectangle, copy
+
 feature {} -- Creation
 	make is
 			-- Creates a new empty GdkRegion.
@@ -47,7 +48,7 @@ feature {} -- Creation
 		require valid_fill_rule: is_valid_fill_rule (a_fill_rule)
 		local array: NATIVE_ARRAY [POINTER]; i: INTEGER; iter: ITERATOR[GDK_POINT]
 		do
-			array.calloc (some_points.count)
+			array := array.calloc (some_points.count)
 			iter := some_points.get_new_iterator;
 			from i:=0; iter.start
 			until iter.is_off

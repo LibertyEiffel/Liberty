@@ -51,7 +51,7 @@ feature
 	
 feature -- Union and intersection
 
-	intersection (a_rectangle, another_rectangle: GDK_RECTANGLE) : INTEGER is
+	intersection (a_rectangle, another_rectangle: GDK_RECTANGLE): BOOLEAN is
 			-- Makes Current the intersection of two rectangles; Result
 			-- is True if they actually intersect.
 		require
