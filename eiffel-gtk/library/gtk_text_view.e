@@ -66,6 +66,16 @@ feature {NONE} -- Creation
 			store_eiffel_wrapper
 		end
 
+feature -- Queries
+	has_scrolled: BOOLEAN
+			-- Has last `scroll_to_iter' have produced a scrolling?
+	
+	have_been_cursor_moved: BOOLEAN
+			-- Had last feature call moded the cursor?
+
+	was_iter_moved: BOOLEAN
+			--  was iter moved? Used in `forward_display_line'
+
 feature -- Operations
 
 	set_buffer (a_buffer: GTK_TEXT_BUFFER) is
@@ -149,9 +159,6 @@ feature
 													use_align.to_integer, an_x_align, an_y_align)
 		end
 
-	has_scrolled: BOOLEAN
-			-- Has last `scroll_to_iter' have produced a scrolling?
-	
 	scroll_to_iter (an_iter: GTK_TEXT_ITER; within_margin: REAL;
 						 use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
 			-- Scrolls text_view so that iter is on the screen in the
@@ -206,9 +213,6 @@ feature
 			Result := (gtk_text_view_move_mark_onscreen (handle, a_mark.handle)).to_boolean
 		end
 
-	have_been_cursor_moved: BOOLEAN
-			-- Had last feature call moded the cursor?
-	
 	place_cursor_onscreen is
 			-- Moves the cursor to the currently visible region of the
 			-- buffer, if it isn't there already.
@@ -251,8 +255,8 @@ feature
 		require iterator_not_void: an_iterator/=Void
 		do
 			gtk_text_view_get_line_at_y (handle, an_iterator.handle, a_y,
-			                             default_pointer -- gint *line_top
-			                            )
+												  default_pointer -- gint *line_top
+												 )
 			-- Gets the GtkTextIter at the start of the line containing
 			-- the coordinate y. y is in buffer coordinates, convert from
 			-- window coordinates with
@@ -313,7 +317,6 @@ feature
 	
 	-- 	Since 2.6
 
-
 	buffer_to_window_coords (a_window_type: INTEGER;
 									 buffer_x, buffer_y: INTEGER): TUPLE[INTEGER, INTEGER] is
 			-- Converts coordinate (buffer_x, buffer_y) to coordinates
@@ -333,9 +336,9 @@ feature
 			(handle, a_window_type, buffer_x, buffer_y, $window_x, $window_y)
 			create Result.make_2 (window_x, window_y)
 		end
-
+	
 	window_to_buffer_coords (a_window_type: INTEGER;
-			                 window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+									 window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
 			-- Converts coordinates on the window identified by win to
 			-- buffer coordinates, storing the result in
 			-- (buffer_x,buffer_y).
@@ -370,76 +373,62 @@ feature
 		end
 
 
-	-- TODO: window_type: INTEGER is 
+	window_type (a_window: GDK_WINDOW): INTEGER is 
+			-- Usually used to find out which window an event corresponds
+			-- to. If you connect to an event signal on text_view, this
+			-- function should be called on event->window to see which
+			-- window it was.
+		do
+			Result := gtk_text_view_get_window_type (handle, a_window.handle)
+		ensure is_valid_window_type (Result)
+		end
 	
-	--  GtkTextWindowType gtk_text_view_get_window_type (GtkTextView
-	--  *text_view, GdkWindow *window);
+	set_border_window_size (a_window_type: INTEGER; a_size: INTEGER) is
+			-- Sets the width of `gtk_text_window_left' or
+			-- `gtk_text_window_right', or the height of
+			-- `gtk_text_window_top' or
+			-- `gtk_text_window_bottom'. Automatically destroys the
+			-- corresponding window if the size is set to 0, and creates
+			-- the window if the size is set to non-zero. This function
+			-- can only be used for the "border windows," it doesn't work
+			-- with `gtk_text_window_widget', `gtk_text_window_text', or
+			-- `gtk_text_window_private'.
+		require
+			valid_type: is_valid_text_window_type (a_window_type)
+			correct_type: ((a_window_type /= gtk_text_window_widget) and
+								(a_window_type /= gtk_text_window_text) and
+								(a_window_type /= gtk_text_window_private))
+		do
+			gtk_text_view_set_border_window_size (handle, a_window_type, a_size)
+		end
+
+	border_window_size (a_window_type: INTEGER): INTEGER is
+			-- the width of the specified border window. See
+			-- `set_border_window_size'.
+		require
+			valid_type: is_valid_text_window_type (a_window_type)
+		do
+			Result := gtk_text_view_get_border_window_size (handle, a_window_type)
+		end
+
+	forward_display_line (an_iterator: GTK_TEXT_ITER) is
+			-- Moves `an_iterator0 iter forward by one display (wrapped)
+			-- line. A display line is different from a
+			-- paragraph. Paragraphs are separated by newlines or other
+			-- paragraph separator characters. Display lines are created
+			-- by line-wrapping a paragraph. If wrapping is turned off,
+			-- display lines and paragraphs will be the same. Display
+			-- lines are divided differently for each view, since they
+			-- depend on the view's width; paragraphs are the same in all
+			-- views, since they depend on the contents of the
+			-- GtkTextBuffer.
+		
+			-- `was_iter_moved' will be True if iter was moved and is not
+			-- on the end iterator
+		do
+			was_iter_moved := gtk_text_view_forward_display_line (handle, an_iterator.handle).to_boolean
+		end
 	
-	-- 	Usually used to find out which window an event corresponds to. If you
-	-- 	connect to an event signal on text_view, this function should be called
-	-- 	on event->window to see which window it was.
-	
-	-- 	text_view : a GtkTextView
-	-- 	window :    a window type
-	-- 	Returns :   the window type.
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_set_border_window_size ()
-
---  void        gtk_text_view_set_border_window_size
--- 															(GtkTextView *text_view,
--- 															 GtkTextWindowType type,
--- 															 gint size);
-
--- 	Sets the width of GTK_TEXT_WINDOW_LEFT or GTK_TEXT_WINDOW_RIGHT, or the
--- 	height of GTK_TEXT_WINDOW_TOP or GTK_TEXT_WINDOW_BOTTOM. Automatically
--- 	destroys the corresponding window if the size is set to 0, and creates
--- 	the window if the size is set to non-zero. This function can only be
--- 	used for the "border windows," it doesn't work with
--- 	GTK_TEXT_WINDOW_WIDGET, GTK_TEXT_WINDOW_TEXT, or
--- 	GTK_TEXT_WINDOW_PRIVATE.
-
--- 	text_view : a GtkTextView
--- 	type :      window to affect
--- 	size :      width or height of the window
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_border_window_size ()
-
---  gint        gtk_text_view_get_border_window_size
--- 															(GtkTextView *text_view,
--- 															 GtkTextWindowType type);
-
--- 	Gets the width of the specified border window. See
--- 	gtk_text_view_set_border_window_size().
-
--- 	text_view : a GtkTextView
--- 	type :      window to return size from
--- 	Returns :   width of window
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_forward_display_line ()
-
---  gboolean    gtk_text_view_forward_display_line
--- 															(GtkTextView *text_view,
--- 															 GtkTextIter *iter);
-
--- 	Moves the given iter forward by one display (wrapped) line. A display
--- 	line is different from a paragraph. Paragraphs are separated by
--- 	newlines or other paragraph separator characters. Display lines are
--- 	created by line-wrapping a paragraph. If wrapping is turned off,
--- 	display lines and paragraphs will be the same. Display lines are
--- 	divided differently for each view, since they depend on the view's
--- 	width; paragraphs are the same in all views, since they depend on the
--- 	contents of the GtkTextBuffer.
-
--- 	text_view : a GtkTextView
--- 	iter :      a GtkTextIter
--- 	Returns :   TRUE if iter was moved and is not on the end iterator
-
 -- 	-----------------------------------------------------------------------
 
 --   gtk_text_view_backward_display_line ()

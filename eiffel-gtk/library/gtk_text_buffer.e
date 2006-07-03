@@ -57,21 +57,25 @@ feature -- Access
 
 -- Waiting to get GtkTextIter's going before uncommenting this
 
---	get_text(include_hidden_chars: BOOLEAN): STRING is
-			-- Returns the text in the range [start,end). Excludes
+	text (a_start, an_end: GTK_TREE_ITER; include_hidden_chars: BOOLEAN): STRING is
+			-- the text in the range [`a_start',`an_end'). Excludes
 			-- undisplayed text (text marked with tags that set the
-			-- invisibility attribute) if `include_hidden_chars' is False.
-			-- Does not include characters representing embedded images, so
-			-- byte and character indexes into the returned string do not
-			-- correspond to byte and character indexes into the buffer.
-			-- Contrast with gtk_text_buffer_get_slice(). <-- XXXX: Also to do
---		do
---			create Result.from_external(gtk_text_buffer_get_text(handle,
---										 default_pointer, default_pointer,
---										 include_hidden_chars.to_integer))
-				-- If Gtk is going to free this text, we should be using
-				-- from_external_copy instead!
---		end
+			-- invisibility attribute) if `include_hidden_chars' is
+			-- False. Does not include characters representing embedded
+			-- images, so byte and character indexes into the returned
+			-- string do not correspond to byte and character indexes
+			-- into the buffer.  Contrast with
+			-- `slice'
+		do
+			create  Result.from_external (gtk_text_buffer_get_text
+													(handle,
+													 a_start.handle, an_end.handle,
+													 include_hidden_chars.to_integer))
+			-- Gtk function returns an allocated UTF-8 string; AFAIK we
+			-- can just use from_external. Paolo 2006-07-03
+
+			-- If Gtk is going to free this text, we should be using
+			-- from_external_copy instead!  end
 
 	line_count: INTEGER is
 			-- the number of lines in the buffer. This value is cached,
@@ -91,11 +95,17 @@ feature -- Access
 		end
 	
 
-	-- TODO: tag_table: GTK_TEXT_TAG_TABLE is
-	-- the GtkTextTagTable associated with this buffer.
-	-- do
-	-- create Result.from_external_pointer (gtk_text_buffer_get_tag_table (handle))
-	-- end
+	tag_table: GTK_TEXT_TAG_TABLE is
+			-- the GtkTextTagTable associated with this buffer.
+		local retriever: G_RETRIEVER [GTK_TEXT_TAG_TABLE]; ptr: POINTER
+		do
+			ptr := gtk_text_buffer_get_tag_table (handle)
+			if retriever.has_eiffel_wrapper_stored (ptr) then
+				Result :=  retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
+			else
+				create Result.from_external_pointer (ptr)
+			end
+		end
 
 	insert_text (an_iter: GTK_TEXT_ITER; some_text: STRING; a_length: INTEGER) is
 			-- Inserts `a_length' bytes of text at `an_iter' position. If

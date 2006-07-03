@@ -18,7 +18,7 @@ default -- section of the system
 	manifest_string_trace (no);
 	high_memory_compiler (no);	
 	profile (no);
-	relax (yes);
+	relax (no);
 
 cluster -- section
 	gdk: "${eiffel_libraries}/eiffel-gdk/loadpath.se"
