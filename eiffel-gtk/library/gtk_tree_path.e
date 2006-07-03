@@ -27,7 +27,6 @@ inherit
 	SHARED_C_STRUCT
 		redefine
 			dispose,
-			copy,
 			from_external_pointer -- To solve sr #1143 
 		end
 

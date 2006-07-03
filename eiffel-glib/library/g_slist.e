@@ -52,7 +52,7 @@ inherit
 		rename
 			exists as wrapped_object_exists
 		redefine
-			copy, dispose
+			dispose
 		end
 
 insert
