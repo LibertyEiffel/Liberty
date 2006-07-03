@@ -55,9 +55,8 @@ feature
 			-- from the buffer, so you need to hold your own reference (with
 			-- g_object_ref()) if you plan to use this function — otherwise
 			-- all deleted child anchors will also be finalized.
-		
-		anchor : 	a GtkTextChildAnchor
-		Returns : 	
+			-- anchor: a GtkTextChildAnchor
+			-- Returns:
 		do
 			Result := gtk_text_child_anchor_get_deleted(handle).to_boolean
 		end

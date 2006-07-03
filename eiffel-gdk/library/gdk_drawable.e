@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 
 	-- Description: These functions provide support for drawing points,
 	-- lines, arcs and text onto what are called
@@ -38,8 +38,11 @@ indexing
 	-- via gtk_widget_create_pango_context() or
 	-- gtk_widget_create_pango_layout().
 
-deferred class GDK_DRAWABLE
-inherit G_OBJEC
+class GDK_DRAWABLE
+
+inherit
+	G_OBJECT --redefine size end
+	
 	-- Object Hierarchy
 	
 	--   GObject
@@ -48,16 +51,10 @@ inherit G_OBJEC
 	--          +----GdkPixmap
 
 creation make, from_external_pointer
-	
+
 feature {} -- Creation
-	
-feature -- size
-	size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof()"
-		end
-	
-feature 
+
+feature
 	-- TODO: display: GDK_DISPLAY is
 	-- the GdkDisplay associated with a GdkDrawable.
 	-- do
@@ -94,7 +91,6 @@ feature
 	-- drawable : 	a GdkDrawable
 	-- Returns : 	the colormap, or NULL
 
-
 	depth: INTEGER is
 			-- the bit depth of the drawable, that is, the number of bits
 			-- that make up a pixel in the drawable's visual. Examples
@@ -130,7 +126,6 @@ feature
 			-- a GdkWindow, the returned size is the size reported in the
 			-- most-recently-processed configure event, rather than the
 			-- current size on the X server.
-		local a_height, an_height: INTEGER
 		do
 			gdk_drawable_get_size (handle, default_pointer, $Result)
 		end
@@ -588,35 +583,35 @@ feature {} -- External calls
 	gdk_drawable_get_display (a_gdkdrawable: POINTER): POINTER is -- GdkDisplay*
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_get_screen (a_gdkdrawable: POINTER): POINTER is -- GdkScreen*
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_get_visual (a_gdkdrawable: POINTER): POINTER is -- GdkVisual*
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_set_colormap (a_gdkdrawable, a_gdkcolormap: POINTER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_get_colormap (a_gdkdrawable: POINTER): POINTER is -- GdkColormap*
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_get_depth (a_gdkdrawable: POINTER): INTEGER is -- gint
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_get_size (a_gdkdrawable, gint_width, gint_height: POINTER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_get_clip_region (a_gdkdrawable: POINTER): POINTER is -- GdkRegion*
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_get_visible_region (a_gdkdrawable: POINTER): POINTER is -- GdkRegion*
 		external "C use <gdk/gdk.h>"
 		end
@@ -629,31 +624,34 @@ feature {} -- External calls
 	gdk_draw_points (a_gdkdrawable, a_gdkgc, some_points: POINTER;  npoints: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
-	gdk_draw_line (a_gdkdrawable: POINTER, a_gdk_gc: POINTER; an_x1, an_y1, an_x2, an_y2: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-	
-	gdk_draw_lines (a_gdkdrawable, a_gdk_gc; some_gdk_points: POINTER; gint npoints) is
+
+	gdk_draw_line (a_gdkdrawable, a_gdk_gc: POINTER; an_x1, an_y1, an_x2, an_y2: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_draw_pixbuf (a_gdkdrawable, a_gdk_gc, a_gdkpixbuf: POINTER; src_x, src_y, dest_x, dest_y, width,  height: INTEGER; gdkrgbdither: INTEGER; x_dither, y_dither: INTEGER) is
+	gdk_draw_lines (a_gdkdrawable, a_gdk_gc: POINTER; some_gdk_points: POINTER; npoints: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
+	gdk_draw_pixbuf (a_gdkdrawable, a_gdk_gc, a_gdkpixbuf: POINTER;
+	                 src_x, src_y, dest_x, dest_y, a_width, an_height: INTEGER;
+	                 gdkrgbdither: INTEGER; x_dither, y_dither: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+
 	gdk_draw_segments (a_gdkdrawable, a_gdk_gc, some_gdksegment: POINTER; nsegs: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_draw_rectangle (a_gdkdrawable, a_gdk_gc: POINTER; gboolean_filled: INTEGER; an_x, an_y, a_width, an_height: INTEGER) is
+	gdk_draw_rectangle (a_gdkdrawable, a_gdk_gc: POINTER; gboolean_filled: INTEGER;
+	                    an_x, an_y, a_width, an_height: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_draw_arc (a_gdkdrawable, a_gdk_gc: POINTER; gboolean_filled: INTEGER; an_x, an_y, a_width, an_height, angle1, angle2: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_draw_polygon (a_gdkdrawable, a_gdk_gc: POINTER; boolean_filled: INTEGER; some_gdkpoint: POINTER; npoints: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
@@ -661,7 +659,7 @@ feature {} -- External calls
 	gdk_draw_trapezoids (a_gdkdrawable, a_gdk_gc, some_gdktrapezoid: POINTER; n_trapezoids: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_draw_glyphs (a_gdkdrawable, a_gdk_gc, a_pangofont: POINTER; an_x, an_y: INTEGER; some_pangoglyphstring: POINTER) is
 		external "C use <gdk/gdk.h>"
 		end
@@ -669,35 +667,35 @@ feature {} -- External calls
 	gdk_draw_glyphs_transformed (a_gdkdrawable, a_gdk_gc, a_pangomatrix, a_pangofont: POINTER; an_x, an_y: INTEGERM; some_pangoglyphstring: POINTER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_draw_layout_line (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayoutline: POINTER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_draw_layout_line_with_colors (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayoutline, a_const_gdkcolor_foreground, const_gdkcolor_background: POINTER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_draw_layout (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayout: POINTER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_draw_layout_with_colors (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayout, const_gdkcolor_foreground, const_gdkcolor_background: POINTER) is
 		external "C use <gdk/gdk.h>"
 		end
-		
+
 	gdk_draw_drawable (a_gdkdrawable, a_gdk_gc, a_src_gdkdrawable: POINTER; a_xsrc, a_ysrc, a_xdest, a_ydest, a_width, an_height: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
- 
+
 	gdk_draw_image (a_gdkdrawable, a_gdk_gc, a_gdkimage: POINTER; a_xsrc, a_ysrc, a_xdest, a_ydest, a_width, an_height: INTEGER) is
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_get_image (a_gdkdrawable: POINTER; an_x, an_y, a_width, an_height: INTEGER): POINTER is -- GdkImage*
 		external "C use <gdk/gdk.h>"
 		end
-	
+
 	gdk_drawable_copy_to_image (a_gdkdrawable, a_gdkimage: POINTER; a_src_x, a_src_y, a_dest_x, a_dest_y, a_width, an_height: INTEGER): POINTER is -- GdkImage*
 		external "C use <gdk/gdk.h>"
 		end

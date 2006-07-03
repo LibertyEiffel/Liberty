@@ -246,13 +246,13 @@ feature
 			-- coordinate `an_y'. `an_y' is in buffer coordinates,
 			-- convert from window coordinates with
 			-- `window_to_buffer_coords'.
-
+			
 			-- TODO: retrieve the location for top coordinate of the line
 		require iterator_not_void: an_iterator/=Void
 		do
-			gtk_text_view_get_line_at_y (handle, an_iterator.handle, an_y,
-												  default_pointer -- gint *line_top
-												  )
+			gtk_text_view_get_line_at_y (handle, an_iterator.handle, a_y,
+			                             default_pointer -- gint *line_top
+			                            )
 			-- Gets the GtkTextIter at the start of the line containing
 			-- the coordinate y. y is in buffer coordinates, convert from
 			-- window coordinates with
@@ -281,7 +281,6 @@ feature
 			-- buffer, not just the currently-displayed portion. If you
 			-- have coordinates from an event, you have to convert those
 			-- to buffer coordinates with `window_to_buffer_coords'.
-		require iterator_not_void: an_iterator/=Void
 		do
 			create Result.make
 			gtk_text_view_get_iter_at_location (handle, Result.handle, an_x, an_y)
@@ -336,7 +335,7 @@ feature
 		end
 
 	window_to_buffer_coords (a_window_type: INTEGER;
-									 window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+			                 window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
 			-- Converts coordinates on the window identified by win to
 			-- buffer coordinates, storing the result in
 			-- (buffer_x,buffer_y).
@@ -350,7 +349,7 @@ feature
 		local buffer_x, buffer_y: INTEGER
 		do
 			gtk_text_view_window_to_buffer_coords
-			(handle, a_window_type,, window_x, window_y, $buffer_x, $buffer_y)
+			(handle, a_window_type, window_x, window_y, $buffer_x, $buffer_y)
 			create Result.make_2 (buffer_x, buffer_y)
 		end
 

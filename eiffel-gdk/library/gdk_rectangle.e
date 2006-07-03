@@ -17,14 +17,14 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
-					
+				]"
+
 class GDK_RECTANGLE
 inherit C_STRUCT
 
 creation make, from_external_pointer
 
-feature 
+feature
 	x: INTEGER is
 			-- the x coordinate of the left edge of the rectangle.
 		do
@@ -51,15 +51,15 @@ feature
 	
 feature -- Union and intersection
 
-	intersection (a_rectangle, another_rectangle: GDK_RECTANGLE) is
+	intersection (a_rectangle, another_rectangle: GDK_RECTANGLE) : INTEGER is
 			-- Makes Current the intersection of two rectangles; Result
-			-- is True if they actually intersects.
+			-- is True if they actually intersect.
 		require
 			a_rectangle_not_void: a_rectangle /= Void
 			another_rectangle_not_void: another_rectangle /= Void
 		do
-			Result:=(gdk_rectangle_intersect (a_rectangle.handle, another_rectangle.handle,
-														 handle).to_boolean)
+			Result := (gdk_rectangle_intersect (a_rectangle.handle, another_rectangle.handle,
+			                                    handle).to_boolean)
 		end
 	
 	union (a_rectangle, another_rectangle: GDK_RECTANGLE) is

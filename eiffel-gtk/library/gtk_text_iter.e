@@ -215,7 +215,7 @@ feature
 			(gtk_text_iter_get_toggled_tags (handle, toggled_on.to_integer))
 		end
 	
-	child_anchor: GTK_CHILD_ANCHOR is
+	child_anchor: GTK_TEXT_CHILD_ANCHOR is
 			-- The anchor (with no new reference count added) at
 			-- Current's location, if it exists . Void otherwise.
 		local ptr: POINTER
