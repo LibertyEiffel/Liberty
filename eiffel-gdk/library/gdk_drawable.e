@@ -99,7 +99,7 @@ feature
 			Result := gdk_drawable_get_depth (handle)
 		end
 
-	size: TUPLE [INTEGER, INTEGER] is
+	dimensions: TUPLE [INTEGER, INTEGER] is
 			-- width and height with the size of drawable. On the X11
 			-- platform, if drawable is a GdkWindow, the returned size is
 			-- the size reported in the most-recently-processed configure

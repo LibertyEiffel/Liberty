@@ -21,7 +21,7 @@ indexing
 class GDK_REGION
 inherit
 	C_STRUCT
-		redefine dispose, copy
+		redefine dispose, copy, make
 		end
 insert
 	GDK_FILL_RULE
@@ -35,7 +35,7 @@ feature {} -- Creation
 			handle := gdk_region_new
 		end
 	
-	from_poligon (some_points: ARRAY[GDK_POINTS]; a_fill_rule: INTEGER) is
+	from_polygon (some_points: ARRAY[GDK_POINT]; a_fill_rule: INTEGER) is
 			-- Creates a new GdkRegion using the polygon defined by a
 			-- number of points.  `some_points': an array of GdkPoint
 			-- structs.  `a_fill_rule' specifies which pixels are
@@ -45,7 +45,7 @@ feature {} -- Creation
 			-- into a NATIVE_ARRAY. Implement G_ARRAY or something
 			-- similar to achieve better performance. Paolo 2006-07-02
 		require valid_fill_rule: is_valid_fill_rule (a_fill_rule)
-		local array: NATIVE_ARRAY [POINTER]; i: INTEGER; iter: ITERATOR[GDK_POINTS]
+		local array: NATIVE_ARRAY [POINTER]; i: INTEGER; iter: ITERATOR[GDK_POINT]
 		do
 			array.calloc (some_points.count)
 			iter := some_points.get_new_iterator;
@@ -59,7 +59,7 @@ feature {} -- Creation
 			handle := gdk_region_polygon (array.to_external,some_points.count,a_fill_rule)
 		end
 	
-	copy (another: GDK_RECTANGLE) is
+	copy (another: GDK_REGION) is
 			-- Copies region, creating an identical new region.
 		require  another_not_void: another /= Void
 		do
