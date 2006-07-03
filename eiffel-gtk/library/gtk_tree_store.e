@@ -381,16 +381,6 @@ feature -- Generic setter
 			gtk_tree_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
 
-feature
-	is_sorted: BOOLEAN is
-			-- Is Current GTK_LIST_STORE sorted? Note: this is a dummy -
-			-- empty - feature now. It is useful in some precondition of
-			-- features requiring unsorted stores.
-		obsolete "GTK_LIST_STORE.is_sorted implementation missing. Returning False"
-		do
-			Result := False
-		ensure implemented: False
-		end
 end
 
 -- TODO:

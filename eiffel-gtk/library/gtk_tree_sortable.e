@@ -120,6 +120,17 @@ feature
 			gtk_tree_sortable_set_sort_column_id (handle, a_column_id, an_order)
 		end
 	
+	is_sorted: BOOLEAN is
+			-- Is Current GTK_TREE_SORTABLE sorted?
+		local
+			col, sorted: INTEGER
+		do
+			Result := gtk_tree_sortable_get_sort_column_id (handle,
+				$col,
+				$sorted
+				).to_boolean
+		end
+
 	-- TODO: gtk_tree_sortable_set_sort_func ()
 	
 	-- void        gtk_tree_sortable_set_sort_func (GtkTreeSortable *sortable,
