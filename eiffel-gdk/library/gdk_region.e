@@ -25,7 +25,10 @@ inherit
 		end
 insert
 	GDK_FILL_RULE
+		redefine copy end
 	GDK_OVERLAP_TYPE
+		redefine copy end
+
 creation
 	make, from_polygon, from_external_pointer, from_rectangle, copy
 
@@ -60,13 +63,6 @@ feature {} -- Creation
 			handle := gdk_region_polygon (array.to_external,some_points.count,a_fill_rule)
 		end
 	
-	copy (another: GDK_REGION) is
-			-- Copies region, creating an identical new region.
-		require  another_not_void: another /= Void
-		do
-			handle := gdk_region_copy (another.handle)
-		end
-
 	from_rectangle (a_rectangle: GDK_RECTANGLE) is
 			-- Creates a new region containing the area `a_rectangle'.
 		require rectangle_not_void: a_rectangle /= Void
@@ -82,6 +78,14 @@ feature {} -- Creation
 			handle := default_pointer
 		end
 	
+feature -- Duplication
+
+	copy (another: GDK_REGION) is
+			-- Copies region, creating an identical new region.
+		do
+			handle := gdk_region_copy (another.handle)
+		end
+
 feature {} -- Unwrapped code
 	
 -- gdk_region_get_clipbox ()
