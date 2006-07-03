@@ -33,9 +33,16 @@ feature
 			-- gobject. This pointer will be used to retrieve the Eiffel
 			-- wrapper object when a C feature returns a generic object
 			-- (i.e. the preview widget set in GTK_FILE_CHOOSER). 
+		require
+			not_stored: not is_eiffel_wrapper_stored
 		do
-			set_qdata (eiffel_key, Current)
-		ensure stored: is_eiffel_wrapper_stored
+			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
+			-- We do the above direct call instead of using the
+			-- Eiffel method "set_qdata (eiffel_key, Current)". This
+			-- is to avoid an invariant check when passing Current as
+			-- argument.
+		ensure
+			stored: is_eiffel_wrapper_stored
 		end
 
 	is_eiffel_wrapper_stored: BOOLEAN is
@@ -52,10 +59,15 @@ feature {WRAPPER} -- GObject type system implementation.
 			Result := g_object_type (handle)
 		end
 feature -- Creating
+
 	from_external_pointer (a_ptr: POINTER) is
-		require pointer_not_null: a_ptr.is_not_null
+		require
+			called_on_creation: is_null
+			pointer_not_null: a_ptr.is_not_null
+			not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
 		do
 			Precursor (a_ptr)
+			store_eiffel_wrapper
 			ref -- Let's add a reference to the underlying g_object
 		end
 
@@ -319,8 +331,6 @@ feature -- Property getter/setter
 	-- TODO: provide get_[string|integer|real|...]_property that does
 	-- not allocate a temporary G_VALUE
 invariant
-	-- TODO: the following invariant makes all programs to fail. TODO:
-	-- discover why. Paolo 2006-04-18 "stored_eiffel_wrapper:
-	-- is_eiffel_wrapper_stored"
+	stored_eiffel_wrapper: is_not_null implies is_eiffel_wrapper_stored
 end
 
