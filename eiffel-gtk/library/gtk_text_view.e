@@ -107,7 +107,6 @@ feature -- Access
 				Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_buff)
 			else
 				create Result.from_external_pointer (c_buff)
-				Result.store_eiffel_wrapper
 			end
 		end
 
@@ -380,7 +379,7 @@ feature
 			-- window it was.
 		do
 			Result := gtk_text_view_get_window_type (handle, a_window.handle)
-		ensure is_valid_window_type (Result)
+		ensure is_valid_text_window_type (Result)
 		end
 	
 	set_border_window_size (a_window_type: INTEGER; a_size: INTEGER) is

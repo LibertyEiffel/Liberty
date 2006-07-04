@@ -29,6 +29,7 @@ inherit
 insert
 	WRAPPER_FACTORY [GTK_TREE_MODEL]
 	GTK_TREE_VIEW_EXTERNALS
+	G_OBJECT_RETRIEVER [GTK_TREE_VIEW_COLUMN]
 
 creation make, with_model, from_external_pointer
 
@@ -470,8 +471,16 @@ feature
 			gtk_tree_view_get_cursor (handle, $path_ptr, $column_ptr)
 			--(GtkTreeView *tree_view, GtkTreePath **path,
 			--GtkTreeViewColumn **focus_column);
-			if path_ptr.is_not_null then create a_path.from_external_pointer (path_ptr) end
-			if column_ptr.is_not_null then create a_column.from_external_pointer (column_ptr) end
+			if path_ptr.is_not_null then
+					create a_path.from_external_pointer (path_ptr)
+			end
+			if column_ptr.is_not_null then
+				if has_eiffel_wrapper_stored (column_ptr) then
+					a_column := retrieve_eiffel_wrapper_from_gobject_pointer (column_ptr)
+				else
+					create a_column.from_external_pointer (column_ptr)
+				end
+			end
 			create Result.make_2 (a_path, a_column)
 		end
 

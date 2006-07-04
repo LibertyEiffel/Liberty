@@ -37,7 +37,7 @@ feature {} -- Creation
 	make is
 		do
 			handle := gtk_text_tag_table_new
-			
+		end
 
 -- GtkTextTagTable* gtk_text_tag_table_new     (void);
 

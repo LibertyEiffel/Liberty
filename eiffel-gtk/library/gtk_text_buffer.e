@@ -76,6 +76,7 @@ feature -- Access
 
 			-- If Gtk is going to free this text, we should be using
 			-- from_external_copy instead!  end
+			end
 
 	line_count: INTEGER is
 			-- the number of lines in the buffer. This value is cached,
