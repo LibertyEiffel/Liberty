@@ -17,44 +17,49 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class GTK_RANGE_EXTERNALS
+deferred class GTK_SCALE_EXTERNALS
+
+insert GTK_POSITION_TYPE
+
 feature {NONE} -- External calls
-	gtk_scale_set_digits            (a_scale: POINTER; some_digits: INTEGER) is
+
+	gtk_scale_set_digits (a_scale: POINTER; some_digits: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scale_set_draw_value (a_scale: POINTER; draw_value: INTEGER)  is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scale_set_value_pos (a_scale: POINTER; a_gtk_position_type: INTEGER) is
 		require is_valid_gtk_position_type (a_gtk_position_type)
 		external "C use <gtk/gtk.h>"
 		end
-	
-	gtk_scale_get_digits (a_scale: POINTER): INTEGER  is
+
+	gtk_scale_get_digits (a_scale: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
-	
-	gtk_scale_get_draw_value        (a_scale: POINTER): INTEGER  is
+
+	gtk_scale_get_draw_value (a_scale: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
-	
-	gtk_scale_get_value_pos     (a_scale: POINTER): INTEGER  is
+
+	gtk_scale_get_value_pos (a_scale: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
-		ensure  is_valid_gtk_position_type (Result)
+		ensure is_valid_gtk_position_type (Result)
 		end
-	
-	gtk_scale_get_layout           (a_scale: POINTER): POINTER  is
-		external "C use <gtk/gtk.h>"
-		end
-		
-	gtk_scale_get_layout_offsets    (a_scale,an_x,an_y: POINTER)  is
+
+	gtk_scale_get_layout (a_scale: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
 		
+
+	gtk_scale_get_layout_offsets (a_scale,an_x,an_y: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
 end

@@ -26,9 +26,6 @@ deferred class GTK_RANGE
 inherit
 	GTK_WIDGET
 	GTK_RANGE_EXTERNALS
-	SHARED_C_STRUCT
-
-creation make
 
 feature -- The adjustment
 
@@ -76,9 +73,9 @@ feature -- update policy
 			-- will change and the value_changed signal will be
 			-- emitted. 
 		do
-			Result:= (gtk_update_get_update_policy(handle) = gtk_update_continuous)
+			Result := (gtk_range_get_update_policy (handle) = gtk_update_continuous)
 		end
-	
+
 	set_discontinous_update_policy is
 			-- Sets the update policy for the range. GTK_UPDATE_DELAYED
 			-- means that the value will be updated after a brief timeout
@@ -95,9 +92,9 @@ feature -- update policy
 			-- where no slider motion occurs, so updates are spaced by a
 			-- short time rather than continuous.
 		do
-			Result:= (gtk_update_get_update_policy(handle) = gtk_update_discontinuous)
+			Result := (gtk_range_get_update_policy (handle) = gtk_update_discontinuous)
 		end
-	
+
 	set_delayed_update_policy is
 			-- Sets the update policy for the
 			-- range. GTK_UPDATE_DISCONTINUOUS means that the value will
@@ -114,16 +111,17 @@ feature -- update policy
 			-- only be updated when the user releases the button and ends
 			-- the slider drag operation.
 		do
-			Result:= (gtk_update_get_update_policy(handle) = gtk_update_delayed)
+			Result := (gtk_range_get_update_policy (handle) = gtk_update_delayed)
 		end
 
 feature -- Inverted-ness
+
 	is_inverted: BOOLEAN is
 			-- 
 		do
 			Result := (gtk_range_get_inverted (handle)).to_boolean
 		end
-	
+
 	set_inverted is
 			-- Ranges normally move from lower to higher values as the
 			-- slider moves from top to bottom or left to right. Inverted
@@ -171,6 +169,7 @@ feature -- increments
 		end
 
 feature -- range
+
 	set_range (a_min,a_max: REAL) is
 			-- Sets the allowable values in the GtkRange, and clamps the
 			-- range value to be between min and max. (If the range has a
@@ -236,15 +235,16 @@ feature -- TODO: The "stepper-spacing" style property
 
 -- Default value: 0
 feature -- TODO: The "trough-border" style property
-	--   "trough-border"        gint                  : Read
-	
-	-- Spacing between thumb/steppers and outer trough bevel.
-	
+--   "trough-border"        gint                  : Read
+
+-- Spacing between thumb/steppers and outer trough bevel.
+
 -- Allowed values: >= 0
 
-	-- Default value: 1
+-- Default value: 1
+
 feature -- TODO: Signal Details
-	
+
 -- The "adjust-bounds" signal
 
 -- void        user_function                  (GtkRange *range,
@@ -284,13 +284,34 @@ feature -- TODO: Signal Details
 -- range : 	the GtkRange
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
--- The "value-changed" signal
 
+feature -- The "value-changed" signal
 -- void        user_function                  (GtkRange *range,
 --                                             gpointer user_data);
 
 -- Emitted when the range value changes.
 -- range : 	the GtkRange
 -- user_data : 	user data set when the signal handler was connected.
+
+	value_changed_signal_name: STRING is "value_changed"
+
+	on_value_changed is
+			-- Built-in value_changed signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_value_changed is
+			-- Connects "value_changed" signal to `on_value_changed' feature.
+		do
+			connect (Current, value_changed_signal_name, $on_value_changed)
+		end
+
+	connect_agent_to_value_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_RANGE]]) is
+		require valid_procedure: a_procedure /= Void
+		local value_changed_callback: VALUE_CHANGED_CALLBACK
+		do
+			create value_changed_callback.make
+			value_changed_callback.connect (Current, a_procedure)
+		end
 
 end

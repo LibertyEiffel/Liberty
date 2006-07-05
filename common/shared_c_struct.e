@@ -20,9 +20,9 @@ inherit
 		redefine
 			dispose
 		end
-	
+
 feature {} -- Access to C features
-	is_shared: BOOLEAN 
+	is_shared: BOOLEAN
 			-- Does anybody else (Eiffel or non-Eiffel) have a reference 
 			-- to `handle'? If False, then the C-object will be 
 			-- destroyed when the the Eiffel object will be collected 
@@ -41,5 +41,5 @@ feature {} -- Destroying
 			now_null: is_null
 		end
 	
-end
 
+end

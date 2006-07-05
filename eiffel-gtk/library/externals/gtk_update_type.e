@@ -17,18 +17,20 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_UPDATE_TYPE
+
 feature  -- enum
+
 	is_valid_gtk_update_type (an_update_type: INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((an_update_type=gtk_update_continuous) or else
-						(an_update_type=gtk_update_discontinuous) or else
-						(an_update_type=gtk_update_delayed))
+			         (an_update_type=gtk_update_discontinuous) or else
+			         (an_update_type=gtk_update_delayed))
 		end
 
 	gtk_update_continuous: INTEGER is
@@ -45,5 +47,5 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UPDATE_DELAYED"
 		end
-end
 
+end

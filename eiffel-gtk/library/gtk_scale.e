@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -35,17 +35,18 @@ indexing
 			-- gtk_vscale_new_with_range().
 
 deferred class GTK_SCALE
-inherit
 
+inherit
 	GTK_RANGE
 	GTK_SCALE_EXTERNALS
-	
+
 feature -- digits
 
 	digits: INTEGER is
 			-- the number of decimal places that are displayed in the value.
 		do
 			Result := gtk_scale_get_digits (handle)
+		end
 
 	set_digits (some_digits: INTEGER) is
 			-- Sets the number of decimal places that are displayed in
@@ -129,7 +130,7 @@ feature -- position
 	-- property is FALSE.
 
 feature
-	layout_offsets: [REAL,REAL] is
+	layout_offsets: TUPLE [REAL, REAL] is
 			-- Obtains the coordinates where the scale will draw the
 			-- PangoLayout representing the text in the scale. Remember
 			-- when using the PangoLayout function you need to convert to
