@@ -225,6 +225,10 @@ feature {NONE} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
+	gtk_widget_set_sensitive (widget: POINTER; sens: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
 -- gtk_widget_set_sensitive (widget: POINTER,
 --                                              gboolean sensitive) is
 --		external "C use <gtk/gtk.h>"

@@ -42,7 +42,6 @@ feature
 			gtk_widget_show_all (handle)
 		end
 
-
 	hide is
 			-- Reverses the effects of `show' causing the widget to be hidden
 			-- (invisible to the user).
@@ -165,8 +164,20 @@ feature
 -- const gchar* gtk_widget_get_name            (GtkWidget *widget);
 -- void        gtk_widget_set_state            (GtkWidget *widget,
 --                                              GtkStateType state);
--- void        gtk_widget_set_sensitive        (GtkWidget *widget,
---                                              gboolean sensitive);
+
+feature -- Operation
+
+	set_sensitive (sens: BOOLEAN) is
+			-- Sets the sensitivity of Current. A widget is sensitive
+			-- if the user can interact with it. Insensitive widgets are
+			-- "grayed out" and the user can't interact with them.
+		local
+			s: INTEGER
+		do
+			if sens then s := 1 else s:= 0 end
+			gtk_widget_set_sensitive (handle, s)
+		end
+
 -- void        gtk_widget_set_parent           (GtkWidget *widget,
 --                                              GtkWidget *parent);
 -- void        gtk_widget_set_parent_window    (GtkWidget *widget,

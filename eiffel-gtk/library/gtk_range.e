@@ -149,7 +149,7 @@ feature -- value
 			Result := gtk_range_get_value (handle)
 		end
 
-	set_value (a_value: REAL) is
+	set_value (a_value: REAL_64) is
 			-- Sets the current value of the range; if `a_value' is
 			-- outside the minimum or maximum range values, it will be
 			-- clamped to fit inside them. The range emits the
