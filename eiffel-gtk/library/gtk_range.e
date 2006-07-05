@@ -1,5 +1,5 @@
 indexing
-	description: "GtkRange -- Base class for widgets which visualize an adjustment."	
+	description: "GtkRange -- Base class for widgets which visualize an adjustment."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -17,16 +17,17 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_RANGE
+
 inherit
 	GTK_WIDGET
 	GTK_RANGE_EXTERNALS
 	SHARED_C_STRUCT
-	
+
 creation make
 
 feature -- The adjustment
@@ -144,7 +145,7 @@ feature -- Inverted-ness
 		end
 
 feature -- value
-	value: DOUBLE is
+	value: REAL_64 is
 			-- the current value of the range.
 		do
 			Result := gtk_range_get_value (handle)
