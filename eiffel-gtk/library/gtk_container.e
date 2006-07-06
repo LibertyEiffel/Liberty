@@ -113,6 +113,20 @@ feature
 			gtk_container_check_resize (handle)
 		end
 
+	set_border_width (a_width: INTEGER) is
+		require
+			a_width.in_range(0, 65535)
+		do
+			gtk_container_set_border_width (handle, a_width)
+		ensure
+			border_width = a_width
+		end
+
+	border_width: INTEGER is
+		do
+			Result := gtk_container_get_border_width (handle)
+		end
+
 	
 	-- TODO: wrap gtk_container_foreach ()
 

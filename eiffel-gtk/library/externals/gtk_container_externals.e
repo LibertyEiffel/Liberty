@@ -17,7 +17,6 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"					
-
 	date: "$Date:$"
 	revision "$REvision:$"
 
@@ -108,6 +107,15 @@ feature {NONE} -- External calls
 		ensure -- TODO: is_valid_gtype (Result)
 		end
 
+	gtk_container_get_border_width (container: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_container_set_border_width (container: POINTER; a_border_width: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+
 -- void        gtk_container_child_get         (GtkContainer *container,
 --                                              GtkWidget *child,
 --                                              const gchar *first_prop_name,
@@ -155,15 +163,6 @@ feature {NONE} -- External calls
 -- void        gtk_container_forall            (GtkContainer *container,
 --                                              GtkCallback callback,
 --                                              gpointer callback_data
---		external "C use <gtk/gtk.h>"
---		end
-
--- guint       gtk_container_get_border_width  (GtkContainer *container
---		external "C use <gtk/gtk.h>"
---		end
-
--- void        gtk_container_set_border_width  (GtkContainer *container,
---                                              guint border_width
 --		external "C use <gtk/gtk.h>"
 --		end
 
@@ -230,4 +229,4 @@ feature {NONE} -- External calls
 --                                             GtkWidget    *widget,
 --                                             gpointer      user_data)      : Run first
 
-end
+end -- class GTK_CONTAINER_EXTERNALS
