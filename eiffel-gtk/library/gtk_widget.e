@@ -49,6 +49,23 @@ feature
 			gtk_widget_hide (handle)
 		end
 
+	style: GTK_STYLE is
+			-- Returns the style for this widget
+		do
+			create Result.from_external_pointer (gtk_widget_get_style (handle))
+		end
+
+	set_style (a_style: GTK_STYLE) is
+			-- Sets the GTK_STYLE for a widget (widget.style).
+			-- You probably don't want to use this function;
+			-- it interacts badly with themes, because themes work by
+			-- replacing the GtkStyle. Instead, use modify_style(). (NOT IMPLEMENTED)
+		require
+			valid_style: a_style /= Void
+		do
+			gtk_widget_set_style (handle, a_style.handle)
+		end
+
 -- widget : 	a GtkWidget
 	
 	-- Prev 	Up 	Home 	GTK+ Reference Manual 	Next

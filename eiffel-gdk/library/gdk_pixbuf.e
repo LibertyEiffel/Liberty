@@ -117,6 +117,39 @@ feature {NONE} -- Creation
 			is_valid = is_g_object
 		end
 
+feature -- Operations
+
+	render_pixmap_and_mask (alpha_threshold: INTEGER): TUPLE[GDK_PIXMAP, GDK_BITMAP] is
+			-- Creates a pixmap and a mask bitmap, and renders a pixbuf
+			-- and its corresponding thresholded alpha mask to them.
+			-- This is merely a convenience function; applications that
+			-- need to render pixbufs with dither offsets or to given
+			-- drawables should use draw_pixbuf() and render_threshold_alpha().
+			--
+			-- The pixmap that is created is created for the colormap
+			-- returned by gdk_rgb_get_colormap(). You normally will want to
+			-- instead use the actual colormap for a widget, and use
+			-- gdk_pixbuf_render_pixmap_and_mask_for_colormap().
+			--
+			-- If the pixbuf does not have an alpha channel, then the resulting
+			-- GDK_BITMAP will be null.
+		require
+			alpha_threshold.in_range(0, 255)
+		local
+			pixmap_return, bitmap_return: POINTER
+			a_pixmap: GDK_PIXMAP
+			a_bitmap: GDK_BITMAP
+		do
+			gdk_pixbuf_render_pixmap_and_mask (handle, $pixmap_return, $bitmap_return, alpha_threshold)
+			create a_pixmap.from_external_pointer (pixmap_return)
+			if bitmap_return.is_not_null then
+				create a_bitmap.from_external_pointer (bitmap_return)
+			end
+			Result := [a_pixmap, a_bitmap]
+		ensure
+			Result.first /= Void
+		end
+
 -- gdk_pixbuf_new_from_file_at_scale ()
 -- 
 -- GdkPixbuf*  gdk_pixbuf_new_from_file_at_scale

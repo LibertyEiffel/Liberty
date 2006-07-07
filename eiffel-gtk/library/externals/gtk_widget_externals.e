@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$REvision:$"
 
@@ -331,19 +331,18 @@ feature {NONE} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
--- gtk_widget_set_style (widget: POINTER,
---                                              GtkStyle *style) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_set_style (widget, a_style: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- #define     gtk_widget_set_rc_style         (widget)
 -- gtk_widget_ensure_style (widget: POINTER) is
 --		external "C use <gtk/gtk.h>"
 --		end
 
--- GtkStyle*   gtk_widget_get_style            (GtkWidget *widget) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_get_style (widget: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- #define     gtk_widget_restore_default_style(widget)
 -- gtk_widget_reset_rc_styles (widget: POINTER) is

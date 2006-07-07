@@ -40,6 +40,11 @@ feature {NONE} -- External calls
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
+	gdk_pixbuf_render_pixmap_and_mask (handle, pixmap_return, bitmap_return: POINTER; alpha_threshold: INTEGER) is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+
 --Missing:
 -- GdkPixbuf*  gdk_pixbuf_new_from_file_at_scale
 --                                            (const char *filename,
