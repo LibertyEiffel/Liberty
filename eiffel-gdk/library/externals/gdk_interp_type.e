@@ -32,7 +32,7 @@ deferred class GDK_INTERP_TYPE
 
 feature -- enum
 
-	is_valid_gdk_interp_type (an_interp_type: INTEGER): BOOLEAN is
+	is_valid_gdk_interp_type (an_interp_type: INTEGER) : BOOLEAN is
 		do
 			Result:=((an_interp_type=gdk_interp_nearest) or else
 			         (an_interp_type=gdk_interp_tiles) or else

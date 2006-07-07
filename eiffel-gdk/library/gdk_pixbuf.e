@@ -48,8 +48,7 @@ feature -- Creation
 		do
 			if a_ptr.is_not_null then
 				Precursor (a_ptr)
-			else
-				is_valid := False
+				is_valid := True
 			end
 		ensure
 			a_ptr.is_not_null = is_valid
@@ -257,7 +256,7 @@ feature {WRAPPER} -- size
 feature -- Composites
 
 	composite_color_simple (dest_width, dest_height: INTEGER; interp_type: INTEGER;
-	                        overall_alpha, check_size, color1, color2: INTEGER) : GDK_PIXBUF is
+	                        overall_alpha, check_size: INTEGER; color1, color2: INTEGER_64) : GDK_PIXBUF is
 			-- Creates a new GDK_PIXBUF by scaling Current to `dest_width' x `dest_height'
 			-- and compositing the result with a checkboard of colors `color1' and
 			-- `color2'.
@@ -292,6 +291,29 @@ feature -- Composites
 		do
 			gdk_pixbuf_composite (handle, dest.handle, dest_x, dest_y, dest_width, dest_height,
 			                      offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha)
+		end
+
+	composite_color (dest: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
+	                 offset_x, offset_y, scale_x, scale_y: REAL_64;
+	                 interp_type: INTEGER; overall_alpha, check_x, check_y, check_size: INTEGER;
+	                 color1, color2: INTEGER_64) is
+			-- Creates a transformation of the source image Current by
+			-- scaling by `scale_x' and `scale_y' then translating by `offset_x'
+			-- and `offset_y', then composites the rectangle (`dest_x' ,`dest_y',
+			-- `dest_width', `dest_height') of the resulting image with a
+			-- checkboard of the colors `color1' and `color2' and renders it
+			-- onto the destination image.
+			-- See `gdk_pixbuf_composite_color_simple' for a simpler
+			-- variant of this function suitable for many tasks.
+		require
+			colors_conform_guint32: color1 >= 0 and color2 >= 0
+			valid_alpha: 0 <= overall_alpha and overall_alpha <= 255
+			valid_check_size: check_size.is_a_power_of_2
+			valid_interp_type: is_valid_gdk_interp_type (interp_type)
+		do
+			gdk_pixbuf_composite_color (handle, dest.handle, dest_x, dest_y, dest_width, dest_height,
+			                            offset_x, offset_y, scale_x, scale_y, interp_type,
+			                            overall_alpha, check_x, check_y, check_size, color1, color2)
 		end
 
 end -- GDK_PIXBUF

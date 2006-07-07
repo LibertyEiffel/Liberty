@@ -55,7 +55,7 @@ feature {NONE} -- External calls
 -- the docs for GdkPixbuf are spread over lots of pages **trixx, 20060608
 
 	gdk_pixbuf_composite_color_simple (src: POINTER; dest_width, dest_height: INTEGER; interp_type: INTEGER;
-	                                   overall_alpha, check_size, color1, color2: INTEGER) : POINTER is
+	                                   overall_alpha, check_size: INTEGER; color1, color2: INTEGER_64) : POINTER is
 			-- GdkPixbuf*  gdk_pixbuf_composite_color_simple (const GdkPixbuf *src,
 			--                                                int dest_width,
 			--                                                int dest_height,
@@ -104,6 +104,48 @@ feature {NONE} -- External calls
 			-- scale_y :   the scale factor in the Y direction
 			-- interp_type :   the interpolation type for the transformation.
 			-- overall_alpha :     overall alpha for source image (0..255)
+		require is_valid_gdk_interp_type (interp_type)
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_composite_color (src, dest: POINTER; dest_x, dest_y, dest_width, dest_height: INTEGER;
+	                            offset_x, offset_y, scale_x, scale_y: REAL_64;
+	                            interp_type: INTEGER; overall_alpha, check_x, check_y, check_size: INTEGER;
+	                            color1, color2: INTEGER_64) is
+			-- void        gdk_pixbuf_composite_color      (const GdkPixbuf *src,
+			--                                              GdkPixbuf *dest,
+			--                                              int dest_x,
+			--                                              int dest_y,
+			--                                              int dest_width,
+			--                                              int dest_height,
+			--                                              double offset_x,
+			--                                              double offset_y,
+			--                                              double scale_x,
+			--                                              double scale_y,
+			--                                              GdkInterpType interp_type,
+			--                                              int overall_alpha,
+			--                                              int check_x,
+			--                                              int check_y,
+			--                                              int check_size,
+			--                                              guint32 color1,
+			--                                              guint32 color2);
+			-- src : 	 a GdkPixbuf
+			-- dest : 	the GdkPixbuf into which to render the results
+			-- dest_x : 	the left coordinate for region to render
+			-- dest_y : 	the top coordinate for region to render
+			-- dest_width : 	the width of the region to render
+			-- dest_height : 	the height of the region to render
+			-- offset_x : 	the offset in the X direction (currently rounded to an integer)
+			-- offset_y : 	the offset in the Y direction (currently rounded to an integer)
+			-- scale_x : 	the scale factor in the X direction
+			-- scale_y : 	the scale factor in the Y direction
+			-- interp_type : 	the interpolation type for the transformation.
+			-- overall_alpha : 	overall alpha for source image (0..255)
+			-- check_x : 	the X offset for the checkboard (origin of checkboard is at -check_x, -check_y)
+			-- check_y : 	the Y offset for the checkboard
+			-- check_size : 	the size of checks in the checkboard (must be a power of two)
+			-- color1 : 	the color of check at upper left
+			-- color2 : 	the color of the other check
 		require is_valid_gdk_interp_type (interp_type)
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
