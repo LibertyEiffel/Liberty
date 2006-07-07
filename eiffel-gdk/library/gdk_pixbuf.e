@@ -29,7 +29,7 @@ class GDK_PIXBUF
 inherit G_OBJECT
 	rename
 		make as g_object_make
-	redefine dispose end
+	redefine dispose, from_external_pointer end
 
 insert
 	GDK_PIXBUF_EXTERNALS
@@ -38,9 +38,24 @@ insert
 creation
 	make, from_external_pointer, from_file, from_file_at_size
 
-feature {NONE} -- Creation
+feature -- Creation
 
-	from_file(filename: STRING) is
+	from_external_pointer (a_ptr: POINTER) is
+		require else
+			--called_on_creation: is_null
+			--pointer_not_null: a_ptr.is_not_null
+			--not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
+		do
+			if a_ptr.is_not_null then
+				Precursor (a_ptr)
+			else
+				is_valid := False
+			end
+		ensure
+			a_ptr.is_not_null = is_valid
+		end
+
+	from_file (filename: STRING) is
 			-- New pixbuf by loading an image from `filename'.
 			-- The file format is detected automatically. 
 		require
@@ -80,6 +95,8 @@ feature {NONE} -- Creation
 		ensure
 			is_valid = is_g_object
 		end
+
+feature {NONE} -- Creation
 
 	make(a_alpha: BOOLEAN; a_width, a_height: INTEGER) is
 		-- Creates a new GdkPixbuf structure and allocates a buffer for it.
@@ -235,6 +252,46 @@ feature {WRAPPER} -- size
 	size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkPixbuf)"
+		end
+
+feature -- Composites
+
+	composite_color_simple (dest_width, dest_height: INTEGER; interp_type: INTEGER;
+	                        overall_alpha, check_size, color1, color2: INTEGER) : GDK_PIXBUF is
+			-- Creates a new GDK_PIXBUF by scaling Current to `dest_width' x `dest_height'
+			-- and compositing the result with a checkboard of colors `color1' and
+			-- `color2'.
+		require
+			colors_conform_guint32: color1 >= 0 and color2 >= 0
+			valid_alpha: 0 <= overall_alpha and overall_alpha <= 255
+			valid_check_size: check_size.is_a_power_of_2
+			valid_interp_type: is_valid_gdk_interp_type (interp_type)
+		local
+			res: POINTER
+		do
+			res := gdk_pixbuf_composite_color_simple (handle, dest_width, dest_height, interp_type,
+			                                          overall_alpha, check_size, color1, color2)
+			Result := create {GDK_PIXBUF}.from_external_pointer (res)
+		ensure
+			Result /= Void
+		end
+
+	composite (dest: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
+	           offset_x, offset_y, scale_x, scale_y: REAL_64;
+	           interp_type: INTEGER; overall_alpha: INTEGER) is
+			-- Creates a transformation of the source image Current by scaling by
+			-- `scale_x' and `scale_y' then translating by `offset_x' and `offset_y'.
+			-- This gives an image in the coordinates of the destination pixbuf. The
+			-- rectangle (`dest_x', `dest_y', `dest_width', `dest_height') is then
+			-- composited onto the corresponding rectangle of the original destination image.
+			-- When the destination rectangle contains parts not in the source
+			-- image, the data at the edges of the source image is replicated to infinity.
+		require
+			valid_alpha: 0 <= overall_alpha and overall_alpha <= 255
+			valid_interp_type: is_valid_gdk_interp_type (interp_type)
+		do
+			gdk_pixbuf_composite (handle, dest.handle, dest_x, dest_y, dest_width, dest_height,
+			                      offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha)
 		end
 
 end -- GDK_PIXBUF
