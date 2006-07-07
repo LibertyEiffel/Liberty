@@ -20,7 +20,9 @@ feature
 		local
 			style: GTK_STYLE
 			pixbuf: GDK_PIXBUF
-			pixmap_and_mask: TUPLE [GDK_PIXMAP, GDK_BITMAP]
+			pixmap: GDK_PIXMAP
+			gc: GDK_GC
+			color: GDK_COLOR
 		do
 			gtk.initialize
 			create window.make
@@ -39,9 +41,26 @@ feature
 
 			create pixbuf.from_file("cartman.png")
 
-			pixmap_and_mask := pixbuf.render_pixmap_and_mask (0)
+			pixmap := pixbuf.render_pixmap_and_mask (0).first
 
-			style.set_background_pixmap (pixmap_and_mask.first, gtk_state_normal)
+			create gc.make (pixmap)
+
+			pixmap.draw_line (gc, 5, 10, 10, 30)
+			create color.make
+			color.set_red (65535)
+			gc.set_rgb_fg_color (color)
+
+			pixmap.draw_rectangle (gc, False, 35, 9, 10, 5)
+
+			color.set_green (5535)
+			color.set_red (5535)
+			gc.set_rgb_fg_color (color)
+
+			pixmap.draw_point (gc, 0, 0)
+
+			pixmap.draw_arc (gc, False, 5, 38, 38, 10, 0, 11520)
+
+			style.set_background_pixmap (pixmap, gtk_state_normal)
 
 			gtk.run_main_loop
 

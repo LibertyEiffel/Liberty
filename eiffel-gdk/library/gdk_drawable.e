@@ -50,11 +50,13 @@ inherit
 	--          +----GdkWindow
 	--          +----GdkPixmap
 
+insert
+	GDK_DRAWABLE_EXTERNALS
+
 creation make, from_external_pointer
 
-feature {} -- Creation
-
 feature
+
 	-- TODO: display: GDK_DISPLAY is
 	-- the GdkDisplay associated with a GdkDrawable.
 	-- do
@@ -150,19 +152,13 @@ feature
 			create Result.from_external_pointer (gdk_drawable_get_visible_region (handle))
 		end
 	
-	-- gdk_draw_point ()
+	draw_point (a_gc: GDK_GC; an_x, an_y: INTEGER) is
+			-- Draws a point, using the foreground color and other
+			-- attributes of the GDK_GC.
+		do
+			gdk_draw_point (handle, a_gc.handle, an_x, an_y)
+		end
 
-	-- void        gdk_draw_point                  (GdkDrawable *drawable,
-	--                                              GdkGC *gc,
-	--                                              gint x,
-	--                                              gint y);
-
-	-- Draws a point, using the foreground color and other attributes of the GdkGC.
-
-	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
-	-- gc : 	a GdkGC.
-	-- x : 	the x coordinate of the point.
-	-- y : 	the y coordinate of the point.
 	-- gdk_draw_points ()
 
 	-- void        gdk_draw_points                 (GdkDrawable *drawable,
@@ -176,23 +172,14 @@ feature
 	-- gc : 	a GdkGC.
 	-- points : 	an array of GdkPoint structures.
 	-- npoints : 	the number of points to be drawn.
-	-- gdk_draw_line ()
 
-	-- void        gdk_draw_line                   (GdkDrawable *drawable,
-	--                                              GdkGC *gc,
-	--                                              gint x1_,
-	--                                              gint y1_,
-	--                                              gint x2_,
-	--                                              gint y2_);
+	draw_line (a_gc: GDK_GC; x1, y1, x2, y2: INTEGER) is
+			-- Draws a line, using the foreground color and other attributes
+			-- of the GdkGC.
+		do
+			gdk_draw_line (handle, a_gc.handle, x1, y1, x2, y2)
+		end
 
-	-- Draws a line, using the foreground color and other attributes of the GdkGC.
-
-	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
-	-- gc : 	a GdkGC.
-	-- x1_ : 	the x coordinate of the start point.
-	-- y1_ : 	the y coordinate of the start point.
-	-- x2_ : 	the x coordinate of the end point.
-	-- y2_ : 	the y coordinate of the end point.
 	-- gdk_draw_lines ()
 
 	-- void        gdk_draw_lines                  (GdkDrawable *drawable,
@@ -270,50 +257,41 @@ feature
 	-- gint y2; 	the y coordinate of the end point.
 	-- gdk_draw_rectangle ()
 
-	-- void        gdk_draw_rectangle              (GdkDrawable *drawable,
-	--                                              GdkGC *gc,
-	--                                              gboolean filled,
-	--                                              gint x,
-	--                                              gint y,
-	--                                              gint width,
-	--                                              gint height);
+	draw_rectangle (a_gc: GDK_GC; filled: BOOLEAN; an_x, an_y, a_width, a_height: INTEGER) is
+			-- Draws a rectangular outline or filled rectangle, using the
+			-- foreground color and other attributes of the GdkGC.
+			--
+			-- A rectangle drawn filled is 1 pixel smaller in both dimensions than
+			-- a rectangle outlined. Calling draw_rectangle (gc, True, 0, 0, 20, 20)
+			-- results in a filled rectangle 20 pixels wide and 20 pixels high.
+			-- Calling draw_rectangle (gc, False, 0, 0, 20, 20) results in an
+			-- outlined rectangle with corners at (0, 0), (0, 20), (20, 20),
+			-- and (20, 0), which makes it 21 pixels wide and 21 pixels high.
+		do
+			gdk_draw_rectangle (handle, a_gc.handle, filled.to_integer,
+								an_x, an_y, a_width, a_height)
+		end
 
-	-- Draws a rectangular outline or filled rectangle, using the foreground color and other attributes of the GdkGC.
+	draw_arc (a_gc: GDK_GC; a_filled: BOOLEAN; an_x, an_y,
+							 a_width, a_height, angle1, angle2: INTEGER) is
+			-- Draws an arc or a filled 'pie slice'. The arc is defined by
+			-- the bounding rectangle of the entire ellipse, and the start
+			-- and end angles of the part of the ellipse to be drawn.
+			--
+			-- a_filled:  TRUE if the arc should be filled, producing a 'pie slice'.
+			-- an_x:  the x coordinate of the left edge of the bounding rectangle.
+			-- an_y:  the y coordinate of the top edge of the bounding rectangle.
+			-- a_width:  the width of the bounding rectangle.
+			-- a_height:  the height of the bounding rectangle.
+			-- angle1:  the start angle of the arc, relative to the 3 o'clock
+			--          position, counter-clockwise, in 1/64ths of a degree.
+			-- angle2:  the end angle of the arc, relative to angle1, in
+			--          1/64ths of a degree.
+		do
+			gdk_draw_arc (handle, a_gc.handle, a_filled.to_integer, an_x, an_y,
+							a_width, a_height, angle1, angle2)
+		end
 
-	-- A rectangle drawn filled is 1 pixel smaller in both dimensions than a rectangle outlined. Calling gdk_draw_rectangle (window, gc, TRUE, 0, 0, 20, 20) results in a filled rectangle 20 pixels wide and 20 pixels high. Calling gdk_draw_rectangle (window, gc, FALSE, 0, 0, 20, 20) results in an outlined rectangle with corners at (0, 0), (0, 20), (20, 20), and (20, 0), which makes it 21 pixels wide and 21 pixels high.
-
-	-- Note
-
-	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
-	-- gc : 	a GdkGC.
-	-- filled : 	TRUE if the rectangle should be filled.
-	-- x : 	the x coordinate of the left edge of the rectangle.
-	-- y : 	the y coordinate of the top edge of the rectangle.
-	-- width : 	the width of the rectangle.
-	-- height : 	the height of the rectangle.
-	-- gdk_draw_arc ()
-
-	-- void        gdk_draw_arc                    (GdkDrawable *drawable,
-	--                                              GdkGC *gc,
-	--                                              gboolean filled,
-	--                                              gint x,
-	--                                              gint y,
-	--                                              gint width,
-	--                                              gint height,
-	--                                              gint angle1,
-	--                                              gint angle2);
-
-	-- Draws an arc or a filled 'pie slice'. The arc is defined by the bounding rectangle of the entire ellipse, and the start and end angles of the part of the ellipse to be drawn.
-
-	-- drawable : 	a GdkDrawable (a GdkWindow or a GdkPixmap).
-	-- gc : 	a GdkGC.
-	-- filled : 	TRUE if the arc should be filled, producing a 'pie slice'.
-	-- x : 	the x coordinate of the left edge of the bounding rectangle.
-	-- y : 	the y coordinate of the top edge of the bounding rectangle.
-	-- width : 	the width of the bounding rectangle.
-	-- height : 	the height of the bounding rectangle.
-	-- angle1 : 	the start angle of the arc, relative to the 3 o'clock position, counter-clockwise, in 1/64ths of a degree.
-	-- angle2 : 	the end angle of the arc, relative to angle1, in 1/64ths of a degree.
 	-- gdk_draw_polygon ()
 
 	-- void        gdk_draw_polygon                (GdkDrawable *drawable,
@@ -579,124 +557,4 @@ feature
 
 	-- Since 2.4
 	
-feature {} -- External calls
-	gdk_drawable_get_display (a_gdkdrawable: POINTER): POINTER is -- GdkDisplay*
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_get_screen (a_gdkdrawable: POINTER): POINTER is -- GdkScreen*
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_get_visual (a_gdkdrawable: POINTER): POINTER is -- GdkVisual*
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_set_colormap (a_gdkdrawable, a_gdkcolormap: POINTER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_get_colormap (a_gdkdrawable: POINTER): POINTER is -- GdkColormap*
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_get_depth (a_gdkdrawable: POINTER): INTEGER is -- gint
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_get_size (a_gdkdrawable, gint_width, gint_height: POINTER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_get_clip_region (a_gdkdrawable: POINTER): POINTER is -- GdkRegion*
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_get_visible_region (a_gdkdrawable: POINTER): POINTER is -- GdkRegion*
-		external "C use <gdk/gdk.h>"
-		end
-	
-
-	gdk_draw_point (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_points (a_gdkdrawable, a_gdkgc, some_points: POINTER;  npoints: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_line (a_gdkdrawable, a_gdk_gc: POINTER; an_x1, an_y1, an_x2, an_y2: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_lines (a_gdkdrawable, a_gdk_gc: POINTER; some_gdk_points: POINTER; npoints: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_pixbuf (a_gdkdrawable, a_gdk_gc, a_gdkpixbuf: POINTER;
-	                 src_x, src_y, dest_x, dest_y, a_width, an_height: INTEGER;
-	                 gdkrgbdither: INTEGER; x_dither, y_dither: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_segments (a_gdkdrawable, a_gdk_gc, some_gdksegment: POINTER; nsegs: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_rectangle (a_gdkdrawable, a_gdk_gc: POINTER; gboolean_filled: INTEGER;
-	                    an_x, an_y, a_width, an_height: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_arc (a_gdkdrawable, a_gdk_gc: POINTER; gboolean_filled: INTEGER; an_x, an_y, a_width, an_height, angle1, angle2: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_polygon (a_gdkdrawable, a_gdk_gc: POINTER; boolean_filled: INTEGER; some_gdkpoint: POINTER; npoints: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_trapezoids (a_gdkdrawable, a_gdk_gc, some_gdktrapezoid: POINTER; n_trapezoids: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_glyphs (a_gdkdrawable, a_gdk_gc, a_pangofont: POINTER; an_x, an_y: INTEGER; some_pangoglyphstring: POINTER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_glyphs_transformed (a_gdkdrawable, a_gdk_gc, a_pangomatrix, a_pangofont: POINTER; an_x, an_y: INTEGERM; some_pangoglyphstring: POINTER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_layout_line (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayoutline: POINTER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_layout_line_with_colors (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayoutline, a_const_gdkcolor_foreground, const_gdkcolor_background: POINTER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_layout (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayout: POINTER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_layout_with_colors (a_gdkdrawable, a_gdk_gc: POINTER; an_x, an_y: INTEGER; a_pangolayout, const_gdkcolor_foreground, const_gdkcolor_background: POINTER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_drawable (a_gdkdrawable, a_gdk_gc, a_src_gdkdrawable: POINTER; a_xsrc, a_ysrc, a_xdest, a_ydest, a_width, an_height: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_draw_image (a_gdkdrawable, a_gdk_gc, a_gdkimage: POINTER; a_xsrc, a_ysrc, a_xdest, a_ydest, a_width, an_height: INTEGER) is
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_get_image (a_gdkdrawable: POINTER; an_x, an_y, a_width, an_height: INTEGER): POINTER is -- GdkImage*
-		external "C use <gdk/gdk.h>"
-		end
-
-	gdk_drawable_copy_to_image (a_gdkdrawable, a_gdkimage: POINTER; a_src_x, a_src_y, a_dest_x, a_dest_y, a_width, an_height: INTEGER): POINTER is -- GdkImage*
-		external "C use <gdk/gdk.h>"
-		end
 end

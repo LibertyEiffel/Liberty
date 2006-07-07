@@ -6,32 +6,95 @@ indexing
 	revision: "$Revision:$"
 
 class GDK_COLOR
-inherit C_STRUCT
+
+inherit
+	C_STRUCT
+
 creation make, from_external_pointer
+
 feature {NONE} -- size
+
 	size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkColor)"
 		end
 
-feature {NONE} -- Creation
-
 feature -- Getters and setters
-   guint32 pixel; For allocated colors, the value used to draw this color on the screen.
-   guint16 red;   The red component of the color. This is a value between 0 and 65535, with 65535
-                  indicating full intensitiy.
-   guint16 green; The blue component of the color.
-   guint16 blue;  The green component of the color.
+
+	is_allocated: BOOLEAN
+		-- Not implemented, we still need GdkColormaps for this.
+		-- Shall be set to True after a call to gdk_color_alloc()
+		-- or gdk_colors_alloc()
+
+	pixel: INTEGER is
+			-- For allocated colors, the value used to draw this color on the
+			-- screen.
+		require
+			is_allocated
+		do
+			Result := get_pixel_external (handle)
+		ensure
+			Result > 0
+		end
+
+	red: INTEGER is
+			-- The red component of the color. This is a value between 0 and
+			-- 65535, with 65535 indicating full intensitiy.
+		do
+			Result := get_red_external (handle)
+		ensure
+			Result.in_range (0, 65535)
+		end
+
+	green: INTEGER is
+			-- The green component of the color.
+		do
+			Result := get_green_external (handle)
+		ensure
+			Result.in_range (0, 65535)
+		end
+
+	blue: INTEGER is
+			-- The blue component of the color.
+		do
+			Result := get_blue_external (handle)
+		ensure
+			Result.in_range (0, 65535)
+		end
+
+	set_red (a_red: INTEGER) is
+		require
+			a_red.in_range (0, 65535)
+		do
+			set_red_external (handle, a_red)
+		ensure
+			red = a_red
+		end
+
+	set_green (a_green: INTEGER) is
+		require
+			a_green.in_range (0, 65535)
+		do
+			set_green_external (handle, a_green)
+		ensure
+			green = a_green
+		end
+
+	set_blue (a_blue: INTEGER) is
+		require
+			a_blue.in_range (0, 65535)
+		do
+			set_blue_external (handle, a_blue)
+		ensure
+			blue = a_blue
+		end
+
 
 feature {NONE} -- Low level access
+
 	get_pixel_external (ptr: POINTER): INTEGER is
 			-- Note: Result shall be NATURAL_32 since itr's a guint32
 		external "C struct GdkColor get pixel use <gdk/gdk.h>"
-		end
-
-	set_pixel_external (ptr: POINTER; a_pixel: INTEGER) is 
-			-- NOTE: a_pixel shall be a NATURAL_32 since it's a guint32
-		external "C struct GdkColor set pixel use <gdk/gdk.h>"
 		end
 
 	get_red_external (ptr: POINTER): INTEGER is
@@ -63,4 +126,5 @@ feature {NONE} -- Low level access
 			-- NOTE: a_blue shall be a NATURAL_16 since it's a guint16
 		external "C struct GdkColor set blue use <gdk/gdk.h>"
 		end
+
 end

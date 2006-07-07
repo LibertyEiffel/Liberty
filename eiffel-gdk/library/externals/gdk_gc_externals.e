@@ -1,5 +1,5 @@
 indexing
-	description: "Pixmaps - Offscreen drawables"
+	description: "External calls for GdkGC"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -17,23 +17,24 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+				]"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
-class GDK_PIXMAP
+class GDK_GC_EXTERNALS
 
-inherit
-	GDK_DRAWABLE
+feature {NONE} -- External calls
 
---insert
---	GDK_PIXMAP_EXTERNALS
-
-creation from_external_pointer
-
-feature -- size
-
-	size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GdkPixmap)"
+	gdk_gc_new (a_drawable: POINTER): POINTER is
+		external "C use <gdk/gdk.h>"
 		end
 
-end
+	gdk_gc_set_rgb_fg_color (handle, a_color: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+
+	gdk_gc_set_rgb_bg_color (handle, a_color: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+
+end -- class GDK_GC_EXTERNALS
