@@ -100,15 +100,19 @@ feature -- Access
 			-- the GtkTextTagTable associated with this buffer.
 		local retriever: G_RETRIEVER [GTK_TEXT_TAG_TABLE]; ptr: POINTER
 		do
-			ptr := gtk_text_buffer_get_tag_table (handle)
-			if retriever.has_eiffel_wrapper_stored (ptr) then
-				Result :=  retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
-			else
-				create Result.from_external_pointer (ptr)
+			if hidden_tag_table /= Void then -- retrieve the cached reference to the Eiffel wrapper
+				Result := hidden_tag_table
+			else -- try to retrieve the wrapper 
+				ptr := gtk_text_buffer_get_tag_table (handle)
+				if retriever.has_eiffel_wrapper_stored (ptr) then -- return the retrieved wrapper
+					Result :=  retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
+				else -- create a new wrapper for the underlying C object
+					create Result.from_external_pointer (ptr)
+				end
 			end
 		end
 
-	insert_text (an_iter: GTK_TEXT_ITER; some_text: STRING; a_length: INTEGER) is
+	insert_at (an_iter: GTK_TEXT_ITER; some_text: STRING; a_length: INTEGER) is
 			-- Inserts `a_length' bytes of text at `an_iter' position. If
 			-- `a_length' is -1, text must be nul-terminated and will be
 			-- inserted in its entirety. Emits the "insert_text" signal;
@@ -120,17 +124,18 @@ feature -- Access
 		require
 			valid_iter: an_iter /= Void
 			some_text: some_text /= Void
+			valid_length: a_length >= -1
 		do
 			gtk_text_buffer_insert (handle, an_iter.handle, some_text.to_external, a_length)
 		end
 
 	insert_at_cursor (some_text: STRING; a_length: INTEGER) is
-			-- calls `insert_text', using the current cursor position as
+			-- calls `insert_at', using the current cursor position as
 			-- the insertion point.
 		do
 			gtk_text_buffer_insert_at_cursor (handle, some_text.to_external, a_length)
 		end
-
+	
 	-- TODO: gboolean gtk_text_buffer_insert_interactive (GtkTextBuffer
 	-- *buffer, GtkTextIter *iter, const gchar *text, gint len,
 	-- gboolean default_editable);
@@ -196,26 +201,41 @@ feature -- Access
 	-- default_editable : 	default editability of the buffer
 	-- Returns : 	whether an insertion was possible at iter
 
-	-- gtk_text_buffer_insert_with_tags ()
+	insert_with_tags (an_iter: GTK_TEXT_ITER; some_text: STRING; some_tags: COLLECTION[GTK_TEXT_TAG]) is
+			-- Inserts `some_text' into buffer at `an_iter', applying the
+			-- list of tags to the newly-inserted text. Equivalent to
+			-- calling `insert_at', then `apply_tag' on the inserted
+			-- text; this is just a convenience feature.
 
-	-- void        gtk_text_buffer_insert_with_tags
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              const gchar *text,
-	--                                              gint len,
-	--                                              GtkTextTag *first_tag,
-	--                                              ...);
+			-- `an_iter': 	an iterator in buffer
+			-- `some_text': 	UTF-8 text
+			-- `some_tags' : 	collection of tags to apply to text
+		require 
+			iter_not_void: an_iter /= Void
+			text_not_void: some_text /= Void
+			tags_not_void: some_tags /= Void
+		local
+			tags: ITERATOR[GTK_TEXT_TAG]; 
+			start_offset: INTEGER
+			start_iter: GTK_TEXT_ITER
+		do
+			-- Note: this code is a more or less direct traduction from C
+			-- to Eiffel of the "internal" GTK implementation.
+			start_offset := an_iter.offset
 
-	-- Inserts text into buffer at iter, applying the list of tags to the newly-inserted text. The last tag specified must be NULL to terminate the list. Equivalent to calling gtk_text_buffer_insert(), then gtk_text_buffer_apply_tag() on the inserted text; gtk_text_buffer_insert_with_tags() is just a convenience function.
+			insert_at (an_iter, some_text, -1)
+			-- Now an_iter points to the end of the inserted text
+			start_iter := buffer.iter_at_offset (start_offset)
+			tags := some_tags.get_new_iterator
+			from tags.start until tags.is_off
+			loop
+				apply_tag (tags.item, start_iter, an_iter)
+				tags.next
+			end
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	an iterator in buffer
-	-- text : 	UTF-8 text
-	-- len : 	length of text, or -1
-	-- first_tag : 	first tag to apply to text
-	-- ... : 	NULL-terminated list of tags to apply
 
-	-- gtk_text_buffer_insert_with_tags_by_name ()
+	-- TODO: insert_with_tags_by_name (
 
 	-- void        gtk_text_buffer_insert_with_tags_by_name
 	--                                             (GtkTextBuffer *buffer,
@@ -461,91 +481,133 @@ feature -- Access
 	-- bound : 	where to put the "selection_bound" mark
 
 	-- Since 2.4
-	-- gtk_text_buffer_apply_tag ()
+	apply_tag (a_tag: GTK_TEXT_TAG; a_start, an_end: GTK_TEXT_ITER) is
+			-- Emits the "apply_tag" signal on buffer. The default
+			-- handler for the signal applies tag to the given
+			-- range. start and end do not have to be in order.
 
-	-- void        gtk_text_buffer_apply_tag       (GtkTextBuffer *buffer,
-	--                                              GtkTextTag *tag,
-	--                                              const GtkTextIter *start,
-	--                                              const GtkTextIter *end);
+			-- `a_tag' : a GtkTextTag
+			-- `a_start' : one bound of range to be tagged
+			-- `an_end' : other bound of range to be tagged
+		require 
+			tag_not_void: a_tag /= Void
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+		do
+			gtk_text_buffer_apply_tag (handle, a_tag.handle, a_start.handle, an_end.handle)
+		end	
 
-	-- Emits the "apply_tag" signal on buffer. The default handler for the signal applies tag to the given range. start and end do not have to be in order.
+	remove_tag  (a_tag: GTK_TEXT_TAG; a_start, an_end: GTK_TEXT_ITER) is
+			-- Emits the "remove_tag" signal. The default handler for the
+			-- signal removes all occurrences of tag from the given
+			-- range. start and end don't have to be in order.
 
-	-- buffer : 	a GtkTextBuffer
-	-- tag : 	a GtkTextTag
-	-- start : 	one bound of range to be tagged
-	-- end : 	other bound of range to be tagged
-	-- gtk_text_buffer_remove_tag ()
+			-- `a_tag' : a GtkTextTag
+			-- `a_start' : one bound of range to be tagged
+			-- `an_end' : other bound of range to be tagged
+		require 
+			tag_not_void: a_tag /= Void
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+		do
+			gtk_text_buffer_remove_tag (handle, a_tag.handle,
+												 a_start.handle, an_end.handle)
+		end			
 
-	-- void        gtk_text_buffer_remove_tag      (GtkTextBuffer *buffer,
-	--                                              GtkTextTag *tag,
-	--                                              const GtkTextIter *start,
-	--                                              const GtkTextIter *end);
+	apply_tag_by_name (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER) is
+			-- Calls ` gtk_text_tag_table_lookup' on the buffer's tag
+			-- table to get a GtkTextTag, then calls `apply_tag'.
 
-	-- Emits the "remove_tag" signal. The default handler for the signal removes all occurrences of tag from the given range. start and end don't have to be in order.
+			-- `a_tag_name' : the name of a tag
+			-- `a_start' : one bound of range to be tagged
+			-- `an_end' : other bound of range to be tagged
+		require 
+			tag_name_not_void: a_tag_name /= Void
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+		do
+			gtk_text_buffer_apply_tag_by_name (handle,
+														  a_tag_name.to_external,
+														  a_start.handle, an_end.handle)
+		end																	  
 
-	-- buffer : 	a GtkTextBuffer
-	-- tag : 	a GtkTextTag
-	-- start : 	one bound of range to be untagged
-	-- end : 	other bound of range to be untagged
-	-- gtk_text_buffer_apply_tag_by_name ()
+	remove_tag_by_name  (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER) is
+			-- Calls `gtk_text_tag_table_lookup' on the buffer's tag
+			-- table to get a GtkTextTag, then calls `remove_tag'.
 
-	-- void        gtk_text_buffer_apply_tag_by_name
-	--                                             (GtkTextBuffer *buffer,
-	--                                              const gchar *name,
-	--                                              const GtkTextIter *start,
-	--                                              const GtkTextIter *end);
+			-- `a_tag_name' : the name of a tag
+			-- `a_start' : one bound of range to be tagged
+			-- `an_end' : other bound of range to be tagged
+		require 
+			tag_name_not_void: a_tag_name /= Void
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+		do
+			gtk_text_buffer_remove_tag_by_name (handle, 
+														  a_tag_name.to_external,
+														  a_start.handle, an_end.handle)
+		end
+	
+	remove_all_tags (a_start, an_end: GTK_TEXT_ITER) is
+			-- Removes all tags in the range between `a_start' and
+			-- `an_end'. Be careful with this function; it could remove
+			-- tags added in code unrelated to the code you're currently
+			-- writing. That is, using this function is probably a bad
+			-- idea if you have two or more unrelated code sections that
+			-- add tags.
 
-	-- Calls gtk_text_tag_table_lookup() on the buffer's tag table to get a GtkTextTag, then calls gtk_text_buffer_apply_tag().
+			-- `a_start' : one bound of range to be tagged
+			-- `an_end' : other bound of range to be tagged
+		require 
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+		do
+			gtk_text_buffer_remove_all_tags (handle, a_start.handle,an_end.handle)
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- name : 	name of a named GtkTextTag
-	-- start : 	one bound of range to be tagged
-	-- end : 	other bound of range to be tagged
-	-- gtk_text_buffer_remove_tag_by_name ()
+	create_tag (a_tag_name: STRING; some_properties: COLLECTION[TUPLE[STRING,G_VALUE]]): GTK_TEXT_TAG is
+			-- Creates a tag and adds it to the tag table for
+			-- buffer. Equivalent to calling `GTK_TEXT_TAG.make' and then
+			-- adding the tag to the buffer's tag table. The tag is owned
+			-- by the buffer's tag table, so the ref count will be equal
+			-- to one.
 
-	-- void        gtk_text_buffer_remove_tag_by_name
-	--                                             (GtkTextBuffer *buffer,
-	--                                              const gchar *name,
-	--                                              const GtkTextIter *start,
-	--                                              const GtkTextIter *end);
+			-- If a_tag_name is Void, the tag is anonymous.
+		
+			-- If tag_name is non-Void, a tag called tag_name must not
+			-- already exist in the tag table for this buffer.
 
-	-- Calls gtk_text_tag_table_lookup() on the buffer's tag table to get a GtkTextTag, then calls gtk_text_buffer_remove_tag().
+			-- The first_property_name argument and subsequent arguments
+			-- are a list of properties to set on the tag, as with
+			-- g_object_set().
 
-	-- buffer : 	a GtkTextBuffer
-	-- name : 	name of a GtkTextTag
-	-- start : 	one bound of range to be untagged
-	-- end : 	other bound of range to be untagged
-	-- gtk_text_buffer_remove_all_tags ()
+			-- `a_tag_name': name of the new tag, or Void
+		local 
+			tag_ptr, tagname_ptr: POINTER; 
+			iterator: ITERATOR[TUPLE[STRING,G_VALUE]]
+			a_name: STRING; a_value: G_VALUE
+		do
+			if a_tag_name /= Void then 
+				create Result.with_name (a_tag_name)
+			else 
+				create Result.make
+			end
+			
+			tag_table.add (Result)
+			iterator := some_properties.get_new_iterator
+			from iterator.start until iterator.is_off
+			loop
+				a_name := iterator.item.item_1; a_value := iterator.item.item_2
+				: iterator.item.item_1 /= Void
+				check 
+					name_not_void: a_name /= Void
+					value_not_void: a_value /= Void
+				end
+				Result.set_property (a_name, a_value)
+				iterator.next
+			end
+		end
 
-	-- void        gtk_text_buffer_remove_all_tags (GtkTextBuffer *buffer,
-	--                                              const GtkTextIter *start,
-	--                                              const GtkTextIter *end);
-
-	-- Removes all tags in the range between start and end. Be careful with this function; it could remove tags added in code unrelated to the code you're currently writing. That is, using this function is probably a bad idea if you have two or more unrelated code sections that add tags.
-
-	-- buffer : 	a GtkTextBuffer
-	-- start : 	one bound of range to be untagged
-	-- end : 	other bound of range to be untagged
-	-- gtk_text_buffer_create_tag ()
-
-	-- GtkTextTag* gtk_text_buffer_create_tag      (GtkTextBuffer *buffer,
-	--                                              const gchar *tag_name,
-	--                                              const gchar *first_property_name,
-	--                                              ...);
-
-	-- Creates a tag and adds it to the tag table for buffer. Equivalent to calling gtk_text_tag_new() and then adding the tag to the buffer's tag table. The returned tag is owned by the buffer's tag table, so the ref count will be equal to one.
-
-	-- If tag_name is NULL, the tag is anonymous.
-
-	-- If tag_name is non-NULL, a tag called tag_name must not already exist in the tag table for this buffer.
-
-	-- The first_property_name argument and subsequent arguments are a list of properties to set on the tag, as with g_object_set().
-
-	-- buffer : 	a GtkTextBuffer
-	-- tag_name : 	name of the new tag, or NULL
-	-- first_property_name : 	name of first property to set, or NULL
-	-- ... : 	NULL-terminated list of property names and values
-	-- Returns : 	a new tag
 	-- gtk_text_buffer_get_iter_at_line_offset ()
 
 	-- void        gtk_text_buffer_get_iter_at_line_offset
@@ -560,18 +622,20 @@ feature -- Access
 	-- iter : 	iterator to initialize
 	-- line_number : 	line number counting from 0
 	-- char_offset : 	char offset from start of line
-	-- gtk_text_buffer_get_iter_at_offset ()
 
-	-- void        gtk_text_buffer_get_iter_at_offset
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              gint char_offset);
+	iter_at_offset (an_offset: INTEGER): GTK_TEXT_ITER is
+			-- The iterator pointing to a position `an_offset' chars from
+			-- the start of the entire buffer. If `an_offset' is -1 or
+			-- greater than the number of characters in the buffer, iter
+			-- is initialized to the end iterator, the iterator one past
+			-- the last valid character in the buffer.
 
-	-- Initializes iter to a position char_offset chars from the start of the entire buffer. If char_offset is -1 or greater than the number of characters in the buffer, iter is initialized to the end iterator, the iterator one past the last valid character in the buffer.
-
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	iterator to initialize
-	-- char_offset : 	char offset from start of buffer, counting from 0, or -1
+			-- `an_offset': char offset from start of buffer, counting
+			-- from 0, or -1
+		do
+			create Result.make
+			gtk_text_buffer_get_iter_at_offset (handle, Result.handle, an_offset)
+		end
 	-- gtk_text_buffer_get_iter_at_line ()
 
 	-- void        gtk_text_buffer_get_iter_at_line
@@ -904,5 +968,9 @@ feature -- Access
 
 -- GtkTextView, GtkTextIter, GtkTextMark
 
+feature {} -- Implementation
+	hidden_tag_table: GTK_TEXT_TAG_TABLE
+			-- Hidden reference to the Eiffel wrapper of the
+			-- GtkTextTagTable of Current. Handled by `tag_table'.
 
 end -- class GTK_TEXT_BUFFER

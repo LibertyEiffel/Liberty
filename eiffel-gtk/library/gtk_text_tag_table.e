@@ -35,45 +35,42 @@ creation make, from_external_pointer
 feature {} -- Creation
 
 	make is
+			-- Creates a new GtkTextTagTable. The table contains no tags
+			-- by default.
 		do
 			handle := gtk_text_tag_table_new
+			store_eiffel_wrapper
 		end
 
--- GtkTextTagTable* gtk_text_tag_table_new     (void);
+feature
+	add (a_tag: GTK_TEXT_TAG) is
+			-- Add a tag to the table. The tag is assigned the highest priority in the table.
+		require
+			tag_not_void: a_tag /= Void
+			-- TODO: tag must not be in a tag table already,
+			-- TODO: a tagmay not have the same name as an already-added tag.
+		do
+			gtk_text_tag_table_add (handle, a_tag.handle)
+		end
 
--- Creates a new GtkTextTagTable. The table contains no tags by default.
+	remove (a_tag: GTK_TEXT_TAG) is
+			-- Remove a tag from the table. This will remove the table's
+			-- reference to the tag, so be careful - the tag will end up
+			-- destroyed if you don't have a reference to it.
+		require
+			tag_not_void: a_tag /= Void
+		do
+			gtk_text_tag_table_remove (handle, a_tag.handle)
+		end
+	
+	lookup (a_name: STRING): GTK_TEXT_TAG is
+			-- Lookup the tag with `a_name', or Void if none by that name
+			-- is in the table.
+		local ptr: POINTER
+		do
+			ptr := gtk_text_tag_table_lookup (handle, a_name.to_external)
+		end
 
--- Returns : 	a new GtkTextTagTable
--- gtk_text_tag_table_add ()
-
--- void        gtk_text_tag_table_add          (GtkTextTagTable *table,
---                                              GtkTextTag *tag);
-
--- Add a tag to the table. The tag is assigned the highest priority in the table.
-
--- tag must not be in a tag table already, and may not have the same name as an already-added tag.
-
--- table : 	a GtkTextTagTable
--- tag : 	a GtkTextTag
--- gtk_text_tag_table_remove ()
-
--- void        gtk_text_tag_table_remove       (GtkTextTagTable *table,
---                                              GtkTextTag *tag);
-
--- Remove a tag from the table. This will remove the table's reference to the tag, so be careful - the tag will end up destroyed if you don't have a reference to it.
-
--- table : 	a GtkTextTagTable
--- tag : 	a GtkTextTag
--- gtk_text_tag_table_lookup ()
-
--- GtkTextTag* gtk_text_tag_table_lookup       (GtkTextTagTable *table,
---                                              const gchar *name);
-
--- Look up a named tag.
-
--- table : 	a GtkTextTagTable
--- name : 	name of a tag
--- Returns : 	The tag, or NULL if none by that name is in the table.
 -- gtk_text_tag_table_foreach ()
 
 -- void        gtk_text_tag_table_foreach      (GtkTextTagTable *table,

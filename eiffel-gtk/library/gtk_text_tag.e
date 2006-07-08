@@ -36,7 +36,7 @@ indexing
 
 class GTK_TEXT_TAG
 inherit G_OBJECT
-creation with_name
+creation make, with_name, from_external_pointer
 
 feature {} -- Creation
 	with_name (a_name: STRING) is
