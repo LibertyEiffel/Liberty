@@ -10,9 +10,10 @@ class GDK_COLOR
 inherit
 	C_STRUCT
 
-creation make, from_external_pointer
+creation
+	make, from_external_pointer
 
-feature {NONE} -- size
+feature {WRAPPER} -- size
 
 	size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
@@ -102,7 +103,7 @@ feature {NONE} -- Low level access
 		external "C struct GdkColor get red use <gdk/gdk.h>"
 		end
 
-	set_red_external (ptr: POINTER; a_red: INTEGER) is 
+	set_red_external (ptr: POINTER; a_red: INTEGER) is
 			-- NOTE: a_red shall be a NATURAL_16 since it's a guint16
 		external "C struct GdkColor set red use <gdk/gdk.h>"
 		end
@@ -112,7 +113,7 @@ feature {NONE} -- Low level access
 		external "C struct GdkColor get green use <gdk/gdk.h>"
 		end
 
-	set_green_external (ptr: POINTER; a_green: INTEGER) is 
+	set_green_external (ptr: POINTER; a_green: INTEGER) is
 			-- NOTE: a_ shall be a NATURAL_16 since it's a guint16
 		external "C struct GdkColor set green use <gdk/gdk.h>"
 		end
@@ -122,7 +123,7 @@ feature {NONE} -- Low level access
 		external "C struct GdkColor get blue use <gdk/gdk.h>"
 		end
 
-	set_blue_external (ptr: POINTER; a_blue: INTEGER) is 
+	set_blue_external (ptr: POINTER; a_blue: INTEGER) is
 			-- NOTE: a_blue shall be a NATURAL_16 since it's a guint16
 		external "C struct GdkColor set blue use <gdk/gdk.h>"
 		end
