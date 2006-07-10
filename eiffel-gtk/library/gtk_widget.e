@@ -26,7 +26,8 @@ deferred class GTK_WIDGET
 
 inherit GTK_OBJECT
 
-insert GTK_WIDGET_EXTERNALS
+insert
+	GTK_WIDGET_EXTERNALS
 
 feature
 	show is
@@ -67,11 +68,6 @@ feature
 		end
 
 -- widget : 	a GtkWidget
-	
-	-- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
-	-- Top  |  Description  |  Object Hierarchy  |  Properties  |  Style Properties  |  Signals
-	-- GtkWidget
-	
 
 	
 	-- Synopsis
@@ -1895,37 +1891,58 @@ feature -- Signals
 
 -- widget : 	a GtkWidget
 -- font_desc : 	the font description to use, or NULL to undo the effect of previous calls to gtk_widget_modify_font().
--- gtk_widget_create_pango_context ()
 
--- PangoContext* gtk_widget_create_pango_context
---                                             (GtkWidget *widget);
+	create_pango_context: PANGO_CONTEXT is
+			-- Creates a new PANGO_CONTEXT with the appropriate colormap,
+			-- font description, and base direction for drawing text for
+			-- this widget. See also pango_context.
+		do
+			create Result.from_external_pointer (gtk_widget_create_pango_context (handle))
+		ensure
+			Result /= Void
+		end
 
--- Creates a new PangoContext with the appropriate colormap, font description, and base direction for drawing text for this widget. See also gtk_widget_get_pango_context().
+	pango_context: PANGO_CONTEXT is
+			-- Gets a PANGO_CONTEXT with the appropriate colormap, font
+			-- description and base direction for this widget. Unlike the
+			-- context returned by create_pango_context, this context is
+			-- owned by the widget (it can be used until the screen for
+			-- the widget changes or the widget is removed from its
+			-- toplevel), and will be updated to match any changes to the
+			-- widget's attributes.
+			--
+			-- If you create and keep a PANGO_LAYOUT using this context,
+			-- you must deal with changes to the context by calling
+			-- context_changed on the layout in response to the ::style-set
+			-- and ::direction-changed signals for the widget.
+		local
+			context_ptr: POINTER
+			retriever: G_RETRIEVER [PANGO_CONTEXT]
+		do
+			create retriever
+			context_ptr := gtk_widget_get_pango_context (handle)
+			if retriever.has_eiffel_wrapper_stored (context_ptr) then
+				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (context_ptr)
+			else
+				create Result.from_external_pointer (context_ptr)
+			end
+		end
 
--- widget : 	a GtkWidget
--- Returns : 	the new PangoContext
--- gtk_widget_get_pango_context ()
+	create_pango_layout (a_text: STRING): PANGO_LAYOUT is
+			-- Creates a new PANGO_LAYOUT with the appropriate colormap,
+			-- font description, and base direction for drawing text for this
+			-- widget.
+			--
+			-- If you keep a PANGO_LAYOUT created in this way around, in order
+			-- notify the layout of changes to the base direction or font of
+			-- this widget, you must call layout.context_changed in response
+			-- to the ::style-set and ::direction-changed signals for the
+			-- widget.
+		do
+			create Result.from_external_pointer (
+				gtk_widget_create_pango_layout (handle, a_text.to_external))
+		end
 
--- PangoContext* gtk_widget_get_pango_context  (GtkWidget *widget);
-
--- Gets a PangoContext with the appropriate colormap, font description and base direction for this widget. Unlike the context returned by gtk_widget_create_pango_context(), this context is owned by the widget (it can be used until the screen for the widget changes or the widget is removed from its toplevel), and will be updated to match any changes to the widget's attributes.
-
--- If you create and keep a PangoLayout using this context, you must deal with changes to the context by calling pango_layout_context_changed() on the layout in response to the ::style-set and ::direction-changed signals for the widget.
-
--- widget : 	a GtkWidget
--- Returns : 	the PangoContext for the widget.
--- gtk_widget_create_pango_layout ()
-
--- PangoLayout* gtk_widget_create_pango_layout (GtkWidget *widget,
---                                              const gchar *text);
-
--- Creates a new PangoLayout with the appropriate colormap, font description, and base direction for drawing text for this widget.
-
--- If you keep a PangoLayout created in this way around, in order notify the layout of changes to the base direction or font of this widget, you must call pango_layout_context_changed() in response to the ::style-set and ::direction-changed signals for the widget.
-
--- widget : 	a GtkWidget
--- text : 	text to set on the layout (can be NULL)
--- Returns : 	the new PangoLayout
 -- gtk_widget_render_icon ()
 
 -- GdkPixbuf*  gtk_widget_render_icon          (GtkWidget *widget,

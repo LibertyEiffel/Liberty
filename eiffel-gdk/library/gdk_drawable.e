@@ -416,75 +416,73 @@ feature
 	-- line : 	a PangoLayoutLine
 	-- foreground : 	foreground override color, or NULL for none
 	-- background : 	background override color, or NULL for none
-	-- gdk_draw_layout ()
 
-	-- void        gdk_draw_layout                 (GdkDrawable *drawable,
-	--                                              GdkGC *gc,
-	--                                              gint x,
-	--                                              gint y,
-	--                                              PangoLayout *layout);
 
-	-- Render a PangoLayout onto a GDK drawable
+	draw_layout (a_gc: GDK_GC; an_x, an_y: INTEGER; a_layout: PANGO_LAYOUT) is
+			-- Render a PangoLayout onto a GDK drawable
+			--
+			-- If the layout's PANGO_CONTEXT has a transformation matrix set,
+			-- then an_x and an_y specify the position of the top left corner
+			-- of the bounding box (in device space) of the transformed layout.
+			--
+			-- If you're using GTK+, the usual way to obtain a PANGO_LAYOUT is
+			-- my_widget.create_pango_layout
+		require
+			a_gc /= Void
+			a_layout /= Void
+		do
+			gdk_draw_layout (handle, a_gc.handle, an_x, an_y, a_layout.handle)
+		end
 
-	-- If the layout's PangoContext has a transformation matrix set, then x and y specify the position of the top left corner of the bounding box (in device space) of the transformed layout.
+	draw_layout_with_colors (a_gc: GDK_GC; an_x, an_y: INTEGER;
+				a_layout: PANGO_LAYOUT; a_foreground, a_background: GDK_COLOR) is
+			-- Render a PANGO_LAYOUT onto a GDK_DRAWABLE, overriding the
+			-- layout's normal colors with a_foreground and/or a_background.
+			-- a_foreground and a_background need not be allocated.
+			--
+			-- If the layout's PANGO_CONTEXT has a transformation matrix set,
+			-- then an_x and an_y specify the position of the top left corner
+			-- of the bounding box (in device space) of the transformed layout.
+			--
+			-- If you're using GTK+, the ususal way to obtain a PANGO_LAYOUT
+			-- is my_widget.create_pango_layout.
+		require
+			a_gc /= Void
+			a_layout /= Void
+		local
+			fg_ptr, bg_ptr: POINTER
+		do
+			if a_foreground /= Void then fg_ptr := a_foreground.handle end
+			if a_background /= Void then bg_ptr := a_background.handle end
+			gdk_draw_layout_with_colors (handle, a_gc.handle, an_x, an_y,
+									a_layout.handle, fg_ptr, bg_ptr)
+		end
 
-	-- If you're using GTK+, the usual way to obtain a PangoLayout is gtk_widget_create_pango_layout().
+	draw_drawable (a_gc: GDK_GC; a_drawable: GDK_DRAWABLE; xsrc, ysrc, xdest,
+					ydest, a_width, a_height: INTEGER) is
+			-- Copies the <width x height> region of a_drawable at coordinates
+			-- (xsrc, ysrc) to coordinates (xdest, ydest) in Current.
+			-- a_width and/or a_height may be given as -1, in which case the
+			-- entire a_drawable drawable will be copied.
+			--
+			-- Most fields in a_gc are not used for this operation, but notably
+			-- the clip mask or clip region will be honored.
+			--
+			-- The source and destination drawables must have the same visual
+			-- and colormap, or errors will result. (On X11, failure to match
+			-- visual/colormap results in a BadMatch error from the X server.)
+			-- A common cause of this problem is an attempt to draw a bitmap
+			-- to a color drawable. The way to draw a bitmap is to set the
+			-- bitmap as the stipple on the GdkGC, set the fill mode to
+			-- GDK_STIPPLED, and then draw the rectangle.
+		require
+			a_gc /= Void
+			a_drawable /= Void
+		do
+			gdk_draw_drawable (handle, a_gc.handle, a_drawable.handle,
+								xsrc, ysrc, xdest, ydest, a_width, a_height)
+		end
 
-	-- drawable : 	the drawable on which to draw string
-	-- gc : 	base graphics context to use
-	-- x : 	the X position of the left of the layout (in pixels)
-	-- y : 	the Y position of the top of the layout (in pixels)
-	-- layout : 	a PangoLayout
-	-- gdk_draw_layout_with_colors ()
-
-	-- void        gdk_draw_layout_with_colors     (GdkDrawable *drawable,
-	--                                              GdkGC *gc,
-	--                                              gint x,
-	--                                              gint y,
-	--                                              PangoLayout *layout,
-	--                                              const GdkColor *foreground,
-	--                                              const GdkColor *background);
-
-	-- Render a PangoLayout onto a GdkDrawable, overriding the layout's normal colors with foreground and/or background. foreground and background need not be allocated.
-
-	-- If the layout's PangoContext has a transformation matrix set, then x and y specify the position of the top left corner of the bounding box (in device space) of the transformed layout.
-
-	-- If you're using GTK+, the ususal way to obtain a PangoLayout is gtk_widget_create_pango_layout().
-
-	-- drawable : 	the drawable on which to draw string
-	-- gc : 	base graphics context to use
-	-- x : 	the X position of the left of the layout (in pixels)
-	-- y : 	the Y position of the top of the layout (in pixels)
-	-- layout : 	a PangoLayout
-	-- foreground : 	foreground override color, or NULL for none
-	-- background : 	background override color, or NULL for none
-	-- gdk_draw_drawable ()
-
-	-- void        gdk_draw_drawable               (GdkDrawable *drawable,
-	--                                              GdkGC *gc,
-	--                                              GdkDrawable *src,
-	--                                              gint xsrc,
-	--                                              gint ysrc,
-	--                                              gint xdest,
-	--                                              gint ydest,
-	--                                              gint width,
-	--                                              gint height);
-
-	-- Copies the width x height region of src at coordinates (xsrc, ysrc) to coordinates (xdest, ydest) in drawable. width and/or height may be given as -1, in which case the entire src drawable will be copied.
-
-	-- Most fields in gc are not used for this operation, but notably the clip mask or clip region will be honored.
-
-	-- The source and destination drawables must have the same visual and colormap, or errors will result. (On X11, failure to match visual/colormap results in a BadMatch error from the X server.) A common cause of this problem is an attempt to draw a bitmap to a color drawable. The way to draw a bitmap is to set the bitmap as the stipple on the GdkGC, set the fill mode to GDK_STIPPLED, and then draw the rectangle.
-
-	-- drawable : 	a GdkDrawable
-	-- gc : 	a GdkGC sharing the drawable's visual and colormap
-	-- src : 	the source GdkDrawable, which may be the same as drawable
-	-- xsrc : 	X position in src of rectangle to draw
-	-- ysrc : 	Y position in src of rectangle to draw
-	-- xdest : 	X position in drawable where the rectangle should be drawn
-	-- ydest : 	Y position in drawable where the rectangle should be drawn
-	-- width : 	width of rectangle to draw, or -1 for entire src width
-	-- height : 	height of rectangle to draw, or -1 for entire src height
 	-- gdk_draw_image ()
 
 	-- void        gdk_draw_image                  (GdkDrawable *drawable,

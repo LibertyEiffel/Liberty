@@ -457,19 +457,17 @@ feature {NONE} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
--- PangoContext* gtk_widget_create_pango_context
---                                             (GtkWidget *widget) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_create_pango_context (a_widget: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
--- PangoContext* gtk_widget_get_pango_context  (GtkWidget *widget) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_get_pango_context  (a_widget: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
--- PangoLayout* gtk_widget_create_pango_layout (GtkWidget *widget,
---                                              const gchar *text) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_create_pango_layout (a_widget, a_text: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- GdkPixbuf*  gtk_widget_render_icon          (GtkWidget *widget,
 --                                              const gchar *stock_id,

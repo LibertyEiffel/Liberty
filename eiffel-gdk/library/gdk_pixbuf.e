@@ -36,7 +36,7 @@ insert
 	GDK_COLORSPACE
 
 creation
-	make, from_external_pointer, from_file, from_file_at_size
+	make, from_external_pointer, from_file, from_file_at_size, from_drawable
 
 feature -- Creation
 
@@ -54,20 +54,15 @@ feature -- Creation
 			a_ptr.is_not_null = is_valid
 		end
 
+feature {NONE} -- Creation
+
 	from_file (filename: STRING) is
 			-- New pixbuf by loading an image from `filename'.
 			-- The file format is detected automatically. 
 		require
 			filename /= Void
-		local
-			ptr: POINTER
 		do
-			ptr := gdk_pixbuf_new_from_file(filename.to_external, default_pointer)
-			if ptr.is_not_null then
-				set_handle(ptr)
-				is_valid := True
-				store_eiffel_wrapper
-			end
+			from_external_pointer (gdk_pixbuf_new_from_file(filename.to_external, default_pointer))
 		ensure
 			is_valid = is_g_object
 		end
@@ -82,22 +77,21 @@ feature -- Creation
 			a_width >= -1
 			a_height >= -1
 			filename /= Void
-		local
-			ptr: POINTER
 		do
-			ptr := gdk_pixbuf_new_from_file_at_size(filename.to_external, a_width, a_height, default_pointer)
-			if ptr.is_not_null then
-				set_handle(ptr)
-				is_valid := True
-				store_eiffel_wrapper
-			end
+			from_external_pointer (gdk_pixbuf_new_from_file_at_size (filename.to_external, a_width, a_height, default_pointer))
 		ensure
 			is_valid = is_g_object
 		end
 
-feature {NONE} -- Creation
+	from_drawable (a_drawable: GDK_DRAWABLE; src_x, src_y, a_width, a_height: INTEGER) is
+		require
+			a_drawable /= Void
+		do
+			from_external_pointer (gdk_pixbuf_get_from_drawable (default_pointer, a_drawable.handle,
+				default_pointer, src_x, src_y, 0, 0, a_width, a_height))
+		end
 
-	make(a_alpha: BOOLEAN; a_width, a_height: INTEGER) is
+	make (a_alpha: BOOLEAN; a_width, a_height: INTEGER) is
 		-- Creates a new GdkPixbuf structure and allocates a buffer for it.
 		-- The buffer has an optimal rowstride. Note that the buffer is not
 		-- cleared; you will have to fill it completely yourself.
@@ -149,6 +143,7 @@ feature -- Operations
 		ensure
 			Result.first /= Void
 		end
+
 
 -- gdk_pixbuf_new_from_file_at_scale ()
 -- 

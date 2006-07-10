@@ -155,4 +155,10 @@ feature {NONE} -- External calls
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
+	gdk_pixbuf_get_from_drawable (a_pixbuf, a_drawable, a_colormap: POINTER;
+				 src_x, src_y, dest_x, dest_y, a_width, a_height: INTEGER): POINTER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+
 end -- class GDK_PIXBUF_EXTERNALS
