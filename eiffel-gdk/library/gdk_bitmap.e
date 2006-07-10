@@ -27,7 +27,8 @@ inherit
 --insert
 --	GDK_BITMAP_EXTERNALS
 
-creation, from_external_pointer
+creation
+	from_external_pointer
 
 feature -- size
 
