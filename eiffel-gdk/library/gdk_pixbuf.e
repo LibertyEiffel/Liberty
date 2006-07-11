@@ -26,25 +26,32 @@ indexing
 
 class GDK_PIXBUF
 
-inherit G_OBJECT
-	rename
-		make as g_object_make
-	redefine dispose, from_external_pointer end
+inherit
+	G_OBJECT
+		rename make as g_object_make
+		redefine dispose, from_external_pointer end
 
 insert
 	GDK_PIXBUF_EXTERNALS
 	GDK_COLORSPACE
 
 creation
-	make, from_external_pointer, from_file, from_file_at_size, from_drawable
+	make, from_external_pointer, from_file, from_file_at_size, from_drawable, from_pixbuf
 
 feature -- Creation
 
+	from_pixbuf (other: like Current) is
+		require
+			other.handle.is_not_null
+		do
+			from_external_pointer (gdk_pixbuf_copy (other.handle))
+		end
+
 	from_external_pointer (a_ptr: POINTER) is
 		require else
-			--called_on_creation: is_null
+			called_on_creation: is_null
 			--pointer_not_null: a_ptr.is_not_null
-			--not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
+			not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
 		do
 			if a_ptr.is_not_null then
 				Precursor (a_ptr)
@@ -290,7 +297,7 @@ feature -- Composites
 			-- `color2'.
 		require
 			colors_conform_guint32: color1 >= 0 and color2 >= 0
-			valid_alpha: 0 <= overall_alpha and overall_alpha <= 255
+			valid_alpha: overall_alpha.in_range (0, 255)
 			valid_check_size: check_size.is_a_power_of_2
 			valid_interp_type: is_valid_gdk_interp_type (interp_type)
 		local
@@ -314,7 +321,7 @@ feature -- Composites
 			-- When the destination rectangle contains parts not in the source
 			-- image, the data at the edges of the source image is replicated to infinity.
 		require
-			valid_alpha: 0 <= overall_alpha and overall_alpha <= 255
+			valid_alpha: overall_alpha.in_range (0, 255)
 			valid_interp_type: is_valid_gdk_interp_type (interp_type)
 		do
 			gdk_pixbuf_composite (handle, dest.handle, dest_x, dest_y, dest_width, dest_height,
@@ -335,7 +342,7 @@ feature -- Composites
 			-- variant of this function suitable for many tasks.
 		require
 			colors_conform_guint32: color1 >= 0 and color2 >= 0
-			valid_alpha: 0 <= overall_alpha and overall_alpha <= 255
+			valid_alpha: overall_alpha.in_range (0, 255)
 			valid_check_size: check_size.is_a_power_of_2
 			valid_interp_type: is_valid_gdk_interp_type (interp_type)
 		do

@@ -27,6 +27,10 @@ insert GDK_INTERP_TYPE
 
 feature {NONE} -- External calls
 
+	gdk_pixbuf_copy (pixbuf: POINTER): POINTER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
 	gdk_pixbuf_new_from_file (filename, error: POINTER): POINTER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
