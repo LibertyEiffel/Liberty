@@ -210,12 +210,12 @@ feature -- Access
 			-- `an_iter': 	an iterator in buffer
 			-- `some_text': 	UTF-8 text
 			-- `some_tags' : 	collection of tags to apply to text
-		require 
+		require
 			iter_not_void: an_iter /= Void
 			text_not_void: some_text /= Void
 			tags_not_void: some_tags /= Void
 		local
-			tags: ITERATOR[GTK_TEXT_TAG]; 
+			tags: ITERATOR[GTK_TEXT_TAG];
 			start_offset: INTEGER
 			start_iter: GTK_TEXT_ITER
 		do
@@ -225,7 +225,7 @@ feature -- Access
 
 			insert_at (an_iter, some_text, -1)
 			-- Now an_iter points to the end of the inserted text
-			start_iter := buffer.iter_at_offset (start_offset)
+			start_iter := iter_at_offset (start_offset)
 			tags := some_tags.get_new_iterator
 			from tags.start until tags.is_off
 			loop
@@ -582,14 +582,14 @@ feature -- Access
 			-- g_object_set().
 
 			-- `a_tag_name': name of the new tag, or Void
-		local 
-			tag_ptr, tagname_ptr: POINTER; 
+		local
+			tag_ptr, tagname_ptr: POINTER;
 			iterator: ITERATOR[TUPLE[STRING,G_VALUE]]
 			a_name: STRING; a_value: G_VALUE
 		do
-			if a_tag_name /= Void then 
+			if a_tag_name /= Void then
 				create Result.with_name (a_tag_name)
-			else 
+			else
 				create Result.make
 			end
 			
@@ -597,8 +597,8 @@ feature -- Access
 			iterator := some_properties.get_new_iterator
 			from iterator.start until iterator.is_off
 			loop
-				a_name := iterator.item.item_1; a_value := iterator.item.item_2
-				: iterator.item.item_1 /= Void
+				a_name := iterator.item.item_1
+				a_value := iterator.item.item_2
 				check 
 					name_not_void: a_name /= Void
 					value_not_void: a_value /= Void

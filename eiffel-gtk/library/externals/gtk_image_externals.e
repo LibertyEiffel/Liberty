@@ -19,15 +19,15 @@ indexing
 					]"
 class GTK_IMAGE_EXTERNALS
 feature {NONE} -- External calls
-	gtk_image_new : POINTER is
+	gtk_image_new: POINTER is
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_image_new_from_file (filename: POINTER) : POINTER  is
+	gtk_image_new_from_file (filename: POINTER): POINTER  is
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_image_new_from_pixbuf (a_pixbuf: POINTER) : POINTER  is
+	gtk_image_new_from_pixbuf (a_pixbuf: POINTER): POINTER  is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -39,11 +39,20 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_image_get_pixel_size (image: POINTER) : INTEGER is
+	gtk_image_get_pixel_size (image: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_image_set_pixel_size (image: POINTER;a_pixel_size : INTEGER) is
+	gtk_image_set_pixel_size (image: POINTER;a_pixel_size: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
+
+	gtk_image_new_from_pixmap (a_pixmap, a_mask: POINTER): POINTER  is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_image_set_from_pixmap (image, a_pixmap, a_mask: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
 end

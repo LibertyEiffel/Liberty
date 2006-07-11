@@ -29,15 +29,14 @@ inherit
 	GTK_IMAGE_EXTERNALS
 	
 creation
-	make, from_file, from_external_pointer, from_pixbuf
-	
+	make, from_file, from_external_pointer, from_pixbuf, from_pixmap
+
 feature {NONE} -- Initialization
 
 	make is
 			-- Create an empty gtk_image widget.
 		do
-			handle := gtk_image_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_image_new)
 		end
 
 	from_file (filename: STRING) is
@@ -47,8 +46,7 @@ feature {NONE} -- Initialization
 		require
 			valid_filename: filename/=Void
 		do
-			handle := gtk_image_new_from_file (filename.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_image_new_from_file (filename.to_external))
 		end
 
 
@@ -57,8 +55,19 @@ feature {NONE} -- Initialization
 		require
 			valid_pixbuf: pic /= Void
 		do
-			handle := gtk_image_new_from_pixbuf (pic.handle)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_image_new_from_pixbuf (pic.handle))
+		end
+
+	from_pixmap (a_pixmap: GDK_PIXMAP; a_mask: GDK_BITMAP) is
+			-- Creates a GtkImage widget displaying pixmap with a mask.
+			-- A GDK_PIXMAP is a server-side image buffer in the pixel
+			-- format of the current display.
+		local
+			pixmap_ptr, mask_ptr: POINTER
+		do
+			if a_pixmap /= Void then pixmap_ptr := a_pixmap.handle end
+			if a_mask /= Void then mask_ptr := a_mask.handle end
+			from_external_pointer (gtk_image_new_from_pixmap (pixmap_ptr, mask_ptr))
 		end
 
 	-- Todo : Write gdk_visual, gdk_pixmap, ...
@@ -67,7 +76,6 @@ feature {NONE} -- Initialization
 
 	-- Todo : GtkWidget*  gtk_image_new_from_icon_set ()
 	-- Todo : GtkWidget*  gtk_image_new_from_image ()
-	-- Todo : GtkWidget*  gtk_image_new_from_pixmap ()
 	-- Todo : GtkWidget*  gtk_image_new_from_stock ()
 	-- Todo : GtkWidget*  gtk_image_new_from_animation ()
 	-- Todo : GtkWidget*  gtk_image_new_from_icon_name ()
@@ -84,11 +92,21 @@ feature -- Element change
 		end
 
 	set_from_pixbuf (pixbuf: GDK_PIXBUF) is
-            -- See `from_pixbuf' for details.
+			-- See `from_pixbuf' for details.
 		require
 			valid_pixbuf: pixbuf /= Void
 		do
 			gtk_image_set_from_pixbuf (handle, pixbuf.handle)
+		end
+
+	set_from_pixmap (a_pixmap: GDK_PIXMAP; a_mask: GDK_BITMAP) is
+			-- See `from_pixmap' for details.
+		local
+			pixmap_ptr, mask_ptr: POINTER
+		do
+			if a_pixmap /= Void then pixmap_ptr := a_pixmap.handle end
+			if a_mask /= Void then mask_ptr := a_mask.handle end
+			gtk_image_set_from_pixmap (handle, pixmap_ptr, mask_ptr)
 		end
 
 feature -- Status setting

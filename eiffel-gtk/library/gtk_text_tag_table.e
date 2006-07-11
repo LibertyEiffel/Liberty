@@ -158,7 +158,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_text_tag_table_lookup (a_table, a_const_name: POINTER) is -- GtkTextTag*
+	gtk_text_tag_table_lookup (a_table, a_const_name: POINTER): POINTER is -- GtkTextTag*
 		external "C use <gtk/gtk.h>"
 		end
 	
