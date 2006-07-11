@@ -75,7 +75,7 @@ indexing
 deferred class G_OBJECT
 
 inherit
-	SHARED_C_STRUCT redefine make,from_external_pointer, dispose end
+	SHARED_C_STRUCT redefine from_external_pointer, dispose end
 	ANY
 
 insert
@@ -116,14 +116,6 @@ feature {WRAPPER} -- GObject type system implementation.
 			Result := g_object_type (handle)
 		end
 feature -- Creating
-
-	make is
-		require called_on_creation: is_null
-		do
-			Precursor 
-			store_eiffel_wrapper
-			ref -- Let's add a reference to the underlying g_object
-		end
 
 	from_external_pointer (a_ptr: POINTER) is
 		require
