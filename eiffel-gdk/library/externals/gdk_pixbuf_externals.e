@@ -40,6 +40,11 @@ feature {NONE} -- External calls
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
+	gdk_pixbuf_new_from_file_at_scale (filename: POINTER; a_width, a_height, preserve_aspect_ratio: INTEGER;
+	                                   error_dummy: POINTER): POINTER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
 	gdk_pixbuf_new (a_colorspace, a_alpha, a_bps, a_width, a_height: INTEGER): POINTER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end

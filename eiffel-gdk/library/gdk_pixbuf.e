@@ -36,7 +36,7 @@ insert
 	GDK_COLORSPACE
 
 creation
-	make, from_external_pointer, from_file, from_file_at_size, from_drawable, from_pixbuf
+	make, from_external_pointer, from_file, from_file_at_size, from_file_at_scale, from_drawable, from_pixbuf
 
 feature -- Creation
 
@@ -86,6 +86,28 @@ feature {NONE} -- Creation
 			filename /= Void
 		do
 			from_external_pointer (gdk_pixbuf_new_from_file_at_size (filename.to_external, a_width, a_height, default_pointer))
+		ensure
+			is_valid = is_g_object
+		end
+
+	from_file_at_scale(filename: STRING; a_width, a_height: INTEGER; preserve_aspect_ration: BOOLEAN) is
+			-- Creates a new pixbuf by loading an image from a file. The file
+			-- format is detected automatically. The image will be scaled to
+			-- fit in the requested size, optionally preserving the image's
+			-- aspect ratio.
+			--
+			-- When preserving the aspect ratio, a width of -1 will cause the
+			-- image to be scaled to the exact given height, and a height of -1
+			-- will cause the image to be scaled to the exact given width. When
+			-- not preserving aspect ratio, a width or height of -1 means to
+			-- not scale the image at all in that dimension. Negative values
+			-- for width and height are allowed since 2.8.
+		require
+			filename /= Void
+		do
+			from_external_pointer (gdk_pixbuf_new_from_file_at_scale
+									(filename.to_external, a_width, a_height,
+									 preserve_aspect_ration.to_integer, default_pointer))
 		ensure
 			is_valid = is_g_object
 		end
