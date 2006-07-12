@@ -1,5 +1,5 @@
 indexing
-	description: "External calls for PangoLayout"
+	description: "External calls for PangoRectangle"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, Pango team
 					
@@ -21,36 +21,24 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class PANGO_LAYOUT_EXTERNALS
+class PANGO_RECTANGLE_EXTERNALS
 
 feature {NONE} -- External calls
 
-	pango_layout_get_text (a_layout: POINTER): POINTER is
-		external "C use <pango/pango-layout.h>"
+	pango_rectangle_get_x (point_star: POINTER): INTEGER is
+		external "C struct PangoRectangle get x use <pango/pango-types.h>"
 		end
 
-	pango_layout_set_markup (a_layout, a_markup: POINTER; a_length: INTEGER) is
-		external "C use <pango/pango-layout.h>"
+	pango_rectangle_get_y (point_star: POINTER): INTEGER is
+		external "C struct PangoRectangle get y use <pango/pango-types.h>"
 		end
 
-	pango_layout_set_text (a_layout, a_markup: POINTER; a_length: INTEGER) is
-		external "C use <pango/pango-layout.h>"
+	pango_rectangle_get_width (point_star: POINTER): INTEGER is
+		external "C struct PangoRectangle get width use <pango/pango-types.h>"
 		end
 
-	pango_layout_new (a_context: POINTER): POINTER is
-		external "C use <pango/pango-layout.h>"
+	pango_rectangle_get_height (point_star: POINTER): INTEGER is
+		external "C struct PangoRectangle get height use <pango/pango-types.h>"
 		end
 
-	pango_layout_get_context (a_layout: POINTER): POINTER is
-		external "C use <pango/pango-layout.h>"
-		end
-
-	pango_layout_context_changed (a_layout: POINTER) is
-		external "C use <pango/pango-layout.h>"
-		end
-
-	pango_layout_get_size (a_layout, a_width, a_height: POINTER) is
-		external "C use <pango/pango-layout.h>"
-		end
-
-end -- class PANGO_LAYOUT_EXTERNALS
+end -- class PANGO_RECTANGLE_EXTERNALS
