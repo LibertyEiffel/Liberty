@@ -217,7 +217,7 @@ feature -- Properties
 			g_object_freeze_notify (handle)
 		end
 
-	thaw_notify (object: POINTER) is 
+	thaw_notify (object: POINTER) is
 			-- Causes all queued "notify" signals on object to be emitted. Reverts
 			-- the effect of a previous call to freeze_notify.
 		do
@@ -338,16 +338,16 @@ feature -- Properties query
 	
 
 feature -- Property getter/setter
-	set_properties (some_properties: COLLETION [TUPLE[STRING,G_VALUE]]) is
-		require 
+	set_properties (some_properties: COLLECTION [TUPLE[STRING,G_VALUE]]) is
+		require
 			no_void_property_names: --TODO
 			no_void_property_values: --TODO
 		local iter: ITERATOR [TUPLE[STRING,G_VALUE]]
-		do  
-			freeze_notify  
+		do
+			freeze_notify
 			iter := some_properties.get_new_iterator
 			from iter.start until iter.is_off
-			loop 
+			loop
 				-- Note: The original C implementation of this feature
 				-- retrieve the G_PARAM_SPEC linked to each property and
 				-- then checks:
@@ -359,7 +359,7 @@ feature -- Property getter/setter
 				-- I'm not sure that an Eiffel implementation should 
 				-- implement this, because it should be already checked 
 				-- by Gobject. Paolo 2006-07-06
-				check 
+				check
 					name_not_void: iter.item.item_1 /= Void
 					value_not_void: iter.item.item_2 /= Void
 				end
@@ -370,7 +370,7 @@ feature -- Property getter/setter
 	
 	set_property (a_property_name: STRING; a_value: G_VALUE) is
 			-- Sets `a_property_name' property on Current object to `a_value'
-		require 
+		require
 			valid_name: a_property_name /= Void
 			valid_value: a_value /= Void
 		do
@@ -379,7 +379,7 @@ feature -- Property getter/setter
 	
 	get_property (a_property_name: STRING): G_VALUE is
 			-- Gets the property name `a_property_name' of an object.
-		require 
+		require
 			valid_name: a_property_name /= Void
 		local ptr: POINTER
 		do
@@ -392,7 +392,7 @@ feature -- Property getter/setter
 	-- require  valid_name: a_property_name /= Void do	end
 
 	set_string_property (a_property_name, a_value: STRING) is
-		require 
+		require
 			valid_name: a_property_name /= Void
 			valid_value: a_value /= Void
 		do
@@ -403,14 +403,14 @@ feature -- Property getter/setter
 			-- Gets the property named `a_property_name' of an
 			-- object. Can be Void. TODO: this is complemetely untested!
 			-- Test it, for example in GTK_CELL_RENDERER_PROGRESS
-		require 
+		require
 			valid_name: a_property_name /= Void
 			has_property: has_property (a_property_name)
 		local ptr: POINTER
 		do
 			g_object_get_one_property (handle,a_property_name.to_external,address_of (ptr))
 			if ptr.is_not_null then
-				create Result.from_external (ptr) 
+				create Result.from_external (ptr)
 			end
 		end
 
