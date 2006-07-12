@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision:$"
 
 			-- Description
-	
+			
 			-- The GtkAdjustment object represents a value which has an
 			-- associated lower and upper bound, together with step and
 			-- page increments, and a page size. It is used within
@@ -25,14 +25,14 @@ indexing
 			-- "value_changed" or "changed" signal respectively.
 
 class GTK_ADJUSTMENT
-inherit
 
+inherit
 	GTK_OBJECT rename make as make_gtk_object end
 	GTK_ADJUSTMENT_EXTERNALS
-	
+
 creation make, from_external_pointer
 
-feature 
+feature
 	size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAdjustment)"
@@ -50,8 +50,8 @@ feature {NONE} -- Creation
 			-- a_page_size : 	the page size.
 		do
 			handle := gtk_adjustment_new (a_value, a_lower, an_upper,
-													a_step_increment, a_page_increment, a_page_size)
-			store_eiffel_wrapper		
+			                              a_step_increment, a_page_increment, a_page_size)
+			store_eiffel_wrapper
 		end
 
 feature

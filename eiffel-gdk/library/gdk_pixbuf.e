@@ -40,13 +40,6 @@ creation
 
 feature -- Creation
 
-	from_pixbuf (other: like Current) is
-		require
-			other.handle.is_not_null
-		do
-			from_external_pointer (gdk_pixbuf_copy (other.handle))
-		end
-
 	from_external_pointer (a_ptr: POINTER) is
 		require else
 			called_on_creation: is_null
@@ -63,6 +56,13 @@ feature -- Creation
 
 feature {NONE} -- Creation
 
+	from_pixbuf (other: like Current) is
+		require
+			other.handle.is_not_null
+		do
+			from_external_pointer (gdk_pixbuf_copy (other.handle))
+		end
+
 	from_file (filename: STRING) is
 			-- New pixbuf by loading an image from `filename'.
 			-- The file format is detected automatically. 
@@ -74,7 +74,7 @@ feature {NONE} -- Creation
 			is_valid = is_g_object
 		end
 
-	from_file_at_size(filename: STRING; a_width, a_height: INTEGER) is
+	from_file_at_size (filename: STRING; a_width, a_height: INTEGER) is
 			-- New pixbuf by loading an image from `filename'.
 			-- The file format is detected automatically.
 			-- The image will be scaled to fit in a `a_width'x`a_height' area
@@ -106,8 +106,8 @@ feature {NONE} -- Creation
 			filename /= Void
 		do
 			from_external_pointer (gdk_pixbuf_new_from_file_at_scale
-									(filename.to_external, a_width, a_height,
-									 preserve_aspect_ration.to_integer, default_pointer))
+			                       (filename.to_external, a_width, a_height,
+			                       preserve_aspect_ration.to_integer, default_pointer))
 		ensure
 			is_valid = is_g_object
 		end
