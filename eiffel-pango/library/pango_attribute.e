@@ -87,28 +87,50 @@ feature {} --   PangoAttribute struct access
 		external "C struct PangoAttribute get klass use <pango/pango.h>"
 		end
 
-feature 
-	-- TODO parse_markup 
-	
-	--  gboolean    pango_parse_markup              (const char *markup_text, int length, gunichar accel_marker, PangoAttrList **attr_list, char **text, gunichar *accel_char, GError **error);
+feature  -- Markup parsing
+	parse_markup  (a_markup_text: STRING) is
+			-- Parses marked-up text (see markup format) to create a
+			-- plaintext string and an attribute list.  
 
-	--    Parses marked-up text (see markup format) to create a plaintext string and an attribute list.
+			-- `attributes' will contain the list of the attributes,
+
+			-- TODO: Provide support for `accel_marker' and
+			-- `accel_char'. Paolo 2007-07-12
+		do
+			-- Note: please leave the following commented C documentation
+			-- as reference for further improvements
+			--  gboolean pango_parse_markup (const char *markup_text, int
+			--  length, gunichar accel_marker, PangoAttrList **attr_list,
+			--  char **text, gunichar *accel_char, GError **error);
+
+			-- If accel_marker is nonzero, the given character will mark
+			-- the character following it as an accelerator. For example,
+			-- the -- accel marker might be an ampersand or
+			-- underscore. All characters marked as an accelerator will
+			-- receive a -- PANGO_UNDERLINE_LOW attribute, and the first
+			-- character so marked will be returned in accel_char. Two
+			-- accel_marker -- characters following each other produce a
+			-- single literal accel_marker character.
 	
-	--    If accel_marker is nonzero, the given character will mark the character following it as an accelerator. For example, the
-	--    accel marker might be an ampersand or underscore. All characters marked as an accelerator will receive a
-	--    PANGO_UNDERLINE_LOW attribute, and the first character so marked will be returned in accel_char. Two accel_marker
-	--    characters following each other produce a single literal accel_marker character.
-	
-	--    markup_text :  markup to parse (see markup format)
-	--    length :       length of markup_text, or -1 if nul-terminated
-	--    accel_marker : character that precedes an accelerator, or 0 for none
-	--    attr_list :    address of return location for a PangoAttrList, or NULL
-	--    text :         address of return location for text with tags stripped, or NULL
-	--    accel_char :   address of return location for accelerator char, or NULL
-	--    error :        address of return location for errors, or NULL
-	--    Returns :      FALSE if error is set, otherwise TRUE
-	
-	
+			--    markup_text :  markup to parse (see markup format)
+			--    length :       length of markup_text, or -1 if nul-terminated
+			--    accel_marker : character that precedes an accelerator, or 0 for none
+			--    attr_list :    address of return location for a PangoAttrList, or NULL
+			--    text :         address of return location for text with tags stripped, or NULL
+			--    accel_char :   address of return location for accelerator char, or NULL
+			--    error :        address of return location for errors, or NULL
+			--    Returns :      FALSE if error is set, otherwise TRUE
+
+			is_parsing_successful := (pango_parse_markup
+											  (a_markup_text.to_external, -1,
+												0, -- gunichar accel_marker, 
+												-- PangoAttrList **attr_list,
+												--  char **text, gunichar *accel_char, GError **error);
+		end
+
+	is_parsing_successful: BOOLEAN
+
+feature 
 	-- TODO:  pango_attr_type_register; is it needed for low level 
 	-- code? Paolo 2006-07-10
 	
@@ -146,34 +168,6 @@ feature {} -- Implementation
 			-- Note: could be easily optimized renaming
 			-- pango_attribute_destroy as free. Paolo 2006-07-11
 		end
-
---   enum PangoUnderline
-
---  typedef enum {
---    PANGO_UNDERLINE_NONE, PANGO_UNDERLINE_SINGLE, PANGO_UNDERLINE_DOUBLE, PANGO_UNDERLINE_LOW, PANGO_UNDERLINE_ERROR
---  } PangoUnderline;
-
---    the PangoUnderline enumeration is used to specify whether text should be underlined, and if so, the type of underlining.
-
---    PANGO_UNDERLINE_NONE   no underline should be drawn
---    PANGO_UNDERLINE_SINGLE a single underline should be drawn
---    PANGO_UNDERLINE_DOUBLE a double underline should be drawn
---    PANGO_UNDERLINE_LOW    a single underline should be drawn at a position beneath the ink extents of the text being
---                           underlined. This should be used only for underlining single characters, such as for keyboard
---                           accelerators. PANGO_UNDERLINE_SINGLE should be used for extended portions of text.
---    PANGO_UNDERLINE_ERROR  a wavy underline should be drawn below. This underline is typically used to indicate an error
---                           such as a possilble mispelling; in some cases a contrasting color may automatically be used. This
---                           type of underlining is available since Pango 1.4.
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PANGO_TYPE_UNDERLINE
-
---  #define PANGO_TYPE_UNDERLINE (pango_underline_get_type())
-
---    The GObject type for PangoUnderline.
-
---    ------------------------------------------------------------------------------------------------------------------------
 
 --   pango_attr_shape_new ()
 
@@ -450,275 +444,6 @@ feature {} -- Implementation
 --    Returns :    TRUE if a match was found.
 
 --    ------------------------------------------------------------------------------------------------------------------------
-
---   PangoAttrList
-
---  typedef struct _PangoAttrList PangoAttrList;
-
---    The PangoAttrList structure represents a list of attributes that apply to a section of text. The attributes are, in
---    general, allowed to overlap in an arbitrary fashion, however, if the attributes are manipulated only through
---    pango_attr_list_change(), the overlap between properties will meet stricter criteria.
-
---    Since the PangoAttrList structure is stored as a linear list, it is not suitable for storing attributes for large
---    amounts of text. In general, you should not use a single PangoAttrList for more than one paragraph of text.
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PANGO_TYPE_ATTR_LIST
-
---  #define PANGO_TYPE_ATTR_LIST pango_attr_list_get_type ()
-
---    The GObject type for PangoAttrList.
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_new ()
-
---  PangoAttrList* pango_attr_list_new          (void);
-
---    Create a new empty attribute list with a reference count of one.
-
---    Returns : the newly allocated PangoAttrList, which should be freed with pango_attr_list_unref().
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_ref ()
-
---  PangoAttrList* pango_attr_list_ref          (PangoAttrList *list);
-
---    Increase the reference count of the given attribute list by one.
-
---    list :    a PangoAttrList
---    Returns : The attribute list passed in
-
---    Since 1.10
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_unref ()
-
---  void        pango_attr_list_unref           (PangoAttrList *list);
-
---    Decrease the reference count of the given attribute list by one. If the result is zero, free the attribute list and the
---    attributes it contains.
-
---    list : a PangoAttrList
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_copy ()
-
---  PangoAttrList* pango_attr_list_copy         (PangoAttrList *list);
-
---    Copy list and return an identical new list.
-
---    list :    a PangoAttrList
---    Returns : the newly allocated PangoAttrList, with a reference count of one, which should be freed with
---               pango_attr_list_unref().
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_insert ()
-
---  void        pango_attr_list_insert          (PangoAttrList *list, PangoAttribute *attr);
-
---    Insert the given attribute into the PangoAttrList. It will be inserted after all other attributes with a matching
---    start_index.
-
---    list : a PangoAttrList
---    attr : the attribute to insert. Ownership of this value is assumed by the list.
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_insert_before ()
-
---  void        pango_attr_list_insert_before   (PangoAttrList *list, PangoAttribute *attr);
-
---    Insert the given attribute into the PangoAttrList. It will be inserted before all other attributes with a matching
---    start_index.
-
---    list : a PangoAttrList
---    attr : the attribute to insert. Ownership of this value is assumed by the list.
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_change ()
-
---  void        pango_attr_list_change          (PangoAttrList *list, PangoAttribute *attr);
-
---    Insert the given attribute into the PangoAttrList. It will replace any attributes of the same type on that segment and
---    be merged with any adjoining attributes that are identical.
-
---    This function is slower than pango_attr_list_insert() for creating a attribute list in order (potentially much slower
---    for large lists). However, pango_attr_list_insert() is not suitable for continually changing a set of attributes since
---    it never removes or combines existing attributes.
-
---    list : a PangoAttrList
---    attr : the attribute to insert. Ownership of this value is assumed by the list.
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_splice ()
-
---  void        pango_attr_list_splice          (PangoAttrList *list, PangoAttrList *other, gint pos, gint len);
-
---    This function splices attribute list other into list. This operation is equivalent to stretching every attribute that
---    applies at position pos in list by an amount len, and then calling pango_attr_list_change() with a copy of each
---    attribute in other in sequence (offset in position by pos).
-
---    This operation proves useful for, for instance, inserting a preedit string in the middle of an edit buffer.
-
---    list :  a PangoAttrList
---    other : another PangoAttrList
---    pos :   the position in list at which to insert other
---    len :   the length of the spliced segment. (Note that this must be specified since the attributes in other may only be
---             present at some subsection of this range)
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_filter ()
-
---  PangoAttrList* pango_attr_list_filter       (PangoAttrList *list, PangoAttrFilterFunc func, gpointer data);
-
---    Given a PangoAttrList and callback function, removes any elements of list for which func returns TRUE and inserts them
---    into a new list.
-
---    list :    a PangoAttrList
---    func :    callback function; returns TRUE if an atttribute should be filtered out.
---    data :    Data to be passed to func
---    Returns : the new PangoAttrList or NULL if no attributes of the given types were found.
-
---    Since 1.2
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PangoAttrFilterFunc ()
-
---  gboolean    (*PangoAttrFilterFunc)          (PangoAttribute *attribute, gpointer data);
-
---    A predicate function used by pango_attr_list_filter() to filter out a subset of attributes for a list.
-
---    attribute : a PangoAttribute
---    data :      callback data passed to pango_attr_list_filter()
---    Returns :   TRUE if the attribute should be filtered out
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_list_get_iterator ()
-
---  PangoAttrIterator* pango_attr_list_get_iterator
---                                              (PangoAttrList *list);
-
---    Create a iterator initialized to the beginning of the list. list must not be modified until this iterator is freed.
-
---    list :    a PangoAttrList
---    Returns : the newly allocated PangoAttrIterator, which should be freed with pango_attr_iterator_destroy().
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PangoAttrIterator
-
---  typedef struct _PangoAttrIterator PangoAttrIterator;
-
---    The PangoAttrIterator structure is used to represent an iterator through a PangoAttrList. A new iterator is created with
---    pango_attr_list_get_iterator(). Once the iterator is created, it can be advanced through the style changes in the text
---    using pango_attr_iterator_next(). At each style change, the range of the current style segment and the attributes
---    currently in effect can be queried.
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_iterator_copy ()
-
---  PangoAttrIterator* pango_attr_iterator_copy (PangoAttrIterator *iterator);
-
---    Copy a PangoAttrIterator
-
---    iterator : a PangoAttrIterator.
---    Returns :  the newly allocated PangoAttrIterator, which should be freed with pango_attr_iterator_destroy().
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_iterator_next ()
-
---  gboolean    pango_attr_iterator_next        (PangoAttrIterator *iterator);
-
---    Advance the iterator until the next change of style.
-
---    iterator : a PangoAttrIterator
---    Returns :  FALSE if the iterator is at the end of the list, otherwise TRUE
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_iterator_range ()
-
---  void        pango_attr_iterator_range       (PangoAttrIterator *iterator, gint *start, gint *end);
-
---    Get the range of the current segment. Note that the stored return values are signed, not unsigned like the values in
---    PangoAttribute. To deal with this API oversight, stored return values that wouldn't fit into a signed integer are
---    clamped to G_MAXINT.
-
---    iterator : a PangoAttrIterator
---    start :    location to store the start of the range
---    end :      location to store the end of the range
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_iterator_get ()
-
---  PangoAttribute* pango_attr_iterator_get     (PangoAttrIterator *iterator, PangoAttrType type);
-
---    Find the current attribute of a particular type at the iterator location. When multiple attributes of the same type
---    overlap, the attribute whose range starts closest to the current location is used.
-
---    iterator : a PangoAttrIterator
---    type :     the type of attribute to find.
---    Returns :  the current attribute of the given type, or NULL if no attribute of that type applies to the current
---                location.
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_iterator_get_font ()
-
---  void        pango_attr_iterator_get_font    (PangoAttrIterator *iterator, PangoFontDescription *desc, PangoLanguage **language, GSList **extra_attrs);
-
---    Get the font and other attributes at the current iterator position.
-
---    iterator :    a PangoAttrIterator
---    desc :        a PangoFontDescription to fill in with the current values. The family name in this structure will be set
---                   using pango_font_description_set_family_static() using values from an attribute in the PangoAttrList
---                   associated with the iterator, so if you plan to keep it around, you must call:
---                   pango_font_description_set_family (desc, pango_font_description_get_family (desc)).
---    language :    if non-NULL, location to store language tag for item, or NULL if none is found.
---    extra_attrs : if non-NULL, location in which to store a list of non-font attributes at the the current position; only
---                   the highest priority value of each attribute will be added to this list. In order to free this value, you
---                   must call pango_attribute_destroy() on each member.
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_iterator_get_attrs ()
-
---  GSList*     pango_attr_iterator_get_attrs   (PangoAttrIterator *iterator);
-
---    Gets a list of all attributes at the current position of the iterator.
-
---    iterator : a PangoAttrIterator
---    Returns :  a list of all attributes for the current range. To free this value, call pango_attribute_destroy() on each
---                value and g_slist_free() on the list.
-
---    Since 1.2
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   pango_attr_iterator_destroy ()
-
---  void        pango_attr_iterator_destroy     (PangoAttrIterator *iterator);
-
---    Destroy a PangoAttrIterator and free all associated memory.
-
---    iterator : a PangoAttrIterator.
-
---    << Fonts                                                                                                  Tab Stops >>
-
 feature -- size
 
 	size: INTEGER is
@@ -873,83 +598,6 @@ feature {} -- External calls
 
 --  #define     pango_language_to_string        (language)
 --  gboolean    pango_language_matches          (PangoLanguage *language, const char *range_list) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
-
---              PangoAttrList;
---  #define     PANGO_TYPE_ATTR_LIST
---  PangoAttrList* pango_attr_list_new          (void) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  PangoAttrList* pango_attr_list_ref          (PangoAttrList *list) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  void        pango_attr_list_unref           (PangoAttrList *list) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  PangoAttrList* pango_attr_list_copy         (PangoAttrList *list) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  void        pango_attr_list_insert          (PangoAttrList *list, PangoAttribute *attr) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  void        pango_attr_list_insert_before   (PangoAttrList *list, PangoAttribute *attr) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  void        pango_attr_list_change          (PangoAttrList *list, PangoAttribute *attr) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  void        pango_attr_list_splice          (PangoAttrList *list, PangoAttrList *other, gint pos, gint len) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  PangoAttrList* pango_attr_list_filter       (PangoAttrList *list, PangoAttrFilterFunc func, gpointer data) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  gboolean    (*PangoAttrFilterFunc)          (PangoAttribute *attribute, gpointer data) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  PangoAttrIterator* pango_attr_list_get_iterator
---                                              (PangoAttrList *list) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---              PangoAttrIterator;
---  PangoAttrIterator* pango_attr_iterator_copy (PangoAttrIterator *iterator) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  gboolean    pango_attr_iterator_next        (PangoAttrIterator *iterator) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  void        pango_attr_iterator_range       (PangoAttrIterator *iterator, gint *start, gint *end) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  PangoAttribute* pango_attr_iterator_get     (PangoAttrIterator *iterator, PangoAttrType type) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  void        pango_attr_iterator_get_font    (PangoAttrIterator *iterator, PangoFontDescription *desc, PangoLanguage **language, GSList **extra_attrs) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  GSList*     pango_attr_iterator_get_attrs   (PangoAttrIterator *iterator) is
--- 		external "C use <pango/pango.h>"
--- 		end
-
---  void        pango_attr_iterator_destroy     (PangoAttrIterator *iterator) is
 -- 		external "C use <pango/pango.h>"
 -- 		end
 end

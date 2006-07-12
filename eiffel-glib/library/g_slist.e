@@ -83,7 +83,11 @@ feature {NONE} -- Implementation
 			create internal.make_blank -- magically create a new ITEM
 			internal.set_object_can_be_retrieved -- prepare it to be released from the magic couldron
 			Result := internal.object -- Pick it
-			-- external "C inline" alias "malloc (sizeof($first))"
+			-- Note: this could also be implemented with 
+			-- external "C inline"
+			-- alias "malloc (sizeof($first))"
+			-- That could/should be faster. This solution feels 
+			-- "cleaner". Paolo 2006-07-12
 		ensure not_void: Result /= Void
 		end
 
