@@ -293,7 +293,7 @@ feature -- The "value-changed" signal
 -- range : 	the GtkRange
 -- user_data : 	user data set when the signal handler was connected.
 
-	value_changed_signal_name: STRING is "value_changed"
+	value_changed_signal_name: STRING is "value-changed"
 
 	on_value_changed is
 			-- Built-in value_changed signal handler; empty by design; redefine it.

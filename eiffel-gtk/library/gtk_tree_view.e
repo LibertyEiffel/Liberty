@@ -1562,7 +1562,7 @@ feature -- The "cursor_changed" signal
 	--             void        user_function      (GtkTreeView *treeview,
 	--                                             gpointer user_data);
 
-	cursor_changed_signal_name: STRING is "cursor_changed"
+	cursor_changed_signal_name: STRING is "cursor-changed"
 
 	on_cursor_changed is
 			-- Built-in cursor_changed signal handler; empty by design; redefine it.
@@ -1602,7 +1602,7 @@ feature -- The "row_activated" signal
 	--                                             GtkTreeViewColumn *arg2,
 	--                                             gpointer user_data);
 
-	row_activated_signal_name: STRING is "row_activated"
+	row_activated_signal_name: STRING is "row-activated"
 
 	on_row_activated is
 			-- Built-in row_activated signal handler; empty by design; redefine it.

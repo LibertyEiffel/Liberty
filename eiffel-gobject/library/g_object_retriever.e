@@ -6,12 +6,15 @@ indexing
 	revision: "$Revision:$"
 
 deferred class G_OBJECT_RETRIEVER [ITEM_ -> G_OBJECT]
+
 inherit WRAPPER_HANDLER
+
 insert
 	G_OBJECT_EXTERNALS
 	SHARED_EIFFEL_KEY
-	
+
 feature {WRAPPER}
+
 	retrieve_eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
 			-- Retrieve the eiffel wrapper object from gobject's `a_pointer'
 		require
@@ -21,7 +24,7 @@ feature {WRAPPER}
 			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
 		ensure not_void: Result/=Void
 		end
-	
+
 	eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
 			-- Retrieve the eiffel wrapper object from gobject's 
 			-- `a_pointer'. Can be Void if the GObject referred by `a_pointer' 
@@ -30,13 +33,14 @@ feature {WRAPPER}
 		do
 			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
 		end
-	
+
 	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
 		do
-			Result:=	(g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
+			Result := (g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
 		end
 
 feature {} -- External call
+
 	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: INTEGER_32): ITEM_ is
 			-- This function gets back the Eiffel wrapper stored using `g_object_set_qdata'
 		external "C use <glib-object.h>"

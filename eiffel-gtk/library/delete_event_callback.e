@@ -73,14 +73,14 @@ feature
 			end
 					 
 			handler_id := g_signal_connect_closure (an_object.handle,
-													signal_name.to_external,
-													handle,
-													0 -- i.e. call it before default handler
-													)
+			                                        signal_name.to_external,
+			                                        handle,
+			                                        0 -- i.e. call it before default handler
+			                                       )
 			function:=a_function
 		end
 
-		signal_name: STRING is "delete_event"
+		signal_name: STRING is "delete-event"
 
 	function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]
 end

@@ -10,6 +10,6 @@ inherit GTK_DIALOG_FLAGS
 		rename
 			gtk_dialog_modal as modal_dialog,
 			gtk_dialog_destroy_with_parent as destroy_with_parent
-			gtk_dialog_no_separator as no_separator 
+			gtk_dialog_no_separator as no_separator
 		end
 end

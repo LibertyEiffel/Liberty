@@ -83,7 +83,7 @@ feature
 			procedure:=a_procedure
 		end
 
-	signal_name: STRING is "row_activated"
+	signal_name: STRING is "row-activated"
 
 	procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]
 

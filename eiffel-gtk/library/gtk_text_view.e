@@ -254,8 +254,8 @@ feature
 		require iterator_not_void: an_iterator/=Void
 		do
 			gtk_text_view_get_line_at_y (handle, an_iterator.handle, a_y,
-												  default_pointer -- gint *line_top
-												 )
+			                             default_pointer -- gint *line_top
+			                            )
 			-- Gets the GtkTextIter at the start of the line containing
 			-- the coordinate y. y is in buffer coordinates, convert from
 			-- window coordinates with
@@ -317,7 +317,7 @@ feature
 	-- 	Since 2.6
 
 	buffer_to_window_coords (a_window_type: INTEGER;
-									 buffer_x, buffer_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+			                 buffer_x, buffer_y: INTEGER): TUPLE[INTEGER, INTEGER] is
 			-- Converts coordinate (buffer_x, buffer_y) to coordinates
 			-- for the window of `a_widndow_type' (except gtk_text_window_private). Result is
 			-- [window_x,window_y].
@@ -335,16 +335,15 @@ feature
 			(handle, a_window_type, buffer_x, buffer_y, $window_x, $window_y)
 			create Result.make_2 (window_x, window_y)
 		end
-	
+
 	window_to_buffer_coords (a_window_type: INTEGER;
-									 window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+			                 window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
 			-- Converts coordinates on the window identified by win to
 			-- buffer coordinates, storing the result in
 			-- (buffer_x,buffer_y).
-
+			
 			-- Note that you can't convert coordinates for a nonexisting
 			-- window (see `set_border_window_size').
-
 		require
 			valid_window_type: is_valid_text_window_type (a_window_type)
 			window_type_is_not_private: a_window_type /= gtk_text_window_private

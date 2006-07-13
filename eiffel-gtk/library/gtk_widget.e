@@ -184,11 +184,8 @@ feature -- Operation
 			-- Sets the sensitivity of Current. A widget is sensitive
 			-- if the user can interact with it. Insensitive widgets are
 			-- "grayed out" and the user can't interact with them.
-		local
-			s: INTEGER
 		do
-			if sens then s := 1 else s:= 0 end
-			gtk_widget_set_sensitive (handle, s)
+			gtk_widget_set_sensitive (handle, sens.to_integer)
 		end
 
 -- void        gtk_widget_set_parent           (GtkWidget *widget,
@@ -477,7 +474,13 @@ feature -- Signals
 --                                             GdkEventConfigure *event,
 --                                             gpointer           user_data)      : Run last
 
+feature -- delete-event signal
+
 	delete_event_signal_name: STRING is "delete-event"
+		-- "destroy-event"
+		--             gboolean    user_function      (GtkWidget *widget,
+		--                                             GdkEvent  *event,
+		--                                             gpointer   user_data)      : Run last
 
 	enable_on_delete_event is
 			-- Connects "delete-event" signal to `on_delete_event' feature.
@@ -506,18 +509,46 @@ feature -- Signals
 			delete_event_callback.connect (Current, a_function)
 		end
 
--- "destroy-event"
---             gboolean    user_function      (GtkWidget *widget,
---                                             GdkEvent  *event,
---                                             gpointer   user_data)      : Run last
 -- "direction-changed"
 --             void        user_function      (GtkWidget       *widget,
 --                                             GtkTextDirection arg1,
 --                                             gpointer         user_data)      : Run first
--- "drag-begin"
---             void        user_function      (GtkWidget      *widget,
---                                             GdkDragContext *drag_context,
---                                             gpointer        user_data)         : Run last
+
+feature -- drag-begin signal
+
+	drag_begin_signal_name: STRING is "drag-begin"
+		-- "drag-begin"
+		--             void        user_function      (GtkWidget      *widget,
+		--                                             GdkDragContext *drag_context,
+		--                                             gpointer        user_data)         : Run last
+
+	enable_on_drag_begin is
+			-- Connects "drag-begin" signal to `on_drag_begin' feature.
+		do
+			connect (Current, drag_begin_signal_name, $on_drag_begin)
+		end
+
+	on_drag_begin: INTEGER is
+			-- Built-in drag-begin signal handler; empty by design; redefine it.
+
+			-- The drag-begin signal is emitted on the drag source
+			-- when a drag is started. A typical reason to connect to this
+			-- signal is to set up a custom drag icon with
+			-- gtk_drag_source_set_icon().
+		do
+		end
+
+	connect_agent_to_drag_begin_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			drag_begin_callback: DRAG_BEGIN_CALLBACK
+		do
+			create drag_begin_callback.make
+			drag_begin_callback.connect (Current, a_procedure)
+		end
+
 -- "drag-data-delete"
 --             void        user_function      (GtkWidget      *widget,
 --                                             GdkDragContext *drag_context,
@@ -3439,5 +3470,3 @@ feature -- Signals
 -- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
 
 end
-	
- 

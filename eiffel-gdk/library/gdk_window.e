@@ -19,6 +19,7 @@ indexing
 					02110-1301 USA
 				]"
 class GDK_WINDOW
+
 inherit GDK_DRAWABLE
 
 creation make, from_external_pointer

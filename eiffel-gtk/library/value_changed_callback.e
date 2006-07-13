@@ -17,7 +17,7 @@ feature
 	object: GTK_RANGE
 
 feature
-	callback (instance: POINTER) is --  a_button: GTK_RANGE) is
+	callback (instance: POINTER) is
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -26,7 +26,7 @@ feature
 			-- that the button is actually created bu the Eiffel 
 			-- application. 
 			check
-				eiffel_created_the_button: has_eiffel_wrapper_stored (instance)
+				eiffel_created_the_range: has_eiffel_wrapper_stored (instance)
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			-- The above line replaces "create object.from_external_pointer
@@ -59,7 +59,7 @@ feature
 			procedure:=a_procedure
 		end
 
-		signal_name: STRING is "value_changed"
+		signal_name: STRING is "value-changed"
 
 	procedure: PROCEDURE [ANY, TUPLE[GTK_RANGE]]
 end

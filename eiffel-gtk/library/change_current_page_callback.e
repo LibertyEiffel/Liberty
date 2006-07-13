@@ -36,7 +36,7 @@ feature
 			notebook := a_notebook
 			procedure := a_procedure
 			id:=g_signal_connect_swapped(notebook.handle,(once "change-current-page").to_external,
-												  $hidden_callback, Current.to_pointer)
+			                             $hidden_callback, Current.to_pointer)
 			print ("CHANGE_CURRENT_PAGE_CALLBACK created for "+notebook.to_pointer.to_string+"%N")
 		end
 

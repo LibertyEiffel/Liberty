@@ -85,7 +85,8 @@ feature {NONE} -- Creation
 			a_height >= -1
 			filename /= Void
 		do
-			from_external_pointer (gdk_pixbuf_new_from_file_at_size (filename.to_external, a_width, a_height, default_pointer))
+			from_external_pointer (gdk_pixbuf_new_from_file_at_size (filename.to_external,
+			                                                         a_width, a_height, default_pointer))
 		ensure
 			is_valid = is_g_object
 		end
