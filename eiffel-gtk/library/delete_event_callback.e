@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the delete_event signal"
+	description: "Generic callback for the delete-event signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					
@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"
@@ -71,7 +71,7 @@ feature
 				print (" Current.handle=") print (handle.to_string)
 				print ("%N")
 			end
-					 
+			
 			handler_id := g_signal_connect_closure (an_object.handle,
 			                                        signal_name.to_external,
 			                                        handle,

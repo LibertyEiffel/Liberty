@@ -1,5 +1,5 @@
 indexing
-	description: "."
+	description: "GtkSelectionData structure"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -17,12 +17,14 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 class GTK_SELECTION_DATA
+
 inherit C_STRUCT -- TODO: check if SHARED_C_STRUCT is a better choice
+
 creation make, from_external_pointer
 
 feature {WRAPPER} -- size
@@ -44,4 +46,5 @@ feature {NONE} -- Creation
 --   gint          length;
 --   GdkDisplay   *display;
 -- } GtkSelectionData;
+
 end

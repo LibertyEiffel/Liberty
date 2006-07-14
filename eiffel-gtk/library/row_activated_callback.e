@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the row_activated signal"
+	description: "Generic callback for the row-activated signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					

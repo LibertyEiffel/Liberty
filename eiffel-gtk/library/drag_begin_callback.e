@@ -1,6 +1,23 @@
 indexing
-	description: "Generic callback for the drag_begin signal"
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	description: "Generic callback for the drag-begin signal"
+	copyright: "[
+					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+				]"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"
@@ -24,16 +41,12 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement 
-			-- that the button is actually created bu the Eiffel 
-			-- application. 
 			check
 				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			create drag_content_obj.from_external_pointer (drag_content)
-			-- The above line replaces "create object.from_external_pointer
-			-- (instance)" which continuosly creates new Eiffel wrappers
+			
 			procedure.call ([drag_content_obj, object])
 		end
 

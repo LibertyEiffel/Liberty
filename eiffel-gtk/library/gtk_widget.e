@@ -531,7 +531,7 @@ feature -- drag-begin signal
 	on_drag_begin: INTEGER is
 			-- Built-in drag-begin signal handler; empty by design; redefine it.
 
-			-- The drag-begin signal is emitted on the drag source
+			-- The `drag-begin' signal is emitted on the drag source
 			-- when a drag is started. A typical reason to connect to this
 			-- signal is to set up a custom drag icon with
 			-- gtk_drag_source_set_icon().
@@ -539,6 +539,8 @@ feature -- drag-begin signal
 		end
 
 	connect_agent_to_drag_begin_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+			-- widget : 	the object which received the signal.
+			-- drag_context : 	the drag context
 		require
 			valid_procedure: a_procedure /= Void
 			wrapper_is_stored: is_eiffel_wrapper_stored
@@ -549,47 +551,339 @@ feature -- drag-begin signal
 			drag_begin_callback.connect (Current, a_procedure)
 		end
 
--- "drag-data-delete"
---             void        user_function      (GtkWidget      *widget,
---                                             GdkDragContext *drag_context,
---                                             gpointer        user_data)         : Run last
--- "drag-data-get"
---             void        user_function      (GtkWidget        *widget,
---                                             GdkDragContext   *drag_context,
---                                             GtkSelectionData *data,
---                                             guint             info,
---                                             guint             time,
---                                             gpointer          user_data)         : Run last
--- "drag-data-received"
---             void        user_function      (GtkWidget        *widget,
---                                             GdkDragContext   *drag_context,
---                                             gint              x,
---                                             gint              y,
---                                             GtkSelectionData *data,
---                                             guint             info,
---                                             guint             time,
---                                             gpointer          user_data)         : Run last
--- "drag-drop" gboolean    user_function      (GtkWidget      *widget,
---                                             GdkDragContext *drag_context,
---                                             gint            x,
---                                             gint            y,
---                                             guint           time,
---                                             gpointer        user_data)         : Run last
--- "drag-end"  void        user_function      (GtkWidget      *widget,
---                                             GdkDragContext *drag_context,
---                                             gpointer        user_data)         : Run last
--- "drag-leave"
---             void        user_function      (GtkWidget      *widget,
---                                             GdkDragContext *drag_context,
---                                             guint           time,
---                                             gpointer        user_data)         : Run last
--- "drag-motion"
---             gboolean    user_function      (GtkWidget      *widget,
---                                             GdkDragContext *drag_context,
---                                             gint            x,
---                                             gint            y,
---                                             guint           time,
---                                             gpointer        user_data)         : Run last
+feature -- drag-data-delete signal
+
+	drag_data_delete_signal_name: STRING is "drag-data-delete"
+		-- "drag-data-delete"
+		--             void        user_function      (GtkWidget      *widget,
+		--                                             GdkDragContext *drag_context,
+		--                                             gpointer        user_data)         : Run last
+
+	enable_on_drag_data_delete is
+			-- Connects "drag-data-delete" signal to `on_drag_data_delete' feature.
+		do
+			connect (Current, drag_data_delete_signal_name, $on_drag_data_delete)
+		end
+
+	on_drag_data_delete: INTEGER is
+			-- Built-in drag-data-delete signal handler; empty by design; redefine it.
+
+			-- The `drag-data-delete' signal is emitted on the drag
+			-- source when a drag with the action GDK_ACTION_MOVE is
+			-- successfully completed. The signal handler is responsible
+			-- for deleting the data that has been dropped. What "delete"
+			-- means, depends on the context of the drag operation
+		do
+		end
+
+	connect_agent_to_drag_data_delete_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+			-- widget : 	the object which received the signal.
+			-- drag_context : 	the drag context
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			drag_data_delete_callback: DRAG_DATA_DELETE_CALLBACK
+		do
+			create drag_data_delete_callback.make
+			drag_data_delete_callback.connect (Current, a_procedure)
+		end
+
+feature -- drag-data-get signal
+
+	drag_data_get_signal_name: STRING is "drag-data-get"
+		-- "drag-data-get"
+		--             void        user_function      (GtkWidget        *widget,
+		--                                             GdkDragContext   *drag_context,
+		--                                             GtkSelectionData *data,
+		--                                             guint             info,
+		--                                             guint             time,
+		--                                             gpointer          user_data)         : Run last
+
+	enable_on_drag_data_get is
+			-- Connects "drag-data-get" signal to `on_drag_data_get' feature.
+		do
+			connect (Current, drag_data_get_signal_name, $on_drag_data_get)
+		end
+
+	on_drag_data_get: INTEGER is
+			-- Built-in drag-data-get signal handler; empty by design; redefine it.
+
+			-- The `drag-data-get' signal is emitted on the drag source
+			-- when the drop site requests the data which is dragged. It is
+			-- the responsibility of the signal handler to fill data with
+			-- the data in the format which is indicated by info. See
+			-- gtk_selection_data_set() and gtk_selection_data_set_text().
+		do
+		end
+
+	connect_agent_to_drag_data_get_signal (a_procedure: PROCEDURE[ANY,
+	                                                              TUPLE [GDK_DRAG_CONTEXT, GTK_SELECTION_DATA,
+	                                                                     INTEGER_64, INTEGER_64, GTK_WIDGET]]) is
+			-- widget : 	the object which received the signal.
+			-- drag_context : 	the drag context
+			-- data : 	the GtkSelectionData to be filled with the dragged data
+			-- info : 	the info that has been registered with the target in the GtkTargetList.
+			-- time : 	the timestamp at which the data was requested
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			drag_data_get_callback: DRAG_DATA_GET_CALLBACK
+		do
+			create drag_data_get_callback.make
+			drag_data_get_callback.connect (Current, a_procedure)
+		end
+
+feature -- drag-data-received signal
+
+	drag_data_received_signal_name: STRING is "drag-data-received"
+		-- "drag-data-received"
+		--             void        user_function      (GtkWidget        *widget,
+		--                                             GdkDragContext   *drag_context,
+		--                                             gint              x,
+		--                                             gint              y,
+		--                                             GtkSelectionData *data,
+		--                                             guint             info,
+		--                                             guint             time,
+		--                                             gpointer          user_data)         : Run last
+
+	enable_on_drag_data_received is
+			-- Connects "drag-data-received" signal to `on_drag_data_received' feature.
+		do
+			connect (Current, drag_data_received_signal_name, $on_drag_data_received)
+		end
+
+	on_drag_data_received: INTEGER is
+			-- Built-in drag-data-received signal handler; empty by design; redefine it.
+
+			-- The `drag-data-received' signal is emitted on the drop
+			-- site when the dragged data has been received. If the data
+			-- was received in order to determine whether the drop will be
+			-- accepted, the handler is expected to call gdk_drag_status()
+			-- and not finish the drag. If the data was received in
+			-- response to a `drag-drop' signal (and this is the last
+			-- target to be received), the handler for this signal is
+			-- expected to process the received data and then call
+			-- gtk_drag_finish(), setting the success parameter depending
+			-- on whether the data was processed successfully.
+
+			-- The handler may inspect and modify drag_context->action
+			-- before calling gtk_drag_finish(), e.g. to implement
+			-- GDK_ACTION_ASK as shown in the following example:
+			-- (see http://developer.gnome.org/doc/API/2.0/gtk/GtkWidget.html#GtkWidget-drag-data-received)
+		do
+		end
+
+	connect_agent_to_drag_data_received_signal (a_procedure: PROCEDURE[ANY,
+	                                                                   TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	                                                                          GTK_SELECTION_DATA, INTEGER_64, INTEGER_64,
+	                                                                          GTK_WIDGET]]) is
+			-- widget : 	the object which received the signal.
+			-- drag_context : 	the drag context
+			-- x : 	where the drop happened
+			-- y : 	where the drop happened
+			-- data : 	the received data
+			-- info : 	the info that has been registered with the target in the GtkTargetList.
+			-- time : 	the timestamp at which the data was received
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			drag_data_received_callback: DRAG_DATA_RECEIVED_CALLBACK
+		do
+			create drag_data_received_callback.make
+			drag_data_received_callback.connect (Current, a_procedure)
+		end
+
+feature -- drag-drop signal
+
+	drag_drop_signal_name: STRING is "drag-drop"
+		-- "drag-drop" gboolean    user_function      (GtkWidget      *widget,
+		--                                             GdkDragContext *drag_context,
+		--                                             gint            x,
+		--                                             gint            y,
+		--                                             guint           time,
+		--                                             gpointer        user_data)         : Run last
+
+	enable_on_drag_drop is
+			-- Connects "drag-drop" signal to `on_drag_drop' feature.
+		do
+			connect (Current, drag_drop_signal_name, $on_drag_drop)
+		end
+
+	on_drag_drop: INTEGER is
+			-- Built-in drag-drop signal handler; empty by design; redefine it.
+
+			-- The `drag-drop signal' is emitted on the drop site when
+			-- the user drops the data onto the widget. The signal handler
+			-- must determine whether the cursor position is in a drop zone
+			-- or not. If it is not in a drop zone, it returns FALSE and no
+			-- further processing is necessary. Otherwise, the handler
+			-- returns TRUE. In this case, the handler must ensure that
+			-- gtk_drag_finish() is called to let the source know that the
+			-- drop is done. The call to gtk_drag_finish() can be done
+			-- either directly or in a ::drag-data-received handler which
+			-- gets triggered by calling gtk_drop_get_data() to receive the
+			-- data for one or more of the supported targets.
+		do
+		end
+
+	connect_agent_to_drag_drop_signal (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	                                                                    INTEGER_64, GTK_WIDGET], BOOLEAN]) is
+			-- widget : 	the object which received the signal.
+			-- drag_context : 	the drag context
+			-- x : 	the x coordinate of the current cursor position
+			-- y : 	the y coordinate of the current cursor position
+			-- time : 	the timestamp of the motion event
+			-- returns : 	whether the cursor position is in a drop zone
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			drag_drop_callback: DRAG_DROP_CALLBACK
+		do
+			create drag_drop_callback.make
+			drag_drop_callback.connect (Current, a_function)
+		end
+
+feature -- drag-end signal
+
+	drag_end_signal_name: STRING is "drag-end"
+		-- "drag-end"  void        user_function      (GtkWidget      *widget,
+		--                                             GdkDragContext *drag_context,
+		--                                             gpointer        user_data)         : Run last
+
+	enable_on_drag_end is
+			-- Connects "drag-end" signal to `on_drag_end' feature.
+		do
+			connect (Current, drag_end_signal_name, $on_drag_end)
+		end
+
+	on_drag_end: INTEGER is
+			-- Built-in drag-end signal handler; empty by design; redefine it.
+
+			-- The `drag-end' signal is emitted on the drag source when
+			-- a drag is finished. A typical reason to connect to this
+			-- signal is to undo things done in `drag-begin'.
+		do
+		end
+
+	connect_agent_to_drag_end_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+			-- widget : 	the object which received the signal.
+			-- drag_context : 	the drag context
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			drag_end_callback: DRAG_END_CALLBACK
+		do
+			create drag_end_callback.make
+			drag_end_callback.connect (Current, a_procedure)
+		end
+
+feature -- drag-leave signal
+
+	drag_leave_signal_name: STRING is "drag-leave"
+		-- "drag-leave"
+		--             void        user_function      (GtkWidget      *widget,
+		--                                             GdkDragContext *drag_context,
+		--                                             guint           time,
+		--                                             gpointer        user_data)         : Run last
+
+	enable_on_drag_leave is
+			-- Connects "drag-leave" signal to `on_drag_leave' feature.
+		do
+			connect (Current, drag_leave_signal_name, $on_drag_leave)
+		end
+
+	on_drag_leave: INTEGER is
+			-- Built-in drag-leave signal handler; empty by design; redefine it.
+
+			-- The `drag-leave' signal is emitted on the drop site when
+			-- the cursor leaves the widget. A typical reason to connect to
+			-- this signal is to undo things done in `drag-motion', e.g.
+			-- undo highlighting with gtk_drag_unhighlight()
+		do
+		end
+
+	connect_agent_to_drag_leave_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER_64, GTK_WIDGET]]) is
+			-- widget : 	the object which received the signal.
+			-- drag_context : 	the drag context
+			-- time : 	the timestamp of the motion event
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			drag_leave_callback: DRAG_LEAVE_CALLBACK
+		do
+			create drag_leave_callback.make
+			drag_leave_callback.connect (Current, a_procedure)
+		end
+
+feature -- drag-motion signal
+
+	drag_motion_signal_name: STRING is "drag-motion"
+		-- "drag-motion"
+		--             gboolean    user_function      (GtkWidget      *widget,
+		--                                             GdkDragContext *drag_context,
+		--                                             gint            x,
+		--                                             gint            y,
+		--                                             guint           time,
+		--                                             gpointer        user_data)         : Run last
+
+	enable_on_drag_motion is
+			-- Connects "drag-motion" signal to `on_drag_motion' feature.
+		do
+			connect (Current, drag_motion_signal_name, $on_drag_motion)
+		end
+
+	on_drag_motion: INTEGER is
+			-- Built-in drag-motion signal handler; empty by design; redefine it.
+
+			-- The `drag-motion' signal is emitted on the drop site when
+			-- the user moves the cursor over the widget during a drag. The
+			-- signal handler must determine whether the cursor position is
+			-- in a drop zone or not. If it is not in a drop zone, it
+			-- returns FALSE and no further processing is necessary.
+			-- Otherwise, the handler returns TRUE. In this case, the
+			-- handler is responsible for providing the necessary
+			-- information for displaying feedback to the user, by calling
+			-- gdk_drag_status(). If the decision whether the drop will be
+			-- accepted or rejected can't be made based solely on the
+			-- cursor position and the type of the data, the handler may
+			-- inspect the dragged data by calling gtk_drag_get_data() and
+			-- defer the gdk_drag_status() call to the `drag-data-received'
+			-- handler.
+
+			-- Note that there is no `drag-enter' signal. The drag
+			-- receiver has to keep track of whether he has received any
+			-- `drag-motion' signals since the last `drag-leave' and if
+			-- not, treat the `drag-motion' signal as an "enter" signal.
+			-- Upon an "enter", the handler will typically highlight the
+			-- drop site with gtk_drag_highlight().
+			-- See an example here: http://developer.gnome.org/doc/API/2.0/gtk/GtkWidget.html#GtkWidget-drag-motion.
+		do
+		end
+
+	connect_agent_to_drag_motion_signal (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	                                                                      INTEGER_64, GTK_WIDGET], BOOLEAN]) is
+			-- widget : 	the object which received the signal.
+			-- drag_context : 	the drag context
+			-- x : 	the x coordinate of the current cursor position
+			-- y : 	the y coordinate of the current cursor position
+			-- time : 	the timestamp of the motion event
+			-- returns : 	whether the cursor position is in a drop zone
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			drag_motion_callback: DRAG_MOTION_CALLBACK
+		do
+			create drag_motion_callback.make
+			drag_motion_callback.connect (Current, a_function)
+		end
+
 -- "enter-notify-event"
 --             gboolean    user_function      (GtkWidget        *widget,
 --                                             GdkEventCrossing *event,
@@ -2822,229 +3116,7 @@ feature -- drag-begin signal
 -- widget : 	the object which received the signal.
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
--- The "drag-begin" signal
 
--- void        user_function                  (GtkWidget      *widget,
--- 														  GdkDragContext *drag_context,
--- 														  gpointer        user_data)         : Run last
-
--- The ::drag-begin signal is emitted on the drag source when a drag is started. A typical reason to connect to this signal is to set up a custom drag icon with gtk_drag_source_set_icon().
-
--- widget : 	the object which received the signal.
--- drag_context : 	the drag context
--- user_data : 	user data set when the signal handler was connected.
--- The "drag-data-delete" signal
-
--- void        user_function                  (GtkWidget      *widget,
--- 														  GdkDragContext *drag_context,
--- 														  gpointer        user_data)         : Run last
-
--- The ::drag-data-delete signal is emitted on the drag source when a drag with the action GDK_ACTION_MOVE is successfully completed. The signal handler is responsible for deleting the data that has been dropped. What "delete" means, depends on the context of the drag operation.
-
--- widget : 	the object which received the signal.
--- drag_context : 	the drag context
--- user_data : 	user data set when the signal handler was connected.
--- The "drag-data-get" signal
-
--- void        user_function                  (GtkWidget        *widget,
--- 														  GdkDragContext   *drag_context,
--- 														  GtkSelectionData *data,
--- 														  guint             info,
--- 														  guint             time,
--- 														  gpointer          user_data)         : Run last
-
--- The ::drag-data-get signal is emitted on the drag source when the drop site requests the data which is dragged. It is the responsibility of the signal handler to fill data with the data in the format which is indicated by info. See gtk_selection_data_set() and gtk_selection_data_set_text().
-
--- widget : 	the object which received the signal.
--- drag_context : 	the drag context
--- data : 	the GtkSelectionData to be filled with the dragged data
--- info : 	the info that has been registered with the target in the GtkTargetList.
--- time : 	the timestamp at which the data was requested
--- user_data : 	user data set when the signal handler was connected.
--- The "drag-data-received" signal
-
--- void        user_function                  (GtkWidget        *widget,
--- 														  GdkDragContext   *drag_context,
--- 														  gint              x,
--- 														  gint              y,
--- 														  GtkSelectionData *data,
--- 														  guint             info,
--- 														  guint             time,
--- 														  gpointer          user_data)         : Run last
-
--- The ::drag-data-received signal is emitted on the drop site when the dragged data has been received. If the data was received in order to determine whether the drop will be accepted, the handler is expected to call gdk_drag_status() and not finish the drag. If the data was received in response to a ::drag-drop signal (and this is the last target to be received), the handler for this signal is expected to process the received data and then call gtk_drag_finish(), setting the success parameter depending on whether the data was processed successfully.
-
--- The handler may inspect and modify drag_context->action before calling gtk_drag_finish(), e.g. to implement GDK_ACTION_ASK as shown in the following example:
-
--- void  
--- drag_data_received (GtkWidget          *widget,
--- 						  GdkDragContext     *drag_context,
--- 						  gint                x,
--- 						  gint                y,
--- 						  GtkSelectionData   *data,
--- 						  guint               info,
--- 						  guint               time)
--- {
---   if ((data->length >= 0) && (data->format == 8))
--- 	{
--- 		if (drag_context->action == GDK_ACTION_ASK) 
--- 		  {
--- 			 GtkWidget *dialog;
--- 			 gint response;
-			 
--- 			 dialog = gtk_message_dialog_new (NULL,
--- 														 GTK_DIALOG_MODAL | 
--- 														 GTK_DIALOG_DESTROY_WITH_PARENT,
--- 														 GTK_MESSAGE_INFO,
--- 														 GTK_BUTTONS_YES_NO,
--- 														 "Move the data ?\n");
--- 			 response = gtk_dialog_run (GTK_DIALOG (dialog));
--- 			 gtk_widget_destroy (dialog);
-				
--- 			 if (response == GTK_RESPONSE_YES)
--- 				drag_context->action = GDK_ACTION_MOVE;
--- 			 else
--- 				drag_context->action = GDK_ACTION_COPY;
--- 			}
-			
--- 		gtk_drag_finish (drag_context, TRUE, FALSE, time);
--- 		return;
--- 	}
-		
--- 	gtk_drag_finish (drag_context, FALSE, FALSE, time);
---  }
-
--- widget : 	the object which received the signal.
--- drag_context : 	the drag context
--- x : 	where the drop happened
--- y : 	where the drop happened
--- data : 	the received data
--- info : 	the info that has been registered with the target in the GtkTargetList.
--- time : 	the timestamp at which the data was received
--- user_data : 	user data set when the signal handler was connected.
--- The "drag-drop" signal
-
--- gboolean    user_function                  (GtkWidget      *widget,
--- 														  GdkDragContext *drag_context,
--- 														  gint            x,
--- 														  gint            y,
--- 														  guint           time,
--- 														  gpointer        user_data)         : Run last
-
--- The ::drag-drop signal is emitted on the drop site when the user drops the data onto the widget. The signal handler must determine whether the cursor position is in a drop zone or not. If it is not in a drop zone, it returns FALSE and no further processing is necessary. Otherwise, the handler returns TRUE. In this case, the handler must ensure that gtk_drag_finish() is called to let the source know that the drop is done. The call to gtk_drag_finish() can be done either directly or in a ::drag-data-received handler which gets triggered by calling gtk_drop_get_data() to receive the data for one or more of the supported targets.
-
--- widget : 	the object which received the signal.
--- drag_context : 	the drag context
--- x : 	the x coordinate of the current cursor position
--- y : 	the y coordinate of the current cursor position
--- time : 	the timestamp of the motion event
--- returns : 	whether the cursor position is in a drop zone
--- user_data : 	user data set when the signal handler was connected.
--- The "drag-end" signal
-
--- void        user_function                  (GtkWidget      *widget,
--- 														  GdkDragContext *drag_context,
--- 														  gpointer        user_data)         : Run last
-
--- The ::drag-end signal is emitted on the drag source when a drag is finished. A typical reason to connect to this signal is to undo things done in ::drag-begin.
-
--- widget : 	the object which received the signal.
--- drag_context : 	the drag context
--- user_data : 	user data set when the signal handler was connected.
--- The "drag-leave" signal
-
--- void        user_function                  (GtkWidget      *widget,
--- 														  GdkDragContext *drag_context,
--- 														  guint           time,
--- 														  gpointer        user_data)         : Run last
-
--- The ::drag-leave signal is emitted on the drop site when the cursor leaves the widget. A typical reason to connect to this signal is to undo things done in ::drag-motion, e.g. undo highlighting with gtk_drag_unhighlight()
-
--- widget : 	the object which received the signal.
--- drag_context : 	the drag context
--- time : 	the timestamp of the motion event
--- user_data : 	user data set when the signal handler was connected.
--- The "drag-motion" signal
-
--- gboolean    user_function                  (GtkWidget      *widget,
--- 														  GdkDragContext *drag_context,
--- 														  gint            x,
--- 														  gint            y,
--- 														  guint           time,
--- 														  gpointer        user_data)         : Run last
-
--- The ::drag-motion signal is emitted on the drop site when the user moves the cursor over the widget during a drag. The signal handler must determine whether the cursor position is in a drop zone or not. If it is not in a drop zone, it returns FALSE and no further processing is necessary. Otherwise, the handler returns TRUE. In this case, the handler is responsible for providing the necessary information for displaying feedback to the user, by calling gdk_drag_status(). If the decision whether the drop will be accepted or rejected can't be made based solely on the cursor position and the type of the data, the handler may inspect the dragged data by calling gtk_drag_get_data() and defer the gdk_drag_status() call to the ::drag-data-received handler.
-
--- Note that there is no ::drag-enter signal. The drag receiver has to keep track of whether he has received any ::drag-motion signals since the last ::drag-leave and if not, treat the ::drag-motion signal as an "enter" signal. Upon an "enter", the handler will typically highlight the drop site with gtk_drag_highlight().
-
- 
--- static void
--- drag_motion (GtkWidget *widget,
--- 			  GdkDragContext *context,
--- 				 gint x,
--- 				 gint y,
--- 				 guint time)
--- {
---   GdkAtom target;
- 
---   PrivateData *private_data = GET_PRIVATE_DATA (widget);
- 
---   if (!private_data->drag_highlight) 
--- 	{
--- 	private_data->drag_highlight = 1;
--- 	gtk_drag_highlight (widget);
--- 	}
- 
---   target = gtk_drag_dest_find_target (widget, context, NULL);
---   if (target == GDK_NONE)
--- 	gdk_drag_status (context, 0, time);
---   else 
--- 	{
--- 	private_data->pending_status = context->suggested_action;
--- 	gtk_drag_get_data (widget, context, target, time);
--- 	}
- 
---   return TRUE;
--- }
-  
--- static void
--- drag_data_received (GtkWidget        *widget,
--- 						  GdkDragContext   *context,
--- 						  gint              x,
--- 						  gint              y,
--- 						  GtkSelectionData *selection_data,
--- 						  guint             info,
--- 						  guint             time)
--- {
---   PrivateData *private_data = GET_PRIVATE_DATA (widget);
-  
---   if (private_data->suggested_action) 
--- 	{
--- 	private_data->suggested_action = 0;
-	
--- 	/* We are getting this data due to a request in drag_motion,
--- 	* rather than due to a request in drag_drop, so we are just
--- 	* supposed to call gdk_drag_status(), not actually paste in the data.
--- 	*/
--- 	str = gtk_selection_data_get_text (selection_data);
--- 	if (!data_is_acceptable (str)) 
--- 		 gdk_drag_status (context, 0, time);
--- 	else
--- 		 gdk_drag_status (context, private_data->suggested_action, time);
--- 	}
---   else
--- 	{
--- 	/* accept the drop */
--- 	}
--- }
-
--- widget : 	the object which received the signal.
--- drag_context : 	the drag context
--- x : 	the x coordinate of the current cursor position
--- y : 	the y coordinate of the current cursor position
--- time : 	the timestamp of the motion event
--- returns : 	whether the cursor position is in a drop zone
--- user_data : 	user data set when the signal handler was connected.
 -- The "enter-notify-event" signal
 
 -- gboolean    user_function                  (GtkWidget        *widget,
