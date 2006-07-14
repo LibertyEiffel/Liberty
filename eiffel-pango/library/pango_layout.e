@@ -29,6 +29,8 @@ insert
 	PANGO_LAYOUT_EXTERNALS
 	G_OBJECT_RETRIEVER [PANGO_CONTEXT]
 		rename retrieve_eiffel_wrapper_from_gobject_pointer as retrieve_context end
+	PANGO_WRAP_MODE
+	PANGO_ALIGNMENT
 
 creation make, from_external_pointer
 
@@ -82,6 +84,39 @@ feature -- Access
 			Result := [a_width, a_height]
 		end
 
+	wrap: INTEGER is
+			-- Gets the wrap mode for the layout.
+		do
+			Result := pango_layout_get_wrap (handle)
+		ensure
+			is_valid_pango_wrap_mode (Result)
+		end
+
+	width: INTEGER is
+			-- Gets the width to which the lines of the PangoLayout should
+			-- wrap.  Returns the width, or -1 if no width set.
+		do
+			Result := pango_layout_get_width (handle)
+		ensure
+			Result >= -1
+		end
+
+	alignment: INTEGER is
+			-- Gets the alignment for the layout: how partial lines are
+			-- positioned within the horizontal space available.
+		do
+			Result := pango_layout_get_alignment (handle)
+		ensure
+			is_valid_pango_alignment (Result)
+		end
+
+	justify: BOOLEAN is
+			-- Gets whether each complete line should be stretched to fill
+			-- the entire width of the layout.
+		do
+			Result := pango_layout_get_justify (handle).to_boolean
+		end
+
 feature -- Operations
 
 	context_changed is
@@ -123,6 +158,52 @@ feature -- Operations
 			-- produce a single literal accel_marker character.
 		do
 			check unimplemented: False end
+		end
+
+	set_wrap (a_wrap_mode: INTEGER) is
+			-- Sets the wrap mode; the wrap mode only has effect if a width
+			-- is set on the layout with set_width(). To turn off wrapping,
+			-- set the width to -1.
+		require
+			is_valid_pango_wrap_mode (a_wrap_mode)
+		do
+			pango_layout_set_wrap (handle, a_wrap_mode)
+		end
+
+	set_width (a_width: INTEGER) is
+			-- Sets the width to which the lines of the PangoLayout should
+			-- wrap.  The desired width should be in Pango units, or -1 to
+			-- indicate that no wrapping should be performed.
+		require
+			a_width >= -1
+		do
+			pango_layout_set_width (handle, a_width)
+		ensure
+			width = a_width
+		end
+
+	set_alignment (an_alignment: INTEGER) is
+			-- Sets the alignment for the layout: how partial lines are
+			-- positioned within the horizontal space available.
+		require
+			is_valid_pango_alignment (an_alignment)
+		do
+			pango_layout_set_alignment (handle, an_alignment)
+		end
+
+	set_justify (a_justify: BOOLEAN) is
+			-- Sets whether each complete line should be stretched to fill
+			-- the entire width of the layout. This stretching is typically
+			-- done by adding whitespace, but for some scripts (such as
+			-- Arabic), the justification may be done in more complex ways,
+			-- like extending the characters.
+			--
+			-- Note that as of Pango-1.10, this functionality is not yet
+			-- implemented.
+		do
+			pango_layout_set_justify (handle, a_justify.to_integer)
+		ensure
+			justify = a_justify
 		end
 
 end -- class PANGO_LAYOUT

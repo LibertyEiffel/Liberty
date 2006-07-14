@@ -53,4 +53,36 @@ feature {NONE} -- External calls
 		external "C use <pango/pango-layout.h>"
 		end
 
+	pango_layout_get_wrap (a_layout: POINTER): INTEGER is
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_set_wrap (a_layout: POINTER; a_wrap_mode: INTEGER) is
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_get_width (a_layout: POINTER): INTEGER is
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_set_width (a_layout: POINTER; a_width: INTEGER) is
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_get_alignment (a_layout: POINTER): INTEGER is
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_set_alignment (a_layout: POINTER; an_alignment: INTEGER) is
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_get_justify (a_layout: POINTER): INTEGER is
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_set_justify (a_layout: POINTER; a_justify: INTEGER) is
+		external "C use <pango/pango-layout.h>"
+		end
+
 end -- class PANGO_LAYOUT_EXTERNALS
