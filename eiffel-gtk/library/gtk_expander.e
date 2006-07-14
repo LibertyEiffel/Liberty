@@ -321,7 +321,7 @@ feature  --   The "activate" signal
 		end
 
 feature {NONE} -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkExpander)"
 		end

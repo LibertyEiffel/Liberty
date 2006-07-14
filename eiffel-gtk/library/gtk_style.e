@@ -39,7 +39,7 @@ creation
 
 feature -- size
 
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkStyle)"
 		end

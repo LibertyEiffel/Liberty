@@ -45,7 +45,7 @@ inherit C_STRUCT
 creation make,from_external_pointer
 
 feature {NONE} -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRequisition)"
 		end

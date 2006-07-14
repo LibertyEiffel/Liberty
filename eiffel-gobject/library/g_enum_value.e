@@ -22,7 +22,7 @@ class G_ENUM_VALUE
 inherit C_STRUCT
 creation make, from_external_pointer
 feature -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GEnumValue)"
 		end

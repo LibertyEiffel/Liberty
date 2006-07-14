@@ -24,7 +24,7 @@ indexing
 deferred class GTK_TREE_STORE_EXTERNALS
 
 feature {NONE}
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeStore)"
 		end

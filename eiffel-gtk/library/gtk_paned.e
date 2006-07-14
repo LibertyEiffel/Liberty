@@ -59,7 +59,7 @@ inherit
 		-- GtkPaned implements AtkImplementorIface.
 insert G_OBJECT_RETRIEVER [GTK_WIDGET]
 feature {NONE} -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPaned)"
 		end

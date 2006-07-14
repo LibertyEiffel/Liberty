@@ -190,7 +190,7 @@ feature {NONE} -- GValueArray struct
 		end
 	
 feature -- Size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GValueArray)"
 		end

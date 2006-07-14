@@ -35,10 +35,9 @@ feature {NONE} -- Creation
 	make is
 			-- Creates a new text buffer.
 		do
-			handle := gtk_text_buffer_new(default_pointer)
+			from_external_pointer (gtk_text_buffer_new(default_pointer))
 			-- TODO: Support GTK_TEXT_TAG_TABLEs.  For now, creating a
 			-- new one every time.
-			store_eiffel_wrapper
 		end
 
 feature -- Operations
@@ -112,26 +111,26 @@ feature -- Access
 			end
 		end
 
-	insert_at (an_iter: GTK_TEXT_ITER; some_text: STRING; a_length: INTEGER) is
-			-- Inserts `a_length' bytes of text at `an_iter' position. If
-			-- `a_length' is -1, text must be nul-terminated and will be
-			-- inserted in its entirety. Emits the "insert_text" signal;
-			-- insertion actually occurs in the default handler for the
-			-- signal. iter is invalidated when insertion occurs (because
-			-- the buffer contents change), but the default signal
-			-- handler revalidates it to point to the end of the inserted
-			-- text.
+	insert_at (an_iter: GTK_TEXT_ITER; some_text: STRING) is
+			-- Inserts `a_length' bytes of text at `an_iter' position. Emits the
+			-- "insert_text" signal; insertion actually occurs in the default
+			-- handler for the signal. iter is invalidated when insertion occurs
+			-- (because the buffer contents change), but the default signal handler
+			-- revalidates it to point to the end of the inserted text.
+
+			-- Note: C API has also a lenght argument, put at -1 for 
+			-- nul-terminated that will be inserted entirely.
 		require
 			valid_iter: an_iter /= Void
 			some_text: some_text /= Void
-			valid_length: a_length >= -1
+			-- valid_length: a_length >= -1
 		do
-			gtk_text_buffer_insert (handle, an_iter.handle, some_text.to_external, a_length)
+			gtk_text_buffer_insert (handle, an_iter.handle, some_text.to_external, -1)
 		end
 
 	insert_at_cursor (some_text: STRING; a_length: INTEGER) is
-			-- calls `insert_at', using the current cursor position as
-			-- the insertion point.
+			-- calls `insert_at', using the current cursor position as the
+			-- insertion point.
 		do
 			gtk_text_buffer_insert_at_cursor (handle, some_text.to_external, a_length)
 		end
@@ -223,7 +222,7 @@ feature -- Access
 			-- to Eiffel of the "internal" GTK implementation.
 			start_offset := an_iter.offset
 
-			insert_at (an_iter, some_text, -1)
+			insert_at (an_iter, some_text)
 			-- Now an_iter points to the end of the inserted text
 			start_iter := iter_at_offset (start_offset)
 			tags := some_tags.get_new_iterator
@@ -234,8 +233,38 @@ feature -- Access
 			end
 		end
 
+	insert_with_tags_by_name (an_iter: GTK_TEXT_ITER; some_text: STRING; some_tag_names: COLLECTION[STRING]) is
+			-- Inserts `some_text' into buffer at `an_iter', applying the
+			-- list of tags to the newly-inserted text. 
 
-	-- TODO: insert_with_tags_by_name (
+			-- `an_iter': 	an iterator in buffer
+			-- `some_text': 	UTF-8 text
+			-- `some_tags_name' : 
+		require
+			iter_not_void: an_iter /= Void
+			text_not_void: some_text /= Void
+			tag_names_not_void: some_tag_names /= Void
+		local
+			tag_names: ITERATOR[STRING]; tag: GTK_TEXT_TAG
+			start_offset: INTEGER
+			start_iter: GTK_TEXT_ITER
+		do
+			-- Note: this code is a more or less direct traduction from C
+			-- to Eiffel of the "internal" GTK implementation.
+			start_offset := an_iter.offset
+
+			insert_at (an_iter, some_text)
+			-- Now an_iter points to the end of the inserted text
+			start_iter := iter_at_offset (start_offset)
+			tag_names := some_tag_names.get_new_iterator
+			from tag_names.start until tag_names.is_off
+			loop
+				tag := tag_table.lookup (tag_names.item)
+				check tag_not_void: tag /= Void end
+				apply_tag (tag, start_iter, an_iter)
+				tag_names.next
+			end
+		end
 
 	-- void        gtk_text_buffer_insert_with_tags_by_name
 	--                                             (GtkTextBuffer *buffer,

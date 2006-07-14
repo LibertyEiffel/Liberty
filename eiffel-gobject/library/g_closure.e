@@ -759,7 +759,7 @@ feature -- Invoking
 
 -- 	Another name for g_cclosure_marshal_BOOLEAN__FLAGS().
 feature -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GCLosure)"
 		end

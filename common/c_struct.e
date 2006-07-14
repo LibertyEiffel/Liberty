@@ -18,7 +18,7 @@ feature {} -- Initialization
 	make is
 			-- Allocate an initialized structure
 		do
-			handle := calloc (1, size)
+			handle := calloc (1, struct_size)
 			if handle.is_null then raise_exception (No_more_memory) end
 		ensure memory_allocated: handle.is_not_null
 		end
@@ -36,7 +36,7 @@ feature -- Queries
 feature {WRAPPER} -- Access to C features
 	-- size should be exported to WRAPPER, to be able to check size 
 	-- before copying
-	size: INTEGER is
+	struct_size: INTEGER is
 			-- sizeof (wrapped_structure), speaking in C. TODO: shall be a NATURAL
 		deferred
 		ensure positive: Result > 0 -- TODO: having NATURAL it is plainly useless

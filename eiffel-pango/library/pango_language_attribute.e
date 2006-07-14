@@ -17,31 +17,33 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
+			]"
 
-class GTK_SELECTION_DATA
-inherit C_STRUCT -- TODO: check if SHARED_C_STRUCT is a better choice
+class PANGO_LANGUAGE_ATTRIBUTE
+
+inherit C_STRUCT
+
 creation make, from_external_pointer
 
-feature {WRAPPER} -- size
+feature {} -- Creation
+
+feature -- size
+
 	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkSelectionData)"
+		external "C inline use <pango/pango.h>"
+		alias "sizeof(PangoAttrLanguage)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- External calls
 
---   GtkSelectionData
+feature {} -- struct PangoAttrLanguage
 
 -- typedef struct {
---   GdkAtom       selection;
---   GdkAtom       target;
---   GdkAtom       type;
---   gint          format;
---   guchar       *data;
---   gint          length;
---   GdkDisplay   *display;
--- } GtkSelectionData;
+--   PangoAttribute attr;
+--   PangoLanguage *value;
+-- } PangoAttrLanguage;
+
+-- The PangoAttrLanguage structure is used to represent attributes that are languages.
+-- PangoAttribute attr;	the common portion of the attribute
+-- PangoLanguage *value;	the PangoLanguage which is the value of the attribute
 end

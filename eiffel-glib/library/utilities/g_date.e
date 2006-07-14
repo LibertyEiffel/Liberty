@@ -71,7 +71,7 @@ inherit
 creation make, make_dmy,
 
 feature {NONE} -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GDate)"
 		end

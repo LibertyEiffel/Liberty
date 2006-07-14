@@ -376,7 +376,7 @@ feature {ANY} -- Pointer
 	-- g_param_spec_* ()
 
 feature
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValue)"
 		end

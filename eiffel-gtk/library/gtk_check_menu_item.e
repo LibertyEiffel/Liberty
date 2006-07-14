@@ -216,7 +216,7 @@ feature
 	-- checkmenuitem : the object which received the signal.
 	-- user_data : user data set when the signal handler was connected.
 feature -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCheckMenuItem)"
 		end

@@ -45,7 +45,7 @@ feature {NONE} -- Creation
 
 feature -- size
 
-	size: INTEGER is
+	struct_size: INTEGER is
 			-- This returns the size of the underlaying C structure in bytes.
 			-- To obtain the size of the layout in pixels you want layout_size
 		external "C inline use <gtk/gtk.h>"

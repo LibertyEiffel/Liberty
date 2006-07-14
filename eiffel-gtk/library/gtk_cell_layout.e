@@ -143,7 +143,7 @@ feature
 -- Since 2.4
 
 feature {WRAPPER} -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellLayout)"
 		end

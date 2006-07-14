@@ -96,6 +96,8 @@ feature  -- Markup parsing
 
 			-- TODO: Provide support for `accel_marker' and
 			-- `accel_char'. Paolo 2007-07-12
+		local 
+			attribute_list: PANGO_ATTR_LIST; text_ptr, error_ptr: POINTER
 		do
 			-- Note: please leave the following commented C documentation
 			-- as reference for further improvements
@@ -239,61 +241,6 @@ feature {} -- Implementation
 --    Since 1.4
 
 --    ------------------------------------------------------------------------------------------------------------------------
-
---   PANGO_SCALE_XX_SMALL
-
---  #define PANGO_SCALE_XX_SMALL ((double)0.5787037037037)
-
---    The scale factor for three shrinking steps (1 / (1.2 * 1.2 * 1.2)).
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PANGO_SCALE_X_SMALL
-
---  #define PANGO_SCALE_X_SMALL  ((double)0.6444444444444)
-
---    The scale factor for two shrinking steps (1 / (1.2 * 1.2)).
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PANGO_SCALE_SMALL
-
---  #define PANGO_SCALE_SMALL    ((double)0.8333333333333)
-
---    The scale factor for one shrinking step (1 / 1.2).
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PANGO_SCALE_MEDIUM
-
---  #define PANGO_SCALE_MEDIUM   ((double)1.0)
-
---    The scale factor for normal size (1.0).
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PANGO_SCALE_LARGE
-
---  #define PANGO_SCALE_LARGE    ((double)1.2)
-
---    The scale factor for one magnification step (1.2).
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PANGO_SCALE_X_LARGE
-
---  #define PANGO_SCALE_X_LARGE  ((double)1.4399999999999)
-
---    The scale factor for two magnification steps (1.2 * 1.2).
-
---    ------------------------------------------------------------------------------------------------------------------------
-
---   PANGO_SCALE_XX_LARGE
-
---  #define PANGO_SCALE_XX_LARGE ((double)1.728)
-
---    The scale factor for three magnification steps (1.2 * 1.2 * 1.2).
-
 --    ------------------------------------------------------------------------------------------------------------------------
 
 --   pango_attr_rise_new ()
@@ -446,7 +393,7 @@ feature {} -- Implementation
 --    ------------------------------------------------------------------------------------------------------------------------
 feature -- size
 
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PangoAttribute)"
 		end

@@ -39,7 +39,7 @@ feature -- getters
 		ensure valid_flags: are_valid_signal_flags (Result)
 		end
 
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GSignalQuery)"
 		end

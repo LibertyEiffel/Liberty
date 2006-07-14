@@ -32,9 +32,9 @@ insert G_ENUM_EXTERNALS
 creation make
 
 feature -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
-		alias "sizeof()"
+		alias "sizeof(GEnum)"
 		end
 
 feature -- TODO: typedef struct {

@@ -53,7 +53,7 @@ feature -- Access
 
 feature -- size
 
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <pango/pango-types.h>"
 		alias "sizeof(PangoRectangle)"
 		end

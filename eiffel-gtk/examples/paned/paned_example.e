@@ -6,16 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 class PANED_EXAMPLE
-inherit
-	GTK_MAIN
+insert GTK_MAIN
 	
 creation make
-
-feature {NONE} -- size
-	size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof()"
-		end
 
 feature {NONE} -- Creation
 	make is

@@ -35,7 +35,7 @@ inherit GTK_CONTAINER
 	-- GtkMenuShell implements AtkImplementorIface Interface
 	
 feature -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuShell)"
 		end

@@ -69,9 +69,9 @@ inherit
 creation new, make, with_markup, from_external_pointer
 
 feature -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
-		alias "sizeof()"
+		alias "sizeof(GtkMessageDialog)"
 		end
 
 feature {NONE} -- Creation

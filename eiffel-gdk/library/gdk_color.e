@@ -15,7 +15,7 @@ creation
 
 feature {WRAPPER} -- size
 
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkColor)"
 		end

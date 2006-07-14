@@ -14,7 +14,7 @@ inherit 	PREPARED_STATEMENT
 insert SQLITE3_EXTERNALS
 	
 feature -- size
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline "
 		alias "sizeof(sqlite3_stmt)"
 		end

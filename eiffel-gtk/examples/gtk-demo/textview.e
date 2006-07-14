@@ -27,21 +27,25 @@ indexing
 
 class TEXTVIEW
 
-inherit
+insert PANGO_SCALES
 
-creation make, from_external_pointer
+creation make
 
 feature -- Widgets
 	buffer: GTK_TEXT_BUFFER
-
+feature 
+	make is 
+		do 
+			create buffer.make
+		end 
 feature  -- Callbacks
-	easter_egg_callback (GtkWidget *button, gpointer data);
+	-- easter_egg_callback (GtkWidget *button, gpointer data);
 
 	gray50_width: INTEGER is 2
 	gray50_height: INTEGER is 2
 	-- static char gray50_bits[] = {0x02, 0x01}; ???
 
-	tags: DICTIONARY [STRING, GTK_TEXT_TAG] is
+	tags: GTK_TEXT_TAG_TABLE is
 			-- A bunch of tags. Note that it's also possible to create
 			-- tags with `GTK_TEXT_TAG.make' then add them to the tag
 			-- table for the buffer, `GTK_TEXT_BUFFER.create_tag' is just
@@ -59,105 +63,106 @@ feature  -- Callbacks
 			-- the same text property affected by an earlier tag will
 			-- override the earlier tag.  You can modify tag priorities
 			-- with gtk_text_tag_set_priority().
-		local stipple: GDK_BITMAP
+		local stipple: GDK_BITMAP; 
 		do
-			Result := 
-				( { HASHED_BIJECTIVE_DICTIONARY[STRING,GTK_TEXT_TAG],
-					 << "Heading", buffer.create_tag ("heading",
-																 << ["weight", PANGO_WEIGHT_BOLD],
-																	 ["size", 15 * PANGO_SCALE] >>);
-						 "Italic", buffer.create_tag ("italic",
-																<< "style", PANGO_STYLE_ITALIC >>);
-						 "Bold", buffer.create_tag ("bold", << ["weight", PANGO_WEIGHT_BOLD] >>);  
-						 "Big", buffer.create_tag ("big", -- points times the PANGO_SCALE factor 
-															<< ["size", 20 * PANGO_SCALE ] >> );
-						 "Extra-small", buffer.create_tag ("xx-small", 
-																	  << [ "scale", PANGO_SCALE_XX_SMALL ] >> );
-						 
+			create Result.make
+			-- Result.add ( create {}
+			-- ( { HASHED_BIJECTIVE_DICTIONARY[STRING,GTK_TEXT_TAG],
+			-- 					 << "Heading", buffer.create_tag ("heading",
+-- 																 << ["weight", PANGO_WEIGHT_BOLD],
+																		 -- 																	 ["size", 15 * PANGO_SCALE] >>);
+										 -- 						 "Italic", buffer.create_tag ("italic",
+										 -- 																<< "style", PANGO_STYLE_ITALIC >>);
+										 -- 						 "Bold", buffer.create_tag ("bold", << ["weight", PANGO_WEIGHT_BOLD] >>);  
+-- 						 "Big", buffer.create_tag ("big", -- points times the PANGO_SCALE factor 
+										 -- 															<< ["size", 20 * PANGO_SCALE ] >> );
+										 -- 						 "Extra-small", buffer.create_tag ("xx-small", 
+										 -- 																	  << [ "scale", PANGO_SCALE_XX_SMALL ] >> );
+										 -- 						 "Extra-large", buffer.create_tag ("x-large",
+										 -- 																	  << [ "scale", PANGO_SCALE_X_LARGE ] >> );
+										 
+										 
+							 
+										 --   gtk_text_buffer_create_tag (buffer, "monospace",
+										 -- 			      "family", "monospace", NULL);
+										 
+										 --   gtk_text_buffer_create_tag (buffer, "blue_foreground",
+										 -- 			      "foreground", "blue", NULL);  
+							 
+										 --   gtk_text_buffer_create_tag (buffer, "red_background",
+										 -- 			      "background", "red", NULL);
 
-						 --   gtk_text_buffer_create_tag (buffer, "x-large",
-						 -- 			      "scale", PANGO_SCALE_X_LARGE, NULL);
+										 --   stipple = gdk_bitmap_create_from_data (NULL,
+										 -- 					 gray50_bits, gray50_width,
+										 -- 					 gray50_height);
   
-						 --   gtk_text_buffer_create_tag (buffer, "monospace",
-						 -- 			      "family", "monospace", NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "background_stipple",
+										 -- 			      "background_stipple", stipple, NULL);
+
+										 --   gtk_text_buffer_create_tag (buffer, "foreground_stipple",
+										 -- 			      "foreground_stipple", stipple, NULL);
+
+										 --   g_object_unref (stipple);
+
+										 --   gtk_text_buffer_create_tag (buffer, "big_gap_before_line",
+										 -- 			      "pixels_above_lines", 30, NULL);
+
+										 --   gtk_text_buffer_create_tag (buffer, "big_gap_after_line",
+										 -- 			      "pixels_below_lines", 30, NULL);
+
+										 --   gtk_text_buffer_create_tag (buffer, "double_spaced_line",
+										 -- 			      "pixels_inside_wrap", 10, NULL);
+
+										 --   gtk_text_buffer_create_tag (buffer, "not_editable",
+										 -- 			      "editable", FALSE, NULL);
   
-						 --   gtk_text_buffer_create_tag (buffer, "blue_foreground",
-						 -- 			      "foreground", "blue", NULL);  
+										 --   gtk_text_buffer_create_tag (buffer, "word_wrap",
+										 -- 			      "wrap_mode", GTK_WRAP_WORD, NULL);
 
-						 --   gtk_text_buffer_create_tag (buffer, "red_background",
-						 -- 			      "background", "red", NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "char_wrap",
+										 -- 			      "wrap_mode", GTK_WRAP_CHAR, NULL);
 
-						 --   stipple = gdk_bitmap_create_from_data (NULL,
-						 -- 					 gray50_bits, gray50_width,
-						 -- 					 gray50_height);
+										 --   gtk_text_buffer_create_tag (buffer, "no_wrap",
+										 -- 			      "wrap_mode", GTK_WRAP_NONE, NULL);
   
-						 --   gtk_text_buffer_create_tag (buffer, "background_stipple",
-						 -- 			      "background_stipple", stipple, NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "center",
+										 -- 			      "justification", GTK_JUSTIFY_CENTER, NULL);
 
-						 --   gtk_text_buffer_create_tag (buffer, "foreground_stipple",
-						 -- 			      "foreground_stipple", stipple, NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "right_justify",
+										 -- 			      "justification", GTK_JUSTIFY_RIGHT, NULL);
 
-						 --   g_object_unref (stipple);
-
-						 --   gtk_text_buffer_create_tag (buffer, "big_gap_before_line",
-						 -- 			      "pixels_above_lines", 30, NULL);
-
-						 --   gtk_text_buffer_create_tag (buffer, "big_gap_after_line",
-						 -- 			      "pixels_below_lines", 30, NULL);
-
-						 --   gtk_text_buffer_create_tag (buffer, "double_spaced_line",
-						 -- 			      "pixels_inside_wrap", 10, NULL);
-
-						 --   gtk_text_buffer_create_tag (buffer, "not_editable",
-						 -- 			      "editable", FALSE, NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "wide_margins",
+										 -- 			      "left_margin", 50, "right_margin", 50,
+										 -- 			      NULL);
   
-						 --   gtk_text_buffer_create_tag (buffer, "word_wrap",
-						 -- 			      "wrap_mode", GTK_WRAP_WORD, NULL);
-
-						 --   gtk_text_buffer_create_tag (buffer, "char_wrap",
-						 -- 			      "wrap_mode", GTK_WRAP_CHAR, NULL);
-
-						 --   gtk_text_buffer_create_tag (buffer, "no_wrap",
-						 -- 			      "wrap_mode", GTK_WRAP_NONE, NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "strikethrough",
+										 -- 			      "strikethrough", TRUE, NULL);
   
-						 --   gtk_text_buffer_create_tag (buffer, "center",
-						 -- 			      "justification", GTK_JUSTIFY_CENTER, NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "underline",
+										 -- 			      "underline", PANGO_UNDERLINE_SINGLE, NULL);
 
-						 --   gtk_text_buffer_create_tag (buffer, "right_justify",
-						 -- 			      "justification", GTK_JUSTIFY_RIGHT, NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "double_underline",
+										 -- 			      "underline", PANGO_UNDERLINE_DOUBLE, NULL);
 
-						 --   gtk_text_buffer_create_tag (buffer, "wide_margins",
-						 -- 			      "left_margin", 50, "right_margin", 50,
-						 -- 			      NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "superscript",
+										 -- 			      "rise", 10 * PANGO_SCALE,	  /* 10 pixels */
+										 -- 			      "size", 8 * PANGO_SCALE,	  /* 8 points */
+										 -- 			      NULL);
   
-						 --   gtk_text_buffer_create_tag (buffer, "strikethrough",
-						 -- 			      "strikethrough", TRUE, NULL);
-  
-						 --   gtk_text_buffer_create_tag (buffer, "underline",
-						 -- 			      "underline", PANGO_UNDERLINE_SINGLE, NULL);
+										 --   gtk_text_buffer_create_tag (buffer, "subscript",
+										 -- 			      "rise", -10 * PANGO_SCALE,   /* 10 pixels */
+										 -- 			      "size", 8 * PANGO_SCALE,	   /* 8 points */
+										 -- 			      NULL);
 
-						 --   gtk_text_buffer_create_tag (buffer, "double_underline",
-						 -- 			      "underline", PANGO_UNDERLINE_DOUBLE, NULL);
-
-						 --   gtk_text_buffer_create_tag (buffer, "superscript",
-						 -- 			      "rise", 10 * PANGO_SCALE,	  /* 10 pixels */
-						 -- 			      "size", 8 * PANGO_SCALE,	  /* 8 points */
-						 -- 			      NULL);
-  
-						 --   gtk_text_buffer_create_tag (buffer, "subscript",
-						 -- 			      "rise", -10 * PANGO_SCALE,   /* 10 pixels */
-						 -- 			      "size", 8 * PANGO_SCALE,	   /* 8 points */
-						 -- 			      NULL);
-
-						 --   gtk_text_buffer_create_tag (buffer, "rtl_quote",
-						 -- 			      "wrap_mode", GTK_WRAP_WORD,
-						 -- 			      "direction", GTK_TEXT_DIR_RTL,
-						 -- 			      "indent", 30,
-						 -- 			      "left_margin", 20,
-						 -- 			      "right_margin", 20,
-						 -- 			      NULL);
-						 -- }
-						 >> } -- End of this gigantic, manifest dictionary.
+										 --   gtk_text_buffer_create_tag (buffer, "rtl_quote",
+										 -- 			      "wrap_mode", GTK_WRAP_WORD,
+										 -- 			      "direction", GTK_TEXT_DIR_RTL,
+										 -- 			      "indent", 30,
+										 -- 			      "left_margin", 20,
+										 -- 			      "right_margin", 20,
+										 -- 			      NULL);
+										 -- }
+										 -->> } -- End of this gigantic, manifest dictionary.
 		end
 	
 	insert_text is
@@ -171,42 +176,39 @@ feature  -- Callbacks
 			-- so you can run gtk-demo without installing GTK, then looks
 			-- in the location where the file is installed.
 
-			filename := demo_find_file ("gtk-logo-rgb.gif", Void)
+			filename := "gtk-logo-rgb.gif" -- demo_find_file ("gtk-logo-rgb.gif", Void)
 			if filename /= Void then
-				create pixbuf.from_file (filename, Void)
+				create pixbuf.from_file (filename)
 				
 				if pixbuf = Void then
-					g_printerr ("Failed to load image file gtk-logo-rgb.gif\n")
-					exit (1)
+					-- g_printerr ("Failed to load image file gtk-logo-rgb.gif\n")
+					-- exit (1)
 				end
 				
-				scaled := pixbuf.scale_simple (32, 32, gdk_interp_bilinear)
-				pixbuf.unref 
+				-- TODO: scaled := pixbuf.scale_simple (32, 32, gdk_interp_bilinear)
+				-- pixbuf.unref 
 				-- TODO: check if the previous command is unnecessary,
 				-- since the following instruction will make former pixbuf
 				-- unreachable, disposable and collectable by the garbage
 				-- collector. Paolo 2006-07-05
-				pixbuf := scaled
+				-- pixbuf := scaled
 				
 				-- get start of buffer; each insertion will revalidate the
 				-- iterator to point to just after the inserted text.
 				
-				iter := buffer.get_iter_at_offset (buffer, 0)
+				iter := buffer.iter_at_offset(0)
 				
 				buffer.insert_at (iter, "The text widget can display text with all %
 												%kinds of nifty attributes. It also supports %
 												%multiple views of the same buffer; this demo %
 												%is showing the same buffer in two places.\n\n")
-				buffer.insert_with_tags_by_name (iter, "Font styles. ", <<-1, "heading">>);
+				--buffer.insert_with_tags_by_name (iter, "Font styles. ", <<-1, "heading">>)
   
-			--   gtk_text_buffer_insert (buffer, &iter, "For example, you can have ", -1);
-			--   gtk_text_buffer_insert_with_tags_by_name (buffer, &iter,
-			-- 					    "italic", -1,
-			-- 					    "italic", NULL);
-			--   gtk_text_buffer_insert (buffer, &iter, ", ", -1);  
-			--   gtk_text_buffer_insert_with_tags_by_name (buffer, &iter,
-			-- 					    "bold", -1,
-			-- 					    "bold", NULL);
+				buffer.insert_at (iter, "For example, you can have ")
+
+				--buffer.insert_with_tags_by_name (iter, "italic", <<"italic">>)
+				buffer.insert_at (iter, ", ")
+				--buffer.insert_with_tags_by_name (iter, "bold", <<"bold">>)
 			--   gtk_text_buffer_insert (buffer, &iter, ", or ", -1);
 			--   gtk_text_buffer_insert_with_tags_by_name (buffer, &iter,
 			-- 					    "monospace (typewriter)", -1,
@@ -604,5 +606,7 @@ feature  -- Callbacks
 			--   gtk_window_set_default_size (GTK_WINDOW (window), 300, 400);
   
 			--   gtk_widget_show_all (window);
-			-- }
+				-- }
+			end
+		end
 end
