@@ -6,17 +6,17 @@ indexing
 	revision "$REvision:$"
 	
 expanded class G_QUARK
+
 insert
-	-- ANY  redefine is_equal end
-	G_QUARK_EXTERNALS undefine is_equal end
-	
+	G_QUARK_EXTERNALS
+
 creation
 	default_create,
 	from_string,
 	try_string
-	
-feature 
-	quark: INTEGER_32
+
+feature
+	quark: INTEGER
 			-- Integer representation. TODO: Shall be instead a
 			-- NATURAL_32 since in C it's a guint32
 
@@ -24,21 +24,25 @@ feature
 			-- Retrieve the G_QUARK identifying `a_string'. If the string
 			-- does not currently have an associated G_QUARK, a new
 			-- G_Quark is created, using a copy of the string.
-		require valid_string: a_string/=Void
+		require valid_string: a_string /= Void
 		do
-			quark:=g_quark_from_string (a_string.to_external)
-		ensure valid: is_valid
+			quark := g_quark_from_string (a_string.to_external)
+		ensure
+			valid: is_valid
 		end
 
 
 	to_string: STRING is
 			-- The string associated with the Current G_QUARK.
+		require
+			is_valid
 		do
 			-- Note: using from_external_copy since g_quark_to_string
 			-- returns a `const gchar*' that AFAIK shall not be freed by
 			-- Eiffel as it doesn't own it.
 			create Result.from_external_copy (g_quark_to_string (quark))
-		ensure valid_result: Result/=Void
+		ensure
+			valid_result: Result /= Void
 		end
 
 	try_string (a_string: STRING) is
@@ -46,19 +50,22 @@ feature
 			-- string. `is_valid' will be false if the string has no
 			-- associated G_QUARK. If you want the G_QUARK to be created
 			-- if it doesn't already exist, use from_string
-		require valid_string: a_string/=Void
+		require valid_string: a_string /= Void
 		do
-			quark:=g_quark_try_string (a_string.to_external)
+			quark := g_quark_try_string (a_string.to_external)
 		end
 
 	is_valid: BOOLEAN is
 			-- Is Current a valid G_QUARK, linked to a string?
 		do
-			Result := (quark/=0)
+			Result := (quark /= 0)
 		end
 
-	is_equal (other: G_QUARK): BOOLEAN is
+	set_quark (a_quark: INTEGER) is
 		do
-			Result := (quark = other.quark)
+			quark := a_quark
+		ensure
+			quark = a_quark
 		end
+
 end

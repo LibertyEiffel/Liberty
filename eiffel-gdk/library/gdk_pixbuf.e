@@ -68,8 +68,13 @@ feature {NONE} -- Creation
 			-- The file format is detected automatically. 
 		require
 			filename /= Void
+		local
+			error_ptr: POINTER
 		do
-			from_external_pointer (gdk_pixbuf_new_from_file(filename.to_external, default_pointer))
+			from_external_pointer (gdk_pixbuf_new_from_file(filename.to_external, $error_ptr))
+			if error_ptr.is_not_null then
+				create last_error.from_external_pointer (error_ptr)
+			end
 		ensure
 			is_valid = is_g_object
 		end
@@ -84,9 +89,14 @@ feature {NONE} -- Creation
 			a_width >= -1
 			a_height >= -1
 			filename /= Void
+		local
+			error_ptr: POINTER
 		do
 			from_external_pointer (gdk_pixbuf_new_from_file_at_size (filename.to_external,
-			                                                         a_width, a_height, default_pointer))
+			                                                         a_width, a_height, $error_ptr))
+			if error_ptr.is_not_null then
+				create last_error.from_external_pointer (error_ptr)
+			end
 		ensure
 			is_valid = is_g_object
 		end
@@ -105,10 +115,15 @@ feature {NONE} -- Creation
 			-- for width and height are allowed since 2.8.
 		require
 			filename /= Void
+		local
+			error_ptr: POINTER
 		do
 			from_external_pointer (gdk_pixbuf_new_from_file_at_scale
 			                       (filename.to_external, a_width, a_height,
-			                       preserve_aspect_ration.to_integer, default_pointer))
+			                       preserve_aspect_ration.to_integer, $error_ptr))
+			if error_ptr.is_not_null then
+				create last_error.from_external_pointer (error_ptr)
+			end
 		ensure
 			is_valid = is_g_object
 		end
@@ -140,6 +155,10 @@ feature {NONE} -- Creation
 		ensure
 			is_valid = is_g_object
 		end
+
+feature -- Access
+
+	last_error: G_ERROR
 
 feature -- Operations
 
@@ -175,27 +194,6 @@ feature -- Operations
 		end
 
 
--- gdk_pixbuf_new_from_file_at_scale ()
--- 
--- GdkPixbuf*  gdk_pixbuf_new_from_file_at_scale
---                                             (const char *filename,
---                                              int width,
---                                              int height,
---                                              gboolean preserve_aspect_ratio,
---                                              GError **error);
--- 
--- Creates a new pixbuf by loading an image from a file. The file format is detected automatically. If NULL is returned, then error will be set. Possible errors are in the GDK_PIXBUF_ERROR and G_FILE_ERROR domains. The image will be scaled to fit in the requested size, optionally preserving the image's aspect ratio.
--- 
--- When preserving the aspect ratio, a width of -1 will cause the image to be scaled to the exact given height, and a height of -1 will cause the image to be scaled to the exact given width. When not preserving aspect ratio, a width or height of -1 means to not scale the image at all in that dimension. Negative values for width and height are allowed since 2.8.
--- 
--- filename : Name of file to load, in the GLib file name encoding
--- width : The width the image should have or -1 to not constrain the width
--- height : The height the image should have or -1 to not constrain the height
--- preserve_aspect_ratio : TRUE to preserve the image's aspect ratio
--- error :     Return location for an error
--- Returns :   A newly-created pixbuf with a reference count of 1, or NULL if any of several error conditions occurred: the file could not be opened, there was no loader for the file's format, there was not enough memory to allocate the image buffer, or the image file contained invalid data.
--- 
--- Since 2.6
 -- gdk_pixbuf_get_file_info ()
 -- 
 -- GdkPixbufFormat* gdk_pixbuf_get_file_info   (const gchar *filename,
