@@ -46,8 +46,6 @@ feature {NONE} -- Creation
 feature -- size
 
 	struct_size: INTEGER is
-			-- This returns the size of the underlaying C structure in bytes.
-			-- To obtain the size of the layout in pixels you want layout_size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PangoLayout)"
 		end
@@ -73,7 +71,7 @@ feature -- Access
 			create Result.from_external_copy (pango_layout_get_text (handle))
 		end
 
-	layout_size: TUPLE [INTEGER, INTEGER] is
+	size: TUPLE [INTEGER, INTEGER] is
 			-- Determines the logical width and height of a PANGO_LAYOUT in
 			-- Pango units. (device units scaled by PANGO_SCALE). This is
 			-- simply a convenience function around get_extents.
