@@ -57,7 +57,7 @@ inherit
 			with_model as make_combo_box_with_model,
 			child as entry
 		export {} make_combo_box_with_model 
-		redefine make, with_text_only, size, entry
+		redefine make, with_text_only, struct_size, entry
 		end
 	-- GtkComboBoxEntry implements the same interfaces implemented by
 	-- GtkComboBox, i.e.: AtkImplementorIface, GtkCellEditable and

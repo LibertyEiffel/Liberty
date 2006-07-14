@@ -80,7 +80,7 @@ indexing
 	
 class GTK_MENU
 inherit
-	GTK_MENU_SHELL redefine size end
+	GTK_MENU_SHELL redefine struct_size end
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
 		-- GtkMenu implements AtkImplementorIface interface.
 

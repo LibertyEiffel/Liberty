@@ -30,7 +30,7 @@ indexing
 
 class GTK_MENU_BAR
 inherit
-	GTK_MENU_SHELL redefine size end
+	GTK_MENU_SHELL redefine struct_size end
 		-- GtkMenuBar implements AtkImplementorIface.
 	
 insert GTK_PACK_DIRECTION
