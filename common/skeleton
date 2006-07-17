@@ -19,23 +19,23 @@ indexing
 					02110-1301 USA
 			]"
 
-class
+class FOO
 
 inherit
-	_EXTERNALS
-	C_STRUCT
+	(SHARED_?)C_STRUCT
+
+insert
+	FOO_EXTERNALS
 
 creation make, from_external_pointer
 
-feature {} -- Creation
+feature {NONE} -- Creation
 
 feature -- size
 
-	size: INTEGER is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
-		alias "sizeof()"
+		alias "sizeof(Foo)"
 		end
 
-feature {} -- External calls
-
-end
+end -- class FOO

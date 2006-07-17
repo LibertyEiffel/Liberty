@@ -51,12 +51,13 @@ indexing
 class GDK_EVENT
 
 inherit
-	C_STRUCT
+	SHARED_C_STRUCT
 
 insert
 	GDK_EVENT_EXTERNALS
+	GDK_EVENT_TYPE
 
---creation make
+creation from_external_pointer
 
 feature {WRAPPER} -- size
 
@@ -94,17 +95,28 @@ feature
 
 	event_type: INTEGER is
 		do
-			Result := gdk_event_event_type (handle)
+			Result := gdk_event_type (handle)
 		ensure
 			is_valid_gdk_event_type (Result)
 		end
 
-	is_event_: BOOLEAN is
+	is_event_motion: BOOLEAN is
 		do
+			Result := event_type = gdk_event_motion_notify
 		end
 
-	event_: GDK_EVENT_ is
+feature -- Convertion to different event types
+
+	event_any: GDK_EVENT_ANY is
 		do
+			create Result.from_event (Current)
+		end
+
+	event_motion: GDK_EVENT_MOTION is
+		require
+			is_event_motion
+		do
+			create Result.from_event (Current)
 		end
 
 end

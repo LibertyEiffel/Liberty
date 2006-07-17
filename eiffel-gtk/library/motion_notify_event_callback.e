@@ -36,7 +36,7 @@ feature
 feature
 	callback (event_motion: POINTER; instance: POINTER): INTEGER is
 		local
-			event_motion_obj: GDK_EVENT_MOTION
+			event_obj: GDK_EVENT
 			r: BOOLEAN
 		do
 			debug
@@ -46,9 +46,11 @@ feature
 				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create event_motion_obj.from_external_pointer (event_motion)
-			
-			r := function.item ([event_motion_obj, object])
+			create event_obj.from_external_pointer (event_motion)
+			check
+				is_a_motion_event: event_obj.is_event_motion
+			end
+			r := function.item ([event_obj.event_motion, object])
 			if r then Result := 1 end
 		end
 

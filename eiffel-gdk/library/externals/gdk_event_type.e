@@ -68,8 +68,8 @@ feature -- enum
 			         (an_event_type=gdk_event_scroll) or else
 			         (an_event_type=gdk_event_window_state) or else
 			         (an_event_type=gdk_event_setting) or else
-			         (an_event_type=gdk_event_owner_change) or else
-			         (an_event_type=gdk_event_grab_broken))
+--			         (an_event_type=gdk_event_grab_broken) or else
+			         (an_event_type=gdk_event_owner_change))
 		end
 
 	gdk_event_nothing: INTEGER is
@@ -299,10 +299,11 @@ feature -- enum
 		alias "GDK_OWNER_CHANGE"
 		end
 
-	gdk_event_grab_broken: INTEGER is
-			-- a pointer or keyboard grab was broken. This event type was added in 2.8.
-		external "C macro use <gdk/gdk.h>"
-		alias "GDK_GRAB_BROKEN"
-		end
+---- Uncomment this if you need it, but it brakes if GTK is 2.6
+--	gdk_event_grab_broken: INTEGER is
+--			-- a pointer or keyboard grab was broken. This event type was added in 2.8.
+--		external "C macro use <gdk/gdk.h>"
+--		alias "GDK_GRAB_BROKEN"
+--		end
 
 end -- GDK_EVENT_TYPE

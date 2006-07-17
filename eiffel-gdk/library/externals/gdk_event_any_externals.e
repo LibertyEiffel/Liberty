@@ -1,5 +1,5 @@
 indexing
-	description: "External calls for GdkEvent"
+	description: "External calls for GDK_EVENT_ANY"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -17,22 +17,18 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-				]"
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
+			]"
 
-deferred class GDK_EVENT_EXTERNALS
+deferred class GDK_EVENT_ANY_EXTERNALS
 
-insert
-	GDK_EVENT_TYPE
+feature {NONE} -- Low level access
 
-feature
-
-	gdk_event_type (h: POINTER) : INTEGER is
-		external "C struct GdkEvent get type use <gdk/gdk.h>"
-		ensure
-			is_valid_gdk_event_type (Result)
+	gdk_event_any_get_window (ptr: POINTER): POINTER is
+		external "C struct GdkEventAny get type use <gdk/gdk.h>"
 		end
 
-end -- GDK_EVENT_EXTERNALS
+	gdk_event_any_get_send_event (ptr: POINTER): INTEGER_8 is
+		external "C struct GdkEventAny get type use <gdk/gdk.h>"
+		end
+
+end -- class GDK_EVENT_ANY_EXTERNALS
