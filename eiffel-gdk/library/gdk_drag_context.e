@@ -41,7 +41,7 @@ class GDK_DRAG_CONTEXT
 	-- is used on both source and destination sides.
 
 inherit
-	C_STRUCT
+	SHARED_C_STRUCT
 	GDK_DRAG_CONTEXT_EXTERNALS
 	GDK_DRAG_ACTION
 

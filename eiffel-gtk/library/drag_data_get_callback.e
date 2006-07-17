@@ -34,7 +34,7 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_content, selection_data: POINTER; info, time: INTEGER_64; instance: POINTER) is
+	callback (drag_content, selection_data: POINTER; info, time: INTEGER_32; instance: POINTER) is
 		local
 			drag_content_obj: GDK_DRAG_CONTEXT
 			selection_data_obj: GTK_SELECTION_DATA
@@ -60,7 +60,7 @@ feature
 		end
 
 	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_SELECTION_DATA,
-	                                                                    INTEGER_64, INTEGER_64, GTK_WIDGET]]) is
+	                                                                    INTEGER_32, INTEGER_32, GTK_WIDGET]]) is
 		do
 			debug
 				print ("DRAG_DATA_GET_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -80,6 +80,6 @@ feature
 
 		signal_name: STRING is "drag-data-get"
 
-	procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_SELECTION_DATA, INTEGER_64, INTEGER_64, GTK_WIDGET]]
+	procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_SELECTION_DATA, INTEGER_32, INTEGER_32, GTK_WIDGET]]
 
 end

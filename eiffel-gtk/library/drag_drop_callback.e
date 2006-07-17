@@ -34,7 +34,7 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_content: POINTER; x,y: INTEGER; time: INTEGER_64; instance: POINTER): INTEGER is
+	callback (drag_content: POINTER; x,y: INTEGER; time: INTEGER; instance: POINTER): INTEGER is
 		local
 			drag_content_obj: GDK_DRAG_CONTEXT
 			r: BOOLEAN
@@ -60,7 +60,7 @@ feature
 		end
 
 	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                                                  INTEGER_64, GTK_WIDGET], BOOLEAN]) is
+	                                                                  INTEGER, GTK_WIDGET], BOOLEAN]) is
 		do
 			debug
 				print ("DRAG_DROP_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -80,6 +80,6 @@ feature
 
 		signal_name: STRING is "drag-drop"
 
-	function: FUNCTION [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER, INTEGER_64, GTK_WIDGET], BOOLEAN]
+	function: FUNCTION [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER, INTEGER, GTK_WIDGET], BOOLEAN]
 
 end

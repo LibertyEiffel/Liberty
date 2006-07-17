@@ -803,7 +803,7 @@ feature -- drag-data-received signal
 
 	connect_agent_to_drag_data_received_signal (a_procedure: PROCEDURE[ANY,
 	                                                                   TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                                                          GTK_SELECTION_DATA, INTEGER_64, INTEGER_64,
+	                                                                          GTK_SELECTION_DATA, INTEGER, INTEGER,
 	                                                                          GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
@@ -856,7 +856,7 @@ feature -- drag-drop signal
 		end
 
 	connect_agent_to_drag_drop_signal (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                                                    INTEGER_64, GTK_WIDGET], BOOLEAN]) is
+	                                                                    INTEGER, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 			-- x : 	the x coordinate of the current cursor position
@@ -933,7 +933,7 @@ feature -- drag-leave signal
 		do
 		end
 
-	connect_agent_to_drag_leave_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER_64, GTK_WIDGET]]) is
+	connect_agent_to_drag_leave_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 			-- time : 	the timestamp of the motion event
@@ -993,7 +993,7 @@ feature -- drag-motion signal
 		end
 
 	connect_agent_to_drag_motion_signal (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                                                      INTEGER_64, GTK_WIDGET], BOOLEAN]) is
+	                                                                      INTEGER, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 			-- x : 	the x coordinate of the current cursor position
@@ -1074,10 +1074,41 @@ feature -- drag-motion signal
 --             gboolean    user_function      (GtkWidget *widget,
 --                                             gboolean   arg1,
 --                                             gpointer   user_data)      : Run last
--- "motion-notify-event"
---             gboolean    user_function      (GtkWidget      *widget,
---                                             GdkEventMotion *event,
---                                             gpointer        user_data)      : Run last
+
+feature -- motion-notify-event signal
+
+	motion_notify_event_signal_name: STRING is "motion-notify-event"
+		-- "motion-notify-event"
+		--             gboolean    user_function      (GtkWidget      *widget,
+		--                                             GdkEventMotion *event,
+		--                                             gpointer        user_data)      : Run last
+
+	enable_on_motion_notify_event is
+			-- Connects "motion-notify-event" signal to `on_motion_notify_event' feature.
+		do
+			connect (Current, motion_notify_event_signal_name, $on_motion_notify_event)
+		end
+
+	on_motion_notify_event: INTEGER is
+			-- Built-in motion-notify-event signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_motion_notify_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]) is
+			-- widget : 	the object which received the signal.
+			-- event : 	
+			-- user_data : 	user data set when the signal handler was connected.
+			-- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			motion_notify_event_callback: MOTION_NOTIFY_EVENT_CALLBACK
+		do
+			create motion_notify_event_callback.make
+			motion_notify_event_callback.connect (Current, a_function)
+		end
+
 -- "no-expose-event"
 --             gboolean    user_function      (GtkWidget        *widget,
 --                                             GdkEventNoExpose *event,
@@ -3418,16 +3449,6 @@ feature -- drag-motion signal
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
 -- Returns : 	
--- The "motion-notify-event" signal
-
--- gboolean    user_function                  (GtkWidget      *widget,
--- 														  GdkEventMotion *event,
--- 														  gpointer        user_data)      : Run last
-
--- widget : 	the object which received the signal.
--- event : 	
--- user_data : 	user data set when the signal handler was connected.
--- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
 -- The "no-expose-event" signal
 
 -- gboolean    user_function                  (GtkWidget        *widget,

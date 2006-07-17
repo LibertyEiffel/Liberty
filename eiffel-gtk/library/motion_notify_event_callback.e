@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the drag-data-received signal"
+	description: "Generic callback for the motion-notify-event signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					
@@ -22,7 +22,7 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class DRAG_DATA_RECEIVED_CALLBACK
+class MOTION_NOTIFY_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
@@ -34,11 +34,10 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_content: POINTER; x,y: INTEGER; selection_data: POINTER;
-	          info, time: INTEGER; instance: POINTER) is
+	callback (event_motion: POINTER; instance: POINTER): INTEGER is
 		local
-			drag_content_obj: GDK_DRAG_CONTEXT
-			selection_data_obj: GTK_SELECTION_DATA
+			event_motion_obj: GDK_EVENT_MOTION
+			r: BOOLEAN
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -47,10 +46,10 @@ feature
 				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create drag_content_obj.from_external_pointer (drag_content)
-			create selection_data_obj.from_external_pointer (selection_data)
+			create event_motion_obj.from_external_pointer (event_motion)
 			
-			procedure.call ([drag_content_obj, x, y, selection_data_obj, info, time, object])
+			r := function.item ([event_motion_obj, object])
+			if r then Result := 1 end
 		end
 
 	callback_pointer: POINTER is
@@ -60,12 +59,10 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                                                    GTK_SELECTION_DATA, INTEGER, INTEGER,
-	                                                                    GTK_WIDGET]]) is
+	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]) is
 		do
 			debug
-				print ("DRAG_DATA_RECEIVED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
+				print ("MOTION_NOTIFY_EVENT_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
 				print (" an_object.handle=") print (an_object.handle.to_string)
 				print (") Current=") print (to_pointer.to_string)
 				print (" Current.handle=") print (handle.to_string)
@@ -77,12 +74,11 @@ feature
 			                                        handle,
 			                                        0 -- i.e. call it before default handler
 			                                       )
-			procedure:=a_procedure
+			function:=a_function
 		end
 
-		signal_name: STRING is "drag-data-received"
+		signal_name: STRING is "motion-notify-event"
 
-	procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                  GTK_SELECTION_DATA, INTEGER, INTEGER, GTK_WIDGET]]
+	function: FUNCTION [ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]
 
 end

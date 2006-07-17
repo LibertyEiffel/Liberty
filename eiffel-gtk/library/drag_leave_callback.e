@@ -34,7 +34,7 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_content: POINTER; time: INTEGER_64; instance: POINTER) is
+	callback (drag_content: POINTER; time: INTEGER; instance: POINTER) is
 		local
 			drag_content_obj: GDK_DRAG_CONTEXT
 		do
@@ -57,7 +57,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, INTEGER_64, GTK_WIDGET]]) is
+	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, INTEGER, GTK_WIDGET]]) is
 		do
 			debug
 				print ("DRAG_LEAVE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -77,5 +77,5 @@ feature
 
 		signal_name: STRING is "drag-leave"
 
-	procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, INTEGER_64, GTK_WIDGET]]
+	procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, INTEGER, GTK_WIDGET]]
 end
