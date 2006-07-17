@@ -139,11 +139,11 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_size_request (widget,gtkrequisition: POINTER) is
+	gtk_widget_size_request (widget, gtkrequisition: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_get_child_requisition (widget,gtkrequisition: POINTER) is
+	gtk_widget_get_child_requisition (widget, gtkrequisition: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -151,7 +151,60 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_widget_add_accelerator (widget,char_accel_signal,gtkaccelgroup: POINTER; guint_accel_key,gdkmodifiertype,gtkaccelflags: INTEGER) is
+	gtk_widget_add_accelerator (widget, char_accel_signal, gtkaccelgroup: POINTER;
+					guint_accel_key, gdkmodifiertype, gtkaccelflags: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_dest_set (widget: POINTER; a_flags: INTEGER; a_targets: POINTER; n_targets, an_actions: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_source_set (widget: POINTER; a_modifier: INTEGER; a_targets: POINTER; n_targets, an_actions: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_dest_add_text_targets (widget: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_dest_add_image_targets (widget: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_dest_add_uri_targets (widget: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_source_add_text_targets (widget: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_source_add_image_targets (widget: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_source_add_uri_targets (widget: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_source_set_icon_pixbuf (widget, a_pixbuf: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_source_set_icon_stock  (widget, a_stock_id: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_drag_source_set_icon_name (widget, an_icon_name: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_widget_set_events (widget: POINTER; some_events: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_widget_add_events (widget: POINTER; some_events: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 

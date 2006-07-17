@@ -1,9 +1,9 @@
 system
-"style_demo"
+"dnd_demo"
 
 root
 
- STYLE_DEMO: make
+DND_DEMO: make
 
 default -- section of the system
 	assertion (all); 
@@ -27,7 +27,7 @@ cluster -- section
 	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
 	pango: "${eiffel_libraries}/eiffel-pango/loadpath.se"
 
-	style_demo: "."
+	dnd_demo: "."
 
 
 --    optional_cluster_name: "cluster_path_using_system_file_notation_here"

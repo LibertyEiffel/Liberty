@@ -27,7 +27,7 @@ indexing
 
 deferred class GDK_DRAG_ACTION
 
-feature -- enum
+feature {NONE} -- enum
 
 	is_valid_gdk_drag_action (an_action: INTEGER) : BOOLEAN is
 		do

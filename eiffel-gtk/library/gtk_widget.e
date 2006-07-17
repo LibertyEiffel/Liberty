@@ -28,20 +28,12 @@ inherit GTK_OBJECT
 
 insert
 	GTK_WIDGET_EXTERNALS
+	GDK_DRAG_ACTION
+	GTK_DEST_DEFAULTS
+	GDK_MODIFIER_TYPE
+	GDK_EVENT_MASK
 
-feature
-	show is
-			-- Flags widget to be displayed.
-		do
-			gtk_widget_show (handle)
-		end
-
-	show_all is
-			-- Recursively shows a widget, and any child widgets (if the
-			-- widget is a container).
-		do
-			gtk_widget_show_all (handle)
-		end
+feature -- Access
 
 	hide is
 			-- Reverses the effects of `show' causing the widget to be hidden
@@ -56,6 +48,8 @@ feature
 			create Result.from_external_pointer (gtk_widget_get_style (handle))
 		end
 
+feature -- Operation
+
 	set_style (a_style: GTK_STYLE) is
 			-- Sets the GTK_STYLE for a widget (widget.style).
 			-- You probably don't want to use this function;
@@ -67,6 +61,149 @@ feature
 			gtk_widget_set_style (handle, a_style.handle)
 		end
 
+	set_sensitive (sens: BOOLEAN) is
+			-- Sets the sensitivity of Current. A widget is sensitive
+			-- if the user can interact with it. Insensitive widgets are
+			-- "grayed out" and the user can't interact with them.
+		do
+			gtk_widget_set_sensitive (handle, sens.to_integer)
+		end
+
+	show is
+			-- Flags widget to be displayed.
+		do
+			gtk_widget_show (handle)
+		end
+
+	show_all is
+			-- Recursively shows a widget, and any child widgets (if the
+			-- widget is a container).
+		do
+			gtk_widget_show_all (handle)
+		end
+
+	set_drag_destination, drag_dest_set (a_flags, an_actions: INTEGER) is
+			-- Sets a widget as a potential drop destination.
+			-- TODO: GtkTargetEntry isn't wrapped yet, use add_text_targets() and such..
+		require
+			is_valid_gtk_dest_defaults (a_flags)
+			is_valid_gdk_drag_action (an_actions)
+		do
+			gtk_drag_dest_set (handle, a_flags, default_pointer, 0, an_actions)
+		end
+
+	set_drag_source, drag_source_set (a_modifier, an_actions: INTEGER) is
+			-- Sets up a widget so that GTK+ will start a drag operation when
+			-- the user clicks and drags on the widget. The widget must have a
+			-- window.
+			-- TODO: GtkTargetEntry isn't wrapped yet, use add_text_targets() and such...
+		require
+			is_valid_gdk_modifier_type (a_modifier)
+			is_valid_gdk_drag_action (an_actions)
+		do
+			gtk_drag_source_set (handle, a_modifier, default_pointer, 0, an_actions)
+		end
+
+	drag_dest_add_text_targets is
+			-- Add the text targets supported by GtkSelection to the target
+			-- list of the drag destination. The targets are added with
+			-- info = 0. If you need another value, use
+			-- drag_dest_set_target_list
+		do
+			gtk_drag_dest_add_text_targets (handle)
+		end
+
+	drag_dest_add_image_targets is
+			-- Add the image targets supported by GtkSelection to the target
+			-- list of the drag destination. The targets are added with
+			-- info = 0. If you need another value, use
+			-- drag_dest_set_target_list
+		do
+			gtk_drag_dest_add_image_targets (handle)
+		end
+
+	drag_dest_add_uri_targets is
+			-- Add the URI targets supported by GtkSelection to the target
+			-- list of the drag destination. The targets are added with
+			-- info = 0. If you need another value, use
+			-- drag_dest_set_target_list
+		do
+			gtk_drag_dest_add_uri_targets (handle)
+		end
+
+	drag_source_add_text_targets is
+			-- Add the text targets supported by GtkSelection to the target
+			-- list of the drag source. The targets are added with info = 0.
+			-- If you need another value, use drag_source_set_target_list
+		do
+			gtk_drag_source_add_text_targets (handle)
+		end
+
+	drag_source_add_image_targets is
+			-- Add the writable image targets supported by GtkSelection to the
+			-- target list of the drag source. The targets are added with
+			-- info = 0. If you need another value, use
+			-- drag_source_set_target_list
+		do
+			gtk_drag_source_add_image_targets (handle)
+		end
+
+	drag_source_add_uri_targets is
+			-- Add the URI targets supported by GtkSelection to the target list
+			-- of the drag source. The targets are added with info = 0. If you
+			-- need another value, use drag_source_set_target_list
+		do
+			gtk_drag_source_add_uri_targets (handle)
+		end
+
+	drag_source_set_icon_pixbuf (a_pixbuf: GDK_PIXBUF) is
+			-- Sets the icon that will be used for drags from a particular
+			-- widget from a GdkPixbuf. GTK+ retains a reference for pixbuf
+			-- and will release it when it is no longer needed.
+		do
+			gtk_drag_source_set_icon_pixbuf (handle, a_pixbuf.handle)
+		end
+
+	drag_source_set_icon_stock (a_stock_id: STRING) is
+			-- Sets the icon that will be used for drags from a particular
+			-- source to a stock icon.
+		do
+			gtk_drag_source_set_icon_stock  (handle, a_stock_id.to_external)
+		end
+
+	drag_source_set_icon_name (an_icon_name: STRING) is
+			-- Sets the icon that will be used for drags from a particular
+			-- source to a themed icon. See the docs for GtkIconTheme for
+			-- more details.
+		do
+			gtk_drag_source_set_icon_name (handle, an_icon_name.to_external)
+		end
+
+	set_events (some_events: INTEGER) is
+			-- Sets the event mask (see GDK_EVENT_MASK) for this widget.
+			-- The event mask determines which events the widget will receive.
+			-- Keep in mind that different widgets have different default event
+			-- masks, and by changing the event mask you may disrupt a widget's
+			-- functionality, so be careful. This function must be called while
+			-- a widget is unrealized. Consider add_events() for widgets that
+			-- are already realized, or if you want to preserve the existing
+			-- event mask. This function can't be used with GTK_NO_WINDOW
+			-- widgets; to get events on those widgets, place them inside a
+			-- GTK_EVENT_BOX and receive events on the event box.
+		require
+			is_valid_gdk_event_mask (some_events)
+		do
+			gtk_widget_set_events (handle, some_events)
+		end
+
+	add_events (some_events: INTEGER) is
+			-- Adds the events in the bitfield events to the event mask for
+			-- this widget. See set_events() for details.
+		require
+			is_valid_gdk_event_mask (some_events)
+		do
+			gtk_widget_add_events (handle, some_events)
+		end
 -- widget : 	a GtkWidget
 
 	
@@ -177,17 +314,6 @@ feature
 -- const gchar* gtk_widget_get_name            (GtkWidget *widget);
 -- void        gtk_widget_set_state            (GtkWidget *widget,
 --                                              GtkStateType state);
-
-feature -- Operation
-
-	set_sensitive (sens: BOOLEAN) is
-			-- Sets the sensitivity of Current. A widget is sensitive
-			-- if the user can interact with it. Insensitive widgets are
-			-- "grayed out" and the user can't interact with them.
-		do
-			gtk_widget_set_sensitive (handle, sens.to_integer)
-		end
-
 -- void        gtk_widget_set_parent           (GtkWidget *widget,
 --                                              GtkWidget *parent);
 -- void        gtk_widget_set_parent_window    (GtkWidget *widget,
@@ -619,7 +745,7 @@ feature -- drag-data-get signal
 
 	connect_agent_to_drag_data_get_signal (a_procedure: PROCEDURE[ANY,
 	                                                              TUPLE [GDK_DRAG_CONTEXT, GTK_SELECTION_DATA,
-	                                                                     INTEGER_64, INTEGER_64, GTK_WIDGET]]) is
+	                                                                     INTEGER, INTEGER, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 			-- data : 	the GtkSelectionData to be filled with the dragged data
