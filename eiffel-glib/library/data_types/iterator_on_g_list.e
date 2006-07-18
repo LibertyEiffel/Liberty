@@ -9,6 +9,7 @@ class ITERATOR_ON_G_LIST [ITEM->WRAPPER]
 inherit
 	ITERATOR [ITEM]
 	WRAPPER
+insert
 	WRAPPER_FACTORY [ITEM]
 	G_LIST_EXTERNALS
 	
@@ -36,9 +37,15 @@ feature -- Iterator's features
 		end
 	
 	item: ITEM is
+		obsolete "suboptimal implementation"
 		do
 			Result := new_item
-			Result.from_external_pointer (g_list_get_data (current_element))
+			Result.from_external_pointer (g_list_get_data
+													(current_element))
+			-- Note: This implementation create a new wrapper object for
+			-- each call to item. This is cleary inefficient. A possible
+			-- solution could be to add singleton DICTIONARY that stores
+			-- wrapper object and its wrapped C structure
 		end
 	
 	next is

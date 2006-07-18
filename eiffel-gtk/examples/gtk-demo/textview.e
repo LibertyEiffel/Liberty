@@ -41,10 +41,249 @@ feature
 feature  -- Callbacks
 	-- easter_egg_callback (GtkWidget *button, gpointer data);
 
+feature -- constants
 	gray50_width: INTEGER is 2
 	gray50_height: INTEGER is 2
 	-- static char gray50_bits[] = {0x02, 0x01}; ???
 
+feature -- tags
+	
+	-- "Heading", buffer.create_tag ("heading", ["weight",
+	-- PANGO_WEIGHT_BOLD], ["size", 15 * PANGO_SCALE] );
+	
+	-- "Italic", buffer.create_tag ("italic", "style",
+	-- PANGO_STYLE_ITALIC );
+	
+	-- "Bold", buffer.create_tag ("bold", << ["weight", PANGO_WEIGHT_BOLD] >>);
+
+	--  "Big", buffer.create_tag ("big", -- points times the PANGO_SCALE factor 
+	-- 															<< ["size", 20 * PANGO_SCALE ] >> );
+
+	-- "Extra-small", buffer.create_tag ("xx-small", -- << [ "scale",
+	-- PANGO_SCALE_XX_SMALL ] >> );
+
+	-- "Extra-large", buffer.create_tag ("x-large", -- << [ "scale",
+	-- PANGO_SCALE_X_LARGE ] >> );
+								 
+										 
+								 
+	--   gtk_text_buffer_create_tag (buffer, "monospace",
+	-- 			      "family", "monospace", NULL);
+								 
+	--   gtk_text_buffer_create_tag (buffer, "blue_foreground",
+	-- 			      "foreground", "blue", NULL);  
+							 
+	--   gtk_text_buffer_create_tag (buffer, "red_background",
+	-- 			      "background", "red", NULL);
+
+	--   stipple = gdk_bitmap_create_from_data (NULL,
+	-- 					 gray50_bits, gray50_width,
+	-- 					 gray50_height);
+  
+	--   gtk_text_buffer_create_tag (buffer, "background_stipple",
+	-- 			      "background_stipple", stipple, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "foreground_stipple",
+	-- 			      "foreground_stipple", stipple, NULL);
+
+	--   g_object_unref (stipple);
+
+	--   gtk_text_buffer_create_tag (buffer, "big_gap_before_line",
+	-- 			      "pixels_above_lines", 30, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "big_gap_after_line",
+	-- 			      "pixels_below_lines", 30, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "double_spaced_line",
+	-- 			      "pixels_inside_wrap", 10, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "not_editable",
+	-- 			      "editable", FALSE, NULL);
+  
+	--   gtk_text_buffer_create_tag (buffer, "word_wrap",
+	-- 			      "wrap_mode", GTK_WRAP_WORD, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "char_wrap",
+	-- 			      "wrap_mode", GTK_WRAP_CHAR, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "no_wrap",
+	-- 			      "wrap_mode", GTK_WRAP_NONE, NULL);
+  
+	--   gtk_text_buffer_create_tag (buffer, "center",
+	-- 			      "justification", GTK_JUSTIFY_CENTER, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "right_justify",
+	-- 			      "justification", GTK_JUSTIFY_RIGHT, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "wide_margins",
+	-- 			      "left_margin", 50, "right_margin", 50,
+	-- 			      NULL);
+  
+	--   gtk_text_buffer_create_tag (buffer, "strikethrough",
+	-- 			      "strikethrough", TRUE, NULL);
+  
+	--   gtk_text_buffer_create_tag (buffer, "underline",
+	-- 			      "underline", PANGO_UNDERLINE_SINGLE, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "double_underline",
+	-- 			      "underline", PANGO_UNDERLINE_DOUBLE, NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "superscript",
+	-- 			      "rise", 10 * PANGO_SCALE,	  /* 10 pixels */
+	-- 			      "size", 8 * PANGO_SCALE,	  /* 8 points */
+	-- 			      NULL);
+  
+	--   gtk_text_buffer_create_tag (buffer, "subscript",
+	-- 			      "rise", -10 * PANGO_SCALE,   /* 10 pixels */
+	-- 			      "size", 8 * PANGO_SCALE,	   /* 8 points */
+	-- 			      NULL);
+
+	--   gtk_text_buffer_create_tag (buffer, "rtl_quote",
+	-- 			      "wrap_mode", GTK_WRAP_WORD,
+	-- 			      "direction", GTK_TEXT_DIR_RTL,
+	-- 			      "indent", 30,
+	-- 			      "left_margin", 20,
+	-- 			      "right_margin", 20,
+	-- 			      NULL);
+	-- }
+	-->> } -- End of this gigantic, manifest dictionary.
+
+	heading: GTK_TEXT_TAG is
+		once
+			create Result.with_name("heading")
+		end
+	italic: GTK_TEXT_TAG is
+		once
+			create Result.with_name("italic")
+		end
+
+	bold: GTK_TEXT_TAG is
+		once
+			create Result.with_name("bold")
+		end
+
+	big: GTK_TEXT_TAG is
+		once
+			create Result.with_name("big")
+		end
+
+	xx_small: GTK_TEXT_TAG is
+		once
+			create Result.with_name("xx_small")
+		end
+
+	x_large: GTK_TEXT_TAG is
+		once
+			create Result.with_name("x_large")
+		end
+
+	monospace: GTK_TEXT_TAG is
+		once
+			create Result.with_name("monospace")
+		end
+
+	blue_foreground: GTK_TEXT_TAG is
+		once
+			create Result.with_name("blue_foreground")
+		end
+
+	red_background: GTK_TEXT_TAG is
+		once
+			create Result.with_name("red_background")
+		end
+
+	background_stipple: GTK_TEXT_TAG is
+		once
+			create Result.with_name("background_stipple")
+		end
+
+	foreground_stipple: GTK_TEXT_TAG is
+		once
+			create Result.with_name("foreground_stipple")
+		end
+
+	big_gap_before_line: GTK_TEXT_TAG is
+		once
+			create Result.with_name("big_gap_before_line")
+		end
+
+	big_gap_after_line: GTK_TEXT_TAG is
+		once
+			create Result.with_name("big_gap_after_line")
+		end
+
+	double_spaced_line: GTK_TEXT_TAG is
+		once
+			create Result.with_name("double_spaced_line")
+		end
+
+	not_editable: GTK_TEXT_TAG is
+		once
+			create Result.with_name("not_editable")
+		end
+
+	word_wrap: GTK_TEXT_TAG is
+		once
+			create Result.with_name("word_wrap")
+		end
+
+	char_wrap: GTK_TEXT_TAG is
+		once
+			create Result.with_name("char_wrap")
+		end
+
+	no_wrap: GTK_TEXT_TAG is
+		once
+			create Result.with_name("no_wrap")
+		end
+
+	center: GTK_TEXT_TAG is
+		once
+			create Result.with_name("center")
+		end
+
+	right_justify: GTK_TEXT_TAG is
+		once
+			create Result.with_name("right_justify")
+		end
+
+	wide_margins: GTK_TEXT_TAG is
+		once
+			create Result.with_name("wide_margins")
+		end
+
+	strikethrough: GTK_TEXT_TAG is
+		once
+			create Result.with_name("strikethrough")
+		end
+
+	underline: GTK_TEXT_TAG is
+		once
+			create Result.with_name("underline")
+		end
+
+	double_underline: GTK_TEXT_TAG is
+		once
+			create Result.with_name("double_underline")
+		end
+
+	superscript: GTK_TEXT_TAG is
+		once
+			create Result.with_name("superscript")
+		end
+
+	subscript: GTK_TEXT_TAG is
+		once
+			create Result.with_name("subscript")
+		end
+
+	rtl_quote: GTK_TEXT_TAG is
+		once
+			create Result.with_name("rtl_quote")
+		end
+
+	
+	
 	tags: GTK_TEXT_TAG_TABLE is
 			-- A bunch of tags. Note that it's also possible to create
 			-- tags with `GTK_TEXT_TAG.make' then add them to the tag
@@ -66,103 +305,33 @@ feature  -- Callbacks
 		local stipple: GDK_BITMAP; 
 		do
 			create Result.make
-			-- Result.add ( create {}
-			-- ( { HASHED_BIJECTIVE_DICTIONARY[STRING,GTK_TEXT_TAG],
-			-- 					 << "Heading", buffer.create_tag ("heading",
--- 																 << ["weight", PANGO_WEIGHT_BOLD],
-																		 -- 																	 ["size", 15 * PANGO_SCALE] >>);
-										 -- 						 "Italic", buffer.create_tag ("italic",
-										 -- 																<< "style", PANGO_STYLE_ITALIC >>);
-										 -- 						 "Bold", buffer.create_tag ("bold", << ["weight", PANGO_WEIGHT_BOLD] >>);  
--- 						 "Big", buffer.create_tag ("big", -- points times the PANGO_SCALE factor 
-										 -- 															<< ["size", 20 * PANGO_SCALE ] >> );
-										 -- 						 "Extra-small", buffer.create_tag ("xx-small", 
-										 -- 																	  << [ "scale", PANGO_SCALE_XX_SMALL ] >> );
-										 -- 						 "Extra-large", buffer.create_tag ("x-large",
-										 -- 																	  << [ "scale", PANGO_SCALE_X_LARGE ] >> );
-										 
-										 
-							 
-										 --   gtk_text_buffer_create_tag (buffer, "monospace",
-										 -- 			      "family", "monospace", NULL);
-										 
-										 --   gtk_text_buffer_create_tag (buffer, "blue_foreground",
-										 -- 			      "foreground", "blue", NULL);  
-							 
-										 --   gtk_text_buffer_create_tag (buffer, "red_background",
-										 -- 			      "background", "red", NULL);
-
-										 --   stipple = gdk_bitmap_create_from_data (NULL,
-										 -- 					 gray50_bits, gray50_width,
-										 -- 					 gray50_height);
-  
-										 --   gtk_text_buffer_create_tag (buffer, "background_stipple",
-										 -- 			      "background_stipple", stipple, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "foreground_stipple",
-										 -- 			      "foreground_stipple", stipple, NULL);
-
-										 --   g_object_unref (stipple);
-
-										 --   gtk_text_buffer_create_tag (buffer, "big_gap_before_line",
-										 -- 			      "pixels_above_lines", 30, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "big_gap_after_line",
-										 -- 			      "pixels_below_lines", 30, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "double_spaced_line",
-										 -- 			      "pixels_inside_wrap", 10, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "not_editable",
-										 -- 			      "editable", FALSE, NULL);
-  
-										 --   gtk_text_buffer_create_tag (buffer, "word_wrap",
-										 -- 			      "wrap_mode", GTK_WRAP_WORD, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "char_wrap",
-										 -- 			      "wrap_mode", GTK_WRAP_CHAR, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "no_wrap",
-										 -- 			      "wrap_mode", GTK_WRAP_NONE, NULL);
-  
-										 --   gtk_text_buffer_create_tag (buffer, "center",
-										 -- 			      "justification", GTK_JUSTIFY_CENTER, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "right_justify",
-										 -- 			      "justification", GTK_JUSTIFY_RIGHT, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "wide_margins",
-										 -- 			      "left_margin", 50, "right_margin", 50,
-										 -- 			      NULL);
-  
-										 --   gtk_text_buffer_create_tag (buffer, "strikethrough",
-										 -- 			      "strikethrough", TRUE, NULL);
-  
-										 --   gtk_text_buffer_create_tag (buffer, "underline",
-										 -- 			      "underline", PANGO_UNDERLINE_SINGLE, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "double_underline",
-										 -- 			      "underline", PANGO_UNDERLINE_DOUBLE, NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "superscript",
-										 -- 			      "rise", 10 * PANGO_SCALE,	  /* 10 pixels */
-										 -- 			      "size", 8 * PANGO_SCALE,	  /* 8 points */
-										 -- 			      NULL);
-  
-										 --   gtk_text_buffer_create_tag (buffer, "subscript",
-										 -- 			      "rise", -10 * PANGO_SCALE,   /* 10 pixels */
-										 -- 			      "size", 8 * PANGO_SCALE,	   /* 8 points */
-										 -- 			      NULL);
-
-										 --   gtk_text_buffer_create_tag (buffer, "rtl_quote",
-										 -- 			      "wrap_mode", GTK_WRAP_WORD,
-										 -- 			      "direction", GTK_TEXT_DIR_RTL,
-										 -- 			      "indent", 30,
-										 -- 			      "left_margin", 20,
-										 -- 			      "right_margin", 20,
-										 -- 			      NULL);
-										 -- }
-										 -->> } -- End of this gigantic, manifest dictionary.
+			Result.add (heading)
+			Result.add (italic)
+			Result.add (bold)
+			Result.add (big)
+			Result.add (xx_small)
+			Result.add (x_large)
+			Result.add (monospace)
+			Result.add (blue_foreground)
+			Result.add (red_background)
+			Result.add (background_stipple)
+			Result.add (foreground_stipple)
+			Result.add (big_gap_before_line)
+			Result.add (big_gap_after_line)
+			Result.add (double_spaced_line)
+			Result.add (not_editable)
+			Result.add (word_wrap)
+			Result.add (char_wrap)
+			Result.add (no_wrap)
+			Result.add (center)
+			Result.add (right_justify)
+			Result.add (wide_margins)
+			Result.add (strikethrough)
+			Result.add (underline)
+			Result.add (double_underline)
+			Result.add (superscript)
+			Result.add (subscript)
+			Result.add (rtl_quote)
 		end
 	
 	insert_text is
@@ -344,14 +513,14 @@ feature  -- Callbacks
 
 			--   gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, "Internationalization. ", -1,
 			-- 					    "heading", NULL);
-	  
+	
 			--   gtk_text_buffer_insert (buffer, &iter,
 			-- 			  "You can put all sorts of Unicode text in the buffer.\n\nGerman (Deutsch S\303\274d) Gr\303\274\303\237 Gott\nGreek (\316\225\316\273\316\273\316\267\316\275\316\271\316\272\316\254) \316\223\316\265\316\271\316\254 \317\203\316\261\317\202\nHebrew	\327\251\327\234\327\225\327\235\nJapanese (\346\227\245\346\234\254\350\252\236)\n\nThe widget properly handles bidirectional text, word wrapping, DOS/UNIX/Unicode paragraph separators, grapheme boundaries, and so on using the Pango internationalization framework.\n", -1);  
 
 			--   gtk_text_buffer_insert (buffer, &iter, "Here's a word-wrapped quote in a right-to-left language:\n", -1);
 			--   gtk_text_buffer_insert_with_tags_by_name (buffer, &iter, "\331\210\331\202\330\257 \330\250\330\257\330\243 \330\253\331\204\330\247\330\253 \331\205\331\206 \330\243\331\203\330\253\330\261 \330\247\331\204\331\205\330\244\330\263\330\263\330\247\330\252 \330\252\331\202\330\257\331\205\330\247 \331\201\331\212 \330\264\330\250\331\203\330\251 \330\247\331\203\330\263\331\212\331\210\331\206 \330\250\330\261\330\247\331\205\330\254\331\207\330\247 \331\203\331\205\331\206\330\270\331\205\330\247\330\252 \331\204\330\247 \330\252\330\263\330\271\331\211 \331\204\331\204\330\261\330\250\330\255\330\214 \330\253\331\205 \330\252\330\255\331\210\331\204\330\252 \331\201\331\212 \330\247\331\204\330\263\331\206\331\210\330\247\330\252 \330\247\331\204\330\256\331\205\330\263 \330\247\331\204\331\205\330\247\330\266\331\212\330\251 \330\245\331\204\331\211 \331\205\330\244\330\263\330\263\330\247\330\252 \331\205\330\247\331\204\331\212\330\251 \331\205\331\206\330\270\331\205\330\251\330\214 \331\210\330\250\330\247\330\252\330\252 \330\254\330\262\330\241\330\247 \331\205\331\206 \330\247\331\204\331\206\330\270\330\247\331\205 \330\247\331\204\331\205\330\247\331\204\331\212 \331\201\331\212 \330\250\331\204\330\257\330\247\331\206\331\207\330\247\330\214 \331\210\331\204\331\203\331\206\331\207\330\247 \330\252\330\252\330\256\330\265\330\265 \331\201\331\212 \330\256\330\257\331\205\330\251 \331\202\330\267\330\247\330\271 \330\247\331\204\331\205\330\264\330\261\331\210\330\271\330\247\330\252 \330\247\331\204\330\265\330\272\331\212\330\261\330\251. \331\210\330\243\330\255\330\257 \330\243\331\203\330\253\330\261 \331\207\330\260\331\207 \330\247\331\204\331\205\330\244\330\263\330\263\330\247\330\252 \331\206\330\254\330\247\330\255\330\247 \331\207\331\210 \302\273\330\250\330\247\331\206\331\203\331\210\330\263\331\210\331\204\302\253 \331\201\331\212 \330\250\331\210\331\204\331\212\331\201\331\212\330\247.\n\n", -1,
 			-- 						"rtl_quote", NULL);
-      
+		
 			--   gtk_text_buffer_insert (buffer, &iter, "You can put widgets in the buffer: Here's a button: ", -1);
 			--   anchor = gtk_text_buffer_create_child_anchor (buffer, &iter);
 			--   gtk_text_buffer_insert (buffer, &iter, " and a menu: ", -1);
@@ -400,7 +569,7 @@ feature  -- Callbacks
 			--     {
 			--       GtkTextChildAnchor *anchor;
 			--       GtkWidget *widget;
-      
+		
 			--       anchor = gtk_text_iter_get_child_anchor (&iter);
 
 			--       if (i == 0)
@@ -463,13 +632,13 @@ feature  -- Callbacks
 			--       GtkWidget *view2;
 			--       GtkWidget *sw;
 			--       GtkTextBuffer *buffer;
-      
+		
 			--       window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 			--       gtk_window_set_screen (GTK_WINDOW (window),
 			-- 			     gtk_widget_get_screen (do_widget));
 			--       gtk_window_set_default_size (GTK_WINDOW (window),
 			-- 				   450, 450);
-      
+		
 			--       g_signal_connect (window, "destroy",
 			-- 			G_CALLBACK (gtk_widget_destroyed), &window);
 
@@ -488,7 +657,7 @@ feature  -- Callbacks
 			--       view1 = gtk_text_view_new ();
 			--       buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view1));
 			--       view2 = gtk_text_view_new_with_buffer (buffer);
-      
+		
 			--       sw = gtk_scrolled_window_new (NULL, NULL);
 			--       gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
 			-- 				      GTK_POLICY_AUTOMATIC,
@@ -510,7 +679,7 @@ feature  -- Callbacks
 
 			--       attach_widgets (GTK_TEXT_VIEW (view1));
 			--       attach_widgets (GTK_TEXT_VIEW (view2));
-      
+		
 			--       gtk_widget_show_all (vpaned);
 			--     }
 

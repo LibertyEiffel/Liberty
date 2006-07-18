@@ -50,6 +50,7 @@ inherit
 -- 		end
 	SHARED_C_STRUCT
 		rename
+			make as allocate_struct -- Note: this is required to circumvent the not_null postcondition of SHARED_C_STRUCT make. A NULL pointer is the actual *valid* empty G_SLIST!
 			exists as wrapped_object_exists
 		redefine
 			dispose
@@ -57,64 +58,34 @@ inherit
 
 insert
 	G_SLIST_EXTERNALS -- undefine copy,is_equal,fill_tagged_out_memory end
-		undefine copy end
-	INTERNALS_HANDLER
-		-- needed to materialize an object of type ITEM, without knowing
-		-- which type ITEM will really be.
 		undefine copy
 		end
+	WRAPPER_FACTORY [ITEM]
 
-creation make, from_external_pointer
-
-feature {NONE} -- Implementation
-	materialize: like first is
-			-- Materialize an Eiffel object. This feature contains
-			-- something that can be considered "black magic" by purists:
-			-- creating a generic object at run-time of the right type,
-			-- i.e. the type of ITEM without knowing the type of ITEM and
-			-- without having a valid ITEM to copy from; the only thing
-			-- we know is that we trust SmartEiffel that it is
-			-- creable. This is achieved using SmartEiffel's
-			-- TYPED_INTERNALS. Why do this because SmartEiffel explictly
-			-- forbid to create an object when its type is only
-			-- generically known.
-		local internal: TYPED_INTERNALS[like first]
-		do
-			create internal.make_blank -- magically create a new ITEM
-			internal.set_object_can_be_retrieved -- prepare it to be released from the magic couldron
-			Result := internal.object -- Pick it
-			-- Note: this could also be implemented with 
-			-- external "C inline"
-			-- alias "malloc (sizeof($first))"
-			-- That could/should be faster. This solution feels 
-			-- "cleaner". Paolo 2006-07-12
-		ensure not_void: Result /= Void
-		end
+creation make_empty, from_external_pointer
 
 feature
-	make is
+	make_empty is
 		do
 			handle := default_pointer
-			--create factory_item
 		end
 
 	first: ITEM is 
 		do
-			-- TODO: baby, how to implementd something like this?
-			Result := materialize
+
+			Result := new_item
 			Result.from_external_pointer (g_slist_get_data (handle))
-			-- why isn't it legal?
 		end
 
 	last: like first is 
 		do
-			Result := materialize
+			Result := new_item
 			Result.from_external_pointer (g_slist_get_data (g_slist_last (handle)))
 		end
 
 	item (i: INTEGER): like first is
 		do
-			Result := materialize
+			Result := new_item
 			Result.from_external_pointer (g_slist_nth_data (handle, i))
 		end
 
@@ -325,8 +296,7 @@ feature
 	
 	get_new_iterator: ITERATOR[ITEM] is 
 		do
-			not_yet_implemented -- TODO
-			--create {ITERATOR_ON_G_SLIST[ITEM]} Result.make ()
+			create {ITERATOR_ON_G_SLIST[ITEM]} Result.make (Current)
 		ensure valid: Result/=Void
 		end
 
