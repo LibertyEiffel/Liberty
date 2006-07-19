@@ -27,11 +27,11 @@ feature {NONE} -- Low level access
 		external "C struct GdkEventMotion get time use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_x (ptr: POINTER): DOUBLE is
+	gdk_event_motion_get_x (ptr: POINTER): REAL_64 is
 		external "C struct GdkEventMotion get x use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_y (ptr: POINTER): DOUBLE is
+	gdk_event_motion_get_y (ptr: POINTER): REAL_64 is
 		external "C struct GdkEventMotion get y use <gdk/gdk.h>"
 		end
 
@@ -47,11 +47,11 @@ feature {NONE} -- Low level access
 		external "C struct GdkEventMotion get is_hint use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_x_root (ptr: POINTER): DOUBLE is
+	gdk_event_motion_get_x_root (ptr: POINTER): REAL_64 is
 		external "C struct GdkEventMotion get x_root use <gdk/gdk.h>"
 		end
 
-	gdk_event_motion_get_y_root (ptr: POINTER): DOUBLE is
+	gdk_event_motion_get_y_root (ptr: POINTER): REAL_64 is
 		external "C struct GdkEventMotion get y_root use <gdk/gdk.h>"
 		end
 

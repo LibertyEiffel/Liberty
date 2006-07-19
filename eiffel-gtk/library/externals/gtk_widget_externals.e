@@ -297,9 +297,13 @@ feature {NONE} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
--- GdkWindow*  gtk_widget_get_parent_window    (GtkWidget *widget) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_get_window (widget: POINTER): POINTER is
+		external "C struct GtkWidget get window use <gtk/gtk.h>"
+		end
+
+	gtk_widget_get_parent_window (widget: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- gtk_widget_set_uposition (widget: POINTER,
 --                                              gint x,

@@ -23,11 +23,13 @@ indexing
 	-- display. Since GdkRGB currently only handles images with 8 bits
 	-- per component, dithering on 24 bit per pixel displays is a moot
 	-- point.
-				
+
 deferred class GDK_RGB_DITHER
+
 feature  -- enum
+
 	is_valid_rgb_dither (a_dither :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_dither = gdk_rgb_dither_none) or else
 						(a_dither = gdk_rgb_dither_normal) or else
 						(a_dither = gdk_rgb_dither_max))

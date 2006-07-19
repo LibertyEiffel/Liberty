@@ -318,6 +318,38 @@ feature -- Operation
 --                                              GtkWidget *parent);
 -- void        gtk_widget_set_parent_window    (GtkWidget *widget,
 --                                              GdkWindow *parent_window);
+
+	window: GDK_WINDOW is
+		local
+			c_window: POINTER
+			r: G_RETRIEVER [GDK_WINDOW]
+		do
+			c_window := gtk_widget_get_window (handle)
+			if r.has_eiffel_wrapper_stored (c_window) then
+				Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_window)
+			else
+				create Result.from_external_pointer (c_window)
+			end
+		ensure
+			Result /= Void
+		end
+
+	parent_window: GDK_WINDOW is
+		local
+			c_window: POINTER
+			r: G_RETRIEVER [GDK_WINDOW]
+		do
+			create r
+			c_window := gtk_widget_get_parent_window (handle)
+			if r.has_eiffel_wrapper_stored (c_window) then
+				Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_window)
+			else
+				create Result.from_external_pointer (c_window)
+			end
+		ensure
+			Result /= Void
+		end
+
 -- GdkWindow*  gtk_widget_get_parent_window    (GtkWidget *widget);
 -- void        gtk_widget_set_uposition        (GtkWidget *widget,
 --                                              gint x,
@@ -2401,7 +2433,6 @@ feature -- motion-notify-event signal
 			context_ptr: POINTER
 			retriever: G_RETRIEVER [PANGO_CONTEXT]
 		do
-			create retriever
 			context_ptr := gtk_widget_get_pango_context (handle)
 			if retriever.has_eiffel_wrapper_stored (context_ptr) then
 				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (context_ptr)

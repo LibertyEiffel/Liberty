@@ -22,15 +22,15 @@ indexing
 	-- Specifies a trapezpoid for use by the gdk_draw_trapezoids(). The
 	-- trapezoids used here have parallel, horizontal top and bottom
 	-- edges.
-				
 
-	
 class GDK_TRAPEZOID
+
 inherit C_STRUCT
 
 creation make, from_external_pointer
 
 feature
+
 	y1: REAL is
 			-- the y coordinate of the start point.
 		do

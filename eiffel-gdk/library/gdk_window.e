@@ -22,7 +22,12 @@ class GDK_WINDOW
 
 inherit GDK_DRAWABLE
 
-creation make, from_external_pointer
+insert
+	GDK_WINDOW_EXTERNALS
+	GDK_MODIFIER_TYPE
+	G_RETRIEVER [GDK_WINDOW]
+
+creation from_external_pointer
 
 feature {} -- Creation
 
@@ -31,13 +36,12 @@ feature -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkWindow)"
 		end
+
 feature {} -- External calls
-		-- 
-	
+
 	-- Synopsis
 
 	-- #include <gdk/gdk.h>
-
 
 	-- struct      GdkWindow;
 	-- enum        GdkWindowType;
@@ -261,11 +265,33 @@ feature {} -- External calls
 	--                                             (GdkWindow *window,
 	--                                              gint *x,
 	--                                              gint *y);
-	-- GdkWindow*  gdk_window_get_pointer          (GdkWindow *window,
-	--                                              gint *x,
-	--                                              gint *y,
-	--                                              GdkModifierType *mask);
-	-- enum        GdkModifierType;
+
+feature
+
+	get_pointer: TUPLE [GDK_WINDOW, INTEGER, INTEGER, INTEGER] is
+			-- GdkWindow*  gdk_window_get_pointer          (GdkWindow *window,
+			--                                              gint *x,
+			--                                              gint *y,
+			--                                              GdkModifierType *mask);
+		local
+			res: POINTER
+			window: GDK_WINDOW
+			x, y, mask: INTEGER
+		do
+			res := gdk_window_get_pointer (handle, $x, $y, $mask)
+			if res.is_not_null then
+				if has_eiffel_wrapper_stored (res) then
+					window := retrieve_eiffel_wrapper_from_gobject_pointer (res)
+				else
+					create window.from_external_pointer (res)
+				end
+				Result := [window, x, y, mask]
+			end
+		ensure
+			Result /= Void implies is_valid_gdk_modifier_type (Result.fourth)
+		end
+
+
 	-- GdkWindow*  gdk_window_get_parent           (GdkWindow *window);
 	-- GdkWindow*  gdk_window_get_toplevel         (GdkWindow *window);
 	-- GList*      gdk_window_get_children         (GdkWindow *window);

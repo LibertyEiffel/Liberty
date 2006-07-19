@@ -22,8 +22,8 @@ indexing
 	-- Specifies the start and end point of a line for use by the
 	-- gdk_draw_segments() function.
 
-	
 class GDK_SEGMENT
+
 inherit C_STRUCT
 
 creation make, from_external_pointer

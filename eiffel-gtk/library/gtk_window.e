@@ -32,6 +32,7 @@ creation
 	make, from_external_pointer
 
 feature {NONE} -- Creation
+
 	make is
 			-- Create a new window managed by the window manager, having
 			-- a frame by default
@@ -41,6 +42,7 @@ feature {NONE} -- Creation
 		end
 
 feature
+
 	set_title (a_title: STRING) is
 		require
 			a_title_not_void: a_title/=Void
@@ -51,6 +53,7 @@ feature
 	-- TODO: wrap gtk_window_set_wmclass ()
 
 feature -- Resizability
+
 	set_resizable is
 			-- Makes current window resizable by the user.
 		do
@@ -86,17 +89,18 @@ feature -- Resizability
 	is_default_activated: BOOLEAN
 			-- Has the default widget been activated by `activate_default'?
 
-	activate_default (window: POINTER): INTEGER is
+	activate_default: INTEGER is
 			-- Activates the default widget for the window, unless the
 			-- current focused widget has been configured to receive the
 			-- default action (see GTK_RECEIVES_DEFAULT in
 			-- GtkWidgetFlags), in which case the focused widget is
 			-- activated.
 		do
-			is_default_activated:=gtk_window_activate_default(handle).to_boolean
+			is_default_activated := gtk_window_activate_default (handle).to_boolean
 		end
 
 feature -- Window modal mode
+
 	set_modal is
 			-- Sets a window modal. Modal windows prevent interaction
 			-- with other windows in the same application. To keep modal
@@ -111,7 +115,7 @@ feature -- Window modal mode
 	unset_modal is
 			-- Sets a window non-modal.
 		do
-					gtk_window_set_modal (handle,0)
+			gtk_window_set_modal (handle,0)
 		end
 
 	is_modal: BOOLEAN is
@@ -119,8 +123,9 @@ feature -- Window modal mode
 		do
 			Result:=gtk_window_get_modal (handle).to_boolean
 		end
-	
+
 feature -- Window size
+
 	set_default_size (a_width, an_height: INTEGER) is
 			-- Sets the default size of a window. If the window's
 			-- "natural" size (its size request) is larger than the
@@ -165,6 +170,7 @@ feature -- Window size
 	-- TODO: wrap gtk_window_set_geometry_hints (window,
 	-- geometry_widget, geometry: POINTER; gdkwindowhints_geom_mask:
 	-- INTEGER) which require wrapping of GdkGeometry
+
 feature -- Window "gravity"
 
 	-- TODO implement set_gravity_[north/south/east/west] etc
@@ -190,6 +196,7 @@ feature -- Window "gravity"
 		end
 
 feature -- Window position
+
 	no_position is
 			-- No influence is made on placement.
 		do
@@ -199,27 +206,27 @@ feature -- Window position
 	midscreen is
 			-- Window should be placed in the center of the screen.
 		do
-			gtk_window_set_position (handle,	gtk_win_pos_center)
+			gtk_window_set_position (handle, gtk_win_pos_center)
 		end
 
 	at_mouse is
 			-- Window should be placed at the current mouse position.
 		do
-			gtk_window_set_position (handle,	gtk_win_pos_mouse)
+			gtk_window_set_position (handle, gtk_win_pos_mouse)
 		end
 
 	always_centered is
 			-- Keep window centered as it changes size, etc.
 		do
-			gtk_window_set_position (handle,	gtk_win_pos_center_always)
+			gtk_window_set_position (handle, gtk_win_pos_center_always)
 		end
 
 	center_on_parent is
 			-- Center the window on its transient parent (see `set_transient_for').
 		do
-			gtk_window_set_position (handle,	gtk_win_pos_center_on_parent)
+			gtk_window_set_position (handle, gtk_win_pos_center_on_parent)
 		end
-		
+
 	set_position (a_position: INTEGER) is
 			-- Sets position constraint for this window to
 			-- `a_position'. If the old or new constraint is
@@ -249,7 +256,7 @@ feature -- Transiency
 			-- parent : 	parent window
 		require valid_parent: a_parent/=Void
 		do
-			gtk_window_set_transient_for (handle,a_parent.handle) 
+			gtk_window_set_transient_for (handle,a_parent.handle)
 		end
 
 feature -- window lifecycle
@@ -262,19 +269,20 @@ feature -- window lifecycle
 		do
 			gtk_window_set_destroy_with_parent (handle, 1)
 		end
-	
+
 	unset_destroy_with_parent is
 			-- opposite of `set_destroy_with_parent'
 		do
 			gtk_window_set_destroy_with_parent (handle, 0)
 		end
-	
+
 	-- TODO: wrap void gtk_window_set_screen (GtkWindow *window,
 	-- GdkScreen *screen);
 	
 	-- TODO: wrap GdkScreen* gtk_window_get_screen (GtkWindow *window);
 
 feature -- various queries
+
 	is_active: BOOLEAN is
 			-- Is current window part of the current active toplevel?
 			-- (That is, the toplevel window receiving keystrokes.) The
@@ -287,7 +295,6 @@ feature -- various queries
 			Result:=(gtk_window_is_active (handle)).to_boolean
 		end
 
-
 	has_toplevel_focus: BOOLEAN is
 			-- Is the input focus within Current GTK_WINDOW? For real
 			-- toplevel windows, this is identical to `is_active', but
@@ -296,7 +303,6 @@ feature -- various queries
 		do
 			Result:=gtk_window_has_toplevel_focus (handle).to_boolean
 		end
-
 
 	-- TODO: wrap gtk_window_list_toplevels: POINTER (GList *) needs
 	-- G_LIST[WRAPPED]. Returns a list of all existing toplevel
@@ -342,7 +348,6 @@ feature -- various queries
 			end
 		end
 
-
 -- 	gtk_window_set_focus (window,focus: POINTER) is
 -- 		-- If focus is not the current focus widget, and is focusable,
 -- 		-- sets it as the focus widget for the window. If focus is NULL,
@@ -355,7 +360,6 @@ feature -- various queries
 -- 			-- focus : 	widget to be the new focus widget, or NULL to unset any focus widget for the toplevel window.
 -- 		external "C use <gtk/gtk.h>"
 -- 		end
-
 
 -- 	gtk_window_set_default (window,default_widget: POINTER) is
 -- 		-- The default widget is the widget that's activated when the
@@ -458,7 +462,7 @@ feature -- various queries
 -- 			-- don't write code that crashes if not.
 
 -- 			-- It's permitted to call this function before showing a window.
-		
+
 -- 			-- You can track stickiness via the "window_state_event"
 -- 			-- signal on GtkWidget.
 
@@ -497,7 +501,7 @@ feature -- various queries
 
 -- 			-- You can track maximization via the "window_state_event"
 -- 			-- signal on GtkWidget.
-		
+
 -- 			-- window : 	a GtkWindow
 -- 		external "C use <gtk/gtk.h>"
 -- 		end
@@ -527,10 +531,10 @@ feature -- various queries
 -- 			-- managers honor requests to fullscreen windows. But normally
 -- 			-- the window will end up fullscreen. Just don't write code that
 -- 			-- crashes if not.
-		
+
 -- 			-- You can track the fullscreen state via the
 -- 			-- "window_state_event" signal on GtkWidget.
-		
+
 -- 			-- window : 	a GtkWindow
 -- 		external "C use <gtk/gtk.h>"
 -- 		end
@@ -566,7 +570,7 @@ feature -- various queries
 -- 			-- It's permitted to call this function before showing a
 -- 			-- window, in which case the window will be kept above when
 -- 			-- it appears onscreen initially.
-		
+
 -- 			-- You can track the above state via the "window_state_event"
 -- 			-- signal on GtkWidget.
 
@@ -593,7 +597,7 @@ feature -- various queries
 -- 			-- It's permitted to call this function before showing a
 -- 			-- window, in which case the window will be kept below when
 -- 			-- it appears onscreen initially.
-		
+
 -- 			-- You can track the below state via the "window_state_event"
 -- 			-- signal on GtkWidget.
 
@@ -638,7 +642,7 @@ feature -- various queries
 -- 			-- system. Otherwise, GDK will try to emulate window movement,
 -- 			-- potentially not all that well, depending on the windowing
 -- 			-- system.
-		
+
 -- 			-- window : 	a GtkWindow
 -- 			-- button : 	mouse button that initiated the drag
 -- 			-- root_x : X position where the user clicked to initiate the

@@ -29,7 +29,7 @@ indexing
 
 class GTK_TEXT_VIEW
 
-inherit GTK_CONTAINER
+inherit GTK_CONTAINER rename window as widget_window end
 
 	-- TODO: GtkTextView implements AtkImplementorIface.
 
@@ -67,9 +67,10 @@ feature {NONE} -- Creation
 		end
 
 feature -- Queries
+
 	has_scrolled: BOOLEAN
 			-- Has last `scroll_to_iter' have produced a scrolling?
-	
+
 	have_been_cursor_moved: BOOLEAN
 			-- Had last feature call moded the cursor?
 
@@ -222,7 +223,6 @@ feature
 			have_been_cursor_moved:= gtk_text_view_place_cursor_onscreen (handle).to_boolean
 		end
 
-
 	visible_rect: GDK_RECTANGLE is
 			-- the currently-visible region of the buffer, in buffer
 			-- coordinates. Convert to window coordinates with
@@ -370,8 +370,7 @@ feature
 			end
 		end
 
-
-	window_type (a_window: GDK_WINDOW): INTEGER is 
+	window_type (a_window: GDK_WINDOW): INTEGER is
 			-- Usually used to find out which window an event corresponds
 			-- to. If you connect to an event signal on text_view, this
 			-- function should be called on event->window to see which

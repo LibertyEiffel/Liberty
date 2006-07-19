@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 -- Description
@@ -29,8 +29,9 @@ indexing
 -- The horizontal and vertical alignment attributes enable the widget to be positioned within its allocated area. Note that if the widget is added to a container in such a way that it expands automatically to fill its allocated area, the alignment settings will not alter the widgets position.
 
 deferred class GTK_MISC
+
 inherit
-	GTK_WIDGET 
+	GTK_WIDGET
 		-- Implemented Interfaces: GtkMisc implements
 		-- AtkImplementorIface.
 	GTK_MISC_EXTERNALS

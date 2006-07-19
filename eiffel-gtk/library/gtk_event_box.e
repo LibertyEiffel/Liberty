@@ -26,8 +26,11 @@ indexing
 			-- catch events for widgets which do not have their own window.
 
 class GTK_EVENT_BOX
+
 inherit GTK_BIN -- GtkEventBox implements AtkImplementorIface.
+
 insert GTK_EVENT_BOX_EXTERNALS
+
 creation make, from_external_pointer
 
 

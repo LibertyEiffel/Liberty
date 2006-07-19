@@ -19,10 +19,12 @@ indexing
 					02110-1301 USA
 				]"
 class GDK_REGION
+
 inherit
 	C_STRUCT
 		redefine dispose, copy, make
 		end
+
 insert
 	GDK_FILL_RULE
 		redefine copy end

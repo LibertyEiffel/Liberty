@@ -38,22 +38,22 @@ feature -- access
 			Result := gdk_event_motion_get_time (handle)
 		end
 
-	x: DOUBLE is
+	x: REAL_64 is
 			-- the x coordinate of the pointer relative to the window.
 		do
 			Result := gdk_event_motion_get_x (handle)
 		end
 
-	y: DOUBLE is
+	y: REAL_64 is
 			-- the y coordinate of the pointer relative to the window.
 		do
 			Result := gdk_event_motion_get_y (handle)
 		end
 
-	axes: TUPLE [DOUBLE, DOUBLE] is
+	axes: TUPLE [REAL_64, REAL_64] is
 			-- x, y translated to the axes of device, or Void if device is the mouse.
 		local
-			device_axes: NATIVE_ARRAY [DOUBLE]
+			device_axes: NATIVE_ARRAY [REAL_64]
 		do
 			device_axes := device_axes.from_pointer (gdk_event_motion_get_axes (handle))
 			if device_axes.is_not_null then
@@ -80,13 +80,13 @@ feature -- access
 
 -- Not implemented: GdkDevice *device; 	the device where the event originated.
 
-	x_root: DOUBLE is
+	x_root: REAL_64 is
 			-- the x coordinate of the pointer relative to the root of the screen.
 		do
 			Result := gdk_event_motion_get_x_root (handle)
 		end
 
-	y_root: DOUBLE is
+	y_root: REAL_64 is
 			-- the y coordinate of the pointer relative to the root of the screen.
 		do
 			Result := gdk_event_motion_get_y_root (handle)

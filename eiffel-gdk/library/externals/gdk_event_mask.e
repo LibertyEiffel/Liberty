@@ -68,7 +68,7 @@ feature {NONE} -- enum
 		end
 
 	gdk_button1_motion_mask: INTEGER is
-			-- receive pointer motion events while 1 button  is pressed
+			-- receive pointer motion events while 1 button is pressed
 		external "C macro use <gdk/gdk.h>"
 		alias "GDK_BUTTON1_MOTION_MASK"
 		end
