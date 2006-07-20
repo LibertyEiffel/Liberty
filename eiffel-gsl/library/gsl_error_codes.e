@@ -1,12 +1,13 @@
 indexing
 	description: "values of the the GSL error code"
-	copyright: "(C) 2005 Jose Bollo <jose.bollo@laposte.net>"
+	copyright: "(C) 2005 Jose Bollo <jose.bollo@laposte.net> %
+   %2006 Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
 	date: "$Date$"
 	revision "$Revision$"
 
 expanded class GSL_ERROR_CODES
-	-- known code (from gsl 1.17, please check that the definition is still ok against gsl/gsl_errno.h)
+	-- known code (from gsl 1.4, please check that the definition is still ok against gsl/gsl_errno.h)
 	-- feature check codes helps to ensure validity
 	-- code automatically generated with the following commands:
 	-- [1] cat > toto  ((then select the enum body in gsl/gsl_errno.h))
@@ -14,111 +15,114 @@ expanded class GSL_ERROR_CODES
 	-- [3] tr '[[:upper:]]' '[[:lower:]]' < tata | awk -F '\t' '{printf "\t%s: INTEGER is %s\n\t\t-- %s\n\n",$1,$2,$3}'
 	-- [4] tr '[[:upper:]]' '[[:lower:]]' < tata | awk -F '\t' '{printf "\t\t\t\t%s = gsl_%s\n",$1,$1}'
 	-- [5] cut -f 1 tata | tr '[[:upper:]]' '[[:lower:]]' | paste - tata | awk '{printf "\tgsl_%s: INTEGER is\n\t\t\t-- code of GSL_%s\n\t\texternal \"plug_in\"\n\t\talias \"{\n\t\t\tlocation: \"${xxx}plugins\"\n\t\t\tmodule_name: \"gsl\"\n\t\t\tfeature_name: \"GSL_%s\"\n\t\t\t}\"\n\t\tend\n\n",$1,$2,$2}'
+
+   -- modified by hand: changed constants to begin with a capital letter
+
 feature
 
-	success: INTEGER is 0
+	Success: INTEGER is 0
 		-- success 
 
-	failure: INTEGER is -1
+	Failure: INTEGER is -1
 		-- generic failure 
 
-	continue: INTEGER is -2
+	Continue: INTEGER is -2
 		-- iteration has not converged 
 
-	edom: INTEGER is 1
+	Edom: INTEGER is 1
 		-- input domain error e.g sqrt(-1) 
 
-	erange: INTEGER is 2
+	Erange: INTEGER is 2
 		-- output range error e.g. exp(1e100) 
 
-	efault: INTEGER is 3
+	Efault: INTEGER is 3
 		-- invalid pointer 
 
-	einval: INTEGER is 4
+	Einval: INTEGER is 4
 		-- invalid argument supplied by user 
 
-	efailed: INTEGER is 5
+	Efailed: INTEGER is 5
 		-- generic failure 
 
-	efactor: INTEGER is 6
+	Efactor: INTEGER is 6
 		-- factorization failed 
 
-	esanity: INTEGER is 7
+	Esanity: INTEGER is 7
 		-- sanity check failed - shouldn't happen 
 
-	enomem: INTEGER is 8
+	Enomem: INTEGER is 8
 		-- malloc failed 
 
-	ebadfunc: INTEGER is 9
+	Ebadfunc: INTEGER is 9
 		-- problem with user-supplied function 
 
-	erunaway: INTEGER is 10
+	Erunaway: INTEGER is 10
 		-- iterative process is out of control 
 
-	emaxiter: INTEGER is 11
+	Emaxiter: INTEGER is 11
 		-- exceeded max number of iterations 
 
-	ezerodiv: INTEGER is 12
+	Ezerodiv: INTEGER is 12
 		-- tried to divide by zero 
 
-	ebadtol: INTEGER is 13
+	Ebadtol: INTEGER is 13
 		-- user specified an invalid tolerance 
 
-	etol: INTEGER is 14
+	Etol: INTEGER is 14
 		-- failed to reach the specified tolerance 
 
-	eundrflw: INTEGER is 15
+	Eundrflw: INTEGER is 15
 		-- underflow 
 
-	eovrflw: INTEGER is 16
+	Eovrflw: INTEGER is 16
 		-- overflow  
 
-	eloss: INTEGER is 17
+	Eloss: INTEGER is 17
 		-- loss of accuracy 
 
-	eround: INTEGER is 18
+	Eround: INTEGER is 18
 		-- failed because of roundoff error 
 
-	ebadlen: INTEGER is 19
+	Ebadlen: INTEGER is 19
 		-- matrix vector lengths are not conformant 
 
-	enotsqr: INTEGER is 20
+	Enotsqr: INTEGER is 20
 		-- matrix not square 
 
-	esing: INTEGER is 21
+	Esing: INTEGER is 21
 		-- apparent singularity detected 
 
-	ediverge: INTEGER is 22
+	Ediverge: INTEGER is 22
 		-- integral or series is divergent 
 
-	eunsup: INTEGER is 23
+	Eunsup: INTEGER is 23
 		-- requested feature is not supported by the hardware 
 
-	eunimpl: INTEGER is 24
+	Eunimpl: INTEGER is 24
 		-- requested feature not (yet) implemented 
 
-	ecache: INTEGER is 25
+	Ecache: INTEGER is 25
 		-- cache limit exceeded 
 
-	etable: INTEGER is 26
+	Etable: INTEGER is 26
 		-- table limit exceeded 
 
-	enoprog: INTEGER is 27
+	Enoprog: INTEGER is 27
 		-- iteration is not making progress towards solution 
 
-	enoprogj: INTEGER is 28
+	Enoprogj: INTEGER is 28
 		-- jacobian evaluations are not improving the solution 
 
-	etolf: INTEGER is 29
+	Etolf: INTEGER is 29
 		-- cannot reach the specified tolerance in f 
 
-	etolx: INTEGER is 30
+	Etolx: INTEGER is 30
 		-- cannot reach the specified tolerance in x 
 
-	etolg: INTEGER is 31
+	Etolg: INTEGER is 31
 		-- cannot reach the specified tolerance in gradient 
 
-	eof: INTEGER is 32
+	Eof: INTEGER is 32
 		-- end of file 
 
 feature
@@ -127,41 +131,41 @@ feature
 			-- check that the code are conform to the GSL definition
 		do
 			check
-				success = gsl_success
-				failure = gsl_failure
-				continue = gsl_continue
-				edom = gsl_edom
-				erange = gsl_erange
-				efault = gsl_efault
-				einval = gsl_einval
-				efailed = gsl_efailed
-				efactor = gsl_efactor
-				esanity = gsl_esanity
-				enomem = gsl_enomem
-				ebadfunc = gsl_ebadfunc
-				erunaway = gsl_erunaway
-				emaxiter = gsl_emaxiter
-				ezerodiv = gsl_ezerodiv
-				ebadtol = gsl_ebadtol
-				etol = gsl_etol
-				eundrflw = gsl_eundrflw
-				eovrflw = gsl_eovrflw
-				eloss = gsl_eloss
-				eround = gsl_eround
-				ebadlen = gsl_ebadlen
-				enotsqr = gsl_enotsqr
-				esing = gsl_esing
-				ediverge = gsl_ediverge
-				eunsup = gsl_eunsup
-				eunimpl = gsl_eunimpl
-				ecache = gsl_ecache
-				etable = gsl_etable
-				enoprog = gsl_enoprog
-				enoprogj = gsl_enoprogj
-				etolf = gsl_etolf
-				etolx = gsl_etolx
-				etolg = gsl_etolg
-				eof = gsl_eof
+				Success = gsl_success
+				Failure = gsl_failure
+				Continue = gsl_continue
+				Edom = gsl_edom
+				Erange = gsl_erange
+				Efault = gsl_efault
+				Einval = gsl_einval
+				Efailed = gsl_efailed
+				Efactor = gsl_efactor
+				Esanity = gsl_esanity
+				Enomem = gsl_enomem
+				Ebadfunc = gsl_ebadfunc
+				Erunaway = gsl_erunaway
+				Emaxiter = gsl_emaxiter
+				Ezerodiv = gsl_ezerodiv
+				Ebadtol = gsl_ebadtol
+				Etol = gsl_etol
+				Eundrflw = gsl_eundrflw
+				Eovrflw = gsl_eovrflw
+				Eloss = gsl_eloss
+				Eround = gsl_eround
+				Ebadlen = gsl_ebadlen
+				Enotsqr = gsl_enotsqr
+				Esing = gsl_esing
+				Ediverge = gsl_ediverge
+				Eunsup = gsl_eunsup
+				Eunimpl = gsl_eunimpl
+				Ecache = gsl_ecache
+				Etable = gsl_etable
+				Enoprog = gsl_enoprog
+				Enoprogj = gsl_enoprogj
+				Etolf = gsl_etolf
+				Etolx = gsl_etolx
+				Etolg = gsl_etolg
+				Eof = gsl_eof
 			end
 		end
 

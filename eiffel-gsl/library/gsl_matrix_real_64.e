@@ -10,18 +10,25 @@ indexing
 	
 class GSL_MATRIX_REAL_64
 inherit
-	GSL_MATRIX_GENERAL[REAL_64]
-	
-creation make, make_zero, from_collection2
+   COLLECTION2 [REAL_64]
+      undefine
+         out
+      end
 
-feature {NONE} -- External calls
+insert
+	GSL_MATRIX_GENERAL[REAL_64]
+
+
+creation make, make_zero, make_identity, from_model, from_collection2, copy
+
+feature {} -- External calls
 
 	gsl_matrix_alloc (a_n1, a_n2: INTEGER): POINTER is
 		external "C use <gsl/gsl_matrix.h>"
 		end
 	
 	gsl_matrix_calloc (n1,n2: INTEGER): POINTER is
-		external "C use <gsl/gsl_matrix.h>"
+      external "C use <gsl/gsl_matrix.h>"
 		end
 	
 	gsl_matrix_free (a_gsl_matrix: POINTER) is
@@ -180,35 +187,69 @@ feature {NONE} -- External calls
 		external "C use <gsl/gsl_matrix.h>"
 		end
 
-feature {NONE} -- Accessing gsl_matrix struct
+feature {}-- Accessing gsl_matrix struct
 
 	c_structure_size: INTEGER is
-		external "C  use <gsl/gsl_matrix.h>"
-		alias "sizeof(gsl_matrix)"
-		end
-	
-	get_size1 (a_matrix: POINTER): INTEGER is
-		external "C struct gsl_matrix get size1 use <gsl/gsl_matrix.h>"
-		end
-
-	get_size2 (a_matrix: POINTER): INTEGER is
-		external "C struct gsl_matrix get size2 use <gsl/gsl_matrix.h>"
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "matrix_double_c_struct_size"
+         }"
 		end
 
-	get_tda (a_matrix: POINTER): INTEGER is
-		external "C struct gsl_matrix get  use <gsl/gsl_matrix.h>"
+	get_size1 (a_matrix: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "matrix_double_size1"
+         }"
+		end
+
+	get_size2 (a_matrix: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "matrix_double_size2"
+         }"
+		end
+
+	get_tda (a_matrix: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "matrix_double_tda"
+         }"
 		end
 
 	get_data (a_matrix: POINTER): POINTER is
-		external "C struct gsl_matrix get  use <gsl/gsl_matrix.h>"
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "matrix_double_data"
+         }"
 		end
 	
 	get_block  (a_matrix: POINTER): POINTER is
-		external "C struct gsl_matrix get  use <gsl/gsl_matrix.h>"
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "matrix_double_block"
+         }"
 		end
 
-	get_owner (a_matrix: POINTER): INTEGER is
-		external "C struct gsl_matrix get  use <gsl/gsl_matrix.h>"
+	get_owner (a_matrix: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "matrix_double_owner"
+         }"
 		end
-
+	
 end

@@ -24,7 +24,7 @@ inherit C_STRUCT
 			out, copy
 		end
 	
-feature {NONE} -- Creating
+feature {} -- Creating
 	make_rect (a, b: TYPE_) is
 			-- Creates complex number with value (a + bi)
 		do
@@ -68,16 +68,16 @@ feature
 	is_equal(other: like Current): BOOLEAN is
 		do
 			Result := handle = other.handle
-				or else (size = other.size and memcmp(handle, other.handle, size) = 0)
+				or else (struct_size = other.struct_size and memcmp(handle, other.handle, struct_size) = 0)
 		end
 
 feature -- copying
 	copy(other: like Current) is
 		do
 			check
-				equal_sizes: size = other.size
+				equal_sizes: struct_size = other.struct_size
 			end
-			memcpy(handle, other.handle, size)
+			memcpy(handle, other.handle, struct_size)
 		end
 	
 feature -- Printing

@@ -4,8 +4,8 @@ root TEST_MATRIX : make
 
 default -- section of the system
 
-	assertion (all);
-	debug (yes);
+	assertion (boost);
+	debug (no);
 	trace (no);
 	collect (yes); -- garbage collector ?
 	no_style_warning (no);

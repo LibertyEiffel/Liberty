@@ -1,19 +1,20 @@
 indexing
 	description: "general matrix"
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
-	authors: "Paolo Redaelli, Rapha"
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>%
+   %Raphael Mack <mail@raphael-mack.de>"
+	authors: "Paolo Redaelli, Raphael Mack"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
-	-- TODO: use all the return values of the functions. Currently discarded.
-	
-			-- TODO: Eiffelize this documentation: Matrices
-
-			-- Matrices are defined by a gsl_matrix structure which
-			-- describes a generalized slice of a block. Like a vector it
-			-- represents a set of elements in an area of memory, but
-			-- uses two indices instead of one.
-
+         -- TODO: Eiffelize this documentation: Matrices
+         -- TODO: add views
+         -- TODO: add error handling
+         --       use all the return values of the functions. Currently discarded.
+         -- TODO: add stream reading/writing
+         -- TODO: add row/column vector access (views?), 
+         --       (uncommenting existing code?)
+         -- TODO: implement has, fast_has, replace, fast_replace, subcollection2
+   
 			-- The gsl_matrix structure contains six components, the two
 			-- dimensions of the matrix, a physical dimension, a pointer
 			-- to the memory where the elements of the matrix are stored,
@@ -54,53 +55,25 @@ indexing
 			-- freed.
 
 
+deferred class GSL_MATRIX_GENERAL[TYPE_]
 
-	-- TODO: line/row/column count is confusing with collection2. Is 
-	-- this efficent?
-class GSL_MATRIX_GENERAL[TYPE_]
-inherit
-	
-	COLLECTION2 [TYPE_]
-
+insert
 	WRAPPER
-		rename
-			is_equal as is_equal_generic
-		undefine
-			fill_tagged_out_memory
+      undefine
+         out, fill_tagged_out_memory
 		end
 
-	ANY
-		rename
-			is_equal as is_equal_generic
-		undefine
-			out,
-			copy,
-			fill_tagged_out_memory
-		end
+	COLLECTION2 [TYPE_]
+      redefine
+         out
+      end
 
---insert
---	GSL_ERRNO
---		rename
---			is_equal as is_equal_generic
---		undefine
---			copy, fill_tagged_out_memory
---		end
-	
-feature {NONE} -- Creating
-	make (rows, columns: INTEGER) is
-		require
-			valid_rows: rows > 0
-			valid_columns: columns > 0 
-			-- Creates a matrix of size `rows' by `columns'. Matrix's elements are uninitialized
-		do
-			if handle.is_not_null then
-				gsl_matrix_free (handle)
-			end
-				
-			set_handle(gsl_matrix_alloc (rows,columns))
-				
-		end
-	
+   GSL_ERRNO
+      undefine
+         out, copy, is_equal, fill_tagged_out_memory
+      end
+   
+feature {ANY} -- Creating
 	make_zero  (rows, columns: INTEGER) is
 			-- Creates a matrix of size `rows' by `columns' and
 			-- initializes all the elements of the matrix to zero.
@@ -113,9 +86,34 @@ feature {NONE} -- Creating
 			end
 			set_handle(gsl_matrix_calloc (rows, columns))
 		end
-	
-feature {ANY} -- Creating or initializing: 
-	
+
+	make (rows, columns: INTEGER) is
+			-- Creates a matrix of size `rows' by `columns'. Matrix's elements are 
+			-- uninitialized, you should probably prefere make_zero.
+		require
+			valid_rows: rows > 0
+			valid_columns: columns > 0 
+		do
+			if handle.is_not_null then
+				gsl_matrix_free (handle)
+			end
+				
+			set_handle(gsl_matrix_alloc (rows, columns))
+				
+		end
+
+	make_identity  (rows, columns: INTEGER) is
+			-- Creates a matrix of size `rows' by `columns' and
+			-- initializes all the elements except the diagonal to 0
+         -- the diagonal is 1
+		require
+			valid_rows: rows > 0
+			valid_columns: columns > 0 
+		do
+         make(rows, columns)
+         set_identity
+		end
+		
 	from_collection2 (model: COLLECTION2[like item]) is
 			--  Uses `model' to initialize Current.
 		local
@@ -125,12 +123,12 @@ feature {ANY} -- Creating or initializing:
 			from
 				i := model.lower1
 			until
-				i < model.upper1
+				i > model.upper1
 			loop
 				from
 					j := model.lower2
 				until
-					j < model.upper2
+					j > model.upper2
 				loop
 					put (model.item(i, j), i, j)
 					j := j + 1
@@ -141,40 +139,60 @@ feature {ANY} -- Creating or initializing:
 
 	from_model (model: COLLECTION[COLLECTION[TYPE_]]) is
 			-- The `model' is used to fill line by line Current.
-			-- Assume all sub-collections of `model' have the same
-			-- number of lines.
 		local
-			i, j, cols, model_lower: INTEGER
+			i, j, cols, rows: INTEGER_32
 			subcollection: COLLECTION[TYPE_]
+         it: ITERATOR[COLLECTION[TYPE_]]
 		do
-			model_lower := model.lower
-			cols := model.item(model.lower).count
-			set_handle(gsl_matrix_alloc(model.count, cols))
+         rows := model.count
+         from
+            -- find the biggest subcollection
+            it := model.get_new_iterator
+            it.start
+         until
+            it.is_off
+         loop
+            cols := cols.max(it.item.count)
+            it.next
+         end
+         sedb_breakpoint
+         make_zero(rows, cols)
+         
+         from
+            i := model.lower
+         until
+            i > model.upper
+         loop
+            subcollection := model.item (i)
+            from
+               j := subcollection.lower
+            until
+               j > subcollection.upper
+            loop
+               put (subcollection.item(j),
+                    i - model.lower,
+                    j - subcollection.lower)
+               j := j + 1
+            end
+            i := i + 1
+         end
+      end
 
-			from
-				i := model.lower
-			until
-				i < model.upper
-			loop
-				subcollection := model.item (i)
-				check
-					coherent_subcollection_length: subcollection.count = cols
-				end
-				from
-					j := subcollection.lower
-				until
-					j < subcollection.upper
-				loop
-					put (subcollection.item(j),
-						  i - model_lower,
-						  j - subcollection.lower)
-					j := j + 1
-				end
-				i := i + 1
-			end
-		end
-
-feature {NONE} -- Disposing
+   from_transposed(model: like Current) is
+         -- This function makes the matrix Current the transpose of
+         -- the matrix src by copying the elements of model into Current.
+      local
+         res: INTEGER_32
+      do
+			make(model.count2, model.count1)
+         res := gsl_matrix_transpose_memcpy(handle, model.handle)
+         check
+            True
+            -- TODO            res
+         end
+      end
+   
+feature {} -- Disposing
 	dispose is
 		do
 			gsl_matrix_free (handle)
@@ -185,6 +203,8 @@ feature {NONE} -- Disposing
 			-- memory is still owned by that object and will not be
 			-- deallocated.
 			handle := default_pointer
+         -- we may violate the invariant here, since the object is 
+         -- destroyed from now on.
 		end
 	
 feature -- Accessing
@@ -201,7 +221,6 @@ feature -- Accessing
 			-- Sets the value of the (i,j)-th element of Current matrix to `an_x'.
 		do
 			gsl_matrix_set (handle, i, j, an_x)
-			-- This function sets the value of the (i,j)-th element of a matrix m to x. If i or j lies outside the allowed range of 0 to n1-1 and 0 to n2-1 then the error handler is invoked. 
 		end
 
 	force (element: like item; line, column: INTEGER) is
@@ -209,25 +228,59 @@ feature -- Accessing
 			-- resized first when (`line',`column') is not inside current
 			-- bounds. New bounds are initialized with default values.
 			-- Required to be a COLLECTION2
-		obsolete "currently not implemented"
+      local
+         new_count1, new_count2: INTEGER_32         
 		do
-			-- Nothing
+         if not valid_index(line, column) then
+            new_count1 := count1.max(line + 1)
+            new_count2 := count2.max(column + 1)
+            enlarge(new_count1, new_count2)
+         end
+         put(element, line, column)   
 		ensure then
-			implemented: False
+			size_ok: valid_index(line, column)
 		end
 
-	-- Note: currently wrapping double * gsl_matrix_ptr (gsl_matrix *
-	-- m, size_t i, size_t j) and const double * gsl_matrix_const_ptr
-	-- (const gsl_matrix * m, size_t i, size_t j) seems not to be
-	-- useful. Infact their docs says: "These functions return a
-	-- pointer to the (i,j)-th element of a matrix m. If i or j lie
-	-- outside the allowed range of 0 to n1-1 and 0 to n2-1 then the
-	-- error handler is invoked and a null pointer is returned.". Paolo
-	-- 2006-03-19
+
+   enlarge(rows, columns: INTEGER_32) is
+         -- enlarges the matrix, preserving values, new fields will 
+         -- be initialized to 0
+      require
+         not_less_rows: rows > count1
+         not_less_cols: columns > count2
+      local
+         tmp: POINTER
+         i, j: INTEGER_32
+         old_count1, old_count2: INTEGER_32
+      do
+         old_count1 := count1
+         old_count2 := count2
+         tmp := handle
+         set_handle(gsl_matrix_calloc (rows, columns))
+         from
+            i := 0
+         until
+            i >= old_count1
+         loop
+            from
+               j := 0
+            until
+               j >= old_count2
+            loop
+               put(gsl_matrix_get(tmp, i, j), i, j)
+               j := j + 1
+            end
+            i := i + 1
+         end
+         gsl_matrix_free(tmp)
+      ensure
+         valid_count1: count1 = rows
+         valid_count2: count2 = columns
+      end
 
 feature -- Initializing matrix elements
 	set_all_with (an_x: TYPE_) is
-			-- sets all the elements of Current matrix to the value `an_x'. 
+			-- sets all the elements of Current matrix to the value `an_x'.
 		do
 			gsl_matrix_set_all (handle, an_x)
 		end
@@ -248,122 +301,6 @@ feature -- Initializing matrix elements
 			gsl_matrix_set_identity (handle)
 		end
 
-feature -- TODO: Reading and writing matrices
-
--- The library provides functions for reading and writing matrices to a file as binary data or formatted text.
-
--- Function: int gsl_matrix_fwrite (FILE * stream, const gsl_matrix * m)
--- 	This function writes the elements of the matrix m to the stream stream in binary format. The return value is 0 for success and GSL_EFAILED if there was a problem writing to the file. Since the data is written in the native binary format it may not be portable between different architectures. 
-
--- Function: int gsl_matrix_fread (FILE * stream, gsl_matrix * m)
--- 	This function reads into the matrix m from the open stream stream in binary format. The matrix m must be preallocated with the correct dimensions since the function uses the size of m to determine how many bytes to read. The return value is 0 for success and GSL_EFAILED if there was a problem reading from the file. The data is assumed to have been written in the native binary format on the same architecture. 
-
--- Function: int gsl_matrix_fprintf (FILE * stream, const gsl_matrix * m, const char * format)
--- 	This function writes the elements of the matrix m line-by-line to the stream stream using the format specifier format, which should be one of the %g, %e or %f formats for floating point numbers and %d for integers. The function returns 0 for success and GSL_EFAILED if there was a problem writing to the file. 
-
--- Function: int gsl_matrix_fscanf (FILE * stream, gsl_matrix * m)
--- 	This function reads formatted data from the stream stream into the matrix m. The matrix m must be preallocated with the correct dimensions since the function uses the size of m to determine how many numbers to read. The function returns 0 for success and GSL_EFAILED if there was a problem reading from the file. 
-
-feature -- TODO: Matrix views
-
--- A matrix view is a temporary object, stored on the stack, which can be used to operate on a subset of matrix elements. Matrix views can be defined for both constant and non-constant matrices using separate types that preserve constness. A matrix view has the type gsl_matrix_view and a constant matrix view has the type gsl_matrix_const_view. In both cases the elements of the view can by accessed using the matrix component of the view object. A pointer gsl_matrix * or const gsl_matrix * can be obtained by taking the address of the matrix component with the & operator. In addition to matrix views it is also possible to create vector views of a matrix, such as row or column views.
-
--- Function: gsl_matrix_view gsl_matrix_submatrix (gsl_matrix * m, size_t k1, size_t k2, size_t n1, size_t n2)
--- Function: gsl_matrix_const_view gsl_matrix_const_submatrix (const gsl_matrix * m, size_t k1, size_t k2, size_t n1, size_t n2)
--- 	These functions return a matrix view of a submatrix of the matrix m. The upper-left element of the submatrix is the element (k1,k2) of the original matrix. The submatrix has n1 rows and n2 columns. The physical number of columns in memory given by tda is unchanged. Mathematically, the (i,j)-th element of the new matrix is given by,
-
--- 	m'(i,j) = m->data[(k1*m->tda + k2) + i*m->tda + j]
-
--- 	where the index i runs from 0 to n1-1 and the index j runs from 0 to n2-1.
-
--- 	The data pointer of the returned matrix struct is set to null if the combined parameters (i,j,n1,n2,tda) overrun the ends of the original matrix.
-
--- 	The new matrix view is only a view of the block underlying the existing matrix, m. The block containing the elements of m is not owned by the new matrix view. When the view goes out of scope the original matrix m and its block will continue to exist. The original memory can only be deallocated by freeing the original matrix. Of course, the original matrix should not be deallocated while the view is still in use.
-
--- 	The function gsl_matrix_const_submatrix is equivalent to gsl_matrix_submatrix but can be used for matrices which are declared const. 
-
--- Function: gsl_matrix_view gsl_matrix_view_array (double * base, size_t n1, size_t n2)
--- Function: gsl_matrix_const_view gsl_matrix_const_view_array (const double * base, size_t n1, size_t n2)
--- 	These functions return a matrix view of the array base. The matrix has n1 rows and n2 columns. The physical number of columns in memory is also given by n2. Mathematically, the (i,j)-th element of the new matrix is given by,
-
--- 	m'(i,j) = base[i*n2 + j]
-
--- 	where the index i runs from 0 to n1-1 and the index j runs from 0 to n2-1.
-
--- 	The new matrix is only a view of the array base. When the view goes out of scope the original array base will continue to exist. The original memory can only be deallocated by freeing the original array. Of course, the original array should not be deallocated while the view is still in use.
-
--- 	The function gsl_matrix_const_view_array is equivalent to gsl_matrix_view_array but can be used for matrices which are declared const. 
-
--- Function: gsl_matrix_view gsl_matrix_view_array_with_tda (double * base, size_t n1, size_t n2, size_t tda)
--- Function: gsl_matrix_const_view gsl_matrix_const_view_array_with_tda (const double * base, size_t n1, size_t n2, size_t tda)
--- 	These functions return a matrix view of the array base with a physical number of columns tda which may differ from the corresponding dimension of the matrix. The matrix has n1 rows and n2 columns, and the physical number of columns in memory is given by tda. Mathematically, the (i,j)-th element of the new matrix is given by,
-
--- 	m'(i,j) = base[i*tda + j]
-
--- 	where the index i runs from 0 to n1-1 and the index j runs from 0 to n2-1.
-
--- 	The new matrix is only a view of the array base. When the view goes out of scope the original array base will continue to exist. The original memory can only be deallocated by freeing the original array. Of course, the original array should not be deallocated while the view is still in use.
-
--- 	The function gsl_matrix_const_view_array_with_tda is equivalent to gsl_matrix_view_array_with_tda but can be used for matrices which are declared const. 
-
--- Function: gsl_matrix_view gsl_matrix_view_vector (gsl_vector * v, size_t n1, size_t n2)
--- Function: gsl_matrix_const_view gsl_matrix_const_view_vector (const gsl_vector * v, size_t n1, size_t n2)
--- 	These functions return a matrix view of the vector v. The matrix has n1 rows and n2 columns. The vector must have unit stride. The physical number of columns in memory is also given by n2. Mathematically, the (i,j)-th element of the new matrix is given by,
-
--- 	m'(i,j) = v->data[i*n2 + j]
-
--- 	where the index i runs from 0 to n1-1 and the index j runs from 0 to n2-1.
-
--- 	The new matrix is only a view of the vector v. When the view goes out of scope the original vector v will continue to exist. The original memory can only be deallocated by freeing the original vector. Of course, the original vector should not be deallocated while the view is still in use.
-
--- 	The function gsl_matrix_const_view_vector is equivalent to gsl_matrix_view_vector but can be used for matrices which are declared const. 
-
--- Function: gsl_matrix_view gsl_matrix_view_vector_with_tda (gsl_vector * v, size_t n1, size_t n2, size_t tda)
--- Function: gsl_matrix_const_view gsl_matrix_const_view_vector_with_tda (const gsl_vector * v, size_t n1, size_t n2, size_t tda)
--- 	These functions return a matrix view of the vector v with a physical number of columns tda which may differ from the corresponding matrix dimension. The vector must have unit stride. The matrix has n1 rows and n2 columns, and the physical number of columns in memory is given by tda. Mathematically, the (i,j)-th element of the new matrix is given by,
-
--- 	m'(i,j) = v->data[i*tda + j]
-
--- 	where the index i runs from 0 to n1-1 and the index j runs from 0 to n2-1.
-
--- 	The new matrix is only a view of the vector v. When the view goes out of scope the original vector v will continue to exist. The original memory can only be deallocated by freeing the original vector. Of course, the original vector should not be deallocated while the view is still in use.
-
--- 	The function gsl_matrix_const_view_vector_with_tda is equivalent to gsl_matrix_view_vector_with_tda but can be used for matrices which are declared const. 
-
-feature -- Row and column views
-
--- In general there are two ways to access an object, by reference or by copying. The functions described in this section create vector views which allow access to a row or column of a matrix by reference. Modifying elements of the view is equivalent to modifying the matrix, since both the vector view and the matrix point to the same memory block.
-
--- Function: gsl_vector_view gsl_matrix_row (gsl_matrix * m, size_t i)
--- Function: gsl_vector_const_view gsl_matrix_const_row (const gsl_matrix * m, size_t i)
--- 	These functions return a vector view of the i-th row of the matrix m. The data pointer of the new vector is set to null if i is out of range.
-
--- 	The function gsl_vector_const_row is equivalent to gsl_matrix_row but can be used for matrices which are declared const. 
-
--- Function: gsl_vector_view gsl_matrix_column (gsl_matrix * m, size_t j)
--- Function: gsl_vector_const_view gsl_matrix_const_column (const gsl_matrix * m, size_t j)
--- 	These functions return a vector view of the j-th column of the matrix m. The data pointer of the new vector is set to null if j is out of range.
-
--- 	The function gsl_vector_const_column is equivalent to gsl_matrix_column but can be used for matrices which are declared const. 
-
--- Function: gsl_vector_view gsl_matrix_diagonal (gsl_matrix * m)
--- Function: gsl_vector_const_view gsl_matrix_const_diagonal (const gsl_matrix * m)
--- 	These functions returns a vector view of the diagonal of the matrix m. The matrix m is not required to be square. For a rectangular matrix the length of the diagonal is the same as the smaller dimension of the matrix.
-
--- 	The function gsl_matrix_const_diagonal is equivalent to gsl_matrix_diagonal but can be used for matrices which are declared const. 
-
--- Function: gsl_vector_view gsl_matrix_subdiagonal (gsl_matrix * m, size_t k)
--- Function: gsl_vector_const_view gsl_matrix_const_subdiagonal (const gsl_matrix * m, size_t k)
--- 	These functions return a vector view of the k-th subdiagonal of the matrix m. The matrix m is not required to be square. The diagonal of the matrix corresponds to k = 0.
-
--- 	The function gsl_matrix_const_subdiagonal is equivalent to gsl_matrix_subdiagonal but can be used for matrices which are declared const. 
-
--- Function: gsl_vector_view gsl_matrix_superdiagonal (gsl_matrix * m, size_t k)
--- Function: gsl_vector_const_view gsl_matrix_const_superdiagonal (const gsl_matrix * m, size_t k)
--- 	These functions return a vector view of the k-th superdiagonal of the matrix m. The matrix m is not required to be square. The diagonal of the matrix corresponds to k = 0.
-
--- 	The function gsl_matrix_const_superdiagonal is equivalent to gsl_matrix_superdiagonal but can be used for matrices which are declared const. 
-
 feature -- Copying matrices
 	copy (other: like Current) is
 			-- copies the elements of the `other' matrix into the
@@ -371,26 +308,20 @@ feature -- Copying matrices
 		local
 			res: INTEGER
 		do
-			if other.is_null then
-				if handle.is_not_null then
-					gsl_matrix_free(handle)
-					handle := default_pointer
-				end
-			else
-				if handle.is_not_null and then not has_same_size(other) then
-					gsl_matrix_free(handle)
-					handle := default_pointer
-				end
-				if is_null then
-					make(other.line_count, other.column_count)
-				end
-				
-				res := gsl_matrix_memcpy (handle, other.handle)
-				check
-					-- TODO: check result
-					True
-				end
-			end
+         if handle.is_null then
+            -- invariant handle.is_not_null is not satisfied, if copy 
+            -- is called as creation procedure
+            make(other.line_count, other.column_count)
+         elseif not has_same_size(other) then
+            gsl_matrix_free(handle)
+            make(other.line_count, other.column_count)
+         end
+         
+         res := gsl_matrix_memcpy (handle, other.handle)
+         check
+            -- TODO: check result
+            True
+         end
 		end
 
 	swap_with (other: like Current) is
@@ -402,7 +333,7 @@ feature -- Copying matrices
 		local
 			res: INTEGER
 		do
-		res := gsl_matrix_swap (handle, other.handle)
+         res := gsl_matrix_swap (handle, other.handle)
 			check
 				-- TODO: res prüfen
 				True
@@ -424,7 +355,7 @@ feature -- Copying rows and columns
 -- 			--  into `a_vector'. The length of the vector must be the
 -- 			--  same as the length of the row.
 -- 		require
--- 			valid_row: is_valid_row (i)
+-- 			valid_row: valid_line (i)
 -- 			vector_not_void: a_vector /= Void
 -- 			valid_vector: vector.count = column_number
 -- 		local res: INTEGER
@@ -437,7 +368,7 @@ feature -- Copying rows and columns
 -- 			-- matrix into `a_vector'. The length of the vector must be
 -- 			-- the same as the length of the column.
 -- 		require
--- 			valid_row: is_valid_column (j)
+-- 			valid_row: valid_column (j)
 -- 			vector_not_void: a_vector /= Void
 -- 			valid_vector: vector.count = row_number
 -- 		local res: INTEGER
@@ -450,7 +381,7 @@ feature -- Copying rows and columns
 -- 			-- Current matrix. The length of the vector must be the same
 -- 			-- as the length of the row.
 -- 		require
--- 			valid_row: is_valid_row (i)
+-- 			valid_row: valid_line (i)
 -- 			vector_not_void: a_vector /= Void
 -- 			valid_vector: vector.count = column_number
 -- 		local res: INTEGER
@@ -463,7 +394,7 @@ feature -- Copying rows and columns
 -- 			-- Current matrix. The length of the vector must be the same
 -- 			-- as the length of the column.
 -- 		require
--- 			valid_column: is_valid_column (j)
+-- 			valid_column: valid_column (j)
 -- 			vector_not_void: a_vector /= Void
 -- 			valid_vector: vector.count = row_number
 -- 		local res: INTEGER
@@ -476,50 +407,54 @@ feature -- Exchanging rows and columns
 	swap_rows (i, j: INTEGER) is
 			-- exchanges the i-th and j-th rows of the Current matrix in-place.
 		require
-			valid_i_index: is_valid_row (i)
-			valid_j_index: is_valid_row (j)
-		local
-			res: INTEGER
+			valid_i_index: valid_line (i)
+			valid_j_index: valid_line (j)
 		do
-			res := gsl_matrix_swap_rows (handle, i, j)
-			check
-				-- TODO: res prüfen
-				True
-			end
+			handle_code(gsl_matrix_swap_rows (handle, i, j))
 		end
 	
-	swap_columns (i,j: INTEGER) is
+	swap_columns (i,j: INTEGER_32) is
 			-- exchanges the i-th and j-th columns of the Current matrix in-place.
 		require
-			valid_i_index: is_valid_column (i)
-			valid_j_index: is_valid_column (j)
-		local
-			res: INTEGER
+			valid_i_index: valid_column (i)
+			valid_j_index: valid_column (j)
 		do
-			res := gsl_matrix_swap_columns (handle, i, j)
-			check
-				-- TODO: res prüfen
-				True
-			end
+			handle_code(gsl_matrix_swap_columns (handle, i, j))
 		end
 
-	-- TODO: Function: int gsl_matrix_swap_rowcol (gsl_matrix * m,
-	-- size_t i, size_t j) This function exchanges the i-th row and
-	-- j-th column of the matrix m in-place. The matrix must be square
-	-- for this operation to be possible.
-	
-	-- TODO: Function: int gsl_matrix_transpose_memcpy (gsl_matrix *
-	-- dest, const gsl_matrix * src) This function makes the matrix
-	-- dest the transpose of the matrix src by copying the elements of
-	-- src into dest. This function works for all matrices provided
-	-- that the dimensions of the matrix dest match the transposed
-	-- dimensions of the matrix src.
-	
-	-- TODO: Function: int gsl_matrix_transpose (gsl_matrix * m) --
-	-- This function replaces the matrix m by its transpose by copying
-	-- the elements of the matrix in-place. The matrix must be square
-	-- for this operation to be possible.
+   swap_rowcol (i, j: INTEGER_32) is
+         -- This function exchanges the i-th row and
+         -- j-th column of the matrix m in-place. The matrix must be square
+         -- for this operation to be possible.
+      require
+         row: valid_line(i)
+         col: valid_column(j)
+         square: count1 = count2
+      local
+         res: INTEGER_32
+      do
+         res := gsl_matrix_swap_rowcol(handle, i, j)
+      ensure
+         -- TODO: (old row(i)).is_equal(col(j))???
+         -- TODO: (old col(j)).is_equal(row(i))???
+         True
+      end
 
+   transpose is
+         -- This function replaces the matrix m by its transpose by copying
+         -- the elements of the matrix in-place. The matrix must be square
+         -- for this operation to be possible.
+      require
+         square: count1 = count2
+      local
+         res: INTEGER_32
+      do
+         res := gsl_matrix_transpose(handle)
+      ensure
+         -- TODO: add a meaningful postcondition
+         True
+      end
+   
 feature -- Matrix operations
 
 	add (other: like Current) is
@@ -528,15 +463,8 @@ feature -- Matrix operations
 			-- matrices must have the same dimensions.
 		require
 			same_size: has_same_size (other)
-		local
-			res: INTEGER
 		do
-			res := gsl_matrix_add (handle, other.handle)
-			check
-				-- TODO: res prüfen
-				True
-			end
-
+			handle_code(gsl_matrix_add (handle, other.handle))
 		end
 
 	sub (other: like Current) is
@@ -545,14 +473,8 @@ feature -- Matrix operations
 			-- matrices must have the same dimensions.
 		require
 			same_size: has_same_size (other)
-		local
-			res: INTEGER
 		do
-			res := gsl_matrix_sub (handle, other.handle)
-			check
-				-- TODO: res prüfen
-				True
-			end			
+			handle_code(gsl_matrix_sub (handle, other.handle))
 		end
 
 	mul_elements (other: like Current) is
@@ -562,7 +484,7 @@ feature -- Matrix operations
 		require
 			same_size: has_same_size (other)
 		local
-			res: INTEGER
+			res: INTEGER_32
 		do
 			res := gsl_matrix_mul_elements (handle, other.handle)
 			check
@@ -578,37 +500,39 @@ feature -- Matrix operations
 		require
 			same_size: has_same_size (other)
 		local
-			res: INTEGER
+			res: INTEGER_32
 		do
 			res := gsl_matrix_div_elements (handle, other.handle)
 
 		end
 
-	scale (an_x: REAL) is
+	scale (an_x: REAL_32) is
 			-- Multiplies the elements of Current matrix (a) by the constant factor x, a'(i,j) = x a(i,j).
 		local
-			res: INTEGER
+			res: INTEGER_32
 		do
 			res := gsl_matrix_scale (handle, an_x)
 		end
 
-	add_constant (a_constant: REAL) is
+	add_constant (a_constant: REAL_32) is
 			-- Adds `a_constant' (x) to the elements of the matrix a, a'(i,j) = a(i,j) + x. 
 		local
-			res: INTEGER
+			res: INTEGER_32
 		do
 			res := gsl_matrix_add_constant (handle, a_constant)
 		end
 
 feature -- Finding maximum and minimum elements of matrices
 	max: TYPE_ is
-			-- the maximum value in the matrix m. 
+			-- the maximum value in the matrix m.
+         -- TODO: what if matrix dimension is 0,0? Is this calle defined?
 		do
 			Result := gsl_matrix_max (handle)
 		end
 	
 	min: TYPE_ is
 			-- the minimum value in the matrix m. 
+         -- TODO: what if matrix dimension is 0,0? Is this calle defined?
 		do
 			Result := gsl_matrix_min (handle)
 		end
@@ -637,58 +561,41 @@ feature -- Finding maximum and minimum elements of matrices
 	-- several equal minimum or maximum elements then the first
 	-- elements found are returned, searching in row-major order.
 
-feature -- Matrix properties,  looking and comparison:
+feature -- Matrix properties, looking and comparison:
 	all_default: BOOLEAN is
 			-- Are  all the elements of the matrix zero?
 		do
 			Result := (gsl_matrix_isnull (handle)).to_boolean
 		end
 
-feature -- Matrix size
-	is_valid_index	(i, j: INTEGER): BOOLEAN is
-		do
-			Result := (i.in_range(0, row_upper ) and
-						  j.in_range(0, column_upper))
-		end
-				
-	is_valid_row (an_i: INTEGER): BOOLEAN is
-		do
-			Result:= an_i.in_range (0, row_upper)
-		end
-
-	is_valid_column (a_j: INTEGER): BOOLEAN is
-		do
-			Result:= a_j.in_range (0, column_upper)
-		end
-
 feature {ANY} -- Counting:
-	count1: INTEGER is
-			-- Size of the first dimension.
+	count1: INTEGER_32 is
+			-- Size of the first dimension (row count).
 		do
 			Result := get_size1(handle)
 		end
 
-	count2: INTEGER is
-			-- Size of the second dimension.
+	count2: INTEGER_32 is
+			-- Size of the second dimension (line count)
 		do
 			Result := get_size2(handle)
 		end
 
-	count: INTEGER is
+	count: INTEGER_32 is
 			-- Total number of elements.
 		do
 			Result := line_count * column_count
 		end
 
 feature {ANY} -- Indexing:
-	lower1, lower2: INTEGER is 0
+	lower1, lower2: INTEGER_32 is 0
 
-	upper1, row_upper: INTEGER is
+	upper1, row_upper: INTEGER_32 is
 		do
 			Result := line_count - 1
 		end
 	
-	upper2, column_upper: INTEGER is
+	upper2, column_upper: INTEGER_32 is
 		do
 			Result := column_count - 1
 		end
@@ -700,12 +607,44 @@ feature {ANY} -- Indexing:
 						  (column_count = other.column_count))
 		end
 
--- FROM COLLECTON2!!!!
+feature {ANY}
+   out: STRING is
+         -- print in nice, readable format
+      local
+         line, column: INTEGER_32
+      do
+         create Result.make(count * 5)
+			Result.append(once "[")
+			from
+				line := lower1
+			until
+				line > upper1
+			loop
+				from
+					column := lower2
+				until
+					column > upper2
+				loop
+               Result.append(item(line, column).out)
+					column := column + 1
+               if column <= upper2 then
+                  Result.extend(',')
+               end
+				end
+				line := line + 1
+            if line <= upper1 then
+               Result.extend('%N')
+            end
+			end
+         Result.extend(']')
+         
+      end
 
 feature {ANY}
-	swap (line1, column1, line2, column2: INTEGER) is
+	swap (line1, column1, line2, column2: INTEGER_32) is
 			-- Swap the element at index (`line1',`column1') with the
 			-- the element at index (`line2',`column2').
+      -- TOOD: add precondition
 		local
 			temp: like item
 		do
@@ -715,11 +654,11 @@ feature {ANY}
 		end
 
 feature {ANY} -- Miscellaneous features:
-	occurrences, fast_occurrences (an_x: like item): INTEGER is
+	occurrences, fast_occurrences (an_x: like item): INTEGER_32 is
 			-- Number of occurrences using `='.
 			-- `occurrences' and `fast_occurrences' are the same feature		
 		local
-			i, j: INTEGER
+			i, j: INTEGER_32
 		do
 			from
 				i := lower1
@@ -740,11 +679,12 @@ feature {ANY} -- Miscellaneous features:
 			end
 		end
 
+   -- TODO: imlement me correctly!
 	has, fast_has (x: like item): BOOLEAN is
 			--  Search if a element x is in the array using `='. `has'
 			--  and `fast_has' are the same feature
 		local
-			i, j: INTEGER
+			i, j: INTEGER_32
 		do
 			from
 				i := lower1
@@ -997,14 +937,15 @@ feature {} -- External calls
 			another_gsl_matrix.is_not_null
 		deferred
 		end
-	
-	gsl_matrix_scale (a_gsl_matrix: POINTER; a_scale: REAL): INTEGER  is
+
+	gsl_matrix_scale (a_gsl_matrix: POINTER; a_scale: REAL_64): INTEGER  is
+      -- type TYPE_ would make sense for a_scale, but in gsl it's a double...
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 	
-	gsl_matrix_add_constant (a_gsl_matrix: POINTER; a_constant: REAL): INTEGER  is
+	gsl_matrix_add_constant (a_gsl_matrix: POINTER; a_constant: REAL_64): INTEGER  is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
@@ -1055,48 +996,47 @@ feature {} -- External calls
 		deferred
 		end
 
-feature {NONE} -- external structure
-
+feature {} -- external struct access
 	c_structure_size: INTEGER is
 		deferred
 		end
-	
-	get_size1 (a_matrix: POINTER): INTEGER is
+
+	get_size1 (a_matrix: POINTER): INTEGER_32 is
 		require
 			a_matrix.is_not_null
-		deferred
+      deferred
 		end
 
-	get_size2 (a_matrix: POINTER): INTEGER is
+	get_size2 (a_matrix: POINTER): INTEGER_32 is
 		require
 			a_matrix.is_not_null
-		deferred
+      deferred
 		end
 
-	get_tda (a_matrix: POINTER): INTEGER is
+	get_tda (a_matrix: POINTER): INTEGER_32 is
 		require
 			a_matrix.is_not_null
-		deferred
-		end
+      deferred
+      end
 
 	get_data (a_matrix: POINTER): POINTER is
 		require
 			a_matrix.is_not_null
-		deferred
+      deferred
 		end
 	
 	get_block  (a_matrix: POINTER): POINTER is
 		require
 			a_matrix.is_not_null
-		deferred
+      deferred
 		end
 
-	get_owner (a_matrix: POINTER): INTEGER is
+	get_owner (a_matrix: POINTER): INTEGER_32 is
 		require
 			a_matrix.is_not_null
-		deferred
+      deferred
 		end
-
+	
 invariant
 	valid_handle: handle /= default_pointer
 	

@@ -1,3 +1,11 @@
+* use plugin mech everywhere
+* implement some mechanism to handle matrix views
+* add support for const matrices
+* add support to read/write matrices from/to a native stream
+* use explicit [INTEGER|REAL]_32 instead of shortcuts INTEGER and REAL
+* clearify usage of c types float, int, ... all used in the c lib, - is the mapping correct?
+
+
 From GNU Scientific Library Reference Manual Edition 1.7, for GSL
    Version 1.7 13 September 2005
 

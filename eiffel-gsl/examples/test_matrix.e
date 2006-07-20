@@ -7,9 +7,13 @@ indexing
 
 class TEST_MATRIX
 creation make
-feature make is
-		local i,j: INTEGER
+feature
+	make is
+		local
+			i,j: INTEGER
+			h: GSL_ERROR_HANDLER
 		do
+			h.set_off
 			create matrix.make (10, 3)
 			create matrix32.make (10, 3)
 			print ("Foo%N")
@@ -56,10 +60,10 @@ feature make is
 		local tried: BOOLEAN
 		do
 			if not tried then print (matrix.item(10,3).out) end
-		rescue
-			print ("Shameful access outside buondaries!%N")
-			tried := True
-			retry
+--		rescue
+--			print ("Shameful access outside buondaries!%N")
+--			tried := True
+--			retry
 		end
 	
 	--TODO: Eiffelize those :
