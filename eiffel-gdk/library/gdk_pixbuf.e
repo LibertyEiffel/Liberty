@@ -160,6 +160,18 @@ feature -- Access
 
 	last_error: G_ERROR
 
+	width: INTEGER is
+			--Queries the width of a pixbuf.
+		do
+			Result := gdk_pixbuf_get_width(handle)
+		end
+
+	height: INTEGER is
+			-- Queries the height of a pixbuf.
+		do
+			Result := gdk_pixbuf_get_height(handle)
+		end
+
 feature -- Operations
 
 	render_pixmap_and_mask (alpha_threshold: INTEGER): TUPLE[GDK_PIXMAP, GDK_BITMAP] is

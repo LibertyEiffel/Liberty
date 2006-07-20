@@ -611,10 +611,6 @@ feature -- Signals
 --             gboolean    user_function      (GtkWidget      *widget,
 --                                             GdkEventButton *event,
 --                                             gpointer        user_data)      : Run last
--- "button-release-event"
---             gboolean    user_function      (GtkWidget      *widget,
---                                             GdkEventButton *event,
---                                             gpointer        user_data)      : Run last
 -- "can-activate-accel"
 --             gboolean    user_function      (GtkWidget *widget,
 --                                             guint      signal_id,
@@ -1139,6 +1135,40 @@ feature -- motion-notify-event signal
 		do
 			create motion_notify_event_callback.make
 			motion_notify_event_callback.connect (Current, a_function)
+		end
+
+feature -- button-release-event signal
+
+	button_release_event_signal_name: STRING is "button-release-event"
+		-- "button-release-event" signal
+		-- gboolean    user_function                  (GtkWidget      *widget,
+		--											   GdkEventButton *event,
+		--											   gpointer        user_data)      : Run last
+
+	enable_on_button_release_event is
+			-- Connects "button-release-event" signal to `on_button_release_event' feature.
+		do
+			connect (Current, button_release_event_signal_name, $on_button_release_event)
+		end
+
+	on_button_release_event: INTEGER is
+			-- Built-in button-release-event signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_button_release_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
+			-- widget : 	the object which received the signal.
+			-- event :
+			-- user_data : 	user data set when the signal handler was connected.
+			-- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			button_release_event_callback: BUTTON_RELEASE_EVENT_CALLBACK
+		do
+			create button_release_event_callback.make
+			button_release_event_callback.connect (Current, a_function)
 		end
 
 -- "no-expose-event"
@@ -3221,16 +3251,6 @@ feature -- motion-notify-event signal
 -- widget : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
 -- The "button-press-event" signal
-
--- gboolean    user_function                  (GtkWidget      *widget,
--- 														  GdkEventButton *event,
--- 														  gpointer        user_data)      : Run last
-
--- widget : 	the object which received the signal.
--- event : 	
--- user_data : 	user data set when the signal handler was connected.
--- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
--- The "button-release-event" signal
 
 -- gboolean    user_function                  (GtkWidget      *widget,
 -- 														  GdkEventButton *event,

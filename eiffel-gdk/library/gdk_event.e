@@ -52,6 +52,7 @@ class GDK_EVENT
 
 inherit
 	SHARED_C_STRUCT
+		redefine from_external_pointer end
 
 insert
 	GDK_EVENT_EXTERNALS
@@ -64,6 +65,14 @@ feature {WRAPPER} -- size
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkEvent)"
+		end
+
+feature -- Creation
+
+	from_external_pointer (a_pointer: POINTER) is
+		do
+			is_shared := True
+			Precursor (a_pointer)
 		end
 
 feature
@@ -105,6 +114,14 @@ feature
 			Result := event_type = gdk_event_motion_notify
 		end
 
+	is_event_button: BOOLEAN is
+		do
+			Result := (event_type = gdk_event_button_press) or else
+					  (event_type = gdk_event_2button_press) or else
+					  (event_type = gdk_event_3button_press) or else
+					  (event_type = gdk_event_button_release)
+		end
+
 feature -- Convertion to different event types
 
 	event_any: GDK_EVENT_ANY is
@@ -115,6 +132,13 @@ feature -- Convertion to different event types
 	event_motion: GDK_EVENT_MOTION is
 		require
 			is_event_motion
+		do
+			create Result.from_event (Current)
+		end
+
+	event_button: GDK_EVENT_BUTTON is
+		require
+			is_event_button
 		do
 			create Result.from_event (Current)
 		end

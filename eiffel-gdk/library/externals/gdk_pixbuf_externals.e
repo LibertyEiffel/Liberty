@@ -169,5 +169,12 @@ feature {NONE} -- External calls
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
+	gdk_pixbuf_get_width (a_pixbuf: POINTER): INTEGER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_get_height (a_pixbuf: POINTER): INTEGER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
 
 end -- class GDK_PIXBUF_EXTERNALS
