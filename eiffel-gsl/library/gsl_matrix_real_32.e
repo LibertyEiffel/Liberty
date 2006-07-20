@@ -6,14 +6,18 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-	--todo: manifest_put?
-	
 class GSL_MATRIX_REAL_32
+
+inherit
+   COLLECTION2 [REAL_32]
+      undefine
+         out
+      end
 	
 insert
 	GSL_MATRIX_GENERAL[REAL_32]
 	
-creation make, make_zero, make_identity, from_collection2, from_model, copy
+creation make, make_zero, make_identity, from_collection2, from_model, copy, manifest_creation
 
 feature {} -- External calls
 

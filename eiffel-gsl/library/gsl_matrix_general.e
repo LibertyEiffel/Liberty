@@ -73,33 +73,37 @@ insert
          out, copy, is_equal, fill_tagged_out_memory
       end
    
-feature {ANY} -- Creating
+feature -- Creating
 	make_zero  (rows, columns: INTEGER) is
 			-- Creates a matrix of size `rows' by `columns' and
 			-- initializes all the elements of the matrix to zero.
 		require
-			valid_rows: rows > 0
-			valid_columns: columns > 0 
+			valid_rows: rows >= 0
+			valid_columns: columns >= 0
 		do
 			if handle.is_not_null then
 				gsl_matrix_free(handle)
 			end
 			set_handle(gsl_matrix_calloc (rows, columns))
+      ensure
+         row_cnt: rows = count1
+         loc_cnt: columns = count2
 		end
 
 	make (rows, columns: INTEGER) is
 			-- Creates a matrix of size `rows' by `columns'. Matrix's elements are 
 			-- uninitialized, you should probably prefere make_zero.
 		require
-			valid_rows: rows > 0
-			valid_columns: columns > 0 
+			valid_rows: rows >= 0
+			valid_columns: columns >= 0
 		do
 			if handle.is_not_null then
 				gsl_matrix_free (handle)
 			end
-				
 			set_handle(gsl_matrix_alloc (rows, columns))
-				
+      ensure
+         row_cnt: rows = count1
+         loc_cnt: columns = count2				
 		end
 
 	make_identity  (rows, columns: INTEGER) is
@@ -107,11 +111,14 @@ feature {ANY} -- Creating
 			-- initializes all the elements except the diagonal to 0
          -- the diagonal is 1
 		require
-			valid_rows: rows > 0
-			valid_columns: columns > 0 
+			valid_rows: rows >= 0
+			valid_columns: columns >= 0
 		do
          make(rows, columns)
          set_identity
+      ensure
+         row_cnt: rows = count1
+         loc_cnt: columns = count2
 		end
 		
 	from_collection2 (model: COLLECTION2[like item]) is
@@ -725,7 +732,7 @@ feature {ANY} -- Miscellaneous features:
 		ensure then implemented: False
 		end
 
-	sub_collection2 (line_min, line_max, column_min, column_max: INTEGER): like Current is
+	sub_collection2 (line_min, line_max, column_min, column_max: INTEGER_32): like Current is
 			-- Create a new object using selected area of `Current'.
 		obsolete "Unimplemented!"
 		do
@@ -735,18 +742,23 @@ feature {ANY} -- Miscellaneous features:
 
 	-- TODO: Check if this COLLECTON2 needs to be implemented
 feature {} -- Implement manifest generic creation.
-	manifest_put (index: INTEGER; element: like item) is
-		obsolete "tentative implementation"
+	manifest_make (needed_capacity: INTEGER_32; rows, columns: INTEGER_32) is
+			-- Create an GSL_MATRIX[TYPE_] using rows, columns as sizes.
 		do
-			put (element, index\\count1, index//count1)
+			make_zero(rows, columns)
+		end
+
+	manifest_put (index: INTEGER_32; element: like item) is
+		do
+			put (element, index//count2, index\\count2)
 		end
 
 feature {} -- External calls
-	gsl_matrix_alloc (a_n1, a_n2: INTEGER): POINTER is
+	gsl_matrix_alloc (a_n1, a_n2: INTEGER_32): POINTER is
 		deferred
 		end
 	
-	gsl_matrix_calloc (n1, n2: INTEGER): POINTER is
+	gsl_matrix_calloc (n1, n2: INTEGER_32): POINTER is
 		deferred
 		end
 	
@@ -756,19 +768,19 @@ feature {} -- External calls
 		deferred
 		end
 
-	gsl_matrix_get (a_gsl_matrix: POINTER; a_i, a_j: INTEGER): TYPE_ is
+	gsl_matrix_get (a_gsl_matrix: POINTER; a_i, a_j: INTEGER_32): TYPE_ is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_set (a_gsl_matrix: POINTER; a_i, a_j: INTEGER; an_x: TYPE_) is
+	gsl_matrix_set (a_gsl_matrix: POINTER; a_i, a_j: INTEGER_32; an_x: TYPE_) is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_ptr (a_gsl_matrix: POINTER; a_i, a_j: INTEGER): POINTER  is
+	gsl_matrix_ptr (a_gsl_matrix: POINTER; a_i, a_j: INTEGER_32): POINTER  is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
@@ -780,33 +792,33 @@ feature {} -- External calls
 		deferred
 		end
 
-	gsl_matrix_set_zero (a_gsl_matrix: POINTER)  is
+	gsl_matrix_set_zero (a_gsl_matrix: POINTER) is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_set_identity (a_gsl_matrix: POINTER)  is
+	gsl_matrix_set_identity (a_gsl_matrix: POINTER) is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_fwrite (a_stream, a_gsl_matrix: POINTER): INTEGER  is
-		require
-			a_gsl_matrix.is_not_null
-			a_stream.is_not_null
-		deferred
-		end
-
-	gsl_matrix_fread (a_stream, a_gsl_matrix: POINTER): INTEGER  is
+	gsl_matrix_fwrite (a_stream, a_gsl_matrix: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			a_stream.is_not_null
 		deferred
 		end
 
-	gsl_matrix_fprintf (a_stream, a_gsl_matrix, a_format: POINTER): INTEGER  is
+	gsl_matrix_fread (a_stream, a_gsl_matrix: POINTER): INTEGER_32 is
+		require
+			a_gsl_matrix.is_not_null
+			a_stream.is_not_null
+		deferred
+		end
+
+	gsl_matrix_fprintf (a_stream, a_gsl_matrix, a_format: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			a_stream.is_not_null
@@ -814,7 +826,7 @@ feature {} -- External calls
 		deferred
 		end
 	
-	gsl_matrix_fscanf (a_stream, a_gsl_matrix: POINTER): INTEGER  is
+	gsl_matrix_fscanf (a_stream, a_gsl_matrix: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			a_stream.is_not_null
@@ -836,116 +848,116 @@ feature {} -- External calls
 	-- TODO: gsl_matrix_view gsl_matrix_view_vector_with_tda (gsl_vector * v, n1: INTEGER, n2: INTEGER, tda: INTEGER)
 	-- TODO: gsl_matrix_const_view gsl_matrix_const_view_vector_with_tda (const gsl_vector * v, n1: INTEGER, n2: INTEGER, tda: INTEGER)
 
-	gsl_matrix_memcpy (a_dest, a_src: POINTER): INTEGER   is
+	gsl_matrix_memcpy (a_dest, a_src: POINTER): INTEGER_32 is
 		require
 			valid_source: a_src.is_not_null
 			valid_dest: a_dest.is_not_null
 		deferred
 		end
 
-	gsl_matrix_swap (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
+	gsl_matrix_swap (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			another_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_get_row (a_vector, a_gsl_matrix: POINTER; an_i: INTEGER): INTEGER   is
+	gsl_matrix_get_row (a_vector, a_gsl_matrix: POINTER; an_i: INTEGER_32): INTEGER_32 is
 		require
 			valid_matrix: a_gsl_matrix.is_not_null
 		   valid_vector: a_vector.is_not_null
 		deferred
 		end
 
-	gsl_matrix_get_col (a_gsl_vector, a_gsl_matrix: POINTER; a_j: INTEGER): INTEGER  is
+	gsl_matrix_get_col (a_gsl_vector, a_gsl_matrix: POINTER; a_j: INTEGER_32): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			a_gsl_vector.is_not_null
 		deferred
 		end
 
-	gsl_matrix_set_row (a_gsl_matrix: POINTER; an_i: INTEGER; a_gsl_vector: POINTER): INTEGER  is
+	gsl_matrix_set_row (a_gsl_matrix: POINTER; an_i: INTEGER_32; a_gsl_vector: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			a_gsl_vector.is_not_null
 		deferred
 		end
 
-	gsl_matrix_set_col (a_gsl_matrix: POINTER; an_j: INTEGER; a_gsl_vector: POINTER): INTEGER  is
+	gsl_matrix_set_col (a_gsl_matrix: POINTER; an_j: INTEGER_32; a_gsl_vector: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			a_gsl_vector.is_not_null
 		deferred
 		end
 
-	gsl_matrix_swap_rows (a_gsl_matrix: POINTER; an_i, a_j: INTEGER): INTEGER  is
+	gsl_matrix_swap_rows (a_gsl_matrix: POINTER; an_i, a_j: INTEGER_32): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_swap_columns (a_gsl_matrix: POINTER; an_i, a_j: INTEGER): INTEGER  is
+	gsl_matrix_swap_columns (a_gsl_matrix: POINTER; an_i, a_j: INTEGER_32): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_swap_rowcol (a_gsl_matrix: POINTER; an_i, a_j: INTEGER): INTEGER  is
+	gsl_matrix_swap_rowcol (a_gsl_matrix: POINTER; an_i, a_j: INTEGER_32): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_transpose_memcpy (a_gsl_matrix_dest, a_gsl_matrix_src: POINTER): INTEGER  is
+	gsl_matrix_transpose_memcpy (a_gsl_matrix_dest, a_gsl_matrix_src: POINTER): INTEGER_32 is
 		require
 			valid_source: a_gsl_matrix_src.is_not_null
 			valid_destination: a_gsl_matrix_dest.is_not_null
 		deferred
 		end
 
-	gsl_matrix_transpose (a_gsl_matrix: POINTER): INTEGER  is
+	gsl_matrix_transpose (a_gsl_matrix: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
 
-	gsl_matrix_add (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
-		require
-			a_gsl_matrix.is_not_null
-			another_gsl_matrix.is_not_null
-		deferred
-		end
-
-	gsl_matrix_sub (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
+	gsl_matrix_add (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			another_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_mul_elements (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
+	gsl_matrix_sub (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER_32 is
+		require
+			a_gsl_matrix.is_not_null
+			another_gsl_matrix.is_not_null
+		deferred
+		end
+
+	gsl_matrix_mul_elements (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			another_gsl_matrix.is_not_null
 		deferred
 		end
 	
-	gsl_matrix_div_elements (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER  is
+	gsl_matrix_div_elements (a_gsl_matrix, another_gsl_matrix: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 			another_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_scale (a_gsl_matrix: POINTER; a_scale: REAL_64): INTEGER  is
+	gsl_matrix_scale (a_gsl_matrix: POINTER; a_scale: REAL_64): INTEGER_32 is
       -- type TYPE_ would make sense for a_scale, but in gsl it's a double...
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 	
-	gsl_matrix_add_constant (a_gsl_matrix: POINTER; a_constant: REAL_64): INTEGER  is
+	gsl_matrix_add_constant (a_gsl_matrix: POINTER; a_constant: REAL_64): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 		deferred
@@ -964,7 +976,7 @@ feature {} -- External calls
 		deferred
 		end
 
-	gsl_matrix_minmax (a_gsl_matrix, a_min_out, a_max_out: POINTER)  is
+	gsl_matrix_minmax (a_gsl_matrix, a_min_out, a_max_out: POINTER) is
 --TODO
 		require
 			a_gsl_matrix.is_not_null
@@ -973,14 +985,14 @@ feature {} -- External calls
 		deferred
 		end
 
-	gsl_matrix_max_index (a_gsl_matrix, an_imax_ptr, a_jmax_ptr: POINTER)  is
+	gsl_matrix_max_index (a_gsl_matrix, an_imax_ptr, a_jmax_ptr: POINTER) is
 -- TODO
 		require
 			a_gsl_matrix.is_not_null
 		deferred
 		end
 
-	gsl_matrix_min_index (a_gsl_matrix, an_imin_ptr, a_jmin_ptr: POINTER)  is
+	gsl_matrix_min_index (a_gsl_matrix, an_imin_ptr, a_jmin_ptr: POINTER) is
 -- TODO
 		require
 			a_gsl_matrix.is_not_null
@@ -990,7 +1002,7 @@ feature {} -- External calls
 		-- TODO: void gsl_matrix_minmax_index (const a_gsl_matrix: POINTER, size_t * imin, size_t * imax)
 		-- Documentation and declaration mismatch! This function returns the indices of the minimum and maximum values in the matrix m, storing them in (imin,jmin) and (imax,jmax). When there are several equal minimum or maximum elements then the first elements found are returned, searching in row-major order. 
 	
-	gsl_matrix_isnull (a_gsl_matrix: POINTER): INTEGER  is
+	gsl_matrix_isnull (a_gsl_matrix: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null
 		deferred

@@ -1,14 +1,13 @@
 indexing
 	description: "real 64 matrix"
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
-	authors: "Paolo Redaelli, Rapha"
+	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>%
+              %    2006 Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-	--todo: manifest_put?
-	
 class GSL_MATRIX_REAL_64
+   
 inherit
    COLLECTION2 [REAL_64]
       undefine
@@ -19,7 +18,7 @@ insert
 	GSL_MATRIX_GENERAL[REAL_64]
 
 
-creation make, make_zero, make_identity, from_model, from_collection2, copy
+creation make, make_zero, make_identity, from_model, from_collection2, copy, manifest_creation
 
 feature {} -- External calls
 

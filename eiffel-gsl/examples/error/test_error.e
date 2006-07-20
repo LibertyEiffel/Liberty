@@ -14,8 +14,7 @@ feature
 			a, b: GSL_MATRIX_REAL_64
 			h: GSL_ERROR_HANDLER
 		do
---         h.set_off -- unset default gsl_error_handler
-         h.init
+         h.set_off -- unset default gsl_error_handler
          h.reset_ieee_exceptions
          create a.from_collection2 ( {ARRAY2[REAL_64] 0,3, 0,3,
                                              << 1.0, 2.0, 3.0, 4.0;
@@ -24,8 +23,7 @@ feature
                                                 4.0, 4.0, 3.0, 3.0>>})
 			io.put_string(a.out + "%N")
 			create b.copy(a)
-
-			b.add(a)
+--         b.set_raise_on_error
 			b.add(a)
 
 			io.put_string(a.out + "%N")
