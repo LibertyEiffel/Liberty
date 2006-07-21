@@ -339,7 +339,6 @@ feature -- Operation
 			c_window: POINTER
 			r: G_RETRIEVER [GDK_WINDOW]
 		do
-			create r
 			c_window := gtk_widget_get_parent_window (handle)
 			if r.has_eiffel_wrapper_stored (c_window) then
 				Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_window)
