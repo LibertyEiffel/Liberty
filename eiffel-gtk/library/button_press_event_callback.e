@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the button-release-event signal"
+	description: "Generic callback for the button-press-event signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					
@@ -22,7 +22,7 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class BUTTON_RELEASE_EVENT_CALLBACK
+class BUTTON_PRESS_EVENT_CALLBACK
 
 inherit
 	BUTTON_EVENT_CALLBACK
@@ -31,6 +31,6 @@ creation make
 
 feature
 
-	signal_name: STRING is "button-release-event"
+	signal_name: STRING is "button-press-event"
 
-end -- class BUTTON_RELEASE_EVENT_CALLBACK
+end -- class BUTTON_PRESS_EVENT_CALLBACK
