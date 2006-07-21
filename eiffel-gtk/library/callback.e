@@ -37,6 +37,10 @@ feature
 											 Current.to_pointer, -- as user_data
 											 default_pointer -- i.e.: NULL as destroy callback
 											 )
+			-- See G_CLOSURE eiffel class, and libgobject documentation for
+			-- GClosure to understand the next two lines.
+			ref
+			sink
 		end
 
 	signal_name: STRING is

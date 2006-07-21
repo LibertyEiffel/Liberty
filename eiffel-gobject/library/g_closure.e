@@ -88,6 +88,13 @@ feature -- Creation
 			-- directly call Eiffel features, which *require* the address
 			-- of Current as the first parameter. Paolo 2006-04-12
 			
+			-- This is needed to avoid long term GC bugs. The ref is required
+			-- To notify that we have an owned reference to the closure.
+			-- The sink is to remove the default unowned reference
+			-- ** trixx, 20060721
+			ref
+			sink
+			
 			-- see also g_cclosure_new that creates a new closure which
 			-- invokes callback_func with user_data with user_data as the
 			-- last parameter.
