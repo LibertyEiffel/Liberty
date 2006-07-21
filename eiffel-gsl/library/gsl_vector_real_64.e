@@ -17,7 +17,7 @@ insert
 	GSL_VECTOR_GENERAL[REAL_64]   
    
 creation
-	make, make_zero
+	make, make_zero, manifest_creation
 
 feature {} -- External calls
 	gsl_vector_alloc(a_count: INTEGER): POINTER is
@@ -101,16 +101,16 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_copy_from (dest: POINTER; src: POINTER) is
+	gsl_vector_memcpy (dest: POINTER; src: POINTER): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
          module_name: "eiffel-gsl"
-         feature_name: "gsl_vector_copy_from"
+         feature_name: "gsl_vector_memcpy"
          }"
 		end
 
-	gsl_vector_swap (ptr: POINTER; w: POINTER) is
+	gsl_vector_swap (ptr: POINTER; w: POINTER): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
@@ -119,7 +119,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_swap_elements (ptr: POINTER; i: INTEGER_32; j: INTEGER_32) is
+	gsl_vector_swap_elements (ptr: POINTER; i: INTEGER_32; j: INTEGER_32): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
@@ -128,7 +128,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_reverse (ptr: POINTER) is
+	gsl_vector_reverse (ptr: POINTER): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
@@ -137,7 +137,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_add (a: POINTER; b: POINTER) is
+	gsl_vector_add (a: POINTER; b: POINTER): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
@@ -146,7 +146,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_sub (a: POINTER; b: POINTER) is
+	gsl_vector_sub (a: POINTER; b: POINTER): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
@@ -155,7 +155,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_mul (a: POINTER; b: POINTER) is
+	gsl_vector_mul (a: POINTER; b: POINTER): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
@@ -164,7 +164,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_div (a: POINTER; b: POINTER) is
+	gsl_vector_div (a: POINTER; b: POINTER): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
@@ -173,7 +173,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_scale (a: POINTER; x: REAL_64) is
+	gsl_vector_scale (a: POINTER; x: REAL_64): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
@@ -182,7 +182,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_add_constant (a: POINTER; x: REAL_64) is
+	gsl_vector_add_constant (a: POINTER; x: REAL_64): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"

@@ -6,8 +6,9 @@ indexing
 	revision: "$Revision:$"
          -- TODO: many things ;-)
          -- TODO: manifest_put
-         -- TODO: operations
          -- TODO: tests
+         -- TODO: error handling
+         -- TODO: blas functions
    
 deferred class GSL_VECTOR_GENERAL[TYPE_]
 inherit
@@ -97,19 +98,23 @@ feature -- public interface
 			Result = count - 1
 		end
 
-	set_all_with(x: TYPE_) is
+	set_all(x: TYPE_) is
+      -- set all elements of `Current' to `x'
 		do
 			gsl_vector_set_all(handle,x)
 		end
 
-	set_all_with_zero is
+	set_all_zero is
+      -- set all elements of `Current' to 0
 		do
 			gsl_vector_set_zero(handle)
 		ensure
 			all_default
 		end
 
-	set_with_basis(i: INTEGER) is
+	set_basis(i: INTEGER) is
+         -- set all elements to zero except that one at position i;
+         -- this one will be set to one
 		require
 			valid_index(i)
 		do
@@ -117,31 +122,55 @@ feature -- public interface
 		end
 
 	swap(i: INTEGER; j: INTEGER) is
+         -- swaps elements at position i and j
 		do
-			gsl_vector_swap_elements (handle, i, j)
+			handle_code(gsl_vector_swap_elements (handle, i, j))
 		end
 
 	reverse is
+         -- reverses Current
 		do
-			gsl_vector_reverse(handle)
+			handle_code(gsl_vector_reverse(handle))
+      end
+   
+	all_default: BOOLEAN is
+         -- True if all elements are zero
+		do
+			Result := gsl_vector_isnull(handle)
 		end
 
-	scale (x: TYPE_) is
+   copy (other: like Current) is
 		do
-			gsl_vector_scale (handle, x)
+         if handle /= default_pointer and then count /= other.count then
+            gsl_vector_free(handle)
+            handle := default_pointer
+         end
+         if is_null then
+            make(other.count)
+         end
+         handle_code(gsl_vector_memcpy(handle, other.handle))
+      end
+
+	swap_with (other: like Current) is
+         -- exchange the elements of `Current' and `other'
+		require
+			has_same_size(other)
+		do
+			handle_code(gsl_vector_swap(handle, other.handle))
+      ensure
+         swapped1: is_equal(old other)
+         swapped2: (old Current).is_equal(other)
 		end
 
-	add_constant (x:TYPE_) is
-		do
-			gsl_vector_add_constant(handle,x)
-		end
-
-	max: TYPE_ is
+feature -- finding minima and maxima
+   max: TYPE_ is
+         -- return the maximal element in `Current'
 		do
 			Result := gsl_vector_max(handle)
 		end
 
 	min: TYPE_ is
+         -- return the minimal element in `Current'
 		do
 			Result := gsl_vector_min(handle)
 		end
@@ -150,6 +179,7 @@ feature -- public interface
 --	minmax is
 
 	max_index: INTEGER is
+         -- the index of the max element
 		do
 			Result := gsl_vector_max_index(handle)
       ensure
@@ -157,70 +187,192 @@ feature -- public interface
 		end
 
 	min_index: INTEGER is
+         -- index of the min element
 		do
 			Result := gsl_vector_min_index(handle)
       ensure
          definition: item(Result) = min
 		end
 
-	all_default: BOOLEAN is
+   
+feature -- vector operations (element wise)
+	scale (x: TYPE_) is
+         -- multiply all elements of `Current' with `x'
 		do
-			Result := gsl_vector_isnull(handle)
+			handle_code(gsl_vector_scale (handle, x))
 		end
 
-	copy (other: like Current) is
+	add_constant (x: TYPE_) is
+         -- add `x' to all elements of `Current'
 		do
-         if count /= other.count then
-            gsl_vector_free(handle)
-            handle := default_pointer
-         end
-         if is_null then
-            make(other.count)
-         end
-         gsl_vector_copy_from(handle, other.handle)
-      end
+			handle_code(gsl_vector_add_constant(handle,x))
+		end
 
-	swap_with (other: like Current) is
+	plus (other: like Current) is
+         -- adds `other' element wise to Current
 		require
 			has_same_size(other)
 		do
-			gsl_vector_swap(handle, other.handle)
-      ensure
-         swapped1: is_equal(old other)
-         swapped2: (old Current).is_equal(other)
-		end
-
-	add_vector (other: like Current) is
-		require
-			has_same_size(other)
-		do
-			gsl_vector_add(handle, other.handle)
+			handle_code(gsl_vector_add(handle, other.handle))
 		end
 
 	sub (other: like Current) is
+         -- substract `other' element wise from Current
 		require
 			has_same_size(other)
 		do
-			gsl_vector_sub(handle, other.handle)
+			handle_code(gsl_vector_sub(handle, other.handle))
 		end
 
-   -- TODO:
 	mul (other: like Current) is
+         -- set all elements of `Current' to the product of `Current' 
+         -- and `other' (element wise)
 		require
 			has_same_size(other)
 		do
-			gsl_vector_mul(handle, other.handle)
+			handle_code(gsl_vector_mul(handle, other.handle))
 		end
 
-   -- TODO:
 	div (other: like Current) is
+         -- set all elements of `Current' to the quotient of `Current' 
+         -- and `other' (element wise)
 		require
 			has_same_size(other)
 		do
-			gsl_vector_div(handle,other.handle)
+			handle_code(gsl_vector_div(handle,other.handle))
 		end
 
-   feature {ANY}
+feature -- features to conform to COLLECTION[TYPE_]
+	remove_first is
+			-- Remove the `first' element of the collection.
+      do
+         remove_head(1)
+		end
+
+	remove_head (n: INTEGER) is
+			-- Remove the `n' elements of the collection.
+      local
+         i, j, new_size: INTEGER_32
+         tmp: POINTER
+      do
+         new_size := count - n
+
+         tmp := handle
+         set_handle(gsl_vector_alloc (new_size))
+         from
+            i := n
+            j := 0
+         invariant
+            i = j + n
+         variant
+            count - i
+         until
+            j >= new_size
+         loop
+            put(gsl_vector_get(tmp, i), j)
+            i := i + 1
+            j := j + 1
+         end
+         gsl_vector_free(tmp)
+		end
+
+	remove (index: INTEGER) is
+			-- Remove the item at position `index'. Followings items are shifted left by one 
+			-- position.
+      local
+         i, old_count: INTEGER_32
+         tmp: POINTER
+      do
+         old_count := count
+         tmp := handle
+         set_handle(gsl_vector_alloc (old_count - 1))
+         from
+            i := 0
+         variant
+            old_count - i
+         until
+            i = index
+         loop
+            put(gsl_vector_get(tmp, i), i)
+            i := i + 1
+         end
+         
+         from
+         variant
+            old_count - i
+         until
+            i = old_count
+         loop
+            put(gsl_vector_get(tmp, i), i - 1)
+            i := i + 1
+         end         
+         gsl_vector_free(tmp)
+		end
+
+	remove_last is
+			-- Remove the `last' item.
+      do
+         remove_tail(1)
+		end
+
+	remove_tail (n: INTEGER) is
+			-- Remove the last `n' item(s).
+      local
+         i, new_size: INTEGER_32
+         tmp: POINTER
+      do
+         new_size := count - n
+
+         tmp := handle
+         set_handle(gsl_vector_alloc (new_size))
+         from
+            i := 0
+         variant
+            new_size - i
+         until
+            i >= new_size
+         loop
+            put(gsl_vector_get(tmp, i), i)
+            i := i + 1
+         end
+         gsl_vector_free(tmp)
+		end
+
+   first: TYPE_ is
+      do
+         Result := item(0)
+      end
+   
+   lasst: TYPE_ is
+      do
+         Result := item(upper)
+      end
+   
+   is_empty: BOOLEAN is
+         -- true if vector has dimension 0
+      do
+         Result := count = 0
+      end
+   
+   is_equal(other: like Current): BOOLEAN is
+      local
+         i: INTEGER_32
+      do
+         Result := count = other.count
+
+         from
+            i := lower
+         variant
+            count - i
+         until
+            i > upper or not Result
+         loop
+            Result := item(i) = other.item(i)
+            i := i + 1
+         end
+      end
+   
+feature {ANY}
    out: STRING is
          -- print in nice, readable format
       local
@@ -235,12 +387,24 @@ feature -- public interface
 			loop
             Result.append(item(i).out)
             i := i + 1
-            if i < upper then
+            if i <= upper then
                Result.extend(',')
             end
 			end
          Result.extend(']')         
       end
+
+feature {} -- Implement manifest generic creation.
+	manifest_make (needed_capacity: INTEGER_32; size: INTEGER_32) is
+			-- Create an GSL_VECTOR[TYPE_] with size `size'.
+		do
+			make_zero(size)
+		end
+
+	manifest_put (index: INTEGER_32; element: like item) is
+		do
+			put (element, index)
+		end
 
 feature {} -- dispose
 	dispose is
@@ -338,67 +502,67 @@ feature {} -- External calls
 		deferred
 		end
 
-	gsl_vector_copy_from (dest: POINTER; src: POINTER) is
+	gsl_vector_memcpy (dest: POINTER; src: POINTER): INTEGER_32 is
 		require
 			dest.is_not_null
 			src.is_not_null
 		deferred
 		end
 
-	gsl_vector_swap (ptr: POINTER; w: POINTER) is
+	gsl_vector_swap (ptr: POINTER; w: POINTER): INTEGER_32 is
 		require
 			ptr.is_not_null
 			w.is_not_null
 		deferred
 		end
 
-	gsl_vector_swap_elements (ptr: POINTER; i: INTEGER; j: INTEGER) is
+	gsl_vector_swap_elements (ptr: POINTER; i: INTEGER_32; j: INTEGER_32): INTEGER_32 is
 		require
 			ptr.is_not_null
 		deferred
 		end
 
-	gsl_vector_reverse (ptr: POINTER) is
+	gsl_vector_reverse (ptr: POINTER): INTEGER_32 is
 		require
 			ptr.is_not_null
 		deferred
 		end
 
-	gsl_vector_add (a: POINTER; b: POINTER) is
+	gsl_vector_add (a: POINTER; b: POINTER): INTEGER_32 is
 		require
 			a.is_not_null
 			b.is_not_null
 		deferred
 		end
 
-	gsl_vector_sub (a: POINTER; b: POINTER) is
+	gsl_vector_sub (a: POINTER; b: POINTER): INTEGER_32 is
 		require
 			a.is_not_null
 			b.is_not_null
 		deferred
 		end
 
-	gsl_vector_mul (a: POINTER; b: POINTER) is
+	gsl_vector_mul (a: POINTER; b: POINTER): INTEGER_32 is
 		require
 			a.is_not_null
 			b.is_not_null
 		deferred
 		end
 
-	gsl_vector_div (a: POINTER; b: POINTER) is
+	gsl_vector_div (a: POINTER; b: POINTER): INTEGER_32 is
 		require
 			a.is_not_null
 			b.is_not_null
 		deferred
 		end
 
-	gsl_vector_scale (a: POINTER; x: TYPE_) is
+	gsl_vector_scale (a: POINTER; x: TYPE_): INTEGER_32 is
 		require
 			a.is_not_null
 		deferred
 		end
 
-	gsl_vector_add_constant (a: POINTER; x:TYPE_) is
+	gsl_vector_add_constant (a: POINTER; x: TYPE_): INTEGER_32 is
 		require
 			a.is_not_null
 		deferred
@@ -446,7 +610,6 @@ feature {} -- External calls
 			ptr.is_not_null
 		deferred
 		end
-
 
 invariant
    valid_handle: handle /= default_pointer

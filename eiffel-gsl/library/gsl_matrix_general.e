@@ -192,11 +192,7 @@ feature -- Creating
          res: INTEGER_32
       do
 			make(model.count2, model.count1)
-         res := gsl_matrix_transpose_memcpy(handle, model.handle)
-         check
-            True
-            -- TODO            res
-         end
+         handle_code(gsl_matrix_transpose_memcpy(handle, model.handle))
       end
    
 feature {} -- Disposing
@@ -464,7 +460,7 @@ feature -- Exchanging rows and columns
    
 feature -- Matrix operations
 
-	add (other: like Current) is
+	plus (other: like Current) is
 			-- adds the elements of `other' matrix (b) to the elements of
 			-- Current matrix (a), a'(i,j) = a(i,j) + b(i,j). The two
 			-- matrices must have the same dimensions.
@@ -740,7 +736,6 @@ feature {ANY} -- Miscellaneous features:
 		ensure then implemented: False
 		end
 
-	-- TODO: Check if this COLLECTON2 needs to be implemented
 feature {} -- Implement manifest generic creation.
 	manifest_make (needed_capacity: INTEGER_32; rows, columns: INTEGER_32) is
 			-- Create an GSL_MATRIX[TYPE_] using rows, columns as sizes.

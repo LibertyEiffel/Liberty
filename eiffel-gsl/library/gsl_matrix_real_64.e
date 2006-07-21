@@ -18,7 +18,7 @@ insert
 	GSL_MATRIX_GENERAL[REAL_64]
 
 
-creation make, make_zero, make_identity, from_model, from_collection2, copy, manifest_creation
+creation make, make_zero, make_identity, from_model, from_collection2, manifest_creation
 
 feature {} -- External calls
 
