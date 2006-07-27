@@ -321,7 +321,53 @@ feature {WRAPPER} -- size
 		alias "sizeof(GdkPixbuf)"
 		end
 
-feature -- Composites
+feature -- Scale
+
+	scale_simple (a_width, a_height, a_interp_type: INTEGER): GDK_PIXBUF is
+			-- Create a new GDK_PIXBUF containing a copy of Current scaled to
+			-- (a_width x a__height). Leaves Current unaffected. a_interp_type
+			-- should be gdk_interp_nearest if you want maximum speed (but
+			-- when scaling down gdk_interp_nearest is usually unusably ugly).
+			-- The default interp_type should be gdk_interp_bilinear which
+			-- offers reasonable quality and speed.
+			--
+			-- You can scale a sub-portion of src by creating a sub-pixbuf
+			-- pointing into src; see new_subpixbuf().
+			--
+			-- For more complicated scaling/compositing see scale() and
+			-- composite().
+		require
+			is_valid_gdk_interp_type (a_interp_type)
+		do
+			create Result.from_external_pointer (gdk_pixbuf_scale_simple (handle, a_width, a_height, a_interp_type))
+		end
+
+	scale (other: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
+						offset_x, offset_y, scale_x, scale_y: REAL_64; interp_type: INTEGER) is
+			-- Creates a transformation of the Current image by scaling by
+			-- scale_x and scale_y then translating by offset_x and offset_y,
+			-- then renders the rectangle (dest_x, dest_y, dest_width, dest_height)
+			-- of the resulting image onto `other' replacing the previous contents.
+			--
+			-- Try to use scale_simple() first, this function is the
+			-- industrial-strength power tool you can fall back to if
+			-- scale_simple() isn't powerful enough.
+			--
+			-- other :       the GDK_PIXBUF into which to render the results
+			-- dest_x :	     the left coordinate for region to render
+			-- dest_y :      the top coordinate for region to render
+			-- dest_width :  the width of the region to render
+			-- dest_height : the height of the region to render
+			-- offset_x :    the offset in the X direction (currently rounded to an integer)
+			-- offset_y :    the offset in the Y direction (currently rounded to an integer)
+			-- scale_x :     the scale factor in the X direction
+			-- scale_y :     the scale factor in the Y direction
+			-- interp_type : the interpolation type for the transformation.
+		require
+			is_valid_gdk_interp_type (interp_type)
+		do
+			gdk_pixbuf_scale (handle, other.handle, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type)
+		end
 
 	composite_color_simple (dest_width, dest_height: INTEGER; interp_type: INTEGER;
 	                        overall_alpha, check_size: INTEGER; color1, color2: INTEGER_64) : GDK_PIXBUF is

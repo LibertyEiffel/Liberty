@@ -177,4 +177,13 @@ feature {NONE} -- External calls
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
+	gdk_pixbuf_scale_simple (a_pixbuf: POINTER; a_width, a_height, a_interp_type: INTEGER): POINTER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_scale (a_pixbuf, a_other: POINTER; dest_x, dest_y, dest_width, dest_height: INTEGER;
+						offset_x, offset_y, scale_x, scale_y: REAL_64; interp_type: INTEGER) is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
 end -- class GDK_PIXBUF_EXTERNALS
