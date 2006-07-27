@@ -464,9 +464,6 @@ feature -- The "activate" signal
 		end
 
 feature -- The "clicked" signal
--- button : 	the object that received the signal
--- user_data : 	user data set when the signal handler was connected.
-
 	clicked_signal_name: STRING is "clicked"
 
 	on_clicked is
@@ -490,10 +487,12 @@ feature -- The "clicked" signal
 		end
 
 	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+			-- button : 	the object that received the signal
 		require valid_procedure: a_procedure /= Void
 		local clicked_callback: CLICKED_CALLBACK
 		do
 			create clicked_callback.make
 			clicked_callback.connect (Current, a_procedure)
 		end
+
 end

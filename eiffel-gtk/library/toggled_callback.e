@@ -1,7 +1,7 @@
 indexing
-	description: "Callback for `toggled' signal."
+	description: "Generic callback for the toggled signal"
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team
+					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -17,42 +17,66 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision: "$Revision:$"
+	revision "$Revision:$"
 
 class TOGGLED_CALLBACK
 
-inherit WRAPPER undefine from_external_pointer end
-insert G_SIGNALS
+inherit CALLBACK redefine object end
+
+insert G_OBJECT_RETRIEVER [GTK_TOGGLE_BUTTON]
 
 creation make
+
 feature
-	make (a_radio_button: GTK_RADIO_BUTTON; a_procedure: PROCEDURE[TUPLE[GTK_RADIO_BUTTON]]) is
-		require valid_button: a_radio_button/=Void
+	object: GTK_TOGGLE_BUTTON
+
+feature
+	callback (instance: POINTER) is --  a_button: GTK_TOGGLE_BUTTON) is
 		do
-			radio_button := a_radio_button
-			procedure := a_procedure
-			id:=g_signal_connect_swapped(radio_button.handle,(once "toggled").to_external,
-												  $hidden_callback, Current.to_pointer)
-			print ("TOGGLED_CALLBACK created for "+radio_button.to_pointer.to_string+"%N")
+			debug
+				print ("Callback: instance=") print (instance.to_string) print ("%N")
+			end
+			-- The following is written with the implicit requirement 
+			-- that the button is actually created bu the Eiffel 
+			-- application. 
+			check
+				eiffel_created_the_button: has_eiffel_wrapper_stored (instance)
+			end
+			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			-- The above line replaces "create object.from_external_pointer
+			-- (instance)" which continuosly creates new Eiffel wrappers
+			procedure.call ([object])
 		end
 
-	id: INTEGER
-			-- callback id number
-	radio_button: GTK_RADIO_BUTTON
-			-- object connected to signal callback
-	procedure: PROCEDURE[TUPLE[GTK_RADIO_BUTTON]]
-feature {NONE} -- Implementation
-	hidden_callback is
+	callback_pointer: POINTER is
 		do
-			procedure.call ([radio_button])
+			Result := get_callback_pointer ($callback)
+		ensure
+			Result.is_not_null
 		end
 
-	dispose is
+	connect (an_object: GTK_TOGGLE_BUTTON; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]]) is
 		do
-			-- Nothing
+			debug
+				print ("TOGGLED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
+				print (" an_object.handle=") print (an_object.handle.to_string)
+				print (") Current=") print (to_pointer.to_string)
+				print (" Current.handle=") print (handle.to_string)
+				print ("%N")
+			end
+					 
+			handler_id := g_signal_connect_closure (an_object.handle,
+													 signal_name.to_external,
+													 handle,
+													 0 -- i.e. call it before default handler
+													 )
+			procedure:=a_procedure
 		end
+
+		signal_name: STRING is "toggled"
+
+	procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]]
 end
-

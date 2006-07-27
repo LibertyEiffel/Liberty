@@ -39,7 +39,7 @@ indexing
 
 --    /* Makes this toggle button invisible */
 --    gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (toggle1), TRUE);
-	
+
 --    g_signal_connect (toggle1, "toggled",
 --                      G_CALLBACK (output_state), NULL);
 --    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
@@ -65,6 +65,7 @@ inherit
 creation make, with_label, with_mnemonic
 
 feature {NONE} -- Creation
+
 	make is
 			-- Creates a new toggle button. A widget should be packed
 			-- into the button, as GTK_BUTTON.make.
@@ -73,14 +74,13 @@ feature {NONE} -- Creation
 			store_eiffel_wrapper
 		end
 
-
 	with_label (a_label: STRING) is
 			-- Creates a new toggle button with a text `a_label'.
 		do
 			handle :=  gtk_toggle_button_new_with_label (a_label.to_external)
 			store_eiffel_wrapper
 		end
-	
+
 	with_mnemonic (a_label: STRING) is
 			-- Creates a new GtkToggleButton containing `a_label'. The
 			-- label will be created using GTK_LABEL.with_mnemonic, so
@@ -90,7 +90,8 @@ feature {NONE} -- Creation
 			store_eiffel_wrapper
 		end
 
-feature 
+feature
+
 	draw_indicator is
 			-- Makes the button displayed as a separate indicator and
 			-- label. This feature only effects instances of classes like
@@ -116,7 +117,7 @@ feature
 		do
 			Result := (gtk_toggle_button_get_mode(handle) = 1)
 		end
-	
+
 	drawn_as_button: BOOLEAN is
 			-- is the toggle button drawna as a normal button?
 		do
@@ -159,7 +160,6 @@ feature
 			Result := (gtk_toggle_button_get_inconsistent (handle)).to_boolean
 		end
 
-
 	set_inconsistent is
 			-- If the user has selected a range of elements (such as some
 			-- text or spreadsheet cells) that are affected by a toggle
@@ -183,12 +183,12 @@ feature
 		end
 
 feature -- "active" property
-
 --   "active"               gboolean              : Read / Write
 
 -- If the toggle button should be pressed in or not.
 
-	-- Default value: FALSE
+-- Default value: FALSE
+
 feature -- The "draw-indicator" property
 
 --   "draw-indicator"       gboolean              : Read / Write
@@ -203,26 +203,36 @@ feature -- The "draw-indicator" property
 -- If the toggle button is in an "in between" state.
 
 -- Default value: FALSE
--- Signals
--- The "toggled" signal
 
--- void        user_function                  (GtkToggleButton *togglebutton,
---                                             gpointer user_data);
+feature -- The "toggled" signal
 
--- Should be connected if you wish to perform an action whenever the GtkToggleButton's state is changed.
--- togglebutton :	the object which received the signal.
--- user_data :	user data set when the signal handler was connected.
--- See Also
+	toggled_signal_name: STRING is "toggled"
+		-- void        user_function                  (GtkToggleButton *togglebutton,
+		--                                             gpointer user_data);
 
--- GtkButton	
+	on_toggled is
+			-- Built-in toggled signal handler; empty by design; redefine it.
+		local a_foo: INTEGER
+		do
+			a_foo := 12 -- Dummy instructions
+		end
 
--- a more general button.
--- GtkCheckButton	
+	enable_on_toggled is
+			-- Connects "toggled" signal to `on_toggled' feature.
 
--- another way of presenting a toggle option.
--- GtkCheckMenuItem	
+			-- Should be connected if you wish to perform an action
+			-- whenever the GTK_TOGGLE_BUTTON's state is changed.
+		do
+			connect (Current, toggled_signal_name, $on_toggled)
+		end
 
--- a GtkToggleButton as a menu item.
+	connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]]) is
+			-- togglebutton : 	the object which received the signal.
+		require valid_procedure: a_procedure /= Void
+		local toggled_callback: TOGGLED_CALLBACK
+		do
+			create toggled_callback.make
+			toggled_callback.connect (Current, a_procedure)
+		end
 
--- << GtkRadioButton	Numeric/Text Data Entry >>
 end

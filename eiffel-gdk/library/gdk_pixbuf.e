@@ -36,7 +36,8 @@ insert
 	GDK_COLORSPACE
 
 creation
-	make, from_external_pointer, from_file, from_file_at_size, from_file_at_scale, from_drawable, from_pixbuf
+	make, from_external_pointer,
+	from_file, from_file_at_size, from_file_at_scale, from_drawable, from_pixbuf
 
 feature -- Creation
 
@@ -299,7 +300,6 @@ feature -- Properties
 -- 
 -- Default value: 1
 -- 
- 
 
 feature -- Disposing
 
@@ -321,11 +321,11 @@ feature {WRAPPER} -- size
 		alias "sizeof(GdkPixbuf)"
 		end
 
-feature -- Scale
+feature -- Scaling
 
 	scale_simple (a_width, a_height, a_interp_type: INTEGER): GDK_PIXBUF is
 			-- Create a new GDK_PIXBUF containing a copy of Current scaled to
-			-- (a_width x a__height). Leaves Current unaffected. a_interp_type
+			-- (a_width x a_height). Leaves Current unaffected. a_interp_type
 			-- should be gdk_interp_nearest if you want maximum speed (but
 			-- when scaling down gdk_interp_nearest is usually unusably ugly).
 			-- The default interp_type should be gdk_interp_bilinear which
@@ -334,16 +334,17 @@ feature -- Scale
 			-- You can scale a sub-portion of src by creating a sub-pixbuf
 			-- pointing into src; see new_subpixbuf().
 			--
-			-- For more complicated scaling/compositing see scale() and
-			-- composite().
+			-- For more complicated scaling/compositing see `scale (...)' and
+			-- `composite (...)'.
 		require
 			is_valid_gdk_interp_type (a_interp_type)
+			is_valid
 		do
 			create Result.from_external_pointer (gdk_pixbuf_scale_simple (handle, a_width, a_height, a_interp_type))
 		end
 
 	scale (other: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
-						offset_x, offset_y, scale_x, scale_y: REAL_64; interp_type: INTEGER) is
+	       offset_x, offset_y, scale_x, scale_y: REAL_64; interp_type: INTEGER) is
 			-- Creates a transformation of the Current image by scaling by
 			-- scale_x and scale_y then translating by offset_x and offset_y,
 			-- then renders the rectangle (dest_x, dest_y, dest_width, dest_height)
