@@ -74,6 +74,11 @@ feature {ANY} -- Implementation
 			definition: Result = handle.is_not_null
 		end
 
+-- 	is_equal (another: like Current): BOOLEAN is
+-- 		do
+-- 			handle := another.handle
+-- 		end
+	
 feature {}
 	clear_handle is
 		obsolete "??? Do we need this? Will it do more then just hnalde := default_pointer?"

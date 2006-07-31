@@ -1,7 +1,7 @@
 indexing
-	description: "."
+	description: "An enumeration specifying capitalization variant of the font."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTS team
+					Copyright (C) 2006 Paolo Redaelli, Pango team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -17,25 +17,28 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+				]"
 
-class FOO
-
-inherit
-	(SHARED_?)C_STRUCT
-
-insert
-	FOO_EXTERNALS
-
-creation make, from_external_pointer
-
-feature {NONE} -- Creation
-
-feature -- size
-
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(Foo)"
+deferred class PANGO_VARIANT
+feature  -- enum
+	is_valid_variant (a_variant :INTEGER): BOOLEAN is
+		do	
+			Result:=((a_variant = pango_variant_normal) or else
+						(a_variant = pango_variant_small_caps))
 		end
 
-end -- class FOO
+
+	pango_variant_normal: INTEGER is
+			-- A normal font.
+      external "C macro use <pango/pango.h>"
+      alias "PANGO_VARIANT_NORMAL"
+      end
+	
+	pango_variant_small_caps: INTEGER is
+			-- A font with the lower case characters replaced by smaller
+			-- variants of the capital characters.
+      external "C macro use <pango/pango.h>"
+      alias "PANGO_VARIANT_SMALL_CAPS"
+      end
+
+end -- PANGO_VARIANT

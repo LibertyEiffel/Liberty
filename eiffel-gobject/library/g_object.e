@@ -76,7 +76,7 @@ deferred class G_OBJECT
 
 inherit
 	SHARED_C_STRUCT redefine from_external_pointer, dispose end
-	ANY
+	-- Note: why it explicitly inheritd from ANY?
 
 insert
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
@@ -84,12 +84,18 @@ insert
 	G_VALUE_EXTERNALS
 	SHARED_EIFFEL_KEY
 
+	-- Features inserted to implement smart_get_property and smart_set_property
+	G_PARAM_SPEC_EXTERNALS export {NONE} all end
+	G_TYPE_EXTERNALS
 feature
 	store_eiffel_wrapper is
 			-- Store a pointer to Current into the underlying
 			-- gobject. This pointer will be used to retrieve the Eiffel
 			-- wrapper object when a C feature returns a generic object
 			-- (i.e. the preview widget set in GTK_FILE_CHOOSER). 
+
+			-- It also take care of storing an hidden pointer to the 
+			-- underlying GobjectClass
 		require
 			not_stored: not is_eiffel_wrapper_stored
 		do
@@ -98,6 +104,7 @@ feature
 			-- Eiffel method "set_qdata (eiffel_key, Current)". This
 			-- is to avoid an invariant check when passing Current as
 			-- argument.
+			g_object_class := g_object_get_class (handle)
 		ensure
 			stored: is_eiffel_wrapper_stored
 		end
@@ -156,6 +163,11 @@ feature -- Disposing
 			handle := default_pointer
 		end
 
+feature {} -- Implementation
+	g_object_class: POINTER 
+			-- Pointer to the GObjectClass structure of the current
+			-- G_OBJECT
+
 feature {} -- Disposing helper
 
 	print_notice is
@@ -199,31 +211,7 @@ feature -- Reference count
 			g_object_unref (handle)
 		end
 
-feature -- Properties
-
-	notify (a_property_name: STRING) is
-		-- Emits a "notify" signal for the property `a_property_name' on
-		-- object.
-		do
-			g_object_notify (handle, a_property_name.to_external) 
-		end
-
-	freeze_notify is
-			-- Stops emission of "notify" signals on object. The signals are queued
-			-- until thaw_notify is called on object.  This is necessary for
-			-- accessors that modify multiple properties to prevent premature
-			-- notification while the object is still being modified.
-		do
-			g_object_freeze_notify (handle)
-		end
-
-	thaw_notify (object: POINTER) is
-			-- Causes all queued "notify" signals on object to be emitted. Reverts
-			-- the effect of a previous call to freeze_notify.
-		do
-			g_object_thaw_notify (handle)
-		end
-
+feature -- Data storing and retrieving
 	get_data (a_key: STRING): ANY is
 			-- Gets a named field from the objects table of associations (see
 			-- set_data).  `a_key': name of the key for that association; Void if no
@@ -301,16 +289,43 @@ feature -- Quark-based data storing and retrieving
 			g_object_set_qdata (handle,a_key.quark, data.to_pointer)
 		end
 	
+feature -- Properties notifying
+
+	notify (a_property_name: STRING) is
+		-- Emits a "notify" signal for the property `a_property_name' on
+		-- object.
+		do
+			g_object_notify (handle, a_property_name.to_external) 
+		end
+
+	freeze_notify is
+			-- Stops emission of "notify" signals on object. The signals are queued
+			-- until thaw_notify is called on object.  This is necessary for
+			-- accessors that modify multiple properties to prevent premature
+			-- notification while the object is still being modified.
+		do
+			g_object_freeze_notify (handle)
+		end
+
+	thaw_notify is
+			-- Causes all queued "notify" signals on object to be
+			-- emitted. Reverts the effect of a previous call to
+			-- freeze_notify.
+		do
+			g_object_thaw_notify (handle)
+		end
+
 feature -- Properties query
 	find_property (a_property_name: STRING): G_PARAM_SPEC is
 			-- Find the parameter's spec for `a_property_name'. Void if
 			-- the class doesn't have a property of that name.
 		require valid_name: a_property_name /= Void
-		local ptr: POINTER
+		local param_spec_ptr: POINTER
 		do
-			ptr:=g_object_class_find_property (handle,a_property_name.to_external)
-			if ptr.is_not_null then
-				create Result.from_external_pointer (ptr)
+			param_spec_ptr:=g_object_class_find_property (g_object_get_class(handle),a_property_name.to_external)
+			if param_spec_ptr.is_not_null then
+				create Result.from_external_pointer (param_spec_ptr)
+				Result.set_shared
 			end
 		end
 
@@ -351,7 +366,7 @@ feature -- Property getter/setter
 				-- Note: The original C implementation of this feature
 				-- retrieve the G_PARAM_SPEC linked to each property and
 				-- then checks:
-
+				
 				-- * if theres a property with that name
 				-- * it the property is writable
 				-- * if the property is settable only at creation time
@@ -368,28 +383,197 @@ feature -- Property getter/setter
 			end
 		end
 	
-	set_property (a_property_name: STRING; a_value: G_VALUE) is
-			-- Sets `a_property_name' property on Current object to `a_value'
+	smart_set_property (a_parameter_specification: G_PARAM_SPEC; a_value: G_VALUE) is
+			-- Sets the property specified by 
+			-- `a_parameter_specification' on Current object to 
+			-- `a_value'.
+
+			-- Smart Eiffel-specific reimplementation of the original
+			-- GObject feature. All the logic and checks related to
+			-- correctness is handled throught static typing and
+			-- preconditions.
 		require
-			valid_name: a_property_name /= Void
-			valid_value: a_value /= Void
+			parameter_specification_not_void: a_parameter_specification /= Void
+			has_property:  has_property(a_parameter_specification.name)
+			is_writable: a_parameter_specification.is_writable
+			not_at_construction_time_only: not (a_parameter_specification.is_set_only_at_construction)
+			value_not_void: a_value /= Void
+			correct_value_type: a_parameter_specification.validate(a_value) or
+									  True -- It is convertible
+			not_redirected: -- TODO not find_property(a_property_name).is_redirected
+		local
+			redirect: POINTER
 		do
-			g_object_set_property (handle, a_property_name.to_external, a_value.handle)
-		end
-	
-	get_property (a_property_name: STRING): G_VALUE is
-			-- Gets the property name `a_property_name' of an object.
-		require
-			valid_name: a_property_name /= Void
-		local ptr: POINTER
-		do
-			ptr := malloc_g_value
-			g_object_get_property (handle,a_property_name.to_external,ptr)
-			create Result.from_external_pointer (ptr)
+			-- Note: here we work directly with pointers to the C data
+			-- structure, to avoid yet another layer of
+			-- abstraction/reindirection and its performance loss. We are
+			-- seeking performance and we assume to be enabled to fiddle
+			-- with low-level details.
+
+			-- Note: The original C implementation uses this (private)
+			-- data structure; code dealing with it is left here
+			-- commented for later inspection: GObjectNotifyQueue
+			-- *nqueue;
+			
+			
+			-- NOTE: avoiding ref, since we already has a reference
+
+			-- nqueue = g_object_notify_queue_freeze (object,
+			-- &property_notify_context);
+			freeze_notify
+			-- redirect := g_param_spec_get_redirect_target (pspec)
+			-- if redirect.is_not_null then pspec := redirect end 
+
+			--   /* provide a copy to work from, convert (if necessary) and validate */
+			--   g_value_init (&tmp_value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+			--   if (!g_value_transform (value, &tmp_value))
+			--     g_warning ("unable to set property `%s' of type `%s' from value of type `%s'",
+			-- 	       pspec->name,
+			-- 	       g_type_name (G_PARAM_SPEC_VALUE_TYPE (pspec)),
+			-- 	       G_VALUE_TYPE_NAME (value));
+			--   else if (g_param_value_validate (pspec, &tmp_value) && !(pspec->flags & G_PARAM_LAX_VALIDATION))
+			--     {
+			--       gchar *contents = g_strdup_value_contents (value);
+
+			--       g_warning ("value \"%s\" of type `%s' is invalid or out of range for property `%s' of type `%s'",
+			-- 		 contents,
+			-- 		 G_VALUE_TYPE_NAME (value),
+			-- 		 pspec->name,
+			-- 		 g_type_name (G_PARAM_SPEC_VALUE_TYPE (pspec)));
+			--       g_free (contents);
+			--     }
+			--   else
+			--     {
+
+			-- The following code calls the underlying C "virtual" call;
+			-- it mimicks "class->set_property (object, param_id,
+			-- &tmp_value, pspec);"
+			invoke_set_property (a_parameter_specification.owner_class, 
+										handle, 
+										a_parameter_specification.param_id, a_value.handle, 
+										a_parameter_specification.handle)
+			
+			-- g_object_notify_queue_add (object, nqueue, pspec);
+			-- g_object_notify_queue_thaw (object, nqueue);
+			-- NOTE: avoiding unref, since we didn't acquire any above			
+			thaw_notify
+		ensure
+			value_set: -- TODO: a_value.is_equal (get_property(a_property_name))
 		end
 
-	-- TODO: implement has_property  (a_property_name: STRING): BOOLEAN is
-	-- require  valid_name: a_property_name /= Void do	end
+	set_property (a_property_name: STRING; a_value: G_VALUE) is
+			-- Sets `a_property_name' property on Current object to 
+			-- `a_value'. This feature uses the underlying C 
+			-- implementation which is slower, since it always makes 
+			-- many checks.
+		require
+			valid_name: a_property_name /= Void
+			has_property: has_property (a_property_name)
+			is_writable: find_property (a_property_name).is_writable
+			valid_value: a_value /= Void
+			correct_value_type: a_value.is_a (find_property(a_property_name).value_gtype)
+		do
+			g_object_set_property (handle, a_property_name.to_external, a_value.handle)
+		ensure 
+			value_set: -- TODO: a_value.is_equal (get_property(a_property_name))
+		end
+	
+
+	get_property (a_property_name: STRING): G_VALUE is
+			-- Gets the property name `a_property_name' of an object.
+
+			-- Note: The underlying C implementation has the following
+			-- "preconditions" that are not compiled-in in optimized
+			-- code:
+
+			-- * handle is a GObject
+
+			-- * property name C-string is not a NULL pointer
+
+			-- * the GValue passed in should be a GValue....
+
+			-- It also always check that:
+			
+			-- * There's a property with that name
+
+			-- * the property is readable
+
+			-- * the value passed in is of the same type of the property
+			--   or it is convertible into a correct type
+
+			-- All those checkes are made for each and every access to
+			-- any property, beside the fact that the actual property
+			-- getter is usually a big switch statement hidded under
+			-- another 2 layers of calls.
+
+			-- Isn't it nicely inefficient, it is?
+
+			-- In this Eiffel wrapper the first checks are statically
+			-- enforced, while second group of checks can be handled by
+			-- preconditions and it is duty of the caller to check them
+			-- if necessary. The very last check is automatically 
+			-- followed 
+
+			-- Therefore this implementation will directly
+			-- call the hidden virtual call, i.e.: "class->get_property
+			-- (object, param_id, value, pspec);" see gobject/gobject.c
+			-- function "object_get_property" for further
+			-- informations. Paolo 2006-07-25
+		require
+			valid_name: a_property_name /= Void
+			has_property: has_property (a_property_name)
+			is_readable: find_property (a_property_name).is_readable
+		local gvalue_ptr: POINTER; parameter_specification: G_PARAM_SPEC
+		do
+			parameter_specification := find_property(a_property_name) 
+			create Result.with_gtype (parameter_specification.value_gtype)
+			g_object_get_property (handle,a_property_name.to_external, Result.handle)
+			-- while (name) { GValue value = { 0, }; GParamSpec *pspec;
+			-- gchar *error;
+			--       pspec = g_param_spec_pool_lookup (pspec_pool,
+			-- 					name,
+			-- 					G_OBJECT_TYPE (object),
+			-- 					TRUE);
+			--       if (!pspec)
+			-- 	{
+			-- 	  g_warning ("%s: object class `%s' has no property named `%s'",
+			-- 		     G_STRFUNC,
+			-- 		     G_OBJECT_TYPE_NAME (object),
+			-- 		     name);
+			-- 	  break;
+			-- 	}
+			--       if (!(pspec->flags & G_PARAM_READABLE))
+			-- 	{
+			-- 	  g_warning ("%s: property `%s' of object class `%s' is not readable",
+			-- 		     G_STRFUNC,
+			-- 		     pspec->name,
+			-- 		     G_OBJECT_TYPE_NAME (object));
+			-- 	  break;
+			-- 	}
+      
+			--       g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
+      
+			--       object_get_property (object, pspec, &value);
+      
+			--       G_VALUE_LCOPY (&value, var_args, 0, &error);
+			--       if (error)
+			-- 	{
+			-- 	  g_warning ("%s: %s", G_STRFUNC, error);
+			-- 	  g_free (error);
+			-- 	  g_value_unset (&value);
+			-- 	  break;
+			-- 	}
+      
+			--       g_value_unset (&value);
+      
+			--       name = va_arg (var_args, gchar*);
+			--     }
+  
+			--   g_object_unref (object);  
+		ensure 
+			not_void: Result /= Void
+			correct_type: Result.is_a (find_property(a_property_name).value_gtype)
+		end
 
 	set_string_property (a_property_name, a_value: STRING) is
 		require
@@ -406,18 +590,33 @@ feature -- Property getter/setter
 		require
 			valid_name: a_property_name /= Void
 			has_property: has_property (a_property_name)
+			is_string_property: find_property (a_property_name).is_string
 		local ptr: POINTER
 		do
-			g_object_get_one_property (handle,a_property_name.to_external,address_of (ptr))
+			g_object_get_one_property (handle,a_property_name.to_external,address_of(ptr), default_pointer)
 			if ptr.is_not_null then
 				create Result.from_external (ptr)
 			end
+
 		end
 
 	-- TODO: provide get_[string|integer|real|...]_property that does
 	-- not allocate a temporary G_VALUE
 
+	set_integer_property (a_property_name: STRING; a_value: INTEGER) is
+			-- Set property with `a_name' to `a_value'
+		require
+			valid_name: a_property_name /= Void
+			property_exists: has_property (a_property_name)
+			is_writable: find_property (a_property_name).is_writable
+			is_integer_property: find_property (a_property_name).is_integer
+		local gvalue: G_VALUE
+		do
+			create gvalue.from_integer (a_value)
+			g_object_set_property (handle, a_property_name.to_external,gvalue.handle)
+		end
 
+	
 feature {} -- Unwrapped API
 --    ----------------------------------------------------------------------------------------------------------------
 

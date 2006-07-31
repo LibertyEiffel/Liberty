@@ -29,11 +29,26 @@ indexing
 							]"
 
 class G_PARAM_SPEC
-inherit SHARED_C_STRUCT
-insert G_PARAM_SPEC_EXTERNALS
+inherit 
+	SHARED_C_STRUCT 
+		redefine from_external_pointer
+		end
+insert 
+	G_PARAM_SPEC_EXTERNALS
+	G_TYPE_EXTERNALS
+
 creation
 	from_external_pointer,
 	make_boolean, make_integer
+
+feature {WRAPPER} -- Creation
+	from_external_pointer (a_ptr: POINTER) is
+		do
+			Precursor (a_ptr)
+			owner_class := g_type_class_peek(get_owner_type(handle))
+			param_id := get_param_id (handle)
+			set_shared
+		end
 
 feature -- Flags
 	flags: INTEGER is
@@ -172,6 +187,19 @@ feature -- queries
 			create Result.from_external_copy(g_param_spec_get_blurb(handle))
 		end
 
+feature 
+	is_initialized: BOOLEAN is
+			-- Is hidden implementation data correctly initialized?
+		do
+			Result := (owner_class.is_not_null and (param_id /= 0))
+		end
+
+feature {WRAPPER} -- Implementation 
+	owner_class: POINTER
+			-- The GObjectClass the created and installed the corresponding property
+	param_id: INTEGER 
+			-- The parameter id to be passed to the property
+			-- setter/getter function
 feature -- name validity
 	is_a_valid_name (a_string: STRING): BOOLEAN is
 			-- Does `a_string' comply with the rules for G_PARAM_SPEC names?
@@ -212,7 +240,13 @@ feature {} -- Creation
 													 a_blurb.to_external,
 													 a_default.to_integer,
 													 some_flags)
-		ensure is_boolean: is_boolean
+			-- Note: where Gobject type system took this?
+			owner_class := g_type_class_peek(get_owner_type(handle))
+			param_id := get_param_id (handle)
+			--
+			set_shared
+		ensure 
+			is_boolean: is_boolean
 		end
 	
 	make_integer (a_name,a_nick,a_blurb: STRING;
@@ -230,6 +264,11 @@ feature {} -- Creation
 			handle := g_param_spec_int (a_name.to_external, a_nick.to_external, a_blurb.to_external,
 												 a_min, a_max, a_default,
 												 some_flags)
+			-- Note: where Gobject type system took this?
+			owner_class := g_type_class_peek(get_owner_type(handle))
+			param_id := get_param_id (handle)
+			--
+			set_shared
 		ensure is_integer: is_integer
 		end
 
@@ -317,6 +356,13 @@ feature -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
 feature -- TODO: flags parameter. Note: this could need a wrapper for G_FLAG_CLASS and G_FLAG_VALUE
 
 feature -- TODO: STRING parameter
+	is_string: BOOLEAN is
+			-- Is this a string parameter?
+		do
+			Result := (g_is_param_spec_string (handle).to_boolean)
+		end
+
+
 feature -- TODO: G_PARAM_SPEC parameter 
 	-- Note: call me dumb but it seems a little too recursive IMHO. Paolo 2006-06-28
 feature -- TODO: G_BOXED parameter. Note: this require a wrapper for G_BOXED
@@ -400,17 +446,17 @@ feature {} -- Unwrapped API
 
 --  typedef enum
 --  {
---    G_PARAM_READABLE            = 1 << 0,
---    G_PARAM_WRITABLE            = 1 << 1,
---    G_PARAM_CONSTRUCT           = 1 << 2,
---    G_PARAM_CONSTRUCT_ONLY      = 1 << 3,
---    G_PARAM_LAX_VALIDATION      = 1 << 4,
---    G_PARAM_STATIC_NAME         = 1 << 5,
+--    G_PARAM_READABLE            = 1 < < 0,
+--    G_PARAM_WRITABLE            = 1 < < 1,
+--    G_PARAM_CONSTRUCT           = 1 < < 2,
+--    G_PARAM_CONSTRUCT_ONLY      = 1 < < 3,
+--    G_PARAM_LAX_VALIDATION      = 1 < < 4,
+--    G_PARAM_STATIC_NAME         = 1 < < 5,
 --  #ifndef G_DISABLE_DEPRECATED
 --    G_PARAM_PRIVATE             = G_PARAM_STATIC_NAME,
 --  #endif
---    G_PARAM_STATIC_NICK         = 1 << 6,
---    G_PARAM_STATIC_BLURB        = 1 << 7
+--    G_PARAM_STATIC_NICK         = 1 < < 6,
+--    G_PARAM_STATIC_BLURB        = 1 < < 7
 --  } GParamFlags;
 
 --    Through the GParamFlags flag values, certain aspects of parameters can
@@ -914,4 +960,7 @@ feature {} -- Unwrapped API
 --    owner_type : the owner to look for
 --    Returns :    a GList of all GParamSpecs owned by owner_type in the
 --                 poolGParamSpecs.
+invariant
+	is_shared: is_shared
+	initialized: is_initialized
 end

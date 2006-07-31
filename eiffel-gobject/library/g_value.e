@@ -13,9 +13,9 @@ inherit
 	SHARED_C_STRUCT redefine dispose end
 
 insert
+	G_TYPE
 	GLIB_MEMORY_ALLOCATION export {NONE} all end
 	G_VALUE_EXTERNALS
-	G_TYPE_EXTERNALS
 
 creation
 	make, from_external_pointer, with_gtype,
@@ -41,7 +41,7 @@ feature {NONE} -- Creation
 			-- is a temporary solution; provide higher level/more
 			-- Eiffellish API.
 			
-			-- TODO: implement "require is_valid_gtype (a_gtype)"
+		require valid_type: is_g_type (a_gtype)
 		do
 			handle := g_value_init(malloc_g_value, a_gtype)
 		end
@@ -182,6 +182,12 @@ feature {ANY}
 			Result := (type /= g_type_invalid)
 		end
 	
+	is_a (a_type: INTEGER): BOOLEAN is
+			-- Is Current gtype conforming to `a_type'?
+		do
+			Result := g_type_is_a (type, a_type).to_boolean
+		end
+
 feature {ANY} -- Boolean
 	is_boolean: BOOLEAN is
 			-- Is current value a boolean?
@@ -375,6 +381,48 @@ feature {ANY} -- Pointer
 	-- TODO: wrap all Parameter specification functions, such as
 	-- g_param_spec_* ()
 
+feature {G_OBJECT} -- Type changing features
+	turn_to_boolean is
+			-- Reset Current and make it a boolean value
+		do
+			g_value_unset (handle)
+			handle := g_value_init (handle, g_type_boolean)
+		ensure is_boolean: is_boolean
+		end
+
+
+	turn_to_integer is
+			-- Reset Current and make it a integer value
+		do
+			g_value_unset (handle)
+			handle := g_value_init (handle, g_type_int)
+		ensure is_integer: is_integer
+		end
+	
+	turn_to_natural is
+			-- Reset Current and make it a natural value
+		do
+			g_value_unset (handle)
+			handle := g_value_init (handle, g_type_uint)
+		ensure is_natural: is_natural
+		end
+
+	turn_to_real is
+			-- Reset Current and make it a real value
+		do
+			g_value_unset (handle)
+			handle := g_value_init (handle, g_type_double)
+		ensure is_real: is_real
+		end
+
+	turn_to_string is
+			-- Reset Current and make it a string value
+		do
+			g_value_unset (handle)
+			handle := g_value_init (handle, g_type_string)
+		ensure is_string: is_string
+		end
+ 
 feature
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"

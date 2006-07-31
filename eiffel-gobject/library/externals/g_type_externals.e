@@ -500,15 +500,10 @@ feature {NONE} -- External calls
 	-- root_type : 	Immediate parent of the returned type.
 	-- Returns : 	Immediate child of root_type and anchestor of leaf_type.
 	
-	-- g_type_is_a ()
-	
-	-- gboolean    g_type_is_a                     (GType type,
-	-- 															GType is_a_type);
-	
-	-- If is_a_type is a derivable type, check whether type is a descendant of is_a_type. If is_a_type is an interface, check whether type conforms to it.
-	-- type : 	Type to check anchestry for.
-	-- is_a_type : 	Possible anchestor of type or interface type could conform to.
-	-- Returns : 	TRUE if type is_a is_a_type holds true.
+	g_type_is_a (a_type, is_a_type: INTEGER): INTEGER is
+		external "C use <glib-object.h>"
+		end
+
 	-- g_type_class_ref ()
 	
 	-- gpointer    g_type_class_ref                (GType type);
@@ -516,13 +511,19 @@ feature {NONE} -- External calls
 	-- Increments the reference count of the class structure belonging to type. This function will demand-create the class if it doesn't exist already.
 	-- type : 	Type ID of a classed type.
 	-- Returns : 	The GTypeClass structure for the given type ID.
-	-- g_type_class_peek ()
+	
+	g_type_class_peek (a_type: INTEGER): POINTER is
+			-- This function is essentially the same as
+			-- g_type_class_ref(), except that the classes reference
+			-- count isn't incremented. Therefore, this function may
+			-- return NULL if the class of the type passed in does not
+			-- currently exist (hasn't been referenced before).  -- type
+			-- : Type ID of a classed type.  -- Returns : The GTypeClass
+			-- structure for the given type ID or NULL if the class does
+			-- not currently exist.
+		external "C use <glib-object.h>"
+		end
 
-	-- gpointer    g_type_class_peek               (GType type);
-
-	-- This function is essentially the same as g_type_class_ref(), except that the classes reference count isn't incremented. Therefore, this function may return NULL if the class of the type passed in does not currently exist (hasn't been referenced before).
-	-- type : 	Type ID of a classed type.
-	-- Returns : 	The GTypeClass structure for the given type ID or NULL if the class does not currently exist.
 	-- g_type_class_peek_static ()
 
 	-- gpointer    g_type_class_peek_static        (GType type);

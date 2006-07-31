@@ -179,15 +179,11 @@ feature {C_STRUCT}
 		 external "C use <glib-object.h>"
 		 end
 
-	-- From Parameters and Values: Standard Parameter and Value Types
-	g_is_param_spec_boolean (param_spec: POINTER): INTEGER is
-		external "C macro use <glib-object.h>"
-		alias "G_IS_PARAM_SPEC_BOOLEAN"
-		end			
-	g_param_spec_boolean (param_spec: POINTER): INTEGER is
-		external "C macro use <glib-object.h>"
-		alias "G_PARAM_SPEC_BOOLEAN"
-		end			
+	-- Commenting out this casting macro. Casting is not needed in
+	-- Eiffel g_param_spec_boolean (param_spec: POINTER): INTEGER is
+	-- external "C macro use <glib-object.h>" alias
+	-- "G_PARAM_SPEC_BOOLEAN" end
+
 	g_value_holds_boolean (value: POINTER): INTEGER is
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_BOOLEAN"

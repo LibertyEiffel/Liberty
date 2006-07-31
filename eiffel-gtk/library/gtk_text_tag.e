@@ -36,6 +36,10 @@ indexing
 
 class GTK_TEXT_TAG
 inherit G_OBJECT
+insert 
+	PANGO_WEIGHT
+	GTK
+	
 creation make, with_name, from_external_pointer
 
 feature {} -- Creation
@@ -44,6 +48,7 @@ feature {} -- Creation
 			-- arguments, i.e. using G_OBJECT.set().
 
 			-- TODO: Gtk allow for void name. Check why. Paolo 2006-06-30
+		require gtk_initialized: gtk.is_initialized
 		do
 			if a_name = Void then
 				handle:= gtk_text_tag_new (default_pointer)
@@ -93,8 +98,9 @@ feature
 	--    Returns :      result of signal emission (whether the event was handled)
 	
 feature -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_property
-
---    "background"           gchararray            : Write
+	
+	--    "background"           gchararray            : Write
+	
 --    "background-full-height" gboolean              : Read / Write
 --    "background-full-height-set" gboolean              : Read / Write
 --    "background-gdk"       GdkColor              : Read / Write
@@ -154,7 +160,7 @@ feature -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_pro
 --    "underline-set"        gboolean              : Read / Write
 --    "variant"              PangoVariant          : Read / Write
 --    "variant-set"          gboolean              : Read / Write
---    "weight"               gint                  : Read / Write
+	--    "weight"               gint                  : Read / Write
 --    "weight-set"           gboolean              : Read / Write
 --    "wrap-mode"            GtkWrapMode           : Read / Write
 --    "wrap-mode-set"        gboolean              : Read / Write
@@ -632,17 +638,21 @@ feature -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_pro
 
 --    -------------------------------------------------------------------------------------
 
---   The "size" property
+feature --   The "size" property
+	--    "size"                 gint                  : Read / Write
 
---    "size"                 gint                  : Read / Write
+	set_size (a_size: INTEGER) is
+			-- Set "size" property
+		require valid_size: a_size >= 0
+		do
+			set_integer_property (size_property_name, a_size)
+		end
 
---    Font size in Pango units.
-
---    Allowed values: >= 0
-
---    Default value: 0
-
---    -------------------------------------------------------------------------------------
+	size: INTEGER is
+			--    Font size in Pango units.
+		do
+			g_object_get_one_property (handle, size_property_name.to_external, $Result, default_pointer)
+		end
 
 --   The "size-points" property
 
@@ -788,13 +798,24 @@ feature -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_pro
 
 --    "weight"               gint                  : Read / Write
 
---    Font weight as an integer, see predefined values in PangoWeight; for example,
---    PANGO_WEIGHT_BOLD.
-
+--    
 --    Allowed values: >= 0
 
 --    Default value: 400
+	set_weight (a_weight: INTEGER) is
+		require valid: is_valid_pango_weight (a_weight)
+		do
+			set_integer_property (weight_property_name, a_weight)
+		end
 
+	weight: INTEGER is
+			-- Font weight as an integer, see predefined values in
+			-- PANGO_WEIGHT; for example, pango_weight_bold.
+		do
+			g_object_get_one_property (handle, weight_property_name.to_external, $Result, default_pointer)
+		ensure valid: is_valid_pango_weight (Result)
+		end
+	
 --    -------------------------------------------------------------------------------------
 
 --   The "weight-set" property
@@ -852,6 +873,132 @@ feature -- TODO: Signals
 --    user_data : user data set when the signal handler was connected.
 --    Returns :
 
+feature {} -- Properties names
+	
+	background_property_name: STRING is "background"	
+			-- gchararray : Write
+	background_full_height_property_name: STRING is "background-full-height"	
+			-- gboolean : Read / Write
+	background_full_height_set_property_name: STRING is "background-full-height-set"	
+			-- gboolean : Read / Write
+	background_gdk_property_name: STRING is "background-gdk"	
+			-- GdkColor : Read / Write
+	background_set_property_name: STRING is "background-set"	
+			-- gboolean : Read / Write
+	background_stipple_property_name: STRING is "background-stipple"	
+			-- GdkPixmap : Read / Write
+	background_stipple_set_property_name: STRING is "background-stipple-set"
+			-- gboolean : Read / Write
+	direction_property_name: STRING is "direction"	
+			-- GtkTextDirection : Read / Write
+	editable_property_name: STRING is "editable"	
+			-- gboolean : Read / Write
+	editable_set_property_name: STRING is "editable-set"	
+			-- gboolean : Read / Write
+	family_property_name: STRING is "family"	
+			-- gchararray : Read / Write
+	family_set_property_name: STRING is "family-set"	
+			-- gboolean : Read / Write
+	font_property_name: STRING is "font"	
+			-- gchararray : Read / Write
+	font_desc_property_name: STRING is "font-desc"	
+			-- PangoFontDescription : Read / Write
+	foreground_property_name: STRING is "foreground"	
+			-- gchararray : Write
+	foreground_gdk_property_name: STRING is "foreground-gdk"	
+			-- GdkColor : Read / Write
+	foreground_set_property_name: STRING is "foreground-set"	
+			-- gboolean : Read / Write
+	foreground_stipple_property_name: STRING is "foreground-stipple"	
+			-- GdkPixmap : Read / Write
+	foreground_stipple_set_property_name: STRING is "foreground-stipple-set"	
+			-- gboolean : Read / Write
+	indent_property_name: STRING is "indent"	
+			-- gint : Read / Write
+	indent_set_property_name: STRING is "indent-set"	
+			-- gboolean : Read / Write
+	invisible_property_name: STRING is "invisible"	
+			-- gboolean : Read / Write
+	invisible_set_property_name: STRING is "invisible-set"	
+			-- gboolean : Read / Write
+	justification_property_name: STRING is "justification"	
+			-- GtkJustification : Read / Write
+	justification_set_property_name: STRING is "justification-set"	
+			-- gboolean : Read / Write
+	language_property_name: STRING is "language"	
+			-- gchararray : Read / Write
+	language_set_property_name: STRING is "language-set"	
+			-- gboolean : Read / Write
+	left_margin_property_name: STRING is "left-margin"	
+			-- gint : Read / Write
+	left_margin_set_property_name: STRING is "left-margin-set"	
+			-- gboolean : Read / Write
+	name_property_name: STRING is "name"	
+			-- gchararray : Read / Write / Construct Only
+	paragraph_background_property_name: STRING is "paragraph-background"	
+			-- gchararray : Write
+	paragraph_background_gdk_property_name: STRING is "paragraph-background-gdk"	
+			-- GdkColor : Read / Write
+	paragraph_background_set_property_name: STRING is "paragraph-background-set"	
+			-- gboolean : Read / Write
+	pixels_above_lines_property_name: STRING is "pixels-above-lines"	
+			-- gint : Read / Write
+	pixels_above_lines_set_property_name: STRING is "pixels-above-lines-set"	
+			-- gboolean : Read / Write
+	pixels_below_lines_property_name: STRING is "pixels-below-lines"	
+			-- gint : Read / Write
+	pixels_below_lines_set_property_name: STRING is "pixels-below-lines-set"	
+			-- gboolean : Read / Write
+	pixels_inside_wrap_property_name: STRING is "pixels-inside-wrap"	
+			-- gint : Read / Write
+	pixels_inside_wrap_set_property_name: STRING is "pixels-inside-wrap-set"	
+			-- gboolean : Read / Write
+	right_margin_property_name: STRING is "right-margin"	
+			-- gint : Read / Write
+	right_margin_set_property_name: STRING is "right-margin-set"	
+			-- gboolean : Read / Write
+	rise_property_name: STRING is "rise"	
+			-- gint : Read / Write
+	rise_set_property_name: STRING is "rise-set"	
+			-- gboolean : Read / Write
+	scale_property_name: STRING is "scale"	
+			-- gdouble : Read / Write
+	scale_set_property_name: STRING is "scale-set"	
+			-- gboolean : Read / Write
+	size_property_name: STRING is "size"	
+			-- gint : Read / Write
+	size_points_property_name: STRING is "size-points"	
+			-- gdouble : Read / Write
+	size_set_property_name: STRING is "size-set"	
+			-- gboolean : Read / Write
+	stretch_property_name: STRING is "stretch"	
+			-- PangoStretch : Read / Write
+	stretch_set_property_name: STRING is "stretch-set"	
+			-- gboolean : Read / Write
+	strikethrough_property_name: STRING is "strikethrough"	
+			-- gboolean : Read / Write
+	strikethrough_set_property_name: STRING is "strikethrough-set"	
+			-- gboolean : Read / Write
+	style_property_name: STRING is "style"	
+			-- PangoStyle : Read / Write
+	style_set_property_name: STRING is "style-set"	
+			-- gboolean : Read / Write
+	tabs_property_name: STRING is "tabs"	
+			-- PangoTabArray : Read / Write
+	tabs_set_property_name: STRING is "tabs-set"	
+			-- gboolean : Read / Write
+	underline_property_name: STRING is "underline"	
+			-- PangoUnderline : Read / Write
+	underline_set_property_name: STRING is "underline-set"	
+			-- gboolean : Read / Write
+	variant_property_name: STRING is "variant"	
+			-- PangoVariant : Read / Write
+	variant_set_property_name: STRING is "variant-set"	
+			-- gboolean : Read / Write
+	weight_property_name: STRING is "weight"	
+			-- gint : Read / Write
+
+	
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

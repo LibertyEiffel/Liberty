@@ -17,6 +17,16 @@ inherit
 		undefine copy,fill_tagged_out_memory
 		end
 
+feature {WRAPPER}
+	wrapper_from_pointer (a_pointer: POINTER): ITEM_ is
+			-- Dangerous forced conversion. Assumes that `a_pointer' is 
+			-- actually the address of an Eiffel object of type ITEM_. 
+			-- This feature is needed to implement a dictionary that 
+			-- stores 
+		external "C inline"
+		alias "$a_pointer"
+		end
+
 feature {} -- Implementation
 	new_item: ITEM_ is
 			-- Materialize an Eiffel object. This feature contains

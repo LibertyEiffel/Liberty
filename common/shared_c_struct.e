@@ -21,13 +21,23 @@ inherit
 			dispose
 		end
 
-feature {} -- Access to C features
+feature {WRAPPER} -- Access to C features
 	is_shared: BOOLEAN
 			-- Does anybody else (Eiffel or non-Eiffel) have a reference 
 			-- to `handle'? If False, then the C-object will be 
 			-- destroyed when the the Eiffel object will be collected 
 			-- (via destroy object). If True the C-object will not be destroyed.
+	
+	set_shared is
+		do
+			is_shared := True
+		end
 
+	unset_shared, set_unshared is
+		do
+			is_shared := False
+		end
+	
 feature {} -- Destroying
 	dispose is
 			-- Action to be executed just before garbage collection reclaims an 

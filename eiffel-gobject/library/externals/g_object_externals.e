@@ -23,13 +23,47 @@ feature {NONE} -- External calls
 	--                                              const GValue *value,
 	--                                              GParamSpec *pspec);
 	-- void        (*GObjectFinalizeFunc)          (GObject *object);
-	-- #define     G_TYPE_IS_OBJECT                (type)
-	-- #define     G_OBJECT                        (object)
-	-- #define     G_IS_OBJECT                     (object)
-	-- #define     G_OBJECT_CLASS                  (class)
-	-- #define     G_IS_OBJECT_CLASS               (class)
-	-- #define     G_OBJECT_GET_CLASS              (object)
-	-- #define     G_OBJECT_TYPE                   (object)
+
+	g_type_is_object (type: INTEGER): INTEGER is
+			-- Returns a boolean value of FALSE or TRUE indicating whether the
+			-- passed in type id is a G_TYPE_OBJECT or derived from it.  type :
+			-- Type id to check for is a G_TYPE_OBJECT relationship.  Returns :
+			-- FALSE or TRUE, indicating whether type is a G_TYPE_OBJECT.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_IS_OBJECT"
+		end
+
+	g_object (a_pointer: POINTER): POINTER is
+		external "C macro use <glib-object.h>"
+		alias "G_OBJECT"
+		end
+
+	g_is_object (object: POINTER): INTEGER is
+		external "C macro use <glib-object.h>"
+		alias "G_IS_OBJECT"
+		end
+
+	-- Note: shall we wrap casting macro such as G_OBJECT_CLASS
+	-- (class)? Paolo 2006-07-27
+
+	g_is_object_class (a_class: POINTER): INTEGER is
+		external "C macro use  <glib-object.h>"
+		alias "G_IS_OBJECT_CLASS"
+		end
+
+	g_object_get_class (an_object: POINTER): POINTER is
+		external "C macro use  <glib-object.h>"
+		alias "G_OBJECT_GET_CLASS"
+		end
+
+	g_object_type(an_object: POINTER): INTEGER is
+			-- Return the type id of an object.
+			-- object : 	Object to return the type id for.
+			-- Returns : 	Type id of object.
+		external "C macro use  <glib-object.h>"
+		alias "G_OBJECT_TYPE"
+		end
+
 	-- #define     G_OBJECT_TYPE_NAME              (object)
 	-- #define     G_OBJECT_CLASS_TYPE             (class)
 	-- #define     G_OBJECT_CLASS_NAME             (class)
@@ -140,187 +174,6 @@ feature {NONE} -- External calls
 	-- void        g_object_run_dispose            (GObject *object);
 	-- #define     G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec)
 
-
-	-- Object Hierarchy
-
-	--   GObject
-	--    +----GTypeModule
-
-	-- Signals
-
-	-- "notify"    void        user_function      (GObject *gobject,
-	--                                             GParamSpec *arg1,
-	--                                             gpointer user_data);
-
-	-- Description
-
-	-- GObject is the fundamental type providing the common attributes and methods for all object types in GTK+, Pango and other libraries based on GObject. The GObject class provides methods for object construction and destruction, property access methods, and signal support. Signals are described in detail in Signals(3).
-	-- Details
-	-- GObject
-
-	-- typedef struct _GObject GObject;
-
-	-- All the fields in the GObject structure are private to the GObject implementation and should never be accessed directly.
-	-- GObjectClass
-
-	-- typedef struct {
-	--   GTypeClass   g_type_class;
-
-	--   /* overridable methods */
-	--   GObject*   (*constructor)     (GType                  type,
-	--                                  guint                  n_construct_properties,
-	--                                  GObjectConstructParam *construct_properties);
-	--   void       (*set_property)		(GObject        *object,
-	--                                          guint           property_id,
-	--                                          const GValue   *value,
-	--                                          GParamSpec     *pspec);
-	--   void       (*get_property)		(GObject        *object,
-	--                                          guint           property_id,
-	--                                          GValue         *value,
-	--                                          GParamSpec     *pspec);
-	--   void       (*dispose)			(GObject        *object);
-	--   void       (*finalize)		(GObject        *object);
-  
-	--   /* seldomly overidden */
-	--   void       (*dispatch_properties_changed) (GObject      *object,
-	-- 					     guint	   n_pspecs,
-	-- 					     GParamSpec  **pspecs);
-
-	--   /* signals */
-	--   void	     (*notify)			(GObject	*object,
-	-- 					 GParamSpec	*pspec);
-	-- } GObjectClass;
-
-	-- The class structure for the GObject type.
-
-	-- Example 1. Implementing singletons using a constructor
-
-	-- static MySingleton *the_singleton = NULL;
-
-	-- static GObject*
-	-- my_singleton_constructor (GType                  type,
-	--                           guint                  n_construct_params,
-	--                           GObjectConstructParam *construct_params)
-	-- {
-	--   GObject *object;
-  
-	--   if (!the_singleton)
-	--     {
-	--       object = G_OBJECT_CLASS (parent_class)->constructor (type,
-	--                                                            n_construct_params,
-	--                                                            construct_params);
-	--       the_singleton = MY_SINGLETON (object);
-	--     }
-	--   else
-	--     object = g_object_ref (G_OBJECT (the_singleton));
-
-	--   return object;
-	-- }
-
-	-- GTypeClass g_type_class; 	the parent class
-	-- constructor () 	the constructor function is called by g_object_new() to complete the object initialization after all the construction properties are set. The first thing a constructor implementation must do is chain up to the constructor of the parent class. Overriding constructor should be rarely needed, e.g. to handle construct properties, or to implement singletons.
-	-- set_property () 	the generic setter for all properties of this type. Should be overridden for every type with properties. Implementations of set_property don't need to emit property change notification explicitly, this is handled by the type system.
-	-- get_property () 	the generic getter for all properties of this type. Should be overridden for every type with properties.
-	-- dispose () 	the dispose function is supposed to drop all references to other objects, but keep the instance otherwise intact, so that client method invocations still work. It may be run multiple times (due to reference loops). Before returning, dispose should chain up to the dispose method of the parent class.
-	-- finalize () 	instance finalization function, should finish the finalization of the instance begun in dispose and chain up to the finalize method of the parent class.
-	-- dispatch_properties_changed () 	emits property change notification for a bunch of properties. Overriding dispatch_properties_changed should be rarely needed.
-	-- notify () 	the class closure for the notify signal
-	-- GObjectConstructParam
-
-	-- typedef struct {
-	--   GParamSpec *pspec;
-	--   GValue     *value;
-	-- } GObjectConstructParam;
-
-	-- The GObjectConstructParam struct is an auxiliary structure used to hand GParamSpec/GValue pairs to the constructor of a GObjectClass.
-	-- GParamSpec *pspec; 	the GParamSpec of the construct parameter
-	-- GValue *value; 	the value to set the parameter to
-	-- GObjectGetPropertyFunc ()
-
-	-- void        (*GObjectGetPropertyFunc)       (GObject *object,
-	--                                              guint property_id,
-	--                                              GValue *value,
-	--                                              GParamSpec *pspec);
-
-	-- The type of the get_property function of GObjectClass.
-	-- object : 	a GObject
-	-- property_id : 	the numeric id under which the property was registered with g_object_class_install_property().
-	-- value : 	a GValue to return the property value in
-	-- pspec : 	the GParamSpec describing the property
-	-- GObjectSetPropertyFunc ()
-
-	-- void        (*GObjectSetPropertyFunc)       (GObject *object,
-	--                                              guint property_id,
-	--                                              const GValue *value,
-	--                                              GParamSpec *pspec);
-
-	-- The type of the set_property function of GObjectClass.
-	-- object : 	a GObject
-	-- property_id : 	the numeric id under which the property was registered with g_object_class_install_property().
-	-- value : 	the new value for the property
-	-- pspec : 	the GParamSpec describing the property
-	-- GObjectFinalizeFunc ()
-
-	-- void        (*GObjectFinalizeFunc)          (GObject *object);
-
-	-- The type of the finalize function of GObjectClass.
-	-- object : 	the GObject being finalized
-	g_type_is_object (type: INTEGER): INTEGER is
-			-- Returns a boolean value of FALSE or TRUE indicating whether the
-			-- passed in type id is a G_TYPE_OBJECT or derived from it.  type :
-			-- Type id to check for is a G_TYPE_OBJECT relationship.  Returns :
-			-- FALSE or TRUE, indicating whether type is a G_TYPE_OBJECT.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_IS_OBJECT"
-		end
-
-
-	-- G_OBJECT()
-	
-	-- #define G_OBJECT(object)            (G_TYPE_CHECK_INSTANCE_CAST ((object), G_TYPE_OBJECT, GObject))
-	
-	-- Casts a GObject or derived pointer into a (GObject*) pointer. Depending on the current debugging level, this function may invoke certain runtime checks to identify invalid casts.
-	-- object : 	Object which is subject to casting.
-
-	g_is_object (object: POINTER): INTEGER is
-			-- Checks whether a valid GTypeInstance pointer is of type
-			-- G_TYPE_OBJECT.  object : Instance to check for being a
-			-- G_TYPE_OBJECT.
-		external "C macro use <glib-object.h>"
-		alias "G_IS_OBJECT"
-		end
-		
-	-- G_OBJECT_CLASS()
-
-	-- #define G_OBJECT_CLASS(class)       (G_TYPE_CHECK_CLASS_CAST ((class), G_TYPE_OBJECT, GObjectClass))
-
-	-- Casts a derived GObjectClass structure into a GObjectClass structure.
-	-- class : 	a valid GObjectClass
-	-- G_IS_OBJECT_CLASS()
-
-	-- #define G_IS_OBJECT_CLASS(class)    (G_TYPE_CHECK_CLASS_TYPE ((class), G_TYPE_OBJECT))
-
-	-- Checks whether class "is a" valid GObjectClass structure of type G_TYPE_OBJECT or derived.
-	-- class : 	a GObjectClass
-
-	g_object_get_class (an_object: POINTER): POINTER is
-			-- Returns the class structure associated to a GObject
-			-- instance.  #define G_OBJECT_GET_CLASS(object)
-			-- (G_TYPE_INSTANCE_GET_CLASS ((object), G_TYPE_OBJECT,
-			-- GObjectClass))
-		external "C macro use  <glib-object.h>"
-		alias "G_OBJECT_GET_CLASS"
-		end
-		
-	-- G_OBJECT_TYPE()
-
-	g_object_type(an_object: POINTER): INTEGER is
-			-- Return the type id of an object.
-			-- object : 	Object to return the type id for.
-			-- Returns : 	Type id of object.
-		external "C macro use  <glib-object.h>"
-		alias "G_OBJECT_TYPE"
-		end
 
 	-- G_OBJECT_TYPE_NAME()
 
@@ -490,164 +343,40 @@ feature {NONE} -- External calls
 		external "C use <glib-object.h>"
 		end
 	
-	-- GWeakNotify ()
+	g_object_weak_ref (gobject, gweaknotify, data: POINTER) is 
+		external "C use <glib-object.h>"
+		end
 
-	-- void        (*GWeakNotify)                  (gpointer data,
-	--                                              GObject *where_the_object_was);
+	g_object_weak_unref (gobject, gweaknotify, data: POINTER) is 
+		external "C use <glib-object.h>"
+		end
 
-	-- A GWeakNotify function can be added to an object as a callback that gets triggered when the object is finalized. Since the object is already being finalized when the GWeakNotify is called, there's not much you could do with the object, apart from e.g. using its adress as hash-index or the like.
-	-- data : 	data that was provided when the weak reference was established
-	-- where_the_object_was : 	the object being finalized
-	-- g_object_weak_ref ()
+	g_object_add_weak_pointer (gobject, weak_pointer_location: POINTER) is
+		external "C use <glib-object.h>"
+		end
 
-	-- void        g_object_weak_ref               (GObject *object,
-	--                                              GWeakNotify notify,
-	--                                              gpointer data);
+	g_object_remove_weak_pointer (gobject, weak_pointer_location: POINTER) is
+		external "C use <glib-object.h>"
+		end
 
-	-- Adds a weak reference callback to an object. Weak references are used for notification when an object is finalized. They are called "weak references" because they allow you to safely hold a pointer to an object without calling g_object_ref() (g_object_ref() adds a strong reference, that is, forces the object to stay alive).
-	-- object : 	GObject to reference weakly
-	-- notify : 	callback to invoke before the object is freed
-	-- data : 	extra data to pass to notify
-		-- external "C use <glib-object.h>"
-		-- end
-	-- g_object_weak_unref ()
+	-- void (*GToggleNotify) (gpointer data, GObject *object, gboolean
+	-- is_last_ref);
 
-	-- void        g_object_weak_unref             (GObject *object,
-	--                                              GWeakNotify notify,
-	--                                              gpointer data);
+	g_object_add_toggle_ref (gobject, gtogglenotify, data: POINTER) is
+		external "C use <glib-object.h>"
+		end
 
-	-- Removes a weak reference callback to an object.
-	-- object : 	GObject to remove a weak reference from
-	-- notify : 	callback to search for
-	-- data : 	data to search for
-		-- external "C use <glib-object.h>"
-		-- end
-	-- g_object_add_weak_pointer ()
+	g_object_remove_toggle_ref  (gobject, gtogglenotify, data: POINTER) is
+		external "C use <glib-object.h>"
+		end
 
-	-- void        g_object_add_weak_pointer       (GObject *object,
-	--                                              gpointer *weak_pointer_location);
+	-- Note: g_object_connect not wrapped since it is variadic 
 
-	-- Adds a weak reference from weak_pointer to object to indicate that the pointer located at weak_pointer_location is only valid during the lifetime of object. When the object is finalized, weak_pointer will be set to NULL.
-	-- object : 	The object that should be weak referenced.
-	-- weak_pointer_location : 	The memory address of a pointer.
-		-- external "C use <glib-object.h>"
-		-- end
-	-- g_object_remove_weak_pointer ()
-
-	-- void        g_object_remove_weak_pointer    (GObject *object,
-	--                                              gpointer *weak_pointer_location);
-
-	-- Removes a weak reference from object that was previously added using g_object_add_weak_pointer(). The weak_pointer_location has to match the one used with g_object_add_weak_pointer().
-	-- object : 	The object that is weak referenced.
-	-- weak_pointer_location : 	The memory address of a pointer.
-		-- external "C use <glib-object.h>"
-		-- end
-	-- GToggleNotify ()
-
-	-- void        (*GToggleNotify)                (gpointer data,
-	--                                              GObject *object,
-	--                                              gboolean is_last_ref);
-
-	-- A callback function used for notification when the state of a toggle reference changes. See g_object_add_toggle_ref().
-	-- data : 	Callback data passed to g_object_add_toggle_ref()
-	-- object : 	The object on which g_object_add_toggle_ref() was called.
-	-- is_last_ref : 	TRUE if the toggle reference is now the last reference to the object. FALSE if the toggle reference was the last reference and there are now other references.
-	-- g_object_add_toggle_ref ()
-
-	-- void        g_object_add_toggle_ref         (GObject *object,
-	--                                              GToggleNotify notify,
-	--                                              gpointer data);
-
-	-- Increases the reference count of the object by one and sets a callback to be called when all other references to the object are dropped, or when this is already the last reference to the object and another reference is established.
-
-	-- This functionality is intended for binding object to a proxy object managed by another memory manager. This is done with two paired references: the strong reference added by g_object_add_toggle_ref() and a reverse reference to the proxy object which is either a strong reference or weak reference.
-
-	-- The setup is that when there are no other references to object, only a weak reference is held in the reverse direction from object to the proxy object, but when there are other references held to object, a strong reference is held. The notify callback is called when the reference from object to the proxy object should be toggled from strong to weak (is_last_ref true) or weak to strong (is_last_ref false).
-
-	-- Since a (normal) reference must be held to the object before calling g_object_toggle_ref(), the initial state of the reverse link is always strong.
-
-	-- Multiple toggle references may be added to the same gobject, however if there are multiple toggle references to an object, none of them will ever be notified until all but one are removed. For this reason, you should only ever use a toggle reference if there is important state in the proxy object.
-	-- object : 	a GObject
-	-- notify : 	a function to call when this reference is the last reference to the object, or is no longer the last reference.
-	-- data : 	data to pass to notify
-		-- external "C use <glib-object.h>"
-		-- end
-	-- g_object_remove_toggle_ref ()
-
-	-- void        g_object_remove_toggle_ref      (GObject *object,
-	--                                              GToggleNotify notify,
-	--                                              gpointer data);
-
-	-- Removes a reference added with g_object_add_toggle_ref(). The reference count of the object is decreased by one.
-	-- object : 	a GObject
-	-- notify : 	a function to call when this reference is the last reference to the object, or is no longer the last reference.
-	-- data : 	data to pass to notify
-		-- external "C use <glib-object.h>"
-		-- end
-	-- g_object_connect ()
-
-	-- gpointer    g_object_connect                (gpointer object,
-	--                                              const gchar *signal_spec,
-	--                                              ...);
-
-	-- A convenience function to connect multiple signals at once.
-
-	-- The signal specs expected by this function have the form "modifier::signal_name", where modifier can be one of the following:
-	-- signal 	
-
-	-- equivalent to g_signal_connect_data (...)
-	-- object_signal, object-signal 	
-
-	-- equivalent to g_signal_connect_object (...)
-	-- swapped_signal, swapped-signal 	
-
-	-- equivalent to g_signal_connect_data (..., G_CONNECT_SWAPPED)
-	-- swapped_object_signal, swapped-object-signal 	
-
-	-- equivalent to g_signal_connect_object (..., G_CONNECT_SWAPPED)
-	-- signal_after, signal-after 	
-
-	-- equivalent to g_signal_connect_data (..., G_CONNECT_AFTER)
-	-- object_signal_after, object-signal-after 	
-
-	-- equivalent to g_signal_connect_object (..., G_CONNECT_AFTER)
-	-- swapped_signal_after, swapped-signal-after 	
-
-	-- equivalent to g_signal_connect_data (..., G_CONNECT_SWAPPED | G_CONNECT_AFTER)
-	-- swapped_object_signal_after, swapped-object-signal-after 	
-
-	-- equivalent to g_signal_connect_object (..., G_CONNECT_SWAPPED | G_CONNECT_AFTER)
-
-	--   menu->toplevel = g_object_connect (g_object_new (GTK_TYPE_WINDOW,
-	-- 						   "type", GTK_WINDOW_POPUP,
-	-- 						   "child", menu,
-	-- 						   NULL),
-	-- 				     "signal::event", gtk_menu_window_event, menu,
-	-- 				     "signal::size_request", gtk_menu_window_size_request, menu,
-	-- 				     "signal::destroy", gtk_widget_destroyed, &menu->toplevel,
-	-- 				     NULL);
-
-	-- object : 	a GObject
-	-- signal_spec : 	the spec for the first signal
-	-- ... : 	GCallback for the first signal, followed by data for the first signal, followed optionally by more signal spec/callback/data triples, followed by NULL
-	-- Returns : 	object
-	-- g_object_disconnect ()
-
-	-- void        g_object_disconnect             (gpointer object,
-	--                                              const gchar *signal_spec,
-	--                                              ...);
-
-	-- A convenience function to disconnect multiple signals at once.
-
-	-- The signal specs expected by this function have the form "any_signal", which means to disconnect any signal with matching callback and data, or "any_signal::signal_name", which only disconnects the signal named "signal_name".
-	-- object : 	a GObject
-	-- signal_spec : 	the spec for the first signal
-	-- ... : 	GCallback for the first signal, followed by data for the first signal, followed optionally by more signal spec/callback/data triples, followed by NULL
-
+	-- Note: g_object_disconnect () not wrapped since it is variadic 
 
 feature {NONE} -- Property low-level setters
-	-- g_object_set is variadic; we wrap it with various kind of basic 
-	--types
+	-- Note: g_object_set is variadic; we wrap it with various kind of basic 
+	-- types
 
 	g_object_set_integer_property (an_object, a_property_name: POINTER; an_integer: INTEGER) is
 		require
@@ -685,15 +414,20 @@ feature {NONE} -- Low-level properties getters
 	-- void g_object_get (gpointer object, const gchar
 	-- *first_property_name, ...);
 	
-	g_object_get_one_property (object, a_property_name, its_address: POINTER) is
+	g_object_get_one_property (object, a_property_name, its_address, null_pointer: POINTER) is
+		require last_pointer_is_null: null_pointer.is_null
 		external "C use <glib-object.h>"
 		alias "g_object_get"
 		end
-	g_object_get_two_properties (object, first_property_name, first_address, second_property_name, second_address: POINTER) is
+	
+	g_object_get_two_properties (object, first_property_name, first_address, second_property_name, second_address, null_pointer: POINTER) is
+		require last_pointer_is_null: null_pointer.is_null
 		external "C use <glib-object.h>"
 		alias "g_object_get"
 		end
-	g_object_get_three_properties (object, first_property_name, first_address,second_property_name, second_address, third_property_name, third_address: POINTER) is
+	
+	g_object_get_three_properties (object, first_property_name, first_address,second_property_name, second_address, third_property_name, third_address, null_pointer: POINTER) is
+		require last_pointer_is_null: null_pointer.is_null
 		external "C use <glib-object.h>"
 		alias "g_object_get"
 		end
@@ -872,11 +606,53 @@ feature {NONE} -- Low-level properties getters
 
 
 	g_object_set_property (object, property_name,value: POINTER) is
-					-- Sets a property on an object.
+			-- Sets a property on an object.
 			-- object : 	a GObject
 			-- property_name : 	the name of the property to set
 			-- value : 	the value
 		external "C use <glib-object.h>"
+		end
+	
+	g_object_set_int_property (object, property_name: POINTER; value: INTEGER) is
+			-- see g_object_set_property
+		external "C use <glib-object.h>"
+			alias "g_object_set_property"
+		end
+
+	g_object_set_int32_property (object, property_name: POINTER; value: INTEGER_32) is
+			-- see g_object_set_property
+		external "C use <glib-object.h>"
+			alias "g_object_set_property"
+		end
+
+	g_object_set_int16_property (object, property_name: POINTER; value: INTEGER_16) is
+			-- see g_object_set_property
+		external "C use <glib-object.h>"
+			alias "g_object_set_property"
+		end
+
+	g_object_set_int64_property (object, property_name: POINTER; value: INTEGER_64) is
+			-- see g_object_set_property
+		external "C use <glib-object.h>"
+			alias "g_object_set_property"
+		end
+
+	g_object_set_double_property (object, property_name: POINTER; value: REAL) is
+			-- see g_object_set_property
+		external "C use <glib-object.h>"
+			alias "g_object_set_property"
+		end
+
+	g_object_set_float_property (object, property_name: POINTER; value: REAL_32) is
+			-- see g_object_set_property
+		external "C use <glib-object.h>"
+		alias "g_object_set_property"
+		end
+			
+	g_object_set_real64_property (object, property_name: POINTER; value: REAL_64) is
+			-- see g_object_set_property
+		external "C use <glib-object.h>"
+			alias "g_object_set_property"
 		end
 	
 	g_object_get_property (object,property_name,value: POINTER) is
@@ -984,5 +760,46 @@ feature {NONE} -- Low-level properties getters
 	-- See Also
 
 	-- GParamSpecObject, g_param_spec_object()
+feature {}	-- GObjectConstructParam struct
+
+	-- typedef struct {
+	--   GParamSpec *pspec;
+	--   GValue     *value;
+	-- } GObjectConstructParam;
+
+	-- The GObjectConstructParam struct is an auxiliary structure used
+	-- to hand GParamSpec/GValue pairs to the constructor of a
+	-- GObjectClass.
+
+	-- GParamSpec *pspec; 	the GParamSpec of the construct parameter
+
+	-- GValue *value; 	the value to set the parameter to
+feature {}	-- GObjectClass structure
+
+	-- typedef struct {
+	-- GTypeClass g_type_class;
+
+	-- /* overridable methods */
+	-- GObject* (*constructor) (GType type, guint n_construct_properties, GObjectConstructParam *construct_properties);
+	-- void (*set_property) (GObject *object, guint property_id, const GValue *value, GParamSpec *pspec);
+	-- void (*get_property) (GObject *object, guint property_id, GValue *value, GParamSpec *pspec);
+	-- void (*dispose) (GObject *object);
+	-- void (*finalize) (GObject *object);
+ 
+	-- /* seldomly overidden */
+	-- void (*dispatch_properties_changed) (GObject *object, guint n_pspecs, GParamSpec **pspecs);
+
+	-- /* signals */
+	-- void (*notify) (GObject	*object, GParamSpec	*pspec);
+	-- } GObjectClass;
+
+	g_object_class_get_set_property (a_class: POINTER): POINTER is
+		external "C struct GObjectClass get set_property use <glib-object.h>"
+		end	
+feature {} -- Invoking virtual calls defined in GObjectClass
+	invoke_set_property (g_object_class, handle: POINTER; param_id: INTEGER; a_value, pspec: POINTER) is
+		external "C inline"
+		alias "(/* G_OBJECT.invoke_set_property*/(G_OBJECT_CLASS($g_object_class))->set_property($handle,$param_id, $a_value, $pspec))"
+		end			
 end
 	

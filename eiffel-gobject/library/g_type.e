@@ -522,6 +522,7 @@ feature
 -- leaf_type : 	Descendant of root_type and the type to be returned.
 -- root_type : 	Immediate parent of the returned type.
 -- Returns : 	Immediate child of root_type and anchestor of leaf_type.
+											 
 -- g_type_is_a ()
 
 -- gboolean    g_type_is_a                     (GType type,

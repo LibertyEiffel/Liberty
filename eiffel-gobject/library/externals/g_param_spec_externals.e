@@ -92,6 +92,12 @@ feature {} -- External calls
 			-- GType owner_type; GType type that uses (introduces) this paremeterq
 		external "C struct GParamSpec get owner_type use <glib-object.h>"
 		end
+	get_param_id (a_spec: POINTER): INTEGER is
+			-- GParamSpec.param_id
+		obsolete "This is a private GObject feature!"
+		external "C struct GParamSpec get param_id use <glib-object.h>"
+		end
+
 
 	-- TODO: wrap in necessary access to GParamSpecClass struct
 	

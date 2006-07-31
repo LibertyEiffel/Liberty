@@ -12,7 +12,10 @@ inherit
 	WRAPPER
 
 	-- redefine copy
-insert EXCEPTIONS export {NONE} all undefine is_equal end
+insert EXCEPTIONS
+		export {NONE} all
+		undefine is_equal
+		end
 	
 feature {} -- Initialization
 	make is

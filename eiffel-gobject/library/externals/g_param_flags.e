@@ -9,14 +9,10 @@ deferred class G_PARAM_FLAGS
 feature  -- enum
 	are_valid_param_flags (some_flags :INTEGER): BOOLEAN is
 		do	
-			Result:=((some_flags = g_param_readable) or else
-						(some_flags = g_param_writable) or else       
-						(some_flags = g_param_construct) or else	    
-						(some_flags = g_param_construct_only) or else 
-						(some_flags = g_param_lax_validation) or else 
-						(some_flags = g_param_static_name) or else	 
-						(some_flags = g_param_static_nick) or else	 
-						(some_flags = g_param_static_blurb))
+			Result:=(some_flags & (g_param_readable | g_param_writable |
+										  g_param_construct | g_param_construct_only |
+										  g_param_lax_validation | g_param_static_name |
+										  g_param_static_nick | g_param_static_blurb)).to_boolean
 		end
 
 

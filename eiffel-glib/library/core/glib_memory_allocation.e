@@ -13,6 +13,7 @@ indexing
 			 
 deferred class GLIB_MEMORY_ALLOCATION
 
+inherit ANY undefine is_equal, copy end
 
 feature {NONE} -- external features
 
