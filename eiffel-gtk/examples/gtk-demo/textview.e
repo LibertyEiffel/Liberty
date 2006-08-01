@@ -28,6 +28,7 @@ indexing
 class TEXTVIEW
 
 insert
+	GTK
 	PANGO_CONSTANTS
 	PANGO_SCALES
 	PANGO_WEIGHT
@@ -40,6 +41,7 @@ feature -- Widgets
 feature 
 	make is 
 		do 
+			gtk.init
 			create buffer.make
 		end 
 feature  -- Callbacks
@@ -79,8 +81,8 @@ feature -- tags
 
 	xx_small: GTK_TEXT_TAG is
 		once
-			-- create Result.with_name("xx_small")
-			-- Result.set_scale ( pango_scale_xx_small )
+			create Result.with_name("xx_small")
+			Result.set_scale ( pango_scale_xx_small )
 		end
 
 	x_large: GTK_TEXT_TAG is
@@ -120,8 +122,9 @@ feature -- tags
   
 			--   gtk_text_buffer_create_tag (buffer, "background_stipple",
 			-- 			      "background_stipple", stipple, NULL);
-
-			foreground_stipple: GTK_TEXT_TAG is
+		end
+	
+	foreground_stipple: GTK_TEXT_TAG is
 		once
 			create Result.with_name("foreground_stipple")
 			--   gtk_text_buffer_create_tag (buffer, "foreground_stipple",
@@ -225,8 +228,9 @@ feature -- tags
 			create Result.with_name("double_underline")
 			--   gtk_text_buffer_create_tag (buffer, "double_underline",
 			-- 			      "underline", PANGO_UNDERLINE_DOUBLE, NULL);		end
-
-			superscript: GTK_TEXT_TAG is
+		end
+			
+	superscript: GTK_TEXT_TAG is
 		once
 			create Result.with_name("superscript")
 			
@@ -234,9 +238,7 @@ feature -- tags
 			-- 			      "rise", 10 * PANGO_SCALE,	  /* 10 pixels */
 			-- 			      "size", 8 * PANGO_SCALE,	  /* 8 points */
 			-- 			      NULL);
-  
-
-		end
+  		end
 
 	subscript: GTK_TEXT_TAG is
 		once
@@ -246,7 +248,7 @@ feature -- tags
 			-- 			      "size", 8 * PANGO_SCALE,	   /* 8 points */
 			-- 			      NULL);
 		end
-
+	
 	rtl_quote: GTK_TEXT_TAG is
 		once
 			create Result.with_name("rtl_quote")
@@ -261,8 +263,6 @@ feature -- tags
 			-- }
 		end
 
-	
-	
 	tags: GTK_TEXT_TAG_TABLE is
 			-- A bunch of tags. Note that it's also possible to create
 			-- tags with `GTK_TEXT_TAG.make' then add them to the tag
@@ -313,50 +313,57 @@ feature -- tags
 			Result.add (rtl_quote)
 		end
 	
-	insert_text is
-		local
-			iter, start, end_iter: GTK_TEXT_ITER;
-			pixbuf, scaled: GDK_PIXBUF;
-			anchor: GTK_TEXT_CHILD_ANCHOR;
+
+	pixbuf: GDK_PIXBUF is
+		local		
 			filename: STRING
 		do
 			-- `demo_find_file' looks in the the current directory first,
 			-- so you can run gtk-demo without installing GTK, then looks
 			-- in the location where the file is installed.
-
+			
 			filename := "gtk-logo-rgb.gif" -- demo_find_file ("gtk-logo-rgb.gif", Void)
 			if filename /= Void then
-				create pixbuf.from_file (filename)
+				create Result.from_file (filename)
 				
-				if pixbuf = Void then
+				if Result /= Void then
 					-- g_printerr ("Failed to load image file gtk-logo-rgb.gif\n")
 					-- exit (1)
-				end
-				
-				-- TODO: scaled := pixbuf.scale_simple (32, 32, gdk_interp_bilinear)
-				-- pixbuf.unref 
-				-- TODO: check if the previous command is unnecessary,
-				-- since the following instruction will make former pixbuf
-				-- unreachable, disposable and collectable by the garbage
-				-- collector. Paolo 2006-07-05
-				-- pixbuf := scaled
-				
-				-- get start of buffer; each insertion will revalidate the
-				-- iterator to point to just after the inserted text.
-				
-				iter := buffer.iter_at_offset(0)
-				
-				buffer.insert_at (iter, "The text widget can display text with all %
-												%kinds of nifty attributes. It also supports %
-												%multiple views of the same buffer; this demo %
-												%is showing the same buffer in two places.\n\n")
-				--buffer.insert_with_tags_by_name (iter, "Font styles. ", <<-1, "heading">>)
-  
-				buffer.insert_at (iter, "For example, you can have ")
+				else 
+					-- scaled: GDK_PIXBUF;
 
-				--buffer.insert_with_tags_by_name (iter, "italic", <<"italic">>)
-				buffer.insert_at (iter, ", ")
-				--buffer.insert_with_tags_by_name (iter, "bold", <<"bold">>)
+					-- TODO: scaled := pixbuf.scale_simple (32, 32, gdk_interp_bilinear)
+					-- pixbuf.unref 
+					-- TODO: check if the previous command is unnecessary,
+					-- since the following instruction will make former pixbuf
+					-- unreachable, disposable and collectable by the garbage
+					-- collector. Paolo 2006-07-05
+					-- pixbuf := scaled
+				end
+			end
+		end
+	
+	insert_text is
+		local
+			iter, start, end_iter: GTK_TEXT_ITER;
+			anchor: GTK_TEXT_CHILD_ANCHOR;
+		do
+			-- get start of buffer; each insertion will revalidate the
+			-- iterator to point to just after the inserted text.
+				
+			iter := buffer.iter_at_offset(0)
+				
+			buffer.insert_at (iter, "The text widget can display text with all %
+											%kinds of nifty attributes. It also supports %
+											%multiple views of the same buffer; this demo %
+											%is showing the same buffer in two places.\n\n")
+			buffer.insert_with_tags (iter, "Font styles. ", <<heading>>)
+  
+			buffer.insert_at (iter, "For example, you can have ")
+
+			buffer.insert_with_tags_by_name (iter, "italic", <<"italic">>)
+			buffer.insert_at (iter, ", ")
+			--buffer.insert_with_tags_by_name (iter, "bold", <<"bold">>)
 			--   gtk_text_buffer_insert (buffer, &iter, ", or ", -1);
 			--   gtk_text_buffer_insert_with_tags_by_name (buffer, &iter,
 			-- 					    "monospace (typewriter)", -1,
@@ -754,7 +761,6 @@ feature -- tags
 			--   gtk_window_set_default_size (GTK_WINDOW (window), 300, 400);
   
 			--   gtk_widget_show_all (window);
-				-- }
-			end
+			-- }
 		end
 end

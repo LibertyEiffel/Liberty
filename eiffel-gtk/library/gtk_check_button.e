@@ -24,6 +24,7 @@ indexing
 class GTK_CHECK_BUTTON
 inherit
 	GTK_TOGGLE_BUTTON redefine make,with_label,with_mnemonic end
+insert
 	GTK_CHECK_BUTTON_EXTERNALS
 	
 creation make,with_label,with_mnemonic

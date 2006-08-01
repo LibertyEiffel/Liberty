@@ -74,6 +74,7 @@ inherit
 			with_mnemonic as make_check_with_mnemonic
 		undefine  make_check_with_label, make_check_with_mnemonic
 		end
+insert
 	GTK_RADIO_BUTTON_EXTERNALS
 		-- GtkRadioButton implements AtkImplementorIface.	
 creation

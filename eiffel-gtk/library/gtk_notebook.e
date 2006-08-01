@@ -59,6 +59,10 @@ feature {NONE} -- Creation
 			store_eiffel_wrapper
 		end
 
+feature -- page handling
+	last_appended_page_index: INTEGER
+			-- Index of the last appended/inserted page
+
 	append_page (a_child, a_tab_label: GTK_WIDGET) is
 			-- Appends a page to notebook. `a_child' the GtkWidget to use
 			-- as the contents of the page. `a_tab_label' : the GtkWidget
@@ -96,16 +100,17 @@ feature {NONE} -- Creation
 			-- `last_appended_page_index' contains the index (starting
 			-- from -- 0) of the appended page in the notebook, or -1 if
 			-- function fails.
-		require valid_child: a_child /= Void
+		require child_not_void: a_child /= Void
 		local label_ptr, menu_ptr: POINTER 
 		do
 			if a_tab_label /= Void then label_ptr := a_tab_label.handle end
 			if a_menu_label /= Void then menu_ptr := a_menu_label.handle end
-			last_appended_page_index:=gtk_notebook_append_page_menu (handle, a_child.handle
-																						label_ptr, menu_ptr)
+			last_appended_page_index := (gtk_notebook_append_page_menu 
+												  (handle, a_child.handle,
+													label_ptr, menu_ptr))
 		end
 
-	--    ---------------------------------------------------------------------------------------------------
+
 	
 	--   gtk_notebook_prepend_page ()
 	
@@ -437,7 +442,7 @@ feature {NONE} -- Creation
 			valid_child: a_child /= Void
 			valid_text: a_text /= Void
 		do
-			gtk_notebook_set_menu_label_text  (handle, a_child.handle, a_text.handle)
+			gtk_notebook_set_menu_label_text  (handle, a_child.handle, a_text.to_external)
 		end
 	
 	set_tab_label (a_child, a_tab_label: GTK_WIDGET) is
@@ -470,7 +475,7 @@ feature {NONE} -- Creation
 
 		require
 			valid_child: a_child /= Void
-			valid_packing: is_valid_gtk_pack_type (a_pack_type)
+			valid_packing: is_valid_pack_type (a_pack_type)
 		do
 			gtk_notebook_set_tab_label_packing (handle, a_child.handle,
 															expand.to_integer,
@@ -486,7 +491,7 @@ feature {NONE} -- Creation
 			valid_tab_text: a_tab_text /= Void
 		do
 			gtk_notebook_set_tab_label_text (handle, a_child.handle,
-														a_tab_text.handle)
+														a_tab_text.to_external)
 			debug
 				print ("TODO: check if in GTK_NOTEBOOK.set_tab_label_text shall the wrapper of the newly created label be created also?")
 			end
@@ -524,7 +529,7 @@ feature {NONE} -- Creation
 			--    gtk_notebook_set_show_border().
 		do
 			Result:=gtk_notebook_get_show_border(handle).to_boolean
-			
+		end
 
 	--    notebook : a GtkNotebook
 	--    Returns :  TRUE if the bevel is drawn
@@ -550,8 +555,6 @@ feature {NONE} -- Creation
 			-- be freed.
 			if ptr.is_not_null then create Result.from_external_copy (ptr) end
 		end
-
-	--    ---------------------------------------------------------------------------------------------------
 
 	tab_position: INTEGER is
 			-- The edge at which the tabs for switching pages in the
@@ -973,11 +976,11 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_show_tabs (a_notebook: POINTER; show_tabs: INTEGER) is
+	gtk_notebook_set_show_tabs (a_notebook: POINTER; show_tabs_boolean: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_show_border (a_notebook: POINTER; show_border: INTEGER) is
+	gtk_notebook_set_show_border (a_notebook: POINTER; show_border_boolean: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -1052,7 +1055,7 @@ feature {NONE} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_notebook_set_tab_vborder (a_notebook: POINTER; a_tab_vborder) is
+	gtk_notebook_set_tab_vborder (a_notebook: POINTER; a_tab_vborder: INTEGER) is
 		-- Note: `a_tab_vborder' shall be NATURAL since its a guint
 		external "C use <gtk/gtk.h>"
 		end

@@ -150,6 +150,7 @@ feature -- Signals
 	-- object : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 
+	connect_to_destroy_signal,
 	connect_agent_to_destroy_signal (a_procedure: PROCEDURE[TUPLE[GTK_OBJECT]]) is
 			-- Connect `a_procedure' but invokes the fixed
 			-- `destroy_callback' special feature."
@@ -171,7 +172,9 @@ feature -- Signals
 		end
 
 	on_destroy is
-		deferred
+			-- Called on destroy signals. Redefine it in your heir classes
+		do 
+
 		end
 		
 feature {NONE} -- Signal names

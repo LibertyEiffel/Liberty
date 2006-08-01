@@ -59,6 +59,7 @@ class GTK_TOGGLE_BUTTON
 inherit
 
 	GTK_BUTTON redefine make, with_label, with_mnemonic end
+insert
 	GTK_TOGGLE_BUTTON_EXTERNALS
 		-- GtkToggleButton implements AtkImplementorIface.
 	
@@ -212,9 +213,8 @@ feature -- The "toggled" signal
 
 	on_toggled is
 			-- Built-in toggled signal handler; empty by design; redefine it.
-		local a_foo: INTEGER
 		do
-			a_foo := 12 -- Dummy instructions
+			-- local a_foo: INTEGER --a_foo := 12 -- Dummy instructions
 		end
 
 	enable_on_toggled is

@@ -614,17 +614,24 @@ feature -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_pro
 
 --    -------------------------------------------------------------------------------------
 
---   The "scale" property
+feature --   The "scale" property
+	--    "scale"                gdouble               : Read / Write
 
---    "scale"                gdouble               : Read / Write
+	scale: REAL is 
+			-- Font size as a scale factor relative to the default font
+			-- size. This properly adapts to theme changes etc. so is
+			-- recommended. Pango predefines some scales such as
+			-- PANGO_SCALE_X_LARGE. Default value: 1
+		do
 
---    Font size as a scale factor relative to the default font size. This properly adapts
---    to theme changes etc. so is recommended. Pango predefines some scales such as
---    PANGO_SCALE_X_LARGE.
+		ensure valid: Result >= 0
+		end
 
---    Allowed values: >= 0
+	set_scale (a_scale: REAL) is
+		require valid_scale: a_scale >= 0
+		do
+		end
 
---    Default value: 1
 
 --    -------------------------------------------------------------------------------------
 
@@ -716,12 +723,15 @@ feature --   The "size" property
 
 --    -------------------------------------------------------------------------------------
 
---   The "style" property
+feature --   The "style" property
 
 --    "style"                PangoStyle            : Read / Write
 
 --    Font style as a PangoStyle, e.g. PANGO_STYLE_ITALIC.
 
+	set_style (a_style: INTEGER) is
+		do
+		end
 --    Default value: PANGO_STYLE_NORMAL
 
 --    -------------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 class BUTTONS_DEMO
-insert GTK -- instead of "inherit GTK_MAIN"
+insert GTK 
 creation make
 feature
 	make is

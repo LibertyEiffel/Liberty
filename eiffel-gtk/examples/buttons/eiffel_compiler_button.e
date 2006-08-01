@@ -1,6 +1,6 @@
 class EIFFEL_COMPILER_BUTTON
 inherit
-	GTK_RADIO_BUTTON redefine with_label,with_label_from_widget end
+	GTK_RADIO_BUTTON redefine with_label,with_label_from_widget, on_toggled end
 	G_SIGNALS
 	
 creation with_label, with_label_from_widget
@@ -18,7 +18,7 @@ feature
 			connect  (Current, "toggled", $on_toggled)
 		end			
 feature -- Callback
-	on_toggled (an_handle: POINTER) is
+	on_toggled is
 		do
 			print ("Button `")
 			print (label)

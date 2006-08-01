@@ -1,8 +1,7 @@
 class BUTTONS_WINDOW
 inherit
 	GTK_WINDOW redefine make end
-	G_SIGNALS
-	GTK_MAIN
+	GTK
 creation make
 feature make is
 		do
@@ -24,7 +23,8 @@ feature make is
 			vbox.pack_start_defaults (hbox)
 			create radio1.with_label (Void, "SmartEiffel")
 
-			create smarteiffel_choosen.make (radio1, agent on_gnu_compiler_toggled (?))
+			create smarteiffel_choosen.make 
+			smarteiffel_choosen.connect (radio1, agent on_gnu_compiler_toggled (?))
 			
 			create radio2.with_label_from_widget (radio1, "VisualEiffel")
 			create radio3.with_label_from_widget (radio1, "ISE Eiffel")
@@ -32,7 +32,7 @@ feature make is
 			vbox.pack_start_defaults (radio2)
 			vbox.pack_start_defaults (radio3)
 
-			connect (Current, "destroy", $on_destroy)
+			enable_on_destroy -- connect (Current, "destroy", $on_destroy)
 			-- radio1.set_active	radio2.set_inactive	radio3.set_inactive
 		end
 
@@ -53,16 +53,17 @@ feature -- Strings
 											
 feature  -- Callbacks
 	smarteiffel_choosen: TOGGLED_CALLBACK
+
 	on_destroy is
 		do
 			print ("Buttons demo ending%N")
-			gtk_quit
+			gtk.quit
 		end
 
-	on_gnu_compiler_toggled (a_radio: GTK_RADIO_BUTTON) is
+	on_gnu_compiler_toggled (a_toggle: GTK_TOGGLE_BUTTON) is
 		do
 			print ("on_gnu_compiler_toggled reached%N")
-			if a_radio.is_active
+			if a_toggle.is_active
 			then print ("You wisely chose SmartEiffel%N")
 			else  print ("Then help us to make it easy to use and develop and multi-compiler%N") end
 		end
