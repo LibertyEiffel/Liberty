@@ -69,6 +69,12 @@ feature
 			end
 		end
 
+	set_preview_text (text: STRING) is
+			-- Sets the text displayed in the preview area
+		do
+			gtk_font_selection_dialog_set_preview_text (handle, text.to_external)
+		end
+
 -- Implemented Interfaces
 -- 
 -- GtkFontSelectionDialog implements AtkImplementorIface.
@@ -130,21 +136,5 @@ feature
 -- Gets the text displayed in the preview area.
 -- fsd : 	a GtkFontSelectionDialog.
 -- Returns : 	the text displayed in the preview area. This string is owned by the widget and should not be modified or freed.
--- gtk_font_selection_dialog_set_preview_text ()
--- 
--- void        gtk_font_selection_dialog_set_preview_text
---                                             (GtkFontSelectionDialog *fsd,
---                                              const gchar *text);
--- 
--- Sets the text displayed in the preview area.
--- fsd : 	a GtkFontSelectionDialog.
--- text : 	the text to display in the preview area.
--- See Also
--- 
--- GtkFontSelection, GtkDialog 	
--- 
--- the underlying widget for selecting fonts.
--- 
--- the parent class of GtkFontSelectionDialog
--- 
+
 end -- class GTK_FONT_SELECTION_DIALOG

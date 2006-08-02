@@ -1,5 +1,5 @@
 indexing
-	description: "External calls for GtkFontSelectionDialog"
+	description: "External calls for GtkColorSelectionDialog"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -21,15 +21,12 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class GTK_FONT_SELECTION_DIALOG_EXTERNALS
+deferred class GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
 feature {NONE} -- Externals
 
-	gtk_font_selection_dialog_get_font_name (fsd: POINTER): POINTER is
-		external "C use <gtk/gtk.h>"
+	gtk_color_selection_dialog_get_colorsel (csd: POINTER): POINTER is
+		external "C struct GtkColorSelectionDialog get colorsel use <gtk/gtk.h>"
 		end
 
-	gtk_font_selection_dialog_set_preview_text (fsd: POINTER; text: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-end -- class GTK_FONT_SELECTION_DIALOG_EXTERNALS
+end -- class GTK_COLOR_SELECTION_DIALOG_EXTERNALS
