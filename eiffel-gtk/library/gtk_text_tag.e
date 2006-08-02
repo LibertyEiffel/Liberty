@@ -43,19 +43,21 @@ insert
 creation make, with_name, from_external_pointer
 
 feature {} -- Creation
+	make is
+			-- Create a nameless GtkTextTag
+		require gtk_initialized: gtk.is_initialized
+		do
+			from_external_pointer (gtk_text_tag_new (default_pointer))
+		end
+
 	with_name (a_name: STRING) is
 			-- Creates a GtkTextTag. Configure the tag using object
 			-- arguments, i.e. using G_OBJECT.set().
-
-			-- TODO: Gtk allow for void name. Check why. Paolo 2006-06-30
-		require gtk_initialized: gtk.is_initialized
+		require
+			gtk_initialized: gtk.is_initialized
+			name_not_void: a_name /=Void
 		do
-			if a_name = Void then
-				handle:= gtk_text_tag_new (default_pointer)
-			else 
-				handle:= gtk_text_tag_new (a_name.to_external)
-			end
-			store_eiffel_wrapper
+			from_external_pointer(gtk_text_tag_new (a_name.to_external))
 		end
 
 feature 

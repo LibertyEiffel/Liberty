@@ -23,6 +23,8 @@ class GTK_DEMO
 
 insert
 	GTK
+	G_TYPE
+	GTK_SELECTION_MODE
 
 creation make
 
@@ -46,10 +48,58 @@ feature -- widgets
 			create Result.make -- a new toplevel window
 			Result.set_title (window_title);
 			Result.connect_to_destroy_signal (agent quit)
+			window.add (hbox)
+
+		--   gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
+		-- 			    create_text (&info_buffer, FALSE),
+		-- 			    gtk_label_new_with_mnemonic ("_Info"));
+
+		--   gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
+		-- 			    create_text (&source_buffer, TRUE),
+		-- 			    gtk_label_new_with_mnemonic ("_Source"));
+
+		--   tag = gtk_text_buffer_create_tag (info_buffer, "title",
+		--                                     "font", "Sans 18",
+		--                                     NULL);
+
+		--   tag = gtk_text_buffer_create_tag (source_buffer, "comment",
+		-- 				    "foreground", "red",
+		--                                     NULL);
+		--   tag = gtk_text_buffer_create_tag (source_buffer, "type",
+		-- 				    "foreground", "ForestGreen",
+		--                                     NULL);
+		--   tag = gtk_text_buffer_create_tag (source_buffer, "string",
+		-- 				    "foreground", "RosyBrown",
+		-- 				    "weight", PANGO_WEIGHT_BOLD,
+		--                                     NULL);
+		--   tag = gtk_text_buffer_create_tag (source_buffer, "control",
+		-- 				    "foreground", "purple",
+		--                                     NULL);
+		--   tag = gtk_text_buffer_create_tag (source_buffer, "preprocessor",
+		-- 				    "style", PANGO_STYLE_OBLIQUE,
+		--  				    "foreground", "burlywood4",
+		--                                     NULL);
+		--   tag = gtk_text_buffer_create_tag (source_buffer, "function",
+		-- 				    "weight", PANGO_WEIGHT_BOLD,
+		--  				    "foreground", "DarkGoldenrod4",
+		--                                     NULL);
+  
+		--   gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
 			
 		end
-   notebook: GTK_NOTEBOOK
-   hbox: GTK_HBOX
+
+   hbox: GTK_HBOX is
+		once 
+			create Result.make (False, 0)
+			Result.pack_start (tree, False, False, 0)
+			Result.pack_start (notebook, True, True, 0)
+		end
+
+   notebook: GTK_NOTEBOOK is
+		once 
+			create Result.make
+		end
+
    tag: GTK_TEXT_TAG
 
 	tree: GTK_TREE_VIEW is
@@ -61,69 +111,51 @@ feature -- widgets
 			model: GTK_TREE_STORE;
 			iter:  GTK_TREE_ITER;
 			box, label, scrolled_window: GTK_WIDGET
+			demo: DEMO
 		once 
-			--   Demo *d = testgtk_demos;
-
-			--   model = gtk_tree_store_new (NUM_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_BOOLEAN);
-			--   tree_view = gtk_tree_view_new ();
-			--   gtk_tree_view_set_model (GTK_TREE_VIEW (tree_view), GTK_TREE_MODEL (model));
-			--   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree_view));
+			create model.make (<<g_type_string, g_type_string, g_type_pointer, g_type_boolean>>)
+			create tree.with_model (model)
 			
-			--   gtk_tree_selection_set_mode (GTK_TREE_SELECTION (selection),
-			-- 			       GTK_SELECTION_BROWSE);
-			--   gtk_widget_set_size_request (tree_view, 200, -1);
+			tree_view.selection.set_browse_mode
+			tree_view.set_size_request (200, -1)
 			
-			--   /* this code only supports 1 level of children. If we
-			--    * want more we probably have to use a recursing function.
-			--    */
-			--   while (d->title)
-			--     {
-			--       Demo *children = d->children;
+			from 
+				demos_iterator := demos.get_new_iterator
+				demos_iterator.start 
+				iter:= model.get_iterator_first
+			until demos_iterator.is_off
+			loop
+				demo := demos_iterator.item
+				model.append (iter, Void)
+				model.set_string (iter, title_column, demo.title)
+				model.set_string (iter, filename_column, demo.filename)
+				-- Ahhh! A pointer to a function into a model!
+				-- FUNC_COLUMN, d->func,
+				model.set_boolean (iter, italic_column, False)
+				
+				if demo.has_children then 
+					from 
+						child_iter
 
-			--       gtk_tree_store_append (GTK_TREE_STORE (model), &iter, NULL);
-
-			--       gtk_tree_store_set (GTK_TREE_STORE (model),
-			-- 			  &iter,
-			-- 			  TITLE_COLUMN, d->title,
-			-- 			  FILENAME_COLUMN, d->filename,
-			-- 			  FUNC_COLUMN, d->func,
-			-- 			  ITALIC_COLUMN, FALSE,
-			-- 			  -1);
-
-			--       d++;
-
-			--       if (!children)
-			-- 	continue;
-      
-			--       while (children->title)
-			-- 	{
-			-- 	  GtkTreeIter child_iter;
-
-			-- 	  gtk_tree_store_append (GTK_TREE_STORE (model), &child_iter, &iter);
-	  
-			-- 	  gtk_tree_store_set (GTK_TREE_STORE (model),
-			-- 			      &child_iter,
-			-- 			      TITLE_COLUMN, children->title,
-			-- 			      FILENAME_COLUMN, children->filename,
-			-- 			      FUNC_COLUMN, children->func,
-			-- 			      ITALIC_COLUMN, FALSE,
-			-- 			      -1);
-	  
-			-- 	  children++;
-			-- 	}
-			--     }
-
-			--   cell = gtk_cell_renderer_text_new ();
-
-			--   g_object_set (cell,
-			--                 "style", PANGO_STYLE_ITALIC,
-			--                 NULL);
+					until child_iter.is_off
+					loop 
+						children := child_iter.item
+						model.append (child_iter, iter)
+						model.set_string (child_iter, title_column, children..title)
+						model.set_string (child_iter, filename_column, children.filename)
+						-- aaargh! another FUNC_COLUMN, children->func,
+						model.set_boolean (child_iter, italic_column, False)
+						child_iter.next
+					end
+			end
+			create {GTK_CELL_RENDERER_TEXT} cell.make
+			cell.set_style (pango_style_italic)
   
-			--   column = gtk_tree_view_column_new_with_attributes ("Widget (double click for demo)",
-			-- 						     cell,
-			-- 						     "text", TITLE_COLUMN,
-			-- 						     "style_set", ITALIC_COLUMN,
-			-- 						     NULL);
+			column = gtk_tree_view_column_new_with_attributes ("Widget (double click for demo)",
+																				cell,
+																				"text", TITLE_COLUMN,
+																				"style_set", ITALIC_COLUMN,
+																				NULL);
   
 			--   gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view),
 			-- 			       GTK_TREE_VIEW_COLUMN (column));
@@ -213,61 +245,9 @@ feature {NONE} -- Creation
 			gtk.initialize
 			
 			setup_default_icon
-  
-		--   hbox = gtk_hbox_new (FALSE, 0);
-		--   gtk_container_add (GTK_CONTAINER (window), hbox);
-
-		--   tree = create_tree ();
-		--   gtk_box_pack_start (GTK_BOX (hbox), tree, FALSE, FALSE, 0);
-
-		--   notebook = gtk_notebook_new ();
-		--   gtk_box_pack_start (GTK_BOX (hbox), notebook, TRUE, TRUE, 0);
-
-		--   gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
-		-- 			    create_text (&info_buffer, FALSE),
-		-- 			    gtk_label_new_with_mnemonic ("_Info"));
-
-		--   gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
-		-- 			    create_text (&source_buffer, TRUE),
-		-- 			    gtk_label_new_with_mnemonic ("_Source"));
-
-		--   tag = gtk_text_buffer_create_tag (info_buffer, "title",
-		--                                     "font", "Sans 18",
-		--                                     NULL);
-
-		--   tag = gtk_text_buffer_create_tag (source_buffer, "comment",
-		-- 				    "foreground", "red",
-		--                                     NULL);
-		--   tag = gtk_text_buffer_create_tag (source_buffer, "type",
-		-- 				    "foreground", "ForestGreen",
-		--                                     NULL);
-		--   tag = gtk_text_buffer_create_tag (source_buffer, "string",
-		-- 				    "foreground", "RosyBrown",
-		-- 				    "weight", PANGO_WEIGHT_BOLD,
-		--                                     NULL);
-		--   tag = gtk_text_buffer_create_tag (source_buffer, "control",
-		-- 				    "foreground", "purple",
-		--                                     NULL);
-		--   tag = gtk_text_buffer_create_tag (source_buffer, "preprocessor",
-		-- 				    "style", PANGO_STYLE_OBLIQUE,
-		--  				    "foreground", "burlywood4",
-		--                                     NULL);
-		--   tag = gtk_text_buffer_create_tag (source_buffer, "function",
-		-- 				    "weight", PANGO_WEIGHT_BOLD,
-		--  				    "foreground", "DarkGoldenrod4",
-		--                                     NULL);
-  
-		--   gtk_window_set_default_size (GTK_WINDOW (window), 600, 400);
-		--   gtk_widget_show_all (window);
-  
-
-		--   load_file (testgtk_demos[0].filename);
-  
-		--   gtk_main ();
-
-		--   return 0;
-		-- }
-
+			window.show_all
+			--   load_file (testgtk_demos[0].filename);
+			gtk.main
 		end
 	-- /**
 	--  * demo_find_file:
@@ -900,6 +880,94 @@ feature {NONE} -- Creation
   
 	--   return scrolled_window;
 	-- }
+
+
+feature -- from demo.h
+-- typedef	GtkWidget *(*GDoDemoFunc) (GtkWidget *do_widget);
+
+-- typedef struct _Demo Demo;
+
+-- struct _Demo 
+-- {
+--   gchar *title;
+--   gchar *filename;
+--   GDoDemoFunc func;
+--   Demo *children;
+-- };
+
+-- GtkWidget *do_appwindow (GtkWidget *do_widget);
+-- GtkWidget *do_button_box (GtkWidget *do_widget);
+-- GtkWidget *do_changedisplay (GtkWidget *do_widget);
+-- GtkWidget *do_clipboard (GtkWidget *do_widget);
+-- GtkWidget *do_colorsel (GtkWidget *do_widget);
+-- GtkWidget *do_combobox (GtkWidget *do_widget);
+-- GtkWidget *do_dialog (GtkWidget *do_widget);
+-- GtkWidget *do_drawingarea (GtkWidget *do_widget);
+-- GtkWidget *do_editable_cells (GtkWidget *do_widget);
+-- GtkWidget *do_entry_completion (GtkWidget *do_widget);
+-- GtkWidget *do_expander (GtkWidget *do_widget);
+-- GtkWidget *do_hypertext (GtkWidget *do_widget);
+-- GtkWidget *do_iconview (GtkWidget *do_widget);
+-- GtkWidget *do_iconview_edit (GtkWidget *do_widget);
+-- GtkWidget *do_images (GtkWidget *do_widget);
+-- GtkWidget *do_list_store (GtkWidget *do_widget);
+-- GtkWidget *do_menus (GtkWidget *do_widget);
+-- GtkWidget *do_panes (GtkWidget *do_widget);
+-- GtkWidget *do_pickers (GtkWidget *do_widget);
+-- GtkWidget *do_pixbufs (GtkWidget *do_widget);
+-- GtkWidget *do_rotated_text (GtkWidget *do_widget);
+-- GtkWidget *do_sizegroup (GtkWidget *do_widget);
+-- GtkWidget *do_stock_browser (GtkWidget *do_widget);
+-- GtkWidget *do_textview (GtkWidget *do_widget);
+-- GtkWidget *do_tree_store (GtkWidget *do_widget);
+-- GtkWidget *do_ui_manager (GtkWidget *do_widget);
+
+-- Demo child0[] = {
+--   { "Editable Cells", "editable_cells.c", do_editable_cells, NULL },
+--   { "List Store", "list_store.c", do_list_store, NULL },
+--   { "Tree Store", "tree_store.c", do_tree_store, NULL },
+--   { NULL } 
+-- };
+
+-- Demo child1[] = {
+--   { "Hypertext", "hypertext.c", do_hypertext, NULL },
+--   { "Multiple Views", "textview.c", do_textview, NULL },
+--   { NULL } 
+-- };
+
+-- Demo child2[] = {
+--   { "Icon View Basics", "iconview.c", do_iconview, NULL },
+--   { "Editing and Drag-and-Drop", "iconview_edit.c", do_iconview_edit, NULL },
+--   { NULL } 
+-- };
+
+-- Demo testgtk_demos[] = {
+--   { "Application main window", "appwindow.c", do_appwindow, NULL }, 
+--   { "Button Boxes", "button_box.c", do_button_box, NULL }, 
+--   { "Change Display", "changedisplay.c", do_changedisplay, NULL }, 
+--   { "Clipboard", "clipboard.c", do_clipboard, NULL }, 
+--   { "Color Selector", "colorsel.c", do_colorsel, NULL }, 
+--   { "Combo boxes", "combobox.c", do_combobox, NULL }, 
+--   { "Dialog and Message Boxes", "dialog.c", do_dialog, NULL }, 
+--   { "Drawing Area", "drawingarea.c", do_drawingarea, NULL }, 
+--   { "Entry Completion", "entry_completion.c", do_entry_completion, NULL }, 
+--   { "Expander", "expander.c", do_expander, NULL }, 
+--   { "Icon View", NULL, NULL, child2 }, 
+--   { "Images", "images.c", do_images, NULL }, 
+--   { "Menus", "menus.c", do_menus, NULL }, 
+--   { "Paned Widgets", "panes.c", do_panes, NULL }, 
+--   { "Pickers", "pickers.c", do_pickers, NULL }, 
+--   { "Pixbufs", "pixbufs.c", do_pixbufs, NULL }, 
+--   { "Rotated Text", "rotated_text.c", do_rotated_text, NULL }, 
+--   { "Size Groups", "sizegroup.c", do_sizegroup, NULL }, 
+--   { "Stock Item and Icon Browser", "stock_browser.c", do_stock_browser, NULL }, 
+--   { "Text Widget", NULL, NULL, child1 }, 
+--   { "Tree View", NULL, NULL, child0 }, 
+--   { "UI Manager", "ui_manager.c", do_ui_manager, NULL },
+--   { NULL } 
+-- };
+
+
 feature -- callbacks
 	quit (an_object: GTK_OBJECT) is
 		do

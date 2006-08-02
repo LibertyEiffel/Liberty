@@ -478,8 +478,7 @@ feature -- Property getter/setter
 			value_set: -- TODO: a_value.is_equal (get_property(a_property_name))
 		end
 	
-
-	get_property (a_property_name: STRING): G_VALUE is
+	property, get_property (a_property_name: STRING): G_VALUE is
 			-- Gets the property name `a_property_name' of an object.
 
 			-- Note: The underlying C implementation has the following

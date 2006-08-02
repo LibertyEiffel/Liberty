@@ -1002,4 +1002,10 @@ feature {} -- Implementation
 			-- Hidden reference to the Eiffel wrapper of the
 			-- GtkTextTagTable of Current. Handled by `tag_table'.
 
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTextBuffer)"
+		end
+
 end -- class GTK_TEXT_BUFFER

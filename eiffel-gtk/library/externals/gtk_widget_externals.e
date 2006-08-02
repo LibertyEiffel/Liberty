@@ -716,11 +716,9 @@ feature {NONE} -- External calls
 --		end
 
 -- #define     gtk_widget_set_default_visual   (visual)
--- gtk_widget_set_size_request (widget: POINTER,
---                                              gint width,
---                                              gint height) is
---		external "C use <gtk/gtk.h>"
---		end
+ gtk_widget_set_size_request (widget: POINTER; width, height: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- #define     gtk_widget_set_visual           (widget,visual)
 --gtk_widget_thaw_child_notify (widget: POINTER) is

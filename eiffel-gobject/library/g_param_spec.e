@@ -41,6 +41,13 @@ creation
 	from_external_pointer,
 	make_boolean, make_integer
 
+feature {}
+	make is
+		obsolete "Note: it is here to avoid warnings. The real solution is to make this deferred and provide effective heirs such as G_PARAM_SPEC_BOOLEAN"
+		do
+			check False end
+		end
+				
 feature {WRAPPER} -- Creation
 	from_external_pointer (a_ptr: POINTER) is
 		do
@@ -960,6 +967,14 @@ feature {} -- Unwrapped API
 --    owner_type : the owner to look for
 --    Returns :    a GList of all GParamSpecs owned by owner_type in the
 --                 poolGParamSpecs.
+feature -- size
+	struct_size: INTEGER is
+		obsolete "G_PARAM_SPEC should be deferred and its place should be taken by specialized heirs such as G_PARAM_SPEC_BOOLEAN"
+		external "C use <glib-object.h>" 
+		alias "sizeof(GParamSpec)"
+		end
+
+
 invariant
 	is_shared: is_shared
 	initialized: is_initialized

@@ -936,16 +936,19 @@ feature
 	-- match_end : 	return location for end of match, or NULL
 	-- limit : 	location of last possible match_start, or NULL for start of buffer
 	-- Returns : 	whether a match was found
-	-- gtk_text_iter_equal ()
 
-	-- gboolean    gtk_text_iter_equal             (const GtkTextIter *lhs,
-	-- 															const GtkTextIter *rhs);
+	is_equal (another: like Current): BOOLEAN is
+			-- Tests whether two iterators (Current and `another') are
+			-- equal, using the fastest possible mechanism. This function
+			-- is very fast; you can expect it to perform better than
+			-- e.g. getting the character offset for each iterator and
+			-- comparing the offsets yourself. Also, it's a bit faster
+			-- than gtk_text_iter_compare().
+		do
+			Result := (gtk_text_iter_equal (handle, another.handle)).to_boolean
+		end
 
-	-- Tests whether two iterators are equal, using the fastest possible mechanism. This function is very fast; you can expect it to perform better than e.g. getting the character offset for each iterator and comparing the offsets yourself. Also, it's a bit faster than gtk_text_iter_compare().
-
-	-- lhs : 	a GtkTextIter
-	-- rhs : 	another GtkTextIter
-	-- Returns : 	TRUE if the iterators point to the same place in the buffer
+	
 	-- gtk_text_iter_compare ()
 
 	-- gint        gtk_text_iter_compare           (const GtkTextIter *lhs,

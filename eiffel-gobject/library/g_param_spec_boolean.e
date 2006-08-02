@@ -1,6 +1,5 @@
 indexing
-
-	description: "Boolean GParamSpec Metadata for parameter specifications""
+	description: "Boolean GParamSpec Metadata for parameter specifications"
 	copyright: "[
 					Copyright (C) ) 2006 eiffel-libraries team, GTK+ team
 					
@@ -19,25 +18,14 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	gtk_description: "[
-							GParamSpec is an object structure that encapsulates the metadata
-							required to specify parameters, such as e.g. GObject properties.
-	
-							Parameter names need to start with a letter (a-z or
-							A-Z). Subsequent characters can be letters, numbers or a '-'. All
-							other characters are replaced by a '-' during construction.
-							]"
-	copyright: "Copyright (c"
-	license: "LGPL"
-	date: "$Date:  $"
-	revision: "$ $"
 
 class G_PARAM_SPEC_BOOLEAN
 
-inherit G_PARAM_SPEC
+inherit
+	G_PARAM_SPEC
+	
 
-creation
-	make
+creation make
 	
 feature -- Creation
 
@@ -49,11 +37,16 @@ feature -- Creation
 			--`a_default' is the default value for the property
 			--`some_flags' are flags for the property specified
 		do
-			make_from_pointer (g_param_spec_boolean(a_name.to_external,
-																 a_nick.to_external,
-																 a_blurb.to_external,
-																 a_default.to_integer,
-																 some_flags))
+			from_external_pointer (g_param_spec_boolean(a_name.to_external,
+																	  a_nick.to_external,
+																	  a_blurb.to_external,
+																	  a_default.to_integer,
+																	  some_flags))
+			-- Note: where Gobject type system took this?
+			owner_class := g_type_class_peek(get_owner_type(handle))
+			param_id := get_param_id (handle)
+			--
+			set_shared
 		end
 	
 feature

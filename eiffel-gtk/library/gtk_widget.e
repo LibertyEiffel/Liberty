@@ -1357,39 +1357,39 @@ feature -- button-press-event signal
 
 -- typedef enum
 -- {
---   GTK_TOPLEVEL         = 1 << 4,
---   GTK_NO_WINDOW        = 1 << 5,
---   GTK_REALIZED         = 1 << 6,
---   GTK_MAPPED           = 1 << 7,
---   GTK_VISIBLE          = 1 << 8,
---   GTK_SENSITIVE        = 1 << 9,
---   GTK_PARENT_SENSITIVE = 1 << 10,
---   GTK_CAN_FOCUS        = 1 << 11,
---   GTK_HAS_FOCUS        = 1 << 12,
+--   GTK_TOPLEVEL         = 1 < < 4,
+--   GTK_NO_WINDOW        = 1 < < 5,
+--   GTK_REALIZED         = 1 < < 6,
+--   GTK_MAPPED           = 1 < < 7,
+--   GTK_VISIBLE          = 1 < < 8,
+--   GTK_SENSITIVE        = 1 < < 9,
+--   GTK_PARENT_SENSITIVE = 1 < < 10,
+--   GTK_CAN_FOCUS        = 1 < < 11,
+--   GTK_HAS_FOCUS        = 1 < < 12,
 
 --   /* widget is allowed to receive the default via gtk_widget_grab_default
 --    * and will reserve space to draw the default if possible
 --    */
---   GTK_CAN_DEFAULT      = 1 << 13,
+--   GTK_CAN_DEFAULT      = 1 < < 13,
 
 --   /* the widget currently is receiving the default action and should be drawn
 --    * appropriately if possible
 --    */
---   GTK_HAS_DEFAULT      = 1 << 14,
+--   GTK_HAS_DEFAULT      = 1 < < 14,
 
---   GTK_HAS_GRAB	       = 1 << 15,
---   GTK_RC_STYLE	       = 1 << 16,
---   GTK_COMPOSITE_CHILD  = 1 << 17,
---   GTK_NO_REPARENT      = 1 << 18,
---   GTK_APP_PAINTABLE    = 1 << 19,
+--   GTK_HAS_GRAB	       = 1 < < 15,
+--   GTK_RC_STYLE	       = 1 < < 16,
+--   GTK_COMPOSITE_CHILD  = 1 < < 17,
+--   GTK_NO_REPARENT      = 1 < < 18,
+--   GTK_APP_PAINTABLE    = 1 < < 19,
 
 --   /* the widget when focused will receive the default action and have
 --    * HAS_DEFAULT set even if there is a different widget set as default
 --    */
---   GTK_RECEIVES_DEFAULT = 1 << 20,
+--   GTK_RECEIVES_DEFAULT = 1 < < 20,
 
---   GTK_DOUBLE_BUFFERED  = 1 << 21,
---   GTK_NO_SHOW_ALL      = 1 << 22
+--   GTK_DOUBLE_BUFFERED  = 1 < < 21,
+--   GTK_NO_SHOW_ALL      = 1 < < 22
 -- } GtkWidgetFlags;
 
 -- Tells about certain properties of the widget.
@@ -2975,27 +2975,50 @@ feature -- button-press-event signal
 
 -- This function is deprecated; it does nothing.
 -- visual : 	
--- gtk_widget_set_size_request ()
+											
+	set_size_request (a_width, an_height: INTEGER) is
+			-- Sets the minimum size of a widget; that is, the widget's
+			-- size request will be `a_width' by `an_height'. You can use
+			-- this function to force a widget to be either larger or
+			-- smaller than it normally would be.
 
--- void        gtk_widget_set_size_request     (GtkWidget *widget,
---                                              gint width,
---                                              gint height);
+			-- In most cases, `set_default_size' is a better choice for
+			-- toplevel windows than this function; setting the default
+			-- size will still allow users to shrink the window. Setting
+			-- the size request will force them to leave the window at
+			-- least as large as the size request. When dealing with
+			-- window sizes, GTK_WINDOW's `set_geometry_hints' can be a
+			-- useful function as well.
 
--- Sets the minimum size of a widget; that is, the widget's size request will be width by height. You can use this function to force a widget to be either larger or smaller than it normally would be.
+			-- Note the inherent danger of setting any fixed size -
+			-- themes, translations into other languages, different
+			-- fonts, and user action can all change the appropriate size
+			-- for a given widget. So, it's basically impossible to
+			-- hardcode a size that will always be correct.
 
--- In most cases, gtk_window_set_default_size() is a better choice for toplevel windows than this function; setting the default size will still allow users to shrink the window. Setting the size request will force them to leave the window at least as large as the size request. When dealing with window sizes, gtk_window_set_geometry_hints() can be a useful function as well.
+			-- The size request of a widget is the smallest size a widget
+			-- can accept while still functioning well and drawing itself
+			-- correctly. However in some strange cases a widget may be
+			-- allocated less than its requested size, and in many cases
+			-- a widget may be allocated more space than it requested.
 
--- Note the inherent danger of setting any fixed size - themes, translations into other languages, different fonts, and user action can all change the appropriate size for a given widget. So, it's basically impossible to hardcode a size that will always be correct.
+			-- If the size request in a given direction is -1 (unset),
+			-- then the "natural" size request of the widget will be used
+			-- instead.
 
--- The size request of a widget is the smallest size a widget can accept while still functioning well and drawing itself correctly. However in some strange cases a widget may be allocated less than its requested size, and in many cases a widget may be allocated more space than it requested.
+			-- Widgets can't actually be allocated a size less than 1 by
+			-- 1, but you can pass 0,0 to this function to mean "as small
+			-- as possible."
+		
+			-- width : 	width widget should request, or -1 to unset
+			-- height : 	height widget should request, or -1 to unset
+		require 
+			valid_width: a_width >= -1
+			valid_height: an_height >= -1
+		do
+			gtk_widget_set_size_request (handle, a_width, an_height);
 
--- If the size request in a given direction is -1 (unset), then the "natural" size request of the widget will be used instead.
-
--- Widgets can't actually be allocated a size less than 1 by 1, but you can pass 0,0 to this function to mean "as small as possible."
-
--- widget : 	a GtkWidget
--- width : 	width widget should request, or -1 to unset
--- height : 	height widget should request, or -1 to unset
+		end
 -- gtk_widget_set_visual()
 
 -- #define gtk_widget_set_visual(widget,visual)  ((void) 0)

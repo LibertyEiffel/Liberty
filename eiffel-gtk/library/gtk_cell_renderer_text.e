@@ -32,7 +32,9 @@ indexing
 
 class GTK_CELL_RENDERER_TEXT
 inherit GTK_CELL_RENDERER
-insert GTK_CELL_RENDERER_TEXT_EXTERNALS
+insert 
+	PANGO_STYLE
+	GTK_CELL_RENDERER_TEXT_EXTERNALS
 
 creation make
 
@@ -288,20 +290,46 @@ feature -- Property Details
 -- Whether this tag affects strikethrough.
 
 -- Default value: FALSE
--- The "style" property
+feature -- The "style" property
+	--   "style"                PangoStyle            : Read / Write
 
---   "style"                PangoStyle            : Read / Write
+	style: INTEGER is 
+			-- Font style.  Default value: PANGO_STYLE_NORMAL
+		do 
+			Result:= property(style_property_name).integer
+		ensure is_valid_style (Result)
+		end
 
--- Font style.
+	set_style (a_style: INTEGER) is
+		require valid_style: is_valid_style (a_style)
+		do
+			set_integer_property (style_property_name, a_style)
+		end
 
--- Default value: PANGO_STYLE_NORMAL
--- The "style-set" property
+			
+feature -- The "style-set" property
+	--   "style-set"            gboolean              : Read / Write
 
---   "style-set"            gboolean              : Read / Write
+	is_style_set: BOOLEAN is
+			-- Does this tag affect the font style? Default value: False
+		do
+			Result:= property (style_set_property_name).boolean
+		end
 
--- Whether this tag affects the font style.
+	enable_style is
+			-- Makes current tag affects the font style
+		do
+			set_boolean_property (style_set_property_name, True)
+		ensure enabled: is_style_set
+		end
 
--- Default value: FALSE
+	disable_style is
+			-- Makes current tag not to affect the font style
+		do
+			set_boolean_property (style_set_property_name,False)
+		ensure disabled: not is_style_set
+		end
+
 -- The "text" property
 
 --   "text"                 gchararray            : Read / Write
@@ -396,4 +424,49 @@ feature -- Property Details
 -- arg1 : 	
 -- arg2 : 	
 -- user_data : 	user data set when the signal handler was connected.
+
+feature {} -- Properties name strings
+  alignment_property_name: STRING is "alignment"
+  attributes_property_name: STRING is "attributes"
+  background_property_name: STRING is "background"
+  background_gdk_property_name: STRING is "background-gdk"
+  background_set_property_name: STRING is "background-set"
+  editable_property_name: STRING is "editable"
+  editable_set_property_name: STRING is "editable-set"
+  ellipsize_property_name: STRING is "ellipsize"
+  ellipsize_set_property_name: STRING is "ellipsize-set"
+  family_property_name: STRING is "family"
+  family_set_property_name: STRING is "family-set"
+  font_property_name: STRING is "font"
+  font_desc_property_name: STRING is "font-desc"
+  foreground_property_name: STRING is "foreground"
+  foreground_gdk_property_name: STRING is "foreground-gdk"
+  foreground_set_property_name: STRING is "foreground-set"
+  language_property_name: STRING is "language"
+  language_set_property_name: STRING is "language-set"
+  markup_property_name: STRING is "markup"
+  rise_property_name: STRING is "rise"
+  rise_set_property_name: STRING is "rise-set"
+  scale_property_name: STRING is "scale"
+  scale_set_property_name: STRING is "scale-set"
+  single_paragraph_mode_property_name: STRING is "single-paragraph-mode"
+  size_property_name: STRING is "size"
+  size_points_property_name: STRING is "size-points"
+  size_set_property_name: STRING is "size-set"
+  stretch_property_name: STRING is "stretch"
+  stretch_set_property_name: STRING is "stretch-set"
+  strikethrough_property_name: STRING is "strikethrough"
+  strikethrough_set_property_name: STRING is "strikethrough-set"
+  style_property_name: STRING is "style"
+  style_set_property_name: STRING is "style-set"
+  text_property_name: STRING is "text"
+  underline_property_name: STRING is "underline"
+  underline_set_property_name: STRING is "underline-set"
+  variant_property_name: STRING is "variant"
+  variant_set_property_name: STRING is "variant-set"
+  weight_property_name: STRING is "weight"
+  weight_set_property_name: STRING is "weight-set"
+  width_chars_property_name: STRING is "width-chars"
+  wrap_mode_property_name: STRING is "wrap-mode"
+  wrap_width_property_name: STRING is "wrap-width"
 end
