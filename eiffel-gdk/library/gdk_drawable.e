@@ -106,10 +106,10 @@ feature
 			-- platform, if drawable is a GdkWindow, the returned size is
 			-- the size reported in the most-recently-processed configure
 			-- event, rather than the current size on the X server.
-		local a_width, an_height: INTEGER
+		local a_width, a_height: INTEGER
 		do
-			gdk_drawable_get_size (handle, $a_width, $an_height)
-			create Result.make_2 (a_width, an_height)
+			gdk_drawable_get_size (handle, $a_width, $a_height)
+			create Result.make_2 (a_width, a_height)
 		ensure not_void: Result /= Void
 		end
 
@@ -118,7 +118,6 @@ feature
 			-- a GdkWindow, the returned size is the size reported in the
 			-- most-recently-processed configure event, rather than the
 			-- current size on the X server.
-		local a_width, an_height: INTEGER
 		do
 			gdk_drawable_get_size (handle, $Result, default_pointer)
 		end
