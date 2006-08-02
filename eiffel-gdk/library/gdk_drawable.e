@@ -1,5 +1,5 @@
 indexing
-	description: "GDK_DRAWABLE - Drawing Primitives œôòô Functions for drawing points, lines, arcs, and text."
+	description: "GDK_DRAWABLE - Drawing Primitives ï¿½ï¿½Functions for drawing points, lines, arcs, and text."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					

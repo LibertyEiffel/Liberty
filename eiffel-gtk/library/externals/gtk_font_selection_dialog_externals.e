@@ -32,4 +32,9 @@ feature {NONE} -- Externals
 	gtk_font_selection_dialog_set_preview_text (fsd: POINTER; text: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
+
+	gtk_font_selection_dialog_set_font_name (fsd: POINTER; text: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+		
 end -- class GTK_FONT_SELECTION_DIALOG_EXTERNALS

@@ -75,6 +75,24 @@ feature
 			gtk_font_selection_dialog_set_preview_text (handle, text.to_external)
 		end
 
+	set_font_name (fontname: STRING): BOOLEAN is
+			-- Sets the currently-selected font.
+			-- Returns : True if the font was found.
+		do
+			Result := gtk_font_selection_dialog_set_font_name (handle, fontname.to_external).to_boolean
+		end
+
+
+-- gtk_font_selection_dialog_get_preview_text ()
+-- 
+-- const gchar* gtk_font_selection_dialog_get_preview_text
+--                                             (GtkFontSelectionDialog *fsd);
+-- 
+-- Gets the text displayed in the preview area.
+-- fsd : 	a GtkFontSelectionDialog.
+-- Returns : 	the text displayed in the preview area. This string is owned by the widget and should not be modified or freed.
+		
+
 -- Implemented Interfaces
 -- 
 -- GtkFontSelectionDialog implements AtkImplementorIface.
@@ -118,23 +136,5 @@ feature
 -- Gets the currently-selected font.
 -- fsd : 	a GtkFontSelectionDialog.
 -- Returns : 	the currently-selected font, or NULL if no font is selected.
--- gtk_font_selection_dialog_set_font_name ()
--- 
--- gboolean    gtk_font_selection_dialog_set_font_name
---                                             (GtkFontSelectionDialog *fsd,
---                                              const gchar *fontname);
--- 
--- Sets the currently-selected font.
--- fsd : 	a GtkFontSelectionDialog.
--- fontname : 	a fontname.
--- Returns : 	TRUE if the font was found.
--- gtk_font_selection_dialog_get_preview_text ()
--- 
--- const gchar* gtk_font_selection_dialog_get_preview_text
---                                             (GtkFontSelectionDialog *fsd);
--- 
--- Gets the text displayed in the preview area.
--- fsd : 	a GtkFontSelectionDialog.
--- Returns : 	the text displayed in the preview area. This string is owned by the widget and should not be modified or freed.
 
 end -- class GTK_FONT_SELECTION_DIALOG
