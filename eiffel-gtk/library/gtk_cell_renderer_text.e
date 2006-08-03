@@ -313,7 +313,7 @@ feature -- The "style-set" property
 	is_style_set: BOOLEAN is
 			-- Does this tag affect the font style? Default value: False
 		do
-			Result:= property (style_set_property_name).boolean
+			Result:= boolean_property (style_set_property_name)
 		end
 
 	enable_style is
@@ -330,14 +330,26 @@ feature -- The "style-set" property
 		ensure disabled: not is_style_set
 		end
 
--- The "text" property
+feature -- The "text" property
+	--   "text"                 gchararray            : Read / Write
+	-- Default value: NULL
+	
+	text: STRING is
+			-- Text to render.
+		do
+			create Result.from_external
+			(property(text_property_name).string)
+		end
 
---   "text"                 gchararray            : Read / Write
+	set_text (a_text: STRING) is 
+		require text_not_void: a_text /= Void
+		do
+			set_property (text_property_name, create {G_VALUE}.from_string (a.text))
+		ensure set: text.is_equal (a_text)
+		end
 
--- Text to render.
 
--- Default value: NULL
--- The "underline" property
+feature -- The "underline" property
 
 --   "underline"            PangoUnderline        : Read / Write
 

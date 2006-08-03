@@ -1,0 +1,23 @@
+
+* make all deferred classes inheriting from ANY and undefining
+   is_equal and copy.
+
+* implement strongly typed version of G_OBJECT property setters and
+  getters. Ideally those Eiffels version should not rely on
+  g_object_set and g_object_get C functions that hide the GValue
+  handling and do many tests and checks that are automatically
+  enforced by static typing or that are handled by Eiffel
+  preconditions.
+
+* G_VALUE should be expanded and shall 
+
+* Turn G_PARAM_SPEC into a deferred class and provide strongly-typed
+heirs, such as G_PARAM_SPEC_BOOLEAN.
+
+* Many GTK classes has many properties with the same name and the same
+type. As far as I know an efficient, smart and correct Eiffel
+implementation of those should be to create deferred XXX_PROPERTY
+classes with xxx and set_xxx features. Ideally those classes could
+also use some cached G_PARAM_SPECs objects that could be stored into
+GTK singleton as hidden features.
+

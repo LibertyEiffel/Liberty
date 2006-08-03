@@ -574,6 +574,7 @@ feature -- Property getter/setter
 			correct_type: Result.is_a (find_property(a_property_name).value_gtype)
 		end
 
+feature -- String property
 	set_string_property (a_property_name, a_value: STRING) is
 		require
 			valid_name: a_property_name /= Void
@@ -582,10 +583,10 @@ feature -- Property getter/setter
 			g_object_set_string_property (handle,a_property_name.to_external, a_value.to_external)
 		end
 	
-	get_string_property (a_property_name: STRING): STRING is
-			-- Gets the property named `a_property_name' of an
-			-- object. Can be Void. TODO: this is complemetely untested!
-			-- Test it, for example in GTK_CELL_RENDERER_PROGRESS
+	string_property, get_string_property (a_property_name: STRING): STRING is
+			-- the string property named `a_property_name' of an object. Can be
+			-- Void. TODO: this is complemetely untested!  Test it, for
+			-- example in GTK_CELL_RENDERER_PROGRESS
 		require
 			valid_name: a_property_name /= Void
 			has_property: has_property (a_property_name)
@@ -602,6 +603,8 @@ feature -- Property getter/setter
 	-- TODO: provide get_[string|integer|real|...]_property that does
 	-- not allocate a temporary G_VALUE
 
+feature -- integer property
+	
 	set_integer_property (a_property_name: STRING; a_value: INTEGER) is
 			-- Set property with `a_name' to `a_value'
 		require
@@ -615,7 +618,33 @@ feature -- Property getter/setter
 			g_object_set_property (handle, a_property_name.to_external,gvalue.handle)
 		end
 
-	
+feature -- boolean property
+	set_boolean_property (a_property_name: STRING; a_value: BOOLEAN) is
+			-- Set boolean property with `a_name' to `a_value'
+		require
+			valid_name: a_property_name /= Void
+			property_exists: has_property (a_property_name)
+			is_writable: find_property (a_property_name).is_writable
+			is_integer_property: find_property (a_property_name).is_boolean
+		local gvalue: G_VALUE
+		do
+			create gvalue.from_boolean (a_value)
+			g_object_set_property (handle, a_property_name.to_external,gvalue.handle)
+		end
+
+	boolean_property (a_property_name: STRING): BOOLEAN is
+			-- the boolean property named `a_property_name' of an object. 
+		require
+			valid_name: a_property_name /= Void
+			has_property: has_property (a_property_name)
+			is_string_property: find_property (a_property_name).is_boolean
+		local gvalue: G_VALUE
+		do
+			create gvalue.make_boolean
+			g_object_get_property (handle, a_property_name.to_external,gvalue.handle)
+			Result := gvalue.boolean
+		end
+
 feature {} -- Unwrapped API
 --    ----------------------------------------------------------------------------------------------------------------
 
