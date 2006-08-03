@@ -48,6 +48,13 @@ feature -- Access
 			create Result.from_external_pointer (gtk_widget_get_style (handle))
 		end
 
+	is_sensitive: BOOLEAN is
+			-- Returns True if this widget is sensitive.
+		do
+			Result := gtk_widget_is_sensitive (handle).to_boolean
+		end
+
+
 feature -- Operation
 
 	set_style (a_style: GTK_STYLE) is
