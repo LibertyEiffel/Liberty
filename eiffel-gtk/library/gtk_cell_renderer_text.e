@@ -293,7 +293,7 @@ feature -- Property Details
 feature -- The "style" property
 	--   "style"                PangoStyle            : Read / Write
 
-	style: INTEGER is 
+	style: INTEGER is
 			-- Font style.  Default value: PANGO_STYLE_NORMAL
 		do 
 			Result:= property(style_property_name).integer
@@ -333,18 +333,18 @@ feature -- The "style-set" property
 feature -- The "text" property
 	--   "text"                 gchararray            : Read / Write
 	-- Default value: NULL
-	
+
 	text: STRING is
 			-- Text to render.
 		do
-			create Result.from_external
-			(property(text_property_name).string)
+			--create Result.from_external (property (text_property_name).string)
+			Result := property (text_property_name).string
 		end
 
-	set_text (a_text: STRING) is 
+	set_text (a_text: STRING) is
 		require text_not_void: a_text /= Void
 		do
-			set_property (text_property_name, create {G_VALUE}.from_string (a.text))
+			set_property (text_property_name, create {G_VALUE}.from_string (a_text))
 		ensure set: text.is_equal (a_text)
 		end
 
