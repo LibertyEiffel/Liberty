@@ -186,4 +186,13 @@ feature {NONE} -- External calls
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
+	gdk_pixbuf_fill (handle: POINTER; a_pixel: INTEGER) is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_add_alpha (handle: POINTER; a_substitute_color: BOOLEAN;
+	                      a_red, a_green, a_blue: CHARACTER): POINTER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
 end -- class GDK_PIXBUF_EXTERNALS

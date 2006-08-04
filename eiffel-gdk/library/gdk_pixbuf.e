@@ -207,6 +207,45 @@ feature -- Operations
 		end
 
 
+	fill (a_pixel: INTEGER) is
+			-- Clears a pixbuf to the given RGBA value,
+			-- converting the RGBA value into the pixbuf's pixel format.
+			-- The alpha will be ignored if the pixbuf doesn't have
+			-- an alpha channel.
+			--
+			-- a_pixel: RGBA pixel to clear to (0xffffffff is opaque white, 0x00000000 transparent black)
+
+		do
+			gdk_pixbuf_fill (handle, a_pixel)
+		end
+
+
+	add_alpha (a_substitute_color: BOOLEAN; a_red, a_green, a_blue: INTEGER): GDK_PIXBUF is
+			-- Takes an existing pixbuf and adds an alpha channel to it.
+			-- If the existing pixbuf already had an alpha channel, the channel
+			-- values are copied from the original; otherwise, the alpha channel
+			-- is initialized to 255 (full opacity).
+			-- If a_substitute_color is True, then the color specified by (a_red, a_green, a_blue)
+			-- will be assigned zero opacity. That is, if you pass (255, 255, 255) for the substitute color,
+			-- all white pixels will become fully transparent.
+			--
+			-- a_substitute_color: Whether to set a color to zero opacity.
+			--      If this is False, then the (r, g, b) arguments will be ignored.
+			-- a_red: Red value to substitute.
+			-- a_green: Green value to substitute.
+			-- a_blue: Blue value to substitute.
+			-- Returns: A newly-created pixbuf with a reference count of 1.
+		require
+			red_is_valid: a_red.in_range (0, 255)
+			green_is_valid: a_green.in_range (0, 255)
+			blue_is_valid: a_blue.in_range (0, 255)
+		do
+			create Result.from_external_pointer (gdk_pixbuf_add_alpha (handle,
+			                                     a_substitute_color, a_red.to_character,
+			                                     a_green.to_character, a_blue.to_character))
+		end
+
+
 -- gdk_pixbuf_get_file_info ()
 -- 
 -- GdkPixbufFormat* gdk_pixbuf_get_file_info   (const gchar *filename,
