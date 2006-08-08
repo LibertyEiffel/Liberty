@@ -56,7 +56,7 @@ feature -- Access
 
 -- Waiting to get GtkTextIter's going before uncommenting this
 
-	text (a_start, an_end: GTK_TREE_ITER; include_hidden_chars: BOOLEAN): STRING is
+	text (a_start, an_end: GTK_TEXT_ITER; include_hidden_chars: BOOLEAN): STRING is
 			-- the text in the range [`a_start',`an_end'). Excludes
 			-- undisplayed text (text marked with tags that set the
 			-- invisibility attribute) if `include_hidden_chars' is
