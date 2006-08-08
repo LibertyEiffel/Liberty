@@ -22,7 +22,7 @@ creation make, make_zero, make_identity, from_model, from_collection2, manifest_
 
 feature {} -- External calls
 
-	gsl_matrix_alloc (a_n1, a_n2: INTEGER): POINTER is
+	gsl_matrix_alloc (a_n1, a_n2: INTEGER_32): POINTER is
 		external "C use <gsl/gsl_matrix.h>"
 		end
 	

@@ -11,12 +11,6 @@ From GNU Scientific Library Reference Manual Edition 1.7, for GSL
 
 Parts yet to be wrapped:
 
-    * Error Handling
-          o Error Reporting
-          o Error Codes
-          o Error Handlers
-          o Using GSL error reporting in your own functions
-          o Examples 
     * Mathematical Functions
           o Mathematical Constants
           o Infinities and Not-a-number

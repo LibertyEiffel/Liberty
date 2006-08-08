@@ -31,7 +31,7 @@ feature -- Creation
 	make (a_count: INTEGER) is
 			-- Creates a vector of count `a_count'. Vector's elements are uninitialized
 		require
-			valid_count: a_count > 0
+			valid_count: a_count >= 0
 		do
 			if is_not_null then
 				gsl_vector_free(handle)
@@ -45,7 +45,7 @@ feature -- Creation
 	make_zero (a_count: INTEGER) is
 			-- Creates a vector of count `a_count'. Vector's elements are set to zero
 		require
-			valid_count: a_count > 0
+			valid_count: a_count >= 0
 		do
 			if is_not_null then
 				gsl_vector_free(handle)
@@ -343,7 +343,7 @@ feature -- features to conform to COLLECTION[TYPE_]
          Result := item(0)
       end
    
-   lasst: TYPE_ is
+   last: TYPE_ is
       do
          Result := item(upper)
       end
@@ -371,7 +371,91 @@ feature -- features to conform to COLLECTION[TYPE_]
             i := i + 1
          end
       end
-   
+
+	fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+			-- Using basic `=' comparison, gives the index of the first occurrence of `element' at or before
+			-- `start_index'. Search is done in reverse direction, which means from the `start_index' down to the
+			-- `lower' index . Answer `lower -1' when the search fail.
+			--
+			-- See also `reverse_index_of', `fast_index_of', 
+			-- `fast_last_index_of'.
+      local
+         found: BOOLEAN
+      do
+         from
+            Result := start_index
+            found := False
+         variant
+            Result
+         until
+            Result < lower or found
+         loop
+            if item(Result) = element then
+               found := True
+            else
+               Result := Result - 1
+            end
+         end
+		end
+
+   clear_count_and_capacity is
+      do
+         make_zero(0)
+      end
+
+   clear_count is
+      do
+         make_zero(0)
+      end
+
+   set_all_with(v: like item) is
+      do
+         gsl_vector_set_all(handle, v)
+      end
+
+	add_first (element: like item) is
+		do
+         add(element, lower)
+		end
+
+	add_last (element: like item) is
+      do
+         add(element, upper + 1)
+		end
+
+	add (element: like item; index: INTEGER) is
+      local
+         tmp: POINTER
+         i, b: INTEGER_32
+         old_upper: INTEGER_32
+      do
+         tmp := handle
+         old_upper := upper
+         set_handle(gsl_vector_alloc (count + 1))
+         from
+            i := lower
+         until
+            i > old_upper or i = index
+         loop
+            put(gsl_vector_get(tmp, i), i)
+            i := i + 1
+         end
+         if index <= upper then
+            put(element, index)
+         end
+         from
+         until
+            i >= upper
+         loop
+            b := i + 1
+            put(gsl_vector_get(tmp, i), b)
+            i := b
+         end
+         gsl_vector_free(tmp)
+		ensure then
+			lower = old lower
+		end
+
 feature {ANY}
    out: STRING is
          -- print in nice, readable format

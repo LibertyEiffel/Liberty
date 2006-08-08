@@ -7,4 +7,5 @@ be removed in near future
 to compare all our objects with respect to a user definable epsilon, s.th. like
 is_nearly_equal(other: like Current; epsilon: REAL_64): BOOLEAN.
 This sould be used in contracts, (?and is_equal should probably be obsoleted?).
+(use gsl_fcmp?)
 

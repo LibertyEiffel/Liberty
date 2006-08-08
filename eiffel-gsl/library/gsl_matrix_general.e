@@ -308,8 +308,6 @@ feature -- Copying matrices
 	copy (other: like Current) is
 			-- copies the elements of the `other' matrix into the
 			-- Current.
-		local
-			res: INTEGER
 		do
          if handle.is_null then
             -- invariant handle.is_not_null is not satisfied, if copy 
@@ -320,11 +318,7 @@ feature -- Copying matrices
             make(other.line_count, other.column_count)
          end
          
-         res := gsl_matrix_memcpy (handle, other.handle)
-         check
-            -- TODO: check result
-            True
-         end
+         handle_code(gsl_matrix_memcpy (handle, other.handle))
 		end
 
 	swap_with (other: like Current) is
@@ -433,10 +427,8 @@ feature -- Exchanging rows and columns
          row: valid_line(i)
          col: valid_column(j)
          square: count1 = count2
-      local
-         res: INTEGER_32
       do
-         res := gsl_matrix_swap_rowcol(handle, i, j)
+         handle_code(gsl_matrix_swap_rowcol(handle, i, j))
       ensure
          -- TODO: (old row(i)).is_equal(col(j))???
          -- TODO: (old col(j)).is_equal(row(i))???
@@ -449,10 +441,8 @@ feature -- Exchanging rows and columns
          -- for this operation to be possible.
       require
          square: count1 = count2
-      local
-         res: INTEGER_32
       do
-         res := gsl_matrix_transpose(handle)
+         handle_code(gsl_matrix_transpose(handle))
       ensure
          -- TODO: add a meaningful postcondition
          True
@@ -486,14 +476,8 @@ feature -- Matrix operations
 			-- b(i,j). The two matrices must have the same dimensions.
 		require
 			same_size: has_same_size (other)
-		local
-			res: INTEGER_32
 		do
-			res := gsl_matrix_mul_elements (handle, other.handle)
-			check
-				-- TODO: res prüfen
-				True
-			end
+			handle_code(gsl_matrix_mul_elements (handle, other.handle))
 		end
 
 	div_elements (other: like Current) is
@@ -502,27 +486,20 @@ feature -- Matrix operations
 			-- b(i,j). The two matrices must have the same dimensions.
 		require
 			same_size: has_same_size (other)
-		local
-			res: INTEGER_32
 		do
-			res := gsl_matrix_div_elements (handle, other.handle)
-
+			handle_code(gsl_matrix_div_elements (handle, other.handle))
 		end
 
 	scale (an_x: REAL_32) is
 			-- Multiplies the elements of Current matrix (a) by the constant factor x, a'(i,j) = x a(i,j).
-		local
-			res: INTEGER_32
 		do
-			res := gsl_matrix_scale (handle, an_x)
+         handle_code(gsl_matrix_scale (handle, an_x))
 		end
 
 	add_constant (a_constant: REAL_32) is
 			-- Adds `a_constant' (x) to the elements of the matrix a, a'(i,j) = a(i,j) + x. 
-		local
-			res: INTEGER_32
 		do
-			res := gsl_matrix_add_constant (handle, a_constant)
+			handle_code(gsl_matrix_add_constant (handle, a_constant))
 		end
 
 feature -- Finding maximum and minimum elements of matrices
@@ -682,7 +659,7 @@ feature {ANY} -- Miscellaneous features:
 			end
 		end
 
-   -- TODO: imlement me correctly!
+   -- TODO: implement me correctly!
 	has, fast_has (x: like item): BOOLEAN is
 			--  Search if a element x is in the array using `='. `has'
 			--  and `fast_has' are the same feature
