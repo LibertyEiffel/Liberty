@@ -21,9 +21,6 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Note: this is the first class in eiffel-libraries to use
-			-- the plugin mechanism.
-	
 			-- Description: GtkCalendar is a widget that displays a
 			-- calendar, one month at a time. It can be created with
 			-- gtk_calendar_new().
@@ -48,21 +45,50 @@ inherit
 	GTK_WIDGET
 	-- GtkCalendar implements AtkImplementorIface interface.
 
+insert
+	GTK_CALENDAR_EXTERNALS
+
 creation make, from_external_pointer
 
-feature {NONE} -- size
+feature {WRAPPER} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCalendar)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is 
 			-- Creates a new calendar, with the current date being
 			-- selected.
 		do
-			handle := gtk_calendar_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_calendar_new)
+		end
+
+feature -- Properties
+
+	date: TUPLE [INTEGER, INTEGER, INTEGER] is
+			-- Obtains the selected date from a GTK_CALENDAR
+		local
+			year, month, day: INTEGER
+		do
+			gtk_calendar_get_date (handle, $year, $month, $day)
+			Result := [year, month, day]
+		ensure
+			Result /= Void
+			Result.first >= 0
+			Result.second >= 0
+			Result.third >= 0
+		end
+
+	select_month (month, year: INTEGER) is
+			-- Shifts the calendar to a different month.
+			-- month : a month number between 0 and 11.
+			-- year : the year the month is in.
+		require
+			month.in_range (0, 11)
+			year >= 0
+		do
+			gtk_calendar_select_month (handle, month, year)
 		end
 
 
@@ -276,9 +302,6 @@ feature {NONE} -- Creation
 --    calendar : a GtkCalendar
 
 
-feature -- Properties
-
-
 --    "day"                  gint                  : Read / Write
 --    "month"                gint                  : Read / Write
 --    "no-month-change"      gboolean              : Read / Write
@@ -444,29 +467,11 @@ feature -- Properties
 
 --    calendar :  the object which received the signal.
 --    user_data : user data set when the signal handler was connected.
-feature {NONE} -- External calls
+
+
 --  #include <gtk/gtk.h>
 --              GtkCalendar;
 --  enum        GtkCalendarDisplayOptions;
-
-	gtk_calendar_new: POINTER is --  GtkWidget
-		external "plug_in" 
-		alias "{
-			location: "${eiffel_libraries}/eiffel-gtk/library"
-			module_name "eiffel-gtk"
-			feature_name "gtk_calendar_new"
-			}"
-		end
-	gtk_calendar_select_month (a_calendar: POINTER; a_month,an_year: INTEGER): INTEGER is --  gboolean
-		-- Note `a_month' and `an_year' shall be NATURAL, since they 
-		-- are guint in C
-		external "plug_in"
-		alias "{
-			location: "${eiffel_libraries}/eiffel-gtk/library"
-			module_name "eiffel-gtk"
-			feature_name "gtk_calendar_select_month"
-			}"
-		end
 
 --  void        gtk_calendar_select_day         (a_calendar: POINTER, guint day);
 --  gboolean    gtk_calendar_mark_day           (a_calendar: POINTER, guint day);
@@ -477,7 +482,7 @@ feature {NONE} -- External calls
 --  void        gtk_calendar_set_display_options
 --                                              (a_calendar: POINTER, GtkCalendarDisplayOptions flags);
 --  void        gtk_calendar_display_options    (a_calendar: POINTER, GtkCalendarDisplayOptions flags);
---  void        gtk_calendar_get_date           (a_calendar: POINTER, guint *year, guint *month, guint *day);
+
 --  void        gtk_calendar_freeze             (a_calendar: POINTER);
 --  void        gtk_calendar_thaw               (a_calendar: POINTER);
 
@@ -486,7 +491,7 @@ feature {NONE} -- External calls
 --              GtkCalendar;
 --  enum        GtkCalendarDisplayOptions;
 --  GtkWidget*  gtk_calendar_new                (void);
---  gboolean    gtk_calendar_select_month       (GtkCalendar *calendar, guint month, guint year);
+
 --  void        gtk_calendar_select_day         (GtkCalendar *calendar, guint day);
 --  gboolean    gtk_calendar_mark_day           (GtkCalendar *calendar, guint day);
 --  gboolean    gtk_calendar_unmark_day         (GtkCalendar *calendar, guint day);

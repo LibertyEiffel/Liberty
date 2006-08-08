@@ -27,7 +27,7 @@ indexing
 							  ]"
 
 class GTK_IMAGE_MENU_ITEM
-inherit GTK_MENU_ITEM redefine make, size end
+inherit GTK_MENU_ITEM redefine make, struct_size, with_mnemonic, with_label end
 	--    GtkImageMenuItem implements AtkImplementorIface.
 
 creation make, from_stock, with_label, with_mnemonic
@@ -57,7 +57,7 @@ feature {} -- Creation
 			stock_item_not_void: a_stock_item /= Void
 		do		
 			handle := (gtk_image_menu_item_new_from_stock
-						  (a_stock_id.to_external, default_pointer))
+						  (a_stock_item.to_external, default_pointer))
 			--  GtkWidget* gtk_image_menu_item_new_from_stock (const
 			--  gchar *stock_id, -- GtkAccelGroup *accel_group);
 			store_eiffel_wrapper
@@ -65,7 +65,6 @@ feature {} -- Creation
 
 	with_label (a_label: STRING) is
 			-- Creates a new GtkImageMenuItem containing `a_label'.
-		require label_not_void: a_label /= Void
 		do
 			handle:=gtk_image_menu_item_new_with_label (a_label.to_external)
 			store_eiffel_wrapper
@@ -75,7 +74,6 @@ feature {} -- Creation
 			-- Creates a new GtkImageMenuItem containing a label. Put an
 			-- underscore in front of the mnemonic character for the menu
 			-- item.
-		require label_not_void: a_label /= Void
 		do
 			handle:= gtk_image_menu_item_new_with_mnemonic(a_label.to_external)
 			store_eiffel_wrapper
