@@ -249,8 +249,8 @@ feature -- Accessing
          -- enlarges the matrix, preserving values, new fields will 
          -- be initialized to 0
       require
-         not_less_rows: rows > count1
-         not_less_cols: columns > count2
+         not_lessoeq_rows: rows > count1
+         not_lessoeq_cols: columns > count2
       local
          tmp: POINTER
          i, j: INTEGER_32

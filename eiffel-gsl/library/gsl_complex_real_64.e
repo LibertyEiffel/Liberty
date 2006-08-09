@@ -1,11 +1,12 @@
 indexing
-	description: "comlex number"
+	description: "complex number"
 	copyright: "(C) 2006 "
 	authors: "Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
-	
+         -- TODO: pluginize
+   
 class GSL_COMPLEX_REAL_64
 
 inherit GSL_COMPLEX_GENERAL[REAL_64]

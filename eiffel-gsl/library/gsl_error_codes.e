@@ -173,212 +173,352 @@ feature {}
 
 	gsl_success: INTEGER is
 			-- code of GSL_SUCCESS
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_SUCCESS"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_SUCCESS"
+         }"
 		end
 
 	gsl_failure: INTEGER is
 			-- code of GSL_FAILURE
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_FAILURE"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_FAILURE"
+         }"
 		end
 
 	gsl_continue: INTEGER is
 			-- code of GSL_CONTINUE
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_CONTINUE"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_CONTINUE"
+         }"
 		end
 
 	gsl_edom: INTEGER is
 			-- code of GSL_EDOM
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EDOM"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EDOM"
+         }"
 		end
 
 	gsl_erange: INTEGER is
 			-- code of GSL_ERANGE
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ERANGE"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ERANGE"
+         }"
 		end
 
 	gsl_efault: INTEGER is
 			-- code of GSL_EFAULT
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EFAULT"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EFAULT"
+         }"
 		end
 
 	gsl_einval: INTEGER is
 			-- code of GSL_EINVAL
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EINVAL"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EINVAL"
+         }"
 		end
 
 	gsl_efailed: INTEGER is
 			-- code of GSL_EFAILED
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EFAILED"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EFAILED"
+         }"
 		end
 
 	gsl_efactor: INTEGER is
 			-- code of GSL_EFACTOR
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EFACTOR"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EFACTOR"
+         }"
 		end
 
 	gsl_esanity: INTEGER is
 			-- code of GSL_ESANITY
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ESANITY"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ESANITY"
+         }"
 		end
 
 	gsl_enomem: INTEGER is
 			-- code of GSL_ENOMEM
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ENOMEM"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ENOMEM"
+         }"
 		end
 
 	gsl_ebadfunc: INTEGER is
 			-- code of GSL_EBADFUNC
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EBADFUNC"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EBADFUNC"
+         }"
 		end
 
 	gsl_erunaway: INTEGER is
 			-- code of GSL_ERUNAWAY
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ERUNAWAY"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ERUNAWAY"
+         }"
 		end
 
 	gsl_emaxiter: INTEGER is
 			-- code of GSL_EMAXITER
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EMAXITER"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EMAXITER"
+         }"
 		end
 
 	gsl_ezerodiv: INTEGER is
 			-- code of GSL_EZERODIV
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EZERODIV"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EZERODIV"
+         }"
 		end
 
 	gsl_ebadtol: INTEGER is
 			-- code of GSL_EBADTOL
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EBADTOL"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EBADTOL"
+         }"
 		end
 
 	gsl_etol: INTEGER is
 			-- code of GSL_ETOL
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ETOL"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ETOL"
+         }"
 		end
 
 	gsl_eundrflw: INTEGER is
 			-- code of GSL_EUNDRFLW
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EUNDRFLW"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EUNDRFLW"
+         }"
 		end
 
 	gsl_eovrflw: INTEGER is
 			-- code of GSL_EOVRFLW
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EOVRFLW"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EOVRFLW"
+         }"
 		end
 
 	gsl_eloss: INTEGER is
 			-- code of GSL_ELOSS
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ELOSS"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ELOSS"
+         }"
 		end
 
 	gsl_eround: INTEGER is
 			-- code of GSL_EROUND
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EROUND"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EROUND"
+         }"
 		end
 
 	gsl_ebadlen: INTEGER is
 			-- code of GSL_EBADLEN
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EBADLEN"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EBADLEN"
+         }"
 		end
 
 	gsl_enotsqr: INTEGER is
 			-- code of GSL_ENOTSQR
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ENOTSQR"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ENOTSQR"
+         }"
 		end
 
 	gsl_esing: INTEGER is
 			-- code of GSL_ESING
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ESING"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ESING"
+         }"
 		end
 
 	gsl_ediverge: INTEGER is
 			-- code of GSL_EDIVERGE
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EDIVERGE"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EDIVERGE"
+         }"
 		end
 
 	gsl_eunsup: INTEGER is
 			-- code of GSL_EUNSUP
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EUNSUP"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EUNSUP"
+         }"
 		end
 
 	gsl_eunimpl: INTEGER is
 			-- code of GSL_EUNIMPL
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EUNIMPL"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EUNIMPL"
+         }"
 		end
 
 	gsl_ecache: INTEGER is
 			-- code of GSL_ECACHE
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ECACHE"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ECACHE"
+         }"
 		end
 
 	gsl_etable: INTEGER is
 			-- code of GSL_ETABLE
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ETABLE"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ETABLE"
+         }"
 		end
 
 	gsl_enoprog: INTEGER is
 			-- code of GSL_ENOPROG
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ENOPROG"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ENOPROG"
+         }"
 		end
 
 	gsl_enoprogj: INTEGER is
 			-- code of GSL_ENOPROGJ
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ENOPROGJ"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ENOPROGJ"
+         }"
 		end
 
 	gsl_etolf: INTEGER is
 			-- code of GSL_ETOLF
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ETOLF"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ETOLF"
+         }"
 		end
 
 	gsl_etolx: INTEGER is
 			-- code of GSL_ETOLX
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ETOLX"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ETOLX"
+         }"
 		end
 
 	gsl_etolg: INTEGER is
 			-- code of GSL_ETOLG
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_ETOLG"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_ETOLG"
+         }"
 		end
 
 	gsl_eof: INTEGER is
 			-- code of GSL_EOF
-		external "C use <gsl/gsl_errno.h>"
-		alias "GSL_EOF"
+		external "plug_in"
+		alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "GSL_EOF"
+         }"
 		end
 
 end

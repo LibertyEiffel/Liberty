@@ -17,6 +17,8 @@ indexing
 	-- I always used _imag as in the wrapped lib. Would you prefer 
 	-- some other name? e. g. set_imaginary()?
 
+   --  TODO: pluginize
+   
 deferred class GSL_COMPLEX_GENERAL[TYPE_->COMPARABLE]
 
 inherit C_STRUCT
@@ -81,7 +83,6 @@ feature -- copying
 		end
 	
 feature -- Printing
-	-- TODO: implement in nice way
 	out: STRING is
 			-- String representation of `Current'
 		local

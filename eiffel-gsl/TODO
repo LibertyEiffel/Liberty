@@ -1,10 +1,15 @@
-* use plugin mech everywhere
+* add test for error codes
 * implement some mechanism to handle matrix views
 * add support for const matrices
 * add support to read/write matrices from/to a native stream
 * use explicit [INTEGER|REAL]_32 instead of shortcuts INTEGER and REAL
 * clearify usage of c types float, int, ... all used in the c lib, - is the mapping correct?
+* cleanup (do it) implementation of complex numbers
 
+* check whether it is worth to split the plugin into small parts
+ ** if we have one big plugin we include all headerfiles which could slow down
+    the compilation
+	
 
 From GNU Scientific Library Reference Manual Edition 1.7, for GSL
    Version 1.7 13 September 2005

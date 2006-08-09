@@ -4,12 +4,11 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
-         -- TODO: many things ;-)
-         -- TODO: manifest_put
          -- TODO: tests
-         -- TODO: error handling
          -- TODO: blas functions
-   
+
+   -- the implementation of occurances/fast_occurances and others requires 
+   -- TYPE_ to be expanded
 deferred class GSL_VECTOR_GENERAL[TYPE_]
 inherit
 	WRAPPER
@@ -28,7 +27,7 @@ inherit
       end
 	
 feature -- Creation
-	make (a_count: INTEGER) is
+	make (a_count: INTEGER_32) is
 			-- Creates a vector of count `a_count'. Vector's elements are uninitialized
 		require
 			valid_count: a_count >= 0
@@ -42,7 +41,7 @@ feature -- Creation
 			count = a_count
 		end
 	
-	make_zero (a_count: INTEGER) is
+	make_zero (a_count: INTEGER_32) is
 			-- Creates a vector of count `a_count'. Vector's elements are set to zero
 		require
 			valid_count: a_count >= 0
@@ -56,20 +55,79 @@ feature -- Creation
 			count = a_count
 		end	
 
+   from_collection (model: TRAVERSABLE[TYPE_]) is
+      local
+         i: INTEGER_32
+         it: ITERATOR[TYPE_]
+      do
+         make_zero (model.count)
+         from
+            i := 0
+            it := model.get_new_iterator
+            it.start
+         until
+            i > count
+         loop
+            check
+               not it.is_off
+            end
+            put(it.item, i)
+            i := i + 1
+            it.next
+         end         
+      end
+   
 feature -- Accessing
 
-	item (i: INTEGER): TYPE_ is
+	item (i: INTEGER_32): TYPE_ is
 			-- the i-th element of Current vector
 		do
 			Result := gsl_vector_get (handle, i)
 		end
 
-	put (x: TYPE_; i: INTEGER) is
+	put (x: TYPE_; i: INTEGER_32) is
 			-- Sets the value of the i-th element of Current vector to `an_x'.
 		do
 			gsl_vector_set (handle, i, x)
 		end
-	
+
+	force (element: TYPE_; index: INTEGER) is
+      do
+         if index > upper then
+            enlarge(index)
+         end
+         put(element, index)
+      end
+
+   enlarge (new_count: INTEGER_32) is
+      require
+         bigger: new_count > count
+      local
+         tmp: POINTER
+         i, b: INTEGER_32
+         old_upper: INTEGER_32
+      do
+         tmp := handle
+         old_upper := upper
+         set_handle(gsl_vector_calloc (new_count))
+         from
+            i := lower
+         until
+            i > old_upper
+         loop
+            put(gsl_vector_get(tmp, i), i)
+            i := i + 1
+         end
+         gsl_vector_free(tmp)
+      ensure
+         set: count = new_count
+      end
+
+	get_new_iterator: ITERATOR[TYPE_] is
+		do
+			create {ITERATOR_ON_TRAVERSABLE[TYPE_]} Result.make(Current)
+		end
+   
 feature -- Vector size
 	has_same_size (other: like Current): BOOLEAN is
 		require
@@ -81,16 +139,16 @@ feature -- Vector size
 		end
 		
 feature -- public interface
-	count: INTEGER is
+	count: INTEGER_32 is
 			-- the count of size field of the vector
 		do
 			Result := gsl_vector_size(handle)
 		end
 
-	lower: INTEGER is 0
+	lower: INTEGER_32 is 0
 		-- lower index fixed to 0
 
-	upper: INTEGER is
+	upper: INTEGER_32 is
 			-- upper index
 		do
 			Result := count - 1
@@ -112,16 +170,16 @@ feature -- public interface
 			all_default
 		end
 
-	set_basis(i: INTEGER) is
+	set_basis(i: INTEGER_32) is
          -- set all elements to zero except that one at position i;
          -- this one will be set to one
 		require
 			valid_index(i)
 		do
-			gsl_vector_set_basis (handle, i)
+			handle_code(gsl_vector_set_basis (handle, i))
 		end
 
-	swap(i: INTEGER; j: INTEGER) is
+	swap(i: INTEGER_32; j: INTEGER_32) is
          -- swaps elements at position i and j
 		do
 			handle_code(gsl_vector_swap_elements (handle, i, j))
@@ -136,7 +194,7 @@ feature -- public interface
 	all_default: BOOLEAN is
          -- True if all elements are zero
 		do
-			Result := gsl_vector_isnull(handle)
+			Result := gsl_vector_isnull(handle).to_boolean
 		end
 
    copy (other: like Current) is
@@ -178,7 +236,7 @@ feature -- finding minima and maxima
    -- TODO: implement
 --	minmax is
 
-	max_index: INTEGER is
+	max_index: INTEGER_32 is
          -- the index of the max element
 		do
 			Result := gsl_vector_max_index(handle)
@@ -186,7 +244,7 @@ feature -- finding minima and maxima
          definition: item(Result) = max
 		end
 
-	min_index: INTEGER is
+	min_index: INTEGER_32 is
          -- index of the min element
 		do
 			Result := gsl_vector_min_index(handle)
@@ -249,7 +307,7 @@ feature -- features to conform to COLLECTION[TYPE_]
          remove_head(1)
 		end
 
-	remove_head (n: INTEGER) is
+	remove_head (n: INTEGER_32) is
 			-- Remove the `n' elements of the collection.
       local
          i, j, new_size: INTEGER_32
@@ -276,7 +334,7 @@ feature -- features to conform to COLLECTION[TYPE_]
          gsl_vector_free(tmp)
 		end
 
-	remove (index: INTEGER) is
+	remove (index: INTEGER_32) is
 			-- Remove the item at position `index'. Followings items are shifted left by one 
 			-- position.
       local
@@ -315,7 +373,7 @@ feature -- features to conform to COLLECTION[TYPE_]
          remove_tail(1)
 		end
 
-	remove_tail (n: INTEGER) is
+	remove_tail (n: INTEGER_32) is
 			-- Remove the last `n' item(s).
       local
          i, new_size: INTEGER_32
@@ -354,7 +412,7 @@ feature -- features to conform to COLLECTION[TYPE_]
          Result := count = 0
       end
    
-   is_equal(other: like Current): BOOLEAN is
+   is_equal, is_equal_map (other: like Current): BOOLEAN is
       local
          i: INTEGER_32
       do
@@ -372,13 +430,7 @@ feature -- features to conform to COLLECTION[TYPE_]
          end
       end
 
-	fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
-			-- Using basic `=' comparison, gives the index of the first occurrence of `element' at or before
-			-- `start_index'. Search is done in reverse direction, which means from the `start_index' down to the
-			-- `lower' index . Answer `lower -1' when the search fail.
-			--
-			-- See also `reverse_index_of', `fast_index_of', 
-			-- `fast_last_index_of'.
+	reverse_index_of, fast_reverse_index_of (element: like item; start_index: INTEGER_32): INTEGER_32 is
       local
          found: BOOLEAN
       do
@@ -394,6 +446,31 @@ feature -- features to conform to COLLECTION[TYPE_]
                found := True
             else
                Result := Result - 1
+            end
+         end
+		end
+
+   first_index_of, fast_first_index_of (element: like item): INTEGER_32 is
+      do
+         Result := index_of (element, lower)
+      end
+   
+	index_of, fast_index_of (element: like item; start_index: INTEGER_32): INTEGER_32 is
+      local
+         found: BOOLEAN
+      do
+         from
+            Result := start_index
+            found := False
+         variant
+            upper - Result
+         until
+            Result > upper or found
+         loop
+            if item(Result) = element then
+               found := True
+            else
+               Result := Result + 1
             end
          end
 		end
@@ -423,7 +500,7 @@ feature -- features to conform to COLLECTION[TYPE_]
          add(element, upper + 1)
 		end
 
-	add (element: like item; index: INTEGER) is
+	add (element: like item; index: INTEGER_32) is
       local
          tmp: POINTER
          i, b: INTEGER_32
@@ -456,6 +533,59 @@ feature -- features to conform to COLLECTION[TYPE_]
 			lower = old lower
 		end
 
+   occurrences, fast_occurrences (element: like item): INTEGER is
+      local
+         index: INTEGER_32
+      do
+         from
+            index := lower
+         until
+            index > upper
+         loop
+            if item(index) = element then
+               Result := Result + 1
+            end
+            index := index + 1
+         end
+      end
+
+   replace_all, fast_replace_all (old_v, new_v: like item) is
+      local
+         index: INTEGER_32
+      do
+         from
+            index := lower
+         until
+            index > upper
+         loop
+            if item(index) = old_v then
+               put(new_v, index)
+            end
+            index := index + 1
+         end
+      end
+
+   slice (a, b: INTEGER_32): like Current is
+         -- copies the subvector (no aliasing)
+      local
+         s, d: INTEGER_32
+      do
+         Result := twin
+         Result.make_zero(b - a + 1)
+         from
+            s := a
+            d := lower
+         variant
+            Result.count - d
+         until
+            d > Result.count
+         loop
+            Result.put(item(s), d)
+            d := d + 1
+            s := s + 1
+         end
+      end
+   
 feature {ANY}
    out: STRING is
          -- print in nice, readable format
@@ -499,7 +629,7 @@ feature {} -- dispose
 		end
 		
 feature {} -- External structure
-	gsl_vector_size(ptr: POINTER): INTEGER is
+	gsl_vector_size(ptr: POINTER): INTEGER_32 is
 			-- the 'size' field of the vector
 		require
 			ptr.is_not_null
@@ -527,7 +657,7 @@ feature {} -- External structure
 		deferred
 		end
 
-	gsl_vector_owner(ptr: POINTER): INTEGER is
+	gsl_vector_owner(ptr: POINTER): INTEGER_32 is
 			-- the 'owner' field of the vector
 		require
 			ptr.is_not_null
@@ -535,15 +665,15 @@ feature {} -- External structure
 		end
 	
 feature {} -- External calls
-	gsl_vector_alloc(a_count: INTEGER): POINTER is
+	gsl_vector_alloc(a_count: INTEGER_32): POINTER is
 		deferred
 		end
 	
-	gsl_vector_calloc(a_count: INTEGER): POINTER is
+	gsl_vector_calloc(a_count: INTEGER_32): POINTER is
 		deferred
 		end
 	
-	gsl_vector_alloc_from_block(a_block: POINTER; a_offset, a_count, a_stride: INTEGER): POINTER is
+	gsl_vector_alloc_from_block(a_block: POINTER; a_offset, a_count, a_stride: INTEGER_32): POINTER is
 		require
 			a_block.is_not_null
 		deferred
@@ -556,13 +686,13 @@ feature {} -- External calls
 		deferred
 		end
 
-	gsl_vector_get (ptr: POINTER; i: INTEGER): TYPE_ is
+	gsl_vector_get (ptr: POINTER; i: INTEGER_32): TYPE_ is
 		require
 			ptr.is_not_null
       deferred
 		end
 
-	gsl_vector_set (ptr: POINTER; i: INTEGER; x: TYPE_) is
+	gsl_vector_set (ptr: POINTER; i: INTEGER_32; x: TYPE_) is
 		require
 			ptr.is_not_null
 		deferred
@@ -580,7 +710,7 @@ feature {} -- External calls
 		deferred
 		end
 
-	gsl_vector_set_basis (ptr: POINTER; i: INTEGER) is
+	gsl_vector_set_basis (ptr: POINTER; i: INTEGER_32): INTEGER_32 is
 		require
 			ptr.is_not_null
 		deferred
@@ -671,13 +801,13 @@ feature {} -- External calls
 		deferred
 		end
 
-	gsl_vector_max_index (ptr: POINTER): INTEGER is
+	gsl_vector_max_index (ptr: POINTER): INTEGER_32 is
 		require
 			ptr.is_not_null
 		deferred
 		end
 
-	gsl_vector_min_index (ptr: POINTER): INTEGER is
+	gsl_vector_min_index (ptr: POINTER): INTEGER_32 is
 		require
 			ptr.is_not_null
 		deferred
@@ -689,7 +819,7 @@ feature {} -- External calls
 		deferred
 		end
 
-	gsl_vector_isnull (ptr: POINTER): BOOLEAN is
+	gsl_vector_isnull (ptr: POINTER): INTEGER_32 is
 		require
 			ptr.is_not_null
 		deferred

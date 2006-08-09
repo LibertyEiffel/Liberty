@@ -17,7 +17,7 @@ insert
 	GSL_VECTOR_GENERAL[REAL_64]   
    
 creation
-	make, make_zero, manifest_creation
+	make, make_zero, manifest_creation, from_collection
 
 feature {} -- External calls
 	gsl_vector_alloc(a_count: INTEGER): POINTER is
@@ -92,7 +92,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_set_basis (ptr: POINTER; i: INTEGER_32) is
+	gsl_vector_set_basis (ptr: POINTER; i: INTEGER_32): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
@@ -245,7 +245,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_isnull (ptr: POINTER): BOOLEAN is
+	gsl_vector_isnull (ptr: POINTER): INTEGER_32 is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"
