@@ -209,7 +209,7 @@ feature {} -- External calls
          }"
 		end
 
-	gsl_vector_minmax (ptr: POINTER; min_out,max_out: POINTER) is
+	gsl_vector_minmax (ptr: POINTER; min_out, max_out: POINTER) is
       external "plug_in"
       alias "{
          location: "${eiffel_libraries}/plugins"

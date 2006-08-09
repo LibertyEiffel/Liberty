@@ -6,54 +6,6 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
-         -- TODO: Eiffelize this documentation: Matrices
-         -- TODO: add views
-         -- TODO: add error handling
-         --       use all the return values of the functions. Currently discarded.
-         -- TODO: add stream reading/writing
-         -- TODO: add row/column vector access (views?), 
-         --       (uncommenting existing code?)
-         -- TODO: implement has, fast_has, replace, fast_replace, subcollection2
-   
-			-- The gsl_matrix structure contains six components, the two
-			-- dimensions of the matrix, a physical dimension, a pointer
-			-- to the memory where the elements of the matrix are stored,
-			-- data, a pointer to the block owned by the matrix block, if
-			-- any, and an ownership flag, owner. The physical dimension
-			-- determines the memory layout and can differ from the
-			-- matrix dimension to allow the use of submatrices. 
-
-			-- Matrices are stored in row-major order, meaning that each
-			-- row of elements forms a contiguous block in memory. This
-			-- is the standard "C-language ordering" of two-dimensional
-			-- arrays. Note that FORTRAN stores arrays in column-major
-			-- order. The number of rows is size1. The range of valid row
-			-- indices runs from 0 to size1-1. Similarly size2 is the
-			-- number of columns. The range of valid column indices runs
-			-- from 0 to size2-1. The physical row dimension tda, or
-			-- trailing dimension, specifies the size of a row of the
-			-- matrix as laid out in memory.
-
-			-- For example, in the following matrix size1 is 3, size2 is
-			-- 4, and tda is 8. The physical memory layout of the matrix
-			-- begins in the top left hand-corner and proceeds from left
-			-- to right along each row in turn.
-
-			-- 00 01 02 03 XX XX XX XX
-			-- 10 11 12 13 XX XX XX XX
-			-- 20 21 22 23 XX XX XX XX
-
-			-- Each unused memory location is represented by "XX". The
-			-- pointer data gives the location of the first element of
-			-- the matrix in memory. The pointer block stores the
-			-- location of the memory block in which the elements of the
-			-- matrix are located (if any). If the matrix owns this block
-			-- then the owner field is set to one and the block will be
-			-- deallocated when the matrix is freed. If the matrix is
-			-- only a slice of a block owned by another object then the
-			-- owner field is zero and any underlying block will not be
-			-- freed.
-
 
 deferred class GSL_MATRIX_GENERAL[TYPE_]
 
@@ -188,8 +140,6 @@ feature -- Creating
    from_transposed(model: like Current) is
          -- This function makes the matrix Current the transpose of
          -- the matrix src by copying the elements of model into Current.
-      local
-         res: INTEGER_32
       do
 			make(model.count2, model.count1)
          handle_code(gsl_matrix_transpose_memcpy(handle, model.handle))
@@ -327,77 +277,82 @@ feature -- Copying matrices
 		require
 			valid_other: other /= Void
 			same_size: has_same_size (other)
-		local
-			res: INTEGER
 		do
-         res := gsl_matrix_swap (handle, other.handle)
-			check
-				-- TODO: res prüfen
-				True
-			end
+         handle_code(gsl_matrix_swap (handle, other.handle))
 		end
 	
 feature -- Copying rows and columns
-	-- TODO: Eiffelize this "Features described in this section copy a
-	-- row or column of a matrix into a vector. This allows the
-	-- elements of the vector and the matrix to be modified
-	-- independently. Note that if the matrix and the vector point to
-	-- overlapping regions of memory then the result will be
-	-- undefined. The same effect can be achieved with more generality
-	-- using gsl_vector_memcpy with vector views of rows and columns."
+ 	copy_row_on (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
+ 			-- Copies the elements of the i-th row of Current matrix m
+ 			-- into `a_vector'. The length of the vector must be the
+ 			-- same as the length of the row.
+         -- See also get_row.
+ 		require
+ 			valid_row: valid_line (i)
+ 			vector_not_void: a_vector /= Void
+ 			valid_vector: a_vector.count = count2
+ 		do
+ 			handle_code(gsl_matrix_get_row (a_vector.handle, handle, i))
+ 		end
 
--- TODO: uncomment those once GSL_VECTOR is implemented
--- 	copy_row_on (i: INTEGER; a_vector: GSL_VECTOR) is
--- 			--  Copies the elements of the i-th row of Current matrix m
--- 			--  into `a_vector'. The length of the vector must be the
--- 			--  same as the length of the row.
--- 		require
--- 			valid_row: valid_line (i)
--- 			vector_not_void: a_vector /= Void
--- 			valid_vector: vector.count = column_number
--- 		local res: INTEGER
--- 		do
--- 			res := gsl_matrix_get_row (a_vector.handle, handle, i)
--- 		end
+ 	copy_column_on (j: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
+ 			-- Copies the elements of the j-th column of the Current
+ 			-- matrix into `a_vector'. The length of the vector must be
+ 			-- the same as the length of the column.
+         -- See also get_row.
+ 		require
+ 			valid_row: valid_column (j)
+ 			vector_not_void: a_vector /= Void
+ 			valid_vector: a_vector.count = count1
+ 		do
+ 			handle_code(gsl_matrix_get_col (a_vector.handle, handle, j))
+ 		end
 
--- 	copy_column_on (j: INTEGER; a_vector: GSL_VECTOR) is
--- 			-- Copies the elements of the j-th column of the Current
--- 			-- matrix into `a_vector'. The length of the vector must be
--- 			-- the same as the length of the column.
--- 		require
--- 			valid_row: valid_column (j)
--- 			vector_not_void: a_vector /= Void
--- 			valid_vector: vector.count = row_number
--- 		local res: INTEGER
--- 		do
--- 			res := gsl_matrix_get_col (a_vector.handle, handle, j)
--- 		end
+ 	get_row (i: INTEGER_32): GSL_VECTOR_GENERAL[TYPE_] is
+ 			-- Returns a new vector with the same values as the ith row 
+ 			-- of Current
+         -- See also copy_row_on.
+ 		require
+ 			valid_row: valid_line (i)
+ 		deferred
+      ensure
+ 			valid_vector: Result.count = column_count
+ 		end
 
--- 	set_row  (i: INTEGER; a_vector: GSL_VECTOR) is
--- 			-- Copies the elements of `a_vector' into the i-th row of the
--- 			-- Current matrix. The length of the vector must be the same
--- 			-- as the length of the row.
--- 		require
--- 			valid_row: valid_line (i)
--- 			vector_not_void: a_vector /= Void
--- 			valid_vector: vector.count = column_number
--- 		local res: INTEGER
--- 		do
--- 			res := gsl_matrix_set_row (handle, i, a_vector.handle)
--- 		end
+   get_column (i: INTEGER_32): GSL_VECTOR_GENERAL[TYPE_] is
+ 			-- Returns a new vector with the same values as the ith column 
+ 			-- of Current
+         -- See also copy_column_on.
+ 		require
+ 			valid_row: valid_column (i)
+ 		deferred
+      ensure
+ 			valid_vector: Result.count = line_count
+ 		end
+
+ 	set_row (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
+ 			-- Copies the elements of `a_vector' into the i-th row of the
+ 			-- Current matrix. The length of the vector must be the same
+ 			-- as the length of the row.
+		require
+ 			valid_row: valid_line (i)
+ 			vector_not_void: a_vector /= Void
+ 			valid_vector: a_vector.count = count2
+ 		do
+ 			handle_code(gsl_matrix_set_row (handle, i, a_vector.handle))
+ 		end
 	
--- 	set_column  (i: INTEGER; a_vector: GSL_VECTOR) is
--- 			-- Copies the elements of `a_vector' into the i-th column of the
--- 			-- Current matrix. The length of the vector must be the same
--- 			-- as the length of the column.
--- 		require
--- 			valid_column: valid_column (j)
--- 			vector_not_void: a_vector /= Void
--- 			valid_vector: vector.count = row_number
--- 		local res: INTEGER
--- 		do
--- 			res := gsl_matrix_set_col (handle, j, a_vector.handle)
--- 		end
+ 	set_column (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
+ 			-- Copies the elements of `a_vector' into the i-th column of the
+ 			-- Current matrix. The length of the vector must be the same
+ 			-- as the length of the column.
+ 		require
+ 			valid_column: valid_column (i)
+ 			vector_not_void: a_vector /= Void
+ 			valid_vector: a_vector.count = count1
+ 		do
+ 			handle_code(gsl_matrix_set_col (handle, i, a_vector.handle))
+ 		end
 	
 feature -- Exchanging rows and columns
 
@@ -505,42 +460,55 @@ feature -- Matrix operations
 feature -- Finding maximum and minimum elements of matrices
 	max: TYPE_ is
 			-- the maximum value in the matrix m.
-         -- TODO: what if matrix dimension is 0,0? Is this calle defined?
+         -- TODO: what if matrix dimension is 0,0? Is this call defined?
 		do
 			Result := gsl_matrix_max (handle)
 		end
 	
 	min: TYPE_ is
 			-- the minimum value in the matrix m. 
-         -- TODO: what if matrix dimension is 0,0? Is this calle defined?
+         -- TODO: what if matrix dimension is 0,0? Is this call defined?
 		do
 			Result := gsl_matrix_min (handle)
 		end
 
-	-- TODO: void gsl_matrix_minmax (const gsl_matrix * m, double *
-	-- min_out, double * max_out) This function returns the minimum and
-	-- maximum values in the matrix m, storing them in min_out and
-	-- max_out.
+   minmax: TUPLE[TYPE_, TYPE_] is
+         -- minimum and maximum
+      local
+         mn, mx: TYPE_
+      do
+         gsl_matrix_minmax(handle, $mn, $mx)
+         Result := [mn, mx]
+      end
 
-	-- TODO: Function: void gsl_matrix_max_index (const gsl_matrix * m,
-	-- size_t * imax, size_t * jmax) This function returns the indices
-	-- of the maximum value in the matrix m, storing them in imax and
-	-- jmax. When there are several equal maximum elements then the
-	-- first element found is returned, searching in row-major order.
-	
-	-- TODO: Function: void gsl_matrix_min_index (const gsl_matrix * m,
-	-- size_t * imax, size_t * jmax) This function returns the indices
-	-- of the minimum value in the matrix m, storing them in imax and
-	-- jmax. When there are several equal minimum elements then the
-	-- first element found is returned, searching in row-major order.
+	max_index: TUPLE[INTEGER_32, INTEGER_32] is
+         -- [row, col] of the max element
+      local
+         r, c: INTEGER_32
+		do
+         gsl_matrix_max_index(handle, $r, $c)
+         Result := [r, c]
+		end
 
-	-- TODO Function: void gsl_matrix_minmax_index (const gsl_matrix *
-	-- m, size_t * imin, size_t * imax) This function returns the
-	-- indices of the minimum and maximum values in the matrix m,
-	-- storing them in (imin,jmin) and (imax,jmax). When there are
-	-- several equal minimum or maximum elements then the first
-	-- elements found are returned, searching in row-major order.
+	min_index: TUPLE[INTEGER_32, INTEGER_32] is
+         -- index of the min element
+      local
+         r, c: INTEGER_32
+		do
+         gsl_matrix_min_index(handle, $r, $c)
+         Result := [r, c]
+		end
 
+   minmax_index: TUPLE[TUPLE[INTEGER_32, INTEGER_32], TUPLE[INTEGER_32, INTEGER_32]] is
+         -- [[min_row, min_col], [max_row, max_col]]
+         -- if there are several, the first index will be returned
+      local
+         mn_r, mn_c, mx_r, mx_c: INTEGER_32
+      do
+         gsl_matrix_minmax_index(handle, $mn_r, $mn_c, $mx_r, $mx_c)
+         Result := [[mn_r, mn_c], [mx_r, mx_c]]
+      end
+   
 feature -- Matrix properties, looking and comparison:
 	all_default: BOOLEAN is
 			-- Are  all the elements of the matrix zero?
@@ -659,7 +627,6 @@ feature {ANY} -- Miscellaneous features:
 			end
 		end
 
-   -- TODO: implement me correctly!
 	has, fast_has (x: like item): BOOLEAN is
 			--  Search if a element x is in the array using `='. `has'
 			--  and `fast_has' are the same feature
@@ -669,12 +636,12 @@ feature {ANY} -- Miscellaneous features:
 			from
 				i := lower1
 			until
-				Result = False or else i < upper1
+				Result or else i > upper1
 			loop
 				from
 					j := lower2
 				until
-					Result = False or else j < upper2
+					Result or else j > upper2
 				loop
 					if item(i, j) = x then
 						Result := True
@@ -685,32 +652,59 @@ feature {ANY} -- Miscellaneous features:
 			end
 		end
 
-	replace_all (old_value, new_value: like item) is
+	replace_all, fast_replace_all (old_value, new_value: like item) is
 			-- Replace all occurrences of the element `old_value' by `new_value'
-			-- using `is_equal' for comparison.
-			-- See also `fast_replace_all' to choose the apropriate one.
-		obsolete "Unimplemented!"
+		local
+			i, j: INTEGER_32
 		do
-			-- Nothing
-		ensure then implemented: False
-		end
-
-	fast_replace_all (old_value, new_value: like item) is
-			-- Replace all occurrences of the element `old_value' by `new_value'
-			-- using operator `=' for comparison.
-			-- See also `replace_all' to choose the apropriate one.
-		obsolete "Unimplemented!"
-		do
-			-- Nothing
-		ensure then implemented: False
+			from
+				i := lower1
+			until
+				i > upper1
+			loop
+				from
+					j := lower2
+				until
+					j > upper2
+				loop
+					if item(i, j) = old_value then
+						put(new_value, i, j)
+					end
+					j := j + 1
+				end
+				i := i + 1
+			end
 		end
 
 	sub_collection2 (line_min, line_max, column_min, column_max: INTEGER_32): like Current is
 			-- Create a new object using selected area of `Current'.
-		obsolete "Unimplemented!"
+		local
+			i, j, k, l: INTEGER
 		do
-			-- Nothing
-		ensure then implemented: False
+         Result := twin
+			Result.make(line_max - line_max + 1, column_max - column_min + 1)
+			from
+				i := line_min
+            k := 1
+			until
+				i > line_max
+			loop
+				from
+					j := column_min
+               l := 1
+				until
+					j > column_max
+				loop
+               check
+                  Result.valid_index(k, l)
+               end
+					Result.put(item(i, j), k, l)
+					j := j + 1
+               l := l + 1
+				end
+				i := i + 1
+            k := k + 1
+			end
 		end
 
 feature {} -- Implement manifest generic creation.
@@ -949,7 +943,6 @@ feature {} -- External calls
 		end
 
 	gsl_matrix_minmax (a_gsl_matrix, a_min_out, a_max_out: POINTER) is
---TODO
 		require
 			a_gsl_matrix.is_not_null
 			a_min_out.is_not_null
@@ -958,22 +951,31 @@ feature {} -- External calls
 		end
 
 	gsl_matrix_max_index (a_gsl_matrix, an_imax_ptr, a_jmax_ptr: POINTER) is
--- TODO
 		require
 			a_gsl_matrix.is_not_null
+         an_imax_ptr.is_not_null
+         a_jmax_ptr.is_not_null
 		deferred
 		end
 
 	gsl_matrix_min_index (a_gsl_matrix, an_imin_ptr, a_jmin_ptr: POINTER) is
--- TODO
 		require
 			a_gsl_matrix.is_not_null
+         an_imin_ptr.is_not_null
+         a_jmin_ptr.is_not_null
 		deferred
 		end
 
-		-- TODO: void gsl_matrix_minmax_index (const a_gsl_matrix: POINTER, size_t * imin, size_t * imax)
-		-- Documentation and declaration mismatch! This function returns the indices of the minimum and maximum values in the matrix m, storing them in (imin,jmin) and (imax,jmax). When there are several equal minimum or maximum elements then the first elements found are returned, searching in row-major order. 
-	
+	gsl_matrix_minmax_index (matrix, imin_ptr, jmin_ptr, imax_ptr, jmax_ptr : POINTER) is
+		require
+			matrix.is_not_null
+         imin_ptr.is_not_null
+         jmin_ptr.is_not_null
+         imax_ptr.is_not_null
+         jmax_ptr.is_not_null
+		deferred
+		end
+
 	gsl_matrix_isnull (a_gsl_matrix: POINTER): INTEGER_32 is
 		require
 			a_gsl_matrix.is_not_null

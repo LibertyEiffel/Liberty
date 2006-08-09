@@ -4,8 +4,6 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
-         -- TODO: tests
-         -- TODO: blas functions
 
    -- the implementation of occurances/fast_occurances and others requires 
    -- TYPE_ to be expanded
@@ -233,8 +231,14 @@ feature -- finding minima and maxima
 			Result := gsl_vector_min(handle)
 		end
 
-   -- TODO: implement
---	minmax is
+	minmax: TUPLE[TYPE_, TYPE_] is
+         -- returns a tuple with the min and the max
+      local
+         mn, mx: TYPE_
+      do
+         gsl_vector_minmax(handle, $mn, $mx)
+         Result := [mn, mx]
+      end
 
 	max_index: INTEGER_32 is
          -- the index of the max element
@@ -252,6 +256,15 @@ feature -- finding minima and maxima
          definition: item(Result) = min
 		end
 
+   minmax_index: TUPLE[INTEGER_32, INTEGER_32] is
+         -- a tuple with the index of the minimum and the maximum
+         -- if there are several, the first index will be returned
+      local
+         mn, mx: INTEGER_32
+      do
+         gsl_vector_minmax_index(handle, $mn, $mx)
+         Result := [mn, mx]
+      end
    
 feature -- vector operations (element wise)
 	scale (x: TYPE_) is

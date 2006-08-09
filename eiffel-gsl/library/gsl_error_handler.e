@@ -43,13 +43,6 @@ feature
 			is_on
 		end
 
-   -- TODO: remove 
-   init is
-      obsolete "TODO: remove me"
-      do
-         gsl_init
-      end
-     
    ieee_explanation: STRING is
       do
          create Result.make(16)

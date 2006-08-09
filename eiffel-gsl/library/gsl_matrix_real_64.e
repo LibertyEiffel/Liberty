@@ -17,8 +17,20 @@ inherit
 insert
 	GSL_MATRIX_GENERAL[REAL_64]
 
-
 creation make, make_zero, make_identity, from_model, from_collection2, manifest_creation
+
+feature
+   get_column (i: INTEGER_32): GSL_VECTOR_REAL_64 is
+      do
+         create Result.make(line_count)
+ 			handle_code(gsl_matrix_get_col (Result.handle, handle, i))
+      end
+
+   get_row (i: INTEGER_32): GSL_VECTOR_REAL_64 is
+      do
+         create Result.make(column_count)
+ 			handle_code(gsl_matrix_get_row (Result.handle, handle, i))
+      end
 
 feature {} -- External calls
 
@@ -138,21 +150,6 @@ feature {} -- External calls
          feature_name: "gsl_matrix_fscanf"
       }"
 		end
-	
-	-- TODO: gsl_matrix_view gsl_matrix_submatrix (a_gsl_matrix: POINTER, k1: INTEGER, k2: INTEGER, n1: INTEGER, n2: INTEGER)
-	-- TODO gsl_matrix_const_view gsl_matrix_const_submatrix (const a_gsl_matrix: POINTER, k1: INTEGER, k2: INTEGER, n1: INTEGER, n2: INTEGER)
-
-	-- TODO: gsl_matrix_view gsl_matrix_view_array (double * base, n1: INTEGER, n2: INTEGER)
-	-- TODO: gsl_matrix_const_view gsl_matrix_const_view_array (const double * base, n1: INTEGER, n2: INTEGER)
-
-	-- TODO: gsl_matrix_view gsl_matrix_view_array_with_tda (double * base, n1: INTEGER, n2: INTEGER, tda: INTEGER)
-	-- TODO: gsl_matrix_const_view gsl_matrix_const_view_array_with_tda (const double * base, n1: INTEGER, n2: INTEGER, tda: INTEGER)
-
-	-- TODO: gsl_matrix_view gsl_matrix_view_vector (gsl_vector * v, n1: INTEGER, n2: INTEGER)
-	-- TODO: gsl_matrix_const_view gsl_matrix_const_view_vector (const gsl_vector * v, n1: INTEGER, n2: INTEGER)
-
-	-- TODO: gsl_matrix_view gsl_matrix_view_vector_with_tda (gsl_vector * v, n1: INTEGER, n2: INTEGER, tda: INTEGER)
-	-- TODO: gsl_matrix_const_view gsl_matrix_const_view_vector_with_tda (const gsl_vector * v, n1: INTEGER, n2: INTEGER, tda: INTEGER)
 
 	gsl_matrix_memcpy (a_dest, a_src: POINTER): INTEGER   is
       external "plug_in"
@@ -354,9 +351,15 @@ feature {} -- External calls
       }"
 		end
 
-		-- TODO: void gsl_matrix_minmax_index (const a_gsl_matrix: POINTER, size_t * imin, size_t * imax)
-		-- Documentation and declaration mismatch! This function returns the indices of the minimum and maximum values in the matrix m, storing them in (imin,jmin) and (imax,jmax). When there are several equal minimum or maximum elements then the first elements found are returned, searching in row-major order.
-	
+	gsl_matrix_minmax_index (matrix, imin_ptr, jmin_ptr, imax_ptr, jmax_ptr : POINTER) is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_matrix_minmax_index"
+      }"
+		end
+
 	gsl_matrix_isnull (a_gsl_matrix: POINTER): INTEGER  is
       external "plug_in"
       alias "{

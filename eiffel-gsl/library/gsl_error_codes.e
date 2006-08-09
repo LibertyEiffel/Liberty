@@ -16,7 +16,8 @@ expanded class GSL_ERROR_CODES
 	-- [4] tr '[[:upper:]]' '[[:lower:]]' < tata | awk -F '\t' '{printf "\t\t\t\t%s = gsl_%s\n",$1,$1}'
 	-- [5] cut -f 1 tata | tr '[[:upper:]]' '[[:lower:]]' | paste - tata | awk '{printf "\tgsl_%s: INTEGER is\n\t\t\t-- code of GSL_%s\n\t\texternal \"plug_in\"\n\t\talias \"{\n\t\t\tlocation: \"${xxx}plugins\"\n\t\t\tmodule_name: \"gsl\"\n\t\t\tfeature_name: \"GSL_%s\"\n\t\t\t}\"\n\t\tend\n\n",$1,$2,$2}'
 
-   -- modified by hand: changed constants to begin with a capital letter
+   -- changed constants to begin with a capital letter
+   -- also changed to match plugin scheme
 
 feature
 

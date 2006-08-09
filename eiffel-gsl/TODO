@@ -1,6 +1,9 @@
+* add support for vectors an matrices with size 0 (we get a null pointer back from the alloc function)
+* add support to read from and write to streams (matrices and vectors)
+* add view / subvector aliasing support
 * add test for error codes
 * implement some mechanism to handle matrix views
-* add support for const matrices
+* add support for const matrices?
 * add support to read/write matrices from/to a native stream
 * use explicit [INTEGER|REAL]_32 instead of shortcuts INTEGER and REAL
 * clearify usage of c types float, int, ... all used in the c lib, - is the mapping correct?
@@ -10,6 +13,7 @@
  ** if we have one big plugin we include all headerfiles which could slow down
     the compilation
 	
+* documentation a few tutorial examples
 
 From GNU Scientific Library Reference Manual Edition 1.7, for GSL
    Version 1.7 13 September 2005
@@ -514,12 +518,4 @@ Parts yet to be wrapped:
           o Level 2
           o Level 3
           o Examples 
-    * Free Software Needs Free Documentation
-    * GNU General Public License
-    * GNU Free Documentation License
-    * Function Index
-    * Variable Index
-    * Type Index
-    * Concept Index 
-
 

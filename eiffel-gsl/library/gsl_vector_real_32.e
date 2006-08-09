@@ -4,7 +4,6 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
--- TODO: pluginize
    
 class GSL_VECTOR_REAL_32
 
