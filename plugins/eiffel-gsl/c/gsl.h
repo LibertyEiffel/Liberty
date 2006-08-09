@@ -28,6 +28,22 @@ void gsl_init();
 #define matrix_double_block(x) ((gsl_matrix*)x)->block
 #define matrix_double_owner(x) ((gsl_matrix*)x)->owner
 
+//vector_double: GSL_VECTOR_REAL_64
+#include <gsl/gsl_vector_double.h>
+#define vector_double_c_struct_size sizeof(gsl_vector)
+#define vector_double_size(x) ((gsl_vector*)x)->size
+#define vector_double_stride(x) ((gsl_vector*)x)->stride
+#define vector_double_data(x) ((gsl_vector*)x)->data
+#define vector_double_block(x) ((gsl_vector*)x)->block
+#define vector_double_owner(x) ((gsl_vector*)x)->owner
+
+//vector_float: GSL_VECTOR_REAL_32
+#include <gsl/gsl_vector_float.h>
+#define vector_float_c_struct_size sizeof(gsl_vector)
+#define vector_float_size(x) ((gsl_vector*)x)->size
+#define vector_float_stride(x) ((gsl_vector*)x)->stride
+#define vector_float_data(x) ((gsl_vector*)x)->data
+#define vector_float_block(x) ((gsl_vector*)x)->block
 
 char* ieee_strerror();
 
@@ -53,7 +69,15 @@ int has_ieee_div_by_zero();
 #define has_ieee_div_by_zero() 0
 #endif
 
-//TODO:
+#ifdef FE_INEXACT
 int has_ieee_inexact();
+#else
+#define has_ieee_inexact() 0
+#endif
+
+#ifdef FE_INVALID
 int has_ieee_invalid();
+#else
+#define has_ieee_invalid() 0
+#endif
 
