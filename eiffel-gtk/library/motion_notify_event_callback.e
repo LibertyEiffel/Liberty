@@ -37,7 +37,6 @@ feature
 	callback (event_motion: POINTER; instance: POINTER): INTEGER is
 		local
 			event_obj: GDK_EVENT
-			r: BOOLEAN
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -50,8 +49,7 @@ feature
 			check
 				is_a_motion_event: event_obj.is_event_motion
 			end
-			r := function.item ([event_obj.event_motion, object])
-			if r then Result := 1 end
+			Result := function.item ([event_obj.event_motion, object]).to_integer
 		end
 
 	callback_pointer: POINTER is

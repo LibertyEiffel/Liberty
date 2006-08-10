@@ -1288,19 +1288,38 @@ feature
 	-- treeview : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 	-- Returns : 	
-	-- The "unselect-all" signal
 
-	-- gboolean    user_function                  (GtkTreeView *treeview,
-	--                                             gpointer user_data);
+feature -- "unselect-all" signal
+	unselect_all_signal_name: STRING is "unselect-all"
+		-- "unselect-all"
+		--             gboolean    user_function      (GtkTreeView *treeview,
+		--                                             gpointer user_data);
 
-	-- treeview : 	the object which received the signal.
-	-- user_data : 	user data set when the signal handler was connected.
-	-- Returns : 	
-	-- See Also
+	enable_on_unselect_all is
+			-- Connects "unselect-all" signal to `on_unselect_all' feature.
+		do
+			connect (Current, unselect_all_signal_name, $on_unselect_all)
+		end
 
-	-- GtkTreeViewColumn, GtkTreeSelection, GtkTreeDnd, GtkTreeMode, GtkTreeSortable, GtkTreeModelSort, GtkListStore, GtkTreeStore, GtkCellRenderer, GtkCellEditable, GtkCellRendererPixbuf, GtkCellRendererText, GtkCellRendererToggle
-	-- kTreeIter *iter,
-	--                                              gpointer search_data);
+	on_unselect_all: INTEGER is
+			-- Built-in unselect-all signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_unselect_all_signal (a_function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]) is
+			-- treeview : 	the object which received the signal.
+			-- user_data : 	user data set when the signal handler was connected.
+			-- Returns : ?
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			unselect_all_callback: UNSELECT_ALL_CALLBACK
+		do
+			create unselect_all_callback.make
+			unselect_all_callback.connect (Current, a_function)
+		end
+
 	-- GtkWidget*  gtk_tree_view_new               (void);
 	-- GtkWidget*  gtk_tree_view_new_with_model    (GtkTreeModel *model);
 	-- GtkTreeModel* gtk_tree_view_get_model       (GtkTreeView *tree_view);
@@ -1596,13 +1615,12 @@ feature -- The "cursor_changed" signal
 	--                                             gpointer user_data);
 
 feature -- The "row_activated" signal
-	-- "row-activated"
-	--             void        user_function      (GtkTreeView *treeview,
-	--                                             GtkTreePath *arg1,
-	--                                             GtkTreeViewColumn *arg2,
-	--                                             gpointer user_data);
-
 	row_activated_signal_name: STRING is "row-activated"
+		-- "row-activated"
+		--             void        user_function      (GtkTreeView *treeview,
+		--                                             GtkTreePath *arg1,
+		--                                             GtkTreeViewColumn *arg2,
+		--                                             gpointer user_data);
 
 	on_row_activated is
 			-- Built-in row_activated signal handler; empty by design; redefine it.
@@ -1664,9 +1682,6 @@ feature -- The "row_activated" signal
 	--                                             GtkTreePath *arg2,
 	--                                             gpointer user_data);
 	-- "toggle-cursor-row"
-	--             gboolean    user_function      (GtkTreeView *treeview,
-	--                                             gpointer user_data);
-	-- "unselect-all"
 	--             gboolean    user_function      (GtkTreeView *treeview,
 	--                                             gpointer user_data);
 

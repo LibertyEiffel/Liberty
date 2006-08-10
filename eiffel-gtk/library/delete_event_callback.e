@@ -37,8 +37,6 @@ feature
 	callback (ev_ptr: POINTER; instance: POINTER): INTEGER is
 		require
 			instance_not_null: instance.is_not_null
-		local
-			r: BOOLEAN
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -51,8 +49,7 @@ feature
 			-- retrieve event, object
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			-- FIXME: event should be retrieved when GDK_EVENT is implemented **trixx, 20060616
-			r := function.item ([object, Void])
-			if r then Result := 1 end
+			Result := function.item ([object, Void]).to_integer
 		end
 
 	callback_pointer: POINTER is

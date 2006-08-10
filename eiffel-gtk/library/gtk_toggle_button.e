@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -56,13 +56,14 @@ indexing
 -- }
 
 class GTK_TOGGLE_BUTTON
-inherit
 
+inherit
 	GTK_BUTTON redefine make, with_label, with_mnemonic end
+
 insert
 	GTK_TOGGLE_BUTTON_EXTERNALS
 		-- GtkToggleButton implements AtkImplementorIface.
-	
+
 creation make, with_label, with_mnemonic
 
 feature {NONE} -- Creation
@@ -120,7 +121,7 @@ feature
 		end
 
 	drawn_as_button: BOOLEAN is
-			-- is the toggle button drawna as a normal button?
+			-- is the toggle button drawn as a normal button?
 		do
 			Result := (gtk_toggle_button_get_mode(handle) = 0)
 		end

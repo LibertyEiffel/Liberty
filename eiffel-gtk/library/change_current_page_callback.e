@@ -30,7 +30,7 @@ inherit
 creation make
 
 feature
-	make (a_notebook: GTK_NOTEBOOK; a_procedure: PROCEDURE[TUPLE[GTK_NOTEBOOK]]) is
+	make (a_notebook: GTK_NOTEBOOK; a_procedure: PROCEDURE [TUPLE [GTK_NOTEBOOK]]) is
 		require valid_notebook: a_notebook/=Void
 		do
 			notebook := a_notebook

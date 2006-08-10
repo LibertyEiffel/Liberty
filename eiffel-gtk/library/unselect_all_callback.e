@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the drag-motion signal"
+	description: "Generic callback for the unselect-all signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					
@@ -22,32 +22,33 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class DRAG_MOTION_CALLBACK
+class UNSELECT_ALL_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert G_OBJECT_RETRIEVER [GTK_TREE_VIEW]
 
 creation make
 
 feature
-	object: GTK_WIDGET
+	object: GTK_TREE_VIEW
 
 feature
-	callback (drag_content: POINTER; x,y: INTEGER; time: INTEGER; instance: POINTER): INTEGER is
-		local
-			drag_content_obj: GDK_DRAG_CONTEXT
+	callback (instance: POINTER): INTEGER is
+		require
+			instance_not_null: instance.is_not_null
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
+				print ("is_object: "+g_is_object (instance).out+"%N")
+				print ("type: "+g_object_type (instance).out+"%N")
 			end
 			check
 				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
 			end
+			-- retrieve object
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create drag_content_obj.from_external_pointer (drag_content)
-			
-			Result := function.item ([drag_content_obj, x, y, time, object]).to_integer
+			Result := function.item ([object]).to_integer
 		end
 
 	callback_pointer: POINTER is
@@ -57,11 +58,10 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                                                  INTEGER, GTK_WIDGET], BOOLEAN]) is
+	connect (an_object: GTK_TREE_VIEW; a_function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]) is
 		do
 			debug
-				print ("DRAG_MOTION_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
+				print ("UNSELECT_ALL_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
 				print (" an_object.handle=") print (an_object.handle.to_string)
 				print (") Current=") print (to_pointer.to_string)
 				print (" Current.handle=") print (handle.to_string)
@@ -76,8 +76,7 @@ feature
 			function:=a_function
 		end
 
-		signal_name: STRING is "drag-motion"
+		signal_name: STRING is "unselect-all"
 
-	function: FUNCTION [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER, INTEGER, GTK_WIDGET], BOOLEAN]
-
+	function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]
 end

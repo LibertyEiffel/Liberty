@@ -631,7 +631,6 @@ feature -- Signals
 --                                             gpointer           user_data)      : Run last
 
 feature -- delete-event signal
-
 	delete_event_signal_name: STRING is "delete-event"
 		-- "destroy-event"
 		--             gboolean    user_function      (GtkWidget *widget,
@@ -647,7 +646,7 @@ feature -- delete-event signal
 	on_delete_event: INTEGER is
 			-- Built-in delete-event signal handler; empty by design; redefine it.
 
-			-- The delete-event signal is emitted if a user requests that a
+			-- The `delete-event' signal is emitted if a user requests that a
 			-- toplevel window is closed. The default handler for this signal
 			-- destroys the window.
 			-- finish with "Result := 1" to stop other handlers.

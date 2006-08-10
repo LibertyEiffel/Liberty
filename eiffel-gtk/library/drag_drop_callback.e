@@ -37,7 +37,6 @@ feature
 	callback (drag_content: POINTER; x,y: INTEGER; time: INTEGER; instance: POINTER): INTEGER is
 		local
 			drag_content_obj: GDK_DRAG_CONTEXT
-			r: BOOLEAN
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -48,8 +47,7 @@ feature
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			create drag_content_obj.from_external_pointer (drag_content)
 			
-			r := function.item ([drag_content_obj, x, y, time, object])
-			if r then Result := 1 end
+			Result := function.item ([drag_content_obj, x, y, time, object]).to_integer
 		end
 
 	callback_pointer: POINTER is

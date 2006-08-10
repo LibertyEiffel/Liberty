@@ -17,12 +17,12 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 			-- TODO: Eiffelize these C documentation
-	
+			
 			-- Dialog boxes are a convenient way to prompt the user for a
 			-- small amount of input, e.g. to display a message, ask a
 			-- question, or anything else that does not require extensive
@@ -187,6 +187,7 @@ feature {NONE} -- Creation
 	-- first_button_text : 	stock ID or text to go in first button, or NULL
 	-- ... : 	response ID for first button, then additional buttons, ending with NULL
 	-- Returns : 	a new GtkDialog
+
 feature -- Running dialog
 	run: INTEGER is
 			-- run the dialog until it emits the response signal, or is
@@ -256,7 +257,6 @@ feature -- Running dialog
 			-- Returns : 	response ID
 		end
 
-
 	emit_response (a_response_id: INTEGER) is
 			-- Emits the "response" signal with the given response
 			-- ID. Used to indicate that the user has responded to the
@@ -266,7 +266,6 @@ feature -- Running dialog
 		do
 			gtk_dialog_response (handle,a_response_id)
 		end
-	
 
 	add_button (a_button_text: STRING; a_response_id: INTEGER) is
 			-- Adds a button with the given text (or a stock button, if
@@ -277,7 +276,7 @@ feature -- Running dialog
 			-- returned, but usually you don't need it.
 
 			-- `a_button_text': text of button, or stock ID
-		
+			
 			-- `a_response_id' : response ID for the button
 
 			-- TODO: store the button widget that was added somewhere
@@ -285,7 +284,7 @@ feature -- Running dialog
 		do
 			unused_button_ptr := gtk_dialog_add_button (handle, a_button_text.to_external, a_response_id)
 		end
-	
+
 	add_buttons (some_buttons: COLLECTION[TUPLE[STRING, INTEGER]]) is
 			-- Adds more buttons,  calling add_button repeatedly on each tupla of `some_buttons'.
 		require
@@ -296,7 +295,7 @@ feature -- Running dialog
 			a_text: STRING; an_id: INTEGER
 			--a_button: GTK_BUTTON
 		do
-			iterator:=some_buttons.get_new_iterator; 
+			iterator:=some_buttons.get_new_iterator;
 			from iterator.start until iterator.is_off
 			loop
 				-- a_text:=iterator.item.item_1
@@ -545,7 +544,7 @@ feature -- From ewg implementation
 		do
 			add_ok_button
 			add_cancel_button
-		end			
+		end
 
 	add_ok_button is
 			-- Add a "Ok" button. Stock item and response are used
@@ -560,14 +559,14 @@ feature -- From ewg implementation
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_cancel, gtk_response_cancel)
 		end
-	
+
 	add_close_button is
 			-- Add a "Close" button. Stock item and response are used
 		local a_widget: POINTER
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_close, gtk_response_close)
 		end
-	
+
 	add_yes_no_buttons is
 			-- Add both 'Yes' and 'No' buttons
 		do
@@ -588,7 +587,7 @@ feature -- From ewg implementation
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_no, gtk_response_no)
 		end
-	
+
 	add_apply_button is
 			-- Add a "Apply" button. Stock item and response are used
 		local a_widget: POINTER
@@ -602,7 +601,7 @@ feature -- From ewg implementation
 		do
 			a_widget := gtk_dialog_add_button (handle, gtk_stock_help, gtk_response_help)
 		end
-	
+
 	-- TODO: wrap gtk_dialog_set_response_sensitive 
 	-- TODO: wrap gtk_alternative_dialog_button_order 
 	-- TODO: wrap gtk_dialog_set_alternative_button_order
@@ -639,9 +638,9 @@ feature -- properties
 			Result:=value.integer
 		ensure positive_result: Result >= 0
 		end
-			
+
 feature -- Dialog's parts
-	
+
 	vbox: GTK_VBOX is
 			-- main part of the dialog box
 		local
@@ -673,6 +672,7 @@ feature -- Dialog's parts
 
 feature -- The "close" signal
 	close_signal_name: STRING is "close"
+
 	enable_on_close is
 			-- Connects "close" signal to `on_close' feature.
 		do
