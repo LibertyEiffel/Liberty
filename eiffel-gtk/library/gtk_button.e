@@ -34,7 +34,6 @@ class GTK_BUTTON
 inherit GTK_BIN -- redefine make end
 insert
 	GTK_BUTTON_EXTERNALS 
-	G_SIGNALS
 		-- Implemented Interfaces GtkButton implements
 		-- AtkImplementorIface.
 		

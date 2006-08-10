@@ -23,9 +23,12 @@ indexing
 
 class GTK_TEXT_BUFFER
 
-inherit G_OBJECT
+inherit
+	G_OBJECT
 
-insert GTK_TEXT_BUFFER_EXTERNALS
+insert
+	GTK_TEXT_BUFFER_EXTERNALS
+	G_SIGNALS
 
 creation
 	make, from_external_pointer
@@ -893,13 +896,30 @@ feature -- Access
 
 	-- textbuffer : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
-	-- The "changed" signal
 
-	-- void        user_function                  (GtkTextBuffer *textbuffer,
-	--                                             gpointer       user_data)       : Run last
+feature -- The "changed" signal
 
-	-- textbuffer : 	the object which received the signal.
-	-- user_data : 	user data set when the signal handler was connected.
+	changed_signal_name: STRING is "changed"
+	enable_on_changed is
+			-- Connects "changed" signal to `on_changed' feature.
+		do
+			connect (Current, changed_signal_name, $on_changed)
+		end
+
+	on_changed is
+			-- Built-in changed signal handler; empty by design; redefine it.
+			-- Indicates that the user has changed the contents of the widget.
+		do 
+		end
+
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+		require valid_procedure: a_procedure /= Void
+		local changed_callback: CHANGED_CALLBACK [like Current]
+		do
+			create changed_callback.make
+			changed_callback.connect (Current, a_procedure)
+		end
+	
 	-- The "delete-range" signal
 
 	-- void        user_function                  (GtkTextBuffer *textbuffer,

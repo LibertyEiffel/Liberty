@@ -216,12 +216,12 @@ feature -- The "changed" signal
 			-- Built-in changed signal handler; empty by design; redefine it.
 
 			-- Indicates that the user has changed the contents of the widget.
-		deferred 
+		do 
 		end
 
 	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
 		require valid_procedure: a_procedure /= Void
-		local changed_callback: CHANGED_CALLBACK
+		local changed_callback: CHANGED_CALLBACK [like Current]
 		do
 			create changed_callback.make
 			changed_callback.connect (Current, a_procedure)

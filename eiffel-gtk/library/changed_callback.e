@@ -22,16 +22,16 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class CHANGED_CALLBACK
+class CHANGED_CALLBACK [O -> G_OBJECT]
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_EDITABLE]
+insert G_OBJECT_RETRIEVER [O]
 
 creation make
 
 feature
-	object: GTK_EDITABLE
+	object: O
 
 feature
 	callback (instance: POINTER) is --  a_editable: GTK_EDITABLE) is
@@ -58,7 +58,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_EDITABLE; a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
+	connect (an_object: O; a_procedure: PROCEDURE [ANY, TUPLE[O]]) is
 		do
 			debug
 				print ("CHANGED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -78,5 +78,5 @@ feature
 
 	signal_name: STRING is "changed"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]
+	procedure: PROCEDURE [ANY, TUPLE[O]]
 end

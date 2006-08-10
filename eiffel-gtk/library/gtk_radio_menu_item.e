@@ -51,7 +51,6 @@ class GTK_RADIO_MENU_ITEM
 
 inherit GTK_MENU_ITEM redefine size end
 	-- TODO: GtkRadioMenuItem implements AtkImplementorIface.
-insert G_SIGNALS
 creation 
 	from_group, with_label, with_mnemonic, from_widget,
 	with_label_from_widget, with_mnemonic_from_widget
