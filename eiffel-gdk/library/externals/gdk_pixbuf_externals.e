@@ -45,6 +45,12 @@ feature {NONE} -- External calls
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
+	gdk_pixbuf_new_from_data (some_data: POINTER; a_colorspace, an_alpha,
+							 a_bits_per_sample, a_width, a_height,
+							 a_rowstride: INTEGER; dummy_destroy_func, dummy_destroy_data: POINTER): POINTER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
 	gdk_pixbuf_new (a_colorspace, a_alpha, a_bps, a_width, a_height: INTEGER): POINTER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
@@ -54,13 +60,6 @@ feature {NONE} -- External calls
 		end
 
 
---Missing:
--- GdkPixbuf*  gdk_pixbuf_new_from_file_at_scale
---                                            (const char *filename,
---                                             int width,
---                                             int height,
---                                             gboolean preserve_aspect_ratio,
---                                             GError **error);
 -- GdkPixbufFormat* gdk_pixbuf_get_file_info   (const gchar *filename,
 --                                             gint *width,
 --                                             gint *height);

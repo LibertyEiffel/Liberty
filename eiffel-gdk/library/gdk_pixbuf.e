@@ -37,7 +37,7 @@ insert
 
 creation
 	make, from_external_pointer,
-	from_file, from_file_at_size, from_file_at_scale, from_drawable, from_pixbuf
+	from_file, from_file_at_size, from_file_at_scale, from_drawable, from_pixbuf, from_data
 
 feature -- Creation
 
@@ -76,6 +76,18 @@ feature {NONE} -- Creation
 			if error_ptr.is_not_null then
 				create last_error.from_external_pointer (error_ptr)
 			end
+		ensure
+			is_valid = is_g_object
+		end
+
+	from_data (some_data: POINTER; an_alpha: BOOLEAN; a_bits_per_sample, a_width, a_height, a_rowstride: INTEGER) is
+			-- Creates a new GdkPixbuf out of in-memory image data. Currently
+			-- only RGB images with 8 bits per sample are supported.
+		do
+			from_external_pointer (gdk_pixbuf_new_from_data (some_data,
+							 gdk_colorspace_rgb, an_alpha.to_integer,
+							 a_bits_per_sample, a_width, a_height,
+							 a_rowstride, default_pointer, default_pointer))
 		ensure
 			is_valid = is_g_object
 		end
