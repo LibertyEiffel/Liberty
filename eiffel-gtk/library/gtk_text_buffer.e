@@ -70,12 +70,12 @@ feature -- Access
 			-- `slice'
 		do
 			create  Result.from_external (gtk_text_buffer_get_text
-													(handle,
-													 a_start.handle, an_end.handle,
-													 include_hidden_chars.to_integer))
+			                              (handle,
+			                               a_start.handle, an_end.handle,
+			                               include_hidden_chars.to_integer))
 			-- Gtk function returns an allocated UTF-8 string; AFAIK we
 			-- can just use from_external. Paolo 2006-07-03
-
+            
 			-- If Gtk is going to free this text, we should be using
 			-- from_external_copy instead!  end
 			end
@@ -85,7 +85,7 @@ feature -- Access
 			-- so the function is very fast.
 		do
 			Result:=gtk_text_buffer_get_line_count (handle)
-		end 
+		end
 
 	char_count: INTEGER is
 			-- the number of characters in the buffer; note that
@@ -96,7 +96,6 @@ feature -- Access
 		do
 			Result := gtk_text_buffer_get_char_count (handle)
 		end
-	
 
 	tag_table: GTK_TEXT_TAG_TABLE is
 			-- the GtkTextTagTable associated with this buffer.
@@ -517,17 +516,17 @@ feature -- Access
 			-- Emits the "apply_tag" signal on buffer. The default
 			-- handler for the signal applies tag to the given
 			-- range. start and end do not have to be in order.
-
+            
 			-- `a_tag' : a GtkTextTag
 			-- `a_start' : one bound of range to be tagged
 			-- `an_end' : other bound of range to be tagged
-		require 
+		require
 			tag_not_void: a_tag /= Void
 			start_not_void: a_start /= Void
 			end_not_void: an_end /= Void
 		do
 			gtk_text_buffer_apply_tag (handle, a_tag.handle, a_start.handle, an_end.handle)
-		end	
+		end
 
 	remove_tag  (a_tag: GTK_TEXT_TAG; a_start, an_end: GTK_TEXT_ITER) is
 			-- Emits the "remove_tag" signal. The default handler for the
@@ -537,14 +536,14 @@ feature -- Access
 			-- `a_tag' : a GtkTextTag
 			-- `a_start' : one bound of range to be tagged
 			-- `an_end' : other bound of range to be tagged
-		require 
+		require
 			tag_not_void: a_tag /= Void
 			start_not_void: a_start /= Void
 			end_not_void: an_end /= Void
 		do
 			gtk_text_buffer_remove_tag (handle, a_tag.handle,
-												 a_start.handle, an_end.handle)
-		end			
+			                            a_start.handle, an_end.handle)
+		end
 
 	apply_tag_by_name (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER) is
 			-- Calls ` gtk_text_tag_table_lookup' on the buffer's tag
@@ -553,33 +552,33 @@ feature -- Access
 			-- `a_tag_name' : the name of a tag
 			-- `a_start' : one bound of range to be tagged
 			-- `an_end' : other bound of range to be tagged
-		require 
+		require
 			tag_name_not_void: a_tag_name /= Void
 			start_not_void: a_start /= Void
 			end_not_void: an_end /= Void
 		do
 			gtk_text_buffer_apply_tag_by_name (handle,
-														  a_tag_name.to_external,
-														  a_start.handle, an_end.handle)
-		end																	  
+			                                   a_tag_name.to_external,
+			                                   a_start.handle, an_end.handle)
+		end
 
 	remove_tag_by_name  (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER) is
 			-- Calls `gtk_text_tag_table_lookup' on the buffer's tag
 			-- table to get a GtkTextTag, then calls `remove_tag'.
-
+           
 			-- `a_tag_name' : the name of a tag
 			-- `a_start' : one bound of range to be tagged
 			-- `an_end' : other bound of range to be tagged
-		require 
+		require
 			tag_name_not_void: a_tag_name /= Void
 			start_not_void: a_start /= Void
 			end_not_void: an_end /= Void
 		do
-			gtk_text_buffer_remove_tag_by_name (handle, 
-														  a_tag_name.to_external,
-														  a_start.handle, an_end.handle)
+			gtk_text_buffer_remove_tag_by_name (handle,
+			                                    a_tag_name.to_external,
+			                                    a_start.handle, an_end.handle)
 		end
-	
+
 	remove_all_tags (a_start, an_end: GTK_TEXT_ITER) is
 			-- Removes all tags in the range between `a_start' and
 			-- `an_end'. Be careful with this function; it could remove
@@ -587,10 +586,10 @@ feature -- Access
 			-- writing. That is, using this function is probably a bad
 			-- idea if you have two or more unrelated code sections that
 			-- add tags.
-
+            
 			-- `a_start' : one bound of range to be tagged
 			-- `an_end' : other bound of range to be tagged
-		require 
+		require
 			start_not_void: a_start /= Void
 			end_not_void: an_end /= Void
 		do
@@ -605,7 +604,7 @@ feature -- Access
 			-- to one.
 
 			-- If a_tag_name is Void, the tag is anonymous.
-		
+		    
 			-- If tag_name is non-Void, a tag called tag_name must not
 			-- already exist in the tag table for this buffer.
 
@@ -631,7 +630,7 @@ feature -- Access
 			loop
 				a_name := iterator.item.item_1
 				a_value := iterator.item.item_2
-				check 
+				check
 					name_not_void: a_name /= Void
 					value_not_void: a_value /= Void
 				end
@@ -919,7 +918,7 @@ feature -- The "changed" signal
 			create changed_callback.make
 			changed_callback.connect (Current, a_procedure)
 		end
-	
+
 	-- The "delete-range" signal
 
 	-- void        user_function                  (GtkTextBuffer *textbuffer,
