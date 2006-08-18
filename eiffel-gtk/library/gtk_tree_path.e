@@ -35,7 +35,7 @@ insert
 		redefine copy end
 
 creation
-	make, make_first, 
+	make, make_first,
 	from_external_pointer, from_string, first, from_path
 
 -- feature  -- size
@@ -77,7 +77,7 @@ feature {NONE} -- Creation
 		do
 			handle := gtk_tree_path_new_from_string (a_path.to_external)
 		end
-	
+
 	-- unwrappable varargs function GtkTreePath*
 	-- gtk_tree_path_new_from_indices (gint first_index, ...); Creates
 	-- a new path with first_index and varargs as indices.  first_index
@@ -98,6 +98,7 @@ feature {NONE} -- Creation
 		end
 
 feature
+
 	copy (a_path: like Current) is
 			-- Makes Current a copy of `a_path'.
 		do
@@ -139,10 +140,10 @@ feature
 			Result:=gtk_tree_path_get_depth(handle)
 		end
 
-	indices: FAST_ARRAY[INTEGER_32] is 
+	indices: FAST_ARRAY[INTEGER_32] is
 			-- the current indices of path. This is an array of integers,
 			-- each representing a node in a tree.
-
+			
 			-- Note: currently implemented as a FAST_ARRAY
 		obsolete "its signature should be ARRAYED_COLLECTION [INTEGER_32]"
 		local c_array: NATIVE_ARRAY [INTEGER_32]; i: INTEGER_32
@@ -165,6 +166,7 @@ feature
 		end
 
 feature -- Disposing
+
 	dispose is
 			-- Frees path. 
 		do
@@ -186,6 +188,7 @@ feature -- Comparing
 		end
 
 feature -- Moving
+
 	next is
 			-- Moves the path to point to the next node at the current depth.
 		do
@@ -200,7 +203,7 @@ feature -- Moving
 			-- current depth, if it exists. `is_move_made' is True if
 			-- path has a previous node, and the move was made.
 		do
-			is_move_made := (gtk_tree_path_prev(handle)).to_boolean
+			is_move_made := (gtk_tree_path_prev (handle)).to_boolean
 		end
 
 	up is
@@ -208,7 +211,7 @@ feature -- Moving
 			-- parent. `is_move_made' is True if path has a parent, and
 			-- the move was made.
 		do
-			is_move_made := (gtk_tree_path_up(handle)).to_boolean
+			is_move_made := (gtk_tree_path_up (handle)).to_boolean
 		end
 
 	down is
@@ -219,15 +222,17 @@ feature -- Moving
 		end
 
 feature -- Queries
+
 	is_ancestor_of (another: like Current): BOOLEAN is
 			-- Is `another' a descendant of Current path?
 		do
-			Result:=(gtk_tree_path_is_ancestor(handle,another.handle)).to_boolean
+			Result := (gtk_tree_path_is_ancestor (handle,another.handle)).to_boolean
 		end
 
 	is_descendant_of (another: like Current): BOOLEAN is
 			-- IS Current  path is a descendant of `another'?
 		do
-			Result:=(gtk_tree_path_is_descendant(handle,another.handle)).to_boolean
+			Result := (gtk_tree_path_is_descendant (handle,another.handle)).to_boolean
 		end
+
 end

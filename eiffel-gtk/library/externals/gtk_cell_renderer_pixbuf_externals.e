@@ -29,12 +29,11 @@ feature {NONE} -- External calls
 		ensure not_null: Result.is_not_null
 		end
 
-end
 -- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
 -- Top  |  Description  |  Object Hierarchy  |  Properties
 -- GtkCellRendererPixbuf
 
--- GtkCellRendererPixbuf %GÅ‚Äî%@ Renders a pixbuf in a cell
+-- GtkCellRendererPixbuf Renders a pixbuf in a cell
 
 -- Synopsis
 
@@ -138,3 +137,5 @@ end
 -- The GtkIconSize value that specifies the size of the rendered icon.
 
 -- Default value: 1
+
+end

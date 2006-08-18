@@ -143,6 +143,7 @@ feature -- Inverted-ness
 		end
 
 feature -- value
+
 	value: REAL_64 is
 			-- the current value of the range.
 		do

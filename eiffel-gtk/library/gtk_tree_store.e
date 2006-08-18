@@ -381,8 +381,6 @@ feature -- Generic setter
 			gtk_tree_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
 
-end
-
 -- TODO:
 -- --             GtkTreeStore;
 -- -- GtkTreeStore* gtk_tree_store_newv           (gint n_columns,
@@ -393,3 +391,4 @@ end
 -- -- void        gtk_tree_store_set_valist       (GtkTreeStore *tree_store,
 -- --                                              GtkTreeIter *iter,
 -- --                                              va_list var_args);
+end

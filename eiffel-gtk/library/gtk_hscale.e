@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 			-- Description
@@ -38,10 +38,12 @@ inherit
 
 		-- Implemented Interfaces: GtkHScale implements
 		-- AtkImplementorIface.
-	
-creation from_adjustment, with_range
+
+creation
+	from_adjustment, with_range
 
 feature {NONE} -- Creation
+
 	from_adjustment (an_adjustment: GTK_ADJUSTMENT) is
 			-- Creates a new GtkHScale. `an_adjustment' is the
 			-- GtkAdjustment which sets the range of the scale.
@@ -64,7 +66,7 @@ feature {NONE} -- Creation
 			-- correct it.
 
 			-- `a_min' : 	minimum value
-		
+			
 			-- `a_max' : maximum value
 
 			-- `a_step' : step increment (tick size) used with keyboard
@@ -74,5 +76,6 @@ feature {NONE} -- Creation
 			handle:=gtk_hscale_new_with_range (a_min, a_max, a_step)
 			store_eiffel_wrapper
 		end
+
 end
-	
+
