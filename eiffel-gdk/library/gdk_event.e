@@ -60,7 +60,7 @@ insert
 
 creation from_external_pointer
 
-feature {WRAPPER} -- size
+feature -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"

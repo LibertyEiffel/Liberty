@@ -31,7 +31,7 @@ insert
 
 creation from_event
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	from_event (a_event: GDK_EVENT) is
 		require

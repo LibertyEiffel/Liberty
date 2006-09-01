@@ -1,10 +1,14 @@
 indexing
 
 	description: "The base object type of gobject library"
-	long: "[
-			 Currently the only wrapped features are those explicitly necessary to wrap GTK+ 2.x
-			 GObject is the fundamental type providing the common attributes and methods for all object types in GTK+, Pango and other libraries based on GObject. The GObject class provides methods for object construction and destruction, property access methods, and signal support. Signals are described in detail in Signals(3).
-			 ]"
+	long:  "[
+				Currently the only wrapped features are those explicitly necessary to
+				wrap GTK+ 2.x GObject is the fundamental type providing the common
+				attributes and methods for all object types in GTK+, Pango and other
+				libraries based on GObject. The GObject class provides methods for
+				object construction and destruction, property access methods, and signal
+				support. Signals are described in detail in Signals(3).
+			]"
 	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
@@ -23,12 +27,12 @@ indexing
 			-- portion. The main motivation for providing floating
 			-- references is C convenience. In particular, it allowes
 			-- code to be written as:
-	
+
 			-- TODO: Eiffelize Example 1.
-	
+
 			--    container = create_container();
 			--    container_add_child (container, create_child());
-	
+
 			-- If container_add_child() will g_object_ref_sink() the
 			-- passed in child, no reference of the newly created child
 			-- is leaked. Without floating references,
@@ -37,13 +41,13 @@ indexing
 			-- it would have to be written as:
 
 			-- TODO: Eiffelize Example 2.
-	
+
 			--    Child *child;
 			--    container = create_container();
 			--    child = create_child();
 			--    container_add_child (container, child);
 			--    g_object_unref (child);
-	
+
 			-- The floating reference can be converted into an ordinary
 			-- reference by calling g_object_ref_sink(). For already
 			-- sunken objects (objects that don't have a floating
@@ -54,14 +58,14 @@ indexing
 			-- reference and memory ownership maintenance (such as smart
 			-- pointers or garbage collection) therefore don't need to
 			-- expose floating references in their API.
-	
+
 			-- Some object implementations may need to save an objects
 			-- floating state across certain code portions (an example is
 			-- GtkMenu), to achive this, the following sequence can be
 			-- used:
 
 			--    Example 3.
-	
+
 			--    /* save floating state */
 			--    gboolean was_floating = g_object_is_floating (object);
 			--    g_object_ref_sink (object);
@@ -71,7 +75,7 @@ indexing
 			--    if (was_floating)
 			--      g_object_force_floating (object);
 			--    g_obejct_unref (object); /* release previously acquired reference */
-		
+
 deferred class G_OBJECT
 
 inherit
@@ -87,13 +91,15 @@ insert
 	-- Features inserted to implement smart_get_property and smart_set_property
 	G_PARAM_SPEC_EXTERNALS export {NONE} all end
 	G_TYPE_EXTERNALS
+
 feature
+
 	store_eiffel_wrapper is
 			-- Store a pointer to Current into the underlying
 			-- gobject. This pointer will be used to retrieve the Eiffel
 			-- wrapper object when a C feature returns a generic object
 			-- (i.e. the preview widget set in GTK_FILE_CHOOSER). 
-
+			
 			-- It also take care of storing an hidden pointer to the 
 			-- underlying GobjectClass
 		require
@@ -118,10 +124,12 @@ feature
 		end
 
 feature {WRAPPER} -- GObject type system implementation.
+
 	type: INTEGER is
 		do
 			Result := g_object_type (handle)
 		end
+
 feature -- Creating
 
 	from_external_pointer (a_ptr: POINTER) is
@@ -136,6 +144,7 @@ feature -- Creating
 		end
 
 feature -- Disposing
+
 	dispose is
 			-- Dispose the g_object, calling unref and setting its handle to default_pointer.
 		
@@ -164,7 +173,8 @@ feature -- Disposing
 		end
 
 feature {} -- Implementation
-	g_object_class: POINTER 
+
+	g_object_class: POINTER
 			-- Pointer to the GObjectClass structure of the current
 			-- G_OBJECT
 
@@ -194,6 +204,7 @@ feature {} -- Disposing helper
 		end
 
 feature -- Reference count
+
 	ref is
 			-- Increases the reference count of object.
 		local ptr: POINTER
@@ -212,6 +223,7 @@ feature -- Reference count
 		end
 
 feature -- Data storing and retrieving
+
 	get_data (a_key: STRING): ANY is
 			-- Gets a named field from the objects table of associations (see
 			-- set_data).  `a_key': name of the key for that association; Void if no
@@ -225,13 +237,13 @@ feature -- Data storing and retrieving
 			ptr := g_object_get_data (handle, a_key.to_external)
 			if ptr.is_not_null then Result:=ptr.to_any end
 		end
-	
+
 	set_data (a_key: STRING; data: ANY) is
 			-- Store a reference to `data' under the name `a_key'. Each object
 			-- carries around a table of associations from strings to pointers. If
 			-- the object already had an association with that name, the old
 			-- association will be destroyed.
-
+			
 			-- a_key : 	name of the key
 			-- data : 	data to associate with that key
 		require
@@ -255,6 +267,7 @@ feature -- Data storing and retrieving
 		end
 
 feature -- Quark-based data storing and retrieving
+
 	has_qdata (a_key: G_QUARK): BOOLEAN is
 			-- Is `a_key' field present in table of associations (see
 			-- set_qdata)? `a_key': a GQuark, naming the user data
@@ -271,10 +284,10 @@ feature -- Quark-based data storing and retrieving
 		do
 			ptr := g_object_get_qdata (handle, a_key.quark)
 			if ptr.is_not_null then Result:=ptr.to_any end
-		ensure 
+		ensure
 			result_not_expanded: not Result.is_expanded_type
 		end
-	
+
 	set_qdata (a_key: G_QUARK; data: ANY) is
 			-- Store a reference to `data' under the GQuark `a_key'. Each
 			-- object carries around a table of associations from strings
@@ -288,14 +301,14 @@ feature -- Quark-based data storing and retrieving
 		do
 			g_object_set_qdata (handle,a_key.quark, data.to_pointer)
 		end
-	
+
 feature -- Properties notifying
 
 	notify (a_property_name: STRING) is
 		-- Emits a "notify" signal for the property `a_property_name' on
 		-- object.
 		do
-			g_object_notify (handle, a_property_name.to_external) 
+			g_object_notify (handle, a_property_name.to_external)
 		end
 
 	freeze_notify is
@@ -316,6 +329,7 @@ feature -- Properties notifying
 		end
 
 feature -- Properties query
+
 	find_property (a_property_name: STRING): G_PARAM_SPEC is
 			-- Find the parameter's spec for `a_property_name'. Void if
 			-- the class doesn't have a property of that name.
@@ -337,7 +351,7 @@ feature -- Properties query
 			Result:= (g_object_class_find_property
 						 (g_object_get_class(handle),a_property_name.to_external).is_not_null)
 		end
-	
+
 	properties: FAST_ARRAY[G_PARAM_SPEC] is
 		obsolete "TODO: entirely!"
 		do
@@ -350,9 +364,9 @@ feature -- Properties query
 			-- after use
 		ensure implemented: False
 		end
-	
 
 feature -- Property getter/setter
+
 	set_properties (some_properties: COLLECTION [TUPLE[STRING,G_VALUE]]) is
 		require
 			no_void_property_names: --TODO
@@ -382,12 +396,12 @@ feature -- Property getter/setter
 				iter.next
 			end
 		end
-	
+
 	smart_set_property (a_parameter_specification: G_PARAM_SPEC; a_value: G_VALUE) is
 			-- Sets the property specified by 
 			-- `a_parameter_specification' on Current object to 
 			-- `a_value'.
-
+			
 			-- Smart Eiffel-specific reimplementation of the original
 			-- GObject feature. All the logic and checks related to
 			-- correctness is handled throught static typing and
@@ -448,9 +462,9 @@ feature -- Property getter/setter
 			-- The following code calls the underlying C "virtual" call;
 			-- it mimicks "class->set_property (object, param_id,
 			-- &tmp_value, pspec);"
-			invoke_set_property (a_parameter_specification.owner_class, 
-										handle, 
-										a_parameter_specification.param_id, a_value.handle, 
+			invoke_set_property (a_parameter_specification.owner_class,
+										handle,
+										a_parameter_specification.param_id, a_value.handle,
 										a_parameter_specification.handle)
 			
 			-- g_object_notify_queue_add (object, nqueue, pspec);
@@ -474,10 +488,10 @@ feature -- Property getter/setter
 			correct_value_type: a_value.is_a (find_property(a_property_name).value_gtype)
 		do
 			g_object_set_property (handle, a_property_name.to_external, a_value.handle)
-		ensure 
+		ensure
 			value_set: -- TODO: a_value.is_equal (get_property(a_property_name))
 		end
-	
+
 	property, get_property (a_property_name: STRING): G_VALUE is
 			-- Gets the property name `a_property_name' of an object.
 
@@ -524,7 +538,7 @@ feature -- Property getter/setter
 			is_readable: find_property (a_property_name).is_readable
 		local gvalue_ptr: POINTER; parameter_specification: G_PARAM_SPEC
 		do
-			parameter_specification := find_property(a_property_name) 
+			parameter_specification := find_property(a_property_name)
 			create Result.with_gtype (parameter_specification.value_gtype)
 			g_object_get_property (handle,a_property_name.to_external, Result.handle)
 			-- while (name) { GValue value = { 0, }; GParamSpec *pspec;
@@ -567,14 +581,15 @@ feature -- Property getter/setter
       
 			--       name = va_arg (var_args, gchar*);
 			--     }
-  
+
 			--   g_object_unref (object);  
-		ensure 
+		ensure
 			not_void: Result /= Void
 			correct_type: Result.is_a (find_property(a_property_name).value_gtype)
 		end
 
 feature -- String property
+
 	set_string_property (a_property_name, a_value: STRING) is
 		require
 			valid_name: a_property_name /= Void
@@ -582,7 +597,7 @@ feature -- String property
 		do
 			g_object_set_string_property (handle,a_property_name.to_external, a_value.to_external)
 		end
-	
+
 	string_property, get_string_property (a_property_name: STRING): STRING is
 			-- the string property named `a_property_name' of an object. Can be
 			-- Void. TODO: this is complemetely untested!  Test it, for
@@ -604,7 +619,7 @@ feature -- String property
 	-- not allocate a temporary G_VALUE
 
 feature -- integer property
-	
+
 	set_integer_property (a_property_name: STRING; a_value: INTEGER) is
 			-- Set property with `a_name' to `a_value'
 		require
@@ -619,6 +634,7 @@ feature -- integer property
 		end
 
 feature -- boolean property
+
 	set_boolean_property (a_property_name: STRING; a_value: BOOLEAN) is
 			-- Set boolean property with `a_name' to `a_value'
 		require
@@ -1700,5 +1716,5 @@ feature {} -- Unwrapped API
 
 invariant
 	stored_eiffel_wrapper: is_not_null implies is_eiffel_wrapper_stored
-end
 
+end

@@ -24,9 +24,6 @@ class GDK_BITMAP
 inherit
 	GDK_DRAWABLE
 
---insert
---	GDK_BITMAP_EXTERNALS
-
 creation
 	from_external_pointer
 

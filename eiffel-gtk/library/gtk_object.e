@@ -84,7 +84,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 
@@ -99,14 +99,14 @@ insert
 	G_SIGNALS
 
 feature
-	
+
 	is_floating: BOOLEAN is
 			-- Evaluates to TRUE if the object still has its floating reference
 			-- count. See the overview documentation for GtkObject.
 		do
 			Result:= (gtk_object_floating(handle)).to_boolean
 		end
-	
+
 	sink  is
 			-- Removes the floating reference from a GtkObject, if it exists;
 			-- otherwise does nothing. See the GtkObject overview documentation at
@@ -114,7 +114,6 @@ feature
 		do
 			gtk_object_sink (handle)
 		end
-
 
 	destroy is
 			-- Emits the "destroy" signal notifying all reference holders that they
@@ -125,7 +124,7 @@ feature
 			-- it does not free the object.
 		do
 			gtk_object_destroy (handle)
-		end 
+		end
 -- The "user-data" property
 
 --   "user-data"            gpointer              : Read / Write
@@ -173,11 +172,10 @@ feature -- Signals
 
 	on_destroy is
 			-- Called on destroy signals. Redefine it in your heir classes
-		do 
-
+		do
 		end
-		
+
 feature {NONE} -- Signal names
 	destroy_signal_name: STRING is "destroy"
+
 end
-	

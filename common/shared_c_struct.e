@@ -16,7 +16,7 @@ deferred class SHARED_C_STRUCT
 inherit
 	C_STRUCT
 		undefine
-			make, copy -- shoud copy be redefined in the subclasses?
+			make, copy -- should copy be redefined in the subclasses?
 		redefine
 			dispose
 		end
@@ -27,7 +27,7 @@ feature {WRAPPER} -- Access to C features
 			-- to `handle'? If False, then the C-object will be 
 			-- destroyed when the the Eiffel object will be collected 
 			-- (via destroy object). If True the C-object will not be destroyed.
-	
+
 	set_shared is
 		do
 			is_shared := True
@@ -37,8 +37,9 @@ feature {WRAPPER} -- Access to C features
 		do
 			is_shared := False
 		end
-	
+
 feature {} -- Destroying
+
 	dispose is
 			-- Action to be executed just before garbage collection reclaims an 
 			-- object; frees the memory pointed by `handle'
@@ -50,6 +51,5 @@ feature {} -- Destroying
 		ensure then
 			now_null: is_null
 		end
-	
 
 end

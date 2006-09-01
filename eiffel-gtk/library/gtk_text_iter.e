@@ -2,12 +2,12 @@ indexing
 	description: "GtkTextIter -- Text buffer iterator."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
-					
+				
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
-					
+				
 					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
@@ -17,20 +17,18 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
-				
-	gtk_documentation:	"[
-								 You may wish to begin by reading the text widget conceptual
-								 overview which gives an overview of all the objects and data
-								 types related to the text widget and how they work together.
-								 ]"
+				]"
+	gtk_documentation: "[
+							 You may wish to begin by reading the text widget conceptual
+							 overview which gives an overview of all the objects and data
+							 types related to the text widget and how they work together.
+						 ]"
 
 class GTK_TEXT_ITER
 
 inherit
 	C_STRUCT
-		redefine copy, dispose 
-		end
+		redefine copy, dispose end
 
 creation make, from_external_pointer, copy
 
@@ -126,7 +124,7 @@ feature
 		do
 			Result := gtk_text_iter_get_char (handle)
 		end
-	
+
 	slice (an_end: GTK_TREE_ITER): STRING is
 			-- the text from current to `an_end'. A "slice" is an array
 			-- of characters encoded in UTF-8 format, including the
@@ -143,7 +141,7 @@ feature
 			create Result.from_external_copy (gtk_text_iter_get_slice (handle,
 																		an_end.handle))
 		end
-	
+
 	text (an_end: GTK_TREE_ITER): STRING is
 			-- text from Current to `an_end'. If the range contains
 			-- non-text elements such as images, the character and byte
@@ -156,7 +154,7 @@ feature
 			create Result.from_external_copy(gtk_text_iter_get_text(handle,
 																	an_end.handle))
 		end
-	
+
 	visible_slice (an_end: GTK_TEXT_ITER): STRING is
 			-- Like `slice', but invisible text is not
 			-- included. Invisible text is usually invisible because a
@@ -214,7 +212,7 @@ feature
 			create Result.from_external_pointer
 			(gtk_text_iter_get_toggled_tags (handle, toggled_on.to_integer))
 		end
-	
+
 	child_anchor: GTK_TEXT_CHILD_ANCHOR is
 			-- The anchor (with no new reference count added) at
 			-- Current's location, if it exists . Void otherwise.
@@ -234,7 +232,7 @@ feature
 			Result := gtk_text_iter_begins_tag (handle, a_tag.handle).to_boolean
 		end
 
-	
+
 	-- gtk_text_iter_ends_tag ()
 
 	-- gboolean    gtk_text_iter_ends_tag          (const GtkTextIter *iter,
@@ -858,9 +856,9 @@ feature
 	-- gboolean    (*GtkTextCharPredicate)         (gunichar ch,
 	-- 															gpointer user_data);
 
-	-- ch : 	
-	-- user_data : 	
-	-- Returns : 	
+	-- ch : 
+	-- user_data : 
+	-- Returns : 
 	-- gtk_text_iter_forward_find_char ()
 
 	-- gboolean    gtk_text_iter_forward_find_char (GtkTextIter *iter,
@@ -948,7 +946,7 @@ feature
 			Result := (gtk_text_iter_equal (handle, another.handle)).to_boolean
 		end
 
-	
+
 	-- gtk_text_iter_compare ()
 
 	-- gint        gtk_text_iter_compare           (const GtkTextIter *lhs,
@@ -993,366 +991,366 @@ feature {} -- External call
 	gtk_text_iter_get_buffer (an_iter: POINTER): POINTER is -- GtkTextBuffer*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_copy (an_iter: POINTER): POINTER is -- GtkTextIter*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_free (an_iter: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_offset (an_iter: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_line (an_iter: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_line_offset (an_iter: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_line_index (an_iter: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_visible_line_index (an_iter: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_visible_line_offset (an_iter: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_char (an_iter: POINTER): INTEGER is -- gunichar
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_slice (an_start: POINTER; an_end: POINTER): POINTER is -- gchar*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_text (an_start: POINTER; an_end: POINTER): POINTER is -- gchar*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_visible_slice (an_start: POINTER; an_end: POINTER): POINTER is -- gchar*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_visible_text (an_start: POINTER; an_end: POINTER): POINTER is -- gchar*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_pixbuf (an_iter: POINTER): POINTER is -- GdkPixbuf*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_marks (an_iter: POINTER): POINTER is -- GSList*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_toggled_tags (an_iter: POINTER; toggled_on: INTEGER): POINTER is -- GSList*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_child_anchor (an_iter: POINTER): POINTER is -- GtkTextChildAnchor*  
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_begins_tag (an_iter: POINTER; a_tag: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_ends_tag (an_iter: POINTER; a_tag: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_toggles_tag (an_iter: POINTER; a_tag: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_has_tag (an_iter: POINTER; a_tag: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_tags (an_iter: POINTER): POINTER is -- GSList*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_editable (an_iter: POINTER; default_setting: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_can_insert (an_iter: POINTER; default_editability: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_starts_word (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_ends_word (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_inside_word (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_starts_line (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_ends_line (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_starts_sentence (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_ends_sentence (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_inside_sentence (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_is_cursor_position (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_chars_in_line (an_iter: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_bytes_in_line (an_iter: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_attributes (an_iter: POINTER; gtktextattributes: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_get_language (an_iter: POINTER): POINTER is -- PangoLanguage*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_is_end (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_is_start (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_char (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_char (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_chars (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_chars (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_line (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_line (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_lines (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_lines (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_word_ends (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_word_starts (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_word_end (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_word_start (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_cursor_position (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_cursor_position (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_cursor_positions (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_cursor_positions (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_sentence_start (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_sentence_starts (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_sentence_end (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_sentence_ends (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_visible_word_ends (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_visible_word_starts (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_visible_word_end (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_visible_word_start (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_visible_cursor_position (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_visible_cursor_position (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_visible_cursor_positions (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_visible_cursor_positions (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_visible_line (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_visible_line (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_visible_lines (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_visible_lines (an_iter: POINTER; a_count: INTEGER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_set_offset (an_iter: POINTER; a_char_offset: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_set_line (an_iter: POINTER; a_line_number: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_set_line_offset (an_iter: POINTER; a_char_on_line: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_set_line_index (an_iter: POINTER; a_byte_on_line: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_set_visible_line_index (an_iter: POINTER; a_byte_on_line: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_set_visible_line_offset (an_iter: POINTER; a_char_on_line: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_to_end (an_iter: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_to_line_end (an_iter: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_forward_to_tag_toggle (an_iter: POINTER; a_tag: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_to_tag_toggle (an_iter: POINTER; a_tag: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	--(*GtkTextCharPredicate) (gunichar ch; gpointer user_data): INTEGER 
-	
+
 	gtk_text_iter_forward_find_char (an_iter: POINTER; predicate, user_data: POINTER; a_limit: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_find_char (an_iter: POINTER; predicate, user_data: POINTER; a_limit: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
-	
+
+
 	gtk_text_iter_forward_search (an_iter: POINTER; a_string: POINTER; some_flags: INTEGER; an_match_start: POINTER; an_match_end: POINTER; a_limit: POINTER): INTEGER is -- gboolean
 		require --valid_flags: are_valid_search_flags (some_flags)
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_backward_search (an_iter: POINTER; a_string: POINTER; some_flags: INTEGER; a_match_start: POINTER; a_match_end: POINTER; a_limit: POINTER): INTEGER is -- gboolean
 		require --valid_flags: are_valid_search_flags (some_flags)
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_equal (an_lhs: POINTER; an_rhs: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_compare (an_lhs: POINTER; an_rhs: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_in_range (an_iter: POINTER; an_start: POINTER; an_end: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_iter_order (first: POINTER; an_second: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 end

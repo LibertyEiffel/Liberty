@@ -5,19 +5,19 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-
 deferred class C_STRUCT
 
 inherit
 	WRAPPER
+	-- redefine copy end
 
-	-- redefine copy
 insert EXCEPTIONS
 		export {NONE} all
 		undefine is_equal
 		end
-	
+
 feature {} -- Initialization
+
 	make is
 			-- Allocate an initialized structure
 		do
@@ -27,6 +27,7 @@ feature {} -- Initialization
 		end
 
 feature -- Queries
+
 	exists: BOOLEAN is
 			--  Does Current wrap an existing object? Speaking in C: is handle not 
 			--  NULL?
@@ -35,9 +36,10 @@ feature -- Queries
 			Result := is_not_null
 		end
 	-- TODO: implement copy using memcpy
-	
+
 feature {WRAPPER} -- Access to C features
-	-- size should be exported to WRAPPER, to be able to check size 
+
+	-- struct_size should be exported to WRAPPER, to be able to check size 
 	-- before copying
 	struct_size: INTEGER is
 			-- sizeof (wrapped_structure), speaking in C. TODO: shall be a NATURAL
@@ -46,6 +48,7 @@ feature {WRAPPER} -- Access to C features
 		end
 
 feature {} -- Destroying
+
 	dispose, force_free_handle  is
 			-- Frees the external pointer. Shall be called just before 
 			-- the garbage collector removes the wrapper object.
@@ -59,10 +62,11 @@ feature {} -- Destroying
 	free_handle is
 			-- release the external memory
 		do
-			free(handle)
+			free (handle)
 		end
-	
+
 feature {}
+
 	calloc (a_number, a_size: INTEGER): POINTER is
 		external "C use <stdlib.h>"
 		alias "se_calloc"
@@ -72,5 +76,6 @@ feature {}
 	free (a_ptr: POINTER) is
 		external "C use <stdlib.h>"
 		end
+
 end
 
