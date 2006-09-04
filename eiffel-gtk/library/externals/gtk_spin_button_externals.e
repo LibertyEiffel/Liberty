@@ -28,7 +28,7 @@ insert
 	-- Note: for a "better" portability these classes inherited non-conformigly 
 	-- could be inherited "normally" exporting everything to NONE
 	
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_spin_button_configure (a_spin_button, an_adjustment: POINTER; a_climb_rate: REAL; some_digits: INTEGER) is
 			-- Note some_digits shall be NATURAL

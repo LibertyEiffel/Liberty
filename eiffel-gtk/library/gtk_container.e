@@ -22,7 +22,7 @@ indexing
 							 
 deferred class GTK_CONTAINER
 
-inherit GTK_WIDGET
+inherit GTK_WIDGET 
 	-- Implemented Interfaces: GtkContainer implements
 	-- AtkImplementorIface.
 

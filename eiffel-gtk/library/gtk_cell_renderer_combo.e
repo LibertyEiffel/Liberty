@@ -38,16 +38,17 @@ indexing
 class GTK_CELL_RENDERER_COMBO
 inherit
 	GTK_CELL_RENDERER_TEXT redefine make end
+insert
 	GTK_CELL_RENDERER_COMBO_EXTERNALS
 creation make
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererCombo)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkCellRendererCombo. Adjust how text is
 			-- drawn using object properties. Object properties can be
@@ -58,8 +59,7 @@ feature {NONE} -- Creation
 			-- model, thus rendering a different string in each row of
 			-- the GtkTreeView.
 		do
-			handle := gtk_cell_renderer_combo_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_cell_renderer_combo_new)
 		end
 
 feature -- TODO: Property Details

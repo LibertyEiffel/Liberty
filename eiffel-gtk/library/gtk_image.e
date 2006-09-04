@@ -24,17 +24,17 @@ indexing
 
 class GTK_IMAGE
 
-inherit
-	GTK_MISC
-	GTK_IMAGE_EXTERNALS
+inherit GTK_MISC redefine make end
+insert GTK_IMAGE_EXTERNALS
 	
 creation
 	make, from_file, from_external_pointer, from_pixbuf, from_pixmap
 
-feature {NONE} -- Initialization
+feature {} -- Initialization
 
 	make is
 			-- Create an empty gtk_image widget.
+		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_image_new)
 		end
@@ -44,7 +44,8 @@ feature {NONE} -- Initialization
 			-- If the file isn't found or can't be loaded, the
 			-- resulting `gtk_image' will display a "broken image" icon.
 		require
-			valid_filename: filename/=Void
+			gtk_initialized: gtk.is_initialized
+			filename_not_void: filename/=Void
 		do
 			from_external_pointer (gtk_image_new_from_file (filename.to_external))
 		end
@@ -53,7 +54,8 @@ feature {NONE} -- Initialization
 	from_pixbuf (pic: GDK_PIXBUF) is
             -- Creates a new GtkImage displaying `pic'.
 		require
-			valid_pixbuf: pic /= Void
+			gtk_initialized: gtk.is_initialized
+			pixbuf_not_void: pic /= Void
 		do
 			from_external_pointer (gtk_image_new_from_pixbuf (pic.handle))
 		end
@@ -62,6 +64,7 @@ feature {NONE} -- Initialization
 			-- Creates a GtkImage widget displaying pixmap with a mask.
 			-- A GDK_PIXMAP is a server-side image buffer in the pixel
 			-- format of the current display.
+		require gtk_initialized: gtk.is_initialized
 		local
 			pixmap_ptr, mask_ptr: POINTER
 		do
@@ -133,5 +136,10 @@ feature -- Status report
 			-- Pixel size used.
 		do
 			Result := gtk_image_get_pixel_size (handle)
+		end
+feature
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkImage)"
 		end
 end

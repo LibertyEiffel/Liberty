@@ -28,7 +28,7 @@ inherit
 	GDK_GRAVITY
 	GDK_WINDOW_HINTS
 	GTK_WINDOW_POSITION
-feature {NONE} -- External calls
+feature {} -- External calls
 	
 	gtk_window_new (type: INTEGER): POINTER is
 			-- Creates a new GtkWindow, which is a toplevel window that

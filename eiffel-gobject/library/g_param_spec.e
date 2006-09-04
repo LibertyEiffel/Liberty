@@ -31,7 +31,7 @@ indexing
 class G_PARAM_SPEC
 inherit 
 	SHARED_C_STRUCT 
-		redefine from_external_pointer
+		redefine from_external_pointer, make
 		end
 insert 
 	G_PARAM_SPEC_EXTERNALS
@@ -48,7 +48,7 @@ feature {}
 			check False end
 		end
 				
-feature {WRAPPER} -- Creation
+feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			Precursor (a_ptr)
@@ -360,6 +360,13 @@ feature -- TODO: REAL_32 (float) parameter
 feature -- TODO: REAL_64 (double) parameter
 
 feature -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
+	is_enum: BOOLEAN is
+			-- Is this an enumeration (Enum in C) parameter?
+		do
+			Result := (g_is_param_spec_enum (handle).to_boolean)
+		end
+
+
 feature -- TODO: flags parameter. Note: this could need a wrapper for G_FLAG_CLASS and G_FLAG_VALUE
 
 feature -- TODO: STRING parameter

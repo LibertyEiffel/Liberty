@@ -25,7 +25,7 @@ deferred class GTK_CONTAINER_EXTERNALS
 
 inherit
 	GTK_RESIZE_MODE
-feature {NONE} -- External calls
+feature {} -- External calls
 
 -- #include
 

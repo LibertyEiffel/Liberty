@@ -32,9 +32,9 @@ creation make
 feature {} -- Creation
 	make is
 			-- Creates a new GtkSeparatorMenuItem.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_separator_menu_item_new 
-			store_eiffel_wrapper
+			from_external_pointer (gtk_separator_menu_item_new )
 		end
 
 feature -- size

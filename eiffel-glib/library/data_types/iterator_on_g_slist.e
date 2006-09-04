@@ -22,10 +22,7 @@ indexing
 class ITERATOR_ON_G_SLIST [ITEM->WRAPPER]
 inherit
 	ITERATOR [ITEM]
-	SHARED_C_STRUCT
-		rename make as allocate_struct
-		end
-	
+	WRAPPER_HANDLER
 insert
 	WRAPPER_FACTORY [ITEM]
 	G_SLIST_EXTERNALS
@@ -39,7 +36,7 @@ feature {} -- Creation
 			list := a_list.handle
 		end
 	
-feature {NONE} -- Implementation
+feature {} -- Implementation
 	list: POINTER
 	current_element: POINTER
 feature -- Iterator's features

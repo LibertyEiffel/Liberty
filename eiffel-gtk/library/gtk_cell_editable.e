@@ -31,7 +31,7 @@ inherit
 	-- don't have Eiffel's multiple inheritance. I assume it is. Paolo
 	-- 2006-01-21
 	
-	GTK_WIDGET -- DELETE: undefine make end
+	GTK_WIDGET  undefine make end
 
 			-- GtkCellEditable is implemented by GtkEntry, GtkComboBox,
 			-- GtkSpinButton and GtkComboBoxEntry.

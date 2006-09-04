@@ -22,7 +22,7 @@ class GTK_BUTTON_EXTERNALS
 inherit
 	GTK_RELIEF_STYLE
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_button_new: POINTER  is
 		external "C use <gtk/gtk.h>"

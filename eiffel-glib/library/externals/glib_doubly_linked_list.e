@@ -50,7 +50,7 @@ indexing
 
 class GLIB_DOUBLY_LINKED_LIST
 
-feature {NONE} -- Access to GList struct
+feature {} -- Access to GList struct
 	-- The GList struct is used for each element in a doubly-linked
 	-- list.
 	get_data (glist: POINTER): POINTER is
@@ -72,7 +72,7 @@ feature {NONE} -- Access to GList struct
 		external "C struct GList get prev use <glib.h>"
 		end
 
-feature {NONE} -- external calls
+feature {} -- external calls
 	g_list_append (list,data: POINTER): POINTER is
 			-- Adds a new element on to the end of the list.
 

@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_VBOX_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_vbox_new (homogeneous, spacing: INTEGER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end

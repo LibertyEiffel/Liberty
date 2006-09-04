@@ -23,7 +23,7 @@ indexing
 
 class GDK_DRAWABLE_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gdk_drawable_get_display (a_gdkdrawable: POINTER): POINTER is -- GdkDisplay*
 		external "C use <gdk/gdk.h>"

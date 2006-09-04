@@ -31,7 +31,7 @@ indexing
 
 class GTK_BUTTON
 
-inherit GTK_BIN -- redefine make end
+inherit GTK_BIN redefine make end
 insert
 	GTK_BUTTON_EXTERNALS 
 		-- Implemented Interfaces GtkButton implements
@@ -44,14 +44,13 @@ creation
 	from_stock,
 	from_external_pointer
 	
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make is
 			-- Creates a new GtkButton widget. To add a child widget to
 			-- the button, use `add' (of GTK_CONTAINER)
 		do
-			handle := gtk_button_new 
-			store_eiffel_wrapper
+			from_external_pointer (gtk_button_new)
 		end
 
 	with_label (a_label: STRING) is
@@ -59,8 +58,7 @@ feature {NONE} -- Creation
 			-- containing the given text (`a_label')
 		require valid_label: a_label/=Void
 		do
-			handle := gtk_button_new_with_label (a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer(gtk_button_new_with_label (a_label.to_external))
 		end
 	
 	with_mnemonic (a_label: STRING) is
@@ -72,8 +70,7 @@ feature {NONE} -- Creation
 			-- mnemonic. Pressing Alt and that key activates the button.
 		require valid_label: a_label/=Void
 		do
-			handle := gtk_button_new_with_mnemonic (a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer(gtk_button_new_with_mnemonic (a_label.to_external))
 		end
 
 	from_stock (a_stock: STRING) is
@@ -87,8 +84,7 @@ feature {NONE} -- Creation
 		require stock_not_void: a_stock/=Void
 			valid_stock: True -- TODO
 		do
-			handle :=  gtk_button_new_from_stock (a_stock.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_button_new_from_stock (a_stock.to_external))
 		end
 
 feature 
@@ -493,5 +489,9 @@ feature -- The "clicked" signal
 			create clicked_callback.make
 			clicked_callback.connect (Current, a_procedure)
 		end
-
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkButton)"
+		end
 end

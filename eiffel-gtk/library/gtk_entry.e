@@ -31,7 +31,7 @@ indexing
 
 class GTK_ENTRY
 inherit
-	GTK_WIDGET -- DELETE: undefine make end --rename make as make_gtk_widget end
+	GTK_WIDGET redefine make end 
 	GTK_EDITABLE 
 	GTK_CELL_EDITABLE
 		-- GtkEntry implements AtkImplementorIface, GtkCellEditable and GtkEditable.
@@ -39,12 +39,11 @@ inherit
 insert
 	GTK_ENTRY_EXTERNALS
 creation make, from_external_pointer
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkEntry widget.
 		do
-			handle:=gtk_entry_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_entry_new)
 		end
 
 feature
@@ -560,4 +559,9 @@ feature -- The "toggle-overwrite" signal
 
 -- entry : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkEntry)"
+		end
 end

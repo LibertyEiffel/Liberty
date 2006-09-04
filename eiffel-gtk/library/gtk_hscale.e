@@ -42,7 +42,7 @@ inherit
 creation
 	from_adjustment, with_range
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	from_adjustment (an_adjustment: GTK_ADJUSTMENT) is
 			-- Creates a new GtkHScale. `an_adjustment' is the

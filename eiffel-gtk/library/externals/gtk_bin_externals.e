@@ -22,7 +22,7 @@ indexing
 
 deferred class GTK_BIN_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_bin_get_child (a_bin: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"

@@ -1,3 +1,34 @@
+* resolve conflicts in:
+ eiffel-gtk/library/gtk_tree_view.e 
+eiffel-gtk/library/gtk_image_menu_item.e
+eiffel-gtk/library/gtk_calendar.e
+eiffel-gtk/library/gtk_text_buffer.e
+eiffel-gtk/library/gtk_hscale.e
+
+* in any effective class heir of G_OBJECT (i.e. GTK_FOO) there should
+   be an invariant is_gtk_foo to be sure that handle actually points
+   to a real GtkFoo C structure
+
+    * I think that un-defining make in SHARED_C_STRUCT is not right;
+   for at least a couple of reasons: 
+
+1. it makes each and every subclass that does not have a
+   parameter-less creation clause a deferred class. While it is true
+   that it is perfectly possible to write "feature make is do end" in
+   those heirs, it is a sign of unproper design. Many GTK+ widgets
+   (i.e. GTK_ACTION and its heirs) does not have parameterless
+   creation clauses.  
+
+2. AFAIK it is perfectly feasible that a C library require the end
+   user and then its Eiffel 3. wrapper to allocate a shared,
+   uninitialized structure and then pass to it.
+
+    * I removed all usage of {NONE}, replacing it with {} as suggested
+   by SE-SVN.
+
+
+* Implement a common way to handle GError. Currently wrapper classes
+   ignores it (i.e. GDK_PIXBUF)
 
 * make all deferred classes inheriting from ANY and undefining
    is_equal and copy.
@@ -21,3 +52,9 @@ classes with xxx and set_xxx features. Ideally those classes could
 also use some cached G_PARAM_SPECs objects that could be stored into
 GTK singleton as hidden features.
 
+* GTK_SCROLLBAR horizontal and vertical. used in GTK_SCROLLED_WINDOW
+
+* Many object properties has direct getter setter. Wrapping this provide a faster way to access those properties. It should be clearly stated
+
+* Uncomplete wrapping: 
+  GTK_ACTION

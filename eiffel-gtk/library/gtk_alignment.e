@@ -23,19 +23,20 @@ indexing
 class GTK_ALIGNMENT
 inherit
 	GTK_BIN rename make as make_bin end
-	GTK_ALIGNMENT_EXTERNALS
 		-- TODO: GtkAlignment implements AtkImplementorIface.
-	--SHARED_C_STRUCT
+
+insert
+	GTK_ALIGNMENT_EXTERNALS
 	
 creation make
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAlignment)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (xalign, yalign, xscale, yscale: REAL) is
 			-- Creates a new GtkAlignment.  `xalign' : the horizontal
 			-- alignment of the child widget, from 0 (left) to 1 (right).
@@ -49,8 +50,7 @@ feature {NONE} -- Creation
 			-- that the child widget expands vertically to fill up unused
 			-- space, from 0 to 1. The values are similar to xscale.
 		do
-			handle := gtk_alignment_new (xalign,yalign,xscale,yscale)
-			store_eiffel_wrapper
+			from_external_pointer(gtk_alignment_new (xalign,yalign,xscale,yscale))
 		end
 feature
 	set (xalign, yalign, xscale, yscale: REAL) is

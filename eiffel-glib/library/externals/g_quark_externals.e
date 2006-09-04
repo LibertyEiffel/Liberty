@@ -6,7 +6,7 @@ indexing
 	revision "$REvision:$"
 
 deferred class G_QUARK_EXTERNALS
-feature {NONE} -- external calls
+feature {} -- external calls
 
 	g_quark_from_string (string: POINTER): INTEGER_32 is
 		external "C use <glib.h>"

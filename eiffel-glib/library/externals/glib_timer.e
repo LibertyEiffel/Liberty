@@ -6,7 +6,7 @@ indexing
 
 class GLIB_TIMER
 	
-feature {NONE} -- External calls
+feature {} -- External calls
 	g_timer_new: POINTER is
 			-- Creates a new timer, and starts timing
 			-- (i.e. g_timer_start() is implicitly called for you).

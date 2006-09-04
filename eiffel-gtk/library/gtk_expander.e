@@ -74,7 +74,7 @@ insert G_OBJECT_RETRIEVER [GTK_WIDGET]
 
 creation make, make_with_mnemonic
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make (a_label: STRING) is
 			-- Creates a new expander using 'a_label' as the text of the
@@ -84,8 +84,7 @@ feature {NONE} -- Creation
 			-- API? Paolo 2006-04-27
 		require valid_label: a_label /= Void
 		do
-			handle:=gtk_expander_new(a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer(gtk_expander_new(a_label.to_external))
 		end
 
 	make_with_mnemonic (a_label: STRING) is
@@ -102,8 +101,7 @@ feature {NONE} -- Creation
 			-- new_with_mnemonic as in GTK API? Paolo 2006-04-27
 		require valid_label: a_label /= Void
 		do
-			handle:=gtk_expander_new_with_mnemonic(a_label.to_external);
-			store_eiffel_wrapper
+			from_external_pointer(gtk_expander_new_with_mnemonic(a_label.to_external))
 		end
 
 feature 
@@ -320,13 +318,13 @@ feature  --   The "activate" signal
 			connect (Current, activate_signal_name, $on_activate)
 		end
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkExpander)"
 		end
 
-feature {NONE} -- External calls 
+feature {} -- External calls 
 	gtk_expander_new (a_label: POINTER): POINTER is -- GtkWidget*
 		external "C use <gtk/gtk.h>"
 		end

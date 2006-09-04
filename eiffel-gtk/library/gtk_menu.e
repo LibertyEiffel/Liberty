@@ -80,9 +80,11 @@ indexing
 	
 class GTK_MENU
 inherit
-	GTK_MENU_SHELL redefine struct_size end
-	G_OBJECT_RETRIEVER [GTK_WIDGET]
+	GTK_MENU_SHELL redefine make, struct_size end
 		-- GtkMenu implements AtkImplementorIface interface.
+
+insert
+	G_OBJECT_RETRIEVER [GTK_WIDGET]
 
 creation make
 
@@ -95,9 +97,9 @@ feature -- size
 feature {} -- Creation
 	make is 
 			-- Creates a new GtkMenu.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_menu_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_menu_new)
 		end
 
 feature 

@@ -27,10 +27,12 @@ inherit
 	SHARED_C_STRUCT
 		redefine
 			dispose,
+			make,
 			from_external_pointer -- To solve sr #1143 
 		end
 
 insert
+	GTK
 	GTK_TREE_MODEL_EXTERNALS
 		redefine copy end
 
@@ -38,16 +40,18 @@ creation
 	make, make_first,
 	from_external_pointer, from_string, first, from_path
 
--- feature  -- size
--- 	size: INTEGER is
--- 		external "C inline use <gtk/gtk.h>"
--- 		alias "sizeof(GtkTreePath)"
--- 		end
+feature  -- struct size
+ 	struct_size: INTEGER is
+ 		external "C inline use <gtk/gtk.h>"
+ 		alias "sizeof(GtkTreePath)"
+ 		end
 
 feature -- Redefined features
 
 	from_external_pointer (a_ptr: POINTER) is
-		require pointer_not_null: a_ptr.is_not_null
+		require
+			gtk_initialized: gtk.is_initialized
+			pointer_not_null: a_ptr.is_not_null
 		do
 			handle := a_ptr
 			-- TODO: check if making the path shared solves the bug
@@ -57,12 +61,13 @@ feature -- Redefined features
 			is_shared := True
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make is
 			-- Creates a new GtkTreePath. This structure refers to a row.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_tree_path_new
+			from_external_pointer (gtk_tree_path_new)
 		end
 
 	from_string (a_path: STRING) is
@@ -73,9 +78,11 @@ feature {NONE} -- Creation
 			-- root node, the 5th child of that 11th child, and the 1st
 			-- child of that 5th child. If an invalid path string is
 			-- passed in, this object will "is_null" (i.e. is_null = True)
-		require path_not_void: a_path /= Void
+		require
+			gtk_initialized: gtk.is_initialized
+			path_not_void: a_path /= Void
 		do
-			handle := gtk_tree_path_new_from_string (a_path.to_external)
+			from_external_pointer (gtk_tree_path_new_from_string (a_path.to_external))
 		end
 
 	-- unwrappable varargs function GtkTreePath*
@@ -87,14 +94,16 @@ feature {NONE} -- Creation
 	make_first, first is
 			-- Creates a new GtkTreePath. The string representation of
 			-- this path is "0"
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_tree_path_new_first
+			from_external_pointer (gtk_tree_path_new_first)
 		end
 
 	from_path (a_path: like Current) is
 			-- Creates a new GtkTreePath as a copy of path.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_tree_path_copy (a_path.handle)
+			from_external_pointer (gtk_tree_path_copy (a_path.handle))
 		end
 
 feature
@@ -102,7 +111,7 @@ feature
 	copy (a_path: like Current) is
 			-- Makes Current a copy of `a_path'.
 		do
-			handle := gtk_tree_path_copy (a_path.handle)
+			from_external_pointer (gtk_tree_path_copy (a_path.handle))
 		end
 
 	to_string: STRING is
@@ -171,7 +180,7 @@ feature -- Disposing
 			-- Frees path. 
 		do
 			if not is_shared and handle.is_not_null then gtk_tree_path_free (handle) end
-			handle := default_pointer
+			from_external_pointer (default_pointer)
 		end
 
 feature -- Comparing

@@ -6,7 +6,7 @@ inherit
 	G_SIGNAL_FLAGS
 	G_SIGNAL_MATCH_TYPE
 	G_CONNECT_FLAGS
-feature {NONE} -- External calls
+feature {} -- External calls
 -- #include <glib-object.h>
 
 

@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_ITEM_EXTERNALS
 	
-feature {NONE} -- externals 
+feature {} -- externals 
 	gtk_item_select (an_item: POINTER) is external "C use <gtk/gtk.h>" end
 	gtk_item_deselect (an_item: POINTER) is external "C use <gtk/gtk.h>" end
 	gtk_item_toggle (an_item: POINTER) is external "C use <gtk/gtk.h>" end

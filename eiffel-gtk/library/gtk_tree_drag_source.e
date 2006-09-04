@@ -131,7 +131,7 @@ feature
 	-- path : 	row in tree_model
 	-- Returns : 	TRUE if selection_data had target type GTK_TREE_MODEL_ROW and is
 	-- 		otherwise valid
-feature {NONE} -- External calls
+feature {} -- External calls
 	
 	gtk_tree_drag_source_drag_data_delete (a_drag_source: POINTER; -- GtkTreeDragSource*
 														a_path: POINTER -- GtkTreePath*
@@ -166,7 +166,7 @@ feature {NONE} -- External calls
 -- 		external "C use <gtk/gtk.h>"
 -- 		end
 
-feature {NONE}	-- TODO: wrap - if necessary - GtkTreeDragSourceIface
+feature {}	-- TODO: wrap - if necessary - GtkTreeDragSourceIface
 	
 	-- typedef struct _GtkTreeDragSource GtkTreeDragSource;
 

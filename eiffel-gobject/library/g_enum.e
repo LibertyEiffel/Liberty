@@ -75,7 +75,7 @@ feature
 			-- the GEnumValue with nickname `a_nick', or Void if the
 			-- enumeration doesn' t have a member with that nickname.
 		local ptr: POINTER
-		do
+do
 			ptr := g_enum_get_value_by_nick (handle, a_name.to_external)
 			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
 		end

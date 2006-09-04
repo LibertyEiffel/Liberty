@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_COLOR_SELECTION_EXTERNALS
 
-feature {NONE} -- Externals
+feature {} -- Externals
 	
 	gtk_color_selection_get_current_color (a_handle, a_color: POINTER) is
 		external "C use <gtk/gtk.h>"

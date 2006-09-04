@@ -31,18 +31,19 @@ indexing
 
 class GTK_CELL_RENDERER_TOGGLE
 inherit
-	GTK_CELL_RENDERER
+	GTK_CELL_RENDERER redefine make end
+insert
 	GTK_CELL_RENDERER_TOGGLE_EXTERNALS
 	
 creation make
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRenderer)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkCellRendererToggle. Adjust rendering
 			-- parameters using object properties. Object properties can
@@ -53,8 +54,7 @@ feature {NONE} -- Creation
 			-- model, thus causing the check button to reflect the state
 			-- of the model.
 		do
-			handle := gtk_cell_renderer_toggle_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_cell_renderer_toggle_new)
 		end
 
 feature 

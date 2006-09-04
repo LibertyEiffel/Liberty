@@ -44,7 +44,7 @@ class GTK_REQUISITION
 inherit C_STRUCT
 creation make,from_external_pointer
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRequisition)"
@@ -73,7 +73,7 @@ feature
 			set_height_external (an_height)
 		end
 
-feature {NONE} -- Structure access
+feature {} -- Structure access
 	get_width_external (ptr: POINTER): INTEGER is
 		require valid_ptr: ptr.is_not_null
 		external "C struct GtkRequisition get width use <gtk/gtk.h>"

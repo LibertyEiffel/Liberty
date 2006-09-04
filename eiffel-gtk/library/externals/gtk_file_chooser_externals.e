@@ -26,7 +26,7 @@ inherit
 	GTK_FILE_CHOOSER_CONFIRMATION
 	GTK_FILE_CHOOSER_ERROR
 	GTK_FILE_CHOOSER_ACTION
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	-- GQuark      gtk_file_chooser_error_quark    (void) is
 	-- external "C use <gtk/gtk.h>"

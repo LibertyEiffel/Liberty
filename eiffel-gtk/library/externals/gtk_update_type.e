@@ -22,6 +22,23 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
+			-- A GtkWindow can be one of these types. Most things you'd
+			-- consider a "window" should have type
+			-- `gtk_window_toplevel'; windows with this type are managed
+			-- by the window manager and have a frame by default (call
+			-- GTK_WINDOW.set_decorated to toggle the frame). Windows
+			-- with type 'gtk_window_popup' are ignored by the window
+			-- manager; window manager keybindings won't work on them,
+			-- the window manager won't decorate the window with a frame,
+			-- many GTK+ features that rely on the window manager will
+			-- not work (e.g. resize grips and
+			-- maximization/minimization). `gtk_window_popup' is used to
+			-- implement widgets such as GtkMenu or tooltips that you
+			-- normally don't think of as windows per se. Nearly all
+			-- windows should be `gtk_window_toplevel'. In particular, do
+			-- not use `gtk_window_popup' just to turn off the window
+			-- borders; use GTK_WINDOW.set_decorated for that.
+
 deferred class GTK_UPDATE_TYPE
 
 feature  -- enum

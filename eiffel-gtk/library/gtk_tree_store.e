@@ -33,15 +33,15 @@ insert GTK_TREE_STORE_EXTERNALS
 
 creation make
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make (some_columns: ARRAY[INTEGER]) is
 			-- Creates a new tree store. `some_columns' is an array of integers; each
 			-- integer is the G_TYPE of an actual column. Note that only types
 			-- derived from standard GObject fundamental types are supported.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_tree_store_newv (some_columns.count, some_columns.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_tree_store_newv (some_columns.count, some_columns.to_external))
 		end
 
 feature -- Easy to use setters
@@ -264,10 +264,10 @@ feature -- Generic setter
 			-- Appends a new row to tree store. If `a_parent' is non-Void,
 			-- then it will append the new row after the last child of
 			-- `a_parent', otherwise it will append a row to the top level.
-			-- iter will be changed to point to this new row. The row will
+			-- `an_iterator' will be changed to point to this new row. The row will
 			-- be empty after this function is called. To fill in values,
-			-- you need to call some set_* method
-		require valid_iterator: an_iterator /= Void
+			-- you need to call some `set_*' feature
+		require iterator_not_void: an_iterator /= Void
 		local
 			parent_pointer: POINTER
 		do
@@ -379,6 +379,11 @@ feature -- Generic setter
 			valid_iterator: an_iterator/=Void
 		do
 			gtk_tree_store_move_after (handle, an_iterator.handle, default_pointer)
+		end
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTreeStore)"
 		end
 
 -- TODO:

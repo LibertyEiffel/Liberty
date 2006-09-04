@@ -23,19 +23,20 @@ indexing
 
 class GTK_TREE_ROW_REFERENCE
 inherit
-
-	GTK_TREE_MODEL_EXTERNALS
 	SHARED_C_STRUCT rename make as allocate_gtktreerowreference redefine dispose end
+insert 
+	GTK
+	GTK_TREE_MODEL_EXTERNALS
 	
 creation make
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeRowReference)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH) is
 			-- Creates a row reference based on `a_path'. This reference
 			-- will keep pointing to the node pointed to by `a_path', so
@@ -43,6 +44,7 @@ feature {NONE} -- Creation
 			-- `a_model', and updates its path appropriately. If path
 			-- isn't a valid path in model, then exists will be False.
 		require
+			gtk_initialized: gtk.is_initialized
 			valid_model: a_model /= Void
 			valid_path: a_path /= Void
 		do
@@ -54,7 +56,7 @@ feature {NONE} -- Creation
 			-- Create Current fron `another' GtkTreeRowReference.
 		require another/=Void
 		do
-			handle := gtk_tree_row_reference_copy (another.handle)
+			from_external_pointer (gtk_tree_row_reference_copy (another.handle))
 		end
 
 	-- Currently not wrapped: GtkTreeRowReference*
@@ -120,7 +122,7 @@ feature -- Disposing
 			-- Free's reference. reference may be NULL.
 			gtk_tree_row_reference_free (handle)
 		end
-feature {NONE} -- Unimplemented
+feature {} -- Unimplemented
 	
 -- Unimplemented parts
 

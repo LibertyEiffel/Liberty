@@ -6,8 +6,10 @@ inherit
 			on_backspace,
 			on_copy_clipboard,
 			on_cut_clipboard,
-			on_paste_clipboard
+			on_paste_clipboard,
+			on_changed
 		end
+	
 creation with_label
 feature with_label (a_label: STRING) is
 		require a_label/=Void

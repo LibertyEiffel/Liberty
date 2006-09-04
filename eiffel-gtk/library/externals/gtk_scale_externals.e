@@ -25,7 +25,7 @@ deferred class GTK_SCALE_EXTERNALS
 
 insert GTK_POSITION_TYPE
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_scale_set_digits (a_scale: POINTER; some_digits: INTEGER) is
 		external "C use <gtk/gtk.h>"

@@ -50,7 +50,7 @@ indexing
 
 class G_LIST_EXTERNALS
 
-feature {NONE} -- Access to GList struct
+feature {} -- Access to GList struct
 	-- The GList struct is used for each element in a doubly-linked
 	-- list.
 	g_list_get_data (glist: POINTER): POINTER is
@@ -82,7 +82,7 @@ feature {NONE} -- Access to GList struct
 		external "C struct GSList set prev use <glib.h>"
 		end
 
-feature {NONE} -- external calls
+feature {} -- external calls
 	g_list_append (list,data: POINTER): POINTER is
 			-- Adds a new element on to the end of the list.
 
@@ -98,7 +98,7 @@ feature {NONE} -- external calls
 			-- 	list :    a pointer to a GList.
 			-- 	data :    the data for the new element.
 			-- 	Returns : the new start of the GList.
-		external "C struct GList get prev use <glib.h>"
+		external "C use <glib.h>"
 		end
 
 
@@ -114,7 +114,7 @@ feature {NONE} -- external calls
 			-- 	list :    a pointer to a GList.
 			-- 	data :    the data for the new element.
 			-- 	Returns : the new start of the GList.
-		external "C struct GList get prev use <glib.h>"
+		external "C use <glib.h>"
 		end
 
 

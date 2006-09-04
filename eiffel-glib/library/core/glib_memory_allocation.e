@@ -15,7 +15,7 @@ deferred class GLIB_MEMORY_ALLOCATION
 
 inherit ANY undefine is_equal, copy end
 
-feature {NONE} -- external features
+feature {} -- external features
 
 	-- Prev 	Up 	Home 	GLib Reference Manual 	Next
 	-- Top  |  Description

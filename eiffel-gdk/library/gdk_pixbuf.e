@@ -42,10 +42,6 @@ creation
 feature -- Creation
 
 	from_external_pointer (a_ptr: POINTER) is
-		require else
-			called_on_creation: is_null
-			--pointer_not_null: a_ptr.is_not_null
-			not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
 		do
 			if a_ptr.is_not_null then
 				Precursor (a_ptr)
@@ -55,11 +51,11 @@ feature -- Creation
 			a_ptr.is_not_null = is_valid
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	from_pixbuf (other: like Current) is
 		require
-			other.handle.is_not_null
+			other_not_void: other /= Void
 		do
 			from_external_pointer (gdk_pixbuf_copy (other.handle))
 		end
@@ -365,8 +361,7 @@ feature -- Error reporting
 
 	is_valid: BOOLEAN
 
-feature {WRAPPER} -- size
-
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkPixbuf)"

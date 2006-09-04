@@ -42,7 +42,7 @@ insert
 
 creation make, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make (a_drawable: GDK_DRAWABLE) is
 			-- Create a new graphics context with default values.

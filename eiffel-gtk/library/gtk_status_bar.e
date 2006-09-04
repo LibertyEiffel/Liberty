@@ -65,42 +65,34 @@ indexing
 
 class GTK_STATUS_BAR
 inherit
-	-- Could also be: STACK[STRING] redefine make, with_capacity, push,
-	-- pop end  since it provide stack like behaviour
-	GTK_HBOX rename make as make_hbox end 
-		-- Object Hierarchy
-
-		--   GObject
-		--    +----GInitiallyUnowned
-		--          +----GtkObject
-		--                +----GtkWidget
-		--                      +----GtkContainer
-		--                            +----GtkBox
-		--                                  +----GtkHBox
-		--                                        +----GtkStatusbar
-
+	-- TODO: Since it provides stack-like behaviour it could also be: STACK[STRING] redefine make, with_capacity, push,
+	-- pop end 
+	GTK_HBOX
+		rename make as make_hbox
+		redefine struct_size
+		end 
 		-- Implemented Interfaces: GtkStatusbar implements
 		-- AtkImplementorIface.
 	
 creation make
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkStatusBar)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkStatusbar ready for messages.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_statusbar_new
+			from_external_pointer (gtk_statusbar_new)
 			-- create context_ids.make
 			create message_ids.make
 			context_id := gtk_statusbar_get_context_id (handle, eiffel_context_id.to_external)
-			store_eiffel_wrapper
 		end
 
-feature {NONE} -- Context ids
+feature {} -- Context ids
 	context_id: INTEGER
 	eiffel_context_id: STRING  is "Eiffel GTK_STATUS_BAR"
 	-- 	context_ids: STACK[INTEGER]
@@ -239,7 +231,7 @@ feature -- Signals
 -- GtkDialog 	
 
 -- another way of reporting information to the user.
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_statusbar_new: POINTER is
 		external "C use <gtk/gtk.h>"

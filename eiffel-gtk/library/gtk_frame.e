@@ -24,24 +24,24 @@ indexing
 class GTK_FRAME
 inherit
 	GTK_BIN redefine make end
+insert
 	GTK_FRAME_EXTERNALS
-	SHARED_C_STRUCT
 	
 creation make
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFrame)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (a_label: STRING) is
 			-- Creates a new GtkFrame, with optional `a_label' (if Void,
 			-- the label is omitted).
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_frame_new (a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_frame_new (a_label.to_external))
 		end
 
 feature -- label

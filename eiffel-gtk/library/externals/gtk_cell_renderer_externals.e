@@ -27,7 +27,7 @@ inherit
 	GTK_CELL_RENDERER_STATE
 	GTK_CELL_RENDERER_MODE
 
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_cell_renderer_get_size (a_gtkcellrenderer, a_gtkwidget,
 										 a_gdkrectangle, x_offset_ptr, y_offset_ptr,
 										 width_ptr, height_ptr: POINTER) is

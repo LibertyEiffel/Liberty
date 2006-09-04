@@ -27,9 +27,12 @@ indexing
 class GTK_ADJUSTMENT
 
 inherit
-	GTK_OBJECT rename make as make_gtk_object end
+	GTK_OBJECT rename make as uncallable end
+	
+insert
 	GTK_ADJUSTMENT_EXTERNALS
-
+	EXCEPTIONS export {} all end
+	
 creation make, from_external_pointer
 
 feature
@@ -38,7 +41,7 @@ feature
 		alias "sizeof(GtkAdjustment)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make (a_value, a_lower, an_upper, a_step_increment, a_page_increment, a_page_size: REAL) is
 			-- Creates a new GtkAdjustment.
@@ -49,11 +52,21 @@ feature {NONE} -- Creation
 			-- a_page_increment : 	the page increment.
 			-- a_page_size : 	the page size.
 		do
-			handle := gtk_adjustment_new (a_value, a_lower, an_upper,
-			                              a_step_increment, a_page_increment, a_page_size)
-			store_eiffel_wrapper
+			from_external_pointer(gtk_adjustment_new
+										 (a_value, a_lower, an_upper,
+										  a_step_increment, a_page_increment, a_page_size))
 		end
 
+feature {} -- Uncallable code
+	uncallable is
+		do
+			debug print (once "Shame on the eiffel-libraries developer responsible for this bug!%
+									%The program is trying to call GTK_OBJECT's make feature to create a GTK_ADJUSTMENT.%
+									%This is plainly wrong. Issuing an exception.")
+			end
+			raise ("This point should never ever be reached.")
+		end
+								 
 feature
 
 	value: REAL is

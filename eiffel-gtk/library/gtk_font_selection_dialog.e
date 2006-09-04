@@ -21,34 +21,43 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
+			-- Description: The GtkFontSelectionDialog widget is a dialog box for selecting a 
+			-- font.
+	
+			-- To set the font which is initially selected, use 
+			-- gtk_font_selection_dialog_set_font_name().
+	
+			-- To get the selected font use
+			-- gtk_font_selection_dialog_get_font_name().
+
+			-- To change the text which is shown in the preview area, use
+			-- gtk_font_selection_dialog_set_preview_text().
+
 class GTK_FONT_SELECTION_DIALOG
 
 inherit GTK_DIALOG
+	-- GtkFontSelectionDialog implements AtkImplementorIface.
 
 insert
 	GTK_FONT_SELECTION_DIALOG_EXTERNALS
 
--- creation make, from_external_pointer
+creation make, from_external_pointer
 
--- feature {NONE} -- Creation
+-- feature {} -- Creation
 
-feature -- size
 
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkFontSelectionDialog)"
+creation make
+
+feature -- Creation
+	make (a_title: STRING) is
+			-- Creates a new GtkFontSelectionDialog.
+		require
+			gtk_initialized: gtk.is_initialized
+			title_not_void: a_title /= Void
+		do
+			from_external_pointer (gtk_font_selection_dialog_new (a_title.to_external))
 		end
-
--- Synopsis
--- 
--- #include <gtk/gtk.h>
--- 
--- 
---             GtkFontSelectionDialog;
--- GtkWidget*  gtk_font_selection_dialog_new   (const gchar *title);
--- GdkFont*    gtk_font_selection_dialog_get_font
---                                             (GtkFontSelectionDialog *fsd);
-
+	
 feature
 
 	font_name: STRING is
@@ -82,59 +91,59 @@ feature
 			Result := gtk_font_selection_dialog_set_font_name (handle, fontname.to_external).to_boolean
 		end
 
+	preview_text: STRING is
+			-- the text displayed in the preview area.
+		do
+			create Result.from_external_copy(gtk_font_selection_dialog_get_preview_text (handle))
+		end
+	
+	ok_button: GTK_WIDGET is
+			--	The OK button of the dialog
+		local retriever: G_RETRIEVER [GTK_WIDGET]
+		do
+			Result := retriever.eiffel_wrapper_from_gobject_pointer (get_ok_button(handle))
+		end
+	
+	apply_button: GTK_WIDGET is
+			-- The Apply button of the dialog. This button is hidden by
+			-- default but you can show/hide it
+		local retriever: G_RETRIEVER [GTK_WIDGET]
+		do
+			Result := retriever.eiffel_wrapper_from_gobject_pointer (get_apply_button(handle))
+		end
+	
+	cancel_button: GTK_WIDGET is
+			-- The Cancel button of the dialog
+		local retriever: G_RETRIEVER [GTK_WIDGET]
+		do
+			Result := retriever.eiffel_wrapper_from_gobject_pointer (get_cancel_button(handle))
+		end
+	
+feature {} -- GtkFontSelectionDialog struct
 
--- gtk_font_selection_dialog_get_preview_text ()
--- 
--- const gchar* gtk_font_selection_dialog_get_preview_text
---                                             (GtkFontSelectionDialog *fsd);
--- 
--- Gets the text displayed in the preview area.
--- fsd : 	a GtkFontSelectionDialog.
--- Returns : 	the text displayed in the preview area. This string is owned by the widget and should not be modified or freed.
-		
-
--- Implemented Interfaces
--- 
--- GtkFontSelectionDialog implements AtkImplementorIface.
--- Description
--- 
--- The GtkFontSelectionDialog widget is a dialog box for selecting a font.
--- 
--- To set the font which is initially selected, use gtk_font_selection_dialog_set_font_name().
--- 
--- To get the selected font use gtk_font_selection_dialog_get_font_name().
--- 
--- To change the text which is shown in the preview area, use gtk_font_selection_dialog_set_preview_text().
--- Details
--- GtkFontSelectionDialog
--- 
 -- typedef struct {
 --   GtkWidget *ok_button;
 --   GtkWidget *apply_button;
 --   GtkWidget *cancel_button;
 -- } GtkFontSelectionDialog;
--- 
--- GtkWidget *ok_button; 	The OK button of the dialog
--- GtkWidget *apply_button; 	The Apply button of the dialog. This button is hidden by default but you can show/hide it
--- GtkWidget *cancel_button; 	The Cancel button of the dialog
--- gtk_font_selection_dialog_new ()
--- 
--- GtkWidget*  gtk_font_selection_dialog_new   (const gchar *title);
--- 
--- Creates a new GtkFontSelectionDialog.
--- title : 	the title of the dialog box.
--- Returns : 	a new GtkFontSelectionDialog.
--- gtk_font_selection_dialog_get_font ()
--- 
--- GdkFont*    gtk_font_selection_dialog_get_font
---                                             (GtkFontSelectionDialog *fsd);
--- 
--- Warning
--- 
--- gtk_font_selection_dialog_get_font is deprecated and should not be used in newly-written code.
--- 
--- Gets the currently-selected font.
--- fsd : 	a GtkFontSelectionDialog.
--- Returns : 	the currently-selected font, or NULL if no font is selected.
+
+	get_ok_button (a_struct: POINTER): POINTER is
+      external "C struct GtkFontSelectionDialog get ok_button use <gtk/gtk.h>"
+      end
+	
+	get_apply_button (a_struct: POINTER): POINTER is
+      external "C struct GtkFontSelectionDialog get apply_button use <gtk/gtk.h>"
+      end
+	
+	get_cancel_button (a_struct: POINTER): POINTER is
+      external "C struct GtkFontSelectionDialog get cancel_button use <gtk/gtk.h>"
+      end
+
+feature -- size
+
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkFontSelectionDialog)"
+		end
 
 end -- class GTK_FONT_SELECTION_DIALOG

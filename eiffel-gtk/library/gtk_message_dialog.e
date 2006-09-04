@@ -61,10 +61,13 @@ inherit
 		rename
 			new as new_dialog -- redefine new end
 			make as make_dialog -- redefine make end
+		redefine struct_size
 		end
-	GTK_MESSAGE_DIALOG_EXTERNALS
 		-- Implemented Interfaces: GtkMessageDialog implements
 		-- AtkImplementorIface.
+
+insert
+	GTK_MESSAGE_DIALOG_EXTERNALS
 
 creation new, make, with_markup, from_external_pointer
 
@@ -74,7 +77,7 @@ feature -- size
 		alias "sizeof(GtkMessageDialog)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
 			-- Creates a new message dialog, which is a simple dialog
 			-- with an icon indicating the dialog `a_type' (error,
@@ -85,16 +88,16 @@ feature {NONE} -- Creation
 		
 			-- `a_parent': transient parent, or Void for none
 		require
+			gtk_initialized: gtk.is_initialized
 			valid_dialog_flags: are_valid_gtk_dialog_flags (some_flags)
 			valid_message_type: is_valid_gtk_message_type (a_type)
 			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
-			if a_parent=Void then
-				handle:=gtk_message_dialog_new(default_pointer,some_flags,a_type,some_buttons,a_message.to_external)
-			else
-				handle:=gtk_message_dialog_new(a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external)
+			if a_parent=Void then from_external_pointer (gtk_message_dialog_new
+																		(default_pointer,some_flags,a_type,some_buttons,a_message.to_external))
+			else from_external_pointer (gtk_message_dialog_new
+												 (a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external))
 			end
-			store_eiffel_wrapper
 		end
 	
 	new (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
@@ -129,15 +132,19 @@ feature {NONE} -- Creation
 			--  (GTK_MESSAGE_DIALOG (dialog), markup);
 		
 			-- `a_parent': transient parent, or Void for none
+		require
+			gtk_initialized: gtk.is_initialized
+			valid_dialog_flags: are_valid_gtk_dialog_flags (some_flags)
+			valid_message_type: is_valid_gtk_message_type (a_type)
+			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
-			if a_parent=Void then
-				handle := (gtk_message_dialog_new_with_markup
-							  (default_pointer,some_flags,a_type,some_buttons,a_message.to_external))
-			else
-				handle := (gtk_message_dialog_new_with_markup
-							  (a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external))
+			if a_parent=Void then from_external_pointer
+				(gtk_message_dialog_new_with_markup
+				 (default_pointer,some_flags,a_type,some_buttons,a_message.to_external))
+			else from_external_pointer
+				(gtk_message_dialog_new_with_markup
+				 (a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external))
 			end
-			store_eiffel_wrapper
 		end
 	
 feature -- Dialog's message

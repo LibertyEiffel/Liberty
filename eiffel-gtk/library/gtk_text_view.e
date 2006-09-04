@@ -29,7 +29,7 @@ indexing
 
 class GTK_TEXT_VIEW
 
-inherit GTK_CONTAINER rename window as widget_window end
+inherit GTK_CONTAINER rename window as widget_window  end
 
 	-- TODO: GtkTextView implements AtkImplementorIface.
 
@@ -37,11 +37,12 @@ insert
 	GTK_TEXT_VIEW_EXTERNALS
 	G_OBJECT_RETRIEVER [GTK_TEXT_BUFFER]
 	GTK_TEXT_WINDOW_TYPE
-
+	GTK_WRAP_MODE
+	
 creation
 	make, make_with_buffer, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make is
 			-- Creates a new GTK_TEXT_VIEW. If you don't call
@@ -49,9 +50,10 @@ feature {NONE} -- Creation
 			-- default buffer will be created for you. Get
 			-- the buffer with `get_buffer'. If you want to
 			-- specify your own buffer, consider `make_with_buffer'.
+		require
+			gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_text_view_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_text_view_new)
 		end
 
 	make_with_buffer (a_buffer: GTK_TEXT_BUFFER) is
@@ -61,9 +63,10 @@ feature {NONE} -- Creation
 			-- case this function is equivalent to `make'.
 			-- The text view adds its own reference count to the buffer;
 			-- it does not take over an existing reference.
+		require
+			gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_text_view_new_with_buffer (a_buffer.handle)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_text_view_new_with_buffer (a_buffer.handle))
 		end
 
 feature -- Queries
@@ -114,13 +117,18 @@ feature -- Access
 feature -- Properties
 
 --  "accepts-tab"          gboolean              : Read / Write
---  "buffer"               GtkTextBuffer         : Read / Write
---  "cursor-visible"       gboolean              : Read / Write
---  "editable"             gboolean              : Read / Write
+	--  "buffer"               GtkTextBuffer         : Read / Write
+	
+	-- NOTE: already wrapped "cursor-visible"
+	
+	-- NOTE: already wrapped "editable
+	
 --  "indent"               gint                  : Read / Write
 --  "justification"        GtkJustification      : Read / Write
---  "left-margin"          gint                  : Read / Write
---  "overwrite"            gboolean              : Read / Write
+	--  "left-margin"          gint                  : Read / Write
+	
+	--  NOTE: already wrapped "overwrite"
+	
 --  "pixels-above-lines"   gint                  : Read / Write
 --  "pixels-below-lines"   gint                  : Read / Write
 --  "pixels-inside-wrap"   gint                  : Read / Write
@@ -650,106 +658,92 @@ feature
 
 -- 	-----------------------------------------------------------------------
 
---   gtk_text_view_set_wrap_mode ()
+feature -- Wrap mode
+	set_wrap_mode (a_mode: INTEGER) is
+			-- 	Sets the line wrapping for the view.
+		require valid_mode: is_valid_wrap_mode (a_mode)
+		do
+			gtk_text_view_set_wrap_mode     (handle, a_mode)
+		end
 
---  void        gtk_text_view_set_wrap_mode     (GtkTextView *text_view,
--- 															 GtkWrapMode wrap_mode);
+	wrap_mode: INTEGER is
+			-- the line wrapping for the view.
+		do
+			Result := gtk_text_view_get_wrap_mode (handle)
+		ensure valid_mode: is_valid_wrap_mode (Result)
+		end
 
--- 	Sets the line wrapping for the view.
+feature -- Editabilty
+	set_editable is
+			-- Makes Current GtkTextView editable. You can override this
+			-- default setting with tags in the buffer, using the
+			-- "editable" attribute of tags.
+		do
+			gtk_text_view_set_editable (handle, 1)
+		ensure editable: is_editable
+		end
 
--- 	text_view : a GtkTextView
--- 	wrap_mode : a GtkWrapMode
+	set_uneditable is
+			-- Makes Current GtkTextView not editable. You can override this
+			-- default setting with tags in the buffer, using the
+			-- "editable" attribute of tags.
+		do
+			gtk_text_view_set_editable (handle, 0)
+		ensure uneditable: not is_editable
+		end
 
--- 	-----------------------------------------------------------------------
+	is_editable: BOOLEAN is
+			-- Is Current GTK_TEXT_VIEW editable? Tags in the buffer may
+			-- override this setting for some ranges of text.
+		do
+			Result := (gtk_text_view_get_editable (handle).to_boolean)
+		end
 
---   gtk_text_view_get_wrap_mode ()
+feature -- Cursor visibility
+	set_cursor_visible is
+			-- Displays the insertion point.
+		do
+			gtk_text_view_set_cursor_visible (handle, 1)
+		ensure visible_cursor: is_cursor_visible
+		end
+	
+	set_cursor_invisible is
+			-- Hides the insertion point. A buffer with no editable text
+			-- probably shouldn't have a visible cursor, so you may want
+			-- to turn the cursor off.
+		do
+			gtk_text_view_set_cursor_visible (handle, 0)
+		ensure invisible_cursor: not is_cursor_visible
+		end
 
---  GtkWrapMode gtk_text_view_get_wrap_mode     (GtkTextView *text_view);
+	is_cursor_visible: BOOLEAN is
+			-- Is  the cursor being displayed?
+		do
+			Result := gtk_text_view_get_cursor_visible (handle).to_boolean
+		end
 
--- 	Gets the line wrapping for the view.
+feature 
+	set_overwrite is
+			-- Turns the GtkTextView overwrite mode on.
+		do
+			gtk_text_view_set_overwrite (handle, 1)
+		ensure overwrite_set: is_overwrite_set
+		end
 
--- 	text_view : a GtkTextView
--- 	Returns :   the line wrap setting
+	unset_overwrite is
+			-- Turns the GtkTextView overwrite mode off.
+		do
+			gtk_text_view_set_overwrite (handle, 0)
+		ensure overwrite_unset: not is_overwrite_set
+		end
 
--- 	-----------------------------------------------------------------------
 
---   gtk_text_view_set_editable ()
+	is_overwrite_set: BOOLEAN is
+			-- Is the GtkTextView is in overwrite mode?
+		do
+			Result := gtk_text_view_get_overwrite (handle).to_boolean
+		end
 
---  void        gtk_text_view_set_editable      (GtkTextView *text_view,
--- 															 gboolean setting);
-
--- 	Sets the default editability of the GtkTextView. You can override this
--- 	default setting with tags in the buffer, using the "editable" attribute
--- 	of tags.
-
--- 	text_view : a GtkTextView
--- 	setting :   whether it's editable
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_editable ()
-
---  gboolean    gtk_text_view_get_editable      (GtkTextView *text_view);
-
--- 	Returns the default editability of the GtkTextView. Tags in the buffer
--- 	may override this setting for some ranges of text.
-
--- 	text_view : a GtkTextView
--- 	Returns :   whether text is editable by default
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_set_cursor_visible ()
-
---  void        gtk_text_view_set_cursor_visible
--- 															(GtkTextView *text_view,
--- 															 gboolean setting);
-
--- 	Toggles whether the insertion point is displayed. A buffer with no
--- 	editable text probably shouldn't have a visible cursor, so you may want
--- 	to turn the cursor off.
-
--- 	text_view : a GtkTextView
--- 	setting :   whether to show the insertion cursor
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_cursor_visible ()
-
---  gboolean    gtk_text_view_get_cursor_visible
--- 															(GtkTextView *text_view);
-
--- 	Find out whether the cursor is being displayed.
-
--- 	text_view : a GtkTextView
--- 	Returns :   whether the insertion mark is visible
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_set_overwrite ()
-
---  void        gtk_text_view_set_overwrite     (GtkTextView *text_view,
--- 															 gboolean overwrite);
-
--- 	Changes the GtkTextView overwrite mode.
-
--- 	text_view : a GtkTextView
--- 	overwrite : TRUE to turn on overwrite mode, FALSE to turn it off
-
--- 	Since 2.4
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_overwrite ()
-
---  gboolean    gtk_text_view_get_overwrite     (GtkTextView *text_view);
-
--- 	Returns whether the GtkTextView is in overwrite mode or not.
-
--- 	text_view : a GtkTextView
--- 	Returns :   whether text_view is in overwrite mode or not.
-
--- 	Since 2.4
 
 -- 	-----------------------------------------------------------------------
 
@@ -1365,4 +1359,9 @@ feature {} -- TODO: Signals
 
 -- 	textview :  the object which received the signal.
 -- 	user_data : user data set when the signal handler was connected.
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTextView)"
+		end
 end -- class GTK_TEXT_VIEW

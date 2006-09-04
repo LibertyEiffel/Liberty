@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_FILE_FILTER_EXTERNALS
 insert GTK_FILE_FILTER_FLAGS
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_file_filter_new: POINTER is
 		external "C use <gtk/gtk.h>"

@@ -14,7 +14,7 @@ indexing
 
 class GLIB_STRING
 	
-feature {NONE} -- utility function
+feature {} -- utility function
 	
 	char_in_string (string: POINTER; i: INTEGER): CHARACTER is
 		obsolete "unnecessary use of inline. Use native_array.from_pointer instead"
@@ -22,7 +22,7 @@ feature {NONE} -- utility function
 		alias "string[i]"
 		end
 	
-feature {NONE} -- struct access 		
+feature {} -- struct access 		
 	str (string: POINTER): POINTER is
 		external "C struct GString get str use <glib.h>"
 		end
@@ -35,7 +35,7 @@ feature {NONE} -- struct access
 		external "C struct GString get allocated_len use <glib.h>"
 		end
 
-feature {NONE} -- external calls
+feature {} -- external calls
 	g_string_new (a_string: POINTER): POINTER is
 			-- Creates a new GString, initialized with the given
 			-- `a_string', the initial text to copy into the

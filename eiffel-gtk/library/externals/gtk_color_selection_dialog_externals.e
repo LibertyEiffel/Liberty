@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
-feature {NONE} -- Externals
+feature {} -- Externals
 
 	gtk_color_selection_dialog_get_colorsel (csd: POINTER): POINTER is
 		external "C struct GtkColorSelectionDialog get colorsel use <gtk/gtk.h>"

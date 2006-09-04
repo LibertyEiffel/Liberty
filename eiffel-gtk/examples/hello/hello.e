@@ -18,7 +18,7 @@ feature
 			print (once "' clicked%N")
 		end
 			
-feature {NONE} -- creation
+feature {} -- creation
 	make is
 		do
 			initialize_gtk

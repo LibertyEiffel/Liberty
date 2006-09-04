@@ -23,18 +23,20 @@ indexing
 
 class GTK_SELECTION_DATA
 
-inherit C_STRUCT -- TODO: check if SHARED_C_STRUCT is a better choice
-
+inherit
+	C_STRUCT -- TODO: check if SHARED_C_STRUCT is a better choice
+	
 creation make, from_external_pointer
 
-feature {WRAPPER} -- size
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkSelectionData)"
 		end
-
-feature {NONE} -- Creation
-
+	
+feature {} -- Creation
+	-- TODO: wrap this C struct
+	
 --   GtkSelectionData
 
 -- typedef struct {

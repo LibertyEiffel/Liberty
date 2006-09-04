@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_CHECK_BUTTON_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_check_button_new: POINTER		is
 		external "C use <gtk/gtk.h>"

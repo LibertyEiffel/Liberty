@@ -31,26 +31,25 @@ indexing
 	-- GtkPaned for details.
 
 class GTK_VPANED
-inherit GTK_PANED
+inherit GTK_PANED redefine make end
 	-- GtkVpaned implements AtkImplementorIface.
 creation make
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVpaned)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Create a new GtkVpaned
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle:=gtk_vpaned_new
-			store_eiffel_wrapper
+			from_external_pointer(gtk_vpaned_new)
 		end
 	
-
-feature {NONE} 
+feature {} 
 	gtk_vpaned_new: POINTER is
 		external "C use <gtk/gtk.h>"
 		end

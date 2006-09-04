@@ -79,17 +79,19 @@ indexing
 deferred class G_OBJECT
 
 inherit
-	SHARED_C_STRUCT redefine from_external_pointer, dispose end
+	SHARED_C_STRUCT
+		redefine from_external_pointer, dispose
+		end
 	-- Note: why it explicitly inheritd from ANY?
 
 insert
-	GLIB_MEMORY_ALLOCATION export {NONE} all end
+	GLIB_MEMORY_ALLOCATION export {} all end
 	G_OBJECT_EXTERNALS
 	G_VALUE_EXTERNALS
 	SHARED_EIFFEL_KEY
 
 	-- Features inserted to implement smart_get_property and smart_set_property
-	G_PARAM_SPEC_EXTERNALS export {NONE} all end
+	G_PARAM_SPEC_EXTERNALS export {} all end
 	G_TYPE_EXTERNALS
 
 feature
@@ -136,7 +138,7 @@ feature -- Creating
 		require
 			called_on_creation: is_null
 			pointer_not_null: a_ptr.is_not_null
-			not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
+			not_existing_wrapper: not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
 		do
 			Precursor (a_ptr)
 			store_eiffel_wrapper
@@ -173,7 +175,6 @@ feature -- Disposing
 		end
 
 feature {} -- Implementation
-
 	g_object_class: POINTER
 			-- Pointer to the GObjectClass structure of the current
 			-- G_OBJECT
@@ -346,7 +347,6 @@ feature -- Properties query
 	has_property (a_property_name: STRING): BOOLEAN is
 			-- Does Current has a property named `a_property_name'?
 		require valid_name: a_property_name /= Void
-		local ptr: POINTER
 		do
 			Result:= (g_object_class_find_property
 						 (g_object_get_class(handle),a_property_name.to_external).is_not_null)
@@ -633,6 +633,16 @@ feature -- integer property
 			g_object_set_property (handle, a_property_name.to_external,gvalue.handle)
 		end
 
+	integer_property (a_property_name: STRING): INTEGER is
+			-- the integer property named `a_property_name' of an object.
+		require
+			valid_name: a_property_name /= Void
+			has_property: has_property (a_property_name)
+			is_string_property: find_property (a_property_name).is_integer
+		do
+			g_object_get_one_property (handle,a_property_name.to_external,$Result, default_pointer)
+		end
+
 feature -- boolean property
 
 	set_boolean_property (a_property_name: STRING; a_value: BOOLEAN) is
@@ -659,6 +669,56 @@ feature -- boolean property
 			create gvalue.make_boolean
 			g_object_get_property (handle, a_property_name.to_external,gvalue.handle)
 			Result := gvalue.boolean
+		end
+
+	boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): BOOLEAN is
+			-- the boolean property with `a_parameter_specification'. This
+			-- feature is faster than the plain `boolean_property'
+			-- because the latter retrieves the parameter specification
+			-- from the name given. Storing the specification in a once
+			-- feature hasten property retrieving.
+
+			-- TODO: I'm unsure but I suspect that this feature still has
+			-- sub-optimal performance because it still creates a new
+			-- G_VALUE each time. I would help if G_VALUE is expanded and
+			-- holds the actual GValue C structure like an expanded
+			-- feature. This way the G_VALUE would be created on the
+			-- stack, obtaining better performances.
+		require
+			specification_not_void: a_parameter_specification /= Void
+		local value: G_VALUE
+		do
+			create value.make_boolean
+			invoke_get_property (a_parameter_specification.owner_class, 
+										handle, 
+										a_parameter_specification.param_id, value.handle, 
+										a_parameter_specification.handle)
+			Result := value.boolean
+		end
+
+feature -- enum property
+	
+	set_enum_property (a_property_name: STRING; a_value: INTEGER) is
+			-- Set property with `a_name' to `a_value'
+		require
+			valid_name: a_property_name /= Void
+			property_exists: has_property (a_property_name)
+			is_writable: find_property (a_property_name).is_writable
+			is_enum_property: find_property (a_property_name).is_enum
+		local gvalue: G_VALUE
+		do
+			create gvalue.from_integer (a_value)
+			g_object_set_property (handle, a_property_name.to_external,gvalue.handle)
+		end
+
+	enum_property (a_property_name: STRING): INTEGER is
+			-- the enumeration property named `a_property_name' of an object.
+		require
+			valid_name: a_property_name /= Void
+			has_property: has_property (a_property_name)
+			is_string_property: find_property (a_property_name).is_enum
+		do
+			g_object_get_one_property (handle,a_property_name.to_external,$Result, default_pointer)
 		end
 
 feature {} -- Unwrapped API

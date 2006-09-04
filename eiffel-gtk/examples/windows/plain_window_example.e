@@ -12,7 +12,7 @@ inherit
 creation
 	make
 	
-feature {NONE} -- creation
+feature {} -- creation
 	make is
 		do
 			initialize_gtk

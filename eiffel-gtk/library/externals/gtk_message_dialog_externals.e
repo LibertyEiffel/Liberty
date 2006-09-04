@@ -27,7 +27,7 @@ insert
 	GTK_MESSAGE_TYPE
 	GTK_BUTTONS_TYPE
 	
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_message_dialog_new (a_parent: POINTER;
 									some_gtkdialogflags, a_gtkmessagetype, a_gtkbuttonstype: INTEGER;

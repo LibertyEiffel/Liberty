@@ -7,7 +7,7 @@ indexing
 	
 class GLIB_STRING_UTILITY_FUNCTIONS
 
-feature {NONE} -- external calls
+feature {} -- external calls
 	g_strdup (str: POINTER): POINTER is
 		-- Duplicates a string. If str is NULL it returns NULL. The
 		-- returned string should be freed when no longer needed.  str :

@@ -28,8 +28,10 @@ indexing
 
 class GTK_TEXT_TAG_TABLE
 
-inherit G_OBJECT
+inherit G_OBJECT redefine make end
 
+insert GTK
+	
 creation make, from_external_pointer
 
 feature {} -- Creation
@@ -37,6 +39,8 @@ feature {} -- Creation
 	make is
 			-- Creates a new GtkTextTagTable. The table contains no tags
 			-- by default.
+		require
+			gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_text_tag_table_new)
 		end

@@ -23,7 +23,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_TREE_VIEW_EXTERNALS
-feature {NONE} -- External calls
+feature {} -- External calls
 	-- gboolean (*GtkTreeViewColumnDropFunc) (GtkTreeView *tree_view,
 	-- GtkTreeViewColumn *column, GtkTreeViewColumn *prev_column,
 	-- GtkTreeViewColumn *next_column, gpointer data);

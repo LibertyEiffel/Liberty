@@ -24,7 +24,7 @@ feature {WRAPPER}
 			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
 		ensure not_void: Result/=Void
 		end
-
+	
 	eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
 			-- Retrieve the eiffel wrapper object from gobject's 
 			-- `a_pointer'. Can be Void if the GObject referred by `a_pointer' 

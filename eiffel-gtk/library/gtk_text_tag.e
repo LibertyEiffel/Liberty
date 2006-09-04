@@ -35,7 +35,7 @@ indexing
 
 
 class GTK_TEXT_TAG
-inherit G_OBJECT
+inherit G_OBJECT redefine make end
 insert 
 	PANGO_WEIGHT
 	GTK
@@ -840,17 +840,26 @@ feature --   The "style" property
 
 --    -------------------------------------------------------------------------------------
 
---   The "wrap-mode" property
+feature --   The "wrap-mode" property
+	-- "wrap-mode" GtkWrapMode : Read / Write
 
---    "wrap-mode"            GtkWrapMode           : Read / Write
+	wrap_mode: INTEGER is
+			-- Whether to wrap lines never, at word boundaries, or at
+			-- character boundaries. Default value: `gtk_wrap_none'
+		obsolete "integer_property should be enum"
+		do
+			Result := integer_property (wrap_mode_property_name)
+		ensure valid: is_valid_wrap_mode (Result)
+		end
+	
+	set_wrap_mode (a_mode: INTEGER) is
+			-- Set `wrap-mode' property.
+		require valid_mode: is_valid_wrap_mode (a_mode)
+		do
+			set_integer_property (wrap_mode_property_name, a_mode)
+		end
 
---    Whether to wrap lines never, at word boundaries, or at character boundaries.
-
---    Default value: GTK_WRAP_NONE
-
---    -------------------------------------------------------------------------------------
-
---   The "wrap-mode-set" property
+feature --   The "wrap-mode-set" property
 
 --    "wrap-mode-set"        gboolean              : Read / Write
 
@@ -1009,8 +1018,13 @@ feature {} -- Properties names
 			-- gboolean : Read / Write
 	weight_property_name: STRING is "weight"	
 			-- gint : Read / Write
+	weight_set_property_name: STRING is "weight-set"
+			-- gboolean : Read / Write
+	wrap_mode_property_name: STRING is "wrap-mode"
+			-- GtkWrapMode : Read / Write
+	wrap_mode_set_property_name: STRING is "wrap-mode-set"
+			-- gboolean : Read / Write
 
-	
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

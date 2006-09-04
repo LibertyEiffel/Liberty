@@ -23,7 +23,10 @@ indexing
 
 deferred class GTK_FONT_SELECTION_DIALOG_EXTERNALS
 
-feature {NONE} -- Externals
+feature {} -- Externals
+  gtk_font_selection_dialog_new (a_title_str: POINTER): POINTER is -- GtkWidget*
+		external "C use <gtk/gtk.h>"
+		end
 
 	gtk_font_selection_dialog_get_font_name (fsd: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"

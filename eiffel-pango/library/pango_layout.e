@@ -34,7 +34,7 @@ insert
 
 creation make, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make (a_context: PANGO_CONTEXT) is
 			-- Create a new PANGO_LAYOUT object with attributes initialized to

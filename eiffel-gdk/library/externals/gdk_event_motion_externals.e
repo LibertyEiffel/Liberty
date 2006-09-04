@@ -21,7 +21,7 @@ indexing
 
 deferred class GDK_EVENT_MOTION_EXTERNALS
 
-feature {NONE} -- Low level access
+feature {} -- Low level access
 
 	gdk_event_motion_get_time (ptr: POINTER): INTEGER is
 		external "C struct GdkEventMotion get time use <gdk/gdk.h>"

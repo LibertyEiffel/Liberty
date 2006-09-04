@@ -22,21 +22,20 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_CELL_RENDERER_PROGRESS
-inherit GTK_CELL_RENDERER redefine make	
+inherit GTK_CELL_RENDERER redefine make end
 creation make, from_external_pointer
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererProgress)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkCellRendererProgress.
 		do
-			handle := gtk_cell_renderer_progress_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_cell_renderer_progress_new)
 		end 
 
 feature -- Properties
@@ -76,11 +75,11 @@ feature -- The "value" property
 -- Default value: 0
 
 -- Since 2.6
-feature {NONE} -- Properties names
+feature {} -- Properties names
 	text_property_name: STRING is "text"
 	value_property_name: STRING is "value"
 
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_cell_renderer_progress_new: POINTER is
 		external "C use <gtk/gtk.h>"
 		end

@@ -25,7 +25,7 @@ deferred class GTK_DIALOG_EXTERNALS
 insert
 	GTK_DIALOG_FLAGS
 	GTK_RESPONSE_TYPE
-feature {NONE} -- Externals
+feature {} -- Externals
 	gtk_dialog_new: POINTER is
 		external "C use <gtk/gtk.h>"
 		end

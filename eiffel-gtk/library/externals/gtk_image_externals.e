@@ -18,7 +18,7 @@ indexing
 					02110-1301 USA
 					]"
 class GTK_IMAGE_EXTERNALS
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_image_new: POINTER is
 		external "C use <gtk/gtk.h>"
 		end

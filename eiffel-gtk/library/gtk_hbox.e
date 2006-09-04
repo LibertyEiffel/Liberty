@@ -27,18 +27,25 @@ indexing
 			-- children. All children are allocated the same height.
 
 class GTK_HBOX
-inherit GTK_BOX -- GtkHBox also implements AtkImplementorIface.
+inherit
+	GTK_BOX
+		-- GtkHBox also implements AtkImplementorIface.
 insert GTK_HBOX_EXTERNALS
 creation make, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (an_homogeneous: BOOLEAN; a_spacing: INTEGER) is
 			-- Creates a new GtkHBox. If `an_homogeneous' is True all
 			-- children are to be given equal space
 			-- allotments. `a_spacing' is the number of pixels to place
 			-- by default between children.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle:=gtk_hbox_new (an_homogeneous.to_integer, a_spacing)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_hbox_new (an_homogeneous.to_integer, a_spacing))
+		end
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkHBox)"
 		end
 end

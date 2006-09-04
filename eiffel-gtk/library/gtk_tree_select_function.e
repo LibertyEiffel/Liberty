@@ -24,11 +24,13 @@ indexing
 class GTK_TREE_SELECT_FUNCTION
 inherit WRAPPER_HANDLER -- It wraps a callback function
 insert
+	GTK
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 	GTK_TREE_SELECTION_EXTERNALS
 creation make
 feature
 	make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
+		require gtk_initialized: gtk.is_initialized
 		local array: NATIVE_ARRAY [POINTER]; callback_ptr: POINTER
 		do
 	function := a_function
@@ -39,7 +41,7 @@ feature
 						 )
 		end
 	
-feature {NONE} -- 
+feature {} -- 
 	callback_array (a_callback_pointer: POINTER): POINTER is
 		-- This call is required because we need to build an array with 
 		-- the address of an Eiffel feature (namely callback). `$' 
@@ -85,7 +87,7 @@ feature
 	end
 	create a_path.from_external_pointer (path_ptr)
 	Result := (function.item ([a_selection,a_model,a_path,
-					 path_currently_selected.to_boolean]).to_integer)
+										path_currently_selected.to_boolean]).to_integer)
 		end
 	
 	function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]

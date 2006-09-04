@@ -1,6 +1,6 @@
 class BUTTONS_WINDOW
 inherit
-	GTK_WINDOW redefine make end
+	GTK_WINDOW redefine make, on_destroy end
 	GTK
 creation make
 feature make is

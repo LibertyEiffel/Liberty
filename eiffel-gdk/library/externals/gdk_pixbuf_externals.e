@@ -25,7 +25,7 @@ class GDK_PIXBUF_EXTERNALS
 
 insert GDK_INTERP_TYPE
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gdk_pixbuf_copy (pixbuf: POINTER): POINTER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"

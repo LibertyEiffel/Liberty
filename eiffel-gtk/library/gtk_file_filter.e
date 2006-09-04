@@ -44,14 +44,14 @@ indexing
 
 class GTK_FILE_FILTER
 inherit
-	GTK_OBJECT
+	GTK_OBJECT redefine make end
 insert
 	GTK_FILE_FILTER_EXTERNALS
 	GTK_FILE_FILTER_INFO_EXTERNALS
 	GTK_FILE_FILTER_FLAGS
 creation make, with_pattern, with_mime_type, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkFileFilter with no rules added to
 			-- it. Such a filter doesn't accept any files, so is not
@@ -62,8 +62,7 @@ feature {NONE} -- Creation
 		
 			-- See also `with_pattern', `with_mime_type'
 		do
-			handle := gtk_file_filter_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_file_filter_new)
 		end
 
 	with_pattern  (a_pattern: STRING) is
@@ -179,4 +178,9 @@ feature -- Image filter
 -- filter : 	a GtkFileFilter
 -- filter_info : 	a GtkFileFilterInfo structure containing information about a file.
 -- Returns : 	TRUE if the file should be displayed
+feature
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkFileFilter)"
+		end
 end

@@ -29,7 +29,7 @@ indexing
 
 class GTK_MENU_ITEM
 inherit
-	GTK_ITEM
+	GTK_ITEM redefine make end
 	
 		-- GtkMenuItem implements AtkImplementorIface.
 
@@ -41,26 +41,28 @@ creation make, with_label, with_mnemonic, from_external_pointer
 feature {} -- Creation
 	make is
 			-- Creates a new GtkMenuItem.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle :=  gtk_menu_item_new
-			store_eiffel_wrapper			
+			from_external_pointer (gtk_menu_item_new)
 		end
 
 	with_label (a_label: STRING) is
 			-- Creates a new GtkMenuItem whose child is a GtkLabel.
-		require label_not_void: a_label /= Void
+		require
+			gtk_initialized: gtk.is_initialized
+			label_not_void: a_label /= Void
 		do
-			handle := gtk_menu_item_new_with_label (a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_menu_item_new_with_label (a_label.to_external))
 		end
 
 	with_mnemonic (a_label: STRING) is
 			-- Creates a new GtkMenuItem containing a label. Underscores
 			-- in label indicate the mnemonic for the menu item.
-		require label_not_void: a_label /= Void
+		require
+			gtk_initialized: gtk.is_initialized
+			label_not_void: a_label /= Void
 		do
-			store_eiffel_wrapper
-			handle := gtk_menu_item_new_with_mnemonic (a_label.to_external)
+			from_external_pointer (gtk_menu_item_new_with_mnemonic (a_label.to_external))
 		end
 
 feature 

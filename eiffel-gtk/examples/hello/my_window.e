@@ -2,7 +2,7 @@ class MY_WINDOW
 inherit GTK_WINDOW redefine make end
 insert GTK_MAIN
 creation make
-feature {NONE}
+feature {}
 	make is
 		do
 			Precursor

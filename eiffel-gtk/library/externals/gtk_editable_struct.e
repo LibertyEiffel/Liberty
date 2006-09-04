@@ -22,7 +22,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_EDITABLE_STRUCT
-feature {NONE} -- Access calls
+feature {} -- Access calls
 	-- The GtkEditable structure contains the following fields. (These
 	-- fields should be considered read-only. They should never be set
 	-- by an application.)

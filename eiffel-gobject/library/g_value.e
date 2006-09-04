@@ -10,19 +10,19 @@ indexing
 class G_VALUE
 
 inherit
-	SHARED_C_STRUCT redefine dispose end
+	SHARED_C_STRUCT redefine make, dispose end
 
 insert
 	G_TYPE
-	GLIB_MEMORY_ALLOCATION export {NONE} all end
+	GLIB_MEMORY_ALLOCATION export {} all end
 	G_VALUE_EXTERNALS
 
 creation
 	make, from_external_pointer, with_gtype,
-	make_boolean, make_integer, make_natural, make_real, make_string, make_object,
+	make_boolean, make_integer, make_natural, make_real, make_real_32, make_string, make_object,
 	from_boolean, from_integer, from_natural, from_real, from_string, from_object
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Create a undefined GValue.
 		do
@@ -77,6 +77,13 @@ feature {NONE} -- Creation
 
 	make_real is
 			-- create a new real G_VALUE (Note: using C type `double'
+		do
+			handle := g_value_init (malloc_g_value, g_type_double)
+		ensure is_real: is_real
+		end
+
+	make_real_32 is
+			-- create a new REAL_32 G_VALUE (Note: using C type `float')
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
 		ensure is_real: is_real
@@ -142,6 +149,16 @@ feature {NONE} -- Creation
 		ensure
 			is_real: is_real
 			value_set: real = a_real
+		end
+
+	from_real_32 (a_real_32: REAL_32) is
+			-- create a new REAL_32 G_VALUE (Note: using C type `float')
+		do
+			handle := g_value_init (malloc_g_value, g_type_float)
+			set_real_32 (a_real_32)
+		ensure
+			is_real_32: is_real_32
+			value_set: real_32 = a_real_32
 		end
 
 	from_string (a_string: STRING) is
@@ -280,6 +297,30 @@ feature {ANY} -- Real
 			is_real: is_real
 		do
 			g_value_set_double (handle, a_value)
+		end
+
+feature {ANY} -- Real_32
+
+	is_real_32: BOOLEAN is
+			-- Is current value a REAL_32? Note: REAL is mapped to C float
+		do
+			Result := g_value_holds_float (handle).to_boolean
+		end
+
+	real_32: REAL_32 is
+			-- If current value is an real_32, returns it. Note: REAL is mapped to C float
+		require
+			is_real_32: is_real_32
+		do
+			Result := g_value_get_float (handle)
+		end
+
+	set_real_32 (a_value: REAL_32) is
+			-- If the current value is a REAL_32, set it. Note: REAL_32 is mapped to C float
+		require
+			is_real_32: is_real_32
+		do
+			g_value_set_float (handle, a_value)
 		end
 
 feature {ANY} -- Character
@@ -429,7 +470,7 @@ feature
 		alias "sizeof(GValue)"
 		end
 
-feature 	{NONE} -- Disposing
+feature 	{} -- Disposing
 	dispose is
 		do
 			g_value_unset (handle)

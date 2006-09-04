@@ -54,42 +54,41 @@ indexing
 	
 class GTK_ENTRY_COMPLETION
 inherit
-	G_OBJECT
+	G_OBJECT redefine make end
 		-- GtkEntryCompletion implements GtkCellLayout.
 insert
 	GTK_ENTRY_COMPLETION_EXTERNALS
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 	
 creation make, from_external_pointer
-feature {NONE} -- Creation
+feature {} -- Creation
 	
 	make is
-	-- Creates a new GtkEntryCompletion object.
+			-- Creates a new GtkEntryCompletion object.
 		do
-			handle := gtk_entry_completion_new
-			store_eiffel_wrapper			
+			from_external_pointer (gtk_entry_completion_new)
 		end
 	
 feature
 	entry: GTK_ENTRY is
-	-- the entry completion has been attached to.
+			-- the entry completion has been attached to.
 		do
-	create Result.from_external_pointer (gtk_entry_completion_get_entry (handle))
+			create Result.from_external_pointer (gtk_entry_completion_get_entry (handle))
 		end
 	
 	set_model (a_model: GTK_TREE_MODEL) is
-	-- Sets `a_model' for a GtkEntryCompletion. If completion 
-	-- already has a model set, it will remove it before setting
-	-- the new model.      
+			-- Sets `a_model' for a GtkEntryCompletion. If completion 
+			-- already has a model set, it will remove it before setting
+			-- the new model.      
 		require valid_model: a_model /= Void
 		do
-	gtk_entry_completion_set_model  (handle, a_model.handle)
+			gtk_entry_completion_set_model  (handle, a_model.handle)
 		end
 
 	unset_model is
-	-- Unsets the model for GtkEntryCompletion. 
+			-- Unsets the model for GtkEntryCompletion. 
 		do
-	gtk_entry_completion_set_model  (handle, default_pointer)
+			gtk_entry_completion_set_model  (handle, default_pointer)
 		end
 
 	model: GTK_TREE_MODEL is
@@ -104,7 +103,7 @@ feature
 			-- Is the model of GtkEntryCompletion set?
 		require is_model_set
 		do
-	Result := (gtk_entry_completion_get_model (handle)).is_not_null
+			Result := (gtk_entry_completion_get_model (handle)).is_not_null
 		end
 
 	-- TODO: set_match_func ()
@@ -122,35 +121,35 @@ feature
 
 
 	set_minimum_key_length (a_length: INTEGER) is
-	-- Requires the length of the search key for completion to be
-	-- at least `a_length'. This is useful for long lists, where
-	-- completing using a small key takes a lot of time and will
-	-- come up with meaningless results anyway (ie, a too large
-	-- dataset).
+			-- Requires the length of the search key for completion to be
+			-- at least `a_length'. This is useful for long lists, where
+			-- completing using a small key takes a lot of time and will
+			-- come up with meaningless results anyway (ie, a too large
+			-- dataset).
 		do
-	gtk_entry_completion_set_minimum_key_length (handle, a_length)
+			gtk_entry_completion_set_minimum_key_length (handle, a_length)
 		end
 
 	minimum_key_length: INTEGER is
-	-- the minimum key length as set for completion.
+			-- the minimum key length as set for completion.
 		do
-	Result:=gtk_entry_completion_get_minimum_key_length (handle)
+			Result:=gtk_entry_completion_get_minimum_key_length (handle)
 		end
 
 	complete is
-	-- Requests a completion operation, or in other words a
-	-- refiltering of the current list with completions, using
-	-- the current key. The completion list view will be updated
-	-- accordingly.
+			-- Requests a completion operation, or in other words a
+			-- refiltering of the current list with completions, using
+			-- the current key. The completion list view will be updated
+			-- accordingly.
 		do
-	gtk_entry_completion_complete (handle)
+			gtk_entry_completion_complete (handle)
 		end
 
 
 	insert_prefix is
-	-- Requests a prefix insertion.
+			-- Requests a prefix insertion.
 		do
-	gtk_entry_completion_insert_prefix (handle)
+			gtk_entry_completion_insert_prefix (handle)
 		end
 
 	insert_action_text (an_index: INTEGER; a_text: STRING) is
@@ -438,5 +437,10 @@ feature
 	-- iter : 	a GtkTreeIter indicating the row to match
 	-- user_data : 	user data given to gtk_entry_completion_set_match_func()
 	-- Returns : 	TRUE if iter should be displayed as a possible completion for key
+feature
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkEntryCompletion)"
+		end
 
 end

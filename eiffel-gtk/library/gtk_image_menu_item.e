@@ -35,9 +35,9 @@ creation make, from_stock, with_label, with_mnemonic
 feature {} -- Creation
 	make is
 			-- Creates a new GtkImageMenuItem with an empty label.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_image_menu_item_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_image_menu_item_new)
 		end
 
 	from_stock (a_stock_item: STRING) is
@@ -53,18 +53,21 @@ feature {} -- Creation
 			-- for the menu item, use gtk_stock_lookup() to look up the
 			-- standard accelerator for the stock item, and if one is
 			-- found, call gtk_accel_map_add_entry() to register it.
-		require 
+		require
+			gtk_initialized: gtk.is_initialized
 			stock_item_not_void: a_stock_item /= Void
 		do		
-			handle := (gtk_image_menu_item_new_from_stock
+			from_external_pointer ((gtk_image_menu_item_new_from_stock)
 						  (a_stock_item.to_external, default_pointer))
 			--  GtkWidget* gtk_image_menu_item_new_from_stock (const
 			--  gchar *stock_id, -- GtkAccelGroup *accel_group);
-			store_eiffel_wrapper
 		end
 
 	with_label (a_label: STRING) is
 			-- Creates a new GtkImageMenuItem containing `a_label'.
+		require
+			gtk_initialized: gtk.is_initialized
+			label_not_void: a_label /= Void
 		do
 			handle:=gtk_image_menu_item_new_with_label (a_label.to_external)
 			store_eiffel_wrapper
@@ -74,6 +77,9 @@ feature {} -- Creation
 			-- Creates a new GtkImageMenuItem containing a label. Put an
 			-- underscore in front of the mnemonic character for the menu
 			-- item.
+		require
+			gtk_initialized: gtk.is_initialized
+			label_not_void: a_label /= Void
 		do
 			handle:= gtk_image_menu_item_new_with_mnemonic(a_label.to_external)
 			store_eiffel_wrapper

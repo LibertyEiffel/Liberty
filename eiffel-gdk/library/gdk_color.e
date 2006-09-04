@@ -91,7 +91,7 @@ feature -- Getters and setters
 		end
 
 
-feature {NONE} -- Low level access
+feature {} -- Low level access
 
 	get_pixel_external (ptr: POINTER): INTEGER is
 			-- Note: Result shall be NATURAL_32 since itr's a guint32

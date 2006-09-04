@@ -366,7 +366,7 @@ feature
 	-- 	-- Many SQLite functions return an integer result code from the set
 	-- 	-- shown above in order to indicates success or failure.
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	sqlite3_aggregate_context(a_context: POINTER; n_bytes: INTEGER): POINTER is 
 			-- Aggregate functions use this routine to allocate a

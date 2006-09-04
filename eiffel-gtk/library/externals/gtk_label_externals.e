@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_LABEL_EXTERNALS
 inherit GTK_JUSTIFICATION
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_label_new (a_string: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"

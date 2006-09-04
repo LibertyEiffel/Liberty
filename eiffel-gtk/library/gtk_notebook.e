@@ -46,8 +46,7 @@ insert
 
 creation make
 
-feature -- size
-
+feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkNotebook)"
@@ -55,10 +54,10 @@ feature -- size
 
 feature {} -- Creation
 	make is
-			--    Creates a new GtkNotebook widget with no pages.
+			-- Creates a new GtkNotebook widget with no pages.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_notebook_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_notebook_new)
 		end
 
 feature -- page handling

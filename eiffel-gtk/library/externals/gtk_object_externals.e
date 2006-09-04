@@ -21,7 +21,6 @@ indexing
 	revision "$REvision:$"
 
 class GTK_OBJECT_EXTERNALS
-
 feature {}
 	gtk_object_flags (obj: POINTER): INTEGER is
 			-- Gets the GtkObjectFlags for an object without directly accessing its members.

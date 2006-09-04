@@ -145,7 +145,7 @@ feature -- Unwrapped C
 
 	-- NOTE: g_signal_new is unwrappeble since variadic. g_signal_newv is
 	-- wrapped and provides the same functionality
-feature {NONE} -- Creation
+feature {} -- Creation
 	
 	make (a_gobject: G_OBJECT; some_flags: INTEGER;
 			a_return_type: INTEGER; parameters_types: ARRAY[INTEGER]) is

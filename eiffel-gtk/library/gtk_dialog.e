@@ -129,15 +129,14 @@ insert
 		-- GtkDialog implements AtkImplementorIface.	
 creation new, make, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make is
 			-- Creates a new dialog box. Widgets should not be packed
 			-- into this GtkWindow directly, but into the vbox and
 			-- action_area.
 		do
-			handle := gtk_dialog_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_dialog_new)
 		end
 
 	new is
@@ -728,7 +727,7 @@ feature -- The "close" signal
 -- 	-- connect_signal_receiver (a_receiver)
 -- 	-- end
 	
--- feature {NONE} -- Signals' names
+-- feature {} -- Signals' names
 	
 -- 	action_area_border_property_name: STRING is "action-area-border"
 	
@@ -736,7 +735,7 @@ feature -- The "close" signal
 
 -- 	content_area_border_property_name: STRING is  "content-area-border"
 -- end
-feature {NONE} -- property names strings
+feature {} -- property names strings
 	action_area_border_property_name: STRING is "action-area-border"
 	button_spacing_property_name: STRING is "button-spacing"
 	content_area_border_property_name: STRING is "content-area-border"

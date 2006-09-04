@@ -22,7 +22,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_FILE_CHOOSER_DIALOG_EXTERNALS
-feature {NONE} -- External calls
+feature {} -- External calls
 	
 	gtk_file_chooser_dialog_new (a_title, a_parent: POINTER; a_gtkfilechooseraction: INTEGER;
 										  first_button_text: POINTER): POINTER is

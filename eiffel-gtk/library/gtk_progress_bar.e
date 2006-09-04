@@ -32,13 +32,13 @@ insert GTK_PROGRESS_BAR_EXTERNALS
 creation
 	make
 	
-feature {NONE} -- Initialization
+feature {} -- Initialization
 
 	make is
 			-- Create a new GtkProgressBar.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_progress_bar_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_progress_bar_new)
 		end
 
 feature -- Element change

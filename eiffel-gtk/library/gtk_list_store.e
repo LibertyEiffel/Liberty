@@ -107,7 +107,7 @@ insert GTK_LIST_STORE_EXTERNALS
 	
 creation make
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make (some_columns: ARRAY[INTEGER]) is
 			-- Creates a new list store. `some_columns' is a list of integers; each
@@ -122,12 +122,12 @@ feature {NONE} -- Creation
 		
 			-- Note: ARRAY seems to be the more general class that fits the
 			-- task. Feel free to change it. Paolo 2006-02-22
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_list_store_newv (some_columns.count, some_columns.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_list_store_newv (some_columns.count, some_columns.to_external))
 		end
 
-feature {NONE} -- Unwrapped code
+feature {} -- Unwrapped code
 	
 	-- gtk_list_store_set_column_types ()
 	
@@ -520,5 +520,10 @@ feature -- Generic setter
 			gtk_list_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
 	
+feature
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkListStore)"
+		end
 
 end

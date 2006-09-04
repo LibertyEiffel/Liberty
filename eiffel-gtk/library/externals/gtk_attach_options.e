@@ -25,10 +25,7 @@ deferred class GTK_ATTACH_OPTIONS
 feature  -- enum
 	are_valid_gtk_attach_options (an_attach_options: INTEGER): BOOLEAN is
 		do	
-			Result:=((an_attach_options & gtk_expand) |
-						(an_attach_options & gtk_shrink) |
-						(an_attach_options & gtk_fill)).to_boolean 
-
+			Result:=(an_attach_options & (gtk_expand | gtk_shrink | gtk_fill)).to_boolean
 		end
 
 	gtk_expand: INTEGER is

@@ -45,7 +45,7 @@ inherit
 	
 creation connect
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PGconn)"
@@ -408,7 +408,7 @@ feature -- Creation
 
 --    --------------------------------------------------------------------------
 
-feature {NONE} -- External calls
+feature {} -- External calls
 	
 	pqconnectdb (a_conninfo: POINTER): POINTER is
 		external "plug_in"

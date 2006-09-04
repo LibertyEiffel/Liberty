@@ -27,7 +27,8 @@ indexing
 
 class GTK_EVENT_BOX
 
-inherit GTK_BIN -- GtkEventBox implements AtkImplementorIface.
+inherit GTK_BIN redefine make end
+-- GtkEventBox implements AtkImplementorIface.
 
 insert GTK_EVENT_BOX_EXTERNALS
 
@@ -40,12 +41,11 @@ feature -- size
 		alias "sizeof(GtkEventBox)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkEventBox.
 		do
-			handle := gtk_event_box_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_event_box_new)
 		end
 
 	set_above_child(above: BOOLEAN) is

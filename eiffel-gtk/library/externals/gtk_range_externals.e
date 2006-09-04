@@ -25,7 +25,7 @@ deferred class GTK_RANGE_EXTERNALS
 
 insert GTK_UPDATE_TYPE
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_range_get_adjustment (a_range: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"

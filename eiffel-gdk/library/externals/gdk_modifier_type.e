@@ -35,7 +35,7 @@ indexing
 
 deferred class GDK_MODIFIER_TYPE
 
-feature {NONE} -- enum
+feature {} -- enum
 
 	is_valid_gdk_modifier_type (a_modifier: INTEGER) : BOOLEAN is
 		do

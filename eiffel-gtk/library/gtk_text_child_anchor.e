@@ -27,8 +27,8 @@ indexing
 		 -- to allow for multiple views.
 		 
 class GTK_TEXT_CHILD_ANCHOR
-inherit G_OBJECT 
-
+inherit G_OBJECT redefine make end
+insert GTK
 creation make, from_external_pointer
 
 feature {} -- Creation
@@ -38,8 +38,10 @@ feature {} -- Creation
 		-- `insert_child_anchor'. To perform the creation and insertion
 		-- in one step, use the convenience function
 		-- `GTK_TEXT_BUFFER.create_child_anchor'.
+		require
+			gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_text_child_anchor_new
+			from_external_pointer (gtk_text_child_anchor_new)
 		end
 
 feature

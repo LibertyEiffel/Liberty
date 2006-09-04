@@ -27,6 +27,7 @@ inherit
 	C_STRUCT redefine dispose end
 
 insert
+	GTK
 	GTK_TREE_ITER_EXTERNALS rename set_stamp as set_stamp_internal end
 	GTK_TREE_MODEL_EXTERNALS
 	GLIB_MEMORY_ALLOCATION
@@ -35,7 +36,9 @@ creation make, make_from_model, from_model, from_external_pointer
 
 feature -- Creation
 	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
-		require valid_model: a_model/=Void
+		require
+			gtk_initialized: gtk.is_initialized
+			valid_model: a_model/=Void
 		do
 			handle := g_try_malloc (struct_size)
 			tree_model := a_model
@@ -140,12 +143,12 @@ feature
 			-- the Garbage Collector free it.
 		end
 
-feature  -- size
+feature  -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeIter)"
 		end
-
+feature 
 	dispose is
 		do
 			if handle.is_not_null then gtk_tree_iter_free (handle) end

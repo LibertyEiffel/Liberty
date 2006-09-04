@@ -38,17 +38,18 @@ inherit
 
 		-- Implemented Interfaces: GtkVscale implements
 		-- AtkImplementorIface.
-	
+
 creation from_adjustment, with_range
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	from_adjustment (an_adjustment: GTK_ADJUSTMENT) is
 			-- Creates a new GtkVscale. `an_adjustment' is the
 			-- GtkAdjustment which sets the range of the scale.
-		require valid_adjustment: an_adjustment /= Void
+		require
+			gtk_initialized: gtk.is_initialized
+			valid_adjustment: an_adjustment /= Void
 		do
-			handle := gtk_vscale_new (an_adjustment.handle)
-			store_eiffel_wrapper		
+			from_external_pointer (gtk_vscale_new (an_adjustment.handle))
 		end
 
 	with_range (a_min, a_max, a_step: REAL) is
@@ -69,7 +70,7 @@ feature {NONE} -- Creation
 
 			-- `a_step' : step increment (tick size) used with keyboard
 			-- shortcuts
-
+		require gtk_initialized: gtk.is_initialized
 		do
 			handle:=gtk_vscale_new_with_range (a_min, a_max, a_step)
 			store_eiffel_wrapper

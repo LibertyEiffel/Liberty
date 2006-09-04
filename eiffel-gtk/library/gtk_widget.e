@@ -313,8 +313,19 @@ feature -- Operation
 -- gboolean    gtk_widget_intersect            (GtkWidget *widget,
 --                                              GdkRectangle *area,
 --                                              GdkRectangle *intersection);
--- gboolean    gtk_widget_is_focus             (GtkWidget *widget);
--- void        gtk_widget_grab_focus           (GtkWidget *widget);
+	-- gboolean    gtk_widget_is_focus             (GtkWidget *widget);
+	
+	grab_focus is
+			-- Causes widget to have the keyboard focus for the GtkWindow
+			-- it's inside. Current widget must be a focusable widget,
+			-- such as a GTK_ENTRY; something like GtkFrame won't
+			-- work. (More precisely, it must have the GTK_CAN_FOCUS flag
+			-- set.)
+		require focusable: can_focus
+		do
+			gtk_widget_grab_focus (handle)
+		end
+	
 -- void        gtk_widget_grab_default         (GtkWidget *widget);
 -- void        gtk_widget_set_name             (GtkWidget *widget,
 --                                              const gchar *name);
@@ -1500,11 +1511,13 @@ feature -- button-press-event signal
 -- wid : 	a GtkWidget.
 -- GTK_WIDGET_CAN_FOCUS()
 
--- #define GTK_WIDGET_CAN_FOCUS(wid)	  ((GTK_WIDGET_FLAGS (wid) & GTK_CAN_FOCUS) != 0)
+	can_focus: BOOLEAN is
+			-- Is the widget able to handle focus grabs?
+		do
+			Result := gtk_widget_can_focus(handle).to_boolean
+		end
 
--- Evaluates to TRUE if the widget is able to handle focus grabs.
--- wid : 	a GtkWidget.
--- GTK_WIDGET_HAS_FOCUS()
+	-- GTK_WIDGET_HAS_FOCUS()
 
 -- #define GTK_WIDGET_HAS_FOCUS(wid)	  ((GTK_WIDGET_FLAGS (wid) & GTK_HAS_FOCUS) != 0)
 
@@ -1945,13 +1958,6 @@ feature -- button-press-event signal
 
 -- widget : 	a GtkWidget
 -- Returns : 	TRUE if the widget is the focus widget.
--- gtk_widget_grab_focus ()
-
--- void        gtk_widget_grab_focus           (GtkWidget *widget);
-
--- Causes widget to have the keyboard focus for the GtkWindow it's inside. widget must be a focusable widget, such as a GtkEntry; something like GtkFrame won't work. (More precisely, it must have the GTK_CAN_FOCUS flag set.)
-
--- widget : 	a GtkWidget
 -- gtk_widget_grab_default ()
 
 -- void        gtk_widget_grab_default         (GtkWidget *widget);
@@ -2517,8 +2523,8 @@ feature -- button-press-event signal
 			-- to the ::style-set and ::direction-changed signals for the
 			-- widget.
 		do
-			create Result.from_external_pointer (
-				gtk_widget_create_pango_layout (handle, a_text.to_external))
+			create Result.from_external_pointer
+			(gtk_widget_create_pango_layout (handle, a_text.to_external))
 		end
 
 -- gtk_widget_render_icon ()

@@ -33,35 +33,34 @@ insert
 
 creation make, with_model, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkTreeView widget.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_tree_view_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_tree_view_new)
 		end
 
 	with_model (a_model: GTK_TREE_MODEL) is
 			-- Creates a new GtkTreeView widget with the model initialized to `a_model'.
-		require valid_model: a_model /= Void
+		require
+			gtk_initialized: gtk.is_initialized
+			valid_model: a_model /= Void
 		do
-			handle := gtk_tree_view_new_with_model (a_model.handle)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_tree_view_new_with_model (a_model.handle))
 		end
 
 feature
 	model: GTK_TREE_MODEL is
 			-- The model the GtkTreeView is based on. Void if the model
 			-- is unset.
-		obsolete "TODO: check if GTK_TREE_VIEW.model has memory leaks"
-		local ptr: POINTER
+		local ptr: POINTER; r: G_RETRIEVER [GTK_TREE_MODEL]
 		do
 			ptr := gtk_tree_view_get_model (handle)
 			if ptr.is_not_null then
-				Result := new_item
-				Result.from_external_pointer (ptr)
+				Result := r.eiffel_wrapper_from_gobject_pointer(ptr)
+				-- Note: this assumes that we are in an Eiffel-only world
 			end
-			not_yet_implemented
 		end
 
 	set_model (a_model: GTK_TREE_MODEL) is
@@ -505,13 +504,13 @@ feature
 		end
 
 	expand_all is
-			-- Recursively expands all nodes in the tree_view.
+			-- Recursively expands all nodes in the tree view.
 		do
 			gtk_tree_view_expand_all(handle)
 		end
 
 	collapse_all is
-			-- Recursively collapses all visible, expanded nodes in tree_view.
+			-- Recursively collapses all visible, expanded nodes in tree view.
 		do
 			gtk_tree_view_collapse_all(handle)
 		end
@@ -1602,7 +1601,7 @@ feature -- The "cursor_changed" signal
 			cursor_changed_callback.connect (Current, a_procedure)
 		end
 
-	-- "expand-collapse-cursor-row"
+feature	-- "expand-collapse-cursor-row"
 	--             gboolean    user_function      (GtkTreeView *treeview,
 	--                                             gboolean arg1,
 	--                                             gboolean arg2,
@@ -1633,9 +1632,9 @@ feature -- The "row_activated" signal
 			connect (Current, row_activated_signal_name, $on_row_activated)
 		end
 
-	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY,
-	                                                               TUPLE[GTK_TREE_PATH,
-	                                                                     GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
+	connect_to_row_activated_signal (a_procedure: PROCEDURE [ANY,
+																				TUPLE[GTK_TREE_PATH,
+																						GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
 		local row_activated_callback: ROW_ACTIVATED_CALLBACK
 		do
@@ -1643,7 +1642,7 @@ feature -- The "row_activated" signal
 			row_activated_callback.connect (Current, a_procedure)
 		end
 
-	-- "row-collapsed"
+feature -- "row-collapsed"
 	--             void        user_function      (GtkTreeView *treeview,
 	--                                             GtkTreeIter *arg1,
 	--                                             GtkTreePath *arg2,
@@ -2884,4 +2883,10 @@ feature -- The "row_activated" signal
 	-- See Also
 
 	-- GtkTreeViewColumn, GtkTreeSelection, GtkTreeDnd, GtkTreeMode, GtkTreeSortable, GtkTreeModelSort, GtkListStore, GtkTreeStore, GtkCellRenderer, GtkCellEditable, GtkCellRendererPixbuf, GtkCellRendererText, GtkCellRendererToggle
+feature -- struct size
+
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTreeView)"
+		end
 end

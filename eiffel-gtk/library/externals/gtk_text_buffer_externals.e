@@ -25,7 +25,7 @@ indexing
 
 deferred class GTK_TEXT_BUFFER_EXTERNALS
 
-feature {NONE}
+feature {}
 
 	gtk_text_buffer_new(dummy_table: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"

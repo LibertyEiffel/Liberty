@@ -73,29 +73,31 @@ indexing
 
 class GTK_LABEL
 inherit
-	GTK_MISC 
-	GTK_LABEL_EXTERNALS
+	GTK_MISC rename make as empty end
 		-- Implemented Interfaces: GtkLabel implements
 		-- AtkImplementorIface.
+
+insert GTK_LABEL_EXTERNALS
 	
 creation empty, with_label, with_mnemonic, with_markup_label, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	empty is
 			-- Creates a new empty label
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle:=gtk_label_new(default_pointer)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_label_new(default_pointer))
 		end
 
 	with_label (a_label: STRING) is
 			-- Creates a new label with the given text inside it.
-		require valid_label: a_label/=Void
+		require
+			gtk_initialized: gtk.is_initialized
+			valid_label: a_label/=Void
 		do
 			-- In gtk_label_new You can pass Void to get an empty label
 			-- widget.w
-			handle:=gtk_label_new(a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_label_new(a_label.to_external))
 		end
 
 	with_mnemonic (a_label: STRING) is
@@ -114,20 +116,21 @@ feature {NONE} -- Creation
 			-- inside a button or menu item, the button or menu item will
 			-- automatically become the mnemonic widget and be activated
 			-- by the mnemonic.
-		require valid_label: a_label/=Void
+		require
+			gtk_initialized: gtk.is_initialized
+			label_not_void: a_label/=Void
 		do
-			handle:=gtk_label_new_with_mnemonic(a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_label_new_with_mnemonic(a_label.to_external))
 		end
 
 	with_markup_label (a_label: STRING) is
 			-- Creates a new GtkLabel, containing the text in
 			-- `a_label', formatted using Pango markup language.
-
-		require valid_label: a_label/=Void
+		require
+			gtk_initialized: gtk.is_initialized
+			label_not_void: a_label/=Void
 		do
-			handle:=gtk_label_new(a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_label_new(a_label.to_external))
 			use_markup
 		ensure is_marked_up
 		end
@@ -723,4 +726,9 @@ feature -- Property Details
 -- label : 	the object which received the signal.
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkLabel)"
+		end
 end

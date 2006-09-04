@@ -93,13 +93,14 @@ insert GTK_SPIN_BUTTON_EXTERNALS
 	
 creation make, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (an_adjustment: GTK_ADJUSTMENT; a_climb_rate: REAL; some_digits: INTEGER) is
 			-- Creates a new GtkSpinButton. `an_adjustment' is the GtkAdjustment
 			-- object that this spin button should use. `a_climb_rate' specifies
 			-- how much the spin button changes when an arrow is clicked on.
 			-- `some_digits' are the number of decimal places to display.
 		require
+			gtk_initialized: gtk.is_initialized
 			valid_adjustment: an_adjustment /= Void
 			positive_digits: some_digits >= 0 
 		do
@@ -124,7 +125,7 @@ feature {NONE} -- Creation
 			-- `a_max' : Maximum allowable value
 		
 			-- `a_step' : Increment added or subtracted by spinning the widget
-
+		require gtk_initialized: gtk.is_initialized
 		do
 			handle:=gtk_spin_button_new_with_range  (a_min, a_max, a_step)
 			store_eiffel_wrapper

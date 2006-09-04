@@ -12,7 +12,7 @@ inherit
 	-- redefine copy end
 
 insert EXCEPTIONS
-		export {NONE} all
+		export {} all
 		undefine is_equal
 		end
 
@@ -37,7 +37,7 @@ feature -- Queries
 		end
 	-- TODO: implement copy using memcpy
 
-feature {WRAPPER} -- Access to C features
+feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 
 	-- struct_size should be exported to WRAPPER, to be able to check size 
 	-- before copying

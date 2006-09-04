@@ -443,7 +443,7 @@ feature -- enum GTypeDebugFlags
 -- G_TYPE_DEBUG_SIGNALS 	Print messages about signal emissions.
 -- G_TYPE_DEBUG_MASK 	Mask covering all debug flags.
 
-feature {NONE} -- External calls
+feature {} -- External calls
 	-- g_type_init_with_debug_flags ()
 
 -- void        g_type_init_with_debug_flags    (GTypeDebugFlags debug_flags);

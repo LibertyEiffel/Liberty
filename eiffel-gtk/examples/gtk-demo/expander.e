@@ -21,65 +21,55 @@ indexing
 
 class EXPANDER
 
+inherit DEMO
+	
 creation make
 
 feature
--- /* Expander
---  *
---  * GtkExpander allows to provide additional content that is initially hidden.
---  * This is also known as "disclosure triangle".
---  *
---  */
 
--- #include <gtk/gtk.h>
+	name: STRING is "Expander"
+	
+	description: STRING is "GtkExpander allows to provide additional content that is initially hidden.%
+	%This is also known as %"disclosure triangle%"."
 
--- static GtkWidget *window = NULL;
+	filename: STRING is "expander.e"
 
+feature -- widgets
+	vbox: GTK_VBOX
+	label: GTK_LABEL
+	expander: GTK_EXPANDER
+	
+feature
+	make is
+		do
+			if window=Void then
+				create {GTK_DIALOG} window.with_buttons ("GtkExpander", -- Window label
+																	  parent_window,
+																	  0, -- no flags
+																	  <<gtk_stock_close,
+																		 gtk_response_none>>)
+				window.set_unresizable
 
--- GtkWidget *
--- do_expander (GtkWidget *do_widget)
--- {
---   GtkWidget *vbox;
---   GtkWidget *label;
---   GtkWidget *expander;
-  
---   if (!window)
---   {
---     window = gtk_dialog_new_with_buttons ("GtkExpander",
--- 					  GTK_WINDOW (do_widget),
--- 					  0,
--- 					  GTK_STOCK_CLOSE,
--- 					  GTK_RESPONSE_NONE,
--- 					  NULL);
---     gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
+				create vbox,make (False, 5)
+				window.vbox.pack_start (vbox, True, True, 0);
+				vbox.set_border_width (5)
 
---     g_signal_connect (window, "response",
--- 		      G_CALLBACK (gtk_widget_destroy), NULL);
---     g_signal_connect (window, "destroy",
--- 		      G_CALLBACK (gtk_widget_destroyed), &window);
+				vbox.pack_start (create {GTK_LABEL}.with_label
+									  ("Expander demo. Click on the triangle for details."),
+									  label, False, False, 0)
 
---     vbox = gtk_vbox_new (FALSE, 5);
---     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (window)->vbox), vbox, TRUE, TRUE, 0);
---     gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
+				create expander.make ("Details")
+				vbox.pack_start (expander, False, False, 0)
 
---     label = gtk_label_new ("Expander demo. Click on the triangle for details.");
---     gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+				expander.add (create {GTK_LABEL}.with_label("Details can be shown or hidden."))
 
---     /* Create the expander */
---     expander = gtk_expander_new ("Details");
---     gtk_box_pack_start (GTK_BOX (vbox), expander, FALSE, FALSE, 0);
-
---     label = gtk_label_new ("Details can be shown or hidden.");
---     gtk_container_add (GTK_CONTAINER (expander), label);
---   }
-
---   if (!GTK_WIDGET_VISIBLE (window))
---     gtk_widget_show_all (window);
---   else
---     gtk_widget_destroy (window);
-
---   return window;
-	--}
+				if not window.is_visible then
+					window.show_all (window)
+				else
+					window.destroy
+				end
+			end
+		end
 end
 
 

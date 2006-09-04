@@ -24,7 +24,7 @@ indexing
 
 deferred class GTK_CELL_EDITABLE_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 --             GtkCellEditable;
 --             GtkCellEditableIface;
 	gtk_cell_editable_start_editing (a_gtkcelleditable, a_gdkevent: POINTER) is

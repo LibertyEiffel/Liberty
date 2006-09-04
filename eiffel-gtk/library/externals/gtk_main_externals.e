@@ -21,7 +21,7 @@ indexing
 	revision "$REvision:$"
 
 deferred class GTK_MAIN_EXTERNALS
-feature {NONE} -- external calls
+feature {} -- external calls
 	gtk_set_locale: POINTER is
 		external "C use <gtk/gtk.h>"
 	end

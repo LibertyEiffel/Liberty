@@ -128,7 +128,7 @@ feature
 		deferred
 		end
 
-feature {NONE} -- External calls
+feature {} -- External calls
 	pqexec(a_connection: POINTER; a_command: POINTER): POINTER is -- PGresult*
 			-- Submits a command to the server and waits for the result.
 		

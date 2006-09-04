@@ -21,7 +21,7 @@ indexing
 deferred class GTK_FRAME_EXTERNALS
 insert
 	GTK_SHADOW_TYPE
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_frame_new (a_label: POINTER) is
 		external "C use  <gtk/gtk.h>"
 		end

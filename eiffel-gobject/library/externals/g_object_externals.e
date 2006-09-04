@@ -8,7 +8,7 @@ indexing
 
 deferred class G_OBJECT_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 	-- #include <glib-object.h>
 
 	--             GObject;
@@ -374,7 +374,7 @@ feature {NONE} -- External calls
 
 	-- Note: g_object_disconnect () not wrapped since it is variadic 
 
-feature {NONE} -- Property low-level setters
+feature {} -- Property low-level setters
 	-- Note: g_object_set is variadic; we wrap it with various kind of basic 
 	-- types
 
@@ -406,7 +406,7 @@ feature {NONE} -- Property low-level setters
 		-- external "C use <glib-object.h>"
 		-- end
 
-feature {NONE} -- Low-level properties getters
+feature {} -- Low-level properties getters
 	-- Note: g_object_get since it is variadic is wrapped many times
 	-- with various name and various number of parameters. Paolo
 	-- 2006-05-08
@@ -800,6 +800,11 @@ feature {} -- Invoking virtual calls defined in GObjectClass
 	invoke_set_property (g_object_class, handle: POINTER; param_id: INTEGER; a_value, pspec: POINTER) is
 		external "C inline"
 		alias "(/* G_OBJECT.invoke_set_property*/(G_OBJECT_CLASS($g_object_class))->set_property($handle,$param_id, $a_value, $pspec))"
+		end
+	
+	invoke_get_property (g_object_class, handle: POINTER; param_id: INTEGER; a_value, pspec: POINTER) is
+		external "C inline"
+		alias "(/* G_OBJECT.invoke_get_property*/(G_OBJECT_CLASS($g_object_class))->get_property($handle,$param_id, $a_value, $pspec))"
 		end			
 end
 	

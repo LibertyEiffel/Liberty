@@ -28,7 +28,7 @@ class GTK_TEXT_ITER
 
 inherit
 	C_STRUCT
-		redefine copy, dispose end
+		redefine copy, dispose, is_equal end
 
 creation make, from_external_pointer, copy
 

@@ -22,7 +22,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_DIALOG_STRUCT
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	get_vbox (a_gtk_dialog: POINTER): POINTER is
 		external "C struct GtkDialog get vbox use <gtk/gtk.h>"

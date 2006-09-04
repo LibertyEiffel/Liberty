@@ -23,6 +23,8 @@ inherit C_STRUCT
 
 creation make, from_external_pointer
 
+	-- TODO: wrap this structure for real
+
 feature {} -- Creation
 
 feature -- size

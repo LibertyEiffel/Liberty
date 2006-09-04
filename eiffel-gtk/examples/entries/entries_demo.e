@@ -1,13 +1,13 @@
 class ENTRIES_DEMO
-inherit GTK_MAIN
+insert GTK
 creation make
 feature
 	make is
 		do
-			initialize_gtk
+			gtk.initialize
 			create window.make
 			window.show_all
-			gtk_main
+			gtk.run_main_loop
 		end
 	window: ENTRIES_WINDOW
 end

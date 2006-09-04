@@ -29,7 +29,7 @@ insert
 
 creation make, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 feature -- size
 

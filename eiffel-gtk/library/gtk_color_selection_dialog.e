@@ -21,13 +21,33 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
+			-- Description: The GtkColorSelectionDialog provides a
+			-- standard dialog which allows the user to select a color
+			-- much like the GtkFileSelection provides a standard dialog
+			-- for file selection.
+
+	
 class GTK_COLOR_SELECTION_DIALOG
 
-inherit GTK_DIALOG
-
+inherit
+	GTK_DIALOG
+		rename make as make_dialog
+		redefine struct_size
+		end 
+	-- GtkColorSelectionDialog implements AtkImplementorIface.
 insert
 	GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
+creation make
+
+feature {} -- Creation
+	make (a_title: STRING) is
+			-- Creates a new GtkColorSelectionDialog.
+		require title_not_void: a_title /= Void
+		do
+			from_external_pointer (gtk_color_selection_new(a_title.to_external))
+		end
+	
 feature -- size
 
 	struct_size: INTEGER is
@@ -50,42 +70,33 @@ feature
 			end
 		end
 
--- 	
--- Synopsis
--- 
--- #include <gtk/gtk.h>
--- 
--- 
---             GtkColorSelectionDialog;
--- GtkWidget*  gtk_color_selection_dialog_new  (const gchar *title);
--- 
--- 
+feature {} -- External call
+	gtk_color_selection_dialog_new  (a_title: POINTER): POINTER is -- GtkWidget*
+		external "C use <gtk/gtk.h>"
+		end
 
+feature {} -- GtkColorSelectionDialog struct
 
---
--- Implemented Interfaces
--- 
--- GtkColorSelectionDialog implements AtkImplementorIface.
--- Description
--- 
--- The GtkColorSelectionDialog provides a standard dialog which allows the user to select a color much like the GtkFileSelection provides a standard dialog for file selection.
--- Details
--- GtkColorSelectionDialog
--- 
--- typedef struct _GtkColorSelectionDialog GtkColorSelectionDialog;
--- 
--- The GtkColorSelectionDialog struct contains the following fields. (These fields should be considered read-only. They should never be set by an application.)
--- GtkWidget *colorsel; 	The GtkColorSelection widget contained within the dialog. Use this widget and its gtk_color_selection_get_current_color() function to gain access to the selected color. Connect a handler for this widget's color_changed signal to be notified when the color changes.
--- GtkWidget *ok_button; 	The OK button widget contained within the dialog. Connect a handler for the clicked event.
--- GtkWidget *cancel_button; 	The cancel button widget contained within the dialog. Connect a handler for the clicked event.
--- GtkWidget *help_button; 	The help button widget contained within the dialog. Connect a handler for the clicked event.
--- 
--- gtk_color_selection_dialog_new ()
--- 
--- GtkWidget*  gtk_color_selection_dialog_new  (const gchar *title);
--- 
--- Creates a new GtkColorSelectionDialog.
--- title : 	a string containing the title text for the dialog.
--- Returns : 	a GtkColorSelectionDialog.
+	-- typedef struct _GtkColorSelectionDialog GtkColorSelectionDialog;
+	 
+	-- The GtkColorSelectionDialog struct contains the following
+	-- fields. (These fields should be considered read-only. They
+	-- should never be set by an application.)
+	
+	-- GtkWidget *colorsel; The GtkColorSelection widget contained
+	-- within the dialog. Use this widget and its
+	-- gtk_color_selection_get_current_color() function to gain access
+	-- to the selected color. Connect a handler for this widget's
+	-- color_changed signal to be notified when the color changes.
+	
+	-- GtkWidget *ok_button; The OK button widget contained within the
+	-- dialog. Connect a handler for the clicked event.
+	
+	-- GtkWidget *cancel_button; The cancel button widget contained
+	-- within the dialog. Connect a handler for the clicked event.
+	
+	-- GtkWidget *help_button; The help button widget contained within
+	-- the dialog. Connect a handler for the clicked event.
+	
 
 end -- class GTK_COLOR_SELECTION_DIALOG

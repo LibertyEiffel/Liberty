@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_TREE_SELECTION_EXTERNALS
 inherit GTK_SELECTION_MODE
-feature {NONE}
+feature {}
 	gtk_tree_selection_set_mode (a_gtktreeselection: POINTER; a_gtkselectionmode: INTEGER) is
 		require is_valid_mode: is_valid_gtk_selection_mode (a_gtkselectionmode)
 		external "C use <gtk/gtk.h>"

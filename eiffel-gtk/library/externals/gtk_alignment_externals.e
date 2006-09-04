@@ -23,7 +23,7 @@ indexing
 
 class GTK_ALIGNMENT_EXTERNALS
 
-feature {NONE} -- external calls
+feature {} -- external calls
 
 	gtk_alignment_new (xalign, yalign, xscale, yscale: REAL_32): POINTER is
 		external "C use <gtk/gtk.h>"

@@ -36,7 +36,7 @@ inherit
 		-- AtkImplementorIface.
 	GTK_MISC_EXTERNALS
 
--- feature {NONE} -- size size: INTEGER is external "C inline use
+-- feature {} -- size size: INTEGER is external "C inline use
 -- <gtk/gtk.h>" alias "sizeof(GtkMisc)" end
 
 feature --

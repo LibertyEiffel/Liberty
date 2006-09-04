@@ -22,7 +22,7 @@ inherit
 	
 creation make
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (n_prealloced: INTEGER) is
 			-- Allocate and initialize a new GValueArray, optionally
 			-- preserve space for `n_prealloced' elements. New arrays
@@ -126,7 +126,7 @@ feature -- Array-like features
 	-- user_data : 	extra data argument provided for compare_func
 	-- Returns : 	the GValueArray passed in as value_array
 
-feature {NONE} -- External calls
+feature {} -- External calls
 	g_value_array_get_nth (a_value_array: POINTER; an_index: INTEGER): POINTER is -- GValue
 			-- Note: an_index is a guint, a NATURAL
 		external "C use <glib-object.h>"
@@ -174,7 +174,7 @@ feature {NONE} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-feature {NONE} -- GValueArray struct
+feature {} -- GValueArray struct
 
 	get_n_values (a_gvalue_array: POINTER): INTEGER is
 			-- Get n_values from a GValueArray struct. It is a guint, the

@@ -23,16 +23,16 @@ indexing
 
 class GTK_TABLE_CHILD
 inherit SHARED_C_STRUCT
-	
+	-- TODO: wrap this structure for real	
 creation make, from_external_pointer
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTableChild)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 end
 --   GtkTableChild
 

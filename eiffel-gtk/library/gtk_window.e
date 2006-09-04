@@ -25,20 +25,23 @@ class GTK_WINDOW
 
 inherit
 	GTK_BIN
+insert
+	GTK
 	GTK_WINDOW_EXTERNALS
 	GTK_WINDOW_TYPE
 
 creation
-	make, from_external_pointer
+	make, make_toplevel, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
-	make is
+	make, make_toplevel is
 			-- Create a new window managed by the window manager, having
 			-- a frame by default
+		require
+			gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_window_new (gtk_window_toplevel)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_window_new (gtk_window_toplevel))
 		end
 
 feature
@@ -1646,5 +1649,10 @@ feature -- various queries
 -- -- widget : 	
 -- -- user_data : 	user data set when the signal handler was connected.
 -- -- << GtkMessageDialog 	GtkWindowGroup >>
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkWindow)"
+		end
 
 end

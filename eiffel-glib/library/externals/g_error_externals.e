@@ -23,7 +23,7 @@ indexing
 
 deferred class G_ERROR_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	g_error_get_code (a_error: POINTER): INTEGER is
 		external "C struct GError get code use <glib.h>"

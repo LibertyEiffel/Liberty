@@ -9,8 +9,8 @@ indexing
 class TREE_DEMO
 
 inherit
-	GTK_MAIN
-	G_TYPE_EXTERNALS
+	GTK
+	G_TYPE
 		-- TODO: This class is necessary when creating GTK_LIST_STOREs,
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
@@ -87,13 +87,13 @@ feature
 
 	window: GTK_WINDOW
 
-feature {NONE}  -- Creation
+feature {}  -- Creation
 	
 	make is
 			-- Run the demo
 		local selection: GTK_TREE_SELECTION
 		do
-			initialize_gtk
+			gtk.initialize_gtk
 						
 			-- Create a GTK window toplevel window
 			create window.make
@@ -108,7 +108,7 @@ feature {NONE}  -- Creation
 
 			selection := view.selection
 			selection.set_select_function (agent on_select)
-			run_gtk_main_loop
+			gtk.run_main_loop
 		end
 
 feature
@@ -150,7 +150,7 @@ feature -- Agents
 			print ("Using GTK_TREE_MODEL.for_each to print its content:%N")
 			print ("TODO: in tree_demo on_destroy model.for_each (agent print_person)%N")
 			print ("If GTK_TREE_MODEL.for_each is implemented correctly you should see above each person's name and age.%N")
-			gtk_quit
+			gtk.quit
 		end
 
 	print_person (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER): BOOLEAN is

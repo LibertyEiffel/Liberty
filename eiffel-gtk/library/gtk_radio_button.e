@@ -85,29 +85,31 @@ creation
 	with_mnemonic,
 	with_mnemonic_from_widget
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	
 	from_group (a_group: G_SLIST[GTK_RADIO_BUTTON]) is
 			-- Creates a new GTK_RADIO_BUTTON. To be of any practical
 			-- value, a widget should then be packed into the radio
 			-- button. `a_group': an existing radio button group, or Void
 			-- if you are creating a new group.
-		require valid_group: a_group/=Void
+		require
+			gtk_initialized: gtk.is_initialized
+			group_not_void: a_group/=Void
 		local ptr: POINTER
 		do
 			if a_group/=Void then ptr:=a_group.handle end
-			handle := gtk_radio_button_new (ptr)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_radio_button_new (ptr))
 		end
 	
 	from_widget (a_widget: GTK_RADIO_BUTTON) is
 			-- Creates a new GtkRadioButton, adding it to the same group
 			-- of `a_widget'. As with `make', a widget should be packed
 			-- into the radio button.
-		require valid_widget: a_widget /= Void
+		require
+			gtk_initialized: gtk.is_initialized
+			widget_not_void: a_widget /= Void
 		do
-			handle := gtk_radio_button_new_from_widget (a_widget.handle)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_radio_button_new_from_widget (a_widget.handle))
 		end
 
 	with_label (a_group: G_SLIST[GTK_RADIO_BUTTON]; a_label: STRING) is
@@ -115,13 +117,13 @@ feature {NONE} -- Creation
 			-- next to the radio button; `a_group' is an existing radio
 			-- button group, or Void if you are creating a new group.
 		require
-			valid_group: a_group/=Void implies not a_group.is_empty
-			valid_label: a_label /= Void
+			gtk_initialized: gtk.is_initialized
+			group_not_void: a_group/=Void implies not a_group.is_empty
+			label_not_void: a_label /= Void
 		local ptr: POINTER
 		do
 			if a_group/=Void then ptr:=a_group.handle end
-			handle := gtk_radio_button_new_with_label (ptr, a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_radio_button_new_with_label (ptr, a_label.to_external))
 		end
 
 	with_label_from_widget (a_widget: GTK_RADIO_BUTTON; a_label: STRING) is
@@ -129,12 +131,12 @@ feature {NONE} -- Creation
 			-- of `a_widget'; `a_label' displayed next to the radio
 			-- button.
 		require
-			valid_widget: a_widget /= Void
-			valid_label: a_label /= Void
+			gtk_initialized: gtk.is_initialized
+			widget_not_void: a_widget /= Void
+			label_not_void: a_label /= Void
 		do
 			handle:=gtk_radio_button_new_with_label_from_widget (a_widget.handle,
 																				  a_label.to_external)
-			store_eiffel_wrapper
 		end
 
 
@@ -144,11 +146,11 @@ feature {NONE} -- Creation
 			-- GTK_LABEL.with_mnemonic, so underscores in label indicate
 			-- the mnemonic for the button.
 		require
-			valid_group: a_group/=Void implies not a_group.is_empty	
-			valid_label: a_label /= Void
+			gtk_initialized: gtk.is_initialized
+			group_not_void: a_group/=Void implies not a_group.is_empty	
+			label_not_void: a_label /= Void
 		do
-			handle := gtk_radio_button_new_with_mnemonic (a_group.handle, a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_radio_button_new_with_mnemonic (a_group.handle, a_label.to_external))
 		end
 
 	with_mnemonic_from_widget (a_widget: GTK_RADIO_BUTTON; a_label: STRING) is
@@ -157,8 +159,9 @@ feature {NONE} -- Creation
 			-- GTK_LABEL.with_mnemonic, so underscores in label indicate
 			-- the mnemonic for the button.
 		require
-			valid_widget: a_widget /= Void
-			valid_label: a_label /= Void
+			gtk_initialized: gtk.is_initialized
+			widget_not_void: a_widget /= Void
+			label_not_void: a_label /= Void
 		do
 			handle:=gtk_radio_button_new_with_mnemonic_from_widget (a_widget.handle, a_label.to_external)
 			store_eiffel_wrapper

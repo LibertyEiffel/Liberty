@@ -70,7 +70,7 @@ inherit GTK_CONTAINER rename make as make_c_struct end
 insert GTK_ATTACH_OPTIONS
 creation make
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (rows, columns: INTEGER; homogeneous: BOOLEAN) is
 			-- Used to create a new table widget. An initial size must be given by
 			-- specifying how many rows and columns the table should have, although
@@ -86,6 +86,7 @@ feature {NONE} -- Creation
 
 			-- Note: rows and columns shall be a NATURAL_16
 		require
+			gtk_initialized: gtk.is_initialized
 			rows_fits_natural_16: rows.in_range (0,65535)
 			columns_fits_natural_16: columns.in_range (0,65535)				  
 		do
@@ -460,13 +461,13 @@ feature
 
 --    Default value: 0
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTable)"
 		end
 
-feature {NONE} -- External calls
+feature {} -- External calls
 -- #include <gtk/gtk.h>
 -- GtkTable;
 -- GtkTableChild;

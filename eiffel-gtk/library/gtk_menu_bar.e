@@ -30,7 +30,7 @@ indexing
 
 class GTK_MENU_BAR
 inherit
-	GTK_MENU_SHELL redefine struct_size end
+	GTK_MENU_SHELL redefine make, struct_size end
 		-- GtkMenuBar implements AtkImplementorIface.
 	
 insert GTK_PACK_DIRECTION
@@ -40,9 +40,9 @@ creation make
 feature {} -- Creation
 	make is
 			-- Creates the new GtkMenuBar
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_menu_bar_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_menu_bar_new)
 		end
 
 feature

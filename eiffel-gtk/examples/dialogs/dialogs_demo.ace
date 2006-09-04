@@ -34,6 +34,7 @@ cluster -- section
 	gdk: "${eiffel_libraries}/eiffel-gdk/loadpath.se"
 	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
 	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
+	pango: "${eiffel_libraries}/eiffel-pango/loadpath.se"
 
 	dialogs_demo: "."
 

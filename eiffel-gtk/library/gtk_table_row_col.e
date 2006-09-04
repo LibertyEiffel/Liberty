@@ -22,20 +22,18 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_TABLE_ROW_COL
-inherit
-
-	_EXTERNALS
-	C_STRUCT
+inherit C_STRUCT
 	
 creation make
-
-feature {NONE} -- size
+	-- TODO: wrap this structure for real
+	
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTableRowCol)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 end
 --   GtkTableRowCol
 

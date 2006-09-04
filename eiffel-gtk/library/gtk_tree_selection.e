@@ -40,87 +40,89 @@ indexing
 	-- done completely view side. As a result, multiple views of
 	-- the same model can have completely different
 	-- selections. Additionally, you cannot change the selection
-	-- of a row on the model that is not currently displayed by
-	-- the view without expanding its parents first.
+			-- of a row on the model that is not currently displayed by
+			-- the view without expanding its parents first.
 
-	-- One of the important things to remember when monitoring
-	-- the selection of a view is that the "changed" signal is
-	-- mostly a hint. That is, it may only emit one signal when a
-	-- range of rows is selected. Additionally, it may on
-	-- occasion emit a "changed" signal when nothing has happened
-	-- (mostly as a result of programmers calling select_row on
-	-- an already selected row).
+			-- One of the important things to remember when monitoring
+			-- the selection of a view is that the "changed" signal is
+			-- mostly a hint. That is, it may only emit one signal when a
+			-- range of rows is selected. Additionally, it may on
+			-- occasion emit a "changed" signal when nothing has happened
+			-- (mostly as a result of programmers calling select_row on
+			-- an already selected row).
 
 class GTK_TREE_SELECTION
 inherit
 	G_OBJECT
+insert
+	G_SIGNALS
 	GTK_TREE_SELECTION_EXTERNALS
 
 creation from_external_pointer
 
 feature -- selection mode
 	set_single_mode is
-	-- Set selection mode to single. Zero or one element may be
-	-- selected.If the previous type was GTK_SELECTION_MULTIPLE,
-	-- then the anchor is kept selected, if it was previously
-	-- selected.
+			-- Set selection mode to single. Zero or one element may be
+			-- selected.If the previous type was GTK_SELECTION_MULTIPLE,
+			-- then the anchor is kept selected, if it was previously
+			-- selected.
 		do
-	gtk_tree_selection_set_mode (handle, gtk_selection_single)
+			gtk_tree_selection_set_mode (handle, gtk_selection_single)
 		end
 	
 	is_mode_single: BOOLEAN is
-	-- Is selection mode single?
+			-- Is selection mode single?
 		do
-	Result := (gtk_tree_selection_get_mode (handle) = gtk_selection_single )
+			Result := (gtk_tree_selection_get_mode (handle) = gtk_selection_single )
 		end
 
 	set_browse_mode is
-	-- Set selection mode to browse. Exactly one element is
-	-- selected. In some circumstances, such as initially or
-	-- during a search operation, it's possible for no element to
-	-- be selected with GTK_SELECTION_BROWSE. What is really
-	-- enforced is that the user can't deselect a currently
-	-- selected element except by selecting another element. If
-	-- the previous type was GTK_SELECTION_MULTIPLE, then the
-	-- anchor is kept selected, if it was previously selected.
+			-- Set selection mode to browse. Exactly one element is
+			-- selected. In some circumstances, such as initially or
+			-- during a search operation, it's possible for no element to
+			-- be selected with GTK_SELECTION_BROWSE. What is really
+			-- enforced is that the user can't deselect a currently
+			-- selected element except by selecting another element. If
+			-- the previous type was GTK_SELECTION_MULTIPLE, then the
+			-- anchor is kept selected, if it was previously selected.
 		do
-	gtk_tree_selection_set_mode (handle, gtk_selection_browse)
+			gtk_tree_selection_set_mode (handle, gtk_selection_browse)
 		end
 	
 	is_mode_browse: BOOLEAN is
-	-- Is selection mode browse?
+			-- Is selection mode browse?
 		do
-	Result := (gtk_tree_selection_get_mode (handle) = gtk_selection_browse )
+			Result := (gtk_tree_selection_get_mode (handle) = gtk_selection_browse )
 		end
 	
 	set_multiple_mode is
-	-- Set selection mode to multiple. Any number of elements may
-	-- be selected. Clicks toggle the state of an item. Any
-	-- number of elements may be selected. The Ctrl key may be
-	-- used to enlarge the selection, and Shift key to select
-	-- between the focus and the child pointed to. Some widgets
-	-- may also allow Click-drag to select a range of
-	-- elements. If the previous type was GTK_SELECTION_MULTIPLE,
-	-- then the anchor is kept selected, if it was previously
-	-- selected.
+			-- Set selection mode to multiple. Any number of elements may
+			-- be selected. Clicks toggle the state of an item. Any
+			-- number of elements may be selected. The Ctrl key may be
+			-- used to enlarge the selection, and Shift key to select
+			-- between the focus and the child pointed to. Some widgets
+			-- may also allow Click-drag to select a range of
+			-- elements. If the previous type was GTK_SELECTION_MULTIPLE,
+			-- then the anchor is kept selected, if it was previously
+			-- selected.
 		do
-	gtk_tree_selection_set_mode (handle, gtk_selection_multiple)
+			gtk_tree_selection_set_mode (handle, gtk_selection_multiple)
 		end
 	
 	is_mode_multiple: BOOLEAN is
-	-- Is selection mode multiple?
+			-- Is selection mode multiple?
 		do
-	Result := (gtk_tree_selection_get_mode (handle) = gtk_selection_multiple)
+			Result := (gtk_tree_selection_get_mode (handle) = gtk_selection_multiple)
 		end
 
 		
 	set_select_function (a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
-	-- Sets the selection function. If set, this function is
-	-- called before any node is selected or unselected, giving
-	-- some control over which nodes are selected. The select
-	-- function should return TRUE if the state of the node may
-	-- be toggled, and FALSE if the state of the node should be
-	-- left unchanged.
+			-- Sets the selection function. If set, this function is
+			-- called before any node is selected or unselected, giving
+			-- some control over which nodes are selected. The select
+			-- function should return TRUE if the state of the node may
+			-- be toggled, and FALSE if the state of the node should be
+			-- left unchanged.
 		local select_callback: GTK_TREE_SELECT_FUNCTION
 		do
 			create select_callback.make (Current, a_function)
@@ -135,31 +137,31 @@ feature -- selection mode
 
 feature -- View	
 	tree_view: GTK_TREE_VIEW is
-	-- the tree view associated with selection.
+			-- the tree view associated with selection.
 		do
-	create Result.from_external_pointer (gtk_tree_selection_get_tree_view (handle))
+			create Result.from_external_pointer (gtk_tree_selection_get_tree_view (handle))
 		ensure result_not_void: Result/=Void
 		end
 
 
 	is_node_selected: BOOLEAN is
-	-- Is there a selected node?
+			-- Is there a selected node?
 		require not_multiple: not is_mode_multiple
 		do
-	Result:=(gtk_tree_selection_get_selected (handle, default_pointer, default_pointer)).to_boolean
+			Result:=(gtk_tree_selection_get_selected (handle, default_pointer, default_pointer)).to_boolean
 		end
 	
 feature -- selections
 	selected: GTK_TREE_ITER is
-	--  the currently selected node if selection is set to
-	--  GTK_SELECTION_SINGLE or GTK_SELECTION_BROWSE. This
-	--  feature will not work if you use selection is
-	--  GTK_SELECTION_MULTIPLE.
+			-- the currently selected node if selection is set to
+			-- `gtk_selection_single' or `gtk_selection_browse'. This
+			-- feature will not work if you use selection is
+			-- `gtk_selection_multiple'.
 		require not_multiple: not is_mode_multiple
 		local discarded_result: INTEGER
 		do
-	create Result.make
-	discarded_result := gtk_tree_selection_get_selected (handle, default_pointer, Result.handle)
+			create Result.make
+			discarded_result := gtk_tree_selection_get_selected (handle, default_pointer, Result.handle)
 		end
 	
 	-- TODO: gtk_tree_selection_selected_foreach ()
@@ -177,96 +179,96 @@ feature -- selections
 
 	selected_rows: G_LIST [GTK_TREE_PATH] is
 		do
-	create Result.from_external_pointer (gtk_tree_selection_get_selected_rows(handle,default_pointer))
-	-- gtk_tree_selection_get_selected_rows Creates a list of
-	-- path of all selected rows. Additionally, if you are
-	-- planning on modifying the model after calling this
-	-- function, you may want to convert the returned list into a
-	-- list of GtkTreeRowReferences. To do this, you can use
-	-- gtk_tree_row_reference_new().
+			create Result.from_external_pointer (gtk_tree_selection_get_selected_rows(handle,default_pointer))
+			-- gtk_tree_selection_get_selected_rows Creates a list of
+			-- path of all selected rows. Additionally, if you are
+			-- planning on modifying the model after calling this
+			-- function, you may want to convert the returned list into a
+			-- list of GtkTreeRowReferences. To do this, you can use
+			-- gtk_tree_row_reference_new().
 
-	-- To free the return value, use:
+			-- To free the return value, use:
 			
-	-- g_list_foreach (list, gtk_tree_path_free, NULL);
-	-- g_list_free (list);
-
-	-- selection : 	A GtkTreeSelection.
-	-- model : 	A pointer to set to the GtkTreeModel, or NULL.
-	-- Returns : 	A GList containing a GtkTreePath for each selected row.
+			-- g_list_foreach (list, gtk_tree_path_free, NULL);
+			-- g_list_free (list);
+			
+			-- selection : 	A GtkTreeSelection.
+			-- model : 	A pointer to set to the GtkTreeModel, or NULL.
+			-- Returns : 	A GList containing a GtkTreePath for each selected row.
 		end
 
 	selected_rows_count: INTEGER is
-	-- the number of rows that have been selected in tree.
+			-- the number of rows that have been selected in tree.
 		do
-	Result := gtk_tree_selection_count_selected_rows (handle)
+			Result := gtk_tree_selection_count_selected_rows (handle)
 		end
 
 	select_path (a_path: GTK_TREE_PATH) is
-	-- Select the row at `a_path'.
+			-- Select the row at `a_path'.
 		require path_not_void: a_path/=Void
 		do
-	gtk_tree_selection_select_path  (handle, a_path.handle)
+			gtk_tree_selection_select_path  (handle, a_path.handle)
 		ensure selected: is_path_selected (a_path)
 		end
 
 	unselect_path (a_path: GTK_TREE_PATH) is
-	-- Unselect the row at `a_path'.
+			-- Unselect the row at `a_path'.
 		require path_not_void: a_path/=Void
 		do
-	gtk_tree_selection_unselect_path  (handle, a_path.handle)
+			gtk_tree_selection_unselect_path  (handle, a_path.handle)
 		ensure unselected: not is_path_selected (a_path)
 		end
 
 	is_path_selected (a_path: GTK_TREE_PATH): BOOLEAN is
-	-- Is the row pointed to by `a_path' currently selected?
-	-- False if `a_path' does not point to a valid location.
+			-- Is the row pointed to by `a_path' currently selected?
+			-- False if `a_path' does not point to a valid location.
 		do
-	Result:=(gtk_tree_selection_path_is_selected(handle,a_path.handle)).to_boolean
+			Result:=(gtk_tree_selection_path_is_selected(handle,a_path.handle)).to_boolean
 		end
 
 	select_iter (an_iter: GTK_TREE_ITER) is
-	-- Selects the specified iterator (`an_iter').
+			-- Selects the specified iterator (`an_iter').
 		require iterator_not_void: an_iter/=Void
 		do
-	gtk_tree_selection_select_iter  (handle, an_iter.handle)
+			gtk_tree_selection_select_iter  (handle, an_iter.handle)
 		ensure selected: is_iter_selected(an_iter)
 		end
 	
 	unselect_iter (an_iter: GTK_TREE_ITER) is
-	-- Unselects the specified iterator (`an_iter').
+			-- Unselects the specified iterator (`an_iter').
 		require iterator_not_void: an_iter/=Void
 		do
-	gtk_tree_selection_unselect_iter  (handle, an_iter.handle)		
+			gtk_tree_selection_unselect_iter  (handle, an_iter.handle)		
 		ensure unselected: not is_iter_selected(an_iter)
 		end
 
 	is_iter_selected (an_iter: GTK_TREE_ITER): BOOLEAN is
-	-- Is the row at `an_iter' currently selected?
+			-- Is the row at `an_iter' currently selected?
 		require iterator_not_void: an_iter/=Void
 		do
-	Result:=(gtk_tree_selection_iter_is_selected(handle,an_iter.handle)).to_boolean
+			Result:=(gtk_tree_selection_iter_is_selected(handle,an_iter.handle)).to_boolean
 		end
 
 	select_all is
-	-- Selects all the nodes. selection must be set to GTK_SELECTION_MULTIPLE mode.
+			-- Selects all the nodes. selection must be set to GTK_SELECTION_MULTIPLE mode.
 		require multiple_mode: is_mode_multiple
 		do
-	gtk_tree_selection_select_all (handle)
+			gtk_tree_selection_select_all (handle)
 		end
 
 	unselect_all is
-	-- Unselects all the nodes.
+			-- Unselects all the nodes.
 		do
-	gtk_tree_selection_unselect_all (handle)
+			gtk_tree_selection_unselect_all (handle)
 		end 
 
 	select_range (a_start,an_end: GTK_TREE_PATH) is
-	-- Selects a range of nodes, determined by `a_start' and
-	-- `an_end' paths inclusive. Selection must be set to
-	-- GTK_SELECTION_MULTIPLE mode.
+			-- Selects a range of nodes, determined by `a_start' and
+			-- `an_end' paths inclusive. Selection must be set to
+			-- GTK_SELECTION_MULTIPLE mode.
 
-	-- `a_start' : 	The initial node of the range.
-	-- `an_end' : 	The final node of the range.
+			-- `a_start' : 	The initial node of the range.
+			-- `an_end' : 	The final node of the range.
 		require
 			multiple_mode: is_mode_multiple
 			valid_start: a_start /= Void
@@ -276,12 +278,12 @@ feature -- selections
 		end
 
 	unselect_range (a_start,an_end: GTK_TREE_PATH) is
-	-- Unselects a range of nodes, determined by `a_start' and
-	-- `an_end' paths inclusive. Selection must be set to
-	-- GTK_SELECTION_MULTIPLE mode.
+			-- Unselects a range of nodes, determined by `a_start' and
+			-- `an_end' paths inclusive. Selection must be set to
+			-- GTK_SELECTION_MULTIPLE mode.
 
-	-- `a_start' : 	The initial node of the range.
-	-- `an_end' : 	The final node of the range.
+			-- `a_start' : 	The initial node of the range.
+			-- `an_end' : 	The final node of the range.
 		require
 			multiple_mode: is_mode_multiple
 			valid_start: a_start /= Void
@@ -291,9 +293,29 @@ feature -- selections
 		end
 	
 
-	-- Since 2.2
-	-- Signal Details
-	-- The "changed" signal
+feature  -- The "changed" signal
+	changed_signal_name: STRING is "changed"
+
+	on_changed is
+			-- Built-in changed signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_changed is
+			-- Connects "changed" signal to `on_changed' feature.
+		do
+			connect (Current, changed_signal_name, $on_changed)
+		end
+
+	connect_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_SELECTION]]) is
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			changed_callback: CHANGED_TREE_SELECTION_CALLBACK
+		do
+			create changed_callback.make
+			changed_callback.connect (Current, a_procedure)
+		end
 
 	-- void        user_function                  (GtkTreeSelection *treeselection,
 	--                                             gpointer user_data);
@@ -310,7 +332,7 @@ feature -- selections
 	-- TODO: Unwrapped
 	
 	-- GtkTreeSelectionFunc ()
-
+	
 	-- gboolean    (*GtkTreeSelectionFunc)         (GtkTreeSelection *selection,
 	--                                              GtkTreeModel *model,
 	--                                              GtkTreePath *path,
@@ -336,4 +358,9 @@ feature -- selections
 	-- path : 	The GtkTreePath of a selected row
 	-- iter : 	A GtkTreeIter pointing to a selected row
 	-- data : 	user data
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTreeSelection)"
+		end
 end

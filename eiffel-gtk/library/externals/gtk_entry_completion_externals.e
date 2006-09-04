@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_ENTRY_COMPLETION_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 -- gboolean    (*GtkEntryCompletionMatchFunc)  (GtkEntryCompletion *completion, const gchar *key, GtkTreeIter *iter, gpointer user_data);
 	gtk_entry_completion_new: POINTER is

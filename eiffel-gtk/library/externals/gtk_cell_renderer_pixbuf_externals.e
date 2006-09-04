@@ -22,7 +22,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_CELL_RENDERER_PIXBUF_EXTERNALS
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_cell_renderer_pixbuf_new: POINTER is -- GtkCellRenderer*
 		external "C use <gtk/gtk.h>"

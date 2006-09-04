@@ -23,7 +23,7 @@ indexing
 
 class PANGO_RECTANGLE_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	pango_rectangle_get_x (point_star: POINTER): INTEGER is
 		external "C struct PangoRectangle get x use <pango/pango-types.h>"

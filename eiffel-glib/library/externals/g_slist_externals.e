@@ -5,7 +5,7 @@ indexing
 	revision "$REvision:$"
 
 class G_SLIST_EXTERNALS
-feature {NONE} -- external calls
+feature {} -- external calls
 	
 	g_slist_alloc: POINTER is
 		external "C use <glib.h>"

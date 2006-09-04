@@ -31,7 +31,7 @@ indexing
 			-- entry.
 
 class GTK_CELL_RENDERER_TEXT
-inherit GTK_CELL_RENDERER
+inherit GTK_CELL_RENDERER 
 insert 
 	PANGO_STYLE
 	GTK_CELL_RENDERER_TEXT_EXTERNALS
@@ -44,7 +44,7 @@ feature -- size
 		alias "sizeof(GtkCellRendererText)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make is
 			-- Creates a new GtkCellRendererText. Adjust how text is
@@ -56,8 +56,7 @@ feature {NONE} -- Creation
 			-- model, thus rendering a different string in each row of
 			-- the GtkTreeView
 		do
-			handle := gtk_cell_renderer_text_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_cell_renderer_text_new)
 		end
 
 feature
@@ -303,7 +302,7 @@ feature -- The "style" property
 	set_style (a_style: INTEGER) is
 		require valid_style: is_valid_style (a_style)
 		do
-			set_integer_property (style_property_name, a_style)
+			set_enum_property (style_property_name, a_style)
 		end
 
 			

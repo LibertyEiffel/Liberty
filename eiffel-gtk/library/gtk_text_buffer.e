@@ -23,20 +23,22 @@ indexing
 
 class GTK_TEXT_BUFFER
 
-inherit
-	G_OBJECT
+inherit G_OBJECT redefine make end
 
 insert
+	GTK
 	GTK_TEXT_BUFFER_EXTERNALS
 	G_SIGNALS
 
 creation
 	make, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make is
 			-- Creates a new text buffer.
+		require
+			gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_text_buffer_new(default_pointer))
 			-- TODO: Support GTK_TEXT_TAG_TABLEs.  For now, creating a

@@ -23,7 +23,7 @@ indexing
 
 class GDK_GC_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gdk_gc_new (a_drawable: POINTER): POINTER is
 		external "C use <gdk/gdk.h>"

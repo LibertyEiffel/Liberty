@@ -36,7 +36,7 @@ indexing
 
 class GTK_CELL_RENDERER_PIXBUF
 
-inherit GTK_CELL_RENDERER
+inherit GTK_CELL_RENDERER redefine make end
 
 insert GTK_CELL_RENDERER_PIXBUF_EXTERNALS
 
@@ -48,7 +48,7 @@ feature {WRAPPER} -- size
 		alias "sizeof(GtkCellRendererPixbuf)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkCellRendererPixbuf. Adjust rendering
 			-- parameters using object properties. Object properties can
@@ -59,8 +59,7 @@ feature {NONE} -- Creation
 			-- model, thus rendering a different image in each row of the
 			-- GtkTreeView.
 		do
-			handle:=gtk_cell_renderer_pixbuf_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_cell_renderer_pixbuf_new)
 		end
 
 feature -- Properties

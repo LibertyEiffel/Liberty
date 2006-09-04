@@ -23,12 +23,7 @@ indexing
 
 deferred class GTK_TREE_STORE_EXTERNALS
 
-feature {NONE}
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkTreeStore)"
-		end
-
+feature {}
 	gtk_tree_store_newv (n_columns: INTEGER; types: POINTER): POINTER is -- GtkListStore*
 		external "C use <gtk/gtk.h>"
 		end

@@ -10,7 +10,7 @@ insert GTK_MAIN
 	
 creation make
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- TODO: Eiffelize this example Example 1. Creating a paned widget with minimum sizes.
 		do

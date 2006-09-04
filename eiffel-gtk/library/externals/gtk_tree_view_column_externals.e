@@ -22,7 +22,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_TREE_VIEW_COLUMN_EXTERNALS
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	-- void (*GtkTreeCellDataFunc) (GtkTreeViewColumn *tree_column,
 	--                                    GtkCellRenderer *cell,

@@ -29,7 +29,7 @@ inherit
 		rename
 			is_not_null as wrapped_object_exists
 		redefine
-			dispose
+			make, dispose
 		end
 	
 insert

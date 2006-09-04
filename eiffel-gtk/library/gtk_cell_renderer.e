@@ -60,9 +60,8 @@ indexing
 			-- respectively.
 
 deferred class GTK_CELL_RENDERER
-inherit
-	GTK_OBJECT
-	GTK_CELL_RENDERER_EXTERNALS
+inherit GTK_OBJECT
+insert GTK_CELL_RENDERER_EXTERNALS
 
 feature
 	-- TODO: wrap gtk_cell_renderer_get_size ()

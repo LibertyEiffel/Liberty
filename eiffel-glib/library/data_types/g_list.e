@@ -50,7 +50,9 @@ inherit
 -- 			swap
 -- 		end
 	SHARED_C_STRUCT
-		rename exists as wrapped_object_exists
+		rename
+			make as allocate_struct -- Note: this is required to circumvent the not_null postcondition of SHARED_C_STRUCT make. A NULL pointer is the actual *valid* empty G_LIST!
+			exists as wrapped_object_exists
 		undefine fill_tagged_out_memory
 		end
 	-- Note: Shall the wrapper factory be inserted rather than 
@@ -60,16 +62,16 @@ inherit
 insert
 	G_LIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
 	
-creation make, from_external_pointer
+creation make, empty, from_external_pointer
 
 feature
-	make is
+	make, empty is
 		do
 			handle := default_pointer
 		end
 
 	first: ITEM is
-		require not empty
+		require not_empty: not is_empty
 		do
 			Result := new_item
 			Result.from_external_pointer (g_list_get_data (handle))
@@ -77,14 +79,14 @@ feature
 		end
 
 	last: like first is 
-		require not empty
+		require not_empty: not is_empty
 		do
 			Result := new_item
 			Result.from_external_pointer (g_list_get_data (g_list_last (handle)))
 		end
 
 	item (i: INTEGER): like first is
-		require not empty
+		require not_empty: not is_empty
 		do
 			Result := new_item
 			Result.from_external_pointer (g_list_nth_data (handle, i))
@@ -288,7 +290,7 @@ feature
 		ensure positive: Result >= 0 
 		end
 
-	empty, is_empty: BOOLEAN is 
+	is_empty: BOOLEAN is 
 		do
 			Result:= (handle.is_null)
 		end
@@ -564,7 +566,11 @@ feature
 -- Restores the previous GAllocator, used when allocating GList elements.
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
-
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <glib.h>"
+		alias "sizeof(GList)"
+		end
 end
 
 

@@ -21,7 +21,7 @@ indexing
 
 deferred class GDK_EVENT_ANY_EXTERNALS
 
-feature {NONE} -- Low level access
+feature {} -- Low level access
 
 	gdk_event_any_get_window (ptr: POINTER): POINTER is
 		external "C struct GdkEventAny get type use <gdk/gdk.h>"

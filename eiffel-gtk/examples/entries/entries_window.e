@@ -1,8 +1,9 @@
 class ENTRIES_WINDOW
 inherit
-	GTK_WINDOW redefine make end
+	GTK_WINDOW redefine make, on_destroy end
+insert
 	G_SIGNALS
-	GTK_MAIN
+	GTK
 creation make
 feature make is
 		do
@@ -54,6 +55,6 @@ feature -- Callbacks
 	on_destroy is
 		do
 			print ("Entries demo ending%N")
-			gtk_quit
+			gtk.quit
 		end
 end

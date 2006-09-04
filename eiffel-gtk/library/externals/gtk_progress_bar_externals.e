@@ -19,7 +19,7 @@ indexing
 					]"					
 
 class GTK_PROGRESS_BAR_EXTERNALS
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_progress_bar_new : POINTER is
 		external "C use <gtk/gtk.h>"
 		end

@@ -8,7 +8,7 @@ indexing
 class DIALOGS_DEMO
 
 inherit
-	GTK_MAIN --redefine default_rescue end
+	GTK --redefine default_rescue end
 	DIALOG_FLAGS --redefine default_rescue end
 	MESSAGE_TYPES --redefine default_rescue end
 	BUTTONS_TYPES --redefine default_rescue end
@@ -29,7 +29,7 @@ feature -- Initialisation
 	
 	make is
 		do
-			initialize_gtk								
+			gtk.initialize								
 			run_some_dialogs
 			show_file_dialogs
 			run_files_dialog

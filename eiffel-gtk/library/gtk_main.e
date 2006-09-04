@@ -24,12 +24,23 @@ indexing
 	
 class GTK_MAIN
 
+inherit
+	ANY redefine default_create end
+	WRAPPER_HANDLER  redefine default_create end
 insert
-	ARGUMENTS
-	GTK_MAIN_EXTERNALS
+	ARGUMENTS redefine default_create end 
+	GTK_MAIN_EXTERNALS redefine default_create end
+	POINTER_HANDLING redefine default_create end
+	
 creation default_create
-feature
 
+feature -- Creation
+	default_create is
+		do
+			create error.empty
+			initialize
+		end
+feature
 	disable_setlocale is
 			-- Prevents initilize_gtk and similar call (wrappers of
 			-- gtk_init(), gtk_init_check(), gtk_init_with_args() and
@@ -65,10 +76,12 @@ feature
 			-- instead.
 		local argc: INTEGER; argv: POINTER
 		do
-			argc := argument_count
-			argv := command_arguments.to_external
-			gtk_init ($argc, $argv)
-			is_initialized := True
+			if not is_initialized then 
+				argc := argument_count
+				argv := command_arguments.to_external
+				gtk_init ($argc, $argv)
+				is_initialized := True
+			end
 		ensure initialized: is_initialized = True
 		end
 
@@ -110,6 +123,7 @@ feature
 			-- called. You can nest calls to gtk_main(). In that case
 			-- gtk_main_quit() will make the innermost invocation of the
 			-- main loop return.
+		require gtk_initialized: is_initialized
 		do
 			gtk_main
 		end
@@ -341,5 +355,145 @@ feature
 
 -- See the GLib manual, especially GMainLoop and signal-related functions such as g_signal_connect().
 
+feature -- global windows features
+	toplevels: G_LIST [GTK_WINDOW] is
+			-- A list of all existing toplevel windows.
+		do
+			create Result.from_external_pointer (gtk_window_list_toplevels)
+			-- Note: (adapted from original documentation)
+			-- `gtk_window_list_toplevels' returns a list in which the
+			-- widgets are not individually referenced. Therefore before
+			-- performing actions involving callbacks that might destroy
+			-- the widgets, we call "g_list_foreach (result,
+			-- (GFunc)g_object_ref, NULL)" (implemented in
+			-- `ref_all_toplevels') first, and then unref all the widgets
+			-- afterwards.
+			ref_all_toplevels (Result.handle)
+		end
+
+
+	default_icon_list: G_LIST[GDK_PIXBUF] is
+			-- an icon list to be used as fallback for windows that
+			-- haven't had `icon_list' called on them to set up a
+			-- window-specific icon list.
+		do
+			create Result.from_external_pointer (gtk_window_get_default_icon_list)
+			-- Gets the value set by
+			-- gtk_window_set_default_icon_list(). The list is a copy and
+			-- should be freed with g_list_free(), but the pixbufs in the
+			-- list have not had their reference count incremented.
+		end
+
+	set_default_icon_list (some_pixbuffers: G_LIST[GDK_PIXBUF]) is
+			-- Sets an icon list to be used as fallback for windows that
+			-- haven't had gtk_window_set_icon_list() called on them to
+			-- set up a window-specific icon list. This function allows
+			-- you to set up the icon for all windows in your app at
+			-- once.  See `GTK_WINDOW.set_icon_list' for more details.
+		require
+			list_not_void: some_pixbuffers /= Void
+		do
+			gtk_window_set_default_icon_list(some_pixbuffers.handle)
+		end
+
+
+	set_default_icon (an_icon: GDK_PIXBUF) is
+			-- Sets an icon to be used as fallback for windows that
+			-- haven't had `GTK_WINDOW.set_icon' called on them from a
+			-- pixbuf.
+		do
+			gtk_window_set_default_icon (an_icon.handle)
+		end
+
+	set_default_icon_from_file (a_filename: STRING) is
+			-- Sets an icon to be used as fallback for windows that
+			-- haven't had gtk_window_set_icon_list() called on them from
+			-- a file on disk. Errors are stored in `error' feature
+		require
+			filename_not_void: a_filename /= Void
+		do
+			is_default_icon_set := (gtk_window_set_default_icon_from_file
+											(a_filename.to_external,
+											 address_of (error.handle))).to_boolean
+			-- Sets an icon to be used as fallback for windows that
+			-- haven't had gtk_window_set_icon_list() called on them from
+			-- a file on disk. Warns on failure if err is NULL.
+		end
+
+	is_default_icon_set: BOOLEAN
+			-- Has last call to `set_default_icon_from_file' actually 
+			-- set up the default icon?
+
+	set_default_icon_name (a_name: STRING) is
+			-- Sets an icon to be used as fallback for windows that
+			-- haven't had `GTK_WINDOW.set_icon_list' called on them from
+			-- a named themed icon, see `GTK_WINDOW.set_icon_name'.
+		do
+			gtk_window_set_default_icon_name (a_name.to_external)
+		end 
+
+	set_auto_startup_notification is
+			-- By default, after showing the first GtkWindow for each
+			-- GdkScreen, GTK+ calls gdk_notify_startup_complete(). Call
+			-- this function to disable the automatic startup
+			-- notification. You might do this if your first window is a
+			-- splash screen, and you want to delay notification until
+			-- after your real main window has been shown, for example.
+
+			-- In that example, you would disable startup notification
+			-- temporarily, show your splash screen, then re-enable it so
+			-- that showing the main window would automatically result in
+			-- notification.
+		do
+			gtk_window_set_auto_startup_notification (1)
+		end	
+
+	unset_auto_startup_notification is
+			-- Disable auto startup notification. Useful when dealing 
+			-- with splash-screens. See `set_auto_startup_notification' 
+			-- for further informations.
+		do
+			gtk_window_set_auto_startup_notification (0)
+		end	
+
+feature -- Global error
+	error: G_ERROR
+			-- The error eventually set up by a GTK+ call.
+	
+feature {} -- External calls for global windows features
+	ref_all_toplevels (toplevel_list: POINTER) is
+		external "C use <gtk/gtk.h>"
+		alias "g_list_foreach ($toplevel_list, (GFunc)g_object_ref, NULL)"
+		end
+
+	gtk_window_list_toplevels: POINTER is -- GList* 
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_window_get_default_icon_list: POINTER is -- GList* 
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_window_set_default_icon_list(a_glist: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_window_set_default_icon (a_gdkpixbuf_icon: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_window_set_default_icon_from_file (filename_str, gerror_handle: POINTER): INTEGER is 	-- gboolean
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_window_set_default_icon_name (name_str: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_window_set_auto_startup_notification (gboolean_setting: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+invariant
+	error_not_void: error /= Void
 end
 	

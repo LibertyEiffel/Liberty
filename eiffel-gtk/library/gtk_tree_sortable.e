@@ -32,7 +32,7 @@ inherit
 	-- Prerequisites: GtkTreeSortable requires GtkTreeModel and GObject.
 	GTK_TREE_MODEL
 		--rename make as undefined_make
-		--export {NONE} undefined_make
+		--export {} undefined_make
 		--undefine undefined_make -- Since it is deferred
 		--end
 	

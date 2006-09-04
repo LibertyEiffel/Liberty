@@ -21,7 +21,7 @@ indexing
 	
 deferred class GTK_RELIEF_STYLE
 feature -- enum
-	is_valid_gtk_relief_style (a_style: INTEGER): BOOLEAN is
+	is_valid_relief_style, is_valid_gtk_relief_style (a_style: INTEGER): BOOLEAN is
 		do
 			Result:=((a_style=gtk_relief_normal) or else
 						(a_style=gtk_relief_half) or else

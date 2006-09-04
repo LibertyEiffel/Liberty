@@ -2,7 +2,7 @@ class MY_EXPANDER
 inherit
 	GTK_EXPANDER
 		rename make as make_expander
-		export {NONE} make_expander
+		export {} make_expander
 		redefine on_activate			
 		end
 creation make

@@ -21,33 +21,9 @@ insert
 			copy
 		end
 
-feature {WRAPPER} -- syntactic sugar
-	Null: POINTER is
-			-- NULL. Just a shorthand for `default_pointer' more
-			-- understandable by C programmers.
-		obsolete "Use default_pointer or is_not_null."
-		external "C macro"
-		alias "NULL"
-			-- Another possible implementation is
-			-- once Result := default_pointer end
-			-- or just Null: POINTER is do end
-		end
-	
-feature {WRAPPER} -- Pointer referencing and de-referencing
-	address_of (a_pointer: POINTER): POINTER is
-		external "C inline" 
-		alias "(& ($a_pointer))"
-		end
+	POINTER_HANDLING  -- export {} all undefine is_equal,	copy end
 
-	content_of (a_pointer: POINTER): POINTER is
-			-- The pointer referenced by `a_pointer' which has to be a
-			-- pointer to a pointer (i.e.: void **). Note: the type
-			-- cannot be checked by Eiffel AFAIK. Paolo 2006-05-08q.
-		external "C inline" 
-		alias "(* ($a_pointer))"
-		end
-
-feature {WRAPPER} -- Implementation
+feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			handle := a_ptr

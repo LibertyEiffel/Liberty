@@ -23,6 +23,7 @@ inherit C_STRUCT
 
 creation make, from_external_pointer
 
+	-- TODO: wrap this structure for real
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

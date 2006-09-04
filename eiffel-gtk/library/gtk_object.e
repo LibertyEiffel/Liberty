@@ -92,9 +92,12 @@ deferred class GTK_OBJECT
 
 inherit
 	G_OBJECT
-		redefine store_eiffel_wrapper end
+		-- undefine make
+		redefine store_eiffel_wrapper
+		end
 
 insert
+	GTK -- that provides the gtk singleton.
 	GTK_OBJECT_EXTERNALS
 	G_SIGNALS
 
@@ -125,11 +128,6 @@ feature
 		do
 			gtk_object_destroy (handle)
 		end
--- The "user-data" property
-
---   "user-data"            gpointer              : Read / Write
-
--- Anonymous User Data Pointer.
 
 	store_eiffel_wrapper is
 		do
@@ -175,7 +173,7 @@ feature -- Signals
 		do
 		end
 
-feature {NONE} -- Signal names
+feature {} -- Signal names
 	destroy_signal_name: STRING is "destroy"
 
 end

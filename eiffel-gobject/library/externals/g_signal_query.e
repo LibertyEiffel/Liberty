@@ -44,7 +44,7 @@ feature -- getters
 		alias "sizeof(GSignalQuery)"
 		end
 	
-feature {NONE} -- Implementation
+feature {} -- Implementation
 
 	signal_id (query:POINTER): INTEGER is
 			-- guint signal_id; The signal id of the signal being

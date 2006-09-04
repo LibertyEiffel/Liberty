@@ -12,10 +12,10 @@ inherit
 creation
 	make
 
-feature {NONE}
+feature {}
 	timer: POINTER
 	
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new timer, and starts timing
 		do

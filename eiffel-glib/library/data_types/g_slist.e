@@ -62,10 +62,10 @@ insert
 		end
 	WRAPPER_FACTORY [ITEM]
 
-creation make_empty, from_external_pointer
+creation make, empty, make_empty, from_external_pointer
 
 feature
-	make_empty is
+	make, empty, make_empty is
 		do
 			handle := default_pointer
 		end
@@ -120,26 +120,40 @@ feature
 
 	clear_all is do not_yet_implemented end
 
-	add_first (element: like first) is
+	add_first,prepend (an_item: like first) is
+			-- Adds `an_item' on to the start of the list.
+		require
+			valid_item: an_item/=Void
 		do
-			handle := g_slist_prepend (handle, element.handle)
+			handle := g_slist_prepend (handle, an_item.handle)
+			-- Note: The return value is the new start of the list, which
+			-- may have changed, so make sure you store the new value.
+
+			-- /* Notice that it is initialized to the empty list. */
+			-- GSList *list = NULL; list = g_slist_prepend (list,
+			-- "last"); list = g_slist_prepend (list, "first");
 		end
 
-	add_last (element: like first) is
-			-- Note that add_last has to traverse the entire list to find
-			-- the end, which is inefficient when adding multiple
-			-- elements. A common idiom to avoid the inefficiency is to
-			-- prepend the elements and reverse the list when all
-			-- elements have been added.
+	add_last, append (an_item: like first) is
+			-- Adds `an_item' on to the end of the list.  Note: this
+			-- feature has to traverse the entire list to find the end,
+			-- which is inefficient when adding multiple elements. A
+			-- common idiom to avoid the inefficiency is to prepend the
+			-- elements and reverse the list when all elements have been
+			-- added.
+		require
+			valid_item: an_item/=Void
 		do
-			handle := g_slist_append (handle, element.handle)	
+			handle:=g_slist_append (handle, an_item.handle)
+
+			-- Note: The return value is the new start of the list, which
+			-- may have changed, so make sure you store the new value.
 		end
 
 	add (element: like first; index: INTEGER) is
 		do
 			handle := g_slist_insert (handle, element.handle, index-1)
 		end
-
 	
 	append_collection (other: COLLECTION[ITEM]) is
 		do
@@ -292,7 +306,15 @@ feature
 			Result:= (handle.is_null)
 		end
 	
-	from_collection (model: COLLECTION[ITEM]) is do not_yet_implemented end
+	from_collection (model: COLLECTION[ITEM]) is
+		local i: ITERATOR[ITEM]
+		do
+			from i:=model.get_new_iterator; i.start
+			until not i.is_off
+			loop add_first(i.item); i.next
+			end
+			reverse
+		end
 	
 	get_new_iterator: ITERATOR[ITEM] is 
 		do
@@ -326,46 +348,6 @@ feature -- Memory management
 
 -- Allocates space for one GSList element. It is called by the g_slist_append(), g_slist_prepend(), g_slist_insert() and g_slist_insert_sorted() functions and so is rarely used on its own.
 -- Returns : 	a pointer to the newly-allocated GSList element.
-
-	append (an_item: like first) is
-			-- Adds `an_item' on to the end of the list.
-		do
-			handle:=g_slist_append (handle, an_item.handle)
-
-			-- Note: The return value is the new start of the list, which may have changed, so make sure you store the new value.
-			
-			-- Note: g_slist_append() has to traverse the entire list to
-			-- find the end, which is inefficient when adding multiple
-			-- elements. A common idiom to avoid the inefficiency is to
-			-- prepend the elements and reverse the list when all
-			-- elements have been added.
-
-			--   /* Notice that these are initialized to the empty list. */
-			--   GSList *list = NULL, *number_list = NULL;
-			
-			--   /* This is a list of strings. */
-			--   list = g_slist_append (list, "first");
-			--   list = g_slist_append (list, "second");
-			
-			--   /* This is a list of integers. */
-			--   number_list = g_slist_append (number_list, GINT_TO_POINTER (27));
-			--   number_list = g_slist_append (number_list, GINT_TO_POINTER (14));
-		end
-
-			
-	prepend  (an_item: like first) is
-			-- Adds a new element on to the start of the list.
-		require
-			valid_item: an_item/=Void
-		do
-			handle := g_slist_prepend (handle,an_item.handle)
-			-- Note: The return value is the new start of the list, which
-			-- may have changed, so make sure you store the new value.
-
-			-- /* Notice that it is initialized to the empty list. */
-			-- GSList *list = NULL; list = g_slist_prepend (list,
-			-- "last"); list = g_slist_prepend (list, "first");
-		end
 
 
 -- g_slist_insert ()

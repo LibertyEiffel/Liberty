@@ -28,19 +28,19 @@ indexing
 
 class GTK_CELL_VIEW
 inherit
-	GTK_WIDGET
-	GTK_CELL_LAYOUT
-		-- GtkCellView also implements AtkImplementorIface.
+	GTK_WIDGET redefine make end
+	-- GtkCellView also implements AtkImplementorIface.
+
+insert GTK_CELL_LAYOUT
+		
 creation make
 
-
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make is 
 			-- Creates a new GtkCellView widget.
 		do
-			handle := gtk_cell_view_new
-			store_eiffel_wrapper			
+			from_external_pointer (gtk_cell_view_new)
 		end
 
 	make_with_text (a_text: STRING) is
@@ -59,8 +59,7 @@ feature {NONE} -- Creation
 			-- markup language.
 		require valid_text: a_markup /= Void
 		do
-			handle := gtk_cell_view_new_with_markup (a_markup.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_cell_view_new_with_markup (a_markup.to_external))
 		end
 
 	make_with_pixbuf (a_pixbuf: GDK_PIXBUF) is
@@ -165,13 +164,13 @@ feature 	-- The "background" property
 
 	-- Default value: FALSE
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellView)"
 		end
 
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_cell_view_new: POINTER  is
 		external "C use <gtk/gtk.h>"
 		end

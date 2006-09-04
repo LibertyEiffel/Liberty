@@ -42,46 +42,47 @@ insert
 	GTK_TREE_VIEW_COLUMN_SIZING
 	GTK_SORT_TYPE
 	
-creation make, from_external_pointer
+creation make, with_attributes, from_external_pointer
 
-feature
+feature {} -- Creation
 
 	make is
 			-- Creates a new GtkTreeViewColumn.
+		require gtk_initialized: gtk.is_initialized
 		do
-			handle := gtk_tree_view_column_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_tree_view_column_new)
 		end
 
-	-- TODO: mimick variadic gtk_tree_view_column_new_with_attributes ()
-	
-	-- GtkTreeViewColumn* gtk_tree_view_column_new_with_attributes
-	-- (const gchar *title, GtkCellRenderer *cell, -- ...);
+	with_attributes (a_title: STRING; a_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION [TUPLE[STRING,INTEGER]]) is
+			-- Creates a new GtkTreeViewColumn with a number of default
+			-- values. This is equivalent to calling `set_title',
+			-- `pack_start', and `set_attributes' on the newly created
+			-- GtkTreeViewColumn.
 
-	-- Creates a new GtkTreeViewColumn with a number of default
-	-- values. This is equivalent to calling
-	-- gtk_tree_view_column_set_title(),
-	-- gtk_tree_view_column_pack_start(), and
-	-- gtk_tree_view_column_set_attributes() on the newly created
-	-- GtkTreeViewColumn.
-
-	-- Here's a simple example:
+			-- TODO: Eiffelize this:
+			-- Here's a simple example:
+		
+			--  enum { TEXT_COLUMN, COLOR_COLUMN, N_COLUMNS };
+			--  ...
+			--  {
+			--    GtkTreeViewColumn *column;
+			--    GtkCellRenderer   *renderer = gtk_cell_renderer_text_new ();
+		
+			--    column = gtk_tree_view_column_new_with_attributes ("Title",
+			--    renderer, "text", TEXT_COLUMN, "foreground", COLOR_COLUMN,
+			--    NULL); }
+		require
+			gtk_initialized: gtk.is_initialized
+			title_not_void: a_title /= Void
+			renderer_not_void: a_renderer /= Void
+		do
+			make
+			set_title (a_title)
+			pack_start(a_renderer, True)
+			set_attributes (a_renderer, some_attributes)
+		end
 	
-	--  enum { TEXT_COLUMN, COLOR_COLUMN, N_COLUMNS };
-	--  ...
-	--  {
-	--    GtkTreeViewColumn *column;
-	--    GtkCellRenderer   *renderer = gtk_cell_renderer_text_new ();
-	
-	--    column = gtk_tree_view_column_new_with_attributes ("Title",
-	--    renderer, "text", TEXT_COLUMN, "foreground", COLOR_COLUMN,
-	--    NULL); }
-
-	-- title : 	The title to set the header to.
-	-- cell : 	The GtkCellRenderer.
-	-- ... : 	A NULL-terminated list of attributes.
-	-- Returns : 	A newly created GtkTreeViewColumn.
-	
+feature
 	pack_start (a_cell: GTK_CELL_RENDERER; does_expand: BOOLEAN) is
 			-- Packs `a_cell' into the beginning of the column. If
 			-- `does_expand' is False, then the cell is allocated no more
@@ -140,20 +141,24 @@ feature
 															an_attribute.to_external, a_column)
 		end
 	
-	-- TODO: mimick variadic gtk_tree_view_column_set_attributes function
-	
-	-- void gtk_tree_view_column_set_attributes (GtkTreeViewColumn
-	-- *tree_column, GtkCellRenderer *cell_renderer, ...);
-
-	-- Sets the attributes in the list as the attributes of
-	-- tree_column. The attributes should be in attribute/column order,
-	-- as in gtk_tree_view_column_add_attribute(). All existing
-	-- attributes are removed, and replaced with the new attributes.
-
-	-- tree_column : 	A GtkTreeViewColumn.
-	-- cell_renderer : 	the GtkCellRenderer we're setting the attributes of
-	-- ... : 	A NULL-terminated list of attributes.
-
+	set_attributes (a_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION [TUPLE[STRING,INTEGER]]) is
+			-- Sets the list as the attributes (`some_attributes') of
+			-- tree column. All existing attributes are removed, and
+			-- replaced with the new attributes.
+		require
+			renderer_not_void: a_renderer /= Void
+			attributes_not_void: some_attributes /= Void
+			attribute_names_not_void: some_attributes.for_all (agent is_tuple_valid (?))
+		local iter: ITERATOR [TUPLE[STRING,INTEGER]]
+		do
+			clear_attributes (a_renderer)
+			from iter:=some_attributes.get_new_iterator;	iter.start
+			until iter.is_off
+			loop
+				add_attribute (a_renderer, iter.item.item_1, iter.item.item_2)
+				iter.next
+			end	
+		end
 	
 	-- TODO: gtk_tree_view_column_set_cell_data_func ()
 
@@ -172,7 +177,7 @@ feature
 	-- func : 	The GtkTreeViewColumnFunc to use.
 	-- func_data : 	The user data for func.
 	-- destroy : 	The destroy notification for func_data
-
+	
 	clear_attributes (a_cell_renderer: GTK_CELL_RENDERER) is
 			-- Clears all existing attributes previously set with
 			-- `set_attributes'.
@@ -809,4 +814,15 @@ feature -- TODO: Properties and signals
 
 	-- treeviewcolumn : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
+feature -- Precondition helping features
+	is_tuple_valid (item: TUPLE[STRING,INTEGER]): BOOLEAN is
+			-- Is `item' not Void and then the string contained not Void?
+		do
+			Result := ((item /= Void) and then (item.item_1 /= Void))
+		end
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTreeViewColumn)"
+		end
 end

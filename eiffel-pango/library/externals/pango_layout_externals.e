@@ -23,7 +23,7 @@ indexing
 
 class PANGO_LAYOUT_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	pango_layout_get_text (a_layout: POINTER): POINTER is
 		external "C use <pango/pango-layout.h>"

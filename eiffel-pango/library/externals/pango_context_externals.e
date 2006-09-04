@@ -23,6 +23,6 @@ indexing
 
 class PANGO_CONTEXT_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 end -- class PANGO_CONTEXT_EXTERNALS

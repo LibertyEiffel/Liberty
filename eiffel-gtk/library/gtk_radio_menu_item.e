@@ -60,13 +60,12 @@ feature {} -- Creation
 			-- Creates a new GtkRadioMenuItem; the radio menu item is to
 			-- attached to `a_group'. If `a_group' is Void a new group 
 			-- is made.
+		require gtk_initialized: gtk.is_initialized
 		do
-			if a_group /= Void then
-				handle := gtk_radio_menu_item_new (a_group.handle)
-			else
-				handle := gtk_radio_menu_item_new (default_pointer)
+			if a_group /= Void
+			 then from_external_pointer (gtk_radio_menu_item_new (a_group.handle))
+			else 	from_external_pointer (gtk_radio_menu_item_new (default_pointer))
 			end
-			store_eiffel_wrapper
 		end
 
 	with_label (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
@@ -74,15 +73,15 @@ feature {} -- Creation
 			-- `a_label'. The radio menu item is to be attached to
 			-- `a_group'. If `a_group' is Void a new group will be
 			-- created.
-		require 
+		require
+			gtk_initialized: gtk.is_initialized
 			label_not_void: a_label/=Void
 		do
-			if a_group=Void then
-				handle := gtk_radio_menu_item_new_with_label (a_group.handle
-																			 default_pointer)
-			else
-				handle := gtk_radio_menu_item_new_with_label (a_group.handle
-																			 a_label.to_external)
+			if a_group=Void
+			 then from_external_pointer (gtk_radio_menu_item_new_with_label
+												  (a_group.handle, default_pointer))
+			else  from_external_pointer (gtk_radio_menu_item_new_with_label
+												  (a_group.handle, a_label.to_external))
 			end
 		end
 
@@ -91,27 +90,28 @@ feature {} -- Creation
 			-- underscores in label indicate the mnemonic for the menu
 			-- item. The menu item will be added to `a_group'; if it is
 			-- Void a new group will be created.
-		require 
+		require
+			gtk_initialized: gtk.is_initialized
 			label_not_void: a_label/=Void
 		do
-			if a_group = Void then
-				handle := (gtk_radio_menu_item_new_with_mnemonic
-							  (default_pointer, a_label.to_external))
+			if a_group = Void
+			 then
+				from_external_pointer (gtk_radio_menu_item_new_with_mnemonic
+											  (default_pointer, a_label.to_external))
 			else
-				handle := (gtk_radio_menu_item_new_with_mnemonic
-							  (a_group.handle, a_label.to_external))
+				from_external_pointer (gtk_radio_menu_item_new_with_mnemonic
+											  (a_group.handle, a_label.to_external))
 			end
-			store_eiffel_wrapper
 		end
 
 	from_widget (a_widget: GTK_RADIO_MENU_ITEM) is
 			-- Creates a new GtkRadioMenuItem adding it to the same group
 			-- of `a_widget'.
 		require
+			gtk_initialized: gtk.is_initialized
 			widget_not_void: a_widget /= Void
 		do
-			handle := gtk_radio_menu_item_new_from_widget (a_widget.handle)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_radio_menu_item_new_from_widget (a_widget.handle))
 		end
 
 
@@ -120,6 +120,7 @@ feature {} -- Creation
 			-- GtkLabel with `a_label' as text. The new GtkRadioMenuItem
 			-- is added to the same group of `a_widget'.
 		require
+			gtk_initialized: gtk.is_initialized
 			widget_not_void: a_widget /= Void
 			label_not_void: a_label /= Void
 		do
@@ -134,6 +135,7 @@ feature {} -- Creation
 			-- menu item. The new GtkRadioMenuItem is added to the same
 			-- group of `a_widget'.
 		require
+			gtk_initialized: gtk.is_initialized
 			widget_not_void: a_widget /= Void
 			label_not_void: a_label /= Void
 		do

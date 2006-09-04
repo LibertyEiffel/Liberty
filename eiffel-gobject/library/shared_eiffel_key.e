@@ -5,7 +5,7 @@ feature
 			create Result.from_string (eiffel_key_label)
 		end
 	
-feature {NONE} -- Implementation
+feature {} -- Implementation
 	eiffel_key_label: STRING is
 			-- The key used to store a pointer to Current into the
 			-- underlying gobject.

@@ -23,7 +23,7 @@ indexing
 
 class GTK_WIDGET_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	-- enum        GtkWidgetFlags;
 	-- #define     GTK_WIDGET_TYPE                 (wid)
@@ -39,7 +39,10 @@ feature {NONE} -- External calls
 -- #define     GTK_WIDGET_SENSITIVE            (wid)
 -- #define     GTK_WIDGET_PARENT_SENSITIVE     (wid)
 -- #define     GTK_WIDGET_IS_SENSITIVE         (wid)
--- #define     GTK_WIDGET_CAN_FOCUS            (wid)
+   gtk_widget_can_focus (a_widget: POINTER): INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_WIDGET_CAN_FOCUS"
+		end
 -- #define     GTK_WIDGET_HAS_FOCUS            (wid)
 -- #define     GTK_WIDGET_CAN_DEFAULT          (wid)
 -- #define     GTK_WIDGET_RECEIVES_DEFAULT     (wid)
@@ -256,9 +259,9 @@ feature {NONE} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
--- gtk_widget_grab_focus (widget: POINTER) is
---		external "C use <gtk/gtk.h>"
---		end
+ gtk_widget_grab_focus (widget: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- gtk_widget_grab_default (widget: POINTER) is
 --		external "C use <gtk/gtk.h>"

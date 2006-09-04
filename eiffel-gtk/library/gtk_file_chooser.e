@@ -200,6 +200,7 @@ inherit
 		-- Known Implementations: GtkFileChooser is implemented by
 		-- GtkFileChooserWidget, GtkFileChooserButton and
 		-- GtkFileChooserDialog.
+insert
 	GTK_FILE_CHOOSER_EXTERNALS
 	GTK_FILE_CHOOSER_CONFIRMATION
 	GTK_FILE_CHOOSER_ERROR

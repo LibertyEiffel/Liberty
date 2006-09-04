@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_TREE_MODEL_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	-- gboolean (*GtkTreeModelForeachFunc) (GtkTreeModel *model,
 	--                                              GtkTreePath *path,

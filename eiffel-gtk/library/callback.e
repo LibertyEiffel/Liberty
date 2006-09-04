@@ -33,10 +33,10 @@ feature
 			-- Using the _swap version is the key here. When the callback
 			-- is invoked the first parameter of the C function will be
 			-- the address of Eiffel's Current
-			handle := g_cclosure_new_swap (callback_pointer,
-											 Current.to_pointer, -- as user_data
-											 default_pointer -- i.e.: NULL as destroy callback
-											 )
+			from_external_pointer (g_cclosure_new_swap (callback_pointer,
+																	  Current.to_pointer, -- as user_data
+																	  default_pointer -- i.e.: NULL as destroy callback
+																	  ))
 			-- See G_CLOSURE eiffel class, and libgobject documentation for
 			-- GClosure to understand the next two lines.
 			ref
@@ -51,7 +51,7 @@ feature
 	handler_id: INTEGER_64
 			-- The numerical id of Current 
 
-feature {NONE} -- Auxiliar
+feature {} -- Auxiliar
 
 	get_callback_pointer (pointer: POINTER): POINTER is
 			-- Identity on pointers. Workaround for SE's stupidity

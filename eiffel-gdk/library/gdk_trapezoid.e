@@ -63,7 +63,7 @@ feature
 		end
 
 feature -- size
-	size: REAL is
+	struct_size: REAL is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkSegment)"
 		end

@@ -23,25 +23,23 @@ indexing
 
 class GTK_CHECK_BUTTON
 inherit
-	GTK_TOGGLE_BUTTON redefine make,with_label,with_mnemonic end
+	GTK_TOGGLE_BUTTON redefine make,with_label,with_mnemonic,struct_size end
 insert
 	GTK_CHECK_BUTTON_EXTERNALS
 	
 creation make,with_label,with_mnemonic
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make is
 			-- Creates a new GtkCheckButton.
 		do
-			handle :=  gtk_check_button_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_check_button_new)
 		end
 
 	with_label (a_label: STRING) is
 			-- Creates a new GtkCheckButton with a GtkLabel to the right of it.
 		do
-			handle :=  gtk_check_button_new_with_label (a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_check_button_new_with_label (a_label.to_external))
 		end
 	
 	with_mnemonic (a_label: STRING) is
@@ -50,8 +48,12 @@ feature {NONE} -- Creation
 			-- underscores in label indicate the mnemonic for the check
 			-- button.
 		do
-			handle := gtk_check_button_new_with_mnemonic (a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_check_button_new_with_mnemonic (a_label.to_external))
+		end
+feature
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkCheckButton)"
 		end
 
 feature -- Style Properties TODO

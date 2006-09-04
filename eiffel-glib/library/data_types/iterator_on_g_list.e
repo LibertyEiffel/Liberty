@@ -15,14 +15,14 @@ insert
 	
 creation make
 	
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (a_list: G_LIST[ITEM]) is
 		require valid_list: a_list/=Void
 		do
 			list := a_list.handle
 		end
 	
-feature {NONE} -- Implementation
+feature {} -- Implementation
 	list: POINTER
 	current_element: POINTER
 feature -- Iterator's features
@@ -64,5 +64,10 @@ feature -- Bi-directional iterator features.
 		require past_start: not is_at_first
 		do
 			current_element := g_list_get_prev (current_element)
+		end
+feature
+	dispose is
+		do
+			-- Note: disposing an interator is a no-operation.
 		end
 end

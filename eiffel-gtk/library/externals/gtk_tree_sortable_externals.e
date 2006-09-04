@@ -23,7 +23,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_TREE_SORTABLE_EXTERNALS
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	--             GtkTreeSortable;
 	--             GtkTreeSortableIface;

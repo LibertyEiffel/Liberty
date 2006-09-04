@@ -57,7 +57,10 @@ indexing
 deferred class G_CLOSURE
 
 inherit
-	SHARED_C_STRUCT redefine dispose end
+	SHARED_C_STRUCT
+		undefine make
+		redefine dispose
+		end
 
 feature -- Callback pointer
 	callback_pointer: POINTER is deferred end
@@ -771,7 +774,7 @@ feature -- size
 		alias "sizeof(GCLosure)"
 		end
 
-feature {NONE} -- Externals
+feature {} -- Externals
 
 	g_closure_needs_marshal (a_closure: POINTER): INTEGER is
 			-- Returns TRUE if a GClosureMarshal marshaller has not yet been
@@ -1037,7 +1040,7 @@ feature {NONE} -- Externals
 		end
 
 
-feature {NONE}-- GClosure struct 
+feature {}-- GClosure struct 
 	-- typedef struct { volatile guint in_marshal : 1; volatile guint
 	-- is_invalid : 1; } GClosure;
 

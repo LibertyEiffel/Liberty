@@ -42,16 +42,14 @@ feature {} -- Creation
 	make	is
 			-- Creates a new GtkCheckMenuItem.
 		do
-			handle := gtk_check_menu_item_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_check_menu_item_new)
 		end
 
 	with_label (a_label: STRING) is
 			-- Creates a new GtkCheckMenuItem with `a_label'.
 		require label_not_void: a_label /= Void
 		do
-			handle := gtk_check_menu_item_new_with_label (a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_check_menu_item_new_with_label (a_label.to_external))
 		end
 
 	with_mnemonic (a_label: STRING) is
@@ -60,8 +58,7 @@ feature {} -- Creation
 			-- character.
 		require label_not_void: a_label /= Void
 		do
-			handle := gtk_check_menu_item_new_with_mnemonic (a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_check_menu_item_new_with_mnemonic (a_label.to_external))
 		end
 	
 feature

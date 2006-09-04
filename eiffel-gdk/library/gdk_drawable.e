@@ -38,10 +38,10 @@ indexing
 	-- via gtk_widget_create_pango_context() or
 	-- gtk_widget_create_pango_layout().
 
-class GDK_DRAWABLE
+deferred class GDK_DRAWABLE
 
 inherit
-	G_OBJECT --redefine size end
+	G_OBJECT
 	
 	-- Object Hierarchy
 	
@@ -52,8 +52,6 @@ inherit
 
 insert
 	GDK_DRAWABLE_EXTERNALS
-
-creation make, from_external_pointer
 
 feature
 
@@ -553,5 +551,4 @@ feature
 	-- Returns : 	image, or a new a GdkImage containing the contents of drawable
 
 	-- Since 2.4
-	
 end

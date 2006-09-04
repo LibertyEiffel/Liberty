@@ -11,12 +11,19 @@ indexing
 class GTK_ASPECT_FRAME
 inherit
 	GTK_FRAME redefine make end
+		-- GtkAspectFrame implements AtkImplementorIface.
+insert
 	GTK_ASPECT_FRAME_EXTERNALS
-		-- GtkAspectFrame implements AtkImplementorIface.	
 
 creation make
 
-feature {NONE} -- Creation
+feature 
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkAspectFrame)"
+		end
+
+feature {} -- Creation
 	make (a_label: STRING; an_xalign, an_yalign, a_ratio: REAL; obey_child: BOOLEAN) is
 			-- Create a new GtkAspectFrame. `an_xalign' ranges from 0.0
 			-- (left aligned) to 1.0 (right aligned); `an_yalign' ranges
@@ -29,11 +36,9 @@ feature {NONE} -- Creation
 			valid_yalign: an_yalign.in_range (0.0, 1.0)
 			valid_ratio: ratio.in_range (1.0e-04,10000.0)
 		do
-			handle := gtk_aspect_frame_new (a_label.to_external,
-													  an_xalign, an_yalign, a_ratio,
-													  obey_child.to_integer)
-			store_eiffel_wrapper
-
+			from_external_pointer(gtk_aspect_frame_new (a_label.to_external,
+																	  an_xalign, an_yalign, a_ratio,
+																	  obey_child.to_integer))
 		end
 
 

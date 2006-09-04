@@ -22,7 +22,7 @@ indexing
 
 deferred class GTK_OBJECT_FLAGS
 
-feature {NONE} -- Enum definitions
+feature {} -- Enum definitions
 	gtk_in_destruction: INTEGER is
 			-- the object is currently being destroyed. This is used internally by
 			-- GTK+ to prevent reinvokations during destruction.

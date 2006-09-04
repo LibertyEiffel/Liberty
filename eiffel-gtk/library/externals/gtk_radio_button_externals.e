@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_RADIO_BUTTON_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_radio_button_new (gslist_group: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"

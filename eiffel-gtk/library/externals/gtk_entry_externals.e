@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_ENTRY_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_entry_new: POINTER is
 		external "C use <gtk/gtk.h>"

@@ -106,7 +106,7 @@ inherit
 		-- 2006-05-06
 		
 		-- rename make as undefined_make
-		-- export {NONE} undefined_make
+		-- export {} undefined_make
 		-- undefine undefined_make -- Since it is deferred
 		-- end
 		
@@ -120,6 +120,7 @@ inherit
 		-- GtkTreeModelFilter.
 
 insert
+	GTK
 	GTK_TREE_MODEL_EXTERNALS
 	GTK_TREE_MODEL_FLAGS
 
@@ -187,10 +188,10 @@ feature
 		do
 			create Result.from_model (Current)
 			gbool := gtk_tree_model_get_iter_first (handle, Result.handle)
-			if (gbool = 0) then
-				Result.dispose -- See get_new_iterator for info
-				Result := Void
-			end
+			-- if (gbool = 0) then
+			--Result.dispose -- See get_new_iterator for info
+			-- Result := Void
+			--end
 		end
 
 	path (an_iterator: GTK_TREE_ITER): GTK_TREE_PATH is
@@ -429,7 +430,7 @@ feature -- Signal Details
 -- arg3 : 	
 -- user_data : 	user data set when the signal handler was connected.
 
-feature {NONE} -- Moved here from top - unwrapped code 
+feature {} -- Moved here from top - unwrapped code 
 
 -- GtkTreeModel
 

@@ -22,7 +22,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_CELL_RENDERER_TEXT_EXTERNALS
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_cell_renderer_text_new: POINTER is
 		external "C use <gtk/gtk.h>"
 		end

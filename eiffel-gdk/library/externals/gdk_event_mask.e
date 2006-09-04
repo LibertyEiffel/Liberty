@@ -28,7 +28,7 @@ indexing
 
 deferred class GDK_EVENT_MASK
 
-feature {NONE} -- enum
+feature {} -- enum
 
 	is_valid_gdk_event_mask (an_event_mask: INTEGER) : BOOLEAN is
 		do

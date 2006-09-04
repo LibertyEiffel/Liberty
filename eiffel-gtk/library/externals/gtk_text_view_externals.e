@@ -26,7 +26,7 @@ deferred class GTK_TEXT_VIEW_EXTERNALS
 inherit
 	GTK_TEXT_WINDOW_TYPE
 
-feature {NONE}
+feature {}
 
 	gtk_text_view_new: POINTER is
 		external "C use <gtk/gtk.h>"
@@ -194,9 +194,9 @@ feature {NONE}
 		external "C use <gtk/gtk.h>"
 		end
 
--- GtkWrapMode gtk_text_view_get_wrap_mode (a_text_view): POINTER is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_text_view_get_wrap_mode (a_text_view: POINTER): INTEGER is -- GtkWrapMode
+		external "C use <gtk/gtk.h>"
+		end
 
 	gtk_text_view_set_editable (a_text_view: POINTER; setting_bool: INTEGER) is
 		external "C use <gtk/gtk.h>"

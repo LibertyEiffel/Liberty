@@ -134,7 +134,7 @@ feature -- TODO: GtkTreeDragDestIface
 	-- tree_model : 	a GtkTreeModel
 	-- path : 	row in tree_model
 	-- Returns : 	TRUE if selection_data had target type GTK_TREE_MODEL_ROW and is otherwise valid
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_tree_drag_dest_drag_data_received (a_drag_dest: POINTER; -- GtkTreeDragDest*
 														a_dest: POINTER; -- GtkTreePath*
 														a_selection_data: POINTER -- GtkSelectionData*
@@ -163,7 +163,7 @@ feature {NONE} -- External calls
 -- 		external "C use <gtk/gtk.h>"
 -- 		end
 
-feature {NONE}	-- TODO: wrap - if necessary - GtkTreeDragSourceIface
+feature {}	-- TODO: wrap - if necessary - GtkTreeDragSourceIface
 	
 	-- typedef struct _GtkTreeDragSource GtkTreeDragSource;
 

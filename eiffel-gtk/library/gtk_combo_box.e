@@ -49,8 +49,8 @@ indexing
 	
 class GTK_COMBO_BOX
 inherit
-	GTK_BIN
-	GTK_CELL_EDITABLE
+	GTK_BIN redefine make end 
+	GTK_CELL_EDITABLE 
 	GTK_CELL_LAYOUT undefine store_eiffel_wrapper redefine struct_size end
 		-- GtkComboBox also implements AtkImplementorIface interface.
 
@@ -69,8 +69,7 @@ feature {} -- Creation
 	make is
 			-- Creates a new empty GtkComboBox.
 		do
-			handle := gtk_combo_box_new
-			store_eiffel_wrapper
+			from_external_pointer (gtk_combo_box_new)
 			is_text_only:=False
 		ensure then no_text_only: not is_text_only
 		end
@@ -79,8 +78,7 @@ feature {} -- Creation
 	with_model (a_model: GTK_TREE_MODEL) is
 			-- Creates a new GtkComboBox with `a_model'.
 		do
-			handle := gtk_combo_box_new_with_model (handle)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_combo_box_new_with_model (handle))
 			is_text_only:=False
 		ensure no_text_only: not is_text_only
 		end
@@ -220,8 +218,7 @@ feature {} -- Simplified, text-only API creation
 			-- `append_text', `insert_text', `prepend_text'' and
 			-- `remove_text' as the "simple_api" preconditions state.
 		do
-			handle := gtk_combo_box_new_text 
-			store_eiffel_wrapper
+			from_external_pointer (gtk_combo_box_new_text )
 			is_text_only:=True
 		ensure text_only: is_text_only
 		end

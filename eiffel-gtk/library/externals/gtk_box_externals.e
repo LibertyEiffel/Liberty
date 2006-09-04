@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_BOX_EXTERNALS
 inherit GTK_PACK_TYPE
-feature {NONE} -- External calls
+feature {} -- External calls
 	gtk_box_pack_start (a_box, a_child: POINTER; expand, fill: INTEGER; guint_padding: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end

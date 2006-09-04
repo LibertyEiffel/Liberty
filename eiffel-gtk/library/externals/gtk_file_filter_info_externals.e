@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_FILE_FILTER_INFO_EXTERNALS
 inherit GTK_FILE_FILTER_FLAGS
-feature {NONE} -- Getters
+feature {} -- Getters
 
 	get_contains (a_gtk_file_filter_info: POINTER): INTEGER is
 		-- Flags indicating which of the following fields need are filled
@@ -57,7 +57,7 @@ feature {NONE} -- Getters
 		external "C struct GtkFileFilterInfo get contains use <gtk/gtk.h>"
 		end
 
-feature {NONE} -- Setters
+feature {} -- Setters
 	set_contains (a_gtk_file_filter_info: POINTER; a_contains: INTEGER) is
 		-- Flags indicating which of the following fields need are filled
 		require a_gtk_file_filter_info.is_not_null

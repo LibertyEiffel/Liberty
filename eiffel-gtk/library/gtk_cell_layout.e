@@ -148,7 +148,7 @@ feature {WRAPPER} -- size
 		alias "sizeof(GtkCellLayout)"
 		end
 
-feature {NONE}	-- External calls
+feature {}	-- External calls
 
 	-- Structs: GtkCellLayout  GtkCellLayoutIface
 

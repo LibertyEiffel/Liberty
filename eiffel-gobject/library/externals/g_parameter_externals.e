@@ -7,7 +7,7 @@ indexing
 
 
 deferred class G_PARAMETER_EXTERNAL
-feature {NONE}
+feature {}
 	get_name (gparameter: POINTER): POINTER is
 		external "C struct GParameter get name use <glib-object.h>"
 		end

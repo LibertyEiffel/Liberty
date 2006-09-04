@@ -70,13 +70,13 @@ inherit
 	
 creation make, make_dmy,
 
-feature {NONE} -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GDate)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Create a GDate and initializes it to a sane state. The new
 			-- date will be cleared (`clear') but invalid (it won't
@@ -605,7 +605,7 @@ feature -- Queries
 -- weekday : weekday. 
 -- Returns : TRUE if the weekday is valid. 
 
-feature {NONE} -- External features
+feature {} -- External features
 	-- #define G_DATE_BAD_DAY
 	-- #define G_DATE_BAD_JULIAN
 	-- #define G_DATE_BAD_YEAR

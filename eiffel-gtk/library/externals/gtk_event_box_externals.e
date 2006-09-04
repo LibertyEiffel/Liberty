@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_EVENT_BOX_EXTERNALS
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	gtk_event_box_new: POINTER is
 		external "C use <gtk/gtk.h>"
