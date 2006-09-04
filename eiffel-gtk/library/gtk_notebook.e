@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -39,22 +39,24 @@ indexing
 class GTK_NOTEBOOK
 inherit GTK_CONTAINER
 	-- GtkNotebook implements AtkImplementorIface.
-insert 
+
+insert
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
-	GTK_POSITION_TYPE
-	GTK_PACK_TYPE
+	GTK_NOTEBOOK_EXTERNALS
+
 creation make
 
-feature {NONE} -- size
+feature -- size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkNotebook)"
 		end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			--    Creates a new GtkNotebook widget with no pages.
-		do  
+		do
 			handle := gtk_notebook_new
 			store_eiffel_wrapper
 		end
@@ -71,12 +73,12 @@ feature -- page handling
 			-- contains the index (starting from 0) of the appended page
 			-- in the notebook, or -1 if function fails.
 		require valid_child: a_child /= Void
-		local label_ptr: POINTER 
+		local label_ptr: POINTER
 		do
 			if a_tab_label /= Void then label_ptr := a_tab_label.handle end
-			last_appended_page_index:=gtk_notebook_append_page (handle,
-																				 a_child.handle,
-																				 label_ptr)
+			last_appended_page_index := gtk_notebook_append_page (handle,
+			                                                      a_child.handle,
+			                                                      label_ptr)
 		end
 
 	append_page_menu (a_child, a_tab_label, a_menu_label: GTK_WIDGET) is
@@ -101,15 +103,14 @@ feature -- page handling
 			-- from -- 0) of the appended page in the notebook, or -1 if
 			-- function fails.
 		require child_not_void: a_child /= Void
-		local label_ptr, menu_ptr: POINTER 
+		local label_ptr, menu_ptr: POINTER
 		do
 			if a_tab_label /= Void then label_ptr := a_tab_label.handle end
 			if a_menu_label /= Void then menu_ptr := a_menu_label.handle end
-			last_appended_page_index := (gtk_notebook_append_page_menu 
-												  (handle, a_child.handle,
-													label_ptr, menu_ptr))
+			last_appended_page_index := (gtk_notebook_append_page_menu (handle,
+			                                                            a_child.handle,
+			                                                            label_ptr, menu_ptr))
 		end
-
 
 	
 	--   gtk_notebook_prepend_page ()
@@ -348,7 +349,7 @@ feature -- page handling
 			--    Disables the popup menu.q
 		do
 			gtk_notebook_popup_disable (handle)
-		end 
+		end
 
 	current_page_index: INTEGER is
 			-- The page number of the current page, starting from 0. If
@@ -415,7 +416,7 @@ feature -- page handling
 			-- fill : location to store the fill value (or NULL)
 			-- pack_type : location to store the pack_type (or NULL)
 			create Result.make_3 (an_expand.to_boolean,
-										 a_fill.to_boolean, a_pack_type)
+			                      a_fill.to_boolean, a_pack_type)
 		end
 	
 	set_menu_label (a_child, a_menu_label: GTK_WIDGET) is
@@ -425,7 +426,7 @@ feature -- page handling
 			valid_label: a_menu_label /= Void
 		do
 			gtk_notebook_set_menu_label (handle, a_child.handle,
-												  a_menu_label.handle)
+			                             a_menu_label.handle)
 		end
 
 	set_default_menu_label (a_child: GTK_WIDGET) is
@@ -435,7 +436,6 @@ feature -- page handling
 			gtk_notebook_set_menu_label (handle, a_child.handle, default_pointer)
 		end
 
-
 	set_menu_label_text (a_child: GTK_WIDGET; a_text: STRING) is
 			--    Creates a new label and sets it as the menu label of child.
 		require
@@ -444,7 +444,7 @@ feature -- page handling
 		do
 			gtk_notebook_set_menu_label_text  (handle, a_child.handle, a_text.to_external)
 		end
-	
+
 	set_tab_label (a_child, a_tab_label: GTK_WIDGET) is
 			-- Changes the tab label for child. If NULL is specified for
 			-- tab_label, then the page will have the label 'page N'.
@@ -453,7 +453,7 @@ feature -- page handling
 			valid_label: a_tab_label /= Void
 		do
 			gtk_notebook_set_tab_label (handle, a_child.handle,
-												 a_tab_label.handle)
+			                            a_tab_label.handle)
 		end
 
 	set_default_tab_label (a_child: GTK_WIDGET) is
@@ -465,22 +465,22 @@ feature -- page handling
 		end
 
 	set_tab_label_packing (a_child: GTK_WIDGET; expand,fill: BOOLEAN;
-								  a_pack_type: INTEGER) is
+	                       a_pack_type: INTEGER) is
 			-- Sets the packing parameters for the tab label of the page
 			-- containing child. See GTK_BOX.pack_start for the exact
 			-- meaning of the parameters. `expand': whether to expand the
 			-- bookmark or not; `fill': whether the bookmark should fill
 			-- the allocated area or not `a_pack_type': the position of
 			-- the bookmark
-
+			
 		require
 			valid_child: a_child /= Void
 			valid_packing: is_valid_pack_type (a_pack_type)
 		do
 			gtk_notebook_set_tab_label_packing (handle, a_child.handle,
-															expand.to_integer,
-															fill.to_integer,
-															a_pack_type)
+												expand.to_integer,
+												fill.to_integer,
+												a_pack_type)
 		end
 
 	set_tab_label_text (a_child: GTK_WIDGET; a_tab_text: STRING) is
@@ -491,7 +491,7 @@ feature -- page handling
 			valid_tab_text: a_tab_text /= Void
 		do
 			gtk_notebook_set_tab_label_text (handle, a_child.handle,
-														a_tab_text.to_external)
+											a_tab_text.to_external)
 			debug
 				print ("TODO: check if in GTK_NOTEBOOK.set_tab_label_text shall the wrapper of the newly created label be created also?")
 			end
@@ -508,7 +508,7 @@ feature -- page handling
 			-- than the default menu label, or the menu label widget is
 			-- not a GtkLabel
 		require valid_child: a_child /= Void
-		local	ptr: POINTER
+		local ptr: POINTER
 		do
 			ptr:=gtk_notebook_get_menu_label_text (handle, a_child.handle)
 			-- gtk_notebook_get_menu_label_text returns the text of the
@@ -517,7 +517,6 @@ feature -- page handling
 			if ptr.is_not_null then create Result.from_external_copy (ptr) end
 		end
 
-	
 	is_scrollable: BOOLEAN is
 			-- Does the tab label area has arrows for scrolling?. See set_scrollable.
 		do
@@ -572,7 +571,7 @@ feature -- page handling
 		do
 			gtk_notebook_set_current_page (handle, a_page_num)
 		end
-	
+
 feature -- Properties
 --    "enable-popup"         gboolean              : Read / Write
 --    "homogeneous"          gboolean              : Read / Write
@@ -833,40 +832,73 @@ feature -- Signals
 --              gboolean    user_function      (GtkNotebook *notebook,
 --                                              gboolean     arg1,
 --                                              gpointer     user_data)      : Run last / Action
---  "switch-page"
---              void        user_function      (GtkNotebook     *notebook,
---                                              GtkNotebookPage *page,
---                                              guint            page_num,
---                                              gpointer         user_data)      : Run last
-
 -- Signal Details
 
 feature --   The "change-current-page" signal
-	change_current_page_signal_name: STRING is"change-current-page"
+	change_current_page_signal_name: STRING is "change-current-page"
+		--  "change-current-page"
+		--              void        user_function      (GtkNotebook *notebook,
+		--                                              gint         arg1,
+		--                                              gpointer     user_data)      : Run last / Action
 
 	on_change_current_page (a_page_number: INTEGER) is
 		do
 		end
 
 	enable_on_change_current_page is
-			-- Connects "clicked" signal to `on_change_current_page' feature.
-
+			-- Connects "change-current-page" signal to `on_change_current_page' feature.
 		do
 			connect (Current, change_current_page_signal_name, $on_change_current_page)
 		end
 
---  "change-current-page"
---              void        user_function      (GtkNotebook *notebook,
---                                              gint         arg1,
---                                              gpointer     user_data)      : Run last / Action
+	connect_agent_to_change_current_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]]) is
+			--  void        user_function                  (GtkNotebook *notebook,
+			--                                              gint         arg1,
+			--                                              gpointer     user_data)      : Run last / Action
+			--    notebook :  the object which received the signal.
+			--    arg1 :
+			--    user_data : user data set when the signal handler was connected.
+		require valid_procedure: a_procedure /= Void
+		local change_current_page_callback: CHANGE_CURRENT_PAGE_CALLBACK
+		do
+			create change_current_page_callback.make
+			change_current_page_callback.connect (Current, a_procedure)
+		end
 
---  void        user_function                  (GtkNotebook *notebook,
---                                              gint         arg1,
---                                              gpointer     user_data)      : Run last / Action
+feature --   The "switch-page" signal
+	switch_page_signal_name: STRING is "switch-page"
+		--  "switch-page"
+		--              void        user_function      (GtkNotebook     *notebook,
+		--                                              GtkNotebookPage *page,
+		--                                              guint            page_num,
+		--                                              gpointer         user_data)      : Run last
 
---    notebook :  the object which received the signal.
---    arg1 :
---    user_data : user data set when the signal handler was connected.
+	on_switch_page (a_page_number: INTEGER) is
+		do
+		end
+
+	enable_on_switch_page is
+			-- Connects "switch-page" signal to `on_switch_page' feature.
+			--    Emitted when the user or a function changes the current page.
+		do
+			connect (Current, switch_page_signal_name, $on_switch_page)
+		end
+
+	connect_agent_to_switch_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]]) is
+			--  void        user_function                  (GtkNotebook     *notebook,
+			--                                              GtkNotebookPage *page,
+			--                                              guint            page_num,
+			--                                              gpointer         user_data)      : Run last
+			--    notebook :  the object which received the signal.
+			--    page :      the new current page
+			--    page_num :  the index of the page
+			--    user_data : user data set when the signal handler was connected.
+		require valid_procedure: a_procedure /= Void
+		local switch_page_callback: SWITCH_PAGE_CALLBACK
+		do
+			create switch_page_callback.make
+			switch_page_callback.connect (Current, a_procedure)
+		end
 
 --    ---------------------------------------------------------------------------------------------------
 
@@ -905,187 +937,4 @@ feature --   The "change-current-page" signal
 --    arg1 :
 --    user_data : user data set when the signal handler was connected.
 --    Returns :
-
---    ---------------------------------------------------------------------------------------------------
-
---   The "switch-page" signal
-
---  void        user_function                  (GtkNotebook     *notebook,
---                                              GtkNotebookPage *page,
---                                              guint            page_num,
---                                              gpointer         user_data)      : Run last
-
---    Emitted when the user or a function changes the current page.
-
---    notebook :  the object which received the signal.
---    page :      the new current page
---    page_num :  the index of the page
---    user_data : user data set when the signal handler was connected.
-
-feature {NONE} -- External calls
-	gtk_notebook_new: POINTER is -- GtkWidget*
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_append_page (a_notebook, a_child, a_tab_label: POINTER): INTEGER is -- gint
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_append_page_menu (a_notebook, a_child, a_tab_label, a_menu_label: POINTER): INTEGER is -- gint
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_prepend_page (a_notebook, a_child, a_tab_label: POINTER): INTEGER is --gint
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_prepend_page_menu (a_notebook, a_child, a_tab_label, a_menu_label: POINTER): INTEGER is --gint
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_insert_page (a_notebook, a_child, a_tab_label: POINTER; a_position: INTEGER): INTEGER is --gint
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_insert_page_menu (a_notebook, a_child, a_tab_label, a_menu_label: POINTER; a_position: INTEGER): INTEGER is --gint
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_remove_page (a_notebook: POINTER; a_page_num: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_page_num (a_notebook, a_child: POINTER): INTEGER is --gint
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_next_page (a_notebook: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_prev_page (a_notebook: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_reorder_child (a_notebook, a_child: POINTER; a_position: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_tab_pos (a_notebook: POINTER; a_position: INTEGER) is
-		require valid_position: is_valid_gtk_position_type (a_position)
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_show_tabs (a_notebook: POINTER; show_tabs_boolean: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_show_border (a_notebook: POINTER; show_border_boolean: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_scrollable (a_notebook: POINTER; scrollable: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_tab_border (a_notebook: POINTER; a_border_width: INTEGER) is
-			-- Note: `a_border_width' shall be a NATURAL since its a guint
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_popup_enable (a_notebook: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_popup_disable (a_notebook: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_get_current_page (a_notebook: POINTER): INTEGER is --gint
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_get_menu_label (a_notebook, a_child: POINTER): POINTER is -- GtkWidget*
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_get_nth_page (a_notebook: POINTER; a_page_num: INTEGER): POINTER is -- GtkWidget*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_get_n_pages (a_notebook: POINTER): INTEGER is --gint
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_get_tab_label (a_notebook, a_child: POINTER): POINTER is -- GtkWidget*
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_query_tab_label_packing (a_notebook, a_child, expand, fill, pack_type: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_homogeneous_tabs (a_notebook: POINTER; homogeneous: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_menu_label (a_notebook, a_child, a_menu_label: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_menu_label_text (a_notebook, a_child, a_menu_text: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_tab_hborder (a_notebook: POINTER; a_tab_hborder: INTEGER) is
-			-- Note: `a_tab_hborder' shall be NATURAL since its a guint
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_tab_label (a_notebook, a_child, a_tab_label: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_set_tab_label_packing (a_notebook, a_child: POINTER; expand, fill, pack_type: INTEGER) is
-		require valid_pack_type: is_valid_pack_type (pack_type)
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_set_tab_label_text (a_notebook, a_child, a_tab_text: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_set_tab_vborder (a_notebook: POINTER; a_tab_vborder: INTEGER) is
-		-- Note: `a_tab_vborder' shall be NATURAL since its a guint
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_get_menu_label_text (a_notebook, a_child: POINTER): POINTER is -- const gchar*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_get_scrollable (a_notebook: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_get_show_border (a_notebook: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_get_show_tabs (a_notebook: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_notebook_get_tab_label_text (a_notebook, a_child: POINTER): POINTER is -- const gchar*
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_notebook_get_tab_pos (a_notebook: POINTER): INTEGER is -- GtkPositionType
-		external "C use <gtk/gtk.h>"
-		ensure valid_result: is_valid_gtk_position_type (Result)
-		end
-	
-	gtk_notebook_set_current_page (a_notebook: POINTER; a_page_num: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
 end

@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the change-current-page signal"
+	description: "Generic callback for the switch-page signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					
@@ -22,7 +22,7 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class CHANGE_CURRENT_PAGE_CALLBACK
+class SWITCH_PAGE_CALLBACK
 
 inherit CALLBACK redefine object end
 
@@ -34,7 +34,7 @@ feature
 	object: GTK_NOTEBOOK
 
 feature
-	callback (arg1: INTEGER; instance: POINTER) is
+	callback (notebook_page: POINTER; arg1: INTEGER; instance: POINTER) is
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -43,7 +43,8 @@ feature
 				eiffel_created_the_notebook: has_eiffel_wrapper_stored (instance)
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			procedure.call ([arg1, object])
+			-- XXX: we need GTK_NOTEBOOK_PAGE as first argument
+			procedure.call ([Void, arg1, object])
 		end
 
 	callback_pointer: POINTER is
@@ -53,10 +54,10 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_NOTEBOOK; a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]]) is
+	connect (an_object: GTK_NOTEBOOK; a_procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]]) is
 		do
 			debug
-				print ("CHANGE_CURRENT_PAGE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
+				print ("SWITCH_PAGE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
 				print (" an_object.handle=") print (an_object.handle.to_string)
 				print (") Current=") print (to_pointer.to_string)
 				print (" Current.handle=") print (handle.to_string)
@@ -71,7 +72,7 @@ feature
 			procedure:=a_procedure
 		end
 
-		signal_name: STRING is "change-current-page"
+		signal_name: STRING is "switch-page"
 
-	procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]]
+	procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]]
 end

@@ -474,9 +474,9 @@ feature -- The "clicked" signal
 
 	enable_on_clicked is
 			-- Connects "clicked" signal to `on_clicked' feature.
-
+			
 			-- Emitted when the button has been activated (pressed and released).
-		
+			
 			-- Emitted when a button clicked on by the mouse and the
 			-- cursor stays on the button. If the cursor is not on the
 			-- button when the mouse button is released, the signal is

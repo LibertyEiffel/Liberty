@@ -16,18 +16,18 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 
 class GTK_OBJECT_EXTERNALS
-feature {NONE}
+
+feature {}
 	gtk_object_flags (obj: POINTER): INTEGER is
 			-- Gets the GtkObjectFlags for an object without directly accessing its members.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_OBJECT_FLAGS"
-		end 
-
+		end
 
 	gtk_object_floating (obj: POINTER): INTEGER is
 			-- Evaluates to TRUE if the object still has its floating reference
