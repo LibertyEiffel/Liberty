@@ -59,7 +59,7 @@ feature -- Initialisation
 			end
 			dialog.destroy
 			
-			create message.new (Void, modal_dialog, info_message, ok_button,
+			create message.make (Void, modal_dialog, info_message, ok_button,
 									  "[
 										eGTK are Eiffel wrappers to the
 										GTK+ libraries made from the scratch
@@ -120,7 +120,7 @@ feature -- Initialisation
 		local failing_message: GTK_MESSAGE_DIALOG; an_answer: INTEGER
 		do
 			print_run_time_stack
-			create failing_message.new (Void, modal_dialog, error_message, ok_button,
+			create failing_message.make (Void, modal_dialog, error_message, ok_button,
 												 "We are falling!")
 			failing_message.set_title ("Program error")
 			an_answer := failing_message.run
