@@ -135,8 +135,8 @@ feature {} -- Creation
 			widget_not_void: a_widget /= Void
 			label_not_void: a_label /= Void
 		do
-			handle:=gtk_radio_button_new_with_label_from_widget (a_widget.handle,
-																				  a_label.to_external)
+			from_external_pointer(gtk_radio_button_new_with_label_from_widget
+										 (a_widget.handle, a_label.to_external))
 		end
 
 
@@ -163,8 +163,8 @@ feature {} -- Creation
 			widget_not_void: a_widget /= Void
 			label_not_void: a_label /= Void
 		do
-			handle:=gtk_radio_button_new_with_mnemonic_from_widget (a_widget.handle, a_label.to_external)
-			store_eiffel_wrapper
+			from_external_pointer (gtk_radio_button_new_with_mnemonic_from_widget
+										  (a_widget.handle, a_label.to_external))
 		end
 
 feature -- group
