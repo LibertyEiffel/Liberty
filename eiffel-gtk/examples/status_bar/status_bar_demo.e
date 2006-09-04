@@ -1,6 +1,6 @@
 
 class STATUS_BAR_DEMO
-inherit GTK_MAIN
+insert GTK
 creation make
 
 feature -- GUI elements
@@ -13,7 +13,7 @@ feature -- GUI elements
 feature -- Initialisation
 	make is
 		do
-			initialize_gtk
+			gtk.initialize
 			create window.make
 			window.set_title (window_title)
 			window.connect_agent_to_destroy_signal (agent on_destroy)
@@ -39,8 +39,7 @@ feature -- Initialisation
 			window.add(vbox)
 			window.show
 
-			-- Run the GTK main loop
-			gtk_main
+			gtk.run_main_loop
 		end
 
 feature counter: INTEGER
@@ -65,7 +64,7 @@ feature -- Agents
 	on_destroy (a_gtk_object: GTK_OBJECT) is
 		do
 			print ("on destroy has been called%N")
-			gtk_quit
+			gtk.quit
 		end
 
 feature -- Constants
