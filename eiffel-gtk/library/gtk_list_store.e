@@ -519,11 +519,4 @@ feature -- Generic setter
 		do
 			gtk_list_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
-	
-feature
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkListStore)"
-		end
-
 end
