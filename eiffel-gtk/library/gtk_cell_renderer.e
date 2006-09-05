@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -40,7 +40,7 @@ indexing
 			-- gtk_cell_renderer_get_size(). Finally, the cell is
 			-- rendered in the correct location using
 			-- gtk_cell_renderer_render().
-	
+			
 			-- There are a number of rules that must be followed when
 			-- writing a new GtkCellRenderer. First and formost, it's
 			-- important that a certain set of properties will always
@@ -156,7 +156,7 @@ feature
 			-- response to the "editing-done" signal of GtkCellEditable.
 		do
 			gtk_cell_renderer_stop_editing (handle, emit_editing_canceled_signal.to_integer)
-		end			
+		end
 
 	fixed_size: TUPLE[INTEGER,INTEGER] is
 			-- the fixed width  and  height of the widget

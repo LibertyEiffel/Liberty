@@ -35,11 +35,13 @@ indexing
 
 
 class GTK_TEXT_TAG
-inherit G_OBJECT redefine make end
-insert 
+
+inherit G_OBJECT
+
+insert
 	PANGO_WEIGHT
 	GTK
-	
+
 creation make, with_name, from_external_pointer
 
 feature {} -- Creation

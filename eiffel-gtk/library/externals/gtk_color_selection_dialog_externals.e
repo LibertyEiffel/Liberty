@@ -17,13 +17,17 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
 feature {} -- Externals
+
+	gtk_color_selection_new (title: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
 	gtk_color_selection_dialog_get_colorsel (csd: POINTER): POINTER is
 		external "C struct GtkColorSelectionDialog get colorsel use <gtk/gtk.h>"

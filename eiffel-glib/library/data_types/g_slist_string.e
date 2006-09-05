@@ -29,9 +29,9 @@ inherit
 		rename
 			is_not_null as wrapped_object_exists
 		redefine
-			make, dispose
+			dispose
 		end
-	
+
 insert
 	-- TODO: inserting INTERNALS_HANDLER is NOT necessary. Remove it
 	INTERNALS_HANDLER

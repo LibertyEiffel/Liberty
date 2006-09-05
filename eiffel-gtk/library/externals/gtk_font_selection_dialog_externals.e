@@ -17,14 +17,15 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_FONT_SELECTION_DIALOG_EXTERNALS
 
 feature {} -- Externals
-  gtk_font_selection_dialog_new (a_title_str: POINTER): POINTER is -- GtkWidget*
+
+	gtk_font_selection_dialog_new (a_title_str: POINTER): POINTER is -- GtkWidget*
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -39,5 +40,9 @@ feature {} -- Externals
 	gtk_font_selection_dialog_set_font_name (fsd: POINTER; text: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
-		
+
+	gtk_font_selection_dialog_get_preview_text (fsd: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
+
 end -- class GTK_FONT_SELECTION_DIALOG_EXTERNALS

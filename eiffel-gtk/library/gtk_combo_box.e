@@ -49,8 +49,8 @@ indexing
 	
 class GTK_COMBO_BOX
 inherit
-	GTK_BIN redefine make end 
-	GTK_CELL_EDITABLE 
+	GTK_BIN
+	GTK_CELL_EDITABLE
 	GTK_CELL_LAYOUT undefine store_eiffel_wrapper redefine struct_size end
 		-- GtkComboBox also implements AtkImplementorIface interface.
 
@@ -60,7 +60,7 @@ insert
 			retrieve_eiffel_wrapper_from_gobject_pointer as retrieve_model_wrapper_from_pointer,
 			eiffel_wrapper_from_gobject_pointer as model_wrapper_from_pointer,
 			g_object_get_eiffel_wrapper as g_object_get_model_wrapper
-		export {WRAPPER} all 
+		export {WRAPPER} all
 		end
 
 creation make, with_text_only

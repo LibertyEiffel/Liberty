@@ -27,7 +27,7 @@ indexing
 
 class GTK_EVENT_BOX
 
-inherit GTK_BIN redefine make end
+inherit GTK_BIN
 -- GtkEventBox implements AtkImplementorIface.
 
 insert GTK_EVENT_BOX_EXTERNALS

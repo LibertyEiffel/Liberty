@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -31,7 +31,7 @@ inherit
 	-- don't have Eiffel's multiple inheritance. I assume it is. Paolo
 	-- 2006-01-21
 	
-	GTK_WIDGET  undefine make end
+	GTK_WIDGET
 
 			-- GtkCellEditable is implemented by GtkEntry, GtkComboBox,
 			-- GtkSpinButton and GtkComboBoxEntry.

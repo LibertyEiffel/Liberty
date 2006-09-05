@@ -36,13 +36,13 @@ indexing
 
 class GTK_CELL_RENDERER_PIXBUF
 
-inherit GTK_CELL_RENDERER redefine make end
+inherit GTK_CELL_RENDERER
 
 insert GTK_CELL_RENDERER_PIXBUF_EXTERNALS
 
 creation make
 
-feature {WRAPPER} -- size
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererPixbuf)"

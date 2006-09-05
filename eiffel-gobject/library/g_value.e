@@ -10,7 +10,7 @@ indexing
 class G_VALUE
 
 inherit
-	SHARED_C_STRUCT redefine make, dispose end
+	SHARED_C_STRUCT redefine dispose end
 
 insert
 	G_TYPE

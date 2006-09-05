@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 	
@@ -32,6 +32,7 @@ indexing
 	
 
 deferred class GTK_CELL_LAYOUT
+
 inherit
 	-- Note: since "GtkCellLayout requires GObject" I assume it is
 	-- actually a G_OBJECT: GObject type system lacks multiple
@@ -142,13 +143,14 @@ feature
 
 -- Since 2.4
 
-feature {WRAPPER} -- size
+feature -- size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellLayout)"
 		end
 
-feature {}	-- External calls
+feature {} -- External calls
 
 	-- Structs: GtkCellLayout  GtkCellLayoutIface
 

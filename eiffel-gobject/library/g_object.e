@@ -689,9 +689,9 @@ feature -- boolean property
 		local value: G_VALUE
 		do
 			create value.make_boolean
-			invoke_get_property (a_parameter_specification.owner_class, 
-										handle, 
-										a_parameter_specification.param_id, value.handle, 
+			invoke_get_property (a_parameter_specification.owner_class,
+										handle,
+										a_parameter_specification.param_id, value.handle,
 										a_parameter_specification.handle)
 			Result := value.boolean
 		end

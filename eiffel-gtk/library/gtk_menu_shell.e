@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 	
@@ -31,10 +31,12 @@ indexing
 			-- allowing for nested hierarchical menus.
 
 deferred class GTK_MENU_SHELL
+
 inherit GTK_CONTAINER
 	-- GtkMenuShell implements AtkImplementorIface Interface
-	
+
 feature -- size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuShell)"

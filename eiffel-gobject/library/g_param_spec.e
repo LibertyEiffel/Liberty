@@ -18,7 +18,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	gtk_description: "[
 							GParamSpec is an object structure that encapsulates the metadata
 							required to specify parameters, such as e.g. GObject properties.
@@ -26,14 +26,15 @@ indexing
 							Parameter names need to start with a letter (a-z or
 							A-Z). Subsequent characters can be letters, numbers or a '-'. All
 							other characters are replaced by a '-' during construction.
-							]"
+						]"
 
 class G_PARAM_SPEC
-inherit 
-	SHARED_C_STRUCT 
-		redefine from_external_pointer, make
-		end
-insert 
+
+inherit
+	SHARED_C_STRUCT
+		redefine from_external_pointer end
+
+insert
 	G_PARAM_SPEC_EXTERNALS
 	G_TYPE_EXTERNALS
 

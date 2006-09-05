@@ -17,14 +17,16 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_ITEM
+
 inherit
 	GTK_BIN
 		-- GtkItem implements AtkImplementorIface.
+
 insert
 	GTK_ITEM_EXTERNALS
 
@@ -35,13 +37,12 @@ feature
 			gtk_item_select (handle)
 		end
 
-	
 	deselect is
 			-- Emits the "deselect" signal on the given item.
 		do
 			gtk_item_deselect (handle)
 		end
-	
+
 	toggle is
 			-- Emits the "toggle" signal on the given item.
 		do
@@ -74,4 +75,5 @@ feature
 -- Emitted when the item is toggled.
 -- item : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
+
 end

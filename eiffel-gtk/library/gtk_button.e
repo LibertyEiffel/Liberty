@@ -31,12 +31,13 @@ indexing
 
 class GTK_BUTTON
 
-inherit GTK_BIN redefine make end
+inherit GTK_BIN
+
 insert
-	GTK_BUTTON_EXTERNALS 
+	GTK_BUTTON_EXTERNALS
 		-- Implemented Interfaces GtkButton implements
 		-- AtkImplementorIface.
-		
+
 creation
 	make,
 	with_label,
@@ -60,7 +61,7 @@ feature {} -- Creation
 		do
 			from_external_pointer(gtk_button_new_with_label (a_label.to_external))
 		end
-	
+
 	with_mnemonic (a_label: STRING) is
 			-- Creates a new GtkButton containing a label. If characters
 			-- in label are preceded by an underscore, they are

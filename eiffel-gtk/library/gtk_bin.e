@@ -1,21 +1,25 @@
 indexing
 	description: "GtkBin - A container with just one child"
 	long_description: "[
-							 The GtkBin widget is a container with just one child. It is not very useful itself, but it is useful for deriving subclasses, since it provides common code needed for handling a single child widget.
-							 ]"
+							 The GtkBin widget is a container with just
+							 one child. It is not very useful itself,
+							 but it is useful for deriving subclasses,
+							 since it provides common code needed for
+							 handling a single child widget.
+					 ]"
 	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"
 
-
 deferred class GTK_BIN
 
 inherit GTK_CONTAINER
 	-- Implemented Interfaces: GtkBin implements AtkImplementorIface.
+
 insert
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
-		rename 
+		rename
 			retrieve_eiffel_wrapper_from_gobject_pointer as retrieve_widget_wrapper_from_pointer
 			eiffel_wrapper_from_gobject_pointer as widget_wrapper_from_pointer
 		end
@@ -31,7 +35,7 @@ feature
 			a_widget_ptr := gtk_bin_get_child(handle)
 			Result := widget_wrapper_from_pointer (a_widget_ptr)
 			debug
-				if Result=Void then 
+				if Result=Void then
 					print ("Warning GTK_BIN.child encountered an unwrapped gobject!%
                       % Returning Void insted.%N")
 				end
@@ -39,4 +43,3 @@ feature
 		end
 
 end
-	

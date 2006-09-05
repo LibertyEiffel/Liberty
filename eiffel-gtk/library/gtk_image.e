@@ -18,15 +18,16 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 
 class GTK_IMAGE
 
-inherit GTK_MISC redefine make end
+inherit GTK_MISC
+
 insert GTK_IMAGE_EXTERNALS
-	
+
 creation
 	make, from_file, from_external_pointer, from_pixbuf, from_pixmap
 

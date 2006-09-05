@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -43,12 +43,15 @@ indexing
 			-- gtk_file_filter_filter().
 
 class GTK_FILE_FILTER
+
 inherit
-	GTK_OBJECT redefine make end
+	GTK_OBJECT
+
 insert
 	GTK_FILE_FILTER_EXTERNALS
 	GTK_FILE_FILTER_INFO_EXTERNALS
 	GTK_FILE_FILTER_FLAGS
+
 creation make, with_pattern, with_mime_type, from_external_pointer
 
 feature {} -- Creation

@@ -17,21 +17,20 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_COLOR_SELECTION_EXTERNALS
 
 feature {} -- Externals
-	
+
 	gtk_color_selection_get_current_color (a_handle, a_color: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_color_selection_set_current_color (a_handle, a_color: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 
 end -- class GTK_COLOR_SELECTION_EXTERNALS
-

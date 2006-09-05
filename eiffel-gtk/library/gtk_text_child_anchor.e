@@ -25,10 +25,13 @@ indexing
 		 -- widgets can be "anchored" (inserted inline, as if they were
 		 -- characters). The anchor can have multiple widgets anchored,
 		 -- to allow for multiple views.
-		 
+
 class GTK_TEXT_CHILD_ANCHOR
-inherit G_OBJECT redefine make end
+
+inherit G_OBJECT
+
 insert GTK
+
 creation make, from_external_pointer
 
 feature {} -- Creation

@@ -1,4 +1,4 @@
-indexing 
+indexing
 	description: "GtkEntryCompletion -- Completion functionality for GtkEntry"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -44,23 +44,26 @@ indexing
 -- handler. Note that you should return TRUE from the signal handler
 -- to suppress the default behaviour.  To add completion functionality
 -- to an entry, use gtk_entry_set_completion().
-	
+
 -- In addition to regular completion matches, which will be inserted
 -- into the entry when they are selected, GtkEntryCompletion also
 -- allows to display "actions" in the popup window. Their appearance
 -- is similar to menuitems, to differentiate them clearly from
 -- completion strings. When an action is selected, the
 -- ::action-activated signal is emitted.
-	
+
 class GTK_ENTRY_COMPLETION
+
 inherit
-	G_OBJECT redefine make end
+	G_OBJECT
 		-- GtkEntryCompletion implements GtkCellLayout.
+
 insert
 	GTK_ENTRY_COMPLETION_EXTERNALS
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
-	
+
 creation make, from_external_pointer
+
 feature {} -- Creation
 	
 	make is

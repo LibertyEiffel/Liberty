@@ -17,16 +17,16 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 			-- Description: The GtkFontSelectionDialog widget is a dialog box for selecting a 
 			-- font.
-	
+			
 			-- To set the font which is initially selected, use 
 			-- gtk_font_selection_dialog_set_font_name().
-	
+			
 			-- To get the selected font use
 			-- gtk_font_selection_dialog_get_font_name().
 
@@ -37,6 +37,9 @@ class GTK_FONT_SELECTION_DIALOG
 
 inherit GTK_DIALOG
 	-- GtkFontSelectionDialog implements AtkImplementorIface.
+	rename make as dialog_make
+	redefine struct_size
+	end
 
 insert
 	GTK_FONT_SELECTION_DIALOG_EXTERNALS
@@ -57,7 +60,7 @@ feature -- Creation
 		do
 			from_external_pointer (gtk_font_selection_dialog_new (a_title.to_external))
 		end
-	
+
 feature
 
 	font_name: STRING is
@@ -94,16 +97,16 @@ feature
 	preview_text: STRING is
 			-- the text displayed in the preview area.
 		do
-			create Result.from_external_copy(gtk_font_selection_dialog_get_preview_text (handle))
+			create Result.from_external_copy (gtk_font_selection_dialog_get_preview_text (handle))
 		end
-	
+
 	ok_button: GTK_WIDGET is
 			--	The OK button of the dialog
 		local retriever: G_RETRIEVER [GTK_WIDGET]
 		do
 			Result := retriever.eiffel_wrapper_from_gobject_pointer (get_ok_button(handle))
 		end
-	
+
 	apply_button: GTK_WIDGET is
 			-- The Apply button of the dialog. This button is hidden by
 			-- default but you can show/hide it
@@ -143,7 +146,7 @@ feature -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkFontSelectionDialog)"
+		alias "sizeof (GtkFontSelectionDialog)"
 		end
 
 end -- class GTK_FONT_SELECTION_DIALOG

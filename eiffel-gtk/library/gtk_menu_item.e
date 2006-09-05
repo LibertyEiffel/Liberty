@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 					
 					-- Description: The GtkMenuItem widget and the derived
 					-- widgets are the only valid childs for menus. Their
@@ -29,8 +29,7 @@ indexing
 
 class GTK_MENU_ITEM
 inherit
-	GTK_ITEM redefine make end
-	
+	GTK_ITEM --redefine make end
 		-- GtkMenuItem implements AtkImplementorIface.
 
 insert

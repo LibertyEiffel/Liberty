@@ -58,7 +58,6 @@ deferred class G_CLOSURE
 
 inherit
 	SHARED_C_STRUCT
-		undefine make
 		redefine dispose
 		end
 

@@ -28,10 +28,10 @@ indexing
 
 class GTK_TEXT_TAG_TABLE
 
-inherit G_OBJECT redefine make end
+inherit G_OBJECT
 
 insert GTK
-	
+
 creation make, from_external_pointer
 
 feature {} -- Creation

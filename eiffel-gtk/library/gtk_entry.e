@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -31,8 +31,8 @@ indexing
 
 class GTK_ENTRY
 inherit
-	GTK_WIDGET redefine make end 
-	GTK_EDITABLE 
+	GTK_WIDGET
+	GTK_EDITABLE
 	GTK_CELL_EDITABLE
 		-- GtkEntry implements AtkImplementorIface, GtkCellEditable and GtkEditable.
 	G_OBJECT_RETRIEVER [GTK_MENU]

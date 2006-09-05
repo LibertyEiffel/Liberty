@@ -1632,9 +1632,9 @@ feature -- The "row_activated" signal
 			connect (Current, row_activated_signal_name, $on_row_activated)
 		end
 
-	connect_to_row_activated_signal (a_procedure: PROCEDURE [ANY,
-																				TUPLE[GTK_TREE_PATH,
-																						GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
+	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY,
+		                                                     TUPLE[GTK_TREE_PATH,
+		                                                           GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
 		local row_activated_callback: ROW_ACTIVATED_CALLBACK
 		do

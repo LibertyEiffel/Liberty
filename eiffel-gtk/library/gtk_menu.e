@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -79,8 +79,9 @@ indexing
 			-- }
 	
 class GTK_MENU
+
 inherit
-	GTK_MENU_SHELL redefine make, struct_size end
+	GTK_MENU_SHELL redefine struct_size end
 		-- GtkMenu implements AtkImplementorIface interface.
 
 insert
@@ -89,6 +90,7 @@ insert
 creation make
 
 feature -- size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenu)"
