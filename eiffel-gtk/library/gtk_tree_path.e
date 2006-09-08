@@ -179,7 +179,7 @@ feature -- Disposing
 			-- Frees path. 
 		do
 			if not is_shared and handle.is_not_null then gtk_tree_path_free (handle) end
-			from_external_pointer (default_pointer)
+			handle := default_pointer
 		end
 
 feature -- Comparing
