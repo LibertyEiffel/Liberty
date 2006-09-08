@@ -22,7 +22,13 @@ feature {WRAPPER}
 			pointer_has_stored_wrapper: has_eiffel_wrapper_stored (a_pointer)
 		do
 			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
-		ensure not_void: Result/=Void
+			if Result.handle /= a_pointer then
+				print ("WARNING: in retrieve_eiffel_wrapper_from_gobject_pointer: Eiffel object had a handle that wasn't the C pointer that had it stored: C pointer = " + a_pointer.out + " wrapper.handle = " + Result.handle.out + "%N")
+				Result.set_handle (a_pointer)
+			end
+		ensure
+			not_void: Result/=Void
+			Result.handle = a_pointer
 		end
 	
 	eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
