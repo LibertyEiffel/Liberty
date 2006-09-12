@@ -83,20 +83,22 @@ feature
 			-- Sets `a_model' for a GtkEntryCompletion. If completion 
 			-- already has a model set, it will remove it before setting
 			-- the new model.      
-		require valid_model: a_model /= Void
+		require
+			valid_model: a_model /= Void
 		do
-			gtk_entry_completion_set_model  (handle, a_model.handle)
+			gtk_entry_completion_set_model (handle, a_model.handle)
 		end
 
 	unset_model is
 			-- Unsets the model for GtkEntryCompletion. 
 		do
-			gtk_entry_completion_set_model  (handle, default_pointer)
+			gtk_entry_completion_set_model (handle, default_pointer)
 		end
 
 	model: GTK_TREE_MODEL is
 			-- the model the GtkEntryCompletion is using as data source
-		require is_model_set
+		require
+			is_model_set
 		do
 			Result := (retrieve_eiffel_wrapper_from_gobject_pointer
 						  (gtk_entry_completion_get_model (handle)))
@@ -104,7 +106,8 @@ feature
 	
 	is_model_set: BOOLEAN is
 			-- Is the model of GtkEntryCompletion set?
-		require is_model_set
+		require
+			is_model_set
 		do
 			Result := (gtk_entry_completion_get_model (handle)).is_not_null
 		end
@@ -136,7 +139,7 @@ feature
 	minimum_key_length: INTEGER is
 			-- the minimum key length as set for completion.
 		do
-			Result:=gtk_entry_completion_get_minimum_key_length (handle)
+			Result := gtk_entry_completion_get_minimum_key_length (handle)
 		end
 
 	complete is
@@ -160,12 +163,45 @@ feature
 			-- position index_ with text text. If you want the action
 			-- item to have markup, use
 			-- gtk_entry_completion_insert_action_markup().
-		require valid_text: a_text /= Void
+		require
+			valid_text: a_text /= Void
 		do
-			gtk_entry_completion_insert_action_text (handle,an_index,a_text.to_external)
+			gtk_entry_completion_insert_action_text (handle, an_index,a_text.to_external)
 		end
-	
 
+	set_text_column (a_column: INTEGER) is
+			-- Convenience function for setting up the most used case of this code:
+			-- a completion list with just strings.
+			-- This function will set up completion to have a list displaying all (and just)
+			-- strings in the completion list, and to get those strings from column
+ 			-- in the model of completion.
+ 			-- This functions creates and adds a GtkCellRendererText for the selected column.
+			-- If you need to set the text column, but don't want the cell renderer,
+			-- use g_object_set() to set the ::text_column property directly.
+		do
+			gtk_entry_completion_set_text_column (handle, a_column)
+		end
+
+	text_column: INTEGER is
+			-- Returns the column in the model of completion to get
+			-- strings from.
+		do
+			Result := gtk_entry_completion_get_text_column (handle)
+		end
+
+	set_inline_completion (a_boolean: BOOLEAN) is
+			-- Sets whether the common prefix of the possible completions
+			-- should be automatically inserted in the entry.
+		do
+			gtk_entry_completion_set_inline_completion (handle, a_boolean)
+		end
+
+	inline_completion: BOOLEAN is
+			-- Returns whether the common prefix of the possible completions
+			-- should be automatically inserted in the entry.
+		do
+			Result := gtk_entry_completion_get_inline_completion (handle)
+		end
 
 	-- Since 2.4
 	-- gtk_entry_completion_insert_action_markup ()
@@ -192,54 +228,6 @@ feature
 
 	-- completion : 	A GtkEntryCompletion.
 	-- index_ : 	The index of the item to Delete.
-
-	-- Since 2.4
-	-- gtk_entry_completion_set_text_column ()
-
-	-- void        gtk_entry_completion_set_text_column
-	--                                             (GtkEntryCompletion *completion,
-	--                                              gint column);
-
-	-- Convenience function for setting up the most used case of this code: a completion list with just strings. This function will set up completion to have a list displaying all (and just) strings in the completion list, and to get those strings from column in the model of completion.
-
-	-- This functions creates and adds a GtkCellRendererText for the selected column. If you need to set the text column, but don't want the cell renderer, use g_object_set() to set the ::text_column property directly.
-
-	-- completion : 	A GtkEntryCompletion.
-	-- column : 	The column in the model of completion to get strings from.
-
-	-- Since 2.4
-	-- gtk_entry_completion_get_text_column ()
-
-	-- gint        gtk_entry_completion_get_text_column
-	--                                             (GtkEntryCompletion *completion);
-
-	-- Returns the column in the model of completion to get strings from.
-
-	-- completion : 	a GtkEntryCompletion
-	-- Returns : 	the column containing the strings
-
-	-- Since 2.6
-	-- gtk_entry_completion_set_inline_completion ()
-
-	-- void        gtk_entry_completion_set_inline_completion
-	--                                             (GtkEntryCompletion *completion,
-	--                                              gboolean inline_completion);
-
-	-- Sets whether the common prefix of the possible completions should be automatically inserted in the entry.
-
-	-- completion : 	a GtkEntryCompletion
-	-- inline_completion : 	TRUE to do inline completion
-
-	-- Since 2.6
-	-- gtk_entry_completion_get_inline_completion ()
-
-	-- gboolean    gtk_entry_completion_get_inline_completion
-	--                                             (GtkEntryCompletion *completion);
-
-	-- Returns whether the common prefix of the possible completions should be automatically inserted in the entry.
-
-	-- completion : 	a GtkEntryCompletion
-	-- Returns : 	TRUE if inline completion is turned on
 
 	-- Since 2.6
 	-- gtk_entry_completion_set_popup_completion ()
@@ -446,4 +434,4 @@ feature
 		alias "sizeof(GtkEntryCompletion)"
 		end
 
-end
+end -- class GTK_ENTRY_COMPLETION
