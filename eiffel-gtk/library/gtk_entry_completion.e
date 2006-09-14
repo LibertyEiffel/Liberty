@@ -193,14 +193,14 @@ feature
 			-- Sets whether the common prefix of the possible completions
 			-- should be automatically inserted in the entry.
 		do
-			gtk_entry_completion_set_inline_completion (handle, a_boolean)
+			gtk_entry_completion_set_inline_completion (handle, a_boolean.to_integer)
 		end
 
 	inline_completion: BOOLEAN is
 			-- Returns whether the common prefix of the possible completions
 			-- should be automatically inserted in the entry.
 		do
-			Result := gtk_entry_completion_get_inline_completion (handle)
+			Result := gtk_entry_completion_get_inline_completion (handle).to_boolean
 		end
 
 	-- Since 2.4

@@ -82,11 +82,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_completion_set_inline_completion (a_completion: POINTER; inline_completion: BOOLEAN) is
+	gtk_entry_completion_set_inline_completion (a_completion: POINTER; inline_completion: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_entry_completion_get_inline_completion (a_completion: POINTER): BOOLEAN is
+	gtk_entry_completion_get_inline_completion (a_completion: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 
