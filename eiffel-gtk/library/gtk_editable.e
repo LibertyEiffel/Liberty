@@ -254,24 +254,51 @@ feature	-- The "delete-text" signal
 	-- `an_end' : 	the end position.
 	-- user_data : 	user data set when the signal handler was connected.
 	
-	-- The "insert-text" signal
 
-	-- void user_function (GtkEditable *editable, gchar *new_text, gint
-	-- new_text_length, gint *position, gpointer user_data);
+feature -- The "insert-text" signal
 
-	-- This signal is emitted when text is inserted into the widget by
-	-- the user. The default handler for this signal will normally be
-	-- responsible for inserting the text, so by connecting to this
-	-- signal and then stopping the signal with gtk_signal_emit_stop(),
-	-- it is possible to modify the inserted text, or prevent it from
-	-- being inserted entirely.
-	
-	-- editable : 	the object which received the signal.
-	-- new_text : 	the new text to insert.
-	-- new_text_length : 	the length of the new text, in bytes, or -1 if new_text is nul-terminated
-	
-	-- position : the position, in characters, at which to insert the
-	-- new text. this is an in-out parameter. After the signal emission
-	-- is finished, it should point after the newly inserted text.
-	-- user_data : 	user data set when the signal handler was connected.
+	insert_text_signal_name: STRING is "insert-text"
+		-- 		"insert-text"
+		--             void        user_function      (GtkEditable *editable,
+		--                                             gchar       *new_text,
+		--                                             gint         new_text_length,
+		--                                             gint        *position,
+		--                                             gpointer     user_data)            : Run last
+
+
+	on_insert_text is
+			-- Built-in insert-text signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_insert_text is
+			-- Connects "insert-text" signal to `on_insert_text' feature.
+			
+			-- This signal is emitted when text is inserted into the widget by
+			-- the user. The default handler for this signal will normally be
+			-- responsible for inserting the text, so by connecting to this
+			-- signal and then stopping the signal with gtk_signal_emit_stop(),
+			-- it is possible to modify the inserted text, or prevent it from
+			-- being inserted entirely.
+
+		do
+			connect (Current, insert_text_signal_name, $on_insert_text)
+		end
+
+	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]) is
+			-- editable : 	the object which received the signal.
+			-- new_text : 	the new text to insert.
+			-- new_text_length : 	the length of the new text, in bytes,
+			--  or -1 if new_text is nul-terminated
+			-- position : 	the position, in characters, at which to insert the new text.
+			--  this is an in-out parameter. After the signal emission is finished,
+			--  it should point after the newly inserted text.
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			insert_text_callback: INSERT_TEXT_CALLBACK
+		do
+			create insert_text_callback.make
+			insert_text_callback.connect (Current, a_procedure)
+		end
 end

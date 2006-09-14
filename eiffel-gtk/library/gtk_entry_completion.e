@@ -229,74 +229,47 @@ feature
 	-- completion : 	A GtkEntryCompletion.
 	-- index_ : 	The index of the item to Delete.
 
-	-- Since 2.6
-	-- gtk_entry_completion_set_popup_completion ()
+	set_popup_completion (a_boolean: BOOLEAN) is
+			-- Sets whether the completions should be presented in a popup window.
+		do
+			gtk_entry_completion_set_popup_completion (handle, a_boolean.to_integer)
+		end
 
-	-- void        gtk_entry_completion_set_popup_completion
-	--                                             (GtkEntryCompletion *completion,
-	--                                              gboolean popup_completion);
+	popup_completion: BOOLEAN is
+			-- Returns whether the completions should be presented in a popup window.
+		do
+			Result := gtk_entry_completion_get_popup_completion (handle).to_boolean
+		end
 
-	-- Sets whether the completions should be presented in a popup window.
+	set_popup_set_width (a_boolean: BOOLEAN) is
+			-- Sets whether the completion popup window will be resized to
+			-- be the same width as the entry.
+		do
+			gtk_entry_completion_set_popup_set_width (handle, a_boolean.to_integer)
+		end
 
-	-- completion : 	a GtkEntryCompletion
-	-- popup_completion : 	TRUE to do popup completion
+	popup_set_width: BOOLEAN is
+			-- Returns whether the completion popup window will be resized
+			-- to the width of the entry.
+		do
+			Result := gtk_entry_completion_get_popup_set_width (handle).to_boolean
+		end
 
-	-- Since 2.6
-	-- gtk_entry_completion_get_popup_completion ()
+	set_popup_single_match (a_boolean: BOOLEAN) is
+			-- Sets whether the completion popup window will appear even if
+			-- there is only a single match.
+			-- You may want to set this to FALSE if you are using inline completion.
+		do
+			gtk_entry_completion_set_popup_single_match (handle, a_boolean.to_integer)
+		end
 
-	-- gboolean    gtk_entry_completion_get_popup_completion
-	--                                             (GtkEntryCompletion *completion);
+	popup_single_match: BOOLEAN is
+			-- Returns whether the completion popup window will appear even if
+			-- there is only a single match.
+		do
+			Result := gtk_entry_completion_get_popup_single_match (handle).to_boolean
+		end
 
-	-- Returns whether the completions should be presented in a popup window.
-
-	-- completion : 	a GtkEntryCompletion
-	-- Returns : 	TRUE if popup completion is turned on
-
-	-- Since 2.6
-	-- gtk_entry_completion_set_popup_set_width ()
-
-	-- void        gtk_entry_completion_set_popup_set_width
-	--                                             (GtkEntryCompletion *completion,
-	--                                              gboolean popup_set_width);
-
-	-- Sets whether the completion popup window will be resized to be the same width as the entry.
-
-	-- completion : 	a GtkEntryCompletion
-	-- popup_set_width : 	TRUE to make the width of the popup the same as the entry
-
-	-- Since 2.8
-	-- gtk_entry_completion_get_popup_set_width ()
-
-	-- gboolean    gtk_entry_completion_get_popup_set_width
-	--                                             (GtkEntryCompletion *completion);
-
-	-- Returns whether the completion popup window will be resized to the width of the entry.
-
-	-- completion : 	a GtkEntryCompletion
-	-- Returns : 	TRUE if the popup window will be resized to the width of the entry
-
-	-- Since 2.8
-	-- gtk_entry_completion_set_popup_single_match ()
-
-	-- void        gtk_entry_completion_set_popup_single_match
-	--                                             (GtkEntryCompletion *completion,
-	--                                              gboolean popup_single_match);
-
-	-- Sets whether the completion popup window will appear even if there is only a single match. You may want to set this to FALSE if you are using inline completion.
-
-	-- completion : 	a GtkEntryCompletion
-	-- popup_single_match : 	TRUE if the popup should appear even for a single match
-
-	-- Since 2.8
-	-- gtk_entry_completion_get_popup_single_match ()
-
-	-- gboolean    gtk_entry_completion_get_popup_single_match
-	--                                             (GtkEntryCompletion *completion);
-
-	-- Returns whether the completion popup window will appear even if there is only a single match.
-
-	-- completion : 	a GtkEntryCompletion
-	-- Returns : 	TRUE if the popup window will appear regardless of the number of matches.
 
 	-- Since 2.8
 	-- Property Details
