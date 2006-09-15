@@ -21,7 +21,9 @@ insert
 			copy
 		end
 
-	POINTER_HANDLING  -- export {} all undefine is_equal,	copy end
+	-- POINTER_HANDLING is too specialized. Classes needinf its 
+	-- features could easinly insert it when needed. Paolo 2006-09-15
+	-- export {} all undefine is_equal,	copy end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	from_external_pointer (a_ptr: POINTER) is

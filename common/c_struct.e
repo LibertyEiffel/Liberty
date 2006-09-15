@@ -13,7 +13,7 @@ inherit
 
 insert EXCEPTIONS
 		export {} all
-		undefine is_equal
+		undefine is_equal, copy
 		end
 
 feature {} -- Initialization

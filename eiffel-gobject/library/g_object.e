@@ -94,6 +94,7 @@ insert
 	G_PARAM_SPEC_EXTERNALS export {} all end
 	G_TYPE_EXTERNALS
 
+	POINTER_HANDLING -- to get `address_of' and `content_of'
 feature
 
 	store_eiffel_wrapper is
