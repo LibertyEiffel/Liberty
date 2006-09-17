@@ -433,5 +433,22 @@ feature {}-- Accessing gsl_matrix struct
          feature_name: "matrix_double_owner"
          }"
 		end
+
+	gsl_blas_gemv(trans_a: INTEGER_32; alpha: REAL_64; a_p, x_p:POINTER; beta: REAL_64; y_p: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_dgemv"
+         }"
+		end
 	
+	gsl_blas_gemm(trans_a, trans_b: INTEGER_32; alpha: REAL_64; a_p: POINTER; b_p: POINTER; beta: REAL_64; c_p: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_dgemm"
+         }"
+		end	
 end

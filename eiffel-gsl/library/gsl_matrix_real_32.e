@@ -18,6 +18,19 @@ insert
 	GSL_MATRIX_GENERAL[REAL_32]
 	
 creation make, make_zero, make_identity, from_collection2, from_model, copy, manifest_creation
+	
+feature
+   get_column (i: INTEGER_32): GSL_VECTOR_REAL_32 is
+      do
+         create Result.make(line_count)
+ 			handle_code(gsl_matrix_get_col (Result.handle, handle, i))
+      end
+
+   get_row (i: INTEGER_32): GSL_VECTOR_REAL_32 is
+      do
+         create Result.make(column_count)
+ 			handle_code(gsl_matrix_get_row (Result.handle, handle, i))
+      end
 
 feature {} -- External calls
 
@@ -420,5 +433,23 @@ feature {} -- Accessing gsl_matrix struct
          feature_name: "matrix_float_owner"
          }"
 		end
+
+	gsl_blas_gemv(trans_a: INTEGER_32; alpha: REAL_32; a_p, x_p:POINTER; beta: REAL_32; y_p: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_sgemv"
+         }"
+		end
+	
+	gsl_blas_gemm(trans_a, trans_b: INTEGER_32; alpha: REAL_32; a_p: POINTER; b_p: POINTER; beta: REAL_32; c_p: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_sgemm"
+         }"
+		end	
 	
 end

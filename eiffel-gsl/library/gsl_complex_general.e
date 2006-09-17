@@ -23,7 +23,7 @@ deferred class GSL_COMPLEX_GENERAL[TYPE_->COMPARABLE]
 
 inherit C_STRUCT
 		redefine
-			out, copy
+			out
 		end
 	
 feature {} -- Creating

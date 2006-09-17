@@ -1,13 +1,15 @@
-* add support for vectors an matrices with size 0 (we get a null pointer back from the alloc function)
+* name conventions multiply, ... wann wird REsult zurückgegene,wann wir Current verändert?
+
 * add support to read from and write to streams (matrices and vectors)
 * add view / subvector aliasing support
 * add test for error codes
 * implement some mechanism to handle matrix views
 * add support for const matrices?
-* add support to read/write matrices from/to a native stream
-* use explicit [INTEGER|REAL]_32 instead of shortcuts INTEGER and REAL
 * clearify usage of c types float, int, ... all used in the c lib, - is the mapping correct?
-* cleanup (do it) implementation of complex numbers
+* cleanup (do it) implementation of complex numbers, is there a possibility to use external attributes within a plugin
+
+* implement lazy evaluation for transpose and friends. (e.g. blas functions may do this during the operation -> see CBLAS_TRANSPOSE_t)
+  also use all these special functions which can be used if one knows that a matrix is symmetric, ...
 
 * check whether it is worth to split the plugin into small parts
  ** if we have one big plugin we include all headerfiles which could slow down
@@ -18,164 +20,19 @@
 From GNU Scientific Library Reference Manual Edition 1.7, for GSL
    Version 1.7 13 September 2005
 
-Parts yet to be wrapped:
+Parts yet to be wrapped (more or less in order of importance):
 
-    * Mathematical Functions
-          o Mathematical Constants
-          o Infinities and Not-a-number
-          o Elementary Functions
-          o Small integer powers
-          o Testing the Sign of Numbers
-          o Testing for Odd and Even Numbers
-          o Maximum and Minimum functions
-          o Approximate Comparison of Floating Point Numbers 
     * Complex Numbers
-          o Complex numbers
-          o Properties of complex numbers
-          o Complex arithmetic operators
-          o Elementary Complex Functions
-          o Complex Trigonometric Functions
-          o Inverse Complex Trigonometric Functions
-          o Complex Hyperbolic Functions
-          o Inverse Complex Hyperbolic Functions
-          o References and Further Reading 
     * Polynomials
-          o Polynomial Evaluation
-          o Divided Difference Representation of Polynomials
-          o Quadratic Equations
-          o Cubic Equations
-          o General Polynomial Equations
-          o Examples
-          o References and Further Reading 
     * Special Functions
-          o Usage
-          o The gsl_sf_result struct
-          o Modes
-          o Airy Functions and Derivatives
-                + Airy Functions
-                + Derivatives of Airy Functions
-                + Zeros of Airy Functions
-                + Zeros of Derivatives of Airy Functions 
-          o Bessel Functions
-                + Regular Cylindrical Bessel Functions
-                + Irregular Cylindrical Bessel Functions
-                + Regular Modified Cylindrical Bessel Functions
-                + Irregular Modified Cylindrical Bessel Functions
-                + Regular Spherical Bessel Functions
-                + Irregular Spherical Bessel Functions
-                + Regular Modified Spherical Bessel Functions
-                + Irregular Modified Spherical Bessel Functions
-                + Regular Bessel Function--Fractional Order
-                + Irregular Bessel Functions--Fractional Order
-                + Regular Modified Bessel Functions--Fractional Order
-                + Irregular Modified Bessel Functions--Fractional Order
-                + Zeros of Regular Bessel Functions 
-          o Clausen Functions
-          o Coulomb Functions
-                + Normalized Hydrogenic Bound States
-                + Coulomb Wave Functions
-                + Coulomb Wave Function Normalization Constant 
-          o Coupling Coefficients
-                + 3-j Symbols
-                + 6-j Symbols
-                + 9-j Symbols 
-          o Dawson Function
-          o Debye Functions
-          o Dilogarithm
-                + Real Argument
-                + Complex Argument 
-          o Elementary Operations
-          o Elliptic Integrals
-                + Definition of Legendre Forms
-                + Definition of Carlson Forms
-                + Legendre Form of Complete Elliptic Integrals
-                + Legendre Form of Incomplete Elliptic Integrals
-                + Carlson Forms 
-          o Elliptic Functions (Jacobi)
-          o Error Functions
-                + Error Function
-                + Complementary Error Function
-                + Log Complementary Error Function
-                + Probability functions 
-          o Exponential Functions
-                + Exponential Function
-                + Relative Exponential Functions
-                + Exponentiation With Error Estimate 
-          o Exponential Integrals
-                + Exponential Integral
-                + Ei(x)
-                + Hyperbolic Integrals
-                + Ei_3(x)
-                + Trigonometric Integrals
-                + Arctangent Integral 
-          o Fermi-Dirac Function
-                + Complete Fermi-Dirac Integrals
-                + Incomplete Fermi-Dirac Integrals 
-          o Gamma and Beta Functions
-          o Gegenbauer Functions
-          o Hypergeometric Functions
-          o Laguerre Functions
-          o Lambert W Functions
-          o Legendre Functions and Spherical Harmonics
-                + Legendre Polynomials
-                + Associated Legendre Polynomials and Spherical Harmonics
-                + Conical Functions
-                + Radial Functions for Hyperbolic Space 
-          o Logarithm and Related Functions
-          o Power Function
-          o Psi (Digamma) Function
-                + Digamma Function
-                + Trigamma Function
-                + Polygamma Function 
-          o Synchrotron Functions
-          o Transport Functions
-          o Trigonometric Functions
-                + Circular Trigonometric Functions
-                + Trigonometric Functions for Complex Arguments
-                + Hyperbolic Trigonometric Functions
-                + Conversion Functions
-                + Restriction Functions
-                + Trigonometric Functions With Error Estimates 
-          o Zeta Functions
-                + Riemann Zeta Function
-                + Riemann Zeta Function Minus One
-                + Hurwitz Zeta Function
-                + Eta Function 
-          o Examples
-          o References and Further Reading 
-    * Vectors and Matrices
-          o Data types
-          o Blocks
-                + Block allocation
-                + Reading and writing blocks
-                + Example programs for blocks 
-          o Vectors
-                + Vector allocation
-                + Accessing vector elements
-                + Initializing vector elements
-                + Reading and writing vectors
-                + Vector views
-                + Copying vectors
-                + Exchanging elements
-                + Vector operations
-                + Finding maximum and minimum elements of vectors
-                + Vector properties
-                + Example programs for vectors 
-          o Matrices
-                + Matrix allocation
-                + Accessing matrix elements
-                + Initializing matrix elements
-                + Reading and writing matrices
-                + Matrix views
-                + Creating row and column views
-                + Copying matrices
-                + Copying rows and columns
-                + Exchanging rows and columns
-                + Matrix operations
-                + Finding maximum and minimum elements of matrices
-                + Matrix properties
-                + Example programs for matrices 
-          o References and Further Reading 
+    * BLAS Support
+          o GSL BLAS Interface
+                + Level 1
+			gsl_blas_srotg and friends (givens rotaion)
+			gsl_blas_srot and friends
+                + Level 2
+                + Level 3 
+
     * Permutations
           o The Permutation struct
           o Permutation allocation
@@ -201,13 +58,6 @@ Parts yet to be wrapped:
           o Sorting vectors
           o Selecting the k smallest or largest elements
           o Computing the rank
-          o Examples
-          o References and Further Reading 
-    * BLAS Support
-          o GSL BLAS Interface
-                + Level 1
-                + Level 2
-                + Level 3 
           o Examples
           o References and Further Reading 
     * Linear Algebra

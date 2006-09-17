@@ -7,7 +7,7 @@ indexing
 
    -- the implementation of occurances/fast_occurances and others requires 
    -- TYPE_ to be expanded
-deferred class GSL_VECTOR_GENERAL[TYPE_]
+deferred class GSL_VECTOR_GENERAL[TYPE_ -> NUMERIC]
 inherit
 	WRAPPER
       undefine
@@ -24,11 +24,11 @@ inherit
          out, copy, is_equal, fill_tagged_out_memory
       end
 	
-feature -- Creation
+feature {ANY} -- Creation
 	make (a_count: INTEGER_32) is
 			-- Creates a vector of count `a_count'. Vector's elements are uninitialized
 		require
-			valid_count: a_count >= 0
+			valid_count: a_count > 0
 		do
 			if is_not_null then
 				gsl_vector_free(handle)
@@ -42,7 +42,7 @@ feature -- Creation
 	make_zero (a_count: INTEGER_32) is
 			-- Creates a vector of count `a_count'. Vector's elements are set to zero
 		require
-			valid_count: a_count >= 0
+			valid_count: a_count > 0
 		do
 			if is_not_null then
 				gsl_vector_free(handle)
@@ -53,6 +53,23 @@ feature -- Creation
 			count = a_count
 		end	
 
+	make_one (a_count: INTEGER_32) is
+			-- Creates a vector of count `a_count'. Vector's elements are set to 1.0
+		require
+			valid_count: a_count > 0
+		local
+			one: TYPE_
+		do
+			if is_not_null then
+				gsl_vector_free(handle)
+			end
+			set_handle(gsl_vector_alloc(a_count))
+			set_all(one.one)
+		ensure
+			is_not_null
+			count = a_count
+		end	
+	
    from_collection (model: TRAVERSABLE[TYPE_]) is
       local
          i: INTEGER_32
@@ -75,7 +92,7 @@ feature -- Creation
          end         
       end
    
-feature -- Accessing
+feature {ANY} -- Accessing
 
 	item (i: INTEGER_32): TYPE_ is
 			-- the i-th element of Current vector
@@ -126,7 +143,7 @@ feature -- Accessing
 			create {ITERATOR_ON_TRAVERSABLE[TYPE_]} Result.make(Current)
 		end
    
-feature -- Vector size
+feature {ANY} -- Vector size
 	has_same_size (other: like Current): BOOLEAN is
 		require
 			valid_other: other /= Void
@@ -136,7 +153,7 @@ feature -- Vector size
 			Result = (count = other.count)
 		end
 		
-feature -- public interface
+feature {ANY} -- public interface
 	count: INTEGER_32 is
 			-- the count of size field of the vector
 		do
@@ -276,44 +293,91 @@ feature -- vector operations (element wise)
 	add_constant (x: TYPE_) is
          -- add `x' to all elements of `Current'
 		do
-			handle_code(gsl_vector_add_constant(handle,x))
+			handle_code(gsl_vector_add_constant(handle, x))
 		end
 
 	plus (other: like Current) is
          -- adds `other' element wise to Current
 		require
-			has_same_size(other)
+			same_size: has_same_size(other)
 		do
 			handle_code(gsl_vector_add(handle, other.handle))
 		end
 
-	sub (other: like Current) is
+	plus_scaled (factor: TYPE_; other: like Current) is
+         -- adds factor * `other' element wise to Current
+		require
+			same_size: has_same_size(other)
+		do
+			handle_code(gsl_blas_axpy(factor, other.handle, handle))
+		end
+
+	subtract (other: like Current) is
          -- substract `other' element wise from Current
 		require
-			has_same_size(other)
+			same_size: has_same_size(other)
 		do
 			handle_code(gsl_vector_sub(handle, other.handle))
 		end
 
-	mul (other: like Current) is
+	multiply_elements (other: like Current) is
          -- set all elements of `Current' to the product of `Current' 
          -- and `other' (element wise)
 		require
-			has_same_size(other)
+			same_size: has_same_size(other)
 		do
 			handle_code(gsl_vector_mul(handle, other.handle))
 		end
 
-	div (other: like Current) is
+	divide_elements (other: like Current) is
          -- set all elements of `Current' to the quotient of `Current' 
          -- and `other' (element wise)
 		require
-			has_same_size(other)
+			same_size: has_same_size(other)
 		do
 			handle_code(gsl_vector_div(handle,other.handle))
 		end
 
-feature -- features to conform to COLLECTION[TYPE_]
+	infix "-" (other: like Current): like Current is
+		require
+			other_not_void: other /= Void
+			size: other.count = count
+		do
+			Result := twin
+			Result.subtract (other)
+		end
+
+	infix "+" (other: like Current): like Current is
+		require
+			other_not_void: other /= Void
+			size: other.count = count
+		do
+			Result := twin
+			Result.plus (other)
+		end
+
+feature {ANY} -- operations
+	dot (other: like Current): TYPE_ is
+			-- Current = (Current.transpoed) other
+			-- scalar (inner) product
+		require
+			same_size: has_same_size(other)
+		deferred
+		end
+
+	norm, norm2: TYPE_ is
+			-- euclidian norm ||Current||_2
+		do
+			Result := gsl_blas_nrm2(handle)
+		end
+
+	absolut_sum: TYPE_ is
+			-- forall x :: sum(item(x).abs)
+		do
+			Result := gsl_blas_asum(handle)
+		end
+	
+feature {ANY} -- features to conform to COLLECTION[TYPE_]
 	remove_first is
 			-- Remove the `first' element of the collection.
       do
@@ -838,6 +902,27 @@ feature {} -- External calls
 		deferred
 		end
 
+	gsl_blas_nrm2 (ptr: POINTER): TYPE_ is
+		require
+			ptr.is_not_null
+		deferred
+		end
+	
+	gsl_blas_asum (ptr: POINTER): TYPE_ is
+		require
+			ptr.is_not_null
+		deferred
+		end
+
+	gsl_blas_axpy (alpha: TYPE_; other_p, ptr: POINTER): INTEGER_32 is
+		require
+			ptr.is_not_null
+			other_p.is_not_null
+		deferred
+		end
+
+	
 invariant
    valid_handle: handle /= default_pointer
+	valid_count: count > 0
 end

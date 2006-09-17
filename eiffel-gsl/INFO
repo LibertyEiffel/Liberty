@@ -1,7 +1,7 @@
 - I won't use INTEGER, but INTEGER_32.
 
-- The existing wrapper for gsl_blocks are not used. I (ramack) guess, they will
-be removed in near future
+- matrices and vectors of size 0,0/0 are not supported
+
 
 - usage of is_equal for real values is not recommended; we should provide a way
 to compare all our objects with respect to a user definable epsilon, s.th. like

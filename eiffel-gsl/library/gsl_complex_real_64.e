@@ -83,7 +83,7 @@ feature  -- Arithmetic operations
 			gsl_complex_sub(handle, handle, other.handle)
 		end
 
-feature {WRAPPER} -- externals
+feature {WRAPPER, WRAPPER_HANDLER} -- externals
 	struct_size: INTEGER is
 		external "C inline use <gsl/gsl_complex.h>"
 		alias "sizeof(gsl_complex)"

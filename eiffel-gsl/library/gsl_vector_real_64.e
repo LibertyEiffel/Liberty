@@ -17,9 +17,25 @@ insert
 	GSL_VECTOR_GENERAL[REAL_64]   
    
 creation
-	make, make_zero, manifest_creation, from_collection
+	make, make_zero, make_one, manifest_creation, from_collection
+
+feature {ANY}
+	dot (other: like Current): REAL_64 is
+		do
+			handle_code(gsl_blas_ddot(handle, other.handle, $Result))
+		end
 
 feature {} -- External calls
+	gsl_blas_ddot(x, y, res: POINTER): INTEGER_32 is
+		external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_ddot"
+         }"
+		end
+	
+feature {} -- External calls (from general)
 	gsl_vector_alloc(a_count: INTEGER): POINTER is
       external "plug_in"
       alias "{
@@ -308,5 +324,32 @@ feature {} -- External structure
          feature_name: "vector_double_owner"
          }"
 		end
-	
+
+	gsl_blas_nrm2 (ptr: POINTER): REAL_64 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_dnrm2"
+         }"
+		end
+
+	gsl_blas_asum (ptr: POINTER): REAL_64 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_dasum"
+         }"
+		end
+
+	gsl_blas_axpy (alpha: REAL_64; other_p, ptr: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_daxpy"
+         }"
+		end
+
 end

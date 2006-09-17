@@ -7,7 +7,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class GSL_MATRIX_GENERAL[TYPE_]
+deferred class GSL_MATRIX_GENERAL[TYPE_ -> NUMERIC]
 
 insert
 	WRAPPER
@@ -21,17 +21,22 @@ insert
       end
 
    GSL_ERRNO
-      undefine
+		undefine
          out, copy, is_equal, fill_tagged_out_memory
       end
-   
+
+   GSL_CBLAS_CONSTANTS
+		undefine
+         out, copy, is_equal, fill_tagged_out_memory
+      end
+
 feature -- Creating
 	make_zero  (rows, columns: INTEGER) is
 			-- Creates a matrix of size `rows' by `columns' and
 			-- initializes all the elements of the matrix to zero.
 		require
-			valid_rows: rows >= 0
-			valid_columns: columns >= 0
+			valid_rows: rows > 0
+			valid_columns: columns > 0
 		do
 			if handle.is_not_null then
 				gsl_matrix_free(handle)
@@ -46,8 +51,8 @@ feature -- Creating
 			-- Creates a matrix of size `rows' by `columns'. Matrix's elements are 
 			-- uninitialized, you should probably prefere make_zero.
 		require
-			valid_rows: rows >= 0
-			valid_columns: columns >= 0
+			valid_rows: rows > 0
+			valid_columns: columns > 0
 		do
 			if handle.is_not_null then
 				gsl_matrix_free (handle)
@@ -63,8 +68,8 @@ feature -- Creating
 			-- initializes all the elements except the diagonal to 0
          -- the diagonal is 1
 		require
-			valid_rows: rows >= 0
-			valid_columns: columns >= 0
+			valid_rows: rows > 0
+			valid_columns: columns > 0
 		do
          make(rows, columns)
          set_identity
@@ -385,9 +390,8 @@ feature -- Exchanging rows and columns
       do
          handle_code(gsl_matrix_swap_rowcol(handle, i, j))
       ensure
-         -- TODO: (old row(i)).is_equal(col(j))???
-         -- TODO: (old col(j)).is_equal(row(i))???
-         True
+         sw1: (old get_row(i)).is_equal(get_column(j))
+         sw2: (old get_column(j)).is_equal(get_row(i))
       end
 
    transpose is
@@ -415,7 +419,20 @@ feature -- Matrix operations
 			handle_code(gsl_matrix_add (handle, other.handle))
 		end
 
-	sub (other: like Current) is
+	plus_scaled (factor: TYPE_; other: like Current) is
+			-- adds factor * other to Current
+		require
+			same_size: has_same_size(other)
+		local
+			id: like Current
+			one: TYPE_
+		do
+			id := twin
+			id.make_identity(count2, count2)
+			handle_code(gsl_blas_gemm(cblas_no_trans, cblas_no_trans, factor, other.handle, id.handle, one.one, handle))
+		end
+		
+	subtract (other: like Current) is
 			-- Subtract  the elements of `other' matrix (b) to the elements of
 			-- Current matrix (a), a'(i,j) = a(i,j) - b(i,j). The two
 			-- matrices must have the same dimensions.
@@ -425,7 +442,7 @@ feature -- Matrix operations
 			handle_code(gsl_matrix_sub (handle, other.handle))
 		end
 
-	mul_elements (other: like Current) is
+	multiply_elements (other: like Current) is
 			-- Multiplies the elements of Current matrix (a) by the
 			-- elements of `other' matrix (b) a'(i,j) = a(i,j) *
 			-- b(i,j). The two matrices must have the same dimensions.
@@ -435,7 +452,7 @@ feature -- Matrix operations
 			handle_code(gsl_matrix_mul_elements (handle, other.handle))
 		end
 
-	div_elements (other: like Current) is
+	divide_elements (other: like Current) is
 			-- Divides the elements of Current matrix (a) by the
 			-- elements of `other' matrix (b) a'(i,j) = a(i,j) /
 			-- b(i,j). The two matrices must have the same dimensions.
@@ -445,7 +462,7 @@ feature -- Matrix operations
 			handle_code(gsl_matrix_div_elements (handle, other.handle))
 		end
 
-	scale (an_x: REAL_32) is
+	scale (an_x: REAL_64) is
 			-- Multiplies the elements of Current matrix (a) by the constant factor x, a'(i,j) = x a(i,j).
 		do
          handle_code(gsl_matrix_scale (handle, an_x))
@@ -457,17 +474,51 @@ feature -- Matrix operations
 			handle_code(gsl_matrix_add_constant (handle, a_constant))
 		end
 
+	infix "-" (other: like Current): like Current is
+		require
+			other_not_void: other /= Void
+			size: has_same_size(other)
+		do
+			Result := twin
+			Result.subtract (other)
+		end
+
+	infix "+" (other: like Current): like Current is
+		require
+			other_not_void: other /= Void
+			size: has_same_size(other)
+		do
+			Result := twin
+			Result.plus (other)
+		end
+	
+feature {ANY} -- matrix vector operations (BLAS 2)
+	-- TODO: is this name confusing?
+	multiply_vector (a_vector: like get_row): like get_row is
+			-- return a new vector with Result = Current a_vector
+		require
+			vector_not_void: a_vector /= Void
+			vec_size: a_vector.count = count2
+		local
+			one: TYPE_
+		do
+			Result := a_vector.twin
+			Result.make_zero(count1)
+			handle_code(gsl_blas_gemv(cblas_no_trans, one.one, handle, a_vector.handle, one.one, Result.handle))
+		ensure
+			result_not_void: Result /= Void
+			vec_size: Result.count = count1
+		end
+	
 feature -- Finding maximum and minimum elements of matrices
 	max: TYPE_ is
 			-- the maximum value in the matrix m.
-         -- TODO: what if matrix dimension is 0,0? Is this call defined?
 		do
 			Result := gsl_matrix_max (handle)
 		end
 	
 	min: TYPE_ is
 			-- the minimum value in the matrix m. 
-         -- TODO: what if matrix dimension is 0,0? Is this call defined?
 		do
 			Result := gsl_matrix_min (handle)
 		end
@@ -1022,8 +1073,26 @@ feature {} -- external struct access
 			a_matrix.is_not_null
       deferred
 		end
+
+	gsl_blas_gemv(trans_a: INTEGER_32; alpha: TYPE_; a_p, x_p:POINTER; beta: TYPE_; y_p: POINTER): INTEGER_32 is
+		require
+			a_p_not_null: a_p.is_not_null
+			b_p_not_null: x_p.is_not_null
+			c_p_not_null: y_p.is_not_null
+		deferred
+		end
+	
+	gsl_blas_gemm(trans_a, trans_b: INTEGER_32; alpha: TYPE_; a_p: POINTER; b_p: POINTER; beta: TYPE_; c_p: POINTER): INTEGER_32 is
+		require
+			a_p_not_null: a_p.is_not_null
+			b_p_not_null: b_p.is_not_null
+			c_p_not_null: c_p.is_not_null
+		deferred
+		end
+
 	
 invariant
 	valid_handle: handle /= default_pointer
-	
+	valid_count1: count1 > 0
+	valid_count2: count2 > 0
 end

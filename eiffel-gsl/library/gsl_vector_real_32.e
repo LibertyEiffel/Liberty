@@ -17,12 +17,49 @@ insert
 	GSL_VECTOR_GENERAL[REAL_32]
 
 creation
-	make, make_zero, manifest_creation, from_collection
+	make, make_zero, make_one, manifest_creation, from_collection
+
+feature {ANY}
+	dot (other: like Current): REAL_32 is
+		do
+			handle_code(gsl_blas_sdot(handle, other.handle, $Result))
+		end
+
+	dot_64 (other: like Current): REAL_64 is
+			-- scalar product of Current times other as REAL_64
+		require
+			same_size: has_same_size(other)
+		do
+			handle_code(gsl_blas_dsdot(handle, other.handle, $Result))
+		end
 
 feature {} -- External calls
+	gsl_blas_sdot(x, y, res: POINTER): INTEGER_32 is
+		external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_sdot"
+         }"
+		end
+	
+	gsl_blas_dsdot(x, y, res: POINTER): INTEGER_32 is
+		external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_dsdot"
+         }"
+		end
+	
+feature {} -- External calls (from general)
 	gsl_vector_alloc(a_count: INTEGER_32): POINTER is
       external "plug_in"
-		alias "gsl_vector_float_alloc"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_vector_float_alloc"
+         }"
 		end
 	
 	gsl_vector_calloc(a_count: INTEGER_32): POINTER is
@@ -311,6 +348,33 @@ feature {} -- External structure
          location: "${eiffel_libraries}/plugins"
          module_name: "eiffel-gsl"
          feature_name: "vector_float_owner"
+         }"
+		end
+	
+	gsl_blas_nrm2 (ptr: POINTER): REAL_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_snrm2"
+         }"
+		end
+	
+	gsl_blas_asum (ptr: POINTER): REAL_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_sasum"
+         }"
+		end
+
+	gsl_blas_axpy (alpha: REAL_32; other_p, ptr: POINTER): INTEGER_32 is
+      external "plug_in"
+      alias "{
+         location: "${eiffel_libraries}/plugins"
+         module_name: "eiffel-gsl"
+         feature_name: "gsl_blas_saxpy"
          }"
 		end
 end
