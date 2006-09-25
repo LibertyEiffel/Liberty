@@ -597,14 +597,21 @@ feature -- TODO: Properties. Meanwhile you can use G_OBJECT.get_property/set_pro
 
 --    -------------------------------------------------------------------------------------
 
---   The "rise" property
+feature -- The "rise" property
+	--    "rise"                 gint                  : Read / Write
 
---    "rise"                 gint                  : Read / Write
+	rise: INTEGER is
+			-- Offset of text above the baseline (below the baseline
+			-- if rise is negative) in Pango units. Default value: 0
+		do
+			Result := integer_property (rise_property_name)
+		end
 
---    Offset of text above the baseline (below the baseline if rise is negative) in Pango
---    units.
-
---    Default value: 0
+	set_rise (a_rise: INTEGER) is
+			-- The "rise" property
+		do
+			set_integer_property (rise_property_name, a_rise)
+		end
 
 --    -------------------------------------------------------------------------------------
 

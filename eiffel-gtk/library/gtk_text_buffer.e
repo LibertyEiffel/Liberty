@@ -616,7 +616,6 @@ feature -- Access
 
 			-- `a_tag_name': name of the new tag, or Void
 		local
-			tag_ptr, tagname_ptr: POINTER;
 			iterator: ITERATOR[TUPLE[STRING,G_VALUE]]
 			a_name: STRING; a_value: G_VALUE
 		do

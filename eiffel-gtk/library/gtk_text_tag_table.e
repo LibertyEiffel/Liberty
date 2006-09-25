@@ -30,7 +30,9 @@ class GTK_TEXT_TAG_TABLE
 
 inherit G_OBJECT
 
-insert GTK
+insert
+	GTK
+	GTK_TEXT_TAG_TABLE_EXTERNALS
 
 creation make, from_external_pointer
 
@@ -93,13 +95,13 @@ feature
 -- data : 	user data
 -- gtk_text_tag_table_get_size ()
 
--- gint        gtk_text_tag_table_get_size     (GtkTextTagTable *table);
+	size: INTEGER is
+			-- Returns the size of the table (number of tags)
+		do
+			Result := gtk_text_tag_table_get_size (handle)
+		end
 
--- Returns the size of the table (number of tags)
 
--- table : 	a GtkTextTagTable
-	-- Returns : 	number of tags in table
-	
 feature -- TODO: Signals
 
 -- "tag-added" void        user_function      (GtkTextTagTable *texttagtable,
@@ -152,30 +154,4 @@ feature -- size
 		alias "sizeof(GtkTextTagTable)"
 		end
 
-feature {} -- External calls
-	-- void        (*GtkTextTagTableForeach)       (GtkTextTag *tag, gpointer data)
-
-	gtk_text_tag_table_new: POINTER is -- GtkTextTagTable*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_text_tag_table_add (a_table, a_tag: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_text_tag_table_remove (a_table, a_tag: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_text_tag_table_lookup (a_table, a_const_name: POINTER): POINTER is -- GtkTextTag*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_text_tag_table_foreach (a_table, a_gtktexttagtableforeach_func, some_data: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_text_tag_table_get_size (a_table: POINTER): INTEGER is -- gint
-		external "C use <gtk/gtk.h>"
-		end
 end
