@@ -57,6 +57,7 @@ class GTK_ENTRY_COMPLETION
 inherit
 	G_OBJECT
 		-- GtkEntryCompletion implements GtkCellLayout.
+	G_SIGNALS
 
 insert
 	GTK_ENTRY_COMPLETION_EXTERNALS
@@ -363,21 +364,41 @@ feature
 	-- user_data : 	user data set when the signal handler was connected.
 	-- Returns : 	TRUE if the signal has been handled
 
-	-- Since 2.6
-	-- The "match-selected" signal
 
-	-- gboolean    user_function                  (GtkEntryCompletion *widget,
-	--                                             GtkTreeModel *model,
-	--                                             GtkTreeIter *iter,
-	--                                             gpointer user_data);
 
-	-- Gets emitted when a match from the list is selected. The default behaviour is to replace the contents of the entry with the contents of the text column in the row pointed to by iter.
+feature -- The "match-selected" signal
 
-	-- widget : 	the object which received the signal
-	-- model : 	the GtkTreeModel containing the matches
-	-- iter : 	a GtkTreeIter positioned at the selected match
-	-- user_data : 	user data set when the signal handler was connected.
-	-- Returns : 	TRUE if the signal has been handled
+	match_selected_signal_name: STRING is "match-selected"
+
+	on_match_selected is
+			-- Built-in clicked signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_match_selected is
+			-- Connects "match-selected" signal to `on_match_selected' feature.
+
+			-- Emitted when the button has been activated (pressed and released).
+
+			-- Gets emitted when a match from the list is selected.
+			-- The default behaviour is to replace the contents of the entry
+			-- with the contents of the text column in the row pointed to by iter.
+		do
+			connect (Current, match_selected_signal_name, $on_match_selected)
+		end
+
+	connect_agent_to_match_selected_signal (a_function: FUNCTION [ANY, TUPLE [GTK_TREE_MODEL, GTK_TREE_ITER, GTK_ENTRY_COMPLETION], BOOLEAN]) is
+			-- widget : 	 the object which received the signal
+			-- model : 	the GtkTreeModel containing the matches
+			-- iter : 	a GtkTreeIter positioned at the selected match
+		require valid_function: a_function /= Void
+		local match_selected_callback: MATCH_SELECTED_CALLBACK
+		do
+			create match_selected_callback.make
+			match_selected_callback.connect (Current, a_function)
+		end
+
+
 
 	-- Since 2.4
 
@@ -401,6 +422,7 @@ feature
 	-- iter : 	a GtkTreeIter indicating the row to match
 	-- user_data : 	user data given to gtk_entry_completion_set_match_func()
 	-- Returns : 	TRUE if iter should be displayed as a possible completion for key
+
 feature
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

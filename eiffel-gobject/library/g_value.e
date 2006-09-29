@@ -10,7 +10,12 @@ indexing
 class G_VALUE
 
 inherit
-	SHARED_C_STRUCT redefine dispose end
+	SHARED_C_STRUCT
+		rename
+			from_pointer as wrapper_from_pointer
+		redefine
+			dispose
+		end
 
 insert
 	G_TYPE
@@ -19,8 +24,10 @@ insert
 
 creation
 	make, from_external_pointer, with_gtype,
-	make_boolean, make_integer, make_natural, make_real, make_real_32, make_string, make_object,
-	from_boolean, from_integer, from_natural, from_real, from_string, from_object
+	make_boolean, make_integer, make_natural, make_real, make_real_32,
+	make_string, make_object, make_pointer,
+	from_boolean, from_integer, from_natural, from_real, from_string,
+	from_object, from_pointer
 
 feature {} -- Creation
 	make is
@@ -103,6 +110,13 @@ feature {} -- Creation
 		ensure is_object: is_object
 		end
 
+	make_pointer is
+			-- create a new pointer G_VALUE
+		do
+			handle := g_value_init (malloc_g_value, g_type_pointer)
+		ensure is_pointer: is_pointer
+		end
+
 	from_boolean (a_boolean: BOOLEAN) is
 			-- create a new boolean G_VALUE
 		local ptr: POINTER
@@ -179,6 +193,16 @@ feature {} -- Creation
 		ensure
 			is_object: is_object
 			value_set: object.is_equal(an_object.handle)
+		end
+
+	from_pointer (a_pointer: POINTER) is
+			-- create a new pointer G_VALUE
+		do
+			handle := g_value_init (malloc_g_value, g_type_pointer)
+			set_pointer (a_pointer)
+		ensure
+			is_pointer: is_pointer
+			value_set: pointer.is_equal (a_pointer)
 		end
 
 feature {ANY}

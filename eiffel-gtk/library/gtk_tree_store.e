@@ -110,6 +110,17 @@ feature -- Easy to use setters
 			set_value (an_iterator, a_column, a_value)
 		end
 
+	set_pointer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_pointer: POINTER) is
+		require
+			valid_iterator: an_iterator/=Void
+			a_column_contains_a_pointer: -- TODO
+		local
+			a_value: G_VALUE
+		do
+			create a_value.from_pointer (a_pointer)
+			set_value (an_iterator, a_column, a_value)
+		end
+
 feature -- Generic setter
 	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
 			-- Sets the data in the cell specified by `an_iterator' and
