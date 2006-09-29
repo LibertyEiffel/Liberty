@@ -26,7 +26,7 @@ indexing
 
 class GTK_PROGRESS_BAR
 
-inherit GTK_BIN redefine make end
+inherit GTK_BIN
 insert GTK_PROGRESS_BAR_EXTERNALS
 	
 creation
