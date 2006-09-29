@@ -485,7 +485,7 @@ feature -- The "clicked" signal
 	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
 			-- button : 	the object that received the signal
 		require valid_procedure: a_procedure /= Void
-		local clicked_callback: CLICKED_CALLBACK
+		local clicked_callback: CLICKED_CALLBACK [like Current]
 		do
 			create clicked_callback.make
 			clicked_callback.connect (Current, a_procedure)

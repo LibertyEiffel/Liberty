@@ -22,16 +22,16 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class CLICKED_CALLBACK
+class CLICKED_CALLBACK [O -> GTK_WIDGET] 
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_BUTTON]
+insert G_OBJECT_RETRIEVER [O]
 
 creation make
 
 feature
-	object: GTK_BUTTON
+	object: O
 
 feature
 	callback (instance: POINTER) is --  a_button: GTK_BUTTON) is
@@ -58,7 +58,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_BUTTON; a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+	connect (an_object: O; a_procedure: like procedure) is
 		do
 			debug
 				print ("CLICKED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -73,10 +73,10 @@ feature
 													 handle,
 													 0 -- i.e. call it before default handler
 													 )
-			procedure:=a_procedure
+			procedure := a_procedure
 		end
 
 		signal_name: STRING is "clicked"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]
+	procedure: PROCEDURE [ANY, TUPLE[O]]
 end
