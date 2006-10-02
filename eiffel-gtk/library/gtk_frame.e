@@ -23,11 +23,11 @@ indexing
 
 class GTK_FRAME
 inherit
-	GTK_BIN redefine make end
+	GTK_BIN
 insert
 	GTK_FRAME_EXTERNALS
 	
-creation make
+creation from_label
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -36,7 +36,7 @@ feature {} -- size
 		end
 
 feature {} -- Creation
-	make (a_label: STRING) is
+	from_label (a_label: STRING) is
 			-- Creates a new GtkFrame, with optional `a_label' (if Void,
 			-- the label is omitted).
 		require gtk_initialized: gtk.is_initialized
@@ -113,25 +113,21 @@ feature -- Alignments
 		do
 			-- TODO clean this types uglyness
 			gtk_frame_get_label_align (handle, $xal,$yal)
-			create Result.make_2 (xal.force_to_real_32,yal.force_to_real_32)
+			create Result.make_2 (xal, yal)
 			-- TODO postconditions
 		end
 
 	x_alignment: REAL is
 			-- the X alignement
-		local al: REAL_32
 		do
-			gtk_frame_get_label_align (handle, $al, default_pointer)
-			Result := al.force_to_real_32
+			gtk_frame_get_label_align (handle, $Result, default_pointer)
 			-- TODO postcondition
 		end
 	
 	y_alignment: REAL is
 			-- the Y alignement
-		local al: REAL_32
 		do
-			gtk_frame_get_label_align (handle, $al, default_pointer)
-			Result := al.force_to_real_32
+			gtk_frame_get_label_align (handle, $Result, default_pointer)
 			-- TODO postcondition
 		end
 

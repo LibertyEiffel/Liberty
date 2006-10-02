@@ -22,7 +22,7 @@ deferred class GTK_FRAME_EXTERNALS
 insert
 	GTK_SHADOW_TYPE
 feature {} -- External calls
-	gtk_frame_new (a_label: POINTER) is
+	gtk_frame_new (a_label: POINTER): POINTER is
 		external "C use  <gtk/gtk.h>"
 		end
 
@@ -57,7 +57,7 @@ feature {} -- External calls
 
 	gtk_frame_get_shadow_type (frame: POINTER): INTEGER is
 		external "C use  <gtk/gtk.h>"
-		require is_valid_gtk_shadow_type (Result)
+		ensure is_valid_gtk_shadow_type (Result)
 		end
 
 end
