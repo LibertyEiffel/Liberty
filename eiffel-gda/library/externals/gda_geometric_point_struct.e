@@ -35,4 +35,11 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaGeometricPoint set y use <libgda/libgda.h>"
 		end
 
+feature -- size
+
+	struct_size: INTEGER is
+		external "C inline use <libgda/libgda.h>"
+		alias "sizeof(GdaGeometricPoint)"
+		end
+
 end

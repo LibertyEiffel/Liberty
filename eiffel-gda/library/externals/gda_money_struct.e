@@ -28,4 +28,10 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaMoney set amount use <libgda/libgda.h>"
 		end
 
+feature
+	struct_size: INTEGER is
+		external "C inline use <libgda/libgda.h>"
+		alias "sizeof(GdaMoney)"
+		end
+
 end

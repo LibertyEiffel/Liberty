@@ -58,3 +58,19 @@ GTK singleton as hidden features.
 
 * Uncomplete wrapping: 
   GTK_ACTION
+
+* While wrapping C libraries I keep encountering constant C strings
+   (const char*) (i.e. "const char *get_foo (GObject
+   *an_object);"). . Usually I write :
+
+ foo: STRING is
+   do
+      create Result.from_external_copy (external_get_foo (a_pointer))
+   end
+
+While this is correct AFAIK it is not that efficient, since it
+   reallocate memory every time foo is accessed.
+
+Usually such strings are almost always used read-only. Is there a code
+   pattern or a class that allow to stress out or model better this
+   "constantness"?

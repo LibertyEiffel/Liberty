@@ -36,7 +36,9 @@ feature  -- enum
 						(a_schema = gda_connection_schema_triggers) or else
 						(a_schema = gda_connection_schema_types) or else
 						(a_schema = gda_connection_schema_users) or else
-						(a_schema = gda_connection_schema_views))
+						(a_schema = gda_connection_schema_views) or else
+						(a_schema = gda_connection_schema_constraints) or else						
+						(a_schema = gda_connection_schema_table_contents))
 		end
 
 	gda_connection_schema_aggregates: INTEGER is
@@ -109,4 +111,13 @@ feature  -- enum
       alias "GDA_CONNECTION_SCHEMA_VIEWS"
       end
 
+	gda_connection_schema_constraints: INTEGER is
+      external "C macro use <libgda/libgda.h>"
+      alias "GDA_CONNECTION_SCHEMA_CONSTRAINTS"
+      end
+
+	gda_connection_schema_table_contents: INTEGER is
+      external "C macro use <libgda/libgda.h>"
+      alias "GDA_CONNECTION_SCHEMA_TABLE_CONTENTS"
+      end
 end

@@ -40,4 +40,10 @@ feature {} -- Structure getter/setter calls
 		obsolete "a_day should be NATURAL_16"
 		external "C struct GdaDate set day use <libgda/libgda.h>"
 		end
+
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <libgda/libgda.h>"
+		alias "sizeof(GdaDate)"
+		end
 end
