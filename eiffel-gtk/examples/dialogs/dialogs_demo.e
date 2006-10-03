@@ -107,16 +107,21 @@ feature -- Initialisation
 			
 			answer := file_chooser.run
 			print ("Answer is "+answer.out+".%N")
+
 			filenames := file_chooser.filenames
-			print (filenames.count.out + " files choosen. ")
-			from i:=filenames.get_new_iterator; i.start; print("Choosen files are: ") 
-			until i.is_off 
-			loop 
-				print ("`") print(i.item) print ("'")
-				i.next
-				if not i.is_off then print (", ") end
-			end 
-			print (" No more%N")
+			if answer/=file_chooser.gtk_response_ok then 
+				print ("Cancel pressed.%N")
+			else 
+				print (filenames.count.out + " files choosen. ")
+				from i:=filenames.get_new_iterator; i.start; print("Choosen files are: ") 
+				until i.is_off 
+				loop 
+					print ("`") print(i.item) print ("'")
+					i.next
+					if not i.is_off then print (", ") end
+				end 
+				print (" No more%N")
+			end
 		end
 
 	my_rescue is
