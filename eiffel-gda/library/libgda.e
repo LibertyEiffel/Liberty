@@ -81,5 +81,5 @@ feature {} -- External calls
 			--  void gda_main_quit (void)
 		external "C use <libgda/libgda.h>"
 		end
-
+	
 end

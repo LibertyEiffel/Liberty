@@ -1,7 +1,7 @@
 indexing
-	description: "Enum "
+	description: "Enum GdaParameterListParamHint"
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2006 eiffel-libraries team, GDA team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -21,15 +21,22 @@ indexing
 
 deferred class GDA_PARAMETER_LIST_PARAM_HINT_ENUM
 feature  -- enum
-	is_valid_ (a_ :INTEGER): BOOLEAN is
+	is_valid_param_hint (an_hint :INTEGER): BOOLEAN is
 		do	
-			Result:=()
+			Result:=((an_hint = gda_parameter_list_param_read_only) or else
+						(an_hint = gda_parameter_list_param_hide))
 		end
-enum 
 
-typedef enum {
-	GDA_PARAMETER_LIST_PARAM_READ_ONLY = 1 << 0, /* param should not be affected by user modifications */
-	GDA_PARAMETER_LIST_PARAM_HIDE      = 1 << 1  /* param should not be shown to the user */
-} GdaParameterListParamHint;
 
+	gda_parameter_list_param_read_only: INTEGER is
+			-- param should not be affected by user modifications
+	   external "C macro use <libgda/libgda.h>"
+	   alias "GDA_PARAMETER_LIST_PARAM_READ_ONLY"
+	   end
+	   
+	gda_parameter_list_param_hide: INTEGER is
+			-- param should not be shown to the user 
+	   external "C macro use <libgda/libgda.h>"
+	   alias "GDA_PARAMETER_LIST_PARAM_HIDE"
+	   end
 end

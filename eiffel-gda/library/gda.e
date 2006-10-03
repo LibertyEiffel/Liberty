@@ -20,4 +20,9 @@ feature -- GDA
 		once
 			create Result
 		end
+
+	config: GDA_CONFIG is
+		once
+			create Result
+		end
 end
