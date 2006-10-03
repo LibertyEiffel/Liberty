@@ -24,7 +24,6 @@ inherit
 -- 			upper,
 -- 			swap
 -- 		end
-	G_SLIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
 	SHARED_C_STRUCT
 		rename
 			is_not_null as wrapped_object_exists
@@ -33,12 +32,13 @@ inherit
 		end
 
 insert
-	-- TODO: inserting INTERNALS_HANDLER is NOT necessary. Remove it
-	INTERNALS_HANDLER
+	G_SLIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
+		-- TODO: inserting INTERNALS_HANDLER is NOT necessary. Remove it
+		-- INTERNALS_HANDLER
 		-- needed to materialize an object of type STRING, without knowing
 		-- which type STRING will really be.
-		undefine copy 
-		end
+		-- undefine copy 
+		-- end
 
 creation make, from_external_pointer
 
@@ -294,9 +294,9 @@ feature
 	
 	get_new_iterator: ITERATOR[STRING] is 
 		do
-			check implemented: False end
-			not_yet_implemented -- TODO
-			--create {ITERATOR_ON_G_SLIST_STRING} Result.make ()
+			-- check implemented: False end
+			-- not_yet_implemented -- TODO
+			create {ITERATOR_ON_G_SLIST_STRING} Result.make (Current) 
 		ensure valid: Result/=Void
 		end
 

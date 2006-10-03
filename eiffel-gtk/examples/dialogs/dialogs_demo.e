@@ -93,13 +93,13 @@ feature -- Initialisation
 			answer := file_chooser.run
 			filename := file_chooser.filename
 			print ("Answer is ") print (answer.out)
-			if filename = Void then print (". Sadly no file choosen%N")
+			if answer/=file_chooser.gtk_response_ok then print (". Sadly no file choosen%N")
 			else  print (". Happily you chose: '") print (filename) print("'%N")
 			end
 		end
 
 	run_files_dialog is
-		local filenames: G_SLIST_STRING
+		local filenames: G_SLIST_STRING; i: ITERATOR[STRING]
 		do
 			create file_chooser.make_open ("Choose some files",Void,Void)
 			file_chooser.add_ok_cancel_buttons
@@ -108,12 +108,15 @@ feature -- Initialisation
 			answer := file_chooser.run
 			print ("Answer is "+answer.out+".%N")
 			filenames := file_chooser.filenames
-			print (filenames.count.out + " files choosen. TODO: implement %
-												  %G_SLIST_STRING.get_new_iterator%N")
-			-- from filenames.start print("Choosen files are:%N") until
-			-- filenames.off -- after loop print
-			-- (filenames.iteration_item) print ("%N") filenames.forth
-			-- end print ("No more%N")
+			print (filenames.count.out + " files choosen. ")
+			from i:=filenames.get_new_iterator; i.start; print("Choosen files are: ") 
+			until i.is_off 
+			loop 
+				print ("`") print(i.item) print ("'")
+				i.next
+				if not i.is_off then print (", ") end
+			end 
+			print (" No more%N")
 		end
 
 	my_rescue is
