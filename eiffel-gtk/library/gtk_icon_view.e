@@ -1,20 +1,60 @@
--- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
--- Top  |  Description  |  Object Hierarchy  |  Properties  |  Style Properties  |  Signals
--- GtkIconView
+indexing
+	description: "GtkIconView -- A widget which displays a list of icons in a grid"
+	copyright: "[
+					Copyright (C) 2006 Nicolas Fafchamps <nicolas.fafchamps@gmail.com> and others
+					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
 
--- GtkIconView %GÅ‚Äî%@ A widget which displays a list of icons in a grid
-	
--- Synopsis
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+				]"
+	date: "$Date:$"
+	revision "$Revision:$"
 
--- #include <gtk/gtk.h>
+class GTK_ICON_VIEW
+		-- GtkIconView provides an alternative view on a list model.
+		-- It displays the model as a grid of icons with labels.
+		-- Like GtkTreeView, it allows to select one or multiple items (depending
+		-- on the selection mode, see gtk_icon_view_set_selection_mode()). In
+		-- addition to selection with the arrow keys, GtkIconView supports
+		-- rubberband selection, which is controlled by dragging the pointer.
 
+inherit GTK_CONTAINER
+
+insert GTK_ICON_VIEW_EXTERNALS
+
+creation
+	make, with_model, from_external_pointer
+
+feature {} -- Initialization
+
+	make is
+			-- Creates a new GtkIconView widget
+		do
+			from_external_pointer (gtk_icon_view_new)
+		end
+
+	with_model (a_model: GTK_TREE_MODEL) is
+			-- Creates a new GtkIconView widget with the model model.
+		do
+			from_external_pointer (gtk_icon_view_new_with_model (a_model.handle))
+		end
 
 --             GtkIconView;
 -- void        (*GtkIconViewForeachFunc)       (GtkIconView *icon_view,
 --                                              GtkTreePath *path,
 --                                              gpointer data);
--- GtkWidget*  gtk_icon_view_new               (void);
--- GtkWidget*  gtk_icon_view_new_with_model    (GtkTreeModel *model);
 -- void        gtk_icon_view_set_model         (GtkIconView *icon_view,
 --                                              GtkTreeModel *model);
 -- GtkTreeModel* gtk_icon_view_get_model       (GtkIconView *icon_view);
@@ -202,13 +242,6 @@
 
 -- Description
 
--- GtkIconView provides an alternative view on a list model. It displays the model as a grid of icons with labels. Like GtkTreeView, it allows to select one or multiple items (depending on the selection mode, see gtk_icon_view_set_selection_mode()). In addition to selection with the arrow keys, GtkIconView supports rubberband selection, which is controlled by dragging the pointer.
--- Details
--- GtkIconView
-
--- typedef struct _GtkIconView GtkIconView;
-
--- The GtkIconView struct contains only private fields and should not be directly accessed.
 -- GtkIconViewForeachFunc ()
 
 -- void        (*GtkIconViewForeachFunc)       (GtkIconView *icon_view,
@@ -1046,4 +1079,12 @@
 
 -- iconview : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
-end
+
+feature
+
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkIconView)"
+		end
+
+end -- class GTK_ICON_VIEW

@@ -20,7 +20,7 @@ indexing
 					02110-1301 USA
 				]"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision "$Revision:$"
 
 class GTK_IMAGE
 
@@ -132,15 +132,20 @@ feature -- Status setting
 	-- Todo : void        gtk_image_set_from_animation ()
 	-- Todo : void        gtk_image_set_from_icon_name ()
 	
+
 feature -- Status report
+
 	pixel_size : INTEGER is
 			-- Pixel size used.
 		do
 			Result := gtk_image_get_pixel_size (handle)
 		end
+
 feature
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkImage)"
 		end
+
 end

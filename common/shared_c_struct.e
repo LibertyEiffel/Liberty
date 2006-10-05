@@ -3,7 +3,7 @@ indexing
 					  Wrapper for a generic C structure, that is shared with external
 					  code, handle will not be freed on dispose of the
 					  Eiffel wrapper object, if is_shared is true
-					  ]"
+				  ]"
 	copyright: "(C) 2006"
 	author: "Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
@@ -16,7 +16,7 @@ deferred class SHARED_C_STRUCT
 inherit
 	C_STRUCT
 		undefine
-			make, copy -- should copy be redefined in the subclasses?
+			make--, copy -- should copy be redefined in the subclasses?
 		redefine
 			dispose
 		end
