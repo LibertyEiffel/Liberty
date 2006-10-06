@@ -39,7 +39,7 @@ insert
 creation
 	make, with_model, from_external_pointer
 
-feature {} -- Initialization
+feature {} -- Creation
 
 	make is
 			-- Creates a new GtkIconView widget
@@ -60,6 +60,8 @@ feature {} -- Initialization
 --                                              GtkTreePath *path,
 --                                              gpointer data);
 
+feature -- Access
+
 --	model: GTK_TREE_MODEL is
 --			-- 
 --		local
@@ -75,17 +77,24 @@ feature {} -- Initialization
 --			Result /= Void
 --		end
 
+	text_column: INTEGER is
+		do
+			Result := gtk_icon_view_get_text_column (handle)
+		end
+
+	pixbuf_column: INTEGER is
+		do
+			Result := gtk_icon_view_get_pixbuf_column (handle)
+		end
+
+feature -- Operations
+
 	set_model (a_model: GTK_TREE_MODEL) is
 			-- 
 		require
 			a_model /= Void
 		do
 			gtk_icon_view_set_model (handle, a_model.handle)
-		end
-
-	text_column: INTEGER is
-		do
-			Result := gtk_icon_view_get_text_column (handle)
 		end
 
 	set_text_column (a_column: INTEGER) is
@@ -96,11 +105,6 @@ feature {} -- Initialization
 -- void        gtk_icon_view_set_markup_column (GtkIconView *icon_view,
 --                                              gint column);
 -- gint        gtk_icon_view_get_markup_column (GtkIconView *icon_view);
-
-	pixbuf_column: INTEGER is
-		do
-			Result := gtk_icon_view_get_pixbuf_column (handle)
-		end
 
 	set_pixbuf_column (a_column: INTEGER) is
 		do
