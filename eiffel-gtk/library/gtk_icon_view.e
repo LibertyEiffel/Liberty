@@ -72,7 +72,7 @@ feature {} -- Initialization
 				create Result.from_external_pointer (c_ptr)
 			end
 		ensure
-			a_model /= Void
+			Result /= Void
 		end
 
 	set_model (a_model: GTK_TREE_MODEL) is
