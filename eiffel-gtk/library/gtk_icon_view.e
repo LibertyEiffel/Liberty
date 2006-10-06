@@ -60,20 +60,20 @@ feature {} -- Initialization
 --                                              GtkTreePath *path,
 --                                              gpointer data);
 
-	model: GTK_TREE_MODEL is
-			-- 
-		local
-			c_ptr: POINTER
-		do
-			c_ptr := gtk_icon_view_get_model (handle)
-			if has_eiffel_wrapper_stored (c_ptr) then
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_ptr)
-			else
-				create Result.from_external_pointer (c_ptr)
-			end
-		ensure
-			Result /= Void
-		end
+--	model: GTK_TREE_MODEL is
+--			-- 
+--		local
+--			c_ptr: POINTER
+--		do
+--			c_ptr := gtk_icon_view_get_model (handle)
+--			if has_eiffel_wrapper_stored (c_ptr) then
+--				Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_ptr)
+--			else
+--				create Result.from_external_pointer (c_ptr)
+--			end
+--		ensure
+--			Result /= Void
+--		end
 
 	set_model (a_model: GTK_TREE_MODEL) is
 			-- 
