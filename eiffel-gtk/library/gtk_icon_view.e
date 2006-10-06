@@ -85,7 +85,7 @@ feature {} -- Initialization
 
 	text_column: INTEGER is
 		do
-			Result := gtk_icon_view_set_text_column (handle)
+			Result := gtk_icon_view_get_text_column (handle)
 		end
 
 	set_text_column (a_column: INTEGER) is
@@ -99,7 +99,7 @@ feature {} -- Initialization
 
 	pixbuf_column: INTEGER is
 		do
-			Result := gtk_icon_view_set_pixbuf_column (handle)
+			Result := gtk_icon_view_get_pixbuf_column (handle)
 		end
 
 	set_pixbuf_column (a_column: INTEGER) is
