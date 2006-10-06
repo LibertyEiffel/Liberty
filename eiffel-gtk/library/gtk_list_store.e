@@ -102,9 +102,8 @@ inherit
 	GTK_TREE_DRAG_SOURCE rename make as make_struct end
 	GTK_TREE_DRAG_DEST rename make as make_struct end
 
-	
 insert GTK_LIST_STORE_EXTERNALS
-	
+
 creation make
 
 feature {} -- Creation
@@ -113,13 +112,13 @@ feature {} -- Creation
 			-- Creates a new list store. `some_columns' is a list of integers; each
 			-- integer is the G_TYPE of an actual column. Note that only types
 			-- derived from standard GObject fundamental types are supported.
-	
+			
 			-- As an example, make (<<g_type_int, g_type_string, gdk_type_pixbuf>>)
 			-- will create a new GtkListStore with three columns, of type int,
 			-- string and GdkPixbuf respectively.
-		
+			
 			-- TODO: make this more eiffelish
-		
+			
 			-- Note: ARRAY seems to be the more general class that fits the
 			-- task. Feel free to change it. Paolo 2006-02-22
 		require gtk_initialized: gtk.is_initialized
@@ -188,7 +187,7 @@ feature -- Easy to use setters
 			create a_value.from_string (a_string)
 			set_value (an_iterator, a_column, a_value)
 		end
-	
+
 	set_natural (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_natural: INTEGER) is
 		require
 			a_column_contains_a_natural: -- TODO
@@ -203,7 +202,7 @@ feature -- Easy to use setters
 	set_integer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_integer: INTEGER) is
 		require
 			a_column_contains_a_integer: -- TODO
-			valid_iterator: an_iterator/=Void				
+			valid_iterator: an_iterator/=Void
 		local a_value: G_VALUE
 		do
 			create a_value.from_integer (an_integer)

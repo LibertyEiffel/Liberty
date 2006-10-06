@@ -32,7 +32,9 @@ class GTK_ICON_VIEW
 
 inherit GTK_CONTAINER
 
-insert GTK_ICON_VIEW_EXTERNALS
+insert
+	GTK_ICON_VIEW_EXTERNALS
+	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 
 creation
 	make, with_model, from_external_pointer
@@ -47,6 +49,8 @@ feature {} -- Initialization
 
 	with_model (a_model: GTK_TREE_MODEL) is
 			-- Creates a new GtkIconView widget with the model model.
+		require
+			a_model /= Void
 		do
 			from_external_pointer (gtk_icon_view_new_with_model (a_model.handle))
 		end
@@ -55,18 +59,54 @@ feature {} -- Initialization
 -- void        (*GtkIconViewForeachFunc)       (GtkIconView *icon_view,
 --                                              GtkTreePath *path,
 --                                              gpointer data);
--- void        gtk_icon_view_set_model         (GtkIconView *icon_view,
---                                              GtkTreeModel *model);
--- GtkTreeModel* gtk_icon_view_get_model       (GtkIconView *icon_view);
--- void        gtk_icon_view_set_text_column   (GtkIconView *icon_view,
---                                              gint column);
--- gint        gtk_icon_view_get_text_column   (GtkIconView *icon_view);
+
+	model: GTK_TREE_MODEL is
+			-- 
+		local
+			c_ptr: POINTER
+		do
+			c_ptr := gtk_icon_view_get_model (handle)
+			if has_eiffel_wrapper_stored (c_ptr) then
+				Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_ptr)
+			else
+				create Result.from_external_pointer (c_ptr)
+			end
+		ensure
+			a_model /= Void
+		end
+
+	set_model (a_model: GTK_TREE_MODEL) is
+			-- 
+		require
+			a_model /= Void
+		do
+			gtk_icon_view_set_model (handle, a_model.handle)
+		end
+
+	text_column: INTEGER is
+		do
+			Result := gtk_icon_view_set_text_column (handle)
+		end
+
+	set_text_column (a_column: INTEGER) is
+		do
+			gtk_icon_view_set_text_column (handle, a_column)
+		end
+
 -- void        gtk_icon_view_set_markup_column (GtkIconView *icon_view,
 --                                              gint column);
 -- gint        gtk_icon_view_get_markup_column (GtkIconView *icon_view);
--- void        gtk_icon_view_set_pixbuf_column (GtkIconView *icon_view,
---                                              gint column);
--- gint        gtk_icon_view_get_pixbuf_column (GtkIconView *icon_view);
+
+	pixbuf_column: INTEGER is
+		do
+			Result := gtk_icon_view_set_pixbuf_column (handle)
+		end
+
+	set_pixbuf_column (a_column: INTEGER) is
+		do
+			gtk_icon_view_set_pixbuf_column (handle, a_column)
+		end
+
 -- GtkTreePath* gtk_icon_view_get_path_at_pos  (GtkIconView *icon_view,
 --                                              gint x,
 --                                              gint y);

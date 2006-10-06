@@ -116,7 +116,9 @@ indexing
 
 
 class GTK_DIALOG
+
 inherit GTK_WINDOW redefine make end
+
 insert
 	GTK_DIALOG_EXTERNALS
 		rename
@@ -127,6 +129,7 @@ insert
 	GTK_DIALOG_STRUCT
 	GTK_STOCK_ITEMS
 		-- GtkDialog implements AtkImplementorIface.	
+
 creation new, make, from_external_pointer
 
 feature {} -- Creation

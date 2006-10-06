@@ -17,17 +17,19 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_DIALOG_FLAGS
+
 feature  -- enum
+
 	are_valid_gtk_dialog_flags (some_flags :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=(some_flags & (gtk_dialog_modal |
-										  gtk_dialog_destroy_with_parent |
-										  gtk_dialog_no_separator)).to_boolean
+			                       gtk_dialog_destroy_with_parent |
+			                       gtk_dialog_no_separator)).to_boolean
 		end
 
 	gtk_dialog_modal: INTEGER is
@@ -35,7 +37,7 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_DIALOG_MODAL"
 		end
-	
+
 	gtk_dialog_destroy_with_parent: INTEGER is
 			-- 	Destroy the dialog when its parent is destroyed
 		external "C macro use <gtk/gtk.h>"
@@ -48,5 +50,5 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_DIALOG_NO_SEPARATOR"
 		end
-end
 
+end

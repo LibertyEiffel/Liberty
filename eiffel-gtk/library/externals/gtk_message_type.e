@@ -22,15 +22,17 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_MESSAGE_TYPE
+
 feature  -- enum
+
 	is_valid_gtk_message_type (a_gtk_message_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_gtk_message_type = gtk_message_info) or else
 						(a_gtk_message_type = gtk_message_warning) or else
 						(a_gtk_message_type = gtk_message_question) or else
 						(a_gtk_message_type = gtk_message_error))
 		end
-	
+
 	gtk_message_info: INTEGER is
 			-- 	Informational message 
 		external "C macro use <gtk/gtk.h>"
@@ -42,7 +44,7 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MESSAGE_WARNING"
 		end
-	
+
 	gtk_message_question: INTEGER is
 			-- 	Question requiring a choice 
 		external "C macro use <gtk/gtk.h>"
@@ -54,5 +56,5 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_MESSAGE_ERROR"
 		end
-end
 
+end

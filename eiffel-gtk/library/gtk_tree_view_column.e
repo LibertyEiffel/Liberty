@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -61,13 +61,13 @@ feature {} -- Creation
 
 			-- TODO: Eiffelize this:
 			-- Here's a simple example:
-		
+			
 			--  enum { TEXT_COLUMN, COLOR_COLUMN, N_COLUMNS };
 			--  ...
 			--  {
 			--    GtkTreeViewColumn *column;
 			--    GtkCellRenderer   *renderer = gtk_cell_renderer_text_new ();
-		
+			
 			--    column = gtk_tree_view_column_new_with_attributes ("Title",
 			--    renderer, "text", TEXT_COLUMN, "foreground", COLOR_COLUMN,
 			--    NULL); }
@@ -81,7 +81,7 @@ feature {} -- Creation
 			pack_start(a_renderer, True)
 			set_attributes (a_renderer, some_attributes)
 		end
-	
+
 feature
 	pack_start (a_cell: GTK_CELL_RENDERER; does_expand: BOOLEAN) is
 			-- Packs `a_cell' into the beginning of the column. If
@@ -108,7 +108,7 @@ feature
 		do
 			gtk_tree_view_column_clear (handle)
 		end
-	
+
 	cell_renderers: G_LIST [GTK_CELL_RENDERER] is
 			-- a GList of all the cell renderers in the column, in no
 			-- particular order.
@@ -126,11 +126,11 @@ feature
 			-- if column 2 of the model contains strings, you could have
 			-- the "text" attribute of a GtkCellRendererText get its
 			-- values from column 2.
-
+			
 			-- `a_cell_renderer': GtkCellRenderer to set attributes on
-		
+			
 			-- `an_attribute' : An attribute on the renderer
-		
+			
 			-- `a_column' : The column position on the model to get the
 			-- attribute from.
 		require
@@ -138,7 +138,7 @@ feature
 			valid_attribute: an_attribute /= Void
 		do
 			gtk_tree_view_column_add_attribute (handle, a_cell_renderer.handle,
-															an_attribute.to_external, a_column)
+												an_attribute.to_external, a_column)
 		end
 	
 	set_attributes (a_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION [TUPLE[STRING,INTEGER]]) is
@@ -152,12 +152,12 @@ feature
 		local iter: ITERATOR [TUPLE[STRING,INTEGER]]
 		do
 			clear_attributes (a_renderer)
-			from iter:=some_attributes.get_new_iterator;	iter.start
+			from iter:=some_attributes.get_new_iterator;iter.start
 			until iter.is_off
 			loop
 				add_attribute (a_renderer, iter.item.item_1, iter.item.item_2)
 				iter.next
-			end	
+			end
 		end
 	
 	-- TODO: gtk_tree_view_column_set_cell_data_func ()
@@ -251,6 +251,7 @@ feature -- Resizability
 
 
 feature -- Sizing
+
 	set_sizing (a_type: INTEGER) is
 			-- Sets the growth behavior of tree_column to `a_type'.
 		require valid_type: is_valid_gtk_tree_view_column_sizing (a_type)
@@ -492,13 +493,14 @@ feature -- Clickability
 		end
 
 feature -- Reorderability
+
 	set_reorderable is
 			-- The column can be reordered by the end user dragging the header.
 		do
 			gtk_tree_view_column_set_reorderable (handle, 1)
 		ensure reorderable: is_reorderable
 		end
-	
+
 	unset_reorderable is
 			-- Makes the column not reorderable
 		do
@@ -511,7 +513,7 @@ feature -- Reorderability
 		do
 			Result:=gtk_tree_view_column_get_reorderable(handle).to_boolean
 		end
-	
+
 	set_sort_column_id (a_column_id: INTEGER) is
 			-- Sets the logical `a_column_id' that this column sorts on
 			-- when this column is selected for sorting. Doing so makes
@@ -545,12 +547,12 @@ feature -- Reorderability
 			gtk_tree_view_column_set_sort_indicator (handle, 0)
 		ensure hided: sort_indicator_shown
 		end
-	
+
 	sort_indicator_shown: BOOLEAN is
 		do
 			Result:=gtk_tree_view_column_get_sort_indicator(handle).to_boolean
 		end
-	
+
 	set_sort_order_ascending is
 			-- Changes the appearance of the sort indicator to ascending.
 		
@@ -582,7 +584,7 @@ feature -- Reorderability
 		do
 			Result:=(gtk_tree_view_column_get_sort_order(handle)=gtk_sort_ascending)
 		end
-	
+
 	-- TODO: wrap gtk_tree_view_column_cell_set_cell_data (). When it
 	-- is used?
 

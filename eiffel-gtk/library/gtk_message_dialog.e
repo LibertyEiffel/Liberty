@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -56,6 +56,7 @@ indexing
 
 
 class GTK_MESSAGE_DIALOG
+
 inherit
 	GTK_DIALOG
 		rename
@@ -78,6 +79,7 @@ feature -- size
 		end
 
 feature {} -- Creation
+
 	make (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
 			-- Creates a new message dialog, which is a simple dialog
 			-- with an icon indicating the dialog `a_type' (error,
@@ -85,7 +87,7 @@ feature {} -- Creation
 			-- see. When the user clicks a button a "response" signal is
 			-- emitted with response IDs from GTK_RESPONSE_TYPE. See
 			-- GTK_DIALOG for more details.
-		
+			
 			-- `a_parent': transient parent, or Void for none
 		require
 			gtk_initialized: gtk.is_initialized
@@ -93,19 +95,19 @@ feature {} -- Creation
 			valid_message_type: is_valid_gtk_message_type (a_type)
 			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
-			if a_parent=Void then from_external_pointer (gtk_message_dialog_new
-																		(default_pointer,some_flags,a_type,some_buttons,a_message.to_external))
-			else from_external_pointer (gtk_message_dialog_new
-												 (a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external))
+			if a_parent=Void then
+				from_external_pointer (gtk_message_dialog_new (default_pointer, some_flags, a_type, some_buttons, a_message.to_external))
+			else
+				from_external_pointer (gtk_message_dialog_new (a_parent.handle, some_flags, a_type, some_buttons, a_message.to_external))
 			end
 		end
-	
+
 	new (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
 		obsolete "use `make' instead."
 		do
 			make (a_parent, some_flags, a_type, some_buttons, a_message)
 		end
-	
+
 	with_markup (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
 			-- Creates a new message dialog, which is a simple dialog
 			-- with an icon indicating the dialog type (error, warning,
@@ -125,12 +127,12 @@ feature {} -- Creation
 			-- contain '%' characters) or as a string argument.
 
 			--  TODO: Eiffelize this example GtkWidget *dialog;
-		
+			
 			--  dialog = gtk_message_dialog_new (main_application_window,
 			--  GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
 			--  GTK_BUTTON_CLOSE, NULL); gtk_message_dialog_set_markup
 			--  (GTK_MESSAGE_DIALOG (dialog), markup);
-		
+			
 			-- `a_parent': transient parent, or Void for none
 		require
 			gtk_initialized: gtk.is_initialized
@@ -146,8 +148,9 @@ feature {} -- Creation
 				 (a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external))
 			end
 		end
-	
+
 feature -- Dialog's message
+
 	set_markup (a_string: STRING) is
 			-- Sets the text of the message dialog to be `a_string',
 			-- which is marked up with the Pango text markup language.
@@ -159,7 +162,7 @@ feature -- Dialog's message
 	set_secondary_text (a_string: STRING) is
 			-- Sets the secondary text of the message dialog to be
 			-- `a_string' (note: it must follow C's printf()-style).
-
+			
 			-- Note that setting a secondary text makes the primary text
 			-- become bold, unless you have provided explicit markup.
 		require valid_string: a_string/=Void
@@ -172,7 +175,6 @@ feature -- Dialog's message
 		do
 			gtk_message_dialog_format_secondary_text (handle, default_pointer)
 		end
-	
 
 	set_secondary_markup (a_string: STRING) is
 			-- Sets the secondary text of the message dialog to be
@@ -190,7 +192,7 @@ feature -- Dialog's message
 			-- escape it.
 
 			-- TODO: Eiffelize this example gchar *msg;
- 
+			
 			-- msg = g_markup_printf_escaped (message_format, ...);
 			-- gtk_message_dialog_format_secondary_markup (message_dialog, "%s", msg);
 			-- g_free (msg);
@@ -198,14 +200,14 @@ feature -- Dialog's message
 		do
 			gtk_message_dialog_format_secondary_markup (handle, a_string.to_external)
 		end
-	
+
 	unset_secondary_markup is
 			-- Unsets the secondary text of the message dialog.
 		do
 			gtk_message_dialog_format_secondary_markup (handle, default_pointer)
 		end
 
-feature	-- Property Details
+feature -- Property Details
 -- The "buttons" property
 
 --   "buttons"              GtkButtonsType        : Write / Construct Only

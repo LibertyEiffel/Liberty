@@ -17,28 +17,29 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_MESSAGE_DIALOG_EXTERNALS
+
 insert
 	GTK_DIALOG_FLAGS
 	GTK_MESSAGE_TYPE
 	GTK_BUTTONS_TYPE
-	
+
 feature {} -- External calls
 
 	gtk_message_dialog_new (a_parent: POINTER;
-									some_gtkdialogflags, a_gtkmessagetype, a_gtkbuttonstype: INTEGER;
-									a_message_format: POINTER): POINTER is
+							some_gtkdialogflags, a_gtkmessagetype, a_gtkbuttonstype: INTEGER;
+							a_message_format: POINTER): POINTER is
 		require
 			valid_dialog_flags: are_valid_gtk_dialog_flags (some_gtkdialogflags)
 			valid_message_type: is_valid_gtk_message_type (a_gtkmessagetype)
 			valid_buttons_type: is_valid_gtk_buttons_type (a_gtkbuttonstype)
 		external "C use  <gtk/gtk.h>"
 		end
-	
+
 	gtk_message_dialog_new_with_markup (a_parent: POINTER; some_gtkdialogflags, a_gtkmessagetype, a_gtkbuttonstype: INTEGER; a_message_format: POINTER): POINTER is 
 		require
 			valid_dialog_flags: are_valid_gtk_dialog_flags (some_gtkdialogflags)
