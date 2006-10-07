@@ -22,8 +22,7 @@ class GDK_REGION
 
 inherit
 	C_STRUCT
-		redefine dispose, copy, make
-		end
+		redefine dispose, make end
 
 insert
 	GDK_FILL_RULE

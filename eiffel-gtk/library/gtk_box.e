@@ -26,21 +26,25 @@ indexing
 -- Use gtk_box_set_child_packing() to reset the expand, fill, and padding attributes of any GtkBox child. Use gtk_box_query_child_packing() to query these fields.
 
 deferred class GTK_BOX
+
 inherit
 	GTK_CONTAINER
 		rename make as make_container
 		end
 	-- GtkBox implements AtkImplementorIface.
-	
+
 insert GTK_BOX_EXTERNALS
 
 feature {} -- Hack to avoid warnings
+
 	make_container is
 		obsolete "Hack to avoid warnings. It will never be called"
 		do
 			check this_should_not_be_called: False end
 		end
+
 feature
+
 	pack_start (a_widget: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER) is
 			-- Add `a_widget' to box, packed with reference to the start
 			-- of box. The child is packed after any other child packed

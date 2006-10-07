@@ -20,7 +20,7 @@ indexing
 					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
-	
+
 			-- Description: A GtkComboBox is a widget that allows the
 			-- user to choose from a list of valid choices. The
 			-- GtkComboBox displays the selected choice. When activated,
@@ -46,8 +46,9 @@ indexing
 			-- model. It consists of the functions `with_text',
 			-- `append_text', `insert_text', `prepend_text',
 			-- `remove_text' and `active_text'.
-	
+
 class GTK_COMBO_BOX
+
 inherit
 	GTK_BIN
 	GTK_CELL_EDITABLE
@@ -62,10 +63,12 @@ insert
 			g_object_get_eiffel_wrapper as g_object_get_model_wrapper
 		export {WRAPPER} all
 		end
+	GTK_COMBO_BOX_EXTERNALS
 
 creation make, with_text_only
 
 feature {} -- Creation
+
 	make is
 			-- Creates a new empty GtkComboBox.
 		do
@@ -73,7 +76,6 @@ feature {} -- Creation
 			is_text_only:=False
 		ensure then no_text_only: not is_text_only
 		end
-
 
 	with_model (a_model: GTK_TREE_MODEL) is
 			-- Creates a new GtkComboBox with `a_model'.
@@ -158,7 +160,7 @@ feature -- Model-related features
 			-- An iterator pointing to the current active item, if it
 			-- exists. Otherwise Void
 		require no_simple_api: not is_text_only
-		local gbool: INTEGER; 
+		local gbool: INTEGER
 		do
 			create Result.make -- a newly allocated iterator
 			gbool := gtk_combo_box_get_active_iter (handle, Result.handle)
@@ -168,7 +170,7 @@ feature -- Model-related features
 	set_active_iter (an_iterator: GTK_TREE_ITER) is
 			-- Sets the current active item to be the one referenced by
 			-- `an_iterator' that must correspond to a path of depth one.
-		require 
+		require
 			no_simple_api: not is_text_only
 			-- TODO: an_iterator.depth = 1
 		do
@@ -185,16 +187,16 @@ feature -- Model-related features
 			model_ptr := gtk_combo_box_get_model (handle)
 			Result := retrieve_model_wrapper_from_pointer (model_ptr)
 		end
-	
+
 	set_model (a_model: GTK_TREE_MODEL) is
 			-- Sets the model used by combo_box to be model. Will unset a
 			-- previously set model (if applicable). If model is NULL,
 			-- then it will unset the model.
-
+			
 			-- Note that this function does not clear the cell renderers,
 			-- you have to call `cell_layout_clear' yourself if you need
 			-- to set up different cell renderers for the new model.
-		require 
+		require
 			no_simple_api: not is_text_only
 			model_not_void: a_model /= Void
 		do
@@ -207,7 +209,6 @@ feature -- Model-related features
 		do
 			gtk_combo_box_set_model (handle, default_pointer)
 		end
-
 
 feature {} -- Simplified, text-only API creation
 	with_text_only is
@@ -224,10 +225,11 @@ feature {} -- Simplified, text-only API creation
 		end
 
 feature -- Simplified, text-only API
+
 	is_text_only: BOOLEAN
 	append_text (a_text: STRING) is
 			-- Appends `a_text' to the list of strings stored in combo box.		
-		require 
+		require
 			simple_api: is_text_only
 			text_not_void: a_text /= Void
 		do
@@ -237,7 +239,7 @@ feature -- Simplified, text-only API
 	insert_text (a_text: STRING; a_position: INTEGER) is
 			-- Inserts `a_text' at `a_position' in the list of strings
 			-- stored in combo_box.
-		require 
+		require
 			simple_api: is_text_only
 			text_not_void: a_text /= Void
 		do
@@ -246,7 +248,7 @@ feature -- Simplified, text-only API
 
 	prepend_text (a_text: STRING) is
 			-- Prepends `a_text' to the list of strings stored in combo box.		
-		require 
+		require
 			simple_api: is_text_only
 			text_not_void: a_text /= Void
 		do
@@ -470,26 +472,38 @@ feature -- Properties
 	-- Whether dropdowns should look like lists rather than menus.
 
 	-- Default value: FALSE
-feature -- Signals
 
-	-- "changed" void user_function (GtkComboBox *widget,
-	-- gpointer user_data) : Run last
+feature -- The "changed" signal
+	changed_signal_name: STRING is "changed"
 
-	-- Signal Details
-	-- The "changed" signal
+	enable_on_changed is
+			-- Connects "changed" signal to `on_changed' feature.
+		do
+			connect (Current, changed_signal_name, $on_changed)
+		end
 
-	-- void user_function (GtkComboBox *widget,
-	-- gpointer user_data) : Run last
+	on_changed is
+			-- Built-in changed signal handler; empty by design; redefine it.
 
-	-- The changed signal is emitted when the active item is changed. The can be due to the user selecting a different item from the list, or due to a call to gtk_combo_box_set_active_iter(). It will also be emitted while typing into a GtkComboBoxEntry, as well as when selecting an item from the GtkComboBoxEntry's list.
+			-- The `changed' signal is emitted when the active item is changed.
+			-- The can be due to the user selecting a different item from the list,
+			-- or due to a call to gtk_combo_box_set_active_iter(). It will also be
+			-- emitted while typing into a GtkComboBoxEntry, as well as when
+			-- selecting an item from the GtkComboBoxEntry's list.
+		do
+		end
 
-	-- widget : 	the object which received the signal
-	-- user_data : 	user data set when the signal handler was connected.
-
-	-- Since 2.4
-	-- See Also
-
-	-- GtkComboBoxEntry, GtkTreeModel, GtkCellRenderer
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COMBO_BOX]]) is
+			-- widget : 	the object which received the signal
+			-- user_data : 	user data set when the signal handler was connected.
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			changed_callback: CHANGED_CALLBACK[like Current]
+		do
+			create changed_callback.make
+			changed_callback.connect (Current, a_procedure)
+		end
 
 feature -- size
 	struct_size: INTEGER is
@@ -497,120 +511,4 @@ feature -- size
 		alias "sizeof(GtkComboBox)"
 		end
 
-feature {} -- External calls
-	gtk_combo_box_new: POINTER is -- 	GtkWidget*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_new_with_model (a_model: POINTER): POINTER is -- GtkWidget*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_wrap_width (a_combo_box: POINTER): INTEGER is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_set_wrap_width (a_combo_box: POINTER; a_width: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_row_span_column (a_combo_box: POINTER): INTEGER is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_set_row_span_column (a_combo_box: POINTER; a_row_span: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_column_span_column (a_combo_box: POINTER): INTEGER is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_set_column_span_column (a_combo_box: POINTER; a_column_span: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_active (a_combo_box: POINTER): INTEGER is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_set_active (a_combo_box: POINTER; an_index: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_active_iter (a_combo_box: POINTER; a_gtktreeiter: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_set_active_iter (a_combo_box: POINTER; a_gtktreeiter: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_model (a_combo_box: POINTER): POINTER is -- GtkTreeModel*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_set_model (a_combo_box: POINTER; a_model: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_new_text: POINTER is -- GtkWidget*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_append_text (a_combo_box: POINTER; a_text: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_insert_text (a_combo_box: POINTER; a_position: INTEGER; a_text: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_prepend_text (a_combo_box: POINTER; a_text: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_remove_text (a_combo_box: POINTER; a_position: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_active_text (a_combo_box: POINTER): POINTER is --	gchar*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_popup (a_combo_box: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_popdown (a_combo_box: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_popup_accessible (a_combo_box: POINTER): POINTER is -- AtkObject*
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_row_separator_func (a_combo_box: POINTER): POINTER is -- GtkTreeViewRowSeparatorFunc
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_set_row_separator_func (a_combo_box: POINTER; a_gtktreeviewrowseparatorfunc: POINTER; some_data: POINTER; a_gtkdestroynotify: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_set_add_tearoffs (a_combo_box: POINTER; add_tearoffs: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_add_tearoffs (a_combo_box: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_set_focus_on_click (a_combo_box: POINTER; focus_on_click: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_get_focus_on_click (a_combo_box: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
-		end
 end

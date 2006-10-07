@@ -88,7 +88,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_button_new_from_stock (a_stock.to_external))
 		end
 
-feature 
+feature
 	pressed is
 		-- Emits a GtkButton::pressed signal to Current GtkButton.
 		do

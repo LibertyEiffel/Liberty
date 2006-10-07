@@ -20,7 +20,7 @@ indexing
 					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
-	
+
 			-- Description: A GtkComboBoxEntry is a widget that allows
 			-- the user to choose from a list of valid choices or enter a
 			-- different value. It is very similar to a GtkComboBox, but
@@ -40,7 +40,7 @@ indexing
 			-- gtk_combo_box_get_active() or
 			-- gtk_combo_box_get_active_iter() to discover whether an
 			-- item was actually selected from the list.
-	
+	       
 			-- Connect to the activate signal of the GtkEntry (use
 			-- gtk_bin_get_child()) to detect when the user actually
 			-- finishes entering text.
@@ -51,21 +51,26 @@ indexing
 			-- gtk_combo_box_entry_new_text().
 
 class GTK_COMBO_BOX_ENTRY
-inherit 
-	GTK_COMBO_BOX 
-		rename 
+
+inherit
+	GTK_COMBO_BOX
+		rename
 			with_model as make_combo_box_with_model,
 			child as entry
-		export {} make_combo_box_with_model 
+		export {} make_combo_box_with_model
 		redefine make, with_text_only, struct_size, entry
 		end
 	-- GtkComboBoxEntry implements the same interfaces implemented by
 	-- GtkComboBox, i.e.: AtkImplementorIface, GtkCellEditable and
 	-- GtkCellLayout.
-	
+
+insert
+	GTK_COMBO_BOX_ENTRY_EXTERNALS
+
 creation make, with_model, with_text_only, from_external_pointer
 
 feature {} -- Creation
+
 	make is
 			-- Creates a new GtkComboBoxEntry which has a GtkEntry as
 			-- child. After construction, you should set a model using
@@ -74,7 +79,7 @@ feature {} -- Creation
 		do
 			from_external_pointer (gtk_combo_box_entry_new)
 		end
-	
+
 	with_model (a_model: GTK_TREE_MODEL; a_text_column: INTEGER) is
 			-- Creates a new GtkComboBoxEntry which has a GtkEntry as
 			-- child and a list of strings as popup. You can get the
@@ -112,7 +117,8 @@ feature
 			Result := gtk_combo_box_entry_get_text_column (handle)
 		end
 
-feature 
+feature
+
 	entry: GTK_ENTRY is
 		do
 			if hidden_child_wrapper=Void then
@@ -123,6 +129,7 @@ feature
 
 feature {} -- Implementation
 	hidden_child_wrapper: GTK_ENTRY
+
 feature -- Properties
 
 
@@ -141,30 +148,10 @@ feature -- Properties
 --    Default value: -1
 
 feature -- size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkComboBoxEntry)"
-		end
-
-feature {} -- External calls
-	gtk_combo_box_entry_new: POINTER is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_combo_box_entry_new_with_model(a_model: POINTER; a_text_column: INTEGER): POINTER is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_combo_box_entry_new_text: POINTER is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_combo_box_entry_set_text_column (an_entry_box: POINTER; a_text_column: INTEGER) is
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_combo_box_entry_get_text_column (an_entry_box: POINTER): INTEGER is
-		external "C use <gtk/gtk.h>"
 		end
 
 end
