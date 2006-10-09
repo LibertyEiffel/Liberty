@@ -20,6 +20,9 @@ indexing
 				]"
 
 deferred class GDA_DATA_MODEL_ACCESS_FLAGS_ENUM
+
+insert ANY undefine copy, is_equal end
+
 feature  -- enum
 	are_valid_access_flags (some_flags :INTEGER): BOOLEAN is
 		do	

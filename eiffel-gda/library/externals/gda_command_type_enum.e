@@ -20,6 +20,9 @@ indexing
 				]"
 
 deferred class GDA_COMMAND_TYPE_ENUM
+
+insert ANY undefine copy, is_equal end
+
 feature  -- enum
 	is_valid_command_type (a_type :INTEGER): BOOLEAN is
 		do	

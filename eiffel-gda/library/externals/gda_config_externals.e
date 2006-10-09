@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_CONFIG_EXTERNALS
+
+insert ANY undefine copy, is_equal end
+
 feature {} -- External calls
 
 	-- void (*GdaConfigListenerFunc) (const gchar *path, gpointer

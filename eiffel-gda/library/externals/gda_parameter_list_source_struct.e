@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_PARAMETER_LIST_SOURCE_STRUCT
+
+insert ANY undefine copy, is_equal end
+
 feature {} -- Structure getter/setter calls
 -- GdaParameterListSource
 

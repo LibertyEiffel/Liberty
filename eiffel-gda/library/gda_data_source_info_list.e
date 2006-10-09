@@ -1,14 +1,14 @@
 indexing
-	description: "Enum  GdaConnectionOptions"
+	description: "."
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
 					
-					This library is distributed in the hope that it will be useful, but
+					This library is distributed in the hopeOA that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 					Lesser General Public License for more details.
@@ -17,25 +17,29 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-				]"
+			]"
 
-deferred class GDA_CONNECTION_OPTIONS_ENUM
-feature  -- enum
-	are_valid_connection_option (some_options :INTEGER): BOOLEAN is
-		do	
-			Result:=(some_options & (gda_connection_options_read_only |
-											 gda_connection_options_dont_share)
-						).to_boolean
+class GDA_DATA_SOURCE_INFO_LIST
+
+inherit
+	G_LIST [GDA_DATA_SOURCE_INFO]
+		redefine
+			dispose
 		end
+	
+insert
+	GDA_CONFIG_EXTERNALS 
 
-	gda_connection_options_read_only: INTEGER is
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_CONNECTION_OPTIONS_READ_ONLY"
-		end 
+creation from_external_pointer
 
-	gda_connection_options_dont_share: INTEGER is
-	external "C macro use <libgda/libgda.h>"
-	alias "GDA_CONNECTION_OPTIONS_DONT_SHARE"
-	end
-
-end
+feature
+	dispose is
+			-- Frees a list of GdaDataSourceInfo structures.
+		do
+			if not is_shared then
+				gda_config_free_data_source_list(handle)
+			end
+			handle:= default_pointer
+		end
+end -- class GDA_DATA_SOURCE_INFO_LIST
+	

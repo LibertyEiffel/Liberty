@@ -21,10 +21,15 @@ indexing
 
 class GDA_TRANSACTION
 
-inherit G_OBJECT
-
-insert GDA_TRANSACTION_EXTERNALS
-
+inherit
+	G_OBJECT
+		rename make as allocate_struct
+		end
+	
+insert
+	GDA_TRANSACTION_EXTERNALS
+	GDA_TRANSACTION_ISOLATION_ENUM
+	
 creation make, from_external_pointer
 
 feature {} -- Creation

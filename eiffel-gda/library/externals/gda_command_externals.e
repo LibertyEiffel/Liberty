@@ -1,11 +1,14 @@
 indexing
-	description: "External calls for "
+	description: "External calls for GdaCommand"
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _EXTERNALS
+deferred class GDA_COMMAND_EXTERNALS
+
+insert ANY undefine copy, is_equal end
+
 feature {} -- External calls
 	gda_command_new (a_text: POINTER; a_type, some_options: INTEGER): POINTER is -- GdaCommand*
 		external "C use <libgda/libgda.h>"
@@ -19,7 +22,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_command_get_text (a_command: POINTER) is -- const gchar* 
+	gda_command_get_text (a_command: POINTER): POINTER is -- const gchar* 
 		external "C use <libgda/libgda.h>"
 		end
 
@@ -27,7 +30,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_command_get_command_type (a_command: POINTER): POINTER is -- GdaCommandType
+	gda_command_get_command_type (a_command: POINTER): INTEGER is -- GdaCommandType
 		external "C use <libgda/libgda.h>"
 		end
 
@@ -35,7 +38,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_command_get_options (a_command: POINTER): POINTER is -- GdaCommandOptions
+	gda_command_get_options (a_command: POINTER): INTEGER is -- GdaCommandOptions
 		external "C use <libgda/libgda.h>"
 		end
 
@@ -51,9 +54,4 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <libgad/libgda.h>"
-		alias "sizeof(GdaCommand)"
-		end
 end

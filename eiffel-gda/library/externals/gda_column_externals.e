@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_COLUMN_EXTERNALS
+
+insert ANY undefine copy, is_equal end
+
 feature {} -- External calls
 	gda_column_new: POINTER is
 			-- GdaColumn* gda_column_new (void);

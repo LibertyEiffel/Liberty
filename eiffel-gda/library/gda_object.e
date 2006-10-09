@@ -129,26 +129,26 @@ feature
 	id: CONST_STRING is
 			-- the string ID of the GdaObject object.
 		do
-			create Result.from_pointer (gda_object_get_id(handle))
+			create Result.from_external (gda_object_get_id(handle))
 		end
 
 	name: CONST_STRING is
 			-- the name of the GdaObject object.
 		do
-			create Result.from_pointer (gda_object_get_name(handle))
+			create Result.from_external (gda_object_get_name(handle))
 		end
 
 
 	description: CONST_STRING is
 			-- the description of the GdaObject object.
 		do
-			create Result.from_pointer (gda_object_get_description(handle))
+			create Result.from_external (gda_object_get_description(handle))
 		end
 
 	owner: CONST_STRING is
 			-- the owner of the GdaObject object.
 		do
-			create Result.from_pointer (gda_object_get_owner(handle))
+			create Result.from_external (gda_object_get_owner(handle))
 		end
 
 

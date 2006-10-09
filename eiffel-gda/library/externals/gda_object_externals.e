@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_OBJECT_EXTERNALS
+
+insert ANY undefine copy, is_equal end
+
 feature {} -- External calls
 
 	gda_object_get_dict (an_object: POINTER): POINTER is

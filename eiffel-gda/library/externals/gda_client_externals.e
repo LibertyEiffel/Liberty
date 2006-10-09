@@ -6,7 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_CLIENT_EXTERNALS
+
 insert
+	ANY undefine copy, is_equal end
 	GDA_CLIENT_EVENT_ENUM
 	GDA_CONNECTION_OPTIONS_ENUM
 
@@ -25,8 +27,8 @@ feature {} -- External calls
 			-- GdaConnection* gda_client_open_connection (GdaClient
 			-- *client, const gchar *dsn, const gchar *username, const
 			-- gchar *password, GdaConnectionOptions options, GError
-			-- **error);
-		require valid_options: are_valid_connection_options (some_options)w
+			-- **error); TODO: require valid_options:
+			-- are_valid_connection_options (some_options)w
 		external "C use  <libgda/libgda.h>"
 		end
 	
@@ -35,7 +37,7 @@ feature {} -- External calls
 			-- (GdaClient *client, const gchar *provider_id, const gchar
 			-- *cnc_string, const gchar *username, const gchar *password,
 			-- GdaConnectionOptions options, GError **error);
-		require valid_options: are_valid_connection_options (some_options)
+		--TODO: require valid_options: are_valid_connection_options (some_options)
 		external "C use  <libgda/libgda.h>"
 		end
 

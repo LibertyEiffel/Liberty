@@ -103,7 +103,7 @@ feature -- Configuration
 		require
 			path_not_void: a_path /= Void
 		do
-			is_successful:=(gda_config_set_boolean(a_path.to_external, a_new_value)).to_boolean
+			is_successful:=(gda_config_set_boolean(a_path.to_external, a_new_value.to_integer)).to_boolean
 		ensure set: get_boolean (a_path) = a_new_value
 		end
 
@@ -227,89 +227,49 @@ feature -- Configuration
 			create Result.from_external_pointer (gda_config_get_provider_model)
 		end
 	
-	-- gda_provider_info_copy ()
+	
+	data_sources: GDA_DATA_SOURCE_INFO_LIST is -- 
+			-- a list of all data sources currently configured in the
+			-- system.  TODO: to implement the following we need a
+			-- specialized class "To free the returned list, call the
+			-- gda_config_free_data_source_list function."
+		do
+			create Result.from_external_pointer 
+			(gda_config_get_data_source_list)
+		end
 
-	-- GdaProviderInfo* gda_provider_info_copy     (GdaProviderInfo *src);
+	find_data_source (a_name: STRING): GDA_DATA_SOURCE_INFO is
+			-- a GDA_DATA_SOURCE_INFO structure from the data source list given its
+			-- name. 
 
-	-- Creates a new GdaProviderInfo structure from an existing one.
+			-- Void if not found.
+		require name_not_void: a_name /= Void
+		local ptr: POINTER
+		do
+			ptr:=gda_config_find_data_source(a_name.to_external)
+			-- After usage, the returned structure's memory must be freed
+			-- using gda_data_source_info_free().
+			if ptr.is_not_null then
+				create Result.from_external_pointer (ptr)
+			end
+		end
+	
+	data_source_model: GDA_DATA_MODEL is
+			-- a new GdaDataModel object using information from all data sources
+			-- which are currently configured in the system.
 
-	-- src : 	provider information to get a copy from.
-	-- Returns : 	a newly allocated GdaProviderInfo with contains a copy of information in src.
-	-- gda_provider_info_free ()
+			-- Rows are separated in 7 columns: `Name', `Provider', `Connection
+			-- string', `Description', `Username', `Password' and `Global'.
+		do
+			create Result.from_external_pointer
+			(gda_config_get_data_source_model)
+		end
 
-	-- void        gda_provider_info_free          (GdaProviderInfo *provider_info);
-
-	-- Deallocates all memory associated to the given GdaProviderInfo.
-
-	-- provider_info : 	provider information to free.
-	-- gda_config_get_data_source_list ()
-
-	-- GList*      gda_config_get_data_source_list (void);
-
-	-- Returns a list of all data sources currently configured in the system. Each of the nodes in the returned GList is a GdaDataSourceInfo. To free the returned list, call the gda_config_free_data_source_list function.
-
-	-- Returns : 	a GList of GdaDataSourceInfo structures.
-	-- gda_config_find_data_source ()
-
-	-- GdaDataSourceInfo* gda_config_find_data_source
-	--                                             (const gchar *name);
-
-	-- Gets a GdaDataSourceInfo structure from the data source list given its name. After usage, the returned structure's memory must be freed using gda_data_source_info_free().
-
-	-- name : 	name of the data source to search for.
-	-- Returns : 	a new GdaDataSourceInfo structure, if found, or NULL if not found.
-	-- gda_data_source_info_copy ()
-
-	-- GdaDataSourceInfo* gda_data_source_info_copy
-	--                                             (GdaDataSourceInfo *src);
-
-	-- Creates a new GdaDataSourceInfo structure from an existing one.
-
-	-- src : 	data source information to get a copy from.
-	-- Returns : 	a newly allocated GdaDataSourceInfo with contains a copy of information in src.
-	-- gda_data_source_info_equal ()
-
-	-- gboolean    gda_data_source_info_equal      (GdaDataSourceInfo *info1,
-	--                                              GdaDataSourceInfo *info2);
-
-	-- Tells if info1 and info2 are equal
-
-	-- info1 : 	a data source information
-	-- info2 : 	a data source information
-	-- Returns : 	TRUE if info1 and info2 are equal
-	-- gda_data_source_info_free ()
-
-	-- void        gda_data_source_info_free       (GdaDataSourceInfo *info);
-
-	-- Deallocates all memory associated to the given GdaDataSourceInfo.
-
-	-- info : 	data source information to free.
-	-- gda_config_free_data_source_list ()
-
-	-- void        gda_config_free_data_source_list
-	--                                             (GList *list);
-
-	-- Frees a list of GdaDataSourceInfo structures.
-
-	-- list : 	the list to be freed.
-	-- gda_config_get_data_source_model ()
-
-	-- GdaDataModel* gda_config_get_data_source_model
-	--                                             (void);
-
-	-- Fills and returns a new GdaDataModel object using information from all data sources which are currently configured in the system.
-
-	-- Rows are separated in 7 columns: 'Name', 'Provider', 'Connection string', 'Description', 'Username', 'Password' and 'Global'.
-
-	-- Returns : 	a new GdaDataModel object.
-	-- gda_config_can_modify_global_config ()
-
-	-- gboolean    gda_config_can_modify_global_config
-	--                                             (void);
-
-	-- Tells if the calling program can modify the global configured data sources.
-
-	-- Returns : 	TRUE if modifications are possible
+	can_modify_global_config: BOOLEAN is
+			-- Can the program modify the global configured data sources?
+		do
+			Result:= gda_config_can_modify_global_config.to_boolean
+		end
 
 	save_data_source (a_name, a_provider, a_connection_string, a_description, a_username, a_password: STRING; is_global: BOOLEAN) is
 			-- Adds a new data source (or update an existing one) to the
@@ -348,7 +308,8 @@ feature -- Configuration
 			if a_description/=Void then descr_ptr:=a_description.to_external end
 			
 			is_successful := (gda_config_save_data_source
-									(a_name.to_external, a_provider.to_external.
+									(a_name.to_external, 
+									 a_provider.to_external,
 									 a_connection_string.to_external,
 									 descr_ptr,
 									 username_ptr,

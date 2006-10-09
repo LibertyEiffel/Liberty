@@ -45,8 +45,14 @@ indexing
 
 class GDA_PARAMETER
 
-inherit GDA_OBJECT
-	--    GdaParameter implements GdaReferer.
+inherit 
+	GDA_OBJECT
+		rename make as allocate_struct
+		export {} allocate_struct 
+		undefine struct_size
+		redefine copy, type
+		end
+		--    GdaParameter implements GdaReferer.
 insert 
 	SHARED_G_ERROR
 	GDA_PARAMETER_EXTERNALS
@@ -73,8 +79,9 @@ feature {} -- Creation
 			name_not_void: a_name /= Void
 			contents_not_void: some_contents /= Void
 		do
-			from_external_pointer (gda_parameter_new_string (a_name.to_external,
-																			 some_contents.to_external))
+			from_external_pointer (gda_parameter_new_string 
+										  (a_name.to_external,
+											some_contents.to_external))
 		end
 
 	make_boolean (a_name: STRING; a_boolean: BOOLEAN) is
@@ -138,8 +145,8 @@ feature
 			-- of the parameter.
 		require string_not_void: a_string /= Void
 		do			
-			is_successful:=(gda_parameter_set_value_str(handle,
-																	  a_string.handle)).to_boolean
+			is_successful:=(gda_parameter_set_value_str
+								 (handle, a_string.to_external)).to_boolean
 		end
 
 	declare_invalid is
@@ -210,7 +217,7 @@ feature
 	is_null_forbidden: BOOLEAN is
 			-- Cannot the parameter be NULL? True if the parameter cannot be NULL
 		do
-			Result := gda_parameter_get_not_null (handle)
+			Result := gda_parameter_get_not_null (handle).to_boolean
 		end
 
 	restrict_values (a_model: GDA_DATA_MODEL; a_column: INTEGER) is
@@ -304,9 +311,6 @@ feature
 			end
 		end
 	
-
-feature
-	is_successful: BOOLEAN 
 feature -- TODO: Properties
 --    "entry-plugin"         gchararray            : Read / Write
 --    "full-bind"            gpointer              : Read / Write

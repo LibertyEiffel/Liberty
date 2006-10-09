@@ -23,8 +23,8 @@ indexing
 										 The GdaConnection class offers access to all operations involving an
 										 opened connection to a database. GdaConnection objects are obtained via
 										 the GdaClient class.
-
-		Once obtained, applications can use GdaConnection to execute commands, run
+										 
+										 on-ce obtained, applications can use GdaConnection to execute commands, run
 										 transactions, and get information about all objects stored in the
 										 underlying database.
 										 ]"
@@ -115,7 +115,7 @@ feature {} -- Creation
 		require client_not_void: a_client /= Void
 		do
 			smart_set_property (client_parameter_spec,
-									  create {G_VALUE}.from_gobject(a_client))
+									  create {G_VALUE}.from_object(a_client))
 		end
 
 	options: INTEGER is
@@ -182,13 +182,14 @@ feature {} -- Creation
 	set_dsn (a_datasource: STRING) is
 			-- Sets the data source of the connection. If the connection
 			-- is already opened, then no action is performed at all and
-			-- `is_successfull' will be set to False.
+			-- `is_successful' will be set to False.
 		
 			-- If the requested datasource does not exist, then nothing
-			-- is done and `is_successfull' will be False.
+			-- is done and `is_successful' will be False.
+		require 
 			dsn_not_void: a_datasource /= Void
 		do
-			is_successfull:=(gda_connection_set_dsn
+			is_successful:=(gda_connection_set_dsn
 								  (handle, a_datasource.to_external)).to_boolean
 		end
 	
@@ -224,11 +225,11 @@ feature {} -- Creation
 	set_username (a_username: STRING) is
 			-- Sets the user name for the connection. If the connection
 			-- is already opened, then no action is performed at all and
-			-- `is_successfull' will be False.
+			-- `is_successful' will be False.
 		require
 			username_not_void: a_username /= Void
 		do
-			is_successfull:=(gda_connection_set_username
+			is_successful:=(gda_connection_set_username
 								  (handle, a_username.to_external)).to_boolean
 		end
 
@@ -242,12 +243,12 @@ feature {} -- Creation
 	set_password (a_password: STRING) is
 			-- Sets the user password for the connection to the
 			-- server. If the connection is already opened, then no
-			-- action is performed at all and `is_successfull' will be False.
+			-- action is performed at all and `is_successful' will be False.
 		require
 			password_not_void: a_password /= Void
 		do
-			is_successfull:=(gda_connection_set_password
-								  (handle, a_password.to_external))
+			is_successful:=(gda_connection_set_password
+								  (handle, a_password.to_external)).to_boolean
 		end
 
 	password: STRING is
@@ -332,7 +333,7 @@ feature {} -- Creation
 	change_database (a_name: STRING) is
 			-- Changes the current database for the given
 			-- connection. This operation is not available in all
-			-- providers. `is_successfull' will be updated.
+			-- providers. `is_successful' will be updated.
 		require name_not_void: a_name /= Void
 		do
 			is_successful:=(gda_connection_change_database(handle,a_name.to_external)).to_boolean
@@ -418,7 +419,7 @@ feature {} -- Creation
 					  (handle, some_commands.handle, some_parameters.handle,
 						address_of (error.handle)))
 			if ptr.is_not_null then
-				create Result.from_external_pointer (ptr)
+				create results.from_external_pointer (ptr)
 			end
 		end
 	
@@ -450,11 +451,11 @@ feature {} -- Creation
 			-- underlying provider does support transactions or not by
 			-- using the `supports' feature.
 
-			-- `is_successfull' will be True if the transaction was
+			-- `is_successful' will be True if the transaction was
 			-- started successfully, FALSE otherwise.
 		require transaction_not_void: a_transaction/=Void
 		do
-			is_successfull:=(gda_connection_begin_transaction
+			is_successful:=(gda_connection_begin_transaction
 								  (handle, a_transaction.handle)).to_boolean
 		end
 
@@ -463,13 +464,13 @@ feature {} -- Creation
 			-- to do gda_connection_begin_transaction() first.
 
 		
-			-- `is_successfull' will be True if the transaction was
+			-- `is_successful' will be True if the transaction was
 			-- started successfully, FALSE otherwise.
 		require transaction_not_void: a_transaction/=Void
 		do
-			is_successfull:=(gda_connection_commit_transaction
-								  (handle, a_transaction.handle)).to_boolean
-
+			is_successful:=(gda_connection_commit_transaction
+								 (handle, a_transaction.handle)).to_boolean
+		end
 
 	--    cnc :     a GdaConnection object.
 	--    xaction : a GdaTransaction object.
@@ -485,11 +486,10 @@ feature {} -- Creation
 			-- underlying provider does support transactions or not by
 			-- using the `supports' feature.
 
-			-- `is_successfull' ill be True if the transaction was
+			-- `is_successful' ill be True if the transaction was
 			-- started successfully, FALSE otherwise.
-		require transaction_not_void: a_transaction/=Void
-		do
-			is_successfull:=(
+		-- require 			transaction_not_void: a_transaction/=Void
+		-- do 		is_successful:=(
 
 	--  gboolean    gda_connection_rollback_transaction
 	--                                              (GdaConnection *cnc,
@@ -684,9 +684,6 @@ feature {} -- Creation
 --    gdaconnection : the object which received the signal.
 --    arg1 :
 --    user_data :     user data set when the signal handler was connected.
-feature 
-	is_successful: BOOLEAN 
-			-- Is last command successfull?
 
 feature -- TODO: Signals
 

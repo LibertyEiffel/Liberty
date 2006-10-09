@@ -25,7 +25,7 @@ feature -- size
 	is_initialized: BOOLEAN
 			-- Has the Gnome Data Access library been initialized?
 	
-	init (an_application_id, a_version: STRING; some_arguments: ARRAY [STRING]) is
+	init (an_application_id, a_version: STRING; some_arguments: FAST_ARRAY [STRING]) is
 			-- Initializes the GDA library.  `an_application_id': name of
 			-- the program. `a_version': revision number of the program.
 			-- `some_arguments': list of arguments, usually argv from 

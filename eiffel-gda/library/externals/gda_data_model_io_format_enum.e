@@ -20,6 +20,9 @@ indexing
 				]"
 
 deferred class GDA_DATA_MODEL_IO_FORMAT_ENUM
+
+insert ANY undefine copy, is_equal end
+
 feature  -- enum
 	is_valid_io_format (a_format: INTEGER): BOOLEAN is
 		do	

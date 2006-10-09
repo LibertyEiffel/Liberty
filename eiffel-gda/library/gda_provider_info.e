@@ -21,8 +21,12 @@ indexing
 
 class GDA_PROVIDER_INFO
 
-inherit SHARED_C_STRUCT
-
+inherit
+	SHARED_C_STRUCT
+		redefine
+			dispose
+		end
+	
 insert
 	GDA_PROVIDER_INFO_STRUCT
 		rename 
@@ -33,7 +37,9 @@ insert
 			set_dsn_spec as set_dsn_spec_internal
 		end
 
-creation make, from_external_pointer
+	GDA_CONFIG_EXTERNALS -- To get gda_provider_info_copy
+	
+creation make, copy, from_external_pointer
 
 feature -- Properties
 	id: STRING is 
@@ -69,6 +75,20 @@ feature -- Properties
 		ensure not_void: Result /= Void
 		end
 feature -- TODO: Setters:
+	-- TODO: add a modifyiable boolean flag
+feature
+	copy (another: like Current) is
+			-- Creates a new GdaProviderInfo structure from an existing one.
+		do
+			from_external_pointer(gda_provider_info_copy(handle))
+		end
 
--- TODO: add a modifyiable boolean flag
+	dispose is
+			-- Deallocates all memory associated to the given GdaProviderInfo.
+		do
+			if not is_shared then
+				gda_provider_info_free(handle)
+			end
+			handle:= default_pointer
+		end
 end -- class GDA_PROVIDER_INFO

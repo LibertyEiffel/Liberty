@@ -23,8 +23,11 @@ class GDA_DATA_MODEL_ITER
 
 inherit
 	GDA_PARAMETER_LIST
-
-	 -- TODO: ITERATOR [something]
+		undefine struct_size 
+		redefine is_valid
+		end
+	 -- TODO: ITERATOR [something] I still have to understand on what 
+	 -- it does iterate... it seems on GdaParameters
 
 insert
 	 GDA_DATA_MODEL_ITER_EXTERNALS
@@ -48,10 +51,6 @@ feature
 			Result:=(gda_data_model_iter_is_valid(handle)).to_boolean
 		end
 
-	-- TODO: those two can be improved
-	is_successful: BOOLEAN
-	has_error: BOOLEAN is do Result:= not is_successful end
-	
 	set_at_row (a_row: INTEGER) is
 			-- Synchronizes the values of the parameters in iter with the values at
 			-- `a_row'. If `a_row' < 0 then iter is not bound to any row of the

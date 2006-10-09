@@ -20,6 +20,9 @@ indexing
 				]"
 
 deferred class GDA_TRANSACTION_ISOLATION_ENUM
+
+insert ANY undefine copy, is_equal end
+
 feature  -- enum
 	is_valid_isolation_level (a_level: INTEGER): BOOLEAN is
 		do	
@@ -53,6 +56,6 @@ feature  -- enum
 	gda_transaction_isolation_serializable: INTEGER is
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_TRANSACTION_ISOLATION_SERIALIZABLE"
-a		end
+		end
 
 end

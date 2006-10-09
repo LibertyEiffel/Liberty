@@ -47,6 +47,7 @@ class GDA_COMMAND
 
 inherit 
 	G_OBJECT 
+		rename make as allocate_struct
 		redefine dispose, copy
 		end
 
@@ -92,7 +93,7 @@ feature -- Command text
 	text: STRING is
 			-- the command text.
 		do
-			create Result.from_external_pointer (gda_command_get_text(handle))
+			create {CONST_STRING} Result.from_external (gda_command_get_text(handle))
 		ensure not_void: Result /= Void
 		end
 

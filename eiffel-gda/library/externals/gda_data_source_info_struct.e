@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DATA_SOURCE_INFO_STRUCT
+	
+insert ANY undefine copy, is_equal end
+
 feature {} -- Structure getter/setter calls
 -- GdaDataSourceInfo
 
@@ -24,7 +27,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaDataSourceInfo get name use <libgda/libgda.h>"
 		end
 
-	set_name (a_struct: POINTER; a_name: POINTER) is
+	set_name_external (a_struct: POINTER; a_name: POINTER) is
 		external "C struct GdaDataSourceInfo set name use <libgda/libgda.h>"
 		end
 
@@ -33,7 +36,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaDataSourceInfo get provider use <libgda/libgda.h>"
 		end
 
-	set_provider (a_struct: POINTER; a_provider: POINTER) is
+	set_provider_external (a_struct: POINTER; a_provider: POINTER) is
 		external "C struct GdaDataSourceInfo set provider use <libgda/libgda.h>"
 		end
 
@@ -42,7 +45,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaDataSourceInfo get cnc_string use <libgda/libgda.h>"
 		end
 
-	set_cnc_string (a_struct: POINTER; a_cnc_string: POINTER) is
+	set_cnc_string_external (a_struct: POINTER; a_cnc_string: POINTER) is
 		external "C struct GdaDataSourceInfo set cnc_string use <libgda/libgda.h>"
 		end
 
@@ -51,7 +54,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaDataSourceInfo get description use <libgda/libgda.h>"
 		end
 
-	set_description (a_struct: POINTER; a_description: POINTER) is
+	set_description_external (a_struct: POINTER; a_description: POINTER) is
 		external "C struct GdaDataSourceInfo set description use <libgda/libgda.h>"
 		end
 
@@ -60,7 +63,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaDataSourceInfo get username use <libgda/libgda.h>"
 		end
 
-	set_username (a_struct: POINTER; a_username: POINTER) is
+	set_username_external (a_struct: POINTER; a_username: POINTER) is
 		external "C struct GdaDataSourceInfo set username use <libgda/libgda.h>"
 		end
 
@@ -69,7 +72,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaDataSourceInfo get password use <libgda/libgda.h>"
 		end
 
-	set_password (a_struct: POINTER; a_password: POINTER) is
+	set_password_external (a_struct: POINTER; a_password: POINTER) is
 		external "C struct GdaDataSourceInfo set password use <libgda/libgda.h>"
 		end
 
@@ -78,7 +81,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaDataSourceInfo get is_global use <libgda/libgda.h>"
 		end
 
-	set_is_global (a_struct: POINTER; a_is_global: INTEGER) is
+	set_is_global_external (a_struct: POINTER; a_is_global: INTEGER) is
 		external "C struct GdaDataSourceInfo set is_global use <libgda/libgda.h>"
 		end
 

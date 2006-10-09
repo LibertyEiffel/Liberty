@@ -1,11 +1,11 @@
 indexing
-	description: "External calls for "
+	description: "External calls for GdaTransaction"
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _EXTERNALS
+deferred class GDA_TRANSACTION_EXTERNALS
 
 feature {} -- External calls
 
@@ -17,7 +17,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_transaction_set_isolation_level (a_transaction:POINTER, a_level: INTEGER) is
+	gda_transaction_set_isolation_level (a_transaction:POINTER; a_level: INTEGER) is
 		external "C use <libgda/libgda.h>"
 		end
 	

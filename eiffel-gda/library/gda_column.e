@@ -22,7 +22,11 @@ indexing
 class GDA_COLUMN
 
 inherit
-	G_OBJECT
+	G_OBJECT 
+		redefine 
+			copy,
+			type 
+		end
 insert
 	GDA_COLUMN_EXTERNALS
 	
@@ -48,7 +52,7 @@ feature
 			Result:=gda_column_get_defined_size (handle)
 		end
 
-	set_defined_size (a_size: INTEGER_64) is
+	set_defined_size (a_size: INTEGER) is
 			-- Sets the defined size of a GdaColumn.
 		do
 			gda_column_set_defined_size (handle, a_size)
@@ -57,7 +61,7 @@ feature
 	name: STRING is
 			-- the name of column.
 		do
-			create {CONST_STRING} Result.from_external_pointer
+			create {CONST_STRING} Result.from_external
 			(gda_column_get_name(handle))
 		ensure not_void: Result /= Void
 		end
@@ -73,7 +77,7 @@ feature
 	title: STRING is
 			-- the column's title
 		do
-			create {CONST_STRING} Result.from_external_pointer
+			create {CONST_STRING} Result.from_external
 			(gda_column_get_title (handle))
 		ensure not_void: Result /= Void
 		end
@@ -89,7 +93,7 @@ feature
 	table: STRING is
 		-- the name of the table to which this column belongs.
 		do
-			create {CONST_STRING} Result.from_external_pointer
+			create {CONST_STRING} Result.from_external
 			(gda_column_get_table(handle))
 		ensure not_void: Result /= Void
 		end
@@ -105,7 +109,7 @@ feature
 	caption: STRING is
 			-- the column's caption.
 		do
-			create {CONST_STRING} Result.from_external_pointer
+			create {CONST_STRING} Result.from_external
 			(gda_column_get_caption(handle))
 		ensure not_void: Result /= Void
 		end
@@ -133,7 +137,7 @@ feature
 	dbms_type: STRING is
 			-- the dbms_type of column.
 		do
-			create {CONST_STRING} Result.from_external_pointer
+			create {CONST_STRING} Result.from_external
 			(gda_column_get_dbms_type(handle))
 		ensure not_void: Result /= Void
 		end			
@@ -174,7 +178,7 @@ feature
 	is_primary_key: BOOLEAN is
 		-- Is Current column is a primary key?
 		do
-			Result:=(gda_column_get_primary_key(handle).to_external)
+			Result:=(gda_column_get_primary_key(handle).to_boolean)
 		end
 
 	set_primary_key is
@@ -204,13 +208,13 @@ feature
 	unset_unique_key is
 			-- Unsets the unique key' flag of the given column.
 		do
-			gda_column_set_unique_key (handle,1)
+			gda_column_set_unique_key (handle,0)
 		end
 
 	references: STRING is
 			-- Reference in tablename.fieldname format.
 		do
-			create {CONST_STRING} Result.from_external_pointer
+			create {CONST_STRING} Result.from_external
 			(gda_column_get_references(handle))
 			-- Do not free this variable, it is used internally within GdaColumn.
 		ensure not_void: Result /= Void
@@ -221,7 +225,7 @@ feature
 		require
 			reference_not_void: a_reference /= Void
 		do
-			gda_column_set_references (handle, a_reference.handle)
+			gda_column_set_references (handle, a_reference.to_external)
 		end
 
 	has_auto_increment: BOOLEAN is

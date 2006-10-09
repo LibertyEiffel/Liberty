@@ -27,13 +27,13 @@ feature {} -- External calls
       external "C use <libgda/libgda.h>"
       end
 
-	gda_connection_close (a_connection: POINTER): INTEGER is
-			-- gboolean gda_connection_close (GdaConnection *cnc);
+	gda_connection_close (a_connection: POINTER) is
+			-- void gda_connection_close (GdaConnection *cnc);
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_connection_close_no_warning (a_connection: POINTER): INTEGER is
-			-- gboolean gda_connection_close_no_warning (GdaConnection *cnc);
+	gda_connection_close_no_warning (a_connection: POINTER) is
+			-- void gda_connection_close_no_warning (GdaConnection *cnc);
 		external "C use <libgda/libgda.h>"
 		end
 	
@@ -129,7 +129,7 @@ feature {} -- External calls
 	-- gda_connection_add_event_string (GdaConnection *cnc, const gchar
 	-- *str, ...);
 
-	gda_connection_add_events_list (a_connection, an_event_list) is
+	gda_connection_add_events_list (a_connection, an_event_list: POINTER) is
 			-- void gda_connection_add_events_list (GdaConnection *cnc,
 			-- GList *events_list);
 		external "C use <libgda/libgda.h>"
