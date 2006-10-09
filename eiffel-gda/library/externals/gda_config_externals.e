@@ -1,11 +1,11 @@
 indexing
-	description: "External calls for "
+	description: "External calls for GDA_CONFIG"
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _EXTERNALS
+deferred class GDA_CONFIG_EXTERNALS
 feature {} -- External calls
 
 	-- void (*GdaConfigListenerFunc) (const gchar *path, gpointer
@@ -81,7 +81,7 @@ feature {} -- External calls
 	   external "C use <ligda/libgda.h>"
 	   end
 
-	gda_config_free_list (GList *list) is
+	gda_config_free_list (a_list: POINTER) is
 			-- void gda_config_free_list (GList *list);
 	   external "C use <ligda/libgda.h>"
 	   end

@@ -257,7 +257,7 @@ feature
 			if model_values=Void then create model_values.make end
 			Result := (gda_parameter_has_restrict_values
 						  (handle,
-							address_of (model_values.handle)
+							address_of (model_values.handle),
 							$values_column)).to_boolean
 		ensure
 			model_values_not_void: Result=True implies (model_values /= Void)

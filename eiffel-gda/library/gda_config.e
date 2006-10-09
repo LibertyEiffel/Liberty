@@ -172,36 +172,61 @@ feature -- Configuration
 	-- list : 	list to be freed.
 	-- gda_config_get_provider_list ()
 
-	-- GList*      gda_config_get_provider_list    (void);
+	providers: G_LIST [GDA_PROVIDER_INFO] is
+			-- a list of all providers currently installed in the
+			-- system. 
 
-	-- Returns a list of all providers currently installed in the system. Each of the nodes in the returned GList is a GdaProviderInfo.
+			-- WARNING: this G_LIST should not be modified 
 
-	-- Returns : 	a GList of GdaProviderInfo structures, don't free or modify it!
+			-- TODO: the "read-only" behaviour is still to be
+			-- implemented. AFAIK it is not as easy as adding a
+			-- "modifiable: BOOLEAN" feature and some "require
+			-- modifiable" in the in-place changing features, because
+			-- this would mean strenghtening the preconditions of those
+			-- features when we will make G_LIST an heir of
+			-- COLLECTION. Strenghtening preconditions is always wrong,
+			-- AFAIK.
+		do
+				create Result.from_external_pointer (gda_config_get_provider_list)
+				-- the underlying GList - made of GdaProviderInfo
+				-- structures - shouldn't be freed or modified. Garbage
+				-- collector should not free the list. Then:
+				Result.set_shared
+		end
+	
 	-- gda_config_free_provider_list ()
-
+	
 	-- void        gda_config_free_provider_list   (GList *list);
 
 	-- Frees a list of GdaProviderInfo structures.
 
 	-- list : 	the list to be freed.
-	-- gda_config_get_provider_by_name ()
 
-	-- GdaProviderInfo* gda_config_get_provider_by_name
-	--                                             (const gchar *name);
+	provider (a_name: STRING): GDA_PROVIDER_INFO is
+			-- the GdaProviderInfo structure from the provider list given
+			-- its name, don't modify or free it. Void if provider `a_name' is not found.
+		require name_not_void: a_name /= Void
+		local ptr: POINTER
+		do
+			ptr := gda_config_get_provider_by_name (a_name.to_external)
+			if ptr.is_not_null then 
+				create Result.from_external_pointer (ptr)
+				-- the returned GdaProviderInfo should not be modified or 
+				-- freed. Hence:
+				Result.set_shared
+			end
+		end
 
-	-- Gets a GdaProviderInfo structure from the provider list given its name, don't modify or free it.
+	provider_model: GDA_DATA_MODEL is
+			-- Fills a new GdaDataModel object using information from all
+			-- providers which are currently installed in the system.
 
-	-- name : 	name of the provider to search for.
-	-- Returns : 	a GdaProviderInfo structure, if found, or NULL if not found.
-	-- gda_config_get_provider_model ()
-
-	-- GdaDataModel* gda_config_get_provider_model (void);
-
-	-- Fills and returns a new GdaDataModel object using information from all providers which are currently installed in the system.
-
-	-- Rows are separated in 3 columns: 'Id', 'Location' and 'Description'.
-
-	-- Returns : 	a new GdaDataModel object.
+			-- Rows are separated in 3 columns: 'Id', 'Location' and
+			-- 'Description'.
+		do
+			create Result.from_external_pointer (gda_config_get_provider_model)
+		end
+	
 	-- gda_provider_info_copy ()
 
 	-- GdaProviderInfo* gda_provider_info_copy     (GdaProviderInfo *src);
@@ -286,7 +311,7 @@ feature -- Configuration
 
 	-- Returns : 	TRUE if modifications are possible
 
-	save_data_source (a_name, a_provider, a_connection_string, a_description, a_username, a_password: STRING) is
+	save_data_source (a_name, a_provider, a_connection_string, a_description, a_username, a_password: STRING; is_global: BOOLEAN) is
 			-- Adds a new data source (or update an existing one) to the
 			-- GDA configuration, based on the parameters given.
 
@@ -297,7 +322,8 @@ feature -- Configuration
 			-- `a_connection_string': the connection string for the new
 			--data source.
 		
-			-- `a_description' : description for the new data source.
+			-- `a_description' : an (optional) description for the new
+			-- data source. Can be Void.
 		
 			-- `a_username' : user name for the new data source.
 		
@@ -311,21 +337,26 @@ feature -- Configuration
 
 			-- `is_successful' will be update (True in case of no
 			-- errors).
-		local username_ptr, password_ptr: POINTER
+		require 
+			name_not_void: a_name /= Void
+			provider_not_void: a_provider /= Void
+			connection_string_not_void: a_connection_string /= Void
+		local username_ptr, password_ptr, descr_ptr: POINTER
 		do
 			if a_username/=Void then username_ptr:=a_username.to_external end
 			if a_password/=Void then password_ptr:=a_password.to_external end
+			if a_description/=Void then descr_ptr:=a_description.to_external end
 			
 			is_successful := (gda_config_save_data_source
 									(a_name.to_external, a_provider.to_external.
 									 a_connection_string.to_external,
-									 a_description.to_external,
+									 descr_ptr,
 									 username_ptr,
 									 password_ptr,
 									 is_global.to_integer)).to_boolean
 		end
 	
-		-- gda_config_save_data_source_info ()
+		-- TODO: gda_config_save_data_source_info ()
 
 		-- gboolean    gda_config_save_data_source_info
 		--                                             (GdaDataSourceInfo *dsn_info);
@@ -340,7 +371,7 @@ feature -- Configuration
 		require
 			source_not_void: a_data_source /= Void
 		do
-			gda_config_remove_data_source (a_name.to_external)
+			gda_config_remove_data_source (a_data_source.to_external)
 		end
 
 

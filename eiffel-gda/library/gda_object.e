@@ -152,7 +152,7 @@ feature
 		end
 
 
-	destroy is
+	dispose is
 			-- Force the gdaobj object to be destroyed, even if we don't
 			-- have a reference on it (we can't call `G_OBJECT.unref'
 			-- then) and even if the object is referenced multiple times

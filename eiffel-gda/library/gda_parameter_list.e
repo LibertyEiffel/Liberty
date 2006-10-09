@@ -56,13 +56,18 @@ class GDA_PARAMETER_LIST
 
 inherit 
 	GDA_OBJECT
-	
+		undefine
+			struct_size
+		end
 	-- TODO: LINKED_LIST [GDA_PARAMETER]
 
 insert
 	GDA_PARAMETER_LIST_EXTERNALS
-	GDA_PARAMETER_LIST_GROUP_STRUCT
-	GDA_PARAMETER_LIST_SOURCE_STRUCT
+		-- GDA_PARAMETER_LIST_GROUP_STRUCT rename struct_size as
+		-- gda_parameter_list_group_struct_size end
+
+		--	GDA_PARAMETER_LIST_SOURCE_STRUCT
+		-- rename struct_size as gda_parameter_list_source_struct_size end
 	SHARED_G_ERROR
 		
 creation make, from_external_pointer
@@ -145,7 +150,7 @@ feature
 
 	last_added_parameter: GDA_PARAMETER
 	
-	add_param_from_value (a_name: STRING; a_value: GDA_VALUE) is
+	add_param_from_value (a_name: STRING; a_value: G_VALUE) is
 			-- Creates and adds a new GdaParameter to paramlist. The ID
 			-- and name of the new parameter are set as `a_name'. The
 			-- parameter's value is a copy of

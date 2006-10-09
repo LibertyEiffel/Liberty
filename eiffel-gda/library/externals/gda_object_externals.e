@@ -1,11 +1,11 @@
 indexing
-	description: "External calls for "
+	description: "External calls for GDA_OBJECT"
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _EXTERNALS
+deferred class GDA_OBJECT_EXTERNALS
 feature {} -- External calls
 
 	gda_object_get_dict (an_object: POINTER): POINTER is

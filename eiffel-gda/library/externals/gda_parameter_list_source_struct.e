@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _STRUCT
+deferred class GDA_PARAMETER_LIST_SOURCE_STRUCT
 feature {} -- Structure getter/setter calls
 -- GdaParameterListSource
 

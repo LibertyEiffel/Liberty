@@ -38,8 +38,8 @@ feature -- size
 		once
 			-- nargs :   number of arguments, usually argc from main().
 			-- args :    list of arguments, usually argv from main().
-			gda_init (application_id.to_external, version.to_external,
-                   0, default_pointer)
+			gda_init (an_application_id.to_external, a_version.to_external,
+                   some_arguments.count, some_arguments.to_external)
 			is_initialized := True
 		end
 	
