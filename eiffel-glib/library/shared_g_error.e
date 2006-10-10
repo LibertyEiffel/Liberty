@@ -19,6 +19,9 @@ indexing
 					02110-1301 USA
 			]"
 
+			-- TODO: this design is way too simplicistic to scale well. It also
+			-- tends to make the end-user programmer write horrible code
+			
 class SHARED_G_ERROR
 insert POINTER_HANDLING
 feature
@@ -28,5 +31,11 @@ feature
 			create Result.empty
 		end
 	
+	is_successful: BOOLEAN
 
+	has_error: BOOLEAN is
+		do
+			Result := not is_successful
+		end
+		
 end -- class 

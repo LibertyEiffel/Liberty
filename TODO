@@ -73,4 +73,14 @@ While this is correct AFAIK it is not that efficient, since it
 
 Usually such strings are almost always used read-only. Is there a code
    pattern or a class that allow to stress out or model better this
-   "constantness"?
+   "constantness"? 
+
+CONST_STRING has been created to address this need. The code pattern
+   is:
+
+ foo: STRING is
+   do
+      create {CONST_STRING} Result.from_external_copy (external_get_foo (a_pointer))
+   end
+
+we should check if such a code pattern is a performance bottleneck

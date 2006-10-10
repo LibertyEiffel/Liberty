@@ -40,10 +40,9 @@ indexing
 			--     (my_gtk_entry))
 			--   end
 
-			-- Infact AFAIK once mimicks more or less the intended 
-			-- behaviour of "const char*". But this approach has too many 
-			-- drawbacks to be ever taken in consideration. The 
-			-- following code works indeed:
+			-- This code is buggy because garbage collector will clash
+			-- with the memory handling of the C library. The solution is
+			-- to copy the string as the following code shows:
 
 			-- text: STRING is 
          --   do
@@ -51,13 +50,13 @@ indexing
          --     (my_gtk_entry))                                       
          --   end                                                     
 
-			-- While it works as intended it is memory unefficient. 
-			-- Every time the Eiffel program needs to access an entry 
-			-- text it has to allocate a new string and then copy it. 
-			-- It should also be taken in consideration that many times 
-			-- an Eiffel program will just read this string and it will 
-			-- not modify it. So I wrote this class. 
-			-- I admit that the naming is not the most fitting one. If 
+			-- While it works as intended it is memory and time
+			-- unefficient.  Every time the Eiffel program needs to
+			-- access an entry text it has to allocate a new string and
+			-- then copy it.  It should also be taken in consideration
+			-- that many times an Eiffel program will just read this
+			-- string and it will not modify it. So I wrote this class.
+			-- I admit that the naming is not the most fitting one. If
 			-- you have ideas for a better naming, please let me know.
 
 			-- The idea is to create an Eiffel string directly from the
@@ -82,7 +81,8 @@ inherit
 			resize, clear_count, wipe_out,
 			clear_count_and_capacity,
 			copy, fill_with, replace_all, 
-			append, append_string, prepend,
+			append, append_string, append_substring,
+			prepend,
 			insert_string, replace_substring,
 			put, swap, insert_character, shrink,
 			remove, 
@@ -100,12 +100,18 @@ inherit
 			extend_multiple, precede_multiple,
 			extend_to_count, precede_to_count,
 			reverse,
-			remove_all_occurrences,    extend_unless
-			dispose, 
+			remove_all_occurrences,extend_unless,
 			from_external
 		end
+	DISPOSABLE
+		undefine 
+			out_in_tagged_out_memory,
+			fill_tagged_out_memory, is_equal, copy
+		end
 
-creation from_external  
+creation 
+	make, copy, make_empty, make_filled, from_external, from_external_copy, make_from_string
+
 
 feature 
 	from_external (a_c_string: POINTER) is
@@ -132,7 +138,11 @@ feature
 			is_unchanged := False
 		ensure changeable: is_changed = True
 		end
-			
+
+	dispose is
+		do
+			-- TODO
+		end
 feature
    resize (new_count: INTEGER_32) is
 		do
@@ -161,13 +171,13 @@ feature
    copy (other: like Current) is
 		do
 			if is_unchanged then modify end
-			Precursor (other)
+			Precursor {STRING} (other)
 		end
 
    fill_with (c: CHARACTER) is
 		do
 			if is_unchanged then modify end
-			Precursor 
+			Precursor (c)
 		end
 
    replace_all (old_character, new_character: CHARACTER) is
@@ -221,7 +231,7 @@ feature
    swap (i1, i2: INTEGER_32) is
 		do
 			if is_unchanged then modify end
-			Precursor 
+			Precursor (i1,i2)
 		end
 
    insert_character (c: CHARACTER; i: INTEGER_32) is
@@ -263,7 +273,7 @@ feature
    append_character (c: CHARACTER) is
 		do
 			if is_unchanged then modify end
-			Precursor 
+			Precursor (c) 
 		end
 
    extend (c: CHARACTER) is
@@ -356,7 +366,7 @@ feature
 			Precursor 
 		end
 
-feature from STRING
+feature
    do_all (action: ROUTINE[TUPLE[CHARACTER]]) is
 		do
 			if is_unchanged then modify end
@@ -372,7 +382,7 @@ feature from STRING
    precede_multiple (c: CHARACTER; n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
-			Precursor 
+			Precursor (c, n) 
 		end
 
    extend_to_count (c: CHARACTER; needed_count: INTEGER_32) is
@@ -404,4 +414,8 @@ feature from STRING
 			if is_unchanged then modify end
 			Precursor (ch)
 		end
+feature {} -- Implementation
+	original_c_string: POINTER 
+			-- The address that contains the original C string
+
 end -- class CONST_STRING
