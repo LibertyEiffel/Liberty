@@ -37,7 +37,8 @@ insert
 
 creation
 	make, from_external_pointer,
-	from_file, from_file_at_size, from_file_at_scale, from_drawable, from_pixbuf, from_data
+	from_file, from_file_at_size, from_file_at_scale,
+	from_drawable, from_pixbuf, from_data
 
 feature -- Creation
 
@@ -49,6 +50,7 @@ feature -- Creation
 			end
 		ensure
 			a_ptr.is_not_null = is_valid
+			is_valid = is_g_object
 		end
 
 feature {} -- Creation
@@ -58,6 +60,8 @@ feature {} -- Creation
 			other_not_void: other /= Void
 		do
 			from_external_pointer (gdk_pixbuf_copy (other.handle))
+		ensure
+			is_valid = is_g_object
 		end
 
 	from_file (filename: STRING) is
@@ -68,7 +72,7 @@ feature {} -- Creation
 		local
 			error_ptr: POINTER
 		do
-			from_external_pointer (gdk_pixbuf_new_from_file(filename.to_external, $error_ptr))
+			from_external_pointer (gdk_pixbuf_new_from_file (filename.to_external, $error_ptr))
 			if error_ptr.is_not_null then
 				create last_error.from_external_pointer (error_ptr)
 			end
@@ -80,10 +84,9 @@ feature {} -- Creation
 			-- Creates a new GdkPixbuf out of in-memory image data. Currently
 			-- only RGB images with 8 bits per sample are supported.
 		do
-			from_external_pointer (gdk_pixbuf_new_from_data (some_data,
-							 gdk_colorspace_rgb, an_alpha.to_integer,
-							 a_bits_per_sample, a_width, a_height,
-							 a_rowstride, default_pointer, default_pointer))
+			from_external_pointer (gdk_pixbuf_new_from_data (some_data, gdk_colorspace_rgb, an_alpha.to_integer,
+			                                                 a_bits_per_sample, a_width, a_height,
+			                                                 a_rowstride, default_pointer, default_pointer))
 		ensure
 			is_valid = is_g_object
 		end
@@ -110,7 +113,7 @@ feature {} -- Creation
 			is_valid = is_g_object
 		end
 
-	from_file_at_scale(filename: STRING; a_width, a_height: INTEGER; preserve_aspect_ration: BOOLEAN) is
+	from_file_at_scale (filename: STRING; a_width, a_height: INTEGER; preserve_aspect_ration: BOOLEAN) is
 			-- Creates a new pixbuf by loading an image from a file. The file
 			-- format is detected automatically. The image will be scaled to
 			-- fit in the requested size, optionally preserving the image's
@@ -127,9 +130,8 @@ feature {} -- Creation
 		local
 			error_ptr: POINTER
 		do
-			from_external_pointer (gdk_pixbuf_new_from_file_at_scale
-			                       (filename.to_external, a_width, a_height,
-			                       preserve_aspect_ration.to_integer, $error_ptr))
+			from_external_pointer (gdk_pixbuf_new_from_file_at_scale (filename.to_external, a_width, a_height,
+			                                                          preserve_aspect_ration.to_integer, $error_ptr))
 			if error_ptr.is_not_null then
 				create last_error.from_external_pointer (error_ptr)
 			end
@@ -142,7 +144,10 @@ feature {} -- Creation
 			a_drawable /= Void
 		do
 			from_external_pointer (gdk_pixbuf_get_from_drawable (default_pointer, a_drawable.handle,
-				default_pointer, src_x, src_y, 0, 0, a_width, a_height))
+			                                                     default_pointer, src_x, src_y,
+			                                                     0, 0, a_width, a_height))
+		ensure
+			is_valid = is_g_object
 		end
 
 	make (a_alpha: BOOLEAN; a_width, a_height: INTEGER) is
@@ -172,13 +177,13 @@ feature -- Access
 	width: INTEGER is
 			--Queries the width of a pixbuf.
 		do
-			Result := gdk_pixbuf_get_width(handle)
+			Result := gdk_pixbuf_get_width (handle)
 		end
 
 	height: INTEGER is
 			-- Queries the height of a pixbuf.
 		do
-			Result := gdk_pixbuf_get_height(handle)
+			Result := gdk_pixbuf_get_height (handle)
 		end
 
 feature -- Operations
@@ -188,7 +193,7 @@ feature -- Operations
 			-- and its corresponding thresholded alpha mask to them.
 			-- This is merely a convenience function; applications that
 			-- need to render pixbufs with dither offsets or to given
-			-- drawables should use draw_pixbuf() and render_threshold_alpha().
+			-- drawables should use `draw_pixbuf' and `render_threshold_alpha'.
 			--
 			-- The pixmap that is created is created for the colormap
 			-- returned by gdk_rgb_get_colormap(). You normally will want to
@@ -214,7 +219,6 @@ feature -- Operations
 			Result.first /= Void
 		end
 
-
 	fill (a_pixel: INTEGER) is
 			-- Clears a pixbuf to the given RGBA value,
 			-- converting the RGBA value into the pixbuf's pixel format.
@@ -222,11 +226,9 @@ feature -- Operations
 			-- an alpha channel.
 			--
 			-- a_pixel: RGBA pixel to clear to (0xffffffff is opaque white, 0x00000000 transparent black)
-
 		do
 			gdk_pixbuf_fill (handle, a_pixel)
 		end
-
 
 	add_alpha (a_substitute_color: BOOLEAN; a_red, a_green, a_blue: INTEGER): GDK_PIXBUF is
 			-- Takes an existing pixbuf and adds an alpha channel to it.
@@ -252,7 +254,6 @@ feature -- Operations
 			                                     a_substitute_color, a_red.to_character,
 			                                     a_green.to_character, a_blue.to_character))
 		end
-
 
 -- gdk_pixbuf_get_file_info ()
 -- 
