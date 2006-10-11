@@ -82,6 +82,11 @@ feature -- Access
 			Result := gtk_icon_view_get_text_column (handle)
 		end
 
+	markup_column: INTEGER is
+		do
+			Result := gtk_icon_view_get_markup_column (handle)
+		end
+
 	pixbuf_column: INTEGER is
 		do
 			Result := gtk_icon_view_get_pixbuf_column (handle)
@@ -102,9 +107,10 @@ feature -- Operations
 			gtk_icon_view_set_text_column (handle, a_column)
 		end
 
--- void        gtk_icon_view_set_markup_column (GtkIconView *icon_view,
---                                              gint column);
--- gint        gtk_icon_view_get_markup_column (GtkIconView *icon_view);
+	set_markup_column (a_column: INTEGER) is
+		do
+			gtk_icon_view_set_markup_column (handle, a_column)
+		end
 
 	set_pixbuf_column (a_column: INTEGER) is
 		do

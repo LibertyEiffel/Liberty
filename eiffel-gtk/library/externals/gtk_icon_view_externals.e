@@ -46,6 +46,14 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
+	gtk_icon_view_get_markup_column (handle: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_icon_view_set_markup_column (handle: POINTER; a_column: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
 	gtk_icon_view_get_pixbuf_column (handle: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
