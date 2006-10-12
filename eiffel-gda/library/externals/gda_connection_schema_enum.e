@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class GDA_CONNECTION_SCHEMA_ENUM
-feature  -- enum
+feature {} -- enum
 	is_valid_schema (a_schema :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_schema = gda_connection_schema_aggregates) or else

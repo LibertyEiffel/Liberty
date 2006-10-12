@@ -37,38 +37,59 @@ feature
 
 			gda.init ("Full eiffel-gda test", "0.1", command_arguments)
 
-			save_data_source
-			-- remove_data_source
 			list_providers
-			
-			--gda.main (do_stuff)
+			list_data_sources
+
+			print("Using connection ")
+			print (connection.server_version) print(" ")
+			print(connection.dsn) print(" ")
+			print(connection.connection_string) print(" ")
+			print(connection.provider) print(" ")
+			print(connection.username) print(" ")
+			print(connection.password) print(" ")
+			print("%N")
+					
 			print ("Ending%N")
 		end
 
-	save_data_source is
-		do
-			-- config.save_data_source (a_name, a_provider,
-			-- a_connection_string, a_description, Void, -- no username
-			-- Void, -- no password False -- i.e.: not global )
-		end
 
 	list_providers is
 		local iter: ITERATOR [GDA_PROVIDER_INFO]; info: GDA_PROVIDER_INFO
 		do
-			print ("Providers:")
+			print ("Providers:%N")
 			from iter:=config.providers.get_new_iterator; iter.start
 			until iter.is_off
 			loop
 				info := iter.item
-				print ("Id: `") print (info.id) print ("'%T")
-				print ("location: `") print (info.location) print ("' `")
+				print ("Id: `") print (info.id) print ("' ")
+				-- print ("location: `") print (info.location) print ("'
+				print (" `")
 				print (info.description) print ("'%N")
 				iter.next
 			end
 		end
 
 	list_data_sources is
+		local iter: ITERATOR [GDA_DATA_SOURCE_INFO]; source: GDA_DATA_SOURCE_INFO
 		do
+			print ("Data sources:%N")
+			from iter:=config.data_sources.get_new_iterator; iter.start
+			until iter.is_off
+			loop
+				source := iter.item
+				print("name: ") print(source.name) print(", ")
+				print("provider: ") print(source.provider) print(", ")
+				print("connection_string: ") print(source.connection_string) print(", ")
+				print("description: ") print(source.description) print(", ")
+				print("username: ") print(source.username) print(", ")
+				print("password: ") print(source.password) 
+				
+				if source.is_global then print (" is global%N")
+				else print (" is not global.%N")
+				end
+				
+				iter.next
+			end
 		end
 
 	client: GDA_CLIENT is
@@ -77,10 +98,38 @@ feature
 		end
 
 	connection: GDA_CONNECTION is
-		once 
+			-- Connection to an example SQLite database
+		once
+			if not config.has_data_source(database_name) then 
+				print ("Creating example database%N")
+				config.save_data_source (database_name, provider, connection_string,
+												 description, username, password,
+												 False -- Not global
+												 )
+			end
 			Result := (client.get_new_connection 
-						  ("dsn", "username","password",
-							gda_connection_options_read_only))
-		ensure not_void: Result /= Void
+						  (database_name, username, password,
+							0 -- No options such as	gda_connection_options_read_only
+							))
+		ensure 
+			not_void: Result /= Void
+			-- read_only: (Result.options &&
+			-- gda_connection_options_read_only ).to_boolean TODO: this
+			-- is bad to read. It would be nice to provide
+			-- GDA_CONNECTION.is_read_only and similars.
+		end
+
+feature --
+	database_name: STRING is "eiffel-gda-example"
+	provider: STRING is "SQLite"
+	connection_string: STRING is "DB_NAME='example.sqlite'"
+	description: STRING is "Example database for eiffel-gda"
+	username: STRING is ""
+	password: STRING is ""
+
+feature -- Warnings
+	warning is
+		once
+			print ("There was a little bug: gda_config_save_data_source() does not create the configuration directory ~/.libgda, so you have to do it.")
 		end
 end -- class FULL_EXAMPLE

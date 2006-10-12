@@ -8,7 +8,7 @@ indexing
 deferred class GDA_DATA_MODEL_ITER_EXTERNALS
 feature {} -- External calls
 	
- gda_data_model_iter_new (a_model: POINTER): POINTER is
+	gda_data_model_iter_new (a_model: POINTER): POINTER is
 			-- GdaDataModelIter* gda_data_model_iter_new (GdaDataModel *model);
 		external "C use <libgda/libgda.h>"
 		end

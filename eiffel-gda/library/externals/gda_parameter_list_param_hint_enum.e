@@ -23,7 +23,7 @@ deferred class GDA_PARAMETER_LIST_PARAM_HINT_ENUM
 
 insert ANY undefine copy, is_equal end
 
-feature  -- enum
+feature {} -- enum
 	is_valid_param_hint (an_hint :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_hint = gda_parameter_list_param_read_only) or else 

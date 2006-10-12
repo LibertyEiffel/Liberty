@@ -24,7 +24,7 @@ class GDA_CONFIG
 inherit WRAPPER_HANDLER
 
 insert GDA_CONFIG_EXTERNALS
-
+	
 creation default_create
 
 feature -- Configuration
@@ -238,6 +238,17 @@ feature -- Configuration
 			(gda_config_get_data_source_list)
 		end
 
+	has_data_source (a_name: STRING): BOOLEAN is
+			-- Does the data source `a_name' exist?
+		local ptr: POINTER
+		do
+			if (gda_config_find_data_source(a_name.to_external).is_not_null) then
+				Result:=True
+				-- After usage, the returned structure's memory must be freed using
+				gda_data_source_info_free(ptr)
+			end
+		end
+	
 	find_data_source (a_name: STRING): GDA_DATA_SOURCE_INFO is
 			-- a GDA_DATA_SOURCE_INFO structure from the data source list given its
 			-- name. 

@@ -23,7 +23,7 @@ deferred class GDA_TRANSACTION_ISOLATION_ENUM
 
 insert ANY undefine copy, is_equal end
 
-feature  -- enum
+feature  {} -- enum
 	is_valid_isolation_level (a_level: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_level = gda_transaction_isolation_unknown) or else

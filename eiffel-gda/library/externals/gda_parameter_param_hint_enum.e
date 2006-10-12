@@ -20,13 +20,12 @@ indexing
 				]"
 
 deferred class GDA_PARAMETER_LIST_PARAM_HINT_ENUM
-feature  -- enum
+feature {} -- enum
 	is_valid_param_hint (an_hint :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_hint = gda_parameter_list_param_read_only) or else
 						(an_hint = gda_parameter_list_param_hide))
 		end
-
 
 	gda_parameter_list_param_read_only: INTEGER is
 			-- param should not be affected by user modifications

@@ -119,73 +119,73 @@ feature
 feature -- TODO: Properties
 
 
---    "current-row"          gint                  : Read / Write
---    "data-model"           gpointer              : Read / Write / Construct Only
---    "forced-model"         gpointer              : Read / Write
---    "update-model"         gboolean              : Read / Write
+	--    "current-row"          gint                  : Read / Write
+	--    "data-model"           gpointer              : Read / Write / Construct Only
+	--    "forced-model"         gpointer              : Read / Write
+	--    "update-model"         gboolean              : Read / Write
 
--- Signals
-
-
---  "end-of-data"
---              void        user_function      (GdaDataModelIter *gdadatamodeliter,
---                                              gpointer          user_data)             : Run first
---  "row-changed"
---              void        user_function      (GdaDataModelIter *gdadatamodeliter,
---                                              gint              arg1,
---                                              gpointer          user_data)             : Run first
+	-- Signals
 
 
--- Property Details
+	--  "end-of-data"
+	--              void        user_function      (GdaDataModelIter *gdadatamodeliter,
+	--                                              gpointer          user_data)             : Run first
+	--  "row-changed"
+	--              void        user_function      (GdaDataModelIter *gdadatamodeliter,
+	--                                              gint              arg1,
+	--                                              gpointer          user_data)             : Run first
 
---   The "current-row" property
 
---    "current-row"          gint                  : Read / Write
+	-- Property Details
 
---    Allowed values: >= -1
+	--   The "current-row" property
 
---    Default value: -1
+	--    "current-row"          gint                  : Read / Write
 
---    --------------------------------------------------------------------------
+	--    Allowed values: >= -1
 
---   The "data-model" property
+	--    Default value: -1
 
---    "data-model"           gpointer              : Read / Write / Construct Only
+	--    --------------------------------------------------------------------------
 
---    --------------------------------------------------------------------------
+	--   The "data-model" property
 
---   The "forced-model" property
+	--    "data-model"           gpointer              : Read / Write / Construct Only
 
---    "forced-model"         gpointer              : Read / Write
+	--    --------------------------------------------------------------------------
 
---    --------------------------------------------------------------------------
+	--   The "forced-model" property
 
---   The "update-model" property
+	--    "forced-model"         gpointer              : Read / Write
 
---    "update-model"         gboolean              : Read / Write
+	--    --------------------------------------------------------------------------
 
---    Default value: TRUE
+	--   The "update-model" property
 
--- Signal Details
+	--    "update-model"         gboolean              : Read / Write
 
---   The "end-of-data" signal
+	--    Default value: TRUE
 
---  void        user_function                  (GdaDataModelIter *gdadatamodeliter,
---                                              gpointer          user_data)             : Run first
+	-- Signal Details
 
---    gdadatamodeliter : the object which received the signal.
---    user_data :        user data set when the signal handler was connected.
+	--   The "end-of-data" signal
 
---    --------------------------------------------------------------------------
+	--  void        user_function                  (GdaDataModelIter *gdadatamodeliter,
+	--                                              gpointer          user_data)             : Run first
 
---   The "row-changed" signal
+	--    gdadatamodeliter : the object which received the signal.
+	--    user_data :        user data set when the signal handler was connected.
 
---  void        user_function                  (GdaDataModelIter *gdadatamodeliter,
---                                              gint              arg1,
---                                              gpointer          user_data)             : Run first
+	--    --------------------------------------------------------------------------
 
---    gdadatamodeliter : the object which received the signal.
---    arg1 :
---    user_data :        user data set when the signal handler was connected.
+	--   The "row-changed" signal
+
+	--  void        user_function                  (GdaDataModelIter *gdadatamodeliter,
+	--                                              gint              arg1,
+	--                                              gpointer          user_data)             : Run first
+
+	--    gdadatamodeliter : the object which received the signal.
+	--    arg1 :
+	--    user_data :        user data set when the signal handler was connected.
 
 end -- class GDA_DATA_MODEL_ITER

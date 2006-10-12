@@ -27,7 +27,7 @@ indexing
 				-- execute_command method on the provider 
 
 deferred class GDA_CLIENT_EVENT_ENUM
-feature  -- enum
+feature {} -- enum
 	is_valid_client_event (an_event :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_event=gda_client_event_invalid) or else

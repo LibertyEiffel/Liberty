@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class GDA_COMMAND_OPTIONS_ENUM
-feature  -- enum
+feature {} -- enum
 	are_valid_options (some_options :INTEGER): BOOLEAN is
 		do	
 			Result:=(some_options & (gda_command_option_ignore_errors |

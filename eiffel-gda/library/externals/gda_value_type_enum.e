@@ -1,5 +1,5 @@
 indexing
-	description: "Enum "
+	description: "Enum GDA_VALUE_TYPE_ENUM"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class GDA_VALUE_TYPE_ENUM
-feature  -- enum
+feature  {} -- enum
 	is_valid_type (a_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type = gda_value_type_null) or else
@@ -50,6 +50,7 @@ feature  -- enum
 						(a_type = gda_value_type_unknown))
 		end
 	
+feature
 	gda_value_type_null: INTEGER is
 		external "C macro use <libgda/libgda.h>"
 		alias "GDA_VALUE_TYPE_NULL"

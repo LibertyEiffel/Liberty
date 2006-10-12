@@ -65,8 +65,7 @@ feature {} -- Creation
 	--    options :  options for the connection.
 	--    Returns :  a newly allocated GdaConnection object.
 
-	--    --------------------------------------------------------------------------
-
+feature 
 	open is
 			-- Tries to open the connection.
 			-- `is_successful' will be True if the connection is opened, and False 
@@ -168,8 +167,6 @@ feature {} -- Creation
 
 	--    cnc :     a GdaConnection object.
 	--    Returns : the server version string.
-
-	--    --------------------------------------------------------------------------
 
 	database: STRING is
 			-- the name of the currently active database

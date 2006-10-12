@@ -1,5 +1,5 @@
 indexing
-	description: "Enum "
+	description: "Enum GdaBlobMode"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -19,8 +19,8 @@ indexing
 					02110-1301 USA
 				]"
 
-deferred class
-feature  -- enum
+deferred class GDA_BLOB_MODE_ENUM
+feature {} -- enum
 	is_valid_blob_mode (a_mode :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_mode = gda_blob_mode_read) or else

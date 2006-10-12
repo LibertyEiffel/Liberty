@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class GDA_DATA_MODEL_HINT_ENUM
-feature  -- enum
+feature {}  -- enum
 	is_valid_hint (an_hint :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_hint = gda_data_model_hint_start_batch_update) or else
