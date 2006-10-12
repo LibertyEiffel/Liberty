@@ -79,13 +79,13 @@ feature
 				source := iter.item
 				print("name: ") print(source.name) print(", ")
 				print("provider: ") print(source.provider) print(", ")
-				print("connection_string: ") print(source.connection_string) print(", ")
-				print("description: ") print(source.description) print(", ")
-				print("username: ") print(source.username) print(", ")
-				print("password: ") print(source.password) 
+				print("connection_string: `") print(source.connection_string) print("', ")
+				print("description: `") print(source.description) print("', ")
+				print("username: %"") print(source.username) print("%", ")
+				print("password: %"") print(source.password) 
 				
-				if source.is_global then print (" is global%N")
-				else print (" is not global.%N")
+				if source.is_global then print ("%" is global%N")
+				else print ("%" is not global.%N")
 				end
 				
 				iter.next

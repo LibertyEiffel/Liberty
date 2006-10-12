@@ -24,7 +24,7 @@ feature {} -- enum
 	is_valid_blob_mode (a_mode :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_mode = gda_blob_mode_read) or else
-						(a_mdoe = gda_blob_mode_write) or else
+						(a_mode = gda_blob_mode_write) or else
 						(a_mode = gda_blob_mode_rdwr))
 		end
 
