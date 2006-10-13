@@ -31,47 +31,8 @@ indexing
 			-- string points to internally allocated storage in the
 			-- widget and must not be freed, modified or stored.
 
-			-- When an entry is used its text changes, so we just can't 
-			-- use an once function like this in GTK_ENTRY wrapper:
-
-			-- text: STRING is
-			--   once
-			--     create Result.from_external (gtk_entry_get_text 
-			--     (my_gtk_entry))
-			--   end
-
-			-- This code is buggy because garbage collector will clash
-			-- with the memory handling of the C library. The solution is
-			-- to copy the string as the following code shows:
-
-			-- text: STRING is 
-         --   do
-         --     create Result.from_external_copy (gtk_entry_get_text       
-         --     (my_gtk_entry))                                       
-         --   end                                                     
-
-			-- While it works as intended it is memory and time
-			-- unefficient.  Every time the Eiffel program needs to
-			-- access an entry text it has to allocate a new string and
-			-- then copy it.  It should also be taken in consideration
-			-- that many times an Eiffel program will just read this
-			-- string and it will not modify it. So I wrote this class.
-			-- I admit that the naming is not the most fitting one. If
-			-- you have ideas for a better naming, please let me know.
-
-			-- The idea is to create an Eiffel string directly from the
-			-- pointer without copying it (with from_external) and
-			-- redefining all the modifying features. When a program
-			-- tries to modify the string the original C string is copied
-			-- into a freshly allocated buffer (with
-			-- from_external_copy). So creating such a string is (almost)
-			-- as fast as the C version, accessing is as fast as the 
-			-- original STRING. All the features that modify the string 
-			-- itself will have a little performance loss.
-
-			-- The fastest way to make many changes to a CONST_STRING is 
-			-- to copy it into a STRING and change it.
-			
+			-- Changing instances of this class is not the best idea.
+			-- Consider using feature string to get a (non-const) STRING.
 
 class CONST_STRING
 
@@ -81,7 +42,17 @@ inherit
 			resize, clear_count, wipe_out,
 			clear_count_and_capacity,
 			copy, fill_with, replace_all, 
-			append, append_string, append_substring,
+			append, append_string,
+			append_substring,
+			infix "+",
+			infix "<",
+			infix ">",
+			infix "<=",
+			infix ">=",
+			compare, three_way_comparison,
+			as_upper, as_lower,
+			is_equal,
+			substring,
 			prepend,
 			insert_string, replace_substring,
 			put, swap, insert_character, shrink,
@@ -100,25 +71,18 @@ inherit
 			extend_multiple, precede_multiple,
 			extend_to_count, precede_to_count,
 			reverse,
-			remove_all_occurrences,extend_unless,
+			remove_all_occurrences,
+			extend_unless,
 			from_external
 		end
-	DISPOSABLE
-		undefine 
-			out_in_tagged_out_memory,
-			fill_tagged_out_memory, is_equal, copy
-		end
 
-creation 
-	make, copy, make_empty, make_filled, from_external, from_external_copy, make_from_string
-
+creation from_external
 
 feature 
 	from_external (a_c_string: POINTER) is
 		do
 			is_unchanged := True
 			Precursor (a_c_string)
-		ensure unchanged: is_unchanged
 		end
 			
 	is_changed: BOOLEAN  is
@@ -136,13 +100,10 @@ feature
 			original_c_string := to_external
 			from_external_copy (original_c_string)
 			is_unchanged := False
-		ensure changeable: is_changed = True
+		ensure
+			changeable: is_changed
 		end
 
-	dispose is
-		do
-			-- TODO
-		end
 feature
    resize (new_count: INTEGER_32) is
 		do
@@ -171,7 +132,7 @@ feature
    copy (other: like Current) is
 		do
 			if is_unchanged then modify end
-			Precursor {STRING} (other)
+			Precursor (other)
 		end
 
    fill_with (c: CHARACTER) is
@@ -228,10 +189,91 @@ feature
 			Precursor (c,i)
 		end
 
+	infix "+" (other: STRING): STRING is
+			-- Create a new STRING which is the concatenation of
+			-- `Current' and `other'.
+			--
+			-- See also `append'.
+		do
+			create Result.make(count + other.count)
+			Result.append(Current)
+			Result.append(other)
+		end
+
+	infix ">" (other: STRING): BOOLEAN is
+		do
+			Result := other < Current
+		end
+	
+	infix ">=" (other: STRING): BOOLEAN is
+		do
+			Result := not (Current < other)
+		end
+	
+	infix "<=" (other: STRING): BOOLEAN is
+		do
+			Result := not (other < Current)
+		end
+	
+	infix "<" (other: STRING): BOOLEAN is
+		local
+			i: INTEGER; maxi: INTEGER
+		do
+			from
+				i := 1
+				maxi := count.min(other.count)
+			until
+				i > maxi or else item(i) /= other.item(i)
+			loop
+				i := i + 1
+			end
+			if i <= maxi then
+				Result := item(i) < other.item(i)
+			else
+				Result := i <= other.count
+			end
+		end
+
+	compare, three_way_comparison (other: STRING): INTEGER is
+		do
+			if Current < other then
+				Result := -1
+			elseif other < Current then
+				Result := 1
+			end
+		end
+	
+	as_upper: STRING is
+		do
+			create Result.copy(Current)
+			Result.to_upper
+		end
+
+	as_lower: STRING is
+		do
+			create Result.copy(Current)
+			Result.to_lower
+		end
+
+	substring (start_index, end_index: INTEGER): STRING is
+			-- New string consisting of items [`start_index'.. `end_index'].
+			--
+			-- See also `substring_index'.
+		local
+			c: INTEGER
+		do
+			c := end_index - start_index + 1
+			create Result.make(c)
+			if c > 0 then
+				Result.set_count(c)
+				Result.storage.slice_copy(0, storage, start_index - 1, end_index - 1)
+			end
+		end
+	
    swap (i1, i2: INTEGER_32) is
 		do
 			if is_unchanged then modify end
-			Precursor (i1,i2)
+			Precursor (i1, i2)
 		end
 
    insert_character (c: CHARACTER; i: INTEGER_32) is
@@ -366,7 +408,7 @@ feature
 			Precursor 
 		end
 
-feature
+feature {ANY} -- from STRING
    do_all (action: ROUTINE[TUPLE[CHARACTER]]) is
 		do
 			if is_unchanged then modify end
@@ -414,6 +456,14 @@ feature
 			if is_unchanged then modify end
 			Precursor (ch)
 		end
+
+	is_equal (other: STRING): BOOLEAN is
+		do
+			if count = other.count then
+				Result := storage.fast_memcmp(other.storage, count)
+			end
+		end
+
 feature {} -- Implementation
 	original_c_string: POINTER 
 			-- The address that contains the original C string
