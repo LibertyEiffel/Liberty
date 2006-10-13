@@ -37,11 +37,7 @@ feature -- size
 		alias "sizeof(GdkWindow)"
 		end
 
-feature {} -- External calls
-
-	-- Synopsis
-
-	-- #include <gdk/gdk.h>
+feature
 
 	-- struct      GdkWindow;
 	-- enum        GdkWindowType;
@@ -219,8 +215,19 @@ feature {} -- External calls
 	--                                              GdkPixmap *pixmap,
 	--                                              gboolean parent_relative);
 	-- #define     GDK_PARENT_RELATIVE
-	-- void        gdk_window_set_cursor           (GdkWindow *window,
-	--                                              GdkCursor *cursor);
+
+	set_cursor (a_cursor: GDK_CURSOR) is
+		require
+			a_cursor /= Void
+		do
+			gdk_window_set_cursor (handle, a_cursor.handle)
+		end
+
+	unset_cursor is
+		do
+			gdk_window_set_cursor (handle, default_pointer)
+		end
+
 	-- #define     gdk_window_set_colormap
 	-- void        gdk_window_get_user_data        (GdkWindow *window,
 	--                                              gpointer *data);
@@ -266,8 +273,6 @@ feature {} -- External calls
 	--                                              gint *x,
 	--                                              gint *y);
 
-feature
-
 	get_pointer: TUPLE [GDK_WINDOW, INTEGER, INTEGER, INTEGER] is
 			-- GdkWindow*  gdk_window_get_pointer          (GdkWindow *window,
 			--                                              gint *x,
@@ -294,7 +299,20 @@ feature
 
 	-- GdkWindow*  gdk_window_get_parent           (GdkWindow *window);
 	-- GdkWindow*  gdk_window_get_toplevel         (GdkWindow *window);
-	-- GList*      gdk_window_get_children         (GdkWindow *window);
+
+--	children: G_LIST [GDK_WINDOW] is
+--		local
+--			ptr: POINTER
+--			g_retriever: G_RETRIEVER [G_LIST [GDK_WINDOW]]
+--		do
+--			ptr := gdk_window_get_children (handle)
+--			if g_retriever.has_eiffel_wrapper_stored (ptr) then
+--				Result := g_retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
+--			else
+--				create Result.from_external_pointer (ptr)
+--			end
+--		end
+
 	-- GList*      gdk_window_peek_children        (GdkWindow *window);
 	-- GdkEventMask gdk_window_get_events          (GdkWindow *window);
 	-- void        gdk_window_set_events           (GdkWindow *window,
