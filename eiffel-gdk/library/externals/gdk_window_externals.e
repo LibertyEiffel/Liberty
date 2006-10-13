@@ -34,4 +34,12 @@ feature {} -- External calls
 		external "C use <gdk/gdk.h>"
 		end
 
+	gdk_window_set_cursor (window, cursor: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+
+	gdk_window_get_children (window: POINTER): POINTER is
+		external "C use <gdk/gdk.h>"
+		end
+
 end -- class GDK_WINDOW_EXTERNALS
