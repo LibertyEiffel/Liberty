@@ -16,21 +16,22 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 
 deferred class GTK_MAIN_EXTERNALS
+
 feature {} -- external calls
+
 	gtk_set_locale: POINTER is
 		external "C use <gtk/gtk.h>"
-	end
+		end
 
 	gtk_disable_setlocale is
 		external "C use <gtk/gtk.h>"
-	end
+		end
 
-	
 -- PangoLanguage* gtk_get_default_language     (void)is
 --		external "C use <gtk/gtk.h>"
 --	end
@@ -67,7 +68,7 @@ feature {} -- external calls
 
 	gtk_events_pending: INTEGER is
 		external "C use <gtk/gtk.h>"
-	end
+		end
 
 	gtk_main is
 		external "C use <gtk/gtk.h>"
@@ -77,15 +78,16 @@ feature {} -- external calls
 		-- TODO: obsolete "gtk_main_level: INTEGER shall be NATURAL"
 		external "C use <gtk/gtk.h>"
 		ensure Result>=0
-	end
+		end
 
 	gtk_main_quit is
 		external "C use <gtk/gtk.h>"
-	end
+		end
 
 	gtk_main_iteration_external: INTEGER is
 		external "C use <gtk/gtk.h>"
-	end
+		alias "gtk_main_iteration"
+		end
 
 	gtk_main_iteration_do (blocking: INTEGER): INTEGER is
 			-- Runs a single iteration of the mainloop. If no events are

@@ -17,30 +17,34 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 
-	
+
 class GTK_MAIN
 
 inherit
 	ANY redefine default_create end
 	WRAPPER_HANDLER  redefine default_create end
+
 insert
-	ARGUMENTS redefine default_create end 
+	ARGUMENTS redefine default_create end
 	GTK_MAIN_EXTERNALS redefine default_create end
 	POINTER_HANDLING redefine default_create end
-	
+
 creation default_create
 
 feature -- Creation
+
 	default_create is
 		do
 			create error.empty
 			initialize
 		end
+
 feature
+
 	disable_setlocale is
 			-- Prevents initilize_gtk and similar call (wrappers of
 			-- gtk_init(), gtk_init_check(), gtk_init_with_args() and
@@ -76,7 +80,7 @@ feature
 			-- instead.
 		local argc: INTEGER; argv: POINTER
 		do
-			if not is_initialized then 
+			if not is_initialized then
 				argc := argument_count
 				argv := command_arguments.to_external
 				gtk_init ($argc, $argv)
@@ -87,7 +91,7 @@ feature
 
 	is_initialized: BOOLEAN
 			-- Have gtk been successfully initilized?
-	
+
 	try_initilizing_gtk is
 		-- Try initiliazing GTK toolkit. If successful
 		-- `is_gtk_initialized' will be True.
@@ -97,7 +101,7 @@ feature
 			argv := command_arguments.to_external
 			is_initialized := gtk_init_check ($argc, $argv).to_boolean
 		end
-	
+
 	-- TODO: wrap gtk_init_with_args ()
 
 	are_events_pending: BOOLEAN is
@@ -128,13 +132,12 @@ feature
 			gtk_main
 		end
 
-	
 	gtk_nesting_level: INTEGER is
 		obsolete "use nesting level instead"
 		do
 			Result := nesting_level
 		end
-	
+
 	nesting_level: INTEGER is
 			-- the nesting level of the current invocation of the main
 			-- loop. This can be useful when calling gtk_quit_add().
@@ -147,7 +150,7 @@ feature
 		do
 			quit
 		end
-	
+
 	quit is
 			-- Makes the innermost invocation of the main loop return
 			-- when it regains control.
@@ -155,13 +158,12 @@ feature
 			gtk_main_quit
 		end
 
-	
 	gtk_main_iteration is
 		obsolete "use main_iteration"
 		do
 			main_iteration
 		end
-	
+
 	main_iteration is
 		-- Runs a single iteration of the mainloop. If no events are
 		-- waiting to be processed GTK+ will block until the next event
@@ -171,7 +173,7 @@ feature
 		local called_on_innermost_mainloop: INTEGER
 		do
 			-- TODO: expose called_on_innermost_mainloop in an intelligent way
-			called_on_innermost_mainloop:=gtk_main_iteration_external
+			called_on_innermost_mainloop := gtk_main_iteration_external
 		end
 
 	gtk_main_iteration_not_blocking is
@@ -179,14 +181,13 @@ feature
 		do
 			not_blocking_main_iteration
 		end
-	
+
 	not_blocking_main_iteration is
 		local called_on_innermost_mainloop: INTEGER
 		do
 			-- TODO: expose called_on_innermost_mainloop in an intelligent way
 			called_on_innermost_mainloop:=gtk_main_iteration_do (0)
 		end
-	
 
 	-- TODO: wrap gtk_main_do_event in a release distant in the
 	-- future. Infact GTK documentation says "This is public only to
@@ -430,7 +431,7 @@ feature -- global windows features
 			-- a named themed icon, see `GTK_WINDOW.set_icon_name'.
 		do
 			gtk_window_set_default_icon_name (a_name.to_external)
-		end 
+		end
 
 	set_auto_startup_notification is
 			-- By default, after showing the first GtkWindow for each
@@ -446,7 +447,7 @@ feature -- global windows features
 			-- notification.
 		do
 			gtk_window_set_auto_startup_notification (1)
-		end	
+		end
 
 	unset_auto_startup_notification is
 			-- Disable auto startup notification. Useful when dealing 
@@ -454,7 +455,7 @@ feature -- global windows features
 			-- for further informations.
 		do
 			gtk_window_set_auto_startup_notification (0)
-		end	
+		end
 
 feature -- Global error
 	error: G_ERROR
@@ -482,7 +483,7 @@ feature {} -- External calls for global windows features
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_window_set_default_icon_from_file (filename_str, gerror_handle: POINTER): INTEGER is 	-- gboolean
+	gtk_window_set_default_icon_from_file (filename_str, gerror_handle: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -493,7 +494,9 @@ feature {} -- External calls for global windows features
 	gtk_window_set_auto_startup_notification (gboolean_setting: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
+
 invariant
 	error_not_void: error /= Void
+
 end
-	
+
