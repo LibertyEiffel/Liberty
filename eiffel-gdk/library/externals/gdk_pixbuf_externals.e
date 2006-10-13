@@ -60,6 +60,11 @@ feature {} -- External calls
 		end
 
 
+	gdk_pixbuf_savev (a_handle, a_filename, a_type, some_option_keys, some_option_values,
+	                  an_error: POINTER): INTEGER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
 -- GdkPixbufFormat* gdk_pixbuf_get_file_info   (const gchar *filename,
 --                                             gint *width,
 --                                             gint *height);

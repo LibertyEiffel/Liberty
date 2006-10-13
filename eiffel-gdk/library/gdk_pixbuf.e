@@ -28,8 +28,9 @@ class GDK_PIXBUF
 
 inherit
 	G_OBJECT
-		rename make as g_object_make
-		redefine dispose, from_external_pointer end
+		rename make as g_object_make,
+		       from_external_pointer as g_object_from_external_pointer
+		redefine dispose end
 
 insert
 	GDK_PIXBUF_EXTERNALS
@@ -45,7 +46,7 @@ feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			if a_ptr.is_not_null then
-				Precursor (a_ptr)
+				g_object_from_external_pointer (a_ptr)
 				is_valid := True
 			end
 		ensure
@@ -255,6 +256,17 @@ feature -- Operations
 			                                     a_green.to_character, a_blue.to_character))
 		end
 
+	save (a_filename, a_type: STRING) is
+			-- Saves pixbuf to a file in type, which is currently
+			-- "jpeg", "png", "tiff", "ico" or "bmp".
+		do
+			if gdk_pixbuf_savev (handle, a_filename.to_external, a_type.to_external,
+			               default_pointer, default_pointer, default_pointer).to_boolean then
+				debug
+					print ("Error saving pixbuf!%N")
+				end
+			end
+		end
 -- gdk_pixbuf_get_file_info ()
 -- 
 -- GdkPixbufFormat* gdk_pixbuf_get_file_info   (const gchar *filename,
