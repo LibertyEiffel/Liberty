@@ -16,19 +16,22 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 
 deferred class GTK_WINDOW_TYPE
-feature
-	gtk_window_toplevel:INTEGER is
+
+feature {} -- Externals
+
+	gtk_window_toplevel: INTEGER is
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WINDOW_TOPLEVEL"
 		end
-	
+
 	gtk_window_popup: INTEGER is
 		external "C use <gtk/gtk.h>"
 		alias "GTK_WINDOW_POPUP"
 		end
+
 end

@@ -56,7 +56,6 @@ inherit
 
 insert
 	GDK_EVENT_EXTERNALS
-	GDK_EVENT_TYPE
 
 creation from_external_pointer
 

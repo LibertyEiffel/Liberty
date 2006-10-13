@@ -58,13 +58,14 @@ inherit
 	-- Note: Shall the wrapper factory be inserted rather than 
 	-- inherited?
 	WRAPPER_FACTORY [ITEM] -- undefine copy,is_equal end
-	
+
 insert
 	G_LIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
-	
+
 creation make, empty, from_external_pointer
 
 feature
+
 	make, empty is
 		do
 			handle := default_pointer
@@ -78,7 +79,7 @@ feature
 		ensure Result/=Void
 		end
 
-	last: like first is 
+	last: like first is
 		require not_empty: not is_empty
 		do
 			Result := new_item
@@ -94,7 +95,7 @@ feature
 
 	put (an_item: like first; i: INTEGER) is
 		require -- else 
-					valid_item: an_item/=Void 
+			valid_item: an_item /= Void
 		do
 			g_list_set_data (g_list_nth(handle,i), an_item.handle)
 		end
@@ -135,7 +136,7 @@ feature
 			-- prepend the elements and reverse the list when all
 			-- elements have been added.
 		do
-			handle := g_list_append (handle, element.handle)	
+			handle := g_list_append (handle, element.handle)
 		end
 
 	add (element: like first; index: INTEGER) is
@@ -158,8 +159,7 @@ feature
 
 	remove (index: INTEGER) is
 		do
-			handle:=g_list_delete_link (handle,
-												  g_list_nth_data (handle, index-1))
+			handle:=g_list_delete_link (handle, g_list_nth_data (handle, index-1))
 		end
 
 	remove_last is
@@ -255,23 +255,23 @@ feature
 			not_yet_implemented -- TODO
 		end
 
-	fast_occurrences (element: like first): INTEGER is 
+	fast_occurrences (element: like first): INTEGER is
 		do
 			not_yet_implemented -- TODO
 		end
 	
 
-	replace_all (old_value, new_value: like first) is 
+	replace_all (old_value, new_value: like first) is
 		do
 			not_yet_implemented -- TODO
 		end
 
-	fast_replace_all (old_value, new_value: like first) is 
+	fast_replace_all (old_value, new_value: like first) is
 		do
 			not_yet_implemented -- TODO
 		end
 
-	slice (min, max: INTEGER): G_LIST [ITEM] is 
+	slice (min, max: INTEGER): G_LIST [ITEM] is
 		do
 			not_yet_implemented -- TODO
 		end
@@ -284,25 +284,24 @@ feature
 			g_list_free (handle) -- TODO is this call correct?
 		end
 
-	upper,count: INTEGER is 
+	upper,count: INTEGER is
 		do
 			Result:=g_list_length(handle)
-		ensure positive: Result >= 0 
+		ensure positive: Result >= 0
 		end
 
-	is_empty: BOOLEAN is 
+	is_empty: BOOLEAN is
 		do
 			Result:= (handle.is_null)
 		end
-	
+
 	from_collection (model: COLLECTION[ITEM]) is do not_yet_implemented end
-	
-	get_new_iterator: ITERATOR[ITEM] is 
+
+	get_new_iterator: ITERATOR[ITEM] is
 		do
 			create {ITERATOR_ON_G_LIST[ITEM]} Result.make (Current)
 		ensure valid: Result/=Void
 		end
-
 
 	-- Glib's doc, useful for implementing unimplemented
 	
@@ -346,7 +345,6 @@ feature
 			--   number_list = g_list_append (number_list, GINT_TO_POINTER (14));
 		end
 
-			
 	prepend  (an_item: like first) is
 			-- Adds a new element on to the start of the list.
 		require valid_item: an_item/=Void
@@ -566,12 +564,11 @@ feature
 -- Restores the previous GAllocator, used when allocating GList elements.
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
+
 feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GList)"
 		end
+
 end
-
-
-

@@ -62,7 +62,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_text_tag_new (a_name.to_external))
 		end
 
-feature 
+feature
 	priority: INTEGER is
 			-- the tag priority.
 		do

@@ -139,9 +139,9 @@ feature -- Properties
 feature -- Style properties:
 --  "error-underline-color" GdkColor              : Read
 
-feature 
+feature
 	scroll_to_mark (a_mark: GTK_TEXT_MARK; within_margin: REAL;
-						 use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
+			        use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
 			-- Scrolls Current so that `a_mark' is on the screen in the
 			-- position indicated by `an_x_align' and `an_y_align'. An
 			-- alignment of 0.0 indicates left or top, 1.0 indicates
@@ -152,23 +152,23 @@ feature
 			-- margin of size within_margin.
 
 			-- `within_margin' : margin as a [0.0,0.5) fraction of screen size
-		
+			
 			-- `use_align' : whether to use alignment arguments (if
 			-- FALSE, just get the mark onscreen)
-		
+			
 			-- `an_x_align' horizontal alignment of mark within visible
 			-- area.
-		
+			
 			-- `an_y_align' vertical alignment of mark within visible
 			-- area
 		require mark_not_void: a_mark /= Void
 		do
 			gtk_text_view_scroll_to_mark (handle, a_mark.handle, within_margin,
-													use_align.to_integer, an_x_align, an_y_align)
+			                              use_align.to_integer, an_x_align, an_y_align)
 		end
 
 	scroll_to_iter (an_iter: GTK_TEXT_ITER; within_margin: REAL;
-						 use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
+			        use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
 			-- Scrolls text_view so that iter is on the screen in the
 			-- position indicated by xalign and yalign. An alignment of
 			-- 0.0 indicates left or top, 1.0 indicates right or bottom,
@@ -226,7 +226,6 @@ feature
 			-- buffer, if it isn't there already.
 			-- `have_been_cursor_moved' will be true if the cursor had to
 			-- be moved.
-
 		do
 			have_been_cursor_moved:= gtk_text_view_place_cursor_onscreen (handle).to_boolean
 		end
@@ -329,10 +328,10 @@ feature
 			-- Converts coordinate (buffer_x, buffer_y) to coordinates
 			-- for the window of `a_widndow_type' (except gtk_text_window_private). Result is
 			-- [window_x,window_y].
-		
+			
 			-- Note that you can't convert coordinates for a nonexisting
 			-- window (see `set_border_window_size').
-		
+			
 			-- 	win :       a GtkTextWindowType 
 		require
 			valid_window_type: is_valid_text_window_type (a_window_type)
@@ -362,19 +361,25 @@ feature
 			create Result.make_2 (buffer_x, buffer_y)
 		end
 
-	window (a_window_type: INTEGER) : GDK_WINDOW is
+	window (a_text_window_type: INTEGER) : GDK_WINDOW is
 			-- The GDK_WINDOW corresponding to an area of the text view;
 			-- possible windows include the overall widget window, child
 			-- windows on the left, right, top, bottom, and the window
 			-- that displays the text buffer. Windows are Void and
 			-- nonexistent if their width or height is 0, and are
 			-- nonexistent before the widget has been realized.
-		require valid_window_type: is_valid_text_window_type (a_window_type)
-		local ptr: POINTER
+		require valid_window_type: is_valid_text_window_type (a_text_window_type)
+		local
+			ptr: POINTER
+			g_retriever: G_RETRIEVER [GDK_WINDOW]
 		do
-			ptr := gtk_text_view_get_window (handle, a_window_type)
+			ptr := gtk_text_view_get_window (handle, a_text_window_type)
 			if ptr.is_not_null then
-				create Result.from_external_pointer (ptr)
+				if g_retriever.has_eiffel_wrapper_stored (ptr) then
+					Result := g_retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
+				else
+					create Result.from_external_pointer (ptr)
+				end
 			end
 		end
 
@@ -387,7 +392,7 @@ feature
 			Result := gtk_text_view_get_window_type (handle, a_window.handle)
 		ensure is_valid_text_window_type (Result)
 		end
-	
+
 	set_border_window_size (a_window_type: INTEGER; a_size: INTEGER) is
 			-- Sets the width of `gtk_text_window_left' or
 			-- `gtk_text_window_right', or the height of
@@ -706,7 +711,7 @@ feature -- Cursor visibility
 			gtk_text_view_set_cursor_visible (handle, 1)
 		ensure visible_cursor: is_cursor_visible
 		end
-	
+
 	set_cursor_invisible is
 			-- Hides the insertion point. A buffer with no editable text
 			-- probably shouldn't have a visible cursor, so you may want
@@ -722,7 +727,7 @@ feature -- Cursor visibility
 			Result := gtk_text_view_get_cursor_visible (handle).to_boolean
 		end
 
-feature 
+feature
 	set_overwrite is
 			-- Turns the GtkTextView overwrite mode on.
 		do

@@ -77,7 +77,7 @@ feature -- Access
 			                               include_hidden_chars.to_integer))
 			-- Gtk function returns an allocated UTF-8 string; AFAIK we
 			-- can just use from_external. Paolo 2006-07-03
-            
+           
 			-- If Gtk is going to free this text, we should be using
 			-- from_external_copy instead!  end
 			end
@@ -240,10 +240,11 @@ feature -- Access
 	insert_with_tags_by_name (an_iter: GTK_TEXT_ITER; some_text: STRING; some_tag_names: COLLECTION[STRING]) is
 			-- Inserts `some_text' into buffer at `an_iter', applying the
 			-- list of tags to the newly-inserted text. 
+			-- Same as `insert_with_tags', but allows you to pass in tag names instead of tag objects.
 
 			-- `an_iter': 	an iterator in buffer
 			-- `some_text': 	UTF-8 text
-			-- `some_tags_name' : 
+			-- `some_tags_name' : collection of names of tags to apply to text
 		require
 			iter_not_void: an_iter /= Void
 			text_not_void: some_text /= Void
@@ -270,22 +271,6 @@ feature -- Access
 			end
 		end
 
-	-- void        gtk_text_buffer_insert_with_tags_by_name
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              const gchar *text,
-	--                                              gint len,
-	--                                              const gchar *first_tag_name,
-	--                                              ...);
-
-	-- Same as gtk_text_buffer_insert_with_tags(), but allows you to pass in tag names instead of tag objects.
-
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	position in buffer
-	-- text : 	UTF-8 text
-	-- len : 	length of text, or -1
-	-- first_tag_name : 	name of a tag to apply to text
-	-- ... : 	more tag names
 	-- gtk_text_buffer_delete ()
 
 	-- void        gtk_text_buffer_delete          (GtkTextBuffer *buffer,
