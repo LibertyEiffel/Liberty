@@ -47,8 +47,10 @@ class GDA_COMMAND
 
 inherit 
 	G_OBJECT 
-		rename make as allocate_struct
-		redefine dispose, copy
+		rename
+			make as allocate_struct
+		redefine
+			dispose, copy
 		end
 
 insert 
@@ -57,9 +59,10 @@ insert
 	GDA_COMMAND_OPTIONS_ENUM
 	GDA_COMMAND_STRUCT
 
-creation make, copy, from_external_pointer
+creation
+	make, copy, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make (a_text: STRING; a_type,some_options: INTEGER) is
 			-- Creates a new GdaCommand from the parameters that should
@@ -76,6 +79,7 @@ feature {NONE} -- Creation
 			from_external_pointer (gda_command_new(a_text.to_external, a_type, some_options))
 		end
 
+feature {ANY} -- Copying
 	copy (another: GDA_COMMAND) is
 			-- Creates a new GdaCommand from an existing one.
 		do

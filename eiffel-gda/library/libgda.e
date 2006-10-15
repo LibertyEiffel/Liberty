@@ -21,6 +21,17 @@ indexing
 
 class LIBGDA
 
+insert
+	SINGLETON
+	
+creation {SHARED_LIBGDA}
+	make
+	
+feature {} -- creation
+	make is
+		do
+		end
+	
 feature -- size
 	is_initialized: BOOLEAN
 			-- Has the Gnome Data Access library been initialized?
@@ -81,5 +92,5 @@ feature {} -- External calls
 			--  void gda_main_quit (void)
 		external "C use <libgda/libgda.h>"
 		end
-	
+
 end

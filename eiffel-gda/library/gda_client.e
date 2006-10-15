@@ -42,7 +42,6 @@ class GDA_CLIENT
 inherit G_OBJECT
 
 insert
-	GDA
 	GDA_CLIENT_EXTERNALS
 	SHARED_G_ERROR
 	

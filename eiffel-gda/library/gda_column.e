@@ -39,6 +39,7 @@ feature {} -- Creation
 			from_external_pointer(gda_column_new)
 		end
 
+feature {ANY} -- Copying
 	copy (another: GDA_COLUMN) is
 			-- Creates a new GdaColumn object from `another' existing one.
 		do

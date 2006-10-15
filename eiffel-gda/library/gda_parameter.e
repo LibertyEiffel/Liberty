@@ -47,29 +47,27 @@ class GDA_PARAMETER
 
 inherit 
 	GDA_OBJECT
-		rename make as allocate_struct
+		rename
+			make as allocate_struct
 		export {} allocate_struct 
-		undefine struct_size
-		redefine copy, type
+		undefine
+			struct_size
+		redefine
+			copy, type
 		end
 		--    GdaParameter implements GdaReferer.
 insert 
 	SHARED_G_ERROR
 	GDA_PARAMETER_EXTERNALS
 
-creation make, from_external_pointer, copy, make_string, make_boolean
+creation
+	make, from_external_pointer, copy, make_string, make_boolean
 
 feature {} -- Creation
 	make (a_type: INTEGER) is
 			-- Creates a new parameter of `a_type' - the requested GType.
 		do
 			from_external_pointer (gda_parameter_new (a_type))
-		end
-
-	copy (another: like Current) is
-			-- Copy constructor.
-		do
-			from_external_pointer(gda_parameter_new_copy(another.handle))
 		end
 
 	make_string (a_name, some_contents: STRING) is
@@ -92,7 +90,14 @@ feature {} -- Creation
 			from_external_pointer (gda_parameter_new_boolean  (a_name.to_external,a_boolean.to_integer))
 		end
 
-feature    
+feature {ANY} -- Copying
+	copy (another: like Current) is
+			-- Copy constructor.
+		do
+			from_external_pointer(gda_parameter_new_copy(another.handle))
+		end
+
+feature {ANY}
 	type: INTEGER is
 			-- The type of the parameter
 		do

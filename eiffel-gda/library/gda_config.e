@@ -23,10 +23,18 @@ class GDA_CONFIG
 
 inherit WRAPPER_HANDLER
 
-insert GDA_CONFIG_EXTERNALS
+insert
+	GDA_CONFIG_EXTERNALS
+	SINGLETON
 	
-creation default_create
+creation {SHARED_GDA_CONFIG}
+	make
 
+feature {} -- creation
+	make is
+		do
+		end
+	
 feature -- Configuration
 	
 	get_string (a_path: STRING): STRING is

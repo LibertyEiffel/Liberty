@@ -21,11 +21,12 @@ indexing
 
 class FULL_EXAMPLE
 
-inherit GDA
-
 insert 
 	ARGUMENTS
 	GDA_CONNECTION_OPTIONS_ENUM
+	SHARED_GDA_CONFIG
+	SHARED_LIBGDA
+	
 creation make
 
 feature 
@@ -35,7 +36,7 @@ feature
 		do
 			print ("Starting%N")
 
-			gda.init ("Full eiffel-gda test", "0.1", command_arguments)
+			libgda.init ("Full eiffel-gda test", "0.1", command_arguments)
 
 			list_providers
 			list_data_sources
@@ -57,14 +58,20 @@ feature
 		local iter: ITERATOR [GDA_PROVIDER_INFO]; info: GDA_PROVIDER_INFO
 		do
 			print ("Providers:%N")
-			from iter:=config.providers.get_new_iterator; iter.start
-			until iter.is_off
+			from
+				iter := gda_config.providers.get_new_iterator
+				iter.start
+			until
+				iter.is_off
 			loop
 				info := iter.item
-				print ("Id: `") print (info.id) print ("' ")
+				print ("Id: `")
+				print (info.id)
+				print ("' ")
 				-- print ("location: `") print (info.location) print ("'
 				print (" `")
-				print (info.description) print ("'%N")
+				print (info.description)
+				print ("'%N")
 				iter.next
 			end
 		end
@@ -73,19 +80,24 @@ feature
 		local iter: ITERATOR [GDA_DATA_SOURCE_INFO]; source: GDA_DATA_SOURCE_INFO
 		do
 			print ("Data sources:%N")
-			from iter:=config.data_sources.get_new_iterator; iter.start
-			until iter.is_off
+			from
+				iter := gda_config.data_sources.get_new_iterator
+				iter.start
+			until
+				iter.is_off
 			loop
 				source := iter.item
-				print("name: ") print(source.name) print(", ")
-				print("provider: ") print(source.provider) print(", ")
-				print("connection_string: `") print(source.connection_string) print("', ")
-				print("description: `") print(source.description) print("', ")
-				print("username: %"") print(source.username) print("%", ")
-				print("password: %"") print(source.password) 
+				print("name: "); print(source.name); print(", ")
+				print("provider: "); print(source.provider); print(", ")
+				print("connection_string: `"); print(source.connection_string); print("', ")
+				print("description: `") print(source.description); print("', ")
+				print("username: %""); print(source.username); print("%", ")
+				print("password: %""); print(source.password) 
 				
-				if source.is_global then print ("%" is global%N")
-				else print ("%" is not global.%N")
+				if source.is_global then
+					print ("%" is global%N")
+				else
+					print ("%" is not global.%N")
 				end
 				
 				iter.next
@@ -100,9 +112,9 @@ feature
 	connection: GDA_CONNECTION is
 			-- Connection to an example SQLite database
 		once
-			if not config.has_data_source(database_name) then 
+			if not gda_config.has_data_source(database_name) then 
 				print ("Creating example database%N")
-				config.save_data_source (database_name, provider, connection_string,
+				gda_config.save_data_source (database_name, provider, connection_string,
 												 description, username, password,
 												 False -- Not global
 												 )
