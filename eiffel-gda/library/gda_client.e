@@ -79,21 +79,31 @@ feature
 			-- `some_options':  options for the connection (see GdaConnectionOptions).
 		
 			-- Void if some error occurs opening the connection
-		obsolete "TODO: which feature name is better: `open_connection' or `get_new_connection'?"
+		obsolete "TODO: which feature name is better: `open_connection' that follow more or less the original anme or `get_new_connection' which is more Eiffel-alike?"
 		require
 			dsn_not_void: a_dsn /= Void
-			username_not_void: a_username /= Void
-			password_not_void: a_password /= Void
+			-- username_not_void: a_username /= Void
+			-- password_not_void: a_password /= Void
 			-- valid_options: are_valid_connection_options (some_options)
-		local ptr: POINTER
+		local conn, usr, pwd: POINTER
 		do
-			ptr := gda_client_open_connection (handle,
-														  a_dsn.to_external,
-														  a_username.to_external,
-														  a_password.to_external,
-														  some_options,
-														  address_of (error.handle))
-			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
+			if a_username/=Void then usr:=a_username.to_external end
+			if a_password/=Void then pwd:=a_password.to_external end
+			conn := gda_client_open_connection (handle, a_dsn.to_external,
+															usr, pwd, some_options,
+															address_of (error.handle))
+			if conn.is_not_null then 
+				create Result.from_external_pointer(conn) 
+				is_successful := True
+			else is_successful := False
+			end
+		ensure
+			-- DOH. this seems uncorrect:
+			-- unsuccessful_call_changed_error: ( (Result=Void or (not
+			-- is_successful)) implies error.handle /= old
+			-- (error.handle))
+			unsuccessful_get_valid_error: (Result=Void or (not is_successful)) 
+													implies error.is_not_null 
 		end
 
 	open_connection_from_string, connection_from_string (a_provider_id, a_connection_string, a_username, a_password: STRING; some_options: INTEGER): GDA_CONNECTION is

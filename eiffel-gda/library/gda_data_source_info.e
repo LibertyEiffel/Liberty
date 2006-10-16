@@ -46,7 +46,7 @@ feature
 	dispose is
 			-- Deallocates all memory associated to the given GdaDataSourceInfo.
 		do
-			if not is_shared then
+			if not is_shared and is_not_null then
 				gda_data_source_info_free (handle)
 			end
 			handle := default_pointer
@@ -54,33 +54,57 @@ feature
 
 feature  -- Getters
 	name: STRING is
+		local cstr:POINTER
 		do
-			create {CONST_STRING} Result.from_external(get_name(handle))
+			cstr := get_name(handle)
+			if cstr.is_not_null then
+				create {CONST_STRING} Result.from_external(cstr)
+			end
 		end
 	
 	provider: STRING is
+		local cstr:POINTER
 		do
-			create {CONST_STRING} Result.from_external(get_provider(handle))
+			cstr := get_provider(handle)
+			if cstr.is_not_null then
+				create {CONST_STRING} Result.from_external(cstr)
+			end
 		end
 	
 	connection_string: STRING is
+		local cstr:POINTER
 		do
-			create {CONST_STRING} Result.from_external(get_cnc_string(handle))
+			cstr := get_cnc_string(handle)
+			if cstr.is_not_null then
+				create {CONST_STRING} Result.from_external(cstr)
+			end
 		end
 	
 	description: STRING is
+		local cstr:POINTER
 		do
-			create {CONST_STRING} Result.from_external(get_description(handle))
+			cstr := get_description(handle)
+			if cstr.is_not_null then
+				create {CONST_STRING} Result.from_external(cstr)
+			end
 		end
 	
 	username: STRING is
+		local cstr:POINTER
 		do
-			create {CONST_STRING} Result.from_external(get_username(handle))
+			cstr := get_username(handle)
+			if cstr.is_not_null then
+				create {CONST_STRING} Result.from_external(cstr)
+			end
 		end
 	
 	password: STRING is
+		local cstr:POINTER
 		do
-			create {CONST_STRING} Result.from_external(get_password(handle))
+			cstr := get_password(handle)
+			if cstr.is_not_null then
+				create {CONST_STRING} Result.from_external(cstr)
+			end
 		end
 	
 	is_global: BOOLEAN is

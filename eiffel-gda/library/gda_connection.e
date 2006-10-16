@@ -154,7 +154,7 @@ feature
 	server_version: STRING is
 			--  the version string of the underlying database server.
 		do
-			create Result.from_external_copy (gda_connection_get_server_version(handle))
+			create {CONST_STRING} Result.from_external (gda_connection_get_server_version(handle))
 		ensure not_void: Result /= Void
 		end
 
@@ -171,7 +171,7 @@ feature
 	database: STRING is
 			-- the name of the currently active database
 		do
-			create Result.from_external_copy (gda_connection_get_database(handle))
+			create {CONST_STRING} Result.from_external (gda_connection_get_database(handle))
 		ensure not_void: Result /= Void
 		end
 
@@ -193,7 +193,7 @@ feature
 	dsn: STRING is
 			--  the data source name the connection object is connected to.
 		do
-			create Result.from_external_copy (gda_connection_get_dsn(handle))
+			create {CONST_STRING} Result.from_external (gda_connection_get_dsn(handle))
 		ensure not_void: Result /= Void
 		end
 
@@ -204,7 +204,7 @@ feature
 			-- parameters to be used to open a connection on the
 			-- underlying data source.
 		do
-			create Result.from_external_copy (gda_connection_get_cnc_string(handle))
+			create {CONST_STRING} Result.from_external (gda_connection_get_cnc_string(handle))
 		ensure not_void: Result /= Void
 		end
 
@@ -213,7 +213,7 @@ feature
 	provider: STRING is
 			-- the provider id that this connection is connected to.
 		do
-			create Result.from_external_copy (gda_connection_get_provider(handle))
+			create {CONST_STRING} Result.from_external (gda_connection_get_provider(handle))
 		ensure not_void: Result /= Void
 		end
 
@@ -233,7 +233,7 @@ feature
 	username: STRING is
 			-- the user name used to open this connection.
 		do
-			create Result.from_external_copy (gda_connection_get_username(handle))
+			create {CONST_STRING} Result.from_external (gda_connection_get_username(handle))
 		ensure not_void: Result /= Void
 		end
 
@@ -251,7 +251,7 @@ feature
 	password: STRING is
 			-- the password used to open this connection.
 		do
-			create Result.from_external_copy (gda_connection_get_password(handle))
+			create {CONST_STRING} Result.from_external (gda_connection_get_password(handle))
 		ensure not_void: Result /= Void
 		end
 

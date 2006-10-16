@@ -24,6 +24,7 @@ class FULL_EXAMPLE
 insert 
 	ARGUMENTS
 	GDA_CONNECTION_OPTIONS_ENUM
+	SHARED_G_ERROR
 	SHARED_GDA_CONFIG
 	SHARED_LIBGDA
 	
@@ -35,21 +36,34 @@ feature
 	make is
 		do
 			print ("Starting%N")
+			warning
 
 			libgda.init ("Full eiffel-gda test", "0.1", command_arguments)
 
 			list_providers
 			list_data_sources
 
-			print("Using connection ")
-			print (connection.server_version) print(" ")
-			print(connection.dsn) print(" ")
-			print(connection.connection_string) print(" ")
-			print(connection.provider) print(" ")
-			print(connection.username) print(" ")
-			print(connection.password) print(" ")
-			print("%N")
-					
+			if does_connection_exists then
+				print("Using connection ")
+				print (connection.server_version) print(" ")
+				print(connection.dsn) print(" ")
+				print(connection.connection_string) print(" ")
+				print(connection.provider) print(" ")
+				print(connection.username) print(" ")
+				print(connection.password) print(" ")
+				print("%N")
+			else 
+				print ("Unable to connect to database `"+database_name+"'!%N")
+				check error.is_not_null end
+				if error.message /= Void then
+					print ("Error message `") print(error.message) print ("'") 
+				else print ("No error message available. ") end
+				
+				if error.domain.is_valid then 
+					print ("Error domain `") print(error.domain.to_string) print ("'%N")
+				else print ("Error domain invalid%N")
+				end
+			end
 			print ("Ending%N")
 		end
 
@@ -110,7 +124,7 @@ feature
 		end
 
 	connection: GDA_CONNECTION is
-			-- Connection to an example SQLite database
+			-- Connection to an example SQLite database. Void if couldn't find the database
 		once
 			if not gda_config.has_data_source(database_name) then 
 				print ("Creating example database%N")
@@ -123,21 +137,24 @@ feature
 						  (database_name, username, password,
 							0 -- No options such as	gda_connection_options_read_only
 							))
-		ensure 
-			not_void: Result /= Void
-			-- read_only: (Result.options &&
-			-- gda_connection_options_read_only ).to_boolean TODO: this
-			-- is bad to read. It would be nice to provide
-			-- GDA_CONNECTION.is_read_only and similars.
+			-- ensure not_void: Result /= Void read_only: (Result.options &&
+			-- gda_connection_options_read_only ).to_boolean TODO: this is bad to
+			-- read. It would be nice to provide GDA_CONNECTION.is_read_only and
+			-- similars.
 		end
 
+	does_connection_exists: BOOLEAN is
+		do
+			Result := connection /= Void
+		end
+	
 feature --
 	database_name: STRING is "eiffel-gda-example"
 	provider: STRING is "SQLite"
-	connection_string: STRING is "DB_NAME='example.sqlite'"
+	connection_string: STRING is "DB_NAME=example.sqlite; DB_PATH=."
 	description: STRING is "Example database for eiffel-gda"
-	username: STRING is ""
-	password: STRING is ""
+	username: STRING is once Result := Void end
+	password: STRING is once Result := Void end
 
 feature -- Warnings
 	warning is

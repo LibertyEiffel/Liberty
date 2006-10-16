@@ -19,329 +19,202 @@ indexing
 					02110-1301 USA
 			]"
 
+			-- Description: This object is a "proxy repository" for all the objects:
+
+			-- * existing within a database such as data types (see the GdaDictType
+			-- object), functions (see the GdaDictFunction object), aggregates (see the
+			-- GdaDictAggregate object), and the database structure (through the
+			-- GdaDictDatabase and associated object)
+			
+			-- * pre-defined queries as GdaQuery objects
+
+			-- * graphs as GdaGraph objects
+
+			-- Each GdaDict object can be saved to an XML file and loaded back in
+			-- an efficient way; any GdaDict object can be assigned a GdaConnection
+			-- object which tells it how to use a real connection to a data source.
+
+			-- The GdaDict object is responsible for the life management of all the
+			-- objects it handles; see the GdaObject object for more information.
+			
 class GDA_DICT
 
-inherit
-	SHARED_C_STRUCT
+inherit G_OBJECT
 
--- insert GDA_DICT_EXTERNALS
+insert 
+	GDA_DICT_EXTERNALS
+	SHARED_G_ERROR
 
 creation make, from_external_pointer
 
 feature {} -- Creation
-	-- Prev 	Up 	Home 	GNOME Data Access manual 	Next
-	-- Top  |  Description  |  Object Hierarchy  |  Properties  |  Signals
-	-- GdaDict
+	make is
+			-- Create a new GdaDict object.
+		do
+			from_external_pointer(gda_dict_new)
+		end
+feature
+	extend_with_functions is
+			-- Make dict handle functions and aggregates
+		do
+			gda_dict_extend_with_functions  (handle)
+		end
 
-
+	set_connection (a_connection: GDA_CONNECTION) is
+			-- Sets the associated connection to Current. This connection is then
+			-- used when the dictionary synchronises itself, and when manipulating
+			-- data (the `handler' feature).
+		require
+			connection_not_void: a_connection /= Void
+		do
+			gda_dict_set_connection (handle, a_connection.handle)
+		end
 	
-	-- Synopsis
-
-
-
-	--             GdaDict;
-	-- GObject*    gda_dict_new                    (void);
-	-- void        gda_dict_extend_with_functions  (GdaDict *dict);
-	-- void        gda_dict_set_connection         (GdaDict *dict,
-	--                                              GdaConnection *cnc);
-	-- GdaConnection* gda_dict_get_connection      (GdaDict *dict);
-	-- GdaDictDatabase* gda_dict_get_database      (GdaDict *dict);
-	-- void        gda_dict_declare_object_string_id_change
-	--                                             (GdaDict *dict,
-	--                                              GdaObject *obj,
-	--                                              const gchar *oldid);
-	-- GdaObject*  gda_dict_get_object_by_string_id
-	--                                             (GdaDict *dict,
-	--                                              const gchar *strid);
-	-- gboolean    gda_dict_update_dbms_data       (GdaDict *dict,
-	--                                              GType limit_to_type,
-	--                                              const gchar *limit_obj_name,
-	--                                              GError **error);
-	-- void        gda_dict_stop_update_dbms_data  (GdaDict *dict);
-	-- gchar*      gda_dict_compute_xml_filename   (GdaDict *dict,
-	--                                              const gchar *datasource,
-	--                                              const gchar *app_id,
-	--                                              GError **error);
-	-- void        gda_dict_set_xml_filename       (GdaDict *dict,
-	--                                              const gchar *xmlfile);
-	-- const gchar* gda_dict_get_xml_filename      (GdaDict *dict);
-	-- gboolean    gda_dict_load                   (GdaDict *dict,
-	--                                              GError **error);
-	-- gboolean    gda_dict_save                   (GdaDict *dict,
-	--                                              GError **error);
-	-- gboolean    gda_dict_load_xml_file          (GdaDict *dict,
-	--                                              const gchar *xmlfile,
-	--                                              GError **error);
-	-- gboolean    gda_dict_save_xml_file          (GdaDict *dict,
-	--                                              const gchar *xmlfile,
-	--                                              GError **error);
-	-- GdaDataHandler* gda_dict_get_handler        (GdaDict *dict,
-	--                                              GType for_type);
-	-- GdaDataHandler* gda_dict_get_default_handler
-	--                                             (GdaDict *dict,
-	--                                              GType for_type);
-	-- #define     gda_dict_get_queries            (dict)
-	-- #define     gda_dict_get_query_by_xml_id    (dict,xml_id)
-	-- #define     gda_dict_get_dict_types         (dict)
-	-- #define     gda_dict_get_dict_type_by_name  (dict,type_name)
-	-- #define     gda_dict_get_dict_type_by_xml_id(dict,xml_id)
-	-- #define     gda_dict_get_functions          (dict)
-	-- #define     gda_dict_get_functions_by_name  (dict,funcname)
-	-- #define     gda_dict_get_function_by_name_arg(dict,funcname,argtypes)
-	-- #define     gda_dict_get_function_by_xml_id (dict,xml_id)
-	-- #define     gda_dict_get_function_by_dbms_id(dict,dbms_id)
-	-- #define     gda_dict_get_aggregates         (dict)
-	-- #define     gda_dict_get_aggregates_by_name (dict,aggname)
-	-- #define     gda_dict_get_aggregate_by_name_arg(dict,argname,argtype)
-	-- #define     gda_dict_get_aggregate_by_xml_id(dict,xml_id)
-	-- #define     gda_dict_get_aggregate_by_dbms_id(dict,dbmsid)
-	-- void        gda_dict_declare_object         (GdaDict *dict,
-	--                                              GdaObject *object);
-	-- void        gda_dict_declare_object_as      (GdaDict *dict,
-	--                                              GdaObject *object,
-	--                                              GType as_type);
-	-- void        gda_dict_assume_object          (GdaDict *dict,
-	--                                              GdaObject *object);
-	-- void        gda_dict_assume_object_as       (GdaDict *dict,
-	--                                              GdaObject *object,
-	--                                              GType as_type);
-	-- void        gda_dict_unassume_object        (GdaDict *dict,
-	--                                              GdaObject *object);
-	-- GSList*     gda_dict_get_objects            (GdaDict *dict,
-	--                                              GType type);
-	-- GdaObject*  gda_dict_get_object_by_name     (GdaDict *dict,
-	--                                              GType type,
-	--                                              const gchar *name);
-	-- GdaObject*  gda_dict_get_object_by_xml_id   (GdaDict *dict,
-	--                                              GType type,
-	--                                              const gchar *xml_id);
-
-
-	-- Object Hierarchy
-
-	--   GObject
-	--    +----GdaDict
-
-	-- Properties
-
-	--   "dsn"                  gchararray            : Read / Write
-	--   "username"             gchararray            : Read / Write
-
-	-- Signals
-
-	-- "changed"   void        user_function      (GdaDict *gdadict,
-	--                                             gpointer user_data)      : Run first
-	-- "data-update-finished"
-	--             void        user_function      (GdaDict *gdadict,
-	--                                             gpointer user_data)      : Run first
-	-- "data-update-started"
-	--             void        user_function      (GdaDict *gdadict,
-	--                                             gpointer user_data)      : Run first
-	-- "object-act-changed"
-	--             void        user_function      (GdaDict *gdadict,
-	--                                             gpointer arg1,
-	--                                             gpointer user_data)      : Run first
-	-- "object-added"
-	--             void        user_function      (GdaDict *gdadict,
-	--                                             gpointer arg1,
-	--                                             gpointer user_data)      : Run first
-	-- "object-removed"
-	--             void        user_function      (GdaDict *gdadict,
-	--                                             gpointer arg1,
-	--                                             gpointer user_data)      : Run first
-	-- "object-updated"
-	--             void        user_function      (GdaDict *gdadict,
-	--                                             gpointer arg1,
-	--                                             gpointer user_data)      : Run first
-	-- "update-progress"
-	--             void        user_function      (GdaDict *gdadict,
-	--                                             gpointer arg1,
-	--                                             guint    arg2,
-	--                                             guint    arg3,
-	--                                             gpointer user_data)      : Run first
+	connection: GDA_CONNECTION is
+			-- the GDA_CONNECTION used by Current GDA_DICT.
+		do
+			create Result.from_external_pointer(gda_dict_get_connection(handle))
+		end
+
+	database: GDA_DICT_DATABASE is
+			-- the GdaDictDatabase used by the GdaDict object.
+		do
+			create Result.from_external_pointer(gda_dict_get_database(handle))
+		end
+	
+	-- Note: gda_dict_declare_object_string_id_change not wrapped, since it is an
+	-- internal function, not to be used directly.
+
+	object (an_id: STRING): GDA_OBJECT is
+			-- the GdaObject which has `an_id' string ID. Note: the current
+			-- implementation require that the object that will be retrieved must
+			-- be already be wrapped. Otherwise it will be Void *EVEN* if such an
+			-- object actually exists.
+		local retriever: G_RETRIEVER[GDA_OBJECT]; ptr: POINTER
+		do
+			ptr := gda_dict_get_object_by_string_id (handle, an_id.to_external)
+			Result := (retriever.eiffel_wrapper_from_gobject_pointer(ptr))
+			if Result=Void then
+				print ("Warning: could not retrieve GdaObject with id `")
+				print (an_id) print("': it is a generic object and we do not know its effective type%N")
+			end
+		end
+
+	update_dbms_data (limit_to_type: INTEGER; limit_object_name: STRING) is
+			-- Updates the list of data types, functions, tables, etc from the
+			-- database, which means that the dict object uses an opened connection
+			-- to the DBMS. Use `GDA_DICT.set_connection' to set a GdaConnection to
+			-- dict.
+
+			-- limit_to_type: limit the DBMS update to this type, or 0 for no limit
+		
+			-- limit_object_name : 	limit the DBMS update to objects of this name, or Void for no limit
+		
+			-- `is_successful' will be True if no error occurred: otherwise `error' will be updated
+		do
+			is_successful:= (gda_dict_update_dbms_data (handle, limit_to_type,
+																	  limit_object_name.to_external,
+																	  address_of (error.handle))).to_boolean
+		end
+
+	stop_update_dbms_data is
+			-- When the dictionary updates its internal lists of DBMS objects, a
+			-- call to this function will stop that update process. It has no
+			-- effect when the dictionary is not updating its DBMS data.
+		do
+			gda_dict_stop_update_dbms_data  (handle)
+		end
+	
+	preferred_xml_filename (a_datasource, an_application_id: STRING): STRING is
+			-- the prefered filename which represents the data dictionary
+			-- associated to the datasource data source. Using the returned value
+			-- in conjunction with `load_xml_file' and `save_xml_file' has the
+			-- advantage of letting the library handle file naming onventions.
+
+			-- if `a_datasource' is Void, and a GdaConnection object has been
+			-- assigned to Current GDA_DICT, then the returned string will take
+			-- into account the data source used by that connection.
+		
+			-- The `an_application_id' (which can be Void) argument allows to give
+			-- an extra identification to the request, when some special features
+			-- must be saved but not interfere with the default dictionary.
+
+			-- `error' are updated as necessary.
+		local datasource_ptr, app_ptr: POINTER
+		do
+			if a_datasource /= Void then datasource_ptr := a_datasource.to_external end
+			if an_application_id /= Void then app_ptr := an_application_id.to_external end
+			create Result.from_external (gda_dict_compute_xml_filename
+												  (handle, datasource_ptr, app_ptr,
+													address_of (error.handle)))
+		end
+	
+	set_xml_filename (an_xml_file: STRING) is
+			-- Sets the filename dict will use when `save_xml' and `load_xml' are
+			-- called.
+		require xml_file_not_void: an_xml_file /= Void
+		do
+			gda_dict_set_xml_filename (handle, an_xml_file.to_external)
+		end
+
+
+	xml_filename: STRING is
+			-- the filename GDA_DICT will use when `save_xml' and `load_xml' are
+			-- called. Void if none have been set.
+		local cstr: POINTER
+		do
+			cstr := gda_dict_get_xml_filename(handle)
+			if cstr.is_not_null then 
+				create {CONST_STRING} Result.from_external (cstr)
+			end
+		end
+	
+	load is
+			-- Loads an XML file which respects the Libgda DTD, and creates all the
+			-- necessary objects that are defined within the XML file. During the
+			-- creation of the other objects, all the normal signals are emitted.
+
+			-- If the GdaDict object already has some contents, then it is first of
+			-- all destroyed (to return its state as when it was first created).
+
+			-- If an error occurs during loading then the GdaDict object is left as
+			-- empty as when it is first created.
+		
+			-- The file loaded is the one specified using `set_xml_filename'.
+			-- `is_successful' will be True if loading was successfull; otherwise
+			-- it will be False and `error' is updated as necessary.
+		do
+			is_successful:=(gda_dict_load(handle,address_of(error.handle))).to_boolean
+		end
+	
+	save is
+			-- Saves the contents of a GdaDict object to a file which is specified
+			-- using the `set_xml_filename' method.  `is_successful' will be True
+			-- if loading was successfull; otherwise it will be False and `error'
+			-- is updated as necessary.
+		do
+			is_successful:=(gda_dict_save(handle,address_of(error.handle))).to_boolean
+		end
+
+	load_xml_file (a_filename: STRING) is
+			-- Loads an XML file which respects the Libgda DTD, and creates all the
+			-- necessary objects that are defined within the XML file. During the
+			-- creation of the other objects, all the normal signals are emitted.
+
+			-- If the GdaDict object already has some contents, then it is first of
+			-- all destroyed (to return its state as when it was first created).
+
+			-- If an error occurs during loading then the GdaDict object is left as
+			-- empty as when it is first created.
+
+			-- `is_successful' will be True if loading was successfull; otherwise
+			-- it will be False and `error' is updated as necessary.
+		require filename_not_void: a_filename /= Void
+		do
+			is_successful:=(gda_dict_load_xml_file(handle,a_filename.to_external,address_of(error.handle))).to_boolean
+		end
 
-	-- Description
 
-	-- This object is a "proxy repository" for all the objects:
-
-	--     *
-
-	--       existing within a database such as data types (see the GdaDictType object), functions (see the GdaDictFunction object), aggregates (see the GdaDictAggregate object), and the database structure (through the GdaDictDatabase and associated object)
-	--     *
-
-	--       pre-defined queries as GdaQuery objects
-	--     *
-
-	--       graphs as GdaGraph objects
-
-	-- Each GdaDict object can be saved to an XML file and loaded back in an efficient way; any GdaDict object can be assigned a GdaConnection object which tells it how to use a real connection to a data source.
-
-	-- The GdaDict object is responsible for the life management of all the objects it handles; see the GdaObject object for more information.
-	-- Details
-	-- GdaDict
-
-	-- typedef struct _GdaDict GdaDict;
-
-	-- gda_dict_new ()
-
-	-- GObject*    gda_dict_new                    (void);
-
-	-- Create a new GdaDict object.
-
-	-- Returns : 	the newly created object.
-	-- gda_dict_extend_with_functions ()
-
-	-- void        gda_dict_extend_with_functions  (GdaDict *dict);
-
-	-- Make dict handle functions and aggregates
-
-	-- dict : 	a GdaDict object
-	-- gda_dict_set_connection ()
-
-	-- void        gda_dict_set_connection         (GdaDict *dict,
-	--                                              GdaConnection *cnc);
-
-	-- Sets the associated connection to dict. This connection is then used when the dictionary synchronises itself, and when manipulating data (the gda_dict_get_handler() method).
-
-	-- dict : 	a GdaDict object
-	-- cnc : 	a GdaConnection object
-	-- gda_dict_get_connection ()
-
-	-- GdaConnection* gda_dict_get_connection      (GdaDict *dict);
-
-	-- Fetch a pointer to the GdaConnection used by the GdaDict object.
-
-	-- dict : 	a GdaDict object
-	-- Returns : 	a pointer to the GdaConnection, if one has been assigned to dict
-	-- gda_dict_get_database ()
-
-	-- GdaDictDatabase* gda_dict_get_database      (GdaDict *dict);
-
-	-- Fetch a pointer to the GdaDictDatabase used by the GdaDict object.
-
-	-- dict : 	a GdaDict object
-	-- Returns : 	a pointer to the GdaDictDatabase
-	-- gda_dict_declare_object_string_id_change ()
-
-	-- void        gda_dict_declare_object_string_id_change
-	--                                             (GdaDict *dict,
-	--                                              GdaObject *obj,
-	--                                              const gchar *oldid);
-
-	-- Internal function, not to be used directly.
-
-	-- dict : 	
-	-- obj : 	
-	-- oldid : 	
-	-- gda_dict_get_object_by_string_id ()
-
-	-- GdaObject*  gda_dict_get_object_by_string_id
-	--                                             (GdaDict *dict,
-	--                                              const gchar *strid);
-
-	-- Fetch a pointer to the GdaObject which has the strid string ID.
-
-	-- dict : 	a GdaDict object
-	-- strid : 	a string
-	-- Returns : 	the corresponding GdaObject, or NULL if none found
-	-- gda_dict_update_dbms_data ()
-
-	-- gboolean    gda_dict_update_dbms_data       (GdaDict *dict,
-	--                                              GType limit_to_type,
-	--                                              const gchar *limit_obj_name,
-	--                                              GError **error);
-
-	-- Updates the list of data types, functions, tables, etc from the database, which means that the dict object uses an opened connection to the DBMS. Use gda_dict_set_connection() to set a GdaConnection to dict.
-
-	-- dict : 	a GdaDict object
-	-- limit_to_type : 	limit the DBMS update to this type, or 0 for no limit
-	-- limit_obj_name : 	limit the DBMS update to objects of this name, or NULL for no limit
-	-- error : 	location to store error, or NULL
-	-- Returns : 	TRUE if no error
-	-- gda_dict_stop_update_dbms_data ()
-
-	-- void        gda_dict_stop_update_dbms_data  (GdaDict *dict);
-
-	-- When the dictionary updates its internal lists of DBMS objects, a call to this function will stop that update process. It has no effect when the dictionary is not updating its DBMS data.
-
-	-- dict : 	a GdaDict object
-	-- gda_dict_compute_xml_filename ()
-
-	-- gchar*      gda_dict_compute_xml_filename   (GdaDict *dict,
-	--                                              const gchar *datasource,
-	--                                              const gchar *app_id,
-	--                                              GError **error);
-
-	-- Get the prefered filename which represents the data dictionary associated to the datasource data source. Using the returned value in conjunction with gda_dict_load_xml_file() and gda_dict_save_xml_file() has the advantage of letting the library handle file naming onventions.
-
-	-- if datasource is NULL, and a GdaConnection object has been assigned to dict, then the returned string will take into account the data source used by that connection.
-
-	-- The app_id argument allows to give an extra identification to the request, when some special features must be saved but not interfere with the default dictionary.
-
-	-- dict : 	a GdaDict object
-	-- datasource : 	a data source, or NULL
-	-- app_id : 	an extra identification, or NULL
-	-- error : 	location to store error, or NULL
-	-- Returns : 	a new string
-	-- gda_dict_set_xml_filename ()
-
-	-- void        gda_dict_set_xml_filename       (GdaDict *dict,
-	--                                              const gchar *xmlfile);
-
-	-- Sets the filename dict will use when gda_dict_save_xml() and gda_dict_load_xml() are called.
-
-	-- dict : 	a GdaDict object
-	-- xmlfile : 	a file name
-	-- gda_dict_get_xml_filename ()
-
-	-- const gchar* gda_dict_get_xml_filename      (GdaDict *dict);
-
-	-- Get the filename dict will use when gda_dict_save_xml() and gda_dict_load_xml() are called.
-
-	-- dict : 	a GdaDict object
-	-- Returns : 	the filename, or NULL if none have been set.
-	-- gda_dict_load ()
-
-	-- gboolean    gda_dict_load                   (GdaDict *dict,
-	--                                              GError **error);
-
-	-- Loads an XML file which respects the Libgda DTD, and creates all the necessary objects that are defined within the XML file. During the creation of the other objects, all the normal signals are emitted.
-
-	-- If the GdaDict object already has some contents, then it is first of all destroyed (to return its state as when it was first created).
-
-	-- If an error occurs during loading then the GdaDict object is left as empty as when it is first created.
-
-	-- The file loaded is the one specified using gda_dict_set_xml_filename()
-
-	-- dict : 	a GdaDict object
-	-- error : 	location to store error, or NULL
-	-- Returns : 	TRUE if loading was successfull and FALSE otherwise.
-	-- gda_dict_save ()
-
-	-- gboolean    gda_dict_save                   (GdaDict *dict,
-	--                                              GError **error);
-
-	-- Saves the contents of a GdaDict object to a file which is specified using the gda_dict_set_xml_filename() method.
-
-	-- dict : 	a GdaDict object
-	-- error : 	location to store error, or NULL
-	-- Returns : 	TRUE if saving was successfull and FALSE otherwise.
-	-- gda_dict_load_xml_file ()
-
-	-- gboolean    gda_dict_load_xml_file          (GdaDict *dict,
-	--                                              const gchar *xmlfile,
-	--                                              GError **error);
-
-	-- Loads an XML file which respects the Libgda DTD, and creates all the necessary objects that are defined within the XML file. During the creation of the other objects, all the normal signals are emitted.
-
-	-- If the GdaDict object already has some contents, then it is first of all destroyed (to return its state as when it was first created).
-
-	-- If an error occurs during loading then the GdaDict object is left as empty as when it is first created.
-
-	-- dict : 	a GdaDict object
-	-- xmlfile : 	the name of the file to which the XML will be written to
-	-- error : 	location to store error, or NULL
-	-- Returns : 	TRUE if loading was successfull and FALSE otherwise.
 	-- gda_dict_save_xml_file ()
 
 	-- gboolean    gda_dict_save_xml_file          (GdaDict *dict,
@@ -571,7 +444,8 @@ feature {} -- Creation
 	-- type : 	a Gtype type of object
 	-- xml_id : 	
 	-- Returns : 	a pointer to the requested object, or NULL if the object was not found
-	-- Property Details
+feature 	-- TODO: Properties
+
 	-- The "dsn" property
 
 	--   "dsn"                  gchararray            : Read / Write
@@ -582,7 +456,43 @@ feature {} -- Creation
 	--   "username"             gchararray            : Read / Write
 
 	-- Default value: NULL
-	-- Signal Details
+
+	--   "dsn"                  gchararray            : Read / Write
+	--   "username"             gchararray            : Read / Write
+
+feature 	-- TODO: Signals
+
+	-- "changed"   void        user_function      (GdaDict *gdadict,
+	--                                             gpointer user_data)      : Run first
+	-- "data-update-finished"
+	--             void        user_function      (GdaDict *gdadict,
+	--                                             gpointer user_data)      : Run first
+	-- "data-update-started"
+	--             void        user_function      (GdaDict *gdadict,
+	--                                             gpointer user_data)      : Run first
+	-- "object-act-changed"
+	--             void        user_function      (GdaDict *gdadict,
+	--                                             gpointer arg1,
+	--                                             gpointer user_data)      : Run first
+	-- "object-added"
+	--             void        user_function      (GdaDict *gdadict,
+	--                                             gpointer arg1,
+	--                                             gpointer user_data)      : Run first
+	-- "object-removed"
+	--             void        user_function      (GdaDict *gdadict,
+	--                                             gpointer arg1,
+	--                                             gpointer user_data)      : Run first
+	-- "object-updated"
+	--             void        user_function      (GdaDict *gdadict,
+	--                                             gpointer arg1,
+	--                                             gpointer user_data)      : Run first
+	-- "update-progress"
+	--             void        user_function      (GdaDict *gdadict,
+	--                                             gpointer arg1,
+	--                                             guint    arg2,
+	--                                             guint    arg3,
+	--                                             gpointer user_data)      : Run first
+
 	-- The "changed" signal
 
 	-- void        user_function                  (GdaDict *gdadict,

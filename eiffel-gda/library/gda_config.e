@@ -270,6 +270,7 @@ feature -- Configuration
 			-- using gda_data_source_info_free().
 			if ptr.is_not_null then
 				create Result.from_external_pointer (ptr)
+				Result.set_shared
 			end
 		end
 	
