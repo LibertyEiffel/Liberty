@@ -215,18 +215,19 @@ feature
 		end
 
 
-	-- gda_dict_save_xml_file ()
+	save_xml_file (a_filename: STRING) is 
+			-- Saves the contents of Current GDA_DICT object to a file 
+			-- named `a_filename' as XML.
 
-	-- gboolean    gda_dict_save_xml_file          (GdaDict *dict,
-	--                                              const gchar *xmlfile,
-	--                                              GError **error);
+			-- `is_successful' will be True if saving was successfull; otherwise
+			-- it will be False and `error' is updated as necessary.
+		require filename_not_void: a_filename /= Void
+		do
+			is_successful:=(gda_dict_save_xml_file
+								 (handle, a_filename.to_external,
+								  address_of (error.handle))).to_boolean
+		end
 
-	-- Saves the contents of a GdaDict object to a file which is given as argument.
-
-	-- dict : 	a GdaDict object
-	-- xmlfile : 	the name of the file to which the XML will be written to
-	-- error : 	location to store error, or NULL
-	-- Returns : 	TRUE if saving was successfull and FALSE otherwise.
 	-- gda_dict_get_handler ()
 
 	-- GdaDataHandler* gda_dict_get_handler        (GdaDict *dict,
