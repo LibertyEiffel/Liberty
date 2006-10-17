@@ -6,6 +6,13 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_PARAMETER_EXTERNALS
+
+insert
+	ANY
+		undefine
+			copy, is_equal
+		end
+	
 feature {} -- External calls
 
 	gda_parameter_new (a_type: INTEGER): POINTER is -- GdaParameter*

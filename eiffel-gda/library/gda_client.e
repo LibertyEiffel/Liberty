@@ -59,7 +59,13 @@ feature {} -- Creation
 		end
 
 feature 
-	open_connection, get_new_connection (a_dsn, a_username, a_password: STRING; some_options: INTEGER): GDA_CONNECTION is
+	open_connection (a_dsn, a_username, a_password: STRING; some_options: INTEGER): GDA_CONNECTION is
+		obsolete "TODO: which feature name is better: `open_connection' that follow more or less the original anme or `get_new_connection' which is more Eiffel-alike?"
+		do
+			Result := get_new_connection (a_dsn, a_username, a_password, some_options)
+		end
+	
+	get_new_connection (a_dsn, a_username, a_password: STRING; some_options: INTEGER): GDA_CONNECTION is
 			-- Establishes a connection to a data source. The connection
 			-- will be opened if no identical connection is available in
 			-- the GdaClient connection pool, and re-used if
@@ -79,7 +85,6 @@ feature
 			-- `some_options':  options for the connection (see GdaConnectionOptions).
 		
 			-- Void if some error occurs opening the connection
-		obsolete "TODO: which feature name is better: `open_connection' that follow more or less the original anme or `get_new_connection' which is more Eiffel-alike?"
 		require
 			dsn_not_void: a_dsn /= Void
 			-- username_not_void: a_username /= Void

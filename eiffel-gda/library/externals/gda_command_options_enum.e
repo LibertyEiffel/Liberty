@@ -20,12 +20,19 @@ indexing
 				]"
 
 deferred class GDA_COMMAND_OPTIONS_ENUM
+
+insert
+	ANY
+		undefine
+			copy, is_equal
+		end
+
 feature {} -- enum
 	are_valid_options (some_options :INTEGER): BOOLEAN is
 		do	
-			Result:=(some_options & (gda_command_option_ignore_errors |
-											 gda_command_option_stop_on_errors |
-											 gda_command_option_bad_option)).to_boolean
+			Result := (some_options & (gda_command_option_ignore_errors |
+											   gda_command_option_stop_on_errors |
+											   gda_command_option_bad_option)).to_boolean
 		end
 
  	gda_command_option_ignore_errors: INTEGER is

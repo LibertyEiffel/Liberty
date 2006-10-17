@@ -1,7 +1,7 @@
 indexing
 	description: "."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTK+ team
+					Copyright (C) 2006 Paolo Redaelli, GDA team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -24,7 +24,7 @@ class GDA_DATA_SOURCE_INFO_LIST
 inherit
 	G_LIST [GDA_DATA_SOURCE_INFO]
 		redefine
-			new_item -- Redefining new_item is necessary to make the created GDA_DATA_SOURCE_INFO shared so it will not be freed by Eiffel, thus causing a double memory freeing with inevitable core dump.
+			new_item, -- Redefining new_item is necessary to make the created GDA_DATA_SOURCE_INFO shared so it will not be freed by Eiffel, thus causing a double memory freeing with inevitable core dump.
 			dispose
 		end
 	

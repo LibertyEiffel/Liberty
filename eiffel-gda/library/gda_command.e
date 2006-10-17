@@ -53,7 +53,7 @@ inherit
 			dispose, copy
 		end
 
-insert 
+insert
 	GDA_COMMAND_EXTERNALS
 	GDA_COMMAND_TYPE_ENUM
 	GDA_COMMAND_OPTIONS_ENUM
@@ -80,10 +80,10 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Copying
-	copy (another: GDA_COMMAND) is
+	copy (other: like Current) is
 			-- Creates a new GdaCommand from an existing one.
 		do
-			from_external_pointer (gda_command_copy (another.handle))
+			from_external_pointer (gda_command_copy (other.handle))
 		end
 
 feature -- Disposing

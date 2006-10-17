@@ -76,11 +76,11 @@ feature
 			create Result.from_external_pointer(gda_dict_get_connection(handle))
 		end
 
-	database: GDA_DICT_DATABASE is
+--	database: GDA_DICT_DATABASE is
 			-- the GdaDictDatabase used by the GdaDict object.
-		do
-			create Result.from_external_pointer(gda_dict_get_database(handle))
-		end
+--		do
+--			create Result.from_external_pointer(gda_dict_get_database(handle))
+--		end
 	
 	-- Note: gda_dict_declare_object_string_id_change not wrapped, since it is an
 	-- internal function, not to be used directly.

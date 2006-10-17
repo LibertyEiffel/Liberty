@@ -91,15 +91,16 @@ feature {} -- Creation
 		end
 
 feature {ANY} -- Copying
-	copy (another: like Current) is
-			-- Copy constructor.
+	copy (other: like Current) is
 		do
-			from_external_pointer(gda_parameter_new_copy(another.handle))
+			from_external_pointer(gda_parameter_new_copy(other.handle))
 		end
 
 feature {ANY}
 	type: INTEGER is
 			-- The type of the parameter
+		require
+			valid_handle: handle.is_not_null
 		do
 			Result := gda_parameter_get_gda_type (handle)
 		end 
