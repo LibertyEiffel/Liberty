@@ -689,6 +689,9 @@ feature {} -- Implement manifest generic creation.
 	manifest_make (needed_capacity: INTEGER_32; size: INTEGER_32) is
 			-- Create an GSL_VECTOR[TYPE_] with size `size'.
 		do
+			check
+				wrong_manifest_vector: size >= needed_capacity
+			end
 			make_zero(size)
 		end
 
