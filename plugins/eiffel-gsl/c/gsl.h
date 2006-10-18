@@ -2,6 +2,9 @@
 //Copyright: Raphael Mack <mail@raphael-mack.de>
 #include <gsl/gsl_ieee_utils.h>
 #include <gsl/gsl_errno.h>
+#include <gsl/gsl_math.h>
+#include <gsl/gsl_blas.h>
+
 #include <fenv.h>
 
 void gsl_init();
