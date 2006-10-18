@@ -87,31 +87,34 @@ feature
 			-- Void if some error occurs opening the connection
 		require
 			dsn_not_void: a_dsn /= Void
-			-- username_not_void: a_username /= Void
-			-- password_not_void: a_password /= Void
 			-- valid_options: are_valid_connection_options (some_options)
-		local conn, usr, pwd: POINTER
+		local
+			conn, usr, pwd: POINTER
 		do
-			if a_username/=Void then usr:=a_username.to_external end
-			if a_password/=Void then pwd:=a_password.to_external end
+			if a_username /= Void then usr := a_username.to_external end
+			if a_password /= Void then pwd := a_password.to_external end
 			conn := gda_client_open_connection (handle, a_dsn.to_external,
 															usr, pwd, some_options,
 															address_of (error.handle))
-			if conn.is_not_null then 
+			if conn.is_not_null then
 				create Result.from_external_pointer(conn) 
 				is_successful := True
-			else is_successful := False
+			else
+				is_successful := False
 			end
 		ensure
-			-- DOH. this seems uncorrect:
-			-- unsuccessful_call_changed_error: ( (Result=Void or (not
-			-- is_successful)) implies error.handle /= old
-			-- (error.handle))
-			unsuccessful_get_valid_error: (Result=Void or (not is_successful)) 
-													implies error.is_not_null 
+			success_or_failure: (Result /= Void) = is_successful
+			unsuccessful_get_valid_error: (not is_successful)
+													implies error.is_not_null
 		end
-
+	
 	open_connection_from_string, connection_from_string (a_provider_id, a_connection_string, a_username, a_password: STRING; some_options: INTEGER): GDA_CONNECTION is
+		obsolete "use get_new_connection_from_string instead"
+		do
+			Result := get_new_connection_from_string(a_provider_id, a_connection_string, a_username, a_password, some_options)
+		end
+	
+	get_new_connection_from_string (a_provider_id, a_connection_string, a_username, a_password: STRING; some_options: INTEGER): GDA_CONNECTION is
 			-- Opens a connection given `a_provider_id' and
 			-- `a_connection_string'. This allows applications to open
 			-- connections without having to create a data source in the
@@ -122,12 +125,12 @@ feature
 			-- depend on the provider, but these keys should work with
 			-- all providers: `USER', `PASSWORD', `HOST', `DATABASE',
 			-- `PORT'. Void if some error occurs opening the connection
-		obsolete "TODO: which feature name is better: `open_connection_from_string' or `connection_from_string'?"
 		require
 			provider_not_void: a_provider_id /= Void
 			connection_string_not_void: a_connection_string /= Void
 			-- valid_options: are_valid_connection_options (some_options)
-		local ptr, user_p, pass_p: POINTER
+		local
+			ptr, user_p, pass_p: POINTER
 		do
 			if a_username /= Void then user_p := a_username.to_external end
 			if a_password /= Void then pass_p := a_password.to_external end
@@ -142,8 +145,8 @@ feature
 	connections: G_LIST [GDA_CONNECTION] is
 			-- The open connections of Current GDA_CLIENT.
 		do
-			create Result.from_external_pointer 
-			(gda_client_get_connections (handle))
+			create Result.from_external_pointer (gda_client_get_connections (handle))
+			Result.set_shared
 			-- Note from GDA docs: gda_client_get_connection_list "gets
 			-- the list of all open connections in the given GdaClient
 			-- object. The GList returned is an internal pointer, so
@@ -163,11 +166,12 @@ feature
 			dsn_not_void: a_data_source_name /= Void
 			username_not_void: a_username /= Void
 			password_not_void: a_password /= Void
-		local ptr:POINTER
+		local
+			ptr: POINTER
 		do
-			ptr:=(gda_client_find_connection 
-					(handle, a_data_source_name.to_external,
-					 a_username.to_external, a_password.to_external))
+			ptr := (gda_client_find_connection
+					  (handle, a_data_source_name.to_external,
+					   a_username.to_external, a_password.to_external))
 			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
 		end
 
@@ -175,6 +179,8 @@ feature
 			-- Closes all connections opened by the Current GdaClient.
 		do
 			gda_client_close_all_connections (handle)
+		ensure
+			all_closed: connections.is_empty
 		end
 
 	-- TODO:  gda_client_notify_event ()

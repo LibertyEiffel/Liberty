@@ -7,7 +7,11 @@ indexing
 
 deferred class GDA_DATA_SOURCE_INFO_STRUCT
 	
-insert ANY undefine copy, is_equal end
+insert
+	ANY
+		undefine
+			copy, is_equal
+		end
 
 feature {} -- Structure getter/setter calls
 -- GdaDataSourceInfo

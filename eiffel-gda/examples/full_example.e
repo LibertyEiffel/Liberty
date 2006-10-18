@@ -36,40 +36,37 @@ feature
 	make is
 		do
 			print ("Starting%N")
-			warning
+			warning -- TODO: what does this warning tell me? (ramack is confuesed)
 
 			libgda.init ("Full eiffel-gda test", "0.1", command_arguments)
 
 			list_providers
 			list_data_sources
 
-			if does_connection_exists then
-				print("Using connection ")
-				print (connection.server_version) print(" ")
-				print(connection.dsn) print(" ")
-				print(connection.connection_string) print(" ")
-				print(connection.provider) print(" ")
-				print(connection.username) print(" ")
-				print(connection.password) print(" ")
+ 			if has_connection then
+ 				print("Using connection:%N")
+				print(connection.out)
 				print("%N")
-			else 
-				print ("Unable to connect to database `"+database_name+"'!%N")
-				check error.is_not_null end
-				if error.message /= Void then
-					print ("Error message `") print(error.message) print ("'") 
-				else print ("No error message available. ") end
+ 			else 
+ 				print ("Unable to connect to database `" + database_name + "'!%N")
+ 				check error.is_not_null end
+ 				if error.message /= Void then
+ 					print ("Error message `") print(error.message) print ("'") 
+ 				else print ("No error message available. ") end
 				
-				if error.domain.is_valid then 
-					print ("Error domain `") print(error.domain.to_string) print ("'%N")
-				else print ("Error domain invalid%N")
-				end
-			end
+ 				if error.domain.is_valid then 
+ 					print ("Error domain `") print(error.domain.to_string) print ("'%N")
+ 				else print ("Error domain invalid%N")
+ 				end
+ 			end
 			print ("Ending%N")
 		end
 
 
 	list_providers is
-		local iter: ITERATOR [GDA_PROVIDER_INFO]; info: GDA_PROVIDER_INFO
+		local
+			iter: ITERATOR [GDA_PROVIDER_INFO]
+			info: GDA_PROVIDER_INFO
 		do
 			print ("Providers:%N")
 			from
@@ -79,19 +76,16 @@ feature
 				iter.is_off
 			loop
 				info := iter.item
-				print ("Id: `")
-				print (info.id)
-				print ("' ")
-				-- print ("location: `") print (info.location) print ("'
-				print (" `")
-				print (info.description)
-				print ("'%N")
+				print(info.out)
+				print("%N")
 				iter.next
 			end
 		end
 
 	list_data_sources is
-		local iter: ITERATOR [GDA_DATA_SOURCE_INFO]; source: GDA_DATA_SOURCE_INFO
+		local
+			iter: ITERATOR [GDA_DATA_SOURCE_INFO]
+			source: GDA_DATA_SOURCE_INFO
 		do
 			print ("Data sources:%N")
 			from
@@ -101,19 +95,8 @@ feature
 				iter.is_off
 			loop
 				source := iter.item
-				print("name: "); print(source.name); print(", ")
-				print("provider: "); print(source.provider); print(", ")
-				print("connection_string: `"); print(source.connection_string); print("', ")
-				print("description: `") print(source.description); print("', ")
-				print("username: %""); print(source.username); print("%", ")
-				print("password: %""); print(source.password) 
-				
-				if source.is_global then
-					print ("%" is global%N")
-				else
-					print ("%" is not global.%N")
-				end
-				
+				print(source.out)
+				print("%N")
 				iter.next
 			end
 		end
@@ -133,6 +116,7 @@ feature
 												 False -- Not global
 												 )
 			end
+
 			Result := (client.get_new_connection 
 						  (database_name, username, password,
 							0 -- No options such as	gda_connection_options_read_only
@@ -143,7 +127,7 @@ feature
 			-- similars.
 		end
 
-	does_connection_exists: BOOLEAN is
+	has_connection: BOOLEAN is
 		do
 			Result := connection /= Void
 		end

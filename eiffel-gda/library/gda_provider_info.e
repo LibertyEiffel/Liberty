@@ -24,22 +24,28 @@ class GDA_PROVIDER_INFO
 inherit
 	SHARED_C_STRUCT
 		redefine
-			dispose
+			fill_tagged_out_memory, free
 		end
 	
 insert
 	GDA_PROVIDER_INFO_STRUCT
 		rename 
-			set_id  as set_id_internal,
+			set_id as set_id_internal,
 			set_location as set_location_internal,
 			set_description as set_description_internal,
 			set_gda_params as set_gda_params_internal,
 			set_dsn_spec as set_dsn_spec_internal
+		undefine
+			fill_tagged_out_memory
 		end
 
 	GDA_CONFIG_EXTERNALS -- To get gda_provider_info_copy
+		undefine
+			fill_tagged_out_memory
+		end
 	
-creation make, copy, from_external_pointer
+creation
+	make, copy, from_external_pointer
 
 feature -- Properties
 	id: STRING is 
@@ -76,6 +82,12 @@ feature -- Properties
 		end
 feature -- TODO: Setters:
 	-- TODO: add a modifyiable boolean flag
+	-- ramack: where should this flag come from (get its initial value 
+	-- from)?
+	-- I (ramack) have the feeling, that ProviderInfo should never be 
+	-- changed from the eiffel side, but didn't find understandable 
+	-- docs for this...
+	
 feature
 	copy (another: like Current) is
 			-- Creates a new GdaProviderInfo structure from an existing one.
@@ -83,12 +95,43 @@ feature
 			from_external_pointer(gda_provider_info_copy(handle))
 		end
 
-	dispose is
+	free (ptr: POINTER) is
 			-- Deallocates all memory associated to the given GdaProviderInfo.
 		do
-			if not is_shared then
-				gda_provider_info_free(handle)
-			end
-			handle:= default_pointer
+			gda_provider_info_free(handle)
 		end
+
+feature {ANY} -- Printing
+	fill_tagged_out_memory is
+		-- TODO: ramack is not sure, whether this should better be 
+		-- feature out
+		do
+			tagged_out_memory.append(" id = ")
+			if id /= Void then
+				tagged_out_memory.extend('"')
+				tagged_out_memory.append(id)
+				tagged_out_memory.extend('"')
+			else
+				tagged_out_memory.append(once "Void")
+			end
+			tagged_out_memory.append("%N location = ")
+			if location /= Void then
+				tagged_out_memory.extend('"')
+				tagged_out_memory.append(location)
+				tagged_out_memory.extend('"')
+			else
+				tagged_out_memory.append(once "Void")
+			end
+			tagged_out_memory.append("%N description = ")
+			if description /= Void then
+				tagged_out_memory.extend('"')
+				tagged_out_memory.append(description)
+				tagged_out_memory.extend('"')
+			else
+				tagged_out_memory.append(once "Void")
+			end
+			tagged_out_memory.extend('%N')
+
+		end
+
 end -- class GDA_PROVIDER_INFO

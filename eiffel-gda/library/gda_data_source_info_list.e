@@ -25,7 +25,7 @@ inherit
 	G_LIST [GDA_DATA_SOURCE_INFO]
 		redefine
 			new_item, -- Redefining new_item is necessary to make the created GDA_DATA_SOURCE_INFO shared so it will not be freed by Eiffel, thus causing a double memory freeing with inevitable core dump.
-			dispose
+			free
 		end
 	
 insert
@@ -34,28 +34,20 @@ insert
 creation from_external_pointer
 
 feature
-	dispose is
+	free(ptr: POINTER) is
 			-- Frees a list of GdaDataSourceInfo structures.
 		do
-			if (not is_shared) and handle.is_not_null then
-				print_notice -- gda_config_free_data_source_list(handle)
-			end
-			handle:= default_pointer
+			print("freeing DATA_SRC_INFO_LIST ptr = " + ptr.out + "%N")
+			gda_config_free_data_source_list(handle)
 		end
+
 feature 
 	new_item: GDA_DATA_SOURCE_INFO is
 		do
 			Result := Precursor
-			Result.set_shared
+			--			Result.set_shared
+			print("JJJJJJJJJJJJJJJJJJJJJJJJ%N")
 		end
 
-feature {} 
-	print_notice is
-		once
-			print ("GDA_DATA_SOURCE_INFO_LIST.dispose should invoke gda_config_free_data_source_list(handle).%
-                % This is currently not done because for a still non-understood reason it triggers a %
-                %double freeing of the underlying C data structure, %
-                %thus causing a core dump.%N")
-		end
 end -- class GDA_DATA_SOURCE_INFO_LIST
 	

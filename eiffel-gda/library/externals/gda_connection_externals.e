@@ -69,11 +69,13 @@ feature {} -- External calls
 	
 	gda_connection_get_server_version (a_connection: POINTER): POINTER is -- const gchar*
 		external "C use <libgda/libgda.h>"
+		alias "(void*)gda_connection_get_server_version"
 		end
 
 	gda_connection_get_database (a_connection: POINTER): POINTER is 
 			-- const gchar* gda_connection_get_database (GdaConnection *cnc);
 		external "C use <libgda/libgda.h>"
+		alias "(void*)gda_connection_get_database"
 		end
 
 	gda_connection_set_dsn (a_connection, a_datasource: POINTER): INTEGER is
@@ -85,16 +87,19 @@ feature {} -- External calls
 	gda_connection_get_dsn (a_connection: POINTER): POINTER is
 			-- const gchar* gda_connection_get_dsn (GdaConnection *cnc);
 		external "C use <libgda/libgda.h>"
+		alias "(void*)gda_connection_get_dsn"
 		end
 
 	gda_connection_get_cnc_string (a_connection: POINTER): POINTER is
 			-- const gchar* gda_connection_get_cnc_string (GdaConnection *cnc);
 		external "C use <libgda/libgda.h>"
+		alias "(void*)gda_connection_get_cnc_string"
 		end
 
 	gda_connection_get_provider (a_connection: POINTER): POINTER is
 			-- const gchar* gda_connection_get_provider (GdaConnection *cnc);
 		external "C use <libgda/libgda.h>"
+		alias "(void*)gda_connection_get_provider"
 		end
 	
 	gda_connection_set_username (a_connection, a_username: POINTER): INTEGER is
@@ -106,6 +111,7 @@ feature {} -- External calls
 	gda_connection_get_username (a_connection: POINTER): POINTER is
 			-- const gchar* gda_connection_get_username (GdaConnection *cnc);
 		external "C use <libgda/libgda.h>"
+		alias "(void*)gda_connection_get_username"
 		end
 	
 	gda_connection_set_password (a_connection, a_password: POINTER): INTEGER is
@@ -117,6 +123,7 @@ feature {} -- External calls
 	gda_connection_get_password (a_connection: POINTER): POINTER is
 			-- const gchar* gda_connection_get_password (GdaConnection *cnc);
 		external "C use <libgda/libgda.h>"
+		alias "(void*)gda_connection_get_password"
 		end
 
 	gda_connection_add_event (a_connection, an_error: POINTER) is

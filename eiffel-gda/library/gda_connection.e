@@ -32,11 +32,22 @@ indexing
 
 class GDA_CONNECTION
 
-inherit G_OBJECT 
+inherit
+	G_OBJECT
+		redefine
+			fill_tagged_out_memory
+		end
 
 insert 
 	SHARED_G_ERROR
+		undefine
+			fill_tagged_out_memory
+		end
+	
 	GDA_CONNECTION_EXTERNALS
+		undefine
+			fill_tagged_out_memory
+		end
 
 creation make, from_external_pointer
 
@@ -186,15 +197,16 @@ feature
 		require 
 			dsn_not_void: a_datasource /= Void
 		do
-			is_successful:=(gda_connection_set_dsn
-								  (handle, a_datasource.to_external)).to_boolean
+			is_successful := (gda_connection_set_dsn
+								   (handle, a_datasource.to_external)).to_boolean
 		end
 	
 	dsn: STRING is
 			--  the data source name the connection object is connected to.
 		do
 			create {CONST_STRING} Result.from_external (gda_connection_get_dsn(handle))
-		ensure not_void: Result /= Void
+		ensure
+			not_void: Result /= Void
 		end
 
 	connection_string: STRING is
@@ -232,9 +244,13 @@ feature
 
 	username: STRING is
 			-- the user name used to open this connection.
+		local
+			ptr: POINTER
 		do
-			create {CONST_STRING} Result.from_external (gda_connection_get_username(handle))
-		ensure not_void: Result /= Void
+			ptr := gda_connection_get_username(handle)
+			if ptr.is_not_null then
+				create {CONST_STRING} Result.from_external (ptr)
+			end
 		end
 
 	set_password (a_password: STRING) is
@@ -244,8 +260,8 @@ feature
 		require
 			password_not_void: a_password /= Void
 		do
-			is_successful:=(gda_connection_set_password
-								  (handle, a_password.to_external)).to_boolean
+			is_successful := (gda_connection_set_password
+								    (handle, a_password.to_external)).to_boolean
 		end
 
 	password: STRING is
@@ -420,7 +436,7 @@ feature
 			end
 		end
 	
-		last_insert_id_of (a_record_set: GDA_DATA_MODEL): STRING is
+	last_insert_id_of (a_record_set: GDA_DATA_MODEL): STRING is
 			-- the ID of the last inserted row. A connection must be
 			-- specified, and, optionally, a result set. If not NULL, the
 			-- underlying provider should try to get the last insert ID
@@ -739,7 +755,58 @@ feature {} -- Implementation
 		ensure Result /= Void
 		end
 
+feature {ANY} -- Printing
+	fill_tagged_out_memory is
+		-- TODO: ramack is not sure, whether this should better be 
+		-- feature out
+		do
+			tagged_out_memory.append(" server_version = ")
+			if server_version /= Void then
+				tagged_out_memory.extend('"')
+				tagged_out_memory.append(server_version)
+				tagged_out_memory.extend('"')
+			else
+				tagged_out_memory.append(once "Void")
+			end
+			tagged_out_memory.append("%N dsn = ")
+			if dsn /= Void then
+				tagged_out_memory.extend('"')
+				tagged_out_memory.append(dsn)
+				tagged_out_memory.extend('"')
+			else
+				tagged_out_memory.append(once "Void")
+			end
+			tagged_out_memory.append("%N connection_string = ")
+			if connection_string /= Void then
+				tagged_out_memory.extend('"')
+				tagged_out_memory.append(connection_string)
+				tagged_out_memory.extend('"')
+			else
+				tagged_out_memory.append(once "Void")
+			end
+			tagged_out_memory.append("%N provider = ")
+			if provider /= Void then
+				tagged_out_memory.extend('"')
+				tagged_out_memory.append(provider)
+				tagged_out_memory.extend('"')
+			else
+				tagged_out_memory.append(once "Void")
+			end
+			tagged_out_memory.append("%N username = ")
+
+			if username /= Void then
+				tagged_out_memory.extend('"')
+				tagged_out_memory.append(username)
+				tagged_out_memory.extend('"')
+			else
+				tagged_out_memory.append(once "Void")
+			end
+			tagged_out_memory.append("%N password = %"********%"")
+			
+		end
 	
+-- TODO: what it this? Should this be initialized here??? ramack 
+-- doubts that!	
 	client_property_name: STRING is "string"
 	connection_string_property_name: STRING is "cnc-string"
 	dsn_property_name: STRING is "dsn"

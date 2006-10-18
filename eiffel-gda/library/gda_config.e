@@ -248,10 +248,12 @@ feature -- Configuration
 
 	has_data_source (a_name: STRING): BOOLEAN is
 			-- Does the data source `a_name' exist?
-		local ptr: POINTER
+		local
+			ptr: POINTER
 		do
-			if (gda_config_find_data_source(a_name.to_external).is_not_null) then
-				Result:=True
+			ptr := gda_config_find_data_source(a_name.to_external)
+			if (ptr.is_not_null) then
+				Result := True
 				-- After usage, the returned structure's memory must be freed using
 				gda_data_source_info_free(ptr)
 			end
