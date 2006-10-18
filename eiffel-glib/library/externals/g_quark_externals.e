@@ -14,6 +14,7 @@ feature {} -- external calls
 
 	g_quark_to_string (quark: INTEGER_32): POINTER is
 		external "C use <glib.h>"
+		alias "(void*)g_quark_to_string"
 		end
 
 	g_quark_try_string (string: POINTER): INTEGER_32 is

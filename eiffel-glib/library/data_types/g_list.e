@@ -34,7 +34,7 @@ indexing
 class G_LIST [ITEM->WRAPPER]
 inherit
 -- TODO: uncomment this when possible:
--- Temporary commented out to let some example work with SnartEiffel 
+-- Temporary commented out to let some example work with SmartEiffel 
 -- version 2.2 and SVN
 -- 	LINKED_COLLECTION [ITEM]
 -- 		redefine

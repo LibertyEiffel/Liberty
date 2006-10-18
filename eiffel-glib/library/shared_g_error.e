@@ -22,8 +22,14 @@ indexing
 			-- TODO: this design is way too simplicistic to scale well. It also
 			-- tends to make the end-user programmer write horrible code
 			
-class SHARED_G_ERROR
-insert POINTER_HANDLING
+deferred class SHARED_G_ERROR
+	
+insert
+	POINTER_HANDLING
+		undefine
+			copy, is_equal
+		end
+	
 feature
 	error: G_ERROR is 
 			-- 

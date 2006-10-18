@@ -363,9 +363,15 @@ feature -- Access
 		end
 
 	message: STRING is
-		require not_null: is_not_null
+		require
+			not_null: is_not_null
+		local
+			ptr: POINTER
 		do
-			create Result.from_external_copy (g_error_get_message (handle))
+			ptr := g_error_get_message (handle)
+			if ptr.is_not_null then
+				create Result.from_external_copy (ptr)
+			end
 		end
 
 feature -- Comparation
