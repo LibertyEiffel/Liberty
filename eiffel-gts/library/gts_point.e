@@ -28,6 +28,7 @@ inherit
 
 insert 
 	GTS_POINT_EXTERNALS
+	GTS_POINT_STRUCT
 
 creation make, from_external_pointer
 
@@ -37,6 +38,21 @@ feature {} -- Creation
 			-- Create a new point from the given coordinates
 		do
 			from_external_pointer (gts_point_new (gts_point_class, an_x, an_y, a_z))
+		end
+feature 
+	x: REAL is
+		do
+			Result := get_x (handle)
+		end
+
+	y: REAL is
+		do
+			Result := get_y (handle)
+		end
+
+	z: REAL is
+		do
+			Result := get_z (handle)
 		end
 
 feature 
@@ -197,16 +213,12 @@ feature
 	-- closest : a GtsPoint.
 
 	triangle_distance (a_triangle: GTS_TRIANGLE): REAL is
+			-- the minimun Euclidean distance between Current and `a_triangle'.
 		do
 			Result := gts_point_triangle_distance (handle,a_triangle.handle)
 		end
---                                               GtsTriangle *t);
 
---     p :        a GtsPoint.
---     t :        a GtsTriangle.
---     Returns :  the minimun Euclidean distance between p and t.
 
---    -----------------------------------------------------------------------------------------------------------
 
 --   gts_point_triangle_closest ()
 
@@ -259,20 +271,5 @@ feature {} -- struct GtsPointClass
 --  } GtsPointClass;
 
 --    The class for GtsPoint. No virtual functions are associated.
-
-feature {} -- struct GtsPoint
-
---  typedef struct {
---    GtsObject object;
-
---    gdouble x, y, z; /* must be contiguous (cast to robust functions) */
---  } GtsPoint;
-
---    The point object.
-
---     GtsObject object;  The parent object.
---     gdouble x;         x coordinate.
---     gdouble y;         y coordinate.
---     gdouble z;         z coordinate.
 
 end -- class GTS_POINT

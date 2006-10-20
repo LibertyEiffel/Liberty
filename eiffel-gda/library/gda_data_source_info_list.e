@@ -37,7 +37,9 @@ feature
 	free(ptr: POINTER) is
 			-- Frees a list of GdaDataSourceInfo structures.
 		do
-			print("freeing DATA_SRC_INFO_LIST ptr = " + ptr.out + "%N")
+			debug 
+				print("freeing DATA_SRC_INFO_LIST ptr = " + ptr.out + "%N")
+			end
 			gda_config_free_data_source_list(handle)
 		end
 
@@ -46,7 +48,9 @@ feature
 		do
 			Result := Precursor
 			--			Result.set_shared
-			print("JJJJJJJJJJJJJJJJJJJJJJJJ%N")
+			debug
+				print("JJJJJJJJJJJJJJJJJJJJJJJJ%N")
+			end
 		end
 
 end -- class GDA_DATA_SOURCE_INFO_LIST

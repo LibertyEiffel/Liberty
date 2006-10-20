@@ -21,14 +21,16 @@ insert
 			copy
 		end
 
-	-- POINTER_HANDLING is too specialized. Classes needinf its 
-	-- features could easinly insert it when needed. Paolo 2006-09-15
-	-- export {} all undefine is_equal,	copy end
-
+	SHARED_WRAPPERS_DICTIONARY
+	
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			handle := a_ptr
+			wrappers.add (to_pointer, a_ptr)
+		ensure
+			eiffel_wrapper_stores_in_dictionary: (wrappers.has(a_ptr) and then
+															  to_pointer=wrappers.at(a_ptr))
 		end
 
 	from_pointer (a_ptr: POINTER) is

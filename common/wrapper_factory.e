@@ -5,24 +5,45 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
+			-- wrapper factory would be inserted into the class that 
+			-- needs to use it; if multiple usage are needed it is 
+			-- perhaps better to use its expanded variant, 
+			-- WRAPPER_RETRIEVER. The pattern usage is more or less like 
+			-- this:
+
+			--  foo: FOO_WRAPPER is 
+			-- 		local p: POINTER
+			-- 		do
+			-- 			p:=my_wrapper_get_foo (handle)
+			-- 			if wrappers.has(p) then
+			-- 				Result := (wrapper_from_pointer
+			-- 							  (wrappers.at(p)))
+			-- 			else
+			-- 				create Result.from_external_pointer(a_pointer)
+			-- 			end
+			-- 		end
+
+			-- I know it is tedious, but it is the only feasible solution
+			-- I was able to find.
 
 deferred class WRAPPER_FACTORY [ITEM_->WRAPPER]
 
 inherit
 	WRAPPER_HANDLER -- undefine fill_tagged_out_memory end
 
+insert
 	INTERNALS_HANDLER
 		-- needed to materialize an object of type ITEM, without knowing
 		-- which type ITEM will really be.
 		undefine copy,fill_tagged_out_memory
 		end
-
+	SHARED_WRAPPERS_DICTIONARY
+	
 feature {WRAPPER}
 	wrapper_from_pointer (a_pointer: POINTER): ITEM_ is
-			-- Dangerous forced conversion. Assumes that `a_pointer' is 
-			-- actually the address of an Eiffel object of type ITEM_. 
-			-- This feature is needed to implement a dictionary that 
-			-- stores 
+			-- Dangerous forced conversion. Assumes that `a_pointer' is actually
+			-- the address of an Eiffel object of type ITEM_.  This feature is
+			-- needed to implement a dictionary that stores
 		external "C inline"
 		alias "$a_pointer"
 		end
@@ -52,6 +73,22 @@ feature {} -- Implementation
 			
 			-- That could/should be faster. This solution feels "cleaner". Paolo
 			-- 2006-07-12
+
+			-- This solution has the delightful side effect of being 
+			-- portable across compiler backends (C,Java and any 
+			-- forthcoming). Paolo 2006-10-20
 		ensure not_void: Result /= Void
+		end
+
+feature {}
+	print_wrapper_factory_notice is
+		once
+			print ("Warning! WRAPPER_FACTORY.retrieve feature could %
+                %produce objects which type is effectively deferred, %
+                %instead of giving it the correct type.%NFor example, %
+                %a button in a G_LIST[GTK_WIDGET] would have type `GTK_WIDGET'%
+                % instead of `GTK_BUTTON'. I strongly suspect that this will inevitably lead %
+                %to horrible crashes at run-time. Obviously this couldn'%
+                %t be accepted and should be a temporary solution.%N%TPaolo 2006-10-20%N")
 		end
 end

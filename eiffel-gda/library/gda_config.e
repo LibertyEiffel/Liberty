@@ -180,7 +180,7 @@ feature -- Configuration
 	-- list : 	list to be freed.
 	-- gda_config_get_provider_list ()
 
-	providers: G_LIST [GDA_PROVIDER_INFO] is
+	providers: GDA_PROVIDERS is
 			-- a list of all providers currently installed in the
 			-- system. 
 
@@ -378,7 +378,5 @@ feature -- Configuration
 		-- Removes a configuration listener previously installed with gda_config_add_listener, given its ID.
 
 		-- id : 	the ID of the listener to remove.
-
-
 end -- class GDA_CONFIG
 

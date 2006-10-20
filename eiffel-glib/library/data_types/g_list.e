@@ -73,24 +73,44 @@ feature
 
 	first: ITEM is
 		require not_empty: not is_empty
+		local p: POINTER -- Item Pointer
 		do
-			Result := new_item
-			Result.from_external_pointer (g_list_get_data (handle))
+			p:=g_list_get_data (handle)
+			if wrappers.has(p) then 
+				Result:= wrapper_from_pointer(wrappers.at(p)) 
+			else
+				Result := new_item
+				Result.from_external_pointer(p)
+			end
 		ensure Result/=Void
 		end
 
 	last: like first is
 		require not_empty: not is_empty
+		local p: POINTER -- Item Pointer
 		do
-			Result := new_item
-			Result.from_external_pointer (g_list_get_data (g_list_last (handle)))
+			p:=g_list_get_data (g_list_last (handle))
+			if wrappers.has(p) then 
+				Result:= wrapper_from_pointer(wrappers.at(p)) 
+			else
+				Result := new_item
+				Result.from_external_pointer(p)
+			end
+		ensure Result/=Void
 		end
 
 	item (i: INTEGER): like first is
 		require not_empty: not is_empty
+		local p: POINTER -- Item Pointer
 		do
-			Result := new_item
-			Result.from_external_pointer (g_list_nth_data (handle, i))
+			p:=g_list_nth_data (handle, i)
+			if wrappers.has(p) then 
+				Result:= wrapper_from_pointer(wrappers.at(p)) 
+			else
+				Result := new_item
+				Result.from_external_pointer(p)
+			end
+		ensure Result/=Void
 		end
 
 	put (an_item: like first; i: INTEGER) is

@@ -5,7 +5,7 @@ indexing
 	revision "$REvision:$"
 
 class G_TYPE_EXTERNALS
-
+insert G_TYPES
 feature {} -- external calls
 
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
@@ -427,7 +427,7 @@ feature {} -- external calls
 		end
 	
 	
-feature -- enum GTypeDebugFlags
+feature {} -- enum GTypeDebugFlags
 	
 -- typedef enum	/*< skip >*/
 -- {
@@ -1130,116 +1130,6 @@ feature {} -- External calls
 	-- CODE : 	Custom code that gets inserted in the *_get_type() function.
 
 	-- Since 2.4
-
-feature --  numerical values of fundamental GTypes
-	g_type_invalid: INTEGER is
-			-- An invalid GType, used as error return value in some functions which
-			-- return a GType.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_INVALID"
-		end
-	g_type_none: INTEGER is
-			-- A fundamental type which is used as a replacement for the C void return type.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_NONE"
-		end
-	g_type_interface: INTEGER is
-			-- The fundamental type from which all interfaces are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_INTERFACE"
-		end
-	g_type_char: INTEGER is
-			-- The fundamental type corresponding to gchar.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_CHAR"
-		end
-	g_type_uchar: INTEGER is
-			-- The fundamental type corresponding to guchar.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_UCHAR"
-		end
-	g_type_boolean: INTEGER is
-			-- The fundamental type corresponding to gboolean.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_BOOLEAN"
-		end
-	g_type_int: INTEGER is
-			-- The fundamental type corresponding to gint.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_INT"
-		end
-	g_type_uint: INTEGER is
-			-- The fundamental type corresponding to guint.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_UINT"
-		end
-	g_type_long: INTEGER is
-			-- The fundamental type corresponding to glong.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_LONG"
-		end
-	g_type_ulong: INTEGER is
-			-- The fundamental type corresponding to gulong.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_ULONG"
-		end
-	g_type_int_64: INTEGER is
-			-- The fundamental type corresponding to gint64.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_INT_64"
-		end
-	g_type_uint_64: INTEGER is
-			-- -- The fundamental type corresponding to guint64.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_UINT_64"
-		end
-	g_type_enum: INTEGER is
-			-- The fundamental type from which all enumeration types are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_ENUM"
-		end
-
-	g_type_flags: INTEGER is
-			-- The fundamental type from which all flags types are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_FLAGS"
-		end
-	g_type_float: INTEGER is
-			-- The fundamental type corresponding to gfloat.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_FLOAT"
-		end
-	g_type_double: INTEGER is
-			-- The fundamental type corresponding to gdouble.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_DOUBLE"
-		end
-	g_type_string: INTEGER is
-			-- The fundamental type corresponding to nul-terminated C strings.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_STRING"
-		end
-	g_type_pointer: INTEGER is
-			-- The fundamental type corresponding to gpointer.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_POINTER"
-		end
-	g_type_boxed: INTEGER is
-			-- The fundamental type from which all boxed types are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_BOXED"
-		end
-	g_type_param: INTEGER is
-			-- The fundamental type from which all GParamSpec types are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_PARAM"
-		end
-	g_type_object: INTEGER is
-			-- The fundamental type for GObject.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_OBJECT"
-		end
-
 end
 														 
 														 
