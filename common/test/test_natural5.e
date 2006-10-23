@@ -1,4 +1,4 @@
-class NATURAL_TEST5
+class TEST_NATURAL5
 	
 inherit
    EIFFELTEST_TOOLS

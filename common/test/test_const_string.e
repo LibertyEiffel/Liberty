@@ -1,4 +1,4 @@
-class CONST_STRING_TEST
+class TEST_CONST_STRING
 
 inherit
    EIFFELTEST_TOOLS

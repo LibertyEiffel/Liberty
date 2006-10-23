@@ -1,4 +1,4 @@
-class NATURAL_TEST
+class TEST_NATURAL
 	
 inherit
    EIFFELTEST_TOOLS
@@ -49,11 +49,8 @@ feature
 			assert(n6 = n10)
 			assert(n7 = (n1 - n1))
 			assert((n1 + n2).to_integer_32 = 3)
-			print(n1.out)
-			print("%N")
-			print(n2.out)
-			print("%N")
-			print(n5.out)
-			print("%N")
+			assert(n1.out.is_equal("1"))
+			assert(n2.out.is_equal("2"))
+			assert(n5.out.is_equal("200"))
 		end
 end

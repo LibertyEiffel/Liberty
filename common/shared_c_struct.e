@@ -16,7 +16,7 @@ deferred class SHARED_C_STRUCT
 inherit
 	C_STRUCT
 		undefine
-			make--, copy -- should copy be redefined in the subclasses?
+			make
 		redefine
 			dispose
 		end
@@ -45,7 +45,7 @@ feature {} -- Destroying
 			-- object; frees the memory pointed by `handle'
 		do
 			if not is_shared then
-				free (handle) -- if necessary
+				free (handle)
 			end
 			wrappers.remove(handle)
 			handle:= default_pointer

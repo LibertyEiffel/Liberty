@@ -400,7 +400,7 @@ feature {ANY} -- Bitwise Logical Operators:
 		require
 			s >= 0
 		do
-			Result.make_from_signed(storage |>>> s)
+			Result.force_from_signed(storage |>>> s)
 		end
 
 	infix "|<<", bit_shift_left (s: INTEGER_8): like Current is
@@ -408,7 +408,7 @@ feature {ANY} -- Bitwise Logical Operators:
 		require
 			s >= 0
 		do
-			Result.make_from_signed(storage |<< s)
+			Result.force_from_signed(storage |<< s)
 		end
 
 	infix "#>>", bit_rotate_right (s: INTEGER_8): like Current is
@@ -417,7 +417,7 @@ feature {ANY} -- Bitwise Logical Operators:
 			s > 0
 			s < object_size * 8
 		do
-			Result.make_from_signed(storage #>> s)
+			Result.force_from_signed(storage #>> s)
 		end
 	
 	infix "#<<", bit_rotate_left (s: INTEGER_8): like Current is
@@ -426,7 +426,7 @@ feature {ANY} -- Bitwise Logical Operators:
 			s > 0
 			s < object_size * 8
 		do
-			Result.make_from_signed(storage #<< s)
+			Result.force_from_signed(storage #<< s)
 		end
 
 	bit_rotate (s: INTEGER_8): like Current is
@@ -437,31 +437,31 @@ feature {ANY} -- Bitwise Logical Operators:
 			s > -object_size * 8
 			s < object_size * 8
 		do
-			Result.make_from_signed(storage.bit_rotate(s))
+			Result.force_from_signed(storage.bit_rotate(s))
 		end
 
 	prefix "~", bit_not: like Current is
 			-- One's complement of `Current'.
 		do
-			Result.make_from_signed(~storage)
+			Result.force_from_signed(~storage)
 		end
 
 	infix "&", bit_and (other: like Current): like Current is
 			-- Bitwise logical and of `Current' with `other'.
 		do
-			Result.make_from_signed(storage & other.storage)
+			Result.force_from_signed(storage & other.storage)
 		end
 
 	infix "|", bit_or (other: like Current): like Current is
 			-- Bitwise logical inclusive or of `Current' with `other'.
 		do
-			Result.make_from_signed(storage | other.storage)
+			Result.force_from_signed(storage | other.storage)
 		end
 
 	bit_xor (other: like Current): like Current is
 			-- Bitwise logical exclusive or of `Current' with `other'.
 		do
-			Result.make_from_signed(storage.bit_xor(other.storage))
+			Result.force_from_signed(storage.bit_xor(other.storage))
 		end
 
 	bit_shift (s: INTEGER_8): like Current is
@@ -472,7 +472,7 @@ feature {ANY} -- Bitwise Logical Operators:
 		require
 			s /= 0
 		do
-			Result.make_from_signed(storage.bit_shift_unsigned(s))
+			Result.force_from_signed(storage.bit_shift_unsigned(s))
 		end
 	
 feature {ANY} -- Miscellaneous
@@ -504,24 +504,24 @@ feature {ANY} -- Miscellaneous
 feature {ANY} -- overflowing operators
 	infix "#+" (other: like Current): like Current is
 		do
-			Result.make_from_signed (storage #+ other.storage)
+			Result.force_from_signed (storage #+ other.storage)
 		end
 	
 	infix "#-" (other: like Current): like Current is
 		do
-			Result.make_from_signed (storage #- other.storage)
+			Result.force_from_signed (storage #- other.storage)
 		end
 
 	infix "#*" (other: like Current): like Current is
 		do
-			Result.make_from_signed(storage #* other.storage)
+			Result.force_from_signed(storage #* other.storage)
 		end
 
 	infix "#\\" (other: like Current): like Current is
 		require
 			divisible(other)
 		do
-			Result.make_from_signed (int_sharp_mod(storage, other.storage))
+			Result.force_from_signed (int_sharp_mod(storage, other.storage))
 		ensure
 			(Current #- Result) #\\ other = zero
 		end
@@ -532,7 +532,7 @@ feature {ANY} -- overflowing operators
 		local
 			w, x, y, z, p: like Current
 		do
-			Result.make_from_signed (int_sharp_idiv(storage, other.storage))
+			Result.force_from_signed (int_sharp_idiv(storage, other.storage))
 		ensure
 			(Result * other) + (Current #\\ other) = Current
 		end
@@ -584,7 +584,7 @@ feature {NATURAL_8}
 feature {} -- manifest creation
 	manifest_make (needed_capacity: INTEGER_32; signed: INTEGER_8) is
 		do
-			make_from_signed(signed)
+			force_from_signed(signed)
 		end
 
 	manifest_put (index: INTEGER_32; element: like storage) is
