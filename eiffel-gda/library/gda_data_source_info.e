@@ -1,5 +1,4 @@
 indexing
-	description: "."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -44,14 +43,13 @@ feature {ANY}
 			-- Creates a new GdaDataSourceInfo structure from an existing one.
 		do
 			from_external_pointer(gda_data_source_info_copy(another.handle))
-			unset_shared
 		end
 
 	is_equal (another: like Current): BOOLEAN is
 			-- Are Current and `another' equal?
 		do
-			Result:=(gda_data_source_info_equal
-						(handle, another.handle)).to_boolean
+			Result := (gda_data_source_info_equal
+						  (handle, another.handle)).to_boolean
 		end
 
 	free (ptr: POINTER) is

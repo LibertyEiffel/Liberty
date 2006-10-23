@@ -236,14 +236,13 @@ feature -- Configuration
 		end
 	
 	
-	data_sources: GDA_DATA_SOURCE_INFO_LIST is -- 
+	data_sources: GDA_DATA_SOURCE_INFO_LIST is
 			-- a list of all data sources currently configured in the
 			-- system.  TODO: to implement the following we need a
 			-- specialized class "To free the returned list, call the
 			-- gda_config_free_data_source_list function."
 		do
-			create Result.from_external_pointer 
-			(gda_config_get_data_source_list)
+			create Result.from_external_pointer (gda_config_get_data_source_list)
 		end
 
 	has_data_source (a_name: STRING): BOOLEAN is
@@ -264,15 +263,16 @@ feature -- Configuration
 			-- name. 
 
 			-- Void if not found.
-		require name_not_void: a_name /= Void
-		local ptr: POINTER
+		require
+			name_not_void: a_name /= Void
+		local
+			ptr: POINTER
 		do
-			ptr:=gda_config_find_data_source(a_name.to_external)
+			ptr := gda_config_find_data_source(a_name.to_external)
 			-- After usage, the returned structure's memory must be freed
 			-- using gda_data_source_info_free().
 			if ptr.is_not_null then
 				create Result.from_external_pointer (ptr)
-				Result.set_shared
 			end
 		end
 	

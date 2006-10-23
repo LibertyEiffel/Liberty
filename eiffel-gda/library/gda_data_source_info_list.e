@@ -46,12 +46,12 @@ feature
 feature 
 	new_item: GDA_DATA_SOURCE_INFO is
 		do
-			Result := Precursor
-			--			Result.set_shared
 			debug
-				print("JJJJJJJJJJJJJJJJJJJJJJJJ%N")
+				print("called GDA_DATA_SOURCE_INFO_LIST.new_item ...%N")
 			end
+			Result := Precursor
+			-- Result.set_shared
 		end
 
 end -- class GDA_DATA_SOURCE_INFO_LIST
-	
+
