@@ -72,8 +72,14 @@ feature
 	
 	connection: GDA_CONNECTION is
 			-- the GDA_CONNECTION used by Current GDA_DICT.
-		do
-			create Result.from_external_pointer(gda_dict_get_connection(handle))
+			 local p: POINTER; r: WRAPPER_RETRIEVER[GDA_CONNECTION]
+	 do
+		p:=gda_dict_get_connection(handle)
+		if wrappers.has(p) then 
+		   Result:= r.wrapper_from_pointer(wrappers.at(p)) 
+		else
+		   create Result.from_external_pointer(p)
+		end
 		end
 
 --	database: GDA_DICT_DATABASE is

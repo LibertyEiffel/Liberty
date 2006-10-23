@@ -118,6 +118,17 @@ feature
 			stored: is_eiffel_wrapper_stored
 		end
 
+	unstore_eiffel_wrapper is
+			-- Remove the pointer to Current stored into the underlying
+			-- gobject. Note: a precondition like "require stored:
+			-- is_eiffel_wrapper_stored" is not necessary; an unnecessary
+			-- call to this feature should not be harmful
+		do
+			g_object_set_qdata (handle, eiffel_key.quark, default_pointer)
+		ensure
+			not_stored: not is_eiffel_wrapper_stored
+		end
+
 	is_eiffel_wrapper_stored: BOOLEAN is
 			-- Has a pointer to the Current Eiffel wrapper been stored
 			-- into the underlying GObject's qdata property with the
@@ -157,6 +168,7 @@ feature -- Disposing
 			-- Note: when Eiffel dispose a G_OBJECT it just unref it and
 			-- cleans its handle. The actual reclaiming of the memory
 			-- alloca ted on the C side is left to gobject runtime.
+			unstore_eiffel_wrapper -- Remove the reference to Current stored into the underlying Gobject
 			if is_g_object then unref
 			else
 				debug

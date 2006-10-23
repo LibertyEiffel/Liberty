@@ -54,98 +54,74 @@ feature
 			gda_dict_aggregate_set_dbms_id (handle, an_id.to_external)
 		end
 
---    agg : a GdaDictAggregate object
---    id :  the DBMS identifier
+	dbms_id: STRING is
+		-- the DBMS identifier of the aggregate
+		do
+			create Result.from_external
+			(gda_dict_aggregate_get_dbms_id (handle))
+		ensure not_void: Result /= Void
+		end
 
---    -----------------------------------------------------------------------------------------------------------------------
+	set_sqlname (a_name: STRING) is
+			-- Set the SQL name of the data type.
+		require name_not_void: a_name /= Void
+		do
+			gda_dict_aggregate_set_sqlname (handle, a_name.to_external)
+		end
+	
+	sqlname: STRING is 
+			-- the name of the data type
+		do
+			create {CONST_STRING} Result.from_external
+			(gda_dict_aggregate_get_sqlname (handle))
+		end
 
---   gda_dict_aggregate_get_dbms_id ()
+	set_arg_type (a_data_type: GDA_DICT_TYPE) is
+			-- Set the argument type of a aggregate. Note: GDA C
+			-- interface allows Void/NULL argument. It is not clear what
+			-- they represent
+		require type_not_void: a_data_type/=Void
+		do
+			gda_dict_aggregate_set_arg_type (handle,a_data_type.handle)
+		end
 
---  gchar*      gda_dict_aggregate_get_dbms_id  (GdaDictAggregate *agg);
+	arg_type: GDA_DICT_TYPE is
+			-- To consult the list of arguments types (and number) of a
+			-- aggregate. Returns : a list of GdaDictType objects, the
+			-- list MUST NOT be modified.
+		obsolete "There is a mismatch between the function signature and its description. Ba things could happen."	
+		local p: POINTER; r: WRAPPER_RETRIEVER[GDA_DICT_TYPE]
+		do
+			p:=gda_dict_aggregate_get_arg_type(handle)
+			if wrappers.has(p) then 
+				Result:= r.wrapper_from_pointer(wrappers.at(p)) 
+			else
+				create Result.from_external_pointer(p)
+			end
+		end
 
---    Get the DBMS identifier of the aggregate
+	set_return_type (a_type: GDA_DICT_TYPE) is
+			-- Set the return type of a aggregate
+		local p: POINTER
+		do
+			if a_type/=Void then p:=a_type.handle end
+			gda_dict_aggregate_set_ret_type (handle,p)
+		end
 
---    agg :     a GdaDictAggregate object
---    Returns : the aggregate's id
+	return_type: GDA_DICT_TYPE is
+			-- the return type of a aggregate.
+		local p: POINTER; r: WRAPPER_RETRIEVER[GDA_DICT_TYPE]
+		do
+			p:=gda_dict_aggregate_get_ret_type(handle)
+			if wrappers.has(p) then 
+				Result:= r.wrapper_from_pointer(wrappers.at(p)) 
+			else
+				create Result.from_external_pointer(p)
+			end
+		end
+ 
 
---    -----------------------------------------------------------------------------------------------------------------------
-
---   gda_dict_aggregate_set_sqlname ()
-
---  void        gda_dict_aggregate_set_sqlname  (GdaDictAggregate *agg,
---                                               const gchar *sqlname);
-
---    Set the SQL name of the data type.
-
---    agg :     a GdaDictAggregate object
---    sqlname :
-
---    -----------------------------------------------------------------------------------------------------------------------
-
---   gda_dict_aggregate_get_sqlname ()
-
---  const gchar* gda_dict_aggregate_get_sqlname (GdaDictAggregate *agg);
-
---    Get the DBMS's name of a data type.
-
---    agg :     a GdaDictAggregate object
---    Returns : the name of the data type
-
---    -----------------------------------------------------------------------------------------------------------------------
-
---   gda_dict_aggregate_set_arg_type ()
-
---  void        gda_dict_aggregate_set_arg_type (GdaDictAggregate *agg,
---                                               GdaDictType *dt);
-
---    Set the argument type of a aggregate
-
---    agg : a GdaDictAggregate object
---    dt :  a GdaDictType objects or NULL value to represent the data type of the aggregate's unique argument .
-
---    -----------------------------------------------------------------------------------------------------------------------
-
---   gda_dict_aggregate_get_arg_type ()
-
---  GdaDictType* gda_dict_aggregate_get_arg_type
---                                              (GdaDictAggregate *agg);
-
---    To consult the list of arguments types (and number) of a aggregate.
-
---    agg :     a GdaDictAggregate object
---    Returns : a list of GdaDictType objects, the list MUST NOT be modified.
-
---    -----------------------------------------------------------------------------------------------------------------------
-
---   gda_dict_aggregate_set_ret_type ()
-
---  void        gda_dict_aggregate_set_ret_type (GdaDictAggregate *agg,
---                                               GdaDictType *dt);
-
---    Set the return type of a aggregate
-
---    agg : a GdaDictAggregate object
---    dt :  a GdaDictType object or NULL
-
---    -----------------------------------------------------------------------------------------------------------------------
-
---   gda_dict_aggregate_get_ret_type ()
-
---  GdaDictType* gda_dict_aggregate_get_ret_type
---                                              (GdaDictAggregate *agg);
-
---    To consult the return type of a aggregate.
-
---    agg :     a GdaDictAggregate object
---    Returns : a GdaDictType object.
-
--- Properties
-
-
---    "prop"                 gpointer              : Read / Write
--- Property Details
-
---   The "prop" property
+feature -- TODO: The "prop" property
 
 --    "prop"                 gpointer              : Read / Write
 end -- class  GDA_DICT_AGGREGATE

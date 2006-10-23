@@ -47,6 +47,7 @@ feature {} -- Destroying
 			if not is_shared then
 				free (handle) -- if necessary
 			end
+			wrappers.remove(handle)
 			handle:= default_pointer
 		ensure then
 			now_null: is_null
