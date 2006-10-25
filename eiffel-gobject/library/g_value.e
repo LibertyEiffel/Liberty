@@ -30,11 +30,15 @@ creation
 	from_object, from_pointer
 
 feature {} -- Creation
-	make is
+	make_undefined, make is
 			-- Create a undefined GValue.
 		do
-			handle := g_value_init(malloc_g_value, g_type_invalid)
-		ensure then not is_valid
+			handle := calloc (1, struct_size)
+			if handle.is_null then raise_exception (No_more_memory) end
+			-- handle := g_value_init(malloc_g_value, g_type_invalid)
+		ensure
+			memory_allocated: handle.is_not_null
+			not_valid: not is_valid
 		end
 
 	with_gtype (a_gtype: INTEGER) is
