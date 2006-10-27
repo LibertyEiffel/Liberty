@@ -326,7 +326,19 @@ feature -- Operation
 			gtk_widget_grab_focus (handle)
 		end
 	
--- void        gtk_widget_grab_default         (GtkWidget *widget);
+	grab_default is
+			-- Causes widget to become the default widget. widget must have
+			-- the GTK_CAN_DEFAULT flag set; typically you have to set this 
+			-- flag yourself by calling 
+			-- GTK_WIDGET_SET_FLAGS (widget, GTK_CAN_DEFAULT). The default
+			-- widget is activated when the user presses Enter in a window.
+			-- Default widgets must be activatable, that is, gtk_widget_activate()
+			-- should affect them.
+		require defaultable: can_default
+		do
+			gtk_widget_grab_default (handle)
+		end
+	
 -- void        gtk_widget_set_name             (GtkWidget *widget,
 --                                              const gchar *name);
 -- const gchar* gtk_widget_get_name            (GtkWidget *widget);
@@ -1509,7 +1521,6 @@ feature -- button-press-event signal
 
 -- Evaluates to TRUE if the widget is effectively sensitive.
 -- wid : 	a GtkWidget.
--- GTK_WIDGET_CAN_FOCUS()
 
 	can_focus: BOOLEAN is
 			-- Is the widget able to handle focus grabs?
@@ -1523,12 +1534,14 @@ feature -- button-press-event signal
 
 -- Evaluates to TRUE if the widget has grabbed the focus and no other widget has done so more recently.
 -- wid : 	a GtkWidget.
--- GTK_WIDGET_CAN_DEFAULT()
 
--- #define GTK_WIDGET_CAN_DEFAULT(wid)	  ((GTK_WIDGET_FLAGS (wid) & GTK_CAN_DEFAULT) != 0)
+	can_default: BOOLEAN is
+			-- Evaluates to TRUE if the widget is allowed to receive the 
+			-- default action via `grab_default'.
+		do
+			Result := gtk_widget_can_default(handle).to_boolean
+		end
 
--- Evaluates to TRUE if the widget is allowed to receive the default action via gtk_widget_grab_default().
--- wid : 	a GtkWidget.
 -- GTK_WIDGET_RECEIVES_DEFAULT()
 
 -- #define GTK_WIDGET_RECEIVES_DEFAULT(wid)  ((GTK_WIDGET_FLAGS (wid) & GTK_RECEIVES_DEFAULT) != 0)
@@ -1958,13 +1971,6 @@ feature -- button-press-event signal
 
 -- widget : 	a GtkWidget
 -- Returns : 	TRUE if the widget is the focus widget.
--- gtk_widget_grab_default ()
-
--- void        gtk_widget_grab_default         (GtkWidget *widget);
-
--- Causes widget to become the default widget. widget must have the GTK_CAN_DEFAULT flag set; typically you have to set this flag yourself by calling GTK_WIDGET_SET_FLAGS (widget, GTK_CAN_DEFAULT). The default widget is activated when the user presses Enter in a window. Default widgets must be activatable, that is, gtk_widget_activate() should affect them.
-
--- widget : 	a GtkWidget
 -- gtk_widget_set_name ()
 
 -- void        gtk_widget_set_name             (GtkWidget *widget,

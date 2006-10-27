@@ -39,12 +39,18 @@ feature {} -- External calls
 -- #define     GTK_WIDGET_SENSITIVE            (wid)
 -- #define     GTK_WIDGET_PARENT_SENSITIVE     (wid)
 -- #define     GTK_WIDGET_IS_SENSITIVE         (wid)
-   gtk_widget_can_focus (a_widget: POINTER): INTEGER is
+	gtk_widget_can_focus (a_widget: POINTER): INTEGER is
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_CAN_FOCUS"
 		end
+
 -- #define     GTK_WIDGET_HAS_FOCUS            (wid)
--- #define     GTK_WIDGET_CAN_DEFAULT          (wid)
+
+	gtk_widget_can_default (a_widget: POINTER): INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_WIDGET_CAN_DEFAULT"
+		end
+
 -- #define     GTK_WIDGET_RECEIVES_DEFAULT     (wid)
 -- #define     GTK_WIDGET_HAS_DEFAULT          (wid)
 -- #define     GTK_WIDGET_HAS_GRAB             (wid)
@@ -263,9 +269,9 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
--- gtk_widget_grab_default (widget: POINTER) is
---		external "C use <gtk/gtk.h>"
---		end
+ gtk_widget_grab_default (widget: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- gtk_widget_set_name (widget: POINTER,
 --                                              const gchar *name) is
