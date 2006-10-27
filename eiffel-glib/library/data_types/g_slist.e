@@ -76,7 +76,7 @@ feature
 		do
 			p:=g_slist_get_data (handle)
 			if wrappers.has(p) then 
-				Result:= wrapper_from_pointer(wrappers.at(p)) 
+				Result ::= wrappers.at(p).to_any
 			else
 				Result := new_item
 				Result.from_external_pointer(p)
@@ -90,7 +90,7 @@ feature
 		do
 			p:=g_slist_get_data (g_slist_last (handle))
 			if wrappers.has(p) then 
-				Result:= wrapper_from_pointer(wrappers.at(p)) 
+				Result ::= wrappers.at(p).to_any
 			else
 				Result := new_item
 				Result.from_external_pointer(p)
@@ -104,7 +104,7 @@ feature
 		do
 			p:=g_slist_nth_data (handle, i)
 			if wrappers.has(p) then 
-				Result:= wrapper_from_pointer(wrappers.at(p)) 
+				Result ::= wrappers.at(p).to_any 
 			else
 				Result := new_item
 				Result.from_external_pointer(p)

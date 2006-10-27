@@ -8,10 +8,18 @@ indexing
 deferred class WRAPPER
 inherit
 	DISPOSABLE
-	undefine
-		is_equal, -- we really should redefine is_equal and copy for all wrapper classes
-		copy
-	end
+		undefine
+			is_equal, -- we really should redefine is_equal and copy for all wrapper classes
+			copy
+		end
+	-- Wrappers conform to ANY. Why? Sometimes we need to get them via a
+	-- POINTER.to_any operation
+	ANY
+		undefine
+			is_equal, -- we really should redefine is_equal and copy for all wrapper classes
+			copy
+		end
+
 	
 insert
 	EXCEPTIONS
@@ -46,9 +54,9 @@ feature {} -- Storing wrapper pointer into wrapped object
 
 	unstore_eiffel_wrapper is
 			-- Remove the "reference" to Current from the underlying
-			-- wrapped object. Note: the reference is not necessaraly
-			-- stored into the wrapped object itself. In fact the default
-			-- implementation - for example - store it into a shared
+			-- wrapped object. Note: the reference is not necessarily
+			-- stored into the wrapped object itself. The default
+			-- implementation for SHARED_C_STRUCT stores it into a shared
 			-- dictionary.
 		require
 			not_null: is_not_null
@@ -58,10 +66,6 @@ feature {} -- Storing wrapper pointer into wrapped object
 	is_eiffel_wrapper_stored: BOOLEAN is
 			-- Is a "reference" of the Current Eiffel wrapper object
 			-- stored in the underlying wrapped object? 
-
-			-- Note for wrappers developers: do not rely on this
-			-- implementation. Heirs will redefine how the storage is
-			-- made.
 		deferred
 		end
 
