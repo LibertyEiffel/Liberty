@@ -20,6 +20,7 @@ feature
 			with_model (programmers, name_column_n)
 			create completion.make 
 			completion.set_model (programmers)
+			completion.set_text_column (name_column_n)
 			entry.set_completion (completion)
 		end
 

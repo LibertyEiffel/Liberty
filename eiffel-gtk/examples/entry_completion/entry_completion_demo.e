@@ -23,23 +23,26 @@ indexing
 
 
 class ENTRY_COMPLETION_DEMO
-inherit GTK_MAIN
+
+insert
+	GTK
+
 creation make
 feature
 	make is
 		do
-			initialize_gtk
+			gtk.initialize
 			create_window
 			window.show_all
 			window.connect_agent_to_destroy_signal (agent on_destroy_window(?))
-			gtk_main
+			gtk.run_main_loop
 		end
 	on_destroy_window (an_obj: GTK_OBJECT) is
 		local a_win: GTK_WINDOW
 		do
 			a_win ::= an_obj
 			print ("Quitting%N")
-			gtk_quit
+			gtk.quit
 		end
 feature
 	create_window is
