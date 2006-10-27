@@ -21,6 +21,7 @@ feature
 			create completion.make 
 			completion.set_model (programmers)
 			completion.set_text_column (name_column_n)
+			completion.set_inline_completion(True)
 			entry.set_completion (completion)
 		end
 
