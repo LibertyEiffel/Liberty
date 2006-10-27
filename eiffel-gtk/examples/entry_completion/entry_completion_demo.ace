@@ -22,7 +22,10 @@ cluster -- section
 	gdk: "${eiffel_libraries}/eiffel-gdk/loadpath.se"
 	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
 	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
+	pango: "${eiffel_libraries}/eiffel-pango/loadpath.se"
+
 	current_demo: "."
+
 	standard: "${path_lib}/loadpath.se"
 
 external -- section for elements written in another language

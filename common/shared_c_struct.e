@@ -47,7 +47,7 @@ feature {} -- Destroying
 			if not is_shared then
 				free (handle)
 			end
-			wrappers.remove(handle)
+			unstore_eiffel_wrapper
 			handle:= default_pointer
 		ensure then
 			now_null: is_null

@@ -81,7 +81,9 @@ deferred class G_OBJECT
 inherit
 	SHARED_C_STRUCT
 		redefine 
-			from_external_pointer, dispose
+			from_external_pointer, dispose,
+			store_eiffel_wrapper, unstore_eiffel_wrapper,
+			is_eiffel_wrapper_stored
 		end
 	-- Note: why it explicitly inheritd from ANY?
 
@@ -106,8 +108,8 @@ feature
 			
 			-- It also take care of storing an hidden pointer to the 
 			-- underlying GobjectClass
-		require 
-			not_stored: not is_eiffel_wrapper_stored
+		
+			-- require not_stored: not is_eiffel_wrapper_stored
 		do
 			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
 			-- We do the above direct call instead of using the
@@ -115,8 +117,7 @@ feature
 			-- is to avoid an invariant check when passing Current as
 			-- argument.
 			g_object_class := g_object_get_class (handle)
-		ensure
-			stored: is_eiffel_wrapper_stored
+			-- ensure stored: is_eiffel_wrapper_stored
 		end
 
 	unstore_eiffel_wrapper is
@@ -126,8 +127,7 @@ feature
 			-- call to this feature should not be harmful
 		do
 			g_object_set_qdata (handle, eiffel_key.quark, default_pointer)
-		ensure
-			not_stored: not is_eiffel_wrapper_stored
+		-- ensure not_stored: not is_eiffel_wrapper_stored
 		end
 
 	is_eiffel_wrapper_stored: BOOLEAN is

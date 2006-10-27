@@ -21,23 +21,18 @@ indexing
 					
 deferred class SHARED_WRAPPERS_DICTIONARY
 insert ANY undefine copy, is_equal end
-feature
-	foo is
-		do
-		end
+feature {} -- Implementation
 	
 	wrappers: BIJECTIVE_DICTIONARY [POINTER, POINTER] is
-			-- Dictionary storing each wrapper created in the program.  Key is the
-			-- address (pointer) to the wrapped C structure, value is the address
-			-- of the respective Eiffel wrapper.
-
-			-- This way you can get back an already-created Eiffel wrapper
-		
-			-- ... sorry this is a *WRONG* idea since it does *NOT* take in count
-			-- GC!
+			-- Dictionary storing wrappers created in the program.  Key
+			-- is the address (pointer) to the wrapped C structure, value
+			-- is the address of the respective Eiffel wrapper. This way
+			-- you can get back an already-created Eiffel wrapper. Heirs
+			-- of WRAPPER, i.e. G_OBJECT could provide alternative
+			-- implementation that will not rely on this dictionary.
 		once
-			create {HASHED_BIJECTIVE_DICTIONARY[POINTER,POINTER]}
-			Result.with_capacity (100)
+        create {HASHED_BIJECTIVE_DICTIONARY[POINTER,POINTER]}
+		  Result.with_capacity (100)
 		end
 	
 end -- class SHARED_WRAPPERS_DICTIONARY

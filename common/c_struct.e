@@ -27,7 +27,6 @@ feature {} -- Initialization
 		end
 
 feature -- Queries
-
 	exists: BOOLEAN is
 			--  Does Current wrap an existing object? Speaking in C: is handle not 
 			--  NULL?
@@ -54,7 +53,7 @@ feature {} -- Destroying
 			-- the garbage collector removes the wrapper object.
 		do
 			free (handle) -- if necessary. free(NULL) is a NOP
-			wrappers.remove(handle)
+			unstore_eiffel_wrapper
 			handle:= default_pointer -- null
 		ensure
 			cleared: is_null

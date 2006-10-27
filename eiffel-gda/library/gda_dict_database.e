@@ -195,172 +195,172 @@ feature
 
 feature -- TODO: Properties
 
---   "prop"                 gpointer              : Read / Write
+	--   "prop"                 gpointer              : Read / Write
 
 
--- Property Details
--- The "prop" property
+	-- Property Details
+	-- The "prop" property
 
---   "prop"                 gpointer              : Read / Write
+	--   "prop"                 gpointer              : Read / Write
 
 feature -- TODO: -- Signals
 
--- "constraint-added"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
--- "constraint-removed"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
--- "constraint-updated"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
--- "data-update-finished"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         user_data)            : Run first
--- "data-update-started"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         user_data)            : Run first
--- "field-added"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
--- "field-removed"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
--- "field-updated"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
--- "table-added"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
--- "table-removed"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
--- "table-updated"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
--- "update-progress"
---             void        user_function      (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             guint            arg2,
---                                             guint            arg3,
---                                             gpointer         user_data)            : Run first
+	-- "constraint-added"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
+	-- "constraint-removed"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
+	-- "constraint-updated"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
+	-- "data-update-finished"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         user_data)            : Run first
+	-- "data-update-started"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         user_data)            : Run first
+	-- "field-added"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
+	-- "field-removed"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
+	-- "field-updated"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
+	-- "table-added"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
+	-- "table-removed"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
+	-- "table-updated"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
+	-- "update-progress"
+	--             void        user_function      (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             guint            arg2,
+	--                                             guint            arg3,
+	--                                             gpointer         user_data)            : Run first
 
--- Signal Details
--- The "constraint-added" signal
+	-- Signal Details
+	-- The "constraint-added" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "constraint-removed" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "constraint-removed" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "constraint-updated" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "constraint-updated" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "data-update-finished" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "data-update-finished" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "data-update-started" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "data-update-started" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "field-added" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "field-added" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "field-removed" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "field-removed" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "field-updated" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "field-updated" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "table-added" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "table-added" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "table-removed" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "table-removed" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "table-updated" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "table-updated" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "update-progress" signal
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "update-progress" signal
 
--- void        user_function                  (GdaDictDatabase *gdadictdatabase,
---                                             gpointer         arg1,
---                                             guint            arg2,
---                                             guint            arg3,
---                                             gpointer         user_data)            : Run first
+	-- void        user_function                  (GdaDictDatabase *gdadictdatabase,
+	--                                             gpointer         arg1,
+	--                                             guint            arg2,
+	--                                             guint            arg3,
+	--                                             gpointer         user_data)            : Run first
 
--- dbdatabase : 	the object which received the signal.
--- arg1 : 	
--- arg2 : 	
--- arg3 : 	
--- user_data : 	user data set when the signal handler was connected.
+	-- dbdatabase : 	the object which received the signal.
+	-- arg1 : 	
+	-- arg2 : 	
+	-- arg3 : 	
+	-- user_data : 	user data set when the signal handler was connected.
 end -- class GDA_DICT_DATABASE
