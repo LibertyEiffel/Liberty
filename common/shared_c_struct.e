@@ -18,8 +18,10 @@ inherit
 		undefine
 			make
 		redefine
-			dispose
+			dispose, store_eiffel_wrapper, unstore_eiffel_wrapper,
+			is_eiffel_wrapper_stored
 		end
+	SHARED_WRAPPERS_DICTIONARY
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 	is_shared: BOOLEAN
@@ -36,6 +38,34 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 	unset_shared, set_unshared is
 		do
 			is_shared := False
+		end
+
+feature {} -- Handling wrapper
+
+	store_eiffel_wrapper is
+		do
+			wrappers.add (to_pointer, handle)
+		end
+
+	unstore_eiffel_wrapper is
+		do
+			wrappers.remove (handle)
+		end
+
+	is_eiffel_wrapper_stored: BOOLEAN is
+		do
+			Result := wrappers.has(handle)
+			debug 
+				if Result and then to_pointer/=wrappers.at(handle) then
+					print ("Warning! The reference (")
+					print (wrappers.at(handle).out) 
+					print (") stored in the wrapped object (")
+					print (handle.out) 
+					print (") is not equal to the address of Current (")
+					print (to_pointer.out)
+					print ("). Really bad things will happen...%N")
+				end
+			end
 		end
 
 feature {} -- Destroying

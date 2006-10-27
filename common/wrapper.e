@@ -21,14 +21,14 @@ insert
 			copy
 		end
 
-	SHARED_WRAPPERS_DICTIONARY
-	
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			handle := a_ptr
 			store_eiffel_wrapper
-		ensure stored: is_eiffel_wrapper_stored
+		ensure
+			handle = a_ptr
+			stored: is_eiffel_wrapper_stored
 		end
 
 	from_pointer (a_ptr: POINTER) is
@@ -38,21 +38,21 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 		end
 
 feature {} -- Storing wrapper pointer into wrapped object
+
 	store_eiffel_wrapper is
-		do
-			wrappers.add (to_pointer, handle)
+		deferred
 		ensure stored: is_eiffel_wrapper_stored
 		end
-	
+
 	unstore_eiffel_wrapper is
 			-- Remove the "reference" to Current from the underlying
 			-- wrapped object. Note: the reference is not necessaraly
 			-- stored into the wrapped object itself. In fact the default
 			-- implementation - for example - store it into a shared
 			-- dictionary.
-		require not_null: is_not_null
-		do
-			wrappers.remove (handle)
+		require
+			not_null: is_not_null
+		deferred
 		end
 
 	is_eiffel_wrapper_stored: BOOLEAN is
@@ -62,19 +62,7 @@ feature {} -- Storing wrapper pointer into wrapped object
 			-- Note for wrappers developers: do not rely on this
 			-- implementation. Heirs will redefine how the storage is
 			-- made.
-		do
-			Result:= wrappers.has(handle)
-			debug 
-				if Result and then to_pointer/=wrappers.at(handle) then
-					print ("Warning! The reference (")
-					print (wrappers.at(handle).out) 
-					print (") stored in the wrapped object (")
-					print (handle.out) 
-					print (") is not equal to the address of Current (")
-					print (to_pointer.out)
-					print ("). Really bad things will happen...%N")
-				end
-			end
+		deferred
 		end
 
 feature {ANY} -- Implementation

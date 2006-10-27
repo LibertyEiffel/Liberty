@@ -46,6 +46,24 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 		ensure positive: Result > 0 -- TODO: having NATURAL it is plainly useless
 		end
 
+feature {} -- Handling wrappers
+
+-- NOTE: C_STRUCT's are considered to be "owned" by the Eiffel code, and
+-- the Eiffel side should keep then longest lived reference to this struct.
+-- This allows us to forget about wrapping for this objects.
+-- If you have to share this struct and/or will have pointers to it around
+-- that will outlive the wrapper, please use SHARED_C_STRUCT
+
+	store_eiffel_wrapper is
+		do
+		end
+
+	unstore_eiffel_wrapper is
+		do
+		end
+
+	is_eiffel_wrapper_stored: BOOLEAN is True
+
 feature {} -- Destroying
 
 	dispose, force_free_handle  is
