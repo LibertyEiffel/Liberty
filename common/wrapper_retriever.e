@@ -23,8 +23,6 @@ expanded class WRAPPER_RETRIEVER [ITEM_->WRAPPER]
 insert 
 	WRAPPER_FACTORY[ITEM_]
 		export {WRAPPER, WRAPPER_HANDLER}
-			wrapper_from_pointer,
-			new_item,
-			retrieve
+			new_item
 		end
 end -- class WRAPPER_RETRIEVER

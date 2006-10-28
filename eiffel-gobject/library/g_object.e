@@ -349,11 +349,16 @@ feature -- Properties query
 			-- Find the parameter's spec for `a_property_name'. Void if
 			-- the class doesn't have a property of that name.
 		require valid_name: a_property_name /= Void
-		local param_spec_ptr: POINTER
+		local
+			param_spec_ptr: POINTER
 		do
 			param_spec_ptr:=g_object_class_find_property (g_object_get_class(handle),a_property_name.to_external)
 			if param_spec_ptr.is_not_null then
-				create Result.from_external_pointer (param_spec_ptr)
+				if wrappers.has (param_spec_ptr) then
+					Result ::= wrappers.at (param_spec_ptr).to_any
+				else
+					create Result.from_external_pointer (param_spec_ptr)
+				end
 				Result.set_shared
 			end
 		end

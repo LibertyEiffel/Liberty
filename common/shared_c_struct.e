@@ -43,8 +43,11 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 feature {} -- Handling wrapper
 
 	store_eiffel_wrapper is
+		local
+			a: ANY
 		do
-			wrappers.add (to_pointer, handle)
+			a := Current -- Workaround for SE bug
+			wrappers.add (a.to_pointer, handle)
 		end
 
 	unstore_eiffel_wrapper is
