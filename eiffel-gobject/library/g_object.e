@@ -92,6 +92,7 @@ insert
 	G_OBJECT_EXTERNALS
 	G_VALUE_EXTERNALS
 	SHARED_EIFFEL_KEY
+	G_SIGNALS
 
 	-- Features inserted to implement smart_get_property and smart_set_property
 	G_PARAM_SPEC_EXTERNALS export {} all end
