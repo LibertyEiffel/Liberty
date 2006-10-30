@@ -48,29 +48,31 @@ feature {}
 		do
 			check False end
 		end
-				
+
 feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
 		do
-			Precursor (a_ptr)
-			owner_class := g_type_class_peek(get_owner_type(handle))
-			param_id := get_param_id (handle)
+			check a_ptr.is_not_null end
 			set_shared
+			owner_class := g_type_class_peek (get_owner_type (a_ptr))
+			param_id := get_param_id (a_ptr)
+			Precursor (a_ptr)
 		end
 
 feature -- Flags
+
 	flags: INTEGER is
 		do
 			Result := get_flags (handle)
 		ensure are_valid_param_flags (Result)
 		end
-	
+
 	is_readable: BOOLEAN is
 			-- Is Current parameter readable?
 		do
 			Result:= (flags & g_param_readable).to_boolean
 		end
-	
+
 	is_writable: BOOLEAN is
 			-- Is Current parameter writable?
 		do
@@ -101,7 +103,7 @@ feature -- Flags
 		do
 			Result:= (flags & g_param_static_name).to_boolean
 		end
-	
+
 	is_static_blurb: BOOLEAN is
 			-- Is the string used as blurb when constructing the parameter
 			-- guaranteed to remain valid and unmodified for the lifetime
@@ -129,7 +131,7 @@ feature
 	is_default_value (a_value: G_VALUE): BOOLEAN is
 			-- Does `a_value' contains the default value specified in
 			-- Current?
-		require 
+		require
 			value_not_void: a_value /= Void
 			correct_value_type: a_value.type = value_gtype
 		do
@@ -244,21 +246,21 @@ feature {} -- Creation
 			valid_flags: are_valid_param_flags (some_flags)
 		do
 			handle := g_param_spec_boolean(a_name.to_external,
-													 a_nick.to_external,
-													 a_blurb.to_external,
-													 a_default.to_integer,
-													 some_flags)
+											 a_nick.to_external,
+											 a_blurb.to_external,
+											 a_default.to_integer,
+											 some_flags)
 			-- Note: where Gobject type system took this?
 			owner_class := g_type_class_peek(get_owner_type(handle))
 			param_id := get_param_id (handle)
-			--
+			
 			set_shared
-		ensure 
+		ensure
 			is_boolean: is_boolean
 		end
-	
+
 	make_integer (a_name,a_nick,a_blurb: STRING;
-					  a_min,a_max,a_default: INTEGER; some_flags: INTEGER) is
+				  a_min,a_max,a_default: INTEGER; some_flags: INTEGER) is
 			-- Creates a parameter specification for an integer setting.
 			-- `a_name' is the canonical name of the property specified,
 			-- `a_nick' is the nick name for the property specified,
@@ -270,24 +272,23 @@ feature {} -- Creation
 				default_in_range: a_default.in_range (a_min, a_max)
 		do
 			handle := g_param_spec_int (a_name.to_external, a_nick.to_external, a_blurb.to_external,
-												 a_min, a_max, a_default,
-												 some_flags)
+										 a_min, a_max, a_default,
+										 some_flags)
 			-- Note: where Gobject type system took this?
 			owner_class := g_type_class_peek(get_owner_type(handle))
 			param_id := get_param_id (handle)
-			--
+			
 			set_shared
 		ensure is_integer: is_integer
 		end
 
-	
 feature -- Boolean parameter
 	is_boolean: BOOLEAN is
 		-- Is this a boolean parameter?
 		do
 			Result := g_is_param_spec_boolean (handle).to_boolean
 		end
-	
+
 	default_boolean: BOOLEAN is
 		-- default boolean value
 		do
@@ -976,12 +977,12 @@ feature {} -- Unwrapped API
 --    Returns :    a GList of all GParamSpecs owned by owner_type in the
 --                 poolGParamSpecs.
 feature -- size
+
 	struct_size: INTEGER is
 		obsolete "G_PARAM_SPEC should be deferred and its place should be taken by specialized heirs such as G_PARAM_SPEC_BOOLEAN"
-		external "C use <glib-object.h>" 
+		external "C use <glib-object.h>"
 		alias "sizeof(GParamSpec)"
 		end
-
 
 invariant
 	is_shared: is_shared

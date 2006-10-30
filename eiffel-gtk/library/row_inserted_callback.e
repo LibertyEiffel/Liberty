@@ -52,7 +52,8 @@ feature
 				eiffel_created_the_instance: has_eiffel_wrapper_stored (instance)
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create tree_iter_obj.from_model (object)
+			create tree_iter_obj.from_external_pointer (tree_iter)
+			tree_iter_obj.attach_to (object)
 			create tree_path_obj.from_external_pointer (tree_path)
 			procedure.call ([tree_path_obj, tree_iter_obj, object])
 		end
@@ -74,7 +75,6 @@ feature
 				print (" Current.handle=") print (handle.to_string)
 				print ("%N")
 			end
-					 
 			handler_id := g_signal_connect_closure (an_object.handle,
 			                                        signal_name.to_external,
 			                                        handle,

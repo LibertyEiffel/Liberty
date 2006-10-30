@@ -363,7 +363,7 @@ feature
 		end
 	
 	scroll_to_cell (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN;use_align: BOOLEAN;
-						 row_align, col_align: REAL_32) is
+	                row_align, col_align: REAL_32) is
 			-- Moves the alignments of tree view to the position
 			-- specified by `a_column' and `a_path'. If `a_column' is
 			-- Void, then no horizontal scrolling occurs. Likewise, if
@@ -761,9 +761,11 @@ feature -- Drag n' Drop
 			-- and the location for the drop position, or NULL.
 		local
 			a_path: GTK_TREE_PATH
+			a_path_ptr: POINTER
 			a_position: INTEGER
 		do
-			gtk_tree_view_get_drag_dest_row (handle, $a_path, $a_position);
+			gtk_tree_view_get_drag_dest_row (handle, $a_path_ptr, $a_position);
+			create a_path.from_external_pointer (a_path_ptr)
 			Result := [a_path, a_position]
 		ensure
 			Result /= Void
@@ -779,10 +781,12 @@ feature -- Drag n' Drop
 			-- Returns : 	whether there is a row at the given position.
 		local
 			a_path: GTK_TREE_PATH
+			a_path_ptr: POINTER
 			a_position: INTEGER
 			row_exists: BOOLEAN
 		do
-			row_exists := gtk_tree_view_get_dest_row_at_pos (handle, drag_x, drag_y, $a_path, $a_position).to_boolean
+			row_exists := gtk_tree_view_get_dest_row_at_pos (handle, drag_x, drag_y, $a_path_ptr, $a_position).to_boolean
+			create a_path.from_external_pointer (a_path_ptr)
 			Result := [a_path, a_position, row_exists]
 		ensure
 			Result /= Void

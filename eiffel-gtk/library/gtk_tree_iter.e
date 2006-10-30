@@ -44,6 +44,7 @@ feature -- Creation
 			tree_model := a_model
 		ensure
 			handle.is_not_null
+			attached_to_model
 		end
 
 feature
@@ -53,6 +54,8 @@ feature
 	start, first is
 			-- Initializes Current with the first iterator in the tree (the one at
 			-- the path "0") and returns TRUE. Returns FALSE if the tree is empty.
+		require
+			attached_to_model
 		do
 			is_valid:=(gtk_tree_model_get_iter_first (tree_model.handle, handle)).to_boolean
 		end
@@ -62,6 +65,8 @@ feature
 			-- level. If there is no next position
 			-- `is_valid' will be False and Current is
 			-- set to be invalid.
+		require
+			attached_to_model
 		do
 			is_valid:=(gtk_tree_model_iter_next (tree_model.handle,handle)).to_boolean
 		end
@@ -72,6 +77,8 @@ feature
 			-- False. Current will remain a valid node after this
 			-- function has been called. If `a_parent' is Void returns
 			-- the first node, equivalent to `first'
+		require
+			attached_to_model
 		do
 			if a_parent=Void then
 				is_valid:=(gtk_tree_model_iter_children (tree_model.handle, handle, default_pointer)).to_boolean
@@ -82,6 +89,8 @@ feature
 
 	has_child: BOOLEAN is
 			-- Does Current iterator have children?
+		require
+			attached_to_model
 		do
 			Result := (gtk_tree_model_iter_has_child (tree_model.handle,
 			           handle)).to_boolean
@@ -92,12 +101,16 @@ feature
 			-- is NULL, then the number of toplevel nodes is returned. (Note:
 			-- `n_children' feature name comes from C Api. `children_count' is
 			-- another name of the same feature that follow Eiffel naming style)
+		require
+			attached_to_model
 		do
 			Result := gtk_tree_model_iter_n_children (tree_model.handle, handle)
 		end
 
 	toplevel_nodes_count: INTEGER is
 			-- Number of toplevel nodes of `tree_model'
+		require
+			attached_to_model
 		do
 			Result := gtk_tree_model_iter_n_children (tree_model.handle,default_pointer)
 		end
@@ -112,8 +125,11 @@ feature
 			-- child.
 
 			-- Note: Is `to_nth_child' a better name than `to_nth_child_of'?
-		require valid_index: an_index >= 0
-		local parent_ptr: POINTER
+		require
+			valid_index: an_index >= 0
+			attached_to_model
+		local
+			parent_ptr: POINTER
 		do
 			if a_parent/=Void then parent_ptr := a_parent.handle end
 			is_valid := (gtk_tree_model_iter_nth_child  (tree_model.handle,handle,
@@ -125,7 +141,9 @@ feature
 			-- toplevel it doesn't have a parent, then iter is set to an invalid
 			-- iterator and `is_valid' will be False. `a_child' will remain a valid
 			-- node after this function has been called.
-		require valid_child: a_child /= Void
+		require
+			valid_child: a_child /= Void
+			attached_to_model
 		do
 			is_valid := (gtk_tree_model_iter_parent (tree_model.handle,handle,
 			             a_child.handle)).to_boolean
@@ -135,12 +153,32 @@ feature
 			-- a representation of the iter. This string is a ':' separated list of
 			-- numbers. For example, "4:10:0:3" would be an acceptable return value
 			-- for this string.
+		require
+			attached_to_model
 		do
 			create Result.from_external (gtk_tree_model_get_string_from_iter (tree_model.handle,handle))
 			-- Note: gtk_tree_model_get_string_from_iter returns a newly-allocated
 			-- string that Must be freed with g_free. As far as I know this means
 			-- that Result shall be created without copying the string and letting
 			-- the Garbage Collector free it.
+		end
+
+	attached_to_model: BOOLEAN is
+		do
+			Result := tree_model /= Void
+		end
+
+feature {CALLBACK}
+
+	attach_to (a_model: like tree_model) is
+		require
+			not attached_to_model
+			a_model /= Void
+		do
+			tree_model := a_model
+		ensure
+			attached_to_model
+			tree_model = a_model
 		end
 
 feature  -- struct size
