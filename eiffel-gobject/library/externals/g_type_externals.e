@@ -5,7 +5,9 @@ indexing
 	revision "$REvision:$"
 
 class G_TYPE_EXTERNALS
-insert G_TYPES
+
+--insert G_TYPE
+
 feature {} -- external calls
 
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
@@ -1131,5 +1133,3 @@ feature {} -- External calls
 
 	-- Since 2.4
 end
-														 
-														 

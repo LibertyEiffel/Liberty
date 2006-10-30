@@ -16,7 +16,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	description: "[
 					  GdkWindowHints, used to indicate which fields of a
 					  GdkGeometry struct should be paid attention to. Also,
@@ -32,6 +32,7 @@ indexing
 					  ]"
 
 deferred class GDK_WINDOW_HINTS
+
 feature -- Enum
 	gdk_hint_pos: INTEGER is
 			-- indicates that the program has positioned the window
@@ -102,5 +103,5 @@ feature -- Enum
 			-- Note: "&" Bitwise logical "and" just like C.
 			-- Note: "|" Bitwise logical inclusive or just lice C.
 		end
+
 end
-										

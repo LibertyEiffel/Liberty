@@ -99,7 +99,6 @@ inherit
 insert
 	GTK -- that provides the gtk singleton.
 	GTK_OBJECT_EXTERNALS
-	G_SIGNALS
 
 feature
 

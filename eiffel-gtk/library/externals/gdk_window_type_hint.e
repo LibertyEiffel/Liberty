@@ -16,13 +16,14 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	description: "[
 					  enum GdkWindowTypeHint are hints for the window manager that indicate what type of function the window has. The window manager can use this when determining decoration and behaviour of the window. The hint must be set before mapping the window.
 
 					  See the Extended Window Manager Hints specification for more details about window types.
-					  ]"
-deferred class GDK_WINDOW_TYPE_HINT  
+				  ]"
+deferred class GDK_WINDOW_TYPE_HINT
+
 feature -- Enum
 	
 	gdk_window_type_hint_normal: INTEGER is
@@ -85,4 +86,3 @@ feature -- Enum
 									  gdk_window_type_hint_desktop)).to_boolean
 		end
 end
-

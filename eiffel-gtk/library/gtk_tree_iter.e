@@ -76,7 +76,7 @@ feature
 			if a_parent=Void then
 				is_valid:=(gtk_tree_model_iter_children (tree_model.handle, handle, default_pointer)).to_boolean
 			else
-				is_valid:=(gtk_tree_model_iter_children (tree_model.handle, handle, a_parent.handle)).to_boolean	
+				is_valid:=(gtk_tree_model_iter_children (tree_model.handle, handle, a_parent.handle)).to_boolean
 			end
 		end
 
@@ -148,7 +148,8 @@ feature  -- struct size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeIter)"
 		end
-feature 
+
+feature
 	dispose is
 		do
 			if handle.is_not_null then gtk_tree_iter_free (handle) end
@@ -161,7 +162,7 @@ feature
 		do
 			Result := get_stamp (handle)
 		end
-	
+
 	set_stamp (a_stamp: INTEGER) is
 		do
 			set_stamp_internal (handle, a_stamp)

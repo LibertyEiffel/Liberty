@@ -19,6 +19,7 @@ inherit
 
 insert
 	G_TYPE
+	G_TYPES
 	GLIB_MEMORY_ALLOCATION export {} all end
 	G_VALUE_EXTERNALS
 
@@ -30,6 +31,7 @@ creation
 	from_object, from_pointer
 
 feature {} -- Creation
+
 	make is
 			-- Create a undefined GValue.
 		do
@@ -53,7 +55,7 @@ feature {} -- Creation
 			
 		require valid_type: is_g_type (a_gtype)
 		do
-			handle := g_value_init(malloc_g_value, a_gtype)
+			handle := g_value_init (malloc_g_value, a_gtype)
 		end
 
 	make_boolean is

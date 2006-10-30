@@ -80,7 +80,7 @@ deferred class G_OBJECT
 
 inherit
 	SHARED_C_STRUCT
-		redefine 
+		redefine
 			from_external_pointer, dispose,
 			store_eiffel_wrapper, unstore_eiffel_wrapper,
 			is_eiffel_wrapper_stored
@@ -108,8 +108,8 @@ feature
 			
 			-- It also take care of storing an hidden pointer to the 
 			-- underlying GobjectClass
-		
-			-- require not_stored: not is_eiffel_wrapper_stored
+			
+		-- require not_stored: not is_eiffel_wrapper_stored
 		do
 			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
 			-- We do the above direct call instead of using the

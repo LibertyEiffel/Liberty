@@ -16,14 +16,15 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 	description: "enum GdkGravity defines the reference point of a window and the meaning of coordinates passed to gtk_window_move(). See gtk_window_move() and the "implementation notes" section of the Extended Window Manager Hints specification for more details."
 
 deferred class GDK_GRAVITY
+
 feature -- Enum
-	
+
 	gdk_gravity_north_west: INTEGER is
 			-- 	the reference point is at the top left corner.
 		external "C macro use <gdk/gdk.h>"
@@ -98,4 +99,5 @@ feature -- Enum
 						  (a_gravity = gdk_gravity_south_east) or else
 						  (a_gravity = gdk_gravity_static))
 		end
+
 end

@@ -6,14 +6,14 @@ indexing
 	revision: "$Revision:$"
 
 			-- Description
-	
+			
 			-- The GType API is the foundation of the GObject system. It
 			-- provides the facilities for registering and managing all
 			-- fundamental data types, user-defined object and interface
 			-- types. Before using any GType or GObject functions,
 			-- g_type_init() must be called to initialize the type
 			-- system.
-	
+			
 			-- For type creation and registration purposes, all types
 			-- fall into one of two categories: static or dynamic. Static
 			-- types are never loaded or unloaded at run-time as dynamic

@@ -28,7 +28,8 @@ indexing
 
 class GTK_TEXT_TAG_TABLE
 
-inherit G_OBJECT
+inherit
+	G_OBJECT rename lookup as g_object_lookup end
 
 insert
 	GTK

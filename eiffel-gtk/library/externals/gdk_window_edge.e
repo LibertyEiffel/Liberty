@@ -16,10 +16,11 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	description: "enum GdkWindowEdge determines a window edge or corner."
 
 deferred class GDK_WINDOW_EDGE
+
 feature -- Enum
 	gdk_window_edge_north_west: INTEGER is
 			-- 	the top left corner.
@@ -81,5 +82,5 @@ feature -- Enum
 						  (an_edge = gdk_window_edge_south) or else
 						  (an_edge = gdk_window_edge_south_east))
 		end
+
 end
-	

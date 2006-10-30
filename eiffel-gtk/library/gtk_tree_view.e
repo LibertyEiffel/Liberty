@@ -29,6 +29,7 @@ inherit
 insert
 	WRAPPER_FACTORY [GTK_TREE_MODEL]
 	GTK_TREE_VIEW_EXTERNALS
+	GTK_TREE_VIEW_DROP_POSITION
 	G_OBJECT_RETRIEVER [GTK_TREE_VIEW_COLUMN]
 
 creation make, with_model, from_external_pointer
@@ -701,100 +702,109 @@ feature
 	-- wy : 	return location for widget Y coordinate
 	-- gtk_tree_view_enable_model_drag_dest ()
 
-	-- void        gtk_tree_view_enable_model_drag_dest
-	--                                             (GtkTreeView *tree_view,
-	--                                              const GtkTargetEntry *targets,
-	--                                              gint n_targets,
-	--                                              GdkDragAction actions);
+feature -- Drag n' Drop
 
-	-- Turns tree_view into a drop destination for automatic DND.
+	enable_model_drag_dest (some_targets: GTK_TARGET_ENTRY; n_targets: INTEGER; some_actions: INTEGER) is
+			-- Turns Current into a drop destination for automatic DND.
+			-- some_targets : 	the table of targets that the drag will support
+			-- n_targets : 	the number of items in targets
+			-- some_actions : 	the bitmask of possible actions for a drag from this widget
+		require
+			some_targets /= Void
+			is_valid_gdk_drag_action (some_actions)
+		do
+			gtk_tree_view_enable_model_drag_dest (handle, some_targets.handle, n_targets, some_actions)
+		end
 
-	-- tree_view : 	a GtkTreeView
-	-- targets : 	the table of targets that the drag will support
-	-- n_targets : 	the number of items in targets
-	-- actions : 	the bitmask of possible actions for a drag from this widget
-	-- gtk_tree_view_enable_model_drag_source ()
+	enable_model_drag_source (a_start_button_mask: INTEGER; some_targets: GTK_TARGET_ENTRY;
+	                          n_targets: INTEGER; some_actions: INTEGER) is
+			-- Turns Current into a drag source for automatic DND.
+			-- a_start_button_mask : 	Mask of allowed buttons to start drag
+			-- some_targets : 	the table of targets that the drag will support
+			-- n_targets : 	the number of items in targets
+			-- some_actions : 	the bitmask of possible actions for a drag from this widget
+		require
+			is_valid_gdk_modifier_type (a_start_button_mask)
+			some_targets /= Void
+			is_valid_gdk_drag_action (some_actions)
+		do
+			gtk_tree_view_enable_model_drag_source (handle, a_start_button_mask,
+			                                        some_targets.handle, n_targets, some_actions)
+		end
 
-	-- void        gtk_tree_view_enable_model_drag_source
-	--                                             (GtkTreeView *tree_view,
-	--                                              GdkModifierType start_button_mask,
-	--                                              const GtkTargetEntry *targets,
-	--                                              gint n_targets,
-	--                                              GdkDragAction actions);
+	unset_rows_drag_source is
+			-- Undoes the effect of `enable_model_drag_source'.
+		do
+			gtk_tree_view_unset_rows_drag_source (handle)
+		end
 
-	-- Turns tree_view into a drag source for automatic DND.
+	unset_rows_drag_dest is
+			-- Undoes the effect of `enable_model_drag_dest'.
+		do
+			gtk_tree_view_unset_rows_drag_dest (handle)
+		end
 
-	-- tree_view : 	a GtkTreeView
-	-- start_button_mask : 	Mask of allowed buttons to start drag
-	-- targets : 	the table of targets that the drag will support
-	-- n_targets : 	the number of items in targets
-	-- actions : 	the bitmask of possible actions for a drag from this widget
-	-- gtk_tree_view_unset_rows_drag_source ()
+	set_drag_dest_row (a_path: GTK_TREE_PATH; a_position: INTEGER) is
+			-- Sets the row that is highlighted for feedback.
+			-- a_path : The path of the row to highlight, or NULL.
+			-- a_position : Specifies whether to drop before, after or into the row
+		require
+			a_path /= Void
+			is_valid_gtk_tree_view_drop_position (a_position)
+		do
+			gtk_tree_view_set_drag_dest_row (handle, a_path.handle, a_position)
+		end
 
-	-- void        gtk_tree_view_unset_rows_drag_source
-	--                                             (GtkTreeView *tree_view);
+	drag_dest_row: TUPLE [GTK_TREE_PATH, INTEGER] is
+			-- Gets information about the row that is highlighted for feedback.
+			-- Returns a tuple with the location for the path of the highlighted row, or NULL;
+			-- and the location for the drop position, or NULL.
+		local
+			a_path: GTK_TREE_PATH
+			a_position: INTEGER
+		do
+			gtk_tree_view_get_drag_dest_row (handle, $a_path, $a_position);
+			Result := [a_path, a_position]
+		ensure
+			Result /= Void
+			is_valid_gtk_tree_view_drop_position (Result.second)
+		end
 
-	-- Undoes the effect of gtk_tree_view_enable_model_drag_source().
+	dest_row_at_pos (drag_x, drag_y: INTEGER): TUPLE [GTK_TREE_PATH, INTEGER, BOOLEAN] is
+			-- Determines the destination row for a given position.
+			-- drag_x : 	the position to determine the destination row for
+			-- drag_y : 	the position to determine the destination row for
+			-- a_path : 	Return location for the path of the highlighted row, or NULL.
+			-- a_position : 	Return location for the drop position, or NULL
+			-- Returns : 	whether there is a row at the given position.
+		local
+			a_path: GTK_TREE_PATH
+			a_position: INTEGER
+			row_exists: BOOLEAN
+		do
+			row_exists := gtk_tree_view_get_dest_row_at_pos (handle, drag_x, drag_y, $a_path, $a_position).to_boolean
+			Result := [a_path, a_position, row_exists]
+		ensure
+			Result /= Void
+			is_valid_gtk_tree_view_drop_position (Result.second)
+		end
 
-	-- tree_view : 	a GtkTreeView
-	-- gtk_tree_view_unset_rows_drag_dest ()
+	row_drag_icon (a_path: GTK_TREE_PATH): GDK_PIXMAP is
+			-- Creates a GdkPixmap representation of the row at path.
+			-- This image is used for a drag icon.
+			-- a_path : 	a GtkTreePath in Current
+			-- Returns : 	a newly-allocated pixmap of the drag icon.
+		require
+			a_path /= Void
+		local
+			c_ptr: POINTER
+		do
+			c_ptr := gtk_tree_view_create_row_drag_icon (handle, a_path.handle)
+			create Result.from_external_pointer (c_ptr)
+		end
 
-	-- void        gtk_tree_view_unset_rows_drag_dest
-	--                                             (GtkTreeView *tree_view);
+feature -- Search
 
-	-- Undoes the effect of gtk_tree_view_enable_model_drag_dest().
-
-	-- tree_view : 	a GtkTreeView
-	-- gtk_tree_view_set_drag_dest_row ()
-
-	-- void        gtk_tree_view_set_drag_dest_row (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path,
-	--                                              GtkTreeViewDropPosition pos);
-
-	-- Sets the row that is highlighted for feedback.
-
-	-- tree_view : 	a GtkTreeView
-	-- path : 	The path of the row to highlight, or NULL.
-	-- pos : 	Specifies whether to drop before, after or into the row
-	-- gtk_tree_view_get_drag_dest_row ()
-
-	-- void        gtk_tree_view_get_drag_dest_row (GtkTreeView *tree_view,
-	--                                              GtkTreePath **path,
-	--                                              GtkTreeViewDropPosition *pos);
-
-	-- Gets information about the row that is highlighted for feedback.
-
-	-- tree_view : 	a GtkTreeView
-	-- path : 	Return location for the path of the highlighted row, or NULL.
-	-- pos : 	Return location for the drop position, or NULL
-	-- gtk_tree_view_get_dest_row_at_pos ()
-
-	-- gboolean    gtk_tree_view_get_dest_row_at_pos
-	--                                             (GtkTreeView *tree_view,
-	--                                              gint drag_x,
-	--                                              gint drag_y,
-	--                                              GtkTreePath **path,
-	--                                              GtkTreeViewDropPosition *pos);
-
-	-- Determines the destination row for a given position.
-
-	-- tree_view : 	a GtkTreeView
-	-- drag_x : 	the position to determine the destination row for
-	-- drag_y : 	the position to determine the destination row for
-	-- path : 	Return location for the path of the highlighted row, or NULL.
-	-- pos : 	Return location for the drop position, or NULL
-	-- Returns : 	whether there is a row at the given position.
-	-- gtk_tree_view_create_row_drag_icon ()
-
-	-- GdkPixmap*  gtk_tree_view_create_row_drag_icon
-	--                                             (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path);
-
-	-- Creates a GdkPixmap representation of the row at path. This image is used for a drag icon.
-
-	-- tree_view : 	a GtkTreeView
-	-- path : 	a GtkTreePath in tree_view
-	-- Returns : 	a newly-allocated pixmap of the drag icon.
 	-- gtk_tree_view_set_enable_search ()
 
 	-- void        gtk_tree_view_set_enable_search (GtkTreeView *tree_view,

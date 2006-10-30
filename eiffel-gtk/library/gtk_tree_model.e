@@ -405,18 +405,41 @@ feature -- Signal Details
 -- arg1 : 	
 -- arg2 : 	
 -- user_data : 	user data set when the signal handler was connected.
--- The "row-inserted" signal
 
--- void        user_function                  (GtkTreeModel *treemodel,
---                                             GtkTreePath  *arg1,
---                                             GtkTreeIter  *arg2,
---                                             gpointer      user_data)      : Run first
+feature -- The "row-inserted" signal
 
--- treemodel : 	the object which received the signal.
--- arg1 : 	
--- arg2 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "rows-reordered" signal
+	row_inserted_signal_name: STRING is "row-inserted"
+		-- "row-inserted"
+		-- void        user_function                  (GtkTreeModel *treemodel,
+		--                                             GtkTreePath  *arg1,
+		--                                             GtkTreeIter  *arg2,
+		--                                             gpointer      user_data)      : Run first
+
+	on_row_inserted is
+			-- Built-in row_inserted signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_row_inserted is
+			-- Connects "row_inserted" signal to `on_row_inserted' feature.
+		do
+			connect (Current, row_inserted_signal_name, $on_row_inserted)
+		end
+
+	connect_agent_to_row_inserted_signal (a_procedure: PROCEDURE [ANY,
+		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]) is
+			-- treemodel : 	the object which received the signal.
+			-- arg1 : 	
+			-- arg2 : 	
+			-- user_data : 	user data set when the signal handler was connected.
+		require valid_procedure: a_procedure /= Void
+		local row_inserted_callback: ROW_INSERTED_CALLBACK
+		do
+			create row_inserted_callback.make
+			row_inserted_callback.connect (Current, a_procedure)
+		end
+
+feature -- The "rows-reordered" signal
 
 -- void        user_function                  (GtkTreeModel *treemodel,
 --                                             GtkTreePath  *arg1,
