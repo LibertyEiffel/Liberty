@@ -467,12 +467,18 @@ feature
 			path_ptr, column_ptr: POINTER;
 			a_path: GTK_TREE_PATH;
 			a_column: GTK_TREE_VIEW_COLUMN
+			a: ANY
 		do
 			gtk_tree_view_get_cursor (handle, $path_ptr, $column_ptr)
 			--(GtkTreeView *tree_view, GtkTreePath **path,
 			--GtkTreeViewColumn **focus_column);
 			if path_ptr.is_not_null then
+				if wrappers.has (path_ptr) then
+					a := wrappers.at (path_ptr).to_any
+					a_path ::= wrappers.at (path_ptr).to_any
+				else
 					create a_path.from_external_pointer (path_ptr)
+				end
 			end
 			if column_ptr.is_not_null then
 				if has_eiffel_wrapper_stored (column_ptr) then
@@ -716,8 +722,9 @@ feature -- Drag n' Drop
 			gtk_tree_view_enable_model_drag_dest (handle, some_targets.handle, n_targets, some_actions)
 		end
 
-	enable_model_drag_source (a_start_button_mask: INTEGER; some_targets: GTK_TARGET_ENTRY;
-	                          n_targets: INTEGER; some_actions: INTEGER) is
+	enable_model_drag_source (a_start_button_mask: INTEGER;
+	                          a_target: GTK_TARGET_ENTRY;
+	                          some_actions: INTEGER) is
 			-- Turns Current into a drag source for automatic DND.
 			-- a_start_button_mask : 	Mask of allowed buttons to start drag
 			-- some_targets : 	the table of targets that the drag will support
@@ -725,11 +732,15 @@ feature -- Drag n' Drop
 			-- some_actions : 	the bitmask of possible actions for a drag from this widget
 		require
 			is_valid_gdk_modifier_type (a_start_button_mask)
-			some_targets /= Void
+			a_target /= Void
 			is_valid_gdk_drag_action (some_actions)
 		do
+			-- XXX: WATCH OUT! thsi implemetation allows the setting of only ONE target.
+			-- In order to allow a list of them, we'd need to develop some C code so we can transform
+			-- a NATIVE_ARRAY [POINTER] with the handle's of the different GTK_TARGET_ENTRY
+			-- into a GtkTargetEntry *.
 			gtk_tree_view_enable_model_drag_source (handle, a_start_button_mask,
-			                                        some_targets.handle, n_targets, some_actions)
+			                                        a_target.handle, 1, some_actions)
 		end
 
 	unset_rows_drag_source is
@@ -765,14 +776,14 @@ feature -- Drag n' Drop
 			a_position: INTEGER
 		do
 			gtk_tree_view_get_drag_dest_row (handle, $a_path_ptr, $a_position);
-			create a_path.from_external_pointer (a_path_ptr)
+			if a_path_ptr.is_not_null then create a_path.from_external_pointer (a_path_ptr) end
 			Result := [a_path, a_position]
 		ensure
 			Result /= Void
 			is_valid_gtk_tree_view_drop_position (Result.second)
 		end
 
-	dest_row_at_pos (drag_x, drag_y: INTEGER): TUPLE [GTK_TREE_PATH, INTEGER, BOOLEAN] is
+	dest_row_at_pos (drag_x, drag_y: INTEGER): TUPLE [BOOLEAN, GTK_TREE_PATH, INTEGER] is
 			-- Determines the destination row for a given position.
 			-- drag_x : 	the position to determine the destination row for
 			-- drag_y : 	the position to determine the destination row for
@@ -786,11 +797,14 @@ feature -- Drag n' Drop
 			row_exists: BOOLEAN
 		do
 			row_exists := gtk_tree_view_get_dest_row_at_pos (handle, drag_x, drag_y, $a_path_ptr, $a_position).to_boolean
-			create a_path.from_external_pointer (a_path_ptr)
-			Result := [a_path, a_position, row_exists]
+			if row_exists then
+				create a_path.from_external_pointer (a_path_ptr)
+			end
+			Result := [row_exists, a_path, a_position]
 		ensure
 			Result /= Void
-			is_valid_gtk_tree_view_drop_position (Result.second)
+			Result.first implies Result.second /= Void
+			Result.first implies is_valid_gtk_tree_view_drop_position (Result.third)
 		end
 
 	row_drag_icon (a_path: GTK_TREE_PATH): GDK_PIXMAP is

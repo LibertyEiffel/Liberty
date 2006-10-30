@@ -34,9 +34,9 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_content: POINTER; x,y: INTEGER; time: INTEGER; instance: POINTER): INTEGER is
+	callback (drag_context: POINTER; x,y: INTEGER; time: INTEGER; instance: POINTER): INTEGER is
 		local
-			drag_content_obj: GDK_DRAG_CONTEXT
+			drag_context_obj: GDK_DRAG_CONTEXT
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -45,9 +45,14 @@ feature
 				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create drag_content_obj.from_external_pointer (drag_content)
 			
-			Result := function.item ([drag_content_obj, x, y, time, object]).to_integer
+			if wrappers.has (drag_context) then
+				drag_context_obj ::= wrappers.at (drag_context).to_any
+			else
+				create drag_context_obj.from_external_pointer (drag_context)
+			end
+			
+			Result := function.item ([drag_context_obj, x, y, time, object]).to_integer
 		end
 
 	callback_pointer: POINTER is

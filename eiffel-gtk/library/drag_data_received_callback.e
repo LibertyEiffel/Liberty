@@ -34,10 +34,10 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_content: POINTER; x,y: INTEGER; selection_data: POINTER;
+	callback (drag_context: POINTER; x,y: INTEGER; selection_data: POINTER;
 	          info, time: INTEGER; instance: POINTER) is
 		local
-			drag_content_obj: GDK_DRAG_CONTEXT
+			drag_context_obj: GDK_DRAG_CONTEXT
 			selection_data_obj: GTK_SELECTION_DATA
 		do
 			debug
@@ -47,10 +47,20 @@ feature
 				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create drag_content_obj.from_external_pointer (drag_content)
-			create selection_data_obj.from_external_pointer (selection_data)
 			
-			procedure.call ([drag_content_obj, x, y, selection_data_obj, info, time, object])
+			if wrappers.has (drag_context) then
+				drag_context_obj ::= wrappers.at (drag_context).to_any
+			else
+				create drag_context_obj.from_external_pointer (drag_context)
+			end
+			
+			if wrappers.has (selection_data) then
+				selection_data_obj ::= wrappers.at (selection_data).to_any
+			else
+				create selection_data_obj.from_external_pointer (selection_data)
+			end
+			
+			procedure.call ([drag_context_obj, x, y, selection_data_obj, info, time, object])
 		end
 
 	callback_pointer: POINTER is

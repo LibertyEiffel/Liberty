@@ -20,7 +20,6 @@ inherit
 			copy
 		end
 
-	
 insert
 	EXCEPTIONS
 		export {} all
@@ -88,15 +87,16 @@ feature {ANY} -- Implementation
 -- 		do
 -- 			handle := another.handle
 -- 		end
-	
+
 feature {}
 	clear_handle is
-		obsolete "??? Do we need this? Will it do more then just hnalde := default_pointer?"
+		obsolete "??? Do we need this? Will it do more then just handle := default_pointer?"
 		do
 			handle := default_pointer
 		end
 		
 	-- TODO: what is WRAPPER_HANDLER?
+
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	set_handle (a_ptr: POINTER) is
 			-- Set a non-null handle. Raises an No_more_memory exception 
@@ -111,8 +111,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			definition: handle = a_ptr
 			not_null: handle.is_not_null
 		end
-	
+
 	handle: POINTER
 		-- Pointer to the underlying C "thing" (i.e. a struct)
 end
-	

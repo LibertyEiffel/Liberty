@@ -6,6 +6,7 @@ indexing
 	revision "$REvision:$"
 
 deferred class WRAPPER_HANDLER
+
 inherit ANY undefine copy end
+
 end
-	

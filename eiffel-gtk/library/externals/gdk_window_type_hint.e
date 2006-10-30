@@ -25,7 +25,7 @@ indexing
 deferred class GDK_WINDOW_TYPE_HINT
 
 feature -- Enum
-	
+
 	gdk_window_type_hint_normal: INTEGER is
 			-- 	Normal toplevel window.
 		external "C macro use <gdk/gdk.h>"

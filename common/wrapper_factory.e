@@ -16,8 +16,7 @@ indexing
 			-- 		do
 			-- 			p:=my_wrapper_get_foo (handle)
 			-- 			if wrappers.has(p) then
-			-- 				Result := (wrapper_from_pointer
-			-- 							  (wrappers.at(p)))
+			-- 				Result ::= wrappers.at(p).to_any
 			-- 			else
 			-- 				create Result.from_external_pointer(a_pointer)
 			-- 			end

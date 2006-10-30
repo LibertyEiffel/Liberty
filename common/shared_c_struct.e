@@ -58,12 +58,12 @@ feature {} -- Handling wrapper
 	is_eiffel_wrapper_stored: BOOLEAN is
 		do
 			Result := wrappers.has(handle)
-			debug 
+			debug
 				if Result and then to_pointer/=wrappers.at(handle) then
 					print ("Warning! The reference (")
-					print (wrappers.at(handle).out) 
+					print (wrappers.at(handle).out)
 					print (") stored in the wrapped object (")
-					print (handle.out) 
+					print (handle.out)
 					print (") is not equal to the address of Current (")
 					print (to_pointer.out)
 					print ("). Really bad things will happen...%N")

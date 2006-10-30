@@ -40,10 +40,10 @@ creation
 	from_external_pointer, from_string, first, from_path
 
 feature  -- struct size
- 	struct_size: INTEGER is
- 		external "C inline use <gtk/gtk.h>"
- 		alias "sizeof(GtkTreePath)"
- 		end
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTreePath)"
+		end
 
 feature -- Redefined features
 
@@ -52,12 +52,12 @@ feature -- Redefined features
 			gtk_initialized: gtk.is_initialized
 			pointer_not_null: a_ptr.is_not_null
 		do
-			handle := a_ptr
 			-- TODO: check if making the path shared solves the bug
 			-- iussed in sr #1143 (see
 			-- https://gna.org/support/index.php?func=detailitem&item_id=1143
 			-- for further informations)
-			is_shared := True
+			set_shared
+			Precursor (a_ptr)
 		end
 
 feature {} -- Creation

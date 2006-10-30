@@ -20,7 +20,7 @@ indexing
 			]"
 
 expanded class WRAPPER_RETRIEVER [ITEM_->WRAPPER]
-insert 
+insert
 	WRAPPER_FACTORY[ITEM_]
 		export {WRAPPER, WRAPPER_HANDLER}
 			new_item

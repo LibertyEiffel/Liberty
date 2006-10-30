@@ -17,12 +17,14 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
-					
+				]"
+
 deferred class SHARED_WRAPPERS_DICTIONARY
+
 insert ANY undefine copy, is_equal end
+
 feature {} -- Implementation
-	
+
 	wrappers: HASHED_DICTIONARY [POINTER, POINTER] is
 			-- Dictionary storing wrappers created in the program.  Key
 			-- is the address (pointer) to the wrapped C structure, value
@@ -31,8 +33,8 @@ feature {} -- Implementation
 			-- of SHARED_C_STRUCT, i.e. G_OBJECT could provide alternative
 			-- implementation that will not rely on this dictionary.
 		once
-        create {HASHED_DICTIONARY[POINTER,POINTER]}
-		  Result.with_capacity (100)
+			create {HASHED_DICTIONARY[POINTER,POINTER]}
+			Result.with_capacity (100)
 		end
-	
+
 end -- class SHARED_WRAPPERS_DICTIONARY

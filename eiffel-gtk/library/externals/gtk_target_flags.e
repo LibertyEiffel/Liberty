@@ -20,23 +20,18 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-deferred class GTK_ACCEL_FLAGS
+deferred class GTK_TARGET_FLAGS
 
 feature {} --Gtk_Accel_Flags
 
-	gtk_accel_visible: INTEGER is -- = 1 << 0,	/* display in Gtk_Accel_Label? */
-		external "C use <gtk/gtk.h>"
-		alias "GTK_ACCEL_VISIBLE"
+	gtk_target_same_app: INTEGER is -- 1 << 0,    /*< nick=same-app >*/
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_TARGET_SAME_APP"
 		end
 
-	gtk_accel_locked: INTEGER is -- = 1 << 1,	/* is it removable? */
-		external "C use <gtk/gtk.h>"
-		alias "GTK_ACCEL_LOCKED"
+	gtk_target_same_widget: INTEGER is -- 1 << 1  /*< nick=same-widget >*/
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_TARGET_SAME_WIDGET"
 		end
 
-	gtk_accel_mask: INTEGER is -- = 0x07
-		external "C use <gtk/gtk.h>"
-		alias "GTK_ACCEL_MASK"
-		end
-
-end -- class GTK_ACCEL_FLAGS
+end -- class GTK_TARGET_FLAGS
