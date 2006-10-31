@@ -22,7 +22,7 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class CHANGED_TREE_SELECTION_CALLBACK 
+class CHANGED_TREE_SELECTION_CALLBACK
 
 inherit
 	CALLBACK redefine object end
@@ -37,7 +37,7 @@ feature
 
 feature
 
-	callback (instance: POINTER) is 
+	callback (instance: POINTER) is
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")

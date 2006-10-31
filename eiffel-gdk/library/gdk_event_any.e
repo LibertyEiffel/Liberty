@@ -36,10 +36,11 @@ feature {} -- Creation
 	from_event (a_event: GDK_EVENT) is
 		require
 			a_event /= Void
+			not wrappers.has (a_event.handle)
 		do
 			event := a_event
+			set_shared
 			from_external_pointer (event.handle)
-			is_shared := True
 		end
 
 feature -- size

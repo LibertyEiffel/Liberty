@@ -22,7 +22,7 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class CLICKED_CALLBACK [O -> GTK_WIDGET] 
+class CLICKED_CALLBACK [O -> GTK_WIDGET]
 
 inherit CALLBACK redefine object end
 

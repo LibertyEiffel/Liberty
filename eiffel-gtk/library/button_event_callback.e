@@ -33,21 +33,21 @@ feature
 	object: GTK_WIDGET
 
 feature
+
 	callback (event_button: POINTER; instance: POINTER): INTEGER is
 		local
 			event_obj: GDK_EVENT
 		do
-			debug
-				print ("Callback: instance=") print (instance.to_string) print ("%N")
-			end
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-			end
+			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
+			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create event_obj.from_external_pointer (event_button)
-			check
-				is_a_button_event: event_obj.is_event_button
+			if wrappers.has (event_button) then
+				event_obj ::= wrappers.at (event_button).to_any
+			else
+				create event_obj.from_external_pointer (event_button)
 			end
+			check is_a_button_event: event_obj.is_event_button end
+			
 			Result := function.item ([event_obj.event_button, object]).to_integer
 		end
 

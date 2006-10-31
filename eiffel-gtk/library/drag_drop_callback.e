@@ -34,7 +34,7 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_context: POINTER; x,y: INTEGER; time: INTEGER; instance: POINTER): INTEGER is
+	callback (drag_context: POINTER; x, y, time: INTEGER; instance: POINTER): INTEGER is
 		local
 			drag_context_obj: GDK_DRAG_CONTEXT
 		do

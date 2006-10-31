@@ -70,7 +70,7 @@ feature -- Creation
 
 	from_external_pointer (a_pointer: POINTER) is
 		do
-			is_shared := True
+			set_shared
 			Precursor (a_pointer)
 		end
 
@@ -125,21 +125,33 @@ feature -- Convertion to different event types
 
 	event_any: GDK_EVENT_ANY is
 		do
-			create Result.from_event (Current)
+			if wrappers.has (Current.handle) then
+				Result ::= wrappers.at (Current.handle).to_any
+			else
+				create Result.from_event (Current)
+			end
 		end
 
 	event_motion: GDK_EVENT_MOTION is
 		require
 			is_event_motion
 		do
-			create Result.from_event (Current)
+			if wrappers.has (Current.handle) then
+				Result ::= wrappers.at (Current.handle).to_any
+			else
+				create Result.from_event (Current)
+			end
 		end
 
 	event_button: GDK_EVENT_BUTTON is
 		require
 			is_event_button
 		do
-			create Result.from_event (Current)
+			if wrappers.has (Current.handle) then
+				Result ::= wrappers.at (Current.handle).to_any
+			else
+				create Result.from_event (Current)
+			end
 		end
 
 end

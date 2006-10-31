@@ -710,16 +710,21 @@ feature
 
 feature -- Drag n' Drop
 
-	enable_model_drag_dest (some_targets: GTK_TARGET_ENTRY; n_targets: INTEGER; some_actions: INTEGER) is
+	enable_model_drag_dest (a_target: GTK_TARGET_ENTRY; some_actions: INTEGER) is
 			-- Turns Current into a drop destination for automatic DND.
 			-- some_targets : 	the table of targets that the drag will support
 			-- n_targets : 	the number of items in targets
 			-- some_actions : 	the bitmask of possible actions for a drag from this widget
 		require
-			some_targets /= Void
+			a_target /= Void
 			is_valid_gdk_drag_action (some_actions)
 		do
-			gtk_tree_view_enable_model_drag_dest (handle, some_targets.handle, n_targets, some_actions)
+			-- XXX: WATCH OUT! thsi implemetation allows the setting of only ONE target.
+			-- In order to allow a list of them, we'd need to develop some C code so we can transform
+			-- a NATIVE_ARRAY [POINTER] with the handle's of the different GTK_TARGET_ENTRY
+			-- into a GtkTargetEntry *.
+			-- nessa, 2006-10-30
+			gtk_tree_view_enable_model_drag_dest (handle, a_target.handle, 1, some_actions)
 		end
 
 	enable_model_drag_source (a_start_button_mask: INTEGER;
@@ -739,6 +744,7 @@ feature -- Drag n' Drop
 			-- In order to allow a list of them, we'd need to develop some C code so we can transform
 			-- a NATIVE_ARRAY [POINTER] with the handle's of the different GTK_TARGET_ENTRY
 			-- into a GtkTargetEntry *.
+			-- nessa, 2006-10-30
 			gtk_tree_view_enable_model_drag_source (handle, a_start_button_mask,
 			                                        a_target.handle, 1, some_actions)
 		end
