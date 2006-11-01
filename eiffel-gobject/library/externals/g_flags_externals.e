@@ -7,27 +7,27 @@ indexing
 
 deferred class G_FLAGS_EXTERNALS
 feature {} -- External calls
-	g_type_is_flags (type) is
+	g_type_is_flags (type: POINTER) is
 		external "C macro use <glib-object.h>"
 		alias "G_TYPE_IS_FLAGS"
 		end
 
-	g_flags_class (class) is
+	g_flags_class (a_class: POINTER) is
 		external "C macro use <glib-object.h>"
 		alias "G_FLAGS_CLASS"
 		end
 
-	g_is_flags_class (class) is
+	g_is_flags_class (a_class: POINTER) is
 		external "C macro use <glib-object.h>"
 		alias "G_IS_FLAGS_CLASS"
 		end
 
-	g_flags_class_type (class) is
+	g_flags_class_type (a_class: POINTER) is
 		external "C macro use <glib-object.h>"
 		alias "G_FLAGS_CLASS_TYPE"
 		end
 
-	g_flags_class_type_name (class) is
+	g_flags_class_type_name (a_class: POINTER) is
 		external "C macro use <glib-object.h>"
 		alias "G_FLAGS_CLASS_TYPE_NAME"
 		end
@@ -37,11 +37,11 @@ feature {} -- External calls
 		external "C macro use <glib-object.h>"
 		end
 	
-	g_flags_get_value_by_name (a_flags_class: POINTER, a_const_name: POINTER): POINTER is -- GFlagsValue*
+	g_flags_get_value_by_name (a_flags_class: POINTER; a_const_name: POINTER): POINTER is -- GFlagsValue*
 		external "C macro use <glib-object.h>"
 		end
 	
-	g_flags_get_value_by_nick (a_flags_class: POINTER, a_const_nick: POINTER): POINTER is -- GFlagsValue*
+	g_flags_get_value_by_nick (a_flags_class: POINTER; a_const_nick: POINTER): POINTER is -- GFlagsValue*
 		external "C macro use <glib-object.h>"
 		end
 	

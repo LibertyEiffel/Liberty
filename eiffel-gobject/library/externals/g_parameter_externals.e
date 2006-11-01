@@ -6,7 +6,7 @@ indexing
 	revision "$REvision:$"
 
 
-deferred class G_PARAMETER_EXTERNAL
+deferred class G_PARAMETER_EXTERNALS
 feature {}
 	get_name (gparameter: POINTER): POINTER is
 		external "C struct GParameter get name use <glib-object.h>"

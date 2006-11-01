@@ -6,7 +6,9 @@ indexing
 	revision "$REvision:$"
 
 
-class G_PARAMETER_EXTERNAL
+class G_PARAMETER
+
+feature
 	get_name (gparameter: POINTER): POINTER is
 		external "C struct GParameter get name use <glib-object.h>"
 		end

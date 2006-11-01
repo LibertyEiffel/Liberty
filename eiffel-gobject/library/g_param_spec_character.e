@@ -9,8 +9,8 @@ indexing
 class G_PARAM_SPEC_CHARACTER
 
 inherit
-
 	G_PARAM_SPEC
+		rename make as spec_make end
 
 creation
 	make
@@ -36,7 +36,7 @@ feature -- Creation
 		end
 	
 feature
-	default: BOOLEAN is
+	default_value: CHARACTER is
 		do
 			Result := default_char.to_character
 		end
