@@ -44,4 +44,4 @@ feature
 			Result := not is_successful
 		end
 		
-end -- class 
+end -- class SHARED_G_ERROR

@@ -1,4 +1,4 @@
-class GLIB_ASYNCRONOUS_QUEUES
+class GLIB_ASYNCHRONOUS_QUEUES
 -- Prev 	Up 	Home 	GLib Reference Manual 	Next
 -- Top  |  Description
 -- Asynchronous Queues

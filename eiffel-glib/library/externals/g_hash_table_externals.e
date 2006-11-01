@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _EXTERNALS
+deferred class G_HASH_TABLE_EXTERNALS
 feature {} -- External calls
 	g_hash_table_new (an_hash_func, a_key_equal_func: POINTER): POINTER is
 			-- GHashTable* g_hash_table_new (GHashFunc hash_func,

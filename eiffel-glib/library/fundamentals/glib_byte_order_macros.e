@@ -4,7 +4,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GLIB_TYPE_ORDER_MACROS
+class GLIB_BYTE_ORDER_MACROS
 
 -- Prev 	Up 	Home 	GLib Reference Manual 	Next
 -- Top  |  Description

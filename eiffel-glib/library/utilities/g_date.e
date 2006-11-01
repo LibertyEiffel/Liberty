@@ -68,7 +68,7 @@ class G_DATE
 inherit
 	SHARED_C_STRUCT redefine dispose end
 	
-creation make, make_dmy,
+creation make, make_dmy
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -370,8 +370,8 @@ feature -- Date arithmetics
 							 (a_max=Void implies a_min/=Void)
 		local min_ptr, max_ptr: POINTER
 		do
-			if a_min/=Void then min_ptr = a_min.handle end
-			if a_max/=Void then max_ptr = a_max.handle end
+			if a_min/=Void then min_ptr := a_min.handle end
+			if a_max/=Void then max_ptr := a_max.handle end
 			g_date_clamp (handle, min_ptr, max_ptr)
 		end
 
@@ -675,7 +675,7 @@ feature {} -- External features
 			-- Note `n_months' shall be NATURAL
 		external "C use <glib.h>"
 		end
-	g_date_subtract_months (a_date: POINTER; n_months) is
+	g_date_subtract_months (a_date: POINTER; n_months: INTEGER) is
 			-- Note `n_months' shall be NATURAL			
 		external "C use <glib.h>"
 		end

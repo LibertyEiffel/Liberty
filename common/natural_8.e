@@ -31,9 +31,6 @@ insert
 		end
 	
 	PLATFORM
-		undefine
-			fill_tagged_out_memory, out_in_tagged_out_memory, is_equal
-		end
 
 -- manifest creation for expanded types is not supported by se 2.3svn-r7842
 -- creation

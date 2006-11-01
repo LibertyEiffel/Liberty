@@ -43,11 +43,21 @@ class G_QUEUE [ITEM->WRAPPER]
 
 inherit 
 	-- TODO: QUEUE
-	C_STRUCT redefine copy, dispose end
+	C_STRUCT redefine make, dispose end
 
 insert WRAPPER_FACTORY [ITEM]
 	
 creation make, copy, from_external_pointer
+
+feature -- Copying
+
+	copy (another: like Current) is
+			-- Copies a queue. Note that is a shallow copy. If the elements in the
+			-- queue consist of pointers to data, the pointers are copied, but the
+			-- actual data is not.
+		do
+			handle := g_queue_copy (handle)
+		end
 
 feature {} -- Creation
 	make is
@@ -57,14 +67,6 @@ feature {} -- Creation
 		end
 
 	-- TODO: 	with_capacity (needed_capacity: INTEGER) is
-
-	copy (another: like Current) is
-			-- Copies a queue. Note that is a shallow copy. If the elements in the
-			-- queue consist of pointers to data, the pointers are copied, but the
-			-- actual data is not.
-		do
-			handle := g_queue_copy (handle)
-		end
 
 feature
 	dispose is
@@ -94,7 +96,7 @@ feature
 		end
 
 
-	foreach (a_procedure: PROCEDURE [like first]) is
+	foreach (a_procedure: PROCEDURE [TUPLE [like first]]) is
 			-- Calls `a_procedure' for each element in the queue passing user_data
 			-- to the function.
 		do
@@ -148,14 +150,14 @@ feature
 			-- Adds `an_item' at the head of the queue.
 		require item_not_void: an_item /= Void
 		do
-			g_queue_push_head (handle, $an_item)
+			g_queue_push_head (handle, an_item.handle)
 		end
 	
 	add_last, push_tail (an_item: like first) is
 			-- Adds `an_item' at the tail of the queue.
 		require item_not_void: an_item /= Void
 		do
-			g_queue_push_tail (handle, $an_item)end
+			g_queue_push_tail (handle, an_item.handle)
 		end
 
 	put (an_item: like first; an_index: INTEGER) is
@@ -164,7 +166,7 @@ feature
 			-- element is added to the end of the queue.
 		require item_not_void: an_item /= Void
 		do
-			g_queue_push_nth (handle, $an_item,an_index)
+			g_queue_push_nth (handle, an_item.handle, an_index)
 		end
 
 
