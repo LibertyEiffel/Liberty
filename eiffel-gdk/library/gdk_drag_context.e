@@ -41,7 +41,9 @@ class GDK_DRAG_CONTEXT
 	-- is used on both source and destination sides.
 
 inherit
-	SHARED_C_STRUCT
+	G_OBJECT
+
+insert
 	GDK_DRAG_CONTEXT_EXTERNALS
 	GDK_DRAG_ACTION
 
@@ -52,6 +54,20 @@ feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkDragContext)"
+		end
+
+feature -- Operations
+
+	finish (success, delete: BOOLEAN; time: INTEGER) is
+			-- Informs the drag source that the drop is finished, and
+			-- that the data of the drag will no longer be required.
+			-- `success': a flag indicating whether the drop was successful
+			-- `delete': a flag indicating whether the source should delete the original data. (This should be TRUE for a move)
+			-- `time': the timestamp from the "drag_data_drop" signal.
+		require
+			time >= 0
+		do
+			gtk_drag_finish (handle, success.to_integer, delete.to_integer, time)
 		end
 
 feature -- Representation

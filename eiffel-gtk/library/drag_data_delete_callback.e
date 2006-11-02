@@ -36,6 +36,7 @@ feature
 feature
 	callback (drag_context, instance: POINTER) is
 		local
+			r_drag_context: G_RETRIEVER [GDK_DRAG_CONTEXT]
 			drag_context_obj: GDK_DRAG_CONTEXT
 		do
 			debug
@@ -46,8 +47,8 @@ feature
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			
-			if wrappers.has (drag_context) then
-				drag_context_obj ::= wrappers.at (drag_context).to_any
+			if r_drag_context.has_eiffel_wrapper_stored (drag_context) then
+				drag_context_obj := r_drag_context.retrieve_eiffel_wrapper_from_gobject_pointer (drag_context)
 			else
 				create drag_context_obj.from_external_pointer (drag_context)
 			end

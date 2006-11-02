@@ -36,18 +36,15 @@ feature
 feature
 	callback (drag_context: POINTER; x, y, time: INTEGER; instance: POINTER): INTEGER is
 		local
+			r_drag_context: G_RETRIEVER [GDK_DRAG_CONTEXT]
 			drag_context_obj: GDK_DRAG_CONTEXT
 		do
-			debug
-				print ("Callback: instance=") print (instance.to_string) print ("%N")
-			end
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-			end
+			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
+			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			
-			if wrappers.has (drag_context) then
-				drag_context_obj ::= wrappers.at (drag_context).to_any
+			if r_drag_context.has_eiffel_wrapper_stored (drag_context) then
+				drag_context_obj := r_drag_context.retrieve_eiffel_wrapper_from_gobject_pointer (drag_context)
 			else
 				create drag_context_obj.from_external_pointer (drag_context)
 			end

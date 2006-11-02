@@ -54,7 +54,7 @@ feature
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			create tree_iter_obj.from_external_pointer (tree_iter)
 			tree_iter_obj.attach_to (object)
-			create tree_path_obj.from_external_pointer (tree_path)
+			create tree_path_obj.copy_from_pointer (tree_path)
 			procedure.call ([tree_path_obj, tree_iter_obj, object])
 		end
 

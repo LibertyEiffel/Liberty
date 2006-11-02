@@ -53,7 +53,7 @@ feature
 			end
 			object := g_tree_view.retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			tree_view_col_obj := g_tree_view_col.retrieve_eiffel_wrapper_from_gobject_pointer (tree_view_col)
-			create tree_path_obj.from_external_pointer (tree_path)
+			create tree_path_obj.copy_from_pointer (tree_path)
 			procedure.call ([tree_path_obj, tree_view_col_obj, object])
 		end
 

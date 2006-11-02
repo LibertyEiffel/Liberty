@@ -40,6 +40,10 @@ deferred class GDK_DRAG_CONTEXT_EXTERNALS
 
 feature -- Representation
 
+	gtk_drag_finish (a_ptr: POINTER; success, delete, time: INTEGER) is
+		external "C use <gdk/gdk.h>"
+		end
+
 	gdk_drag_context_parent_instance (a_drag_context: POINTER): POINTER is
 		external "C inline use <gdk/gdk.h>"
 		alias "&(((GdkDragContext*) $a_drag_context)->parent_instance)"

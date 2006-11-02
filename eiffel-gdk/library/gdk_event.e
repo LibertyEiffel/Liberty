@@ -125,8 +125,8 @@ feature -- Convertion to different event types
 
 	event_any: GDK_EVENT_ANY is
 		do
-			if wrappers.has (Current.handle) then
-				Result ::= wrappers.at (Current.handle).to_any
+			if wrappers.has (handle) then
+				Result ::= wrappers.at (handle).to_any
 			else
 				create Result.from_event (Current)
 			end
@@ -136,8 +136,8 @@ feature -- Convertion to different event types
 		require
 			is_event_motion
 		do
-			if wrappers.has (Current.handle) then
-				Result ::= wrappers.at (Current.handle).to_any
+			if wrappers.has (handle) then
+				Result ::= wrappers.at (handle).to_any
 			else
 				create Result.from_event (Current)
 			end
@@ -147,8 +147,8 @@ feature -- Convertion to different event types
 		require
 			is_event_button
 		do
-			if wrappers.has (Current.handle) then
-				Result ::= wrappers.at (Current.handle).to_any
+			if wrappers.has (handle) then
+				Result ::= wrappers.at (handle).to_any
 			else
 				create Result.from_event (Current)
 			end

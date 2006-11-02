@@ -35,6 +35,7 @@ insert
 creation make, make_from_model, from_model, from_external_pointer
 
 feature -- Creation
+
 	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
 		require
 			gtk_initialized: gtk.is_initialized

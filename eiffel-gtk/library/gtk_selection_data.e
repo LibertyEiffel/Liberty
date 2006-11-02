@@ -24,9 +24,19 @@ indexing
 class GTK_SELECTION_DATA
 
 inherit
-	C_STRUCT -- TODO: check if SHARED_C_STRUCT is a better choice
+	SHARED_C_STRUCT redefine from_external_pointer end
 
 creation make, from_external_pointer
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Creation
+
+	from_external_pointer (a_ptr: POINTER) is
+		do
+			set_shared
+			Precursor (a_ptr)
+		ensure then
+			is_shared
+		end
 
 feature -- size
 	struct_size: INTEGER is

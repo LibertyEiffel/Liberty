@@ -17,10 +17,10 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
-	
+
 			-- Description: GTK+ supports Drag-and-Drop in tree views
 			-- with a high-level and a low-level API.
 
@@ -33,7 +33,7 @@ indexing
 			-- flexibility, but nothing is done automatically, and
 			-- implementing advanced features like hover-to-open-rows or
 			-- autoscrolling on top of this API is a lot of work.
-	
+			
 			-- On the other hand, if you write to the high-level API,
 			-- then all the bookkeeping of rows is done for you, as well
 			-- as things like hover-to-open and auto-scroll, but your
@@ -41,7 +41,8 @@ indexing
 			-- GtkTreeDragDest interfaces.
 
 deferred class GTK_TREE_DRAG_SOURCE
-inherit 
+
+inherit
 	G_OBJECT
 	
 		-- Note: GtkTreeDragSource inherits from GInterface, but GInterface
@@ -50,7 +51,9 @@ inherit
 
 	-- GtkTreeDragSource is implemented by GtkTreeModelSort,
 	-- GtkTreeStore, GtkListStore and GtkTreeModelFilter.
-feature 
+
+feature
+
 	is_action_successful: BOOLEAN
 
 	delete_data (a_path: GTK_TREE_PATH) is
@@ -62,11 +65,9 @@ feature
 			-- longer found in the model!
 		require valid_path: a_path /= Void
 		do
-			is_action_successful := 
-				(gtk_tree_drag_source_drag_data_delete 
-				 (handle, a_path.handle)).to_boolean
+			is_action_successful := (gtk_tree_drag_source_drag_data_delete (handle, a_path.handle)).to_boolean
 		end
-	
+
 	data (a_path: GTK_TREE_PATH): GTK_SELECTION_DATA is
 			-- Try to fill in `a_selection_data' with a representation of
 			-- the row at path. `is_action_successful' will be True
@@ -80,10 +81,8 @@ feature
 
 			-- `a_selection_data' : 	a GtkSelectionData to fill with data from the dragged row
 		do
-			create Result.make 
-			is_action_successful :=
-				(gtk_tree_drag_source_drag_data_get
-				 (handle, a_path.handle, Result.handle)).to_boolean
+			create Result.make
+			is_action_successful := (gtk_tree_drag_source_drag_data_get (handle, a_path.handle, Result.handle)).to_boolean
 		end
 
 	is_row_draggable (a_path: GTK_TREE_PATH): BOOLEAN is
@@ -92,8 +91,7 @@ feature
 			-- this interface, the row is assumed draggable. Note: This
 			-- is a feature of GtkTreeDragSource
 		do
-			Result := (gtk_tree_drag_source_row_draggable 
-						  (handle, a_path.handle)).to_boolean
+			Result := (gtk_tree_drag_source_row_draggable (handle, a_path.handle)).to_boolean
 		end
 
 	-- TODO: understand usage and then wrap gtk_tree_set_row_drag_data ()
@@ -131,6 +129,7 @@ feature
 	-- path : 	row in tree_model
 	-- Returns : 	TRUE if selection_data had target type GTK_TREE_MODEL_ROW and is
 	-- 		otherwise valid
+
 feature {} -- External calls
 	
 	gtk_tree_drag_source_drag_data_delete (a_drag_source: POINTER; -- GtkTreeDragSource*

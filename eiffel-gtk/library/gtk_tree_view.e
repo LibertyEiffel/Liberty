@@ -786,10 +786,10 @@ feature -- Drag n' Drop
 			Result := [a_path, a_position]
 		ensure
 			Result /= Void
-			is_valid_gtk_tree_view_drop_position (Result.second)
+			Result.first  /= Void implies is_valid_gtk_tree_view_drop_position (Result.second)
 		end
 
-	dest_row_at_pos (drag_x, drag_y: INTEGER): TUPLE [BOOLEAN, GTK_TREE_PATH, INTEGER] is
+	dest_row_at_pos (drag_x, drag_y: INTEGER): TUPLE [GTK_TREE_PATH, INTEGER] is
 			-- Determines the destination row for a given position.
 			-- drag_x : 	the position to determine the destination row for
 			-- drag_y : 	the position to determine the destination row for
@@ -803,14 +803,11 @@ feature -- Drag n' Drop
 			row_exists: BOOLEAN
 		do
 			row_exists := gtk_tree_view_get_dest_row_at_pos (handle, drag_x, drag_y, $a_path_ptr, $a_position).to_boolean
-			if row_exists then
-				create a_path.from_external_pointer (a_path_ptr)
-			end
-			Result := [row_exists, a_path, a_position]
+			if row_exists then create a_path.from_external_pointer (a_path_ptr) end
+			Result := [a_path, a_position]
 		ensure
 			Result /= Void
-			Result.first implies Result.second /= Void
-			Result.first implies is_valid_gtk_tree_view_drop_position (Result.third)
+			Result.first /= Void implies is_valid_gtk_tree_view_drop_position (Result.second)
 		end
 
 	row_drag_icon (a_path: GTK_TREE_PATH): GDK_PIXMAP is

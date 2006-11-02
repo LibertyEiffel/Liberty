@@ -36,7 +36,7 @@ insert
 		redefine copy end
 
 creation
-	make, make_first,
+	make, make_first, copy_from_pointer,
 	from_external_pointer, from_string, first, from_path
 
 feature  -- struct size
@@ -67,6 +67,16 @@ feature {} -- Creation
 		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_tree_path_new)
+		end
+
+	copy_from_pointer (a_ptr: POINTER) is
+		require
+			a_ptr.is_not_null
+		do
+			from_external_pointer (gtk_tree_path_copy (a_ptr))
+			unset_shared
+		ensure
+			not is_shared
 		end
 
 	from_string (a_path: STRING) is
