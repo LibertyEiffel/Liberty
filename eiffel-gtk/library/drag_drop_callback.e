@@ -35,6 +35,8 @@ feature
 
 feature
 	callback (drag_context: POINTER; x, y, time: INTEGER; instance: POINTER): INTEGER is
+		require
+			--time >= 0
 		local
 			r_drag_context: G_RETRIEVER [GDK_DRAG_CONTEXT]
 			drag_context_obj: GDK_DRAG_CONTEXT
@@ -54,6 +56,8 @@ feature
 			end
 			
 			Result := function.item ([drag_context_obj, x, y, time, object]).to_integer
+		ensure
+			--time >= 0
 		end
 
 	callback_pointer: POINTER is

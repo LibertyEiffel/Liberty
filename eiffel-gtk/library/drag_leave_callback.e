@@ -35,6 +35,8 @@ feature
 
 feature
 	callback (drag_context: POINTER; time: INTEGER; instance: POINTER) is
+		require
+			time >= 0
 		local
 			r_drag_context: G_RETRIEVER [GDK_DRAG_CONTEXT]
 			drag_context_obj: GDK_DRAG_CONTEXT
@@ -54,6 +56,8 @@ feature
 			end
 			
 			procedure.call ([drag_context_obj, time, object])
+		ensure
+			time >= 0
 		end
 
 	callback_pointer: POINTER is

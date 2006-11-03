@@ -65,7 +65,7 @@ feature -- Operations
 			-- `delete': a flag indicating whether the source should delete the original data. (This should be TRUE for a move)
 			-- `time': the timestamp from the "drag_data_drop" signal.
 		require
-			time >= 0
+			--time >= 0
 		do
 			gtk_drag_finish (handle, success.to_integer, delete.to_integer, time)
 		end
