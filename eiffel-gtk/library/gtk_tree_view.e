@@ -349,7 +349,7 @@ feature
 	-- func : 	A function to determine which columns are reorderable, or NULL.
 	-- user_data : 	User data to be passed to func, or NULL
 	-- destroy : 	Destroy notifier for user_data, or NULL
-	
+
 	scroll_to_point (an_x, an_y: INTEGER) is
 			-- Scrolls the tree view such that the top-left corner of the
 			-- visible area is `an_x', `an_y', where `an_x' and `an_y'
@@ -361,7 +361,7 @@ feature
 		do
 			gtk_tree_view_scroll_to_point   (handle, an_x, an_y)
 		end
-	
+
 	scroll_to_cell (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN;use_align: BOOLEAN;
 	                row_align, col_align: REAL_32) is
 			-- Moves the alignments of tree view to the position
@@ -470,8 +470,6 @@ feature
 			a: ANY
 		do
 			gtk_tree_view_get_cursor (handle, $path_ptr, $column_ptr)
-			--(GtkTreeView *tree_view, GtkTreePath **path,
-			--GtkTreeViewColumn **focus_column);
 			if path_ptr.is_not_null then
 				if wrappers.has (path_ptr) then
 					a := wrappers.at (path_ptr).to_any
@@ -490,7 +488,15 @@ feature
 			create Result.make_2 (a_path, a_column)
 		end
 
-	expand_row(a_path: GTK_TREE_PATH; open_all: BOOLEAN): BOOLEAN is
+	row_expanded (a_path: GTK_TREE_PATH): BOOLEAN is
+			-- Returns True if the node pointed to by `a_path' is expanded in Current.
+		require
+			a_path /= Void
+		do
+			Result := gtk_tree_view_row_expanded (handle, a_path.handle).to_boolean
+		end
+
+	expand_row (a_path: GTK_TREE_PATH; open_all: BOOLEAN): BOOLEAN is
 			-- Opens the row so its children are visible.
 			-- `open_all' indicates whether to recursively expand, or
 			-- just expand immediate children
@@ -501,7 +507,7 @@ feature
 			Result := gtk_tree_view_expand_row(handle, a_path.handle, open_all.to_integer) > 0
 		end
 
-	collapse_row(a_path: GTK_TREE_PATH): BOOLEAN is
+	collapse_row (a_path: GTK_TREE_PATH): BOOLEAN is
 			-- Collapses a row (hides its child rows, if they exist).
 			-- Returns True if the row was collapsed.
 		require
@@ -521,6 +527,27 @@ feature
 		do
 			gtk_tree_view_collapse_all(handle)
 		end
+
+	expand_to_path (a_path: GTK_TREE_PATH) is
+			-- Expands the row at `a_path'. This will also expand all parent rows of path as necessary.
+			-- Since 2.2
+		require
+			a_path /= Void
+		do
+			gtk_tree_view_expand_to_path (handle, a_path.handle)
+		end
+
+	-- gtk_tree_view_map_expanded_rows ()
+
+	-- void        gtk_tree_view_map_expanded_rows (GtkTreeView *tree_view,
+	--                                              GtkTreeViewMappingFunc func,
+	--                                              gpointer data);
+
+	-- Calls func on all expanded rows.
+
+	-- tree_view : 	A GtkTreeView
+	-- func : 	A function to be called
+	-- data : 	User data to be passed to the function.
 
 	set_reorderable(a_reorderable: BOOLEAN) is
 			-- This function is a convenience function to allow you to
@@ -548,52 +575,15 @@ feature
 			Result := gtk_tree_view_get_reorderable(handle) > 0
 		end
 
+	row_activated (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN) is
+			-- Activates the cell determined by `a_path' and `a_column'.
+		require
+			a_path /= Void
+			a_column /= Void
+		do
+			gtk_tree_view_row_activated (handle, a_path.handle, a_column.handle)
+		end
 
-	-- tree_view : 	A GtkTreeView
-	-- path : 	A pointer to be filled with the current cursor path, or NULL
-	-- focus_column : 	A pointer to be filled with the current focus column, or NULL
-	-- gtk_tree_view_row_activated ()
-
-	-- void        gtk_tree_view_row_activated     (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path,
-	--                                              GtkTreeViewColumn *column);
-
-	-- Activates the cell determined by path and column.
-
-	-- tree_view : 	A GtkTreeView
-	-- path : 	The GtkTreePath to be activated.
-	-- column : 	The GtkTreeViewColumn to be activated.
-	-- void        gtk_tree_view_expand_to_path    (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path);
-
-	-- Expands the row at path. This will also expand all parent rows of path as necessary.
-
-	-- tree_view : 	A GtkTreeView.
-	-- path : 	path to a row.
-
-	-- Since 2.2
-
-	-- gtk_tree_view_map_expanded_rows ()
-
-	-- void        gtk_tree_view_map_expanded_rows (GtkTreeView *tree_view,
-	--                                              GtkTreeViewMappingFunc func,
-	--                                              gpointer data);
-
-	-- Calls func on all expanded rows.
-
-	-- tree_view : 	A GtkTreeView
-	-- func : 	A function to be called
-	-- data : 	User data to be passed to the function.
-	-- gtk_tree_view_row_expanded ()
-
-	-- gboolean    gtk_tree_view_row_expanded      (GtkTreeView *tree_view,
-	--                                              GtkTreePath *path);
-
-	-- Returns TRUE if the node pointed to by path is expanded in tree_view.
-
-	-- tree_view : 	A GtkTreeView.
-	-- path : 	A GtkTreePath to test expansion state.
-	-- Returns : 	TRUE if path is expanded.
 	-- gtk_tree_view_get_path_at_pos ()
 
 	-- gboolean    gtk_tree_view_get_path_at_pos   (GtkTreeView *tree_view,
@@ -1632,7 +1622,7 @@ feature -- The "cursor_changed" signal
 			cursor_changed_callback.connect (Current, a_procedure)
 		end
 
-feature	-- "expand-collapse-cursor-row"
+feature -- "expand-collapse-cursor-row"
 	--             gboolean    user_function      (GtkTreeView *treeview,
 	--                                             gboolean arg1,
 	--                                             gboolean arg2,
