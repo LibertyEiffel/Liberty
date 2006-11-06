@@ -37,6 +37,9 @@ feature
 	callback (ev_ptr: POINTER; instance: POINTER): INTEGER is
 		require
 			instance_not_null: instance.is_not_null
+		local
+			event_obj: GDK_EVENT
+			specific_event: GDK_EVENT_ANY
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -47,9 +50,15 @@ feature
 				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
 			end
 			-- retrieve event, object
+			if wrappers.has (ev_ptr) then
+				specific_event ::= wrappers.at (ev_ptr).to_any
+				event_obj := specific_event.event
+			else
+				create event_obj.from_external_pointer (ev_ptr)
+			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			-- FIXME: event should be retrieved when GDK_EVENT is implemented **trixx, 20060616
-			Result := function.item ([object, Void]).to_integer
+			Result := function.item ([object, event_obj]).to_integer
 		end
 
 	callback_pointer: POINTER is

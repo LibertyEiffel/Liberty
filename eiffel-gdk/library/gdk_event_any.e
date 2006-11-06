@@ -79,7 +79,7 @@ feature -- access
 			Result := gdk_event_any_get_send_event (handle).to_boolean
 		end
 
-feature {} -- Representation
+feature {WRAPPER} -- Representation
 
 	event: GDK_EVENT
 		-- This feature is needed to ensure correct garbage collection.

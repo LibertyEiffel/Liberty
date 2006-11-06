@@ -37,12 +37,14 @@ feature
 	callback (event_button: POINTER; instance: POINTER): INTEGER is
 		local
 			event_obj: GDK_EVENT
+			specific_event: GDK_EVENT_ANY
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
 			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			if wrappers.has (event_button) then
-				event_obj ::= wrappers.at (event_button).to_any
+				specific_event ::= wrappers.at (event_button).to_any
+				event_obj := specific_event.event
 			else
 				create event_obj.from_external_pointer (event_button)
 			end
