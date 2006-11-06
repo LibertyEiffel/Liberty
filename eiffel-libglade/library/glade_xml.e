@@ -31,12 +31,14 @@ insert
 	-- Add others if you need to extract them from glade
 	GLADE_GETTER [GTK_BUTTON]                 rename get as get_button end
 	GLADE_GETTER [GTK_CALENDAR]               rename get as get_calendar end
+	GLADE_GETTER [GTK_COLOR_BUTTON]           rename get as get_color_button end
 	GLADE_GETTER [GTK_COLOR_SELECTION_DIALOG] rename get as get_color_selection_dialog end
 	GLADE_GETTER [GTK_COMBO_BOX]              rename get as get_combo_box end
 	GLADE_GETTER [GTK_COMBO_BOX_ENTRY]        rename get as get_combo_box_entry end
 	GLADE_GETTER [GTK_DIALOG]                 rename get as get_dialog end
 	GLADE_GETTER [GTK_ENTRY]                  rename get as get_entry end
 	GLADE_GETTER [GTK_EVENT_BOX]              rename get as get_event_box end
+	GLADE_GETTER [GTK_FILE_CHOOSER_BUTTON]    rename get as get_file_chooser_button end
 	GLADE_GETTER [GTK_FILE_CHOOSER_DIALOG]    rename get as get_file_chooser_dialog end
 	GLADE_GETTER [GTK_FILE_CHOOSER_WIDGET]    rename get as get_file_chooser_widget end
 	GLADE_GETTER [GTK_FONT_SELECTION_DIALOG]  rename get as get_font_selection_dialog end

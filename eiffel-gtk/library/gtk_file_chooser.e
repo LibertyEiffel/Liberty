@@ -538,8 +538,7 @@ feature -- Name, filenames and uris
 		require valid_folder_name: a_folder_name/=Void
 		do
 			is_last_action_successful := (gtk_file_chooser_set_current_folder(handle,
-																									a_folder_name.to_external)
-													).to_boolean
+			                              a_folder_name.to_external)).to_boolean
 		end
 
 	current_folder: STRING is
@@ -1146,7 +1145,7 @@ require valid_folder: a_folder /= Void
 
 -- Once you have installed a preview widget with gtk_file_chooser_set_preview_widget(), you should update it when this signal is emitted. You can use the functions gtk_file_chooser_get_preview_filename() or gtk_file_chooser_get_preview_uri() to get the name of the file to preview. Your widget may not be able to preview all kinds of files; your callback must call gtk_file_chooser_set_preview_wiget_active() to inform the file chooser about whether the preview was generated successfully or not.
 
--- Please see the example code in the section called ’¡ÈAdding a Preview Widget’¡É.
+-- Please see the example code in the section called ï¿½dding a Preview Widgetï¿½
 
 -- See also: gtk_file_chooser_set_preview_widget(), gtk_file_chooser_set_preview_widget_active(), gtk_file_chooser_set_use_preview_label(), gtk_file_chooser_get_preview_filename(), gtk_file_chooser_get_preview_uri().
 

@@ -41,7 +41,7 @@ feature -- Widgets
 feature 
 	make is 
 		do 
-			gtk.init
+			gtk.initialize_gtk
 			create buffer.make
 		end 
 feature  -- Callbacks
