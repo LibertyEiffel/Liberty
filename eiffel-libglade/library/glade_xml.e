@@ -31,9 +31,9 @@ insert
 	-- Add others if you need to extract them from glade
 	GLADE_GETTER [GTK_BUTTON]                 rename get as get_button end
 	GLADE_GETTER [GTK_CALENDAR]               rename get as get_calendar end
+	GLADE_GETTER [GTK_COLOR_SELECTION_DIALOG] rename get as get_color_selection_dialog end
 	GLADE_GETTER [GTK_COMBO_BOX]              rename get as get_combo_box end
 	GLADE_GETTER [GTK_COMBO_BOX_ENTRY]        rename get as get_combo_box_entry end
-	GLADE_GETTER [GTK_COLOR_SELECTION_DIALOG] rename get as get_color_selection_dialog end
 	GLADE_GETTER [GTK_DIALOG]                 rename get as get_dialog end
 	GLADE_GETTER [GTK_ENTRY]                  rename get as get_entry end
 	GLADE_GETTER [GTK_EVENT_BOX]              rename get as get_event_box end
@@ -51,6 +51,7 @@ insert
 	GLADE_GETTER [GTK_NOTEBOOK]               rename get as get_notebook end
 	GLADE_GETTER [GTK_PROGRESS_BAR]           rename get as get_progress_bar end
 	GLADE_GETTER [GTK_SPIN_BUTTON]            rename get as get_spin_button end
+	GLADE_GETTER [GTK_TABLE]                  rename get as get_table end
 	GLADE_GETTER [GTK_TEXT_VIEW]              rename get as get_text_view end
 	GLADE_GETTER [GTK_TOGGLE_BUTTON]          rename get as get_toggle_button end
 	GLADE_GETTER [GTK_TOOL_BUTTON]            rename get as get_tool_button end

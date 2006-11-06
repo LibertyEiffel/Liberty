@@ -88,7 +88,7 @@ feature {} -- Creation
 		require
 			gtk_initialized: gtk.is_initialized
 			rows_fits_natural_16: rows.in_range (0,65535)
-			columns_fits_natural_16: columns.in_range (0,65535)				  
+			columns_fits_natural_16: columns.in_range (0,65535)
 		do
 			handle :=gtk_table_new (rows, columns, homogeneous.to_integer)
 			store_eiffel_wrapper
@@ -103,7 +103,7 @@ feature
 			-- columns : The new number of columns.
 		require
 			rows_fits_natural_16: rows.in_range (0,65535)
-			columns_fits_natural_16: columns.in_range (0,65535)				  
+			columns_fits_natural_16: columns.in_range (0,65535)
 		do
 			gtk_table_resize (handle, rows, columns)
 		end
@@ -461,7 +461,7 @@ feature
 
 --    Default value: 0
 
-feature {} -- size
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTable)"
@@ -481,32 +481,32 @@ feature {} -- External calls
 		end
 
 	gtk_table_attach (a_table, a_child: POINTER;
-							left_attach, right_attach, top_attach, bottom_attach: INTEGER; -- Note  those all all guint, therefore should be NATURAL
-							xoptions, yoptions: INTEGER; -- GtkAttachOptions
-							xpadding, ypadding: INTEGER -- Note: these are guint, therefore should be NATURAL
-							) is
+	                  left_attach, right_attach, top_attach, bottom_attach: INTEGER; -- Note  those all all guint, therefore should be NATURAL
+	                  xoptions, yoptions: INTEGER; -- GtkAttachOptions
+	                  xpadding, ypadding: INTEGER -- Note: these are guint, therefore should be NATURAL
+	                  ) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_table_attach_defaults (a_table: POINTER; a_widget: POINTER;
-										left_attach, right_attach, 
+										left_attach, right_attach,
 										top_attach, bottom_attach: INTEGER -- Note: these are guint, therefore should be NATURAL
 										) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_table_set_row_spacing (a_table: POINTER;
 										a_row, a_spacing: INTEGER; -- shall be NATURAL, since they are guint
 										) is
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_table_set_col_spacing (a_table: POINTER; 
+	gtk_table_set_col_spacing (a_table: POINTER;
 										a_column, spacing: INTEGER; -- shall be NATURAL, since it's guint
 										) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_table_set_row_spacings (a_table: POINTER;
 										 a_spacing: INTEGER; -- shall be NATURAL, since it's guint
 										 ) is
