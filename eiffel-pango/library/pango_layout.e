@@ -39,6 +39,8 @@ feature {} -- Creation
 	make (a_context: PANGO_CONTEXT) is
 			-- Create a new PANGO_LAYOUT object with attributes initialized to
 			-- default values for a particular PANGO_CONTEXT.
+		require
+			a_context /= Void
 		do
 			from_external_pointer (pango_layout_new (a_context.handle))
 		end
