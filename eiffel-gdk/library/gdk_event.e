@@ -52,7 +52,10 @@ class GDK_EVENT
 
 inherit
 	SHARED_C_STRUCT
-		redefine from_external_pointer end
+		redefine
+			from_external_pointer,
+			store_eiffel_wrapper, unstore_eiffel_wrapper, is_eiffel_wrapper_stored
+		end
 
 insert
 	GDK_EVENT_EXTERNALS
@@ -153,5 +156,17 @@ feature -- Convertion to different event types
 				create Result.from_event (Current)
 			end
 		end
+
+feature
+
+	store_eiffel_wrapper is
+		do
+		end
+
+	unstore_eiffel_wrapper is
+		do
+		end
+
+	is_eiffel_wrapper_stored: BOOLEAN is True
 
 end
