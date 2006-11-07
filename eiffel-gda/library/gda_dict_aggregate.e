@@ -29,19 +29,21 @@ indexing
 
 class GDA_DICT_AGGREGATE
  
-inherit GDA_OBJECT
+inherit
+	GDA_OBJECT
+	
 	-- TODO: GdaDictAggregate implements GdaXmlStorage.
 
 insert  GDA_DICT_AGGREGATE_EXTERNALS
 
-creation make, from_external_pointer
+creation from_dict, from_external_pointer
 
 feature {} -- Creation
   
 	from_dict (a_dict: GDA_DICT) is
 			-- Creates a new GdaDictAggregate object which represents an
 			-- aggregate in the dictionary
-		require dict_not_void
+		require dict_not_void: a_dict/=Void
 		do
 			from_external_pointer(gda_dict_aggregate_new(handle))
 		end
@@ -94,7 +96,7 @@ feature
 		do
 			p:=gda_dict_aggregate_get_arg_type(handle)
 			if wrappers.has(p) then 
-				Result:= r.wrapper_from_pointer(wrappers.at(p)) 
+				Result ::= wrappers.at(p).to_any
 			else
 				create Result.from_external_pointer(p)
 			end
@@ -114,7 +116,7 @@ feature
 		do
 			p:=gda_dict_aggregate_get_ret_type(handle)
 			if wrappers.has(p) then 
-				Result:= r.wrapper_from_pointer(wrappers.at(p)) 
+				Result ::= wrappers.at(p).to_any
 			else
 				create Result.from_external_pointer(p)
 			end

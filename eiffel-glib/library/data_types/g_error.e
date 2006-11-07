@@ -329,6 +329,8 @@ inherit
 	C_STRUCT
 		rename
 			make as empty
+		export
+			{ANY} is_null, is_not_null 			
 		redefine
 			dispose, force_free_handle, free_handle
 		end

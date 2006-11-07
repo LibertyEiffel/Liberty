@@ -8,8 +8,7 @@ indexing
 deferred class C_STRUCT
 
 inherit
-	WRAPPER
-	-- redefine copy end
+	WRAPPER -- redefine copy end
 
 insert EXCEPTIONS
 		export {} all
@@ -25,7 +24,7 @@ feature {} -- Initialization
 			if handle.is_null then raise_exception (No_more_memory) end
 		ensure memory_allocated: handle.is_not_null
 		end
-
+	
 feature -- Queries
 	exists: BOOLEAN is
 			--  Does Current wrap an existing object? Speaking in C: is handle not 
@@ -37,7 +36,7 @@ feature -- Queries
 	-- TODO: implement copy using memcpy
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
-
+	
 	-- struct_size should be exported to WRAPPER, to be able to check size 
 	-- before copying
 	struct_size: INTEGER is

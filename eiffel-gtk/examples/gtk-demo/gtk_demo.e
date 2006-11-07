@@ -23,7 +23,7 @@ class GTK_DEMO
 
 insert
 	GTK
-	G_TYPE
+	G_TYPES
 	GTK_STANDARD_ENUMERATIONS
 	PANGO_STYLE
 	-- Eventually insert this - when it will be implemented:
@@ -120,8 +120,7 @@ feature -- widgets
 			
 			create label.with_label ("Widget (double click for demo)")
 			
-			create {GTK_HBOX} Result.make
-			box.append_page (scrolled_window, label)
+			notebook.append_page (scrolled_window, label)
 			
 			tree_view.grab_focus
 		end
@@ -410,7 +409,7 @@ feature {} -- Creation
 			-- demo := model.value(iter, demo_column)
 			-- notebook
 			if a_selection.is_node_selected then
-				load_file (model.value (iter, filename_column))
+				print("TODO: load_file (model.value (iter, filename_column))")
 			end
 		end
 
@@ -535,7 +534,7 @@ feature -- Demos
 													  -- dialog,
 													  -- drawing_area,
 													  -- entry_completion,
-													  expander,
+													  expander
 													  -- icon_views,
 													  -- "Icon View Basics", "iconview.e",
 													  -- "Editing and Drag-and-Drop", 
@@ -543,7 +542,7 @@ feature -- Demos
 													  -- images,
 													  -- menus,
 													  -- paned
-													  pixbufs
+													  -- TODO: pixbufs
 													  -- rotated_text size_groups
 													  -- stock_browser text_demos
 													  -- [hypertext, multipleviews]
@@ -557,6 +556,7 @@ feature -- Demos
 
 feature 	-- demos singletons 
 	application_window: APP_WINDOW is once create Result.make end
+	expander: EXPANDER is once create Result.make end
 	
 feature -- callbacks
 	quit (an_object: GTK_OBJECT) is

@@ -554,14 +554,17 @@ feature -- Boolean value
 feature -- Date value
 	date: GDA_DATE is
 		require is_date: is_date
+		local p: POINTER
 		do
-			create Result.from_external_pointer
-			(gda_value_get_date (handle))
-			check 
-				shared: Result.is_shared
-				-- Note: because gda_value_get_date returns a "const
-				-- GdaDate*", thus it should not be freed.
+			p:=gda_value_get_date (handle)
+			if wrappers.has(p) then
+				Result::=wrappers.at(p).to_any
+			else create Result.from_external_pointer(p)
 			end
+
+			-- check shared: Result.is_shared Note: because
+			-- gda_value_get_date returns a "const GdaDate*", thus it
+			-- should not be freed. end
 		ensure not_void: Result /= Void
 		end
 
@@ -591,9 +594,11 @@ feature -- Real value
 feature -- Geometric point value
 	geometric_point: GDA_GEOMETRIC_POINT is
 		require is_geometric_point: is_geometric_point
+		local p: POINTER
 		do
-			create Result.from_external_pointer
-			(gda_value_get_geometric_point(handle))
+			p:=gda_value_get_geometric_point(handle)
+			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			else create Result.from_external_pointer end
 			check 
 				shared_result: Result.is_shared 
 				-- because gda_value_get_geomtric_point returns a "const
@@ -647,10 +652,11 @@ feature -- Integer value
 
 feature -- List value
 	list: G_LIST [GDA_VALUE] is
+		local p: POINTER
 		do
-			-- const GdaValueList* gda_value_get_list (GdaValue *value);
-			create Result.from_external_pointer
-			(gda_value_get_list (handle))
+			p:=gda_value_get_list (handle)
+			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			else create Result.from_external_pointer(p) end
 			check
 				shared: Result.is_shared 
 				-- because the returned pointer is const
@@ -676,9 +682,11 @@ feature -- Null value
 
 feature -- Money value
 	money: GDA_MONEY is
+		local p: POINTER
 		do
-			create Result.from_external_pointer(gda_value_get_money(handle))
-			--  const GdaMoney* gda_value_get_money         (GdaValue *value);
+			p:=gda_value_get_money(handle)
+			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			else create Result.from_external_pointer(p) end
 		ensure not_void: Result /= Void
 		end
 

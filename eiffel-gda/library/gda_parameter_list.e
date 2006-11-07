@@ -56,9 +56,6 @@ class GDA_PARAMETER_LIST
 
 inherit 
 	GDA_OBJECT
-		undefine
-			struct_size
-		end
 	-- TODO: LINKED_LIST [GDA_PARAMETER]
 
 insert
@@ -192,16 +189,20 @@ feature
 		end
 
 	
-	-- gda_parameter_list_find_param ()
+	find_parameter (a_name: STRING): GDA_PARAMETER is
+			-- Finds a GdaParameter using its name. Void if not found
+		local p:POINTER
+		do
+			p:=gda_parameter_list_find_param(handle, a_name.to_external)
+			if p.is_not_null then
+				if wrappers.has(p) then
+					Result ::= wrappers.at(p).to_any
+				else
+					create Result.from_external_pointer(p)
+				end
+			end
+		end
 
-	-- GdaParameter* gda_parameter_list_find_param (GdaParameterList *paramlist,
-	--                                              const gchar *param_name);
-
-	-- Finds a GdaParameter using its name
-
-	-- paramlist : 	a GdaParameterList object
-	-- param_name : 	the name of the requested parameter
-	-- Returns : 	a GdaParameter or NULL
 	-- gda_parameter_list_find_param_for_user ()
 
 	-- GdaParameter* gda_parameter_list_find_param_for_user

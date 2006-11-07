@@ -60,7 +60,7 @@ feature
 		do
 			p:=gda_dict_database_get_dict(handle)
 			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
-			if Result=Void then 
+			if Result = Void then 
 				debug 
 					print ("Creating a GDA_DICT from a gda_dict_database_get_dict call. This event is correctly handled, even if it is a little unexpected since a GDA_DICT_DATABASE is usually created by an already existing GDA_DICT.%N")
 				end
@@ -98,8 +98,13 @@ feature
 
 	tables: G_SLIST[GDA_DICT_TABLE] is
 			-- a list of all the tables within a database
+		local p: POINTER
 		do
-			create Result.from_external(gda_dict_database_get_tables(handle))
+			p:=gda_dict_database_get_tables(handle)
+			if wrappers.has(p)
+			 then Result::=wrappers.has(p).to_any
+			else  create Result.from_external(p)
+			end
 		end
 	
 	table_by_name (a_table_name: STRING): GDA_DICT_TABLE is
@@ -110,7 +115,10 @@ feature
 		do
 			tp:= gda_dict_database_get_table_by_name (handle, a_table_name.to_external)
 			if tp.is_not_null then
-				create Result.from_external_pointer(tp)
+				if wrappers.has(tp)
+				 then Result::=wrappers.at(tp).to_any
+				else create Result.from_external_pointer(tp)
+				end
 			end
 		end
 
@@ -125,15 +133,18 @@ feature
 	-- xml_id : 	the XML id of the requested table
 	-- Returns : 	The GdaDictTable pointer or NULL if the requested table does not exist.
 
-	field_by_name (a_name: STRING) is
-			-- the field with `a_name'. Void if the requested field does
+	field_by_name (a_field_name: STRING): GDA_DICT_FIELD is
+			-- the field with `a_field_name'. Void if the requested field does
 			-- not exist.
-		require name_not_void: a_name /= Void
+		require name_not_void: a_field_name /= Void
 		local fp: POINTER
 		do
 			fp:=gda_dict_database_get_field_by_name(handle, a_field_name.to_external)
 			if fp.is_not_null then
-				create Result.from_external_pointer(fp)
+				if wrappers.has(fp)
+				 then Result:=wrappers.at(fp).to_any
+				else create Result.from_external_pointer(fp)
+				end
 			end
 		end
 
@@ -151,24 +162,37 @@ feature
 
 	constraints: G_SLIST[GDA_DICT_CONSTRAINT] is
 			-- a list of all the constraints applied to the database.
+		local cp: POINTER
 		do
-			create Result.from_external_pointer (gda_dict_database_get_all_constraints (handle))
+			cp:=gda_dict_database_get_all_constraints (handle)
+			if wrappers.has(cp)
+			 then Result := wrappers.at(cp).to_any
+			else create Result.from_external_pointer (cp)
+			end
 		end
 
 	table_constraints (a_table: STRING): G_SLIST[GDA_DICT_CONSTRAINT] is
 			-- the constraints applicable to `a_table'
 		require table_not_void: a_table /= Void
+		local tcp: POINTER
 		do
-			create Result.from_external_pointer
-			(gda_dict_database_get_table_constraints
-			 (handle, a_table.to_external))
+			tcp:=gda_dict_database_get_table_constraints(handle, a_table.to_external)
+			if wrappers.has(tcp)
+			 then Result::=wrappers.at(tcp).to_any
+			else create Result.from_external_pointer(tcp)
+			end			
 		end
 
 	foreign_constraints: G_SLIST[GDA_DICT_CONSTRAINT] is
 			-- the constraints applied to the database which represent a
 			-- foreign constrains.
+		local fcp: POINTER
 		do
-			create Result.from_external_pointer(gda_dict_database_get_all_fk_constraints(handle))
+			fcp:=gda_dict_database_get_all_fk_constraints(handle)
+			if wrappers.has(fcp)
+			 then Result::=wrappers.at(fcp).to_any
+			else create Result.from_external_pointer(fcp)
+			end
 		end
 	
 	tables_foreign_constraints (a_table, another_table: GDA_DICT_TABLE; 
@@ -182,15 +206,18 @@ feature
 			-- If `a_table_has_foreign_constraints' is True then the
 			-- constraints are the one for which `a_table' contains the
 			-- foreign key 
-		local t1p, t2p: POINTER
+		local tfcp, t1p, t2p: POINTER
 		do
 			if a_table.is_not_null then t1p:=a_table.handle end
 			if another_table.is_not_null then t2p:=another_table.handle end
 			
-			create Result.from_external_pointer 
-			(gda_dict_database_get_tables_fk_constraints 
-			 (handle, t1p, t2p,
-			  a_table_has_foreign_constraints.to_integer))
+			tfcp:=(gda_dict_database_get_tables_fk_constraints
+					 (handle, t1p, t2p,
+					  a_table_has_foreign_constraints.to_integer))
+			if wrappers.has(tfcp)
+			 then Result::=wrappers.at(tfcp).to_any
+			else create Result.from_external_pointer(tfcp)
+			end
 		end
 
 feature -- TODO: Properties

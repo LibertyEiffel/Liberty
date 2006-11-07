@@ -80,12 +80,14 @@ insert GDA_OBJECT_EXTERNALS
 feature {} -- Creation
 
 feature
-	dict: GDA_DICT is
-			-- the GdaDict object to which an object is attached to
-		do
-			create Result.from_external_pointer (gda_object_get_dict (handle))
-		ensure not_void: Result /= Void
-		end
+	-- Note: I'm not sure that if the following shall be used.
+	
+	-- "dict: GDA_DICT is -- the GdaDict object
+	-- to which an object is attached to do create
+	-- Result.from_external_pointer (gda_object_get_dict (handle))
+	-- ensure not_void: Result /= Void end"
+
+	-- it clashes with a feature defined in GDA_DICT_DATABASE 
 
 	set_id (an_id: STRING) is
 			-- Sets the string ID of the object object.  The string ID

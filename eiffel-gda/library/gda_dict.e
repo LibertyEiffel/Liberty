@@ -74,13 +74,13 @@ feature
 			-- the GDA_CONNECTION used by Current GDA_DICT.
 			 local p: POINTER; r: WRAPPER_RETRIEVER[GDA_CONNECTION]
 	 do
-		p:=gda_dict_get_connection(handle)
-		if wrappers.has(p) then 
-		   Result:= r.wrapper_from_pointer(wrappers.at(p)) 
-		else
-		   create Result.from_external_pointer(p)
-		end
-		end
+		 p:=gda_dict_get_connection(handle)
+		 if wrappers.has(p) then 
+			 Result ::= wrappers.at(p).to_any
+		 else
+			 create Result.from_external_pointer(p)
+		 end
+	 end
 
 --	database: GDA_DICT_DATABASE is
 			-- the GdaDictDatabase used by the GdaDict object.
@@ -234,8 +234,8 @@ feature
 								  address_of (error.handle))).to_boolean
 		end
 
-	-- gda_dict_get_handler ()
-
+	-- TODO: handler (a_type: INTEGER): GDA_DATA_HANDLER is
+		
 	-- GdaDataHandler* gda_dict_get_handler        (GdaDict *dict,
 	--                                              GType for_type);
 

@@ -49,13 +49,12 @@ inherit
 	GDA_OBJECT
 		rename
 			make as allocate_struct
-		export {} allocate_struct 
-		undefine
-			struct_size
+		export {}
+			allocate_struct 
 		redefine
 			copy, type
 		end
-		--    GdaParameter implements GdaReferer.
+		-- GdaParameter implements GdaReferer.
 insert 
 	SHARED_G_ERROR
 	GDA_PARAMETER_EXTERNALS
@@ -117,8 +116,11 @@ feature {ANY}
 	users: G_SLIST [GDA_OBJECT] is
 			-- the GdaEntityField objects which created param (and which
 			-- will use its value)
+		local p:POINTER
 		do
-			create Result.from_external_pointer (gda_parameter_get_param_users (handle))
+			p:=gda_parameter_get_param_users(handle)
+			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			else create Result.from_external_pointer(p) end
 			Result.set_shared
 			-- Note: the returned list of GdaEntityField objects must not be
 			-- changed or free'd
@@ -130,11 +132,12 @@ feature {ANY}
 
 	value: G_VALUE is
 			-- the value held into the parameter. 
-		local ptr: POINTER
+		local p: POINTER
 		do
-			ptr:=gda_parameter_get_value (handle)
-			check pointer_not_null: ptr.is_not_null end
-			create Result.from_external_pointer (ptr)
+			p:=gda_parameter_get_value (handle)
+			check pointer_not_null: p.is_not_null end
+			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			else create Result.from_external_pointer (p) end
 		ensure not_void: Result /= Void
 		end
 	
@@ -173,8 +176,11 @@ feature {ANY}
 			-- the default value held into the parameter. WARNING: the
 			-- default value does not need to be of the same type as the
 			-- one required by param.
+		local p: POINTER
 		do
-			create Result.from_external_pointer (gda_parameter_get_default_value(handle))
+			p:=gda_parameter_get_default_value(handle)
+			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			else create Result.from_external_pointer(p) end
 		end
 
 	set_default_value (a_value: G_VALUE) is
@@ -309,11 +315,12 @@ feature {ANY}
 	binding_parameter: GDA_PARAMETER is
 			-- the parameter which makes Current change its value when
 			-- the param's value is changed.
-		local ptr: POINTER
+		local p: POINTER
 		do
-			ptr:=gda_parameter_get_bind_param  (handle)
-			if ptr.is_not_null then
-				create Result.from_external_pointer (ptr)
+			p:=gda_parameter_get_bind_param  (handle)
+			if p.is_not_null then
+				if wrappers.has(p) then Result::=wrappers.at(p).to_any
+				else create Result.from_external_pointer(p) end
 			end
 		end
 	

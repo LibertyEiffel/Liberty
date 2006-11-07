@@ -1,3 +1,4 @@
+
 indexing
 	description: "GdaDictField represents a field in a table or a view in the database."
 	copyright: "[
@@ -24,15 +25,18 @@ indexing
 
 class GDA_DICT_FIELD
 
-inherit GDA_OBJECT
+inherit
+	GDA_OBJECT
+
    -- GdaDictField implements GdaXmlStorage, GdaEntityField and GdaRenderer.
 	
 insert GDA_DICT_FIELD_EXTERNALS
 
-creation make, from_external_pointer
+creation from_dict, from_external_pointer
 
 feature {} -- Creation
-	make (a_dict: GDA_DICT; a_type: GDA_DICT_TYPE) is
+
+	from_dict (a_dict: GDA_DICT; a_type: GDA_DICT_TYPE) is
 			--	Creates a new GdaDictField object from `a_dict' of `a_type'.
 		require
 			dict_not_void: a_dict/=Void
@@ -138,7 +142,8 @@ feature
 		end
 
 	set_attributes (some_attributes: INTEGER) is
-		require valid_attributes: are_valid_attributes(some_attributes)
+		require
+			valid_attributes: are_valid_attributes(some_attributes)
 		do
 			gda_dict_field_set_attributes (handle, some_attributes)
 		end

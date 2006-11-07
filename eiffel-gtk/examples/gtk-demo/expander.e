@@ -22,6 +22,10 @@ indexing
 class EXPANDER
 
 inherit DEMO
+
+insert 
+	GTK_RESPONSE_TYPE
+	GTK_STOCK_ITEMS
 	
 creation make
 
@@ -29,11 +33,10 @@ feature
 
 	name: STRING is "Expander"
 	
-	description: STRING is "GtkExpander allows to provide additional content that is initially hidden.%
-	%This is also known as %"disclosure triangle%"."
+	description: STRING is "GtkExpander allows to provide additional content that is initially hidden. This is also known as %"disclosure triangle%"."
 
 	filename: STRING is "expander.e"
-
+	
 feature -- widgets
 	vbox: GTK_VBOX
 	label: GTK_LABEL
@@ -50,14 +53,14 @@ feature
 																		 gtk_response_none>>)
 				window.set_unresizable
 
-				create vbox,make (False, 5)
+				create vbox.make (False, 5)
 				window.vbox.pack_start (vbox, True, True, 0);
 				vbox.set_border_width (5)
 
 				vbox.pack_start (create {GTK_LABEL}.with_label
 									  ("Expander demo. Click on the triangle for details."),
 									  label, False, False, 0)
-
+				
 				create expander.make ("Details")
 				vbox.pack_start (expander, False, False, 0)
 
@@ -71,6 +74,8 @@ feature
 			end
 		end
 end
+
+
 
 
 

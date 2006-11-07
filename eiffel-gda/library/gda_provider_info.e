@@ -68,8 +68,11 @@ feature -- Properties
 
 	parameters: GDA_PARAMETER_LIST is
 			-- Contains a list of GdaParameter to create a DSN.
+		local p: POINTER
 		do
-			create Result.from_external_pointer (get_gda_params(handle))
+			p:=get_gda_params(handle)
+			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			else create Result.from_external_pointer(p) end
 		ensure not_void: Result /= Void
 		end
 

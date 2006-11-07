@@ -1,5 +1,5 @@
 indexing
-	description: "Shared error for C features that supports it."
+	description: "GdaHandlerNumerical -- Default handler for numeric values."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -19,29 +19,31 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- TODO: this design is way too simplicistic to scale well. It also
-			-- tends to make the end-user programmer write horrible code
-			
-deferred class SHARED_G_ERROR
-	
-insert
-	POINTER_HANDLING
-		undefine
-			copy, is_equal
-		end
-	
-feature
-	error: G_ERROR is 
-			-- 
-		once 
-			create Result.empty
-		end
-	
-	is_successful: BOOLEAN
+class GDA_HANDLER_NUMERICAL
 
-	has_error: BOOLEAN is
+inherit
+	GDA_OBJECT
+	GDA_DATA_HANDLER
+	
+creation make, from_external_pointer
+
+feature {} -- Creation
+	make is
+			-- Creates a data handler for numerical values
 		do
-			Result := not is_successful
+			from_external_pointer(gda_handler_numerical_new)
 		end
-		
-end -- class SHARED_G_ERROR
+	
+feature {} -- External calls
+	gda_handler_numerical_new: POINTER is
+			-- GdaDataHandler* gda_handler_numerical_new (void);
+		external "C use <libgda/libgda.h>"
+		end
+	
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <libgda/libgda.h>"
+		alias "sizeof(GdaHandlerNumerical)"
+		end
+
+end -- class GDA_HANDLER_NUMERICAL

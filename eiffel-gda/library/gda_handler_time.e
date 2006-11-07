@@ -1,5 +1,5 @@
 indexing
-	description: "Shared error for C features that supports it."
+	description: "GdaHandlerTime -- Default handler for time, date and timestamp."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -19,29 +19,36 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- TODO: this design is way too simplicistic to scale well. It also
-			-- tends to make the end-user programmer write horrible code
-			
-deferred class SHARED_G_ERROR
-	
-insert
-	POINTER_HANDLING
-		undefine
-			copy, is_equal
-		end
-	
-feature
-	error: G_ERROR is 
-			-- 
-		once 
-			create Result.empty
-		end
-	
-	is_successful: BOOLEAN
+class GDA_HANDLER_TIME
 
-	has_error: BOOLEAN is
+inherit 
+	GDA_OBJECT
+	GDA_DATA_HANDLER
+
+creation make, make_no_locale, from_external_pointer
+
+feature {} -- Creation
+
+	make is
+			-- Creates a data handler for time values
 		do
-			Result := not is_successful
+			from_external_pointer(gda_handler_time_new)
 		end
-		
-end -- class SHARED_G_ERROR
+
+	make_no_locale is
+			-- Creates a data handler for time values, but using the
+			-- default C locale instead of the current user locale.
+		do
+			from_external_pointer(gda_handler_time_new_no_locale)
+		end   
+feature {}
+	gda_handler_time_new: POINTER is
+			-- GdaDataHandler* gda_handler_time_new (void);
+		external "C use <libgda/libhda.h>"
+		end
+
+	gda_handler_time_new_no_locale: POINTER is
+			-- GdaDataHandler* gda_handler_time_new_no_locale (void);
+		external "C use <libgda/libhda.h>"
+		end
+end -- class GDA_HANDLER_TIME

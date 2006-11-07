@@ -92,9 +92,5 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-feature -- size
-		struct_size: INTEGER is
-		external "C inline use <libgda/libgda.h>"
-		alias "sizeof(GdaObject)"
-		end
+	-- Not defining struct_size, since GDA_OBJECT is deferred
 end

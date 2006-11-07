@@ -23,6 +23,12 @@ class GTK_SHADOW_TYPE
 
 feature
 	is_valid_gtk_shadow_type (a_shadow: INTEGER): BOOLEAN is
+		obsolete "use is_valid_shadow_type instead"
+		do
+			Result:=is_valid_shadow_type(a_shadow)
+		end
+
+	is_valid_shadow_type (a_shadow: INTEGER): BOOLEAN is
 		do
 			Result:=((a_shadow = gtk_shadow_none) or else
 						(a_shadow = gtk_shadow_in) or else

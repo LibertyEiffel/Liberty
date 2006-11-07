@@ -38,11 +38,36 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			stored: is_eiffel_wrapper_stored
 		end
 
-	from_pointer (a_ptr: POINTER) is
-		obsolete "use from_external_pointer instead"
+	is_null: BOOLEAN is
 		do
-			from_external_pointer(a_ptr)
+			Result := handle.is_null
+		ensure
+			definition: Result = handle.is_null
 		end
+
+	is_not_null: BOOLEAN is
+		do
+			Result := handle.is_not_null
+		ensure
+			definition: Result = handle.is_not_null
+		end
+
+	set_handle (a_ptr: POINTER) is
+			-- Set a non-null handle. Raises an No_more_memory exception 
+			-- if a_ptr.is_null. Use this, if you want to check the 
+			-- result of some external allocation function.
+		do
+			if a_ptr.is_null then
+				raise_exception(No_more_memory)
+			end
+			handle := a_ptr
+		ensure
+			definition: handle = a_ptr
+			not_null: handle.is_not_null
+		end
+
+	handle: POINTER
+		-- Pointer to the underlying C "thing" (i.e. a struct)
 
 feature {} -- Storing wrapper pointer into wrapped object
 
@@ -67,51 +92,5 @@ feature {} -- Storing wrapper pointer into wrapped object
 			-- stored in the underlying wrapped object? 
 		deferred
 		end
-
-feature {ANY} -- Implementation
-	is_null: BOOLEAN is
-		do
-			Result := handle.is_null
-		ensure
-			definition: Result = handle.is_null
-		end
-
-	is_not_null: BOOLEAN is
-		do
-			Result := handle.is_not_null
-		ensure
-			definition: Result = handle.is_not_null
-		end
-
--- 	is_equal (another: like Current): BOOLEAN is
--- 		do
--- 			handle := another.handle
--- 		end
-
-feature {}
-	clear_handle is
-		obsolete "??? Do we need this? Will it do more then just handle := default_pointer?"
-		do
-			handle := default_pointer
-		end
-		
-	-- TODO: what is WRAPPER_HANDLER?
-
-feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-	set_handle (a_ptr: POINTER) is
-			-- Set a non-null handle. Raises an No_more_memory exception 
-			-- if a_ptr.is_null. Use this, if you want to check the 
-			-- result of some external allocation function.
-		do
-			if a_ptr.is_null then
-				raise_exception(No_more_memory)
-			end
-			handle := a_ptr
-		ensure
-			definition: handle = a_ptr
-			not_null: handle.is_not_null
-		end
-
-	handle: POINTER
-		-- Pointer to the underlying C "thing" (i.e. a struct)
+	
 end

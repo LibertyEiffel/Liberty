@@ -18,12 +18,19 @@ inherit
 		undefine
 			make
 		redefine
-			dispose, store_eiffel_wrapper, unstore_eiffel_wrapper,
+			from_external_pointer, dispose,
+			store_eiffel_wrapper, unstore_eiffel_wrapper,
 			is_eiffel_wrapper_stored
 		end
 	SHARED_WRAPPERS_DICTIONARY
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
+	from_external_pointer (a_ptr: POINTER) is
+		do
+			Precursor(a_ptr)
+			set_shared
+		end
+	
 	is_shared: BOOLEAN
 			-- Does anybody else (Eiffel or non-Eiffel) have a reference 
 			-- to `handle'? If False, then the C-object will be 

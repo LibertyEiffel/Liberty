@@ -1,11 +1,11 @@
 indexing
-	description: "External calls for "
+	description: "External calls for GDA_DICT_DATABASE"
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _EXTERNALS
+deferred class GDA_DICT_DATABASE_EXTERNALS
 feature {} -- External calls
 	gda_dict_database_new (a_dict: POINTER): POINTER is
 			-- GObject* gda_dict_database_new (GdaDict *dict);

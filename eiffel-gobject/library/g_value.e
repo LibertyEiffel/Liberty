@@ -11,8 +11,6 @@ class G_VALUE
 
 inherit
 	SHARED_C_STRUCT
-		rename
-			from_pointer as wrapper_from_pointer
 		redefine
 			dispose
 		end

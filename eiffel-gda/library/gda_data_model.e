@@ -65,12 +65,12 @@ indexing
 
 class GDA_DATA_MODEL
 
+	-- Note: this should be deferred. It has not made deferred because
+	-- it is necessary to create GDA_DATA_MODELs without knowing which
+	-- effective heir it is...
+	
 inherit 
 	GDA_OBJECT 
-		undefine
-			struct_size
-		end
-		-- GInterface
 
 		-- Prerequisites: GdaDataModel requires GdaObject.
 	

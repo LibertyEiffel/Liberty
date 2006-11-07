@@ -129,13 +129,13 @@ feature
 
 	has_connection: BOOLEAN is
 		do
-			Result := connection /= Void
+			Result := (connection/=Void)
 		end
 	
 feature --
 	database_name: STRING is "eiffel-gda-example"
 	provider: STRING is "SQLite"
-	connection_string: STRING is "DB_NAME=example.sqlite; DB_PATH=."
+	connection_string: STRING is "DB_NAME=example,DB_DIR=."
 	description: STRING is "Example database for eiffel-gda"
 	username: STRING is once Result := Void end
 	password: STRING is once Result := Void end
