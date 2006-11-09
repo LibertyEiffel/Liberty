@@ -88,12 +88,14 @@ feature -- Operations
 			-- Note that dispose is public for this class. This is because
 			-- it can be called when knowing that the event will no longer
 			-- be valid (i.e, deallocated by C)
-			if not is_shared then
-				gdk_event_free (handle)
+			if handle.is_not_null then
+				if not is_shared then
+					gdk_event_free (handle)
+				end
+				unstore_eiffel_wrapper
+				handle:= default_pointer
+				event.release
 			end
-			unstore_eiffel_wrapper
-			handle:= default_pointer
-			event.release
 		end
 
 
