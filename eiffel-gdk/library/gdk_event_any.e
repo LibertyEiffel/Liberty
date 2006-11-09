@@ -94,7 +94,7 @@ feature -- Operations
 				end
 				unstore_eiffel_wrapper
 				handle:= default_pointer
-				event.release
+				event.dispose
 			end
 		end
 
