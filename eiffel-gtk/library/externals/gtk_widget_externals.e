@@ -25,8 +25,8 @@ class GTK_WIDGET_EXTERNALS
 
 feature {} -- External calls
 
-	-- enum        GtkWidgetFlags;
-	-- #define     GTK_WIDGET_TYPE                 (wid)
+-- enum        GtkWidgetFlags;
+-- #define     GTK_WIDGET_TYPE                 (wid)
 -- #define     GTK_WIDGET_STATE                (wid)
 -- #define     GTK_WIDGET_SAVED_STATE          (wid)
 -- #define     GTK_WIDGET_FLAGS                (wid)
@@ -67,8 +67,8 @@ feature {} -- External calls
 --             GtkSelectionData;
 --             GtkWidgetAuxInfo;
 --             GtkWidgetShapeInfo;
-	-- enum        GtkWidgetHelpType;
-	
+-- enum        GtkWidgetHelpType;
+
 -- TODO: GtkWidget*  gtk_widget_new                  (GType type,
 --                                              const gchar *first_property_name,
 --                                              ...);
@@ -99,7 +99,7 @@ feature {} -- External calls
 	gtk_widget_show (widget: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_widget_show_now (widget: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
@@ -161,7 +161,7 @@ feature {} -- External calls
 		end
 
 	gtk_widget_add_accelerator (widget, char_accel_signal, gtkaccelgroup: POINTER;
-					guint_accel_key, gdkmodifiertype, gtkaccelflags: INTEGER) is
+	                            guint_accel_key, gdkmodifiertype, gtkaccelflags: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -265,11 +265,11 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
- gtk_widget_grab_focus (widget: POINTER) is
+	gtk_widget_grab_focus (widget: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 
- gtk_widget_grab_default (widget: POINTER) is
+	gtk_widget_grab_default (widget: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -711,11 +711,9 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
--- gtk_widget_get_size_request (widget: POINTER,
---                                              gint *width,
---                                              gint *height) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_get_size_request (widget, width, height: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- #define     gtk_widget_pop_visual           ()
 -- #define     gtk_widget_push_visual          (visual)
@@ -725,7 +723,7 @@ feature {} -- External calls
 --		end
 
 -- #define     gtk_widget_set_default_visual   (visual)
- gtk_widget_set_size_request (widget: POINTER; width, height: INTEGER) is
+	gtk_widget_set_size_request (widget: POINTER; width, height: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -767,7 +765,4 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
-
-
 end
-	

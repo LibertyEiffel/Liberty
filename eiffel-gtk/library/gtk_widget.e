@@ -546,17 +546,12 @@ feature -- Operation
 -- GdkWindow*  gtk_widget_get_root_window      (GtkWidget *widget);
 -- GdkScreen*  gtk_widget_get_screen           (GtkWidget *widget);
 -- gboolean    gtk_widget_has_screen           (GtkWidget *widget);
--- void        gtk_widget_get_size_request     (GtkWidget *widget,
---                                              gint *width,
---                                              gint *height);
+
 -- #define     gtk_widget_pop_visual           ()
 -- #define     gtk_widget_push_visual          (visual)
 -- void        gtk_widget_set_child_visible    (GtkWidget *widget,
 --                                              gboolean is_visible);
 -- #define     gtk_widget_set_default_visual   (visual)
--- void        gtk_widget_set_size_request     (GtkWidget *widget,
---                                              gint width,
---                                              gint height);
 -- #define     gtk_widget_set_visual           (widget,visual)
 -- void        gtk_widget_thaw_child_notify    (GtkWidget *widget);
 -- void        gtk_widget_set_no_show_all      (GtkWidget *widget,
@@ -2993,7 +2988,7 @@ feature -- button-press-event signal
 
 -- This function is deprecated; it does nothing.
 -- visual : 	
-											
+
 	set_size_request (a_width, an_height: INTEGER) is
 			-- Sets the minimum size of a widget; that is, the widget's
 			-- size request will be `a_width' by `an_height'. You can use
@@ -3027,16 +3022,26 @@ feature -- button-press-event signal
 			-- Widgets can't actually be allocated a size less than 1 by
 			-- 1, but you can pass 0,0 to this function to mean "as small
 			-- as possible."
-		
+			
 			-- width : 	width widget should request, or -1 to unset
 			-- height : 	height widget should request, or -1 to unset
-		require 
+		require
 			valid_width: a_width >= -1
 			valid_height: an_height >= -1
 		do
 			gtk_widget_set_size_request (handle, a_width, an_height);
-
 		end
+
+	size_request: TUPLE [INTEGER, INTEGER] is
+		local
+			width, height: INTEGER
+		do
+			gtk_widget_get_size_request (handle, $width, $height)
+			Result := [width, height]
+		ensure
+			Result /= Void
+		end
+
 -- gtk_widget_set_visual()
 
 -- #define gtk_widget_set_visual(widget,visual)  ((void) 0)

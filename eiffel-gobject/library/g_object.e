@@ -505,7 +505,7 @@ feature -- Property getter/setter
 			has_property: has_property (a_property_name)
 			is_writable: find_property (a_property_name).is_writable
 			valid_value: a_value /= Void
-			correct_value_type: a_value.is_a (find_property(a_property_name).value_gtype)
+			correct_value_type: a_value.is_a (find_property (a_property_name).value_gtype)
 		do
 			g_object_set_property (handle, a_property_name.to_external, a_value.handle)
 		ensure
