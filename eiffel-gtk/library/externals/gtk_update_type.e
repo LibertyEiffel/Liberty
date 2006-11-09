@@ -43,7 +43,7 @@ deferred class GTK_UPDATE_TYPE
 
 feature  -- enum
 
-	is_valid_gtk_update_type (an_update_type: INTEGER): BOOLEAN is
+	is_valid_update_type (an_update_type: INTEGER): BOOLEAN is
 		do
 			Result:=((an_update_type=gtk_update_continuous) or else
 			         (an_update_type=gtk_update_discontinuous) or else

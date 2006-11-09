@@ -25,7 +25,7 @@ deferred class GTK_DIALOG_FLAGS
 
 feature  -- enum
 
-	are_valid_gtk_dialog_flags (some_flags :INTEGER): BOOLEAN is
+	are_valid_dialog_flags (some_flags :INTEGER): BOOLEAN is
 		do
 			Result:=(some_flags & (gtk_dialog_modal |
 			                       gtk_dialog_destroy_with_parent |

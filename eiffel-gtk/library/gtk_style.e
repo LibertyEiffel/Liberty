@@ -54,7 +54,7 @@ feature -- Operations
 
 	set_background_pixmap (a_pixmap: GDK_PIXMAP; a_state: INTEGER) is
 		require
-			is_valid_gtk_state_type (a_state)
+			is_valid_state_type (a_state)
 		do
 			gtk_style_set_background(handle, a_pixmap.handle, a_state)
 		end

@@ -132,7 +132,7 @@ feature
 			-- the tree_model.
 		do
 			Result :=  gtk_tree_model_get_flags  (handle)
-		ensure are_valid_gtk_tree_model_flags (Result)
+		ensure are_valid_tree_model_flags (Result)
 		end
 
 	n_columns, columns_count: INTEGER is

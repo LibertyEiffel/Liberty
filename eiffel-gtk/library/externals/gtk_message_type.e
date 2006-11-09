@@ -25,7 +25,7 @@ deferred class GTK_MESSAGE_TYPE
 
 feature  -- enum
 
-	is_valid_gtk_message_type (a_gtk_message_type :INTEGER): BOOLEAN is
+	is_valid_message_type (a_gtk_message_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_gtk_message_type = gtk_message_info) or else
 						(a_gtk_message_type = gtk_message_warning) or else

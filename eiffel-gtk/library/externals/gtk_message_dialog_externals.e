@@ -34,17 +34,17 @@ feature {} -- External calls
 							some_gtkdialogflags, a_gtkmessagetype, a_gtkbuttonstype: INTEGER;
 							a_message_format: POINTER): POINTER is
 		require
-			valid_dialog_flags: are_valid_gtk_dialog_flags (some_gtkdialogflags)
-			valid_message_type: is_valid_gtk_message_type (a_gtkmessagetype)
-			valid_buttons_type: is_valid_gtk_buttons_type (a_gtkbuttonstype)
+			valid_dialog_flags: are_valid_dialog_flags (some_gtkdialogflags)
+			valid_message_type: is_valid_message_type (a_gtkmessagetype)
+			valid_buttons_type: is_valid_buttons_type (a_gtkbuttonstype)
 		external "C use  <gtk/gtk.h>"
 		end
 
 	gtk_message_dialog_new_with_markup (a_parent: POINTER; some_gtkdialogflags, a_gtkmessagetype, a_gtkbuttonstype: INTEGER; a_message_format: POINTER): POINTER is 
 		require
-			valid_dialog_flags: are_valid_gtk_dialog_flags (some_gtkdialogflags)
-			valid_message_type: is_valid_gtk_message_type (a_gtkmessagetype)
-			valid_buttons_type: is_valid_gtk_buttons_type (a_gtkbuttonstype)
+			valid_dialog_flags: are_valid_dialog_flags (some_gtkdialogflags)
+			valid_message_type: is_valid_message_type (a_gtkmessagetype)
+			valid_buttons_type: is_valid_buttons_type (a_gtkbuttonstype)
 		external "C use  <gtk/gtk.h>"
 		end
 

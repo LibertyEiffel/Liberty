@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_SELECTION_MODE
 feature  -- enum
-	is_valid_gtk_selection_mode (a_mode: INTEGER): BOOLEAN is
+	is_valid_selection_mode (a_mode: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_mode = gtk_selection_none) or else
 						(a_mode = gtk_selection_single) or else

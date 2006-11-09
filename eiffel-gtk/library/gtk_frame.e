@@ -96,12 +96,12 @@ feature -- shadow
 	shadow_type: INTEGER is
 		do
 			Result := gtk_frame_get_shadow_type (handle)
-		ensure valid: is_valid_gtk_shadow_type (Result)
+		ensure valid: is_valid_shadow_type (Result)
 		end
 
 	set_shadow_type (a_shadow_type: INTEGER) is
 			-- Sets the shadow type for frame.
-		require is_valid_gtk_shadow_type (a_shadow_type)
+		require is_valid_shadow_type (a_shadow_type)
 		do
 			gtk_frame_set_shadow_type (handle,a_shadow_type)
 		end

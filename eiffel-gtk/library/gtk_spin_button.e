@@ -261,7 +261,7 @@ feature  -- Spinning
 			-- Increment or decrement a spin button's value in a specified direction by a specified amount.
 			-- `a_direction' is a GtkSpinType indicating the direction to spin.
 			-- `an_increment' is the step increment to apply in the specified direction.
-		require is_valid_gtk_spin_type (a_direction)
+		require is_valid_spin_type (a_direction)
 		do
 			gtk_spin_button_spin (handle, a_direction, an_increment)
 		end

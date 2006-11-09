@@ -94,7 +94,7 @@ feature {} -- External calls
 	gtk_spin_button_set_update_policy (a_spin_button: POINTER; a_policy: INTEGER) is
 		require
 			valid_spin_button: a_spin_button.is_not_null
-			valid_policy: is_valid_gtk_spin_button_update_policy (a_policy)
+			valid_policy: is_valid_spin_button_update_policy (a_policy)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -106,7 +106,7 @@ feature {} -- External calls
 	gtk_spin_button_spin (a_spin_button: POINTER; a_direction: INTEGER; an_increment: REAL) is
 		require
 			valid_spin_button: a_spin_button.is_not_null
-			valid_direction: is_valid_gtk_spin_type (a_direction)
+			valid_direction: is_valid_spin_type (a_direction)
 		external "C use <gtk/gtk.h>"
 		end
 

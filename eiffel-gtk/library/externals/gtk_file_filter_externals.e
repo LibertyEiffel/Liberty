@@ -52,13 +52,13 @@ feature {} -- External calls
 	gtk_file_filter_add_custom (a_gtkfilefilter: POINTER;
 										 some_flags: INTEGER;
 										 a_function, some_data, a_gdestroynotify_function: POINTER) is
-		require are_valid_gtk_file_filter_flags (some_flags)
+		require are_valid_file_filter_flags (some_flags)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_file_filter_get_needed (a_gtkfilefilter: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
-			ensure are_valid_gtk_file_filter_flags (Result)
+			ensure are_valid_file_filter_flags (Result)
 		end
 
 	gtk_file_filter_filter (a_gtkfilefilter, a_gtkfilefilterinfo: POINTER): INTEGER is

@@ -254,7 +254,7 @@ feature -- Sizing
 
 	set_sizing (a_type: INTEGER) is
 			-- Sets the growth behavior of tree_column to `a_type'.
-		require valid_type: is_valid_gtk_tree_view_column_sizing (a_type)
+		require valid_type: is_valid_tree_view_column_sizing (a_type)
 		do
 			gtk_tree_view_column_set_sizing (handle, a_type)
 		end
@@ -283,7 +283,7 @@ feature -- Sizing
 			-- the current type of tree_column.
 		do
 			Result :=  gtk_tree_view_column_get_sizing (handle)
-		ensure valid_type: is_valid_gtk_tree_view_column_sizing (Result)
+		ensure valid_type: is_valid_tree_view_column_sizing (Result)
 		end
 
 	is_grow_only: BOOLEAN is

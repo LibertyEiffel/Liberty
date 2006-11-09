@@ -53,7 +53,7 @@ feature {} -- Creation
 			-- that is used by GtkFileChooserDialog.
 			-- an_action : 	Open or save mode for the widget
 		require
-			is_valid_gtk_file_chooser_action (an_action)
+			is_valid_file_chooser_action (an_action)
 		do
 			from_external_pointer (gtk_file_chooser_widget_new (an_action))
 		end
@@ -67,7 +67,7 @@ feature {} -- Creation
 			-- an_action : 	Open or save mode for the widget
 			-- backend : 	The name of the specific filesystem backend to use.
 		require
-			is_valid_gtk_file_chooser_action (an_action)
+			is_valid_file_chooser_action (an_action)
 		do
 			from_external_pointer (gtk_file_chooser_widget_new_with_backend (an_action, backend.to_external))
 		end

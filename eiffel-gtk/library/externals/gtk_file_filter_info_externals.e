@@ -30,7 +30,7 @@ feature {} -- Getters
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo get contains use <gtk/gtk.h>"
 			-- TODO: it seems that external features cannot have postconditions....
-			-- ensure are_valid_gtk_file_filter_flags (Result)
+			-- ensure are_valid_file_filter_flags (Result)
 		end
 	
 	get_filename (a_gtk_file_filter_info: POINTER): POINTER is
@@ -63,7 +63,7 @@ feature {} -- Setters
 		require a_gtk_file_filter_info.is_not_null
 		external "C struct GtkFileFilterInfo set contains use <gtk/gtk.h>"	
 			-- TODO: it seems that external features cannot have postconditions....
-			-- ensure are_valid_gtk_file_filter_flags (Result)
+			-- ensure are_valid_file_filter_flags (Result)
 		end
 	
 	set_filename (a_gtk_file_filter_info, a_filename: POINTER) is

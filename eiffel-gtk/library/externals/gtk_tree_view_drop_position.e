@@ -25,7 +25,7 @@ deferred class GTK_TREE_VIEW_DROP_POSITION
 
 feature  -- enum
 
-	is_valid_gtk_tree_view_drop_position (a_position: INTEGER): BOOLEAN is
+	is_valid_tree_view_drop_position (a_position: INTEGER): BOOLEAN is
 		do
 			Result:=((a_position=gtk_tree_view_drop_before) or else
 						(a_position = gtk_tree_view_drop_after) or else

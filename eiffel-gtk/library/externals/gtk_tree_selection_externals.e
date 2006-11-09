@@ -25,13 +25,13 @@ deferred class GTK_TREE_SELECTION_EXTERNALS
 inherit GTK_SELECTION_MODE
 feature {}
 	gtk_tree_selection_set_mode (a_gtktreeselection: POINTER; a_gtkselectionmode: INTEGER) is
-		require is_valid_mode: is_valid_gtk_selection_mode (a_gtkselectionmode)
+		require is_valid_mode: is_valid_selection_mode (a_gtkselectionmode)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_tree_selection_get_mode (a_gtktreeselection: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
-		ensure is_valid_mode: is_valid_gtk_selection_mode (Result)
+		ensure is_valid_mode: is_valid_selection_mode (Result)
 		end
 	
 	gtk_tree_selection_set_select_function (a_gtktreeselection, a_gtktreeselectionfunc, some_data, a_gtkdestroynotify : POINTER) is

@@ -140,8 +140,8 @@ feature
 			-- `ypadding': The amount of padding above and below the child widget.
 		require
 			valid_child: a_child /= Void
-			valid_x_options: are_valid_gtk_attach_options(xoptions)
-			valid_y_options: are_valid_gtk_attach_options(yoptions)
+			valid_x_options: are_valid_attach_options(xoptions)
+			valid_y_options: are_valid_attach_options(yoptions)
 			left_attach_fits_natural_16: left_attach.in_range (0,65535)
 			right_attach_fits_natural_16: right_attach.in_range (0,65535)
 			top_attach_fits_natural_16: top_attach.in_range (0,65535)

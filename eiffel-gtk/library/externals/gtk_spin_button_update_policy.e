@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_SPIN_BUTTON_UPDATE_POLICY
 feature  -- enum
-	is_valid_gtk_spin_button_update_policy (a_policy :INTEGER): BOOLEAN is
+	is_valid_spin_button_update_policy (a_policy :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_policy = gtk_update_always) or else
 						(a_policy = gtk_update_if_valid))

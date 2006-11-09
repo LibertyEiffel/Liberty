@@ -125,7 +125,7 @@ feature -- Button's relief
 			-- widget. Three styles exist, `gtk_relief_normal',
 			-- `gtk_relief_half', `gtk_relief_none'. The default style is, as
 			-- one can guess, `gtk_relief_normal'.
-		require valid_relief_style: is_valid_gtk_relief_style (a_relief)
+		require valid_relief_style: is_valid_relief_style (a_relief)
 		do
 			gtk_button_set_relief (handle, a_relief)
 		end
@@ -134,7 +134,7 @@ feature -- Button's relief
 			-- the current relief style of the Current GtkButton.
 		do
 			Result := gtk_button_get_relief (handle)
-		ensure valid_relief_style: is_valid_gtk_relief_style (Result)
+		ensure valid_relief_style: is_valid_relief_style (Result)
 		end
 
 	is_relief_normal: BOOLEAN is

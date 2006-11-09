@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_CELL_RENDERER_STATE
 feature  -- enum
-	is_valid_gtk_cell_renderer_state (a_state :INTEGER): BOOLEAN is
+	is_valid_cell_renderer_state (a_state :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_state = gtk_cell_renderer_selected) or else
 						(a_state = gtk_cell_renderer_prelit) or else

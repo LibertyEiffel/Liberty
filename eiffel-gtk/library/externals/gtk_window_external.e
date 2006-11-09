@@ -243,7 +243,7 @@ feature {} -- External calls
 
 			-- window : 	a GtkWindow.
 			-- position : 	a position constraint.
-		require valid_position: is_valid_gtk_window_position (a_position)
+		require valid_position: is_valid_window_position (a_position)
 		external "C use <gtk/gtk.h>"
 		end
 	

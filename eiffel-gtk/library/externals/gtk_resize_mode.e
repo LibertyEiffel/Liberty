@@ -37,7 +37,7 @@ feature -- Enum
 		alias "GTK_RESIZE_QUEUE"
 		end
 
-	is_valid_resize_mode, is_valid_gtk_resize_mode (a_mode: INTEGER): BOOLEAN is
+	is_valid_resize_mode, is_valid_resize_mode (a_mode: INTEGER): BOOLEAN is
 		do
 			Result:=((a_mode=gtk_resize_parent) or else
 						(a_mode=gtk_resize_queue))

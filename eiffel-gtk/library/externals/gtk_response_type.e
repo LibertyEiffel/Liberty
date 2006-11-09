@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_RESPONSE_TYPE
 feature  -- enum
-	is_valid_gtk_response_type (a_response :INTEGER): BOOLEAN is
+	is_valid_response_type (a_response :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_response = gtk_response_none) or else
 						(a_response = gtk_response_reject) or else

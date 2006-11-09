@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_FILE_FILTER_FLAGS
 feature  -- enum
-	are_valid_gtk_file_filter_flags (some_flags :INTEGER): BOOLEAN is
+	are_valid_file_filter_flags (some_flags :INTEGER): BOOLEAN is
 		do	
 			Result:=((some_flags & gtk_file_filter_filename) |
 						(some_flags & gtk_file_filter_uri) |

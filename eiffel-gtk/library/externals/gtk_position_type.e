@@ -22,7 +22,7 @@ indexing
 deferred class GTK_POSITION_TYPE
 
 feature
-	is_valid_gtk_position_type (a_position: INTEGER): BOOLEAN is
+	is_valid_position_type (a_position: INTEGER): BOOLEAN is
 		do
 			Result := ((a_position=gtk_pos_left) or else
 			           (a_position=gtk_pos_right) or else
