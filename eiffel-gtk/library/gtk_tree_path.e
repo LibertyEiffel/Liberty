@@ -154,6 +154,8 @@ feature
 
 	depth: INTEGER is
 			-- the current depth of path.
+		require
+			is_not_null
 		do
 			Result:=gtk_tree_path_get_depth(handle)
 		end
