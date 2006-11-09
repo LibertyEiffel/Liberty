@@ -158,13 +158,13 @@ feature
 			Result:=gtk_tree_path_get_depth(handle)
 		end
 
-	indices: FAST_ARRAY[INTEGER_32] is
+	indices: ARRAYED_COLLECTION[INTEGER_32] is
 			-- the current indices of path. This is an array of integers,
 			-- each representing a node in a tree.
 			
 			-- Note: currently implemented as a FAST_ARRAY
-		obsolete "its signature should be ARRAYED_COLLECTION [INTEGER_32]"
-		local c_array: NATIVE_ARRAY [INTEGER_32]; i: INTEGER_32
+		local
+			c_array: NATIVE_ARRAY [INTEGER_32]; i: INTEGER_32
 		do
 			-- The following seems an hack. Indeed it's the "normal" way
 			-- to create a NATIVE_ARRAY from a C pointer to that array
