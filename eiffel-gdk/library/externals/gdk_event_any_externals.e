@@ -27,6 +27,10 @@ feature {} -- Low level access
 		external "C struct GdkEventAny get type use <gdk/gdk.h>"
 		end
 
+	gdk_event_free (ptr: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+
 	gdk_event_any_get_send_event (ptr: POINTER): INTEGER_8 is
 		external "C struct GdkEventAny get type use <gdk/gdk.h>"
 		end

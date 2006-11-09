@@ -51,6 +51,8 @@ feature
 			check is_a_button_event: event_obj.is_event_button end
 			
 			Result := function.item ([event_obj.event_button, object]).to_integer
+			-- GTK is about to release this event, detach it from Eiffel
+			event_obj.event_button.dispose
 		end
 
 	callback_pointer: POINTER is

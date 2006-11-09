@@ -169,4 +169,13 @@ feature
 
 	is_eiffel_wrapper_stored: BOOLEAN is True
 
+feature {GDK_EVENT_ANY}
+
+	release is
+		do
+			handle := default_pointer
+		end
+
+invariant
+	is_shared
 end

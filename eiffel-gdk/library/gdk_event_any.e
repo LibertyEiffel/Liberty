@@ -23,7 +23,9 @@ class GDK_EVENT_ANY
 
 inherit
 	SHARED_C_STRUCT
-
+		redefine
+			dispose
+		end
 insert
 	G_RETRIEVER [GDK_WINDOW]
 	GDK_EVENT_ANY_EXTERNALS
@@ -78,6 +80,22 @@ feature -- access
 		do
 			Result := gdk_event_any_get_send_event (handle).to_boolean
 		end
+
+feature -- Operations
+
+	dispose is
+		do
+			-- Note that dispose is public for this class. This is because
+			-- it can be called when knowing that the event will no longer
+			-- be valid (i.e, deallocated by C)
+			if not is_shared then
+				gdk_event_free (handle)
+			end
+			unstore_eiffel_wrapper
+			handle:= default_pointer
+			event.release
+		end
+
 
 feature {WRAPPER} -- Representation
 

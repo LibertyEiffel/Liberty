@@ -56,6 +56,8 @@ feature
 				is_a_motion_event: event_obj.is_event_motion
 			end
 			Result := function.item ([event_obj.event_motion, object]).to_integer
+			-- GTK is about to release this event, detach it from Eiffel
+			event_obj.event_motion.dispose
 		end
 
 	callback_pointer: POINTER is

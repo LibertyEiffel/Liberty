@@ -59,6 +59,8 @@ feature
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			-- FIXME: event should be retrieved when GDK_EVENT is implemented **trixx, 20060616
 			Result := function.item ([object, event_obj]).to_integer
+			-- GTK is about to release this event, detach it from Eiffel
+			event_obj.event_any.dispose
 		end
 
 	callback_pointer: POINTER is
