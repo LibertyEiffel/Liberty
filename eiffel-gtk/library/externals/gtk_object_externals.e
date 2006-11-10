@@ -20,8 +20,10 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GTK_OBJECT_EXTERNALS
+deferred class GTK_OBJECT_EXTERNALS
+
 feature {}
+
 	gtk_object_flags (obj: POINTER): INTEGER is
 			-- Gets the GtkObjectFlags for an object without directly accessing its members.
 		external "C macro use <gtk/gtk.h>"
@@ -42,20 +44,18 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
-
 	gtk_object_destroy (object: POINTER) is
 			-- Emits the "destroy" signal notifying all reference holders that they
 			-- should release the GtkObject. See the overview documentation at the
 			-- top of the page for more details.
-
+			
 			-- The memory for the object itself won't be deleted until its
 			-- reference count actually drops to 0; gtk_object_destroy() merely
 			-- asks reference holders to release their references, it does not free
 			-- the object.  -- object : the object to destroy.
 		external "C use <gtk/gtk.h>"
 		end
-		
-		
+
 
 -- Signals
 -- The "destroy" signal
@@ -70,5 +70,6 @@ feature {}
 
 -- GObject
 -- 				 << GtkMisc 	GtkPaned >>
+
 end
-				 
+

@@ -18,7 +18,7 @@ indexing
 					02110-1301 USA
 				]"
 
-class GTK_ICON_VIEW_EXTERNALS
+deferred class GTK_ICON_VIEW_EXTERNALS
 
 feature {} -- External calls
 

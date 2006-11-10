@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 
 	date: "$Date:$"
 	revision: "$Revision:$"
@@ -30,11 +30,11 @@ feature {} -- External calls
 	gtk_cell_editable_start_editing (a_gtkcelleditable, a_gdkevent: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_cell_editable_editing_done  (a_gtkcelleditable: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_cell_editable_remove_widget (a_gtkcelleditable: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end

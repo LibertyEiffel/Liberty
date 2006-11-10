@@ -17,18 +17,18 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$REvision:$"
 
-class GTK_ALIGNMENT_EXTERNALS
+deferred class GTK_ALIGNMENT_EXTERNALS
 
 feature {} -- external calls
 
 	gtk_alignment_new (xalign, yalign, xscale, yscale: REAL_32): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_alignment_set (alignment: POINTER; xalign, yalign, xscale, yscale: REAL_32) is
 		external "C use <gtk/gtk.h>"
 		end

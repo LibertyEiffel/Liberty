@@ -1,9 +1,29 @@
--- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
--- Top  |  Description  |  Object Hierarchy  |  Properties
--- GtkTreeModelFilter
+indexing
+	description: "External calls for GtkTreeModelFilter: A GtkTreeModel which hides parts of an underlying tree model"
+	copyright: "[
+					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
 
--- GtkTreeModelFilter %GÅ‚Äî%@ A GtkTreeModel which hides parts of an underlying tree model
-	
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+				]"
+
+	date: "$Date:$"
+	revision: "$Revision:$"
+
+deferred class GTK_TREE_MODEL_FILTER_EXTERNALS
+
 -- Synopsis
 
 -- #include <gtk/gtk.h>
@@ -279,3 +299,5 @@
 -- See Also
 
 -- GtkTreeModelSort
+
+end -- class GTK_TREE_MODEL_FILTER_EXTERNALS

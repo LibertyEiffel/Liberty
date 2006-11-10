@@ -16,7 +16,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 
@@ -24,7 +24,7 @@ indexing
 deferred class GTK_RESIZE_MODE
 
 feature -- Enum
-	
+
 	gtk_resize_parent: INTEGER is
 			--  Pass resize request to the parent
 		external "C macro use <gtk/gtk.h>"
@@ -37,10 +37,11 @@ feature -- Enum
 		alias "GTK_RESIZE_QUEUE"
 		end
 
-	is_valid_resize_mode, is_valid_resize_mode (a_mode: INTEGER): BOOLEAN is
+	is_valid_resize_mode (a_mode: INTEGER): BOOLEAN is
 		do
 			Result:=((a_mode=gtk_resize_parent) or else
-						(a_mode=gtk_resize_queue))
+			         (a_mode=gtk_resize_queue))
 		end
+
 end
-  
+

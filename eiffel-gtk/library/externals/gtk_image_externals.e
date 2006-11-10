@@ -16,8 +16,10 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
-class GTK_IMAGE_EXTERNALS
+				]"
+
+deferred class GTK_IMAGE_EXTERNALS
+
 feature {} -- External calls
 	gtk_image_new: POINTER is
 		external "C use <gtk/gtk.h>"

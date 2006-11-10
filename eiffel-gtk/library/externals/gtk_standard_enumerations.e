@@ -1,16 +1,16 @@
 indexing
-	description: "Standard Enumerations — Public enumerated types used throughout GTK+ "
+	description: "Standard Enumerations: Public enumerated types used throughout GTK+ "
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
-					
+			
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
-					
+			
 					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 					Lesser General Public License for more details.
 
 					You should have received a copy of the GNU Lesser General Public
@@ -27,7 +27,7 @@ insert
 	-- here as comments to ease splitting it into a separate class.
 
 	-- Note: deprecated enumeration are not wrapped.
-	
+
 	GTK_ACCEL_FLAGS
 		-- GtkAnchorType
 		-- GtkArrowType
@@ -62,12 +62,12 @@ insert
 	GTK_WINDOW_POSITION
 	GTK_WINDOW_TYPE
 	GTK_WRAP_MODE
-	GTK_SORT_TYPE	
+	GTK_SORT_TYPE
 
 feature -- enum GtkAnchorType
 
 	is_valid_anchor_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type = gtk_anchor_center) or else
 						(a_type = gtk_anchor_north) or else
 						(a_type = gtk_anchor_north_west) or else
@@ -80,55 +80,55 @@ feature -- enum GtkAnchorType
 		end
 
 	gtk_anchor_center: INTEGER is
-      external "C macro use <gtk/gtk.h>"
-      alias "GTK_ANCHOR_CENTER"
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_ANCHOR_CENTER"
 		end
 
 	gtk_anchor_n,gtk_anchor_north: INTEGER is
-      external "C macro use <gtk/gtk.h>"
-      alias "GTK_ANCHOR_NORTH"
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_ANCHOR_NORTH"
 		end
-	
+
 	gtk_anchor_nw,gtk_anchor_north_west: INTEGER is
-      external "C macro use <gtk/gtk.h>"
-      alias "GTK_ANCHOR_NORTH_WEST"
-      end
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_ANCHOR_NORTH_WEST"
+		end
 
 	gtk_anchor_ne,gtk_anchor_north_east: INTEGER is
-      external "C macro use <gtk/gtk.h>"
-      alias "GTK_ANCHOR_NORTH_EAST"
-      end
-	
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_ANCHOR_NORTH_EAST"
+		end
+
 	gtk_anchor_s,gtk_anchor_south: INTEGER is
-      external "C macro use <gtk/gtk.h>"
-      alias "GTK_ANCHOR_SOUTH"
-      end
-	
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_ANCHOR_SOUTH"
+		end
+
 	gtk_anchor_sw,gtk_anchor_south_west: INTEGER is
-      external "C macro use <gtk/gtk.h>"
-      alias "GTK_ANCHOR_SOUTH_WEST"
-      end
-	
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_ANCHOR_SOUTH_WEST"
+		end
+
 	gtk_anchor_se,gtk_anchor_south_east: INTEGER is
-      external "C macro use <gtk/gtk.h>"
-      alias "GTK_ANCHOR_SOUTH_EAST"
-      end
-	
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_ANCHOR_SOUTH_EAST"
+		end
+
 	gtk_anchor_w,gtk_anchor_west: INTEGER is
-      external "C macro use <gtk/gtk.h>"
-      alias "GTK_ANCHOR_WEST"
-      end
-	
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_ANCHOR_WEST"
+		end
+
 	gtk_anchor_e,gtk_anchor_east: INTEGER is
-      external "C macro use <gtk/gtk.h>"
-      alias "GTK_ANCHOR_EAST"
-      end
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_ANCHOR_EAST"
+		end
 
 feature -- enum GtkArrowType
 	-- Used to indicate the direction in which a GtkArrow should point.
-	
+
 	is_valid_arrow_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type = gtk_arrow_up) or else
 						(a_type = gtk_arrow_down) or else
 						(a_type = gtk_arrow_left) or else
@@ -138,33 +138,33 @@ feature -- enum GtkArrowType
 	gtk_arrow_up: INTEGER is
 			-- Represents an upward pointing arrow.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_ARROW_UP"
-      end
-	
+		alias "GTK_ARROW_UP"
+		end
+
 	gtk_arrow_down: INTEGER is
 			-- Represents a downward pointing arrow.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_ARROW_DOWN"
-      end
-	
+		alias "GTK_ARROW_DOWN"
+		end
+
 	gtk_arrow_left: INTEGER is
 			-- Represents a left pointing arrow.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_ARROW_LEFT"
-      end
-	
+		alias "GTK_ARROW_LEFT"
+		end
+
 	gtk_arrow_right: INTEGER is
 			-- Represents a right pointing arrow.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_ARROW_RIGHT"
-      end
+		alias "GTK_ARROW_RIGHT"
+		end
 
 feature -- enum GtkButtonBoxStyle
 	-- Used to dictate the style that a GtkButtonBox uses to layout the
 	-- buttons it contains. (See also: GtkVButtonBox and
 	-- GtkHButtonBox).
 	is_valid_button_box_style (a_style :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_style = gtk_buttonbox_default_style) or else
 						(a_style = gtk_buttonbox_spread) or else
 						(a_style = gtk_buttonbox_edge) or else
@@ -175,38 +175,38 @@ feature -- enum GtkButtonBoxStyle
 	gtk_buttonbox_default_style: INTEGER is
 			-- Default packing.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_BUTTONBOX_DEFAULT_STYLE"
-      end
-	
+		alias "GTK_BUTTONBOX_DEFAULT_STYLE"
+		end
+
 	gtk_buttonbox_spread: INTEGER is
 			-- Buttons are evenly spread across the ButtonBox.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_BUTTONBOX_SPREAD"
-      end
-	
+		alias "GTK_BUTTONBOX_SPREAD"
+		end
+
 	gtk_buttonbox_edge: INTEGER is
 			-- Buttons are placed at the edges of the ButtonBox.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_BUTTONBOX_EDGE"
-      end
-	
+		alias "GTK_BUTTONBOX_EDGE"
+		end
+
 	gtk_buttonbox_start: INTEGER is
 			-- Buttons are grouped towards the start of box, (on the left
 			-- for a HBox, or the top for a VBox).
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_BUTTONBOX_START"
-      end
-	
+		alias "GTK_BUTTONBOX_START"
+		end
+
 	gtk_buttonbox_end: INTEGER is
 			-- Buttons are grouped towards the end of a box, (on the
 			-- right for a HBox, or the bottom for a VBox).
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_BUTTONBOX_END"
-      end
+		alias "GTK_BUTTONBOX_END"
+		end
 
 feature -- enum GtkCurveType
 	is_valid_curve_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type = gtk_curve_type_linear) or else
 						(a_type = gtk_curve_type_spline) or else
 						(a_type = gtk_curve_type_free))
@@ -215,25 +215,25 @@ feature -- enum GtkCurveType
 	gtk_curve_type_linear: INTEGER is
 			-- linear interpolation 
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_CURVE_TYPE_LINEAR"
-      end
-	
+		alias "GTK_CURVE_TYPE_LINEAR"
+		end
+
 	gtk_curve_type_spline: INTEGER is
 			-- spline interpolation
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_CURVE_TYPE_SPLINE"
-      end
-	
+		alias "GTK_CURVE_TYPE_SPLINE"
+		end
+
 	gtk_curve_type_free: INTEGER is
 			-- free form curve 
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_CURVE_TYPE_FREE"
-      end
-	
+		alias "GTK_CURVE_TYPE_FREE"
+		end
+
 feature -- enum GtkDeleteType
 
 	is_valid_delete_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type = gtk_delete_chars) or else
 						(a_type = gtk_delete_word_ends) or else
 						(a_type = gtk_delete_words) or else
@@ -243,56 +243,56 @@ feature -- enum GtkDeleteType
 						(a_type = gtk_delete_paragraphs) or else
 						(a_type = gtk_delete_whitespace))
 		end
-	
+
 	gtk_delete_chars: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DELETE_CHARS"
-      end
-	
+		alias "GTK_DELETE_CHARS"
+		end
+
 	gtk_delete_word_ends: INTEGER is
 			-- delete only the portion of the word to the left/right of
 			-- cursor if we're in the middle of a word
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DELETE_WORD_ENDS"
-      end
-	
-  gtk_delete_words: INTEGER is
+		alias "GTK_DELETE_WORD_ENDS"
+		end
+
+	gtk_delete_words: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DELETE_WORDS"
-      end
-	
-  gtk_delete_display_lines: INTEGER is
+		alias "GTK_DELETE_WORDS"
+		end
+
+	gtk_delete_display_lines: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DELETE_DISPLAY_LINES"
-      end
-	
-  gtk_delete_display_line_ends: INTEGER is
+		alias "GTK_DELETE_DISPLAY_LINES"
+		end
+
+	gtk_delete_display_line_ends: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DELETE_DISPLAY_LINE_ENDS"
-      end
-	
+		alias "GTK_DELETE_DISPLAY_LINE_ENDS"
+		end
+
 	gtk_delete_paragraph_ends: INTEGER is
 			-- like C-k in Emacs (or its reverse) 
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DELETE_PARAGRAPH_ENDS"
-      end
-	
-  gtk_delete_paragraphs: INTEGER is
+		alias "GTK_DELETE_PARAGRAPH_ENDS"
+		end
+
+	gtk_delete_paragraphs: INTEGER is
 			-- C-k in pico, kill whole line 
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DELETE_PARAGRAPHS"
-      end
-	
-  gtk_delete_whitespace: INTEGER is
+		alias "GTK_DELETE_PARAGRAPHS"
+		end
+
+	gtk_delete_whitespace: INTEGER is
 			-- M-\ in Emacs 
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DELETE_WHITESPACE"
-      end
+		alias "GTK_DELETE_WHITESPACE"
+		end
 
 feature -- enum GtkDirectionType
 
 	is_valid_direction_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type = gtk_dir_tab_forward) or else
 						(a_type = gtk_dir_tab_backward) or else
 						(a_type = gtk_dir_up) or else
@@ -301,124 +301,124 @@ feature -- enum GtkDirectionType
 						(a_type = gtk_dir_right))
 		end
 
-  gtk_dir_tab_forward: INTEGER is
+	gtk_dir_tab_forward: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DIR_TAB_FORWARD"
-      end
-	
-  gtk_dir_tab_backward: INTEGER is
+		alias "GTK_DIR_TAB_FORWARD"
+		end
+
+	gtk_dir_tab_backward: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DIR_TAB_BACKWARD"
-      end
-	
-  gtk_dir_up: INTEGER is
+		alias "GTK_DIR_TAB_BACKWARD"
+		end
+
+	gtk_dir_up: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DIR_UP"
-      end
-	
-  gtk_dir_down: INTEGER is
+		alias "GTK_DIR_UP"
+		end
+
+	gtk_dir_down: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DIR_DOWN"
-      end
-	
+		alias "GTK_DIR_DOWN"
+		end
+
 	gtk_dir_left: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DIR_LEFT"
-      end
-	
-  gtk_dir_right: INTEGER is
+		alias "GTK_DIR_LEFT"
+		end
+
+	gtk_dir_right: INTEGER is
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_DIR_RIGHT"
-      end
-	
+		alias "GTK_DIR_RIGHT"
+		end
+
 feature -- enum GtkExpanderStyle
 	-- Used to specify the style of the expanders drawn by a
 	-- GtkTreeView.
-	
+
 	is_valid_expander_style (a_style :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_style = gtk_expander_collapsed) or else
 						(a_style = gtk_expander_semi_collapsed) or else
 						(a_style = gtk_expander_semi_expanded) or else
 						(a_style = gtk_expander_expanded))
 		end
-	
+
 	gtk_expander_collapsed: INTEGER is
 			-- The style used for a collapsed subtree.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_EXPANDER_COLLAPSED"
-      end
-	
+		alias "GTK_EXPANDER_COLLAPSED"
+		end
+
 	gtk_expander_semi_collapsed: INTEGER is
 			-- Intermediate style used during animation.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_EXPANDER_SEMI_COLLAPSED"
-      end
-	
+		alias "GTK_EXPANDER_SEMI_COLLAPSED"
+		end
+
 	gtk_expander_semi_expanded: INTEGER is
 			-- Intermediate style used during animation.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_EXPANDER_SEMI_EXPANDED"
-      end
-	
+		alias "GTK_EXPANDER_SEMI_EXPANDED"
+		end
+
 	gtk_expander_expanded: INTEGER is
 			-- The style used for an expanded subtree.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_EXPANDER_EXPANDED"
-      end
+		alias "GTK_EXPANDER_EXPANDED"
+		end
 
 feature -- enum GtkIMPreeditStyle
 
 	is_valid_im_predict_style (a_style :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_style=gtk_im_preedit_nothing) or else
 						(a_style=gtk_im_preedit_callback) or else
 						(a_style=gtk_im_preedit_none))
 		end
 
-  gtk_im_preedit_nothing: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_IM_PREEDIT_NOTHING"
-	   end
+	gtk_im_preedit_nothing: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_IM_PREEDIT_NOTHING"
+		end
 
 	gtk_im_preedit_callback: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_IM_PREEDIT_CALLBACK"
-	   end
-	
-  gtk_im_preedit_none: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_IM_PREEDIT_NONE"
-	   end
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_IM_PREEDIT_CALLBACK"
+		end
+
+	gtk_im_preedit_none: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_IM_PREEDIT_NONE"
+		end
 
 feature -- enum GtkIMStatusStyle
 
 	is_valid_im_status_style (a_style :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_style=gtk_im_status_nothing) or else
 						(a_style=gtk_im_status_callback) or else
 						(a_style=gtk_im_status_none))
 		end
 
 	gtk_im_status_nothing: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_IM_STATUS_NOTHING"
-	   end
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_IM_STATUS_NOTHING"
+		end
 
 	gtk_im_status_callback: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_IM_STATUS_CALLBACK"
-	   end
-	
-  gtk_im_status_none: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_IM_STATUS_NONE"
-	   end
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_IM_STATUS_CALLBACK"
+		end
+
+	gtk_im_status_none: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_IM_STATUS_NONE"
+		end
 
 feature -- enum GtkMetricType
 	-- Used to indicate which metric is used by a GtkRuler.
 	is_valid_metric_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type = gtk_pixels) or else
 						(a_type = gtk_inches) or else
 						(a_type = gtk_centimeters))
@@ -427,24 +427,24 @@ feature -- enum GtkMetricType
 	gtk_pixels: INTEGER is
 			-- Pixels.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_PIXELS"
-      end
-	
+		alias "GTK_PIXELS"
+		end
+
 	gtk_inches: INTEGER is
 			-- Inches.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_INCHES"
-      end
-	
+		alias "GTK_INCHES"
+		end
+
 	gtk_centimeters: INTEGER is
 			-- Centimeters.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_CENTIMETERS"
-      end
-	
+		alias "GTK_CENTIMETERS"
+		end
+
 feature -- enum GtkMovementStep
 	is_valid_movement_step (a_step :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_step=gtk_movement_logical_positions) or else
 						(a_step=gtk_movement_visual_positions) or else
 						(a_step=gtk_movement_words) or else
@@ -459,63 +459,63 @@ feature -- enum GtkMovementStep
 
 	gtk_movement_logical_positions: INTEGER is
 			-- move by forw/back graphemes 
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_LOGICAL_POSITIONS"
-	   end
-	
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_LOGICAL_POSITIONS"
+		end
+
 	gtk_movement_visual_positions: INTEGER is
 			-- move by left/right graphemes 
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_VISUAL_POSITIONS"
-	   end
-	
-  gtk_movement_words: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_VISUAL_POSITIONS"
+		end
+
+	gtk_movement_words: INTEGER is
 			-- move by forward/back words 
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_WORDS"
-	   end
-	
-  gtk_movement_display_lines: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_WORDS"
+		end
+
+	gtk_movement_display_lines: INTEGER is
 			-- move up/down lines (wrapped lines) 
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_DISPLAY_LINES"
-	   end
-	
-  gtk_movement_display_line_ends: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_DISPLAY_LINES"
+		end
+
+	gtk_movement_display_line_ends: INTEGER is
 			-- move up/down lines (wrapped lines) 
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_DISPLAY_LINE_ENDS"
-	   end
-	
-  gtk_movement_paragraphs: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_DISPLAY_LINE_ENDS"
+		end
+
+	gtk_movement_paragraphs: INTEGER is
 			-- move up/down paragraphs (newline-ended lines) 
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_PARAGRAPHS"
-	   end
-	
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_PARAGRAPHS"
+		end
+
 	gtk_movement_paragraph_ends: INTEGER is
 			-- move to either end of a paragraph 
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_PARAGRAPH_ENDS"
-	   end
-	
-  gtk_movement_pages: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_PARAGRAPH_ENDS"
+		end
+
+	gtk_movement_pages: INTEGER is
 			-- move by pages 
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_PAGES"
-	   end
-	
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_PAGES"
+		end
+
 	gtk_movement_buffer_ends: INTEGER is
 			-- move to ends of the buffer 
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_BUFFER_ENDS"
-	   end
-	
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_BUFFER_ENDS"
+		end
+
 	gtk_movement_horizontal_pages: INTEGER is
 			-- move horizontally by pages
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_MOVEMENT_HORIZONTAL_PAGES"
-	   end
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_MOVEMENT_HORIZONTAL_PAGES"
+		end
 
 feature -- enum GtkOrientation
 	-- Represents the orientation of widgets which can be switched
@@ -523,91 +523,91 @@ feature -- enum GtkOrientation
 	-- GtkToolbar.
 
 	is_valid_orientation (an_orientation :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((an_orientation=gtk_orientation_horizontal) or else
 						(an_orientation=gtk_orientation_vertical))
 		end
-	
+
 	gtk_orientation_horizontal: INTEGER is
 			-- The widget is in horizontal orientation.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_ORIENTATION_HORIZONTAL"
-      end
-	
+		alias "GTK_ORIENTATION_HORIZONTAL"
+		end
+
 	gtk_orientation_vertical: INTEGER is
 			-- The widget is in vertical orientation.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_ORIENTATION_VERTICAL"
-      end
-	
+		alias "GTK_ORIENTATION_VERTICAL"
+		end
+
 feature -- enum GtkPathPriorityType
 	is_valid_path_priority_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type=gtk_path_prio_lowest) or else
 						(a_type=gtk_path_prio_gtk) or else
-						(a_type=gtk_path_prio_application) or else 
+						(a_type=gtk_path_prio_application) or else
 						(a_type=gtk_path_prio_theme) or else
 						(a_type=gtk_path_prio_rc) or else
 						(a_type=gtk_path_prio_highest))
 		end
-	
+
 	gtk_path_prio_lowest: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_PATH_PRIO_LOWEST"
-	   end
-	   
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_PATH_PRIO_LOWEST"
+		end
+
 	gtk_path_prio_gtk: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_PATH_PRIO_GTK"
-	   end
-	   
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_PATH_PRIO_GTK"
+		end
+
 	gtk_path_prio_application: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_PATH_PRIO_APPLICATION"
-	   end
-	   
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_PATH_PRIO_APPLICATION"
+		end
+
 	gtk_path_prio_theme: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_PATH_PRIO_THEME"
-	   end
-	   
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_PATH_PRIO_THEME"
+		end
+
 	gtk_path_prio_rc: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_PATH_PRIO_RC"
-	   end
-	   
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_PATH_PRIO_RC"
+		end
+
 	gtk_path_prio_highest: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_PATH_PRIO_HIGHEST"
-	   end
-	   
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_PATH_PRIO_HIGHEST"
+		end
+
  
 feature -- enum GtkPathType
 	is_valid_path_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type=gtk_path_widget) or else
 						(a_type=gtk_path_widget_class) or else
 						(a_type=gtk_path_class))
 		end
-	
-  gtk_path_widget: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_PATH_WIDGET"
-	   end
-	   
-  gtk_path_widget_class: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_PATH_WIDGET_CLASS"
-	   end
-	   
-  gtk_path_class: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_PATH_CLASS"
-	   end
-	   
+
+	gtk_path_widget: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_PATH_WIDGET"
+		end
+
+	gtk_path_widget_class: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_PATH_WIDGET_CLASS"
+		end
+
+	gtk_path_class: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_PATH_CLASS"
+		end
+
 feature -- enum GtkScrollStep
 	is_valid_scroll_step_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type=gtk_scroll_steps) or else
 						(a_type=gtk_scroll_pages) or else
 						(a_type=gtk_scroll_ends) or else
@@ -616,36 +616,36 @@ feature -- enum GtkScrollStep
 						(a_type=gtk_scroll_horizontal_ends))
 		end
 
-  gtk_scroll_steps: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_SCROLL_STEPS"
-	   end
-	   
-  gtk_scroll_pages: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_SCROLL_PAGES"
-	   end
-	   
-  gtk_scroll_ends: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_SCROLL_ENDS"
-	   end
-	   
-  gtk_scroll_horizontal_steps: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_SCROLL_HORIZONTAL_STEPS"
-	   end
-	   
-  gtk_scroll_horizontal_pages: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_SCROLL_HORIZONTAL_PAGES"
-	   end
-	   
-  gtk_scroll_horizontal_ends: INTEGER is
-	   external "C macro use <gtk/gtk.h>"
-	   alias "GTK_SCROLL_HORIZONTAL_ENDS"
-	   end
-	   
+	gtk_scroll_steps: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SCROLL_STEPS"
+		end
+
+	gtk_scroll_pages: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SCROLL_PAGES"
+		end
+
+	gtk_scroll_ends: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SCROLL_ENDS"
+		end
+
+	gtk_scroll_horizontal_steps: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SCROLL_HORIZONTAL_STEPS"
+		end
+
+	gtk_scroll_horizontal_pages: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SCROLL_HORIZONTAL_PAGES"
+		end
+
+	gtk_scroll_horizontal_ends: INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_SCROLL_HORIZONTAL_ENDS"
+		end
+
 
 feature -- enum GtkToolbarStyle
 	-- Used to customize the appearance of a GtkToolbar. Note that
@@ -653,9 +653,9 @@ feature -- enum GtkToolbarStyle
 	-- the default toolbar style. Note that if the button has only a
 	-- label set and `gtk_toolbar_icons' is used, the label will be
 	-- visible, and vice versa.
-	
+
 	is_valid_toolbar_style (a_style :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_style=gtk_toolbar_icons) or else
 						(a_style=gtk_toolbar_text) or else
 						(a_style=gtk_toolbar_both) or else
@@ -665,34 +665,34 @@ feature -- enum GtkToolbarStyle
 	gtk_toolbar_icons: INTEGER is
 			-- Buttons display only icons in the toolbar.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_TOOLBAR_ICONS"
-      end
-	
+		alias "GTK_TOOLBAR_ICONS"
+		end
+
 	gtk_toolbar_text: INTEGER is
 			-- Buttons display only text labels in the toolbar.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_TOOLBAR_TEXT"
-      end
-	
+		alias "GTK_TOOLBAR_TEXT"
+		end
+
 	gtk_toolbar_both: INTEGER is
 			-- Buttons display text and icons in the toolbar.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_TOOLBAR_BOTH"
-      end
-	
+		alias "GTK_TOOLBAR_BOTH"
+		end
+
 	gtk_toolbar_both_horiz: INTEGER is
 			-- Buttons display icons and text alongside each other,
 			-- rather than vertically stacked
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_TOOLBAR_BOTH_HORIZ"
-      end
+		alias "GTK_TOOLBAR_BOTH_HORIZ"
+		end
 
 feature -- enum GtkVisibility
 	-- Used by GtkCList and GtkCTree to indicate whether a row is
 	-- visible. Note: AFAIK it should be deprecated. Check this. Paolo
 	-- 2006-08-15
 	is_valid_visibility_type (a_type :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_type=gtk_visibility_none) or else
 						(a_type=gtk_visibility_partial) or else
 						(a_type=gtk_visibility_full))
@@ -702,18 +702,19 @@ feature -- enum GtkVisibility
 	gtk_visibility_none: INTEGER is
 			-- The row is not visible.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_VISIBILITY_NONE"
-      end
-	
+		alias "GTK_VISIBILITY_NONE"
+		end
+
 	gtk_visibility_partial: INTEGER is
 			-- The row is partially visible.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_VISIBILITY_PARTIAL"
-      end
-	
+		alias "GTK_VISIBILITY_PARTIAL"
+		end
+
 	gtk_visibility_full: INTEGER is
 			-- The row is fully visible.
 		external "C macro use <gtk/gtk.h>"
-      alias "GTK_VISIBILITY_FULL"
-      end
+		alias "GTK_VISIBILITY_FULL"
+		end
+
 end -- class GTK_STANDARD_ENUMERATIONS

@@ -16,9 +16,10 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 
-class GTK_PROGRESS_BAR_EXTERNALS
+deferred class GTK_PROGRESS_BAR_EXTERNALS
+
 feature {} -- External calls
 	gtk_progress_bar_new : POINTER is
 		external "C use <gtk/gtk.h>"
@@ -43,8 +44,9 @@ feature {} -- External calls
 	gtk_progress_bar_get_text (bar : POINTER) : POINTER is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_progress_bar_get_fraction (bar : POINTER) : REAL is
 		external "C use <gtk/gtk.h>"
 		end
+
 end

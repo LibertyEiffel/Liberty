@@ -1,9 +1,29 @@
--- Prev 	Up 	Home 	GTK+ Reference Manual 	Next
--- Top  |  Description  |  Object Hierarchy  |  Properties
--- GtkTreeModelSort
+indexing
+	description: "External calls for GtkTreeModelSort: A GtkTreeModel which makes an underlying tree model sortable"
+	copyright: "[
+					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
 
--- GtkTreeModelSort %GÅ‚Äî%@ A GtkTreeModel which makes an underlying tree model sortable
-	
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+				]"
+
+	date: "$Date:$"
+	revision: "$Revision:$"
+
+deferred class GTK_TREE_MODEL_SORT_EXTERNALS
+
 -- Synopsis
 
 -- #include <gtk/gtk.h>
@@ -238,3 +258,5 @@
 -- See Also
 
 -- GtkTreeModel, GtkListStore, GtkTreeStore, GtkTreeSortable, GtkTreeModelFilter
+
+end -- class GTK_TREE_MODEL_SORT_EXTERNALS

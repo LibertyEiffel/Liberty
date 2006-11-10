@@ -17,16 +17,11 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 
-class GTK_SHADOW_TYPE
+deferred class GTK_SHADOW_TYPE
 
 feature
-	is_valid_shadow_type (a_shadow: INTEGER): BOOLEAN is
-		obsolete "use is_valid_shadow_type instead"
-		do
-			Result:=is_valid_shadow_type(a_shadow)
-		end
 
 	is_valid_shadow_type (a_shadow: INTEGER): BOOLEAN is
 		do
@@ -36,35 +31,35 @@ feature
 						(a_shadow = gtk_shadow_etched_in) or else
 						(a_shadow = gtk_shadow_etched_out))
 		end
-	
+
 	gtk_shadow_none: INTEGER is
 			-- No outline.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_NONE"
 		end
-	
+
 	gtk_shadow_in: INTEGER is
 			-- 	The outline is bevelled inwards..
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_IN"
 		end
-	
+
 	gtk_shadow_out: INTEGER is
 			-- 	The outline is bevelled outwards like a button..
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_OUT"
 		end
-	
+
 	gtk_shadow_etched_in: INTEGER is
 			-- 	The outline itself is an inward bevel, but the frame does.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_ETCHED_IN"
 		end
-	
+
 	gtk_shadow_etched_out: INTEGER is
 			-- TODO
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SHADOW_ETCHED_OUT"
 		end
-end
 
+end
