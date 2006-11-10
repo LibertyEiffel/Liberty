@@ -16,7 +16,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 
@@ -435,20 +435,19 @@ feature {} -- External calls
 
 
 	gtk_window_set_default (window,default_widget: POINTER) is
-		-- The default widget is the widget that's activated when the
-		-- user presses Enter in a dialog (for example). This function
-		-- sets or unsets the default widget for a GtkWindow about. When
-		-- setting (rather than unsetting) the default widget it's
-		-- generally easier to call gtk_widget_grab_focus() on the
-		-- widget. Before making a widget the default widget, you must
-		-- set the GTK_CAN_DEFAULT flag on the widget you'd like to make
-		-- the default using GTK_WIDGET_SET_FLAGS().
-
+			-- The default widget is the widget that's activated when the
+			-- user presses Enter in a dialog (for example). This function
+			-- sets or unsets the default widget for a GtkWindow about. When
+			-- setting (rather than unsetting) the default widget it's
+			-- generally easier to call gtk_widget_grab_focus() on the
+			-- widget. Before making a widget the default widget, you must
+			-- set the GTK_CAN_DEFAULT flag on the widget you'd like to make
+			-- the default using GTK_WIDGET_SET_FLAGS().
+			
 			-- window : 	a GtkWindow
 			-- default_widget : 	widget to be the default, or NULL to unset the default widget for the toplevel.
 		external "C use <gtk/gtk.h>"
 		end
-
 
 	gtk_window_present (window: POINTER) is
 			-- Presents a window to the user. This may mean raising the

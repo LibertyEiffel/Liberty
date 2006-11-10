@@ -1,5 +1,5 @@
 indexing
-	description: "GtkProgressBar — A widget which indicates progress visually"
+	description: "GtkProgressBar: A widget which indicates progress visually"
 	copyright: "[
 					Copyright (C) 2006 Nicolas Fafchamps <nicolas.fafchamps@gmail-com
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
@@ -18,7 +18,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	copyright: "(C) 2006 Nicolas Fafchamps <nicolas.fafchamps@gmail.com> and Others"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
@@ -27,11 +27,12 @@ indexing
 class GTK_PROGRESS_BAR
 
 inherit GTK_BIN
+
 insert GTK_PROGRESS_BAR_EXTERNALS
-	
+
 creation
 	make
-	
+
 feature {} -- Initialization
 
 	make is
@@ -51,7 +52,7 @@ feature -- Element change
 feature -- Status setting
 	set_text (a_text : STRING) is
 			-- Set the text to appear superimposed on the progress bar.
-		require 
+		require
 			valid_text: a_text/=Void
 		do
 			gtk_progress_bar_set_text(handle,a_text.to_external)
@@ -59,15 +60,15 @@ feature -- Status setting
 
 	set_fraction (a_fraction : REAL) is
 			-- Cause the progress bar to "fill in" the given fraction of the bar.
-		require 
+		require
 			valid_fraction: a_fraction >= 0 and a_fraction <= 1
 		do
 			gtk_progress_bar_set_fraction(handle,a_fraction)
-		end	
+		end
 
 	set_pulse_step (a_fraction : REAL) is
 			-- Sets the fraction of total progress bar length to move the bouncing block for each call to `pulse'.
-		require 
+		require
 			valid_fraction: a_fraction >= 0 and a_fraction <= 1
 		do
 			gtk_progress_bar_set_pulse_step(handle,a_fraction)
@@ -77,14 +78,15 @@ feature -- Status setting
 	-- Todo : gtk_progress_bar_set_ellipsize
 
 feature -- Status report
+
 	text : STRING is
 			-- Text displayed superimposed on the progress bar.
 		local ptr: POINTER
 		do
 			ptr:=gtk_progress_bar_get_text(handle)
-			if ptr.is_not_null then 
+			if ptr.is_not_null then
 				create Result.from_external_copy (ptr)
-			else 
+			else
 				Result := Void
 			end
 		end
@@ -103,5 +105,3 @@ feature -- Status report
 	-- Note : Other functions are deprecated
 
 end
-
-	

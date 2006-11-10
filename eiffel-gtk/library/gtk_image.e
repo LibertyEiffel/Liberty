@@ -1,5 +1,5 @@
 indexing
-	description: "GtkImage — A widget displaying an image"
+	description: "GtkImage: A widget displaying an image"
 	copyright: "[
 					Copyright (C) 2006 Nicolas Fafchamps <nicolas.fafchamps@gmail.com> and others
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
