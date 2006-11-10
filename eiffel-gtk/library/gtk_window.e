@@ -379,32 +379,29 @@ feature -- various queries
 -- 		external "C use <gtk/gtk.h>"
 -- 		end
 
+	present is
+			-- Presents a window to the user. This may mean raising the
+			-- window in the stacking order, deiconifying it, moving it
+			-- to the current desktop, and/or giving it the keyboard
+			-- focus, possibly dependent on the user's platform, window
+			-- manager, and preferences.
 
--- 	gtk_window_present (window: POINTER) is
--- 			-- Presents a window to the user. This may mean raising the
--- 			-- window in the stacking order, deiconifying it, moving it
--- 			-- to the current desktop, and/or giving it the keyboard
--- 			-- focus, possibly dependent on the user's platform, window
--- 			-- manager, and preferences.
+			-- If window is hidden, this function calls gtk_widget_show()
+			-- as well.
 
--- 			-- If window is hidden, this function calls gtk_widget_show()
--- 			-- as well.
+			-- This function should be used when the user tries to open a
+			-- window that's already open. Say for example the
+			-- preferences dialog is currently open, and the user chooses
+			-- Preferences from the menu a second time; use
+			-- gtk_window_present() to move the already-open dialog where
+			-- the user can see it.
 
--- 			-- This function should be used when the user tries to open a
--- 			-- window that's already open. Say for example the
--- 			-- preferences dialog is currently open, and the user chooses
--- 			-- Preferences from the menu a second time; use
--- 			-- gtk_window_present() to move the already-open dialog where
--- 			-- the user can see it.
-
--- 			-- If you are calling this function in response to a user
--- 			-- interaction, it is preferable to use
--- 			-- gdk_window_present_with_time().
-
--- 			-- window : 	a GtkWindow
--- 		external "C use <gtk/gtk.h>"
--- 		end
-
+			-- If you are calling this function in response to a user
+			-- interaction, it is preferable to use
+			-- gdk_window_present_with_time().
+		do
+			gtk_window_present (handle)
+		end
 
 -- 	gtk_window_present_with_time (window: POINTER; guint32_timestamp: INTEGER_32) is
 -- 			-- Presents a window to the user in response to a user
@@ -665,7 +662,7 @@ feature -- various queries
 -- 			-- function may not have any effect when called on a window
 -- 			-- that is already visible, so you should call it before
 -- 			-- calling gtk_window_show().
-		
+
 -- 			-- On Windows, this function always works, since there's no
 -- 			-- window manager policy involved.
 
