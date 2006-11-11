@@ -10,7 +10,7 @@ class TREE_DEMO
 
 inherit
 	GTK
-	G_TYPE
+	G_TYPES
 		-- TODO: This class is necessary when creating GTK_LIST_STOREs,
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
@@ -175,10 +175,10 @@ feature -- Agents
 			else  print ("' is de-selected")
 			end
 			debug
-			   if a_model = Void 
-			    then print ("; no model passed but we're sure that out GTK_LIST_STORE at"+model.to_pointer.out+" has handle="+model.handle.out)
-			   else print (".")
-			   end
+				if a_model = Void 
+				 then print ("; no model passed but we're sure that out GTK_LIST_STORE at"+model.to_pointer.out+" has handle="+model.handle.out)
+				else print (".")
+				end
 			end
 			print ("%N")
 			Result := True
