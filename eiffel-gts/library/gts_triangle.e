@@ -1,0 +1,545 @@
+indexing
+	description: "A triangle in the GNU Triangulated Surfaces library."
+	copyright: "[
+					Copyright (C) 2006 Paolo Redaelli, GTS team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+			-- A GtsTriangle is defined by three GtsEdge. They are
+			-- oriented, the normal to the triangle points toward an
+			-- observer seing the three edges in counter-clockwise order.
+
+			-- When destroying a GtsTriangle, all the edges not used by
+			-- another triangle are also destroyed. This default
+			-- behaviour can be changed punctually by setting the global
+			-- variable gts_allow_floating_edges to TRUE. You must not
+			-- forget to set this variable back to FALSE as all the
+			-- algorithms of GTS assume the default behaviour.
+
+class GTS_TRIANGLE
+
+inherit GTS_OBJECT rename make as allocate_struct end
+
+creation from_edges, from_external_pointer
+
+feature {} -- Creation
+	from_edges (first,second,third: GTS_EDGE) is
+			-- a new GtsTriangle having `first', `second' and `third' as
+			-- edges.
+			require 
+				first_edge_not_void: first /= Void
+				second_edge_not_void: second /= Void
+				third_edge_not_void: third /= Void
+				-- TODO: first touches second
+				-- TODO: second touches third
+				-- TODO: third touches first
+		do
+			handle := gts_triangle_new (gts_triangle_class, first.handle, second,handle, third.handle)
+		end
+
+	enclosing (some_points: G_SLIST[GTS_POINT]; a_scale: REAL) is
+			-- Builds a new triangle (including new vertices and edges)
+			-- enclosing the plane projection of `some_points'. This
+			-- triangle is equilateral and encloses a rectangle defined
+			-- by the maximum and minimum x and y coordinates of the
+			-- points. `a_scale' is an homothetic scaling factor. If
+			-- equal to one, the triangle encloses exactly the enclosing
+			-- rectangle.
+		require
+			points_not_void: some_points /= Void
+			correct_scale: a_scale > 1.0
+		do
+			handle := gts_triangle_enclosing (gts_triangle_class, some_points.handle, a_scale)
+		end
+
+feature 
+	set_edges (first,second,third: GTS_EDGE) is
+			-- Sets the edge of triangle to `first', `second' and `third'
+			--  while checking that they define a valid triangle.
+			require 
+				first_edge_not_void: first /= Void
+				second_edge_not_void: second /= Void
+				third_edge_not_void: third /= Void
+				-- TODO: first touches second
+				-- TODO: second touches third
+				-- TODO: third touches first
+		do
+			gts_triangle_set (handle, first.handle, second,handle, third.handle)
+		end
+	
+	area: REAL is
+			-- the area of the triangle
+		do 
+			Result := gts_triangle_area (handle)
+		ensure positive: Result >= 0
+		end
+
+	perimeter: REAL is
+			-- the perimeter of the triangle
+		do
+			Result := gts_triangle_perimeter (handle)
+		ensure positive: Result >= 0
+		end
+
+	quality: REAL is
+			-- The quality of the triangle, defined as the ratio of its
+			-- surface to its perimeter relative to this same ratio for
+			-- an equilateral triangle with the same area. The quality is
+			-- then one for an equilateral triangle and tends to zero for
+			-- a very stretched triangle.
+		do
+			Result := gts_triangle_quality (handle)
+		ensure between_zero_and_one: Result.in_range (0.0, 1.0)
+		end
+
+	-- TODO: normal : a_vector_of_some_kind
+	
+	--  void gts_triangle_normal (GtsTriangle *t, -- gdouble *x, --
+	--  gdouble *y, -- gdouble *z);
+
+	-- Computes the coordinates of the oriented normal of t as the
+	-- cross-product of two edges, using the left-hand rule. The normal
+	-- is not normalized. If this triangle is part of a closed and
+	-- oriented surface, the normal points to the outside of the
+	-- surface.
+
+	--     t :  a GtsTriangle.
+	--     x :  the x coordinate of the normal.
+	--     y :  the y coordinate of the normal.
+	--     z :  the z coordinate of the normal.
+	
+
+	revert is
+			-- Changes the orientation of triangle t, turning it inside
+			-- out.
+		do
+			gts_triangle_revert (handle)
+		end
+
+	orientation: REAL is
+			-- Checks for the orientation of the plane (x,y) projection
+			-- of a triangle. See gts_point_orientation() for
+			-- details. This function is geometrically robust.
+		do
+			Result := gts_triangle_orientation (handle)
+		end
+
+	-- TODO: GtsTriangle* gts_triangle_is_duplicate (GtsTriangle *t);
+	-- Returns : a GtsTriangle different from t but sharing all its
+	-- edges with t or NULL if there is none.
+
+	angle (another: GTS_TRIANGLE): REAL is
+			-- the angle (in radians) between Current and `another'.
+		do
+			Result := gts_triangles_angle (handle, another.handle)
+		ensure positive: Result >= 0
+		end
+
+	are_compatible (another: GTS_TRIANGLE; an_edge: GTS_EDGE): BOOLEAN is
+			-- Do Current and `another' have compatible orientations?
+			-- i.e. Can Current and `another' be part of the same surface
+			-- without -- conflict in the surface normal orientation?
+			-- `an_edge' must be used by both Current and `another'
+		require
+			another_not_void: another /= Void
+			edge_not_void: an_edge /= Void
+			-- TODO: edge_is_shared_between_current_and_another: 
+		do
+			Result:= (gts_triangles_are_compatible (handle, another.handle, an_edge.handle)).to_boolean
+		end
+
+	common_edge (another: GTS_TRIAGLE): GTS_EDGE is
+			-- a GtsEdge common to both Current and `another' or Void if
+			-- they do not share any edge.
+		local ptr: POINTER
+		do
+			ptr := gts_triangles_common_edge (handle, another.handle)
+			if ptr.is_not_null then create Result.from_external_pointer(ptr) end
+		end
+
+	neighbor_number: INTEGER is
+			-- the number of triangles neighbors of t.
+		obsolete "Should be NATURAL since it is a guint"
+		do
+			Result := gts_triangle_neighbor_number (handle)
+		end
+
+	neighbors: G_SLIST [GTS_TRIANGLE] is
+			-- list of GtsTriangle neighbors of Current.
+		do
+			create Result.from_external_pointer (gts_triangle_neighbors (handle))
+		end
+
+--   gts_segment_triangle_intersection ()
+
+--  GtsPoint*   gts_segment_triangle_intersection
+--                                              (GtsSegment *s,
+--                                               GtsTriangle *t,
+--                                               gboolean boundary,
+--                                               GtsPointClass *klass);
+
+--    Checks if s intersects t. If this is the case, creates a new point pi intersection of s with t.
+
+--    This function is geometrically robust in the sense that it will not return a point if s and t do not
+--    intersect and will return a point if s and t do intersect. However, the point coordinates are subject to
+--    round-off errors.
+
+--    Note that this function will not return any point if s is contained in the plane defined by t.
+
+--     s :         a GtsSegment.
+--     t :         a GtsTriangle.
+--     boundary :  if TRUE, the boundary of t is taken into account.
+--     klass :     a GtsPointClass to be used for the new point.
+--     Returns :   a summit of t (if boundary is set to TRUE), one of the endpoints of s or a new GtsPoint,
+--                 intersection of s with t or NULL if s and t don't intersect.
+
+
+feature {} -- Implementation
+	stored_vertices: TUPLE [GTS_VERTEX, GTS_VERTEX, GTS_VERTEX]
+	stored_edges: TUPLE [GTS_EDGE, GTS_EDGE, GTS_EDGE]
+
+	retrieve_vertices_and_edges is
+			-- Retrieve the vertices and edges and store them in
+			-- `stored_vertices' and `stored_edges'.
+		local v1,v2,v3, e1,e2,e3: POINTER
+		do
+			gts_triangle_vertices_edges (triangle, default_pointer 
+												  $v1, $v2, $v3, $e1, $e2, $e3)
+			create stored_vertices.make_3 (create {GTS_VERTEX}.from_external_pointer (v1),
+													 create {GTS_VERTEX}.from_external_pointer (v2),
+													 create {GTS_VERTEX}.from_external_pointer (v3))
+			create stored_edges.make_3 (create {GTS_EDGE}.from_external_pointer (e1),
+												 create {GTS_EDGE}.from_external_pointer (e2),
+												 create {GTS_EDGE}.from_external_pointer (e3))
+		ensure 
+			vertices_stored: stored_vertices /= Void
+			edges_stored: stored_edges /= Void
+		end
+
+feature 
+	
+	vertices: TUPLE [GTS_VERTEX, GTS_VERTEX, GTS_VERTEX] is
+		local v1,v2,v3: POINTER
+		do
+			gts_triangle_vertices (handle, $v1, $v2, $v3)
+			create Result.make_3 (create {GTS_VERTEX}.from_external_pointer (v1),
+										 create {GTS_VERTEX}.from_external_pointer (v2),
+										 create {GTS_VERTEX}.from_external_pointer (v3))
+		end
+
+ 	edge_1: GTS_EDGE is
+			-- First edge
+		do
+			create Result.from_external_pointer(get_e1(handle))
+		end
+
+	edge_2: GTS_EDGE is
+			-- Second edge
+		do
+			create Result.from_external_pointer(get_e2(handle))
+		end
+
+	edge_1: GTS_EDGE is
+			-- Third edge
+		do
+			create Result.from_external_pointer(get_e3(handle))
+		end
+
+	edges: TUPLE [GTS_EDGE, GTS_EDGE, GTS_EDGE] is
+		obsolete "Investigate if using e1,e2,e3 is better"
+		do
+			if stored_edges = Void then retrieve_vertices_and_edges end
+			Result := stored_edges
+		end
+
+
+	vertex_opposite (an_edge: GTS_EDGE): GTS_VERTEX is
+			-- the vertex of Current triangle which does not belong to
+			-- `an_edge'.
+		require 
+			edge_not_void: an_edge /= Void
+			triangle_has_edge: ((an_edge = edge_1) or else 
+									  (an_edge = edge_2) or else 
+									  (an_edge = edge_3))
+		do
+			create Result.from_external_pointer (gts_triangle_vertex_opposite(handle,an_edge.handle))
+		end
+	
+	edge_opposite (a_vertex: GTS_VERTEX): GTS_EDGE is
+		local ptr: POINTER
+		do
+			ptr := gts_triangle_edge_opposite (handle, a_vertex.handle)
+			-- Returns the edge of t opposite v or NULL if v is not a
+			-- vertice of t.
+			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
+		end
+
+	vertex: GTS_VERTEX is
+			-- the GtsVertex not used by `e1'.
+		do
+			create Result.from_external_pointer (gts_triangle_vertex(handle))
+		end
+
+
+	is_ok: BOOLEAN is
+			-- Is Current a non-degenerate, non-duplicate triangle?
+		do
+			Result := (gts_triangle_is_ok (handle)).to_boolean
+		end
+
+	-- TODO: gts_triangle_use_edges ()
+
+	--  GtsTriangle* gts_triangle_use_edges (GtsEdge *e1, GtsEdge *e2,
+	--  GtsEdge *e3);
+	
+	-- e1 : a GtsEdge.  e2 : a GtsEdge.  e3 : a GtsEdge.  Returns : a
+	-- GtsTriangle having e1, e2 and e3 as edges or NULL if e1, e2 and
+	-- e3 are not part of any -- triangle.
+
+--    
+	
+	circumcircle_center: GTS_POINT is
+			-- a new GtsPoint, center of the circumscribing circle of t
+			-- or Void if the circumscribing circle is not defined.
+		local ptr: POINTER
+		do
+			ptr := gts_triangle_circumcircle_center (handle, gts_point_class)
+			if ptr.is_not_null then 
+				create Result.from_external_pointer (ptr)
+			end
+		end
+
+	-- TODO: gts_triangle_is_stabbed ()
+
+	-- GtsObject* gts_triangle_is_stabbed (GtsTriangle *t, GtsPoint *p,
+	-- gdouble *orientation);
+
+	-- t : a GtsTriangle.  p : a GtsPoint.  orientation : a pointer or
+	-- NULL.  Returns : one of the vertices of t, one of the edges of t
+	-- or t if any of these are stabbed by the ray starting at p
+	-- (included) and ending at (p->x, p->y, +infty), NULL
+	-- otherwise. If the ray is contained in the plane of the triangle
+	-- NULL is also returned. If orientation is not NULL, it is set to
+	-- the value of the orientation of p relative to t (as given by
+	-- gts_point_orientation_3d()).
+
+	--    -----------------------------------------------------------------------------------------------------------
+	
+	--   gts_triangles_are_folded ()
+	
+	--  gboolean    gts_triangles_are_folded        (GSList *triangles,
+	--                                               GtsVertex *A,
+	--                                               GtsVertex *B,
+	--                                               gdouble max);
+	
+	--    Given a list of triangles sharing A and B as vertices, checks if any two triangles in the list make an
+--    angle larger than a given value defined by max.
+
+--     triangles :  a list of GtsTriangle.
+--     A :          a GtsVertex.
+--     B :          another GtsVertex.
+--     max :        the maximum value of the square of the cosine of the angle between two triangles.
+--     Returns :    TRUE if any pair of triangles in triangles makes an angle larger than the maximum value,
+--                  FALSE otherwise.
+
+--    -----------------------------------------------------------------------------------------------------------
+
+	--   gts_triangles_from_edges ()
+	
+	--  GSList*     gts_triangles_from_edges        (GSList *edges);
+	
+	--    Builds a list of unique triangles which have one of their edges in edges.
+	
+	--     edges :    a list of GtsEdge.
+	--     Returns :  the list of triangles.
+	
+	--    -----------------------------------------------------------------------------------------------------------
+	
+	--   gts_triangle_interpolate_height ()
+	
+	--  void        gts_triangle_interpolate_height (GtsTriangle *t,
+--                                               GtsPoint *p);
+
+--    Fills the z-coordinate of point p belonging to the plane projection of triangle t with the linearly
+--    interpolated value of the z-coordinates of the vertices of t.
+
+--     t :  a GtsTriangle.
+--     p :  a GtsPoint.
+
+feature -- size
+
+ 	struct_size: INTEGER is
+ 		external "C inline use <gts.h>"
+		alias "sizeof(GtsTriangle)"
+ 		end
+
+feature {} -- GtsTriangle struct access
+	get_e1 (a_triangle: POINTER): POINTER is
+		external "C struct GtsTriangle get e1 use <gts.h>"
+		end
+
+	get_e2 (a_triangle: POINTER): POINTER is
+		external "C struct GtsTriangle get e2 use <gts.h>"
+		end
+	get_e3 (a_triangle: POINTER): POINTER is
+		external "C struct GtsTriangle get e3 use <gts.h>"
+		end
+
+--  typedef struct {
+--    GtsObject object;
+
+			--    GtsEdge * e1;
+--    GtsEdge * e2;
+--    GtsEdge * e3;
+--  } GtsTriangle;
+
+--    The triangle object.
+
+--     GtsObject object;  Parent object.
+--     GtsEdge *e1;       First edge.
+--     GtsEdge *e2;       Second edge.
+--     GtsEdge *e3;       Third edge.
+
+feature {} -- External calls
+-- Synopsis
+
+--  #include <gts.h>
+
+
+--  #define     GTS_TRIANGLE_CLASS              (klass)
+--  #define     GTS_TRIANGLE                    (obj)
+--  #define     GTS_IS_TRIANGLE                 (obj)
+--              GtsTriangleClass;
+--              GtsTriangle;
+			
+	gts_triangle_class: POINTER is 
+		external "C use <gts.h>"
+		end
+
+	gts_triangle_new (a_gtstriangleclass, e1, e2, e3: POINTER): POINTER is -- GtsTriangle*
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_set (a_triangle, e1, e2, e3: POINTER) is
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_area (a_triangle: POINTER): REAL is -- gdouble
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_perimeter (a_triangle: POINTER): REAL is -- gdouble
+		external "C use <gts.h>"
+		end
+
+	gts_triangle_quality (a_triangle: POINTER): REAL is -- gdouble
+		external "C use <gts.h>"
+		end
+
+	gts_triangle_normal (a_triangle, gdouble_x, gdouble_y, gdouble_z: POINTER) is -- void
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_revert (a_triangle: POINTER) is
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_orientation (a_triangle: POINTER): REAL is -- gdouble
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_is_duplicate (a_triangle: POINTER): POINTER is -- GtsTriangle*
+		external "C use <gts.h>"
+		end
+
+	gts_triangles_angle (a_triangle, another: POINTER): REAL is -- gdouble
+		external "C use <gts.h>"
+		end
+	
+	gts_triangles_are_compatible (a_triangle, another_triangle, an_edge: POINTER): INTEGER is -- gboolean
+		external "C use <gts.h>"
+		end
+
+	gts_triangle_enclosing (gtstriangleclass, gslist_points: POINTER; a_scale: REAL): POINTER is -- GtsTriangle*
+		external "C use <gts.h>"
+		end
+
+	gts_triangles_common_edge (a_triangle, another: POINTER): POINTER is -- GtsEdge*
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_neighbor_number (a_triangle: POINTER): INTEGER is -- guint
+		obsolete "should be NATURAL since it's a guint"
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_neighbors (a_triangle: POINTER): POINTER is -- GSList*
+		external "C use <gts.h>"
+		end
+
+	gts_triangle_vertices_edges (a_triangle, an_edge, v1_ref, v2_ref, v3_ref, e1_ref, e2_ref, e3_ref: POINTER) is
+		external "C use <gts.h>"
+		end
+
+	gts_triangle_vertex_opposite (a_triangle, an_edge: POINTER) is -- GtsVertex*
+		external "C use <gts.h>"
+		end
+
+gts_triangle_edge_opposite (a_triangle: POINTER, GtsVertex *v); is -- GtsEdge*
+		external "C use <gts.h>"
+		end
+
+gts_triangle_vertices (a_triangle: POINTER, GtsVertex **v1, GtsVertex **v2, GtsVertex **v3); is -- void
+		external "C use <gts.h>"
+		end
+
+-- #define gts_triangle_vertex (t)
+		external "C use <gts.h>"
+		end
+
+gts_triangle_is_ok (a_triangle: POINTER); is -- gboolean
+		external "C use <gts.h>"
+		end
+
+gts_triangle_use_edges (GtsEdge *e1, GtsEdge *e2, GtsEdge *e3); is -- GtsTriangle*
+		external "C use <gts.h>"
+		end
+
+gts_triangle_circumcircle_center is -- GtsPoint*
+		external "C use <gts.h>"
+		end
+
+-- (a_triangle: POINTER, GtsPointClass *point_class);
+		external "C use <gts.h>"
+		end
+
+gts_triangle_is_stabbed (a_triangle: POINTER, GtsPoint *p, gdouble *orientation); is -- GtsObject*
+		external "C use <gts.h>"
+		end
+
+gts_triangles_are_folded (GSList *triangles, GtsVertex *A, GtsVertex *B, gdouble max); is -- gboolean
+		external "C use <gts.h>"
+		end
+
+gts_triangles_from_edges (GSList *edges); is -- GSList*
+		external "C use <gts.h>"
+		end
+
+gts_triangle_interpolate_height (a_triangle: POINTER, GtsPoint *p); is -- void
+		external "C use <gts.h>"
+		end
+end

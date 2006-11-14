@@ -30,7 +30,7 @@ insert
 	GTS_POINT_EXTERNALS
 	GTS_POINT_STRUCT
 
-creation make, from_external_pointer
+creation make, from_external_pointer, make_uninitialized
 
 feature {} -- Creation
 
@@ -39,6 +39,12 @@ feature {} -- Creation
 		do
 			from_external_pointer (gts_point_new (gts_point_class, an_x, an_y, a_z))
 		end
+
+	make_uninitialized is
+		do
+			from_external_pointer (gts_point_new (gts_point_class,0.0,0.0,0.0))
+		end
+	
 feature 
 	x: REAL is
 		do
@@ -218,44 +224,31 @@ feature
 			Result := gts_point_triangle_distance (handle,a_triangle.handle)
 		end
 
+	closest (a_triangle: GTS_TRIANGLE): GTS_POINT is
+			--  The point belonging to `a_triangle' and closest to Current.
+		require
+			triangle_not_void: a_triangle /= Void
+		do
+			create Result.make_uninitialized
+			gts_point_triangle_closest(handle, a_triangle.handle, Result.handle)
+		end
 
+	triangle_distance2 (a_triangle: GTS_TRIANGLE): REAL is
+			-- the square of the minimun Euclidean distance between Current and `a_triangle'.
+		do
+			Result:=gts_point_triangle_distance2(handle, a_triangle.handle)
+		end
 
---   gts_point_triangle_closest ()
+	--	is_inside_surface (a_tree: G_NODE; is_open: BOOLEAN): BOOLEAN is
+	-- do Result:=(gts_point_is_inside_surface (GtsPoint *p, GNode
+	-- *tree, gboolean is_open);
 
---  void        gts_point_triangle_closest      (GtsPoint *p,
---                                               GtsTriangle *t,
---                                               GtsPoint *closest);
-
---    Set the coordinates of closest to those of the point belonging to t and closest to p.
-
---     p :        a GtsPoint.
---     t :        a GtsTriangle.
---     closest :  a GtsPoint.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_point_triangle_distance2 ()
-
---  gdouble     gts_point_triangle_distance2    (GtsPoint *p,
---                                               GtsTriangle *t);
-
---     p :        a GtsPoint.
---     t :        a GtsTriangle.
---     Returns :  the square of the minimun Euclidean distance between p and t.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_point_is_inside_surface ()
-
---  gboolean    gts_point_is_inside_surface     (GtsPoint *p,
---                                               GNode *tree,
---                                               gboolean is_open);
-
---     p :        a GtsPoint.
---     tree :     a bounding box tree of the faces of a closed, orientable surface (see gts_bb_tree_surface()).
---     is_open :  TRUE if the surface defined by tree is "open" i.e. its volume is negative, FALSE otherwise.
---     Returns :  TRUE if p is inside the surface defined by tree, FALSE 
---     otherwise.
+	--     p :        a GtsPoint.
+	--     tree :     a bounding box tree of the faces of a closed, orientable surface (see gts_bb_tree_surface()).
+	--     is_open :  TRUE if the surface defined by tree is "open" i.e. its volume is negative, FALSE otherwise.
+	--     Returns :  TRUE if p is inside the surface defined by tree, FALSE 
+	--     otherwise.
+	
 feature -- size
 
 	struct_size: INTEGER is
