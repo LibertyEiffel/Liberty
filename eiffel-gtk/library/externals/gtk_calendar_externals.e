@@ -17,13 +17,13 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_CALENDAR_EXTERNALS
 
-feature {NONE} -- Externals
+feature {} -- Externals
 
 	gtk_calendar_new: POINTER is --  GtkWidget
 		external "C use <gtk/gtk.h>"

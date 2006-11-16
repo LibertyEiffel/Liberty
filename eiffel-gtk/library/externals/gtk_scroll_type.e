@@ -17,10 +17,11 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 
 deferred class GTK_SCROLL_TYPE
-feature
+
+feature {} -- enum
 
 	gtk_scroll_none: INTEGER is
 		external "C macro use <gtk/gtk.h>"

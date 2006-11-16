@@ -17,11 +17,14 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-					
+
 deferred class GTK_FRAME_EXTERNALS
+
 insert
 	GTK_SHADOW_TYPE
+
 feature {} -- External calls
+
 	gtk_frame_new (a_label: POINTER): POINTER is
 		external "C use  <gtk/gtk.h>"
 		end

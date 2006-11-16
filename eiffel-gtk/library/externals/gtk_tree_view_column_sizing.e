@@ -17,14 +17,16 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_TREE_VIEW_COLUMN_SIZING
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_tree_view_column_sizing (a_sizing :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_sizing = gtk_tree_view_column_grow_only) or else
 						(a_sizing = gtk_tree_view_column_autosize) or else
 						(a_sizing = gtk_tree_view_column_fixed))
@@ -41,7 +43,7 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TREE_VIEW_COLUMN_AUTOSIZE"
 		end
-	
+
 	gtk_tree_view_column_fixed: INTEGER is
 			-- 	Columns are a fixed numbers of pixels wide.
 		external "C macro use <gtk/gtk.h>"

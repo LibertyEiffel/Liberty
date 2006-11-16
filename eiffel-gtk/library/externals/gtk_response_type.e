@@ -17,14 +17,16 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_RESPONSE_TYPE
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_response_type (a_response :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_response = gtk_response_none) or else
 						(a_response = gtk_response_reject) or else
 						(a_response = gtk_response_accept) or else
@@ -61,31 +63,31 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_DELETE_EVENT"
 		end
-	
+
 	gtk_response_ok: INTEGER is
 			-- 	Returned by OK buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_OK"
 		end
-	
+
 	gtk_response_cancel: INTEGER is
 			-- 	Returned by Cancel buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_CANCEL"
 		end
-	
+
 	gtk_response_close: INTEGER is
 			-- 	Returned by Close buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_CLOSE"
 		end
-	
+
 	gtk_response_yes: INTEGER is
 			-- 	Returned by Yes buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_RESPONSE_YES"
 		end
-	
+
 	gtk_response_no: INTEGER is
 			-- 	Returned by No buttons in GTK+ dialogs.
 		external "C macro use <gtk/gtk.h>"

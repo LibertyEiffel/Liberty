@@ -17,12 +17,13 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_ATTACH_OPTIONS
-feature  -- enum
+
+feature  {} -- enum
 	are_valid_attach_options (an_attach_options: INTEGER): BOOLEAN is
 		do	
 			Result:=(an_attach_options & (gtk_expand | gtk_shrink | gtk_fill)).to_boolean

@@ -17,17 +17,19 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_HSCALE_EXTERNALS
+
 feature {} -- External calls
+
 	gtk_hscale_new (an_adjustment: POINTER): POINTER is
 		external "C use  <gtk/gtk.h>"
 		end
 	gtk_hscale_new_with_range (a_min, a_max, a_step: REAL): POINTER is
 		external "C use  <gtk/gtk.h>"
 		end
-end
 
+end

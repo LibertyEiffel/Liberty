@@ -17,12 +17,14 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_FILE_FILTER_INFO_EXTERNALS
+
 inherit GTK_FILE_FILTER_FLAGS
+
 feature {} -- Getters
 
 	get_contains (a_gtk_file_filter_info: POINTER): INTEGER is
@@ -61,11 +63,11 @@ feature {} -- Setters
 	set_contains (a_gtk_file_filter_info: POINTER; a_contains: INTEGER) is
 		-- Flags indicating which of the following fields need are filled
 		require a_gtk_file_filter_info.is_not_null
-		external "C struct GtkFileFilterInfo set contains use <gtk/gtk.h>"	
+		external "C struct GtkFileFilterInfo set contains use <gtk/gtk.h>"
 			-- TODO: it seems that external features cannot have postconditions....
 			-- ensure are_valid_file_filter_flags (Result)
 		end
-	
+
 	set_filename (a_gtk_file_filter_info, a_filename: POINTER) is
 		-- 	the filename of the file being tested
 		require a_gtk_file_filter_info.is_not_null

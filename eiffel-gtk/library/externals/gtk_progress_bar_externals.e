@@ -21,6 +21,7 @@ indexing
 deferred class GTK_PROGRESS_BAR_EXTERNALS
 
 feature {} -- External calls
+
 	gtk_progress_bar_new : POINTER is
 		external "C use <gtk/gtk.h>"
 		end

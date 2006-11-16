@@ -38,7 +38,7 @@ indexing
 
 deferred class GTK_STATE_TYPE
 
-feature  -- enum
+feature {} -- enum
 
 	is_valid_state_type (a_state_type: INTEGER): BOOLEAN is
 		do

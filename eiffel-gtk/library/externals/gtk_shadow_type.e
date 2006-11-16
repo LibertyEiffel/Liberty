@@ -21,7 +21,7 @@ indexing
 
 deferred class GTK_SHADOW_TYPE
 
-feature
+feature {} -- enum
 
 	is_valid_shadow_type (a_shadow: INTEGER): BOOLEAN is
 		do

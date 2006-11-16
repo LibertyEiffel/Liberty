@@ -17,17 +17,19 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class  GTK_MENU_DIRECTION_TYPE
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_menu_direction (a_direction :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_direction = gtk_menu_dir_parent) or else
 						(a_direction = gtk_menu_dir_child) or else
-						(a_direction = gtk_menu_dir_next) or else 
+						(a_direction = gtk_menu_dir_next) or else
 						(a_direction = gtk_menu_dir_prev))
 		end
 

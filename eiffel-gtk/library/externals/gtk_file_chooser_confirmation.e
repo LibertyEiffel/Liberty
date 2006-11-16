@@ -17,14 +17,16 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_FILE_CHOOSER_CONFIRMATION
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_file_chooser_confirmation (a_gtk_file_chooser_confirmation: INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_gtk_file_chooser_confirmation=gtk_file_chooser_confirmation_confirm) or else
 						(a_gtk_file_chooser_confirmation=gtk_file_chooser_confirmation_accept_filename) or else
 						(a_gtk_file_chooser_confirmation=gtk_file_chooser_confirmation_select_again))

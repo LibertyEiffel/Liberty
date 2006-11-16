@@ -17,16 +17,17 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_HBOX_EXTERNALS
 
 feature {} -- External calls
+
 	gtk_hbox_new (homogeneous, spacing: INTEGER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
 
 end
-	
+

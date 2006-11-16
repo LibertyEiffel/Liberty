@@ -20,7 +20,9 @@ indexing
 				]"
 
 deferred class GTK_CORNER_TYPE
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_corner_type (a_corner_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_corner_type = gtk_corner_top_left) or else

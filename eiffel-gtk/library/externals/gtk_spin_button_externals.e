@@ -17,17 +17,18 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_SPIN_BUTTON_EXTERNALS
+
 insert
 	GTK_SPIN_BUTTON_UPDATE_POLICY
 	GTK_SPIN_TYPE
 	-- Note: for a "better" portability these classes inherited non-conformigly 
 	-- could be inherited "normally" exporting everything to NONE
-	
+
 feature {} -- External calls
 
 	gtk_spin_button_configure (a_spin_button, an_adjustment: POINTER; a_climb_rate: REAL; some_digits: INTEGER) is

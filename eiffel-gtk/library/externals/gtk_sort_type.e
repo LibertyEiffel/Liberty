@@ -17,27 +17,30 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_SORT_TYPE
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_sort_type (a_sort_type: INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_sort_type=gtk_sort_ascending) or else
 						(a_sort_type=gtk_sort_descending))
 		end
-	
-	gtk_sort_ascending: INTEGER is 
+
+	gtk_sort_ascending: INTEGER is
 			-- 	Sorting is in ascending order.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SORT_ASCENDING"
 		end
-	
-	gtk_sort_descending: INTEGER is 
+
+	gtk_sort_descending: INTEGER is
 			-- 	Sorting is in descending order.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SORT_DESCENDING"
 		end
+
 end

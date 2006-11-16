@@ -17,11 +17,12 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_FILE_CHOOSER_DIALOG_EXTERNALS
+
 feature {} -- External calls
 	
 	gtk_file_chooser_dialog_new (a_title, a_parent: POINTER; a_gtkfilechooseraction: INTEGER;
@@ -35,6 +36,5 @@ feature {} -- External calls
 			-- Note variadic call wrapped as non variadic
 		external "C use <gtk/gtk.h>"
 		end
+
 end
-
-

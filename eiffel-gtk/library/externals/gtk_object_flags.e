@@ -16,13 +16,14 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision "$REvision:$"
 
 deferred class GTK_OBJECT_FLAGS
 
-feature {} -- Enum definitions
+feature {} -- enum
+
 	gtk_in_destruction: INTEGER is
 			-- the object is currently being destroyed. This is used internally by
 			-- GTK+ to prevent reinvokations during destruction.

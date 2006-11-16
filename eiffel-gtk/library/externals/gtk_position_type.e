@@ -21,7 +21,8 @@ indexing
 
 deferred class GTK_POSITION_TYPE
 
-feature
+feature {} -- enum
+
 	is_valid_position_type (a_position: INTEGER): BOOLEAN is
 		do
 			Result := ((a_position=gtk_pos_left) or else

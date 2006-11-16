@@ -17,12 +17,14 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_FILE_FILTER_FLAGS
-feature  -- enum
+
+feature {} -- enum
+
 	are_valid_file_filter_flags (some_flags :INTEGER): BOOLEAN is
 		do	
 			Result:=((some_flags & gtk_file_filter_filename) |

@@ -22,7 +22,7 @@ indexing
 
 deferred class GTK_STYLE_EXTERNALS
 
-feature
+feature {}
 
 	gtk_style_set_background(a_handle, a_pixmap: POINTER; a_state: INTEGER) is
 		external "C inline use <gtk/gtk.h>"

@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_DIALOG_FLAGS
 
-feature  -- enum
+feature {} -- enum
 
 	are_valid_dialog_flags (some_flags :INTEGER): BOOLEAN is
 		do

@@ -20,7 +20,9 @@ indexing
 				]"
 
 deferred class GTK_POLICY_TYPE
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_policy (a_policy_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_policy_type = gtk_policy_always) or else

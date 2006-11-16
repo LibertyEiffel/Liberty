@@ -17,14 +17,16 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_PACK_TYPE
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_pack_type (a_pack_type:INTEGER): BOOLEAN is
-		do	
+		do
 			Result := ((a_pack_type=gtk_pack_start) or else (a_pack_type=gtk_pack_end))
 		end
 
@@ -33,6 +35,7 @@ feature  -- enum
 		external "C macro use <gtk/gth.h>"
 		alias "GTK_PACK_START"
 		end
+
 	gtk_pack_end: INTEGER is
 			-- The child is packed into the end of the box
 		external "C macro use <gtk/gth.h>"
@@ -40,4 +43,4 @@ feature  -- enum
 		end
 
 end
-			
+

@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -28,11 +28,11 @@ feature {} -- External calls
 	gtk_radio_button_new (gslist_group: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_radio_button_new_from_widget (gtkradiobutton_group: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_radio_button_new_with_label (gslist_group, a_label: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
@@ -56,4 +56,5 @@ feature {} -- External calls
 	gtk_radio_button_get_group (a_radio_button: POINTER): POINTER is -- GSList
 		external "C use <gtk/gtk.h>"
 		end
+
 end

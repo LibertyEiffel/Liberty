@@ -33,7 +33,7 @@ indexing
 
 deferred class GDK_WINDOW_HINTS
 
-feature -- Enum
+feature {} -- enum
 	gdk_hint_pos: INTEGER is
 			-- indicates that the program has positioned the window
 		external "C macro use <gdk/gdk.h>"

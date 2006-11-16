@@ -17,14 +17,14 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_CELL_RENDERER_STATE
-feature  -- enum
+feature {} -- enum
 	is_valid_cell_renderer_state (a_state :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_state = gtk_cell_renderer_selected) or else
 						(a_state = gtk_cell_renderer_prelit) or else
 						(a_state = gtk_cell_renderer_insensitive) or else

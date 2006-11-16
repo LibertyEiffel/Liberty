@@ -21,7 +21,7 @@ indexing
 
 deferred class GTK_RELIEF_STYLE
 
-feature -- enum
+feature {} -- enum
 
 	is_valid_relief_style (a_style: INTEGER): BOOLEAN is
 		do

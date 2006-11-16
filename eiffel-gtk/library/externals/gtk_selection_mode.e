@@ -17,14 +17,16 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_SELECTION_MODE
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_selection_mode (a_mode: INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_mode = gtk_selection_none) or else
 						(a_mode = gtk_selection_single) or else
 						(a_mode = gtk_selection_browse) or else
@@ -53,7 +55,7 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SELECTION_BROWSE"
 		end
-	
+
 	gtk_selection_multiple: INTEGER is
 			-- Any number of elements may be selected. Clicks toggle the
 			-- state of an item. Any number of elements may be
@@ -64,5 +66,5 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_SELECTION_MULTIPLE"
 		end
-	
+
 end

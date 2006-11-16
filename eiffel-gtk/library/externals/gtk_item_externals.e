@@ -17,13 +17,14 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_ITEM_EXTERNALS
-	
+
 feature {} -- externals 
+
 	gtk_item_select (an_item: POINTER) is external "C use <gtk/gtk.h>" end
 	gtk_item_deselect (an_item: POINTER) is external "C use <gtk/gtk.h>" end
 	gtk_item_toggle (an_item: POINTER) is external "C use <gtk/gtk.h>" end

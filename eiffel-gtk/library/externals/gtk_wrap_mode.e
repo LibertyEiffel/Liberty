@@ -2,12 +2,12 @@ indexing
 	description: "Enum GtkWrapMode describes a type of line wrapping."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
-					
+				
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
-					
+				
 					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
@@ -21,10 +21,10 @@ indexing
 
 deferred class GTK_WRAP_MODE
 
-feature  -- enum
+feature {} -- enum
 
 	is_valid_wrap_mode (a_mode :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_mode=gtk_wrap_none) or else
 						(a_mode=gtk_wrap_char) or else
 						(a_mode=gtk_wrap_word) or else

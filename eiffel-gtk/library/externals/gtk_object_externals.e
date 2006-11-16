@@ -22,7 +22,7 @@ indexing
 
 deferred class GTK_OBJECT_EXTERNALS
 
-feature {}
+feature {} -- enum
 
 	gtk_object_flags (obj: POINTER): INTEGER is
 			-- Gets the GtkObjectFlags for an object without directly accessing its members.

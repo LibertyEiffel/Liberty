@@ -20,7 +20,8 @@ deferred class GTK_TEXT_WINDOW_TYPE
 	--   GTK_TEXT_WINDOW_BOTTOM
 	-- } GtkTextWindowType;
 
-feature  -- enum
+feature {} -- enum
+
 	is_valid_text_window_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type = gtk_text_window_private) or else

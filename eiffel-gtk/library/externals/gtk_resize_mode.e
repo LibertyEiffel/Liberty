@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_RESIZE_MODE
 
-feature -- Enum
+feature {} -- enum
 
 	gtk_resize_parent: INTEGER is
 			--  Pass resize request to the parent

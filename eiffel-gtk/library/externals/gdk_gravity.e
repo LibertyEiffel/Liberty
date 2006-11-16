@@ -23,7 +23,7 @@ indexing
 
 deferred class GDK_GRAVITY
 
-feature -- Enum
+feature {} -- enum
 
 	gdk_gravity_north_west: INTEGER is
 			-- 	the reference point is at the top left corner.

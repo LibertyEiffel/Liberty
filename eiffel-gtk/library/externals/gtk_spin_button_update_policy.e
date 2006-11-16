@@ -17,14 +17,16 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_SPIN_BUTTON_UPDATE_POLICY
-feature  -- enum
+
+feature {} -- enum
+
 	is_valid_spin_button_update_policy (a_policy :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_policy = gtk_update_always) or else
 						(a_policy = gtk_update_if_valid))
 		end
@@ -34,12 +36,12 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UPDATE_ALWAYS"
 		end
-	
+
 	gtk_update_if_valid: INTEGER is
 			-- When refreshing your GtkSpinButton, the value is only displayed if
 			-- it is valid within the bounds of the spin button's GtkAdjustment.
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_UPDATE_IF_VALID"
 		end
-end
 
+end

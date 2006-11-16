@@ -2,12 +2,12 @@ indexing
 	description: "Enum GtkTreeViewDropPosition An enum for determining where a dropped row goes. "
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
-					
+				
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
-					
+				
 					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_TREE_VIEW_DROP_POSITION
 
-feature  -- enum
+feature {} -- enum
 
 	is_valid_tree_view_drop_position (a_position: INTEGER): BOOLEAN is
 		do
@@ -31,7 +31,7 @@ feature  -- enum
 						(a_position = gtk_tree_view_drop_after) or else
 						(a_position = gtk_tree_view_drop_into_or_before) or else
 						(a_position = gtk_tree_view_drop_into_or_after))
-			
+		
 		end
 
 	gtk_tree_view_drop_before: INTEGER is

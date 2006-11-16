@@ -2,12 +2,12 @@ indexing
 	description: "Standard Enumerations: Public enumerated types used throughout GTK+ "
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
-			
+		
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
-			
+		
 					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
@@ -64,7 +64,7 @@ insert
 	GTK_WRAP_MODE
 	GTK_SORT_TYPE
 
-feature -- enum GtkAnchorType
+feature {} -- enum GtkAnchorType
 
 	is_valid_anchor_type (a_type :INTEGER): BOOLEAN is
 		do
@@ -124,7 +124,7 @@ feature -- enum GtkAnchorType
 		alias "GTK_ANCHOR_EAST"
 		end
 
-feature -- enum GtkArrowType
+feature {} -- enum GtkArrowType
 	-- Used to indicate the direction in which a GtkArrow should point.
 
 	is_valid_arrow_type (a_type :INTEGER): BOOLEAN is
@@ -159,7 +159,7 @@ feature -- enum GtkArrowType
 		alias "GTK_ARROW_RIGHT"
 		end
 
-feature -- enum GtkButtonBoxStyle
+feature {} -- enum GtkButtonBoxStyle
 	-- Used to dictate the style that a GtkButtonBox uses to layout the
 	-- buttons it contains. (See also: GtkVButtonBox and
 	-- GtkHButtonBox).
@@ -204,7 +204,7 @@ feature -- enum GtkButtonBoxStyle
 		alias "GTK_BUTTONBOX_END"
 		end
 
-feature -- enum GtkCurveType
+feature {} -- enum GtkCurveType
 	is_valid_curve_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type = gtk_curve_type_linear) or else
@@ -230,7 +230,7 @@ feature -- enum GtkCurveType
 		alias "GTK_CURVE_TYPE_FREE"
 		end
 
-feature -- enum GtkDeleteType
+feature {} -- enum GtkDeleteType
 
 	is_valid_delete_type (a_type :INTEGER): BOOLEAN is
 		do
@@ -289,7 +289,7 @@ feature -- enum GtkDeleteType
 		alias "GTK_DELETE_WHITESPACE"
 		end
 
-feature -- enum GtkDirectionType
+feature {} -- enum GtkDirectionType
 
 	is_valid_direction_type (a_type :INTEGER): BOOLEAN is
 		do
@@ -331,7 +331,7 @@ feature -- enum GtkDirectionType
 		alias "GTK_DIR_RIGHT"
 		end
 
-feature -- enum GtkExpanderStyle
+feature {} -- enum GtkExpanderStyle
 	-- Used to specify the style of the expanders drawn by a
 	-- GtkTreeView.
 
@@ -367,7 +367,7 @@ feature -- enum GtkExpanderStyle
 		alias "GTK_EXPANDER_EXPANDED"
 		end
 
-feature -- enum GtkIMPreeditStyle
+feature {} -- enum GtkIMPreeditStyle
 
 	is_valid_im_predict_style (a_style :INTEGER): BOOLEAN is
 		do
@@ -391,7 +391,7 @@ feature -- enum GtkIMPreeditStyle
 		alias "GTK_IM_PREEDIT_NONE"
 		end
 
-feature -- enum GtkIMStatusStyle
+feature {} -- enum GtkIMStatusStyle
 
 	is_valid_im_status_style (a_style :INTEGER): BOOLEAN is
 		do
@@ -415,7 +415,7 @@ feature -- enum GtkIMStatusStyle
 		alias "GTK_IM_STATUS_NONE"
 		end
 
-feature -- enum GtkMetricType
+feature {} -- enum GtkMetricType
 	-- Used to indicate which metric is used by a GtkRuler.
 	is_valid_metric_type (a_type :INTEGER): BOOLEAN is
 		do
@@ -442,7 +442,7 @@ feature -- enum GtkMetricType
 		alias "GTK_CENTIMETERS"
 		end
 
-feature -- enum GtkMovementStep
+feature {} -- enum GtkMovementStep
 	is_valid_movement_step (a_step :INTEGER): BOOLEAN is
 		do
 			Result:=((a_step=gtk_movement_logical_positions) or else
@@ -517,7 +517,7 @@ feature -- enum GtkMovementStep
 		alias "GTK_MOVEMENT_HORIZONTAL_PAGES"
 		end
 
-feature -- enum GtkOrientation
+feature {} -- enum GtkOrientation
 	-- Represents the orientation of widgets which can be switched
 	-- between horizontal and vertical orientation on the fly, like
 	-- GtkToolbar.
@@ -540,7 +540,7 @@ feature -- enum GtkOrientation
 		alias "GTK_ORIENTATION_VERTICAL"
 		end
 
-feature -- enum GtkPathPriorityType
+feature {} -- enum GtkPathPriorityType
 	is_valid_path_priority_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type=gtk_path_prio_lowest) or else
@@ -582,7 +582,7 @@ feature -- enum GtkPathPriorityType
 		end
 
  
-feature -- enum GtkPathType
+feature {} -- enum GtkPathType
 	is_valid_path_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type=gtk_path_widget) or else
@@ -605,7 +605,7 @@ feature -- enum GtkPathType
 		alias "GTK_PATH_CLASS"
 		end
 
-feature -- enum GtkScrollStep
+feature {} -- enum GtkScrollStep
 	is_valid_scroll_step_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type=gtk_scroll_steps) or else
@@ -647,7 +647,7 @@ feature -- enum GtkScrollStep
 		end
 
 
-feature -- enum GtkToolbarStyle
+feature {} -- enum GtkToolbarStyle
 	-- Used to customize the appearance of a GtkToolbar. Note that
 	-- setting the toolbar style overrides the user's preferences for
 	-- the default toolbar style. Note that if the button has only a
@@ -687,7 +687,7 @@ feature -- enum GtkToolbarStyle
 		alias "GTK_TOOLBAR_BOTH_HORIZ"
 		end
 
-feature -- enum GtkVisibility
+feature {} -- enum GtkVisibility
 	-- Used by GtkCList and GtkCTree to indicate whether a row is
 	-- visible. Note: AFAIK it should be deprecated. Check this. Paolo
 	-- 2006-08-15

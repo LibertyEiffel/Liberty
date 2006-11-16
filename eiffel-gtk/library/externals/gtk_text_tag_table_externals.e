@@ -1,7 +1,5 @@
 indexing
-
-	description: "GtkTextTagTable — Collection of tags that can be used together"
-
+	description: "GtkTextTagTable: Collection of tags that can be used together"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -31,23 +29,23 @@ feature {} -- External calls
 	gtk_text_tag_table_new: POINTER is -- GtkTextTagTable*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_tag_table_add (a_table, a_tag: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_tag_table_remove (a_table, a_tag: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_tag_table_lookup (a_table, a_const_name: POINTER): POINTER is -- GtkTextTag*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_tag_table_foreach (a_table, a_gtktexttagtableforeach_func, some_data: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_text_tag_table_get_size (a_table: POINTER): INTEGER is -- gint
 		external "C use <gtk/gtk.h>"
 		end

@@ -24,7 +24,7 @@ indexing
 				  ]"
 deferred class GDK_WINDOW_TYPE_HINT
 
-feature -- Enum
+feature {} -- enum
 
 	gdk_window_type_hint_normal: INTEGER is
 			-- 	Normal toplevel window.

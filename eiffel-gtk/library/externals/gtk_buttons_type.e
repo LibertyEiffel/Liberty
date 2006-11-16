@@ -23,7 +23,7 @@ indexing
 
 deferred class GTK_BUTTONS_TYPE
 
-feature  -- enum
+feature {} -- enum
 
 	is_valid_buttons_type (a_gtk_buttons_type :INTEGER): BOOLEAN is
 		do

@@ -21,7 +21,7 @@ indexing
 
 deferred class GDK_WINDOW_EDGE
 
-feature -- Enum
+feature {} -- enum
 	gdk_window_edge_north_west: INTEGER is
 			-- 	the top left corner.
 		external "C macro use <gdk/gdk.h>"

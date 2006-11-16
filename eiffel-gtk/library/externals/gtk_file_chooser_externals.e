@@ -17,15 +17,17 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTK_FILE_CHOOSER_EXTERNALS
+
 inherit
 	GTK_FILE_CHOOSER_CONFIRMATION
 	GTK_FILE_CHOOSER_ERROR
 	GTK_FILE_CHOOSER_ACTION
+
 feature {} -- External calls
 
 	-- GQuark      gtk_file_chooser_error_quark    (void) is

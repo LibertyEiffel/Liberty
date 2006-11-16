@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -25,6 +25,7 @@ deferred class GTK_DIALOG_EXTERNALS
 insert
 	GTK_DIALOG_FLAGS
 	GTK_RESPONSE_TYPE
+
 feature {} -- Externals
 	gtk_dialog_new: POINTER is
 		external "C use <gtk/gtk.h>"
@@ -85,7 +86,7 @@ feature {} -- Externals
 	--                                              gint *new_orderis
 	-- external "C use <gtk/gtk.h>"
 	-- end
-feature -- GtkDialog struct
+feature {} -- GtkDialog struct
 	--	size: INTEGER is external "C inline use <gtk/gtk.h>" alias
 	--	"sizeof(GtkDialog)" end
 	
@@ -105,7 +106,7 @@ feature -- GtkDialog struct
 		external "C struct set action_area use <gtk/gtk.h>"
 		end
 
-feature -- Signals TODO
+feature {} -- Signals TODO
 -- TODO Signal Details
 -- The "close" signal
 

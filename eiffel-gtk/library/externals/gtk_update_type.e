@@ -41,7 +41,7 @@ indexing
 
 deferred class GTK_UPDATE_TYPE
 
-feature  -- enum
+feature {} -- enum
 
 	is_valid_update_type (an_update_type: INTEGER): BOOLEAN is
 		do
