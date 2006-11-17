@@ -22,6 +22,7 @@ indexing
 class AV_CODEC_CONTEXT
 
 inherit
+	WRAPPER_RETRIEVER [AV_CODEC]
 	C_STRUCT
 		redefine make, dispose end
 
@@ -31,6 +32,7 @@ insert
 	AV_CODEC_TYPES
 	AV_DISCARD
 	AV_CODEC_IDS
+	AV_CODEC_FINDER
 
 creation
 	make, from_external_pointer
@@ -161,12 +163,15 @@ feature -- Access
 		end
 
 	codec: AV_CODEC is
+		local
+			codec_ptr: POINTER
 		do
-			if wrapped_codec = Void or else
-			  wrapped_codec.handle /= av_codec_context_get_codec (handle) then
-				create wrapped_codec.from_external_pointer (av_codec_context_get_codec (handle))
+			codec_ptr := av_codec_context_get_codec (handle)
+			if wrappers.has (codec_ptr) then
+				Result ::= wrappers.at (codec_ptr).to_any
+			else
+				create Result.from_external_pointer (codec_ptr)
 			end
-			Result := wrapped_codec
 		end
 
 	pix_fmt: INTEGER is
@@ -221,7 +226,7 @@ feature -- Operations
 		local
 			a_codec: AV_CODEC
 		do
-			create a_codec.decoder (codec_id)
+			a_codec := get_decoder (codec_id)
 			if a_codec.is_not_null then
 				Result := open (a_codec)
 			end
@@ -234,7 +239,7 @@ feature -- Operations
 		local
 			a_codec: AV_CODEC
 		do
-			create a_codec.encoder (codec_id)
+			a_codec := get_encoder (codec_id)
 			if a_codec.is_not_null then
 				Result := open (a_codec)
 			end
@@ -266,10 +271,6 @@ feature -- Operations
 			Result := avcodec_decode_video (handle, a_picture.handle, $got_picture_int, a_packet.data + a_offset, a_packet.size - a_offset)
 			got_picture := got_picture_int.to_boolean
 		end
-
-feature {} -- Representation
-
-	wrapped_codec: AV_CODEC
 
 feature {} -- Disposing
 

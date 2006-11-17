@@ -30,37 +30,7 @@ insert
 	AV_CODEC_IDS
 
 creation
-	decoder, decoder_by_name, encoder, encoder_by_name, from_external_pointer
-
-feature {} -- Creation
-
-	decoder (a_codec_id: INTEGER) is
-		require
-			is_valid_av_codec_id (a_codec_id)
-		do
-			from_external_pointer (avcodec_find_decoder (a_codec_id))
-		end
-
-	encoder (a_codec_id: INTEGER) is
-		require
-			is_valid_av_codec_id (a_codec_id)
-		do
-			from_external_pointer (avcodec_find_encoder (a_codec_id))
-		end
-
-	decoder_by_name (a_name: STRING) is
-		require
-			a_name /= Void
-		do
-			from_external_pointer (avcodec_find_decoder_by_name (a_name.to_external))
-		end
-
-	encoder_by_name (a_name: STRING) is
-		require
-			a_name /= Void
-		do
-			from_external_pointer (avcodec_find_encoder_by_name (a_name.to_external))
-		end
+	from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 
