@@ -62,7 +62,7 @@ feature {} -- Creation
 		require gtk_initialized: gtk.is_initialized
 		do
 			handle := gtk_tree_path_new
-		ensure
+		ensure then
 			not is_shared
 		end
 
