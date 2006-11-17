@@ -68,7 +68,7 @@ feature {} -- Creation
 			Result := gtk_event_box_get_above_child (handle).to_boolean
 		end
 
-	box_set_visible_window (a_visible: BOOLEAN) is
+	set_visible_window (a_visible: BOOLEAN) is
 			-- Set whether the event box uses a visible or invisible child
 			-- window. The default is to use visible windows.
 			--
