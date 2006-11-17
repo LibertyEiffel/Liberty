@@ -52,11 +52,6 @@ feature -- Redefined features
 			gtk_initialized: gtk.is_initialized
 			pointer_not_null: a_ptr.is_not_null
 		do
-			-- TODO: check if making the path shared solves the bug
-			-- iussed in sr #1143 (see
-			-- https://gna.org/support/index.php?func=detailitem&item_id=1143
-			-- for further informations)
-			set_shared
 			Precursor (a_ptr)
 		end
 
@@ -66,15 +61,16 @@ feature {} -- Creation
 			-- Creates a new GtkTreePath. This structure refers to a row.
 		require gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer (gtk_tree_path_new)
+			handle := gtk_tree_path_new
+		ensure
+			not is_shared
 		end
 
 	copy_from_pointer (a_ptr: POINTER) is
 		require
 			a_ptr.is_not_null
 		do
-			from_external_pointer (gtk_tree_path_copy (a_ptr))
-			unset_shared
+			handle := gtk_tree_path_copy (a_ptr)
 		ensure
 			not is_shared
 		end
@@ -91,7 +87,9 @@ feature {} -- Creation
 			gtk_initialized: gtk.is_initialized
 			path_not_void: a_path /= Void
 		do
-			from_external_pointer (gtk_tree_path_new_from_string (a_path.to_external))
+			handle := gtk_tree_path_new_from_string (a_path.to_external)
+		ensure
+			not is_shared
 		end
 
 	-- unwrappable varargs function GtkTreePath*
@@ -105,14 +103,18 @@ feature {} -- Creation
 			-- this path is "0"
 		require gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer (gtk_tree_path_new_first)
+			handle := gtk_tree_path_new_first
+		ensure
+			not is_shared
 		end
 
 	from_path (a_path: like Current) is
 			-- Creates a new GtkTreePath as a copy of path.
 		require gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer (gtk_tree_path_copy (a_path.handle))
+			handle := gtk_tree_path_copy (a_path.handle)
+		ensure
+			not is_shared
 		end
 
 feature
