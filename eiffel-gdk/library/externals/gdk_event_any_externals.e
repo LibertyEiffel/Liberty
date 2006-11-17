@@ -17,11 +17,11 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+				]"
 
 deferred class GDK_EVENT_ANY_EXTERNALS
 
-feature {} -- Low level access
+feature {} -- External calls
 
 	gdk_event_any_get_window (ptr: POINTER): POINTER is
 		external "C struct GdkEventAny get type use <gdk/gdk.h>"

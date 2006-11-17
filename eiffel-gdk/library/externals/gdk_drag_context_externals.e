@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+				]"
 
 deferred class GDK_DRAG_CONTEXT_EXTERNALS
 
@@ -38,7 +38,7 @@ deferred class GDK_DRAG_CONTEXT_EXTERNALS
 	-- A GdkDragContext holds information about a drag in progress. It
 	-- is used on both source and destination sides.
 
-feature -- Representation
+feature {} -- Representation
 
 	gtk_drag_finish (a_ptr: POINTER; success, delete, time: INTEGER) is
 		external "C use <gdk/gdk.h>"

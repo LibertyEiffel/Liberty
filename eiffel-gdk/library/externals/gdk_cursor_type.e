@@ -112,7 +112,7 @@ deferred class GDK_CURSOR_TYPE
 	--   GDK_CURSOR_IS_PIXMAP 	= -1
 	-- } GdkCursorType;
 
-feature -- enum
+feature {} -- enum
 
 	is_valid_gdk_cursor_type (a_cursor_type: INTEGER) : BOOLEAN is
 		do

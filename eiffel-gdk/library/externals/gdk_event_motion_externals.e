@@ -17,11 +17,11 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+				]"
 
 deferred class GDK_EVENT_MOTION_EXTERNALS
 
-feature {} -- Low level access
+feature {} -- External calls
 
 	gdk_event_motion_get_time (ptr: POINTER): INTEGER is
 		external "C struct GdkEventMotion get time use <gdk/gdk.h>"

@@ -27,7 +27,7 @@ deferred class GDK_CURSOR_EXTERNALS
 insert
 	GDK_CURSOR_TYPE
 
-feature
+feature {} -- enum
 
 	gdk_cursor_type (h: POINTER) : INTEGER is
 		external "C struct GdkCursor get type use <gdk/gdk.h>"

@@ -27,7 +27,7 @@ deferred class GDK_EVENT_EXTERNALS
 insert
 	GDK_EVENT_TYPE
 
-feature
+feature {} -- External calls
 
 	gdk_event_type (h: POINTER) : INTEGER is
 		external "C struct GdkEvent get type use <gdk/gdk.h>"

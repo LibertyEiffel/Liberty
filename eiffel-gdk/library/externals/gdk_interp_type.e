@@ -30,7 +30,7 @@ indexing
 
 deferred class GDK_INTERP_TYPE
 
-feature -- enum
+feature {} -- enum
 
 	is_valid_gdk_interp_type (an_interp_type: INTEGER) : BOOLEAN is
 		do

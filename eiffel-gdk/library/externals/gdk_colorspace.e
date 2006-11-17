@@ -26,7 +26,7 @@ class GDK_COLORSPACE
 	-- This enumeration defines the color spaces that are supported by
 	-- the gdk-pixbuf library. Currently only RGB is supported.
 
-feature
+feature {} -- enum
 
 	gdk_colorspace_rgb: INTEGER is
 		external "C macro use <gdk-pixbuf/gdk-pixbuf.h>"
