@@ -61,7 +61,7 @@ indexing
 			-- of unsigned integers or a string. The string form is a list of
 			-- numbers separated by a colon. Each number refers to the offset at
 			-- that level. Thus, the path 0: refers to the
-			-- root node and the path ’¡È2:4’¡É refers to the
+			-- root node and the path ï¿½:4ï¿½refers to the
 			-- fifth child of the third node.
 
 			-- By contrast, a GtkTreeIter is a reference to a specific node on a
@@ -385,15 +385,38 @@ feature -- Signal Details
 -- arg1 : 	
 -- arg2 : 	
 -- user_data : 	user data set when the signal handler was connected.
--- The "row-deleted" signal
 
--- void        user_function                  (GtkTreeModel *treemodel,
---                                             GtkTreePath  *arg1,
---                                             gpointer      user_data)      : Run first
+feature -- The "row-deleted" signal
 
--- treemodel : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
+	row_deleted_signal_name: STRING is "row-deleted"
+		-- "row-deleted"
+		-- void        user_function          (GtkTreeModel *treemodel,
+		--                                     GtkTreePath  *arg1,
+		--                                     gpointer      user_data)      : Run first
+
+	on_row_deleted is
+			-- Built-in row_deleted signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_row_deleted is
+			-- Connects "row_deleted" signal to `on_row_deleted' feature.
+		do
+			connect (Current, row_deleted_signal_name, $on_row_deleted)
+		end
+
+	connect_agent_to_row_deleted_signal (a_procedure: PROCEDURE [ANY,
+		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
+			-- treemodel : 	the object which received the signal.
+			-- arg1 : 	
+			-- user_data : 	user data set when the signal handler was connected.
+		require valid_procedure: a_procedure /= Void
+		local row_deleted_callback: ROW_DELETED_CALLBACK
+		do
+			create row_deleted_callback.make
+			row_deleted_callback.connect (Current, a_procedure)
+		end
+
 -- The "row-has-child-toggled" signal
 
 -- void        user_function                  (GtkTreeModel *treemodel,
