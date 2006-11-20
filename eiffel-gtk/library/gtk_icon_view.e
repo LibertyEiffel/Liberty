@@ -35,6 +35,8 @@ inherit GTK_CONTAINER
 insert
 	GTK_ICON_VIEW_EXTERNALS
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
+	GTK_ICON_VIEW_DROP_POSITION
+	G_OBJECT_EXTERNALS
 
 creation
 	make, with_model, from_external_pointer
@@ -419,6 +421,7 @@ feature -- Operations
 -- Returns : 	The GtkTreePath corresponding to the icon or NULL if no icon exists at that position.
 
 -- Since 2.6
+
 -- gtk_icon_view_get_item_at_pos ()
 
 -- gboolean    gtk_icon_view_get_item_at_pos   (GtkIconView *icon_view,
@@ -454,22 +457,49 @@ feature -- Operations
 -- start_editing : 	TRUE if the specified cell should start being edited.
 
 -- Since 2.8
--- gtk_icon_view_get_cursor ()
 
--- gboolean    gtk_icon_view_get_cursor        (GtkIconView *icon_view,
---                                              GtkTreePath **path,
---                                              GtkCellRenderer **cell);
+	cursor: TUPLE [GTK_TREE_PATH, GTK_CELL_RENDERER] is
+			-- Fills in path and cell with the current cursor path and cell.
+			-- If the cursor isn't currently set, then *path will be NULL.
+			-- If no cell currently has focus, then *cell will be NULL.
+			-- The returned GtkTreePath must be freed with gtk_successtree_path_free().
+		local
+			path_ptr, cell_ptr: POINTER
+			res: BOOLEAN
+			path: GTK_TREE_PATH
+			cell: GTK_CELL_RENDERER
+			cell_name: STRING
+			retriever: G_RETRIEVER [GTK_CELL_RENDERER]
+		do
+			res := gtk_icon_view_get_cursor (handle, $path_ptr, $cell_ptr).to_boolean
+			
+			if path_ptr.is_not_null then
+				create path.from_external_pointer (path_ptr)
+			else
+				path := Void
+			end
 
--- Fills in path and cell with the current cursor path and cell. If the cursor isn't currently set, then *path will be NULL. If no cell currently has focus, then *cell will be NULL.
+			if cell_ptr.is_not_null then
+				if retriever.has_eiffel_wrapper_stored (cell_ptr) then
+					cell := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (cell_ptr)
+				else
+					create cell_name.from_external (g_object_type_name (cell_ptr))
+					inspect
+						cell_name
+					when "GtkCellRendererText" then
+						create {GTK_CELL_RENDERER_TEXT}cell.from_external_pointer (cell_ptr)
+					when "GtkCellRendererPixbuf" then
+						create {GTK_CELL_RENDERER_PIXBUF}cell.from_external_pointer (cell_ptr)
+					when "GtkCellRendererProgress" then
+						create {GTK_CELL_RENDERER_PROGRESS}cell.from_external_pointer (cell_ptr)
+					when "GtkCellRendererToggle" then
+						create {GTK_CELL_RENDERER_TOGGLE}cell.from_external_pointer (cell_ptr)
+					end
+				end
+			end
+			Result := [path, cell]
+		end
 
--- The returned GtkTreePath must be freed with gtk_tree_path_free().
-
--- icon_view : 	A GtkIconView
--- path : 	Return location for the current cursor path, or NULL
--- cell : 	Return location the current focus cell, or NULL
--- Returns : 	TRUE if the cursor is set.
-
--- Since 2.8
 -- gtk_icon_view_selected_foreach ()
 
 -- void        gtk_icon_view_selected_foreach  (GtkIconView *icon_view,
@@ -784,83 +814,79 @@ feature -- Operations
 --   GTK_ICON_VIEW_DROP_BELOW
 -- } GtkIconViewDropPosition;
 
--- gtk_icon_view_enable_model_drag_source ()
+	enable_model_drag_source (a_start_button_mask: INTEGER;
+	                          a_target: GTK_TARGET_ENTRY;
+	                          some_actions: INTEGER) is
+			-- Turns icon_view into a drag source for automatic DND.
+			-- start_button_mask : 	Mask of allowed buttons to start drag
+			-- some_targets : 	the table of targets that the drag will support
+			-- n_targets : 	the number of items in targets
+			-- some_actions : 	the bitmask of possible actions for a drag from this widget
+		require
+			is_valid_gdk_modifier_type (a_start_button_mask)
+			a_target /= Void
+			is_valid_gdk_drag_action (some_actions)
+		do
+			-- XXX: WATCH OUT! this implemetation allows the setting of only ONE target.
+			-- In order to allow a list of them, we'd need to develop some C code so we can transform
+			-- a NATIVE_ARRAY [POINTER] with the handle's of the different GTK_TARGET_ENTRY
+			-- into a GtkTargetEntry *.
+			-- nessa, 2006-10-30
+			gtk_icon_view_enable_model_drag_source (handle, a_start_button_mask,
+			                                        a_target.handle, 1, some_actions)
+		end
 
--- void        gtk_icon_view_enable_model_drag_source
---                                             (GtkIconView *icon_view,
---                                              GdkModifierType start_button_mask,
---                                              const GtkTargetEntry *targets,
---                                              gint n_targets,
---                                              GdkDragAction actions);
+	enable_model_drag_dest (a_target: GTK_TARGET_ENTRY; some_actions: INTEGER) is
+			-- Turns icon_view into a drop destination for automatic DND.
+			-- some_targets : 	the table of targets that the drag will support
+			-- n_targets : 	the number of items in targets
+			-- some_actions : 	the bitmask of possible actions for a drag from this widget
+		require
+			a_target /= Void
+			is_valid_gdk_drag_action (some_actions)
+		do
+			-- XXX: WATCH OUT! thsi implemetation allows the setting of only ONE target.
+			-- In order to allow a list of them, we'd need to develop some C code so we can transform
+			-- a NATIVE_ARRAY [POINTER] with the handle's of the different GTK_TARGET_ENTRY
+			-- into a GtkTargetEntry *.
+			-- nessa, 2006-10-30
+			gtk_icon_view_enable_model_drag_dest (handle, a_target.handle, 1, some_actions)
+		end
 
--- Turns icon_view into a drag source for automatic DND.
+	unset_model_drag_source is
+			-- Undoes the effect of `enable_model_drag_source'
+		do
+			gtk_icon_view_unset_model_drag_source (handle)
+		end
 
--- icon_view : 	a GtkIconTreeView
--- start_button_mask : 	Mask of allowed buttons to start drag
--- targets : 	the table of targets that the drag will support
--- n_targets : 	the number of items in targets
--- actions : 	the bitmask of possible actions for a drag from this widget
+	unset_model_drag_dest is
+			-- Undoes the effect of `enable_model_drag_dest'
+		do
+			gtk_icon_view_unset_model_drag_dest (handle)
+		end
 
--- Since 2.8
--- gtk_icon_view_enable_model_drag_dest ()
+	set_reorderable (a_boolean: BOOLEAN) is
+			-- This function is a convenience function to allow you to
+			-- reorder models that support the GtkTreeDragSourceIface
+			-- and the GtkTreeDragDestIface. Both GtkTreeStore
+			-- and GtkListStore support these. If reorderable is TRUE,
+			-- then the user can reorder the model by dragging and dropping rows.
+			-- The developer can listen to these changes by connecting to the
+			-- model's row_inserted and row_deleted signals
+			-- This function does not give you any degree of control over the order
+			-- (any reordering is allowed). If more control is needed, you should
+			-- probably handle drag and drop manually.
+		do
+			gtk_icon_view_set_reorderable (handle, a_boolean.to_integer)
+		end
 
--- void        gtk_icon_view_enable_model_drag_dest
---                                             (GtkIconView *icon_view,
---                                              const GtkTargetEntry *targets,
---                                              gint n_targets,
---                                              GdkDragAction actions);
-
--- Turns icon_view into a drop destination for automatic DND.
-
--- icon_view : 	a GtkIconView
--- targets : 	the table of targets that the drag will support
--- n_targets : 	the number of items in targets
--- actions : 	the bitmask of possible actions for a drag from this widget
-
--- Since 2.8
--- gtk_icon_view_unset_model_drag_source ()
-
--- void        gtk_icon_view_unset_model_drag_source
---                                             (GtkIconView *icon_view);
-
--- Undoes the effect of gtk_icon_view_enable_model_drag_source().
-
--- icon_view : 	a GtkIconView
-
--- Since 2.8
--- gtk_icon_view_unset_model_drag_dest ()
-
--- void        gtk_icon_view_unset_model_drag_dest
---                                             (GtkIconView *icon_view);
-
--- Undoes the effect of gtk_icon_view_enable_model_drag_dest().
-
--- icon_view : 	a GtkIconView
-
--- Since 2.8
--- gtk_icon_view_set_reorderable ()
-
--- void        gtk_icon_view_set_reorderable   (GtkIconView *icon_view,
---                                              gboolean reorderable);
-
--- This function is a convenience function to allow you to reorder models that support the GtkTreeDragSourceIface and the GtkTreeDragDestIface. Both GtkTreeStore and GtkListStore support these. If reorderable is TRUE, then the user can reorder the model by dragging and dropping rows. The developer can listen to these changes by connecting to the model's row_inserted and row_deleted signals.
-
--- This function does not give you any degree of control over the order -- any reordering is allowed. If more control is needed, you should probably handle drag and drop manually.
-
--- icon_view : 	A GtkIconView.
--- reorderable : 	TRUE, if the list of items can be reordered.
-
--- Since 2.8
--- gtk_icon_view_get_reorderable ()
-
--- gboolean    gtk_icon_view_get_reorderable   (GtkIconView *icon_view);
-
--- Retrieves whether the user can reorder the list via drag-and-drop. See gtk_icon_view_set_reorderable().
-
--- icon_view : 	a GtkIconView
--- Returns : 	TRUE if the list can be reordered.
-
--- Since 2.8
+	reorderable: BOOLEAN is
+			-- Retrieves whether the user can reorder the list via drag-and-drop.
+			-- See `set_reorderable'.
+		do
+			Result := gtk_icon_view_get_reorderable (handle).to_boolean
+		end
+		
 -- gtk_icon_view_set_drag_dest_item ()
 
 -- void        gtk_icon_view_set_drag_dest_item
@@ -889,25 +915,30 @@ feature -- Operations
 -- pos : 	Return location for the drop position, or NULL
 
 -- Since 2.8
--- gtk_icon_view_get_dest_item_at_pos ()
 
--- gboolean    gtk_icon_view_get_dest_item_at_pos
---                                             (GtkIconView *icon_view,
---                                              gint drag_x,
---                                              gint drag_y,
---                                              GtkTreePath **path,
---                                              GtkIconViewDropPosition *pos);
+	dest_item_at_pos (drag_x, drag_y: INTEGER): TUPLE [GTK_TREE_PATH, INTEGER] is
+			-- Determines the destination item for a given position.
+			-- drag_x : 	the position to determine the destination item for
+			-- drag_y : 	the position to determine the destination item for
+			-- a_path : 	Return location for the path of the item, or NULL.
+			-- a_position : 	Return location for the drop position, or NULL
+			-- Returns : 	whether there is an item at the given position.
+		local
+			item_exists: BOOLEAN
+			a_path: GTK_TREE_PATH
+			a_path_ptr: POINTER
+			a_position: INTEGER
+		do
+			item_exists := gtk_icon_view_get_dest_item_at_pos (handle, drag_x, drag_y, $a_path_ptr, $a_position).to_boolean
+			if item_exists then
+				create a_path.from_external_pointer (a_path_ptr)
+			end
+			Result := [a_path, a_position]
+		ensure
+			Result /= Void
+			Result.first /= Void implies is_valid_icon_view_drop_position (Result.second)
+		end
 
--- Determines the destination item for a given position.
-
--- icon_view : 	a GtkIconView
--- drag_x : 	the position to determine the destination item for
--- drag_y : 	the position to determine the destination item for
--- path : 	Return location for the path of the item, or NULL.
--- pos : 	Return location for the drop position, or NULL
--- Returns : 	whether there is an item at the given position.
-
--- Since 2.8
 -- gtk_icon_view_create_drag_icon ()
 
 -- GdkPixmap*  gtk_icon_view_create_drag_icon  (GtkIconView *icon_view,

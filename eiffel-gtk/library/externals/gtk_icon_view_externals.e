@@ -62,4 +62,36 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
+	gtk_icon_view_enable_model_drag_source (handle: POINTER; a_start_button_mask: INTEGER; a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_icon_view_enable_model_drag_dest (handle, a_gtktargetentry: POINTER; a_n_targets: INTEGER; some_gdkdragaction: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_icon_view_unset_model_drag_source (handle: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_icon_view_unset_model_drag_dest (handle: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_icon_view_set_reorderable (handle: POINTER; a_boolean: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_icon_view_get_reorderable (handle: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_icon_view_get_dest_item_at_pos (handle: POINTER; drag_x, drag_y: INTEGER; a_gtktreepath, a_gtkiconviewdropposition: POINTER): INTEGER is --gboolean
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_icon_view_get_cursor (handle, a_gtktreepath, a_gtkcellrenderer: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+
 end
