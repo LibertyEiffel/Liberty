@@ -35,7 +35,7 @@ feature -- Queries
 		end
 	-- TODO: implement copy using memcpy
 
-feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
+feature {} -- Access to C features
 	
 	-- struct_size should be exported to WRAPPER, to be able to check size 
 	-- before copying

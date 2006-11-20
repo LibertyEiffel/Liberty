@@ -1,5 +1,5 @@
 indexing
-	description: "GtkCellRendererProgress %G�—%@ Renders numbers as progress bars."
+	description: "GtkCellRendererProgress — Renders numbers as progress bars."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -22,7 +22,7 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_CELL_RENDERER_PROGRESS
-inherit GTK_CELL_RENDERER redefine make end
+inherit GTK_CELL_RENDERER
 creation make, from_external_pointer
 
 feature {} -- size
@@ -59,7 +59,7 @@ feature -- The "text" property
 		obsolete "Please provide a more direct implementation. Currently there is a temporary G_VALUE object"
 		require valid_text: a_text /= Void
 		do
-			set_property (create {G_VALUE}.from_string(a_text))
+			set_property (text_property_name, create {G_VALUE}.from_string(a_text))
 		end
 
 	-- Default value: NULL

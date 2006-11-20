@@ -31,11 +31,11 @@ indexing
 
 class GTK_CELL_RENDERER_TOGGLE
 inherit
-	GTK_CELL_RENDERER redefine make end
+	GTK_CELL_RENDERER
 insert
 	GTK_CELL_RENDERER_TOGGLE_EXTERNALS
 	
-creation make
+creation make, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is

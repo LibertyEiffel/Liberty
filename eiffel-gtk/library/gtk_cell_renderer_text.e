@@ -36,7 +36,7 @@ insert
 	PANGO_STYLE
 	GTK_CELL_RENDERER_TEXT_EXTERNALS
 
-creation make
+creation make, from_external_pointer
 
 feature -- size
 	struct_size: INTEGER is

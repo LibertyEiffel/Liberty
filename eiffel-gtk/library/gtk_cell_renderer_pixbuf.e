@@ -40,7 +40,7 @@ inherit GTK_CELL_RENDERER
 
 insert GTK_CELL_RENDERER_PIXBUF_EXTERNALS
 
-creation make
+creation make, from_external_pointer
 
 feature -- size
 	struct_size: INTEGER is
