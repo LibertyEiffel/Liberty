@@ -56,12 +56,17 @@ feature {} -- External calls
 		alias "G_OBJECT_GET_CLASS"
 		end
 
-	g_object_type(an_object: POINTER): INTEGER is
+	g_object_type (an_object: POINTER): INTEGER is
 			-- Return the type id of an object.
 			-- object : 	Object to return the type id for.
 			-- Returns : 	Type id of object.
 		external "C macro use  <glib-object.h>"
 		alias "G_OBJECT_TYPE"
+		end
+
+	g_object_type_name (an_object: POINTER): POINTER is
+		external "C macro use <glib-object.h>"
+		alias "G_OBJECT_TYPE_NAME"
 		end
 
 	-- #define     G_OBJECT_TYPE_NAME              (object)

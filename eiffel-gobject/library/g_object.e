@@ -146,6 +146,11 @@ feature {WRAPPER} -- GObject type system implementation.
 			Result := g_object_type (handle)
 		end
 
+	type_name: STRING is
+		do
+			create Result.from_external (g_object_type_name (handle))
+		end
+
 feature -- Creating
 
 	from_external_pointer (a_ptr: POINTER) is
