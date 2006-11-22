@@ -379,4 +379,10 @@ feature
 
 	-- v : 	a string key.
 	-- Returns : 	a hash value corresponding to the key.
+feature -- size
+
+	struct_size: INTEGER is
+		external "C inline use <glib.h>"
+		alias "sizeof(GHashTable)"
+		end
 end

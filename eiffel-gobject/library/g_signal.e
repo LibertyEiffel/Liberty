@@ -65,7 +65,9 @@ indexing
 			-- matches any detail argument passed in to emission.
 
 class G_SIGNAL
-inherit SHARED_C_STRUCT rename make as make_struct end
+inherit 
+	SHARED_C_STRUCT 
+		-- rename make as make_struct end
 insert
 	G_SIGNAL_EXTERNALS 
 	G_SIGNAL_FLAGS

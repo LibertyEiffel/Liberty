@@ -573,6 +573,11 @@ feature -- Memory management
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
 
+feature {}
+	struct_size: INTEGER is
+		external "C inline use <glib.h>"
+		alias "sizeof(GSList)"
+		end
 end
 
 

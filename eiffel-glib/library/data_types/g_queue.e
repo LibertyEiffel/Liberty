@@ -471,6 +471,11 @@ feature {} -- struct GQueue
 -- GList *tail; 	a pointer to the last element of the queue.
 -- guint length; 	the number of elements in the queue.
 
+	struct_size: INTEGER is
+		external "C inline use <glib.h>"
+		alias "sizeof(GQueue)"
+		end
+
 feature {} -- External calls
 
 	g_queue_new: POINTER is -- GQueue*

@@ -6,9 +6,13 @@ indexing
 	description: "G_PARAMETER is an auxiliary data type (structure) used to hand parameter name/value to the creation feature of a G_OBJECT."
 
 class G_PARAMETER
+
 inherit
-	G_PARAMETER_EXTERNALS
 	C_STRUCT
+
+insert 
+	G_PARAMETER_EXTERNALS
+
 creation make
 	
 feature 

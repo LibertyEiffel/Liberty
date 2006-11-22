@@ -148,7 +148,7 @@ feature {WRAPPER} -- GObject type system implementation.
 
 	type_name: STRING is
 		do
-			create Result.from_external (g_object_type_name (handle))
+			create {CONST_STRING} Result.from_external (g_object_type_name (handle))
 		end
 
 feature -- Creating

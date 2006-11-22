@@ -14,11 +14,9 @@ indexing
 class G_VALUE_ARRAY
 inherit
 	SHARED_C_STRUCT
-		rename make as make_struct 
+		-- rename make as allocate_struct
 		undefine free
 		end
-		-- "insert WRAPPER_FACTORY [G_VALUE]" is not necessary since
-		-- this class is not generic.
 	
 creation make
 

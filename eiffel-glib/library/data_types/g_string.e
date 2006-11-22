@@ -29,7 +29,7 @@ feature {C_HANDLE, G_STRING}
 
 	c_string: POINTER is
 			-- Pointer to the str field of GString structure pointed by
-			-- handle. Speaking is C: c_string == handle->str
+			-- handle. Speaking in C: c_string == handle->str
 		do
 			Result := str(handle)
 		end
@@ -177,6 +177,11 @@ feature -- Conversion to STRING
 		obsolete "Possible memory leaks in the implementation"
 		do
 			create Result.from_external (c_string)
+		end
+feature {}
+	struct_size: INTEGER is
+		external "C inline use <glib.h>"
+		alias "sizeof(GString)"
 		end
 end
 	

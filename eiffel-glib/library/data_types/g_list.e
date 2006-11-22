@@ -65,7 +65,7 @@ insert
 creation make, empty, from_external_pointer
 
 feature
-
+	
 	make, empty is
 		do
 			handle := default_pointer
