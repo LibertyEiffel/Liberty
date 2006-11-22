@@ -40,7 +40,11 @@ feature
 			-- Note: using from_external_copy since g_quark_to_string
 			-- returns a `const gchar*' that AFAIK shall not be freed by
 			-- Eiffel as it doesn't own it.
-			create Result.from_external_copy (g_quark_to_string (quark))
+			
+			-- Note: using the new CONST_STRING is a better choice, 
+			-- since it is as fast as a STRING when reading and avoid 
+			-- copying as far as possible, thus saving memory.
+			create {CONST_STRING} Result.from_external (g_quark_to_string (quark))
 		ensure
 			valid_result: Result /= Void
 		end
