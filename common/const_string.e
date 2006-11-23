@@ -348,10 +348,10 @@ feature
 			Precursor (n)
 		end
 
-   remove_first is
+   remove_first (n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
-			Precursor 
+			Precursor (n) 
 		end
 
    remove_head (n: INTEGER_32) is
@@ -360,10 +360,10 @@ feature
 			Precursor (n)
 		end
 
-	remove_last is
+	remove_last (n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
-			Precursor 
+			Precursor (n) 
 		end
 
    remove_tail (n: INTEGER_32) is
