@@ -348,22 +348,10 @@ feature
 			Precursor (n)
 		end
 
-   remove_first (n: INTEGER_32) is
-		do
-			if is_unchanged then modify end
-			Precursor (n) 
-		end
-
    remove_head (n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (n)
-		end
-
-	remove_last (n: INTEGER_32) is
-		do
-			if is_unchanged then modify end
-			Precursor (n) 
 		end
 
    remove_tail (n: INTEGER_32) is
@@ -406,6 +394,20 @@ feature
 		do
 			if is_unchanged then modify end
 			Precursor 
+		end
+
+feature {} -- functions from STRING that change signature in 2.3
+
+   remove_first (n: INTEGER_32) is
+		do
+			if is_unchanged then modify end
+			Precursor (n)
+		end
+
+	remove_last (n: INTEGER_32) is
+		do
+			if is_unchanged then modify end
+			Precursor (n) 
 		end
 
 feature {ANY} -- from STRING
