@@ -14,7 +14,7 @@ indexing
 class G_VALUE_ARRAY
 inherit
 	SHARED_C_STRUCT
-		-- rename make as allocate_struct
+		rename make as allocate_struct
 		undefine free
 		end
 	
@@ -30,6 +30,7 @@ feature {} -- Creation
 		do
 			handle := g_value_array_new (n_prealloced);
 		end
+
 feature -- Duplication
 	copy (a_source: like Current) is
 			-- Construct an exact copy of a GValueArray by duplicating
