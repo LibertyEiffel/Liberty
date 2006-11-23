@@ -486,13 +486,13 @@ feature -- Operations
 					create cell_name.from_external (g_object_type_name (cell_ptr))
 					inspect
 						cell_name
-					when "GtkCellRendererText" then
+					when once "GtkCellRendererText" then
 						create {GTK_CELL_RENDERER_TEXT}cell.from_external_pointer (cell_ptr)
-					when "GtkCellRendererPixbuf" then
+					when once "GtkCellRendererPixbuf" then
 						create {GTK_CELL_RENDERER_PIXBUF}cell.from_external_pointer (cell_ptr)
-					when "GtkCellRendererProgress" then
+					when once "GtkCellRendererProgress" then
 						create {GTK_CELL_RENDERER_PROGRESS}cell.from_external_pointer (cell_ptr)
-					when "GtkCellRendererToggle" then
+					when once "GtkCellRendererToggle" then
 						create {GTK_CELL_RENDERER_TOGGLE}cell.from_external_pointer (cell_ptr)
 					end
 				end
