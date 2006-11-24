@@ -29,13 +29,11 @@ class GTK_STYLE
 inherit
 	GTK_STYLE_EXTERNALS
 	SHARED_C_STRUCT
-		redefine from_external_pointer end
 
 insert
 	GTK_STATE_TYPE
 
-creation
-	from_external_pointer, make
+creation from_external_pointer
 
 feature -- size
 
@@ -45,13 +43,6 @@ feature -- size
 		end
 
 feature -- Operations
-
-	from_external_pointer (a_ptr: POINTER) is
-		do
-			Precursor (a_ptr)
-			is_shared := True
-		end
-
 	set_background_pixmap (a_pixmap: GDK_PIXMAP; a_state: INTEGER) is
 		require
 			is_valid_state_type (a_state)
