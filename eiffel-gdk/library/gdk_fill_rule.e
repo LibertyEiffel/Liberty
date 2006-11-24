@@ -12,7 +12,9 @@ indexing
 
 deferred class GDK_FILL_RULE
 
-feature  -- enum
+inherit ANY undefine copy end
+
+feature  {} -- enum
 
 	is_valid_fill_rule (a_rule :INTEGER): BOOLEAN is
 		do

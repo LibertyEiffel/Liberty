@@ -62,8 +62,8 @@ inherit
 			extend,
 			to_lower, to_upper,
 			keep_head, keep_tail,
-			remove_first, remove_head,
-			remove_last, remove_tail,
+			-- remove_first, remove_head,
+			-- remove_last, remove_tail,
 			remove_substring, remove_between, 
 			remove_suffix, remove_prefix,
 			left_adjust, right_adjust,
@@ -348,18 +348,20 @@ feature
 			Precursor (n)
 		end
 
-   remove_head (n: INTEGER_32) is
-		do
-			if is_unchanged then modify end
-			Precursor (n)
-		end
+feature -- commented out to achieve compatibility with both SE 2.2 and 2.3
+	--    remove_head (n: INTEGER_32) is
+	-- 		do
+	-- 			if is_unchanged then modify end
+	-- 			Precursor (n)
+	-- 		end
+	
+	--    remove_tail (n: INTEGER_32) is
+	-- 		do
+	-- 			if is_unchanged then modify end
+	-- 			Precursor (n)
+	-- 		end
 
-   remove_tail (n: INTEGER_32) is
-		do
-			if is_unchanged then modify end
-			Precursor (n)
-		end
-
+feature 
    remove_substring (start_index, end_index: INTEGER_32) is
 		do
 			if is_unchanged then modify end
@@ -396,19 +398,19 @@ feature
 			Precursor 
 		end
 
-feature {} -- functions from STRING that change signature in 2.3
+feature {} -- functions from STRING that change signature in 2.3. Note: commented out to achieve compatibility with both SE 2.2 and 2.3
 
-   remove_first (n: INTEGER_32) is
-		do
-			if is_unchanged then modify end
-			Precursor (n)
-		end
-
-	remove_last (n: INTEGER_32) is
-		do
-			if is_unchanged then modify end
-			Precursor (n) 
-		end
+	--    remove_first (n: INTEGER_32) is
+	-- 		do
+	-- 			if is_unchanged then modify end
+	-- 			Precursor (n)
+	-- 		end
+	
+	-- 	remove_last (n: INTEGER_32) is
+	-- 		do
+	-- 			if is_unchanged then modify end
+	-- 			Precursor (n) 
+	-- 		end
 
 feature {ANY} -- from STRING
    do_all (action: ROUTINE[TUPLE[CHARACTER]]) is

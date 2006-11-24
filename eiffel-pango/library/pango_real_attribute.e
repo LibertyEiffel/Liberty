@@ -23,9 +23,7 @@ class PANGO_REAL_ATTRIBUTE
 
 inherit C_STRUCT
 
-creation make, from_external_pointer
-
-feature {} -- Creation
+creation from_external_pointer
 
 feature -- size
 

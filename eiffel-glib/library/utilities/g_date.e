@@ -68,7 +68,7 @@ class G_DATE
 inherit
 	SHARED_C_STRUCT redefine dispose end
 	
-creation make, make_dmy
+creation make_dmy
 
 feature {} -- size
 	struct_size: INTEGER is

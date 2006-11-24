@@ -21,13 +21,11 @@ indexing
 
 class PANGO_RECTANGLE
 
-inherit
-	C_STRUCT
+inherit C_STRUCT
 
-insert
-	PANGO_RECTANGLE_EXTERNALS
+insert PANGO_RECTANGLE_EXTERNALS
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature -- Access
 

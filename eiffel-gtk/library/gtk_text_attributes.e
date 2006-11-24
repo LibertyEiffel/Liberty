@@ -19,9 +19,10 @@ indexing
 					02110-1301 USA
 				]"
 class GTK_TEXT_ATTRIBUTES
+	
 inherit C_STRUCT
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 	-- TODO: wrap this structure for real
 

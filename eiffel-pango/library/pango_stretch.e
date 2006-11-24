@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class PANGO_STRETCH
-feature  -- enum
+feature {} -- enum
 	is_valid_stretch (a_stretch :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_stretch = pango_stretch_ultra_condensed) or else

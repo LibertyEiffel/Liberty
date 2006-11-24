@@ -17,7 +17,7 @@ insert EXCEPTIONS
 
 feature {} -- Initialization
 
-	make is
+	allocate is
 			-- Allocate an initialized structure
 		do
 			handle := calloc (1, struct_size)
@@ -47,21 +47,12 @@ feature {} -- Access to C features
 
 feature {} -- Handling wrappers
 
--- NOTE: C_STRUCT's are considered to be "owned" by the Eiffel code, and
--- the Eiffel side should keep then longest lived reference to this struct.
--- This allows us to forget about wrapping for this objects.
--- If you have to share this struct and/or will have pointers to it around
--- that will outlive the wrapper, please use SHARED_C_STRUCT
-
-	store_eiffel_wrapper is
-		do
-		end
-
-	unstore_eiffel_wrapper is
-		do
-		end
-
-	is_eiffel_wrapper_stored: BOOLEAN is True
+	-- NOTE: C_STRUCT's are considered to be "owned" by the Eiffel
+	-- code, and the Eiffel side should keep then longest lived
+	-- reference to this struct.  This allows us to forget about
+	-- wrapping for this objects.  If you have to share this struct
+	-- and/or will have pointers to it around that will outlive the
+	-- wrapper, please use SHARED_C_STRUCT
 
 feature {} -- Destroying
 

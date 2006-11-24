@@ -31,6 +31,7 @@ indexing
 			-- overview of all the objects and data types related to the
 			-- tree widget and how they work together.class
 			-- GTK_TREE_VIEW_COLUMN_EXTERNALS
+
 class GTK_TREE_VIEW_COLUMN
 
 inherit

@@ -23,7 +23,8 @@ indexing
 
 class GTK_TREE_ROW_REFERENCE
 inherit
-	SHARED_C_STRUCT rename make as allocate_gtktreerowreference redefine dispose end
+	SHARED_C_STRUCT redefine dispose end
+
 insert 
 	GTK
 	GTK_TREE_MODEL_EXTERNALS

@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class PANGO_VARIANT
-feature  -- enum
+feature {} -- enum
 	is_valid_variant (a_variant :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_variant = pango_variant_normal) or else

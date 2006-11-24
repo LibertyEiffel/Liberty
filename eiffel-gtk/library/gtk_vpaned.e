@@ -21,14 +21,10 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-	-- The Vpaned widget is a
-	-- container widget with two
-	-- children arranged
-	-- vertically. The division
-	-- between the two panes is
-	-- adjustable by the user by
-	-- dragging a handle. See
-	-- GtkPaned for details.
+	-- The Vpaned widget is a container widget with two children
+	-- arranged vertically. The division between the two panes is
+	-- adjustable by the user by dragging a handle. See GtkPaned for
+	-- details.
 
 class GTK_VPANED
 inherit GTK_PANED redefine make end

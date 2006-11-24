@@ -22,12 +22,17 @@ indexing
 	revision "$Revision:$"
 	
 class GTK_TREE_SELECT_FUNCTION
-inherit WRAPPER_HANDLER -- It wraps a callback function
+
+inherit
+	WRAPPER_HANDLER -- It wraps a callback function
+	
 insert
 	GTK
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 	GTK_TREE_SELECTION_EXTERNALS
+	
 creation make
+	
 feature
 	make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
 		require gtk_initialized: gtk.is_initialized

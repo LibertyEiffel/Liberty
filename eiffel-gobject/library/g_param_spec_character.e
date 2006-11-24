@@ -8,12 +8,9 @@ indexing
 
 class G_PARAM_SPEC_CHARACTER
 
-inherit
-	G_PARAM_SPEC
-		rename make as spec_make end
+inherit G_PARAM_SPEC
 
-creation
-	make
+creation make
 	
 feature -- Creation
 

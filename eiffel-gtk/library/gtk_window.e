@@ -25,6 +25,7 @@ class GTK_WINDOW
 
 inherit
 	GTK_BIN
+
 insert
 	GTK
 	GTK_WINDOW_EXTERNALS

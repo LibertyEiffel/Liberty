@@ -76,7 +76,7 @@ feature {} -- External call
 		end
 
 feature {} -- GtkColorSelectionDialog struct
-
+	
 	-- typedef struct _GtkColorSelectionDialog GtkColorSelectionDialog;
 	 
 	-- The GtkColorSelectionDialog struct contains the following
@@ -98,5 +98,9 @@ feature {} -- GtkColorSelectionDialog struct
 	-- GtkWidget *help_button; The help button widget contained within
 	-- the dialog. Connect a handler for the clicked event.
 	
-
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkColorSelectionDialog)"
+		end
 end -- class GTK_COLOR_SELECTION_DIALOG

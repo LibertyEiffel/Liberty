@@ -52,7 +52,7 @@ inherit
 insert
 	GTK_TARGET_ENTRY_EXTERNALS
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature -- Access
 

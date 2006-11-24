@@ -19,8 +19,8 @@ indexing
 					02110-1301 USA
 				]"
 
-deferred class PangoUnderline
-feature  -- enum
+deferred class PANGO_UNDERLINE
+feature {} -- enum
 	is_valid_underline (a_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type = pango_underline_none) or else

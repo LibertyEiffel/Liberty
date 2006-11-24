@@ -21,13 +21,11 @@ indexing
 
 class PANGO_FONT_DESCRIPTION
 
-inherit
-	SHARED_C_STRUCT
+inherit SHARED_C_STRUCT
 
-insert
-	FOO_EXTERNALS
+-- insert FOO_EXTERNALS
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 

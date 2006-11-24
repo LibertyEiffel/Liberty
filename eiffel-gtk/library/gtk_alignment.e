@@ -22,8 +22,8 @@ indexing
 
 class GTK_ALIGNMENT
 inherit
-	GTK_BIN rename make as make_bin end
-		-- TODO: GtkAlignment implements AtkImplementorIface.
+	GTK_BIN 
+			-- TODO: GtkAlignment implements AtkImplementorIface.
 
 insert
 	GTK_ALIGNMENT_EXTERNALS

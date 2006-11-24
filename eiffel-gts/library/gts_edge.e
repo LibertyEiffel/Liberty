@@ -1,5 +1,5 @@
 indexing
-	description: "Edges -- edge object and related functions."
+	description: "Edges are derived from GtsSegment. They are used to define GtsTriangle.."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team
 					
@@ -21,303 +21,183 @@ indexing
 
 class GTS_EDGE
 
-inherit GTS_SEGMENT
+inherit
+	GTS_SEGMENT
 
 insert GTS_EDGE_EXTERNALS
 
 creation make, from_external_pointer
 
 feature {} -- Creation
-end -- class FOO
+	make (a_vertex, another_vertex: GTS_VERTEX) is
+			-- Creates a new GtsEdge linking v1 and v2.
+		require 
+			vertex_not_void: a_vertex /= Void
+			another_not_void: another_vertex /= Void
+		do
+			from_external_pointer (gts_edge_new (gts_edge_class,
+															 a_vertex.handle, another_vertex.handle)) 
+		end
+
+feature
+	replace (another: GTS_EDGE) is
+			-- Replaces Current with `another': for each triangle which
+			-- uses Current as an edge, it is replaced with
+			-- `another'. `another.triangles' list is updated
+			-- appropriately and the `Current.triangles' list set to
+			-- Void (Note: the underlying C list is also freed).
+		require another_not_void: another /= Void
+		do
+			gts_edge_replace (handle, another.handle)
+		end
+
+	is_unattached: BOOLEAN is
+			-- Is Current used as an edge of any triangle?
+		do
+			Result:=gts_edge_is_unattached(handle).to_boolean
+		end
+
+	duplicate: like Current is
+			-- the first GtsEdge different from Current which shares the
+			-- same endpoints or Void if there is none.
+		local p: POINTER
+		do
+			p:=gts_edge_is_duplicate(handle)
+			if p.is_not_null then
+				if wrappers.has(p) 
+				 then Result ::= wrappers.at(p).to_any
+				else create Result.from_external_pointer(a_pointer)
+				end
+			end
+		end
+
+	face_on_surface (a_surface: GTS_SURFACE): GTS_FACE is
+			-- a GtsFace of `a_surface' having Current as an edge; can be
+			-- Void if there is no faces. Note: the original C feature
+			-- was called "gts_edge_had_parent_surface".
+		local p: POINTER
+		do
+			p:= gts_edge_has_parent_surface (handle, a_surface.handle)
+			if p.is_not_null then
+				if wrappers.has(p)
+				 then Result ::= wrappers.at(p).to_any
+				else create Result.from_external_pointer(a_pointer)
+				end
+			end
+		end
+ 	
+	face: GTS_FACE is 
+			-- a GtsFace belonging to any surface and having Current as
+			-- an edge. It is Void if Current is not an edge of any
+			-- triangle or if all the faces having Current has an edge do
+			-- not belong to any surface. Note: the original C feature is
+			-- called "gts_edge_has_any_parent_surface".
+		local p: POINTER
+		do
+			p:=gts_edge_has_any_parent_surface (handle)
+			if p.is_not_null then
+				if wrappers.has(p)
+				 then Result ::= wrappers.at(p).to_any
+				else create Result.from_external_pointer(a_pointer)
+				end
+			end
+		end
  
-Synopsis
-
-
-Description
-
-Edges are derived from GtsSegment. They are used to define GtsTriangle.
-Details
-GTS_EDGE_CLASS()
-
-#define     GTS_EDGE_CLASS(klass)
-
-Casts klass to GtsEdgeClass.
-
-klass :	
-
-a descendant of GtsObjectClass.
-GTS_EDGE()
-
-#define     GTS_EDGE(obj)
-
-Casts obj to GtsEdge.
-
-obj :	
-
-a descendant of GtsObject.
-GTS_IS_EDGE()
-
-#define     GTS_IS_EDGE(obj)
-
-Evaluates to TRUE if obj is a GtsEdge, FALSE otherwise.
-
-obj :	
-
-a pointer to test.
-GtsEdgeClass
-
-typedef struct {
-  GtsSegmentClass parent_class;
-} GtsEdgeClass;
-
-The edge class. No virtual function associated.
-GtsEdge
-
-typedef struct {
-  GtsSegment segment;
-
-  GSList * triangles;
-} GtsEdge;
-
-The edge object.
-
-GtsSegment segment;	
-
-The parent object.
-GSList *triangles;	
-
-List of GtsTriangle using this edge.
-gts_edge_class ()
-
-GtsEdgeClass* gts_edge_class                (void);
-
-Returns :	
-
-the GtsEdgeClass.
-gts_edge_new ()
-
-GtsEdge*    gts_edge_new                    (GtsEdgeClass *klass,
-                                             GtsVertex *v1,
-                                             GtsVertex *v2);
-
-klass :	
-
-a GtsEdgeClass.
-v1 :	
-
-a GtsVertex.
-v2 :	
-
-a GtsVertex.
-Returns :	
-
-a new GtsEdge linking v1 and v2.
-gts_edge_replace ()
-
-void        gts_edge_replace                (GtsEdge *e,
-                                             GtsEdge *with);
-
-Replaces e with with. For each triangle which uses e as an edge, e is replaced with with. The with->triangles list is updated appropriately and the e->triangles list is freed and set to NULL.
-
-e :	
-
-a GtsEdge.
-with :	
-
-a GtsEdge.
-gts_edge_is_unattached()
-
-#define       gts_edge_is_unattached(s) ((s)->triangles == NULL ? TRUE : FALSE)
-
-Evaluates to TRUE if no triangles uses s as an edge, FALSE otherwise.
-
-s :	
-
-a GtsEdge.
-gts_edge_is_duplicate ()
-
-GtsEdge*    gts_edge_is_duplicate           (GtsEdge *e);
-
-e :	
-
-a GtsEdge.
-Returns :	
-
-the first GtsEdge different from e which shares the same endpoints or NULL if there is none.
-gts_edge_has_parent_surface ()
-
-GtsFace*    gts_edge_has_parent_surface     (GtsEdge *e,
-                                             GtsSurface *surface);
-
-e :	
-
-a GtsEdge.
-surface :	
-
-a GtsSurface.
-Returns :	
-
-a GtsFace of surface having e as an edge, NULL otherwise.
-gts_edge_has_any_parent_surface ()
-
-GtsFace*    gts_edge_has_any_parent_surface (GtsEdge *e);
-
-e :	
-
-a GtsEdge.
-Returns :	
-
-NULL if e is not an edge of any triangle or if all the faces having e has an edge do not belong to any surface, a GtsFace belonging to a surface and having e as an edge.
-gts_edge_is_boundary ()
-
-GtsFace*    gts_edge_is_boundary            (GtsEdge *e,
-                                             GtsSurface *surface);
-
-e :	
-
-a GtsEdge.
-surface :	
-
-a GtsSurface or NULL.
-Returns :	
-
-the unique GtsFace (which belongs to surface) and which has e as an edge (i.e. e is a boundary edge (of surface)) or NULL if there is more than one or no faces (belonging to surface) and with e as an edge.
-gts_edge_is_contact ()
-
-guint       gts_edge_is_contact             (GtsEdge *e);
-
-e :	
-
-a GtsEdge.
-Returns :	
-
-the number of sets of connected triangles sharing e as a contact edge.
-gts_edge_belongs_to_tetrahedron ()
-
-gboolean    gts_edge_belongs_to_tetrahedron (GtsEdge *e);
-
-e :	
-
-a GtsEdge.
-Returns :	
-
-TRUE if e is used by faces forming a tetrahedron, FALSE otherwise.
-gts_edge_face_number ()
-
-guint       gts_edge_face_number            (GtsEdge *e,
-                                             GtsSurface *s);
-
-e :	
-
-a GtsEdge.
-s :	
-
-a GtsSurface.
-Returns :	
-
-the number of faces using e and belonging to s.
-gts_edge_manifold_faces ()
-
-gboolean    gts_edge_manifold_faces         (GtsEdge *e,
-                                             GtsSurface *s,
-                                             GtsFace **f1,
-                                             GtsFace **f2);
-
-If e is a manifold edge of surface s, fills f1 and f2 with the faces belonging to s and sharing e.
-
-e :	
-
-a GtsEdge.
-s :	
-
-a GtsSurface.
-f1 :	
-
-pointer for first face.
-f2 :	
-
-pointer for second face.
-Returns :	
-
-TRUE if e is a manifold edge, FALSE otherwise.
-GtsEncroachFunc ()
-
-gboolean    (*GtsEncroachFunc)              (GtsVertex *v,
-                                             GtsEdge *e,
-                                             GtsSurface *s,
-                                             gpointer data);
-
-v :	
-
-e :	
-
-s :	
-
-data :	
-
-Returns :	
-
-gts_edge_is_encroached ()
-
-GtsVertex*  gts_edge_is_encroached          (GtsEdge *e,
-                                             GtsSurface *s,
-                                             GtsEncroachFunc encroaches,
-                                             gpointer data);
-
-e :	
-
-a GtsEdge.
-s :	
-
-a GtsSurface describing a (constrained) Delaunay triangulation.
-encroaches :	
-
-a GtsEncroachFunc.
-data :	
-
-user data to be passed to encroaches.
-Returns :	
-
-a GtsVertex belonging to s and encroaching upon e (as defined by encroaches) or NULL if there is none.
-gts_edges_merge ()
-
-GList*      gts_edges_merge                 (GList *edges);
-
-For each edge in edges check if it is duplicated (as returned by gts_edge_is_duplicate()). If it is replace it by its duplicate, destroy it and remove it from the list.
-
-edges :	
-
-a list of GtsEdge.
-Returns :	
-
-the updated edges list.
-gts_edges_from_vertices ()
-
-GSList*     gts_edges_from_vertices         (GSList *vertices,
-                                             GtsSurface *parent);
-
-vertices :	
-
-a list of GtsVertex.
-parent :	
-
-a GtsSurface.
-Returns :	
-
-a list of unique GtsEdge which have one of their vertices in vertices and are used by a face of parent.
-gts_edge_swap ()
-
-void        gts_edge_swap                   (GtsEdge *e,
-                                             GtsSurface *s);
-
-Performs an "edge swap" on the two triangles sharing e and belonging to s.
-
-e :	
-
-a GtsEdge.
-s :	
-
-a GtsSurface.
-<<< Segments	Triangles >>>
+	boundary_face_of (a_surface: GTS_SURFACE): GTS_FACE is
+			--	the unique GtsFace (which belongs to `a_surface') and
+			--	which has Current as an edge (i.e. e is a boundary edge
+			--	(of surface)) or Void if there is more than one or no
+			--	faces (belonging to `a_surface') and with Current as an
+			--	edge. `a_surface' can be Void. Note: the original C
+			--	documentation is not clear on the meaning of Result when
+			--	`a_surface' is Void.
+		local sp,p: POINTER
+		do
+			if a_surface/=Void then sp:=a_surface.handle end
+			p:=gts_edge_is_boundary(handle,sp)
+			if p.is_not_null then
+				if wrappers.has(p)
+				 then Result ::= wrappers.at(p).to_any
+				else create Result.from_external_pointer(a_pointer)
+				end
+			end
+		end
+
+	contact_edges_count: INTEGER is 
+			-- the number of sets of connected triangles sharing Current
+			-- as a contact edge. Note: this feature wraps C function
+			-- "gts_edge_is_contact".
+		obsolete "should be NATURAL since it is a guint"
+		do
+			Result := gts_edge_is_contact(handle)
+		end
+
+	belongs_to_tetrahedron: BOOLEAN is
+			-- Is Current edge used by faces forming a tetrahedron?
+		do
+			Result := gts_edge_belongs_to_tetrahedron(handle).to_boolean
+		end
+ 
+	face_count: INTEGER is
+			-- the number of faces using e and belonging to s.
+		obsolete "Should be NAtural since it is a guint"
+		do
+			Result := gts_edge_face_number (handle, a_surface.handle)
+		end
+
+	manifold_faces_of (a_surface: GTS_SURFACE): TUPLE [BOOLEAN, GTS_FACE, GTS_FACE] is
+			-- If Current is a manifold edge of `a_surface' Result will
+			-- contain True and the faces belonging to `a_surface' and
+			-- sharing Current. Otherwise it will be [False,Void,Void]
+		require 
+			surface_not_void: a_surface /= Void
+		local 
+			has_manifold: BOOLEAN;
+			f1p, f2p: POINTER;
+			f1, f2: GTS_FACE
+		do
+			has_manifold:=(gts_edge_manifold_faces (handle, a_surface.handle,
+																 $f1p,$f2p)).to_boolean
+			if has_manifold then 
+				if wrappers.has(f1p)
+				 then Result ::= wrappers.at(f1p).to_any
+				else create f1.from_external_pointer(f1p)
+				end
+				
+				if wrappers.has(f2p)
+				 then Result ::= wrappers.at(f2p).to_any
+				else create f2.from_external_pointer(f2p)
+				end
+				create Result.make_3(True,f1,f2)
+			else create Result.make_3 (False,Void,Void)				
+		end
+			
+	encroaching_vertex (a_surface: GTS_SURFACE; 
+							  encroaching_function: FUNCTION[BOOLEAN,TUPLE[]]
+							  ): GTS_VERTEX is
+			-- a GtsVertex belonging to s and encroaching upon e (as defined by encroaches) or NULL if there is 
+			-- none. a GtsSurface describing a (constrained) Delaunay triangulation.
+			-- encroaches : a GtsEncroachFunc. 
+		obsolete "Currently NOT implemented!"
+		local 
+			p: POINTER
+		do
+			p:=gts_edge_is_encroached (handle, -- GtsEdge *e,
+												a_surface.handle, -- GtsSurface *s,
+												default_pointer, -- GtsEncroachFunc,
+												to_pointer -- gpointer data
+												)
+			-- gboolean (*GtsEncroachFunc) (GtsVertex *v, GtsEdge *e,
+			-- GtsSurface *s, gpointer data);
+		ensure implemented: False
+		end
+
+	swap (a_surface: GTS_SURFACE) is
+			-- Performs an "edge swap" on the two triangles sharing
+			-- Current and belonging to `a_surface'.
+		require surface_not_void: a_surface /= Void
+		do
+			gts_edge_swap (hanble, a_surface.handle)
+		end
 end -- class GTS_EDGE
 

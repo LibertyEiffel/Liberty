@@ -56,7 +56,8 @@ indexing
 
 class GTK_ACTION
 
-inherit G_OBJECT rename make as make_object end
+inherit G_OBJECT
+	-- rename make as make_object end
 
 insert GTK
 

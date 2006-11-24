@@ -6,12 +6,13 @@ indexing
 	revision "$REvision:$"
 
 class G_SIGNAL_QUERY
-	
-inherit
-	C_STRUCT
-	G_SIGNAL_FLAGS 	
-creation make
-	
+
+inherit C_STRUCT
+
+insert G_SIGNAL_FLAGS 	
+
+creation allocate
+
 feature -- getters
 	id: INTEGER is
 			-- The signal id of the queried signal; 0 if the queried

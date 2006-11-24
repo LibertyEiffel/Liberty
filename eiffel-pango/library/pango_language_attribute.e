@@ -23,7 +23,7 @@ class PANGO_LANGUAGE_ATTRIBUTE
 
 inherit C_STRUCT
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 

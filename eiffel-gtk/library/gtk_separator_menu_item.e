@@ -25,14 +25,19 @@ indexing
 					-- sunken into the interface.
 
 class GTK_SEPARATOR_MENU_ITEM
-inherit GTK_MENU_ITEM redefine make, size end
+inherit 
+	GTK_MENU_ITEM 
+		redefine 
+			make, struct_size
+		end
+	
 	-- TODO: GtkSeparatorMenuItem implements AtkImplementorIface.	
+	
 creation make
 
 feature {} -- Creation
 	make is
 			-- Creates a new GtkSeparatorMenuItem.
-		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_separator_menu_item_new )
 		end

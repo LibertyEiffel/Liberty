@@ -8,7 +8,6 @@ indexing
 deferred class SQLITE_PREPARED_STATEMENT
 inherit 	PREPARED_STATEMENT
 	C_STRUCT
-		rename make as allocate_c_statement
 		redefine dispose
 		end
 insert SQLITE3_EXTERNALS

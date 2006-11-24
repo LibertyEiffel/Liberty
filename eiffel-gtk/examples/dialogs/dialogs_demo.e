@@ -13,6 +13,9 @@ inherit
 	MESSAGE_TYPES --redefine default_rescue end
 	BUTTONS_TYPES --redefine default_rescue end
 	ANY --redefine default_rescue end
+
+insert
+	GTK_RESPONSE_TYPE
 	
 creation make
 
@@ -93,7 +96,7 @@ feature -- Initialisation
 			answer := file_chooser.run
 			filename := file_chooser.filename
 			print ("Answer is ") print (answer.out)
-			if answer/=file_chooser.gtk_response_ok then print (". Sadly no file choosen%N")
+			if answer/=gtk_response_ok then print (". Sadly no file choosen%N")
 			else  print (". Happily you chose: '") print (filename) print("'%N")
 			end
 		end
@@ -109,7 +112,7 @@ feature -- Initialisation
 			print ("Answer is "+answer.out+".%N")
 
 			filenames := file_chooser.filenames
-			if answer/=file_chooser.gtk_response_ok then 
+			if answer/=gtk_response_ok then 
 				print ("Cancel pressed.%N")
 			else 
 				print (filenames.count.out + " files choosen. ")

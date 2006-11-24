@@ -32,10 +32,8 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			handle := a_ptr
-			store_eiffel_wrapper
 		ensure
 			handle = a_ptr
-			stored: is_eiffel_wrapper_stored
 		end
 
 	is_null: BOOLEAN is

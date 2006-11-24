@@ -35,10 +35,13 @@ inherit
 	GTK_EDITABLE
 	GTK_CELL_EDITABLE
 		-- GtkEntry implements AtkImplementorIface, GtkCellEditable and GtkEditable.
-	G_OBJECT_RETRIEVER [GTK_MENU]
+
 insert
+	G_OBJECT_RETRIEVER [GTK_MENU]
 	GTK_ENTRY_EXTERNALS
+	
 creation make, from_external_pointer
+	
 feature {} -- Creation
 	make is
 			-- Creates a new GtkEntry widget.

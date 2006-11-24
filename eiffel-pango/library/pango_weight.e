@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class PANGO_WEIGHT
-feature  -- enum
+feature {} -- enum
 	is_valid_pango_weight (a_weight: INTEGER): BOOLEAN is
 		do	
 			Result:= a_weight.in_range(100,900)

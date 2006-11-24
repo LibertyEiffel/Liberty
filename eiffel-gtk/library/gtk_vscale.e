@@ -75,5 +75,12 @@ feature {} -- Creation
 			handle:=gtk_vscale_new_with_range (a_min, a_max, a_step)
 			store_eiffel_wrapper
 		end
+
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkVScale)"
+		end
+	
 end
 	

@@ -29,9 +29,8 @@ deferred class GTK_BOX
 
 inherit
 	GTK_CONTAINER
-		rename make as make_container
-		end
-	-- GtkBox implements AtkImplementorIface.
+		
+	-- TODO: GtkBox implements AtkImplementorIface.
 
 insert GTK_BOX_EXTERNALS
 

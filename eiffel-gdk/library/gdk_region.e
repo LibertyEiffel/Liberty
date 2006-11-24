@@ -22,13 +22,11 @@ class GDK_REGION
 
 inherit
 	C_STRUCT
-		redefine dispose, make end
+		redefine dispose end
 
 insert
-	GDK_FILL_RULE
-		redefine copy end
-	GDK_OVERLAP_TYPE
-		redefine copy end
+	GDK_FILL_RULE -- 	redefine copy end
+	GDK_OVERLAP_TYPE -- redefine copy end
 
 creation
 	make, from_polygon, from_external_pointer, from_rectangle, copy

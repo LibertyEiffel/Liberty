@@ -25,7 +25,7 @@ class GTK_NOTEBOOK_PAGE
 
 inherit C_STRUCT
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature -- size
 

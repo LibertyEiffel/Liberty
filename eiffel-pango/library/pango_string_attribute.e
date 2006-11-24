@@ -23,10 +23,14 @@ class PANGO_STRING_ATTRIBUTE
 
 inherit C_STRUCT
 
-creation make, from_external_pointer
+creation from_external_pointer
 
-feature {} -- Creation
-
+feature 
+	value: STRING is
+		do
+			create {CONST_STRING} Result.from_external(get_value (handle))
+		end
+	
 feature -- size
 
 	struct_size: INTEGER is
@@ -35,14 +39,17 @@ feature -- size
 		end
 
 feature {} -- struct PangoAttrString
--- PangoAttrString
-
--- typedef struct {
---   PangoAttribute attr;
---   char *value;
--- } PangoAttrString;
-
--- The PangoAttrString structure is used to represent attributes with a string value.
--- PangoAttribute attr;	the common portion of the attribute
--- char *value;	the string which is the value of the attribute
+	-- PangoAttrString
+	
+	-- typedef struct {
+	--   PangoAttribute attr;
+	--   char *value;
+	-- } PangoAttrString;
+	
+	-- The PangoAttrString structure is used to represent attributes with a string value.
+	-- PangoAttribute attr;	the common portion of the attribute
+	-- char *value;	the string which is the value of the attribute
+	get_value (a_ptr: POINTER): POINTER is
+		external "C struct PangoAttrString get value use <pango/pango.h>"
+		end
 end

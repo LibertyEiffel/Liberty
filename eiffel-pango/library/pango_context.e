@@ -27,12 +27,9 @@ inherit
 insert
 	PANGO_CONTEXT_EXTERNALS
 
-creation make, from_external_pointer
-
-feature {} -- Creation
+creation from_external_pointer
 
 feature -- size
-
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PangoContext)"

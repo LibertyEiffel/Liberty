@@ -65,9 +65,9 @@ indexing
 			-- matches any detail argument passed in to emission.
 
 class G_SIGNAL
-inherit 
-	SHARED_C_STRUCT 
-		-- rename make as make_struct end
+
+	-- Note: a signal is not a c_struct inherit SHARED_C_STRUCT rename make as make_struct end
+	
 insert
 	G_SIGNAL_EXTERNALS 
 	G_SIGNAL_FLAGS
@@ -648,7 +648,11 @@ feature {} -- Creation
 	-- Since 2.4
 
 	-- [11] Although signals can deal with any kind of instantiatable type, i'm referring to those types as "object types" in the following, simply because that is the context most users will encounter signals in.
-
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(Foo)"
+		end
 end
 
 

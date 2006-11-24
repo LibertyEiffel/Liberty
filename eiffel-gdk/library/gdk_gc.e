@@ -35,12 +35,11 @@ class GDK_GC
 
 inherit
 	G_OBJECT
-		rename make as gobject_make end
 
 insert
 	GDK_GC_EXTERNALS
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 

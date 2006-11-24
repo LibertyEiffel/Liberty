@@ -69,10 +69,12 @@ inherit
 	-- pop end 
 	GTK_HBOX
 		rename make as make_hbox
+		export {} make_hbox
 		redefine struct_size
 		end 
-		-- Implemented Interfaces: GtkStatusbar implements
-		-- AtkImplementorIface.
+
+	-- TODO: Implemented Interfaces: GtkStatusbar implements
+	-- AtkImplementorIface.
 	
 creation make
 feature {} -- size

@@ -28,8 +28,7 @@ class GDK_PIXBUF
 
 inherit
 	G_OBJECT
-		rename make as g_object_make,
-		       from_external_pointer as g_object_from_external_pointer
+		rename from_external_pointer as g_object_from_external_pointer
 		redefine dispose end
 
 insert

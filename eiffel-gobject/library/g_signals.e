@@ -17,7 +17,7 @@ feature
 			-- `an_id': The signal id of the signal to query information
 			-- for.
 		do
-			create Result.make
+			create Result.allocate
 			-- Note: TODO: signal_id is guint therefore an_id shall be NATURAL
 			g_signal_query (an_id, Result.handle)
 		end

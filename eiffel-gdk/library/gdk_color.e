@@ -11,7 +11,7 @@ inherit
 	C_STRUCT
 
 creation
-	make, from_external_pointer
+	from_external_pointer
 
 feature -- size
 

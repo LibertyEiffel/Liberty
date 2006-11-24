@@ -34,7 +34,7 @@ feature {} -- Creation
 			handle := calloc (1, struct_size)
 			if handle.is_null then raise_exception (No_more_memory) end
 			-- handle := g_value_init(malloc_g_value, g_type_invalid)
-		ensure then
+		ensure
 			not_valid: not is_valid
 		end
 

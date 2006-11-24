@@ -21,7 +21,7 @@ indexing
 
 deferred class PANGO_SCALES
 
-feature 
+feature {} -- Enum
 
 	pango_scale_xx_small: REAL is
 			-- The scale factor for three shrinking steps (1 / (1.2 * 1.2 * 1.2)).

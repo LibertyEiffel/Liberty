@@ -14,7 +14,6 @@ indexing
 class G_VALUE_ARRAY
 inherit
 	SHARED_C_STRUCT
-		rename make as allocate_struct
 		undefine free
 		end
 	
@@ -190,7 +189,7 @@ feature {} -- GValueArray struct
 	
 feature -- Size
 	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
+		external "C inline use <glib-object.h>"
 		alias "sizeof(GValueArray)"
 		end
 end

@@ -65,7 +65,7 @@ indexing
 			-- rows and columns fields of the GtkTable C structure.
 
 class GTK_TABLE
-inherit GTK_CONTAINER rename make as make_c_struct end
+inherit GTK_CONTAINER -- rename make as make_c_struct end
 	-- GtkTable implements AtkImplementorIface interface asasdasd
 insert GTK_ATTACH_OPTIONS
 creation make

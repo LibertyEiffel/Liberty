@@ -21,9 +21,7 @@ indexing
 
 class PANGO_LAYOUT
 
-inherit
-	G_OBJECT
-		rename make as g_object_make end
+inherit G_OBJECT
 
 insert
 	PANGO_LAYOUT_EXTERNALS

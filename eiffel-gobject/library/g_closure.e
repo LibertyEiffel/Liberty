@@ -769,7 +769,7 @@ feature -- Invoking
 -- 	Another name for g_cclosure_marshal_BOOLEAN__FLAGS().
 feature -- size
 	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
+		external "C inline use <glib-object.h>"
 		alias "sizeof(GCLosure)"
 		end
 
@@ -1105,5 +1105,4 @@ feature -- GCClosure struct
 	-- callback 
 
 	-- closure : the GClosure on which the notification is emitted
-
 end

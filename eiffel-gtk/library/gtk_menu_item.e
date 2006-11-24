@@ -40,7 +40,8 @@ creation make, with_label, with_mnemonic, from_external_pointer
 feature {} -- Creation
 	make is
 			-- Creates a new GtkMenuItem.
-		require gtk_initialized: gtk.is_initialized
+		require 
+			gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_menu_item_new)
 		end

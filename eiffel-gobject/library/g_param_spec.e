@@ -28,7 +28,7 @@ indexing
 						]"
 
 class G_PARAM_SPEC
-
+	 
 inherit
 	SHARED_C_STRUCT
 		redefine from_external_pointer end
@@ -37,22 +37,12 @@ insert
 	G_PARAM_SPEC_EXTERNALS
 	G_TYPE_EXTERNALS
 
-creation
-	from_external_pointer,
-	make_boolean, make_integer
-
-feature {}
-	make is
-		obsolete "Note: it is here to avoid warnings. The real solution is to make this deferred and provide effective heirs such as G_PARAM_SPEC_BOOLEAN"
-		do
-			check False end
-		end
-
+creation from_external_pointer
+	
 feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			check a_ptr.is_not_null end
-			set_shared
 			owner_class := g_type_class_peek (get_owner_type (a_ptr))
 			param_id := get_param_id (a_ptr)
 			Precursor (a_ptr)

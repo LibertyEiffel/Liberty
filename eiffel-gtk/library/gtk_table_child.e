@@ -24,7 +24,7 @@ indexing
 class GTK_TABLE_CHILD
 inherit SHARED_C_STRUCT
 	-- TODO: wrap this structure for real	
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is

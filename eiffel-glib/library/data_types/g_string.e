@@ -4,19 +4,16 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-
--- TODO: make G_STRING inherit from STRING. This require to handle all
--- the releationship between STRING's storage and G_STRING handle
-
 class G_STRING
 
 inherit
-
-	-- STRING redefine make	undefine storage
+	-- STRING redefine make undefine storage TODO: make G_STRING a
+	-- proper heir of STRING. This require to handle all the
+	-- releationship between STRING's storage and G_STRING handle
 
 	ANY --redefine copy, is_equal end
 
-	C_STRUCT rename make as make_c_struct end
+	C_STRUCT
 	
 	GLIB_STRING
 

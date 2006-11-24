@@ -327,8 +327,6 @@ class G_ERROR -- The GError structure contains information about an error that h
 
 inherit
 	C_STRUCT
-		rename
-			make as empty
 		export
 			{ANY} is_null, is_not_null 			
 		redefine
@@ -350,6 +348,14 @@ feature {} -- Creation
 		ensure not_null: is_not_null
 		end
 
+	empty is
+		do
+			-- This feature is empty by design. No initialization is
+			-- needed because the feature that will return an error will
+			-- allocate a GError C structure, changing the value of
+			-- handle
+		end
+	
 feature -- Access
 
 	domain: G_QUARK is
@@ -375,7 +381,7 @@ feature -- Access
 				create Result.from_external_copy (ptr)
 			end
 		end
-
+	
 feature -- Comparation
 
 	matches (a_domain: G_QUARK; a_code: INTEGER): BOOLEAN is

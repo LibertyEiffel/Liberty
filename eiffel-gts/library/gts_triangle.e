@@ -310,8 +310,6 @@ feature
 	-- GtsTriangle having e1, e2 and e3 as edges or NULL if e1, e2 and
 	-- e3 are not part of any -- triangle.
 
---    
-	
 	circumcircle_center: GTS_POINT is
 			-- a new GtsPoint, center of the circumscribing circle of t
 			-- or Void if the circumscribing circle is not defined.
@@ -339,33 +337,6 @@ feature
 
 	--    -----------------------------------------------------------------------------------------------------------
 	
-	--   gts_triangles_are_folded ()
-	
-	--  gboolean    gts_triangles_are_folded        (GSList *triangles,
-	--                                               GtsVertex *A,
-	--                                               GtsVertex *B,
-	--                                               gdouble max);
-	
-	--    Given a list of triangles sharing A and B as vertices, checks if any two triangles in the list make an
---    angle larger than a given value defined by max.
-
---     triangles :  a list of GtsTriangle.
---     A :          a GtsVertex.
---     B :          another GtsVertex.
---     max :        the maximum value of the square of the cosine of the angle between two triangles.
---     Returns :    TRUE if any pair of triangles in triangles makes an angle larger than the maximum value,
---                  FALSE otherwise.
-
---    -----------------------------------------------------------------------------------------------------------
-
-	--   gts_triangles_from_edges ()
-	
-	--  GSList*     gts_triangles_from_edges        (GSList *edges);
-	
-	--    Builds a list of unique triangles which have one of their edges in edges.
-	
-	--     edges :    a list of GtsEdge.
-	--     Returns :  the list of triangles.
 	
 	--    -----------------------------------------------------------------------------------------------------------
 	
@@ -495,51 +466,45 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_triangle_vertex_opposite (a_triangle, an_edge: POINTER) is -- GtsVertex*
+	gts_triangle_vertex_opposite (a_triangle, an_edge: POINTER): POINTER is -- GtsVertex*
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_edge_opposite (a_triangle, a_vertex: POINTER): POINTER is -- GtsEdge*
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_vertices (a_triangle, v1_handle, v2_handle, v3_handle: POINTER) is -- void
+		external "C use <gts.h>"
+		end
+	
+	-- #define gts_triangle_vertex (t)
+
+	gts_triangle_is_ok (a_triangle: POINTER): INTEGER is -- gboolean
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_use_edges (edge_1, edge_2, edge_3: POINTER): POINTER is -- GtsTriangle*
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_circumcircle_center (a_triangle, a_point_class: POINTER): POINTER is -- GtsPoint*
+		external "C use <gts.h>"
+		end
+	
+	gts_triangle_is_stabbed (a_triangle, a_pointer, gdouble_orientation: POINTER): POINTER is -- GtsObject*
+		external "C use <gts.h>"
+		end
+	
+	gts_triangles_are_folded (some_triangles, vertex_a, vertex_b: POINTER; a_max: REAL): INTEGER is -- gboolean
+		external "C use <gts.h>"
+		end
+	
+	gts_triangles_from_edges (some_edges: POINTER): POINTEr is -- GSList*
 		external "C use <gts.h>"
 		end
 
-gts_triangle_edge_opposite (a_triangle: POINTER, GtsVertex *v); is -- GtsEdge*
-		external "C use <gts.h>"
-		end
-
-gts_triangle_vertices (a_triangle: POINTER, GtsVertex **v1, GtsVertex **v2, GtsVertex **v3); is -- void
-		external "C use <gts.h>"
-		end
-
--- #define gts_triangle_vertex (t)
-		external "C use <gts.h>"
-		end
-
-gts_triangle_is_ok (a_triangle: POINTER); is -- gboolean
-		external "C use <gts.h>"
-		end
-
-gts_triangle_use_edges (GtsEdge *e1, GtsEdge *e2, GtsEdge *e3); is -- GtsTriangle*
-		external "C use <gts.h>"
-		end
-
-gts_triangle_circumcircle_center is -- GtsPoint*
-		external "C use <gts.h>"
-		end
-
--- (a_triangle: POINTER, GtsPointClass *point_class);
-		external "C use <gts.h>"
-		end
-
-gts_triangle_is_stabbed (a_triangle: POINTER, GtsPoint *p, gdouble *orientation); is -- GtsObject*
-		external "C use <gts.h>"
-		end
-
-gts_triangles_are_folded (GSList *triangles, GtsVertex *A, GtsVertex *B, gdouble max); is -- gboolean
-		external "C use <gts.h>"
-		end
-
-gts_triangles_from_edges (GSList *edges); is -- GSList*
-		external "C use <gts.h>"
-		end
-
-gts_triangle_interpolate_height (a_triangle: POINTER, GtsPoint *p); is -- void
+	gts_triangle_interpolate_height (a_triangle, a_point: POINTER) is -- void
 		external "C use <gts.h>"
 		end
 end

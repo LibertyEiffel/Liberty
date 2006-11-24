@@ -73,7 +73,7 @@ indexing
 
 class GTK_LABEL
 inherit
-	GTK_MISC rename make as empty end
+	GTK_MISC
 		-- Implemented Interfaces: GtkLabel implements
 		-- AtkImplementorIface.
 

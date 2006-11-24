@@ -117,7 +117,7 @@ indexing
 
 class GTK_DIALOG
 
-inherit GTK_WINDOW redefine make end
+inherit GTK_WINDOW redefine make, struct_size end
 
 insert
 	GTK_DIALOG_EXTERNALS
@@ -742,4 +742,10 @@ feature {} -- property names strings
 	action_area_border_property_name: STRING is "action-area-border"
 	button_spacing_property_name: STRING is "button-spacing"
 	content_area_border_property_name: STRING is "content-area-border"
+
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkDialog)"
+		end
 end

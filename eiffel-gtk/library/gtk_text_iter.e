@@ -32,6 +32,12 @@ inherit
 
 creation make, from_external_pointer, copy
 
+feature {} -- Creation
+	make is
+		do
+			allocate
+		end
+	
 feature {} -- Disposing
 
 	dispose is

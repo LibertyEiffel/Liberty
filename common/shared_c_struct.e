@@ -15,20 +15,28 @@ deferred class SHARED_C_STRUCT
 
 inherit
 	C_STRUCT
-		undefine
-			make
+		-- undefine make
+		-- rename make as allocate_struct
+		-- Note: otherwise G_LIST and many other classes should be
+		-- declared deferred. Note: NULL is the valid empty
+		-- GSList. Such a a feature could be useful or necessary
+		-- sometimes in order to allocate memory for a shared C
+		-- structure.
 		redefine
-			from_external_pointer, dispose,
-			store_eiffel_wrapper, unstore_eiffel_wrapper,
-			is_eiffel_wrapper_stored
+			from_external_pointer, dispose
 		end
+
+insert
 	SHARED_WRAPPERS_DICTIONARY
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			Precursor(a_ptr)
+			store_eiffel_wrapper
 			set_shared
+		ensure then
+ 			stored: is_eiffel_wrapper_stored
 		end
 	
 	is_shared: BOOLEAN
@@ -69,7 +77,7 @@ feature {} -- Handling wrapper
 				if Result and then to_pointer/=wrappers.at(handle) then
 					print ("Warning! The reference (")
 					print (wrappers.at(handle).out)
-					print (") stored in the wrapped object (")
+					print (") stored in the wrappers dictionary for the wrapped object (")
 					print (handle.out)
 					print (") is not equal to the address of Current (")
 					print (to_pointer.out)
@@ -79,7 +87,6 @@ feature {} -- Handling wrapper
 		end
 
 feature {} -- Destroying
-
 	dispose is
 			-- Action to be executed just before garbage collection reclaims an 
 			-- object; frees the memory pointed by `handle'
@@ -92,5 +99,4 @@ feature {} -- Destroying
 		ensure then
 			now_null: is_null
 		end
-
 end

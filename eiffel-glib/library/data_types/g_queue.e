@@ -43,7 +43,7 @@ class G_QUEUE [ITEM->WRAPPER]
 
 inherit 
 	-- TODO: QUEUE
-	C_STRUCT redefine make, dispose end
+	C_STRUCT redefine dispose end
 
 insert WRAPPER_FACTORY [ITEM]
 	

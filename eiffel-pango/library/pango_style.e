@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class PANGO_STYLE
-feature  -- enum
+feature {} -- enum
 	is_valid_style (a_style :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_style = pango_style_normal) or else

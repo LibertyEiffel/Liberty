@@ -21,18 +21,19 @@ indexing
 
 class PANGO_SIZE_ATTRIBUTE
 
-inherit PANGO_ATTRIBUTE redefine size end
+inherit PANGO_ATTRIBUTE 
+
 insert PANGO_SCALES
-creation make, from_external_pointer
+	
+creation from_external_pointer
 	-- TODO: make_small, make_x_small, make_xx_small, 
 	-- TODO: make_medium,
 	-- TODO: make_large, make_x_large, make_xx_large
 
-feature {} -- Creation
+feature  -- Creation
 
 feature -- size
-	-- TODO: resolve the name conflict between struct size and font size!
-	struct_size: INTEGER is
+		struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoAttrSize)"
 		end

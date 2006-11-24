@@ -20,7 +20,7 @@ indexing
 				]"
 class G_ENUM_VALUE
 inherit C_STRUCT
-creation make, from_external_pointer
+creation from_external_pointer
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"

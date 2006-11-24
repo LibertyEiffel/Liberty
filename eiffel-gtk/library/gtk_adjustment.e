@@ -26,8 +26,7 @@ indexing
 
 class GTK_ADJUSTMENT
 
-inherit
-	GTK_OBJECT rename make as uncallable end
+inherit GTK_OBJECT 
 	
 insert
 	GTK_ADJUSTMENT_EXTERNALS

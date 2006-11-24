@@ -50,8 +50,10 @@ inherit
 -- 			swap
 -- 		end
 	SHARED_C_STRUCT
+			-- Note: a NULL pointer is the actual *valid* empty
+			-- G_LIST. Therefore any handle.is_not_null postcondition
+			-- shall be circumvented.
 		rename
-			make as allocate_struct -- Note: this is required to circumvent the not_null postcondition of SHARED_C_STRUCT make. A NULL pointer is the actual *valid* empty G_LIST!
 			exists as wrapped_object_exists
 		undefine fill_tagged_out_memory
 		end
