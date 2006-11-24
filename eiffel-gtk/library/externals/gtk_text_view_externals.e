@@ -42,6 +42,8 @@ feature {}
 
 	gtk_text_view_get_buffer (handle: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"
+		ensure
+			Result.is_not_null
 		end
 
 	gtk_text_view_scroll_to_mark (a_text_view, a_mark: POINTER;

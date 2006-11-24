@@ -48,6 +48,8 @@ feature {} -- Creation
 			from_external_pointer (gtk_event_box_new)
 		end
 
+feature -- Operations
+
 	set_above_child(above: BOOLEAN) is
 			-- Set whether the event box window is positioned above the
 			-- windows of its child, as opposed to below it. If the

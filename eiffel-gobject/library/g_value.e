@@ -415,6 +415,7 @@ feature {ANY} -- Object
 	set_object (a_value: G_OBJECT) is
 			-- If the current value is an object, set it.
 		require
+			a_value /= Void
 			is_object: is_object
 		do
 			g_value_set_object (handle, a_value.handle)

@@ -11,8 +11,10 @@ feature  -- enum
 		do	
 			Result:=(some_flags & (g_param_readable | g_param_writable |
 										  g_param_construct | g_param_construct_only |
-										  g_param_lax_validation | g_param_static_name |
-										  g_param_static_nick | g_param_static_blurb)).to_boolean
+										  g_param_lax_validation
+--										 |g_param_static_name
+--										 |g_param_static_nick | g_param_static_blurb
+										)).to_boolean
 		end
 
 
@@ -47,29 +49,30 @@ feature  -- enum
 		alias "G_PARAM_LAX_VALIDATION"
 		end
 
-	g_param_static_name: INTEGER is
+-- Not present in GTK 2.6
+--	g_param_static_name: INTEGER is
 			-- the string used as name when constructing the parameter is
 			-- guaranteed to remain valid and unmodified for the lifetime
 			-- of the parameter. Since 2.8
-		external "C macro use <glib-object.h>"
-		alias "G_PARAM_STATIC_NAME"
-		end
+--		external "C macro use <glib-object.h>"
+--		alias "G_PARAM_STATIC_NAME"
+--		end
 
-	g_param_static_nick: INTEGER is
+--	g_param_static_nick: INTEGER is
 			-- the string used as nick when constructing the parameter is
 			-- guaranteed to remain valid and unmodified for the lifetime
 			-- of the parameter. Since 2.8
-		external "C macro use <glib-object.h>"
-		alias "G_PARAM_STATIC_NICK"
-		end
+--		external "C macro use <glib-object.h>"
+--		alias "G_PARAM_STATIC_NICK"
+--		end
 
-	g_param_static_blurb: INTEGER is
+--	g_param_static_blurb: INTEGER is
 			-- the string used as blurb when constructing the parameter
 			-- is guaranteed to remain valid and unmodified for the
 			-- lifetime of the parameter. Since 2.8
-		external "C macro use <glib-object.h>"
-		alias "G_PARAM_STATIC_BLURB"
-		end
+--		external "C macro use <glib-object.h>"
+--		alias "G_PARAM_STATIC_BLURB"
+--		end
 
 	g_param_readwrite: INTEGER is
 			-- GParamFlags value alias for G_PARAM_READABLE | G_PARAM_WRITABLE.

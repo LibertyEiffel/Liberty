@@ -350,18 +350,19 @@ feature -- Operation
 --                                              GdkWindow *parent_window);
 
 	window: GDK_WINDOW is
+			-- Result can be void if window isn't realized yet
 		local
 			c_window: POINTER
 			r: G_RETRIEVER [GDK_WINDOW]
 		do
 			c_window := gtk_widget_get_window (handle)
-			if r.has_eiffel_wrapper_stored (c_window) then
-				Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_window)
-			else
-				create Result.from_external_pointer (c_window)
+			if c_window.is_not_null then
+				if r.has_eiffel_wrapper_stored (c_window) then
+					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_window)
+				else
+					create Result.from_external_pointer (c_window)
+				end
 			end
-		ensure
-			Result /= Void
 		end
 
 	parent_window: GDK_WINDOW is
@@ -370,13 +371,13 @@ feature -- Operation
 			r: G_RETRIEVER [GDK_WINDOW]
 		do
 			c_window := gtk_widget_get_parent_window (handle)
-			if r.has_eiffel_wrapper_stored (c_window) then
-				Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_window)
-			else
-				create Result.from_external_pointer (c_window)
+			if c_window.is_not_null then
+				if r.has_eiffel_wrapper_stored (c_window) then
+					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_window)
+				else
+					create Result.from_external_pointer (c_window)
+				end
 			end
-		ensure
-			Result /= Void
 		end
 
 -- GdkWindow*  gtk_widget_get_parent_window    (GtkWidget *widget);

@@ -23,6 +23,7 @@ class GDK_EVENT_MOTION
 
 inherit
 	GDK_EVENT_ANY
+		redefine struct_size end
 
 insert
 	GDK_EVENT_MOTION_EXTERNALS
@@ -90,6 +91,13 @@ feature -- access
 			-- the y coordinate of the pointer relative to the root of the screen.
 		do
 			Result := gdk_event_motion_get_y_root (handle)
+		end
+
+feature -- size
+
+	struct_size: INTEGER is
+		external "C inline use <gdk/gdk.h>"
+		alias "sizeof(GdkEventButton)"
 		end
 
 end -- class GDK_EVENT_MOTION

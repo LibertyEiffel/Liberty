@@ -284,4 +284,9 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
+	gtk_is_text_buffer (a_buffer: POINTER): INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_IS_TEXT_BUFFER"
+		end
+
 end -- class GTK_TEXT_BUFFER_EXTERNALS

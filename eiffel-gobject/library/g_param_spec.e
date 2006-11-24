@@ -95,21 +95,24 @@ feature -- Flags
 	-- conversion?  (see `convert') do Result:=
 	-- flags.bit_test(g_param_lax_validation_bit) end
 	
-	is_static_name: BOOLEAN is
+
+-- Doesn't work in GTK 2.6
+--	is_static_name: BOOLEAN is
 			-- Is the string used as name when constructing the parameter
 			-- guaranteed to remain valid and unmodified for the lifetime
 			-- of the parameter?
-		do
-			Result:= (flags & g_param_static_name).to_boolean
-		end
+--		do
+--			Result:= (flags & g_param_static_name).to_boolean
+--		end
 
-	is_static_blurb: BOOLEAN is
+-- Doesn't work in GTK 2.6
+--	is_static_blurb: BOOLEAN is
 			-- Is the string used as blurb when constructing the parameter
 			-- guaranteed to remain valid and unmodified for the lifetime
 			-- of the parameter?
-		do
-			Result:= (flags & g_param_static_blurb).to_boolean
-		end
+--		do
+--			Result:= (flags & g_param_static_blurb).to_boolean
+--		end
 
 	is_readwrite: BOOLEAN is
 			-- Is parameter read/write?
