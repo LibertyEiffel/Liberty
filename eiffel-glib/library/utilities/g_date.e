@@ -827,7 +827,7 @@ feature {} -- External features
 		alias "G_USEC_PER_SEC"
 		end	
 
-feature -- enum GDateDMY
+feature {} --  enum GDateDMY
 	-- This enumeration isn't used in the API, but may be useful if you
 	-- need to mark a number as a day, month, or year.
 	
@@ -858,7 +858,7 @@ feature -- GDateDay a guint8
 		alias "G_DATE_BAD_DAY"
 		end
 
-feature -- enum GDateMonth
+feature {} --  enum GDateMonth
 	g_date_bad_month: INTEGER is
 			-- invalid value. 
 		external "C macro use <glib.h>"
@@ -943,7 +943,7 @@ feature -- enum GDateMonth
 	-- higher; negative (BC) years are not allowed. The year is
 	-- represented with four digits.
 	
-feature -- enum GDateWeekday;
+feature {} --  enum GDateWeekday;
 
 	-- Enumeration representing a day of the week; G_DATE_MONDAY,
 	-- G_DATE_TUESDAY, etc. G_DATE_BAD_WEEKDAY is an invalid weekday.

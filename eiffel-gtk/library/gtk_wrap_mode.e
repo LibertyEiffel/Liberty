@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_WRAP_MODE
-feature  -- enum
+feature {} -- enum
 	is_valid_wrap_mode (a_mode :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_mode = gtk_wrap_none) or else

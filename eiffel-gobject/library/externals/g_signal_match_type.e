@@ -7,7 +7,7 @@ indexing
 
 class G_SIGNAL_MATCH_TYPE
 
-feature -- enum
+feature {} --  enum
 	is_valid_signal_match_type (a_match_type: INTEGER): BOOLEAN is
 		do
 			Result:=(a_match_type & (g_signal_match_id |

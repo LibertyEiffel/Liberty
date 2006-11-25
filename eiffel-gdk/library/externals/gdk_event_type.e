@@ -29,7 +29,7 @@ indexing
 
 deferred class GDK_EVENT_TYPE
 
-feature -- enum
+feature {} --  enum
 
 	is_valid_gdk_event_type (an_event_type: INTEGER) : BOOLEAN is
 		do

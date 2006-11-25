@@ -430,7 +430,7 @@ feature {} -- External calls
 
 --  PostgresPollingStatusType PQconnectPoll(PGconn *conn);
 
-feature -- PostgresPollingStatusType enum
+feature {} -- PostgresPollingStatusType  enum
 	--               CONNECTION_STARTED
 	
 	--                         Waiting for connection to be made.
