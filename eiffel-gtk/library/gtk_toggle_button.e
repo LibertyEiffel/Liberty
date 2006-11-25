@@ -63,7 +63,7 @@ inherit
 insert
 	GTK
 	GTK_TOGGLE_BUTTON_EXTERNALS
-		-- GtkToggleButton implements AtkImplementorIface.
+		-- TODO: GtkToggleButton implements AtkImplementorIface.
 
 creation make, with_label, with_mnemonic
 
@@ -79,6 +79,9 @@ feature {} -- Creation
 
 	with_label (a_label: STRING) is
 			-- Creates a new toggle button with a text `a_label'.
+		require
+			gtk_initialized: gtk.is_initialized
+			label_not_void: a_label /= Void
 		do
 			from_external_pointer (gtk_toggle_button_new_with_label (a_label.to_external))
 		end
@@ -87,6 +90,9 @@ feature {} -- Creation
 			-- Creates a new GtkToggleButton containing `a_label'. The
 			-- label will be created using GTK_LABEL.with_mnemonic, so
 			-- underscores in label indicate the mnemonic for the button.
+		require
+			gtk_initialized: gtk.is_initialized
+			label_not_void: a_label /= Void
 		do
 			from_external_pointer (gtk_toggle_button_new_with_mnemonic (a_label.to_external))
 		end

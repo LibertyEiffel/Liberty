@@ -37,6 +37,8 @@ creation make, with_adjustment, from_external_pointer
 feature {NONE} -- Creation
 	make is
 			-- Creates a new vertical scrollbar; a new adjustment is also created.
+		require
+			gtk_initialized: gtk.is_initialized
 		do
 			from_external_handle (gtk_hscrollbar_new (default_pointer))
 		end
@@ -44,6 +46,7 @@ feature {NONE} -- Creation
 	with_adjustment (an_adjustment: GTK_ADJUSTMENT) is
 			-- Creates a new vertical scrollbar using `an_adjustment'.
 		require
+			gtk_initialized: gtk.is_initialized
 			adjustment_not_void: an_adjustment /= Void
 		do
 			from_external_handle (gtk_hscrollbar_new (an_adjustment.handle))

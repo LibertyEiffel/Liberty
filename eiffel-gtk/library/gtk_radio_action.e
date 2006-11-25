@@ -33,11 +33,12 @@ inherit
 
 creation make, from_external_pointer
 
-feature {NONE} -- Creation
+feature  -- Creation
 	make  (a_name, a_label, a_tooltip, a_stock_id: STRING; a_value: INTEGER) is
 			-- Creates a new GtkRadioAction object. To add the action to
 			-- a GtkActionGroup and set the accelerator for the action,
 			-- call `GTK_ACTION_GROUP.add_action_with_accel'.
+		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_radio_action_new (a_name.to_external, a_label.to_external,
 																		a_tooltip.to_external, a_stock_id.to_external, a_value))

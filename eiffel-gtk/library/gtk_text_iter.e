@@ -30,10 +30,13 @@ inherit
 	C_STRUCT
 		redefine dispose end --copy, dispose, is_equal end
 
+insert GTK
+		
 creation make, from_external_pointer, copy
 
 feature {} -- Creation
 	make is
+		require gtk_initialized: gtk.is_initialized
 		do
 			allocate
 		end

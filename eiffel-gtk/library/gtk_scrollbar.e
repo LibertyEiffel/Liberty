@@ -34,7 +34,7 @@ indexing
 			-- small stepper arrows) or page down (using for example the
 			-- PageDown key).
 			
-class GTK_SCROLLBAR
+deferred class GTK_SCROLLBAR
 
 inherit GTK_RANGE
 

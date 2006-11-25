@@ -32,8 +32,10 @@ indexing
 							]"
 
 class GTK_TEAROFF_MENU_ITEM
+
 inherit GTK_MENU_ITEM redefine make, size end
-	-- TODO: GtkTearoffMenuItem implements AtkImplementorIface.
+
+-- TODO: GtkTearoffMenuItem implements AtkImplementorIface.
 creation make
 
 feature {} -- Creation

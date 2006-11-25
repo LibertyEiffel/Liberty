@@ -39,6 +39,12 @@ feature {NONE} -- Creation
 			-- displayed in menu items and on buttons; `a_tooltip' a
 			-- tooltip for the action; `a_stock_id' the stock icon to
 			-- display in widgets representing the action
+		require
+			gtk_initialized: gtk.is_initialized
+			name_not_void: a_name /= Void
+			label_not_void: a_label /= Void
+			tooltip_not_void: a_tooltip /= Void
+			stock_id_not_void: a_stock_id /= Void
 		do
 			from_external_pointer (gtk_toggle_action_new (a_name.to_external, a_label.to_external,
 																		 a_tooltip.to_external,a_stock_id.to_external))

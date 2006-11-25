@@ -19,6 +19,7 @@ indexing
 					02110-1301 USA
 				]"
 class GTK_TEXT_APPEARANCE
+
 inherit C_STRUCT
 
 creation from_external_pointer

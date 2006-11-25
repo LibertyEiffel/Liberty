@@ -65,6 +65,7 @@ feature {} -- Creation
 			-- it does not take over an existing reference.
 		require
 			gtk_initialized: gtk.is_initialized
+			buffer_not_void: a_buffer /= Void
 		do
 			from_external_pointer (gtk_text_view_new_with_buffer (a_buffer.handle))
 		end

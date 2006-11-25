@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_TEXT_SEARCH_FLAGS
-feature  -- enum
+feature  {} -- enum
 	are_valid_search_flags (some_flags :INTEGER): BOOLEAN is
 		do	
 			Result:=(some_flags | (gtk_text_search_visible_only & gtk_text_search_text_only)).to_boolean
