@@ -74,7 +74,7 @@ feature {} -- Creation
 		do
 			from_external_pointer (gtk_combo_box_new)
 			is_text_only:=False
-		ensure then no_text_only: not is_text_only
+		ensure no_text_only: not is_text_only
 		end
 
 	with_model (a_model: GTK_TREE_MODEL) is

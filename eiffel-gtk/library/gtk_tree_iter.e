@@ -36,12 +36,19 @@ creation make_from_model, from_model, from_external_pointer
 
 feature -- Creation
 
+	make is
+		require
+			gtk_initialized: gtk.is_initialized
+		do
+			allocate
+		end
+	
 	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
 		require
 			gtk_initialized: gtk.is_initialized
 			valid_model: a_model/=Void
 		do
-			handle := g_try_malloc (struct_size)
+			allocate 
 			tree_model := a_model
 		ensure
 			handle.is_not_null

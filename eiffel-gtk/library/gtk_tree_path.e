@@ -37,23 +37,7 @@ insert
 
 creation
 	make, make_first, copy_from_pointer,
-	from_external_pointer, from_string, first, from_path
-
-feature  -- struct size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkTreePath)"
-		end
-
-feature -- Redefined features
-
-	from_external_pointer (a_ptr: POINTER) is
-		require
-			gtk_initialized: gtk.is_initialized
-			pointer_not_null: a_ptr.is_not_null
-		do
-			Precursor (a_ptr)
-		end
+	from_string, first, from_path
 
 feature {} -- Creation
 
@@ -245,16 +229,23 @@ feature -- Moving
 
 feature -- Queries
 
-	is_ancestor_of (another: like Current): BOOLEAN is
+	is_ancestor_of (another: GTK_TREE_PATH): BOOLEAN is
 			-- Is `another' a descendant of Current path?
+		require another_not_void: another /= Void
 		do
 			Result := (gtk_tree_path_is_ancestor (handle,another.handle)).to_boolean
 		end
 
-	is_descendant_of (another: like Current): BOOLEAN is
+	is_descendant_of (another: GTK_TREE_PATH): BOOLEAN is
 			-- IS Current  path is a descendant of `another'?
+		require another_not_void: another /= Void
 		do
 			Result := (gtk_tree_path_is_descendant (handle,another.handle)).to_boolean
 		end
-
+	
+feature  -- struct size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTreePath)"
+		end
 end
