@@ -55,7 +55,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 			is_shared := False
 		end
 
-feature {} -- Handling wrapper
+feature {} -- Storing wrapper pointer into wrapped object
 
 	store_eiffel_wrapper is
 		local
@@ -63,14 +63,24 @@ feature {} -- Handling wrapper
 		do
 			a := Current -- Workaround for SE bug
 			wrappers.add (a.to_pointer, handle)
+		ensure stored: is_eiffel_wrapper_stored
 		end
 
 	unstore_eiffel_wrapper is
+			-- Remove the "reference" to Current from the underlying
+			-- wrapped object. Note: the reference is not necessarily
+			-- stored into the wrapped object itself. The default
+			-- implementation for SHARED_C_STRUCT stores it into a shared
+			-- dictionary.
+		require
+			not_null: is_not_null
 		do
 			wrappers.remove (handle)
 		end
 
 	is_eiffel_wrapper_stored: BOOLEAN is
+			-- Is a "reference" of the Current Eiffel wrapper object
+			-- stored in the underlying wrapped object? 
 		do
 			Result := wrappers.has(handle)
 			debug
@@ -85,7 +95,7 @@ feature {} -- Handling wrapper
 				end
 			end
 		end
-
+	
 feature {} -- Destroying
 	dispose is
 			-- Action to be executed just before garbage collection reclaims an 

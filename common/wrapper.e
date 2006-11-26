@@ -66,29 +66,4 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 
 	handle: POINTER
 		-- Pointer to the underlying C "thing" (i.e. a struct)
-
-feature {} -- Storing wrapper pointer into wrapped object
-
-	store_eiffel_wrapper is
-		deferred
-		ensure stored: is_eiffel_wrapper_stored
-		end
-
-	unstore_eiffel_wrapper is
-			-- Remove the "reference" to Current from the underlying
-			-- wrapped object. Note: the reference is not necessarily
-			-- stored into the wrapped object itself. The default
-			-- implementation for SHARED_C_STRUCT stores it into a shared
-			-- dictionary.
-		require
-			not_null: is_not_null
-		deferred
-		end
-
-	is_eiffel_wrapper_stored: BOOLEAN is
-			-- Is a "reference" of the Current Eiffel wrapper object
-			-- stored in the underlying wrapped object? 
-		deferred
-		end
-	
 end

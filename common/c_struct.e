@@ -61,7 +61,6 @@ feature {} -- Destroying
 			-- the garbage collector removes the wrapper object.
 		do
 			free (handle) -- if necessary. free(NULL) is a NOP
-			unstore_eiffel_wrapper
 			handle:= default_pointer -- null
 		ensure
 			cleared: is_null
