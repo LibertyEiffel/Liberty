@@ -23,7 +23,6 @@ class GLADE_XML
 
 inherit
 	G_OBJECT
-		rename make as c_struct_make end
 	GLADE_XML_EXTERNAL
 
 insert

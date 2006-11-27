@@ -31,7 +31,7 @@ insert
 	AV_STREAM_EXTERNALS
 
 creation
-	make, from_external_pointer
+	from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 

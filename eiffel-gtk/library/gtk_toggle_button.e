@@ -79,7 +79,7 @@ feature {} -- Creation
 
 	with_label (a_label: STRING) is
 			-- Creates a new toggle button with a text `a_label'.
-		require
+		require else
 			gtk_initialized: gtk.is_initialized
 			label_not_void: a_label /= Void
 		do
@@ -90,7 +90,7 @@ feature {} -- Creation
 			-- Creates a new GtkToggleButton containing `a_label'. The
 			-- label will be created using GTK_LABEL.with_mnemonic, so
 			-- underscores in label indicate the mnemonic for the button.
-		require
+		require else
 			gtk_initialized: gtk.is_initialized
 			label_not_void: a_label /= Void
 		do

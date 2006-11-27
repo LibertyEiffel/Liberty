@@ -25,12 +25,19 @@ class GTK_SELECTION_DATA
 
 inherit SHARED_C_STRUCT 
 
-creation from_external_pointer
+creation from_external_pointer, make
 
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkSelectionData)"
+		end
+
+feature
+
+	make is
+		do
+			allocate
 		end
 
 feature {} -- Creation

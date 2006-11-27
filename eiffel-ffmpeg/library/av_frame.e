@@ -23,7 +23,7 @@ class AV_FRAME
 
 inherit
 	AV_PICTURE
-		redefine make, struct_size end
+		redefine struct_size end
 
 insert
 	AV_FRAME_EXTERNALS

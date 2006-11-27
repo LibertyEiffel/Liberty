@@ -24,7 +24,7 @@ class AV_PACKET
 inherit
 	C_STRUCT
 		redefine
-			dispose, force_free_handle, make
+			dispose, force_free_handle
 		end
 
 insert
@@ -38,7 +38,7 @@ feature {} -- Creation
 
 	make is
 		do
-			Precursor
+			allocate
 			av_init_packet (handle)
 		end
 

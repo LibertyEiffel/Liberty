@@ -26,8 +26,7 @@ class GTK_TREE_PATH
 inherit
 	SHARED_C_STRUCT
 		redefine
-			dispose,
-			from_external_pointer -- To solve sr #1143 
+			dispose
 		end
 
 insert
@@ -37,7 +36,7 @@ insert
 
 creation
 	make, make_first, copy_from_pointer,
-	from_string, first, from_path
+	from_string, first, from_path, from_external_pointer
 
 feature {} -- Creation
 
@@ -46,7 +45,7 @@ feature {} -- Creation
 		require gtk_initialized: gtk.is_initialized
 		do
 			handle := gtk_tree_path_new
-		ensure then
+		ensure
 			not is_shared
 		end
 

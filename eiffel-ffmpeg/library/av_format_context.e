@@ -23,7 +23,7 @@ class AV_FORMAT_CONTEXT
 
 inherit
 	C_STRUCT
-		redefine make, dispose end
+		redefine dispose end
 
 insert
 	AV_FORMAT_CONTEXT_EXTERNALS

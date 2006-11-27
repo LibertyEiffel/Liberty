@@ -29,7 +29,10 @@ indexing
 
 class GTK_COLOR_BUTTON
 
-inherit GTK_BUTTON redefine make end
+inherit
+	GTK_BUTTON
+		undefine struct_size
+		redefine make end
 
 insert
 	GTK_COLOR_BUTTON_EXTERNALS

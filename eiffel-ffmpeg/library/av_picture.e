@@ -23,6 +23,7 @@ deferred class AV_PICTURE
 
 inherit
 	C_STRUCT
+		rename allocate as c_struct_allocate end
 
 insert
 	AV_PICTURE_EXTERNALS

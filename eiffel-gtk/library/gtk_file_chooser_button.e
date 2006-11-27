@@ -28,10 +28,9 @@ inherit
 		rename
 			make_container as make_c_struct
 		undefine
-			make_c_struct
+			make_c_struct, struct_size
 		end
 	GTK_FILE_CHOOSER
-		rename make as make_c_struct end
 
 insert
 	GTK_FILE_CHOOSER_ACTION

@@ -87,11 +87,7 @@ feature {} -- Externals
 	-- external "C use <gtk/gtk.h>"
 	-- end
 feature {} -- GtkDialog struct
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkDialog)"
-		end
-	
+
 	gtkwidget_vbox (a_dialog: POINTER): POINTER is
 		external "C struct get vbox use <gtk/gtk.h>"
 		end

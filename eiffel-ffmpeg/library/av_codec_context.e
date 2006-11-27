@@ -24,7 +24,7 @@ class AV_CODEC_CONTEXT
 inherit
 	WRAPPER_RETRIEVER [AV_CODEC]
 	C_STRUCT
-		redefine make, dispose end
+		redefine dispose end
 
 insert
 	AV_CODEC_CONTEXT_EXTERNALS

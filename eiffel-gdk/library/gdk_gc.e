@@ -39,7 +39,7 @@ inherit
 insert
 	GDK_GC_EXTERNALS
 
-creation from_external_pointer
+creation from_external_pointer, make
 
 feature {} -- Creation
 

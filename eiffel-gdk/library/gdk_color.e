@@ -11,13 +11,20 @@ inherit
 	C_STRUCT
 
 creation
-	from_external_pointer
+	from_external_pointer, make
 
 feature -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkColor)"
+		end
+
+feature -- Creation
+
+	make is
+		do
+			allocate
 		end
 
 feature -- Getters and setters

@@ -48,12 +48,12 @@ feature {} -- Creation
 			from_external_pointer (gtk_color_selection_new(a_title.to_external))
 		end
 	
-feature -- size
-
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkFontSelectionDialog)"
-		end
+-- feature -- size
+-- 
+-- 	struct_size: INTEGER is
+-- 		external "C inline use <gtk/gtk.h>"
+-- 		alias "sizeof(GtkFontSelectionDialog)"
+-- 		end
 
 feature
 

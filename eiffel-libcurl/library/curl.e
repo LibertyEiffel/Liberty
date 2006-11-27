@@ -26,7 +26,7 @@ indexing
 class CURL
 
 inherit
-	C_STRUCT redefine make, dispose end
+	C_STRUCT redefine dispose end
 	STREAM_HANDLER
 
 insert

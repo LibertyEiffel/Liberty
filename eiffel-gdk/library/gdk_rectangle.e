@@ -22,7 +22,14 @@ indexing
 class GDK_RECTANGLE
 inherit C_STRUCT
 
-creation from_external_pointer
+creation from_external_pointer, make
+
+feature --Creation
+
+	make is
+		do
+			allocate
+		end
 
 feature
 	x: INTEGER is

@@ -34,6 +34,13 @@ feature -- Size
 		alias "sizeof(AVFormatParameters)"
 		end
 
+feature
+
+	make is
+		do
+			allocate
+		end
+
 feature -- Access
 
 	sample_rate: INTEGER is

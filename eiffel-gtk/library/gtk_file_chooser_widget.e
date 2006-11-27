@@ -34,7 +34,7 @@ class GTK_FILE_CHOOSER_WIDGET
 
 inherit
 	--GTK_VBOX
-	GTK_FILE_CHOOSER rename make as file_chooser_make end
+	GTK_FILE_CHOOSER
 
 insert
 	GTK_FILE_CHOOSER_WIDGET_EXTERNALS
