@@ -43,6 +43,7 @@ feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			check a_ptr.is_not_null end
+			set_shared
 			owner_class := g_type_class_peek (get_owner_type (a_ptr))
 			param_id := get_param_id (a_ptr)
 			Precursor (a_ptr)
