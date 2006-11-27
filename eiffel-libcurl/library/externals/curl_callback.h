@@ -20,6 +20,9 @@
 
 #ifndef CULR_CALLBACL_H
 #define CULR_CALLBACL_H
+#ifdef __WIN32
+#include <sys/types.h>
+#endif /* __WIN32 */
 
 typedef struct _CallbackClosure *CallbackClosure;
 
