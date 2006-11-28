@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DICT_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 	gda_dict_new: POINTER is
 			-- 	GObject* gda_dict_new (void);

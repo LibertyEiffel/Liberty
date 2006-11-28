@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_SPIN_BUTTON_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 insert
 	GTK_SPIN_BUTTON_UPDATE_POLICY
 	GTK_SPIN_TYPE

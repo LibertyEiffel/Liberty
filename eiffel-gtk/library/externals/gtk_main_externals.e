@@ -22,6 +22,8 @@ indexing
 
 deferred class GTK_MAIN_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- external calls
 
 	gtk_set_locale: POINTER is

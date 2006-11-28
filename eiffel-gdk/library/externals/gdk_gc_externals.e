@@ -21,7 +21,9 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class GDK_GC_EXTERNALS
+deferred class GDK_GC_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 

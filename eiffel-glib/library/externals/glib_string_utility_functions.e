@@ -5,7 +5,9 @@ indexing
 	revision "$REvision:$"
 	description: "String Utility Functions -- various string-related functions."
 	
-class GLIB_STRING_UTILITY_FUNCTIONS
+deferred class GLIB_STRING_UTILITY_FUNCTIONS
+
+inherit ANY undefine is_equal, copy end
 
 feature {} -- external calls
 	g_strdup (str: POINTER): POINTER is

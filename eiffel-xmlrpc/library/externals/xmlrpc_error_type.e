@@ -25,6 +25,10 @@ indexing
 
 deferred class XMLRPC_ERROR_TYPE
 
+inherit ANY undefine is_equal, copy end
+
+
+
 		-- #define XMLRPC_INTERNAL_ERROR               (-500)
 		-- #define XMLRPC_TYPE_ERROR                   (-501)
 		-- #define XMLRPC_INDEX_ERROR                  (-502)

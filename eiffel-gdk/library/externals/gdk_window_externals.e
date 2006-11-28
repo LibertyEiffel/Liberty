@@ -24,6 +24,8 @@ indexing
 
 deferred class GDK_WINDOW_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gdk_window_new (parent, attributes: POINTER; attributes_mask: INTEGER): POINTER is

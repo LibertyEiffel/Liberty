@@ -21,7 +21,9 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class GDK_PIXBUF_EXTERNALS
+deferred class GDK_PIXBUF_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
 
 insert GDK_INTERP_TYPE
 

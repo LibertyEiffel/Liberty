@@ -21,6 +21,9 @@ indexing
 
 deferred class GDK_WINDOW_EDGE
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature {} -- enum
 	gdk_window_edge_north_west: INTEGER is
 			-- 	the top left corner.

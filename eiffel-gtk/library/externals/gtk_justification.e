@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_JUSTIFICATION
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_justification (a_justification :INTEGER): BOOLEAN is

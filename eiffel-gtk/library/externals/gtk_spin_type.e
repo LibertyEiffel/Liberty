@@ -23,6 +23,8 @@ indexing
 
 deferred class  GTK_SPIN_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_spin_type (a_spin_type :INTEGER): BOOLEAN is

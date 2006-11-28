@@ -2,7 +2,7 @@ indexing
 	description: "Utility functions dealing with g_signals"
 
 	
-class G_SIGNALS
+deferred class G_SIGNALS
 inherit WRAPPER_HANDLER
 insert G_SIGNAL_EXTERNALS
 feature

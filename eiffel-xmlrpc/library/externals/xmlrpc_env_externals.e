@@ -25,6 +25,10 @@ indexing
 
 deferred class XMLRPC_ENV_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
+
+
 		-- typedef struct _xmlrpc_env {
 		--     int    fault_occurred;
 		--     int    fault_code;

@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_SPIN_BUTTON_UPDATE_POLICY
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_spin_button_update_policy (a_policy :INTEGER): BOOLEAN is

@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_EDITABLE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	gtk_editable_select_region      (an_editable: POINTER; a_start,an_end: INTEGER) is
 		external "C use <gtk/gtk.h>"

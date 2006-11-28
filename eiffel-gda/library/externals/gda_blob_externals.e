@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_BLOB_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 insert GDA_BLOB_MODE_ENUM
 feature {} -- External calls
 

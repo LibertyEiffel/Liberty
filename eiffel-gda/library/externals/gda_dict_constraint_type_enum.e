@@ -20,6 +20,10 @@ indexing
 				]"
 
 deferred class GDA_DICT_CONSTRAINT_TYPE_ENUM
+
+inherit ANY undefine is_equal, copy end
+
+
 feature  -- enum
 	is_valid_constraint_type (a_type :INTEGER): BOOLEAN is
 		do	

@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DATA_MODEL_HASH_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 	
 	gda_data_model_hash_new (a_cols: INTEGER): POINTER is

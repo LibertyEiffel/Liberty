@@ -6,6 +6,9 @@ indexing
 	revision "$REvision:$"
 
 deferred class POINTER_HANDLING
+
+insert ANY undefine copy,is_equal,fill_tagged_out_memory end
+
 feature {WRAPPER} -- Pointer referencing and de-referencing
 	address_of (a_pointer: POINTER): POINTER is
 		external "C inline" 

@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_PARAMETER_LIST_GROUP_STRUCT
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- Structure getter/setter c
 
 	-- typedef struct {

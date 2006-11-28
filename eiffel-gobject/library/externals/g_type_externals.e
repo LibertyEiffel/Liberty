@@ -4,7 +4,9 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class G_TYPE_EXTERNALS
+deferred class G_TYPE_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
 
 --insert G_TYPE
 

@@ -6,6 +6,9 @@ indexing
 	revision "$REvision:$"
 
 deferred class G_QUARK_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- external calls
 
 	g_quark_from_string (string: POINTER): INTEGER_32 is

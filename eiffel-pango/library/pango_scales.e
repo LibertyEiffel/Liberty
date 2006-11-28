@@ -21,6 +21,10 @@ indexing
 
 deferred class PANGO_SCALES
 
+inherit ANY undefine is_equal, copy end
+
+
+
 feature {} -- Enum
 
 	pango_scale_xx_small: REAL is

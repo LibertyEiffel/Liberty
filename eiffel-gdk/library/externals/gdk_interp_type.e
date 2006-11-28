@@ -30,6 +30,8 @@ indexing
 
 deferred class GDK_INTERP_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_gdk_interp_type (an_interp_type: INTEGER) : BOOLEAN is

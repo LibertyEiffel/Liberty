@@ -21,10 +21,12 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class GDK_COLORSPACE
+deferred class GDK_COLORSPACE
 
-	-- This enumeration defines the color spaces that are supported by
-	-- the gdk-pixbuf library. Currently only RGB is supported.
+inherit ANY undefine is_equal, copy end
+
+-- This enumeration defines the color spaces that are supported by
+-- the gdk-pixbuf library. Currently only RGB is supported.
 
 feature {} -- enum
 

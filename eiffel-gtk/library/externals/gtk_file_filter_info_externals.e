@@ -23,7 +23,9 @@ indexing
 
 deferred class GTK_FILE_FILTER_INFO_EXTERNALS
 
-inherit GTK_FILE_FILTER_FLAGS
+inherit
+	ANY undefine is_equal, copy end
+	GTK_FILE_FILTER_FLAGS
 
 feature {} -- Getters
 

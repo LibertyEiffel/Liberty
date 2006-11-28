@@ -22,7 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_TREE_SELECTION_EXTERNALS
-inherit GTK_SELECTION_MODE
+inherit ANY undefine is_equal, copy end
+insert GTK_SELECTION_MODE
+	
 feature {}
 	gtk_tree_selection_set_mode (a_gtktreeselection: POINTER; a_gtkselectionmode: INTEGER) is
 		require is_valid_mode: is_valid_selection_mode (a_gtkselectionmode)

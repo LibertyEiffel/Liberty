@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_STOCK_ITEMS
 
+inherit ANY undefine is_equal, copy end
+
 feature {WRAPPER} -- Pointers to Stock items (C) strings
 
 	gtk_stock_dialog_authentication: POINTER is

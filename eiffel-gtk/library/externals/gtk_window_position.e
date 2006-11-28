@@ -21,8 +21,9 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-
 deferred class GTK_WINDOW_POSITION
+
+inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 

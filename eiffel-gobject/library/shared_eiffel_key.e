@@ -1,5 +1,7 @@
 deferred class SHARED_EIFFEL_KEY
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Implementation
 
 	eiffel_key: G_QUARK is

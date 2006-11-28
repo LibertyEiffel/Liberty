@@ -24,7 +24,10 @@ indexing
 
 deferred class CALLBACK
 
-inherit G_CLOSURE
+inherit
+	ANY undefine is_equal, copy end
+	G_CLOSURE
+
 insert G_SIGNAL_EXTERNALS
 
 feature

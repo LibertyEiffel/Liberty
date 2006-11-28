@@ -23,14 +23,14 @@ deferred class GSL_COMPLEX_GENERAL[TYPE_->COMPARABLE]
 
 inherit C_STRUCT
 		redefine
-			out
+			out, copy, is_equal
 		end
 	
 feature {} -- Creating
 	make_rect (a, b: TYPE_) is
 			-- Creates complex number with value (a + bi)
 		do
-			make
+			allocate
 			gsl_set_real(handle, a)
 			gsl_set_imag(handle, b)
 		end
@@ -38,7 +38,7 @@ feature {} -- Creating
 	make_polar(r, theta: TYPE_) is
 			-- Create compley with value (r * e^(i * theta))
 		do
-			make
+			allocate
 			gsl_complex_polar(handle, r, theta)
 		end
 
@@ -148,15 +148,6 @@ feature {} -- External calls
 		deferred
 		end
 
-	memcmp(a, b: POINTER; len: INTEGER): INTEGER is
-		external "C use <string.h>"
-		end
-			
-	memcpy(a, b: POINTER; len: INTEGER) is
-		external "C use <string.h>"
-		end
-			
-	
 invariant
 	valid_handle: handle /= default_pointer
 	

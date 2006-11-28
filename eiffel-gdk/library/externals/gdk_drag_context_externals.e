@@ -21,6 +21,8 @@ indexing
 
 deferred class GDK_DRAG_CONTEXT_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 	-- typedef struct {
 	--   GObject parent_instance;
 	--   GdkDragProtocol protocol;

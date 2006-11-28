@@ -4,8 +4,10 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GLIB_TIMER
+deferred class G_TIMER_EXTERNALS
 	
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	g_timer_new: POINTER is
 			-- Creates a new timer, and starts timing

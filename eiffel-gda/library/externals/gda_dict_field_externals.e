@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DICT_FIELD_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 insert GDA_DICT_FIELD_ATTRIBUTE_ENUM
 feature {} -- External calls
 	gda_dict_field_new (a_dict, a_dict_type: POINTER): POINTER is

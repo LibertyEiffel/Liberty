@@ -48,7 +48,9 @@ indexing
 -- 	To free the entire list, use g_list_free().
 	
 
-class GLIB_DOUBLY_LINKED_LIST
+deferred class GLIB_DOUBLY_LINKED_LIST
+
+inherit ANY undefine is_equal, copy end
 
 feature {} -- Access to GList struct
 	-- The GList struct is used for each element in a doubly-linked

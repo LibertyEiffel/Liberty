@@ -28,6 +28,8 @@ inherit
 	GDK_GRAVITY
 	GDK_WINDOW_HINTS
 	GTK_WINDOW_POSITION
+	ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	
 	gtk_window_new (type: INTEGER): POINTER is

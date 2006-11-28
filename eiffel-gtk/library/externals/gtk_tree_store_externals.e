@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_TREE_STORE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {}
 	gtk_tree_store_newv (n_columns: INTEGER; types: POINTER): POINTER is -- GtkListStore*
 		external "C use <gtk/gtk.h>"

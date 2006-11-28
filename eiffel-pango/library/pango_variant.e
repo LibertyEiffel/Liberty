@@ -20,6 +20,10 @@ indexing
 				]"
 
 deferred class PANGO_VARIANT
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- enum
 	is_valid_variant (a_variant :INTEGER): BOOLEAN is
 		do	

@@ -20,6 +20,10 @@ indexing
 				]"
 
 deferred class GDA_CONNECTION_SCHEMA_ENUM
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- enum
 	is_valid_schema (a_schema :INTEGER): BOOLEAN is
 		do	

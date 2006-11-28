@@ -22,6 +22,8 @@ indexing
 
 deferred class GTK_STYLE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {}
 
 	gtk_style_set_background(a_handle, a_pixmap: POINTER; a_state: INTEGER) is

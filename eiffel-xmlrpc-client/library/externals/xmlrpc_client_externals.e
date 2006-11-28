@@ -1,5 +1,9 @@
 deferred class XMLRPC_CLIENT_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
+
+
 feature {} -- Externals
 
 	xmlrpc_client_create (an_env_ptr: POINTER; flags: INTEGER;

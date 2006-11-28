@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_PACK_DIRECTION
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_pack_direction (a_direction :INTEGER): BOOLEAN is

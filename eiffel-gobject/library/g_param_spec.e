@@ -41,6 +41,7 @@ creation from_external_pointer
 	
 feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
+		obsolete "G_PARAM_SPEC should be deferred and its place should be taken by specialized heirs such as G_PARAM_SPEC_BOOLEAN"
 		do
 			check a_ptr.is_not_null end
 			set_shared

@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_RELIEF_STYLE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_relief_style (a_style: INTEGER): BOOLEAN is

@@ -21,6 +21,10 @@ indexing
 
 deferred class GDA_DATA_MODEL_ACCESS_FLAGS_ENUM
 
+inherit ANY undefine is_equal, copy end
+
+
+
 insert ANY undefine copy, is_equal end
 
 feature {} -- enum

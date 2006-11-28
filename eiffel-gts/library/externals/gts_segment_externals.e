@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTS_SEGMENT_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 	-- #define     GTS_SEGMENT_CLASS               (klass)
 	-- #define     GTS_SEGMENT                     (obj)

@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_FILE_CHOOSER_DIALOG_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	
 	gtk_file_chooser_dialog_new (a_title, a_parent: POINTER; a_gtkfilechooseraction: INTEGER;

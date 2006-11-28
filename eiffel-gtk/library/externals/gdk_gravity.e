@@ -23,6 +23,9 @@ indexing
 
 deferred class GDK_GRAVITY
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	gdk_gravity_north_west: INTEGER is

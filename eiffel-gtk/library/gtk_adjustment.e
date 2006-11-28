@@ -30,7 +30,10 @@ inherit GTK_OBJECT
 	
 insert
 	GTK_ADJUSTMENT_EXTERNALS
-	EXCEPTIONS export {} all end
+	EXCEPTIONS 
+		export {} all 
+		undefine copy, is_equal
+		end
 	
 creation make, from_external_pointer
 

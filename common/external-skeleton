@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class _EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 feature -- size
 	struct_size: INTEGER is

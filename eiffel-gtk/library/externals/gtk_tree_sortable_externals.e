@@ -23,6 +23,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_TREE_SORTABLE_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	--             GtkTreeSortable;

@@ -23,6 +23,9 @@ indexing
 
 deferred class GTK_ADJUSTMENT_EXTERNALS
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	gtk_adjustment_new (a_value, a_lower, an_upper, a_step_increment, a_page_increment, a_page_size: REAL): POINTER is
 		external "C use <gtk/gtk.h>"

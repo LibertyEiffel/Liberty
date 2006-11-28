@@ -33,36 +33,40 @@ indexing
 
 class G_LIST [ITEM->WRAPPER]
 inherit
--- TODO: uncomment this when possible:
--- Temporary commented out to let some example work with SmartEiffel 
--- version 2.2 and SVN
--- 	LINKED_COLLECTION [ITEM]
--- 		redefine
--- 			append_collection,
--- 			clear_all,
--- 			has,
--- 			fast_has,
--- 			fast_first_index_of,
--- 			first_index_of,
--- 			get_new_iterator,
--- 			reverse,
--- 			upper,
--- 			swap
--- 		end
+	-- TODO: uncomment this when possible:
+	-- Temporary commented out to let some example work with SmartEiffel 
+	-- version 2.2 and SVN
+	-- 	LINKED_COLLECTION [ITEM]
+	-- 		redefine
+	-- 			append_collection,
+	-- 			clear_all,
+	-- 			has,
+	-- 			fast_has,
+	-- 			fast_first_index_of,
+	-- 			first_index_of,
+	-- 			get_new_iterator,
+	-- 			reverse,
+	-- 			upper,
+	-- 			swap
+	-- 		end
+	
 	SHARED_C_STRUCT
 			-- Note: a NULL pointer is the actual *valid* empty
 			-- G_LIST. Therefore any handle.is_not_null postcondition
 			-- shall be circumvented.
 		rename
 			exists as wrapped_object_exists
-		undefine fill_tagged_out_memory
+		undefine
+			fill_tagged_out_memory
+		redefine
+			copy, dispose
 		end
 	-- Note: Shall the wrapper factory be inserted rather than 
 	-- inherited?
 	WRAPPER_FACTORY [ITEM] -- undefine copy,is_equal end
 
 insert
-	G_LIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
+	G_LIST_EXTERNALS undefine fill_tagged_out_memory end
 
 creation make, empty, from_external_pointer
 
@@ -302,8 +306,7 @@ feature
 		local old_handle: POINTER
 		do
 			old_handle := handle
-			handle:=g_list_reverse (handle)
-			g_list_free (handle) -- TODO is this call correct?
+			handle:=g_list_reverse (old_handle)
 		end
 
 	upper,count: INTEGER is
@@ -440,12 +443,15 @@ feature
 -- list : 	a GList.
 -- data : 	data to remove.
 -- Returns : 	new head of list.
--- g_list_free ()
 
--- void        g_list_free                    (GList *list);
+	dispose is
+			-- Frees all of the memory used by a GList. The freed
+			-- elements are added to the GAllocator free list.
+		do
+			g_list_free (handle)
+			handle:= default_pointer
+		end
 
--- Frees all of the memory used by a GList. The freed elements are added to the GAllocator free list.
--- list : 	a GList.
 -- g_list_free_1 ()
 
 -- void        g_list_free_1                  (GList *list);

@@ -20,6 +20,9 @@ indexing
 
 deferred class GTK_FILE_CHOOSER_WIDGET_EXTERNALS
 
+inherit
+	ANY undefine is_equal, copy end
+
 insert
 	GTK_FILE_CHOOSER_ACTION
 

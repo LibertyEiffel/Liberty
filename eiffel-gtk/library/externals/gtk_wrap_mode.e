@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_WRAP_MODE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_wrap_mode (a_mode :INTEGER): BOOLEAN is

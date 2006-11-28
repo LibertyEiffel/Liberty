@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_SHADOW_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_shadow_type (a_shadow: INTEGER): BOOLEAN is

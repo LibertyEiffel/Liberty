@@ -20,6 +20,10 @@ indexing
 				]"
 
 deferred class PANGO_STYLE
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- enum
 	is_valid_style (a_style :INTEGER): BOOLEAN is
 		do	

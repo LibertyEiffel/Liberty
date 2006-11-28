@@ -21,6 +21,8 @@ indexing
 
 deferred class GDK_EVENT_ANY_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gdk_event_any_get_window (ptr: POINTER): POINTER is

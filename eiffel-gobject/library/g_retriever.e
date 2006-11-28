@@ -14,5 +14,5 @@ insert
 			eiffel_wrapper_from_gobject_pointer,
 			has_eiffel_wrapper_stored
 		end
-
+	ANY -- to get is_equal and copy
 end

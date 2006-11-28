@@ -26,13 +26,13 @@ class GTK_TREE_PATH
 inherit
 	SHARED_C_STRUCT
 		redefine
+			copy,
 			dispose
 		end
 
 insert
 	GTK
 	GTK_TREE_MODEL_EXTERNALS
-		redefine copy end
 
 creation
 	make, make_first, copy_from_pointer,
@@ -46,7 +46,7 @@ feature {} -- Creation
 		do
 			handle := gtk_tree_path_new
 		ensure
-			not is_shared
+			not_shared: not is_shared
 		end
 
 	copy_from_pointer (a_ptr: POINTER) is

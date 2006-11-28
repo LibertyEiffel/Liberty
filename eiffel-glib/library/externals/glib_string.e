@@ -11,8 +11,10 @@ indexing
 	bytes.
 	]"
 
-class GLIB_STRING
-	
+deferred class GLIB_STRING
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- utility function
 	
 	char_in_string (string: POINTER; i: INTEGER): CHARACTER is

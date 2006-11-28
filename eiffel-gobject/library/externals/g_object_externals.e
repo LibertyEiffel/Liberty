@@ -8,6 +8,8 @@ indexing
 
 deferred class G_OBJECT_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	-- #include <glib-object.h>
 

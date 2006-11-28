@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTS_EDGE_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 	-- #define     GTS_EDGE_CLASS                  (klass)
 	-- #define     GTS_EDGE                        (obj)

@@ -22,6 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_DIALOG_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 insert
 	GTK_DIALOG_FLAGS
 	GTK_RESPONSE_TYPE
@@ -86,6 +89,7 @@ feature {} -- Externals
 	--                                              gint *new_orderis
 	-- external "C use <gtk/gtk.h>"
 	-- end
+
 feature {} -- GtkDialog struct
 
 	gtkwidget_vbox (a_dialog: POINTER): POINTER is

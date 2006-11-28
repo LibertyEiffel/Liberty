@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_HSCALE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_hscale_new (an_adjustment: POINTER): POINTER is

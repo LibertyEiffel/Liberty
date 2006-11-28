@@ -42,7 +42,7 @@ indexing
 			-- (a-z or A-Z) or an underscore '_'. Subsequent characters
 			-- can be letters, numbers or any of '-_+'.
 
-class G_TYPE
+deferred class G_TYPE
 
 insert G_TYPE_EXTERNALS
 

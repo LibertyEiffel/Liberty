@@ -20,6 +20,10 @@ indexing
 				]"
 
 deferred class GDA_DATA_MODEL_HINT_ENUM
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {}  -- enum
 	is_valid_hint (an_hint :INTEGER): BOOLEAN is
 		do	

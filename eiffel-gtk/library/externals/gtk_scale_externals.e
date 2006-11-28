@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_SCALE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 insert GTK_POSITION_TYPE
 
 feature {} -- External calls

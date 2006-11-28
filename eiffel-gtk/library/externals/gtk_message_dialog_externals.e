@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_MESSAGE_DIALOG_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 insert
 	GTK_DIALOG_FLAGS
 	GTK_MESSAGE_TYPE

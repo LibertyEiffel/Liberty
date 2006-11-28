@@ -23,6 +23,9 @@ indexing
 
 deferred class GTK_ATTACH_OPTIONS
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature  {} -- enum
 	are_valid_attach_options (an_attach_options: INTEGER): BOOLEAN is
 		do	

@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_ITEM_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- externals 
 
 	gtk_item_select (an_item: POINTER) is external "C use <gtk/gtk.h>" end

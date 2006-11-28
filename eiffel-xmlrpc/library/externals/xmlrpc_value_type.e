@@ -25,6 +25,10 @@ indexing
 
 deferred class XMLRPC_VALUE_TYPE
 
+inherit ANY undefine is_equal, copy end
+
+
+
 		-- typedef enum {
 		--     XMLRPC_TYPE_INT      = 0,
 		--     XMLRPC_TYPE_BOOL     = 1,

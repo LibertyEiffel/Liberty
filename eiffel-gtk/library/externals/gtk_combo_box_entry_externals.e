@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_COMBO_BOX_ENTRY_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_combo_box_entry_new: POINTER is

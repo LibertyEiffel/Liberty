@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class G_PARAM_FLAGS
+
+inherit ANY undefine is_equal, copy end
+
 feature  -- enum
 	are_valid_param_flags (some_flags :INTEGER): BOOLEAN is
 		do	

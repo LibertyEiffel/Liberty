@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_STANDARD_ENUMERATIONS
 
+inherit ANY undefine is_equal, copy end
+
 insert
 	-- Note: enumeration implemented as separate classes are inserted 
 	-- here. The enumeration that are wrapped here are still named 

@@ -23,8 +23,9 @@ indexing
 
 deferred class PANGO_CONSTANTS
 
-feature
+inherit ANY undefine is_equal, copy end
 
+feature {} -- Constants
 	pango_scale: INTEGER is
 		external "C macro use <pango/pango-types.h>"
 		alias "PANGO_SCALE"

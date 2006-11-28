@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_FILE_FILTER_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 insert GTK_FILE_FILTER_FLAGS
 
 feature {} -- External calls

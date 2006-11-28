@@ -8,7 +8,7 @@ indexing
 deferred class C_STRUCT
 
 inherit
-	WRAPPER -- redefine copy end
+	WRAPPER
 
 insert EXCEPTIONS
 		export {} all
@@ -33,8 +33,21 @@ feature -- Queries
 		do
 			Result := is_not_null
 		end
-	-- TODO: implement copy using memcpy
 
+feature -- Copying
+	copy (another: like Current) is
+		local old_handle, new_handle: POINTER
+		do
+			old_handle := handle
+			allocate
+			new_handle := memcpy (handle, old_handle, struct_size)
+		end
+	
+	is_equal (another: like Current): BOOLEAN is
+		do
+			Result:= Current.handle = another.handle
+		end
+	
 feature {} -- Access to C features
 	
 	-- struct_size should be exported to WRAPPER, to be able to check size 
@@ -72,7 +85,7 @@ feature {} -- Destroying
 			free (handle)
 		end
 
-feature {}
+feature {} -- External calls
 
 	calloc (a_number, a_size: INTEGER): POINTER is
 		external "C use <stdlib.h>"
@@ -84,5 +97,14 @@ feature {}
 		external "C use <stdlib.h>"
 		end
 
+	memcpy (a_dest, a_src: POINTER; a_size: INTEGER): POINTER is
+			-- void *memcpy(void *dest, const void *src, size_t n);
+		external "C use <stdlib.h>"
+		end
+
+	memcmp(a, b: POINTER; len: INTEGER): INTEGER is
+		external "C use <string.h>"
+		end
+			
 end
 

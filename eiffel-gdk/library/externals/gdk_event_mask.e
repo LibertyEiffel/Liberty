@@ -28,6 +28,8 @@ indexing
 
 deferred class GDK_EVENT_MASK
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_gdk_event_mask (an_event_mask: INTEGER) : BOOLEAN is

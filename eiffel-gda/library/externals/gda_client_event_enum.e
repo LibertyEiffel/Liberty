@@ -27,6 +27,10 @@ indexing
 				-- execute_command method on the provider 
 
 deferred class GDA_CLIENT_EVENT_ENUM
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- enum
 	is_valid_client_event (an_event :INTEGER): BOOLEAN is
 		do	

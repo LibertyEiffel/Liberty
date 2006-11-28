@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_DIALOG_FLAGS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	are_valid_dialog_flags (some_flags :INTEGER): BOOLEAN is

@@ -1,6 +1,7 @@
 class DND_DEMO
 
 insert
+	ANY
 	GTK
 	GTK_DEST_DEFAULTS
 	GDK_DRAG_ACTION

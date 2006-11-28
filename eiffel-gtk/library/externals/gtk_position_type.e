@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_POSITION_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_position_type (a_position: INTEGER): BOOLEAN is

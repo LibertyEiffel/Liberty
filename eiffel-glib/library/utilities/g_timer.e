@@ -7,7 +7,10 @@ indexing
 class G_TIMER
 
 inherit
-	GLIB_TIMER
+	C_STRUCT
+	
+insert
+	G_TIMER_EXTERNALS
 
 creation
 	make

@@ -21,7 +21,9 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class PANGO_CONTEXT_EXTERNALS
+deferred class PANGO_CONTEXT_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 

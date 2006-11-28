@@ -6,6 +6,8 @@ indexing
 
 deferred class G_VALUE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {C_STRUCT} -- allocation
 	malloc_g_value: POINTER is
 			-- Allocate a GValue struct

@@ -12,7 +12,7 @@ indexing
 
 deferred class GDK_FILL_RULE
 
-inherit ANY undefine copy end
+inherit ANY undefine is_equal, copy end
 
 feature  {} -- enum
 

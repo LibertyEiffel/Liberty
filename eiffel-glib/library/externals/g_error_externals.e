@@ -23,6 +23,8 @@ indexing
 
 deferred class G_ERROR_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	g_error_get_code (a_error: POINTER): INTEGER is

@@ -20,6 +20,8 @@ indexing
 
 deferred class GTK_ICON_VIEW_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_icon_view_new: POINTER is

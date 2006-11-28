@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_RESIZE_MODE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	gtk_resize_parent: INTEGER is

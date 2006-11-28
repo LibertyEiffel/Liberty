@@ -29,6 +29,8 @@ indexing
 
 deferred class GDK_EVENT_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} --  enum
 
 	is_valid_gdk_event_type (an_event_type: INTEGER) : BOOLEAN is

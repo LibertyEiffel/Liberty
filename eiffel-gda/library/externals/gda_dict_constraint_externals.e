@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DICT_CONSTRAINT_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 insert
 	GDA_DICT_CONSTRAINT_TYPE_ENUM
 	GDA_DICT_CONSTRAINT_FK_ACTION_ENUM

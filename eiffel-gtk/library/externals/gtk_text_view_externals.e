@@ -23,8 +23,9 @@ indexing
 
 deferred class GTK_TEXT_VIEW_EXTERNALS
 
-inherit
-	GTK_TEXT_WINDOW_TYPE
+inherit ANY undefine is_equal, copy end
+insert GTK_TEXT_WINDOW_TYPE
+
 
 feature {}
 

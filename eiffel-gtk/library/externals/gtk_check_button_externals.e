@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_CHECK_BUTTON_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_check_button_new: POINTER is

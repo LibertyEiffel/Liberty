@@ -22,7 +22,13 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_LABEL_EXTERNALS
-inherit GTK_JUSTIFICATION
+
+inherit
+	GTK_JUSTIFICATION
+
+	ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 
 	gtk_label_new (a_string: POINTER): POINTER is

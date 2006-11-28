@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class _EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 	-- #include <gts.h>
 

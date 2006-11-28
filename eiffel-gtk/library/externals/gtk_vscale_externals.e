@@ -22,6 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_VSCALE_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	gtk_vscale_new (an_adjustment: POINTER): POINTER is
 		external "C use  <gtk/gtk.h>"

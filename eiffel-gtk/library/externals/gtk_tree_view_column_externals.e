@@ -22,6 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_TREE_VIEW_COLUMN_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	-- void (*GtkTreeCellDataFunc) (GtkTreeViewColumn *tree_column,

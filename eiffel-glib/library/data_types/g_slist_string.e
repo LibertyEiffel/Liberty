@@ -12,27 +12,28 @@ inherit
 	-- [ITEM->WRAPPER] and the hypotetical G_SLIST for Eiffel objects
 	
 	-- TODO: make it inherit from:
--- 	LINKED_COLLECTION [STRING]
--- 		redefine
--- 			append_collection,
--- 			clear_all,
--- 			has,
--- 			fast_has,
--- 			fast_first_index_of,
--- 			first_index_of,
--- 			reverse,
--- 			upper,
--- 			swap
--- 		end
+	-- 	LINKED_COLLECTION [STRING]
+	-- 		redefine
+	-- 			append_collection,
+	-- 			clear_all,
+	-- 			has,
+	-- 			fast_has,
+	-- 			fast_first_index_of,
+	-- 			first_index_of,
+	-- 			reverse,
+	-- 			upper,
+	-- 			swap
+	-- 		end
 	SHARED_C_STRUCT
 		rename
 			is_not_null as wrapped_object_exists
 		redefine
+			copy,
 			dispose
 		end
 
 insert
-	G_SLIST_EXTERNALS undefine copy,is_equal,fill_tagged_out_memory end
+	G_SLIST_EXTERNALS undefine fill_tagged_out_memory end
 		-- TODO: inserting INTERNALS_HANDLER is NOT necessary. Remove it
 		-- INTERNALS_HANDLER
 		-- needed to materialize an object of type STRING, without knowing

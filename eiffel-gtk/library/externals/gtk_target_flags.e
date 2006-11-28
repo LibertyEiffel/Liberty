@@ -22,6 +22,8 @@ indexing
 
 deferred class GTK_TARGET_FLAGS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} --Gtk_Accel_Flags
 
 	gtk_target_same_app: INTEGER is -- 1 << 0,    /*< nick=same-app >*/

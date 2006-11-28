@@ -22,6 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_CELL_RENDERER_STATE
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 	is_valid_cell_renderer_state (a_state :INTEGER): BOOLEAN is
 		do

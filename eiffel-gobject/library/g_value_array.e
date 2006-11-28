@@ -14,7 +14,7 @@ indexing
 class G_VALUE_ARRAY
 inherit
 	SHARED_C_STRUCT
-		undefine free
+		redefine copy, free
 		end
 	
 creation make

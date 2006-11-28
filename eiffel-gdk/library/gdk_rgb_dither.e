@@ -26,6 +26,10 @@ indexing
 
 deferred class GDK_RGB_DITHER
 
+inherit ANY undefine is_equal, copy end
+
+
+
 feature  -- enum
 
 	is_valid_rgb_dither (a_dither :INTEGER): BOOLEAN is

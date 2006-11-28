@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Externals
 
 	gtk_color_selection_new (title: POINTER): POINTER is

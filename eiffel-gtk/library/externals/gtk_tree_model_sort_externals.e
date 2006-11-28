@@ -24,6 +24,9 @@ indexing
 
 deferred class GTK_TREE_MODEL_SORT_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
+
 -- Synopsis
 
 -- #include <gtk/gtk.h>

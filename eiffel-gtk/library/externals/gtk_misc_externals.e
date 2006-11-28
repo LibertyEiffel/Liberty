@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_MISC_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_misc_set_alignment (a_misc: POINTER; a_gfloat_xalign,a_gfloat_yalign: REAL) is

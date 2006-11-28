@@ -41,6 +41,8 @@ indexing
 
 deferred class GTK_UPDATE_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_update_type (an_update_type: INTEGER): BOOLEAN is

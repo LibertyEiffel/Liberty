@@ -20,6 +20,8 @@ indexing
 
 deferred class GTK_COLOR_BUTTON_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_color_button_new: POINTER  is

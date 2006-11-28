@@ -22,6 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_TREE_ITER_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	get_stamp (iter: POINTER): INTEGER is
 		external "C struct GtkTreeIter get stamp use <gtk/gtk.h>"

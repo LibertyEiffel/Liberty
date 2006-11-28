@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DATA_MODEL_ITER_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 	
 	gda_data_model_iter_new (a_model: POINTER): POINTER is

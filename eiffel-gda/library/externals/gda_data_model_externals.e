@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DATA_MODEL_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 	gda_data_model_changed (a_model: POINTER) is
 			-- void gda_data_model_changed (GdaDataModel *model);

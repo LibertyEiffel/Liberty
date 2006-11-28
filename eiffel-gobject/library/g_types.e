@@ -20,6 +20,10 @@ indexing
 			]"
 
 deferred class G_TYPES
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} --  numerical values of fundamental GTypes
 	g_type_invalid: INTEGER is
 			-- An invalid GType, used as error return value in some functions which

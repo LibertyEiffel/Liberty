@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_FILE_CHOOSER_CONFIRMATION
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_file_chooser_confirmation (a_gtk_file_chooser_confirmation: INTEGER): BOOLEAN is

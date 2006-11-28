@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_CONNECTION_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 insert
 	GDA_CONNECTION_OPTIONS_ENUM
 	GDA_CONNECTION_FEATURE_ENUM

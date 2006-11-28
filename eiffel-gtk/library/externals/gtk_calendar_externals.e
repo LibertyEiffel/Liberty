@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_CALENDAR_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Externals
 
 	gtk_calendar_new: POINTER is --  GtkWidget

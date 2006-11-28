@@ -23,6 +23,9 @@ indexing
 
 deferred class GTK_ALIGNMENT_EXTERNALS
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature {} -- external calls
 
 	gtk_alignment_new (xalign, yalign, xscale, yscale: REAL_32): POINTER is

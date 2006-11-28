@@ -21,6 +21,8 @@ indexing
 
 deferred class GDK_EVENT_MOTION_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gdk_event_motion_get_time (ptr: POINTER): INTEGER is

@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_MESSAGE_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_message_type (a_gtk_message_type :INTEGER): BOOLEAN is

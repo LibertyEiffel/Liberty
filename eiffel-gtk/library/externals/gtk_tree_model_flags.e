@@ -29,6 +29,8 @@ indexing
 
 deferred class GTK_TREE_MODEL_FLAGS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	are_valid_tree_model_flags (some_flags: INTEGER): BOOLEAN is

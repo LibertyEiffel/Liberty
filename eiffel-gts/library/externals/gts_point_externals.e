@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTS_POINT_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 insert GTS_INTERSECT
 feature {} -- External calls
 

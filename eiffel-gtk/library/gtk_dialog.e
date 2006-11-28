@@ -84,28 +84,26 @@ indexing
 
 			-- Example 1. Simple GtkDialog usage.
 
--- /* Function to open a dialog box displaying the message provided. */
+			-- /* Function to open a dialog box displaying the message provided. */
 
--- void quick_message (gchar *message) {
-
---    GtkWidget *dialog, *label;
+			-- void quick_message (gchar *message) {
 	
---    /* Create the widgets */
+			--    GtkWidget *dialog, *label;
 	
---    dialog = gtk_dialog_new_with_buttons ("Message",
---                                          main_application_window,
---                                          GTK_DIALOG_DESTROY_WITH_PARENT,
---                                          GTK_STOCK_OK,
---                                          GTK_RESPONSE_NONE,
---                                          NULL);
---    label = gtk_label_new (message);
+			--    /* Create the widgets */
 	
---    /* Ensure that the dialog box is destroyed when the user responds. */
+			-- dialog = gtk_dialog_new_with_buttons ("Message",
+			-- main_application_window, GTK_DIALOG_DESTROY_WITH_PARENT,
+			-- GTK_STOCK_OK, GTK_RESPONSE_NONE, NULL); -- label =
+			-- gtk_label_new (message);
 	
---    g_signal_connect_swapped (dialog,
---                              "response", 
---                              G_CALLBACK (gtk_widget_destroy),
---                              dialog);
+			-- /* Ensure that the dialog box is destroyed when the user
+			-- responds. */
+	
+			--    g_signal_connect_swapped (dialog,
+			--                              "response", 
+			--                              G_CALLBACK (gtk_widget_destroy),
+			--                              dialog);
 
 --    /* Add the label, and show everything we've added to the dialog. */
 
@@ -742,8 +740,7 @@ feature {} -- property names strings
 	action_area_border_property_name: STRING is "action-area-border"
 	button_spacing_property_name: STRING is "button-spacing"
 	content_area_border_property_name: STRING is "content-area-border"
-
-feature -- struct size
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkDialog)"

@@ -24,6 +24,8 @@ indexing
 
 deferred class GDK_EVENT_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 insert
 	GDK_EVENT_TYPE
 

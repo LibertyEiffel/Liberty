@@ -20,7 +20,11 @@ indexing
 					]"
 					
 deferred class G_PARAM_SPEC_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 insert G_PARAM_FLAGS
+
 feature {} -- External calls
 
 	g_type_is_param(a_type: INTEGER): INTEGER is

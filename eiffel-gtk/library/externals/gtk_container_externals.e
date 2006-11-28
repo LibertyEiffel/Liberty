@@ -24,7 +24,9 @@ indexing
 deferred class GTK_CONTAINER_EXTERNALS
 
 inherit
+	ANY undefine is_equal, copy end
 	GTK_RESIZE_MODE
+
 feature {} -- External calls
 
 -- #include

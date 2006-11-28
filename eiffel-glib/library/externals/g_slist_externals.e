@@ -4,7 +4,10 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class G_SLIST_EXTERNALS
+deferred class G_SLIST_EXTERNALS
+	
+inherit ANY undefine is_equal, copy end
+
 feature {} -- external calls
 	
 	g_slist_alloc: POINTER is

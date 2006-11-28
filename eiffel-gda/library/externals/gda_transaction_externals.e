@@ -7,6 +7,10 @@ indexing
 
 deferred class GDA_TRANSACTION_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
+
+
 feature {} -- External calls
 
 	gda_transaction_new (a_name: POINTER): POINTER is

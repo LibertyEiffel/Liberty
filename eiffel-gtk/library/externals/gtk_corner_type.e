@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_CORNER_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_corner_type (a_corner_type :INTEGER): BOOLEAN is

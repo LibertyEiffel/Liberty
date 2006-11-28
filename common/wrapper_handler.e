@@ -7,6 +7,6 @@ indexing
 
 deferred class WRAPPER_HANDLER
 
-inherit ANY undefine copy end
+inherit ANY undefine is_equal, copy end
 
 end

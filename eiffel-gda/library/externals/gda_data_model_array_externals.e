@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DATA_MODEL_ARRAY_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 	gda_data_model_array_new (a_col_n: INTEGER): POINTER is
 			--  GdaDataModel* gda_data_model_array_new (gint cols);

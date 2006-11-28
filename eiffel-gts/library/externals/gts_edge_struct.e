@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTS_EDGE_STRUCT
+
+inherit ANY undefine is_equal, copy end
+
+
 	-- typedef struct { GtsSegment segment; GSList * triangles; } GtsEdge;
 	-- The edge object.
 

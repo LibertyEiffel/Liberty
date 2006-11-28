@@ -23,6 +23,10 @@ indexing
 			-- tends to make the end-user programmer write horrible code
 			
 deferred class SHARED_G_ERROR
+
+inherit ANY undefine is_equal, copy end
+
+
 	
 insert
 	POINTER_HANDLING

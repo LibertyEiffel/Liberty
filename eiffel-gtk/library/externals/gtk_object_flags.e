@@ -22,6 +22,8 @@ indexing
 
 deferred class GTK_OBJECT_FLAGS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	gtk_in_destruction: INTEGER is

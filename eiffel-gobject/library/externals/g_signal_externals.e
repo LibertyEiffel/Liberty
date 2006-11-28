@@ -6,6 +6,8 @@ inherit
 	G_SIGNAL_FLAGS
 	G_SIGNAL_MATCH_TYPE
 	G_CONNECT_FLAGS
+	ANY undefine is_equal, copy end
+
 feature {} -- External calls
 -- #include <glib-object.h>
 

@@ -33,21 +33,21 @@ indexing
 
 class G_SLIST [ITEM->WRAPPER]
 inherit
--- TODO: uncomment this when possible:
--- Temporary commented out to let some example work with SnartEiffel 
--- version 2.2 and SVN
--- 	LINKED_COLLECTION [ITEM]
--- 		redefine
--- 			append_collection,
--- 			clear_all,
--- 			has,
--- 			fast_has,
--- 			fast_first_index_of,
--- 			first_index_of,
--- 			reverse,
--- 			upper,
--- 			swap
--- 		end
+	-- TODO: uncomment this when possible:
+	-- Temporary commented out to let some example work with SnartEiffel 
+	-- version 2.2 and SVN
+	-- 	LINKED_COLLECTION [ITEM]
+	-- 		redefine
+	-- 			append_collection,
+	-- 			clear_all,
+	-- 			has,
+	-- 			fast_has,
+	-- 			fast_first_index_of,
+	-- 			first_index_of,
+	-- 			reverse,
+	-- 			upper,
+	-- 			swap
+	-- 		end
 	SHARED_C_STRUCT
 			-- Note: a NULL pointer is the actual *valid* empty
 			-- G_LIST. Therefore any handle.is_not_null postcondition
@@ -55,13 +55,11 @@ inherit
 		rename
 			exists as wrapped_object_exists
 		redefine
-			dispose
+			copy, dispose
 		end
 
 insert
-	G_SLIST_EXTERNALS -- undefine copy,is_equal,fill_tagged_out_memory end
-		undefine copy
-		end
+	G_SLIST_EXTERNALS 
 	WRAPPER_FACTORY [ITEM]
 
 creation make, empty, make_empty, from_external_pointer

@@ -20,6 +20,9 @@ indexing
 
 deferred class GTK_ADJUSTMENT_STRUCT
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature {} -- struct access
 	get_lower (an_adjustment: POINTER): REAL is
 			-- 	the minimum value.

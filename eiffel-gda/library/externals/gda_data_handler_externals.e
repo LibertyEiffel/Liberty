@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DATA_HANDLER_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- External calls
 	gda_data_handler_get_sql_from_value (an_handler, a_value: POINTER): POINTER is
 			-- gchar* gda_data_handler_get_sql_from_value (GdaDataHandler

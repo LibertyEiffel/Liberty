@@ -24,6 +24,10 @@ indexing
 
 deferred class GLIB_TIMEOUT
 
+inherit ANY undefine is_equal, copy end
+
+
+
 feature -- Access
 
 	enabled: BOOLEAN

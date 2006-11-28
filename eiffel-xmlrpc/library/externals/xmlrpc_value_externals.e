@@ -25,6 +25,10 @@ indexing
 
 deferred class XMLRPC_VALUE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
+
+
 insert
 	XMLRPC_VALUE_TYPE
 

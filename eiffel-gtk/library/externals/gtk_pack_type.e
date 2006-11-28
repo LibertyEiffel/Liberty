@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_PACK_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_pack_type (a_pack_type:INTEGER): BOOLEAN is

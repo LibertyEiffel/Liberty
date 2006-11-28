@@ -7,6 +7,8 @@ indexing
 
 deferred class GTK_TEXT_WINDOW_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 	-- enum GtkTextWindowType
 	-- 
 	-- typedef enum

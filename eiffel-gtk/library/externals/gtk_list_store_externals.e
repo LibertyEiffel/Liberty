@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_LIST_STORE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {}
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

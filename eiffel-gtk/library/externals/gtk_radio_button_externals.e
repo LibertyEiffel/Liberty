@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_RADIO_BUTTON_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_radio_button_new (gslist_group: POINTER): POINTER is

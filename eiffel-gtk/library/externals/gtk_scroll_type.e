@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_SCROLL_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	gtk_scroll_none: INTEGER is

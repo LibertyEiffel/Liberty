@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_VALUE_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 insert  
 	GDA_VALUE_TYPE_ENUM
 

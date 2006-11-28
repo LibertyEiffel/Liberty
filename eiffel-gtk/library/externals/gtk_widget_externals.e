@@ -21,7 +21,9 @@ indexing
 	date: "$Date:$"
 	revision: "$REvision:$"
 
-class GTK_WIDGET_EXTERNALS
+deferred class GTK_WIDGET_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 

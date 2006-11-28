@@ -20,6 +20,8 @@ indexing
 
 deferred class GTK_FRAME_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 insert
 	GTK_SHADOW_TYPE
 

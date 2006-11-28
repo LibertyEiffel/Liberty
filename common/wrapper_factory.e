@@ -34,7 +34,7 @@ insert
 	INTERNALS_HANDLER
 		-- needed to materialize an object of type ITEM, without knowing
 		-- which type ITEM will really be.
-		undefine copy,fill_tagged_out_memory
+		undefine is_equal, copy, fill_tagged_out_memory
 		end
 	SHARED_WRAPPERS_DICTIONARY
 	

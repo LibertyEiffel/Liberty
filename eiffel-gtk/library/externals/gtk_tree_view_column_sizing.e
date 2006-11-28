@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_TREE_VIEW_COLUMN_SIZING
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_tree_view_column_sizing (a_sizing :INTEGER): BOOLEAN is

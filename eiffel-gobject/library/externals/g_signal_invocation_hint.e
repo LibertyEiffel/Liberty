@@ -6,6 +6,9 @@ indexing
 	revision "$REvision:$"
 
 class G_SIGNAL_INVOCATION_HINT
+
+inherit ANY undefine is_equal, copy end
+
 feature -- setters and getters
 	
 -- GSignalInvocationHint

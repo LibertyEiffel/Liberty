@@ -24,6 +24,7 @@ indexing
 deferred class GTK_FILE_CHOOSER_EXTERNALS
 
 inherit
+	ANY undefine is_equal, copy end
 	GTK_FILE_CHOOSER_CONFIRMATION
 	GTK_FILE_CHOOSER_ERROR
 	GTK_FILE_CHOOSER_ACTION

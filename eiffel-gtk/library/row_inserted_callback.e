@@ -28,7 +28,7 @@ inherit
 	CALLBACK redefine object end
 
 insert
-	G_RETRIEVER [GTK_TREE_MODEL]
+	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 
 creation make
 

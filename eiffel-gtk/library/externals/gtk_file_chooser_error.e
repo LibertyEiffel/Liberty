@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_FILE_CHOOSER_ERROR
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_file_chooser_error (a_gtk_file_chooser_error :INTEGER): BOOLEAN is

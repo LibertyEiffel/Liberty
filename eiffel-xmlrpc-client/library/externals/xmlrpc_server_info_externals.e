@@ -1,5 +1,9 @@
 deferred class XMLRPC_SERVER_INFO_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
+
+
 feature {} -- Externals
 
 	xmlrpc_server_info_new (an_env_ptr, an_url: POINTER): POINTER is

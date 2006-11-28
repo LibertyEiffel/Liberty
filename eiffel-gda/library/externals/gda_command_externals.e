@@ -7,6 +7,10 @@ indexing
 
 deferred class GDA_COMMAND_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
+
+
 insert ANY undefine copy, is_equal end
 
 feature {} -- External calls

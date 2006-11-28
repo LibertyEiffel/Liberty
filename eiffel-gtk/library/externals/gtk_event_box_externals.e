@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_EVENT_BOX_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_event_box_new: POINTER is

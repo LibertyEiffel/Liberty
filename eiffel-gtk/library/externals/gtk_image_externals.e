@@ -20,6 +20,8 @@ indexing
 
 deferred class GTK_IMAGE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	gtk_image_new: POINTER is
 		external "C use <gtk/gtk.h>"

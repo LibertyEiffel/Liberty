@@ -8,6 +8,8 @@ indexing
 
 deferred class G_CONNECT_FLAGS
 
+inherit ANY undefine is_equal, copy end
+
 feature
 	are_valid_connect_flags (some_flags: INTEGER): BOOLEAN is
 		do

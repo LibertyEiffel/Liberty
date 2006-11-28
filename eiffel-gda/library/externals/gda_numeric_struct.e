@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_NUMERIC_STRUCT
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- Structure getter/setter calls
 --  typedef struct {
 --          gchar *number;

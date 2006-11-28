@@ -23,7 +23,7 @@ inherit
 		-- sometimes in order to allocate memory for a shared C
 		-- structure.
 		redefine
-			from_external_pointer, dispose
+			copy, from_external_pointer, dispose
 		end
 
 insert
@@ -94,6 +94,12 @@ feature {} -- Storing wrapper pointer into wrapped object
 					print ("). Really bad things will happen...%N")
 				end
 			end
+		end
+
+feature -- Copying
+	copy (another: like Current) is
+		do
+			from_external_pointer (another.handle)
 		end
 	
 feature {} -- Destroying

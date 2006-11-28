@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class G_ENUM_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	g_enum_class_type (a_class: POINTER) is
 		external "C macro use <glib-object.h>"

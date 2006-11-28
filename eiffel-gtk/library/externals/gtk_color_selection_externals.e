@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_COLOR_SELECTION_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Externals
 
 	gtk_color_selection_get_current_color (a_handle, a_color: POINTER) is

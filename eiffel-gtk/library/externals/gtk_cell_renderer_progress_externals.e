@@ -24,6 +24,8 @@ indexing
 
 deferred class GTK_CELL_RENDERER_PROGRESS_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 -- Synopsis
 
 -- #include <gtk/gtk.h>

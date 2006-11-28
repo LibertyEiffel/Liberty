@@ -7,6 +7,10 @@ indexing
 
 deferred class GDA_CLIENT_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
+
+
 insert
 	ANY undefine copy, is_equal end
 	GDA_CLIENT_EVENT_ENUM

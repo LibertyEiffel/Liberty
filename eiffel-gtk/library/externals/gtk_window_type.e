@@ -22,6 +22,8 @@ indexing
 
 deferred class GTK_WINDOW_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Externals
 
 	gtk_window_toplevel: INTEGER is

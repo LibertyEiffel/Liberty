@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_SELECTION_MODE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_selection_mode (a_mode: INTEGER): BOOLEAN is

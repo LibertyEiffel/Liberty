@@ -20,6 +20,10 @@ indexing
 				]"
 
 deferred class GDA_BLOB_MODE_ENUM
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- enum
 	is_valid_blob_mode (a_mode :INTEGER): BOOLEAN is
 		do	

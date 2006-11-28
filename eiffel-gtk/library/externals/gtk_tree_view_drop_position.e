@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_TREE_VIEW_DROP_POSITION
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_tree_view_drop_position (a_position: INTEGER): BOOLEAN is

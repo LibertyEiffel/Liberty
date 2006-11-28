@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_SORT_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_sort_type (a_sort_type: INTEGER): BOOLEAN is

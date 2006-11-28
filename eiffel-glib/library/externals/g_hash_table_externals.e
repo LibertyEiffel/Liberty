@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class G_HASH_TABLE_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	g_hash_table_new (an_hash_func, a_key_equal_func: POINTER): POINTER is
 			-- GHashTable* g_hash_table_new (GHashFunc hash_func,

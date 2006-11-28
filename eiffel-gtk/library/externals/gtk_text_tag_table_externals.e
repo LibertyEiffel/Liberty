@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_TEXT_TAG_TABLE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	-- void        (*GtkTextTagTableForeach)       (GtkTextTag *tag, gpointer data)
 

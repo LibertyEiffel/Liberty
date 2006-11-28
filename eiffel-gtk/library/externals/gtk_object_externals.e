@@ -22,6 +22,8 @@ indexing
 
 deferred class GTK_OBJECT_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	gtk_object_flags (obj: POINTER): INTEGER is

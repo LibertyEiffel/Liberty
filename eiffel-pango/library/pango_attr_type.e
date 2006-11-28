@@ -30,6 +30,10 @@ indexing
 				]"
 
 deferred class PANGO_ATTR_TYPE
+
+inherit ANY undefine is_equal, copy end
+
+
 feature  -- enum
 	is_valid_pango_type (a_type :INTEGER): BOOLEAN is
 		do	

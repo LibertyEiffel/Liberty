@@ -35,6 +35,8 @@ indexing
 
 deferred class GDK_MODIFIER_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_gdk_modifier_type (a_modifier: INTEGER) : BOOLEAN is

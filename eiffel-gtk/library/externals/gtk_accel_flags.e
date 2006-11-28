@@ -22,6 +22,9 @@ indexing
 
 deferred class GTK_ACCEL_FLAGS
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature {} -- Enum
 
 	gtk_accel_visible: INTEGER is -- = 1 << 0,	/* display in Gtk_Accel_Label? */

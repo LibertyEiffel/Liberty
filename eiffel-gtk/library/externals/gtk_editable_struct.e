@@ -22,6 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_EDITABLE_STRUCT
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Access calls
 	-- The GtkEditable structure contains the following fields. (These
 	-- fields should be considered read-only. They should never be set

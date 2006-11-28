@@ -21,6 +21,8 @@ indexing
 deferred class GTK_BUTTON_EXTERNALS
 
 inherit
+	ANY undefine is_equal, copy end
+	
 	GTK_RELIEF_STYLE
 
 feature {} -- External calls

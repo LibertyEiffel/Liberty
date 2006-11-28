@@ -20,6 +20,10 @@ indexing
 				]"
 
 deferred class PANGO_WEIGHT
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- enum
 	is_valid_pango_weight (a_weight: INTEGER): BOOLEAN is
 		do	

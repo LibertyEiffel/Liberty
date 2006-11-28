@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_DATE_STRUCT
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- Structure getter/setter calls
 	--  typedef struct {
 	--          gshort year;

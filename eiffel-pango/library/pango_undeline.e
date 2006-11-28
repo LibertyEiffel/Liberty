@@ -20,6 +20,10 @@ indexing
 				]"
 
 deferred class PANGO_UNDERLINE
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- enum
 	is_valid_underline (a_type :INTEGER): BOOLEAN is
 		do	

@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class G_FLAGS_CLASS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 --   GFlagsClass
 

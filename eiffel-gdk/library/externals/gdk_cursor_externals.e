@@ -24,6 +24,8 @@ indexing
 
 deferred class GDK_CURSOR_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 insert
 	GDK_CURSOR_TYPE
 

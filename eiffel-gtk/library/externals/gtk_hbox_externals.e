@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_HBOX_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_hbox_new (homogeneous, spacing: INTEGER): POINTER is

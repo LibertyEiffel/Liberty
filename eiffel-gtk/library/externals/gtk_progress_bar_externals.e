@@ -20,6 +20,8 @@ indexing
 
 deferred class GTK_PROGRESS_BAR_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_progress_bar_new : POINTER is

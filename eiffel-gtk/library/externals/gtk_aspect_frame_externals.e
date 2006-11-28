@@ -23,6 +23,9 @@ indexing
 
 deferred class GTK_ASPECT_FRAME_EXTERNALS
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_aspect_frame_new (a_label: POINTER; gfloat_xalign, gfloat_yalign, gfloat_ratio: REAL_32;

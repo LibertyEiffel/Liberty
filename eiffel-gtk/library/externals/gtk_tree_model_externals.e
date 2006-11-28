@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_TREE_MODEL_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	-- gboolean (*GtkTreeModelForeachFunc) (GtkTreeModel *model,

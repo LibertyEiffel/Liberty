@@ -20,6 +20,8 @@ indexing
 
 deferred class GTK_FILE_CHOOSER_BUTTON_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_file_chooser_button_new (a_title: POINTER; an_action: INTEGER): POINTER is

@@ -5,7 +5,9 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class G_SIGNAL_MATCH_TYPE
+deferred class G_SIGNAL_MATCH_TYPE
+
+inherit ANY undefine is_equal, copy end
 
 feature {} --  enum
 	is_valid_signal_match_type (a_match_type: INTEGER): BOOLEAN is

@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_TOGGLE_BUTTON_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_toggle_button_new: POINTER is

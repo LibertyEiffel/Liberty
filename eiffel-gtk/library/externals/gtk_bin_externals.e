@@ -22,6 +22,9 @@ indexing
 
 deferred class GTK_BIN_EXTERNALS
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_bin_get_child (a_bin: POINTER): POINTER is

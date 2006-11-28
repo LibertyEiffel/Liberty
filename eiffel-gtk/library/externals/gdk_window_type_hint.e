@@ -24,6 +24,8 @@ indexing
 				  ]"
 deferred class GDK_WINDOW_TYPE_HINT
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	gdk_window_type_hint_normal: INTEGER is

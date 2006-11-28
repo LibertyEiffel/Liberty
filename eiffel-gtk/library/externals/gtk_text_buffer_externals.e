@@ -25,6 +25,8 @@ indexing
 
 deferred class GTK_TEXT_BUFFER_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {}
 
 	gtk_text_buffer_new(dummy_table: POINTER): POINTER is

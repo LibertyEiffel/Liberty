@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_FONT_SELECTION_DIALOG_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Externals
 
 	gtk_font_selection_dialog_new (a_title_str: POINTER): POINTER is -- GtkWidget*

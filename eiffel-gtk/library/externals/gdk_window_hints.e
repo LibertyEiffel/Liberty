@@ -33,6 +33,9 @@ indexing
 
 deferred class GDK_WINDOW_HINTS
 
+inherit
+	ANY undefine is_equal, copy end
+
 feature {} -- enum
 	gdk_hint_pos: INTEGER is
 			-- indicates that the program has positioned the window

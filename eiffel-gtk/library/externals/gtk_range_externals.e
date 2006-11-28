@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_RANGE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 insert GTK_UPDATE_TYPE
 
 feature {} -- External calls

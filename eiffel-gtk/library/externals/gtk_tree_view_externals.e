@@ -24,6 +24,8 @@ indexing
 
 deferred class GTK_TREE_VIEW_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	-- gboolean (*GtkTreeViewColumnDropFunc) (GtkTreeView *tree_view,

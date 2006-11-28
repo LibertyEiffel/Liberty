@@ -38,6 +38,8 @@ indexing
 
 deferred class GTK_STATE_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_state_type (a_state_type: INTEGER): BOOLEAN is

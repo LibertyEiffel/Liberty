@@ -29,6 +29,8 @@ indexing
 
 deferred class GDK_CURSOR_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 	-- typedef enum
 	-- {
 	--   GDK_X_CURSOR 		  = 0,

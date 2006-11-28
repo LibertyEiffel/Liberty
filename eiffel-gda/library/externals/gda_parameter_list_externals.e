@@ -6,6 +6,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_PARAMETER_LIST_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
+
 insert
 	GDA_PARAMETER_LIST_PARAM_HINT_ENUM
 

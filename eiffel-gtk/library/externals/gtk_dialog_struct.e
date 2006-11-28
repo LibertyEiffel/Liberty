@@ -22,8 +22,10 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_DIALOG_STRUCT
-feature {} -- External calls
 
+inherit ANY undefine is_equal, copy end
+
+feature {} -- GtkDialog struct
 	get_vbox (a_gtk_dialog: POINTER): POINTER is
 		external "C struct GtkDialog get vbox use <gtk/gtk.h>"
 		end
@@ -31,4 +33,14 @@ feature {} -- External calls
 	get_action_area (a_gtk_dialog: POINTER): POINTER is
 		external "C struct GtkDialog get action_area use <gtk/gtk.h>"
 		end
+
+	set_gtkdialog_vbox (a_dialog: POINTER; a_vbox: POINTER) is
+		external "C struct GtkDialog set vbox use <gtk/gtk.h>"
+		end
+
+	set_gtkdialog_action_area (a_dialog: POINTER; an_action_area: POINTER): POINTER is
+		external "C struct GtkDialog set action_area use <gtk/gtk.h>"
+		end
+
+
 end

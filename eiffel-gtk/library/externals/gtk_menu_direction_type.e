@@ -23,6 +23,8 @@ indexing
 
 deferred class  GTK_MENU_DIRECTION_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_menu_direction (a_direction :INTEGER): BOOLEAN is

@@ -20,6 +20,10 @@ indexing
 				]"
 
 deferred class PANGO_STRETCH
+
+inherit ANY undefine is_equal, copy end
+
+
 feature {} -- enum
 	is_valid_stretch (a_stretch :INTEGER): BOOLEAN is
 		do	

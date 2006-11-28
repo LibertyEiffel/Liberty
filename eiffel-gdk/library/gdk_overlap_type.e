@@ -8,7 +8,7 @@ indexing
 			-- Specifies the possible values returned by gdk_region_rect_in().
 deferred class  GDK_OVERLAP_TYPE
 
-inherit ANY undefine copy end
+inherit ANY undefine is_equal, copy end
 
 feature  -- enum
 	is_valid_overlap_type (a_type :INTEGER): BOOLEAN is

@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_POLICY_TYPE
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_policy (a_policy_type :INTEGER): BOOLEAN is

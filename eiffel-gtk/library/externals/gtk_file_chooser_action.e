@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_FILE_CHOOSER_ACTION
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- enum
 
 	is_valid_file_chooser_action (a_gtk_file_chooser_action: INTEGER): BOOLEAN is

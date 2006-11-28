@@ -22,6 +22,9 @@ indexing
 
 deferred class GTK_NOTEBOOK_EXTERNALS
 
+inherit
+	ANY undefine is_equal, copy end
+
 insert
 	GTK_POSITION_TYPE
 	GTK_PACK_TYPE

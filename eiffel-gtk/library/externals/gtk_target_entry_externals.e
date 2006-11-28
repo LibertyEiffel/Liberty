@@ -21,6 +21,8 @@ indexing
 
 deferred class GTK_TARGET_ENTRY_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 		-- GtkTargetEntry
 		-- 
 		-- typedef struct {

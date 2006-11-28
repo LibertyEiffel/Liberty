@@ -22,6 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_CELL_RENDERER_TOGGLE_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	gtk_cell_renderer_toggle_new: POINTER is
 		external "C use <gtk/gtk.h>"

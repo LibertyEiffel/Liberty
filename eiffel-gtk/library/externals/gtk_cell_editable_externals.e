@@ -24,6 +24,8 @@ indexing
 
 deferred class GTK_CELL_EDITABLE_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 --             GtkCellEditable;

@@ -22,6 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_CELL_RENDERER_PIXBUF_EXTERNALS
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 	gtk_cell_renderer_pixbuf_new: POINTER is -- GtkCellRenderer*

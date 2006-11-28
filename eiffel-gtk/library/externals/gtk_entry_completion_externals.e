@@ -23,6 +23,8 @@ indexing
 
 deferred class GTK_ENTRY_COMPLETION_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- External calls
 
 -- gboolean    (*GtkEntryCompletionMatchFunc)  (GtkEntryCompletion *completion, const gchar *key, GtkTreeIter *iter, gpointer user_data);
