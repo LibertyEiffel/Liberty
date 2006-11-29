@@ -16,8 +16,10 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-				]"
-	license: "LGPL v2 or later"
+					]"
+
+					
+				license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"
 
@@ -352,33 +354,47 @@ feature -- various queries
 			end
 		end
 
--- 	gtk_window_set_focus (window,focus: POINTER) is
--- 		-- If focus is not the current focus widget, and is focusable,
--- 		-- sets it as the focus widget for the window. If focus is NULL,
--- 		-- unsets the focus widget for this window. To set the focus to
--- 		-- a particular widget in the toplevel, it is usually more
--- 		-- convenient to use gtk_widget_grab_focus() instead of this
--- 		-- function.
+feature -- Focusing
+	unset_focus is
+			-- Unsets the focus widget for this window. 
+		do
+			gtk_window_set_focus (handle, default_pointer)
+		ensure focus_unset: -- TODO
+		end
 
--- 			-- window : 	a GtkWindow
--- 			-- focus : 	widget to be the new focus widget, or NULL to unset any focus widget for the toplevel window.
--- 		external "C use <gtk/gtk.h>"
--- 		end
+	set_focus (a_widget: POINTER) is
+			-- If `a_widget' is not the current focus widget, and is focusable,
+			-- sets it as the focus widget for the window. To set the focus to
+			-- a particular widget in the toplevel, it is usually more
+			-- convenient to use `GTK_WIDGET.grab_focus' instead of this
+			-- function.
+		require 
+			widget_not_void: a_widget /= Void
+			widget_is_contained_in_window: -- TODO
+		do
+			gtk_window_set_focus (handle, a_widget.handle)
+		end
 
--- 	gtk_window_set_default (window,default_widget: POINTER) is
--- 		-- The default widget is the widget that's activated when the
--- 		-- user presses Enter in a dialog (for example). This function
--- 		-- sets or unsets the default widget for a GtkWindow about. When
--- 		-- setting (rather than unsetting) the default widget it's
--- 		-- generally easier to call gtk_widget_grab_focus() on the
--- 		-- widget. Before making a widget the default widget, you must
--- 		-- set the GTK_CAN_DEFAULT flag on the widget you'd like to make
--- 		-- the default using GTK_WIDGET_SET_FLAGS().
+	set_default (a_default: GTK_WIDGET) is
+			-- Sets the default widget for Current GtkWindow.  The
+			-- default widget is the widget that's activated when the
+			-- user presses Enter in a dialog (for example). When setting
+			-- the default widget it's generally easier to call
+			-- `GTK_WIDGET.grab_focus' on the widget. Before making a
+			-- widget the default widget, you must set the
+			-- `gtk_can_default' flag on the widget you'd like to make
+			-- the default using `set_flags' (TODO?).
+		require 
+			default_not_void: a_default /= Void
+		do
+			gtk_window_set_default (handle,a_widget.handle)
+		end
 
--- 			-- window : 	a GtkWindow
--- 			-- default_widget : 	widget to be the default, or NULL to unset the default widget for the toplevel.
--- 		external "C use <gtk/gtk.h>"
--- 		end
+	unset_default  is
+			-- Unsets the default widget. See also `set_default'
+		do
+			gtk_window_set_default (handle, default_pointer)
+		end
 
 	present is
 			-- Presents a window to the user. This may mean raising the
@@ -387,178 +403,166 @@ feature -- various queries
 			-- focus, possibly dependent on the user's platform, window
 			-- manager, and preferences.
 
-			-- If window is hidden, this function calls gtk_widget_show()
-			-- as well.
+			-- If window is hidden, this function calls `show' as well.
 
-			-- This function should be used when the user tries to open a
+			-- This feature should be used when the user tries to open a
 			-- window that's already open. Say for example the
 			-- preferences dialog is currently open, and the user chooses
-			-- Preferences from the menu a second time; use
-			-- gtk_window_present() to move the already-open dialog where
-			-- the user can see it.
+			-- Preferences from the menu a second time; use `present' to
+			-- move the already-open dialog where the user can see it.
 
-			-- If you are calling this function in response to a user
-			-- interaction, it is preferable to use
-			-- gdk_window_present_with_time().
+			-- If you are calling this feature in response to a user
+			-- interaction, it is preferable to use `present_with_time'.
 		do
 			gtk_window_present (handle)
 		end
 
--- 	gtk_window_present_with_time (window: POINTER; guint32_timestamp: INTEGER_32) is
--- 			-- Presents a window to the user in response to a user
--- 			-- interaction. If you need to present a window without a
--- 			-- timestamp, use gtk_window_present(). See
--- 			-- gtk_window_present() for details.
+	present_with_time (a_timestamp: INTEGER_32) is
+			-- Presents a window to the user in response to a user
+			-- interaction. If you need to present a window without a
+			-- timestamp, use `present'; see `present' for details.
 
--- 			-- window : 	a GtkWindow
--- 			-- timestamp : 	the timestamp of the user interaction (typically a button or key press event) which triggered this call
--- 		obsolete "guint32_timestamp: INTEGER_32 shall be NATURAL_32"
--- 		external "C use <gtk/gtk.h>"
--- 		end
+			-- `a_timestamp' is usually derived from the user interaction
+			-- (typically a button or key press event) which triggered
+			-- this call.
+		obsolete "a_timestamp shall be NATURAL_32"
+		require positive_stamp: a_timestamp >= 0
+		do 
+			gtk_window_present_with_time(handle,a_timestamp)
+		end
 
+	iconify  is
+			-- Asks to iconify (i.e. minimize) the specified window. Note
+			-- that you shouldn't assume the window is definitely
+			-- iconified afterward, because other entities (e.g. the user
+			-- or window manager) could deiconify it again, or there may
+			-- not be a window manager in which case iconification isn't
+			-- possible, etc. But normally the window will end up
+			-- iconified. Just don't write code that crashes if not.
 
--- 	gtk_window_iconify (window: POINTER) is
--- 			-- Asks to iconify (i.e. minimize) the specified window. Note
--- 			-- that you shouldn't assume the window is definitely
--- 			-- iconified afterward, because other entities (e.g. the user
--- 			-- or window manager) could deiconify it again, or there may
--- 			-- not be a window manager in which case iconification isn't
--- 			-- possible, etc. But normally the window will end up
--- 			-- iconified. Just don't write code that crashes if not.
+			-- It's permitted to call this function before showing a
+			-- window, in which case the window will be iconified before
+			-- it ever appears onscreen.
 
--- 			-- It's permitted to call this function before showing a
--- 			-- window, in which case the window will be iconified before
--- 			-- it ever appears onscreen.
+			-- You can track iconification via the "window_state_event"
+			-- signal on GtkWidget.
+		do
+			gtk_window_iconify (handle)
+		end
 
--- 			-- You can track iconification via the "window_state_event"
--- 			-- signal on GtkWidget.
+	deiconify is
+			-- Asks to deiconify (i.e. unminimize) the specified
+			-- window. Note that you shouldn't assume the window is
+			-- definitely deiconified afterward, because other entities
+			-- (e.g. the user or window manager) could iconify it again
+			-- before your code which assumes deiconification gets to
+			-- run.
+		
+			-- You can track iconification via the "window_state_event"
+			-- signal on GtkWidget.
+		do
+			gtk_window_deiconify (handle)
+		end
 
--- 			-- window : 	a GtkWindow
--- 		external "C use <gtk/gtk.h>"
--- 		end
+	stick is
+			-- Asks to stick the window, which means that it will appear
+			-- on all user desktops. Note that you shouldn't assume the
+			-- window is definitely stuck afterward, because other
+			-- entities (e.g. the user or window manager) could unstick
+			-- it again, and some window managers do not support sticking
+			-- windows. But normally the window will end up stuck. Just
+			-- don't write code that crashes if not.
 
+			-- It's permitted to call this function before showing a
+			-- window.
 
--- 	gtk_window_deiconify (window: POINTER) is
--- 			-- Asks to deiconify (i.e. unminimize) the specified
--- 			-- window. Note that you shouldn't assume the window is
--- 			-- definitely deiconified afterward, because other entities
--- 			-- (e.g. the user or window manager) could iconify it again
--- 			-- before your code which assumes deiconification gets to
--- 			-- run.
+			-- You can track stickiness via the "window_state_event"
+			-- signal on GtkWidget.
+		do
+			gtk_window_stick (handle)
+		end
 
--- 			-- You can track iconification via the "window_state_event" signal on GtkWidget.
+	unstick is
+			-- Asks to unstick window, which means that it will appear on
+			-- only one of the user's desktops. Note that you shouldn't
+			-- assume the window is definitely unstuck afterward, because
+			-- other entities (e.g. the user or window manager) could
+			-- stick it again. But normally the window will end up
+			-- stuck. Just don't write code that crashes if not.
 
--- 			-- window : 	a GtkWindow
--- 		external "C use <gtk/gtk.h>"
--- 		end
+			-- You can track stickiness via the "window_state_event" signal on GtkWidget.
+		do
+			gtk_window_unstick (handle)
+		end
 
+	maximize is
+			-- Asks to maximize window, so that it becomes
+			-- full-screen. Note that you shouldn't assume the window is
+			-- definitely maximized afterward, because other entities
+			-- (e.g. the user or window manager) could unmaximize it
+			-- again, and not all window managers support
+			-- maximization. But normally the window will end up
+			-- maximized. Just don't write code that crashes if not.
 
--- 	gtk_window_stick (window: POINTER) is
--- 			-- Asks to stick window, which means that it will appear on
--- 			-- all user desktops. Note that you shouldn't assume the
--- 			-- window is definitely stuck afterward, because other
--- 			-- entities (e.g. the user or window manager) could unstick
--- 			-- it again, and some window managers do not support sticking
--- 			-- windows. But normally the window will end up stuck. Just
--- 			-- don't write code that crashes if not.
+			-- It's permitted to call this function before showing a
+			-- window, in which case the window will be maximized when it
+			-- appears onscreen initially.
 
--- 			-- It's permitted to call this function before showing a window.
+			-- You can track maximization via the "window_state_event"
+			-- signal on GtkWidget.
+		do
+			gtk_window_maximize (handle)
+		end
 
--- 			-- You can track stickiness via the "window_state_event"
--- 			-- signal on GtkWidget.
+	unmaximize is
+			-- Asks to unmaximize window. Note that you shouldn't assume
+			-- the window is definitely unmaximized afterward, because
+			-- other entities (e.g. the user or window manager) could
+			-- maximize it again, and not all window managers honor
+			-- requests to unmaximize. But normally the window will end
+			-- up unmaximized. Just don't write code that crashes if not.
 
--- 			-- window : 	a GtkWindow
--- 		external "C use <gtk/gtk.h>"
--- 		end
-
-
--- 	gtk_window_unstick (window: POINTER) is
--- 			-- Asks to unstick window, which means that it will appear on
--- 			-- only one of the user's desktops. Note that you shouldn't
--- 			-- assume the window is definitely unstuck afterward, because
--- 			-- other entities (e.g. the user or window manager) could
--- 			-- stick it again. But normally the window will end up
--- 			-- stuck. Just don't write code that crashes if not.
-
--- 			-- You can track stickiness via the "window_state_event" signal on GtkWidget.
-
--- 			-- window : a GtkWindow
--- 		external "C use <gtk/gtk.h>"
--- 		end
-
-
--- 	gtk_window_maximize (window: POINTER) is
--- 			-- Asks to maximize window, so that it becomes
--- 			-- full-screen. Note that you shouldn't assume the window is
--- 			-- definitely maximized afterward, because other entities
--- 			-- (e.g. the user or window manager) could unmaximize it
--- 			-- again, and not all window managers support
--- 			-- maximization. But normally the window will end up
--- 			-- maximized. Just don't write code that crashes if not.
-
--- 			-- It's permitted to call this function before showing a
--- 			-- window, in which case the window will be maximized when it
--- 			-- appears onscreen initially.
-
--- 			-- You can track maximization via the "window_state_event"
--- 			-- signal on GtkWidget.
-
--- 			-- window : 	a GtkWindow
--- 		external "C use <gtk/gtk.h>"
--- 		end
-
-
--- 	gtk_window_unmaximize (window: POINTER) is
--- 			-- Asks to unmaximize window. Note that you shouldn't assume
--- 			-- the window is definitely unmaximized afterward, because
--- 			-- other entities (e.g. the user or window manager) could
--- 			-- maximize it again, and not all window managers honor
--- 			-- requests to unmaximize. But normally the window will end
--- 			-- up unmaximized. Just don't write code that crashes if not.
-
--- 			-- You can track maximization via the "window_state_event"
--- 			-- signal on GtkWidget.
-
--- 			-- window : 	a GtkWindow
--- 		external "C use <gtk/gtk.h>"
--- 		end
+			-- You can track maximization via the "window_state_event"
+			-- signal on GtkWidget.
+		do
+			gtk_window_unmaximize (handle)
+		end
 
 
--- 	gtk_window_fullscreen (window: POINTER) is
--- 			-- Asks to place window in the fullscreen state. Note that you
--- 			-- shouldn't assume the window is definitely full screen
--- 			-- afterward, because other entities (e.g. the user or window
--- 			-- manager) could unfullscreen it again, and not all window
--- 			-- managers honor requests to fullscreen windows. But normally
--- 			-- the window will end up fullscreen. Just don't write code that
--- 			-- crashes if not.
+	gtk_window_fullscreen (window: POINTER) is
+			-- Asks to place window in the fullscreen state. Note that
+			-- you shouldn't assume the window is definitely full screen
+			-- afterward, because other entities (e.g. the user or window
+			-- manager) could unfullscreen it again, and not all window
+			-- managers honor requests to fullscreen windows. But
+			-- normally the window will end up fullscreen. Just don't
+			-- write code that crashes if not.
 
--- 			-- You can track the fullscreen state via the
--- 			-- "window_state_event" signal on GtkWidget.
-
--- 			-- window : 	a GtkWindow
--- 		external "C use <gtk/gtk.h>"
--- 		end
-
-
--- 	gtk_window_unfullscreen (window: POINTER) is
--- 			-- Asks to toggle off the fullscreen state for window. Note
--- 			-- that you shouldn't assume the window is definitely not
--- 			-- full screen afterward, because other entities (e.g. the
--- 			-- user or window manager) could fullscreen it again, and not
--- 			-- all window managers honor requests to unfullscreen
--- 			-- windows. But normally the window will end up restored to
--- 			-- its normal state. Just don't write code that crashes if
--- 			-- not.
-
--- 			-- You can track the fullscreen state via the
--- 			-- "window_state_event" signal on GtkWidget.
-
--- 			-- window : a GtkWindow
--- 		external "C use <gtk/gtk.h>"
--- 		end
+			-- You can track the fullscreen state via the
+			-- "window_state_event" signal on GtkWidget.
+		do
+			gtk_window_fullscreen (handle)
+		end
 
 
+	gtk_window_unfullscreen (window: POINTER) is
+			-- Asks to toggle off the fullscreen state for window. Note
+			-- that you shouldn't assume the window is definitely not
+			-- full screen afterward, because other entities (e.g. the
+			-- user or window manager) could fullscreen it again, and not
+			-- all window managers honor requests to unfullscreen
+			-- windows. But normally the window will end up restored to
+			-- its normal state. Just don't write code that crashes if
+			-- not.
+
+			-- You can track the fullscreen state via the
+			-- "window_state_event" signal on GtkWidget.
+		do
+			gtk_window_unfullscreen (handle)
+		end
+
+
+	
 -- 	gtk_window_set_keep_above (window: POINTER; setting: INTEGER) is 
 -- 			-- Asks to keep window above, so that it stays on top. Note
 -- 			-- that you shouldn't assume the window is definitely above
