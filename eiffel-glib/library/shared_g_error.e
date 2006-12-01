@@ -30,9 +30,6 @@ inherit ANY undefine is_equal, copy end
 	
 insert
 	POINTER_HANDLING
-		undefine
-			copy, is_equal
-		end
 	
 feature
 	error: G_ERROR is 

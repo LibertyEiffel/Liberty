@@ -9,12 +9,12 @@ class G_STRING
 inherit
 	-- STRING redefine make undefine storage TODO: make G_STRING a
 	-- proper heir of STRING. This require to handle all the
-	-- releationship between STRING's storage and G_STRING handle
+	-- relationship between STRING's storage and G_STRING handle
 
-	ANY --redefine copy, is_equal end
-
+	ANY
+		redefine copy, is_equal end
 	C_STRUCT
-	
+		redefine copy, is_equal end
 	GLIB_STRING
 
 	GLIB_STRING_UTILITY_FUNCTIONS
@@ -88,13 +88,13 @@ feature {ANY}
 			Result := g_string_hash (handle)
 		end
 
--- 	is_equal (other: like Current): BOOLEAN is
--- 			-- Do both strings have the same character sequence?
--- 			--
--- 			-- See also `same_as'.
--- 		do
--- 			Result := g_string_equal( handle, other.handle).to_boolean
--- 		end
+	is_equal (other: like Current): BOOLEAN is
+			-- Do both strings have the same character sequence?
+			--
+			-- See also `same_as'.
+		do
+			Result := g_string_equal( handle, other.handle).to_boolean
+		end
 
 	index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
 		local i: INTEGER; found: BOOLEAN
@@ -130,11 +130,11 @@ feature {ANY} -- Modification:
 			handle := g_string_set_size (handle,0)
 		end
 
--- 	copy (other: like Current) is
--- 			-- Copy `other' onto Current.
--- 		do
--- 			handle := g_string_new (str(other.handle))
--- 		end
+	copy (other: like Current) is
+			-- Copy `other' onto Current.
+		do
+			handle := g_string_new_len (str(other.handle), len (other.handle))
+		end
 
 	fill_with (c: CHARACTER) is
 		local i:INTEGER

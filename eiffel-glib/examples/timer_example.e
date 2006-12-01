@@ -10,7 +10,7 @@ creation make
 feature
 	timer: G_TIMER
 	make is
-		local t: DOUBLE
+		local t: REAL
 		do
 			create timer.make
 			from  until timer.elapsed > 10.0

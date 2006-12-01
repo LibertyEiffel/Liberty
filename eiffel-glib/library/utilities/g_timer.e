@@ -8,7 +8,8 @@ class G_TIMER
 
 inherit
 	C_STRUCT
-	
+		redefine dispose end
+
 insert
 	G_TIMER_EXTERNALS
 
@@ -16,26 +17,35 @@ creation
 	make
 
 feature {}
-	timer: POINTER
-	
+
+	struct_size: INTEGER is
+		external "C inline use <glib.h>"
+		alias "sizeof(GTimer)"
+		end
+
 feature {} -- Creation
 	make is
 			-- Creates a new timer, and starts timing
 		do
-			timer := g_timer_new
+			handle := g_timer_new
 		end
 	
+	dispose is
+		do
+			g_timer_destroy (handle)
+			handle := default_pointer
+		end
 feature
 	start is
 			-- (Re)starts timing
 		do
-			g_timer_start(timer)
+			g_timer_start(handle)
 		end
 
 	stop is 
 			-- Marks an end time
 		do
-			 g_timer_stop (timer)
+			 g_timer_stop (handle)
 		end
 
 	continue is
@@ -43,7 +53,7 @@ feature
 		require
 			-- TODO is_stopped
 		do
-			g_timer_continue (timer)
+			g_timer_continue (handle)
 		end
 
 	elapsed: REAL is
@@ -55,7 +65,7 @@ feature
 		local
 			microseconds: REAL
 		do
-			Result:= g_timer_elapsed (timer, $microseconds)
+			Result:= g_timer_elapsed (handle, $microseconds)
 		end
 
 end
