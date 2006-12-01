@@ -3,9 +3,10 @@ indexing
 	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision "$Revision:$"
 
-	long: "[ A GString is similar to a standard C string, except that it grows
+	long: "[
+	A GString is similar to a standard C string, except that it grows
 	automatically as text is appended or inserted. Also, it stores the
 	length of the string, so can be used for binary data with embedded nul
 	bytes.
