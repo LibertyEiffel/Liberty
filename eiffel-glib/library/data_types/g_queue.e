@@ -451,13 +451,6 @@ feature {} -- Unwrapped API
 -- Since 2.4
 
 	
-feature -- size
-
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GQueue)"
-		end
-
 feature {} -- struct GQueue
 
 -- typedef struct {
