@@ -362,7 +362,7 @@ feature -- Focusing
 		ensure focus_unset: -- TODO
 		end
 
-	set_focus (a_widget: POINTER) is
+	set_focus (a_widget: GTK_WIDGET) is
 			-- If `a_widget' is not the current focus widget, and is focusable,
 			-- sets it as the focus widget for the window. To set the focus to
 			-- a particular widget in the toplevel, it is usually more
@@ -387,7 +387,7 @@ feature -- Focusing
 		require 
 			default_not_void: a_default /= Void
 		do
-			gtk_window_set_default (handle,a_widget.handle)
+			gtk_window_set_default (handle,a_default.handle)
 		end
 
 	unset_default  is
@@ -529,7 +529,7 @@ feature -- Focusing
 		end
 
 
-	gtk_window_fullscreen (window: POINTER) is
+	fullscreen  is
 			-- Asks to place window in the fullscreen state. Note that
 			-- you shouldn't assume the window is definitely full screen
 			-- afterward, because other entities (e.g. the user or window
@@ -545,7 +545,7 @@ feature -- Focusing
 		end
 
 
-	gtk_window_unfullscreen (window: POINTER) is
+	unfullscreen is
 			-- Asks to toggle off the fullscreen state for window. Note
 			-- that you shouldn't assume the window is definitely not
 			-- full screen afterward, because other entities (e.g. the

@@ -25,7 +25,7 @@ deferred class GTK_CELL_RENDERER_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
-inherit
+insert
 	GTK_CELL_RENDERER_STATE
 	GTK_CELL_RENDERER_MODE
 
