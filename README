@@ -6,12 +6,15 @@ http://smarteiffel.loria.fr/ ).
 
 Some of the libraries that shall be wrapped are:
 * GTK+ The GIMP Toolkit
+* libGlade a dynamic interface loader for GTK+
 * GSL - GNU Scientific Library
 * GNU Triangulated Surface Library
 * BLAS (Basic Linear Algebra)
 * Gnome libraries (Gnome-vfs GConf)
 * GNU Transport Layer Security Library could be wrapped
 * All the database APIs (Postgresql, MySQL, SQLite, Firebird, GnomeDB, ODBC et cetera).
+* FFMPEG a multimedia encoding/decoding library
+* Curl: A full featured HTTP client library
 
 USAGE:
 
