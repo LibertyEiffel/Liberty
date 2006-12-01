@@ -25,4 +25,6 @@ insert
 		export {WRAPPER, WRAPPER_HANDLER}
 			new_item
 		end
+	ANY -- to get is_equal and copy
+
 end -- class WRAPPER_RETRIEVER
