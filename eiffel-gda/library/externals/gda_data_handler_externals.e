@@ -44,7 +44,7 @@ feature {} -- External calls
 	gda_data_handler_get_nb_gda_types (an_handler: POINTER): INTEGER is
 			-- guint gda_data_handler_get_nb_gda_types (GdaDataHandler
 			-- *dh);
-		obsolete "should be NATURAL, since it's a guint"
+			-- TODO: should be NATURAL, since it's a guint
 		external "C use <libgda/libgda.h>"
 		end
 
@@ -56,7 +56,7 @@ feature {} -- External calls
 	gda_data_handler_get_gda_type_index (an_handler: POINTER; an_index: INTEGER): INTEGER is
 			--  GType gda_data_handler_get_gda_type_index (GdaDataHandler *dh, guint 
 			--  index);
-		obsolete "an_index should be NATURAL, since it is a guint"
+			-- TODO: an_index should be NATURAL, since it is a guint
 		external "C use <libgda/libgda.h>"
 		end
 	

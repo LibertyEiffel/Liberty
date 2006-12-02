@@ -52,7 +52,7 @@ feature {} -- size
 		end
 feature 
 	is_connected: BOOLEAN is
-		obsolete "Dummy implementation"
+			-- TODO: Dummy implementation
 		do
 			Result := handle.is_not_null
 		end

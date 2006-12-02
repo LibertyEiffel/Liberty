@@ -59,7 +59,7 @@ feature {} -- External calls
 
 	gts_edge_is_contact (an_edge: POINTER): INTEGER is
 			-- guint gts_edge_is_contact (GtsEdge *e);
-		obsolete "Should be NATURAL, since it's a guint"
+			-- TODO: Should be NATURAL, since it's a guint
 		external "C use <gts.h>"
 		end
 
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	gts_edge_face_number (an_edge, a_surface: POINTER): INTEGER is
 			-- guint gts_edge_face_number (GtsEdge *e, GtsSurface *s);
-		obsolete "should be NATURAL, since it's a guint"
+			-- TODO: should be NATURAL, since it's a guint
 		external "C use <gts.h>"
 		end
 

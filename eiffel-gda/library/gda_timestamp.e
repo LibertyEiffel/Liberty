@@ -34,20 +34,20 @@ feature
 		end
 	
 	month: INTEGER_16 is
-		obsolete "should be NATURAL_16"
+			-- TODO: should be NATURAL_16
 		do
 			Result := get_month(handle)
 		ensure positive: Result >=0
 		end
 
 	day: INTEGER_16 is
-		obsolete "should be NATURAL_16"
+			-- TODO: should be NATURAL_16
 		do
 			Result := get_day(handle)
 		ensure positive: Result >=0
 		end
 	hour: INTEGER_16 is
-		obsolete "should be NATURAL_16" 
+			-- TODO: should be NATURAL_16 
 		do
 			Result := get_hour(handle)
 		ensure positive: Result>=0
@@ -55,14 +55,14 @@ feature
 
 
 	minute: INTEGER_16 is
-		obsolete "should be NATURAL_16" 
+			-- TODO: should be NATURAL_16 
 		do
 			Result := get_minute(handle)
 		ensure positive: Result>=0
 		end
 
 	second: INTEGER_16 is
-		obsolete "should be NATURAL_16" 
+			-- TODO: should be NATURAL_16 
 		do
 			Result := get_second(handle)
 		ensure positive: Result>=0

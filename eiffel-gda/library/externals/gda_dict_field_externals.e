@@ -87,13 +87,13 @@ feature {} -- External calls
 	gda_dict_field_set_attributes (a_field: POINTER; some_attributes: INTEGER) is
 			--  void gda_dict_field_set_attributes (GdaDictField *field, guint
 			--  attributes);
-		obsolete "`some_attributes' should be NATURAL since it is a guint"
+			-- TODO: `some_attributes' should be NATURAL since it is a guint
 		external "C use <libgda/libgda.h>"
 		end
 
 	gda_dict_field_get_attributes (a_field: POINTER): INTEGER is
 			--  guint gda_dict_field_get_attributes (GdaDictField *field);
-		obsolete "It should be NATURAL, since it is a guint"
+			-- TODO: It should be NATURAL, since it is a guint
 		external "C use <libgda/libgda.h>"
 		end
 

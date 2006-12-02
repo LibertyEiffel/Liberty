@@ -127,7 +127,7 @@ feature
 	types_count: INTEGER is
 			-- the number of GType types the GdaDataHandler can handle
 			-- correctly
-		obsolete "Should be NATURAL, since it is a guint"
+			-- TODO: Should be NATURAL, since it is a guint
 		do
 			Result:=gda_data_handler_get_nb_gda_types(handle)
 		end
@@ -141,7 +141,7 @@ feature
 
 	type_at_index (an_index: INTEGER) is
 			-- the GType handled by the GdaDataHandler, at `an_index'
-		obsolete "an_index shall be NATURAL, since it is a guint"
+			-- TODO: an_index shall be NATURAL, since it is a guint
 		require positive_index: an_index >= 0
 		do
 			Result:=gda_data_handler_get_gda_type_index(handke, an_index)

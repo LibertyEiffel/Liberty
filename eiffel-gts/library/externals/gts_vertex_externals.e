@@ -40,7 +40,7 @@ feature {} -- External calls
 
 	gts_vertex_is_contact (a_vertex: POINTER; do_sever: INTEGER): INTEGER is
 			-- guint gts_vertex_is_contact (GtsVertex *v, gboolean sever);
-		obsolete "should be NATURAL since it is guint"
+			-- TODO: should be NATURAL since it is guint
 		external "C use <gts.h>"
 		end
 

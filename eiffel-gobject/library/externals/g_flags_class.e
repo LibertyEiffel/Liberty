@@ -29,13 +29,13 @@ feature {} -- External calls
 --                             individual values.
 	get_mask (a_gflags: POINTER): INTEGER is
 			-- Get the mask covering all possible values.
-		obsolete "should be NATURAL, since it's a guint"
+			-- TODO: should be NATURAL, since it's a guint
 		external "C struct GFlagsClass get mask use <glib-gobject.h>"
 		end
 
 	get_n_values (a_gflags: POINTER): INTEGER is
 			-- Get the number of possible values.
-		obsolete "should be NATURAL, since it's a guint"
+			-- TODO: should be NATURAL, since it's a guint
 		external "C struct GFlagsClass get n_values use <glib-gobject.h>"
 		end
 

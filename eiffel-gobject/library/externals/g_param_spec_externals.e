@@ -543,7 +543,7 @@ feature {} -- External calls for parameter specs of unsigned char type
 			-- default_value : default value for the property specified
 			-- flags : flags for the property specified
 			-- Returns : a newly created parameter specification
-		obsolete "In g_param_spec_uchar a_minimum, a_maximum, a_default_value shall be NATURAL_8 since they're guint8. Currently are CHARACTERs. They should fit well."
+			-- TODO: In g_param_spec_uchar a_minimum, a_maximum, a_default_value shall be NATURAL_8 since they're guint8. Currently are CHARACTERs. They should fit well.
 		require are_valid_param_flags (some_flags)
 		external "C use <glib-object.h>"
 		end
@@ -650,7 +650,7 @@ feature {} -- External calls for parameter specs of unsigned integer type
 			-- default_value : default value for the property specified
 			-- flags : flags for the property specified
 			-- Returns : a newly created parameter specification
-		obsolete "In g_param_spec_uint a_minimum, a_maximum, a_default_value shall be NATURAL since they're guint. Currently are INTEGER. This can produce overflows."
+			-- TODO: In g_param_spec_uint a_minimum, a_maximum, a_default_value shall be NATURAL since they're guint. Currently are INTEGER. This can produce overflows.
 		require are_valid_param_flags (some_flags)
 		external "C use <glib-object.h>"
 		end
@@ -750,7 +750,7 @@ feature {} -- External calls for parameter specs of unsigned long type
 			-- default_value : default value for the property specified
 			-- flags : flags for the property specified
 			-- Returns : a newly created parameter specification
-		obsolete "In g_param_spec_ulong a_minimum, a_maximum, a_default_value shall be NATURAL_64 since they're guint. Currently are INTEGER_64. This can produce overflows."
+			-- TODO: In g_param_spec_ulong a_minimum, a_maximum, a_default_value shall be NATURAL_64 since they're guint. Currently are INTEGER_64. This can produce overflows.
 		require are_valid_param_flags (some_flags)
 		external "C use <glib-object.h>"
 		end
@@ -841,7 +841,7 @@ feature {} -- External calls for parameter specs of uint64 type
 			-- default_value : default value for the property specified
 			-- flags : flags for the property specified
 			-- Returns : a newly created parameter specification
-		obsolete "In g_param_spec_uint64 a_minimum, a_maximum, a_default_value shall be NATURAL_64 since they're guint. Currently are INTEGER_64. This can produce overflows."
+			-- TODO: In g_param_spec_uint64 a_minimum, a_maximum, a_default_value shall be NATURAL_64 since they're guint. Currently are INTEGER_64. This can produce overflows.
 		require are_valid_param_flags (some_flags)
 		external "C use <glib-object.h>"
 		end
@@ -889,7 +889,7 @@ feature {} -- External calls for parameter specs of float type
 			-- default_value : default value for the property specified
 			-- flags : flags for the property specified
 			-- Returns : a newly created parameter specification
-		obsolete "In g_param_spec_float a_minimum, a_maximum, a_default_value are currently REAL_32. This could be uncorrect on some platforms."
+			-- TODO: In g_param_spec_float a_minimum, a_maximum, a_default_value are currently REAL_32. This could be uncorrect on some platforms.
 		require are_valid_param_flags (some_flags)
 		external "C use <glib-object.h>"
 		end
@@ -1023,7 +1023,7 @@ feature {} -- External calls for parameter specs of flags type
 -- default_value : default value for the property specified
 -- flags : flags for the property specified
 			-- Returns : a newly created parameter specification
-		obsolete "a_default_value should be NATURAL since it is a guint. Currently it is an INTEGER"
+			-- TODO: a_default_value should be NATURAL since it is a guint. Currently it is an INTEGER
 		require are_valid_param_flags (some_flags)
 		external "C use <glib-object.h>"
 		end

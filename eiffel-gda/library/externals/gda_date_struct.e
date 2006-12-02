@@ -26,22 +26,22 @@ feature {} -- Structure getter/setter calls
 		end
 
 	get_month (a_struct: POINTER): INTEGER_16 is
-		obsolete "should be NATURAL_16"
+			-- TODO: should be NATURAL_16
 		external "C struct GdaDate get month use <libgda/libgda.h>"
 		end
 
 	set_month (a_struct: POINTER; a_month: INTEGER_16) is
-		obsolete "a _month should be NATURAL_16"
+			-- TODO: a _month should be NATURAL_16
 		external "C struct GdaDate set month use <libgda/libgda.h>"
 		end
 
 	get_day (a_struct: POINTER): INTEGER_16 is
-		obsolete "should be NATURAL_16"
+			-- TODO: should be NATURAL_16
 		external "C struct GdaDate get day use <libgda/libgda.h>"
 		end
 
 	set_day (a_struct: POINTER; a_day: INTEGER_16) is
-		obsolete "a_day should be NATURAL_16"
+			-- TODO: a_day should be NATURAL_16
 		external "C struct GdaDate set day use <libgda/libgda.h>"
 		end
 

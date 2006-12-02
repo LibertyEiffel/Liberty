@@ -173,7 +173,7 @@ feature
 
 	neighbor_number: INTEGER is
 			-- the number of triangles neighbors of t.
-		obsolete "Should be NATURAL since it is a guint"
+			-- TODO: Should be NATURAL since it is a guint
 		do
 			Result := gts_triangle_neighbor_number (handle)
 		end
@@ -260,7 +260,7 @@ feature
 		end
 
 	edges: TUPLE [GTS_EDGE, GTS_EDGE, GTS_EDGE] is
-		obsolete "Investigate if using e1,e2,e3 is better"
+			-- TODO: Investigate if using e1,e2,e3 is better
 		do
 			if stored_edges = Void then retrieve_vertices_and_edges end
 			Result := stored_edges
@@ -454,7 +454,7 @@ feature {} -- External calls
 		end
 	
 	gts_triangle_neighbor_number (a_triangle: POINTER): INTEGER is -- guint
-		obsolete "should be NATURAL since it's a guint"
+			-- TODO: should be NATURAL since it's a guint
 		external "C use <gts.h>"
 		end
 	

@@ -29,7 +29,7 @@ creation make, from_external_pointer
 
 feature 
 	hour: INTEGER_16 is
-		obsolete "should be NATURAL_16" 
+			-- TODO: should be NATURAL_16 
 		do
 			Result := get_hour(handle)
 		ensure positive: Result>=0
@@ -37,14 +37,14 @@ feature
 
 
 	minute: INTEGER_16 is
-		obsolete "should be NATURAL_16" 
+			-- TODO: should be NATURAL_16 
 		do
 			Result := get_minute(handle)
 		ensure positive: Result>=0
 		end
 
 	second: INTEGER_16 is
-		obsolete "should be NATURAL_16" 
+			-- TODO: should be NATURAL_16 
 		do
 			Result := get_second(handle)
 		ensure positive: Result>=0

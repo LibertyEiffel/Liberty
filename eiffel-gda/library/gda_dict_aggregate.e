@@ -91,7 +91,7 @@ feature
 			-- To consult the list of arguments types (and number) of a
 			-- aggregate. Returns : a list of GdaDictType objects, the
 			-- list MUST NOT be modified.
-		obsolete "There is a mismatch between the function signature and its description. Ba things could happen."	
+			-- TODO: There is a mismatch between the function signature and its description. Ba things could happen.	
 		local p: POINTER; r: WRAPPER_RETRIEVER[GDA_DICT_TYPE]
 		do
 			p:=gda_dict_aggregate_get_arg_type(handle)

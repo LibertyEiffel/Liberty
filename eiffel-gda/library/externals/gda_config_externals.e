@@ -180,7 +180,7 @@ feature {} -- External calls
 	gda_config_add_listener (a_path, a_gdaconfiglistenerfunc, some_data: POINTER): INTEGER is
 			-- guint gda_config_add_listener (const gchar *path,
 			-- GdaConfigListenerFunc func, gpointer user_data);
-		obsolete "Result should be NATURAL"
+			-- Result should be NATURAL
 	   external "C use <libgda/libgda.h>"
 	   end
 

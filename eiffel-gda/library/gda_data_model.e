@@ -137,7 +137,7 @@ feature
 	access_flags: INTEGER is
 			-- the attributes of model such as how to access the data it
 			-- contains if it's modifiable, etc.
-		obsolete "should be NATURAL"
+			-- TODO: should be NATURAL
 		do
 			Result := gda_data_model_get_access_flags (handle)
 		ensure valid: are_valid_access_flags (Result)
@@ -192,7 +192,7 @@ feature
 			-- GValueAttribute flags. As a special case, if `a_row_n' is
 			-- -1, then the attributes returned correspond to a "would
 			-- be" value if a row was added to model.
-		obsolete "Should be NATURAL"
+			-- TODO: Should be NATURAL
 		do
 			Result:=gda_data_model_get_attributes_at(handle, a_col_n,a_row_n)
 		end

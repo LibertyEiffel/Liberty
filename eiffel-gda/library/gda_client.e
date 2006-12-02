@@ -60,7 +60,9 @@ feature {} -- Creation
 
 feature 
 	open_connection (a_dsn, a_username, a_password: STRING; some_options: INTEGER): GDA_CONNECTION is
-		obsolete "TODO: which feature name is better: `open_connection' that follow more or less the original anme or `get_new_connection' which is more Eiffel-alike?"
+			-- TODO: which feature name is better: `open_connection' that
+			-- follow more or less the original anme or
+			-- `get_new_connection' which is more Eiffel-alike?"
 		do
 			Result := get_new_connection (a_dsn, a_username, a_password, some_options)
 		end
@@ -300,7 +302,7 @@ feature -- Global transactions
 			-- `is_successful' will be True if all transactions
 			-- could be started successfully, or FALSE if one of them
 			-- fails.
-		obsolete "remove is_transaction_started"
+			-- TODO: remove is_transaction_started
 		require 
 			transaction_not_void: a_transaction /= Void
 		do

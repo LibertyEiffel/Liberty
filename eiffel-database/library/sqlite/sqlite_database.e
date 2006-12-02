@@ -149,7 +149,7 @@ feature
 	
 	cursor: CURSOR is
 			-- Get a new cursor
-		obsolete "to be removed"
+			-- TODO: to be removed
 		do 
 		end
 

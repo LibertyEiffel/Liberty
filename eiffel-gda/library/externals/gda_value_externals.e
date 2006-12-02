@@ -78,7 +78,7 @@ feature {} -- External calls
 	    
 	gda_value_new_biguint (a_value: INTEGER_64): POINTER is 
 			--  GdaValue* gda_value_new_biguint (guint64 val)
-		obsolete "a_value should be NATURAL_64"
+			-- a_value should be NATURAL_64
 		external "C use <libgda/libgda.h>"
 		end
 	
@@ -149,7 +149,7 @@ feature {} -- External calls
 	
 	gda_value_new_smalluint (an_ushort: INTEGER_16): POINTER is 
 			--  GdaValue* gda_value_new_smalluint (gushort val)
-		obsolete "an_ushort should be a NATURAL_16"
+			-- an_ushort should be a NATURAL_16
 		external "C use <libgda/libgda.h>"
 		end
 	    
@@ -180,7 +180,7 @@ feature {} -- External calls
 	
 	gda_value_new_tinyuint (an_unsigned: INTEGER_8): POINTER is
 			--  GdaValue* gda_value_new_tinyuint (guchar val)
-		obsolete "an_unsigned should be a NATURAL_8"
+			-- an_unsigned should be a NATURAL_8
 		external "C use <libgda/libgda.h>"
 		end
 	
@@ -191,7 +191,7 @@ feature {} -- External calls
 	
 	gda_value_new_uinteger (an_unsigned: INTEGER): POINTER is 
 			--  GdaValue* gda_value_new_uinteger (guint val)
-		obsolete "an_unsigned should be a NATURAL"
+			-- an_unsigned should be a NATURAL
 		external "C use <libgda/libgda.h>"
 		end
 	
@@ -247,13 +247,13 @@ feature {} -- External calls
 	    
 	gda_value_get_biguint (a_value: POINTER): INTEGER_64 is
 			--  guint64 gda_value_get_biguint (GdaValue *value)
-		obsolete "result should be NATURAL_64"
+			-- result should be NATURAL_64
 		external "C use <libgda/libgda.h>"
 		end
 	
 	gda_value_set_biguint (a_value: POINTER; a_value: INTEGER_64) is
 			--  void gda_value_set_biguint (GdaValue *value, guint64 val)
-		obsolete "a_value should be a NATURAL_64"
+			-- a_value should be a NATURAL_64
 		external "C use <libgda/libgda.h>"
 		end
 	    
@@ -394,13 +394,13 @@ feature {} -- External calls
 	
 	gda_value_get_smalluint (a_value: POINTER): INTEGER_16 is
 			--  gushort gda_value_get_smalluint (GdaValue *value)
-		obsolete "Result should NATURAL_16"
+			-- Result should NATURAL_16
 		external "C use <libgda/libgda.h>"
 		end
 	    
 	gda_value_set_smalluint (a_value: POINTER; an_unsigned: INTEGER_16) is
 			--  void gda_value_set_smalluint (GdaValue *value, gushort val)
-		obsolete "an_unsigned should be NATURAL_16"
+			-- an_unsigned should be NATURAL_16
 		external "C use <libgda/libgda.h>"
 		end
 	
@@ -446,25 +446,25 @@ feature {} -- External calls
 	
 	gda_value_get_tinyuint (a_value: POINTER): INTEGER_8 is
 			--  guchar gda_value_get_tinyuint (GdaValue *value)
-		obsolete "Result should be NATURAL_8"
+			-- Result should be NATURAL_8
 		external "C use <libgda/libgda.h>"
 		end
 	
 	gda_value_set_tinyuint (a_value: POINTER; a_value: INTEGER_8) is
 			--  void gda_value_set_tinyuint (GdaValue *value, guchar val)
-		obsolete "a_value should be NATURAL_8"
+			-- a_value should be NATURAL_8
 		external "C use <libgda/libgda.h>"
 		end
 	
 	gda_value_get_uinteger (a_value: POINTER): INTEGER is
 			--  guint gda_value_get_uinteger (GdaValue *value)
-		obsolete "REsult should be NATURAL"
+			-- REsult should be NATURAL
 		external "C use <libgda/libgda.h>"
 		end
 	
 	gda_value_set_uinteger (a_value: POINTER a_value: INTEGER) is
 			--  void gda_value_set_uinteger (GdaValue *value, guint val)
-		obsolete "a_value should be NATURAL"
+			-- a_value should be NATURAL
 		external "C use <libgda/libgda.h>"
 		end
 	

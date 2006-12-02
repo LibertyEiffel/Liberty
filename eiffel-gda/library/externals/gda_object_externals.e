@@ -88,7 +88,7 @@ feature {} -- External calls
 	
 	gda_object_dump (an_object: POINTER; an_offset: INTEGER) is
 			-- void gda_object_dump (GdaObject *object, guint offset);
-		obsolete "an_offset should ba NATURAL"
+			-- an_offset should ba NATURAL
 		external "C use <libgda/libgda.h>"
 		end
 	

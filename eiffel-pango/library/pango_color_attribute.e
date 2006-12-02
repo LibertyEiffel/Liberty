@@ -56,36 +56,36 @@ feature {} -- Structure access
 	-- typedef struct { guint16 red;guint16 green; guint16 blue; }
 	-- PangoColor;
 	color_get_red (a_pango_attr_color: POINTER): INTEGER_32 is
-		obsolete "This should be a NATURAL_16 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows"
+			-- TODO: This should be a NATURAL_16 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows
 		external "C use <pango/pango.h>"
 		alias "(($a_pango_attr_color)->color.red)"
 		end
 	
 	color_set_red (an_attr_color: POINTER; a_red: INTEGER_32) is
-		obsolete "This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows"
+			-- TODO: This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows
 		external "C use <pango/pango.h>"
 		alias "($an_attr_color)->color.red = $a_red;"
 		end
 
 	color_get_green (a_pango_attr_color: POINTER): INTEGER_32 is
-		obsolete "This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows"
+			-- TODO: This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows
 		external "C use <pango/pango.h>"
 		alias "(($a_pango_attr_color)->color.green)"
 		end
 	
 	color_set_green (an_attr_color: POINTER; a_green: INTEGER_32) is
-		obsolete "This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows"
+			-- TODO: This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows
 		external "C use <pango/pango.h>"
 		alias "($an_attr_color)->color.green = $a_green;"
 		end
 	color_get_green (a_pango_attr_color: POINTER): INTEGER_32 is
-		obsolete "This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows"
+			-- TODO: This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows
 		external "C use <pango/pango.h>"
 		alias "(($a_pango_attr_color)->color.blue)"
 		end
 	
 	color_set_blue (an_attr_color: POINTER; a_blue: INTEGER_32) is
-		obsolete "This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows"
+			-- TODO: This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows
 		external "C use <pango/pango.h>"
 		alias "($an_attr_color)->color.blue = $a_blue;"
 		end

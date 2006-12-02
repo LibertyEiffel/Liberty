@@ -151,7 +151,7 @@ feature
 	attributes: INTEGER is
 			-- field's extra attributes. The attributes is an OR'ed value
 			-- of all the possible values in GdaDictFieldAttribute.
-		obsolete "should be NATURAL"
+			-- TODO: should be NATURAL
 		do
 			Result:= gda_dict_field_get_attributes (handle);
 		end

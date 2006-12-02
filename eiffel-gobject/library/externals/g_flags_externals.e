@@ -36,7 +36,7 @@ feature {} -- External calls
 		end
 
 	g_flags_get_first_value (a_flags_class: POINTER; a_value: INTEGER): POINTER is -- GFlagsValue* 
-		obsolete "`a_value' should be a NATURAL, since it is a guint"
+			-- TODO: `a_value' should be a NATURAL, since it is a guint
 		external "C macro use <glib-object.h>"
 		end
 	

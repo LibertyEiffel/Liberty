@@ -127,7 +127,7 @@ feature
 			-- the number of sets of connected triangles sharing Current
 			-- as a contact edge. Note: this feature wraps C function
 			-- "gts_edge_is_contact".
-		obsolete "should be NATURAL since it is a guint"
+			-- TODO: should be NATURAL since it is a guint
 		do
 			Result := gts_edge_is_contact(handle)
 		end
@@ -140,7 +140,7 @@ feature
  
 	face_count: INTEGER is
 			-- the number of faces using e and belonging to s.
-		obsolete "Should be NAtural since it is a guint"
+			-- TODO: Should be NAtural since it is a guint
 		do
 			Result := gts_edge_face_number (handle, a_surface.handle)
 		end

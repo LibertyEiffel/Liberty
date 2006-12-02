@@ -60,7 +60,7 @@ feature {NONE} -- Creation
 	from_natural_64 (a_value: INTEGER_64) is
 			-- Makes a NATURAL_64 GdaValue with `a_value'. TODO: change 
 			-- `a_value' type when NATURAL_64 will be available.
-		obsolete "a_value should be NATURAL_64"
+			-- TODO: a_value should be NATURAL_64
 		require positive: a_value >= 0
 		do
 			from_external_pointer (gda_value_new_biguint (a_value))
@@ -166,7 +166,7 @@ feature {NONE} -- Creation
 
 	from_natural_16 (a_value: INTEGER_16) is
 			-- Makes a new GdaValue from a NATURAL_16
-		obsolete "a_value should be a NATURAL_16"
+			-- TODO: a_value should be a NATURAL_16
 		require positive: a_value >= 0
 		do
 			from_external_pointer(gda_value_new_smalluint(a_value))
@@ -217,7 +217,7 @@ feature {NONE} -- Creation
 
 	from_natural_8 (a_natural_8: INTEGER_16) is
 			-- Makes a new NATURAL_8 GdaValue from `a_tiny_natural_8'
-		obsolete "a_tiny_natural_8 should be NATURAL_8"
+			-- TODO: a_tiny_natural_8 should be NATURAL_8
 		require fits_integer_8: a_natural_8.in_range ({INTEGER_16 0},
 																	 {INTEGER_16 255})
 		do
@@ -470,7 +470,7 @@ feature -- 64 bit integer value
 
 feature -- 64 bit natural values
 	natural_64: INTEGER_64 is
-		obsolete "should be NATURAL_64"
+			-- TODO: should be NATURAL_64
 		require is_natural_64: is_natural_64
 		do
 			Result := gda_value_get_biguint (handle)
@@ -478,7 +478,7 @@ feature -- 64 bit natural values
 
 	set_natural_64 (a_value: INTEGER_64) is
 			-- Set `a_value' as natural_64
-		obsolete "should be NATURAL_64"
+			-- TODO: should be NATURAL_64
 		require 
 			is_natural_64: is_natural_64
 			is_natural: a_value >= 0

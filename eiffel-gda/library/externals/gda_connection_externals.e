@@ -54,7 +54,7 @@ feature {} -- External calls
 	gda_connection_get_options (a_connection: POINTER): INTEGER is
 			--GdaConnectionOptions gda_connection_get_options (GdaConnection 
 			--*cnc);
-		obsolete "Result should be NATURAL, since it is a guint"
+			-- TODO: Result should be NATURAL, since it is a guint
 		external "C use <libgda/libgda.h>"
 		ensure positive: Result>=0
 		end

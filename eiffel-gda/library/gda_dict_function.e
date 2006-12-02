@@ -95,7 +95,7 @@ feature
 			--	the list of arguments types (and number) of a
 			--	function. TODO: This list of GdaDictType objects is meant
 			--	to be read-only nad MUST NOT be modified.
-		obsolete "TODO: shall not be modified"
+			-- TODO: shall not be modified
 		do
 			create Result.from_external_pointer
 			(gda_dict_function_get_arg_types(handle))

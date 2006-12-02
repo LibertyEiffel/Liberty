@@ -43,7 +43,7 @@ feature {} -- External calls
 
 	gda_data_model_get_access_flags (a_model: POINTER): INTEGER is
 		--  guint gda_data_model_get_access_flags (GdaDataModel *model);
-		obsolete "Result is a guint, so it should be NATURAL"
+			-- TODO: Result is a guint, so it should be NATURAL
 		external "C use <libgda/libgda.h>"
 		ensure natural: Result >= 0
 		end
@@ -75,7 +75,7 @@ feature {} -- External calls
 
 	gda_data_model_get_attributes_at (a_model: POINTER; a_col: INTEGER; a_row: INTEGER): INTEGER is
 			--  guint gda_data_model_get_attributes_at (GdaDataModel *model, gint col, gint row);
-	obsolete "Result is a guint, so it should be NATURAL"
+		-- TODO: Result is a guint, so it should be NATURAL
 	external "C use <libgda/libgda.h>"
 	ensure natural: Result >= 0
 	end

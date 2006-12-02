@@ -64,7 +64,7 @@ feature
 			-- vertex. `do_sever': if TRUE and if v is a contact vertex between two
 			-- or more sets of connected triangles replaces it with as many
 			-- vertices, clones of v.
-		obsolete "Should be NATURAL since it is guint"
+			-- TODO: Should be NATURAL since it is guint
 		do
 			Result:=gts_vertex_is_contact(handle, do_sever.to_integer)
 		end

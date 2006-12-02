@@ -34,14 +34,14 @@ feature
 		end
 	
 	month: INTEGER_16 is
-		obsolete "should be NATURAL_16"
+			-- TODO: should be NATURAL_16
 		do
 			Result := get_month(handle)
 		ensure positive: Result >=0
 		end
 
 	day: INTEGER_16 is
-		obsolete "should be NATURAL_16"
+			-- TODO: should be NATURAL_16
 		do
 			Result := get_day(handle)
 		ensure positive: Result >=0
