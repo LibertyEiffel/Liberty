@@ -19,21 +19,42 @@ indexing
 					02110-1301 USA
 				]"
 
+				-- wrapper factory would be inserted into the class that 
+				-- needs to use it; if multiple usage are needed it is 
+				-- perhaps better to use its expanded variant, 
+				-- WRAPPER_RETRIEVER. The pattern usage is more or less like 
+				-- this:
+				
+				--  foo: FOO_WRAPPER is 
+				-- 		local p: POINTER
+				-- 		do
+				-- 			p:= get_foo (handle)
+				-- 			if wrappers.has(p) then
+				-- 				Result ::= wrappers.at(p)
+				-- 			else
+				-- 				create Result.from_external_pointer(a_pointer)
+				-- 			end
+				-- 		end
+				
+				-- I know it is tedious, but it is the only feasible solution
+				-- I was able to find.
+
+				
 deferred class SHARED_WRAPPERS_DICTIONARY
 
 insert ANY undefine copy, is_equal end
 
 feature {} -- Implementation
 
-	wrappers: HASHED_DICTIONARY [POINTER, POINTER] is
+	wrappers: HASHED_DICTIONARY [SHARED_C_STRUCT, POINTER] is
 			-- Dictionary storing wrappers created in the program.  Key
 			-- is the address (pointer) to the wrapped C structure, value
-			-- is the address of the respective Eiffel wrapper. This way
-			-- you can get back an already-created Eiffel wrapper. Heirs
-			-- of SHARED_C_STRUCT, i.e. G_OBJECT could provide alternative
+			-- is the corresponding Eiffel wrapper. This way you can get
+			-- back an already-created Eiffel wrapper. Heirs of
+			-- SHARED_C_STRUCT, i.e. G_OBJECT could provide alternative
 			-- implementation that will not rely on this dictionary.
 		once
-			create {HASHED_DICTIONARY[POINTER,POINTER]}
+			create {HASHED_DICTIONARY[SHARED_C_STRUCT,POINTER]}
 			Result.with_capacity (100)
 		end
 

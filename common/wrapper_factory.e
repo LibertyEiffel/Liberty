@@ -16,7 +16,7 @@ indexing
 			-- 		do
 			-- 			p:=my_wrapper_get_foo (handle)
 			-- 			if wrappers.has(p) then
-			-- 				Result ::= wrappers.at(p).to_any
+			-- 				Result ::= wrappers.at(p)
 			-- 			else
 			-- 				create Result.from_external_pointer(a_pointer)
 			-- 			end
@@ -74,11 +74,11 @@ feature {}
 	print_wrapper_factory_notice is
 		once
 			print ("Warning! WRAPPER_FACTORY.retrieve feature could %
-                %produce objects which type is effectively deferred, %
-                %instead of giving it the correct type.%NFor example, %
-                %a button in a G_LIST[GTK_WIDGET] would have type `GTK_WIDGET'%
-                % instead of `GTK_BUTTON'. I strongly suspect that this will inevitably lead %
-                %to horrible crashes at run-time. Obviously this couldn'%
-                %t be accepted and should be a temporary solution.%N%TPaolo 2006-10-20%N")
+					 %produce objects which type is effectively deferred, %
+					 %instead of giving it the correct type.%NFor example, %
+					 %a button in a G_LIST[GTK_WIDGET] would have type `GTK_WIDGET'%
+					 % instead of `GTK_BUTTON'. I strongly suspect that this will inevitably lead %
+					 %to horrible crashes at run-time. Obviously this couldn'%
+					 %t be accepted and should be a temporary solution.%N%TPaolo 2006-10-20%N")
 		end
 end

@@ -47,7 +47,7 @@ feature
 		do
 			p := gda_dict_table_get_database (handle)
 			if wrappers.has(p) then
-				Result ::= wrappers.at(p).to_any
+				Result ::= wrappers.at(p)
 			else
 				create Result.from_external_pointer(a_pointer)
 			end
@@ -77,7 +77,7 @@ feature
 		do
 			p:=gda_dict_table_get_constraints(handle)
 			if wrappers.has(p) then
-				Result ::= wrappers.at(p).to_any
+				Result ::= wrappers.at(p)
 			else
 				create Result.from_external_pointer(a_pointer)
 			end
@@ -93,7 +93,7 @@ feature
 			p:=gda_dict_table_get_pk_constraint(handle)
 			if p.is_not_null then
 				if wrappers.has(p) then
-					Result ::= wrappers.at(p).to_any
+					Result ::= wrappers.at(p)
 				else
 					create Result.from_external_pointer(a_pointer)
 				end

@@ -31,7 +31,7 @@ indexing
 
 			-- To free the entire list, use g_slist_free().
 
-class G_SLIST [ITEM->WRAPPER]
+class G_SLIST [ITEM->SHARED_C_STRUCT]
 inherit
 	-- TODO: uncomment this when possible:
 	-- Temporary commented out to let some example work with SnartEiffel 
@@ -76,7 +76,7 @@ feature
 		do
 			p:=g_slist_get_data (handle)
 			if wrappers.has(p) then 
-				Result ::= wrappers.at(p).to_any
+				Result ::= wrappers.at(p)
 			else
 				Result := new_item
 				Result.from_external_pointer(p)
@@ -90,7 +90,7 @@ feature
 		do
 			p:=g_slist_get_data (g_slist_last (handle))
 			if wrappers.has(p) then 
-				Result ::= wrappers.at(p).to_any
+				Result ::= wrappers.at(p)
 			else
 				Result := new_item
 				Result.from_external_pointer(p)
@@ -104,7 +104,7 @@ feature
 		do
 			p:=g_slist_nth_data (handle, i)
 			if wrappers.has(p) then 
-				Result ::= wrappers.at(p).to_any 
+				Result ::= wrappers.at(p) 
 			else
 				Result := new_item
 				Result.from_external_pointer(p)

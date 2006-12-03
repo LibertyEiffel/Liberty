@@ -1,5 +1,5 @@
 /* (C) 2006 Paolo Redaelli 
-   Released under General Public License v2 or later
+   Released under Lesser General Public License v2 or later
  */
 #include "callbacks.h"
 
@@ -14,7 +14,7 @@ int EiffelGtkTreeSelectionFunc (void *selection,
 	** address of the Eiffel callback to call, the secondo is the
 	** address of Eiffel's Current
 	*/
-	printf ("EiffelGtkTreeSelectionFunc called\n");
+  /* printf ("EiffelGtkTreeSelectionFunc called\n"); */
 	return ((/*function signature*/
 	         (int (*)(void *current, void *selection,
 	          void *model, void *path,

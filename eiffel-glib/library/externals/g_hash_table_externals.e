@@ -43,16 +43,16 @@ feature {} -- External calls
 
 	g_hash_table_size (an_hash_table: POINTER): INTEGER is
 			-- guint g_hash_table_size (GHashTable *hash_table);
-		obsolete "Result should be NATURAL"
+			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
-	  
+	
 
 	g_hash_table_lookup (an_hash_table, a_key: POINTER): POINTER is
 			-- gpointer g_hash_table_lookup (GHashTable *hash_table, gconstpointer key);
 		external "C use <glib.h>"
 		end
-	  
+	
 
 	g_hash_table_lookup_extended (an_hash_table, a_lookup_key, an_orig_key, a_value: POINTER): INTEGER is
 			-- gboolean g_hash_table_lookup_extended (GHashTable
@@ -90,15 +90,15 @@ feature {} -- External calls
 	g_hash_table_foreach_remove (an_hash_table, a_func, a_user_data: POINTER): INTEGER is
 			-- guint g_hash_table_foreach_remove (GHashTable *hash_table,
 			-- GHRFunc func, gpointer user_data);
-		obsolete "Result should be NATURAL"
+			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
-	  
+	
 
 	g_hash_table_foreach_steal (an_hash_table, a_func, a_user_data: POINTER): INTEGER is
 			-- guint g_hash_table_foreach_steal (GHashTable *hash_table,
 			-- GHRFunc func, gpointer user_data);
-		obsolete "Result should be NATURAL"
+			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
 	
@@ -114,11 +114,11 @@ feature {} -- External calls
 			-- gboolean g_direct_equal (gconstpointer v1, gconstpointer v2);
 		external "C use <glib.h>"
 		end
-	  
+	
 	
 	g_direct_hash (v: POINTER): INTEGER is
 			-- guint g_direct_hash (gconstpointer v);
-		obsolete "Result should be NATURAL"
+			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
 	
@@ -131,10 +131,10 @@ feature {} -- External calls
 
 	g_int_hash (v: POINTER): INTEGER is
 			-- guint g_int_hash (gconstpointer v);
-		obsolete "Result should be NATURAL"
+			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
-	  
+	
 	
 	g_str_equal (v1, v2: POINTE): INTEGER is
 			-- gboolean g_str_equal (gconstpointer v1, gconstpointer v2);
@@ -144,7 +144,7 @@ feature {} -- External calls
 
 	g_str_hash (v: POINTE): INTEGER is
 			-- guint g_str_hash (gconstpointer v);
-		obsolete "Result should be NATURAL"
+			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
 	

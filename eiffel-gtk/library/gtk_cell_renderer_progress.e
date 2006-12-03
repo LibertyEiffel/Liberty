@@ -56,7 +56,7 @@ feature -- The "text" property
 
 	set_text (a_text: STRING) is
 			-- Set text property
-		obsolete "Please provide a more direct implementation. Currently there is a temporary G_VALUE object"
+			-- TODO: Please provide a more direct implementation. Currently there is a temporary G_VALUE object
 		require valid_text: a_text /= Void
 		do
 			set_property (text_property_name, create {G_VALUE}.from_string(a_text))

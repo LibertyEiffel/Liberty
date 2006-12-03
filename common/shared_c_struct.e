@@ -36,7 +36,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 			store_eiffel_wrapper
 			set_shared
 		ensure then
- 			stored: is_eiffel_wrapper_stored
+			stored: is_eiffel_wrapper_stored
 		end
 	
 	is_shared: BOOLEAN
@@ -62,7 +62,20 @@ feature {} -- Storing wrapper pointer into wrapped object
 			a: ANY
 		do
 			a := Current -- Workaround for SE bug
-			wrappers.add (a.to_pointer, handle)
+			if wrappers.has(handle) then
+				debug
+					if Current/=wrappers.at(handle) then
+						print ("Warning! The wrapper ") print (wrappers.at(handle).out)
+						print (" already stored in the wrappers dictionary for the wrapped object ")
+						print (handle.out)
+						print (" is not equal to Current (")
+						print (out)
+						print ("). Really bad things will happen...%N")
+				end
+			end
+			else
+				wrappers.add (Current, handle)
+			end
 		ensure stored: is_eiffel_wrapper_stored
 		end
 
@@ -84,13 +97,11 @@ feature {} -- Storing wrapper pointer into wrapped object
 		do
 			Result := wrappers.has(handle)
 			debug
-				if Result and then to_pointer/=wrappers.at(handle) then
-					print ("Warning! The reference (")
-					print (wrappers.at(handle).out)
-					print (") stored in the wrappers dictionary for the wrapped object (")
-					print (handle.out)
-					print (") is not equal to the address of Current (")
-					print (to_pointer.out)
+				if Result and then Current/=wrappers.at(handle) then
+					print ("Warning! The wrapper ") print (wrappers.at(handle).out)
+					print (" stored in the wrappers dictionary for the wrapped object ") print (handle.out)
+					print (" is not equal to Current (")
+					print (out)
 					print ("). Really bad things will happen...%N")
 				end
 			end

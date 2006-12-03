@@ -116,7 +116,7 @@ feature
 			tp:= gda_dict_database_get_table_by_name (handle, a_table_name.to_external)
 			if tp.is_not_null then
 				if wrappers.has(tp)
-				 then Result::=wrappers.at(tp).to_any
+				 then Result::=wrappers.at(tp)
 				else create Result.from_external_pointer(tp)
 				end
 			end
@@ -142,7 +142,7 @@ feature
 			fp:=gda_dict_database_get_field_by_name(handle, a_field_name.to_external)
 			if fp.is_not_null then
 				if wrappers.has(fp)
-				 then Result:=wrappers.at(fp).to_any
+				 then Result:=wrappers.at(fp)
 				else create Result.from_external_pointer(fp)
 				end
 			end
@@ -166,7 +166,7 @@ feature
 		do
 			cp:=gda_dict_database_get_all_constraints (handle)
 			if wrappers.has(cp)
-			 then Result := wrappers.at(cp).to_any
+			 then Result := wrappers.at(cp)
 			else create Result.from_external_pointer (cp)
 			end
 		end
@@ -178,7 +178,7 @@ feature
 		do
 			tcp:=gda_dict_database_get_table_constraints(handle, a_table.to_external)
 			if wrappers.has(tcp)
-			 then Result::=wrappers.at(tcp).to_any
+			 then Result::=wrappers.at(tcp)
 			else create Result.from_external_pointer(tcp)
 			end			
 		end
@@ -190,7 +190,7 @@ feature
 		do
 			fcp:=gda_dict_database_get_all_fk_constraints(handle)
 			if wrappers.has(fcp)
-			 then Result::=wrappers.at(fcp).to_any
+			 then Result::=wrappers.at(fcp)
 			else create Result.from_external_pointer(fcp)
 			end
 		end
@@ -215,7 +215,7 @@ feature
 					 (handle, t1p, t2p,
 					  a_table_has_foreign_constraints.to_integer))
 			if wrappers.has(tfcp)
-			 then Result::=wrappers.at(tfcp).to_any
+			 then Result::=wrappers.at(tfcp)
 			else create Result.from_external_pointer(tfcp)
 			end
 		end

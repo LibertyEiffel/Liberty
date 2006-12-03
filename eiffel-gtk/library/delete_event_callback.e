@@ -51,7 +51,7 @@ feature
 			end
 			-- retrieve event, object
 			if wrappers.has (ev_ptr) then
-				specific_event ::= wrappers.at (ev_ptr).to_any
+				specific_event ::= wrappers.at(ev_ptr)
 				event_obj := specific_event.event
 			else
 				create event_obj.from_external_pointer (ev_ptr)
@@ -81,10 +81,10 @@ feature
 			end
 			
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			function:=a_function
 		end
 

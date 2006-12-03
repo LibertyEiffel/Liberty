@@ -213,7 +213,7 @@ feature {} -- Disposing helper
 					  possible that this part of dispose  won't be called
 					  if  the garbage collector is called during
 					  application normal usage. 
-					       Paolo 2006-04-24
+							 Paolo 2006-04-24
 					  
 				  ]")
 			end
@@ -361,7 +361,7 @@ feature -- Properties query
 			param_spec_ptr:=g_object_class_find_property (g_object_get_class(handle),a_property_name.to_external)
 			if param_spec_ptr.is_not_null then
 				if wrappers.has (param_spec_ptr) then
-					Result ::= wrappers.at (param_spec_ptr).to_any
+					Result ::= wrappers.at(param_spec_ptr)
 				else
 					create Result.from_external_pointer (param_spec_ptr)
 				end
@@ -588,11 +588,11 @@ feature -- Property getter/setter
 			-- 		     G_OBJECT_TYPE_NAME (object));
 			-- 	  break;
 			-- 	}
-      
+		
 			--       g_value_init (&value, G_PARAM_SPEC_VALUE_TYPE (pspec));
-      
+		
 			--       object_get_property (object, pspec, &value);
-      
+		
 			--       G_VALUE_LCOPY (&value, var_args, 0, &error);
 			--       if (error)
 			-- 	{
@@ -601,9 +601,9 @@ feature -- Property getter/setter
 			-- 	  g_value_unset (&value);
 			-- 	  break;
 			-- 	}
-      
+		
 			--       g_value_unset (&value);
-      
+		
 			--       name = va_arg (var_args, gchar*);
 			--     }
 

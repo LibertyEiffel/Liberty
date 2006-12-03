@@ -37,7 +37,7 @@ feature {} -- Private access
 			codec_ptr := avcodec_find_decoder (a_codec_id)
 			if codec_ptr.is_not_null then
 				if wrappers.has (codec_ptr) then
-					Result ::= wrappers.at (codec_ptr).to_any
+					Result ::= wrappers.at(codec_ptr)
 				else
 					create Result.from_external_pointer (codec_ptr)
 				end
@@ -53,7 +53,7 @@ feature {} -- Private access
 			codec_ptr := avcodec_find_encoder (a_codec_id)
 			if codec_ptr.is_not_null then
 				if wrappers.has (codec_ptr) then
-					Result ::= wrappers.at (codec_ptr).to_any
+					Result ::= wrappers.at(codec_ptr)
 				else
 					create Result.from_external_pointer (codec_ptr)
 				end
@@ -69,7 +69,7 @@ feature {} -- Private access
 			codec_ptr := avcodec_find_decoder_by_name (a_name.to_external)
 			if codec_ptr.is_not_null then
 				if wrappers.has (codec_ptr) then
-					Result ::= wrappers.at (codec_ptr).to_any
+					Result ::= wrappers.at(codec_ptr)
 				else
 					create Result.from_external_pointer (codec_ptr)
 				end
@@ -85,7 +85,7 @@ feature {} -- Private access
 			codec_ptr := avcodec_find_encoder_by_name (a_name.to_external)
 			if codec_ptr.is_not_null then
 				if wrappers.has (codec_ptr) then
-					Result ::= wrappers.at (codec_ptr).to_any
+					Result ::= wrappers.at(codec_ptr)
 				else
 					create Result.from_external_pointer (codec_ptr)
 				end

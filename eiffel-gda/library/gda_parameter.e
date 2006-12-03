@@ -119,7 +119,7 @@ feature {ANY}
 		local p:POINTER
 		do
 			p:=gda_parameter_get_param_users(handle)
-			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			if wrappers.has(p) then Result::=wrappers.at(p)
 			else create Result.from_external_pointer(p) end
 			Result.set_shared
 			-- Note: the returned list of GdaEntityField objects must not be
@@ -136,7 +136,7 @@ feature {ANY}
 		do
 			p:=gda_parameter_get_value (handle)
 			check pointer_not_null: p.is_not_null end
-			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			if wrappers.has(p) then Result::=wrappers.at(p)
 			else create Result.from_external_pointer (p) end
 		ensure not_void: Result /= Void
 		end
@@ -179,7 +179,7 @@ feature {ANY}
 		local p: POINTER
 		do
 			p:=gda_parameter_get_default_value(handle)
-			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			if wrappers.has(p) then Result::=wrappers.at(p)
 			else create Result.from_external_pointer(p) end
 		end
 
@@ -319,7 +319,7 @@ feature {ANY}
 		do
 			p:=gda_parameter_get_bind_param  (handle)
 			if p.is_not_null then
-				if wrappers.has(p) then Result::=wrappers.at(p).to_any
+				if wrappers.has(p) then Result::=wrappers.at(p)
 				else create Result.from_external_pointer(p) end
 			end
 		end

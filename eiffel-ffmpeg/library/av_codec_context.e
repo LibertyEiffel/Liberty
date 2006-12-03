@@ -168,7 +168,7 @@ feature -- Access
 		do
 			codec_ptr := av_codec_context_get_codec (handle)
 			if wrappers.has (codec_ptr) then
-				Result ::= wrappers.at (codec_ptr).to_any
+				Result ::= wrappers.at(codec_ptr)
 			else
 				create Result.from_external_pointer (codec_ptr)
 			end

@@ -83,7 +83,7 @@ feature
 
 	count: INTEGER is
 			-- the number of items in queue.
-		obsolete "should be NATURAL"
+			-- TODO: should be NATURAL
 		do
 			Result := g_queue_get_length (handle)
 		ensure positive: Result >= 0
@@ -484,7 +484,7 @@ feature {} -- External calls
 		end
 
 	g_queue_get_length (a_queue: POINTER): INTEGER is -- guint
-		obsolete "Result is guint, should be NATURAL"
+			-- TODO: Result is guint, should be NATURAL
 		external "C use <glib.h>"
 		end
 	
@@ -533,7 +533,7 @@ feature {} -- External calls
 		end
 	
 	g_queue_pop_nth (a_queue: POINTER; a_guint_n: INTEGER): POINTER is -- gpointer
-		obsolete "a_guint_n should be NATURAL"
+			-- TODO: a_guint_n should be NATURAL
 		external "C use <glib.h>"
 		end
 	
@@ -546,7 +546,7 @@ feature {} -- External calls
 		end
 
 	g_queue_peek_nth (a_queue: POINTER; a_guint_n: INTEGER): POINTER is -- gpointer
-			obsolete "a_guint_n should be NATURAL"
+				-- TODO: a_guint_n should be NATURAL
 		external "C use <glib.h>"
 		end
 
@@ -595,7 +595,7 @@ feature {} -- External calls
 		end
 	
 	g_queue_pop_nth_link (a_queue: POINTER; a_guint_n: INTEGER): POINTER is -- GList*
-		obsolete "a_guint_n should be NATURAL"
+			-- TODO: a_guint_n should be NATURAL
 		external "C use <glib.h>"
 		end
 
@@ -608,7 +608,7 @@ feature {} -- External calls
 		end
 	
 	g_queue_peek_nth_link (a_queue: POINTER; a_guint_n: INTEGER): POINTER is -- GList*
-		obsolete "a_guint_n should be NATURAL"
+			-- TODO: a_guint_n should be NATURAL
 		external "C use <glib.h>"
 		end
 	

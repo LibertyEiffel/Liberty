@@ -363,7 +363,7 @@ feature
 		end
 
 	scroll_to_cell (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN;use_align: BOOLEAN;
-	                row_align, col_align: REAL_32) is
+						 row_align, col_align: REAL_32) is
 			-- Moves the alignments of tree view to the position
 			-- specified by `a_column' and `a_path'. If `a_column' is
 			-- Void, then no horizontal scrolling occurs. Likewise, if
@@ -401,7 +401,7 @@ feature
 			if a_path/=Void then path_ptr := a_path.handle end
 			
 			gtk_tree_view_scroll_to_cell (handle, a_path.handle, a_column.handle,
-			                              use_align.to_integer, row_align, col_align)
+													use_align.to_integer, row_align, col_align)
 		end
 
 	set_cursor (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN; start_editing: BOOLEAN) is
@@ -423,15 +423,15 @@ feature
 		do
 			if a_focus_column=Void then
 				gtk_tree_view_set_cursor (handle, a_path.handle,
-				                          default_pointer, start_editing.to_integer)
+												  default_pointer, start_editing.to_integer)
 			else
 				gtk_tree_view_set_cursor (handle, a_path.handle,
-				                          a_focus_column.handle, start_editing.to_integer)
+												  a_focus_column.handle, start_editing.to_integer)
 			end
 		end
 
 	set_cursor_on_cell (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN;
-			            a_focus_cell: GTK_CELL_RENDERER; start_editing: BOOLEAN) is
+							a_focus_cell: GTK_CELL_RENDERER; start_editing: BOOLEAN) is
 			-- Sets the current keyboard focus to be at `a_path', and selects
 			-- it. This is useful when you want to focus the user's
 			-- attention on a particular row. If `a_focus_column' is not
@@ -458,7 +458,7 @@ feature
 			if a_focus_cell/=Void then cell_ptr := a_focus_cell.handle end
 			
 			gtk_tree_view_set_cursor_on_cell (handle, a_path.handle, column_ptr, cell_ptr,
-			                                  start_editing.to_integer)
+														 start_editing.to_integer)
 		end
 
 	cursor: TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN] is
@@ -472,8 +472,8 @@ feature
 			gtk_tree_view_get_cursor (handle, $path_ptr, $column_ptr)
 			if path_ptr.is_not_null then
 				if wrappers.has (path_ptr) then
-					a := wrappers.at (path_ptr).to_any
-					a_path ::= wrappers.at (path_ptr).to_any
+					a := wrappers.at(path_ptr)
+					a_path ::= wrappers.at(path_ptr)
 				else
 					create a_path.from_external_pointer (path_ptr)
 				end
@@ -718,8 +718,8 @@ feature -- Drag n' Drop
 		end
 
 	enable_model_drag_source (a_start_button_mask: INTEGER;
-	                          a_target: GTK_TARGET_ENTRY;
-	                          some_actions: INTEGER) is
+									  a_target: GTK_TARGET_ENTRY;
+									  some_actions: INTEGER) is
 			-- Turns Current into a drag source for automatic DND.
 			-- a_start_button_mask : 	Mask of allowed buttons to start drag
 			-- some_targets : 	the table of targets that the drag will support
@@ -736,7 +736,7 @@ feature -- Drag n' Drop
 			-- into a GtkTargetEntry *.
 			-- nessa, 2006-10-30
 			gtk_tree_view_enable_model_drag_source (handle, a_start_button_mask,
-			                                        a_target.handle, 1, some_actions)
+																 a_target.handle, 1, some_actions)
 		end
 
 	unset_rows_drag_source is
@@ -1654,8 +1654,8 @@ feature -- The "row_activated" signal
 		end
 
 	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY,
-		                                                     TUPLE[GTK_TREE_PATH,
-		                                                           GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
+																			  TUPLE[GTK_TREE_PATH,
+																					  GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
 		local row_activated_callback: ROW_ACTIVATED_CALLBACK
 		do

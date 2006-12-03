@@ -67,10 +67,10 @@ feature {NONE} -- Creation
 		ensure is_natural_64
 		end
 
-   -- TODO: is make_binary (a_size: INTEGER) necessary?
-   -- Makes a new GdaValue of type GDA_VALUE_TYPE_BINARY with value val.
+	-- TODO: is make_binary (a_size: INTEGER) necessary?
+	-- Makes a new GdaValue of type GDA_VALUE_TYPE_BINARY with value val.
 	-- val :     value to set for the new GdaValue.
-   -- size :    the size of the memory pool pointer to by val.
+	-- size :    the size of the memory pool pointer to by val.
 	-- do from_external_pointer (gda_value_new_binary (a_value, a_size)
 
 	from_blob (a_blob: GDA_BLOB) is
@@ -307,43 +307,43 @@ feature -- Type queries
 
 	is_integer_64: BOOLEAN is
 			-- Is current value a bigint/INTEGER_64?
-      do
+		do
 			Result := (type = gda_value_type_bigint)
 		end
 	
 	is_natural_64: BOOLEAN is
 			-- Is current value a biguint/NATURAL_64?
-      do
+		do
 			result := (type = gda_value_type_biguint)
 		end
 	
 	is_binary: BOOLEAN is
 			-- Is current value a BINARY?
-      do
+		do
 			Result := (type = gda_value_type_binary)
 		end
 	
 	is_blob: BOOLEAN is
 			-- Is current value a BLOB?
-      do
+		do
 			Result := (type = gda_value_type_blob)
 		end
 	
 	is_boolean: BOOLEAN is
 			-- Is current value a BOOLEAN?
-      do
+		do
 			Result := (type = gda_value_type_boolean)
 		end
 	
 	is_date: BOOLEAN is
 			-- Is current value a DATE?
-      do
+		do
 			Result := (type = gda_value_type_date)
 		end
 	
 	is_real: BOOLEAN is
 			-- Is current value a double/REAL?
-      do
+		do
 			Result := (type = gda_value_type_double)
 		end
 	
@@ -354,91 +354,91 @@ feature -- Type queries
 	
 	is_gobject: BOOLEAN is
 			-- Is current value a GOBJECT?
-      do
+		do
 			Result := (type = gda_value_type_gobject)
 		end
 	
 	is_integer: BOOLEAN is
 			-- Is current value a INTEGER?
-      do
+		do
 			Result := (type = gda_value_type_integer)
 		end
 	
 	is_list: BOOLEAN is
 			-- Is current value a LIST?
-      do
+		do
 			Result := (type = gda_value_type_list)
 		end
 	
 	is_money: BOOLEAN is
 			-- Is current value a MONEY?
-      do
+		do
 			Result := (type = gda_value_type_money)
 		end
 	
 	is_numeric: BOOLEAN is
 			-- Is current value a NUMERIC?
-      do
+		do
 			Result := (type = gda_value_type_numeric)
 		end
 
 	is_real_32: BOOLEAN is
 			-- Is current value a single/float/REAL_32?
-      do
+		do
 			Result := (type = gda_value_type_single)
 		end
 	
 	is_integer_16: BOOLEAN is
 			-- Is current value a smallint/INTEGER_16?
-      do
+		do
 			Result := (type = gda_value_type_smallint)
 		end
 	
 	is_natural_16: BOOLEAN is
 			-- Is current value a smalluint/natural_16?
-      do
+		do
 			Result := (type = gda_value_type_smalluint)
 		end
 	
 	is_string: BOOLEAN is
 			-- Is current value a STRING?
-      do
+		do
 			Result := (type = gda_value_type_string)
 		end
 	
 	is_time: BOOLEAN is
 			-- Is current value a TIME?
-      do
+		do
 			Result := (type = gda_value_type_time)
 		end
 	
 	is_timestamp: BOOLEAN is
 			-- Is current value a TIMESTAMP?
-      do
+		do
 			Result := (type = gda_value_type_timestamp)
 		end
 	
 	is_integer_8: BOOLEAN is
 			-- Is current value a tinyint/INTEGER_8?
-      do
+		do
 			Result := (type = gda_value_type_tinyint)
 		end
 	
 	is_natural_8: BOOLEAN is
 			-- Is current value a tinyuint/natural_8?
-      do
+		do
 			Result := (type = gda_value_type_tinyuint)
 		end
 	
 	is_type: BOOLEAN is
 			-- Is current value a type?
-      do
+		do
 			Result := (type = gda_value_type_type)
 		end
 	
 	is_natural: BOOLEAN is
 			-- Is current value a uinteger/NATURAL?
-      do
+		do
 			Result := (type = gda_value_type_uinteger)
 		end
 
@@ -558,7 +558,7 @@ feature -- Date value
 		do
 			p:=gda_value_get_date (handle)
 			if wrappers.has(p) then
-				Result::=wrappers.at(p).to_any
+				Result::=wrappers.at(p)
 			else create Result.from_external_pointer(p)
 			end
 
@@ -597,7 +597,7 @@ feature -- Geometric point value
 		local p: POINTER
 		do
 			p:=gda_value_get_geometric_point(handle)
-			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			if wrappers.has(p) then Result::=wrappers.at(p)
 			else create Result.from_external_pointer end
 			check 
 				shared_result: Result.is_shared 
@@ -655,7 +655,7 @@ feature -- List value
 		local p: POINTER
 		do
 			p:=gda_value_get_list (handle)
-			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			if wrappers.has(p) then Result::=wrappers.at(p)
 			else create Result.from_external_pointer(p) end
 			check
 				shared: Result.is_shared 
@@ -685,7 +685,7 @@ feature -- Money value
 		local p: POINTER
 		do
 			p:=gda_value_get_money(handle)
-			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			if wrappers.has(p) then Result::=wrappers.at(p)
 			else create Result.from_external_pointer(p) end
 		ensure not_void: Result /= Void
 		end

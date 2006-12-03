@@ -425,7 +425,7 @@ feature -- Focusing
 			-- `a_timestamp' is usually derived from the user interaction
 			-- (typically a button or key press event) which triggered
 			-- this call.
-		obsolete "a_timestamp shall be NATURAL_32"
+			-- TODO: a_timestamp shall be NATURAL_32
 		require positive_stamp: a_timestamp >= 0
 		do 
 			gtk_window_present_with_time(handle,a_timestamp)

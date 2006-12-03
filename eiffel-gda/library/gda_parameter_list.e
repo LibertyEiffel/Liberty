@@ -196,7 +196,7 @@ feature
 			p:=gda_parameter_list_find_param(handle, a_name.to_external)
 			if p.is_not_null then
 				if wrappers.has(p) then
-					Result ::= wrappers.at(p).to_any
+					Result ::= wrappers.at(p)
 				else
 					create Result.from_external_pointer(p)
 				end

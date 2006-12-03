@@ -35,7 +35,7 @@ feature
 
 feature
 	callback (drag_context: POINTER; x,y: INTEGER; selection_data: POINTER;
-	          info, time: INTEGER; instance: POINTER) is
+				 info, time: INTEGER; instance: POINTER) is
 		require
 			info >= 0
 			time >= 0
@@ -59,7 +59,7 @@ feature
 			end
 			
 			if wrappers.has (selection_data) then
-				selection_data_obj ::= wrappers.at (selection_data).to_any
+				selection_data_obj ::= wrappers.at(selection_data)
 			else
 				create selection_data_obj.from_external_pointer (selection_data)
 			end
@@ -78,8 +78,8 @@ feature
 		end
 
 	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                                                    GTK_SELECTION_DATA, INTEGER, INTEGER,
-	                                                                    GTK_WIDGET]]) is
+																							  GTK_SELECTION_DATA, INTEGER, INTEGER,
+																							  GTK_WIDGET]]) is
 		do
 			debug
 				print ("DRAG_DATA_RECEIVED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -90,16 +90,16 @@ feature
 			end
 			
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			procedure:=a_procedure
 		end
 
 		signal_name: STRING is "drag-data-received"
 
 	procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                  GTK_SELECTION_DATA, INTEGER, INTEGER, GTK_WIDGET]]
+												 GTK_SELECTION_DATA, INTEGER, INTEGER, GTK_WIDGET]]
 
 end

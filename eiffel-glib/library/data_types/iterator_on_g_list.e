@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class ITERATOR_ON_G_LIST [ITEM->WRAPPER]
+class ITERATOR_ON_G_LIST [ITEM->SHARED_C_STRUCT]
 inherit
 	ITERATOR [ITEM]
 	WRAPPER_HANDLER
@@ -37,7 +37,7 @@ feature -- Iterator's features
 		end
 	
 	item: ITEM is
-		obsolete "suboptimal implementation"
+			-- TODO: suboptimal implementation
 		do
 			Result := new_item
 			Result.from_external_pointer (g_list_get_data

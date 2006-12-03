@@ -171,7 +171,7 @@ feature -- Conversion to STRING
 	as_string: STRING is
 			-- A string holding the very same content of Current
 			-- (i.e. using the same memory area.)
-		obsolete "Possible memory leaks in the implementation"
+			-- TODO: Possible memory leaks in the implementation
 		do
 			create Result.from_external (c_string)
 		end

@@ -58,7 +58,7 @@ feature
 			end
 			
 			if wrappers.has (selection_data) then
-				selection_data_obj ::= wrappers.at (selection_data).to_any
+				selection_data_obj ::= wrappers.at(selection_data)
 			else
 				create selection_data_obj.from_external_pointer (selection_data)
 			end
@@ -77,7 +77,7 @@ feature
 		end
 
 	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_SELECTION_DATA,
-	                                                                    INTEGER_32, INTEGER_32, GTK_WIDGET]]) is
+																							  INTEGER_32, INTEGER_32, GTK_WIDGET]]) is
 		do
 			debug
 				print ("DRAG_DATA_GET_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -88,10 +88,10 @@ feature
 			end
 			
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			procedure:=a_procedure
 		end
 

@@ -485,7 +485,7 @@ feature {} -- External calls
 
 			-- window : 	a GtkWindow
 			-- timestamp : 	the timestamp of the user interaction (typically a button or key press event) which triggered this call
-		obsolete "guint32_timestamp: INTEGER_32 shall be NATURAL_32"
+			-- TODO: guint32_timestamp: INTEGER_32 shall be NATURAL_32
 		external "C use <gtk/gtk.h>"
 		end
 

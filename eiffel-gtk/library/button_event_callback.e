@@ -43,7 +43,7 @@ feature
 			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			if wrappers.has (event_button) then
-				specific_event ::= wrappers.at (event_button).to_any
+				specific_event ::= wrappers.at(event_button)
 				event_obj := specific_event.event
 			else
 				create event_obj.from_external_pointer (event_button)
@@ -65,10 +65,10 @@ feature
 	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			function := a_function
 		end
 

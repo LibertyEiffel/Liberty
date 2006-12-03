@@ -65,7 +65,7 @@ feature
 			p:=gts_edge_is_duplicate(handle)
 			if p.is_not_null then
 				if wrappers.has(p) 
-				 then Result ::= wrappers.at(p).to_any
+				 then Result ::= wrappers.at(p)
 				else create Result.from_external_pointer(a_pointer)
 				end
 			end
@@ -80,12 +80,12 @@ feature
 			p:= gts_edge_has_parent_surface (handle, a_surface.handle)
 			if p.is_not_null then
 				if wrappers.has(p)
-				 then Result ::= wrappers.at(p).to_any
+				 then Result ::= wrappers.at(p)
 				else create Result.from_external_pointer(a_pointer)
 				end
 			end
 		end
- 	
+	
 	face: GTS_FACE is 
 			-- a GtsFace belonging to any surface and having Current as
 			-- an edge. It is Void if Current is not an edge of any
@@ -97,7 +97,7 @@ feature
 			p:=gts_edge_has_any_parent_surface (handle)
 			if p.is_not_null then
 				if wrappers.has(p)
-				 then Result ::= wrappers.at(p).to_any
+				 then Result ::= wrappers.at(p)
 				else create Result.from_external_pointer(a_pointer)
 				end
 			end
@@ -117,7 +117,7 @@ feature
 			p:=gts_edge_is_boundary(handle,sp)
 			if p.is_not_null then
 				if wrappers.has(p)
-				 then Result ::= wrappers.at(p).to_any
+				 then Result ::= wrappers.at(p)
 				else create Result.from_external_pointer(a_pointer)
 				end
 			end
@@ -160,12 +160,12 @@ feature
 																 $f1p,$f2p)).to_boolean
 			if has_manifold then 
 				if wrappers.has(f1p)
-				 then Result ::= wrappers.at(f1p).to_any
+				 then Result ::= wrappers.at(f1p)
 				else create f1.from_external_pointer(f1p)
 				end
 				
 				if wrappers.has(f2p)
-				 then Result ::= wrappers.at(f2p).to_any
+				 then Result ::= wrappers.at(f2p)
 				else create f2.from_external_pointer(f2p)
 				end
 				create Result.make_3(True,f1,f2)

@@ -71,7 +71,7 @@ feature -- Properties
 		local p: POINTER
 		do
 			p:=get_gda_params(handle)
-			if wrappers.has(p) then Result::=wrappers.at(p).to_any
+			if wrappers.has(p) then Result::=wrappers.at(p)
 			else create Result.from_external_pointer(p) end
 		ensure not_void: Result /= Void
 		end

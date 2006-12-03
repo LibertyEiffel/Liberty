@@ -96,7 +96,7 @@ feature
 		do
 			p:=gda_dict_aggregate_get_arg_type(handle)
 			if wrappers.has(p) then 
-				Result ::= wrappers.at(p).to_any
+				Result ::= wrappers.at(p)
 			else
 				create Result.from_external_pointer(p)
 			end
@@ -116,7 +116,7 @@ feature
 		do
 			p:=gda_dict_aggregate_get_ret_type(handle)
 			if wrappers.has(p) then 
-				Result ::= wrappers.at(p).to_any
+				Result ::= wrappers.at(p)
 			else
 				create Result.from_external_pointer(p)
 			end

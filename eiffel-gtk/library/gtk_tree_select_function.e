@@ -30,6 +30,7 @@ insert
 	GTK
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 	GTK_TREE_SELECTION_EXTERNALS
+	SHARED_WRAPPERS_DICTIONARY
 	
 creation make
 	
@@ -38,12 +39,12 @@ feature
 		require gtk_initialized: gtk.is_initialized
 		local array: NATIVE_ARRAY [POINTER]; callback_ptr: POINTER
 		do
-	function := a_function
-	gtk_tree_selection_set_select_function (a_selection.handle, 
-						 $low_level_callback, -- selection function
-						 callback_array ($callback), -- The selection function's data.
-						 default_pointer -- destroy function for user data. May be and indeed it is NULL.
-						 )
+			function := a_function
+			gtk_tree_selection_set_select_function (a_selection.handle, 
+																 $low_level_callback, -- selection function
+																 callback_array ($callback), -- The selection function's data.
+																 default_pointer -- destroy function for user data. May be and indeed it is NULL.
+																 )
 		end
 	
 feature {} -- 
@@ -70,29 +71,36 @@ feature
 	a_path: GTK_TREE_PATH
 	r: G_RETRIEVER [GTK_TREE_SELECTION]
 		do
-	debug
-		 print ("Gtk tree select function callback:")
-		 print (" selection=") print(selection_ptr.to_string) 
-		 print (" model=") print(model_ptr.to_string) 
-		 print (" path=") print(path_ptr.to_string) 
-		 print (" path_currently_selected=") print(path_currently_selected.to_string) 
-		 --print (" instance=") print (instance.to_string)
-		 print ("%N")
-	end
-	if r.has_eiffel_wrapper_stored (selection_ptr) then
-		a_selection := r.eiffel_wrapper_from_gobject_pointer (selection_ptr)
-	else
-		create a_selection.from_external_pointer (selection_ptr)
-	end
-	a_model := eiffel_wrapper_from_gobject_pointer (model_ptr)
-	debug
-		 if a_model = Void then
-			 print ("Warning! In GTK_TREE_SELECT_FUNCTION.callback model_ptr does not have a stored Eiffel wrapper. We cannot recreate it, since GTK_TREE_MODEL is deferred. This can be a bug or a source of other bugs. Be warned! Paolo 2006-05-03%N")
-		 end
-	end
-	create a_path.from_external_pointer (path_ptr)
-	Result := (function.item ([a_selection,a_model,a_path,
-										path_currently_selected.to_boolean]).to_integer)
+			debug
+				print ("Gtk tree select function callback:")
+				print (" selection=") print(selection_ptr.to_string) 
+				print (" model=") print(model_ptr.to_string) 
+				print (" path=") print(path_ptr.to_string) 
+				print (" path_currently_selected=") print(path_currently_selected.to_string) 
+				--print (" instance=") print (instance.to_string)
+				print ("%N")
+			end
+			if r.has_eiffel_wrapper_stored (selection_ptr) then
+				a_selection := r.eiffel_wrapper_from_gobject_pointer (selection_ptr)
+			else
+				debug
+					print ("Creating the selection wrapper for ") print(selection_ptr.out) print (".%N")
+				end
+				create a_selection.from_external_pointer (selection_ptr)
+			end
+			a_model := eiffel_wrapper_from_gobject_pointer (model_ptr)
+			debug
+				if a_model = Void then
+					print ("Warning! In GTK_TREE_SELECT_FUNCTION.callback model_ptr does not have a stored Eiffel wrapper. We cannot recreate it, since GTK_TREE_MODEL is deferred. This can be a bug or a source of other bugs. Be warned! Paolo 2006-05-03%N")
+				end
+			end
+	
+			if wrappers.has(path_ptr) then a_path ::= wrappers.at(path_ptr)
+			else  create a_path.from_external_pointer (path_ptr)
+			end
+	
+			Result := (function.item ([a_selection,a_model,a_path,
+												path_currently_selected.to_boolean]).to_integer)
 		end
 	
 	function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]
