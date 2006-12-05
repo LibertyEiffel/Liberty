@@ -27,11 +27,13 @@ indexing
 class GTK_TEXT_ITER
 
 inherit
-	C_STRUCT
-		redefine dispose end --copy, dispose, is_equal end
+	SHARED_C_STRUCT
+		redefine dispose, copy, is_equal end
+			 -- This class isn't really shared, but we need to make it conform
+			 -- to SHARED_C_STRUCT to be able to create G_SLISTs with it.
 
 insert GTK
-		
+
 creation make, from_external_pointer, copy
 
 feature {} -- Creation
