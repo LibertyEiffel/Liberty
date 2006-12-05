@@ -19,7 +19,11 @@ indexing
 					02110-1301 USA
 			]"
 
-class GLADE_XML_EXTERNAL
+deferred class GLADE_XML_EXTERNAL
+
+inherit
+	ANY
+		undefine copy, is_equal end
 
 feature {NONE} -- External calls
 

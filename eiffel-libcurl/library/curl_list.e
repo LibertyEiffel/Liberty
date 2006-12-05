@@ -30,6 +30,7 @@ inherit
 
 insert
 	CURL_LIST_EXTERNALS
+		undefine copy, is_equal end
 
 creation
 	null, from_external_pointer

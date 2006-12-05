@@ -28,9 +28,11 @@ class CURL
 inherit
 	C_STRUCT redefine dispose end
 	STREAM_HANDLER
+		undefine copy, is_equal end
 
 insert
 	CURL_EXTERNALS
+		undefine copy, is_equal end
 
 creation
 	make

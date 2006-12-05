@@ -24,6 +24,7 @@ class GLADE_GETTER [W -> GTK_WIDGET]
 inherit
 	GLADE_XML_EXTERNAL
 	INTERNALS_HANDLER
+		undefine copy, is_equal end
 
 feature {NONE} -- Creation
 

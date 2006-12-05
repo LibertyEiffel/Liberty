@@ -23,9 +23,9 @@ class GLADE_XML
 
 inherit
 	G_OBJECT
-	GLADE_XML_EXTERNAL
 
 insert
+	GLADE_XML_EXTERNAL
 	-- Classes known, in alphabetical order
 	-- Add others if you need to extract them from glade
 	GLADE_GETTER [GTK_BUTTON]                 rename get as get_button end
