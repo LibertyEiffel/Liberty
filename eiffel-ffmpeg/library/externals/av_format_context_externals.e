@@ -22,6 +22,10 @@ indexing
 
 deferred class AV_FORMAT_CONTEXT_EXTERNALS
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature {} -- External calls
 
 	av_format_context_get_iformat (a_context: POINTER): POINTER is

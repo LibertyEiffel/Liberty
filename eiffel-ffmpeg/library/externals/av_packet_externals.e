@@ -21,6 +21,10 @@ indexing
 
 deferred class AV_PACKET_EXTERNALS
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature {} -- External calls
 
 	av_packet_get_pts (a_packet: POINTER): INTEGER_64 is

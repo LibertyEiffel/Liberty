@@ -22,6 +22,10 @@ indexing
 deferred class AV_PIXEL_FORMATS
 	-- Valid pixel formats
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature
 
 	is_valid_av_pixel_format (a_pix_fmt: INTEGER): BOOLEAN is

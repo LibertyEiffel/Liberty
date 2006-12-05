@@ -22,6 +22,10 @@ indexing
 deferred class AV_PICTURE_EXTERNALS
 	-- External calls for AVPicture
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature {} -- External calls
 
 	av_picture_get_linesize (a_pict: POINTER; a_channel: INTEGER): INTEGER is

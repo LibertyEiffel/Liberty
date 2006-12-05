@@ -22,6 +22,10 @@ indexing
 deferred class AV_SEEK_FLAGS
 	-- Flags used for seeking within streams
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature
 
 	is_valid_av_seek_flags (some_flags: INTEGER): BOOLEAN is

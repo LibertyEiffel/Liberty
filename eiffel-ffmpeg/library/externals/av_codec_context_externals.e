@@ -22,6 +22,10 @@ indexing
 deferred class AV_CODEC_CONTEXT_EXTERNALS
 	-- External calls for AV_CODEC_CONTEXT
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature {} -- External calls - getters
 
 	av_codec_context_get_codec_type (a_context: POINTER): INTEGER is

@@ -22,6 +22,10 @@ indexing
 deferred class AV_CODEC_EXTERNALS
 	-- External calls for AV_CODEC
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature {} -- External Calls
 
 	av_codec_get_name (a_codec: POINTER): POINTER is

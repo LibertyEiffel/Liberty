@@ -22,6 +22,10 @@ indexing
 deferred class AV_INPUT_FORMAT_EXTERNALS
 	-- External calls for AV_INPUT_FORMAT
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature {} -- External Calls
 
 	av_input_format_get_name (a_format: POINTER): POINTER is

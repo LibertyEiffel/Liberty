@@ -22,6 +22,10 @@ indexing
 deferred class AV_STREAM_EXTERNALS
 	-- External calls for AVStream
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature {} -- External calls
 
 	av_stream_get_index (a_stream: POINTER): INTEGER is

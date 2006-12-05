@@ -22,6 +22,10 @@ indexing
 deferred class AV_FRAME_EXTERNALS
 	-- External calls for AVFrame
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature
 
 	avcodec_alloc_frame: POINTER is

@@ -22,6 +22,10 @@ indexing
 deferred class AV_CODEC_IDS
 	-- enum CODEC_IDs
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature
 	is_valid_av_codec_id (a_codec_id: INTEGER): BOOLEAN is
 		do

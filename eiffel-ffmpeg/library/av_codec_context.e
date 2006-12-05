@@ -23,6 +23,7 @@ class AV_CODEC_CONTEXT
 
 inherit
 	WRAPPER_RETRIEVER [AV_CODEC]
+		undefine copy, is_equal end
 	C_STRUCT
 		redefine dispose end
 
@@ -33,6 +34,7 @@ insert
 	AV_DISCARD
 	AV_CODEC_IDS
 	AV_CODEC_FINDER
+		undefine copy, is_equal end
 
 creation
 	make, from_external_pointer

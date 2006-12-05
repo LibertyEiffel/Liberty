@@ -21,6 +21,10 @@ indexing
 
 deferred class AV_CODEC_TYPES
 
+inherit
+	ANY
+		undefine copy, is_equal end
+
 feature {NONE}
 
 	is_valid_codec_type (a_codec_type: INTEGER): BOOLEAN is
