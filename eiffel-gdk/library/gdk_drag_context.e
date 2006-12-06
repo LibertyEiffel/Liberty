@@ -83,6 +83,7 @@ feature -- Representation
 				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (object)
 			else -- XXX: check this!
 				--create Result.from_external_pointer (object)
+				not_yet_implemented
 			end
 		end
 
