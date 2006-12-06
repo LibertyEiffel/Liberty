@@ -46,7 +46,8 @@ indexing
 class G_ARRAY [ITEM->SHARED_C_STRUCT]
 
 inherit C_STRUCT
-	-- TODO: make it an heir of ARRAY or FAST_ARRAY
+	-- TODO: make it a proper heir of ARRAY, FAST_ARRAY or
+	-- ARRAYED_COLLECTION
 	
 insert WRAPPER_FACTORY [ITEM]
 
@@ -146,93 +147,116 @@ feature
 				ptr = handle 
 			end
 		end
--- g_array_insert_val()
 
--- #define     g_array_insert_val(a,i,v)
+	insert_value (an_item: ITEM; an_index: INTEGER) is
+			-- Inserts `an_item' into Current array at `an_index'.
+		require
+			item_not_void: an_item /= Void
+			valid_index: is_valid_index (an_index)
+		local ptr: POINTER
+		do
+			ptr:=g_array_insert_val (handle, an_index, an_item.handle)
+			check 
+				ptr_is_c_garray: ptr = handle 
+			end
+			-- Note: g_array_insert_val() is a macro which uses a
+			-- reference to the value parameter v. This means that you
+			-- cannot use it with literal values such as "27". You must
+			-- use variables.
+		ensure -- TODO: value_put
+		end
 
--- Inserts an element into an array at the given index.
--- Note
+	insert_values (some_values: ARRAY[ITEM]; an_index: INTEGER) is
+			-- Inserts `some_values' into Current GArray at `an_index'.
+		require
+			values_not_void: some_values /= Void
+			values_not_empty: not some_values.is_empty
+		local ptr: POINTER
+		do
+			ptr:=g_array_insert_vals(handle, an_index,
+											 some_values.to_external,
+											 some_values.count)
+			check 
+				ptr_is_c_garray: ptr = handle 
+			end
+		end
 
--- g_array_insert_val() is a macro which uses a reference to the value parameter v. This means that you cannot use it with literal values such as "27". You must use variables.
--- a : 	a GArray.
--- i : 	the index to place the element at.
--- v : 	the value to insert into the array.
--- Returns : 	the GArray.
--- g_array_insert_vals ()
+	remove_index (an_index: INTEGER) is
+			-- Removes the element at `an_index' from Current GArray. The
+			-- following elements are moved down one place.
+		require valid_index: is_valid_index (an_index)
+		local ptr: POINTER
+		do
+			ptr:=g_array_remove_index(handle,an_index)
+			check 
+				ptr_is_c_garray: ptr = handle 
+			end
+		ensure count_decreased: count = old count - 1 
+		end
 
--- GArray*     g_array_insert_vals             (GArray *array,
---                                              guint index_,
---                                              gconstpointer data,
---                                              guint len);
+	remove_index_fast (an_index: INTEGER) is
+			-- Removes the element at `an_index' from Current GArray. The
+			-- last element in the array is used to fill in the space, so
+			-- this function does not preserve the order of the
+			-- GArray. But it is faster than `remove_index'.
+		require valid_index: is_valid_index (an_index)
+		local ptr: POINTER
+		do
+			ptr:=g_array_remove_index_fast(handle,an_index)
+			check 
+				ptr_is_c_garray: ptr = handle 
+			end
+		ensure 
+			count_decreased: count = old count - 1 
+			last_moved_to_an_index: old last = item(an_index)
+		end
 
--- Inserts len elements into a GArray at the given index.
--- array : 	a GArray.
--- index_ : 	the index to place the elements at.
--- data : 	a pointer to the elements to insert.
--- len : 	the number of elements to insert.
--- Returns : 	the GArray.
--- g_array_remove_index ()
+	remove_range (an_index, a_number: INTEGER) is
+			-- Removes `a_number' elements starting at `an_index' from a
+			-- GArray. The following elements are moved to close the gap.
+		require 
+			valid_index: is_valid_index (an_index)
+			valid_range: is_valid_index (an_index+a_lenght-1)
+		local ptr: POINTER
+		do
+			ptr:=g_array_remove_range(handle,an_index,a_lenght)
+			check 
+				ptr_is_c_garray: ptr = handle 
+			end
+		ensure 
+			count_decreased: count = old count - a_number 
+		end
 
--- GArray*     g_array_remove_index            (GArray *array,
---                                              guint index_);
+	-- TODO: sort ()
 
--- Removes the element at the given index from a GArray. The following elements are moved down one place.
--- array : 	a GArray.
--- index_ : 	the index of the element to remove.
--- Returns : 	the GArray.
--- g_array_remove_index_fast ()
+	-- void g_array_sort (GArray *array, GCompareFunc compare_func);
 
--- GArray*     g_array_remove_index_fast       (GArray *array,
---                                              guint index_);
+	-- Sorts a GArray using compare_func which should be a
+	-- qsort()-style comparison function (returns -1 for first arg is
+	-- less than second arg, 0 for equal, 1 if first arg is greater
+	-- than second arg).  array : a GArray.  compare_func : comparison
+	-- function.  g_array_sort_with_data ()
 
--- Removes the element at the given index from a GArray. The last element in the array is used to fill in the space, so this function does not preserve the order of the GArray. But it is faster than g_array_remove_index().
--- array : 	a GArray.
--- index_ : 	the index of the element to remove.
--- Returns : 	the GArray.
--- g_array_remove_range ()
+	-- void g_array_sort_with_data (GArray *array, GCompareDataFunc
+	-- compare_func, gpointer user_data);
+	
+	-- Like g_array_sort(), but the comparison function receives a user
+	-- data argument.  array : a GArray.  compare_func : comparison
+	-- function.  user_data : data to pass to compare_func.
 
--- GArray*     g_array_remove_range            (GArray *array,
---                                              guint index_,
---                                              guint length);
+	item (an_index: INTEGER): ITEM is
+			-- the element of Current GArray at `an_index'. 
 
--- Removes the given number of elements starting at the given index from a GArray. The following elements are moved to close the gap.
--- array : 	a GArray.
--- index_ : 	the index of the first element to remove.
--- length : 	the number of elements to remove.
--- Returns : 	the GArray.
+			-- Example 4. Getting a pointer to an element in a GArray
 
--- Since 2.4
--- g_array_sort ()
-
--- void        g_array_sort                    (GArray *array,
---                                              GCompareFunc compare_func);
-
--- Sorts a GArray using compare_func which should be a qsort()-style comparison function (returns -1 for first arg is less than second arg, 0 for equal, 1 if first arg is greater than second arg).
--- array : 	a GArray.
--- compare_func : 	comparison function.
--- g_array_sort_with_data ()
-
--- void        g_array_sort_with_data          (GArray *array,
---                                              GCompareDataFunc compare_func,
---                                              gpointer user_data);
-
--- Like g_array_sort(), but the comparison function receives a user data argument.
--- array : 	a GArray.
--- compare_func : 	comparison function.
--- user_data : 	data to pass to compare_func.
--- g_array_index()
-
--- #define     g_array_index(a,t,i)
-
--- Returns the element of a GArray at the given index. The return value is cast to the given type.
-
--- Example 4. Getting a pointer to an element in a GArray
-
---   EDayViewEvent *event;
-
---   /* This gets a pointer to the 3rd element in the array of EDayViewEvent
---      structs. */
---   event = &g_array_index (events, EDayViewEvent, 3);
+			-- EDayViewEvent *event; /* This gets a pointer to the 3rd
+			-- element in the array of EDayViewEvent structs. */ event =
+			-- &g_array_index (events, EDayViewEvent, 3);
+		local ptr: POINTER
+		do
+			ptr := g_array_index(handle,an_index)
+			-- The return value is cast to the given type.
+		end
 
 -- a : 	a GArray.
 -- t : 	the type of the elements.
@@ -357,11 +381,11 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-	-- TODO: g_array_index (an_array, a,t,i)
-	-- #define g_array_index (a,t,i)
-	-- external "C macro use <glib.h>"
-	-- inline "g_array_index ($an_array, TheType, $index)
-	-- end
+	g_array_index (an_array: POINTER; an_index: INTEGER): POINTER is
+			-- #define g_array_index (a,t,i)
+		external "C macro use <glib.h>"
+		alias "g_array_index ($an_array, (void *), $an_index)"
+		end
 	
 	g_array_set_size (an_array: POINTER; a_length): POINTER is
 			-- GArray* g_array_set_size (GArray *array, guint length);
