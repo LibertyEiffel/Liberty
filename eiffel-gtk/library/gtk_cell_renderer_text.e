@@ -31,8 +31,9 @@ indexing
 			-- entry.
 
 class GTK_CELL_RENDERER_TEXT
-inherit GTK_CELL_RENDERER 
-insert 
+inherit GTK_CELL_RENDERER
+
+insert
 	PANGO_STYLE
 	GTK_CELL_RENDERER_TEXT_EXTERNALS
 
@@ -74,7 +75,6 @@ feature
 		do
 			gtk_cell_renderer_text_set_fixed_height_from_font (handle,number_of_rows)
 		end
-	
 
 feature -- Property Details
 -- The "attributes" property

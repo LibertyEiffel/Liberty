@@ -46,7 +46,7 @@ feature {} -- External calls
 		end
 
 	gtk_cell_renderer_activate (gtkcellrenderer_cell_ptr,
-										 gdkevent_event_ptr, 
+										 gdkevent_event_ptr,
 										 gtkwidget_widget_ptr,
 										 gchar_path_ptr,
 										 gdkrectangle_background_area_ptr,

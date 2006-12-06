@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 	is_valid_cell_renderer_mode (a_mode :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_mode = gtk_cell_renderer_mode_inert) or else
 						(a_mode = gtk_cell_renderer_mode_activatable) or else
 						(a_mode = gtk_cell_renderer_mode_editable))
