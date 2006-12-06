@@ -17,13 +17,13 @@ deferred class GLIB_STRING
 inherit ANY undefine is_equal, copy end
 
 feature {} -- utility function
-	
+
 	char_in_string (string: POINTER; i: INTEGER): CHARACTER is
 		obsolete "unnecessary use of inline. Use native_array.from_pointer instead"
 		external "C inline use <glib.h>"
 		alias "string[i]"
 		end
-	
+
 feature {} -- struct access 		
 	str (string: POINTER): POINTER is
 		external "C struct GString get str use <glib.h>"
@@ -32,12 +32,13 @@ feature {} -- struct access
 	len (string: POINTER): INTEGER is
 		external "C struct GString get len use <glib.h>"
 		end
-	
+
 	allocated_len (string: POINTER): INTEGER is
 		external "C struct GString get allocated_len use <glib.h>"
 		end
 
 feature {} -- external calls
+
 	g_string_new (a_string: POINTER): POINTER is
 			-- Creates a new GString, initialized with the given
 			-- `a_string', the initial text to copy into the
@@ -49,11 +50,10 @@ feature {} -- external calls
 			external "C <glib.h>"
 		end
 
-
 	g_string_sized_new (a_size: INTEGER): POINTER is
 		external "C <glib.h>"
 		end
-	
+
 	g_string_assign (a_string, a_source: POINTER) is
 			-- opies the characters from a_source into a GString, destroying
 			-- any previous contents. It is rather like the standard strcpy()
@@ -134,7 +134,6 @@ feature {} -- external calls
 			-- prepend on the start of the GString.
 		external "C <glib.h>"
 		end
-	
 
 	-- TODO g_string_prepend_unichar ()
 
@@ -211,7 +210,7 @@ feature {} -- external calls
 			-- insert. Returns : the GString.
 		external "C <glib.h>"
 		end
-	
+
 	g_string_erase (string: POINTER; pos,a_len: INTEGER) is
 			-- Removes len characters from a GString, starting at
 			-- position pos.The rest of the GString is shifted down to
@@ -262,4 +261,5 @@ feature {} -- external calls
 			-- same length and contain the same bytes.
 		external "C <glib.h>"
 		end
+
 end
