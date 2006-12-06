@@ -486,6 +486,10 @@ feature
 				end
 			end
 			create Result.make_2 (a_path, a_column)
+		ensure
+			Result /= Void
+			Result.first /= Void implies Result.first.handle.is_not_null
+			Result.second /= Void implies Result.second.handle.is_not_null
 		end
 
 	row_expanded (a_path: GTK_TREE_PATH): BOOLEAN is
