@@ -33,6 +33,11 @@ feature {} -- Representation
 
 feature
 
+	to_string: STRING is
+		do
+			Result := utf8_string
+		end
+
 	to_lower is
 			-- Convert the string to lower case.
 		do
