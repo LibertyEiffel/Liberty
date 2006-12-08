@@ -145,11 +145,15 @@ feature
 			Result:=gtk_tree_path_get_depth(handle)
 		end
 
-	indices: ARRAYED_COLLECTION[INTEGER_32] is
+	indices: COLLECTION[INTEGER_32] is
 			-- the current indices of path. This is an array of integers,
 			-- each representing a node in a tree.
 			
 			-- Note: currently implemented as a FAST_ARRAY
+
+			-- Note: it couldn't be an ARRAYED_COLLECTION in SE 2.3/svn
+			-- since FAST_ARRAY is a non-conforming heir (i.e. inserts)
+			-- ARRAYED_COLLECTION.
 		local
 			c_array: NATIVE_ARRAY [INTEGER_32]; i: INTEGER_32
 		do
