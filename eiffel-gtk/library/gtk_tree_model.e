@@ -55,14 +55,14 @@ indexing
 			-- GtkTreeIter [4] Most of the interface consists of operations on a
 			-- GtkTreeIter.
 
-			-- A path is essentially a potential node. It is a location on a model
-			-- that may or may not actually correspond to a node on a specific
-			-- model. The GtkTreePath struct can be converted into either an array
-			-- of unsigned integers or a string. The string form is a list of
-			-- numbers separated by a colon. Each number refers to the offset at
-			-- that level. Thus, the path 0: refers to the
-			-- root node and the path �:4�refers to the
-			-- fifth child of the third node.
+			-- A path is essentially a potential node. It is a location
+			-- on a model that may or may not actually correspond to a
+			-- node on a specific model. The GtkTreePath struct can be
+			-- converted into either an array of unsigned integers or a
+			-- string. The string form is a list of numbers separated by
+			-- a colon. Each number refers to the offset at that
+			-- level. Thus, the path 0: refers to the root node and the
+			-- path �:4�refers to the fifth child of the third node.
 
 			-- By contrast, a GtkTreeIter is a reference to a specific node on a
 			-- specific model. It is a generic struct with an integer and three
@@ -188,10 +188,10 @@ feature
 		do
 			create Result.from_model (Current)
 			gbool := gtk_tree_model_get_iter_first (handle, Result.handle)
-			-- if (gbool = 0) then
-			--Result.dispose -- See get_new_iterator for info
-			-- Result := Void
-			--end
+			if (gbool = 0) then
+				Result.dispose -- See get_new_iterator for info
+				Result := Void
+			end
 		end
 
 	path (an_iterator: GTK_TREE_ITER): GTK_TREE_PATH is

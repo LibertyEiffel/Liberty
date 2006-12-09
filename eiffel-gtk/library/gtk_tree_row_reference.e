@@ -124,13 +124,6 @@ feature -- Disposing
 			gtk_tree_row_reference_free (handle)
 		end
 feature {} -- Unimplemented
-	
--- Unimplemented parts
-
--- reference : 	a GtkTreeRowReference
--- Returns : 	a copy of reference.
-
--- Since 2.2
 -- gtk_tree_row_reference_inserted ()
 
 -- void        gtk_tree_row_reference_inserted (GObject *proxy,

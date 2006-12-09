@@ -15,48 +15,87 @@ inherit
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
 	
+insert
 	WRAPPER_HANDLER -- required to check for some bug in the implementation and accessing wrappers' handles
+	GLIB_MESSAGE_LOGGING
+	
 creation make
 	
 feature -- Columns
 	name_column_n: INTEGER is 0
-	age_column_n: INTEGER is 1
+	nick_column_n: INTEGER is 1
 	columns_n: INTEGER is 2
 
+feature
+	developers: FAST_ARRAY[TUPLE[STRING,STRING]] is
+		once
+			Result:= {FAST_ARRAY[TUPLE[STRING,STRING]]
+			<< ["Pierre-Nicolas", "eif_pini"],
+				["Anthony Lenton", "elachuni"],
+				["jose bollo", "jobo"],
+				["Natalia B. Bidart", "nessa"],
+				["Oliver Elphick", "oliver_elphick"],
+				["Raphael Mack", "ramack"],
+				["Daniel F Moisset", "trixx"]
+				["Paolo Redaelli", "tybor"],
+				["Walter Alini", "walteralini"] >>
+		}
+		end
 feature 
-	model: GTK_LIST_STORE is -- GTK_TREE_MODEL is
+	model: GTK_TREE_STORE is
 			-- tree model with some data set
 		local
-			iter: GTK_TREE_ITER
+			top_level, child: GTK_TREE_ITER
+
+			developer_iter: ITERATOR[TUPLE[STRING,STRING]]
 		once 
-			create Result.make (<<g_type_string, g_type_uint>>)
+			create Result.make (<<g_type_string, g_type_string>>)
 			-- TODO: change design to remove explicit reference to g_type_*; it's
 			-- ugly, or better it feels mostly unEiffelish to me. Paolo 2005-06-01
 			
-			-- Append three rows and fill in some data
-			create iter.make_from_model (Result)
-			iter.start
-			Result.append (iter) 
-			Result.set_string (iter, name_column_n, "Paolo Redaelli")
-			Result.set_natural (iter, age_column_n, 28)
+			create top_level.make_from_model (Result)
+			create child.make_from_model (Result)
+
+			-- Append an empty top-level row to the tree store.
+			-- Top_Level will point to the new row
+			Result.append (top_level, Void)
+			Result.set_string (top_level, name_column_n, "ISE developers")
 			
-			Result.append (iter)
-			Result.set_string (iter, name_column_n, "Richard Stallman")
-			Result.set_natural (iter, age_column_n, 53)
+			-- Append another empty top-level row to the tree store.
+			-- Top_Level will point to the new row 
+			Result.append(top_level, Void)
+			Result.set_string (top_level, name_column_n, "SmartEiffel developers")
 
-			Result.append (iter)
-			Result.set_string (iter, name_column_n, "Andreas Leitner")
-			Result.set_natural (iter, age_column_n, 31)
+			-- Append a child to the row we just added.
+			-- Child will point to the new row
+			Result.append(top_level, Void)
+			Result.set_string (top_level, name_column_n, "Eiffel-libraries developers")
 
-			print ("Model's count: "+iter.toplevel_nodes_count.out+"%N")
-			check
-				corrent_number_of_elements: iter.toplevel_nodes_count = 3
+			-- Get the first row, and add a child to it as well (could
+			-- have been done right away earlier of course, this is just
+			-- for demonstration purposes)
+			
+			child := Result.get_iterator_first
+			if child = Void then
+				glib_error("Oops, we should have a first row in the tree store!\n")
+			else
+				developer_iter := developers.get_new_iterator
+				from developer_iter.start
+				until developer_iter.is_off
+				loop
+					Result.append (child, top_level)
+
+					Result.set_string (child, name_column_n, developer_iter.item.item_1)
+					Result.set_string (child, nick_column_n, developer_iter.item.item_2)
+
+					developer_iter.next
+				end
 			end
 		end
-
+	
 	renderer: GTK_CELL_RENDERER
 
-	name_column, age_column: GTK_TREE_VIEW_COLUMN
+	name_column, nick_column: GTK_TREE_VIEW_COLUMN
 
 	view: GTK_TREE_VIEW is
 		once
@@ -67,14 +106,14 @@ feature
 			name_column.pack_start (renderer, True)
 			name_column.add_attribute (renderer, "text", name_column_n)
 												
-			create age_column.make
-			age_column.set_title ("Age")
-			age_column.pack_start (renderer, True)
-			age_column.add_attribute (renderer, "text", age_column_n)
+			create nick_column.make
+			nick_column.set_title ("Nick")
+			nick_column.pack_start (renderer, True)
+			nick_column.add_attribute (renderer, "text", nick_column_n)
 
 			create Result.make
 			Result.insert_column (name_column, name_column_n)
-			Result.insert_column (age_column, age_column_n)
+			Result.insert_column (nick_column, nick_column_n)
 			-- Note: both xxx_column_n was -1. Paolo 2005-06-12
 			
 			Result.set_model (model)
@@ -161,8 +200,8 @@ feature -- Agents
 			print ("Person (code: ")
 			print (a_path.to_string) print (") name '")
 			print (a_model.value_at (an_iter, name_column_n).string)
-			print ("' age ")
-			print (a_model.value_at (an_iter, age_column_n).natural.out)
+			print ("' nick ")
+			print (a_model.value_at (an_iter, nick_column_n).natural.out)
 			print ("%N")
 			Result := False -- i.e. go on
 		end

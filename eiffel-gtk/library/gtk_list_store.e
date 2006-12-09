@@ -102,7 +102,9 @@ inherit
 	GTK_TREE_DRAG_SOURCE
 	GTK_TREE_DRAG_DEST
 
-insert GTK_LIST_STORE_EXTERNALS
+insert
+	GTK_STORE_SETTERS
+	GTK_LIST_STORE_EXTERNALS
 
 creation make
 
@@ -168,90 +170,6 @@ feature {} -- Unwrapped code
 	-- list_store : 	A GtkListStore
 	-- iter : 	A valid GtkTreeIter for the row being modified
 	-- var_args : 	va_list of column/value pairs
-
-feature -- Easy to use setters
-	
-	-- Note: wrapping gtk_list_store_set is problematic since it's a variadic
-	-- function but also its not-variadic variant (gtk_list_store_set_valist) is
-	-- not easy to use from within ewg-wrapped libraries since currently it's not
-	-- easy/possible to wrap va_list-using functions. Using the plain
-	-- gtk_list_store_set_value can be an answer but I haven't checked its
-	-- performance (2005-05-16 Paolo)
-
-	set_string (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_string: STRING) is
-		require
-			a_column_contains_a_string: -- TODO
-			valid_iterator: an_iterator/=Void
-		local a_value: G_VALUE
-		do
-			create a_value.from_string (a_string)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_natural (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_natural: INTEGER) is
-		require
-			a_column_contains_a_natural: -- TODO
-			valid_natural: a_natural >= 0
-			valid_iterator: an_iterator/=Void
-		local a_value: G_VALUE
-		do
-			create a_value.from_natural (a_natural)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_integer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_integer: INTEGER) is
-		require
-			a_column_contains_a_integer: -- TODO
-			valid_iterator: an_iterator/=Void
-		local a_value: G_VALUE
-		do
-			create a_value.from_integer (an_integer)
-			set_value (an_iterator, a_column, a_value)
-		end
-	
-	set_real (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_real: REAL) is
-		require
-			a_column_contains_a_double: -- TODO
-			valid_iterator: an_iterator/=Void				
-		local
-			a_value: G_VALUE
-		do
-			create a_value.from_real (a_real)
-			set_value (an_iterator, a_column, a_value)
-		end
-	
-	set_boolean (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_boolean: BOOLEAN) is
-		require
-			valid_iterator: an_iterator/=Void
-			a_column_contains_a_boolean: -- TODO
-		local
-			a_value: G_VALUE
-		do
-			create a_value.from_boolean (a_boolean)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_object (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_object: G_OBJECT) is
-		require
-			valid_iterator: an_iterator/=Void
-			a_column_contains_an_object: -- TODO
-		local
-			a_value: G_VALUE
-		do
-			create a_value.from_object (an_object)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_pointer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_pointer: POINTER) is
-		require
-			valid_iterator: an_iterator/=Void
-			a_column_contains_an_object: -- TODO
-		local
-			a_value: G_VALUE
-		do
-			create a_value.from_pointer (a_pointer)
-			set_value (an_iterator, a_column, a_value)
-		end
 
 feature -- Generic setter
 	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is

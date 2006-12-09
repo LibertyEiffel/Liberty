@@ -70,9 +70,8 @@ feature
 
 	next is
 			-- Points Current to the node following it at the current
-			-- level. If there is no next position
-			-- `is_valid' will be False and Current is
-			-- set to be invalid.
+			-- level. If there is no next position `is_valid' will be
+			-- False and Current is set to be invalid.
 		require
 			attached_to_model
 		do

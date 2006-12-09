@@ -29,7 +29,9 @@ inherit
 	GTK_TREE_DRAG_SOURCE
 	GTK_TREE_DRAG_DEST
 
-insert GTK_TREE_STORE_EXTERNALS
+insert
+	GTK_STORE_SETTERS
+	GTK_TREE_STORE_EXTERNALS
 
 creation make
 
@@ -43,84 +45,7 @@ feature {} -- Creation
 		do
 			from_external_pointer (gtk_tree_store_newv (some_columns.count, some_columns.to_external))
 		end
-
-feature -- Easy to use setters
-
-	set_string (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_string: STRING) is
-		require
-			a_column_contains_a_string: -- TODO
-			valid_iterator: an_iterator/=Void
-		local a_value: G_VALUE
-		do
-			create a_value.from_string (a_string)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_natural (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_natural: INTEGER) is
-		require
-			a_column_contains_a_natural: -- TODO
-			valid_natural: a_natural >= 0
-			valid_iterator: an_iterator/=Void
-		local a_value: G_VALUE
-		do
-			create a_value.from_natural (a_natural)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_integer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_integer: INTEGER) is
-		require
-			a_column_contains_a_integer: -- TODO
-			valid_iterator: an_iterator/=Void
-		local a_value: G_VALUE
-		do
-			create a_value.from_integer (an_integer)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_real (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_real: REAL) is
-		require
-			a_column_contains_a_double: -- TODO
-			valid_iterator: an_iterator/=Void
-		local
-			a_value: G_VALUE
-		do
-			create a_value.from_real (a_real)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_boolean (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_boolean: BOOLEAN) is
-		require
-			valid_iterator: an_iterator/=Void
-			a_column_contains_a_boolean: -- TODO
-		local
-			a_value: G_VALUE
-		do
-			create a_value.from_boolean (a_boolean)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_object (an_iterator: GTK_TREE_ITER; a_column: INTEGER; an_object: G_OBJECT) is
-		require
-			valid_iterator: an_iterator/=Void
-			a_column_contains_an_object: -- TODO
-		local
-			a_value: G_VALUE
-		do
-			create a_value.from_object (an_object)
-			set_value (an_iterator, a_column, a_value)
-		end
-
-	set_pointer (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_pointer: POINTER) is
-		require
-			valid_iterator: an_iterator/=Void
-			a_column_contains_a_pointer: -- TODO
-		local
-			a_value: G_VALUE
-		do
-			create a_value.from_pointer (a_pointer)
-			set_value (an_iterator, a_column, a_value)
-		end
-
+	
 feature -- Generic setter
 	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
 			-- Sets the data in the cell specified by `an_iterator' and
@@ -223,22 +148,23 @@ feature -- Generic setter
 			-- than the number of rows on the list, then the new row will
 			-- be appended to the list. The row will be filled with the
 			-- values given to this function.
-			--
-			-- Calling store.insert_with_values (iter, parent, position, cols, vals)
-			-- has the same effect as calling
-			--
+
+			-- Calling store.insert_with_values (iter, parent, position,
+			-- cols, vals) has the same effect as calling
+
 			-- store.put (iter, parent, position)
 			-- store.set (iter, cols, vals);
-			--
-			-- with the difference that the former will only emit a 
-			-- row_inserted signal, while the latter will emit row_inserted,
-			-- row_changed and if the tree store is sorted, rows_reordered.
-			-- Since emitting the rows_reordered signal repeatedly can affect
-			-- the performance of the program, insert_with_values should
-			-- generally be preferred when inserting rows in a sorted tree store.
-			--
+
+			-- with the difference that the former will only emit a
+			-- row_inserted signal, while the latter will emit
+			-- row_inserted, row_changed and if the tree store is sorted,
+			-- rows_reordered.  Since emitting the rows_reordered signal
+			-- repeatedly can affect the performance of the program,
+			-- insert_with_values should generally be preferred when
+			-- inserting rows in a sorted tree store.
+
 			-- `some_columns' contains the column numbers; each column
-			-- will be set with the corresponding value in `some_values'
+			-- will be set with the corresponding value in `some_values'.
 		require columns_n_equals_values_n: some_columns.count = some_values.count
 		do
 			not_yet_implemented

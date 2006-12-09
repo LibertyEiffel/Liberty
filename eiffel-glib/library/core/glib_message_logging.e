@@ -1,167 +1,78 @@
 indexing
+	description: "Versatile support for logging messages with different levels of importance."
 	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GLIB_MESSAGE_LOGGING
-
--- Prev 	Up 	Home 	GLib Reference Manual 	Next
--- Top  |  Description
--- Message Logging
-
--- Message Logging %GÅ‚Äî%@ versatile support for logging messages with different levels of importance.
+			-- Description: These functions provide support for logging
+			-- error messages or messages used for debugging. There are
+			-- several built-in levels of messages, defined in
+			-- GLogLevelFlags. These can be extended with user-defined
+			-- levels.
 	
--- Synopsis
+class GLIB_MESSAGE_LOGGING
+	
+insert G_LOG_LEVEL_FLAGS_ENUM	
 
--- #include <glib.h>
+feature
+	glib_log (a_domain, a_message: STRING; a_log_level: INTEGER) is
+			-- Logs an error or debugging message. If `a_log_level' has
+			-- been set as fatal, the `abort' function is called to
+			-- terminate the program.
+		
+			-- a_domain: the log domain; if Void `g_log_domain' is used.
+		
+			-- `a_log_level, either from GLogLevelFlags or a user-defined
+			-- level.
+		require message_not_void: a_message /= Void
+			-- valid_log_level: are_valid_log_level_flags (a_log_level)
+		local domain: POINTER
+		do
+			if a_domain=Void then domain:=g_log_domain
+			else domain:=a_domain.to_external
+			end
+			g_log (domain, a_log_level, a_message.to_external)
+		end
+	
+	glib_message (a_message: STRING) is
+			-- log a normal message.
+		require message_not_void: a_message /= Void
+		do
+			g_message(a_message.to_external)
+		end
+	
+	-- g_warning()
+	
+	-- #define g_warning(...)
 
+	-- A convenience function/macro to log a warning message.  ... :
+	-- format string, followed by parameters to insert into the format
+	-- string (as with printf())
+	
+	-- g_critical()
 
--- #define     G_LOG_DOMAIN
--- #define     G_LOG_FATAL_MASK
--- #define     G_LOG_LEVEL_USER_SHIFT
--- void        (*GLogFunc)                     (const gchar *log_domain,
---                                              GLogLevelFlags log_level,
---                                              const gchar *message,
---                                              gpointer user_data);
--- enum        GLogLevelFlags;
-
--- void        g_log                           (const gchar *log_domain,
---                                              GLogLevelFlags log_level,
---                                              const gchar *format,
---                                              ...);
--- void        g_logv                          (const gchar *log_domain,
---                                              GLogLevelFlags log_level,
---                                              const gchar *format,
---                                              va_list args);
--- #define     g_message                       (...)
--- #define     g_warning                       (...)
--- #define     g_critical                      (...)
--- #define     g_error                         (...)
--- #define     g_debug                         (...)
-
--- guint       g_log_set_handler               (const gchar *log_domain,
---                                              GLogLevelFlags log_levels,
---                                              GLogFunc log_func,
---                                              gpointer user_data);
--- void        g_log_remove_handler            (const gchar *log_domain,
---                                              guint handler_id);
--- GLogLevelFlags g_log_set_always_fatal       (GLogLevelFlags fatal_mask);
--- GLogLevelFlags g_log_set_fatal_mask         (const gchar *log_domain,
---                                              GLogLevelFlags fatal_mask);
--- void        g_log_default_handler           (const gchar *log_domain,
---                                              GLogLevelFlags log_level,
---                                              const gchar *message,
---                                              gpointer unused_data);
--- GLogFunc    g_log_set_default_handler       (GLogFunc log_func,
---                                              gpointer user_data);
-
--- Description
-
--- These functions provide support for logging error messages or messages used for debugging.
-
--- There are several built-in levels of messages, defined in GLogLevelFlags. These can be extended with user-defined levels.
--- Details
--- G_LOG_DOMAIN
-
--- #define G_LOG_DOMAIN    ((gchar*) 0)
-
--- Defines the log domain. For applications, this is typically left as the default NULL (or "") domain. Libraries should define this so that any messages which they log can be differentiated from messages from other libraries and application code. But be careful not to define it in any public header files.
-
--- For example, GTK+ uses this in its Makefile.am:
-
--- INCLUDES = -DG_LOG_DOMAIN=\"Gtk\"
-
--- G_LOG_FATAL_MASK
-
--- #define G_LOG_FATAL_MASK        (G_LOG_FLAG_RECURSION | G_LOG_LEVEL_ERROR)
-
--- GLib log levels that are considered fatal by default.
--- G_LOG_LEVEL_USER_SHIFT
-
--- #define G_LOG_LEVEL_USER_SHIFT  (8)
-
--- Log level shift offset for user defined log levels (0-7 are used by GLib).
--- GLogFunc ()
-
--- void        (*GLogFunc)                     (const gchar *log_domain,
---                                              GLogLevelFlags log_level,
---                                              const gchar *message,
---                                              gpointer user_data);
-
--- Specifies the prototype of log handler functions.
--- log_domain : 	the log domain of the message.
--- log_level : 	the log level of the message (including the fatal and recursion flags).
--- message : 	the message to process.
--- user_data : 	user data, set in g_log_set_handler().
--- enum GLogLevelFlags
-
--- typedef enum
--- {
---   /* log flags */
---   G_LOG_FLAG_RECURSION          = 1 << 0,
---   G_LOG_FLAG_FATAL              = 1 << 1,
-
---   /* GLib log levels */
---   G_LOG_LEVEL_ERROR             = 1 << 2,       /* always fatal */
---   G_LOG_LEVEL_CRITICAL          = 1 << 3,
---   G_LOG_LEVEL_WARNING           = 1 << 4,
---   G_LOG_LEVEL_MESSAGE           = 1 << 5,
---   G_LOG_LEVEL_INFO              = 1 << 6,
---   G_LOG_LEVEL_DEBUG             = 1 << 7,
-
---   G_LOG_LEVEL_MASK              = ~(G_LOG_FLAG_RECURSION | G_LOG_FLAG_FATAL)
--- } GLogLevelFlags;
-
--- Flags specifying the level of log messages.
--- g_log ()
-
--- void        g_log                           (const gchar *log_domain,
---                                              GLogLevelFlags log_level,
---                                              const gchar *format,
---                                              ...);
-
--- Logs an error or debugging message. If the log level has been set as fatal, the abort() function is called to terminate the program.
--- log_domain : 	the log domain, usually G_LOG_DOMAIN.
--- log_level : 	the log level, either from GLogLevelFlags or a user-defined level.
--- format : 	the message format. See the printf() documentation.
--- ... : 	the parameters to insert into the format string.
--- g_logv ()
-
--- void        g_logv                          (const gchar *log_domain,
---                                              GLogLevelFlags log_level,
---                                              const gchar *format,
---                                              va_list args);
-
--- Logs an error or debugging message. If the log level has been set as fatal, the abort() function is called to terminate the program.
--- log_domain : 	the log domain.
--- log_level : 	the log level.
--- format : 	the message format. See the printf() documentation.
--- args : 	the parameters to insert into the format string.
--- g_message()
-
--- #define     g_message(...)
-
--- A convenience function/macro to log a normal message.
--- ... : 	format string, followed by parameters to insert into the format string (as with printf())
--- g_warning()
-
--- #define     g_warning(...)
-
--- A convenience function/macro to log a warning message.
--- ... : 	format string, followed by parameters to insert into the format string (as with printf())
--- g_critical()
-
--- #define     g_critical(...)
-
--- Logs a "critical warning" (G_LOG_LEVEL_CRITICAL). It's more or less application-defined what constitutes a critical vs. a regular warning. You could call g_log_set_always_fatal() to make critical warnings exit the program, then use g_critical() for fatal errors, for example.
--- ... : 	format string, followed by parameters to insert into the format string (as with printf())
--- g_error()
-
--- #define     g_error(...)
-
--- A convenience function/macro to log an error message. Error messages are always fatal, resulting in a call to abort() to terminate the application. This function will result in a core dump; don't use it for errors you expect. Using this function indicates a bug in your program, i.e. an assertion failure.
--- ... : 	the parameters to insert into the format string.
+	-- #define     g_critical(...)
+	
+	-- Logs a "critical warning" (G_LOG_LEVEL_CRITICAL). It's more or
+	-- less application-defined what constitutes a critical vs. a
+	-- regular warning. You could call g_log_set_always_fatal() to make
+	-- critical warnings exit the program, then use g_critical() for
+	-- fatal errors, for example.  ... : format string, followed by
+	-- parameters to insert into the format string (as with printf())
+	
+	glib_error (an_error: STRING) is
+			-- A convenience function/macro to log an error
+			-- message. Error messages are always fatal, resulting in a
+			-- call to abort() to terminate the application. This
+			-- function will result in a core dump; don't use it for
+			-- errors you expect. Using this function indicates a bug in
+			-- your program, i.e. an assertion failure.
+		require error_not_void: an_error /= Void
+		do
+			g_error (an_error.to_external)
+		end
+	
 -- g_debug()
 
 -- #define     g_debug(...)
@@ -250,6 +161,133 @@ class GLIB_MESSAGE_LOGGING
 -- Returns : 	the previous default log handler
 
 -- Since 2.6
+
+feature {} -- Unwrapped
+-- G_LOG_LEVEL_USER_SHIFT
+
+-- #define G_LOG_LEVEL_USER_SHIFT  (8)
+
+-- Log level shift offset for user defined log levels (0-7 are used by GLib).
+-- GLogFunc ()
+
+-- void        (*GLogFunc)                     (const gchar *log_domain,
+--                                              GLogLevelFlags log_level,
+--                                              const gchar *message,
+--                                              gpointer user_data);
+
+-- Specifies the prototype of log handler functions.
+-- log_domain : 	the log domain of the message.
+-- log_level : 	the log level of the message (including the fatal and recursion flags).
+-- message : 	the message to process.
+-- user_data : 	user data, set in g_log_set_handler().
+
+-- Flags specifying the level of log messages.
+
+-- g_logv ()
+
+-- void        g_logv                          (const gchar *log_domain,
+--                                              GLogLevelFlags log_level,
+--                                              const gchar *format,
+--                                              va_list args);
+
+-- Logs an error or debugging message. If the log level has been set as fatal, the abort() function is called to terminate the program.
+-- log_domain : 	the log domain.
+-- log_level : 	the log level.
+-- format : 	the message format. See the printf() documentation.
+-- args : 	the parameters to insert into the format string.
+feature {} -- External calls
+	g_log_domain: POINTER is
+		-- #define G_LOG_DOMAIN ((gchar*) 0)
+	
+		-- Defines the log domain. For applications, this is typically left
+		-- as the default NULL (or "") domain. Libraries should define this
+		-- so that any messages which they log can be differentiated from
+		-- messages from other libraries and application code. But be
+		-- careful not to define it in any public header files.
+	
+		-- For example, GTK+ uses this in its Makefile.am:
+	
+		-- INCLUDES = -DG_LOG_DOMAIN=\"Gtk\"
+		external "C macro use <glib.h>"
+		alias "G_LOG_DOMAIN"
+		end
+	
+	-- void (*GLogFunc) (const gchar *log_domain, GLogLevelFlags
+	-- log_level, const gchar *message, gpointer user_data);
+
+	g_log (a_log_domain: POINTER; a_log_level: INTEGER; a_format: POINTER) is
+		external "C use <glib.h>"
+		end
+		
+	-- g_logv (a_log_domain: POINTER; a_log_level: INTEGER; a *format,
+	-- va_list args);
+	
+	g_message (a_message: POINTER) is
+			-- #define g_message
+		external "C macro use <glib.h>"
+		alias "g_message"
+		end
+
+	g_warning (a_message: POINTER) is
+			-- #define g_warning
+		external "C macro use <glib.h>"
+		alias "g_warning"
+		end
+
+	g_critical (a_message: POINTER) is
+			-- #define g_critical
+		external "C macro use <glib.h>"
+		alias "g_critical"
+		end
+	
+	g_error (a_message: POINTER) is
+			-- #define g_error
+		external "C macro use <glib.h>"
+		alias "g_error"
+		end
+
+	g_debug (a_message: POINTER) is
+			-- #define g_debug
+		external "C macro use <glib.h>"
+		alias "g_debug"
+		end
+
+	g_log_set_handler (a_log_domain: POINTER; a_log_levels: INTEGER; a_log_func, some_data: POINTER): INTEGER is
+			-- guint g_log_set_handler (const gchar *log_domain,
+			-- GLogLevelFlags log_levels, GLogFunc log_func, gpointer
+			-- user_data);
+		external "C use <glib.h>"
+		end
+
+	g_log_remove_handler (a_log_domain: POINTER; an_handler_id: INTEGER) is
+			-- void g_log_remove_handler (const gchar *log_domain, guint
+			-- handler_id);
+		external "C use <glib.h>"
+		end
+
+	g_log_set_always_fatal (a_fatal_mask: INTEGER): INTEGER is
+			-- GLogLevelFlags g_log_set_always_fatal (GLogLevelFlags
+			-- fatal_mask);
+		external "C use <glib.h>"
+		end
+
+	g_log_set_fatal_mask (a_log_domain: POINTER; a_fatal_mask: INTEGER): INTEGER is
+			-- GLogLevelFlags g_log_set_fatal_mask (const gchar
+			-- *log_domain, GLogLevelFlags fatal_mask);
+		external "C use <glib.h>"
+		end
+
+	g_log_default_handler (a_log_domain: POINTER; a_log_level: INTEGER; a_message, some_unused_data: POINTER) is
+			-- void g_log_default_handler (const gchar *log_domain,
+			-- GLogLevelFlags log_level, const gchar *message, gpointer
+			-- unused_data);
+		external "C use <glib.h>"
+		end
+
+	g_log_set_default_handler (a_log_func, some_data: POINTER): INTEGER is
+			-- GLogFunc g_log_set_default_handler (GLogFunc log_func,
+			-- gpointer user_data);
+		external "C use <glib.h>"
+		end
 end
 
-													
