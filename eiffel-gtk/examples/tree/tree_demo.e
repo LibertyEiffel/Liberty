@@ -8,24 +8,30 @@ indexing
 
 class TREE_DEMO
 
-inherit
-	GTK
+insert
+	GTK -- to initialize the Gimp ToolKit
 	G_TYPES
 		-- TODO: This class is necessary when creating GTK_LIST_STOREs,
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
 	
-insert
-	WRAPPER_HANDLER -- required to check for some bug in the implementation and accessing wrappers' handles
+	WRAPPER_HANDLER -- required to check for some bug in the
+		-- implementation and accessing wrappers' handles
+	
 	GTK_STOCK_ITEMS
+	
 	GLIB_MESSAGE_LOGGING
+
+	GDK_TYPE_EXTERNALS -- To store GDK_PIXMAPS into the store. TODO:
+			-- give the end-user a better interface.
 	
 creation make
 	
 feature -- Columns
 	name_column_n: INTEGER is 0
 	nick_column_n: INTEGER is 1
-	columns_n: INTEGER is 2
+	flag_column_n: INTEGER is 1
+	columns_n: INTEGER is 3
 
 feature
 	developers: FAST_ARRAY[TUPLE[STRING,STRING]] is
@@ -51,7 +57,7 @@ feature
 
 			developer_iter: ITERATOR[TUPLE[STRING,STRING]]
 		once 
-			create Result.make (<<g_type_string, g_type_string>>)
+			create Result.make (<<g_type_string, g_type_string, gdk_type_pixbuf>>)
 			-- TODO: change design to remove explicit reference to g_type_*; it's
 			-- ugly, or better it feels mostly unEiffelish to me. Paolo 2005-06-01
 			
@@ -95,24 +101,32 @@ feature
 			end
 		end
 	
-	renderer: GTK_CELL_RENDERER
+	text_renderer, flag_renderer: GTK_CELL_RENDERER
 
-	name_column, nick_column: GTK_TREE_VIEW_COLUMN
+	name_column, nick_column, nationality_column: GTK_TREE_VIEW_COLUMN
 
 	view: GTK_TREE_VIEW is
 		once
-			create {GTK_CELL_RENDERER_TEXT} renderer.make
+			create {GTK_CELL_RENDERER_TEXT} text_renderer.make
+			create {GTK_CELL_RENDERER_PIXBUF} flag_renderer.make
 			
 			create name_column.make
 			name_column.set_title ("Name")
-			name_column.pack_start (renderer, True)
-			name_column.add_attribute (renderer, "text", name_column_n)
+			name_column.pack_start (text_renderer, True)
+			name_column.add_attribute (text_renderer, "text", name_column_n)
 												
 			create nick_column.make
 			nick_column.set_title ("Nick")
-			nick_column.pack_start (renderer, True)
-			nick_column.add_attribute (renderer, "text", nick_column_n)
+			nick_column.pack_start (text_renderer, True)
+			nick_column.add_attribute (text_renderer, "text", nick_column_n)
 
+			create nationality_column.make
+			nick_column.set_title ("Nationality")
+			nick_column.pack_start (text_renderer, True)
+			nick_column.pack_start (flag_renderer, True)
+			nick_column.add_attribute (text_renderer, "text", flag_column_n)
+			
+			
 			create Result.make
 			Result.insert_column (name_column, name_column_n)
 			Result.insert_column (nick_column, nick_column_n)
@@ -208,7 +222,7 @@ feature
 feature -- Agents
 	add_clicked (a_button: GTK_BUTTON) is
 		do
-			
+
 		end
 
 	remove_clicked (a_button: GTK_BUTTON) is

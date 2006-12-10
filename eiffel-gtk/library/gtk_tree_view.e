@@ -82,17 +82,27 @@ feature
 feature
 	selection: GTK_TREE_SELECTION is
 			-- the GtkTreeSelection associated with tree view.
+		local p: POINTER
 		do
-			create Result.from_external_pointer (gtk_tree_view_get_selection (handle))
+			p:=gtk_tree_view_get_selection (handle)
+			if wrappers.has(p)
+			 then Result::=wrappers.at(p)
+			else create Result.from_external_pointer (p)
+			end
 		end
 
 	hadjustment: GTK_ADJUSTMENT is
-			-- Gets the GtkAdjustment currently being used for the
-			-- horizontal aspect or Void if none is currently being used.
+			-- the GtkAdjustment currently being used for the horizontal
+			-- aspect or Void if none is currently being used.
 		local ptr: POINTER
 		do
 			ptr:=gtk_tree_view_get_hadjustment (handle)
-			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
+			if ptr.is_not_null then
+				if wrappers.has(ptr)
+				 then Result::=wrappers.at(ptr)
+				else create Result.from_external_pointer (ptr)
+				end
+			end
 		end
 
 	set_hadjustment (an_adjustment: GTK_ADJUSTMENT) is
