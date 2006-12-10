@@ -25,10 +25,8 @@ class GTK_FILE_CHOOSER_BUTTON
 
 inherit
 	GTK_HBOX
-		rename
-			make_container as make_c_struct
 		undefine
-			make_c_struct, struct_size
+			struct_size
 		end
 	GTK_FILE_CHOOSER
 

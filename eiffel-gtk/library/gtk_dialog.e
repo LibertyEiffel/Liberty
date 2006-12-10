@@ -550,21 +550,21 @@ feature -- From ewg implementation
 			-- Add a "Ok" button. Stock item and response are used
 		local a_widget: POINTER
 		do
-			a_widget := gtk_dialog_add_button (handle, gtk_stock_ok, gtk_response_ok)
+			a_widget := gtk_dialog_add_button (handle, gtk_stock_ok.to_external, gtk_response_ok)
 		end
 
 	add_cancel_button is
 			-- Add a "Cancel" button. Stock item and response are used
 		local a_widget: POINTER
 		do
-			a_widget := gtk_dialog_add_button (handle, gtk_stock_cancel, gtk_response_cancel)
+			a_widget := gtk_dialog_add_button (handle, gtk_stock_cancel.to_external, gtk_response_cancel)
 		end
 
 	add_close_button is
 			-- Add a "Close" button. Stock item and response are used
 		local a_widget: POINTER
 		do
-			a_widget := gtk_dialog_add_button (handle, gtk_stock_close, gtk_response_close)
+			a_widget := gtk_dialog_add_button (handle, gtk_stock_close.to_external, gtk_response_close)
 		end
 
 	add_yes_no_buttons is
@@ -578,28 +578,28 @@ feature -- From ewg implementation
 			-- Add a "Yes" button. Stock item and response are used
 		local a_widget: POINTER
 		do
-			a_widget := gtk_dialog_add_button (handle, gtk_stock_yes, gtk_response_yes)
+			a_widget := gtk_dialog_add_button (handle, gtk_stock_yes.to_external, gtk_response_yes)
 		end
 
 	add_no_button is
 			-- Add a "No" button. Stock item and response are used
 		local a_widget: POINTER
 		do
-			a_widget := gtk_dialog_add_button (handle, gtk_stock_no, gtk_response_no)
+			a_widget := gtk_dialog_add_button (handle, gtk_stock_no.to_external, gtk_response_no)
 		end
 
 	add_apply_button is
 			-- Add a "Apply" button. Stock item and response are used
 		local a_widget: POINTER
 		do
-			a_widget := gtk_dialog_add_button (handle, gtk_stock_apply, gtk_response_apply)
+			a_widget := gtk_dialog_add_button (handle, gtk_stock_apply.to_external, gtk_response_apply)
 		end
 
 	add_help_button is
 			-- Add a "Help" button. Stock item and response are used
 		local a_widget: POINTER
 		do
-			a_widget := gtk_dialog_add_button (handle, gtk_stock_help, gtk_response_help)
+			a_widget := gtk_dialog_add_button (handle, gtk_stock_help.to_external, gtk_response_help)
 		end
 
 	-- TODO: wrap gtk_dialog_set_response_sensitive 

@@ -88,6 +88,8 @@ feature {} -- Creation
 			if is_valid then
 				error_code := curl_easy_setopt_pointer (handle, curl_option_read_data, read_callback_closure)
 			end
+		ensure
+			memory_allocated: handle.is_not_null
 		end
 
 feature {} -- Destruction
