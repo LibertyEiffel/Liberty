@@ -178,6 +178,11 @@ feature -- selections
 	-- data : 	user data to pass to the function.
 
 	selected_rows: G_LIST [GTK_TREE_PATH] is
+			-- A list of path of all selected rows. Additionally, if you
+			-- are planning on modifying the model after calling this
+			-- function, you may want to convert the returned list into a
+			-- list of GtkTreeRowReferences. To do this, you can use
+			-- gtk_tree_row_reference_new().
 		do
 			create Result.from_external_pointer (gtk_tree_selection_get_selected_rows(handle,default_pointer))
 			-- gtk_tree_selection_get_selected_rows Creates a list of

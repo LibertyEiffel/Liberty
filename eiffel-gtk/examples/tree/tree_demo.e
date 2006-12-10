@@ -17,6 +17,7 @@ inherit
 	
 insert
 	WRAPPER_HANDLER -- required to check for some bug in the implementation and accessing wrappers' handles
+	GTK_STOCK_ITEMS
 	GLIB_MESSAGE_LOGGING
 	
 creation make
@@ -41,6 +42,7 @@ feature
 				["Walter Alini", "walteralini"] >>
 		}
 		end
+
 feature 
 	model: GTK_TREE_STORE is
 			-- tree model with some data set
@@ -126,6 +128,12 @@ feature
 
 	window: GTK_WINDOW
 
+	vbox: GTK_VBOX
+
+	button_box: GTK_HBOX
+
+	add_button, remove_button, quit_button: GTK_BUTTON
+	
 feature {}  -- Creation
 	
 	make is
@@ -142,10 +150,28 @@ feature {}  -- Creation
 			window.connect_agent_to_destroy_signal (agent on_destroy)
 
 			view.show
-			window.add (view)
-			window.show
+
+			create add_button.from_stock (gtk_stock_add)
+			create remove_button.from_stock (gtk_stock_remove)
+			create quit_button.from_stock (gtk_stock_quit)
+			create button_box.make(False,0) -- i.e. unhomogeneous, no spacing
+			button_box.add(add_button)
+			button_box.add(remove_button)
+			button_box.add(quit_button)
+
+			add_button.connect_agent_to_clicked_signal (agent add_clicked)
+			remove_button.connect_agent_to_clicked_signal (agent remove_clicked)
+			quit_button.connect_agent_to_clicked_signal (agent quit_clicked)
+
+			create vbox.make(False,0) -- i.e. unhomogeneous, no spacing
+			vbox.add(view)
+			vbox.add(button_box)
+			
+			window.add (vbox)
+			window.show_all
 
 			selection := view.selection
+			selection.set_single_mode
 			selection.set_select_function (agent on_select)
 			gtk.run_main_loop
 		end
@@ -180,6 +206,21 @@ feature
 		end
 
 feature -- Agents
+	add_clicked (a_button: GTK_BUTTON) is
+		do
+			
+		end
+
+	remove_clicked (a_button: GTK_BUTTON) is
+		do
+			
+		end
+
+	quit_clicked (a_button: GTK_BUTTON) is
+		do
+			window.destroy
+		end
+
 	on_destroy (a_gtk_object: GTK_OBJECT) is
 		do
 			print ("Tree demo is quitting.%N")
@@ -194,9 +235,7 @@ feature -- Agents
 
 	print_person (a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER): BOOLEAN is
 		do
-				check
-					right_model: a_model = model
-				end
+			check	right_model: a_model = model end
 			print ("Person (code: ")
 			print (a_path.to_string) print (") name '")
 			print (a_model.value_at (an_iter, name_column_n).string)
@@ -208,11 +247,21 @@ feature -- Agents
 			
 	on_select (a_selection: GTK_TREE_SELECTION; a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; path_selected: BOOLEAN): BOOLEAN is
 		do
-			print ("Path '") print (a_path.to_string)
-			if path_selected
-			 then print ("' is selected")
-			else  print ("' is de-selected")
+			if a_selection.is_node_selected then
+				print ("Enabling buttons.%N")
+				add_button.set_sensitive
+				remove_button.set_sensitive
+			else
+				print ("Disabling buttons.%N")				
+				add_button.unset_sensitive
+				remove_button.unset_sensitive
 			end
+			
+			print ("Path '") print (a_path.to_string)
+			if path_selected then print ("' is selected")
+			else print ("' is de-selected")
+			end
+			
 			debug
 				if a_model = Void 
 				 then print ("; no model passed but we're sure that out GTK_LIST_STORE at"+model.to_pointer.out+" has handle="+model.handle.out)
@@ -220,7 +269,7 @@ feature -- Agents
 				end
 			end
 			print ("%N")
-			Result := True
+			Result := True -- i.e. effectively select the picked button.
 		end
 								
 feature -- Constants
@@ -230,7 +279,10 @@ end
 
 -- Examples from C docs.
 
--- To help show some common operation of a model, some examples are provided. The first example shows three ways of getting the iter at the location ’¡È3:2:5’¡É. While the first method shown is easier, the second is much more common, as you often get paths from callbacks.
+-- To help show some common operation of a model, some examples are
+-- provided. The first example shows three ways of getting the iter at
+-- the location "3:2:5". While the first method shown is easier, the
+-- second is much more common, as you often get paths from callbacks.
 
 -- Example 1. Acquiring a GtkTreeIter
 
@@ -258,7 +310,11 @@ end
 --   gtk_tree_model_iter_nth_child (model, &iter, &parent_iter, 5);
 -- }
 
--- This second example shows a quick way of iterating through a list and getting a string and an integer from each row. The populate_model function used below is not shown, as it is specific to the GtkListStore. For information on how to write such a function, see the GtkListStore documentation.
+-- This second example shows a quick way of iterating through a list
+-- and getting a string and an integer from each row. The
+-- populate_model function used below is not shown, as it is specific
+-- to the GtkListStore. For information on how to write such a
+-- function, see the GtkListStore documentation.
 
 -- Example 2. Reading data from a GtkTreeModel
 
@@ -306,5 +362,3 @@ end
 --       valid = gtk_tree_model_iter_next (list_store, &iter);
 --     }
 -- }
-
--- Details

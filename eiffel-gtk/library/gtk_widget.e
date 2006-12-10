@@ -68,13 +68,13 @@ feature -- Operation
 			gtk_widget_set_style (handle, a_style.handle)
 		end
 
-	set_sensitive (sens: BOOLEAN) is
-			-- Sets the sensitivity of Current. A widget is sensitive
-			-- if the user can interact with it. Insensitive widgets are
-			-- "grayed out" and the user can't interact with them.
-		do
-			gtk_widget_set_sensitive (handle, sens.to_integer)
-		end
+	-- 	set_sensitive (sens: BOOLEAN) is
+	-- 			-- Sets the sensitivity of Current. A widget is sensitive
+	-- 			-- if the user can interact with it. Insensitive widgets are
+	-- 			-- "grayed out" and the user can't interact with them.
+	-- 		do
+	-- 			gtk_widget_set_sensitive (handle, sens.to_integer)
+	-- 		end
 
 	show is
 			-- Flags widget to be displayed.
@@ -1994,16 +1994,28 @@ feature -- button-press-event signal
 -- This function is for use in widget implementations. Sets the state of a widget (insensitive, prelighted, etc.) Usually you should set the state using wrapper functions such as gtk_widget_set_sensitive().
 
 -- widget : 	a GtkWidget
--- state : 	new state for widget
--- gtk_widget_set_sensitive ()
+	-- state : 	new state for widget
+feature -- Sensitivity
+	set_sensitive is
+			-- Makes the widget sensitive. A widget is sensitive if the
+			-- user can interact with it. Insensitive widgets are "grayed
+			-- out" and the user can't interact with them. Insensitive
+			-- widgets are known as "inactive", "disabled", or "ghosted"
+			-- in some other toolkits.
+		do
+			gtk_widget_set_sensitive (handle, 1)
+		ensure sensitive: is_sensitive
+		end
 
--- void        gtk_widget_set_sensitive        (GtkWidget *widget,
---                                              gboolean sensitive);
+	unset_sensitive is
+			-- Makes the widget not sensitive. See `set_sensitive'.
+		do
+			gtk_widget_set_sensitive (handle, 0)
+		ensure unsensitive: not is_sensitive
+		end
 
--- Sets the sensitivity of a widget. A widget is sensitive if the user can interact with it. Insensitive widgets are "grayed out" and the user can't interact with them. Insensitive widgets are known as "inactive", "disabled", or "ghosted" in some other toolkits.
-
--- widget : 	a GtkWidget
--- sensitive : 	TRUE to make the widget sensitive
+feature
+	
 -- gtk_widget_set_parent ()
 
 -- void        gtk_widget_set_parent           (GtkWidget *widget,
