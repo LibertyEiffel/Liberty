@@ -57,8 +57,8 @@ feature {} --
 		end
 	
 	low_level_callback (selection, model, path: POINTER; path_currently_selected: INTEGER; data: POINTER): INTEGER is
-	-- Low level callback will be called by GTK; it will call
-	-- `callback'.
+			-- Low level callback will be called by GTK; it will call
+			-- `callback'.
 		external "C use <callbacks.h>"
 		alias "EiffelGtkTreeSelectionFunc"
 		end 

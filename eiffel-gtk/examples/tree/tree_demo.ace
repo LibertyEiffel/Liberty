@@ -6,7 +6,7 @@ root
  TREE_DEMO: make
 
 default -- section of the system
-	assertion (check); 
+	assertion (all); 
 	-- Choose the appropriate value: boost, no, require, ensure, invariant, loop, check, all.
 
 	assertion_flat_check (no);

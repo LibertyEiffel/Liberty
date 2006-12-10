@@ -262,18 +262,18 @@ feature -- Agents
 	on_select (a_selection: GTK_TREE_SELECTION; a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; path_selected: BOOLEAN): BOOLEAN is
 		do
 			if a_selection.is_node_selected then
-				print ("Enabling buttons.%N")
-				add_button.set_sensitive
-				remove_button.set_sensitive
-			else
-				print ("Disabling buttons.%N")				
+				print ("A selected row is being de-selected. Disabling buttons.%N")				
 				add_button.unset_sensitive
 				remove_button.unset_sensitive
+			else
+				print ("A de-selected row is being selected. Enabling buttons.%N")
+				add_button.set_sensitive
+				remove_button.set_sensitive
 			end
 			
 			print ("Path '") print (a_path.to_string)
-			if path_selected then print ("' is selected")
-			else print ("' is de-selected")
+			if path_selected then print ("' is being selected")
+			else print ("' is being de-selected")
 			end
 			
 			debug
