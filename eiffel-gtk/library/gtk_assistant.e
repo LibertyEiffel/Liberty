@@ -19,141 +19,68 @@ indexing
 					02110-1301 USA
 			]"
 
+			-- Description: A GtkAssistant is a widget used to represent
+			-- a generally complex operation splitted in several steps,
+			-- guiding the user through its pages and controlling the
+			-- page flow to collect the necessary data.
+
 class GTK_ASSISTANT
 
--- inherit C_STRUCT
+inherit
+	GTK_WINDOW
 
+		-- GtkAssistant implements AtkImplementorIface.
+	
 insert GTK_ASSISTANT_EXTERNALS
 
 creation make, from_external_pointer
 
 feature {} -- Creation
--- Object Hierarchy
+	make is
+			-- Creates a new GtkAssistant.
+		do
+			from_external_pointer(gtk_assistant_new)
+		end
+	
+feature
+	current_page: INTEGER is
+			-- The index (starting from 0) of the current page in the
+			-- assistant, if the assistant has no pages, it will be -1.
+		do
+			Result:=gtk_assistant_get_current_page (handle)
+		ensure valid >= -1
+		end
 
+	set_current_page (a_page_num: INTEGER) is
+			-- Switches the page to `a_page_num'. Note that this will
+			-- only be necessary in custom buttons, as the assistant flow
+			-- can be set with `set_forward_page_func'.
+		
+			-- `a_page_num': index of the page to switch to, starting
+			-- from 0. If negative, the last page will be used. If
+			-- greater than the number of pages in the assistant, nothing
+			-- will be done.
+		do
+			gtk_assistant_set_current_page (handle, a_page_num)
+		end
 
---    GObject
---     +----GInitiallyUnowned
---           +----GtkObject
---                 +----GtkWidget
---                       +----GtkContainer
---                             +----GtkBin
---                                   +----GtkWindow
---                                         +----GtkAssistant
+	pages_n: INTEGER is
+			-- The number of pages in the assistant.
+		do
+			Result:=gtk_assistant_get_n_pages(handle)
+		end
 
--- Implemented Interfaces
-
---    GtkAssistant implements AtkImplementorIface.
-
--- Child Properties
-
-
---    "complete"             gboolean              : Read / Write
---    "header-image"         GdkPixbuf             : Read / Write
---    "page-type"            GtkAssistantPageType  : Read / Write
---    "sidebar-image"        GdkPixbuf             : Read / Write
---    "title"                gchararray            : Read / Write
-
--- Style Properties
-
-
---    "content-padding"      gint                  : Read
---    "header-padding"       gint                  : Read
-
--- Signals
-
-
---  "apply"     void        user_function      (GtkAssistant *assistant,
---                                              gpointer      user_data)      : Run last
---  "cancel"    void        user_function      (GtkAssistant *assistant,
---                                              gpointer      user_data)      : Run last
---  "close"     void        user_function      (GtkAssistant *assistant,
---                                              gpointer      user_data)      : Run last
---  "prepare"   void        user_function      (GtkAssistant *assistant,
---                                              GtkWidget    *page,
---                                              gpointer      user_data)      : Run last
-
--- Description
-
---    A GtkAssistant is a widget used to represent a generally complex operation
---    splitted in several steps, guiding the user through its pages and
---    controlling the page flow to collect the necessary data.
-
--- Details
-
---   GtkAssistant
-
---  typedef struct _GtkAssistant GtkAssistant;
-
---    --------------------------------------------------------------------------
-
---   gtk_assistant_new ()
-
---  GtkWidget*  gtk_assistant_new               (void);
-
---    Creates a new GtkAssistant.
-
---    Returns : a newly created GtkAssistant
-
---    Since 2.10
-
---    --------------------------------------------------------------------------
-
---   gtk_assistant_get_current_page ()
-
---  gint        gtk_assistant_get_current_page  (GtkAssistant *assistant);
-
---    Returns the page number of the current page
-
---    assistant : a GtkAssistant
---    Returns :   The index (starting from 0) of the current page in the
---                assistant, if the assistant has no pages, -1 will be returned
-
---    Since 2.10
-
---    --------------------------------------------------------------------------
-
---   gtk_assistant_set_current_page ()
-
---  void        gtk_assistant_set_current_page  (GtkAssistant *assistant,
---                                               gint page_num);
-
---    Switches the page to page_num. Note that this will only be necessary in
---    custom buttons, as the assistant flow can be set with
---    gtk_assistant_set_forward_page_func().
-
---    assistant : a GtkAssistant
---    page_num :  index of the page to switch to, starting from 0. If negative,
---                the last page will be used. If greater than the number of
---                pages in the assistant, nothing will be done.
-
---    Since 2.10
-
---    --------------------------------------------------------------------------
-
---   gtk_assistant_get_n_pages ()
-
---  gint        gtk_assistant_get_n_pages       (GtkAssistant *assistant);
-
---    Returns the number of pages in the assistant
-
---    assistant : a GtkAssistant
---    Returns :   The number of pages in the assistant.
-
---    Since 2.10
-
---    --------------------------------------------------------------------------
-
---   gtk_assistant_get_nth_page ()
-
---  GtkWidget*  gtk_assistant_get_nth_page      (GtkAssistant *assistant,
---                                               gint page_num);
-
---    Returns the child widget contained in page number page_num.
-
---    assistant : a GtkAssistant
---    page_num :  The index of a page in the assistant, or -1 to get the last
---                page;
---    Returns :   The child widget, or NULL if page_num is out of bounds.
+	item (a_page_num: INTEGER): GTK_WIDGET is
+			-- The child widget contained in page number page_num.
+		
+			--    page_num : The index of a page in the assistant, or -1
+			--    to get the last page; Returns : The child widget, or
+			--    NULL if page_num is out of bounds.
+		local ptr: POINTER
+		do
+			ptr:=gtk_assistant_get_nth_page(handle, a_page_num)
+		ensure implemented: False
+		end
 
 --    Since 2.10
 
@@ -489,6 +416,15 @@ feature {} -- Creation
 
 --    Since 2.10
 
+-- Child Properties
+
+
+--    "complete"             gboolean              : Read / Write
+--    "header-image"         GdkPixbuf             : Read / Write
+--    "page-type"            GtkAssistantPageType  : Read / Write
+--    "sidebar-image"        GdkPixbuf             : Read / Write
+--    "title"                gchararray            : Read / Write
+
 -- Child Property Details
 
 --   The "complete" child property
@@ -549,6 +485,12 @@ feature {} -- Creation
 
 --    Since 2.10
 
+-- Style Properties
+
+
+--    "content-padding"      gint                  : Read
+--    "header-padding"       gint                  : Read
+
 -- Style Property Details
 
 --   The "content-padding" style property
@@ -572,6 +514,19 @@ feature {} -- Creation
 --    Allowed values: >= 0
 
 --    Default value: 6
+
+-- Signals
+
+
+--  "apply"     void        user_function      (GtkAssistant *assistant,
+--                                              gpointer      user_data)      : Run last
+--  "cancel"    void        user_function      (GtkAssistant *assistant,
+--                                              gpointer      user_data)      : Run last
+--  "close"     void        user_function      (GtkAssistant *assistant,
+--                                              gpointer      user_data)      : Run last
+--  "prepare"   void        user_function      (GtkAssistant *assistant,
+--                                              GtkWidget    *page,
+--                                              gpointer      user_data)      : Run last
 
 -- Signal Details
 
