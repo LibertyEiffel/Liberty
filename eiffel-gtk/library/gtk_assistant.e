@@ -395,20 +395,49 @@ feature -- Child Properties
 
 	-- Signal Details
 
-	--   The "apply" signal
+feature -- The "apply" signal
+	apply_signal_name: STRING is "apply"
+	
+	enable_on_apply is
+			-- Connects "apply" signal to `on_apply' feature.
+		do
+			connect (Current, apply_signal_name, $on_apply)
+		end
+		
+	on_apply is
+			-- Built-in activate signal handler; empty by design; redefine it.
+		
+			-- The ::apply signal is emitted when the apply button is
+			-- clicked. The default behavior of the GtkAssistant is to
+			-- switch to the page after the current page, unless the
+			-- current page is the last one.
 
-	--  void        user_function                  (GtkAssistant *assistant,
-	--                                              gpointer      user_data)      : Run last
+			-- A handler for the ::apply signal should carry out the
+			-- actions for which the wizard has collected data. If the
+			-- action takes a long time to complete, you might consider
+			-- to put a page of type GTK_ASSISTANT_PAGE_PROGRESS after
+			-- the confirmation page and handle this operation within the
+			-- ::prepare signal of the progress page.
+		do
+		end
 
-	--    The ::apply signal is emitted when the apply button is clicked. The
-	--    default behavior of the GtkAssistant is to switch to the page after the
-	--    current page, unless the current page is the last one.
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			activate_callback: APPLY_CALLBACK[like Current]
+		do
+			create apply_callback.make
+			apply_callback.connect (Current, a_procedure)
+		end
 
-	--    A handler for the ::apply signal should carry out the actions for which
-	--    the wizard has collected data. If the action takes a long time to
-	--    complete, you might consider to put a page of type
-	--    GTK_ASSISTANT_PAGE_PROGRESS after the confirmation page and handle this
-	--    operation within the ::prepare signal of the progress page.
+feature --   The "cancel" signal
+
+	-- void user_function (GtkAssistant *assistant, gpointer user_data)
+	-- : Run last
+
+	-- The ::cancel signal is emitted when then the cancel button is
+	-- clicked.
 
 	--    assistant : the GtkAssistant
 	--    user_data : user data set when the signal handler was connected.
@@ -417,28 +446,15 @@ feature -- Child Properties
 
 	--    --------------------------------------------------------------------------
 
-	--   The "cancel" signal
+feature --   The "close" signal
 
-	--  void        user_function                  (GtkAssistant *assistant,
-	--                                              gpointer      user_data)      : Run last
+	-- void user_function (GtkAssistant *assistant, gpointer user_data)
+	-- : Run last
 
-	--    The ::cancel signal is emitted when then the cancel button is clicked.
-
-	--    assistant : the GtkAssistant
-	--    user_data : user data set when the signal handler was connected.
-
-	--    Since 2.10
-
-	--    --------------------------------------------------------------------------
-
-	--   The "close" signal
-
-	--  void        user_function                  (GtkAssistant *assistant,
-	--                                              gpointer      user_data)      : Run last
-
-	--    The ::close signal is emitted either when the close button of a summary
-	--    page is clicked, or when the apply button in the last page in the flow (of
-	--    type GTK_ASSISTANT_PAGE_CONFIRM) is clicked.
+	-- The ::close signal is emitted either when the close button of a
+	-- summary page is clicked, or when the apply button in the last
+	-- page in the flow (of type GTK_ASSISTANT_PAGE_CONFIRM) is
+	-- clicked.
 
 	--    assistant : the GtkAssistant
 	--    user_data : user data set when the signal handler was connected.
@@ -447,15 +463,15 @@ feature -- Child Properties
 
 	--    --------------------------------------------------------------------------
 
-	--   The "prepare" signal
+feature --   The "prepare" signal
 
-	--  void        user_function                  (GtkAssistant *assistant,
-	--                                              GtkWidget    *page,
-	--                                              gpointer      user_data)      : Run last
+	-- void user_function (GtkAssistant *assistant, GtkWidget *page,
+	-- gpointer user_data) : Run last
 
-	--    The ::prepared signal is emitted when a new page is set as the assistant's
-	--    current page, before making the new page visible. A handler for this
-	--    signal can do any preparation which are necessary before showing page.
+	-- The ::prepared signal is emitted when a new page is set as the
+	-- assistant's current page, before making the new page visible. A
+	-- handler for this signal can do any preparation which are
+	-- necessary before showing page.
 
 	--    assistant : the GtkAssistant
 	--    page :      the current page
