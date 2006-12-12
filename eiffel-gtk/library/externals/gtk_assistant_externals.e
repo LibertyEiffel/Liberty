@@ -9,7 +9,7 @@ deferred class GTK_ASSISTANT_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
--- insert GTK_ASSISTANT_PAGE_TYPE_ENUM
+insert GTK_ASSISTANT_PAGE_TYPE_ENUM
 
 feature {} -- External calls
 	 gtk_assistant_new: POINTER is
