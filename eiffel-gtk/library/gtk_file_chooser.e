@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -406,19 +406,19 @@ feature -- Name, filenames and uris
 			-- else check Result=Void end
 			end
 		end
-	
+
 	set_current_name (a_name: STRING) is
 			-- Sets the current name in the file selector, as if entered
 			-- by the user. Note that the name passed in here is a UTF-8
 			-- string rather than a filename. This function is meant for
 			-- such uses as a suggested name in a "Save As..." dialog.
-
+			
 			-- If you want to preselect a particular existing file, you
 			-- should use `GTK_FILE_CHOOSER.set_filename' or
 			-- `GTK_FILE_CHOOSER.set_uri' instead. Please see the
 			-- documentation for those functions for an example of using
 			-- gtk_file_chooser_set_current_name() as well.
-		
+			
 			-- TODO: `a_name' should be UNICODE_STRING: the filename to
 			-- use, as a UTF-8 string
 		require a_name /= Void
@@ -466,26 +466,21 @@ feature -- Name, filenames and uris
 			-- successfully, False otherwise.
 		require valid_filename: a_filename/=Void
 		do
-			is_last_action_successful :=
-				(gtk_file_chooser_set_filename (handle, a_filename.to_external)
-				 ).to_boolean
+			is_last_action_successful := (gtk_file_chooser_set_filename (handle, a_filename.to_external)).to_boolean
 		end
-
 
 	select_filename (a_filename: STRING) is
 			-- Selects `a_filename'. If the file name isn't in the
 			-- current folder of chooser, then the current folder of
 			-- chooser will be changed to the folder containing filename.
-
+			
 			-- `is_last_action_successful' will be True if both the
 			-- folder could be changed and the file was selected
 			-- successfully, False otherwise.
 		require valid_filename: a_filename/=Void
 		do
-			is_last_action_successful :=
-				(gtk_file_chooser_select_filename (handle, a_filename.to_external)
-				 ).to_boolean
-		end			
+			is_last_action_successful := (gtk_file_chooser_select_filename (handle, a_filename.to_external)).to_boolean
+		end
 
 	unselect_filename (a_filename: STRING) is
 			-- Unselects a currently selected filename. If the `a_filename'
@@ -503,14 +498,12 @@ feature -- Name, filenames and uris
 			gtk_file_chooser_select_all (handle)
 		end
 
-
 	unselect_all is
 			-- Unselects all the files in the current folder of a file
 			-- chooser.
 		do
 			gtk_file_chooser_unselect_all (handle)
 		end
-
 
 	filenames: G_SLIST_STRING is
 			-- all the selected files and subfolders in the current
@@ -609,13 +602,13 @@ feature -- Name, filenames and uris
 		do
 			is_last_action_successful := (gtk_file_chooser_set_uri (handle,an_uri.to_external)).to_boolean
 		end
-	
+
 	select_uri (an_uri: STRING) is
 			-- Selects the file to by `an_uri'. If `an_uri' doesn't refer
 			-- to a file in the current folder of chooser, then the
 			-- current folder of chooser will be changed to the folder
 			-- containing filename.
-
+			
 			-- `is_last_action_successful' will be True if both the
 			-- folder could be changed and the file was selected
 			-- successfully, False otherwise.
@@ -667,7 +660,7 @@ feature -- Name, filenames and uris
 			if ptr.is_not_null
 			then create Result.from_external (ptr) -- TODO: this assumes that STRING calls g_free
 			end
-		end	
+		end
 
 feature -- Preview
 	set_preview_widget (a_widget: GTK_WIDGET) is
@@ -707,7 +700,7 @@ feature -- Preview
 		do
 			gtk_file_chooser_set_preview_widget_active (handle,1)
 		end
-	
+
 	set_preview_widget_inactive is
 			-- Hide the preview widget set by `set_preview_widget'. The
 			-- file chooser may display an internally generated preview
@@ -716,7 +709,7 @@ feature -- Preview
 		do
 			gtk_file_chooser_set_preview_widget_active (handle,1)
 		end
-	
+
 	is_preview_widget_active: BOOLEAN is
 			-- Is the preview widget set by `set_preview_widget' shown
 			-- for the current filename. See `set_preview_widget_active'.
@@ -764,8 +757,8 @@ feature -- Preview
 		local cstr: POINTER
 		do
 			cstr:=gtk_file_chooser_get_preview_filename (handle)
-			if cstr.is_not_null
-			then 	create Result.from_external (cstr)
+			if cstr.is_not_null then
+				create Result.from_external (cstr)
 				-- Free with g_free()
 			end
 		end
@@ -778,12 +771,12 @@ feature -- Preview
 		local cstr: POINTER
 		do
 			cstr:=gtk_file_chooser_get_preview_uri(handle)
-			if cstr.is_not_null
-			then 	create Result.from_external (cstr)
+			if cstr.is_not_null then
+				create Result.from_external (cstr)
 				-- TODO: Free with g_free()
 			end
 		end
-	
+
 feature -- Extra widget
 	set_extra_widget (a_widget: GTK_WIDGET) is
 			-- Sets an application-supplied widget to provide extra
@@ -889,25 +882,25 @@ feature -- Shortcuts folders
 
 			-- TODO: Create G_ERROR
 			is_last_action_successful := gtk_file_chooser_add_shortcut_folder (handle,
-																									 a_folder.to_external,
-																									 default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
-																									 ).to_boolean
+			                                                                   a_folder.to_external,
+			                                                                   default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
+			                                                                  ).to_boolean
 		end
 
 	remove_shortcut_folder (a_folder: STRING) is
 			-- Removes `a_folder' from a file chooser's list of shortcut
 			-- folders.
-
+			
 			-- `is_last_action_successful' will be True if both the
 			-- folder could be changed and the file was selected
 			-- successfully, False otherwise. In that case (TODO)
 			-- `last_error' will be filled with the cause
-require valid_folder: a_folder /= Void
+		require valid_folder: a_folder /= Void
 		do
-			is_last_action_successful := gtk_file_chooser_remove_shortcut_folder  (handle,
-																										  a_folder.to_external,
-																										  default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
-																										  ).to_boolean
+			is_last_action_successful := gtk_file_chooser_remove_shortcut_folder (handle,
+			                                                                      a_folder.to_external,
+			                                                                      default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
+			                                                                      ).to_boolean
 		end
 
 	shortcut_folders: G_SLIST_STRING is
@@ -928,7 +921,7 @@ require valid_folder: a_folder /= Void
 				-- filenames with g_free().
 			end
 		end
-			
+
 	add_shortcut_folder_uri (an_uri: STRING) is
 			-- Adds a folder URI to be displayed with the shortcut
 			-- folders in a file chooser. Note that shortcut folders do
@@ -936,7 +929,7 @@ require valid_folder: a_folder /= Void
 			-- application. For example, you can use this to add a
 			-- "file:///usr/share/mydrawprogram/Clipart" folder to the
 			-- volume list.
-		
+			
 			-- `is_last_action_successful' will be True if both the
 			-- folder could be changed and the file was selected
 			-- successfully, False otherwise. In that case (TODO)
@@ -1090,7 +1083,7 @@ require valid_folder: a_folder /= Void
 --         save_to_file (gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (chooser));
 
 -- gtk_widget_destroy (chooser);
-		
+
 
 -- filechooser : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
