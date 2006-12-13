@@ -1575,19 +1575,23 @@ feature
 	-- urgent : 	TRUE if the window is urgent
 
 	-- Since 2.8
-	-- gdk_window_get_position ()
 
-	-- void        gdk_window_get_position         (GdkWindow *window,
-	--                                              gint *x,
-	--                                              gint *y);
+	position: TUPLE [INTEGER, INTEGER] is
+			-- Obtains the position of the window as reported in the
+			-- most-recently-processed GdkEventConfigure. Contrast with
+			-- `geometry' which queries the X server for the current window
+			-- position, regardless of which events have been received or
+			-- processed.
+			--
+			-- The position coordinates are relative to the window's parent
+			-- window.
+		local
+			an_x, an_y: INTEGER
+		do
+			gdk_window_get_position (handle, $an_x, $an_y)
+			Result := [an_x, an_y]
+		end
 
-	-- Obtains the position of the window as reported in the most-recently-processed GdkEventConfigure. Contrast with gdk_window_get_geometry() which queries the X server for the current window position, regardless of which events have been received or processed.
-
-	-- The position coordinates are relative to the window's parent window.
-
-	-- window : 	a GdkWindow
-	-- x : 	X coordinate of window
-	-- y : 	Y coordinate of window
 	-- gdk_window_get_root_origin ()
 
 	-- void        gdk_window_get_root_origin      (GdkWindow *window,
