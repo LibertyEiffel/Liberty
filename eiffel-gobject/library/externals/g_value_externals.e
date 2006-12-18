@@ -66,13 +66,13 @@ feature {C_STRUCT}
 
 	-- Returns TRUE if type is an abstract value type. An abstract value type introduces a value table, but can't be used for g_value_init() and is normally used as an abstract base type for derived value types.
  -- type : 	A GType value.
- -- G_IS_VALUE()
 
-	-- #define	G_IS_VALUE(value)		(G_TYPE_CHECK_VALUE (value))
-
-	-- Returns TRUE if value is a valid and initialized GValue structure.
-	-- value : 	A GValue structure.
-
+	g_is_value (a_value: POINTER): INTEGER is
+			-- Returns TRUE if value is a valid and initialized GValue structure.
+			-- value : 	A GValue structure.
+		external "C macro use <glib-object.h>"
+		alias "G_IS_VALUE"
+		end
 
 	-- G_TYPE_VALUE
 

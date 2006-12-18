@@ -207,6 +207,13 @@ feature {} -- Creation
 		end
 
 feature {ANY}
+
+	is_initialized: BOOLEAN is
+			-- Returns True if value is a valid and initialized G_VALUE
+		do
+			Result := g_is_value (handle).to_boolean
+		end
+
 	type_name: STRING is
 			-- type name of value
 		do
@@ -489,21 +496,29 @@ feature {G_OBJECT} -- Type changing features
 			handle := g_value_init (handle, g_type_string)
 		ensure is_string: is_string
 		end
- 
+
 feature
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValue)"
 		end
 
-feature 	{} -- Disposing
+feature {} -- Disposing
+
 	dispose is
 		do
-			g_value_unset (handle)
+			if is_initialized then
+				g_value_unset (handle)
+			else
+				print ("G_VALUE::dispose: disposing an uninitialised G_VALUE%N")
+			end
 			g_free (handle)
 			handle := default_pointer
 		end
-	
-invariant handle_not_null: is_not_null
+
+invariant
+
+	handle_not_null: is_not_null
+	is_initialized
 
 end
