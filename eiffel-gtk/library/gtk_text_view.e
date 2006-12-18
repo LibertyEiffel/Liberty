@@ -94,6 +94,7 @@ feature -- Operations
 			buffer_not_null: a_buffer /= Void
 		do
 			gtk_text_view_set_buffer (handle, a_buffer.handle)
+			cached_buffer := Void
 		ensure
 			buffer_is_set: buffer /= Void -- XXX: is this ok?
 		end
@@ -107,13 +108,25 @@ feature -- Access
 		local
 			c_buff: POINTER
 		do
-			c_buff := gtk_text_view_get_buffer (handle)
-			if has_eiffel_wrapper_stored (c_buff) then
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_buff)
+			if cached_buffer /= Void then
+				Result := cached_buffer
 			else
-				create Result.from_external_pointer (c_buff)
+				c_buff := gtk_text_view_get_buffer (handle)
+				if has_eiffel_wrapper_stored (c_buff) then
+					Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_buff)
+				else
+					create Result.from_external_pointer (c_buff)
+				end
+				cached_buffer := Result
 			end
 		end
+
+feature {} -- Auxiliar
+
+	cached_buffer: GTK_TEXT_BUFFER
+		-- This buffer is used as a cache for values returned from `buffer'.
+		-- If you don't use this the GtkTextView seems to (sometimes) switch
+		-- it's buffer without warning, breaking callbacks and other code.
 
 feature -- Properties
 
