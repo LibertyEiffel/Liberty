@@ -58,7 +58,7 @@ feature {} -- Creation
 			from_external_pointer (gtk_about_dialog_new)
 		end
 
-feature
+feature -- Queries
 	name: STRING is
 			-- the program name displayed in the about dialog.
 		do
@@ -67,6 +67,65 @@ feature
 			create {CONST_STRING} Result.from_external_pointer (gtk_about_dialog_get_name(handle))
 		end
 
+	version: STRING is
+		do
+			create {CONST_STRING} Result.from_external
+			(gtk_about_dialog_get_version (handle))
+		end
+
+	copyright: STRING is
+			-- the copyright string
+		do
+			create {CONST_STRING} Result.from_external
+			(gtk_about_dialog_get_copyright (handle))
+		end
+
+	comments: STRING is
+		do
+			create {CONST_STRING} Result.from_external
+			(gtk_about_dialog_get_comments (handle))
+		end
+
+	license: STRING is
+			-- the license information
+		do
+			create {CONST_STRING} Result.from_external
+			(gtk_about_dialog_get_license (handle))
+		end
+
+	is_license_wrapped: BOOLEAN is
+			-- Is the license text in about automatically wrapped?
+		do
+			Result:=(gtk_about_dialog_get_wrap_license(handle)).to_boolean
+		end
+
+	website: STRING is
+			-- The website URL. 
+		do
+			create {CONST_STRING} Result.from_external
+			(gtk_about_dialog_get_website (handle))
+			-- The string is owned by the about dialog and must not be 
+			-- modified.
+		end
+
+	website_label: STRING is
+			-- The label used for the website link. 
+		do
+			-- The C string is owned by the about dialog and must not be 
+			-- modified. So we use CONST_STRING
+			create {CONST_STRING} Result.from_external
+			(gtk_about_dialog_get_website_label (handle))
+		end
+
+	-- TODO: const gchar* const * gtk_about_dialog_get_authors
+	-- 														  (GtkAboutDialog *about);
+	
+	-- Returns the string which are displayed in the authors tab of the secondary credits dialog.
+	
+	-- about : 	a GtkAboutDialog
+	-- Returns : 	A NULL-terminated string array containing the authors. The array is owned by the about dialog and must not be modified.
+
+feature -- Setters
 	set_name (a_name: STRING) is
 			-- Sets the name to display in the about dialog. If this is
 			-- not set, it defaults to result of the C function-g_get_application_name().
@@ -76,24 +135,11 @@ feature
 			gtk_about_dialog_set_name (handle, a_name.to_external)
 		end
 
-	version: STRING is
-		do
-			create {CONST_STRING} Result.from_external
-			(gtk_about_dialog_get_version (handle))
-		end
-
 	set_version (a_version: STRING) is
 			-- Sets the version string to display in the about dialog.
 		require version_not_void: a_version /= Void
 		do
 			gtk_about_dialog_set_version (handle, a_version.to_external)
-		end
-
-	copyright: STRING is
-			-- the copyright string
-		do
-			create {CONST_STRING} Result.from_external
-			(gtk_about_dialog_get_copyright (handle))
 		end
 
 	set_copyright (a_copyright: STRING) is
@@ -104,25 +150,12 @@ feature
 			gtk_about_dialog_set_copyright (handle, a_copyright.to_external)
 		end
 
-	comments: STRING is
-		do
-			create {CONST_STRING} Result
-			(gtk_about_dialog_get_comments (handle))
-		end
-
 	set_comments (some_comments: STRING) is
 			-- Sets the comments string to display in the about dialog. This should
 			-- be a short string of one or two lines.
 		require comments_not_void: some_comments /= Void
 		do
 			gtk_about_dialog_set_comments (handle,	some_comments.to_external)
-		end
-
-	license: STRING is
-			-- the license information
-		do
-			create {CONST_STRING} Result.from_external
-			(gtk_about_dialog_get_license (handle))
 		end
 
 	set_license (a_license: STRING) is
@@ -140,12 +173,6 @@ feature
 			gtk_about_dialog_set_license (handle, default_pointer)
 		end
 
-	is_license_wrapped: BOOLEAN is
-			-- Is the license text in about automatically wrapped?
-		do
-			Result:=(gtk_about_dialog_get_wrap_license(handle)).to_boolean
-		end
-
 	set_wrap_license is
 			-- Automatically wraps the license text in about.
 		do
@@ -158,459 +185,526 @@ feature
 			gtk_about_dialog_set_wrap_license (handle, 0)
 		end
 
-	website: STRING is
+	set_website (a_website: STRING) is
+			-- Sets the URL to use for the website link. `a_website' is
+			-- an URL starting with "http://"
 		do
+			gtk_about_dialog_set_website (handle, a_website.to_external)
+		end
+
+	set_website_label (a_website_label: STRING) is
+			-- Sets the label to be used for the website link. It defaults to the website URL.
+		do
+			gtk_about_dialog_set_website_label (handle, a_website_label.to_external)
+		end
+
+
+	-- TODO: gtk_about_dialog_set_authors ()
+	
+	-- void        gtk_about_dialog_set_authors    (GtkAboutDialog *about,
+	-- 															const gchar **authors);
+	
+	-- Sets the strings which are displayed in the authors tab of the secondary credits dialog.
+	
+	-- about : 	a GtkAboutDialog
+	-- authors : 	a NULL-terminated array of strings
+	
+	-- Since 2.6
+	-- gtk_about_dialog_get_artists ()
+	
+	-- const gchar* const * gtk_about_dialog_get_artists
+	-- 														  (GtkAboutDialog *about);
+
+	-- Returns the string which are displayed in the artists tab of the secondary credits dialog.
+
+	-- about : 	a GtkAboutDialog
+	-- Returns : 	A NULL-terminated string array containing the artists. The array is owned by the about dialog and must not be modified.
+
+	-- Since 2.6
+	-- gtk_about_dialog_set_artists ()
+
+	-- void        gtk_about_dialog_set_artists    (GtkAboutDialog *about,
+	-- 															const gchar **artists);
+
+	-- Sets the strings which are displayed in the artists tab of the secondary credits dialog.
+
+	-- about : 	a GtkAboutDialog
+	-- artists : 	a NULL-terminated array of strings
+
+	-- Since 2.6
+	-- gtk_about_dialog_get_documenters ()
+
+	-- const gchar* const * gtk_about_dialog_get_documenters
+	-- 														  (GtkAboutDialog *about);
+
+	-- Returns the string which are displayed in the documenters tab of the secondary credits dialog.
+
+	-- about : 	a GtkAboutDialog
+	-- Returns : 	A NULL-terminated string array containing the documenters. The array is owned by the about dialog and must not be modified.
+
+	-- Since 2.6
+	-- gtk_about_dialog_set_documenters ()
+
+	-- void        gtk_about_dialog_set_documenters
+	-- 														  (GtkAboutDialog *about,
+	-- 															const gchar **documenters);
+
+	-- Sets the strings which are displayed in the documenters tab of the secondary credits dialog.
+
+	-- about : 	a GtkAboutDialog
+	-- documenters : 	a NULL-terminated array of strings
+
+	-- Since 2.6
+
+	translator_credits: STRING is
+			-- The translator credits string.
+		do
+			-- The string is owned by the about dialog and must not be
+			-- modified.
+			create {CONST_STRING} Result.from_external
+			(gtk_about_dialog_get_translator_credits (handle))
+		end
+
+	set_translator_credits (some_translator_credits: STRING) is
+			-- Sets the translator credits string which is displayed in
+			-- the translators tab of the secondary credits dialog.
+		
+			-- The intended use for this string is to display the
+			-- translator of the language which is currently used in the
+			-- user interface. Using gettext(), a simple way to achieve
+			-- that is to mark the string for translation:
+		
+			-- gtk_about_dialog_set_translator_credits(about,_("translator-credits"));
+		
+			-- It is a good idea to use the customary msgid
+			-- "translator-credits" for this purpose, since translators
+			-- will already know the purpose of that msgid, and since
+			-- GtkAboutDialog will detect if "translator-credits" is
+			-- untranslated and hide the tab.
+		do
+			gtk_about_dialog_set_translator_credits
+			(handle, some_translator_credits.to_external)
+		end
+
+	logo: GDK_PIXBUF is
+			-- the pixbuf displayed as logo in the about dialog.
+		local ptr: POINTER
+		do
+			ptr := gtk_about_dialog_get_logo(handle)
+			if ptr.is_not_null then
+				create Result.from_external_pointer(ptr)
+				-- The return value of gtk_about_dialog_get_logo is the
+				-- pixbuf displayed as logo. The pixbuf is owned by the
+				-- about dialog. If you want to keep a reference to it,
+				-- you have to call g_object_ref() on it.
+				Result.ref
+			end
+		end
+
+	set_logo (a_pixbuf: GDK_PIXBUF) is
+			-- Sets the pixbuf to be displayed as logo in the about
+			-- dialog. If it is NULL, the default window icon set with
+			-- gtk_window_set_default_icon() will be used.
+		require pixbuf_not_void: a_pixbuf /= Void
+		do
+			gtk_about_dialog_set_logo (handle, a_pixbuf.handle)
+		end
+
+	unset_logo is
+			-- Use the default window icon set with
+			-- `GTK_WINDOW.set_default_icon' will be used.
+		do
+			gtk_about_dialog_set_logo (handle, default_pointer)
+		end
+
+	logo_icon_name: STRING is
+			-- The icon name displayed as logo in the about dialog.
+		do
+			create {CONST_STRING} Result.from_external
+			(gtk_about_dialog_get_logo_icon_name (handle))
+			-- gtk_about_dialog_get_logo_icon_name returns the icon name
+			-- displayed as logo. The string is owned by the dialog. If
+			-- you want to keep a reference to it, you have to call
+			-- g_strdup() on it.
+		end
+
+	set_logo_icon_name (an_icon_name: STRING) is
+			-- Sets the pixbuf to be displayed as logo in the about
+			-- dialog. 
+		require name_not_void: an_icon_name /= Void
+		do
+			gtk_about_dialog_set_logo_icon_name (handle, an_icon_name.to_external)
+		end
 
--- const gchar* gtk_about_dialog_get_website   (GtkAboutDialog *about);
+	unset_logo_icon_name (an_icon_name: STRING) is
+			-- Use the default window icon set with
+			-- `GTK_WINDOW.set_default_icon' will be used.
+		do
+			gtk_about_dialog_set_logo_icon_name (handle, default_pointer)
+		end
 
--- Returns the website URL.
+	-- Since 2.6
+	-- GtkAboutDialogActivateLinkFunc ()
 
--- about : 	a GtkAboutDialog
--- Returns : 	The website URL. The string is owned by the about dialog and must not be modified.
+	-- void        (*GtkAboutDialogActivateLinkFunc)
+	-- 														  (GtkAboutDialog *about,
+	-- 															const gchar *link,
+	-- 															gpointer data);
 
--- Since 2.6
--- gtk_about_dialog_set_website ()
+	-- The type of a function which is called when a URL or email link is activated.
+	-- about : 	the GtkAboutDialog in which the link was activated
+	-- link : 	the URL or email address to whiche the activated link points
+	-- data : 	user data that was passed when the function was registered with gtk_about_dialog_set_email_hook() or gtk_about_dialog_set_url_hook()
+	-- gtk_about_dialog_set_email_hook ()
 
--- void        gtk_about_dialog_set_website    (GtkAboutDialog *about,
--- 															const gchar *website);
+	-- GtkAboutDialogActivateLinkFunc gtk_about_dialog_set_email_hook
+	-- 														  (GtkAboutDialogActivateLinkFunc func,
+	-- 															gpointer data,
+	-- 															GDestroyNotify destroy);
 
--- Sets the URL to use for the website link.
+	-- Installs a global function to be called whenever the user activates an email link in an about dialog.
 
--- about : 	a GtkAboutDialog
--- website : 	a URL string starting with "http://"
+	-- func : 	a function to call when an email link is activated.
+	-- data : 	data to pass to func
+	-- destroy : 	GDestroyNotify for data
+	-- Returns : 	the previous email hook.
 
--- Since 2.6
--- gtk_about_dialog_get_website_label ()
+	-- gtk_about_dialog_set_url_hook ()
 
--- const gchar* gtk_about_dialog_get_website_label
--- 														  (GtkAboutDialog *about);
+	-- GtkAboutDialogActivateLinkFunc gtk_about_dialog_set_url_hook
+	-- 														  (GtkAboutDialogActivateLinkFunc func,
+	-- 															gpointer data,
+	-- 															GDestroyNotify destroy);
 
--- Returns the label used for the website link.
+	-- Installs a global function to be called whenever the user activates a URL link in an about dialog.
 
--- about : 	a GtkAboutDialog
--- Returns : 	The label used for the website link. The string is owned by the about dialog and must not be modified.
+	-- func : 	a function to call when a URL link is activated.
+	-- data : 	data to pass to func
+	-- destroy : 	GDestroyNotify for data
+	-- Returns : 	the previous URL hook.
 
--- Since 2.6
--- gtk_about_dialog_set_website_label ()
+	-- Since 2.6
+	-- gtk_show_about_dialog ()
 
--- void        gtk_about_dialog_set_website_label
--- 														  (GtkAboutDialog *about,
--- 															const gchar *website_label);
+	-- void        gtk_show_about_dialog           (GtkWindow *parent,
+	-- 															const gchar *first_property_name,
+	-- 															...);
 
--- Sets the label to be used for the website link. It defaults to the website URL.
+	-- This is a convenience function for showing an application's about box. The constructed dialog is associated with the parent window and reused for future invocations of this function.
 
--- about : 	a GtkAboutDialog
--- website_label : 	the label used for the website link
+	-- parent : 	transient parent, or NULL for none
+	-- first_property_name : 	the name of the first property
+	-- ... : 	value of first property, followed by more properties, NULL-terminated
 
--- Since 2.6
--- gtk_about_dialog_get_authors ()
+feature -- Property Details
+	-- The "artists" property
 
--- const gchar* const * gtk_about_dialog_get_authors
--- 														  (GtkAboutDialog *about);
+	--   "artists"              GStrv                 : Read / Write
 
--- Returns the string which are displayed in the authors tab of the secondary credits dialog.
+	-- The people who contributed artwork to the program, as a NULL-terminated array of strings. Each string may contain email addresses and URLs, which will be displayed as links, see the introduction for more details.
 
--- about : 	a GtkAboutDialog
--- Returns : 	A NULL-terminated string array containing the authors. The array is owned by the about dialog and must not be modified.
+	-- Since 2.6
+	-- The "authors" property
 
--- Since 2.6
--- gtk_about_dialog_set_authors ()
+	--   "authors"              GStrv                 : Read / Write
 
--- void        gtk_about_dialog_set_authors    (GtkAboutDialog *about,
--- 															const gchar **authors);
+	-- The authors of the program, as a NULL-terminated array of strings. Each string may contain email addresses and URLs, which will be displayed as links, see the introduction for more details.
 
--- Sets the strings which are displayed in the authors tab of the secondary credits dialog.
+	-- Since 2.6
+	-- The "comments" property
 
--- about : 	a GtkAboutDialog
--- authors : 	a NULL-terminated array of strings
+	--   "comments"             gchararray            : Read / Write
 
--- Since 2.6
--- gtk_about_dialog_get_artists ()
+	-- Comments about the program. This string is displayed in a label in the main dialog, thus it should be a short explanation of the main purpose of the program, not a detailed list of features.
 
--- const gchar* const * gtk_about_dialog_get_artists
--- 														  (GtkAboutDialog *about);
+	-- Default value: NULL
 
--- Returns the string which are displayed in the artists tab of the secondary credits dialog.
+	-- Since 2.6
+	-- The "copyright" property
 
--- about : 	a GtkAboutDialog
--- Returns : 	A NULL-terminated string array containing the artists. The array is owned by the about dialog and must not be modified.
+	--   "copyright"            gchararray            : Read / Write
 
--- Since 2.6
--- gtk_about_dialog_set_artists ()
+	-- Copyright information for the program.
 
--- void        gtk_about_dialog_set_artists    (GtkAboutDialog *about,
--- 															const gchar **artists);
+	-- Default value: NULL
 
--- Sets the strings which are displayed in the artists tab of the secondary credits dialog.
+	-- Since 2.6
+	-- The "documenters" property
 
--- about : 	a GtkAboutDialog
--- artists : 	a NULL-terminated array of strings
+	--   "documenters"          GStrv                 : Read / Write
 
--- Since 2.6
--- gtk_about_dialog_get_documenters ()
+	-- The people documenting the program, as a NULL-terminated array of strings. Each string may contain email addresses and URLs, which will be displayed as links, see the introduction for more details.
 
--- const gchar* const * gtk_about_dialog_get_documenters
--- 														  (GtkAboutDialog *about);
+	-- Since 2.6
+	-- The "license" property
 
--- Returns the string which are displayed in the documenters tab of the secondary credits dialog.
+	--   "license"              gchararray            : Read / Write
 
--- about : 	a GtkAboutDialog
--- Returns : 	A NULL-terminated string array containing the documenters. The array is owned by the about dialog and must not be modified.
+	-- The license of the program. This string is displayed in a text view in a secondary dialog, therefore it is fine to use a long multi-paragraph text. Note that the text is only wrapped in the text view if the "wrap-license" property is set to TRUE; otherwise the text itself must contain the intended linebreaks.
 
--- Since 2.6
--- gtk_about_dialog_set_documenters ()
+	-- Default value: NULL
 
--- void        gtk_about_dialog_set_documenters
--- 														  (GtkAboutDialog *about,
--- 															const gchar **documenters);
+	-- Since 2.6
+	-- The "logo" property
 
--- Sets the strings which are displayed in the documenters tab of the secondary credits dialog.
+	--   "logo"                 GdkPixbuf             : Read / Write
 
--- about : 	a GtkAboutDialog
--- documenters : 	a NULL-terminated array of strings
+	-- A logo for the about box. If this is not set, it defaults to gtk_window_get_default_icon_list().
 
--- Since 2.6
--- gtk_about_dialog_get_translator_credits ()
+	-- Since 2.6
+	-- The "logo-icon-name" property
 
--- const gchar* gtk_about_dialog_get_translator_credits
--- 														  (GtkAboutDialog *about);
+	--   "logo-icon-name"       gchararray            : Read / Write
 
--- Returns the translator credits string which is displayed in the translators tab of the secondary credits dialog.
+	-- A named icon to use as the logo for the about box. This property overrides the logo property.
 
--- about : 	a GtkAboutDialog
--- Returns : 	The translator credits string. The string is owned by the about dialog and must not be modified.
+	-- Default value: NULL
 
--- Since 2.6
--- gtk_about_dialog_set_translator_credits ()
+	-- Since 2.6
+	-- The "name" property
 
--- void        gtk_about_dialog_set_translator_credits
--- 														  (GtkAboutDialog *about,
--- 															const gchar *translator_credits);
+	--   "name"                 gchararray            : Read / Write
 
--- Sets the translator credits string which is displayed in the translators tab of the secondary credits dialog.
+	-- The name of the program. If this is not set, it defaults to g_get_application_name().
 
--- The intended use for this string is to display the translator of the language which is currently used in the user interface. Using gettext(), a simple way to achieve that is to mark the string for translation:
+	-- Default value: NULL
 
---  gtk_about_dialog_set_translator_credits (about, _("translator-credits"));
+	-- Since 2.6
+	-- The "translator-credits" property
 
--- It is a good idea to use the customary msgid "translator-credits" for this purpose, since translators will already know the purpose of that msgid, and since GtkAboutDialog will detect if "translator-credits" is untranslated and hide the tab.
+	--   "translator-credits"   gchararray            : Read / Write
 
--- about : 	a GtkAboutDialog
--- translator_credits : 	the translator credits
+	-- Credits to the translators. This string should be marked as translatable. The string may contain email addresses and URLs, which will be displayed as links, see the introduction for more details.
 
--- Since 2.6
--- gtk_about_dialog_get_logo ()
+	-- Default value: NULL
 
--- GdkPixbuf*  gtk_about_dialog_get_logo       (GtkAboutDialog *about);
+	-- Since 2.6
+	-- The "version" property
 
--- Returns the pixbuf displayed as logo in the about dialog.
+	--   "version"              gchararray            : Read / Write
 
--- about : 	a GtkAboutDialog
--- Returns : 	the pixbuf displayed as logo. The pixbuf is owned by the about dialog. If you want to keep a reference to it, you have to call g_object_ref() on it.
+	-- The version of the program.
 
--- Since 2.6
--- gtk_about_dialog_set_logo ()
+	-- Default value: NULL
 
--- void        gtk_about_dialog_set_logo       (GtkAboutDialog *about,
--- 															GdkPixbuf *logo);
+	-- Since 2.6
+	-- The "website" property
 
--- Sets the pixbuf to be displayed as logo in the about dialog. If it is NULL, the default window icon set with gtk_window_set_default_icon() will be used.
+	--   "website"              gchararray            : Read / Write
 
--- about : 	a GtkAboutDialog
--- logo : 	a GdkPixbuf, or NULL
+	-- The URL for the link to the website of the program. This should be a string starting with "http://.
 
--- Since 2.6
--- gtk_about_dialog_get_logo_icon_name ()
+	-- Default value: NULL
 
--- const gchar* gtk_about_dialog_get_logo_icon_name
--- 														  (GtkAboutDialog *about);
+	-- Since 2.6
+	-- The "website-label" property
 
--- Returns the icon name displayed as logo in the about dialog.
+	--   "website-label"        gchararray            : Read / Write
 
--- about : 	a GtkAboutDialog
--- Returns : 	the icon name displayed as logo. The string is owned by the dialog. If you want to keep a reference to it, you have to call g_strdup() on it.
+	-- The label for the link to the website of the program. If this is not set, it defaults to the URL specified in the website property.
 
--- Since 2.6
--- gtk_about_dialog_set_logo_icon_name ()
+	-- Default value: NULL
 
--- void        gtk_about_dialog_set_logo_icon_name
--- 														  (GtkAboutDialog *about,
--- 															const gchar *icon_name);
+	-- Since 2.6
+	-- The "wrap-license" property
 
--- Sets the pixbuf to be displayed as logo in the about dialog. If it is NULL, the default window icon set with gtk_window_set_default_icon() will be used.
+	--   "wrap-license"         gboolean              : Read / Write
 
--- about : 	a GtkAboutDialog
--- icon_name : 	an icon name, or NULL
+	-- Whether to wrap the text in the license dialog.
 
--- Since 2.6
--- GtkAboutDialogActivateLinkFunc ()
+	-- Default value: FALSE
 
--- void        (*GtkAboutDialogActivateLinkFunc)
--- 														  (GtkAboutDialog *about,
--- 															const gchar *link,
--- 															gpointer data);
+	-- Since 2.8
+	-- See Als
 
--- The type of a function which is called when a URL or email link is activated.
--- about : 	the GtkAboutDialog in which the link was activated
--- link : 	the URL or email address to whiche the activated link points
--- data : 	user data that was passed when the function was registered with gtk_about_dialog_set_email_hook() or gtk_about_dialog_set_url_hook()
--- gtk_about_dialog_set_email_hook ()
+	-- feature -- 
+	-- Properties
 
--- GtkAboutDialogActivateLinkFunc gtk_about_dialog_set_email_hook
--- 														  (GtkAboutDialogActivateLinkFunc func,
--- 															gpointer data,
--- 															GDestroyNotify destroy);
+	--   "artists"              GStrv                 : Read / Write
+	--   "authors"              GStrv                 : Read / Write
+	--   "comments"             gchararray            : Read / Write
+	--   "copyright"            gchararray            : Read / Write
+	--   "documenters"          GStrv                 : Read / Write
+	--   "license"              gchararray            : Read / Write
+	--   "logo"                 GdkPixbuf             : Read / Write
+	--   "logo-icon-name"       gchararray            : Read / Write
+	--   "name"                 gchararray            : Read / Write
+	--   "translator-credits"   gchararray            : Read / Write
+	--   "version"              gchararray            : Read / Write
+	--   "website"              gchararray            : Read / Write
+	--   "website-label"        gchararray            : Read / Write
+	--   "wrap-license"         gboolean              : Read / Write
 
--- Installs a global function to be called whenever the user activates an email link in an about dialog.
+feature
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkAboutDialog)"
+		end
 
--- func : 	a function to call when an email link is activated.
--- data : 	data to pass to func
--- destroy : 	GDestroyNotify for data
--- Returns : 	the previous email hook.
+feature {} -- External calls 
+	gtk_about_dialog_new is
+			-- 	GtkWidget* gtk_about_dialog_new (void);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Since 2.6
--- gtk_about_dialog_set_url_hook ()
+	gtk_about_dialog_get_name (an_about: POINTER): POINTER is
+			-- 	const gchar* gtk_about_dialog_get_name (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- GtkAboutDialogActivateLinkFunc gtk_about_dialog_set_url_hook
--- 														  (GtkAboutDialogActivateLinkFunc func,
--- 															gpointer data,
--- 															GDestroyNotify destroy);
+	gtk_about_dialog_set_name (an_about, a_name: POINTER) is
+			-- 	void gtk_about_dialog_set_name (GtkAboutDialog *about, const gchar *name);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Installs a global function to be called whenever the user activates a URL link in an about dialog.
+	gtk_about_dialog_get_version (an_about: POINTER): POINTER is
+			-- 	const gchar* gtk_about_dialog_get_version (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- func : 	a function to call when a URL link is activated.
--- data : 	data to pass to func
--- destroy : 	GDestroyNotify for data
--- Returns : 	the previous URL hook.
+	gtk_about_dialog_set_version (an_about, a_version: POINTER) is
+			-- 	void gtk_about_dialog_set_version (GtkAboutDialog *about, const gchar *version);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Since 2.6
--- gtk_show_about_dialog ()
+	gtk_about_dialog_get_copyright (an_about: POINTER): POINTER is
+			-- 	const gchar* gtk_about_dialog_get_copyright (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- void        gtk_show_about_dialog           (GtkWindow *parent,
--- 															const gchar *first_property_name,
--- 															...);
+	gtk_about_dialog_set_copyright (an_about, a_copyright: POINTER) is
+			-- 	void gtk_about_dialog_set_copyright (GtkAboutDialog *about, const gchar *copyright);
+		external "C use <gtk/gtk.h>"
+		end
 
--- This is a convenience function for showing an application's about box. The constructed dialog is associated with the parent window and reused for future invocations of this function.
+	gtk_about_dialog_get_comments (an_about: POINTER): POINTER is
+			-- 	const gchar* gtk_about_dialog_get_comments (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- parent : 	transient parent, or NULL for none
--- first_property_name : 	the name of the first property
--- ... : 	value of first property, followed by more properties, NULL-terminated
+	gtk_about_dialog_set_comments (an_about, some_comments: POINTER) is
+			-- 	void gtk_about_dialog_set_comments (GtkAboutDialog *about, const gchar *comments);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Since 2.6
--- Property Details
--- The "artists" property
+	gtk_about_dialog_get_license (an_about: POINTER): POINTER is
+			-- 	const gchar* gtk_about_dialog_get_license (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
---   "artists"              GStrv                 : Read / Write
+	gtk_about_dialog_set_license (an_about, a_license: POINTER) is
+			-- 	void gtk_about_dialog_set_license (GtkAboutDialog *about, const gchar *license);
+		external "C use <gtk/gtk.h>"
+		end
 
--- The people who contributed artwork to the program, as a NULL-terminated array of strings. Each string may contain email addresses and URLs, which will be displayed as links, see the introduction for more details.
+	gtk_about_dialog_get_wrap_license (an_about: POINTER): INTEGER is
+			-- 	gboolean gtk_about_dialog_get_wrap_license (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Since 2.6
--- The "authors" property
+	gtk_about_dialog_set_wrap_license (an_about: POINTER; wrap_license_bool: INTEGER) is
+			-- 	void gtk_about_dialog_set_wrap_license (GtkAboutDialog *about, gboolean wrap_license);
+		external "C use <gtk/gtk.h>"
+		end
 
---   "authors"              GStrv                 : Read / Write
+	gtk_about_dialog_get_website (an_about: POINTER): POINTER is
+			-- const gchar* gtk_about_dialog_get_website (GtkAboutDialog
+			-- *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- The authors of the program, as a NULL-terminated array of strings. Each string may contain email addresses and URLs, which will be displayed as links, see the introduction for more details.
+	gtk_about_dialog_set_website (an_about, a_website: POINTER) is
+			-- 	void gtk_about_dialog_set_website (GtkAboutDialog *about, const gchar *website);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Since 2.6
--- The "comments" property
+	gtk_about_dialog_get_website_label (an_about: POINTER): POINTER is
+			-- 	const gchar* gtk_about_dialog_get_website_label (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
---   "comments"             gchararray            : Read / Write
+	gtk_about_dialog_set_website_label (an_about, a_website_label: POINTER) is
+			-- 	void gtk_about_dialog_set_website_label (GtkAboutDialog *about, const gchar *website_label);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Comments about the program. This string is displayed in a label in the main dialog, thus it should be a short explanation of the main purpose of the program, not a detailed list of features.
+	gtk_about_dialog_get_authors (an_about: POINTER): POINTER is
+			-- 	const gchar* const * gtk_about_dialog_get_authors (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Default value: NULL
+	gtk_about_dialog_set_authors (an_about, some_authors: POINTER) is
+			-- 	void gtk_about_dialog_set_authors (GtkAboutDialog *about, const gchar **authors);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Since 2.6
--- The "copyright" property
+	gtk_about_dialog_get_artists (an_about: POINTER): POINTER is
+			-- 	const gchar* const * gtk_about_dialog_get_artists (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
---   "copyright"            gchararray            : Read / Write
+	gtk_about_dialog_set_artists (an_about, some_artists: POINTER) is
+			-- 	void gtk_about_dialog_set_artists (GtkAboutDialog *about, const gchar **artists);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Copyright information for the program.
+	gtk_about_dialog_get_documenters (an_about: POINTER): POINTER is
+			-- const gchar* const * gtk_about_dialog_get_documenters
+			-- (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Default value: NULL
+	gtk_about_dialog_set_documenters (an_about, some_documenters: POINTER) is
+			-- void gtk_about_dialog_set_documenters (GtkAboutDialog
+			-- *about, const gchar **documenters);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Since 2.6
--- The "documenters" property
+	gtk_about_dialog_get_translator_credits (an_about: POINTER): POINTER is
+			-- 	const gchar* gtk_about_dialog_get_translator_credits (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
---   "documenters"          GStrv                 : Read / Write
+	gtk_about_dialog_set_translator_credits (an_about, a_translator_credits: POINTER) is
+			-- 	void gtk_about_dialog_set_translator_credits (GtkAboutDialog *about, const gchar *translator_credits);
+		external "C use <gtk/gtk.h>"
+		end
 
--- The people documenting the program, as a NULL-terminated array of strings. Each string may contain email addresses and URLs, which will be displayed as links, see the introduction for more details.
+	gtk_about_dialog_get_logo (an_about: POINTER): POINTER is
+			-- GdkPixbuf* gtk_about_dialog_get_logo (GtkAboutDialog
+			-- *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Since 2.6
--- The "license" property
+	gtk_about_dialog_set_logo (an_about, a_logo: POINTER) is
+			-- void gtk_about_dialog_set_logo (GtkAboutDialog *about,
+			-- GdkPixbuf *logo);
+		external "C use <gtk/gtk.h>"
+		end
 
---   "license"              gchararray            : Read / Write
+	gtk_about_dialog_get_logo_icon_name (an_about: POINTER): POINTER is
+			-- 	const gchar* gtk_about_dialog_get_logo_icon_name (GtkAboutDialog *about);
+		external "C use <gtk/gtk.h>"
+		end
 
--- The license of the program. This string is displayed in a text view in a secondary dialog, therefore it is fine to use a long multi-paragraph text. Note that the text is only wrapped in the text view if the "wrap-license" property is set to TRUE; otherwise the text itself must contain the intended linebreaks.
+	gtk_about_dialog_set_logo_icon_name (an_about, an_icon_name: POINTER) is
+			-- 	void gtk_about_dialog_set_logo_icon_name (GtkAboutDialog *about, const gchar *icon_name);
+		external "C use <gtk/gtk.h>"
+		end
 
--- Default value: NULL
+	--	void (*GtkAboutDialogActivateLinkFunc) (GtkAboutDialog *about,
+	--	const gchar *link, gpointer data);
+		
+	-- GtkAboutDialogActivateLinkFunc gtk_about_dialog_set_email_hook
+	-- (GtkAboutDialogActivateLinkFunc func, gpointer data,
+	-- GDestroyNotify destroy);
 
--- Since 2.6
--- The "logo" property
+	-- GtkAboutDialogActivateLinkFunc gtk_about_dialog_set_url_hook
+	-- (GtkAboutDialogActivateLinkFunc func, gpointer data,
+	-- GDestroyNotify destroy) is
+		
 
---   "logo"                 GdkPixbuf             : Read / Write
-
--- A logo for the about box. If this is not set, it defaults to gtk_window_get_default_icon_list().
-
--- Since 2.6
--- The "logo-icon-name" property
-
---   "logo-icon-name"       gchararray            : Read / Write
-
--- A named icon to use as the logo for the about box. This property overrides the logo property.
-
--- Default value: NULL
-
--- Since 2.6
--- The "name" property
-
---   "name"                 gchararray            : Read / Write
-
--- The name of the program. If this is not set, it defaults to g_get_application_name().
-
--- Default value: NULL
-
--- Since 2.6
--- The "translator-credits" property
-
---   "translator-credits"   gchararray            : Read / Write
-
--- Credits to the translators. This string should be marked as translatable. The string may contain email addresses and URLs, which will be displayed as links, see the introduction for more details.
-
--- Default value: NULL
-
--- Since 2.6
--- The "version" property
-
---   "version"              gchararray            : Read / Write
-
--- The version of the program.
-
--- Default value: NULL
-
--- Since 2.6
--- The "website" property
-
---   "website"              gchararray            : Read / Write
-
--- The URL for the link to the website of the program. This should be a string starting with "http://.
-
--- Default value: NULL
-
--- Since 2.6
--- The "website-label" property
-
---   "website-label"        gchararray            : Read / Write
-
--- The label for the link to the website of the program. If this is not set, it defaults to the URL specified in the website property.
-
--- Default value: NULL
-
--- Since 2.6
--- The "wrap-license" property
-
---   "wrap-license"         gboolean              : Read / Write
-
--- Whether to wrap the text in the license dialog.
-
--- Default value: FALSE
-
--- Since 2.8
--- See Als
-
--- feature -- 
--- Properties
-
---   "artists"              GStrv                 : Read / Write
---   "authors"              GStrv                 : Read / Write
---   "comments"             gchararray            : Read / Write
---   "copyright"            gchararray            : Read / Write
---   "documenters"          GStrv                 : Read / Write
---   "license"              gchararray            : Read / Write
---   "logo"                 GdkPixbuf             : Read / Write
---   "logo-icon-name"       gchararray            : Read / Write
---   "name"                 gchararray            : Read / Write
---   "translator-credits"   gchararray            : Read / Write
---   "version"              gchararray            : Read / Write
---   "website"              gchararray            : Read / Write
---   "website-label"        gchararray            : Read / Write
---   "wrap-license"         gboolean              : Read / Write
-
---   feature {} -- External calls 
--- #include <gtk/gtk.h>
-
-
--- 				GtkAboutDialog;
--- GtkWidget*  gtk_about_dialog_new            (void);
--- const gchar* gtk_about_dialog_get_name      (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_name       (GtkAboutDialog *about,
--- 															const gchar *name);
--- const gchar* gtk_about_dialog_get_version   (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_version    (GtkAboutDialog *about,
--- 															const gchar *version);
--- const gchar* gtk_about_dialog_get_copyright (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_copyright  (GtkAboutDialog *about,
--- 															const gchar *copyright);
--- const gchar* gtk_about_dialog_get_comments  (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_comments   (GtkAboutDialog *about,
--- 															const gchar *comments);
--- const gchar* gtk_about_dialog_get_license   (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_license    (GtkAboutDialog *about,
--- 															const gchar *license);
--- gboolean    gtk_about_dialog_get_wrap_license
--- 														  (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_wrap_license
--- 														  (GtkAboutDialog *about,
--- 															gboolean wrap_license);
--- const gchar* gtk_about_dialog_get_website   (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_website    (GtkAboutDialog *about,
--- 															const gchar *website);
--- const gchar* gtk_about_dialog_get_website_label
--- 														  (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_website_label
--- 														  (GtkAboutDialog *about,
--- 															const gchar *website_label);
--- const gchar* const * gtk_about_dialog_get_authors
--- 														  (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_authors    (GtkAboutDialog *about,
--- 															const gchar **authors);
--- const gchar* const * gtk_about_dialog_get_artists
--- 														  (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_artists    (GtkAboutDialog *about,
--- 															const gchar **artists);
--- const gchar* const * gtk_about_dialog_get_documenters
--- 														  (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_documenters
--- 														  (GtkAboutDialog *about,
--- 															const gchar **documenters);
--- const gchar* gtk_about_dialog_get_translator_credits
--- 														  (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_translator_credits
--- 														  (GtkAboutDialog *about,
--- 															const gchar *translator_credits);
--- GdkPixbuf*  gtk_about_dialog_get_logo       (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_logo       (GtkAboutDialog *about,
--- 															GdkPixbuf *logo);
--- const gchar* gtk_about_dialog_get_logo_icon_name
--- 														  (GtkAboutDialog *about);
--- void        gtk_about_dialog_set_logo_icon_name
--- 														  (GtkAboutDialog *about,
--- 															const gchar *icon_name);
--- void        (*GtkAboutDialogActivateLinkFunc)
--- 														  (GtkAboutDialog *about,
--- 															const gchar *link,
--- 															gpointer data);
--- GtkAboutDialogActivateLinkFunc gtk_about_dialog_set_email_hook
--- 														  (GtkAboutDialogActivateLinkFunc func,
--- 															gpointer data,
--- 															GDestroyNotify destroy);
--- GtkAboutDialogActivateLinkFunc gtk_about_dialog_set_url_hook
--- 														  (GtkAboutDialogActivateLinkFunc func,
--- 															gpointer data,
--- 															GDestroyNotify destroy);
--- void        gtk_show_about_dialog           (GtkWindow *parent,
--- 															const gchar *first_property_name,
--- 															...);
-
--- GTK_STOCK_ABOUT
+	-- void gtk_show_about_dialog (GtkWindow *parent, const gchar
+	-- *first_property_name, ...);
+		
 end -- class GTK_ABOUT_DIALOG
