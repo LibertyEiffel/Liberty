@@ -68,14 +68,6 @@ feature -- Operation
 			gtk_widget_set_style (handle, a_style.handle)
 		end
 
-	-- 	set_sensitive (sens: BOOLEAN) is
-	-- 			-- Sets the sensitivity of Current. A widget is sensitive
-	-- 			-- if the user can interact with it. Insensitive widgets are
-	-- 			-- "grayed out" and the user can't interact with them.
-	-- 		do
-	-- 			gtk_widget_set_sensitive (handle, sens.to_integer)
-	-- 		end
-
 	show is
 			-- Flags widget to be displayed.
 		do
@@ -1609,7 +1601,7 @@ feature -- button-press-event signal
 --   gint height;
 -- } GtkRequisition;
 
--- A GtkRequisition represents the desired size of a widget. See the section called ’¡ÈSize Requisition’¡É for more information.
+-- A GtkRequisition represents the desired size of a widget. See the section called ï¿½ize Requisitionï¿½for more information.
 -- gint width; 	the widget's desired width
 -- gint height; 	the widget's desired height
 -- struct GtkAllocation
@@ -1621,7 +1613,7 @@ feature -- button-press-event signal
 --   gint height;
 -- };
 
--- A GtkAllocation of a widget represents region which has been allocated to the widget by its parent. It is a subregion of its parents allocation. See the section called ’¡ÈSize Allocation’¡É for more information.
+-- A GtkAllocation of a widget represents region which has been allocated to the widget by its parent. It is a subregion of its parents allocation. See the section called ï¿½ize Allocationï¿½for more information.
 -- gint x; 	the X position of the widget's area relative to its parents allocation.
 -- gint y; 	the Y position of the widget's area relative to its parents allocation.
 -- gint width; 	the width of the widget's allocated area.
@@ -1996,23 +1988,32 @@ feature -- button-press-event signal
 -- widget : 	a GtkWidget
 	-- state : 	new state for widget
 feature -- Sensitivity
-	set_sensitive is
-			-- Makes the widget sensitive. A widget is sensitive if the
-			-- user can interact with it. Insensitive widgets are "grayed
-			-- out" and the user can't interact with them. Insensitive
-			-- widgets are known as "inactive", "disabled", or "ghosted"
-			-- in some other toolkits.
+
+	set_sensitive (sens: BOOLEAN) is
+			-- Sets the sensitivity of Current. A widget is sensitive
+			-- if the user can interact with it. Insensitive widgets are
+			-- "grayed out" and the user can't interact with them.
 		do
-			gtk_widget_set_sensitive (handle, 1)
-		ensure sensitive: is_sensitive
+			gtk_widget_set_sensitive (handle, sens.to_integer)
 		end
 
-	unset_sensitive is
-			-- Makes the widget not sensitive. See `set_sensitive'.
-		do
-			gtk_widget_set_sensitive (handle, 0)
-		ensure unsensitive: not is_sensitive
-		end
+-- 	set_sensitive is
+-- 			-- Makes the widget sensitive. A widget is sensitive if the
+-- 			-- user can interact with it. Insensitive widgets are "grayed
+-- 			-- out" and the user can't interact with them. Insensitive
+-- 			-- widgets are known as "inactive", "disabled", or "ghosted"
+-- 			-- in some other toolkits.
+-- 		do
+-- 			gtk_widget_set_sensitive (handle, 1)
+-- 		ensure sensitive: is_sensitive
+-- 		end
+-- 
+-- 	unset_sensitive is
+-- 			-- Makes the widget not sensitive. See `set_sensitive'.
+-- 		do
+-- 			gtk_widget_set_sensitive (handle, 0)
+-- 		ensure unsensitive: not is_sensitive
+-- 		end
 
 feature
 	
@@ -3602,7 +3603,7 @@ feature
 -- gboolean    user_function                  (GtkWidget *widget,
 -- 														  gpointer   user_data)      : Run last / Action
 
--- This signal gets emitted whenever a widget should pop up a context-sensitive menu. This usually happens through the standard key binding mechanism; by pressing a certain key while a widget is focused, the user can cause the widget to pop up a menu. For example, the GtkEntry widget creates a menu with clipboard commands. See the section called ’¡ÈImplement GtkWidget::popup_menu’¡É for an example of how to use this signal.
+-- This signal gets emitted whenever a widget should pop up a context-sensitive menu. This usually happens through the standard key binding mechanism; by pressing a certain key while a widget is focused, the user can cause the widget to pop up a menu. For example, the GtkEntry widget creates a menu with clipboard commands. See the section called ï¿½mplement GtkWidget::popup_menuï¿½for an example of how to use this signal.
 
 -- widget : 	the object which received the signal
 -- returns : 	TRUE if a menu was activated
