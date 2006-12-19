@@ -230,7 +230,7 @@ feature {ANY}
 		do
 			Result := (type /= g_type_invalid)
 		end
-	
+
 	is_a (a_type: INTEGER): BOOLEAN is
 			-- Is Current gtype conforming to `a_type'?
 		do
@@ -519,6 +519,6 @@ feature {} -- Disposing
 invariant
 
 	handle_not_null: is_not_null
-	is_initialized
+--	is_initialized
 
 end
