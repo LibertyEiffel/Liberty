@@ -60,29 +60,37 @@ feature {} -- Externals
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_selection_get_current_alpha (a_colorsel: POINTER): INTEGER_16 is
+	gtk_color_selection_get_current_alpha (a_colorsel: POINTER): INTEGER is
 			-- guint16 gtk_color_selection_get_current_alpha (GtkColorSelection 
 			-- *colorsel);
-			-- TODO: should be NATURAL_16 since it's a guint16		
+
+			-- TODO: should be NATURAL_16 since it's a guint16.
+			-- Currently it's an INTEGER relying on the silent cast at C
+			-- level.
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_selection_set_current_alpha (a_colorsel: POINTER; an_alpha: INTEGER_16) is
+	gtk_color_selection_set_current_alpha (a_colorsel: POINTER; an_alpha: INTEGER) is
 			-- gtk_color_selection_set_current_alpha (GtkColorSelection
 			-- *colorsel, guint16 alpha); TODO: should be NATURAL_16
-			-- since it's a guint16
+			-- since it's a guint16. Currently it's an INTEGER relying on
+			-- the silent cast at C level.
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_selection_get_previous_alpha (a_colorsel: POINTER): INTEGER_16 is
-			-- guint16 gtk_color_selection_get_previous_alpha (GtkColorSelection *colorsel);
-			-- TODO: should be NATURAL_16 since it's a guint16		
+	gtk_color_selection_get_previous_alpha (a_colorsel: POINTER): INTEGER is
+			-- guint16 gtk_color_selection_get_previous_alpha
+			-- (GtkColorSelection *colorsel); TODO: should be NATURAL_16
+			-- since it's a guint16. Currently it's an INTEGER relying on
+			-- the silent cast at C level.
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_selection_set_previous_alpha (a_colorsel: POINTER; an_alpha: INTEGER_16) is
-			-- gtk_color_selection_set_previous_alpha (GtkColorSelection *colorsel, guint16 alpha);
-			-- TODO: should be NATURAL_16 since it's a guint16		
+	gtk_color_selection_set_previous_alpha (a_colorsel: POINTER; an_alpha: INTEGER) is
+			-- gtk_color_selection_set_previous_alpha (GtkColorSelection
+			-- *colorsel, guint16 alpha); TODO: should be NATURAL_16
+			-- since it's a guint16. Currently it's an INTEGER relying on
+			-- the silent cast at C level.
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -101,7 +109,7 @@ feature {} -- Externals
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_selection_palette_from_string (a_string, some_colorsm colors_n: POINTER): INTEGER is
+	gtk_color_selection_palette_from_string (a_string, some_colors, colors_n: POINTER): INTEGER is
 			-- gboolean gtk_color_selection_palette_from_string (const gchar *str, GdkColor **colors, gint *n_colors);
 		external "C use <gtk/gtk.h>"
 		end
