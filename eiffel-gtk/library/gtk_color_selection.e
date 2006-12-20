@@ -1,5 +1,5 @@
 indexing
-	description: "GtkColorSelection — A widget used to select a color."
+	description: "GtkColorSelection, a widget used to select a color."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -25,6 +25,8 @@ class GTK_COLOR_SELECTION
 
 inherit GTK_VBOX
 	redefine struct_size end
+
+	-- TODO: GtkColorSelection implements AtkImplementorIface.
 
 insert
 	GTK_COLOR_SELECTION_EXTERNALS
@@ -54,91 +56,7 @@ feature
 			gtk_color_selection_set_current_color (handle, a_color.handle)
 		end
 
---	new:
-
--- Synopsis
--- 
--- #include <gtk/gtk.h>
--- 
--- 
---             GtkColorSelection;
--- GtkWidget*  gtk_color_selection_new         (void);
--- void        gtk_color_selection_set_update_policy
---                                             (GtkColorSelection *colorsel,
---                                              GtkUpdateType policy);
--- void        gtk_color_selection_set_has_opacity_control
---                                             (GtkColorSelection *colorsel,
---                                              gboolean has_opacity);
--- gboolean    gtk_color_selection_get_has_opacity_control
---                                             (GtkColorSelection *colorsel);
--- void        gtk_color_selection_set_has_palette
---                                             (GtkColorSelection *colorsel,
---                                              gboolean has_palette);
--- gboolean    gtk_color_selection_get_has_palette
---                                             (GtkColorSelection *colorsel);
--- guint16     gtk_color_selection_get_current_alpha
---                                             (GtkColorSelection *colorsel);
--- void        gtk_color_selection_set_current_alpha
---                                             (GtkColorSelection *colorsel,
---                                              guint16 alpha);
--- guint16     gtk_color_selection_get_previous_alpha
---                                             (GtkColorSelection *colorsel);
--- void        gtk_color_selection_set_previous_alpha
---                                             (GtkColorSelection *colorsel,
---                                              guint16 alpha);
--- void        gtk_color_selection_get_previous_color
---                                             (GtkColorSelection *colorsel,
---                                              GdkColor *color);
--- void        gtk_color_selection_set_previous_color
---                                             (GtkColorSelection *colorsel,
---                                              const GdkColor *color);
--- gboolean    gtk_color_selection_is_adjusting
---                                             (GtkColorSelection *colorsel);
--- gboolean    gtk_color_selection_palette_from_string
---                                             (const gchar *str,
---                                              GdkColor **colors,
---                                              gint *n_colors);
--- gchar*      gtk_color_selection_palette_to_string
---                                             (const GdkColor *colors,
---                                              gint n_colors);
--- GtkColorSelectionChangePaletteFunc gtk_color_selection_set_change_palette_hook
---                                             (GtkColorSelectionChangePaletteFunc func);
--- void        (*GtkColorSelectionChangePaletteFunc)
---                                             (const GdkColor *colors,
---                                              gint n_colors);
--- GtkColorSelectionChangePaletteWithScreenFunc gtk_color_selection_set_change_palette_with_screen_hook
---                                             (GtkColorSelectionChangePaletteWithScreenFunc func);
--- void        (*GtkColorSelectionChangePaletteWithScreenFunc)
---                                             (GdkScreen *screen,
---                                              const GdkColor *colors,
---                                              gint n_colors);
--- void        gtk_color_selection_set_color   (GtkColorSelection *colorsel,
---                                              gdouble *color);
--- void        gtk_color_selection_get_color   (GtkColorSelection *colorsel,
---                                              gdouble *color);
--- 
--- 
--- 
--- Object Hierarchy
--- 
---   GObject
---    +----GInitiallyUnowned
---          +----GtkObject
---                +----GtkWidget
---                      +----GtkContainer
---                            +----GtkBox
---                                  +----GtkVBox
---                                        +----GtkColorSelection
--- 
--- Implemented Interfaces
--- 
--- GtkColorSelection implements AtkImplementorIface.
--- Properties
--- 
---   "current-alpha"        guint                 : Read / Write
---   "current-color"        GdkColor              : Read / Write
---   "has-opacity-control"  gboolean              : Read / Write
---   "has-palette"          gboolean              : Read / Write
+ 
 -- 
 -- Signals
 -- 
@@ -162,30 +80,7 @@ feature
 -- Creates a new GtkColorSelection.
 -- 
 -- Returns : 	a new GtkColorSelection
--- gtk_color_selection_set_update_policy ()
--- 
--- void        gtk_color_selection_set_update_policy
---                                             (GtkColorSelection *colorsel,
---                                              GtkUpdateType policy);
--- 
--- Warning
--- 
--- gtk_color_selection_set_update_policy is deprecated and should not be used in newly-written code.
--- 
--- Sets the policy controlling when the color_changed signals are emitted. The available policies are:
--- 
---     *
--- 
---       GTK_UPDATE_CONTINUOUS - signals are sent continuously as the color selection changes.
---     *
--- 
---       GTK_UPDATE_DISCONTINUOUS - signals are sent only when the mouse button is released.
---     *
--- 
---       GTK_UPDATE_DELAYED - signals are sent when the mouse button is released or when the mouse has been motionless for a period of time.
--- 
--- colorsel : 	a GtkColorSelection.
--- policy : 	a GtkUpdateType value indicating the desired policy.
+
 -- gtk_color_selection_set_has_opacity_control ()
 -- 
 -- void        gtk_color_selection_set_has_opacity_control
@@ -318,25 +213,6 @@ feature
 -- Returns : 	allocated string encoding the palette.
 -- gtk_color_selection_set_change_palette_hook ()
 -- 
--- GtkColorSelectionChangePaletteFunc gtk_color_selection_set_change_palette_hook
---                                             (GtkColorSelectionChangePaletteFunc func);
--- 
--- Warning
--- 
--- gtk_color_selection_set_change_palette_hook is deprecated and should not be used in newly-written code. This function is deprecated in favor of gtk_color_selection_set_change_palette_with_screen_hook(), and does not work in multihead environments.
--- 
--- Installs a global function to be called whenever the user tries to modify the palette in a color selection. This function should save the new palette contents, and update the GtkSettings property "gtk-color-palette" so all GtkColorSelection widgets will be modified.
--- 
--- func : 	a function to call when the custom palette needs saving.
--- Returns : 	the previous change palette hook (that was replaced).
--- GtkColorSelectionChangePaletteFunc ()
--- 
--- void        (*GtkColorSelectionChangePaletteFunc)
---                                             (const GdkColor *colors,
---                                              gint n_colors);
--- 
--- colors : 	
--- n_colors : 	
 -- gtk_color_selection_set_change_palette_with_screen_hook ()
 -- 
 -- GtkColorSelectionChangePaletteWithScreenFunc gtk_color_selection_set_change_palette_with_screen_hook
@@ -360,34 +236,12 @@ feature
 -- n_colors : 	
 -- 
 -- Since 2.2
--- gtk_color_selection_set_color ()
+feature -- Properties
 -- 
--- void        gtk_color_selection_set_color   (GtkColorSelection *colorsel,
---                                              gdouble *color);
--- 
--- Warning
--- 
--- gtk_color_selection_set_color is deprecated and should not be used in newly-written code. Use gtk_color_selection_set_current_color() instead.
--- 
--- Sets the current color to be color. The first time this is called, it will also set the original color to be color too.
--- 
--- colorsel : 	a GtkColorSelection.
--- color : 	an array of 4 doubles specifying the red, green, blue and opacity to set the current color to.
--- gtk_color_selection_get_color ()
--- 
--- void        gtk_color_selection_get_color   (GtkColorSelection *colorsel,
---                                              gdouble *color);
--- 
--- Warning
--- 
--- gtk_color_selection_get_color is deprecated and should not be used in newly-written code.
--- 
--- Sets color to be the current color in the GtkColorSelection widget.
--- 
--- This function is deprecated, use gtk_color_selection_get_current_color() instead.
--- 
--- colorsel : 	a GtkColorSelection.
--- color : 	an array of 4 gdouble to fill in with the current color.
+--   "current-alpha"        guint                 : Read / Write
+--   "current-color"        GdkColor              : Read / Write
+--   "has-opacity-control"  gboolean              : Read / Write
+--   "has-palette"          gboolean              : Read / Write
 -- Property Details
 -- The "current-alpha" property
 -- 
