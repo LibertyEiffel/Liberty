@@ -46,70 +46,14 @@ inherit GTK_CONTAINER
 creation make, from_external_pointer
 
 feature {} -- Creation
-	--   enum GtkToolbarChildType
+	make is
+			-- Creates a new toolbar.
+		do
+			from_external_pointer (gtk_toolbar_new)
+		end
 
-	--  typedef enum
-	--  {
-	--    GTK_TOOLBAR_CHILD_SPACE,
-	--    GTK_TOOLBAR_CHILD_BUTTON,
-	--    GTK_TOOLBAR_CHILD_TOGGLEBUTTON,
-	--    GTK_TOOLBAR_CHILD_RADIOBUTTON,
-	--    GTK_TOOLBAR_CHILD_WIDGET
-	--  } GtkToolbarChildType;
-
-	--   Warning
-
-	--    GtkToolbarChildType is deprecated and should not be used in newly-written
-	--    code.
-
-	--    GtkToolbarChildType is used to set the type of new elements that are added
-	--    to a GtkToolbar.
-
-	--    GTK_TOOLBAR_CHILD_SPACE        a space in the style of the toolbar's
-	--                                   GtkToolbarSpaceStyle.
-	--    GTK_TOOLBAR_CHILD_BUTTON       a GtkButton.
-	--    GTK_TOOLBAR_CHILD_TOGGLEBUTTON a GtkToggleButton.
-	--    GTK_TOOLBAR_CHILD_RADIOBUTTON  a GtkRadioButton.
-	--    GTK_TOOLBAR_CHILD_WIDGET       a standard GtkWidget.
-
-	--    --------------------------------------------------------------------------
-
-	--   enum GtkToolbarSpaceStyle
-
-	--  typedef enum
-	--  {
-	--    GTK_TOOLBAR_SPACE_EMPTY,
-	--    GTK_TOOLBAR_SPACE_LINE
-	--  } GtkToolbarSpaceStyle;
-
-	--    --------------------------------------------------------------------------
-
-	--   GtkToolbarChild
-
-	--  typedef struct {
-	--    GtkToolbarChildType type;
-	--    GtkWidget *widget;
-	--    GtkWidget *icon;
-	--    GtkWidget *label;
-	--  } GtkToolbarChild;
-
-	--   Warning
-
-	--    GtkToolbarChild is deprecated and should not be used in newly-written
-	--    code.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_new ()
-
-	--  GtkWidget*  gtk_toolbar_new                 (void);
-
-	--    Creates a new toolbar.
-
-	--    Returns : the newly-created toolbar.
-
-	--    --------------------------------------------------------------------------
-
+feature 
+	
 	--   gtk_toolbar_insert ()
 
 	--  void        gtk_toolbar_insert              (GtkToolbar *toolbar,
@@ -1111,7 +1055,7 @@ feature -- size
 		end
 
 feature {} -- External calls 
-	-- GtkToolbar
+	-- TODO: wrap GtkToolbar struct
 	
 	--  typedef struct {
 	--    gint             num_children;
@@ -1126,13 +1070,14 @@ feature {} -- External calls
 	-- The GtkToolbar struct only contains private data and should only
 	-- be accessed through the function described below.
 
+	-- TODO: wrap  enum GtkToolbarSpaceStyle
 
-	-- TODO: enum GtkToolbarChildType;
-	-- TODO: enum GtkToolbarSpaceStyle;
-	
-	-- TODO: wrap GtkToolbarChild
-	-- GtkToolbarChild;
-	
+	--  typedef enum
+	--  {
+	--    GTK_TOOLBAR_SPACE_EMPTY,
+	--    GTK_TOOLBAR_SPACE_LINE
+	--  } GtkToolbarSpaceStyle;
+
 	gtk_toolbar_new: POINTER is
 			-- GtkWidget* gtk_toolbar_new (void);
 		external "C use <gtk/gtk.h>"
