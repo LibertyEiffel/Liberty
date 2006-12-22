@@ -54,69 +54,47 @@ feature {} -- Creation
 
 feature 
 	
-	--   gtk_toolbar_insert ()
+	insert_item (an_item: GTK_TOOL_ITEM; a_position: INTEGER) is
+			-- Insert `an_item' into Current toolbar at `a_position'. If
+			-- `a_position' is 0 `an_item' is prepended to the start of
+			-- the toolbar. If 'a_position' is negative, the item is
+			-- appended to the end of the toolbar.
 
-	--  void        gtk_toolbar_insert              (GtkToolbar *toolbar,
-	--                                               GtkToolItem *item,
-	--                                               gint pos);
+			-- TODO: provide prepend and append (pos<0 and pos=0)
+			-- features
+		require 
+			item_not_void: an_item /= Void
+		do
+			gtk_toolbar_insert (handle, an_item.handle, a_position)
+		end
 
-	--    Insert a GtkToolItem into the toolbar at position pos. If pos is 0 the
-	--    item is prepended to the start of the toolbar. If pos is negative, the
-	--    item is appended to the end of the toolbar.
+	index_of (an_item: GTK_TOOL_ITEM): INTEGER is
+			-- the position of `an_item' on the toolbar, starting from
+			-- 0. It is an error if item is not a child of the toolbar.
+		require 
+			item_not_void: an_item /= Void
+			valid_item: -- TODO: an_item must be a child of Current toolbar
+		do
+			Result := gtk_toolbar_get_item_index(handle,an_item.handle)
+		end
 
-	--    toolbar : a GtkToolbar
-	--    item :    a GtkToolItem
-	--    pos :     the position of the new item
+	count: INTEGER is
+			-- the number of items on the toolbar.
 
-	--    Since 2.4
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_get_item_index ()
-
-	--  gint        gtk_toolbar_get_item_index      (GtkToolbar *toolbar,
-	--                                               GtkToolItem *item);
-
-	--    Returns the position of item on the toolbar, starting from 0. It is an
-	--    error if item is not a child of the toolbar.
-
-	--    toolbar : a GtkToolbar
-	--    item :    a GtkToolItem that is a child of toolbar
-	--    Returns : the position of item on the toolbar.
-
-	--    Since 2.4
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_get_n_items ()
-
-	--  gint        gtk_toolbar_get_n_items         (GtkToolbar *toolbar);
-
-	--    Returns the number of items on the toolbar.
-
-	--    toolbar : a GtkToolbar
-	--    Returns : the number of items on the toolbar
-
-	--    Since 2.4
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_get_nth_item ()
-
-	--  GtkToolItem* gtk_toolbar_get_nth_item       (GtkToolbar *toolbar,
-	--                                               gint n);
-
-	--    Returns the n'th item on toolbar, or NULL if the toolbar does not contain
-	--    an n'th item.
-
-	--    toolbar : a GtkToolbar
-	--    n :       A position on the toolbar
-	--    Returns : The n'th GtkToolItem on toolbar, or NULL if there isn't an n'th
-	--              item.
-
-	--    Since 2.4
-
-	--    --------------------------------------------------------------------------
+			-- Note: C name of this feature is gtk_toolbar_get_n_items.
+		do
+			Result := gtk_toolbar_get_n_items(handle)
+		end
+	
+	item (an_index: INTEGER): GTK_TOOL_ITEM is
+			-- then item on toolbar at `an_index'; Void if `an_index' is
+			-- not valid.
+		require
+			valid_index: -- TODO:
+		local ptr: POINTER
+		do
+			ptr:=gtk_toolbar_get_nth_item(handle, an_index)
+		end
 
 	--   gtk_toolbar_get_drop_index ()
 
