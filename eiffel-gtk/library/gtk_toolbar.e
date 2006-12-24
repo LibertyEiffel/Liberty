@@ -1,4 +1,4 @@
-indexing
+<indexing
 	description: "GtkToolbar -- Create bars of buttons and other widgets."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
@@ -96,48 +96,33 @@ feature
 			ptr:=gtk_toolbar_get_nth_item(handle, an_index)
 		end
 
-	--   gtk_toolbar_get_drop_index ()
+	drop_index (an_x, an_y: INTEGER): INTEGER is
+			-- the position corresponding to the indicated point
+			-- (`an_x',`an_y') on toolbar. This is useful when dragging
+			-- items to the toolbar: this is the position a new item
+			-- should be inserted.
+		do
+			Result := gtk_toolbar_get_drop_index (handle, an_x,an_y) 
+		end
 
-	--  gint        gtk_toolbar_get_drop_index      (GtkToolbar *toolbar,
-	--                                               gint x,
-	--                                               gint y);
-
-	--    Returns the position corresponding to the indicated point on toolbar. This
-	--    is useful when dragging items to the toolbar: this function returns the
-	--    position a new item should be inserted.
-
-	--    x and y are in toolbar coordinates.
-
-	--    toolbar : a GtkToolbar
-	--    x :       x coordinate of a point on the toolbar
-	--    y :       y coordinate of a point on the toolbar
-	--    Returns : The position corresponding to the point (x, y) on the toolbar.
-
-	--    Since 2.4
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_set_drop_highlight_item ()
-
-	--  void        gtk_toolbar_set_drop_highlight_item
-	--                                              (GtkToolbar *toolbar,
-	--                                               GtkToolItem *tool_item,
-	--                                               gint index_);
-
-	--    Highlights toolbar to give an idea of what it would look like if item was
-	--    added to toolbar at the position indicated by index_. If item is NULL,
-	--    highlighting is turned off. In that case index_ is ignored.
-
-	--    The tool_item passed to this function must not be part of any widget
-	--    hierarchy. When an item is set as drop highlight item it can not added to
-	--    any widget hierarchy or used as highlight item for another toolbar.
-
-	--    toolbar :   a GtkToolbar
-	--    tool_item : a GtkToolItem, or NULL to turn of highlighting
-	--    index_ :    a position on toolbar
-
-	--    Since 2.4
-
+	set_drop_highlight_item (an_item: GTK_TOOL_ITEM; an_index: INTEGER) is
+			-- Highlights toolbar to give an idea of what it would look
+			-- like if item was added to toolbar at the position
+			-- indicated by `an_index'. 
+		
+			-- `an_item' must not be part of any widget hierarchy. When
+			-- an item is set as drop highlight item it can not added to
+			-- any widget hierarchy or used as highlight item for another
+			-- toolbar.
+		
+			-- If `an_item' is Void highlighting is turned off and
+			-- `an_index' is ignored.
+		local tip: POINTER
+		do
+			if an_item /= Void then tip:=an_item.handle end
+			gtk_toolbar_set_drop_highlight_item (handle, tip, an_index)
+		end
+	
 	--    --------------------------------------------------------------------------
 
 	--   gtk_toolbar_set_show_arrow ()

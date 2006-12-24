@@ -45,7 +45,7 @@ insert
 	GTK_JUSTIFICATION
 		-- GtkMetricType
 		-- GtkMovementStep
-		-- GtkOrientation
+	GTK_ORIENTATION
 	GTK_PACK_TYPE
 		-- GtkPathPriorityType
 		-- GtkPathType
