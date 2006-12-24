@@ -43,6 +43,9 @@ inherit GTK_CONTAINER
 
 	-- TODO: GtkToolbar implements AtkImplementorIface.
 
+insert
+	GTK_ORIENTATION
+	
 creation make, from_external_pointer
 
 feature {} -- Creation
@@ -114,43 +117,35 @@ feature
 			-- an item is set as drop highlight item it can not added to
 			-- any widget hierarchy or used as highlight item for another
 			-- toolbar.
-		
-			-- If `an_item' is Void highlighting is turned off and
-			-- `an_index' is ignored.
-		local tip: POINTER
+		require
+			item_not_void: an_item /= Void
+			item_not_part_any_hierarchy: -- TODO 
 		do
-			if an_item /= Void then tip:=an_item.handle end
-			gtk_toolbar_set_drop_highlight_item (handle, tip, an_index)
+			gtk_toolbar_set_drop_highlight_item (handle, an_item.handle, an_index)
 		end
 	
-	--    --------------------------------------------------------------------------
+	disable_highlighting is
+			-- Turn off highlighting during dropping.
+		do
+			gtk_toolbar_set_drop_highlight_item (handle, default_pointer, an_index)
+		end
 
-	--   gtk_toolbar_set_show_arrow ()
-
-	--  void        gtk_toolbar_set_show_arrow      (GtkToolbar *toolbar,
-	--                                               gboolean show_arrow);
-
-	--    Sets whether to show an overflow menu when toolbar doesn't have room for
-	--    all items on it. If TRUE, items that there are not room are available
-	--    through an overflow menu.
-
-	--    toolbar :    a GtkToolbar
-	--    show_arrow : Whether to show an overflow menu
-
-	--    Since 2.4
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_set_orientation ()
-
-	--  void        gtk_toolbar_set_orientation     (GtkToolbar *toolbar,
-	--                                               GtkOrientation orientation);
-
-	--    Sets whether a toolbar should appear horizontally or vertically.
-
-	--    toolbar :     a GtkToolbar.
-	--    orientation : a new GtkOrientation.
-
+	set_show_arrow (a_setting: BOOLEAN) is
+			-- Sets whether to show an overflow menu when toolbar doesn't
+			-- have room for all items on it. If TRUE, items that there
+			-- are not room are available through an overflow menu.
+		do
+			gtk_toolbar_set_show_arrow (handle, a_setting.handle)
+		end
+	
+	set_orientation (an_orientation: INTEGER) is
+			-- Sets whether a toolbar should appear horizontally or
+			-- vertically.
+		require valid_orientation: is_valid_orientation (an_orientation)
+		do
+			gtk_toolbar_set_orientation (handle, an_orientation)
+		end
+	
 	--    --------------------------------------------------------------------------
 
 	--   gtk_toolbar_set_tooltips ()
