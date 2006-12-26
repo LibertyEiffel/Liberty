@@ -45,6 +45,7 @@ inherit GTK_CONTAINER
 
 insert
 	GTK_ORIENTATION
+	GTK_TOOLBAR_STYLE
 	
 creation make, from_external_pointer
 
@@ -146,573 +147,71 @@ feature
 			gtk_toolbar_set_orientation (handle, an_orientation)
 		end
 	
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_set_tooltips ()
-
-	--  void        gtk_toolbar_set_tooltips        (GtkToolbar *toolbar,
-	--                                               gboolean enable);
-
-	--    Sets if the tooltips of a toolbar should be active or not.
-
-	--    toolbar : a GtkToolbar.
-	--    enable :  set to FALSE to disable the tooltips, or TRUE to enable them.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_unset_icon_size ()
-
-	--  void        gtk_toolbar_unset_icon_size     (GtkToolbar *toolbar);
-
-	--   Warning
-
-	--    gtk_toolbar_unset_icon_size is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Unsets toolbar icon size set with gtk_toolbar_set_icon_size(), so that
-	--    user preferences will be used to determine the icon size.
-
-	--    toolbar : a GtkToolbar
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_get_show_arrow ()
-
-	--  gboolean    gtk_toolbar_get_show_arrow      (GtkToolbar *toolbar);
-
-	--    Returns whether the toolbar has an overflow menu. See
-	--    gtk_toolbar_set_show_arrow().
-
-	--    toolbar : a GtkToolbar
-	--    Returns : TRUE if the toolbar has an overflow menu.
-
-	--    Since 2.4
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_get_orientation ()
-
-	--  GtkOrientation gtk_toolbar_get_orientation  (GtkToolbar *toolbar);
-
-	--    Retrieves the current orientation of the toolbar. See
-	--    gtk_toolbar_set_orientation().
-
-	--    toolbar : a GtkToolbar
-	--    Returns : the orientation
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_get_style ()
-
-	--  GtkToolbarStyle gtk_toolbar_get_style       (GtkToolbar *toolbar);
-
-	--    Retrieves whether the toolbar has text, icons, or both . See
-	--    gtk_toolbar_set_style().
-
-	--    toolbar : a GtkToolbar
-	--    Returns : the current style of toolbar
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_get_icon_size ()
-
-	--  GtkIconSize gtk_toolbar_get_icon_size       (GtkToolbar *toolbar);
-
-	--    Retrieves the icon size for the toolbar. See gtk_toolbar_set_icon_size().
-
-	--    toolbar : a GtkToolbar
-	--    Returns : the current icon size for the icons on the toolbar.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_get_tooltips ()
-
-	--  gboolean    gtk_toolbar_get_tooltips        (GtkToolbar *toolbar);
-
-	--    Retrieves whether tooltips are enabled. See gtk_toolbar_set_tooltips().
-
-	--    toolbar : a GtkToolbar
-	--    Returns : TRUE if tooltips are enabled
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_get_relief_style ()
-
-	--  GtkReliefStyle gtk_toolbar_get_relief_style (GtkToolbar *toolbar);
-
-	--    Returns the relief style of buttons on toolbar. See
-	--    gtk_button_set_relief().
-
-	--    toolbar : a GtkToolbar
-	--    Returns : The relief style of buttons on toolbar.
-
-	--    Since 2.4
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_append_item ()
-
-	--  GtkWidget*  gtk_toolbar_append_item         (GtkToolbar *toolbar,
-	--                                               const char *text,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text,
-	--                                               GtkWidget *icon,
-	--                                               GtkSignalFunc callback,
-	--                                               gpointer user_data);
-
-	--   Warning
-
-	--    gtk_toolbar_append_item is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Inserts a new item into the toolbar. You must specify the position in the
-	--    toolbar where it will be inserted.
-
-	--    callback must be a pointer to a function taking a GtkWidget and a gpointer
-	--    as arguments. Use the GTK_SIGNAL_FUNC() to cast the function to
-	--    GtkSignalFunc.
-
-	--    toolbar :              a GtkToolbar.
-	--    text :                 give your toolbar button a label.
-	--    tooltip_text :         a string that appears when the user holds the mouse
-	--                           over this item.
-	--    tooltip_private_text : use with GtkTipsQuery.
-	--    icon :                 a GtkWidget that should be used as the button's
-	--                           icon.
-	--    callback :             the function to be executed when the button is
-	--                           pressed.
-	--    user_data :            a pointer to any data you wish to be passed to the
-	--                           callback.
-	--    Returns :              the new toolbar item as a GtkWidget.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_prepend_item ()
-
-	--  GtkWidget*  gtk_toolbar_prepend_item        (GtkToolbar *toolbar,
-	--                                               const char *text,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text,
-	--                                               GtkWidget *icon,
-	--                                               GtkSignalFunc callback,
-	--                                               gpointer user_data);
-
-	--   Warning
-
-	--    gtk_toolbar_prepend_item is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Adds a new button to the beginning (top or left edges) of the given
-	--    toolbar.
-
-	--    callback must be a pointer to a function taking a GtkWidget and a gpointer
-	--    as arguments. Use the GTK_SIGNAL_FUNC() to cast the function to
-	--    GtkSignalFunc.
-
-	--    toolbar :              a GtkToolbar.
-	--    text :                 give your toolbar button a label.
-	--    tooltip_text :         a string that appears when the user holds the mouse
-	--                           over this item.
-	--    tooltip_private_text : use with GtkTipsQuery.
-	--    icon :                 a GtkWidget that should be used as the button's
-	--                           icon.
-	--    callback :             the function to be executed when the button is
-	--                           pressed.
-	--    user_data :            a pointer to any data you wish to be passed to the
-	--                           callback.
-	--    Returns :              the new toolbar item as a GtkWidget.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_insert_item ()
-
-	--  GtkWidget*  gtk_toolbar_insert_item         (GtkToolbar *toolbar,
-	--                                               const char *text,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text,
-	--                                               GtkWidget *icon,
-	--                                               GtkSignalFunc callback,
-	--                                               gpointer user_data,
-	--                                               gint position);
-
-	--   Warning
-
-	--    gtk_toolbar_insert_item is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Inserts a new item into the toolbar. You must specify the position in the
-	--    toolbar where it will be inserted.
-
-	--    callback must be a pointer to a function taking a GtkWidget and a gpointer
-	--    as arguments. Use the GTK_SIGNAL_FUNC() to cast the function to
-	--    GtkSignalFunc.
-
-	--    toolbar :              a GtkToolbar.
-	--    text :                 give your toolbar button a label.
-	--    tooltip_text :         a string that appears when the user holds the mouse
-	--                           over this item.
-	--    tooltip_private_text : use with GtkTipsQuery.
-	--    icon :                 a GtkWidget that should be used as the button's
-	--                           icon.
-	--    callback :             the function to be executed when the button is
-	--                           pressed.
-	--    user_data :            a pointer to any data you wish to be passed to the
-	--                           callback.
-	--    position :             the number of widgets to insert this item after.
-	--    Returns :              the new toolbar item as a GtkWidget.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_append_space ()
-
-	--  void        gtk_toolbar_append_space        (GtkToolbar *toolbar);
-
-	--   Warning
-
-	--    gtk_toolbar_append_space is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Adds a new space to the end of the toolbar.
-
-	--    toolbar : a GtkToolbar.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_prepend_space ()
-
-	--  void        gtk_toolbar_prepend_space       (GtkToolbar *toolbar);
-
-	--   Warning
-
-	--    gtk_toolbar_prepend_space is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Adds a new space to the beginning of the toolbar.
-
-	--    toolbar : a GtkToolbar.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_insert_space ()
-
-	--  void        gtk_toolbar_insert_space        (GtkToolbar *toolbar,
-	--                                               gint position);
-
-	--   Warning
-
-	--    gtk_toolbar_insert_space is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Inserts a new space in the toolbar at the specified position.
-
-	--    toolbar :  a GtkToolbar
-	--    position : the number of widgets after which a space should be inserted.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_append_element ()
-
-	--  GtkWidget*  gtk_toolbar_append_element      (GtkToolbar *toolbar,
-	--                                               GtkToolbarChildType type,
-	--                                               GtkWidget *widget,
-	--                                               const char *text,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text,
-	--                                               GtkWidget *icon,
-	--                                               GtkSignalFunc callback,
-	--                                               gpointer user_data);
-
-	--   Warning
-
-	--    gtk_toolbar_append_element is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Adds a new element to the end of a toolbar.
-
-	--    If type == GTK_TOOLBAR_CHILD_WIDGET, widget is used as the new element. If
-	--    type == GTK_TOOLBAR_CHILD_RADIOBUTTON, widget is used to determine the
-	--    radio group for the new element. In all other cases, widget must be NULL.
-
-	--    callback must be a pointer to a function taking a GtkWidget and a gpointer
-	--    as arguments. Use the GTK_SIGNAL_FUNC() to cast the function to
-	--    GtkSignalFunc.
-
-	--    toolbar :              a GtkToolbar.
-	--    type :                 a value of type GtkToolbarChildType that determines
-	--                           what widget will be.
-	--    widget :               a GtkWidget, or NULL.
-	--    text :                 the element's label.
-	--    tooltip_text :         the element's tooltip.
-	--    tooltip_private_text : used for context-sensitive help about this toolbar
-	--                           element.
-	--    icon :                 a GtkWidget that provides pictorial representation
-	--                           of the element's function.
-	--    callback :             the function to be executed when the button is
-	--                           pressed.
-	--    user_data :            any data you wish to pass to the callback.
-	--    Returns :              the new toolbar element as a GtkWidget.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_prepend_element ()
-
-	--  GtkWidget*  gtk_toolbar_prepend_element     (GtkToolbar *toolbar,
-	--                                               GtkToolbarChildType type,
-	--                                               GtkWidget *widget,
-	--                                               const char *text,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text,
-	--                                               GtkWidget *icon,
-	--                                               GtkSignalFunc callback,
-	--                                               gpointer user_data);
-
-	--   Warning
-
-	--    gtk_toolbar_prepend_element is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Adds a new element to the beginning of a toolbar.
-
-	--    If type == GTK_TOOLBAR_CHILD_WIDGET, widget is used as the new element. If
-	--    type == GTK_TOOLBAR_CHILD_RADIOBUTTON, widget is used to determine the
-	--    radio group for the new element. In all other cases, widget must be NULL.
-
-	--    callback must be a pointer to a function taking a GtkWidget and a gpointer
-	--    as arguments. Use the GTK_SIGNAL_FUNC() to cast the function to
-	--    GtkSignalFunc.
-
-	--    toolbar :              a GtkToolbar.
-	--    type :                 a value of type GtkToolbarChildType that determines
-	--                           what widget will be.
-	--    widget :               a GtkWidget, or NULL
-	--    text :                 the element's label.
-	--    tooltip_text :         the element's tooltip.
-	--    tooltip_private_text : used for context-sensitive help about this toolbar
-	--                           element.
-	--    icon :                 a GtkWidget that provides pictorial representation
-	--                           of the element's function.
-	--    callback :             the function to be executed when the button is
-	--                           pressed.
-	--    user_data :            any data you wish to pass to the callback.
-	--    Returns :              the new toolbar element as a GtkWidget.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_insert_element ()
-
-	--  GtkWidget*  gtk_toolbar_insert_element      (GtkToolbar *toolbar,
-	--                                               GtkToolbarChildType type,
-	--                                               GtkWidget *widget,
-	--                                               const char *text,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text,
-	--                                               GtkWidget *icon,
-	--                                               GtkSignalFunc callback,
-	--                                               gpointer user_data,
-	--                                               gint position);
-
-	--   Warning
-
-	--    gtk_toolbar_insert_element is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Inserts a new element in the toolbar at the given position.
-
-	--    If type == GTK_TOOLBAR_CHILD_WIDGET, widget is used as the new element. If
-	--    type == GTK_TOOLBAR_CHILD_RADIOBUTTON, widget is used to determine the
-	--    radio group for the new element. In all other cases, widget must be NULL.
-
-	--    callback must be a pointer to a function taking a GtkWidget and a gpointer
-	--    as arguments. Use the GTK_SIGNAL_FUNC() to cast the function to
-	--    GtkSignalFunc.
-
-	--    toolbar :              a GtkToolbar.
-	--    type :                 a value of type GtkToolbarChildType that determines
-	--                           what widget will be.
-	--    widget :               a GtkWidget, or NULL.
-	--    text :                 the element's label.
-	--    tooltip_text :         the element's tooltip.
-	--    tooltip_private_text : used for context-sensitive help about this toolbar
-	--                           element.
-	--    icon :                 a GtkWidget that provides pictorial representation
-	--                           of the element's function.
-	--    callback :             the function to be executed when the button is
-	--                           pressed.
-	--    user_data :            any data you wish to pass to the callback.
-	--    position :             the number of widgets to insert this element after.
-	--    Returns :              the new toolbar element as a GtkWidget.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_append_widget ()
-
-	--  void        gtk_toolbar_append_widget       (GtkToolbar *toolbar,
-	--                                               GtkWidget *widget,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text);
-
-	--   Warning
-
-	--    gtk_toolbar_append_widget is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Adds a widget to the end of the given toolbar.
-
-	--    toolbar :              a GtkToolbar.
-	--    widget :               a GtkWidget to add to the toolbar.
-	--    tooltip_text :         the element's tooltip.
-	--    tooltip_private_text : used for context-sensitive help about this toolbar
-	--                           element.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_prepend_widget ()
-
-	--  void        gtk_toolbar_prepend_widget      (GtkToolbar *toolbar,
-	--                                               GtkWidget *widget,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text);
-
-	--   Warning
-
-	--    gtk_toolbar_prepend_widget is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Adds a widget to the beginning of the given toolbar.
-
-	--    toolbar :              a GtkToolbar.
-	--    widget :               a GtkWidget to add to the toolbar.
-	--    tooltip_text :         the element's tooltip.
-	--    tooltip_private_text : used for context-sensitive help about this toolbar
-	--                           element.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_insert_widget ()
-
-	--  void        gtk_toolbar_insert_widget       (GtkToolbar *toolbar,
-	--                                               GtkWidget *widget,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text,
-	--                                               gint position);
-
-	--   Warning
-
-	--    gtk_toolbar_insert_widget is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Inserts a widget in the toolbar at the given position.
-
-	--    toolbar :              a GtkToolbar.
-	--    widget :               a GtkWidget to add to the toolbar.
-	--    tooltip_text :         the element's tooltip.
-	--    tooltip_private_text : used for context-sensitive help about this toolbar
-	--                           element.
-	--    position :             the number of widgets to insert this widget after.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_set_style ()
-
-	--  void        gtk_toolbar_set_style           (GtkToolbar *toolbar,
-	--                                               GtkToolbarStyle style);
-
-	--    Alters the view of toolbar to display either icons only, text only, or
-	--    both.
-
-	--    toolbar : a GtkToolbar.
-	--    style :   the new style for toolbar.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_insert_stock ()
-
-	--  GtkWidget*  gtk_toolbar_insert_stock        (GtkToolbar *toolbar,
-	--                                               const gchar *stock_id,
-	--                                               const char *tooltip_text,
-	--                                               const char *tooltip_private_text,
-	--                                               GtkSignalFunc callback,
-	--                                               gpointer user_data,
-	--                                               gint position);
-
-	--   Warning
-
-	--    gtk_toolbar_insert_stock is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Inserts a stock item at the specified position of the toolbar. If stock_id
-	--    is not a known stock item ID, it's inserted verbatim, except that
-	--    underscores used to mark mnemonics are removed.
-
-	--    callback must be a pointer to a function taking a GtkWidget and a gpointer
-	--    as arguments. Use the GTK_SIGNAL_FUNC() to cast the function to
-	--    GtkSignalFunc.
-
-	--    toolbar :              A GtkToolbar
-	--    stock_id :             The id of the stock item you want to insert
-	--    tooltip_text :         The text in the tooltip of the toolbar button
-	--    tooltip_private_text : The private text of the tooltip
-	--    callback :             The callback called when the toolbar button is
-	--                           clicked.
-	--    user_data :            user data passed to callback
-	--    position :             The position the button shall be inserted at. -1
-	--                           means at the end.
-	--    Returns :              the inserted widget
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_set_icon_size ()
-
-	--  void        gtk_toolbar_set_icon_size       (GtkToolbar *toolbar,
-	--                                               GtkIconSize icon_size);
-
-	--   Warning
-
-	--    gtk_toolbar_set_icon_size is deprecated and should not be used in
-	--    newly-written code.
-
-	--    This function sets the size of stock icons in the toolbar. You can call it
-	--    both before you add the icons and after they've been added. The size you
-	--    set will override user preferences for the default icon size.
-
-	--    This should only be used for special-purpose toolbars, normal application
-	--    toolbars should respect the user preferences for the size of icons.
-
-	--    toolbar :   A GtkToolbar
-	--    icon_size : The GtkIconSize that stock icons in the toolbar shall have.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_remove_space ()
-
-	--  void        gtk_toolbar_remove_space        (GtkToolbar *toolbar,
-	--                                               gint position);
-
-	--   Warning
-
-	--    gtk_toolbar_remove_space is deprecated and should not be used in
-	--    newly-written code.
-
-	--    Removes a space from the specified position.
-
-	--    toolbar :  a GtkToolbar.
-	--    position : the index of the space to remove.
-
-	--    --------------------------------------------------------------------------
-
-	--   gtk_toolbar_unset_style ()
-
-	--  void        gtk_toolbar_unset_style         (GtkToolbar *toolbar);
-
-	--    Unsets a toolbar style set with gtk_toolbar_set_style(), so that user
-	--    preferences will be used to determine the toolbar style.
-
-	--    toolbar : a GtkToolbar
-
-
-
-
-	-- Properties
+	set_tooltips (a_setting: BOOLEAN) is
+			-- Sets if the tooltips of a toolbar should be active or
+			-- not. Set `a_setting' to False to disable the tooltips, or
+			-- True to enable them.
+		do
+			gtk_toolbar_set_tooltips(handle, a_setting.to_integer)
+		end
+
+	does_show_arrow: BOOLEAN is
+			-- Does the toolbar have an overflow menu?
+		do
+			Result:=(gtk_toolbar_get_show_arrow(handle).to_boolean)
+		end
+
+	orientation: INTEGER is
+			-- the current orientation of the toolbar.
+		do
+			Result := gtk_toolbar_get_orientation (handle)
+		ensure is_valid_orientation: is_valid_orientation(orientation)
+		end
+
+	style: INTEGER is
+			-- the current style of toolbar
+		do
+			Result:=gtk_toolbar_get_style(handle)
+		ensure is_valid_toolbar_style: is_valid_toolbar_style(Result)
+		end
+
+	icon_size: INTEGER is
+			-- the current icon size for the icons on the toolbar.
+		do
+			Result := gtk_toolbar_get_icon_size (handle)
+		ensure is_valid_icon_size: is_valid_icon_size(Result)
+		end
+
+	are_tooltips_enabled: BOOLEAN is
+			-- Are tooltips enabled?
+		do
+			Result := (gtk_toolbar_get_tooltips(handle).to_boolean)
+		end
+
+	relief_style: INTEGER is
+			-- The relief style of buttons on toolbar.
+		do
+			Result := gtk_toolbar_get_relief_style (handle)
+		ensure is_valid_relief_style: is_valid_relief_style (Result)
+		end
+	
+	set_style (a_style: INTEGER) is
+			-- Alters the view of toolbar to display either icons only,
+			-- text only, or both.
+		require is_valid_relief_style: is_valid_relief_style (a_style)
+		do
+			gtk_toolbar_set_style (handle, a_style)
+		ensure set: relief_style = a_style
+		end
+
+	unset_style is
+			-- Unsets a toolbar style set with `set_style', so that user
+			-- preferences will be used to determine the toolbar style.
+		do
+			gtk_toolbar_unset_style (handle)
+		end
+
+feature -- Properties
 
 
 	--    "icon-size"            GtkIconSize           : Read / Write
@@ -895,54 +394,43 @@ feature
 
 	--    Default value: GTK_TOOLBAR_SPACE_LINE
 
-	-- Signals
+feature -- Signals
 
-	--  "focus-home-or-end"
-	--              gboolean    user_function      (GtkToolbar *toolbar,
-	--                                              gboolean    focus_home,
-	--                                              gpointer    user_data)       : Run last / Action
-	--  "move-focus"
-	--              gboolean    user_function      (GtkToolbar      *toolbar,
-	--                                              GtkDirectionType dir,
-	--                                              gpointer         user_data)      : Run last / Action
-	--  "orientation-changed"
-	--              void        user_function      (GtkToolbar    *toolbar,
-	--                                              GtkOrientation orientation,
-	--                                              gpointer       user_data)        : Run first
-	--  "popup-context-menu"
-	--              gboolean    user_function      (GtkToolbar *toolbar,
-	--                                              gint        x,
-	--                                              gint        y,
-	--                                              gint        button,
-	--                                              gpointer    user_data)      : Run last
-	--  "style-changed"
-	--              void        user_function      (GtkToolbar     *toolbar,
-	--                                              GtkToolbarStyle style,
-	--                                              gpointer        user_data)      : Run first
+	-- "focus-home-or-end" gboolean user_function (GtkToolbar *toolbar,
+	-- gboolean focus_home, gpointer user_data) : Run last / Action
+	
+	-- "move-focus" gboolean user_function (GtkToolbar *toolbar,
+	-- GtkDirectionType dir, gpointer user_data) : Run last / Action
+	
+	-- "orientation-changed" void user_function (GtkToolbar *toolbar,
+	-- GtkOrientation orientation, gpointer user_data) : Run first
+	
+	-- "popup-context-menu" gboolean user_function (GtkToolbar
+	-- *toolbar, gint x, gint y, gint button, gpointer user_data) : Run
+	-- last
+	
+	-- "style-changed" void user_function (GtkToolbar *toolbar,
+	-- GtkToolbarStyle style, gpointer user_data) : Run first
 
 	-- Signal Details
 
 	--   The "focus-home-or-end" signal
 
-	--  gboolean    user_function                  (GtkToolbar *toolbar,
-	--                                              gboolean    focus_home,
-	--                                              gpointer    user_data)       : Run last / Action
+	--  gboolean user_function (GtkToolbar *toolbar, gboolean
+	--  focus_home, gpointer user_data) : Run last / Action
 
-	--    A keybinding signal used internally by GTK+. This signal can't be used in
-	--    application code
+	-- A keybinding signal used internally by GTK+. This signal can't
+	-- be used in application code
 
 	--    toolbar :    the GtkToolbar which emitted the signal
 	--    focus_home : TRUE if the first item should be focused
 	--    user_data :  user data set when the signal handler was connected.
 	--    Returns :    TRUE if the signal was handled, FALSE if not
 
-	--    --------------------------------------------------------------------------
-
 	--   The "move-focus" signal
 
-	--  gboolean    user_function                  (GtkToolbar      *toolbar,
-	--                                              GtkDirectionType dir,
-	--                                              gpointer         user_data)      : Run last / Action
+	--  gboolean user_function (GtkToolbar *toolbar, GtkDirectionType
+	--  dir, gpointer user_data) : Run last / Action
 
 	--    A keybinding signal used internally by GTK+. This signal can't be used in
 	--    application code.
@@ -952,13 +440,10 @@ feature
 	--    user_data : user data set when the signal handler was connected.
 	--    Returns :   TRUE if the signal was handled, FALSE if not
 
-	--    --------------------------------------------------------------------------
-
 	--   The "orientation-changed" signal
 
-	--  void        user_function                  (GtkToolbar    *toolbar,
-	--                                              GtkOrientation orientation,
-	--                                              gpointer       user_data)        : Run first
+	--  void user_function (GtkToolbar *toolbar, GtkOrientation
+	--  orientation, gpointer user_data) : Run first
 
 	--    Emitted when the orientation of the toolbar changes.
 
