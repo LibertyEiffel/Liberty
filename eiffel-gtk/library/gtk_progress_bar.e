@@ -25,11 +25,38 @@ indexing
 	revision "$REvision:$"
 
 class GTK_PROGRESS_BAR
+	-- the GtkProgressBar is typically used to display the progress of
+	-- a long running operation. It provides a visual clue that
+	-- processing is underway. The GtkProgressBar can be used in two
+	-- different modes: percentage mode and activity mode.
+	
+	-- When an application can determine how much work needs to take
+	-- place (e.g. read a fixed number of bytes from a file) and can
+	-- monitor its progress, it can use the GtkProgressBar in
+	-- percentage mode and the user sees a growing bar indicating the
+	-- percentage of the work that has been completed. In this mode,
+	-- the application is required to call `set_fraction' periodically
+	-- to update the progress bar.
+
+	-- When an application has no accurate way of knowing the amount of
+	-- work to do, it can use the GtkProgressBar in activity mode,
+	-- which shows activity by a block moving back and forth within the
+	-- progress area. In this mode, the application is required to call
+	-- `pulse' perodically to update the progress bar.
+
+	-- There is quite a bit of flexibility provided to control the
+	-- appearance of the GtkProgressBar. Functions are provided to
+	-- control the orientation of the bar, optional text can be
+	-- displayed along with the bar, and the step size used in activity
+	-- mode can be set.
 
 inherit GTK_BIN
 
-insert GTK_PROGRESS_BAR_EXTERNALS
-
+insert
+	GTK_PROGRESS_BAR_EXTERNALS
+	GTK_PROGRESS_BAR_ORIENTATION
+	PANGO_ELLIPSIZE_MODE
+	
 creation
 	make
 
@@ -74,11 +101,25 @@ feature -- Status setting
 			gtk_progress_bar_set_pulse_step(handle,a_fraction)
 		end
 
-	-- Todo : gtk_progress_bar_set_orientation
-	-- Todo : gtk_progress_bar_set_ellipsize
+	set_orientation (an_orientation: INTEGER) is
+			-- Causes the progress bar to switch to a different
+			-- orientation (left-to-right, right-to-left, top-to-bottom,
+			-- or bottom-to-top).
+		require valid_orientation: is_valid_progress_bar_orientation (an_orientation)
+		do
+			gtk_progress_bar_set_orientation (handle, an_orientation)
+		end
+
+	set_ellipsize (a_mode: INTEGER) is
+			-- Sets the mode used to ellipsize (add an ellipsis: "...")
+			-- the text if there is not enough space to render the entire
+			-- string.
+		require is_valid_ellipsize_mode: is_valid_ellipsize_mode(a_mode)
+		do
+			gtk_progress_bar_set_ellipsize (handle, a_mode)
+		end
 
 feature -- Status report
-
 	text : STRING is
 			-- Text displayed superimposed on the progress bar.
 		local ptr: POINTER

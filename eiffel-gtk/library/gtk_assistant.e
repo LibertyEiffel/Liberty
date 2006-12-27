@@ -381,10 +381,6 @@ feature -- Child Properties
 	--    Default value: 6
 
 	-- Signals
-
-
-	--  "apply"     void        user_function      (GtkAssistant *assistant,
-	--                                              gpointer      user_data)      : Run last
 	--  "cancel"    void        user_function      (GtkAssistant *assistant,
 	--                                              gpointer      user_data)      : Run last
 	--  "close"     void        user_function      (GtkAssistant *assistant,

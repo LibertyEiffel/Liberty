@@ -590,7 +590,7 @@ feature -- Focusing
 -- 		end
 
 
--- 	gtk_window_set_keep_below (window:POINTER; setting: INTEGER) is
+-- TODO: 	gtk_window_set_keep_below (window:POINTER; setting: INTEGER) is
 -- 			-- Asks to keep window below, so that it stays in
 -- 			-- bottom. Note that you shouldn't assume the window is
 -- 			-- definitely below afterward, because other entities
@@ -617,7 +617,7 @@ feature -- Focusing
 -- 		end
 
 
--- 	gtk_window_begin_resize_drag (window: POINTER;
+-- TODO:	gtk_window_begin_resize_drag (window: POINTER;
 -- 											edge, button, root_x, root_y: INTEGER;
 -- 											guint32_timestamp: INTEGER) is
 -- 			-- Starts resizing a window. This function is used if an
@@ -637,7 +637,7 @@ feature -- Focusing
 -- 		external "C use <gtk/gtk.h>"
 -- 		end
 
--- 	gtk_window_begin_move_drag      (GtkWindow *window,
+-- TODO:	gtk_window_begin_move_drag      (GtkWindow *window,
 -- 												button, root_x, root_y: INTEGER;
 -- 												guint32_timestamp: INTEGER_32) is
 -- 			-- Starts moving a window. This function is used if an
@@ -657,7 +657,7 @@ feature -- Focusing
 -- 		external "C use <gtk/gtk.h>"
 -- 		end
 
--- 	gtk_window_set_decorated (window: POINTER; setting: INTEGER) is
+-- TODO:	gtk_window_set_decorated (window: POINTER; setting: INTEGER) is
 -- 			-- By default, windows are decorated with a title bar, resize
 -- 			-- controls, etc. Some window managers allow GTK+ to disable
 -- 			-- these decorations, creating a borderless window. If you
@@ -677,7 +677,7 @@ feature -- Focusing
 -- 		end
 
 
--- 	gtk_window_set_frame_dimensions (window: POINTER; left,top,right,bottom: INTEGER) is
+-- TODO:	gtk_window_set_frame_dimensions (window: POINTER; left,top,right,bottom: INTEGER) is
 -- 			-- (Note: this is a special-purpose function intended for the
 -- 			-- framebuffer port; see gtk_window_set_has_frame(). It will
 -- 			-- have no effect on the window border drawn by the window
