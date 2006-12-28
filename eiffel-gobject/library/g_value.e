@@ -18,7 +18,7 @@ insert
 	G_TYPES
 	GLIB_MEMORY_ALLOCATION export {} all end
 	G_VALUE_EXTERNALS
-
+	
 creation
 	make, from_external_pointer, with_gtype,
 	make_boolean, make_integer, make_natural, make_real, make_real_32,

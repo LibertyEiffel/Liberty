@@ -52,32 +52,21 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	void        gtk_progress_bar_set_orientation
-                                            (GtkProgressBar *pbar,
-                                             GtkProgressBarOrientation orientation);
-void        gtk_progress_bar_set_ellipsize  (GtkProgressBar *pbar,
-                                             PangoEllipsizeMode mode);
-enum        GtkProgressBarOrientation;
-gdouble     gtk_progress_bar_get_pulse_step (GtkProgressBar *pbar);
-GtkProgressBarOrientation gtk_progress_bar_get_orientation
-                                            (GtkProgressBar *pbar);
-PangoEllipsizeMode gtk_progress_bar_get_ellipsize
-                                            (GtkProgressBar *pbar);
-GtkWidget*  gtk_progress_bar_new_with_adjustment
-                                            (GtkAdjustment *adjustment);
-void        gtk_progress_bar_set_bar_style  (GtkProgressBar *pbar,
-                                             GtkProgressBarStyle style);
-enum        GtkProgressBarStyle;
-void        gtk_progress_bar_set_discrete_blocks
-                                            (GtkProgressBar *pbar,
-                                             guint blocks);
-void        gtk_progress_bar_set_activity_step
-                                            (GtkProgressBar *pbar,
-                                             guint step);
-void        gtk_progress_bar_set_activity_blocks
-                                            (GtkProgressBar *pbar,
-                                             guint blocks);
-void        gtk_progress_bar_update         (GtkProgressBar *pbar,
-                                             gdouble percentage);
+	gtk_progress_bar_get_orientation (bar : POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
 
+	gtk_progress_bar_set_orientation (bar: POINTER; an_orientation: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_progress_bar_get_ellipsize (bar : POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_progress_bar_set_ellipsize (bar: POINTER; an_ellipsize: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
+	
 end

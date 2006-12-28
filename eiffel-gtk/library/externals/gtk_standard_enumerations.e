@@ -519,29 +519,6 @@ feature {} -- enum GtkMovementStep
 		alias "GTK_MOVEMENT_HORIZONTAL_PAGES"
 		end
 
-feature {} -- enum GtkOrientation
-	-- Represents the orientation of widgets which can be switched
-	-- between horizontal and vertical orientation on the fly, like
-	-- GtkToolbar.
-
-	is_valid_orientation (an_orientation :INTEGER): BOOLEAN is
-		do
-			Result:=((an_orientation=gtk_orientation_horizontal) or else
-						(an_orientation=gtk_orientation_vertical))
-		end
-
-	gtk_orientation_horizontal: INTEGER is
-			-- The widget is in horizontal orientation.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_ORIENTATION_HORIZONTAL"
-		end
-
-	gtk_orientation_vertical: INTEGER is
-			-- The widget is in vertical orientation.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_ORIENTATION_VERTICAL"
-		end
-
 feature {} -- enum GtkPathPriorityType
 	is_valid_path_priority_type (a_type :INTEGER): BOOLEAN is
 		do

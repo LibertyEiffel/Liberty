@@ -66,7 +66,7 @@ feature {} -- Initialization
 			-- Create a new GtkProgressBar.
 		require gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer (gtk_progress_bar_new)
+			from_external_pointer (gtk_progress_bar_new) 
 		end
 
 feature -- Element change
@@ -132,17 +132,51 @@ feature -- Status report
 			end
 		end
 
-	fraction : REAL is
+	fraction: REAL is
 			-- Current fraction of the task that's been completed
 		do
 			Result := gtk_progress_bar_get_fraction (handle)
 		end
 
-	-- Todo : gtk_progress_bar_get_orientation ()
-	-- Todo : gtk_progress_bar_get_ellipsize ()
+	orientation: INTEGER is
+			-- the current progress bar orientation
+		do
+			Result:=gtk_progress_bar_get_orientation(handle)
+		ensure valid_progress_bar_orientation:
+			is_valid_progress_bar_orientation (Result)
+		end
 
-	-- Todo : Properties
+	ellipsize_mode: INTEGER is
+			-- the ellipsizing position of the progressbar. See `set_ellipsize'
+		do
+			Result := gtk_progress_bar_get_ellipsize (handle)
+		ensure valid_ellipsize_mode: is_valid_ellipsize_mode(Result)
+		end
 
+	pulse_step: REAL is
+			-- The fraction of total progress to move the bouncing block
+			-- when pulsed.
+		do
+			invoke_get_property (pulse_step_property.owner_class,	handle,
+										pulse_step_property.param_id, pulse_step_gvalue.handle,
+										pulse_step_property.handle)
+			Result := pulse_step_gvalue.real
+		ensure valid: Result.in_range(0.0, 1.0)
+		end
+	
 	-- Note : Other functions are deprecated
 
+feature {} -- Properties implementation
+	pulse_step_label: STRING is "pulse-step"
+							
+	pulse_step_property: G_PARAM_SPEC is
+		once
+			Result := find_property(pulse_step_label)
+		end
+
+	pulse_step_gvalue: G_VALUE is
+		once
+			create Result.with_gtype (pulse_step_property.value_gtype)
+		ensure not_void: Result /= Void
+		end
 end
