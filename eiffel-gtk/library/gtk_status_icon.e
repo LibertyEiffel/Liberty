@@ -19,39 +19,37 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: The "system tray" or notification area is
-			-- normally used for transient icons that indicate some
-			-- special state. For example, a system tray icon might
-			-- appear to tell the user that they have new mail, or have
-			-- an incoming instant message, or something along those
-			-- lines. The basic idea is that creating an icon in the
-			-- notification area is less annoying than popping up a
-			-- dialog.
-
-			-- A GtkStatusIcon object can be used to display an icon in a
-			-- "system tray". The icon can have a tooltip, and the user
-			-- can interact with it by activating it or popping up a
-			-- context menu. Critical information should not solely be
-			-- displayed in a GtkStatusIcon, since it may not be visible
-			-- (e.g. when the user doesn't have a notification area on
-			-- his panel). This can be checked with
-			-- gtk_status_icon_is_embedded().
-			
-			-- On X11, the implementation follows the freedesktop.org
-			-- "System Tray" specification. Implementations of the "tray"
-			-- side of this specification can be found e.g. in the GNOME
-			-- and KDE panel applications.
-
-			-- Note that a GtkStatusIcon is not a widget, but just a
-			-- GObject. Making it a widget would be impractical, since
-			-- the system tray on Win32 doesn't allow to embed arbitrary
-			-- widgets.
 			
 class GTK_STATUS_ICON
+	--The "system tray" or notification area is normally used for
+	-- transient icons that indicate some special state. For example, a
+	-- system tray icon might appear to tell the user that they have
+	-- new mail, or have an incoming instant message, or something
+	-- along those lines. The basic idea is that creating an icon in
+	-- the notification area is less annoying than popping up a dialog.
+
+	-- A GtkStatusIcon object can be used to display an icon in a
+	-- "system tray". The icon can have a tooltip, and the user can
+	-- interact with it by activating it or popping up a context
+	-- menu. Critical information should not solely be displayed in a
+	-- GtkStatusIcon, since it may not be visible (e.g. when the user
+	-- doesn't have a notification area on his panel). This can be
+	-- checked with `is_embedded'.
+			
+	-- On X11, the implementation follows the freedesktop.org "System
+	-- Tray" specification. Implementations of the "tray" side of this
+	-- specification can be found e.g. in the GNOME and KDE panel
+	-- applications.
+
+	-- Note that a GtkStatusIcon is not a widget, but just a
+	-- GObject. Making it a widget would be impractical, since the
+	-- system tray on Win32 doesn't allow to embed arbitrary widgets.
 
 inherit G_OBJECT
 
--- insert GTK_STATUS_ICON_EXTERNALS
+insert
+	GTK_IMAGE_TYPE
+		--GTK_STATUS_ICON_EXTERNALS
 
 creation
 	make,
@@ -120,60 +118,52 @@ feature
 			gtk_status_icon_set_from_pixbuf (handle, default_pointer)
 		end
 	
--- Since 2.10
--- gtk_status_icon_set_from_file ()
+	set_from_file (a_fine_name: STRING) is
+			-- Makes Current status icon display the file
+			-- `a_file_name'. See `make_from_file' for details.
+		require filename_not_void: a_file_name /= Void
+		do
+			gtk_status_icon_set_from_file (handle, a_file_name.to_external)
+		end
 
--- void        gtk_status_icon_set_from_file   (GtkStatusIcon *status_icon,
---                                              const gchar *filename);
+	set_from_stock (a_stock_id: STRING) is
+			-- Makes status icon display `a_stock_icon'. See
+			-- `make_from_stock' for details.
+		require stock_not_void: a_stock_id /= Void
+		do
+			gtk_status_icon_set_from_stock  (handle, a_stock_id.to_external)
+		end
 
--- Makes status_icon display the file filename. See gtk_status_icon_new_from_file() for details.
+	set_from_icon_name (an_icon_name: STRING) is
+			-- Makes status icon display the icon named `an_icon_name'
+			-- from the current icon theme. See `make_from_icon_name' for
+			-- details.
+		require name_not_void: an_icon_name /= Void
+		do
+			gtk_status_icon_set_from_icon_name (handle, an_icon_name.to_externals)
+		end
 
--- status_icon : 	a GtkStatusIcon
--- filename : 	a filename
 
--- Since 2.10
--- gtk_status_icon_set_from_stock ()
+	storage_type: INTEGER is
+			-- the type of representation being used by the GtkStatusIcon
+			-- to store image data. If the GtkStatusIcon has no image
+			-- data, the return value will be `gtk_image_empty'.
+		do
+			Result := gtk_status_icon_get_storage_type (handle)
+		ensure valid_type: is_valid_image_type (Result)
+		end
 
--- void        gtk_status_icon_set_from_stock  (GtkStatusIcon *status_icon,
---                                              const gchar *stock_id);
 
--- Makes status_icon display the stock icon with the id stock_id. See gtk_status_icon_new_from_stock() for details.
-
--- status_icon : 	a GtkStatusIcon
--- stock_id : 	a stock icon id
-
--- Since 2.10
--- gtk_status_icon_set_from_icon_name ()
-
--- void        gtk_status_icon_set_from_icon_name
---                                             (GtkStatusIcon *status_icon,
---                                              const gchar *icon_name);
-
--- Makes status_icon display the icon named icon_name from the current icon theme. See gtk_status_icon_new_from_icon_name() for details.
-
--- status_icon : 	a GtkStatusIcon
--- icon_name : 	an icon name
-
--- Since 2.10
--- gtk_status_icon_get_storage_type ()
-
--- GtkImageType gtk_status_icon_get_storage_type
---                                             (GtkStatusIcon *status_icon);
-
--- Gets the type of representation being used by the GtkStatusIcon to store image data. If the GtkStatusIcon has no image data, the return value will be GTK_IMAGE_EMPTY.
-
--- status_icon : 	a GtkStatusIcon
--- Returns : 	the image representation being used
-
--- Since 2.10
--- gtk_status_icon_get_pixbuf ()
-
--- GdkPixbuf*  gtk_status_icon_get_pixbuf      (GtkStatusIcon *status_icon);
-
--- Gets the GdkPixbuf being displayed by the GtkStatusIcon. The storage type of the status icon must be GTK_IMAGE_EMPTY or GTK_IMAGE_PIXBUF (see gtk_status_icon_get_storage_type()). The caller of this function does not own a reference to the returned pixbuf.
-
--- status_icon : 	a GtkStatusIcon
--- Returns : 	the displayed pixbuf, or NULL if the image is empty.
+	pixbuf: GDK_PIXBUF is
+			-- the displayed pixbuf, or Void if the image is
+			-- empty. `storage_type' of the status icon must be
+			-- `gtk_image_empty' or `gtk_image_pixbuf' (see
+			-- `storage_type').
+		local ptr: POINTER
+		do
+			ptr:=gtk_status_icon_get_pixbuf(handle)
+			-- The caller of this function does not own a reference to
+			-- the returned pixbuf.
 
 -- Since 2.10
 -- gtk_status_icon_get_stock ()

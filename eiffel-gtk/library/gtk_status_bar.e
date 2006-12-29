@@ -149,7 +149,7 @@ feature -- Stack like behaviour
 	set_has_resize_grip (a_setting: BOOLEAN) is
 			-- Sets whether the statusbar has a resize grip. True by default.
 		do
-			gtk_status_bar_set_has_resize_grip(handle, a_setting)
+			gtk_status_bar_set_has_resize_grip(handle, a_setting.to_integer)
 		ensure set: a_setting = has_resize_grip
 		end			
 

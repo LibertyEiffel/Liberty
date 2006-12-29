@@ -225,7 +225,7 @@ feature
 			gtk_assistant_set_page_side_image(handle, a_page.handle, a_pixbuf.handle)
 		end
 
-	page_side_image (a_page: GTK_WIDGET) is
+	page_side_image (a_page: GTK_WIDGET): GDK_PIXBUF is
 			-- The side image for page, or Void if there's no side image
 			-- for the page.
 		require page_not_void: a_page /= Void
