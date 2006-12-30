@@ -233,7 +233,7 @@ feature
 			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
 		end
 
-	begins_tag (a_tag: GTK_TEXT_TAG): BOOLEAN is
+	tag_begins (a_tag: GTK_TEXT_TAG): BOOLEAN is
 			-- Is `a_tag' is toggled on at exactly this point? If `a_tag'
 			-- is Void, returns TRUE if any tag is toggled on at this
 			-- point. Note that this feature is True if iter is the start
@@ -243,38 +243,44 @@ feature
 			Result := gtk_text_iter_begins_tag (handle, a_tag.handle).to_boolean
 		end
 
+	tag_ends (a_tag: GTK_TEXT_TAG): BOOLEAN is
+			-- Is `a_tag' toggled off at exactly this point? Note that
+			-- the `tag_ends' returns True if iter is the end of the
+			-- tagged range; `has_tag' tells you whether an iterator is
+			-- within a tagged range. 
+		require tag_not_void: a_tag /= Void
+		do
+			Result := (gtk_text_iter_ends_tag(handle, a_tag.handle).to_boolean)
+		end
 
-	-- gtk_text_iter_ends_tag ()
+	is_any_tag_toggled: BOOLEAN is
+			-- Is if any tag toggled off at this point? 
+		do
+			Result := (gtk_text_iter_ends_tag(handle, default_pointer).to_boolean)
+		end
 
-	-- gboolean    gtk_text_iter_ends_tag          (const GtkTextIter *iter,
-	-- 															GtkTextTag *tag);
 
-	-- Returns TRUE if tag is toggled off at exactly this point. If tag is NULL, returns TRUE if any tag is toggled off at this point. Note that the gtk_text_iter_ends_tag() returns TRUE if iter is the end of the tagged range; gtk_text_iter_has_tag() tells you whether an iterator is within a tagged range.
+	toggles_tag (a_tag: GTK_TEXT_TAG): BOOLEAN is
+			-- Is `a_tag' toggled on or off at Current iterator? This is
+			-- equivalent to (tag_begins or tag_ends), i.e. it tells you
+			-- whether a range with tag applied to it begins or ends at
+			-- iter.
 
-	-- iter : 	an iterator
-	-- tag : 	a GtkTextTag, or NULL
-	-- Returns : 	whether iter is the end of a range tagged with tag
-	-- gtk_text_iter_toggles_tag ()
+			-- TODO: the C implementation allow a NULL tag. Check if it 
+			-- means "toggles_any_tag"?
+		local tp: POINTER
+		do
+			if a_tag/=Void then tp:=a_tag.handle end
+			Result:=(gtk_text_iter_toggles_tag(handle, a_tag.handle).to_boolean)
+		end
 
-	-- gboolean    gtk_text_iter_toggles_tag       (const GtkTextIter *iter,
-	-- 															GtkTextTag *tag);
-
-	-- This is equivalent to (gtk_text_iter_begins_tag() || gtk_text_iter_ends_tag()), i.e. it tells you whether a range with tag applied to it begins or ends at iter.
-
-	-- iter : 	an iterator
-	-- tag : 	a GtkTextTag, or NULL
-	-- Returns : 	whether tag is toggled on or off at iter
-	-- gtk_text_iter_has_tag ()
-
-	-- gboolean    gtk_text_iter_has_tag           (const GtkTextIter *iter,
-	-- 															GtkTextTag *tag);
-
-	-- Returns TRUE if iter is within a range tagged with tag.
-
-	-- iter : 	an iterator
-	-- tag : 	a GtkTextTag
-	-- Returns : 	whether iter is tagged with tag
-
+	has_tag (a_tag: GTK_TEXT_TAG): BOOLEAN is
+			-- Is Current iterator within a range tagged with `a_tag'?
+		require tag_not_void: a_tag /= Void
+		do
+			Result := gtk_text_iter_has_tag(handle,a_tag.handle).to_boolean
+		end
+	
 	tags: G_SLIST [GTK_TEXT_ITER] is
 			-- a list of tags that apply to iter, in ascending order of
 			-- priority (highest-priority tags are last).
@@ -287,53 +293,74 @@ feature
 			create Result.from_external_pointer (gtk_text_iter_get_tags (handle))
 		end
 
-	-- gtk_text_iter_editable ()
+	is_editable (a_default_setting: BOOLEAN): BOOLEAN is
+			-- Is the character at iter within an editable region of
+			-- text?  Non-editable text is "locked" and can't be changed
+			-- by the user via GtkTextView. This feature is simply a
+			-- convenience wrapper around `attributes'
+			-- gtk_text_iter_get_attributes(). If no tags applied to this
+			-- text affect editability, default_setting will be returned.
 
-	-- gboolean    gtk_text_iter_editable          (const GtkTextIter *iter,
-	-- 															gboolean default_setting);
+			-- You don't want to use this function to decide whether text
+			-- can be inserted at iter, because for insertion you don't
+			-- want to know whether the char at iter is inside an
+			-- editable range, you want to know whether a new character
+			-- inserted at iter would be inside an editable range. Use
+			-- `can_insert'to handle this case.
 
-	-- Returns whether the character at iter is within an editable region of text. Non-editable text is "locked" and can't be changed by the user via GtkTextView. This function is simply a convenience wrapper around gtk_text_iter_get_attributes(). If no tags applied to this text affect editability, default_setting will be returned.
+			-- Set `a_default_setting' to True if text is editable by
+			-- default.
+		
+			-- TODO: original C documentation pretty unclear. 
+		do
+			Result:= gtk_text_iter_editable (handle, a_default_setting.to_integer).to_boolean
+		end
 
-	-- You don't want to use this function to decide whether text can be inserted at iter, because for insertion you don't want to know whether the char at iter is inside an editable range, you want to know whether a new character inserted at iter would be inside an editable range. Use gtk_text_iter_can_insert() to handle this case.
+	can_insert (a_default_editability: BOOLEAN): BOOLEAN is
+			-- Would the text inserted at Current iter be editable?
+			-- Considering the default editability of the buffer, and
+			-- tags that affect editability, determines whether text
+			-- inserted at iter would be editable. If text inserted at
+			-- iter would be editable then the user should be allowed to
+			-- insert text at iter. GTK_TEXT_BUFFER's
+			-- `insert_interactive' uses this function to decide whether
+			-- insertions are allowed at a given position.
+		
+			-- Set `a_default_editability' to True if text is editable by
+			-- default.
+		do
+			Result:=gtk_text_iter_can_insert(handle, a_default_editability.to_integer).to_boolean
+		end
 
-	-- iter : 	an iterator
-	-- default_setting : 	TRUE if text is editable by default
-	-- Returns : 	whether iter is inside an editable range
-	-- gtk_text_iter_can_insert ()
+	starts_word: BOOLEAN is
+			-- Is Current iter at the start of a (natural-language) word?
+			-- Word breaks are determined by Pango and should be correct
+			-- for nearly any language (if not, the correct fix would be
+			-- to the Pango word break algorithms).
+		do
+			Result:=gtk_text_iter_starts_word(handle).to_boolean
+		end
 
-	-- gboolean    gtk_text_iter_can_insert        (const GtkTextIter *iter,
-	-- 															gboolean default_editability);
+	ends_word: BOOLEAN is
+			-- Is Current iter is at the end of a (natural-language)
+			-- word?  Word breaks are determined by Pango and should be
+			-- correct for nearly any language (if not, the correct fix
+			-- would be to the Pango word break algorithms).
+		do
+			Result:=gtk_text_iter_ends_word(handle).to_boolean
+		end
 
-	-- Considering the default editability of the buffer, and tags that affect editability, determines whether text inserted at iter would be editable. If text inserted at iter would be editable then the user should be allowed to insert text at iter. gtk_text_buffer_insert_interactive() uses this function to decide whether insertions are allowed at a given position.
+	inside_word: BOOLEAN is
+			-- Is Current iter inside a (natural-language) word? This is
+			-- the opposite of "inside some whitespace". Word breaks are
+			-- determined by Pango and should be correct for nearly any
+			-- language (if not, the correct fix would be to the Pango
+			-- word break algorithms).
+		do
+			Result:=gtk_text_iter_inside_word(handle).to_boolean
+		end
 
-	-- iter : 	an iterator
-	-- default_editability : 	TRUE if text is editable by default
-	-- Returns : 	whether text inserted at iter would be editable
-	-- gtk_text_iter_starts_word ()
-
-	-- gboolean    gtk_text_iter_starts_word       (const GtkTextIter *iter);
-
-	-- Determines whether iter begins a natural-language word. Word breaks are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango word break algorithms).
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter is at the start of a word
-	-- gtk_text_iter_ends_word ()
-
-	-- gboolean    gtk_text_iter_ends_word         (const GtkTextIter *iter);
-
-	-- Determines whether iter ends a natural-language word. Word breaks are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango word break algorithms).
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter is at the end of a word
-	-- gtk_text_iter_inside_word ()
-
-	-- gboolean    gtk_text_iter_inside_word       (const GtkTextIter *iter);
-
-	-- Determines whether iter is inside a natural-language word (as opposed to say inside some whitespace). Word breaks are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango word break algorithms).
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter is inside a word
-	-- gtk_text_iter_starts_line ()
+	--starts_line ()
 
 	-- gboolean    gtk_text_iter_starts_line       (const GtkTextIter *iter);
 

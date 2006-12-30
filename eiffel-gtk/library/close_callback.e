@@ -1,7 +1,7 @@
 indexing
 	description: "Generic callback for the close signal"
 	copyright: "[
-					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
+					Copyright (C) 2006 Paolo Redaelli, 
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -26,12 +26,12 @@ class CLOSE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_DIALOG]
+insert G_OBJECT_RETRIEVER [CLOSE_SIGNAL_RECEIVER]
 
 creation make
 
 feature
-	object: GTK_DIALOG
+	object: CLOSE_SIGNAL_RECEIVER
 
 feature
 	callback (instance: POINTER) is
@@ -60,7 +60,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_DIALOG; a_procedure: PROCEDURE [ANY, TUPLE[GTK_DIALOG]]) is
+	connect (an_object: CLOSE_SIGNAL_RECEIVER; a_procedure: PROCEDURE [ANY, TUPLE[CLOSE_SIGNAL_RECEIVER]]) is
 		do
 			debug
 				print ("CLOSE_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -80,5 +80,5 @@ feature
 
 		signal_name: STRING is "close"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_DIALOG]]
+	procedure: PROCEDURE [ANY, TUPLE[CLOSE_SIGNAL_RECEIVER]]
 end

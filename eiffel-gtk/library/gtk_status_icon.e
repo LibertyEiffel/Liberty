@@ -164,196 +164,134 @@ feature
 			ptr:=gtk_status_icon_get_pixbuf(handle)
 			-- The caller of this function does not own a reference to
 			-- the returned pixbuf.
-
--- Since 2.10
--- gtk_status_icon_get_stock ()
-
--- const gchar* gtk_status_icon_get_stock      (GtkStatusIcon *status_icon);
-
--- Gets the id of the stock icon being displayed by the GtkStatusIcon. The storage type of the status icon must be GTK_IMAGE_EMPTY or GTK_IMAGE_STOCK (see gtk_status_icon_get_storage_type()). The returned string is owned by the GtkStatusIcon and should not be freed or modified.
-
--- status_icon : 	a GtkStatusIcon
--- Returns : 	stock id of the displayed stock icon, or NULL if the image is empty.
-
--- Since 2.10
--- gtk_status_icon_get_icon_name ()
-
--- const gchar* gtk_status_icon_get_icon_name  (GtkStatusIcon *status_icon);
-
--- Gets the name of the icon being displayed by the GtkStatusIcon. The storage type of the status icon must be GTK_IMAGE_EMPTY or GTK_IMAGE_ICON_NAME (see gtk_status_icon_get_storage_type()). The returned string is owned by the GtkStatusIcon and should not be freed or modified.
-
--- status_icon : 	a GtkStatusIcon
--- Returns : 	name of the displayed icon, or NULL if the image is empty.
-
--- Since 2.10
--- gtk_status_icon_get_size ()
-
--- gint        gtk_status_icon_get_size        (GtkStatusIcon *status_icon);
-
--- Gets the size in pixels that is available for the image. Stock icons and named icons adapt their size automatically if the size of the notification area changes. For other storage types, the size-changed signal can be used to react to size changes.
-
--- status_icon : 	a GtkStatusIcon
--- Returns : 	the size that is available for the image
-
--- Since 2.10
--- gtk_status_icon_set_tooltip ()
-
--- void        gtk_status_icon_set_tooltip     (GtkStatusIcon *status_icon,
---                                              const gchar *tooltip_text);
-
--- Sets the tooltip of the status icon.
-
--- status_icon : 	a GtkStatusIcon
--- tooltip_text : 	the tooltip text, or NULL
-
--- Since 2.10
--- gtk_status_icon_set_visible ()
-
--- void        gtk_status_icon_set_visible     (GtkStatusIcon *status_icon,
---                                              gboolean visible);
-
--- Shows or hides a status icon.
-
--- status_icon : 	a GtkStatusIcon
--- visible : 	TRUE to show the status icon, FALSE to hide it
-
--- Since 2.10
--- gtk_status_icon_get_visible ()
-
--- gboolean    gtk_status_icon_get_visible     (GtkStatusIcon *status_icon);
-
--- Returns whether the status icon is visible or not. Note that being visible does not guarantee that the user can actually see the icon, see also gtk_status_icon_is_embedded().
-
--- status_icon : 	a GtkStatusIcon
--- Returns : 	TRUE if the status icon is visible
-
--- Since 2.10
--- gtk_status_icon_set_blinking ()
-
--- void        gtk_status_icon_set_blinking    (GtkStatusIcon *status_icon,
---                                              gboolean blinking);
-
--- Makes the status icon start or stop blinking. Note that blinking user interface elements may be problematic for some users, and thus may be turned off, in which case this setting has no effect.
-
--- status_icon : 	a GtkStatusIcon
--- blinking : 	TRUE to turn blinking on, FALSE to turn it off
-
--- Since 2.10
--- gtk_status_icon_get_blinking ()
-
--- gboolean    gtk_status_icon_get_blinking    (GtkStatusIcon *status_icon);
-
--- Returns whether the icon is blinking, see gtk_status_icon_set_blinking().
-
--- status_icon : 	a GtkStatusIcon
--- Returns : 	TRUE if the icon is blinking
-
--- Since 2.10
--- gtk_status_icon_is_embedded ()
-
--- gboolean    gtk_status_icon_is_embedded     (GtkStatusIcon *status_icon);
-
--- Returns whether the status icon is embedded in a notification area.
-
--- status_icon : 	a GtkStatusIcon
--- Returns : 	TRUE if the status icon is embedded in a notification area.
-
--- Since 2.10
--- gtk_status_icon_position_menu ()
-
--- void        gtk_status_icon_position_menu   (GtkMenu *menu,
---                                              gint *x,
---                                              gint *y,
---                                              gboolean *push_in,
---                                              gpointer user_data);
-
--- Menu positioning function to use with gtk_menu_popup() to position menu aligned to the status icon user_data.
-
--- menu : 	the GtkMenu
--- x : 	return location for the x position
--- y : 	return location for the y position
--- push_in : 	return location for whether the menu should be pushed in to be completely inside the screen instead of just clamped to the size to the screen.
--- user_data : 	the status icon to position the menu on
-
--- Since 2.10
--- gtk_status_icon_get_geometry ()
-
--- gboolean    gtk_status_icon_get_geometry    (GtkStatusIcon *status_icon,
---                                              GdkScreen **screen,
---                                              GdkRectangle *area,
---                                              GtkOrientation *orientation);
-
--- Obtains information about the location of the status icon on screen. This information can be used to e.g. position popups like notification bubbles.
-
--- See gtk_status_icon_position_menu() for a more convenient alternative for positioning menus.
-
--- Note that some platforms do not allow GTK+ to provide this information, and even on platforms that do allow it, the information is not reliable unless the status icon is embedded in a notification area, see gtk_status_icon_is_embedded().
-
--- status_icon : 	a GtkStatusIcon
--- screen : 	return location for the screen, or NULL if the information is not needed
--- area : 	return location for the area occupied by the status icon, or NULL
--- orientation : 	return location for the orientation of the panel in which the status icon is embedded, or NULL. A panel at the top or bottom of the screen is horizontal, a panel at the left or right is vertical.
--- Returns : 	TRUE if the location information has been filled in
-
--- Since 2.10
--- Property Details
--- The "blinking" property
-
---   "blinking"             gboolean              : Read / Write
-
--- Whether or not the status icon is blinking.
-
--- Default value: FALSE
--- The "file" property
-
---   "file"                 gchararray            : Write
-
--- Filename to load and display.
-
--- Default value: NULL
--- The "icon-name" property
-
---   "icon-name"            gchararray            : Read / Write
-
--- The name of the icon from the icon theme.
-
--- Default value: NULL
--- The "pixbuf" property
-
---   "pixbuf"               GdkPixbuf             : Read / Write
-
--- A GdkPixbuf to display.
--- The "size" property
-
---   "size"                 gint                  : Read
-
--- The size of the icon.
-
--- Allowed values: >= 0
-
--- Default value: 0
--- The "stock" property
-
---   "stock"                gchararray            : Read / Write
-
--- Stock ID for a stock image to display.
-
--- Default value: NULL
--- The "storage-type" property
-
---   "storage-type"         GtkImageType          : Read
-
--- The representation being used for image data.
-
--- Default value: GTK_IMAGE_EMPTY
--- The "visible" property
-
---   "visible"              gboolean              : Read / Write
-
--- Whether or not the status icon is visible.
-
--- Default value: TRUE
--- Signal Details
+		end
+
+	stock_id: STRING is
+			-- the id of the stock icon being displayed by the status
+			-- icon. Void if the image is empty.
+		require
+			valid_storage_type: ((storage_type = gtk_image_empty) or
+										(storage_type = gtk_image_stock))
+		local p: POINTER 
+		do
+			p := gtk_status_icon_get_stock (handle)
+			if p.is_not_null then
+				create {CONST_STRING} Result.from_external(p)
+			end
+		end
+	
+	icon_name: STRING is
+			-- the name of the icon being displayed by the status
+			-- icon. Void if the image is empty.
+		require
+			valid_storage_type: ((storage_type = gtk_image_empty) or
+										(storage_type = gtk_image_icon_name))
+		local ptr: POINTER
+		do
+			ptr := gtk_status_icon_get_icon_name (handle)
+			if p.is_not_null then
+				create {CONST_STRING} Result.from_external(p)
+			end
+		end
+
+	size: INTEGER is
+			-- the size in pixels that is available for the image. Stock
+			-- icons and named icons adapt their size automatically if
+			-- the size of the notification area changes. For other
+			-- storage types, the "size-changed" signal can be used to
+			-- react to size changes.
+		do
+			Result := gtk_status_icon_get_size(handle)
+		end
+
+	set_tooltip (a_tooltip_text: STRING) is
+			-- Sets the tooltip of the status icon.
+		require text_not_void: a_tooltip_text /= Void
+		do
+			gtk_status_icon_set_tooltip (handle, a_tooltip_text.to_external)
+		end
+
+	unset_tooltip is
+			-- Unsets the tooltip of the status icon.
+		do
+			gtk_status_icon_set_tooltip (handle, default_pointer)
+		end
+
+	set_visible (a_setting: INTEGER) is
+			-- Shows or hides a status icon. `a_setting' is True to show
+			-- the status icon, False to hide it
+		do
+			gtk_status_icon_set_visible (handle, a_setting.to_integer)
+		end
+
+	is_visible: BOOLEAN is
+			-- Is the status icon visible? Note that being visible does
+			-- not guarantee that the user can actually see the icon, see
+			-- also `is_embedded'.
+		do
+			Result:=gtk_status_icon_get_visible(handle).to_boolean
+		end
+
+	set_blinking (a_setting: BOOLEAN) is
+			-- Makes the status icon start or stop blinking; `a_setting'
+			-- is True to turn blinking on, False to turn it off. Note
+			-- that blinking user interface elements may be problematic
+			-- for some users, and thus may be turned off, in which case
+			-- this setting has no effect.
+		do
+			gtk_status_icon_set_blinking (handle, a_setting.to_integer)
+		end
+
+	is_blinking: BOOLEAN is
+			-- Is icon blinking? See also `set_blinking'.
+		do
+			Result := gtk_status_icon_get_blinking(handle).to_boolean
+		end
+
+	is_embedded: BOOLEAN is
+			-- Is the status icon embedded in a notification area?
+		do
+			Result := gtk_status_icon_is_embedded(handle).to_boolean
+		end
+
+	-- TODO: menu_position: TUPLE [INTEGER,INTEGER,BOOLEAN] is local
+	--an_x, an_y, a_push_in_bool: INTEGER do
+	--gtk_status_icon_position_menu (GtkMenu *menu, gint *x, gint *y,
+	--gboolean *push_in, gpointer user_data);
+	
+	-- Menu positioning function to use with gtk_menu_popup() to position menu aligned to the status icon user_data.
+	
+	-- menu : the GtkMenu x : return location for the x position y :
+	-- return location for the y position push_in : return location for
+	-- whether the menu should be pushed in to be completely inside the
+	-- screen instead of just clamped to the size to the screen.
+	-- user_data : the status icon to position the menu on
+
+	-- TODO: gtk_status_icon_get_geometry ()
+	
+	-- gboolean gtk_status_icon_get_geometry (GtkStatusIcon
+	-- *status_icon, GdkScreen **screen, GdkRectangle *area,
+	-- GtkOrientation *orientation);
+
+	-- Obtains information about the location of the status icon on
+	-- screen. This information can be used to e.g. position popups
+	-- like notification bubbles.
+	
+	-- See gtk_status_icon_position_menu() for a more convenient
+	-- alternative for positioning menus.
+	
+	-- Note that some platforms do not allow GTK+ to provide this
+	-- information, and even on platforms that do allow it, the
+	-- information is not reliable unless the status icon is embedded
+	-- in a notification area, see gtk_status_icon_is_embedded().
+	
+	-- status_icon : 	a GtkStatusIcon
+	-- screen : 	return location for the screen, or NULL if the information is not needed
+	-- area : 	return location for the area occupied by the status icon, or NULL
+	-- orientation : 	return location for the orientation of the panel in which the status icon is embedded, or NULL. A panel at the top or bottom of the screen is horizontal, a panel at the left or right is vertical.
+	-- Returns : 	TRUE if the location information has been filled in
+
+feature -- TODO: Signals
 -- The "activate" signal
 
 -- void        user_function                  (GtkStatusIcon *status_icon,
