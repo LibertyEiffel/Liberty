@@ -23,8 +23,11 @@ class C_ARRAY [ITEM -> WRAPPER]
 	-- TODO: ITEM could also be conformant to C_STRUCT or
 	-- SHARED_C_STRUCT. See which is the better design.
 
-inherit FAST_ARRAY [ITEM]
-	
+inherit 
+	FAST_ARRAY [ITEM]
+		redefine 
+			item, infix "@",
+			first, last
 creation
 	make, with_capacity,
 	from_collection,

@@ -360,123 +360,158 @@ feature
 			Result:=gtk_text_iter_inside_word(handle).to_boolean
 		end
 
-	--starts_line ()
+	starts_line: BOOLEAN is
+			-- Does Current iter begin a paragraph? If True `line_offset'
+			-- would be 0. However this function is potentially more
+			-- efficient than `line_offset' because it doesn't have to
+			-- compute the offset, it just has to see whether it's 0.
+		do
+			Result:=gtk_text_iter_starts_line(handle).to_boolean
+		end
 
-	-- gboolean    gtk_text_iter_starts_line       (const GtkTextIter *iter);
+	ends_line: BOOLEAN is
+			-- Does iter point to the start of the paragraph delimiter
+			-- characters for a line? Delimiters will be either a
+			-- newline, a carriage return, a carriage return followed by
+			-- a newline, or a Unicode paragraph separator
+			-- character. Note that an iterator pointing to the \n ("%N")
+			-- of a \r\n ("%R%N") pair will not be counted as the end of
+			-- a line, the line ends before the \r ("%N"). The end
+			-- iterator is considered to be at the end of a line, even
+			-- though there are no paragraph delimiter chars there.
+		do
+			Result:=gtk_text_iter_ends_line(handle).to_boolean
+		end
 
-	-- Returns TRUE if iter begins a paragraph, i.e. if gtk_text_iter_get_line_offset() would return 0. However this function is potentially more efficient than gtk_text_iter_get_line_offset() because it doesn't have to compute the offset, it just has to see whether it's 0.
+	starts_sentence: BOOLEAN is
+			-- Does Current iter begin a sentence? Sentence boundaries
+			-- are determined by Pango and should be correct for nearly
+			-- any language (if not, the correct fix would be to the
+			-- Pango text boundary algorithms).
+		do
+			Result:= gtk_text_iter_starts_sentence   (handle).to_boolean
+		end
+	
+	ends_sentence: BOOLEAN is
+			-- Does Curret iter end a sentence? Sentence boundaries are
+			-- determined by Pango and should be correct for nearly any
+			-- language (if not, the correct fix would be to the Pango
+			-- text boundary algorithms).
+		do
+			Result:=gtk_text_iter_ends_sentence (handle).to_boolean
+		end
 
-	-- iter : 	an iterator
-	-- Returns : 	whether iter begins a line
-	-- gtk_text_iter_ends_line ()
+	is_inside_sentence: BOOLEAN is
+			-- Is Current iter inside a sentence? This is the opposite of
+			-- in between two sentences, e.g. after a period and before
+			-- the first letter of the next sentence. Sentence boundaries
+			-- are determined by Pango and should be correct for nearly
+			-- any language (if not, the correct fix would be to the
+			-- Pango text boundary algorithms).
+		do
+			Result := gtk_text_iter_inside_sentence (handle).to_boolean
+		end
 
-	-- gboolean    gtk_text_iter_ends_line         (const GtkTextIter *iter);
+	is_cursor_position: BOOLEAN is
+			-- Can the cursor be placed at Current iter? See
+			-- `forward_cursor_position' or PangoLogAttr or pango_break()
+			-- for details on what a cursor position is.
+		do
+			Result:=gtk_text_iter_is_cursor_position(handle)
+		end
 
-	-- Returns TRUE if iter points to the start of the paragraph delimiter characters for a line (delimiters will be either a newline, a carriage return, a carriage return followed by a newline, or a Unicode paragraph separator character). Note that an iterator pointing to the \n of a \r\n pair will not be counted as the end of a line, the line ends before the \r. The end iterator is considered to be at the end of a line, even though there are no paragraph delimiter chars there.
+	chars_in_line: INTEGER is
+			-- the number of characters in the line containing iter,
+			-- including the paragraph delimiters.
+		do
+			Result:=gtk_text_iter_get_chars_in_line (handle)
+		end
+	
 
-	-- iter : 	an iterator
-	-- Returns : 	whether iter is at the end of a line
-	-- gtk_text_iter_starts_sentence ()
+	bytes_in_line: INTEGER is
+			--  the number of bytes in the line containing iter,
+			--  including the paragraph delimiters.
+		do
+			Result:=gtk_text_iter_get_bytes_in_line (handle)
+		end
 
-	-- gboolean    gtk_text_iter_starts_sentence   (const GtkTextIter *iter);
+	attributes: GTK_TEXT_ATTRIBUTES is
+			-- the effect of any tags applied to this spot in the
+			-- text. This is computed modifying a copy of `default_attributes'.
 
-	-- Determines whether iter begins a sentence. Sentence boundaries are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango text boundary algorithms).
+			-- Void if no changes occours.
 
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter is at the start of a sentence.
-	-- gtk_text_iter_ends_sentence ()
+			-- Note: the behaviour of this feature is quite different
+			-- from the C function that it wraps
+			-- (gtk_text_iter_get_attributes). If you need to apply the
+			-- effets of tags from a different starting point please
+			-- notify Paolo. 2006-12-31.
+		local values_modified: BOOLEAN
+		do
+			Result := default_attributes
+			values_modified := gtk_text_iter_get_attributes (handle, Result.handle).to_boolean
+			-- gtk_text_iter_get_attributes() will modify values,
+			-- applying the effects of any tags present at iter. If any
+			-- tags affected values, the function returns TRUE.
+			if not values_modified then Result := Void end
+		end
 
-	-- gboolean    gtk_text_iter_ends_sentence     (const GtkTextIter *iter);
+	language: PANGO_LANGUAGE is
+			-- The language in effect at iter. This is convenience
+			-- wrapper around `gtk_text_iter_get_attributes', which
+			-- returns - if no tags affecting language apply to iter -
+			-- the return value is identical to that of
+			-- gtk_get_default_language() (TODO).
+		do
+			create Result.from_external_pointer(gtk_text_iter_get_language(handle))
+		end
 
-	-- Determines whether iter ends a sentence. Sentence boundaries are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango text boundary algorithms).
+feature -- Iterator-like 
+	is_off: BOOLEAN is
+			-- Is iter the end iterator? End iterator is one past the
+			-- last dereferenceable iterator in the buffer. This feature
+			-- is the most efficient way to check whether an iterator is
+			-- the end iterator.
 
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter is at the end of a sentence.
-	-- gtk_text_iter_inside_sentence ()
+			-- Note: this features wraps gtk_text_iter_is_end. I have
+			-- changed name to conform to the iterator pattern. Paolo
+			-- 2006-12-31
+		do
+			Result:= gtk_text_iter_is_end(handle).to_boolean
+		end
 
-	-- gboolean    gtk_text_iter_inside_sentence   (const GtkTextIter *iter);
+	is_valid: BOOLEAN
+			-- Have the iter being moved and dereferenceable?
 
-	-- Determines whether iter is inside a sentence (as opposed to in between two sentences, e.g. after a period and before the first letter of the next sentence). Sentence boundaries are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango text boundary algorithms).
+	is_start: BOOLEAN is
+			-- Is Current iter the first iterator in the buffer, that is
+			-- if iter has a character offset of 0?.
+		do
+			Result := gtk_text_iter_is_start(handle).to_boolean
+		end
+	
+	next, forward_char is
+			-- Moves iter forward by one character offset. Note that
+			-- images embedded in the buffer occupy 1 character slot, so
+			-- `forward_char' may actually move onto an image instead of
+			-- a character, if you have images in your buffer. If iter is
+			-- the end iterator or one character before it, iter will now
+			-- point at the end iterator, and
+			-- gtk_text_iter_forward_char() returns FALSE for convenience
+			-- when writing loops.
+		do
+			is_valid:=gtk_text_iter_forward_char(handle).to_boolean
+		end
 
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter is inside a sentence.
-	-- gtk_text_iter_is_cursor_position ()
+	backward_char is
+			-- Moves backward by one character offset. `is_valid' will be
+			-- True if movement was possible; if iter was the first in
+			-- the buffer (character offset 0), `is_valid' will be False
+			-- for convenience when writing loops.
+		do
+			is_valid:=gtk_text_iter_backward_char(handle).to_boolean
+		end
 
-	-- gboolean    gtk_text_iter_is_cursor_position
-	-- 														  (const GtkTextIter *iter);
-
-	-- See gtk_text_iter_forward_cursor_position() or PangoLogAttr or pango_break() for details on what a cursor position is.
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if the cursor can be placed at iter
-	-- gtk_text_iter_get_chars_in_line ()
-
-	-- gint        gtk_text_iter_get_chars_in_line (const GtkTextIter *iter);
-
-	-- Returns the number of characters in the line containing iter, including the paragraph delimiters.
-
-	-- iter : 	an iterator
-	-- Returns : 	number of characters in the line
-	-- gtk_text_iter_get_bytes_in_line ()
-
-	-- gint        gtk_text_iter_get_bytes_in_line (const GtkTextIter *iter);
-
-	-- Returns the number of bytes in the line containing iter, including the paragraph delimiters.
-
-	-- iter : 	an iterator
-	-- Returns : 	number of bytes in the line
-	-- gtk_text_iter_get_attributes ()
-
-	-- gboolean    gtk_text_iter_get_attributes    (const GtkTextIter *iter,
-	-- 															GtkTextAttributes *values);
-
-	-- Computes the effect of any tags applied to this spot in the text. The values parameter should be initialized to the default settings you wish to use if no tags are in effect. You'd typically obtain the defaults from gtk_text_view_get_default_attributes().
-
-	-- gtk_text_iter_get_attributes() will modify values, applying the effects of any tags present at iter. If any tags affected values, the function returns TRUE.
-
-	-- iter : 	an iterator
-	-- values : 	a GtkTextAttributes to be filled in
-	-- Returns : 	TRUE if values was modified
-	-- gtk_text_iter_get_language ()
-
-	-- PangoLanguage* gtk_text_iter_get_language   (const GtkTextIter *iter);
-
-	-- A convenience wrapper around gtk_text_iter_get_attributes(), which returns the language in effect at iter. If no tags affecting language apply to iter, the return value is identical to that of gtk_get_default_language().
-
-	-- iter : 	an iterator
-	-- Returns : 	language in effect at iter
-	-- gtk_text_iter_is_end ()
-
-	-- gboolean    gtk_text_iter_is_end            (const GtkTextIter *iter);
-
-	-- Returns TRUE if iter is the end iterator, i.e. one past the last dereferenceable iterator in the buffer. gtk_text_iter_is_end() is the most efficient way to check whether an iterator is the end iterator.
-
-	-- iter : 	an iterator
-	-- Returns : 	whether iter is the end iterator
-	-- gtk_text_iter_is_start ()
-
-	-- gboolean    gtk_text_iter_is_start          (const GtkTextIter *iter);
-
-	-- Returns TRUE if iter is the first iterator in the buffer, that is if iter has a character offset of 0.
-
-	-- iter : 	an iterator
-	-- Returns : 	whether iter is the first in the buffer
-	-- gtk_text_iter_forward_char ()
-
-	-- gboolean    gtk_text_iter_forward_char      (GtkTextIter *iter);
-
-	-- Moves iter forward by one character offset. Note that images embedded in the buffer occupy 1 character slot, so gtk_text_iter_forward_char() may actually move onto an image instead of a character, if you have images in your buffer. If iter is the end iterator or one character before it, iter will now point at the end iterator, and gtk_text_iter_forward_char() returns FALSE for convenience when writing loops.
-
-	-- iter : 	an iterator
-	-- Returns : 	whether iter moved and is dereferenceable
-	-- gtk_text_iter_backward_char ()
-
-	-- gboolean    gtk_text_iter_backward_char     (GtkTextIter *iter);
-
-	-- Moves backward by one character offset. Returns TRUE if movement was possible; if iter was the first in the buffer (character offset 0), gtk_text_iter_backward_char() returns FALSE for convenience when writing loops.
-
-	-- iter : 	an iterator
-	-- Returns : 	whether movement was possible
 	-- gtk_text_iter_forward_chars ()
 
 	-- gboolean    gtk_text_iter_forward_chars     (GtkTextIter *iter,
