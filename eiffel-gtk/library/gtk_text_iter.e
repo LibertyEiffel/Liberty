@@ -512,215 +512,251 @@ feature -- Iterator-like
 			is_valid:=gtk_text_iter_backward_char(handle).to_boolean
 		end
 
-	-- gtk_text_iter_forward_chars ()
+	forward_chars (a_count: INTEGER) is
+			-- Moves `a_count' characters if possible (if `a_count' would
+			-- move past the start or end of the buffer, moves to the
+			-- start or end of the buffer). `is_valid' indicates whether
+			-- the new position of iter is different from its original
+			-- position, and dereferenceable (the last iterator in the
+			-- buffer is not dereferenceable). If `a_count' is 0, the
+			-- function does nothing and `is_valid' is False.  `a_count'
+			-- is number of characters to move, may be negative.
+		do
+			is_valid:=gtk_text_iter_forward_chars(handle, a_count).to_boolean
+		ensure a_count = 0 implies is_valid = False
+		end
+
+	backward_chars (a_count: INTEGER) is
+			-- Moves `a_count' characters backward, if possible (if
+			-- `a_count' would move past the start or end of the buffer,
+			-- moves to the start or end of the buffer). `is_valid'
+			-- indicates whether the iterator moved onto a
+			-- dereferenceable position; if the iterator didn't move, or
+			-- moved onto the end iterator, then False is returned. If
+			-- `a_count' is 0, nothing is done and `is_valid' is False.
+		do
+			is_valid:=gtk_text_iter_backward_chars(handle,a_count).to_boolean
+		end
+
+	forward_line is
+			-- Moves iter to the start of the next line. `is_valid' is
+			-- True if there was a next line to move to, and False if
+			-- iter was simply moved to the end of the buffer and is now
+			-- not dereferenceable, or if iter was already at the end of
+			-- the buffer.
+		do
+			is_valid:=gtk_text_iter_forward_line(handle).to_boolean
+		end
+
+	backward_line is
+			-- Moves iter to the start of the previous line. `is_valid'
+			-- is True if iter could be moved; i.e. if iter was at
+			-- character offset 0, `is_valid' is False. Therefore if iter
+			-- was already on line 0, but not at the start of the line,
+			-- iter is snapped to the start of the line and `is_valid' is
+			-- True. (Note that this implies that in a loop calling this
+			-- function, the line number may not change on every
+			-- iteration, if your first iteration is on line 0.)
+		do
+			is_valid:=gtk_text_iter_backward_line(handle).to_boolean
+		end
+
+	forward_lines (a_count: INTEGER) is
+			-- Moves `a_count' lines forward, if possible (if `a_count'
+			-- would move past the start or end of the buffer, moves to
+			-- the start or end of the buffer). `is_valid' indicates
+			-- whether the iterator moved onto a dereferenceable
+			-- position; if the iterator didn't move, or moved onto the
+			-- end iterator, then `is_valid' will be False. If `a_count'
+			-- is 0, the function does nothing and `is_valid' is
+			-- False. If `a_count' is negative, moves backward by
+			-- `0-a_count' lines.
+		do
+			is_valid:=gtk_text_iter_forward_lines(handle, a_count).to_boolean
+		end
+
+	backward_lines (a_count: INTEGER) is
+			-- Moves `a_count' lines backward, if possible (if `a_count'
+			-- would move past the start or end of the buffer, moves to
+			-- the start or end of the buffer). `is_valid' indicates
+			-- whether the iterator moved onto a dereferenceable
+			-- position; if the iterator didn't move, or moved onto the
+			-- end iterator, then `is_valid' is False. If `a_count' is 0,
+			-- the function does nothing and `is_valid' is False. If
+			-- `a_count' is negative, moves forward by 0 - count lines.
+		do
+			is_valid:=gtk_text_iter_backward_lines(handle, a_count).to_boolean
+		end
+
+	forward_word_ends (a_count: INTEGER) is
+			-- Calls `forward_word_end' up to `a_count' times. Then
+			-- `is_valid' is True if iter moved and is not the end
+			-- iterator.
+		do
+			is_valid:=gtk_text_iter_forward_word_ends(handle, a_count).to_boolean
+		end
+	
+	backward_word_starts (a_count: INTEGER) is
+			-- Calls `backward_word_start' up to `a_count'
+			-- times. `is_valid' will be True if iter moved and is not
+			-- the end iterator.
+		do
+			is_valid:=gtk_text_iter_backward_word_starts(handle,a_count).to_boolean
+		end
+
+	forward_word_end is
+			-- Moves forward to the next word end. (If iter is currently
+			-- on a word end, moves forward to the next one after that.)
+			-- Word breaks are determined by Pango and should be correct
+			-- for nearly any language (if not, the correct fix would be
+			-- to the Pango word break algorithms).
+
+			-- `is_valid' will be True if iter moved and is not the end
+			-- iterator.
+		do
+			is_valid:=gtk_text_iter_forward_word_end(handle).to_boolean
+		end
+
+	backward_word_start is
+			-- Moves backward to the previous word start. (If iter is
+			-- currently on a word start, moves backward to the next one
+			-- after that). Word breaks are determined by Pango and
+			-- should be correct for nearly any language (if not, the
+			-- correct fix would be to the Pango word break algorithms).
+
+			-- `is_valid' will be True if iter moved and is not the end
+			-- iterator.		
+		do
+			Result:=gtk_text_iter_backward_word_start(handle).to_boolean
+		end
+
+	forward_cursor_position is
+			-- Moves iter forward by a single cursor position. Cursor
+			-- positions are (unsurprisingly) positions where the cursor
+			-- can appear. Perhaps surprisingly, there may not be a
+			-- cursor position between all characters. The most common
+			-- example for European languages would be a carriage
+			-- return/newline sequence. For some Unicode characters, the
+			-- equivalent of say the letter "a" with an accent mark will
+			-- be represented as two characters, first the letter then a
+			-- "combining mark" that causes the accent to be rendered; so
+			-- the cursor can't go between those two characters. See also
+			-- the PangoLogAttr structure and pango_break() function.
+
+			-- `is_valid' will be True if we moved and the new position
+			-- is dereferenceable
+		do
+			Result:=gtk_text_iter_forward_cursor_position(handle).to_boolean
+		end
+
+	backward_cursor_position is
+			-- Like `forward_cursor_position', but moves backward.
+
+			-- `is_valid' will be True if we moved
+		do
+			is_valid:=gtk_text_iter_backward_cursor_position(handle).to_boolean
+		end
+
+	forward_cursor_positions (a_count: INTEGER) is
+			-- Moves up to `a_count' cursor positions. See
+			-- `forward_cursor_position' for details.
+		
+			-- `is_valid' will be True if we moved and the new position
+			-- is dereferenceable.	
+		do
+			is_valid:=gtk_text_iter_forward_cursor_positions(handle, a_count).to_boolean
+		end
+	
+	backward_cursor_positions (a_count: INTEGER) is
+			-- Moves up to `a_count' cursor positions. See
+			-- `forward_cursor_position' for details.
+
+			-- `is_valid' will be True if we moved and the new position
+			-- is dereferenceable.
+		do
+			is_valid:=gtk_text_iter_backward_cursor_positions(handle, a_count).to_boolean
+		end
+
+	backward_sentence_start is
+			-- Moves backward to the previous sentence start; if iter is
+			-- already at the start of a sentence, moves backward to the
+			-- next one. Sentence boundaries are determined by Pango and
+			-- should be correct for nearly any language (if not, the
+			-- correct fix would be to the Pango text boundary
+			-- algorithms).
+
+			-- `is_valid' will be True if iter moved and is not the end
+			-- iterator.
+		do
+			is_valid:=gtk_text_iter_backward_sentence_start(handle).to_boolean
+		end
+
+	backward_sentence_starts is
+			-- Calls `backward_sentence_start' up to count times, or
+			-- until `is_valid' will be False. If `a_count' is negative,
+			-- moves forward instead of backward.
+
+			-- `is_valid' will be True if iter moved and is not the end
+			-- iterator.
+		do
+			is_valid:=gtk_text_iter_backward_sentence_starts(handle,a_count).to_boolean
+		end
+
+	forward_sentence_end is
+			-- Moves forward to the next sentence end. (If iter is at the
+			-- end of a sentence, moves to the next end of sentence.)
+			-- Sentence boundaries are determined by Pango and should be
+			-- correct for nearly any language (if not, the correct fix
+			-- would be to the Pango text boundary algorithms).
+
+			-- `is_valid' will be True if iter moved and is not the end
+			-- iterator.
+		do
+			is_valid:=gtk_text_iter_forward_sentence_end(handle).to_boolean
+		end
+	
+	forward_sentence_ends (a_count: INTEGER) is
+			-- Calls `forward_sentence_end' `a_count' times (or until
+			-- `forward_sentence_end' sets `is_valid' to False). If
+			-- `a_count' is negative, moves backward instead of forward.
+
+			-- `is_valid' will be set to True if iter moved and is not
+			-- the end iterator.
+		do
+			Result:=gtk_text_iter_forward_sentence_ends(handle,a_count).to_boolean
+		end
+
+	forward_visible_word_ends (a_count: INTEGER) is
+			-- Calls `forward_visible_word_end' up to `a_count' times.
+
+			-- `is_valid' will be set to True if iter moved and is not
+			-- the end iterator.
+		do
+			is_valid:=gtk_text_iter_forward_visible_word_ends(handle, a_count).to_boolean
+		end
+	
+	backward_visible_word_starts (a_count: INTEGER) is
+			-- Calls `backward_visible_word_start' up to `a_count' times.
+		
+			-- `is_valid' will be True if iter moved and is not the end
+			-- iterator.
+		do
+			is_valid:=gtk_text_iter_backward_visible_word_starts(handle, a_count).to_boolean
+		end
+
+	forward_visible_word_end is
+			-- Moves forward to the next visible word end. (If iter is
+			-- currently on a word end, moves forward to the next one
+			-- after that.) Word breaks are determined by Pango and
+			-- should be correct for nearly any language (if not, the
+			-- correct fix would be to the Pango word break algorithms).
+
+			-- `is_valid' will be set to True if iter moved and is not
+			-- the end iterator.
+		do
+			is_valid:=gtk_text_iter_forward_visible_word_end(handle).to_boolean
+		end
 
-	-- gboolean    gtk_text_iter_forward_chars     (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves count characters if possible (if count would move past the start or end of the buffer, moves to the start or end of the buffer). The return value indicates whether the new position of iter is different from its original position, and dereferenceable (the last iterator in the buffer is not dereferenceable). If count is 0, the function does nothing and returns FALSE.
-
-	-- iter : 	an iterator
-	-- count : 	number of characters to move, may be negative
-	-- Returns : 	whether iter moved and is dereferenceable
-	-- gtk_text_iter_backward_chars ()
-
-	-- gboolean    gtk_text_iter_backward_chars    (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves count characters backward, if possible (if count would move past the start or end of the buffer, moves to the start or end of the buffer). The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn't move, or moved onto the end iterator, then FALSE is returned. If count is 0, the function does nothing and returns FALSE.
-
-	-- iter : 	an iterator
-	-- count : 	number of characters to move
-	-- Returns : 	whether iter moved and is dereferenceable
-	-- gtk_text_iter_forward_line ()
-
-	-- gboolean    gtk_text_iter_forward_line      (GtkTextIter *iter);
-
-	-- Moves iter to the start of the next line. Returns TRUE if there was a next line to move to, and FALSE if iter was simply moved to the end of the buffer and is now not dereferenceable, or if iter was already at the end of the buffer.
-
-	-- iter : 	an iterator
-	-- Returns : 	whether iter can be dereferenced
-	-- gtk_text_iter_backward_line ()
-
-	-- gboolean    gtk_text_iter_backward_line     (GtkTextIter *iter);
-
-	-- Moves iter to the start of the previous line. Returns TRUE if iter could be moved; i.e. if iter was at character offset 0, this function returns FALSE. Therefore if iter was already on line 0, but not at the start of the line, iter is snapped to the start of the line and the function returns TRUE. (Note that this implies that in a loop calling this function, the line number may not change on every iteration, if your first iteration is on line 0.)
-
-	-- iter : 	an iterator
-	-- Returns : 	whether iter moved
-	-- gtk_text_iter_forward_lines ()
-
-	-- gboolean    gtk_text_iter_forward_lines     (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves count lines forward, if possible (if count would move past the start or end of the buffer, moves to the start or end of the buffer). The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn't move, or moved onto the end iterator, then FALSE is returned. If count is 0, the function does nothing and returns FALSE. If count is negative, moves backward by 0 - count lines.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of lines to move forward
-	-- Returns : 	whether iter moved and is dereferenceable
-	-- gtk_text_iter_backward_lines ()
-
-	-- gboolean    gtk_text_iter_backward_lines    (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves count lines backward, if possible (if count would move past the start or end of the buffer, moves to the start or end of the buffer). The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn't move, or moved onto the end iterator, then FALSE is returned. If count is 0, the function does nothing and returns FALSE. If count is negative, moves forward by 0 - count lines.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of lines to move backward
-	-- Returns : 	whether iter moved and is dereferenceable
-	-- gtk_text_iter_forward_word_ends ()
-
-	-- gboolean    gtk_text_iter_forward_word_ends (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Calls gtk_text_iter_forward_word_end() up to count times.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of times to move
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-	-- gtk_text_iter_backward_word_starts ()
-
-	-- gboolean    gtk_text_iter_backward_word_starts
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Calls gtk_text_iter_backward_word_start() up to count times.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of times to move
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-	-- gtk_text_iter_forward_word_end ()
-
-	-- gboolean    gtk_text_iter_forward_word_end  (GtkTextIter *iter);
-
-	-- Moves forward to the next word end. (If iter is currently on a word end, moves forward to the next one after that.) Word breaks are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango word break algorithms).
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-	-- gtk_text_iter_backward_word_start ()
-
-	-- gboolean    gtk_text_iter_backward_word_start
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves backward to the previous word start. (If iter is currently on a word start, moves backward to the next one after that.) Word breaks are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango word break algorithms).
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-	-- gtk_text_iter_forward_cursor_position ()
-
-	-- gboolean    gtk_text_iter_forward_cursor_position
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves iter forward by a single cursor position. Cursor positions are (unsurprisingly) positions where the cursor can appear. Perhaps surprisingly, there may not be a cursor position between all characters. The most common example for European languages would be a carriage return/newline sequence. For some Unicode characters, the equivalent of say the letter "a" with an accent mark will be represented as two characters, first the letter then a "combining mark" that causes the accent to be rendered; so the cursor can't go between those two characters. See also the PangoLogAttr structure and pango_break() function.
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if we moved and the new position is dereferenceable
-	-- gtk_text_iter_backward_cursor_position ()
-
-	-- gboolean    gtk_text_iter_backward_cursor_position
-	-- 														  (GtkTextIter *iter);
-
-	-- Like gtk_text_iter_forward_cursor_position(), but moves backward.
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if we moved
-	-- gtk_text_iter_forward_cursor_positions ()
-
-	-- gboolean    gtk_text_iter_forward_cursor_positions
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves up to count cursor positions. See gtk_text_iter_forward_cursor_position() for details.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of positions to move
-	-- Returns : 	TRUE if we moved and the new position is dereferenceable
-	-- gtk_text_iter_backward_cursor_positions ()
-
-	-- gboolean    gtk_text_iter_backward_cursor_positions
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves up to count cursor positions. See gtk_text_iter_forward_cursor_position() for details.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of positions to move
-	-- Returns : 	TRUE if we moved and the new position is dereferenceable
-	-- gtk_text_iter_backward_sentence_start ()
-
-	-- gboolean    gtk_text_iter_backward_sentence_start
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves backward to the previous sentence start; if iter is already at the start of a sentence, moves backward to the next one. Sentence boundaries are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango text boundary algorithms).
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-	-- gtk_text_iter_backward_sentence_starts ()
-
-	-- gboolean    gtk_text_iter_backward_sentence_starts
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Calls gtk_text_iter_backward_sentence_start() up to count times, or until it returns FALSE. If count is negative, moves forward instead of backward.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of sentences to move
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-	-- gtk_text_iter_forward_sentence_end ()
-
-	-- gboolean    gtk_text_iter_forward_sentence_end
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves forward to the next sentence end. (If iter is at the end of a sentence, moves to the next end of sentence.) Sentence boundaries are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango text boundary algorithms).
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-	-- gtk_text_iter_forward_sentence_ends ()
-
-	-- gboolean    gtk_text_iter_forward_sentence_ends
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Calls gtk_text_iter_forward_sentence_end() count times (or until gtk_text_iter_forward_sentence_end() returns FALSE). If count is negative, moves backward instead of forward.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of sentences to move
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-	-- gtk_text_iter_forward_visible_word_ends ()
-
-	-- gboolean    gtk_text_iter_forward_visible_word_ends
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Calls gtk_text_iter_forward_visible_word_end() up to count times.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of times to move
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-
-	-- Since 2.4
-	-- gtk_text_iter_backward_visible_word_starts ()
-
-	-- gboolean    gtk_text_iter_backward_visible_word_starts
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Calls gtk_text_iter_backward_visible_word_start() up to count times.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of times to move
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-
-	-- Since 2.4
-	-- gtk_text_iter_forward_visible_word_end ()
-
-	-- gboolean    gtk_text_iter_forward_visible_word_end
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves forward to the next visible word end. (If iter is currently on a word end, moves forward to the next one after that.) Word breaks are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango word break algorithms).
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter moved and is not the end iterator
 
 	-- Since 2.4
 	-- gtk_text_iter_backward_visible_word_start ()
