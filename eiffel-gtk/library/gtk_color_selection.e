@@ -31,7 +31,11 @@ indexing
 class GTK_COLOR_SELECTION
 
 inherit GTK_VBOX
-	redefine struct_size end
+	rename
+		make as vbox_make
+	redefine
+		struct_size
+	end
 
 	-- TODO: GtkColorSelection implements AtkImplementorIface.
 
@@ -47,8 +51,8 @@ feature -- size
 		alias "sizeof(GtkColorSelection)"
 		end
 
-feature 
-	make is 
+feature
+	make is
 			-- Creates a new GtkColorSelection.
 		do
 			from_external_pointer(gtk_color_selection_new)
