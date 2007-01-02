@@ -428,9 +428,9 @@ feature
 		end
 	
 
-	bytes_in_line: INTEGER is
-			--  the number of bytes in the line containing iter,
-			--  including the paragraph delimiters.
+	bytes_inline: INTEGER is
+			-- the number of bytes in the line containing iter, including
+			-- the paragraph delimiters.
 		do
 			Result:=gtk_text_iter_get_bytes_in_line (handle)
 		end
@@ -623,7 +623,7 @@ feature -- Iterator-like
 			-- after that). Word breaks are determined by Pango and
 			-- should be correct for nearly any language (if not, the
 			-- correct fix would be to the Pango word break algorithms).
-
+ 
 			-- `is_valid' will be True if iter moved and is not the end
 			-- iterator.		
 		do
@@ -735,7 +735,7 @@ feature -- Iterator-like
 			is_valid:=gtk_text_iter_forward_visible_word_ends(handle, a_count).to_boolean
 		end
 	
-	backward_visible_word_starts (a_count: INTEGER) is
+	backward_visible_word_starts (a_count: INTEGER) is		
 			-- Calls `backward_visible_word_start' up to `a_count' times.
 		
 			-- `is_valid' will be True if iter moved and is not the end
@@ -757,231 +757,252 @@ feature -- Iterator-like
 			is_valid:=gtk_text_iter_forward_visible_word_end(handle).to_boolean
 		end
 
+	backward_visible_word_start is
+			-- Moves backward to the previous visible word start. (If
+			-- iter is currently on a word start, moves backward to the
+			-- next one after that.) Word breaks are determined by Pango
+			-- and should be correct for nearly any language (if not, the
+			-- correct fix would be to the Pango word break algorithms).
+		
+			-- `is_valid' will be set to True if iter moved and is not
+			-- the end iterator.
+		do
+			is_valid:=gtk_text_iter_backward_visible_word_start(handle).to_boolean
+		end
+
+	forward_visible_cursor_position is
+			-- Moves iter forward to the next visible cursor
+			-- position. See `forward_cursor_position' for details.
+
+			-- `is_valid' will be set to True if we moved and the new position is dereferenceable		do
+			Result:=gtk_text_iter_forward_visible_cursor_position(handle).to_boolean
+		end
+
+
+	backward_visible_cursor_position is
+			-- Moves iter forward to the previous visible cursor
+			-- position. See `backward_cursor_position' for details.
+
+			-- `is_valid' will be set to True if we moved and the new
+			-- position is dereferenceable
+		do
+			is_valid:=gtk_text_iter_backward_visible_cursor_position(handle).to_boolean
+		end
+
+	forward_visible_cursor_positions (a_count: INTEGER) is
+			-- Moves up to `a_count' visible cursor positions. See
+			-- `forward_cursor_position' for details.
+
+			-- `is_valid' will be set to True if we moved and the new
+			-- position is dereferenceable.
+		do
+			is_valid:=gtk_text_iter_forward_visible_cursor_positions(handle, a_count).to_boolean
+		end	
+
+	backward_visible_cursor_positions (a_count: INTEGER) is
+			-- Moves up to `a_count' visible cursor positions. See
+			-- `forward_cursor_position' for details.
+
+			-- `is_valid' will be set to True if we moved and the new
+			-- position is dereferenceable.
+		do
+			is_valid:=gtk_text_iter_backward_visible_cursor_positions(handle,a_count).to_boolean
+		end
+
+	forward_visible_line is
+			-- Moves iter to the start of the next visible line.
+			-- `is_valid' is set to True if there was a next line to move
+			-- to, and False if iter was simply moved to the end of the
+			-- buffer and is now not dereferenceable, or if iter was
+			-- already at the end of the buffer.
+		do
+			is_valid:=gtk_text_iter_forward_visible_line(handle).to_boolean
+		end
+
+	iter_backward_visible_line is
+			-- Moves iter to the start of the previous visible line.
+			-- `is_valid' is seto to True if iter could be moved; i.e. if
+			-- iter was at character offset 0, this function returns
+			-- FALSE. Therefore if iter was already on line 0, but not at
+			-- the start of the line, iter is snapped to the start of the
+			-- line and the function returns TRUE. (Note that this
+			-- implies that in a loop calling this function, the line
+			-- number may not change on every iteration, if your first
+			-- iteration is on line 0.)
+		do
+			is_valid:=gtk_text_iter_backward_visible_line(handle).to_boolean
+		end			
+	
+	forward_visible_lines (a_count: INTEGER) is
+			-- Moves `a_count' visible lines forward, if possible (if
+			-- count would move past the start or end of the buffer,
+			-- moves to the start or end of the buffer). `is_valid'
+			-- indicates whether the iterator moved onto a
+			-- dereferenceable position; if the iterator didn't move, or
+			-- moved onto the end iterator, then `is_valid' is False. If
+			-- `a_count' is 0, the function does nothing and `is_valid'
+			-- is set to False. If `a_count' is negative, moves backward
+			-- by 0 - count lines.
+		do
+			is_valid:=gtk_text_iter_forward_visible_lines(handle, a_count)
+		end
+
+	backward_visible_lines (a_count: INTEGER) is
+			-- Moves `a_count' visible lines backward, if possible (if
+			-- `a_count' would move past the start or end of the buffer,
+			-- moves to the start or end of the buffer). `is_valid'
+			-- indicates whether the iterator moved onto a
+			-- dereferenceable position; if the iterator didn't move, or
+			-- moved onto the end iterator, then `is_valid' is False. If
+			-- `a_count' is 0, nothing is done and `is_valid' is
+			-- False. If `a_count' is negative, moves forward by 0 -
+			-- count lines.
+
+		do
+			is_valid:=gtk_text_iter_backward_visible_lines(handle,a_count).to_boolean
+		end
+
+	set_offset (a_char_offset: INTEGER) is
+			-- Sets iter to point to `a_char_offset'. `a_char_offset'
+			-- counts from the start of the entire text buffer, starting
+			-- with 0.
+		do
+			gtk_text_iter_set_offset(handle,a_char_offset)
+		end	
+
+	set_line (a_line_number: INTEGER) is
+			-- Moves iterator iter to the start of the line
+			-- `a_line_number' (counted from 0). If `a_line_number' is
+			-- negative or larger than the number of lines in the buffer,
+			-- moves iter to the start of the last line in the buffer.
+		do
+			gtk_text_iter_set_line(handle, a_line_number)
+		end
+
+	set_line_offset (a_char_on_line: INTEGER) is
+			-- Moves iter within a line, to a new character (not byte)
+			-- offset. The given character offset must be less than or
+			-- equal to the number of characters in the line; if equal,
+			-- iter moves to the start of the next line. See
+			-- `set_line_index' if you have a byte index rather than a
+			-- character offset.
+		do
+			gtk_text_iter_set_line_offset (handle,a_char_on_line)
+		end
+
+	set_line_index (a_byte_on_line: INTEGER) is
+			-- Same as `set_line_offset', but works with a byte
+			-- index. The given byte index must be at the start of a
+			-- character, it can't be in the middle of a UTF-8 encoded
+			-- character (TODO: turn it into a precondition).
+			-- `a_byte_on_line' is the byte index relative to the start
+			-- of iter's current line.
+		do
+			gtk_text_iter_set_line_index (handle, a_byte_on_line)
+		end
+
+	gtk_text_iter_set_visible_line_index (a_byte_on_line: INTEGER) is
+			-- Like `set_line_index', but the index is in visible bytes,
+			-- i.e. text with a tag making it invisible is not counted in
+			-- the index. 
+		do
+			gtk_text_iter_set_visible_line_index(handle, a_byte_on_line)
+		end	
+
+	set_visible_line_offset (a_char_on_line: INTEGER) is
+			-- Like `set_line_offset', but the offset is in visible
+			-- characters, i.e. text with a tag making it invisible is
+			-- not counted in the offset.
+		do
+			gtk_text_iter_set_visible_line_offset(handle,a_char_on_line)
+		end
+	
+	forward_to_end is
+			-- Moves iter forward to the "end iterator," which points one
+			-- past the last valid character in the
+			-- buffer. 
+		do
+			gtk_text_iter_forward_to_end(handle)
+			is_valid:=False
+		ensure 
+			not_valid: not is_valid
+			-- TODO: `char' called on the end iterator is 0, which is
+			-- convenient for writing loops (when writing C code).
+		end
+
+	forward_to_line_end is
+			-- Moves the iterator to point to the paragraph delimiter
+			-- characters, which will be either a newline, a carriage
+			-- return, a carriage return/newline in sequence, or the
+			-- Unicode paragraph separator character. If the iterator is
+			-- already at the paragraph delimiter characters, moves to
+			-- the paragraph delimiter characters for the next line. If
+			-- iter is on the last line in the buffer, which does not end
+			-- in paragraph delimiters, moves to the end iterator (end of
+			-- the last line), and `is_valid' is set to False.
+			-- `is_valid' is set to True if we moved and the new location
+			-- is not the end iterator.
+		do
+			is_valid:=gtk_text_iter_forward_to_line_end(handle)
+		end
+	
+	forward_to_tag_toggle (a_tag: GTK_TEXT_TAG) is
+			-- Moves forward to the next toggle (on or off) of `a_tag,'
+			-- or to the next toggle of any tag if `a_tag' is Void. If no
+			-- matching tag toggles are found `is_valid' is set to False,
+			-- otherwise to True. Does not return toggles located at
+			-- iter, only toggles after iter. Sets iter to the location
+			-- of the toggle, or to the end of the buffer if no toggle is
+			-- found.
+		do
+			if a_tag:=Void then 
+				is_valid:=gtk_text_iter_forward_to_tag_toggle(handle,default_pointer).to_boolean
+			else
+				is_valid:=gtk_text_iter_forward_to_tag_toggle(handle,a_tag.handle).to_boolean
+			end
+		end
+
+	backward_to_tag_toggle (a_tag: GTK_TEXT_TAG) is
+			-- Moves backward to the next toggle (on or off) of `a_tag,'
+			-- or to the next toggle of any tag if `a_tag' is Void. If no
+			-- matching tag toggles are found, `is_valid' is set to
+			-- False, otherwise to True. Toggles located at iter are not
+			-- counted, only toggles before iter. Sets iter to the
+			-- location of the toggle, or the start of the buffer if no
+			-- toggle is found.
+		do
+			if a_tag:=Void then 
+				is_valid:=gtk_text_iter_backward_to_tag_toggle(handle,default_pointer).to_boolean
+			else
+				is_valid:=gtk_text_iter_backward_to_tag_toggle(handle,a_tag.handle).to_boolean
+			end
+		end
+
+	is_found: BOOLEAN 
+			-- Have the last search/scan been successful?
+
+-- 	forward_find_char (a_predicate: PREDICATE[INTEGER_32]; a_limit: GTK_TEXT_ITER) is
+-- 			-- Advances iter, calling `a_predicate' on each character. If
+-- 			-- `a_predicate' is True, scanning is stopped and `is_found'
+-- 			-- TRUE and stops scanning. If `a_predicate' is never True,
+-- 			-- iter is set to `a_limit' if limit is non-Void, otherwise
+-- 			-- to the end iterator. 
+-- 		do
+-- 			if a_limit=Void then
+-- 				is_found:=gtk_text_iter_forward_find_char (handle, 
+-- 																		 $a_predicate,
+-- 																		 default_pointer, -- i.e.: user_data,
+-- 																		 default_pointer -- i.e. no limit
+-- 																		 )
+-- 			else
+-- 				is_found:=gtk_text_iter_forward_find_char (handle, 
+-- 																		 $a_predicate,
+-- 																		 default_pointer, -- i.e.: user_data,
+-- 																		 a_limit.handle -- i.e. no limit
+-- 																		 )
+-- 			end
+-- 		end
 
-	-- Since 2.4
-	-- gtk_text_iter_backward_visible_word_start ()
-
-	-- gboolean    gtk_text_iter_backward_visible_word_start
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves backward to the previous visible word start. (If iter is currently on a word start, moves backward to the next one after that.) Word breaks are determined by Pango and should be correct for nearly any language (if not, the correct fix would be to the Pango word break algorithms).
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if iter moved and is not the end iterator
-
-	-- Since 2.4
-	-- gtk_text_iter_forward_visible_cursor_position ()
-
-	-- gboolean    gtk_text_iter_forward_visible_cursor_position
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves iter forward to the next visible cursor position. See gtk_text_iter_forward_cursor_position() for details.
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if we moved and the new position is dereferenceable
-
-	-- Since 2.4
-	-- gtk_text_iter_backward_visible_cursor_position ()
-
-	-- gboolean    gtk_text_iter_backward_visible_cursor_position
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves iter forward to the previous visible cursor position. See gtk_text_iter_backward_cursor_position() for details.
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if we moved and the new position is dereferenceable
-
-	-- Since 2.4
-	-- gtk_text_iter_forward_visible_cursor_positions ()
-
-	-- gboolean    gtk_text_iter_forward_visible_cursor_positions
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves up to count visible cursor positions. See gtk_text_iter_forward_cursor_position() for details.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of positions to move
-	-- Returns : 	TRUE if we moved and the new position is dereferenceable
-
-	-- Since 2.4
-	-- gtk_text_iter_backward_visible_cursor_positions ()
-
-	-- gboolean    gtk_text_iter_backward_visible_cursor_positions
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves up to count visible cursor positions. See gtk_text_iter_forward_cursor_position() for details.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of positions to move
-	-- Returns : 	TRUE if we moved and the new position is dereferenceable
-
-	-- Since 2.4
-	-- gtk_text_iter_forward_visible_line ()
-
-	-- gboolean    gtk_text_iter_forward_visible_line
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves iter to the start of the next visible line. Returns TRUE if there was a next line to move to, and FALSE if iter was simply moved to the end of the buffer and is now not dereferenceable, or if iter was already at the end of the buffer.
-
-	-- iter : 	an iterator
-	-- Returns : 	whether iter can be dereferenced
-
-	-- Since 2.8
-	-- gtk_text_iter_backward_visible_line ()
-
-	-- gboolean    gtk_text_iter_backward_visible_line
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves iter to the start of the previous visible line. Returns TRUE if iter could be moved; i.e. if iter was at character offset 0, this function returns FALSE. Therefore if iter was already on line 0, but not at the start of the line, iter is snapped to the start of the line and the function returns TRUE. (Note that this implies that in a loop calling this function, the line number may not change on every iteration, if your first iteration is on line 0.)
-
-	-- iter : 	an iterator
-	-- Returns : 	whether iter moved
-
-	-- Since 2.8
-	-- gtk_text_iter_forward_visible_lines ()
-
-	-- gboolean    gtk_text_iter_forward_visible_lines
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves count visible lines forward, if possible (if count would move past the start or end of the buffer, moves to the start or end of the buffer). The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn't move, or moved onto the end iterator, then FALSE is returned. If count is 0, the function does nothing and returns FALSE. If count is negative, moves backward by 0 - count lines.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of lines to move forward
-	-- Returns : 	whether iter moved and is dereferenceable
-
-	-- Since 2.8
-	-- gtk_text_iter_backward_visible_lines ()
-
-	-- gboolean    gtk_text_iter_backward_visible_lines
-	-- 														  (GtkTextIter *iter,
-	-- 															gint count);
-
-	-- Moves count visible lines backward, if possible (if count would move past the start or end of the buffer, moves to the start or end of the buffer). The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn't move, or moved onto the end iterator, then FALSE is returned. If count is 0, the function does nothing and returns FALSE. If count is negative, moves forward by 0 - count lines.
-
-	-- iter : 	a GtkTextIter
-	-- count : 	number of lines to move backward
-	-- Returns : 	whether iter moved and is dereferenceable
-
-	-- Since 2.8
-	-- gtk_text_iter_set_offset ()
-
-	-- void        gtk_text_iter_set_offset        (GtkTextIter *iter,
-	-- 															gint char_offset);
-
-	-- Sets iter to point to char_offset. char_offset counts from the start of the entire text buffer, starting with 0.
-
-	-- iter : 	a GtkTextIter
-	-- char_offset : 	a character number
-	-- gtk_text_iter_set_line ()
-
-	-- void        gtk_text_iter_set_line          (GtkTextIter *iter,
-	-- 															gint line_number);
-
-	-- Moves iterator iter to the start of the line line_number. If line_number is negative or larger than the number of lines in the buffer, moves iter to the start of the last line in the buffer.
-
-	-- iter : 	a GtkTextIter
-	-- line_number : 	line number (counted from 0)
-	-- gtk_text_iter_set_line_offset ()
-
-	-- void        gtk_text_iter_set_line_offset   (GtkTextIter *iter,
-	-- 															gint char_on_line);
-
-	-- Moves iter within a line, to a new character (not byte) offset. The given character offset must be less than or equal to the number of characters in the line; if equal, iter moves to the start of the next line. See gtk_text_iter_set_line_index() if you have a byte index rather than a character offset.
-
-	-- iter : 	a GtkTextIter
-	-- char_on_line : 	a character offset relative to the start of iter's current line
-	-- gtk_text_iter_set_line_index ()
-
-	-- void        gtk_text_iter_set_line_index    (GtkTextIter *iter,
-	-- 															gint byte_on_line);
-
-	-- Same as gtk_text_iter_set_line_offset(), but works with a byte index. The given byte index must be at the start of a character, it can't be in the middle of a UTF-8 encoded character.
-
-	-- iter : 	a GtkTextIter
-	-- byte_on_line : 	a byte index relative to the start of iter's current line
-	-- gtk_text_iter_set_visible_line_index ()
-
-	-- void        gtk_text_iter_set_visible_line_index
-	-- 														  (GtkTextIter *iter,
-	-- 															gint byte_on_line);
-
-	-- Like gtk_text_iter_set_line_index(), but the index is in visible bytes, i.e. text with a tag making it invisible is not counted in the index.
-
-	-- iter : 	a GtkTextIter
-	-- byte_on_line : 	a byte index
-	-- gtk_text_iter_set_visible_line_offset ()
-
-	-- void        gtk_text_iter_set_visible_line_offset
-	-- 														  (GtkTextIter *iter,
-	-- 															gint char_on_line);
-
-	-- Like gtk_text_iter_set_line_offset(), but the offset is in visible characters, i.e. text with a tag making it invisible is not counted in the offset.
-
-	-- iter : 	a GtkTextIter
-	-- char_on_line : 	a character offset
-	-- gtk_text_iter_forward_to_end ()
-
-	-- void        gtk_text_iter_forward_to_end    (GtkTextIter *iter);
-
-	-- Moves iter forward to the "end iterator," which points one past the last valid character in the buffer. gtk_text_iter_get_char() called on the end iterator returns 0, which is convenient for writing loops.
-
-	-- iter : 	a GtkTextIter
-	-- gtk_text_iter_forward_to_line_end ()
-
-	-- gboolean    gtk_text_iter_forward_to_line_end
-	-- 														  (GtkTextIter *iter);
-
-	-- Moves the iterator to point to the paragraph delimiter characters, which will be either a newline, a carriage return, a carriage return/newline in sequence, or the Unicode paragraph separator character. If the iterator is already at the paragraph delimiter characters, moves to the paragraph delimiter characters for the next line. If iter is on the last line in the buffer, which does not end in paragraph delimiters, moves to the end iterator (end of the last line), and returns FALSE.
-
-	-- iter : 	a GtkTextIter
-	-- Returns : 	TRUE if we moved and the new location is not the end iterator
-	-- gtk_text_iter_forward_to_tag_toggle ()
-
-	-- gboolean    gtk_text_iter_forward_to_tag_toggle
-	-- 														  (GtkTextIter *iter,
-	-- 															GtkTextTag *tag);
-
-	-- Moves forward to the next toggle (on or off) of the GtkTextTag tag, or to the next toggle of any tag if tag is NULL. If no matching tag toggles are found, returns FALSE, otherwise TRUE. Does not return toggles located at iter, only toggles after iter. Sets iter to the location of the toggle, or to the end of the buffer if no toggle is found.
-
-	-- iter : 	a GtkTextIter
-	-- tag : 	a GtkTextTag, or NULL
-	-- Returns : 	whether we found a tag toggle after iter
-	-- gtk_text_iter_backward_to_tag_toggle ()
-
-	-- gboolean    gtk_text_iter_backward_to_tag_toggle
-	-- 														  (GtkTextIter *iter,
-	-- 															GtkTextTag *tag);
-
-	-- Moves backward to the next toggle (on or off) of the GtkTextTag tag, or to the next toggle of any tag if tag is NULL. If no matching tag toggles are found, returns FALSE, otherwise TRUE. Does not return toggles located at iter, only toggles before iter. Sets iter to the location of the toggle, or the start of the buffer if no toggle is found.
-
-	-- iter : 	a GtkTextIter
-	-- tag : 	a GtkTextTag, or NULL
-	-- Returns : 	whether we found a tag toggle before iter
-	-- GtkTextCharPredicate ()
-
-	-- gboolean    (*GtkTextCharPredicate)         (gunichar ch,
-	-- 															gpointer user_data);
-
-	-- ch : 
-	-- user_data : 
-	-- Returns : 
-	-- gtk_text_iter_forward_find_char ()
-
-	-- gboolean    gtk_text_iter_forward_find_char (GtkTextIter *iter,
-	-- 															GtkTextCharPredicate pred,
-	-- 															gpointer user_data,
-	-- 															const GtkTextIter *limit);
-
-	-- Advances iter, calling pred on each character. If pred returns TRUE, returns TRUE and stops scanning. If pred never returns TRUE, iter is set to limit if limit is non-NULL, otherwise to the end iterator.
-
-	-- iter : 	a GtkTextIter
-	-- pred : 	a function to be called on each character
-	-- user_data : 	user data for pred
-	-- limit : 	search limit, or NULL for none
-	-- Returns : 	whether a match was found
 	-- gtk_text_iter_backward_find_char ()
 
 	-- gboolean    gtk_text_iter_backward_find_char

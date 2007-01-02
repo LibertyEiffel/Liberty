@@ -28,6 +28,7 @@ inherit
 		redefine 
 			item, infix "@",
 			first, last
+		end
 creation
 	make, with_capacity,
 	from_collection,
@@ -42,4 +43,47 @@ feature {} -- Creation
 			capacity := a_length
 			storage := storage.from_pointer (an_array)
 		end
+	
+feature
+	item (i: INTEGER_32): ITEM is
+		do
+			ptr := storage.item(i)
+			if ptr.is_not_null then 
+				if wrappers.has (ptr) then
+					Result ::= wrappers.at (ptr)
+				else
+					Result := new_item
+					Result.from_external_pointer(ptr)
+				end
+			end
+		end
+
+   first: ITEM is
+		do
+			ptr := storage.item(lower)
+			if ptr.is_not_null then 
+				if wrappers.has (ptr) then
+					Result ::= wrappers.at (ptr)
+				else
+					Result := new_item
+					Result.from_external_pointer(ptr)
+				end
+			end
+		end
+
+   last: ITEM is
+		do
+			ptr := storage.item(upper)
+			if ptr.is_not_null then 
+				if wrappers.has (ptr) then
+					Result ::= wrappers.at (ptr)
+				else
+					Result := new_item
+					Result.from_external_pointer(ptr)
+				end
+			end
+		end
+	
 end -- class C_ARRAY
+
+	

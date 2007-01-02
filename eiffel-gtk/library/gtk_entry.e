@@ -127,14 +127,11 @@ feature -- maximum lenght
 			gtk_entry_set_max_length (handle, 0)
 		end
 	
-	-- TODO: gtk_entry_get_activates_default ()
-
-	-- gboolean    gtk_entry_get_activates_default (GtkEntry *entry);
-	
-	-- Retrieves the value set by gtk_entry_set_activates_default().
-	
-	-- entry : 	a GtkEntry
-	-- Returns : 	TRUE if the entry will activate the default widget
+	activates_default: BOOLEAN is
+			-- Will the entry activate the default widget?
+		do
+			Result := gtk_entry_get_activates_default(handle).to_boolean	
+		end
 
 	has_frame: BOOLEAN is
 			-- Has the entry a beveled frame?
@@ -216,56 +213,76 @@ feature -- Alignment
 		end
 
 	
--- TODO: gtk_entry_get_layout ()
+	layout: PANGO_LAYOUT is
+			-- the PangoLayout used to display the entry. The layout is useful to e.g. convert text positions to pixel positions, in combination with `layout_offsets'. 
+		
+			-- Keep in mind that the layout text may contain a preedit
+			-- string, so `layout_index_to_text_index' and
+			-- `text_index_to_layout_index' are needed to convert byte
+			-- indices in the layout to byte indices in the entry
+			-- contents.
+		local ptr: POINTER; --r: G_RETRIEVER[PANGO_LAYOUT]
+		do
+			-- Note: The returned layout is owned by the entry and must
+			-- not be modified or freed by the caller.
+			ptr:=gtk_entry_get_layout(handle)
+			create Result.from_external_pointer(ptr)
+			Result.set_shared
+		end
 
--- PangoLayout* gtk_entry_get_layout           (GtkEntry *entry);
+	layout_offsets: TUPLE[INTEGER,INTEGER] is
+			-- the position (in [x,y] format) of the PangoLayout used to
+			-- render text in the entry, in widget coordinates. Useful if
+			-- you want to line up the text in an entry with some other
+			-- text, e.g. when using the entry to implement editable
+			-- cells in a sheet widget.
 
--- Gets the PangoLayout used to display the entry. The layout is useful to e.g. convert text positions to pixel positions, in combination with gtk_entry_get_layout_offsets(). The returned layout is owned by the entry and must not be modified or freed by the caller.
+			-- Also useful to convert mouse events into coordinates
+			-- inside the PangoLayout, e.g. to take some action if some
+			-- part of the entry text is clicked.
 
--- Keep in mind that the layout text may contain a preedit string, so gtk_entry_layout_index_to_text_index() and gtk_entry_text_index_to_layout_index() are needed to convert byte indices in the layout to byte indices in the entry contents.
+			-- Note that as the user scrolls around in the entry the
+			-- offsets will change; you'll need to connect to the
+			-- "notify::scroll-offset" signal to track this. Remember
+			-- when using the PangoLayout functions you need to convert
+			-- to and from pixels using PANGO_PIXELS() or PANGO_SCALE.
 
--- entry : 	a GtkEntry
--- Returns : 	the PangoLayout for this entry
--- gtk_entry_get_layout_offsets ()
+			-- Keep in mind that the layout text may contain a preedit
+			-- string, so `layout_index_to_text_index' and
+			-- `text_index_to_layout_index' are needed to convert byte
+			-- indices in the layout to byte indices in the entry
+			-- contents.
+		local an_x,an_y: INTEGER
+		do
+			gtk_entry_get_layout_offsets(handle,$an_x,$an_y)
+			create Result.make_2(an_x,an_y)
+		end
 
--- TODO: void        gtk_entry_get_layout_offsets    (GtkEntry *entry,
---                                              gint *x,
---                                              gint *y);
+	layout_index_to_text_index (a_layout_index: INTEGER): INTEGER is
+			-- Converts from a position in the entry contents (returned
+			-- by `text') to a position in the entry's PangoLayout
+			-- (returned by `layout', with text retrieved via
+			-- `PANGO_LAYOUT.text').
+		
+			-- `a_layout_index' is the byte index into the entry layout
+			-- text
+		
+			-- Result is the byte index into the entry contents
+		do
+			Result:=gtk_entry_layout_index_to_text_index(handle, a_layout_index)
+		end
 
--- Obtains the position of the PangoLayout used to render text in the entry, in widget coordinates. Useful if you want to line up the text in an entry with some other text, e.g. when using the entry to implement editable cells in a sheet widget.
+	text_index_to_layout_index (a_text_index: INTEGER): INTEGER is
+			-- Converts from a position in the entry's PangoLayout
+			-- (returned by `layout') to a position in the
+			-- entry contents (returned by `text').
 
--- Also useful to convert mouse events into coordinates inside the PangoLayout, e.g. to take some action if some part of the entry text is clicked.
-
--- Note that as the user scrolls around in the entry the offsets will change; you'll need to connect to the "notify::scroll-offset" signal to track this. Remember when using the PangoLayout functions you need to convert to and from pixels using PANGO_PIXELS() or PANGO_SCALE.
-
--- Keep in mind that the layout text may contain a preedit string, so gtk_entry_layout_index_to_text_index() and gtk_entry_text_index_to_layout_index() are needed to convert byte indices in the layout to byte indices in the entry contents.
-
--- entry : 	a GtkEntry
--- x : 	location to store X offset of layout, or NULL
--- y : 	location to store Y offset of layout, or NULL
--- gtk_entry_layout_index_to_text_index ()
-
--- gint        gtk_entry_layout_index_to_text_index
---                                             (GtkEntry *entry,
---                                              gint layout_index);
-
--- Converts from a position in the entry contents (returned by gtk_entry_get_text()) to a position in the entry's PangoLayout (returned by gtk_entry_get_layout(), with text retrieved via pango_layout_get_text()).
-
--- entry : 	a GtkEntry
--- layout_index : 	byte index into the entry layout text
--- Returns : 	byte index into the entry contents
--- gtk_entry_text_index_to_layout_index ()
-
--- gint        gtk_entry_text_index_to_layout_index
---                                             (GtkEntry *entry,
---                                              gint text_index);
-
--- Converts from a position in the entry's PangoLayout (returned by gtk_entry_get_layout()) to a position in the entry contents (returned by gtk_entry_get_text()).
-
--- entry : 	a GtkEntry
--- text_index : 	byte index into the entry contents
--- Returns : 	byte index into the entry layout text
-
+			-- `a_text_index': byte index into the entry contents
+		
+			-- Result is the byte index into the entry layout text
+		do
+			Result:=gtk_entry_text_index_to_layout_index(handle,a_text_index)
+		end
 	
 	set_completion (an_entry_completion: GTK_ENTRY_COMPLETION) is
 			-- Sets completion to be the auxiliary completion object to

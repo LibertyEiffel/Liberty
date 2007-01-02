@@ -130,7 +130,6 @@ feature
 			create Result.make
 			Result.insert_column (name_column, name_column_n)
 			Result.insert_column (nick_column, nick_column_n)
-			-- Note: both xxx_column_n was -1. Paolo 2005-06-12
 			
 			Result.set_model (model)
 

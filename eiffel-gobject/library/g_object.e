@@ -378,7 +378,7 @@ feature -- Properties query
 		end
 
 	properties: FAST_ARRAY[G_PARAM_SPEC] is
-		obsolete "TODO: entirely!"
+		local a_length: INTEGER
 		do
 			-- TODO: using g_object_class_list_properties (oclass,n_properties:
 			-- POINTER): POINTER is Returns an array of GParamSpec* for
@@ -387,6 +387,9 @@ feature -- Properties query
 			-- returned array (i.e. a guint *). Returns: an array of
 			-- GParamSpec* (i.e. a GParamSpec**) which should be freed
 			-- after use
+			
+			-- create {C_ARRAY[G_PARAM_SPEC]} Result.from_external_array
+			-- (g_object_class_list_properties (g_object_class, $a_count))
 		ensure implemented: False
 		end
 
