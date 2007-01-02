@@ -239,8 +239,9 @@ feature -- Access
 
 	insert_with_tags_by_name (an_iter: GTK_TEXT_ITER; some_text: STRING; some_tag_names: COLLECTION[STRING]) is
 			-- Inserts `some_text' into buffer at `an_iter', applying the
-			-- list of tags to the newly-inserted text. 
-			-- Same as `insert_with_tags', but allows you to pass in tag names instead of tag objects.
+			-- list of tags to the newly-inserted text.  Same as
+			-- `insert_with_tags', but allows you to pass in tag names
+			-- instead of tag objects.
 
 			-- `an_iter': 	an iterator in buffer
 			-- `some_text': 	UTF-8 text
@@ -625,20 +626,17 @@ feature -- Access
 			end
 		end
 
-	-- gtk_text_buffer_get_iter_at_line_offset ()
-
-	-- void        gtk_text_buffer_get_iter_at_line_offset
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              gint line_number,
-	--                                              gint char_offset);
-
-	-- Obtains an iterator pointing to char_offset within the given line. The char_offset must exist, offsets off the end of the line are not allowed. Note characters, not bytes; UTF-8 may encode one character as multiple bytes.
-
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	iterator to initialize
-	-- line_number : 	line number counting from 0
-	-- char_offset : 	char offset from start of line
+	iter_at_line_offset (a_line_number, a_char_offset: INTEGER): GTK_TEXT_ITER is
+			-- an iterator pointing to `a_char_offset' (offset from start
+			-- of line) within `a_line_number' (counting from 0). The
+			-- `a_char_offset' must exist, offsets off the end of the
+			-- line are not allowed. Note characters, not bytes; UTF-8
+			-- may encode one character as multiple bytes.
+		do
+			create Result.make
+			gtk_text_buffer_get_iter_at_line_offset (handle, Result.handle,
+																  a_line_number, a_char_offset)
+		end			
 
 	iter_at_offset (an_offset: INTEGER): GTK_TEXT_ITER is
 			-- The iterator pointing to a position `an_offset' chars from
@@ -653,32 +651,31 @@ feature -- Access
 			create Result.make
 			gtk_text_buffer_get_iter_at_offset (handle, Result.handle, an_offset)
 		end
-	-- gtk_text_buffer_get_iter_at_line ()
 
-	-- void        gtk_text_buffer_get_iter_at_line
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              gint line_number);
-
-	-- Initializes iter to the start of the given line.
-
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	iterator to initialize
-	-- line_number : 	line number counting from 0
-	-- gtk_text_buffer_get_iter_at_line_index ()
-
-	-- void        gtk_text_buffer_get_iter_at_line_index
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              gint line_number,
-	--                                              gint byte_index);
-
-	-- Obtains an iterator pointing to byte_index within the given line. byte_index must be the start of a UTF-8 character, and must not be beyond the end of the line. Note bytes, not characters; UTF-8 may encode one character as multiple bytes.
-
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	iterator to initialize
-	-- line_number : 	line number counting from 0
-	-- byte_index : 	byte index from start of line
+	iter_at_line (a_line_number: INTEGER): GTK_TEXT_ITER is
+			-- an iterator to the start of the given line (counting from
+			-- 0).
+		do
+			create Result.make
+			gtk_text_buffer_get_iter_at_line(handle, Result.handle, a_line_number)
+		end
+	
+	iter_at_line_index (a_line_number, a_byte_index: INTEGER): GTK_TEXT_ITER is
+			-- Obtains an iterator pointing to `a_byte_index' within the
+			-- `a_line_number' (counting from 0). `a_byte_index' must be
+			-- the start of a UTF-8 character, and must not be beyond the
+			-- end of the line. Note bytes, not characters; UTF-8 may
+			-- encode one character as multiple bytes.
+		
+			-- buffer : 	a GtkTextBuffer
+			-- iter : 	iterator to initialize
+		
+			-- byte_index : 	byte index from start of line
+		do
+			create Result.make
+			gtk_text_buffer_get_iter_at_line_index (handle, Result.handle,
+																 a_line_number, a_byte_index)
+		end
 	-- gtk_text_buffer_get_iter_at_mark ()
 
 	-- void        gtk_text_buffer_get_iter_at_mark

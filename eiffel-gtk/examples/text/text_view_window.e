@@ -20,7 +20,7 @@ feature
 			text.buffer.set_text (some_string)
 			big := text.buffer.create_tag ("big", create {ARRAY[TUPLE[STRING, G_VALUE]]}.make (1, 0))
 			big.set_string_property ("foreground", "blue")
---			big.set_boolean_property ("size-set", True)
+			--	big.set_boolean_property ("size-set", True)
 			text.buffer.apply_tag (big,
 				text.buffer.iter_at_offset(0),
 				text.buffer.iter_at_offset(10))
@@ -32,17 +32,15 @@ feature -- Widgets
 	text: GTK_TEXT_VIEW
 
 	some_string: STRING is "[
-	What you see here is a text view.
-	It can show multiple lines of text. It can be edited, too.
-	You can put formatting and images inside it.
-	]"
+									What you see here is a text view.
+									It can show multiple lines of text. It can be edited, too.
+									You can put formatting and images inside it.
+									]"
 
 feature  -- Callbacks
-
 	on_destroy is
 		do
 			print ("Text view demo ending%N")
 			gtk.quit
 		end
-
 end

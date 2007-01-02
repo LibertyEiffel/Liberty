@@ -417,7 +417,7 @@ feature
 			-- `forward_cursor_position' or PangoLogAttr or pango_break()
 			-- for details on what a cursor position is.
 		do
-			Result:=gtk_text_iter_is_cursor_position(handle)
+			Result:=gtk_text_iter_is_cursor_position(handle).to_boolean
 		end
 
 	chars_in_line: INTEGER is
@@ -448,12 +448,16 @@ feature
 			-- notify Paolo. 2006-12-31.
 		local values_modified: BOOLEAN
 		do
-			Result := default_attributes
-			values_modified := gtk_text_iter_get_attributes (handle, Result.handle).to_boolean
+			-- Result := default_attributes
+			-- values_modified := gtk_text_iter_get_attributes (handle, 
+			-- Result.handle).to_boolean
+			
 			-- gtk_text_iter_get_attributes() will modify values,
 			-- applying the effects of any tags present at iter. If any
 			-- tags affected values, the function returns TRUE.
-			if not values_modified then Result := Void end
+			
+			-- if not values_modified then Result := Void end
+		ensure implemented: False
 		end
 
 	language: PANGO_LANGUAGE is
@@ -627,7 +631,7 @@ feature -- Iterator-like
 			-- `is_valid' will be True if iter moved and is not the end
 			-- iterator.		
 		do
-			Result:=gtk_text_iter_backward_word_start(handle).to_boolean
+			is_valid:=gtk_text_iter_backward_word_start(handle).to_boolean
 		end
 
 	forward_cursor_position is
@@ -646,7 +650,7 @@ feature -- Iterator-like
 			-- `is_valid' will be True if we moved and the new position
 			-- is dereferenceable
 		do
-			Result:=gtk_text_iter_forward_cursor_position(handle).to_boolean
+			is_valid:=gtk_text_iter_forward_cursor_position(handle).to_boolean
 		end
 
 	backward_cursor_position is
@@ -691,7 +695,7 @@ feature -- Iterator-like
 			is_valid:=gtk_text_iter_backward_sentence_start(handle).to_boolean
 		end
 
-	backward_sentence_starts is
+	backward_sentence_starts (a_count: INTEGER) is
 			-- Calls `backward_sentence_start' up to count times, or
 			-- until `is_valid' will be False. If `a_count' is negative,
 			-- moves forward instead of backward.
@@ -723,7 +727,7 @@ feature -- Iterator-like
 			-- `is_valid' will be set to True if iter moved and is not
 			-- the end iterator.
 		do
-			Result:=gtk_text_iter_forward_sentence_ends(handle,a_count).to_boolean
+			is_valid:=gtk_text_iter_forward_sentence_ends(handle,a_count).to_boolean
 		end
 
 	forward_visible_word_ends (a_count: INTEGER) is
@@ -774,8 +778,10 @@ feature -- Iterator-like
 			-- Moves iter forward to the next visible cursor
 			-- position. See `forward_cursor_position' for details.
 
-			-- `is_valid' will be set to True if we moved and the new position is dereferenceable		do
-			Result:=gtk_text_iter_forward_visible_cursor_position(handle).to_boolean
+			-- `is_valid' will be set to True if we moved and the new
+			-- position is dereferenceable.
+		do
+			is_valid:=gtk_text_iter_forward_visible_cursor_position(handle).to_boolean
 		end
 
 
@@ -844,7 +850,7 @@ feature -- Iterator-like
 			-- is set to False. If `a_count' is negative, moves backward
 			-- by 0 - count lines.
 		do
-			is_valid:=gtk_text_iter_forward_visible_lines(handle, a_count)
+			is_valid:=gtk_text_iter_forward_visible_lines(handle, a_count).to_boolean
 		end
 
 	backward_visible_lines (a_count: INTEGER) is
@@ -901,7 +907,7 @@ feature -- Iterator-like
 			gtk_text_iter_set_line_index (handle, a_byte_on_line)
 		end
 
-	gtk_text_iter_set_visible_line_index (a_byte_on_line: INTEGER) is
+	set_visible_line_index (a_byte_on_line: INTEGER) is
 			-- Like `set_line_index', but the index is in visible bytes,
 			-- i.e. text with a tag making it invisible is not counted in
 			-- the index. 
@@ -943,7 +949,7 @@ feature -- Iterator-like
 			-- `is_valid' is set to True if we moved and the new location
 			-- is not the end iterator.
 		do
-			is_valid:=gtk_text_iter_forward_to_line_end(handle)
+			is_valid:=gtk_text_iter_forward_to_line_end(handle).to_boolean
 		end
 	
 	forward_to_tag_toggle (a_tag: GTK_TEXT_TAG) is
@@ -955,7 +961,7 @@ feature -- Iterator-like
 			-- of the toggle, or to the end of the buffer if no toggle is
 			-- found.
 		do
-			if a_tag:=Void then 
+			if a_tag=Void then 
 				is_valid:=gtk_text_iter_forward_to_tag_toggle(handle,default_pointer).to_boolean
 			else
 				is_valid:=gtk_text_iter_forward_to_tag_toggle(handle,a_tag.handle).to_boolean
@@ -971,7 +977,7 @@ feature -- Iterator-like
 			-- location of the toggle, or the start of the buffer if no
 			-- toggle is found.
 		do
-			if a_tag:=Void then 
+			if a_tag=Void then 
 				is_valid:=gtk_text_iter_backward_to_tag_toggle(handle,default_pointer).to_boolean
 			else
 				is_valid:=gtk_text_iter_backward_to_tag_toggle(handle,a_tag.handle).to_boolean
@@ -981,27 +987,28 @@ feature -- Iterator-like
 	is_found: BOOLEAN 
 			-- Have the last search/scan been successful?
 
--- 	forward_find_char (a_predicate: PREDICATE[INTEGER_32]; a_limit: GTK_TEXT_ITER) is
--- 			-- Advances iter, calling `a_predicate' on each character. If
--- 			-- `a_predicate' is True, scanning is stopped and `is_found'
--- 			-- TRUE and stops scanning. If `a_predicate' is never True,
--- 			-- iter is set to `a_limit' if limit is non-Void, otherwise
--- 			-- to the end iterator. 
--- 		do
--- 			if a_limit=Void then
--- 				is_found:=gtk_text_iter_forward_find_char (handle, 
--- 																		 $a_predicate,
--- 																		 default_pointer, -- i.e.: user_data,
--- 																		 default_pointer -- i.e. no limit
--- 																		 )
--- 			else
--- 				is_found:=gtk_text_iter_forward_find_char (handle, 
--- 																		 $a_predicate,
--- 																		 default_pointer, -- i.e.: user_data,
--- 																		 a_limit.handle -- i.e. no limit
--- 																		 )
--- 			end
--- 		end
+	forward_find_char (a_predicate: PREDICATE[TUPLE[INTEGER_32]]; a_limit: GTK_TEXT_ITER) is
+			-- Advances iter, calling `a_predicate' on each character. If
+			-- `a_predicate' is True, scanning is stopped and `is_found'
+			-- TRUE and stops scanning. If `a_predicate' is never True,
+			-- iter is set to `a_limit' if limit is non-Void, otherwise
+			-- to the end iterator.
+		local ca: POINTER
+		do
+			ca:=	callback_array($callback)
+			if a_limit=Void
+			 then is_found:=gtk_text_iter_forward_find_char
+				(handle, $hidden_callback,
+				 ca, -- i.e.: user_data,
+				 default_pointer -- i.e. no limit
+				 ).to_boolean
+			else is_found:=gtk_text_iter_forward_find_char
+				(handle, $hidden_callback,
+				 ca, -- i.e.: user_data,
+				 a_limit.handle -- i.e. no limit
+				 ).to_boolean
+			end
+		end
 
 	-- gtk_text_iter_backward_find_char ()
 
@@ -1448,11 +1455,11 @@ feature {} -- External call
 
 	--(*GtkTextCharPredicate) (gunichar ch; gpointer user_data): INTEGER 
 
-	gtk_text_iter_forward_find_char (an_iter: POINTER; predicate, user_data: POINTER; a_limit: POINTER): INTEGER is -- gboolean
+	gtk_text_iter_forward_find_char (an_iter: POINTER; a_predicate, user_data: POINTER; a_limit: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_text_iter_backward_find_char (an_iter: POINTER; predicate, user_data: POINTER; a_limit: POINTER): INTEGER is -- gboolean
+	gtk_text_iter_backward_find_char (an_iter: POINTER; a_predicate, user_data: POINTER; a_limit: POINTER): INTEGER is -- gboolean
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -1482,5 +1489,36 @@ feature {} -- External call
 	gtk_text_iter_order (first: POINTER; an_second: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
+
+feature {} -- GtkTextCharPredicate callback
+	hidden_callback (a_gunichar: INTEGRER_32; data: POINTER): INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "$Result = ((*GtkTextCharPredicate)($data[0]) ($a_gunichar, $data[1]));"
+		end
+	
+	callback_array (a_callback_pointer: POINTER): POINTER is
+			-- This call is required because we need to build an array
+			-- with the address of an Eiffel feature (namely
+			-- callback). `$' operator thought can be used only in a
+			-- feature call. Hence this.
+		do
+			Result:= {NATIVE_ARRAY[POINTER]
+						 <<a_callback_pointer ,Current.to_pointer>>
+							}.to_external
+		end
+	
+feature
+	callback (a_unicode_character: INTEGER_32): BOOLEAN is
+		do
+			debug
+				print ("Gtk text char predicate function callback:")
+				print (" a_unicode_character=") print(a_unicode_character.to_string) 
+				print ("%N")
+			end
+				
+			Result:=(predicate.item([a_unicode_character]).to_integer).to_boolean
+		end
+	
+	predicate: PREDICATE[TUPLE[INTEGER_32]]
 
 end

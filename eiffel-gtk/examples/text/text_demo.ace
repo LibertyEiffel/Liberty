@@ -25,7 +25,7 @@ cluster -- section
 	gtk: "${eiffel_libraries}/eiffel-gtk/loadpath.se"
 	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
 	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
-	pando: "${eiffel_libraries}/eiffel-pango/loadpath.se"
+	pango: "${eiffel_libraries}/eiffel-pango/loadpath.se"
 
 	text_demo: "."
 
