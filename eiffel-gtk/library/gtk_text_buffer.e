@@ -59,7 +59,7 @@ feature -- Operations
 
 feature -- Access
 
--- Waiting to get GtkTextIter's going before uncommenting this
+	-- Waiting to get GtkTextIter's going before uncommenting this
 
 	text (a_start, an_end: GTK_TEXT_ITER; include_hidden_chars: BOOLEAN): STRING is
 			-- the text in the range [`a_start',`an_end'). Excludes
@@ -138,21 +138,35 @@ feature -- Access
 		do
 			gtk_text_buffer_insert_at_cursor (handle, some_text.to_external, a_length)
 		end
+
+	is_successful: BOOLEAN
+			-- Have the last operation been successful? Typically updated 
+			-- by insertion commands
+
+	insert_interactive (an_iter: GTK_TEXT_ITER; a_text: STRING;
+							  a_length: INTEGER; default_editable: BOOLEAN) is
+			-- Like `insert_at', but the insertion will not occur if
+			-- `an_iter' is at a non-editable location in the
+			-- buffer. Usually you want to prevent insertions at
+			-- ineditable locations if the insertion results from a user
+			-- action (is interactive).
 	
-	-- TODO: gboolean gtk_text_buffer_insert_interactive (GtkTextBuffer
-	-- *buffer, GtkTextIter *iter, const gchar *text, gint len,
-	-- gboolean default_editable);
+			-- `default_editable' indicates the editability of text that
+			-- doesn't have a tag affecting editability applied to
+			-- it. Typically the result of GTK_TEXT_VIEW's `is_editable'
+			-- is appropriate here.
 	
-	-- Like gtk_text_buffer_insert(), but the insertion will not occur if iter is at a non-editable location in the buffer. Usually you want to prevent insertions at ineditable locations if the insertion results from a user action (is interactive).
-	
-	-- default_editable indicates the editability of text that doesn't have a tag affecting editability applied to it. Typically the result of gtk_text_view_get_editable() is appropriate here.
-	
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	a position in buffer
-	-- text : 	some UTF-8 text
-	-- len : 	length of text in bytes, or -1
-	-- default_editable : 	default editability of buffer
-	-- Returns : 	whether text was actually inserted
+			-- `an_iter': a position in buffer
+			-- `a_text': some UTF-8 text
+			-- `a_length': length of text in bytes, or -1
+			-- `default_editable': default editability of buffer
+			-- `is_successful' is set to True whether text was actually inserted
+		do
+			is_successful := (gtk_text_buffer_insert_interactive
+									(handle, an_iter.handle
+									 a_text.to_external, a_length,
+									 default_editable.to_integer)).to_boolean
+		end
 	
 	-- gtk_text_buffer_insert_interactive_at_cursor ()
 
