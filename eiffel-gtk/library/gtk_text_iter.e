@@ -25,14 +25,34 @@ indexing
 						 ]"
 
 class GTK_TEXT_ITER
-
+	
 inherit
 	SHARED_C_STRUCT
-		redefine dispose, copy, is_equal end
-			 -- This class isn't really shared, but we need to make it conform
-			 -- to SHARED_C_STRUCT to be able to create G_SLISTs with it.
+		-- Note: This class isn't really shared, but we need to make it
+		-- conform to SHARED_C_STRUCT to be able to create G_SLISTs with
+		-- it. It should be expanded, if Smarteiffel implements
+		-- disposing expanded objects.
+		redefine 
+			dispose, 
+			copy, 
+			is_equal 
+		end
+	
+	COMPARABLE
+		redefine 
+			copy, 
+			is_equal, 
+			-- infix "<", 
+			infix "<=",
+			infix ">", 
+			infix ">=",
+			in_range,
+			compare, three_way_comparison
+		end
 
-insert GTK
+insert 
+	GTK
+	GTK_TEXT_SEARCH_FLAGS
 
 creation make, from_external_pointer, copy
 
@@ -1010,68 +1030,108 @@ feature -- Iterator-like
 			end
 		end
 
-	-- gtk_text_iter_backward_find_char ()
+	backward_find_char (a_predicate: PREDICATE[TUPLE[INTEGER_32]]; a_limit: GTK_TEXT_ITER) is
+			-- Same as `forward_find_char', but goes backward from iter.
+		local ca: POINTER
+		do
+			ca:=	callback_array($callback)
+			if a_limit=Void
+			 then is_found:=gtk_text_iter_backward_find_char
+				(handle, $hidden_callback,
+				 ca, -- i.e.: user_data,
+				 default_pointer -- i.e. no limit
+				 ).to_boolean
+			else is_found:=gtk_text_iter_backward_find_char
+				(handle, $hidden_callback,
+				 ca, -- i.e.: user_data,
+				 a_limit.handle -- i.e. no limit
+				 ).to_boolean
+			end
+		end
 
-	-- gboolean    gtk_text_iter_backward_find_char
-	-- 														  (GtkTextIter *iter,
-	-- 															GtkTextCharPredicate pred,
-	-- 															gpointer user_data,
-	-- 															const GtkTextIter *limit);
+	forward_search (a_string: STRING; some_flags: INTEGER;
+						 a_start_match, an_end_match, a_limit: GTK_TEXT_ITER) is
+			-- Searches forward for `a_string'. Any match is returned by
+			-- setting `a_match_start' to the first character of the
+			-- match and `a_match_end' to the first character after the
+			-- match. The search will not continue past `a_limit'. Note
+			-- that a search is a linear or O(n) operation, so you may
+			-- wish to use limit to avoid locking up your UI on large
+			-- buffers.
 
-	-- Same as gtk_text_iter_forward_find_char(), but goes backward from iter.
+			-- If the `gtk_text_search_visible_only' flag is present, the
+			-- match may have invisible text interspersed in
+			-- `a_string'. i.e. it will be a possibly-noncontiguous
+			-- subsequence of the matched range. similarly, if you
+			-- specify `gtk_text_search_text_only,' the match may have
+			-- pixbufs or child widgets mixed inside the matched
+			-- range. If these flags are not given, the match must be
+			-- exact; the special 0xFFFC character in `a_string' will match
+			-- embedded pixbufs or child widgets.
 
-	-- iter : 	a GtkTextIter
-	-- pred : 	function to be called on each character
-	-- user_data : 	user data for pred
-	-- limit : 	search limit, or NULL for none
-	-- Returns : 	whether a match was found
-	-- enum GtkTextSearchFlags
+			-- `a_string': 	a search string
 
-	-- typedef enum {
-	--   GTK_TEXT_SEARCH_VISIBLE_ONLY = 1 < < 0,
-	--   GTK_TEXT_SEARCH_TEXT_ONLY    = 1 < < 1
-	--   /* Possible future plans: SEARCH_CASE_INSENSITIVE, SEARCH_REGEXP */
-	-- } GtkTextSearchFlags;
+			-- `some_flags': 	flags affecting how the search is done
 
-	-- gtk_text_iter_forward_search ()
+			-- `a_match_start' is set to the location for start of match,
+			-- if not Void NULL
 
-	-- gboolean    gtk_text_iter_forward_search    (const GtkTextIter *iter,
-	-- 															const gchar *str,
-	-- 															GtkTextSearchFlags flags,
-	-- 															GtkTextIter *match_start,
-	-- 															GtkTextIter *match_end,
-	-- 															const GtkTextIter *limit);
+			-- `a_match_end' is set to the location for end of match, if
+			-- it is not Void.
 
-	-- Searches forward for str. Any match is returned by setting match_start to the first character of the match and match_end to the first character after the match. The search will not continue past limit. Note that a search is a linear or O(n) operation, so you may wish to use limit to avoid locking up your UI on large buffers.
+			-- `a_limit' is the bound for the search; Void to indicate
+			-- the end of the buffer.
+			
+			-- `is_found' is set whether a match was found.
 
-	-- If the GTK_TEXT_SEARCH_VISIBLE_ONLY flag is present, the match may have invisible text interspersed in str. i.e. str will be a possibly-noncontiguous subsequence of the matched range. similarly, if you specify GTK_TEXT_SEARCH_TEXT_ONLY, the match may have pixbufs or child widgets mixed inside the matched range. If these flags are not given, the match must be exact; the special 0xFFFC character in str will match embedded pixbufs or child widgets.
+			-- TODO: match start and end iterators passed as arguments
+			-- does not strictly follow the no-side-effects requirement
+			-- usually expected in Eiffel design. Check for a best way to
+			-- wrap this feature.
+		require 
+			string_not_void: a_string /= Void
+			valid_flags: are_valid_search_flags(some_flags)
+		local smp, emp, lp: POINTER
+		do
+			if a_start_match/=Void then smp:=a_start_match.handle end
+			if an_end_match/=Void then emp:=an_end_match.handle end
+			if a_limit/=Void then lp:=a_limit.handle end
+			is_found:=gtk_text_iter_forward_search(handle,a_string.to_external,
+																some_flags,
+																smp, emp, lp).to_boolean
+		end
 
-	-- iter : 	start of search
-	-- str : 	a search string
-	-- flags : 	flags affecting how the search is done
-	-- match_start : 	return location for start of match, or NULL
-	-- match_end : 	return location for end of match, or NULL
-	-- limit : 	bound for the search, or NULL for the end of the buffer
-	-- Returns : 	whether a match was found
-	-- gtk_text_iter_backward_search ()
+	backward_search (a_string: STRING; some_flags: INTEGER;
+						 a_start_match, an_end_match, a_limit: GTK_TEXT_ITER) is
+			-- Same as `forward_search', but moves backward.
+		require 
+			string_not_void: a_string /= Void
+			valid_flags: are_valid_search_flags(some_flags)
+		local smp, emp, lp: POINTER
+		do
+			if a_start_match/=Void then smp:=a_start_match.handle end
+			if an_end_match/=Void then emp:=an_end_match.handle end
+			if a_limit/=Void then lp:=a_limit.handle end
+			is_found:=gtk_text_iter_backward_search(handle,a_string.to_external,
+																some_flags,
+																smp, emp, lp).to_boolean
+		end
 
-	-- gboolean    gtk_text_iter_backward_search   (const GtkTextIter *iter,
-	-- 															const gchar *str,
-	-- 															GtkTextSearchFlags flags,
-	-- 															GtkTextIter *match_start,
-	-- 															GtkTextIter *match_end,
-	-- 															const GtkTextIter *limit);
+	order (another: GTK_TEXT_ITER) is
+			-- Swaps the value of Current and `another' if `another'
+			-- comes before Current in the buffer. That is, ensures that
+			-- Current and `another' are in sequence. Most text buffer
+			-- functions that take a range call this automatically on
+			-- your behalf, so there's no real reason to call it yourself
+			-- in those cases. There are some exceptions, such as
+			-- `in_range', that expect a pre-sorted range.
+		require another_not_void: another /= Void
+		do
+			gtk_text_iter_order (handle, another.handle)
+		ensure ordered: Current <= another
+		end
 
-	-- Same as gtk_text_iter_forward_search(), but moves backward.
-
-	-- iter : 	a GtkTextIter where the search begins
-	-- str : 	search string
-	-- flags : 	bitmask of flags affecting the search
-	-- match_start : 	return location for start of match, or NULL
-	-- match_end : 	return location for end of match, or NULL
-	-- limit : 	location of last possible match_start, or NULL for start of buffer
-	-- Returns : 	whether a match was found
-
+feature -- Comparability
 	is_equal (another: like Current): BOOLEAN is
 			-- Tests whether two iterators (Current and `another') are
 			-- equal, using the fastest possible mechanism. This function
@@ -1083,38 +1143,49 @@ feature -- Iterator-like
 			Result := (gtk_text_iter_equal (handle, another.handle)).to_boolean
 		end
 
+	infix "<" (other: like Current): BOOLEAN is
+		do
+			Result:= compare(other)<0
+		end
 
-	-- gtk_text_iter_compare ()
+	infix "<=" (other: like Current): BOOLEAN is
+		do				
+			Result:= compare(other)<=0
+		end
 
-	-- gint        gtk_text_iter_compare           (const GtkTextIter *lhs,
-	-- 															const GtkTextIter *rhs);
+	infix ">" (other: like Current): BOOLEAN is
+		do
+			Result:= compare(other)>0
+		end
 
-	-- A qsort()-style function that returns negative if lhs is less than rhs, positive if lhs is greater than rhs, and 0 if they're equal. Ordering is in character offset order, i.e. the first character in the buffer is less than the second character in the buffer.
+	infix ">=" (other: like Current): BOOLEAN is
+		do
+			Result:= compare(other)>=0
+		end
 
-	-- lhs : 	a GtkTextIter
-	-- rhs : 	another GtkTextIter
-	-- Returns : 	-1 if lhs is less than rhs, 1 if lhs is greater, 0 if they are equal
-	-- gtk_text_iter_in_range ()
+	in_range (lower, upper: like Current): BOOLEAN is
+			-- Does Current fall in the range [lower, upper). 
+		require 
+			ascending_order: lower <= upper
+		do		
+			Result:=gtk_text_iter_in_range(handle, lower.handle, upper.handle).to_boolean
+		end
 
-	-- gboolean    gtk_text_iter_in_range          (const GtkTextIter *iter,
-	-- 															const GtkTextIter *start,
-	-- 															const GtkTextIter *end);
+	three_way_comparison (other: like Current): INTEGER is
+		obsolete "Please use compare"
+		do
+			Result:=compare(other)
+		end
 
-	-- Checks whether iter falls in the range [start, end). start and end must be in ascending order.
-
-	-- iter : 	a GtkTextIter
-	-- start : 	start of range
-	-- end : 	end of range
-	-- Returns : 	TRUE if iter is in the range
-	-- gtk_text_iter_order ()
-
-	-- void        gtk_text_iter_order             (GtkTextIter *first,
-	-- 															GtkTextIter *second);
-
-	-- Swaps the value of first and second if second comes before first in the buffer. That is, ensures that first and second are in sequence. Most text buffer functions that take a range call this automatically on your behalf, so there's no real reason to call it yourself in those cases. There are some exceptions, such as gtk_text_iter_in_range(), that expect a pre-sorted range.
-
-	-- first : 	a GtkTextIter
-	-- second : 	another GtkTextIter
+	compare (another: like Current): INTEGER is
+			-- A qsort()-style function that returns negative if Current
+			-- is less than `another,' positive if Current is greater
+			-- than `another,' and 0 if they're equal. Ordering is in
+			-- character offset order, i.e. the first character in the
+			-- buffer is less than the second character in the buffer.
+		do
+			Result:=gtk_text_iter_compare(handle, another.handle)
+		end
 
 feature -- size
 
