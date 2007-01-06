@@ -72,12 +72,12 @@ feature -- Access
 			-- `slice'
 		do
 			create  Result.from_external (gtk_text_buffer_get_text
-			                              (handle,
-			                               a_start.handle, an_end.handle,
-			                               include_hidden_chars.to_integer))
+													(handle,
+													 a_start.handle, an_end.handle,
+													 include_hidden_chars.to_integer))
 			-- Gtk function returns an allocated UTF-8 string; AFAIK we
 			-- can just use from_external. Paolo 2006-07-03
-           
+			  
 			-- If Gtk is going to free this text, we should be using
 			-- from_external_copy instead!
 		end
@@ -168,57 +168,80 @@ feature -- Access
 									 default_editable.to_integer)).to_boolean
 		end
 	
-	-- gtk_text_buffer_insert_interactive_at_cursor ()
+	insert_interactive_at_cursor (a_text: STRING; a_length: INTEGER; default_editable: BOOLEAN) is
+			-- Calls `insert_interactive' at the cursor position.
 
-	-- gboolean    gtk_text_buffer_insert_interactive_at_cursor
-	--                                             (GtkTextBuffer *buffer,
-	--                                              const gchar *text,
-	--                                              gint len,
-	--                                              gboolean default_editable);
+			-- `default_editable' indicates the editability of text that
+			-- doesn't have a tag affecting editability applied to
+			-- it. Typically the result of GTK_TEXT_VIEW's `is_editable'
+			-- is appropriate here.
 
-	-- Calls gtk_text_buffer_insert_interactive() at the cursor position.
+			-- `a_text': text in UTF-8 format
+		
+			-- `a_length': length of text in bytes, or -1
+		
+			-- `default_editable': default editability of buffer
+		
+			-- `is_successful' is updated (i.e. True whether text was
+			-- actually inserted, false otherwise).
+		do
+			is_successful:=(gtk_text_buffer_insert_interactive_at_cursor
+								 (handle, a_text.to_external, a_length,
+								  default_editable.to_integer)).to_boolean
+		end
 
-	-- default_editable indicates the editability of text that doesn't have a tag affecting editability applied to it. Typically the result of gtk_text_view_get_editable() is appropriate here.
+	
+	insert_range (an_iter, a_start, an_end: GTK_TEXT_ITER) is
+			-- Copies text, tags, and pixbufs between `a_start' and
+			-- `an_end' (the order of start and end doesn't matter) and
+			-- inserts the copy at `an_iter'. Used instead of simply
+			-- getting/inserting text because it preserves images and
+			-- tags. If start and end are in a different buffer from
+			-- buffer, the two buffers must share the same tag table.
 
-	-- buffer : 	a GtkTextBuffer
-	-- text : 	text in UTF-8 format
-	-- len : 	length of text in bytes, or -1
-	-- default_editable : 	default editability of buffer
-	-- Returns : 	whether text was actually inserted
-	-- gtk_text_buffer_insert_range ()
+			-- Implemented via emissions of the `insert_text' and
+			-- `apply_tag' signals, so expect those.
 
-	-- void        gtk_text_buffer_insert_range    (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              const GtkTextIter *start,
-	--                                              const GtkTextIter *end);
+			-- `a_start' and `an_end' are positions in the same
+			-- GtkTextBuffer
 
-	-- Copies text, tags, and pixbufs between start and end (the order of start and end doesn't matter) and inserts the copy at iter. Used instead of simply getting/inserting text because it preserves images and tags. If start and end are in a different buffer from buffer, the two buffers must share the same tag table.
+			-- `is_successful' is updated (i.e. True whether text was
+			-- actually inserted, false otherwise).
+		require
+			iter_not_void: an_iter /= Void
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+			start_and_end_in_the_same_buffer: a_start.buffer = an_end.buffer
+		do
+			is_successful:=(gtk_text_buffer_insert_range
+								 (handle, an_iter.handle,
+								  a_start.handle, an_end.handle)).to_boolean
+		end
 
-	-- Implemented via emissions of the insert_text and apply_tag signals, so expect those.
+	insert_range_interactive (an_iter, a_start, an_end: GTK_TEXT_ITER;
+									  default_editable: BOOLEAN) is
+			-- Same as `insert_range', but does nothing if the insertion
+			-- point isn't editable. The `default_editable' parameter
+			-- indicates whether the text is editable at iter if no tags
+			-- enclosing `an_iter' affect editability. Typically the result of
+			-- GTK_TEXT_VIEW's `is_editable' is appropriate here.
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	a position in buffer
-	-- start : 	a position in a GtkTextBuffer
-	-- end : 	another position in the same buffer as start
-	-- gtk_text_buffer_insert_range_interactive ()
+			-- `is_successful' is updated (i.e. True whether text was
+			-- actually inserted, false otherwise).
+		require
+			iter_not_void: an_iter /= Void
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+			start_and_end_in_the_same_buffer: a_start.buffer = an_end.buffer
+		do
+			is_successful:=(gtk_text_buffer_insert_range_interactive
+								 (handle, an_iter.handle,
+								  a_start.handle, an_end.handle,
+								  default_editable.to_integer)).to_boolean
+		end
 
-	-- gboolean    gtk_text_buffer_insert_range_interactive
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              const GtkTextIter *start,
-	--                                              const GtkTextIter *end,
-	--                                              gboolean default_editable);
-
-	-- Same as gtk_text_buffer_insert_range(), but does nothing if the insertion point isn't editable. The default_editable parameter indicates whether the text is editable at iter if no tags enclosing iter affect editability. Typically the result of gtk_text_view_get_editable() is appropriate here.
-
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	a position in buffer
-	-- start : 	a position in a GtkTextBuffer
-	-- end : 	another position in the same buffer as start
-	-- default_editable : 	default editability of the buffer
-	-- Returns : 	whether an insertion was possible at iter
-
-	insert_with_tags (an_iter: GTK_TEXT_ITER; some_text: STRING; some_tags: COLLECTION[GTK_TEXT_TAG]) is
+	insert_with_tags (an_iter: GTK_TEXT_ITER; some_text: STRING; 
+							some_tags: COLLECTION[GTK_TEXT_TAG]) is
 			-- Inserts `some_text' into buffer at `an_iter', applying the
 			-- list of tags to the newly-inserted text. Equivalent to
 			-- calling `insert_at', then `apply_tag' on the inserted
@@ -251,7 +274,8 @@ feature -- Access
 			end
 		end
 
-	insert_with_tags_by_name (an_iter: GTK_TEXT_ITER; some_text: STRING; some_tag_names: COLLECTION[STRING]) is
+	insert_with_tags_by_name (an_iter: GTK_TEXT_ITER; some_text: STRING; 
+									  some_tag_names: COLLECTION[STRING]) is
 			-- Inserts `some_text' into buffer at `an_iter', applying the
 			-- list of tags to the newly-inserted text.  Same as
 			-- `insert_with_tags', but allows you to pass in tag names
@@ -286,239 +310,378 @@ feature -- Access
 			end
 		end
 
-	-- gtk_text_buffer_delete ()
+	delete (a_start, an_end: GTK_TEXT_ITER) is
+			-- Deletes text between `a_start' and `an_end'. The order of
+			-- start and end is not actually relevant; `delete' will
+			-- reorder them. This function actually emits the
+			-- "delete_range" signal, and the default handler of that
+			-- signal deletes the text. Because the buffer is modified,
+			-- all outstanding iterators become invalid after calling
+			-- this function; however, the start and end will be
+			-- re-initialized to point to the location where text was
+			-- deleted.
+		require
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+			start_in_current_buffer: a_start.buffer = Current
+			end_in_current_buffer: an_end.buffer = Current
+		do
+			gtk_text_buffer_delete(handle, a_start.handle, an_end.handle)
+		ensure
+			ordered_iterators: a_start <= an_end
+			ordering_could_have_changed_iterators: (((old a_start) >= (old an_end)) implies
+																 (a_start.is_equal(old an_end) and
+																  (an_end.is_equal(old a_start))))
+		end
 
-	-- void        gtk_text_buffer_delete          (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *start,
-	--                                              GtkTextIter *end);
+	delete_interactive (a_start, an_end: GTK_TEXT_ITER;
+							  default_editable: BOOLEAN) is
+			-- Deletes all editable text in the given range. Calls
+			-- `buffer_delete' for each editable sub-range of [`a_start',
+			-- `an_end'). `a_start' and `an_end' are revalidated to point to the
+			-- location of the last deleted range, or left untouched if
+			-- no text was deleted.
+			
+			-- `a_start': start of range to delete
 
-	-- Deletes text between start and end. The order of start and end is not actually relevant; gtk_text_buffer_delete() will reorder them. This function actually emits the "delete_range" signal, and the default handler of that signal deletes the text. Because the buffer is modified, all outstanding iterators become invalid after calling this function; however, the start and end will be re-initialized to point to the location where text was deleted.
+			-- `an_end': end of range
 
-	-- buffer : 	a GtkTextBuffer
-	-- start : 	a position in buffer
-	-- end : 	another position in buffer
-	-- gtk_text_buffer_delete_interactive ()
+			-- `default_editable': whether the buffer is editable by default
 
-	-- gboolean    gtk_text_buffer_delete_interactive
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *start_iter,
-	--                                              GtkTextIter *end_iter,
-	--                                              gboolean default_editable);
+			-- `is_successful' is set to True whether some text was
+			-- actually deleted, False otherwise.
+		do
+			is_successful:=(gtk_text_buffer_delete_interactive
+								 (handle, a_start.handle, an_end.handle,
+								  default_editable.to_integer)).to_boolean
+		end
+	
+	backspace (an_iter: GTK_TEXT_ITER; interactive, default_editable: BOOLEAN) is
+			-- Performs the appropriate action as if the user hit the
+			-- delete key with the cursor at the position specified by
+			-- iter. In the normal case a single character will be
+			-- deleted, but when combining accents are involved, more
+			-- than one character can be deleted, and when precomposed
+			-- character and accent combinations are involved, less than
+			-- one character will be deleted.
 
-	-- Deletes all editable text in the given range. Calls gtk_text_buffer_delete() for each editable sub-range of [start,end). start and end are revalidated to point to the location of the last deleted range, or left untouched if no text was deleted.
+			-- Because the buffer is modified, all outstanding iterators
+			-- become invalid after calling this function; however, the
+			-- iter will be re-initialized to point to the location where
+			-- text was deleted.
 
-	-- buffer : 	a GtkTextBuffer
-	-- start_iter : 	start of range to delete
-	-- end_iter : 	end of range
-	-- default_editable : 	whether the buffer is editable by default
-	-- Returns : 	whether some text was actually deleted
-	-- gtk_text_buffer_backspace ()
+			-- `an_iter': a position in buffer
+		
+			-- `interactive': whether the deletion is caused by user
+			-- interaction
+		
+			-- `default_editable': whether the buffer is editable by
+			-- default 
 
-	-- gboolean    gtk_text_buffer_backspace       (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              gboolean interactive,
-	--                                              gboolean default_editable);
+			-- `is_successful' is set to True if the buffer was modified,
+			-- False otherwise.
+		require
+			iter_not_void: an_iter /= Void
+			iter_in_current_buffer: an_iter.buffer = Current
+		do
+			is_successful:=(gtk_text_buffer_backspace       
+								 (handle, an_iter.handle,
+								  interactive.to_integer, 
+								  default_editable.to_integer)).to_boolean
+		end
 
-	-- Performs the appropriate action as if the user hit the delete key with the cursor at the position specified by iter. In the normal case a single character will be deleted, but when combining accents are involved, more than one character can be deleted, and when precomposed character and accent combinations are involved, less than one character will be deleted.
+	set_text (a_text: STRING; a_lenght: INTEGER) is
+			-- Deletes current contents of buffer, and inserts `a_text'
+			-- instead. If `a_length' is -1, text must be
+			-- nul-terminated. text must be valid UTF-8.
 
-	-- Because the buffer is modified, all outstanding iterators become invalid after calling this function; however, the iter will be re-initialized to point to the location where text was deleted.
+			-- `a_text': UTF-8 text to insert
+			-- `a_length' : 	length of text in bytes
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	a position in buffer
-	-- interactive : 	whether the deletion is caused by user interaction
-	-- default_editable : 	whether the buffer is editable by default
-	-- Returns : 	TRUE if the buffer was modified
+			-- TODO: implement UTF8_STRING
+		require 
+			text_not_void: a_text /= Void
+			text_is_utf8: -- TODO
+		do
+			gtk_text_buffer_set_text (handle, a_text.to_external, a_length)
+		end
 
-	-- Since 2.6
-	-- gtk_text_buffer_set_text ()
+	text  (a_start, an_end: GTK_TEXT_ITER; 
+			 include_hidden_chars: BOOLEAN): STRING is
+			-- the text in the range [`a_start'`,an_end'). Excludes
+			-- undisplayed text (text marked with tags that set the
+			-- invisibility attribute) if `include_hidden_chars' is
+			-- False. Does not include characters representing embedded
+			-- images, so byte and character indexes into the returned
+			-- string do not correspond to byte and character indexes
+			-- into the buffer. Contrast with `slice'.
+			
+			-- `a_start' : 	start of a range
 
-	-- void        gtk_text_buffer_set_text        (GtkTextBuffer *buffer,
-	--                                              const gchar *text,
-	--                                              gint len);
+			-- `an_end' : 	end of a range
 
-	-- Deletes current contents of buffer, and inserts text instead. If len is -1, text must be nul-terminated. text must be valid UTF-8.
+			-- include_hidden_chars : 	whether to include invisible text
+		obsolete "Result 's type will be changed to UTF8_STRING when this class will be available"
+		require
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+			start_in_current_buffer: a_start.buffer = Current
+			end_in_current_buffer: an_end.buffer = Current
+		do
+			create Result.from_external
+			(gtk_text_buffer_get_text (handle, 
+												a_start.handle, an_end.handle,
+												include_hidden_chars.to_integer))
+		ensure 
+			not_void: Result /= Void
+		end
+	
+	slice  (a_start, an_end: GTK_TEXT_ITER; 
+			 include_hidden_chars: BOOLEAN): STRING is
+			-- the text in the range [`a_start,' `an_end'). Excludes
+			-- undisplayed text (text marked with tags that set the
+			-- invisibility attribute) if `include_hidden_chars' is
+			-- FALSE. The string includes a 0xFFFC character whenever the
+			-- buffer contains embedded images, so byte and character
+			-- indexes into Result do correspond to byte and character
+			-- indexes into the buffer. Contrast with `text'. Note that
+			-- 0xFFFC can occur in normal text as well, so it is not a
+			-- reliable indicator that a pixbuf or widget is in the
+			-- buffer.
 
-	-- buffer : 	a GtkTextBuffer
-	-- text : 	UTF-8 text to insert
-	-- len : 	length of text in bytes
-	-- gtk_text_buffer_get_text ()
+			-- `a_start' : 	start of a range
 
-	-- gchar*      gtk_text_buffer_get_text        (GtkTextBuffer *buffer,
-	--                                              const GtkTextIter *start,
-	--                                              const GtkTextIter *end,
-	--                                              gboolean include_hidden_chars);
+			-- `an_end' : 	end of a range
 
-	-- Returns the text in the range [start,end). Excludes undisplayed text (text marked with tags that set the invisibility attribute) if include_hidden_chars is FALSE. Does not include characters representing embedded images, so byte and character indexes into the returned string do not correspond to byte and character indexes into the buffer. Contrast with gtk_text_buffer_get_slice().
+			-- include_hidden_chars : whether to include invisible text
+		obsolete "Result will be changed to UTF8_STRING when this class will be available"
+		require
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+			start_in_current_buffer: a_start.buffer = Current
+			end_in_current_buffer: an_end.buffer = Current
+		do
+			create Result.from_external
+			(gtk_text_buffer_get_slice (handle,
+												 a_start.handle, an_end.handle,
+												 include_hidden_chars.to_integer))
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- start : 	start of a range
-	-- end : 	end of a range
-	-- include_hidden_chars : 	whether to include invisible text
-	-- Returns : 	an allocated UTF-8 string
-	-- gtk_text_buffer_get_slice ()
+	insert_pixbuf (an_iter: GTK_TEXT_ITER; an_image: GDK_PIXBUF) is
+			-- Inserts `an_image' into the text buffer at `an_iter'. The
+			-- image will be counted as one character in character
+			-- counts, and when obtaining the buffer contents as a
+			-- string, will be represented by the Unicode "object
+			-- replacement character" 0xFFFC. Note that the "slice"
+			-- variants for obtaining portions of the buffer as a string
+			-- include this character for pixbufs, but the "text"
+			-- variants do not. e.g. see `slice' and `text'.
+		
+			-- `an_iter' : location to insert the pixbuf
+		require
+			iter_not_void: an_iter /= Void
+			image_not_void: an_image /= Void
+			iter_in_current_buffer: an_iter.buffer = Current
+		do
+			gtk_text_buffer_insert_pixbuf (handle, an_iter.handle, an_image.handle)
+		end
 
-	-- gchar*      gtk_text_buffer_get_slice       (GtkTextBuffer *buffer,
-	--                                              const GtkTextIter *start,
-	--                                              const GtkTextIter *end,
-	--                                              gboolean include_hidden_chars);
+	insert_child_anchor (an_iter: GTK_TEXT_ITER; an_anchor: GTK_TEXT_CHILD_ANCHOR) is
+			-- Inserts a child widget anchor (`an_anchor') into the text
+			-- buffer at `an_iter'. The anchor will be counted as one
+			-- character in character counts, and when obtaining the
+			-- buffer contents as a string, will be represented by the
+			-- Unicode "object replacement character" 0xFFFC. Note that
+			-- the `slice' feature- used to obtain portions of the buffer
+			-- as a string - include this character for child anchors,
+			-- but the `text' feature do not.  Consider
+			-- `create_child_anchor' as a more convenient alternative to
+			-- this function. The buffer will add a reference to the
+			-- anchor, so you can `unref' it after insertion.
 
-	-- Returns the text in the range [start,end). Excludes undisplayed text (text marked with tags that set the invisibility attribute) if include_hidden_chars is FALSE. The returned string includes a 0xFFFC character whenever the buffer contains embedded images, so byte and character indexes into the returned string do correspond to byte and character indexes into the buffer. Contrast with gtk_text_buffer_get_text(). Note that 0xFFFC can occur in normal text as well, so it is not a reliable indicator that a pixbuf or widget is in the buffer.
+			-- `an_iter' : location to insert the anchor
+		require
+			iter_not_void: an_iter /= Void
+			anchor_not_void: an_anchor /= Void
+			iter_in_current_buffer: an_iter.buffer = Current
+		do
+			gtk_text_buffer_insert_child_anchor(handle, an_iter.handle, an_anchor.handle)
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- start : 	start of a range
-	-- end : 	end of a range
-	-- include_hidden_chars : 	whether to include invisible text
-	-- Returns : 	an allocated UTF-8 string
-	-- gtk_text_buffer_insert_pixbuf ()
+	child_anchor_at (an_iter: GTK_TREE_ITER): GTK_TEXT_CHILD_ANCHOR is
+			-- A newly created child anchor, inserted into the buffer at `an_iter'. 
+		require
+			iter_not_void: an_iter /= Void
+			anchor_not_void: an_anchor /= Void
+			iter_in_current_buffer: an_iter.buffer = Current
+		do
+			create Result.from_external_pointer (gtk_text_buffer_create_child_anchor (handle, an_iter))
+			-- Note: C documentation says "The new anchor is owned by the
+			-- buffer; no reference count is returned to the caller of
+			-- gtk_text_buffer_create_child_anchor()"; so we have to
+			Result.unref
+			-- because the from_external_pointer ref-ed it.
+		end
 
-	-- void        gtk_text_buffer_insert_pixbuf   (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              GdkPixbuf *pixbuf);
+	create_mark (a_mark_name: STRING; a_place: GTK_TEXT_ITER; left_gravity: BOOLEAN): GTK_TEXT_MARK is
+			-- Creates a mark at `a_place'. If mark_name is NULL, the
+			-- mark is anonymous; otherwise, the mark can be retrieved by
+			-- name using `mark'. If a mark has left gravity, and text is
+			-- inserted at the mark's current location, the mark will be
+			-- moved to the left of the newly-inserted text. If the mark
+			-- has right gravity (`left_gravity' = False), the mark will
+			-- end up on the right of newly-inserted text. The standard
+			-- left-to-right cursor is a mark with right gravity (when
+			-- you type, the cursor stays on the right side of the text
+			-- you're typing).
 
-	-- Inserts an image into the text buffer at iter. The image will be counted as one character in character counts, and when obtaining the buffer contents as a string, will be represented by the Unicode "object replacement character" 0xFFFC. Note that the "slice" variants for obtaining portions of the buffer as a string include this character for pixbufs, but the "text" variants do not. e.g. see gtk_text_buffer_get_slice() and gtk_text_buffer_get_text().
+			-- Emits the "mark_set" signal as notification of the mark's
+			-- initial placement.
+		require 
+			name_not_void: a_mark_name /= Void
+			iter_not_void: an_iter /= Void
+			iter_in_current_buffer: an_iter.buffer = Current
+		do
+			create Result.from_external_pointer
+			(gtk_text_buffer_create_mark (handle, a_mark_name.to_external,
+													left_gravity.to_integer))
+			-- The caller of this function does not own a reference to
+			-- the returned GtkTextMark, so you can ignore the return
+			-- value if you like. Marks are owned by the buffer and go
+			-- away when the buffer does.
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	location to insert the pixbuf
-	-- pixbuf : 	a GdkPixbuf
-	-- gtk_text_buffer_insert_child_anchor ()
+	move_mark (a_mark: GTK_TEXT_MARK; a_new_location: GTK_TEXT_ITER) is
+			-- Moves `a_mark' to `a_new_location'. Emits the "mark_set"
+			-- signal as notification of the move.
+		require 
+			mark_not_void: a_mark /= Void
+			iter_not_void: a_new_location /= Void
+			iter_in_current_buffer: a_new_location.buffer = Current
+		do
+			gtk_text_buffer_move_mark (handle, a_mark.handle, where.handle)
+		end
+	
+	move_mark_by_name (a_name: STRING; a_new_location: GTK_TEXT_ITER) is
+			-- Moves the mark named `a_name' (which must exist) to
+			-- `a_new_location' where. See `move_mark' for details.
+		require 
+			name_not_void: a_name /= Void
+			named_mark_exists: mark (a_name) /= Void 
+			-- Note: the above precondition is not a monster of
+			-- efficiency... it could have been made faster
+		do
+			gtk_text_buffer_move_mark_by_name(handle, a_name.to_external, a_new_location.handle)
+		end
 
-	-- void        gtk_text_buffer_insert_child_anchor
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              GtkTextChildAnchor *anchor);
+	delete_mark (a_mark: GTK_TEXT_MARK) is
+			-- Deletes `a_mark,' so that it's no longer located anywhere
+			-- in the buffer. Removes the reference the buffer holds to
+			-- the mark, so if you haven't called g_object_ref() on the
+			-- mark, it will be freed. Even if the mark isn't freed, most
+			-- operations on mark become invalid. There is no way to
+			-- undelete a mark. 
 
-	-- Inserts a child widget anchor into the text buffer at iter. The anchor will be counted as one character in character counts, and when obtaining the buffer contents as a string, will be represented by the Unicode "object replacement character" 0xFFFC. Note that the "slice" variants for obtaining portions of the buffer as a string include this character for child anchors, but the "text" variants do not. e.g. see gtk_text_buffer_get_slice() and gtk_text_buffer_get_text(). Consider gtk_text_buffer_create_child_anchor() as a more convenient alternative to this function. The buffer will add a reference to the anchor, so you can unref it after insertion.
+			-- The "mark_deleted" signal will be emitted as notification
+			-- after the mark is deleted.
+		require mark_not_void: a_mark /= Void
+		do
+			gtk_text_buffer_delete_mark (handle, a_mark.handle)
+		ensure mark_deleted: a_mark.is_deleted 
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	location to insert the anchor
-	-- anchor : 	a GtkTextChildAnchor
-	-- gtk_text_buffer_create_child_anchor ()
+	delete_mark_by_name (a_name: STRING) is
+			-- Deletes the mark named `a_name'; the mark must exist. See
+			-- `delete_mark' for details.
+		require 
+			name_not_void: a_name /= Void
+			named_mark_exists: mark(a_name) /= Void
+		do
+			gtk_text_buffer_delete_mark_by_name (handle, a_name.to_external)
+		end
 
-	-- GtkTextChildAnchor* gtk_text_buffer_create_child_anchor
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter);
+	mark (a_name: STRING): GTK_TEXT_MARK is
+			-- the mark named `a_name' in Current buffer, or Void if no
+			-- such mark exists in the buffer.
+		require 
+			name_not_void: a_name /= Void
+		do
+			create Result.from_external_pointer(gtk_text_buffer_get_mark (handle, a_name.to_external))
+			-- Note: text mark are not cached because AFAIK once
+			-- invalidated they can't be re-used and must be freed. Paolo
+			-- 2007-01-05
+		end
 
-	-- This is a convenience function which simply creates a child anchor with gtk_text_child_anchor_new() and inserts it into the buffer with gtk_text_buffer_insert_child_anchor(). The new anchor is owned by the buffer; no reference count is returned to the caller of gtk_text_buffer_create_child_anchor().
+	insert_mark: GTK_TEXT_MARK is
+			-- the mark that represents the cursor (insertion
+			-- point). Equivalent to calling `mark(once "insert")' but very
+			-- slightly more efficient, and involves less typing.
+		do
+			create Result.from_external_pointer(gtk_text_buffer_get_insert(handle))
+			-- Note: text mark are not cached because AFAIK once
+			-- invalidated they can't be re-used and must be freed. Paolo
+			-- 2007-01-05
+		end
+	
+	selection_bound: GTK_TEXT_MARK is
+			-- the mark that represents the selection bound. Equivalent
+			-- to calling `mark(once "selection_bound")', but very slightly
+			-- more efficient, and involves less typing.
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	location in the buffer
-	-- Returns : 	the created child anchor
-	-- gtk_text_buffer_create_mark ()
+			-- The currently-selected text in buffer is the region
+			-- between the "selection_bound" and "insert" marks. If
+			-- "selection_bound" and "insert" are in the same place, then
+			-- there is no current selection. `selection_bounds' is
+			-- another convenient function for handling the selection, if
+			-- you just want to know whether there's a selection and what
+			-- its bounds are.
+		do
+			create Result.from_external_pointer(gtk_text_buffer_get_selection_bound(handle))
+			-- Note: text mark are not cached because AFAIK once
+			-- invalidated they can't be re-used and must be freed. Paolo
+			-- 2007-01-05
+		end
+	
+	place_cursor (where: GTK_TEXT_ITER) is
+			-- Moves the "insert" and "selection_bound" marks
+			-- simultaneously. If you move them to the same place in two
+			-- steps with `move_mark', you will temporarily select a
+			-- region in between their old and new locations, which can
+			-- be pretty inefficient since the temporarily-selected
+			-- region will force stuff to be recalculated. This function
+			-- moves them as a unit, which can be optimized.
+		require 
+			where_not_void: where /= Void
+			where_in_current_buffer: where.buffer = Current
+		do
+			gtk_text_buffer_place_cursor(handle, where.handle)
+		ensure 
+			insert_mark_moved: insert_mark.is_equal(where)
+			selection_bound_moved: selection_bound.is_equal(where)
+			selection_bound_equal_insert: selection_bound.is_equal(insert_mark)
+		end
 
-	-- GtkTextMark* gtk_text_buffer_create_mark    (GtkTextBuffer *buffer,
-	--                                              const gchar *mark_name,
-	--                                              const GtkTextIter *where,
-	--                                              gboolean left_gravity);
+	select_range (an_insert_mark, a_bound: GTK_TEXT_MARK) is
+			-- moves the "insert" and "selection_bound" marks
+			-- simultaneously. If you move them in two steps with
+			-- `move_mark'), you will temporarily select a region in
+			-- between their old and new locations, which can be pretty
+			-- inefficient since the temporarily-selected region will
+			-- force stuff to be recalculated. This function moves them
+			-- as a unit, which can be optimized.
 
-	-- Creates a mark at position where. If mark_name is NULL, the mark is anonymous; otherwise, the mark can be retrieved by name using gtk_text_buffer_get_mark(). If a mark has left gravity, and text is inserted at the mark's current location, the mark will be moved to the left of the newly-inserted text. If the mark has right gravity (left_gravity = FALSE), the mark will end up on the right of newly-inserted text. The standard left-to-right cursor is a mark with right gravity (when you type, the cursor stays on the right side of the text you're typing).
+			-- `an_insert_mark': 	where to put the "insert" mark
+		
+			-- `a_bound': 	where to put the "selection_bound" mark
+		do
+			gtk_text_buffer_select_range (handle, an_insert_mark.handle, a_bound.handle)
+		end
 
-	-- The caller of this function does not own a reference to the returned GtkTextMark, so you can ignore the return value if you like. Marks are owned by the buffer and go away when the buffer does.
-
-	-- Emits the "mark_set" signal as notification of the mark's initial placement.
-
-	-- buffer : 	a GtkTextBuffer
-	-- mark_name : 	name for mark, or NULL
-	-- where : 	location to place mark
-	-- left_gravity : 	whether the mark has left gravity
-	-- Returns : 	the new GtkTextMark object
-	-- gtk_text_buffer_move_mark ()
-
-	-- void        gtk_text_buffer_move_mark       (GtkTextBuffer *buffer,
-	--                                              GtkTextMark *mark,
-	--                                              const GtkTextIter *where);
-
-	-- Moves mark to the new location where. Emits the "mark_set" signal as notification of the move.
-
-	-- buffer : 	a GtkTextBuffer
-	-- mark : 	a GtkTextMark
-	-- where : 	new location for mark in buffer
-	-- gtk_text_buffer_move_mark_by_name ()
-
-	-- void        gtk_text_buffer_move_mark_by_name
-	--                                             (GtkTextBuffer *buffer,
-	--                                              const gchar *name,
-	--                                              const GtkTextIter *where);
-
-	-- Moves the mark named name (which must exist) to location where. See gtk_text_buffer_move_mark() for details.
-
-	-- buffer : 	a GtkTextBuffer
-	-- name : 	name of a mark
-	-- where : 	new location for mark
-	-- gtk_text_buffer_delete_mark ()
-
-	-- void        gtk_text_buffer_delete_mark     (GtkTextBuffer *buffer,
-	--                                              GtkTextMark *mark);
-
-	-- Deletes mark, so that it's no longer located anywhere in the buffer. Removes the reference the buffer holds to the mark, so if you haven't called g_object_ref() on the mark, it will be freed. Even if the mark isn't freed, most operations on mark become invalid. There is no way to undelete a mark. gtk_text_mark_get_deleted() will return TRUE after this function has been called on a mark; gtk_text_mark_get_deleted() indicates that a mark no longer belongs to a buffer. The "mark_deleted" signal will be emitted as notification after the mark is deleted.
-
-	-- buffer : 	a GtkTextBuffer
-	-- mark : 	a GtkTextMark in buffer
-	-- gtk_text_buffer_delete_mark_by_name ()
-
-	-- void        gtk_text_buffer_delete_mark_by_name
-	--                                             (GtkTextBuffer *buffer,
-	--                                              const gchar *name);
-
-	-- Deletes the mark named name; the mark must exist. See gtk_text_buffer_delete_mark() for details.
-
-	-- buffer : 	a GtkTextBuffer
-	-- name : 	name of a mark in buffer
-	-- gtk_text_buffer_get_mark ()
-
-	-- GtkTextMark* gtk_text_buffer_get_mark       (GtkTextBuffer *buffer,
-	--                                              const gchar *name);
-
-	-- Returns the mark named name in buffer buffer, or NULL if no such mark exists in the buffer.
-
-	-- buffer : 	a GtkTextBuffer
-	-- name : 	a mark name
-	-- Returns : 	a GtkTextMark, or NULL
-	-- gtk_text_buffer_get_insert ()
-
-	-- GtkTextMark* gtk_text_buffer_get_insert     (GtkTextBuffer *buffer);
-
-	-- Returns the mark that represents the cursor (insertion point). Equivalent to calling gtk_text_buffer_get_mark() to get the mark named "insert", but very slightly more efficient, and involves less typing.
-
-	-- buffer : 	a GtkTextBuffer
-	-- Returns : 	insertion point mark
-	-- gtk_text_buffer_get_selection_bound ()
-
-	-- GtkTextMark* gtk_text_buffer_get_selection_bound
-	--                                             (GtkTextBuffer *buffer);
-
-	-- Returns the mark that represents the selection bound. Equivalent to calling gtk_text_buffer_get_mark() to get the mark named "selection_bound", but very slightly more efficient, and involves less typing.
-
-	-- The currently-selected text in buffer is the region between the "selection_bound" and "insert" marks. If "selection_bound" and "insert" are in the same place, then there is no current selection. gtk_text_buffer_get_selection_bounds() is another convenient function for handling the selection, if you just want to know whether there's a selection and what its bounds are.
-
-	-- buffer : 	a GtkTextBuffer
-	-- Returns : 	selection bound mark
-	-- gtk_text_buffer_place_cursor ()
-
-	-- void        gtk_text_buffer_place_cursor    (GtkTextBuffer *buffer,
-	--                                              const GtkTextIter *where);
-
-	-- This function moves the "insert" and "selection_bound" marks simultaneously. If you move them to the same place in two steps with gtk_text_buffer_move_mark(), you will temporarily select a region in between their old and new locations, which can be pretty inefficient since the temporarily-selected region will force stuff to be recalculated. This function moves them as a unit, which can be optimized.
-
-	-- buffer : 	a GtkTextBuffer
-	-- where : 	where to put the cursor
-	-- gtk_text_buffer_select_range ()
-
-	-- void        gtk_text_buffer_select_range    (GtkTextBuffer *buffer,
-	--                                              const GtkTextIter *ins,
-	--                                              const GtkTextIter *bound);
-
-	-- This function moves the "insert" and "selection_bound" marks simultaneously. If you move them in two steps with gtk_text_buffer_move_mark(), you will temporarily select a region in between their old and new locations, which can be pretty inefficient since the temporarily-selected region will force stuff to be recalculated. This function moves them as a unit, which can be optimized.
-
-	-- buffer : 	a GtkTextBuffer
-	-- ins : 	where to put the "insert" mark
-	-- bound : 	where to put the "selection_bound" mark
-
-	-- Since 2.4
 	apply_tag (a_tag: GTK_TEXT_TAG; a_start, an_end: GTK_TEXT_ITER) is
 			-- Emits the "apply_tag" signal on buffer. The default
 			-- handler for the signal applies tag to the given
 			-- range. start and end do not have to be in order.
-            
+				
 			-- `a_tag' : a GtkTextTag
 			-- `a_start' : one bound of range to be tagged
 			-- `an_end' : other bound of range to be tagged
@@ -544,7 +707,7 @@ feature -- Access
 			end_not_void: an_end /= Void
 		do
 			gtk_text_buffer_remove_tag (handle, a_tag.handle,
-			                            a_start.handle, an_end.handle)
+												 a_start.handle, an_end.handle)
 		end
 
 	apply_tag_by_name (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER) is
@@ -560,14 +723,14 @@ feature -- Access
 			end_not_void: an_end /= Void
 		do
 			gtk_text_buffer_apply_tag_by_name (handle,
-			                                   a_tag_name.to_external,
-			                                   a_start.handle, an_end.handle)
+														  a_tag_name.to_external,
+														  a_start.handle, an_end.handle)
 		end
 
 	remove_tag_by_name  (a_tag_name: STRING; a_start, an_end: GTK_TEXT_ITER) is
 			-- Calls `gtk_text_tag_table_lookup' on the buffer's tag
 			-- table to get a GtkTextTag, then calls `remove_tag'.
-           
+			  
 			-- `a_tag_name' : the name of a tag
 			-- `a_start' : one bound of range to be tagged
 			-- `an_end' : other bound of range to be tagged
@@ -577,8 +740,8 @@ feature -- Access
 			end_not_void: an_end /= Void
 		do
 			gtk_text_buffer_remove_tag_by_name (handle,
-			                                    a_tag_name.to_external,
-			                                    a_start.handle, an_end.handle)
+															a_tag_name.to_external,
+															a_start.handle, an_end.handle)
 		end
 
 	remove_all_tags (a_start, an_end: GTK_TEXT_ITER) is
@@ -588,7 +751,7 @@ feature -- Access
 			-- writing. That is, using this function is probably a bad
 			-- idea if you have two or more unrelated code sections that
 			-- add tags.
-            
+				
 			-- `a_start' : one bound of range to be tagged
 			-- `an_end' : other bound of range to be tagged
 		require
@@ -606,7 +769,7 @@ feature -- Access
 			-- to one.
 
 			-- If a_tag_name is Void, the tag is anonymous.
-		    
+			 
 			-- If tag_name is non-Void, a tag called tag_name must not
 			-- already exist in the tag table for this buffer.
 
@@ -689,153 +852,182 @@ feature -- Access
 			create Result.make
 			gtk_text_buffer_get_iter_at_line_index (handle, Result.handle,
 																 a_line_number, a_byte_index)
+		ensure not_void: Result /= Void
 		end
-	-- gtk_text_buffer_get_iter_at_mark ()
+	
+	iter_at_mark (a_mark: GTK_TEXT_MARK): GTK_TEXT_ITER is
+			-- A newly allocated iterator with the current position of `a_mark'.
+		require mark_not_void: a_mark /= Void
+		do
+			create Result.make
+			gtk_text_buffer_get_iter_at_mark(handle, Result.handle, a_mark.handel)
+		ensure not_void: Result /= Void
+		end
 
-	-- void        gtk_text_buffer_get_iter_at_mark
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              GtkTextMark *mark);
+	iter_at_child_anchor (an_anchor: GTK_TEXT_CHILD_ANCHOR): GTK_TEXT_ITER is
+			-- the location of anchor within buffer.
+		require anchor_not_void: an_anchor /= Void
+		do
+			create Result.make
+			gtk_text_buffer_get_iter_at_child_anchor(handle,Result.handle, an_anchor.handle)
+		ensure not_void: Result /= Void
+		end
 
-	-- Initializes iter with the current position of mark.
+	start_iter: GTK_TEXT_ITER is
+			-- A newly created iterator with the first position in the
+			-- text buffer. This is the same as using
+			-- `get_iter_at_offset' to get the iter at character offset
+			-- 0.
+		do
+			create Result.make
+			gtk_text_buffer_get_start_iter(handle, Result.handle)
+		ensure not_void: Result /= Void
+		end
+			
+	end_iter: GTK_TEXT_ITER is
+			-- A newly created iterator with the "end iterator," one past
+			-- the last valid character in the text buffer. If
+			-- dereferenced with `char', the end iterator has a
+			-- character value of 0. The entire buffer lies in the range
+			-- from the first position in the buffer (call
+			-- gtk_text_buffer_get_start_iter() to get character position
+			-- 0) to the end iterator.
+		do
+			create Result.make
+			gtk_text_buffer_get_end_iter(handle, Result.handle)
+		ensure
+			not_void: Result /= Void
+			is_off: Result.is_off
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	iterator to initialize
-	-- mark : 	a GtkTextMark in buffer
-	-- gtk_text_buffer_get_iter_at_child_anchor ()
+	bounds: TUPLE[GTK_TEXT_ITER, GTK_TEXT_ITER] is
+			-- the first and last iterators in the buffer; the entire buffer lies within the range.
+		local a_start, an_end: GTK_TEXT_ITER
+		do
+			create a_start.make; create an_end.make
+			gtk_text_buffer_get_bounds(handle, a_start.handle, an_end.handle)
+			create Result.make_2(a_start, an_end)
+		end
 
-	-- void        gtk_text_buffer_get_iter_at_child_anchor
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter,
-	--                                              GtkTextChildAnchor *anchor);
+	is_modified: BOOLEAN is
+			-- Has the buffer been modified after the last call to
+			-- `set_modified' set it to False. Used for example to enable
+			-- a "save" function in a text editor.
+		do
+			Result := gtk_text_buffer_get_modified(handle).to_boolean
+		end
 
-	-- Obtains the location of anchor within buffer.
+	set_modified (a_setting: BOOLEAN) is
+			-- Used to keep track of whether the buffer has been modified
+			-- since the last time it was saved. Whenever the buffer is
+			-- saved to disk, call `set_modified(False)'. When the buffer
+			-- is modified, it will automatically toggled on the modified
+			-- bit again. When the modified bit flips, the buffer emits a
+			-- "modified_changed" signal.
+		do
+			gtk_text_buffer_set_modified (handle, a_setting.to_boolean)
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	an iterator to be initialized
-	-- anchor : 	a child anchor that appears in buffer
-	-- gtk_text_buffer_get_start_iter ()
+	delete_selection (interactive, default_editable: BOOLEAN) is
+			-- Deletes the range between the "insert" and
+			-- "selection_bound" marks, that is, the currently-selected
+			-- text. If `interactive' is True, the editability of the
+			-- selection will be considered (users can't delete
+			-- uneditable text).
 
-	-- void        gtk_text_buffer_get_start_iter  (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter);
+			-- `interactive': whether the deletion is caused by user
+			-- interaction
+		
+			-- `default_editable': whether the buffer is editable by
+			-- default
+		
+			-- `is_successful' will be True if there was a non-empty
+			-- selection to delete.
+		do
+			is_successful:=(gtk_text_buffer_delete_selection(handle,
+																			 interactive.to_integer,
+																			 default_editable.to_integer).to_boolean)
+		end
+	
+	paste_clipboard (a_clipboard: GTK_CLIPBOARD; an_override_location: GTK_TEXT_ITER; default_editable: BOOLEAN) is 
+			-- Pastes the contents of `a_clipboard' at the insertion
+			-- point, or at `override_location' (if it is not
+			-- Void). (Note: pasting is asynchronous, that is, we'll ask
+			-- for the paste data and return, and at some point later
+			-- after the main loop runs, the paste data will be
+			-- inserted.)
 
-	-- Initialized iter with the first position in the text buffer. This is the same as using gtk_text_buffer_get_iter_at_offset() to get the iter at character offset 0.
+			-- `an_override_location': location to insert pasted text, or
+			-- Void for at the cursor
+		
+			-- `default_editable' : 	whether the buffer is editable by default
+		require
+			clipboard_not_void: a_clipboard /= Void
+			location_not_void: an_override_location /= Void
+		do
+			gtk_text_buffer_paste_clipboard (handle, a_clipboard.handle,
+			an_override_location.handle, default_editable.to_integer)
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	iterator to initialize
-	-- gtk_text_buffer_get_end_iter ()
+	copy_clipboard (a_clipboard: GTK_CLIPBOARD) is
+			-- Copies the currently-selected text to `a_clipboard'.
+		require
+			clipboard_not_void: a_clipboard /= Void
+		do
+			gtk_text_buffer_copy_clipboard  (handle, a_clipboard.handle;
+		end
 
-	-- void        gtk_text_buffer_get_end_iter    (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *iter);
+	cut_clipboard (a_clipboard: GTK_CLIPBOARD; default_editable: BOOLEAN) is
+			-- Copies the currently-selected text to `a_clipboard,' then
+			-- deletes said text if it's editable. `default_editable' is
+			-- the default editability of the buffer.
+		require
+			clipboard_not_void: a_clipboard /= Void
+		do
+			gtk_text_buffer_cut_clipboard (handle, a_clipboard.handle, default_editable.to_integer)
+		end
 
-	-- Initializes iter with the "end iterator," one past the last valid character in the text buffer. If dereferenced with gtk_text_iter_get_char(), the end iterator has a character value of 0. The entire buffer lies in the range from the first position in the buffer (call gtk_text_buffer_get_start_iter() to get character position 0) to the end iterator.
+	selection_bounds: TUPLE[GTK_TEXT_ITER, GTK_TEXT_ITER] is
+			-- the selection start and end; Void if there is no selection 
+		local a_start, an_end: GTK_TEXT_ITER; is_some_text_selected: BOOLEAN
+		do
+			create a_start.make; create an_end.make
+			is_some_text_selected:=(gtk_text_buffer_get_selection_bounds
+											(handle,a_start.handle, an_end.handle).to_boolean)
+			if is_some_text_selected then
+				create Result.make_2(a_start, an_end)
+			end
+		end
 
-	-- buffer : 	a GtkTextBuffer
-	-- iter : 	iterator to initialize
-	-- gtk_text_buffer_get_bounds ()
+	begin_user_action is
+			-- Called to indicate that the buffer operations between here
+			-- and a call to `end_user_action' are part of a single
+			-- user-visible operation. The operations between
+			-- `begin_user_action' and `end_user_action' can then be
+			-- grouped when creating an undo stack. GtkTextBuffer
+			-- maintains a count of calls to `begin_user_action' that
+			-- have not been closed with a call to `end_user_action', and
+			-- emits the "begin_user_action" and "end_user_action"
+			-- signals only for the outermost pair of calls. This allows
+			-- you to build user actions from other user actions.
 
-	-- void        gtk_text_buffer_get_bounds      (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *start,
-	--                                              GtkTextIter *end);
+			-- The "interactive" buffer mutation functions, such as
+			-- insert_interactive, automatically call begin/end user
+			-- action around the buffer operations they perform, so
+			-- there's no need to add extra calls if you user action
+			-- consists solely of a single call to one of those
+			-- functions.
+		do
+			gtk_text_buffer_begin_user_action(handle)
+		end			
 
-	-- Retrieves the first and last iterators in the buffer, i.e. the entire buffer lies within the range [start,end).
-
-	-- buffer : 	a GtkTextBuffer
-	-- start : 	iterator to initialize with first position in the buffer
-	-- end : 	iterator to initialize with the end iterator
-	-- gtk_text_buffer_get_modified ()
-
-	-- gboolean    gtk_text_buffer_get_modified    (GtkTextBuffer *buffer);
-
-	-- Indicates whether the buffer has been modified since the last call to gtk_text_buffer_set_modified() set the modification flag to FALSE. Used for example to enable a "save" function in a text editor.
-
-	-- buffer : 	a GtkTextBuffer
-	-- Returns : 	TRUE if the buffer has been modified
-	-- gtk_text_buffer_set_modified ()
-
-	-- void        gtk_text_buffer_set_modified    (GtkTextBuffer *buffer,
-	--                                              gboolean setting);
-
-	-- Used to keep track of whether the buffer has been modified since the last time it was saved. Whenever the buffer is saved to disk, call gtk_text_buffer_set_modified (buffer, FALSE). When the buffer is modified, it will automatically toggled on the modified bit again. When the modified bit flips, the buffer emits a "modified_changed" signal.
-
-	-- buffer : 	a GtkTextBuffer
-	-- setting : 	modification flag setting
-	-- gtk_text_buffer_delete_selection ()
-
-	-- gboolean    gtk_text_buffer_delete_selection
-	--                                             (GtkTextBuffer *buffer,
-	--                                              gboolean interactive,
-	--                                              gboolean default_editable);
-
-	-- Deletes the range between the "insert" and "selection_bound" marks, that is, the currently-selected text. If interactive is TRUE, the editability of the selection will be considered (users can't delete uneditable text).
-
-	-- buffer : 	a GtkTextBuffer
-	-- interactive : 	whether the deletion is caused by user interaction
-	-- default_editable : 	whether the buffer is editable by default
-	-- Returns : 	whether there was a non-empty selection to delete
-	-- gtk_text_buffer_paste_clipboard ()
-
-	-- void        gtk_text_buffer_paste_clipboard (GtkTextBuffer *buffer,
-	--                                              GtkClipboard *clipboard,
-	--                                              GtkTextIter *override_location,
-	--                                              gboolean default_editable);
-
-	-- Pastes the contents of a clipboard at the insertion point, or at override_location. (Note: pasting is asynchronous, that is, we'll ask for the paste data and return, and at some point later after the main loop runs, the paste data will be inserted.)
-
-	-- buffer : 	a GtkTextBuffer
-	-- clipboard : 	the GtkClipboard to paste from
-	-- override_location : 	location to insert pasted text, or NULL for at the cursor
-	-- default_editable : 	whether the buffer is editable by default
-	-- gtk_text_buffer_copy_clipboard ()
-
-	-- void        gtk_text_buffer_copy_clipboard  (GtkTextBuffer *buffer,
-	--                                              GtkClipboard *clipboard);
-
-	-- Copies the currently-selected text to a clipboard.
-
-	-- buffer : 	a GtkTextBuffer
-	-- clipboard : 	the GtkClipboard object to copy to.
-	-- gtk_text_buffer_cut_clipboard ()
-
-	-- void        gtk_text_buffer_cut_clipboard   (GtkTextBuffer *buffer,
-	--                                              GtkClipboard *clipboard,
-	--                                              gboolean default_editable);
-
-	-- Copies the currently-selected text to a clipboard, then deletes said text if it's editable.
-
-	-- buffer : 	a GtkTextBuffer
-	-- clipboard : 	the GtkClipboard object to cut to.
-	-- default_editable : 	default editability of the buffer
-	-- gtk_text_buffer_get_selection_bounds ()
-
-	-- gboolean    gtk_text_buffer_get_selection_bounds
-	--                                             (GtkTextBuffer *buffer,
-	--                                              GtkTextIter *start,
-	--                                              GtkTextIter *end);
-
-	-- Returns TRUE if some text is selected; places the bounds of the selection in start and end (if the selection has length 0, then start and end are filled in with the same value). start and end will be in ascending order. If start and end are NULL, then they are not filled in, but the return value still indicates whether text is selected.
-
-	-- buffer : 	a GtkTextBuffer a GtkTextBuffer
-	-- start : 	iterator to initialize with selection start
-	-- end : 	iterator to initialize with selection end
-	-- Returns : 	whether the selection has nonzero length
-	-- gtk_text_buffer_begin_user_action ()
-
-	-- void        gtk_text_buffer_begin_user_action
-	--                                             (GtkTextBuffer *buffer);
-
-	-- Called to indicate that the buffer operations between here and a call to gtk_text_buffer_end_user_action() are part of a single user-visible operation. The operations between gtk_text_buffer_begin_user_action() and gtk_text_buffer_end_user_action() can then be grouped when creating an undo stack. GtkTextBuffer maintains a count of calls to gtk_text_buffer_begin_user_action() that have not been closed with a call to gtk_text_buffer_end_user_action(), and emits the "begin_user_action" and "end_user_action" signals only for the outermost pair of calls. This allows you to build user actions from other user actions.
-
-	-- The "interactive" buffer mutation functions, such as gtk_text_buffer_insert_interactive(), automatically call begin/end user action around the buffer operations they perform, so there's no need to add extra calls if you user action consists solely of a single call to one of those functions.
-
-	-- buffer : 	a GtkTextBuffer
-	-- gtk_text_buffer_end_user_action ()
-
-	-- void        gtk_text_buffer_end_user_action (GtkTextBuffer *buffer);
-
-	-- Should be paired with a call to gtk_text_buffer_begin_user_action(). See that function for a full explanation.
-
-	-- buffer : 	a GtkTextBuffer
+	end_user_action is
+			-- See `begin_user_action' function for a full explanation.--
+			-- Both calls should be paired.
+		do
+			gtk_text_buffer_end_user_action (handle)
+		end
+	
 	-- gtk_text_buffer_add_selection_clipboard ()
 
 	-- void        gtk_text_buffer_add_selection_clipboard
@@ -872,7 +1064,7 @@ feature -- Access
 
 	-- Since 2.8
 	-- Signal Details
-	-- The "apply-tag" signal
+feature  -- TODO: The "apply-tag" signal
 
 	-- void        user_function                  (GtkTextBuffer *textbuffer,
 	--                                             GtkTextTag    *arg1,
@@ -885,7 +1077,8 @@ feature -- Access
 	-- arg2 : 	
 	-- arg3 : 	
 	-- user_data : 	user data set when the signal handler was connected.
-	-- The "begin-user-action" signal
+	
+feature  -- TODO: The "begin-user-action" signal
 
 	-- void        user_function                  (GtkTextBuffer *textbuffer,
 	--                                             gpointer       user_data)       : Run last
@@ -916,7 +1109,7 @@ feature -- The "changed" signal
 			changed_callback.connect (Current, a_procedure)
 		end
 
-	-- The "delete-range" signal
+feature -- TODO: The "delete-range" signal
 
 	-- void        user_function                  (GtkTextBuffer *textbuffer,
 	--                                             GtkTextIter   *arg1,
@@ -927,14 +1120,16 @@ feature -- The "changed" signal
 	-- arg1 : 	
 	-- arg2 : 	
 	-- user_data : 	user data set when the signal handler was connected.
-	-- The "end-user-action" signal
+	
+feature 	-- TODO: The "end-user-action" signal
 
 	-- void        user_function                  (GtkTextBuffer *textbuffer,
 	--                                             gpointer       user_data)       : Run last
 
 	-- textbuffer : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
-	-- The "insert-child-anchor" signal
+	
+feature -- TODO: The "insert-child-anchor" signal
 
 	-- void        user_function                  (GtkTextBuffer      *textbuffer,
 	--                                             GtkTextIter        *arg1,
@@ -945,73 +1140,66 @@ feature -- The "changed" signal
 	-- arg1 : 	
 	-- arg2 : 	
 	-- user_data : 	user data set when the signal handler was connected.
-	-- The "insert-pixbuf" signal
+	
+feature  -- TODO: The "insert-pixbuf" signal
 
-	-- void        user_function                  (GtkTextBuffer *textbuffer,
-	--                                             GtkTextIter   *arg1,
-	--                                             GdkPixbuf     *arg2,
-	--                                             gpointer       user_data)       : Run last
+	-- void user_function (GtkTextBuffer *textbuffer, GtkTextIter
+	-- *arg1, GdkPixbuf *arg2, gpointer user_data) : Run last
 
 	-- textbuffer : 	the object which received the signal.
 	-- arg1 : 	
 	-- arg2 : 	
 	-- user_data : 	user data set when the signal handler was connected.
-	-- The "insert-text" signal
+	
+feature  -- TODO: 	-- The "insert-text" signal
 
-	-- void        user_function                  (GtkTextBuffer *textbuffer,
-	--                                             GtkTextIter   *arg1,
-	--                                             gchar         *arg2,
-	--                                             gint           arg3,
-	--                                             gpointer       user_data)       : Run last
+	-- void user_function (GtkTextBuffer *textbuffer, GtkTextIter
+	-- *arg1, gchar *arg2, gint arg3, gpointer user_data) : Run last
 
 	-- textbuffer : 	the object which received the signal.
 	-- arg1 : 	
 	-- arg2 : 	
 	-- arg3 : 	
 	-- user_data : 	user data set when the signal handler was connected.
-	-- The "mark-deleted" signal
+	
+feature  -- TODO: 	-- The "mark-deleted" signal
 
-	-- void        user_function                  (GtkTextBuffer *textbuffer,
-	--                                             GtkTextMark   *arg1,
-	--                                             gpointer       user_data)       : Run last
+	-- void user_function (GtkTextBuffer *textbuffer, GtkTextMark
+	-- *arg1, gpointer user_data) : Run last
 
--- textbuffer : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "mark-set" signal
+	-- textbuffer : 	the object which received the signal.
+	-- arg1 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	
+feature  -- TODO: -- The "mark-set" signal
+	
+	-- void user_function (GtkTextBuffer *textbuffer, GtkTextIter
+	-- *arg1, GtkTextMark *arg2, gpointer user_data) : Run last
 
--- void        user_function                  (GtkTextBuffer *textbuffer,
---                                             GtkTextIter   *arg1,
---                                             GtkTextMark   *arg2,
---                                             gpointer       user_data)       : Run last
+	-- textbuffer : 	the object which received the signal.
+	-- arg1 : 	
+	-- arg2 : 	
+	-- user_data : 	user data set when the signal handler was connected.
+	
+feature  -- TODO: -- The "modified-changed" signal
 
--- textbuffer : 	the object which received the signal.
--- arg1 : 	
--- arg2 : 	
--- user_data : 	user data set when the signal handler was connected.
--- The "modified-changed" signal
+	-- void user_function (GtkTextBuffer *textbuffer, gpointer
+	-- user_data) : Run last
 
--- void        user_function                  (GtkTextBuffer *textbuffer,
---                                             gpointer       user_data)       : Run last
+	-- textbuffer : 	the object which received the signal.
+	-- user_data : 	user data set when the signal handler was connected.
+	
+feature  -- TODO: -- The "remove-tag" signal
 
--- textbuffer : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "remove-tag" signal
+	-- void user_function (GtkTextBuffer *textbuffer, GtkTextTag *arg1,
+	-- GtkTextIter *arg2, GtkTextIter *arg3, gpointer user_data) : Run
+	-- last
 
--- void        user_function                  (GtkTextBuffer *textbuffer,
---                                             GtkTextTag    *arg1,
---                                             GtkTextIter   *arg2,
---                                             GtkTextIter   *arg3,
---                                             gpointer       user_data)       : Run last
-
--- textbuffer : 	the object which received the signal.
--- arg1 : 	
--- arg2 : 	
--- arg3 : 	
--- user_data : 	user data set when the signal handler was connected.
--- See Also
-
--- GtkTextView, GtkTextIter, GtkTextMark
+	-- textbuffer : 	the object which received the signal.
+	-- arg1 : 	
+	-- arg2 : 	
+	-- arg3 : 	
+	-- user_data : 	user data set when the signal handler was connected.
 
 feature {} -- Implementation
 	hidden_tag_table: GTK_TEXT_TAG_TABLE

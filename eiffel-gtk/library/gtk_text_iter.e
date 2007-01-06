@@ -79,8 +79,17 @@ feature
 
 	buffer: GTK_TEXT_BUFFER is
 			-- the GtkTextBuffer this iterator is associated with.
+		local retriever: G_RETRIEVER[GTK_TEXT_BUFFER]; buffer_ptr: POINTER
 		do
-			create Result.from_external_pointer (gtk_text_iter_get_buffer (handle))
+			buffer_ptr := gtk_text_iter_get_buffer (handle)
+			check
+				pointer_not_void: buffer_ptr/=Void
+			end
+			if retriever.has_eiffel_wrapper_stored (buffer_ptr) then
+				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer(buffer_ptr)
+			else
+				create Result.from_external_pointer (buffer_ptr)
+			end
 		end
 
 	copy (another: like Current) is
@@ -1138,7 +1147,7 @@ feature -- Comparability
 			-- is very fast; you can expect it to perform better than
 			-- e.g. getting the character offset for each iterator and
 			-- comparing the offsets yourself. Also, it's a bit faster
-			-- than gtk_text_iter_compare().
+			-- than `compare'.
 		do
 			Result := (gtk_text_iter_equal (handle, another.handle)).to_boolean
 		end
