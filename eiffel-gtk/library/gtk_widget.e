@@ -460,8 +460,6 @@ feature -- Operation
 --                                              const GdkColor *color);
 -- void        gtk_widget_modify_font          (GtkWidget *widget,
 --                                              PangoFontDescription *font_desc);
--- PangoContext* gtk_widget_create_pango_context
---                                             (GtkWidget *widget);
 -- PangoContext* gtk_widget_get_pango_context  (GtkWidget *widget);
 -- PangoLayout* gtk_widget_create_pango_layout (GtkWidget *widget,
 --                                              const gchar *text);

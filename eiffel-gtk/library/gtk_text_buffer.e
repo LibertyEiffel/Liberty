@@ -50,9 +50,10 @@ feature -- Operations
 	set_text(a_text: STRING) is
 			-- Deletes current contents of buffer, and inserts `a_text' 
 			-- instead. `a_text' must be valid UTF-8.
+			-- `a_text': UTF-8 text to insert
 		require
-			a_text /= Void
-			-- a_text should be valid UTF-8!
+			text_not_void: a_text /= Void
+			text_is_utf8: -- TODO: a_text should be valid UTF-8!
 		do
 			gtk_text_buffer_set_text(handle, a_text.to_external, a_text.count)
 		end
@@ -68,18 +69,23 @@ feature -- Access
 			-- False. Does not include characters representing embedded
 			-- images, so byte and character indexes into the returned
 			-- string do not correspond to byte and character indexes
-			-- into the buffer.  Contrast with
-			-- `slice'
+			-- into the buffer.  Contrast with `slice'
+			-- `a_start' : 	start of a range
+			-- `an_end' : 	end of a range
+			-- include_hidden_chars : 	whether to include invisible text
+		obsolete "Result 's type will be changed to UTF8_STRING when this class will be available"
+		require
+			start_not_void: a_start /= Void
+			end_not_void: an_end /= Void
+			start_in_current_buffer: a_start.buffer = Current
+			end_in_current_buffer: an_end.buffer = Current
 		do
 			create  Result.from_external (gtk_text_buffer_get_text
 													(handle,
 													 a_start.handle, an_end.handle,
 													 include_hidden_chars.to_integer))
-			-- Gtk function returns an allocated UTF-8 string; AFAIK we
-			-- can just use from_external. Paolo 2006-07-03
-			  
-			-- If Gtk is going to free this text, we should be using
-			-- from_external_copy instead!
+		ensure 
+			not_void: Result /= Void
 		end
 
 	line_count: INTEGER is
@@ -163,7 +169,7 @@ feature -- Access
 			-- `is_successful' is set to True whether text was actually inserted
 		do
 			is_successful := (gtk_text_buffer_insert_interactive
-									(handle, an_iter.handle
+									(handle, an_iter.handle,
 									 a_text.to_external, a_length,
 									 default_editable.to_integer)).to_boolean
 		end
@@ -205,17 +211,16 @@ feature -- Access
 			-- `a_start' and `an_end' are positions in the same
 			-- GtkTextBuffer
 
-			-- `is_successful' is updated (i.e. True whether text was
-			-- actually inserted, false otherwise).
+			-- `is_successful' *not* is updated.  Use `insert_range_interactive'
+			-- if you need that.
 		require
 			iter_not_void: an_iter /= Void
 			start_not_void: a_start /= Void
 			end_not_void: an_end /= Void
 			start_and_end_in_the_same_buffer: a_start.buffer = an_end.buffer
 		do
-			is_successful:=(gtk_text_buffer_insert_range
-								 (handle, an_iter.handle,
-								  a_start.handle, an_end.handle)).to_boolean
+			gtk_text_buffer_insert_range (handle, an_iter.handle,
+								  a_start.handle, an_end.handle)
 		end
 
 	insert_range_interactive (an_iter, a_start, an_end: GTK_TEXT_ITER;
@@ -234,13 +239,13 @@ feature -- Access
 			end_not_void: an_end /= Void
 			start_and_end_in_the_same_buffer: a_start.buffer = an_end.buffer
 		do
-			is_successful:=(gtk_text_buffer_insert_range_interactive
+			is_successful := (gtk_text_buffer_insert_range_interactive
 								 (handle, an_iter.handle,
 								  a_start.handle, an_end.handle,
 								  default_editable.to_integer)).to_boolean
 		end
 
-	insert_with_tags (an_iter: GTK_TEXT_ITER; some_text: STRING; 
+	insert_with_tags (an_iter: GTK_TEXT_ITER; some_text: STRING;
 							some_tags: COLLECTION[GTK_TEXT_TAG]) is
 			-- Inserts `some_text' into buffer at `an_iter', applying the
 			-- list of tags to the newly-inserted text. Equivalent to
@@ -256,20 +261,20 @@ feature -- Access
 			tags_not_void: some_tags /= Void
 		local
 			tags: ITERATOR[GTK_TEXT_TAG];
-			start_offset: INTEGER
-			start_iter: GTK_TEXT_ITER
+			a_start_offset: INTEGER
+			a_start_iter: GTK_TEXT_ITER
 		do
 			-- Note: this code is a more or less direct traduction from C
 			-- to Eiffel of the "internal" GTK implementation.
-			start_offset := an_iter.offset
+			a_start_offset := an_iter.offset
 
 			insert_at (an_iter, some_text)
 			-- Now an_iter points to the end of the inserted text
-			start_iter := iter_at_offset (start_offset)
+			a_start_iter := iter_at_offset (a_start_offset)
 			tags := some_tags.get_new_iterator
 			from tags.start until tags.is_off
 			loop
-				apply_tag (tags.item, start_iter, an_iter)
+				apply_tag (tags.item, a_start_iter, an_iter)
 				tags.next
 			end
 		end
@@ -290,22 +295,22 @@ feature -- Access
 			tag_names_not_void: some_tag_names /= Void
 		local
 			tag_names: ITERATOR[STRING]; tag: GTK_TEXT_TAG
-			start_offset: INTEGER
-			start_iter: GTK_TEXT_ITER
+			a_start_offset: INTEGER
+			a_start_iter: GTK_TEXT_ITER
 		do
 			-- Note: this code is a more or less direct traduction from C
 			-- to Eiffel of the "internal" GTK implementation.
-			start_offset := an_iter.offset
+			a_start_offset := an_iter.offset
 
 			insert_at (an_iter, some_text)
 			-- Now an_iter points to the end of the inserted text
-			start_iter := iter_at_offset (start_offset)
+			a_start_iter := iter_at_offset (a_start_offset)
 			tag_names := some_tag_names.get_new_iterator
 			from tag_names.start until tag_names.is_off
 			loop
 				tag := tag_table.lookup (tag_names.item)
 				check tag_not_void: tag /= Void end
-				apply_tag (tag, start_iter, an_iter)
+				apply_tag (tag, a_start_iter, an_iter)
 				tag_names.next
 			end
 		end
@@ -390,52 +395,6 @@ feature -- Access
 								  default_editable.to_integer)).to_boolean
 		end
 
-	set_text (a_text: STRING; a_lenght: INTEGER) is
-			-- Deletes current contents of buffer, and inserts `a_text'
-			-- instead. If `a_length' is -1, text must be
-			-- nul-terminated. text must be valid UTF-8.
-
-			-- `a_text': UTF-8 text to insert
-			-- `a_length' : 	length of text in bytes
-
-			-- TODO: implement UTF8_STRING
-		require 
-			text_not_void: a_text /= Void
-			text_is_utf8: -- TODO
-		do
-			gtk_text_buffer_set_text (handle, a_text.to_external, a_length)
-		end
-
-	text  (a_start, an_end: GTK_TEXT_ITER; 
-			 include_hidden_chars: BOOLEAN): STRING is
-			-- the text in the range [`a_start'`,an_end'). Excludes
-			-- undisplayed text (text marked with tags that set the
-			-- invisibility attribute) if `include_hidden_chars' is
-			-- False. Does not include characters representing embedded
-			-- images, so byte and character indexes into the returned
-			-- string do not correspond to byte and character indexes
-			-- into the buffer. Contrast with `slice'.
-			
-			-- `a_start' : 	start of a range
-
-			-- `an_end' : 	end of a range
-
-			-- include_hidden_chars : 	whether to include invisible text
-		obsolete "Result 's type will be changed to UTF8_STRING when this class will be available"
-		require
-			start_not_void: a_start /= Void
-			end_not_void: an_end /= Void
-			start_in_current_buffer: a_start.buffer = Current
-			end_in_current_buffer: an_end.buffer = Current
-		do
-			create Result.from_external
-			(gtk_text_buffer_get_text (handle, 
-												a_start.handle, an_end.handle,
-												include_hidden_chars.to_integer))
-		ensure 
-			not_void: Result /= Void
-		end
-	
 	slice  (a_start, an_end: GTK_TEXT_ITER; 
 			 include_hidden_chars: BOOLEAN): STRING is
 			-- the text in the range [`a_start,' `an_end'). Excludes
@@ -508,14 +467,13 @@ feature -- Access
 			gtk_text_buffer_insert_child_anchor(handle, an_iter.handle, an_anchor.handle)
 		end
 
-	child_anchor_at (an_iter: GTK_TREE_ITER): GTK_TEXT_CHILD_ANCHOR is
+	child_anchor_at (an_iter: GTK_TEXT_ITER): GTK_TEXT_CHILD_ANCHOR is
 			-- A newly created child anchor, inserted into the buffer at `an_iter'. 
 		require
 			iter_not_void: an_iter /= Void
-			anchor_not_void: an_anchor /= Void
 			iter_in_current_buffer: an_iter.buffer = Current
 		do
-			create Result.from_external_pointer (gtk_text_buffer_create_child_anchor (handle, an_iter))
+			create Result.from_external_pointer (gtk_text_buffer_create_child_anchor (handle, an_iter.handle))
 			-- Note: C documentation says "The new anchor is owned by the
 			-- buffer; no reference count is returned to the caller of
 			-- gtk_text_buffer_create_child_anchor()"; so we have to
@@ -537,14 +495,14 @@ feature -- Access
 
 			-- Emits the "mark_set" signal as notification of the mark's
 			-- initial placement.
-		require 
+		require
 			name_not_void: a_mark_name /= Void
-			iter_not_void: an_iter /= Void
-			iter_in_current_buffer: an_iter.buffer = Current
+			iter_not_void: a_place /= Void
+			iter_in_current_buffer: a_place.buffer = Current
 		do
 			create Result.from_external_pointer
 			(gtk_text_buffer_create_mark (handle, a_mark_name.to_external,
-													left_gravity.to_integer))
+										a_place.handle, left_gravity.to_integer))
 			-- The caller of this function does not own a reference to
 			-- the returned GtkTextMark, so you can ignore the return
 			-- value if you like. Marks are owned by the buffer and go
@@ -554,24 +512,24 @@ feature -- Access
 	move_mark (a_mark: GTK_TEXT_MARK; a_new_location: GTK_TEXT_ITER) is
 			-- Moves `a_mark' to `a_new_location'. Emits the "mark_set"
 			-- signal as notification of the move.
-		require 
+		require
 			mark_not_void: a_mark /= Void
 			iter_not_void: a_new_location /= Void
 			iter_in_current_buffer: a_new_location.buffer = Current
 		do
-			gtk_text_buffer_move_mark (handle, a_mark.handle, where.handle)
+			gtk_text_buffer_move_mark (handle, a_mark.handle, a_new_location.handle)
 		end
 	
 	move_mark_by_name (a_name: STRING; a_new_location: GTK_TEXT_ITER) is
 			-- Moves the mark named `a_name' (which must exist) to
 			-- `a_new_location' where. See `move_mark' for details.
-		require 
+		require
 			name_not_void: a_name /= Void
-			named_mark_exists: mark (a_name) /= Void 
+			named_mark_exists: mark (a_name) /= Void
 			-- Note: the above precondition is not a monster of
 			-- efficiency... it could have been made faster
 		do
-			gtk_text_buffer_move_mark_by_name(handle, a_name.to_external, a_new_location.handle)
+			gtk_text_buffer_move_mark_by_name (handle, a_name.to_external, a_new_location.handle)
 		end
 
 	delete_mark (a_mark: GTK_TEXT_MARK) is
@@ -587,15 +545,15 @@ feature -- Access
 		require mark_not_void: a_mark /= Void
 		do
 			gtk_text_buffer_delete_mark (handle, a_mark.handle)
-		ensure mark_deleted: a_mark.is_deleted 
+		ensure mark_deleted: a_mark.is_deleted
 		end
 
 	delete_mark_by_name (a_name: STRING) is
 			-- Deletes the mark named `a_name'; the mark must exist. See
 			-- `delete_mark' for details.
-		require 
+		require
 			name_not_void: a_name /= Void
-			named_mark_exists: mark(a_name) /= Void
+			named_mark_exists: mark (a_name) /= Void
 		do
 			gtk_text_buffer_delete_mark_by_name (handle, a_name.to_external)
 		end
@@ -603,10 +561,10 @@ feature -- Access
 	mark (a_name: STRING): GTK_TEXT_MARK is
 			-- the mark named `a_name' in Current buffer, or Void if no
 			-- such mark exists in the buffer.
-		require 
+		require
 			name_not_void: a_name /= Void
 		do
-			create Result.from_external_pointer(gtk_text_buffer_get_mark (handle, a_name.to_external))
+			create Result.from_external_pointer (gtk_text_buffer_get_mark (handle, a_name.to_external))
 			-- Note: text mark are not cached because AFAIK once
 			-- invalidated they can't be re-used and must be freed. Paolo
 			-- 2007-01-05
@@ -650,14 +608,14 @@ feature -- Access
 			-- be pretty inefficient since the temporarily-selected
 			-- region will force stuff to be recalculated. This function
 			-- moves them as a unit, which can be optimized.
-		require 
+		require
 			where_not_void: where /= Void
 			where_in_current_buffer: where.buffer = Current
 		do
 			gtk_text_buffer_place_cursor(handle, where.handle)
-		ensure 
-			insert_mark_moved: insert_mark.is_equal(where)
-			selection_bound_moved: selection_bound.is_equal(where)
+		ensure
+			insert_mark_moved: iter_at_mark(insert_mark).is_equal(where)
+			selection_bound_moved: iter_at_mark(selection_bound).is_equal(where)
 			selection_bound_equal_insert: selection_bound.is_equal(insert_mark)
 		end
 
@@ -813,7 +771,7 @@ feature -- Access
 			create Result.make
 			gtk_text_buffer_get_iter_at_line_offset (handle, Result.handle,
 																  a_line_number, a_char_offset)
-		end			
+		end
 
 	iter_at_offset (an_offset: INTEGER): GTK_TEXT_ITER is
 			-- The iterator pointing to a position `an_offset' chars from
@@ -860,7 +818,7 @@ feature -- Access
 		require mark_not_void: a_mark /= Void
 		do
 			create Result.make
-			gtk_text_buffer_get_iter_at_mark(handle, Result.handle, a_mark.handel)
+			gtk_text_buffer_get_iter_at_mark(handle, Result.handle, a_mark.handle)
 		ensure not_void: Result /= Void
 		end
 
@@ -925,7 +883,7 @@ feature -- Access
 			-- bit again. When the modified bit flips, the buffer emits a
 			-- "modified_changed" signal.
 		do
-			gtk_text_buffer_set_modified (handle, a_setting.to_boolean)
+			gtk_text_buffer_set_modified (handle, a_setting.to_integer)
 		end
 
 	delete_selection (interactive, default_editable: BOOLEAN) is
@@ -948,8 +906,8 @@ feature -- Access
 																			 interactive.to_integer,
 																			 default_editable.to_integer).to_boolean)
 		end
-	
-	paste_clipboard (a_clipboard: GTK_CLIPBOARD; an_override_location: GTK_TEXT_ITER; default_editable: BOOLEAN) is 
+
+	paste_clipboard (a_clipboard: GTK_CLIPBOARD; an_override_location: GTK_TEXT_ITER; default_editable: BOOLEAN) is
 			-- Pastes the contents of `a_clipboard' at the insertion
 			-- point, or at `override_location' (if it is not
 			-- Void). (Note: pasting is asynchronous, that is, we'll ask
@@ -974,7 +932,7 @@ feature -- Access
 		require
 			clipboard_not_void: a_clipboard /= Void
 		do
-			gtk_text_buffer_copy_clipboard  (handle, a_clipboard.handle;
+			gtk_text_buffer_copy_clipboard  (handle, a_clipboard.handle)
 		end
 
 	cut_clipboard (a_clipboard: GTK_CLIPBOARD; default_editable: BOOLEAN) is

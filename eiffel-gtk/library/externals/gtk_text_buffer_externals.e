@@ -83,7 +83,7 @@ feature {}
 
 	gtk_text_buffer_insert_range_interactive (a_buffer: POINTER; a_iter: POINTER;
 		                                      a_start: POINTER; a_end: POINTER;
-		                                      default_editable: INTEGER) is
+		                                      default_editable: INTEGER):INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 

@@ -83,7 +83,7 @@ feature
 		do
 			buffer_ptr := gtk_text_iter_get_buffer (handle)
 			check
-				pointer_not_void: buffer_ptr/=Void
+				pointer_not_void: buffer_ptr.is_not_null
 			end
 			if retriever.has_eiffel_wrapper_stored (buffer_ptr) then
 				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer(buffer_ptr)
