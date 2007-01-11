@@ -30,7 +30,8 @@ class GTK_ICON_VIEW
 		-- addition to selection with the arrow keys, GtkIconView supports
 		-- rubberband selection, which is controlled by dragging the pointer.
 
-inherit GTK_CONTAINER
+inherit
+	GTK_CONTAINER
 
 insert
 	GTK_ICON_VIEW_EXTERNALS
@@ -45,12 +46,13 @@ feature {} -- Creation
 
 	make is
 			-- Creates a new GtkIconView widget
+			-- Creates a new GtkIconView widget
 		do
 			from_external_pointer (gtk_icon_view_new)
 		end
 
 	with_model (a_model: GTK_TREE_MODEL) is
-			-- Creates a new GtkIconView widget with the model model.
+			-- Creates a new GtkIconView widget with `a_model'.
 		require
 			a_model /= Void
 		do
@@ -64,20 +66,20 @@ feature {} -- Creation
 
 feature -- Access
 
---	model: GTK_TREE_MODEL is
---			-- 
---		local
---			c_ptr: POINTER
---		do
---			c_ptr := gtk_icon_view_get_model (handle)
---			if has_eiffel_wrapper_stored (c_ptr) then
---				Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_ptr)
---			else
---				create Result.from_external_pointer (c_ptr)
---			end
---		ensure
---			Result /= Void
---		end
+	model: GTK_TREE_MODEL is
+			-- the model the GtkIconView is based on. Void if the model
+			-- is unset.
+		local c_ptr: POINTER
+		do
+			c_ptr := gtk_icon_view_get_model (handle)
+			if c_ptr.is_not_null then
+				if has_eiffel_wrapper_stored (c_ptr) then
+					Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_ptr)
+				else
+					create Result.from_external_pointer (c_ptr)
+				end
+			end
+		end
 
 	text_column: INTEGER is
 		do
@@ -97,14 +99,27 @@ feature -- Access
 feature -- Operations
 
 	set_model (a_model: GTK_TREE_MODEL) is
-			-- 
+			-- Sets the model for a GtkIconView. If the Current icon view
+			-- already has a model set, it will remove it before setting
+			-- the new model. 
 		require
 			a_model /= Void
 		do
 			gtk_icon_view_set_model (handle, a_model.handle)
+		ensure set: model = a_model
 		end
 
+	unset_model is
+			-- Unset the old model.
+		do
+			gtk_icon_view_set_model (handle, default_pointer)
+			ensure unset: model = Void
+		end
+			
 	set_text_column (a_column: INTEGER) is
+			-- Sets the column with text for icon_view to be `a_column'.
+		require
+			-- TODO: The text column must be of type G_TYPE_STRING.
 		do
 			gtk_icon_view_set_text_column (handle, a_column)
 		end
@@ -223,75 +238,6 @@ feature -- Operations
 -- GdkPixmap*  gtk_icon_view_create_drag_icon  (GtkIconView *icon_view,
 --                                              GtkTreePath *path);
 
-
-
--- Object Hierarchy
-
---   GObject
---    +----GtkObject
---          +----GtkWidget
---                +----GtkContainer
---                      +----GtkIconView
-
--- Implemented Interfaces
-
--- GtkIconView implements AtkImplementorIface and GtkCellLayout.
--- Properties
-
---   "column-spacing"       gint                  : Read / Write
---   "columns"              gint                  : Read / Write
---   "item-width"           gint                  : Read / Write
---   "margin"               gint                  : Read / Write
---   "markup-column"        gint                  : Read / Write
---   "model"                GtkTreeModel          : Read / Write
---   "orientation"          GtkOrientation        : Read / Write
---   "pixbuf-column"        gint                  : Read / Write
---   "reorderable"          gboolean              : Read / Write
---   "row-spacing"          gint                  : Read / Write
---   "selection-mode"       GtkSelectionMode      : Read / Write
---   "spacing"              gint                  : Read / Write
---   "text-column"          gint                  : Read / Write
-
--- Style Properties
-
---   "selection-box-alpha"  guchar                : Read
---   "selection-box-color"  GdkColor              : Read
-
--- Signals
-
--- "activate-cursor-item"
---             gboolean    user_function      (GtkIconView *iconview,
---                                             gpointer user_data);
--- "item-activated"
---             void        user_function      (GtkIconView *iconview,
---                                             GtkTreePath *arg1,
---                                             gpointer user_data);
--- "move-cursor"
---             gboolean    user_function      (GtkIconView *iconview,
---                                             GtkMovementStep arg1,
---                                             gint arg2,
---                                             gpointer user_data);
--- "select-all"
---             void        user_function      (GtkIconView *iconview,
---                                             gpointer user_data);
--- "select-cursor-item"
---             void        user_function      (GtkIconView *iconview,
---                                             gpointer user_data);
--- "selection-changed"
---             void        user_function      (GtkIconView *iconview,
---                                             gpointer user_data);
--- "set-scroll-adjustments"
---             void        user_function      (GtkIconView *iconview,
---                                             GtkAdjustment *arg1,
---                                             GtkAdjustment *arg2,
---                                             gpointer user_data);
--- "toggle-cursor-item"
---             void        user_function      (GtkIconView *iconview,
---                                             gpointer user_data);
--- "unselect-all"
---             void        user_function      (GtkIconView *iconview,
---                                             gpointer user_data);
-
 -- Description
 
 -- GtkIconViewForeachFunc ()
@@ -304,56 +250,7 @@ feature -- Operations
 -- icon_view : 	
 -- path : 	The GtkTreePath of a selected row
 -- data : 	user data
--- gtk_icon_view_new ()
-
--- GtkWidget*  gtk_icon_view_new               (void);
-
--- Creates a new GtkIconView widget
-
--- Returns : 	A newly created GtkIconView widget
-
--- Since 2.6
--- gtk_icon_view_new_with_model ()
-
--- GtkWidget*  gtk_icon_view_new_with_model    (GtkTreeModel *model);
-
--- Creates a new GtkIconView widget with the model model.
-
--- model : 	The model.
--- Returns : 	A newly created GtkIconView widget.
-
--- Since 2.6
--- gtk_icon_view_set_model ()
-
--- void        gtk_icon_view_set_model         (GtkIconView *icon_view,
---                                              GtkTreeModel *model);
-
--- Sets the model for a GtkIconView. If the icon_view already has a model set, it will remove it before setting the new model. If model is NULL, then it will unset the old model.
-
--- icon_view : 	A GtkIconView.
--- model : 	The model.
-
--- Since 2.6
--- gtk_icon_view_get_model ()
-
--- GtkTreeModel* gtk_icon_view_get_model       (GtkIconView *icon_view);
-
--- Returns the model the GtkIconView is based on. Returns NULL if the model is unset.
-
--- icon_view : 	a GtkIconView
--- Returns : 	A GtkTreeModel, or NULL if none is currently being used.
-
--- Since 2.6
--- gtk_icon_view_set_text_column ()
-
--- void        gtk_icon_view_set_text_column   (GtkIconView *icon_view,
---                                              gint column);
-
--- Sets the column with text for icon_view to be column. The text column must be of type G_TYPE_STRING.
-
--- icon_view : 	A GtkIconView.
--- column : 	A column in the currently used model.
-
+	 
 -- Since 2.6
 -- gtk_icon_view_get_text_column ()
 
@@ -500,7 +397,7 @@ feature -- Operations
 			Result := [path, cell]
 		end
 
--- gtk_icon_view_selected_foreach ()
+	-- TODO:gtk_icon_view_selected_foreach ()
 
 -- void        gtk_icon_view_selected_foreach  (GtkIconView *icon_view,
 --                                              GtkIconViewForeachFunc func,
@@ -950,7 +847,27 @@ feature -- Operations
 -- path : 	a GtkTreePath in icon_view
 -- Returns : 	a newly-allocated pixmap of the drag icon.
 
--- Since 2.8
+	-- Since 2.8
+	-- Implemented Interfaces
+
+-- GtkIconView implements AtkImplementorIface and GtkCellLayout.
+-- Properties
+
+--   "column-spacing"       gint                  : Read / Write
+--   "columns"              gint                  : Read / Write
+--   "item-width"           gint                  : Read / Write
+--   "margin"               gint                  : Read / Write
+--   "markup-column"        gint                  : Read / Write
+--   "model"                GtkTreeModel          : Read / Write
+--   "orientation"          GtkOrientation        : Read / Write
+--   "pixbuf-column"        gint                  : Read / Write
+--   "reorderable"          gboolean              : Read / Write
+--   "row-spacing"          gint                  : Read / Write
+--   "selection-mode"       GtkSelectionMode      : Read / Write
+--   "spacing"              gint                  : Read / Write
+--   "text-column"          gint                  : Read / Write
+
+
 -- Property Details
 -- The "column-spacing" property
 
@@ -1070,7 +987,13 @@ feature -- Operations
 
 -- Default value: -1
 
--- Since 2.6
+	-- Since 2.6
+	
+feature -- TODO: Style Properties
+
+--   "selection-box-alpha"  guchar                : Read
+--   "selection-box-color"  GdkColor              : Read
+
 -- Style Property Details
 -- The "selection-box-alpha" style property
 
@@ -1084,6 +1007,42 @@ feature -- Operations
 --   "selection-box-color"  GdkColor              : Read
 
 -- Color of the selection box.
+
+feature -- TODO: Signals
+
+-- "activate-cursor-item"
+--             gboolean    user_function      (GtkIconView *iconview,
+--                                             gpointer user_data);
+-- "item-activated"
+--             void        user_function      (GtkIconView *iconview,
+--                                             GtkTreePath *arg1,
+--                                             gpointer user_data);
+-- "move-cursor"
+--             gboolean    user_function      (GtkIconView *iconview,
+--                                             GtkMovementStep arg1,
+--                                             gint arg2,
+--                                             gpointer user_data);
+-- "select-all"
+--             void        user_function      (GtkIconView *iconview,
+--                                             gpointer user_data);
+-- "select-cursor-item"
+--             void        user_function      (GtkIconView *iconview,
+--                                             gpointer user_data);
+-- "selection-changed"
+--             void        user_function      (GtkIconView *iconview,
+--                                             gpointer user_data);
+-- "set-scroll-adjustments"
+--             void        user_function      (GtkIconView *iconview,
+--                                             GtkAdjustment *arg1,
+--                                             GtkAdjustment *arg2,
+--                                             gpointer user_data);
+-- "toggle-cursor-item"
+--             void        user_function      (GtkIconView *iconview,
+--                                             gpointer user_data);
+-- "unselect-all"
+--             void        user_function      (GtkIconView *iconview,
+--                                             gpointer user_data);
+
 -- Signal Details
 -- The "activate-cursor-item" signal
 

@@ -1,5 +1,5 @@
 class TEXT_DEMO
-insert GTK 
+inherit GTK 
 creation make
 feature
 	make is

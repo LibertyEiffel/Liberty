@@ -311,34 +311,32 @@ feature
 		ensure result_not_void: Result /= Void
 		end
 	
-
-	-- TODO:  gtk_text_view_get_iter_at_position ()
-	
-	--  void gtk_text_view_get_iter_at_position (GtkTextView
-	--  *text_view, GtkTextIter *iter, gint *trailing, gint x, gint y);
-
-	-- 	Retrieves the iterator pointing to the character at buffer coordinates
-	-- 	x and y. Buffer coordinates are coordinates for the entire buffer, not
-	-- 	just the currently-displayed portion. If you have coordinates from an
-	-- 	event, you have to convert those to buffer coordinates with
-	-- 	gtk_text_view_window_to_buffer_coords().
-	
-	-- 	Note that this is different from gtk_text_view_get_iter_at_location(),
-	-- 	which returns cursor locations, i.e. positions between characters.
-
-	-- 	text_view : a GtkTextView
-	-- 	iter :      a GtkTextIter
-	-- 	trailing :  location to store an integer indicating where in the
-	-- 					grapheme the user clicked. It will either be zero, or the
-	-- 					number of characters in the grapheme. 0 represents the
-	-- 					trailing edge of the grapheme.
-	-- 	x :         x position, in buffer coordinates
-	-- 	y :         y position, in buffer coordinates
-	
-	-- 	Since 2.6
+	iter_at_position (an_n, an_y: INTEGER): TUPLE[GTK_TEXT_ITER,INTEGER] is
+			-- the iterator pointing to the character at buffer
+			-- coordinates `an_x' and `an_y' and the number of characters
+			-- in the grapheme (0 represents the trailing edge of the
+			-- grapheme) Buffer coordinates are coordinates for the
+			-- entire buffer, not just the currently-displayed
+			-- portion. If you have coordinates from an event, you have
+			-- to convert those to buffer coordinates with
+			-- `window_to_buffer_coords'.
+		
+			-- Note that this is different from `iter_at_location', which
+			-- returns cursor locations, i.e. positions between
+			-- characters.
+		local an_iter: GTK_TEXT_ITER; a_trailing: INTEGER
+		do
+			create an_iter.make
+			gtk_text_view_get_iter_at_position (handle, an_iter.handle,
+															$a_trailing, an_x, an_y)
+			create Result.make_2(an_iter, a_trailing)
+		ensure 
+			not_void: Result /= Void
+			iter_not_void: Result.item_1 /= Void
+		end
 
 	buffer_to_window_coords (a_window_type: INTEGER;
-			                 buffer_x, buffer_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+									 buffer_x, buffer_y: INTEGER): TUPLE[INTEGER, INTEGER] is
 			-- Converts coordinate (buffer_x, buffer_y) to coordinates
 			-- for the window of `a_widndow_type' (except gtk_text_window_private). Result is
 			-- [window_x,window_y].
@@ -435,8 +433,9 @@ feature
 			Result := gtk_text_view_get_border_window_size (handle, a_window_type)
 		end
 
+feature -- Iterator moving command
 	forward_display_line (an_iterator: GTK_TEXT_ITER) is
-			-- Moves `an_iterator0 iter forward by one display (wrapped)
+			-- Moves `an_iterator' forward by one display (wrapped)
 			-- line. A display line is different from a
 			-- paragraph. Paragraphs are separated by newlines or other
 			-- paragraph separator characters. Display lines are created
@@ -449,90 +448,73 @@ feature
 		
 			-- `was_iter_moved' will be True if iter was moved and is not
 			-- on the end iterator
+		require iterator_not_void: an_iterator/=Void
 		do
 			was_iter_moved := gtk_text_view_forward_display_line (handle, an_iterator.handle).to_boolean
 		end
 	
--- 	-----------------------------------------------------------------------
+	backward_display_line (an_iter: GTK_TEXT_ITER) is
+			-- Moves `an_iter' backward by one display (wrapped) line. A
+			-- display line is different from a paragraph. Paragraphs are
+			-- separated by newlines or other paragraph separator
+			-- characters. Display lines are created by line-wrapping a
+			-- paragraph. If wrapping is turned off, display lines and
+			-- paragraphs will be the same. Display lines are divided
+			-- differently for each view, since they depend on the view's
+			-- width; paragraphs are the same in all views, since they
+			-- depend on the contents of the GtkTextBuffer.
 
---   gtk_text_view_backward_display_line ()
+			-- `was_iter_moved' will be True if iter was moved and is not
+			-- on the end iterator
+		require iterator_not_void: an_iter/=Void
+		do
+			was_moved:=gtk_text_view_backward_display_line(handle,an_iter.handle).to_boolean
+		end
 
---  gboolean    gtk_text_view_backward_display_line
--- 															(GtkTextView *text_view,
--- 															 GtkTextIter *iter);
+	forward_display_line_end (an_iter: GTK_TEXT_ITER) is
+			-- Moves `an_iter' forward to the next display line end. A
+			-- display line is different from a paragraph. Paragraphs are
+			-- separated by newlines or other paragraph separator
+			-- characters. Display lines are created by line-wrapping a
+			-- paragraph. If wrapping is turned off, display lines and
+			-- paragraphs will be the same. Display lines are divided
+			-- differently for each view, since they depend on the view's
+			-- width; paragraphs are the same in all views, since they
+			-- depend on the contents of the GtkTextBuffer.
+		
+			-- `was_iter_moved' will be True if iter was moved and is not
+			-- on the end iterator.
+		require iterator_not_void: an_iter/=Void
+		do
+			was_moved:=gtk_text_view_forward_display_line_end(handle,an_iter).to_boolean
+		end
 
--- 	Moves the given iter backward by one display (wrapped) line. A display
--- 	line is different from a paragraph. Paragraphs are separated by
--- 	newlines or other paragraph separator characters. Display lines are
--- 	created by line-wrapping a paragraph. If wrapping is turned off,
--- 	display lines and paragraphs will be the same. Display lines are
--- 	divided differently for each view, since they depend on the view's
--- 	width; paragraphs are the same in all views, since they depend on the
--- 	contents of the GtkTextBuffer.
+	backward_display_line_start (an_iter: GTK_TEXT_ITER) is
+			-- Moves `an_iter' backward to the next display line start. A
+			-- display line is different from a paragraph. Paragraphs are
+			-- separated by newlines or other paragraph separator
+			-- characters. Display lines are created by line-wrapping a
+			-- paragraph. If wrapping is turned off, display lines and
+			-- paragraphs will be the same. Display lines are divided
+			-- differently for each view, since they depend on the view's
+			-- width; paragraphs are the same in all views, since they
+			-- depend on the contents of the GtkTextBuffer.
 
--- 	text_view : a GtkTextView
--- 	iter :      a GtkTextIter
--- 	Returns :   TRUE if iter was moved and is not on the end iterator
+			-- `was_iter_moved' will be True if iter was moved and is not
+			-- on the end iterator.
+		require iterator_not_void: an_iter/=Void
+		do
+			was_moved:=gtk_text_view_backward_display_line_start(handle,an_iter.handle).to_boolean
+		end
 
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_forward_display_line_end ()
-
---  gboolean    gtk_text_view_forward_display_line_end
--- 															(GtkTextView *text_view,
--- 															 GtkTextIter *iter);
-
--- 	Moves the given iter forward to the next display line end. A display
--- 	line is different from a paragraph. Paragraphs are separated by
--- 	newlines or other paragraph separator characters. Display lines are
--- 	created by line-wrapping a paragraph. If wrapping is turned off,
--- 	display lines and paragraphs will be the same. Display lines are
--- 	divided differently for each view, since they depend on the view's
--- 	width; paragraphs are the same in all views, since they depend on the
--- 	contents of the GtkTextBuffer.
-
--- 	text_view : a GtkTextView
--- 	iter :      a GtkTextIter
--- 	Returns :   TRUE if iter was moved and is not on the end iterator
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_backward_display_line_start ()
-
---  gboolean    gtk_text_view_backward_display_line_start
--- 															(GtkTextView *text_view,
--- 															 GtkTextIter *iter);
-
--- 	Moves the given iter backward to the next display line start. A display
--- 	line is different from a paragraph. Paragraphs are separated by
--- 	newlines or other paragraph separator characters. Display lines are
--- 	created by line-wrapping a paragraph. If wrapping is turned off,
--- 	display lines and paragraphs will be the same. Display lines are
--- 	divided differently for each view, since they depend on the view's
--- 	width; paragraphs are the same in all views, since they depend on the
--- 	contents of the GtkTextBuffer.
-
--- 	text_view : a GtkTextView
--- 	iter :      a GtkTextIter
--- 	Returns :   TRUE if iter was moved and is not on the end iterator
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_starts_display_line ()
-
---  gboolean    gtk_text_view_starts_display_line
--- 															(GtkTextView *text_view,
--- 															 const GtkTextIter *iter);
-
--- 	Determines whether iter is at the start of a display line. See
--- 	gtk_text_view_forward_display_line() for an explanation of display
--- 	lines vs. paragraphs.
-
--- 	text_view : a GtkTextView
--- 	iter :      a GtkTextIter
--- 	Returns :   TRUE if iter begins a wrapped line
-
--- 	-----------------------------------------------------------------------
+feature -- Iterator queries
+	does_start_display_line (an_iter: GTK_TREE_ITER): BOOLEAN is
+			-- Does `an_iter' begin a display (wrapped) line? See
+			-- `forward_display_line' for an explanation of display lines
+			-- vs. paragraphs.
+		do
+			Result:=gtk_text_view_starts_display_line(handle, an_iter.handle).to_boolean
+		end
 
 --   gtk_text_view_move_visually ()
 

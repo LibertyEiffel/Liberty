@@ -256,34 +256,36 @@ feature
 		do
 			ptr := g_array_index(handle,an_index)
 			-- The return value is cast to the given type.
+		ensure implemented: False
 		end
 
--- a : 	a GArray.
--- t : 	the type of the elements.
--- i : 	the index of the element to return.
--- Returns : 	the element of the GArray at the index given by i.
--- g_array_set_size ()
+	set_size (a_length: INTEGER) is
+			-- Sets the size of the array, expanding it if necessary. If the array
+			-- was created with `cleared' set to True, the new elements are
+			-- set to Void.
+		require positive_length: a_length >= 0
+		local ptr: POINTER
+		do
+			ptr:=g_array_set_size(handle,a_length)
+		end
 
--- GArray*     g_array_set_size                (GArray *array,
---                                              guint length);
+	dispose is
+		local p: POINTER
+		do
+			-- g_array_free frees the memory allocated for the GArray. If
+			-- free_segment is TRUE it frees the memory block holding the
+			-- elements as well. Pass FALSE if you want to free the
+			-- GArray wrapper but preserve the underlying array for use
+			-- elsewhere.  free_segment : if TRUE the actual element data
+			-- is freed as well. 
+			p:=g_array_free (handle, 
+								  0 -- free_segment=False, i.e. do not
+								  -- free the actual data
+								  )
+			unstore_eiffel_wrapper
+			handle:=default_pointer
+		end
 
--- Sets the size of the array, expanding it if necessary. If the array was created with clear_ set to TRUE, the new elements are set to 0.
--- array : 	a GArray.
--- length : 	the new size of the GArray.
--- Returns : 	the GArray.
--- g_array_free ()
-
--- gchar*      g_array_free                    (GArray *array,
---                                              gboolean free_segment);
-
--- Frees the memory allocated for the GArray. If free_segment is TRUE it frees the memory block holding the elements as well. Pass FALSE if you want to free the GArray wrapper but preserve the underlying array for use elsewhere.
--- Note
-
--- If array elements contain dynamically-allocated memory, they should be freed first.
--- array : 	a GArray.
--- free_segment : 	if TRUE the actual element data is freed as well.
--- Returns : 	the element data if free_segment is FALSE, otherwise 
--- NULL
 feature {} -- External calls
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"

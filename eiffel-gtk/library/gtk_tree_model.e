@@ -33,6 +33,7 @@ indexing
 			-- columned data. In other words, the model can be seen as a tree where
 			-- every node has different values depending on which column is being
 			-- queried. The type of data found in a column is determined by using
+
 			-- the GType system (ie. G_TYPE_INT, GTK_TYPE_BUTTON, G_TYPE_POINTER,
 			-- etc.). The types are homogeneous per column across all nodes. It is
 			-- important to note that this interface only provides a way of
@@ -211,87 +212,85 @@ feature
 			-- already implemented into G_VALUE
 		end
 
-	-- TODO: gtk_tree_model_ref_node ()
-
-	-- void gtk_tree_model_ref_node (GtkTreeModel *tree_model,
-	-- GtkTreeIter *iter);
+	ref_node (an_iter: GTK_TREE_ITER) is
+			-- Lets the tree ref the node referred by `an_iter'. This is
+			-- an optional method for models to implement. To be more
+			-- specific, models may ignore this call as it exists
+			-- primarily for performance reasons.
 	
-	-- Lets the tree ref the node. This is an optional method for
-	-- models to implement. To be more specific, models may ignore this
-	-- call as it exists primarily for performance reasons.
+			-- This feature is primarily meant as a way for views to let
+			-- caching model know when nodes are being displayed (and
+			-- hence, whether or not to cache that node.) For example, a
+			-- file-system based model would not want to keep the entire
+			-- file-hierarchy in memory, just the sections that are
+			-- currently being displayed by every current view.
 	
-	-- This function is primarily meant as a way for views to let
-	-- caching model know when nodes are being displayed (and hence,
-	-- whether or not to cache that node.) For example, a file-system
-	-- based model would not want to keep the entire file-hierarchy in
-	-- memory, just the sections that are currently being displayed by
-	-- every current view.
+			-- A model should be expected to be able to get an iter independent
+			-- of its reffed state.
+		require iter_not_void: an_iter /= Void
+		do
+			gtk_tree_model_ref_node (handle, an_iter.handle)
+		end
 	
-	-- A model should be expected to be able to get an iter independent
-	-- of its reffed state.
-
-	-- tree_model : A GtkTreeModel.  iter : The GtkTreeIter.
+	unref_node (an_iter: GTK_TREE_ITER) is
+			-- Lets the tree unref the node referred by `an_iter'. This
+			-- is an optional method for models to implement. To be more
+			-- specific, models may ignore this call as it exists
+			-- primarily for performance reasons.
 	
-	-- TODO: gtk_tree_model_unref_node ()
+			-- For more information on what this means, see
+			-- `ref_node'. Please note that nodes that are deleted are
+			-- not unreffed.
+		require iter_not_void: an_iter /= Void
+		do
+			gtk_tree_model_unref_node (handle, an_iter.handle)
+		end
 	
-	-- void gtk_tree_model_unref_node (GtkTreeModel *tree_model,
-	-- GtkTreeIter *iter);
 	
-	-- Lets the tree unref the node. This is an optional method for
-	-- models to implement. To be more specific, models may ignore this
-	-- call as it exists primarily for performance reasons.
+	-- Note: gtk_tree_model_get and gtk_tree_model_get_valist are
+	-- unwrappable since variadic or valist-using. They are implemented
+	-- in C as a tight loop around a gtk_tree_model_get_value call. We 
+	-- reimplement it
 	
-	-- For more information on what this means, see
-	-- gtk_tree_model_ref_node(). Please note that nodes that are
-	-- deleted are not unreffed.
+	values, get (an_iter: GTK_TREE_ITER; some_columns: COLLECTION[INTEGER]): COLLECTION[G_VALUE] is
+			-- the value of one or more cells in the row referenced by
+			-- `an_iter'. `some_columns' are the integer column
+			-- numbers.
+		require 
+			iter_not_void: an_iter /= Void
+			valid_columns: some_columns /= Void
+			-- TODO: correct_columns: some_columns.forall
+			-- (is_valid_g_value (?))
+		local columns_iterator: ITERATOR[INTEGER]; col_n: INTEGER
+		do
+			create {LINKED_LIST} Result.make
+			columns_iterator:=some_columns.get_new_iterator
+			from columns_iterator.start
+			until columns_iterator.is_off
+			loop
+				col_n:=columns_iterator.item
+				Result.append(value(an_iter, col_n))
+				columns_iterator.next
+			end
+		ensure
+			Result /= Void
+			Result.count = some_columns.count
+		end		
 	
-	-- tree_model : A GtkTreeModel.  iter : The GtkTreeIter.
-	
-	-- Note: gtk_tree_model_get () is unwrappable. Left here for reference
-	
-	-- TODO: consider to provide a feature to retrieve multiple values
-	-- from a row. A possible implementation can be:
-
-	-- get (some_columns: COLLECTION[INTEGER]): COLLECTION[G_VALUE] is
-	-- require valid_columns: some_columns /= Void
-	-- correct_columns: some_columns.forall (is_valid_g_value (?))
-	-- ensure
-	-- Result /= Void
-	-- Result.count = some_columns.count
-	
-	-- void gtk_tree_model_get (GtkTreeModel *tree_model, GtkTreeIter
-	-- *iter, ...);
-	
-	-- Gets the value of one or more cells in the row referenced by
-	-- iter. The variable argument list should contain integer column
-	-- numbers, each column number followed by a place to store the
-	-- value being retrieved. The list is terminated by a -1. For
-	-- example, to get a value from column 0 with type G_TYPE_STRING,
-	-- you would write: gtk_tree_model_get (model, iter, 0,
-	-- &place_string_here, -1), where place_string_here is a gchar* to
-	-- be filled with the string. If appropriate, the returned values
-	-- have to be freed or unreferenced.
-	
-	-- tree_model : 	a GtkTreeModel
-	-- iter : 	a row in tree_model
-	-- ... : 	pairs of column number and value return locations, terminated by -1
-	
-	-- Note: unwrappable gtk_tree_model_get_valist since it uses va_list 
-
 	-- TODO: for_each (a_test: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]) is
--- 			-- Calls func on each node in model in a depth-first
--- 			-- fashion. If `a_test' returns TRUE, then the tree ceases to
--- 			-- be walked, and gtk_tree_model_foreach() returns.
+	-- 			-- Calls func on each node in model in a depth-first
+	-- 			-- fashion. If `a_test' returns TRUE, then the tree ceases to
+	-- 			-- be walked, and gtk_tree_model_foreach() returns.
 	
--- 			-- model : 	A GtkTreeModel
--- 			-- func : 	A function to be called on each row
--- 			-- user_data : 	User data to passed to func.
--- 		local for_each_callback: FOR_EACH_CALLBACK
--- 		do
--- 			create for_each_callback.make
--- 			gtk_tree_model_foreach (handle, GtkTreeModel *model,
--- 			-- GtkTreeModelForeachFunc func, gpointer user_data);
--- 		end
+	-- 			-- model : 	A GtkTreeModel
+	-- 			-- func : 	A function to be called on each row
+	-- 			-- user_data : 	User data to passed to func.
+	-- 		local for_each_callback: FOR_EACH_CALLBACK
+	-- 		do
+	-- 			create for_each_callback.make
+	-- 			gtk_tree_model_foreach (handle, GtkTreeModel *model,
+	-- 			-- GtkTreeModelForeachFunc func, gpointer user_data);
+	-- 		end
 
 	row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
 			-- Emits the "row_changed" signal on tree_model. `a_path'
@@ -373,18 +372,35 @@ feature
 			end
 		end
 
-feature -- Signal Details
--- The "row-changed" signal
-
--- void        user_function                  (GtkTreeModel *treemodel,
---                                             GtkTreePath  *arg1,
---                                             GtkTreeIter  *arg2,
---                                             gpointer      user_data)      : Run last
+feature -- The "row-changed" signal
+	
+-- void user_function (GtkTreeModel *treemodel, GtkTreePath *arg1,
+-- GtkTreeIter *arg2, gpointer user_data) : Run last
 
 -- treemodel : 	the object which received the signal.
 -- arg1 : 	
 -- arg2 : 	
 -- user_data : 	user data set when the signal handler was connected.
+	row_changed_signal_name: STRING is "row-changed"
+	enable_on_row_changed is
+			-- Connects "row-changed" signal to `on_row_changed' feature.
+		do
+			connect (Current, activate_signal_name, $on_row_changed)
+		end
+
+	on_row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
+			-- Built-in "row-changed" signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_row_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL,GTK_TREE_PATH,GTK_TREE_ITER]]) is
+		require valid_procedure: a_procedure /= Void
+		local
+			row_changed_callback: ROW_CHANGED_CALLBACK
+		do
+			create row_changed_callback.make
+			row_changed_callback.connect (Current, a_procedure)
+		end
 
 feature -- The "row-deleted" signal
 
@@ -574,17 +590,5 @@ feature {} -- Moved here from top - unwrapped code
 -- path : 	
 -- iter : 	
 -- data : 	
--- Returns : 	
--- enum GtkTreeModelFlags
-
--- typedef enum
--- {
---   GTK_TREE_MODEL_ITERS_PERSIST = 1 << 0,
---   GTK_TREE_MODEL_LIST_ONLY = 1 << 1
--- } GtkTreeModelFlags;
-
--- These flags indicate various properties of a GtkTreeModel. They are returned by gtk_tree_model_get_flags(), and must be static for the lifetime of the object. A more complete description of GTK_TREE_MODEL_ITERS_PERSIST can be found in the overview of this section.
--- GTK_TREE_MODEL_ITERS_PERSIST 	Iterators survive all signals emitted by the tree.
--- GTK_TREE_MODEL_LIST_ONLY 	The model is a list only, and never has children
-
+	-- Returns : 	
 end
