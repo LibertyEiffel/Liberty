@@ -486,7 +486,7 @@ feature -- Iterator moving command
 			-- on the end iterator.
 		require iterator_not_void: an_iter/=Void
 		do
-			was_iter_moved:=gtk_text_view_forward_display_line_end(handle,an_iter).to_boolean
+			was_iter_moved:=gtk_text_view_forward_display_line_end(handle,an_iter.handle).to_boolean
 		end
 
 	backward_display_line_start (an_iter: GTK_TEXT_ITER) is

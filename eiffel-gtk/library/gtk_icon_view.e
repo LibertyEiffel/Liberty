@@ -76,7 +76,7 @@ feature -- Access
 				if has_eiffel_wrapper_stored (c_ptr) then
 					Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_ptr)
 				else
-					create Result.from_external_pointer (c_ptr)
+					create {GTK_LIST_STORE}Result.from_external_pointer (c_ptr)
 				end
 			end
 		end
