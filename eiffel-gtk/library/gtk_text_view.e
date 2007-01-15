@@ -311,7 +311,7 @@ feature
 		ensure result_not_void: Result /= Void
 		end
 	
-	iter_at_position (an_n, an_y: INTEGER): TUPLE[GTK_TEXT_ITER,INTEGER] is
+	iter_at_position (an_x, an_y: INTEGER): TUPLE[GTK_TEXT_ITER,INTEGER] is
 			-- the iterator pointing to the character at buffer
 			-- coordinates `an_x' and `an_y' and the number of characters
 			-- in the grapheme (0 represents the trailing edge of the
@@ -468,7 +468,7 @@ feature -- Iterator moving command
 			-- on the end iterator
 		require iterator_not_void: an_iter/=Void
 		do
-			was_moved:=gtk_text_view_backward_display_line(handle,an_iter.handle).to_boolean
+			was_iter_moved := gtk_text_view_backward_display_line(handle,an_iter.handle).to_boolean
 		end
 
 	forward_display_line_end (an_iter: GTK_TEXT_ITER) is
@@ -486,7 +486,7 @@ feature -- Iterator moving command
 			-- on the end iterator.
 		require iterator_not_void: an_iter/=Void
 		do
-			was_moved:=gtk_text_view_forward_display_line_end(handle,an_iter).to_boolean
+			was_iter_moved:=gtk_text_view_forward_display_line_end(handle,an_iter).to_boolean
 		end
 
 	backward_display_line_start (an_iter: GTK_TEXT_ITER) is
@@ -504,7 +504,7 @@ feature -- Iterator moving command
 			-- on the end iterator.
 		require iterator_not_void: an_iter/=Void
 		do
-			was_moved:=gtk_text_view_backward_display_line_start(handle,an_iter.handle).to_boolean
+			was_iter_moved:=gtk_text_view_backward_display_line_start(handle,an_iter.handle).to_boolean
 		end
 
 feature -- Iterator queries
