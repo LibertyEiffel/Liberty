@@ -19,6 +19,8 @@ indexing
 					02110-1301 USA
 			]"
 
+	wrapped_version: "##VERSION##"
+
 class FOO
 
 inherit
