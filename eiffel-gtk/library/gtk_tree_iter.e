@@ -24,7 +24,7 @@ indexing
 class GTK_TREE_ITER
 
 inherit
-	C_STRUCT redefine dispose end
+	SHARED_C_STRUCT redefine dispose end
 
 insert
 	GTK
@@ -32,7 +32,11 @@ insert
 	GTK_TREE_MODEL_EXTERNALS
 	GLIB_MEMORY_ALLOCATION
 
-creation make, make_from_model, from_model, from_external_pointer
+creation
+	make,
+	make_from_model, from_model,
+	from_external_pointer,
+	as_children_of
 
 feature -- Creation
 
@@ -41,6 +45,7 @@ feature -- Creation
 			gtk_initialized: gtk.is_initialized
 		do
 			allocate
+			set_unshared
 		end
 	
 	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
@@ -50,9 +55,25 @@ feature -- Creation
 		do
 			allocate 
 			tree_model := a_model
+			set_unshared
 		ensure
 			handle.is_not_null
 			attached_to_model
+		end
+
+	as_children_of (a_parent: GTK_TREE_ITER) is
+			-- Create an iterator pointing to the first child of
+			-- `a_parent'.
+		require
+			parent_not_void: a_parent /= Void
+			parent_has_children: a_parent.has_children
+		do
+			allocate
+			tree_model := a_parent.tree_model
+			is_valid := (gtk_tree_model_iter_children
+							 (tree_model.handle, handle,
+							  a_parent.handle).to_boolean)
+			set_unshared
 		end
 
 feature
@@ -60,8 +81,9 @@ feature
 			-- Is last action made on Current successful, making it valid?
 
 	start, first is
-			-- Initializes Current with the first iterator in the tree (the one at
-			-- the path "0") and returns TRUE. Returns FALSE if the tree is empty.
+			-- Moves Current to the first iterator in the tree (the one
+			-- at the path "0"). `is_valid' will be set to False if the
+			-- tree is empty.
 		require
 			attached_to_model
 		do
@@ -94,7 +116,7 @@ feature
 			end
 		end
 
-	has_child: BOOLEAN is
+	has_children, has_child: BOOLEAN is
 			-- Does Current iterator have children?
 		require
 			attached_to_model
@@ -218,9 +240,10 @@ feature
 	-- gpointer user_data2; 	Model specific data
 	-- gpointer user_data3; 	Model specific data 
 
-feature {} -- Implementation
 	tree_model: GTK_TREE_MODEL
-			-- Reference to the tree model. It could have been just a POINTER but
-			-- in this case we would not be sure that the model is still alive when
+			-- Reference to the tree model.
+
+			-- Note: It could have been just a POINTER but in this case
+			-- we would not be sure that the model is still alive when
 			-- the iterator tries to access it.
 end

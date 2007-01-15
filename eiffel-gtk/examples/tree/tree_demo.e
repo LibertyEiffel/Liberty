@@ -262,12 +262,12 @@ feature -- Agents
 		do
 			if a_selection.is_node_selected then
 				print ("A selected row is being de-selected. Disabling buttons.%N")				
-				add_button.unset_sensitive
-				remove_button.unset_sensitive
+				add_button.set_sensitive(False)
+				remove_button.set_sensitive(False)
 			else
 				print ("A de-selected row is being selected. Enabling buttons.%N")
-				add_button.set_sensitive
-				remove_button.set_sensitive
+				add_button.set_sensitive(True)
+				remove_button.set_sensitive(True)
 			end
 			
 			print ("Path '") print (a_path.to_string)

@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the destroy signal"
+	description: "Callback for tree selection functions"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					

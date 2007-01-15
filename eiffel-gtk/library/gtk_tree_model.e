@@ -21,82 +21,83 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Description
-
-			-- The GtkTreeModel interface defines a generic tree interface for use
-			-- by the GtkTreeView widget. It is an abstract interface, and is
-			-- designed to be usable with any appropriate data structure. The
-			-- programmer just has to implement this interface on their own data
-			-- type for it to be viewable by a GtkTreeView widget.
-
-			-- The model is represented as a hierarchical tree of strongly-typed,
-			-- columned data. In other words, the model can be seen as a tree where
-			-- every node has different values depending on which column is being
-			-- queried. The type of data found in a column is determined by using
-
-			-- the GType system (ie. G_TYPE_INT, GTK_TYPE_BUTTON, G_TYPE_POINTER,
-			-- etc.). The types are homogeneous per column across all nodes. It is
-			-- important to note that this interface only provides a way of
-			-- examining a model and observing changes. The implementation of each
-			-- individual model decides how and if changes are made.
-
-			-- In order to make life simpler for programmers who do not need to
-			-- write their own specialized model, two generic models are provided:
-			-- the GtkTreeStore and the GtkListStore. To use these, the developer
-			-- simply pushes data into these models as necessary. These models
-			-- provide the data structure as well as all appropriate tree
-			-- interfaces. As a result, implementing drag and drop, sorting, and
-			-- storing data is trivial. For the vast majority of trees and lists,
-			-- these two models are sufficient.
-
-			-- Models are accessed on a node/column level of granularity. One can
-			-- query for the value of a model at a certain node and a certain
-			-- column on that node. There are two structures used to reference a
-			-- particular node in a model. They are the GtkTreePath and the
-			-- GtkTreeIter [4] Most of the interface consists of operations on a
-			-- GtkTreeIter.
-
-			-- A path is essentially a potential node. It is a location
-			-- on a model that may or may not actually correspond to a
-			-- node on a specific model. The GtkTreePath struct can be
-			-- converted into either an array of unsigned integers or a
-			-- string. The string form is a list of numbers separated by
-			-- a colon. Each number refers to the offset at that
-			-- level. Thus, the path 0: refers to the root node and the
-			-- path �:4�refers to the fifth child of the third node.
-
-			-- By contrast, a GtkTreeIter is a reference to a specific node on a
-			-- specific model. It is a generic struct with an integer and three
-			-- generic pointers. These are filled in by the model in a
-			-- model-specific way. One can convert a path to an iterator by calling
-			-- gtk_tree_model_get_iter(). These iterators are the primary way of
-			-- accessing a model and are similar to the iterators used by
-			-- GtkTextBuffer. They are generally statically allocated on the stack
-			-- and only used for a short time. The model interface defines a set of
-			-- operations using them for navigating the model.
-
-			-- It is expected that models fill in the iterator with private
-			-- data. For example, the GtkListStore model, which is internally a
-			-- simple linked list, stores a list node in one of the pointers. The
-			-- GtkTreeModelSort stores an array and an offset in two of the
-			-- pointers. Additionally, there is an integer field. This field is
-			-- generally filled with a unique stamp per model. This stamp is for
-			-- catching errors resulting from using invalid iterators with a model.
-
-			-- The lifecycle of an iterator can be a little confusing at
-			-- first. Iterators are expected to always be valid for as long as the
-			-- model is unchanged (and doesn't emit a signal). The model is
-			-- considered to own all outstanding iterators and nothing needs to be
-			-- done to free them from the user's point of view. Additionally, some
-			-- models guarantee that an iterator is valid for as long as the node
-			-- it refers to is valid (most notably the GtkTreeStore and
-			-- GtkListStore). Although generally uninteresting, as one always has
-			-- to allow for the case where iterators do not persist beyond a
-			-- signal, some very important performance enhancements were made in
-			-- the sort model. As a result, the GTK_TREE_MODEL_ITERS_PERSIST flag
-			-- was added to indicate this behavior.
-
 deferred class GTK_TREE_MODEL
+	-- Description: The GtkTreeModel interface defines a generic tree
+	-- interface for use by the GtkTreeView widget. It is an abstract
+	-- interface, and is designed to be usable with any appropriate
+	-- data structure. The programmer just has to implement this
+	-- interface on their own data type for it to be viewable by a
+	-- GtkTreeView widget.
+
+	-- The model is represented as a hierarchical tree of
+	-- strongly-typed, columned data. In other words, the model can be
+	-- seen as a tree where every node has different values depending
+	-- on which column is being queried. The type of data found in a
+	-- column is determined by using the GType system
+	-- (ie. `g_type_int,' `gtk_type_button,' `g_type_pointer,'
+	-- etc.). The types are homogeneous per column across all nodes. It
+	-- is important to note that this interface only provides a way of
+	-- examining a model and observing changes. The implementation of
+	-- each individual model decides how and if changes are made.
+
+	-- In order to make life simpler for programmers who do not need to
+	-- write their own specialized model, two generic models are
+	-- provided: the GtkTreeStore and the GtkListStore. To use these,
+	-- the developer simply pushes data into these models as
+	-- necessary. These models provide the data structure as well as
+	-- all appropriate tree interfaces. As a result, implementing drag
+	-- and drop, sorting, and storing data is trivial. For the vast
+	-- majority of trees and lists, these two models are sufficient.
+	
+	-- Models are accessed on a node/column level of granularity. One
+	-- can query for the value of a model at a certain node and a
+	-- certain column on that node. There are two structures used to
+	-- reference a particular node in a model. They are the GtkTreePath
+	-- and the GtkTreeIter [4] Most of the interface consists of
+	-- operations on a GtkTreeIter.
+
+	-- A path is essentially a potential node. It is a location on a
+	-- model that may or may not actually correspond to a node on a
+	-- specific model. The GtkTreePath struct can be converted into
+	-- either an array of unsigned integers or a string. The string
+	-- form is a list of numbers separated by a colon. Each number
+	-- refers to the offset at that level. Thus, the path 0: refers to
+	-- the root node and the path �:4�refers to the fifth child of
+	-- the third node.
+
+	-- By contrast, a GtkTreeIter is a reference to a specific node on
+	-- a specific model. It is a generic struct with an integer and
+	-- three generic pointers. These are filled in by the model in a
+	-- model-specific way. One can convert a path to an iterator by
+	-- calling gtk_tree_model_get_iter(). These iterators are the
+	-- primary way of accessing a model and are similar to the
+	-- iterators used by GtkTextBuffer. They are generally statically
+	-- allocated on the stack and only used for a short time. The model
+	-- interface defines a set of operations using them for navigating
+	-- the model.
+
+	-- It is expected that models fill in the iterator with private
+	-- data. For example, the GtkListStore model, which is internally a
+	-- simple linked list, stores a list node in one of the
+	-- pointers. The GtkTreeModelSort stores an array and an offset in
+	-- two of the pointers. Additionally, there is an integer
+	-- field. This field is generally filled with a unique stamp per
+	-- model. This stamp is for catching errors resulting from using
+	-- invalid iterators with a model.
+
+	-- The lifecycle of an iterator can be a little confusing at
+	-- first. Iterators are expected to always be valid for as long as
+	-- the model is unchanged (and doesn't emit a signal). The model is
+	-- considered to own all outstanding iterators and nothing needs to
+	-- be done to free them from the user's point of
+	-- view. Additionally, some models guarantee that an iterator is
+	-- valid for as long as the node it refers to is valid (most
+	-- notably the GtkTreeStore and GtkListStore). Although generally
+	-- uninteresting, as one always has to allow for the case where
+	-- iterators do not persist beyond a signal, some very important
+	-- performance enhancements were made in the sort model. As a
+	-- result, the GTK_TREE_MODEL_ITERS_PERSIST flag was added to
+	-- indicate this behavior.
 
 inherit
 	-- G_INTERFACE
@@ -256,6 +257,8 @@ feature
 			-- the value of one or more cells in the row referenced by
 			-- `an_iter'. `some_columns' are the integer column
 			-- numbers.
+
+			-- TODO: decide which name is better among `values' and `get'
 		require 
 			iter_not_void: an_iter /= Void
 			valid_columns: some_columns /= Void
@@ -263,13 +266,13 @@ feature
 			-- (is_valid_g_value (?))
 		local columns_iterator: ITERATOR[INTEGER]; col_n: INTEGER
 		do
-			create {LINKED_LIST} Result.make
+			create {LINKED_LIST[G_VALUE]} Result.make
 			columns_iterator:=some_columns.get_new_iterator
 			from columns_iterator.start
 			until columns_iterator.is_off
 			loop
 				col_n:=columns_iterator.item
-				Result.append(value(an_iter, col_n))
+				Result.add_last(value(an_iter, col_n))
 				columns_iterator.next
 			end
 		ensure
@@ -277,20 +280,21 @@ feature
 			Result.count = some_columns.count
 		end		
 	
-	-- TODO: for_each (a_test: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]) is
-	-- 			-- Calls func on each node in model in a depth-first
-	-- 			-- fashion. If `a_test' returns TRUE, then the tree ceases to
-	-- 			-- be walked, and gtk_tree_model_foreach() returns.
-	
-	-- 			-- model : 	A GtkTreeModel
-	-- 			-- func : 	A function to be called on each row
-	-- 			-- user_data : 	User data to passed to func.
-	-- 		local for_each_callback: FOR_EACH_CALLBACK
-	-- 		do
-	-- 			create for_each_callback.make
-	-- 			gtk_tree_model_foreach (handle, GtkTreeModel *model,
-	-- 			-- GtkTreeModelForeachFunc func, gpointer user_data);
-	-- 		end
+	for_each (a_test: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]) is
+			-- Calls `a_test' on each node in model in a depth-first
+			-- fashion. When `a_test' is True, then the tree ceases to
+			-- be walked.		
+		local a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER; a_bool: BOOLEAN
+		do
+			-- Note: implementation paraphrased from the original C 
+			create a_path.first
+			an_iter := get_new_iterator (a_path)
+			if an_iter = Void then a_path.dispose
+			else
+				a_bool:=for_each_helper(a_path,an_iter,a_test)
+				-- for_each_helper ultimate result is thrown away
+			end
+ 		end
 
 	row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
 			-- Emits the "row_changed" signal on tree_model. `a_path'
@@ -374,22 +378,25 @@ feature
 
 feature -- The "row-changed" signal
 	
--- void user_function (GtkTreeModel *treemodel, GtkTreePath *arg1,
--- GtkTreeIter *arg2, gpointer user_data) : Run last
+	-- void user_function (GtkTreeModel *treemodel, GtkTreePath *arg1,
+	-- GtkTreeIter *arg2, gpointer user_data) : Run last
+	
+	-- treemodel : 	the object which received the signal.
+	-- arg1 : 	
+	-- arg2 : 	
+	-- user_data : 	user data set when the signal handler was
+	--	connected.
 
--- treemodel : 	the object which received the signal.
--- arg1 : 	
--- arg2 : 	
--- user_data : 	user data set when the signal handler was connected.
 	row_changed_signal_name: STRING is "row-changed"
 	enable_on_row_changed is
 			-- Connects "row-changed" signal to `on_row_changed' feature.
 		do
-			connect (Current, activate_signal_name, $on_row_changed)
+			connect (Current, row_changed_signal_name, $on_row_changed)
 		end
 
 	on_row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
-			-- Built-in "row-changed" signal handler; empty by design; redefine it.
+			-- Built-in "row-changed" signal handler; empty by design;
+			-- redefine it.
 		do
 		end
 
@@ -405,10 +412,8 @@ feature -- The "row-changed" signal
 feature -- The "row-deleted" signal
 
 	row_deleted_signal_name: STRING is "row-deleted"
-		-- "row-deleted"
-		-- void        user_function          (GtkTreeModel *treemodel,
-		--                                     GtkTreePath  *arg1,
-		--                                     gpointer      user_data)      : Run first
+		-- void user_function (GtkTreeModel *treemodel, GtkTreePath
+		-- *arg1, gpointer user_data) : Run first
 
 	on_row_deleted is
 			-- Built-in row_deleted signal handler; empty by design; redefine it.
@@ -433,17 +438,31 @@ feature -- The "row-deleted" signal
 			row_deleted_callback.connect (Current, a_procedure)
 		end
 
--- The "row-has-child-toggled" signal
+feature -- TODO:  "row-has-child-toggled" signal
+	row_has_child_toggled_signal_name: STRING is "row-has-child-toggled"
+			-- void user_function (GtkTreeModel *treemodel, GtkTreePath
+			-- *arg1, GtkTreeIter *arg2, gpointer user_data) : Run last
 
--- void        user_function                  (GtkTreeModel *treemodel,
---                                             GtkTreePath  *arg1,
---                                             GtkTreeIter  *arg2,
---                                             gpointer      user_data)      : Run last
+	on_row_has_child_toggled is
+			-- Built-in row_has_child_toggled signal handler; empty by design; redefine it.
+		do
+		end
 
--- treemodel : 	the object which received the signal.
--- arg1 : 	
--- arg2 : 	
--- user_data : 	user data set when the signal handler was connected.
+	enable_on_row_has_child_toggled is
+			-- Connects "row_has_child_toggled" signal to `on_row_has_child_toggled' feature.
+		do
+			connect (Current, row_has_child_toggled_signal_name, $on_row_has_child_toggled)
+		end
+	connect_agent_to_row_has_child_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
+			-- treemodel : 	the object which received the signal.
+			-- arg1 : 	
+			-- user_data : 	user data set when the signal handler was connected.
+		require valid_procedure: a_procedure /= Void
+		local row_has_child_toggled_callback: ROW_HAS_CHILD_TOGGLED_CALLBACK
+		do
+			create row_has_child_toggled_callback.make
+			row_has_child_toggled_callback.connect (Current, a_procedure)
+		end
 
 feature -- The "row-inserted" signal
 
@@ -579,16 +598,36 @@ feature {} -- Moved here from top - unwrapped code
 -- 				    GtkTreeIter  *iter);
 -- } GtkTreeModelIface;
 
--- GtkTreeModelForeachFunc ()
+feature {} -- Implementation
+	for_each_helper (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER; 
+						  a_test: FUNCTION[TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER], BOOLEAN]): BOOLEAN is
+			-- Helper function of the `for_each' feature.
 
--- gboolean    (*GtkTreeModelForeachFunc)      (GtkTreeModel *model,
---                                              GtkTreePath *path,
---                                              GtkTreeIter *iter,
---                                              gpointer data);
+			-- Calls `a_test' on node referred by `an_iter' and `a_path',
+			-- then recursively on all its children. When `a_test' is
+			-- True, then the tree ceases to be walked.
+		require
+			iter_not_void: an_iter /= Void
+			path_not_void: a_path /= Void
+			test_not_void: a_test /= Void
+			valid_iter: an_iter.is_valid
+			-- TODO: iter and path refer the same node
+		local a_child: GTK_TREE_ITER; continue: BOOLEAN
+		do
+			check Result_must_be_initially_false: Result=False end
+			from 
+			until Result = False and then an_iter.is_valid 
+			loop
+				Result := a_test.item([Current, a_path, an_iter])
 
--- model : 	
--- path : 	
--- iter : 	
--- data : 	
-	-- Returns : 	
+				if not Result and then an_iter.has_children then
+					create a_child.as_children_of(an_iter)
+					a_path.down
+					Result:= for_each_helper (a_path, a_child, a_test)
+					a_path.up
+				end
+				a_path.next
+				an_iter.next
+			end
+		end
 end

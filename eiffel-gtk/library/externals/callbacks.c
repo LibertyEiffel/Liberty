@@ -5,6 +5,13 @@
 
 #include <stdio.h>
 
+/* gboolean  EiffelGtkTreeForeachFunc (GtkTreeModel *model, */
+/* 				    GtkTreePath *path,  */
+/* 				    GtkTreeIter *iter,  */
+/* 				    gpointer data) { */
+/*   return (0); */
+/* }; */
+
 int EiffelGtkTreeSelectionFunc (void *selection,
 				void *model,
 				void *path,
