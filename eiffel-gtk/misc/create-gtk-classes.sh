@@ -40,7 +40,7 @@ do
 	## Adding  "proper" headers and footers
 	cat $HEAD - $FOOT |
 	## Replace ##VERSION## with correct $VERSION
-	sed "s/##VERSION##/$VERSION/" ##>$STUB
+	sed "s/##VERSION##/$VERSION/" >$STUB
     else 
 	echo "$CONVERTED already exists."
     fi
