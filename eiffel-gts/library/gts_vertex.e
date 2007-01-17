@@ -80,8 +80,8 @@ feature
 	replace_with (another: GTS_VERTEX) is
 			-- Replaces Current vertex with `another'. v and with must be
 			-- different. All the GtsSegment which have v has one of their vertices
-			-- are updated. The segments list of vertex v is freed and v->segments
-			-- is set to NULL.
+			-- are updated. The segments list of vertex is freed and `segments'
+			-- is set to Void.
 		require 
 			another_not_void: another/=Void
 			not_equal: not is_equal(another)
@@ -121,7 +121,7 @@ feature
 			(gts_vertex_faces (handle, s, default_pointer))
 		end
 
-	fan_oriented (a_surface: GTS_SURFACE) is
+	fan_oriented (a_surface: GTS_SURFACE): G_SLIST[GTS_EDGE] is
 			-- a list of GtsEdge describing in counterclockwise order the boundary
 			-- of the fan of summit Current GTS_VERTEX, the faces of the fan
 			-- belonging to surface.
@@ -140,33 +140,31 @@ feature
 						(handle, an_edge.handle)).to_boolean
 		end
 
+	segments: G_SLIST[GTS_SEGMENT] is
+			-- the GtsSegments using this vertex as one of their
+			-- endpoints.
+		do
+			-- segments list are not cached because 
+			create Result.from_external_pointer(get_segments(handle))
+		end
+	
 feature {} -- Unwrapped code
---   GtsVertexClass
+	-- typedef struct { GtsPointClass parent_class;
+	-- void (* intersection_attributes) (GtsVertex *, GtsObject *,
+	-- GtsObject *); } GtsVertexClass;
+	
+	-- The vertex class. No virtual functions are associated.
 
---  typedef struct {
---    GtsPointClass parent_class;
-
---    void        (* intersection_attributes) (GtsVertex *,
---                                             GtsObject *,
---                                             GtsObject *);
---  } GtsVertexClass;
-
---    The vertex class. No virtual functions are associated.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GtsVertex
-
---  typedef struct {
---    GtsPoint p;
-
---    GSList * segments;
---  } GtsVertex;
-
---    The vertex object.
-
---     GtsPoint p;        The parent object.
---     GSList *segments;  Contains all the GtsSegment using this vertex as one of their endpoints.
-
+feature {} -- Struct access
+	get_segments (a_struct: POINTER): POINTER is
+		external "C struct GtsVertex get segments use <gts.h>"
+		end
+	
+	-- typedef struct { GtsPoint p; GSList * segments; } GtsVertex;
+	
+	-- GtsPoint p; The parent object.
+	
+	-- GSList *segments; Contains all the GtsSegment using this vertex
+	-- as one of their endpoints.
 
 end -- class GTS_VERTEX

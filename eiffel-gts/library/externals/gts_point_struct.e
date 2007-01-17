@@ -5,10 +5,9 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _STRUCT
+deferred class GTS_POINT_STRUCT
 
 inherit ANY undefine is_equal, copy end
-
 
 feature {} -- Structure getter/setter calls
 --  typedef struct {

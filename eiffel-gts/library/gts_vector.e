@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class GTS_VERTEX
+class GTS_VECTOR
 
 inherit C_STRUCT
 
@@ -52,7 +52,6 @@ feature
 			create Result.make
 			gts_vector_cross(Result.handle,handle,another.handle)
 		end
-			
 
 	norm: REAL is
 		do
@@ -64,30 +63,21 @@ feature
 			Result:=gts_vector_normalize(handle)
 		end
 
---      gts_vector_print ()
+	-- gts_vector_print ()
+	
+	-- void gts_vector_print (GtsVector v, FILE *fptr);
+	
+	-- Print s to file fptr. v: a GtsVector. fptr: a file descriptor.
 
---  void        gts_vector_print                (GtsVector v,
---                                               FILE *fptr);
+	-- gts_vector4_print ()
 
---    Print s to file fptr.
+	-- void gts_vector4_print (GtsVector4 v, FILE *fptr);
 
---     v :     a GtsVector.
---     fptr :  a file descriptor.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_vector4_print ()
-
---  void        gts_vector4_print               (GtsVector4 v,
---                                               FILE *fptr);
-
---    Print v to file fptr.
-
---     v :     a GtsVector4.
---     fptr :  a file descriptor.
+	-- Print v to file fptr.
+	
+	-- v: a GtsVector4. fptr: a file descriptor.
 
 feature {} -- External calls
-
 	gts_vector_init (v, p1, p2: POINTER) is
 			-- #define gts_vector_init (v, p1, p2)
 		external "C macro use <gts.h>"

@@ -23,25 +23,30 @@ class GTS_DELAUNAY
 	-- Delaunay and constrained Delaunay triangulations implementation
 	-- of a dynamic Delaunay triangulation algorithm.
 
+	-- Description: The functions described in this section are useful
+	-- to build two-dimensional Delaunay and constrained Delaunay
+	-- triangulations. Only the x and y coordinates of the points are
+	-- taken into account.
+	
+	-- The algorithm is fully dynamic (insertion and deletion) for
+	-- Delaunay triangulation and semi-dynamic (insertion only of
+	-- vertices and constraints) for constrained Delaunay
+	-- triangulation.
+	
+	-- The insertion part uses a very simple jump-and-walk location
+	-- algorithm which can be used on any (even non-Delaunay) 2D
+	-- triangulation as long as its boundary is convex.
+
+	-- The functions `conform' and `refine' can be used to build
+	-- Delaunay conforming constrained triangulations and to refine
+	-- them.
+	
 inherit C_STRUCT
 
 creation make, from_external_pointer
 
 feature {} -- Creation
 
--- Description
-
---    The functions described in this section are useful to build two-dimensional Delaunay and constrained
---    Delaunay triangulations. Only the x and y coordinates of the points are taken into account.
-
---    The algorithm is fully dynamic (insertion and deletion) for Delaunay triangulation and semi-dynamic
---    (insertion only of vertices and constraints) for constrained Delaunay triangulation.
-
---    The insertion part uses a very simple jump-and-walk location algorithm which can be used on any (even
---    non-Delaunay) 2D triangulation as long as its boundary is convex.
-
---    The functions gts_delaunay_conform() and gts_delaunay_refine() can be used to build Delaunay conforming
---    constrained triangulations and to refine them.
 
 -- Details
 
@@ -305,11 +310,13 @@ feature {} -- External call
 			-- TODO: Result should be guint
 		external "C use <gts.h>"
 		end
+	
+	gts_delaunay_refine (a_surface: POINTER; a_steiner_max: INTEGER; an_encroach_func, encroach_data, a_key_func, some_cost_data: POINTER): INTEGER is
+			-- guint gts_delaunay_refine (GtsSurface *surface, gint
+			-- steiner_max, GtsEncroachFunc encroaches, gpointer
+			-- encroach_data, GtsKeyFunc cost, gpointer cost_data);
 
-gts_delaunay_refine (GtsSurface *surface, gint steiner_max, GtsEncroachFunc encroaches, gpointer encroach_data, GtsKeyFunc cost, gpointer cost_data): guint is
-		-- guint gts_delaunay_refine (GtsSurface *surface, gint steiner_max, GtsEncroachFunc encroaches, gpointer encroach_data, GtsKeyFunc cost, gpointer cost_data);
+			-- TODO: Result should be a guint
 	external "C use <gts.h>"
 	end
-
-
 end -- class GTS_DELAUNAY

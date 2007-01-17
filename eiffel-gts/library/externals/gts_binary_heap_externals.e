@@ -59,7 +59,7 @@ feature {} -- External calls
 	
 feature -- size
 	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
+		external "C inline use <gts.h>"
 		alias "sizeof(GtsHeap)"
 		end
 end

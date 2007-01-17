@@ -1,12 +1,12 @@
 indexing
-	description: "External calls for "
+	description: "External calls for GTS_SEGMENT"
 	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class GTS_SEGMENT_EXTERNALS
-
+	
 inherit ANY undefine is_equal, copy end
 
 
@@ -21,8 +21,8 @@ feature {} -- External calls
 		end
 
 	gts_segment_new (a_class, a_v1, a_v2: POINTER): POINTER is
-			-- GtsSegment* gts_segment_new (GtsSegmentClass *klass, GtsVertex *v1,
-			-- GtsVertex *v2)
+			-- GtsSegment* gts_segment_new (GtsSegmentClass *klass,
+			-- GtsVertex *v1, GtsVertex *v2)
 		external "C use <gts.h>"
 		end
 

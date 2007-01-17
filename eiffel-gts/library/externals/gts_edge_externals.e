@@ -21,8 +21,8 @@ feature {} -- External calls
 		end
 
 	gts_edge_new (a_class, a_v1, a_v2: POINTER): POINTER is
-			-- GtsEdge* gts_edge_new (GtsEdgeClass *klass, GtsVertex *v1, GtsVertex
-			-- *v2);
+			-- GtsEdge* gts_edge_new (GtsEdgeClass *klass, GtsVertex *v1,
+			-- GtsVertex *v2);
 		external "C use <gts.h>"
 		end
 

@@ -81,25 +81,49 @@ feature -- Edge features
 feature -- Triangle related 
 	are_folded (some_triangles: G_SLIST[GTS_TRIANGLE]; a_vertex, another_vertex: GTS_VERTEX; a_max: REAL): BOOLEAN is
 			-- Does any pair of `some_triangles' make an angle larger
-			-- than a maximum value? All triangles must share `a_vertex' and `another_vertex' as vertices. 
---     max :        the maximum value of the square of the cosine of the angle between two triangles.
+			-- than a maximum value? All triangles must share `a_vertex'
+			-- and `another_vertex' as vertices.  `a_max' os the maximum
+			-- value of the square of the cosine of the angle between two
+			-- triangles.
 		do
 			Result:=(gts_triangles_are_folded(some_triangles.handle,
 														 a_vertex.handle,
 														 another_vertex.handle,
 														 a_max)).to_boolean	
+		end			
+
+
+	triangles_from_edges (some_edges: G_SLIST[GTS_EDGE]):	G_SLIST[GTS_EDGE] is
+			-- A list of unique triangles which have one of their edges
+			-- in `some_edges'.
+		do
+			p:=gts_triangles_from_edges(some_edges.handle)
+			if p.is_not_null then
+				if wrappers.has(p)
+				 then Result ::= wrappers.at(p)
+				else create Result.from_external_pointer(a_pointer)
+				end
+			end
+		end
+	
+feature -- Face related
+	faces_from_edges (some_edges: G_SLIST[GTS_EDGE]; a_surface: GTS_SURFACE): G_SLIST[GTS_EDGE] is
+			-- A list of unique faces which belong to `a_surface' and
+			-- have one of their edges in `some_edges'.
+		require edges_not_void: some_edges /= Void
+		do
+			p:=gts_faces_from_edges(some_edges.handle, null_or(a_surface))
+			if p.is_not_null then
+				if wrappers.has(p)
+				 then Result ::= wrappers.at(p)
+				else create Result.from_external_pointer(a_pointer)
+				end
+			end
+		end
 			
-
---    -----------------------------------------------------------------------------------------------------------
-
-	--   gts_triangles_from_edges ()
+feature {} -- External calls
+	gts_faces_from_edges (some_edges, a_surface: POINTER): POINTER is
+		external "C use <gts.h>"
+		end
 	
-	--  GSList*     gts_triangles_from_edges        (GSList *edges);
-	
-	--    Builds a list of unique triangles which have one of their edges in edges.
-	
-	--     edges :    a list of GtsEdge.
-	--     Returns :  the list of triangles.
-
-
 end -- class SHARED_GTS

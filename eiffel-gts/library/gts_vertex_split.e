@@ -19,22 +19,18 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: The vertex split object is the building block
-			-- of the progressive mesh representation proposed by Hoppe
-			-- ("Progressive meshes", SIGGRAPH, 1996). It encodes an edge
-			-- collapse operation and its inverse the "vertex split". The
-			-- implementation of vertex split in GTS is somewhat more
-			-- general than the original version of Hoppe. Non-manifold
-			-- edges can be collapsed and non-manifold vertices can be
-			-- split.
-
 class GTS_VERTEX_SPLIT [EDGE->GTS_EDGE]
+	-- Description: The vertex split object is the building block of
+	-- the progressive mesh representation proposed by Hoppe
+	-- ("Progressive meshes", SIGGRAPH, 1996). It encodes an edge
+	-- collapse operation and its inverse the "vertex split". The
+	-- implementation of vertex split in GTS is somewhat more general
+	-- than the original version of Hoppe. Non-manifold edges can be
+	-- collapsed and non-manifold vertices can be split.
 
-inherit
-	(SHARED_?)C_STRUCT
+inherit C_STRUCT
 
-insert
-	GTS_VERTEX_SPLIT_EXTERNALS
+insert GTS_VERTEX_SPLIT_EXTERNALS
 
 creation make, from_external_pointer
 

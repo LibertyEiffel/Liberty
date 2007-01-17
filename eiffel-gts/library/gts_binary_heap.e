@@ -20,15 +20,18 @@ indexing
 			]"
 
  
-			-- Description: The basic operations `insert_item' and
-			-- `remove_top' are performed in O(log n) time. Calling
-			-- `freeze', inserting elements using `insert_item' and calling
-			-- `thaw' allows to build the binary heap in O(n) time.
-
 deferred class GTS_BINARY_HEAP [ITEM_ -> COMPARABLE_WRAPPER]
+	-- Binary heaps: efficient data structure for priority heaps.
+
+	-- The basic operations `insert_item' and `remove_top' are
+	-- performed in O(log n) time. Calling `freeze', inserting elements
+	-- using `insert_item' and calling `thaw' allows to build the
+	-- binary heap in O(n) time.
+
 	-- TODO: is this wrapper class really shared?
 	
 	-- Note: this class is unfinished.
+
 inherit
 	SHARED_C_STRUCT
 		redefine 
