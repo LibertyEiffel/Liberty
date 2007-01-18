@@ -84,21 +84,6 @@ feature
 			Result:=gts_face_is_compatible(handle,a_surface.handle).to_boolean
 		end
 
-
--- gts_faces_from_edges ()
-
--- GSList*     gts_faces_from_edges            (GSList *edges,
---                                              GtsSurface *s);
-
--- Builds a list of unique faces which belong to s and have one of their edges in edges.
-
--- edges :	
-
--- a list of GtsEdge.
--- s :	
-
--- a GtsSurface or NULL.
--- Returns : the list of faces.
 	
 feature {} --
 	-- typedef struct {

@@ -62,11 +62,6 @@ feature
 
 -- Returns the fundamental type which is the ancestor of type. Fundamental types are types that serve as fundaments for the derived types, thus they are the roots of distinct inheritance hierarchies.
 -- type : 	A GType value.
--- G_TYPE_FUNDAMENTAL_MAX
-
--- #define	G_TYPE_FUNDAMENTAL_MAX		(255 << G_TYPE_FUNDAMENTAL_SHIFT)
-
--- An integer constant that represents the number of identifiers reserved for types that are assigned at compile-time.
 -- G_TYPE_MAKE_FUNDAMENTAL()
 
 -- #define	G_TYPE_MAKE_FUNDAMENTAL(x)	((GType) ((x) << G_TYPE_FUNDAMENTAL_SHIFT))

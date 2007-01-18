@@ -27,6 +27,16 @@ feature {} -- external calls
 		alias "G_TYPE_FUNDAMENTAL"
 		end
 
+feature -- Fundamental g_type
+
+	g_type: like g_type_fundamental_max is
+			-- The type used for GType, a number used to identify various
+			-- classes.
+		do
+			Result g_type_fundamental_max
+		end
+
+	-- #define	G_TYPE_FUNDAMENTAL_MAX		(255 < < G_TYPE_FUNDAMENTAL_SHIFT)
 	-- #define	G_TYPE_FUNDAMENTAL_MAX		(255 < < G_TYPE_FUNDAMENTAL_SHIFT)
 
 	-- An integer constant that represents the number of identifiers reserved for types that are assigned at compile-time.

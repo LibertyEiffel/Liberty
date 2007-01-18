@@ -23,8 +23,9 @@ deferred class G_TYPES
 
 inherit ANY undefine is_equal, copy end
 
-
 feature {} --  numerical values of fundamental GTypes
+	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
+	-- 2006-01-07)
 	g_type_invalid: INTEGER is
 			-- An invalid GType, used as error return value in some functions which
 			-- return a GType.

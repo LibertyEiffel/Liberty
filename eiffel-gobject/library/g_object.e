@@ -1804,5 +1804,5 @@ feature {} -- Unwrapped API
 
 invariant
 	stored_eiffel_wrapper: is_not_null implies is_eiffel_wrapper_stored
-
+	gtype_is_32_bit: g_type.object_size = 4
 end
