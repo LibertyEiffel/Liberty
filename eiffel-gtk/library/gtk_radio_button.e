@@ -72,7 +72,9 @@ inherit
 		rename
 			with_label as make_check_with_label,
 			with_mnemonic as make_check_with_mnemonic
-		undefine  make_check_with_label, make_check_with_mnemonic
+		export {} make_check_with_label, make_check_with_mnemonic
+			-- Instead of undefining, which would turn this class into a 
+			-- deferred one.
 		end
 insert
 	GTK_RADIO_BUTTON_EXTERNALS

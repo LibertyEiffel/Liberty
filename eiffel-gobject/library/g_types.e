@@ -23,6 +23,8 @@ deferred class G_TYPES
 
 inherit ANY undefine is_equal, copy end
 
+insert G_TYPE_EXTERNALS
+	
 feature {} --  numerical values of fundamental GTypes
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
 	-- 2006-01-07)
@@ -134,4 +136,5 @@ feature {} --  numerical values of fundamental GTypes
 		alias "G_TYPE_OBJECT"
 		end
 
+invariant g_type_is_32_bit: g_type.object_size = 4	
 end -- class G_TYPES

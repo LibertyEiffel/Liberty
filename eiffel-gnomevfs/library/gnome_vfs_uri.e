@@ -370,91 +370,32 @@ feature
 			Result:=gnome_vfs_uri_hash(handle)
 		end
 
+	magic_char: CHARACTER is
+			-- The character used to divide location from extra
+			-- "arguments" passed to the method.
+		external "C macro use <libgnomevfs/gnome-vfs.h>"
+		alias "GNOME_VFS_URI_MAGIC_CHR"
+		end
 
+	path_char: CHARACTER is
+			-- The path seperator character.
+		external "C macro use <libgnomevfs/gnome-vfs.h>"
+		alias "GNOME_VFS_URI_PATH_CHR"
+		end
 
---   gnome_vfs_uri_make_full_from_relative ()
-
---  char*       gnome_vfs_uri_make_full_from_relative
---                                              (const char *base_uri,
---                                               const char *relative_uri);
-
---    Returns a full uri given a full base uri, and a secondary uri which may be
---    relative.
-
---    base_uri :     a string representing the base uri.
---    relative_uri : a uri fragment/reference to be appended to base_uri.
---    Returns :      a newly allocated string containing the uri (NULL for some
---                   bad errors).
-feature -- Utilities
-	--    --------------------------------------------------------------------------
-
---   gnome_vfs_unlink_from_uri ()
-
---  GnomeVFSResult gnome_vfs_unlink_from_uri    (GnomeVFSURI *uri);
-
---    Unlink uri (i.e. delete the file).
-
---    uri :     uri of the file to be unlinked.
---    Returns : an integer representing the result of the operation.
-
---    --------------------------------------------------------------------------
-
---   gnome_vfs_move_uri ()
-
---  GnomeVFSResult gnome_vfs_move_uri           (GnomeVFSURI *old_uri,
---                                               GnomeVFSURI *new_uri,
---                                               gboolean force_replace);
-
---    Move a file from uri old_uri to new_uri. This will only work if old_uri
---    and new_uri are on the same file system. Otherwise, it is necessary to use
---    the more general gnome_vfs_xfer_uri() function.
-
---    old_uri :       source uri.
---    new_uri :       destination uri.
---    force_replace : if TRUE, move old_uri to new_uri even if there is already
---                    a file at new_uri. If there is a file, it will be
---                    discarded.
---    Returns :       an integer representing the result of the operation.
-
---    --------------------------------------------------------------------------
 
 feature {} -- Unwrapped
-	
--- 	MAGIC_CHR
+	--GNOME_VFS_URI_MAGIC_STR #define GNOME_VFS_URI_MAGIC_STR "#" The
+	--character used to divide location from extra "arguments" passed
+	--to the method.
 
---  #define GNOME_VFS_URI_MAGIC_CHR '#'
-
---    The character used to divide location from extra "arguments" passed to the
---    method.
-
---   GNOME_VFS_URI_MAGIC_STR
-
---  #define GNOME_VFS_URI_MAGIC_STR "#"
-
---    The character used to divide location from extra "arguments" passed to the
---    method.
-
---   GNOME_VFS_URI_PATH_CHR
-
---  #define GNOME_VFS_URI_PATH_CHR '/'
-
---    Defines the path seperator character.
-
---   GNOME_VFS_URI_PATH_STR
-
---  #define GNOME_VFS_URI_PATH_STR "/"
-
---    Defines the path seperator string.
-
+	-- GNOME_VFS_URI_PATH_STR #define GNOME_VFS_URI_PATH_STR "/"
+	-- Defines the path seperator string.
 	
 feature {} -- External calls
-	--GnomeVFSURI;
-	--  GnomeVFSToplevelURI;
-	--  enum GnomeVFSURIHideOptions;
-	--  #define GNOME_VFS_URI_MAGIC_CHR
-	--  #define GNOME_VFS_URI_MAGIC_STR
-	--  #define GNOME_VFS_URI_PATH_CHR
-	--  #define GNOME_VFS_URI_PATH_STR
+	-- GnomeVFSURI;
+	-- GnomeVFSToplevelURI;
+
  	gnome_vfs_uri_new (a_text_uri: POINTER): POINTER is
 			-- GnomeVFSURI* gnome_vfs_uri_new (const gchar *text_uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
@@ -616,18 +557,6 @@ feature {} -- External calls
 			-- TODO: Result should be NATURAL, since it is a guint
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
-
-
- 	gnome_vfs_uri_make_full_from_relative (a_base_uri, a_relative_uri: POINTER): POINTER is
-			-- char* gnome_vfs_uri_make_full_from_relative (const char *base_uri, const char *relative_uri);
-		external "C use <libgnomevfs/gnome-vfs.h>"
-		end
-
-	--  GnomeVFSResult gnome_vfs_unlink_from_uri    (GnomeVFSURI *uri);
-	--  GnomeVFSResult gnome_vfs_move_uri           (GnomeVFSURI *old_uri,
-	--                                               GnomeVFSURI *new_uri,
-	--                                               gboolean force_replace);
-
 
 feature {} -- Unwrapped
 	

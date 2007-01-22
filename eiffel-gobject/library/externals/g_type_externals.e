@@ -29,17 +29,26 @@ feature {} -- external calls
 
 feature -- Fundamental g_type
 
-	g_type: like g_type_fundamental_max is
+	g_type: INTEGER_32 is
 			-- The type used for GType, a number used to identify various
 			-- classes.
+
+			-- This feature is empty by design. It exists as an anchored
+			-- declaration.
 		do
-			Result g_type_fundamental_max
 		end
 
-	-- #define	G_TYPE_FUNDAMENTAL_MAX		(255 < < G_TYPE_FUNDAMENTAL_SHIFT)
-	-- #define	G_TYPE_FUNDAMENTAL_MAX		(255 < < G_TYPE_FUNDAMENTAL_SHIFT)
+	g_type_fundamental_max: INTEGER is
+			-- An integer constant that represents the number of
+			-- identifiers reserved for types that are assigned at
+			-- compile-time.
 
-	-- An integer constant that represents the number of identifiers reserved for types that are assigned at compile-time.
+			-- #define G_TYPE_FUNDAMENTAL_MAX(255<
+			-- <G_TYPE_FUNDAMENTAL_SHIFT)
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_FUNDAMENTAL_MAX"
+		end
+ 
 	-- G_TYPE_MAKE_FUNDAMENTAL()
 	
 	-- #define	G_TYPE_MAKE_FUNDAMENTAL(x)	((GType) ((x) < < G_TYPE_FUNDAMENTAL_SHIFT))
