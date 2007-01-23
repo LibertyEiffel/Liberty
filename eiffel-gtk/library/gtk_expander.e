@@ -21,55 +21,41 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
--- Description
-
---    A GtkExpander allows the user to hide or show its child by clicking on
---    an expander triangle similar to the triangles used in a GtkTreeView.
-
---    Normally you use an expander as you would use any other descendant of
---    GtkBin; you create the child widget and use gtk_container_add() to add
---    it to the expander. When the expander is toggled, it will take care of
---    showing and hiding the child automatically.
-
--- Special Usage
-
---    There are situations in which you may prefer to show and hide the
---    expanded widget yourself, such as when you want to actually create the
---    widget at expansion time. In this case, create a GtkExpander but do not
---    add a child to it. The expander widget has an expanded property which
---    can be used to monitor its expansion state. You should watch this
---    property with a signal connection as follows:
-
---  expander = gtk_expander_new_with_mnemonic ("_More Options");
---  g_signal_connect (expander, "notify::expanded",
---                    G_CALLBACK (expander_callback), NULL);
-
---  ...
-
---  static void
---  expander_callback (GObject    *object,
---                     GParamSpec *param_spec,
---                     gpointer    user_data)
---  {
---    GtkExpander *expander;
-
---    expander = GTK_EXPANDER (object);
-
---    if (gtk_expander_get_expanded (expander))
---      {
---        /* Show or create widgets */
---      }
---    else
---      {
---        /* Hide or destroy widgets */
---      }
---  }
-
 class GTK_EXPANDER
+	-- A GtkExpander allows the user to hide or show its child by clicking on an
+	-- expander triangle similar to the triangles used in a GtkTreeView.
+
+	-- Normally you use an expander as you would use any other descendant of
+	-- GtkBin; you create the child widget and use gtk_container_add() to add it
+	-- to the expander. When the expander is toggled, it will take care of
+	-- showing and hiding the child automatically.
+
+	-- Special Usage: There are situations in which you may prefer to show and
+	-- hide the expanded widget yourself, such as when you want to actually
+	-- create the widget at expansion time. In this case, create a GtkExpander
+	-- but do not add a child to it. The expander widget has an expanded property
+	-- which can be used to monitor its expansion state. You should watch this
+	-- property with a signal connection as follows:
+
+	--  expander = gtk_expander_new_with_mnemonic ("_More Options");
+	--  g_signal_connect (expander, "notify::expanded", G_CALLBACK
+	--  (expander_callback), NULL);
+
+	--  ...
+	
+	-- static void -- expander_callback (GObject *object, GParamSpec *param_spec,
+	-- gpointer user_data) -- { -- GtkExpander *expander;
+	
+	-- expander = GTK_EXPANDER (object);
+
+	-- if (gtk_expander_get_expanded (expander)) { /* Show or create widgets */ }
+	-- else { /* Hide or destroy widgets */ } -- }
+
 inherit
-	GTK_BIN rename make as make_bin end
+	GTK_BIN -- rename make as make_bin end
 
 		-- Implemented Interfaces: GtkExpander implements AtkImplementorIface.
+	
 insert G_OBJECT_RETRIEVER [GTK_WIDGET]	
 
 creation make, make_with_mnemonic

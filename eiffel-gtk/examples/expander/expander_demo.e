@@ -7,7 +7,7 @@ feature
 			gtk.initialize
 			create window.make
 			window.show_all
-			gtk.main
+			gtk.run_main_loop
 		end
 	window: MY_WINDOW
 end

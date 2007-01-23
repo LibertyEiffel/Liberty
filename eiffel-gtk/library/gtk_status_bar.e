@@ -73,7 +73,8 @@ inherit
 insert GTK_SHADOW_TYPE
 	
 creation make
-feature {} -- size
+	
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkStatusBar)"
@@ -135,7 +136,7 @@ feature -- Stack like behaviour
 			-- Removes the message at the top of a GtkStatusBar's stack.
 		end
 
-	remove (a_message_id: INTEGER) is
+	remove_message (a_message_id: INTEGER) is
 			-- Forces the removal of a message from a statusbar's
 			-- stack. The exact `message_id' must be specified.  Note:
 			-- the original C implementation also offers a
@@ -149,7 +150,7 @@ feature -- Stack like behaviour
 	set_has_resize_grip (a_setting: BOOLEAN) is
 			-- Sets whether the statusbar has a resize grip. True by default.
 		do
-			gtk_status_bar_set_has_resize_grip(handle, a_setting.to_integer)
+			gtk_statusbar_set_has_resize_grip(handle, a_setting.to_integer)
 		ensure set: a_setting = has_resize_grip
 		end			
 
@@ -161,15 +162,15 @@ feature -- Stack like behaviour
 
 feature -- Style Properties
 	shadow_type: INTEGER is
-			-- Style of bevel around the statusbar text. Note: in C it is a GtkShadowType.
-			-- Default value: `gtk_shadow_in'.
+			-- Style of bevel around the statusbar text. Note: in C it is a
+			-- GtkShadowType.  Default value: `gtk_shadow_in'.
 		do
 			print_shadow_type_notice
-			Result := invoke_get_property (shadow_type_property_spec.owner_class, handle,
-													 shadow_type_property_spec.param_id, shadow_type_gvalue.handle,
-													 shadow_type_property.handle)
-			Result := pulse_step_gvalue.integer
-
+			invoke_get_property (shadow_type_property_spec.owner_class, handle,
+										shadow_type_property_spec.param_id,
+										shadow_type_gvalue.handle,
+										shadow_type_property_spec.handle)
+			Result := shadow_type_gvalue.integer
 		ensure is_valid_shadow_type (Result)
 		end
 
@@ -217,7 +218,8 @@ feature {} -- Implementation
 	
 	print_shadow_type_notice is
 		once
-			print ("[ Note: GTK_STATUS_BAR's shadow_type feature relies on the assumption that a GValue
+			print ("[
+					  Note: GTK_STATUS_BAR's shadow_type feature relies on the assumption that a GValue
 					  can hold an enum value and that can ben handled like an integer.
 					  If you are reading this note after an application crash, please report the bug to
 					  the Eiffel Wrapper Libraries Collection project at https://gna.org/projects/eiffel-libraries/ 

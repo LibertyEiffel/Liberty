@@ -95,8 +95,8 @@ feature
 			create pixbuf.from_drawable (pixmap, 0, 0, pixmap.width, pixmap.height)
 
 			scale := (pixbuf.width * 100) / live_width -- Esto no funciona si el layout es más apaisado que el viewer
-
---			previewer.set_overlay (pixbuf, scale, 50, 50)
+			
+			-- previewer.set_overlay (pixbuf, scale, 50, 50)
 
 			style.set_background_pixmap (pixmap, gtk_state_normal)
 
