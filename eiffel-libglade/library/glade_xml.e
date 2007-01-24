@@ -30,6 +30,7 @@ insert
 	-- Add others if you need to extract them from glade
 	GLADE_GETTER [GTK_BUTTON]                 rename get as get_button end
 	GLADE_GETTER [GTK_CALENDAR]               rename get as get_calendar end
+	GLADE_GETTER [GTK_CHECK_BUTTON]           rename get as get_check_button end
 	GLADE_GETTER [GTK_COLOR_BUTTON]           rename get as get_color_button end
 	GLADE_GETTER [GTK_COLOR_SELECTION_DIALOG] rename get as get_color_selection_dialog end
 	GLADE_GETTER [GTK_COMBO_BOX]              rename get as get_combo_box end
