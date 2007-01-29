@@ -1,5 +1,4 @@
 indexing
-
 	description: "Integer GParamSpec"
 	copyright: "Copyright (c) 2005, Paolo Redaelli"
 	license: "LGPL"
@@ -9,11 +8,13 @@ indexing
 class G_PARAM_SPEC_INTEGER
 
 inherit
-
 	G_PARAM_SPEC
+		redefine
+			struct_size
+		end
 
 creation
-	make
+	make, from_external_pointer
 	
 feature -- Creation
 
@@ -39,6 +40,11 @@ feature
 	default: BOOLEAN is
 		do
 			Result := default_int
+		end
+
+	struct_size: INTEGER is
+		external "C use <glib-object.h>"
+		alias "sizeof(GParamSpecInt)"
 		end
 end
 	

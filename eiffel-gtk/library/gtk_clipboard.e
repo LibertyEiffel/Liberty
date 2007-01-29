@@ -1,5 +1,5 @@
 indexing
-	description: "Clipboards — Storing data on clipboards."
+	description: "Clipboards - Sring data on clipboards."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -618,4 +618,11 @@ feature {} -- External calls
 --                                              gint n_targets);
 -- void        gtk_clipboard_store             (GtkClipboard *clipboard);
 
+feature -- size
+
+	struct_size: INTEGER is
+		external "C use <gtk/gtk.h>"
+		alias "sizeof(GtkClipboard)"
+		end
+	
 end -- class GTK_CLIPBOARD

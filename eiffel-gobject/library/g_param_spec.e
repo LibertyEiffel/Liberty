@@ -18,20 +18,28 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	gtk_description: "[
-							GParamSpec is an object structure that encapsulates the metadata
-							required to specify parameters, such as e.g. GObject properties.
-	
-							Parameter names need to start with a letter (a-z or
-							A-Z). Subsequent characters can be letters, numbers or a '-'. All
-							other characters are replaced by a '-' during construction.
-						]"
-
+				
 class G_PARAM_SPEC
+	-- GParamSpec is an object structure that encapsulates the metadata
+	-- required to specify parameters, such as e.g. GObject properties.
+	
+	-- Parameter names need to start with a letter (a-z or
+	-- A-Z). Subsequent characters can be letters, numbers or a
+	-- '-'. All other characters are replaced by a '-' during
+	-- construction.
+
+	-- Note: this class in an Eiffel-only design would have been deferred. 
+	-- It is used as a quicker way to handle parameter specification 
+	-- of unknown type without having to write a big inspect clause.
+
+	-- When the parameter specification type is known it is better to 
+	-- use the correct heir; i.e. G_PARAM_SPEC_BOOLEAN.
 	
 inherit
 	SHARED_C_STRUCT
-		redefine from_external_pointer end
+		redefine 
+			from_external_pointer 
+		end
 
 insert
 	G_PARAM_SPEC_EXTERNALS
@@ -229,29 +237,6 @@ feature -- name validity
 		end
 
 feature {} -- Creation
-	make_boolean (a_name,a_nick,a_blurb: STRING; a_default: BOOLEAN; some_flags: INTEGER) is
-			-- Creates a new G_PARAM_SPEC_BOOLEAN.
-			-- `a_name' is the canonical name of the property specified,
-			-- `a_nick' is the nick name for the property specified,
-			-- `a_blurb' is a description of the property specified.
-			--`a_default' is the default value for the property
-			--`some_flags' are flags for the property specified
-		require
-			valid_flags: are_valid_param_flags (some_flags)
-		do
-			handle := g_param_spec_boolean(a_name.to_external,
-											 a_nick.to_external,
-											 a_blurb.to_external,
-											 a_default.to_integer,
-											 some_flags)
-			-- Note: where Gobject type system took this?
-			owner_class := g_type_class_peek(get_owner_type(handle))
-			param_id := get_param_id (handle)
-			
-			set_shared
-		ensure
-			is_boolean: is_boolean
-		end
 
 	make_integer (a_name,a_nick,a_blurb: STRING;
 				  a_min,a_max,a_default: INTEGER; some_flags: INTEGER) is
@@ -278,13 +263,13 @@ feature {} -- Creation
 
 feature -- Boolean parameter
 	is_boolean: BOOLEAN is
-		-- Is this a boolean parameter?
+			-- Is this a boolean parameter?
 		do
 			Result := g_is_param_spec_boolean (handle).to_boolean
 		end
 
 	default_boolean: BOOLEAN is
-		-- default boolean value
+			-- default boolean value
 		do
 			Result := default_gboolean(handle).to_boolean
 		end
@@ -973,7 +958,6 @@ feature {} -- Unwrapped API
 feature -- size
 
 	struct_size: INTEGER is
-		obsolete "G_PARAM_SPEC should be deferred and its place should be taken by specialized heirs such as G_PARAM_SPEC_BOOLEAN"
 		external "C use <glib-object.h>"
 		alias "sizeof(GParamSpec)"
 		end

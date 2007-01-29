@@ -23,12 +23,13 @@ class G_PARAM_SPEC_BOOLEAN
 
 inherit
 	G_PARAM_SPEC
-	
+		redefine 
+			struct_size
+		end	
 
-creation make
+creation make, from_external_pointer
 	
 feature -- Creation
-
 	make (a_name,a_nick,a_blurb: STRING; a_default: BOOLEAN; some_flags) is
 			-- Creates a new G_PARAM_SPEC_BOOLEAN.
 			-- `a_name' is the canonical name of the property specified,
@@ -53,6 +54,12 @@ feature
 	default: BOOLEAN is
 		do
 			Result := default_gboolean(handle).to_boolean
+		end
+
+
+	struct_size: INTEGER is
+		external "C use <glib-object.h>"
+		alias "sizeof(GParamSpecInt)"
 		end
 end
 	

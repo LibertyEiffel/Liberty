@@ -443,8 +443,7 @@ feature -- Property getter/setter
 			correct_value_type: a_parameter_specification.validate(a_value) or
 									  True -- It is convertible
 			not_redirected: -- TODO not find_property(a_property_name).is_redirected
-		local
-			redirect: POINTER
+		-- local redirect: POINTER
 		do
 			-- Note: here we work directly with pointers to the C data
 			-- structure, to avoid yet another layer of
