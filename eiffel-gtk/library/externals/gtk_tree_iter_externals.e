@@ -26,12 +26,28 @@ deferred class GTK_TREE_ITER_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
+
 	get_stamp (iter: POINTER): INTEGER is
 		external "C struct GtkTreeIter get stamp use <gtk/gtk.h>"
 		end
 
 	set_stamp (iter: POINTER; a_stamp: INTEGER) is
 		external "C struct GtkTreeIter set stamp use <gtk/gtk.h>"
+		end
+
+	gtk_tree_iter_copy (a_gtktreeiter: POINTER): POINTER is
+			-- Creates a dynamically allocated tree iterator as a copy of iter. This
+			-- function is not intended for use in applications,
+			-- because you can just copy the structs by value 
+			-- (GtkTreeIter new_iter = iter;). You must free this iter with 
+			-- gtk_tree_iter_free().
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tree_iter_free (a_gtktreeiter: POINTER) is
+			-- Frees an iterator that has been allocated on the heap. This function is
+			-- mainly used for language bindings.
+		external "C use <gtk/gtk.h>"
 		end
 
 -- typedef struct {

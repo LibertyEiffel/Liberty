@@ -36,6 +36,7 @@ creation
 	make,
 	make_from_model, from_model,
 	from_external_pointer,
+	copy_from_pointer,
 	as_children_of
 
 feature -- Creation
@@ -59,6 +60,16 @@ feature -- Creation
 		ensure
 			handle.is_not_null
 			attached_to_model
+		end
+
+	copy_from_pointer (a_ptr: POINTER) is
+		require
+			a_ptr.is_not_null
+		do
+			handle := gtk_tree_iter_copy (a_ptr)
+			set_unshared
+		ensure
+			not is_shared
 		end
 
 	as_children_of (a_parent: GTK_TREE_ITER) is

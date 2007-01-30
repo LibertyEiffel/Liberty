@@ -50,7 +50,7 @@ feature
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			create a_path.copy_from_pointer (path_ptr)
-			create an_iter.from_external_pointer(iter_ptr)
+			create an_iter.copy_from_pointer(iter_ptr)
 			procedure.call ([object, a_path, an_iter])
 		end
 

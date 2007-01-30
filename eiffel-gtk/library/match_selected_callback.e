@@ -56,7 +56,7 @@ feature
 			end
 			
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create iter_obj.from_external_pointer (iter)
+			create iter_obj.copy_from_pointer (iter)
 			model_obj := tree_model_retrieve_eiffel_wrapper (model)
 			Result := function.item ([model_obj, iter_obj, object]).to_integer
 		end

@@ -150,14 +150,6 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_tree_iter_copy (a_gtktreeiter: POINTER): POINTER is
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_tree_iter_free (a_gtktreeiter: POINTER) is
-		external "C use <gtk/gtk.h>"
-		end
-
 	gtk_tree_model_get_flags (a_gtktreemodel: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 			-- ensure is_gtk_tree_model_flags (result)

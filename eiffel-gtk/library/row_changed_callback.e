@@ -54,7 +54,7 @@ feature
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			-- Note: path and iter are shared wrappers.
 			create path.from_external_pointer (path_ptr)
-			create iter.from_external_pointer (iter_ptr)
+			create iter.copy_from_pointer (iter_ptr)
 			procedure.call ([object, path, iter])
 		end
 
