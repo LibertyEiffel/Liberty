@@ -12,7 +12,7 @@ indexing
 	bytes.
 	]"
 
-deferred class GLIB_STRING
+deferred class G_STRING_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
