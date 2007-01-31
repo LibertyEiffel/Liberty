@@ -1,19 +1,271 @@
 indexing
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2007 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"
 
 class GLIB_BASIC_TYPES
+	-- GLib defines a number of commonly used types, which can be
+	-- divided into 4 groups:
 
--- Prev 	Up 	Home 	GLib Reference Manual 	Next
--- Top  |  Description
--- Limits of Basic Types
+	-- o New types which are not part of standard C - gboolean, gsize,
+	-- gssize. 
 
--- Limits of Basic Types %GÅ‚Äî%@ portable method of determining the limits of the standard types.
+	-- o Integer types which are guaranteed to be the same size across
+	-- all platforms - gint8, guint8, gint16, guint16, gint32, guint32,
+	-- gint64, guint64.
+
+	-- o Types which are easier to use than their standard C
+	-- counterparts - gpointer, gconstpointer, guchar, guint, gushort,
+	-- gulong.
+
+	-- o Types which correspond exactly to standard C types, but are
+	-- included for completeness - gchar, gint, gshort, glong, gfloat,
+	-- gdouble.
+
+feature -- Basic Types: standard GLib types, defined for ease-of-use and portability.
+	--  #include <glib.h>
+
+	--  typedef     gboolean;
+	--  typedef     gpointer;
+	--  typedef     gconstpointer;
+	--  typedef     gchar;
+	--  typedef     guchar;
+
+	--  typedef     gint;
+	--  typedef     guint;
+	--  typedef     gshort;
+	--  typedef     gushort;
+	--  typedef     glong;
+	--  typedef     gulong;
+
+	--  typedef     gint8;
+	--  typedef     guint8;
+	--  typedef     gint16;
+	--  typedef     guint16;
+	--  typedef     gint32;
+	--  typedef     guint32;
+
+	--  #define     G_HAVE_GINT64
+	--  typedef     gint64;
+	--  typedef     guint64;
+	--  #define     G_GINT64_CONSTANT               (val)
+	--  #define     G_GUINT64_CONSTANT              (val)
+
+	--  typedef     gfloat;
+	--  typedef     gdouble;
+
+	--  typedef     gsize;
+	--  typedef     gssize;
+
+	gboolean: INTEGER is	
+			-- The standard boolean typein Glib type system. Variables of
+			-- this type should only contain the value TRUE (i.e. 1) or
+			-- FALSE (i.e. 0).
+		
+			--  typedef gint   gboolean;
+		do
+			-- Empty by design
+		end
+
+	--    --------------------------------------------------------------------------
+
+	--   gpointer
+
+	--  typedef void* gpointer;
+
+	--    An untyped pointer. gpointer looks better and is easier to use than void*.
+
+	--   gconstpointer
+
+	--  typedef const void *gconstpointer;
+
+	--    An untyped pointer to constant data. The data pointed to should not be
+	--    changed.
+
+	--    This is typically used in function prototypes to indicate that the data
+	--    pointed to will not be altered by the function.
+
+	--    --------------------------------------------------------------------------
+
+	--   gchar
+
+	--  typedef char   gchar;
+
+	--    Corresponds to the standard C char type.
+
+	--    --------------------------------------------------------------------------
+
+	--   guchar
+
+	--  typedef unsigned char   guchar;
+
+	--    Corresponds to the standard C unsigned char type.
+
+	--    --------------------------------------------------------------------------
+
+	--   gint
+
+	--  typedef int    gint;
+
+	--    Corresponds to the standard C int type. Values of this type can range from
+	--    G_MININT to G_MAXINT.
+
+	--    --------------------------------------------------------------------------
+
+	--   guint
+
+	--  typedef unsigned int    guint;
+
+	--    Corresponds to the standard C unsigned int type. Values of this type can
+	--    range from 0 to G_MAXUINT.
+
+	--    --------------------------------------------------------------------------
+
+	--   gshort
+
+	--  typedef short  gshort;
+
+	--    Corresponds to the standard C short type. Values of this type can range
+	--    from G_MINSHORT to G_MAXSHORT.
+
+	--    --------------------------------------------------------------------------
+
+	--   gushort
+
+	--  typedef unsigned short  gushort;
+
+	--    Corresponds to the standard C unsigned short type. Values of this type can
+	--    range from 0 to G_MAXUSHORT.
+
+	-- glong: 
+
+	--  typedef long   glong;
+
+	--    Corresponds to the standard C long type. Values of this type can range
+	--    from G_MINLONG to G_MAXLONG.
+
+	--   gulong
+
+	--  typedef unsigned long   gulong;
+
+	--    Corresponds to the standard C unsigned long type. Values of this type can
+	--    range from 0 to G_MAXULONG.
+
+	--   gint8
+
+	--  typedef signed char gint8;
+
+	--    A signed integer guaranteed to be 8 bits on all platforms. Values of this
+	--    type can range from -128 to 127.
+
+	--   guint8
+
+	--  typedef unsigned char guint8;
+
+	--    An unsigned integer guaranteed to be 8 bits on all platforms. Values of
+	--    this type can range from 0 to 255.
+
+	--   gint16
+
+	--  typedef signed short gint16;
+
+	--    A signed integer guaranteed to be 16 bits on all platforms. Values of this
+	--    type can range from -32,768 to 32,767.
+
+	--   guint16
+
+	--  typedef unsigned short guint16;
+
+	--    An unsigned integer guaranteed to be 16 bits on all platforms. Values of
+	--    this type can range from 0 to 65,535.
+
+	--   gint32
+
+	--  typedef signed int gint32;
+
+	--    A signed integer guaranteed to be 32 bits on all platforms. Values of this
+	--    type can range from -2,147,483,648 to 2,147,483,647.
+
+	--   guint32
+
+	--  typedef unsigned int guint32;
+
+	--    An unsigned integer guaranteed to be 32 bits on all platforms. Values of
+	--    this type can range from 0 to 4,294,967,295.
+
+	--   gint64
+
+	--  G_GNUC_EXTENSION typedef signed long long gint64;
+
+	--    A signed integer guaranteed to be 64 bits on all platforms. Values of this
+	--    type can range from -9,223,372,036,854,775,808 to
+	--    9,223,372,036,854,775,807.
+
+	--   guint64
+
+	--  G_GNUC_EXTENSION typedef unsigned long long guint64;
+
+	--    An unsigned integer guaranteed to be 64 bits on all platforms. Values of
+	--    this type can range from 0 to 18,446,744,073,709,551,615.
+
+	--   G_GINT64_CONSTANT()
+
+	--  #define G_GINT64_CONSTANT(val)  (G_GNUC_EXTENSION (val##LL))
+
+	--    This macro is used to insert 64-bit integer literals into the source code.
+
+	--    val : a literal integer value, e.g. 0x1d636b02300a7aa7U.
+
+	--   G_GUINT64_CONSTANT()
+
+	--  #define G_GUINT64_CONSTANT(val) (G_GNUC_EXTENSION (val##ULL))
+
+	--    This macro is used to insert 64-bit unsigned integer literals into the
+	--    source code.
+
+	--    val : a literal integer value, e.g. 0x1d636b02300a7aa7U.
+
+	--    Since 2.10
+
+	--   gfloat
+
+	--  typedef float   gfloat;
+
+	--    Corresponds to the standard C float type. Values of this type can range
+	--    from -G_MAXFLOAT to G_MAXFLOAT.
+
+	--   gdouble
+
+	--  typedef double  gdouble;
+
+	--    Corresponds to the standard C double type. Values of this type can range
+	--    from -G_MAXDOUBLE to G_MAXDOUBLE.
+
+	gsize: INTEGER is
+			-- An unsigned 32-bit integer intended to represent sizes of
+			-- data structures.
+
+			--  typedef unsigned int gsize;
+		
+		-- TODO: should be NATURAL, since it is implemented as an 
+		-- unsigned int
+		do
+			-- empty by design
+		end
+
+	gssize: INTEGER is
+			-- A signed 32-bit integer intended to represent sizes of
+			-- data structures.
+
+			-- typedef signed int gssize;
+		do
+			-- Empty by design
+		end
 	
--- Synopsis
-
+feature -- Limits of Basic Types
+	-- Limits of Basic Types:  portable method of determining the limits of the standard types.
+	
 -- #include <glib.h>
 
 

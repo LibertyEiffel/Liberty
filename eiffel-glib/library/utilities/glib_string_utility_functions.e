@@ -1,2211 +1,1799 @@
-   Link: GLib Reference Manual (start)
-   Link: GLib Utilities (parent)
-   Link: GLib Utilities (previous)
-   Link: Character Set Conversion (next)
-   Link: GLib Overview (chapter)
-   Link: GLib Fundamentals (chapter)
-   Link: GLib Core Application Support (chapter)
-   Link: GLib Utilities (chapter)
-   Link: GLib Data Types (chapter)
-   Link: GLib Tools (chapter)
-   Link: Index (index)
-   Link: Index of deprecated symbols (index)
-   Link: Index of new symbols in 2.2 (index)
-   Link: Index of new symbols in 2.4 (index)
-   Link: Index of new symbols in 2.6 (index)
-   Link: Index of new symbols in 2.8 (index)
-   Link: Index of new symbols in 2.10 (index)
-   Link: Index of new symbols in 2.12 (index)
-
-   Prev Up Home                      GLib Reference Manual                      Next
-   Top  |  Description
-
-   String Utility Functions
-
-   String Utility Functions -- various string-related functions.
-
-Synopsis
-
-
- #include <glib.h>
- #include <glib/gprintf.h>
-
-
- gchar*      g_strdup                        (const gchar *str);
- gchar*      g_strndup                       (const gchar *str,
-                                              gsize n);
- gchar**     g_strdupv                       (gchar **str_array);
- gchar*      g_strnfill                      (gsize length,
-                                              gchar fill_char);
- gchar*      g_stpcpy                        (gchar *dest,
-                                              const char *src);
- gchar*      g_strstr_len                    (const gchar *haystack,
-                                              gssize haystack_len,
-                                              const gchar *needle);
- gchar*      g_strrstr                       (const gchar *haystack,
-                                              const gchar *needle);
- gchar*      g_strrstr_len                   (const gchar *haystack,
-                                              gssize haystack_len,
-                                              const gchar *needle);
- gboolean    g_str_has_prefix                (const gchar *str,
-                                              const gchar *prefix);
- gboolean    g_str_has_suffix                (const gchar *str,
-                                              const gchar *suffix);
-
- gsize       g_strlcpy                       (gchar *dest,
-                                              const gchar *src,
-                                              gsize dest_size);
- gsize       g_strlcat                       (gchar *dest,
-                                              const gchar *src,
-                                              gsize dest_size);
-
- gchar*      g_strdup_printf                 (const gchar *format,
-                                              ...);
- gchar*      g_strdup_vprintf                (const gchar *format,
-                                              va_list args);
- gint        g_printf                        (gchar const *format,
-                                              ...);
- gint        g_vprintf                       (gchar const *format,
-                                              va_list args);
- gint        g_fprintf                       (FILE *file,
-                                              gchar const *format,
-                                              ...);
- gint        g_vfprintf                      (FILE *file,
-                                              gchar const *format,
-                                              va_list args);
- gint        g_sprintf                       (gchar *string,
-                                              gchar const *format,
-                                              ...);
- gint        g_vsprintf                      (gchar *string,
-                                              gchar const *format,
-                                              va_list args);
- gint        g_snprintf                      (gchar *string,
-                                              gulong n,
-                                              gchar const *format,
-                                              ...);
- gint        g_vsnprintf                     (gchar *string,
-                                              gulong n,
-                                              gchar const *format,
-                                              va_list args);
- gint        g_vasprintf                     (gchar **string,
-                                              gchar const *format,
-                                              va_list args);
- gsize       g_printf_string_upper_bound     (const gchar *format,
-                                              va_list args);
-
- gboolean    g_ascii_isalnum                 (gchar c);
- gboolean    g_ascii_isalpha                 (gchar c);
- gboolean    g_ascii_iscntrl                 (gchar c);
- gboolean    g_ascii_isdigit                 (gchar c);
- gboolean    g_ascii_isgraph                 (gchar c);
- gboolean    g_ascii_islower                 (gchar c);
- gboolean    g_ascii_isprint                 (gchar c);
- gboolean    g_ascii_ispunct                 (gchar c);
- gboolean    g_ascii_isspace                 (gchar c);
- gboolean    g_ascii_isupper                 (gchar c);
- gboolean    g_ascii_isxdigit                (gchar c);
-
- gint        g_ascii_digit_value             (gchar c);
- gint        g_ascii_xdigit_value            (gchar c);
-
- gint        g_ascii_strcasecmp              (const gchar *s1,
-                                              const gchar *s2);
- gint        g_ascii_strncasecmp             (const gchar *s1,
-                                              const gchar *s2,
-                                              gsize n);
-
- gchar*      g_ascii_strup                   (const gchar *str,
-                                              gssize len);
- gchar*      g_ascii_strdown                 (const gchar *str,
-                                              gssize len);
-
- gchar       g_ascii_tolower                 (gchar c);
- gchar       g_ascii_toupper                 (gchar c);
-
- GString*    g_string_ascii_up               (GString *string);
- GString*    g_string_ascii_down             (GString *string);
-
- gchar*      g_strup                         (gchar *string);
- gchar*      g_strdown                       (gchar *string);
-
- gint        g_strcasecmp                    (const gchar *s1,
-                                              const gchar *s2);
- gint        g_strncasecmp                   (const gchar *s1,
-                                              const gchar *s2,
-                                              guint n);
-
- gchar*      g_strreverse                    (gchar *string);
-
- gint64      g_ascii_strtoll                 (const gchar *nptr,
-                                              gchar **endptr,
-                                              guint base);
- guint64     g_ascii_strtoull                (const gchar *nptr,
-                                              gchar **endptr,
-                                              guint base);
- #define     G_ASCII_DTOSTR_BUF_SIZE
- gdouble     g_ascii_strtod                  (const gchar *nptr,
-                                              gchar **endptr);
- gchar*      g_ascii_dtostr                  (gchar *buffer,
-                                              gint buf_len,
-                                              gdouble d);
- gchar*      g_ascii_formatd                 (gchar *buffer,
-                                              gint buf_len,
-                                              const gchar *format,
-                                              gdouble d);
- gdouble     g_strtod                        (const gchar *nptr,
-                                              gchar **endptr);
-
- gchar*      g_strchug                       (gchar *string);
- gchar*      g_strchomp                      (gchar *string);
- #define     g_strstrip                      ( string )
-
- gchar*      g_strdelimit                    (gchar *string,
-                                              const gchar *delimiters,
-                                              gchar new_delimiter);
- #define     G_STR_DELIMITERS
- gchar*      g_strescape                     (const gchar *source,
-                                              const gchar *exceptions);
- gchar*      g_strcompress                   (const gchar *source);
- gchar*      g_strcanon                      (gchar *string,
-                                              const gchar *valid_chars,
-                                              gchar substitutor);
- gchar**     g_strsplit                      (const gchar *string,
-                                              const gchar *delimiter,
-                                              gint max_tokens);
- gchar**     g_strsplit_set                  (const gchar *string,
-                                              const gchar *delimiters,
-                                              gint max_tokens);
- void        g_strfreev                      (gchar **str_array);
- gchar*      g_strconcat                     (const gchar *string1,
-                                              ...);
- gchar*      g_strjoin                       (const gchar *separator,
-                                              ...);
- gchar*      g_strjoinv                      (const gchar *separator,
-                                              gchar **str_array);
- guint       g_strv_length                   (gchar **str_array);
-
- const gchar* g_strerror                     (gint errnum);
- const gchar* g_strsignal                    (gint signum);
-
-
-Description
-
-   This section describes a number of utility functions for creating, duplicating,
-   and manipulating strings.
-
-   Note that the functions g_printf(), g_fprintf(), g_sprintf(), g_snprintf(),
-   g_vprintf(), g_vfprintf(), g_vsprintf() and g_vsnprintf() are declared in the
-   header gprintf.h which is not included in glib.h (otherwise using glib.h would
-   drag in stdio.h), so you'll have to explicitly include <glib/gprintf.h> in order
-   to use the GLib printf() functions.
-
-   While you may use the printf() functions to format UTF-8 strings, notice that the
-   precision of a %Ns parameter is interpreted as the number of bytes, not
-   characters to print. On top of that, the GNU libc implementation of the printf()
-   functions has the "feature" that it checks that the string given for the %Ns
-   parameter consists of a whole number of characters in the current encoding. So,
-   unless you are sure you are always going to be in an UTF-8 locale or your know
-   your text is restricted to ASCII, avoid using %Ns. If your intention is to format
-   strings for a certain number of columns, then %Ns is not a correct solution
-   anyway, since it fails to take wide characters (see g_unichar_iswide()) into
-   account.
-
-Details
-
-  g_strdup ()
+indexing
+	description: "C string Utility Functions -- various C-string-related functions."
+	copyright: "[
+					Copyright (C) 2007 Paolo Redaelli, GLib team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+deferred class GLIB_STRING_UTILITY_FUNCTIONS
+	-- Utility functions functions for creating, duplicating, and
+	-- manipulating strings at C level.
+
+	-- Note that the functions g_printf(), g_fprintf(), g_sprintf(),
+	-- g_snprintf(), g_vprintf(), g_vfprintf(), g_vsprintf() and
+	-- g_vsnprintf() are declared in the header gprintf.h which is not
+	-- included in glib.h (otherwise using glib.h would drag in
+	-- stdio.h), so you'll have to explicitly include <glib/gprintf.h>
+	-- in order to use the GLib printf() functions.
+
+	-- While you may use the printf() functions to format UTF-8
+	-- strings, notice that the precision of a %Ns parameter is
+	-- interpreted as the number of bytes, not characters to print. On
+	-- top of that, the GNU libc implementation of the printf()
+	-- functions has the "feature" that it checks that the string given
+	-- for the %Ns parameter consists of a whole number of characters
+	-- in the current encoding. So, unless you are sure you are always
+	-- going to be in an UTF-8 locale or your know your text is
+	-- restricted to ASCII, avoid using %Ns. If your intention is to
+	-- format strings for a certain number of columns, then %Ns is not
+	-- a correct solution anyway, since it fails to take wide
+	-- characters (see g_unichar_iswide()) into account.
+
+	-- Note: this class breaks the naming scheme used in the Eiffel
+	-- Wrapper Library Collection as it provides low-level C calls
+	-- without having "EXTERNALS" suffix.
+	
+	-- Note: variadic calls are wrapped without their variadic part, as
+	-- in Eiffel the variadic part will almost never be used
+	-- AFAIK. Some exception have been made, with a reasonable number
+	-- of arguments, when without any further argument the call loses
+	-- sense Paolo 2007-01-29
+
+	-- Note: valist versions of the calls are not wrapped since AFAIK
+	-- it is not possible to handle a valist in a portable way. Paolo
+	-- 2007-01-29
+
+inherit
+	ANY undefine is_equal, copy end
+	
+insert 
+	GLIB_BASIC_TYPES
+		-- For achored declaration of low-level types, i.e. gsize
+		undefine is_equal, copy end
+	
+feature {} -- External calls using gprintf.h
+	g_printf (a_format: POINTER): INTEGER is
+			-- gint g_printf (gchar const *format, ...);
+		external "C use <glib/gprintf.h>"
+		end
+	
+	-- Unwrapped, since it uses valist:
+	-- gint g_vprintf (gchar const *format, va_list args);
+	
+	g_sprintf (a_string, a_format: POINTER): INTEGER is
+			-- gint g_sprintf (gchar *string, gchar const *format, ...);
+		external "C use <glib/gprintf.h>"
+		end
+
+	-- Unwrapped, since it uses valist:
+	-- gint g_vsprintf (gchar *string, gchar const *format, va_list args);
+
+	g_snprintf (a_string: POINTER an_gulong_n: INTEGER; a_format: POINTER): INTEGER is
+			-- gint g_snprintf (gchar *string, gulong n, gchar const
+			-- *format, ...);
+		external "C use <glib/gprintf.h>"
+		end
+
+	-- Unwrapped, since it uses valist: gint g_vsnprintf (gchar
+	-- *string, gulong n, gchar const *format, va_list args);
+
+	-- Unwrapped, since it uses valist: gint g_vfprintf (FILE *file,
+	-- gchar const *format, va_list args);
+
+feature {} -- External calls using glib.h
+
+-- #include <glib.h>
+
+	g_strdup (a_str: POINTER): POINTER is
+			-- gchar* g_strdup (const gchar *str);
+		external "C use <glib.h>"
+		end
+
+	g_strndup (a_str: POINTER; an_n: like gsize): POINTER is
+			-- gchar* g_strndup (const gchar *str, gsize n);
+		external "C use <glib.h>"
+		end
+
+	g_strdupv (a_str_array: POINTER): POINTER is
+			-- gchar** g_strdupv (gchar **str_array);
+		external "C use <glib.h>"
+		end
+
+	g_strnfill (a_length: like gsize; a_fill_char: CHARACTER): POINTER is
+			-- gchar* g_strnfill (gsize length, gchar fill_char);
+		external "C use <glib.h>"
+		end
+	
+	g_stpcpy (a_dest, a_src: POINTER): POINTER is
+			-- gchar* g_stpcpy (gchar *dest, const char *src);
+		external "C use <glib.h>"
+		end
+
+	g_strstr_len (a_haystack: POINTER; an_haystack_len: like gssize; a_needle: POINTER): POINTER is
+			-- gchar* g_strstr_len (const gchar *haystack, gssize
+			-- haystack_len, const gchar *needle);
+		external "C use <glib.h>"
+		end
+
+	g_strrstr (a_haystack, a_needle: POINTER): POINTER is
+			-- gchar* g_strrstr (const gchar *haystack, const gchar
+			-- *needle);
+		external "C use <glib.h>"
+		end
+
+	g_strrstr_len (a_haystack: POINTER; a_haystack_len: like gssize; a_needle: POINTER): POINTER is
+			-- gchar* g_strrstr_len (const gchar *haystack, gssize
+			-- haystack_len, const gchar *needle);
+		external "C use <glib.h>"
+		end
+
+	g_str_has_prefix (a_str: POINTER; a_prefix: POINTER): INTEGER is
+			-- gboolean g_str_has_prefix (const gchar *str, const gchar
+			-- *prefix);
+		external "C use <glib.h>"
+		end
+
+	g_str_has_suffix (a_str: POINTER; a_suffix: POINTER): INTEGER is
+			-- gboolean g_str_has_suffix (const gchar *str, const gchar
+			-- *suffix);
+		external "C use <glib.h>"
+		end
+
+	g_strlcpy (a_dest, a_src: POINTER; a_dest_size: like gsize): like gsize is
+			-- gsize g_strlcpy (gchar *dest, const gchar *src, gsize dest_size);
+		external "C use <glib.h>"
+		end
+	
+	g_strlcat (a_dest, a_src: POINTER; a_dest_size: like gsize): like gsize is
+			-- gsize g_strlcat (gchar *dest, const gchar *src, gsize dest_size);
+		external "C use <glib.h>"
+		end
+
+	g_strdup_printf (a_format: POINTER): POINTER is
+			-- gchar* g_strdup_printf (const gchar *format, ...);
+		external "C use <glib.h>"
+		end
+
+	-- Unwrapped: uses valist gchar* g_strdup_vprintf (const gchar
+	-- *format, va_list args);
+
+	g_fprintf (a_file, a_format: POINTER): INTEGER is
+			-- gint g_fprintf (FILE *file, gchar const *format, ...);
+		external "C use <glib.h>"
+		end
+	
+	-- Unwrapped, uses valist: gint g_vasprintf (gchar **string, gchar
+	-- const *format, va_list args);
+
+	-- Unwrapped, uses valist: gsize g_printf_string_upper_bound (const
+	-- gchar *format, va_list args);
+
+	g_ascii_isalnum (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_isalnum (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_isalpha (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_isalpha (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_iscntrl (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_iscntrl (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_isdigit (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_isdigit (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_isgraph (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_isgraph (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_islower (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_islower (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_isprint (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_isprint (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_ispunct (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_ispunct (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_isspace (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_isspace (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_isupper (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_isupper (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_isxdigit (a_c: CHARACTER): INTEGER is
+			-- gboolean g_ascii_isxdigit (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_digit_value (a_c: CHARACTER): INTEGER is
+			-- gint g_ascii_digit_value (gchar c);
+		external "C use <glib.h>"
+		end
+	
+	g_ascii_xdigit_value (a_c: CHARACTER): INTEGER is
+			-- gint g_ascii_xdigit_value (gchar c);
+		external "C use <glib.h>"
+		end
+	
+	
+	g_ascii_strcasecmp (a_s1, a_s2: POINTER): INTEGER is
+			-- gint g_ascii_strcasecmp (const gchar *s1, const gchar *s2);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_strncasecmp (a_s1, a_s2: POINTER; an_n: like gsize): INTEGER is
+			-- gint g_ascii_strncasecmp (const gchar *s1, const gchar
+			-- *s2, gsize n);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_strup (a_str: POINTER; a_len: like gssize): POINTER is
+			-- gchar* g_ascii_strup (const gchar *str, gssize len);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_strdown (a_str: POINTER; a_len: like gssize): POINTER is
+			-- gchar* g_ascii_strdown (const gchar *str, gssize len);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_tolower (a_c: CHARACTER): CHARACTER is
+			-- gchar g_ascii_tolower (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_ascii_toupper (a_c: CHARACTER): CHARACTER is
+			-- gchar g_ascii_toupper (gchar c);
+		external "C use <glib.h>"
+		end
+
+	g_string_ascii_up (a_string: POINTER): POINTER is
+			-- GString* g_string_ascii_up (GString *string);
+		external "C use <glib.h>"
+		end
+
+	g_string_ascii_down (a_string: POINTER): POINTER is
+			-- GString* g_string_ascii_down (GString *string);
+		external "C use <glib.h>"
+		end
+
+	g_strup (a_string: POINTER): POINTER is
+			-- gchar* g_strup (gchar *string);
+		external "C use <glib.h>"
+		end
+	
+	g_strdown (a_string: POINTER): POINTER is
+			-- gchar* g_strdown (gchar *string);
+		external "C use <glib.h>"
+		end
+	
+	g_strcasecmp (a_s1, a_s2: POINTER): INTEGER is
+			-- gint g_strcasecmp (const gchar *s1, const gchar *s2);
+		external "C use <glib.h>"
+		end
+	
+	g_strncasecmp (a_s1, a_s2: POINTER; an_n: INTEGER): INTEGER is
+			-- gint g_strncasecmp (const gchar *s1, const gchar *s2,
+			-- guint n);
+
+			-- TODO: an_n should be NATURAL, since it is aguint
+		external "C use <glib.h>"
+		end
+
+
+	g_strreverse (a_string: POINTER): POINTER is
+			-- gchar* g_strreverse (gchar *string);
+		external "C use <glib.h>"
+		end
+
+
+	g_ascii_strtoll (a_nptr, a_endptr: POINTER; a_base: INTEGER): INTEGER_64 is
+			-- gint64 g_ascii_strtoll (const gchar *nptr, gchar **endptr,
+			-- guint base);
+
+			-- TODO: a_base should be NATURAL, since it is a guint
+		external "C use <glib.h>"
+		end
+
+	g_ascii_strtoull (a_nptr, a_endptr: POINTER; a_base: INTEGER): INTEGER_64 is
+			-- guint64 g_ascii_strtoull (const gchar *nptr, gchar
+			-- **endptr, guint base);
+
+			-- TODO: a_base should be NATURAL, since it is guint
+			-- TODO: should be NATURAL_64, since it is a guint
+		external "C use <glib.h>"
+		end
+	
+	-- #define G_ASCII_DTOSTR_BUF_SIZE
+	g_ascii_strtod (a_nptr, a_endptr: POINTER): REAL is
+			-- gdouble g_ascii_strtod (const gchar *nptr, gchar **endptr);
+		external "C use <glib.h>"
+		end
+	
+	g_ascii_dtostr (a_buffer: POINTER; a_buf_len: INTEGER; a_d: REAL): POINTER is
+			-- gchar* g_ascii_dtostr (gchar *buffer, gint buf_len,
+			-- gdouble d);
+		external "C use <glib.h>"
+		end
+	
+	g_ascii_formatd (a_buffer: POINTER; a_buf_len: INTEGER; a_format: POINTER; a_double: REAL): POINTER is
+			-- gchar* g_ascii_formatd (gchar *buffer, gint buf_len, const
+			-- gchar *format, gdouble d);
+		external "C use <glib.h>"
+		end
+
+	g_strtod (a_nptr, a_endptr: POINTER): REAL is
+			-- gdouble g_strtod (const gchar *nptr, gchar **endptr);
+		external "C use <glib.h>"
+		end
+	
+	g_strchug (a_string: POINTER): POINTER is
+			-- gchar* g_strchug (gchar *string);
+		external "C use <glib.h>"
+		end
+
+	g_strchomp (a_string: POINTER): POINTER is
+			-- gchar* g_strchomp (gchar *string);
+		external "C use <glib.h>"
+		end
+
+-- #define g_strstrip ( string )
+
+	g_strdelimit (a_string, some_delimiters: POINTER; a_new_delimiter: CHARACTER): POINTER is
+			-- gchar* g_strdelimit (gchar *string, const gchar
+			-- *delimiters, gchar new_delimiter);
+		external "C use <glib.h>"
+		end
+
+	-- #define G_STR_DELIMITERS
+
+	g_strescape (a_source, some_exceptions: POINTER): POINTER is
+			-- gchar* g_strescape (const gchar *source, const gchar *exceptions);
+		external "C use <glib.h>"
+		end
+
+	g_strcompress (a_source: POINTER): POINTER is
+			-- gchar* g_strcompress (const gchar *source);
+		external "C use <glib.h>"
+		end
+
+	g_strcanon (a_string, some_valid_chars: POINTER; a_substitutor: CHARACTER): POINTER is
+			-- gchar* g_strcanon (gchar *string, const gchar *valid_chars, gchar substitutor);
+		external "C use <glib.h>"
+		end
+
+	g_strsplit (a_string, a_delimiter: POINTER; a_max_tokens: INTEGER): POINTER is
+			-- gchar** g_strsplit (const gchar *string, const gchar
+			-- *delimiter, gint max_tokens);
+		external "C use <glib.h>"
+		end
+
+	g_strsplit_set (a_string, some_delimiters: POINTER; a_max_tokens: INTEGER): POINTER is
+			-- gchar** g_strsplit_set (const gchar *string, const gchar
+			-- *delimiters, gint max_tokens);
+		external "C use <glib.h>"
+		end
+
+	g_strfreev (a_str_array: POINTER) is
+			-- void g_strfreev (gchar **str_array);
+		external "C use <glib.h>"
+		end
+
+	g_strconcat (a_string, another: POINTER): POINTER is
+			-- gchar* g_strconcat (const gchar *string1, ...);
+		external "C use <glib.h>"
+		end
+
+	g_strjoin (a_separator: POINTER): POINTER is
+			-- gchar* g_strjoin (const gchar *separator, ...);
+		external "C use <glib.h>"
+		end
+
+	g_strjoinv (a_separator, a_str_array: POINTER): POINTER is
+			-- gchar* g_strjoinv (const gchar *separator, gchar **str_array);
+		external "C use <glib.h>"
+		end
+
+	g_strv_length (a_str_array: POINTER): INTEGER is
+			-- guint g_strv_length (gchar **str_array);
+		
+			-- TODO: should be NATURAL, since it is guint
+		external "C use <glib.h>"
+		end
+
+
+	g_strerror (an_errnum: INTEGER): POINTER is
+			-- const gchar* g_strerror (gint errnum);
+		external "C use <glib.h>"
+		end
+
+ 	g_strsignal (a_signum: INTEGER): POINTER is
+			-- const gchar* g_strsignal (gint signum);
+		external "C use <glib.h>"
+		end
+
+
+feature {} -- Unwrapped full-text documentation
+
+--   g_strdup ()
+
+--  gchar*      g_strdup                        (const gchar *str);
+
+--    Duplicates a string. If str is NULL it returns NULL. The returned string should
+--    be freed when no longer needed.
+
+--    str :     the string to duplicate.
+--    Returns : a newly-allocated copy of str.
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strndup ()
+
+--  gchar*      g_strndup                       (const gchar *str, gsize n);
+
+--    Duplicates the first n characters of a string, returning a newly-allocated buffer
+--    n + 1 characters long which will always be nul-terminated. If str is less than n
+--    characters long the buffer is padded with nuls. If str is NULL it returns NULL.
+--    The returned value should be freed when no longer needed.
+
+--    str :     the string to duplicate part of.
+--    n :       the maximum number of characters to copy from str.
+--    Returns : a newly-allocated buffer containing the first n characters of str,
+--              nul-terminated.
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strdupv ()
+
+--  gchar**     g_strdupv                       (gchar **str_array);
+
+--    Copies NULL-terminated array of strings. The copy is a deep copy; the new array
+--    should be freed by first freeing each string, then the array itself. g_strfreev()
+--    does this for you. If called on a NULL value, g_strdupv() simply returns NULL.
+
+--    str_array : NULL-terminated array of strings.
+--    Returns :   a new NULL-terminated array of strings.
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strnfill ()
+
+--  gchar*      g_strnfill                      (gsize length,
+--                                               gchar fill_char);
+
+--    Creates a new string length characters long filled with fill_char. The returned
+--    string should be freed when no longer needed.
+
+--    length :    the length of the new string.
+--    fill_char : the character to fill the string with.
+--    Returns :   a newly-allocated string filled the fill_char.
+
+--    ---------------------------------------------------------------------------------
+
+--   g_stpcpy ()
+
+--  gchar*      g_stpcpy                        (gchar *dest,
+--                                               const char *src);
+
+--    Copies a nul-terminated string into the dest buffer, include the trailing nul,
+--    and return a pointer to the trailing nul byte. This is useful for concatenating
+--    multiple strings together without having to repeatedly scan for the end.
+
+--    dest :    destination buffer.
+--    src :     source string.
+--    Returns : a pointer to trailing nul byte.
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strstr_len ()
+
+--  gchar*      g_strstr_len                    (const gchar *haystack,
+--                                               gssize haystack_len,
+--                                               const gchar *needle);
+
+--    Searches the string haystack for the first occurrence of the string needle,
+--    limiting the length of the search to haystack_len.
+
+--    haystack :     a string.
+--    haystack_len : the maximum length of haystack.
+--    needle :       the string to search for.
+--    Returns :      a pointer to the found occurrence, or NULL if not found.
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strrstr ()
+
+--  gchar*      g_strrstr                       (const gchar *haystack,
+--                                               const gchar *needle);
+
+--    Searches the string haystack for the last occurrence of the string needle.
+
+--    haystack : a nul-terminated string.
+--    needle :   the nul-terminated string to search for.
+--    Returns :  a pointer to the found occurrence, or NULL if not found.
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strrstr_len ()
+
+--  gchar*      g_strrstr_len                   (const gchar *haystack,
+--                                               gssize haystack_len,
+--                                               const gchar *needle);
+
+--    Searches the string haystack for the last occurrence of the string needle,
+--    limiting the length of the search to haystack_len.
+
+--    haystack :     a nul-terminated string.
+--    haystack_len : the maximum length of haystack.
+--    needle :       the nul-terminated string to search for.
+--    Returns :      a pointer to the found occurrence, or NULL if not found.
+
+--    ---------------------------------------------------------------------------------
+
+--   g_str_has_prefix ()
+
+--  gboolean    g_str_has_prefix                (const gchar *str,
+--                                               const gchar *prefix);
+
+--    Looks whether the string str begins with prefix.
+
+--    str :     a nul-terminated string.
+--    prefix :  the nul-terminated prefix to look for.
+--    Returns : TRUE if str begins with prefix, FALSE otherwise.
+
+--    Since 2.2
+
+--    ---------------------------------------------------------------------------------
+
+--   g_str_has_suffix ()
+
+--  gboolean    g_str_has_suffix                (const gchar *str,
+--                                               const gchar *suffix);
+
+--    Looks whether the string str ends with suffix.
+
+--    str :     a nul-terminated string.
+--    suffix :  the nul-terminated suffix to look for.
+--    Returns : TRUE if str end with suffix, FALSE otherwise.
+
+--    Since 2.2
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strlcpy ()
+
+--  gsize       g_strlcpy                       (gchar *dest,
+--                                               const gchar *src,
+--                                               gsize dest_size);
+
+--    Portability wrapper that calls strlcpy() on systems which have it, and emulates
+--    strlcpy() otherwise. Copies src to dest; dest is guaranteed to be nul-terminated;
+--    src must be nul-terminated; dest_size is the buffer size, not the number of chars
+--    to copy. Caveat: strlcpy() is supposedly more secure than strcpy() or strncpy(),
+--    but if you really want to avoid screwups, g_strdup() is an even better idea.
+
+--    dest :      destination buffer
+--    src :       source buffer
+--    dest_size : length of dest in bytes
+--    Returns :   length of src
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strlcat ()
+
+--  gsize       g_strlcat                       (gchar *dest,
+--                                               const gchar *src,
+--                                               gsize dest_size);
+
+--    Portability wrapper that calls strlcat() on systems which have it, and emulates
+--    it otherwise. Appends nul-terminated src string to dest, guaranteeing
+--    nul-termination for dest. The total size of dest won't exceed dest_size. Caveat:
+--    this is supposedly a more secure alternative to strcat() or strncat(), but for
+--    real security g_strconcat() is harder to mess up.
+
+--    dest :      destination buffer, already containing one nul-terminated string
+--    src :       source buffer
+--    dest_size : length of dest buffer in bytes (not length of existing string inside
+--                dest)
+--    Returns :   length of src plus initial length of string in dest
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strdup_printf ()
+
+--  gchar*      g_strdup_printf                 (const gchar *format,
+--                                               ...);
+
+--    Similar to the standard C sprintf() function but safer, since it calculates the
+--    maximum space required and allocates memory to hold the result. The returned
+--    string should be freed when no longer needed.
+
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    ... :     the parameters to insert into the format string.
+--    Returns : a newly-allocated string holding the result.
+
+--    ---------------------------------------------------------------------------------
+
+--   g_strdup_vprintf ()
+
+--  gchar*      g_strdup_vprintf                (const gchar *format,
+--                                               va_list args);
+
+--    Similar to the standard C vsprintf() function but safer, since it calculates the
+--    maximum space required and allocates memory to hold the result. The returned
+--    string should be freed when no longer needed.
+
+--    See also g_vasprintf(), which offers the same functionality, but additionally
+--    returns the length of the allocated string.
 
- gchar*      g_strdup                        (const gchar *str);
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    args :    the list of parameters to insert into the format string.
+--    Returns : a newly-allocated string holding the result.
 
-   Duplicates a string. If str is NULL it returns NULL. The returned string should
-   be freed when no longer needed.
+--    ---------------------------------------------------------------------------------
 
-   str :     the string to duplicate.
-   Returns : a newly-allocated copy of str.
+--   g_printf ()
 
-   ---------------------------------------------------------------------------------
+--  gint        g_printf                        (gchar const *format,
+--                                               ...);
 
-  g_strndup ()
+--    An implementation of the standard printf() function which supports positional
+--    parameters, as specified in the Single Unix Specification.
 
- gchar*      g_strndup                       (const gchar *str,
-                                              gsize n);
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    ... :     the arguments to insert in the output.
+--    Returns : the number of characters printed.
 
-   Duplicates the first n characters of a string, returning a newly-allocated buffer
-   n + 1 characters long which will always be nul-terminated. If str is less than n
-   characters long the buffer is padded with nuls. If str is NULL it returns NULL.
-   The returned value should be freed when no longer needed.
+--    Since 2.2
 
-   str :     the string to duplicate part of.
-   n :       the maximum number of characters to copy from str.
-   Returns : a newly-allocated buffer containing the first n characters of str,
-             nul-terminated.
+--    ---------------------------------------------------------------------------------
 
-   ---------------------------------------------------------------------------------
+--   g_vprintf ()
 
-  g_strdupv ()
+--  gint        g_vprintf                       (gchar const *format,
+--                                               va_list args);
 
- gchar**     g_strdupv                       (gchar **str_array);
+--    An implementation of the standard vprintf() function which supports positional
+--    parameters, as specified in the Single Unix Specification.
 
-   Copies NULL-terminated array of strings. The copy is a deep copy; the new array
-   should be freed by first freeing each string, then the array itself. g_strfreev()
-   does this for you. If called on a NULL value, g_strdupv() simply returns NULL.
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    args :    the list of arguments to insert in the output.
+--    Returns : the number of characters printed.
 
-   str_array : NULL-terminated array of strings.
-   Returns :   a new NULL-terminated array of strings.
+--    Since 2.2
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_strnfill ()
+--   g_fprintf ()
 
- gchar*      g_strnfill                      (gsize length,
-                                              gchar fill_char);
+--  gint        g_fprintf                       (FILE *file,
+--                                               gchar const *format,
+--                                               ...);
 
-   Creates a new string length characters long filled with fill_char. The returned
-   string should be freed when no longer needed.
+--    An implementation of the standard fprintf() function which supports positional
+--    parameters, as specified in the Single Unix Specification.
 
-   length :    the length of the new string.
-   fill_char : the character to fill the string with.
-   Returns :   a newly-allocated string filled the fill_char.
+--    file :    the stream to write to.
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    ... :     the arguments to insert in the output.
+--    Returns : the number of characters printed.
 
-   ---------------------------------------------------------------------------------
+--    Since 2.2
 
-  g_stpcpy ()
+--    ---------------------------------------------------------------------------------
 
- gchar*      g_stpcpy                        (gchar *dest,
-                                              const char *src);
+--   g_vfprintf ()
 
-   Copies a nul-terminated string into the dest buffer, include the trailing nul,
-   and return a pointer to the trailing nul byte. This is useful for concatenating
-   multiple strings together without having to repeatedly scan for the end.
+--  gint        g_vfprintf                      (FILE *file,
+--                                               gchar const *format,
+--                                               va_list args);
 
-   dest :    destination buffer.
-   src :     source string.
-   Returns : a pointer to trailing nul byte.
+--    An implementation of the standard fprintf() function which supports positional
+--    parameters, as specified in the Single Unix Specification.
 
-   ---------------------------------------------------------------------------------
+--    file :    the stream to write to.
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    args :    the list of arguments to insert in the output.
+--    Returns : the number of characters printed.
 
-  g_strstr_len ()
+--    Since 2.2
 
- gchar*      g_strstr_len                    (const gchar *haystack,
-                                              gssize haystack_len,
-                                              const gchar *needle);
+--    ---------------------------------------------------------------------------------
 
-   Searches the string haystack for the first occurrence of the string needle,
-   limiting the length of the search to haystack_len.
+--   g_sprintf ()
 
-   haystack :     a string.
-   haystack_len : the maximum length of haystack.
-   needle :       the string to search for.
-   Returns :      a pointer to the found occurrence, or NULL if not found.
+--  gint        g_sprintf                       (gchar *string,
+--                                               gchar const *format,
+--                                               ...);
 
-   ---------------------------------------------------------------------------------
+--    An implementation of the standard sprintf() function which supports positional
+--    parameters, as specified in the Single Unix Specification.
 
-  g_strrstr ()
+--    string :  the buffer to hold the output.
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    ... :     the arguments to insert in the output.
+--    Returns : the number of characters printed.
 
- gchar*      g_strrstr                       (const gchar *haystack,
-                                              const gchar *needle);
+--    Since 2.2
 
-   Searches the string haystack for the last occurrence of the string needle.
+--    ---------------------------------------------------------------------------------
 
-   haystack : a nul-terminated string.
-   needle :   the nul-terminated string to search for.
-   Returns :  a pointer to the found occurrence, or NULL if not found.
+--   g_vsprintf ()
 
-   ---------------------------------------------------------------------------------
+--  gint        g_vsprintf                      (gchar *string,
+--                                               gchar const *format,
+--                                               va_list args);
 
-  g_strrstr_len ()
+--    An implementation of the standard vsprintf() function which supports positional
+--    parameters, as specified in the Single Unix Specification.
 
- gchar*      g_strrstr_len                   (const gchar *haystack,
-                                              gssize haystack_len,
-                                              const gchar *needle);
+--    string :  the buffer to hold the output.
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    args :    the list of arguments to insert in the output.
+--    Returns : the number of characters printed.
 
-   Searches the string haystack for the last occurrence of the string needle,
-   limiting the length of the search to haystack_len.
+--    Since 2.2
 
-   haystack :     a nul-terminated string.
-   haystack_len : the maximum length of haystack.
-   needle :       the nul-terminated string to search for.
-   Returns :      a pointer to the found occurrence, or NULL if not found.
+--    ---------------------------------------------------------------------------------
 
-   ---------------------------------------------------------------------------------
+--   g_snprintf ()
 
-  g_str_has_prefix ()
+--  gint        g_snprintf                      (gchar *string,
+--                                               gulong n,
+--                                               gchar const *format,
+--                                               ...);
 
- gboolean    g_str_has_prefix                (const gchar *str,
-                                              const gchar *prefix);
+--    A safer form of the standard sprintf() function. The output is guaranteed to not
+--    exceed n characters (including the terminating nul character), so it is easy to
+--    ensure that a buffer overflow cannot occur.
 
-   Looks whether the string str begins with prefix.
+--    See also g_strdup_printf().
 
-   str :     a nul-terminated string.
-   prefix :  the nul-terminated prefix to look for.
-   Returns : TRUE if str begins with prefix, FALSE otherwise.
+--    In versions of GLib prior to 1.2.3, this function may return -1 if the output was
+--    truncated, and the truncated string may not be nul-terminated. In versions prior
+--    to 1.3.12, this function returns the length of the output string.
 
-   Since 2.2
+--    The return value of g_snprintf() conforms to the snprintf() function as
+--    standardized in ISO C99. Note that this is different from traditional snprintf(),
+--    which returns the length of the output string.
 
-   ---------------------------------------------------------------------------------
+--    The format string may contain positional parameters, as specified in the Single
+--    Unix Specification.
 
-  g_str_has_suffix ()
+--    string :  the buffer to hold the output.
+--    n :       the maximum number of characters to produce (including the terminating
+--              nul character).
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    ... :     the arguments to insert in the output.
+--    Returns : the number of characters which would be produced if the buffer was
+--              large enough.
 
- gboolean    g_str_has_suffix                (const gchar *str,
-                                              const gchar *suffix);
+--    ---------------------------------------------------------------------------------
 
-   Looks whether the string str ends with suffix.
+--   g_vsnprintf ()
 
-   str :     a nul-terminated string.
-   suffix :  the nul-terminated suffix to look for.
-   Returns : TRUE if str end with suffix, FALSE otherwise.
+--  gint        g_vsnprintf                     (gchar *string,
+--                                               gulong n,
+--                                               gchar const *format,
+--                                               va_list args);
 
-   Since 2.2
+--    A safer form of the standard vsprintf() function. The output is guaranteed to not
+--    exceed n characters (including the terminating nul character), so it is easy to
+--    ensure that a buffer overflow cannot occur.
 
-   ---------------------------------------------------------------------------------
+--    See also g_strdup_vprintf().
 
-  g_strlcpy ()
+--    In versions of GLib prior to 1.2.3, this function may return -1 if the output was
+--    truncated, and the truncated string may not be nul-terminated. In versions prior
+--    to 1.3.12, this function returns the length of the output string.
 
- gsize       g_strlcpy                       (gchar *dest,
-                                              const gchar *src,
-                                              gsize dest_size);
+--    The return value of g_vsnprintf() conforms to the vsnprintf() function as
+--    standardized in ISO C99. Note that this is different from traditional
+--    vsnprintf(), which returns the length of the output string.
 
-   Portability wrapper that calls strlcpy() on systems which have it, and emulates
-   strlcpy() otherwise. Copies src to dest; dest is guaranteed to be nul-terminated;
-   src must be nul-terminated; dest_size is the buffer size, not the number of chars
-   to copy. Caveat: strlcpy() is supposedly more secure than strcpy() or strncpy(),
-   but if you really want to avoid screwups, g_strdup() is an even better idea.
+--    The format string may contain positional parameters, as specified in the Single
+--    Unix Specification.
 
-   dest :      destination buffer
-   src :       source buffer
-   dest_size : length of dest in bytes
-   Returns :   length of src
+--    string :  the buffer to hold the output.
+--    n :       the maximum number of characters to produce (including the terminating
+--              nul character).
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    args :    the list of arguments to insert in the output.
+--    Returns : the number of characters which would be produced if the buffer was
+--              large enough.
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_strlcat ()
+--   g_vasprintf ()
 
- gsize       g_strlcat                       (gchar *dest,
-                                              const gchar *src,
-                                              gsize dest_size);
+--  gint        g_vasprintf                     (gchar **string,
+--                                               gchar const *format,
+--                                               va_list args);
 
-   Portability wrapper that calls strlcat() on systems which have it, and emulates
-   it otherwise. Appends nul-terminated src string to dest, guaranteeing
-   nul-termination for dest. The total size of dest won't exceed dest_size. Caveat:
-   this is supposedly a more secure alternative to strcat() or strncat(), but for
-   real security g_strconcat() is harder to mess up.
+--    An implementation of the GNU vasprintf() function which supports positional
+--    parameters, as specified in the Single Unix Specification. This function is
+--    similar to g_vsprintf(), except that it allocates a string to hold the output,
+--    instead of putting the output in a buffer you allocate in advance.
 
-   dest :      destination buffer, already containing one nul-terminated string
-   src :       source buffer
-   dest_size : length of dest buffer in bytes (not length of existing string inside
-               dest)
-   Returns :   length of src plus initial length of string in dest
+--    string :  the return location for the newly-allocated string.
+--    format :  a standard printf() format string, but notice string precision
+--              pitfalls.
+--    args :    the list of arguments to insert in the output.
+--    Returns : the number of characters printed.
 
-   ---------------------------------------------------------------------------------
+--    Since 2.4
 
-  g_strdup_printf ()
+--    ---------------------------------------------------------------------------------
 
- gchar*      g_strdup_printf                 (const gchar *format,
-                                              ...);
+--   g_printf_string_upper_bound ()
 
-   Similar to the standard C sprintf() function but safer, since it calculates the
-   maximum space required and allocates memory to hold the result. The returned
-   string should be freed when no longer needed.
+--  gsize       g_printf_string_upper_bound     (const gchar *format,
+--                                               va_list args);
 
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   ... :     the parameters to insert into the format string.
-   Returns : a newly-allocated string holding the result.
+--    Calculates the maximum space needed to store the output of the sprintf()
+--    function.
 
-   ---------------------------------------------------------------------------------
+--    format :  the format string. See the printf() documentation.
+--    args :    the parameters to be inserted into the format string.
+--    Returns : the maximum space needed to store the formatted string.
 
-  g_strdup_vprintf ()
+--    ---------------------------------------------------------------------------------
 
- gchar*      g_strdup_vprintf                (const gchar *format,
-                                              va_list args);
+--   g_ascii_isalnum ()
 
-   Similar to the standard C vsprintf() function but safer, since it calculates the
-   maximum space required and allocates memory to hold the result. The returned
-   string should be freed when no longer needed.
+--  gboolean    g_ascii_isalnum                 (gchar c);
 
-   See also g_vasprintf(), which offers the same functionality, but additionally
-   returns the length of the allocated string.
+--    Determines whether a character is alphanumeric.
 
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   args :    the list of parameters to insert into the format string.
-   Returns : a newly-allocated string holding the result.
+--    Unlike the standard C library isalnum() function, this only recognizes standard
+--    ASCII letters and ignores the locale, returning FALSE for all non-ASCII
+--    characters. Also unlike the standard library function, this takes a char, not an
+--    int, so don't call it on EOF but no need to cast to guchar before passing a
+--    possibly non-ASCII character in.
 
-   ---------------------------------------------------------------------------------
+--    c :       any character
+--    Returns : TRUE if c is an ASCII alphanumeric character
 
-  g_printf ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_printf                        (gchar const *format,
-                                              ...);
+--   g_ascii_isalpha ()
 
-   An implementation of the standard printf() function which supports positional
-   parameters, as specified in the Single Unix Specification.
+--  gboolean    g_ascii_isalpha                 (gchar c);
 
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   ... :     the arguments to insert in the output.
-   Returns : the number of characters printed.
+--    Determines whether a character is alphabetic (i.e. a letter).
 
-   Since 2.2
+--    Unlike the standard C library isalpha() function, this only recognizes standard
+--    ASCII letters and ignores the locale, returning FALSE for all non-ASCII
+--    characters. Also unlike the standard library function, this takes a char, not an
+--    int, so don't call it on EOF but no need to cast to guchar before passing a
+--    possibly non-ASCII character in.
 
-   ---------------------------------------------------------------------------------
+--    c :       any character
+--    Returns : TRUE if c is an ASCII alphabetic character
 
-  g_vprintf ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_vprintf                       (gchar const *format,
-                                              va_list args);
+--   g_ascii_iscntrl ()
 
-   An implementation of the standard vprintf() function which supports positional
-   parameters, as specified in the Single Unix Specification.
+--  gboolean    g_ascii_iscntrl                 (gchar c);
 
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   args :    the list of arguments to insert in the output.
-   Returns : the number of characters printed.
+--    Determines whether a character is a control character.
 
-   Since 2.2
+--    Unlike the standard C library iscntrl() function, this only recognizes standard
+--    ASCII control characters and ignores the locale, returning FALSE for all
+--    non-ASCII characters. Also unlike the standard library function, this takes a
+--    char, not an int, so don't call it on EOF but no need to cast to guchar before
+--    passing a possibly non-ASCII character in.
 
-   ---------------------------------------------------------------------------------
+--    c :       any character
+--    Returns : TRUE if c is an ASCII control character.
 
-  g_fprintf ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_fprintf                       (FILE *file,
-                                              gchar const *format,
-                                              ...);
+--   g_ascii_isdigit ()
 
-   An implementation of the standard fprintf() function which supports positional
-   parameters, as specified in the Single Unix Specification.
+--  gboolean    g_ascii_isdigit                 (gchar c);
 
-   file :    the stream to write to.
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   ... :     the arguments to insert in the output.
-   Returns : the number of characters printed.
+--    Determines whether a character is digit (0-9).
 
-   Since 2.2
+--    Unlike the standard C library isdigit() function, this takes a char, not an int,
+--    so don't call it on EOF but no need to cast to guchar before passing a possibly
+--    non-ASCII character in.
 
-   ---------------------------------------------------------------------------------
+--    c :       any character
+--    Returns : TRUE if c is an ASCII digit.
 
-  g_vfprintf ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_vfprintf                      (FILE *file,
-                                              gchar const *format,
-                                              va_list args);
+--   g_ascii_isgraph ()
 
-   An implementation of the standard fprintf() function which supports positional
-   parameters, as specified in the Single Unix Specification.
+--  gboolean    g_ascii_isgraph                 (gchar c);
 
-   file :    the stream to write to.
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   args :    the list of arguments to insert in the output.
-   Returns : the number of characters printed.
+--    Determines whether a character is a printing character and not a space.
 
-   Since 2.2
+--    Unlike the standard C library isgraph() function, this only recognizes standard
+--    ASCII characters and ignores the locale, returning FALSE for all non-ASCII
+--    characters. Also unlike the standard library function, this takes a char, not an
+--    int, so don't call it on EOF but no need to cast to guchar before passing a
+--    possibly non-ASCII character in.
 
-   ---------------------------------------------------------------------------------
+--    c :       any character
+--    Returns : TRUE if c is an ASCII printing character other than space.
 
-  g_sprintf ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_sprintf                       (gchar *string,
-                                              gchar const *format,
-                                              ...);
+--   g_ascii_islower ()
 
-   An implementation of the standard sprintf() function which supports positional
-   parameters, as specified in the Single Unix Specification.
+--  gboolean    g_ascii_islower                 (gchar c);
 
-   string :  the buffer to hold the output.
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   ... :     the arguments to insert in the output.
-   Returns : the number of characters printed.
+--    Determines whether a character is an ASCII lower case letter.
 
-   Since 2.2
+--    Unlike the standard C library islower() function, this only recognizes standard
+--    ASCII letters and ignores the locale, returning FALSE for all non-ASCII
+--    characters. Also unlike the standard library function, this takes a char, not an
+--    int, so don't call it on EOF but no need to worry about casting to guchar before
+--    passing a possibly non-ASCII character in.
 
-   ---------------------------------------------------------------------------------
+--    c :       any character
+--    Returns : TRUE if c is an ASCII lower case letter
 
-  g_vsprintf ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_vsprintf                      (gchar *string,
-                                              gchar const *format,
-                                              va_list args);
+--   g_ascii_isprint ()
 
-   An implementation of the standard vsprintf() function which supports positional
-   parameters, as specified in the Single Unix Specification.
+--  gboolean    g_ascii_isprint                 (gchar c);
 
-   string :  the buffer to hold the output.
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   args :    the list of arguments to insert in the output.
-   Returns : the number of characters printed.
+--    Determines whether a character is a printing character.
 
-   Since 2.2
+--    Unlike the standard C library isprint() function, this only recognizes standard
+--    ASCII characters and ignores the locale, returning FALSE for all non-ASCII
+--    characters. Also unlike the standard library function, this takes a char, not an
+--    int, so don't call it on EOF but no need to cast to guchar before passing a
+--    possibly non-ASCII character in.
 
-   ---------------------------------------------------------------------------------
+--    c :       any character
+--    Returns : TRUE if c is an ASCII printing character.
 
-  g_snprintf ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_snprintf                      (gchar *string,
-                                              gulong n,
-                                              gchar const *format,
-                                              ...);
+--   g_ascii_ispunct ()
 
-   A safer form of the standard sprintf() function. The output is guaranteed to not
-   exceed n characters (including the terminating nul character), so it is easy to
-   ensure that a buffer overflow cannot occur.
+--  gboolean    g_ascii_ispunct                 (gchar c);
 
-   See also g_strdup_printf().
+--    Determines whether a character is a punctuation character.
 
-   In versions of GLib prior to 1.2.3, this function may return -1 if the output was
-   truncated, and the truncated string may not be nul-terminated. In versions prior
-   to 1.3.12, this function returns the length of the output string.
+--    Unlike the standard C library ispunct() function, this only recognizes standard
+--    ASCII letters and ignores the locale, returning FALSE for all non-ASCII
+--    characters. Also unlike the standard library function, this takes a char, not an
+--    int, so don't call it on EOF but no need to cast to guchar before passing a
+--    possibly non-ASCII character in.
 
-   The return value of g_snprintf() conforms to the snprintf() function as
-   standardized in ISO C99. Note that this is different from traditional snprintf(),
-   which returns the length of the output string.
+--    c :       any character
+--    Returns : TRUE if c is an ASCII punctuation character.
 
-   The format string may contain positional parameters, as specified in the Single
-   Unix Specification.
+--    ---------------------------------------------------------------------------------
 
-   string :  the buffer to hold the output.
-   n :       the maximum number of characters to produce (including the terminating
-             nul character).
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   ... :     the arguments to insert in the output.
-   Returns : the number of characters which would be produced if the buffer was
-             large enough.
+--   g_ascii_isspace ()
 
-   ---------------------------------------------------------------------------------
+--  gboolean    g_ascii_isspace                 (gchar c);
 
-  g_vsnprintf ()
+--    Determines whether a character is a white-space character.
 
- gint        g_vsnprintf                     (gchar *string,
-                                              gulong n,
-                                              gchar const *format,
-                                              va_list args);
+--    Unlike the standard C library isspace() function, this only recognizes standard
+--    ASCII white-space and ignores the locale, returning FALSE for all non-ASCII
+--    characters. Also unlike the standard library function, this takes a char, not an
+--    int, so don't call it on EOF but no need to cast to guchar before passing a
+--    possibly non-ASCII character in.
 
-   A safer form of the standard vsprintf() function. The output is guaranteed to not
-   exceed n characters (including the terminating nul character), so it is easy to
-   ensure that a buffer overflow cannot occur.
+--    c :       any character
+--    Returns : TRUE if c is an ASCII white-space character
 
-   See also g_strdup_vprintf().
+--    ---------------------------------------------------------------------------------
 
-   In versions of GLib prior to 1.2.3, this function may return -1 if the output was
-   truncated, and the truncated string may not be nul-terminated. In versions prior
-   to 1.3.12, this function returns the length of the output string.
+--   g_ascii_isupper ()
 
-   The return value of g_vsnprintf() conforms to the vsnprintf() function as
-   standardized in ISO C99. Note that this is different from traditional
-   vsnprintf(), which returns the length of the output string.
+--  gboolean    g_ascii_isupper                 (gchar c);
 
-   The format string may contain positional parameters, as specified in the Single
-   Unix Specification.
+--    Determines whether a character is an ASCII upper case letter.
 
-   string :  the buffer to hold the output.
-   n :       the maximum number of characters to produce (including the terminating
-             nul character).
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   args :    the list of arguments to insert in the output.
-   Returns : the number of characters which would be produced if the buffer was
-             large enough.
+--    Unlike the standard C library isupper() function, this only recognizes standard
+--    ASCII letters and ignores the locale, returning FALSE for all non-ASCII
+--    characters. Also unlike the standard library function, this takes a char, not an
+--    int, so don't call it on EOF but no need to worry about casting to guchar before
+--    passing a possibly non-ASCII character in.
 
-   ---------------------------------------------------------------------------------
+--    c :       any character
+--    Returns : TRUE if c is an ASCII upper case letter
 
-  g_vasprintf ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_vasprintf                     (gchar **string,
-                                              gchar const *format,
-                                              va_list args);
+--   g_ascii_isxdigit ()
 
-   An implementation of the GNU vasprintf() function which supports positional
-   parameters, as specified in the Single Unix Specification. This function is
-   similar to g_vsprintf(), except that it allocates a string to hold the output,
-   instead of putting the output in a buffer you allocate in advance.
+--  gboolean    g_ascii_isxdigit                (gchar c);
 
-   string :  the return location for the newly-allocated string.
-   format :  a standard printf() format string, but notice string precision
-             pitfalls.
-   args :    the list of arguments to insert in the output.
-   Returns : the number of characters printed.
+--    Determines whether a character is a hexadecimal-digit character.
 
-   Since 2.4
+--    Unlike the standard C library isxdigit() function, this takes a char, not an int,
+--    so don't call it on EOF but no need to cast to guchar before passing a possibly
+--    non-ASCII character in.
 
-   ---------------------------------------------------------------------------------
+--    c :       any character
+--    Returns : TRUE if c is an ASCII hexadecimal-digit character.
 
-  g_printf_string_upper_bound ()
+--    ---------------------------------------------------------------------------------
 
- gsize       g_printf_string_upper_bound     (const gchar *format,
-                                              va_list args);
+--   g_ascii_digit_value ()
 
-   Calculates the maximum space needed to store the output of the sprintf()
-   function.
+--  gint        g_ascii_digit_value             (gchar c);
 
-   format :  the format string. See the printf() documentation.
-   args :    the parameters to be inserted into the format string.
-   Returns : the maximum space needed to store the formatted string.
+--    Determines the numeric value of a character as a decimal digit. Differs from
+--    g_unichar_digit_value() because it takes a char, so there's no worry about sign
+--    extension if characters are signed.
 
-   ---------------------------------------------------------------------------------
+--    c :       an ASCII character.
+--    Returns : If c is a decimal digit (according to g_ascii_isdigit()), its numeric
+--              value. Otherwise, -1.
 
-  g_ascii_isalnum ()
+--    ---------------------------------------------------------------------------------
 
- gboolean    g_ascii_isalnum                 (gchar c);
+--   g_ascii_xdigit_value ()
 
-   Determines whether a character is alphanumeric.
+--  gint        g_ascii_xdigit_value            (gchar c);
 
-   Unlike the standard C library isalnum() function, this only recognizes standard
-   ASCII letters and ignores the locale, returning FALSE for all non-ASCII
-   characters. Also unlike the standard library function, this takes a char, not an
-   int, so don't call it on EOF but no need to cast to guchar before passing a
-   possibly non-ASCII character in.
+--    Determines the numeric value of a character as a hexidecimal digit. Differs from
+--    g_unichar_xdigit_value() because it takes a char, so there's no worry about sign
+--    extension if characters are signed.
 
-   c :       any character
-   Returns : TRUE if c is an ASCII alphanumeric character
+--    c :       an ASCII character.
+--    Returns : If c is a hex digit (according to g_ascii_isxdigit()), its numeric
+--              value. Otherwise, -1.
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_ascii_isalpha ()
+--   g_ascii_strcasecmp ()
 
- gboolean    g_ascii_isalpha                 (gchar c);
+--  gint        g_ascii_strcasecmp              (const gchar *s1,
+--                                               const gchar *s2);
 
-   Determines whether a character is alphabetic (i.e. a letter).
+--    Compare two strings, ignoring the case of ASCII characters.
 
-   Unlike the standard C library isalpha() function, this only recognizes standard
-   ASCII letters and ignores the locale, returning FALSE for all non-ASCII
-   characters. Also unlike the standard library function, this takes a char, not an
-   int, so don't call it on EOF but no need to cast to guchar before passing a
-   possibly non-ASCII character in.
+--    Unlike the BSD strcasecmp() function, this only recognizes standard ASCII letters
+--    and ignores the locale, treating all non-ASCII bytes as if they are not letters.
 
-   c :       any character
-   Returns : TRUE if c is an ASCII alphabetic character
+--    This function should be used only on strings that are known to be in encodings
+--    where the bytes corresponding to ASCII letters always represent themselves. This
+--    includes UTF-8 and the ISO-8859-* charsets, but not for instance double-byte
+--    encodings like the Windows Codepage 932, where the trailing bytes of double-byte
+--    characters include all ASCII letters. If you compare two CP932 strings using this
+--    function, you will get false matches.
 
-   ---------------------------------------------------------------------------------
+--    s1 :      string to compare with s2.
+--    s2 :      string to compare with s1.
+--    Returns : 0 if the strings match, a negative value if s1 < s2, or a positive
+--              value if s1 > s2.
 
-  g_ascii_iscntrl ()
+--    ---------------------------------------------------------------------------------
 
- gboolean    g_ascii_iscntrl                 (gchar c);
+--   g_ascii_strncasecmp ()
 
-   Determines whether a character is a control character.
+--  gint        g_ascii_strncasecmp             (const gchar *s1,
+--                                               const gchar *s2,
+--                                               gsize n);
 
-   Unlike the standard C library iscntrl() function, this only recognizes standard
-   ASCII control characters and ignores the locale, returning FALSE for all
-   non-ASCII characters. Also unlike the standard library function, this takes a
-   char, not an int, so don't call it on EOF but no need to cast to guchar before
-   passing a possibly non-ASCII character in.
+--    Compare s1 and s2, ignoring the case of ASCII characters and any characters after
+--    the first n in each string.
 
-   c :       any character
-   Returns : TRUE if c is an ASCII control character.
+--    Unlike the BSD strcasecmp() function, this only recognizes standard ASCII letters
+--    and ignores the locale, treating all non-ASCII characters as if they are not
+--    letters.
 
-   ---------------------------------------------------------------------------------
+--    The same warning as in g_ascii_strcasecmp() applies: Use this function only on
+--    strings known to be in encodings where bytes corresponding to ASCII letters
+--    always represent themselves.
 
-  g_ascii_isdigit ()
+--    s1 :      string to compare with s2.
+--    s2 :      string to compare with s1.
+--    n :       number of characters to compare.
+--    Returns : 0 if the strings match, a negative value if s1 < s2, or a positive
+--              value if s1 > s2.
 
- gboolean    g_ascii_isdigit                 (gchar c);
+--    ---------------------------------------------------------------------------------
 
-   Determines whether a character is digit (0-9).
+--   g_ascii_strup ()
 
-   Unlike the standard C library isdigit() function, this takes a char, not an int,
-   so don't call it on EOF but no need to cast to guchar before passing a possibly
-   non-ASCII character in.
+--  gchar*      g_ascii_strup                   (const gchar *str,
+--                                               gssize len);
 
-   c :       any character
-   Returns : TRUE if c is an ASCII digit.
+--    Converts all lower case ASCII letters to upper case ASCII letters.
 
-   ---------------------------------------------------------------------------------
+--    str :     a string.
+--    len :     length of str in bytes, or -1 if str is nul-terminated.
+--    Returns : a newly allocated string, with all the lower case characters in str
+--              converted to upper case, with semantics that exactly match
+--              g_ascii_toupper(). (Note that this is unlike the old g_strup(), which
+--              modified the string in place.)
 
-  g_ascii_isgraph ()
+--    ---------------------------------------------------------------------------------
 
- gboolean    g_ascii_isgraph                 (gchar c);
+--   g_ascii_strdown ()
 
-   Determines whether a character is a printing character and not a space.
+--  gchar*      g_ascii_strdown                 (const gchar *str,
+--                                               gssize len);
 
-   Unlike the standard C library isgraph() function, this only recognizes standard
-   ASCII characters and ignores the locale, returning FALSE for all non-ASCII
-   characters. Also unlike the standard library function, this takes a char, not an
-   int, so don't call it on EOF but no need to cast to guchar before passing a
-   possibly non-ASCII character in.
+--    Converts all upper case ASCII letters to lower case ASCII letters.
 
-   c :       any character
-   Returns : TRUE if c is an ASCII printing character other than space.
+--    str :     a string.
+--    len :     length of str in bytes, or -1 if str is nul-terminated.
+--    Returns : a newly-allocated string, with all the upper case characters in str
+--              converted to lower case, with semantics that exactly match
+--              g_ascii_tolower(). (Note that this is unlike the old g_strdown(), which
+--              modified the string in place.)
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_ascii_islower ()
+--   g_ascii_tolower ()
 
- gboolean    g_ascii_islower                 (gchar c);
+--  gchar       g_ascii_tolower                 (gchar c);
 
-   Determines whether a character is an ASCII lower case letter.
+--    Convert a character to ASCII lower case.
 
-   Unlike the standard C library islower() function, this only recognizes standard
-   ASCII letters and ignores the locale, returning FALSE for all non-ASCII
-   characters. Also unlike the standard library function, this takes a char, not an
-   int, so don't call it on EOF but no need to worry about casting to guchar before
-   passing a possibly non-ASCII character in.
+--    Unlike the standard C library tolower() function, this only recognizes standard
+--    ASCII letters and ignores the locale, returning all non-ASCII characters
+--    unchanged, even if they are lower case letters in a particular character set.
+--    Also unlike the standard library function, this takes and returns a char, not an
+--    int, so don't call it on EOF but no need to worry about casting to guchar before
+--    passing a possibly non-ASCII character in.
 
-   c :       any character
-   Returns : TRUE if c is an ASCII lower case letter
+--    c :       any character.
+--    Returns : the result of converting c to lower case. If c is not an ASCII upper
+--              case letter, c is returned unchanged.
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_ascii_isprint ()
+--   g_ascii_toupper ()
 
- gboolean    g_ascii_isprint                 (gchar c);
+--  gchar       g_ascii_toupper                 (gchar c);
 
-   Determines whether a character is a printing character.
+--    Convert a character to ASCII upper case.
 
-   Unlike the standard C library isprint() function, this only recognizes standard
-   ASCII characters and ignores the locale, returning FALSE for all non-ASCII
-   characters. Also unlike the standard library function, this takes a char, not an
-   int, so don't call it on EOF but no need to cast to guchar before passing a
-   possibly non-ASCII character in.
+--    Unlike the standard C library toupper() function, this only recognizes standard
+--    ASCII letters and ignores the locale, returning all non-ASCII characters
+--    unchanged, even if they are upper case letters in a particular character set.
+--    Also unlike the standard library function, this takes and returns a char, not an
+--    int, so don't call it on EOF but no need to worry about casting to guchar before
+--    passing a possibly non-ASCII character in.
 
-   c :       any character
-   Returns : TRUE if c is an ASCII printing character.
+--    c :       any character.
+--    Returns : the result of converting c to upper case. If c is not an ASCII lower
+--              case letter, c is returned unchanged.
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_ascii_ispunct ()
+--   g_string_ascii_up ()
 
- gboolean    g_ascii_ispunct                 (gchar c);
+--  GString*    g_string_ascii_up               (GString *string);
 
-   Determines whether a character is a punctuation character.
+--    Converts all lower case ASCII letters to upper case ASCII letters.
 
-   Unlike the standard C library ispunct() function, this only recognizes standard
-   ASCII letters and ignores the locale, returning FALSE for all non-ASCII
-   characters. Also unlike the standard library function, this takes a char, not an
-   int, so don't call it on EOF but no need to cast to guchar before passing a
-   possibly non-ASCII character in.
+--    string :  a GString
+--    Returns : passed-in string pointer, with all the lower case characters converted
+--              to upper case in place, with semantics that exactly match
+--              g_ascii_toupper.
 
-   c :       any character
-   Returns : TRUE if c is an ASCII punctuation character.
+--    ---------------------------------------------------------------------------------
 
-   ---------------------------------------------------------------------------------
+--   g_string_ascii_down ()
 
-  g_ascii_isspace ()
+--  GString*    g_string_ascii_down             (GString *string);
 
- gboolean    g_ascii_isspace                 (gchar c);
+--    Converts all upper case ASCII letters to lower case ASCII letters.
 
-   Determines whether a character is a white-space character.
+--    string :  a GString
+--    Returns : passed-in string pointer, with all the upper case characters converted
+--              to lower case in place, with semantics that exactly match
+--              g_ascii_tolower.
 
-   Unlike the standard C library isspace() function, this only recognizes standard
-   ASCII white-space and ignores the locale, returning FALSE for all non-ASCII
-   characters. Also unlike the standard library function, this takes a char, not an
-   int, so don't call it on EOF but no need to cast to guchar before passing a
-   possibly non-ASCII character in.
+--    ---------------------------------------------------------------------------------
 
-   c :       any character
-   Returns : TRUE if c is an ASCII white-space character
+--   g_strup ()
 
-   ---------------------------------------------------------------------------------
+--  gchar*      g_strup                         (gchar *string);
 
-  g_ascii_isupper ()
+--   Warning
 
- gboolean    g_ascii_isupper                 (gchar c);
+--    g_strup has been deprecated since version 2.2 and should not be used in
+--    newly-written code. This function is totally broken for the reasons discussed in
+--    the g_strncasecmp() docs - use g_ascii_strup() or g_utf8_strup() instead.
 
-   Determines whether a character is an ASCII upper case letter.
+--    Converts a string to upper case.
 
-   Unlike the standard C library isupper() function, this only recognizes standard
-   ASCII letters and ignores the locale, returning FALSE for all non-ASCII
-   characters. Also unlike the standard library function, this takes a char, not an
-   int, so don't call it on EOF but no need to worry about casting to guchar before
-   passing a possibly non-ASCII character in.
+--    string :  the string to convert.
+--    Returns : the string
 
-   c :       any character
-   Returns : TRUE if c is an ASCII upper case letter
+--    ---------------------------------------------------------------------------------
 
-   ---------------------------------------------------------------------------------
+--   g_strdown ()
 
-  g_ascii_isxdigit ()
+--  gchar*      g_strdown                       (gchar *string);
 
- gboolean    g_ascii_isxdigit                (gchar c);
+--   Warning
 
-   Determines whether a character is a hexadecimal-digit character.
+--    g_strdown has been deprecated since version 2.2 and should not be used in
+--    newly-written code. This function is totally broken for the reasons discussed in
+--    the g_strncasecmp() docs - use g_ascii_strdown() or g_utf8_strdown() instead.
 
-   Unlike the standard C library isxdigit() function, this takes a char, not an int,
-   so don't call it on EOF but no need to cast to guchar before passing a possibly
-   non-ASCII character in.
+--    Converts a string to lower case.
 
-   c :       any character
-   Returns : TRUE if c is an ASCII hexadecimal-digit character.
+--    string :  the string to convert.
+--    Returns : the string
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_ascii_digit_value ()
+--   g_strcasecmp ()
 
- gint        g_ascii_digit_value             (gchar c);
+--  gint        g_strcasecmp                    (const gchar *s1,
+--                                               const gchar *s2);
 
-   Determines the numeric value of a character as a decimal digit. Differs from
-   g_unichar_digit_value() because it takes a char, so there's no worry about sign
-   extension if characters are signed.
+--   Warning
 
-   c :       an ASCII character.
-   Returns : If c is a decimal digit (according to g_ascii_isdigit()), its numeric
-             value. Otherwise, -1.
+--    g_strcasecmp has been deprecated since version 2.2 and should not be used in
+--    newly-written code. See g_strncasecmp() for a discussion of why this function is
+--    deprecated and how to replace it.
 
-   ---------------------------------------------------------------------------------
+--    A case-insensitive string comparison, corresponding to the standard strcasecmp()
+--    function on platforms which support it.
 
-  g_ascii_xdigit_value ()
+--    s1 :      a string.
+--    s2 :      a string to compare with s1.
+--    Returns : 0 if the strings match, a negative value if s1 < s2, or a positive
+--              value if s1 > s2.
 
- gint        g_ascii_xdigit_value            (gchar c);
+--    ---------------------------------------------------------------------------------
 
-   Determines the numeric value of a character as a hexidecimal digit. Differs from
-   g_unichar_xdigit_value() because it takes a char, so there's no worry about sign
-   extension if characters are signed.
+--   g_strncasecmp ()
 
-   c :       an ASCII character.
-   Returns : If c is a hex digit (according to g_ascii_isxdigit()), its numeric
-             value. Otherwise, -1.
+--  gint        g_strncasecmp                   (const gchar *s1,
+--                                               const gchar *s2,
+--                                               guint n);
 
-   ---------------------------------------------------------------------------------
+--   Warning
 
-  g_ascii_strcasecmp ()
+--    g_strncasecmp has been deprecated since version 2.2 and should not be used in
+--    newly-written code. The problem with g_strncasecmp() is that it does the
+--    comparison by calling toupper()/tolower(). These functions are locale-specific
+--    and operate on single bytes. However, it is impossible to handle things correctly
+--    from an I18N standpoint by operating on bytes, since characters may be multibyte.
+--    Thus g_strncasecmp() is broken if your string is guaranteed to be ASCII, since
+--    it's locale-sensitive, and it's broken if your string is localized, since it
+--    doesn't work on many encodings at all, including UTF-8, EUC-JP, etc.
 
- gint        g_ascii_strcasecmp              (const gchar *s1,
-                                              const gchar *s2);
+--    There are therefore two replacement functions: g_ascii_strncasecmp(), which only
+--    works on ASCII and is not locale-sensitive, and g_utf8_casefold(), which is good
+--    for case-insensitive sorting of UTF-8.
 
-   Compare two strings, ignoring the case of ASCII characters.
+--    A case-insensitive string comparison, corresponding to the standard strncasecmp()
+--    function on platforms which support it. It is similar to g_strcasecmp() except it
+--    only compares the first n characters of the strings.
 
-   Unlike the BSD strcasecmp() function, this only recognizes standard ASCII letters
-   and ignores the locale, treating all non-ASCII bytes as if they are not letters.
+--    s1 :      a string.
+--    s2 :      a string to compare with s1.
+--    n :       the maximum number of characters to compare.
+--    Returns : 0 if the strings match, a negative value if s1 < s2, or a positive
+--              value if s1 > s2.
 
-   This function should be used only on strings that are known to be in encodings
-   where the bytes corresponding to ASCII letters always represent themselves. This
-   includes UTF-8 and the ISO-8859-* charsets, but not for instance double-byte
-   encodings like the Windows Codepage 932, where the trailing bytes of double-byte
-   characters include all ASCII letters. If you compare two CP932 strings using this
-   function, you will get false matches.
+--    ---------------------------------------------------------------------------------
 
-   s1 :      string to compare with s2.
-   s2 :      string to compare with s1.
-   Returns : 0 if the strings match, a negative value if s1 < s2, or a positive
-             value if s1 > s2.
+--   g_strreverse ()
 
-   ---------------------------------------------------------------------------------
+--  gchar*      g_strreverse                    (gchar *string);
 
-  g_ascii_strncasecmp ()
+--    Reverses all of the bytes in a string. For example, g_strreverse ("abcdef") will
+--    result in "fedcba".
 
- gint        g_ascii_strncasecmp             (const gchar *s1,
-                                              const gchar *s2,
-                                              gsize n);
+--    Note that g_strreverse() doesn't work on UTF-8 strings containing multibyte
+--    characters. For that purpose, use g_utf8_strreverse().
 
-   Compare s1 and s2, ignoring the case of ASCII characters and any characters after
-   the first n in each string.
+--    string :  the string to reverse.
+--    Returns : the same pointer passed in as string.
 
-   Unlike the BSD strcasecmp() function, this only recognizes standard ASCII letters
-   and ignores the locale, treating all non-ASCII characters as if they are not
-   letters.
+--    ---------------------------------------------------------------------------------
 
-   The same warning as in g_ascii_strcasecmp() applies: Use this function only on
-   strings known to be in encodings where bytes corresponding to ASCII letters
-   always represent themselves.
+--   g_ascii_strtoll ()
 
-   s1 :      string to compare with s2.
-   s2 :      string to compare with s1.
-   n :       number of characters to compare.
-   Returns : 0 if the strings match, a negative value if s1 < s2, or a positive
-             value if s1 > s2.
+--  gint64      g_ascii_strtoll                 (const gchar *nptr,
+--                                               gchar **endptr,
+--                                               guint base);
 
-   ---------------------------------------------------------------------------------
+--    Converts a string to a gint64 value. This function behaves like the standard
+--    strtoll() function does in the C locale. It does this without actually changing
+--    the current locale, since that would not be thread-safe.
 
-  g_ascii_strup ()
+--    This function is typically used when reading configuration files or other
+--    non-user input that should be locale independent. To handle input from the user
+--    you should normally use the locale-sensitive system strtoll() function.
 
- gchar*      g_ascii_strup                   (const gchar *str,
-                                              gssize len);
+--    If the correct value would cause overflow, G_MAXINT64 or G_MININT64 is returned,
+--    and ERANGE is stored in errno. If the base is outside the valid range, zero is
+--    returned, and EINVAL is stored in errno. If the string conversion fails, zero is
+--    returned, and endptr returns nptr (if endptr is non-NULL).
 
-   Converts all lower case ASCII letters to upper case ASCII letters.
+--    nptr :    the string to convert to a numeric value.
+--    endptr :  if non-NULL, it returns the character after the last character used in
+--              the conversion.
+--    base :    to be used for the conversion, 2..36 or 0
+--    Returns : the gint64 value or zero on error.
 
-   str :     a string.
-   len :     length of str in bytes, or -1 if str is nul-terminated.
-   Returns : a newly allocated string, with all the lower case characters in str
-             converted to upper case, with semantics that exactly match
-             g_ascii_toupper(). (Note that this is unlike the old g_strup(), which
-             modified the string in place.)
+--    Since 2.12
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_ascii_strdown ()
+--   g_ascii_strtoull ()
 
- gchar*      g_ascii_strdown                 (const gchar *str,
-                                              gssize len);
+--  guint64     g_ascii_strtoull                (const gchar *nptr,
+--                                               gchar **endptr,
+--                                               guint base);
 
-   Converts all upper case ASCII letters to lower case ASCII letters.
+--    Converts a string to a guint64 value. This function behaves like the standard
+--    strtoull() function does in the C locale. It does this without actually changing
+--    the current locale, since that would not be thread-safe.
 
-   str :     a string.
-   len :     length of str in bytes, or -1 if str is nul-terminated.
-   Returns : a newly-allocated string, with all the upper case characters in str
-             converted to lower case, with semantics that exactly match
-             g_ascii_tolower(). (Note that this is unlike the old g_strdown(), which
-             modified the string in place.)
+--    This function is typically used when reading configuration files or other
+--    non-user input that should be locale independent. To handle input from the user
+--    you should normally use the locale-sensitive system strtoull() function.
 
-   ---------------------------------------------------------------------------------
+--    If the correct value would cause overflow, G_MAXUINT64 is returned, and ERANGE is
+--    stored in errno. If the base is outside the valid range, zero is returned, and
+--    EINVAL is stored in errno. If the string conversion fails, zero is returned, and
+--    endptr returns nptr (if endptr is non-NULL).
 
-  g_ascii_tolower ()
+--    nptr :    the string to convert to a numeric value.
+--    endptr :  if non-NULL, it returns the character after the last character used in
+--              the conversion.
+--    base :    to be used for the conversion, 2..36 or 0
+--    Returns : the guint64 value or zero on error.
 
- gchar       g_ascii_tolower                 (gchar c);
+--    Since 2.2
 
-   Convert a character to ASCII lower case.
+--    ---------------------------------------------------------------------------------
 
-   Unlike the standard C library tolower() function, this only recognizes standard
-   ASCII letters and ignores the locale, returning all non-ASCII characters
-   unchanged, even if they are lower case letters in a particular character set.
-   Also unlike the standard library function, this takes and returns a char, not an
-   int, so don't call it on EOF but no need to worry about casting to guchar before
-   passing a possibly non-ASCII character in.
+--   G_ASCII_DTOSTR_BUF_SIZE
 
-   c :       any character.
-   Returns : the result of converting c to lower case. If c is not an ASCII upper
-             case letter, c is returned unchanged.
+--  #define G_ASCII_DTOSTR_BUF_SIZE (29 + 10)
 
-   ---------------------------------------------------------------------------------
+--    A good size for a buffer to be passed into g_ascii_dtostr(). It is guaranteed to
+--    be enough for all output of that function on systems with 64bit IEEE-compatible
+--    doubles.
 
-  g_ascii_toupper ()
+--    The typical usage would be something like:
 
- gchar       g_ascii_toupper                 (gchar c);
+--    char buf[G_ASCII_DTOSTR_BUF_SIZE];
 
-   Convert a character to ASCII upper case.
+--    fprintf (out, "value=%s\n", g_ascii_dtostr (buf, sizeof (buf), value));
 
-   Unlike the standard C library toupper() function, this only recognizes standard
-   ASCII letters and ignores the locale, returning all non-ASCII characters
-   unchanged, even if they are upper case letters in a particular character set.
-   Also unlike the standard library function, this takes and returns a char, not an
-   int, so don't call it on EOF but no need to worry about casting to guchar before
-   passing a possibly non-ASCII character in.
+--    ---------------------------------------------------------------------------------
 
-   c :       any character.
-   Returns : the result of converting c to upper case. If c is not an ASCII lower
-             case letter, c is returned unchanged.
+--   g_ascii_strtod ()
 
-   ---------------------------------------------------------------------------------
+--  gdouble     g_ascii_strtod                  (const gchar *nptr,
+--                                               gchar **endptr);
 
-  g_string_ascii_up ()
+--    Converts a string to a gdouble value. This function behaves like the standard
+--    strtod() function does in the C locale. It does this without actually changing
+--    the current locale, since that would not be thread-safe.
 
- GString*    g_string_ascii_up               (GString *string);
+--    This function is typically used when reading configuration files or other
+--    non-user input that should be locale independent. To handle input from the user
+--    you should normally use the locale-sensitive system strtod() function.
 
-   Converts all lower case ASCII letters to upper case ASCII letters.
+--    To convert from a gdouble to a string in a locale-insensitive way, use
+--    g_ascii_dtostr().
 
-   string :  a GString
-   Returns : passed-in string pointer, with all the lower case characters converted
-             to upper case in place, with semantics that exactly match
-             g_ascii_toupper.
+--    If the correct value would cause overflow, plus or minus HUGE_VAL is returned
+--    (according to the sign of the value), and ERANGE is stored in errno. If the
+--    correct value would cause underflow, zero is returned and ERANGE is stored in
+--    errno.
 
-   ---------------------------------------------------------------------------------
+--    This function resets errno before calling strtod() so that you can reliably
+--    detect overflow and underflow.
 
-  g_string_ascii_down ()
+--    nptr :    the string to convert to a numeric value.
+--    endptr :  if non-NULL, it returns the character after the last character used in
+--              the conversion.
+--    Returns : the gdouble value.
 
- GString*    g_string_ascii_down             (GString *string);
+--    ---------------------------------------------------------------------------------
 
-   Converts all upper case ASCII letters to lower case ASCII letters.
+--   g_ascii_dtostr ()
 
-   string :  a GString
-   Returns : passed-in string pointer, with all the upper case characters converted
-             to lower case in place, with semantics that exactly match
-             g_ascii_tolower.
+--  gchar*      g_ascii_dtostr                  (gchar *buffer,
+--                                               gint buf_len,
+--                                               gdouble d);
 
-   ---------------------------------------------------------------------------------
+--    Converts a gdouble to a string, using the '.' as decimal point.
 
-  g_strup ()
+--    This functions generates enough precision that converting the string back using
+--    g_ascii_strtod() gives the same machine-number (on machines with IEEE compatible
+--    64bit doubles). It is guaranteed that the size of the resulting string will never
+--    be larger than G_ASCII_DTOSTR_BUF_SIZE bytes.
 
- gchar*      g_strup                         (gchar *string);
+--    buffer :  A buffer to place the resulting string in
+--    buf_len : The length of the buffer.
+--    d :       The gdouble to convert
+--    Returns : The pointer to the buffer with the converted string.
 
-  Warning
+--    ---------------------------------------------------------------------------------
 
-   g_strup has been deprecated since version 2.2 and should not be used in
-   newly-written code. This function is totally broken for the reasons discussed in
-   the g_strncasecmp() docs - use g_ascii_strup() or g_utf8_strup() instead.
+--   g_ascii_formatd ()
 
-   Converts a string to upper case.
+--  gchar*      g_ascii_formatd                 (gchar *buffer,
+--                                               gint buf_len,
+--                                               const gchar *format,
+--                                               gdouble d);
 
-   string :  the string to convert.
-   Returns : the string
+--    Converts a gdouble to a string, using the '.' as decimal point. To format the
+--    number you pass in a printf()-style format string. Allowed conversion specifiers
+--    are 'e', 'E', 'f', 'F', 'g' and 'G'.
 
-   ---------------------------------------------------------------------------------
+--    If you just want to want to serialize the value into a string, use
+--    g_ascii_dtostr().
 
-  g_strdown ()
+--    buffer :  A buffer to place the resulting string in
+--    buf_len : The length of the buffer.
+--    format :  The printf()-style format to use for the code to use for converting.
+--    d :       The gdouble to convert
+--    Returns : The pointer to the buffer with the converted string.
 
- gchar*      g_strdown                       (gchar *string);
+--    ---------------------------------------------------------------------------------
 
-  Warning
+--   g_strtod ()
 
-   g_strdown has been deprecated since version 2.2 and should not be used in
-   newly-written code. This function is totally broken for the reasons discussed in
-   the g_strncasecmp() docs - use g_ascii_strdown() or g_utf8_strdown() instead.
+--  gdouble     g_strtod                        (const gchar *nptr,
+--                                               gchar **endptr);
 
-   Converts a string to lower case.
+--    Converts a string to a gdouble value. It calls the standard strtod() function to
+--    handle the conversion, but if the string is not completely converted it attempts
+--    the conversion again with g_ascii_strtod(), and returns the best match.
 
-   string :  the string to convert.
-   Returns : the string
+--    This function should seldomly be used. The normal situation when reading numbers
+--    not for human consumption is to use g_ascii_strtod(). Only when you know that you
+--    must expect both locale formatted and C formatted numbers should you use this.
+--    Make sure that you don't pass strings such as comma separated lists of values,
+--    since the commas may be interpreted as a decimal point in some locales, causing
+--    unexpected results.
 
-   ---------------------------------------------------------------------------------
+--    nptr :    the string to convert to a numeric value.
+--    endptr :  if non-NULL, it returns the character after the last character used in
+--              the conversion.
+--    Returns : the gdouble value.
 
-  g_strcasecmp ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_strcasecmp                    (const gchar *s1,
-                                              const gchar *s2);
+--   g_strchug ()
 
-  Warning
+--  gchar*      g_strchug                       (gchar *string);
 
-   g_strcasecmp has been deprecated since version 2.2 and should not be used in
-   newly-written code. See g_strncasecmp() for a discussion of why this function is
-   deprecated and how to replace it.
+--    Removes leading whitespace from a string, by moving the rest of the characters
+--    forward.
 
-   A case-insensitive string comparison, corresponding to the standard strcasecmp()
-   function on platforms which support it.
+--    This function doesn't allocate or reallocate any memory; it modifies string in
+--    place. The pointer to string is returned to allow the nesting of functions.
 
-   s1 :      a string.
-   s2 :      a string to compare with s1.
-   Returns : 0 if the strings match, a negative value if s1 < s2, or a positive
-             value if s1 > s2.
+--    Also see g_strchomp() and g_strstrip().
 
-   ---------------------------------------------------------------------------------
+--    string :  a string to remove the leading whitespace from.
+--    Returns : string.
 
-  g_strncasecmp ()
+--    ---------------------------------------------------------------------------------
 
- gint        g_strncasecmp                   (const gchar *s1,
-                                              const gchar *s2,
-                                              guint n);
+--   g_strchomp ()
 
-  Warning
+--  gchar*      g_strchomp                      (gchar *string);
 
-   g_strncasecmp has been deprecated since version 2.2 and should not be used in
-   newly-written code. The problem with g_strncasecmp() is that it does the
-   comparison by calling toupper()/tolower(). These functions are locale-specific
-   and operate on single bytes. However, it is impossible to handle things correctly
-   from an I18N standpoint by operating on bytes, since characters may be multibyte.
-   Thus g_strncasecmp() is broken if your string is guaranteed to be ASCII, since
-   it's locale-sensitive, and it's broken if your string is localized, since it
-   doesn't work on many encodings at all, including UTF-8, EUC-JP, etc.
+--    Removes trailing whitespace from a string.
 
-   There are therefore two replacement functions: g_ascii_strncasecmp(), which only
-   works on ASCII and is not locale-sensitive, and g_utf8_casefold(), which is good
-   for case-insensitive sorting of UTF-8.
+--    This function doesn't allocate or reallocate any memory; it modifies string in
+--    place. The pointer to string is returned to allow the nesting of functions.
 
-   A case-insensitive string comparison, corresponding to the standard strncasecmp()
-   function on platforms which support it. It is similar to g_strcasecmp() except it
-   only compares the first n characters of the strings.
+--    Also see g_strchug() and g_strstrip().
 
-   s1 :      a string.
-   s2 :      a string to compare with s1.
-   n :       the maximum number of characters to compare.
-   Returns : 0 if the strings match, a negative value if s1 < s2, or a positive
-             value if s1 > s2.
+--    string :  a string to remove the trailing whitespace from.
+--    Returns : string.
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_strreverse ()
+--   g_strstrip()
 
- gchar*      g_strreverse                    (gchar *string);
+--  #define     g_strstrip( string )
 
-   Reverses all of the bytes in a string. For example, g_strreverse ("abcdef") will
-   result in "fedcba".
+--    Removes leading and trailing whitespace from a string. See g_strchomp() and
+--    g_strchug().
 
-   Note that g_strreverse() doesn't work on UTF-8 strings containing multibyte
-   characters. For that purpose, use g_utf8_strreverse().
+--    string : a string to remove the leading and trailing whitespace from.
 
-   string :  the string to reverse.
-   Returns : the same pointer passed in as string.
+--    ---------------------------------------------------------------------------------
 
-   ---------------------------------------------------------------------------------
+--   g_strdelimit ()
 
-  g_ascii_strtoll ()
+--  gchar*      g_strdelimit                    (gchar *string,
+--                                               const gchar *delimiters,
+--                                               gchar new_delimiter);
 
- gint64      g_ascii_strtoll                 (const gchar *nptr,
-                                              gchar **endptr,
-                                              guint base);
+--    Converts any delimiter characters in string to new_delimiter. Any characters in
+--    string which are found in delimiters are changed to the new_delimiter character.
+--    Modifies string in place, and returns string itself, not a copy. The return value
+--    is to allow nesting such as g_ascii_strup (g_strdelimit (str, "abc", '?')).
 
-   Converts a string to a gint64 value. This function behaves like the standard
-   strtoll() function does in the C locale. It does this without actually changing
-   the current locale, since that would not be thread-safe.
+--    string :        the string to convert.
+--    delimiters :    a string containing the current delimiters, or NULL to use the
+--                    standard delimiters defined in G_STR_DELIMITERS.
+--    new_delimiter : the new delimiter character.
+--    Returns :       string.
 
-   This function is typically used when reading configuration files or other
-   non-user input that should be locale independent. To handle input from the user
-   you should normally use the locale-sensitive system strtoll() function.
+--    ---------------------------------------------------------------------------------
 
-   If the correct value would cause overflow, G_MAXINT64 or G_MININT64 is returned,
-   and ERANGE is stored in errno. If the base is outside the valid range, zero is
-   returned, and EINVAL is stored in errno. If the string conversion fails, zero is
-   returned, and endptr returns nptr (if endptr is non-NULL).
+--   G_STR_DELIMITERS
 
-   nptr :    the string to convert to a numeric value.
-   endptr :  if non-NULL, it returns the character after the last character used in
-             the conversion.
-   base :    to be used for the conversion, 2..36 or 0
-   Returns : the gint64 value or zero on error.
+--  #define  G_STR_DELIMITERS       "_-|> <."
 
-   Since 2.12
+--    The standard delimiters, used in g_strdelimit().
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_ascii_strtoull ()
+--   g_strescape ()
 
- guint64     g_ascii_strtoull                (const gchar *nptr,
-                                              gchar **endptr,
-                                              guint base);
+--  gchar*      g_strescape                     (const gchar *source,
+--                                               const gchar *exceptions);
 
-   Converts a string to a guint64 value. This function behaves like the standard
-   strtoull() function does in the C locale. It does this without actually changing
-   the current locale, since that would not be thread-safe.
+--    Escapes the special characters '\b', '\f', '\n', '\r', '\t', '\' and '"' in the
+--    string source by inserting a '\' before them. Additionally all characters in the
+--    range 0x01-0x1F (everything below SPACE) and in the range 0x7F-0xFF (all
+--    non-ASCII chars) are replaced with a '\' followed by their octal representation.
+--    Characters supplied in exceptions are not escaped.
 
-   This function is typically used when reading configuration files or other
-   non-user input that should be locale independent. To handle input from the user
-   you should normally use the locale-sensitive system strtoull() function.
+--    g_strcompress() does the reverse conversion.
 
-   If the correct value would cause overflow, G_MAXUINT64 is returned, and ERANGE is
-   stored in errno. If the base is outside the valid range, zero is returned, and
-   EINVAL is stored in errno. If the string conversion fails, zero is returned, and
-   endptr returns nptr (if endptr is non-NULL).
+--    source :     a string to escape.
+--    exceptions : a string of characters not to escape in source.
+--    Returns :    a newly-allocated copy of source with certain characters escaped.
+--                 See above.
 
-   nptr :    the string to convert to a numeric value.
-   endptr :  if non-NULL, it returns the character after the last character used in
-             the conversion.
-   base :    to be used for the conversion, 2..36 or 0
-   Returns : the guint64 value or zero on error.
+--    ---------------------------------------------------------------------------------
 
-   Since 2.2
+--   g_strcompress ()
 
-   ---------------------------------------------------------------------------------
+--  gchar*      g_strcompress                   (const gchar *source);
 
-  G_ASCII_DTOSTR_BUF_SIZE
+--    Replaces all escaped characters with their one byte equivalent. It does the
+--    reverse conversion of g_strescape().
 
- #define G_ASCII_DTOSTR_BUF_SIZE (29 + 10)
+--    source :  a string to compress.
+--    Returns : a newly-allocated copy of source with all escaped character compressed.
 
-   A good size for a buffer to be passed into g_ascii_dtostr(). It is guaranteed to
-   be enough for all output of that function on systems with 64bit IEEE-compatible
-   doubles.
+--    ---------------------------------------------------------------------------------
 
-   The typical usage would be something like:
+--   g_strcanon ()
 
-   char buf[G_ASCII_DTOSTR_BUF_SIZE];
+--  gchar*      g_strcanon                      (gchar *string,
+--                                               const gchar *valid_chars,
+--                                               gchar substitutor);
 
-   fprintf (out, "value=%s\n", g_ascii_dtostr (buf, sizeof (buf), value));
+--    For each character in string, if the character is not in valid_chars, replaces
+--    the character with substitutor. Modifies string in place, and return string
+--    itself, not a copy. The return value is to allow nesting such as g_ascii_strup
+--    (g_strcanon (str, "abc", '?')).
 
-   ---------------------------------------------------------------------------------
+--    string :      a nul-terminated array of bytes.
+--    valid_chars : bytes permitted in string.
+--    substitutor : replacement character for disallowed bytes.
+--    Returns :     string.
 
-  g_ascii_strtod ()
+--    ---------------------------------------------------------------------------------
 
- gdouble     g_ascii_strtod                  (const gchar *nptr,
-                                              gchar **endptr);
+--   g_strsplit ()
 
-   Converts a string to a gdouble value. This function behaves like the standard
-   strtod() function does in the C locale. It does this without actually changing
-   the current locale, since that would not be thread-safe.
+--  gchar**     g_strsplit                      (const gchar *string,
+--                                               const gchar *delimiter,
+--                                               gint max_tokens);
 
-   This function is typically used when reading configuration files or other
-   non-user input that should be locale independent. To handle input from the user
-   you should normally use the locale-sensitive system strtod() function.
+--    Splits a string into a maximum of max_tokens pieces, using the given delimiter.
+--    If max_tokens is reached, the remainder of string is appended to the last token.
 
-   To convert from a gdouble to a string in a locale-insensitive way, use
-   g_ascii_dtostr().
+--    As a special case, the result of splitting the empty string "" is an empty
+--    vector, not a vector containing a single string. The reason for this special case
+--    is that being able to represent a empty vector is typically more useful than
+--    consistent handling of empty elements. If you do need to represent empty
+--    elements, you'll need to check for the empty string before calling g_strsplit().
 
-   If the correct value would cause overflow, plus or minus HUGE_VAL is returned
-   (according to the sign of the value), and ERANGE is stored in errno. If the
-   correct value would cause underflow, zero is returned and ERANGE is stored in
-   errno.
+--    string :     a string to split.
+--    delimiter :  a string which specifies the places at which to split the string.
+--                 The delimiter is not included in any of the resulting strings,
+--                 unless max_tokens is reached.
+--    max_tokens : the maximum number of pieces to split string into. If this is less
+--                 than 1, the string is split completely.
+--    Returns :    a newly-allocated NULL-terminated array of strings. Use g_strfreev()
+--                 to free it.
 
-   This function resets errno before calling strtod() so that you can reliably
-   detect overflow and underflow.
+--    ---------------------------------------------------------------------------------
 
-   nptr :    the string to convert to a numeric value.
-   endptr :  if non-NULL, it returns the character after the last character used in
-             the conversion.
-   Returns : the gdouble value.
+--   g_strsplit_set ()
 
-   ---------------------------------------------------------------------------------
+--  gchar**     g_strsplit_set                  (const gchar *string,
+--                                               const gchar *delimiters,
+--                                               gint max_tokens);
 
-  g_ascii_dtostr ()
+--    Splits string into a number of tokens not containing any of the characters in
+--    delimiter. A token is the (possibly empty) longest string that does not contain
+--    any of the characters in delimiters. If max_tokens is reached, the remainder is
+--    appended to the last token.
 
- gchar*      g_ascii_dtostr                  (gchar *buffer,
-                                              gint buf_len,
-                                              gdouble d);
+--    For example the result of g_strsplit_set ("abc:def/ghi", ":/", -1) is a
+--    NULL-terminated vector containing the three strings "abc", "def", and "ghi".
 
-   Converts a gdouble to a string, using the '.' as decimal point.
+--    The result if g_strsplit_set (":def/ghi:", ":/", -1) is a NULL-terminated vector
+--    containing the four strings "", "def", "ghi", and "".
 
-   This functions generates enough precision that converting the string back using
-   g_ascii_strtod() gives the same machine-number (on machines with IEEE compatible
-   64bit doubles). It is guaranteed that the size of the resulting string will never
-   be larger than G_ASCII_DTOSTR_BUF_SIZE bytes.
+--    As a special case, the result of splitting the empty string "" is an empty
+--    vector, not a vector containing a single string. The reason for this special case
+--    is that being able to represent a empty vector is typically more useful than
+--    consistent handling of empty elements. If you do need to represent empty
+--    elements, you'll need to check for the empty string before calling
+--    g_strsplit_set().
 
-   buffer :  A buffer to place the resulting string in
-   buf_len : The length of the buffer.
-   d :       The gdouble to convert
-   Returns : The pointer to the buffer with the converted string.
+--    Note that this function works on bytes not characters, so it can't be used to
+--    delimit UTF-8 strings for anything but ASCII characters.
 
-   ---------------------------------------------------------------------------------
+--    string :     The string to be tokenized
+--    delimiters : A nul-terminated string containing bytes that are used to split the
+--                 string.
+--    max_tokens : The maximum number of tokens to split string into. If this is less
+--                 than 1, the string is split completely
+--    Returns :    a newly-allocated NULL-terminated array of strings. Use g_strfreev()
+--                 to free it.
 
-  g_ascii_formatd ()
+--    Since 2.4
 
- gchar*      g_ascii_formatd                 (gchar *buffer,
-                                              gint buf_len,
-                                              const gchar *format,
-                                              gdouble d);
+--    ---------------------------------------------------------------------------------
 
-   Converts a gdouble to a string, using the '.' as decimal point. To format the
-   number you pass in a printf()-style format string. Allowed conversion specifiers
-   are 'e', 'E', 'f', 'F', 'g' and 'G'.
+--   g_strfreev ()
 
-   If you just want to want to serialize the value into a string, use
-   g_ascii_dtostr().
+--  void        g_strfreev                      (gchar **str_array);
 
-   buffer :  A buffer to place the resulting string in
-   buf_len : The length of the buffer.
-   format :  The printf()-style format to use for the code to use for converting.
-   d :       The gdouble to convert
-   Returns : The pointer to the buffer with the converted string.
+--    Frees a NULL-terminated array of strings, and the array itself. If called on a
+--    NULL value, g_strfreev() simply returns.
 
-   ---------------------------------------------------------------------------------
+--    str_array : a NULL-terminated array of strings to free.
 
-  g_strtod ()
+--    ---------------------------------------------------------------------------------
 
- gdouble     g_strtod                        (const gchar *nptr,
-                                              gchar **endptr);
+--   g_strconcat ()
 
-   Converts a string to a gdouble value. It calls the standard strtod() function to
-   handle the conversion, but if the string is not completely converted it attempts
-   the conversion again with g_ascii_strtod(), and returns the best match.
+--  gchar*      g_strconcat                     (const gchar *string1,
+--                                               ...);
 
-   This function should seldomly be used. The normal situation when reading numbers
-   not for human consumption is to use g_ascii_strtod(). Only when you know that you
-   must expect both locale formatted and C formatted numbers should you use this.
-   Make sure that you don't pass strings such as comma separated lists of values,
-   since the commas may be interpreted as a decimal point in some locales, causing
-   unexpected results.
+--    Concatenates all of the given strings into one long string. The returned string
+--    should be freed when no longer needed.
 
-   nptr :    the string to convert to a numeric value.
-   endptr :  if non-NULL, it returns the character after the last character used in
-             the conversion.
-   Returns : the gdouble value.
+--   Warning
 
-   ---------------------------------------------------------------------------------
+--    The variable argument list must end with NULL. If you forget the NULL,
+--    g_strconcat() will start appending random memory junk to your string.
 
-  g_strchug ()
+--    string1 : The first string to add, which must not be NULL.
+--    ... :     a NULL-terminated list of strings to append to the string.
+--    Returns : a newly-allocated string containing all the string arguments.
 
- gchar*      g_strchug                       (gchar *string);
+--    ---------------------------------------------------------------------------------
 
-   Removes leading whitespace from a string, by moving the rest of the characters
-   forward.
+--   g_strjoin ()
 
-   This function doesn't allocate or reallocate any memory; it modifies string in
-   place. The pointer to string is returned to allow the nesting of functions.
+--  gchar*      g_strjoin                       (const gchar *separator,
+--                                               ...);
 
-   Also see g_strchomp() and g_strstrip().
+--    Joins a number of strings together to form one long string, with the optional
+--    separator inserted between each of them.
 
-   string :  a string to remove the leading whitespace from.
-   Returns : string.
+--    separator : a string to insert between each of the strings, or NULL.
+--    ... :       a NULL-terminated list of strings to join.
+--    Returns :   a newly-allocated string containing all of the strings joined
+--                together, with separator between them.
 
-   ---------------------------------------------------------------------------------
+--    ---------------------------------------------------------------------------------
 
-  g_strchomp ()
+--   g_strjoinv ()
 
- gchar*      g_strchomp                      (gchar *string);
+--  gchar*      g_strjoinv                      (const gchar *separator,
+--                                               gchar **str_array);
 
-   Removes trailing whitespace from a string.
+--    Joins a number of strings together to form one long string, with the optional
+--    separator inserted between each of them.
 
-   This function doesn't allocate or reallocate any memory; it modifies string in
-   place. The pointer to string is returned to allow the nesting of functions.
+--    separator : a string to insert between each of the strings, or NULL.
+--    str_array : a NULL-terminated array of strings to join.
+--    Returns :   a newly-allocated string containing all of the strings joined
+--                together, with separator between them.
 
-   Also see g_strchug() and g_strstrip().
+--    ---------------------------------------------------------------------------------
 
-   string :  a string to remove the trailing whitespace from.
-   Returns : string.
+--   g_strv_length ()
 
-   ---------------------------------------------------------------------------------
+--  guint       g_strv_length                   (gchar **str_array);
 
-  g_strstrip()
+--    Returns the length of the given NULL-terminated string array str_array.
 
- #define     g_strstrip( string )
+--    str_array : a NULL-terminated array of strings.
+--    Returns :   length of str_array.
 
-   Removes leading and trailing whitespace from a string. See g_strchomp() and
-   g_strchug().
+--    Since 2.6
 
-   string : a string to remove the leading and trailing whitespace from.
+--    ---------------------------------------------------------------------------------
 
-   ---------------------------------------------------------------------------------
+--   g_strerror ()
 
-  g_strdelimit ()
+--  const gchar* g_strerror                     (gint errnum);
 
- gchar*      g_strdelimit                    (gchar *string,
-                                              const gchar *delimiters,
-                                              gchar new_delimiter);
+--    Returns a string corresponding to the given error code, e.g. "no such process".
+--    This function is included since not all platforms support the strerror()
+--    function.
 
-   Converts any delimiter characters in string to new_delimiter. Any characters in
-   string which are found in delimiters are changed to the new_delimiter character.
-   Modifies string in place, and returns string itself, not a copy. The return value
-   is to allow nesting such as g_ascii_strup (g_strdelimit (str, "abc", '?')).
+--    errnum :  the system error number. See the standard C errno documentation.
+--    Returns : a string describing the error code. If the error code is unknown, it
+--              returns "unknown error (<code>)". The string can only be used until the
+--              next call to g_strerror().
 
-   string :        the string to convert.
-   delimiters :    a string containing the current delimiters, or NULL to use the
-                   standard delimiters defined in G_STR_DELIMITERS.
-   new_delimiter : the new delimiter character.
-   Returns :       string.
+--    ---------------------------------------------------------------------------------
 
-   ---------------------------------------------------------------------------------
+--   g_strsignal ()
 
-  G_STR_DELIMITERS
+--  const gchar* g_strsignal                    (gint signum);
 
- #define  G_STR_DELIMITERS       "_-|> <."
+--    Returns a string describing the given signal, e.g. "Segmentation fault". This
+--    function is included since not all platforms support the strsignal() function.
 
-   The standard delimiters, used in g_strdelimit().
+--    signum :  the signal number. See the signal documentation.
+--    Returns : a string describing the signal. If the signal is unknown, it returns
+--              "unknown signal (<signum>)". The string can only be used until the next
+--              call to g_strsignal().
 
-   ---------------------------------------------------------------------------------
-
-  g_strescape ()
-
- gchar*      g_strescape                     (const gchar *source,
-                                              const gchar *exceptions);
-
-   Escapes the special characters '\b', '\f', '\n', '\r', '\t', '\' and '"' in the
-   string source by inserting a '\' before them. Additionally all characters in the
-   range 0x01-0x1F (everything below SPACE) and in the range 0x7F-0xFF (all
-   non-ASCII chars) are replaced with a '\' followed by their octal representation.
-   Characters supplied in exceptions are not escaped.
-
-   g_strcompress() does the reverse conversion.
-
-   source :     a string to escape.
-   exceptions : a string of characters not to escape in source.
-   Returns :    a newly-allocated copy of source with certain characters escaped.
-                See above.
-
-   ---------------------------------------------------------------------------------
-
-  g_strcompress ()
-
- gchar*      g_strcompress                   (const gchar *source);
-
-   Replaces all escaped characters with their one byte equivalent. It does the
-   reverse conversion of g_strescape().
-
-   source :  a string to compress.
-   Returns : a newly-allocated copy of source with all escaped character compressed.
-
-   ---------------------------------------------------------------------------------
-
-  g_strcanon ()
-
- gchar*      g_strcanon                      (gchar *string,
-                                              const gchar *valid_chars,
-                                              gchar substitutor);
-
-   For each character in string, if the character is not in valid_chars, replaces
-   the character with substitutor. Modifies string in place, and return string
-   itself, not a copy. The return value is to allow nesting such as g_ascii_strup
-   (g_strcanon (str, "abc", '?')).
-
-   string :      a nul-terminated array of bytes.
-   valid_chars : bytes permitted in string.
-   substitutor : replacement character for disallowed bytes.
-   Returns :     string.
-
-   ---------------------------------------------------------------------------------
-
-  g_strsplit ()
-
- gchar**     g_strsplit                      (const gchar *string,
-                                              const gchar *delimiter,
-                                              gint max_tokens);
-
-   Splits a string into a maximum of max_tokens pieces, using the given delimiter.
-   If max_tokens is reached, the remainder of string is appended to the last token.
-
-   As a special case, the result of splitting the empty string "" is an empty
-   vector, not a vector containing a single string. The reason for this special case
-   is that being able to represent a empty vector is typically more useful than
-   consistent handling of empty elements. If you do need to represent empty
-   elements, you'll need to check for the empty string before calling g_strsplit().
-
-   string :     a string to split.
-   delimiter :  a string which specifies the places at which to split the string.
-                The delimiter is not included in any of the resulting strings,
-                unless max_tokens is reached.
-   max_tokens : the maximum number of pieces to split string into. If this is less
-                than 1, the string is split completely.
-   Returns :    a newly-allocated NULL-terminated array of strings. Use g_strfreev()
-                to free it.
-
-   ---------------------------------------------------------------------------------
-
-  g_strsplit_set ()
-
- gchar**     g_strsplit_set                  (const gchar *string,
-                                              const gchar *delimiters,
-                                              gint max_tokens);
-
-   Splits string into a number of tokens not containing any of the characters in
-   delimiter. A token is the (possibly empty) longest string that does not contain
-   any of the characters in delimiters. If max_tokens is reached, the remainder is
-   appended to the last token.
-
-   For example the result of g_strsplit_set ("abc:def/ghi", ":/", -1) is a
-   NULL-terminated vector containing the three strings "abc", "def", and "ghi".
-
-   The result if g_strsplit_set (":def/ghi:", ":/", -1) is a NULL-terminated vector
-   containing the four strings "", "def", "ghi", and "".
-
-   As a special case, the result of splitting the empty string "" is an empty
-   vector, not a vector containing a single string. The reason for this special case
-   is that being able to represent a empty vector is typically more useful than
-   consistent handling of empty elements. If you do need to represent empty
-   elements, you'll need to check for the empty string before calling
-   g_strsplit_set().
-
-   Note that this function works on bytes not characters, so it can't be used to
-   delimit UTF-8 strings for anything but ASCII characters.
-
-   string :     The string to be tokenized
-   delimiters : A nul-terminated string containing bytes that are used to split the
-                string.
-   max_tokens : The maximum number of tokens to split string into. If this is less
-                than 1, the string is split completely
-   Returns :    a newly-allocated NULL-terminated array of strings. Use g_strfreev()
-                to free it.
-
-   Since 2.4
-
-   ---------------------------------------------------------------------------------
-
-  g_strfreev ()
-
- void        g_strfreev                      (gchar **str_array);
-
-   Frees a NULL-terminated array of strings, and the array itself. If called on a
-   NULL value, g_strfreev() simply returns.
-
-   str_array : a NULL-terminated array of strings to free.
-
-   ---------------------------------------------------------------------------------
-
-  g_strconcat ()
-
- gchar*      g_strconcat                     (const gchar *string1,
-                                              ...);
-
-   Concatenates all of the given strings into one long string. The returned string
-   should be freed when no longer needed.
-
-  Warning
-
-   The variable argument list must end with NULL. If you forget the NULL,
-   g_strconcat() will start appending random memory junk to your string.
-
-   string1 : The first string to add, which must not be NULL.
-   ... :     a NULL-terminated list of strings to append to the string.
-   Returns : a newly-allocated string containing all the string arguments.
-
-   ---------------------------------------------------------------------------------
-
-  g_strjoin ()
-
- gchar*      g_strjoin                       (const gchar *separator,
-                                              ...);
-
-   Joins a number of strings together to form one long string, with the optional
-   separator inserted between each of them.
-
-   separator : a string to insert between each of the strings, or NULL.
-   ... :       a NULL-terminated list of strings to join.
-   Returns :   a newly-allocated string containing all of the strings joined
-               together, with separator between them.
-
-   ---------------------------------------------------------------------------------
-
-  g_strjoinv ()
-
- gchar*      g_strjoinv                      (const gchar *separator,
-                                              gchar **str_array);
-
-   Joins a number of strings together to form one long string, with the optional
-   separator inserted between each of them.
-
-   separator : a string to insert between each of the strings, or NULL.
-   str_array : a NULL-terminated array of strings to join.
-   Returns :   a newly-allocated string containing all of the strings joined
-               together, with separator between them.
-
-   ---------------------------------------------------------------------------------
-
-  g_strv_length ()
-
- guint       g_strv_length                   (gchar **str_array);
-
-   Returns the length of the given NULL-terminated string array str_array.
-
-   str_array : a NULL-terminated array of strings.
-   Returns :   length of str_array.
-
-   Since 2.6
-
-   ---------------------------------------------------------------------------------
-
-  g_strerror ()
-
- const gchar* g_strerror                     (gint errnum);
-
-   Returns a string corresponding to the given error code, e.g. "no such process".
-   This function is included since not all platforms support the strerror()
-   function.
-
-   errnum :  the system error number. See the standard C errno documentation.
-   Returns : a string describing the error code. If the error code is unknown, it
-             returns "unknown error (<code>)". The string can only be used until the
-             next call to g_strerror().
-
-   ---------------------------------------------------------------------------------
-
-  g_strsignal ()
-
- const gchar* g_strsignal                    (gint signum);
-
-   Returns a string describing the given signal, e.g. "Segmentation fault". This
-   function is included since not all platforms support the strsignal() function.
-
-   signum :  the signal number. See the signal documentation.
-   Returns : a string describing the signal. If the signal is unknown, it returns
-             "unknown signal (<signum>)". The string can only be used until the next
-             call to g_strsignal().
-
-References
-
-   Visible links
-   . file:///usr/share/doc/libgtk2.0-doc/glib/index.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-utilities.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-utilities.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Character-Set-Conversion.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-fundamentals.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-core.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-utilities.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-data-types.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/tools.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/ix01.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/ix02.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/ix03.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/ix04.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/ix05.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/ix06.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/ix07.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/ix08.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-utilities.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-utilities.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/index.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Character-Set-Conversion.html
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#id2908059
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#id2910168
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdup
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strndup
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdupv
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strnfill
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-stpcpy
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strstr-len
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gssize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strrstr
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strrstr-len
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gssize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-str-has-prefix
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-str-has-suffix
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strlcpy
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strlcat
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdup-printf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdup-vprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-printf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-fprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vfprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-sprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vsprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-snprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gulong
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vsnprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gulong
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vasprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-printf-string-upper-bound
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isalnum
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isalpha
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-iscntrl
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isdigit
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isgraph
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-islower
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isprint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-ispunct
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isspace
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isupper
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isxdigit
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-digit-value
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-xdigit-value
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strcasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strncasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strup
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gssize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strdown
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gssize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-tolower
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-toupper
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Strings.html#GString
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-string-ascii-up
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Strings.html#GString
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Strings.html#GString
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-string-ascii-down
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Strings.html#GString
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strup
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdown
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strcasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strncasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strreverse
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint64
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strtoll
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint64
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strtoull
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#G-ASCII-DTOSTR-BUF-SIZE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strtod
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-dtostr
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-formatd
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strtod
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strchug
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strchomp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strstrip
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdelimit
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#G-STR-DELIMITERS:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strescape
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strcompress
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strcanon
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strsplit
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strsplit-set
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strfreev
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strconcat
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strjoin
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strjoinv
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strv-length
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strerror
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strsignal
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-printf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-fprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-sprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-snprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vfprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vsprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vsnprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Unicode-Manipulation.html#g-unichar-iswide
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strfreev
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdupv
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gssize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gssize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdup
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strconcat
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vasprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gulong
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdup-printf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-snprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gulong
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdup-vprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vsnprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-vsprintf
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#string-precision
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#FALSE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gboolean
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#TRUE:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Unicode-Manipulation.html#g-unichar-digit-value
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isdigit
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Unicode-Manipulation.html#g-unichar-xdigit-value
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-isxdigit
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gsize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strcasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gssize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-toupper
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strup
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gssize
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-tolower
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdown
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Strings.html#GString
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Strings.html#GString
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Strings.html#GString
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Strings.html#GString
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strncasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strup
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Unicode-Manipulation.html#g-utf8-strup
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strncasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strdown
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Unicode-Manipulation.html#g-utf8-strdown
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strncasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strncasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strncasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strncasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Unicode-Manipulation.html#g-utf8-casefold
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strcasecmp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strreverse
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Unicode-Manipulation.html#g-utf8-strreverse
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint64
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint64
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Limits-of-Basic-Types.html#G-MAXINT64:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Limits-of-Basic-Types.html#G-MININT64:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint64
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint64
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint64
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Limits-of-Basic-Types.html#G-MAXUINT64:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint64
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-dtostr
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-dtostr
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strtod
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-dtostr
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strtod
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-ascii-strtod
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gdouble
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strchomp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strstrip
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strchug
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strstrip
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strchomp
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strchug
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#G-STR-DELIMITERS:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strdelimit
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strcompress
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strescape
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strsplit
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strfreev
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strsplit-set
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strfreev
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strfreev
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strconcat
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#guint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Standard-Macros.html#NULL:CAPS
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strerror
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gchar
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-Basic-Types.html#gint
-   . file:///usr/share/doc/libgtk2.0-doc/glib/glib-String-Utility-Functions.html#g-strsignal
+end

@@ -12,11 +12,18 @@ inherit
 	-- relationship between STRING's storage and G_STRING handle
 
 	ANY
-		redefine copy, is_equal end
-	C_STRUCT
-		redefine copy, is_equal end
-	GLIB_STRING
+		redefine 
+			copy, 
+			is_equal 
+		end
+	SHARED_C_STRUCT
+		redefine
+			copy,
+			is_equal 
+		end
 
+insert
+	G_STRING_EXTERNALS
 	GLIB_STRING_UTILITY_FUNCTIONS
 	
 creation {ANY}
@@ -55,7 +62,9 @@ feature {ANY} -- Creation / Modification:
 			-- characters of storage.
 		do
 			handle := g_string_sized_new (needed_capacity)
+			-- The following is needed to comply with the postcondition
 			handle := g_string_set_size (handle, needed_capacity)
+			set_unshared
 		ensure
 			count = needed_capacity
 		end
@@ -64,6 +73,7 @@ feature {ANY} -- Creation / Modification:
 			-- Create an empty string.
 		do
 			make(0)
+			set_unshared
 		end
 
 	from_string (a_string: STRING) is
@@ -71,6 +81,7 @@ feature {ANY} -- Creation / Modification:
 		require a_string_not_void: a_string/=Void
 		do
 			handle := g_string_new (a_string.to_external)
+			set_unshared
 		end
 	
 feature {ANY} 
@@ -168,10 +179,9 @@ feature -- Conversion to STRING
 			create Result.from_external_copy (c_string)
 		end
 
-	as_string: STRING is
+	as_string: CONST_STRING is
 			-- A string holding the very same content of Current
 			-- (i.e. using the same memory area.)
-			-- TODO: Possible memory leaks in the implementation
 		do
 			create Result.from_external (c_string)
 		end

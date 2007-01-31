@@ -63,16 +63,9 @@ default -- section of the system
 		 -- The equivalent of the -relax flag.
 
 cluster -- section
-		"../../library/glib"
-		"../../library/glib/core"
-		"../../library/glib/data_types"
-		"../../library/glib/externals"
-		"../../library/glib/fundamentals"
-		"../../library/glib/utilities"
-		"../../library/gobject"
-		"../../library/support"
+	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
+	demo: "."
 
-		"."
 	-- The cluster section is an ordered list of clusters. Roughly speaking,
 	-- a cluster can be considered as a directory where Eiffel source files
 	-- are to be searched for. Thus, the order of this list of clusters is

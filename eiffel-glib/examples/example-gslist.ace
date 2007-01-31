@@ -64,7 +64,7 @@ default -- section of the system
 
 cluster -- section
 	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
-	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
+	-- gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
 
 	demo: "."
 
