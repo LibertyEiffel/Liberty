@@ -37,7 +37,7 @@ feature -- objects and
 	labels: FAST_ARRAY [GTK_LABEL]
 	pointer: POINTER
 
-	random: MINIMAL_RANDOM_NUMBER_GENERATOR
+	random: STD_RAND
 	
 feature
 	iterations_number: INTEGER_32
