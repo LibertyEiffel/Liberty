@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class GLIB_STRING_UTILITY_FUNCTIONS
+expanded class GLIB_STRING_UTILITY_FUNCTIONS
 	-- Utility functions functions for creating, duplicating, and
 	-- manipulating strings at C level.
 
@@ -58,13 +58,12 @@ deferred class GLIB_STRING_UTILITY_FUNCTIONS
 	-- 2007-01-29
 
 inherit
-	ANY undefine is_equal, copy end
-	
-insert 
+	ANY
+
+insert
 	GLIB_BASIC_TYPES
 		-- For achored declaration of low-level types, i.e. gsize
-		undefine is_equal, copy end
-	
+
 feature {} -- External calls using gprintf.h
 	g_printf (a_format: POINTER): INTEGER is
 			-- gint g_printf (gchar const *format, ...);
@@ -117,7 +116,7 @@ feature {} -- External calls using glib.h
 			-- gchar* g_strnfill (gsize length, gchar fill_char);
 		external "C use <glib.h>"
 		end
-	
+
 	g_stpcpy (a_dest, a_src: POINTER): POINTER is
 			-- gchar* g_stpcpy (gchar *dest, const char *src);
 		external "C use <glib.h>"
@@ -157,7 +156,7 @@ feature {} -- External calls using glib.h
 			-- gsize g_strlcpy (gchar *dest, const gchar *src, gsize dest_size);
 		external "C use <glib.h>"
 		end
-	
+
 	g_strlcat (a_dest, a_src: POINTER; a_dest_size: like gsize): like gsize is
 			-- gsize g_strlcat (gchar *dest, const gchar *src, gsize dest_size);
 		external "C use <glib.h>"
@@ -439,11 +438,32 @@ feature {} -- External calls using glib.h
 		external "C use <glib.h>"
 		end
 
- 	g_strsignal (a_signum: INTEGER): POINTER is
+	g_strsignal (a_signum: INTEGER): POINTER is
 			-- const gchar* g_strsignal (gint signum);
 		external "C use <glib.h>"
 		end
 
+feature -- Operations
+
+	string_escape (a_source, some_exceptions: STRING): STRING is
+			-- Escapes the special characters '\b', '\f', '\n', '\r', '\t', '\' and '"'
+			-- in the string source by inserting a '\' before them.  Additionally all
+			-- characters in the range 0x01-0x1F (everything below SPACE) and in the
+			-- range 0x7F-0xFF (all non-ASCII chars) are replaced with a '\' followed
+			-- by their octal representation.  Characters supplied in exceptions are not
+			-- escaped.
+			-- See string_compress() for the reverse conversion.
+		do
+			create Result.from_external (g_strescape (a_source.to_external,
+			                                          some_exceptions.to_external))
+		end
+
+	string_compress (a_source: STRING): STRING is
+			-- Replaces all escaped characters with their one byte equivalent. It does
+			-- the reverse conversion of string_escape().
+		do
+			create Result.from_external (g_strcompress (a_source.to_external))
+		end
 
 feature {} -- Unwrapped full-text documentation
 
