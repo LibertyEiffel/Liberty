@@ -69,8 +69,8 @@ feature
 				else
 					create window.from_external_pointer (res)
 				end
-				Result := [window, x, y, mask]
 			end
+			Result := [window, x, y, mask]
 		ensure
 			Result /= Void implies is_valid_gdk_modifier_type (Result.fourth)
 		end
