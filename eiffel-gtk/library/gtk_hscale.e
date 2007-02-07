@@ -31,9 +31,11 @@ indexing
 			-- class's functions.
 
 class GTK_HSCALE
-inherit
 
+inherit
 	GTK_SCALE
+
+insert
 	GTK_HSCALE_EXTERNALS
 
 		-- Implemented Interfaces: GtkHScale implements

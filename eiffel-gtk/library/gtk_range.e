@@ -30,16 +30,26 @@ inherit
 feature -- The adjustment
 
 	adjustment: GTK_ADJUSTMENT is
-			-- the GtkAdjustment which is the "model" object for GtkRange. 
+			-- the GtkAdjustment which is the "model" object for GtkRange.
+		local
+			c_adjustment: POINTER
+			r: G_RETRIEVER [GTK_ADJUSTMENT]
 		do
-			create Result.from_external_pointer (gtk_range_get_adjustment (handle))
-			-- GTK documentation says "See gtk_range_set_adjustment() for
-			-- details. The return value does not have a reference added,
-			-- so should not be unreferenced." Instead we just add a
-			-- reference to the adjustment, because there will be an
-			-- effective refence on the Eiffel side
-			Result.ref
-		ensure valid_adjustment: Result /= Void
+			c_adjustment := gtk_range_get_adjustment (handle)
+			check c_adjustment.is_not_null end
+			if r.has_eiffel_wrapper_stored (c_adjustment) then
+				Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_adjustment)
+			else
+				create Result.from_external_pointer (c_adjustment)
+				-- GTK documentation says "See gtk_range_set_adjustment() for
+				-- details. The return value does not have a reference added,
+				-- so should not be unreferenced." Instead we just add a
+				-- reference to the adjustment, because there will be an
+				-- effective refence on the Eiffel side
+				Result.ref
+			end
+		ensure
+			valid_adjustment: Result /= Void
 		end
 
 	set_adjustment (an_adjustment: GTK_ADJUSTMENT) is
