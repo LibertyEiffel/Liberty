@@ -396,13 +396,17 @@ feature -- Disposing
 	dispose, force_free_handle is
 			-- Frees a G_ERROR and associated resources.
 		do
-			g_error_free (handle)
-			handle := default_pointer
+			if handle.is_not_null then
+				free_handle
+			end
 		end
 
 	free_handle is
+		require
+			handle.is_not_null
 		do
 			g_error_free (handle)
+			handle := default_pointer
 		end
 
 feature -- struct size
