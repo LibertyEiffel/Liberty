@@ -56,6 +56,7 @@ insert
 	GLADE_GETTER [GTK_TABLE]                  rename get as get_table end
 	GLADE_GETTER [GTK_TEXT_VIEW]              rename get as get_text_view end
 	GLADE_GETTER [GTK_TOGGLE_BUTTON]          rename get as get_toggle_button end
+	GLADE_GETTER [GTK_TOOLBAR]                rename get as get_toolbar end
 	GLADE_GETTER [GTK_TOOL_BUTTON]            rename get as get_tool_button end
 	GLADE_GETTER [GTK_TREE_VIEW]              rename get as get_tree_view end
 	GLADE_GETTER [GTK_VBOX]                   rename get as get_vbox end
