@@ -137,7 +137,7 @@ feature -- Model-related features
 			gtk_combo_box_set_column_span_column (handle, a_column_span)
 		end
 
-	active_column: INTEGER is
+	active_row: INTEGER is
 			-- the index of the currently active item, or -1 if there's
 			-- no active item. If the model is a non-flat treemodel, and
 			-- the active item is not an immediate child of the root of
@@ -147,6 +147,12 @@ feature -- Model-related features
 		require no_simple_api: not is_text_only
 		do
 			Result := gtk_combo_box_get_active (handle)
+		end
+
+	active_column: INTEGER is
+		obsolete "Renamed this feature to `active_row' which is a better name"
+		do
+			Result := active_row
 		end
 
 	set_active (an_index: INTEGER) is
