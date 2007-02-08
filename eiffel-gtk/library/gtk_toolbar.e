@@ -1,4 +1,4 @@
-<indexing
+indexing
 	description: "GtkToolbar -- Create bars of buttons and other widgets."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
@@ -39,25 +39,32 @@
 
 class GTK_TOOLBAR
 
-inherit GTK_CONTAINER
+inherit
+	GTK_CONTAINER
+		rename
+			style as container_style
+			set_style as set_container_style
+		end
 
 	-- TODO: GtkToolbar implements AtkImplementorIface.
 
 insert
+	GTK_TOOLBAR_EXTERNALS
 	GTK_ORIENTATION
 	GTK_TOOLBAR_STYLE
-	
+
 creation make, from_external_pointer
 
 feature {} -- Creation
+
 	make is
 			-- Creates a new toolbar.
 		do
 			from_external_pointer (gtk_toolbar_new)
 		end
 
-feature 
-	
+feature
+
 	insert_item (an_item: GTK_TOOL_ITEM; a_position: INTEGER) is
 			-- Insert `an_item' into Current toolbar at `a_position'. If
 			-- `a_position' is 0 `an_item' is prepended to the start of
@@ -66,7 +73,7 @@ feature
 
 			-- TODO: provide prepend and append (pos<0 and pos=0)
 			-- features
-		require 
+		require
 			item_not_void: an_item /= Void
 		do
 			gtk_toolbar_insert (handle, an_item.handle, a_position)
@@ -75,7 +82,7 @@ feature
 	index_of (an_item: GTK_TOOL_ITEM): INTEGER is
 			-- the position of `an_item' on the toolbar, starting from
 			-- 0. It is an error if item is not a child of the toolbar.
-		require 
+		require
 			item_not_void: an_item /= Void
 			valid_item: -- TODO: an_item must be a child of Current toolbar
 		do
@@ -84,12 +91,12 @@ feature
 
 	count: INTEGER is
 			-- the number of items on the toolbar.
-
+			
 			-- Note: C name of this feature is gtk_toolbar_get_n_items.
 		do
 			Result := gtk_toolbar_get_n_items(handle)
 		end
-	
+
 	item (an_index: INTEGER): GTK_TOOL_ITEM is
 			-- then item on toolbar at `an_index'; Void if `an_index' is
 			-- not valid.
@@ -106,14 +113,14 @@ feature
 			-- items to the toolbar: this is the position a new item
 			-- should be inserted.
 		do
-			Result := gtk_toolbar_get_drop_index (handle, an_x,an_y) 
+			Result := gtk_toolbar_get_drop_index (handle, an_x,an_y)
 		end
 
 	set_drop_highlight_item (an_item: GTK_TOOL_ITEM; an_index: INTEGER) is
 			-- Highlights toolbar to give an idea of what it would look
 			-- like if item was added to toolbar at the position
 			-- indicated by `an_index'. 
-		
+			
 			-- `an_item' must not be part of any widget hierarchy. When
 			-- an item is set as drop highlight item it can not added to
 			-- any widget hierarchy or used as highlight item for another
@@ -124,11 +131,11 @@ feature
 		do
 			gtk_toolbar_set_drop_highlight_item (handle, an_item.handle, an_index)
 		end
-	
+
 	disable_highlighting is
 			-- Turn off highlighting during dropping.
 		do
-			gtk_toolbar_set_drop_highlight_item (handle, default_pointer, an_index)
+			gtk_toolbar_set_drop_highlight_item (handle, default_pointer, 0)
 		end
 
 	set_show_arrow (a_setting: BOOLEAN) is
@@ -136,9 +143,9 @@ feature
 			-- have room for all items on it. If TRUE, items that there
 			-- are not room are available through an overflow menu.
 		do
-			gtk_toolbar_set_show_arrow (handle, a_setting.handle)
+			gtk_toolbar_set_show_arrow (handle, a_setting.to_integer)
 		end
-	
+
 	set_orientation (an_orientation: INTEGER) is
 			-- Sets whether a toolbar should appear horizontally or
 			-- vertically.
@@ -146,7 +153,7 @@ feature
 		do
 			gtk_toolbar_set_orientation (handle, an_orientation)
 		end
-	
+
 	set_tooltips (a_setting: BOOLEAN) is
 			-- Sets if the tooltips of a toolbar should be active or
 			-- not. Set `a_setting' to False to disable the tooltips, or
@@ -179,7 +186,7 @@ feature
 			-- the current icon size for the icons on the toolbar.
 		do
 			Result := gtk_toolbar_get_icon_size (handle)
-		ensure is_valid_icon_size: is_valid_icon_size(Result)
+		ensure is_valid_icon_size: is_valid_icon_size (Result)
 		end
 
 	are_tooltips_enabled: BOOLEAN is
@@ -194,7 +201,7 @@ feature
 			Result := gtk_toolbar_get_relief_style (handle)
 		ensure is_valid_relief_style: is_valid_relief_style (Result)
 		end
-	
+
 	set_style (a_style: INTEGER) is
 			-- Alters the view of toolbar to display either icons only,
 			-- text only, or both.
@@ -212,7 +219,6 @@ feature
 		end
 
 feature -- Properties
-
 
 	--    "icon-size"            GtkIconSize           : Read / Write
 	--    "icon-size-set"        gboolean              : Read / Write
@@ -492,238 +498,10 @@ feature -- Signals
 	--    user_data : user data set when the signal handler was connected.
 
 feature -- size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkToolbar)"
 		end
 
-feature {} -- External calls 
-	-- TODO: wrap GtkToolbar struct
-	
-	--  typedef struct {
-	--    gint             num_children;
-	--    GList           *children;
-	--    GtkOrientation   orientation;
-	--    GtkToolbarStyle  style;
-	--    GtkIconSize      icon_size;
-	
-	--    GtkTooltips     *tooltips;
-	--  } GtkToolbar;
-	
-	-- The GtkToolbar struct only contains private data and should only
-	-- be accessed through the function described below.
-
-	-- TODO: wrap  enum GtkToolbarSpaceStyle
-
-	--  typedef enum
-	--  {
-	--    GTK_TOOLBAR_SPACE_EMPTY,
-	--    GTK_TOOLBAR_SPACE_LINE
-	--  } GtkToolbarSpaceStyle;
-
-	gtk_toolbar_new: POINTER is
-			-- GtkWidget* gtk_toolbar_new (void);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_insert (a_toolbar, a_item: POINTER; a_pos: INTEGER) is
-			-- void gtk_toolbar_insert (GtkToolbar *toolbar, GtkToolItem
-			-- *item, gint pos);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_item_index (a_toolbar, a_item: POINTER): INTEGER is
-			-- gint gtk_toolbar_get_item_index (GtkToolbar *toolbar, GtkToolItem *item);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_n_items (a_toolbar: POINTER): INTEGER is
-			-- gint gtk_toolbar_get_n_items (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_nth_item (a_toolbar: POINTER; an_n: INTEGER): POINTER is
-			-- GtkToolItem* gtk_toolbar_get_nth_item (GtkToolbar *toolbar, gint n);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_drop_index (a_toolbar: POINTER; an_x, an_y: INTEGER): INTEGER is
-			-- gint gtk_toolbar_get_drop_index (GtkToolbar *toolbar, gint x, gint y);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_set_drop_highlight_item (a_toolbar, a_tool_item: POINTER; an_index: INTEGER) is
-			-- void gtk_toolbar_set_drop_highlight_item (GtkToolbar
-			-- *toolbar, GtkToolItem *tool_item, gint index_);
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_toolbar_set_show_arrow (a_toolbar: POINTER; show_arrow_bool: INTEGER) is
-			-- void gtk_toolbar_set_show_arrow (GtkToolbar *toolbar, gboolean show_arrow);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_set_orientation (a_toolbar: POINTER; an_orientation: INTEGER) is
-			-- void gtk_toolbar_set_orientation (GtkToolbar *toolbar, GtkOrientation orientation);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_set_tooltips (a_toolbar: POINTER; enable_bool: INTEGER) is
-			-- void gtk_toolbar_set_tooltips (GtkToolbar *toolbar, gboolean enable);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_unset_icon_size (a_toolbar: POINTER) is
-			-- void gtk_toolbar_unset_icon_size (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_show_arrow (a_toolbar: POINTER): INTEGER is
-			-- gboolean gtk_toolbar_get_show_arrow (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_orientation (a_toolbar: POINTER): INTEGER is
-			-- GtkOrientation gtk_toolbar_get_orientation (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_style (a_toolbar: POINTER): INTEGER is
-			-- GtkToolbarStyle gtk_toolbar_get_style (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_icon_size (a_toolbar: POINTER): INTEGER is
-			-- GtkIconSize gtk_toolbar_get_icon_size (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_tooltips (a_toolbar: POINTER): INTEGER is
-			-- gboolean gtk_toolbar_get_tooltips (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_get_relief_style (a_toolbar: POINTER): INTEGER is
-			-- GtkReliefStyle gtk_toolbar_get_relief_style (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_append_item (a_toolbar, a_text, a_tooltip_text, a_tooltip_private_text, a_icon, a_callback, some_user_data: POINTER): POINTER is
-			-- GtkWidget* gtk_toolbar_append_item (GtkToolbar *toolbar,
-			-- const char *text, const char *tooltip_text, const char
-			-- *tooltip_private_text, GtkWidget *icon, GtkSignalFunc
-			-- callback, gpointer user_data);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_prepend_item (a_toolbar, a_text, a_tooltip_text, a_tooltip_private_text, an_icon: POINTER; a_callback, some_user_data: POINTER): POINTER is
-			-- GtkWidget* gtk_toolbar_prepend_item (GtkToolbar *toolbar,
-			-- const char *text, const char *tooltip_text, const char
-			-- *tooltip_private_text, GtkWidget *icon, GtkSignalFunc
-			-- callback, gpointer user_data);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_insert_item (a_toolbar, a_text, a_tooltip_text, a_tooltip_private_text, a_icon, a_callback, some_user_data, a_position: INTEGER): POINTER is
-			-- GtkWidget* gtk_toolbar_insert_item (GtkToolbar *toolbar,
-			-- const char *text, const char *tooltip_text, const char
-			-- *tooltip_private_text, GtkWidget *icon, GtkSignalFunc
-			-- callback, gpointer user_data, gint position);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_append_space (a_toolbar: POINTER) is
-			-- void gtk_toolbar_append_space (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_prepend_space (a_toolbar: POINTER) is
-			-- void gtk_toolbar_prepend_space (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_insert_space (a_toolbar: POINTER; a_position: INTEGER) is
-			-- void gtk_toolbar_insert_space (GtkToolbar *toolbar, gint
-			-- position);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_append_element (a_toolbar: POINTER; a_child_type: INTEGER; a_widget, a_text, a_tooltip_text, a_tooltip_private_text, a_icon, a_callback, some_user_data: POINTER): POINTER is
-			-- GtkWidget* gtk_toolbar_append_element (GtkToolbar
-			-- *toolbar, GtkToolbarChildType type, GtkWidget *widget,
-			-- const char *text, const char *tooltip_text, const char
-			-- *tooltip_private_text, GtkWidget *icon, GtkSignalFunc
-			-- callback, gpointer user_data);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_prepend_element (a_toolbar: POINTER; a_child_type: INTEGER; a_widget, a_text, a_tooltip_text, a_tooltip_private_text, a_icon, a_callback, some_user_data: POINTER): POINTER is
-			-- GtkWidget* gtk_toolbar_prepend_element (GtkToolbar
-			-- *toolbar, GtkToolbarChildType type, GtkWidget *widget,
-			-- const char *text, const char *tooltip_text, const char
-			-- *tooltip_private_text, GtkWidget *icon, GtkSignalFunc
-			-- callback, gpointer user_data);
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_toolbar_insert_element (a_toolbar: POINTER; a_child_type: INTEGER; a_widget, a_text, a_tooltip_text, a_tooltip_private_text, a_icon, a_callback, some_user_data: POINTER; a_position: INTEGER): POINTER is
-			-- GtkWidget* gtk_toolbar_insert_element (GtkToolbar
-			-- *toolbar, GtkToolbarChildType type, GtkWidget *widget,
-			-- const char *text, const char *tooltip_text, const char
-			-- *tooltip_private_text, GtkWidget *icon, GtkSignalFunc
-			-- callback, gpointer user_data, gint position);
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_toolbar_append_widget (a_toolbar, a_widget, a_tooltip_text, a_tooltip_private_text: POINTER) is
-			-- void gtk_toolbar_append_widget (GtkToolbar *toolbar,
-			-- GtkWidget *widget, const char *tooltip_text, const char
-			-- *tooltip_private_text);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_prepend_widget (a_toolbar, a_widget, a_tooltip_text, a_tooltip_private_text: POINTER) is
-			-- void gtk_toolbar_prepend_widget (GtkToolbar *toolbar,
-			-- GtkWidget *widget, const char *tooltip_text, const char
-			-- *tooltip_private_text);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_insert_widget (a_toolbar, a_widget, a_tooltip_text, a_tooltip_private_text: POINTER; a_position: INTEGER) is
-			-- void gtk_toolbar_insert_widget (GtkToolbar *toolbar,
-			-- GtkWidget *widget, const char *tooltip_text, const char
-			-- *tooltip_private_text, gint position);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_set_style (a_toolbar: POINTER; a_style: INTEGER) is
-			-- void gtk_toolbar_set_style (GtkToolbar *toolbar,
-			-- GtkToolbarStyle style);
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_toolbar_insert_stock (a_toolbar, a_stock_id, a_tooltip_text, a_tooltip_private_text, a_callback, some_user_data: POINTER; a_position: INTEGER): POINTER is
-			-- GtkWidget* gtk_toolbar_insert_stock (GtkToolbar *toolbar,
-			-- const gchar *stock_id, const char *tooltip_text, const
-			-- char *tooltip_private_text, GtkSignalFunc callback,
-			-- gpointer user_data, gint position);
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_toolbar_set_icon_size (a_toolbar: POINTER; an_icon_size: INTEGER) is
-			-- void gtk_toolbar_set_icon_size (GtkToolbar *toolbar,
-			-- GtkIconSize icon_size);
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_toolbar_remove_space (a_toolbar: POINTER; a_position: INTEGER) is
-			-- void gtk_toolbar_remove_space (GtkToolbar *toolbar, gint
-			-- position);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_toolbar_unset_style (a_toolbar: POINTER) is
-			-- void gtk_toolbar_unset_style (GtkToolbar *toolbar);
-		external "C use <gtk/gtk.h>"
-		end
 end -- class GTK_TOOLBAR

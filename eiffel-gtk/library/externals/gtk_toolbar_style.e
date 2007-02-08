@@ -25,12 +25,18 @@ deferred class GTK_TOOLBAR_STYLE
 	-- the default toolbar style. Note that if the button has only a
 	-- label set and GTK_TOOLBAR_ICONS is used, the label will be
 	-- visible, and vice versa.
-	
+
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
+	-- Used to customize the appearance of a GtkToolbar. Note that
+	-- setting the toolbar style overrides the user's preferences for
+	-- the default toolbar style. Note that if the button has only a
+	-- label set and `gtk_toolbar_icons' is used, the label will be
+	-- visible, and vice versa.
+
 	is_valid_toolbar_style (a_style :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_style = gtk_toolbar_icons) or else
 						(a_style = gtk_toolbar_text) or else
 						(a_style = gtk_toolbar_both) or else
@@ -60,4 +66,5 @@ feature  -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_TOOLBAR_BOTH_HORIZ"
 		end
+
 end
