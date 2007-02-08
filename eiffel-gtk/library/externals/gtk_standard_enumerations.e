@@ -625,47 +625,6 @@ feature {} -- enum GtkScrollStep
 		alias "GTK_SCROLL_HORIZONTAL_ENDS"
 		end
 
-
-feature {} -- enum GtkToolbarStyle
-	-- Used to customize the appearance of a GtkToolbar. Note that
-	-- setting the toolbar style overrides the user's preferences for
-	-- the default toolbar style. Note that if the button has only a
-	-- label set and `gtk_toolbar_icons' is used, the label will be
-	-- visible, and vice versa.
-
-	is_valid_toolbar_style (a_style :INTEGER): BOOLEAN is
-		do
-			Result:=((a_style=gtk_toolbar_icons) or else
-						(a_style=gtk_toolbar_text) or else
-						(a_style=gtk_toolbar_both) or else
-						(a_style=gtk_toolbar_both_horiz))
-		end
-
-	gtk_toolbar_icons: INTEGER is
-			-- Buttons display only icons in the toolbar.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_TOOLBAR_ICONS"
-		end
-
-	gtk_toolbar_text: INTEGER is
-			-- Buttons display only text labels in the toolbar.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_TOOLBAR_TEXT"
-		end
-
-	gtk_toolbar_both: INTEGER is
-			-- Buttons display text and icons in the toolbar.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_TOOLBAR_BOTH"
-		end
-
-	gtk_toolbar_both_horiz: INTEGER is
-			-- Buttons display icons and text alongside each other,
-			-- rather than vertically stacked
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_TOOLBAR_BOTH_HORIZ"
-		end
-
 feature {} -- enum GtkVisibility
 	-- Used by GtkCList and GtkCTree to indicate whether a row is
 	-- visible. Note: AFAIK it should be deprecated. Check this. Paolo
