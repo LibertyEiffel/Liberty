@@ -25,7 +25,7 @@ deferred class GTK_ICON_VIEW_DROP_POSITION
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 
 	is_valid_icon_view_drop_position (a_position: INTEGER): BOOLEAN is
 		do
@@ -49,13 +49,11 @@ feature  -- enum
 		alias "GTK_ICON_VIEW_DROP_INTO"
 		end
 
-
 	gtk_icon_view_drop_left: INTEGER is
 			-- droppped item is inserted to the left
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ICON_VIEW_DROP_LEFT"
 		end
-
 
 	gtk_icon_view_drop_right: INTEGER is
 			-- dropped item is inserted to the right
@@ -63,13 +61,11 @@ feature  -- enum
 		alias "GTK_ICON_VIEW_DROP_RIGHT"
 		end
 
-
 	gtk_icon_view_drop_above: INTEGER is
 			-- dropped item is inserted above
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_ICON_VIEW_DROP_ABOVE"
 		end
-
 
 	gtk_icon_view_drop_below: INTEGER is
 			-- dropped item is inserted below
@@ -77,4 +73,4 @@ feature  -- enum
 		alias "GTK_ICON_VIEW_DROP_BELOW"
 		end
 
-end -- GTK_ICON_VIEW_DROP_POSITION
+end -- class GTK_ICON_VIEW_DROP_POSITION

@@ -33,7 +33,6 @@ feature {} -- enum
 						(a_position = gtk_tree_view_drop_after) or else
 						(a_position = gtk_tree_view_drop_into_or_before) or else
 						(a_position = gtk_tree_view_drop_into_or_after))
-		
 		end
 
 	gtk_tree_view_drop_before: INTEGER is
@@ -60,4 +59,4 @@ feature {} -- enum
 		alias "GTK_TREE_VIEW_DROP_INTO_OR_AFTER"
 		end
 
-end
+end -- class GTK_TREE_VIEW_DROP_POSITION
