@@ -1,7 +1,7 @@
 indexing
-	description: "List of edges."
+	description: "."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTS team
+					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,28 +19,32 @@ indexing
 					02110-1301 USA
 			]"
 
-class GTS_EDGES
+class GTS_SURFACE_QUALITY_STATS
+	-- TODO: Quality and geometry statistics.
+inherit C_STRUCT
 
-inherit G_LIST [GTS_EDGE]
-
-insert GTS_EDGE_EXTERNALS
+insert GTS_SURFACE_QUALITY_STATS_STRUCT
 
 creation make, from_external_pointer
 
-feature {} -- Creation
-feature -- Edges related functions
-	merge is
-			-- For each edge check if it is duplicated (as returned by
-			-- GTS_EDGE.duplicated); in this case it is replaced it by
-			-- its duplicate, destroy it and remove it from the Current
-			-- list which is updated.
-		local p: POINTER
-		do
-			p:=gts_edges_merge(handle)
-			wrappers.remove (handle)
-			from_external_pointer (p)
-		ensure 
-			some_element_could_have_been_removed: count <= old count
-			no_duplicated: -- TODO: something like for_each 
-		end
-end -- class GTS_EDGES
+feature
+
+--   GtsSurfaceQualityStats
+
+--  typedef struct {
+--    GtsRange face_quality;
+--    GtsRange face_area;
+--    GtsRange edge_length;
+--    GtsRange edge_angle;
+--    GtsSurface * parent;
+--  } GtsSurfaceQualityStats;
+
+
+
+--     GtsRange face_quality;  Statistics for face quality (see gts_triangle_quality() for details).
+--     GtsRange face_area;     Statistics for the face area.
+--     GtsRange edge_length;   Statistics for the edge length.
+--     GtsRange edge_angle;    Statistics for the edge angles.
+--     GtsSurface *parent;     Surface from which these statistics have been obtained.
+
+end -- class GTS_SURFACE_QUALITY_STATS

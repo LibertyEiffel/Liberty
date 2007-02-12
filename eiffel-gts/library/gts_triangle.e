@@ -40,13 +40,13 @@ feature {} -- Creation
 	from_edges (first,second,third: GTS_EDGE) is
 			-- a new GtsTriangle having `first', `second' and `third' as
 			-- edges.
-			require 
-				first_edge_not_void: first /= Void
-				second_edge_not_void: second /= Void
-				third_edge_not_void: third /= Void
-				-- TODO: first touches second
-				-- TODO: second touches third
-				-- TODO: third touches first
+		require 
+			first_edge_not_void: first /= Void
+			second_edge_not_void: second /= Void
+			third_edge_not_void: third /= Void
+			-- TODO: first touches second
+			-- TODO: second touches third
+			-- TODO: third touches first
 		do
 			handle := gts_triangle_new (gts_triangle_class, first.handle, second,handle, third.handle)
 		end
@@ -70,13 +70,13 @@ feature
 	set_edges (first,second,third: GTS_EDGE) is
 			-- Sets the edge of triangle to `first', `second' and `third'
 			--  while checking that they define a valid triangle.
-			require 
-				first_edge_not_void: first /= Void
-				second_edge_not_void: second /= Void
-				third_edge_not_void: third /= Void
-				-- TODO: first touches second
-				-- TODO: second touches third
-				-- TODO: third touches first
+		require 
+			first_edge_not_void: first /= Void
+			second_edge_not_void: second /= Void
+			third_edge_not_void: third /= Void
+			-- TODO: first touches second
+			-- TODO: second touches third
+			-- TODO: third touches first
 		do
 			gts_triangle_set (handle, first.handle, second,handle, third.handle)
 		end

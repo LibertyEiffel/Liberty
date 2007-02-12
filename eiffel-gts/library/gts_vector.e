@@ -1,5 +1,5 @@
 indexing
-	description: "Simple operations on vectors."
+	description: "A simple 3D vector."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team
 					
@@ -21,8 +21,13 @@ indexing
 
 class GTS_VECTOR
 
-inherit C_STRUCT
-
+inherit
+	C_STRUCT
+		redefine
+			print_on
+		end
+	STREAM_HANDLER
+	
 creation make, init, from_external_pointer
 
 feature {} -- Creation
@@ -38,14 +43,14 @@ feature {} -- Creation
 		end
 
 feature
-	infix "*" (another: like Current): REAL is
+	infix "*" (another: GTS_VECTOR): REAL is
 			-- The scalar product between Current and `another'.
 		require another_not_void: another /= Void
 		do
 			Result:=gts_vector_scalar(handle,another.handle)
 		end
 
-	infix "^" (another: like Current): like Current is
+	infix "^" (another: GTS_VECTOR): GTS_VECTOR is
 			-- The cross-product of Current and `another' vectors. 
 		require another_not_void: another /= Void
 		do
@@ -63,19 +68,23 @@ feature
 			Result:=gts_vector_normalize(handle)
 		end
 
-	-- gts_vector_print ()
+feature -- Input Output
+   print_on (a_file: OUTPUT_STREAM) is
+			-- Print Current to `a_file.
+		require
+			file_not_void: a_file /= Void
+			connected: a_file.is_connected
+		do
+			gts_vector_print(handle, a_file.stream_pointer)
+		end
 	
-	-- void gts_vector_print (GtsVector v, FILE *fptr);
-	
-	-- Print s to file fptr. v: a GtsVector. fptr: a file descriptor.
-
 	-- gts_vector4_print ()
-
+	-- Print v to file fptr.
 	-- void gts_vector4_print (GtsVector4 v, FILE *fptr);
-
 	-- Print v to file fptr.
 	
 	-- v: a GtsVector4. fptr: a file descriptor.
+
 
 feature {} -- External calls
 	gts_vector_init (v, p1, p2: POINTER) is

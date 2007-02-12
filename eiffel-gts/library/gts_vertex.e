@@ -1,5 +1,5 @@
 indexing
-	description: "Vertices -- vertex object and related functions."
+	description: "Vertices"
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team
 					
@@ -19,10 +19,8 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: Vertices are points used as endpoints of
-			-- GtsSegment. They are derived from GtsPoint.
-
 class GTS_VERTEX
+	-- Vertices are points used as endpoints of GtsSegment.
 
 inherit 
 	GTS_POINT
@@ -60,17 +58,20 @@ feature
 		end
 
 	contact_number (do_sever: BOOLEAN): INTEGER is
-			-- the number of sets of connected triangles sharing v as a contact
-			-- vertex. `do_sever': if TRUE and if v is a contact vertex between two
-			-- or more sets of connected triangles replaces it with as many
-			-- vertices, clones of v.
+			-- the number of sets of connected triangles sharing v as a
+			-- contact vertex. 
+
+			-- `do_sever': if TRUE and if v is a contact vertex between
+			-- two or more sets of connected triangles replaces it with
+			-- as many vertices, clones of v.
+
 			-- TODO: Should be NATURAL since it is guint
 		do
 			Result:=gts_vertex_is_contact(handle, do_sever.to_integer)
 		end
 
-	segement_connecting_with (another: GTS_VERTEX): GTS_SEGMENT is
-			-- the segment that connects Current and `another'?
+	segment_connecting_with (another: GTS_VERTEX): GTS_SEGMENT is
+			-- the segment that connects Current and `another'
 		local p: POINTER
 		do
 			p:=gts_vertices_are_connected(handle, another.handle)

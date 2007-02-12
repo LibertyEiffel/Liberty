@@ -57,9 +57,11 @@ feature
 			Result:=(gts_segments_are_identical(handle, another.handle).to_boolean)
 		end
 
-	is_intersecting (another: GTS_VERTEX): INTEGER is
-			-- GTS_IN if s1 and s2 are intersecting, GTS_ON if one of the endpoints
-			-- of s1 (resp. s2) lies on s2 (resp. s1), GTS_OUT otherwise.
+	is_intersecting (another: GTS_SEGMENT): INTEGER is
+			-- `gts_in' if Current and `another' are intersecting, `gts_on' if
+			-- one of the endpoints of Current (resp. `another') lies on `another'
+			-- (resp. s1), `gts_out' otherwise.
+		requiore another_not_void: another /= Void
 		do
 			Result:=(gts_segments_are_intersecting
 						(handle,another.handle))
@@ -91,6 +93,18 @@ feature
 		ensure not_void: Result /= Void
 		end
 	
+	is_touching (another: GTS_SEGMENT): BOOLEAN is
+			-- Are Current and `another' touching?
+		do
+			Result:=gts_segments_touch(handle,another.handle).to_boolean
+		end
+
+	connects (edge_1, edge_2: GTS_EDGE): BOOLEAN is
+			-- Does Current connect `edge_1' with `edge_2'?
+		do
+			Result:=gts_segment_connect(handle,edge_1.handle,edge_2.handle).to_boolean
+		end
+
 feature {} -- unwrapped code
 	-- GTS_SEGMENT_CLASS()
 	
@@ -119,14 +133,5 @@ feature {} -- unwrapped code
 	-- obj :	
 
 	-- a pointer to test.
-
-	-- #define     gts_segment_connect(s, e1, e2)
-
-	-- Evaluates to TRUE if s connects e1 with e2, FALSE otherwise.
-	
-	-- gts_segments_touch()
-
-	-- #define     gts_segments_touch(s1, s2)
-
 
 end -- class GTS_SEGMENT

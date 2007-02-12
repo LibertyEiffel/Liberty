@@ -1,7 +1,7 @@
 indexing
-	description: "List of edges."
+	description: "."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTS team
+					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,28 +19,30 @@ indexing
 					02110-1301 USA
 			]"
 
-class GTS_EDGES
+class GTS_CONSTRAINT
 
-inherit G_LIST [GTS_EDGE]
-
-insert GTS_EDGE_EXTERNALS
+inherit GTS_EDGE redefine make, struct_size end
 
 creation make, from_external_pointer
 
 feature {} -- Creation
-feature -- Edges related functions
-	merge is
-			-- For each edge check if it is duplicated (as returned by
-			-- GTS_EDGE.duplicated); in this case it is replaced it by
-			-- its duplicate, destroy it and remove it from the Current
-			-- list which is updated.
-		local p: POINTER
+	make (a_vertex, another_vertex: GTS_VERTEX) is
 		do
-			p:=gts_edges_merge(handle)
-			wrappers.remove (handle)
-			from_external_pointer (p)
-		ensure 
-			some_element_could_have_been_removed: count <= old count
-			no_duplicated: -- TODO: something like for_each 
+			from_external_pointer (gts_edge_new (gts_constraing_class,
+															 a_vertex.handle, another_vertex.handle)) 
 		end
-end -- class GTS_EDGES
+	
+feature {} -- External calls
+	-- #define     GTS_CONSTRAINT_CLASS            (klass)
+	-- #define     GTS_CONSTRAINT                  (obj)
+	-- #define     GTS_IS_CONSTRAINT               (obj)
+	
+	gts_constraint_class: POINTER is
+		external "C use <gts.h>"
+		end
+
+	struct_size: INTEGER is
+		external "C inline use <gts.h>"
+		alias "sizeof(GtsConstraint)"
+		end
+end -- class GTS_CONSTRAINT

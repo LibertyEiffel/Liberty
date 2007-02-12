@@ -1,7 +1,7 @@
 indexing
-	description: "List of edges."
+	description: "Callback for GtsFunc."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTS team
+					Copyright (C) 2007 Paolo Redaelli
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,28 +19,33 @@ indexing
 					02110-1301 USA
 			]"
 
-class GTS_EDGES
+class GTS_FUNCTION
+	-- gint (*GtsFunc) (gpointer item, gpointer data);
+	
+	-- A user function called for each item of a collection.
+	
+	-- item: a pointer this function is called for.
+	
+	-- data: user data passed to the function.
+	
+	-- Returns: if 0 the calling sequence continues, otherwise it stops.
+	
+inherit WRAPPER_HANDLER
 
-inherit G_LIST [GTS_EDGE]
+creation make
 
-insert GTS_EDGE_EXTERNALS
-
-creation make, from_external_pointer
-
-feature {} -- Creation
-feature -- Edges related functions
-	merge is
-			-- For each edge check if it is duplicated (as returned by
-			-- GTS_EDGE.duplicated); in this case it is replaced it by
-			-- its duplicate, destroy it and remove it from the Current
-			-- list which is updated.
-		local p: POINTER
+feature {} -- Implementation
+	make (a_function: PREDICATE[ANY, TUPLE[GTS_OBJECT]]) is
 		do
-			p:=gts_edges_merge(handle)
-			wrappers.remove (handle)
-			from_external_pointer (p)
-		ensure 
-			some_element_could_have_been_removed: count <= old count
-			no_duplicated: -- TODO: something like for_each 
+			function=a_function
 		end
-end -- class GTS_EDGES
+	
+	function: PREDICATE[ANY, TUPLE[GTS_OBJECT]]
+
+	low_level_callback (gts_object, user_data: POINTER): INTEGER is
+			-- Low level callback will be called by GTK; it will call
+			-- `callback'.
+		external "C use <callbacks.h>"
+		alias "EiffelGtsFunc"
+		end 
+end -- class GTS_FUNCTION

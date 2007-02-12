@@ -84,8 +84,14 @@ feature
 			Result:=gts_face_is_compatible(handle,a_surface.handle).to_boolean
 		end
 
+
+	surfaces: G_SLIST [GTS_SURFACE] is
+			-- Surfaces using Current face.
+		do
+			create Result.from_external_pointer (get_surfaces(handle))
+		end
 	
-feature {} --
+feature {} -- 
 	-- typedef struct {
 	--   GtsTriangle triangle;
 	--   GSList * surfaces;
@@ -113,12 +119,6 @@ feature {} -- External calls
 		alias "GTS_FACE"
 		end
  
-	gts_is_face (a_pointer: POINTER): INTEGER is
-			-- GTS_IS_FACE
-		external "C macro use <gts.h>"
-		alias "GTS_IS_FACE"
-		end
- 	
 	-- GtsFaceClass; GtsFace;
 
 	gts_face_class: POINTER is
@@ -160,8 +160,7 @@ feature {} -- External calls
 		end
 	
 	gts_faces_from_edges (some_edges, a_surface: POINTER): POINTER is
-			-- GSList* gts_faces_from_edges (GSList *edges, GtsSurface
-			-- *s);
+			-- GSList* gts_faces_from_edges(GSList *edges,GtsSurface *s);
 		external "C use <gts.h>"
 		end
 end -- GTS_FACE

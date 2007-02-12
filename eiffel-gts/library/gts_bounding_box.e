@@ -19,552 +19,170 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: Axis-aligned bounding box trees can be used
-			-- for intersection/collision detection using
-			-- `traverse_overlapping', or to compute the minimum distance
-			-- between an object and a collection of others using
-			-- `point_distance', `segment_distance', `triangle_distance'
-			-- or `surface_distance'.
-
 class GTS_BOUNDING_BOX
+	-- Description: Axis-aligned bounding box trees can be used for
+	-- intersection/collision detection using `traverse_overlapping',
+	-- or to compute the minimum distance between an object and a
+	-- collection of others using `point_distance', `segment_distance',
+	-- `triangle_distance' or `surface_distance'.
 
-inherit SHARED_C_STRUCT
+inherit C_STRUCT
 
 insert GTS_BOUNDING_BOX_EXTERNALS
 
-creation make, from_external_pointer
+creation 
+	make, from_external_pointer,
+	os_segment, of_triangle, of_surface, of_points, of_boxes
 
 feature {} -- Creation
+	make (a_bounded_object: GTS_OBJECT; an_x1, an_y1, a_z1, an_x2, an_y2, a_z2: REAL) is
+			-- Create a new bounding box for `a_bounded' object.
+
+			-- `an_x1' : x-coordinate of the lower left corner.
+
+			-- `an_y1' : y-coordinate of the lower left corner.
+
+			--  `a_z1' : z-coordinate of the lower left corner.
+
+			--  `an_x2' : x-coordinate of the upper right corner.
+
+			-- `an_y2' : y-coordinate of the upper right corner.
+
+			-- `a_z2' : z-coordinate of the upper right corner.
+		require bounded_object_not_void: a_bounded_object /= Void
+		do
+			from_external_pointer 
+			(gts_bbox_new (gts_bbox_class, a_bounded_object.handle,
+								an_x1, an_y1, a_z1, an_x2, an_y2, a_z2))
+		end
+	
+	of_segment (a_segment: GTS_SEGMENT) is
+			-- Create a new GtsBBox bounding box of `a_segment'.
+		require segment_not_void: a_segment /= Void
+		do
+			from_external_pointer(gts_bbox_segment(gts_bbox_class,a_segment.handle))
+		end
+
+	of_triangle (a_triangle: GTS_TRIANGLE) is
+			-- Create a new bounding box for triangle
+		require triangle_not_void: a_triangle /= Void
+		do
+			from_external_pointer(gts_bbox_triangle(gts_bbox_class,a_triangle.handle))
+		end
+
+	of_surface (a_surface: GTS_SURFACE) is
+			-- Create a new bounding box for surface
+		require surface_not_void: a_surface /= Void
+		do
+			from_external_pointer(gts_bbox_surface(gts_bbox_class,a_surface.handle))
+		end
+
+	of_points (some_points: G_SLIST[GTS_POINT]) is
+			-- Create a new bounding box for points
+		require points_not_void: some_points /= Void
+		do
+			from_external_pointer(gts_bbox_points(gts_bbox_class,some_points.handle))
+		end
+
+	of_bounding_boxes (some_bounding_boxes: GTS_bboxes) is
+			-- Create a new bounding box for bboxes
+		require bboxes_not_void: some_bounding_boxes /= Void
+		do
+			from_external_pointer(gts_bbox_bboxes(gts_bbox_class,some_bounding_boxes.handle))
+		end
+
+feature 
+	set (a_bounded: GTS_OBJECT; an_x1, an_y1, a_z1, an_x2, an_y2, a_z2: REAL) is
+			-- Sets the fields of the bounding box.
+
+			-- `an_x1' : x-coordinate of the lower left corner.
+
+			-- `an_y1' : y-coordinate of the lower left corner.
+
+			--  `a_z1' : z-coordinate of the lower left corner.
+
+			--  `an_x2' : x-coordinate of the upper right corner.
+
+			-- `an_y2' : y-coordinate of the upper right corner.
+
+			-- `a_z2' : z-coordinate of the upper right corner.
+		require bounded_not_void: a_bounded /= Void
+		do
+			gts_bbox_set (handle, a_bounded.handle
+							  an_x1, an_y1, a_z1, an_x2, an_y2, a_z2)
+		end
+
+
+	--   gts_bbox_draw ()
+	
+	-- void gts_bbox_draw (GtsBBox *bb, FILE *fptr);
+
+	--    Writes in file fptr an OOGL (Geomview) description of bb.
+	
+	--     bb :    a GtsBBox.
+	--     fptr :  a file pointer.
+
+	is_inside (a_point: GTS_POINT): BOOLEAN is
+			-- Is `a_point' inside (or on the boundary) of bounding box?
+		require point_not_void: a_point /= Void
+		do
+			gts_bbox_point_is_inside(handle,a_point.handle)
+		end
+
+	overlaps (another: GTS_BOUNDING_BOX): BOOLEAN is
+			-- Are the bounding boxes Current and `another' are overlapping
+			-- (including just touching)?
+		do
+			Result:=gts_bboxes_are_overlapping(handle,another.handle).to_boolean
+		end	
+
+	diagonal2: REAL is
+			-- the squared length of the diagonal of bounding box.
+		do
+			Result:=gts_bbox_diagonal2(handle)
+		end
+
+	distance2 (a_point: GTS_POINT): TUPLE[REAL,REAL] is
+			-- The lower and upper bounds for the square of the Euclidean distance
+			-- between the object contained in bounding box and `a_point'. For
+			-- these bounds to make any sense the bounding box must be "tight"
+			-- i.e. each of the 6 faces of the box must at least be touched by one
+			-- point of the bounded object.
+		require point_not_void: a_point /= Void
+		local a_min, a_max: REAL
+		do
+			gts_bbox_point_distance2(handle,a_point.handle,$a_min,$a_max)
+			create Result.make_2 (a_min, a_max)
+		end
+
+	is_stabbed (a_point: GTS_POINT): BOOLEAN is
+			-- Does the ray starting at `a_point' and ending at (+infty, p->y,
+			-- p->z) intersects with bounding box?
+		require point_not_void: a_point /= Void
+		do
+			Result:=gts_bbox_is_stabbed(handle, a_point.handle).to_boolean
+		end
+
+	overlaps_triangle (a_triangle: GTS_TRIANGLE): BOOLEAN is
+			-- Does bounding box overlap with `a_triangle'.  This is a wrapper
+			-- around the fast overlap test of Tomas Akenine-Moller
+			-- (http://www.cs.lth.se/home/Tomas_Akenine_Moller/).
+		require triangle_not_void: a_triangle /= Void
+		do
+			Result:=gts_bbox_overlaps_triangle(handle,a_triangle.handle)
+		end
+
+
+	--   GtsBBTreeTraverseFunc ()
+	
+	-- void (*GtsBBTreeTraverseFunc) (GtsBBox *bb1, GtsBBox *bb2, gpointer data);
+
+	-- User function called for each pair of overlapping bounding boxes. See
+	-- gts_bb_tree_traverse_overlapping().
+
+	--     bb1 :   a GtsBBox.
+	--     bb2 :   another GtsBBox.
+	--     data :  user data passed to the function.
 
---   GTS_BBOX_CLASS()
-
---  #define     GTS_BBOX_CLASS(klass)
-
---    Casts klass to GtsBBoxClass.
-
---     klass :  a descendant of GtsBBoxClass.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GTS_BBOX()
-
---  #define     GTS_BBOX(obj)
-
---    Casts obj to GtsBBox.
-
---     obj :  a descendant of GtsBBox.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GTS_IS_BBOX()
-
---  #define     GTS_IS_BBOX(obj)
-
---    Evaluates to TRUE if obj is a GtsBBox, FALSE otherwise.
-
---     obj :  a pointer to test.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GtsBBoxClass
-
---  typedef struct {
---    GtsObjectClass parent_class;
---  } GtsBBoxClass;
-
---    The bounding box class derived from GtsObjectClass.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GtsBBox
-
---  typedef struct {
---    GtsObject object;
---    gpointer bounded;
---    gdouble x1, y1, z1;
---    gdouble x2, y2, z2;
---  } GtsBBox;
-
---    The bounding box structure.
-
---     GtsObject object;  Parent object.
---     gpointer bounded;  Bounded object.
---     gdouble x1;        x coordinate of the lower-left front corner.
---     gdouble y1;        y coordinate of the lower-left front corner.
---     gdouble z1;        z coordinate of the lower-left front corner.
---     gdouble x2;        x coordinate of the upper-right back corner.
---     gdouble y2;        y coordinate of the upper-right back corner.
---     gdouble z2;        z coordinate of the upper-right back corner.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_class ()
-
---  GtsBBoxClass* gts_bbox_class                (void);
-
---     Returns :  the GtsBBoxClass.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_new ()
-
---  GtsBBox*    gts_bbox_new                    (GtsBBoxClass *klass,
---                                               gpointer bounded,
---                                               gdouble x1,
---                                               gdouble y1,
---                                               gdouble z1,
---                                               gdouble x2,
---                                               gdouble y2,
---                                               gdouble z2);
-
---     klass :    a GtsBBoxClass.
---     bounded :  the object to be bounded.
---     x1 :       x-coordinate of the lower left corner.
---     y1 :       y-coordinate of the lower left corner.
---     z1 :       z-coordinate of the lower left corner.
---     x2 :       x-coordinate of the upper right corner.
---     y2 :       y-coordinate of the upper right corner.
---     z2 :       z-coordinate of the upper right corner.
---     Returns :  a new GtsBBox.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_set ()
-
---  void        gts_bbox_set                    (GtsBBox *bbox,
---                                               gpointer bounded,
---                                               gdouble x1,
---                                               gdouble y1,
---                                               gdouble z1,
---                                               gdouble x2,
---                                               gdouble y2,
---                                               gdouble z2);
-
---    Sets fields of bbox.
-
---     bbox :     a GtsBBox.
---     bounded :  the object to be bounded.
---     x1 :       x-coordinate of the lower left corner.
---     y1 :       y-coordinate of the lower left corner.
---     z1 :       z-coordinate of the lower left corner.
---     x2 :       x-coordinate of the upper right corner.
---     y2 :       y-coordinate of the upper right corner.
---     z2 :       z-coordinate of the upper right corner.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_segment ()
-
---  GtsBBox*    gts_bbox_segment                (GtsBBoxClass *klass,
---                                               GtsSegment *s);
-
---     klass :    a GtsBBoxClass.
---     s :        a GtsSegment.
---     Returns :  a new GtsBBox bounding box of s.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_triangle ()
-
---  GtsBBox*    gts_bbox_triangle               (GtsBBoxClass *klass,
---                                               GtsTriangle *t);
-
---     klass :    a GtsBBoxClass.
---     t :        a GtsTriangle.
---     Returns :  a new GtsBBox bounding box of t.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_surface ()
-
---  GtsBBox*    gts_bbox_surface                (GtsBBoxClass *klass,
---                                               GtsSurface *surface);
-
---     klass :    a GtsBBoxClass.
---     surface :  a GtsSurface.
---     Returns :  a new GtsBBox bounding box of surface.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_points ()
-
---  GtsBBox*    gts_bbox_points                 (GtsBBoxClass *klass,
---                                               GSList *points);
-
---     klass :    a GtsBBoxClass.
---     points :   a list of GtsPoint.
---     Returns :  a new GtsBBox bounding box of points.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_bboxes ()
-
---  GtsBBox*    gts_bbox_bboxes                 (GtsBBoxClass *klass,
---                                               GSList *bboxes);
-
---     klass :    a GtsBBoxClass.
---     bboxes :   a list of GtsBBox.
---     Returns :  a new GtsBBox bounding box of all the bounding boxes in bboxes.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_draw ()
-
---  void        gts_bbox_draw                   (GtsBBox *bb,
---                                               FILE *fptr);
-
---    Writes in file fptr an OOGL (Geomview) description of bb.
-
---     bb :    a GtsBBox.
---     fptr :  a file pointer.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_point_is_inside()
-
---  #define     gts_bbox_point_is_inside(bbox, p)
-
---    Evaluates to TRUE if p is inside (or on the boundary) of bbox, FALSE otherwise.
-
---     bbox :  a GtsBBox.
---     p :     a GtsPoint.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bboxes_are_overlapping ()
-
---  gboolean    gts_bboxes_are_overlapping      (GtsBBox *bb1,
---                                               GtsBBox *bb2);
-
---     bb1 :      a GtsBBox.
---     bb2 :      a GtsBBox.
---     Returns :  TRUE if the bounding boxes bb1 and bb2 are overlapping (including just touching), FALSE
---                otherwise.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_diagonal2 ()
-
---  gdouble     gts_bbox_diagonal2              (GtsBBox *bb);
-
---     bb :       a GtsBBox.
---     Returns :  the squared length of the diagonal of bb.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_point_distance2 ()
-
---  void        gts_bbox_point_distance2        (GtsBBox *bb,
---                                               GtsPoint *p,
---                                               gdouble *min,
---                                               gdouble *max);
-
---    Sets min and max to lower and upper bounds for the square of the Euclidean distance between the object
---    contained in bb and p. For these bounds to make any sense the bounding box must be "tight" i.e. each of the
---    6 faces of the box must at least be touched by one point of the bounded object.
-
---     bb :   a GtsBBox.
---     p :    a GtsPoint.
---     min :  a pointer on a gdouble.
---     max :  a pointer on a gdouble.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_is_stabbed ()
-
---  gboolean    gts_bbox_is_stabbed             (GtsBBox *bb,
---                                               GtsPoint *p);
-
---     bb :       a GtsBBox.
---     p :        a GtsPoint.
---     Returns :  TRUE if the ray starting at p and ending at (+infty, p->y, p->z) intersects with bb, FALSE
---                otherwise.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bbox_overlaps_triangle ()
-
---  gboolean    gts_bbox_overlaps_triangle      (GtsBBox *bb,
---                                               GtsTriangle *t);
-
---    This is a wrapper around the fast overlap test of Tomas Akenine-Moller
---    (http://www.cs.lth.se/home/Tomas_Akenine_Moller/).
-
---     bb :       a GtsBBox.
---     t :        a GtsTriangle.
---     Returns :  TRUE if bb overlaps with t, FALSE otherwise.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GtsBBTreeTraverseFunc ()
-
---  void        (*GtsBBTreeTraverseFunc)        (GtsBBox *bb1,
---                                               GtsBBox *bb2,
---                                               gpointer data);
-
---    User function called for each pair of overlapping bounding boxes. See gts_bb_tree_traverse_overlapping().
-
---     bb1 :   a GtsBBox.
---     bb2 :   another GtsBBox.
---     data :  user data passed to the function.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_new ()
-
---  GNode*      gts_bb_tree_new                 (GSList *bboxes);
-
---    Builds a new hierarchy of bounding boxes for bboxes. At each level, the GNode->data field contains a
---    GtsBBox bounding box of all the children. The tree is binary and is built by repeatedly cutting in two
---    approximately equal halves the bounding boxes at each level until a leaf node (i.e. a bounding box given in
---    bboxes) is reached. In order to minimize the depth of the tree, the cutting direction is always chosen as
---    perpendicular to the longest dimension of the bounding box.
-
---     bboxes :   a list of GtsBBox.
---     Returns :  a new hierarchy of bounding boxes.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_surface ()
-
---  GNode*      gts_bb_tree_surface             (GtsSurface *s);
-
---     s :        a GtsSurface.
---     Returns :  a new hierarchy of bounding boxes bounding the faces of s.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_overlap ()
-
---  GSList*     gts_bb_tree_overlap             (GNode *tree,
---                                               GtsBBox *bbox);
-
---     tree :     a bounding box tree.
---     bbox :     a GtsBBox.
---     Returns :  a list of bounding boxes, leaves of tree which overlap bbox.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_is_overlapping ()
-
---  gboolean    gts_bb_tree_is_overlapping      (GNode *tree,
---                                               GtsBBox *bbox);
-
---     tree :     a bounding box tree.
---     bbox :     a GtsBBox.
---     Returns :  TRUE if any leaf of tree overlaps bbox, FALSE otherwise.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_traverse_overlapping ()
-
---  void        gts_bb_tree_traverse_overlapping
---                                              (GNode *tree1,
---                                               GNode *tree2,
---                                               GtsBBTreeTraverseFunc func,
---                                               gpointer data);
-
---    Calls func for each overlapping pair of leaves of tree1 and tree2.
-
---     tree1 :  a bounding box tree.
---     tree2 :  a bounding box tree.
---     func :   a GtsBBTreeTraverseFunc.
---     data :   user data to be passed to func.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_draw ()
-
---  void        gts_bb_tree_draw                (GNode *tree,
---                                               guint depth,
---                                               FILE *fptr);
-
---    Write in fptr an OOGL (Geomview) description of tree for the depth specified by depth.
-
---     tree :   a bounding box tree.
---     depth :  a specified depth.
---     fptr :   a file pointer.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_destroy ()
-
---  void        gts_bb_tree_destroy             (GNode *tree,
---                                               gboolean free_leaves);
-
---    Destroys all the bounding boxes created by tree and destroys the tree itself. If free_leaves is set to
---    TRUE, destroys boxes given by the user when creating the tree (i.e. leaves of the tree).
-
---     tree :         a bounding box tree.
---     free_leaves :  if TRUE the bounding boxes given by the user are freed.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GtsBBoxDistFunc ()
-
---  gdouble     (*GtsBBoxDistFunc)              (GtsPoint *p,
---                                               gpointer bounded);
-
---    User function returning the (minimum) distance between the object defined by bounded and point p.
-
---     p :        a GtsPoint.
---     bounded :  an object bounded by a GtsBBox.
---     Returns :  the distance between p and bounded.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GtsBBoxClosestFunc ()
-
---  GtsPoint*   (*GtsBBoxClosestFunc)           (GtsPoint *p,
---                                               gpointer bounded);
-
---    User function returning a GtsPoint belonging to the object defined by bounded and closest to p.
-
---     p :        a GtsPoint.
---     bounded :  an object bounded by a GtsBBox.
---     Returns :  a GtsPoint.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_point_distance ()
-
---  gdouble     gts_bb_tree_point_distance      (GNode *tree,
---                                               GtsPoint *p,
---                                               GtsBBoxDistFunc distance,
---                                               GtsBBox **bbox);
-
---     tree :      a bounding box tree.
---     p :         a GtsPoint.
---     distance :  a GtsBBoxDistFunc.
---     bbox :      if not NULL is set to the bounding box containing the closest object.
---     Returns :   the distance as evaluated by distance between p and the closest object in tree.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_point_closest ()
-
---  GtsPoint*   gts_bb_tree_point_closest       (GNode *tree,
---                                               GtsPoint *p,
---                                               GtsBBoxClosestFunc closest,
---                                               gdouble *distance);
-
---     tree :      a bounding box tree.
---     p :         a GtsPoint.
---     closest :   a GtsBBoxClosestFunc.
---     distance :  if not NULL is set to the distance between p and the new GtsPoint.
---     Returns :   a new GtsPoint, closest point to p and belonging to an object of tree.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_segment_distance ()
-
---  void        gts_bb_tree_segment_distance    (GNode *tree,
---                                               GtsSegment *s,
---                                               GtsBBoxDistFunc distance,
---                                               gdouble delta,
---                                               GtsRange *range);
-
---    Given a segment s, points are sampled regularly on its length using delta as increment. The distance from
---    each of these points to the closest object of tree is computed using distance and the
---    gts_bb_tree_point_distance() function. The fields of range are filled with the number of points sampled,
---    the minimum, average and maximum value and the standard deviation.
-
---     tree :      a bounding box tree.
---     s :         a GtsSegment.
---     distance :  a GtsBBoxDistFunc.
---     delta :     spatial scale of the sampling to be used.
---     range :     a GtsRange to be filled with the results.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_triangle_distance ()
-
---  void        gts_bb_tree_triangle_distance   (GNode *tree,
---                                               GtsTriangle *t,
---                                               GtsBBoxDistFunc distance,
---                                               gdouble delta,
---                                               GtsRange *range);
-
---    Given a triangle t, points are sampled regularly on its surface using delta as increment. The distance from
---    each of these points to the closest object of tree is computed using distance and the
---    gts_bb_tree_point_distance() function. The fields of range are filled with the number of points sampled,
---    the minimum, average and maximum value and the standard deviation.
-
---     tree :      a bounding box tree.
---     t :         a GtsTriangle.
---     distance :  a GtsBBoxDistFunc.
---     delta :     spatial scale of the sampling to be used.
---     range :     a GtsRange to be filled with the results.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_point_closest_bboxes ()
-
---  GSList*     gts_bb_tree_point_closest_bboxes
---                                              (GNode *tree,
---                                               GtsPoint *p);
-
---     tree :     a bounding box tree.
---     p :        a GtsPoint.
---     Returns :  a list of GtsBBox. One of the bounding boxes is assured to contain the object of tree closest
---                to p.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_surface_boundary_distance ()
-
---  void        gts_bb_tree_surface_boundary_distance
---                                              (GNode *tree,
---                                               GtsSurface *s,
---                                               GtsBBoxDistFunc distance,
---                                               gdouble delta,
---                                               GtsRange *range);
-
---    Calls gts_bb_tree_segment_distance() for each edge boundary of s. The fields of range are filled with the
---    minimum, maximum and average distance. The average distance is defined as the sum of the average distances
---    for each boundary edge weighthed by their length and divided by the total length of the boundaries. The
---    standard deviation is defined accordingly. The n field of range is filled with the number of sampled points
---    used.
-
---     tree :      a bounding box tree.
---     s :         a GtsSurface.
---     distance :  a GtsBBoxDistFunc.
---     delta :     a sampling increment defined as the percentage of the diagonal of the root bounding box of
---                 tree.
---     range :     a GtsRange to be filled with the results.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_surface_distance ()
-
---  void        gts_bb_tree_surface_distance    (GNode *tree,
---                                               GtsSurface *s,
---                                               GtsBBoxDistFunc distance,
---                                               gdouble delta,
---                                               GtsRange *range);
-
---    Calls gts_bb_tree_triangle_distance() for each face of s. The fields of range are filled with the minimum,
---    maximum and average distance. The average distance is defined as the sum of the average distances for each
---    triangle weighthed by their area and divided by the total area of the surface. The standard deviation is
---    defined accordingly. The n field of range is filled with the number of sampled points used.
-
---     tree :      a bounding box tree.
---     s :         a GtsSurface.
---     distance :  a GtsBBoxDistFunc.
---     delta :     a sampling increment defined as the percentage of the diagonal of the root bounding box of
---                 tree.
---     range :     a GtsRange to be filled with the results.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_bb_tree_stabbed ()
-
---  GSList*     gts_bb_tree_stabbed             (GNode *tree,
---                                               GtsPoint *p);
-
---     tree :     a bounding box tree.
---     p :        a GtsPoint.
---     Returns :  a list of bounding boxes, leaves of tree which are stabbed by the ray defined by p (see
---                gts_bbox_is_stabbed()).
 
 end -- class GTS_BOUNDING_BOX

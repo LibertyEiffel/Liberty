@@ -1,5 +1,5 @@
 indexing
-	description: "."
+	description: "Axis-aligned bounding-box trees."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTS team
 					
@@ -19,181 +19,24 @@ indexing
 					02110-1301 USA
 			]"
 
-class GTS_BOUNDING_BOXES_TREE
+deferred class GTS_BOUNDING_BOXES_TREE
+	-- TODO: require wrappping of Glib's n-ary tree.
+
+	-- Axis-aligned bounding box trees can be used for
+	-- intersection/collision detection using `traverse_overlapping',
+	-- or to compute the minimum distance between an object and a
+	-- collection of others using `point_distance', `segment_distance',
+	-- `triangle_distance' or `surface_distance'.
 
 inherit C_STRUCT
 
+insert 
+	GTS_BOUNDING_BOXES_TREE_EXTERNALS
+	GTS_BOUNDING_BOXES_TREE
 creation make, from_external_pointer
 
 feature {} -- Creation
---                                               Bounding boxes trees
-
--- Name
-
---    Bounding boxes trees -- implementation of axis-aligned bounding-box trees.
-
--- Synopsis
-
---  #include <gts.h>
-
-
---  #define     GTS_BBOX_CLASS                  (klass)
---  #define     GTS_BBOX                        (obj)
---  #define     GTS_IS_BBOX                     (obj)
---              GtsBBoxClass;
---              GtsBBox;
-
---  GtsBBoxClass* gts_bbox_class                (void);
---  GtsBBox*    gts_bbox_new                    (GtsBBoxClass *klass,
---                                               gpointer bounded,
---                                               gdouble x1,
---                                               gdouble y1,
---                                               gdouble z1,
---                                               gdouble x2,
---                                               gdouble y2,
---                                               gdouble z2);
---  void        gts_bbox_set                    (GtsBBox *bbox,
---                                               gpointer bounded,
---                                               gdouble x1,
---                                               gdouble y1,
---                                               gdouble z1,
---                                               gdouble x2,
---                                               gdouble y2,
---                                               gdouble z2);
---  GtsBBox*    gts_bbox_segment                (GtsBBoxClass *klass,
---                                               GtsSegment *s);
---  GtsBBox*    gts_bbox_triangle               (GtsBBoxClass *klass,
---                                               GtsTriangle *t);
---  GtsBBox*    gts_bbox_surface                (GtsBBoxClass *klass,
---                                               GtsSurface *surface);
---  GtsBBox*    gts_bbox_points                 (GtsBBoxClass *klass,
---                                               GSList *points);
---  GtsBBox*    gts_bbox_bboxes                 (GtsBBoxClass *klass,
---                                               GSList *bboxes);
---  void        gts_bbox_draw                   (GtsBBox *bb,
---                                               FILE *fptr);
---  #define     gts_bbox_point_is_inside        (bbox, p)
---  gboolean    gts_bboxes_are_overlapping      (GtsBBox *bb1,
---                                               GtsBBox *bb2);
---  gdouble     gts_bbox_diagonal2              (GtsBBox *bb);
---  void        gts_bbox_point_distance2        (GtsBBox *bb,
---                                               GtsPoint *p,
---                                               gdouble *min,
---                                               gdouble *max);
---  gboolean    gts_bbox_is_stabbed             (GtsBBox *bb,
---                                               GtsPoint *p);
---  gboolean    gts_bbox_overlaps_triangle      (GtsBBox *bb,
---                                               GtsTriangle *t);
-
---  void        (*GtsBBTreeTraverseFunc)        (GtsBBox *bb1,
---                                               GtsBBox *bb2,
---                                               gpointer data);
---  GNode*      gts_bb_tree_new                 (GSList *bboxes);
---  GNode*      gts_bb_tree_surface             (GtsSurface *s);
---  GSList*     gts_bb_tree_overlap             (GNode *tree,
---                                               GtsBBox *bbox);
---  gboolean    gts_bb_tree_is_overlapping      (GNode *tree,
---                                               GtsBBox *bbox);
---  void        gts_bb_tree_traverse_overlapping
---                                              (GNode *tree1,
---                                               GNode *tree2,
---                                               GtsBBTreeTraverseFunc func,
---                                               gpointer data);
---  void        gts_bb_tree_draw                (GNode *tree,
---                                               guint depth,
---                                               FILE *fptr);
---  void        gts_bb_tree_destroy             (GNode *tree,
---                                               gboolean free_leaves);
-
---  gdouble     (*GtsBBoxDistFunc)              (GtsPoint *p,
---                                               gpointer bounded);
---  GtsPoint*   (*GtsBBoxClosestFunc)           (GtsPoint *p,
---                                               gpointer bounded);
---  gdouble     gts_bb_tree_point_distance      (GNode *tree,
---                                               GtsPoint *p,
---                                               GtsBBoxDistFunc distance,
---                                               GtsBBox **bbox);
---  GtsPoint*   gts_bb_tree_point_closest       (GNode *tree,
---                                               GtsPoint *p,
---                                               GtsBBoxClosestFunc closest,
---                                               gdouble *distance);
---  void        gts_bb_tree_segment_distance    (GNode *tree,
---                                               GtsSegment *s,
---                                               GtsBBoxDistFunc distance,
---                                               gdouble delta,
---                                               GtsRange *range);
---  void        gts_bb_tree_triangle_distance   (GNode *tree,
---                                               GtsTriangle *t,
---                                               GtsBBoxDistFunc distance,
---                                               gdouble delta,
---                                               GtsRange *range);
---  GSList*     gts_bb_tree_point_closest_bboxes
---                                              (GNode *tree,
---                                               GtsPoint *p);
---  void        gts_bb_tree_surface_boundary_distance
---                                              (GNode *tree,
---                                               GtsSurface *s,
---                                               GtsBBoxDistFunc distance,
---                                               gdouble delta,
---                                               GtsRange *range);
---  void        gts_bb_tree_surface_distance    (GNode *tree,
---                                               GtsSurface *s,
---                                               GtsBBoxDistFunc distance,
---                                               gdouble delta,
---                                               GtsRange *range);
-
---  GSList*     gts_bb_tree_stabbed             (GNode *tree,
---                                               GtsPoint *p);
-
--- Description
-
---    Axis-aligned bounding box trees can be used for intersection/collision detection using
---    gts_bb_tree_traverse_overlapping(), or to compute the minimum distance between an object and a collection
---    of others using gts_bb_tree_point_distance(), gts_bb_tree_segment_distance(),
---    gts_bb_tree_triangle_distance() or gts_bb_tree_surface_distance().
-
--- Details
-
---   GTS_BBOX_CLASS()
-
---  #define     GTS_BBOX_CLASS(klass)
-
---    Casts klass to GtsBBoxClass.
-
---     klass :  a descendant of GtsBBoxClass.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GTS_BBOX()
-
---  #define     GTS_BBOX(obj)
-
---    Casts obj to GtsBBox.
-
---     obj :  a descendant of GtsBBox.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GTS_IS_BBOX()
-
---  #define     GTS_IS_BBOX(obj)
-
---    Evaluates to TRUE if obj is a GtsBBox, FALSE otherwise.
-
---     obj :  a pointer to test.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GtsBBoxClass
-
---  typedef struct {
---    GtsObjectClass parent_class;
---  } GtsBBoxClass;
-
---    The bounding box class derived from GtsObjectClass.
-
---    -----------------------------------------------------------------------------------------------------------
-
+	
 --   GtsBBox
 
 --  typedef struct {

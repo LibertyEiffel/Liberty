@@ -50,6 +50,10 @@ feature {} -- External calls
 
 	gts_segment_connect (s, e1, e2: POINTER) is
 			-- #define gts_segment_connect (s, e1, e2)
+		require 
+			gts_is_segment(s).to_boolean
+			gts_is_edge(e1).to_boolean
+			gts_is_edge(s2).to_boolean
 		external "C macro use <gts.h>"
 		end
 	

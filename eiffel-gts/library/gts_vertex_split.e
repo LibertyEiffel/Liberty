@@ -68,8 +68,7 @@ feature
 			--     s :      a GtsSurface.
 			--     klass :  a GtsEdgeClass.
 		do
-			gts_split_expand (handle, a_surface.handle,
-									GtsEdgeClass *klass);
+			gts_split_expand(handle,a_surface.handle,gts_edge_class)
 		end
 
 	height: INTEGER is
