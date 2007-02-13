@@ -45,79 +45,73 @@ creation make, from_external_pointer
 feature {} -- Creation
 	make is
 		do
-			--  GtsPSurface* gts_psurface_new               (GtsPSurfaceClass *klass,
---                                               GtsSurface *surface,
---                                               GtsSplitClass *split_class,
---                                               GtsKeyFunc cost_func,
---                                               gpointer cost_data,
---                                               GtsCoarsenFunc coarsen_func,
---                                               gpointer coarsen_data,
---                                               GtsStopFunc stop_func,
---                                               gpointer stop_data,
---                                               gdouble minangle);
+			--  GtsPSurface* gts_psurface_new (GtsPSurfaceClass *klass, GtsSurface
+			--  *surface, GtsSplitClass *split_class, GtsKeyFunc cost_func,
+			--  gpointer cost_data, GtsCoarsenFunc coarsen_func, gpointer
+			--  coarsen_data, GtsStopFunc stop_func, gpointer stop_data, gdouble
+			--  minangle);
+			
+			-- This function works in exactly the same way as the
+			-- gts_surface_coarsen() function, except that the history of edge
+			-- collapse is saved in an array of GtsSplit objects. This allows for
+			-- dynamic continuous multiresolution control of the input surface.
 
---    This function works in exactly the same way as the gts_surface_coarsen() function, except that the history
---    of edge collapse is saved in an array of GtsSplit objects. This allows for dynamic continuous
---    multiresolution control of the input surface.
-
---     klass :         a GtsPSurfaceClass.
---     surface :       a GtsSurface.
---     split_class :   a GtsSplitClass to use for the new progressive surface.
---     cost_func :     cost function for the edge collapse algorithm.
---     cost_data :     data to pass to cost_func.
+			--     klass :         a GtsPSurfaceClass.
+			--     surface :       a GtsSurface.
+			--     split_class :   a GtsSplitClass to use for the new progressive surface.
+			--     cost_func :     cost function for the edge collapse algorithm.
+			--     cost_data :     data to pass to cost_func.
 --     coarsen_func :  the function returning the vertex replacement for the edge collapse.
---     coarsen_data :  data to pass to coarsen_func.
---     stop_func :     the function to call to decide whether to stop the coarsening process.
---     stop_data :     data to pass to stop_func.
---     minangle :      the minimum angle allowable between two neighboring triangles. This is used to avoid
---                     introducing folds in the mesh during simplification.
---     Returns :       a new progressive surface.
-
+			--     coarsen_data :  data to pass to coarsen_func.
+			--     stop_func :     the function to call to decide whether to stop the coarsening process.
+			--     stop_data :     data to pass to stop_func.
+			--     minangle :      the minimum angle allowable between two neighboring triangles. This is used to avoid
+			--                     introducing folds in the mesh during simplification.
+			--     Returns :       a new progressive surface.
 		end
 	
-
---   gts_psurface_add_vertex ()
-
---  GtsSplit*   gts_psurface_add_vertex         (GtsPSurface *ps);
-
---    Adds a vertex to the progressive surface ps by expanding the next available GtsSplit.
-
+	--   gts_psurface_add_vertex ()
+	
+	--  GtsSplit*   gts_psurface_add_vertex         (GtsPSurface *ps);
+	
+	--    Adds a vertex to the progressive surface ps by expanding the next available GtsSplit.
+	
+	--     ps :       a GtsPSurface.
+	--     Returns :  the expanded GtsSplit or NULL if all the GtsSplit have already been expanded.
+	
+	--    -----------------------------------------------------------------------------------------------------------
+	
+	--   gts_psurface_remove_vertex ()
+	
+	--  GtsSplit*   gts_psurface_remove_vertex      (GtsPSurface *ps);
+	
+	--    Removes one vertex from the progressive surface ps by collapsing the first available GtsSplit.
+	
 --     ps :       a GtsPSurface.
---     Returns :  the expanded GtsSplit or NULL if all the GtsSplit have already been expanded.
+	--     Returns :  the collapsed GtsSplit or NULL if all the GtsSplit have already been collapsed.
+	
+	--    -----------------------------------------------------------------------------------------------------------
+	
+	--   gts_psurface_set_vertex_number ()
+	
+	--  void        gts_psurface_set_vertex_number  (GtsPSurface *ps,
+	--                                               guint n);
+	
+	--    Performs the required number of collapses or expansions to set the number of vertices of ps to n.
+	
+	--     ps :  a GtsPSurface.
+	--     n :   a number of vertices.
+	
+	--    -----------------------------------------------------------------------------------------------------------
+	
+	--   gts_psurface_get_vertex_number ()
+	
+	--  guint       gts_psurface_get_vertex_number  (GtsPSurface *ps);
+	
+	--     ps :       a GtsPSurface.
+	--     Returns :  the current number of vertices of ps.
 
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_psurface_remove_vertex ()
-
---  GtsSplit*   gts_psurface_remove_vertex      (GtsPSurface *ps);
-
---    Removes one vertex from the progressive surface ps by collapsing the first available GtsSplit.
-
---     ps :       a GtsPSurface.
---     Returns :  the collapsed GtsSplit or NULL if all the GtsSplit have already been collapsed.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_psurface_set_vertex_number ()
-
---  void        gts_psurface_set_vertex_number  (GtsPSurface *ps,
---                                               guint n);
-
---    Performs the required number of collapses or expansions to set the number of vertices of ps to n.
-
---     ps :  a GtsPSurface.
---     n :   a number of vertices.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_psurface_get_vertex_number ()
-
---  guint       gts_psurface_get_vertex_number  (GtsPSurface *ps);
-
---     ps :       a GtsPSurface.
---     Returns :  the current number of vertices of ps.
-
---    -----------------------------------------------------------------------------------------------------------
+	--    -----------------------------------------------------------------------------------------------------------
 
 --   gts_psurface_min_vertex_number ()
 

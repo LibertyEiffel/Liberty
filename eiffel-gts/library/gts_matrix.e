@@ -24,8 +24,10 @@ class GTS_MATRIX
 	-- a plane passing through the vertices of a given triangle or quadratic
 	-- optimization problems.
 	
-inherit C_STRUCT
-
+inherit
+	C_STRUCT
+	DISPOSABLE
+	
 creation
 	make, from_external_pointer,
 	zero, identity
@@ -56,6 +58,21 @@ feature {} -- Creation
 			from_external_pointer(gts_matrix_identity(default_pointer))
 		end
 	
+	projection_of (a_triangle: GTS_TRIANGLE) is
+			-- Creates a new GtsMatrix representing the projection onto a plane of
+			-- normal given by `a_triangle'.
+		require triangle_not_void: a_triangle/=Void
+		do
+			from_external_pointer(gts_matrix_projection(a_triangle.handle))
+		end
+	
+	scaling_for (a_vector: GTS_VECTOR) is
+			-- Create a matrix to be a scaling matrix for `a_vector'.
+		local ptr: POINTER
+		do
+			from_external_pointer(gts_matrix_scale(default_pointer, a_vector.handle))
+		end
+
 feature
 	assign (a00, a01, a02, a03,
 			  a10, a11, a12, a13,
@@ -78,40 +95,21 @@ feature
 		end
 
 
---   gts_matrix_identity ()
+	set_identity is
+			-- Initializes Current matrix to an identity matrix. 
+		do
+			from_external_pointer(gts_matrix_identity(handle))
+		end
+	
 
---  GtsMatrix*  gts_matrix_identity             (GtsMatrix *m);
-
--- 	Initializes m to an identity matrix. Allocates a matrix if m is NULL.
-
--- 	m :        a GtsMatrix or NULL.
--- 	Returns :  the identity matrix.
-
--- 	-----------------------------------------------------------------------------------------------------------
-
---   gts_matrix_projection ()
-
---  GtsMatrix*  gts_matrix_projection           (GtsTriangle *t);
-
--- 	Creates a new GtsMatrix representing the projection onto a plane of normal given by t.
-
--- 	t :        a GtsTriangle.
--- 	Returns :  a pointer to the newly created GtsMatrix.
-
--- 	-----------------------------------------------------------------------------------------------------------
-
---   gts_matrix_scale ()
-
---  GtsMatrix*  gts_matrix_scale                (GtsMatrix *m,
--- 															 GtsVector s);
-
--- 	Initializes m to a scaling matrix for s. Allocates a matrix if m is NULL.
-
--- 	m :        a GtsMatrix or NULL.
--- 	s :        the scaling vector.
--- 	Returns :  the scaling matrix.
-
--- 	-----------------------------------------------------------------------------------------------------------
+	scale (a_vector: GTS_VECTOR) is
+			-- Initializes Current to be a scaling matrix for `a_vector'. Allocates a matrix if m is
+			-- NULL. -- 	m :        a GtsMatrix or NULL.
+			-- 	s :        the scaling vector.
+		local ptr: POINTER
+		do
+			ptr:=gts_matrix_scale(handle, a_vector.handle)
+		end
 
 --   gts_matrix_translate ()
 
@@ -150,14 +148,11 @@ feature
 
 -- 	-----------------------------------------------------------------------------------------------------------
 
---   gts_matrix_determinant ()
-
---  gdouble     gts_matrix_determinant          (GtsMatrix *m);
-
--- 	m :        a GtsMatrix.
--- 	Returns :  the value of det(m).
-
--- 	-----------------------------------------------------------------------------------------------------------
+	determinant: REAL is
+			-- the determinant of Current matrix.
+		do
+			Result := gts_matrix_determinant(handle)
+		end
 
 --   gts_matrix_inverse ()
 
@@ -175,16 +170,12 @@ feature
 -- 	m :        a 3x3 GtsMatrix.
 -- 	Returns :  a pointer to a newly created 3x3 GtsMatrix inverse of m or NULL if m is not invertible.
 
--- 	-----------------------------------------------------------------------------------------------------------
-
---   gts_matrix_product ()
-
---  GtsMatrix*  gts_matrix_product              (GtsMatrix *m1,
--- 															 GtsMatrix *m2);
-
--- 	m1 :       a GtsMatrix.
--- 	m2 :       another GtsMatrix.
--- 	Returns :  a new GtsMatrix, product of m1 and m2.
+	infix "*" (another: GTS_MATRIX): GTS_MATRIX is
+			-- the product of Current and `another'.
+		do
+			create Result.from_external_pointer
+			(gts_matrix_product(handle, another.handle))
+		end
 
 -- 	-----------------------------------------------------------------------------------------------------------
 
@@ -243,15 +234,12 @@ feature
 -- 	m :     a GtsMatrix.
 -- 	fptr :  a file descriptor.
 
--- 	-----------------------------------------------------------------------------------------------------------
-
---   gts_matrix_destroy ()
-
---  void        gts_matrix_destroy              (GtsMatrix *m);
-
--- 	Free all the memory allocated for m.
-
--- 	m :  a GtsMatrix.
+feature {} -- Disposing
+	dispose is
+			-- 	Free all the memory allocated for m.
+		do
+			gts_matrix_destroy(handle)
+		end
 
 feature {} -- External calls
  gts_matrix_new (a00, a01, a02, a03, a10, a11, a12, a13, a20, a21, a22, a23, a30, a31, a32, a33: REAL): POINTER is
