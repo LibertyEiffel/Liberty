@@ -1,6 +1,7 @@
 indexing
+	description: "enum GtkUnit"
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2007 Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -17,33 +18,41 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	date: "$Date:$"
-	revision "$REvision:$"
 
-deferred class GTK_TARGET_FLAGS
-	-- The GtkTargetFlags enumeration is used to specify constraints on
-	-- an entry in a GtkTargetTable.
+deferred class GTK_UNIT
 
 inherit ANY undefine is_equal, copy end
 
-feature {} --Gtk_Accel_Flags
-
-	gtk_target_same_app: INTEGER is 
-			-- If this is set, the target will only be selected for drags
-			-- within a single application.
-
-			-- 1 < < 0,    /*< nick=same-app >*/
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_TARGET_SAME_APP"
+feature  -- enum
+	is_valid_unit (a_unit: INTEGER): BOOLEAN is
+		do	
+			Result:=((a_unit = gtk_unit_pixel) or else
+						(a_unit = gtk_unit_points) or else
+						(a_unit = gtk_unit_inch) or else
+						(a_unit = gtk_unit_mm))
 		end
 
-	gtk_target_same_widget: INTEGER is 
-			-- If this is set, the target will only be selected for drags
-			-- within a single widget.
-				  
-			-- 1 < < 1  /*< nick=same-widget >*/
+	gtk_unit_pixel: INTEGER is
+			-- GTK_UNIT_PIXEL
 		external "C macro use <gtk/gtk.h>"
-		alias "GTK_TARGET_SAME_WIDGET"
+		alias "GTK_UNIT_PIXEL"
 		end
 
-end -- class GTK_TARGET_FLAGS
+	gtk_unit_points: INTEGER is
+			-- GTK_UNIT_POINTS
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_UNIT_POINTS"
+		end
+
+	gtk_unit_inch: INTEGER is
+			-- GTK_UNIT_INCH
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_UNIT_INCH"
+		end
+
+	gtk_unit_mm: INTEGER is
+			-- GTK_UNIT_MM
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_UNIT_MM"
+		end
+end

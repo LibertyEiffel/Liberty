@@ -1,5 +1,5 @@
 indexing
-	description: "Clipboards - Sring data on clipboards."
+	description: "Clipboards - Storing data on clipboards."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
