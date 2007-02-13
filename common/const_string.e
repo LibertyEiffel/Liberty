@@ -19,22 +19,17 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- This class has been implemented to wrap efficiently const 
-			-- pointer to strings returned by many C functions.
-			-- For example, GTK+ has many calls like this (taken from 
-			-- its documentation):
-
-			-- const gchar* gtk_entry_get_text (GtkEntry *entry);
-
-			-- It retrieves the contents of the entry widget. It returns
-			-- a pointer to the contents of the widget as a string. This
-			-- string points to internally allocated storage in the
-			-- widget and must not be freed, modified or stored.
-
-			-- Changing instances of this class is not the best idea.
-			-- Consider using feature string to get a (non-const) STRING.
-
 class CONST_STRING
+	-- An efficient wrapper for const pointer to strings returned by
+	-- many C functions.  
+
+	-- For example, GTK+ has many calls like this (taken from its
+	-- documentation):
+
+	-- const gchar* gtk_entry_get_text (GtkEntry *entry);
+	
+	-- Changing instances of this class is not the best idea.  Consider
+	-- using feature string to get a (non-const) STRING.
 
 inherit 
 	STRING
