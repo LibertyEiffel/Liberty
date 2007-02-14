@@ -17,8 +17,10 @@ insert
 	GTK_STANDARD_ENUMERATIONS undefine fill_tagged_out_memory end
 
 feature -- Gtk 
-	gtk: GTK_MAIN is 
+
+	gtk: GTK_MAIN is
 		once
 			create Result
 		end
+
 end

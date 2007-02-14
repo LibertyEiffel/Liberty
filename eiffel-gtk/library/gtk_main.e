@@ -1,5 +1,5 @@
 indexing
-	description: "Main loop and Events -  Library initialization, main event loop, and events"
+	description: "Main loop and Events - Library initialization, main event loop, and events"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -186,7 +186,7 @@ feature
 		local called_on_innermost_mainloop: INTEGER
 		do
 			-- TODO: expose called_on_innermost_mainloop in an intelligent way
-			called_on_innermost_mainloop:=gtk_main_iteration_do (0)
+			called_on_innermost_mainloop := gtk_main_iteration_do (0)
 		end
 
 	-- TODO: wrap gtk_main_do_event in a release distant in the
@@ -1774,4 +1774,3 @@ invariant
 	error_not_void: error /= Void
 
 end
-
