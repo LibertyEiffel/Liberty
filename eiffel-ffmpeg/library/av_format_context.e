@@ -302,8 +302,10 @@ feature {} -- Disposing
 
 	dispose is
 		do
---			av_close_input_file (handle)
-			handle:= default_pointer -- null
+			if handle.is_not_null then
+				av_close_input_file (handle)
+				handle := default_pointer -- null
+			end
 		end
 
 feature {} -- Representation
