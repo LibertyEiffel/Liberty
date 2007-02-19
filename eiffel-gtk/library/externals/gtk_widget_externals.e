@@ -32,7 +32,12 @@ feature {} -- External calls
 -- #define     GTK_WIDGET_STATE                (wid)
 -- #define     GTK_WIDGET_SAVED_STATE          (wid)
 -- #define     GTK_WIDGET_FLAGS                (wid)
--- #define     GTK_WIDGET_TOPLEVEL             (wid)
+
+	gtk_widget_toplevel (a_widget: POINTER): INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_WIDGET_TOPLEVEL"
+		end
+
 -- #define     GTK_WIDGET_NO_WINDOW            (wid)
 -- #define     GTK_WIDGET_REALIZED             (wid)
 -- #define     GTK_WIDGET_MAPPED               (wid)
@@ -348,9 +353,9 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
--- GtkWidget*  gtk_widget_get_toplevel         (GtkWidget *widget) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_get_toplevel (a_widget: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- GtkWidget*  gtk_widget_get_ancestor         (GtkWidget *widget,
 --                                              GType widget_type) is
@@ -684,9 +689,9 @@ feature {} -- External calls
 --		external "C use <gtk/gtk.h>"
 --		end
 
--- GtkWidget*  gtk_widget_get_parent           (GtkWidget *widget) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_get_parent (a_widget: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- GtkSettings* gtk_widget_get_settings        (GtkWidget *widget) is
 --		external "C use <gtk/gtk.h>"

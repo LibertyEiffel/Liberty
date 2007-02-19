@@ -372,7 +372,6 @@ feature -- Operation
 			end
 		end
 
--- GdkWindow*  gtk_widget_get_parent_window    (GtkWidget *widget);
 -- void        gtk_widget_set_uposition        (GtkWidget *widget,
 --                                              gint x,
 --                                              gint y);
@@ -387,7 +386,6 @@ feature -- Operation
 --                                              GdkExtensionMode mode);
 -- GdkExtensionMode gtk_widget_get_extension_events
 --                                             (GtkWidget *widget);
--- GtkWidget*  gtk_widget_get_toplevel         (GtkWidget *widget);
 -- GtkWidget*  gtk_widget_get_ancestor         (GtkWidget *widget,
 --                                              GType widget_type);
 -- GdkColormap* gtk_widget_get_colormap        (GtkWidget *widget);
@@ -1453,11 +1451,13 @@ feature -- button-press-event signal
 
 -- Returns the widget flags from wid.
 -- wid : 	a GtkWidget.
--- GTK_WIDGET_TOPLEVEL()
 
--- #define GTK_WIDGET_TOPLEVEL(wid)	  ((GTK_WIDGET_FLAGS (wid) & GTK_TOPLEVEL) != 0)
-
--- Evaluates to TRUE if the widget is a toplevel widget.
+	is_toplevel: BOOLEAN is
+			-- Evaluates to TRUE if the widget is a toplevel widget.
+		do
+			Result := gtk_widget_toplevel (handle).to_boolean
+		end
+			
 -- wid : 	a GtkWidget.
 -- GTK_WIDGET_NO_WINDOW()
 
@@ -2033,14 +2033,7 @@ feature
 
 -- widget : 	a GtkWidget.
 -- parent_window : 	the new parent window.
--- gtk_widget_get_parent_window ()
 
--- GdkWindow*  gtk_widget_get_parent_window    (GtkWidget *widget);
-
--- Gets widget's parent window.
-
--- widget : 	a GtkWidget.
--- Returns : 	the parent window of widget.
 -- gtk_widget_set_uposition ()
 
 -- void        gtk_widget_set_uposition        (GtkWidget *widget,
@@ -2115,6 +2108,22 @@ feature
 
 -- widget : 	a GtkWidget
 -- Returns : 	extension events for widget
+
+	toplevel: GTK_WIDGET is
+		local
+			c_widget: POINTER
+			r: G_RETRIEVER [GTK_WIDGET]
+		do
+			c_widget := gtk_widget_get_toplevel (handle)
+			if c_widget.is_not_null then
+				if r.has_eiffel_wrapper_stored (c_widget) then
+					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_widget)
+				else
+					create {GTK_WINDOW}Result.from_external_pointer (c_widget)
+				end
+			end
+		end
+
 -- gtk_widget_get_toplevel ()
 
 -- GtkWidget*  gtk_widget_get_toplevel         (GtkWidget *widget);
@@ -2869,14 +2878,24 @@ feature
 
 -- widget : 	a GtkWidget
 -- Returns : 	TRUE if the widget is mapped with the parent.
--- gtk_widget_get_parent ()
 
--- GtkWidget*  gtk_widget_get_parent           (GtkWidget *widget);
+	parent: GTK_WIDGET is
+			-- Returns the parent container of widget, or Void if none.
+		local
+			c_widget: POINTER
+			r: G_RETRIEVER [GTK_WIDGET]
+		do
+			c_widget := gtk_widget_get_parent (handle)
+			if c_widget.is_not_null then
+				if r.has_eiffel_wrapper_stored (c_widget) then
+					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_widget)
+				else
+					crash -- Need to autodetect parent's type for this!
+--					create Result.from_external_pointer (c_widget)
+				end
+			end
+		end
 
--- Returns the parent container of widget.
-
--- widget : 	a GtkWidget
--- Returns : 	the parent container of widget, or NULL
 -- gtk_widget_get_settings ()
 
 -- GtkSettings* gtk_widget_get_settings        (GtkWidget *widget);
