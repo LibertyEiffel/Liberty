@@ -22,19 +22,21 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class TOGGLED_CALLBACK
+class TOGGLED_CALLBACK [W -> G_OBJECT]
 
-inherit CALLBACK redefine object end
+inherit
+	CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_TOGGLE_BUTTON]
+insert
+	G_OBJECT_RETRIEVER [W]
 
 creation make
 
 feature
-	object: GTK_TOGGLE_BUTTON
+	object: W
 
 feature
-	callback (instance: POINTER) is --  a_button: GTK_TOGGLE_BUTTON) is
+	callback (instance: POINTER) is
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
@@ -58,7 +60,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_TOGGLE_BUTTON; a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]]) is
+	connect (an_object: W; a_procedure: PROCEDURE [ANY, TUPLE[W]]) is
 		do
 			debug
 				print ("TOGGLED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -78,5 +80,5 @@ feature
 
 		signal_name: STRING is "toggled"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]]
+	procedure: PROCEDURE [ANY, TUPLE[W]]
 end

@@ -235,7 +235,7 @@ feature -- The "toggled" signal
 	connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]]) is
 			-- togglebutton : 	the object which received the signal.
 		require valid_procedure: a_procedure /= Void
-		local toggled_callback: TOGGLED_CALLBACK
+		local toggled_callback: TOGGLED_CALLBACK [like Current]
 		do
 			create toggled_callback.make
 			toggled_callback.connect (Current, a_procedure)
