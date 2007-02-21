@@ -46,7 +46,7 @@ feature {} -- Creation
 --			curl.set_option_string (curl_option_ca_info, "certificate authority key filename.pem")
 --			check curl.is_valid end
 			-- Or to avoid security checks:
---			curl.set_option_integer64 (curl_option_ca_verify_peer, 0)
+--			curl.set_option_integer64 (curl_option_ssl_verify_peer, 0)
 --			check curl.is_valid end
 
 			-- In our example we will not need any authentication information because the URL

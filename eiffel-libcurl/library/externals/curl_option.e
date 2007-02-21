@@ -2137,8 +2137,7 @@ feature {} -- SSL and SECURITY OPTIONS
 			-- 
 			-- Force SSLv3
 			-- 
-			-- CURLOPT_SSL_VERIFYPEER
-			-- 
+	curl_option_ssl_verify_peer: INTEGER is
 			-- Pass a long as parameter.
 			-- 
 			-- This option determines whether curl verifies the authenticity of the
@@ -2162,6 +2161,9 @@ feature {} -- SSL and SECURITY OPTIONS
 			-- typically want to ensure that the server, as authentically identified by
 			-- its certificate, is the server you mean to be talking to. Use
 			-- CURLOPT_SSL_VERIFYHOST to control that.
+		external "C macro use <curl/curl.h>"
+		alias "CURLOPT_SSL_VERIFYPEER"
+		end
 
 	curl_option_ca_info: INTEGER is
 			-- Pass a char * to a zero terminated string naming a file holding one or
