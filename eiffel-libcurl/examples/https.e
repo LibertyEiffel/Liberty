@@ -36,14 +36,21 @@ feature {} -- Creation
 	make is
 		do
 			Precursor
-			curl.set_option_string (curl_option_url, "https://beetroot.except.com.ar")
+			curl.set_option_string (curl_option_url, "https://login.yahoo.com/")
 			check curl.is_valid end
 			
-			curl.set_option_string (curl_option_ssl_cert, "apache.pem")
-			check curl.is_valid end
-			
-			curl.set_option_string (curl_option_ca_info, "apache.pem")
-			check curl.is_valid end
+			-- These should be used to connect to a server with a self signed certificated:
+--			curl.set_option_string (curl_option_ssl_cert, "server private key filename.pem")
+--			check curl.is_valid end
+			-- Optionally, signed by a CA:
+--			curl.set_option_string (curl_option_ca_info, "certificate authority key filename.pem")
+--			check curl.is_valid end
+			-- Or to avoid security checks:
+--			curl.set_option_integer64 (curl_option_ca_verify_peer, 0)
+--			check curl.is_valid end
+
+			-- In our example we will not need any authentication information because the URL
+			-- used has a certificate issued by a well known CA
 			
 			curl.perform
 			check curl.is_valid end
