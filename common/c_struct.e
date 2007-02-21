@@ -24,8 +24,9 @@ feature {} -- Initialization
 			if handle.is_null then raise_exception (No_more_memory) end
 		ensure memory_allocated: handle.is_not_null
 		end
-	
+
 feature -- Queries
+
 	exists: BOOLEAN is
 			--  Does Current wrap an existing object? Speaking in C: is handle not 
 			--  NULL?
@@ -35,21 +36,23 @@ feature -- Queries
 		end
 
 feature -- Copying
-	copy (another: like Current) is
+
+	copy (other: like Current) is
 		local old_handle, new_handle: POINTER
 		do
-			old_handle := handle
+			--old_handle := handle
 			allocate
-			new_handle := memcpy (handle, old_handle, struct_size)
+			--new_handle := memcpy (handle, old_handle, struct_size)
+			new_handle := memcpy (handle, other.handle, struct_size)
 		end
-	
+
 	is_equal (another: like Current): BOOLEAN is
 		do
 			Result:= Current.handle = another.handle
 		end
-	
+
 feature {} -- Access to C features
-	
+
 	-- struct_size should be exported to WRAPPER, to be able to check size 
 	-- before copying
 	struct_size: INTEGER is
@@ -106,5 +109,5 @@ feature {} -- External calls
 		external "C use <string.h>"
 		end
 			
-end
 
+end -- class C_STRUCT
