@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -41,39 +41,50 @@ indexing
 			-- requisition back from its child.
 
 class GTK_REQUISITION
-inherit C_STRUCT
-creation make,from_external_pointer
+
+inherit
+	C_STRUCT redefine is_equal end
+
+creation from_external_pointer, copy
 
 feature {} -- size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRequisition)"
 		end
 
-feature 
+feature
+
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := width = other.width and height = other.height
+		end
+
 	width: INTEGER is
 			-- the widget's desired width
 		do
 			Result := get_width_external (handle)
 		end
-	
+
 	set_width (a_width: INTEGER) is
 		do
-			set_width_external (a_width)
+			set_width_external (handle, a_width)
 		end
 
 	height: INTEGER is
 			-- the widget's desired height
 		do
-			Result:=get_height_external (handle)
-		end
-	
-	set_height (an_height: INTEGER) is
-		do
-			set_height_external (an_height)
+			Result := get_height_external (handle)
 		end
 
-feature {} -- Structure access
+	set_height (an_height: INTEGER) is
+		do
+			set_height_external (handle, an_height)
+		end
+
+feature {} -- External
+
 	get_width_external (ptr: POINTER): INTEGER is
 		require valid_ptr: ptr.is_not_null
 		external "C struct GtkRequisition get width use <gtk/gtk.h>"
@@ -93,5 +104,5 @@ feature {} -- Structure access
 		require valid_ptr: ptr.is_not_null
 		external "C struct GtkRequisition set height use <gtk/gtk.h>"
 		end
-	
+
 end

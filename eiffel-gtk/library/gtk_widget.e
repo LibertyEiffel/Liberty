@@ -638,11 +638,8 @@ feature -- Signals
 --                                             gpointer           user_data)      : Run last
 
 feature -- delete-event signal
+
 	delete_event_signal_name: STRING is "delete-event"
-		-- "destroy-event"
-		--             gboolean    user_function      (GtkWidget *widget,
-		--                                             GdkEvent  *event,
-		--                                             gpointer   user_data)      : Run last
 
 	enable_on_delete_event is
 			-- Connects "delete-event" signal to `on_delete_event' feature.
@@ -1274,14 +1271,77 @@ feature -- button-press-event signal
 -- "show-help" gboolean    user_function      (GtkWidget        *widget,
 --                                             GtkWidgetHelpType arg1,
 --                                             gpointer          user_data)      : Run last / Action
--- "size-allocate"
---             void        user_function      (GtkWidget     *widget,
---                                             GtkAllocation *allocation,
---                                             gpointer       user_data)       : Run first
--- "size-request"
---             void        user_function      (GtkWidget      *widget,
---                                             GtkRequisition *requisition,
---                                             gpointer        user_data)        : Run first
+
+feature -- size-allocate signal
+
+	size_allocate_signal_name: STRING is "size-allocate"
+		-- "size-allocate"
+		--             void        user_function      (GtkWidget     *widget,
+		--                                             GtkAllocation *allocation,
+		--                                             gpointer       user_data)       : Run first
+
+	enable_on_size_allocate is
+			-- Connects "size-allocate" signal to `on_size_allocate' feature.
+		do
+			connect (Current, size_allocate_signal_name, $on_size_allocate)
+		end
+
+	on_size_allocate: INTEGER is
+			-- Built-in size-allocate signal handler; empty by design; redefine it.
+
+			-- The `size-allocate' signal is emitted if a user requests that a
+			-- toplevel window is closed. The default handler for this signal
+			-- destroys the window.
+			-- finish with "Result := 1" to stop other handlers.
+		do
+		end
+
+	connect_agent_to_size_allocate_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_ALLOCATION, GTK_WIDGET]]) is
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			size_allocate_callback: SIZE_ALLOCATE_CALLBACK
+		do
+			create size_allocate_callback.make
+			size_allocate_callback.connect (Current, a_procedure)
+		end
+
+feature -- size-request signal
+
+	size_request_signal_name: STRING is "size-request"
+		-- "size-request"
+		--             void        user_function      (GtkWidget      *widget,
+		--                                             GtkRequisition *requisition,
+		--                                             gpointer        user_data)        : Run first
+
+	enable_on_size_request is
+			-- Connects "size-request" signal to `on_size_request' feature.
+		do
+			connect (Current, size_request_signal_name, $on_size_request)
+		end
+
+	on_size_request: INTEGER is
+			-- Built-in size-request signal handler; empty by design; redefine it.
+
+			-- The `size-request' signal is emitted if a user requests that a
+			-- toplevel window is closed. The default handler for this signal
+			-- destroys the window.
+			-- finish with "Result := 1" to stop other handlers.
+		do
+		end
+
+	connect_agent_to_size_request_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_REQUISITION, GTK_WIDGET]]) is
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			size_request_callback: SIZE_REQUEST_CALLBACK
+		do
+			create size_request_callback.make
+			size_request_callback.connect (Current, a_procedure)
+		end
+
 -- "state-changed"
 --             void        user_function      (GtkWidget   *widget,
 --                                             GtkStateType state,
@@ -1458,6 +1518,7 @@ feature -- button-press-event signal
 			Result := gtk_widget_toplevel (handle).to_boolean
 		end
 			
+
 -- wid : 	a GtkWidget.
 -- GTK_WIDGET_NO_WINDOW()
 
@@ -1984,7 +2045,8 @@ feature -- button-press-event signal
 -- This function is for use in widget implementations. Sets the state of a widget (insensitive, prelighted, etc.) Usually you should set the state using wrapper functions such as gtk_widget_set_sensitive().
 
 -- widget : 	a GtkWidget
-	-- state : 	new state for widget
+-- state : 	new state for widget
+
 feature -- Sensitivity
 
 	set_sensitive (sens: BOOLEAN) is
@@ -2014,7 +2076,7 @@ feature -- Sensitivity
 -- 		end
 
 feature
-	
+
 -- gtk_widget_set_parent ()
 
 -- void        gtk_widget_set_parent           (GtkWidget *widget,

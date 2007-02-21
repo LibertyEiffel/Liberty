@@ -35,7 +35,7 @@ feature
 
 feature
 	callback (drag_context: POINTER; x,y: INTEGER; selection_data: POINTER;
-				 info, time: INTEGER; instance: POINTER) is
+	          info, time: INTEGER; instance: POINTER) is
 		require
 			info >= 0
 			time >= 0
