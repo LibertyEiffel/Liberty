@@ -38,12 +38,13 @@ feature -- Queries
 feature -- Copying
 
 	copy (other: like Current) is
-		local old_handle, new_handle: POINTER
 		do
-			--old_handle := handle
-			allocate
-			--new_handle := memcpy (handle, old_handle, struct_size)
-			new_handle := memcpy (handle, other.handle, struct_size)
+			if other.handle.is_not_null then
+				allocate
+				handle := memcpy (handle, other.handle, struct_size)
+			else
+				-- both objects have a NULL handle
+			end
 		end
 
 	is_equal (another: like Current): BOOLEAN is
