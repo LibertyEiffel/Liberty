@@ -96,4 +96,12 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
+	gtk_icon_view_get_item_width (handle: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_icon_view_set_item_width (handle: POINTER; a_width: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
 end
