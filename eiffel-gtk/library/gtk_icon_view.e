@@ -115,7 +115,7 @@ feature -- Operations
 			gtk_icon_view_set_model (handle, default_pointer)
 			ensure unset: model = Void
 		end
-			
+
 	set_text_column (a_column: INTEGER) is
 			-- Sets the column with text for icon_view to be `a_column'.
 		require
@@ -164,9 +164,27 @@ feature -- Operations
 -- void        gtk_icon_view_set_columns       (GtkIconView *icon_view,
 --                                              gint columns);
 -- gint        gtk_icon_view_get_columns       (GtkIconView *icon_view);
+
+-- Since 2.6
+-- gtk_icon_view_set_item_width ()
+
 -- void        gtk_icon_view_set_item_width    (GtkIconView *icon_view,
 --                                              gint item_width);
--- gint        gtk_icon_view_get_item_width    (GtkIconView *icon_view);
+
+	item_width: INTEGER is
+			-- Returns the value of the ::item-width property.
+		do
+			Result := gtk_icon_view_get_item_width (handle)
+		end
+
+	set_item_width (a_width: INTEGER) is
+			-- Sets the ::item-width property which specifies the width
+			-- to use for each item. If it is set to -1, the icon view will
+			-- automatically determine a suitable item size.
+		do
+			gtk_icon_view_set_item_width (handle, a_width)
+		end
+
 -- void        gtk_icon_view_set_spacing       (GtkIconView *icon_view,
 --                                              gint spacing);
 -- gint        gtk_icon_view_get_spacing       (GtkIconView *icon_view);
@@ -474,27 +492,6 @@ feature -- Operations
 
 -- icon_view : 	a GtkIconView
 -- Returns : 	the number of columns, or -1
-
--- Since 2.6
--- gtk_icon_view_set_item_width ()
-
--- void        gtk_icon_view_set_item_width    (GtkIconView *icon_view,
---                                              gint item_width);
-
--- Sets the ::item-width property which specifies the width to use for each item. If it is set to -1, the icon view will automatically determine a suitable item size.
-
--- icon_view : 	a GtkIconView
--- item_width : 	the width for each item
-
--- Since 2.6
--- gtk_icon_view_get_item_width ()
-
--- gint        gtk_icon_view_get_item_width    (GtkIconView *icon_view);
-
--- Returns the value of the ::item-width property.
-
--- icon_view : 	a GtkIconView
--- Returns : 	the width of a single item, or -1
 
 -- Since 2.6
 -- gtk_icon_view_set_spacing ()
