@@ -39,6 +39,7 @@ feature -- Copying
 
 	copy (other: like Current) is
 		do
+			dispose
 			if other.handle.is_not_null then
 				allocate
 				handle := memcpy (handle, other.handle, struct_size)
