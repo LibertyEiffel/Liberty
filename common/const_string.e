@@ -71,6 +71,8 @@ inherit
 			from_external
 		end
 
+	DISPOSABLE
+	
 creation from_external
 
 feature 
@@ -465,6 +467,17 @@ feature {ANY} -- from STRING
 
 feature {} -- Implementation
 	original_c_string: POINTER 
-			-- The address that contains the original C string
+			-- The address that contains the original C string 
 
+	dispose is
+		do
+			if is_unchanged then
+				-- an hack to force the Garbage Collector to leave the
+				-- storage as it is and not free it, since it hasn't been 
+				-- allocated by Eiffel and must NOT be freed.
+
+				-- change it to a null array
+				create storage -- {NATIVE_ARRAY[CHARACTER]}
+			end
+		end
 end -- class CONST_STRING

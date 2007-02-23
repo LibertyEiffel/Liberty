@@ -28,7 +28,7 @@ fi
 for FULL_PATH_CLASS in $(find $GTK_DOC -iname "*.html")
 do
     CLASS=$(basename $FULL_PATH_CLASS)
-    CONVERTED=$(echo $CLASS | sed 's/\(\B[A-Z][a-z]\)/_\1/g' | tr A-Z a-z)
+    CONVERTED=$(echo $CLASS | sed 's/\(\B[A-Z]+[a-z]*\)/_\1/g' | tr A-Z a-z)
     CONVERTED=${CONVERTED%.html}.e
     STUB=${CONVERTED%.e}.stub.e
     if [ ! -f $CONVERTED ]; then 

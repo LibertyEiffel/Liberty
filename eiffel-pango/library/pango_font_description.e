@@ -1,7 +1,7 @@
 indexing
-	description: "."
+	description: "Structures representing abstract fonts."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli,  team
+					Copyright (C) 2006 Paolo Redaelli, Pango team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -20,6 +20,10 @@ indexing
 			]"
 
 class PANGO_FONT_DESCRIPTION
+	-- The PangoFontDescription structure represents the description of
+	-- an ideal font. These structures are used both to list what fonts
+	-- are available on the system and also for specifying the
+	-- characteristics of a font to load.
 
 inherit SHARED_C_STRUCT
 
@@ -29,29 +33,11 @@ creation from_external_pointer
 
 feature {} -- Creation
 
-feature -- size
-
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(Foo)"
-		end
-
--- Prev 	Up 	Home 	Pango Reference Manual 	Next
--- Top  |  Description  |  Object Hierarchy
--- Fonts
-
--- Fonts — Structures representing abstract fonts
-	
--- Synopsis
-
-
-
---             PangoFontDescription;
--- #define     PANGO_TYPE_FONT_DESCRIPTION
--- enum        PangoStyle;
--- #define     PANGO_TYPE_STYLE
--- enum        PangoWeight;
--- #define     PANGO_TYPE_WEIGHT
+	-- #define     PANGO_TYPE_FONT_DESCRIPTION
+	-- enum        PangoStyle;
+	-- #define     PANGO_TYPE_STYLE
+	-- enum        PangoWeight;
+	-- #define     PANGO_TYPE_WEIGHT
 -- enum        PangoVariant;
 -- #define     PANGO_TYPE_VARIANT
 -- enum        PangoStretch;
@@ -129,143 +115,8 @@ feature -- size
 -- char*       pango_font_description_to_filename
 --                                             (const PangoFontDescription *desc);
 
---             PangoFontMetrics;
--- #define     PANGO_TYPE_FONT_METRICS
--- PangoFontMetrics* pango_font_metrics_ref    (PangoFontMetrics *metrics);
--- void        pango_font_metrics_unref        (PangoFontMetrics *metrics);
--- int         pango_font_metrics_get_ascent   (PangoFontMetrics *metrics);
--- int         pango_font_metrics_get_descent  (PangoFontMetrics *metrics);
--- int         pango_font_metrics_get_approximate_char_width
---                                             (PangoFontMetrics *metrics);
--- int         pango_font_metrics_get_approximate_digit_width
---                                             (PangoFontMetrics *metrics);
--- int         pango_font_metrics_get_underline_thickness
---                                             (PangoFontMetrics *metrics);
--- int         pango_font_metrics_get_underline_position
---                                             (PangoFontMetrics *metrics);
--- int         pango_font_metrics_get_strikethrough_thickness
---                                             (PangoFontMetrics *metrics);
--- int         pango_font_metrics_get_strikethrough_position
---                                             (PangoFontMetrics *metrics);
 
---             PangoFont;
--- #define     PANGO_TYPE_FONT
--- #define     PANGO_FONT                      (object)
--- #define     PANGO_IS_FONT                   (object)
--- PangoEngineShape* pango_font_find_shaper    (PangoFont *font,
---                                              PangoLanguage *language,
---                                              guint32 ch);
--- PangoFontDescription* pango_font_describe   (PangoFont *font);
--- PangoCoverage* pango_font_get_coverage      (PangoFont *font,
---                                              PangoLanguage *language);
--- void        pango_font_get_glyph_extents    (PangoFont *font,
---                                              PangoGlyph glyph,
---                                              PangoRectangle *ink_rect,
---                                              PangoRectangle *logical_rect);
--- PangoFontMetrics* pango_font_get_metrics    (PangoFont *font,
---                                              PangoLanguage *language);
--- PangoFontMap* pango_font_get_font_map       (PangoFont *font);
-
---             PangoFontFamily;
--- #define     PANGO_TYPE_FONT_FAMILY
--- #define     PANGO_FONT_FAMILY               (object)
--- #define     PANGO_IS_FONT_FAMILY            (object)
--- const char* pango_font_family_get_name      (PangoFontFamily *family);
--- gboolean    pango_font_family_is_monospace  (PangoFontFamily *family);
--- void        pango_font_family_list_faces    (PangoFontFamily *family,
---                                              PangoFontFace ***faces,
---                                              int *n_faces);
-
---             PangoFontFace;
--- #define     PANGO_TYPE_FONT_FACE
--- #define     PANGO_FONT_FACE                 (object)
--- #define     PANGO_IS_FONT_FACE              (object)
--- const char* pango_font_face_get_face_name   (PangoFontFace *face);
--- void        pango_font_face_list_sizes      (PangoFontFace *face,
---                                              int **sizes,
---                                              int *n_sizes);
--- PangoFontDescription* pango_font_face_describe
---                                             (PangoFontFace *face);
-
---             PangoFontMap;
--- #define     PANGO_TYPE_FONT_MAP
--- #define     PANGO_FONT_MAP                  (object)
--- #define     PANGO_IS_FONT_MAP               (object)
---             PangoFontMapClass;
--- #define     PANGO_FONT_MAP_CLASS            (klass)
--- #define     PANGO_IS_FONT_MAP_CLASS         (klass)
--- #define     PANGO_FONT_MAP_GET_CLASS        (obj)
--- PangoFont*  pango_font_map_load_font        (PangoFontMap *fontmap,
---                                              PangoContext *context,
---                                              const PangoFontDescription *desc);
--- PangoFontset* pango_font_map_load_fontset   (PangoFontMap *fontmap,
---                                              PangoContext *context,
---                                              const PangoFontDescription *desc,
---                                              PangoLanguage *language);
--- void        pango_font_map_list_families    (PangoFontMap *fontmap,
---                                              PangoFontFamily ***families,
---                                              int *n_families);
--- const char* pango_font_map_get_shape_engine_type
---                                             (PangoFontMap *fontmap);
-
---             PangoFontset;
--- #define     PANGO_TYPE_FONTSET
---             PangoFontsetClass;
--- PangoFont*  pango_fontset_get_font          (PangoFontset *fontset,
---                                              guint wc);
--- PangoFontMetrics* pango_fontset_get_metrics (PangoFontset *fontset);
--- gboolean    (*PangoFontsetForeachFunc)      (PangoFontset *fontset,
---                                              PangoFont *font,
---                                              gpointer data);
--- void        pango_fontset_foreach           (PangoFontset *fontset,
---                                              PangoFontsetForeachFunc func,
---                                              gpointer data);
---             PangoFontsetSimple;
--- #define     PANGO_TYPE_FONTSET_SIMPLE
--- PangoFontsetSimple* pango_fontset_simple_new
---                                             (PangoLanguage *language);
--- void        pango_fontset_simple_append     (PangoFontsetSimple *fontset,
---                                              PangoFont *font);
--- int         pango_fontset_simple_size       (PangoFontsetSimple *fontset);
-
-
-
--- Object Hierarchy
-
---   GObject
---    +----PangoFont
---          +----PangoFcFont
-
---   GObject
---    +----PangoFontFamily
-
---   GObject
---    +----PangoFontFace
-
---   GObject
---    +----PangoFontMap
---          +----PangoFcFontMap
-
---   GObject
---    +----PangoFontset
---          +----PangoFontsetSimple
-
---   GObject
---    +----PangoFontset
---          +----PangoFontsetSimple
-
--- Known Derived Interfaces
-
--- PangoFontMap is required by PangoCairoFontMap.
--- Description
-
--- Pango supports a flexible architecture where a particular rendering architecture can supply an implementation of fonts. The PangoFont structure represents an abstract rendering-system-indepent font. Pango provides routines to list available fonts, and to load a font of a given description.
--- Details
--- PangoFontDescription
-
--- typedef struct _PangoFontDescription PangoFontDescription;
-
--- The PangoFontDescription structure represents the description of an ideal font. These structures are used both to list what fonts are available on the system and also for specifying the characteristics of a font to load.
+	
 -- PANGO_TYPE_FONT_DESCRIPTION
 
 -- #define PANGO_TYPE_FONT_DESCRIPTION (pango_font_description_get_type ())
@@ -1143,5 +994,11 @@ feature -- size
 
 -- fontset : 	a PangoFontsetSimple.
 -- Returns : 	the size of fontset.
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <pango.h>"
+		alias "sizeof(PangoFontDescription)"
+		end
+
 end -- PANGO_FONT_DESCRIPTION
 												
