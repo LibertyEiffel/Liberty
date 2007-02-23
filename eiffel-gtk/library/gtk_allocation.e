@@ -35,7 +35,18 @@ class GTK_ALLOCATION
 inherit
 	C_STRUCT redefine is_equal end
 
-creation from_external_pointer, copy
+creation copy, copy_from_pointer
+
+feature {} -- Creation
+
+	copy_from_pointer (a_ptr: POINTER) is
+		require
+			a_ptr.is_not_null
+		do
+			dispose
+			allocate
+			handle := memcpy (handle, a_ptr, struct_size)
+		end
 
 feature
 

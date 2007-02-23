@@ -43,7 +43,7 @@ feature
 			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			
-			create allocation_obj.copy (create {GTK_ALLOCATION}.from_external_pointer (allocation))
+			create allocation_obj.copy_from_pointer (allocation)
 			
 			procedure.call ([allocation_obj, object])
 		end
