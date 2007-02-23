@@ -1,5 +1,5 @@
 indexing
-	description: "Binary heaps: efficient data structure for priority heaps.."
+	description: "Binary heaps: efficient data structure for priority heaps."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team
 					
@@ -118,7 +118,8 @@ feature
 
 	count: INTEGER is
 			-- the number of items in heap.
-		obsolete "Should be NATURAL, since it is a guint"
+
+			-- TODO: Should be NATURAL, since it is a guint
 		do
 			Result:=gts_heap_size(handle)
 		ensure non_negative: Result >= 0

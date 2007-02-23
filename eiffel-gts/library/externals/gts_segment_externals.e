@@ -73,4 +73,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
+	gts_segment_triangle_intersection(a_segment, a_triangle: POINTER; boundary_bool: INTEGER; a_point_class: POINTER): POINTER is
+		external "C use <gts.h>"
+		end
 end

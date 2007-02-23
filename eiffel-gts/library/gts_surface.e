@@ -25,22 +25,24 @@ class GTS_SURFACE
 	-- orientable.
 	
 	-- When destroying a GtsSurface, all the faces not used by another surface
-	-- are also destroyed. This default behaviour can be changed punctually by
+	-- are also destroyed.
+
+	-- TODO: translate this note - relevant for C - into something that fits
+	-- Eiffel better: "This default behaviour can be changed punctually by
 	-- setting the global variable gts_allow_floating_faces to TRUE. You must not
 	-- forget to set this variable back to FALSE as all the algorithms of GTS
-	-- assume the default behaviour.
+	-- assume the default behaviour."
 
 	-- TODO: make it a generic class GTS_SURFACE [FACE->GTS_FACE, EDGE->GTS_EDGE,
 	-- VERTEX->GTS_VERTEX]
 
-	-- TODO: make it a COLLECTION[FACE]
-	
 inherit
 	C_STRUCT
 		redefine
 			copy 
 		end
-
+	STREAM_HANDLER
+	
 insert
 	GTS_SURFACE_EXTERNALS
 	GTS_FACE_EXTERNALS
@@ -88,56 +90,50 @@ feature
 		end
 
 feature -- Input output
-	--	read (a_file: GTS_FILE) is
+	read (a_file: GTS_FILE) is
+			-- Add to surface the data read from `a_file'. The format of the file
+			-- pointed to by `a_file' is as described in `write'.
+		local got_errors: INTEGER
+		do
+			got_errors:=gts_surface_read(handle, a_file.handle)
+			-- got_errors is 0 if successful or the line number at which the
+			-- parsing stopped in case of error (in which case the error field of f
+			-- is set to a description of the error which occured).
+		end
 
-	--  guint       gts_surface_read                (GtsSurface *surface,
-	--                                               GtsFile *f);
+	print_stats_on (a_file: OUTPUT_STREAM) is
+			-- Writes the statistics for surface to `a_file'
+		require file_not_void: a_file /= Void
+		do
+			gts_surface_print_stats(handle, a_file.stream_pointer)
+		end
 
-	--    Add to surface the data read from f. The format of the file pointed to by f is as described in
-	--    gts_surface_write().
+	write (a_file: OUTPUT_STREAM) is
+			-- Writes in `a_file' an ASCII representation of surface. The file
+			-- format is as follows.
+		
+			-- All the lines beginning with GTS_COMMENTS are ignored. The first
+			-- line contains three unsigned integers separated by spaces. The first
+			-- integer is the number of vertices, nv, the second is the number of
+			-- edges, ne and the third is the number of faces, nf.
 
-	--     surface :  a GtsSurface.
-	--     f :        a GtsFile.
-	--     Returns :  0 if successful or the line number at which the parsing stopped in case of error (in which
-	--                case the error field of f is set to a description of the error which occured).
+			-- Follows nv lines containing the x, y and z coordinates of the
+			-- vertices. Follows ne lines containing the two indices (starting from
+			-- one) of the vertices of each edge. Follows nf lines containing the
+			-- three ordered indices (also starting from one) of the edges of each
+			-- face.
 
-	--   gts_surface_print_stats ()
-
-	--  void        gts_surface_print_stats         (GtsSurface *s,
-	--                                               FILE *fptr);
-
-	--    Writes in the file pointed to by fptr the statistics for surface s.
-
-	--     s :     a GtsSurface.
-	--     fptr :  a file pointer.
-
-	--    -----------------------------------------------------------------------------------------------------------
-
-	--   gts_surface_write ()
-
-	--  void        gts_surface_write               (GtsSurface *s,
-	--                                               FILE *fptr);
-
-	--    Writes in the file fptr an ASCII representation of s. The file format is as follows.
-
-	--    All the lines beginning with GTS_COMMENTS are ignored. The first line contains three unsigned integers
-	--    separated by spaces. The first integer is the number of vertices, nv, the second is the number of edges, ne
-	--    and the third is the number of faces, nf.
-
-	--    Follows nv lines containing the x, y and z coordinates of the vertices. Follows ne lines containing the two
-	--    indices (starting from one) of the vertices of each edge. Follows nf lines containing the three ordered
-	--    indices (also starting from one) of the edges of each face.
-
-	--    The format described above is the least common denominator to all GTS files. Consistent with an
-	--    object-oriented approach, the GTS file format is extensible. Each of the lines of the file can be extended
-	--    with user-specific attributes accessible through the read() and write() virtual methods of each of the
-	--    objects written (surface, vertices, edges or faces). When read with different object classes, these extra
-	--    attributes are just ignored.
-
-	--     s :     a GtsSurface.
-	--     fptr :  a file pointer.
-
-	--    -----------------------------------------------------------------------------------------------------------
+			-- The format described above is the least common denominator to all
+			-- GTS files. Consistent with an object-oriented approach, the GTS file
+			-- format is extensible. Each of the lines of the file can be extended
+			-- with user-specific attributes accessible through the read() and
+			-- write() virtual methods of each of the objects written (surface,
+			-- vertices, edges or faces). When read with different object classes,
+			-- these extra attributes are just ignored.
+		require file_not_void: a_file /= Void
+		do
+			gts_surface_write(handle, a_file.stream_pointer)
+		end
 
 	--   gts_surface_write_oogl ()
 
@@ -148,8 +144,6 @@ feature -- Input output
 
 	--     s :     a GtsSurface.
 	--     fptr :  a file pointer.
-
-	--    -----------------------------------------------------------------------------------------------------------
 
 	--   gts_surface_write_oogl_boundary ()
 
@@ -299,6 +293,7 @@ feature
 	foreach_edge (a_function: PREDICATE[TUPLE[GTS_EDGE]]) is
 			-- Calls `a_function' once for each edge of surface. When `a_function'
 			-- returns False the calling sequence continues, otherwise it stops.
+		local callback: GTS_FUNCTION
 		do
 			create callback.make(a_function)
 			gts_surface_foreach_edge (handle,

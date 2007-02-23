@@ -25,8 +25,10 @@ class GTS_MATRIX
 	-- optimization problems.
 	
 inherit
+	ANY redefine print_on end
 	C_STRUCT
 	DISPOSABLE
+	STREAM_HANDLER
 	
 creation
 	make, from_external_pointer,
@@ -139,14 +141,11 @@ feature
 
 -- 	-----------------------------------------------------------------------------------------------------------
 
---   gts_matrix_transpose ()
-
---  GtsMatrix*  gts_matrix_transpose            (GtsMatrix *m);
-
--- 	m :        a GtsMatrix.
--- 	Returns :  a pointer to a newly created GtsMatrix transposed of m.
-
--- 	-----------------------------------------------------------------------------------------------------------
+	transpose: GTS_MATRIX is
+			-- the transposed of Current.
+		do
+			create Result.from_external_pointer(gts_matrix_transpose(handle))
+		end
 
 	determinant: REAL is
 			-- the determinant of Current matrix.
@@ -154,21 +153,24 @@ feature
 			Result := gts_matrix_determinant(handle)
 		end
 
---   gts_matrix_inverse ()
 
---  GtsMatrix*  gts_matrix_inverse              (GtsMatrix *m);
+	inverse: GTS_MATRIX is
+			-- the inverse of Current. Void if Current is not invertible
+		local ptr: POINTER
+		do
+			ptr:=gts_matrix_inverse(handle)
+			if ptr.is_not_null then 
+				create Result.from_external_pointer(ptr)
+			end
+		end
 
--- 	m :        a GtsMatrix.
--- 	Returns :  a pointer to a newly created GtsMatrix inverse of m or NULL if m is not invertible.
+	--   gts_matrix3_inverse ()
 
--- 	-----------------------------------------------------------------------------------------------------------
+	--  GtsMatrix* gts_matrix3_inverse (GtsMatrix *m);
 
---   gts_matrix3_inverse ()
-
---  GtsMatrix*  gts_matrix3_inverse             (GtsMatrix *m);
-
--- 	m :        a 3x3 GtsMatrix.
--- 	Returns :  a pointer to a newly created 3x3 GtsMatrix inverse of m or NULL if m is not invertible.
+	-- 	m :        a 3x3 GtsMatrix.
+	-- 	Returns : a pointer to a newly created 3x3 GtsMatrix inverse of m or
+	-- 	NULL if m is not invertible.
 
 	infix "*" (another: GTS_MATRIX): GTS_MATRIX is
 			-- the product of Current and `another'.
@@ -177,62 +179,49 @@ feature
 			(gts_matrix_product(handle, another.handle))
 		end
 
--- 	-----------------------------------------------------------------------------------------------------------
+	--   gts_matrix_compatible_row ()
+	
+	--  guint gts_matrix_compatible_row (GtsMatrix *A, -- GtsVector b, -- guint
+	--  n, -- GtsVector A1, -- gdouble b1);
+	
+	-- Given a system of n constraints A.x=b adds to it the compatible
+	-- constraints defined by A1.x=b1. The compatibility is determined by
+	-- insuring that the resulting system is well-conditioned (see Lindstrom and
+	-- Turk (1998, 1999)).
 
---   gts_matrix_compatible_row ()
+	-- 	A :        a GtsMatrix.
+	-- 	b :        a GtsVector.
+	-- 	n :        the number of previous constraints of A.x=b.
+	-- 	A1 :       a GtsMatrix.
+	-- 	b1 :       a GtsVector.
+	-- 	Returns :  the number of constraints of the resulting system.
+	
+	--   gts_matrix_quadratic_optimization ()
+	
+	-- guint gts_matrix_quadratic_optimization (GtsMatrix *A, GtsVector b, guint
+	-- n, GtsMatrix *H, GtsVector c);
 
---  guint       gts_matrix_compatible_row       (GtsMatrix *A,
--- 															 GtsVector b,
--- 															 guint n,
--- 															 GtsVector A1,
--- 															 gdouble b1);
+	-- Solve a quadratic optimization problem: Given a quadratic objective
+	-- function f which can be written as: f(x) = x^t.H.x + c^t.x + k, where H is
+	-- the symmetric positive definite Hessian of f and k is a constant, find the
+	-- minimum of f subject to the set of n prior linear constraints, defined by
+	-- the first n rows of A and b (A.x = b). The new constraints given by the
+	-- minimization are added to A and b only if they are linearly independent as
+	-- determined by gts_matrix_compatible_row().
 
--- 	Given a system of n constraints A.x=b adds to it the compatible constraints defined by A1.x=b1. The
--- 	compatibility is determined by insuring that the resulting system is well-conditioned (see Lindstrom and
--- 	Turk (1998, 1999)).
+	-- 	A :        a GtsMatrix.
+	-- 	b :        a GtsVector.
+	-- 	n :        the number of constraints (must be smaller than 3).
+	-- 	H :        a symmetric positive definite Hessian.
+	-- 	c :        a GtsVector.
+	-- 	Returns :  the new number of constraints defined by A and b.
 
--- 	A :        a GtsMatrix.
--- 	b :        a GtsVector.
--- 	n :        the number of previous constraints of A.x=b.
--- 	A1 :       a GtsMatrix.
--- 	b1 :       a GtsVector.
--- 	Returns :  the number of constraints of the resulting system.
-
--- 	-----------------------------------------------------------------------------------------------------------
-
---   gts_matrix_quadratic_optimization ()
-
---  guint       gts_matrix_quadratic_optimization
--- 															(GtsMatrix *A,
--- 															 GtsVector b,
--- 															 guint n,
--- 															 GtsMatrix *H,
--- 															 GtsVector c);
-
--- 	Solve a quadratic optimization problem: Given a quadratic objective function f which can be written as:
--- 	f(x) = x^t.H.x + c^t.x + k, where H is the symmetric positive definite Hessian of f and k is a constant,
--- 	find the minimum of f subject to the set of n prior linear constraints, defined by the first n rows of A
--- 	and b (A.x = b). The new constraints given by the minimization are added to A and b only if they are
--- 	linearly independent as determined by gts_matrix_compatible_row().
-
--- 	A :        a GtsMatrix.
--- 	b :        a GtsVector.
--- 	n :        the number of constraints (must be smaller than 3).
--- 	H :        a symmetric positive definite Hessian.
--- 	c :        a GtsVector.
--- 	Returns :  the new number of constraints defined by A and b.
-
--- 	-----------------------------------------------------------------------------------------------------------
-
---   gts_matrix_print ()
-
---  void        gts_matrix_print                (GtsMatrix *m,
--- 															 FILE *fptr);
-
--- 	Print m to file fptr.
-
--- 	m :     a GtsMatrix.
--- 	fptr :  a file descriptor.
+feature
+   print_on (a_file: OUTPUT_STREAM) is
+			-- Print Current to `a_file'.
+		do
+			gts_matrix_print(handle, file.stream_pointer)
+		end
 
 feature {} -- Disposing
 	dispose is

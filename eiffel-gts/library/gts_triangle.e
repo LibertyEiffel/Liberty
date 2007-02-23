@@ -184,30 +184,6 @@ feature
 			create Result.from_external_pointer (gts_triangle_neighbors (handle))
 		end
 
---   gts_segment_triangle_intersection ()
-
---  GtsPoint*   gts_segment_triangle_intersection
---                                              (GtsSegment *s,
---                                               GtsTriangle *t,
---                                               gboolean boundary,
---                                               GtsPointClass *klass);
-
---    Checks if s intersects t. If this is the case, creates a new point pi intersection of s with t.
-
---    This function is geometrically robust in the sense that it will not return a point if s and t do not
---    intersect and will return a point if s and t do intersect. However, the point coordinates are subject to
---    round-off errors.
-
---    Note that this function will not return any point if s is contained in the plane defined by t.
-
---     s :         a GtsSegment.
---     t :         a GtsTriangle.
---     boundary :  if TRUE, the boundary of t is taken into account.
---     klass :     a GtsPointClass to be used for the new point.
---     Returns :   a summit of t (if boundary is set to TRUE), one of the endpoints of s or a new GtsPoint,
---                 intersection of s with t or NULL if s and t don't intersect.
-
-
 feature {} -- Implementation
 	stored_vertices: TUPLE [GTS_VERTEX, GTS_VERTEX, GTS_VERTEX]
 	stored_edges: TUPLE [GTS_EDGE, GTS_EDGE, GTS_EDGE]
