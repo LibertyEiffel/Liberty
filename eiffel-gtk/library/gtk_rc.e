@@ -33,4 +33,35 @@ feature -- Operations
 			gtk_rc_parse (a_filename.to_external)
 		end
 
+	default_files: ARRAY [STRING] is
+		local
+			native_array: NATIVE_ARRAY [POINTER]
+			i: INTEGER
+		do
+			create native_array.default_create
+			native_array := native_array.from_pointer (gtk_rc_get_default_files)
+			create Result.make (1,0)
+			from i := 0 until native_array.item (i).is_null loop
+				Result.add_last (create {STRING}.from_external_copy (native_array.item (i)))
+				i := i + 1
+			end
+		end
+
+	set_default_files (some_default_files: ARRAY [STRING]) is
+		require
+			some_default_files /= Void
+		local
+			pointers: ARRAY [POINTER]
+			iter: ITERATOR [STRING]
+		do
+			create pointers.make (1,0)
+			from iter := some_default_files.get_new_iterator
+			until iter.is_off
+			loop
+				pointers.add_last (iter.item.to_external)
+			end
+			pointers.add_last (default_pointer)
+			gtk_rc_set_default_files (pointers.to_external)
+		end
+
 end -- class GTK_RC

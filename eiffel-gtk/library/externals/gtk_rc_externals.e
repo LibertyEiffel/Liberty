@@ -45,4 +45,16 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
+	gtk_rc_get_default_files: POINTER is
+		external "C use <gtk/gtk.h>"
+		ensure
+			Result.is_not_null
+		end
+
+	gtk_rc_set_default_files (some_deafult_files: POINTER) is
+		require
+			some_deafult_files.is_not_null
+		external "C use <gtk/gtk.h>"
+		end
+
 end -- class GTK_RC_EXTERNALS
