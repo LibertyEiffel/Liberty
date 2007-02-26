@@ -71,7 +71,11 @@ inherit
 			from_external
 		end
 
-	DISPOSABLE
+	-- DISPOSABLE
+	-- rename is_equal as disposable_is_equal
+	-- 		export {} disposable_is_equal
+	-- 		undefine fill_tagged_out_memory, copy, out_in_tagged_out_memory
+	-- 		end 
 	
 creation from_external
 
