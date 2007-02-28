@@ -79,7 +79,7 @@ feature {} -- Creation
 			-- a stock item. TODO: implement GTK_STOCK_ITEMS wrapping
 			-- preprocessor macros like GTK_STOCK_OK and GTK_STOCK_APPLY
 			-- (stock ids).
-
+			
 			-- If stock_id is unknown, then it will be treated as a
 			-- mnemonic label (as for make_with_mnemonic()).
 		require stock_not_void: a_stock/=Void
@@ -177,6 +177,7 @@ feature -- Button's relief
 		end
 
 feature -- Label
+
 	label: STRING is
 			-- the text from the label of the button, as set by
 			-- `set_label'. If the label text has not been set the return
@@ -261,7 +262,6 @@ feature -- Label
 		ensure not is_focused_on_click
 		end
 
-
 	is_focused_on_click: BOOLEAN is
 			-- Does the button grabs focus when it is clicked with the mouse? See unset_focus_on_click.
 		do
@@ -280,7 +280,7 @@ feature -- Label
 		do
 			gtk_button_set_alignment (handle, an_x_alignment,an_y_alignment)
 		end
-	
+
 	alignments: TUPLE[REAL,REAL] is
 			-- The x and y alignments.
 		local x_al,y_al: REAL
@@ -292,26 +292,56 @@ feature -- Label
 			valid_y: Result.item_2.in_range (0.0,1.0)
 		end
 
-	
-	-- TODO: void gtk_button_set_image (GtkButton *button, -- GtkWidget
-	-- *image);
+	set_image (a_widget: GTK_WIDGET) is
+			-- Set the image of button to the given widget. Note that it
+			-- depends on the gtk-button-images setting whether the image
+			-- will be displayed or not, you don't have to call
+			-- `show' on image yourself.
+		require
+			a_widget /= Void
+		do
+			gtk_button_set_image (handle, a_widget.handle)
+		end
 
-	-- Set the image of button to the given widget. Note that it depends on the gtk-button-images setting whether the image will be displayed or not, you don't have to call gtk_widget_show() on image yourself.
+	image: GTK_WIDGET is
+			-- Gets the widget that is currently set as the image of
+			-- button. This may have been explicitly set by
+			-- gtk_button_set_image() or constructed by
+			-- gtk_button_new_from_stock().
+		local
+			retriever: G_RETRIEVER [GTK_WIDGET]
+			ptr: POINTER
+		do
+			ptr := gtk_button_get_image (handle)
+			if ptr.is_not_null then
+				if retriever.has_eiffel_wrapper_stored (ptr) then
+					Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
+				else
+					-- FIXME: line below has to be improved
+					create {GTK_IMAGE}Result.from_external_pointer (ptr)
+				end
+			end
+		end
 
-	-- button : 	a GtkButton
-	-- image : 	a widget to set as the image for the button
+-- Since 2.10
 
-	--TODO: gtk_button_get_image ()
-
-	-- GtkWidget* gtk_button_get_image (GtkButton *button);
-
-	-- Gets the widget that is currenty set as the image of
-	-- button. This may have been explicitly set by
-	-- gtk_button_set_image() or constructed by
-	-- gtk_button_new_from_stock().
-
-	-- button : 	a GtkButton
-	-- Returns : 	a GtkWidget or NULL in case there is no image
+--	set_image_position (a_position: INTEGER) is
+--			-- Sets the position of the image relative
+--			-- to the text inside the button.
+--		require
+--			is_valid_position_type (a_position)
+--		do
+--			gtk_button_set_image_position (handle, a_position)
+--		end
+--
+--	image_position: INTEGER is
+--			-- Gets the position of the image relative
+--			-- to the text inside the button.
+--		do
+--			Result := gtk_button_get_image_position (handle)
+--		ensure
+--			is_valid_position_type (Result)
+--		end
 
 feature -- Properties
 --   "focus-on-click"       gboolean              : Read / Write
@@ -323,7 +353,7 @@ feature -- Properties
 --   "xalign"               gfloat                : Read / Write
 --   "yalign"               gfloat                : Read / Write
 
-	-- Property Details
+-- Property Details
 -- The "focus-on-click" property
 
 --   "focus-on-click"       gboolean              : Read / Write

@@ -22,8 +22,10 @@ deferred class GTK_BUTTON_EXTERNALS
 
 inherit
 	ANY undefine is_equal, copy end
-	
+
+insert
 	GTK_RELIEF_STYLE
+	GTK_POSITION_TYPE
 
 feature {} -- External calls
 
@@ -121,6 +123,19 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
+-- Since 2.10
+
+--	gtk_button_set_image_position (handle: POINTER; a_position: INTEGER) is
+--		require
+--			is_valid_position_type (a_position)
+--		external "C use <gtk/gtk.h>"
+--		end
+--
+--	gtk_button_get_image_position (handle: POINTER): INTEGER is
+--		external "C use <gtk/gtk.h>"
+--		ensure
+--			is_valid_position_type (Result)
+--		end
 
 -- Signals
 
