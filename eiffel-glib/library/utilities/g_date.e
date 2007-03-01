@@ -66,7 +66,12 @@ indexing
 
 class G_DATE
 inherit
-	SHARED_C_STRUCT redefine dispose end
+	COMPARABLE_SHARED_C_STRUCT
+		redefine
+			dispose,
+			compare
+			-- TODO: is_equal and all the < > <= >=
+		end
 	
 creation make_dmy
 
@@ -85,7 +90,7 @@ feature {} -- Creation
 			handle := g_date_new
 		end
 
-	make_dmy (a_day, a_month, an_year: INTEGER) is
+	make_dmy (a_day, a_month: INTEGER_8; an_year: INTEGER_16) is
 			-- Create and initialize a new GDate; it sets the value of
 			-- the date. Assuming the day-month-year triplet you pass in
 			-- represents an existing day, the returned date will be
@@ -121,7 +126,7 @@ feature -- Disposing
 		end
 
 feature -- Setters 
-	set_day (a_day: INTEGER) is
+	set_day (a_day: INTEGER_8) is
 			-- Sets the day of the month for a GDate. If the resulting
 			-- day-month-year triplet is invalid, the date will be
 			-- invalid.
@@ -137,7 +142,7 @@ feature -- Setters
 			g_date_set_month (handle, a_month)
 		end
 
-	set_year (an_year: INTEGER) is
+	set_year (an_year: INTEGER_16) is
 			-- Sets the year for a GDate. If the resulting day-month-year
 			-- triplet is invalid, the date will be invalid.
 		do
@@ -150,7 +155,7 @@ feature -- Setters
 			-- it is, call `is_valid_dmy' to check before you set it.
 		
 		do
-			g_date_set_dmy (handle, a_day, a_month, an_year)
+			g_date_set_dmy (handle, a_day.to_integer_8, a_month, an_year.to_integer_16)
 		end
 
 	set_julian (a_julian_date: INTEGER_32) is
@@ -246,7 +251,7 @@ feature -- Getters
 			-- G_DATES.days_in_month
 		require valid: is_valid
 		do
-			Result := g_date_get_days_in_month (month, year)
+			Result := g_date_get_days_in_month (month, year.to_integer_16).to_integer_8
 		end
 
 	-- TODO: put this into G_DATES g_date_get_days_in_month ()
@@ -348,7 +353,7 @@ feature -- Date arithmetics
 			-- equal, less than zero if Current is less than another,
 			-- greater than zero if Current is greater than another.
 			-- Both dates must be valid.
-		require
+		require else
 			valid_date: is_valid
 			valid_another_date: another /= Void and then another.is_valid
 		do
@@ -481,39 +486,53 @@ feature -- Queries
 
 -- -------------------------------------------------------------------
 
--- g_date_strftime ()
+	to_string: STRING is
+		require is_valid
+		local written_characters: INTEGER 
+		do
+			create Result.make(10)
+			written_characters:=g_date_strftime (Result.to_external,
+															 Result.count,
+															 to_string_format.to_external,
+															 handle)
+			check
+				buffer_big_enought: written_characters/=0
+			end
+		end
+	
+	-- g_date_strftime ()
+	
+	-- gsize g_date_strftime (gchar *s,
+	-- gsize slen,
+	-- const gchar *format,
+	-- const GDate *date);
 
--- gsize g_date_strftime (gchar *s,
--- gsize slen,
--- const gchar *format,
--- const GDate *date);
+	-- Generates a printed representation of the date, in a locale-specific
+	-- way. Works just like the standard C strftime() function, but only
+	-- accepts date-related formats; time-related formats give undefined
+	-- results. Date must be valid.
 
--- Generates a printed representation of the date, in a locale-specific
--- way. Works just like the standard C strftime() function, but only
--- accepts date-related formats; time-related formats give undefined
--- results. Date must be valid.
+	-- s : destination buffer. 
+	-- slen : buffer size. 
+	-- format : format string. 
+	-- date : valid GDate. 
+	-- Returns : number of characters written to the buffer, or 0 the buffer 
+	-- was too small. 
 
--- s : destination buffer. 
--- slen : buffer size. 
--- format : format string. 
--- date : valid GDate. 
--- Returns : number of characters written to the buffer, or 0 the buffer 
--- was too small. 
+	-- -------------------------------------------------------------------
 
--- -------------------------------------------------------------------
+	-- g_date_to_struct_tm ()
 
--- g_date_to_struct_tm ()
+	-- void g_date_to_struct_tm (const GDate *date,
+	-- struct tm *tm);
 
--- void g_date_to_struct_tm (const GDate *date,
--- struct tm *tm);
+	-- Fills in the date-related bits of a struct tm using the date value.
+	-- Initializes the non-date parts with something sane but meaningless.
 
--- Fills in the date-related bits of a struct tm using the date value.
--- Initializes the non-date parts with something sane but meaningless.
+	-- date : a GDate to set the struct tm from. 
+	-- tm : struct tm to fill. 
 
--- date : a GDate to set the struct tm from. 
--- tm : struct tm to fill. 
-
--- -------------------------------------------------------------------
+	-- -------------------------------------------------------------------
 
 	is_valid: BOOLEAN is
 			-- Does the GDate represents an existing day?
@@ -528,82 +547,82 @@ feature -- Queries
 		end
 	
 
--- -------------------------------------------------------------------
+	-- -------------------------------------------------------------------
 
--- g_date_valid_day ()
+	-- g_date_valid_day ()
 
--- gboolean g_date_valid_day (GDateDay day);
+	-- gboolean g_date_valid_day (GDateDay day);
 
--- Returns TRUE if the day of the month is valid (a day is valid if it's
--- between 1 and 31 inclusive).
+	-- Returns TRUE if the day of the month is valid (a day is valid if it's
+	-- between 1 and 31 inclusive).
 
--- day : day to check. 
--- Returns : TRUE if the day is valid. 
+	-- day : day to check. 
+	-- Returns : TRUE if the day is valid. 
 
--- -------------------------------------------------------------------
+	-- -------------------------------------------------------------------
 
--- g_date_valid_month ()
+	-- g_date_valid_month ()
 
--- gboolean g_date_valid_month (GDateMonth month);
+	-- gboolean g_date_valid_month (GDateMonth month);
 
--- Returns TRUE if the month value is valid. The 12 GDateMonth enumeration
--- values are the only valid months.
+	-- Returns TRUE if the month value is valid. The 12 GDateMonth enumeration
+	-- values are the only valid months.
 
--- month : month. 
--- Returns : TRUE if the month is valid. 
+	-- month : month. 
+	-- Returns : TRUE if the month is valid. 
 
--- -------------------------------------------------------------------
+	-- -------------------------------------------------------------------
 
--- g_date_valid_year ()
+	-- g_date_valid_year ()
 
--- gboolean g_date_valid_year (GDateYear year);
+	-- gboolean g_date_valid_year (GDateYear year);
 
--- Returns TRUE if the year is valid. Any year greater than 0 is valid,
--- though there is a 16-bit limit to what GDate will understand.
+	-- Returns TRUE if the year is valid. Any year greater than 0 is valid,
+	-- though there is a 16-bit limit to what GDate will understand.
 
--- year : year. 
--- Returns : TRUE if the year is valid. 
+	-- year : year. 
+	-- Returns : TRUE if the year is valid. 
 
--- -------------------------------------------------------------------
+	-- -------------------------------------------------------------------
 
--- g_date_valid_dmy ()
+	-- g_date_valid_dmy ()
 
--- gboolean g_date_valid_dmy (GDateDay day,
--- GDateMonth month,
--- GDateYear year);
+	-- gboolean g_date_valid_dmy (GDateDay day,
+	-- GDateMonth month,
+	-- GDateYear year);
 
--- Returns TRUE if the day-month-year triplet forms a valid, existing day
--- in the range of days GDate understands (Year 1 or later, no more than a
--- few thousand years in the future).
+	-- Returns TRUE if the day-month-year triplet forms a valid, existing day
+	-- in the range of days GDate understands (Year 1 or later, no more than a
+	-- few thousand years in the future).
 
--- day : day. 
--- month : month. 
--- year : year. 
--- Returns : TRUE if the date is a valid one. 
+	-- day : day. 
+	-- month : month. 
+	-- year : year. 
+	-- Returns : TRUE if the date is a valid one. 
 
--- -------------------------------------------------------------------
+	-- -------------------------------------------------------------------
 
--- g_date_valid_julian ()
+	-- g_date_valid_julian ()
 
--- gboolean g_date_valid_julian (guint32 julian_date);
+	-- gboolean g_date_valid_julian (guint32 julian_date);
 
--- Returns TRUE if the Julian day is valid. Anything greater than zero is
--- basically a valid Julian, though there is a 32-bit limit.
+	-- Returns TRUE if the Julian day is valid. Anything greater than zero is
+	-- basically a valid Julian, though there is a 32-bit limit.
 
--- julian_date : Julian day to check. 
--- Returns : TRUE if the Julian day is valid. 
+	-- julian_date : Julian day to check. 
+	-- Returns : TRUE if the Julian day is valid. 
 
--- -------------------------------------------------------------------
+	-- -------------------------------------------------------------------
 
--- g_date_valid_weekday ()
+	-- g_date_valid_weekday ()
 
--- gboolean g_date_valid_weekday (GDateWeekday weekday);
+	-- gboolean g_date_valid_weekday (GDateWeekday weekday);
 
--- Returns TRUE if the weekday is valid. The 7 GDateWeekday enumeration
--- values are the only valid weekdays.
+	-- Returns TRUE if the weekday is valid. The 7 GDateWeekday enumeration
+	-- values are the only valid weekdays.
 
--- weekday : weekday. 
--- Returns : TRUE if the weekday is valid. 
+	-- weekday : weekday. 
+	-- Returns : TRUE if the weekday is valid. 
 
 feature {} -- External features
 	-- #define G_DATE_BAD_DAY
@@ -620,12 +639,12 @@ feature {} -- External features
 		end
 	
 	g_date_new_julian (a_julian_day: INTEGER_32): POINTER is -- GDate
-		-- Note: `a_julian_day' shall be a NATURAL_32
+			-- Note: `a_julian_day' shall be a NATURAL_32
 		external "C use <glib.h>"
 		end
 	
 	g_date_clear (a_date: POINTER; n_dates: INTEGER_32) is
-		-- Note `n_dates' shall be a NATURAL_32
+			-- Note `n_dates' shall be a NATURAL_32
 		external "C use <glib.h>"
 		end
 	
@@ -650,7 +669,7 @@ feature {} -- External features
 		end
 	
 	g_date_set_julian (a_date: POINTER; a_julian_date: INTEGER_32) is
-		-- Note: a_julian_date shall be NATURAL
+			-- Note: a_julian_date shall be NATURAL
 		external "C use <glib.h>"
 		end
 	
@@ -716,7 +735,7 @@ feature {} -- External features
 		end
 	
 	g_date_get_year (a_date: POINTER): INTEGER is -- GDateYear
-		-- Result shall be NATURAL
+			-- Result shall be NATURAL
 		external "C use <glib.h>"
 		end
 
@@ -731,16 +750,16 @@ feature {} -- External features
 		ensure is_valid_gdate_weekday (Result)
 		end
 	
-	g_date_get_day_of_year (const a_date: POINTER): INTEGER is -- guint
+	g_date_get_day_of_year (a_date: POINTER): INTEGER is -- guint
 			-- Note Result shall be NATURAL
 		external "C use <glib.h>"
 		ensure positive: Result > 0
 		end
 
-	g_date_get_days_in_month (a_month: INTEGER, an_year: INTEGER_16): INTEGER is
+	g_date_get_days_in_month (a_month: INTEGER; an_year: INTEGER_16): INTEGER is
 			-- Result shall be a NATURAL_8 (guint8)
 		external "C use <glib.h>"
-		ensure fits_natural_8: Result.in_range (0,255)
+		-- ensure fits_natural_8: Result.in_range (0,255)
 		end
 	
 	g_date_is_first_of_month (a_date: POINTER): INTEGER is -- gboolean 
@@ -761,7 +780,7 @@ feature {} -- External features
 	
 	g_date_get_monday_weeks_in_year (an_year: INTEGER_16): INTEGER_8 is
 		external "C use <glib.h>"
-		ensure natural_8: Result.in_range (0,255)
+		-- TODO: ensure natural_8: Result.in_range (0,255)
 		end
 	
 	g_date_get_sunday_week_of_year (a_date: POINTER): INTEGER is -- guint 
@@ -772,7 +791,7 @@ feature {} -- External features
 	g_date_get_sunday_weeks_in_year (an_year: INTEGER_16): INTEGER_8 is
 			-- Result shall be NATURAL_8
 		external "C use <glib.h>"
-		ensure natural_8: 
+		-- TODO: ensure natural_8: 
 		end
 	
 	g_date_get_iso8601_week_of_year (a_date: POINTER): INTEGER is -- guint
@@ -811,7 +830,7 @@ feature {} -- External features
 		end
 	
 	g_date_valid_julian (a_julian_date: INTEGER_32): INTEGER is -- gboolean
-		-- Note: a_julian_date shall be NATURAL_32
+			-- Note: a_julian_date shall be NATURAL_32
 		external "C use <glib.h>"
 		end
 	
@@ -851,7 +870,11 @@ feature {} --  enum GDateDMY
 
 feature -- GDateDay a guint8
 	-- Integer representing a day of the month; between 1 and 31.
-
+	is_valid_gdate_day (a_day: INTEGER): BOOLEAN is
+		do
+			Result:=a_day.in_range(1,31)
+		end
+	
 	g_date_bad_day: INTEGER is
 			-- represents an invalid day of the month.
 		external "C macro use <glib.h>"
@@ -859,6 +882,24 @@ feature -- GDateDay a guint8
 		end
 
 feature {} --  enum GDateMonth
+	is_valid_gdate_month(a_month: INTEGER): BOOLEAN is
+		do
+			-- Note: oh, I know it is quite a stupid implementation, but 
+			-- who assure us that these values are contiguous?
+			Result:=((a_month=g_date_january) or else
+						(a_month=g_date_february) or else
+						(a_month=g_date_march) or else
+						(a_month=g_date_april) or else
+						(a_month=g_date_may) or else
+						(a_month=g_date_june) or else
+						(a_month=g_date_july) or else
+						(a_month=g_date_august) or else
+						(a_month=g_date_september) or else
+						(a_month=g_date_october) or else
+						(a_month=g_date_november) or else
+						(a_month=g_date_december))
+		end
+
 	g_date_bad_month: INTEGER is
 			-- invalid value. 
 		external "C macro use <glib.h>"
@@ -944,7 +985,18 @@ feature {} --  enum GDateMonth
 	-- represented with four digits.
 	
 feature {} --  enum GDateWeekday;
-
+	is_valid_gdate_weekday (a_weekday: INTEGER): BOOLEAN is
+		do
+			-- Note: oh, I know it is quite a stupid implementation, but 
+			-- who assure us that these values are contiguous?
+			Result:=((a_weekday=g_date_monday) or else
+						(a_weekday=g_date_tuesday) or else
+						(a_weekday=g_date_wednesday) or else
+						(a_weekday=g_date_thursday) or else
+						(a_weekday=g_date_friday) or else
+						(a_weekday=g_date_saturday) or else
+						(a_weekday=g_date_sunday))
+		end
 	-- Enumeration representing a day of the week; G_DATE_MONDAY,
 	-- G_DATE_TUESDAY, etc. G_DATE_BAD_WEEKDAY is an invalid weekday.
 
@@ -995,4 +1047,12 @@ feature {} --  enum GDateWeekday;
 		external "C macro use <glib.h>"
 		alias "G_DATE_SUNDAY"
 		end
+
+feature {} --
+	to_string_format: STRING is "%%Y-%%m-%%d"
+			-- The format used in feature `to_string'; the double %% is 
+			-- becuase both Eiffel and the C function use % as a special character.
+
 end
+	
+	

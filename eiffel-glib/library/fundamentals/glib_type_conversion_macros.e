@@ -1,75 +1,83 @@
 indexing
+	description: "Type Conversion Macros: portably storing integers in pointer variables."
 	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"
 
 class GLIB_TYPE_CONVERSION_MACROS
--- Prev 	Up 	Home 	GLib Reference Manual 	Next
--- Top  |  Description
--- Type Conversion Macros
+	-- Many times GLib, GTK+, and other libraries allow you to pass
+	-- "user data" to a callback, in the form of a void pointer. From
+	-- time to time you want to pass an integer instead of a
+	-- pointer. You could allocate an integer, with something like:
 
--- Type Conversion Macros %GÅ‚Äî%@ portably storing integers in pointer variables.
+	--  int *ip = g_new (int, 1);
+	--  *ip = 42;
+
+	-- But this is inconvenient, and it's annoying to have to free the
+	-- memory at some later time.
+
+	-- Pointers are always at least 32 bits in size (on all platforms
+	-- GLib intends to support). Thus you can store at least 32-bit
+	-- integer values in a pointer value. Naively, you might try this,
+	-- but it's incorrect:
+
+	--  gpointer p;
+	--  int i;
+	--  p = (void*) 42;
+	--  i = (int) p;
+
+	-- Again, that example was not correct, don't copy it. The problem
+	-- is that on some systems you need to do this:
+
+	--  gpointer p;
+	--  int i;
+	--  p = (void*) (long) 42;
+	--  i = (int) (long) p;
 	
--- Synopsis
+	-- So GPOINTER_TO_INT(), GINT_TO_POINTER(), etc. do the right thing
+	-- on the current platform.
 
--- #include <glib.h>
+	-- Warning: YOU MAY NOT STORE POINTERS IN INTEGERS. THIS IS NOT
+	-- PORTABLE IN ANY WAY SHAPE OR FORM. These macros ONLY allow
+	-- storing integers in pointers, and only preserve 32 bits of the
+	-- integer; values outside the range of a 32-bit integer will be
+	-- mangled.
 
+inherit ANY undefine is_equal, copy end
 
--- #define     GINT_TO_POINTER                 (i)
--- #define     GPOINTER_TO_INT                 (p)
+feature {} -- External calls
+	gint_to_pointer (an_int: INTEGER): POINTER is
+			-- #define GINT_TO_POINTER(i)	((gpointer)  (i))
+		
+			-- Stuffs an integer into a pointer type.
+		
+			-- Remember, YOU MAY NOT STORE POINTERS IN INTEGERS. THIS IS
+			-- NOT PORTABLE IN ANY WAY SHAPE OR FORM. These macros ONLY
+			-- allow storing integers in pointers, and only preserve 32
+			-- bits of the integer; values outside the range of a 32-bit
+			-- integer will be mangled.  i : integer to stuff into a
+			-- pointer.
+		external "C macro use <glib.h>"
+		alias "GINT_TO_POINTER"
+		end
 
--- #define     GUINT_TO_POINTER                (u)
--- #define     GPOINTER_TO_UINT                (p)
--- #define     GSIZE_TO_POINTER                (s)
--- #define     GPOINTER_TO_SIZE                (p)
+	gpointer_to_int (a_p: POINTER): INTEGER is
+			-- #define GPOINTER_TO_INT(p)	((gint)   (p))
+		
+			-- Extracts an integer from a pointer. The integer must have
+			-- been stored in the pointer with GINT_TO_POINTER().
 
--- Description
+			-- Remember, YOU MAY NOT STORE POINTERS IN INTEGERS. THIS IS
+			-- NOT PORTABLE IN ANY WAY SHAPE OR FORM. These macros ONLY
+			-- allow storing integers in pointers, and only preserve 32
+			-- bits of the integer; values outside the range of a 32-bit
+			-- integer will be mangled.  p : pointer containing an
+			-- integer.
+		external "C macro use <glib.h>"
+		alias "GPOINTER_TO_INT"
+		end
 
--- Many times GLib, GTK+, and other libraries allow you to pass "user data" to a callback, in the form of a void pointer. From time to time you want to pass an integer instead of a pointer. You could allocate an integer, with something like:
-
---  int *ip = g_new (int, 1);
---  *ip = 42;
-
--- But this is inconvenient, and it's annoying to have to free the memory at some later time.
-
--- Pointers are always at least 32 bits in size (on all platforms GLib intends to support). Thus you can store at least 32-bit integer values in a pointer value. Naively, you might try this, but it's incorrect:
-
---  gpointer p;
---  int i;
---  p = (void*) 42;
---  i = (int) p;
-
--- Again, that example was not correct, don't copy it. The problem is that on some systems you need to do this:
-
---  gpointer p;
---  int i;
---  p = (void*) (long) 42;
---  i = (int) (long) p;
-
--- So GPOINTER_TO_INT(), GINT_TO_POINTER(), etc. do the right thing on the current platform.
-
--- Warning
-
--- YOU MAY NOT STORE POINTERS IN INTEGERS. THIS IS NOT PORTABLE IN ANY WAY SHAPE OR FORM. These macros ONLY allow storing integers in pointers, and only preserve 32 bits of the integer; values outside the range of a 32-bit integer will be mangled.
-
--- Details
--- GINT_TO_POINTER()
-
--- #define GINT_TO_POINTER(i)	((gpointer)  (i))
-
--- Stuffs an integer into a pointer type.
-
--- Remember, YOU MAY NOT STORE POINTERS IN INTEGERS. THIS IS NOT PORTABLE IN ANY WAY SHAPE OR FORM. These macros ONLY allow storing integers in pointers, and only preserve 32 bits of the integer; values outside the range of a 32-bit integer will be mangled.
--- i : 	integer to stuff into a pointer.
--- GPOINTER_TO_INT()
-
--- #define GPOINTER_TO_INT(p)	((gint)   (p))
-
--- Extracts an integer from a pointer. The integer must have been stored in the pointer with GINT_TO_POINTER().
-
--- Remember, YOU MAY NOT STORE POINTERS IN INTEGERS. THIS IS NOT PORTABLE IN ANY WAY SHAPE OR FORM. These macros ONLY allow storing integers in pointers, and only preserve 32 bits of the integer; values outside the range of a 32-bit integer will be mangled.
--- p : 	pointer containing an integer.
 -- GUINT_TO_POINTER()
 
 -- #define GUINT_TO_POINTER(u)	((gpointer)  (u))
@@ -94,5 +102,26 @@ class GLIB_TYPE_CONVERSION_MACROS
 
 -- Extracts a gsize from a pointer. The gsize must have been stored in the pointer with GSIZE_TO_POINTER().
 -- p : 	pointer to extract a gsize from.
+	
+	-- -- 	guint_to_pointer (a_uint: ): is
+-- 		external "C macro use <glib.h>"
+-- 		alias "GUINT_TO_POINTER"
+-- 		end
+
+-- GPOINTER_TO_UINT (a_p: ): is
+-- 		external "C macro use <glib.h>"
+-- 		alias "GPOINTER_TO_UINT"
+-- 		end
+
+-- GSIZE_TO_POINTER (a_s: ): is
+-- 		external "C macro use <glib.h>"
+-- 		alias "GSIZE_TO_POINTER"
+-- 		end
+
+-- GPOINTER_TO_SIZE (a_p: ): is
+-- 		external "C macro use <glib.h>"
+-- 		alias "GPOINTER_TO_SIZE"
+-- 		end
+
 end
 	

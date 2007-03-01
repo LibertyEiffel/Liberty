@@ -4,7 +4,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GLIB_BASIC_TYPES
+deferred class GLIB_BASIC_TYPES
 	-- GLib defines a number of commonly used types, which can be
 	-- divided into 4 groups:
 
@@ -22,6 +22,8 @@ class GLIB_BASIC_TYPES
 	-- o Types which correspond exactly to standard C types, but are
 	-- included for completeness - gchar, gint, gshort, glong, gfloat,
 	-- gdouble.
+
+insert ANY undefine is_equal, copy end
 
 feature -- Basic Types: standard GLib types, defined for ease-of-use and portability.
 	--  #include <glib.h>

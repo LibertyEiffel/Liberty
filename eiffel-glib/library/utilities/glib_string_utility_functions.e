@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-expanded class GLIB_STRING_UTILITY_FUNCTIONS
+deferred class GLIB_STRING_UTILITY_FUNCTIONS
 	-- Utility functions functions for creating, duplicating, and
 	-- manipulating strings at C level.
 
@@ -57,10 +57,8 @@ expanded class GLIB_STRING_UTILITY_FUNCTIONS
 	-- it is not possible to handle a valist in a portable way. Paolo
 	-- 2007-01-29
 
-inherit
-	ANY
-
 insert
+	ANY undefine is_equal, copy end
 	GLIB_BASIC_TYPES
 		-- For achored declaration of low-level types, i.e. gsize
 
