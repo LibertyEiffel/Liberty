@@ -1186,20 +1186,7 @@ feature -- Search
 
 	-- treeview : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
-	-- The "expand-collapse-cursor-row" signal
 
-	-- gboolean    user_function                  (GtkTreeView *treeview,
-	--                                             gboolean arg1,
-	--                                             gboolean arg2,
-	--                                             gboolean arg3,
-	--                                             gpointer user_data);
-
-	-- treeview : 	the object which received the signal.
-	-- arg1 : 	
-	-- arg2 : 	
-	-- arg3 : 	
-	-- user_data : 	user data set when the signal handler was connected.
-	-- Returns : 	
 	-- The "move-cursor" signal
 
 	-- gboolean    user_function                  (GtkTreeView *treeview,
@@ -1212,39 +1199,7 @@ feature -- Search
 	-- arg2 : 	
 	-- user_data : 	user data set when the signal handler was connected.
 	-- Returns : 	
-	-- The "row-activated" signal
 
-	-- void        user_function                  (GtkTreeView *treeview,
-	--                                             GtkTreePath *arg1,
-	--                                             GtkTreeViewColumn *arg2,
-	--                                             gpointer user_data);
-
-	-- treeview : 	the object which received the signal.
-	-- arg1 : 	
-	-- arg2 : 	
-	-- user_data : 	user data set when the signal handler was connected.
-	-- The "row-collapsed" signal
-
-	-- void        user_function                  (GtkTreeView *treeview,
-	--                                             GtkTreeIter *arg1,
-	--                                             GtkTreePath *arg2,
-	--                                             gpointer user_data);
-
-	-- treeview : 	the object which received the signal.
-	-- arg1 : 	
-	-- arg2 : 	
-	-- user_data : 	user data set when the signal handler was connected.
-	-- The "row-expanded" signal
-
-	-- void        user_function                  (GtkTreeView *treeview,
-	--                                             GtkTreeIter *arg1,
-	--                                             GtkTreePath *arg2,
-	--                                             gpointer user_data);
-
-	-- treeview : 	the object which received the signal.
-	-- arg1 : 	
-	-- arg2 : 	
-	-- user_data : 	user data set when the signal handler was connected.
 	-- The "select-all" signal
 
 	-- gboolean    user_function                  (GtkTreeView *treeview,
@@ -1637,11 +1592,40 @@ feature -- The "cursor_changed" signal
 		end
 
 feature -- "expand-collapse-cursor-row"
-	--             gboolean    user_function      (GtkTreeView *treeview,
-	--                                             gboolean arg1,
-	--                                             gboolean arg2,
-	--                                             gboolean arg3,
-	--                                             gpointer user_data);
+	expand_collapse_cursor_row_signal_name: STRING is "expand-collapse-cursor-row"
+			--             gboolean    user_function      (GtkTreeView *treeview,
+			--                                             gboolean     arg1,
+			--                                             gboolean     arg2,
+			--                                             gboolean     arg3,
+			--                                             gpointer user_data);
+
+	enable_on_expand_collapse_cursor_row is
+			-- Connects "expand-collapse-cursor-row" signal to `on_expand_collapse_cursor_row' feature.
+		do
+			connect (Current, expand_collapse_cursor_row_signal_name,
+			                  $on_expand_collapse_cursor_row)
+		end
+
+	on_expand_collapse_cursor_row: INTEGER is
+			-- Built-in expand-collapse-cursor-row signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_expand_collapse_cursor_row_signal (a_function: FUNCTION[ANY, TUPLE [BOOLEAN, BOOLEAN, BOOLEAN,
+			                                                                             GTK_TREE_VIEW], BOOLEAN]) is
+			-- treeview : 	the object which received the signal.
+			-- user_data : 	user data set when the signal handler was connected.
+			-- Returns : ?
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			expand_collapse_cursor_row_callback: EXPAND_COLLAPSE_CURSOR_ROW_CALLBACK
+		do
+			create expand_collapse_cursor_row_callback.make
+			expand_collapse_cursor_row_callback.connect (Current, a_function)
+		end
+
 	-- "move-cursor"
 	--             gboolean    user_function      (GtkTreeView *treeview,
 	--                                             GtkMovementStep arg1,
@@ -1667,9 +1651,9 @@ feature -- The "row_activated" signal
 			connect (Current, row_activated_signal_name, $on_row_activated)
 		end
 
-	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY,
-																			  TUPLE[GTK_TREE_PATH,
-																					  GTK_TREE_VIEW_COLUMN, GTK_TREE_VIEW]]) is
+	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH,
+		                                                                      GTK_TREE_VIEW_COLUMN,
+		                                                                      GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
 		local row_activated_callback: ROW_ACTIVATED_CALLBACK
 		do
@@ -1677,16 +1661,63 @@ feature -- The "row_activated" signal
 			row_activated_callback.connect (Current, a_procedure)
 		end
 
-feature -- "row-collapsed"
-	--             void        user_function      (GtkTreeView *treeview,
-	--                                             GtkTreeIter *arg1,
-	--                                             GtkTreePath *arg2,
-	--                                             gpointer user_data);
-	-- "row-expanded"
-	--             void        user_function      (GtkTreeView *treeview,
-	--                                             GtkTreeIter *arg1,
-	--                                             GtkTreePath *arg2,
-	--                                             gpointer user_data);
+feature -- The "row_collapsed" signal
+	row_collapsed_signal_name: STRING is "row-collapsed"
+			--             void        user_function      (GtkTreeView *treeview,
+			--                                             GtkTreeIter *arg1,
+			--                                             GtkTreePath *arg2,
+			--                                             gpointer user_data);
+
+	on_row_collapsed is
+			-- Built-in row_collapsed signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_row_collapsed is
+			-- Connects "row_collapsed" signal to `on_row_collapsed' feature.
+		do
+			connect (Current, row_collapsed_signal_name, $on_row_collapsed)
+		end
+
+	connect_agent_to_row_collapsed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
+		                                                                      GTK_TREE_PATH,
+		                                                                      GTK_TREE_VIEW]]) is
+		require valid_procedure: a_procedure /= Void
+		local row_collapsed_callback: ROW_COLLAPSED_CALLBACK
+		do
+			create row_collapsed_callback.make
+			row_collapsed_callback.connect (Current, a_procedure)
+		end
+
+feature -- The "row_expanded" signal
+	row_expanded_signal_name: STRING is "row-expanded"
+			--             void        user_function      (GtkTreeView *treeview,
+			--                                             GtkTreeIter *arg1,
+			--                                             GtkTreePath *arg2,
+			--                                             gpointer user_data);
+
+	on_row_expanded is
+			-- Built-in row_expanded signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_row_expanded is
+			-- Connects "row_expanded" signal to `on_row_expanded' feature.
+		do
+			connect (Current, row_expanded_signal_name, $on_row_expanded)
+		end
+
+	connect_agent_to_row_expanded_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
+		                                                                     GTK_TREE_PATH,
+		                                                                     GTK_TREE_VIEW]]) is
+		require valid_procedure: a_procedure /= Void
+		local row_expanded_callback: ROW_EXPANDED_CALLBACK
+		do
+			create row_expanded_callback.make
+			row_expanded_callback.connect (Current, a_procedure)
+		end
+
+feature
 	-- "select-all"
 	--             gboolean    user_function      (GtkTreeView *treeview,
 	--                                             gpointer user_data);
@@ -2802,28 +2833,6 @@ feature -- "row-collapsed"
 	-- void        user_function                  (GtkTreeView *treeview,
 	--                                             GtkTreePath *arg1,
 	--                                             GtkTreeViewColumn *arg2,
-	--                                             gpointer user_data);
-
-	-- treeview : 	the object which received the signal.
-	-- arg1 : 	
-	-- arg2 : 	
-	-- user_data : 	user data set when the signal handler was connected.
-	-- The "row-collapsed" signal
-
-	-- void        user_function                  (GtkTreeView *treeview,
-	--                                             GtkTreeIter *arg1,
-	--                                             GtkTreePath *arg2,
-	--                                             gpointer user_data);
-
-	-- treeview : 	the object which received the signal.
-	-- arg1 : 	
-	-- arg2 : 	
-	-- user_data : 	user data set when the signal handler was connected.
-	-- The "row-expanded" signal
-
-	-- void        user_function                  (GtkTreeView *treeview,
-	--                                             GtkTreeIter *arg1,
-	--                                             GtkTreePath *arg2,
 	--                                             gpointer user_data);
 
 	-- treeview : 	the object which received the signal.
