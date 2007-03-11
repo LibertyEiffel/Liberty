@@ -22,8 +22,6 @@ indexing
 	wrapped_version: "1.2.4"
 
 class CAIRO_PATH
-
-
 	-- Notes for the implementator of cairo_path_t wrapper
 
 	-- The cairo_path_t type is one area in which most language
@@ -124,23 +122,19 @@ feature {} -- Creation
 	-- TODO: features to manually build a path, instead of getting it 
 	-- from a context.
 
-	--  cairo_append_path ()
-	--
-	-- void        cairo_append_path               (cairo_t *cr,
-	--                                              cairo_path_t *path);
-	--
-	--   Append the path onto the current path. The path may be either the return
-	--   value from one of cairo_copy_path() or cairo_copy_path_flat() or it may be
-	--   constructed manually. See cairo_path_t for details on how the path data
-	--   structure should be initialized, and note that path->status must be
-	--   initialized to CAIRO_STATUS_SUCCESS.
-	--
-	--   cr :   a cairo context
-	--   path : path to be appended
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  cairo_get_current_point ()
+	append (another: CAIRO_PATH) is
+			-- Append `another' path onto the current path. The path may
+			-- be either the return value from one of `copy_path' or
+			-- `copy_path_flat' or it may be constructed manually. See
+			-- cairo_path_t for details on how the path data structure
+			-- should be initialized, and note that path->status must be
+			-- initialized to `cairo_status_success'.
+		require another_not_void: another/=Void
+		do
+			cairo_append_path(handle, another.handle)
+		end
+
+	-- get_current_point ()
 	--
 	-- void        cairo_get_current_point         (cairo_t *cr,
 	--                                              double *x,
@@ -492,4 +486,4 @@ feature {}
 		alias "sizeof(cairo_path_t)"
 		end
 
-end -- class FOO
+end -- class CAIRO_PATH

@@ -47,17 +47,17 @@ inherit ANY undefine is_equal, copy end
 feature  -- enum
 	is_valid_surface_type (a_type: INTEGER): BOOLEAN is
 		do	
-			Result:=((a_type=CAIRO_SURFACE_TYPE_IMAGE) or else
-						(a_type=CAIRO_SURFACE_TYPE_PDF) or else
-						(a_type=CAIRO_SURFACE_TYPE_PS) or else
-						(a_type=CAIRO_SURFACE_TYPE_XLIB) or else
-						(a_type=CAIRO_SURFACE_TYPE_XCB) or else
-						(a_type=CAIRO_SURFACE_TYPE_GLITZ) or else
-						(a_type=CAIRO_SURFACE_TYPE_QUARTZ) or else
+			Result:=((a_type=cairo_surface_type_image) or else
+						(a_type=cairo_surface_type_pdf) or else
+						(a_type=cairo_surface_type_ps) or else
+						(a_type=cairo_surface_type_xlib) or else
+						(a_type=cairo_surface_type_xcb) or else
+						(a_type=cairo_surface_type_glitz) or else
+						(a_type=cairo_surface_type_quartz) or else
 						(a_type=cairo_surface_type_win32) or else
-						(a_type=CAIRO_SURFACE_TYPE_BEOS) or else
-						(a_type=CAIRO_SURFACE_TYPE_DIRECTFB) or else
-						(a_type=CAIRO_SURFACE_TYPE_SVG))
+						(a_type=cairo_surface_type_beos) or else
+						(a_type=cairo_surface_type_directfb) or else
+						(a_type=cairo_surface_type_svg))
 		end
 
 	cairo_surface_type_image: INTEGER is
