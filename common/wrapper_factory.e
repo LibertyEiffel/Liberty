@@ -5,27 +5,26 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- wrapper factory would be inserted into the class that 
-			-- needs to use it; if multiple usage are needed it is 
-			-- perhaps better to use its expanded variant, 
-			-- WRAPPER_RETRIEVER. The pattern usage is more or less like 
-			-- this:
-
-			--  foo: FOO_WRAPPER is 
-			-- 		local p: POINTER
-			-- 		do
-			-- 			p:=my_wrapper_get_foo (handle)
-			-- 			if wrappers.has(p) then
-			-- 				Result ::= wrappers.at(p)
-			-- 			else
-			-- 				create Result.from_external_pointer(a_pointer)
-			-- 			end
-			-- 		end
-
-			-- I know it is tedious, but it is the only feasible solution
-			-- I was able to find.
-
 deferred class WRAPPER_FACTORY [ITEM_->WRAPPER]
+	-- wrapper factory would be inserted into the class that 
+	-- needs to use it; if multiple usage are needed it is 
+	-- perhaps better to use its expanded variant, 
+	-- WRAPPER_RETRIEVER. The pattern usage is more or less like 
+	-- this:
+	
+	--  foo: FOO_WRAPPER is 
+	-- 		local p: POINTER
+	-- 		do
+	-- 			p:=my_wrapper_get_foo (handle)
+	-- 			if wrappers.has(p) then
+	-- 				Result ::= wrappers.at(p)
+	-- 			else
+	-- 				create Result.from_external_pointer(a_pointer)
+	-- 			end
+	-- 		end
+	
+	-- I know it is tedious, but it is the only feasible solution
+	-- I was able to find.
 
 inherit
 	WRAPPER_HANDLER -- undefine fill_tagged_out_memory end
@@ -38,7 +37,7 @@ insert
 		end
 	SHARED_WRAPPERS_DICTIONARY
 	
-feature {} -- Implementation
+feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
 	new_item: ITEM_ is
 			-- Materialize an Eiffel object. This feature contains
 			-- something that can be considered "black magic" by purists:
@@ -70,6 +69,20 @@ feature {} -- Implementation
 		ensure not_void: Result /= Void
 		end
 
+	item_from (a_pointer: POINTER): ITEM_ is
+			-- Retrieve the wrapper of `a_pointer' if it exists, 
+			-- otherwise create a new one.
+		require
+			pointer_not_null: a_pointer.is_not_null
+			dont_create_duplicate_wrappers: not wrappers.has(a_pointer)
+		do
+			-- if wrappers.has(a_pointer) then
+			-- Result:=wrappers.at(a_pointer) else
+			Result:=new_item
+			Result.from_external_pointer(a_pointer)
+		ensure not_void: Result/=Void
+		end
+	
 feature {}
 	print_wrapper_factory_notice is
 		once

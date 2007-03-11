@@ -23,7 +23,7 @@ expanded class WRAPPER_RETRIEVER [ITEM_->WRAPPER]
 insert
 	WRAPPER_FACTORY[ITEM_]
 		export {WRAPPER, WRAPPER_HANDLER}
-			new_item
+			new_item, item_from
 		end
 	ANY -- to get is_equal and copy
 

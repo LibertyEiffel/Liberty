@@ -44,7 +44,7 @@ deferred class SHARED_WRAPPERS_DICTIONARY
 
 insert ANY undefine copy, is_equal end
 
-feature {} -- Implementation
+feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 
 	wrappers: HASHED_DICTIONARY [SHARED_C_STRUCT, POINTER] is
 			-- Dictionary storing wrappers created in the program.  Key
