@@ -42,12 +42,15 @@ inherit
 insert
 	CAIRO_CONTEXT_EXTERNALS
 	CAIRO_PATH_EXTERNALS
+	CAIRO_TRANSFORMATIONS_EXTERNALS
 
 	CAIRO_ANTIALIAS_TYPE
 	CAIRO_FILL_RULE
 	CAIRO_LINE_CAP
 	CAIRO_LINE_JOIN
 	CAIRO_OPERATOR
+	CAIRO_FONT_SLANT
+	CAIRO_FONT_WEIGHT
 	
 creation make, from_external_pointer
 
@@ -655,12 +658,14 @@ feature -- Dashing
 			cairo_fill_preserve(handle)
 		end
 
-	extents: TUPLE[REAL,REAL,REAL,REAL] is
+	extents: TUPLE[CAIRO_POINT,CAIRO_POINT] is
 			-- The extents in format [x1,y1,x2,y2]
-		local an_x1,an_y1,an_x2,an_y2: REAL
+		local an_x1,an_y1,an_x2,an_y2: REAL; p1,p2: CAIRO_POINT
 		do
 			cairo_fill_extents (handle,$an_x1,$an_y1,$an_x2,$an_y2)
-			create Result.make_4(an_x1,an_y1,an_x2,an_y2)
+			create p1.make(an_x1,an_y1)
+			create p2.make(an_x2,an_y2)
+			create Result.make_2(p1,p2)
 		end
 
 	in_fill (an_x, an_y: REAL): BOOLEAN is
@@ -765,12 +770,14 @@ feature -- Dashing
 			cairo_stroke_preserve(handle)
 		end
 	
-	stroke_extents: TUPLE[REAL,REAL,REAL,REAL] is
-			-- The stroke extents in format [x1,y1,x2,y2]
-		local an_x1,an_y1,an_x2,an_y2: REAL
+	stroke_extents: TUPLE[CAIRO_POINT,CAIRO_POINT] is
+			-- The stroke extents in format [(x1,y1),(x2,y2)]
+		local an_x1,an_y1,an_x2,an_y2: REAL; p1,p2: CAIRO_POINT
 		do
 			cairo_stroke_extents (handle,$an_x1,$an_y1,$an_x2,$an_y2)
-			create Result.make_4(an_x1,an_y1,an_x2,an_y2)
+			create p1.make(an_x1,an_y1)
+			create p2.make(an_x2,an_y2)
+			create Result.make_2(p1,p2)
 		end
 
 	in_stroke (an_x, an_y: REAL): BOOLEAN is
@@ -861,8 +868,15 @@ feature -- Path managing
 		do        
 			cairo_append_path(handle, a_path.handle)
 		end
+	
+	has_current_point: BOOLEAN is
+			-- TODO: implenment it, without using cairo_get_current_point
+			-- which is *not* general; in fact it fails to discriminate
+			-- between no point and the origin.
+		do
+		end		
 
-	current_point: TUPLE[REAL,REAL] is
+	current_point: CAIRO_POINT is
 			-- the current point [x,y] of the current path, which is
 			-- conceptually the final point reached by the path so far.
 
@@ -880,7 +894,7 @@ feature -- Path managing
 		local an_x,an_y: REAL
 		do
 			cairo_get_current_point(handle,$an_x,$an_y)
-			create Result.make_2(an_x,an_y)
+			create Result.make(an_x,an_y)
 		ensure not_void: Result/=Void
 		end
 
@@ -987,10 +1001,10 @@ feature -- Path managing
 	arc_negative  (an_x, an_y, a_radiud, an_angle_1, an_angle_2) is
 			-- Adds a circular arc of the given radius to the current
 			-- path. The arc is centered at (`an_x', `an_y'), begins at
-			-- `an_angle_1' and proceeds in the direction of decreasing angles
-			-- to end at `an_angle_2'. If `an_angle_2' is greater than `an_angle_1' it will
-			-- be progressively decreased by 2*M_PI until it is greater
-			-- than `an_angle_1'.
+			-- `an_angle_1' and proceeds in the direction of decreasing
+			-- angles to end at `an_angle_2'. If `an_angle_2' is greater
+			-- than `an_angle_1' it will be progressively decreased by
+			-- 2*M_PI until it is greater than `an_angle_1'.
 		
 			-- See arc() for more details. This function differs only in
 			-- the direction of the arc between the two angles.
@@ -1048,128 +1062,400 @@ feature -- Path managing
 				cairo_move_to(handle,an_x,an_y)
 		end
 
-	--  cairo_rectangle ()
+	rectangle (an_x,an_y,a_width,an_height: REAL) is
+			-- Adds a closed sub-path rectangle of the given size to the
+			-- current path at position (`an_x', `an_y') in user-space
+			-- coordinates.
+		
+			-- This feature is logically equivalent to:
 
-	-- void        cairo_rectangle                 (cairo_t *cr,
-	--                                              double x,
-	--                                              double y,
-	--                                              double width,
-	--                                              double height);
+			-- move_to (an_x, an_y);
+			-- rel_line_to (a_width, 0);
+			-- rel_line_to (0, an_height);
+			-- rel_line_to (-a_width, 0);
+			-- close_path
 
-	--   Adds a closed sub-path rectangle of the given size to the current path at
-	--   position (x, y) in user-space coordinates.
+			-- `an_x': the X coordinate of the top left corner of the rectangle
+			-- `an_y': the Y coordinate to the top left corner of the rectangle
+			-- `a_width':  the width of the rectangle
+			-- `an_height': the height of the rectangle
+		do
+			cairo_rectangle(handle, an_x, an_y, a_width, an_height)
+		end
 
-	--   This function is logically equivalent to:
+	-- TODO: cairo_glyph_path, since it is undocumented
 
-	-- cairo_move_to (cr, x, y);
-	-- cairo_rel_line_to (cr, width, 0);
-	-- cairo_rel_line_to (cr, 0, height);
-	-- cairo_rel_line_to (cr, -width, 0);
-	-- cairo_close_path (cr);
+	-- void cairo_glyph_path (cairo_t *cr, cairo_glyph_t *glyphs, int
+	-- num_glyphs);
 
-	--   cr :     a cairo context
-	--   x :      the X coordinate of the top left corner of the rectangle
-	--   y :      the Y coordinate to the top left corner of the rectangle
-	--   width :  the width of the rectangle
-	--   height : the height of the rectangle
+	-- TODO: cairo_text_path since it is undocumented
 
+	-- void cairo_text_path (cairo_t *cr, const char *utf8);
+
+
+
+	relative_curve_to (dx1,dy1,dx2,dy2,dx3,dy3: REAL) is
+			-- Relative-coordinate version of `curve_to'. All offsets are
+			-- relative to the current point. Adds a cubic Bezier spline
+			-- to the path from the current point to a point offset from
+			-- the current point by (dx3, dy3), using points offset by
+			-- (dx1, dy1) and (dx2, dy2) as the control points.  After
+			-- this call the current point will be offset by (dx3, dy3).
+
+			-- Given a current point of (x, y), cairo_rel_curve_to (cr,
+			-- dx1, dy1, dx2, dy2, dx3, dy3) is logically equivalent to
+			-- cairo_curve_to (cr, x + dx1, y + dy1, x + dx2, y + dy2, x
+			-- + dx3, y + dy3).
+		
+			-- It is an error to call this function with no current
+			-- point. Doing so will cause the context to shutdown with a
+			-- status of `cairo_status_no_current_point'.
+
+			--   dx1 : the X offset to the first control point
+			--   dy1 : the Y offset to the first control point
+			--   dx2 : the X offset to the second control point
+			--   dy2 : the Y offset to the second control point
+			--   dx3 : the X offset to the end of the curve
+			--   dy3 : the Y offset to the end of the curve
+		do
+			cairo_rel_curve_to(handle,dx1,dy1,dx2,dy2,dx3,dy3)
+		end
+			
+	relative_line_to (dx, dy: REAL) is
+			-- Relative-coordinate version of `line_to'. Adds a
+			-- line to the path from the current point to a point that is
+			-- offset from the current point by (dx, dy) in user
+			-- space. After this call the current point will be offset by
+			-- (dx, dy).
+
+			-- Given a current point (x, y), relative_line_to(dx,dy) is
+			-- logically equivalent to line_to(x+dx,y+dy).
+		
+			-- It is an error to call this function with no current
+			-- point. Doing so will cause cr to shutdown with a status of
+			-- CAIRO_STATUS_NO_CURRENT_POINT.
+		
+			--   dx : the X offset to the end of the new line
+			--   dy : the Y offset to the end of the new line		
+		do
+			cairo_rel_line_to(handle, dx, dy)
+		end
+
+	relative_move_to (dx,dy: REAL) is
+			-- Begin a new sub-path. After this call the current point
+			-- will offset by (x, y).
+		
+			-- Given a current point of (x, y), relative_move_to(dx,dy)
+			-- is logically equivalent to move_to(x+dx,y+dy).
+		
+			-- It is an error to call this function with no current
+			-- point. Doing so will cause cr to shutdown with a status of
+			-- `cairo_status_no_current_point'.
+		
+			--   dx : the X offset
+			--   dy : the Y offset
+		do
+			cairo_rel_move_to(handle, dx, dy)
+		end
+
+feature --   Transformations, manipulating the current transformation matrix
+	translate (an_x, an_y: REAL) is
+			-- Modifies the current transformation matrix (CTM) by
+			-- translating the user-space origin by (`an_x',`an_y'). This
+			-- offset is interpreted as a user-space coordinate according
+			-- to the CTM in place before the new call to `translate'. In
+			-- other words, the translation of the user-space origin
+			-- takes place after any existing transformation.
+		
+			-- `an_x' : amount to translate in the X direction
+			-- `an_y' : amount to translate in the Y direction
+		do
+			cairo_translate(handle, an_x, an_y)
+		end
+	
+	scale (an_x, an_y: REAL) is
+			-- Modifies the current transformation matrix (CTM) by
+			-- scaling the X and Y user-space axes by `an_x' and `an_y'
+			-- respectively. The scaling of the axes takes place after
+			-- any existing transformation of user space.
+		
+			-- `an_x' : scale factor for the X dimension
+			-- `an_y' : scale factor for the Y dimension
+		do
+			cairo_scale(handle,an_x,an_y)
+		end
+
+	rotate (an_angle: REAL) is
+			-- Modifies the current transformation matrix (CTM) by
+			-- rotating the user-space axes by angle radians. The
+			-- rotation of the axes takes places after any existing
+			-- transformation of user space. The rotation direction for
+			-- positive angles is from the positive X axis toward the
+			-- positive Y axis.
+		
+			-- `an_angle': the angle (in radians) by which the user-space
+			-- axes will be rotated
+		do
+			cairo_rotate(handle, an_angle)
+		end
+	
+	transform (a_matrix: CAIRO_MATRIX) is
+			-- Modifies the current transformation matrix (CTM) by
+			-- applying `a_matrix' as an additional transformation. The
+			-- new transformation of user space takes place after any
+			-- existing transformation.
+		require matrix_not_void: a_matrix/=Void
+		do
+			cairo_transform(handle, a_matrix.handle)
+		end
+
+	set_matrix (a_matrix: CAIRO_MATRIX) is
+			-- Modifies the current transformation matrix (CTM) by
+			-- setting it equal to `a_matrix', a transformation matrix
+			-- from user space to device space.
+		require matrix_not_void: a_matrix/=Void
+		do
+			cairo_set_matrix(handle, a_matrix.handle)
+		end
+
+	matrix: CAIRO_MATRIX is
+			-- a new copy of the current transformation matrix (CTM).
+		do
+			create Result.allocate
+			cairo_get_matrix(handle,Result.handle)ed
+		end
+	
+	reset_transformation is
+			-- Resets the current transformation matrix (CTM) by setting
+			-- it equal to the identity matrix. That is, the user-space
+			-- and device-space axes will be aligned and one user-space
+			-- unit will transform to one device-space unit.
+		do 
+			cairo_identity_matrix(handle)
+		end
+
+feature 	--   Text -- Rendering text and sets of glyphs
+	select_font_face (a_family: STRING; a_slant, a_weight) is
+			-- Selects a family and style of font from a simplified
+			-- description as a family name, slant and weight. This
+			-- function is meant to be used only for applications with
+			-- simple font needs: Cairo doesn't provide for operations
+			-- such as listing all available fonts on the system, and it
+			-- is expected that most applications will need to use a more
+			-- comprehensive font handling and text layout library in
+			-- addition to cairo.
+		
+			--   family : a font family name, encoded in UTF-8
+			--   slant :  the slant for the font
+			--   weight : the weight for the font
+		require
+			family_not_void: a_family/=Void
+			valid_slant: is_valid_font_slant(a_slant)
+			valid_weight: is_valid_font_weight(a_weight)
+		do
+			cairo_select_font_face(handle,a_family.to_external,
+										  a_slant, a_weight)
+		end
+
+	set_font_size (a_size: REAL) is
+			-- Sets the current font matrix to a scale by a factor of size,
+			-- replacing any font matrix previously set with `set_font_size' or
+			-- `set_font_matrix'. This results in a font size of size user
+			-- space units. (More precisely, this matrix will result in the font's
+			-- em-square being a size by size square in user space.)
+		
+			-- `a_size' : the new font size, in user space units
+		do
+			cairo_set_font_size(handle,a_size)
+		end
+
+	set_font_matrix (a_matrix: PANGO_MATRIX) is
+			-- Sets the current font matrix to matrix. The font matrix gives a
+			-- transformation from the design space of the font (in this space, the
+			-- em-square is 1 unit by 1 unit) to user space. Normally, a simple
+			-- scale is used (see `set_font_size'), but a more complex font matrix
+			-- can be used to shear the font or stretch it unequally along the two
+			-- axes
+
+			-- `a_matrix': a cairo_matrix_t describing a transform to be applied to
+			-- the current font.
+		require matrix_not_void: a_matrix/=Void
+		do
+			cairo_set_font_matrix(handle,a_matrix.handle)
+		end
+
+	font_matrix: PANGO_MATRIX is
+			-- the current font matrix.
+		do
+			create Result.allocate
+			cairo_get_font_matrix(handle,Result.handle)
+		ensure Result/=Void
+		end
+
+	set_font_options (some_options: PANGO_FONT_OPTIONS) is
+			-- Sets a set of custom font rendering options for the
+			-- context. Rendering options are derived by merging these options with
+			-- the options derived from underlying surface; if the value in options
+			-- has a default value (like CAIRO_ANTIALIAS_DEFAULT), then the value
+			-- from the surface is used.
+		require options_not_void: some_options/=Void
+		do
+			cairo_set_font_options(handle, some_options.handle)
+		end
+
+	font_options: PANGO_FONT_OPTIONS is
+			-- Retrieves font rendering options set via
+			-- `set_font_options'. Note that the returned options do not
+			-- include any options derived from the underlying surface;
+			-- they are literally the options passed to
+			-- `set_font_options'.
+		do
+			create Result.allocate
+			cairo_get_font_options(handle,Result.handle)
+		end
+
+	show_text (an_utf8: STRING) is
+			-- A drawing operator that generates the shape from a string
+			-- of UTF-8 characters, rendered according to the current
+			-- font_face, font_size (font_matrix), and font_options.
+		
+			-- This function first computes a set of glyphs for the
+			-- string of text. The first glyph is placed so that its
+			-- origin is at the current point. The origin of each
+			-- subsequent glyph is offset from that of the previous glyph
+			-- by the advance values of the previous glyph.
+
+			-- After this call the current point is moved to the origin
+			-- of where the next glyph would be placed in this same
+			-- progression. That is, the current point will be at the
+			-- origin of the final glyph offset by its advance values.
+			-- This allows for easy display of a single logical string
+			-- with multiple calls to `show_text'.
+
+			-- NOTE: The `show_text' function call is part of what the
+			-- cairo designers call the "toy" text API. It is convenient
+			-- for short demos and simple programs, but it is not
+			-- expected to be adequate for the most serious of text-using
+			-- applications. See `show_glyphs' for the "real" text
+			-- display API in cairo.
+		do
+			cairo_show_text(handle, an_utf8.to_external)
+		end
+
+	show_glyphs (some_glyphs: ARRAY[INTEGER_32]) is
+		require glyphs_not_void: some_glyphs/=Void
+		do
+			cairo_show_glyphs(handle, some_glyphs.storage,
+									some_glyphs.count)
+		end
+
+	font_face: CAIRO_FONT_FACE is
+			-- the current font face for a cairo_t.
+		local ptr: POINTER
+		do
+			ptr:=cairo_get_font_face(handle)
+			-- cairo_get_font_face returns the current font object. Can
+			-- return NULL on out-of-memory or if the context is already
+			-- in an error state. This object is owned by cairo. To keep
+			-- a reference to it, you must call
+			-- cairo_font_face_reference().
+			if ptr.is_not_null then
+				create Result.from_external_pointer(ptr)
+				Result.ref
+			end
+	--
 	--   --------------------------------------------------------------------------
-
-	--  cairo_glyph_path ()
-
-	-- void        cairo_glyph_path                (cairo_t *cr,
+	--
+	--  cairo_font_extents ()
+	--
+	-- void        cairo_font_extents              (cairo_t *cr,
+	--                                              cairo_font_extents_t *extents);
+	--
+	--   Gets the font extents for the currently selected font.
+	--
+	--   cr :      a cairo_t
+	--   extents : a cairo_font_extents_t object into which the results will be
+	--             stored.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_font_face ()
+	--
+	-- void        cairo_set_font_face             (cairo_t *cr,
+	--                                              cairo_font_face_t *font_face);
+	--
+	--   Replaces the current cairo_font_face_t object in the cairo_t with
+	--   font_face. The replaced font face in the cairo_t will be destroyed if
+	--   there are no other references to it.
+	--
+	--   cr :        a cairo_t
+	--   font_face : a cairo_font_face_t, or NULL to restore to the default font
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_set_scaled_font ()
+	--
+	-- void        cairo_set_scaled_font           (cairo_t *cr,
+	--                                              const cairo_scaled_font_t *scaled_font);
+	--
+	--   Replaces the current font face, font matrix, and font options in the
+	--   cairo_t with those of the cairo_scaled_font_t. Except for some
+	--   translation, the current CTM of the cairo_t should be the same as that of
+	--   the cairo_scaled_font_t, which can be accessed using
+	--   cairo_scaled_font_get_ctm().
+	--
+	--   cr :          a cairo_t
+	--   scaled_font : a cairo_scaled_font_t
+	--
+	--   Since 1.2
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_text_extents ()
+	--
+	-- void        cairo_text_extents              (cairo_t *cr,
+	--                                              const char *utf8,
+	--                                              cairo_text_extents_t *extents);
+	--
+	--   Gets the extents for a string of text. The extents describe a user-space
+	--   rectangle that encloses the "inked" portion of the text, (as it would be
+	--   drawn by cairo_show_text()). Additionally, the x_advance and y_advance
+	--   values indicate the amount by which the current point would be advanced by
+	--   cairo_show_text().
+	--
+	--   Note that whitespace characters do not directly contribute to the size of
+	--   the rectangle (extents.width and extents.height). They do contribute
+	--   indirectly by changing the position of non-whitespace characters. In
+	--   particular, trailing whitespace characters are likely to not affect the
+	--   size of the rectangle, though they will affect the x_advance and y_advance
+	--   values.
+	--
+	--   cr :      a cairo_t
+	--   utf8 :    a string of text, encoded in UTF-8
+	--   extents : a cairo_text_extents_t object into which the results will be
+	--             stored
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_glyph_extents ()
+	--
+	-- void        cairo_glyph_extents             (cairo_t *cr,
 	--                                              cairo_glyph_t *glyphs,
-	--                                              int num_glyphs);
-
-	--   cr :
-	--   glyphs :
-	--   num_glyphs :
-
-	--   --------------------------------------------------------------------------
-
-	--  cairo_text_path ()
-
-	-- void        cairo_text_path                 (cairo_t *cr,
-	--                                              const char *utf8);
-
-	--   cr :
-	--   utf8 :
-
-	--   --------------------------------------------------------------------------
-
-	--  cairo_rel_curve_to ()
-
-	-- void        cairo_rel_curve_to              (cairo_t *cr,
-	--                                              double dx1,
-	--                                              double dy1,
-	--                                              double dx2,
-	--                                              double dy2,
-	--                                              double dx3,
-	--                                              double dy3);
-
-	--   Relative-coordinate version of cairo_curve_to(). All offsets are relative
-	--   to the current point. Adds a cubic Bezier spline to the path from the
-	--   current point to a point offset from the current point by (dx3, dy3),
-	--   using points offset by (dx1, dy1) and (dx2, dy2) as the control points.
-	--   After this call the current point will be offset by (dx3, dy3).
-
-	--   Given a current point of (x, y), cairo_rel_curve_to (cr, dx1, dy1, dx2,
-	--   dy2, dx3, dy3) is logically equivalent to cairo_curve_to (cr, x + dx1, y +
-	--   dy1, x + dx2, y + dy2, x + dx3, y + dy3).
-
-	--   It is an error to call this function with no current point. Doing so will
-	--   cause cr to shutdown with a status of CAIRO_STATUS_NO_CURRENT_POINT.
-
-	--   cr :  a cairo context
-	--   dx1 : the X offset to the first control point
-	--   dy1 : the Y offset to the first control point
-	--   dx2 : the X offset to the second control point
-	--   dy2 : the Y offset to the second control point
-	--   dx3 : the X offset to the end of the curve
-	--   dy3 : the Y offset to the end of the curve
-
-	--   --------------------------------------------------------------------------
-
-	--  cairo_rel_line_to ()
-
-	-- void        cairo_rel_line_to               (cairo_t *cr,
-	--                                              double dx,
-	--                                              double dy);
-
-	--   Relative-coordinate version of cairo_line_to(). Adds a line to the path
-	--   from the current point to a point that is offset from the current point by
-	--   (dx, dy) in user space. After this call the current point will be offset
-	--   by (dx, dy).
-
-	--   Given a current point of (x, y), cairo_rel_line_to(cr, dx, dy) is
-	--   logically equivalent to cairo_line_to (cr, x + dx, y + dy).
-
-	--   It is an error to call this function with no current point. Doing so will
-	--   cause cr to shutdown with a status of CAIRO_STATUS_NO_CURRENT_POINT.
-
-	--   cr : a cairo context
-	--   dx : the X offset to the end of the new line
-	--   dy : the Y offset to the end of the new line
-
-	--   --------------------------------------------------------------------------
-
-	--  cairo_rel_move_to ()
-
-	-- void        cairo_rel_move_to               (cairo_t *cr,
-	--                                              double dx,
-	--                                              double dy);
-
-	--   Begin a new sub-path. After this call the current point will offset by (x,
-	--   y).
-
-	--   Given a current point of (x, y), cairo_rel_move_to(cr, dx, dy) is
-	--   logically equivalent to cairo_move_to (cr, x + dx, y + dy).
-
-	--   It is an error to call this function with no current point. Doing so will
-	--   cause cr to shutdown with a status of CAIRO_STATUS_NO_CURRENT_POINT.
-
-	--   cr : a cairo context
-	--   dx : the X offset
-	--   dy : the Y offset
-
+	--                                              int num_glyphs,
+	--                                              cairo_text_extents_t *extents);
+	--
+	--   Gets the extents for an array of glyphs. The extents describe a user-space
+	--   rectangle that encloses the "inked" portion of the glyphs, (as they would
+	--   be drawn by cairo_show_glyphs()). Additionally, the x_advance and
+	--   y_advance values indicate the amount by which the current point would be
+	--   advanced by cairo_show_glyphs.
+	--
+	--   Note that whitespace glyphs do not contribute to the size of the rectangle
+	--   (extents.width and extents.height).
+	--
+	--   cr :         a cairo_t
+	--   glyphs :     an array of cairo_glyph_t objects
+	--   num_glyphs : the number of elements in glyphs
+	--   extents :    a cairo_text_extents_t object into which the results will be
+	--                stored
 end -- class CAIRO_CONTEXT
