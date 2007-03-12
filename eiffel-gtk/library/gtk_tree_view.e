@@ -85,8 +85,8 @@ feature
 		local p: POINTER
 		do
 			p:=gtk_tree_view_get_selection (handle)
-			if wrappers.has(p)
-			 then Result::=wrappers.at(p)
+			if wrappers.has (p)
+			then Result ::= wrappers.at (p)
 			else create Result.from_external_pointer (p)
 			end
 		end
