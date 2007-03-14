@@ -38,6 +38,9 @@ class CAIRO_CONTEXT
 
 inherit
 	SHARED_C_STRUCT
+		redefine 
+			from_external_pointer
+		end
 	
 insert
 	CAIRO_CONTEXT_EXTERNALS
@@ -66,15 +69,22 @@ feature {} -- Creation
 		require target_not_void: a_target /= Void
 		do
 			from_external_pointer(cairo_create(a_target.handle))
-			-- This function references target, so you can immediately
+			-- cairo_create references the target, so you can immediately
 			-- call cairo_surface_destroy() on it if you don't need to
 			-- maintain a separate reference to it.
 		end
 	
+	from_external_pointer (a_ptr: POINTER) is
+		do
+			Precursor(a_ptr)
+			ref
+		end
+
 feature
 	ref is
-			-- Increases the reference count on cr by one. This prevents cr from being
-			--   destroyed until a matching call to cairo_destroy() is made.
+			-- Increases the reference count on cr by one. This prevents
+			-- cr from being destroyed until a matching call to `dispose'
+			-- is made.
 		local ptr: POINTER
 		do
 			ptr:=cairo_reference(handle)
@@ -1362,10 +1372,9 @@ feature 	--   Text -- Rendering text and sets of glyphs
 			if ptr.is_not_null then
 				create Result.from_external_pointer(ptr)
 				Result.ref
-			end
-	--
-	--   --------------------------------------------------------------------------
-	--
+			end			
+		end
+
 	--  cairo_font_extents ()
 	--
 	-- void        cairo_font_extents              (cairo_t *cr,
@@ -1376,23 +1385,23 @@ feature 	--   Text -- Rendering text and sets of glyphs
 	--   cr :      a cairo_t
 	--   extents : a cairo_font_extents_t object into which the results will be
 	--             stored.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  cairo_set_font_face ()
-	--
-	-- void        cairo_set_font_face             (cairo_t *cr,
-	--                                              cairo_font_face_t *font_face);
-	--
-	--   Replaces the current cairo_font_face_t object in the cairo_t with
-	--   font_face. The replaced font face in the cairo_t will be destroyed if
-	--   there are no other references to it.
-	--
-	--   cr :        a cairo_t
-	--   font_face : a cairo_font_face_t, or NULL to restore to the default font
-	--
-	--   --------------------------------------------------------------------------
-	--
+
+	set_font_face (a_font_face: CAIRO_FONT_FACE) is
+			-- Replaces the current font face in the context with
+			-- `a_font_face'. The replaced font face will be destroyed if
+			-- there are no other references to it.
+			--   font_face : a cairo_font_face_t, or NULL to restore to the default font
+		require font_face_not_void: a_font_face/=Void
+		do
+			cairo_set_font_face(handle, a_font_face.handle)
+		end
+
+	set_default_font_face is
+			-- Restore to the default font
+		do
+			cairo_set_font_face(handle, default_pointer)
+		end
+
 	--  cairo_set_scaled_font ()
 	--
 	-- void        cairo_set_scaled_font           (cairo_t *cr,

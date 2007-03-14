@@ -1,5 +1,5 @@
 indexing
-	description: "."
+	description: "Scaled Fonts -- Caching metrics for a particular font size."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli, GTK+ team
 					
@@ -21,91 +21,19 @@ indexing
 
 	wrapped_version: "1.2.4"
 
-class FOO
+class CAIRO_SCALED_FONT
+	-- A CAIRO_SCALED_FONT is a font scaled to a particular size and
+	-- device resolution. It is most useful for low-level font usage
+	-- where a library or application wants to cache a reference to a
+	-- scaled font to speed up the computation of metrics.
 
-inherit
-	(SHARED_?)C_STRUCT
+	-- TODO: mostly unimplemented
+inherit SHARED_C_STRUCT
 
-insert
-	FOO_EXTERNALS
-
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 
-	--   Link: Cairo: A Vector Graphics Library (start)
-	--   Link: Fonts (parent)
-	--   Link: cairo_font_face_t (previous)
-	--   Link: Font Options (next)
-	--   Link: Part I. Tutorial (part)
-	--   Link: Part II. Reference (part)
-	--   Link: Drawing (chapter)
-	--   Link: Fonts (chapter)
-	--   Link: Surfaces (chapter)
-	--   Link: Utilities (chapter)
-	--   Link: Index (index)
-	--   Link: Index of new symbols in 1.2 (index)
-	--   Link: Appendix A. Creating a language binding for cairo (appendix)
-	--
-	--   Prev Up Home             Cairo: A Vector Graphics Library             Next
-	--   Top  |  Description
-	--
-	--   Scaled Fonts
-	--
-	--   Scaled Fonts -- Caching metrics for a particular font size
-	--
-	--Synopsis
-	--
-	--
-	--
-	--
-	-- typedef     cairo_scaled_font_t;
-	-- cairo_scaled_font_t* cairo_scaled_font_create
-	--                                             (cairo_font_face_t *font_face,
-	--                                              const cairo_matrix_t *font_matrix,
-	--                                              const cairo_matrix_t *ctm,
-	--                                              const cairo_font_options_t *options);
-	-- cairo_scaled_font_t* cairo_scaled_font_reference
-	--                                             (cairo_scaled_font_t *scaled_font);
-	-- void        cairo_scaled_font_destroy       (cairo_scaled_font_t *scaled_font);
-	-- cairo_status_t cairo_scaled_font_status     (cairo_scaled_font_t *scaled_font);
-	--             cairo_font_extents_t;
-	-- void        cairo_scaled_font_extents       (cairo_scaled_font_t *scaled_font,
-	--                                              cairo_font_extents_t *extents);
-	--             cairo_text_extents_t;
-	-- void        cairo_scaled_font_text_extents  (cairo_scaled_font_t *scaled_font,
-	--                                              const char *utf8,
-	--                                              cairo_text_extents_t *extents);
-	-- void        cairo_scaled_font_glyph_extents (cairo_scaled_font_t *scaled_font,
-	--                                              cairo_glyph_t *glyphs,
-	--                                              int num_glyphs,
-	--                                              cairo_text_extents_t *extents);
-	-- cairo_font_face_t* cairo_scaled_font_get_font_face
-	--                                             (cairo_scaled_font_t *scaled_font);
-	-- void        cairo_scaled_font_get_font_options
-	--                                             (cairo_scaled_font_t *scaled_font,
-	--                                              cairo_font_options_t *options);
-	-- void        cairo_scaled_font_get_font_matrix
-	--                                             (cairo_scaled_font_t *scaled_font,
-	--                                              cairo_matrix_t *font_matrix);
-	-- void        cairo_scaled_font_get_ctm       (cairo_scaled_font_t *scaled_font,
-	--                                              cairo_matrix_t *ctm);
-	-- cairo_font_type_t cairo_scaled_font_get_type
-	--                                             (cairo_scaled_font_t *scaled_font);
-	--
-	--Description
-	--
-	--Details
-	--
-	--  cairo_scaled_font_t
-	--
-	-- typedef struct _cairo_scaled_font cairo_scaled_font_t;
-	--
-	--   A cairo_scaled_font_t is a font scaled to a particular size and device
-	--   resolution. A cairo_scaled_font_t is most useful for low-level font usage
-	--   where a library or application wants to cache a reference to a scaled font
-	--   to speed up the computation of metrics.
-	--
 	--   --------------------------------------------------------------------------
 	--
 	--  cairo_scaled_font_create ()
@@ -398,4 +326,59 @@ feature {} -- Creation
 	--
 	--   Since 1.2
 
-end -- class FOO
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <cairo.h>"
+		alias "sizeof(cairo_scaled_font_t)"
+		end
+
+feature {} -- External calls
+	cairo_scaled_font_create (a_font_face, a_font_matrix, a_ctm_matrix, some_font_options: POINTER): POINTER is
+		external "C use <cairo.h>"
+		end
+
+	cairo_scaled_font_reference (a_scaled_font: POINTER): POINTER is
+		external "C use <cairo.h>"
+		end
+
+	cairo_scaled_font_destroy (a_scaled_font: POINTER) is
+		external "C use <cairo.h>"
+		end
+	
+	cairo_scaled_font_status (a_scaled_font: POINTER): INTEGER is
+		external "C use <cairo.h>"
+		end
+	
+	cairo_scaled_font_extents (a_scaled_font, an_extents: POINTER) is
+		external "C use <cairo.h>"
+		end
+
+	cairo_scaled_font_text_extents (a_scaled_font, an_utf8, an_extents: POINTER) is
+		external "C use <cairo.h>"
+		end
+	
+	cairo_scaled_font_glyph_extents (a_scaled_font, some_glyphs: POINTER; a_glyph_num: INTEGER; some_extents: POINTER) is
+		external "C use <cairo.h>"
+		end
+	
+	cairo_scaled_font_get_font_face (a_scaled_font: POINTER): POINTER is
+		external "C use <cairo.h>"
+		end
+	
+	cairo_scaled_font_get_font_options (a_scaled_font, a_font_options: POINTER) is
+		external "C use <cairo.h>"
+		end
+
+	cairo_scaled_font_get_font_matrix (a_scaled_font, a_font_matrix: POINTER) is
+		external "C use <cairo.h>"
+		end
+
+	cairo_scaled_font_get_ctm (a_scaled_font, a_ctm_matrix: POINTER) is
+		external "C use <cairo.h>"
+		end
+	
+	cairo_scaled_font_get_type (a_scaled_font: POINTER): INTEGER is
+		external "C use <cairo.h>"
+		end
+	
+end -- class CAIRO_SCALED_FONT
