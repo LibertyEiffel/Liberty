@@ -15,12 +15,55 @@ deferred class GTK
 insert
 	ANY undefine copy,is_equal,fill_tagged_out_memory end
 	GTK_STANDARD_ENUMERATIONS undefine fill_tagged_out_memory end
+	GTK_EXTERNALS
 
 feature -- Gtk 
 
 	gtk: GTK_MAIN is
 		once
 			create Result
+		end
+
+	linked_major_version: INTEGER is
+		do
+			Result := gtk_major_version
+		ensure
+			Result > 0
+		end
+
+	linked_minor_version: INTEGER is
+		do
+			Result := gtk_minor_version
+		ensure
+			Result > 0
+		end
+
+	linked_micro_version: INTEGER is
+		do
+			Result := gtk_micro_version
+		ensure
+			Result > 0
+		end
+
+	header_major_version: INTEGER is
+		do
+			Result := gtk_header_major_version
+		ensure
+			Result > 0
+		end
+
+	header_minor_version: INTEGER is
+		do
+			Result := gtk_header_minor_version
+		ensure
+			Result > 0
+		end
+
+	header_micro_version: INTEGER is
+		do
+			Result := gtk_header_micro_version
+		ensure
+			Result > 0
 		end
 
 end
