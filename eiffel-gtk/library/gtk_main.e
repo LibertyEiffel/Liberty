@@ -1625,7 +1625,7 @@ feature -- Version Information
 	gtk_major_version: INTEGER is
 			-- The major version number of the GTK+ library. (e.g. in
 			-- GTK+ version 1.2.5 this is 1.)
-		
+			
 			-- This variable is in the library, so represents the GTK+
 			-- library you have linked against. Contrast with the
 			-- GTK_MAJOR_VERSION macro, which represents the major
@@ -1633,16 +1633,16 @@ feature -- Version Information
 			-- Should be NATURAL since it is a guint
 		external "C macro use <gtk/gtk.h>"
 		end
-	
+
 	gtk_minor_version: INTEGER is
 			-- The minor version number of the GTK+ library. (e.g. in
 			-- GTK+ version 1.2.5 this is 2.)
-		
+			
 			-- This variable is in the library, so represents the GTK+
 			-- library you have linked against. Contrast with the
 			-- GTK_MINOR_VERSION macro, which represents the minor
 			-- version of the GTK+ headers you have included.
-		
+			
 			-- TODO: Should be NATURAL since it is a guint
 		external "C macro use <gtk/gtk.h>"
 		end
@@ -1650,7 +1650,7 @@ feature -- Version Information
 	gtk_micro_version: INTEGER is
 			-- The micro version number of the GTK+ library. (e.g. in
 			-- GTK+ version 1.2.5 this is 5.)
-
+			
 			-- This variable is in the library, so represents the GTK+
 			-- library you have linked against. Contrast with the
 			-- GTK_MICRO_VERSION macro, which represents the micro
@@ -1659,7 +1659,6 @@ feature -- Version Information
 			-- TODO: Should be NATURAL since it is a guint
 		external "C macro use <gtk/gtk.h>"
 		end
-	
 
 	--  gtk_binary_age
 	--
