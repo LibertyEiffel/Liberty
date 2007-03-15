@@ -33,7 +33,31 @@ feature
 			av_register_all
 		end
 
-feature {}
+	av_codec_version: STRING is
+		do
+			Result := string_version_from_integer (av_codec_get_version)
+		end
+
+	av_format_version: STRING is
+		do
+			Result := string_version_from_integer (av_format_get_version)
+		end
+
+	av_util_version: STRING is
+		do
+			Result := string_version_from_integer (av_util_get_version)
+		end
+
+feature {} -- Utils
+
+	string_version_from_integer (an_integer: INTEGER): STRING is
+		do
+			Result := ((an_integer |>>> 16) & 255).to_string + "." +
+			          ((an_integer |>>>  8) & 255).to_string + "." +
+			          ((an_integer |>>>  0) & 255).to_string
+		end
+
+feature {} -- Externals
 
 	av_register_all is
 			-- Don't call this method directly!! use ffmpeg_init instead
@@ -48,6 +72,21 @@ feature {}
 	av_nopts_value: INTEGER_64 is
 		external "C macro use <avcodec.h>"
 		alias "AV_NOPTS_VALUE"
+		end
+
+	av_codec_get_version: INTEGER is
+		external "C macro use <avcodec.h>"
+		alias "LIBAVCODEC_VERSION_INT"
+		end
+
+	av_format_get_version: INTEGER is
+		external "C macro use <avformat.h>"
+		alias "LIBAVFORMAT_VERSION_INT"
+		end
+
+	av_util_get_version: INTEGER is
+		external "C macro use <avutil.h>"
+		alias "LIBAVUTIL_VERSION_INT"
 		end
 
 end -- class FFMPEG_COMMON
