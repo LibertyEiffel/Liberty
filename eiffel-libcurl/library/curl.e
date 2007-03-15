@@ -117,6 +117,11 @@ feature -- Representation
 	last_string: STRING
 	last_curl_list: CURL_LIST
 
+	version: STRING is
+		do
+			create Result.from_external_copy (curl_version)
+		end
+
 feature {} -- Representation
 
 	write_callback_closure: POINTER

@@ -277,4 +277,9 @@ feature {} -- Externals
 	--
 	-- THERE IS MORE!!!
 
+	curl_version: POINTER is
+		external "C macro use <curl/curlver.h>"
+		alias "LIBCURL_VERSION"
+		end
+
 end -- class CURL_EXTERNALS
