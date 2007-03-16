@@ -11,14 +11,15 @@ inherit ANY undefine is_equal, copy end
 
 
 feature {} -- enum
+
 	is_valid_wrap_mode (a_mode :INTEGER): BOOLEAN is
-		do	
+		do
 			Result:=((a_mode = gtk_wrap_none) or else
 						(a_mode = gtk_wrap_char) or else
 						(a_mode = gtk_wrap_word) or else
 						(a_mode = gtk_wrap_word_char))
 		end
-	
+
 	gtk_wrap_none: INTEGER is
 			-- do not wrap lines; just make the text area wider 
 		external "C macro use <gtk/gtk.h>"
@@ -45,4 +46,5 @@ feature {} -- enum
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WRAP_WORD_CHAR"
 		end
-end
+
+end -- class GTK_WRAP_MODE
