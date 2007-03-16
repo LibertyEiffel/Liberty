@@ -36,7 +36,7 @@ feature {} -- Creation
 
 	
 
-feature -- size
+feature {} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <polka/.h>"

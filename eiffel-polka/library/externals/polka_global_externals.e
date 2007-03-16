@@ -29,31 +29,31 @@ inherit ANY undefine is_equal, copy end
 feature {} -- Externals
 
 	polka_strict_external: INTEGER is
-		external "C use <polka/polka.h>"
+		external "C macro use <polka/polka.h>"
 		end
 
 	polka_cts_external: INTEGER is
-		external "C use <polka/polka.h>"
+		external "C macro use <polka/polka.h>"
 		end
 
 	polka_eps_external: INTEGER is
-		external "C use <polka/polka.h>"
+		external "C macro use <polka/polka.h>"
 		end
 
 	polka_dec_external: INTEGER is
-		external "C use <polka/polka.h>"
+		external "C macro use <polka/polka.h>"
 		end
 
 	polka_maxnbdims_external: INTEGER is
-		external "C use <polka/polka.h>"
+		external "C macro use <polka/polka.h>"
 		end
 
 	polka_maxnbrows_external: INTEGER is
-		external "C use <polka/polka.h>"
+		external "C macro use <polka/polka.h>"
 		end
 
 	polka_maxnbcolumns_external: INTEGER is
-		external "C use <polka/polka.h>"
+		external "C macro use <polka/polka.h>"
 		end
 
 end -- class POLKA_GLOBAL_EXTERNALS

@@ -605,7 +605,7 @@ feature {} -- Destruction
 			poly_free (handle)
 		end
 
-feature -- size
+feature {} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <polka/poly.h>"

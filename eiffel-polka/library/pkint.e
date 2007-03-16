@@ -354,7 +354,7 @@ feature {} -- Destruction
 			Precursor
 		end
 
-feature -- size
+feature {} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <polka/pkint.h>"

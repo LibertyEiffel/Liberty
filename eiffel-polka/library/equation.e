@@ -103,7 +103,7 @@ feature -- Access
 			assignment.count.in_range (0, dimension - polka_dec)
 		end
 
-feature -- size
+feature {} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <polka/.h>"
