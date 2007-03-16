@@ -10,11 +10,6 @@ deferred class C_STRUCT
 inherit
 	WRAPPER
 
-insert EXCEPTIONS
-		export {} all
-		undefine is_equal, copy
-		end
-
 feature {} -- Initialization
 
 	allocate is
@@ -28,8 +23,8 @@ feature {} -- Initialization
 feature -- Queries
 
 	exists: BOOLEAN is
-			--  Does Current wrap an existing object? Speaking in C: is handle not 
-			--  NULL?
+			-- Does Current wrap an existing object?
+			-- Speaking in C: is handle not NULL?
 		obsolete "use is_not_null instead"
 		do
 			Result := is_not_null
@@ -89,27 +84,5 @@ feature {} -- Destroying
 		do
 			free (handle)
 		end
-
-feature {} -- External calls
-
-	calloc (a_number, a_size: INTEGER): POINTER is
-		external "C use <stdlib.h>"
-		alias "se_calloc"
-		ensure Result.is_not_null
-		end
-
-	free (a_ptr: POINTER) is
-		external "C use <stdlib.h>"
-		end
-
-	memcpy (a_dest, a_src: POINTER; a_size: INTEGER): POINTER is
-			-- void *memcpy(void *dest, const void *src, size_t n);
-		external "C use <stdlib.h>"
-		end
-
-	memcmp(a, b: POINTER; len: INTEGER): INTEGER is
-		external "C use <string.h>"
-		end
-			
 
 end -- class C_STRUCT
