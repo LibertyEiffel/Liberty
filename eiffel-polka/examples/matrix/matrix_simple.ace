@@ -42,6 +42,6 @@ generate -- section
 
 	c_compiler_options : "-DPOLKA_NUM=3"
 
-	linker_options : "-lpolkag -lgmp"
+	linker_options : "-lgmp -lpolkag"
 
 end

@@ -28,4 +28,20 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Externals
 
+	equation_set_var (handle: POINTER; a_variable: INTEGER) is
+		external "C struct equation_t set var use <polka/matrix.h>"
+		end
+
+	equation_set_expr (handle: POINTER; an_assignment: POINTER) is
+		external "C struct equation_t set expr use <polka/matrix.h>"
+		end
+
+	equation_get_var (handle: POINTER): INTEGER is
+		external "C struct equation_t access var use <polka/matrix.h>"
+		end
+
+	equation_get_expr (handle: POINTER): POINTER is
+		external "C struct equation_t access expr use <polka/matrix.h>"
+		end
+
 end -- class EQUATION_EXTERNALS

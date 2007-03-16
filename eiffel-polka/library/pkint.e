@@ -22,7 +22,7 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-deferred class PKINT
+class PKINT
 
 		-- The generic type of coefficients in vectors and matrices.
 		-- The naming scheme and the semantics of these operations comes
@@ -37,11 +37,19 @@ inherit
 	NUMERIC
 		undefine copy end
 	COMPARABLE
-		undefine copy end
+		undefine copy
+		redefine is_equal, infix ">"
+		end
 	SHARED_C_STRUCT
 		undefine is_equal
-		redefine copy, from_external_pointer
+		redefine dispose, copy, from_external_pointer
 		end
+
+insert
+	PKINT_EXTERNALS
+
+creation
+	make, copy, from_natural, from_integer, from_string, from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 
@@ -55,7 +63,9 @@ feature {} -- Creation
 
 	make is
 			-- Initialize integer and set its value to 0.
-		deferred
+		do
+			allocate
+			pkint_init (handle)
 		ensure
 			not is_shared
 		end
@@ -65,8 +75,8 @@ feature {} -- Creation
 		require
 			a_natural >= 0
 		do
-			make
-			set_from_natural (a_natural)
+			allocate
+			pkint_init_set_ui (handle, a_natural)
 		ensure
 			not is_shared
 		end
@@ -74,8 +84,8 @@ feature {} -- Creation
 	from_integer (an_integer: INTEGER) is
 			-- Create an instance and set its value from `an_integer'.
 		do
-			make
-			set_from_integer (an_integer)
+			allocate
+			pkint_init_set_si (handle, an_integer)
 		ensure
 			not is_shared
 		end
@@ -86,8 +96,8 @@ feature {} -- Creation
 			a_string /= Void
 			a_string.is_integer
 		do
-			make
-			set_from_string (a_string)
+			allocate
+			from_integer (a_string.to_integer)
 		ensure
 			not is_shared
 		end
@@ -98,8 +108,8 @@ feature -- Creation
 		do
 			dispose
 			if other.handle.is_not_null then
-				make
-				set_from_pkint (other)
+				allocate
+				pkint_init_set (handle, other.handle)
 			end
 		ensure then
 			not is_shared
@@ -109,19 +119,24 @@ feature -- Operations
 
 	set_from_pkint (other: like Current) is
 			-- Set the value of Current from `other'.
-		deferred
+		do
+			if other.handle.is_not_null then
+				pkint_set (handle, other.handle)
+			end
 		end
 
 	set_from_natural (a_natural: INTEGER) is
 			-- Set the value of Current from `a_natural'.
 		require
 			a_natural >= 0
-		deferred
+		do
+			pkint_set_ui (handle, a_natural)
 		end
 
 	set_from_integer (an_integer: INTEGER) is
 			-- Set the value of Current from `an_integer'.
-		deferred
+		do
+			pkint_set_si (handle, an_integer)
 		end
 
 	set_from_string (a_string: STRING) is
@@ -130,14 +145,16 @@ feature -- Operations
 		require
 			a_string /= Void
 			a_string.is_integer
-		deferred
+		do
+			pkint_set_str10 (handle, a_string.to_external)
 		end
 
 feature -- Access
 
 	to_natural: INTEGER_64 is
 			-- Return the least significant part from integer.
-		deferred
+		do
+			Result := pkint_get_ui (handle)
 		ensure
 			Result >= 0
 		end
@@ -150,7 +167,8 @@ feature -- Access
 			-- If integer is too large to fit in a signed long int, the
 			-- returned result is probably not very useful. To find out if
 			-- the value will fit, use the function pkint_fits_slong_p.
-		deferred
+		do
+			Result := pkint_get_si (handle)
 		end
 
 	to_string: STRING is
@@ -167,7 +185,8 @@ feature -- Access
 			
 			-- A pointer to the result string is returned, being either
 			-- the allocated block, or the given str.
-		deferred
+		do
+			create Result.from_external (pkint_get_str10 (default_pointer, handle))
 		end
 
 	digits: INTEGER is
@@ -179,16 +198,80 @@ feature -- Access
 			-- amount of space before converting OP to a string. The right
 			-- amount of allocation is normally two more than the value
 			-- returned by pkint_sizeinbase10.
-		deferred
+		do
+			
+		end
+
+feature -- from HASHABLE
+
+	hash_code: INTEGER is
+		do
+			Result := to_integer
 		end
 
 feature -- from NUMERIC
 
-			-- void pkint_add (pkint_t rop, pkint_t op1, pkint_t op2)
-			-- void pkint_sub (pkint_t rop, pkint_t op1, pkint_t op2)
-			-- void pkint_mul (pkint_t rop, pkint_t op1, pkint_t op2)
-			-- void pkint_neg (pkint_t rop, pkint_t op)
-			-- int pkint_sgn (pkint_t integer)
+	infix "+" (other: like Current): like Current is
+		do
+			create Result.make
+			pkint_add (Result.handle, handle, other.handle)
+		end
+
+	infix "-" (other: like Current): like Current is
+		do
+			create Result.make
+			pkint_sub (Result.handle, handle, other.handle)
+		end
+
+	infix "*" (other: like Current): like Current is
+		do
+			create Result.make
+			pkint_mul (Result.handle, handle, other.handle)
+		end
+
+	infix "/" (other: like Current): NUMERIC is
+		local
+			tmp: PKINT
+		do
+			create tmp.make
+			pkint_divexact (tmp.handle, handle, other.handle)
+			Result := tmp
+		end
+
+	prefix "+": like Current is
+		do
+			Result := Current
+		end
+
+	prefix "-": like Current is
+		do
+			create Result.make
+			pkint_neg (Result.handle, handle)
+		end
+
+	divisible (other: like Current): BOOLEAN is
+		local
+			tmp: like Current
+		do
+			create tmp.make
+			pkint_div (tmp.handle, handle, other.handle)
+			Result := tmp.is_equal (zero)
+		end
+
+	one: like Current is
+		do
+			create Result.from_integer (1)
+		end
+
+	zero: like Current is
+		do
+			create Result.from_integer (0)
+		end
+
+	sign: INTEGER_8 is
+		do
+			Result := pkint_sgn (handle).to_integer_8
+		end
 
 			-- void pkint_addmul (pkint_t rop, pkint_t op1, pkint_t op2)
 			-- Set rop to rop + op1 * op2.
@@ -208,29 +291,67 @@ feature -- from NUMERIC
 			-- void pkint_gcd (pkint_t rop, pkint_t op1, pkint_t op2)
 			-- Set rop to Greatest Common Divisor of op1 and op2.
 
-			-- void pkint_divexact (pkint_t rop, pkint_t op1, pkint_t op2)
-			-- Set rop to op1 / op2, assuming that op2 is a divisor of op1.
+			-- void pkint_sizeinbase10 (pkint_t integer)
+			-- Return the size of integer measured in number of digits in base 10. The
+			-- sign of integer is ignored. The result may be too big than the exact
+			-- value.
+			-- 
+			-- This function is useful in order to allocate the right amount of space
+			-- before converting OP to a string. The right amount of allocation is
+			-- normally two more than the value returned by pkint_sizeinbase10
 
 feature -- from COMPARABLE
 
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := pkint_cmp (handle, other.handle) = 0
+		end
+
+	infix "<" (other: like Current): BOOLEAN is
+		do
+			Result := pkint_cmp (handle, other.handle) < 0
+		end
+
+	infix ">" (other: like Current): BOOLEAN is
 			-- Compare op1 and op2. Return a positive value if op1 >
 			-- op2, zero if op1 = op2, and a negative value if op1 < op2.
+		do
+			Result := pkint_cmp (handle, other.handle) > 0
+		end
 
-			-- int pkint_cmp (pkint_t op1, pkint_t op2)
-			-- int pkint_cmp_ui (pkint_t op1, unsigned long int op2)
-			-- int pkint_cmp_si (pkint_t op1, signed long int op2)
+	compare_to_natural (a_natural: INTEGER): INTEGER is
+			-- Compare op1 and op2. Return a positive value if op1 >
+			-- op2, zero if op1 = op2, and a negative value if op1 < op2.
+		require
+			a_natural >= 0
+		do
+			Result := pkint_cmp_ui (handle, a_natural)
+		end
 
-feature -- Identification
-
-	is_pkint_mpz: BOOLEAN
-
-	is_pkint_int64: BOOLEAN
+	compare_to_integer (an_integer: INTEGER): INTEGER is
+			-- Compare op1 and op2. Return a positive value if op1 >
+			-- op2, zero if op1 = op2, and a negative value if op1 < op2.
+		do
+			Result := pkint_cmp_ui (handle, an_integer)
+		end
 
 feature -- Other
 
 	print_to_stdout is
 			-- Prints integer on the standard output.
-		deferred
+		do
+			pkint_print (handle)
+		end
+
+feature {} -- Destruction
+
+	dispose is
+			-- Free the space possibly used by integer. Make sure to
+			-- call this function for all pkint_t variables when you are
+			-- done with them.
+		do
+			if not is_shared then pkint_clear (handle) end
+			Precursor
 		end
 
 feature -- size

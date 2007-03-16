@@ -137,14 +137,13 @@ feature -- Access
 			i.in_range (0, rows-1)
 			j.in_range (0, columns-1)
 		local
-			mpz_ptr: POINTER
+			c_ptr: POINTER
 		do
-			mpz_ptr := matrix_get_value (handle, i, j)
-			if wrappers.has (mpz_ptr) then
-				Result ::= wrappers.at (mpz_ptr)
+			c_ptr := matrix_get_value (handle, i, j)
+			if wrappers.has (c_ptr) then
+				Result ::= wrappers.at (c_ptr)
 			else
-				-- FIXME: This will not work for any other PKINT.
-				create {PKINT_MPZ}Result.from_external_pointer (mpz_ptr)
+				create Result.from_external_pointer (c_ptr)
 			end
 		ensure
 			Result /= Void

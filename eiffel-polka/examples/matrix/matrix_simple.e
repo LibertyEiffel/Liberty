@@ -32,7 +32,7 @@ feature {} -- Creation
 	make is
 		local
 			mat: MATRIX
-			mpz: PKINT_MPZ
+			pk: PKINT
 			r, c: INTEGER
 			i, j, val: INTEGER
 		do
@@ -45,10 +45,10 @@ feature {} -- Creation
 			from i := 0 until i >= mat.rows loop
 				from j := 0 until j >= mat.columns loop
 					val := j + (i*j)
-					print ("creating mpz from integer: "+val.out+"%N")
-					create mpz.from_integer (val)
-					print ("mpz created, integer: "+mpz.to_string+"%N")
-					mat.set (i, j, mpz)
+					print ("creating pk from integer: "+val.out+"%N")
+					create pk.from_integer (val)
+					print ("pk created, integer: "+pk.to_string+"%N")
+					mat.set (i, j, pk)
 					print ("mat set_from_pkint, value at (i,j): "+mat.at (i,j).to_string+"%N")
 					j := j+1
 				end

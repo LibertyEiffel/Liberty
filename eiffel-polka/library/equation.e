@@ -28,12 +28,13 @@ class EQUATION
 		--     typedef struct equation_t {
 		--       int var;
 		--       pkint* expr;
-		--     } equation_t_t;
+		--     } equation_t;
 
 inherit
 	C_STRUCT
 
 insert
+	POLKA_GLOBAL
 	EQUATION_EXTERNALS
 
 creation
@@ -41,9 +42,65 @@ creation
 
 feature {} -- Creation
 
-	make is
+	make (a_dimension: INTEGER) is
+		require
+			a_dimension > 0
 		do
 			allocate
+			dimension := a_dimension
+		end
+
+feature {} -- Representation
+
+	dimension: INTEGER
+
+feature -- Operations
+
+	set_var (a_variable: INTEGER) is
+		require
+			a_variable.in_range (0, dimension - polka_dec)
+		do
+			equation_set_var (handle, a_variable)
+		ensure
+			variable = a_variable
+		end
+
+	set_assignment (an_assignment: ARRAY [PKINT]) is
+		require
+			an_assignment /= Void
+			not an_assignment.has (Void)
+			an_assignment.count.in_range (0, dimension - polka_dec)
+		do
+			equation_set_expr (handle, an_assignment.to_external)
+		ensure
+			assignment = an_assignment
+		end
+
+feature -- Access
+
+	variable: INTEGER is
+		do
+			Result := equation_get_var (handle)
+		ensure
+			variable.in_range (0, dimension - polka_dec)
+		end
+
+	assignment: ARRAY [PKINT] is
+		local
+			c_ptr: POINTER
+			i: INTEGER
+		do
+			create Result.make (1, 0)
+			c_ptr := equation_get_expr (handle)
+			from i := 0 until i >= dimension loop
+				Result.add_last (create {PKINT}.from_external_pointer (c_ptr))
+				c_ptr := c_ptr + struct_size
+				i := i+1
+			end
+		ensure
+			assignment /= Void
+			not assignment.has (Void)
+			assignment.count.in_range (0, dimension - polka_dec)
 		end
 
 feature -- size
