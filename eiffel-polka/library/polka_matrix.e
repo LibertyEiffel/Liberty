@@ -1,5 +1,5 @@
 indexing
-	description: "Operations on matrices"
+	description: "Operations on Polka's matrices"
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart
 					
@@ -22,7 +22,7 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class MATRIX
+class POLKA_MATRIX
 
 		-- A matrix is represented by a structure whose elements
 		-- prefixed by _ should be considered as private. You access to the
@@ -53,7 +53,7 @@ inherit
 
 insert
 	WRAPPER_FACTORY [PKINT]
-	MATRIX_EXTERNALS
+	POLKA_MATRIX_EXTERNALS
 
 creation make, copy, copy_from_pointer
 
@@ -165,4 +165,4 @@ feature -- size
 		alias "sizeof (matrix_t)"
 		end
 
-end -- class MATRIX
+end -- class POLKA_MATRIX

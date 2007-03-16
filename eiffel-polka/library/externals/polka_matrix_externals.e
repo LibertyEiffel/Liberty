@@ -1,5 +1,5 @@
 indexing
-	description: "Externals calls for MATRIX"
+	description: "Externals calls for POLKA_MATRIX"
 	copyright: "[
 					Copyright (C) 2001 Natalia B. Bidart
 					
@@ -22,7 +22,7 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-deferred class MATRIX_EXTERNALS
+deferred class POLKA_MATRIX_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
@@ -67,4 +67,4 @@ feature {} -- Externals
 		alias "&(((matrix_t *)($handle))->p[($i)][($j)])"
 		end
 
-end -- class MATRIX_EXTERNALS
+end -- class POLKA_MATRIX_EXTERNALS

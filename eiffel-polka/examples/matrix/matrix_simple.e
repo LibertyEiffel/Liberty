@@ -31,7 +31,7 @@ feature {} -- Creation
 
 	make is
 		local
-			mat: MATRIX
+			mat: POLKA_MATRIX
 			pk: PKINT
 			r, c: INTEGER
 			i, j, val: INTEGER

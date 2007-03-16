@@ -68,7 +68,7 @@ feature {} -- Creation
 			dimension = a_dimension
 		end
 
-	from_constraints (a_matrix: MATRIX) is
+	from_constraints (a_matrix: POLKA_MATRIX) is
 			-- Creates a polyhedron defined by the constraints stored in
 			-- `a_matrix'. The dimension of the polyhedron is equal to the
 			-- number of columns of the matrix minus `polka_dec'.
@@ -84,7 +84,7 @@ feature {} -- Creation
 			a_matrix.columns > polka_dec
 			a_matrix.rows > 0 -- FIXME: ???????????
 		local
-			other_matrix: MATRIX
+			other_matrix: POLKA_MATRIX
 		do
 			create other_matrix.copy (a_matrix)
 			from_external_pointer (poly_of_constraints (other_matrix.handle))
@@ -92,7 +92,7 @@ feature {} -- Creation
 			dimension = a_matrix.columns - polka_dec
 		end
 
-	from_frame (a_frame: MATRIX) is
+	from_frame (a_frame: POLKA_MATRIX) is
 			-- Creates a polyhedron defined by the generators stored in
 			-- `a_matrix'. The same remarks as in `from_constraints' holds.
 			-- The defined polyhedra have to be included in \xi >= 0 or
@@ -103,7 +103,7 @@ feature {} -- Creation
 			a_frame.columns > polka_dec
 			a_frame.rows > 0 -- FIXME: ???????????
 		local
-			other_frame: MATRIX
+			other_frame: POLKA_MATRIX
 		do
 			create other_frame.copy (a_frame)
 			from_external_pointer (poly_of_frames (other_frame.handle))
@@ -150,7 +150,7 @@ feature -- Operations
 
 feature -- Access
 
-	constraints: MATRIX is
+	constraints: POLKA_MATRIX is
 			-- Return the matrix of constraints of the polyhedron,
 			-- when this matrix is available, or Void if not.
 			-- The obtained set of constraints may not be minimal.
@@ -165,7 +165,7 @@ feature -- Access
 			Result /= Void implies Result.columns = dimension + polka_dec
 		end
 
-	frame: MATRIX is
+	frame: POLKA_MATRIX is
 			-- Return the matrix of generators of the polyhedron, if
 			-- available, or Void if not. The obtained set of generators
 			-- may not be minimal.
@@ -374,7 +374,7 @@ feature -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-	add_constraints (some_constraints: MATRIX): like Current  is
+	add_constraints (some_constraints: POLKA_MATRIX): like Current  is
 			-- Return the intersection of the polyhedron with the set of
 			-- constraints given by `some_constraints'. The matrix may be
 			-- sorted by the function `sort_rows'.
@@ -458,7 +458,7 @@ feature -- Intersection and Convex Hull -- Strict version
 			Result.dimension = dimension
 		end
 
-	add_frame (a_frame: MATRIX): like Current is
+	add_frame (a_frame: POLKA_MATRIX): like Current is
 			-- Return the convex hull of the polyhedron and the set of
 			-- generators given by `a_frame'. The matrix may be sorted by
 			-- the function `sort_rows'.
