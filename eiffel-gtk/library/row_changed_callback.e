@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the row-deleted signal"
+	description: "Generic callback for the row-changed signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					
@@ -53,7 +53,7 @@ feature
 			end
 			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
 			-- Note: path and iter are shared wrappers.
-			create path.from_external_pointer (path_ptr)
+			create path.copy_from_pointer (path_ptr)
 			create iter.copy_from_pointer (iter_ptr)
 			procedure.call ([object, path, iter])
 		end
@@ -69,7 +69,7 @@ feature
 	         a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL,GTK_TREE_PATH,GTK_TREE_ITER]]) is
 		do
 			debug
-				print ("ROW_DELETED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
+				print ("ROW_CHANGED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
 				print (" an_object.handle=") print (an_object.handle.to_string)
 				print (") Current=") print (to_pointer.to_string)
 				print (" Current.handle=") print (handle.to_string)
