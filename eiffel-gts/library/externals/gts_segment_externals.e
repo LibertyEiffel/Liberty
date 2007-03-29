@@ -9,11 +9,16 @@ deferred class GTS_SEGMENT_EXTERNALS
 	
 inherit ANY undefine is_equal, copy end
 
+insert GTS_EDGE_EXTERNALS
 
 feature {} -- External calls
 	-- #define     GTS_SEGMENT_CLASS               (klass)
 	-- #define     GTS_SEGMENT                     (obj)
-	-- #define     GTS_IS_SEGMENT                  (obj)
+	gts_is_segment (an_obj: POINTER): INTEGER is
+			-- #define GTS_IS_SEGMENT (obj)
+		external "C use <gts.h>"
+		alias "GTS_IS_SEGMENT"
+		end
 
 	gts_segment_class: POINTER is
 			-- GtsSegmentClass* gts_segment_class (void)
@@ -53,7 +58,7 @@ feature {} -- External calls
 		require 
 			gts_is_segment(s).to_boolean
 			gts_is_edge(e1).to_boolean
-			gts_is_edge(s2).to_boolean
+			gts_is_edge(e2).to_boolean
 		external "C macro use <gts.h>"
 		end
 	
@@ -73,7 +78,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_segment_triangle_intersection(a_segment, a_triangle: POINTER; boundary_bool: INTEGER; a_point_class: POINTER): POINTER is
-		external "C use <gts.h>"
-		end
+	-- gts_segment_triangle_intersection(a_segment, a_triangle:
+	-- POINTER; boundary_bool: INTEGER; a_point_class: POINTER):
+	-- POINTER is external "C use <gts.h>" end
 end

@@ -25,8 +25,7 @@ class GTS_FILE
 	
 inherit
 	C_STRUCT
-	STREAM_HANDLER
-	WRAPPER_HANDLER
+	STREAM_HANDLER undefine copy, is_equal end
 
 insert
 	GTS_TOKEN_TYPE
@@ -40,6 +39,11 @@ feature {} -- Creation
 			from_external_pointer(gts_file_new(a_file.stream_pointer))
 		end
 
+	from_standard_input is
+		do
+			from_external_pointer(gts_file_new(std_input.stream_pointer))
+		end
+	
 feature
 
 	next_token is
@@ -51,22 +55,25 @@ feature
 	first_token_after (a_type: INTEGER) is
 			-- Finds and sets the first token of `a_type' different from type
 			-- occuring after a token of `a_type'.
-		require valid_type: is_valid_type(a_type)
+		require valid_type: is_valid_token(a_type)
 		do
 			gts_file_first_token_after(handle,a_type)
 		end
 
-	--   gts_file_assign_start ()
-
-	--  void gts_file_assign_start (GtsFile *f, GtsFileVariable *vars);
-
-	--    Opens a block delimited by braces to read a list of optional arguments
-	--    specified by vars.
-	
-	--    If an error is encountered the error field of f is set.
-	
---     f :     a GtsFile.
---     vars :  a GTS_NONE terminated array of GtsFileVariable.
+	assign_start (some_variables: C_ARRAY[GTS_FILE_VARIABLE]) is
+			--  Opens a block delimited by braces to read a list of optional
+			--  arguments specified by some_variables.
+		
+			--    If an error is encountered the error field of f is set.
+		
+			--     f :     a GtsFile.
+			--     vars :  a GTS_NONE terminated array of GtsFileVariable.
+		require
+			variables_not_void: some_variables/=Void
+			-- TODO: variables are GTS_NONE terminated
+		do
+			gts_file_assign_start (handle,some_variables.handle)
+		end
 
 --    -----------------------------------------------------------------------------------------------------------
 
@@ -242,7 +249,7 @@ feature {}
 		external "C use <gts.h>"
 		end
 
-	gts_file_first_token_after (a_gts_file: POINTER: a_gts_token_type: INTEGER) is
+	gts_file_first_token_after (a_gts_file: POINTER; a_gts_token_type: INTEGER) is
 			--  void gts_file_first_token_after (GtsFile *f, GtsTokenType type);
 		external "C use <gts.h>"
 		end
@@ -298,5 +305,12 @@ feature {}
 	gts_file_destroy (a_gts_file: POINTER) is
 			--  void gts_file_destroy (GtsFile *f);
 		external "C use <gts.h>"
+		end
+
+
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gts.h>"
+		alias "sizeof(	GtsFile)"
 		end
 end -- class GTS_FILE

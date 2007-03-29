@@ -9,7 +9,7 @@ deferred class GTS_POINT_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
-insert GTS_INTERSECT
+insert GTS_INTERSECT_ENUM
 
 feature {} -- External calls
 	--  #include <gts.h>
@@ -71,7 +71,7 @@ feature {} -- External calls
 
 	gts_point_is_in_triangle (a_point, a_triangle: POINTER): INTEGER is -- GtsIntersect
 		external "C use <gts.h>"
-		ensure is_valid_gts_intersection (Result)
+		ensure is_valid_intersection (Result)
 		end
 
 	gts_point_orientation (p1,p2,p3: POINTER): REAL is -- gdouble
@@ -109,4 +109,11 @@ feature {} -- External calls
 	gts_point_is_inside_surface (a_point, a_gnode_tree: POINTER; is_open_gboolean: INTEGER): INTEGER is -- gboolean
 		external "C use <gts.h>"
 		end
+
+	gts_point_locate (a_point, a_surface, a_guess_face: POINTER): POINTER is
+			-- GtsFace* gts_point_locate (GtsPoint *p, GtsSurface
+			-- *surface, GtsFace *guess);
+		external "C use <gts.h>"
+		end
+
 end -- class GTS_POINT_EXTERNALS

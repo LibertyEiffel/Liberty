@@ -23,8 +23,10 @@
  */
    
 /* Callbacks found in Glib version 2.12.4 */
+#include <stdio.h>
 #include "glib-callbacks.h"
 #include "cecil.h"
+
 
 /* GSourceFunc () */
 
@@ -56,7 +58,16 @@ int EiffelGCompareDataFunc (void *a, void *b, void *user_data) {
   /* b : 	a value to compare with. */
   /* user_data : 	user data to pass to comparison function. */
   /* Returns : 	negative value if a < b; zero if a = b; positive value if a > b.  */
-  return G_COMPARE_DATA_CALLBACK_callback(a,b,user_data);
+  
+  // Note: debug code commented out
+  // printf("EiffelGCompareDataFunc (a=%p, b=%p, user_data=%p)\n",a,b,user_data);
+  /* print(user_data.generator.to_external) translated to C */
+  // void *generator = G_COMPARE_DATA_CALLBACK_generator(user_data); 
+  // printf("Generator %p%n",generator);
+  // char *generator_name = STRING_to_external(generator); 
+  // printf("Generator name %p%n",generator_name);
+  // printf("user_data is a %s\n",generator_name);
+  return G_COMPARE_DATA_CALLBACK_callback(user_data,a,b);
 };
 
 /* GFunc () */

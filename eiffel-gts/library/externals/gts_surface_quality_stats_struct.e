@@ -6,6 +6,8 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTS_SURFACE_QUALITY_STATS_STRUCT
+
+inherit ANY undefine is_equal, copy end
 	
 feature {} -- Structure getter/setter calls
 --   GtsSurfaceQualityStats

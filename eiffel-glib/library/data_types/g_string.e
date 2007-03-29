@@ -19,7 +19,8 @@ inherit
 	SHARED_C_STRUCT
 		redefine
 			copy,
-			is_equal 
+			is_equal,
+			dispose
 		end
 
 insert
@@ -64,6 +65,7 @@ feature {ANY} -- Creation / Modification:
 			handle := g_string_sized_new (needed_capacity)
 			-- The following is needed to comply with the postcondition
 			handle := g_string_set_size (handle, needed_capacity)
+			store_eiffel_wrapper
 			set_unshared
 		ensure
 			count = needed_capacity
@@ -73,6 +75,7 @@ feature {ANY} -- Creation / Modification:
 			-- Create an empty string.
 		do
 			make(0)
+			store_eiffel_wrapper
 			set_unshared
 		end
 
@@ -81,6 +84,7 @@ feature {ANY} -- Creation / Modification:
 		require a_string_not_void: a_string/=Void
 		do
 			handle := g_string_new (a_string.to_external)
+			store_eiffel_wrapper
 			set_unshared
 		end
 	
@@ -185,6 +189,17 @@ feature -- Conversion to STRING
 		do
 			create Result.from_external (c_string)
 		end
+feature {} -- Disposing
+	dispose is
+		local p: POINTER
+		do
+			if not is_shared then
+				p:=g_string_free (handle, 1)
+			end
+			unstore_eiffel_wrapper
+			handle := default_pointer
+		end
+	
 feature {}
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"

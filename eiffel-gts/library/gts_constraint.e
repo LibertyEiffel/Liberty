@@ -28,8 +28,7 @@ creation make, from_external_pointer
 feature {} -- Creation
 	make (a_vertex, another_vertex: GTS_VERTEX) is
 		do
-			from_external_pointer (gts_edge_new (gts_constraing_class,
-															 a_vertex.handle, another_vertex.handle)) 
+			from_external_pointer (gts_edge_new (gts_constraint_class, a_vertex.handle, another_vertex.handle)) 
 		end
 	
 feature {} -- External calls

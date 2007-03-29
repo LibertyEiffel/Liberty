@@ -29,6 +29,11 @@ inherit
 		end
 
 	STREAM_HANDLER
+		undefine
+			is_equal, copy
+		redefine
+			print_on
+		end
 	
 creation make, from_external_pointer
 
@@ -79,11 +84,6 @@ feature -- Queries
 			-- Maximum value of the population.
 		do
 			Result:=get_max(handle)
-		end
-
-	sum: REAL is
-		do
-			Result:=get_sum(handle)
 		end
 
 	sum: REAL is

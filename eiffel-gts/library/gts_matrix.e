@@ -25,10 +25,17 @@ class GTS_MATRIX
 	-- optimization problems.
 	
 inherit
-	ANY redefine print_on end
 	C_STRUCT
-	DISPOSABLE
+		redefine
+			dispose, print_on
+		end
+	
 	STREAM_HANDLER
+		undefine
+			is_equal, copy
+		redefine
+			print_on
+		end
 	
 creation
 	make, from_external_pointer,
@@ -220,7 +227,7 @@ feature
    print_on (a_file: OUTPUT_STREAM) is
 			-- Print Current to `a_file'.
 		do
-			gts_matrix_print(handle, file.stream_pointer)
+			gts_matrix_print(handle, a_file.stream_pointer)
 		end
 
 feature {} -- Disposing

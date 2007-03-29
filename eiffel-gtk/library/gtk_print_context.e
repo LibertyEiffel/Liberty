@@ -94,50 +94,35 @@ creation make, from_external_pointer
 
 feature {} -- Creation
 
-	-- TODO: cairo_context ()
-	--
-	-- cairo_t*    gtk_print_context_get_cairo_context
-	--                                             (GtkPrintContext *context);
-	--
-	--   Obtains the cairo context that is associated with the GtkPrintContext.
-	--
-	--   context : a GtkPrintContext
-	--   Returns : the cairo context of context
-	--
-	--   Since 2.10
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gtk_print_context_set_cairo_context ()
-	--
-	-- void        gtk_print_context_set_cairo_context
-	--                                             (GtkPrintContext *context,
-	--                                              cairo_t *cr,
-	--                                              double dpi_x,
-	--                                              double dpi_y);
-	--
-	--   Sets a new cairo context on a print context.
-	--
-	--   This function is intended to be used when implementing an internal print
-	--   preview, it is not needed for printing, since GTK+ itself creates a
-	--   suitable cairo context in that case.
-	--
-	--   context : a GtkPrintContext
-	--   cr :      the cairo context
-	--   dpi_x :   the horizontal resolution to use with cr
-	--   dpi_y :   the vertical resolution to use with cr
-	--
-	--   Since 2.10
-	--
+	context: CAIRO_CONTEXT is
+			-- the cairo context that is associated with the
+			-- GTK_PRINT_CONTEXT.
+		do
+			create Result.from_external_pointer(gtk_print_context_get_cairo_context(handle))
+		end
+			
+	set_context (a_context: CAIRO_CONTEXT; an_x_dpi, an_y_dpi: REAL) is
+			--  Sets a new cairo context on a print context.
 
+			-- This function is intended to be used when implementing an
+			-- internal print preview, it is not needed for printing,
+			-- since GTK+ itself creates a suitable cairo context in that
+			-- case.
+
+			-- `an_x_dpi': the horizontal resolution to use with
+			-- `a_context'
+		
+			-- `an_y_dpi': the vertical resolution to use with
+			-- `a_context'
+		require context_not_void: a_context/=Void
+		do
+			gtk_print_context_set_cairo_context(handle,a_context.handle,
+															an_x_dpi, an_y_dpi)
+		end	
 	
 	page_setup: GTK_PAGE_SETUP is
-		--   Obtains the GtkPageSetup that determines the page dimensions of the
-	--   GtkPrintContext.
-	--
-	--   context : a GtkPrintContext
-	--   Returns : the page setup of context
-
+			-- the GtkPageSetup that determines the page dimensions of
+			-- the GtkPrintContext.
 		do
 			create Result.from_external_pointer(gtk_print_context_get_page_setup(handle))
 		end

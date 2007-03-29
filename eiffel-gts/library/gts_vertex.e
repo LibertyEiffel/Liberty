@@ -25,7 +25,7 @@ class GTS_VERTEX
 inherit 
 	GTS_POINT
 		redefine 
-			make
+			make, struct_size
 		end
 
 insert GTS_VERTEX_EXTERNALS
@@ -168,4 +168,10 @@ feature {} -- Struct access
 	-- GSList *segments; Contains all the GtsSegment using this vertex
 	-- as one of their endpoints.
 
+feature -- size
+
+	struct_size: INTEGER is
+		external "C inline use <gts.h>"
+		alias "sizeof(GtsVertex)"
+		end
 end -- class GTS_VERTEX

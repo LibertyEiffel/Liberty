@@ -47,81 +47,6 @@ creation make, from_external_pointer
 
 feature {} -- Creation
 
-
--- Details
-
---   GTS_CONSTRAINT_CLASS()
-
---  #define     GTS_CONSTRAINT_CLASS(klass)
-
---    Casts klass to GtsConstraintClass.
-
---     klass :  a descendant of GtsConstraintClass.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GTS_CONSTRAINT()
-
---  #define     GTS_CONSTRAINT(obj)
-
---    Casts obj to GtsConstraint.
-
---     obj :  a descendant of GtsConstraint.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GTS_IS_CONSTRAINT()
-
---  #define     GTS_IS_CONSTRAINT(obj)
-
---    Evaluates to TRUE if obj is a GtsConstraint, FALSE otherwise.
-
---     obj :  a pointer to test.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GtsConstraintClass
-
---  typedef struct _GtsConstraintClass GtsConstraintClass;
-
---    The constraint class derived from GtsEdgeClass.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   GtsConstraint
-
---  typedef struct _GtsConstraint GtsConstraint;
-
---    The constraint object derived from GtsEdge.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_constraint_class ()
-
---  GtsConstraintClass* gts_constraint_class    (void);
-
---     Returns :  the GtsConstraintClass.
-
---    -----------------------------------------------------------------------------------------------------------
-
---   gts_point_locate ()
-
---  GtsFace*    gts_point_locate                (GtsPoint *p,
---                                               GtsSurface *surface,
---                                               GtsFace *guess);
-
---    Locates the face of the planar projection of surface containing p. The planar projection of surface must
---    define a connected set of triangles without holes and bounded by a convex boundary. The algorithm is
---    randomized and performs in O(n^1/3) expected time where n is the number of triangles of surface.
-
---    If a good guess is given the point location can be significantly faster.
-
---     p :        a GtsPoint.
---     surface :  a GtsSurface.
---     guess :    NULL or a face of surface close to p.
---     Returns :  a GtsFace of surface containing p or NULL if p is not contained within the boundary of
---                surface.
-
 --    -----------------------------------------------------------------------------------------------------------
 
 --   gts_delaunay_add_vertex ()
@@ -263,12 +188,6 @@ feature {} -- External call
 		external "C use <gts.h>"
 		end
 	
-	gts_point_locate (a_point, a_surface, a_guess_face: POINTER): POINTER is
-			-- GtsFace* gts_point_locate (GtsPoint *p, GtsSurface
-			-- *surface, GtsFace *guess);
-		external "C use <gts.h>"
-		end
-
 	gts_delaunay_add_vertex (a_surface, a_vertex, a_guess_face: POINTER): POINTER is
 			-- GtsVertex* gts_delaunay_add_vertex (GtsSurface *surface,
 			-- GtsVertex *v, GtsFace *guess);

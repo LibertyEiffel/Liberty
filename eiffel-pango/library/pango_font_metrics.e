@@ -28,8 +28,7 @@ inherit SHARED_C_STRUCT
 creation make, from_external_pointer
 
 feature {} -- Creation
---             PangoFontMetrics;
--- #define     PANGO_TYPE_FONT_METRICS
+	-- #define     PANGO_TYPE_FONT_METRICS
 -- PangoFontMetrics* pango_font_metrics_ref    (PangoFontMetrics *metrics);
 -- void        pango_font_metrics_unref        (PangoFontMetrics *metrics);
 -- int         pango_font_metrics_get_ascent   (PangoFontMetrics *metrics);
@@ -46,5 +45,9 @@ feature {} -- Creation
 --                                             (PangoFontMetrics *metrics);
 -- int         pango_font_metrics_get_strikethrough_position
 --                                             (PangoFontMetrics *metrics);
-
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <pango/pango.h>"
+		alias "sizeof(PangoFontMetrics)"
+		end
 end -- class PANGO_FONT_METRICS

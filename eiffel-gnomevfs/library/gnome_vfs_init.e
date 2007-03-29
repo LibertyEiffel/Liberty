@@ -24,6 +24,7 @@ deferred class GNOME_VFS
 	-- the whole GNOME framework this library is initialized and
 	-- shutdown automatically when calling gnome_init.
 
+	
 feature -- Gnome VFS initializing and shutting down
 	init is
 			-- Initialize Gnome-VFS, if it is not already
@@ -53,7 +54,14 @@ feature -- Gnome VFS initializing and shutting down
 		do
 			gnome_vfs_shutdown
 		end
-	
+
+feature -- SSL support 
+	is_ssl_enabled: BOOLEAN is
+			-- Was gnome-vfs compiled with SSL support?				 
+		do
+			Result:=gnome_vfs_ssl_enable.to_boolean
+		end
+
 feature {} -- External calls
 	gnome_vfs_init: INTEGER is
 		external "C use <libgnomevfs/gnome-vfs.h>"
@@ -66,4 +74,10 @@ feature {} -- External calls
 	gnome_vfs_shutdown is
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
+
+	gnome_vfs_ssl_enabled: INTEGER is
+			-- gboolean gnome_vfs_ssl_enabled (void);
+		external "C use <libgnomevfs/gnome-vfs.h>"
+		end
+
 end -- class GNOME_VFS

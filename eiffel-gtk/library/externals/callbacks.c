@@ -1,11 +1,42 @@
-/* (C) 2006 Paolo Redaelli 
-   Released under Lesser General Public License v2 or later
- */
+/*
+	Author: Paolo Redaelli, Natalia B. Bidart
+	Copyright (C) 2006 Paolo Radaelli
+	Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)
+	
+	This library is free software; you can redistribute it and/or
+	modify it under the terms of the GNU Lesser General Public License
+	as published by the Free Software Foundation; either version 2.1 of
+	the License, or (at your option) any later version.
+					
+	This library is distributed in the hope that it will be useful, but
+	WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	Lesser General Public License for more details.
+
+	You should have received a copy of the GNU Lesser General Public
+	License along with this library; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+	02110-1301 USA
+*/
 #include "callbacks.h"
 
 #include <stdio.h>
 
-/* gboolean  EiffelGtkTreeForeachFunc (GtkTreeModel *model, */
+CallbackClosure *new_curl_closure (void *C, void *f) {
+    CallbackClosure *result;
+    result = malloc (sizeof(CallbackClosure));
+    result->Current = C;
+    result->function = f;
+    return result;
+}
+
+CallbackClosure *free_closure (CallbackClosure *c) {
+	free (c);
+	c = NULL;
+	return c;
+}
+
+/* gboolean EiffelGtkTreeForeachFunc (GtkTreeModel *model, */
 /* 				    GtkTreePath *path,  */
 /* 				    GtkTreeIter *iter,  */
 /* 				    gpointer data) { */
@@ -16,20 +47,18 @@ int EiffelGtkTreeSelectionFunc (void *selection,
 				void *model,
 				void *path,
 				int path_currently_selected,
-				void *data[]) {
-	/* Assumes that data is an array of pointers; the first item is the
-	** address of the Eiffel callback to call, the secondo is the
-	** address of Eiffel's Current
-	*/
+				CallbackClosure *data) {
+  void *current;
+  int (*function)(void *, void *, void *, void *, int);
   /* printf ("EiffelGtkTreeSelectionFunc called\n"); */
-	return ((/*function signature*/
-	         (int (*)(void *current, void *selection,
-	          void *model, void *path,
-	          int path_currently_selected))
-	          /* pointer to function */ data[0])
-	        (/* actual arguments */
-	         /* Eiffel's Current */ data[1],
+  current = data->Current;
+  function 
+  return ((/*function signature*/
+ 	
+	   /* pointer to function */ data[0])
+	  (/* actual arguments */
+	   /* Eiffel's Current */ data[1],
 	         selection, model, path,
-	         path_currently_selected));
+				  path_currently_selected));
 };
 

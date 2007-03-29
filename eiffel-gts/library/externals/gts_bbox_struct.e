@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTS_BBOX_STRUCT
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Structure getter/setter calls
 
 --   GtsBBox

@@ -21,10 +21,12 @@ indexing
 
 class GTS_FILE_VARIABLE
 
-inherit C_STRUCT
+inherit SHARED_C_STRUCT
 	
-insert GTS_FILE_VARIABLE_STRUCT
-
+insert
+	GTS_FILE_VARIABLE_STRUCT
+	GTS_TOKEN_TYPE
+	
 creation make, from_external_pointer
 
 feature 

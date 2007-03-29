@@ -70,10 +70,9 @@ inherit
 		redefine
 			dispose,
 			compare
-			-- TODO: is_equal and all the < > <= >=
 		end
 	
-creation make_dmy
+creation make_dmy, from_tuple
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -87,7 +86,7 @@ feature {} -- Creation
 			-- date will be cleared (`clear') but invalid (it won't
 			-- represent an existing day).
 		do
-			handle := g_date_new
+			from_external_pointer(g_date_new)
 		end
 
 	make_dmy (a_day, a_month: INTEGER_8; an_year: INTEGER_16) is
@@ -96,7 +95,15 @@ feature {} -- Creation
 			-- represents an existing day, the returned date will be
 			-- valid.
 		do
-			handle := g_date_new_dmy (a_day, a_month, an_year)
+			from_external_pointer(g_date_new_dmy (a_day, a_month, an_year))
+		end
+
+	from_tuple (a_tuple: TUPLE[INTEGER_8,INTEGER_8,INTEGER_16]) is
+			-- Create and initialize a new GDate, assuming the
+			-- day-month-year triplet you pass in represents an existing
+			-- day, the returned date will be valid.
+		do
+			from_external_pointer(g_date_new_dmy (a_tuple.item_1, a_tuple.item_2, a_tuple.item_3))
 		end
 
 	make_julian (a_julian_day: INTEGER_32) is
@@ -107,7 +114,7 @@ feature {} -- Creation
 		
 			-- `a_julian_day': days since January 1, Year 1.
 		do
-			handle:=g_date_new_julian (a_julian_day)
+			from_external_pointer(g_date_new_julian (a_julian_day))
 		end
 
 feature
@@ -123,6 +130,7 @@ feature -- Disposing
 	dispose is
 		do
 			g_date_free (handle)
+			handle:=default_pointer
 		end
 
 feature -- Setters 
@@ -348,6 +356,16 @@ feature -- Date arithmetics
 			Result :=  g_date_days_between (handle, another.handle)
 		end
 
+	is_equal (another: like Current): BOOLEAN is
+		do
+			Result:=(compare(another)=0)
+		end
+	
+	infix "<"(another: like Current): BOOLEAN is
+		do
+			Result:=(compare(another)<0)
+		end
+	
 	compare (another: like Current): INTEGER is
 			-- qsort()-style comparsion function for dates; i.e.: 0 for
 			-- equal, less than zero if Current is less than another,
@@ -488,16 +506,15 @@ feature -- Queries
 
 	to_string: STRING is
 		require is_valid
-		local written_characters: INTEGER 
+		local written_characters: INTEGER -- TODO: shall be NATURAL
 		do
-			create Result.make(10)
-			written_characters:=g_date_strftime (Result.to_external,
-															 Result.count,
-															 to_string_format.to_external,
-															 handle)
-			check
-				buffer_big_enought: written_characters/=0
-			end
+			create Result.make_filled(' ',11)
+			written_characters:= (g_date_strftime
+										 (Result.to_external, Result.count,
+										  to_string_format.to_external, handle))
+			check buffer_big_enought: written_characters/=0 end
+			-- debug print("G_DATE.to_string after trimming is ")
+			-- print(Result.count.out) print(" characters long%N") end
 		end
 	
 	-- g_date_strftime ()
@@ -799,8 +816,7 @@ feature {} -- External features
 		external "C use <glib.h>"
 		end
 
-	g_date_strftime (string: POINTER; len: INTEGER; format, a_date:
-						  POINTER): INTEGER is -- gsize
+	g_date_strftime (string: POINTER; len: INTEGER; format, a_date: POINTER): INTEGER is -- gsize
 			-- Note: len and Result are actually gsize
 		external "C use <glib.h>"
 		end
@@ -1053,6 +1069,40 @@ feature {} --
 			-- The format used in feature `to_string'; the double %% is 
 			-- becuase both Eiffel and the C function use % as a special character.
 
+feature {} -- GDate struct access
+	-- typedef struct {
+	--   guint julian_days : 32; /* julian days representation - we use a
+	--                            *  bitfield hoping that 64 bit platforms
+	--                            *  will pack this whole struct in one big
+	--                            *  int
+	--                            */
+
+	--   guint julian : 1;    /* julian is valid */
+	--   guint dmy    : 1;    /* dmy is valid */
+	
+	--   /* DMY representation */
+	--   guint day    : 6;
+	--   guint month  : 4;
+	--   guint year   : 16;
+	-- } GDate;
+
+	-- Represents a day between January 1, Year 1 and a few thousand
+	-- years in the future. None of its members should be accessed
+	-- directly. If the GDate is obtained from g_date_new(), it will be
+	-- safe to mutate but invalid and thus not safe for calendrical
+	-- computations. If it's declared on the stack, it will contain
+	-- garbage so must be initialized with
+	-- g_date_clear(). g_date_clear() makes the date invalid but
+	-- sane. An invalid date doesn't represent a day, it's "empty." A
+	-- date becomes valid after you set it to a Julian day or you set a
+	-- day, month, and year.
+	
+	-- guint julian_days : 32; 	the Julian representation of the date
+	-- guint julian : 1; 	this bit is set if julian_days is valid
+	-- guint dmy : 1; 	this is set if day, month and year are valid
+	-- guint day : 6; 	the day of the day-month-year representation of the date, as a number between 1 and 31
+	-- guint month : 4; 	the day of the day-month-year representation of the date, as a number between 1 and 12
+	-- guint year : 16; 	the day of the day-month-year representation of the date
 end
 	
 	

@@ -43,9 +43,16 @@ class G_TREE [KEY->COMPARABLE_SHARED_C_STRUCT, VALUE->SHARED_C_STRUCT]
 inherit
 	SHARED_C_STRUCT redefine dispose end
 	
+	WRAPPER_FACTORY[KEY]
+		-- Note: G_TREE must be an effective heir of
+		-- WRAPPER_FACTORY. This is needed because the companion
+		-- G_COMPARE_DATA_CALLBACK (`comparator') will need a factory to
+		-- create a wrapper for unwrapped C objects. 
+	
 insert
 	G_TREE_EXTERNALS
 		--	GLIB_TYPE_CONVERSION_MACROS -- Temporary
+	
 	
 creation make, from_external_pointer
 
@@ -67,9 +74,9 @@ feature {} -- Creation
 			-- key_compare_data : 	data to pass to comparison function.
 			-- Returns : 	a new GTree.
 		do
-			create comparator.make (a_compare_function)
+			create comparator.make (Current, a_compare_function)
 			from_external_pointer(g_tree_new_with_data
-										 (comparator.callback_address, $comparator))
+										 (comparator.callback_address, comparator.to_pointer))
 		end
 
 	-- g_tree_new_full ()
@@ -149,6 +156,10 @@ feature
 			Result:=g_tree_height(handle)
 		end
 
+	has (a_key: KEY): BOOLEAN is
+		do
+		end
+	
 	lookup (a_key: KEY): VALUE is
 			-- the value corresponding to `a_key'. Since a GTree is
 			-- automatically balanced as key/value pairs are added, key
@@ -264,6 +275,7 @@ feature
 			-- values before destroying the GTree"
 		do
 			g_tree_destroy(handle)
+			handle:=default_pointer
 		end
 
 	compare (a_value, another_value: VALUE): INTEGER is
@@ -271,36 +283,13 @@ feature
 			-- return a negative integer if the first value comes before
 			-- the second, 0 if they are equal, or a positive integer if
 			-- the first value comes after the second.
+		obsolete "Work in progress on callbacks"
 		do
 			
 		end
 	
 feature {} -- Low level implementation
 	comparator: G_COMPARE_DATA_CALLBACK 
-
-	low_level_compare (a, b, user_data: POINTER): INTEGER is
-			-- Specifies the type of a comparison function used to
-			-- compare two values. The function should return a negative
-			-- integer if the first value comes before the second, 0 if
-			-- they are equal, or a positive integer if the first value
-			--comes after the second.
-		
-			-- a : a value.
-		
-			-- b : a value to compare with.
-		
-			-- user_data : 	user data to pass to comparison function.
-		
-			-- Returns : negative value if a < b; zero if a = b; positive
-			-- value if a > b.
-		do
-			-- local key_a, key_b: KEY; r: WRAPPER_RETRIEVER[KEY]
-
-			-- Do *NOT* remove the above comment ("export CECIL")! It is necessary to
-			-- generate the correct 
-			-- key_a := r.wrapper_from(a)
-			-- key_b := r.wrapper_from(b)
-			--Result := gpointer_to_int(a).compare(gpointer_to_int(b))
-		end
+			-- The object containing the callback that will be called by C
 end
 

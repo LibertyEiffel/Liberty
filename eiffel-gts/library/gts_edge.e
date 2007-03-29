@@ -21,9 +21,8 @@ indexing
 
 class GTS_EDGE
 
-inherit
-	GTS_SEGMENT
-
+inherit GTS_SEGMENT redefine duplicate, make, struct_size end
+	
 insert GTS_EDGE_EXTERNALS
 
 creation make, from_external_pointer
@@ -31,9 +30,6 @@ creation make, from_external_pointer
 feature {} -- Creation
 	make (a_vertex, another_vertex: GTS_VERTEX) is
 			-- Creates a new GtsEdge linking v1 and v2.
-		require 
-			vertex_not_void: a_vertex /= Void
-			another_not_void: another_vertex /= Void
 		do
 			from_external_pointer (gts_edge_new (gts_edge_class,
 															 a_vertex.handle, another_vertex.handle)) 
@@ -64,9 +60,8 @@ feature
 		do
 			p:=gts_edge_is_duplicate(handle)
 			if p.is_not_null then
-				if wrappers.has(p) 
-				 then Result ::= wrappers.at(p)
-				else create Result.from_external_pointer(a_pointer)
+				if wrappers.has(p) then Result ::= wrappers.at(p)
+				else create Result.from_external_pointer(p)
 				end
 			end
 		end
@@ -75,13 +70,14 @@ feature
 			-- a GtsFace of `a_surface' having Current as an edge; can be
 			-- Void if there is no faces. Note: the original C feature
 			-- was called "gts_edge_had_parent_surface".
-		local p: POINTER
+		local a_pointer: POINTER
 		do
-			p:= gts_edge_has_parent_surface (handle, a_surface.handle)
-			if p.is_not_null then
-				if wrappers.has(p)
-				 then Result ::= wrappers.at(p)
-				else create Result.from_external_pointer(a_pointer)
+			a_pointer:= gts_edge_has_parent_surface (handle, a_surface.handle)
+			if a_pointer.is_not_null then
+				if wrappers.has(a_pointer) then
+					Result ::= wrappers.at(a_pointer)
+				else
+					create Result.from_external_pointer(a_pointer)
 				end
 			end
 		end
@@ -96,9 +92,10 @@ feature
 		do
 			p:=gts_edge_has_any_parent_surface (handle)
 			if p.is_not_null then
-				if wrappers.has(p)
-				 then Result ::= wrappers.at(p)
-				else create Result.from_external_pointer(a_pointer)
+				if wrappers.has(p) then
+					Result ::= wrappers.at(p)
+				else
+					create Result.from_external_pointer(p)
 				end
 			end
 		end
@@ -116,9 +113,8 @@ feature
 			if a_surface/=Void then sp:=a_surface.handle end
 			p:=gts_edge_is_boundary(handle,sp)
 			if p.is_not_null then
-				if wrappers.has(p)
-				 then Result ::= wrappers.at(p)
-				else create Result.from_external_pointer(a_pointer)
+				if wrappers.has(p) then Result ::= wrappers.at(p)
+				else create Result.from_external_pointer(p)
 				end
 			end
 		end
@@ -138,17 +134,17 @@ feature
 			Result := gts_edge_belongs_to_tetrahedron(handle).to_boolean
 		end
  
-	face_count: INTEGER is
-			-- the number of faces using e and belonging to s.
-			-- TODO: Should be NAtural since it is a guint
+	face_count (a_surface: GTS_SURFACE): INTEGER is
+			-- the number of faces using Current and belonging to `a_surface'.
+			-- TODO: Should be Natural since it is a guint
 		do
-			Result := gts_edge_face_number (handle, a_surface.handle)
+			Result := gts_edge_face_number (handle, null_or(a_surface))
 		end
 
-	manifold_faces_of (a_surface: GTS_SURFACE): TUPLE [BOOLEAN, GTS_FACE, GTS_FACE] is
+	manifold_faces_of (a_surface: GTS_SURFACE): TUPLE[GTS_FACE, GTS_FACE] is
 			-- If Current is a manifold edge of `a_surface' Result will
-			-- contain True and the faces belonging to `a_surface' and
-			-- sharing Current. Otherwise it will be [False,Void,Void]
+			-- contain the faces belonging to `a_surface' and
+			-- sharing Current. Otherwise it will be Void.
 		require 
 			surface_not_void: a_surface /= Void
 		local 
@@ -160,20 +156,20 @@ feature
 																 $f1p,$f2p)).to_boolean
 			if has_manifold then 
 				if wrappers.has(f1p)
-				 then Result ::= wrappers.at(f1p)
+				 then f1::= wrappers.at(f1p)
 				else create f1.from_external_pointer(f1p)
 				end
 				
 				if wrappers.has(f2p)
-				 then Result ::= wrappers.at(f2p)
+				 then f2 ::= wrappers.at(f2p)
 				else create f2.from_external_pointer(f2p)
 				end
 				create Result.make_3(True,f1,f2)
-			else create Result.make_3 (False,Void,Void)				
+			end
 		end
-			
+	
 	encroaching_vertex (a_surface: GTS_SURFACE; 
-							  encroaching_function: FUNCTION[BOOLEAN,TUPLE[]]
+							  -- encroaching_function: FUNCTION[BOOLEAN,TUPLE[]]
 							  ): GTS_VERTEX is
 			-- a GtsVertex belonging to s and encroaching upon e (as defined by encroaches) or NULL if there is 
 			-- none. a GtsSurface describing a (constrained) Delaunay triangulation.
@@ -197,7 +193,13 @@ feature
 			-- Current and belonging to `a_surface'.
 		require surface_not_void: a_surface /= Void
 		do
-			gts_edge_swap (hanble, a_surface.handle)
+			gts_edge_swap (handle, a_surface.handle)
 		end
+feature {} -- size
+ 	struct_size: INTEGER is
+ 		external "C inline use <gts.h>"
+		alias "sizeof(GtsEdge)"
+ 		end
+
 end -- class GTS_EDGE
 

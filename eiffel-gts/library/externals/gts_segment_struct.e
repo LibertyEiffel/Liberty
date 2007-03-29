@@ -39,10 +39,4 @@ feature {} -- Structure getter/setter calls
 		external "C struct GtsSegment set v2 use <gts.h>"
 		end
 
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gts.h>"
-		alias "sizeof(GtsSegment)"
-		end
-
 end

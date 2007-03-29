@@ -15,25 +15,50 @@ feature
 feature
 	make is
 		do
+			setup
+			test
+		end
+
+	setup is
+		do
 			create tree.make(agent compare)
 
-			create epoch.make_dmy(1,1,1970)
-			create gnu_birthday.make_dmy(10,3,1984)
-			create linux_birthday.make_dmy(17,9,1991)
-			tree.insert_value (epoch, create {G_STRING}.from_string("Epoch"))
-			tree.insert_value (gnu_birthday, create {G_STRING}.from_string("Gnu birthday"))
-			tree.insert_value (linux_birthday, create {G_STRING}.from_string("Linux birthday"))
+			tree.insert_value (create {G_DATE}.make_dmy(1,1,1970),
+									 create {G_STRING}.from_string("Epoch"))
+			tree.insert_value (create {G_DATE}.make_dmy(10,3,1984),
+									 create {G_STRING}.from_string("Gnu birthday"))
+			tree.insert_value (create {G_DATE}.make_dmy(17,9,1991),
+									 create {G_STRING}.from_string("Linux birthday"))
+		end
 
-			print (gnu_birthday.to_string+": "+tree.lookup(gnu_birthday).to_string+"%N")
+	test is
+		local
+			a_date: G_DATE;
+			test_dates: FAST_ARRAY[TUPLE[INTEGER_8,INTEGER_8,INTEGER_16]]; i: INTEGER
+			event: G_STRING
+		do
+			test_dates:={FAST_ARRAY[TUPLE[INTEGER_8,INTEGER_8,INTEGER_16]]
+			<< [17,9,1991],
+				[10,7,1976],
+				[10,3,1984] >> }
+			from i:=test_dates.lower
+			until i>test_dates.upper
+			loop
+				create a_date.from_tuple(test_dates.item(i))
+				event:=tree.lookup(a_date)
+				if event/=Void
+				 then print (a_date.to_string+": "+event.to_string+"%N")
+				else print ("No known events on "+a_date.to_string+"%N")
+				end
+				i:=i+1
+			end
 			-- from i:=list.get_new_iterator; i.start until i.is_off loop
 			-- print (i.item.to_string) print (", ") i.next end print
 			-- ("%N")
 		end
-
-	epoch, gnu_birthday, linux_birthday: G_DATE 
-	
+					 
  	compare(a_date,another_date: COMPARABLE_SHARED_C_STRUCT): INTEGER is
-		require -- SHARED_C_STRUCT
+		require 
 			date_not_void: a_date/=Void
 			another_not_void: another_date/=Void
 		do

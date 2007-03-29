@@ -31,8 +31,7 @@ deferred class GTS_OBJECT
 
 inherit 
 	SHARED_C_STRUCT
-		rename 
-			make as allocate_struct
+		redefine dispose
 		end
 
 feature 
@@ -396,7 +395,7 @@ feature
 	--    Free all the memory allocated by the object system of GTS. No other GTS function can be called after this
 	--    function has been called.
 
-feature -- size
+feature {} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"

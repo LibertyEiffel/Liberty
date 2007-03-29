@@ -32,8 +32,14 @@ indexing
 
 class GTS_TRIANGLE
 
-inherit GTS_OBJECT rename make as allocate_struct end
-
+inherit
+	GTS_OBJECT
+		rename make as allocate_struct
+		redefine struct_size
+		end
+insert
+	GTS_POINT_EXTERNALS
+	
 creation from_edges, from_external_pointer
 
 feature {} -- Creation
@@ -162,7 +168,7 @@ feature
 			Result:= (gts_triangles_are_compatible (handle, another.handle, an_edge.handle)).to_boolean
 		end
 
-	common_edge (another: GTS_TRIAGLE): GTS_EDGE is
+	common_edge (another: GTS_TRIANGLE): GTS_EDGE is
 			-- a GtsEdge common to both Current and `another' or Void if
 			-- they do not share any edge.
 		local ptr: POINTER
@@ -193,7 +199,7 @@ feature {} -- Implementation
 			-- `stored_vertices' and `stored_edges'.
 		local v1,v2,v3, e1,e2,e3: POINTER
 		do
-			gts_triangle_vertices_edges (triangle, default_pointer 
+			gts_triangle_vertices_edges (handle, default_pointer,
 												  $v1, $v2, $v3, $e1, $e2, $e3)
 			create stored_vertices.make_3 (create {GTS_VERTEX}.from_external_pointer (v1),
 													 create {GTS_VERTEX}.from_external_pointer (v2),
@@ -229,7 +235,7 @@ feature
 			create Result.from_external_pointer(get_e2(handle))
 		end
 
-	edge_1: GTS_EDGE is
+	edge_3: GTS_EDGE is
 			-- Third edge
 		do
 			create Result.from_external_pointer(get_e3(handle))
@@ -328,7 +334,6 @@ feature
 --     p :  a GtsPoint.
 
 feature -- size
-
  	struct_size: INTEGER is
  		external "C inline use <gts.h>"
 		alias "sizeof(GtsTriangle)"
@@ -454,13 +459,16 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
-	-- #define gts_triangle_vertex (t)
+	gts_triangle_vertex (a_triangle: POINTER): POINTER is 
+			-- #define gts_triangle_vertex (t)
+		external "C macro use <gts.h>"
+		end
 
 	gts_triangle_is_ok (a_triangle: POINTER): INTEGER is -- gboolean
 		external "C use <gts.h>"
 		end
 	
-	gts_triangle_use_edges (edge_1, edge_2, edge_3: POINTER): POINTER is -- GtsTriangle*
+	gts_triangle_use_edges (an_edge_1, an_edge_2, an_edge_3: POINTER): POINTER is -- GtsTriangle*
 		external "C use <gts.h>"
 		end
 	
@@ -476,7 +484,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
-	gts_triangles_from_edges (some_edges: POINTER): POINTEr is -- GSList*
+	gts_triangles_from_edges (some_edges: POINTER): POINTER is -- GSList*
 		external "C use <gts.h>"
 		end
 

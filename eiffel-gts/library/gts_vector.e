@@ -26,9 +26,15 @@ inherit
 		redefine
 			print_on
 		end
+
 	STREAM_HANDLER
+		undefine
+			is_equal, copy
+		redefine
+			print_on
+		end
 	
-creation make, init, from_external_pointer
+creation init, allocate, from_external_pointer
 
 feature {} -- Creation
 	init (a_point, another_point: GTS_POINT) is
@@ -38,7 +44,7 @@ feature {} -- Creation
 			point_not_void: a_point /= Void
 			another_not_void: another_point /= Void
 		do
-			make 
+			allocate 
 			gts_vector_init(handle, a_point.handle, another_point.handle)
 		end
 

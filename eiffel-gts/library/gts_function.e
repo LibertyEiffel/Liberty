@@ -30,22 +30,45 @@ class GTS_FUNCTION
 	
 	-- Returns: if 0 the calling sequence continues, otherwise it stops.
 	
-inherit WRAPPER_HANDLER
+inherit WRAPPER -- WRAPPER_HANDLER
 
 creation make
 
-feature {} -- Implementation
+feature {GTS_OBJECT} -- Implementation
 	make (a_function: PREDICATE[ANY, TUPLE[GTS_OBJECT]]) is
 		do
-			function=a_function
+			function := a_function
 		end
 	
 	function: PREDICATE[ANY, TUPLE[GTS_OBJECT]]
 
-	low_level_callback (gts_object, user_data: POINTER): INTEGER is
+	low_level_callback (object: POINTER; gts_object: GTS_SURFACE): INTEGER is
 			-- Low level callback will be called by GTK; it will call
 			-- `callback'.
-		external "C use <callbacks.h>"
-		alias "EiffelGtsFunc"
+		do
+			-- external "C use <callbacks.h>" alias "EiffelGtsFunc"
+ 			Result:=function.item(gts_object)
 		end 
+
+	callback_pointer: POINTER is
+		do
+			Result:= silly_workaround($low_level_callback)
+		end
+
+	silly_workaround(a_foo: POINTER): POINTER is
+			-- silly workaround because currently SmartEiffel allows to use $ only
+			-- in feature calls
+		do
+			Result:=a_foo
+		end
+
+feature
+	-- Dummy implementation of unneeded features. TODO: refine this
+	-- crude hack
+	dispose is do end
+
+	is_equal (another: like Current): BOOLEAN is do end
+	
+	copy (another: like Current) is do end
+
 end -- class GTS_FUNCTION

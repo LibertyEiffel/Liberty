@@ -32,90 +32,6 @@ inherit SHARED_C_STRUCT
 creation from_external_pointer
 
 feature {} -- Creation
-
-	-- #define     PANGO_TYPE_FONT_DESCRIPTION
-	-- enum        PangoStyle;
-	-- #define     PANGO_TYPE_STYLE
-	-- enum        PangoWeight;
-	-- #define     PANGO_TYPE_WEIGHT
--- enum        PangoVariant;
--- #define     PANGO_TYPE_VARIANT
--- enum        PangoStretch;
--- #define     PANGO_TYPE_STRETCH
--- enum        PangoFontMask;
--- #define     PANGO_TYPE_FONT_MASK
--- PangoFontDescription* pango_font_description_new
---                                             (void);
--- PangoFontDescription* pango_font_description_copy
---                                             (const PangoFontDescription *desc);
--- PangoFontDescription* pango_font_description_copy_static
---                                             (const PangoFontDescription *desc);
--- guint       pango_font_description_hash     (const PangoFontDescription *desc);
--- gboolean    pango_font_description_equal    (const PangoFontDescription *desc1,
---                                              const PangoFontDescription *desc2);
--- void        pango_font_description_free     (PangoFontDescription *desc);
--- void        pango_font_descriptions_free    (PangoFontDescription **descs,
---                                              int n_descs);
--- void        pango_font_description_set_family
---                                             (PangoFontDescription *desc,
---                                              const char *family);
--- void        pango_font_description_set_family_static
---                                             (PangoFontDescription *desc,
---                                              const char *family);
--- const char* pango_font_description_get_family
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_style
---                                             (PangoFontDescription *desc,
---                                              PangoStyle style);
--- PangoStyle  pango_font_description_get_style
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_variant
---                                             (PangoFontDescription *desc,
---                                              PangoVariant variant);
--- PangoVariant pango_font_description_get_variant
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_weight
---                                             (PangoFontDescription *desc,
---                                              PangoWeight weight);
--- PangoWeight pango_font_description_get_weight
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_stretch
---                                             (PangoFontDescription *desc,
---                                              PangoStretch stretch);
--- PangoStretch pango_font_description_get_stretch
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_size (PangoFontDescription *desc,
---                                              gint size);
--- gint        pango_font_description_get_size (const PangoFontDescription *desc);
--- void        pango_font_description_set_absolute_size
---                                             (PangoFontDescription *desc,
---                                              double size);
--- gboolean    pango_font_description_get_size_is_absolute
---                                             (const PangoFontDescription *desc);
--- PangoFontMask pango_font_description_get_set_fields
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_unset_fields
---                                             (PangoFontDescription *desc,
---                                              PangoFontMask to_unset);
--- void        pango_font_description_merge    (PangoFontDescription *desc,
---                                              const PangoFontDescription *desc_to_merge,
---                                              gboolean replace_existing);
--- void        pango_font_description_merge_static
---                                             (PangoFontDescription *desc,
---                                              const PangoFontDescription *desc_to_merge,
---                                              gboolean replace_existing);
--- gboolean    pango_font_description_better_match
---                                             (const PangoFontDescription *desc,
---                                              const PangoFontDescription *old_match,
---                                              const PangoFontDescription *new_match);
--- PangoFontDescription* pango_font_description_from_string
---                                             (const char *str);
--- char*       pango_font_description_to_string
---                                             (const PangoFontDescription *desc);
--- char*       pango_font_description_to_filename
---                                             (const PangoFontDescription *desc);
-
-
 	
 -- PANGO_TYPE_FONT_DESCRIPTION
 
@@ -143,12 +59,12 @@ feature {} -- Creation
 -- enum PangoFontMask
 
 -- typedef enum {
---   PANGO_FONT_MASK_FAMILY  = 1 << 0,
---   PANGO_FONT_MASK_STYLE   = 1 << 1,
---   PANGO_FONT_MASK_VARIANT = 1 << 2,
---   PANGO_FONT_MASK_WEIGHT  = 1 << 3,
---   PANGO_FONT_MASK_STRETCH = 1 << 4,
---   PANGO_FONT_MASK_SIZE    = 1 << 5
+--   PANGO_FONT_MASK_FAMILY  = 1 < < 0,
+--   PANGO_FONT_MASK_STYLE   = 1 < < 1,
+--   PANGO_FONT_MASK_VARIANT = 1 < < 2,
+--   PANGO_FONT_MASK_WEIGHT  = 1 < < 3,
+--   PANGO_FONT_MASK_STRETCH = 1 < < 4,
+--   PANGO_FONT_MASK_SIZE    = 1 < < 5
 -- } PangoFontMask;
 
 -- The bits in a PangoFontMask correspond to fields in a PangoFontDescription that have been set.
@@ -881,122 +797,94 @@ feature {} -- Creation
 -- Returns : 	the ID string for shape engines for this fontmap. Owned by Pango, should not be modified or freed.
 
 -- Since 1.4
--- PangoFontset
 
--- typedef struct _PangoFontset PangoFontset;
+feature {} -- External calls
 
--- A PangoFontset represents a set of PangoFont to use when rendering text. It is the result of resolving a PangoFontDescription against a particular PangoContext. It has operations for finding the component font for a particular Unicode character, and for finding a composite set of metrics for the entire fontset.
--- PANGO_TYPE_FONTSET
+												-- #define     PANGO_TYPE_FONT_DESCRIPTION
+	-- enum        PangoStyle;
+	-- #define     PANGO_TYPE_STYLE
+	-- enum        PangoWeight;
+	-- #define     PANGO_TYPE_WEIGHT
+-- enum        PangoVariant;
+-- #define     PANGO_TYPE_VARIANT
+-- enum        PangoStretch;
+-- #define     PANGO_TYPE_STRETCH
+-- enum        PangoFontMask;
+-- #define     PANGO_TYPE_FONT_MASK
+-- PangoFontDescription* pango_font_description_new
+--                                             (void);
+-- PangoFontDescription* pango_font_description_copy
+--                                             (const PangoFontDescription *desc);
+-- PangoFontDescription* pango_font_description_copy_static
+--                                             (const PangoFontDescription *desc);
+-- guint       pango_font_description_hash     (const PangoFontDescription *desc);
+-- gboolean    pango_font_description_equal    (const PangoFontDescription *desc1,
+--                                              const PangoFontDescription *desc2);
+-- void        pango_font_description_free     (PangoFontDescription *desc);
+-- void        pango_font_descriptions_free    (PangoFontDescription **descs,
+--                                              int n_descs);
+-- void        pango_font_description_set_family
+--                                             (PangoFontDescription *desc,
+--                                              const char *family);
+-- void        pango_font_description_set_family_static
+--                                             (PangoFontDescription *desc,
+--                                              const char *family);
+-- const char* pango_font_description_get_family
+--                                             (const PangoFontDescription *desc);
+-- void        pango_font_description_set_style
+--                                             (PangoFontDescription *desc,
+--                                              PangoStyle style);
+-- PangoStyle  pango_font_description_get_style
+--                                             (const PangoFontDescription *desc);
+-- void        pango_font_description_set_variant
+--                                             (PangoFontDescription *desc,
+--                                              PangoVariant variant);
+-- PangoVariant pango_font_description_get_variant
+--                                             (const PangoFontDescription *desc);
+-- void        pango_font_description_set_weight
+--                                             (PangoFontDescription *desc,
+--                                              PangoWeight weight);
+-- PangoWeight pango_font_description_get_weight
+--                                             (const PangoFontDescription *desc);
+-- void        pango_font_description_set_stretch
+--                                             (PangoFontDescription *desc,
+--                                              PangoStretch stretch);
+-- PangoStretch pango_font_description_get_stretch
+--                                             (const PangoFontDescription *desc);
+-- void        pango_font_description_set_size (PangoFontDescription *desc,
+--                                              gint size);
+-- gint        pango_font_description_get_size (const PangoFontDescription *desc);
+-- void        pango_font_description_set_absolute_size
+--                                             (PangoFontDescription *desc,
+--                                              double size);
+-- gboolean    pango_font_description_get_size_is_absolute
+--                                             (const PangoFontDescription *desc);
+-- PangoFontMask pango_font_description_get_set_fields
+--                                             (const PangoFontDescription *desc);
+-- void        pango_font_description_unset_fields
+--                                             (PangoFontDescription *desc,
+--                                              PangoFontMask to_unset);
+-- void        pango_font_description_merge    (PangoFontDescription *desc,
+--                                              const PangoFontDescription *desc_to_merge,
+--                                              gboolean replace_existing);
+-- void        pango_font_description_merge_static
+--                                             (PangoFontDescription *desc,
+--                                              const PangoFontDescription *desc_to_merge,
+--                                              gboolean replace_existing);
+-- gboolean    pango_font_description_better_match
+--                                             (const PangoFontDescription *desc,
+--                                              const PangoFontDescription *old_match,
+--                                              const PangoFontDescription *new_match);
+-- PangoFontDescription* pango_font_description_from_string
+--                                             (const char *str);
+-- char*       pango_font_description_to_string
+--                                             (const PangoFontDescription *desc);
+-- char*       pango_font_description_to_filename
+--                                             (const PangoFontDescription *desc);
 
--- #define PANGO_TYPE_FONTSET              (pango_fontset_get_type ())
-
--- The GObject type for PangoFontset.
--- PangoFontsetClass
-
--- typedef struct {
---   GObjectClass parent_class;
-
-   
---   PangoFont *       (*get_font)     (PangoFontset     *fontset,
--- 				     guint             wc);
-
---   PangoFontMetrics *(*get_metrics)  (PangoFontset     *fontset);
---   PangoLanguage *   (*get_language) (PangoFontset     *fontset);
---   void              (*foreach)      (PangoFontset           *fontset,
--- 				     PangoFontsetForeachFunc func,
--- 				     gpointer                data);
--- } PangoFontsetClass;
-
--- The PangoFontsetClass structure holds the virtual functions for a particular PangoFontset implementation.
--- GObjectClass parent_class; 	parent GObjectClass.
--- get_font () 	a function to get the font in the fontset that contains the best glyph for the given Unicode character; see pango_fontset_get_font().
--- get_metrics () 	a function to get overall metric information for the fonts in the fontset; see pango_fontset_get_metrics().
--- get_language () 	a function to get the language of the fontset.
--- foreach () 	a function to loop over the fonts in the fontset. See pango_fontset_foreach().
--- pango_fontset_get_font ()
-
--- PangoFont*  pango_fontset_get_font          (PangoFontset *fontset,
---                                              guint wc);
-
--- Returns the font in the fontset that contains the best glyph for the Unicode character wc.
-
--- fontset : 	a PangoFontset
--- wc : 	a Unicode character
--- Returns : 	a PangoFont. The caller must call g_object_unref when finished with the font.
--- pango_fontset_get_metrics ()
-
--- PangoFontMetrics* pango_fontset_get_metrics (PangoFontset *fontset);
-
--- Get overall metric information for the fonts in the fontset.
-
--- fontset : 	a PangoFontset
--- Returns : 	a PangoFontMetrics object. The caller must call pango_font_metrics_unref() when finished using the object.
--- PangoFontsetForeachFunc ()
-
--- gboolean    (*PangoFontsetForeachFunc)      (PangoFontset *fontset,
---                                              PangoFont *font,
---                                              gpointer data);
-
--- A callback function used by pango_fontset_foreach() when enumerating the fonts in a fontset.
-
--- fontset : 	a PangoFontset
--- font : 	a font from fontset
--- data : 	callback data
--- Returns : 	if TRUE, stop iteration and return immediately.
-
--- Since 1.4
--- pango_fontset_foreach ()
-
--- void        pango_fontset_foreach           (PangoFontset *fontset,
---                                              PangoFontsetForeachFunc func,
---                                              gpointer data);
-
--- Iterates through all the fonts in a fontset, calling func for each one. If func returns TRUE, that stops the iteration.
-
--- fontset : 	a PangoFontset
--- func : 	Callback function
--- data : 	data to pass to the callback function
-
--- Since 1.4
--- PangoFontsetSimple
-
--- typedef struct _PangoFontsetSimple PangoFontsetSimple;
-
--- PangoFontsetSimple is a implementation of the abstract PangoFontset base class in terms of an array of fonts, which the creator provides when constructing the PangoFontsetSimple.
--- PANGO_TYPE_FONTSET_SIMPLE
-
--- #define PANGO_TYPE_FONTSET_SIMPLE       (pango_fontset_simple_get_type ())
-
--- The GObject type for PangoFontsetSimple.
--- pango_fontset_simple_new ()
-
--- PangoFontsetSimple* pango_fontset_simple_new
---                                             (PangoLanguage *language);
-
--- Creates a new PangoFontsetSimple for the given language.
-
--- language : 	a PangoLanguage tag
--- Returns : 	the newly allocated PangoFontsetSimple, which should be freed with g_object_unref().
--- pango_fontset_simple_append ()
-
--- void        pango_fontset_simple_append     (PangoFontsetSimple *fontset,
---                                              PangoFont *font);
-
--- Adds a font to the fontset.
-
--- fontset : 	a PangoFontsetSimple.
--- font : 	a PangoFont.
--- pango_fontset_simple_size ()
-
--- int         pango_fontset_simple_size       (PangoFontsetSimple *fontset);
-
--- Returns the number of fonts in the fontset.
-
--- fontset : 	a PangoFontsetSimple.
--- Returns : 	the size of fontset.
 feature -- size
 	struct_size: INTEGER is
-		external "C inline use <pango.h>"
+		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoFontDescription)"
 		end
 

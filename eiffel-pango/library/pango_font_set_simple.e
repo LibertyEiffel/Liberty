@@ -20,20 +20,59 @@ indexing
 			]"
 
 class PANGO_FONT_SET_SIMPLE
+	-- PangoFontsetSimple is a implementation of the abstract
+	-- PangoFontset base class in terms of an array of fonts, which the
+	-- creator provides when constructing the PangoFontsetSimple.
 
-inherit PANGO_FONT_SET
+inherit PANGO_FONT_SET redefine make, struct_size end
 
 creation make, from_external_pointer
 
-feature {} -- Creation
---             PangoFontsetSimple;
--- #define     PANGO_TYPE_FONTSET_SIMPLE
--- PangoFontsetSimple* pango_fontset_simple_new
---                                             (PangoLanguage *language);
--- void        pango_fontset_simple_append     (PangoFontsetSimple *fontset,
---                                              PangoFont *font);
--- int         pango_fontset_simple_size       (PangoFontsetSimple *fontset);
+	make (a_language: PANGO_LANGUAGE) is
+			-- Creates a new PangoFontsetSimple for `a_language'.
+		require language_not_void: a_language/=Void
+		do
+			from_external_pointer(pango_fontset_simple_new(a_language.handle))
+		end
 
+feature 
+	append (a_font: PANGO_FONT) is
+			-- Adds `a_font' to the fontset.
+		require font_not_void: a_font/=Void
+		do
+			pango_fontset_simple_append (handle, a_font.handle)
+		ensure grown: old count + 1 = count
+		end
+
+	count: INTEGER is
+			-- the number of fonts in the fontset.
+		do
+			Result:=pango_fontset_simple_size(handle)
+		end
+feature {} -- External calls
+	
+	pango_fontset_simple_new (a_language: POINTER): POINTER is
+			-- PangoFontsetSimple* pango_fontset_simple_new
+			-- (PangoLanguage *language);
+		external "C  use <pango.h>"
+		end
+
+	pango_fontset_simple_append (a_fontset, a_font: POINTER) is
+			-- void pango_fontset_simple_append (PangoFontsetSimple
+			-- *fontset, PangoFont *font);
+		external "C  use <pango.h>"
+		end
+
+	pango_fontset_simple_size (a_fontset: POINTER): INTEGER is
+			-- int pango_fontset_simple_size (PangoFontsetSimple *fontset);
+		external "C  use <pango.h>"
+		end
+	
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <pango.h>"
+		alias "sizeof(PangoFontSetSimple)"
+		end
 
 end -- class PANGO_FONT_SET_SIMPLE
 

@@ -109,16 +109,14 @@ feature
 			
 			-- It also take care of storing an hidden pointer to the 
 			-- underlying GobjectClass
-			
-		-- require not_stored: not is_eiffel_wrapper_stored
 		do
+			Precursor -- To allow usage of the wrapped object with C data structures that are not aware of the specificities of G_OBJECT.
 			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
 			-- We do the above direct call instead of using the
 			-- Eiffel method "set_qdata (eiffel_key, Current)". This
 			-- is to avoid an invariant check when passing Current as
 			-- argument.
 			g_object_class := g_object_get_class (handle)
-			-- ensure stored: is_eiffel_wrapper_stored
 		end
 
 	unstore_eiffel_wrapper is
@@ -127,6 +125,7 @@ feature
 			-- is_eiffel_wrapper_stored" is not necessary; an unnecessary
 			-- call to this feature should not be harmful
 		do
+			Precursor
 			g_object_set_qdata (handle, eiffel_key.quark, default_pointer)
 		-- ensure not_stored: not is_eiffel_wrapper_stored
 		end
@@ -164,6 +163,22 @@ feature -- Creating
 			ref -- Let's add a reference to the underlying g_object
 		end
 
+	from_external_pointer_no_ref (a_ptr: POINTER) is
+			-- create a new wrapper for a GObject, without ref-ing it.
+			-- This is useful when some C function returns an already
+			-- reffed pointer to a Gobject. In this case the Eiffel
+			-- wrapper must not call ref at creation time, just unref at 
+			-- dispose time.
+		require
+			called_on_creation: is_null
+			pointer_not_null: a_ptr.is_not_null
+			not_existing_wrapper: not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
+		do
+			handle := a_ptr
+			store_eiffel_wrapper
+			set_shared
+		end
+
 feature -- Disposing
 
 	dispose is
@@ -175,7 +190,7 @@ feature -- Disposing
 			-- Note: when Eiffel dispose a G_OBJECT it just unref it and
 			-- cleans its handle. The actual reclaiming of the memory
 			-- alloca ted on the C side is left to gobject runtime.
-			unstore_eiffel_wrapper -- Remove the reference to Current stored into the underlying Gobject
+			unstore_eiffel_wrapper -- Remove the reference to Current stored into the underlying Gobject and from the wrappers.
 			if is_g_object then unref
 			else
 				debug

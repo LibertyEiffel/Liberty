@@ -21,10 +21,13 @@ indexing
 
 class GTS_SURFACE_STATS
 
-inherit C_STRUCT
+inherit
+	C_STRUCT
 
-insert GTS_SURFACE_STATS_STRUCT
-
+insert
+	GTS_SURFACE_STATS_STRUCT
+		-- redefine copy end
+	
 creation make, from_external_pointer
 
 feature

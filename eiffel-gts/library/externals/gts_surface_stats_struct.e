@@ -7,6 +7,9 @@ indexing
 
 deferred class GTS_SURFACE_STATS_STRUCT
 	--    Connectivity statistics.
+
+inherit ANY undefine is_equal, copy end
+	
 feature {} -- Structure getter/setter calls
 
 	get_n_faces (a_struct: POINTER): INTEGER is

@@ -52,7 +52,7 @@ feature -- Strings
 											]"
 											
 feature  -- Callbacks
-	smarteiffel_choosen: TOGGLED_CALLBACK
+	smarteiffel_choosen: TOGGLED_CALLBACK[GTK_RADIO_BUTTON]
 
 	on_destroy is
 		do

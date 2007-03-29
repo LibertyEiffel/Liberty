@@ -22,4 +22,5 @@ feature {WRAPPER} -- Pointer referencing and de-referencing
 		external "C inline" 
 		alias "(* ($a_pointer))"
 		end
+
 end -- class POINTER_HANDLING

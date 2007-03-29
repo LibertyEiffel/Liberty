@@ -31,11 +31,14 @@ indexing
 			
 class GTS_SEGMENT
 
-inherit GTS_OBJECT
+inherit GTS_OBJECT redefine struct_size, is_equal end
 
 insert
 	GTS_SEGMENT_EXTERNALS
 	GTS_SEGMENT_STRUCT
+	GTS_VERTEX_EXTERNALS
+	GTS_POINT_EXTERNALS	
+	GTS_INTERSECT_ENUM
 	
 creation make, from_external_pointer
 
@@ -61,14 +64,14 @@ feature
 			-- `gts_in' if Current and `another' are intersecting, `gts_on' if
 			-- one of the endpoints of Current (resp. `another') lies on `another'
 			-- (resp. s1), `gts_out' otherwise.
-		requiore another_not_void: another /= Void
+		require another_not_void: another /= Void
 		do
 			Result:=(gts_segments_are_intersecting
 						(handle,another.handle))
-		ensure is_valid_intersect(Result)
+		ensure is_valid_intersection(Result)
 		end
 
-	duplicate: GTS_SEGMENT is
+	duplicate: like Current is
 			-- the first GtsSegment different from s which shares the same
 			-- endpoints or Void if there is none.
 		local ptr: POINTER
@@ -157,4 +160,9 @@ feature {} -- unwrapped code
 	
 	-- a pointer to test.
 
+feature {} -- size
+	struct_size: INTEGER is
+		external "C inline use <gts.h>"
+		alias "sizeof(GtsSegment)"
+		end
 end -- class GTS_SEGMENT

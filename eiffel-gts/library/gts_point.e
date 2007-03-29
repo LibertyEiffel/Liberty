@@ -22,8 +22,9 @@ indexing
 class GTS_POINT
 
 inherit 
-	SHARED_C_STRUCT 
-		rename make as allocate_struct 
+	GTS_OBJECT 
+		rename make as allocate_struct
+		redefine struct_size
 		end
 
 insert 
@@ -248,9 +249,32 @@ feature
 	--     is_open :  TRUE if the surface defined by tree is "open" i.e. its volume is negative, FALSE otherwise.
 	--     Returns :  TRUE if p is inside the surface defined by tree, FALSE 
 	--     otherwise.
+
+feature -- Locating
+	container_face (a_surface: GTS_SURFACE; guess: GTS_FACE): GTS_FACE is
+			-- The face of the planar projection of surface containing
+			-- Current point. The planar projection of surface must
+			-- define a connected set of triangles without holes and
+			-- bounded by a convex boundary. The algorithm is randomized
+			-- and performs in O(n^1/3) expected time where n is the
+			-- number of triangles of surface.
+
+			-- It is Void if Current point is not contained within the
+			-- boundary of surface.
+
+			-- If a good `guess' is given the point location can be
+			-- significantly faster. `guess' can be Void; a good `guess'
+			-- face is a face close to Current.
+		require surface_not_void: a_surface /= Void
+		local ptr: POINTER
+		do
+			ptr := gts_point_locate (handle, a_surface.handle, null_or(guess))
+			if ptr.is_not_null then
+				create Result.from_external_pointer(ptr)
+			end
+		end
 	
 feature -- size
-
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsPoint)"

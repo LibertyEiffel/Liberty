@@ -37,17 +37,17 @@ class GTS_SURFACE
 	-- VERTEX->GTS_VERTEX]
 
 inherit
-	C_STRUCT
-		redefine
-			copy 
-		end
-	STREAM_HANDLER
+	GTS_OBJECT redefine copy, struct_size end
+	STREAM_HANDLER undefine is_equal redefine copy end
 	
 insert
 	GTS_SURFACE_EXTERNALS
 	GTS_FACE_EXTERNALS
 	GTS_EDGE_EXTERNALS
-	
+	GTS_VERTEX_EXTERNALS
+	GTS_DELAUNAY_EXTERNALS
+	GTS_SURFACE_SIMPLIFICATION_AND_REFINEMENT_EXTERNALS
+
 creation make, copy, from_external_pointer
 
 feature {} -- Creation
@@ -59,14 +59,14 @@ feature {} -- Creation
 																 gts_vertex_class))
 		end
 
-		copy (another: GTS_SURFACE) is
+feature
+	copy (another: GTS_SURFACE) is
 			-- Add a copy of all the faces, edges and vertices of s2 to s1.
 		do
 			allocate
 			gts_surface_copy(handle,another.handle)
 		end
 
-feature
 	add (a_face: GTS_FACE) is
 			--  Adds `a_face' to Current surface.
 		require face_not_void: a_face /= Void
@@ -135,37 +135,27 @@ feature -- Input output
 			gts_surface_write(handle, a_file.stream_pointer)
 		end
 
-	--   gts_surface_write_oogl ()
+	write_oogl (a_file: OUTPUT_STREAM) is
+			-- Writes in the file fptr an OOGL (Geomview) representation of s.
+		require file_not_void: a_file /= Void
+		do
+			gts_surface_write_oogl(handle,a_file.stream_pointer)
+		end
+	
+	write_oogl_boundary (a_file: OUTPUT_STREAM) is
+			-- Writes in the file fptr an OOGL (Geomview) representation of the
+			-- boundary of surface.
+		require file_not_void: a_file /= Void
+		do
+			gts_surface_write_oogl_boundary (handle,a_file.stream_pointer)
+		end
 
-	--  void        gts_surface_write_oogl          (GtsSurface *s,
-	--                                               FILE *fptr);
-
-	--    Writes in the file fptr an OOGL (Geomview) representation of s.
-
-	--     s :     a GtsSurface.
-	--     fptr :  a file pointer.
-
-	--   gts_surface_write_oogl_boundary ()
-
-	--  void        gts_surface_write_oogl_boundary (GtsSurface *s,
-	--                                               FILE *fptr);
-
-	--    Writes in the file fptr an OOGL (Geomview) representation of the boundary of s.
-
-	--     s :     a GtsSurface.
-	--     fptr :  a file pointer.
-
-	--    -----------------------------------------------------------------------------------------------------------
-
-	--   gts_surface_write_vtk ()
-
-	--  void        gts_surface_write_vtk           (GtsSurface *s,
-	--                                               FILE *fptr);
-
-	--    Writes in the file fptr a VTK representation of s.
-
-	--     s :     a GtsSurface.
-	--     fptr :  a file pointer.
+  write_vtk (a_file: OUTPUT_STREAM) is
+			--    Writes in the file fptr a VTK representation of s.
+		require file_not_void: a_file /= Void
+		do
+			gts_surface_write_vtk(handle,a_file.stream_pointer)
+		end
 
 feature -- Boolean queries
 	is_manifold: BOOLEAN is
@@ -225,7 +215,7 @@ feature
 			p:=gts_surface_boundary(handle)
 			check p.is_not_null end
 			create Result.from_external_pointer(p)
-		ensure not_void: result /= Void
+		ensure not_void: Result /= Void
 		end
 	
 	area: REAL is
@@ -246,17 +236,27 @@ feature
 			-- The center of mass of surface (a new vector is created).
 		local returned: REAL
 		do
-			create Result.make
+			create Result.allocate
 			returned:=gts_surface_center_of_mass(handle,Result.handle)
 			-- gts_surface_center_of_mass returns the signed volume of the domain
 			-- bounded by the surface.
+		end
+
+	volume_and_center_of_mass: TUPLE[REAL,GTS_VECTOR] is
+			-- The signed volume of the domain bounded by the surface and
+			-- the center of mass of surface (as a newly created vector).
+		local a_vol: REAL; a_vector: GTS_VECTOR
+		do
+			create a_vector.allocate
+			a_vol:=gts_surface_center_of_mass(handle,a_vector.handle)
+			create Result.make_2(a_vol,a_vector)
 		end
 
 	center_of_area: GTS_VECTOR is
 			-- the center of area of surface (a new vector is created).
 		local returned: REAL
 		do
-			create Result.make
+			create Result.allocate
 			returned:=gts_surface_center_of_area(handle,Result.handle)
 			-- gts_surface_center_of_area returns : the area of surface s.
 		end
@@ -284,10 +284,7 @@ feature
 		local callback: GTS_FUNCTION
 		do
 			create callback.make(a_function)
-			gts_surface_foreach_vertex(handle,
-												callback.low_level_callback,
-												callback.to_pointer
-												)
+			gts_surface_foreach_vertex(handle,callback.callback_pointer,to_pointer)
 		end
 	
 	foreach_edge (a_function: PREDICATE[TUPLE[GTS_EDGE]]) is
@@ -480,10 +477,474 @@ feature -- Boolean operations
 			--     Returns :      a list of GtsEdge defining the curve intersection of the two surfaces.
 		end
 	
+feature -- Delaunay and constrained Delaunay triangulations
+	-- Delaunay and constrained Delaunay triangulations implementation
+	-- of a dynamic Delaunay triangulation algorithm.
+
+	-- The features described in this section are useful to build
+	-- two-dimensional Delaunay and constrained Delaunay
+	-- triangulations. Only the x and y coordinates of the points are
+	-- taken into account.
+	
+	-- The algorithm is fully dynamic (insertion and deletion) for
+	-- Delaunay triangulation and semi-dynamic (insertion only of
+	-- vertices and constraints) for constrained Delaunay
+	-- triangulation.
+	
+	-- The insertion part uses a very simple jump-and-walk location
+	-- algorithm which can be used on any (even non-Delaunay) 2D
+	-- triangulation as long as its boundary is convex.
+
+	-- The functions `conform' and `refine' can be used to build
+	-- Delaunay conforming constrained triangulations and to refine
+	-- them.
+
+	is_successful: BOOLEAN
+			-- Has last operation been successful?
+	
+	add_vertex (a_vertex: GTS_VERTEX; a_guess: GTS_FACE) is
+			-- Adds `a_vertex' to the Delaunay triangulation defined by
+			-- Current surface. If `a_vertex' is not contained in the
+			-- convex hull bounding surface, it is not added to the
+			-- triangulation.
+
+			-- `a_guess' is a GtsFace belonging to surface to be used as
+			-- an initial guess for point location; can be Void.
+
+			-- `is_successful' will be True if `a_vertex' have been
+			-- actually added.
+		require vertex_not_void: a_vertex/=Void
+		local ptr: POINTER
+		do
+			is_successful:=(gts_delaunay_add_vertex
+								 (handle, a_vertex.handle, null_or(a_guess))
+								 ).is_null
+			-- gts_delaunay_add_vertex returns NULL is v has been
+			-- successfully added to surface or was already contained in
+			-- surface, v if v is not contained in the convex hull
+			-- bounding surface or a GtsVertex having the same x and y
+			-- coordinates as v.
+		end
+	
+	add_vertex_to_face (a_vertex: GTS_VERTEX; a_face: GTS_FACE) is
+			-- Adds `a_vertex' to `a_face' of the Delaunay triangulation
+			-- defined by Current surface.
+		require
+			vertex_not_void: a_vertex/=Void
+			face_not_void: a_face/=Void
+			-- TODO: face_belongs_to_current
+		do		
+			is_successful:=(gts_delaunay_add_vertex_to_face
+								 (handle, a_vertex.handle, a_face.handle)
+								 ).is_null
+			-- gts_delaunay_add_vertex_to_face returns NULL is v has been
+			-- successfully added to surface or was already contained in
+			-- surface or a GtsVertex having the same x and y coordinates
+			-- as v.
+		end
+	
+	remove_vertex (a_vertex: GTS_VERTEX) is
+			-- Removes a_vertex from the Delaunay triangulation defined
+			-- by surface and restores the Delaunay property.
+
+			-- `a_vertex' must not be used by any constrained edge
+			-- otherwise the triangulation is not guaranteed to be
+			-- Delaunay.
+
+			-- TODO: translate the above precondition into a proper
+			-- require/ensure clause.
+		require vertex_not_void: a_vertex/=Void
+		do
+			gts_delaunay_remove_vertex(handle,a_vertex.handle)
+		end
+
+	
+	add_constraint (a_constraint: GTS_CONSTRAINT) is
+			--  Add `a_constraint' to the constrained Delaunay
+			--  triangulation defined by surface.
+		
+			-- `intersecting_constraints' will be updated to contain a
+			-- list of GtsConstraint conflicting (i.e. intersecting) with
+			-- `a_constraint' which were removed from surface.
+			-- `intersecting_constraints' will be Void if there was none.
+		require constraint_not_void: a_constraint /= Void
+		local constraints_ptr: POINTER
+		do
+			constraints_ptr:=gts_delaunay_add_constraint(handle, a_constraint.handle)
+			if constraints_ptr.is_null then
+				intersecting_constraints := Void
+			else
+				create intersecting_constraints.from_external_pointer(constraints_ptr)
+			end
+		end
+
+	intersecting_constraints: G_SLIST [GTS_CONSTRAINT]
+			-- a list of GtsConstraint intersecting with which were
+			-- removed from surface (NULL if there was none).
+	
+	violating_face: GTS_FACE
+			-- A face that violates the Delaunay property. This feature
+			-- is updated by the `is_delaunay' query.
+	
+	is_delaunay: BOOLEAN is
+			-- Is the planar projection of surface an (unconstrained)
+			-- Delaunay triangulation?
+		
+			-- If False `violating_face' will be the GtsFace violating
+			-- the Delaunay property.
+		local face_ptr: POINTER
+		do
+			face_ptr:=gts_delaunay_check(handle)
+			-- gts_delaunay_check returns NULL if the planar projection
+			-- of surface is a Delaunay triangulation (unconstrained), a
+			-- GtsFace violating the Delaunay property otherwise.
+			if face_ptr.is_null then
+				Result:=True
+			else
+				create violating_face.from_external_pointer(face_ptr)
+			end
+		ensure Result=False implies violating_face/=Void
+		end
+
+	remove_hull is
+			-- Removes all the edges of the boundary of surface which are
+			-- not constraints.
+		do
+			gts_delaunay_remove_hull(handle)
+		end
+
+	encroaching_edges_count: INTEGER 
+			-- the number of remaining encroached edges left by the last 
+			-- call to `conform'.
+
+	conform (a_steiner_max: INTEGER) is
+			-- Recursively split constraints of surface which are
+			-- encroached by vertices of surface (see Shewchuk 96 for
+			-- details). The split constraints are destroyed and replaced
+			-- by a set of new constraints of the same
+			-- class. 
+
+			-- If `a_steiner_max' is positive or nul, the recursive
+			-- splitting procedure will stop when this maximum number of
+			-- Steiner points is reached. In that case the resulting
+			-- surface will not necessarily be Delaunay conforming. In
+			-- that case `encroaching_edges_count' will be updated to the
+			-- number of remaining encroached edges. 
+
+			-- TODO: GTS_VERTEX.encroaches is used to discover
+			-- encroaching vertices, so the resulting surface will be
+			-- Delaunay conforming. GTS allows to provide a generic 
+			-- encroaching function that could be wrapped by a agent 
+			-- using version of conform.
+		do
+			encroaching_edges_count := (gts_delaunay_conform
+												 (handle, a_steiner_max,
+												  $gts_vertex_encroaches_edge, default_pointer))
+			-- gts_delaunay_conform recursively split constraints of
+			-- surface which are encroached by vertices of surface (see
+			-- Shewchuk 96 for details). The split constraints are
+			-- destroyed and replaced by a set of new constraints of the
+			-- same class.  If gts_vertex_encroaches_edge() is used for
+			-- encroaches, the resulting surface will be Delaunay
+			-- conforming.
+			
+			-- If steiner_max is positive or nul, the recursive splitting
+			-- procedure will stop when this maximum number of Steiner
+			-- points is reached. In that case the resulting surface will
+			-- not necessarily be Delaunay conforming.
+			
+			-- surface: a GtsSurface describing a constrained Delaunay 
+			-- triangulation.
+
+			-- steiner_max : maximum number of Steiner points.
+
+			-- encroaches : a GtsEncroachFunc.
+
+			-- data : user-data to pass to encroaches.
+
+			-- Returns : the number of remaining encroached edges. If
+			-- steiner_max is set to a negative value and
+			-- gts_vertex_encroaches_edge() is used for encroaches this
+			-- should always be zero.
+		ensure a_steiner_max<0 implies encroaching_edges_count=0			
+		end
+
+	unrefined_faces_count: INTEGER
+			-- the number of unrefined faces of surface left after
+			-- invoking `delaunay_refine'. It should be zero if
+			-- `a_steiner_max' is set to a negative value.
+
+	delaunay_refine (a_steiner_max: INTEGER) is
+			-- An implementation of the refinement algorithm described in Ruppert
+			-- (1995) and Shewchuk (1996).
+
+			-- `a_steiner_max':    maximum number of Steiner points.
+
+		
+			--     encroaches :     a GtsEncroachFunc.
+			--     encroach_data :  user-data to pass to encroaches.
+			--     cost :           a GtsKeyFunc used to sort the faces during refinement.
+			--     cost_data :      user-data to pass to cost.
+			--     Returns :        
+		require 
+			is_delaunay: is_delaunay
+		do
+			unrefined_faces_count := (gts_delaunay_refine 
+											  (handle, a_steiner_max,
+												default_pointer, -- GtsEncroachFunc encroaches,
+												default_pointer, -- gpointer encroach_data,
+												default_pointer, -- GtsKeyFunc cost,
+												default_pointer -- gpointer cost_data);
+												))
+			-- surface :        a GtsSurface describing a conforming Delaunay triangulation.
+			-- steiner_max :    maximum number of Steiner points.
+			-- encroaches :     a GtsEncroachFunc.
+			-- encroach_data :  user-data to pass to encroaches.
+			-- cost :           a GtsKeyFunc used to sort the faces during refinement.
+			-- cost_data :      user-data to pass to cost.
+		ensure a_steiner_max<0 implies unrefined_faces_count=0
+		end
+
+
+feature -- Simplification and refinement: reducing or increasing the number of edges of a triangulated surface (not Delaunay)
+
+   -- `coarsen' function allows to reduce the number of edges (and of course
+   -- faces and vertices) of a given surface.
+
+	-- TODO: The original C implementation allows to provide the
+	-- algorithm a cost function. Current wrappers allow only to use
+	-- standard C-library-provided cost functions.
+	
+	-- Each edge is collapsed according to an order described by the
+   -- cost function.  It is then replaced by a single vertex given by
+   -- another user-defined function (TODO: like cost function).
+
+	-- Two sets of cost and replacement functions are provided with the
+	-- library. The default uses the squared length of the segment as
+	-- cost and replaces the segment with its midpoint.
+
+	-- The functions gts_volume_optimized_cost() and
+	-- gts_volume_optimized_vertex() are an implementation of an
+	-- algorithm proposed by Lindstrom and Turk called "memoryless
+	-- simplification". This algorithm has been shown to be both
+	-- computationally efficient and very accurate in terms of error
+	-- between the simplified surface and the original one. It also
+	-- preserves the volume enclosed by the surface both globally and
+	-- locally.
+
+   -- Surface refinement is obtained by splitting the edges in two
+   -- equal parts according to an order described by a user-defined
+   -- cost function. The default is to use the squared length of the
+   -- segments as cost.
+	
+   -- The coarsening or refinement processes are stopped using a
+   -- user-defined stop function. Two functions are provided stopping
+   -- either when the cost of collapsing an edge is too large
+   -- (`gts_coarsen_stop_cost') or when the number of edges is too
+   -- small (`gts_coarsen_stop_number').
+
+
+	refine is
+		--require stop_function_set: is_stop_function_set
+		do
+			gts_surface_refine
+			(handle,
+			 cost_function, -- if NULL use square length of the edge
+			 default_pointer, -- unnecessary gpointer cost_data,
+			 refine_function, -- if NULL use gts_segment_midvertex
+			 default_pointer, -- unnecessary gpointer refine_data,
+			 stop_function,
+			 default_pointer -- gpointer stop_data
+			 );
+		end
+
+	--   GtsCoarsenFunc ()
+
+	--  GtsVertex* (*GtsCoarsenFunc) (GtsEdge *e, GtsVertexClass
+	--  *klass, gpointer data);
+
+	--    User-defined function taking an edge e and returning a
+	--    replacement vertex of class klass.
+
+	--     e :        a GtsEdge.
+	--     klass :    the GtsVertexClass of the replacement vertex.
+	--     data :     user data passed to the function.
+	--     Returns :  a replacement vertex of class klass.
+
+	--   GtsRefineFunc ()
+
+	--  GtsVertex* (*GtsRefineFunc) (GtsEdge *e, GtsVertexClass *klass,
+	--  gpointer data);
+
+	--     e :
+	--     klass :
+	--     data :
+	--     Returns :
+
+	--   GtsStopFunc ()
+
+	--  gboolean    (*GtsStopFunc)                  (gdouble cost,
+	--                                               guint nedge,
+	--                                               gpointer data);
+
+	--    User-defined function used to stop the coarsening process.
+
+	--     cost :     the cost of collapse of the current edge.
+	--     nedge :    the number of edges of the surface after collapse of the current edge.
+	--     data :     user data passed to the function.
+	--     Returns :  TRUE if the collapse of the current edge is not to take place, FALSE otherwise.
+
+
+
+	--   gts_surface_coarsen ()
+
+	--  void        gts_surface_coarsen             (GtsSurface *surface,
+	--                                               GtsKeyFunc cost_func,
+	--                                               gpointer cost_data,
+	--                                               GtsCoarsenFunc coarsen_func,
+	--                                               gpointer coarsen_data,
+	--                                               GtsStopFunc stop_func,
+	--                                               gpointer stop_data,
+	--                                               gdouble minangle);
+
+	--    The edges of surface are sorted according to cost_func to create a priority heap (a GtsEHeap). The edges
+	--    are extracted in turn from the top of the heap and collapsed (i.e. the vertices are replaced by the vertex
+	--    returned by the coarsen_func function) until the stop_func functions returns TRUE.
+
+	--    If cost_func is set to NULL, the edges are sorted according to their length squared (the shortest is on
+	--    top).
+
+	--    If coarsen_func is set to NULL gts_segment_midvertex() is used.
+
+	--    The minimum angle is used to avoid introducing faces which would be folded.
+
+	--     surface :       a GtsSurface.
+	--     cost_func :     a function returning the cost for a given edge.
+	--     cost_data :     user data to be passed to cost_func.
+	--     coarsen_func :  a GtsCoarsenVertexFunc.
+	--     coarsen_data :  user data to be passed to coarsen_func.
+	--     stop_func :     a GtsStopFunc.
+	--     stop_data :     user data to be passed to stop_func.
+	--     minangle :      minimum angle between two neighboring triangles.
+
+feature -- Stop functions (used in refining and coarsing)
+	
+	--   gts_coarsen_stop_number ()
+
+	--  gboolean    gts_coarsen_stop_number         (gdouble cost,
+	--                                               guint nedge,
+	--                                               guint *min_number);
+
+	--    This function is to be used as the stop_func argument of gts_surface_coarsen() or gts_psurface_new().
+
+	--     cost :        the cost of the edge collapse considered.
+	--     nedge :       the current number of edges of the surface being simplified.
+	--     min_number :  a pointer to the minimum number of edges desired for the surface being simplified.
+	--     Returns :     TRUE if the edge collapse would create a surface with a smaller number of edges than given
+	--                   by min_number, FALSE otherwise.
+
+	--    -----------------------------------------------------------------------------------------------------------
+
+	--   gts_coarsen_stop_cost ()
+
+	--  gboolean    gts_coarsen_stop_cost           (gdouble cost,
+	--                                               guint nedge,
+	--                                               gdouble *max_cost);
+
+	--    This function is to be used as the stop_func argument of gts_surface_coarsen() or gts_psurface_new().
+
+	--     cost :      the cost of the edge collapse considered.
+	--     nedge :     the current number of edges of the surface being simplified.
+	--     max_cost :  a pointer to the maximum cost allowed for an edge collapse.
+	--     Returns :   TRUE if the cost of the edge collapse considered is larger than given by max_cost, FALSE
+	--                 otherwise.
+
+	--    -----------------------------------------------------------------------------------------------------------
+
+	--   GtsVolumeOptimizedParams
+
+	--  typedef struct {
+	--    gdouble volume_weight;
+	--    gdouble boundary_weight;
+	--    gdouble shape_weight;
+	--  } GtsVolumeOptimizedParams;
+
+	--    The parameters for the volume optimization algorithm of Lindstrom and Turk. THey define the relative weight
+	--    of the volume, boundary and shape optimization part of the algorithm. Lindstrom and Turk advice is to set
+	--    them to 0.5, 0.5 and 0. You may want to experiment depending on your problem. Setting shape_weight to a
+	--    very small value (1e-10) for example might help improve the quality of the resulting triangulation.
+
+	--     gdouble volume_weight;    Weight of the volume optimization.
+	--     gdouble boundary_weight;  Weight of the boundary optimization.
+	--     gdouble shape_weight;     Weight of the shape optimization.
+
+	--    -----------------------------------------------------------------------------------------------------------
+
+	--   gts_volume_optimized_vertex ()
+
+	--  GtsVertex*  gts_volume_optimized_vertex     (GtsEdge *edge,
+	--                                               GtsVertexClass *klass,
+	--                                               GtsVolumeOptimizedParams *params);
+
+	--     edge :     a GtsEdge.
+	--     klass :    a GtsVertexClass to be used for the new vertex.
+	--     params :   a GtsVolumeOptimizedParms.
+	--     Returns :  a GtsVertex which can be used to replace edge for an edge collapse operation. The position of
+	--                the vertex is optimized in order to minimize the changes in area and volume for the surface
+	--                using edge. The volume enclosed by the surface is locally preserved. For more details see
+	--                "Fast and memory efficient polygonal simplification" (1998) and "Evaluation of memoryless
+	--                simplification" (1999) by Lindstrom and Turk.
+
+	--    -----------------------------------------------------------------------------------------------------------
+
+	--   gts_volume_optimized_cost ()
+
+	--  gdouble     gts_volume_optimized_cost       (GtsEdge *e,
+	--                                               GtsVolumeOptimizedParams *params);
+
+	--     e :        a GtsEdge.
+	--     params :   a GtsVolumeOptimizedParams.
+	--     Returns :  the cost for the collapse of e as minimized by the function gts_volume_optimized_vertex().
+
+	--    -----------------------------------------------------------------------------------------------------------
+
+	--   gts_edge_collapse_is_valid ()
+
+	--  gboolean    gts_edge_collapse_is_valid      (GtsEdge *e);
+
+	--    An implementation of the topological constraints described in the "Mesh Optimization" article of Hoppe et
+	--    al (1993).
+
+	--     e :        a GtsEdge.
+	--     Returns :  TRUE if e can be collapsed without violation of the topological constraints, FALSE otherwise.
+
+	--    -----------------------------------------------------------------------------------------------------------
+
+	--   gts_edge_collapse_creates_fold ()
+
+	--  gboolean    gts_edge_collapse_creates_fold  (GtsEdge *e,
+	--                                               GtsVertex *v,
+	--                                               gdouble max);
+
+	--     e :        a GtsEdge.
+	--     v :        a GtsVertex.
+	--     max :      the maximum value of the square of the cosine of the angle between two triangles.
+	--     Returns :  TRUE if collapsing edge e to vertex v would create faces making an angle the cosine squared of
+	--                which would be larger than max, FALSE otherwise.
+
 feature {} -- Implementation
 	cached_statistics: GTS_SURFACE_STATS
 	cached_quality_statistics: GTS_SURFACE_QUALITY_STATS
-	
+
+	cost_function: POINTER
+			-- Pointer to the C function used as cost function in refine
+
+	refine_function: POINTER
+			-- Pointer to the C function used as refine function in refine
+
+	stop_function: POINTER
+			-- Pointer to the C function used as stop function in refine
+
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"

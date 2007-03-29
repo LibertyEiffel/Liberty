@@ -13,7 +13,12 @@ inherit ANY undefine is_equal, copy end
 feature {} -- External calls
 	-- #define     GTS_EDGE_CLASS                  (klass)
 	-- #define     GTS_EDGE                        (obj)
-	-- #define GTS_IS_EDGE (obj)
+
+	gts_is_edge (an_obj: POINTER): INTEGER is
+			-- #define GTS_IS_EDGE (obj)
+		external "C use <gts.h>"
+		alias "GTS_IS_EDGE"
+		end
 	
 	gts_edge_class: POINTER is
 			-- GtsEdgeClass* gts_edge_class (void);

@@ -3,7 +3,7 @@ system "retrieving_benchmark"
 root RETRIEVING_BENCHMARK: make
 
 default -- section of the system
-	assertion (all); 
+	assertion (boost); 
 	-- Choose the appropriate value: boost, no, require, ensure, invariant, loop, check, all.
 	assertion_flat_check (no);
 	debug (no);

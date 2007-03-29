@@ -17,6 +17,9 @@ deferred class GTS_PSURFACE_STRUCT
 	--    GPtrArray * vertices;
 	--    GPtrArray * faces;
 	--  } GtsPSurface;
+
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Structure getter/setter calls
    GtsSurface * s;
 	get_s (a_struct: POINTER): POINTER is

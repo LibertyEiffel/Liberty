@@ -15,6 +15,8 @@ deferred class GTS_FILE_VARIABLE_STRUCT
 	--    guint line, pos;
 	--  } GtsFileVariable;
 	
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Structure getter/setter calls
 	
    -- GtsTokenType type;

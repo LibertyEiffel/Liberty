@@ -216,20 +216,6 @@ feature  -- Reading and Writing
 			-- The number of bytes read/written in the last operation 
 
 	read is
-			-- Read bytes from handle. As with Unix system calls, the
-			-- number of bytes read can effectively be less than bytes on
-			-- return and will be stored in bytes_read.
-		
-			-- handle : handle of the file to read data from.  buffer :
-			-- pointer to a buffer that must be at least bytes bytes
-			-- large.
-
-			-- bytes : number of bytes to read.
-
-			-- bytes_read : pointer to a variable that will hold the
-			-- number of bytes effectively read on return.
-
-			-- `last_result' will store the result of the operation
 		do
 			last_result:= gnome_vfs_read(handle, buffer, buffer.count, $bytes_count)
 		end

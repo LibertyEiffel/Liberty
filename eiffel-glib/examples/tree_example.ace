@@ -1,49 +1,18 @@
-system "tree-example"
+system "tree_example"
 
 root TREE_EXAMPLE: make
 
 default -- section of the system
 
 	assertion (all);
-		-- The default level of assertion checking for the system.
-		-- Choose the appropriate value: boost, no, require, ensure,
-		-- invariant, loop, check, all.
-
 	assertion_flat_check (no);
-		-- In flat mode each assertion will be executed in no_check mode.
-		-- This means that while checking assertion, no other assertion will
-		-- be checked. This mode has only sense in assertion modes from
-		-- require to debug.
-
-	debug (no);
-		-- The default debug level for the system.
-		-- Choose yes, no, or any "key" you wish.
-
+	debug (yes);
 	trace (no);
-		-- The default trace mode for the system. Choose yes or no.
-
 	collect (yes);
-		 -- Choose yes here to add garbage collector support to your system.
-		 -- Choose no here to indicate that you don't want the garbage collector
-		 -- to be included in your system; no is the equivalent of the -no_gc
-		 -- flag in traditional command line mode.
-
 	no_style_warning (no);
-		 -- My humble opinion is that you should always write no here.
-		 -- Yes is the equivalent of the -no_style_warning flag in traditional
-		 -- command line mode.
-
 	no_warning (no);
-		 -- My humble opinion is that you should always write no here.
-		 -- Yes is the equivalent of the -no_warning flag in traditional
-		 -- command line mode.
-
 	verbose (no);
-		 -- The equivalent of the -verbose flag. (Also note that the -verbose
-		 -- flag is still accepted in ACE file mode.)
-
 	manifest_string_trace (no);
-		 -- The equivalent of the -manifest_string_trace flag.
 
 	high_memory_compiler (no);	
 		 -- The equivalent of the -high_memory_compiler flag.
@@ -55,44 +24,14 @@ default -- section of the system
 		 -- The equivalent of the -relax flag.
 
 cluster -- section
-	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
-
 	demo: "."
-
-	-- The cluster section is an ordered list of clusters. Roughly speaking,
-	-- a cluster can be considered as a directory where Eiffel source files
-	-- are to be searched for. Thus, the order of this list of clusters is
-	-- important because clusters are considered sequentially while
-	-- searching for an Eiffel source file. Each cluster is described
-	-- as follows:
-
---    optional_cluster_name: "cluster_path_using_system_file_notation_here"
---       default -- at this cluster level
---          assertion (require)
---          debug (no);
---          trace (no);
---       option -- for this cluster
---          assertion (loop) : CLASS_NAME1, CLASS_NAME2;
---          assertion (all)  : CLASS_NAME3, CLASS_NAME4;
---          -- ...
---          debug (yes) : CLASS_NAME1, CLASS_NAME2, ...;
---          debug ("KEY") : CLASS_NAME1, CLASS_NAME2, ...;
---          -- ...
---          trace : CLASS_NAME1, CLASS_NAME2;
---          trace : CLASS_NAME3, CLASS_NAME4;
---          -- ...
---       end -- of one cluster
-
-	-- Pull in SmartEiffel's standard library. Always put this last so 
-	-- that you can override options for parts of the library.
-
 	standard: "${path_lib}/loadpath.se"
 
 external -- section for elements written in another language
 	-- Directories where to search for C .h files:
 	-- external_header_path: "/usr/local/expat/include /usr/local/include/mjpegtools"
 	--external_header_path: "$(pkg-config --cflags glib-2.0)"
-	external_header_path: "${eiffel_libraries}/eiffel-glib/library/externals"
+	--external_header_path: "${eiffel_libraries}/eiffel-glib/library/externals"
 
 	-- External object files to be considered; update and uncomment the
 	-- following line:
@@ -101,7 +40,7 @@ external -- section for elements written in another language
 	-- External C files to be considered; update and uncomment the
 	-- following line:
 	-- external_c_files: "foo.c bar.c"
-	external_c_files: "${eiffel_libraries}/eiffel-glib/library/externals/glib-callbacks.c"
+	external_c_files: "glib-callbacks.c"
 
 	-- External C++ files to be considered; update and uncomment the
 	-- following line:
@@ -111,10 +50,7 @@ external -- section for elements written in another language
 	-- To indicate some cecil file to be considered, update and uncomment
 	-- the following lines:
 	
-	-- cecil ("${eiffel_libraries}/eiffel-glib/library/externals/cecil.se")
-	-- cecil ("my_cecil_file2.se")
-	-- cecil ("my_cecil_file3.se")
-	-- ...
+	cecil ("cecil.se")
 
 	-- External libraries directory path to be considered; update and uncomment
 	-- the following line:

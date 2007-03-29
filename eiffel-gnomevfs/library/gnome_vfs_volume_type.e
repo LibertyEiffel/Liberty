@@ -1,7 +1,7 @@
 indexing
-	description: "Enum GtsIntersect"
+	description: "Enum "
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,30 +19,31 @@ indexing
 					02110-1301 USA
 				]"
 
-deferred class GTS_INTERSECT_ENUM
+deferred class GNOME_VFS_VOLUME_TYPE
 
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_intersection (an_intersect: INTEGER): BOOLEAN is
+	is_valid_volume_type (a_type: INTEGER): BOOLEAN is
 		do	
-			Result:=((an_intersect = gts_out) or else
-						(an_intersect = gts_on) or else 
-						(an_intersect = gts_in))
+			Result:=((a_type = gnome_vfs_volume_type_mountpoint) or else
+						(a_type = gnome_vfs_volume_type_vfs_mount) or else
+						(a_type = gnome_vfs_volume_type_connected_server))
+		end
+	
+	gnome_vfs_volume_type_mountpoint: INTEGER is
+		external "C macro use <libgnomevfs/gnome-vfs.h>"
+		alias "GNOME_VFS_VOLUME_TYPE_MOUNTPOINT"
 		end
 
-	gts_out: INTEGER is
-		external "C macro use <gts.h>"
-		alias "GTS_OUT"
+	gnome_vfs_volume_type_vfs_mount: INTEGER is
+		external "C macro use <libgnomevfs/gnome-vfs.h>"
+		alias "GNOME_VFS_VOLUME_TYPE_VFS_MOUNT"
 		end
-	
-	gts_on: INTEGER is
-		external "C macro use <gts.h>"
-		alias "GTS_ON"
+
+	gnome_vfs_volume_type_connected_server: INTEGER is
+		external "C macro use <libgnomevfs/gnome-vfs.h>"
+		alias "GNOME_VFS_VOLUME_TYPE_CONNECTED_SERVER"
 		end
-	
-	gts_in: INTEGER is
-		external "C macro use <gts.h>"
-		alias "GTS_IN"
-		end
+
 end

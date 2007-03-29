@@ -60,8 +60,8 @@ feature
 		do
 			next
 		end
-
-			is_off: BOOLEAN is
+	
+	is_off: BOOLEAN is
 		do
 			Result:=(item=Void)
 		end
@@ -71,7 +71,7 @@ feature
    next is
 		local item_ptr: POINTER
 		do
-			item_ptr:=gts_surface_traverse_next(handle,default_pointer)
+			item_ptr:=gts_surface_traverse_next(handle,$level)
 			-- gts_surface_traverse_next returns the next face of the traversal in
 			-- breadth-first order or NULL if no faces are left. If level if not
 			-- NULL, it is filled with the level of the returned face (0 for the
@@ -82,6 +82,10 @@ feature
 			end
 		end
 
+	level: INTEGER
+			-- the level of `item' face; 0 for the initial face, 1 for its
+			-- neighbors and so on
+	.
 	dispose is
 		do
 			gts_surface_traverse_destroy(handle)

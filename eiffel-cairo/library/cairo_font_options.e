@@ -175,4 +175,4 @@ feature {} -- Creation
 		do
 			Result:=cairo_font_options_get_hint_metrics(handle)
 		end
-end -- class FOO
+end -- class CAIRO_FONT_OPTIONS
