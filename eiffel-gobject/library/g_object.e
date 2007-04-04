@@ -110,12 +110,11 @@ feature
 			-- It also take care of storing an hidden pointer to the 
 			-- underlying GobjectClass
 		do
-			Precursor -- To allow usage of the wrapped object with C data structures that are not aware of the specificities of G_OBJECT.
 			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
-			-- We do the above direct call instead of using the
-			-- Eiffel method "set_qdata (eiffel_key, Current)". This
-			-- is to avoid an invariant check when passing Current as
-			-- argument.
+			Precursor -- To allow usage of the wrapped object with C data structures that are not aware of the specificities of G_OBJECT.
+			-- We do the above direct call instead of using the Eiffel
+			-- method "set_qdata (eiffel_key, Current)". This is to avoid
+			-- an invariant check when passing Current as argument.
 			g_object_class := g_object_get_class (handle)
 		end
 
