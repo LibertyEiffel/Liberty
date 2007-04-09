@@ -23,7 +23,7 @@ deferred class GTS_INTERSECT_ENUM
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 	is_valid_intersection (an_intersect: INTEGER): BOOLEAN is
 		do	
 			Result:=((an_intersect = gts_out) or else

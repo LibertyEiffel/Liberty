@@ -30,6 +30,12 @@ insert
 	
 creation make, from_external_pointer
 
+feature {} -- Creation
+	make is
+		do
+			allocate
+		end
+	
 feature
 	faces_count: INTEGER is
 			-- Number of faces.

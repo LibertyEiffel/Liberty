@@ -89,10 +89,9 @@ feature
 			Result:=(gts_segment_is_ok(handle).to_boolean)
 		end
 
-		midvertex: GTS_VERTEX is
+	midvertex: GTS_VERTEX is
 		do
-			create Result.from_external_pointer
-			(handle, gts_vertex_class)
+			create Result.from_external_pointer(gts_segment_midvertex (handle, gts_vertex_class))
 		ensure not_void: Result /= Void
 		end
 	
@@ -126,7 +125,7 @@ feature
 		local	ptr: POINTER
 		do
 			ptr:=gts_segment_triangle_intersection(handle, a_triangle.handle,
-																boundary.to_boolean,
+																boundary.to_integer, 
 																gts_point_class)
 			-- gts_segment_triangle_intersection Returns : a summit of t (if
 			-- boundary is set to TRUE), one of the endpoints of s or a new

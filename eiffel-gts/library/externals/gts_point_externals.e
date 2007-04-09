@@ -25,7 +25,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_point_new (a_gtspointclass: POINTER; an_x, an_y, a_z: REAL) is -- GtsPoint*
+	gts_point_new (a_gtspointclass: POINTER; an_x, an_y, a_z: REAL): POINTER is -- GtsPoint*
 		external "C use <gts.h>"
 		end
 

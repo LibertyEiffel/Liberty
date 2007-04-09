@@ -34,7 +34,8 @@ inherit
 		redefine dispose
 		end
 
-feature 
+feature {} -- Unwrapped code
+	
 	-- Note: much of this C features - functions, macros, defines - 
 	-- are not useful in an Eiffel wrapper.
 
@@ -376,8 +377,6 @@ feature
 
 	--     object :  a GtsObject.
 
-	--    -----------------------------------------------------------------------------------------------------------
-
 	dispose is 
 			-- Calls the destroy method of object, freeing all memory
 			-- allocated for it.
@@ -385,8 +384,6 @@ feature
 			gts_object_destroy (handle)
 			handle := default_pointer
 		end
-
-	--    -----------------------------------------------------------------------------------------------------------
 
 	--   gts_finalize ()
 
@@ -454,4 +451,5 @@ feature {} -- External calls
 
 	--  void        gts_finalize                    (void);
 
-end -- class FOO
+end -- class GTS_OBJECT
+

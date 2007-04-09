@@ -27,24 +27,25 @@ insert GTS_SURFACE_QUALITY_STATS_STRUCT
 
 creation make, from_external_pointer
 
-feature
+feature {} -- Creation
+	make is
+		do
+			allocate
+		end
 
---   GtsSurfaceQualityStats
-
---  typedef struct {
---    GtsRange face_quality;
---    GtsRange face_area;
---    GtsRange edge_length;
---    GtsRange edge_angle;
---    GtsSurface * parent;
---  } GtsSurfaceQualityStats;
-
-
-
---     GtsRange face_quality;  Statistics for face quality (see gts_triangle_quality() for details).
---     GtsRange face_area;     Statistics for the face area.
---     GtsRange edge_length;   Statistics for the edge length.
---     GtsRange edge_angle;    Statistics for the edge angles.
---     GtsSurface *parent;     Surface from which these statistics have been obtained.
-
+	--   GtsSurfaceQualityStats
+	
+	--  typedef struct {
+	--    GtsRange face_quality;
+	--    GtsRange face_area;
+	--    GtsRange edge_length;
+	--    GtsRange edge_angle;
+	--    GtsSurface * parent;
+	--  } GtsSurfaceQualityStats;
+	
+	--     GtsRange face_quality;  Statistics for face quality (see gts_triangle_quality() for details).
+	--     GtsRange face_area;     Statistics for the face area.
+	--     GtsRange edge_length;   Statistics for the edge length.
+	--     GtsRange edge_angle;    Statistics for the edge angles.
+	--     GtsSurface *parent;     Surface from which these statistics have been obtained.
 end -- class GTS_SURFACE_QUALITY_STATS

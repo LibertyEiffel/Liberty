@@ -155,16 +155,14 @@ feature
 			has_manifold:=(gts_edge_manifold_faces (handle, a_surface.handle,
 																 $f1p,$f2p)).to_boolean
 			if has_manifold then 
-				if wrappers.has(f1p)
-				 then f1::= wrappers.at(f1p)
+				if wrappers.has(f1p) then f1::= wrappers.at(f1p)
 				else create f1.from_external_pointer(f1p)
 				end
 				
-				if wrappers.has(f2p)
-				 then f2 ::= wrappers.at(f2p)
+				if wrappers.has(f2p) then f2 ::= wrappers.at(f2p)
 				else create f2.from_external_pointer(f2p)
 				end
-				create Result.make_3(True,f1,f2)
+				create Result.make_2(f1,f2)
 			end
 		end
 	

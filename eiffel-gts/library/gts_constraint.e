@@ -33,9 +33,16 @@ feature {} -- Creation
 	
 feature {} -- External calls
 	-- #define     GTS_CONSTRAINT_CLASS            (klass)
+	-- #define     GTS_CONSTRAINT_CLASS            (klass)
 	-- #define     GTS_CONSTRAINT                  (obj)
-	-- #define     GTS_IS_CONSTRAINT               (obj)
+	-- #define     GTS_CONSTRAINT                  (obj)
 	
+	gts_is_constraint (a_pointer: POINTER): INTEGER is
+			-- #define     GTS_IS_CONSTRAINT               (obj)
+		external "C macro use <gts.h>"
+		alias "GTS_IS_CONSTRAINT"
+		end
+		
 	gts_constraint_class: POINTER is
 		external "C use <gts.h>"
 		end

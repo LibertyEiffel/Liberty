@@ -22,16 +22,11 @@ indexing
 class GTS_VECTOR
 
 inherit
-	C_STRUCT
-		redefine
-			print_on
-		end
+	C_STRUCT redefine print_on end
 
 	STREAM_HANDLER
-		undefine
-			is_equal, copy
-		redefine
-			print_on
+		undefine is_equal, copy
+		redefine print_on
 		end
 	
 creation init, allocate, from_external_pointer
@@ -60,7 +55,7 @@ feature
 			-- The cross-product of Current and `another' vectors. 
 		require another_not_void: another /= Void
 		do
-			create Result.make
+			create Result.allocate
 			gts_vector_cross(Result.handle,handle,another.handle)
 		end
 
@@ -113,7 +108,7 @@ feature {} -- External calls
 		external "C macro use <gts.h>"
 		end
 	
-	gts_vector_normalize (v: POINTER) is
+	gts_vector_normalize (v: POINTER): REAL is
 			-- #define gts_vector_normalize (v)
 		external "C macro use <gts.h>"
 		end
@@ -133,5 +128,5 @@ feature -- size
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsVector)"
 		end
-end -- class GTS_VERTEX
+end -- class GTS_VECTOR
 

@@ -23,7 +23,7 @@ deferred class GTS_BOOLEAN_OPERATIONS_ENUM
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 	is_valid_boolean_operation (an_operation: INTEGER): BOOLEAN is
 		do	
 			Result:=((an_operation = gts_1_out_2) or else

@@ -32,13 +32,9 @@ indexing
 
 class GTS_TRIANGLE
 
-inherit
-	GTS_OBJECT
-		rename make as allocate_struct
-		redefine struct_size
-		end
-insert
-	GTS_POINT_EXTERNALS
+inherit GTS_OBJECT redefine struct_size end
+
+insert GTS_POINT_EXTERNALS
 	
 creation from_edges, from_external_pointer
 
@@ -54,7 +50,8 @@ feature {} -- Creation
 			-- TODO: second touches third
 			-- TODO: third touches first
 		do
-			handle := gts_triangle_new (gts_triangle_class, first.handle, second,handle, third.handle)
+			from_external_pointer(gts_triangle_new
+										 (gts_triangle_class, first.handle, second.handle, third.handle))
 		end
 
 	enclosing (some_points: G_SLIST[GTS_POINT]; a_scale: REAL) is
@@ -69,7 +66,7 @@ feature {} -- Creation
 			points_not_void: some_points /= Void
 			correct_scale: a_scale > 1.0
 		do
-			handle := gts_triangle_enclosing (gts_triangle_class, some_points.handle, a_scale)
+			from_external_pointer(gts_triangle_enclosing (gts_triangle_class, some_points.handle, a_scale))
 		end
 
 feature 
@@ -84,7 +81,7 @@ feature
 			-- TODO: second touches third
 			-- TODO: third touches first
 		do
-			gts_triangle_set (handle, first.handle, second,handle, third.handle)
+			gts_triangle_set (handle, first.handle, second.handle, third.handle)
 		end
 	
 	area: REAL is
@@ -144,9 +141,18 @@ feature
 			Result := gts_triangle_orientation (handle)
 		end
 
-	-- TODO: GtsTriangle* gts_triangle_is_duplicate (GtsTriangle *t);
-	-- Returns : a GtsTriangle different from t but sharing all its
-	-- edges with t or NULL if there is none.
+	duplicate: GTS_TRIANGLE is
+			-- a GtsTriangle different from Current but sharing all its
+			-- edges with Current or Void if there is none.
+		local p: POINTER
+		do
+			p := gts_triangle_is_duplicate (handle)
+			if p.is_not_null then
+				if wrappers.has(p) then Result::=wrappers.at(p)
+				else create Result.from_external_pointer(p)
+				end
+			end
+		end
 
 	angle (another: GTS_TRIANGLE): REAL is
 			-- the angle (in radians) between Current and `another'.
@@ -213,7 +219,6 @@ feature {} -- Implementation
 		end
 
 feature 
-	
 	vertices: TUPLE [GTS_VERTEX, GTS_VERTEX, GTS_VERTEX] is
 		local v1,v2,v3: POINTER
 		do
@@ -382,7 +387,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_triangle_new (a_gtstriangleclass, e1, e2, e3: POINTER): POINTER is -- GtsTriangle*
+	gts_triangle_new (a_class, e1, e2, e3: POINTER): POINTER is -- GtsTriangle*
 		external "C use <gts.h>"
 		end
 	

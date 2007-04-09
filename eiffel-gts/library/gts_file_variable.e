@@ -29,6 +29,12 @@ insert
 	
 creation make, from_external_pointer
 
+feature {} -- Creation
+	make is
+		do
+			allocate
+		end
+	
 feature 
 	type: INTEGER is
 		do

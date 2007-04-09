@@ -30,7 +30,7 @@ inherit
 
 insert GTS_FACE_EXTERNALS
 	
-creation make, from_external_pointer
+creation make, from_triangle, from_external_pointer
 
 feature {} -- Creation
 	make (first, second, third: GTS_EDGE) is
@@ -42,6 +42,12 @@ feature {} -- Creation
 											first.handle,	second.handle, third.handle))
 		end
 
+	from_triangle (a_triangle: GTS_TRIANGLE) is
+		require triangle_not_void: a_triangle /= Void
+		do
+			make(a_triangle.edge_1,a_triangle.edge_2,a_triangle.edge_3)
+		end
+	
 feature
 	has_parent_surface (a_surface: GTS_SURFACE): BOOLEAN is
 			-- Does Current face belong to `a_surface'?
@@ -73,11 +79,11 @@ feature
 			-- returns 0.
 		local iter: ITERATOR[GTS_FACE]; stop: BOOLEAN
 		do
-			iter:=neighbors(a_surface).get_new_iterator
+			iter:=neighbors_of(a_surface).get_new_iterator
 			from iter.start
 			until stop and then iter.is_off
 			loop
-				stop :=  a_predicate.item([iter.item])
+				stop:=a_predicate.item([iter.item])
 				iter.next
 			end
 		end

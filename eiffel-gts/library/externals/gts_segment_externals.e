@@ -53,7 +53,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_segment_connect (s, e1, e2: POINTER) is
+	gts_segment_connect (s, e1, e2: POINTER): INTEGER is
 			-- #define gts_segment_connect (s, e1, e2)
 		require 
 			gts_is_segment(s).to_boolean

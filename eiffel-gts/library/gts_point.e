@@ -21,13 +21,9 @@ indexing
 
 class GTS_POINT
 
-inherit 
-	GTS_OBJECT 
-		rename make as allocate_struct
-		redefine struct_size
-		end
+inherit GTS_OBJECT redefine struct_size end
 
-insert 
+insert
 	GTS_POINT_EXTERNALS
 	GTS_POINT_STRUCT
 

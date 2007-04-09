@@ -181,7 +181,7 @@ feature -- Boolean queries
 		end
 
 feature -- Element number queries
-	vertex_count: INTEGER is
+	vertices_count: INTEGER is
 			-- the number of vertices in the surface.
 		
 			-- TODO: should be NATURAL
@@ -189,7 +189,7 @@ feature -- Element number queries
 			Result:=gts_surface_vertex_number(handle)
 		end
 
-	edge_count: INTEGER is 
+	edges_count: INTEGER is 
 			-- The number of edges in the surface.
 		
 			-- TODO: should be NATURAL
@@ -198,7 +198,7 @@ feature -- Element number queries
 		end
 
 
-	face_count: INTEGER is
+	faces_count: INTEGER is
 			-- the number of faces in the surface.
 		
 			-- TODO: should be NATURAL
@@ -206,10 +206,9 @@ feature -- Element number queries
 			Result:=gts_surface_face_number(handle)
 		end
 
-
 feature
 	boundary: G_SLIST[GTS_EDGE] is
-			-- a list of GtsEdge boundary of surface.
+			-- the boundary edges of surface.
 		local p: POINTER
 		do
 			p:=gts_surface_boundary(handle)
@@ -281,22 +280,20 @@ feature
 	foreach_vertex (a_function: PREDICATE[TUPLE[GTS_VERTEX]]) is
 			-- Calls `a_function' once for each vertex of surface. When `a_function'
 			-- returns False the calling sequence continues, otherwise it stops.
-		local callback: GTS_FUNCTION
+		obsolete "Unimplemented!"
+		--local callback: GTS_FUNCTION
 		do
-			create callback.make(a_function)
-			gts_surface_foreach_vertex(handle,callback.callback_pointer,to_pointer)
+			--create callback.make(a_function)
+			--gts_surface_foreach_vertex(handle,callback.callback_pointer,to_pointer)
 		end
 	
 	foreach_edge (a_function: PREDICATE[TUPLE[GTS_EDGE]]) is
 			-- Calls `a_function' once for each edge of surface. When `a_function'
 			-- returns False the calling sequence continues, otherwise it stops.
-		local callback: GTS_FUNCTION
+			--		local callback: GTS_FUNCTION
 		do
-			create callback.make(a_function)
-			gts_surface_foreach_edge (handle,
-												callback.low_level_callback,
-												callback.to_pointer
-												)
+			--create callback.make(a_function)
+			--gts_surface_foreach_edge (handle,callback.low_level_callback,callback.to_pointer)
 		end
 
 	-- TODO: gts_surface_foreach_face ()
@@ -362,7 +359,7 @@ feature
 										a_boundary_range.handle)
 		end
 
-	strip: G_SLIST[GTS_TRIANGLE] is
+	triangles_strip: G_SLIST[GTS_TRIANGLE] is
 			-- a list of triangle strips containing all the triangles of surface. A
 			-- triangle strip is itself a list of successive triangles having one
 			-- edge in common.
@@ -406,6 +403,7 @@ feature
 		do
 			create Result.from_external_pointer(gts_surface_split(handle))
 		end
+
 feature {} -- Unwrapped code
 	--   GTS_SURFACE_CLASS()
 	
@@ -705,11 +703,256 @@ feature -- Delaunay and constrained Delaunay triangulations
 		ensure a_steiner_max<0 implies unrefined_faces_count=0
 		end
 
+	-- static guint delaunay_remove_holes (GtsSurface * surface) {
+	-- g_return_val_if_fail (surface != NULL, 0);
+	
+	--   return gts_surface_foreach_face_remove (surface, (GtsFunc)
+	--   triangle_is_hole, NULL); }
+
+	-- static void gts_constraint_split (GtsConstraint * c, 
+	-- 				  GtsSurface * s,
+	-- 				  GtsFifo * fifo)
+	-- {
+	--   GSList * i;
+	--   GtsVertex * v1, * v2;
+	--   GtsEdge * e;
+
+	--   g_return_if_fail (c != NULL);
+	--   g_return_if_fail (s != NULL);
+
+	--   v1 = GTS_SEGMENT (c)->v1;
+	--   v2 = GTS_SEGMENT (c)->v2;
+	--   e = GTS_EDGE (c);
+
+	--   i = e->triangles;
+	--   while (i) {
+	--     GtsFace * f = i->data;
+	--     if (GTS_IS_FACE (f) && gts_face_has_parent_surface (f, s)) {
+	--       GtsVertex * v = gts_triangle_vertex_opposite (GTS_TRIANGLE (f), e);
+	--       if (gts_point_orientation (GTS_POINT (v1), 
+	-- 				 GTS_POINT (v2), 
+	-- 				 GTS_POINT (v)) == 0.) {
+	-- 	GSList * j = e->triangles;
+	-- 	GtsFace * f1 = NULL;
+	-- 	GtsEdge * e1, * e2;
+
+	-- 	/* replaces edges with constraints */
+	-- 	gts_triangle_vertices_edges (GTS_TRIANGLE (f), e,
+	-- 				     &v1, &v2, &v, &e, &e1, &e2);
+	-- 	if (!GTS_IS_CONSTRAINT (e1)) {
+	-- 	  GtsEdge * ne1 = 
+	-- 	    gts_edge_new (GTS_EDGE_CLASS (GTS_OBJECT (c)->klass), v2, v);
+	-- 	  gts_edge_replace (e1, ne1);
+	-- 	  gts_object_destroy (GTS_OBJECT (e1));
+	-- 	  e1 = ne1;
+	-- 	  if (fifo) gts_fifo_push (fifo, e1);
+	-- 	}
+	-- 	if (!GTS_IS_CONSTRAINT (e2)) {
+	-- 	  GtsEdge * ne2 = 
+	-- 	    gts_edge_new (GTS_EDGE_CLASS (GTS_OBJECT (c)->klass), v, v1);
+	-- 	  gts_edge_replace (e2, ne2);
+	-- 	  gts_object_destroy (GTS_OBJECT (e2));
+	-- 	  e2 = ne2;
+	-- 	  if (fifo) gts_fifo_push (fifo, e2);
+	-- 	}
+
+	-- 	/* look for face opposite */
+	-- 	while (j && !f1) {
+	-- 	  if (GTS_IS_FACE (j->data) && 
+	-- 	      gts_face_has_parent_surface (j->data, s))
+	-- 	    f1 = j->data;
+	-- 	  j = j->next;
+	-- 	}
+	-- 	if (f1) { /* c is not a boundary of s */
+	-- 	  GtsEdge * e3, * e4, * e5;
+	-- 	  GtsVertex * v3;
+	-- 	  gts_triangle_vertices_edges (GTS_TRIANGLE (f1), e,
+	-- 				       &v1, &v2, &v3, &e, &e3, &e4);
+	-- 	  e5 = gts_edge_new (s->edge_class, v, v3);
+	-- 	  gts_surface_add_face (s, gts_face_new (s->face_class, e5, e2, e3));
+	-- 	  gts_surface_add_face (s, gts_face_new (s->face_class, e5, e4, e1));
+	-- 	  gts_object_destroy (GTS_OBJECT (f1));
+	-- 	}
+	-- 	gts_object_destroy (GTS_OBJECT (f));
+	-- 	return;
+	--       }
+	--     }
+	--     i = i->next;
+	--   }
+	-- }
+
+	-- static void add_constraint (GtsConstraint * c, GtsSurface * s)
+	-- {
+	--   g_assert (gts_delaunay_add_constraint (s, c) == NULL);
+	-- }
+
+	-- static void split_constraint (GtsConstraint * c, gpointer * data)
+	-- {
+	--   GtsSurface * s = data[0];
+	--   GtsFifo * fifo = data[1];
+
+	--   gts_constraint_split (c, s, fifo);
+	-- }
+
+	-- static void shuffle_array (GPtrArray * a)
+	-- {
+	--   guint i;
+
+	--   for (i = 0; i < a->len; i++) {
+	--     guint j = (gdouble) rand ()*(a->len - 1)/(gdouble) RAND_MAX;
+	--     guint k = (gdouble) rand ()*(a->len - 1)/(gdouble) RAND_MAX;
+	--     gpointer tmp;
+
+	--     if (j >= a->len) j = a->len - 1;
+	--     if (k >= a->len) k = a->len - 1;
+	
+	--     tmp = g_ptr_array_index (a, j);
+	--     g_ptr_array_index (a, j) = g_ptr_array_index (a, k);
+	--     g_ptr_array_index (a, k) = tmp;
+	--   }
+	-- }
+
+	triangulate is
+		require
+			not_triangulated: (faces_count = 0) and
+									(vertices_count > 3) and
+									(edges_count > 3)
+		local big: GTS_TRIANGLE
+		do
+			-- create triangle enclosing all the vertices
+			-- create big.enclosing()
+			
+			--   {
+			--     GSList * list = NULL;
+			--     for (i = 0; i < vertices->len; i++)
+			--       list = g_slist_prepend (list, g_ptr_array_index (vertices, i));
+			--     t = gts_triangle_enclosing (gts_triangle_class (), list, 100.);
+			--     g_slist_free (list);
+			--   }
+			--   gts_triangle_vertices (t, &v1, &v2, &v3);
+
+			add(create {GTS_FACE}.from_triangle(big))
+
+			--   /* add vertices */
+			--   for (i = 0; i < vertices->len; i++) {
+			--     GtsVertex * v1 = g_ptr_array_index (vertices, i);
+			--     GtsVertex * v = gts_delaunay_add_vertex (surface, v1, NULL);
+
+			--     g_assert (v != v1);
+			--     if (v != NULL) {
+			--       if (!remove_duplicates) {
+			-- 	fprintf (stderr, "delaunay: duplicate vertex (%g,%g) in input file\n",
+			-- 		 GTS_POINT (v)->x, GTS_POINT (v)->y);
+			-- 	return 1; /* Failure */
+			--       }
+			--       else
+			-- 	gts_vertex_replace (v1, v);
+			--     }
+			--     if (fname) {
+			--       static guint nf = 1;
+			--       char s[80];
+			--       FILE * fp;
+
+			--       g_snprintf (s, 80, "%s.%u", fname, nf++);
+			--       fp = fopen (s, "wt");
+			--       gts_surface_write_oogl (surface, fp);
+			--       fclose (fp);
+
+			--       if (check_delaunay && gts_delaunay_check (surface)) {
+			-- 	fprintf (stderr, "delaunay: triangulation is not Delaunay\n");
+			-- 	return 1;
+			--       }
+			--     }
+			--   }
+			--   g_ptr_array_free (vertices, TRUE);
+
+			--   /* add remaining constraints */
+			--   if (add_constraints)
+			--     gts_fifo_foreach (edges, (GtsFunc) add_constraint, surface);
+
+			--   /* destroy enclosing triangle */
+			--   gts_allow_floating_vertices = TRUE;
+			--   gts_object_destroy (GTS_OBJECT (v1));
+			--   gts_object_destroy (GTS_OBJECT (v2));
+			--   gts_object_destroy (GTS_OBJECT (v3));
+			--   gts_allow_floating_vertices = FALSE;
+
+			--   if (!keep_hull)
+			--     gts_delaunay_remove_hull (surface);
+
+			--   if (remove_holes)
+			--     delaunay_remove_holes (surface);
+
+			--   if (split_constraints) {
+			--     gpointer data[2];
+
+			--     data[0] = surface;
+			--     data[1] = edges;
+			--     gts_fifo_foreach (edges, (GtsFunc) split_constraint, data);
+			--   }
+
+			--   if (conform) {
+			--     guint encroached_number = 
+			--       gts_delaunay_conform (surface, 
+			-- 			    steiner_max,
+			-- 			    (GtsEncroachFunc) gts_vertex_encroaches_edge,
+			-- 			    NULL);
+			--     if (encroached_number == 0 && refine) {
+			--       guint unrefined_number;
+			--       gpointer data[2];
+      
+			--       data[0] = &quality;
+			--       data[1] = &area;
+			--       unrefined_number = 
+			-- 	gts_delaunay_refine (surface, 
+			-- 			     steiner_max,
+			-- 			     (GtsEncroachFunc) gts_vertex_encroaches_edge,
+			-- 			     NULL,
+			-- 			     (GtsKeyFunc) triangle_cost,
+			-- 			     data);
+			--       if (verbose && unrefined_number > 0)
+			-- 	fprintf (stderr, 
+			-- 		 "delaunay: ran out of Steiner points (max: %d) during refinement\n"
+			-- 		 "%d unrefined faces left\n",
+			-- 		 steiner_max, unrefined_number);
+			--     }
+			--     else if (verbose && encroached_number > 0)
+			--       fprintf (stderr, 
+			-- 	       "delaunay: ran out of Steiner points (max: %d) during conforming\n"
+			-- 	       "Delaunay triangulation: %d encroached constraints left\n",
+			-- 	       steiner_max, encroached_number);
+			--   }
+			--   g_timer_stop (timer);
+
+			--   if (verbose) {
+			--     gts_surface_print_stats (surface, stderr);
+			--     fprintf (stderr, "# Triangulation time: %g s speed: %.0f vertex/s\n", 
+			-- 	  g_timer_elapsed (timer, NULL),
+			-- 	  gts_surface_vertex_number (surface)/g_timer_elapsed (timer, NULL));
+			--   }
+
+			--   if (check_delaunay && gts_delaunay_check (surface)) {
+			--     fprintf (stderr, "delaunay: triangulation is not Delaunay\n");
+			--     status = 1; /* failure */
+			--   }
+
+			--   /* write triangulation */
+			--   gts_surface_write (surface, stdout);
+
+			--   return status;
+			-- }
+			
+		ensure
+			triangulated: faces_count > 0
+			delaunay_property: is_delaunay
+			no_vertices_added: vertices_count = old vertices_count
+			no_edges_added: edges_count = old edges_count
+		end
 
 feature -- Simplification and refinement: reducing or increasing the number of edges of a triangulated surface (not Delaunay)
 
    -- `coarsen' function allows to reduce the number of edges (and of course
-   -- faces and vertices) of a given surface.
+-- faces and vertices) of a given surface.
 
 	-- TODO: The original C implementation allows to provide the
 	-- algorithm a cost function. Current wrappers allow only to use
@@ -745,7 +988,7 @@ feature -- Simplification and refinement: reducing or increasing the number of e
 
 
 	refine is
-		--require stop_function_set: is_stop_function_set
+			-- require stop_function_set: is_stop_function_set
 		do
 			gts_surface_refine
 			(handle,
