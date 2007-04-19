@@ -47,7 +47,7 @@ default -- section of the system
 	high_memory_compiler (no);	
 		 -- The equivalent of the -high_memory_compiler flag.
 
-	profile (yes);
+	profile (no);
 		 -- The equivalent of the -profile flag.
 
 	relax (yes);

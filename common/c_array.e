@@ -20,15 +20,19 @@ indexing
 			]"
 
 class C_ARRAY [ITEM -> SHARED_C_STRUCT]
-	-- TODO: ITEM could also be conformant to C_STRUCT or
-	-- SHARED_C_STRUCT. See which is the better design.
+	-- An array of wrapped item which is also a wrapper to a C array 
+	-- of pointers of item's struct. For example a C_ARRAY[GTK_BUTTON] 
+	-- wraps a GtkButton** array.
 
+	-- Since many low-level C functions expect to receive
+	-- NULL-terminated arrays, the underlying storage will be always
+	-- NULL-terminated.
 inherit 
 	COLLECTION [ITEM]
-	SHARED_C_STRUCT
-		rename exists as struct_exists
+	-- SHARED_C_STRUCT rename exists as struct_exists undefine
+	-- fill_tagged_out_memory redefine is_equal end
+	WRAPPER_HANDLER
 		undefine fill_tagged_out_memory
-		redefine is_equal
 		end
 
 insert
@@ -54,18 +58,24 @@ feature {} -- Creation
 			array_not_null: an_array.is_not_null
 			positive_length: a_length > 0
 		do
+			upper := a_length - 1 
 			capacity := a_length
 			storage := storage.from_pointer (an_array)
-			handle := storage.to_pointer 
 		end
 	
-	with_capacity(a_capacity: INTEGER) is
+	with_capacity (a_capacity: INTEGER) is
 		require positive_capacity: a_capacity > 0
 		do
 			capacity := a_capacity
+			upper := lower
 			storage := storage.calloc(a_capacity)
-			handle := storage.to_pointer 
 		end
+
+feature {} -- 	
+	object_materialization_notice: STRING is
+			-- The notice printed when creating a new wrapper object from
+			-- no-where.
+		"Warning: C_ARRAY is going to create a new wrapper; if ITEM is deferred the program will almost surely crash. The actual ITEM must be made non-deferred.%N"
 
 feature
 	item (i: INTEGER_32): ITEM is
@@ -73,338 +83,305 @@ feature
 		do
 			ptr := storage.item(i)
 			if ptr.is_not_null then 
-				if wrappers.has (ptr) then Result ::= wrappers.at (ptr)
+				if wrappers.has (ptr) then 
+					Result ::= wrappers.at (ptr)
 				else
+					debug print(object_materialization_notice) end
 					Result := new_item
 					Result.from_external_pointer(ptr)
 				end
+				Result.set_shared 
+				-- check shared_result: Result.is_shared end
 			end
 		end
 
-   first: ITEM is
-		local ptr: POINTER
-		do
-			ptr := storage.item(lower)
-			if ptr.is_not_null then 
-				if wrappers.has (ptr) then
-					Result ::= wrappers.at (ptr)
-				else
-					Result := new_item
-					Result.from_external_pointer(ptr)
-				end
-			end
-		end
+   first: ITEM is do Result:=item(lower) end
 
-   last: ITEM is
-		local ptr: POINTER
-		do
-			ptr := storage.item(upper)
-			if ptr.is_not_null then 
-				if wrappers.has (ptr) then
-					Result ::= wrappers.at (ptr)
-				else
-					Result := new_item
-					Result.from_external_pointer(ptr)
-				end
-			end
-		end
+   last: ITEM is do Result:=item(upper) end
 	
 feature {ANY} -- Writing:
-	put (element: like item; i: INTEGER) is
+	put (element: like item; i: INTEGER) is 
 		do
-			if element /= Void then storage.put(element.handle,i)
-			else  storage.put(default_pointer,i)
+			if element/=Void then
+				storage.put(element.handle,i)
+				element.set_shared
+			else
+				storage.put(default_pointer,i)
 			end
 		end
 
 	set_all_with (v: like item) is
-		obsolete "Unimplemented!"
+		local i: INTEGER
 		do
-			-- 		do
-		
+			from i:=lower until i>upper
+			loop put(v,i); i:=i+1
+			end
 		end
 
 feature {ANY} -- Adding:
 	add_first (element: like item) is
-		obsolete "Unimplemented!"
+			-- Performance: O(count), not counting the eventual reallocation.
+		local i,j: INTEGER
 		do
-			-- 			-- Add a new item in first position : `count' is increased by
-			-- 			-- one and all other items are shifted right.
-			-- 			--
-			-- 			-- See also `add_last', `first', `last', `add'.
-			-- 		do
-		
+			if count=capacity then
+				capacity := capacity*2
+				storage:=storage.realloc (count,capacity)
+			end
+			from i:=upper; j:=i+1 until i=lower
+			loop
+				storage.put(storage.item(i),j)
+				j:=i; i:=i-1
+			end
+			storage.put(null_or(element),lower)
+			upper:=upper+1
 		end
 
 	add_last (element: like item) is
-		obsolete "Unimplemented!"
+			-- Performance: O(1), not counting the eventual reallocation.
 		do
-			-- 			-- Add a new item at the end : `count' is increased by one.
-			-- 			--
-			-- 			-- See also `add_first', `last', `first', `add'.
-			-- 		do
-		
+			if count=capacity then
+				capacity := capacity*2
+				storage:=storage.realloc (count,capacity)
+			end
+			check count = upper+1 end -- because the following put command relies on this assumption.
+			storage.put(null_or(element),count)
+			upper:=upper+1
 		end
 
 	add (element: like item; index: INTEGER) is
-		obsolete "Unimplemented!"
+			-- Performance: O(count-index), not counting the eventual reallocation
+		local i,j: INTEGER 
 		do
-			-- 			-- Add a new `element' at rank `index' : `count' is increased
-			-- 			-- by one and range [`index' .. `upper'] is shifted right by one position.
-			-- 			--
-			-- 			-- See also `add_first', `add_last', `append_collection'.
-			-- 		do
-			
+			-- Add a new `element' at rank `index' : `count' is increased by one
+			-- and range [`index' .. `upper'] is shifted right by one position.
+			if count=capacity then
+				capacity := capacity*2
+				storage:=storage.realloc (count,capacity)
+			end
+			from i:=upper; j:=upper+1 until i<index
+			loop
+				storage.put(storage.item(i),j)
+				j:=i ; i:=i-1
+			end
+			storage.put(null_or(element),index)
+			upper:=upper+1
 		end
 
 feature {ANY} -- Modification:
 	force (element: ITEM; index: INTEGER) is
-		obsolete "Unimplemented!"
 		do
-			-- 			-- Make `element' the item at `index', enlarging the collection if
-			-- 			-- necessary (new bounds except `index' are initialized with
-			-- 			-- default values).
-			-- 			--
-			-- 			-- See also `put', `item', `swap'.
-			-- 		do
-			
+			-- Make `element' the item at `index', enlarging the collection if
+			-- necessary (new bounds except `index' are initialized with default
+			-- values).
+			if index>capacity then 
+				debug print (once "C_ARRAY.force: storage enlarged using realloc%N") end
+				storage:=storage.realloc(count,index) 
+			end
+			upper:=index
+			put(element,index)
 		end
 
 	from_collection (model: TRAVERSABLE[like item]) is
-		obsolete "Unimplemented!"
+		local i: ITERATOR[like item]
 		do
-			-- 			-- Initialize the current object with the contents of `model'.
-			-- 		require
-			-- 			model /= Void
-			-- 			useful_work: model /= Current
-			-- 		deferred
-			-- 		ensure
-			-- 			count = model.count
+			with_capacity(model.count)
+			from i:=model.get_new_iterator; i.start
+			until i.is_off 
+			loop add_last(i.item); i.next
+			end
+			storage.put(default_pointer,upper+1)
 		end
 
 feature {ANY} -- Removing:
 	remove_first is
-		obsolete "Unimplemented!"
+			-- Performance: O(count)
+		local i,j: INTEGER
 		do
-			-- 			-- Remove the `first' element of the collection.
-			-- 			--
-			-- 			-- See also `remove_last', `remove', `remove_head'.
-			-- 		require
-			-- 			not is_empty
-			-- 		deferred
-			-- 		ensure
-			-- 			count = old count - 1
-			-- 			lower = old lower + 1 xor upper = old upper - 1
+ 			-- Remove the `first' element of the collection.
+			from i:=lower; j:=lower+1 until j>upper
+			loop
+				storage.put(storage.item(j),i)
+				i:=j; j:=j+1
+			end
+			upper:=upper-1
 		end
 
 	remove_head (n: INTEGER) is
-		obsolete "Unimplemented!"
+			-- Performance: O(upper-n)
+		local i,j: INTEGER
 		do
-			-- 			-- Remove the `n' elements of the collection.
-			-- 			--
-			-- 			-- See also `remove_tail', `remove', `remove_first'.
-			-- 		require
-			-- 			n > 0 and n <= count
-			-- 		deferred
-			-- 		ensure
-			-- 			count = old count - n
-			-- 			lower = old lower + n xor upper = old upper - n
+			-- Remove the `n' elements of the collection.
+			from i:=lower; j:=lower+n until j>upper
+			loop
+				storage.put(storage.item(j),i)
+				i:=i+1; j:=j+1				    
+			end
+			upper:=upper-n
 		end
 
 	remove (index: INTEGER) is
-		obsolete "Unimplemented!"
+			-- Performance: O(count)
+		local i,j: INTEGER
 		do
-			-- 			-- Remove the item at position `index'. Followings items are shifted left by one position.
-			-- 			--
-			-- 			-- See also `remove_first', `remove_head', `remove_tail', `remove_last'.
-			-- 		require
-			-- 			valid_index(index)
-			-- 		deferred
-			-- 		ensure
-			-- 			count = old count - 1
-			-- 			upper = old upper - 1
+			-- Remove the item at position `index'. Followings items are shifted
+			-- left by one position.
+			from i:=index; j:=index+1 until j>=upper
+			loop
+				storage.put(storage.item(j),i)
+				i:=j; j:=j+1
+			end
+			upper:=upper-1
 		end
 
 	remove_last is
-		obsolete "Unimplemented!"
+			-- Performance: O(1)
 		do
-			-- 			-- Remove the `last' item.
-			-- 			--
-			-- 			-- See also `remove_first', `remove', `remove_tail'.
-			-- 		require
-			-- 			not is_empty
-			-- 		deferred
-			-- 		ensure
-			-- 			count = old count - 1
-			-- 			upper = old upper - 1
+			-- Remove the `last' item.
+			storage.put(default_pointer,upper)
+			upper:=upper-1
 		end
 
 	remove_tail (n: INTEGER) is
-		obsolete "Unimplemented!"
+			-- Performance: O(n)
+		local i,j: INTEGER
 		do
-			-- 			-- Remove the last `n' item(s).
-			-- 			--
-			-- 			-- See also `remove_head', `remove', `remove_last'.
-			-- 		require
-			-- 			n > 0 and n <= count
-			-- 		deferred
-			-- 		ensure
-			-- 			count = old count - n
-			-- 			upper = old upper - n
+			-- Remove the last `n' item(s).
+			-- 0 1 2 3 4 5 6 7 8 9  (0,9 c=10)
+			-- 0 1 2 3 4 5 6 x x x  (n=3)
+			from i:=upper-n+1 until i>upper
+			loop storage.put(default_pointer,i) i:=i+1
+			end
+			upper:=upper-n
 		end
 
 	clear_count is
-		obsolete "Unimplemented!"
+		local i: INTEGER
 		do
-			-- 			-- Discard all items (`is_empty' is True after that call). If possible, the actual implementation is
-			-- 			-- supposed to keep its internal storage area in order to refill `Current' in an efficient way.
-			-- 			--
-			-- 			-- See also `clear_count_and_capacity'.
-			-- 		deferred
-			-- 		ensure
-			-- 			is_empty: count = 0
+			-- Discard all items (`is_empty' is True after that call). If
+			-- possible, the actual implementation is supposed to keep
+			-- its internal storage area in order to refill `Current' in
+			-- an efficient way.
+			from i:=lower until i>upper
+			loop
+				storage.put(default_pointer,i)
+				i:=i+1
+			end
+			upper:=lower
 		end
 
 	clear_count_and_capacity is
-		obsolete "Unimplemented!"
+			-- Instead of releasing the memory, it is reallocated with
+			-- with 2 elements.
 		do
-			-- 			-- Discard all items (`is_empty' is True after that call). If possible, the actual implementation is
-			-- 			-- supposed to release its internal storage area for this memory to be used by other objects.
-			-- 			--
-			-- 			-- See also `clear_count'.
-			-- 		deferred
-			-- 		ensure
-			-- 			is_empty: count = 0
+			-- Discard all items (`is_empty' is True after that call). If possible,
+			-- the actual implementation is supposed to release its internal
+			-- storage area for this memory to be used by other objects.
+			storage:=storage.realloc(count,2) 
+			upper:=lower
 		end
 
 feature {ANY} -- Looking and Searching:
-	-- has (x: like item): BOOLEAN is	
-	-- do
-	-- 			-- Look for `x' using `is_equal' for comparison.
-	-- 			--
-	-- 			-- See also `fast_has', `index_of', `fast_index_of'.
-	-- 		do
-	-- 			Result := valid_index(first_index_of(x))
-	--	end
-
-	-- fast_has (x: like item): BOOLEAN is
-	-- do
-	-- 			-- Look for `x' using basic `=' for comparison.
-	-- 			--
-	-- 			-- See also `has', `fast_index_of', `index_of'.
-	-- 		do
-	-- 			Result := valid_index(fast_first_index_of(x))
-	--	end
-
 	first_index_of (element: like item): INTEGER is
-		obsolete "Unimplemented!"
+		local i: INTEGER
 		do
-			-- 			-- Give the index of the first occurrence of `element' using `is_equal' for comparison.
-			-- 			-- Answer `upper + 1' when `element' is not inside.
-			-- 			--
-			-- 			-- See also `fast_first_index_of', `index_of', `last_index_of', `reverse_index_of'.
-			-- 		deferred
-			-- 		ensure
-			-- 			definition: Result = index_of(element, lower)
+			-- Give the index of the first occurrence of `element' using
+			-- `is_equal' for comparison.  Answer `upper + 1' when
+			-- `element' is not inside.
+			if element=Void then 
+				from i:=lower until item(i)=Void or else i>upper
+				loop i:=i+1
+				end
+			else
+				from i:=lower until element.is_equal(item(i)) or else i>upper
+				loop i:=i+1
+				end
+			end
+			Result:=i
 		end
 
 	index_of (element: like item; start_index: INTEGER): INTEGER is
+		do
 			-- Using `is_equal' for comparison, gives the index of the
 			-- first occurrence of `element' at or after
 			-- `start_index'. Answer `upper + 1' when `element' when the
 			-- search fail.
-			
-			-- See also `fast_index_of', `reverse_index_of',
-			-- `first_index_of'.
-		do
-			from Result:=start_index
-			until item(Result).is_equal(element) or else Result>upper
-			loop Result:=Result+1
+			if element=Void then
+				from Result:=start_index
+				until item(Result)=Void or else Result>upper
+				loop Result:=Result+1
+				end
+			else
+				from Result:=start_index
+				until item(Result).is_equal(element) or else Result>upper
+				loop Result:=Result+1
+				end				
 			end
 		end
 
 	reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
-		obsolete "Unimplemented!"
 		do
-			-- 			-- Using `is_equal' for comparison, gives the index of the first occurrence of `element' at or before
-			-- 			-- `start_index'. Search is done in reverse direction, which means from the `start_index' down to the
-			-- 			-- `lower' index . Answer `lower -1' when the search fail.
-			-- 			--
-			-- 			-- See also `fast_reverse_index_of', `last_index_of', `index_of'.
-			-- 		require
-			-- 			valid_index(start_index)
-			-- 		deferred
-			-- 		ensure
-			-- 			Result.in_range(lower - 1, start_index)
-			-- 			valid_index(Result) implies item(Result).is_equal(element)
+ 			-- Using `is_equal' for comparison, gives the index of the
+ 			-- first occurrence of `element' at or before
+ 			-- `start_index'. Search is done in reverse direction, which
+ 			-- means from the `start_index' down to the `lower'
+ 			-- index. Answer `lower -1' when the search fail.
+			if element=Void then
+				from Result:=start_index
+				until item(Result)=Void or else Result<lower
+				loop Result:=Result-1
+				end
+			else
+				from Result:=start_index
+				until item(Result).is_equal(element) or else Result<lower
+				loop Result:=Result-1
+				end				
+			end
+			
 		end
 
-	--	last_index_of (element: like item): INTEGER is
-	--		do
-	-- 			-- Using `is_equal' for comparison, gives the index of the last occurrence of `element' at or before
-	-- 			-- `upper'. Search is done in reverse direction, which means from the `upper' down to the
-	-- 			-- `lower' index . Answer `lower -1' when the search fail.
-	-- 			--
-	-- 			-- See also `fast_last_index_of', `reverse_index_of', `index_of'.
-	-- 		do
-	-- 			Result := reverse_index_of(element, upper)
-	-- 		ensure
-	-- 			definition: Result = reverse_index_of(element, upper)
-	--	end
-
 	fast_first_index_of (element: like item): INTEGER is
-		obsolete "Unimplemented!"
+			-- Note: comparison is done using the address of the wrapped
+			-- structure.
+		local element_ptr: POINTER
 		do
-			-- 			-- Give the index of the first occurrence of `element' using basic `=' for comparison.
-			-- 			-- Answer `upper + 1' when `element' is not inside.
-			-- 			--
-			-- 			-- See also `first_index_of', `last_index_of', `fast_last_index_of'.
-			-- 		deferred
-			-- 		ensure
-			-- 			definition: Result = fast_index_of(element, lower)
+			-- Give the index of the first occurrence of `element' using basic `=' for comparison.
+			-- Answer `upper + 1' when `element' is not inside.
+			element_ptr:=null_or(element)
+			from Result:=lower until storage.item(Result)=element_ptr or else Result>upper
+			loop Result:=Result+1
+			end
 		end
 
 	fast_index_of (element: like item; start_index: INTEGER): INTEGER is
-		obsolete "Unimplemented!"
+			-- Note: comparison is done using the address of the wrapped
+			-- structure.
+		local element_ptr: POINTER
 		do
-			-- 			-- Using basic `=' for comparison, gives the index of the first occurrence of `element' at or after
-			-- 			-- `start_index'. Answer `upper + 1' when `element' when the search fail.
-			-- 			--
-			-- 			-- See also `index_of', `fast_reverse_index_of', `fast_first_index_of'.
-			-- 		deferred
-			-- 		ensure
-			-- 			Result.in_range(start_index, upper + 1)
-			-- 			valid_index(Result) implies element = item(Result)
+			-- Using basic `=' for comparison, gives the index of the
+			-- first occurrence of `element' at or after
+			-- `start_index'. Answer `upper + 1' when `element' when the
+			-- search fail.
+			element_ptr:=null_or(element)
+			from Result:=lower until storage.item(Result)=element_ptr or else Result>upper
+			loop Result:=Result+1
+			end
 		end
 
 	fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
-		obsolete "Unimplemented!"
+			-- Note: comparison is done using the address of the wrapped
+			-- structure
+		local element_ptr: POINTER
 		do
-			-- 			-- Using basic `=' comparison, gives the index of the first occurrence of `element' at or before
-			-- 			-- `start_index'. Search is done in reverse direction, which means from the `start_index' down to the
-			-- 			-- `lower' index . Answer `lower -1' when the search fail.
-			-- 			--
-			-- 			-- See also `reverse_index_of', `fast_index_of', `fast_last_index_of'.
-			-- 		require
-			-- 			valid_index(start_index)
-			-- 		deferred
-			-- 		ensure
-			-- 			Result.in_range(lower - 1, start_index)
-			-- 			valid_index(Result) implies item(Result) = element
+			-- Using basic `=' comparison, gives the index of the first
+			-- occurrence of `element' at or before `start_index'. Search
+			-- is done in reverse direction, which means from the
+			-- `start_index' down to the `lower' index . Answer `lower
+			-- -1' when the search fail.
+			element_ptr:=null_or(element)
+			from Result:=start_index until storage.item(Result)=element_ptr or else Result>upper
+			loop Result:=Result-1
+			end
 		end
-
-	-- fast_last_index_of (element: like item): INTEGER is
-	-- do
-	-- 			-- Using basic `=' for comparison, gives the index of the last occurrence of `element' at or before
-	-- 			-- `upper'. Search is done in reverse direction, which means from the `upper' down to the
-	-- 			-- `lower' index . Answer `lower -1' when the search fail.
-	-- 			--
-	-- 			-- See also `fast_reverse_index_of', `last_index_of'.
-	-- 		do
-	-- 			Result := fast_reverse_index_of(element, upper)
-	-- 		ensure
-	-- 			definition: Result = fast_reverse_index_of(element, upper)
-	--	end
 
 feature {ANY} -- Looking and comparison:
 	is_equal (other: like Current): BOOLEAN is
@@ -416,8 +393,8 @@ feature {ANY} -- Looking and comparison:
 			-- See also `is_equal_map', `same_items'.
 		local i: INTEGER
 		do
-			from i := lower; Result := True
-			until Result=True and then i <= upper 
+			from i:=lower 
+			until Result=True or else i>upper 
 			loop
 				Result := (Current.storage.item(i) = other.storage.item(i))
 				i:=i+1
@@ -425,16 +402,30 @@ feature {ANY} -- Looking and comparison:
 		end
 
 	is_equal_map (other: like Current): BOOLEAN is
-		obsolete "Unimplemented!"
+		local i: INTEGER; c_ith, o_ith: ITEM
 		do
-			-- 			-- Do both collections have the same `lower', `upper', and
-			-- 			-- items?
-			-- 			feature `is_equal' is used for comparison of items.
-			-- 			--
-			-- 			-- See also `is_equal', `same_items'.
-			-- 		deferred
-			-- 		ensure
-			-- 			Result implies lower = other.lower and upper = other.upper
+			-- Do both collections have the same `lower', `upper', and
+			-- items?  feature `is_equal' is used for comparison of
+			-- items.
+			if other=Void then Result:=False
+			elseif count/=other.count then Result:=False
+			else 
+				from i:=lower; Result:=True until Result=False or else i>upper 
+				loop
+					c_ith:=Current.item(i)
+					o_ith:=other.item(i)
+					if c_ith/=Void then
+						if o_ith/=Void then Result := c_ith.is_equal(o_ith)
+						else                Result := False
+						end
+					else
+						if o_ith/=Void then Result := False
+						else -- nothing, result should already be true
+						end
+					end
+					i:=i+1
+				end
+			end
 		end
 
 	all_default: BOOLEAN is
@@ -447,60 +438,40 @@ feature {ANY} -- Looking and comparison:
 		do
 			from i:=lower until Result=False or else i>upper
 			loop
-				Result:= (storage.item(i)=default_pointer or else
-							 item(i).is_null)
+				Result:= (storage.item(i).is_null)
 				i:=i+1
 			end			
 		end
 
-	-- same_items (other: COLLECTION[ITEM]): BOOLEAN is
-	--		do
-	-- 			-- Do both collections have the same items? The basic `=' is used
-	-- 			-- for comparison of items and indices are not considered (for
-	-- 			-- example this routine may yeld True with `Current' indexed in
-	-- 			-- range [1..2] and `other' indexed in range [2..3]).
-	-- 			--
-	-- 			-- See also `is_equal_map', `is_equal'.
-	-- 		require
-	-- 			other /= Void
-	-- 		local
-	-- 			i, j: INTEGER
-	-- 		do
-	-- 			if count = other.count then
-	-- 				from
-	-- 					Result := True
-	-- 					i := lower
-	-- 					j := other.lower
-	-- 				until
-	-- 					not Result or else i > upper
-	-- 				loop
-	-- 					Result := item(i) = other.item(j)
-	-- 					i := i + 1
-	-- 					j := j + 1
-	-- end
-	-- end
-	--		end
-
 	occurrences (element: like item): INTEGER is
-		obsolete "Unimplemented!"
+		local i: ITERATOR[ITEM]
 		do
-			-- 			-- Number of occurrences of `element' using `is_equal' for comparison.
-			-- 			--
-			-- 			-- See also `fast_occurrences', `index_of'.
-			-- 		deferred
-			-- 		ensure
-			-- 			Result >= 0
+			-- Number of occurrences of `element' using `is_equal' for comparison.
+			if element/=Void then 
+				from i:=get_new_iterator; i.start; until i.is_off
+				loop
+					if element.is_equal(i.item) then Result:=Result+1 end
+					i.next
+				end
+			else
+				from i:=get_new_iterator; i.start; until i.is_off
+				loop
+					if i.item=Void then Result:=Result+1 end
+					i.next
+				end
+			end
 		end
 
 	fast_occurrences (element: like item): INTEGER is
-		obsolete "Unimplemented!"
+			-- Number of occurrences of `element' using basic its handle
+			-- (or default_pointer) for comparison.
+		local ep: POINTER; i: INTEGER
 		do
-			-- 			-- Number of occurrences of `element' using basic `=' for comparison.
-			-- 			--
-			-- 			-- See also `occurrences', `index_of'.
-			-- 		deferred
-			-- 		ensure
-			-- 			Result >= 0
+			ep:=null_or(element)
+			from i:=lower until i>upper loop
+				if storage.item(i)=ep then Result:=Result+1 end
+				i:=i+1
+			end
 		end
 
 feature {ANY} -- Agents based features:
@@ -661,17 +632,14 @@ feature {ANY} -- Other features:
 		end
 
 feature
-	struct_size: INTEGER
+	-- struct_size: INTEGER
 
 	count: INTEGER is
 		do
-			Result:=capacity
+			Result:=upper+1
 		end
-
-	upper: INTEGER is
-		do
-			Result:=count-1
-		end
+	
+	upper: INTEGER
 
 	lower: INTEGER is 0
 
@@ -681,13 +649,8 @@ feature
 		end
 
 	get_new_iterator: ITERATOR[ITEM] is
-		obsolete "Unimplemented!"
 		do
-		end
-
-	manifest_put (index: INTEGER_32; element: ITEM) is
-		obsolete "Unimplemented!"
-		do
+			create {ITERATOR_ON_C_ARRAY[ITEM]} Result.from_array(Current)
 		end
 
 feature {C_ARRAY} -- Implementation

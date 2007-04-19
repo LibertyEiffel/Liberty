@@ -9,4 +9,15 @@ deferred class WRAPPER_HANDLER
 
 inherit ANY undefine is_equal, copy end
 
+feature
+	null_or (a_wrapper: WRAPPER): POINTER is
+			-- The handle of `a_wrapper', or the default_pointer if 
+			-- `a_wrapper' is Void
+		do
+			if a_wrapper/=Void then Result:=a_wrapper.handle end
+		ensure
+			definition: Result = default_pointer or else
+			            a_wrapper/=Void implies Result = a_wrapper.handle
+		end
+
 end
