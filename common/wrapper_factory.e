@@ -28,6 +28,7 @@ deferred class WRAPPER_FACTORY [ITEM_->WRAPPER]
 
 inherit
 	WRAPPER_HANDLER -- undefine fill_tagged_out_memory end
+		undefine null_or end
 
 insert
 	INTERNALS_HANDLER

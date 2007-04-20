@@ -7,7 +7,9 @@ indexing
 
 deferred class G_OBJECT_RETRIEVER [ITEM_ -> G_OBJECT]
 
-inherit WRAPPER_HANDLER
+inherit
+	WRAPPER_HANDLER
+		undefine null_or end
 
 insert
 	G_OBJECT_EXTERNALS
