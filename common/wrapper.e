@@ -29,6 +29,8 @@ insert
 			copy
 		end
 
+	WRAPPER_HANDLER -- to access `null_or'
+
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 
 	from_external_pointer (a_ptr: POINTER) is
@@ -68,16 +70,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 
 	handle: POINTER
 		-- Pointer to the underlying C "thing" (i.e. a struct)
-
-	null_or (a_wrapper: WRAPPER): POINTER is
-			-- The handle of `a_wrapper', or the default_pointer if 
-			-- `a_wrapper' is Void
-		do
-			if a_wrapper/=Void then Result:=a_wrapper.handle end
-		ensure
-			definition: Result = default_pointer or else
-			            a_wrapper/=Void implies Result = a_wrapper.handle
-		end
 
 feature {} -- External calls
 

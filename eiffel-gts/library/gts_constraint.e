@@ -21,7 +21,7 @@ indexing
 
 class GTS_CONSTRAINT
 
-inherit GTS_EDGE redefine make, struct_size end
+inherit GTS_EDGE redefine make, struct_size, fill_tagged_out_memory end
 
 creation make, from_external_pointer
 
@@ -50,5 +50,18 @@ feature {} -- External calls
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsConstraint)"
+		end
+
+	fill_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "{(")
+			v1.x.append_in(tagged_out_memory)
+			tagged_out_memory.append(once ", ")
+			v1.y.append_in(tagged_out_memory)
+			tagged_out_memory.append(once "),(")
+			v2.x.append_in(tagged_out_memory)
+			tagged_out_memory.append(once ", ")
+			v2.y.append_in(tagged_out_memory)
+			tagged_out_memory.append(once ")}")
 		end
 end -- class GTS_CONSTRAINT

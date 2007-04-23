@@ -54,19 +54,20 @@ feature {} -- Creation
 		end
 	
 	with_capacity (a_capacity: INTEGER) is
-		require positive_capacity: a_capacity > 0
 		do
 			capacity := a_capacity
-			upper := lower
+			upper := -1
 			storage := storage.calloc(a_capacity+1)
 		end
 
 feature
 	is_null_terminated: BOOLEAN is
 		do
-			Result:=storage.item(capacity).is_null
+			-- 0 1 2 3 4
+			-- a b c d NULL
+			Result:=storage.item(upper+1).is_null
 		end
 
-invariant
+invariant 
 	null_terminated: is_null_terminated
 end -- class NULL_TERMINATED_C_ARRAY

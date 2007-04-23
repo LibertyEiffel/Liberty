@@ -46,7 +46,9 @@ insert
 			copy,
 			is_equal
 		end
-								 
+			
+	EXCEPTIONS undefine fill_tagged_out_memory, copy, is_equal end
+
 creation
 	with_capacity,
 	from_collection,
@@ -67,7 +69,7 @@ feature {} -- Creation
 		require positive_capacity: a_capacity > 0
 		do
 			capacity := a_capacity
-			upper := lower
+			upper := -1
 			storage := storage.calloc(a_capacity)
 		end
 
@@ -189,7 +191,6 @@ feature {ANY} -- Modification:
 			until i.is_off 
 			loop add_last(i.item); i.next
 			end
-			storage.put(default_pointer,upper+1)
 		end
 
 feature {ANY} -- Removing:
@@ -636,7 +637,7 @@ feature
 
 	count: INTEGER is
 		do
-			Result:=upper+1
+			Result:=upper-lower+1
 		end
 	
 	upper: INTEGER
@@ -645,7 +646,7 @@ feature
 
 	is_empty: BOOLEAN is
 		do
-			Result := count=0 or else storage.is_null
+			Result := (upper = -1) or else storage.is_null
 		end
 
 	get_new_iterator: ITERATOR[ITEM] is
@@ -653,7 +654,7 @@ feature
 			create {ITERATOR_ON_C_ARRAY[ITEM]} Result.from_array(Current)
 		end
 
-feature {C_ARRAY} -- Implementation
+feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 	storage: NATIVE_ARRAY[POINTER]
 
 	capacity: INTEGER

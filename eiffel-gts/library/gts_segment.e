@@ -55,6 +55,29 @@ feature {} -- Creation
 		end
 	
 feature
+	v1: GTS_VERTEX is
+		local p: POINTER
+		do
+			p:=get_v1(handle)
+			if wrappers.has(p) then Result::=wrappers.at(p)
+			else
+				debug vertex_creation_notice.print_on(std_error) end
+				create Result.from_external_pointer(p)
+			end
+		end
+
+	v2: GTS_VERTEX is
+		local p: POINTER
+		do
+			p:=get_v2(handle)
+			if wrappers.has(p) then Result::=wrappers.at(p)
+			else
+				debug vertex_creation_notice.print_on(std_error) end
+				create Result.from_external_pointer(p)
+			end
+		end
+
+feature
 	is_equal (another: GTS_SEGMENT): BOOLEAN is
 		do
 			Result:=(gts_segments_are_identical(handle, another.handle).to_boolean)
@@ -164,4 +187,11 @@ feature {} -- size
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsSegment)"
 		end
+
+feature {} -- Implementation
+	vertex_creation_notice: STRING is
+		"[
+		 A GTS_SEGMENT created a GTS_VERTEX wrapper for either v1 or v2.%N
+		 ]"
+		 
 end -- class GTS_SEGMENT

@@ -6,25 +6,20 @@ indexing
 
 class G_TIMER
 
-inherit
-	C_STRUCT
-		redefine dispose end
+inherit C_STRUCT redefine default_create, dispose end
 
-insert
-	G_TIMER_EXTERNALS
+insert G_TIMER_EXTERNALS
 
-creation
-	make
+-- creation make
 
-feature {}
-
+feature {} -- 
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GTimer)"
 		end
 
 feature {} -- Creation
-	make is
+	default_create, make is
 			-- Creates a new timer, and starts timing
 		do
 			handle := g_timer_new
@@ -35,6 +30,7 @@ feature {} -- Creation
 			g_timer_destroy (handle)
 			handle := default_pointer
 		end
+	
 feature
 	start is
 			-- (Re)starts timing

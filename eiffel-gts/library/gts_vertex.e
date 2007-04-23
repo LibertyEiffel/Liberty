@@ -25,7 +25,7 @@ class GTS_VERTEX
 inherit 
 	GTS_POINT
 		redefine 
-			make, struct_size
+			make, struct_size, fill_tagged_out_memory
 		end
 
 insert GTS_VERTEX_EXTERNALS
@@ -173,5 +173,14 @@ feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsVertex)"
+		end
+
+	fill_tagged_out_memory is
+		do
+			tagged_out_memory.append(once "(")
+			x.append_in(tagged_out_memory)
+			tagged_out_memory.append(once ", ")
+			y.append_in(tagged_out_memory)
+			tagged_out_memory.append(once ")")
 		end
 end -- class GTS_VERTEX

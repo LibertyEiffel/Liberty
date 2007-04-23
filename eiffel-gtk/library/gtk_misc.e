@@ -20,20 +20,26 @@ indexing
 				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
--- Description
-
--- The GtkMisc widget is an abstract widget which is not useful itself, but is used to derive subclasses which have alignment and padding attributes.
-
--- The horizontal and vertical padding attributes allows extra space to be added around the widget.
-
--- The horizontal and vertical alignment attributes enable the widget to be positioned within its allocated area. Note that if the widget is added to a container in such a way that it expands automatically to fill its allocated area, the alignment settings will not alter the widgets position.
 
 deferred class GTK_MISC
+	-- The GtkMisc widget is an abstract widget which is not useful
+	-- itself, but is used to derive subclasses which have alignment
+	-- and padding attributes.
+
+	-- The horizontal and vertical padding attributes allows extra
+	-- space to be added around the widget.
+
+	-- The horizontal and vertical alignment attributes enable the
+	-- widget to be positioned within its allocated area. Note that if
+	-- the widget is added to a container in such a way that it expands
+	-- automatically to fill its allocated area, the alignment settings
+	-- will not alter the widgets position.
 
 inherit
 	GTK_WIDGET
 		-- Implemented Interfaces: GtkMisc implements
 		-- AtkImplementorIface.
+	
 insert GTK_MISC_EXTERNALS
 
 -- feature {} -- size size: INTEGER is external "C inline use

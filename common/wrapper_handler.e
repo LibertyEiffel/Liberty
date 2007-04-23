@@ -20,4 +20,16 @@ feature
 			            a_wrapper/=Void implies Result = a_wrapper.handle
 		end
 
+	null_or_string(a_string: STRING): POINTER is
+			-- 
+		do
+			if a_string/=Void 
+			 then Result:=a_string.to_external
+			else
+				check Result.is_null end 
+			end
+		ensure definition:
+			definition: ((Result = default_pointer) or
+							 (a_string/=Void implies Result=a_string.to_external))
+		end
 end
