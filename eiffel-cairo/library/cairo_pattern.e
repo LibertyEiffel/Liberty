@@ -1,7 +1,9 @@
 indexing
 	description: "Patterns -- Gradients and filtered sources"
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, Cairo team
+					Copyright (C) 2007 Paolo Redaelli,
+					Soluciones Informaticas Libres S.A. (Except),
+					Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,7 +20,8 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
-
+	date: "$Date:$"
+	revision: "$Revision:$"
 	wrapped_version: "1.2.4"
 
 class CAIRO_PATTERN
@@ -83,8 +86,8 @@ feature {} -- Creation
 		do
 			Result:=cairo_pattern_status(handle)
 		ensure valid: ((Result = cairo_status_success) or else
-							(result = cairo_status_no_memory) or else
-							(result = cairo_status_pattern_type_mismatch))
+							(Result = cairo_status_no_memory) or else
+							(Result = cairo_status_pattern_type_mismatch))
 		end
 	--
 	--   --------------------------------------------------------------------------

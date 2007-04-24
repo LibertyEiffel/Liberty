@@ -1,14 +1,16 @@
 indexing
 	description: "The cairo drawing context (cairo_t in C)"
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, GTK+ team
+					Copyright (C) 2007 Paolo Redaelli,
+					                   Soluciones Informaticas Libres S.A. (Except),
+					                   Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
 					
-					This library is distributed in the hopeOA that it will be useful, but
+					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 					Lesser General Public License for more details.
@@ -18,7 +20,8 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
-
+	date: "$Date:$"
+	revision: "$Revision:$"
 	wrapped_version: "1.2.4"
 
 class CAIRO_CONTEXT
@@ -38,13 +41,14 @@ class CAIRO_CONTEXT
 
 inherit
 	SHARED_C_STRUCT
-		redefine 
+		redefine
 			from_external_pointer
 		end
 	
 insert
 	CAIRO_CONTEXT_EXTERNALS
 	CAIRO_PATH_EXTERNALS
+	CAIRO_FONT_EXTERNALS
 	CAIRO_TRANSFORMATIONS_EXTERNALS
 
 	CAIRO_ANTIALIAS_TYPE
@@ -54,11 +58,11 @@ insert
 	CAIRO_OPERATOR
 	CAIRO_FONT_SLANT
 	CAIRO_FONT_WEIGHT
-	
+
 creation make, from_external_pointer
 
 feature {} -- Creation
-	make	(a_target: CAIRO_SURFACE) is
+	make (a_target: CAIRO_SURFACE) is
 			-- Creates a new context with all graphics state parameters
 			-- set to default values and with target as a target
 			-- surface. `a_target' should be a backend-specific surface 
@@ -66,14 +70,17 @@ feature {} -- Creation
 			-- If memory cannot be allocated, it will be a special object
 			-- and `status' will be set to `cairo_status_no_memory'. You
 			-- can use this object normally, but no drawing will be done.
-		require target_not_void: a_target /= Void
+		require
+			target_not_void: a_target /= Void
 		do
 			from_external_pointer(cairo_create(a_target.handle))
 			-- cairo_create references the target, so you can immediately
 			-- call cairo_surface_destroy() on it if you don't need to
 			-- maintain a separate reference to it.
 		end
-	
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Creation
+
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			Precursor(a_ptr)
@@ -85,9 +92,10 @@ feature
 			-- Increases the reference count on cr by one. This prevents
 			-- cr from being destroyed until a matching call to `dispose'
 			-- is made.
-		local ptr: POINTER
+		local
+			ptr: POINTER
 		do
-			ptr:=cairo_reference(handle)
+			ptr := cairo_reference(handle)
 		end
 
 	unref is
@@ -95,14 +103,14 @@ feature
 			-- is zero, then cr and all associated resources are
 			-- freed. See `ref'.
 		do
-			cairo_destroy(handle)
+			cairo_destroy (handle)
 		end
 
 	status: INTEGER is
 			--  the current status of this context; see CAIRO_ERROR_HANDLING. 
 		do
-			Result:=cairo_status(handle)
-		ensure valid_status: is_valid_status(Result)
+			Result := cairo_status (handle)
+		ensure valid_status: is_valid_status (Result)
 		end
 
 	save is
@@ -118,7 +126,7 @@ feature
 			-- drops to zero in response to a call to `unref,'
 			-- any saved states will be freed along with the cairo_t.
 		do
-			cairo_save(handle)
+			cairo_save (handle)
 		end
 
 	restore is
@@ -126,7 +134,7 @@ feature
 			-- call to `save' and removes that state from the stack of
 			-- saved states.
 		do
-			cairo_restore(handle)
+			cairo_restore (handle)
 		end
 
 	target: CAIRO_SURFACE is
@@ -139,12 +147,14 @@ feature
 			-- `cairo_status_success'.
 		local ptr: POINTER
 		do
-			ptr:=cairo_get_target(handle)
+			ptr := cairo_get_target(handle)
 			-- cairo_get_target returns the target surface. This object
 			-- is owned by cairo. To keep a reference to it, you must
 			-- call `ref'.
-			Result:=wrappers.reference_at(ptr)
-			if Result=Void then create Result.from_external_pointer(handle) end
+			Result := wrappers.reference_at (ptr)
+			if Result = Void then
+				create Result.from_external_pointer (handle)
+			end
 		end
 
 	push_group is
@@ -296,7 +306,7 @@ feature
 			-- `a_green': green component of color
 			-- `a_blue':  blue component of color
 		do
-			cairo_set_source_rgb(handle, a_red, a_green, a_blue)
+			cairo_set_source_rgb (handle, a_red, a_green, a_blue)
 		end
 
 	set_source_rgba (a_red, a_green, a_blue, an_alpha: REAL) is
@@ -313,7 +323,7 @@ feature
 			-- `a_blue':  blue component of color
 			-- `an_alpha': alpha component of color
 		do
-			cairo_set_source_rgba(handle, a_red, a_green, a_blue, an_alpha)
+			cairo_set_source_rgba (handle, a_red, a_green, a_blue, an_alpha)
 		end
 
 	set_source (a_source: CAIRO_PATTERN) is
@@ -328,7 +338,7 @@ feature
 			-- pattern. See CAIRO_PATTERN.`set_matrix'.
 		require source_not_void: a_source /= Void
 		do
-			cairo_set_source(handle, a_source.handle)
+			cairo_set_source (handle, a_source.handle)
 		end
 
 	set_source_surface (a_surface: CAIRO_SURFACE; an_x, an_y: REAL) is
@@ -355,21 +365,23 @@ feature
 			-- `an_x' : User-space X coordinate for surface origin
 		
 			-- `an_y' : User-space Y coordinate for surface origin
-		require surface_not_void:  a_surface/=Void
+		require surface_not_void: a_surface/=Void
 		do
-			cairo_set_source_surface(handle, a_surface.handle, an_x, an_y)
+			cairo_set_source_surface (handle, a_surface.handle, an_x, an_y)
 		end
 
 	source: CAIRO_PATTERN is
 			--  the current source pattern for context.
 		local ptr: POINTER
 		do
-			ptr:=cairo_get_source(handle)
+			ptr := cairo_get_source (handle)
 			-- cairo_get_source returns the current source
 			-- pattern. This object is owned by cairo. To keep a
 			-- reference to it, you must call CAIRO_PATTERN.`reference'.
-			Result::=wrappers.reference_at(ptr)
-			if Result=Void then create Result.from_external_pointer(ptr) end
+			Result ::= wrappers.reference_at (ptr)
+			if Result = Void then
+				create Result.from_external_pointer (ptr)
+			end
 		end
 
 	set_antialias (an_antialias_type: INTEGER) is
@@ -381,25 +393,27 @@ feature
 
 			-- Note that this option does not affect text rendering,
 			-- instead see CAIRO_FONT.`options_set_antialias'.
-		require valid_type: is_valid_antialias_type(an_antialias_type)
+		require
+			valid_type: is_valid_antialias_type (an_antialias_type)
 		do
-			cairo_set_antialias(handle, an_antialias_type)
+			cairo_set_antialias (handle, an_antialias_type)
 		end
 
 	antialias: INTEGER is
 			-- the current shape antialiasing mode, as set by
 			-- `set_shape_antialias'.
 		do
-			Result:=cairo_get_antialias(handle);
+			Result := cairo_get_antialias (handle);
 		end
 
 feature -- Dashing
+
 	disable_dashes is
 			-- Disable dashing
 		do
-			cairo_set_dash(handle,default_pointer,1, 0.0)
+			cairo_set_dash (handle, default_pointer, 1, 0.0)
 		end
-	
+
 	set_dash (some_dashes: ARRAY[REAL]; an_offset: REAL) is
 			-- Sets the dash pattern to be used by `stroke'. A dash
 			-- pattern is specified by dashes, an array of positive
@@ -431,8 +445,8 @@ feature -- Dashing
 			-- `an_offset': an offset into the dash pattern at which the
 			-- stroke should start
 		do
-			cairo_set_dash(handle, some_dashes.storage.to_external,
-								some_dashes.count, an_offset)
+			cairo_set_dash (handle, some_dashes.storage.to_external,
+							some_dashes.count, an_offset)
 		end
 
 	set_fill_rule (a_rule: INTEGER) is
@@ -442,17 +456,18 @@ feature -- Dashing
 			-- path. The current fill rule affects both cairo_fill and
 			-- cairo_clip. See cairo_fill_rule_t for details on the
 			-- semantics of each available fill rule.
-		require valid_rule: is_valid_fille_rule(a_rule)
+		require
+			valid_rule: is_valid_fill_rule (a_rule)
 		do
-			cairo_set_fill_rule(handle, a_rule)
-			
+			cairo_set_fill_rule (handle, a_rule)
 		end
 
 	fill_rule: INTEGER is
 			-- the current fill rule.
 		do
-			Result:=cairo_get_fill_rule(handle)
-		ensure valid: is_valid_fille_rule(Result)
+			Result := cairo_get_fill_rule(handle)
+		ensure
+			valid: is_valid_fill_rule (Result)
 		end
 
 	set_line_cap (a_line_cap: INTEGER) is
@@ -467,18 +482,20 @@ feature -- Dashing
 
 			--   cr :       a cairo context, as a cairo_t
 			--   line_cap : a line cap style, as a cairo_line_cap_t
-		require is_valid_line_cap: is_valid_line_cap (a_line_cap)
+		require
+			is_valid_line_cap: is_valid_line_cap (a_line_cap)
 		do
-			cairo_set_line_cap(handle, a_line_cap)
+			cairo_set_line_cap (handle, a_line_cap)
 		end
 
 	line_cap: INTEGER is
 			-- the current line cap style, as set by `set_line_cap'.
 		do
-			Result:=cairo_get_line_cap(handle)
-		ensure is_valid_line_cap: is_valid_line_cap (Result)
+			Result := cairo_get_line_cap (handle)
+		ensure
+			is_valid_line_cap: is_valid_line_cap (Result)
 		end
-	
+
 	set_line_join (a_line_join: INTEGER) is
 			-- Sets the current line join style within the cairo
 			-- context. See CAIRO_LINE_JOIN for details about how the
@@ -488,16 +505,18 @@ feature -- Dashing
 			-- style is examined by `stroke', `stroke_extents,' and
 			-- `stroke_to_path', but does not have any effect during path
 			-- construction.
-		require is_valid_line_join: is_valid_line_join (a_join)
+		require
+			is_valid_line_join: is_valid_line_join (a_line_join)
 		do
-			cairo_set_line_join(handle, a_line_join)
+			cairo_set_line_join (handle, a_line_join)
 		end
 
 	line_join: INTEGER is
 			-- the current line join style, as set by `set_line_join'.
 		do
-			Result:=cairo_get_line_join(handle)
-		ensure is_valid_line_join: is_valid_line_join (Result)
+			Result := cairo_get_line_join (handle)
+		ensure
+			is_valid_line_join: is_valid_line_join (Result)
 		end
 
 	set_line_width (a_width: REAL) is
@@ -524,7 +543,7 @@ feature -- Dashing
 		
 			--   The default line width value is 2.0.
 		do
-			cairo_set_line_width(handle, a_width)
+			cairo_set_line_width (handle, a_width)
 		end
 
 	line_width: REAL is
@@ -533,34 +552,36 @@ feature -- Dashing
 			-- the CTM has changed between the calls to `set_line_width'
 			-- and `line_width'.
 		do
-			Result:=cairo_get_line_width(handle)
+			Result := cairo_get_line_width (handle)
 		end
 	
 	set_miter_limit (a_limit: REAL) is
 		do
-			cairo_set_miter_limit(handle, a_limit)
+			cairo_set_miter_limit (handle, a_limit)
 		end
 
-	miter_limit: REAL
+	miter_limit: REAL is
 			-- the current miter limit, as set by `set_miter_limit'.
 		do
-			Result:=cairo_get_miter_limit(handle)
+			Result := cairo_get_miter_limit (handle)
 		end
 	
 	set_operator (an_operator: INTEGER) is
 			-- Sets the compositing operator to be used for all drawing
 			-- operations. See `CAIRO_OPERATOR' for details on the
 			-- semantics of each available compositing operator.
-		require valid_operator: is_valid_operator (an_operator)
+		require
+			valid_operator: is_valid_operator (an_operator)
 		do
-			cairo_set_operator(handle, an_operator)
+			cairo_set_operator (handle, an_operator)
 		end
 
 	operator: INTEGER is
 			-- the current compositing operator for a cairo context.
 		do
-			Result:=cairo_get_operator(handle)
-		ensure valid_operator: is_valid_operator (Result)
+			Result := cairo_get_operator (handle)
+		ensure
+			valid_operator: is_valid_operator (Result)
 		end
 
 	set_tolerance (a_tolerance: REAL) is
@@ -573,13 +594,13 @@ feature -- Dashing
 			-- the value from the default value of 0.1 is unlikely to
 			-- improve appearance significantly.)
 		do
-			cairo_set_tolerance(handle, a_tolerance)
+			cairo_set_tolerance (handle, a_tolerance)
 		end
 
 	tolerance: REAL is
 			-- the current tolerance value, as set by `set_tolerance'.
 		do
-			Result:=cairo_get_tolerance(handle)
+			Result := cairo_get_tolerance (handle)
 		end
 
 	clip is
@@ -603,7 +624,7 @@ feature -- Dashing
 			-- increasing the size of the clip region is
 			-- `reset_clip'.
 		do
-			cairo_clip(handle)
+			cairo_clip (handle)
 		end
 
 	clip_preserve is
@@ -626,7 +647,7 @@ feature -- Dashing
 			-- pair. The only other means of increasing the size of the
 			-- clip region is `reset_clip'.
 		do
-			cairo_clip_preserve(handle)
+			cairo_clip_preserve (handle)
 		end
 
 	reset_clip is
@@ -643,7 +664,7 @@ feature -- Dashing
 			-- `save' and `restore' around `clip' as a more robust means
 			-- of temporarily restricting the clip region.
 		do
-			cairo_reset_clip(handle)
+			cairo_reset_clip (handle)
 		end
 
 	fill is
@@ -653,7 +674,7 @@ feature -- Dashing
 			-- path will be cleared from the cairo context. See
 			-- `set_fill_rule' and `fill_preserve'.
 		do
-			cairo_fill(handle)
+			cairo_fill (handle)
 		end
 
 	preserve is
@@ -665,17 +686,19 @@ feature -- Dashing
 
 			-- See `set_fill_rule' and `fill'.
 		do
-			cairo_fill_preserve(handle)
+			cairo_fill_preserve (handle)
 		end
 
-	extents: TUPLE[CAIRO_POINT,CAIRO_POINT] is
+	extents: TUPLE [CAIRO_POINT, CAIRO_POINT] is
 			-- The extents in format [x1,y1,x2,y2]
-		local an_x1,an_y1,an_x2,an_y2: REAL; p1,p2: CAIRO_POINT
+		local
+			an_x1, an_y1, an_x2, an_y2: REAL
+			p1, p2: CAIRO_POINT
 		do
-			cairo_fill_extents (handle,$an_x1,$an_y1,$an_x2,$an_y2)
-			create p1.make(an_x1,an_y1)
-			create p2.make(an_x2,an_y2)
-			create Result.make_2(p1,p2)
+			cairo_fill_extents (handle, $an_x1, $an_y1, $an_x2, $an_y2)
+			create p1.make (an_x1, an_y1)
+			create p2.make (an_x2, an_y2)
+			create Result.make_2 (p1, p2)
 		end
 
 	in_fill (an_x, an_y: REAL): BOOLEAN is
@@ -688,7 +711,7 @@ feature -- Dashing
 			-- `an_x': X coordinate of the point to test
 			-- `an_y': Y coordinate of the point to test
 		do
-			Result:=cairo_in_fill(handle, an_x, an_y).to_boolean
+			Result := cairo_in_fill (handle, an_x, an_y).to_boolean
 		end
 
 	mask (a_pattern: CAIRO_PATTERN) is
@@ -696,9 +719,10 @@ feature -- Dashing
 			-- the alpha channel of pattern as a mask. (Opaque areas of
 			-- pattern are painted with the source, transparent areas are
 			-- not painted.)
-		require pattern_not_void: a_pattern /= Void
+		require
+			pattern_not_void: a_pattern /= Void
 		do
-			cairo_mask(handle, a_pattern.handle)
+			cairo_mask (handle, a_pattern.handle)
 		end
 
 	mask_surface (a_surface: CAIRO_SURFACE; an_x, an_y: REAL) is
@@ -710,16 +734,17 @@ feature -- Dashing
 			-- `an_x': X coordinate at which to place the origin of surface
 
 			-- `an_y': Y coordinate at which to place the origin of surface
-		require surface_not_void: a_surface/=Void
+		require
+			surface_not_void: a_surface /= Void
 		do
-			cairo_mask_surface(handle, a_surface.handle, an_x, an_y)
+			cairo_mask_surface (handle, a_surface.handle, an_x, an_y)
 		end
 
 	paint is
 			-- A drawing operator that paints the current source
 			-- everywhere within the current clip region.
 		do
-			cairo_paint(handle)
+			cairo_paint (handle)
 		end
 
 	paint_with_alpha (an_alpha: REAL) is
@@ -730,7 +755,7 @@ feature -- Dashing
 			-- value.
 		require valid_alpha: an_alpha.in_range(0.0, 1.0)
 		do
-			cairo_paint_with_alpha(handle, an_alpha)
+			cairo_paint_with_alpha (handle, an_alpha)
 		end
 
 	stroke is
@@ -780,14 +805,16 @@ feature -- Dashing
 			cairo_stroke_preserve(handle)
 		end
 	
-	stroke_extents: TUPLE[CAIRO_POINT,CAIRO_POINT] is
+	stroke_extents: TUPLE [CAIRO_POINT, CAIRO_POINT] is
 			-- The stroke extents in format [(x1,y1),(x2,y2)]
-		local an_x1,an_y1,an_x2,an_y2: REAL; p1,p2: CAIRO_POINT
+		local
+			an_x1, an_y1, an_x2, an_y2: REAL
+			p1, p2: CAIRO_POINT
 		do
-			cairo_stroke_extents (handle,$an_x1,$an_y1,$an_x2,$an_y2)
-			create p1.make(an_x1,an_y1)
-			create p2.make(an_x2,an_y2)
-			create Result.make_2(p1,p2)
+			cairo_stroke_extents (handle, $an_x1, $an_y1, $an_x2, $an_y2)
+			create p1.make(an_x1, an_y1)
+			create p2.make(an_x2, an_y2)
+			create Result.make_2(p1, p2)
 		end
 
 	in_stroke (an_x, an_y: REAL): BOOLEAN is
@@ -802,7 +829,7 @@ feature -- Dashing
 		
 			-- `an_y': Y coordinate of the point to test
 		do
-			Result:=cairo_in_stroke(handle,an_x,an_y).to_boolean
+			Result := cairo_in_stroke (handle, an_x, an_y).to_boolean
 		end
 
 	copy_page is
@@ -812,7 +839,7 @@ feature -- Dashing
 			-- `show_page' if you want to get an empty page after the
 			-- emission.
 		do
-			cairo_copy_page(handle)
+			cairo_copy_page (handle)
 		end
 
 	show_page is
@@ -820,7 +847,7 @@ feature -- Dashing
 			-- support multiple pages. Use `copy_page' if you don't want
 			-- to clear the page.
 		do
-			cairo_show_page(handle)
+			cairo_show_page (handle)
 		end
 
 feature -- Path managing
@@ -839,8 +866,8 @@ feature -- Path managing
 			-- In either case, CAIRO_PATH's `status' will be set to
 			-- `cairo_status_no_memory' (regardless of what the error
 			-- status in cr might have been).
-			do
-			create Result.from_external_pointer(cairo_copy_path(handle))
+		do
+			create Result.from_external_pointer (cairo_copy_path (handle))
 		end
 
 	get_flat_path: CAIRO_PATHG is
@@ -865,18 +892,18 @@ feature -- Path managing
 			-- path.status will contain the same status that would be
 			-- returned by Current.`status'.
 		do
-			from_external_pointer(cairo_copy_path_flat(handle))
+			from_external_pointer (cairo_copy_path_flat (handle))
 		end
 
 	append_path (a_path: CAIRO_PATH) is
 			-- Append the path onto the current path. The path may be
 			-- either obtained from `get_path' or `get_flat_path' or it
 			-- may be created manually. 
-		require 
-			path_not_void: a_path/=Void
+		require
+			path_not_void: a_path /= Void
 			valid_path: a_path.status = cairo_status_success
-		do        
-			cairo_append_path(handle, a_path.handle)
+		do
+			cairo_append_path (handle, a_path.handle)
 		end
 	
 	has_current_point: BOOLEAN is
@@ -884,7 +911,7 @@ feature -- Path managing
 			-- which is *not* general; in fact it fails to discriminate
 			-- between no point and the origin.
 		do
-		end		
+		end
 
 	current_point: CAIRO_POINT is
 			-- the current point [x,y] of the current path, which is
@@ -901,18 +928,20 @@ feature -- Path managing
 			-- `new_path', `move_to', `line_to', `curve_to', `arc',
 			-- `rel_move_to', `rel_line_to', `rel_curve_to', `text_path',
 			-- `stroke_to_path'
-		local an_x,an_y: REAL
+		local
+			an_x, an_y: REAL
 		do
-			cairo_get_current_point(handle,$an_x,$an_y)
-			create Result.make(an_x,an_y)
-		ensure not_void: Result/=Void
+			cairo_get_current_point (handle, $an_x, $an_y)
+			create Result.make (an_x,  an_y)
+		ensure
+			not_void: Result /= Void
 		end
 
 	new_path is
 			-- Clears the current path. After this call there will be no
 			-- path and no current point.
 		do
-			cairo_new_path(handle)
+			cairo_new_path (handle)
 		end
 
 	new_sub_path is
@@ -960,7 +989,7 @@ feature -- Path managing
 			cairo_close_path (handle)
 		end
 
-	arc (an_x, an_y, a_radiud, an_angle_1, an_angle_2) is
+	arc (an_x, an_y, a_radiud, an_angle_1, an_angle_2: REAL) is
 			-- Adds a circular arc of the given radius to the current
 			-- path. The arc is centered at (`an_x', `an_y'), begins at
 			-- `an_angle_1' and proceeds in the direction of increasing
@@ -1005,10 +1034,10 @@ feature -- Path managing
 			-- `an_angle_1' : the start angle, in radians
 			-- `an_angle_2' : the end angle, in radians
 		do
-			cairo_arc(handle,an_x, an_y, a_radiud, an_angle_1, an_angle_2)
+			cairo_arc(handle, an_x, an_y, a_radiud, an_angle_1, an_angle_2)
 		end
 
-	arc_negative  (an_x, an_y, a_radiud, an_angle_1, an_angle_2) is
+	arc_negative (an_x, an_y, a_radiud, an_angle_1, an_angle_2: REAL) is
 			-- Adds a circular arc of the given radius to the current
 			-- path. The arc is centered at (`an_x', `an_y'), begins at
 			-- `an_angle_1' and proceeds in the direction of decreasing
@@ -1025,7 +1054,7 @@ feature -- Path managing
 			-- `an_angle_1' : the start angle, in radians
 			-- `an_angle_2' : the end angle, in radians
 		do
-			cairo_arc_negative(handle, an_x, an_y, a_radiud, an_angle_1,an_angle_2)
+			cairo_arc_negative (handle, an_x, an_y, a_radiud, an_angle_1, an_angle_2)
 		end
 
 	curve_to (x1,y1,x2,y2,x3,y3: REAL) is
@@ -1223,16 +1252,16 @@ feature --   Transformations, manipulating the current transformation matrix
 			-- Modifies the current transformation matrix (CTM) by
 			-- setting it equal to `a_matrix', a transformation matrix
 			-- from user space to device space.
-		require matrix_not_void: a_matrix/=Void
+		require matrix_not_void: a_matrix /= Void
 		do
-			cairo_set_matrix(handle, a_matrix.handle)
+			cairo_set_matrix (handle, a_matrix.handle)
 		end
 
 	matrix: CAIRO_MATRIX is
 			-- a new copy of the current transformation matrix (CTM).
 		do
 			create Result.allocate
-			cairo_get_matrix(handle,Result.handle)ed
+			cairo_get_matrix (handle, Result.handle)
 		end
 	
 	reset_transformation is
@@ -1240,12 +1269,12 @@ feature --   Transformations, manipulating the current transformation matrix
 			-- it equal to the identity matrix. That is, the user-space
 			-- and device-space axes will be aligned and one user-space
 			-- unit will transform to one device-space unit.
-		do 
-			cairo_identity_matrix(handle)
+		do
+			cairo_identity_matrix (handle)
 		end
 
-feature 	--   Text -- Rendering text and sets of glyphs
-	select_font_face (a_family: STRING; a_slant, a_weight) is
+feature --   Text -- Rendering text and sets of glyphs
+	select_font_face (a_family: STRING; a_slant, a_weight: INTEGER) is
 			-- Selects a family and style of font from a simplified
 			-- description as a family name, slant and weight. This
 			-- function is meant to be used only for applications with
@@ -1259,11 +1288,11 @@ feature 	--   Text -- Rendering text and sets of glyphs
 			--   slant :  the slant for the font
 			--   weight : the weight for the font
 		require
-			family_not_void: a_family/=Void
-			valid_slant: is_valid_font_slant(a_slant)
-			valid_weight: is_valid_font_weight(a_weight)
+			family_not_void: a_family /= Void
+			valid_slant: is_valid_font_slant (a_slant)
+			valid_weight: is_valid_font_weight (a_weight)
 		do
-			cairo_select_font_face(handle,a_family.to_external,
+			cairo_select_font_face (handle, a_family.to_external,
 										  a_slant, a_weight)
 		end
 
@@ -1276,10 +1305,10 @@ feature 	--   Text -- Rendering text and sets of glyphs
 		
 			-- `a_size' : the new font size, in user space units
 		do
-			cairo_set_font_size(handle,a_size)
+			cairo_set_font_size (handle, a_size)
 		end
 
-	set_font_matrix (a_matrix: PANGO_MATRIX) is
+	set_font_matrix (a_matrix: CAIRO_MATRIX) is
 			-- Sets the current font matrix to matrix. The font matrix gives a
 			-- transformation from the design space of the font (in this space, the
 			-- em-square is 1 unit by 1 unit) to user space. Normally, a simple
@@ -1289,31 +1318,34 @@ feature 	--   Text -- Rendering text and sets of glyphs
 
 			-- `a_matrix': a cairo_matrix_t describing a transform to be applied to
 			-- the current font.
-		require matrix_not_void: a_matrix/=Void
+		require
+			matrix_not_void: a_matrix /= Void
 		do
-			cairo_set_font_matrix(handle,a_matrix.handle)
+			cairo_set_font_matrix (handle, a_matrix.handle)
 		end
 
-	font_matrix: PANGO_MATRIX is
+	font_matrix: CAIRO_MATRIX is
 			-- the current font matrix.
 		do
 			create Result.allocate
-			cairo_get_font_matrix(handle,Result.handle)
-		ensure Result/=Void
+			cairo_get_font_matrix (handle, Result.handle)
+		ensure
+			Result /= Void
 		end
 
-	set_font_options (some_options: PANGO_FONT_OPTIONS) is
+	set_font_options (some_options: CAIRO_FONT_OPTIONS) is
 			-- Sets a set of custom font rendering options for the
 			-- context. Rendering options are derived by merging these options with
 			-- the options derived from underlying surface; if the value in options
 			-- has a default value (like CAIRO_ANTIALIAS_DEFAULT), then the value
 			-- from the surface is used.
-		require options_not_void: some_options/=Void
+		require
+			options_not_void: some_options/=Void
 		do
 			cairo_set_font_options(handle, some_options.handle)
 		end
 
-	font_options: PANGO_FONT_OPTIONS is
+	font_options: CAIRO_FONT_OPTIONS is
 			-- Retrieves font rendering options set via
 			-- `set_font_options'. Note that the returned options do not
 			-- include any options derived from the underlying surface;
@@ -1321,7 +1353,7 @@ feature 	--   Text -- Rendering text and sets of glyphs
 			-- `set_font_options'.
 		do
 			create Result.allocate
-			cairo_get_font_options(handle,Result.handle)
+			cairo_get_font_options (handle, Result.handle)
 		end
 
 	show_text (an_utf8: STRING) is
@@ -1349,30 +1381,32 @@ feature 	--   Text -- Rendering text and sets of glyphs
 			-- applications. See `show_glyphs' for the "real" text
 			-- display API in cairo.
 		do
-			cairo_show_text(handle, an_utf8.to_external)
+			cairo_show_text (handle, an_utf8.to_external)
 		end
 
-	show_glyphs (some_glyphs: ARRAY[INTEGER_32]) is
-		require glyphs_not_void: some_glyphs/=Void
+	show_glyphs (some_glyphs: ARRAY [INTEGER_32]) is
+		require
+			glyphs_not_void: some_glyphs /= Void
 		do
-			cairo_show_glyphs(handle, some_glyphs.storage,
+			cairo_show_glyphs (handle, some_glyphs.storage,
 									some_glyphs.count)
 		end
 
 	font_face: CAIRO_FONT_FACE is
 			-- the current font face for a cairo_t.
-		local ptr: POINTER
+		local
+			ptr: POINTER
 		do
-			ptr:=cairo_get_font_face(handle)
+			ptr := cairo_get_font_face (handle)
 			-- cairo_get_font_face returns the current font object. Can
 			-- return NULL on out-of-memory or if the context is already
 			-- in an error state. This object is owned by cairo. To keep
 			-- a reference to it, you must call
 			-- cairo_font_face_reference().
 			if ptr.is_not_null then
-				create Result.from_external_pointer(ptr)
+				create Result.from_external_pointer (ptr)
 				Result.ref
-			end			
+			end
 		end
 
 	--  cairo_font_extents ()
@@ -1391,15 +1425,16 @@ feature 	--   Text -- Rendering text and sets of glyphs
 			-- `a_font_face'. The replaced font face will be destroyed if
 			-- there are no other references to it.
 			--   font_face : a cairo_font_face_t, or NULL to restore to the default font
-		require font_face_not_void: a_font_face/=Void
+		require
+			font_face_not_void: a_font_face /= Void
 		do
-			cairo_set_font_face(handle, a_font_face.handle)
+			cairo_set_font_face (handle, a_font_face.handle)
 		end
 
 	set_default_font_face is
 			-- Restore to the default font
 		do
-			cairo_set_font_face(handle, default_pointer)
+			cairo_set_font_face (handle, default_pointer)
 		end
 
 	--  cairo_set_scaled_font ()
@@ -1467,4 +1502,5 @@ feature 	--   Text -- Rendering text and sets of glyphs
 	--   num_glyphs : the number of elements in glyphs
 	--   extents :    a cairo_text_extents_t object into which the results will be
 	--                stored
+
 end -- class CAIRO_CONTEXT

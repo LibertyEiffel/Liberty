@@ -1,16 +1,32 @@
 indexing
 	description: "External calls for CAIRO_FONT_FACE"
-	copyright: "(C) 2007 Paolo Redaelli <paolo.redaelli@poste.it>"
-	license: "LGPL v2 or later"
+	copyright: "[
+					Copyright (C) 2007 Paolo Redaelli,
+					              Soluciones Informaticas Libres S.A. (Except),
+					              Cairo team
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
+	wrapped_version: "1.2.4"
 
 deferred class CAIRO_FONT_FACE_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
-insert CAIRO_FONT_FACE_TYPE
-	
 feature {} -- External calls
 	cairo_font_face_reference (a_font_face: POINTER): POINTER is
 			-- 	cairo_font_face_t* cairo_font_face_reference (cairo_font_face_t *font_face);

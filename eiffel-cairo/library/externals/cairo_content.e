@@ -1,7 +1,9 @@
 indexing
 	description: "enum cairo_content_t"
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2006 eiffel-libraries team,
+					Soluciones Informaticas Libres S.A. (Except),
+					Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +20,9 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+	date: "$Date:$"
+	revision: "$Revision:$"
+	wrapped_version: "1.2.4"
 
 deferred class CAIRO_CONTENT
 	-- cairo_content_t is used to describe the content that a surface
@@ -32,28 +37,30 @@ deferred class CAIRO_CONTENT
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
+
 	is_valid_content (a_content: INTEGER): BOOLEAN is
-		do	
-			Result:=((a_content = cairo_content_color) or else
+		do
+			Result := ((a_content = cairo_content_color) or else
 						(a_content = cairo_content_alpha) or else
 						(a_content = cairo_content_color_alpha))
 		end
 
 	cairo_content_color: INTEGER is
 			-- The surface will hold color content only.
-		external "C macro use <pango.h>"
+		external "C macro use <cairo.h>"
 		alias "CAIRO_CONTENT_COLOR"
 		end
 
 	cairo_content_alpha: INTEGER is
 			-- The surface will hold alpha content only.
-		external "C macro use <pango.h>"
+		external "C macro use <cairo.h>"
 		alias "CAIRO_CONTENT_ALPHA"
 		end
 
 	cairo_content_color_alpha: INTEGER is
 			-- The surface will hold color and alpha content.
-		external "C macro use <pango.h>"
+		external "C macro use <cairo.h>"
 		alias "CAIRO_CONTENT_COLOR_ALPHA"
 		end
+
 end

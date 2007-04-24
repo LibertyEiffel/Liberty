@@ -1,8 +1,9 @@
 indexing
 	description: "enum cairo_font_type_t"
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, Cairo team
-					
+					Copyright (C) 2007 Paolo Redaelli,
+					              Soluciones Informaticas Libres S.A. (Except),
+					              Cairo team
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
@@ -18,6 +19,9 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+	date: "$Date:$"
+	revision: "$Revision:$"
+	wrapped_version: "1.2.4"
 
 deferred class CAIRO_FONT_TYPE
 	-- cairo_font_type_t is used to describe the type of a given font
@@ -52,11 +56,11 @@ inherit ANY undefine is_equal, copy end
 
 feature  -- enum
 	is_valid_font_type (a_type: INTEGER): BOOLEAN is
-		do	
-			Result:=((a_type = CAIRO_FONT_TYPE_TOY) or else
-						(a_type = CAIRO_FONT_TYPE_FT) or else
-						(a_type = CAIRO_FONT_TYPE_WIN32) or else
-						(a_type = CAIRO_FONT_TYPE_ATSUI))
+		do
+			Result := ((a_type = cairo_font_type_toy) or else
+						(a_type = cairo_font_type_ft) or else
+						(a_type = cairo_font_type_win32) or else
+						(a_type = cairo_font_type_atsui))
 		end
 
 	cairo_font_type_toy: INTEGER is

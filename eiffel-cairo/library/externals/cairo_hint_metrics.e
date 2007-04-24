@@ -1,7 +1,9 @@
 indexing
 	description: "enum cairo_hint_metrics_t"
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2006 eiffel-libraries team,
+					Soluciones Informaticas Libres S.A. (Except),
+					Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +20,9 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+	date: "$Date:$"
+	revision: "$Revision:$"
+	wrapped_version: "1.2.4"
 
 deferred class CAIRO_HINT_METRICS
 	-- Specifies whether to hint font metrics; hinting font metrics
@@ -30,8 +35,8 @@ inherit ANY undefine is_equal, copy end
 
 feature  -- enum
 	is_valid_hint_metrics (a_metrics: INTEGER): BOOLEAN is
-		do	
-			Result:=((a_metrics = cairo_hint_metrics_default) or else
+		do
+			Result := ((a_metrics = cairo_hint_metrics_default) or else
 						(a_metrics = cairo_hint_metrics_off) or else
 						(a_metrics = cairo_hint_metrics_on))
 		end
@@ -54,6 +59,5 @@ feature  -- enum
 		external "C macro use <cairo.h>"
 		alias "CAIRO_HINT_METRICS_ON"
 		end
-
 
 end

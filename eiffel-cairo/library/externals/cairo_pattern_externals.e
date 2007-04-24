@@ -1,18 +1,32 @@
 indexing
 	description: "External calls for CAIRO_PATTERN"
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
-	license: "LGPL v2 or later"
+	copyright: "[
+					Copyright (C) 2006, 2007 Paolo Redaelli <paolo.redaelli@poste.it>,
+					              Soluciones Informaticas Libres S.A. (Except),
+					              Cairo team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hope that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
+	wrapped_version: "1.2.4"
 
 deferred class CAIRO_PATTERN_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
-
-insert 
-	CAIRO_EXTEND
-	CAIRO_FILTER
-	CAIRO_PATTERN_TYPE
 
 feature {} -- External calls
 	cairo_pattern_add_color_stop_rgb (a_pattern: POINTER; an_offset, a_red, a_green,  a_blue: REAL) is
@@ -45,7 +59,7 @@ feature {} -- External calls
 		external "C use <pango.h>"
 		end
 
-	cairo_pattern_create_linear (an_x0, an_y0, an_x1, an_y1): POINTER is
+	cairo_pattern_create_linear (an_x0, an_y0, an_x1, an_y1: REAL): POINTER is
 			--	cairo_pattern_t* cairo_pattern_create_linear (double x0,
 			--	double y0, double x1, double y1);
 		external "C use <pango.h>"
@@ -79,7 +93,6 @@ feature {} -- External calls
 	cairo_pattern_set_extend (a_pattern: POINTER; an_extend: INTEGER) is
 			--	void cairo_pattern_set_extend (cairo_pattern_t *pattern,
 			--	cairo_extend_t extend);
-		require is_valid_extend(an_extend)
 		external "C use <pango.h>"
 		end
 
@@ -87,7 +100,6 @@ feature {} -- External calls
 			--	cairo_extend_t cairo_pattern_get_extend (cairo_pattern_t
 			--	*pattern);
 		external "C use <pango.h>"
-		ensure is_valid_extend(Result)
 		end
 
 	cairo_pattern_set_filter (a_pattern: POINTER; a_filter: INTEGER) is

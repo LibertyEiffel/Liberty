@@ -1,7 +1,9 @@
 indexing
 	description: "cairo_matrix_t -- Generic matrix operations."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, GTK+ team
+					Copyright (C) 2007 Paolo Redaelli,
+					Soluciones Informaticas Libres S.A. (Except),
+					Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,7 +20,8 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
-
+	date: "$Date:$"
+	revision: "$Revision:$"
 	wrapped_version: "1.2.4"
 
 class CAIRO_MATRIX
@@ -38,7 +41,9 @@ class CAIRO_MATRIX
 
 inherit C_STRUCT
 
-insert CAIRO_MATRIX_EXTERNALS
+insert
+	CAIRO_MATRIX_EXTERNALS
+	CAIRO_STATUS
 
 creation make, allocate, from_external_pointer
 
@@ -98,43 +103,43 @@ feature {} -- Creation
 			cairo_matrix_init_rotate(handle,some_radians)
 		end
 
-feature --
+feature -- Access
 	xx: REAL is
 			-- xx component of the affine transformation
 		do
-			Result:=get_xx(handle)
+			Result := cairo_matrix_get_xx(handle)
 		end
-	
+
 	yx: REAL is
 			-- yx component of the affine transformation
 		do
-			Result:=get_yx(handle)
+			Result := cairo_matrix_get_yx(handle)
 		end
-	
+
 	xy: REAL is
 			-- xy component of the affine transformation
 		do
-			Result:=get_xy(handle)
+			Result := cairo_matrix_get_xy(handle)
 		end
-	
+
 	yy: REAL is
 			-- yy component of the affine transformation
 		do
-			Result:=get_yy(handle)
+			Result := cairo_matrix_get_yy(handle)
 		end
-	
+
 	x0: REAL is
 			-- x0 component of the affine transformation
 		do
-			Result:=get_x0(handle)
+			Result := cairo_matrix_get_x0(handle)
 		end
-	
+
 	y0: REAL is
 			-- y0 component of the affine transformation
 		do
-			Result:=get_y0(handle)
+			Result := cairo_matrix_get_y0(handle)
 		end
-	
+
 feature
 	translate (a_tx, a_ty: REAL) is
 			-- Applies a translation by `a_tx', `a_ty' to the
@@ -183,13 +188,14 @@ feature
 			-- this function will fail.
 		local a_status: INTEGER
 		do
-			create Result.copy(Current)
-			a_status:=cairo_matrix_invert(Result.handle)
+			create Result.copy (Current)
+			a_status := cairo_matrix_invert (Result.handle)
 			-- cairo_matrix_invert returns: If matrix has an inverse,
 			-- modifies matrix to be the inverse matrix and returns
 			-- CAIRO_STATUS_SUCCESS. Otherwise,
 			if a_status = cairo_status_invalid_matrix then
-				Result.dispose; Result:=Void
+				Result.dispose
+				Result := Void
 			end
 		end
 

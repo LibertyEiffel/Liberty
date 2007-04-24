@@ -1,7 +1,9 @@
 indexing
 	description: "cairo_surface_t: base class for Cairo surfaces."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, Cairo team
+					Copyright (C) 2007 Paolo Redaelli,
+					                   Soluciones Informaticas Libres S.A. (Except),
+					                   Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,7 +20,8 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
-
+	date: "$Date:$"
+	revision: "$Revision:$"
 	wrapped_version: "1.2.4"
 
 class CAIRO_SURFACE
@@ -30,17 +33,17 @@ class CAIRO_SURFACE
 
 inherit
 	SHARED_C_STRUCT
-		redefine
-			dispose
-		end
 
 insert
 	CAIRO_SURFACE_EXTERNALS
 	CAIRO_SURFACE_TYPE
-	
+	CAIRO_STATUS
+	CAIRO_CONTENT
+
 creation make_similar, from_external_pointer
 
 feature {} -- Creation
+
 	make_similar (another: CAIRO_SURFACE; a_content: INTEGER; a_width, an_height: INTEGER) is
 			-- Create a new surface that is as compatible as possible
 			-- with an existing surface. For example the new surface will
@@ -55,16 +58,16 @@ feature {} -- Creation
 
 			-- `another': an existing surface used to select the backend
 			-- of the new surface
-		
+
 			-- content : the content for the new surface
-		
+
 			-- a_width:   width of the new surface, (in device-space
 			-- units)
-		
+
 			-- an_height :  height of the new surface (in device-space units)
 		do
 			from_external_pointer(cairo_surface_create_similar
-										 (another.handle,a_content, a_width, an_height))
+										 (another.handle, a_content, a_width, an_height))
 			-- cairo_surface_create_similar returns a pointer to the
 			-- newly allocated surface. The caller owns the surface and
 			-- should call cairo_surface_destroy when done with it.  This
@@ -72,7 +75,7 @@ feature {} -- Creation
 			-- return a pointer to a "nil" surface if other is already in
 			-- an error state or any other error occurs.
 		end
-	
+
 	destroy is
 			-- Decreases the reference count on surface by one. If the
 			-- result is zero, then surface and all associated resources
@@ -127,8 +130,9 @@ feature {} -- Creation
 			-- surface contains color and/or alpha information. See
 			-- CAIRO_CONTENT.
 		do
-			Result:=cairo_surface_get_content(handle)
-			ensure valid: is_valid_content(Result)
+			Result := cairo_surface_get_content (handle)
+		ensure
+			valid: is_valid_content (Result)
 		end
 	
 	-- TODO: cairo_surface_set_user_data ()
@@ -173,7 +177,7 @@ feature {} -- Creation
 			-- cached areas. Note that you must call `flush' before doing
 			-- such drawing.
 		do
-			cairo_surface_mark_dirty(handle)
+			cairo_surface_mark_dirty (handle)
 		end
 
 	mark_dirty_rectangle (an_x, an_y, a_width, an_height: INTEGER) is
@@ -190,16 +194,17 @@ feature {} -- Creation
 			-- `a_width': width of dirty rectangle
 			-- `an_height': height of dirty rectangle
 		do
-			cairo_surface_mark_dirty_rectangle(handle,an_x,an_y,a_width,an_height)
+			cairo_surface_mark_dirty_rectangle (handle, an_x, an_y, a_width, an_height)
 		end
 
 	ref is
 			-- Increases the reference count on surface by one. This
 			-- prevents surface from being destroyed until a matching
 			-- call to `destroy' is made.
-		local p: POINTER
+		local
+			p: POINTER
 		do
-			p:=cairo_surface_reference(handle)
+			p := cairo_surface_reference (handle)
 		end
 
 	set_device_offset (an_offset: CAIRO_POINT) is
@@ -215,14 +220,16 @@ feature {} -- Creation
 
 			-- Note that the offset affects drawing to the surface as
 			-- well as using the surface in a source pattern.
-		require offset_not_void: an_offset/=Void
+		require
+			offset_not_void: an_offset /= Void
 		do
-			cairo_surface_set_device_offset (handle,an_offset.x,an_offset.y)
+			cairo_surface_set_device_offset (handle, an_offset.x, an_offset.y)
 		end
 
 	device_offset: CAIRO_POINT is
 		-- the device offset as set by `set_device_offset'.
-		local an_x,an_y: REAL
+		local
+			an_x, an_y: REAL
 		do
 			cairo_surface_get_device_offset (handle, $an_x, $an_y)
 			create Result.make(an_x,an_y)
@@ -256,27 +263,26 @@ feature {} -- Creation
 			--   x_pixels_per_inch : horizontal setting for pixels per inch
 			--   y_pixels_per_inch : vertical setting for pixels per inch
 		do
-			cairo_surface_set_fallback_resolution(handle,x_pixels_per_inch,y_pixels_per_inch)
+			cairo_surface_set_fallback_resolution (handle, x_pixels_per_inch, y_pixels_per_inch)
 		end
 
 	status: INTEGER is
 			-- Checks whether an error has previously occurred for this surface.
 		do
-			Result:=cairo_surface_status(handle)
-		ensure valid_result: ((Result=CAIRO_STATUS_SUCCESS) or else
-									 (Result=CAIRO_STATUS_NULL_POINTER) or else
-									 (Result=CAIRO_STATUS_NO_MEMORY) or else
-									 (Result=CAIRO_STATUS_READ_ERROR) or else
-									 (Result=CAIRO_STATUS_INVALID_CONTENT) or else
-									 (Result=CAIRO_STATUS_INVALUE_FORMAT) or else 
-									 (Result=CAIRO_STATUS_INVALID_VISUAL))
+			Result := cairo_surface_status (handle)
+		ensure
+			valid_result: is_valid_cairo_status (Result)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low-level features
-	type is
+
+	type: INTEGER is
 			-- the type of the backend used to create a surface.  See
 			-- CAIRO_SURFACE_TYPE for available types.
 		do
-			Result:=cairo_surface_get_type(handle)
+			Result := cairo_surface_get_type (handle)
+		ensure
+			is_valid_surface_type (Result)
 		end
+
 end -- class CAIRO_SURFACE

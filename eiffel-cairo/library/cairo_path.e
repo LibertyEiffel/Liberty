@@ -1,7 +1,9 @@
 indexing
 	description: "Paths: Creating paths and manipulating path data."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, Cairo team
+					Copyright (C) 2007 Paolo Redaelli,
+					Soluciones Informaticas Libres S.A. (Except),
+					Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,7 +20,8 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
-
+	date: "$Date:$"
+	revision: "$Revision:$"
 	wrapped_version: "1.2.4"
 
 class CAIRO_PATH
@@ -94,13 +97,16 @@ class CAIRO_PATH
 	-- expectation is that cairo_append_path() will mostly be used with
 	-- paths from cairo_copy_path().
 
-inherit 
+inherit
 	SHARED_C_STRUCT
-	DISPOSABLE
+		redefine
+			dispose
+		end
 
-insert 
+insert
 	CAIRO_PATH_EXTERNALS
 	CAIRO_PATH_STRUCT
+	
 
 creation make, from_external_pointer
 
@@ -116,7 +122,7 @@ feature {} -- Creation
 			-- of cairo) should be destroyed manually as well.
 		do
 			cairo_path_destroy(handle)
-			handle:=default_pointer
+			handle := default_pointer
 		end
 
 	-- TODO: features to manually build a path, instead of getting it 
@@ -479,11 +485,5 @@ feature {} -- Creation
 	--   cr : a cairo context
 	--   dx : the X offset
 	--   dy : the Y offset
-
-feature {}
-	struct_size: INTEGER is
-		external "C inline use <pango.h>"
-		alias "sizeof(cairo_path_t)"
-		end
 
 end -- class CAIRO_PATH

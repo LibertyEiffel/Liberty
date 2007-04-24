@@ -20,25 +20,26 @@ indexing
 				]"
 
 deferred class CAIRO_FONT_WEIGHT
-	--  enum cairo_font_weight_t
+
+	-- Specifies variants of a font face based on their weight.
 
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
 	is_valid_font_weight (a_weight: INTEGER): BOOLEAN is
-		do	
-			Result:=((a_weight = CAIRO_FONT_WEIGHT_NORMAL) or else
-						(a_weight = CAIRO_FONT_WEIGHT_BOLD))
+		do
+			Result := ((a_weight = cairo_font_weight_normal) or else
+						(a_weight = cairo_font_weight_bold))
 		end
 
 	cairo_font_weight_normal: INTEGER is
-			-- CAIRO_FONT_WEIGHT_NORMAL
+			-- Normal font weight
 		external "C macro use <pango.h>"
 		alias "CAIRO_FONT_WEIGHT_BOLD"
 		end
 
 	cairo_font_weight_bold: INTEGER is
-			-- CAIRO_FONT_WEIGHT_BOLD
+			--  Bold font weight
 		external "C macro use <pango.h>"
 		alias "CAIRO_FONT_WEIGHT_BOLD"
 		end
