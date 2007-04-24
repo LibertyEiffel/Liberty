@@ -52,6 +52,11 @@ feature {} -- External calls
 		external "C struct AVStream get duration use <avformat.h>"
 		end
 
+	av_stream_get_time_base (a_stream: POINTER): POINTER is
+		external "C inline use <avformat.h>"
+		alias "&(((AVStream*)$a_stream)->time_base)"
+		end
+
 	av_stream_get_language (a_stream: POINTER): POINTER is
 		external "C inline use <avformat.h>"
 		alias "&(((AVStream*)$a_stream)->language)"

@@ -1,5 +1,5 @@
 indexing
-	description: "The AVStream structure"
+	description: "AVRationals are simply rational numbers, numerator and denominator"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)
 					
@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class AV_STREAM
+class AV_RATIONAL
 
 inherit
 	SHARED_C_STRUCT
@@ -28,7 +28,7 @@ inherit
 		end
 
 insert
-	AV_STREAM_EXTERNALS
+	AV_RATIONAL_EXTERNALS
 
 creation
 	from_external_pointer
@@ -43,58 +43,26 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 
 feature -- Access
 
-	index: INTEGER is
+	numerator: INTEGER is
 		do
-			Result := av_stream_get_index (handle)
+			Result := av_rational_get_numerator (handle)
 		end
 
-	id: INTEGER is
+	denominator: INTEGER is
 		do
-			Result := av_stream_get_id (handle)
+			Result := av_rational_get_denominator (handle)
 		end
 
-	codec: AV_CODEC_CONTEXT is
+feature -- Operations
+
+	set_numerator (a_num: INTEGER) is
 		do
-			if wrapped_codec = Void then
-				create wrapped_codec.from_external_pointer (av_stream_get_codec (handle))
-			end
-			Result := wrapped_codec
+			av_rational_set_numerator (handle, a_num)
 		end
 
-	quality: REAL is
+	set_denominator (a_den: INTEGER) is
 		do
-			Result := av_stream_get_quality (handle)
+			av_rational_set_denominator (handle, a_den)
 		end
 
-	start_time: INTEGER_64 is
-		do
-			Result := av_stream_get_start_time (handle)
-		end
-
-	duration: INTEGER_64 is
-		do
-			Result := av_stream_get_duration (handle)
-		end
-
-	language: STRING is
-		do
-			create Result.from_external_copy (av_stream_get_language (handle))
-		end
-
-	time_base: AV_RATIONAL is
-		do
-			create Result.from_external_pointer (av_stream_get_time_base (handle))
-		end
-
-feature -- Size
-
-	struct_size: INTEGER is
-		external "C inline use <avformat.h>"
-		alias "sizeof(AVStream)"
-		end
-
-feature {} -- Representation
-
-	wrapped_codec: AV_CODEC_CONTEXT
-
-end -- class AV_STREAM
+end -- class AV_RATIONAL
