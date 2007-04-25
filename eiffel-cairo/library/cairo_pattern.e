@@ -27,12 +27,17 @@ indexing
 class CAIRO_PATTERN
 
 inherit
-	C_STRUCT
-	DISPOSABLE
+	SHARED_C_STRUCT
+		redefine dispose end
 
-insert CAIRO_PATTERN_EXTERNALS
+insert
+	CAIRO_PATTERN_EXTERNALS
+	CAIRO_PATTERN_TYPE
+	CAIRO_EXTEND
+	CAIRO_FILTER
+	CAIRO_STATUS
 
-creation make, from_external_pointer
+creation make_rgb, make_rgba, from_external_pointer
 
 feature {} -- Creation
 	make_rgb (a_red, a_green, a_blue: REAL) is
@@ -80,14 +85,16 @@ feature {} -- Creation
 			-- cairo_pattern_status().
 		end
 
+feature -- Access
+
 	status: INTEGER is
 			-- Pattern status; useful to check whether an error has
 			-- previously occurred for this pattern.
 		do
 			Result:=cairo_pattern_status(handle)
 		ensure valid: ((Result = cairo_status_success) or else
-							(Result = cairo_status_no_memory) or else
-							(Result = cairo_status_pattern_type_mismatch))
+						(Result = cairo_status_no_memory) or else
+						(Result = cairo_status_pattern_type_mismatch))
 		end
 	--
 	--   --------------------------------------------------------------------------
@@ -142,10 +149,49 @@ feature {} -- Creation
 	--   --------------------------------------------------------------------------
 	--
 	type: INTEGER is
-			--  The type of pattern.
+			-- This function returns the type a pattern. See CAIRO_PATTERN_TYPE
+			-- for available types.
 		do
-			Result:=cairo_pattern_get_type(handle)
-		ensure is_valid_pattern(Result)
+			Result := cairo_pattern_get_type (handle)
+		ensure
+			is_valid_pattern_type (Result)
+		end
+
+	set_filter (a_filter: INTEGER) is
+			-- Sets the filter to be used for resizing when using this pattern.
+			-- See CAIRO_FILTER for details on each filter.
+		require
+			is_valid_filter (a_filter)
+		do
+			cairo_pattern_set_filter (handle, a_filter)
+		end
+
+	filter: INTEGER is
+			-- Gets the current filter for a pattern. See CAIRO_FILTER for
+			-- details on each filter.
+		do
+			Result := cairo_pattern_get_filter (handle)
+		ensure
+			is_valid_filter (Result)
+		end
+
+	set_extend (a_extend: INTEGER) is
+			-- Sets the mode to be used for drawing outside the area of a
+			-- pattern. See CAIRO_EXTEND for details on the semantics of each
+			-- extend strategy.
+		require
+			is_valid_extend (a_extend)
+		do
+			cairo_pattern_set_extend (handle, a_extend)
+		end
+
+	extend: INTEGER is
+			-- Gets the current extend mode for a pattern. See CAIRO_EXTEND for
+			-- details on the semantics of each extend strategy.
+		do
+			Result := cairo_pattern_get_extend (handle)
+		ensure
+			is_valid_extend (Result)
 		end
 
 feature {} -- Hidden

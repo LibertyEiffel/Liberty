@@ -1,7 +1,9 @@
 indexing
 	description: "enum cairo_pattern_type_t"
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, Cairo team
+					Copyright (C) 2007 Paolo Redaelli,
+					Soluciones Informaticas Libres S.A. (Except),
+					Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +20,9 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+	date: "$Date:$"
+	revision: "$Revision:$"
+	wrapped_version: "1.2.4"
 
 deferred class CAIRO_PATTERN_TYPE
 	-- cairo_pattern_type_t is used to describe the type of a given pattern.
@@ -44,13 +49,13 @@ inherit ANY undefine is_equal, copy end
 
 feature  -- enum
 	is_valid_pattern_type (a_type: INTEGER): BOOLEAN is
-		do	
-			result:=((a_type = cairo_pattern_type_solid) or else
+		do
+			Result := ((a_type = cairo_pattern_type_solid) or else
 						(a_type = cairo_pattern_type_surface) or else
 						(a_type = cairo_pattern_type_linear) or else
 						(a_type = cairo_pattern_type_radial))
 		end
-	
+
 	cairo_pattern_type_solid: INTEGER is
 			-- The pattern is a solid (uniform) color. It may be opaque
 			-- or translucent.
@@ -75,6 +80,5 @@ feature  -- enum
 		external "C macro use <pango.h>"
 		alias "CAIRO_PATTERN_TYPE_RADIAL"
 		end
-
 
 end

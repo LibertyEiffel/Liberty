@@ -38,10 +38,11 @@ inherit
 insert
 	CAIRO_FONT_FACE_EXTERNALS
 	CAIRO_FONT_TYPE
-	
-creation make, from_external_pointer
+	CAIRO_STATUS
 
-feature {} -- Creation
+creation from_external_pointer
+
+feature -- Access
 	ref is
 			-- Increases the reference count on font_face by one. This
 			-- prevents font_face from being destroyed until a matching
@@ -63,7 +64,8 @@ feature {} -- Creation
 			-- The status of font face. Useful to check whether an error has previously occurred.
 		do
 			Result:=cairo_font_face_status(handle)
-		ensure valid: is_valid_status(Result)
+		ensure
+			valid: is_valid_cairo_status (Result)
 		end
 	
 	-- TODO: if necessary cairo_font_face_get_user_data ()

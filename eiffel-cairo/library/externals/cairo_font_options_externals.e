@@ -46,7 +46,7 @@ feature {} -- External calls
 		external "C use <cairo.h>"
 		end
 
-	cairo_font_options_status (a_font_options: POINTER): POINTER is
+	cairo_font_options_status (a_font_options: POINTER): INTEGER is
 			--cairo_status_t cairo_font_options_status    (cairo_font_options_t *options);
 		external "C use <cairo.h>"
 		end

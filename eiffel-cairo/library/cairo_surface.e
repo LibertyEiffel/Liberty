@@ -121,7 +121,7 @@ feature {} -- Creation
 			-- hinting of metrics and so forth. The result can then be
 			-- used to create a CAIRO_SCALED_FONT.
 		do
-			create Result.allocate
+			create Result.make
 			cairo_surface_get_font_options (handle, Result.handle)
 		end
 

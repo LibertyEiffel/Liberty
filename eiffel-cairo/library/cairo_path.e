@@ -106,9 +106,9 @@ inherit
 insert
 	CAIRO_PATH_EXTERNALS
 	CAIRO_PATH_STRUCT
-	
+	CAIRO_STATUS
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 
@@ -133,9 +133,10 @@ feature {} -- Creation
 			-- be either the return value from one of `copy_path' or
 			-- `copy_path_flat' or it may be constructed manually. See
 			-- cairo_path_t for details on how the path data structure
-			-- should be initialized, and note that path->status must be
+			-- should be initialized, and note that another.status must be
 			-- initialized to `cairo_status_success'.
-		require another_not_void: another/=Void
+		require
+			another_not_void: another /= Void
 		do
 			cairo_append_path(handle, another.handle)
 		end
@@ -485,5 +486,15 @@ feature {} -- Creation
 	--   cr : a cairo context
 	--   dx : the X offset
 	--   dy : the Y offset
+
+feature -- Access
+
+	status: INTEGER is
+		-- The current error status
+		do
+			Result := cairo_path_get_status (handle)
+		ensure
+			is_valid_cairo_status (Result)
+		end
 
 end -- class CAIRO_PATH

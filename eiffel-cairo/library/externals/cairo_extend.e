@@ -20,6 +20,9 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+	date: "$Date:$"
+	revision: "$Revision:$"
+	wrapped_version: "1.2.4"
 
 deferred class CAIRO_EXTEND
 	-- cairo_extend_t is used to describe how the area outside of a
@@ -30,6 +33,7 @@ deferred class CAIRO_EXTEND
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
+
 	is_valid_extend (an_extend: INTEGER): BOOLEAN is
 		do
 			Result := ((an_extend = cairo_extend_none) or else
@@ -37,13 +41,13 @@ feature  -- enum
 						(an_extend = cairo_extend_reflect) or else
 						(an_extend = cairo_extend_pad))
 		end
-	
+
 	cairo_extend_none: INTEGER is
 			-- pixels outside of the source pattern are fully transparent
 		external "C macro use <cairo.h>"
 		alias "CAIRO_EXTEND_NONE"
 		end
-	
+
 	cairo_extend_repeat: INTEGER is
 			-- the pattern is tiled by repeating
 		external "C macro use <cairo.h>"

@@ -188,13 +188,12 @@ feature
 			-- this function will fail.
 		local a_status: INTEGER
 		do
-			create Result.copy (Current)
+			Result := twin
 			a_status := cairo_matrix_invert (Result.handle)
 			-- cairo_matrix_invert returns: If matrix has an inverse,
 			-- modifies matrix to be the inverse matrix and returns
 			-- CAIRO_STATUS_SUCCESS. Otherwise,
 			if a_status = cairo_status_invalid_matrix then
-				Result.dispose
 				Result := Void
 			end
 		end

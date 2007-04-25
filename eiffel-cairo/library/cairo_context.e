@@ -44,7 +44,7 @@ inherit
 		redefine
 			from_external_pointer
 		end
-	
+
 insert
 	CAIRO_CONTEXT_EXTERNALS
 	CAIRO_PATH_EXTERNALS
@@ -58,6 +58,7 @@ insert
 	CAIRO_OPERATOR
 	CAIRO_FONT_SLANT
 	CAIRO_FONT_WEIGHT
+	CAIRO_STATUS
 
 creation make, from_external_pointer
 
@@ -107,10 +108,11 @@ feature
 		end
 
 	status: INTEGER is
-			--  the current status of this context; see CAIRO_ERROR_HANDLING. 
+			--  the current status of this context; see CAIRO_STATUS. 
 		do
 			Result := cairo_status (handle)
-		ensure valid_status: is_valid_status (Result)
+		ensure
+			valid_status: is_valid_cairo_status (Result)
 		end
 
 	save is
@@ -151,7 +153,7 @@ feature
 			-- cairo_get_target returns the target surface. This object
 			-- is owned by cairo. To keep a reference to it, you must
 			-- call `ref'.
-			Result := wrappers.reference_at (ptr)
+			Result ?= wrappers.reference_at (ptr)
 			if Result = Void then
 				create Result.from_external_pointer (handle)
 			end
@@ -378,7 +380,7 @@ feature
 			-- cairo_get_source returns the current source
 			-- pattern. This object is owned by cairo. To keep a
 			-- reference to it, you must call CAIRO_PATTERN.`reference'.
-			Result ::= wrappers.reference_at (ptr)
+			Result ?= wrappers.reference_at (ptr)
 			if Result = Void then
 				create Result.from_external_pointer (ptr)
 			end
@@ -445,7 +447,7 @@ feature -- Dashing
 			-- `an_offset': an offset into the dash pattern at which the
 			-- stroke should start
 		do
-			cairo_set_dash (handle, some_dashes.storage.to_external,
+			cairo_set_dash (handle, some_dashes.to_external,
 							some_dashes.count, an_offset)
 		end
 
@@ -1263,7 +1265,7 @@ feature --   Transformations, manipulating the current transformation matrix
 			create Result.allocate
 			cairo_get_matrix (handle, Result.handle)
 		end
-	
+
 	reset_transformation is
 			-- Resets the current transformation matrix (CTM) by setting
 			-- it equal to the identity matrix. That is, the user-space
@@ -1340,7 +1342,7 @@ feature --   Text -- Rendering text and sets of glyphs
 			-- has a default value (like CAIRO_ANTIALIAS_DEFAULT), then the value
 			-- from the surface is used.
 		require
-			options_not_void: some_options/=Void
+			options_not_void: some_options /= Void
 		do
 			cairo_set_font_options(handle, some_options.handle)
 		end
@@ -1352,7 +1354,7 @@ feature --   Text -- Rendering text and sets of glyphs
 			-- they are literally the options passed to
 			-- `set_font_options'.
 		do
-			create Result.allocate
+			create Result.make
 			cairo_get_font_options (handle, Result.handle)
 		end
 
@@ -1388,7 +1390,7 @@ feature --   Text -- Rendering text and sets of glyphs
 		require
 			glyphs_not_void: some_glyphs /= Void
 		do
-			cairo_show_glyphs (handle, some_glyphs.storage,
+			cairo_show_glyphs (handle, some_glyphs.to_external,
 									some_glyphs.count)
 		end
 

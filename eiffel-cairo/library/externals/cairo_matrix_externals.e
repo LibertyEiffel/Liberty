@@ -40,7 +40,7 @@ feature {} -- External calls
 		external "C use <pango.h>"
 		end
 
-	cairo_matrix_init_translate (a_matrix: POINTER; a_tx, a_ty: POINTER) is
+	cairo_matrix_init_translate (a_matrix: POINTER; a_tx, a_ty: REAL) is
 			-- void cairo_matrix_init_translate (cairo_matrix_t *matrix, double tx, double ty);
 		external "C use <pango.h>"
 		end
