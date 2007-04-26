@@ -1,6 +1,6 @@
 indexing
 	description: "A class that can handle WRAPPER's internals"
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"

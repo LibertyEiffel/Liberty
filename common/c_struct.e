@@ -1,6 +1,6 @@
 indexing
 	description: "Wrapper for a generic C structure"
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>, Raphael Mack <mail@raphael-mack.de>"
+	copyright: "(C) 2005 Paolo Redaelli , Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"

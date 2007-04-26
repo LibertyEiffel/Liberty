@@ -24,9 +24,6 @@ class C_ARRAY [ITEM -> SHARED_C_STRUCT]
 	-- of pointers of item's struct. For example a C_ARRAY[GTK_BUTTON] 
 	-- wraps a GtkButton** array.
 
-	-- Since many low-level C functions expect to receive
-	-- NULL-terminated arrays, the underlying storage will be always
-	-- NULL-terminated.
 inherit 
 	COLLECTION [ITEM]
 	-- SHARED_C_STRUCT rename exists as struct_exists undefine
@@ -145,7 +142,7 @@ feature {ANY} -- Adding:
 				capacity := capacity*2
 				storage:=storage.realloc (count,capacity)
 			end
-			check count = upper+1 end -- because the following put command relies on this assumption.
+			check count=upper+1 end -- because the next put command relies on this assumption.
 			storage.put(null_or(element),count)
 			upper:=upper+1
 		end
@@ -178,8 +175,8 @@ feature {ANY} -- Modification:
 			if index>capacity then 
 				debug print (once "C_ARRAY.force: storage enlarged using realloc%N") end
 				storage:=storage.realloc(count,index) 
+				upper:=index
 			end
-			upper:=index
 			put(element,index)
 		end
 

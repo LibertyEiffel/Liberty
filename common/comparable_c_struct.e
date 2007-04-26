@@ -1,6 +1,6 @@
 indexing
 	description: "Comparable wrappers of structures stored into containers."
-	copyright: "(C) 2007 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2007 Paolo Redaelli "
 	license: "LGPL v2 or later"
 
 deferred class COMPARABLE_C_STRUCT

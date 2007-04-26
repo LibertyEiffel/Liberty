@@ -23,7 +23,7 @@ deferred class
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 	is_valid_ (a_ :INTEGER): BOOLEAN is
 		do	
 			Result:=()
