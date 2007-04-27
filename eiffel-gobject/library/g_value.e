@@ -389,10 +389,16 @@ feature {ANY} -- String
 
 	string: STRING is
 			-- If current value is an string, returns it.
+			-- Note that a gvalue might be holding a NULL string
 		require
 			is_string: is_string
+		local
+			p: POINTER
 		do
-			create Result.from_external (g_value_get_string (handle))
+			p := g_value_get_string (handle)
+			if p.is_not_null then
+				create Result.from_external (p)
+			end
 		end
 
 	set_string (a_value: STRING) is
