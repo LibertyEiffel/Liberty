@@ -1,6 +1,6 @@
 indexing
 	description: "enum GSignalMatchType, the match types specify what g_signal_handlers_block_matched(), g_signal_handlers_unblock_matched() and g_signal_handlers_disconnect_matched() match signals by."
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"

@@ -9,7 +9,7 @@ indexing
 				object construction and destruction, property access methods, and signal
 				support. Signals are described in detail in Signals(3).
 			]"
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"

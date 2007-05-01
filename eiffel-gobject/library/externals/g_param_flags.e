@@ -1,6 +1,6 @@
 indexing
 	description: "Enum GParamFlags -- Through the GParamFlags flag values, certain aspects of parameters can be configured."
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

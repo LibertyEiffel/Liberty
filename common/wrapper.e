@@ -31,6 +31,8 @@ insert
 
 	WRAPPER_HANDLER -- to access `null_or'
 
+	POINTER_HANDLING -- to access `address_of' and `content_of'
+
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 
 	from_external_pointer (a_ptr: POINTER) is
@@ -70,6 +72,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 
 	handle: POINTER
 		-- Pointer to the underlying C "thing" (i.e. a struct)
+	
+	reference: POINTER is
+			-- The address of `handle'. Usuful to be passed to C
+			-- functions that asks for pointer to pointer to struct
+			-- (i.e. "GError **error")
+		do
+			Result:=address_of(handle)
+		end
+
 
 feature {} -- External calls
 

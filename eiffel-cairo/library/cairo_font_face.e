@@ -1,7 +1,7 @@
 indexing
 	description: "CAIRO_FONT_FACE -- Base class for fonts"
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli <paolo.redaelli@poste.it>,
+					Copyright (C) 2007 Paolo Redaelli,
 					              Soluciones Informaticas Libres S.A. (Except),
 					              Cairo team
 					

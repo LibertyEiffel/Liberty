@@ -1,6 +1,6 @@
 indexing
 	description: "A structure holding in-depth information for a specific signal. It is filled in by G_SIGNALS.query feature."
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"

@@ -1,6 +1,6 @@
 indexing
 	description: "A tuple from an SQLite query."
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

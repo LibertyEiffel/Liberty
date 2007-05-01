@@ -1,7 +1,7 @@
 indexing
 	description: "Memory Allocation -- general memory-handling."
 	library: "GLib 2"
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL"
 	note: "[
 	If any call to allocate memory fails, the application is terminated.

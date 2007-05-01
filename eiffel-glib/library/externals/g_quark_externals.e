@@ -1,6 +1,6 @@
 indexing
 	description: "external features of G_QUARK"
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"

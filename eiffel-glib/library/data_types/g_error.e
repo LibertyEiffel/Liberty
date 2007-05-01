@@ -414,4 +414,5 @@ feature -- struct size
 		external "C inline use <glib.h>"
 		alias "sizeof(GError)"
 		end
+
 end

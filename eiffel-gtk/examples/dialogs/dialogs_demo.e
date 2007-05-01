@@ -1,6 +1,6 @@
 indexing
 	description: "GTK+ 2 example demostrating the use of dialogs"
-	copyright: "(C) 2004 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2004 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

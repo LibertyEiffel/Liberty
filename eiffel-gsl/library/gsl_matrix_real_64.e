@@ -1,6 +1,6 @@
 indexing
 	description: "real 64 matrix"
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>%
+	copyright: "(C) 2006 Paolo Redaelli %
               %    2006 Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"

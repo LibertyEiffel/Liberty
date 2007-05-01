@@ -8,7 +8,7 @@ indexing
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
 					
-					This library is distributed in the hopeOA that it will be useful, but
+					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 					Lesser General Public License for more details.
@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class GLIB_GLOB_STYLE_PATTERN_MATCHING
+class G_PATTERN
 	-- Glob-style pattern matching - matches strings against patterns
 	-- containing '*' (wildcard) and '?' (joker).
 	
@@ -41,7 +41,7 @@ class GLIB_GLOB_STYLE_PATTERN_MATCHING
 inherit
 	SHARED_C_STRUCT
 		redefine
-			is_equal, copy
+			is_equal, copy, free
 		end
 
 creation make, from_external_pointer
@@ -75,11 +75,12 @@ feature {} -- Creation
 	match (a_string: STRING): BOOLEAN is
 			-- Matches a string against a compiled pattern.
 
-			-- TODO: a_string should be an UTF8
+			-- TODO: a_string should be an UTF8 string.
 		
 			-- TODO: provide a variant of the call the require the
-			-- reversed string, since it is more efficient in some
-			-- cases. See the comment in feature code for further
+			-- reversed string, since there is an algorithm requiring the
+			-- reverse of the string than in some cases is (much) more
+			-- efficient. See the comment in feature code for further
 			-- informations.
 		require string_not_void: a_string/=Void
 		do

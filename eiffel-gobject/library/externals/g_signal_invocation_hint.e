@@ -1,6 +1,6 @@
 indexing
 	decription: "Wrapper for the GSignalInvocationHint structure, used to pass on additional information to callbacks during a signal emission."
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"

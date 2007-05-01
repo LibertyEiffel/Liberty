@@ -1,6 +1,6 @@
 indexing
 	description: "Enum  GdkOverlapType Specifies the possible values returned by gdk_region_rect_in()."
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

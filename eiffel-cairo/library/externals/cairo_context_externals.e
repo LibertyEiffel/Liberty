@@ -1,7 +1,7 @@
 indexing
 	description: "External calls for features of CAIRO_CONTEXT"
 	copyright: "[
-					Copyright (C) 2006, 2007 Paolo Redaelli <paolo.redaelli@poste.it>,
+					Copyright (C) 2006, 2007 Paolo Redaelli ,
 					              Soluciones Informaticas Libres S.A. (Except),
 					              Cairo team
 					

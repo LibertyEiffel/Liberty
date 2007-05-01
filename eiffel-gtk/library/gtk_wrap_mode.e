@@ -1,6 +1,6 @@
 indexing
 	description: "Enum GtkWrapMode - Describes a type of line wrapping."
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

@@ -1,6 +1,6 @@
 indexing
 	description: "Arrays of arbitrary elements which grow automatically as elements are added."
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$REvision:$"

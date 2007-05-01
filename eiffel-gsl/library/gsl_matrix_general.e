@@ -1,6 +1,6 @@
 indexing
 	description: "general matrix"
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>%
+	copyright: "(C) 2006 Paolo Redaelli %
    %Raphael Mack <mail@raphael-mack.de>"
 	authors: "Paolo Redaelli, Raphael Mack"
 	license: "LGPL v2 or later"

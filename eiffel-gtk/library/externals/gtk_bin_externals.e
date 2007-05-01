@@ -1,5 +1,5 @@
 indexing
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					

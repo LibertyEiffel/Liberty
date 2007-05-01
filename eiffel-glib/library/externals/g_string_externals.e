@@ -1,6 +1,6 @@
 indexing
 	description: "Strings -- text buffers which grow automatically as text is added."
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"

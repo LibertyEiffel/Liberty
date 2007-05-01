@@ -1,15 +1,13 @@
 indexing
 	description: "Retrieve a G_OBJECT wrapper from the pointer stored in the C low-level Gobject's ."
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class G_OBJECT_RETRIEVER [ITEM_ -> G_OBJECT]
 
-inherit
-	WRAPPER_HANDLER
-		undefine null_or end
+inherit WRAPPER_HANDLER -- undefine null_or end
 
 insert
 	G_OBJECT_EXTERNALS

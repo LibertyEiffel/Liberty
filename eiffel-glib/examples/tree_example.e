@@ -1,6 +1,6 @@
 indexing
 	
-	copyright: "(C) 2007 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2007 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"

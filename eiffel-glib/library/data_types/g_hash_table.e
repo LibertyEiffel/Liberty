@@ -1,6 +1,6 @@
 indexing
 	description: "Hash Tables associations between keys and values so that given a key the value can be found quickly."
-	copyright: "(C) 2005 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"

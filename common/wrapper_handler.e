@@ -7,7 +7,7 @@ indexing
 
 deferred class WRAPPER_HANDLER
 
-inherit ANY undefine is_equal, copy end
+inherit ANY undefine is_equal, copy, fill_tagged_out_memory end
 
 feature
 	null_or (a_wrapper: WRAPPER): POINTER is

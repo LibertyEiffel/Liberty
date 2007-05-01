@@ -1,6 +1,6 @@
 indexing
 	description: "External calls for GDA_DATA_MODEL_ARRAY"
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"

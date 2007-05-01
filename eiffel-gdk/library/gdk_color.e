@@ -1,6 +1,6 @@
 indexing
 	description: "The GdkColor structure is used to describe an allocated or unallocated color."
-	copyright: "(C) 2006 Paolo Redaelli <paolo.redaelli@poste.it>"
+	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
