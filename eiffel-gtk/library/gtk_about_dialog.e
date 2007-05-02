@@ -17,31 +17,29 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-
-					-- Description: The GtkAboutDialog offers a simple way to display
-					-- information about a program like its logo, name, copyright,
-					-- website and license. It is also possible to give credits to
-					-- the authors, documenters, translators and artists who have
-					-- worked on the program. An about dialog is typically opened
-					-- when the user selects the About option from the Help menu. All
-					-- parts of the dialog are optional.
-
-					-- About dialog often contain links and email
-					-- addresses. GtkAboutDialog supports this by offering global
-					-- hooks, which are called when the user clicks on a link or
-					-- email address, see gtk_about_dialog_set_email_hook() and
-					-- gtk_about_dialog_set_url_hook(). Email addresses in the
-					-- authors, documenters and artists properties are recognized by
-					-- looking for <user@host>, URLs are recognized by looking for
-					-- http://url, with url extending to the next space, tab or line
-					-- break.
-
-					-- To make constructing a GtkAboutDialog as convenient as
-					-- possible, you can use the function gtk_show_about_dialog()
-					-- which constructs and shows a dialog and keeps it around so
-					-- that it can be shown again.
 					
 class GTK_ABOUT_DIALOG
+	-- The GtkAboutDialog offers a simple way to display information
+	-- about a program like its logo, name, copyright, website and
+	-- license. It is also possible to give credits to the authors,
+	-- documenters, translators and artists who have worked on the
+	-- program. An about dialog is typically opened when the user
+	-- selects the About option from the Help menu. All parts of the
+	-- dialog are optional.
+
+	-- About dialog often contain links and email
+	-- addresses. GtkAboutDialog supports this by offering global
+	-- hooks, which are called when the user clicks on a link or email
+	-- address, see (TODO) gtk_about_dialog_set_email_hook() and
+	-- gtk_about_dialog_set_url_hook(). Email addresses in the authors,
+	-- documenters and artists properties are recognized by looking for
+	-- <user@host>, URLs are recognized by looking for http://url, with
+	-- url extending to the next space, tab or line break.
+
+	-- To make constructing a GtkAboutDialog as convenient as
+	-- possible, you can use the function gtk_show_about_dialog()
+	-- which constructs and shows a dialog and keeps it around so
+	-- that it can be shown again.
  
 inherit
 	GTK_DIALOG

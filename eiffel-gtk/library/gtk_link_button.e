@@ -1,5 +1,5 @@
 indexing
-	description: "GtkLinkButton — Create buttons bound to a URL."
+	description: "GtkLinkButton -- A buttons bound to a URL."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -18,32 +18,28 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
-
-			-- Description: A GtkLinkButton is a GtkButton with a
-			-- hyperlink, similar to the one used by web browsers, which
-			-- triggers an action when clicked. It is useful to show
-			-- quick links to resources.
-
-			-- A link button is created by calling either `make' or
-			-- `make_with_label'. If using the former, the URI you pass
-			-- to the constructor is used as a label for the widget.
-
-			-- The URI bound to a GtkLinkButton can be set specifically
-			-- using `set_uri', and retrieved using `uri'.
-
-			-- GtkLinkButton offers a global hook, which is called when
-			-- the used clicks on it: see `set_uri_hook'.
-
-			-- GtkLinkButton was added in GTK+ 2.10.
 			
 class GTK_LINK_BUTTON
+	-- A GtkLinkButton is a GtkButton with a hyperlink, similar to the one used
+	-- by web browsers, which triggers an action when clicked. It is useful to
+	-- show quick links to resources.
+
+	-- A link button is created by calling either `make' or `make_with_label'. If
+	-- using the former, the URI you pass to the constructor is used as a label
+	-- for the widget.
+
+	-- The URI bound to a GtkLinkButton can be set specifically using `set_uri',
+	-- and retrieved using `uri'.
+
+	-- GtkLinkButton offers a global hook, which is called when the used clicks
+	-- on it: see `set_uri_hook'.
+	
+	-- GtkLinkButton was added in GTK+ 2.10.
 
 inherit
   	GTK_BUTTON
 		-- TODO: GtkLinkButton implements AtkImplementorIface.
 	
-		-- insert FOO_EXTERNALS
-
 creation make, from_external_pointer
 
 feature {} -- Creation
@@ -75,36 +71,32 @@ feature
 			-- not be modified or freed.
 			create {CONST_STRING} Result.from_external
 			(gtk_link_button_get_uri (handle))
+		ensure void: Result /= Void
 		end
 
--- Since 2.10
--- gtk_link_button_set_uri ()
+	set_uri (an_uri: STRING) is
+			-- Sets uri as the URI where the GtkLinkButton points.
+		require
+			uri_not_void: an_uri /= Void
+		do
+			gtk_link_button_set_uri(handle,an_uri.to_external)
+		ensure set: uri.is_equal(an_uri)
+		end
+	
+	-- GtkLinkButtonUriFunc ()
+	
+	-- void (*GtkLinkButtonUriFunc) (GtkLinkButton *button, const gchar *link,
+	-- gpointer user_data);
 
--- void        gtk_link_button_set_uri         (GtkLinkButton *link_button,
---                                              const gchar *uri);
+	-- The type of a function which is called when the GtkLinkButton is clicked.
+	-- button : 	the GtkLinkButton which was clicked
+	-- link : 	the URI to which the clicked GtkLinkButton points
+	-- user_data :
+	
+	-- gtk_link_button_set_uri_hook ()
 
--- Sets uri as the URI where the GtkLinkButton points.
-
--- link_button : 	a GtkLinkButton
--- uri : 	a valid URI
-
--- Since 2.10
--- GtkLinkButtonUriFunc ()
-
--- void        (*GtkLinkButtonUriFunc)         (GtkLinkButton *button,
---                                              const gchar *link,
---                                              gpointer user_data);
-
--- The type of a function which is called when the GtkLinkButton is clicked.
--- button : 	the GtkLinkButton which was clicked
--- link : 	the URI to which the clicked GtkLinkButton points
--- user_data : 	
--- gtk_link_button_set_uri_hook ()
-
--- GtkLinkButtonUriFunc gtk_link_button_set_uri_hook
---                                             (GtkLinkButtonUriFunc func,
---                                              gpointer data,
---                                              GDestroyNotify destroy);
+	-- GtkLinkButtonUriFunc gtk_link_button_set_uri_hook (GtkLinkButtonUriFunc
+	-- func, gpointer data, GDestroyNotify destroy);
 
 -- Sets func as the function that should be invoked every time a user clicks a GtkLinkButton. This function is called before every callback registered for the "clicked" signal.
 

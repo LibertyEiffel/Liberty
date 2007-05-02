@@ -20,23 +20,30 @@ indexing
 					]"					
 	date: "$Date:$"
 	revision: "$Revision:$"
--- Description
 
--- A single radio button performs the same basic function as a GtkCheckButton, as its position in the object hierarchy reflects. It is only when multiple radio buttons are grouped together that they become a different user interface component in their own right.
+class GTK_RADIO_BUTTON
+	-- A single radio button performs the same basic function as a
+	-- GtkCheckButton, as its position in the object hierarchy
+	-- reflects. It is only when multiple radio buttons are grouped
+	-- together that they become a different user interface component
+	-- in their own right.
 
--- Every radio button is a member of some group of radio buttons. When one is selected, all other radio buttons in the same group are deselected. A GtkRadioButton is one way of giving the user a choice from many options.
+	-- Every radio button is a member of some group of radio
+	-- buttons. When one is selected, all other radio buttons in the
+	-- same group are deselected. A GtkRadioButton is one way of giving
+	-- the user a choice from many options.
 
--- Radio button widgets are created with gtk_radio_button_new(), passing NULL as the argument if this is the first radio button in a group. In subsequent calls, the group you wish to add this button to should be passed as an argument. Optionally, gtk_radio_button_new_with_label() can be used if you want a text label on the radio button.
+	-- Create the first radio button of a group with `in_a_new_group',
+	-- then add further buttons with the other cration procedures
+	-- (i.e.: `from_group', `from_widget' and so on)
 
--- Alternatively, when adding widgets to an existing group of radio buttons, use gtk_radio_button_new_from_widget() with a GtkRadioButton that already has a group assigned to it. The convenience function gtk_radio_button_new_with_label_from_widget() is also provided.
-
--- To retrieve the group a GtkRadioButton is assigned to, use gtk_radio_button_get_group().
+	-- Retrieve the group a GtkRadioButton is assigned to use gtk_radio_button_get_group().
 
 -- To remove a GtkRadioButton from one group and make it part of a new one, use gtk_radio_button_set_group().
 
 -- The group list does not need to be freed, as each GtkRadioButton will remove itself and its list item when it is destroyed.
 
--- Example 1. How to create a group of two radio buttons.
+	-- Example 1. How to create a group of two radio buttons.
 
 -- void create_radio_buttons (void) {
 
@@ -64,9 +71,7 @@ indexing
 
 
 -- When an unselected button in the group is clicked the clicked button receives the "toggled" signal, as does the previously selected button. Inside the "toggled" handler, gtk_toggle_button_get_active() can be used to determine if the button has been selected or deselected.
-
 	
-class GTK_RADIO_BUTTON
 inherit
 	GTK_CHECK_BUTTON
 		rename
@@ -80,6 +85,7 @@ insert
 	GTK_RADIO_BUTTON_EXTERNALS
 		-- GtkRadioButton implements AtkImplementorIface.	
 creation
+	in_a_new_group,
 	from_group,
 	from_widget,
 	with_label,
@@ -88,6 +94,11 @@ creation
 	with_mnemonic_from_widget
 
 feature {} -- Creation
+	in_a_new_group is
+			-- Creates a new GTK_RADIO_BUTTON in a new group.
+		do
+			from_external_pointer (gtk_radio_button_new (default_pointer))
+		end
 	
 	from_group (a_group: G_SLIST[GTK_RADIO_BUTTON]) is
 			-- Creates a new GTK_RADIO_BUTTON. To be of any practical
@@ -97,10 +108,8 @@ feature {} -- Creation
 		require
 			gtk_initialized: gtk.is_initialized
 			group_not_void: a_group/=Void
-		local ptr: POINTER
 		do
-			if a_group/=Void then ptr:=a_group.handle end
-			from_external_pointer (gtk_radio_button_new (ptr))
+			from_external_pointer (gtk_radio_button_new (a_group.handle))
 		end
 	
 	from_widget (a_widget: GTK_RADIO_BUTTON) is

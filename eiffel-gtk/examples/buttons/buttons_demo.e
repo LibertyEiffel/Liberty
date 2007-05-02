@@ -1,5 +1,12 @@
 class BUTTONS_DEMO
-insert GTK 
+insert 
+	-- TODO: Implement GTK_APPLICATION, with no undefined features; GTK
+	-- has undefined features. Currently ANY must be inserted alongside
+	-- with GTK in all effective classes otherwise they will contain
+	-- undefined features, making them actually deferred.
+	GTK 
+	ANY 
+
 creation make
 feature
 	make is

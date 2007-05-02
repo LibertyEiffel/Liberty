@@ -21,41 +21,44 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
--- A GtkToggleButton is a GtkButton which will remain 'pressed-in' when clicked. Clicking again will cause the toggle button to return to its normal state.
-
--- A toggle button is created by calling either gtk_toggle_button_new() or gtk_toggle_button_new_with_label(). If using the former, it is advisable to pack a widget, (such as a GtkLabel and/or a GtkPixmap), into the toggle button's container. (See GtkButton for more information).
-
--- The state of a GtkToggleButton can be set specifically using gtk_toggle_button_set_active(), and retrieved using gtk_toggle_button_get_active().
-
--- To simply switch the state of a toggle button, use gtk_toggle_button_toggled.
-
--- Example 2. Creating two GtkToggleButton widgets.
-
--- void make_toggles (void) {
---    GtkWidget *dialog, *toggle1, *toggle2;
-
---    dialog = gtk_dialog_new ();
---    toggle1 = gtk_toggle_button_new_with_label ("Hi, i'm a toggle button.");
-
---    /* Makes this toggle button invisible */
---    gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (toggle1), TRUE);
-
---    g_signal_connect (toggle1, "toggled",
---                      G_CALLBACK (output_state), NULL);
---    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
---                        toggle1, FALSE, FALSE, 2);
-
---    toggle2 = gtk_toggle_button_new_with_label ("Hi, i'm another toggle button.");
---    gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (toggle2), FALSE);
---    g_signal_connect (toggle2, "toggled",
---                      G_CALLBACK (output_state), NULL);
---    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
---                        toggle2, FALSE, FALSE, 2);
-
---    gtk_widget_show_all (dialog);
--- }
-
 class GTK_TOGGLE_BUTTON
+	-- A GtkToggleButton is a GtkButton which will remain 'pressed-in' when
+	-- clicked. Clicking again will cause the toggle button to return to its
+	-- normal state.
+
+	-- A toggle button is created by calling either `make' or `with_label'. If
+	-- using the former, it is advisable to pack a widget, (such as a GtkLabel
+	-- and/or a GtkPixmap), into the toggle button's container. (See GtkButton
+	-- for more information).
+
+	-- The state of a GtkToggleButton can be set specifically using `set_active,'
+	-- and retrieved using `is_active'.
+
+	-- To simply switch the state of a toggle button, use `toggled'.
+	
+	-- Example 2. Creating two GtkToggleButton widgets.
+
+	-- dialog: GTK_DIALOG
+	-- toggle1,toggle2: GTK_TOGGLE_BUTTON
+	
+	-- make_toggles is
+	--   do
+
+	--     create dialog.make
+	--     create toggle1.with_label ("Hi, i'm a toggle button.")
+	
+	--    -- Makes this toggle button invisible
+	--    toggle1.draw_indicator 
+
+	--    -- toggle1.connect_to_toggled_signal (--TODO)
+	--    dialog.action_area.pack_start (toggle1, False, False, 2)
+	
+	--    create toggle2.with_label ("Hi, i'm another toggle button.")
+	--    toggle2.draw_as_button
+	--    -- g_signal_connect (toggle2, "toggled",  G_CALLBACK (output_state), NULL);
+	--    dialog.action_area.pack_start (toggle2, False, False, 2)
+	--    dialog.show_all
+	-- end
 
 inherit
 	GTK_BUTTON redefine make, with_label, with_mnemonic end
@@ -232,7 +235,7 @@ feature -- The "toggled" signal
 			connect (Current, toggled_signal_name, $on_toggled)
 		end
 
-	connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]]) is
+	connect_to_toggled_signal, connect_agent_to_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOGGLE_BUTTON]]) is
 			-- togglebutton : 	the object which received the signal.
 		require valid_procedure: a_procedure /= Void
 		local toggled_callback: TOGGLED_CALLBACK [like Current]

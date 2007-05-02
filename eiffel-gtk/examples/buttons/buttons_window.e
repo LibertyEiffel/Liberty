@@ -22,16 +22,14 @@ feature make is
 			hbox.pack_start (toggle, True , False , 20)
 			vbox.pack_start_defaults (hbox)
 			create radio1.with_label (Void, "SmartEiffel")
-
-			create smarteiffel_choosen.make 
-			smarteiffel_choosen.connect (radio1, agent on_gnu_compiler_toggled (?))
-			
 			create radio2.with_label_from_widget (radio1, "VisualEiffel")
 			create radio3.with_label_from_widget (radio1, "ISE Eiffel")
 			vbox.pack_start_defaults (radio1)
 			vbox.pack_start_defaults (radio2)
 			vbox.pack_start_defaults (radio3)
 
+			create smarteiffel_choosen.make 
+			smarteiffel_choosen.connect (radio1, agent on_gnu_compiler_toggled (?))
 			enable_on_destroy -- connect (Current, "destroy", $on_destroy)
 			-- radio1.set_active	radio2.set_inactive	radio3.set_inactive
 		end
