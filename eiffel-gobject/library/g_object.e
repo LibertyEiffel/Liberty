@@ -158,6 +158,7 @@ feature -- Creating
 			not_existing_wrapper: not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
 		do
 			Precursor (a_ptr)
+			unset_shared
 			store_eiffel_wrapper
 			ref -- Let's add a reference to the underlying g_object
 		end
@@ -175,7 +176,7 @@ feature -- Creating
 		do
 			handle := a_ptr
 			store_eiffel_wrapper
-			set_shared
+			unset_shared
 		end
 
 feature -- Disposing
@@ -188,9 +189,14 @@ feature -- Disposing
 		do
 			-- Note: when Eiffel dispose a G_OBJECT it just unref it and
 			-- cleans its handle. The actual reclaiming of the memory
-			-- alloca ted on the C side is left to gobject runtime.
+			-- allocated on the C side is left to gobject runtime.
 			unstore_eiffel_wrapper -- Remove the reference to Current stored into the underlying Gobject and from the wrappers.
-			if is_g_object then unref
+			if is_g_object then
+				if not is_shared then
+						-- There are some shared G_OBJECTS that we shouldn't unref!
+						-- Check for example pango_cairo_font_map_get_default
+					unref
+				end
 			else
 				debug
 					print ("Disposing g_object ") print (generator)
