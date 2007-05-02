@@ -1,3 +1,4 @@
 library/
 library/externals/
+../eiffel-cairo/loadpath.se
 ../loadpath.se
