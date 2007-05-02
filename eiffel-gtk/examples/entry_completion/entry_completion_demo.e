@@ -18,35 +18,19 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
 
 class ENTRY_COMPLETION_DEMO
 
 insert
 	GTK
-
+	G_TYPES
+	ANY
+	
 creation make
 feature
 	make is
 		do
 			gtk.initialize
-			create_window
-			window.show_all
-			window.connect_agent_to_destroy_signal (agent on_destroy_window(?))
-			gtk.run_main_loop
-		end
-	on_destroy_window (an_obj: GTK_OBJECT) is
-		local a_win: GTK_WINDOW
-		do
-			a_win ::= an_obj
-			print ("Quitting%N")
-			gtk.quit
-		end
-feature
-	create_window is
-		do
 			create window.make
 			window.set_title (title_string)
 			window.midscreen
@@ -57,7 +41,20 @@ feature
 			entry_box.pack_start_defaults (entry_label)
 			entry_box.pack_start_defaults (entry)
 			window.add(entry_box)
+			window.show_all
+			window.connect_agent_to_destroy_signal (agent on_destroy_window(?))
+
+			gtk.run_main_loop
 		end
+
+	on_destroy_window (an_obj: GTK_OBJECT) is
+		local a_win: GTK_WINDOW
+		do
+			a_win ::= an_obj
+			print ("Quitting%N")
+			gtk.quit
+		end
+
 feature -- labels
 	title_string: STRING is "Completion entry demo"
 	
@@ -67,8 +64,6 @@ feature -- Widgets
 	entry_label: GTK_LABEL
 	entry: PROGRAMMERS_ENTRY
 	
-feature -- Objects
-	completion: GTK_ENTRY_COMPLETION
 end
 
 

@@ -18,18 +18,13 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description
-
-			-- The GtkEntry widget is a single line text entry widget. A
-			-- fairly large set of key bindings are supported by
-			-- default. If the entered text is longer than the allocation
-			-- of the widget, the widget will scroll so that the cursor
-			-- position is visible.
-
+				
 class GTK_ENTRY
+	-- The GtkEntry widget is a single line text entry widget. A fairly large set
+	-- of key bindings are supported by default. If the entered text is longer
+	-- than the allocation of the widget, the widget will scroll so that the
+	-- cursor position is visible.
+	
 inherit
 	GTK_WIDGET
 	GTK_EDITABLE

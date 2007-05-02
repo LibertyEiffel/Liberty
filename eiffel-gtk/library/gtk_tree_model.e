@@ -22,47 +22,42 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_TREE_MODEL
-	-- Description: The GtkTreeModel interface defines a generic tree
-	-- interface for use by the GtkTreeView widget. It is an abstract
-	-- interface, and is designed to be usable with any appropriate
-	-- data structure. The programmer just has to implement this
-	-- interface on their own data type for it to be viewable by a
+	-- The GtkTreeModel interface defines a generic tree interface for use by the
+	-- GtkTreeView widget. It is an abstract interface, and is designed to be
+	-- usable with any appropriate data structure. The programmer just has to
+	-- implement this interface on their own data type for it to be viewable by a
 	-- GtkTreeView widget.
 
-	-- The model is represented as a hierarchical tree of
-	-- strongly-typed, columned data. In other words, the model can be
-	-- seen as a tree where every node has different values depending
-	-- on which column is being queried. The type of data found in a
-	-- column is determined by using the GType system
-	-- (ie. `g_type_int,' `gtk_type_button,' `g_type_pointer,'
-	-- etc.). The types are homogeneous per column across all nodes. It
-	-- is important to note that this interface only provides a way of
-	-- examining a model and observing changes. The implementation of
-	-- each individual model decides how and if changes are made.
+	-- The model is represented as a hierarchical tree of strongly-typed,
+	-- columned data. In other words, the model can be seen as a tree where every
+	-- node has different values depending on which column is being queried. The
+	-- type of data found in a column is determined by using the GType system
+	-- (ie. `g_type_int,' `gtk_type_button,' `g_type_pointer,' etc.). The types
+	-- are homogeneous per column across all nodes. It is important to note that
+	-- this interface only provides a way of examining a model and observing
+	-- changes. The implementation of each individual model decides how and if
+	-- changes are made.
 
-	-- In order to make life simpler for programmers who do not need to
-	-- write their own specialized model, two generic models are
-	-- provided: the GtkTreeStore and the GtkListStore. To use these,
-	-- the developer simply pushes data into these models as
-	-- necessary. These models provide the data structure as well as
-	-- all appropriate tree interfaces. As a result, implementing drag
-	-- and drop, sorting, and storing data is trivial. For the vast
-	-- majority of trees and lists, these two models are sufficient.
+	-- In order to make life simpler for programmers who do not need to write
+	-- their own specialized model, two generic models are provided: the
+	-- GtkTreeStore and the GtkListStore. To use these, the developer simply
+	-- pushes data into these models as necessary. These models provide the data
+	-- structure as well as all appropriate tree interfaces. As a result,
+	-- implementing drag and drop, sorting, and storing data is trivial. For the
+	-- vast majority of trees and lists, these two models are sufficient.
 	
-	-- Models are accessed on a node/column level of granularity. One
-	-- can query for the value of a model at a certain node and a
-	-- certain column on that node. There are two structures used to
-	-- reference a particular node in a model. They are the GtkTreePath
-	-- and the GtkTreeIter [4] Most of the interface consists of
-	-- operations on a GtkTreeIter.
+	-- Models are accessed on a node/column level of granularity. One can query
+	-- for the value of a model at a certain node and a certain column on that
+	-- node. There are two structures used to reference a particular node in a
+	-- model. They are the GtkTreePath and the GtkTreeIter. Most of the interface
+	-- consists of operations on a GtkTreeIter.
 
-	-- A path is essentially a potential node. It is a location on a
-	-- model that may or may not actually correspond to a node on a
-	-- specific model. The GtkTreePath struct can be converted into
-	-- either an array of unsigned integers or a string. The string
-	-- form is a list of numbers separated by a colon. Each number
-	-- refers to the offset at that level. Thus, the path 0: refers to
-	-- the root node and the path �:4�refers to the fifth child of
+	-- A path is essentially a potential node. It is a location on a model that
+	-- may or may not actually correspond to a node on a specific model. The
+	-- GtkTreePath struct can be converted into either an array of unsigned
+	-- integers or a string. The string form is a list of numbers separated by a
+	-- colon. Each number refers to the offset at that level. Thus, the path 0:
+	-- refers to the root node and the path �:4�refers to the fifth child of
 	-- the third node.
 
 	-- By contrast, a GtkTreeIter is a reference to a specific node on
