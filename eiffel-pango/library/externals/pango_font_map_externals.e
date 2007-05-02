@@ -1,9 +1,7 @@
 indexing
-	description: "The PangoContext structure stores global information used to control the itemization process."
+	description: "External calls for PANGO_FONT_MAP"
 	copyright: "[
-					Copyright (C) 2006-2007 eiffel-libraries team,
-					Soluciones Informaticas Libres S.A. (Except),
-					Pango team
+					Copyright (C) 2006 eiffel-libraries team, Pango team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,24 +17,18 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class PANGO_CONTEXT
+deferred class PANGO_FONT_MAP_EXTERNALS
 
-inherit
-	G_OBJECT
+inherit ANY undefine is_equal, copy end
 
-insert
-	PANGO_CONTEXT_EXTERNALS
+feature {} -- External calls
 
-creation from_external_pointer
-
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(PangoContext)"
+	pango_font_map_get_shape_engine_type (a_handle: POINTER): POINTER is
+		external "C use <pango/pango.h>"
 		end
 
-end -- class PANGO_CONTEXT
+end -- class PANGO_FONT_MAP_EXTERNALS

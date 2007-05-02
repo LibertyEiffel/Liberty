@@ -1,7 +1,9 @@
 indexing
 	description: "Structures representing abstract fonts."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, Pango team
+					Copyright (C) 2006 Paolo Redaelli,
+					Soluciones Informaticas Libres S.A. (Except),
+					Pango team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,6 +20,8 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
 class PANGO_FONT_DESCRIPTION
 	-- The PangoFontDescription structure represents the description of
@@ -25,37 +29,328 @@ class PANGO_FONT_DESCRIPTION
 	-- are available on the system and also for specifying the
 	-- characteristics of a font to load.
 
-inherit SHARED_C_STRUCT
+inherit
+	SHARED_C_STRUCT
+		redefine copy, is_equal, dispose end
 
--- insert FOO_EXTERNALS
+insert
+	PANGO_FONT_DESCRIPTION_EXTERNALS
+	PANGO_STYLE
+	PANGO_VARIANT
+	PANGO_WEIGHT
+	PANGO_FONT_MASK
+	PANGO_STRETCH
 
-creation from_external_pointer
+creation
+	make, from_string, from_external_shared
 
 feature {} -- Creation
-	
--- PANGO_TYPE_FONT_DESCRIPTION
 
--- #define PANGO_TYPE_FONT_DESCRIPTION (pango_font_description_get_type ())
+	make is
+			-- Creates a new font description structure with all fields unset.
+		do
+			from_external_pointer (pango_font_description_new)
+		end
 
--- The GObject type for PangoFontDescription.
+	from_string (a_string: STRING) is
+			-- Creates a new font description from a string representation in
+			-- the form "[FAMILY-LIST] [STYLE-OPTIONS] [SIZE]", where FAMILY-LIST
+			-- is a comma separated list of families optionally terminated by a
+			-- comma, STYLE_OPTIONS is a whitespace separated list of words
+			-- where each WORD describes one of style, variant, weight, or
+			-- stretch, and SIZE is an decimal number (size in points). Any one
+			-- of the options may be absent. If FAMILY-LIST is absent, then the
+			-- family_name field of the resulting font description will be
+			-- initialized to NULL. If STYLE-OPTIONS is missing, then all style
+			-- options will be set to the default values. If SIZE is missing,
+			-- the size in the resulting font description will be set to 0.
+			--
+			-- Example: "Sans Bold 27"
+		do
+			from_external_pointer (pango_font_description_from_string (a_string.to_external))
+		end
 
--- #define PANGO_TYPE_STYLE (pango_style_get_type())
+	from_external_shared (an_external: POINTER) is
+		do
+			from_external_pointer (an_external)
+			set_shared
+		end
 
--- The GObject type for PangoStyle.
+feature -- Access
 
--- #define PANGO_TYPE_WEIGHT (pango_weight_get_type())
+	hash: INTEGER is
+			-- Computes a hash of a PangoFontDescription structure suitable to
+			-- be used, for example, as an argument to g_hash_table_new().
+			-- The hash value is independent of 'mask'.
+		do
+			Result := pango_font_description_hash (handle)
+		end
 
--- The GObject type for PangoWeight.
+	family: STRING is
+			-- Gets the family name field of a font description. See 'set_family'.
+			-- Returns the family name field for the font description, or Void
+			-- if not previously set.
+		local
+			family_ptr: POINTER
+		do
+			family_ptr := pango_font_description_get_family (handle)
+			if not family_ptr.is_null then
+				create Result.from_external_copy (family_ptr)
+			end
+		end
 
-	-- PANGO_TYPE_VARIANT
+	style: INTEGER is
+			-- Gets the style field of a PANGO_FONT_DESCRIPTION. See 'set_style'.
+			-- Use 'get_set_fields' to find out if the field was explicitely set or not.
+		do
+			Result := pango_font_description_get_style (handle)
+		ensure
+			is_valid_pango_style (Result)
+		end
 
--- #define PANGO_TYPE_VARIANT (pango_variant_get_type())
+	font_variant: INTEGER is
+			-- Gets the variant field of a PANGO_FONT_DESCRIPTION. See 'set_variant'.
+			-- Use 'get_set_fields' to find out if the field was explicitely
+			-- set or not.
+			--
+			-- This isn't wrapped simply as 'variant' because we'd be stepping
+			-- on an Eiffel keyword!
+		do
+			Result := pango_font_description_get_variant (handle)
+		ensure
+			is_valid_pango_variant (Result)
+		end
 
--- The GObject type for PangoVariant.
+	weight: INTEGER is
+			-- Gets the weight field of a font description. See 'set_weight'.
+			-- Use 'get_set_fields' to find out if the field was explicitely
+			-- set or not.
+		do
+			Result := pango_font_description_get_weight (handle)
+		ensure
+			is_valid_pango_weight (Result)
+		end
 
--- #define PANGO_TYPE_STRETCH (pango_stretch_get_type())
+	stretch: INTEGER is
+			-- Gets the stretch field of a font description. See 'set_stretch'.
+			-- Use 'get_set_fields' to find out if the field was explicitely
+			-- set or not.
+		do
+			Result := pango_font_description_get_stretch (handle)
+		ensure
+			is_valid_pango_stretch (Result)
+		end
 
--- The GObject type for PangoStretch.
+	size: INTEGER is
+			-- Gets the size field of a font description. See 'set_size'.
+			-- Returns the size field for the font description in points or
+			-- device units. You must call 'size_is_absolute' to find out which
+			-- is the case. Returns 0 if the size field has not previously been
+			-- set. Use 'get_set_fields' to find out if the field was
+			-- explicitely set or not.
+		do
+			Result := pango_font_description_get_size (handle)
+		ensure
+			Result >= 0
+		end
+
+	size_is_absolute: BOOLEAN is
+			-- Determines whether the size of the font is in points or device
+			-- units. See 'set_size' and 'set_absolute_size'.
+			--
+			-- Returns whether the size for the font description is in points or
+			-- device units. Use 'get_set_fields' to find out if the size field
+			-- of the font description was explicitely set or not.
+		do
+			Result := pango_font_description_get_size_is_absolute (handle).to_boolean
+		end
+
+	fields_set: INTEGER is
+			-- Determines which fields in a font description have been set.
+			-- Returns a bitmask with bits set corresponding to the fields that
+			-- have been set.
+		do
+			Result := pango_font_description_get_set_fields (handle)
+		ensure
+			is_valid_pango_font_mask (Result)
+		end
+
+	better_match (a_match, b_match: PANGO_FONT_DESCRIPTION): BOOLEAN is
+			-- Determines if the style attributes of new_match are a closer
+			-- match for desc than old_match, or if a_match is Void,
+			-- determines if b_match is a match at all.
+			-- Approximate matching is done for weight and style; other
+			-- attributes must match exactly.
+		require
+			b_match /= Void
+			-- a_match can be Void
+		local
+			a_ptr: POINTER
+		do
+			if a_match /= Void then
+				a_ptr := a_match.handle
+			end
+			Result := pango_font_description_better_match (handle, a_ptr,
+			                                               b_match.handle).to_boolean
+		end
+
+	to_string: STRING is
+			-- Creates a string representation of a font description.
+			-- See 'from_string' for a description of the format of the string
+			-- representation. The family list in the string description will
+			-- only have a terminating comma if the last word of the list is a
+			-- valid style option.
+		do
+			create Result.from_external (pango_font_description_to_string (handle))
+		end
+
+	to_filename: STRING is
+			-- Creates a filename representation of a font description. The
+			-- filename is identical to the result from calling 'to_string', but
+			-- with underscores instead of characters that are untypical in
+			-- filenames, and in lower case only.
+		do
+			create Result.from_external (pango_font_description_to_filename (handle))
+		end
+
+feature -- Operations
+
+	set_family (a_family: STRING) is
+			-- Sets the family name field of a font description. The family name
+			-- represents a family of related font styles, and will resolve to a
+			-- particular PANGO_FONT_FAMILY. In some uses of
+			-- PANGO_FONT_DESCRIPTION, it is also possible to use a comma
+			-- separated list of family names for this field.
+		do
+			pango_font_description_set_family (handle, a_family.to_external)
+		end
+
+	set_style (a_style: INTEGER) is
+			-- Sets the style field of a PangoFontDescription. The PANGO_STYLE
+			-- enumeration describes whether the font is slanted and the manner
+			-- in which it is slanted; it can be either pango_style_normal,
+			-- pango_style_italic, or pango_style_oblique. Most fonts will
+			-- either have a italic style or an oblique style, but not both,
+			-- and font matching in Pango will match italic specifications with
+			-- oblique fonts and vice-versa if an exact match is not found.
+		require
+			is_valid_pango_style (a_style)
+		do
+			pango_font_description_set_style (handle, a_style)
+		end
+
+	set_variant (a_variant: INTEGER) is
+			-- Sets the variant field of a font description. The PANGO_VARIANT
+			-- can either be pango_variant_normal or pango_variant_small_caps.
+		require
+			is_valid_pango_variant (a_variant)
+		do
+			pango_font_description_set_variant (handle, a_variant)
+		end
+
+	set_weight (a_weight: INTEGER) is
+			-- Sets the weight field of a font description. The weight field
+			-- specifies how bold or light the font should be. In addition to
+			-- the values of the PANGO_WEIGHT enumeration, other intermediate
+			-- numeric values are possible.
+		require
+			is_valid_pango_weight (a_weight)
+		do
+			pango_font_description_set_weight (handle, a_weight)
+		end
+
+	set_stretch (a_stretch: INTEGER) is
+			-- Sets the stretch field of a font description. The stretch field
+			-- specifies how narrow or wide the font should be.
+		require
+			is_valid_pango_stretch (a_stretch)
+		do
+			pango_font_description_set_stretch (handle, a_stretch)
+		end
+
+	set_size (a_size: INTEGER) is
+			-- Sets the size field of a font description in fractional points.
+			-- This is mutually exclusive with 'set_absolute_size'.
+			--
+			-- 'a_size' is the size of the font in points, scaled by
+			-- PANGO_CONSTANTS.pango_scale. (That is, a size value
+			-- of 10 * pango_scale is a 10 point font. The conversion factor
+			-- between points and device units depends on system configuration
+			-- and the output device. For screen display, a logical DPI of 96 is
+			-- common, in which case a 10 point font corresponds to
+			-- a 10 * (96 / 72) = 13.3 pixel font. Use 'set_absolute_size' if
+			-- you need a particular size in device units.
+		do
+			pango_font_description_set_size (handle, a_size)
+		end
+
+	set_absolute_size (an_absolute_size: REAL) is
+			-- Sets the size field of a font description, in device units.
+			-- This is mutually exclusive with 'set_size'.
+			-- 'an_absolute_size' is the new size, in Pango units. There are
+			-- PANGO_CONSTANTS.pango_scale Pango units in one device unit.
+			-- For an output backend where a device unit is a pixel, a size
+			-- value of 10 * PANGO_SCALE gives a 10 pixel font.
+		do
+			pango_font_description_set_absolute_size (handle, an_absolute_size)
+		end
+
+	unset_fields (a_mask: INTEGER) is
+			-- Unsets some of the fields in a PANGO_FONT_DESCRIPTION. The unset
+			-- fields will get back to their default values.
+		require
+			is_valid_pango_font_mask (a_mask)
+		do
+			pango_font_description_unset_fields (handle, a_mask)
+		end
+
+	merge (a_font_description: PANGO_FONT_DESCRIPTION; replace_existing: BOOLEAN) is
+			-- Merges the fields that are set in a_font_description into the
+			-- current font description's fields. If replace_existing is False,
+			-- only fields in the current PANGO_FONT_DESCRIPTION that are not
+			-- already set are affected. If True, then fields that are already
+			-- set will be replaced as well.
+		do
+			pango_font_description_merge (handle, a_font_description.handle,
+			                              replace_existing.to_integer)
+		end
+
+feature -- Copying and comparison
+
+	is_equal (other: PANGO_FONT_DESCRIPTION): BOOLEAN is
+			-- Compares two font descriptions for equality. Two font
+			-- descriptions are considered equal if the fonts they describe are
+			-- probably identical. This means that their masks do not have to
+			-- match, as long as other fields are all the same. (Two font
+			-- descriptions may result in identical fonts being loaded, but
+			-- still compare FALSE.)
+		do
+			Result := pango_font_description_equal (handle, other.handle).to_boolean
+		end
+
+	copy (a_font_description: PANGO_FONT_DESCRIPTION) is
+			-- Make a copy of a PANGO_FONT_DESCRIPTION.
+		do
+			dispose
+			from_external_pointer (pango_font_description_copy (a_font_description.handle))
+		end
+
+feature -- Disposing
+
+	dispose is
+			-- Frees a font description.
+		do
+			unstore_eiffel_wrapper
+			if not is_shared then
+				pango_font_description_free (handle)
+			end
+			handle:= default_pointer
+		end
+
+
+
+
+
 -- enum PangoFontMask
 
 -- typedef enum {
@@ -79,293 +374,13 @@ feature {} -- Creation
 -- #define PANGO_TYPE_FONT_MASK (pango_font_mask_get_type())
 
 -- The GObject type for PangoFontMask.
--- pango_font_description_new ()
 
--- PangoFontDescription* pango_font_description_new
---                                             (void);
 
--- Creates a new font description structure with all fields unset.
 
--- Returns : 	the newly allocated PangoFontDescription, which should be freed using pango_font_description_free().
--- pango_font_description_copy ()
 
--- PangoFontDescription* pango_font_description_copy
---                                             (const PangoFontDescription *desc);
 
--- Make a copy of a PangoFontDescription.
 
--- desc : 	a PangoFontDescription
--- Returns : 	the newly allocated PangoFontDescription, which should be freed with pango_font_description_free().
--- pango_font_description_copy_static ()
 
--- PangoFontDescription* pango_font_description_copy_static
---                                             (const PangoFontDescription *desc);
-
--- Like pango_font_description_copy(), but only a shallow copy is made of the family name and other allocated fields. The result can only be used until desc is modififed or freed. This is meant to be used when the copy is only needed temporarily.
-
--- desc : 	a PangoFontDescription
--- Returns : 	the newly allocated PangoFontDescription, which should be freed with pango_font_description_free().
--- pango_font_description_hash ()
-
--- guint       pango_font_description_hash     (const PangoFontDescription *desc);
-
--- Computes a hash of a PangoFontDescription structure suitable to be used, for example, as an argument to g_hash_table_new(). The hash value is independent of desc->mask.
-
--- desc : 	a PangoFontDescription
--- Returns : 	the hash value.
--- pango_font_description_equal ()
-
--- gboolean    pango_font_description_equal    (const PangoFontDescription *desc1,
---                                              const PangoFontDescription *desc2);
-
--- Compares two font descriptions for equality. Two font descriptions are considered equal if the fonts they describe are provably identical. This means that their maskd do not have to match, as long as other fields are all the same. (Two font descrptions may result in identical fonts being loaded, but still compare FALSE.)
-
--- desc1 : 	a PangoFontDescription
--- desc2 : 	another PangoFontDescription
--- Returns : 	TRUE if the two font descriptions are identical, FALSE otherwise.
--- pango_font_description_free ()
-
--- void        pango_font_description_free     (PangoFontDescription *desc);
-
--- Frees a font description.
-
--- desc : 	a PangoFontDescription
--- pango_font_descriptions_free ()
-
--- void        pango_font_descriptions_free    (PangoFontDescription **descs,
---                                              int n_descs);
-
--- Frees a list of font descriptions from pango_font_map_list_fonts()
-
--- descs : 	a pointer to an array of PangoFontDescription
--- n_descs : 	number of font descriptions in descs
--- pango_font_description_set_family ()
-
--- void        pango_font_description_set_family
---                                             (PangoFontDescription *desc,
---                                              const char *family);
-
--- Sets the family name field of a font description. The family name represents a family of related font styles, and will resolve to a particular PangoFontFamily. In some uses of PangoFontDescription, it is also possible to use a comma separated list of family names for this field.
-
--- desc : 	a PangoFontDescription.
--- family : 	a string representing the family name.
--- pango_font_description_set_family_static ()
-
--- void        pango_font_description_set_family_static
---                                             (PangoFontDescription *desc,
---                                              const char *family);
-
--- Like pango_font_description_set_family(), except that no copy of family is made. The caller must make sure that the string passed in stays around until desc has been freed or the name is set again. This function can be used if family is a static string such as a C string literal, or if desc is only needed temporarily.
-
--- desc : 	a PangoFontDescription
--- family : 	a string representing the family name.
--- pango_font_description_get_family ()
-
--- const char* pango_font_description_get_family
---                                             (const PangoFontDescription *desc);
-
--- Gets the family name field of a font description. See pango_font_description_set_family().
-
--- desc : 	a PangoFontDescription.
--- Returns : 	the family name field for the font description, or NULL if not previously set. This has the same life-time as the font description itself and should not be freed.
--- pango_font_description_set_style ()
-
--- void        pango_font_description_set_style
---                                             (PangoFontDescription *desc,
---                                              PangoStyle style);
-
--- Sets the style field of a PangoFontDescription. The PangoStyle enumeration describes whether the font is slanted and the manner in which it is slanted; it can be either PANGO_STYLE_NORMAL, PANGO_STYLE_ITALIC, or PANGO_STYLE_OBLIQUE. Most fonts will either have a italic style or an oblique style, but not both, and font matching in Pango will match italic specifications with oblique fonts and vice-versa if an exact match is not found.
-
--- desc : 	a PangoFontDescription
--- style : 	the style for the font description
--- pango_font_description_get_style ()
-
--- PangoStyle  pango_font_description_get_style
---                                             (const PangoFontDescription *desc);
-
--- Gets the style field of a PangoFontDescription. See pango_font_description_set_style().
-
--- desc : 	a PangoFontDescription
--- Returns : 	the style field for the font description. Use pango_font_description_get_set_fields() to find out if the field was explicitely set or not.
--- pango_font_description_set_variant ()
-
--- void        pango_font_description_set_variant
---                                             (PangoFontDescription *desc,
---                                              PangoVariant variant);
-
--- Sets the variant field of a font description. The PangoVariant can either be PANGO_VARIANT_NORMAL or PANGO_VARIANT_SMALL_CAPS.
-
--- desc : 	a PangoFontDescription
--- variant : 	the variant type for the font description.
--- pango_font_description_get_variant ()
-
--- PangoVariant pango_font_description_get_variant
---                                             (const PangoFontDescription *desc);
-
--- Gets the variant field of a PangoFontDescription. See pango_font_description_set_variant().
-
--- desc : 	a PangoFontDescription.
--- Returns : 	the variant field for the font description. Use pango_font_description_get_set_fields() to find out if the field was explicitely set or not.
--- pango_font_description_set_weight ()
-
--- void        pango_font_description_set_weight
---                                             (PangoFontDescription *desc,
---                                              PangoWeight weight);
-
--- Sets the weight field of a font description. The weight field specifies how bold or light the font should be. In addition to the values of the PangoWeight enumeration, other intermediate numeric values are possible.
-
--- desc : 	a PangoFontDescription
--- weight : 	the weight for the font description.
--- pango_font_description_get_weight ()
-
--- PangoWeight pango_font_description_get_weight
---                                             (const PangoFontDescription *desc);
-
--- Gets the weight field of a font description. See pango_font_description_set_weight().
-
--- desc : 	a PangoFontDescription
--- Returns : 	the weight field for the font description. Use pango_font_description_get_set_fields() to find out if the field was explicitely set or not.
--- pango_font_description_set_stretch ()
-
--- void        pango_font_description_set_stretch
---                                             (PangoFontDescription *desc,
---                                              PangoStretch stretch);
-
--- Sets the stretch field of a font description. The stretch field specifies how narrow or wide the font should be.
-
--- desc : 	a PangoFontDescription
--- stretch : 	the stretch for the font description
--- pango_font_description_get_stretch ()
-
--- PangoStretch pango_font_description_get_stretch
---                                             (const PangoFontDescription *desc);
-
--- Gets the stretch field of a font description. See pango_font_description_set_stretch().
-
--- desc : 	a PangoFontDescription.
--- Returns : 	the stretch field for the font description. Use pango_font_description_get_set_fields() to find out if the field was explicitely set or not.
--- pango_font_description_set_size ()
-
--- void        pango_font_description_set_size (PangoFontDescription *desc,
---                                              gint size);
-
--- Sets the size field of a font description in fractional points. This is mutually exclusive with pango_font_description_set_absolute_size().
-
--- desc : 	a PangoFontDescription
--- size : 	the size of the font in points, scaled by PANGO_SCALE. (That is, a size value of 10 * PANGO_SCALE is a 10 point font. The conversion factor between points and device units depends on system configuration and the output device. For screen display, a logical DPI of 96 is common, in which case a 10 point font corresponds to a 10 * (96 / 72) = 13.3 pixel font. Use pango_font_description_set_absolute_size() if you need a particular size in device units.
--- pango_font_description_get_size ()
-
--- gint        pango_font_description_get_size (const PangoFontDescription *desc);
-
--- Gets the size field of a font description. See pango_font_description_get_size().
-
--- desc : 	a PangoFontDescription
--- Returns : 	the size field for the font description in points or device units. You must call pango_font_description_get_size_is_absolute() to find out which is the case. Returns 0 if the size field has not previously been set. pango_font_description_get_set_fields() to find out if the field was explicitely set or not.
--- pango_font_description_set_absolute_size ()
-
--- void        pango_font_description_set_absolute_size
---                                             (PangoFontDescription *desc,
---                                              double size);
-
--- Sets the size field of a font description, in device units. This is mutually exclusive with pango_font_description_set_size().
-
--- desc : 	a PangoFontDescription
--- size : 	the new size, in Pango units. There are PANGO_SCALE Pango units in one device unit. For an output backend where a device unit is a pixel, a size value of 10 * PANGO_SCALE gives a 10 pixel font.
-
--- Since 1.8
--- pango_font_description_get_size_is_absolute ()
-
--- gboolean    pango_font_description_get_size_is_absolute
---                                             (const PangoFontDescription *desc);
-
--- Determines whether the size of the font is in points or device units. See pango_font_description_set_size() and pango_font_description_set_absolute_size().
-
--- desc : 	a PangoFontDescription
--- Returns : 	whether the size for the font description is in points or device units. Use pango_font_description_get_set_fields() to find out if the size field of the font description was explicitely set or not.
-
--- Since 1.8
--- pango_font_description_get_set_fields ()
-
--- PangoFontMask pango_font_description_get_set_fields
---                                             (const PangoFontDescription *desc);
-
--- Determines which fields in a font description have been set.
-
--- desc : 	a PangoFontDescription
--- Returns : 	a bitmask with bits set corresponding to the fields in desc that have been set.
--- pango_font_description_unset_fields ()
-
--- void        pango_font_description_unset_fields
---                                             (PangoFontDescription *desc,
---                                              PangoFontMask to_unset);
-
--- Unsets some of the fields in a PangoFontDescription. The unset fields will get back to their default values.
-
--- desc : 	a PangoFontDescription
--- to_unset : 	bitmask of fields in the desc to unset.
--- pango_font_description_merge ()
-
--- void        pango_font_description_merge    (PangoFontDescription *desc,
---                                              const PangoFontDescription *desc_to_merge,
---                                              gboolean replace_existing);
-
--- Merges the fields that are set in desc_to_merge into the fields in desc. If replace_existing is FALSE, only fields in desc that are not already set are affected. If TRUE, then fields that are already set will be replaced as well.
-
--- desc : 	a PangoFontDescription
--- desc_to_merge : 	the PangoFontDescription to merge from
--- replace_existing : 	if TRUE, replace fields in desc with the corresponding values from desc_to_merge, even if they are already exist.
--- pango_font_description_merge_static ()
-
--- void        pango_font_description_merge_static
---                                             (PangoFontDescription *desc,
---                                              const PangoFontDescription *desc_to_merge,
---                                              gboolean replace_existing);
-
--- Like pango_font_description_merge(), but only a shallow copy is made of the family name and other allocated fields. desc can only be used until desc_to_merge is modified or freed. This is meant to be used when the merged font description is only needed temporarily.
-
--- desc : 	a PangoFontDescription
--- desc_to_merge : 	the PangoFontDescription to merge from
--- replace_existing : 	if TRUE, replace fields in desc with the corresponding values from desc_to_merge, even if they are already exist.
--- pango_font_description_better_match ()
-
--- gboolean    pango_font_description_better_match
---                                             (const PangoFontDescription *desc,
---                                              const PangoFontDescription *old_match,
---                                              const PangoFontDescription *new_match);
-
--- Determines if the style attributes of new_match are a closer match for desc than old_match, or if old_match is NULL, determines if new_match is a match at all. Approximate matching is done for weight and style; other attributes must match exactly.
-
--- desc : 	a PangoFontDescription
--- old_match : 	a PangoFontDescription, or NULL
--- new_match : 	a PangoFontDescription
--- Returns : 	TRUE if new_match is a better match
--- pango_font_description_from_string ()
-
--- PangoFontDescription* pango_font_description_from_string
---                                             (const char *str);
-
--- Creates a new font description from a string representation in the form "[FAMILY-LIST] [STYLE-OPTIONS] [SIZE]", where FAMILY-LIST is a comma separated list of families optionally terminated by a comma, STYLE_OPTIONS is a whitespace separated list of words where each WORD describes one of style, variant, weight, or stretch, and SIZE is an decimal number (size in points). Any one of the options may be absent. If FAMILY-LIST is absent, then the family_name field of the resulting font description will be initialized to NULL. If STYLE-OPTIONS is missing, then all style options will be set to the default values. If SIZE is missing, the size in the resulting font description will be set to 0.
-
--- str : 	string representation of a font description.
--- Returns : 	a new PangoFontDescription.
--- pango_font_description_to_string ()
-
--- char*       pango_font_description_to_string
---                                             (const PangoFontDescription *desc);
-
--- Creates a string representation of a font description. See pango_font_description_from_string() for a description of the format of the string representation. The family list in the string description will only have a terminating comma if the last word of the list is a valid style option.
-
--- desc : 	a PangoFontDescription
--- Returns : 	a new string that must be freed with g_free().
--- pango_font_description_to_filename ()
-
--- char*       pango_font_description_to_filename
---                                             (const PangoFontDescription *desc);
-
--- Creates a filename representation of a font description. The filename is identical to the result from calling pango_font_description_to_string(), but with underscores instead of characters that are untypical in filenames, and in lower case only.
-
--- desc : 	a PangoFontDescription
--- Returns : 	a new string that must be freed with g_free().
 -- PangoFontMetrics
 
 -- typedef struct {
@@ -798,90 +813,6 @@ feature {} -- Creation
 
 -- Since 1.4
 
-feature {} -- External calls
-
-												-- #define     PANGO_TYPE_FONT_DESCRIPTION
-	-- enum        PangoStyle;
-	-- #define     PANGO_TYPE_STYLE
-	-- enum        PangoWeight;
-	-- #define     PANGO_TYPE_WEIGHT
--- enum        PangoVariant;
--- #define     PANGO_TYPE_VARIANT
--- enum        PangoStretch;
--- #define     PANGO_TYPE_STRETCH
--- enum        PangoFontMask;
--- #define     PANGO_TYPE_FONT_MASK
--- PangoFontDescription* pango_font_description_new
---                                             (void);
--- PangoFontDescription* pango_font_description_copy
---                                             (const PangoFontDescription *desc);
--- PangoFontDescription* pango_font_description_copy_static
---                                             (const PangoFontDescription *desc);
--- guint       pango_font_description_hash     (const PangoFontDescription *desc);
--- gboolean    pango_font_description_equal    (const PangoFontDescription *desc1,
---                                              const PangoFontDescription *desc2);
--- void        pango_font_description_free     (PangoFontDescription *desc);
--- void        pango_font_descriptions_free    (PangoFontDescription **descs,
---                                              int n_descs);
--- void        pango_font_description_set_family
---                                             (PangoFontDescription *desc,
---                                              const char *family);
--- void        pango_font_description_set_family_static
---                                             (PangoFontDescription *desc,
---                                              const char *family);
--- const char* pango_font_description_get_family
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_style
---                                             (PangoFontDescription *desc,
---                                              PangoStyle style);
--- PangoStyle  pango_font_description_get_style
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_variant
---                                             (PangoFontDescription *desc,
---                                              PangoVariant variant);
--- PangoVariant pango_font_description_get_variant
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_weight
---                                             (PangoFontDescription *desc,
---                                              PangoWeight weight);
--- PangoWeight pango_font_description_get_weight
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_stretch
---                                             (PangoFontDescription *desc,
---                                              PangoStretch stretch);
--- PangoStretch pango_font_description_get_stretch
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_set_size (PangoFontDescription *desc,
---                                              gint size);
--- gint        pango_font_description_get_size (const PangoFontDescription *desc);
--- void        pango_font_description_set_absolute_size
---                                             (PangoFontDescription *desc,
---                                              double size);
--- gboolean    pango_font_description_get_size_is_absolute
---                                             (const PangoFontDescription *desc);
--- PangoFontMask pango_font_description_get_set_fields
---                                             (const PangoFontDescription *desc);
--- void        pango_font_description_unset_fields
---                                             (PangoFontDescription *desc,
---                                              PangoFontMask to_unset);
--- void        pango_font_description_merge    (PangoFontDescription *desc,
---                                              const PangoFontDescription *desc_to_merge,
---                                              gboolean replace_existing);
--- void        pango_font_description_merge_static
---                                             (PangoFontDescription *desc,
---                                              const PangoFontDescription *desc_to_merge,
---                                              gboolean replace_existing);
--- gboolean    pango_font_description_better_match
---                                             (const PangoFontDescription *desc,
---                                              const PangoFontDescription *old_match,
---                                              const PangoFontDescription *new_match);
--- PangoFontDescription* pango_font_description_from_string
---                                             (const char *str);
--- char*       pango_font_description_to_string
---                                             (const PangoFontDescription *desc);
--- char*       pango_font_description_to_filename
---                                             (const PangoFontDescription *desc);
-
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
@@ -889,4 +820,3 @@ feature -- size
 		end
 
 end -- PANGO_FONT_DESCRIPTION
-												

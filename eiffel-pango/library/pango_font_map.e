@@ -1,7 +1,9 @@
 indexing
-	description: "."
+	description: "PangoFontMap - Base class for font maps, should be inherited by the different renderers"
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, Pango team
+					Copyright (C) 2007 Paolo Redaelli,
+					Soluciones Informaticas Libres S.A. (Except),
+					Pango team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,41 +20,26 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
-class PANGO_FONT_MAP
+deferred class PANGO_FONT_MAP
 
-inherit G_OBJECT
+	-- Known Derived Interfaces: PangoFcFontMap, PangoCairoFontMap.
 
-	-- NOTE: PangoFcFontMap is a know heir of PangoFontMap (at C level).
+inherit
+	G_OBJECT
 
-	-- Known Derived Interfaces: PangoFontMap is required by
-	-- PangoCairoFontMap.
+insert
+	PANGO_FONT_MAP_EXTERNALS
 
-creation make, from_external_pointer
+feature
 
-feature {} -- Creation
-
---             PangoFontMap;
--- #define     PANGO_TYPE_FONT_MAP
--- #define     PANGO_FONT_MAP                  (object)
--- #define     PANGO_IS_FONT_MAP               (object)
---             PangoFontMapClass;
--- #define     PANGO_FONT_MAP_CLASS            (klass)
--- #define     PANGO_IS_FONT_MAP_CLASS         (klass)
--- #define     PANGO_FONT_MAP_GET_CLASS        (obj)e
-
--- PangoFont*  pango_font_map_load_font        (PangoFontMap *fontmap,
---                                              PangoContext *context,
---                                              const PangoFontDescription 
---                                              *desc);
--- PangoFontset* pango_font_map_load_fontset   (PangoFontMap *fontmap,
---                                              PangoContext *context,
---                                              const PangoFontDescription *desc,
---                                              PangoLanguage *language);
--- void        pango_font_map_list_families    (PangoFontMap *fontmap,
---                                              PangoFontFamily ***families,
---                                              int *n_families);
--- const char* pango_font_map_get_shape_engine_type
---                                             (PangoFontMap *fontmap);
+	get_shape_engine_type: STRING is
+			-- Returns the render ID for shape engines for this fontmap.
+			-- See the render_type of PANGO_ENGINE_INFO.
+		do
+			create Result.from_external_copy (pango_font_map_get_shape_engine_type (handle)
+		end
 
 end -- class PANGO_FONT_MAP

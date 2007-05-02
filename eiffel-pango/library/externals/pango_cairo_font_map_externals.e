@@ -1,7 +1,7 @@
 indexing
-	description: "An enumeration specifying capitalization variant of the font."
+	description: "External calls for PANGO_CAIRO_FONT_MAP"
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, Pango team
+					Copyright (C) 2006 eiffel-libraries team, Pango team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,31 +18,33 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
-deferred class PANGO_VARIANT
+deferred class PANGO_CAIRO_FONT_MAP_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
+feature {} -- External calls
 
-feature {} -- enum
-	is_valid_variant (a_variant :INTEGER): BOOLEAN is
-		do	
-			Result:=((a_variant = pango_variant_normal) or else
-						(a_variant = pango_variant_small_caps))
+	pango_cairo_font_map_new: POINTER is
+		external "C use <pango/pangocairo.h>"
 		end
 
+	pango_cairo_font_map_get_default: POINTER is
+		external "C use <pango/pangocairo.h>"
+		end
 
-	pango_variant_normal: INTEGER is
-			-- A normal font.
-      external "C macro use <pango/pango.h>"
-      alias "PANGO_VARIANT_NORMAL"
-      end
-	
-	pango_variant_small_caps: INTEGER is
-			-- A font with the lower case characters replaced by smaller
-			-- variants of the capital characters.
-      external "C macro use <pango/pango.h>"
-      alias "PANGO_VARIANT_SMALL_CAPS"
-      end
+	pango_cairo_font_set_resolution (a_handle: POINTER; a_dpi: REAL) is
+		external "C use <pango/pangocairo.h>"
+		end
 
-end -- PANGO_VARIANT
+	pango_cairo_font_get_resolution (a_handle: POINTER): REAL is
+		external "C use <pango/pangocairo.h>"
+		end
+
+	pango_cairo_font_map_create_context: POINTER is
+		external "C use <pango/pangocairo.h>"
+		end
+
+end -- class PANGO_CAIRO_FONT_MAP_EXTERNALS

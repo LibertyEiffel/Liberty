@@ -23,8 +23,6 @@ class PANGO_FONT_FACE
 
 inherit G_OBJECT
 
---insert FOO_EXTERNALS
-
 creation make, from_external_pointer
 
 feature {} -- Creation

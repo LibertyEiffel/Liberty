@@ -18,6 +18,8 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
 class PANGO_LAYOUT
 
@@ -115,6 +117,20 @@ feature -- Access
 			Result := pango_layout_get_justify (handle).to_boolean
 		end
 
+	font_description: PANGO_FONT_DESCRIPTION is
+			-- Gets the font description for the layout, if any.
+			-- Returns a pointer to the layout's font description, or Void if
+			-- the font description from the layout's context is inherited.
+			-- This value owned by the layout and *must not be modified*.
+		local
+			fd_ptr: POINTER
+		do
+			fd_ptr := pango_layout_get_font_description (handle)
+			if fd_ptr.is_not_null then
+				create Result.from_external_shared (fd_ptr)
+			end
+		end
+
 feature -- Operations
 
 	context_changed is
@@ -202,6 +218,20 @@ feature -- Operations
 			pango_layout_set_justify (handle, a_justify.to_integer)
 		ensure
 			justify = a_justify
+		end
+
+	set_font_description (a_font_description: PANGO_FONT_DESCRIPTION) is
+			-- Sets the default font description for the layout. If no font
+			-- description is set on the layout, the font description from the
+			-- layout's context is used.
+			-- a_font_description can be Void to unset the current font description.
+		local
+			fd_ptr: POINTER
+		do
+			if a_font_description /= Void then
+				fd_ptr := a_font_description.handle
+			end
+			pango_layout_set_font_description (handle, fd_ptr)
 		end
 
 end -- class PANGO_LAYOUT

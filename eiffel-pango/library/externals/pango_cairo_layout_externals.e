@@ -1,9 +1,8 @@
 indexing
-	description: "The PangoContext structure stores global information used to control the itemization process."
+	description: "External calls for features of PANGO_CAIRO_LAYOUT"
 	copyright: "[
-					Copyright (C) 2006-2007 eiffel-libraries team,
-					Soluciones Informaticas Libres S.A. (Except),
-					Pango team
+					Copyright (C) 2007 Soluciones Informaticas Libres S.A. (Except),
+					                   Pango team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,24 +18,32 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class PANGO_CONTEXT
+deferred class PANGO_CAIRO_LAYOUT_EXTERNALS
 
 inherit
-	G_OBJECT
+	ANY
+		undefine is_equal, copy end
 
-insert
-	PANGO_CONTEXT_EXTERNALS
+feature {} -- External calls
 
-creation from_external_pointer
-
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(PangoContext)"
+	pango_cairo_create_layout (a_cairo: POINTER): POINTER is
+		external "C use <pango/pangocairo.h>"
 		end
 
-end -- class PANGO_CONTEXT
+	pango_cairo_show_layout (a_cairo, a_layout: POINTER) is
+		external "C use <pango/pangocairo.h>"
+		end
+
+	pango_cairo_layout_path (a_cairo, a_layout: POINTER) is
+		external "C use <pango/pangocairo.h>"
+		end
+
+	pango_cairo_update_layout (a_cairo, a_layout: POINTER) is
+		external "C use <pango/pangocairo.h>"
+		end
+
+end -- class PANGO_CAIRO_LAYOUT_EXTERNALS

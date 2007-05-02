@@ -87,4 +87,12 @@ feature {} -- External calls
 		external "C use <pango/pango-layout.h>"
 		end
 
+	pango_layout_get_font_description (a_layout: POINTER): POINTER is
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_set_font_description (a_layout, a_font_description: POINTER) is
+		external "C use <pango/pango-layout.h>"
+		end
+
 end -- class PANGO_LAYOUT_EXTERNALS
