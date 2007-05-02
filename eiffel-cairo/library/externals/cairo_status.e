@@ -40,7 +40,7 @@ feature
 	is_valid_cairo_status (a_status: INTEGER): BOOLEAN is
 		do
 			Result := a_status.in_range (cairo_status_success,
-			                             cairo_status_clip_not_representable)
+			                             cairo_status_invalid_dash)
 		end
 
 	cairo_status_success: INTEGER is
@@ -163,23 +163,26 @@ feature
 		alias "CAIRO_STATUS_INVALID_DASH"
 		end
 
-	cairo_status_invalid_dsc_comment: INTEGER is
-			-- invalid value for a DSC comment (Since 1.2)
-		external "C macro use <cairo.h>"
-		alias "CAIRO_STATUS_INVALID_DSC_COMMENT"
-		end
+--  In version 1.2
+--	cairo_status_invalid_dsc_comment: INTEGER is
+--			-- invalid value for a DSC comment (Since 1.2)
+--		external "C macro use <cairo.h>"
+--		alias "CAIRO_STATUS_INVALID_DSC_COMMENT"
+--		end
 
-	cairo_status_invalid_index: INTEGER is
-			-- invalid index passed to getter (Since 1.4)
-		external "C macro use <cairo.h>"
-		alias "CAIRO_STATUS_INVALID_INDEX"
-		end
+--  In version 1.2
+--	cairo_status_invalid_index: INTEGER is
+--			-- invalid index passed to getter (Since 1.4)
+--		external "C macro use <cairo.h>"
+--		alias "CAIRO_STATUS_INVALID_INDEX"
+--		end
 
-	cairo_status_clip_not_representable: INTEGER is
-			-- clip region not representable in desired format (Since 1.4)
-		external "C macro use <cairo.h>"
-		alias "CAIRO_STATUS_CLIP_NOT_REPRESENTABLE"
-		end
+--  In version 1.4
+--	cairo_status_clip_not_representable: INTEGER is
+--			-- clip region not representable in desired format (Since 1.4)
+--		external "C macro use <cairo.h>"
+--		alias "CAIRO_STATUS_CLIP_NOT_REPRESENTABLE"
+--		end
 
 	cairo_status_to_string (a_status: INTEGER): POINTER is
 			-- Don't call this method directly, use status_to_string instead!

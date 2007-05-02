@@ -84,6 +84,8 @@ feature {} -- Creation
 			cairo_surface_destroy(handle)
 		end
 
+feature -- Operations
+
 	finish is
 			-- Finishes the surface and drops all references to external
 			-- resources. For example, for the Xlib backend it means that

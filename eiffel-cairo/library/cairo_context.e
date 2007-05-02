@@ -679,7 +679,7 @@ feature -- Dashing
 			cairo_fill (handle)
 		end
 
-	preserve is
+	fill_preserve is
 			-- A drawing operator that fills the current path according
 			-- to the current fill rule, (each sub-path is implicitly
 			-- closed before being filled). Unlike `fill',

@@ -198,20 +198,23 @@ feature {} -- Hidden
 	dispose is
 			-- Decreases the reference count on pattern by one. If the
 			-- result is zero, then pattern and all associated resources
-			-- are freed. See `reference'
+			-- are freed. See `ref'
 		do
 			cairo_pattern_destroy(handle)
 		end
 
-	reference is
+	ref is
 			-- Increases the reference count on pattern by one. This
 			-- prevents pattern from being destroyed until a matching
 			-- call to cairo_pattern_destroy() is made.
-
+			--
 			-- This feature is currently hidden because memory handling 
 			-- should be automatically done by Eiffel garbage collector.
+			--
+			-- Wrapped as 'ref' to not collide with SHARED_C_STRUCT.reference
 		local p: POINTER
 		do
-			p:=cairo_pattern_reference(handle)
+			p := cairo_pattern_reference(handle)
 		end
+
 end -- class CAIRO_PATTERN
