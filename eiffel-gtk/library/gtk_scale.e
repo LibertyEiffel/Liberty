@@ -188,24 +188,51 @@ feature -- TODO: Property Details
 
 -- Default value: 2
 -- Signal Details
--- The "format-value" signal
 
--- gchar*      user_function                  (GtkScale *scale,
---                                             gdouble arg1,
---                                             gpointer user_data);
+feature -- The "format-value" signal
 
--- Signal which allows you to change how the scale value is displayed. Connect a signal handler which returns an allocated string representing value. That string will then be used to display the scale's value. Here's an example signal handler which displays a value 1.0 as with "-->1.0<--".
+		-- Signal which allows you to change how the scale value is displayed.
+		-- Connect a signal handler which returns an allocated string representing
+		-- value. That string will then be used to display the scale's value.
+		-- Here's an example signal handler which displays a value 1.0 as with
+		-- "-->1.0<--".
+		
+		-- static gchar*
+		-- format_value_callback (GtkScale *scale,
+		--                        gdouble   value)
+		-- {
+		--   return g_strdup_printf ("-->%0.*g<--",
+		--                           gtk_scale_get_digits (scale), value);
+		-- }
 
--- static gchar*
--- format_value_callback (GtkScale *scale,
---                        gdouble   value)
--- {
---   return g_strdup_printf ("-->%0.*g<--",
---                           gtk_scale_get_digits (scale), value);
--- }
+	format_value_signal_name: STRING is "format-value"
+		-- gchar*      user_function                  (GtkScale *scale,
+		--                                             gdouble arg1,
+		--                                             gpointer user_data);
 
--- scale : 	the object which received the signal.
--- arg1 : 	
--- user_data : 	user data set when the signal handler was connected.
--- Returns : 	allocated string representing value
+	enable_on_format_value is
+			-- Connects "format-value" signal to `on_format_value' feature.
+		do
+			connect (Current, format_value_signal_name, $on_format_value)
+		end
+
+	on_format_value: INTEGER is
+			-- Built-in format-value signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_format_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING]) is
+			-- scale : 	the object which received the signal.
+			-- arg1 : 	
+			-- Returns : 	allocated string representing value
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			format_value_callback: FORMAT_VALUE_CALLBACK
+		do
+			create format_value_callback.make
+			format_value_callback.connect (Current, a_function)
+		end
+
 end

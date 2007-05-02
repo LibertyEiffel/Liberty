@@ -265,26 +265,58 @@ feature -- TODO: Signal Details
 -- range : 	the object which received the signal.
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
--- The "change-value" signal
 
--- gboolean    user_function                  (GtkRange *range,
---                                             GtkScrollType scroll,
---                                             gdouble value,
---                                             gpointer user_data);
+feature -- The "change-value" signal
 
--- The ::change-value signal is emitted when a scroll action is performed on a range. It allows an application to determine the type of scroll event that occurred and the resultant new value. The application can handle the event itself and return TRUE to prevent further processing. Or, by returning FALSE, it can pass the event to other handlers until the default GTK+ handler is reached.
+		-- Since 2.6
+		-- The `change-value' signal is emitted when a scroll action is
+		-- performed on a range. It allows an application to determine the type of
+		-- scroll event that occurred and the resultant new value. The application
+		-- can handle the event itself and return True to prevent further
+		-- processing. Or, by returning False, it can pass the event to other
+		-- handlers until the default GTK+ handler is reached.
 
--- The value parameter is unrounded. An application that overrides the ::change-value signal is responsible for clamping the value to the desired number of decimal digits; the default GTK+ handler clamps the value based on range->round_digits.
+		-- The value parameter is unrounded. An application that overrides the
+		-- `change-value' signal is responsible for clamping the value to the
+		-- desired number of decimal digits; the default GTK+ handler clamps the
+		-- value based on range->round_digits.
 
--- It is not possible to use delayed update policies in an overridden ::change-value handler.
+		-- It is not possible to use delayed update policies in an overridden
+		-- `change-value' handler.
 
--- range : 	the range that received the signal.
--- scroll : 	the type of scroll action that was performed.
--- value : 	the new value resulting from the scroll action.
--- returns : 	TRUE to prevent other handlers from being invoked for the signal. FALSE to propagate the signal further.
--- user_data : 	user data set when the signal handler was connected.
+	change_value_signal_name: STRING is "change-value"
+		-- gboolean    user_function                  (GtkRange *range,
+		--                                             GtkScrollType scroll,
+		--                                             gdouble value,
+		--                                             gpointer user_data);
 
--- Since 2.6
+	enable_on_change_value is
+			-- Connects "change-value" signal to `on_change_value' feature.
+		do
+			connect (Current, change_value_signal_name, $on_change_value)
+		end
+
+	on_change_value: INTEGER is
+			-- Built-in change-value signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_change_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]) is
+			-- range : the range that received the signal.
+			-- scroll: the type of scroll action that was performed.
+			-- value : the new value resulting from the scroll action.
+			-- returns:	True to prevent other handlers from being invoked for the signal.
+			--          False to propagate the signal further.
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			change_value_callback: CHANGE_VALUE_CALLBACK
+		do
+			create change_value_callback.make
+			change_value_callback.connect (Current, a_function)
+		end
+
 -- The "move-slider" signal
 
 -- void        user_function                  (GtkRange *range,
