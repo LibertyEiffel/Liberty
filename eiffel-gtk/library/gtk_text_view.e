@@ -695,8 +695,9 @@ feature -- Pixels above and below lines
 			-- in text_view. Tags in the buffer may override the
 			-- defaults.
 		do
-			gtk_text_view_set_pixels_above_lines(handle,a_number)
-		ensure set: pixels_above_line = a_setting
+			gtk_text_view_set_pixels_above_lines (handle, a_setting)
+		ensure
+			set: pixels_above_lines = a_setting
 		end
 
 	pixels_above_lines: INTEGER is
@@ -711,7 +712,8 @@ feature -- Pixels above and below lines
 			-- applied to text_view's buffer.
 		do
 			gtk_text_view_set_pixels_below_lines(handle,a_setting)
-		ensure set: pixels_below_lines=a_setting
+		ensure
+			set: pixels_below_lines = a_setting
 		end
 
 	pixels_below_lines: INTEGER is
@@ -726,7 +728,8 @@ feature -- Pixels above and below lines
 			-- overridden by tags in text_view's buffer.
 		do
 			gtk_text_view_set_pixels_inside_wrap(handle,a_setting) 
-		ensure set: pixels_inside_wrap = a_setting
+		ensure
+			set: pixels_inside_wrap = a_setting
 		end
 
 	pixels_inside_wrap: INTEGER is
