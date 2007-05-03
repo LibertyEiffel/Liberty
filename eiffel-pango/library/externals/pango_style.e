@@ -30,7 +30,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_pango_style (a_style :INTEGER): BOOLEAN is
+	is_valid_style (a_style :INTEGER): BOOLEAN is
 		do
 			Result:=((a_style = pango_style_normal) or else
 						(a_style = pango_style_oblique) or else

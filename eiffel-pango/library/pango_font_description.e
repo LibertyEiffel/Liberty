@@ -105,7 +105,7 @@ feature -- Access
 		do
 			Result := pango_font_description_get_style (handle)
 		ensure
-			is_valid_pango_style (Result)
+			is_valid_style (Result)
 		end
 
 	font_variant: INTEGER is
@@ -118,7 +118,7 @@ feature -- Access
 		do
 			Result := pango_font_description_get_variant (handle)
 		ensure
-			is_valid_pango_variant (Result)
+			is_valid_variant (Result)
 		end
 
 	weight: INTEGER is
@@ -128,7 +128,7 @@ feature -- Access
 		do
 			Result := pango_font_description_get_weight (handle)
 		ensure
-			is_valid_pango_weight (Result)
+			is_valid_weight (Result)
 		end
 
 	stretch: INTEGER is
@@ -138,7 +138,7 @@ feature -- Access
 		do
 			Result := pango_font_description_get_stretch (handle)
 		ensure
-			is_valid_pango_stretch (Result)
+			is_valid_stretch (Result)
 		end
 
 	size: INTEGER is
@@ -172,7 +172,7 @@ feature -- Access
 		do
 			Result := pango_font_description_get_set_fields (handle)
 		ensure
-			is_valid_pango_font_mask (Result)
+			is_valid_font_mask (Result)
 		end
 
 	better_match (a_match, b_match: PANGO_FONT_DESCRIPTION): BOOLEAN is
@@ -234,7 +234,7 @@ feature -- Operations
 			-- and font matching in Pango will match italic specifications with
 			-- oblique fonts and vice-versa if an exact match is not found.
 		require
-			is_valid_pango_style (a_style)
+			is_valid_style (a_style)
 		do
 			pango_font_description_set_style (handle, a_style)
 		end
@@ -243,7 +243,7 @@ feature -- Operations
 			-- Sets the variant field of a font description. The PANGO_VARIANT
 			-- can either be pango_variant_normal or pango_variant_small_caps.
 		require
-			is_valid_pango_variant (a_variant)
+			is_valid_variant (a_variant)
 		do
 			pango_font_description_set_variant (handle, a_variant)
 		end
@@ -254,7 +254,7 @@ feature -- Operations
 			-- the values of the PANGO_WEIGHT enumeration, other intermediate
 			-- numeric values are possible.
 		require
-			is_valid_pango_weight (a_weight)
+			is_valid_weight (a_weight)
 		do
 			pango_font_description_set_weight (handle, a_weight)
 		end
@@ -263,7 +263,7 @@ feature -- Operations
 			-- Sets the stretch field of a font description. The stretch field
 			-- specifies how narrow or wide the font should be.
 		require
-			is_valid_pango_stretch (a_stretch)
+			is_valid_stretch (a_stretch)
 		do
 			pango_font_description_set_stretch (handle, a_stretch)
 		end
@@ -299,7 +299,7 @@ feature -- Operations
 			-- Unsets some of the fields in a PANGO_FONT_DESCRIPTION. The unset
 			-- fields will get back to their default values.
 		require
-			is_valid_pango_font_mask (a_mask)
+			is_valid_font_mask (a_mask)
 		do
 			pango_font_description_unset_fields (handle, a_mask)
 		end
