@@ -41,6 +41,25 @@ feature {WRAPPER}
 		end
 
 	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
+			-- Have `a_pointer' already been wrapped?
+
+			-- Note: the cost of this query is the same of either
+			-- `eiffel_wrapper_from_gobject_pointer' and
+			-- `retrieve_eiffel_wrapper_from_gobject_pointer'. So a code
+			-- pattern like:
+
+			-- if has_eiffel_wrapper_stored(c_pointer) then
+			--   Result:=retrieve_eiffel_wrapper_from_gobject_pointer(c_pointer)
+			-- else
+			--   create	Result.from_external_pointer (c_pointer) 
+			-- end
+
+			-- is twice slower than the equivalent:
+
+			-- Result:=eiffel_wrapper_from_gobject_pointer(c_pointer)
+			-- if Result=Void then
+			--   create	Result.from_external_pointer (c_pointer) 
+			-- end
 		do
 			Result := (g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
 		end

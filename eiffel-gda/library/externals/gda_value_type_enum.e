@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 
 feature  {} -- enum
-	is_valid_type (a_type :INTEGER): BOOLEAN is
+	is_valid_value_type (a_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type = gda_value_type_null) or else
 						(a_type = gda_value_type_bigint) or else

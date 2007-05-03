@@ -18,21 +18,15 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-			-- Description
-
-			-- The GtkVscale widget is used to allow the user to select a
-			-- value using a vertical slider. To create one, use
-			-- gtk_vscale_new_with_range().
-
-			-- The position to show the current value, and the number of
-			-- decimal places shown can be set using the parent GtkScale
-			-- class's functions.
 
 class GTK_VSCALE
-inherit
+	-- The GtkVscale widget is used to allow the user to select a value using a
+	-- vertical slider. To create one, use `with_range'.
 
+	-- The position to show the current value, and the number of decimal places
+	-- shown can be set using the parent GtkScale class's functions.
+	
+inherit
 	GTK_SCALE
 	GTK_VSCALE_EXTERNALS
 

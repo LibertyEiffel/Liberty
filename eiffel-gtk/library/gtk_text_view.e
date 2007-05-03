@@ -59,8 +59,6 @@ feature {} -- Creation
 	make_with_buffer (a_buffer: GTK_TEXT_BUFFER) is
 			-- Creates a new GTK_TEXT_VIEW widget displaying the buffer
 			-- `a_buffer'. One buffer can be shared among many widgets.
-			-- `a_buffer' may be Void to create a default buffer, in which
-			-- case this function is equivalent to `make'.
 			-- The text view adds its own reference count to the buffer;
 			-- it does not take over an existing reference.
 		require
@@ -102,23 +100,21 @@ feature -- Operations
 feature -- Access
 
 	buffer: GTK_TEXT_BUFFER is
-			-- Returns the GTK_TEXT_BUFFER being displayed by this text view.
-			-- The reference count on the buffer is not incremented;
-			-- the caller of this function won't own a new reference.
+			-- The GTK_TEXT_BUFFER being displayed by this text view.
 		local
 			c_buff: POINTER
 		do
-			if cached_buffer /= Void then
-				Result := cached_buffer
-			else
+			if cached_buffer = Void then
 				c_buff := gtk_text_view_get_buffer (handle)
-				if has_eiffel_wrapper_stored (c_buff) then
-					Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_buff)
-				else
-					create Result.from_external_pointer (c_buff)
+				-- The reference count on the buffer returned by
+				-- gtk_text_view_get_buffer is not incremented; the caller
+				-- of this function won't own a new reference.
+				cached_buffer:=eiffel_wrapper_from_gobject_pointer (c_buff)
+				if cached_buffer=Void then
+					create cached_buffer.from_external_pointer (c_buff)
 				end
-				cached_buffer := Result
 			end
+			Result := cached_buffer
 		end
 
 feature {} -- Auxiliar
@@ -555,59 +551,6 @@ feature -- Iterator queries
 
 -- 	-----------------------------------------------------------------------
 
---   GtkTextChildAnchor
-
---  typedef struct _GtkTextChildAnchor GtkTextChildAnchor;
-
--- 	A GtkTextChildAnchor is a spot in the buffer where child widgets can be
--- 	"anchored" (inserted inline, as if they were characters). The anchor
--- 	can have multiple widgets anchored, to allow for multiple views.
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_child_anchor_new ()
-
---  GtkTextChildAnchor* gtk_text_child_anchor_new
--- 															(void);
-
--- 	Creates a new GtkTextChildAnchor. Usually you would then insert it into
--- 	a GtkTextBuffer with gtk_text_buffer_insert_child_anchor(). To perform
--- 	the creation and insertion in one step, use the convenience function
--- 	gtk_text_buffer_create_child_anchor().
-
--- 	Returns : a new GtkTextChildAnchor
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_child_anchor_get_widgets ()
-
---  GList*      gtk_text_child_anchor_get_widgets
--- 															(GtkTextChildAnchor *anchor);
-
--- 	Gets a list of all widgets anchored at this child anchor. The returned
--- 	list should be freed with g_list_free().
-
--- 	anchor :  a GtkTextChildAnchor
--- 	Returns : list of widgets anchored at anchor
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_child_anchor_get_deleted ()
-
---  gboolean    gtk_text_child_anchor_get_deleted
--- 															(GtkTextChildAnchor *anchor);
-
--- 	Determines whether a child anchor has been deleted from the buffer.
--- 	Keep in mind that the child anchor will be unreferenced when removed
--- 	from the buffer, so you need to hold your own reference (with
--- 	g_object_ref()) if you plan to use this function -- otherwise all
--- 	deleted child anchors will also be finalized.
-
--- 	anchor :  a GtkTextChildAnchor
--- 	Returns : TRUE if the child anchor has been deleted from its buffer
-
--- 	-----------------------------------------------------------------------
-
 --   gtk_text_view_add_child_in_window ()
 
 --  void        gtk_text_view_add_child_in_window
@@ -746,88 +689,52 @@ feature
 		end
 
 
--- 	-----------------------------------------------------------------------
+feature -- Pixels above and below lines
+	set_pixels_above_lines (a_setting: INTEGER) is
+			-- Sets the default number of blank pixels above paragraphs
+			-- in text_view. Tags in the buffer may override the
+			-- defaults.
+		do
+			gtk_text_view_set_pixels_above_lines(handle,a_number)
+		ensure set: pixels_above_line = a_setting
+		end
 
---   gtk_text_view_set_pixels_above_lines ()
+	pixels_above_lines: INTEGER is
+			-- the default number of pixels to put above paragraphs.
+		do
+			Result:=gtk_text_view_get_pixels_above_lines(handle)
+		end
 
---  void        gtk_text_view_set_pixels_above_lines
--- 															(GtkTextView *text_view,
--- 															 gint pixels_above_lines);
+	set_pixels_below_lines (a_setting: INTEGER) is 
+			-- Sets the default number of pixels of blank space to put
+			-- below paragraphs in text_view. May be overridden by tags
+			-- applied to text_view's buffer.
+		do
+			gtk_text_view_set_pixels_below_lines(handle,a_setting)
+		ensure set: pixels_below_lines=a_setting
+		end
 
--- 	Sets the default number of blank pixels above paragraphs in text_view.
--- 	Tags in the buffer for text_view may override the defaults.
+	pixels_below_lines: INTEGER is
+			-- default number of blank pixels below paragraphs
+		do
+			Result := gtk_text_view_get_pixels_below_lines(handle)
+		end 
 
--- 	text_view :          a GtkTextView
--- 	pixels_above_lines : pixels above paragraphs
+	set_pixels_inside_wrap (a_setting: INTEGER) is
+			-- Sets the default number of pixels of blank space to leave
+			-- between display/wrapped lines within a paragraph. May be
+			-- overridden by tags in text_view's buffer.
+		do
+			gtk_text_view_set_pixels_inside_wrap(handle,a_setting) 
+		ensure set: pixels_inside_wrap = a_setting
+		end
 
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_pixels_above_lines ()
-
---  gint        gtk_text_view_get_pixels_above_lines
--- 															(GtkTextView *text_view);
-
--- 	Gets the default number of pixels to put above paragraphs.
-
--- 	text_view : a GtkTextView
--- 	Returns :   default number of pixels above paragraphs
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_set_pixels_below_lines ()
-
---  void        gtk_text_view_set_pixels_below_lines
--- 															(GtkTextView *text_view,
--- 															 gint pixels_below_lines);
-
--- 	Sets the default number of pixels of blank space to put below
--- 	paragraphs in text_view. May be overridden by tags applied to
--- 	text_view's buffer.
-
--- 	text_view :          a GtkTextView
--- 	pixels_below_lines : pixels below paragraphs
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_pixels_below_lines ()
-
---  gint        gtk_text_view_get_pixels_below_lines
--- 															(GtkTextView *text_view);
-
--- 	Gets the value set by gtk_text_view_set_pixels_below_lines().
-
--- 	text_view : a GtkTextView
--- 	Returns :   default number of blank pixels below paragraphs
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_set_pixels_inside_wrap ()
-
---  void        gtk_text_view_set_pixels_inside_wrap
--- 															(GtkTextView *text_view,
--- 															 gint pixels_inside_wrap);
-
--- 	Sets the default number of pixels of blank space to leave between
--- 	display/wrapped lines within a paragraph. May be overridden by tags in
--- 	text_view's buffer.
-
--- 	text_view :          a GtkTextView
--- 	pixels_inside_wrap : default number of pixels between wrapped lines
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_pixels_inside_wrap ()
-
---  gint        gtk_text_view_get_pixels_inside_wrap
--- 															(GtkTextView *text_view);
-
--- 	Gets the value set by gtk_text_view_set_pixels_inside_wrap().
-
--- 	text_view : a GtkTextView
--- 	Returns :   default number of pixels of blank space between wrapped
--- 					lines
-
--- 	-----------------------------------------------------------------------
+	pixels_inside_wrap: INTEGER is
+			-- the default number of pixels of blank space between
+			-- wrapped lines
+		do
+			Result:=gtk_text_view_get_pixels_inside_wrap(handle)
+		end
 
 --   gtk_text_view_set_justification ()
 

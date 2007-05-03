@@ -1,5 +1,5 @@
 indexing
-	description: "   GtkTextTag -- A tag that can be applied to text in a GtkTextBuffer."
+	description: "GtkTextTag: A tag that can be applied to text in a GtkTextBuffer."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -19,22 +19,22 @@ indexing
 					02110-1301 USA
 				]"
 
-				-- You may wish to begin by reading the text widget --
-				-- conceptual overview which gives an overview of all the
-				-- objects and -- data types related to the text widget
-				-- and how they work together.
-
-				-- Tags should be in the GtkTextTagTable for a given
-				-- GtkTextBuffer before using them with that buffer.
-
-				-- gtk_text_buffer_create_tag() is the best way to create
-				-- tags. See gtk-demo for numerous examples.
-
-				-- The "invisible" property was not implemented for GTK+
-				-- 2.0; it's planned to be implemented in future releases.
-
-
 class GTK_TEXT_TAG
+	-- A tag that can be applied to text in a GTK_TEXT_BUFFER.
+
+	-- You may wish to begin by reading the text widget conceptual
+	-- overview which gives an overview of all the objects and data
+	-- types related to the text widget and how they work together.
+
+	-- Tags should be in the GtkTextTagTable for a given GtkTextBuffer
+	-- before using them with that buffer.
+
+	-- GTK_TEXT_BUFFER's `create_tag' is the best way to create
+	-- tags. (TODO: translate gtk-demo from C to Eiffel for numerous
+	-- examples).
+
+	-- The "invisible" property was not implemented for GTK+ 2.0; it's
+	-- planned to be implemented in future releases.
 
 inherit G_OBJECT
 

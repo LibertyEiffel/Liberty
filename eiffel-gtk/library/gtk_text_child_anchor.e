@@ -21,12 +21,11 @@ indexing
 		 
 		 ]"
 
-		 -- A GtkTextChildAnchor is a spot in the buffer where child
-		 -- widgets can be "anchored" (inserted inline, as if they were
-		 -- characters). The anchor can have multiple widgets anchored,
-		 -- to allow for multiple views.
-
 class GTK_TEXT_CHILD_ANCHOR
+	-- A GtkTextChildAnchor is a spot in the buffer where child widgets
+	-- can be "anchored" (inserted inline, as if they were
+	-- characters). The anchor can have multiple widgets anchored, to
+	-- allow for multiple views.
 
 inherit G_OBJECT
 
@@ -56,12 +55,11 @@ feature
 
 	get_deleted: BOOLEAN is
 			-- Has the child anchor been deleted from its buffer? Keep in
-			-- mind that the child anchor will be unreferenced when removed
-			-- from the buffer, so you need to hold your own reference (with
-			-- g_object_ref()) if you plan to use this function — otherwise
-			-- all deleted child anchors will also be finalized.
-			-- anchor: a GtkTextChildAnchor
-			-- Returns:
+			-- mind that the child anchor will be unreferenced when
+			-- removed from the buffer, so you need to hold your own
+			-- reference (with `ref') if you plan to use this function
+			-- otherwise all deleted child anchors will also be
+			-- finalized. 
 		do
 			Result := gtk_text_child_anchor_get_deleted(handle).to_boolean
 		end

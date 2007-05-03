@@ -256,7 +256,7 @@ l	--    Returns : the newly created GdaValue.
 			-- specified type.
 		require
 			string_not_void: a_string /= Void
-			valid_type: is_valid_type (a_type)
+			valid_type: is_valid_value_type (a_type)
 		local ptr: POINTER
 		do
 			ptr:=gda_value_new_from_string(a_string.to_external, a_type)

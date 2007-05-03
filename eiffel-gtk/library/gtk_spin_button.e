@@ -18,73 +18,74 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-	-- Description
-
--- A GtkSpinButton is an ideal way to allow the user to set the value of some attribute. Rather than having to directly type a number into a GtkEntry, GtkSpinButton allows the user to click on one of two arrows to increment or decrement the displayed value. A value can still be typed in, with the bonus that it can be checked to ensure it is in a given range.
-
--- The main properties of a GtkSpinButton are through a GtkAdjustment. See the GtkAdjustment section for more details about an adjustment's properties.
-
--- Example 1. Using a GtkSpinButton to get an integer.
-
--- /* Provides a function to retrieve an integer value from a GtkSpinButton
---  * and creates a spin button to model percentage values.
---  */
-
--- gint grab_int_value (GtkSpinButton *a_spinner, gpointer user_data) {
---    return gtk_spin_button_get_value_as_int (a_spinner);
--- }
-
--- void create_integer_spin_button (void) {
-
---    GtkWidget *window, *spinner;
---    GtkAdjustment *spinner_adj;
-
---    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (50.0, 0.0, 100.0, 1.0, 5.0, 5.0);
-	
---    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
---    gtk_container_set_border_width (GTK_CONTAINER (window), 5);
-	
---    /* creates the spinner, with no decimal places */
---    spinner = gtk_spin_button_new (spinner_adj, 1.0, 0);
---    gtk_container_add (GTK_CONTAINER (window), spinner);
-	
---    gtk_widget_show_all (window);
---    return;
--- }
-
-
--- Example 2. Using a GtkSpinButton to get a floating point value.
-
--- /* Provides a function to retrieve a floating point value from a
---  * GtkSpinButton, and creates a high precision spin button.
---  */
-
--- gfloat grab_int_value (GtkSpinButton *a_spinner, gpointer user_data) {
---    return gtk_spin_button_get_value (a_spinner);
--- }
-
--- void create_floating_spin_button (void) {
-
---    GtkWidget *window, *spinner;
---    GtkAdjustment *spinner_adj;
-
---    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (2.500, 0.0, 5.0, 0.001, 0.1, 0.1);
-	
---    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
---    gtk_container_set_border_width (GTK_CONTAINER (window), 5);
-	
---    /* creates the spinner, with three decimal places */
---    spinner = gtk_spin_button_new (spinner_adj, 0.001, 3);
---    gtk_container_add (GTK_CONTAINER (window), spinner);
-	
---    gtk_widget_show_all (window);
---    return;
--- }
 
 class GTK_SPIN_BUTTON
+	-- A GtkSpinButton is an ideal way to allow the user to set the value of some
+	-- attribute. Rather than having to directly type a number into a GtkEntry,
+	-- GtkSpinButton allows the user to click on one of two arrows to increment
+	-- or decrement the displayed value. A value can still be typed in, with the
+	-- bonus that it can be checked to ensure it is in a given range.
+
+	-- The main properties of a GtkSpinButton are through a GtkAdjustment. See
+	-- the GtkAdjustment section for more details about an adjustment's
+	-- properties.
+
+	-- TODO: Example 1. Using a GtkSpinButton to get an integer.
+	
+	-- /* Provides a function to retrieve an integer value from a GtkSpinButton
+	--  * and creates a spin button to model percentage values.
+	--  */
+
+	-- gint grab_int_value (GtkSpinButton *a_spinner, gpointer user_data) {
+	--    return gtk_spin_button_get_value_as_int (a_spinner);
+	-- }
+
+	-- void create_integer_spin_button (void) {
+
+	--    GtkWidget *window, *spinner;
+	--    GtkAdjustment *spinner_adj;
+	
+	--    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (50.0, 0.0, 100.0, 1.0, 5.0, 5.0);
+	
+	--    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	--    gtk_container_set_border_width (GTK_CONTAINER (window), 5);
+	
+	--    /* creates the spinner, with no decimal places */
+	--    spinner = gtk_spin_button_new (spinner_adj, 1.0, 0);
+	--    gtk_container_add (GTK_CONTAINER (window), spinner);
+	
+	--    gtk_widget_show_all (window);
+	--    return;
+	-- }
+
+	-- TODO: Example 2. Using a GtkSpinButton to get a floating point value.
+
+	-- /* Provides a function to retrieve a floating point value from a
+	--  * GtkSpinButton, and creates a high precision spin button.
+--  */
+	
+	-- gfloat grab_int_value (GtkSpinButton *a_spinner, gpointer user_data) {
+	--    return gtk_spin_button_get_value (a_spinner);
+	-- }
+	
+	-- void create_floating_spin_button (void) {
+	
+	--    GtkWidget *window, *spinner;
+	--    GtkAdjustment *spinner_adj;
+
+	--    spinner_adj = (GtkAdjustment *) gtk_adjustment_new (2.500, 0.0, 5.0, 0.001, 0.1, 0.1);
+	
+	--    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	--    gtk_container_set_border_width (GTK_CONTAINER (window), 5);
+	
+	--    /* creates the spinner, with three decimal places */
+	--    spinner = gtk_spin_button_new (spinner_adj, 0.001, 3);
+	--    gtk_container_add (GTK_CONTAINER (window), spinner);
+	
+	--    gtk_widget_show_all (window);
+	--    return;
+	-- }
+
 inherit
 	GTK_ENTRY rename make as as_entry end
 		-- GtkSpinButton implements AtkImplementorIface, GtkCellEditable and
@@ -286,10 +287,6 @@ feature -- Wrapping
 		do
 			Result:=(gtk_spin_button_get_wrap (handle)).to_boolean
 		end
-
-
--- spin_button : 	a GtkSpinButton
--- Returns : 	TRUE if the spin button wraps around
 
 feature -- Snapping
 	set_snap_to_ticks is

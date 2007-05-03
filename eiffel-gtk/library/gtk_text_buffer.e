@@ -733,7 +733,7 @@ feature -- Access
 
 			-- The first_property_name argument and subsequent arguments
 			-- are a list of properties to set on the tag, as with
-			-- g_object_set().
+			-- G_OBJECT's `set'.
 
 			-- `a_tag_name': name of the new tag, or Void
 		local
