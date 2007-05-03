@@ -289,23 +289,23 @@ feature -- Property Details
 -- Whether this tag affects strikethrough.
 
 -- Default value: FALSE
+
 feature -- The "style" property
 	--   "style"                PangoStyle            : Read / Write
 
 	style: INTEGER is
-			-- Font style.  Default value: PANGO_STYLE_NORMAL
-		do 
+			-- Font style. Default value: PANGO_STYLE_NORMAL
+		do
 			Result:= property(style_property_name).integer
-		ensure is_valid_style (Result)
+		ensure --is_valid_style (Result)
 		end
 
 	set_style (a_style: INTEGER) is
-		require valid_style: is_valid_style (a_style)
+		require --valid_style: is_valid_style (a_style)
 		do
 			set_enum_property (style_property_name, a_style)
 		end
 
-			
 feature -- The "style-set" property
 	--   "style-set"            gboolean              : Read / Write
 
