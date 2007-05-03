@@ -824,7 +824,7 @@ feature --   The "style" property
 
 --    Default value: 400
 	set_weight (a_weight: INTEGER) is
-		require valid: is_valid_pango_weight (a_weight)
+		require valid: is_valid_weight (a_weight)
 		do
 			set_integer_property (weight_property_name, a_weight)
 		end
@@ -834,7 +834,7 @@ feature --   The "style" property
 			-- PANGO_WEIGHT; for example, pango_weight_bold.
 		do
 			g_object_get_one_property (handle, weight_property_name.to_external, $Result, default_pointer)
-		ensure valid: is_valid_pango_weight (Result)
+		ensure valid: is_valid_weight (Result)
 		end
 	
 --    -------------------------------------------------------------------------------------
