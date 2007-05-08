@@ -59,6 +59,24 @@ feature -- digits
 			gtk_scale_set_digits (handle, some_digits)
 		end
 
+feature -- layout
+
+	layout: PANGO_LAYOUT is
+			-- Gets the PangoLayout used to display the scale.
+			-- The returned object is owned by the scale.
+		local
+			ptr: POINTER
+			r: WRAPPER_RETRIEVER [PANGO_LAYOUT]
+		do
+			ptr := gtk_scale_get_layout (handle)
+			if ptr.is_not_null then
+				Result := r.item_from (ptr)
+				Result.set_shared
+			end
+		ensure
+			(not is_value_drawn) = (Result = Void)
+		end
+
 feature -- Draw value
 	set_draw_value is
 			-- Specifies whether the current value is displayed as a string next to the slider.
