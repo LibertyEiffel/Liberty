@@ -23,7 +23,10 @@ indexing
 
 class PANGO_LAYOUT
 
-inherit G_OBJECT
+inherit
+	G_OBJECT
+		-- Documentation for Pango does not state clearly that PANGO_LAYOUT
+		-- is a G_OBJECT, but it actually is
 
 insert
 	PANGO_LAYOUT_EXTERNALS

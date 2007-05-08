@@ -66,12 +66,15 @@ feature -- layout
 			-- The returned object is owned by the scale.
 		local
 			ptr: POINTER
-			r: WRAPPER_RETRIEVER [PANGO_LAYOUT]
+			r: G_RETRIEVER [PANGO_LAYOUT]
 		do
 			ptr := gtk_scale_get_layout (handle)
 			if ptr.is_not_null then
-				Result := r.item_from (ptr)
-				Result.set_shared
+				if r.has_eiffel_wrapper_stored (ptr) then
+					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
+				else
+					create Result.from_external_pointer (ptr)
+				end
 			end
 		ensure
 			(not is_value_drawn) = (Result = Void)
