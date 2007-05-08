@@ -201,4 +201,29 @@ feature {} -- External calls
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
+feature {} -- Properties
+	gdk_pixbuf_get_bits_per_sample (handle: POINTER): INTEGER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_get_colorspace (handle: POINTER): INTEGER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_get_has_alpha (handle: POINTER): INTEGER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_get_n_channels (handle: POINTER): INTEGER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_get_pixels (handle: POINTER): POINTER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
+	gdk_pixbuf_get_rowstride (handle: POINTER): INTEGER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		end
+
 end -- class GDK_PIXBUF_EXTERNALS

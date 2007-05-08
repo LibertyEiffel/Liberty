@@ -284,14 +284,35 @@ feature -- Operations
 
 feature -- Properties
 
---  "bits-per-sample"      gint                  : Read / Write / Construct Only
---  "colorspace"           GdkColorspace         : Read / Write / Construct Only
---  "has-alpha"            gboolean              : Read / Write / Construct Only
---  "height"               gint                  : Read / Write / Construct Only
---  "n-channels"           gint                  : Read / Write / Construct Only
---  "pixels"               gpointer              : Read / Write / Construct Only
---  "rowstride"            gint                  : Read / Write / Construct Only
---  "width"                gint                  : Read / Write / Construct Only
+	bits_per_sample: INTEGER is
+		do
+			Result := gdk_pixbuf_get_bits_per_sample (handle)
+		end
+
+	colorspace: INTEGER is
+		do
+			Result := gdk_pixbuf_get_colorspace (handle)
+		end
+
+	has_alpha: BOOLEAN is
+		do
+			Result := gdk_pixbuf_get_has_alpha (handle).to_boolean
+		end
+
+	n_channels: INTEGER is
+		do
+			Result := gdk_pixbuf_get_n_channels (handle)
+		end
+
+	pixels: POINTER is
+		do
+			Result := gdk_pixbuf_get_pixels (handle)
+		end
+
+	rowstride: INTEGER is
+		do
+			Result := gdk_pixbuf_get_rowstride (handle)
+		end
 
 -- Property Details
 -- The "bits-per-sample" property
