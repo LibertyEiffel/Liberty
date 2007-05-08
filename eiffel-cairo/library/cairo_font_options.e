@@ -27,7 +27,7 @@ indexing
 class CAIRO_FONT_OPTIONS
 
 inherit
-	C_STRUCT
+	SHARED_C_STRUCT
 		redefine dispose, copy, is_equal end
 
 insert
@@ -38,9 +38,10 @@ insert
 	CAIRO_FONT_OPTIONS_EXTERNALS
 	CAIRO_STATUS
 
-creation make, from_external_pointer
+creation make, from_external_pointer_shared
 
 feature {} -- Creation
+
 	make is
 			-- Create a new font options object with all options initialized to
 			-- default values.
@@ -52,6 +53,13 @@ feature {} -- Creation
 			-- allocated, then a special error object is returned where all
 			-- operations on the object do nothing. You can check for this with
 			-- cairo_font_options_status().
+			set_unshared
+		end
+
+	from_external_pointer_shared (a_ptr: POINTER) is
+		do
+			from_external_pointer (a_ptr)
+			set_shared
 		end
 
 feature -- Disposing

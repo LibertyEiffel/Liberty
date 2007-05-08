@@ -26,15 +26,21 @@ class PANGO_CAIRO_LAYOUT
 
 inherit
 	PANGO_LAYOUT
+		redefine make end
 
 insert
 	PANGO_CAIRO_LAYOUT_EXTERNALS
 	WRAPPER_HANDLER
 
 creation
-	for_cairo
+	for_cairo, make
 
 feature {} -- Creation
+
+	make (a_context: PANGO_CAIRO_CONTEXT) is
+		do
+			Precursor (a_context)
+		end
 
 	for_cairo (a_cairo: CAIRO_CONTEXT) is
 			-- Creates a layout object set up to match the current

@@ -39,7 +39,7 @@ feature
 			-- Returns the render ID for shape engines for this fontmap.
 			-- See the render_type of PANGO_ENGINE_INFO.
 		do
-			create Result.from_external_copy (pango_font_map_get_shape_engine_type (handle)
+			create Result.from_external_copy (pango_font_map_get_shape_engine_type (handle))
 		end
 
 end -- class PANGO_FONT_MAP

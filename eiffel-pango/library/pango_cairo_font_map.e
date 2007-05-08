@@ -54,8 +54,7 @@ feature {} -- Creation
 			-- Returns the default Cairo fontmap for Pango. This object is owned
 			-- by Pango and must not be freed.
 		do
-			from_external_pointer (pango_cairo_font_mapt_get_default)
-			is_shared := True
+			from_external_pointer_shared (pango_cairo_font_map_get_default)
 		end
 
 feature -- Operations
@@ -83,7 +82,7 @@ feature -- Access
 	create_context: PANGO_CAIRO_CONTEXT is
 			-- Create a PangoContext for the given fontmap.
 		do
-			pango_cairo_font_map_create_context (handle)
+			create Result.from_external_pointer (pango_cairo_font_map_create_context (handle))
 		end
 
 end -- class PANGO_CAIRO_FONT_MAP
