@@ -179,6 +179,20 @@ feature -- Creating
 			unset_shared
 		end
 
+	from_external_pointer_shared (a_ptr: POINTER) is
+			-- Create a new wrapper to a GObject, but don't ref it on creation
+			-- or unref it at disposal time.  This is useful when we have to
+			-- wrap C objects that aren't ours to ref or free.
+		require
+			called_on_creation: is_null
+			pointer_not_null: a_ptr.is_not_null
+			not_existing_wrapper: not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
+		do
+			handle := a_ptr
+			store_eiffel_wrapper
+			set_shared
+		end
+
 feature -- Disposing
 
 	dispose is
