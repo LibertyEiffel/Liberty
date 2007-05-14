@@ -23,6 +23,13 @@
 * wrap Dynamic Loading of Modules
    (/usr/share/doc/libgtk2.0-doc/glib/glib-Dynamic-Loading-of-Modules.html), 
 
+
+Object hierarchy:
+
+Fairly complete usually means that some properties, signals and some
+minor features are missing, while basic to intermediate usage is
+implemented.
+
     Main loop and Events - 
     Accelerator Groups - 
     Accelerator Maps - 
@@ -59,65 +66,64 @@
         GtkLabel - Mostly implemented. Many properties non wrapped.
         GtkProgressBar - Complete
         GtkStatusbar - Mostly complete. Only "text-popped" and "text-popped" signals missing
-        GtkStatusIcon - 
+        GtkStatusIcon - Fairly complete.
 
     Buttons and Toggles
 
-        GtkButton - 
-        GtkCheckButton - 
-        GtkRadioButton - 
-        GtkToggleButton - 
-        GtkLinkButton - 
+        GtkButton - Fairly complete.
+        GtkCheckButton - Fairly complete.
+        GtkRadioButton - Fairly complete.
+        GtkToggleButton - Fairly complete.
+        GtkLinkButton -  Fairly complete; callback missing
 
     Numeric/Text Data Entry
 
-        GtkEntry - 
-        GtkEntryCompletion - 
-        GtkHScale - 
-        GtkVScale - 
-        GtkSpinButton - 
-        GtkEditable - 
+        GtkEntry - Fairly complete
+        GtkEntryCompletion - Fairdly complete. 
+        GtkHScale - Complete
+        GtkVScale - Complete
+        GtkSpinButton - Fairly complete
+        GtkEditable - Almost complete. Only delete-text signal is missing
 
     Multiline Text Editor
 
-        Text Widget Overview - 
-        GtkTextIter - 
-        GtkTextMark - 
-        GtkTextBuffer - 
-        GtkTextTag - 
-        GtkTextTagTable - 
-        GtkTextView - 
+        GtkTextIter - Almost complete 
+        GtkTextMark - Complete
+        GtkTextBuffer - Fairly complete; some unwrapper properties should not be wrapped because strongly-typed access functions exist.
+        GtkTextTag - Basic usage; there are no access features for all the properties, meanwhile they are accessible using G_OBJECT.get_property/set_property
+        GtkTextTagTable - Basic usage. 
+        GtkTextView - Fairly complete; justification and margins not directly wrapped but accesible throught get/set_property
 
     Tree, List and Icon Grid Widgets
 
-        Tree and List Widget Overview - 
-        GtkTreeModel - 
-        GtkTreeSelection - 
-        GtkTreeViewColumn - 
-        GtkTreeView - 
-        GtkTreeView drag-and-drop - 
-        GtkCellView - 
-        GtkIconView - 
-        GtkTreeSortable - 
-        GtkTreeModelSort - 
-        GtkTreeModelFilter - 
-        GtkCellLayout - 
-        GtkCellRenderer - 
-        GtkCellEditable - 
-        GtkCellRendererAccel - 
-        GtkCellRendererCombo - 
-        GtkCellRendererPixbuf - 
-        GtkCellRendererProgress - 
-        GtkCellRendererSpin - 
-        GtkCellRendererText - 
-        GtkCellRendererToggle - 
-        GtkListStore - 
-        GtkTreeStore - 
+        GtkTreeModel - Basic functionality
+        GtkTreeSelection - Almost complete
+	GtkTreeRowReference - Basic functionality
+        GtkTreeViewColumn - Fairly complete
+        GtkTreeView - Basic functionalities
+        GtkTreeView drag-and-drop - Basic functionalities
+        GtkCellView - Mostly complete; just a couple properties missing
+        GtkIconView - Mostly UNimplemented
+        GtkTreeSortable - Basic functionalities
+        GtkTreeModelSort - Unimplemented
+        GtkTreeModelFilter - Basic functionalities
+        GtkCellLayout - Mostly implemented
+        GtkCellRenderer - Sketchy 
+        GtkCellEditable - Almost complete (only "editing-done" signal is missing)
+        GtkCellRendererAccel - Sketchy
+        GtkCellRendererCombo - Sketchy
+        GtkCellRendererPixbuf - Sketchy
+        GtkCellRendererProgress - Complete
+        GtkCellRendererSpin - Complete
+        GtkCellRendererText - Basic functionality
+        GtkCellRendererToggle - Basic functionality
+        GtkListStore - Basic functionality
+        GtkTreeStore - Mostly complete
 
     Menus, Combo Box, Toolbar
 
-        GtkComboBox - 
-        GtkComboBoxEntry - 
+        GtkComboBox - Basic functionality
+        GtkComboBoxEntry - Complete
         GtkMenu - 
         GtkMenuBar - 
         GtkMenuItem - 

@@ -12,7 +12,7 @@ inherit WRAPPER_HANDLER -- undefine null_or end
 insert
 	G_OBJECT_EXTERNALS
 	SHARED_EIFFEL_KEY
-
+	
 feature {WRAPPER}
 
 	retrieve_eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
@@ -22,9 +22,13 @@ feature {WRAPPER}
 			pointer_has_stored_wrapper: has_eiffel_wrapper_stored (a_pointer)
 		do
 			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
-			if Result.handle /= a_pointer then
-				print ("WARNING: in retrieve_eiffel_wrapper_from_gobject_pointer: Eiffel object had a handle that wasn't the C pointer that had it stored: C pointer = " + a_pointer.out + " wrapper.handle = " + Result.handle.out + "%N")
-				Result.set_handle (a_pointer)
+			debug 
+				if Result.handle /= a_pointer then
+					print ("WARNING: in retrieve_eiffel_wrapper_from_gobject_pointer: Eiffel object had a handle that wasn't the C pointer that had it stored: C pointer = " + a_pointer.out + " wrapper.handle = " + Result.handle.out + "%N")
+					print ("Previous versions used to 'fix' it with 'Result.set_handle (a_pointer)'%
+                      % but this causes almost surely grave bugs.%N")
+					raise (retrieved_object_mismatch)
+				end
 			end
 		ensure
 			not_void: Result/=Void

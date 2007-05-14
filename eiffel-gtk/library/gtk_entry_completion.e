@@ -49,7 +49,7 @@ class GTK_ENTRY_COMPLETION
 
 inherit
 	G_OBJECT
-		-- GtkEntryCompletion implements GtkCellLayout.
+	GTK_CELL_LAYOUT
 	G_SIGNALS
 
 insert

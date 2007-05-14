@@ -18,51 +18,43 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description: A GtkComboBox is a widget that allows the
-			-- user to choose from a list of valid choices. The
-			-- GtkComboBox displays the selected choice. When activated,
-			-- the GtkComboBox displays a popup which allows the user to
-			-- make a new choice. The style in which the selected value
-			-- is displayed, and the style of the popup is determined by
-			-- the current theme. It may be similar to a GtkOptionMenu,
-			-- or similar to a Windows-style combo box.
-
-			-- Unlike its predecessors GtkCombo and GtkOptionMenu, the
-			-- GtkComboBox uses the model-view pattern; the list of valid
-			-- choices is specified in the form of a tree model, and the
-			-- display of the choices can be adapted to the data in the
-			-- model by using cell renderers, as you would in a tree
-			-- view. This is possible since GtkComboBox implements the
-			-- GtkCellLayout interface. The tree model holding the valid
-			-- choices is not restricted to a flat list, it can be a real
-			-- tree, and the popup will reflect the tree structure.
-
-			-- In addition to the model-view API, GtkComboBox offers a
-			-- simple API which is suitable for text-only combo boxes,
-			-- and hides the complexity of managing the data in a
-			-- model. It consists of the functions `with_text',
-			-- `append_text', `insert_text', `prepend_text',
-			-- `remove_text' and `active_text'.
 
 class GTK_COMBO_BOX
+	-- A GtkComboBox is a widget that allows the user to choose from a
+	-- list of valid choices. The GtkComboBox displays the selected
+	-- choice. When activated, the GtkComboBox displays a popup which
+	-- allows the user to make a new choice. The style in which the
+	-- selected value is displayed, and the style of the popup is
+	-- determined by the current theme. It may be similar to a
+	-- GtkOptionMenu, or similar to a Windows-style combo box.
+
+	-- Unlike its predecessors GtkCombo and GtkOptionMenu, the
+	-- GtkComboBox uses the model-view pattern; the list of valid
+	-- choices is specified in the form of a tree model, and the
+	-- display of the choices can be adapted to the data in the model
+	-- by using cell renderers, as you would in a tree view. This is
+	-- possible since GtkComboBox implements the GtkCellLayout
+	-- interface. The tree model holding the valid choices is not
+	-- restricted to a flat list, it can be a real tree, and the popup
+	-- will reflect the tree structure.
+
+	-- In addition to the model-view API, GtkComboBox offers a simple
+	-- API which is suitable for text-only combo boxes, and hides the
+	-- complexity of managing the data in a model. It consists of the
+	-- functions `with_text', `append_text', `insert_text',
+	-- `prepend_text', `remove_text' and `active_text'.
 
 inherit
 	GTK_BIN
 	GTK_CELL_EDITABLE
-	GTK_CELL_LAYOUT undefine store_eiffel_wrapper redefine struct_size end
-		-- GtkComboBox also implements AtkImplementorIface interface.
-
-insert
-	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
-		rename
-			retrieve_eiffel_wrapper_from_gobject_pointer as retrieve_model_wrapper_from_pointer,
-			eiffel_wrapper_from_gobject_pointer as model_wrapper_from_pointer,
-			g_object_get_eiffel_wrapper as g_object_get_model_wrapper
-		export {WRAPPER} all
+	GTK_CELL_LAYOUT 
+		undefine 
+			store_eiffel_wrapper
 		end
+
+	-- GtkComboBox also implements AtkImplementorIface interface.
+
+insert 
 	GTK_COMBO_BOX_EXTERNALS
 
 creation make, with_text_only
@@ -188,10 +180,11 @@ feature -- Model-related features
 			-- the GtkTreeModel which is acting as data source for
 			-- combo_box.
 		require no_simple_api: not is_text_only
-		local model_ptr: POINTER
+		local model_ptr: POINTER; r: G_RETRIEVER [GTK_TREE_MODEL]
 		do
 			model_ptr := gtk_combo_box_get_model (handle)
-			Result := retrieve_model_wrapper_from_pointer (model_ptr)
+			check model_pointer_not_void: model_ptr.is_not_null end
+			Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (model_ptr)
 		end
 
 	set_model (a_model: GTK_TREE_MODEL) is

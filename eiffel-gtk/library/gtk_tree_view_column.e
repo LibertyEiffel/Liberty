@@ -18,25 +18,27 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description: The GtkTreeViewColumn object represents a
-			-- visible column in a GtkTreeView widget. It allows to set
-			-- properties of the column header, and functions as a
-			-- holding pen for the cell renderers which determine how the
-			-- data in the column is displayed.
-
-			-- Please refer to the tree widget conceptual overview for an
-			-- overview of all the objects and data types related to the
-			-- tree widget and how they work together.class
-			-- GTK_TREE_VIEW_COLUMN_EXTERNALS
-
+				
 class GTK_TREE_VIEW_COLUMN
+	-- The GtkTreeViewColumn object represents a visible column in a
+	-- GtkTreeView widget. It allows to set properties of the column
+	-- header, and functions as a holding pen for the cell renderers
+	-- which determine how the data in the column is displayed.
+
+	-- Please refer to the tree widget conceptual overview for an
+	-- overview of all the objects and data types related to the
+	-- tree widget and how they work together.class
+	-- GTK_TREE_VIEW_COLUMN_EXTERNALS
 
 inherit
 	GTK_OBJECT
-		-- GtkTreeViewColumn implements GtkCellLayout.
+	GTK_CELL_LAYOUT
+		undefine store_eiffel_wrapper 
+		redefine 
+			clear, 
+			add_attribute, clear_attributes, set_attributes,
+			pack_start, pack_end
+		end 
 
 insert
 	GTK_TREE_VIEW_COLUMN_EXTERNALS
@@ -89,7 +91,6 @@ feature
 			-- `does_expand' is False, then the cell is allocated no more
 			-- space than it needs. Any unused space is divided evenly
 			-- between cells for which expand is True.
-		require valid_cell: a_cell/=Void
 		do
 			gtk_tree_view_column_pack_start (handle, a_cell.handle, does_expand.to_integer)
 		end
@@ -99,7 +100,6 @@ feature
 			-- False, then the cell is allocated no more space than it
 			-- needs. Any unused space is divided evenly between cells
 			-- for which expand is True.
-		require valid_cell: a_cell/=Void
 		do
 			gtk_tree_view_column_pack_end (handle, a_cell.handle, does_expand.to_integer)
 		end
@@ -134,9 +134,6 @@ feature
 			
 			-- `a_column' : The column position on the model to get the
 			-- attribute from.
-		require
-			valid_renderer: a_cell_renderer /= Void
-			valid_attribute: an_attribute /= Void
 		do
 			gtk_tree_view_column_add_attribute (handle, a_cell_renderer.handle,
 												an_attribute.to_external, a_column)
@@ -146,10 +143,6 @@ feature
 			-- Sets the list as the attributes (`some_attributes') of
 			-- tree column. All existing attributes are removed, and
 			-- replaced with the new attributes.
-		require
-			renderer_not_void: a_renderer /= Void
-			attributes_not_void: some_attributes /= Void
-			attribute_names_not_void: some_attributes.for_all (agent is_tuple_valid (?))
 		local iter: ITERATOR [TUPLE[STRING,INTEGER]]
 		do
 			clear_attributes (a_renderer)
@@ -185,8 +178,6 @@ feature
 
 			-- `a_cell_renderer': a GtkCellRenderer to clear the
 			-- attribute mapping on.
-		require
-			valid_renderer: a_cell_renderer /= Void
 		do
 			gtk_tree_view_column_clear_attributes (handle, a_cell_renderer.handle)
 		end
@@ -817,12 +808,6 @@ feature -- TODO: Properties and signals
 
 	-- treeviewcolumn : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
-feature -- Precondition helping features
-	is_tuple_valid (item: TUPLE[STRING,INTEGER]): BOOLEAN is
-			-- Is `item' not Void and then the string contained not Void?
-		do
-			Result := ((item /= Void) and then (item.item_1 /= Void))
-		end
 feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

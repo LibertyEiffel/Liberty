@@ -1,5 +1,4 @@
 indexing
-
 	description: "The base object type of gobject library"
 	long:  "[
 				Currently the only wrapped features are those explicitly necessary to
@@ -11,72 +10,69 @@ indexing
 			]"
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision "$REvision:$"
-
-			-- GObject is the fundamental type providing the common
-			-- attributes and methods for all object types in GTK+, Pango
-			-- and other libraries based on GObject. The GObject class
-			-- provides methods for object construction and destruction,
-			-- property access methods, and signal support. Signals are
-			-- described in detail in Signals(3).
-
-			-- The initial reference a GObject is created with is flagged
-			-- as a floating reference. This means that it is not
-			-- specifically claimed to be "owned" by any code
-			-- portion. The main motivation for providing floating
-			-- references is C convenience. In particular, it allowes
-			-- code to be written as:
-
-			-- TODO: Eiffelize Example 1.
-
-			--    container = create_container();
-			--    container_add_child (container, create_child());
-
-			-- If container_add_child() will g_object_ref_sink() the
-			-- passed in child, no reference of the newly created child
-			-- is leaked. Without floating references,
-			-- container_add_child() can only g_object_ref() the new
-			-- child, so to implement this code without reference leaks,
-			-- it would have to be written as:
-
-			-- TODO: Eiffelize Example 2.
-
-			--    Child *child;
-			--    container = create_container();
-			--    child = create_child();
-			--    container_add_child (container, child);
-			--    g_object_unref (child);
-
-			-- The floating reference can be converted into an ordinary
-			-- reference by calling g_object_ref_sink(). For already
-			-- sunken objects (objects that don't have a floating
-			-- reference anymore), g_object_ref_sink() is equivalent to
-			-- g_object_ref() and returns a new reference. Since floating
-			-- references are useful allmost exclusively for C
-			-- convenience, language bindings that provide automated
-			-- reference and memory ownership maintenance (such as smart
-			-- pointers or garbage collection) therefore don't need to
-			-- expose floating references in their API.
-
-			-- Some object implementations may need to save an objects
-			-- floating state across certain code portions (an example is
-			-- GtkMenu), to achive this, the following sequence can be
-			-- used:
-
-			-- Example 3.
-
-			-- /* save floating state */
-			-- gboolean was_floating = g_object_is_floating (object);
-			-- g_object_ref_sink (object);
-			-- /* protected code portion */
-			-- ...;
-			-- /* restore floating state */
-			-- if (was_floating)
-			--   g_object_force_floating (object);
-			-- g_obejct_unref (object); /* release previously acquired reference */
 
 deferred class G_OBJECT
+	-- GObject is the fundamental type providing the common attributes
+	-- and methods for all object types in GTK+, Pango and other
+	-- libraries based on GObject. The GObject class provides methods
+	-- for object construction and destruction, property access
+	-- methods, and signal support. 
+
+	-- TODO: provide Eiffellied descriptio for signals.
+
+	-- The initial reference a GObject is created with is flagged as a
+	-- floating reference. This means that it is not specifically
+	-- claimed to be "owned" by any code portion. The main motivation
+	-- for providing floating references is C convenience. In
+	-- particular, it allowes code to be written as:
+
+	-- TODO: Eiffelize Example 1.
+
+	--    container = create_container();
+	--    container_add_child (container, create_child());
+
+	-- If container_add_child() will g_object_ref_sink() the
+	-- passed in child, no reference of the newly created child
+	-- is leaked. Without floating references,
+	-- container_add_child() can only g_object_ref() the new
+	-- child, so to implement this code without reference leaks,
+	-- it would have to be written as:
+
+	-- TODO: Eiffelize Example 2.
+
+	--    Child *child;
+	--    container = create_container();
+	--    child = create_child();
+	--    container_add_child (container, child);
+	--    g_object_unref (child);
+
+	-- The floating reference can be converted into an ordinary
+	-- reference by calling g_object_ref_sink(). For already
+	-- sunken objects (objects that don't have a floating
+	-- reference anymore), g_object_ref_sink() is equivalent to
+	-- g_object_ref() and returns a new reference. Since floating
+	-- references are useful allmost exclusively for C
+	-- convenience, language bindings that provide automated
+	-- reference and memory ownership maintenance (such as smart
+	-- pointers or garbage collection) therefore don't need to
+	-- expose floating references in their API.
+
+	-- Some object implementations may need to save an objects
+	-- floating state across certain code portions (an example is
+	-- GtkMenu), to achive this, the following sequence can be
+	-- used:
+
+	-- Example 3.
+
+	-- /* save floating state */
+	-- gboolean was_floating = g_object_is_floating (object);
+	-- g_object_ref_sink (object);
+	-- /* protected code portion */
+	-- ...;
+	-- /* restore floating state */
+	-- if (was_floating)
+	--   g_object_force_floating (object);
+	-- g_obejct_unref (object); /* release previously acquired reference */
 
 inherit
 	SHARED_C_STRUCT
@@ -111,11 +107,19 @@ feature
 			-- underlying GobjectClass
 		do
 			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
-			Precursor -- To allow usage of the wrapped object with C data structures that are not aware of the specificities of G_OBJECT.
-			-- We do the above direct call instead of using the Eiffel
-			-- method "set_qdata (eiffel_key, Current)". This is to avoid
-			-- an invariant check when passing Current as argument.
+			-- g_object_set_qdata is called directly to avoid an
+			-- invariant check when passing Current as argument. Using
+			-- the Eiffel method "set_qdata (eiffel_key, Current)" easily
+			-- trigger a "fake" invariant violation.
+
 			g_object_class := g_object_get_class (handle)
+			
+			Precursor -- To allow usage of the wrapped object with C data structures that are not aware of the specificities of G_OBJECT.
+			-- Note: it is necessary to call Precursor AFTER having
+			-- called g_object_set_qdata. Since we have re-defined the
+			-- feature `is_eiffel_wrapper_stored' that appears into a
+			-- postcondition to use `has_qdata', we must satisfy that 
+			-- postcondition before calling Precursor.
 		end
 
 	unstore_eiffel_wrapper is
@@ -411,8 +415,9 @@ feature -- Properties query
 						 (g_object_get_class(handle),a_property_name.to_external).is_not_null)
 		end
 
-	properties: FAST_ARRAY[G_PARAM_SPEC] is
-		local a_length: INTEGER
+	properties: COLLECTION[G_PARAM_SPEC] is
+			-- The properties of the G_OBJECT
+		local a_length: INTEGER; c_array_ptr: POINTER
 		do
 			-- TODO: using g_object_class_list_properties (oclass,n_properties:
 			-- POINTER): POINTER is Returns an array of GParamSpec* for
@@ -421,10 +426,10 @@ feature -- Properties query
 			-- returned array (i.e. a guint *). Returns: an array of
 			-- GParamSpec* (i.e. a GParamSpec**) which should be freed
 			-- after use
-			
-			-- create {C_ARRAY[G_PARAM_SPEC]} Result.from_external_array
-			-- (g_object_class_list_properties (g_object_class, $a_count))
-		ensure implemented: False
+			c_array_ptr:=g_object_class_list_properties (g_object_class, $a_length)
+			if c_array_ptr.is_not_null then
+				create {C_ARRAY[G_PARAM_SPEC]} Result.from_external_array(c_array_ptr, a_length)
+			end
 		end
 
 feature -- Property getter/setter
@@ -533,7 +538,7 @@ feature -- Property getter/setter
 			-- NOTE: avoiding unref, since we didn't acquire any above			
 			thaw_notify
 		ensure
-			value_set: -- TODO: a_value.is_equal (get_property(a_property_name))
+			value_set: -- a_value.is_equal (get_property(a_property_name))
 		end
 
 	set_property (a_property_name: STRING; a_value: G_VALUE) is
@@ -651,12 +656,13 @@ feature -- Property getter/setter
 
 feature -- String property
 
-	set_string_property (a_property_name, a_value: STRING) is
+	set_string_property (a_property_name, a_string: STRING) is
 		require
-			valid_name: a_property_name /= Void
-			valid_value: a_value /= Void
+			name_not_void: a_property_name /= Void
+			string_not_void: a_string /= Void
 		do
-			g_object_set_string_property (handle,a_property_name.to_external, a_value.to_external)
+			hidden_gvalue.turn_to_string; hidden_gvalue.set_string (a_string)
+			g_object_set_property (handle,a_property_name.to_external, hidden_gvalue.handle)
 		end
 
 	string_property, get_string_property (a_property_name: STRING): STRING is
@@ -669,15 +675,10 @@ feature -- String property
 			is_string_property: find_property (a_property_name).is_string
 		local ptr: POINTER
 		do
-			g_object_get_one_property (handle,a_property_name.to_external,address_of(ptr), default_pointer)
-			if ptr.is_not_null then
-				create Result.from_external (ptr)
-			end
-
+			hidden_gvalue.turn_to_string
+			g_object_get_property (handle,a_property_name.to_external,hidden_gvalue.handle)
+			Result := hidden_gvalue.string
 		end
-
-	-- TODO: provide get_[string|integer|real|...]_property that does
-	-- not allocate a temporary G_VALUE
 
 feature -- integer property
 
@@ -688,10 +689,10 @@ feature -- integer property
 			property_exists: has_property (a_property_name)
 			is_writable: find_property (a_property_name).is_writable
 			is_integer_property: find_property (a_property_name).is_integer
-		local gvalue: G_VALUE
 		do
-			create gvalue.from_integer (a_value)
-			g_object_set_property (handle, a_property_name.to_external,gvalue.handle)
+			hidden_gvalue.turn_to_integer
+			hidden_gvalue.set_integer (a_value)
+			g_object_set_property (handle, a_property_name.to_external, hidden_gvalue.handle)
 		end
 
 	integer_property (a_property_name: STRING): INTEGER is
@@ -701,7 +702,9 @@ feature -- integer property
 			has_property: has_property (a_property_name)
 			is_string_property: find_property (a_property_name).is_integer
 		do
-			g_object_get_one_property (handle,a_property_name.to_external,$Result, default_pointer)
+			hidden_gvalue.turn_to_integer
+			g_object_get_property (handle,a_property_name.to_external,hidden_gvalue.handle)
+			Result := hidden_gvalue.integer
 		end
 
 feature -- boolean property
@@ -713,10 +716,9 @@ feature -- boolean property
 			property_exists: has_property (a_property_name)
 			is_writable: find_property (a_property_name).is_writable
 			is_integer_property: find_property (a_property_name).is_boolean
-		local gvalue: G_VALUE
 		do
-			create gvalue.from_boolean (a_value)
-			g_object_set_property (handle, a_property_name.to_external,gvalue.handle)
+			hidden_gvalue.turn_to_boolean; hidden_gvalue.set_boolean (a_value)
+			g_object_set_property (handle, a_property_name.to_external, hidden_gvalue.handle)
 		end
 
 	boolean_property (a_property_name: STRING): BOOLEAN is
@@ -725,11 +727,10 @@ feature -- boolean property
 			valid_name: a_property_name /= Void
 			has_property: has_property (a_property_name)
 			is_string_property: find_property (a_property_name).is_boolean
-		local gvalue: G_VALUE
 		do
-			create gvalue.make_boolean
-			g_object_get_property (handle, a_property_name.to_external,gvalue.handle)
-			Result := gvalue.boolean
+			hidden_gvalue.turn_to_boolean
+			g_object_get_property (handle, a_property_name.to_external, hidden_gvalue.handle)
+			Result := hidden_gvalue.boolean
 		end
 
 	boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): BOOLEAN is
@@ -745,31 +746,31 @@ feature -- boolean property
 			-- holds the actual GValue C structure like an expanded
 			-- feature. This way the G_VALUE would be created on the
 			-- stack, obtaining better performances.
+
+			-- Note: the previous TODO should have been implemented in
+			-- may 2007
 		require
 			specification_not_void: a_parameter_specification /= Void
-		local value: G_VALUE
 		do
-			create value.make_boolean
-			invoke_get_property (a_parameter_specification.owner_class,
-										handle,
-										a_parameter_specification.param_id, value.handle,
+			hidden_gvalue.turn_to_boolean
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
 										a_parameter_specification.handle)
-			Result := value.boolean
+			Result := hidden_gvalue.boolean
 		end
 
 feature -- enum property
-	
 	set_enum_property (a_property_name: STRING; a_value: INTEGER) is
-			-- Set property with `a_name' to `a_value'
+			-- Set the enumeration property with `a_name' to `a_value'. 
 		require
 			valid_name: a_property_name /= Void
 			property_exists: has_property (a_property_name)
 			is_writable: find_property (a_property_name).is_writable
 			is_enum_property: find_property (a_property_name).is_enum
-		local gvalue: G_VALUE
 		do
-			create gvalue.from_integer (a_value)
-			g_object_set_property (handle, a_property_name.to_external,gvalue.handle)
+			hidden_gvalue.turn_to_integer
+			hidden_gvalue.set_integer (a_value)
+			g_object_set_property (handle, a_property_name.to_external,hidden_gvalue.handle)
 		end
 
 	enum_property (a_property_name: STRING): INTEGER is
@@ -779,7 +780,9 @@ feature -- enum property
 			has_property: has_property (a_property_name)
 			is_string_property: find_property (a_property_name).is_enum
 		do
-			g_object_get_one_property (handle,a_property_name.to_external,$Result, default_pointer)
+			hidden_gvalue.turn_to_integer
+			g_object_get_property (handle,a_property_name.to_external,hidden_gvalue.handle)
+			Result:=hidden_gvalue.integer
 		end
 
 feature {} -- Unwrapped API
@@ -1834,7 +1837,15 @@ feature {} -- Unwrapped API
 --    gobject :   the object which received the signal.
 --    pspec :     the GParamSpec of the property which changed
 --    user_data : user data set when the signal handler was connected.
-
+	
+feature {} -- Implementation
+	hidden_gvalue: G_VALUE is
+			-- The shared, hidden G_VALUE used in the type-specialized properties 
+			-- setter and getter
+		once
+			create Result.make
+		end
+	
 invariant
 	stored_eiffel_wrapper: is_not_null implies is_eiffel_wrapper_stored
 	gtype_is_32_bit: g_type.object_size = 4

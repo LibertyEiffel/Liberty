@@ -18,40 +18,33 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-	
-	-- Description
-	
-	-- The GtkTreeSelection object is a helper object to manage
-	-- the selection for a GtkTreeView widget. The
-	-- GtkTreeSelection object is automatically created when a
-	-- new GtkTreeView widget is created, and cannot exist
-	-- independentally of this widget. The primary reason the
-	-- GtkTreeSelection objects exists is for cleanliness of code
-	-- and API. That is, there is no conceptual reason all these
-	-- functions could not be methods on the GtkTreeView widget
-	-- instead of a separate function.
-
-	-- The GtkTreeSelection object is gotten from a GtkTreeView
-	-- by calling gtk_tree_view_get_selection(). It can be
-	-- manipulated to check the selection status of the tree, as
-	-- well as select and deselect individual rows. Selection is
-	-- done completely view side. As a result, multiple views of
-	-- the same model can have completely different
-	-- selections. Additionally, you cannot change the selection
-			-- of a row on the model that is not currently displayed by
-			-- the view without expanding its parents first.
-
-			-- One of the important things to remember when monitoring
-			-- the selection of a view is that the "changed" signal is
-			-- mostly a hint. That is, it may only emit one signal when a
-			-- range of rows is selected. Additionally, it may on
-			-- occasion emit a "changed" signal when nothing has happened
-			-- (mostly as a result of programmers calling select_row on
-			-- an already selected row).
-
+					
 class GTK_TREE_SELECTION
+	-- The GtkTreeSelection object is a helper object to manage the
+	-- selection for a GtkTreeView widget. The GtkTreeSelection object
+	-- is automatically created when a new GtkTreeView widget is
+	-- created, and cannot exist independentally of this widget. The
+	-- primary reason the GtkTreeSelection objects exists is for
+	-- cleanliness of code and API. That is, there is no conceptual
+	-- reason all these functions could not be methods on the
+	-- GtkTreeView widget instead of a separate function.
+
+	-- A GTK_TREE_SELECTION object is obtained from a GTK_TREE_VIEW by
+	-- calling `selection'. It can be manipulated to check the
+	-- selection status of the tree, as well as select and deselect
+	-- individual rows. Selection is done completely view side. As a
+	-- result, multiple views of the same model can have completely
+	-- different selections. Additionally, you cannot change the
+	-- selection of a row on the model that is not currently displayed
+	-- by the view without expanding its parents first.
+
+	-- One of the important things to remember when monitoring the
+	-- selection of a view is that the "changed" signal is mostly a
+	-- hint. That is, it may only emit one signal when a range of rows
+	-- is selected. Additionally, it may on occasion emit a "changed"
+	-- signal when nothing has happened (mostly as a result of
+	-- programmers calling select_row on an already selected row).
+
 inherit
 	G_OBJECT
 insert
@@ -138,8 +131,14 @@ feature -- selection mode
 feature -- View	
 	tree_view: GTK_TREE_VIEW is
 			-- the tree view associated with selection.
+		local ptr: POINTER; r: G_RETRIEVER[GTK_TREE_VIEW]
 		do
-			create Result.from_external_pointer (gtk_tree_selection_get_tree_view (handle))
+			ptr:=gtk_tree_selection_get_tree_view (handle)
+			check ptr.is_not_null end
+			Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
+			if Result=Void then
+				create Result.from_external_pointer (ptr)
+			end
 		ensure result_not_void: Result/=Void
 		end
 
@@ -154,9 +153,7 @@ feature -- View
 feature -- selections
 	selected: GTK_TREE_ITER is
 			-- the currently selected node if selection is set to
-			-- `gtk_selection_single' or `gtk_selection_browse'. This
-			-- feature will not work if you use selection is
-			-- `gtk_selection_multiple'.
+			-- `gtk_selection_single' or `gtk_selection_browse'.
 		require not_multiple: not is_mode_multiple
 		local discarded_result: INTEGER
 		do
@@ -178,11 +175,11 @@ feature -- selections
 	-- data : 	user data to pass to the function.
 
 	selected_rows: G_LIST [GTK_TREE_PATH] is
-			-- A list of path of all selected rows. Additionally, if you
-			-- are planning on modifying the model after calling this
-			-- function, you may want to convert the returned list into a
-			-- list of GtkTreeRowReferences. To do this, you can use
-			-- gtk_tree_row_reference_new().
+			-- A (newly allocater) list of paths of all selected
+			-- rows. Additionally, if you are planning on modifying the
+			-- model after calling this function, you may want to convert
+			-- the returned list into a list of GtkTreeRowReferences. To
+			-- do this, you can use gtk_tree_row_reference_new().
 		do
 			create Result.from_external_pointer (gtk_tree_selection_get_selected_rows(handle,default_pointer))
 			-- gtk_tree_selection_get_selected_rows Creates a list of

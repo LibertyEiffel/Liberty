@@ -385,23 +385,6 @@ feature {} -- Property low-level setters
 	-- Note: g_object_set is variadic; we wrap it with various kind of basic 
 	-- types
 
-	g_object_set_integer_property (an_object, a_property_name: POINTER; an_integer: INTEGER) is
-		require
-			valid_object: an_object.is_not_null
-			valid_name: a_property_name.is_not_null
-		external "C use <glib-object.h>"
-		alias "g_object_set"
-		end
-
-	g_object_set_string_property (an_object, a_property_name, a_string: POINTER) is
-		require
-			valid_object: an_object.is_not_null
-			valid_name: a_property_name.is_not_null
-			valid_string: a_string.is_not_null
-		external "C use <glib-object.h>"
-		alias "g_object_set"
-		end
-
 	-- void        g_object_set                    (gpointer object,
 	--                                              const gchar *first_property_name,
 	--                                              ...);
@@ -802,7 +785,8 @@ feature {}	-- GObjectClass structure
 
 	g_object_class_get_set_property (a_class: POINTER): POINTER is
 		external "C struct GObjectClass get set_property use <glib-object.h>"
-		end	
+		end
+	
 feature {} -- Invoking virtual calls defined in GObjectClass
 	invoke_set_property (g_object_class, handle: POINTER; param_id: INTEGER; a_value, pspec: POINTER) is
 		external "C inline"

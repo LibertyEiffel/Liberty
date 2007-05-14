@@ -189,6 +189,7 @@ feature -- Conversion to STRING
 		do
 			create Result.from_external (c_string)
 		end
+	
 feature {} -- Disposing
 	dispose is
 		local p: POINTER

@@ -18,24 +18,22 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"					
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description: GtkCellRendererCombo renders text in a cell
-			-- like GtkCellRendererText from which it is derived. But
-			-- while GtkCellRendererText offers a simple entry to edit
-			-- the text, GtkCellRendererCombo offers a GtkComboBox or
-			-- GtkComboBoxEntry widget to edit the text. The values to
-			-- display in the combo box are taken from the tree model
-			-- specified in the model property.
-
-			-- The combo cell renderer takes care of adding a text cell
-			-- renderer to the combo box and sets it to display the
-			-- column specified by its text-column property. Further cell
-			-- renderers can be added in a handler for the
-			-- editing-started signal.
+					
 
 class GTK_CELL_RENDERER_COMBO
+	-- GTK_CELL_RENDERER_COMBO renders text in a cell like
+	-- GTK_CELL_RENDERER_TEXT from which it is derived. But while
+	-- GTK_CELL_RENDERER_TEXT offers a simple entry to edit the text,
+	-- GTK_CELL_RENDERER_COMBO offers a GTK_COMBO_BOX or
+	-- GTK_COMBO_BOX_ENTRY widget to edit the text. The values to
+	-- display in the combo box are taken from the tree model specified
+	-- in the model property.
+
+	-- The combo cell renderer takes care of adding a text cell
+	-- renderer to the combo box and sets it to display the column
+	-- specified by its text-column property. Further cell renderers
+	-- can be added in a handler for the editing-started signal.
+	
 inherit
 	GTK_CELL_RENDERER_TEXT redefine make end
 insert

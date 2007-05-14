@@ -8,7 +8,7 @@ class G_TIMER
 
 inherit C_STRUCT redefine default_create, dispose end
 
-insert G_TIMER_EXTERNALS
+insert G_TIMER_EXTERNALS undefine default_create end
 
 -- creation make
 
@@ -19,7 +19,7 @@ feature {} --
 		end
 
 feature {} -- Creation
-	default_create, make is
+	default_create is --, make is
 			-- Creates a new timer, and starts timing
 		do
 			handle := g_timer_new

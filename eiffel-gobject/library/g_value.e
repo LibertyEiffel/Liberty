@@ -178,6 +178,7 @@ feature {} -- Creation
 
 	from_string (a_string: STRING) is
 			-- create a new string G_VALUE
+		require string_not_void: a_string/=Void
 		do
 			handle := g_value_init (malloc_g_value, g_type_string)
 			set_string (a_string)
@@ -188,6 +189,7 @@ feature {} -- Creation
 
 	from_object (an_object: G_OBJECT) is
 			-- create a new object G_VALUE
+		require object_not_void: an_object/=Void
 		do
 			handle := g_value_init (malloc_g_value, g_type_object)
 			set_object (an_object)
@@ -405,6 +407,7 @@ feature {ANY} -- String
 			-- If the current value is a string, set it.
 		require
 			is_string: is_string
+			value_not_void: a_value/=Void
 		do
 			g_value_set_string (handle, a_value.to_external)
 		end

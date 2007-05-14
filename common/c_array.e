@@ -29,20 +29,12 @@ inherit
 	-- SHARED_C_STRUCT rename exists as struct_exists undefine
 	-- fill_tagged_out_memory redefine is_equal end
 	WRAPPER_HANDLER
-		undefine fill_tagged_out_memory
-		end
+		-- undefine fill_tagged_out_memory, copy, is_equal end
 
 insert
 	SHARED_WRAPPERS_DICTIONARY
-		undefine fill_tagged_out_memory
-		end
 	
-	WRAPPER_RETRIEVER[ITEM]
-		undefine
-			fill_tagged_out_memory,
-			copy,
-			is_equal
-		end
+	WRAPPER_FACTORY [ITEM]
 			
 	EXCEPTIONS undefine fill_tagged_out_memory, copy, is_equal end
 
@@ -167,15 +159,31 @@ feature {ANY} -- Adding:
 		end
 
 feature {ANY} -- Modification:
+	copy (other: like Current) is
+		local i: INTEGER
+		do
+			if other/=Void then
+				capacity := other.capacity
+				upper := other.upper
+				storage := storage.calloc(other.capacity)
+				from i:=lower until i>upper loop
+					put(other.item(i),i)
+					i:=i+1
+				end
+			end
+		end
+
 	force (element: ITEM; index: INTEGER) is
 		do
 			-- Make `element' the item at `index', enlarging the collection if
 			-- necessary (new bounds except `index' are initialized with default
 			-- values).
-			if index>capacity then 
-				debug print (once "C_ARRAY.force: storage enlarged using realloc%N") end
-				storage:=storage.realloc(count,index) 
-				upper:=index
+			if index>upper then
+				upper:=index				
+				if index>capacity then 
+					debug print (once "C_ARRAY.force: storage enlarged using realloc%N") end
+					storage:=storage.realloc(count,index) 
+				end
 			end
 			put(element,index)
 		end
@@ -655,4 +663,10 @@ feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 	storage: NATIVE_ARRAY[POINTER]
 
 	capacity: INTEGER
+
+	manifest_put (index: INTEGER_32; element: ITEM) is
+		do
+			put(element, index)
+		end
+
 end -- class C_ARRAY

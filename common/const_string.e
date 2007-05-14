@@ -81,6 +81,7 @@ creation from_external
 
 feature 
 	from_external (a_c_string: POINTER) is
+		obsolete "Warning! Cause crash at dispose time, perhaps only during exiting"
 		do
 			is_unchanged := True
 			Precursor (a_c_string)
@@ -475,13 +476,17 @@ feature {} -- Implementation
 
 	dispose is
 		do
+			original_c_string := to_external
 			if is_unchanged then
 				-- an hack to force the Garbage Collector to leave the
 				-- storage as it is and not free it, since it hasn't been 
 				-- allocated by Eiffel and must NOT be freed.
-
-				-- change it to a null array
-				create storage -- {NATIVE_ARRAY[CHARACTER]}
+				-- change it to a dummy array
+				print(dispose_notice) 
+				storage := storage.calloc(1)
 			end
 		end
+
+	dispose_notice: STRING is
+		"CONST_STRING.dispose: the string is unchanged; using a tentative hack (i.e.: reallocating Eiffel storage area with a 1-char-long string) to avoid crash during quitting or disposing%N"
 end -- class CONST_STRING

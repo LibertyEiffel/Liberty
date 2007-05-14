@@ -12,7 +12,7 @@ feature
 	make is
 		local t: REAL
 		do
-			create timer.make
+			create timer
 			from  until timer.elapsed > 10.0
 			loop
 				if (timer.elapsed-t)>0.1 then

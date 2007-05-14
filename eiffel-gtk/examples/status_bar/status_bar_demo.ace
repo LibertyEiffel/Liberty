@@ -1,4 +1,4 @@
-	system "statusbar_demo"
+	system "status_bar_demo"
 
 root STATUS_BAR_DEMO: make
 

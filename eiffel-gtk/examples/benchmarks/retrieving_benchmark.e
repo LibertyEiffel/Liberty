@@ -53,7 +53,7 @@ feature
 			print (iterations_number.out) print ("%T")
 
 			gtk.initialize
-			create timer.make
+			create timer
 			create random.make
 			-- Create labels
 			from create labels.make (iterations_number); i:=iterations_number-1

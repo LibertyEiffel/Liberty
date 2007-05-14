@@ -91,11 +91,17 @@ feature -- Queries
 	model: GTK_TREE_MODEL is
 			-- the model which reference is monitoring in order to
 			-- appropriately the path. Can be Void
-		local ptr: POINTER
+		local ptr: POINTER; r: G_RETRIEVER[GTK_TREE_MODEL]
 		do
 			ptr := gtk_tree_row_reference_get_model (handle)
-			if ptr.is_not_null
-			then create Result.from_external_pointer (handle)
+			if ptr.is_not_null then
+				Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
+				debug 
+					if Result=Void then
+						print(no_wrapper_for_model_notice)
+						raise(pointer_to_unwrapped_deferred_object)
+					end
+				end
 			end
 		end
 
@@ -156,5 +162,12 @@ feature {} -- Unimplemented
 -- path : 	The parent path of the reordered signal
 -- iter : 	The iter pointing to the parent of the reordered
 -- new_order : 	The new order of rows
+feature {} -- Notices
+	no_wrapper_for_model_notice: STRING is 
+		"[
+		 Warning! GTK_TREE_REFERENCE.model receved from GTK library 
+		 a unwrapped pointer to a GtkTreeModel. Please report this
+		 as a bug to Eiffel Wrapper Library Collection project.
+		 ]"
 
 end

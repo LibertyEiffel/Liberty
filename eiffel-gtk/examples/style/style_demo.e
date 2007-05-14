@@ -4,7 +4,7 @@ insert
 	GTK
 	GTK_STATE_TYPE
 	PANGO_CONSTANTS
-	PANGO_WRAP_MODE
+	PANGO_WRAP_MODE rename is_valid_wrap_mode as is_valid_pango_wrap_mode end
 
 creation
 	make
@@ -29,6 +29,7 @@ feature
 			msg, font, fgcolor: STRING
 			size: TUPLE [INTEGER, INTEGER]
 			live_width, live_height: INTEGER
+			scale: REAL
 		do
 			gtk.initialize
 			create window.make
@@ -93,7 +94,7 @@ feature
 			pixmap.draw_layout (gc, 0, 0, layout)
 
 			create pixbuf.from_drawable (pixmap, 0, 0, pixmap.width, pixmap.height)
-
+			
 			scale := (pixbuf.width * 100) / live_width -- Esto no funciona si el layout es más apaisado que el viewer
 			
 			-- previewer.set_overlay (pixbuf, scale, 50, 50)
@@ -107,5 +108,6 @@ feature
 	window: GTK_WINDOW
 
 	label: GTK_LABEL
+
 
 end -- class STYLE_DEMO

@@ -189,7 +189,6 @@ feature -- Label
 			ptr:=gtk_button_get_label(handle)
 			if ptr.is_not_null
 			then create Result.from_external_copy (ptr)
-			else Result := Void -- Possibily redundant. TODO: check it
 			end
 		end
 
@@ -247,6 +246,7 @@ feature -- Label
 	
 	set_focus_on_click is
 			-- the button grab focus when clicked with the mouse.
+		obsolete "Use set_focus_on_click_bool, which will soon take place of current set_focus_on_click"
 		do
 			gtk_button_set_focus_on_click   (handle,1)
 		ensure is_focused_on_click
@@ -257,6 +257,7 @@ feature -- Label
 			-- mouse. Making mouse clicks not grab focus is useful in
 			-- places like toolbars where you don't want the keyboard
 			-- focus removed from the main area of the application.
+		obsolete "Use set_focus_on_click_bool, which will soon take place of current set_focus_on_click"
 		do
 			gtk_button_set_focus_on_click   (handle,0)
 		ensure not is_focused_on_click
@@ -304,10 +305,9 @@ feature -- Label
 		end
 
 	image: GTK_WIDGET is
-			-- Gets the widget that is currently set as the image of
-			-- button. This may have been explicitly set by
-			-- gtk_button_set_image() or constructed by
-			-- gtk_button_new_from_stock().
+			-- The widget that is currently set as the image of
+			-- button. This may have been explicitly set by `set_image'
+			-- or constructed by `from_stock'.
 		local
 			retriever: G_RETRIEVER [GTK_WIDGET]
 			ptr: POINTER
@@ -318,6 +318,7 @@ feature -- Label
 					Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
 				else
 					-- FIXME: line below has to be improved
+					raise(pointer_to_unwrapped_deferred_object)
 					create {GTK_IMAGE}Result.from_external_pointer (ptr)
 				end
 			end
@@ -343,36 +344,23 @@ feature -- Label
 --			is_valid_position_type (Result)
 --		end
 
-feature -- Properties
---   "focus-on-click"       gboolean              : Read / Write
---   "image"                GtkWidget             : Read / Write
---   "label"                gchararray            : Read / Write / Construct
---   "relief"               GtkReliefStyle        : Read / Write
---   "use-stock"            gboolean              : Read / Write / Construct
---   "use-underline"        gboolean              : Read / Write / Construct
---   "xalign"               gfloat                : Read / Write
---   "yalign"               gfloat                : Read / Write
+feature -- Properties 
+	focus_on_click: BOOLEAN is
+			-- Does the button grab focus when it is clicked with the
+			-- mouse?
+		
+			-- Default value: TRUE
+		do
+			Result:=boolean_property(focus_on_click_property_name)
+		end
 
--- Property Details
--- The "focus-on-click" property
+feature -- Properties setters
+	set_focus_on_click_bool (a_setting: BOOLEAN) is
+		do
+			set_boolean_property(focus_on_click_property_name, a_setting)
+		ensure set: focus_on_click = a_setting
+		end
 
---   "focus-on-click"       gboolean              : Read / Write
-
--- Whether the button grabs focus when it is clicked with the mouse.
-
--- Default value: TRUE
--- The "image" property
-
---   "image"                GtkWidget             : Read / Write
-
--- Child widget to appear next to the button text.
--- The "label" property
-
---   "label"                gchararray            : Read / Write / Construct
-
--- Text of the label widget inside the button, if the button contains a label widget.
-
--- Default value: NULL
 -- The "relief" property
 
 --   "relief"               GtkReliefStyle        : Read / Write
@@ -525,4 +513,14 @@ feature -- struct size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkButton)"
 		end
+
+feature {} -- Property names
+	focus_on_click_property_name: STRING is "focus-on-click"
+	image_property_name: STRING is "image"
+	label_property_name: STRING is "label"
+	relief_property_name: STRING is "relief"
+	use_stock_property_name: STRING is "use-stock"
+	use_underline_property_name: STRING is "use-underline"
+	xalign_property_name: STRING is "xalign"
+	yalign_property_name: STRING is "yalign"
 end

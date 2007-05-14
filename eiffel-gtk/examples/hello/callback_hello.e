@@ -7,7 +7,7 @@ indexing
 class CALLBACK_HELLO
 
 inherit
-	GTK_MAIN
+	GTK
 	G_SIGNALS
 	
 creation	make
@@ -15,7 +15,7 @@ creation	make
 feature {} -- creation
 	make is
 		do
-			initialize_gtk
+			gtk.initialize
 			create window.make
 			create destroy_callback.make(window, agent on_destroy)
 			create button.with_label (label)
@@ -24,7 +24,7 @@ feature {} -- creation
 			button.show
 			window.show
 			print ("button is at: "+button.to_pointer.to_string+"%N")
-			gtk_main
+			gtk.run_main_loop
 		end
 
 feature

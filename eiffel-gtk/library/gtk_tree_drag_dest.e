@@ -18,30 +18,25 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description
-	
-			-- GTK+ supports Drag-and-Drop in tree views with a
-			-- high-level and a low-level API.
-	
-			-- The low-level API consists of the GTK+ DND API, augmented
-			-- by some treeview utility functions: GTK_TREE_VIEW's
-			-- set_drag_dest_row, get_drag_dest_row, get_dest_row_at_pos,
-			-- create_row_drag_icon, set_row_drag_data and
-			-- get_row_drag_data. This API leaves a lot of flexibility,
-			-- but nothing is done automatically, and implementing
-			-- advanced features like hover-to-open-rows or autoscrolling
-			-- on top of this API is a lot of work.
-	
-			-- On the other hand, if you write to the high-level API,
-			-- then all the bookkeeping of rows is done for you, as well
-			-- as things like hover-to-open and auto-scroll, but your
-			-- models have to implement the GtkTreeDragSource and
-			-- GtkTreeDragDest interfaces.
 
 deferred class GTK_TREE_DRAG_DEST
+	-- GTK+ supports Drag-and-Drop in tree views with a high-level and
+	-- a low-level API.
+	
+	-- The low-level API consists of the GTK+ DND API, augmented by
+	-- some treeview utility functions: GTK_TREE_VIEW's
+	-- set_drag_dest_row, get_drag_dest_row, get_dest_row_at_pos,
+	-- create_row_drag_icon, set_row_drag_data and
+	-- get_row_drag_data. This API leaves a lot of flexibility, but
+	-- nothing is done automatically, and implementing advanced
+	-- features like hover-to-open-rows or autoscrolling on top of this
+	-- API is a lot of work.
+	
+	-- On the other hand, if you write to the high-level API, then all
+	-- the bookkeeping of rows is done for you, as well as things like
+	-- hover-to-open and auto-scroll, but your models have to implement
+	-- the GtkTreeDragSource and GtkTreeDragDest interfaces.
+
 inherit G_OBJECT
 	
 	-- Object Hierarchy: inherits from GInterface

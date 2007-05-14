@@ -7,7 +7,22 @@ indexing
 
 deferred class WRAPPER_HANDLER
 
-inherit ANY undefine is_equal, copy, fill_tagged_out_memory end
+inherit
+	ANY
+		undefine
+			is_equal,
+			copy,
+			fill_tagged_out_memory
+		end
+
+insert
+	EXCEPTIONS
+		export {} all
+		undefine
+			is_equal,
+			copy,
+			fill_tagged_out_memory
+		end
 
 feature
 	null_or (a_wrapper: WRAPPER): POINTER is
@@ -32,4 +47,10 @@ feature
 			definition: ((Result = default_pointer) or
 							 (a_string/=Void implies Result=a_string.to_external))
 		end
+feature {} -- Wrapper related exceptions
+	pointer_to_unwrapped_deferred_object: STRING is
+		"A C function returned a pointer to an unwrapped object which is wrapped by a deferred class. It is not possible to create a correct wrapper."
+	retrieved_object_mismatch: STRING is
+		"Retrieved_object_mismatch: the Eiffel wrapper associated with a pointer is not an actual wrapper for the object referred by that pointer "
+
 end

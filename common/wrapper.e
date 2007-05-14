@@ -22,14 +22,7 @@ inherit
 		end
 
 insert
-	EXCEPTIONS
-		export {} all
-		undefine
-			is_equal,
-			copy
-		end
-
-	WRAPPER_HANDLER -- to access `null_or'
+	WRAPPER_HANDLER -- to access `null_or' and exceptions' strings
 
 	POINTER_HANDLING -- to access `address_of' and `content_of'
 

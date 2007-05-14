@@ -6,9 +6,10 @@ indexing
 
 class HELLO
 
-inherit GTK_MAIN
+insert GTK
 	
 creation	make
+	
 feature
 	on_clicked (a_button: GTK_BUTTON) is
 		require valid_button: a_button /= Void 
@@ -21,7 +22,7 @@ feature
 feature {} -- creation
 	make is
 		do
-			initialize_gtk
+			gtk.initialize
 			create window.make
 			create button.with_label (label)
 			window.set_title (title)
@@ -32,7 +33,7 @@ feature {} -- creation
 			debug
 				print ("button is at: "+button.to_pointer.to_string+"%N")
 			end
-			gtk_main
+			gtk.run_main_loop -- instead of "gtk_main"
 		end
 feature -- Disposing
 	

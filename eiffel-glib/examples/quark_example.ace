@@ -1,5 +1,4 @@
-system
-"quark-example"
+system "quark_example"
 		-- Replace SYSTEM_NAME with the name of the executable file
 		-- to be generated for your system. (This is the equivalent of
 		-- the -o flag in traditional command line mode.)
@@ -12,7 +11,7 @@ root
 
 default -- section of the system
 
-	assertion (require);
+	assertion (all);
 		-- The default level of assertion checking for the system.
 		-- Choose the appropriate value: boost, no, require, ensure,
 		-- invariant, loop, check, all.
@@ -23,7 +22,7 @@ default -- section of the system
 		-- be checked. This mode has only sense in assertion modes from
 		-- require to debug.
 
-	debug (no);
+	debug (yes);
 		-- The default debug level for the system.
 		-- Choose yes, no, or any "key" you wish.
 

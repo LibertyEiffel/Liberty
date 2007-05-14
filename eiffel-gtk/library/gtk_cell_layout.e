@@ -18,20 +18,11 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-	
-	-- Known Implementations: GtkCellLayout is implemented by
-	-- GtkCellView, GtkEntryCompletion, GtkTreeViewColumn,
-	-- GtkComboBox, GtkIconView and GtkComboBoxEntry.
-	
-	-- Description: GtkCellLayout is an interface to be
-	-- implemented by all objects which want to provide a
-	-- GtkTreeViewColumn-like API for packing cells, setting
-	-- attributes and data funcs.
-	
 
 deferred class GTK_CELL_LAYOUT
+	-- GtkCellLayout is an interface to be implemented by all objects
+	-- which want to provide a GtkTreeViewColumn-like API for packing
+	-- cells, setting attributes and data funcs.
 
 inherit
 	-- Note: since "GtkCellLayout requires GObject" I assume it is
@@ -40,15 +31,19 @@ inherit
 	
 	-- GtkCellLayout should also inherit from G_INTERFACE (GInterface)
 	G_OBJECT
+	-- Known Implementations: GtkCellLayout is implemented by
+	-- 
+	-- GtkComboBox, GtkIconView and GtkComboBoxEntry.
+	
 
 feature
 	pack_start (a_cell_renderer: GTK_CELL_RENDERER; expand: BOOLEAN) is
-	-- Packs the cell into the beginning of Current cell
-	-- layout. If expand is FALSE, then the cell is allocated no
-	-- more space than it needs. Any unused space is divided
-	-- evenly between cells for which expand is TRUE.
+			-- Packs `a_cell_renderer' into the beginning of Current cell
+			-- layout. If expand is False, then the cell is allocated no
+			-- more space than it needs. Any unused space is divided
+			-- evenly between cells for which expand is True.
 
-	-- Note that reusing the same cell renderer is not supported.
+			-- Note that reusing the same cell renderer is not supported.
 		require valid_renderer: a_cell_renderer /= Void
 		do
 	gtk_cell_layout_pack_start (handle, a_cell_renderer.handle, expand.to_integer)
@@ -84,73 +79,87 @@ feature
 			gtk_cell_layout_clear (handle)
 		end			
 
-	
-	-- gtk_cell_layout_set_attributes ()
-	
-	-- void gtk_cell_layout_set_attributes (GtkCellLayout *cell_layout,
-	-- GtkCellRenderer *cell, ...);
+	set_attributes (a_cell_renderer: GTK_CELL_RENDERER; some_attributes: COLLECTION[TUPLE[STRING,INTEGER]]) is
+			-- Sets `some_attributes' as the attributes of the cell
+			-- layout. All existing attributes are removed, and replaced
+			-- with the new attributes.
 
-	-- Sets the attributes in list as the attributes of cell_layout. The
-	-- attributes should be in attribute/column order, as in
-	-- gtk_cell_layout_add_attribute(). All existing attributes are removed, and
-	-- replaced with the new attributes.
+			-- Each tuple contains the name of the attribute and the 
+			-- column number as in `add_attribute'.
+
+			-- Note: the equivalent C function
+			-- "gtk_cell_layout_set_attributes" is variadic, so it hasn't
+			-- been used to implement this feature. The Eiffel
+			-- implementation mimicks the original C function.
+		require
+			renderer_not_void: a_cell_renderer /= Void
+			attributes_not_void: some_attributes/=Void
+			attribute_names_not_void: some_attributes.for_all (agent is_tuple_valid (?))
+
+			-- TODO: no void string attribute
+		local ai: ITERATOR[TUPLE[STRING,INTEGER]]
+		do
+			clear_attributes(a_cell_renderer)
+			from ai:=some_attributes.get_new_iterator; ai.start until ai.is_off loop
+				check string_not_void: ai.item.item_1/=Void end
+				add_attribute (a_cell_renderer, ai.item.item_1, ai.item.item_2)
+				ai.next
+			end
+		end
+
+	add_attribute (a_cell_renderer: GTK_CELL_RENDERER; an_attribute: STRING; a_column: INTEGER) is
+			-- Adds `an_attribute' mapping to the list in cell
+			-- layout. `a_column' is the column of the model to get a
+			-- value from, and `an_attribute' is the parameter on cell to
+			-- be set from the value. So for example if column 2 of the
+			-- model contains strings, you could have the "text"
+			-- attribute of a GtkCellRendererText get its values from
+			-- column 2.
+		require			
+			renderer_not_void: a_cell_renderer /= Void
+			attribute_not_void: an_attribute/=Void
+		do
+			gtk_cell_layout_add_attribute (handle, a_cell_renderer.handle, an_attribute.to_external, a_column)
+		end
+
+	-- gtk_cell_layout_set_cell_data_func ()
 	
+	-- void gtk_cell_layout_set_cell_data_func (GtkCellLayout
+	-- *cell_layout, GtkCellRenderer *cell, GtkCellLayoutDataFunc func,
+	-- gpointer func_data, GDestroyNotify destroy);
+
+	-- Sets the GtkCellLayoutDataFunc to use for cell_layout. This
+	-- function is used instead of the standard attributes mapping for
+	-- setting the column value, and should set the value of
+	-- cell_layout's cell renderer(s) as appropriate. func may be NULL
+	-- to remove and older one.
+
 	-- cell_layout : 	A GtkCellLayout.
 	-- cell : 	A GtkCellRenderer.
-	-- ... : 	A NULL-terminated list of attributes.
+	-- func : 	The GtkCellLayoutDataFunc to use.
+	-- func_data : 	The user data for func.
+	-- destroy : 	The destroy notification for func_data.
 
-	-- gtk_cell_layout_add_attribute ()
-
-	-- void gtk_cell_layout_add_attribute (GtkCellLayout *cell_layout,
-	-- GtkCellRenderer *cell, const gchar *attribute, gint column);
-	
--- Adds an attribute mapping to the list in cell_layout. The column is the column of the model to get a value from, and the attribute is the parameter on cell to be set from the value. So for example if column 2 of the model contains strings, you could have the "text" attribute of a GtkCellRendererText get its values from column 2.
-
--- cell_layout : 	A GtkCellLayout.
--- cell : 	A GtkCellRenderer.
--- attribute : 	An attribute on the renderer.
--- column : 	The column position on the model to get the attribute from.
-
--- Since 2.4
--- gtk_cell_layout_set_cell_data_func ()
-
--- void        gtk_cell_layout_set_cell_data_func
---                                             (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell,
---                                              GtkCellLayoutDataFunc func,
---                                              gpointer func_data,
---                                              GDestroyNotify destroy);
-
--- Sets the GtkCellLayoutDataFunc to use for cell_layout. This function is used instead of the standard attributes mapping for setting the column value, and should set the value of cell_layout's cell renderer(s) as appropriate. func may be NULL to remove and older one.
-
--- cell_layout : 	A GtkCellLayout.
--- cell : 	A GtkCellRenderer.
--- func : 	The GtkCellLayoutDataFunc to use.
--- func_data : 	The user data for func.
--- destroy : 	The destroy notification for func_data.
-
--- Since 2.4
--- gtk_cell_layout_clear_attributes ()
-
--- void        gtk_cell_layout_clear_attributes
---                                             (GtkCellLayout *cell_layout,
---                                              GtkCellRenderer *cell);
-
--- Clears all existing attributes previously set with gtk_cell_layout_set_attributes().
-
--- cell_layout : 	A GtkCellLayout.
--- cell : 	A GtkCellRenderer to clear the attribute mapping on.
-
--- Since 2.4
-
-feature -- size
-
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkCellLayout)"
+	clear_attributes (a_cell_renderer: GTK_CELL_RENDERER) is
+			-- Clears all existing attributes previously set with
+			-- `set_attributes'.
+		require			
+			renderer_not_void: a_cell_renderer /= Void
+		do
+			gtk_cell_layout_clear_attributes(handle, a_cell_renderer.handle)	
+		end
+feature -- Precondition helping features
+	is_tuple_valid (item: TUPLE[STRING,INTEGER]): BOOLEAN is
+			-- Is `item' not Void and then the string contained not Void?
+		do
+			Result := ((item /= Void) and then (item.item_1 /= Void))
 		end
 
 feature {} -- External calls
+	-- size must be left deferred since GTK_CELL_LAYOUT is deferred
+
+	-- struct_size: INTEGER is external "C inline use <gtk/gtk.h>"
+	-- alias "sizeof(GtkCellLayout)" end
 
 	-- Structs: GtkCellLayout  GtkCellLayoutIface
 
@@ -163,8 +172,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_cell_layout_pack_end (a_cell_layout, a_cell_renderer: POINTER;
-									  a_expand_bool: INTEGER) is
+	gtk_cell_layout_pack_end (a_cell_layout, a_cell_renderer: POINTER;a_expand_bool: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -177,60 +185,19 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	-- gtk_cell_layout_set_attributes is variadic, therefore it cannot
-	-- be wrapped correctly. It is therefore wrapped many times with a
-	-- growing number of arguments as (gtk_cell_layout_set_attribute,
-	-- gtk_cell_layout_set_two_attributes,
-	-- gtk_cell_layout_set_three_attributes,
-	-- gtk_cell_layout_set_four_attributes).
+	-- Note gtk_cell_layout_set_attributes is variadic, therefore it cannot
+	-- be wrapped correctly and it hasn't been wrapped. The high level 
+	-- set_attibutes has been implemented mimicking the C implementation.
 	
-	gtk_cell_layout_set_attribute (a_cell_layout, a_cell_renderer: POINTER;
-		an_attribute: POINTER; a_column: INTEGER;
-		terminator: POINTER) is
-		require valid_terminator: terminator.is_null
-		external "C use <gtk/gtk.h>"
-		alias "gtk_cell_layout_set_attributes"
-		end
-
-	gtk_cell_layout_set_two_attributes (a_cell_layout, a_cell_renderer: POINTER;
-		first_attribute: POINTER; first_column: INTEGER;
-		second_attribute: POINTER; second_column: INTEGER;
-		terminator: POINTER) is
-		require valid_terminator: terminator.is_null
-		external "C use <gtk/gtk.h>"
-		alias "gtk_cell_layout_set_attributes"
-		end
-
-	gtk_cell_layout_set_three_attributes (a_cell_layout, a_cell_renderer: POINTER;
-		first_attribute: POINTER; first_column: INTEGER;
-		second_attribute: POINTER; second_column: INTEGER;
-		third_attribute: POINTER; third_column: INTEGER;
-		terminator: POINTER) is
-		require valid_terminator: terminator.is_null
-		external "C use <gtk/gtk.h>"
-		alias "gtk_cell_layout_set_attributes"
-		end
-
-	gtk_cell_layout_set_four_attributes (a_cell_layout, a_cell_renderer: POINTER;
-		first_attribute: POINTER; first_column: INTEGER;
-		second_attribute: POINTER; second_column: INTEGER;
-		third_attribute: POINTER; third_column: INTEGER;
-		fourth_attribute: POINTER; fourth_column: INTEGER;
-		terminator: POINTER) is
-		require valid_terminator: terminator.is_null
-		external "C use <gtk/gtk.h>"
-		alias "gtk_cell_layout_set_attributes"
-		end
-	
-	gtk_cell_layout_add_attribute (a_cell_layout, a_cell_renderer:
-		POINTER; attribute: POINTER; a_column: INTEGER; terminator: POINTER) is
-		require valid_terminator: terminator.is_null
+	gtk_cell_layout_add_attribute (a_cell_layout, a_cell_renderer:	POINTER; attribute: POINTER; a_column: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
 	-- gtk_cell_layout_set_cell_data_func (a_cell_layout: POINTER, a_cell_renderer: POINTER, GtkCellLayoutDataFunc func, gpointer func_data, GDestroyNotify destroy) is	external "C use <gtk/gtk.h>"	end
 
-	-- gtk_cell_layout_clear_attributes (a_cell_layout: POINTER, a_cell_renderer: POINTER) is	external "C use <gtk/gtk.h>"	end
+	gtk_cell_layout_clear_attributes (a_cell_layout: POINTER; a_cell_renderer: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
 	
 	-- GtkCellLayout is an interface to be implemented by all objects which want to provide a GtkTreeViewColumn-like API for packing cells, setting attributes and data funcs.
 	-- Details

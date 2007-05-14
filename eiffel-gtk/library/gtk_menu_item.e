@@ -19,15 +19,15 @@ indexing
 					02110-1301 USA
 				]"
 					
-					-- Description: The GtkMenuItem widget and the derived
-					-- widgets are the only valid childs for menus. Their
-					-- function is to correctly handle highlighting,
-					-- alignment, events and submenus.
-
-					-- As it derives from GtkBin it can hold any valid
-					-- child widget, altough only a few are really useful.
 
 class GTK_MENU_ITEM
+	-- The GtkMenuItem widget and the derived widgets are the only
+	-- valid childs for menus. Their function is to correctly handle
+	-- highlighting, alignment, events and submenus.
+
+	-- As it derives from GtkBin it can hold any valid
+	-- child widget, altough only a few are really useful.
+	
 inherit
 	GTK_ITEM --redefine make end
 		-- GtkMenuItem implements AtkImplementorIface.

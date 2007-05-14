@@ -18,23 +18,20 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description: a GtkCellRendererPixbuf can be used to render
-			-- an image in a cell. It allows to render either a given
-			-- GdkPixbuf (set via the pixbuf property) or a stock icon
-			-- (set via the stock-id property).
-
-			-- To support the tree view, GtkCellRendererPixbuf also
-			-- supports rendering two alternative pixbufs, when the
-			-- is-expander property is TRUE. If the is-expanded property
-			-- is TRUE and the pixbuf-expander-open property is set to a
-			-- pixbuf, it renders that pixbuf, if the is-expanded
-			-- property is FALSE and the pixbuf-expander-closed property
-			-- is set to a pixbuf, it renders that one.
-
+					
 class GTK_CELL_RENDERER_PIXBUF
+	-- A GTK_CELL_RENDERER_PIXBUF can be used to render an image in a
+	-- cell. It allows to render either a given GDK_PIXBUF (set via the
+	-- pixbuf property) or a stock icon (set via the stock-id
+	-- property).
+
+	-- To support the tree view, GTK_CELL_RENDERER_PIXBUF also supports
+	-- rendering two alternative pixbufs, when the is-expander property
+	-- is TRUE. If the is-expanded property is TRUE and the
+	-- pixbuf-expander-open property is set to a pixbuf, it renders
+	-- that pixbuf, if the is-expanded property is FALSE and the
+	-- pixbuf-expander-closed property is set to a pixbuf, it renders
+	-- that one.
 
 inherit GTK_CELL_RENDERER
 

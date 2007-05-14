@@ -1,5 +1,5 @@
 indexing
-	description: "(TODO) GtkTreeModel -- The tree interface used by GtkTreeView."
+	description: "GtkTreeModel -- The tree interface used by GtkTreeView."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -18,8 +18,6 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	date: "$Date:$"
-	revision: "$Revision:$"
 
 deferred class GTK_TREE_MODEL
 	-- The GtkTreeModel interface defines a generic tree interface for use by the
@@ -57,19 +55,18 @@ deferred class GTK_TREE_MODEL
 	-- GtkTreePath struct can be converted into either an array of unsigned
 	-- integers or a string. The string form is a list of numbers separated by a
 	-- colon. Each number refers to the offset at that level. Thus, the path 0:
-	-- refers to the root node and the path �:4�refers to the fifth child of
+	-- refers to the root node and the path "refers" to the fifth child of
 	-- the third node.
 
 	-- By contrast, a GtkTreeIter is a reference to a specific node on
 	-- a specific model. It is a generic struct with an integer and
 	-- three generic pointers. These are filled in by the model in a
 	-- model-specific way. One can convert a path to an iterator by
-	-- calling gtk_tree_model_get_iter(). These iterators are the
-	-- primary way of accessing a model and are similar to the
-	-- iterators used by GtkTextBuffer. They are generally statically
-	-- allocated on the stack and only used for a short time. The model
-	-- interface defines a set of operations using them for navigating
-	-- the model.
+	-- calling `get_new_iterator'. These iterators are the primary way
+	-- of accessing a model and are similar to the iterators used by
+	-- GtkTextBuffer. They are generally statically allocated on the
+	-- stack and only used for a short time. The model interface
+	-- defines a set of operations using them for navigating the model.
 
 	-- It is expected that models fill in the iterator with private
 	-- data. For example, the GtkListStore model, which is internally a
@@ -98,16 +95,6 @@ inherit
 	-- G_INTERFACE
 	-- Prerequisites: GtkTreeModel requires GObject.
 	G_OBJECT
-		-- TODO: remove the following commented code; it is not 
-		-- ncessary, since GTK_TREE_MODEL is already deferred. Paolo 
-		-- 2006-05-06
-		
-		-- rename make as undefined_make
-		-- export {} undefined_make
-		-- undefine undefined_make -- Since it is deferred
-		-- end
-		
-		-- TODO: end
 		
 		-- Known Derived Interfaces: GtkTreeModel is required by
 		-- GtkTreeSortable.

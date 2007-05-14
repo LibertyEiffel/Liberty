@@ -18,20 +18,16 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"					
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description
-	
-			-- GtkCellRendererToggle renders a toggle button in a
-			-- cell. The button is drawn as a radio- or checkbutton,
-			-- depending on the radio property. When activated, it emits
-			-- the toggled signal.
+					
 
 class GTK_CELL_RENDERER_TOGGLE
+	-- GtkCellRendererToggle renders a toggle button in a cell. The
+	-- button is drawn as a radio- or checkbutton, depending on the
+	-- radio property. When activated, it emits the toggled signal.
+	
 inherit
 	GTK_CELL_RENDERER
+	
 insert
 	GTK_CELL_RENDERER_TOGGLE_EXTERNALS
 	

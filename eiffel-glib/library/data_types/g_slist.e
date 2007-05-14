@@ -5,33 +5,27 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Note that most of the GSList functions expect to be passed
-			-- a pointer to the first element in the list. The functions
-			-- which insert elements return the new start of the list,
-			-- which may have changed.
-
-			-- There is no function to create a GSList. NULL is
-			-- considered to be the empty list so you simply set a
-			-- GSList* to NULL.
-
-			-- To add elements, use g_slist_append(), g_slist_prepend(),
-			-- g_slist_insert() and g_slist_insert_sorted().
-
-			-- To remove elements, use g_slist_remove().
-
-			-- To find elements in the list use g_slist_last(),
-			-- g_slist_next(), g_slist_nth(), g_slist_nth_data(),
-			-- g_slist_find() and g_slist_find_custom().
-
-			-- To find the index of an element use g_slist_position() and
-			-- g_slist_index().
-
-			-- To call a function for each element in the list use
-			-- g_slist_foreach().
-
-			-- To free the entire list, use g_slist_free().
-
 class G_SLIST [ITEM->SHARED_C_STRUCT]
+
+	-- At C level a NULL pointer is considered to be the empty list so
+	-- you simply set a GSList* to NULL.
+	
+	-- To add elements, use `add_last', `append', `add_first', `prepend',
+	-- `add' and (TODO `insert_sorted').
+
+	-- To remove elements, use `remove', `remove_first' and `remove_last'.
+
+	-- To find elements in the list use `last', (TODO: `next'), 
+	-- `item', `fast_has' (PS: `has' calls `fast_has' in turn), `first_index_of'.
+
+	-- To find the index of an element use TODO: g_slist_position() and
+	-- g_slist_index().
+	
+	-- TODO: To call a function for each element in the list use
+	-- g_slist_foreach().
+	
+	-- To free the entire list, use g_slist_free().
+
 inherit
 	-- TODO: uncomment this when possible:
 	-- Temporary commented out to let some example work with SnartEiffel 
@@ -41,7 +35,7 @@ inherit
 	-- 			append_collection,
 	-- 			clear_all,
 	-- 			has,
-	-- 			fast_has,
+	-- 			fast_has,1
 	-- 			fast_first_index_of,
 	-- 			first_index_of,
 	-- 			reverse,
@@ -65,6 +59,11 @@ insert
 creation make, empty, make_empty, from_external_pointer
 
 feature
+	-- Note that most of the low-level C GSList functions expect to be
+	-- passed a pointer to the first element in the list. The functions
+	-- which insert elements return the new start of the list, which
+	-- may have changed.
+
 	make, empty, make_empty is
 		do
 			handle := default_pointer

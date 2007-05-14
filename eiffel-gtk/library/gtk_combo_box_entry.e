@@ -18,39 +18,30 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description: A GtkComboBoxEntry is a widget that allows
-			-- the user to choose from a list of valid choices or enter a
-			-- different value. It is very similar to a GtkComboBox, but
-			-- it displays the selected value in an entry to allow
-			-- modifying it.
-
-			-- In contrast to a GtkComboBox, the underlying model of a
-			-- GtkComboBoxEntry must always have a text column (see --
-			-- gtk_combo_box_entry_set_text_column()), and the entry will
-			-- show the content of the text column in the selected
-			-- row. To get the text from the entry, use
-			-- gtk_combo_box_get_active_text().
-
-			-- The changed signal will be emitted while typing into a
-			-- GtkComboBoxEntry, as well as when selecting an item from
-			-- the GtkComboBoxEntry's list. Use
-			-- gtk_combo_box_get_active() or
-			-- gtk_combo_box_get_active_iter() to discover whether an
-			-- item was actually selected from the list.
-	       
-			-- Connect to the activate signal of the GtkEntry (use
-			-- gtk_bin_get_child()) to detect when the user actually
-			-- finishes entering text.
-
-			-- The convenience API to construct simple text-only
-			-- GtkComboBoxes can also be used with GtkComboBoxEntrys
-			-- which have been constructed with
-			-- gtk_combo_box_entry_new_text().
-
+					
 class GTK_COMBO_BOX_ENTRY
+	--A GtkComboBoxEntry is a widget that allows the user to choose
+	-- from a list of valid choices or enter a different value. It is
+	-- very similar to a GtkComboBox, but it displays the selected
+	-- value in an entry to allow modifying it.
+
+	-- In contrast to a GtkComboBox, the underlying model of a
+	-- GtkComboBoxEntry must always have a text column (see
+	-- `set_text_column'), and the entry will show the content of the
+	-- text column in the selected row. To get the text from the entry,
+	-- use `active_text'.
+
+	-- The changed signal will be emitted while typing into a
+	-- GtkComboBoxEntry, as well as when selecting an item from the
+	-- GtkComboBoxEntry's list. Use `active_row' or `active_iter' to
+	-- discover whether an item was actually selected from the list.
+	       
+	-- Connect to the activate signal of the GtkEntry (use `child') to
+	-- detect when the user actually finishes entering text.
+
+	-- The convenience API to construct simple text-only GtkComboBoxes
+	-- can also be used with GtkComboBoxEntrys which have been
+	-- constructed with `with_text_only'.
 
 inherit
 	GTK_COMBO_BOX
@@ -107,6 +98,7 @@ feature
 	set_text_column (a_column: INTEGER) is
 			-- Sets the model column which entry box should use to get
 			-- strings from to be `a_column'.
+		require valid_column: a_column >= -1
 		do 
 			gtk_combo_box_entry_set_text_column (handle, a_column)
 		end
@@ -115,6 +107,7 @@ feature
 			-- The column which entry box is using to get the strings from.
 		do
 			Result := gtk_combo_box_entry_get_text_column (handle)
+		ensure valid: Result >= -1 
 		end
 
 feature
@@ -129,23 +122,6 @@ feature
 
 feature {} -- Implementation
 	hidden_child_wrapper: GTK_ENTRY
-
-feature -- Properties
-
-
---    "text-column"          gint                  : Read / Write
-
--- Property Details
-
---   The "text-column" property
-
---    "text-column"          gint                  : Read / Write
-
---    A column in the data source model to get the strings from.
-
---    Allowed values: >= -1
-
---    Default value: -1
 
 feature -- size
 

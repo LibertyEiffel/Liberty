@@ -18,24 +18,17 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description: GtkTreeSortable is an interface to be
-			-- implemented by tree models which support sorting. The
-			-- GtkTreeView uses the methods provided by this interface to
-			-- sort the model.
+					
 
 deferred class GTK_TREE_SORTABLE
+	-- GtkTreeSortable is an interface to be implemented by tree models
+	-- which support sorting. The GtkTreeView uses the methods provided
+	-- by this interface to sort the model.
 inherit
 	-- TODO: G_INTERFACE 
 	-- Prerequisites: GtkTreeSortable requires GtkTreeModel and GObject.
 	GTK_TREE_MODEL
-		--rename make as undefined_make
-		--export {} undefined_make
-		--undefine undefined_make -- Since it is deferred
-		--end
-	
+
 		-- Note: GTK_TREE_MODEL already requires G_OBJECT
 	
 		-- Known Implementations: GtkTreeSortable is implemented by

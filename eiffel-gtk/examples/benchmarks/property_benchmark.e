@@ -53,7 +53,7 @@ feature
 
 			gtk.initialize
 			create buffer.make
-			create timer.make
+			create timer
 
 			create bold_value.from_integer(pango_weight_bold)
 			create size_value.from_integer(15 * 1024)

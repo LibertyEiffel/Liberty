@@ -18,83 +18,78 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-	notes: "GTK_LIST_STORE has some features that are deliberately similar to COLLECTION's"
-
-			-- Description 
-
-			-- The GtkListStore object is a list model for use with a GtkTreeView
-			-- widget. It implements the GtkTreeModel interface, and
-			-- consequentialy, can use all of the methods available there. It also
-			-- implements the GtkTreeSortable interface so it can be sorted by the
-			-- view. Finally, it also implements the tree drag and drop interfaces.
-
-			-- The GtkListStore can accept most GObject types as a column type,
-			-- though it can't accept all custom types. Internally, it will keep a
-			-- copy of data passed in (such as a string or a boxed
-			-- pointer). Columns that accept GObjects are handled a little
-			-- differently. The GtkListStore will keep a reference to the object
-			-- instead of copying the value. As a result, if the object is
-			-- modified, it is up to the application writer to call
-			-- gtk_tree_model_row_changed to emit the "row_changed" signal. This
-			-- most commonly affects lists with GdkPixbufs stored.
-
-			-- Example 5. Creating a simple list store. TODO: Eiffelize this example
-
-			-- enum { COLUMN_STRING, COLUMN_INT, COLUMN_BOOLEAN, N_COLUMNS };
-
-			-- {
-			--   GtkListStore *list_store;
-			--   GtkTreePath *path;
-			--   GtkTreeIter iter;
-			--   gint i;
-			
-			-- list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING,
-			--                                    G_TYPE_INT, G_TYPE_BOOLEAN);
-			
-			--   for (i = 0; i < 10; i++) {
-			--       gchar *some_data;
-			
-			--       some_data = get_some_data (i);
-			
-			--       /* Add a new row to the model */
-			--       gtk_list_store_append (list_store, &iter);
-			--       gtk_list_store_set (list_store, &iter,
-			--                           COLUMN_STRING, some_data,
-			--                           COLUMN_INT, i,
-			--                           COLUMN_BOOLEAN,  FALSE,
-			--                           -1);
-			
-			--       /* As the store will keep a copy of the string internally, we
-			--        * free some_data.
-			--        */
-			--       g_free (some_data);
-			--     }
-			
-			--   /* Modify a particular row */
-			--   path = gtk_tree_path_new_from_string ("4");
-			--   gtk_tree_model_get_iter (GTK_TREE_MODEL (list_store),
-			--                            &iter,
-			--                            path);
-			--   gtk_tree_path_free (path);
-			--   gtk_list_store_set (list_store, &iter,
-			--                       COLUMN_BOOLEAN, TRUE,
-			--                       -1);
-			-- }
-
-			-- Performance Considerations
-
-			-- Internally, the GtkListStore was implemented with a linked list
-			-- with a tail pointer prior to GTK+ 2.6. As a result, it was fast at
-			-- data insertion and deletion, and not fast at random data
-			-- access. The GtkListStore sets the GTK_TREE_MODEL_ITERS_PERSIST
-			-- flag, which means that GtkTreeIters can be cached while the row
-			-- exists. Thus, if access to a particular row is needed often and
-			-- your code is expected to run on older versions of GTK+, it is worth
-			-- keeping the iter around.
 
 class GTK_LIST_STORE
+	-- The GtkListStore object is a list model for use with a
+	-- GtkTreeView widget. It implements the GtkTreeModel interface,
+	-- and consequentialy, can use all of the methods available
+	-- there. It also implements the GtkTreeSortable interface so it
+	-- can be sorted by the view. Finally, it also implements the tree
+	-- drag and drop interfaces.
+
+	-- The GtkListStore can accept most GObject types as a column type,
+	-- though it can't accept all custom types. Internally, it will
+	-- keep a copy of data passed in (such as a string or a boxed
+	-- pointer). Columns that accept GObjects are handled a little
+	-- differently. The GtkListStore will keep a reference to the
+	-- object instead of copying the value. As a result, if the object
+	-- is modified, it is up to the application writer to call
+	-- gtk_tree_model_row_changed to emit the "row_changed"
+	-- signal. This most commonly affects lists with GdkPixbufs stored.
+
+	-- Example 5. Creating a simple list store. TODO: Eiffelize this example
+
+	-- enum { COLUMN_STRING, COLUMN_INT, COLUMN_BOOLEAN, N_COLUMNS };
+
+	-- {
+	--   GtkListStore *list_store;
+	--   GtkTreePath *path;
+	--   GtkTreeIter iter;
+	--   gint i;
+			
+	-- list_store = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING,
+	--                                    G_TYPE_INT, G_TYPE_BOOLEAN);
+			
+	--   for (i = 0; i < 10; i++) {
+	--       gchar *some_data;
+			
+	--       some_data = get_some_data (i);
+			
+	--       /* Add a new row to the model */
+	--       gtk_list_store_append (list_store, &iter);
+	--       gtk_list_store_set (list_store, &iter,
+	--                           COLUMN_STRING, some_data,
+	--                           COLUMN_INT, i,
+	--                           COLUMN_BOOLEAN,  FALSE,
+	--                           -1);
+			
+	--       /* As the store will keep a copy of the string internally, we
+	--        * free some_data.
+	--        */
+	--       g_free (some_data);
+	--     }
+			
+	--   /* Modify a particular row */
+	--   path = gtk_tree_path_new_from_string ("4");
+	--   gtk_tree_model_get_iter (GTK_TREE_MODEL (list_store),
+	--                            &iter,
+	--                            path);
+	--   gtk_tree_path_free (path);
+	--   gtk_list_store_set (list_store, &iter,
+	--                       COLUMN_BOOLEAN, TRUE,
+	--                       -1);
+	-- }
+	
+	-- Performance Considerations: Internally, the GtkListStore was
+	-- implemented with a linked list with a tail pointer prior to GTK+
+	-- 2.6. As a result, it was fast at data insertion and deletion,
+	-- and not fast at random data access. The GtkListStore sets the
+	-- GTK_TREE_MODEL_ITERS_PERSIST flag, which means that GtkTreeIters
+	-- can be cached while the row exists. Thus, if access to a
+	-- particular row is needed often and your code is expected to run
+	-- on older versions of GTK+, it is worth keeping the iter around.
+
+	--	Note: GTK_LIST_STORE has some features that are deliberately similar to COLLECTION's
 
 inherit
 	GTK_TREE_MODEL 

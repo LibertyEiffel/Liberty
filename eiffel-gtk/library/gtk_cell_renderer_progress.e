@@ -56,25 +56,27 @@ feature -- The "text" property
 
 	set_text (a_text: STRING) is
 			-- Set text property
-			-- TODO: Please provide a more direct implementation. Currently there is a temporary G_VALUE object
+			-- TODO: provide a more direct implementation. Currently there is a temporary G_VALUE object
 		require valid_text: a_text /= Void
 		do
 			set_property (text_property_name, create {G_VALUE}.from_string(a_text))
 		end
 
-	-- Default value: NULL
-
 feature -- The "value" property
+	value: INTEGER is
+			-- The "value" property determines the percentage to which
+			-- the progress bar will be "filled in".
+		do
+			Result:=integer_property(value_property_name)
+		ensure in_range: Result.in_range(0,100)
+		end
 
---   "value"                gint                  : Read / Write
-
--- The "value" property determines the percentage to which the progress bar will be "filled in".
-
--- Allowed values: [0,100]
-
--- Default value: 0
-
--- Since 2.6
+	set_value (a_value: INTEGER) is
+		require in_range: a_value.in_range(0,100)
+		do
+			set_integer_property(value_property_name,a_value)
+		end
+	
 feature {} -- Properties names
 	text_property_name: STRING is "text"
 	value_property_name: STRING is "value"

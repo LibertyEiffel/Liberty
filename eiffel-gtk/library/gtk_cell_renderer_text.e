@@ -18,19 +18,16 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- A GtkCellRendererText renders a given text in its cell,
-			-- using the font, color and style information provided by
-			-- its properties. The text will be ellipsized if it is too
-			-- long and the ellipsize property allows it.
-
-			-- If the mode is GTK_CELL_RENDERER_MODE_EDITABLE, the
-			-- GtkCellRendererText allows to edit its text using an
-			-- entry.
 
 class GTK_CELL_RENDERER_TEXT
+	-- A GtkCellRendererText renders a given text in its cell, using
+	-- the font, color and style information provided by its
+	-- properties. The text will be ellipsized if it is too long and
+	-- the ellipsize property allows it.
+
+	-- If the mode is GTK_CELL_RENDERER_MODE_EDITABLE, the
+	-- GtkCellRendererText allows to edit its text using an entry.
+
 inherit GTK_CELL_RENDERER
 
 insert

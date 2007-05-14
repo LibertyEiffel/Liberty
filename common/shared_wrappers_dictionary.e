@@ -42,7 +42,7 @@ indexing
 				
 deferred class SHARED_WRAPPERS_DICTIONARY
 
-insert ANY undefine copy, is_equal end
+insert ANY undefine copy, is_equal, fill_tagged_out_memory end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 
