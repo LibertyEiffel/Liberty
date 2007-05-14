@@ -18,6 +18,7 @@ feature
 	
 	make is
 			-- Make
+		local i: ITERATOR[G_PARAM_SPEC]
 		do
 			gtk.initialize							
 			create window.make
@@ -36,6 +37,16 @@ feature
 			hbox.pack_end_defaults (pulse)
 			
 			window.add (hbox)
+			print ("Window has "+window.properties.count.out+" properties: ")
+			from
+				i:=window.properties.get_new_iterator;
+				i.start
+			until i.is_off loop
+				std_output.put_string(i.item.name) std_output.put_string(once " - ")
+				std_output.put_string(i.item.nick) std_output.put_string(once ":* ")
+				print (i.item.blurb) std_output.put_new_line
+				i.next
+			end
 			window.show_all
 			gtk.run_main_loop
 		end

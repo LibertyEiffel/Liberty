@@ -26,6 +26,9 @@ class C_ARRAY [ITEM -> SHARED_C_STRUCT]
 
 inherit 
 	COLLECTION [ITEM]
+		redefine
+			first_index_of
+		end
 	-- SHARED_C_STRUCT rename exists as struct_exists undefine
 	-- fill_tagged_out_memory redefine is_equal end
 	WRAPPER_HANDLER
@@ -79,6 +82,7 @@ feature
 				else
 					debug print(object_materialization_notice) end
 					Result := new_item
+					debug print(" Object materialized ") end
 					Result.from_external_pointer(ptr)
 				end
 				Result.set_shared 

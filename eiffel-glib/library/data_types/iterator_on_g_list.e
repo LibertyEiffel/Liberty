@@ -39,7 +39,7 @@ feature -- Iterator's features
 	item: ITEM is
 		local ptr: POINTER
 		do
-			ptr := g_slist_get_data (current_element)
+			ptr := g_list_get_data (current_element)
 			if wrappers.has(ptr) then
 				Result ::= wrappers.at(ptr)
 				check
@@ -50,7 +50,7 @@ feature -- Iterator's features
 					print ("Warning: ITERATOR_ON_G_SLIST is creating a wrapper without knowing its effective type. If the list item is deferred a crash will come")
 				end
 				Result := new_item
-				Result.from_external_pointer ()
+				Result.from_external_pointer (ptr)
 			end
 		end
 	

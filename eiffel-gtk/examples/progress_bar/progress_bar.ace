@@ -7,7 +7,7 @@ default -- section of the system
 	-- Choose the appropriate value: boost, no, require, ensure, invariant, loop, check, all.
 
 	assertion_flat_check (no);
-	debug (yes);
+	debug (no);
 	trace (no);
 	collect (yes);
 	no_style_warning (no);

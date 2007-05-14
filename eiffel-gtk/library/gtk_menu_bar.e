@@ -18,17 +18,14 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"					
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- Description: The GtkMenuBar is a subclass of GtkMenuShell
-			-- which contains one to many GtkMenuItem. The result is a
-			-- standard menu bar which can hold many menu
-			-- items. GtkMenuBar allows for a shadow type to be set for
-			-- aesthetic purposes. The shadow types are defined in the
-			-- gtk_menu_bar_set_shadow_type function.
 
 class GTK_MENU_BAR
+	-- The GtkMenuBar is a subclass of GtkMenuShell which contains one
+	-- to many GtkMenuItem. The result is a standard menu bar which can
+	-- hold many menu items. GtkMenuBar allows for a shadow type to be
+	-- set for aesthetic purposes. The shadow types are defined in the
+	-- gtk_menu_bar_set_shadow_type function.
+	
 inherit
 	GTK_MENU_SHELL 
 		redefine 
@@ -39,8 +36,8 @@ inherit
 	-- TODO: GtkMenuBar implements AtkImplementorIface.
 	
 insert GTK_PACK_DIRECTION
+	
 creation make
-
 
 feature {} -- Creation
 	make is

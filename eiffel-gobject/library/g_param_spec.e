@@ -51,11 +51,9 @@ feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
 			-- TODO: G_PARAM_SPEC should be deferred and its place should be taken by specialized heirs such as G_PARAM_SPEC_BOOLEAN
 		do
-			check a_ptr.is_not_null end
-			set_shared
+			Precursor (a_ptr)
 			owner_class := g_type_class_peek (get_owner_type (a_ptr))
 			param_id := get_param_id (a_ptr)
-			Precursor (a_ptr)
 		end
 
 feature -- Flags
@@ -962,7 +960,7 @@ feature -- size
 		alias "sizeof(GParamSpec)"
 		end
 
-invariant
-	is_shared: is_shared
-	initialized: is_initialized
+	-- invariant 
+	-- is_shared: is_shared
+	-- initialized: is_initialized
 end
