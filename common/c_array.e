@@ -27,7 +27,7 @@ class C_ARRAY [ITEM -> SHARED_C_STRUCT]
 inherit 
 	COLLECTION [ITEM]
 		redefine
-			first_index_of
+			first_index_of, fast_first_index_of, reverse
 		end
 	-- SHARED_C_STRUCT rename exists as struct_exists undefine
 	-- fill_tagged_out_memory redefine is_equal end
@@ -192,9 +192,10 @@ feature {ANY} -- Modification:
 			put(element,index)
 		end
 
-	from_collection (model: TRAVERSABLE[like item]) is
+	from_collection (model: COLLECTION[like item]) is
 		local i: ITERATOR[like item]
 		do
+            -- FIXME: signature should be model: TRAVERSABLE, once SE2.3 is out
 			with_capacity(model.count)
 			from i:=model.get_new_iterator; i.start
 			until i.is_off 
@@ -292,21 +293,8 @@ feature {ANY} -- Removing:
 
 feature {ANY} -- Looking and Searching:
 	first_index_of (element: like item): INTEGER is
-		local i: INTEGER
 		do
-			-- Give the index of the first occurrence of `element' using
-			-- `is_equal' for comparison.  Answer `upper + 1' when
-			-- `element' is not inside.
-			if element=Void then 
-				from i:=lower until item(i)=Void or else i>upper
-				loop i:=i+1
-				end
-			else
-				from i:=lower until element.is_equal(item(i)) or else i>upper
-				loop i:=i+1
-				end
-			end
-			Result:=i
+            Result := index_of (element, lower)
 		end
 
 	index_of (element: like item; start_index: INTEGER): INTEGER is
@@ -352,14 +340,8 @@ feature {ANY} -- Looking and Searching:
 	fast_first_index_of (element: like item): INTEGER is
 			-- Note: comparison is done using the address of the wrapped
 			-- structure.
-		local element_ptr: POINTER
 		do
-			-- Give the index of the first occurrence of `element' using basic `=' for comparison.
-			-- Answer `upper + 1' when `element' is not inside.
-			element_ptr:=null_or(element)
-			from Result:=lower until storage.item(Result)=element_ptr or else Result>upper
-			loop Result:=Result+1
-			end
+            Result := fast_index_of (element, lower)
 		end
 
 	fast_index_of (element: like item; start_index: INTEGER): INTEGER is
