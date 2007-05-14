@@ -37,15 +37,21 @@ feature -- Iterator's features
 		end
 	
 	item: ITEM is
-			-- TODO: suboptimal implementation
+		local ptr: POINTER
 		do
-			Result := new_item
-			Result.from_external_pointer (g_list_get_data
-													(current_element))
-			-- Note: This implementation create a new wrapper object for
-			-- each call to item. This is cleary inefficient. A possible
-			-- solution could be to add singleton DICTIONARY that stores
-			-- wrapper object and its wrapped C structure
+			ptr := g_slist_get_data (current_element)
+			if wrappers.has(ptr) then
+				Result ::= wrappers.at(ptr)
+				check
+					wrappers_handle_is_pointer: Result.handle = ptr
+				end
+			else
+				debug
+					print ("Warning: ITERATOR_ON_G_SLIST is creating a wrapper without knowing its effective type. If the list item is deferred a crash will come")
+				end
+				Result := new_item
+				Result.from_external_pointer ()
+			end
 		end
 	
 	next is
