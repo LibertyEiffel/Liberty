@@ -81,10 +81,10 @@ creation from_external
 
 feature 
 	from_external (a_c_string: POINTER) is
-		obsolete "Warning! Cause crash at dispose time, perhaps only during exiting"
 		do
 			is_unchanged := True
-			Precursor (a_c_string)
+			from_external_copy (a_c_string) 
+			-- XXX: Not optimal, but otherwise will try to free `a_c_string'
 		end
 			
 	is_changed: BOOLEAN  is
