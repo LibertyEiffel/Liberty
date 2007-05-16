@@ -33,6 +33,7 @@ class CONST_STRING
 
 inherit 
 	STRING
+		undefine is_equal
 		redefine 
 			resize, clear_count, wipe_out,
 			clear_count_and_capacity,
@@ -46,7 +47,7 @@ inherit
 			infix ">=",
 			compare, three_way_comparison,
 			as_upper, as_lower,
-			is_equal,
+			--is_equal,
 			substring,
 			prepend,
 			insert_string, replace_substring,
@@ -77,13 +78,22 @@ inherit
 	-- 		undefine fill_tagged_out_memory, copy, out_in_tagged_out_memory
 	-- 		end 
 	
+	-- insert WRAPPER_HANDLER undefine --- is_equal,
+	-- copy,fill_tagged_out_memory, out_in_tagged_out_memory end
+
 creation from_external
 
 feature 
 	from_external (a_c_string: POINTER) is
 		do
 			is_unchanged := True
-			from_external_copy (a_c_string) 
+			-- Allocating a small area of memory that will be freed in
+			-- place of the "const char *" when Eiffel Garbage Collector
+			-- disposes an unmodified CONST_STING.
+			sacrificial_lamb:= calloc(1,1)
+			original_c_string := a_c_string
+			Precursor (a_c_string)
+			-- from_external_copy (a_c_string) 
 			-- XXX: Not optimal, but otherwise will try to free `a_c_string'
 		end
 			
@@ -463,16 +473,24 @@ feature {ANY} -- from STRING
 			Precursor (ch)
 		end
 
-	is_equal (other: STRING): BOOLEAN is
+	is_equal (other: STRING ): BOOLEAN is -- like Current
 		do
-			if count = other.count then
-				Result := storage.fast_memcmp(other.storage, count)
+			if count = other.count
+			 then Result := storage.fast_memcmp(other.storage,count)
 			end
 		end
 
 feature {} -- Implementation
 	original_c_string: POINTER 
 			-- The address that contains the original C string 
+
+	sacrificial_lamb: POINTER 
+			-- A address of a small area of memory allocated at creation 
+			-- time that will take the place of the "const char *" when 
+			-- Eiffel Garbage Collector disposes an unmodified 
+			-- CONST_STING.
+			-- Note: the symbolical name is intentional.... Think about 
+			-- it as a small Eiffellish Easter Egg.... 8)
 
 	dispose is
 		do
@@ -483,10 +501,22 @@ feature {} -- Implementation
 				-- allocated by Eiffel and must NOT be freed.
 				-- change it to a dummy array
 				print(dispose_notice) 
-				storage := storage.calloc(1)
+				storage := storage.from_pointer(sacrificial_lamb)
 			end
 		end
 
 	dispose_notice: STRING is
-		"CONST_STRING.dispose: the string is unchanged; using a tentative hack (i.e.: reallocating Eiffel storage area with a 1-char-long string) to avoid crash during quitting or disposing%N"
+		"CONST_STRING.dispose: the string is unchanged; using a tentative hack to avoid crash during quitting or disposing; a pre-allocated 1-char-long memory area will be set as storage.%N"
+
+	calloc (a_number, a_size: INTEGER): POINTER is
+			-- void *calloc(size_t nmemb, size_t size);
+			--
+			-- calloc() allocates memory for an array of nmemb elements
+			-- of size bytes each and returns a pointer to the allocated
+			-- memory. The memory is set to zero.
+		external "C use <stdlib.h>"
+		alias "se_calloc"
+		ensure Result.is_not_null
+		end
+
 end -- class CONST_STRING

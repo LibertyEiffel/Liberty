@@ -182,19 +182,24 @@ feature -- queries
 	name: STRING is
 			-- the name of a G_PARAM_SPEC
 		do
-			create Result.from_external_copy(g_param_spec_get_name(handle))
+			--create 
+			--Result.from_external_copy(g_param_spec_get_name(handle))
+			create {CONST_STRING} Result.from_external(g_param_spec_get_name(handle))
 		end
 
 	nick: STRING is
 			-- the nick of a G_PARAM_SPEC
 		do
-			create Result.from_external_copy(g_param_spec_get_nick(handle))
+			--create 
+			--Result.from_external_copy(g_param_spec_get_nick(handle))
+			create {CONST_STRING} Result.from_external(g_param_spec_get_nick(handle))
 		end
 	
 	blurb: STRING is
 			-- the blurb of a G_PARAM_SPEC
 		do
-			create Result.from_external_copy(g_param_spec_get_blurb(handle))
+			-- create Result.from_external_copy(g_param_spec_get_blurb(handle))
+			create {CONST_STRING} Result.from_external(g_param_spec_get_blurb(handle))
 		end
 
 feature 

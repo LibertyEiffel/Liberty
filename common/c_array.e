@@ -294,22 +294,22 @@ feature {ANY} -- Removing:
 feature {ANY} -- Looking and Searching:
 	first_index_of (element: like item): INTEGER is
 		do
-            Result := index_of (element, lower)
+            Result := index_of (element) --, lower)
 		end
 
-	index_of (element: like item; start_index: INTEGER): INTEGER is
+	index_of (element: like item): INTEGER is -- ; start_index: INTEGER): INTEGER is
 		do
 			-- Using `is_equal' for comparison, gives the index of the
 			-- first occurrence of `element' at or after
 			-- `start_index'. Answer `upper + 1' when `element' when the
 			-- search fail.
 			if element=Void then
-				from Result:=start_index
+				from Result:=lower -- start_index
 				until item(Result)=Void or else Result>upper
 				loop Result:=Result+1
 				end
 			else
-				from Result:=start_index
+				from Result:=lower -- start_index
 				until item(Result).is_equal(element) or else Result>upper
 				loop Result:=Result+1
 				end				
@@ -341,10 +341,10 @@ feature {ANY} -- Looking and Searching:
 			-- Note: comparison is done using the address of the wrapped
 			-- structure.
 		do
-            Result := fast_index_of (element, lower)
+            Result := fast_index_of (element) --, lower)
 		end
 
-	fast_index_of (element: like item; start_index: INTEGER): INTEGER is
+	fast_index_of (element: like item): INTEGER is -- ; start_index: INTEGER): INTEGER is
 			-- Note: comparison is done using the address of the wrapped
 			-- structure.
 		local element_ptr: POINTER
@@ -370,7 +370,8 @@ feature {ANY} -- Looking and Searching:
 			-- `start_index' down to the `lower' index . Answer `lower
 			-- -1' when the search fail.
 			element_ptr:=null_or(element)
-			from Result:=start_index until storage.item(Result)=element_ptr or else Result>upper
+			-- from Result:=start_index
+			from Result:=lower until storage.item(Result)=element_ptr or else Result>upper
 			loop Result:=Result-1
 			end
 		end

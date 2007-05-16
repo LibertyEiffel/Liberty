@@ -53,4 +53,46 @@ feature {} -- Wrapper related exceptions
 	retrieved_object_mismatch: STRING is
 		"Retrieved_object_mismatch: the Eiffel wrapper associated with a pointer is not an actual wrapper for the object referred by that pointer "
 
+feature {} -- External calls
+
+	calloc (a_number, a_size: INTEGER): POINTER is
+			-- void *calloc(size_t nmemb, size_t size);
+			--
+			-- calloc() allocates memory for an array of nmemb elements
+			-- of size bytes each and returns a pointer to the allocated
+			-- memory. The memory is set to zero.
+		external "C use <stdlib.h>"
+		alias "se_calloc"
+		ensure Result.is_not_null
+		end
+
+	free (a_ptr: POINTER) is
+			-- void free(void *ptr);
+			--
+			-- free() frees the memory space pointed to by ptr, which
+			-- must have been returned by a previous call to malloc(),
+			-- calloc() or realloc(). Otherwise, or if free(ptr) has
+			-- already been called before, undefined behaviour occurs.
+			-- If ptr is NULL, no operation is performed.
+		external "C use <stdlib.h>"
+		end
+
+	memcpy (a_dest, a_src: POINTER; a_size: INTEGER): POINTER is
+			-- void *memcpy(void *dest, const void *src, size_t n);
+			-- 
+			-- The memcpy() function copies n bytes from memory area src
+			-- to memory area dest. The memory areas should not overlap.
+			-- Use memmove(3) if the memory areas do overlap.
+		external "C use <stdlib.h>"
+		end
+
+	memcmp(a, b: POINTER; len: INTEGER): INTEGER is
+			-- int memcmp(const void *s1, const void *s2, size_t n);
+			-- 
+			-- The memcmp() function compares the first n bytes of
+			-- the memory areas s1 and s2. It returns an integer less than, equal to,
+			-- or greater than zero if s1 is found, respectively, to be less
+			-- than, to match, or be greater than s2.
+			external "C use <string.h>"
+			end
 end
