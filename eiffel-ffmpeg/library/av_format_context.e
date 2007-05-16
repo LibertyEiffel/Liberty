@@ -139,8 +139,10 @@ feature -- Operations
 
 	close is
 		do
-			av_close_input_file (handle)
-			handle:= default_pointer -- null
+			if handle.is_not_null then
+				av_close_input_file (handle)
+				handle:= default_pointer -- null
+			end
 		end
 
 feature -- Access
@@ -276,7 +278,11 @@ feature -- Access
 
 	duration: INTEGER_64 is
 		do
-			Result := av_format_context_get_duration (handle)
+			if is_valid then
+				Result := av_format_context_get_duration (handle)
+			else
+				Result := 0
+			end
 		end
 
 	file_size: INTEGER_64 is
@@ -302,10 +308,7 @@ feature {} -- Disposing
 
 	dispose is
 		do
-			if handle.is_not_null then
-				av_close_input_file (handle)
-				handle := default_pointer -- null
-			end
+			close
 		end
 
 feature {} -- Representation
