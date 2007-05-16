@@ -278,11 +278,7 @@ feature -- Access
 
 	duration: INTEGER_64 is
 		do
-			if is_valid then
-				Result := av_format_context_get_duration (handle)
-			else
-				Result := 0
-			end
+			Result := av_format_context_get_duration (handle)
 		end
 
 	file_size: INTEGER_64 is
