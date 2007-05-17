@@ -22,12 +22,12 @@ indexing
 class AV_CODEC_CONTEXT
 
 inherit
-	WRAPPER_RETRIEVER [AV_CODEC]
-		undefine copy, is_equal end
 	C_STRUCT
 		redefine dispose end
 
 insert
+	WRAPPER_RETRIEVER [AV_CODEC]
+		undefine copy, is_equal end
 	AV_CODEC_CONTEXT_EXTERNALS
 	AV_PIXEL_FORMATS
 	AV_CODEC_TYPES
