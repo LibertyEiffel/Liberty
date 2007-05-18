@@ -98,19 +98,30 @@ feature
 		end
 			
 	is_changed: BOOLEAN  is
+			-- Has the Current constant string been changed?
 		do 
 			Result := not is_unchanged 
 		end
 
 	is_unchanged: BOOLEAN
+			-- Has Current CONST_STRING not been changed?
 
 	modify is
 			-- Make Current changeable. The underlying "const char*"
 			-- string is copyied into a new changeable buffer. The 
 			-- original C string pointer will be available at `original_c_string'
+		local previous: like storage; i: INTEGER
 		do
 			original_c_string := to_external
-			from_external_copy (original_c_string)
+			from 
+				previous := storage
+				storage := storage.calloc(capacity+1)
+				i:=count-1
+			until i < 0
+			loop
+				storage.put(previous.item(i),i)
+				i := i - 1
+			end
 			is_unchanged := False
 		ensure
 			changeable: is_changed

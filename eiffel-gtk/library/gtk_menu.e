@@ -18,67 +18,64 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
-			-- A GtkMenu is a GtkMenuShell that implements a drop down
-			-- menu consisting of a list of GtkMenuItem objects which can
-			-- be navigated and activated by the user to perform
-			-- application functions.
-
-			-- A GtkMenu is most commonly dropped down by activating a
-			-- GtkMenuItem in a GtkMenuBar or popped up by activating a
-			-- GtkMenuItem in another GtkMenu.
-	
-			-- A GtkMenu can also be popped up by activating a
-			-- GtkOptionMenu. Other composite widgets such as the
-			-- GtkNotebook can pop up a GtkMenu as well.
-
-			-- Applications can display a GtkMenu as a popup menu by
-			-- calling the gtk_menu_popup() function. The example below
-			-- shows how an application can pop up a menu when the 3rd
-			-- mouse button is pressed.
-
-			-- TODO: Eiffelize this Example 1. Connecting the popup
-			-- signal handler.
-	
-			-- /* connect our handler which will popup the menu */
-			-- g_signal_connect_swapped (window, "button_press_event",
-			-- G_CALLBACK (my_popup_handler), menu);
-	
-			-- TODO: Eiffelize this Example 2. Signal handler which
-			-- displays a popup menu.
-
-			-- static gint
-			-- my_popup_handler (GtkWidget *widget, GdkEvent *event)
-			-- {
-			-- GtkMenu *menu;
-			-- GdkEventButton *event_button;
-	
-			-- g_return_val_if_fail (widget != NULL, FALSE);
-			-- g_return_val_if_fail (GTK_IS_MENU (widget), FALSE);
-			-- g_return_val_if_fail (event != NULL, FALSE);
-	
-			-- /* The "widget" is the menu that was supplied when
-			-- * g_signal_connect_swapped() was called.
-			-- */
-			-- menu = GTK_MENU (widget);
-	
-			-- if (event->type == GDK_BUTTON_PRESS)
-			-- {
-			-- event_button = (GdkEventButton *) event;
-			-- if (event_button->button == 3)
-			-- {
-			-- gtk_menu_popup (menu, NULL, NULL, NULL, NULL,
-			-- event_button->button, event_button->time);
-			-- return TRUE;
-			-- }
-			-- }
-	
-			-- return FALSE;
-			-- }
 	
 class GTK_MENU
+	-- A GtkMenu is a GtkMenuShell that implements a drop down menu
+	-- consisting of a list of GtkMenuItem objects which can be
+	-- navigated and activated by the user to perform application
+	-- functions.
+	
+	-- A GtkMenu is most commonly dropped down by activating a
+	-- GtkMenuItem in a GtkMenuBar or popped up by activating a
+	-- GtkMenuItem in another GtkMenu.
+	
+	-- A GtkMenu can also be popped up by activating a
+	-- GtkOptionMenu. Other composite widgets such as the GtkNotebook
+	-- can pop up a GtkMenu as well.
+	
+	-- Applications can display a GtkMenu as a popup menu by calling
+	-- the gtk_menu_popup() function. The example below shows how an
+	-- application can pop up a menu when the 3rd mouse button is
+	-- pressed.
+
+	-- TODO: Eiffelize this Example 1. Connecting the popup signal
+	-- handler.
+	
+	-- /* connect our handler which will popup the menu */
+	-- g_signal_connect_swapped (window, "button_press_event",
+	-- G_CALLBACK (my_popup_handler), menu);
+	
+	-- TODO: Eiffelize this Example 2. Signal handler which
+	-- displays a popup menu.
+
+	-- static gint
+	-- my_popup_handler (GtkWidget *widget, GdkEvent *event)
+	-- {
+	-- GtkMenu *menu;
+	-- GdkEventButton *event_button;
+	
+	-- g_return_val_if_fail (widget != NULL, FALSE);
+	-- g_return_val_if_fail (GTK_IS_MENU (widget), FALSE);
+	-- g_return_val_if_fail (event != NULL, FALSE);
+	
+	-- /* The "widget" is the menu that was supplied when
+	-- * g_signal_connect_swapped() was called.
+	-- */
+	-- menu = GTK_MENU (widget);
+	
+	-- if (event->type == GDK_BUTTON_PRESS)
+	-- {
+	-- event_button = (GdkEventButton *) event;
+	-- if (event_button->button == 3)
+	-- {
+	-- gtk_menu_popup (menu, NULL, NULL, NULL, NULL,
+	-- event_button->button, event_button->time);
+	-- return TRUE;
+	-- }
+	-- }
+	
+	-- return FALSE;
+	-- }
 
 inherit
 	GTK_MENU_SHELL redefine struct_size end
@@ -256,13 +253,14 @@ feature
 		end
 
 	title: STRING is
-			-- the title of the menu. See `set_title'. Can be Void d if
+			-- the title of the menu. See `set_title'. Can be Void if
 			-- the menu has no title set on it.
 		local ptr: POINTER
 		do
 			ptr := gtk_menu_get_title (handle)
 			if ptr.is_not_null then 
-				create Result.from_external_copy (ptr)
+				-- create Result.from_external_copy (ptr)
+				create {CONST_STRING} Result.from_external (ptr)
 			end
 		end
 

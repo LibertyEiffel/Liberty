@@ -124,9 +124,9 @@ implemented.
 
         GtkComboBox - Basic functionality
         GtkComboBoxEntry - Complete
-        GtkMenu - 
-        GtkMenuBar - 
-        GtkMenuItem - 
+        GtkMenu - Basic functionality
+        GtkMenuBar - Basic functionality
+        GtkMenuItem - Basic functionality
         GtkMenuShell - 
         GtkImageMenuItem - 
         GtkRadioMenuItem - 

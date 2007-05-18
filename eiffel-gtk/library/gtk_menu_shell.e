@@ -18,19 +18,16 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	date: "$Date:$"
-	revision: "$Revision:$"
-	
-			-- A GtkMenuShell is the abstract base class used to derive
-			-- the GtkMenu and GtkMenuBar subclasses.
-
-			-- A GtkMenuShell is a container of GtkMenuItem objects
-			-- arranged in a list which can be navigated, selected, and
-			-- activated by the user to perform application functions. A
-			-- GtkMenuItem can have a submenu associated with it,
-			-- allowing for nested hierarchical menus.
 
 deferred class GTK_MENU_SHELL
+	-- A GtkMenuShell is the abstract base class used to derive the
+	-- GtkMenu and GtkMenuBar subclasses.
+
+	-- A GtkMenuShell is a container of GtkMenuItem objects arranged in
+	-- a list which can be navigated, selected, and activated by the
+	-- user to perform application functions. A GtkMenuItem can have a
+	-- submenu associated with it, allowing for nested hierarchical
+	-- menus.
 
 inherit GTK_CONTAINER
 	-- GtkMenuShell implements AtkImplementorIface Interface

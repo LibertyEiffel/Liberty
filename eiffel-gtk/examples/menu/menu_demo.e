@@ -3,6 +3,7 @@ insert GTK
 creation make
 feature
 	make is
+		local label: STRING
 		do
 			gtk.initialize 
 			create window.make
@@ -41,6 +42,15 @@ feature
 			edit_submenu.append (view_all_menu)
 			edit_submenu.append (view_some_menu)
 			window.show_all
+			
+			print ("Testing CONST_STRING using GTK_MENU.label feature%N")
+			edit_submenu.set_title("Edit submenu")
+			label := edit_submenu.title
+			label.prepend ("edit_submenu.label='")
+			label.append  ("'.%N")
+			print (label)
+			
+			
 			gtk.run_main_loop 
 		end
 
