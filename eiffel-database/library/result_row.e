@@ -6,30 +6,36 @@ indexing
 	revision: "$Revision:$"
 
 deferred class RESULT_ROW
-inherit TRAVERSABLE [ANY] 
+
+inherit
+	TRAVERSABLE [ANY] 
 
 feature -- Type queries
 	is_integer (a_column: INTEGER): BOOLEAN is
 			-- Is the type in `a_column' an INTEGER?
-		require valid_column: valid_index (a_column)
+		require
+			valid_column: valid_index (a_column)
 		deferred
 		end
 
 	is_real (a_column: INTEGER): BOOLEAN is
 			-- Is the type in `a_column' an REAL?
-		require valid_column: valid_index (a_column)
+		require
+			valid_column: valid_index (a_column)
 		deferred
 		end
 	
 	is_string (a_column: INTEGER): BOOLEAN is
 			-- Is the type in `a_column' a STRING?
-		require valid_column: valid_index (a_column)
+		require
+			valid_column: valid_index (a_column)
 		deferred
 		end
 	
 	is_boolean (a_column: INTEGER): BOOLEAN is
 			-- Is the type in `a_column' a BOOLEAN
-		require valid_column: valid_index (a_column)
+		require
+			valid_column: valid_index (a_column)
 		deferred
 		end
 

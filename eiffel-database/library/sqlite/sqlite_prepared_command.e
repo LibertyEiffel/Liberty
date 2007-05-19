@@ -6,39 +6,48 @@ indexing
 	revision: "$Revision:$"
 
 class SQLITE_PREPARED_COMMAND
+
 inherit
 	PREPARED_COMMAND
+		undefine
+			copy,
+			is_equal
+		end
+
 	SQLITE_PREPARED_STATEMENT
 
-creation make
-	
+creation {SQLITE_DATABASE} make
+
 feature
 	execute (some_parameters: TRAVERSABLE[ANY]) is
 			-- Execute the current query with `some_parameters'
 		local 
-			i, -- the parameters index, 
+			i: INTEGER
 			query_index: INTEGER 
 		do
-			debug print ("SQLITE_PREPARED_COMMAND.execute rescode:"+res_code.out+"%N") end
-			res_code := sqlite3_reset (handle)
-			from i:=some_parameters.lower; query_index:=1 
-			until i > some_parameters.upper
+			from
+				i := some_parameters.lower
+				query_index := 1 
+			until
+				i > some_parameters.upper
 			loop
-				bind_parameter (some_parameters.item(i),query_index)
-				i := i+1; query_index := query_index + 1
+				bind_parameter (some_parameters.item(i), query_index)
+				i := i + 1
+				query_index := query_index + 1
 			end
-			res_code:=sqlite3_step (handle)
-			inspect res_code
-			when sqlite_busy then
-				debug print ("SQlite busy%N") end
-			when sqlite_done then
-				debug print ("SQlite done%N") end
-			when sqlite_row then
-				debug print ("SQlite row%N") end
-			when sqlite_error then
-				debug print ("SQlite error%N") end
-			when sqlite_misuse then
-				debug print ("SQlite misuse%N") end
+			res_code := sqlite3_step (handle)
+			last_exec_success := res_code = Sqlite_done
+			if last_exec_success then
+				last_affected_rows := sqlite3_changes (sqlite_db.handle)
+			else
+				last_affected_rows := 0
 			end
+			res_code := sqlite3_clear_bindings (handle)
+			res_code := sqlite3_reset (handle)
+			is_prepared := True
+			is_stepped := False
 		end
+
+	last_affected_rows: INTEGER
+
 end

@@ -1,6 +1,6 @@
 indexing
 	description: "."
-	copyright: "(C) 2006 Paolo Redaelli "
+	copyright: "(C) 2006 Paolo Redaelli, Raphael Mack"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
@@ -39,6 +39,7 @@ indexing
 
 	
 class POSTGRESQL_DATABASE
+
 inherit
 	DATABASE
 	C_STRUCT
@@ -50,6 +51,7 @@ feature {} -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PGconn)"
 		end
+
 feature 
 	is_connected: BOOLEAN is
 			-- TODO: Dummy implementation

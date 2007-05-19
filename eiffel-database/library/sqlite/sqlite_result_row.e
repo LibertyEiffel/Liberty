@@ -6,11 +6,18 @@ indexing
 	revision: "$Revision:$"
 
 class SQLITE_RESULT_ROW
+
 inherit 
-	RESULT_ROW undefine fill_tagged_out_memory end
-	FAST_ARRAY [ANY] undefine copy, is_equal end
-		-- It was FAST_ARRAY [STRING] because when you use DATABASE.exec
-		-- you get just STRINGs as results.
+	RESULT_ROW
+		undefine
+			fill_tagged_out_memory
+		end
+
+	FAST_ARRAY [ANY]
+		undefine
+			copy,
+			is_equal
+		end
 
 creation make
 
@@ -37,11 +44,9 @@ feature -- Type queries
 
 feature -- Column queries 
 	integer_item (a_column: INTEGER): INTEGER is
-		local ri: REFERENCE[INTEGER]
+		local
+			ri: REFERENCE[INTEGER]
 		do
-			debug
-				print ("SQLITE_RESUL_ROW.integer_item: "+item(a_column).tagged_out+"%N")
-			end
 			ri ::= item(a_column)
 				check
 					ri /= Void
@@ -56,8 +61,9 @@ feature -- Column queries
 
 	string_item (a_column: INTEGER): STRING is
 		do
-			Result ::=item(a_column)
-		ensure result_not_void: Result /= Void
+			Result ::= item(a_column)
+		ensure
+			result_not_void: Result /= Void
 		end
 
 	boolean_item (a_column: INTEGER): BOOLEAN is

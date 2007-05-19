@@ -5,8 +5,14 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
+	-- TODO: review this class
+	
 deferred class RESULT_SET [ROW-> RESULT_ROW] 
-inherit TRAVERSABLE [ROW] undefine fill_tagged_out_memory end
+inherit
+	TRAVERSABLE [ROW]
+		undefine
+			fill_tagged_out_memory
+		end
 
 feature 
 	columns: INTEGER

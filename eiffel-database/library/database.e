@@ -6,50 +6,63 @@ indexing
 	revision: "$Revision:$"
 
 deferred class DATABASE
-feature 
+feature
 	connect (a_connection_string: STRING) is
 			-- Connect to a database as specified by
 			-- `a_connection_string'; its syntax is implementation
 			-- specific.
-		require valid_string: a_connection_string/=Void
-		deferred 
+		require
+			valid_string: a_connection_string /= Void
+		deferred
+		ensure
+			connect: last_action_success = is_connected
 		end
 	
 	close is
-		deferred 
+		deferred
+		ensure
+			closed: not is_connected
 		end
 
-	is_connected: BOOLEAN is 
-		deferred 
+	is_connected: BOOLEAN is
+		deferred
 		end
 
+	last_action_success: BOOLEAN
+	
 	execute (some_sql: STRING) is
 			-- execute `some_sql'. If it contains one or more queries 
 			-- `result_set' will contain the result of the queries.
-		require sql_not_void: some_sql /= Void
+			-- set last_action_success
+		require
+			sql_not_void: some_sql /= Void
+			connected: is_connected
 		deferred
 		end
 
 	result_set: RESULT_SET [RESULT_ROW] is
 			-- Results of the last `execute' command.
+		require
+			valid: last_action_success
 		deferred
+		ensure
+			result_not_void: Result /= Void
 		end
 
 	prepare_command (some_sql: STRING): PREPARED_COMMAND is
 			-- Prepare a new statement from `some_sql'. 
-		require sql_not_void: some_sql /= Void
+		require
+			sql_not_void: some_sql /= Void
+			connected: is_connected
 		deferred
 		end
 
 	prepare_query (some_sql: STRING): PREPARED_QUERY is
 			-- Prepare a new statement from `some_sql'. 
-		require sql_not_void: some_sql /= Void
+		require
+			sql_not_void: some_sql /= Void
+			connected: is_connected
 		deferred
 		end
 
-	cursor: CURSOR is
-			-- Get a new cursor
-		obsolete "Shall be removed soon"
-		deferred 
-		end
 end

@@ -1,5 +1,4 @@
 library/
 library/postgresql
-library/sqlite
-library/externals
+library/sqlite/loadpath.se
 ../loadpath.se

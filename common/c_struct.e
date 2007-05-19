@@ -1,6 +1,6 @@
 indexing
 	description: "Wrapper for a generic C structure"
-	copyright: "(C) 2005 Paolo Redaelli , Raphael Mack <mail@raphael-mack.de>"
+	copyright: "(C) 2005 Paolo Redaelli, Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"
@@ -39,7 +39,7 @@ feature -- Copying
 				allocate
 				handle := memcpy (handle, other.handle, struct_size)
 			else
-				-- both objects have a NULL handle
+				handle := default_pointer
 			end
 		end
 
