@@ -1,7 +1,8 @@
 indexing
 	description: "SQLite3 relational database."
-	copyright: "(C) 2006 Paolo Redaelli "
+	copyright: "(C) 2006 Paolo Redaelli, Raphael Mack"
 	license: "LGPL v2 or later"
+	author: "$Author:$"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -34,7 +35,7 @@ insert
 	
 creation connect
 
-feature
+feature {}
 	dispose is
 		local
 			res: INTEGER
@@ -43,9 +44,20 @@ feature
 			handle := default_pointer
 			--TODO: handle res
 		end
+
+	struct_size: INTEGER is
+		external "plug_in"
+		alias "{
+			location: "${eiffel_libraries}/plugins"
+			module_name: "sqlite3"
+			feature_name: "sizeof(sqlite3)"
+			}"
+		end
 	
 feature 
 	result_set: SQLITE_RESULT_SET
+			-- the result is untyped: all values are returned as STRING
+			-- see prepared_query for alternatives
 
 feature
 	connect (a_connection_string: STRING) is
@@ -118,15 +130,16 @@ feature {} -- Implementation
 		local
 			i: INTEGER
 			a_tuple: SQLITE_RESULT_ROW
-			a_value,column_name: STRING
+			a_value, column_name: STRING
 		do
-			debug print ("SQLITE_DATABASE.accumulator_callback ("+n_columns.out+", [") end
+			debug print ("SQLITE_DATABASE.accumulator_callback (" + n_columns.out + ", [") end
 			create a_tuple.make(n_columns)
 			from
 				i := 0
 			until
 				i >= n_columns
 			loop
+				
 				create a_value.from_external_copy(values.item(i))
 				debug print ("'" + a_value + "' ") end
 				a_tuple.put (a_value, i)
@@ -136,10 +149,13 @@ feature {} -- Implementation
 
 			debug 
 				print ("], [")
-				from i := 0 until i >= n_columns
+				from
+					i := 0
+				until
+					i >= n_columns
 				loop
 					create column_name.from_external_copy(column_names.item(i))
-					print ("'"+column_name+"' ") 
+					print ("'" + column_name + "' ") 
 					i := i + 1
 				end
 				print ("])%N")
