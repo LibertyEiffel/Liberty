@@ -112,7 +112,7 @@ feature
 			-- An internal logic error in SQLite 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}plugins"
+			location: "${eiffel_libraries}/plugins"
 			module_name: "sqlite3"
 			feature_name: "SQLITE_INTERNAL"
 			}"
@@ -122,7 +122,7 @@ feature
 			-- Access permission denied 
 		external "plug_in"
 		alias "{
-			location: "${eiffel_libraries}plugins"
+			location: "${eiffel_libraries}/plugins"
 			module_name: "sqlite3"
 			feature_name: "SQLITE_PERM"
 			}"
