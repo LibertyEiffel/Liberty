@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -117,13 +117,14 @@ indexing
 class GTK_FILE_CHOOSER_DIALOG
 	
 inherit
-	GTK_DIALOG redefine struct_size end 
+	GTK_DIALOG redefine struct_size end
 	GTK_FILE_CHOOSER
 		-- Implemented Interfaces: GtkFileChooserDialog implements
 		-- AtkImplementorIface and GtkFileChooser.
+
 insert
 	GTK_FILE_CHOOSER_DIALOG_EXTERNALS
-	
+
 creation
 	make_open, make_save
 

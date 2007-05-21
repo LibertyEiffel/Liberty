@@ -392,14 +392,15 @@ feature -- Child Properties
 	-- Signal Details
 
 feature -- The "apply" signal
+
 	apply_signal_name: STRING is "apply"
-	
+
 	enable_on_apply is
 			-- Connects "apply" signal to `on_apply' feature.
 		do
 			connect (Current, apply_signal_name, $on_apply)
 		end
-		
+
 	on_apply is
 			-- Built-in activate signal handler; empty by design; redefine it.
 		
@@ -407,7 +408,7 @@ feature -- The "apply" signal
 			-- clicked. The default behavior of the GtkAssistant is to
 			-- switch to the page after the current page, unless the
 			-- current page is the last one.
-
+			
 			-- A handler for the ::apply signal should carry out the
 			-- actions for which the wizard has collected data. If the
 			-- action takes a long time to complete, you might consider

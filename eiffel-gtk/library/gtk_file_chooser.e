@@ -1103,19 +1103,42 @@ feature -- Shortcuts folders
 
 -- chooser : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
--- The "file-activated" signal
 
--- void        user_function                  (GtkFileChooser *chooser,
---                                             gpointer user_data);
+feature -- The "file-activated" signal
 
--- This signal is emitted when the user "activates" a file in the file chooser. This can happen by double-clicking on a file in the file list, or by pressing Enter.
+		-- This signal is emitted when the user "activates" a file in
+		-- the file chooser. This can happen by double-clicking on a file
+		-- in the file list, or by pressing Enter.
 
--- Normally you do not need to connect to this signal. It is used internally by GtkFileChooserDialog to know when to activate the default button in the dialog.
+		-- Normally you do not need to connect to this signal. It is
+		-- used internally by GtkFileChooserDialog to know when to activate
+		-- the default button in the dialog.
 
--- See also: gtk_file_chooser_get_filename(), gtk_file_chooser_get_filenames(), gtk_file_chooser_get_uri(), gtk_file_chooser_get_uris().
+	file_activated_signal_name: STRING is "file-activated"
+		-- void        user_function                  (GtkFileChooser *chooser,
+		--                                             gpointer user_data);
 
--- chooser : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
+	enable_on_file_activated is
+			-- Connects "file-activated" signal to `on_file_activated' feature.
+		do
+			connect (Current, file_activated_signal_name, $on_file_activated)
+		end
+
+	on_file_activated is
+		do
+		end
+
+	connect_agent_to_file_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+			-- chooser : 	the object which received the signal.
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			file_activated_callback: FILE_ACTIVATED_CALLBACK
+		do
+			create file_activated_callback.make
+			file_activated_callback.connect (Current, a_procedure)
+		end
+
 -- The "selection-changed" signal
 
 -- void        user_function                  (GtkFileChooser *chooser,
