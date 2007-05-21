@@ -40,6 +40,7 @@ insert
 		-- GtkDeleteType
 		-- GtkDirectionType
 		-- GtkExpanderStyle
+	GTK_ICON_SIZE
 		-- GtkIMPreeditStyle
 		-- GtkIMStatusStyle
 	GTK_JUSTIFICATION
@@ -51,14 +52,14 @@ insert
 		-- GtkPathType
 	GTK_POLICY_TYPE
 	GTK_POSITION_TYPE
-		GTK_RELIEF_STYLE
+	GTK_RELIEF_STYLE
 	GTK_RESIZE_MODE
 		-- GtkScrollStep
 	GTK_SCROLL_TYPE
 	GTK_SELECTION_MODE
 	GTK_SHADOW_TYPE
 	GTK_STATE_TYPE
-		-- GtkToolbarStyle
+	GTK_TOOLBAR_STYLE
 	GTK_UPDATE_TYPE
 		-- GtkVisibility
 	GTK_WINDOW_POSITION

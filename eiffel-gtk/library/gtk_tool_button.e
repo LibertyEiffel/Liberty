@@ -8,7 +8,7 @@ indexing
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
 					
-					This library is distributed in the hopeOA that it will be useful, but
+					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 					Lesser General Public License for more details.
@@ -20,102 +20,52 @@ indexing
 			]"
 
 class GTK_TOOL_BUTTON
+	-- GtkToolButtons are GtkToolItems containing buttons. Use `with_label'
+	-- to create a new GtkToolButton. Use `with_stock' to create a
+	-- GtkToolButton containing a stock item.
+
+	-- The label of a GtkToolButton is determined by the
+	-- properties/feature "label_widget", "label", and "stock_id". If
+	-- "label_widget" is non-Void, then that widget is used as the
+	-- label. Otherwise, if "label" is non-Void, that string is used as
+	-- the label. Otherwise, if "stock_id" is non-Void, the label is
+	-- determined by the stock item. Otherwise, the button does not
+	-- have a label.
+
+	-- The icon of a GtkToolButton is determined by the properties
+	-- "icon_widget" and "stock_id". If "icon_widget" is non-Void, then
+	-- that widget is used as the icon. Otherwise, if "stock_id" is
+	-- non-Void, the icon is determined by the stock item. Otherwise,
+	-- the button does not have a label.
 
 inherit
-	GTK_TOOL_ITEM
-
+	GTK_TOOL_ITEM redefine struct_size end
+	
 create
-	from_external_pointer
+	from_external_pointer, from_stock
 
---	
---Synopsis
---
---#include <gtk/gtk.h>
---
---
---            GtkToolButton;
---GtkToolItem* gtk_tool_button_new            (GtkWidget *icon_widget,
---                                             const gchar *label);
---GtkToolItem* gtk_tool_button_new_from_stock (const gchar *stock_id);
---void        gtk_tool_button_set_label       (GtkToolButton *button,
---                                             const gchar *label);
---const gchar* gtk_tool_button_get_label      (GtkToolButton *button);
---void        gtk_tool_button_set_use_underline
---                                            (GtkToolButton *button,
---                                             gboolean use_underline);
---gboolean    gtk_tool_button_get_use_underline
---                                            (GtkToolButton *button);
---void        gtk_tool_button_set_stock_id    (GtkToolButton *button,
---                                             const gchar *stock_id);
---const gchar* gtk_tool_button_get_stock_id   (GtkToolButton *button);
---void        gtk_tool_button_set_icon_name   (GtkToolButton *button,
---                                             const gchar *icon_name);
---const gchar* gtk_tool_button_get_icon_name  (GtkToolButton *button);
---void        gtk_tool_button_set_icon_widget (GtkToolButton *button,
---                                             GtkWidget *icon_widget);
---GtkWidget*  gtk_tool_button_get_icon_widget (GtkToolButton *button);
---void        gtk_tool_button_set_label_widget
---                                            (GtkToolButton *button,
---                                             GtkWidget *label_widget);
---GtkWidget*  gtk_tool_button_get_label_widget
---                                            (GtkToolButton *button);
---
---
---
---
---Properties
---
---  "icon-name"            gchararray            : Read / Write
---  "icon-widget"          GtkWidget             : Read / Write
---  "label"                gchararray            : Read / Write
---  "label-widget"         GtkWidget             : Read / Write
---  "stock-id"             gchararray            : Read / Write
---  "use-underline"        gboolean              : Read / Write
---
---Signals
---
---"clicked"   void        user_function      (GtkToolButton *toolbutton,
---                                            gpointer user_data);
---
---Description
---
---GtkToolButtons are GtkToolItems containing buttons.
---
---Use gtk_tool_button_new() to create a new GtkToolButton. Use gtk_tool_button_new_with_stock() to create a GtkToolButton containing a stock item.
---
---The label of a GtkToolButton is determined by the properties "label_widget", "label", and "stock_id". If "label_widget" is non-NULL, then that widget is used as the label. Otherwise, if "label" is non-NULL, that string is used as the label. Otherwise, if "stock_id" is non-NULL, the label is determined by the stock item. Otherwise, the button does not have a label.
---
---The icon of a GtkToolButton is determined by the properties "icon_widget" and "stock_id". If "icon_widget" is non-NULL, then that widget is used as the icon. Otherwise, if "stock_id" is non-NULL, the icon is determined by the stock item. Otherwise, the button does not have a label.
---Details
---GtkToolButton
---
---typedef struct _GtkToolButton GtkToolButton;
---
---The GtkToolButton struct contains only private. It should only be accessed with the function described below.
---gtk_tool_button_new ()
---
---GtkToolItem* gtk_tool_button_new            (GtkWidget *icon_widget,
---                                             const gchar *label);
---
---Creates a new GtkToolButton using icon_widget as icon and label as label.
---
---icon_widget : 	a widget that will be used as icon widget, or NULL
---label : 	a string that will be used as label, or NULL
---Returns : 	A new GtkToolButton
---
---Since 2.4
---gtk_tool_button_new_from_stock ()
---
---GtkToolItem* gtk_tool_button_new_from_stock (const gchar *stock_id);
---
---Creates a new GtkToolButton containing the image and text from a stock item. Some stock ids have preprocessor macros like GTK_STOCK_OK and GTK_STOCK_APPLY.
---
---It is an error if stock_id is not a name of a stock item.
---
---stock_id : 	the name of the stock item
---Returns : 	A new GtkToolButton
---
---Since 2.4
+
+feature {} -- Creation
+	from_label (an_icon_widget: GTK_WIDGET; a_label: STRING) is
+			--Creates a new GtkToolButton using `an_icon_widget' as icon and `a_label' as 
+			--label. Both can be Void.
+		do
+			from_external_pointer(gtk_tool_button_new(null_or(an_icon_widget),
+																	null_or_string(a_label)))
+		end
+
+	from_stock (a_stock_id: STRING) is
+			-- Creates a new GtkToolButton containing the image and text
+			-- from a stock item. Some stock ids have preprocessor macros
+			-- like GTK_STOCK_OK and GTK_STOCK_APPLY.
+		require
+			id_not_void: a_stock_id /= Void
+			valid_stock_id: -- TODO It is an error if stock_id is not a name of a stock 
+			-- item.
+		do
+			from_external_pointer(gtk_tool_button_new_from_stock (a_stock_id.to_external))
+		end
+		
 --gtk_tool_button_set_label ()
 --
 --void        gtk_tool_button_set_label       (GtkToolButton *button,
@@ -248,6 +198,19 @@ create
 --Returns : 	The widget used as label on button, or NULL.
 --
 --Since 2.4
+--Properties
+--
+--  "icon-name"            gchararray            : Read / Write
+--  "icon-widget"          GtkWidget             : Read / Write
+--  "label"                gchararray            : Read / Write
+--  "label-widget"         GtkWidget             : Read / Write
+--  "stock-id"             gchararray            : Read / Write
+--  "use-underline"        gboolean              : Read / Write
+--
+--Signals
+--
+--"clicked"   void        user_function      (GtkToolButton *toolbutton,
+--                                            gpointer user_data);
 --Property Details
 --The "icon-name" property
 --
@@ -325,4 +288,80 @@ feature -- The "clicked" signal
 			clicked_callback.connect (Current, a_procedure)
 		end
 
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkToolButton)"
+		end
+	
+feature {} -- External calls
+	gtk_tool_button_new (a_icon_widget, a_label: POINTER): POINTER is
+			-- GtkToolItem* gtk_tool_button_new (GtkWidget *icon_widget, const gchar *label);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_new_from_stock (a_stock_id: POINTER): POINTER is
+			-- GtkToolItem* gtk_tool_button_new_from_stock (const gchar *stock_id);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_set_label (a_button, a_label: POINTER) is
+			-- void gtk_tool_button_set_label (GtkToolButton *button, const gchar *label);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_get_label (a_button: POINTER): POINTER is
+			-- const gchar* gtk_tool_button_get_label (GtkToolButton *button);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_set_use_underline (a_button: POINTER; a_use_underline: INTEGER) is
+			-- void gtk_tool_button_set_use_underline (GtkToolButton *button, gboolean use_underline);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_get_use_underline (a_button: POINTER): INTEGER is
+			-- gboolean gtk_tool_button_get_use_underline (GtkToolButton *button);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_set_stock_id (a_button, a_stock_id: POINTER) is
+			-- void gtk_tool_button_set_stock_id (GtkToolButton *button, const gchar *stock_id);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_get_stock_id (a_button: POINTER): POINTER is
+			-- const gchar* gtk_tool_button_get_stock_id (GtkToolButton *button);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_set_icon_name (a_button, an_icon_name: POINTER) is
+			-- void gtk_tool_button_set_icon_name (GtkToolButton *button, const gchar *icon_name);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_get_icon_name (a_button: POINTER): POINTER is
+			-- const gchar* gtk_tool_button_get_icon_name (GtkToolButton *button);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_set_icon_widget (a_button, an_icon_widget: POINTER) is
+			-- void gtk_tool_button_set_icon_widget (GtkToolButton *button, GtkWidget *icon_widget);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_get_icon_widget (a_button: POINTER): POINTER is
+			-- GtkWidget* gtk_tool_button_get_icon_widget (GtkToolButton *button);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_set_label_widget (a_button, a_label_widget: POINTER) is
+			-- void gtk_tool_button_set_label_widget (GtkToolButton *button, GtkWidget *label_widget);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_tool_button_get_label_widget (a_button: POINTER): POINTER is
+			-- GtkWidget* gtk_tool_button_get_label_widget (GtkToolButton *button);
+		external "C use <gtk/gtk.h>"
+		end
 end

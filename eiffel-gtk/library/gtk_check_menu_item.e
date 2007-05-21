@@ -19,17 +19,15 @@ indexing
 					02110-1301 USA
 					]"					
 
-					-- Description: A GtkCheckMenuItem is a menu item that
-					-- maintains the state of a boolean value in addition
-					-- to a GtkMenuItem's usual role in activating
-					-- application code.
-
-					-- A check box indicating the state of the boolean
-					-- value is displayed at the left side of the
-					-- GtkMenuItem.  Activating the GtkMenuItem toggles the
-					-- value.
-
 class GTK_CHECK_MENU_ITEM
+	-- A GtkCheckMenuItem is a menu item that maintains the state of a
+	-- boolean value in addition to a GtkMenuItem's usual role in
+	-- activating application code.
+
+	-- A check box indicating the state of the boolean value is
+	-- displayed at the left side of the GtkMenuItem. Activating the
+	-- GtkMenuItem toggles the value.
+	
 inherit GTK_MENU_ITEM redefine make, size end
 	-- Known heirs: GtkRadioMenuItem
 

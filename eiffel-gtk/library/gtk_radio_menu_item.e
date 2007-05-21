@@ -19,38 +19,35 @@ indexing
 					02110-1301 USA
 					]"					
 
-					-- Description
-
-					-- A radio menu item is a check menu item that belongs
-					-- to a group. At each instant exactly one of the radio
-					-- menu items from a group is selected.
-					
-					-- The group list does not need to be freed, as each
-					-- GtkRadioMenuItem will remove itself and its list
-					-- item when it is destroyed.
-
-					-- The correct way to create a group of radio menu
-					-- items is approximatively this:
-
-					-- TODO: Eiffelize this example 
-					-- Example 3. How to create a group of radio menu items.
-
-					--  GSList *group = NULL;
-					--  GtkWidget *item;
-					--  gint i;
-					
-					--  for (i = 0; i < 5; i++)
-					--  {
-					--    item = gtk_radio_menu_item_new_with_label (group, "This is an example");
-					--    group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
-					--    if (i == 1)
-					--      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (item), TRUE);
-					--  }
-
 class GTK_RADIO_MENU_ITEM
+	-- A radio menu item is a check menu item that belongs to a
+	-- group. At each instant exactly one of the radio menu items from
+	-- a group is selected.
+					
+	-- The group list does not need to be freed, as each
+	-- GtkRadioMenuItem will remove itself and its list item when it is
+	-- destroyed.
+
+	-- The correct way to create a group of radio menu items is
+	-- approximatively this:
+	
+	-- TODO: Eiffelize this example 
+	-- Example 3. How to create a group of radio menu items.
+
+	--  GSList *group = NULL;
+	--  GtkWidget *item;
+	--  gint i;
+					
+	--  for (i = 0; i < 5; i++) {
+	--    item = gtk_radio_menu_item_new_with_label (group, "This is an example");
+	--    group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+	--    if (i == 1)
+	--      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (item), TRUE);
+	--  }
 
 inherit GTK_MENU_ITEM redefine size end
-	-- TODO: GtkRadioMenuItem implements AtkImplementorIface.
+-- TODO: GtkRadioMenuItem implements AtkImplementorIface.
+
 creation 
 	from_group, with_label, with_mnemonic, from_widget,
 	with_label_from_widget, with_mnemonic_from_widget

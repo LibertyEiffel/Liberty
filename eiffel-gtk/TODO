@@ -127,14 +127,14 @@ implemented.
         GtkMenu - Basic functionality
         GtkMenuBar - Basic functionality
         GtkMenuItem - Basic functionality
-        GtkMenuShell - 
-        GtkImageMenuItem - 
-        GtkRadioMenuItem - 
-        GtkCheckMenuItem - 
-        GtkSeparatorMenuItem - 
-        GtkTearoffMenuItem - 
-        GtkToolbar - 
-        GtkToolItem - 
+        GtkMenuShell - Fairly complete
+        GtkImageMenuItem - Mostly complete
+        GtkRadioMenuItem - Mostly complete
+        GtkCheckMenuItem - Fairly complete
+        GtkSeparatorMenuItem - Complete
+        GtkTearoffMenuItem - Complete
+        GtkToolbar - Basic functionality
+        GtkToolItem - All function calls and properties wrapped. No signals handled
         GtkSeparatorToolItem - 
         GtkToolButton - 
         GtkMenuToolButton - 

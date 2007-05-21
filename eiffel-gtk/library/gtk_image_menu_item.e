@@ -18,14 +18,11 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	gtk_documentation: "[
-							  A GtkImageMenuItem is a menu item which has an
-							  icon next to the text label. Note that the user
-							  can disable display of menu icons, so make sure
-							  to still fill in the text label.
-						  ]"
 
 class GTK_IMAGE_MENU_ITEM
+	-- A GtkImageMenuItem is a menu item which has an icon next to the
+	-- text label. Note that the user can disable display of menu
+	-- icons, so make sure to still fill in the text label.
 
 inherit GTK_MENU_ITEM redefine make, struct_size, with_mnemonic, with_label end
 	--    GtkImageMenuItem implements AtkImplementorIface.

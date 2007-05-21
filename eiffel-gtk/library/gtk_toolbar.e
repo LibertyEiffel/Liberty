@@ -19,25 +19,20 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: a toolbar is created with a call to
-			-- gtk_toolbar_new().
-
-			-- A toolbar can contain instances of a subclass of
-			-- GtkToolItem. To add a GtkToolItem to the a toolbar, use
-			-- gtk_toolbar_insert(). To remove an item from the toolbar
-			-- use gtk_container_remove(). To add a button to the
-			-- toolbar, add an instance of GtkToolButton.
-			
-			-- Toolbar items can be visually grouped by adding instances
-			-- of GtkSeparatorToolItem to the toolbar. If a
-			-- GtkSeparatorToolItem has the "expand" property set to TRUE
-			-- and the "draw" property set to FALSE the effect is to
-			-- force all following items to the end of the toolbar.
-			
-			-- Creating a context menu for the toolbar can be done by
-			-- connecting to the GtkToolbar::popup-context-menu signal.
-
 class GTK_TOOLBAR
+	-- A toolbar can contain instances of a subclass of GtkToolItem. To
+	-- add a GtkToolItem to the a toolbar, use `insert_item'. To remove
+	-- an item from the toolbar use GTK_CONTAINER's `remove'. To add a
+	-- button to the toolbar, add an instance of GtkToolButton.
+			
+	-- Toolbar items can be visually grouped by adding instances of
+	-- GtkSeparatorToolItem to the toolbar. If a GtkSeparatorToolItem
+	-- has the "expand" property set to TRUE and the "draw" property
+	-- set to FALSE the effect is to force all following items to the
+	-- end of the toolbar.
+	
+	-- Creating a context menu for the toolbar can be done by
+	-- connecting to the GtkToolbar::popup-context-menu signal.
 
 inherit
 	GTK_CONTAINER
@@ -64,6 +59,21 @@ feature {} -- Creation
 		end
 
 feature
+	prepend (an_item: GTK_TOOL_ITEM) is
+			-- Prepend `an_item' into Current toolbar to the start of
+			-- the toolbar. 
+		require item_not_void: an_item /= Void
+		do
+			gtk_toolbar_insert (handle, an_item.handle, 0)
+		end
+
+	append (an_item: GTK_TOOL_ITEM) is
+			-- Append `an_item' into Current toolbar to the end of the
+			-- toolbar.
+		require item_not_void: an_item /= Void
+		do
+			gtk_toolbar_insert (handle, an_item.handle, -1)
+		end
 
 	insert_item (an_item: GTK_TOOL_ITEM; a_position: INTEGER) is
 			-- Insert `an_item' into Current toolbar at `a_position'. If
@@ -75,6 +85,7 @@ feature
 			-- features
 		require
 			item_not_void: an_item /= Void
+			valid_index: is_valid_index(a_position)
 		do
 			gtk_toolbar_insert (handle, an_item.handle, a_position)
 		end
@@ -97,14 +108,22 @@ feature
 			Result := gtk_toolbar_get_n_items(handle)
 		end
 
+	is_valid_index(an_index: INTEGER): BOOLEAN is
+			-- Is `an_index' valid to access GTK_TOOLBAR's items?.
+		do
+			Result:=(gtk_toolbar_get_nth_item(handle, an_index).is_not_null)
+		end
+	
 	item (an_index: INTEGER): GTK_TOOL_ITEM is
 			-- then item on toolbar at `an_index'; Void if `an_index' is
 			-- not valid.
-		require
-			valid_index: -- TODO:
-		local ptr: POINTER
+		local ptr: POINTER; r: G_RETRIEVER[GTK_TOOL_ITEM]
 		do
 			ptr:=gtk_toolbar_get_nth_item(handle, an_index)
+			if ptr.is_not_null then
+				Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
+				check non_void_retrieved_wrapper: Result /= Void end
+			end
 		end
 
 	drop_index (an_x, an_y: INTEGER): INTEGER is

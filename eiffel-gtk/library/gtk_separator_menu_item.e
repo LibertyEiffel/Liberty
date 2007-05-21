@@ -19,12 +19,11 @@ indexing
 					02110-1301 USA
 					]"					
 
-					-- Description: The GtkSeparatorMenuItem is a separator
-					-- used to group items within a menu. It displays a
-					-- horizontal line with a shadow to make it appear
-					-- sunken into the interface.
-
 class GTK_SEPARATOR_MENU_ITEM
+	-- The GtkSeparatorMenuItem is a separator used to group items
+	-- within a menu. It displays a horizontal line with a shadow to
+	-- make it appear sunken into the interface.
+	
 inherit 
 	GTK_MENU_ITEM 
 		redefine 

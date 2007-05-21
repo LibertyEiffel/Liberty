@@ -19,7 +19,8 @@ indexing
 					02110-1301 USA
 				]"
 
-deferred class GTK_TOOLBAR_STYLE
+deferred class
+	GTK_TOOLBAR_STYLE
 	-- Used to customize the appearance of a GtkToolbar. Note that
 	-- setting the toolbar style overrides the user's preferences for
 	-- the default toolbar style. Note that if the button has only a
