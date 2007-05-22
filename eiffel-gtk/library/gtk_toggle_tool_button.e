@@ -1,7 +1,8 @@
 indexing
 	description: "GtkToggleToolButton - A GtkToolItem containing a toggle button."
 	copyright: "[
-					Copyright (C) 2006 GTK+ team
+					Copyright (C) 2006 Soluciones Informaticas Libres S.A.,
+					eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -23,6 +24,7 @@ class GTK_TOGGLE_TOOL_BUTTON
 
 inherit
 	GTK_TOOL_BUTTON
+		redefine make end
 
 insert
 	GTK_TOGGLE_TOOL_BUTTON_EXTERNALS

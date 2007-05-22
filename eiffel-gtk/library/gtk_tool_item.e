@@ -28,21 +28,23 @@ class GTK_TOOL_ITEM
 	--For toolbar items that contain buttons, see the GtkToolButton,
 	--GtkToggleToolButton and GtkRadioToolButton classes.  See the
 	--GtkToolbar class for a description of the toolbar widget.
-	
+
 inherit
     GTK_BIN
 	 --GtkToolItem implements AtkImplementorIface.
 
 creation make
-	
+
 feature {} -- Creation
+
 	make is
 			-- Creates a new GtkToolItem
 		do
 			from_external_pointer (gtk_tool_item_new)
 		end
 
-feature 
+feature
+
 	set_homogeneous (a_setting: BOOLEAN) is
 			--Sets whether tool_item is to be allocated the same size as
 			--other homogeneous items. The effect is that all homogeneous

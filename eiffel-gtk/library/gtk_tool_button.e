@@ -1,7 +1,7 @@
 indexing
 	description: "A GtkToolItem subclass that displays buttons."
 	copyright: "[
-					Copyright (C) 2006 Daniel F Moisset , GTK+ team
+					Copyright (C) 2006 Daniel F Moisset, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
