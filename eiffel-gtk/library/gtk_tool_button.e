@@ -66,201 +66,165 @@ feature {} -- Creation
 			from_external_pointer(gtk_tool_button_new_from_stock (a_stock_id.to_external))
 		end
 		
---gtk_tool_button_set_label ()
---
---void        gtk_tool_button_set_label       (GtkToolButton *button,
---                                             const gchar *label);
---
---Sets label as the label used for the tool button. The "label" property only has an effect if not overridden by a non-NULL "label_widget" property. If both the "label_widget" and "label" properties are NULL, the label is determined by the "stock_id" property. If the "stock_id" property is also NULL, button will not have a label.
---
---button : 	a GtkToolButton
---label : 	a string that will be used as label, or NULL.
---
---Since 2.4
---gtk_tool_button_get_label ()
---
---const gchar* gtk_tool_button_get_label      (GtkToolButton *button);
---
---Returns the label used by the tool button, or NULL if the tool button doesn't have a label. or uses a the label from a stock item. The returned string is owned by GTK+, and must not be modified or freed.
---
---button : 	a GtkToolButton
---Returns : 	The label, or NULL
---
---Since 2.4
---gtk_tool_button_set_use_underline ()
---
---void        gtk_tool_button_set_use_underline
---                                            (GtkToolButton *button,
---                                             gboolean use_underline);
---
---If set, an underline in the label property indicates that the next character should be used for the mnemonic accelerator key in the overflow menu. For example, if the label property is "_Open" and use_underline is TRUE, the label on the tool button will be "Open" and the item on the overflow menu will have an underlined 'O'.
---
---Labels shown on tool buttons never have mnemonics on them; this property only affects the menu item on the overflow menu.
---
---button : 	a GtkToolButton
---use_underline : 	whether the button label has the form "_Open"
---
---Since 2.4
---gtk_tool_button_get_use_underline ()
---
---gboolean    gtk_tool_button_get_use_underline
---                                            (GtkToolButton *button);
---
---Returns whether underscores in the label property are used as mnemonics on menu items on the overflow menu. See gtk_tool_button_set_use_underline().
---
---button : 	a GtkToolButton
---Returns : 	TRUE if underscores in the label property are used as mnemonics on menu items on the overflow menu.
---
---Since 2.4
---gtk_tool_button_set_stock_id ()
---
---void        gtk_tool_button_set_stock_id    (GtkToolButton *button,
---                                             const gchar *stock_id);
---
---Sets the name of the stock item. See gtk_tool_button_new_from_stock(). The stock_id property only has an effect if not overridden by non-NULL "label" and "icon_widget" properties.
---
---button : 	a GtkToolButton
---stock_id : 	a name of a stock item, or NULL
---
---Since 2.4
---gtk_tool_button_get_stock_id ()
---
---const gchar* gtk_tool_button_get_stock_id   (GtkToolButton *button);
---
---Returns the name of the stock item. See gtk_tool_button_set_stock_id(). The returned string is owned by GTK+ and must not be freed or modifed.
---
---button : 	a GtkToolButton
---Returns : 	the name of the stock item for button.
---
---Since 2.4
---gtk_tool_button_set_icon_name ()
---
---void        gtk_tool_button_set_icon_name   (GtkToolButton *button,
---                                             const gchar *icon_name);
---
---Sets the icon for the tool button from a named themed icon. See the docs for GtkIconTheme for more details. The "icon_name" property only has an effect if not overridden by non-NULL "label", "icon_widget" and "stock_id" properties.
---
---button : 	a GtkToolButton
---icon_name : 	the name of the themed icon
---
---Since 2.8
---gtk_tool_button_get_icon_name ()
---
---const gchar* gtk_tool_button_get_icon_name  (GtkToolButton *button);
---
---Returns the name of the themed icon for the tool button, see gtk_tool_button_set_icon_name().
---
---button : 	a GtkToolButton
---Returns : 	the icon name or NULL if the tool button has no themed icon
---
---Since 2.8
---gtk_tool_button_set_icon_widget ()
---
---void        gtk_tool_button_set_icon_widget (GtkToolButton *button,
---                                             GtkWidget *icon_widget);
---
---Sets icon as the widget used as icon on button. If icon_widget is NULL the icon is determined by the "stock_id" property. If the "stock_id" property is also NULL, button will not have an icon.
---
---button : 	a GtkToolButton
---icon_widget : 	the widget used as icon, or NULL
---
---Since 2.4
---gtk_tool_button_get_icon_widget ()
---
---GtkWidget*  gtk_tool_button_get_icon_widget (GtkToolButton *button);
---
---Return the widget used as icon widget on button. See gtk_tool_button_set_icon_widget().
---
---button : 	a GtkToolButton
---Returns : 	The widget used as icon on button, or NULL.
---
---Since 2.4
---gtk_tool_button_set_label_widget ()
---
---void        gtk_tool_button_set_label_widget
---                                            (GtkToolButton *button,
---                                             GtkWidget *label_widget);
---
---Sets label_widget as the widget that will be used as the label for button. If label_widget is NULL the "label" property is used as label. If "label" is also NULL, the label in the stock item determined by the "stock_id" property is used as label. If "stock_id" is also NULL, button does not have a label.
---
---button : 	a GtkToolButton
---label_widget : 	the widget used as label, or NULL
---
---Since 2.4
---gtk_tool_button_get_label_widget ()
---
---GtkWidget*  gtk_tool_button_get_label_widget
---                                            (GtkToolButton *button);
---
---Returns the widget used as label on button. See gtk_tool_button_set_label_widget().
---
---button : 	a GtkToolButton
---Returns : 	The widget used as label on button, or NULL.
---
---Since 2.4
---Properties
---
---  "icon-name"            gchararray            : Read / Write
---  "icon-widget"          GtkWidget             : Read / Write
---  "label"                gchararray            : Read / Write
---  "label-widget"         GtkWidget             : Read / Write
---  "stock-id"             gchararray            : Read / Write
---  "use-underline"        gboolean              : Read / Write
---
---Signals
---
---"clicked"   void        user_function      (GtkToolButton *toolbutton,
---                                            gpointer user_data);
---Property Details
---The "icon-name" property
---
---  "icon-name"            gchararray            : Read / Write
---
---The name of the themed icon displayed on the item. This property only has an effect if not overridden by "label", "icon_widget" or "stock_id" properties.
---
---Default value: NULL
---
---Since 2.8
---The "icon-widget" property
---
---  "icon-widget"          GtkWidget             : Read / Write
---
---Icon widget to display in the item.
---The "label" property
---
---  "label"                gchararray            : Read / Write
---
---Text to show in the item.
---
---Default value: NULL
---The "label-widget" property
---
---  "label-widget"         GtkWidget             : Read / Write
---
---Widget to use as the item label.
---The "stock-id" property
---
---  "stock-id"             gchararray            : Read / Write
---
---The stock icon displayed on the item.
---
---Default value: NULL
---The "use-underline" property
---
---  "use-underline"        gboolean              : Read / Write
---
---If set, an underline in the label property indicates that the next character should be used for the mnemonic accelerator key in the overflow menu.
---
---Default value: FALSE
---Signal Details
---The "clicked" signal
---
---void        user_function                  (GtkToolButton *toolbutton,
---                                            gpointer user_data);
---
---
---toolbutton : 	the object that emitted the signal
---user_data : 	user data set when the signal handler was connected.
+
+feature 
+	
+	set_label (a_label: STRING) is
+			-- Sets label as the label used for the tool button. The
+			-- "label" property only has an effect if not overridden by a
+			-- non-Void "label_widget" property. If both the
+			-- "label_widget" and "label" properties are Void, the label
+			-- is determined by the "stock_id" property. If the
+			-- "stock_id" property is also Void, button will not have a
+			-- label.
+		do
+			gtk_tool_button_set_label (handle,null_or_string(a_label))
+			ensure set: a_label/=Void implies a_label.is_equal(label)
+		end
+
+	label: CONST_STRING is
+			-- the label used by the tool button; Void if the tool button
+			-- doesn't have a label or uses a the label from a stock
+			-- item. 
+		local ptr: POINTER
+		do
+			ptr := gtk_tool_button_get_label(handle)
+			-- The returned string is owned by GTK+, and must not be
+			-- modified or freed. So we create a CONST_STRING
+			if ptr.is_not_null then 
+				create {CONST_STRING} Result.from_external(ptr)
+			end
+		end
+
+	set_use_underline (a_setting: BOOLEAN) is
+			-- If set, an underline in the label property indicates that
+			-- the next character should be used for the mnemonic
+			-- accelerator key in the overflow menu. For example, if the
+			-- label property is "_Open" and use_underline is True, the
+			-- label on the tool button will be "Open" and the item on
+			-- the overflow menu will have an underlined 'O'.
+			
+			-- Labels shown on tool buttons never have mnemonics on them;
+			-- this property only affects the menu item on the overflow
+			-- menu.
+		do
+			gtk_tool_button_set_use_underline(handle,
+														 a_setting.to_external)
+		ensure set: a_setting = is_underlined
+		end
+
+	is_underline_used: BOOLEAN is
+			-- Are underscores used in the label property as mnemonics?
+			-- See `set_use_underline'.
+		do 
+			Result:=(gtk_tool_button_get_use_underline(handle).to_boolean)
+		end
+
+	set_stock_id (a_stock_id: STRING) is
+			-- Sets the name of the stock item. See `from_stock'. The
+			-- stock_id property only has an effect if not overridden by
+			-- non-Void "label" and "icon_widget" properties.
+		do
+			gtk_tool_button_set_stock_id(handle,
+												  null_or_string(a_stock_id))
+		end
+
+	stock_id: CONST_STRING is
+			-- The name of the stock item. See `set_stock_id'.
+		local ptr: POINTER 
+		do
+			ptr := gtk_tool_button_get_stock_id (handle)
+			if ptr.is_not_null then
+				create Result.from_external(ptr)
+			end
+		end
+
+	set_icon_name (an_icon_name: STRING) is
+			-- Sets the icon for the tool button from a named themed
+			-- icon. See the docs for GtkIconTheme for more details. The
+			-- "icon_name" property only has an effect if not overridden
+			-- by non-Void "label", "icon_widget" and "stock_id"
+			-- properties.
+		require name_not_void: an_icon_name/=Void
+		do
+			gtk_tool_button_set_icon_name(handle, an_icon_name.to_external)
+		end
+
+	icon_name: CONST_STRING is
+			--  name of the themed icon for the tool button, see
+			-- `set_icon_name'.
+		local ptr: POINTER
+		do 
+			ptr:=gtk_tool_button_get_icon_name(handle)
+			if ptr.is_not_null then
+				create Result.from_external(ptr)
+			end
+		end
+	
+	set_icon_widget (an_icon_widget: GTK_WIDGET) is
+			-- Sets `an_icon_widget' as the widget used as icon on
+			-- button. If Voidthe icon is determined by the "stock_id"
+			-- property. If the "stock_id" property is also Void, button
+			-- will not have an icon.
+		do
+			gtk_tool_button_set_icon_widget (handle,null_or(an_icon_widget))
+		ensure set: an_icon_widget = icon_widget
+		end
+
+	icon_widget: GTK_WIDGET is
+			-- the widget used as icon widget on button. See
+			-- `set_icon_widget'. 
+
+			-- Note: In debug mode an unwrapped object obtained from the
+			-- GTK library will produce an exception; otherwise Result
+			-- will be Void
+		local ptr: POINTER; r: G_RETRIEVER[GTK_WIDGET]
+		do
+			ptr:=gtk_tool_button_get_icon_widget(handle)
+			if ptr.is_not_null then
+				Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
+				debug 
+					if Result=Void then
+						raise(pointer_to_unwrapped_deferred_object)
+					end
+				end
+			end
+		end
+
+	set_label_widget (a_label_widget: GTK_WIDGET) is
+			-- Sets `a_label_widget' as the widget that will be used as
+			-- the label for button. If label_widget is Void the "label"
+			-- property is used as label. If "label" is also Void, the
+			-- label in the stock item determined by the "stock_id"
+			-- property is used as label. If "stock_id" is also Void,
+			-- button does not have a label.  
+		do
+			gtk_tool_button_set_label_widget(handle,null_or(a_label_widget))
+		ensure set: a_label_widget = label_widget
+		end
+
+	label_widget: GTK_WIDGET is
+		-- The widget used as label on button. Can be Void. See
+		-- `set_label_widget'.
+		local ptr: POINTER; r: G_RETRIEVER[GTK_WIDGET]
+		do
+			ptr:=gtk_tool_button_get_label_widget(handle)
+			if ptr.is_not_null then
+				Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
+				debug 
+					if Result=Void then
+						raise(pointer_to_unwrapped_deferred_object)
+					end
+				end
+			end
+		end
+	
+feature --Properties 
+
+	-- Note: "icon-name", "icon-widget", "label", "label-widget",  "stock-id" 
+	-- and "use-underline" properties have proper, strongly-typed 
+	-- getter/setters features so they're not wrapped as properties
+
 feature -- The "clicked" signal
 	clicked_signal_name: STRING is "clicked"
 

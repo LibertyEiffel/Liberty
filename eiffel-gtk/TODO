@@ -136,7 +136,7 @@ implemented.
         GtkToolbar - Basic functionality
         GtkToolItem - All function calls and properties wrapped. No signals handled
         GtkSeparatorToolItem - Complete
-        GtkToolButton - 
+        GtkToolButton - Complete
         GtkMenuToolButton - 
         GtkToggleToolButton - 
         GtkRadioToolButton - 
