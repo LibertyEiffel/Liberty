@@ -21,15 +21,14 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-			-- The GtkButton widget is generally used to attach a
-			-- function to that is called when the button is pressed. The
-			-- various signals and how to use them are outlined below.
-
-			-- The GtkButton widget can hold any valid child widget. That
-			-- is it can hold most any other standard GtkWidget. The most
-			-- commonly used child is the GtkLabel. 
-
 class GTK_BUTTON
+	-- The GtkButton widget is generally used to attach a function to
+	-- that is called when the button is pressed. The various signals
+	-- and how to use them are outlined below.
+	
+	-- The GtkButton widget can hold any valid child widget. That is it
+	-- can hold most any other standard GtkWidget. The most commonly
+	-- used child is the GtkLabel.
 
 inherit GTK_BIN
 

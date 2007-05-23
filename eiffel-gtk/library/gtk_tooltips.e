@@ -110,4 +110,10 @@ feature -- Operations
 			                      a_tip_private.to_external)
 		end
 
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkTooltips)"
+		end
+
 end
