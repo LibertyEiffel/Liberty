@@ -30,6 +30,10 @@ feature {} -- Externals
 		external "C use <gtk/gtk.h>"
 		end
 
+	gtk_toggle_tool_button_new_from_stock (a_stock_id: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
+
 	gtk_toggle_tool_button_set_active (handle: POINTER; is_active: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end

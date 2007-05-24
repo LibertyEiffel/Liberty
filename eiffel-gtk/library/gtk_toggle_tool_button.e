@@ -24,7 +24,10 @@ class GTK_TOGGLE_TOOL_BUTTON
 
 inherit
 	GTK_TOOL_BUTTON
-		redefine make end
+		redefine 
+			make,
+			from_stock
+		end
 
 insert
 	GTK_TOGGLE_TOOL_BUTTON_EXTERNALS
@@ -38,8 +41,11 @@ feature {} -- Creation
 		do
 			from_external_pointer (gtk_toggle_tool_button_new)
 		end
-
---GtkToolItem*        gtk_toggle_tool_button_new_from_stock (const gchar *stock_id);
+	
+	from_stock (a_stock_id: STRING) is
+		do
+			from_external_pointer(gtk_toggle_tool_button_new_from_stock (a_stock_id.to_external))
+		end
 
 feature -- Operations
 
