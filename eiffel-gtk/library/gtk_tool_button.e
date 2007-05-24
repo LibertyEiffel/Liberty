@@ -42,13 +42,13 @@ inherit
 	GTK_TOOL_ITEM redefine struct_size end
 	
 create
-	from_external_pointer, from_stock
+	from_external_pointer, from_stock, from_label
 
 
 feature {} -- Creation
 	from_label (an_icon_widget: GTK_WIDGET; a_label: STRING) is
-			--Creates a new GtkToolButton using `an_icon_widget' as icon and `a_label' as 
-			--label. Both can be Void.
+			--Creates a new GtkToolButton using `an_icon_widget' as icon
+			--and `a_label' as label. Both can be Void.
 		do
 			from_external_pointer(gtk_tool_button_new(null_or(an_icon_widget),
 																	null_or_string(a_label)))
@@ -109,8 +109,8 @@ feature
 			-- menu.
 		do
 			gtk_tool_button_set_use_underline(handle,
-														 a_setting.to_external)
-		ensure set: a_setting = is_underlined
+														 a_setting.to_integer)
+		ensure set: a_setting = is_underline_used
 		end
 
 	is_underline_used: BOOLEAN is

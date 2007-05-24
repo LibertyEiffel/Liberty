@@ -21,10 +21,4 @@ feature {} -- External calls
 	gtk_separator_tool_item_get_draw (an_item: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
-
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkSeparatorToolItem)"
-		end
 end

@@ -33,7 +33,7 @@ class GTK_SEPARATOR_TOOL_ITEM
 inherit                                  
 	GTK_TOOL_ITEM
 		redefine 
-			make
+			make,
 			struct_size
 		end
 
@@ -45,9 +45,9 @@ insert
 creation make, from_external_pointer
 
 feature {} -- Creation
-	make
+	make is
 			--   Create a new GtkSeparatorToolItem
-		is
+		do
 			from_external_pointer(gtk_separator_tool_item_new)
 		end
 
@@ -67,6 +67,11 @@ feature
 			-- blank. See `set_draw'.
 		do
 			Result:=(gtk_separator_tool_item_get_draw(handle)).to_boolean
+		end
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkSeparatorToolItem)"
 		end
 	
 end -- class GTK_SEPARATOR_TOOL_ITEM
