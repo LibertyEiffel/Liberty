@@ -137,9 +137,9 @@ implemented.
         GtkToolItem - All function calls and properties wrapped. No signals handled
         GtkSeparatorToolItem - Complete
         GtkToolButton - Complete
-        GtkMenuToolButton - 
-        GtkToggleToolButton - 
-        GtkRadioToolButton - 
+        GtkMenuToolButton - Almost complete
+        GtkToggleToolButton - (Almost?) Complete 
+        GtkRadioToolButton - Almost complete 
 
     Action-based menus and toolbars
 

@@ -12,6 +12,7 @@ feature -- GUI elements
 	menu_item: GTK_MENU_TOOL_BUTTON
 	menu: GTK_MENU
 	find_foo, find_bar: GTK_MENU_ITEM
+	radio1, radio2: GTK_RADIO_TOOL_BUTTON
 	toolbar: GTK_TOOLBAR
 
 feature -- Initialisation
@@ -32,6 +33,11 @@ feature -- Initialisation
 			create menu.make
 			create find_foo.with_label("Find foo")
 			create find_bar.with_label("Find bar")
+			
+			create radio1.from_group(Void) 
+			create radio2.from_widget(radio1)
+			radio1.set_label("SmartEiffel")
+			radio2.set_label("ISE (ECMA?) Eiffel")
 						
 			menu_item.set_menu(menu)
 			menu.append(find_foo)
@@ -46,6 +52,8 @@ feature -- Initialisation
 			toolbar.append (quit_button) 
 			toolbar.append (separator)
 			toolbar.append (menu_item)
+			toolbar.append (radio1)
+			toolbar.append (radio2)
 			window.add(toolbar)
 			window.show_all
 
