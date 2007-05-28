@@ -266,8 +266,17 @@ feature -- Operation
 -- void        gtk_widget_hide_all             (GtkWidget *widget);
 -- void        gtk_widget_map                  (GtkWidget *widget);
 -- void        gtk_widget_unmap                (GtkWidget *widget);
--- void        gtk_widget_realize              (GtkWidget *widget);
--- void        gtk_widget_unrealize            (GtkWidget *widget);
+
+	realize is
+		do
+			gtk_widget_realize (handle)
+		end
+
+	unrealize is
+		do
+			gtk_widget_unrealize (handle)
+		end
+
 -- void        gtk_widget_queue_draw           (GtkWidget *widget);
 -- void        gtk_widget_queue_resize         (GtkWidget *widget);
 -- void        gtk_widget_queue_resize_no_redraw
