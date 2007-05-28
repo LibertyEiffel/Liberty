@@ -20,14 +20,11 @@ indexing
 					]"					
 	date: "$Date:$"
 	revision: "$Revision:$"
-
-			-- Description: The GtkColorSelectionDialog provides a
-			-- standard dialog which allows the user to select a color
-			-- much like the GtkFileSelection provides a standard dialog
-			-- for file selection.
-
 	
 class GTK_COLOR_SELECTION_DIALOG
+	-- The GtkColorSelectionDialog provides a standard dialog which allows the
+	-- user to select a color much like the GtkFileSelection provides a standard
+	-- dialog for file selection.
 
 inherit
 	GTK_DIALOG
@@ -35,6 +32,7 @@ inherit
 		redefine struct_size
 		end 
 	-- GtkColorSelectionDialog implements AtkImplementorIface.
+
 insert
 	GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
@@ -48,12 +46,6 @@ feature {} -- Creation
 			from_external_pointer (gtk_color_selection_new(a_title.to_external))
 		end
 	
--- feature -- size
--- 
--- 	struct_size: INTEGER is
--- 		external "C inline use <gtk/gtk.h>"
--- 		alias "sizeof(GtkFontSelectionDialog)"
--- 		end
 
 feature
 

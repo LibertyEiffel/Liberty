@@ -19,33 +19,64 @@ indexing
 					02110-1301 USA
 				]"
 	date: "$Date:$"
-	revision: "$Revision:$"
+	revision: "$Revision:$"			
 
-			-- Description
+deferred class GTK_FILE_CHOOSER
+	-- GtkFileChooser is an interface that can be implemented by file
+	-- selection widgets. In GTK+, the main objects that implement this
+	-- interface are GtkFileChooserWidget, GtkFileChooserDialog, and
+	-- GtkFileChooserButton. You do not need to write an object that
+	-- implements the GtkFileChooser interface unless you are trying to
+	-- adapt an existing file selector to expose a standard programming
+	-- interface.
 
-			-- GtkFileChooser is an interface that can be implemented by file selection widgets. In GTK+, the main objects that implement this interface are GtkFileChooserWidget, GtkFileChooserDialog, and GtkFileChooserButton. You do not need to write an object that implements the GtkFileChooser interface unless you are trying to adapt an existing file selector to expose a standard programming interface.
+	-- GtkFileChooser allows for shortcuts to various places in the
+	-- filesystem. In the default implementation these are displayed in
+	-- the left pane. It may be a bit confusing at first taht these
+	-- shortcuts come from various sources and in various flavours, so
+	-- lets explain the terminology here:
+	
+	-- Bookmarks are created by the user, by dragging folders from the
+	-- right pane to the left pane, or by using the "Add". Bookmarks
+	-- can be renamed and deleted by the user.
 
-			-- GtkFileChooser allows for shortcuts to various places in the filesystem. In the default implementation these are displayed in the left pane. It may be a bit confusing at first taht these shortcuts come from various sources and in various flavours, so lets explain the terminology here:
-			-- Bookmarks 	
+	-- Shortcuts can be provided by the application or by the
+	-- underlying filesystem abstraction (e.g. both the gnome-vfs and
+	-- the Windows filesystems provide "Desktop" shortcuts). Shortcuts
+	-- cannot be modified by the user.
 
-			-- are created by the user, by dragging folders from the right pane to the left pane, or by using the "Add". Bookmarks can be renamed and deleted by the user.
-			-- Shortcuts 	
+	-- Volumes are provided by the underlying filesystem
+	-- abstraction. They are the "roots" of the filesystem.
+	
+	-- File Names and Encodings: When the user is finished selecting
+	-- files in a GtkFileChooser, your program can get the selected
+	-- names either as filenames or as URIs. For URIs, the normal
+	-- escaping rules are applied if the URI contains non-ASCII
+	-- characters. However, filenames are always returned in the
+	-- character set specified by the G_FILENAME_ENCODING environment
+	-- variable. Please see the Glib documentation for more details
+	-- about this variable.
 
-			-- can be provided by the application or by the underlying filesystem abstraction (e.g. both the gnome-vfs and the Windows filesystems provide "Desktop" shortcuts). Shortcuts cannot be modified by the user.
-			-- Volumes 	
+	-- Important: This means that while you can pass the result of
+	-- gtk_file_chooser_get_filename() to open(2) or fopen(3), you may
+	-- not be able to directly set it as the text of a GtkLabel widget
+	-- unless you convert it first to UTF-8, which all GTK+ widgets
+	-- expect. You should use g_filename_to_utf8() to convert filenames
+	-- into strings that can be passed to GTK+ widgets.
 
-			-- are provided by the underlying filesystem abstraction. They are the "roots" of the filesystem.
-			-- File Names and Encodings
+	-- Adding a Preview Widget: You can add a custom preview widget to
+	-- a file chooser and then get notification about when the preview
+	-- needs to be updated. To install a preview widget, use
+	-- gtk_file_chooser_set_preview_widget(). Then, connect to the
+	-- GtkFileChooser::update-preview signal to get notified when you
+	-- need to update the contents of the preview.
 
-			-- When the user is finished selecting files in a GtkFileChooser, your program can get the selected names either as filenames or as URIs. For URIs, the normal escaping rules are applied if the URI contains non-ASCII characters. However, filenames are always returned in the character set specified by the G_FILENAME_ENCODING environment variable. Please see the Glib documentation for more details about this variable.
-			-- Important
-
-			-- This means that while you can pass the result of gtk_file_chooser_get_filename() to open(2) or fopen(3), you may not be able to directly set it as the text of a GtkLabel widget unless you convert it first to UTF-8, which all GTK+ widgets expect. You should use g_filename_to_utf8() to convert filenames into strings that can be passed to GTK+ widgets.
-			-- Adding a Preview Widget
-
-			-- You can add a custom preview widget to a file chooser and then get notification about when the preview needs to be updated. To install a preview widget, use gtk_file_chooser_set_preview_widget(). Then, connect to the GtkFileChooser::update-preview signal to get notified when you need to update the contents of the preview.
-
-			-- Your callback should use gtk_file_chooser_get_preview_filename() to see what needs previewing. Once you have generated the preview for the corresponding file, you must call gtk_file_chooser_set_preview_widget_active() with a boolean flag that indicates whether your callback could successfully generate a preview.
+	-- Your callback should use gtk_file_chooser_get_preview_filename()
+	-- to see what needs previewing. Once you have generated the
+	-- preview for the corresponding file, you must call
+	-- gtk_file_chooser_set_preview_widget_active() with a boolean flag
+	-- that indicates whether your callback could successfully generate
+	-- a preview.
 
 			-- Example 2. Sample Usage
 
@@ -192,7 +223,6 @@ indexing
 			-- chooser : 	the object which received the signal.
 			-- user_data : 	user data set when the signal handler was connected.
 
-deferred class GTK_FILE_CHOOSER
 inherit
 	-- "Prerequisites: GtkFileChooser requires GtkWidget." IMHO this
 	-- means that GTK_FILE_CHOOSER is a
