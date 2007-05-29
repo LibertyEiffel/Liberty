@@ -21,12 +21,11 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
+class GTK_HPANED
 	-- The HPaned widget is a container widget with two children
 	-- arranged horizontally. The division between the two panes is
 	-- adjustable by the user by dragging a handle. See GtkPaned for
 	-- details.
-
-class GTK_HPANED
 inherit GTK_PANED redefine make end
 	-- GtkHPaned implements AtkImplementorIface.
 creation make

@@ -1,14 +1,19 @@
 indexing
-	description: "GtkAspectFrame -- A frame that constrains its child to a particular aspect ratio."
+	description: "GtkAspectFrame: A frame that constrains its child to a particular aspect ratio."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
-			-- Description
 	
-			-- The GtkAspectFrame is useful when you want pack a widget so that it can resize but always retains the same aspect ratio. For instance, one might be drawing a small preview of a larger image. GtkAspectFrame derives from GtkFrame, so it can draw a label and a frame around the child. The frame will be "shrink-wrapped" to the size of the child.
 	
 class GTK_ASPECT_FRAME
+	-- The GtkAspectFrame is useful when you want pack a widget so that
+	-- it can resize but always retains the same aspect ratio. For
+	-- instance, one might be drawing a small preview of a larger
+	-- image. GtkAspectFrame derives from GtkFrame, so it can draw a
+	-- label and a frame around the child. The frame will be
+	-- "shrink-wrapped" to the size of the child.
+
 inherit
 	GTK_FRAME redefine make end
 		-- GtkAspectFrame implements AtkImplementorIface.

@@ -151,31 +151,31 @@ implemented.
 
     Selectors (File/Font/Color/Input Devices)
 
-        GtkColorButton - 
-        GtkColorSelection - 
-        GtkColorSelectionDialog - 
-        GtkFileSelection - 
-        GtkFileChooser - 
-        GtkFileChooserButton - 
-        GtkFileChooserDialog - 
-        GtkFileChooserWidget - 
-        GtkFileFilter - 
-        GtkFontButton - 
-        GtkFontSelection - 
-        GtkFontSelectionDialog - 
+        GtkColorButton - Mostly complete. Only "color-set" signal and "color" feature missing
+        GtkColorSelection - Fairly complete.
+        GtkColorSelectionDialog - Fairly complete.
+        GtkFileSelection - Complete
+        GtkFileChooser - Fairly complete.
+        GtkFileChooserButton - Basic functionalities.
+        GtkFileChooserDialog - Fairly complete.
+        GtkFileChooserWidget - Fairly complete.
+        GtkFileFilter - Almost complete; only 3 features are missing and those must be provided by implementations of GtkFileChooser.
+        GtkFontButton - Complete
+        GtkFontSelection - Complete 
+        GtkFontSelectionDialog - Complete
         GtkInputDialog - 
 
     Layout Containers
 
-        GtkAlignment - 
-        GtkAspectFrame - 
-        GtkHBox - 
-        GtkVBox - 
+        GtkAlignment - Mostly complete. 4 properties not-strongly wrapped
+        GtkAspectFrame - Basic functionality.
+        GtkHBox - Complete
+        GtkVBox - Complete
         GtkHButtonBox - 
         GtkVButtonBox - 
         GtkFixed - 
-        GtkHPaned - 
-        GtkVPaned - 
+        GtkHPaned - Complete
+        GtkVPaned - Complete
         GtkLayout - 
         GtkNotebook - 
         GtkTable - 
@@ -229,7 +229,7 @@ implemented.
         GtkItem - 
         GtkMisc - 
         GtkObject - 
-        GtkPaned - 
+        GtkPaned - Fairly complete. Some properties are not strongly-wrapped
         GtkRange - 
         GtkScale - 
         GtkScrollbar - 

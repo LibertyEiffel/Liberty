@@ -1,5 +1,5 @@
 indexing
-	description: "GtkPaned — Base class for widgets with two adjustable panes."
+	description: "GtkPaned: Base class for widgets with two adjustable panes."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -21,43 +21,41 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Description
-
-			-- GtkPaned is the base class for widgets with two panes,
-			-- arranged either horizontally (GtkHPaned) or vertically
-			-- (GtkVPaned). Child widgets are added to the panes of the
-			-- widget with gtk_paned_pack1() and gtk_paned_pack2(). The
-			-- division beween the two children is set by default from
-			-- the size requests of the children, but it can be adjusted
-			-- by the user.
-
-			-- A paned widget draws a separator between the two child
-			-- widgets and a small handle that the user can drag to
-			-- adjust the division. It does not draw any relief around
-			-- the children or around the separator. (The space in which
-			-- the separator is called the gutter.) Often, it is useful
-			-- to put each child inside a GtkFrame with the shadow type
-			-- set to GTK_SHADOW_IN so that the gutter appears as a
-			-- ridge.
-
-			-- Each child has two options that can be set, resize and
-			-- shrink. If resize is true, then when the GtkPaned is
-			-- resized, that child will expand or shrink along with the
-			-- paned widget. If shrink is true, then when that child can
-			-- be made smaller than its requisition by the user. Setting
-			-- shrink to FALSE allows the application to set a minimum
-			-- size. If resize is false for both children, then this is
-			-- treated as if resize is true for both children.
-
-			-- The application can set the position of the slider as if
-			-- it were set by the user, by calling
-			-- gtk_paned_set_position().
-
 deferred class GTK_PANED
+	-- GtkPaned is the base class for widgets with two panes, arranged
+	-- either horizontally (GtkHPaned) or vertically (GtkVPaned). Child
+	-- widgets are added to the panes of the widget with `pack1' and
+	-- `pack2'. The division beween the two children is set by default
+	-- from the size requests of the children, but it can be adjusted
+	-- by the user.
+
+	-- A paned widget draws a separator between the two child
+	-- widgets and a small handle that the user can drag to
+	-- adjust the division. It does not draw any relief around
+	-- the children or around the separator. (The space in which
+	-- the separator is called the gutter.) Often, it is useful
+	-- to put each child inside a GtkFrame with the shadow type
+	-- set to `gtk_shadow_in' so that the gutter appears as a
+	-- ridge.
+	
+	-- Each child has two options that can be set, resize and
+	-- shrink. If resize is true, then when the GtkPaned is resized,
+	-- that child will expand or shrink along with the paned widget. If
+	-- shrink is true, then when that child can be made smaller than
+	-- its requisition by the user. Setting shrink to FALSE allows the
+	-- application to set a minimum size. If resize is false for both
+	-- children, then this is treated as if resize is true for both
+	-- children.
+	
+	-- The application can set the position of the slider as if it were
+	-- set by the user, by calling `set_position'.
+
 inherit
 	GTK_CONTAINER 
 		-- GtkPaned implements AtkImplementorIface.
+
 insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+
 feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
@@ -99,7 +97,7 @@ feature
 		end
 
 	pack2 (a_child: GTK_WIDGET; resize, shrink: BOOLEAN) is
-			-- Adds  'a_child' to the bottom ro right pane.
+			-- Adds  'a_child' to the bottom or right pane.
 
 			-- 'a_child': the child to add
 
@@ -114,8 +112,7 @@ feature
 		end
 
 	child1: GTK_WIDGET is
-			-- Obtains the first child of the paned widget; Void if it is
-			-- not set.
+			-- The first child of the paned widget; Void if not set.
 		local ptr: POINTER
 		do
 			ptr:=gtk_paned_get_child1(handle)
@@ -126,8 +123,7 @@ feature
 		end
 
 	child: GTK_WIDGET is
-			-- Obtains the second child of the paned widget; Void if it is
-			-- not set.
+			-- The second child of the paned widget; Void if not set.
 		local ptr: POINTER
 		do
 			ptr:=gtk_paned_get_child1(handle)
@@ -139,7 +135,7 @@ feature
 
 feature -- Divider position
 	unset_position is
-		-- Unsets the position of the divider between the two panes.
+			-- Unsets the position of the divider between the two panes.
 		do
 			gtk_paned_set_position (handle, -1)
 		end

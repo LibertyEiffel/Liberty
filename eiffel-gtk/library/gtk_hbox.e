@@ -21,16 +21,17 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- GtkHBox is a container that organizes child widgets into a
-			-- single row. Use the GtkBox packing interface to determine
-			-- the arrangement, spacing, width, and alignment of GtkHBox
-			-- children. All children are allocated the same height.
-
 class GTK_HBOX
-inherit
-	GTK_BOX
+	-- GtkHBox is a container that organizes child widgets into a
+	-- single row. Use the GtkBox packing interface to determine the
+	-- arrangement, spacing, width, and alignment of GtkHBox
+	-- children. All children are allocated the same height.
+
+inherit GTK_BOX
 		-- GtkHBox also implements AtkImplementorIface.
+
 insert GTK_HBOX_EXTERNALS
+
 creation make, from_external_pointer
 
 feature {} -- Creation
