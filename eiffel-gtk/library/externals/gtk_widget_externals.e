@@ -39,7 +39,12 @@ feature {} -- External calls
 		end
 
 -- #define     GTK_WIDGET_NO_WINDOW            (wid)
--- #define     GTK_WIDGET_REALIZED             (wid)
+
+	gtk_widget_is_realized (a_widget: POINTER): INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_WIDGET_REALIZED"
+		end
+
 -- #define     GTK_WIDGET_MAPPED               (wid)
 -- #define     GTK_WIDGET_VISIBLE              (wid)
 -- #define     GTK_WIDGET_DRAWABLE             (wid)

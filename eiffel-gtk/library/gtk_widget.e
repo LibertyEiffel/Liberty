@@ -220,7 +220,12 @@ feature -- Operation
 -- #define     GTK_WIDGET_FLAGS                (wid)
 -- #define     GTK_WIDGET_TOPLEVEL             (wid)
 -- #define     GTK_WIDGET_NO_WINDOW            (wid)
--- #define     GTK_WIDGET_REALIZED             (wid)
+
+	is_realized: BOOLEAN is
+		do
+			Result := gtk_widget_is_realized (handle).to_boolean
+		end
+
 -- #define     GTK_WIDGET_MAPPED               (wid)
 -- #define     GTK_WIDGET_VISIBLE              (wid)
 -- #define     GTK_WIDGET_DRAWABLE             (wid)
@@ -268,11 +273,30 @@ feature -- Operation
 -- void        gtk_widget_unmap                (GtkWidget *widget);
 
 	realize is
+			-- Creates the GDK (windowing system) resources associated with a widget. For example,
+			-- 'window' will be created when a widget is realized. Normally realization happens
+			-- implicitly; if you show a widget and all its parent containers, then the widget
+			-- will be realized and mapped automatically.
+			--
+			-- Realizing a widget requires all the widget's parent widgets to be realized; calling
+			-- 'realize' realizes the widget's parents in addition to widget itself. If a widget
+			-- is not yet inside a toplevel window when you realize it, bad things will happen.
+			--
+			-- This function is primarily used in widget implementations, and isn't very useful
+			-- otherwise. Many times when you think you might need it, a better approach is to
+			-- connect to a signal that will be called after the widget is realized automatically,
+			-- such as "expose_event". Or simply g_signal_connect_after() to the "realize" signal.
+		require
+			not is_realized
 		do
 			gtk_widget_realize (handle)
 		end
 
 	unrealize is
+			-- This function is only useful in widget implementations. Causes a widget to be
+			-- unrealized (frees all GDK resources associated with the widget, such as 'window').
+		require
+			is_realized
 		do
 			gtk_widget_unrealize (handle)
 		end
@@ -1819,24 +1843,6 @@ feature -- size-request signal
 -- void        gtk_widget_unmap                (GtkWidget *widget);
 
 -- This function is only for use in widget implementations. Causes a widget to be unmapped if it's currently mapped.
-
--- widget : 	a GtkWidget
--- gtk_widget_realize ()
-
--- void        gtk_widget_realize              (GtkWidget *widget);
-
--- Creates the GDK (windowing system) resources associated with a widget. For example, widget->window will be created when a widget is realized. Normally realization happens implicitly; if you show a widget and all its parent containers, then the widget will be realized and mapped automatically.
-
--- Realizing a widget requires all the widget's parent widgets to be realized; calling gtk_widget_realize() realizes the widget's parents in addition to widget itself. If a widget is not yet inside a toplevel window when you realize it, bad things will happen.
-
--- This function is primarily used in widget implementations, and isn't very useful otherwise. Many times when you think you might need it, a better approach is to connect to a signal that will be called after the widget is realized automatically, such as "expose_event". Or simply g_signal_connect_after() to the "realize" signal.
-
--- widget : 	a GtkWidget
--- gtk_widget_unrealize ()
-
--- void        gtk_widget_unrealize            (GtkWidget *widget);
-
--- This function is only useful in widget implementations. Causes a widget to be unrealized (frees all GDK resources associated with the widget, such as widget->window).
 
 -- widget : 	a GtkWidget
 -- gtk_widget_queue_draw ()
