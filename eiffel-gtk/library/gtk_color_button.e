@@ -56,7 +56,8 @@ feature {} -- Creation
 
 	with_color (a_color: GDK_COLOR) is
 		do
-			from_external_pointer( gtk_color_button_new_with_color (a_color);
+			from_external_pointer( gtk_color_button_new_with_color (a_color.handle))
+		end
 -- 
 -- Creates a new color button.
 -- 
@@ -82,54 +83,57 @@ feature
 
 	set_alpha (an_alpha: INTEGER) is
 			-- Sets the current opacity to be `an_alpha'.
-
 			-- TODO: an_alpha should be NATURAL_16
-		require fits_natural_16: an_alpha.in_range(0,65535)
+		require
+			fits_natural_16: an_alpha.in_range (0, 65535)
 		do
 			gtk_color_button_set_alpha (handle, an_alpha)
 		end
 
 	alpha: INTEGER is
 			-- The selected opacity value (0 fully transparent, 65535 fully opaque).
-
 			-- TODO: it should be NATURAL_16
 		do
-			Result:=gtk_color_button_get_alpha(handle)
-		ensure  fits_natural_16: Result.in_range(0,65535)
-		end 
+			Result := gtk_color_button_get_alpha (handle)
+		ensure
+			fits_natural_16: Result.in_range (0, 65535)
+		end
 
 	set_use_alpha (a_setting: BOOLEAN) is
 			-- Sets whether or not the color button should use the alpha 
 			-- channel.
 		do
-			gtk_color_button_set_use_alpha(handle,a_setting.to_integer)
-		ensure set: a_setting=is_alpha_used
+			gtk_color_button_set_use_alpha (handle, a_setting.to_integer)
+		ensure
+			set: a_setting = is_alpha_used
 		end
 
 	is_alpha_used: BOOLEAN is
 			-- Does the color selection dialog use the alpha channel?
-
 			-- If True, the color swatch on the button is rendered
 			-- against a checkerboard background to show its opacity and
 			-- the opacity slider is displayed in the color selection
 			-- dialog.
-		do 
-			Result:=gtk_color_button_get_use_alpha(handle)
+		do
+			Result := gtk_color_button_get_use_alpha (handle).to_boolean
 		end
-	
+
 	set_title (a_title: STRING) is
 			-- Sets the title for the color selection dialog.
-		require title_not_void: a_title/=Void
+		require
+			title_not_void: a_title /= Void
 		do
-			gtk_color_button_set_title(handle, a_title.to_external)
-		ensure set: a_title.is_equal(title)
+			gtk_color_button_set_title (handle, a_title.to_external)
+		ensure
+			set: a_title.is_equal (title)
 		end
-	
+
 	title: CONST_STRING is
 			-- the title of the color selection dialog.
 		do
-			create Result.from_external(gtk_color_button_get_title(handle))
-		ensure not_void: Result/=Void
+			create Result.from_external (gtk_color_button_get_title (handle))
+		ensure
+			not_void: Result /= Void
 		end
 
 	-- Note: it is not necessary to wrap the "alpha", "title" and
@@ -155,4 +159,5 @@ feature
 	-- 
 	-- widget : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
+
 end -- GTK_COLOR_BUTTON

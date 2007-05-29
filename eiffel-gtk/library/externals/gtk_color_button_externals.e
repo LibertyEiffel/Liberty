@@ -63,7 +63,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_get_use_alpha   (a_color_button: POINTER): INTEGER is
+	gtk_color_button_get_use_alpha (a_color_button: POINTER): INTEGER is
 			-- 	gboolean      gtk_color_button_get_use_alpha   (GtkColorButton *color_button);
 		external "C use <gtk/gtk.h>"
 		end
@@ -74,7 +74,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_button_get_title (a_color_button: POINTER) is
+	gtk_color_button_get_title (a_color_button: POINTER): POINTER is
 			-- 	const gchar* gtk_color_button_get_title (GtkColorButton
 			-- 	*color_button);
 		external "C use <gtk/gtk.h>"
