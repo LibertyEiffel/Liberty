@@ -322,4 +322,8 @@ feature -- Size
 		alias "sizeof(AVFormatContext)"
 		end
 
+invariant
+
+	error_codes_le_zero: error_code <= 0
+
 end -- class AV_FORMAT_CONTEXT

@@ -26,7 +26,8 @@ inherit
 	ANY
 		undefine copy, is_equal end
 
-feature
+feature {} -- Enumeration
+
 	is_valid_av_codec_id (a_codec_id: INTEGER): BOOLEAN is
 		do
 			Result := a_codec_id.in_range (codec_id_none, codec_id_mpeg2ts)
