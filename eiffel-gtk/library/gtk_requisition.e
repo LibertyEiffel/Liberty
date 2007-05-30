@@ -45,9 +45,14 @@ class GTK_REQUISITION
 inherit
 	C_STRUCT redefine is_equal end
 
-creation copy, copy_from_pointer
+creation make, copy, copy_from_pointer
 
 feature {} -- Creation
+
+	make is
+		do
+			allocate
+		end
 
 	copy_from_pointer (a_ptr: POINTER) is
 		require

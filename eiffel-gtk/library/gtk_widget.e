@@ -307,8 +307,15 @@ feature -- Operation
 --                                             (GtkWidget *widget);
 -- void        gtk_widget_draw                 (GtkWidget *widget,
 --                                              GdkRectangle *area);
--- void        gtk_widget_size_request         (GtkWidget *widget,
---                                              GtkRequisition *requisition);
+
+	actual_size_request: GTK_REQUISITION is
+		do
+			create Result.make
+			gtk_widget_size_request (handle, Result)
+		ensure
+			Result /= Void
+		end
+
 -- void        gtk_widget_get_child_requisition
 --                                             (GtkWidget *widget,
 --                                              GtkRequisition *requisition);
