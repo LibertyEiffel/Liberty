@@ -311,7 +311,7 @@ feature -- Operation
 	actual_size_request: GTK_REQUISITION is
 		do
 			create Result.make
-			gtk_widget_size_request (handle, Result)
+			gtk_widget_size_request (handle, Result.handle)
 		ensure
 			Result /= Void
 		end
