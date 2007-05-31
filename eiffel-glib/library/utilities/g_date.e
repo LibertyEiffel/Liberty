@@ -89,7 +89,7 @@ feature {} -- Creation
 			from_external_pointer(g_date_new)
 		end
 
-	make_dmy (a_day, a_month: INTEGER_8; an_year: INTEGER_16) is
+	make_dmy (a_day: INTEGER_8; a_month: INTEGER; an_year: INTEGER_16) is
 			-- Create and initialize a new GDate; it sets the value of
 			-- the date. Assuming the day-month-year triplet you pass in
 			-- represents an existing day, the returned date will be
@@ -650,7 +650,7 @@ feature {} -- External features
 		external "C use <glib.h>"
 		end
 	
-	g_date_new_dmy (a_day: INTEGER_8; a_month: INTEGER_8; an_year: INTEGER_16): POINTER is -- GDate*
+	g_date_new_dmy (a_day: INTEGER_8; a_month: INTEGER; an_year: INTEGER_16): POINTER is -- GDate*
 			-- Note: `a_day' and `a_month' shall be NATURAL_8, `an_year' NATURAL_16
 		external "C use <glib.h>"
 		end

@@ -105,13 +105,16 @@ feature
 	date: G_DATE is
 			-- Obtains the selected date from a GTK_CALENDAR
 		local
-			an_year, a_month, a_day: INTEGER
+			a_day, a_month, a_year: INTEGER
 		do
-			gtk_calendar_get_date (handle, $an_year, $a_month, $a_day)
-			create Result.make_dmy(a_day.to_integer_8,
-										  a_month.to_integer_8,
-										  an_year.to_integer_16)
-		ensure Result /= Void
+			gtk_calendar_get_date (handle, $a_year, $a_month, $a_day)
+			-- year : 	location to store the year number, or NULL
+			-- month : 	location to store the month number (between 0 and 11), or NULL
+			-- day : 	location to store the day number (between 1 and 31), or NULL
+			create Result.make_dmy (a_day.to_integer_8, a_month + 1, a_year.to_integer_16)
+		ensure
+			Result /= Void
+			Result.is_valid
 		end
 	
 	select_month (a_month, an_year: INTEGER) is
