@@ -176,16 +176,16 @@ implemented.
         GtkFixed - 
         GtkHPaned - Complete
         GtkVPaned - Complete
-        GtkLayout - 
-        GtkNotebook - 
-        GtkTable - 
-        GtkExpander - 
+        GtkLayout - Basic functionality
+        GtkNotebook - Basic functionality
+        GtkTable - Mostly complete
+        GtkExpander - Mostly complete
 
     Ornaments
 
-        GtkFrame - 
-        GtkHSeparator - 
-        GtkVSeparator - 
+        GtkFrame - Mostly complete
+        GtkHSeparator - Complete
+        GtkVSeparator - Complete
 
     Scrolling
 
@@ -207,9 +207,9 @@ implemented.
 
     Miscellaneous
 
-        GtkAdjustment - 
-        GtkArrow - 
-        GtkCalendar - 
+        GtkAdjustment - Fairly complete. 2 properties left.
+        GtkArrow - Basic functionalty
+        GtkCalendar - Basic functionality
         GtkDrawingArea - 
         GtkEventBox - 
         GtkHandleBox - 
@@ -230,11 +230,11 @@ implemented.
         GtkMisc - 
         GtkObject - 
         GtkPaned - Fairly complete. Some properties are not strongly-wrapped
-        GtkRange - 
-        GtkScale - 
-        GtkScrollbar - 
-        GtkSeparator - 
-        GtkWidget - 
+        GtkRange - Basic functionalty
+        GtkScale - Fairly complete
+        GtkScrollbar - Mostly complete
+        GtkSeparator - Complete
+        GtkWidget - Basic functionality
         GtkIMContext - 
 
     Cross-process Embedding

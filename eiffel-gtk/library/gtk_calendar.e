@@ -21,26 +21,24 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Description: GtkCalendar is a widget that displays a
-			-- calendar, one month at a time. It can be created with
-			-- gtk_calendar_new().
-
-			-- The month and year currently displayed can be altered with
-			-- gtk_calendar_select_month(). The exact day can be selected
-			-- from the displayed month using gtk_calendar_select_day().
-
-			-- To place a visual marker on a particular day, use
-			-- gtk_calendar_mark_day() and to remove the marker,
-			-- gtk_calendar_unmark_day(). Alternative, all marks can be
-			-- cleared with gtk_calendar_clear_marks().
-	
-			-- The way in which the calendar itself is displayed can be
-			-- altered using gtk_calendar_set_display_options().
-	
-			-- The selected date can be retrieved from a GtkCalendar
-			-- using gtk_calendar_get_date().
-
 class GTK_CALENDAR
+	-- GtkCalendar is a widget that displays a calendar, one month at a
+	-- time. It can be created with `make'.
+	
+	-- The month and year currently displayed can be altered with
+	-- `select_month'. The exact day can be selected from the displayed
+	-- month using `select_day'.
+
+	-- To place a visual marker on a particular day, use `mark_day' and
+	-- to remove the marker, `unmark_day'. Alternative, all marks can
+	-- be cleared with `clear_marks'.
+	
+	-- The way in which the calendar itself is displayed can be altered
+	-- using `set_display_options'.
+	
+	-- The selected date can be retrieved from a GtkCalendar using
+	-- `date'.
+	
 inherit 
 	GTK_WIDGET
 	-- GtkCalendar implements AtkImplementorIface interface.
@@ -64,23 +62,59 @@ feature {} -- Creation
 			from_external_pointer (gtk_calendar_new)
 		end
 
-feature -- Properties
-
-	date: TUPLE [INTEGER, INTEGER, INTEGER] is
-			-- Obtains the selected date from a GTK_CALENDAR
-		local
-			year, month, day: INTEGER
+feature
+	marked_dates_count: INTEGER is
+			-- the number of days that have a mark over them.
 		do
-			gtk_calendar_get_date (handle, $year, $month, $day)
-			Result := [year, month, day]
-		ensure
-			Result /= Void
-			Result.first >= 0
-			Result.second >= 0
-			Result.third >= 0
+			Result:=get_num_marked_dates(handle)
 		end
 
-	select_month (month, year: INTEGER) is
+	marked_date (an_n: INTEGER): INTEGER is
+			-- the `an_n'-th marked date
+		require valid_n: an_n.in_range(0,marked_dates_count-1)
+		local array: NATIVE_ARRAY[INTEGER]
+		do
+			array:=array.from_pointer(get_marked_date(handle))
+			Result:=array.item(an_n)
+		end
+			
+	selected_day,day: INTEGER is
+			-- the currently visible selected day.
+
+			-- Note: GTK allows to access this feature either as
+			-- selected_day, a field of a structure and throught the
+			-- "day" property. Choose the fittest name. Paolo 2007-05-31
+		do
+			Result:=get_selected_day(handle)
+		ensure valid: Result.in_range(1,31)
+		end
+	
+	month: INTEGER is
+			-- the currently visible month.
+		do
+			Result:=get_month(handle)
+		ensure valid: Result.in_range(0,11)
+		end
+
+	year: INTEGER is
+			-- the currently visible year.
+		do
+			Result:=get_year(handle)
+		end
+
+	date: G_DATE is
+			-- Obtains the selected date from a GTK_CALENDAR
+		local
+			an_year, a_month, a_day: INTEGER
+		do
+			gtk_calendar_get_date (handle, $an_year, $a_month, $a_day)
+			create Result.make_dmy(a_day.to_integer_8,
+										  a_month.to_integer_8,
+										  an_year.to_integer_16)
+		ensure Result /= Void
+		end
+	
+	select_month (a_month, an_year: INTEGER) is
 			-- Shifts the calendar to a different month.
 			-- month : a month number between 0 and 11.
 			-- year : the year the month is in.
@@ -88,220 +122,60 @@ feature -- Properties
 			month.in_range (0, 11)
 			year >= 0
 		do
-			gtk_calendar_select_month (handle, month, year)
+			gtk_calendar_select_month (handle, a_month, an_year)
 		end
 
-
--- Details
-
---   GtkCalendar
-
---  typedef struct _GtkCalendar GtkCalendar;
-
---    num_marked_dates is an integer containing the number of days that have a mark over them.
-
---    marked_date is an array containing the day numbers that currently have a mark over them.
-
---    month, year, and selected_day contain the currently visible month, year, and selected day
---    respectively.
-
---    All of these fields should be considered read only, and everything in this struct should only
---    be modified using the functions provided below.
-
---   Note
-
---    Note that month is zero-based (i.e it allowed values are 0-11) while selected_day is one-based
---    (i.e. allowed values are 1-31).
-
---    ----------------------------------------------------------------------------------------------
-
---   enum GtkCalendarDisplayOptions
-
---  typedef enum
---  {
---    GTK_CALENDAR_SHOW_HEADING             = 1 < < 0,
---    GTK_CALENDAR_SHOW_DAY_NAMES           = 1 < < 1,
---    GTK_CALENDAR_NO_MONTH_CHANGE          = 1 < < 2,
---    GTK_CALENDAR_SHOW_WEEK_NUMBERS        = 1 < < 3,
---    GTK_CALENDAR_WEEK_START_MONDAY        = 1 < < 4
---  } GtkCalendarDisplayOptions;
-
---    These options can be used to influence the display and behaviour of a GtkCalendar.
-
---    GTK_CALENDAR_SHOW_HEADING      Specifies that the month and year should be displayed.
---    GTK_CALENDAR_SHOW_DAY_NAMES    Specifies that three letter day descriptions should be present.
---    GTK_CALENDAR_NO_MONTH_CHANGE   Prevents the user from switching months with the calendar.
---    GTK_CALENDAR_SHOW_WEEK_NUMBERS Displays each week numbers of the current year, down the left
---                                   side of the calendar.
---    GTK_CALENDAR_WEEK_START_MONDAY Since GTK+ 2.4, this option is deprecated and ignored by GTK+.
---                                   The information on which day the calendar week starts is
---                                   derived from the locale.
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_new ()
-
---  GtkWidget*  gtk_calendar_new                (void);
-
-
-
---    Returns : a newly GtkCalendar widget
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_select_month ()
-
---  gboolean    gtk_calendar_select_month       (GtkCalendar *calendar,
---                                               guint month,
---                                               guint year);
-
---    Shifts the calendar to a different month.
-
---    calendar : a GtkCalendar
---    month :    a month number between 0 and 11.
---    year :     the year the month is in.
---    Returns :  TRUE, always
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_select_day ()
-
---  void        gtk_calendar_select_day         (GtkCalendar *calendar,
---                                               guint day);
-
---    Selects a day from the current month.
-
---    calendar : a GtkCalendar.
---    day :      the day number between 1 and 31, or 0 to unselect the currently selected day.
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_mark_day ()
-
---  gboolean    gtk_calendar_mark_day           (GtkCalendar *calendar,
---                                               guint day);
-
---    Places a visual marker on a particular day.
-
---    calendar : a GtkCalendar
---    day :      the day number to mark between 1 and 31.
---    Returns :  TRUE, always
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_unmark_day ()
-
---  gboolean    gtk_calendar_unmark_day         (GtkCalendar *calendar,
---                                               guint day);
-
---    Removes the visual marker from a particular day.
-
---    calendar : a GtkCalendar.
---    day :      the day number to unmark between 1 and 31.
---    Returns :  TRUE, always
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_clear_marks ()
-
---  void        gtk_calendar_clear_marks        (GtkCalendar *calendar);
-
---    Remove all visual markers.
-
---    calendar : a GtkCalendar
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_get_display_options ()
-
---  GtkCalendarDisplayOptions gtk_calendar_get_display_options
---                                              (GtkCalendar *calendar);
-
---    Returns the current display options of calendar.
-
---    calendar : a GtkCalendar
---    Returns :  the display options.
-
---    Since 2.4
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_set_display_options ()
-
---  void        gtk_calendar_set_display_options
---                                              (GtkCalendar *calendar,
---                                               GtkCalendarDisplayOptions flags);
-
---    Sets display options (whether to display the heading and the month headings).
-
---    calendar : a GtkCalendar
---    flags :    the display options to set
-
---    Since 2.4
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_display_options ()
-
---  void        gtk_calendar_display_options    (GtkCalendar *calendar,
---                                               GtkCalendarDisplayOptions flags);
-
---   Warning
-
---    gtk_calendar_display_options is deprecated and should not be used in newly-written code.
-
---    Sets display options (whether to display the heading and the month headings).
-
---    calendar : a GtkCalendar.
---    flags :    the display options to set.
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_get_date ()
-
---  void        gtk_calendar_get_date           (GtkCalendar *calendar,
---                                               guint *year,
---                                               guint *month,
---                                               guint *day);
-
---    Obtains the selected date from a GtkCalendar.
-
---    calendar : a GtkCalendar
---    year :     location to store the year number, or NULL
---    month :    location to store the month number (between 0 and 11), or NULL
---    day :      location to store the day number (between 1 and 31), or NULL
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_freeze ()
-
---  void        gtk_calendar_freeze             (GtkCalendar *calendar);
-
---   Warning
-
---    gtk_calendar_freeze is deprecated and should not be used in newly-written code.
-
---    Does nothing. Previously locked the display of the calendar until it was thawed with
---    gtk_calendar_thaw().
-
---    calendar : a GtkCalendar
-
---    ----------------------------------------------------------------------------------------------
-
---   gtk_calendar_thaw ()
-
---  void        gtk_calendar_thaw               (GtkCalendar *calendar);
-
---   Warning
-
---    gtk_calendar_thaw is deprecated and should not be used in newly-written code.
-
---    Does nothing. Previously defrosted a calendar; all the changes made since the last
---    gtk_calendar_freeze() were displayed.
-
---    calendar : a GtkCalendar
-
-
+	select_day (a_day: INTEGER) is
+			--    Selects a day from the current month.
+		require valid_date: a_day.in_range(1,31)
+		do
+			gtk_calendar_select_day(handle, a_day)
+		end
+
+	unselect_day is
+			-- unselect the currently selected day.
+		do
+			gtk_calendar_select_day(handle, 0)
+		end
+
+	mark_day (a_day: INTEGER) is
+			-- Places a visual marker on a particular day.
+		require valid_date: a_day.in_range(1,31)
+		local always_true: INTEGER
+		do
+			always_true:=gtk_calendar_mark_day(handle,a_day)
+		end
+
+	unmark_day (a_day: INTEGER) is
+		require valid_date: a_day.in_range(1,31)
+		local always_true: INTEGER
+		do
+			always_true:=gtk_calendar_unmark_day(handle,a_day)
+		end
+
+	clear_marks is
+			-- Remove all visual markers.
+		do
+			gtk_calendar_clear_marks(handle)
+		end
+
+	display_options: INTEGER is
+			-- the current display options of calendar.
+		do
+			Result:=gtk_calendar_get_display_options(handle)
+		ensure valid: are_valid_gtk_calendar_display_options(Result)
+		end
+
+	set_display_options (some_flags: INTEGER) is
+			-- Sets display options (whether to display the heading and
+			-- the month headings).
+		require valid: are_valid_gtk_calendar_display_options(some_flags)
+		do
+			gtk_calendar_set_display_options(handle,some_flags)
+		ensure set: display_options = some_flags
+		end
+
+feature -- Properties: TODO
 --    "day"                  gint                  : Read / Write
 --    "month"                gint                  : Read / Write
 --    "no-month-change"      gboolean              : Read / Write
@@ -468,41 +342,29 @@ feature -- Properties
 --    calendar :  the object which received the signal.
 --    user_data : user data set when the signal handler was connected.
 
+feature {} -- typedef struct _GtkCalendar GtkCalendar;	
+	-- Note: All of these fields should be considered read only, and
+	-- everything in this struct should only be modified using the
+	-- functions provided below.
 
---  #include <gtk/gtk.h>
---              GtkCalendar;
---  enum        GtkCalendarDisplayOptions;
+	get_num_marked_dates (a_struct: POINTER): INTEGER is
+		external "C struct GtkCalendar get num_marked_dates use <gtk/gtk.h>"
+		end
 
---  void        gtk_calendar_select_day         (a_calendar: POINTER, guint day);
---  gboolean    gtk_calendar_mark_day           (a_calendar: POINTER, guint day);
---  gboolean    gtk_calendar_unmark_day         (a_calendar: POINTER, guint day);
---  void        gtk_calendar_clear_marks        (a_calendar: POINTER);
---  GtkCalendarDisplayOptions gtk_calendar_get_display_options
---                                              (a_calendar: POINTER);
---  void        gtk_calendar_set_display_options
---                                              (a_calendar: POINTER, GtkCalendarDisplayOptions flags);
---  void        gtk_calendar_display_options    (a_calendar: POINTER, GtkCalendarDisplayOptions flags);
+	get_marked_date (a_struct: POINTER): POINTER is
+		external "C struct GtkCalendar get marked_date use <gtk/gtk.h>"
+		end
 
---  void        gtk_calendar_freeze             (a_calendar: POINTER);
---  void        gtk_calendar_thaw               (a_calendar: POINTER);
+	get_selected_day (a_struct: POINTER): INTEGER is
+		external "C struct GtkCalendar get selected_day use <gtk/gtk.h>"
+		end
 
--- Original C documentation:
---  #include <gtk/gtk.h>
---              GtkCalendar;
---  enum        GtkCalendarDisplayOptions;
---  GtkWidget*  gtk_calendar_new                (void);
+	get_month (a_struct: POINTER): INTEGER is
+		external "C struct GtkCalendar get month use <gtk/gtk.h>"
+		end
 
---  void        gtk_calendar_select_day         (GtkCalendar *calendar, guint day);
---  gboolean    gtk_calendar_mark_day           (GtkCalendar *calendar, guint day);
---  gboolean    gtk_calendar_unmark_day         (GtkCalendar *calendar, guint day);
---  void        gtk_calendar_clear_marks        (GtkCalendar *calendar);
---  GtkCalendarDisplayOptions gtk_calendar_get_display_options
---                                              (GtkCalendar *calendar);
---  void        gtk_calendar_set_display_options
---                                              (GtkCalendar *calendar, GtkCalendarDisplayOptions flags);
---  void        gtk_calendar_display_options    (GtkCalendar *calendar, GtkCalendarDisplayOptions flags);
---  void        gtk_calendar_get_date           (GtkCalendar *calendar, guint *year, guint *month, guint *day);
---  void        gtk_calendar_freeze             (GtkCalendar *calendar);
---  void        gtk_calendar_thaw               (GtkCalendar *calendar);
+	get_year (a_struct: POINTER): INTEGER is
+		external "C struct GtkCalendar get year use <gtk/gtk.h>"
+		end
 
 end

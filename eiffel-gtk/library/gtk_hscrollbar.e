@@ -1,5 +1,5 @@
 indexing
-	description: "GtkHScrollbar — A horizontal scrollbar."
+	description: "GtkHScrollbar - A horizontal scrollbar."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -19,15 +19,12 @@ indexing
 					02110-1301 USA
 			]"
 
-			
-			-- Description: The GtkHScrollbar widget is a widget arranged
-			-- horizontally creating a scrollbar. See GtkScrollbar for
-			-- details on scrollbars. GtkAdjustment pointers may be added
-			-- to handle the adjustment of the scrollbar or it may be
-			-- left NULL in which case one will be created for you. See
-			-- GtkAdjustment for details.
-
 class GTK_HSCROLLBAR
+	-- The GTK_HSCROLLBAR widget is a widget arranged horizontally
+	-- creating a scrollbar. See GTK_SCROLLBAR for details on
+	-- scrollbars. A GTK_ADJUSTMENT may be added to handle the
+	-- adjustment of the scrollbar or it may be left Void in which case
+	-- one will be created for you. See GTK_ADJUSTMENT for details.
 
 inherit GTK_SCROLLBAR
 	-- GtkHScrollbar implements AtkImplementorIface.

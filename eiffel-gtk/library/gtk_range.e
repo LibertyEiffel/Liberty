@@ -30,7 +30,9 @@ inherit
 feature -- The adjustment
 
 	adjustment: GTK_ADJUSTMENT is
-			-- the GtkAdjustment which is the "model" object for GtkRange.
+			-- the GtkAdjustment which is the "model" object for
+			-- GtkRange. It contains the current value of this range
+			-- object.
 		local
 			c_adjustment: POINTER
 			r: G_RETRIEVER [GTK_ADJUSTMENT]
@@ -127,7 +129,8 @@ feature -- update policy
 feature -- Inverted-ness
 
 	is_inverted: BOOLEAN is
-			-- 
+			-- Is the range inverted? An inverted direction slider moves
+			-- to increase range value.
 		do
 			Result := (gtk_range_get_inverted (handle)).to_boolean
 		end
@@ -192,23 +195,16 @@ feature -- range
 		end
 
 
-feature -- TODO: The "adjustment" property
---   "adjustment"           GtkAdjustment         : Read / Write / Construct
+	-- Note: The "adjustment", "inverted" property
 
--- The GtkAdjustment that contains the current value of this range object.
-feature -- TODO: The "inverted" property
---   "inverted"             gboolean              : Read / Write
-
--- Invert direction slider moves to increase range value.
-
--- Default value: FALSE
 feature -- TODO: The "update-policy" property
---   "update-policy"        GtkUpdateType         : Read / Write
+	--   "update-policy"        GtkUpdateType         : Read / Write
+	
+	-- How the range should be updated on the screen.
+	
+	-- Default value: GTK_UPDATE_CONTINUOUS
+	-- Style Property Details
 
--- How the range should be updated on the screen.
-
--- Default value: GTK_UPDATE_CONTINUOUS
--- Style Property Details
 feature -- TODO: The "arrow-displacement-x" style property
 --   "arrow-displacement-x" gint                  : Read
 

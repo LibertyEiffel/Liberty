@@ -25,6 +25,8 @@ deferred class GTK_CALENDAR_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
+insert GTK_CALENDAR_DISPLAY_OPTIONS
+	
 feature {} -- Externals
 
 	gtk_calendar_new: POINTER is --  GtkWidget
@@ -38,5 +40,49 @@ feature {} -- Externals
 	gtk_calendar_get_date (a_calendar, a_year, a_month, a_day: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
+
+
+	gtk_calendar_select_day (a_calendar: POINTER; a_day: INTEGER) is
+			-- void gtk_calendar_select_day (GtkCalendar *calendar, guint
+			-- day);
+		require natural_day: a_day>=0 -- TODO: some_day should be NATURAL
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_calendar_mark_day (a_calendar: POINTER; a_day: INTEGER): INTEGER is
+			-- gboolean gtk_calendar_mark_day (GtkCalendar *calendar,
+			-- guint day);
+		require natural_day: a_day>=0 -- TODO: some_day should be NATURAL
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_calendar_unmark_day (a_calendar: POINTER; a_day: INTEGER): INTEGER is
+			-- gboolean gtk_calendar_unmark_day (GtkCalendar *calendar, guint day);
+		require natural_day: a_day>=0 -- TODO: some_day should be NATURAL
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_calendar_clear_marks (a_calendar: POINTER) is
+			-- void gtk_calendar_clear_marks (GtkCalendar *calendar);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_calendar_get_display_options (a_calendar: POINTER): INTEGER is
+			-- GtkCalendarDisplayOptions gtk_calendar_get_display_options
+			-- (GtkCalendar *calendar);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_calendar_set_display_options (a_calendar: POINTER; some_flags: INTEGER) is
+			-- 	void gtk_calendar_set_display_options (GtkCalendar
+			-- 	*calendar, GtkCalendarDisplayOptions flags);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_calendar_thaw (a_calendar: POINTER) is
+			-- void gtk_calendar_thaw (GtkCalendar *calendar);
+		external "C use <gtk/gtk.h>"
+		end
+
 
 end -- class GTK_CALENDAR_EXTERNALS

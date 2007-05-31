@@ -21,22 +21,19 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Description
-
-			-- The GtkNotebook widget is a GtkContainer whose children
-			-- are pages that can be switched between using tab labels
-			-- along one edge.
-
-			-- There are many configuration options for
-			-- GtkNotebook. Among other things, you can choose on which
-			-- edge the tabs appear (see `set_tab_pos'), whether, if
-			-- there are too many tabs to fit the noteobook should be
-			-- made bigger or scrolling arrows added (see
-			-- `set_scrollable'), and whether there will be a popup menu
-			-- allowing the users to switch pages. (see `enable_popup'
-			-- and `disable_popup')
-
 class GTK_NOTEBOOK
+	-- The GtkNotebook widget is a GtkContainer whose children are
+	-- pages that can be switched between using tab labels along one
+	-- edge.
+
+	-- There are many configuration options for GtkNotebook. Among
+	-- other things, you can choose on which edge the tabs appear (see
+	-- `set_tab_pos'), whether, if there are too many tabs to fit the
+	-- noteobook should be made bigger or scrolling arrows added (see
+	-- `set_scrollable'), and whether there will be a popup menu
+	-- allowing the users to switch pages. (see `enable_popup' and
+	-- `disable_popup').
+
 inherit GTK_CONTAINER
 	-- GtkNotebook implements AtkImplementorIface.
 

@@ -21,27 +21,19 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- A GtkScale is a slider control used to select a numeric
-			-- value. To use it, you'll probably want to investigate the
-			-- methods on its base class, GtkRange, in addition to the
-			-- methods for GtkScale itself. To set the value of a scale,
-			-- you would normally use gtk_range_set_value(). To detect
-			-- changes to the value, you would normally use the
-			-- "value_changed" signal.
-
-			-- The GtkScale widget is an abstract class, used only for
-			-- deriving the subclasses GtkHScale and GtkVScale. To create
-			-- a scale widget, call gtk_hscale_new_with_range() or
-			-- gtk_vscale_new_with_range().
-
 deferred class GTK_SCALE
-
+	-- A GTK_SCALE is a slider control used to select a numeric
+	-- value. To use it, you'll probably want to investigate the
+	-- methods on its base class, GTK_RANGE, in addition to the methods
+	-- for GTK_SCALE itself. To set the value of a scale, you would
+	-- normally use `set_value'. To detect changes to the value, you
+	-- would normally use the "value_changed" signal.
+	
 inherit
 	GTK_RANGE
 	GTK_SCALE_EXTERNALS
 
 feature -- digits
-
 	digits: INTEGER is
 			-- the number of decimal places that are displayed in the value.
 		do
