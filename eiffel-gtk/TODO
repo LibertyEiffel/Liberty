@@ -171,9 +171,9 @@ implemented.
         GtkAspectFrame - Basic functionality.
         GtkHBox - Complete
         GtkVBox - Complete
-        GtkHButtonBox - 
-        GtkVButtonBox - 
-        GtkFixed - 
+        GtkHButtonBox - Complete
+        GtkVButtonBox - Complete
+        GtkFixed - Missing, but almost no one will ever need it.
         GtkHPaned - Complete
         GtkVPaned - Complete
         GtkLayout - Basic functionality
@@ -189,21 +189,22 @@ implemented.
 
     Scrolling
 
-        GtkHScrollbar - 
-        GtkVScrollbar - 
-        GtkScrolledWindow - 
+        GtkHScrollbar - Mostly complete
+        GtkVScrollbar - Mostly complete
+        GtkScrolledWindow - Fairly complete
 
     Printing
 
-        GtkPrintOperation - 
-        GtkPrintContext - 
-        GtkPrintSettings - 
-        GtkPageSetup - 
-        GtkPaperSize - 
-        GtkPrinter - 
-        GtkPrintJob - 
-        GtkPrintUnixDialog - 
-        GtkPageSetupUnixDialog - 
+        GtkPrintOperation - Basic functionality. All properties missing.
+        GtkPrintContext - Fairly complete
+        GtkPrintSettings - Partially implemented.
+        GtkPageSetup - Complete
+        GtkPaperSize - Complete
+        GtkPrinter - Fairly complete
+        GtkPrintJob - Basic functionality
+        GtkPrintUnixDialog - Fairly complete
+        GtkPageSetupUnixDialog - Complete
+	GtkPrintBackend - Skeleton
 
     Miscellaneous
 
@@ -216,19 +217,19 @@ implemented.
         GtkIMContextSimple - 
         GtkIMMulticontext - 
         GtkSizeGroup - 
-        GtkTooltips - 
+        GtkTooltips - Almost complete
         GtkViewport - 
         GtkAccessible - 
 
     Abstract Base Classes
 
-        GtkBin - 
-        GtkBox - 
-        GtkButtonBox - 
-        GtkContainer - 
-        GtkItem - 
-        GtkMisc - 
-        GtkObject - 
+        GtkBin - Basic functionality
+        GtkBox - Fairly complete
+        GtkButtonBox - Fairly complete. All child properties setters/getters missing
+        GtkContainer - Fairly complete
+        GtkItem - Fairly complete
+        GtkMisc - Complete (needs cleanup)
+        GtkObject - Basic functionality
         GtkPaned - Fairly complete. Some properties are not strongly-wrapped
         GtkRange - Basic functionalty
         GtkScale - Fairly complete

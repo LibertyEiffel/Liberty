@@ -18,50 +18,44 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
-
-			-- Description: GtkScrolledWindow is a GtkBin subclass: it's
-			-- a container the accepts a single child
-			-- widget. GtkScrolledWindow adds scrollbars to the child
-			-- widget and optionally draws a beveled frame around the
-
-			-- child widget.
-			
-			-- The scrolled window can work in two ways. Some widgets
-			-- have native scrolling support; these widgets have "slots"
-			-- for GtkAdjustment objects. [5] Widgets with native scroll
-			-- support include GtkTreeView, GtkTextView, and GtkLayout.
-
-			-- For widgets that lack native scrolling support, the
-			-- GtkViewport widget acts as an adaptor class, implementing
-			-- scrollability for child widgets that lack their own
-			-- scrolling capabilities. Use GtkViewport to scroll child
-			-- widgets such as GtkTable, GtkBox, and so on.
-			
-			-- If a widget has native scrolling abilities, it can be
-			-- added to the GtkScrolledWindow with
-			-- gtk_container_add(). If a widget does not, you must first
-			-- add the widget to a GtkViewport, then add the GtkViewport
-			-- to the scrolled window. The convenience function
-			-- gtk_scrolled_window_add_with_viewport() does exactly this,
-			-- so you can ignore the presence of the viewport.
-
-			-- The position of the scrollbars is controlled by the scroll
-			-- adjustments. See GtkAdjustment for the fields in an
-			-- adjustment - for GtkScrollbar, used by GtkScrolledWindow,
-			-- the "value" field represents the position of the
-			-- scrollbar, which must be between the "lower" field and
-			-- "upper - page_size." The "page_size" field represents the
-			-- size of the visible scrollable area. The "step_increment"
-			-- and "page_increment" fields are used when the user asks to
-			-- step down (using the small stepper arrows) or page down
-			-- (using for example the PageDown key).
-
-			-- If a GtkScrolledWindow doesn't behave quite as you would
-			-- like, or doesn't have exactly the right layout, it's very
-			-- possible to set up your own scrolling with GtkScrollbar
-			-- and for example a GtkTable.
 			
 class GTK_SCROLLED_WINDOW
+	-- A container the accepts a single child widget. GtkScrolledWindow
+	-- adds scrollbars to the child widget and optionally draws a
+	-- beveled frame around the child widget.
+			
+	-- The scrolled window can work in two ways. Some widgets have
+	-- native scrolling support; these widgets have "slots" for
+	-- GtkAdjustment objects.  Widgets with native scroll support
+	-- include GtkTreeView, GtkTextView, and GtkLayout.
+
+	-- For widgets that lack native scrolling support, the GtkViewport
+	-- widget acts as an adaptor class, implementing scrollability for
+	-- child widgets that lack their own scrolling capabilities. Use
+	-- GtkViewport to scroll child widgets such as GtkTable, GtkBox,
+	-- and so on.
+	
+	-- If a widget has native scrolling abilities, it can be added to
+	-- the GtkScrolledWindow with `add'. If a widget does not, you must
+	-- first add the widget to a GtkViewport, then add the GtkViewport
+	-- to the scrolled window. The convenience function
+	-- gtk_scrolled_window_add_with_viewport() does exactly this, so
+	-- you can ignore the presence of the viewport.
+	
+	-- The position of the scrollbars is controlled by the scroll
+	-- adjustments. See GtkAdjustment for the fields in an adjustment -
+	-- for GtkScrollbar, used by GtkScrolledWindow, the "value" field
+	-- represents the position of the scrollbar, which must be between
+	-- the "lower" field and "upper - page_size." The "page_size" field
+	-- represents the size of the visible scrollable area. The
+	-- "step_increment" and "page_increment" fields are used when the
+	-- user asks to step down (using the small stepper arrows) or page
+	-- down (using for example the PageDown key).
+
+	-- If a GtkScrolledWindow doesn't behave quite as you would like,
+	-- or doesn't have exactly the right layout, it's very possible to
+	-- set up your own scrolling with GtkScrollbar and for example a
+	-- GtkTable.
 
 inherit
 	GTK_BIN
