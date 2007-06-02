@@ -37,7 +37,7 @@ feature {} -- size
 		end
 
 feature {} -- Creation
-	make (xalign, yalign, xscale, yscale: REAL) is
+	make (xalign, yalign, xscale, yscale: REAL_32) is
 			-- Creates a new GtkAlignment.  `xalign' : the horizontal
 			-- alignment of the child widget, from 0 (left) to 1 (right).
 			-- `yalign' : the vertical alignment of the child widget,
@@ -54,7 +54,7 @@ feature {} -- Creation
 		end
 
 feature -- Scaling and alignment 
-	set (xalign, yalign, xscale, yscale: REAL) is
+	set (xalign, yalign, xscale, yscale: REAL_32) is
 			-- Sets the GtkAlignment values.  `xalign' : the horizontal
 			-- alignment of the child widget, from 0 (left) to 1 (right).
 			-- `yalign' : the vertical alignment of the child widget, from
@@ -107,13 +107,15 @@ feature -- Scaling and alignment
 
 -- Default value: 1
 feature -- paddings
-	paddings: TUPLE[REAL,REAL,REAL,REAL] is
+
+	paddings: TUPLE[INTEGER,INTEGER,INTEGER,INTEGER] is
 			-- Top, bottom, left and right padding. TODO shall be NATURAL
-		local guint_padding_top,guint_padding_bottom,guint_padding_left,guint_padding_right: INTEGER
+		local
+			guint_padding_top,guint_padding_bottom,guint_padding_left,guint_padding_right: INTEGER
 		do
 			gtk_alignment_get_padding (handle,
-												guint_padding_top,guint_padding_bottom,
-												guint_padding_left,guint_padding_right)
+												$guint_padding_top, $guint_padding_bottom,
+												$guint_padding_left, $guint_padding_right)
 			create Result.make_4 (guint_padding_top,guint_padding_bottom,
 										 guint_padding_left,guint_padding_right)
 		end
