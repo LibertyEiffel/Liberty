@@ -22,6 +22,9 @@ indexing
 	wrapped_version: "2.10.6"
 
 class GTK_FILE_SELECTION
+	-- GtkFileSelection has been superseded by the newer GtkFileChooser family
+	-- of widgets.
+	--
 	-- GtkFileSelection should be used to retrieve file or directory names from
 	-- the user. It will create a new dialog window containing a directory list,
 	-- and a file list corresponding to the current working directory. The
@@ -86,14 +89,22 @@ class GTK_FILE_SELECTION
 	--    gtk_widget_show (file_selector);
 	-- }
 
+obsolete
+	"This class is deprecated and only here for compatibility. Use the %
+	% GTK_FILE_CHOOSER family of widgets instead."
+
 inherit
 	GTK_DIALOG
+		undefine
+			struct_size, get_action_area
+		end
 		--   GtkFileSelection implements AtkImplementorIface.
 
 insert
 	GTK_FILE_SELECTION_EXTERNALS
 	GTK_FILE_SELECTION_STRUCT
-	
+		undefine copy, is_equal end
+
 creation make, from_external_pointer
 
 feature {} -- Creation

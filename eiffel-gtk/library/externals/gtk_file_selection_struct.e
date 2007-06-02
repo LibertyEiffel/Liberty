@@ -221,10 +221,4 @@ feature {} -- Structure getter/setter calls
 	--                      gtk_file_selection_show_fileop_buttons() 
 	--                      respectively.
 	
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkFileSelection)"
-		end
-
 end
