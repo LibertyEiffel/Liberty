@@ -35,7 +35,8 @@ class GTK_CELL_RENDERER_COMBO
 	-- can be added in a handler for the editing-started signal.
 	
 inherit
-	GTK_CELL_RENDERER_TEXT redefine make end
+	GTK_CELL_RENDERER_TEXT
+		redefine make, struct_size end
 insert
 	GTK_CELL_RENDERER_COMBO_EXTERNALS
 creation make

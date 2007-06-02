@@ -29,7 +29,9 @@ class GTK_CELL_RENDERER_ACCEL
 
 	-- The GtkCellRendererAccel cell renderer was added in GTK+ 2.10.
 
-inherit GTK_CELL_RENDERER_TEXT
+inherit
+	GTK_CELL_RENDERER_TEXT
+		redefine make, struct_size end
 
 insert GTK_CELL_RENDERER_ACCEL_MODE
 	

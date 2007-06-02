@@ -39,7 +39,9 @@ class GTK_CELL_RENDERER_SPIN
 
 	--   The GtkCellRendererSpin cell renderer was added in GTK+ 2.10.
 
-inherit GTK_CELL_RENDERER_TEXT
+inherit
+	GTK_CELL_RENDERER_TEXT
+		redefine make, struct_size end
 
 creation make, from_external_pointer
 
@@ -93,7 +95,7 @@ feature -- Properties setters
 		end
 
 	set_digits (some_digits: INTEGER) is
-		ensure valid_digits: some_digits.in_range(0,20)
+		require valid_digits: some_digits.in_range(0,20)
 		do
 			set_property(digits_property_name, create {G_VALUE}.from_natural(a_climb_rate))
 		end	
