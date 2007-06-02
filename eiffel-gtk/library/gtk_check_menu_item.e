@@ -28,7 +28,11 @@ class GTK_CHECK_MENU_ITEM
 	-- displayed at the left side of the GtkMenuItem. Activating the
 	-- GtkMenuItem toggles the value.
 	
-inherit GTK_MENU_ITEM redefine make, size end
+inherit
+	GTK_MENU_ITEM
+		redefine
+			make, with_label, with_mnemonic, struct_size
+		end
 	-- Known heirs: GtkRadioMenuItem
 
 	-- GtkCheckMenuItem implements AtkImplementorIface.
@@ -72,7 +76,7 @@ feature
 			gtk_check_menu_item_set_active (handle,1)
 		end
 
-	set_active is
+	set_inactive is
 			-- Makes the menu item's check box inactive.
 		do
 			gtk_check_menu_item_set_active (handle,0)
