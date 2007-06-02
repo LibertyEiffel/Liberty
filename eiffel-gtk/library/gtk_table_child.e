@@ -33,7 +33,6 @@ feature {} -- size
 		end
 
 feature {} -- Creation
-end
 --   GtkTableChild
 
 --  typedef struct {
