@@ -352,7 +352,6 @@ feature -- Getters
 			--    settings = g_object_ref (gtk_print_operation_get_print_settings (print));
 			--  }
 			--
-		local res
 		do
 			operation_result:=gtk_print_operation_run(handle, an_action,
 												  null_or(a_parent),
