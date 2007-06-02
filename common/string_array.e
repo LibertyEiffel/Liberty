@@ -42,13 +42,18 @@ class STRING_ARRAY
 	-- to use an eventual anchestor of COLLECTION that does not offer
 	-- changing features. Paolo 2007-04-28
 
-inherit COLLECTION [STRING] redefine swap end
+inherit
+	COLLECTION [STRING]
+		redefine
+			swap, first_index_of, fast_first_index_of, reverse
+		end
 
 insert WRAPPER_HANDLER -- only to get null_or_string
 
 creation
 	-- make, with_capacity,	from_collection,
 	from_external_array
+	from_external_null_array
 
 feature {STRING_ARRAY} -- Implementation
 	-- Note: to correctly handle memory of the string array wrapper and
@@ -107,6 +112,20 @@ feature {} -- Creation
 			create strings.make(a_length)
 			fill_strings
 		ensure count=a_length
+		end
+
+	from_external_null_array (an_array: POINTER) is
+		require 
+			array_not_null: an_array.is_not_null
+		local
+			length: INTEGER
+		do
+			storage := storage.from_pointer (an_array)
+			from length := 0 until
+				storage.item (length).is_null
+			loop length := length + 1 end
+			create strings.make(length)
+			fill_strings
 		end
 
 feature {ANY} -- Writing:
@@ -232,7 +251,7 @@ feature {ANY} -- Modification:
 			-- loop storage.put(other.storage.item(i),i) i:=i-1 end
 		end
 
-	from_collection (model: TRAVERSABLE[like item]) is
+	from_collection (model: COLLECTION[like item]) is
 		local i: ITERATOR[like item]
 		do
 			not_yet_implemented 
@@ -298,7 +317,7 @@ feature {ANY} -- Looking and Searching:
 			Result:=strings.first_index_of(element)
 		end
 
-	index_of (element: like item; start_index: INTEGER): INTEGER is
+	index_of (element: like item): INTEGER is
 		do
 			not_yet_implemented
 		end
@@ -313,7 +332,7 @@ feature {ANY} -- Looking and Searching:
 			not_yet_implemented
 		end
 
-	fast_index_of (element: like item; start_index: INTEGER): INTEGER is
+	fast_index_of (element: like item): INTEGER is
 		do
 			not_yet_implemented
 		end
