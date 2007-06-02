@@ -4,6 +4,8 @@
 ../../eiffel-glib/library/core
 ../../eiffel-glib/library/data_types
 ../../eiffel-glib/library/externals
+../../eiffel-glib/library/fundamentals
+../../eiffel-glib/library/utilities
 ../../eiffel-gobject/library
 ../../eiffel-gobject/library/externals
 ../../eiffel-gdk/library
