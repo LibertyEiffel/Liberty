@@ -33,7 +33,9 @@ class GDK_SCREEN
 
 inherit G_OBJECT 
 
-insert EXCEPTIONS
+insert
+	EXCEPTIONS
+		undefine copy, is_equal end
 	
 creation make, from_external_pointer
 
