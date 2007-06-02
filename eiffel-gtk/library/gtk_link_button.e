@@ -37,7 +37,8 @@ class GTK_LINK_BUTTON
 	-- GtkLinkButton was added in GTK+ 2.10.
 
 inherit
-  	GTK_BUTTON
+	GTK_BUTTON
+		rename make as make_button end
 		-- TODO: GtkLinkButton implements AtkImplementorIface.
 	
 creation make, from_external_pointer
@@ -49,7 +50,7 @@ feature {} -- Creation
 			uri_not_void: an_uri /= Void
 			valid_uri: -- TODO:
 		do
-			from_external_pointer(gtk_link_button_new(an_uri.to_external))
+			from_external_pointer (gtk_link_button_new(gtk_link_button_new(an_uri.to_external)))
 		end
 	
 	make_with_label (an_uri, a_label: STRING) is
@@ -60,7 +61,7 @@ feature {} -- Creation
 			valid_uri: -- TODO:
 			label_not_void: a_label /= Void
 		do
-			from_external_pointer (an_uri.to_external, a_label.to_external)
+			from_external_pointer (gtk_link_button_new_with_label (an_uri.to_external, a_label.to_external))
 		end
 	
 feature
@@ -71,7 +72,7 @@ feature
 			-- not be modified or freed.
 			create {CONST_STRING} Result.from_external
 			(gtk_link_button_get_uri (handle))
-		ensure void: Result /= Void
+		ensure Result /= Void
 		end
 
 	set_uri (an_uri: STRING) is
