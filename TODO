@@ -1,3 +1,17 @@
+* Fix and make examples for
+  * GtkAssistant
+  * GtkAboutDialog
+  * GtkArrow
+  * GtkCellRendererSpin
+  * GtkCellView
+  * GtkIconTheme
+
+* Still not compiling at all
+  * GTK_ACCEL_LABEL_EXTERNALS
+  * GTK_LAYOUT
+  * GTK_PRINT_* , PAPER*, PAGE*
+  * GTK_RADIO_MENU_ITEM
+
 * resolve conflicts in:
  eiffel-gtk/library/gtk_tree_view.e 
 eiffel-gtk/library/gtk_image_menu_item.e
