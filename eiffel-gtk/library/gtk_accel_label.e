@@ -78,7 +78,7 @@ inherit GTK_LABEL
 	-- TODO: GtkAccelLabel implements AtkImplementorIface.
 
 insert
-	GTK_LABEL_EXTERNALS
+	GTK_ACCEL_LABEL_EXTERNALS
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
 	
 creation make, from_external_pointer
