@@ -26,8 +26,11 @@ class GTK_CELL_VIEW
 	-- cell editing and drag and drop.
 	
 inherit
-	GTK_WIDGET redefine make end
+	GTK_WIDGET
 	GTK_CELL_LAYOUT
+		undefine
+			store_eiffel_wrapper
+		end
 		-- GtkCellView also implements AtkImplementorIface.
 		
 creation make
@@ -105,6 +108,8 @@ feature
 	displayed_row: GTK_TREE_PATH is
 			-- A GtkTreePath referring to the currently displayed row. It
 			-- is Void ff no row is currently displayed.
+		local
+			ptr: POINTER
 		do
 			ptr := gtk_cell_view_get_displayed_row (handle)
 			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
