@@ -1,0 +1,12 @@
+../library
+../library/externals
+../../common
+../../eiffel-glib/library/core
+../../eiffel-glib/library/data_types
+../../eiffel-glib/library/externals
+../../eiffel-gobject/library
+../../eiffel-gobject/library/externals
+../../eiffel-gdk/library
+../../eiffel-gdk/library/externals
+../../eiffel-pango/library
+../../eiffel-pango/library/externals
