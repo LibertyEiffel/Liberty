@@ -100,7 +100,7 @@ feature {} -- Creation
 			-- Creates a status icon displaying an icon from the current
 			-- icon theme. If the current icon theme is changed, the icon
 			-- will be updated appropriately.
-		require icon_name_not_void: a_icon_name /= Void
+		require icon_name_not_void: an_icon_name /= Void
 		do
 			from_external_pointer(gtk_status_icon_new_from_icon_name(an_icon_name.to_external))
 		end
@@ -118,7 +118,7 @@ feature
 			gtk_status_icon_set_from_pixbuf (handle, default_pointer)
 		end
 	
-	set_from_file (a_fine_name: STRING) is
+	set_from_file (a_file_name: STRING) is
 			-- Makes Current status icon display the file
 			-- `a_file_name'. See `make_from_file' for details.
 		require filename_not_void: a_file_name /= Void
@@ -140,7 +140,7 @@ feature
 			-- details.
 		require name_not_void: an_icon_name /= Void
 		do
-			gtk_status_icon_set_from_icon_name (handle, an_icon_name.to_externals)
+			gtk_status_icon_set_from_icon_name (handle, an_icon_name.to_external)
 		end
 
 
@@ -189,8 +189,8 @@ feature
 		local ptr: POINTER
 		do
 			ptr := gtk_status_icon_get_icon_name (handle)
-			if p.is_not_null then
-				create {CONST_STRING} Result.from_external(p)
+			if ptr.is_not_null then
+				create {CONST_STRING} Result.from_external(ptr)
 			end
 		end
 
@@ -221,7 +221,7 @@ feature
 			-- Shows or hides a status icon. `a_setting' is True to show
 			-- the status icon, False to hide it
 		do
-			gtk_status_icon_set_visible (handle, a_setting.to_integer)
+			gtk_status_icon_set_visible (handle, a_setting)
 		end
 
 	is_visible: BOOLEAN is
