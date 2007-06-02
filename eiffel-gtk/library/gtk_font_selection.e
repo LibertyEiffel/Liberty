@@ -37,7 +37,10 @@ class GTK_FONT_SELECTION
 
 inherit 
 	GTK_VBOX
-		rename make as make_vbox 
+		rename
+			make as make_vbox 
+		undefine
+			struct_size
 		end
 		-- GtkFontSelection implements AtkImplementorIface.
 
