@@ -1,6 +1,7 @@
 indexing
 	description: "GtkAboutDialog œôòô Display information about an application."
-	copyright: "[ Copyright (C) 2006 Paolo Redaelli, GTK+ team
+	copyright: "[
+					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -43,6 +44,9 @@ class GTK_ABOUT_DIALOG
  
 inherit
 	GTK_DIALOG
+		redefine
+			make, struct_size
+		end
 		-- TODO: GtkAboutDialog implements AtkImplementorIface.	
 
 		-- insert FOO_EXTERNALS
@@ -540,7 +544,7 @@ feature
 		end
 
 feature {} -- External calls 
-	gtk_about_dialog_new is
+	gtk_about_dialog_new: POINTER is
 			-- 	GtkWidget* gtk_about_dialog_new (void);
 		external "C use <gtk/gtk.h>"
 		end
