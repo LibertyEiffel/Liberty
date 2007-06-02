@@ -59,15 +59,13 @@ class GTK_SCROLLED_WINDOW
 
 inherit
 	GTK_BIN
-		rename make as make_default
-		end
 		-- GtkScrolledWindow implements AtkImplementorIface interface.
 insert
 	GTK_POLICY_TYPE
 	GTK_CORNER_TYPE
 	GTK_SHADOW_TYPE
 	
-creation make, from_external_pointer
+creation make, make_default, from_external_pointer
 
 feature {} -- Creation
 	make_default is
