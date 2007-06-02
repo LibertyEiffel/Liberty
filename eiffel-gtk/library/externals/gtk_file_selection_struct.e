@@ -59,12 +59,12 @@ feature {} -- Structure getter/setter calls
 		external "C struct GtkFileSelection set selection_entry use <gtk/gtk.h>"
 		end
 	--   GtkWidget *selection_text;
-	get_selection_entry (a_struct: POINTER): POINTER is
-		external "C struct GtkFileSelection get selection_entry use <gtk/gtk.h>"
+	get_selection_text (a_struct: POINTER): POINTER is
+		external "C struct GtkFileSelection get selection_text use <gtk/gtk.h>"
 		end
 
-	set_c_selection_entry (a_struct: POINTER; a_selection_entry: POINTER) is
-		external "C struct GtkFileSelection set selection_entry use <gtk/gtk.h>"
+	set_c_selection_text (a_struct: POINTER; a_selection_text: POINTER) is
+		external "C struct GtkFileSelection set selection_text use <gtk/gtk.h>"
 		end
 	--   GtkWidget *main_vbox;
 	get_main_vbox (a_struct: POINTER): POINTER is
