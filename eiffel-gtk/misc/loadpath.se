@@ -12,3 +12,5 @@
 ../../eiffel-gdk/library/externals
 ../../eiffel-pango/library
 ../../eiffel-pango/library/externals
+../../eiffel-cairo/library
+../../eiffel-cairo/library/externals
