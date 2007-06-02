@@ -35,15 +35,21 @@ class GTK_PRINTER
 	--   Printing support was added in GTK+ 2.10.
 
 inherit 
-	G_OBJECT redefine is_equal end
+	G_OBJECT rename is_default as is_void redefine is_equal end
 	COMPARABLE
+		rename
+			is_default as is_void
+		undefine
+			copy, is_equal
 		redefine
 			is_equal,
 			infix "<", 
 			compare, three_way_comparison
 		end
 
-insert GTK_PRINTER_EXTERNALS
+insert
+	GTK_PRINTER_EXTERNALS
+		rename is_default as is_void end
 
 creation make, from_external_pointer
 
@@ -99,7 +105,7 @@ feature -- Queries
 	icon_name: CONST_STRING is
 			-- the icon name for printer
 		do
-			create Reuslt.from_external(gtk_printer_get_icon_name(handle))
+			create Result.from_external(gtk_printer_get_icon_name(handle))
 		end
 
 	job_count: INTEGER is
