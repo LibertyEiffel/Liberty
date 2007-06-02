@@ -184,7 +184,7 @@ feature -- increments
 
 feature -- range
 
-	set_range (a_min,a_max: REAL) is
+	set_range (a_min,a_max: REAL_64) is
 			-- Sets the allowable values in the GtkRange, and clamps the
 			-- range value to be between min and max. (If the range has a
 			-- non-zero page size, it is clamped between min and max -

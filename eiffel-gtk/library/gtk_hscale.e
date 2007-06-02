@@ -67,7 +67,8 @@ feature {} -- Creation
 
 			-- `a_step' : step increment (tick size) used with keyboard
 			-- shortcuts
-
+		require
+			a_step /= 0.0 -- from GTK+ assertion
 		do
 			handle:=gtk_hscale_new_with_range (a_min, a_max, a_step)
 			store_eiffel_wrapper
