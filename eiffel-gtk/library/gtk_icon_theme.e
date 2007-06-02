@@ -167,7 +167,7 @@ feature
 			-- `some_path': array of directories that are searched for
 			-- icon themes
 		do
-			gtk_icon_theme_set_search_path  (handle, some_path.storage, some_path_count)
+			gtk_icon_theme_set_search_path  (handle, some_path.storage, some_path.count)
 		end
 
 	-- search_path: 

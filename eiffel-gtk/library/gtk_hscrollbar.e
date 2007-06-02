@@ -35,7 +35,7 @@ feature {NONE} -- Creation
 	make is
 			-- Creates a new horizontal scrollbar; a new adjustment is also created.
 		do
-			from_external_handle (gtk_hscrollbar_new (default_pointer))
+			from_external_pointer (gtk_hscrollbar_new (default_pointer))
 		end
 	
 	with_adjustment (an_adjustment: GTK_ADJUSTMENT) is
@@ -43,7 +43,7 @@ feature {NONE} -- Creation
 		require
 			adjustment_not_void: an_adjustment /= Void
 		do
-			from_external_handle (gtk_hscrollbar_new (an_adjustment.handle))
+			from_external_pointer (gtk_hscrollbar_new (an_adjustment.handle))
 		end
 
 feature -- size

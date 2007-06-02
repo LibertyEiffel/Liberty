@@ -26,7 +26,9 @@ class GTK_HPANED
 	-- arranged horizontally. The division between the two panes is
 	-- adjustable by the user by dragging a handle. See GtkPaned for
 	-- details.
-inherit GTK_PANED redefine make end
+inherit
+	GTK_PANED
+		redefine struct_size end
 	-- GtkHPaned implements AtkImplementorIface.
 creation make
 
