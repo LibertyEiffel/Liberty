@@ -192,7 +192,7 @@ feature
 		local ptr: POINTER
 		do
 			ptr:=gtk_file_selection_get_selections(handle)
-			create Result.from_external_array(ptr)
+			create Result.from_external_null_array(ptr)
 			-- Note: even if the C documentation says that the newly-allocated
 			-- NULL-terminated array of strings returned by
 			-- gtk_file_selection_get_selections must be freed with g_strfreev(),
@@ -205,7 +205,7 @@ feature
 			-- Sets whether the user is allowed to select multiple files in the
 			-- file list. Use `selections' to get the list of selected files.
 		do
-			gtk_file_selection_set_select_multiple(handle,a_setting)
+			gtk_file_selection_set_select_multiple(handle,a_setting.to_integer)
 		ensure set: a_setting = are_multiple_selection_allowed
 		end
 
