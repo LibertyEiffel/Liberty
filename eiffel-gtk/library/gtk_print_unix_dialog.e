@@ -39,7 +39,13 @@ class GTK_PRINT_UNIX_DIALOG
 
 	-- Printing support was added in GTK+ 2.10.
 
-inherit GTK_DIALOG
+inherit
+	GTK_DIALOG
+		rename
+			make as dialog_make
+		undefine
+			struct_size
+		end
 	-- TODO: GtkPrintUnixDialog implements AtkImplementorIface.
 	
 insert

@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _EXTERNALS
+deferred class GTK_PRINT_UNIX_DIALOG_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
