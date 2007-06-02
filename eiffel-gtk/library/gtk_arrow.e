@@ -38,8 +38,6 @@ class GTK_ARROW
 inherit GTK_MISC
 	--   GtkArrow implements AtkImplementorIface.
 	
-insert
-
 creation make, from_external_pointer
 
 feature {} -- Creation
