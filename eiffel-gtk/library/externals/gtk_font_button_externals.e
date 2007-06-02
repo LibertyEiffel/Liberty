@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class GTK_FONT_BUTTON_EXTERNALSl
+deferred class GTK_FONT_BUTTON_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
@@ -45,7 +45,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_font_button_set_show_size (a_font_button: POINTER; a_show_size: INTEER) is
+	gtk_font_button_set_show_size (a_font_button: POINTER; a_show_size: INTEGER) is
 			-- void gtk_font_button_set_show_size (GtkFontButton
 			-- *font_button, gboolean show_size);
 		external "C use <gtk/gtk.h>"
@@ -81,7 +81,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_font_button_set_title (a_font_button, a_title: POITER) is
+	gtk_font_button_set_title (a_font_button, a_title: POINTER) is
 			-- void gtk_font_button_set_title (GtkFontButton
 			-- *font_button, const gchar *title);
 		external "C use <gtk/gtk.h>"

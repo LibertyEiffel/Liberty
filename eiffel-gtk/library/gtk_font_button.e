@@ -29,6 +29,8 @@ class GTK_FONT_BUTTON
 
 inherit
 	GTK_BUTTON
+		undefine
+			struct_size
 		redefine
 			make
 		end
@@ -145,7 +147,7 @@ feature
 	is_size_used: BOOLEAN is
 			-- Is the selected size used in the label?
 		do
-			Result:=gtk_font_button_get_use_size(handle).to_external
+			Result:=gtk_font_button_get_use_size(handle) /= 0
 		end
 
 	set_title (a_title: STRING) is
