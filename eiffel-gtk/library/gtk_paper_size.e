@@ -35,8 +35,7 @@ class GTK_PAPER_SIZE
 	-- Printing support has been added in GTK+ 2.10.
 
 inherit
-	C_STRUCT redefine copy, is_equal end
-	DISPOSABLE redefine copy, is_equal end
+	C_STRUCT redefine copy, is_equal, dispose end
 
 insert 
 	GTK_PAPER_SIZE_EXTERNALS
@@ -53,10 +52,9 @@ feature {} -- Creation
 			from_external_pointer(gtk_paper_size_new(a_paper_name.to_external))
 		end
 
-	default is 
+	make_default is 
 			-- Creates a new GtkPaperSize object for the default paper
 			-- size.
-		require name_not_void: a_name /= Void
 		do
 			from_external_pointer(gtk_paper_size_new(default_pointer))
 		end
@@ -222,7 +220,7 @@ feature {} -- Disposing
 	
 feature {} -- Implementation
 	stored_name, stored_display_name, stored_ppd_name: CONST_STRING
-	ppd_name_unretrieved: BOOLEAN
+	ppd_name_retrieved: BOOLEAN
 	
 end -- class GTK_PAPER_SIZE
 			

@@ -30,7 +30,7 @@ feature {} -- External calls
 		ensure valid_result: is_valid_page_orientation(Result)
 		end
 
-	gtk_page_setup_set_orientation (a_setup: POINTER; a_orientation: INTEGER) is
+	gtk_page_setup_set_orientation (a_setup: POINTER; an_orientation: INTEGER) is
 			-- void gtk_page_setup_set_orientation (GtkPageSetup *setup,
 			-- GtkPageOrientation orientation);
 		require valid_result: is_valid_page_orientation(an_orientation)
@@ -55,7 +55,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_page_setup_set_top_margin (a_setup: POINTER; a_margin: REAL; a_unit: INTEGER): REAL is
+	gtk_page_setup_set_top_margin (a_setup: POINTER; a_margin: REAL; a_unit: INTEGER) is
 			-- void gtk_page_setup_set_top_margin (GtkPageSetup *setup,
 			-- gdouble margin, GtkUnit unit);
 		require valid_unit: is_valid_unit(a_unit)
@@ -69,7 +69,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_page_setup_set_bottom_margin(a_setup: POINTER; margin: REAL; a_unit: INTEGER): REAL is
+	gtk_page_setup_set_bottom_margin(a_setup: POINTER; margin: REAL; a_unit: INTEGER) is
 			-- void gtk_page_setup_set_bottom_margin(GtkPageSetup *setup,
 			-- gdouble margin, GtkUnit unit);
 		require valid_unit: is_valid_unit(a_unit)
@@ -107,7 +107,6 @@ feature {} -- External calls
 	gtk_page_setup_set_paper_size_and_default_margins (a_setup, a_size: POINTER) is
 			-- void gtk_page_setup_set_paper_size_and_default_margins
 			-- (GtkPageSetup *setup, GtkPaperSize *size);
-		require valid_unit: is_valid_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 

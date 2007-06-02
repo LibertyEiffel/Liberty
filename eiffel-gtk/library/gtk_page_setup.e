@@ -63,7 +63,9 @@ class GTK_PAGE_SETUP
 
 	--   Printing support was added in GTK+ 2.10.
 
-inherit G_OBJECT
+inherit
+	G_OBJECT
+		redefine copy end
 
 insert 
 	GTK_PAGE_SETUP_EXTERNALS
@@ -95,7 +97,7 @@ feature -- Queries
 	paper_size: GTK_PAPER_SIZE is
 			-- The paper size of the GtkPageSetup.
 		do
-			create Result.from_external
+			create Result.from_external_pointer
 			(gtk_page_setup_get_paper_size(handle))
 		end
 
@@ -164,7 +166,7 @@ feature -- Queries
 feature -- Setters
 	set_orientation (an_orientation: INTEGER) is
 			--   Sets the page orientation of the GtkPageSetup.
-		ensure valid: is_valid_page_orientation(an_orientation)
+		require valid: is_valid_page_orientation(an_orientation)
 		do
 			gtk_page_setup_set_orientation (handle, an_orientation)
 		end
@@ -174,14 +176,14 @@ feature -- Setters
 			-- the margins. See `set_paper_size_and_default_margins'.
 		require size_not_void: a_paper_size /= Void
 		do
-			gtk_page_setup_set_paper_size (handle, a_paper_size)
+			gtk_page_setup_set_paper_size (handle, a_paper_size.handle)
 		end
 
 	set_unit (a_unit: INTEGER) is
 			-- Use `a_unit' as the unit used to express margins
 		require valid_unit: is_valid_unit(a_unit)
 		do
-			unit=a_unit
+			unit := a_unit
 		end
 
 	set_top_margin (a_margin: REAL) is
@@ -216,6 +218,6 @@ feature -- Setters
 			-- margins according to `a_size'.
 		require size_not_void: a_size /= Void
 		do
-			gtk_page_setup_set_paper_size_and_default_margins(handle,a_size,handle)
+			gtk_page_setup_set_paper_size_and_default_margins(handle,a_size.handle)
 		end
 end -- class GTK_PAGE_SETUP

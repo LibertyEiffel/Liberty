@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _EXTERNALS
+deferred class GTK_PAPER_SIZE_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 insert GTK_UNIT
