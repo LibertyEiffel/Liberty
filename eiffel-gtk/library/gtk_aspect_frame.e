@@ -15,7 +15,8 @@ class GTK_ASPECT_FRAME
 	-- "shrink-wrapped" to the size of the child.
 
 inherit
-	GTK_FRAME redefine make end
+	GTK_FRAME
+		redefine struct_size end
 		-- GtkAspectFrame implements AtkImplementorIface.
 insert
 	GTK_ASPECT_FRAME_EXTERNALS
@@ -29,7 +30,7 @@ feature
 		end
 
 feature {} -- Creation
-	make (a_label: STRING; an_xalign, an_yalign, a_ratio: REAL; obey_child: BOOLEAN) is
+	make (a_label: STRING; an_xalign, an_yalign, a_ratio: REAL_32; obey_child: BOOLEAN) is
 			-- Create a new GtkAspectFrame. `an_xalign' ranges from 0.0
 			-- (left aligned) to 1.0 (right aligned); `an_yalign' ranges
 			-- from 0.0 (top aligned) to 1.0 (bottom aligned). When
@@ -37,9 +38,9 @@ feature {} -- Creation
 			-- ratio is taken from the requistion of the child.
 		require
 			valid_label: a_label/=Void
-			valid_xalign: an_xalign.in_range (0.0, 1.0)
-			valid_yalign: an_yalign.in_range (0.0, 1.0)
-			valid_ratio: ratio.in_range (1.0e-04,10000.0)
+			valid_xalign: an_xalign.in_range ({REAL_32 0.0}, {REAL_32 1.0})
+			valid_yalign: an_yalign.in_range ({REAL_32 0.0}, {REAL_32 1.0})
+			valid_ratio: a_ratio.in_range ({REAL_32 1.0e-04},{REAL_32 10000.0})
 		do
 			from_external_pointer(gtk_aspect_frame_new (a_label.to_external,
 																	  an_xalign, an_yalign, a_ratio,
@@ -47,7 +48,7 @@ feature {} -- Creation
 		end
 
 
-	set (an_xalign, an_yalign, a_ratio: REAL; obey_child: BOOLEAN) is
+	set (an_xalign, an_yalign, a_ratio: REAL_32; obey_child: BOOLEAN) is
 			-- Set parameters for an existing GtkAspectFrame. `an_xalign'
 			-- ranges from 0.0 (left aligned) to 1.0 (right aligned);
 			-- `an_yalign' ranges from 0.0 (top aligned) to 1.0 (bottom
@@ -55,9 +56,9 @@ feature {} -- Creation
 			-- the aspect ratio is taken from the requistion of the
 			-- child.
 		require
-			valid_xalign: an_xalign.in_range (0.0, 1.0)
-			valid_yalign: an_yalign.in_range (0.0, 1.0)
-			valid_ratio: ratio.in_range (1.0e-04,10000.0)
+			valid_xalign: an_xalign.in_range ({REAL_32 0.0}, {REAL_32 1.0})
+			valid_yalign: an_yalign.in_range ({REAL_32 0.0}, {REAL_32 1.0})
+			valid_ratio: a_ratio.in_range ({REAL_32 1.0e-04},{REAL_32 10000.0})
 		do
 			gtk_aspect_frame_set (handle, an_xalign, an_yalign, a_ratio,
 										 obey_child.to_integer)
