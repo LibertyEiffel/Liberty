@@ -28,12 +28,15 @@ class GTK_ASSISTANT
 
 inherit
 	GTK_WINDOW
-
+		undefine
+			struct_size
+		redefine
+			make
+		end
 		-- GtkAssistant implements AtkImplementorIface.
 	
 insert
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
-
 	GTK_ASSISTANT_EXTERNALS
 
 creation make, from_external_pointer
