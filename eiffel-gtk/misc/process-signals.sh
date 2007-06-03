@@ -4,7 +4,8 @@
     class=$(basename $doc)
     class=${class%.html}
     links -dump -no-numbering $doc | 
-	egrep "\"[a-z-]+\"[[:space:]]*[A-Za-z]+[[:space:]]*:.*" |
+	egrep "\"[a-z-]+\"[[:space:]]*[[:space:]]*:.*" |
+	sed "s/[[:space:]]*[[:space:]]*:.*//" |
 	sed "s/$/ $class/"
     done
 ) | uniq | sort
