@@ -21,14 +21,12 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Description: The GtkColorSelection is a widget that is
-			-- used to select a color. It consists of a color wheel and
-			-- number of sliders and entry boxes for color parameters
-			-- such as hue, saturation, value, red, green, blue, and
-			-- opacity. It is found on the standard color selection
-			-- dialog box GtkColorSelectionDialog.
-
 class GTK_COLOR_SELECTION
+	-- The GtkColorSelection is a widget that is used to select a
+	-- color. It consists of a color wheel and number of sliders and
+	-- entry boxes for color parameters such as hue, saturation, value,
+	-- red, green, blue, and opacity. It is found on the standard color
+	-- selection dialog box GtkColorSelectionDialog.
 
 inherit GTK_VBOX
 	rename
@@ -42,7 +40,7 @@ inherit GTK_VBOX
 insert
 	GTK_COLOR_SELECTION_EXTERNALS
 
-creation from_external_pointer
+creation make, from_external_pointer
 
 feature -- size
 

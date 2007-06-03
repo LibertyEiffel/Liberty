@@ -253,9 +253,9 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 
--- GtkJustification gtk_text_view_get_justification (a_text_view: POINTER is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_text_view_get_justification (a_text_view: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
 
 	gtk_text_view_set_left_margin (a_text_view: POINTER; a_left_margin: INTEGER) is
 		external "C use <gtk/gtk.h>"

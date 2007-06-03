@@ -56,7 +56,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: W; a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
+	connect (an_object: GTK_ASSISTANT; a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
 		do
 			debug
 				print ("APPLY_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

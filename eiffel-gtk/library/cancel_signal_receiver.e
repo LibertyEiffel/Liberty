@@ -57,10 +57,10 @@ feature -- The "cancel" signal
 		require
 			valid_procedure: a_procedure /= Void
 		local
-			activate_callback: CANCEL_CALLBACK[like Current]
+			cancel_callback: CANCEL_CALLBACK
 		do
 			create cancel_callback.make
-			apply_callback.connect (Current, a_procedure)
+			cancel_callback.connect (Current, a_procedure)
 		end
 
 end -- class CANCEL_SIGNAL_RECEIVER

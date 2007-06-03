@@ -27,6 +27,7 @@ inherit
 	WRAPPER_HANDLER -- It wraps a callback function
 	
 insert
+	ANY
 	GTK
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 	GTK_TREE_SELECTION_EXTERNALS

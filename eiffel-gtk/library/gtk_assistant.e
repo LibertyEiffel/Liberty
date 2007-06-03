@@ -54,7 +54,7 @@ feature
 			-- assistant, if the assistant has no pages, it will be -1.
 		do
 			Result:=gtk_assistant_get_current_page (handle)
-		ensure valid >= -1
+		ensure valid: Result >= -1
 		end
 
 	set_current_page (a_page_num: INTEGER) is
@@ -243,14 +243,14 @@ feature
 				end
 			end
 		end
-
+	
 	set_page_complete (a_page: GTK_WIDGET; is_complete: BOOLEAN) is
 			-- Sets whether page contents are complete. This will make
 			-- assistant update the buttons state to be able to continue
 			-- the task.
 		require page_not_void: a_page /= Void
 		do
-			gtk_assistant_set_page_complete (handle, a_page, is_complete.to_integer)
+			gtk_assistant_set_page_complete (handle, a_page.handle, is_complete.to_integer)
 		end
 
 	is_page_complete (a_page: GTK_WIDGET): BOOLEAN is
@@ -421,11 +421,11 @@ feature -- The "apply" signal
 		do
 		end
 
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
+	connect_agent_to_apply_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local
-			activate_callback: APPLY_CALLBACK[like Current]
+			apply_callback: APPLY_CALLBACK 
 		do
 			create apply_callback.make
 			apply_callback.connect (Current, a_procedure)

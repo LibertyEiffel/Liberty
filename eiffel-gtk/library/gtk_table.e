@@ -21,50 +21,43 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-	
-			-- Description
-	
-			-- The GtkTable functions allow the programmer to arrange widgets in
-			-- rows and columns, making it easy to align many widgets next to each
-			-- other, horizontally and vertically.
-	
-			-- Tables are created with a call to gtk_table_new(), the size of which
-			-- can later be changed with gtk_table_resize().
-
-			-- Widgets can be added to a table using gtk_table_attach() or the more
-			-- convenient (but slightly less flexible) gtk_table_attach_defaults().
-
-			-- To alter the space next to a specific row, use
-			-- gtk_table_set_row_spacing(), and for a column,
-			-- gtk_table_set_col_spacing().
-
-			-- The gaps between all rows or columns can be changed by calling
-			-- gtk_table_set_row_spacings() or gtk_table_set_col_spacings()
-			-- respectively.
-
-			-- gtk_table_set_homogeneous(), can be used to set whether all cells in
-			-- the table will resize themselves to the size of the largest widget
-			-- in the table.
-	
-			-- The GtkTable structure holds the data for the actual table itself.
-			-- children is a GList of all the widgets the table contains. rows and
-			-- columns are pointers to GtkTableRowCol structures, which contain the
-			-- default spacing and expansion details for the GtkTable's rows and
-			-- columns, respectively.
-
-			-- nrows and ncols are 16bit integers storing the number of rows and
-			-- columns the table has.
-
--- See Also
-
---    GtkVBox For packing widgets vertically only.
---    GtkHBox For packing widgets horizontally only.
-
-
-			-- TODO: wrap read-only access to the content of children,
-			-- rows and columns fields of the GtkTable C structure.
 
 class GTK_TABLE
+	-- The GTK_TABLE functions allow the programmer to arrange widgets in
+	-- rows and columns, making it easy to align many widgets next to each
+	-- other, horizontally and vertically.
+	
+	-- Tables are created with a call to `make,' the size of which
+	-- can later be changed with `resize'.
+
+	-- Widgets can be added to a table using `attach' or the more
+	-- convenient (but slightly less flexible) `attach_defaults'.
+
+	-- To alter the space next to a specific row, use `set_row_spacing'
+	-- and for a column, `set_col_spacing'.
+
+	-- The gaps between all rows or columns can be changed by calling
+	-- `set_row_spacings' or `set_col_spacings' respectively.
+
+	-- `set_homogeneous', can be used to set whether all cells in the
+	-- table will resize themselves to the size of the largest widget
+	-- in the table.
+	
+	-- TODO: provide access to underlying data, as described here: The
+	-- GTK_TABLE structure holds the data for the actual table itself.
+	-- children is a G_LIST of all the widgets the table contains. rows
+	-- and columns are pointers to GTK_TABLE_ROW_COL structures, which
+	-- contain the default spacing and expansion details for the
+	-- GtkTable's rows and columns, respectively.
+
+	-- nrows and ncols are 16bit integers storing the number of rows and
+	-- columns the table has.
+
+	-- See Also: GTK_HBOX and GTK_VBOX  and for packing widgets 
+	-- horizontally and vertically only.
+	
+	-- TODO: wrap read-only access to the content of children, rows and
+	-- columns fields of the GtkTable C structure.
 
 inherit GTK_CONTAINER -- rename make as make_c_struct end
 

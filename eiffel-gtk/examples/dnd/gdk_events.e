@@ -1,6 +1,7 @@
 class GDK_EVENTS
 
 insert
+	ANY
 	GTK
 	GDK_EVENT_MASK
 

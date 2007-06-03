@@ -21,57 +21,87 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-	
--- Description
-
--- The GtkLabel widget displays a small amount of text. As the name implies, most labels are used to label another widget such as a GtkButton, a GtkMenuItem, or a GtkOptionMenu.
--- Mnemonics
-
--- Labels may contain mnemonics. Mnemonics are underlined characters in the label, used for keyboard navigation. Mnemonics are created by providing a string with an underscore before the mnemonic character, such as "_File", to the functions gtk_label_new_with_mnemonic() or gtk_label_set_text_with_mnemonic().
-
--- Mnemonics automatically activate any activatable widget the label is inside, such as a GtkButton; if the label is not inside the mnemonic's target widget, you have to tell the label about the target using gtk_label_set_mnemonic_widget(). Here's a simple example where the label is inside a button:
-
---   /* Pressing Alt+H will activate this button */
---   button = gtk_button_new ();
---   label = gtk_label_new_with_mnemonic ("_Hello");
---   gtk_container_add (GTK_CONTAINER (button), label);
-
--- There's a convenience function to create buttons with a mnemonic label already inside:
-
---   /* Pressing Alt+H will activate this button */
---   button = gtk_button_new_with_mnemonic ("_Hello");
-
--- To create a mnemonic for a widget alongside the label, such as a GtkEntry, you have to point the label at the entry with gtk_label_set_mnemonic_widget():
-
---   /* Pressing Alt+H will focus the entry */
---   entry = gtk_entry_new ();
---   label = gtk_label_new_with_mnemonic ("_Hello");
---   gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-
--- Markup (styled text)
-
--- To make it easy to format text in a label (changing colors, fonts, etc.), label text can be provided in a simple markup format. Here's how to create a label with a small font:
-
---   label = gtk_label_new (NULL);
---   gtk_label_set_markup (GTK_LABEL (label), "<small>Small text</small>");
-
--- (See complete documentation of available tags in the Pango manual.)
-
--- The markup passed to gtk_label_set_markup() must be valid; for example, literal </>/& characters must be escaped as &lt;, &gt;, and &amp;. If you pass text obtained from the user, file, or a network to gtk_label_set_markup(), you'll want to escape it with g_markup_escape_text() or g_markup_printf_escaped().
-
--- Markup strings are just a convenient way to set the PangoAttrList on a label; gtk_label_set_attributes() may be a simpler way to set attributes in some cases. Be careful though; PangoAttrList tends to cause internationalization problems, unless you're applying attributes to the entire string (i.e. unless you set the range of each attribute to [0, G_MAXINT)). The reason is that specifying the start_index and end_index for a PangoAttribute requires knowledge of the exact string being displayed, so translations will cause problems.
--- Selectable labels
-
--- Labels can be made selectable with gtk_label_set_selectable(). Selectable labels allow the user to copy the label contents to the clipboard. Only labels that contain useful-to-copy information %Gâ%@ such as error messages %Gâ%@ should be made selectable.
--- Text layout
-
--- A label can contain any number of paragraphs, but will have performance problems if it contains more than a small number. Paragraphs are separated by newlines or other paragraph separators understood by Pango.
-
--- Labels can automatically wrap text if you call gtk_label_set_line_wrap().
-
--- gtk_label_set_justify() sets how the lines in a label align with one another. If you want to set how the label as a whole aligns in its available space, see gtk_misc_set_alignment().
-
 class GTK_LABEL
+	-- The GTK_LABEL widget displays a small amount of text. As the name
+	-- implies, most labels are used to label another widget such as a
+	-- GTK_BUTTON, a GTK_MENU_ITEM, or a GTK_OPTION_MENU.
+
+	-- Mnemonics: Labels may contain mnemonics. Mnemonics are
+	-- underlined characters in the label, used for keyboard
+	-- navigation. Mnemonics are created by providing a string with an
+	-- underscore before the mnemonic character, such as "_File", to
+	-- the `make_with_mnemonic' or `set_text_with_mnemonic' features.
+
+	-- Mnemonics automatically activate any activatable widget the
+	-- label is inside, such as a GtkButton; if the label is not inside
+	-- the mnemonic's target widget, you have to tell the label about
+	-- the target using `set_mnemonic_widget'. Here's a simple example
+	-- where the label is inside a button: 
+
+	--   -- Pressing Alt+H will activate this button 
+	--   create button.make
+	--   create label.with_mnemonic ("_Hello")
+	--   button.add (label)
+	
+	-- There's a convenience function to create buttons with a mnemonic label already inside:
+
+	--   -- Pressing Alt+H will activate this button 
+	--   create button.with_mnemonic ("_Hello")
+	
+	-- To create a mnemonic for a widget alongside the label, such as a
+	-- GTK_ENTRY, you have to point the label at the entry with
+	-- `set_mnemonic_widget':
+
+	--   /* Pressing Alt+H will focus the entry */
+	--   entry = gtk_entry_new ();
+	--   label = gtk_label_new_with_mnemonic ("_Hello");
+	--   gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
+	
+	-- Markup (styled text):
+	
+	-- To make it easy to format text in a label (changing colors,
+	-- fonts, etc.), label text can be provided in a simple markup
+	-- format. Here's how to create a label with a small font:
+
+	--   label = gtk_label_new (NULL);
+	--   gtk_label_set_markup (GTK_LABEL (label), "<small>Small text</small>");
+
+	-- (See complete documentation of available tags in the Pango
+	-- manual.)
+
+	-- The markup passed to `set_markup' must be valid; for example,
+	-- literal </>/& characters must be escaped as &lt;, &gt;, and
+	-- &amp;. If you pass text obtained from the user, file, or a
+	-- network to `set_markup', you'll want to escape it with (TODO)
+	-- g_markup_escape_text() or g_markup_printf_escaped().
+
+	-- Markup strings are just a convenient way to set the
+	-- PangoAttrList on a label; `set_attributes' may be a simpler way
+	-- to set attributes in some cases. Be careful though;
+	-- PangoAttrList tends to cause internationalization problems,
+	-- unless you're applying attributes to the entire string
+	-- (i.e. unless you set the range of each attribute to [0,
+	-- G_MAXINT)). The reason is that specifying the start_index and
+	-- end_index for a PangoAttribute requires knowledge of the exact
+	-- string being displayed, so translations will cause problems.
+	
+	-- Selectable labels: Labels can be made selectable with
+	-- gtk_label_set_selectable(). Selectable labels allow the user to
+	-- copy the label contents to the clipboard. Only labels that
+	-- contain useful-to-copy information - such as error messages -
+	-- should be made selectable.
+	
+	-- Text layout: a label can contain any number of paragraphs, but
+	-- will have performance problems if it contains more than a small
+	-- number. Paragraphs are separated by newlines or other paragraph
+	-- separators understood by Pango.
+	
+	-- Labels can automatically wrap text if you call `set_line_wrap'.
+
+	-- `set_justify' sets how the lines in a label align with one
+	-- another. If you want to set how the label as a whole aligns in
+	-- its available space, see `set_alignment' (from GTK_MISC).
+
 inherit
 	GTK_MISC
 		-- Implemented Interfaces: GtkLabel implements

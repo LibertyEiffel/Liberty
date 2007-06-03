@@ -739,193 +739,157 @@ feature -- Pixels above and below lines
 			Result:=gtk_text_view_get_pixels_inside_wrap(handle)
 		end
 
---   gtk_text_view_set_justification ()
+	set_justification (a_justification: INTEGER) is
+			-- Sets the default justification of text in text view. Tags
+			-- in the view's buffer may override the default.
+		require valid_justification: is_valid_justification(a_justification)
+		do
+			gtk_text_view_set_justification (handle,a_justification)
+		ensure set: a_justification = justification
+		end
+
+	justification: INTEGER is
+			-- the default justification of paragraphs in text view. Tags
+			-- in the buffer may override the default.
+		do
+			Result:=gtk_text_view_get_justification(handle)
+		ensure valid: is_valid_justification(Result)
+		end
+
+	set_left_margin (a_left_margin: INTEGER) is
+			-- Sets the default left margin for text in text view. Tags
+			-- in the buffer may override the default. Margin in
+			-- expressed in pixels.
+		do
+			gtk_text_view_set_left_margin (handle, a_left_margin)
+		ensure set: a_left_margin = left_margin
+		end
+
+	left_margin: INTEGER is
+			-- the default left margin size of paragraphs in the text
+			-- view. Tags in the buffer may override the default.  Margin
+			-- is expressed in pixels.
+		do
+			Result:=gtk_text_view_get_left_margin(handle)
+		end
+
+	set_right_margin (a_right_margin: INTEGER) is
+			-- Sets the default right margin for text in text view. Tags
+			-- in the buffer may override the default. Margin in
+			-- expressed in pixels.
+		do
+			gtk_text_view_set_right_margin (handle, a_right_margin)
+		ensure set: a_right_margin = right_margin
+		end
+
+	right_margin: INTEGER is
+			-- the default right margin size of paragraphs in the text
+			-- view. Tags in the buffer may override the default.  Margin
+			-- is expressed in pixels.
+		do
+			Result:=gtk_text_view_get_right_margin(handle)
+		end
 
---  void        gtk_text_view_set_justification (GtkTextView *text_view,
--- 															 GtkJustification justification);
+	set_indent (an_indent: INTEGER) is
+			-- Sets the default indentation (in pixels) for paragraphs in
+			-- text view. Tags in the buffer may override the default.
+		do
+			gtk_text_view_set_indent(handle, an_indent)
+		end
 
--- 	Sets the default justification of text in text_view. Tags in the view's
--- 	buffer may override the default.
+	indent: INTEGER is
+			-- The default indentation (in pixels) of paragraphs in text
+			-- view. Tags in the view's buffer may override the
+			-- default. The indentation may be negative.
+		do
+			Result:=gtk_text_view_get_indent(handle)
+		end
 
--- 	text_view :     a GtkTextView
--- 	justification : justification
+	--   gtk_text_view_set_tabs ()
 
--- 	-----------------------------------------------------------------------
+	--  void        gtk_text_view_set_tabs          (GtkTextView *text_view,
+	-- 															 PangoTabArray *tabs);
 
---   gtk_text_view_get_justification ()
+	-- 	Sets the default tab stops for paragraphs in text_view. Tags in the
+	-- 	buffer may override the default.
 
---  GtkJustification gtk_text_view_get_justification
--- 															(GtkTextView *text_view);
+	-- 	text_view : a GtkTextView
+	-- 	tabs :      tabs as a PangoTabArray
 
--- 	Gets the default justification of paragraphs in text_view. Tags in the
--- 	buffer may override the default.
+	-- 	-----------------------------------------------------------------------
 
--- 	text_view : a GtkTextView
--- 	Returns :   default justification
+	--   gtk_text_view_get_tabs ()
 
--- 	-----------------------------------------------------------------------
+	--  PangoTabArray* gtk_text_view_get_tabs       (GtkTextView *text_view);
 
---   gtk_text_view_set_left_margin ()
+	-- 	Gets the default tabs for text_view. Tags in the buffer may override
+	-- 	the defaults. The returned array will be NULL if "standard" (8-space)
+	-- 	tabs are used. Free the return value with pango_tab_array_free().
 
---  void        gtk_text_view_set_left_margin   (GtkTextView *text_view,
--- 															 gint left_margin);
+	-- 	text_view : a GtkTextView
+	-- 	Returns :   copy of default tab array, or NULL if "standard" tabs are
+	-- 					used; must be freed with pango_tab_array_free().
 
--- 	Sets the default left margin for text in text_view. Tags in the buffer
--- 	may override the default.
+	-- 	-----------------------------------------------------------------------
 
--- 	text_view :   a GtkTextView
--- 	left_margin : left margin in pixels
+	--   gtk_text_view_set_accepts_tab ()
 
--- 	-----------------------------------------------------------------------
+	--  void        gtk_text_view_set_accepts_tab   (GtkTextView *text_view,
+	-- 															 gboolean accepts_tab);
 
---   gtk_text_view_get_left_margin ()
+	-- 	Sets the behavior of the text widget when the Tab key is pressed. If
+	-- 	accepts_tab is TRUE a tab character is inserted. If accepts_tab is
+	-- 	FALSE the keyboard focus is moved to the next widget in the focus
+	-- 	chain.
 
---  gint        gtk_text_view_get_left_margin   (GtkTextView *text_view);
+	-- 	text_view :   A GtkTextView
+	-- 	accepts_tab : TRUE if pressing the Tab key should insert a tab
+	-- 					  character, FALSE, if pressing the Tab key should move the
+	-- 					  keyboard focus.
 
--- 	Gets the default left margin size of paragraphs in the text_view. Tags
--- 	in the buffer may override the default.
+	-- 	Since 2.4
 
--- 	text_view : a GtkTextView
--- 	Returns :   left margin in pixels
+	-- 	-----------------------------------------------------------------------
 
--- 	-----------------------------------------------------------------------
+	--   gtk_text_view_get_accepts_tab ()
 
---   gtk_text_view_set_right_margin ()
+	--  gboolean    gtk_text_view_get_accepts_tab   (GtkTextView *text_view);
 
---  void        gtk_text_view_set_right_margin  (GtkTextView *text_view,
--- 															 gint right_margin);
+	-- 	Returns whether pressing the Tab key inserts a tab characters.
+	-- 	gtk_text_view_set_accepts_tab().
 
--- 	Sets the default right margin for text in the text view. Tags in the
--- 	buffer may override the default.
+	-- 	text_view : A GtkTextView
+	-- 	Returns :   TRUE if pressing the Tab key inserts a tab character, FALSE
+	-- 					if pressing the Tab key moves the keyboard focus.
 
--- 	text_view :    a GtkTextView
--- 	right_margin : right margin in pixels
+	-- 	Since 2.4
 
--- 	-----------------------------------------------------------------------
+	-- 	-----------------------------------------------------------------------
 
---   gtk_text_view_get_right_margin ()
+	--   gtk_text_view_get_default_attributes ()
 
---  gint        gtk_text_view_get_right_margin  (GtkTextView *text_view);
+	--  GtkTextAttributes* gtk_text_view_get_default_attributes
+	-- 															(GtkTextView *text_view);
 
--- 	Gets the default right margin for text in text_view. Tags in the buffer
--- 	may override the default.
+	-- 	Obtains a copy of the default text attributes. These are the attributes
+	-- 	used for text unless a tag overrides them. You'd typically pass the
+	-- 	default attributes in to gtk_text_iter_get_attributes() in order to get
+	-- 	the attributes in effect at a given text position.
 
--- 	text_view : a GtkTextView
--- 	Returns :   right margin in pixels
+	-- 	The return value is a copy owned by the caller of this function, and
+	-- 	should be freed.
 
--- 	-----------------------------------------------------------------------
+	-- 	text_view : a GtkTextView
+	-- 	Returns :   a new GtkTextAttributes
 
---   gtk_text_view_set_indent ()
+	-- 	-----------------------------------------------------------------------
 
---  void        gtk_text_view_set_indent        (GtkTextView *text_view,
--- 															 gint indent);
+	--   GTK_TEXT_VIEW_PRIORITY_VALIDATE
 
--- 	Sets the default indentation for paragraphs in text_view. Tags in the
--- 	buffer may override the default.
+	--  #define GTK_TEXT_VIEW_PRIORITY_VALIDATE (GDK_PRIORITY_REDRAW + 5)
 
--- 	text_view : a GtkTextView
--- 	indent :    indentation in pixels
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_indent ()
-
---  gint        gtk_text_view_get_indent        (GtkTextView *text_view);
-
--- 	Gets the default indentation of paragraphs in text_view. Tags in the
--- 	view's buffer may override the default. The indentation may be
--- 	negative.
-
--- 	text_view : a GtkTextView
--- 	Returns :   number of pixels of indentation
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_set_tabs ()
-
---  void        gtk_text_view_set_tabs          (GtkTextView *text_view,
--- 															 PangoTabArray *tabs);
-
--- 	Sets the default tab stops for paragraphs in text_view. Tags in the
--- 	buffer may override the default.
-
--- 	text_view : a GtkTextView
--- 	tabs :      tabs as a PangoTabArray
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_tabs ()
-
---  PangoTabArray* gtk_text_view_get_tabs       (GtkTextView *text_view);
-
--- 	Gets the default tabs for text_view. Tags in the buffer may override
--- 	the defaults. The returned array will be NULL if "standard" (8-space)
--- 	tabs are used. Free the return value with pango_tab_array_free().
-
--- 	text_view : a GtkTextView
--- 	Returns :   copy of default tab array, or NULL if "standard" tabs are
--- 					used; must be freed with pango_tab_array_free().
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_set_accepts_tab ()
-
---  void        gtk_text_view_set_accepts_tab   (GtkTextView *text_view,
--- 															 gboolean accepts_tab);
-
--- 	Sets the behavior of the text widget when the Tab key is pressed. If
--- 	accepts_tab is TRUE a tab character is inserted. If accepts_tab is
--- 	FALSE the keyboard focus is moved to the next widget in the focus
--- 	chain.
-
--- 	text_view :   A GtkTextView
--- 	accepts_tab : TRUE if pressing the Tab key should insert a tab
--- 					  character, FALSE, if pressing the Tab key should move the
--- 					  keyboard focus.
-
--- 	Since 2.4
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_accepts_tab ()
-
---  gboolean    gtk_text_view_get_accepts_tab   (GtkTextView *text_view);
-
--- 	Returns whether pressing the Tab key inserts a tab characters.
--- 	gtk_text_view_set_accepts_tab().
-
--- 	text_view : A GtkTextView
--- 	Returns :   TRUE if pressing the Tab key inserts a tab character, FALSE
--- 					if pressing the Tab key moves the keyboard focus.
-
--- 	Since 2.4
-
--- 	-----------------------------------------------------------------------
-
---   gtk_text_view_get_default_attributes ()
-
---  GtkTextAttributes* gtk_text_view_get_default_attributes
--- 															(GtkTextView *text_view);
-
--- 	Obtains a copy of the default text attributes. These are the attributes
--- 	used for text unless a tag overrides them. You'd typically pass the
--- 	default attributes in to gtk_text_iter_get_attributes() in order to get
--- 	the attributes in effect at a given text position.
-
--- 	The return value is a copy owned by the caller of this function, and
--- 	should be freed.
-
--- 	text_view : a GtkTextView
--- 	Returns :   a new GtkTextAttributes
-
--- 	-----------------------------------------------------------------------
-
---   GTK_TEXT_VIEW_PRIORITY_VALIDATE
-
---  #define GTK_TEXT_VIEW_PRIORITY_VALIDATE (GDK_PRIORITY_REDRAW + 5)
-
--- 	The priority at which the text view validates onscreen lines in an idle
--- 	job in the background.
+	-- 	The priority at which the text view validates onscreen lines in an idle
+	-- 	job in the background.
 
 feature -- TODO: Property Details
 

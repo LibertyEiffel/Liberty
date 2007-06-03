@@ -33,6 +33,7 @@ insert
 	GTK_ACCEL_FLAGS
 		-- GtkAnchorType
 		-- GtkArrowType
+	GTK_ASSISTANT_PAGE_TYPE_ENUM
 	GTK_ATTACH_OPTIONS
 		-- GtkButtonBoxStyle
 	GTK_CORNER_TYPE

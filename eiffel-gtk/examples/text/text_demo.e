@@ -175,7 +175,9 @@ class TEXT_DEMO
 	-- one then the other temporarily selects the range in between the
 	-- old and new positions).
 
-inherit GTK 
+inherit
+	GTK
+	ANY
 creation make
 feature
 	make is

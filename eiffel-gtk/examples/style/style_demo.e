@@ -1,6 +1,7 @@
 class STYLE_DEMO
 
 insert
+	ANY
 	GTK
 	GTK_STATE_TYPE
 	PANGO_CONSTANTS

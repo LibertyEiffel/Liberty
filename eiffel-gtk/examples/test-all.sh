@@ -10,7 +10,7 @@ for TEST in *; do
 		    fi
 		done
 	    )
-	then echo Successful; exit 0;
+	then echo Successful
 	## else echo Failing ; exit 5;
 	fi
     ## else echo "$TEST is not usable"
