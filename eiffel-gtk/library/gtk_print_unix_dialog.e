@@ -186,4 +186,5 @@ feature -- TODO: Properties
 	--
 	--   GtkPageSetupUnixDialog, GtkPrinter, GtkPrintJob
 
-end -- class FOO
+end -- class GTK_PRINT_UNIX_DIALOG
+

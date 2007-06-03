@@ -27,7 +27,7 @@ indexing
 	-- details.
 
 class GTK_VPANED
-inherit GTK_PANED redefine make end
+inherit GTK_PANED
 	-- GtkVpaned implements AtkImplementorIface.
 creation make
 

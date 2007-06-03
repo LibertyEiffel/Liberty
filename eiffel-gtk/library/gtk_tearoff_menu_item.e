@@ -41,7 +41,6 @@ feature {} -- Creation
 
 	make is
 			-- Creates a new GtkTearoffMenuItem.
-		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_tearoff_menu_item_new)
 		end 

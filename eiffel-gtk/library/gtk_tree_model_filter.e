@@ -104,7 +104,7 @@ feature
 		require 
 			boolean_column: model.column_type(a_column) = g_type_boolean
 		do
-			gtk_tree_model_filter_set_visible_column(handle,a_column_n)
+			gtk_tree_model_filter_set_visible_column(handle,a_column)
 		end
 
 	model: GTK_TREE_MODEL is

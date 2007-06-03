@@ -34,20 +34,19 @@ feature {} -- size
 		end
 
 feature {} -- Creation
+	--   GtkTableRowCol
+
+	--  typedef struct {
+	--    guint16 requisition;
+	--    guint16 allocation;
+	--    guint16 spacing;
+	--    guint need_expand : 1;
+	--    guint need_shrink : 1;
+	--    guint expand : 1;
+	--    guint shrink : 1;
+	--    guint empty : 1;
+	--  } GtkTableRowCol;
+	
+	-- These fields should be considered read-only and not be modified
+	-- directly.
 end
---   GtkTableRowCol
-
---  typedef struct {
---    guint16 requisition;
---    guint16 allocation;
---    guint16 spacing;
---    guint need_expand : 1;
---    guint need_shrink : 1;
---    guint expand : 1;
---    guint shrink : 1;
---    guint empty : 1;
---  } GtkTableRowCol;
-
---    These fields should be considered read-only and not be modified directly.
-
---    --------------------------------------------------------------------------

@@ -205,7 +205,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_radio_menu_item_get_group (GtkRadioMenuItem *radio_menu_item): POINTER is -- GSList*
+	gtk_radio_menu_item_get_group (a_radio_menu_item: POINTER): POINTER is -- GSList*
 	external "C use <gtk/gtk.h>"
 		end
 end

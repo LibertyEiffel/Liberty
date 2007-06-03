@@ -179,4 +179,10 @@ feature {} -- Properties implementation
 			create Result.with_gtype (pulse_step_property.value_gtype)
 		ensure not_void: Result /= Void
 		end
+	
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkProgressBar)"
+		end
 end

@@ -305,7 +305,7 @@ feature
 	set_collate (a_setting: BOOLEAN) is
 			-- Sets whether to collate the output.
 		do
-			gtk_print_settings_set_collate  (handle a_setting.to_boolean)
+			gtk_print_settings_set_collate  (handle, a_setting.to_boolean)
 		end
 	
 	--  GTK_PRINT_SETTINGS_REVERSE
