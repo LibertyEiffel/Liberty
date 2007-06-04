@@ -63,4 +63,5 @@ feature
 feature {} -- Implementation
 	hidden_value: INTEGER
 	
-end -- class G_OPTION_ENTRY
+end -- class G_OPTION_BOOLEAN_ENTRY
+
