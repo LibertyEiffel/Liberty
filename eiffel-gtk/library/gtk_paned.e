@@ -56,12 +56,6 @@ inherit
 
 insert G_OBJECT_RETRIEVER [GTK_WIDGET]
 
-feature {} -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkPaned)"
-		end
-
 feature
 	add1 (a_child: GTK_WIDGET) is
 			-- Adds a child to the top or left pane with default

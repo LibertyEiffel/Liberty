@@ -36,7 +36,7 @@ feature {NONE} -- Creation
 		require
 			gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer (gtk_hscrollbar_new (default_pointer))
+			from_external_pointer (gtk_vscrollbar_new (default_pointer))
 		end
 	
 	with_adjustment (an_adjustment: GTK_ADJUSTMENT) is
@@ -45,7 +45,7 @@ feature {NONE} -- Creation
 			gtk_initialized: gtk.is_initialized
 			adjustment_not_void: an_adjustment /= Void
 		do
-			from_external_pointer (gtk_hscrollbar_new (an_adjustment.handle))
+			from_external_pointer (gtk_vscrollbar_new (an_adjustment.handle))
 		end
 
 feature -- size

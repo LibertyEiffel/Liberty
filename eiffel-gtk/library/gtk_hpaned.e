@@ -28,9 +28,9 @@ class GTK_HPANED
 	-- details.
 inherit
 	GTK_PANED
-		redefine struct_size end
-	-- GtkHPaned implements AtkImplementorIface.
-creation make
+		-- GtkHPaned implements AtkImplementorIface.
+	
+creation make,from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is

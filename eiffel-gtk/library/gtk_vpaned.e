@@ -29,7 +29,8 @@ indexing
 class GTK_VPANED
 inherit GTK_PANED
 	-- GtkVpaned implements AtkImplementorIface.
-creation make
+
+creation make, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is
