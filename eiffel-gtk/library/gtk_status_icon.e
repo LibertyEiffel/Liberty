@@ -358,6 +358,14 @@ feature -- TODO: Signals
 --                                             gint           size,
 --                                             gpointer       user_data)        : Run last
 
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkStatusIcon)"
+		end
+
+	
+
 feature {} -- External calls
 	gtk_status_icon_new: POINTER is
 			-- GtkStatusIcon* gtk_status_icon_new (void);

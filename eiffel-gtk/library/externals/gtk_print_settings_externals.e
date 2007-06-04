@@ -75,7 +75,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_settings_get_double_with_default (a_settings; a_key: POINTER; a_def: REAL): REAL is
+	gtk_print_settings_get_double_with_default (a_settings, a_key: POINTER; a_def: REAL): REAL is
 			-- gdouble gtk_print_settings_get_double_with_default (GtkPrintSettings
 			-- *settings, const gchar *key, gdouble def);
 		external "C use <gtk/gtk.h>"

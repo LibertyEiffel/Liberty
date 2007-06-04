@@ -707,6 +707,59 @@ feature -- integer property
 			Result := hidden_gvalue.integer
 		end
 
+feature -- float/REAL_32 property
+
+	set_real_32_property, set_float_property (a_property_name: STRING; a_value: REAL_32) is
+			-- Set property with `a_name' to `a_value'
+		require
+			valid_name: a_property_name /= Void
+			property_exists: has_property (a_property_name)
+			is_writable: find_property (a_property_name).is_writable
+			is_float_property: find_property (a_property_name).is_real_32
+		do
+			hidden_gvalue.turn_to_real_32
+			hidden_gvalue.set_real_32 (a_value)
+			g_object_set_property (handle, a_property_name.to_external, hidden_gvalue.handle)
+		end
+
+	real_32_property, float_property (a_property_name: STRING): REAL_32 is
+			-- the float property named `a_property_name' of an object.
+		require
+			valid_name: a_property_name /= Void
+			has_property: has_property (a_property_name)
+			is_real_32_property: find_property (a_property_name).is_real_32
+		do
+			hidden_gvalue.turn_to_real_32
+			g_object_get_property (handle,a_property_name.to_external,hidden_gvalue.handle)
+			Result := hidden_gvalue.real_32
+		end
+
+	real_32_property_from_pspec, float_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_32 is
+			-- the float property with `a_parameter_specification'. This
+			-- feature is faster than the plain `float_property'
+			-- because the latter retrieves the parameter specification
+			-- from the name given. Storing the specification in a once
+			-- feature hasten property retrieving.
+
+			-- TODO: I'm unsure but I suspect that this feature still has
+			-- sub-optimal performance because it still creates a new
+			-- G_VALUE each time. I would help if G_VALUE is expanded and
+			-- holds the actual GValue C structure like an expanded
+			-- feature. This way the G_VALUE would be created on the
+			-- stack, obtaining better performances.
+
+			-- Note: the previous TODO should have been implemented in
+			-- may 2007
+		require
+			specification_not_void: a_parameter_specification /= Void
+		do
+			hidden_gvalue.turn_to_real_32
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
+			Result := hidden_gvalue.real_32
+		end
+	
 feature -- boolean property
 
 	set_boolean_property (a_property_name: STRING; a_value: BOOLEAN) is

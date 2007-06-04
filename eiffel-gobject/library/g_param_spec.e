@@ -341,6 +341,33 @@ feature -- TODO: unsigned long parameter. Note: could it be the same of an event
 feature -- TODO: NATURAL_64 (uint64) parameter
 
 feature -- TODO: REAL_32 (float) parameter
+	is_real_32: BOOLEAN is
+			-- Is this an integer parameter?
+		do
+			Result := g_is_param_spec_float (handle).to_boolean
+		end
+
+	default_real_32: REAL_32 is
+			-- The default integer value
+		require is_integer: is_integer
+		do
+			Result := get_default_float (handle)
+		end
+
+	minimum_real_32: REAL_32 is
+			-- The minimum real_32 value
+		require is_real_32: is_real_32
+		do
+			Result := get_min_float (handle)
+		end
+
+	maximum_real_32: REAL_32 is
+			-- The maximum real_32 value
+		require is_real_32: is_real_32
+		do
+			Result := get_max_float (handle)
+		end
+
 feature -- TODO: REAL_64 (double) parameter
 
 feature -- TODO: enum parameter. Note: this need a wrapper for G_ENUM

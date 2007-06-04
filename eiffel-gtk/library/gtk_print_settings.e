@@ -215,12 +215,12 @@ feature
 			-- the page orientation.
 		do
 			Result:=gtk_print_settings_get_orientation(handle)
-		ensure valid: is_valid_orientation(Result)
+		ensure valid: is_valid_page_orientation(Result)
 		end
 
 	set_orientation (an_orientation: INTEGER) is
 			--   Sets the value of page orientation.
-		require valid: is_valid_orientation(an_orientation)
+		require valid: is_valid_page_orientation(an_orientation)
 		do
 			gtk_print_settings_set_orientation(handle,an_orientation)
 		end

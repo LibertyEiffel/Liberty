@@ -261,7 +261,7 @@ feature {} -- External calls
 	external "C use <gtk/gtk.h>"
 	end
 
-	gtk_tree_model_filter_set_modify_func (a_filter: POINTER; an_n_columns: INTEGER; some_gtypes; a_gtktreemodelfiltermodifyfunc, some_data, a_gtkdestroynotify: POINTER) is
+	gtk_tree_model_filter_set_modify_func (a_filter: POINTER; an_n_columns: INTEGER; some_gtypes, a_gtktreemodelfiltermodifyfunc, some_data, a_gtkdestroynotify: POINTER) is
 			-- void gtk_tree_model_filter_set_modify_func
 			-- (GtkTreeModelFilter *filter, gint n_columns, GType *types,
 			-- GtkTreeModelFilterModifyFunc func, gpointer data,

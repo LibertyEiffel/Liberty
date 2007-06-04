@@ -865,17 +865,27 @@ feature {} -- External calls for parameter specs of float type
 	-- GParamSpec parent_instance;
 	
 	-- gfloat minimum;
-	-- gfloat maximum;
-	-- gfloat default_value;
-	-- gfloat epsilon;
-	-- } GParamSpecFloat;
+	get_min_float (spec: POINTER): REAL_32 is
+			-- gfloat minimum; minimum value for the property specified
+		external "C struct GParamSpecFloat get minumum use <glib-object.h>"
+		end
+	
+	get_max_float (spec: POINTER): REAL_32 is
+			-- gfloat maximum; maximum value for the property specified
+		external "C struct GParamSpecFloat get maximum use <glib-object.h>"
+		end
+	
+	get_default_float (spec: POINTER): REAL_32 is
+			-- gfloat maximum; maximum value for the property specified
+		external "C struct GParamSpecFloat get default_value use <glib-object.h>"
+		end
 
-	-- A GParamSpec derived structure that contains the meta data for float properties.
-	-- GParamSpec parent_instance; private GParamSpec portion
-	-- gfloat minimum; minimum value for the property specified
-	-- gfloat maximum; maximum value for the property specified
-	-- gfloat default_value; default value for the property specified
-	-- gfloat epsilon; values closer than epsilon will be considered identical by g_param_values_cmp(); the default value is 1e-30.
+	get_epsilong_float (spec: POINTER): REAL_32 is
+			-- gfloat epsilon; values closer than epsilon will be
+			-- considered identical by g_param_values_cmp(); the default
+			-- value is 1e-30.
+		external "C struct GParamSpecFloat get default_value use <glib-object.h>"
+		end
 	
 	g_param_spec_float (a_const_name, a_const_nick, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: REAL_32; some_flags: INTEGER): POINTER is -- GParamSpec* 
 			-- Creates a new GParamSpecFloat instance specifying a G_TYPE_FLOAT property.

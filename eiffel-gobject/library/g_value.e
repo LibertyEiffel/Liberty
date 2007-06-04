@@ -498,6 +498,14 @@ feature {G_OBJECT} -- Type changing features
 		ensure is_real: is_real
 		end
 
+	turn_to_real_32 is
+			-- Reset Current and make it a REAL_32 value
+		do
+			g_value_unset (handle)
+			handle := g_value_init (handle, g_type_float)
+		ensure is_real_32: is_real_32
+		end
+
 	turn_to_string is
 			-- Reset Current and make it a string value
 		do

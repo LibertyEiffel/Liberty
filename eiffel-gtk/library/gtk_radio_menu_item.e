@@ -45,8 +45,13 @@ class GTK_RADIO_MENU_ITEM
 	--      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (item), TRUE);
 	--  }
 
-inherit GTK_MENU_ITEM redefine size end
--- TODO: GtkRadioMenuItem implements AtkImplementorIface.
+inherit
+	GTK_MENU_ITEM
+		redefine
+			struct_size
+		end
+	
+	-- TODO: GtkRadioMenuItem implements AtkImplementorIface.
 
 creation 
 	from_group, with_label, with_mnemonic, from_widget,
