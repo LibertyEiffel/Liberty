@@ -66,4 +66,5 @@ feature -- Queries
 			Precursor
 			item.append_in(tagged_out_memory)
 		end
-end -- class G_OPTION_ENTRY
+end -- class G_OPTION_INTEGER_ENTRY
+
