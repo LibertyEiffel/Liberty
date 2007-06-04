@@ -4,35 +4,31 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"
-
-			-- Description: These functions provide support for logging
-			-- error messages or messages used for debugging. There are
-			-- several built-in levels of messages, defined in
-			-- GLogLevelFlags. These can be extended with user-defined
-			-- levels.
 	
-class GLIB_MESSAGE_LOGGING
+deferred class GLIB_MESSAGE_LOGGING
+	-- Support for logging error messages or messages used for
+	-- debugging. There are several built-in levels of messages,
+	-- defined in GLogLevelFlags. These can be extended with
+	-- user-defined levels.
 	
-insert G_LOG_LEVEL_FLAGS_ENUM	
-
+insert
+	G_LOG_LEVEL_FLAGS_ENUM	
+	WRAPPER_HANDLER
+	
 feature
 	glib_log (a_domain, a_message: STRING; a_log_level: INTEGER) is
 			-- Logs an error or debugging message. If `a_log_level' has
 			-- been set as fatal, the `abort' function is called to
 			-- terminate the program.
 		
-			-- a_domain: the log domain; if Void `g_log_domain' is used.
+			-- `a_domain': the log domain; if Void `g_log_domain' is used.
 		
-			-- `a_log_level, either from GLogLevelFlags or a user-defined
-			-- level.
+			-- `a_log_level', either from GLogLevelFlags or a
+			-- user-defined level.
 		require message_not_void: a_message /= Void
 			-- valid_log_level: are_valid_log_level_flags (a_log_level)
-		local domain: POINTER
 		do
-			if a_domain=Void then domain:=g_log_domain
-			else domain:=a_domain.to_external
-			end
-			g_log (domain, a_log_level, a_message.to_external)
+			g_log (null_or(a_domain), a_log_level, a_message.to_external)
 		end
 	
 	glib_message (a_message: STRING) is
@@ -197,17 +193,18 @@ feature {} -- Unwrapped
 -- args : 	the parameters to insert into the format string.
 feature {} -- External calls
 	g_log_domain: POINTER is
-		-- #define G_LOG_DOMAIN ((gchar*) 0)
-	
-		-- Defines the log domain. For applications, this is typically left
-		-- as the default NULL (or "") domain. Libraries should define this
-		-- so that any messages which they log can be differentiated from
-		-- messages from other libraries and application code. But be
-		-- careful not to define it in any public header files.
-	
-		-- For example, GTK+ uses this in its Makefile.am:
-	
-		-- INCLUDES = -DG_LOG_DOMAIN=\"Gtk\"
+			-- #define G_LOG_DOMAIN ((gchar*) 0)
+		
+			-- Defines the log domain. For applications, this is
+			-- typically left as the default NULL (or "")
+			-- domain. Libraries should define this so that any messages
+			-- which they log can be differentiated from messages from
+			-- other libraries and application code. But be careful not
+			-- to define it in any public header files.
+		
+			-- For example, GTK+ uses this in its Makefile.am:
+		
+			-- INCLUDES = -DG_LOG_DOMAIN=\"Gtk\"
 		external "C macro use <glib.h>"
 		alias "G_LOG_DOMAIN"
 		end
