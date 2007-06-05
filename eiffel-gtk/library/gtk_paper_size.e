@@ -106,6 +106,7 @@ feature {} -- Creation
 										  a_width, an_height, a_unit))
 		end	
 	
+feature -- Copying
 	copy (another: GTK_PAPER_SIZE) is
 			--   Copies an existing GtkPaperSize.
 		do
@@ -123,7 +124,7 @@ feature -- Queries
 			-- the name of the GtkPaperSize.
 		do
 			if stored_name=Void then 
-				create stored_name.from_external_pointer (gtk_paper_size_get_name(handle))
+				create stored_name.from_external (gtk_paper_size_get_name(handle))
 			end
 			Result:=stored_name
 		end
@@ -132,7 +133,7 @@ feature -- Queries
 			-- the human-readable name of the GtkPaperSize.
 		do
 			if stored_display_name=Void then
-				create stored_display_name.from_external_pointer (gtk_paper_size_get_display_name(handle))
+				create stored_display_name.from_external (gtk_paper_size_get_display_name(handle))
 			end
 			Result:=stored_display_name
 		end
@@ -144,7 +145,7 @@ feature -- Queries
 			if not ppd_name_retrieved then
 				ptr:=gtk_paper_size_get_ppd_name(handle)
 				if ptr.is_not_null then
-					create stored_ppd_name.from_external_pointer(ptr)
+					create stored_ppd_name.from_external(ptr)
 				end
 				ppd_name_retrieved:=True
 			end

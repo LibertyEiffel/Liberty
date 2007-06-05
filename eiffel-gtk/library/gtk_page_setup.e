@@ -79,7 +79,8 @@ feature {} -- Creation
 		do
 			from_external_pointer(gtk_page_setup_new)
 		end
-
+	
+feature -- Copying
 	copy (another: GTK_PAGE_SETUP) is
 			--   Copies a GtkPageSetup.
 		do

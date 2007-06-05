@@ -38,7 +38,7 @@ inherit G_OBJECT
 creation make, from_external_pointer
 
 feature {} -- Creation 
-	make (a_title: STRING; a_printer: GTK_PRINTER; some_settings: GTK_PRINT_SETTING; a_page_setup: GTK_PRINT_SETUP) is
+	make (a_title: STRING; a_printer: GTK_PRINTER; some_settings: GTK_PRINT_SETTING; a_page_setup: GTK_PAGE_SETUP) is
 			--   Creates a new GtkPrintJob.
 		require
 			title_not_void: a_title /= Void

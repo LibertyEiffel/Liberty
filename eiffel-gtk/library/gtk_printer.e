@@ -43,7 +43,6 @@ inherit
 			copy, is_equal
 		redefine
 			is_equal,
-			infix "<", 
 			compare, three_way_comparison
 		end
 
@@ -68,7 +67,7 @@ feature {} -- Creation
 		end
 
 feature -- Queries
-	backend: GTK_BACKEND is
+	backend: GTK_PRINT_BACKEND is
 			-- The backend of the printer.
 		do
 			create Result.from_external_pointer(gtk_printer_get_backend(handle))

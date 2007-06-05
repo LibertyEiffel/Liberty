@@ -87,7 +87,7 @@ feature -- Paper sizes
 			-- the name of the default paper size, which depends on the current
 			-- locale.
 		do
-			create Result.from_external_pointer(gtk_paper_size_get_default)
+			create Result.from_external(gtk_paper_size_get_default)
 		end
 
 feature {} -- External calls

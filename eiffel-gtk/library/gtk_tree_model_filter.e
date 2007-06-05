@@ -116,7 +116,7 @@ feature
 				model_ptr_not_null: model_ptr.is_not_null
 				wrapper_exists: retriever.has_eiffel_wrapper_stored(model_ptr)
 			end
-			Result := retiever.eiffel_wrapper_from_gobject_pointer(model_ptr)
+			Result := retriever.eiffel_wrapper_from_gobject_pointer(model_ptr)
 		end
 	
 	iter_from_child_iter (a_child_iter: GTK_TREE_ITER): GTK_TREE_ITER is
@@ -150,7 +150,7 @@ feature
 		local path_ptr: POINTER
 		do
 			path_ptr:=gtk_tree_model_filter_convert_child_path_to_path(handle, a_child_path.handle)
-			if path_ptr/=Void then create Result.from_external_pointer(path_ptr) end
+			if path_ptr.is_not_null then create Result.from_external_pointer(path_ptr) end
 		end
 
 	path_to_child_path (a_filter_path: GTK_TREE_PATH): GTK_TREE_PATH is	
@@ -163,7 +163,7 @@ feature
 		local path_ptr: POINTER
 		do
 			path_ptr:=gtk_tree_model_filter_convert_path_to_child_path(handle, a_filter_path.handle)
-			if path_ptr/=Void then create Result.from_external_pointer(path_ptr) end
+			if path_ptr.is_not_null then create Result.from_external_pointer(path_ptr) end
 		end
 
 	refilter is

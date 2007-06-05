@@ -48,6 +48,8 @@ class GTK_RADIO_MENU_ITEM
 inherit
 	GTK_MENU_ITEM
 		redefine
+			from_group, with_label, with_mnemonic, from_widget,
+			with_label_from_widget, with_mnemonic_from_widget,
 			struct_size
 		end
 	
@@ -55,7 +57,8 @@ inherit
 
 creation 
 	from_group, with_label, with_mnemonic, from_widget,
-	with_label_from_widget, with_mnemonic_from_widget
+	with_label_from_widget, with_mnemonic_from_widget,
+	from_external_pointer
 
 feature {} -- Creation
 	from_group (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]) is

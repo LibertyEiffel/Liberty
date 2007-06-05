@@ -54,7 +54,8 @@ feature {} -- Creation
 		do
 			from_external_pointer(gtk_print_settings_new)
 		end
-
+	
+feature -- Copying
 	copy (another: GTK_PRINT_SETTINGS) is
 			--   Copies a GtkPrintSettings object.
 		do

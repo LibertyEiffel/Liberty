@@ -137,11 +137,6 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_print_operation_get_error (an_operation, an_error_handle: POINTER) is
-			-- void gtk_print_operation_get_error (GtkPrintOperation *op, GError **error);
-		external "C use <gtk/gtk.h>"
-		end
-
 	gtk_print_run_page_setup_dialog (a_parent, a_page_setup, some_settings: POINTER): POINTER is
 			-- GtkPageSetup* gtk_print_run_page_setup_dialog (GtkWindow
 			-- *parent, GtkPageSetup *page_setup, GtkPrintSettings
