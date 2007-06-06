@@ -172,6 +172,11 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
+	gtk_widget_get_allocation (widget: POINTER): POINTER is
+		external "C inline use <gtk/gtk.h>"
+		alias "&(((GtkWidget *)$widget)->allocation)"
+		end
+
 	gtk_widget_add_accelerator (widget, char_accel_signal, gtkaccelgroup: POINTER;
 	                            guint_accel_key, gdkmodifiertype, gtkaccelflags: INTEGER) is
 		external "C use <gtk/gtk.h>"

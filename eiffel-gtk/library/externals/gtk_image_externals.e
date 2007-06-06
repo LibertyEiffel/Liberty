@@ -59,4 +59,12 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
+	gtk_image_get_pixbuf (image: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_image_get_storage_type (image: POINTER): INTEGER is
+		external "C use <gtk/gtk.h>"
+		end
+
 end

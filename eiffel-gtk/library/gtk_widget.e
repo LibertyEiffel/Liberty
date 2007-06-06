@@ -1425,11 +1425,13 @@ feature -- size-request signal
 --   /* The widget's desired size.
 --    */
 --   GtkRequisition requisition;
-  
---   /* The widget's allocated size.
---    */
---   GtkAllocation allocation;
-  
+
+	allocation: GTK_ALLOCATION is
+			-- The widget's allocated size.
+		do
+			create Result.copy_from_pointer (gtk_widget_get_allocation (handle))
+		end
+ 
 --   /* The widget's window or its parent window if it does
 --    *  not have a window. (Which will be indicated by the
 --    *  GTK_NO_WINDOW flag being set).

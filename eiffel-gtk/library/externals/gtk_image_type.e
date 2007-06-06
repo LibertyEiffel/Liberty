@@ -34,9 +34,9 @@ deferred class GTK_IMAGE_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_image_type (a_type :INTEGER): BOOLEAN is
-		do	
-			Result:=((a_type = gtk_image_empty) or else
+	is_valid_gtk_image_type (a_type :INTEGER): BOOLEAN is
+		do
+			Result := ((a_type = gtk_image_empty) or else
 						(a_type = gtk_image_pixmap) or else
 						(a_type = gtk_image_image) or else
 						(a_type = gtk_image_pixbuf) or else

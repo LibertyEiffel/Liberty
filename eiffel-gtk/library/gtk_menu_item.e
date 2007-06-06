@@ -404,7 +404,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_menu_item_toggle_size_allocate (a_menu_item: POINTER; allocation: INTEGER) is
+	gtk_menu_item_toggle_size_allocate (a_menu_item: POINTER; an_allocation: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 

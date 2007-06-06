@@ -26,7 +26,9 @@ class GTK_IMAGE
 
 inherit GTK_MISC
 
-insert GTK_IMAGE_EXTERNALS
+insert
+	GTK_IMAGE_EXTERNALS
+	GTK_IMAGE_TYPE
 
 creation
 	make, from_file, from_external_pointer, from_pixbuf, from_pixmap
@@ -84,23 +86,46 @@ feature {} -- Initialization
 	-- Todo : GtkWidget*  gtk_image_new_from_animation ()
 	-- Todo : GtkWidget*  gtk_image_new_from_icon_name ()
 
+feature -- Access
+
+	storage_type: INTEGER is
+		do
+			Result := gtk_image_get_storage_type (handle)
+		ensure
+			is_valid_gtk_image_type (Result)
+		end
+
+	pixbuf: GDK_PIXBUF is
+		require
+			storage_type = gtk_image_pixbuf or storage_type = gtk_image_empty
+		local
+			pixbuf_ptr: POINTER
+			retriever: G_RETRIEVER [GDK_PIXBUF]
+		do
+			pixbuf_ptr := gtk_image_get_pixbuf (handle)
+			Result := retriever.eiffel_wrapper_from_gobject_pointer (pixbuf_ptr)
+			if Result = Void then
+				create Result.from_external_shared_pointer (pixbuf_ptr)
+			end
+		end
+
 feature -- Element change
 	set_file (filename: STRING) is
 			-- Set the `gtk_image' displaying the file `filename'.
 			-- If the file isn't found or can't be loaded, the 
 			-- resulting gtk_image will display a "broken image" icon.
 		require
-			valid_filename: filename/=Void
+			valid_filename: filename /= Void
 		do
 			gtk_image_set_from_file (handle,filename.to_external)
 		end
 
-	set_from_pixbuf (pixbuf: GDK_PIXBUF) is
+	set_from_pixbuf (a_pixbuf: GDK_PIXBUF) is
 			-- See `from_pixbuf' for details.
 		require
-			valid_pixbuf: pixbuf /= Void
+			valid_pixbuf: a_pixbuf /= Void
 		do
-			gtk_image_set_from_pixbuf (handle, pixbuf.handle)
+			gtk_image_set_from_pixbuf (handle, a_pixbuf.handle)
 		end
 
 	set_from_pixmap (a_pixmap: GDK_PIXMAP; a_mask: GDK_BITMAP) is

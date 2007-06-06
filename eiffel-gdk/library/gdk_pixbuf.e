@@ -309,6 +309,32 @@ feature -- Properties
 			Result := gdk_pixbuf_get_pixels (handle)
 		end
 
+	pixel_rgb (a_row, a_col: INTEGER): TUPLE [INTEGER, INTEGER, INTEGER] is
+		require
+			not has_alpha
+			a_row.in_range (0, height - 1)
+			a_col.in_range (0, width - 1)
+		local
+			packed: INTEGER_32
+		do
+			packed := gdk_pixbuf_get_pixel (handle, a_row, a_col)
+			Result := [packed & 0x000000ff, (packed & 0x0000ff00) |>>> 8, (packed & 0x00ff0000) |>>> 16]
+		end
+
+	set_pixel_rgb (a_row, a_col, a_red, a_green, a_blue: INTEGER) is
+		require
+			not has_alpha
+			a_row.in_range (0, height - 1)
+			a_col.in_range (0, width - 1)
+			a_red.in_range (0, 255)
+			a_green.in_range (0, 255)
+			a_blue.in_range (0, 255)
+		do
+			gdk_pixbuf_set_pixel_byte (handle, a_row, a_col, 0, a_red)
+			gdk_pixbuf_set_pixel_byte (handle, a_row, a_col, 1, a_green)
+			gdk_pixbuf_set_pixel_byte (handle, a_row, a_col, 2, a_blue)
+		end
+
 	rowstride: INTEGER is
 		do
 			Result := gdk_pixbuf_get_rowstride (handle)

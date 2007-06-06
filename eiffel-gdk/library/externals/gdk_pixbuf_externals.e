@@ -222,6 +222,16 @@ feature {} -- Properties
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
+	gdk_pixbuf_get_pixel (handle: POINTER; a_row, a_col: INTEGER): INTEGER is
+		external "C inline use <gdk-pixbuf/gdk-pixbuf.h>"
+		alias "*((int*)(gdk_pixbuf_get_pixels((GdkPixbuf*)$handle) + $a_row * gdk_pixbuf_get_rowstride ($handle) + $a_col * gdk_pixbuf_get_n_channels ($handle)))"
+		end
+
+	gdk_pixbuf_set_pixel_byte (handle: POINTER; a_row, a_col, an_offset, a_value: INTEGER) is
+		external "C inline use <gdk-pixbuf/gdk-pixbuf.h>"
+		alias "gdk_pixbuf_get_pixels((GdkPixbuf*)$handle)[$a_row * gdk_pixbuf_get_rowstride ($handle) + $a_col * gdk_pixbuf_get_n_channels ($handle) + $an_offset] = $a_value"
+		end
+
 	gdk_pixbuf_get_rowstride (handle: POINTER): INTEGER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
