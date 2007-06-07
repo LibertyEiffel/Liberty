@@ -105,7 +105,7 @@ feature -- Access
 			pixbuf_ptr := gtk_image_get_pixbuf (handle)
 			Result := retriever.eiffel_wrapper_from_gobject_pointer (pixbuf_ptr)
 			if Result = Void then
-				create Result.from_external_shared_pointer (pixbuf_ptr)
+				create Result.from_external_pointer (pixbuf_ptr)
 			end
 		end
 
