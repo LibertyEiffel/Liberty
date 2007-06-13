@@ -70,6 +70,7 @@ feature
 					create window.from_external_pointer (res)
 				end
 			end
+			mask := mask & gdk_modifier_mask
 			Result := [window, x, y, mask]
 		ensure
 			Result /= Void implies is_valid_gdk_modifier_type (Result.fourth)
