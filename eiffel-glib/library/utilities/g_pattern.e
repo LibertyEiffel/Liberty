@@ -41,7 +41,7 @@ class G_PATTERN
 inherit
 	SHARED_C_STRUCT
 		redefine
-			is_equal, copy, free
+			is_equal, free
 		end
 
 creation make, from_external_pointer
@@ -55,15 +55,10 @@ feature {} -- Creation
 			-- encoded string.
 		require pattern_not_void: a_pattern /= Void
 		do
-			from_external_pattern(g_pattern_spec_new(a_pattern.to_external))
+			from_external_pointer(g_pattern_spec_new(a_pattern.to_external))
 		end
 
-	free (a_pointer: POINTER) is
-			-- Frees the memory allocated for the GPatternSpec.
-		do
-			g_pattern_spec_free(a_pointer)
-		end
-
+feature 
 	is_equal (another: like Current): BOOLEAN is
 			-- Compares Current and `another' patterns. Will they match
 			-- the same set of strings?
@@ -142,6 +137,14 @@ feature {} -- Creation
 			Result:=g_pattern_match_simple(a_pattern.to_external, a_string.to_external).to_boolean
 		end
 
+feature {} -- Memory handling
+	
+	free (a_pointer: POINTER) is
+			-- Frees the memory allocated for the GPatternSpec.
+		do
+			g_pattern_spec_free(a_pointer)
+		end
+
 feature {} -- External calls
 
 	g_pattern_spec_new (a_pattern: POINTER): POINTER is
@@ -185,4 +188,5 @@ feature -- size
 		alias "sizeof(GPatternSpec)"
 		end
 
-end -- class GLIB_GLOB_STYLE_PATTERN_MATCHING
+end -- class class G_PATTERN
+

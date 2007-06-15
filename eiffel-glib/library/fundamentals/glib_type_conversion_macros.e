@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GLIB_TYPE_CONVERSION_MACROS
+deferred class GLIB_TYPE_CONVERSION_MACROS
 	-- Many times GLib, GTK+, and other libraries allow you to pass
 	-- "user data" to a callback, in the form of a void pointer. From
 	-- time to time you want to pass an integer instead of a

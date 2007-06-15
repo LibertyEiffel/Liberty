@@ -140,12 +140,20 @@ feature -- Basic Types: standard GLib types, defined for ease-of-use and portabi
 	--    Corresponds to the standard C unsigned short type. Values of this type can
 	--    range from 0 to G_MAXUSHORT.
 
-	-- glong: 
-
-	--  typedef long   glong;
-
-	--    Corresponds to the standard C long type. Values of this type can range
-	--    from G_MINLONG to G_MAXLONG.
+	glong_size: INTEGER is
+		external "C use <glib.h>"
+		alias "sizeof(glong)"
+		end
+	
+	glong: INTEGER is
+			--  typedef long   glong;
+		
+			-- Corresponds to the standard C long type. Values of this type can
+			-- range from G_MINLONG to G_MAXLONG.
+		do
+			-- empty by design
+		ensure glong_is_32_bit: glong_size=4
+		end
 
 	--   gulong
 
@@ -250,8 +258,7 @@ feature -- Basic Types: standard GLib types, defined for ease-of-use and portabi
 
 			--  typedef unsigned int gsize;
 		
-		-- TODO: should be NATURAL, since it is implemented as an 
-		-- unsigned int
+			-- TODO: should be NATURAL, since it is implemented as an unsigned int.
 		do
 			-- empty by design
 		end

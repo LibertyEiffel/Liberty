@@ -62,15 +62,19 @@ inherit
 		undefine fill_tagged_out_memory
 		redefine copy, is_equal
 		end
+
 	COLLECTION [ITEM]
 		redefine -- features that can be implemented in a smarter way, knowing that there is an array of pointers to wrapped features.
-			fast_first_index_of, fast_index_of, fast_last_index_of,
-			has, fast_has,
+			fast_first_index_of,
+			--fast_index_of,
+			fast_last_index_of,
+			has,
+			fast_has,
 			swap
 		end
 	
 insert
-	WRAPPER_FACTORY [ITEM]  undefine fill_tagged_out_memory end
+	WRAPPER_FACTORY [ITEM] -- undefine fill_tagged_out_memory end
 	G_PTR_ARRAY_EXTERNALS undefine fill_tagged_out_memory end
 	
 creation empty, with_capacity, from_external_pointer
@@ -187,15 +191,15 @@ feature    -- Writing:
 			end
 		end
 	
-	set_slice_with (v: ITEM_; lower_index, upper_index: INTEGER_32) is
-			-- Set all items in range [`lower_index' .. `upper_index'] with `v'.
-			-- See also `set_all_with'.
-		local i:INTEGER
-		do
-			from i:=lower_index until i>upper_index
-			loop put(v,i); i:=i+1
-			end
-		end
+	-- set_slice_with (v: ITEM_; lower_index, upper_index: INTEGER_32) is
+	-- Set all items in range [`lower_index' .. `upper_index'] with `v'.
+	-- See also `set_all_with'.
+	-- local i:INTEGER
+	-- do
+	-- from i:=lower_index until i>upper_index
+	-- loop put(v,i); i:=i+1
+	-- end
+	-- end
 
 	clear_all is
 			-- Set every item to its default value. The `count' is not

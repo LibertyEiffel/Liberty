@@ -93,7 +93,7 @@ inherit SHARED_C_STRUCT
 
 insert GLIB_COMMANDLINE_OPTION_PARSER_EXTERNALS
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Unwrapped code
 	--   G_OPTION_ERROR

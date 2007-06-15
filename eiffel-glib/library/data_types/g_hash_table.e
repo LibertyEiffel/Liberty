@@ -5,42 +5,40 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-			-- Description: A GHashTable provides associations between
-			-- keys and values which is optimized so that given a key,
-			-- the associated value can be found very quickly.
-	
-			-- Note that neither keys nor values are copied when inserted
-			-- into the GHashTable, so they must exist for the lifetime
-			-- of the GHashTable. This means that the use of static
-			-- strings is OK, but temporary strings (i.e. those created
-			-- in buffers and those returned by GTK+ widgets) should be
-			-- copied with g_strdup() before being inserted.
-
-			-- If keys or values are dynamically allocated, you must be
-			-- careful to ensure that they are freed when they are
-			-- removed from the GHashTable, and also when they are
-			-- overwritten by new insertions into the GHashTable. It is
-			-- also not advisable to mix static strings and
-			-- dynamically-allocated strings in a GHashTable, because it
-			-- then becomes difficult to determine whether the string
-			-- should be freed.
-
-			-- To create a GHashTable, use g_hash_table_new().
-	
-			-- To insert a key and value into a GHashTable, use
-			-- g_hash_table_insert().
-
-			-- To lookup a value corresponding to a given key, use
-			-- g_hash_table_lookup() and g_hash_table_lookup_extended().
-
-			-- To remove a key and value, use g_hash_table_remove().
-
-			-- To call a function for each key and value pair use
-			-- g_hash_table_foreach().
-
-			-- To destroy a GHashTable use g_hash_table_destroy().
-
 class G_HASH_TABLE
+	--A GHashTable provides associations between keys and values which
+	--is optimized so that given a key, the associated value can be
+	--found very quickly.
+	
+	-- Note that neither keys nor values are copied when inserted into
+	-- the GHashTable, so they must exist for the lifetime of the
+	-- GHashTable. This means that the use of static strings is OK, but
+	-- temporary strings (i.e. those created in buffers and those
+	-- returned by GTK+ widgets) should be copied with g_strdup()
+	-- before being inserted.
+
+	-- If keys or values are dynamically allocated, you must be careful
+	-- to ensure that they are freed when they are removed from the
+	-- GHashTable, and also when they are overwritten by new insertions
+	-- into the GHashTable. It is also not advisable to mix static
+	-- strings and dynamically-allocated strings in a GHashTable,
+	-- because it then becomes difficult to determine whether the
+	-- string should be freed.
+
+	-- To create a GHashTable, use g_hash_table_new().
+	
+	-- To insert a key and value into a GHashTable, use
+	-- g_hash_table_insert().
+
+	-- To lookup a value corresponding to a given key, use
+	-- g_hash_table_lookup() and g_hash_table_lookup_extended().
+
+	-- To remove a key and value, use g_hash_table_remove().
+
+	-- To call a function for each key and value pair use
+	-- g_hash_table_foreach().
+
+	-- To destroy a GHashTable use g_hash_table_destroy().
 
 inherit
 	C_STRUCT
@@ -51,31 +49,31 @@ inherit
 insert
 	G_HASH_TABLE_EXTERNALS
 
-creation make
+creation from_external_pointer
 
 feature {} -- Creation
-	make (hash_function, key_equal_function: FUNCTION[]) is
-			-- Creates a new GHashTable.
-		
-			-- hash_func : a function to create a hash value from a
-			-- key. Hash values are used to determine where keys are
-			-- stored within the GHashTable data structure. The
-			-- g_direct_hash(), g_int_hash() and g_str_hash() functions
-			-- are provided for some common types of keys. If hash_func
-			-- is NULL, g_direct_hash() is used.
-
-			-- key_equal_func : a function to check two keys for
-			-- equality. This is used when looking up keys in the
-			-- GHashTable. The g_direct_equal(), g_int_equal() and
-			-- g_str_equal() functions are provided for the most common
-			-- types of keys. If key_equal_func is NULL, keys are
-			-- compared directly in a similar fashion to
-			-- g_direct_equal(), but without the overhead of a function
-			-- call.
-		do
-			from_external_pointer (g_hash_table_new
-										  (hash_function,  key_equal_function))
-		end
+	-- make (hash_function, key_equal_function: FUNCTION[]) is
+	-- Creates a new GHashTable.
+	
+	-- hash_func : a function to create a hash value from a
+	-- key. Hash values are used to determine where keys are
+	-- stored within the GHashTable data structure. The
+	-- g_direct_hash(), g_int_hash() and g_str_hash() functions
+	-- are provided for some common types of keys. If hash_func
+	-- is NULL, g_direct_hash() is used.
+	
+	-- key_equal_func : a function to check two keys for
+	-- equality. This is used when looking up keys in the
+	-- GHashTable. The g_direct_equal(), g_int_equal() and
+	-- g_str_equal() functions are provided for the most common
+	-- types of keys. If key_equal_func is NULL, keys are
+	-- compared directly in a similar fashion to
+	-- g_direct_equal(), but without the overhead of a function
+	-- call.
+	--	do
+	--from_external_pointer (g_hash_table_new
+	--(hash_function,  key_equal_function))
+	--end
 
 	-- TODO: GHashTable* g_hash_table_new_full (GHashFunc hash_func,
 	-- GEqualFunc key_equal_func, GDestroyNotify key_destroy_func,

@@ -28,7 +28,7 @@ feature
 		require message_not_void: a_message /= Void
 			-- valid_log_level: are_valid_log_level_flags (a_log_level)
 		do
-			g_log (null_or(a_domain), a_log_level, a_message.to_external)
+			g_log (null_or_string(a_domain), a_log_level, a_message.to_external)
 		end
 	
 	glib_message (a_message: STRING) is

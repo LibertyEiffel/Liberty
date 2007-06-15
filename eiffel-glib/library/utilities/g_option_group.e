@@ -20,13 +20,15 @@ indexing
 			]"
 
 class G_OPTION_GROUP
-	-- A GOptionGroup struct defines the options in a single group. The struct
-	-- has only private fields and should not be directly accessed.
-	
-	-- All options in a group share the same translation function. Libaries which
-	-- need to parse commandline options are expected to provide a function for
-	-- getting a GOptionGroup holding their options, which the application can
-	-- then add to its GOptionContext.
+	-- A GOptionGroup struct defines the options in a single group. The
+	-- struct has only private fields and should not be directly
+	-- accessed.
+
+	-- All options in a group share the same translation
+	-- function. Libaries which need to parse commandline options are
+	-- expected to provide a function for getting a GOptionGroup
+	-- holding their options, which the application can then add to its
+	-- GOptionContext.
 
 inherit SHARED_C_STRUCT redefine free end
 
@@ -175,4 +177,5 @@ feature -- size
 		external "C inline use <glib.h>"
 		alias "sizeof(GOptionGroup)"
 		end
-end -- class FOO
+end -- class G_OPTION_GROUP
+

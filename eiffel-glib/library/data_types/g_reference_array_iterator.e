@@ -33,7 +33,7 @@ insert
 creation make 
 
 feature {} -- Creation
-	make (an_array: G_REFERENCE_ARRAY_ITERATOR [ITEM]) is
+	make (an_array: G_REFERENCE_ARRAY [ITEM]) is
 		require array_not_void: an_array/=Void
 		do
 			array:=an_array
@@ -69,6 +69,7 @@ feature {ANY}
 			i:=i+1
 		end
 feature {} -- Implementation
+	array: G_REFERENCE_ARRAY [ITEM]
 	
 end --class G_REFERENCE_ARRAY_ITERATOR
 

@@ -56,8 +56,7 @@ inherit
 			-- shall be circumvented.
 		rename
 			exists as wrapped_object_exists
-		undefine
-			fill_tagged_out_memory
+			--	undefine fill_tagged_out_memory
 		redefine
 			copy, dispose
 		end
@@ -592,6 +591,7 @@ feature
 -- Restores the previous GAllocator, used when allocating GList elements.
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
+
 
 feature -- struct size
 	struct_size: INTEGER is
