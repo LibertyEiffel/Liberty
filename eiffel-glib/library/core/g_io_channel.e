@@ -1,25 +1,52 @@
 indexing
-	copyright: "(C) 2005 Paolo Redaelli "
+	copyright: "(C) 2005 Paolo Redaelli, 2007 Soluciones Informaticas Libres S.A. (Except)"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GLIB_IO_CHANNELS
+class G_IO_CHANNEL
+	-- IO Channels -- portable support for using files, pipes and sockets.
 
--- Prev 	Up 	Home 	GLib Reference Manual 	Next
--- Top  |  Description
--- IO Channels
+inherit
+	C_STRUCT
+		redefine dispose end
 
--- IO Channels %GÅ‚Äî%@ portable support for using files, pipes and sockets.
-	
--- Synopsis
+insert
+	G_IO_CONDITIONS
 
--- #include <glib.h>
+create
+	from_unix_fd, from_win32_fd, from_win32_socket
 
+feature {} -- Creation
+
+	from_unix_fd (fd: INTEGER) is
+			-- Creates from file descriptor `fd'. On UNIX systems this 
+			-- works for plain files, pipes, and sockets.
+		do
+			handle := g_io_channel_unix_new (fd)
+		ensure
+			encoding.is_equal (once "UTF-8")
+		end
+
+	from_win32_fd (fd: INTEGER) is
+			-- Creates from file descriptor `fd' on Windows. This works for
+			-- file descriptors as returned by the open(), creat(), pipe()
+			-- and fileno() calls in the Microsoft C runtime. In order to
+			-- meaningfully use this routine your code should use the same
+			-- C runtime as GLib uses, which is msvcrt.dll.
+			-- This function is available only in GLib on Windows. 
+		do
+			handle := g_io_channel_win32_new_fd (fd)
+		end
+
+	from_win32_socket (socket: INTEGER) is
+			-- Creates from socket handle `socket'
+		do
+			handle := g_io_channel_win32_new_socket (socket)
+		end
 
 --             GIOChannel;
 
--- GIOChannel* g_io_channel_unix_new           (int fd);
 -- gint        g_io_channel_unix_get_fd        (GIOChannel *channel);
 
 -- void        g_io_channel_init               (GIOChannel *channel);
@@ -74,14 +101,48 @@ class GLIB_IO_CHANNELS
 --                                             (gint en);
 
 -- GIOChannel* g_io_channel_ref                (GIOChannel *channel);
--- void        g_io_channel_unref              (GIOChannel *channel);
 
 -- GSource*    g_io_create_watch               (GIOChannel *channel,
 --                                              GIOCondition condition);
--- guint       g_io_add_watch                  (GIOChannel *channel,
---                                              GIOCondition condition,
---                                              GIOFunc func,
---                                              gpointer user_data);
+
+feature {} -- Memory handling
+
+	dispose is
+		do
+			g_io_channel_unref (handle)
+			handle := default_pointer
+		end
+
+feature -- Access
+
+	encoding: STRING is
+			-- Encoding for the input/output of the channel. The internal
+			-- encoding is always UTF-8. The encoding Void makes the
+			-- channel safe for binary data.
+		local
+			enc: POINTER
+		do
+			enc := g_io_channel_get_encoding (handle)
+			if enc.is_not_null then
+				create Result.from_external_copy (enc)
+			end
+		end
+
+feature -- Operations
+
+	add_watch (condition: INTEGER; action: FUNCTION [TUPLE [G_IO_CHANNEL, INTEGER], BOOLEAN]) is
+			-- Adds into the main event loop with the default priority.
+		require
+			is_valid_g_io_condition (condition)
+			action /= Void
+		local
+			callback: G_IO_FUNC
+		do
+			create callback.make (Current, action)
+			last_event_source := g_io_add_watch (handle, condition, callback.function, callback.data)
+		end
+
+	last_event_source: INTEGER
 -- guint       g_io_add_watch_full             (GIOChannel *channel,
 --                                              gint priority,
 --                                              GIOCondition condition,
@@ -113,7 +174,6 @@ class GLIB_IO_CHANNELS
 -- gboolean    g_io_channel_get_buffered       (GIOChannel *channel);
 -- void        g_io_channel_set_buffered       (GIOChannel *channel,
 --                                              gboolean buffered);
--- const gchar* g_io_channel_get_encoding      (GIOChannel *channel);
 -- GIOStatus   g_io_channel_set_encoding       (GIOChannel *channel,
 --                                              const gchar *encoding,
 --                                              GError **error);
@@ -158,19 +218,6 @@ class GLIB_IO_CHANNELS
 
 -- A data structure representing an IO Channel. The fields should be considered private and should only be accessed with the following functions.
 -- g_io_channel_unix_new ()
-
--- GIOChannel* g_io_channel_unix_new           (int fd);
-
--- Creates a new GIOChannel given a file descriptor. On UNIX systems this works for plain files, pipes, and sockets.
-
--- The returned GIOChannel has a reference count of 1.
-
--- The default encoding for GIOChannel is UTF-8. If your application is reading output from a command using via pipe, you may need to set the encoding to the encoding of the current locale (see g_get_charset()) with the g_io_channel_set_encoding() function.
-
--- If you want to read raw binary data without interpretation, then call the g_io_channel_set_encoding() function with NULL for the encoding argument.
--- fd : 	a file descriptor.
--- Returns : 	a new GIOChannel.
--- g_io_channel_unix_get_fd ()
 
 -- gint        g_io_channel_unix_get_fd        (GIOChannel *channel);
 
@@ -409,12 +456,6 @@ class GLIB_IO_CHANNELS
 -- Increments the reference count of a GIOChannel.
 -- channel : 	a GIOChannel.
 -- Returns : 	the channel that was passed in (since 2.6)
--- g_io_channel_unref ()
-
--- void        g_io_channel_unref              (GIOChannel *channel);
-
--- Decrements the reference count of a GIOChannel.
--- channel : 	a GIOChannel.
 -- g_io_create_watch ()
 
 -- GSource*    g_io_create_watch               (GIOChannel *channel,
@@ -424,19 +465,6 @@ class GLIB_IO_CHANNELS
 -- channel : 	a GIOChannel to watch
 -- condition : 	conditions to watch for
 -- Returns : 	a new GSource
--- g_io_add_watch ()
-
--- guint       g_io_add_watch                  (GIOChannel *channel,
---                                              GIOCondition condition,
---                                              GIOFunc func,
---                                              gpointer user_data);
-
--- Adds the GIOChannel into the main event loop with the default priority.
--- channel : 	a GIOChannel.
--- condition : 	the condition to watch for.
--- func : 	the function to call when the condition is satisfied.
--- user_data : 	user data to pass to func.
--- Returns : 	the event source id.
 -- g_io_add_watch_full ()
 
 -- guint       g_io_add_watch_full             (GIOChannel *channel,
@@ -628,14 +656,7 @@ class GLIB_IO_CHANNELS
 
 -- channel : 	a GIOChannel
 -- buffered : 	whether to set the channel buffered or unbuffered
--- g_io_channel_get_encoding ()
 
--- const gchar* g_io_channel_get_encoding      (GIOChannel *channel);
-
--- Gets the encoding for the input/output of the channel. The internal encoding is always UTF-8. The encoding NULL makes the channel safe for binary data.
-
--- channel : 	a GIOChannel
--- Returns : 	A string containing the encoding, this string is owned by GLib and must not be freed.
 -- g_io_channel_set_encoding ()
 
 -- GIOStatus   g_io_channel_set_encoding       (GIOChannel *channel,
@@ -767,6 +788,36 @@ class GLIB_IO_CHANNELS
 
 -- Convenience functions for creating GIOChannel instances and adding them to the main event loop.
 
+feature {} -- Externals
+
+	struct_size: INTEGER is
+			-- sizeof (wrapped_structure), speaking in C. TODO: shall be a NATURAL
+		external "C macro use <glib.h>"
+		alias "(sizeof (GIOChannel))"
+		end
+
+	g_io_channel_unix_new (fd: INTEGER): POINTER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_win32_new_fd (fd: INTEGER): POINTER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_win32_new_socket (socket: INTEGER): POINTER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_unref (channel: POINTER) is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_get_encoding (channel: POINTER): POINTER is
+		external "C use <glib.h>"
+		end
+
+	g_io_add_watch (channel: POINTER; condition: INTEGER; func, user_data: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
 
 end
-								 
