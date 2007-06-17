@@ -530,8 +530,6 @@ feature {ANY} -- overflowing operators
 	infix "#//" (other: like Current): like Current is
 		require
 			divisible(other)
-		local
-			w, x, y, z, p: like Current
 		do
 			Result.force_from_signed (int_sharp_idiv(storage, other.storage))
 		ensure
