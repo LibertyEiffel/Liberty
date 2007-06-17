@@ -21,7 +21,9 @@ indexing
 
 deferred class GLIB_CALLBACK
 
-inherit WRAPPER_HANDLER
+inherit
+	ANY
+	WRAPPER_HANDLER
 	
 feature {} -- Creation
 	

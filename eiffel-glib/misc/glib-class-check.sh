@@ -26,7 +26,7 @@ then
     echo $TESTABLE
 else 
     echo "Testing all classes"; 
-    TESTABLE=$(find -iname "*.e" |
+    TESTABLE=$(find library -iname "*.e" |
 	## Remove stubs
 	grep -v stub | 
 	## From the end 

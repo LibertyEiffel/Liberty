@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class G_HASH_TABLE
+class G_HASH_TABLE [KEY->SHARED_C_STRUCT, VALUE->SHARED_C_STRUCT]
 	--A GHashTable provides associations between keys and values which
 	--is optimized so that given a key, the associated value can be
 	--found very quickly.
@@ -41,10 +41,12 @@ class G_HASH_TABLE
 	-- To destroy a GHashTable use g_hash_table_destroy().
 
 inherit
-	C_STRUCT
+	SHARED_C_STRUCT
 		redefine
 			dispose, is_equal
 		end
+
+	WRAPPER_FACTORY [VALUE]
 	
 insert
 	G_HASH_TABLE_EXTERNALS
@@ -180,7 +182,9 @@ feature
 		do
 			ptr := g_hash_table_lookup (handle, a_key.handle)
 			if ptr.is_not_null then
-				create Result.from_external_pointer (ptr)
+				if wrappers.has(ptr) then Result::=wrappers.at(ptr)
+				else print_wrapper_factory_notice
+				end
 			end
 		end
 
