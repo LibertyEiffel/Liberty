@@ -35,9 +35,9 @@ check_classes () {
 		find library -iname "*.e" | 
 		# Remove classes with errors (previously prepended)
 		grep -v -F -f $WRONG_CLASSES
+		rm $WRONG_CLASSES # We are checking them anew.
             else find library -iname "*.e" | grep -v stub 
 	    fi
-	    rm $WRONG_CLASSES # We are checking them anew.
 	    );
 	do
 	    echo Checking $CLASS
@@ -59,7 +59,6 @@ check_classes () {
 	then
 	    echo $(wc -l $WRONG_CLASSES) classes with errors
 	    exit 5
-	else exit 0
 	fi
     fi ## library exits
 }

@@ -1,6 +1,6 @@
 class KEY_FILE_EXAMPLE
 insert
-	FILE_TOOLS
+	FILE_TOOLS rename file_exists as obsolete_file_exists end
 	G_KEY_FILE_FLAGS
 
 creation make
@@ -10,7 +10,7 @@ feature
 			group, key: STRING
 			groups_iterator, keys_iterator: ITERATOR[STRING]
 		do
-			if file_exists(file) then
+			if is_readable(file) then
 				create keyfile.load_from_file
 				(file, g_key_file_keep_comments | g_key_file_keep_translations)
 			else
