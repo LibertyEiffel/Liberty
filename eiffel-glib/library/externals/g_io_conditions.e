@@ -19,7 +19,9 @@ indexing
 					02110-1301 USA
 				]"
 
-class G_IO_CONDITIONS
+deferred class G_IO_CONDITIONS
+
+inherit ANY undefine is_equal, copy end
 
 feature {}
 

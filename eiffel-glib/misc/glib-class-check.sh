@@ -7,6 +7,11 @@ WRONG_EXAMPLES=examples-with-errors
 CORRECT_EXAMPLES=correct-examples
 
 check_position () {
+    if [ ! $eiffel_libraries ] 
+    then 
+	echo "\$eiffel_libraries enviromental variable not set. Quitting"
+	exit 5
+    fi
     if [ ! -f loadpath.se ] ; then
 	echo "Couldn't find loadpath.se in current directory cluster."
 	exit 5
@@ -32,6 +37,7 @@ check_classes () {
 		grep -v -F -f $WRONG_CLASSES
             else find library -iname "*.e" | grep -v stub 
 	    fi
+	    rm $WRONG_CLASSES # We are checking them anew.
 	    );
 	do
 	    echo Checking $CLASS
@@ -117,6 +123,9 @@ $0
   and ask the developer to confirm its correct behaviour. Those that
   seems to behave correctly are added to $CORRECT_EXAMPLES, the others
   to $WRONG_EXAMPLES.
+
+Usage: run it in a cluster of the Eiffel Wrapper Library Collection,
+i.e. eiffel-gtk, eiffel-gda, eiffel-glib.
 
 EOF
 
