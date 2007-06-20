@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature  -- enum
 
-	is_valid_icon_size (an_icon_size: INTEGER): BOOLEAN is
+	is_valid_gtk_icon_size (an_icon_size: INTEGER): BOOLEAN is
 		do
 			Result:=((an_icon_size = gtk_icon_size_invalid) or else
 						(an_icon_size = gtk_icon_size_menu) or else

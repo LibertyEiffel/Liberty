@@ -96,7 +96,7 @@ feature
 		do
 			is_sort_column_id_not_special := (gtk_tree_sortable_get_sort_column_id (handle, $a_column,
 																											$Result)).to_boolean
-		ensure is_valid_sort_type (Result)
+		ensure is_valid_gtk_sort_type (Result)
 		end
 	
 	set_sort_column_id (a_column_id, an_order: INTEGER) is
@@ -108,7 +108,7 @@ feature
 			-- sort function will be used, if it is set.
 		
 			-- `an_order' is the sort order of the column
-		require valid_order: is_valid_sort_type (an_order)
+		require valid_order: is_valid_gtk_sort_type (an_order)
 		do
 			gtk_tree_sortable_set_sort_column_id (handle, a_column_id, an_order)
 		end

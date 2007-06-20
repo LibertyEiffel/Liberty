@@ -162,7 +162,7 @@ feature -- Comparability
 			--   negative value if Current < `other,' or a positive
 			--   value if Current > `other'
 		do
-			Result:=gtk_printer_compare(handle, another.handle)
+			Result:=gtk_printer_compare(handle, other.handle)
 		end
 	
 feature -- TODO unwrapped 

@@ -42,7 +42,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_state_type (a_state_type: INTEGER): BOOLEAN is
+	is_valid_gtk_state_type (a_state_type: INTEGER): BOOLEAN is
 		do
 			Result:=((a_state_type = gtk_state_normal) or else
 			         (a_state_type = gtk_state_active) or else

@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_justification (a_justification :INTEGER): BOOLEAN is
+	is_valid_gtk_justification (a_justification :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_justification= gtk_justify_left) or else
 						(a_justification= gtk_justify_right) or else

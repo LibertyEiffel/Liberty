@@ -66,7 +66,7 @@ feature -- Queries
 		do
 			-- The string returned by gtk_about_dialog_get_name is owned
 			-- by the about dialog and must not be modified.
-			create {CONST_STRING} Result.from_external_pointer (gtk_about_dialog_get_name(handle))
+			create {CONST_STRING} Result.from_external (gtk_about_dialog_get_name(handle))
 		end
 
 	version: STRING is

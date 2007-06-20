@@ -115,4 +115,5 @@ feature
 
 	--   GtkFontSelectionDialog a dialog box which uses GtkFontSelection.
 
-end -- class FOO
+end -- class GTK_FONT_SELECTION
+

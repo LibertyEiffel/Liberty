@@ -25,7 +25,7 @@ deferred class GTK_ICON_THEME_ERROR
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_theme_error (an_error: INTEGER): BOOLEAN is
+	is_valid_gtk_theme_error (an_error: INTEGER): BOOLEAN is
 		do	
 			Result:=((an_error = gtk_icon_theme_not_found) or else
 						(an_error = gtk_icon_theme_failed))

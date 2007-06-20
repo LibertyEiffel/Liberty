@@ -27,7 +27,7 @@ deferred class GTK_ASSISTANT_PAGE_TYPE_ENUM
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_page_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_page_type (a_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type=gtk_assistant_page_content) or else
 						(a_type=gtk_assistant_page_intro) or else

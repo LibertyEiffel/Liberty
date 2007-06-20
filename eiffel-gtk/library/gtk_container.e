@@ -102,7 +102,7 @@ feature
 			-- of a container determines whether a resize request will be
 			-- passed to the container's parent or queued for later
 			-- execution.
-		require valid_mode: is_valid_resize_mode (a_mode)
+		require valid_mode: is_valid_gtk_resize_mode (a_mode)
 		do
 			gtk_container_set_resize_mode (handle, a_mode)
 		end

@@ -48,7 +48,7 @@ feature {} -- Creation
 			-- an_action : 	the open mode for the widget.
 		require
 			valid_title: a_title /= Void
-			is_valid_file_chooser_action (an_action)
+			is_valid_gtk_file_chooser_action (an_action)
 		do
 			from_external_pointer (gtk_file_chooser_button_new (a_title.to_external, an_action))
 		end

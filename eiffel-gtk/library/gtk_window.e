@@ -239,7 +239,7 @@ feature -- Window position
 			-- `gtk_win_pos_center_always', this will also cause the
 			-- window to be repositioned to satisfy the new constraint.
 			-- `a_position': a position constraint.
-		require valid_position: is_valid_window_position (a_position)
+		require valid_position: is_valid_gtk_window_position (a_position)
 		do
 			gtk_window_set_position (handle,a_position)
 		end

@@ -111,7 +111,7 @@ feature
 			-- the child model of filter.
 		local model_ptr: POINTER; retriever: G_RETRIEVER[GTK_TREE_MODEL]
 		do
-			model_ptr := gtk_tree_model_filter_get_model
+			model_ptr := gtk_tree_model_filter_get_model(handle)
 			check 
 				model_ptr_not_null: model_ptr.is_not_null
 				wrapper_exists: retriever.has_eiffel_wrapper_stored(model_ptr)

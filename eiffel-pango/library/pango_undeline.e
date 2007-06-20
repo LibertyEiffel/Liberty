@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 
 feature {} -- enum
-	is_valid_underline (a_type :INTEGER): BOOLEAN is
+	is_valid_pango_underline (a_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type = pango_underline_none) or else
 						(a_type = pango_underline_single) or else

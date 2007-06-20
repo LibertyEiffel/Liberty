@@ -19,69 +19,65 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: GtkIconTheme provides a facility for looking
-			-- up icons by name and size.  The main reason for using a
-			-- name rather than simply providing a filename is to allow
-			-- different icons to be used depending on what icon theme is
-			-- selecetd by the user. The operation of icon themes on
-			-- Linux and Unix follows the Icon Theme Specification. There
-			-- is a default icon theme, named hicolor where applications
-			-- should install their icons, but more additional
-			-- application themes can be installed as operating system
-			-- vendors and users choose.
-
-			-- Named icons are similar to the Themeable Stock Images(3)
-			-- facility, and the distinction between the two may be a bit
-			-- confusing. A few things to keep in mind:
-			
-			-- o Stock images usually are used in conjunction with Stock
-			-- Items(3)., such as GTK_STOCK_OK or GTK_STOCK_OPEN. Named
-			-- icons are easier to set up and therefore are more useful
-			-- for new icons that an application wants to add, such as
-			-- application icons or window icons.
-
-			-- o Stock images can only be loaded at the symbolic sizes
-			-- defined by the GtkIconSize enumeration, or by custom sizes
-			-- defined by gtk_icon_size_register(), while named icons are
-			-- more flexible and any pixel size can be specified.
-
-			-- o Because stock images are closely tied to stock items,
-			-- and thus to actions in the user interface, stock images
-			-- may come in multiple variants for different widget states
-			-- or writing directions.
-			
-			-- A good rule of thumb is that if there is a stock image for
-			-- what you want to use, use it, otherwise use a named
-			-- icon. It turns out that internally stock images are
-			-- generally defined in terms of one or more named icons.
-			-- (An example of the more than one case is icons that depend
-			-- on writing direction; GTK_STOCK_GO_FORWARD uses the two
-			-- themed icons "gtk-stock-go-forward-ltr" and
-			-- "gtk-stock-go-forward-rtl".)
-
-			-- In many cases, named themes are used indirectly, via
-			-- GtkImage or stock items, rather than directly, but looking
-			-- up icons directly is also simple.  The GtkIconTheme object
-			-- acts as a database of all the icons in the current
-			-- theme. You can create new GtkIconTheme objects, but its
-			-- much more efficient to use the standard icon theme for the
-			-- GdkScreen so that the icon information is shared with
-			-- other people looking up icons. In the case where the
-			-- default screen is being used, looking up an icon can be as
-			-- simple as:
-			
-			--  GError *error = NULL;
-			--  GtkIconTheme *icon_theme;
-			--  GdkPixbuf *pixbuf;
-
-			-- icon_theme = gtk_icon_theme_get_default(); pixbuf =
-			-- gtk_icon_theme_load_icon (icon_theme, "my-icon-name", /*
-			-- icon name */ 48, /* size */ 0, /* flags */ &error); if
-			-- (!pixbuf) { g_warning ("Couldn't load icon: %s",
-			-- error->message); g_error_free (error); } else { /* Use the
-			-- pixbuf */ g_object_unref (pixbuf); }
-
 class GTK_ICON_THEME
+	-- GtkIconTheme provides a facility for looking up icons by name
+	-- and size.  The main reason for using a name rather than simply
+	-- providing a filename is to allow different icons to be used
+	-- depending on what icon theme is selecetd by the user. The
+	-- operation of icon themes on Linux and Unix follows the Icon
+	-- Theme Specification. There is a default icon theme, named
+	-- hicolor where applications should install their icons, but more
+	-- additional application themes can be installed as operating
+	-- system vendors and users choose.
+
+	-- Named icons are similar to the Themeable Stock Images(3)
+	-- facility, and the distinction between the two may be a bit
+	-- confusing. A few things to keep in mind:
+			
+	-- o Stock images usually are used in conjunction with Stock
+	-- Items(3)., such as GTK_STOCK_OK or GTK_STOCK_OPEN. Named icons
+	-- are easier to set up and therefore are more useful for new icons
+	-- that an application wants to add, such as application icons or
+	-- window icons.
+
+	-- o Stock images can only be loaded at the symbolic sizes defined
+	-- by the GtkIconSize enumeration, or by custom sizes defined by
+	-- gtk_icon_size_register(), while named icons are more flexible
+	-- and any pixel size can be specified.
+
+	-- o Because stock images are closely tied to stock items, and thus
+	-- to actions in the user interface, stock images may come in
+	-- multiple variants for different widget states or writing
+	-- directions.
+			
+	-- A good rule of thumb is that if there is a stock image for what
+	-- you want to use, use it, otherwise use a named icon. It turns
+	-- out that internally stock images are generally defined in terms
+	-- of one or more named icons.  (An example of the more than one
+	-- case is icons that depend on writing direction;
+	-- GTK_STOCK_GO_FORWARD uses the two themed icons
+	-- "gtk-stock-go-forward-ltr" and "gtk-stock-go-forward-rtl".)
+
+	-- In many cases, named themes are used indirectly, via GtkImage or
+	-- stock items, rather than directly, but looking up icons directly
+	-- is also simple.  The GtkIconTheme object acts as a database of
+	-- all the icons in the current theme. You can create new
+	-- GtkIconTheme objects, but its much more efficient to use the
+	-- standard icon theme for the GdkScreen so that the icon
+	-- information is shared with other people looking up icons. In the
+	-- case where the default screen is being used, looking up an icon
+	-- can be as simple as: (TODO: Eiffelize example)
+			
+	--  GError *error = NULL;
+	--  GtkIconTheme *icon_theme;
+	--  GdkPixbuf *pixbuf;
+
+	-- icon_theme = gtk_icon_theme_get_default(); pixbuf =
+	-- gtk_icon_theme_load_icon (icon_theme, "my-icon-name", /*
+	-- icon name */ 48, /* size */ 0, /* flags */ &error); if
+	-- (!pixbuf) { g_warning ("Couldn't load icon: %s",
+	-- error->message); g_error_free (error); } else { /* Use the
+	-- pixbuf */ g_object_unref (pixbuf); }
 
 inherit
 	G_OBJECT
@@ -91,7 +87,7 @@ insert
 		
 		-- TODO: enum        GtkIconThemeError;
 	
-creation make, default, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -105,17 +101,6 @@ feature {} -- Creation
 			from_external_pointer(gtk_icon_theme_new)
 		end
 
-	-- 	default is -- The icon theme for the default screen. See also
-	-- 	-- `get_for_screen'.
-
-	-- 			-- A unique GtkIconTheme associated with the default
-	-- 			-- screen. This icon theme is associated with the screen and
-	-- 			-- can be used as long as the screen is open. Do not ref or
-	-- 			-- unref it.
-	-- 		do
-	-- 			handle := gtk_icon_theme_get_default
-	-- 		end
-	
 	from_screen (a_screen: GDK_SCREEN) is
 			-- the icon theme object associated with `a_screen'; if this
 			-- function has not previously been called for the given
@@ -167,7 +152,7 @@ feature
 			-- `some_path': array of directories that are searched for
 			-- icon themes
 		do
-			gtk_icon_theme_set_search_path  (handle, some_path.storage, some_path.count)
+			gtk_icon_theme_set_search_path  (handle, some_path.storage.to_pointer, some_path.count)
 		end
 
 	-- search_path: 
@@ -621,11 +606,6 @@ feature {} -- External calls
 
 	gtk_icon_theme_new: POINTER is
 			-- GtkIconTheme* gtk_icon_theme_new (void);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_icon_theme_get_default: POINTER is
-			-- GtkIconTheme* gtk_icon_theme_get_default (void);
 		external "C use <gtk/gtk.h>"
 		end
 

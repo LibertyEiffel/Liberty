@@ -15,7 +15,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_accel_label_set_accel_closure (an_accel_label: POINTER, GClosure *accel_closure) is
+	gtk_accel_label_set_accel_closure (an_accel_label, an_accel_closure: POINTER) is
 			-- void gtk_accel_label_set_accel_closure (GtkAccelLabel *accel_label, GClosure *accel_closure);
 		external "C use <gtk/gtk.h>"
 		end
@@ -44,9 +44,4 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkAccelLabel)"
-		end
 end

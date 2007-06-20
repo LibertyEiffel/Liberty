@@ -87,11 +87,15 @@ class GTK_PRINT_OPERATION
 inherit 
 	G_OBJECT
 	GTK_PRINT_OPERATION_PREVIEW
-
+		redefine
+			struct_size
+		end
+	
 insert
 	GTK_PRINT_OPERATION_EXTERNALS
 	GTK_PRINT_OPERATION_ACTIONS
-	SHARED_G_ERROR
+	G_OBJECT_RETRIEVER[GTK_PAGE_SETUP]
+		-- SHARED_G_ERROR
 	GTK -- to get error
 	
 creation make, from_external_pointer
@@ -111,7 +115,7 @@ feature -- Setters
 			-- allow asynchronous operation.
 		do
 			gtk_print_operation_set_allow_async(handle, a_setting.to_integer) 
-		ensure set: a_setting = allows_async
+		ensure set: a_setting = async_allowed
 		end
 
 	set_default_page_setup (a_default_page_setup: GTK_PAGE_SETUP) is
@@ -192,7 +196,7 @@ feature -- Setters
 			-- Sets up the transformation for the cairo context obtained
 			-- from GtkPrintContext in such a way that distances are
 			-- measured in `a_unit'.
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		do
 			gtk_print_operation_set_unit (handle, a_unit)
 		end
@@ -238,7 +242,7 @@ feature -- Setters
 			-- `a_label'; if Void the default label is used
 		do
 			if a_label=Void then
-				gtk_print_operation_set_custom_tab_label(handle,defautl_pointer)
+				gtk_print_operation_set_custom_tab_label(handle,default_pointer)
 			else
 				gtk_print_operation_set_custom_tab_label(handle,a_label.to_external)
 			end
@@ -263,7 +267,7 @@ feature -- Getters
 		do
 			ptr:=gtk_print_operation_get_default_page_setup(handle)
 			if ptr.is_not_null then
-				Result:=eiffel_wrapper_from_gobject_pointer(ptr)
+				Result := eiffel_wrapper_from_gobject_pointer(ptr)
 				if Result=Void then
 					create Result.from_external_pointer(ptr)
 				end    				
@@ -356,7 +360,7 @@ feature -- Getters
 			operation_result:=gtk_print_operation_run(handle, an_action,
 												  null_or(a_parent),
 												  address_of(gtk.error.handle))
-		ensure valid_result: is_valid_print_operation_result (operation_result)
+		ensure valid_result: is_valid_gtk_print_operation_result (operation_result)
 		end
 
 	cancel is
@@ -372,7 +376,7 @@ feature -- Getters
 			-- `status_string'.
 		do
 			Result:=gtk_print_operation_get_status(handle)
-		ensure valid: is_valid_print_status(Result)
+		ensure valid: is_valid_gtk_print_status(Result)
 		end
 	
 	status_string: CONST_STRING is
@@ -500,25 +504,29 @@ feature -- Property Details
 	--   "use-full-page"        gboolean              : Read / Write
 	--
 
-	--  The "allow-async" property
-	--
-	--   "allow-async"          gboolean              : Read / Write
-	--
-	--   Determines whether the print operation may run asynchronously or not.
-	--
-	--   Some systems don't support asynchronous printing, but those that do will
-	--   return GTK_PRINT_OPERATION_RESULT_IN_PROGRESS as the status, and emit the
-	--   done signal when the operation is actually done.
-	--
-	--   The Windows port does not support asynchronous operation at all (this is
-	--   unlikely to change). On other platforms, all actions except for
-	--   GTK_PRINT_OPERATION_ACTION_EXPORT support asynchronous operation.
-	--
-	--   Default value: FALSE
-	--
-	--   Since 2.10
-	--
-	--   --------------------------------------------------------------------------
+	async_allowed: BOOLEAN is
+			-- May the print operation run asynchronously?
+
+			-- Wraps the "allow-async" property
+
+			--  "allow-async" gboolean : Read / Write
+
+			-- Some systems don't support asynchronous printing, but
+			-- those that do will return
+			-- `gtk_print_operation_result_in_progress' as the status,
+			-- and emit the done signal when the operation is actually
+			-- done.
+
+			-- The Windows port does not support asynchronous operation
+			-- at all (this is unlikely to change). On other platforms,
+			-- all actions except for GTK_PRINT_OPERATION_ACTION_EXPORT
+			-- support asynchronous operation.
+
+			--   Default value: FALSE
+		do
+			Result:=boolean_property_from_pspec(allow_async_property_spec)
+		end
+		
 	--
 	--  The "current-page" property
 	--
@@ -1036,5 +1044,19 @@ feature {} -- Unwrapped code
 	-- #define GTK_PRINT_ERROR gtk_print_error_quark ()
 	--
 	--   The GQuark used for GtkPrintError errors.
+
+feature {} -- Hastened property spec
+	allow_async_property_spec: G_PARAM_SPEC is
+		once
+			Result := find_property (allow_async_property_name)
+		end
+
+	allow_async_property_name: STRING is "allow-async"
+	
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkPrintOperation)"
+		end
 
 end -- class GTK_PRINT_OPERATION

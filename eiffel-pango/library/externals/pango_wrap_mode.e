@@ -31,7 +31,7 @@ inherit ANY undefine is_equal, copy end
 
 feature -- enum
 
-	is_valid_wrap_mode (a_wrap_mode: INTEGER) : BOOLEAN is
+	is_valid_pango_wrap_mode (a_wrap_mode: INTEGER) : BOOLEAN is
 		do
 			Result:=((a_wrap_mode = pango_wrap_word) or else
 			         (a_wrap_mode = pango_wrap_char) or else

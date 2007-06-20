@@ -99,7 +99,7 @@ feature {} -- Creation
 		require 
 			name_not_void: a_name /= Void
 			display_name_not_void: a_display_name /= Void
-			valid_unit: is_valid_unit (a_unit)
+			valid_unit: is_valid_gtk_unit (a_unit)
 		do
 			from_external_pointer(gtk_paper_size_new_custom
 										 (a_name.to_external, a_display_name.to_external,
@@ -208,7 +208,7 @@ feature -- Setters
 	set_size (a_width, an_height: REAL; a_unit: INTEGER) is
 			-- Changes the dimensions of a size to `a_width' x `an_height', 
 			-- expressed in `a_unit'.
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		do
 			gtk_paper_size_set_size(handle, a_width, an_height, a_unit)
 		end

@@ -233,7 +233,7 @@ feature {} -- External calls
 			-- window : 	a GtkWindow
 			-- Returns : 	window gravity
 		external "C use <gtk/gtk.h>"
-		-- ensure valid_gravity: is_valid_gravity (Result)
+		-- ensure valid_gravity: is_valid_gtk_gravity (Result)
 		end
 
 

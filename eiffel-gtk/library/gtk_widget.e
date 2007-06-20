@@ -85,7 +85,7 @@ feature -- Operation
 			-- Sets a widget as a potential drop destination.
 			-- TODO: GtkTargetEntry isn't wrapped yet, use add_text_targets() and such..
 		require
-			is_valid_dest_defaults (a_flags)
+			is_valid_gtk_dest_defaults (a_flags)
 			is_valid_gdk_drag_action (an_actions)
 		do
 			gtk_drag_dest_set (handle, a_flags, default_pointer, 0, an_actions)

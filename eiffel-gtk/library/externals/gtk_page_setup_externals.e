@@ -27,13 +27,13 @@ feature {} -- External calls
 	gtk_page_setup_get_orientation(a_setup: POINTER): INTEGER is
 			-- GtkPageOrientation gtk_page_setup_get_orientation(GtkPageSetup *setup);
 		external "C use <gtk/gtk.h>"
-		ensure valid_result: is_valid_page_orientation(Result)
+		ensure valid_result: is_valid_gtk_page_orientation(Result)
 		end
 
 	gtk_page_setup_set_orientation (a_setup: POINTER; an_orientation: INTEGER) is
 			-- void gtk_page_setup_set_orientation (GtkPageSetup *setup,
 			-- GtkPageOrientation orientation);
-		require valid_result: is_valid_page_orientation(an_orientation)
+		require valid_result: is_valid_gtk_page_orientation(an_orientation)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -51,56 +51,56 @@ feature {} -- External calls
 
 	gtk_page_setup_get_top_margin (a_setup: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_page_setup_get_top_margin (GtkPageSetup *setup, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_page_setup_set_top_margin (a_setup: POINTER; a_margin: REAL; a_unit: INTEGER) is
 			-- void gtk_page_setup_set_top_margin (GtkPageSetup *setup,
 			-- gdouble margin, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_page_setup_get_bottom_margin(a_setup: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_page_setup_get_bottom_margin(GtkPageSetup
 			-- *setup, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_page_setup_set_bottom_margin(a_setup: POINTER; margin: REAL; a_unit: INTEGER) is
 			-- void gtk_page_setup_set_bottom_margin(GtkPageSetup *setup,
 			-- gdouble margin, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_page_setup_get_left_margin (a_setup: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_page_setup_get_left_margin (GtkPageSetup
 			-- *setup, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_page_setup_set_left_margin (a_setup: POINTER; a_margin: REAL; a_unit: INTEGER) is
 			-- void gtk_page_setup_set_left_margin (GtkPageSetup *setup,
 			-- gdouble margin, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_page_setup_get_right_margin (a_setup: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_page_setup_get_right_margin (GtkPageSetup
 			-- *setup, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_page_setup_set_right_margin (a_setup: POINTER; a_margin: REAL; a_unit: INTEGER) is
 			-- void gtk_page_setup_set_right_margin (GtkPageSetup *setup,
 			-- gdouble margin, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -113,28 +113,28 @@ feature {} -- External calls
 	gtk_page_setup_get_paper_width (a_setup: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_page_setup_get_paper_width (GtkPageSetup
 			-- *setup, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_page_setup_get_paper_height (a_setup: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_page_setup_get_paper_height (GtkPageSetup
 			-- *setup, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_page_setup_get_page_width (a_setup: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_page_setup_get_page_width (GtkPageSetup
 			-- *setup, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 	
 	gtk_page_setup_get_page_height (a_setup: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_page_setup_get_page_height (GtkPageSetup
 			-- *setup, GtkUnit unit);
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 

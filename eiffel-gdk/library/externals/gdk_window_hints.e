@@ -22,14 +22,15 @@ indexing
 
 deferred class GDK_WINDOW_HINTS
 	-- Used to indicate which fields of a GdkGeometry struct should be
-	-- paid attention to. Also, the presence/absence of GDK_HINT_POS,
-	-- GDK_HINT_USER_POS, and GDK_HINT_USER_SIZE is significant, though
-	-- they don't directly refer to GdkGeometry
-	-- fields. GDK_HINT_USER_POS will be set automatically by GtkWindow
-	-- if you call gtk_window_move(). GDK_HINT_USER_POS and
-	-- GDK_HINT_USER_SIZE should be set if the user specified a
+	-- paid attention to. Also, the presence/absence of `gdk_hint_pos',
+	-- `gdk_hint_user_pos', and `gdk_hint_user_size' is significant,
+	-- though they don't directly refer to `GDK_GEOMETRY_STRUCT' (TODO)
+	-- fields. `gdk_hint_user_pos' will be set automatically by
+	-- GtkWindow if you call GTK_WINDOW's `move'. `gdk_hint_user_pos'
+	-- and `gdk_hint_user_size' should be set if the user specified a
 	-- size/position using a --geometry command-line argument;
-	-- gtk_window_parse_geometry() automatically sets these flags.
+	-- GTK_WINDOW's `parse_geometry' (TODO) automatically sets these
+	-- flags.
 
 inherit ANY undefine is_equal, copy end
 

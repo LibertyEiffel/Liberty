@@ -150,7 +150,7 @@ feature
 			-- data, the return value will be `gtk_image_empty'.
 		do
 			Result := gtk_status_icon_get_storage_type (handle)
-		ensure valid_type: is_valid_image_type (Result)
+		ensure valid_type: is_valid_gtk_image_type (Result)
 		end
 
 

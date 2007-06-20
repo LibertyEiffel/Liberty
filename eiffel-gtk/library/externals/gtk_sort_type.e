@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_sort_type (a_sort_type: INTEGER): BOOLEAN is
+	is_valid_gtk_sort_type (a_sort_type: INTEGER): BOOLEAN is
 		do
 			Result:=((a_sort_type=gtk_sort_ascending) or else
 						(a_sort_type=gtk_sort_descending))

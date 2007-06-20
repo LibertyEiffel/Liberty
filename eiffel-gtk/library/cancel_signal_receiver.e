@@ -21,12 +21,8 @@ indexing
 
 deferred class CANCEL_SIGNAL_RECEIVER
 
-inherit 
-	GTK_WIDGET
+inherit GTK_WIDGET
 
-creation make, from_external_pointer
-
-feature {} -- Creation
 feature -- The "cancel" signal
 	cancel_signal_name: STRING is "cancel"
 	

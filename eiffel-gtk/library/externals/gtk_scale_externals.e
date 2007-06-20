@@ -38,7 +38,7 @@ feature {} -- External calls
 		end
 
 	gtk_scale_set_value_pos (a_scale: POINTER; a_gtk_position_type: INTEGER) is
-		require is_valid_position_type (a_gtk_position_type)
+		require is_valid_gtk_position_type (a_gtk_position_type)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -52,7 +52,7 @@ feature {} -- External calls
 
 	gtk_scale_get_value_pos (a_scale: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
-		ensure is_valid_position_type (Result)
+		ensure is_valid_gtk_position_type (Result)
 		end
 
 	gtk_scale_get_layout (a_scale: POINTER): POINTER is

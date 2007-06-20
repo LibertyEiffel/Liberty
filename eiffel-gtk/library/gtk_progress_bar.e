@@ -105,7 +105,7 @@ feature -- Status setting
 			-- Causes the progress bar to switch to a different
 			-- orientation (left-to-right, right-to-left, top-to-bottom,
 			-- or bottom-to-top).
-		require valid_orientation: is_valid_progress_bar_orientation (an_orientation)
+		require valid_orientation: is_valid_gtk_progress_bar_orientation (an_orientation)
 		do
 			gtk_progress_bar_set_orientation (handle, an_orientation)
 		end
@@ -114,7 +114,7 @@ feature -- Status setting
 			-- Sets the mode used to ellipsize (add an ellipsis: "...")
 			-- the text if there is not enough space to render the entire
 			-- string.
-		require is_valid_ellipsize_mode: is_valid_ellipsize_mode(a_mode)
+		require is_valid_ellipsize_mode: is_valid_pango_ellipsize_mode(a_mode)
 		do
 			gtk_progress_bar_set_ellipsize (handle, a_mode)
 		end
@@ -143,14 +143,14 @@ feature -- Status report
 		do
 			Result:=gtk_progress_bar_get_orientation(handle)
 		ensure valid_progress_bar_orientation:
-			is_valid_progress_bar_orientation (Result)
+			is_valid_gtk_progress_bar_orientation (Result)
 		end
 
 	ellipsize_mode: INTEGER is
 			-- the ellipsizing position of the progressbar. See `set_ellipsize'
 		do
 			Result := gtk_progress_bar_get_ellipsize (handle)
-		ensure valid_ellipsize_mode: is_valid_ellipsize_mode(Result)
+		ensure valid_ellipsize_mode: is_valid_pango_ellipsize_mode(Result)
 		end
 
 	pulse_step: REAL is

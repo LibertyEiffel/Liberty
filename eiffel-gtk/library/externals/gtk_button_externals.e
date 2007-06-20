@@ -66,13 +66,13 @@ feature {} -- External calls
 		end
 
 	gtk_button_set_relief (a_button: POINTER; a_gtkreliefstyle: INTEGER) is
-		require valid_style: is_valid_relief_style (a_gtkreliefstyle)
+		require valid_style: is_valid_gtk_relief_style (a_gtkreliefstyle)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_button_get_relief (a_button: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
-		ensure valid_style: is_valid_relief_style (Result)
+		ensure valid_style: is_valid_gtk_relief_style (Result)
 		end
 
 	gtk_button_get_label (a_button: POINTER): POINTER is
@@ -127,14 +127,14 @@ feature {} -- External calls
 
 --	gtk_button_set_image_position (handle: POINTER; a_position: INTEGER) is
 --		require
---			is_valid_position_type (a_position)
+--			is_valid_gtk_position_type (a_position)
 --		external "C use <gtk/gtk.h>"
 --		end
 --
 --	gtk_button_get_image_position (handle: POINTER): INTEGER is
 --		external "C use <gtk/gtk.h>"
 --		ensure
---			is_valid_position_type (Result)
+--			is_valid_gtk_position_type (Result)
 --		end
 
 -- Signals

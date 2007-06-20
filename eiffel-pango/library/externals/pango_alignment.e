@@ -32,7 +32,7 @@ inherit ANY undefine is_equal, copy end
 
 feature -- enum
 
-	is_valid_alignment (an_alignment: INTEGER) : BOOLEAN is
+	is_valid_pango_alignment (an_alignment: INTEGER) : BOOLEAN is
 		do
 			Result:=((an_alignment = pango_align_left) or else
 			         (an_alignment = pango_align_center) or else

@@ -34,7 +34,7 @@ feature {} -- External calls
 		end
 
 	gtk_range_set_update_policy (a_range: POINTER; a_gtkupdatetype: INTEGER) is
-		require is_valid_update_type(a_gtkupdatetype)
+		require is_valid_gtk_update_type(a_gtkupdatetype)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -52,7 +52,7 @@ feature {} -- External calls
 
 	gtk_range_get_update_policy (a_range: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
-		ensure  is_valid_update_type(Result)
+		ensure  is_valid_gtk_update_type(Result)
 		end
 
 	gtk_range_get_value (a_range: POINTER): REAL_64 is

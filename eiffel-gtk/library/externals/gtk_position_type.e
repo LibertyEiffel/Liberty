@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_position_type (a_position: INTEGER): BOOLEAN is
+	is_valid_gtk_position_type (a_position: INTEGER): BOOLEAN is
 		do
 			Result := ((a_position=gtk_pos_left) or else
 			           (a_position=gtk_pos_right) or else

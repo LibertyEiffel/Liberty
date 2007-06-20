@@ -26,12 +26,12 @@ class CANCEL_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_ASSISTANT]
+insert G_OBJECT_RETRIEVER [CANCEL_SIGNAL_RECEIVER]
 
 creation make
 
 feature 
-	object: GTK_ASSISTANT
+	object: CANCEL_SIGNAL_RECEIVER
 
 feature
 	callback (instance: POINTER) is
@@ -56,7 +56,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: GTK_ASSISTANT; a_procedure: PROCEDURE [ANY, TUPLE[CANCEL_SIGNAL_RECEIVER]]) is
+	connect (an_object: CANCEL_SIGNAL_RECEIVER; a_procedure: PROCEDURE [ANY, TUPLE[CANCEL_SIGNAL_RECEIVER]]) is
 		do
 			debug
 				print ("CANCEL_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)

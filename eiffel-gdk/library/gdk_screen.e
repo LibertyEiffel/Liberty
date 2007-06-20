@@ -890,7 +890,7 @@ feature {} -- External calls
 		end
 
 
-	gdk_spawn_on_screen (a_screen, a_working_directory, an_argv, an_envp: POINTER; some_flags: INTEGER, a_child_setup_function, some_data, a_child_pid, an_error: POINTER): INTEGER is
+	gdk_spawn_on_screen (a_screen, a_working_directory, an_argv, an_envp: POINTER; some_flags: INTEGER; a_child_setup_function, some_data, a_child_pid, an_error: POINTER): INTEGER is
 			-- gboolean gdk_spawn_on_screen (GdkScreen *screen, const
 			-- gchar *working_directory, gchar **argv, gchar **envp,
 			-- GSpawnFlags flags, GSpawnChildSetupFunc child_setup,
@@ -898,7 +898,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gdk_spawn_on_screen_with_pipes (a_screen, a_working_directory, an_argv, an_envp: POINTER; some_flags: INTEGER; a_gspawn_child_setup_func, some_data, a_child_pid, a_standard_input: POINTER, a_standard_output: POINTER, a_standard_error, an_error: POINTER): INTEGER is
+	gdk_spawn_on_screen_with_pipes (a_screen, a_working_directory, an_argv, an_envp: POINTER; some_flags: INTEGER; a_gspawn_child_setup_func, some_data, a_child_pid, a_standard_input, a_standard_output, a_standard_error, an_error: POINTER): INTEGER is
 			-- gboolean gdk_spawn_on_screen_with_pipes (GdkScreen
 			-- *screen, const gchar *working_directory, gchar **argv,
 			-- gchar **envp, GSpawnFlags flags, GSpawnChildSetupFunc

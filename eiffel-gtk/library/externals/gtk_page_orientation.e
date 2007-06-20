@@ -24,7 +24,7 @@ deferred class GTK_PAGE_ORIENTATION
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_page_orientation (an_orientation: INTEGER): BOOLEAN is
+	is_valid_gtk_page_orientation (an_orientation: INTEGER): BOOLEAN is
 		do	
 			Result:=((an_orientation=gtk_page_orientation_portrait) or else
 						(an_orientation=gtk_page_orientation_landscape) or else

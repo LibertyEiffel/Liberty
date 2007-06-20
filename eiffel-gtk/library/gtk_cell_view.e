@@ -68,7 +68,7 @@ feature {} -- Creation
 		do
 			handle:=gtk_cell_view_new_with_pixbuf (a_pixbuf.handle)
 			store_eiffel_wrapper
-		endl
+		end
 
 feature
 	set_model (a_model: GTK_TREE_MODEL) is
@@ -135,7 +135,7 @@ feature
 			-- the cell renderers which have been added to Current
 			-- cell_view.
 		do
-			create Result.make (gtk_cell_view_get_cell_renderers (handle))
+			create Result.from_external_pointer (gtk_cell_view_get_cell_renderers (handle))
 			debug print (once "Warning! Possible memory problems in GTK_CELL_VIEW.cell_renderers%N") end
 			-- TODO: The returned list, but not the renderers has been newly
 			-- allocated and should be freed with g_list_free() when no
@@ -145,7 +145,7 @@ feature
 feature 	-- The "background" property
 	set_backgroud_color_name (a_color_name: STRING) is
 		do
-			set_string_property (background_property_name, a_color_name.to_external)
+			set_string_property (background_property_name, a_color_name)
 		end
 	
 	--   "background"           gchararray            : Write
@@ -166,11 +166,14 @@ feature 	-- The "background" property
 
 	-- Default value: FALSE
 
-feature {} -- size
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellView)"
 		end
+
+feature {} -- Properties string-names
+		background_property_name: STRING is "background"
 
 feature {} -- External calls
 	gtk_cell_view_new: POINTER  is

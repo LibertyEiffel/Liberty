@@ -21,16 +21,16 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-			-- GtkFileChooserWidget is a widget suitable for selecting files.
-			-- It is the main building block of a GtkFileChooserDialog.
-			-- Most applications will only need to use the latter; you can
-			-- use GtkFileChooserWidget as part of a larger window if
-			-- you have special needs.
-			-- Note that GtkFileChooserWidget does not have any methods of
-			-- its own. Instead, you should use the functions that work on
- 			-- a GtkFileChooser.
-
 class GTK_FILE_CHOOSER_WIDGET
+	-- GtkFileChooserWidget is a widget suitable for selecting files.
+	-- It is the main building block of a GtkFileChooserDialog. Most
+	-- applications will only need to use the latter; you can use
+	-- GtkFileChooserWidget as part of a larger window if you have
+	-- special needs.
+
+	-- Note that GtkFileChooserWidget does not have any methods of its
+	-- own. Instead, you should use the functions that work on a
+	-- GtkFileChooser.
 
 inherit
 	--GTK_VBOX
@@ -44,7 +44,6 @@ creation
 	with_backend,
 	from_external_pointer
 
-
 feature {} -- Creation
 
 	make (an_action: INTEGER) is
@@ -53,7 +52,7 @@ feature {} -- Creation
 			-- that is used by GtkFileChooserDialog.
 			-- an_action : 	Open or save mode for the widget
 		require
-			is_valid_file_chooser_action (an_action)
+			is_valid_gtk_file_chooser_action (an_action)
 		do
 			from_external_pointer (gtk_file_chooser_widget_new (an_action))
 		end
@@ -67,9 +66,14 @@ feature {} -- Creation
 			-- an_action : 	Open or save mode for the widget
 			-- backend : 	The name of the specific filesystem backend to use.
 		require
-			is_valid_file_chooser_action (an_action)
+			is_valid_gtk_file_chooser_action (an_action)
 		do
 			from_external_pointer (gtk_file_chooser_widget_new_with_backend (an_action, backend.to_external))
 		end
 
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkFileChooserWidget)"
+		end
 end

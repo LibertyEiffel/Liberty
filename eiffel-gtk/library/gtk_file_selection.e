@@ -96,14 +96,18 @@ obsolete
 inherit
 	GTK_DIALOG
 		undefine
-			struct_size, get_action_area
+			struct_size,
+			get_action_area
 		end
 		--   GtkFileSelection implements AtkImplementorIface.
 
 insert
 	GTK_FILE_SELECTION_EXTERNALS
 	GTK_FILE_SELECTION_STRUCT
-		undefine copy, is_equal end
+		undefine
+			copy,
+			is_equal
+		end
 
 creation make, from_external_pointer
 

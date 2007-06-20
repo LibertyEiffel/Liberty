@@ -781,7 +781,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_action_group_add_radio_actions_full (an_action_group, some_entries: POINTER; guint_n_entries; a_value: INTEGER; on_change_gcallback, user_data, gdestroynotify: POINTER) is
+	gtk_action_group_add_radio_actions_full (an_action_group, some_entries: POINTER; guint_n_entries, a_value: INTEGER; on_change_gcallback, user_data, gdestroynotify: POINTER) is
 			-- void gtk_action_group_add_radio_actions_full
 			-- (GtkActionGroup *action_group, const GtkRadioActionEntry
 			-- *entries, guint n_entries, gint value, GCallback

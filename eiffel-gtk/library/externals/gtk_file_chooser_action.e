@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_file_chooser_action (a_gtk_file_chooser_action: INTEGER): BOOLEAN is
+	is_valid_gtk_file_chooser_action (a_gtk_file_chooser_action: INTEGER): BOOLEAN is
 		do
 			Result:=((a_gtk_file_chooser_action=gtk_file_chooser_action_open) or else
 						(a_gtk_file_chooser_action=gtk_file_chooser_action_save) or else

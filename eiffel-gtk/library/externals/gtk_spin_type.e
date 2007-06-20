@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_spin_type (a_spin_type :INTEGER): BOOLEAN is
+	is_valid_gtk_spin_type (a_spin_type :INTEGER): BOOLEAN is
 		do
 			Result := ((a_spin_type = gtk_spin_step_forward) or else
 						  (a_spin_type = gtk_spin_step_backward) or else

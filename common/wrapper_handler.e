@@ -32,7 +32,7 @@ feature
 			if a_wrapper/=Void then Result:=a_wrapper.handle end
 		ensure
 			definition: Result = default_pointer or else
-			            a_wrapper/=Void implies Result = a_wrapper.handle
+			            (a_wrapper/=Void and then Result = a_wrapper.handle)
 		end
 
 	null_or_string(a_string: STRING): POINTER is

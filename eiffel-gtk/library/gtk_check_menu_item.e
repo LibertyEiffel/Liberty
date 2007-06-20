@@ -49,7 +49,6 @@ feature {} -- Creation
 
 	with_label (a_label: STRING) is
 			-- Creates a new GtkCheckMenuItem with `a_label'.
-		require label_not_void: a_label /= Void
 		do
 			from_external_pointer (gtk_check_menu_item_new_with_label (a_label.to_external))
 		end
@@ -58,7 +57,6 @@ feature {} -- Creation
 			-- Creates a new GtkCheckMenuItem containing `a_label'. An
 			-- underscore in the text of the button marks the mnemonic
 			-- character.
-		require label_not_void: a_label /= Void
 		do
 			from_external_pointer (gtk_check_menu_item_new_with_mnemonic (a_label.to_external))
 		end
@@ -238,7 +236,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_check_menu_item_set_active (a_check_menu_item: POINTER, a_is_active: INTEGER) is
+	gtk_check_menu_item_set_active (a_check_menu_item: POINTER; an_is_active: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 	

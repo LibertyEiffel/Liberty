@@ -24,7 +24,7 @@ deferred class GTK_PRINT_OPERATION_RESULT
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_print_operation_result (a_result :INTEGER): BOOLEAN is
+	is_valid_gtk_print_operation_result (a_result :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_result = gtk_print_operation_result_error) or else
 						(a_result = gtk_print_operation_result_apply) or else

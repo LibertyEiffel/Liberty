@@ -127,7 +127,7 @@ feature {} -- External calls
 	gtk_toolbar_get_icon_size (a_toolbar: POINTER): INTEGER is
 			-- GtkIconSize gtk_toolbar_get_icon_size (GtkToolbar *toolbar);
 		external "C use <gtk/gtk.h>"
-		ensure is_valid_icon_size: is_valid_icon_size (Result)
+		ensure is_valid_icon_size: is_valid_gtk_icon_size (Result)
 		end
 
 	gtk_toolbar_get_tooltips (a_toolbar: POINTER): INTEGER is

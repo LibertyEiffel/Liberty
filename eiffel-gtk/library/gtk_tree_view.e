@@ -771,7 +771,7 @@ feature -- Drag n' Drop
 			-- a_position : Specifies whether to drop before, after or into the row
 		require
 			a_path /= Void
-			is_valid_tree_view_drop_position (a_position)
+			is_valid_gtk_tree_view_drop_position (a_position)
 		do
 			gtk_tree_view_set_drag_dest_row (handle, a_path.handle, a_position)
 		end
@@ -790,7 +790,7 @@ feature -- Drag n' Drop
 			Result := [a_path, a_position]
 		ensure
 			Result /= Void
-			Result.first  /= Void implies is_valid_tree_view_drop_position (Result.second)
+			Result.first  /= Void implies is_valid_gtk_tree_view_drop_position (Result.second)
 		end
 
 	dest_row_at_pos (drag_x, drag_y: INTEGER): TUPLE [GTK_TREE_PATH, INTEGER] is
@@ -811,7 +811,7 @@ feature -- Drag n' Drop
 			Result := [a_path, a_position]
 		ensure
 			Result /= Void
-			Result.first /= Void implies is_valid_tree_view_drop_position (Result.second)
+			Result.first /= Void implies is_valid_gtk_tree_view_drop_position (Result.second)
 		end
 
 	row_drag_icon (a_path: GTK_TREE_PATH): GDK_PIXMAP is

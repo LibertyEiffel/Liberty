@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_menu_direction (a_direction :INTEGER): BOOLEAN is
+	is_valid_gtk_menu_direction (a_direction :INTEGER): BOOLEAN is
 		do
 			Result:=((a_direction = gtk_menu_dir_parent) or else
 						(a_direction = gtk_menu_dir_child) or else

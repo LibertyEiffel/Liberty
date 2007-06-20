@@ -75,7 +75,7 @@ feature {} -- External calls
 			-- GtkAssistantPageType gtk_assistant_get_page_type
 			-- (GtkAssistant *assistant, GtkWidget *page);
 		external "C use <gtk/gtk.h>"
-			-- TODO: ensure valid_assistant_page_type: is_valid_assistant_page_type(Result)
+			-- TODO: ensure valid_assistant_page_type: is_valid_gtk_assistant_page_type(Result)
 		end
 
 	gtk_assistant_set_page_title (an_assistant, a_page, a_title: POINTER) is

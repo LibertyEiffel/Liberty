@@ -187,8 +187,8 @@ feature -- TODO: Scrollbars
 			-- bar would be smaller than the trough - the display is
 			-- larger than the page size).
 		require
-			valid_horizontal_policy: is_valid_policy (an_horizontal_policy)
-			valid_vertical_policy: is_valid_policy (a_vertical_policy)
+			valid_horizontal_policy: is_valid_gtk_policy (an_horizontal_policy)
+			valid_vertical_policy: is_valid_gtk_policy (a_vertical_policy)
 		do
 			gtk_scrolled_window_set_policy (handle, an_horizontal_policy, a_vertical_policy)
 		ensure -- TODO: h and v policy_set
@@ -231,7 +231,7 @@ feature
 			-- are `gtk_corner_top_right', `gtk_corner_bottom_left', and
 			-- `gtk_corner_bottom_right'.
 		require
-			valid_placement: is_valid_corner_type (a_window_placement)
+			valid_placement: is_valid_gtk_corner_type (a_window_placement)
 		do
 			gtk_scrolled_window_set_placement (handle, a_window_placement)
 			ensure placement_set: a_window_placement = placement
@@ -241,7 +241,7 @@ feature
 			-- Changes the type of shadow drawn around the contents of
 			-- scrolled_window.
 		require
-			valid_shadow: is_valid_shadow_type(a_type)
+			valid_shadow: is_valid_gtk_shadow_type(a_type)
 		do
 			gtk_scrolled_window_set_shadow_type (handle, a_type)
 		ensure value_set: shadow_type = a_type
@@ -252,7 +252,7 @@ feature
 			-- window. See `set_placement'.
 		do
 			Result := gtk_scrolled_window_get_placement (handle)
-		ensure valid: is_valid_corner_type (Result)
+		ensure valid: is_valid_gtk_corner_type (Result)
 		end
 
 	horizontal_policy: INTEGER is
@@ -260,7 +260,7 @@ feature
 			-- scrollbar. See `set_policy'.
 		do
 			gtk_scrolled_window_get_policy (handle, $Result, default_pointer)
-		ensure valid: is_valid_policy (Result)
+		ensure valid: is_valid_gtk_policy (Result)
 		end
 	
 	vertical_policy: INTEGER is
@@ -268,7 +268,7 @@ feature
 			-- `set_policy'.
 		do
 			gtk_scrolled_window_get_policy (handle, default_pointer, $Result)
-		ensure valid: is_valid_policy (Result)
+		ensure valid: is_valid_gtk_policy (Result)
 		end
 
 	policies: TUPLE [INTEGER,INTEGER] is
@@ -279,8 +279,8 @@ feature
 			gtk_scrolled_window_get_policy (handle, $hpol,$vpol)
 			create Result.make_2 (hpol,vpol)
 		ensure
-			valid_horizontal: is_valid_policy (Result.item_1)
-			valid_vertical: is_valid_policy (Result.item_1)
+			valid_horizontal: is_valid_gtk_policy (Result.item_1)
+			valid_vertical: is_valid_gtk_policy (Result.item_1)
 		end
 	
 	shadow_type: INTEGER is
@@ -288,7 +288,7 @@ feature
 			-- `set_shadow_type'.
 		do
 			Result := gtk_scrolled_window_get_shadow_type (handle)
-		ensure valid: is_valid_shadow_type (Result)
+		ensure valid: is_valid_gtk_shadow_type (Result)
 		end
 	
 feature -- Properties
@@ -424,8 +424,8 @@ feature {} -- External calls
 	
 	gtk_scrolled_window_set_policy (a_scrolled_window: POINTER; hscrollbar_policy, vscrollbar_policy: INTEGER) is
 		require
-			valid_horizontal_policy: is_valid_policy (hscrollbar_policy)
-			valid_vorizontal_policy: is_valid_policy (vscrollbar_policy)
+			valid_horizontal_policy: is_valid_gtk_policy (hscrollbar_policy)
+			valid_vorizontal_policy: is_valid_gtk_policy (vscrollbar_policy)
       external "C use <gtk/gtk.h>"
       end
 
@@ -435,13 +435,13 @@ feature {} -- External calls
 	
 	gtk_scrolled_window_set_placement (a_scrolled_window: POINTER;  window_placement: INTEGER) is
 		require
-			valid_placement: is_valid_corner_type (window_placement)
+			valid_placement: is_valid_gtk_corner_type (window_placement)
       external "C use <gtk/gtk.h>"
       end
 	
 	gtk_scrolled_window_set_shadow_type (a_scrolled_window: POINTER; a_shadow_type: INTEGER) is
 		require
-			valid_shadow_type: is_valid_shadow_type (a_shadow_type)
+			valid_shadow_type: is_valid_gtk_shadow_type (a_shadow_type)
       external "C use <gtk/gtk.h>"
       end
 	
@@ -456,7 +456,7 @@ feature {} -- External calls
 	gtk_scrolled_window_get_placement (a_scrolled_window: POINTER): INTEGER is
       external "C use <gtk/gtk.h>"
 		ensure
-			valid_result: is_valid_corner_type (Result)
+			valid_result: is_valid_gtk_corner_type (Result)
       end
 	
 	gtk_scrolled_window_get_policy (a_scrolled_window, a_hscrollbar_policy_pointer, a_vscrollbar_policy_pointer: POINTER) is
@@ -465,7 +465,7 @@ feature {} -- External calls
 	
 	gtk_scrolled_window_get_shadow_type (a_scrolled_window: POINTER): INTEGER is
       external "C use <gtk/gtk.h>"
-		ensure valid_result: is_valid_shadow_type (Result)
+		ensure valid_result: is_valid_gtk_shadow_type (Result)
       end
 
 -- GtkScrolledWindow struct has no public fields; it should only be

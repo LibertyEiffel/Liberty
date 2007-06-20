@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_icon_view_drop_position (a_position: INTEGER): BOOLEAN is
+	is_valid_gtk_icon_view_drop_position (a_position: INTEGER): BOOLEAN is
 		do
 			Result:=((a_position = gtk_icon_view_no_drop) or else
 						(a_position = gtk_icon_view_drop_into) or else

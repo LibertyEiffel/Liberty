@@ -56,7 +56,7 @@ feature {} -- External calls
 		end
 
 	gtk_label_set_justify (a_label: POINTER; a_justification: INTEGER) is
-		require is_valid_justification (a_justification)
+		require is_valid_gtk_justification (a_justification)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -119,7 +119,7 @@ feature {} -- External calls
 
 	gtk_label_get_justify      (a_label: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
-		ensure valid: is_valid_justification (Result)
+		ensure valid: is_valid_gtk_justification (Result)
 		end
 
 	-- TODO PangoEllipsizeMode gtk_label_get_ellipsize (a_label:

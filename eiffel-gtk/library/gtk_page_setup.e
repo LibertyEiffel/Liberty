@@ -92,7 +92,7 @@ feature -- Queries
 			-- The page orientation of the GtkPageSetup.
 		do
 			Result:=gtk_page_setup_get_orientation(handle)
-		ensure valid: is_valid_page_orientation(Result)
+		ensure valid: is_valid_gtk_page_orientation(Result)
 		end
 
 	paper_size: GTK_PAPER_SIZE is
@@ -167,7 +167,7 @@ feature -- Queries
 feature -- Setters
 	set_orientation (an_orientation: INTEGER) is
 			--   Sets the page orientation of the GtkPageSetup.
-		require valid: is_valid_page_orientation(an_orientation)
+		require valid: is_valid_gtk_page_orientation(an_orientation)
 		do
 			gtk_page_setup_set_orientation (handle, an_orientation)
 		end
@@ -182,7 +182,7 @@ feature -- Setters
 
 	set_unit (a_unit: INTEGER) is
 			-- Use `a_unit' as the unit used to express margins
-		require valid_unit: is_valid_unit(a_unit)
+		require valid_unit: is_valid_gtk_unit(a_unit)
 		do
 			unit := a_unit
 		end

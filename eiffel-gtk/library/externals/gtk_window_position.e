@@ -57,7 +57,7 @@ feature {} -- enum
 		alias "GTK_WIN_POS_CENTER_ON_PARENT"
 		end
 
-	is_valid_window_position (a_position: INTEGER): BOOLEAN is
+	is_valid_gtk_window_position (a_position: INTEGER): BOOLEAN is
 			-- is `a_position' a valid gtk_window_position_flag?
 		do
 			Result:=((a_position = gtk_win_pos_none) or else

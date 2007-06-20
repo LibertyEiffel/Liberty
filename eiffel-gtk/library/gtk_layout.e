@@ -38,241 +38,220 @@ inherit GTK_CONTAINER
 creation make, from_external_pointer
 
 feature {} -- Creation
+	make (an_h_adjustment, a_v_adjustment: GTK_ADJUSTMENT) is
+			--  Creates a new GtkLayout. Unless you have a specific
+			--  adjustment you'd like the layout to use for scrolling,
+			--  pass Void for `an_h_adjustment' (horizontal scroll
+			--  adjustment) and `a_v_adjustment' (vertical scroll
+			--  adjustment).
+		do
+			from_external_pointer(gtk_layout_new(null_or(an_h_adjustment),null_or(a_v_adjustment)))
+		end
+
+
+	put (a_child: GTK_WIDGET; an_x, an_y: INTEGER) is
+			-- Adds `a_child' to layout, at position (`an_x',`an_y').
+			-- Current becomes the new parent container of `a_child'.
+		require child_not_void: a_child/=Void
+		do
+			gtk_layout_put(handle, a_child.handle, an_x, an_y)
+		end
 
+	move (a_child: GTK_WIDGET; an_x, an_y: INTEGER) is
+			-- Moves `a_child' of layout to a new position.
+		require child_not_void: a_child/=Void
+		do
+			gtk_layout_move(handle,a_child.handle, an_x, an_y)
+		end
 
---    --------------------------------------------------------------------------
+	set_size (a_width, an_height: INTEGER) is
+			-- Sets the size of the scrollable area of the layout.
+		
+			-- `a_width': width of entire scrollable area
 
---   gtk_layout_new ()
+			-- `an_height': height of entire scrollable area
+		do
+			gtk_layout_set_size(handle,a_width,an_height)
+		end
 
---  GtkWidget*  gtk_layout_new                  (GtkAdjustment *hadjustment,
---                                               GtkAdjustment *vadjustment);
+	width: INTEGER is
+			-- the width set on layout
+		local a_result: INTEGER
+		do
+			gtk_layout_get_size (handle, $a_result, default_pointer)
+			Result := a_result
+		end
 
---    Creates a new GtkLayout. Unless you have a specific adjustment you'd like
---    the layout to use for scrolling, pass NULL for hadjustment and
---    vadjustment.
+	height: INTEGER is
+			-- the height set on layout
+		local a_result: INTEGER
+		do
+			gtk_layout_get_size (handle, default_pointer, $a_result)
+			Result := a_result
+		end
 
---    hadjustment : horizontal scroll adjustment, or NULL
---    vadjustment : vertical scroll adjustment, or NULL
---    Returns :     a new GtkLayout
+	--  void gtk_layout_get_size (GtkLayout *layout, guint *width,
+	--  guint *height);
 
---    --------------------------------------------------------------------------
+	--  Gets the size that has been set on the layout, and that
+	--  determines the total extents of the layout's scrollbar
+	--  area. See gtk_layout_set_size().
 
---   gtk_layout_put ()
+	-- layout : a GtkLayout
+	-- width :  location to store the width set on layout, or NULL
+	-- height : location to store the height set on layout, or NULL
 
---  void        gtk_layout_put                  (GtkLayout *layout,
---                                               GtkWidget *child_widget,
---                                               gint x,
---                                               gint y);
+	-- horizontal_adjustment: GTK_ADJUSTMENT is local ptr: POINTER do
+	-- ptr:=gtk_layout_get_hadjustment(handle)
+	
+	-- This function should only be called after the layout has been
+	-- placed in a GtkScrolledWindow or otherwise configured for
+	-- scrolling. It returns the GtkAdjustment used for communication
+	-- between the horizontal scrollbar and layout.
 
---    Adds child_widget to layout, at position (x,y). layout becomes the new
---    parent container of child_widget.
+	--See GtkScrolledWindow, GtkScrollbar, GtkAdjustment for details.
 
---    layout :       a GtkLayout
---    child_widget : child widget
---    x :            X position of child widget
---    y :            Y position of child widget
+	-- layout :  a GtkLayout
+	-- Returns : horizontal scroll adjustment
 
---    --------------------------------------------------------------------------
+	--   gtk_layout_get_vadjustment ()
 
---   gtk_layout_move ()
+	--  GtkAdjustment* gtk_layout_get_vadjustment   (GtkLayout *layout);
 
---  void        gtk_layout_move                 (GtkLayout *layout,
---                                               GtkWidget *child_widget,
---                                               gint x,
---                                               gint y);
+	--    This function should only be called after the layout has been placed in a
+	--    GtkScrolledWindow or otherwise configured for scrolling. It returns the
+	--    GtkAdjustment used for communication between the vertical scrollbar and
+	--    layout.
 
---    Moves a current child of layout to a new position.
+	--    See GtkScrolledWindow, GtkScrollbar, GtkAdjustment for details.
 
---    layout :       a GtkLayout
---    child_widget : a current child of layout
---    x :            X position to move to
---    y :            Y position to move to
+	--    layout :  a GtkLayout
+	--    Returns : vertical scroll adjustment
 
---    --------------------------------------------------------------------------
+	--    --------------------------------------------------------------------------
 
---   gtk_layout_set_size ()
+	--   gtk_layout_set_hadjustment ()
 
---  void        gtk_layout_set_size             (GtkLayout *layout,
---                                               guint width,
---                                               guint height);
+	--  void        gtk_layout_set_hadjustment      (GtkLayout *layout,
+	--                                               GtkAdjustment *adjustment);
 
---    Sets the size of the scrollable area of the layout.
+	--    Sets the horizontal scroll adjustment for the layout.
 
---    layout : a GtkLayout
---    width :  width of entire scrollable area
---    height : height of entire scrollable area
+	--    See GtkScrolledWindow, GtkScrollbar, GtkAdjustment for details.
 
---    --------------------------------------------------------------------------
+	--    layout :     a GtkLayout
+	--    adjustment : new scroll adjustment
 
---   gtk_layout_get_size ()
+	--    --------------------------------------------------------------------------
 
---  void        gtk_layout_get_size             (GtkLayout *layout,
---                                               guint *width,
---                                               guint *height);
+	--   gtk_layout_set_vadjustment ()
 
---    Gets the size that has been set on the layout, and that determines the
---    total extents of the layout's scrollbar area. See gtk_layout_set_size().
+	--  void        gtk_layout_set_vadjustment      (GtkLayout *layout,
+	--                                               GtkAdjustment *adjustment);
 
---    layout : a GtkLayout
---    width :  location to store the width set on layout, or NULL
---    height : location to store the height set on layout, or NULL
+	--    Sets the vertical scroll adjustment for the layout.
 
---    --------------------------------------------------------------------------
+	--    See GtkScrolledWindow, GtkScrollbar, GtkAdjustment for details.
 
---   gtk_layout_get_hadjustment ()
+	--    layout :     a GtkLayout
+	--    adjustment : new scroll adjustment
 
---  GtkAdjustment* gtk_layout_get_hadjustment   (GtkLayout *layout);
+	-- Properties
 
---    This function should only be called after the layout has been placed in a
---    GtkScrolledWindow or otherwise configured for scrolling. It returns the
---    GtkAdjustment used for communication between the horizontal scrollbar and
---    layout.
 
---    See GtkScrolledWindow, GtkScrollbar, GtkAdjustment for details.
+	--    "hadjustment"          GtkAdjustment         : Read / Write
+	--    "height"               guint                 : Read / Write
+	--    "vadjustment"          GtkAdjustment         : Read / Write
+	--    "width"                guint                 : Read / Write
 
---    layout :  a GtkLayout
---    Returns : horizontal scroll adjustment
+	-- Property Details
 
---    --------------------------------------------------------------------------
+	--   The "hadjustment" property
 
---   gtk_layout_get_vadjustment ()
+	--    "hadjustment"          GtkAdjustment         : Read / Write
 
---  GtkAdjustment* gtk_layout_get_vadjustment   (GtkLayout *layout);
+	--    The GtkAdjustment for the horizontal position.
 
---    This function should only be called after the layout has been placed in a
---    GtkScrolledWindow or otherwise configured for scrolling. It returns the
---    GtkAdjustment used for communication between the vertical scrollbar and
---    layout.
+	--    --------------------------------------------------------------------------
 
---    See GtkScrolledWindow, GtkScrollbar, GtkAdjustment for details.
+	--   The "height" property
 
---    layout :  a GtkLayout
---    Returns : vertical scroll adjustment
+	--    "height"               guint                 : Read / Write
 
---    --------------------------------------------------------------------------
+	--    The height of the layout.
 
---   gtk_layout_set_hadjustment ()
+	--    Allowed values: <= G_MAXINT
 
---  void        gtk_layout_set_hadjustment      (GtkLayout *layout,
---                                               GtkAdjustment *adjustment);
+	--    Default value: 100
 
---    Sets the horizontal scroll adjustment for the layout.
+	--    --------------------------------------------------------------------------
 
---    See GtkScrolledWindow, GtkScrollbar, GtkAdjustment for details.
+	--   The "vadjustment" property
 
---    layout :     a GtkLayout
---    adjustment : new scroll adjustment
+	--    "vadjustment"          GtkAdjustment         : Read / Write
 
---    --------------------------------------------------------------------------
+	--    The GtkAdjustment for the vertical position.
 
---   gtk_layout_set_vadjustment ()
+	--    --------------------------------------------------------------------------
 
---  void        gtk_layout_set_vadjustment      (GtkLayout *layout,
---                                               GtkAdjustment *adjustment);
+	--   The "width" property
 
---    Sets the vertical scroll adjustment for the layout.
+	--    "width"                guint                 : Read / Write
 
---    See GtkScrolledWindow, GtkScrollbar, GtkAdjustment for details.
+	--    The width of the layout.
 
---    layout :     a GtkLayout
---    adjustment : new scroll adjustment
+	--    Allowed values: <= G_MAXINT
 
--- Properties
+	--    Default value: 100
 
+	-- Child Properties
 
---    "hadjustment"          GtkAdjustment         : Read / Write
---    "height"               guint                 : Read / Write
---    "vadjustment"          GtkAdjustment         : Read / Write
---    "width"                guint                 : Read / Write
 
--- Property Details
+	--    "x"                    gint                  : Read / Write
+	--    "y"                    gint                  : Read / Write
 
---   The "hadjustment" property
+	-- Child Property Details
 
---    "hadjustment"          GtkAdjustment         : Read / Write
+	--   The "x" child property
 
---    The GtkAdjustment for the horizontal position.
+	--    "x"                    gint                  : Read / Write
 
---    --------------------------------------------------------------------------
+	--    X position of child widget.
 
---   The "height" property
+	--    Default value: 0
 
---    "height"               guint                 : Read / Write
+	--    --------------------------------------------------------------------------
 
---    The height of the layout.
+	--   The "y" child property
 
---    Allowed values: <= G_MAXINT
+	--    "y"                    gint                  : Read / Write
 
---    Default value: 100
+	--    Y position of child widget.
 
---    --------------------------------------------------------------------------
+	--    Default value: 0
 
---   The "vadjustment" property
+	-- Signals
 
---    "vadjustment"          GtkAdjustment         : Read / Write
 
---    The GtkAdjustment for the vertical position.
+	--  "set-scroll-adjustments"
+	--              void        user_function      (GtkLayout     *layout,
+	--                                              GtkAdjustment *arg1,
+	--                                              GtkAdjustment *arg2,
+	--                                              gpointer       user_data)      : Run last / Action
 
---    --------------------------------------------------------------------------
+	-- Signal Details
 
---   The "width" property
+	--   The "set-scroll-adjustments" signal
 
---    "width"                guint                 : Read / Write
+	--  void        user_function                  (GtkLayout     *layout,
+	--                                              GtkAdjustment *arg1,
+	--                                              GtkAdjustment *arg2,
+	--                                              gpointer       user_data)      : Run last / Action
 
---    The width of the layout.
-
---    Allowed values: <= G_MAXINT
-
---    Default value: 100
-
--- Child Properties
-
-
---    "x"                    gint                  : Read / Write
---    "y"                    gint                  : Read / Write
-
--- Child Property Details
-
---   The "x" child property
-
---    "x"                    gint                  : Read / Write
-
---    X position of child widget.
-
---    Default value: 0
-
---    --------------------------------------------------------------------------
-
---   The "y" child property
-
---    "y"                    gint                  : Read / Write
-
---    Y position of child widget.
-
---    Default value: 0
-
--- Signals
-
-
---  "set-scroll-adjustments"
---              void        user_function      (GtkLayout     *layout,
---                                              GtkAdjustment *arg1,
---                                              GtkAdjustment *arg2,
---                                              gpointer       user_data)      : Run last / Action
-
--- Signal Details
-
---   The "set-scroll-adjustments" signal
-
---  void        user_function                  (GtkLayout     *layout,
---                                              GtkAdjustment *arg1,
---                                              GtkAdjustment *arg2,
---                                              gpointer       user_data)      : Run last / Action
-
---    layout :    the object which received the signal.
---    arg1 :
---    arg2 :
---    user_data : user data set when the signal handler was connected.
+	--    layout :    the object which received the signal.
+	--    arg1 :
+	--    arg2 :
+	--    user_data : user data set when the signal handler was connected.
 
 feature {} -- GtkLayout struct access
 	--  typedef struct {
@@ -280,34 +259,61 @@ feature {} -- GtkLayout struct access
 	--  } GtkLayout;
 	
 feature {} -- External calls
-             GtkLayout;
- GtkWidget*  gtk_layout_new                  (GtkAdjustment *hadjustment,
-                                              GtkAdjustment *vadjustment);
- void        gtk_layout_put                  (GtkLayout *layout,
-                                              GtkWidget *child_widget,
-                                              gint x,
-                                              gint y);
- void        gtk_layout_move                 (GtkLayout *layout,
-                                              GtkWidget *child_widget,
-                                              gint x,
-                                              gint y);
- void        gtk_layout_set_size             (GtkLayout *layout,
-                                              guint width,
-                                              guint height);
- void        gtk_layout_get_size             (GtkLayout *layout,
-                                              guint *width,
-                                              guint *height);
- GtkAdjustment* gtk_layout_get_hadjustment   (GtkLayout *layout);
- GtkAdjustment* gtk_layout_get_vadjustment   (GtkLayout *layout);
- void        gtk_layout_set_hadjustment      (GtkLayout *layout,
-                                              GtkAdjustment *adjustment);
- void        gtk_layout_set_vadjustment      (GtkLayout *layout,
-                                              GtkAdjustment *adjustment);
+	gtk_layout_new (an_hadjustment, an_vadjustment: POINTER): POINTER is
+			-- GtkWidget* gtk_layout_new (GtkAdjustment *hadjustment,
+			-- GtkAdjustment *vadjustment);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_layout_put (a_layout, a_child_widget: POINTER; an_x, an_y: INTEGER) is
+			-- void gtk_layout_put (GtkLayout *layout, GtkWidget
+			-- *child_widget, gint x, gint y);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_layout_move (a_layout, a_child_widget: POINTER; an_x, an_y: INTEGER) is
+			-- void gtk_layout_move (GtkLayout *layout, GtkWidget
+			-- *child_widget, gint x, gint y);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_layout_set_size (a_layout: POINTER; a_width, a_height: INTEGER) is
+			-- void gtk_layout_set_size (GtkLayout *layout, guint width,
+			-- guint height);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_layout_get_size (a_layout, a_width, a_height: POINTER) is
+			-- void gtk_layout_get_size (GtkLayout *layout, guint *width,
+			-- guint *height);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_layout_get_hadjustment (a_layout: POINTER): POINTER is
+			-- 	GtkAdjustment* gtk_layout_get_hadjustment (GtkLayout *layout);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_layout_get_vadjustment (a_layout: POINTER): POINTER is
+			-- 	GtkAdjustment* gtk_layout_get_vadjustment (GtkLayout *layout);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_layout_set_hadjustment (a_layout, an_adjustment: POINTER) is
+			-- void gtk_layout_set_hadjustment (GtkLayout *layout,
+			-- GtkAdjustment *adjustment);
+		external "C use <gtk/gtk.h>"
+		end
+
+	gtk_layout_set_vadjustment (a_layout, an_adjustment: POINTER) is
+			-- void gtk_layout_set_vadjustment (GtkLayout *layout,
+			-- GtkAdjustment *adjustment);
+		external "C use <gtk/gtk.h>"
+		end
 
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(Foo)"
+		alias "sizeof(GtkLayout)"
 		end
-
 end -- class GTK_LAYOUT

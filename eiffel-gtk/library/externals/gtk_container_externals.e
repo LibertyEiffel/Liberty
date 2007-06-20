@@ -48,11 +48,11 @@ feature {} -- External calls
 
 	gtk_container_get_resize_mode (container: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
-		ensure valid_result: is_valid_resize_mode (Result)
+		ensure valid_result: is_valid_gtk_resize_mode (Result)
 		end
 
 	gtk_container_set_resize_mode (container: POINTER; a_resize_mode: INTEGER) is
-		require valid_mode: is_valid_resize_mode (a_resize_mode)
+		require valid_mode: is_valid_gtk_resize_mode (a_resize_mode)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	gtk_container_child_type (container: POINTER) is
 		external "C use <gtk/gtk.h>"
-		ensure -- TODO: is_valid_gtype (Result)
+		ensure -- TODO: is_valid_gtk_gtype (Result)
 		end
 
 	gtk_container_get_border_width (container: POINTER): INTEGER is

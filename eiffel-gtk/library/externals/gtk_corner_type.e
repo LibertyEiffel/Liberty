@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_corner_type (a_corner_type :INTEGER): BOOLEAN is
+	is_valid_gtk_corner_type (a_corner_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_corner_type = gtk_corner_top_left) or else
 						(a_corner_type = gtk_corner_bottom_left) or else

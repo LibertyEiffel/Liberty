@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_wrap_mode (a_mode :INTEGER): BOOLEAN is
+	is_valid_gtk_wrap_mode (a_mode :INTEGER): BOOLEAN is
 		do
 			Result:=((a_mode=gtk_wrap_none) or else
 						(a_mode=gtk_wrap_char) or else

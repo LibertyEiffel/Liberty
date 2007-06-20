@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_shadow_type (a_shadow: INTEGER): BOOLEAN is
+	is_valid_gtk_shadow_type (a_shadow: INTEGER): BOOLEAN is
 		do
 			Result:=((a_shadow = gtk_shadow_none) or else
 						(a_shadow = gtk_shadow_in) or else

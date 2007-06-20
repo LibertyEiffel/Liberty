@@ -26,7 +26,7 @@ deferred class GTK_PRINT_OPERATION_ACTIONS
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_print_operatio_action (an_action: INTEGER): BOOLEAN is
+	is_valid_gtk_print_operatio_action (an_action: INTEGER): BOOLEAN is
 		do	
 			Result:=((an_action = gtk_print_operation_action_print_dialog) or else
 						(an_action = gtk_print_operation_action_print) or else

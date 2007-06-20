@@ -24,7 +24,7 @@ deferred class GTK_UNIT
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_unit (a_unit: INTEGER): BOOLEAN is
+	is_valid_gtk_unit (a_unit: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_unit = gtk_unit_pixel) or else
 						(a_unit = gtk_unit_points) or else

@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_buttons_type (a_gtk_buttons_type :INTEGER): BOOLEAN is
+	is_valid_gtk_buttons_type (a_gtk_buttons_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_gtk_buttons_type = gtk_buttons_none) or else
 						(a_gtk_buttons_type = gtk_buttons_ok) or else

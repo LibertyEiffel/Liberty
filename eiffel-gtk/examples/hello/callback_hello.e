@@ -17,7 +17,8 @@ feature {} -- creation
 		do
 			gtk.initialize
 			create window.make
-			create destroy_callback.make(window, agent on_destroy)
+			create destroy_callback.make
+			destroy_callback.connect(window, agent on_destroy)
 			create button.with_label (label)
 			window.set_title (title)
 			window.add (button)
@@ -45,7 +46,7 @@ feature -- callbacks
 			check
 				gobject_is_the_window: a_gobject.handle = window.handle
 			end
-			gtk_quit
+			gtk.quit
 		end
 
 end

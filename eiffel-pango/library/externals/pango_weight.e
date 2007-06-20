@@ -29,7 +29,7 @@ deferred class PANGO_WEIGHT
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_weight (a_weight: INTEGER): BOOLEAN is
+	is_valid_pango_weight (a_weight: INTEGER): BOOLEAN is
 		do
 			Result:= a_weight.in_range(100,900)
 		end

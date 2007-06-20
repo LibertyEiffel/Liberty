@@ -36,7 +36,7 @@ feature  -- enum
 	-- label set and `gtk_toolbar_icons' is used, the label will be
 	-- visible, and vice versa.
 
-	is_valid_toolbar_style (a_style :INTEGER): BOOLEAN is
+	is_valid_gtk_toolbar_style (a_style :INTEGER): BOOLEAN is
 		do
 			Result:=((a_style = gtk_toolbar_icons) or else
 						(a_style = gtk_toolbar_text) or else

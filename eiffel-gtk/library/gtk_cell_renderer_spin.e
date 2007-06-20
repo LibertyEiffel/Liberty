@@ -84,7 +84,7 @@ feature -- Properties setters
 	set_adjustment (an_adjustment: GTK_ADJUSTMENT) is
 		require adjustment_not_void: an_adjustment /= Void
 		do
-			set_property(adjustment_property_name, an_adjustment.handle)
+			set_property(adjustment_property_name, create {G_VALUE}.from_pointer(an_adjustment.handle))
 		end
 
 	
@@ -97,7 +97,7 @@ feature -- Properties setters
 	set_digits (some_digits: INTEGER) is
 		require valid_digits: some_digits.in_range(0,20)
 		do
-			set_property(digits_property_name, create {G_VALUE}.from_natural(a_climb_rate))
+			set_property(digits_property_name, create {G_VALUE}.from_natural(some_digits))
 		end	
 
 feature -- size
@@ -108,7 +108,7 @@ feature -- size
 
 feature {} -- 
    adjustment_property_name: STRING is "adjustment"
-	climb_rate__property_name: STRING is "climb-rate"
+	climb_rate_property_name: STRING is "climb-rate"
 	digits_property_name: STRING is "digits"
 
 	gtk_cell_renderer_spin_new: POINTER is

@@ -2,9 +2,9 @@ indexing
 	description: "Test case"
 	copyright: "(C) 2007 Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
-	author: "$Author:$"
-	date: "$Date:$"
-	revision "$Revision:$"
+	author: "$Author$"
+	date: "$Date$"
+	revision "$Revision$"
 
 class TEST_CODES
 

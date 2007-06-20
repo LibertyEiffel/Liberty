@@ -44,8 +44,8 @@ feature {} -- Creation
 	make (a_type, a_shadow: INTEGER) is
 			--   Creates a new arrow widget.
 		require
-			valid_type: is_valid_arrow_type (a_type)
-			valid_shadow: is_valid_shadow_type (a_shadow)
+			valid_type: is_valid_gtk_arrow_type (a_type)
+			valid_shadow: is_valid_gtk_shadow_type (a_shadow)
 		do
 			from_external_pointer(gtk_arrow_new(a_type, a_shadow))
 		end
@@ -53,8 +53,8 @@ feature
 	set(a_type, a_shadow: INTEGER) is
 			--   Sets the direction and style of the GtkArrow.
 		require
-			valid_type: is_valid_arrow_type (a_type)
-			valid_shadow: is_valid_shadow_type (a_shadow)
+			valid_type: is_valid_gtk_arrow_type (a_type)
+			valid_shadow: is_valid_gtk_shadow_type (a_shadow)
 		do
 			gtk_arrow_set(handle,a_type,a_shadow)
 		end
@@ -84,13 +84,16 @@ feature -- TODO: Property Details
 	--   gtk_paint_arrow() the function used internally to paint the arrow.
 
 feature {} -- External calls
-	-- #include <gtk/gtk.h>
-
-	--             GtkArrow;
+	gtk_arrow_new (an_arrow_type, a_shadow_type: INTEGER): POINTER is
+			-- GtkWidget* gtk_arrow_new (GtkArrowType arrow_type,
+			-- GtkShadowType shadow_type);
+		external "C  use <gtk/gtk.h>"
+		end
 	
-	-- GtkWidget* gtk_arrow_new (GtkArrowType arrow_type, GtkShadowType shadow_type);
-	
+	gtk_arrow_set (an_arrow: POINTER; an_arrow_type, a_shadow_type: INTEGER) is
 	-- void gtk_arrow_set (GtkArrow *arrow, GtkArrowType arrow_type, GtkShadowType shadow_type);
+		external "C  use <gtk/gtk.h>"
+		end
 
 feature -- size
 	struct_size: INTEGER is

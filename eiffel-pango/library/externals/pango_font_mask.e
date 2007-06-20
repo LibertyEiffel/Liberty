@@ -29,7 +29,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_font_mask (a_stretch :INTEGER): BOOLEAN is
+	is_valid_pango_font_mask (a_stretch :INTEGER): BOOLEAN is
 		do
 			Result := a_stretch & ~pango_font_mask_all = 0
 		end

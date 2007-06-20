@@ -166,7 +166,7 @@ feature
 			-- size icons they should use.
 		do
 			Result:=gtk_tool_item_get_icon_size(handle)
-		ensure valid: is_valid_icon_size (Result)
+		ensure valid: is_valid_gtk_icon_size (Result)
 		end
 
 	orientation: INTEGER is
@@ -175,7 +175,7 @@ feature
 			-- size icons they should use.
 		do
 			Result:=gtk_tool_item_get_orientation(handle)
-		ensure valid: is_valid_orientation(Result)
+		ensure valid: is_valid_gtk_orientation(Result)
 		end
 
 	toolbar_style: INTEGER is
@@ -193,7 +193,7 @@ feature
 			--  gtk_toolbar_both_horiz, meaning the tool item should show both an icon and a label, arranged horizontally (however, note the GtkToolButton::has_text_horizontally that makes tool buttons not show labels when the toolbar style is GTK_TOOLBAR_BOTH_HORIZ.
 		do
 			Result:=gtk_tool_item_get_toolbar_style(handle)
-		ensure valid: is_valid_toolbar_style(Result)
+		ensure valid: is_valid_gtk_toolbar_style(Result)
 		end
 
 	relief_style: INTEGER is
@@ -204,7 +204,7 @@ feature
 			-- relief style of buttons.
 		do
 			Result:=gtk_tool_item_get_relief_style(handle)
-		ensure valid: is_valid_relief_style(Result)
+		ensure valid: is_valid_gtk_relief_style(Result)
 		end
 
 	proxy_menu_item: GTK_WIDGET is
@@ -416,26 +416,26 @@ feature {} -- External calls
 	gtk_tool_item_get_icon_size     (a_tool_item: POINTER): INTEGER is
 			-- GtkIconSize gtk_tool_item_get_icon_size     (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
-		ensure valid_icon_size: is_valid_icon_size(Result)
+		ensure valid_icon_size: is_valid_gtk_icon_size(Result)
 		end
 
 	gtk_tool_item_get_orientation (a_tool_item: POINTER): INTEGER is
 			-- 	GtkOrientation gtk_tool_item_get_orientation (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
-		ensure valid_orientation: is_valid_orientation(Result)
+		ensure valid_orientation: is_valid_gtk_orientation(Result)
 		end
 
 	gtk_tool_item_get_toolbar_style (a_tool_item: POINTER): INTEGER is
 			-- GtkToolbarStyle gtk_tool_item_get_toolbar_style
 			-- (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
-		ensure valid_toolbar_style: is_valid_toolbar_style (Result)
+		ensure valid_toolbar_style: is_valid_gtk_toolbar_style (Result)
 		end
 
 	gtk_tool_item_get_relief_style (a_tool_item: POINTER): INTEGER is
 			-- 	GtkReliefStyle gtk_tool_item_get_relief_style (GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
-		ensure valid_relief_style: is_valid_relief_style(Result)
+		ensure valid_relief_style: is_valid_gtk_relief_style(Result)
 		end
 
 	 gtk_tool_item_retrieve_proxy_menu_item (a_tool_item: POINTER): POINTER is

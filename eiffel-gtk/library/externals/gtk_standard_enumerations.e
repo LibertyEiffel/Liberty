@@ -70,7 +70,7 @@ insert
 
 feature {} -- enum GtkAnchorType
 
-	is_valid_anchor_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_anchor_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type = gtk_anchor_center) or else
 						(a_type = gtk_anchor_north) or else
@@ -131,7 +131,7 @@ feature {} -- enum GtkAnchorType
 feature {} -- enum GtkArrowType
 	-- Used to indicate the direction in which a GtkArrow should point.
 
-	is_valid_arrow_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_arrow_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type = gtk_arrow_up) or else
 						(a_type = gtk_arrow_down) or else
@@ -167,7 +167,7 @@ feature {} -- enum GtkButtonBoxStyle
 	-- Used to dictate the style that a GtkButtonBox uses to layout the
 	-- buttons it contains. (See also: GtkVButtonBox and
 	-- GtkHButtonBox).
-	is_valid_button_box_style (a_style :INTEGER): BOOLEAN is
+	is_valid_gtk_button_box_style (a_style :INTEGER): BOOLEAN is
 		do
 			Result:=((a_style = gtk_buttonbox_default_style) or else
 						(a_style = gtk_buttonbox_spread) or else
@@ -209,7 +209,7 @@ feature {} -- enum GtkButtonBoxStyle
 		end
 
 feature {} -- enum GtkCurveType
-	is_valid_curve_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_curve_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type = gtk_curve_type_linear) or else
 						(a_type = gtk_curve_type_spline) or else
@@ -236,7 +236,7 @@ feature {} -- enum GtkCurveType
 
 feature {} -- enum GtkDeleteType
 
-	is_valid_delete_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_delete_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type = gtk_delete_chars) or else
 						(a_type = gtk_delete_word_ends) or else
@@ -295,7 +295,7 @@ feature {} -- enum GtkDeleteType
 
 feature {} -- enum GtkDirectionType
 
-	is_valid_direction_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_direction_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type = gtk_dir_tab_forward) or else
 						(a_type = gtk_dir_tab_backward) or else
@@ -339,7 +339,7 @@ feature {} -- enum GtkExpanderStyle
 	-- Used to specify the style of the expanders drawn by a
 	-- GtkTreeView.
 
-	is_valid_expander_style (a_style :INTEGER): BOOLEAN is
+	is_valid_gtk_expander_style (a_style :INTEGER): BOOLEAN is
 		do
 			Result:=((a_style = gtk_expander_collapsed) or else
 						(a_style = gtk_expander_semi_collapsed) or else
@@ -373,7 +373,7 @@ feature {} -- enum GtkExpanderStyle
 
 feature {} -- enum GtkIMPreeditStyle
 
-	is_valid_im_predict_style (a_style :INTEGER): BOOLEAN is
+	is_valid_gtk_im_predict_style (a_style :INTEGER): BOOLEAN is
 		do
 			Result:=((a_style=gtk_im_preedit_nothing) or else
 						(a_style=gtk_im_preedit_callback) or else
@@ -397,7 +397,7 @@ feature {} -- enum GtkIMPreeditStyle
 
 feature {} -- enum GtkIMStatusStyle
 
-	is_valid_im_status_style (a_style :INTEGER): BOOLEAN is
+	is_valid_gtk_im_status_style (a_style :INTEGER): BOOLEAN is
 		do
 			Result:=((a_style=gtk_im_status_nothing) or else
 						(a_style=gtk_im_status_callback) or else
@@ -421,7 +421,7 @@ feature {} -- enum GtkIMStatusStyle
 
 feature {} -- enum GtkMetricType
 	-- Used to indicate which metric is used by a GtkRuler.
-	is_valid_metric_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_metric_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type = gtk_pixels) or else
 						(a_type = gtk_inches) or else
@@ -522,7 +522,7 @@ feature {} -- enum GtkMovementStep
 		end
 
 feature {} -- enum GtkPathPriorityType
-	is_valid_path_priority_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_path_priority_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type=gtk_path_prio_lowest) or else
 						(a_type=gtk_path_prio_gtk) or else
@@ -564,7 +564,7 @@ feature {} -- enum GtkPathPriorityType
 
  
 feature {} -- enum GtkPathType
-	is_valid_path_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_path_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type=gtk_path_widget) or else
 						(a_type=gtk_path_widget_class) or else
@@ -587,7 +587,7 @@ feature {} -- enum GtkPathType
 		end
 
 feature {} -- enum GtkScrollStep
-	is_valid_scroll_step_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_scroll_step_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type=gtk_scroll_steps) or else
 						(a_type=gtk_scroll_pages) or else
@@ -631,7 +631,7 @@ feature {} -- enum GtkVisibility
 	-- Used by GtkCList and GtkCTree to indicate whether a row is
 	-- visible. Note: AFAIK it should be deprecated. Check this. Paolo
 	-- 2006-08-15
-	is_valid_visibility_type (a_type :INTEGER): BOOLEAN is
+	is_valid_gtk_visibility_type (a_type :INTEGER): BOOLEAN is
 		do
 			Result:=((a_type=gtk_visibility_none) or else
 						(a_type=gtk_visibility_partial) or else

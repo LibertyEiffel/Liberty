@@ -36,13 +36,13 @@ feature {} -- External calls
 	-- end
 
 	gtk_file_chooser_set_action (a_chooser: POINTER; a_gtkfilechooseraction: INTEGER) is
-		require is_valid_file_chooser_action (a_gtkfilechooseraction)
+		require is_valid_gtk_file_chooser_action (a_gtkfilechooseraction)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_file_chooser_get_action (a_chooser: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
-		ensure is_valid_file_chooser_action (Result)
+		ensure is_valid_gtk_file_chooser_action (Result)
 		end
 	
 	gtk_file_chooser_set_local_only (a_chooser: POINTER; local_only: INTEGER) is

@@ -471,7 +471,7 @@ feature -- page handling
 			
 		require
 			valid_child: a_child /= Void
-			valid_packing: is_valid_pack_type (a_pack_type)
+			valid_packing: is_valid_gtk_pack_type (a_pack_type)
 		do
 			gtk_notebook_set_tab_label_packing (handle, a_child.handle,
 												expand.to_integer,
@@ -556,7 +556,7 @@ feature -- page handling
 			-- notebook are drawn.
 		do
 			Result:=gtk_notebook_get_tab_pos    (handle)
-		ensure valid_position: is_valid_position_type (Result)
+		ensure valid_position: is_valid_gtk_position_type (Result)
 		end
 
 	set_current_page (a_page_num: INTEGER) is

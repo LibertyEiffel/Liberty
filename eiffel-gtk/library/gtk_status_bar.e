@@ -171,7 +171,7 @@ feature -- Style Properties
 										shadow_type_gvalue.handle,
 										shadow_type_property_spec.handle)
 			Result := shadow_type_gvalue.integer
-		ensure is_valid_shadow_type (Result)
+		ensure is_valid_gtk_shadow_type (Result)
 		end
 
 feature -- TODO: Signals

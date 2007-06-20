@@ -68,7 +68,7 @@ feature -- Dictionary like behaviour
 	has (a_key: STRING): BOOLEAN is
 			-- Does `a_key' have a value?
 		do
-			Result:=gtk_print_settings_has_key(handle,a_key.to_external)	--
+			Result:=gtk_print_settings_has_key(handle,a_key.to_external).to_boolean
 		end
 
 	at (a_key: STRING): CONST_STRING is
@@ -112,6 +112,14 @@ feature -- Dictionary like behaviour
 feature
 	unit: INTEGER -- The unit used in queries
 	
+	set_unit (a_unit: INTEGER) is
+			-- Set the unit used in queries
+		require valid_unit: is_valid_gtk_unit(a_unit)
+		do
+			unit:=a_unit
+		ensure set: unit = a_unit
+		end
+
 	get_bool (a_key: STRING): BOOLEAN is
 			-- The boolean represented by the value that is associated with `a_key'.
 		require key_not_void: a_key /= Void
@@ -216,12 +224,12 @@ feature
 			-- the page orientation.
 		do
 			Result:=gtk_print_settings_get_orientation(handle)
-		ensure valid: is_valid_page_orientation(Result)
+		ensure valid: is_valid_gtk_page_orientation(Result)
 		end
 
 	set_orientation (an_orientation: INTEGER) is
 			--   Sets the value of page orientation.
-		require valid: is_valid_page_orientation(an_orientation)
+		require valid: is_valid_gtk_page_orientation(an_orientation)
 		do
 			gtk_print_settings_set_orientation(handle,an_orientation)
 		end
@@ -306,7 +314,7 @@ feature
 	set_collate (a_setting: BOOLEAN) is
 			-- Sets whether to collate the output.
 		do
-			gtk_print_settings_set_collate  (handle, a_setting.to_boolean)
+			gtk_print_settings_set_collate  (handle, a_setting.to_integer)
 		end
 	
 	--  GTK_PRINT_SETTINGS_REVERSE
@@ -316,13 +324,13 @@ feature
 	is_reversed: BOOLEAN is
 			-- Are pages printed in reverse order?
 		do
-			Result:=gtk_print_settings_get_reverse(handle)
+			Result:=gtk_print_settings_get_reverse(handle).to_boolean
 		end
 
 	set_reverse (a_setting: BOOLEAN) is
 			-- Sets whether to reverse the output.
 		do
-			gtk_print_settings_set_reverse  (handle, a_setting.to_boolean)
+			gtk_print_settings_set_reverse  (handle, a_setting.to_integer)
 		end
 	
 	--  enum GtkPrintDuplex
@@ -894,5 +902,5 @@ feature
 			-- "win32-driver-version"
 			
 invariant
-	valid_unit: is_valid_unit(unit)
+	valid_unit: is_valid_gtk_unit(unit)
 end -- class GTK_PRINT_SETTINGS

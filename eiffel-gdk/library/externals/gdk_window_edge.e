@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class GDK_WINDOW_EDGE
-	--    Determines a window edge or corner.
+	-- enum GdkWindowEdge determines a window edge or corner.
 	
 inherit ANY undefine is_equal, copy end
 

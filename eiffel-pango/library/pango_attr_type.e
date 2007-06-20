@@ -35,7 +35,7 @@ inherit ANY undefine is_equal, copy end
 
 
 feature  -- enum
-	is_valid_attribute_type (a_type :INTEGER): BOOLEAN is
+	is_valid_pango_attribute_type (a_type :INTEGER): BOOLEAN is
 		do	
 			-- Note perhaps it would be "smarter" to rely on C enum
 			-- properties, writing something like

@@ -44,7 +44,7 @@ feature {} -- External calls
 		end
 
 	gtk_frame_set_shadow_type (frame: POINTER; gtkshadowtype: INTEGER) is
-		require is_valid_shadow_type (gtkshadowtype)
+		require is_valid_gtk_shadow_type (gtkshadowtype)
 		external "C use  <gtk/gtk.h>"
 		end
 
@@ -62,7 +62,7 @@ feature {} -- External calls
 
 	gtk_frame_get_shadow_type (frame: POINTER): INTEGER is
 		external "C use  <gtk/gtk.h>"
-		ensure is_valid_shadow_type (Result)
+		ensure is_valid_gtk_shadow_type (Result)
 		end
 
 end

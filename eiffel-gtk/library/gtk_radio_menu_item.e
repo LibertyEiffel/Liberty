@@ -18,7 +18,7 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"					
-
+					
 class GTK_RADIO_MENU_ITEM
 	-- A radio menu item is a check menu item that belongs to a
 	-- group. At each instant exactly one of the radio menu items from
@@ -47,16 +47,18 @@ class GTK_RADIO_MENU_ITEM
 
 inherit
 	GTK_MENU_ITEM
+		rename
+			with_mnemonic as as_menu_item_with_mnemomic
+		export
+			{}  as_menu_item_with_mnemomic
 		redefine
-			from_group, with_label, with_mnemonic, from_widget,
-			with_label_from_widget, with_mnemonic_from_widget,
 			struct_size
 		end
 	
 	-- TODO: GtkRadioMenuItem implements AtkImplementorIface.
 
 creation 
-	from_group, with_label, with_mnemonic, from_widget,
+	from_group, with_group_label, with_mnemonic, from_widget,
 	with_label_from_widget, with_mnemonic_from_widget,
 	from_external_pointer
 
@@ -67,13 +69,10 @@ feature {} -- Creation
 			-- is made.
 		require gtk_initialized: gtk.is_initialized
 		do
-			if a_group /= Void
-			 then from_external_pointer (gtk_radio_menu_item_new (a_group.handle))
-			else 	from_external_pointer (gtk_radio_menu_item_new (default_pointer))
-			end
+			from_external_pointer (gtk_radio_menu_item_new (null_or(a_group)))
 		end
 
-	with_label (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
+	with_group_label (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
 			-- Creates a new GtkRadioMenuItem whose child is
 			-- `a_label'. The radio menu item is to be attached to
 			-- `a_group'. If `a_group' is Void a new group will be
@@ -82,12 +81,8 @@ feature {} -- Creation
 			gtk_initialized: gtk.is_initialized
 			label_not_void: a_label/=Void
 		do
-			if a_group=Void
-			 then from_external_pointer (gtk_radio_menu_item_new_with_label
-												  (a_group.handle, default_pointer))
-			else  from_external_pointer (gtk_radio_menu_item_new_with_label
-												  (a_group.handle, a_label.to_external))
-			end
+			from_external_pointer (gtk_radio_menu_item_new_with_label
+										  (null_or(a_group), a_label.to_external))
 		end
 
 	with_mnemonic (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
@@ -99,14 +94,8 @@ feature {} -- Creation
 			gtk_initialized: gtk.is_initialized
 			label_not_void: a_label/=Void
 		do
-			if a_group = Void
-			 then
-				from_external_pointer (gtk_radio_menu_item_new_with_mnemonic
-											  (default_pointer, a_label.to_external))
-			else
-				from_external_pointer (gtk_radio_menu_item_new_with_mnemonic
-											  (a_group.handle, a_label.to_external))
-			end
+			from_external_pointer (gtk_radio_menu_item_new_with_mnemonic
+										  (null_or(a_group), a_label.to_external))
 		end
 
 	from_widget (a_widget: GTK_RADIO_MENU_ITEM) is
@@ -202,11 +191,11 @@ feature {} -- External calls
 		end
 	
 	gtk_radio_menu_item_new_with_label_from_widget (a_gtkradiomenuitem, a_label: POINTER): POINTER is -- GtkWidget*
-	external "C use <gtk/gtk.h>"
+		external "C use <gtk/gtk.h>"
 		end
 	
 	gtk_radio_menu_item_new_with_mnemonic_from_widget (a_gtkradiomenuitem, a_label: POINTER): POINTER is -- GtkWidget*
-	external "C use <gtk/gtk.h>"
+		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_radio_menu_item_set_group (radio_menu_item, a_group: POINTER) is
@@ -214,6 +203,6 @@ feature {} -- External calls
 		end
 	
 	gtk_radio_menu_item_get_group (a_radio_menu_item: POINTER): POINTER is -- GSList*
-	external "C use <gtk/gtk.h>"
+		external "C use <gtk/gtk.h>"
 		end
 end

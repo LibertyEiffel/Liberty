@@ -27,7 +27,7 @@ deferred class GTK_ORIENTATION
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_orientation (an_orientation :INTEGER): BOOLEAN is
+	is_valid_gtk_orientation (an_orientation :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_orientation = gtk_orientation_horizontal) or else
 						(an_orientation = gtk_orientation_vertical))

@@ -107,7 +107,7 @@ feature {}
 														a_window_x_integer: POINTER;
 														a_window_y_integer: POINTER) is
 		require
-			valid_window_type: is_valid_text_window_type (a_gtk_text_window_type)
+			valid_window_type: is_valid_gtk_text_window_type (a_gtk_text_window_type)
 		external "C use <gtk/gtk.h>"
 		end
 	
@@ -117,7 +117,7 @@ feature {}
 														a_buffer_x_integer: POINTER;
 														a_buffer_y_integer: POINTER) is
 		require
-			valid_window_type: is_valid_text_window_type (a_gtk_text_window_type)
+			valid_window_type: is_valid_gtk_text_window_type (a_gtk_text_window_type)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -129,18 +129,18 @@ feature {}
 	gtk_text_view_get_window_type (a_text_view, a_gdk_window: POINTER): INTEGER is -- GtkTextWindowType
 		external "C use <gtk/gtk.h>"
 		ensure
-			valid_window_type: is_valid_text_window_type (Result)
+			valid_window_type: is_valid_gtk_text_window_type (Result)
 		end
 
 	gtk_text_view_set_border_window_size (a_text_view: POINTER; a_window_type: INTEGER; a_size: INTEGER) is
 		require
-			valid_window_type: is_valid_text_window_type (a_window_type)
+			valid_window_type: is_valid_gtk_text_window_type (a_window_type)
 		external "C use <gtk/gtk.h>"
 		end
 
 	gtk_text_view_get_border_window_size (a_text_view: POINTER; a_window_type: INTEGER): INTEGER is -- gint
 		require
-			valid_window_type: is_valid_text_window_type (a_window_type)
+			valid_window_type: is_valid_gtk_text_window_type (a_window_type)
 		external "C use <gtk/gtk.h>"
 		end
 

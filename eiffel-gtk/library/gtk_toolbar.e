@@ -168,7 +168,7 @@ feature
 	set_orientation (an_orientation: INTEGER) is
 			-- Sets whether a toolbar should appear horizontally or
 			-- vertically.
-		require valid_orientation: is_valid_orientation (an_orientation)
+		require valid_orientation: is_valid_gtk_orientation (an_orientation)
 		do
 			gtk_toolbar_set_orientation (handle, an_orientation)
 		end
@@ -191,21 +191,21 @@ feature
 			-- the current orientation of the toolbar.
 		do
 			Result := gtk_toolbar_get_orientation (handle)
-		ensure is_valid_orientation: is_valid_orientation(orientation)
+		ensure is_valid_orientation: is_valid_gtk_orientation(orientation)
 		end
 
 	style: INTEGER is
 			-- the current style of toolbar
 		do
 			Result:=gtk_toolbar_get_style(handle)
-		ensure is_valid_toolbar_style: is_valid_toolbar_style(Result)
+		ensure is_valid_toolbar_style: is_valid_gtk_toolbar_style(Result)
 		end
 
 	icon_size: INTEGER is
 			-- the current icon size for the icons on the toolbar.
 		do
 			Result := gtk_toolbar_get_icon_size (handle)
-		ensure is_valid_icon_size: is_valid_icon_size (Result)
+		ensure is_valid_icon_size: is_valid_gtk_icon_size (Result)
 		end
 
 	are_tooltips_enabled: BOOLEAN is
@@ -218,13 +218,13 @@ feature
 			-- The relief style of buttons on toolbar.
 		do
 			Result := gtk_toolbar_get_relief_style (handle)
-		ensure is_valid_relief_style: is_valid_relief_style (Result)
+		ensure is_valid_relief_style: is_valid_gtk_relief_style (Result)
 		end
 
 	set_style (a_style: INTEGER) is
 			-- Alters the view of toolbar to display either icons only,
 			-- text only, or both.
-		require is_valid_relief_style: is_valid_relief_style (a_style)
+		require is_valid_relief_style: is_valid_gtk_relief_style (a_style)
 		do
 			gtk_toolbar_set_style (handle, a_style)
 		ensure set: relief_style = a_style

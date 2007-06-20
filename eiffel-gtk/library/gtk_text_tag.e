@@ -824,7 +824,7 @@ feature --   The "style" property
 
 --    Default value: 400
 	set_weight (a_weight: INTEGER) is
-		require valid: is_valid_weight (a_weight)
+		require valid: is_valid_pango_weight (a_weight)
 		do
 			set_integer_property (weight_property_name, a_weight)
 		end
@@ -834,7 +834,7 @@ feature --   The "style" property
 			-- PANGO_WEIGHT; for example, pango_weight_bold.
 		do
 			g_object_get_one_property (handle, weight_property_name.to_external, $Result, default_pointer)
-		ensure valid: is_valid_weight (Result)
+		ensure valid: is_valid_pango_weight (Result)
 		end
 	
 --    -------------------------------------------------------------------------------------
@@ -858,12 +858,12 @@ feature --   The "wrap-mode" property
 		obsolete "integer_property should be enum"
 		do
 			Result := integer_property (wrap_mode_property_name)
-		ensure valid: is_valid_wrap_mode (Result)
+		ensure valid: is_valid_gtk_wrap_mode (Result)
 		end
 	
 	set_wrap_mode (a_mode: INTEGER) is
 			-- Set `wrap-mode' property.
-		require valid_mode: is_valid_wrap_mode (a_mode)
+		require valid_mode: is_valid_gtk_wrap_mode (a_mode)
 		do
 			set_integer_property (wrap_mode_property_name, a_mode)
 		end

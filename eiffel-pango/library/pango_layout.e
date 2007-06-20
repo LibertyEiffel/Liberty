@@ -92,7 +92,7 @@ feature -- Access
 		do
 			Result := pango_layout_get_wrap (handle)
 		ensure
-			is_valid_wrap_mode (Result)
+			is_valid_pango_wrap_mode (Result)
 		end
 
 	width: INTEGER is
@@ -110,7 +110,7 @@ feature -- Access
 		do
 			Result := pango_layout_get_alignment (handle)
 		ensure
-			is_valid_alignment (Result)
+			is_valid_pango_alignment (Result)
 		end
 
 	justify: BOOLEAN is
@@ -182,7 +182,7 @@ feature -- Operations
 			-- is set on the layout with set_width(). To turn off wrapping,
 			-- set the width to -1.
 		require
-			is_valid_wrap_mode (a_wrap_mode)
+			is_valid_pango_wrap_mode (a_wrap_mode)
 		do
 			pango_layout_set_wrap (handle, a_wrap_mode)
 		end
@@ -203,7 +203,7 @@ feature -- Operations
 			-- Sets the alignment for the layout: how partial lines are
 			-- positioned within the horizontal space available.
 		require
-			is_valid_alignment (an_alignment)
+			is_valid_pango_alignment (an_alignment)
 		do
 			pango_layout_set_alignment (handle, an_alignment)
 		end

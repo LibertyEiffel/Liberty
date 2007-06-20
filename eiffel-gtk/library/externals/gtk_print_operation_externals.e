@@ -7,12 +7,19 @@ indexing
 
 deferred class GTK_PRINT_OPERATION_EXTERNALS
 
-inherit ANY undefine is_equal, copy end
+inherit
+	ANY
+		undefine
+			is_equal,
+			copy
+		end
+	
 insert
- GTK_UNIT
- GTK_PRINT_OPERATION_RESULT
- GTK_PRINT_OPERATION_ACTION
- GTK_PRINT_STATUS
+	GTK_UNIT
+	GTK_PRINT_OPERATION_RESULT
+	GTK_PRINT_OPERATION_ACTIONS
+	GTK_PRINT_STATUS
+	
 feature {} -- External calls
 
 	-- #include <gtk/gtk.h>
@@ -85,7 +92,7 @@ feature {} -- External calls
 	gtk_print_operation_set_unit (an_operation: POINTER; a_unit: INTEGER) is
 			-- void gtk_print_operation_set_unit (GtkPrintOperation *op, GtkUnit 
 			-- unit);
-		require valid_unit: is_valid_unit (a_unit)
+		require valid_unit: is_valid_gtk_unit (a_unit)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -112,7 +119,7 @@ feature {} -- External calls
 	gtk_print_operation_run (an_operation: POINTER; an_action: INTEGER; a_parent, an_error_handle: POINTER): INTEGER is
 			-- GtkPrintOperationResult gtk_print_operation_run (GtkPrintOperation *op, GtkPrintOperationAction action, GtkWindow *parent, GError **error);
 		external "C use <gtk/gtk.h>"
-		ensure valid_result: is_valid_operation_result(Result)
+		ensure valid_result: is_valid_gtk_print_operation_result(Result)
 		end
 
 	gtk_print_operation_cancel (an_operation: POINTER) is
@@ -123,7 +130,7 @@ feature {} -- External calls
 	gtk_print_operation_get_status (an_operation: POINTER): INTEGER is
 			-- GtkPrintStatus gtk_print_operation_get_status (GtkPrintOperation *op);
 		external "C use <gtk/gtk.h>"
-		ensure valid_result: is_valid_print_status (Result)
+		ensure valid_result: is_valid_gtk_print_status (Result)
 		end
 
 	gtk_print_operation_get_status_string (an_operation: POINTER): POINTER is
@@ -153,9 +160,4 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkPrintOperation)"
-		end
 end

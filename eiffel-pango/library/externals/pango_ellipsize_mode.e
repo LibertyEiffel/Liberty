@@ -29,7 +29,7 @@ deferred class PANGO_ELLIPSIZE_MODE
 inherit ANY undefine is_equal, copy end
 
 feature  -- enum
-	is_valid_ellipsize_mode (a_mode :INTEGER): BOOLEAN is
+	is_valid_pango_ellipsize_mode (a_mode :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_mode = pango_ellipsize_none) or else
 						(a_mode = pango_ellipsize_start) or else

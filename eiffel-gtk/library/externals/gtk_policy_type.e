@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_policy (a_policy_type :INTEGER): BOOLEAN is
+	is_valid_gtk_policy (a_policy_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_policy_type = gtk_policy_always) or else
 						(a_policy_type = gtk_policy_automatic) or else

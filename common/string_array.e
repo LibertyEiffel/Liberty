@@ -52,10 +52,10 @@ insert WRAPPER_HANDLER -- only to get null_or_string
 
 creation
 	-- make, with_capacity,	from_collection,
-	from_external_array
+	from_external_array,
 	from_external_null_array
 
-feature {STRING_ARRAY} -- Implementation
+feature {STRING_ARRAY, WRAPPER_HANDLER} -- Implementation
 	-- Note: to correctly handle memory of the string array wrapper and
 	-- to avoid memory leaks we maintain an updated, paraller and
 	-- hidden FAST_ARRAY[STRING] that holds a reference to the strings

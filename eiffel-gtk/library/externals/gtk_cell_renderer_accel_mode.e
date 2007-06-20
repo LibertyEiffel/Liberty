@@ -24,7 +24,7 @@ deferred class GTK_CELL_RENDERER_ACCEL_MODE
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_accel_mode (a_mode: INTEGER): BOOLEAN is
+	is_valid_gtk_accel_mode (a_mode: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_mode = gtk_cell_renderer_accel_mode_gtk) or else
 						(a_mode = gtk_cell_renderer_accel_mode_other))

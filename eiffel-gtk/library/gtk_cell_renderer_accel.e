@@ -166,4 +166,5 @@ feature -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererAccel)"
 		end
-end -- class FOO
+end -- class GTK_CELL_RENDERER_ACCEL
+

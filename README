@@ -16,6 +16,8 @@ Some of the libraries that shall be wrapped are:
 * FFMPEG a multimedia encoding/decoding library
 * Curl: A full featured HTTP client library
 
+* This is an interesting proejct to follow http://www.clutter-project.org/
+
 USAGE:
 
 To use this library you shall add in your SmartEiffel configuration

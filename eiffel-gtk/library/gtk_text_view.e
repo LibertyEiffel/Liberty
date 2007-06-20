@@ -342,7 +342,7 @@ feature
 			
 			-- 	win :       a GtkTextWindowType 
 		require
-			valid_window_type: is_valid_text_window_type (a_window_type)
+			valid_window_type: is_valid_gtk_text_window_type (a_window_type)
 			window_type_is_not_private: a_window_type /= gtk_text_window_private
 		local window_x, window_y: INTEGER
 		do
@@ -360,7 +360,7 @@ feature
 			-- Note that you can't convert coordinates for a nonexisting
 			-- window (see `set_border_window_size').
 		require
-			valid_window_type: is_valid_text_window_type (a_window_type)
+			valid_window_type: is_valid_gtk_text_window_type (a_window_type)
 			window_type_is_not_private: a_window_type /= gtk_text_window_private
 		local buffer_x, buffer_y: INTEGER
 		do
@@ -376,7 +376,7 @@ feature
 			-- that displays the text buffer. Windows are Void and
 			-- nonexistent if their width or height is 0, and are
 			-- nonexistent before the widget has been realized.
-		require valid_window_type: is_valid_text_window_type (a_text_window_type)
+		require valid_window_type: is_valid_gtk_text_window_type (a_text_window_type)
 		local
 			ptr: POINTER
 			g_retriever: G_RETRIEVER [GDK_WINDOW]
@@ -398,7 +398,7 @@ feature
 			-- window it was.
 		do
 			Result := gtk_text_view_get_window_type (handle, a_window.handle)
-		ensure is_valid_text_window_type (Result)
+		ensure is_valid_gtk_text_window_type (Result)
 		end
 
 	set_border_window_size (a_window_type: INTEGER; a_size: INTEGER) is
@@ -412,7 +412,7 @@ feature
 			-- with `gtk_text_window_widget', `gtk_text_window_text', or
 			-- `gtk_text_window_private'.
 		require
-			valid_type: is_valid_text_window_type (a_window_type)
+			valid_type: is_valid_gtk_text_window_type (a_window_type)
 			correct_type: ((a_window_type /= gtk_text_window_widget) and
 								(a_window_type /= gtk_text_window_text) and
 								(a_window_type /= gtk_text_window_private))
@@ -424,7 +424,7 @@ feature
 			-- the width of the specified border window. See
 			-- `set_border_window_size'.
 		require
-			valid_type: is_valid_text_window_type (a_window_type)
+			valid_type: is_valid_gtk_text_window_type (a_window_type)
 		do
 			Result := gtk_text_view_get_border_window_size (handle, a_window_type)
 		end
@@ -605,7 +605,7 @@ feature -- Iterator queries
 feature -- Wrap mode
 	set_wrap_mode (a_mode: INTEGER) is
 			-- 	Sets the line wrapping for the view.
-		require valid_mode: is_valid_wrap_mode (a_mode)
+		require valid_mode: is_valid_gtk_wrap_mode (a_mode)
 		do
 			gtk_text_view_set_wrap_mode     (handle, a_mode)
 		end
@@ -614,7 +614,7 @@ feature -- Wrap mode
 			-- the line wrapping for the view.
 		do
 			Result := gtk_text_view_get_wrap_mode (handle)
-		ensure valid_mode: is_valid_wrap_mode (Result)
+		ensure valid_mode: is_valid_gtk_wrap_mode (Result)
 		end
 
 feature -- Editabilty
@@ -742,7 +742,7 @@ feature -- Pixels above and below lines
 	set_justification (a_justification: INTEGER) is
 			-- Sets the default justification of text in text view. Tags
 			-- in the view's buffer may override the default.
-		require valid_justification: is_valid_justification(a_justification)
+		require valid_justification: is_valid_gtk_justification(a_justification)
 		do
 			gtk_text_view_set_justification (handle,a_justification)
 		ensure set: a_justification = justification
@@ -753,7 +753,7 @@ feature -- Pixels above and below lines
 			-- in the buffer may override the default.
 		do
 			Result:=gtk_text_view_get_justification(handle)
-		ensure valid: is_valid_justification(Result)
+		ensure valid: is_valid_gtk_justification(Result)
 		end
 
 	set_left_margin (a_left_margin: INTEGER) is

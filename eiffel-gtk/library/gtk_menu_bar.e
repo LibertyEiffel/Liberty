@@ -51,7 +51,7 @@ feature
 	set_pack_direction (a_direction: INTEGER) is
 			-- 	Sets how items should be packed inside a menubar.
 		require
-			valid_direction: is_valid_pack_direction (a_direction)
+			valid_direction: is_valid_gtk_pack_direction (a_direction)
 		do
 			gtk_menu_bar_set_pack_direction (handle, a_direction)
 		end
@@ -60,7 +60,7 @@ feature
 			--  the current pack direction of the menubar.
 		do
 			Result:= gtk_menu_bar_get_pack_direction(handle)
-		ensure valid_result:is_valid_pack_direction (Result)			
+		ensure valid_result:is_valid_gtk_pack_direction (Result)			
 		end
 	
 	-- TODO: provide more meaningful boolean queries like
@@ -71,7 +71,7 @@ feature
 			-- Sets how widgets should be packed inside the children of a
 			-- menubar.
 		require
-			valid_direction: is_valid_pack_direction (a_direction)
+			valid_direction: is_valid_gtk_pack_direction (a_direction)
 		do
 		  gtk_menu_bar_set_child_pack_direction (handle, a_direction)
 		end
@@ -82,7 +82,7 @@ feature
 			-- `set_child_pack_direction'.
 		do
 			Result:= gtk_menu_bar_get_child_pack_direction (handle)
-		ensure is_valid_pack_direction (Result)
+		ensure is_valid_gtk_pack_direction (Result)
 		end
 
 feature -- Properties

@@ -830,7 +830,7 @@ feature -- Operations
 			Result := [a_path, a_position]
 		ensure
 			Result /= Void
-			Result.first /= Void implies is_valid_icon_view_drop_position (Result.second)
+			Result.first /= Void implies is_valid_gtk_icon_view_drop_position (Result.second)
 		end
 
 -- gtk_icon_view_create_drag_icon ()

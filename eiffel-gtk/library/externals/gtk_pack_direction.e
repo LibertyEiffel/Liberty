@@ -25,7 +25,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_pack_direction (a_direction :INTEGER): BOOLEAN is
+	is_valid_gtk_pack_direction (a_direction :INTEGER): BOOLEAN is
 		do
 			Result := ((a_direction = gtk_pack_direction_ltr) or else
 						  (a_direction = gtk_pack_direction_rtl) or else

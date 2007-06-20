@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_spin_button_update_policy (a_policy :INTEGER): BOOLEAN is
+	is_valid_gtk_spin_button_update_policy (a_policy :INTEGER): BOOLEAN is
 		do
 			Result:=((a_policy = gtk_update_always) or else
 						(a_policy = gtk_update_if_valid))

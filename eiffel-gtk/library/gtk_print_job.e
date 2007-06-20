@@ -35,10 +35,14 @@ class GTK_PRINT_JOB
 
 inherit G_OBJECT
 
+insert
+	GTK
+	GTK_PRINT_STATUS
+	
 creation make, from_external_pointer
 
 feature {} -- Creation 
-	make (a_title: STRING; a_printer: GTK_PRINTER; some_settings: GTK_PRINT_SETTING; a_page_setup: GTK_PAGE_SETUP) is
+	make (a_title: STRING; a_printer: GTK_PRINTER; some_settings: GTK_PRINT_SETTINGS; a_page_setup: GTK_PAGE_SETUP) is
 			--   Creates a new GtkPrintJob.
 		require
 			title_not_void: a_title /= Void
@@ -46,10 +50,8 @@ feature {} -- Creation
 			settings_not_void: some_settings /= Void
 			page_setup_not_void: a_page_setup /= Void
 		do
-			from_external_pointer(gtk_print_job_new(a_title.to_external,
-																 a_printer.handle,
-																 some_settings,handle,
-																 a_page_setup.handle))
+			from_external_pointer(gtk_print_job_new(a_title.to_external,  a_printer.handle,
+																 some_settings.handle, a_page_setup.handle))
 		end
 	
 feature
@@ -90,7 +92,7 @@ feature
 			-- the status of the print job.
 		do
 			Result:=gtk_print_job_get_status(handle)
-		ensure valid: is_valid_print_status(Result)
+		ensure valid: is_valid_gtk_print_status(Result)
 		end
 
 	is_successful: BOOLEAN

@@ -27,7 +27,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_tree_view_column_sizing (a_sizing :INTEGER): BOOLEAN is
+	is_valid_gtk_tree_view_column_sizing (a_sizing :INTEGER): BOOLEAN is
 		do
 			Result:=((a_sizing = gtk_tree_view_column_grow_only) or else
 						(a_sizing = gtk_tree_view_column_autosize) or else

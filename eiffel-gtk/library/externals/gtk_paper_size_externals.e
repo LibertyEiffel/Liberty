@@ -22,11 +22,11 @@ feature {} -- External calls
 		external "C  use <gtk/gtk.h>"
 		end
 	
-	gtk_paper_size_new_custom (a_name, a_display_name: POINTER; a_width, an_height: INTEGER; a_unit: INTEGER): POINTER is
+	gtk_paper_size_new_custom (a_name, a_display_name: POINTER; a_width, an_height: REAL; a_unit: INTEGER): POINTER is
 			-- GtkPaperSize* gtk_paper_size_new_custom (const gchar
 			-- *name, const gchar *display_name, gdouble width, gdouble
 			-- height, GtkUnit unit);
-		require is_valid_unit(a_unit)
+		require is_valid_gtk_unit(a_unit)
 		external "C  use <gtk/gtk.h>"
 		end
 
@@ -64,14 +64,14 @@ feature {} -- External calls
 	gtk_paper_size_get_width  (a_size: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_paper_size_get_width (GtkPaperSize *size,
 			-- GtkUnit unit);
-		require is_valid_unit(a_unit)
+		require is_valid_gtk_unit(a_unit)
 		external "C  use <gtk/gtk.h>"
 		end
 	
 	gtk_paper_size_get_height  (a_size: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_paper_size_get_height (GtkPaperSize *size,
 			-- GtkUnit unit);
-		require is_valid_unit(a_unit)
+		require is_valid_gtk_unit(a_unit)
 		external "C  use <gtk/gtk.h>"
 		end
 	
@@ -83,35 +83,35 @@ feature {} -- External calls
 	gtk_paper_size_set_size (a_size: POINTER; a_width, a_height: REAL; a_unit: INTEGER) is
 			-- void gtk_paper_size_set_size (GtkPaperSize *size, gdouble
 			-- width, gdouble height, GtkUnit unit);
-		require is_valid_unit(a_unit)
+		require is_valid_gtk_unit(a_unit)
 		external "C  use <gtk/gtk.h>"
 		end
 	
 	gtk_paper_size_get_default_top_margin(a_size: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_paper_size_get_default_top_margin(GtkPaperSize
 			-- *size, GtkUnit unit);
-		require is_valid_unit(a_unit)
+		require is_valid_gtk_unit(a_unit)
 		external "C  use <gtk/gtk.h>"
 		end
 	
 	gtk_paper_size_get_default_bottom_margin(a_size: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_paper_size_get_default_bottom_margin
 			-- (GtkPaperSize *size, GtkUnit unit);
-		require is_valid_unit(a_unit)
+		require is_valid_gtk_unit(a_unit)
 		external "C  use <gtk/gtk.h>"
 		end
 	
 	gtk_paper_size_get_default_left_margin(a_size: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_paper_size_get_default_left_margin
 			-- (GtkPaperSize *size, GtkUnit unit);
-		require is_valid_unit(a_unit)
+		require is_valid_gtk_unit(a_unit)
 		external "C  use <gtk/gtk.h>"
 		end
 	
 	gtk_paper_size_get_default_right_margin(a_size: POINTER; a_unit: INTEGER): REAL is
 			-- gdouble gtk_paper_size_get_default_right_margin
 			-- (GtkPaperSize *size, GtkUnit unit);
-		require is_valid_unit(a_unit)
+		require is_valid_gtk_unit(a_unit)
 		external "C  use <gtk/gtk.h>"
 		end
 	

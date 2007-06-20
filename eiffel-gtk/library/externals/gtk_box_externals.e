@@ -70,7 +70,7 @@ feature {} -- External calls
 		end
 
 	gtk_box_set_child_packing (a_box,a_child: POINTER; expand, fill, padding, pack_type: INTEGER) is
-		require valid_pack: is_valid_pack_type (pack_type)
+		require valid_pack: is_valid_gtk_pack_type (pack_type)
 		external "C use <gtk/gtk.h>"
 		end
 

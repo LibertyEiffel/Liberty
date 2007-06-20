@@ -29,7 +29,7 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
 
-	is_valid_variant (a_variant :INTEGER): BOOLEAN is
+	is_valid_pango_variant (a_variant :INTEGER): BOOLEAN is
 		do
 			Result := ((a_variant = pango_variant_normal) or else
 						(a_variant = pango_variant_small_caps))

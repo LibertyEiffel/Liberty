@@ -92,8 +92,8 @@ feature {} -- Creation
 		require
 			gtk_initialized: gtk.is_initialized
 			valid_dialog_flags: are_valid_dialog_flags (some_flags)
-			valid_message_type: is_valid_message_type (a_type)
-			valid_buttons_type: is_valid_buttons_type (some_buttons)
+			valid_message_type: is_valid_gtk_message_type (a_type)
+			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
 			if a_parent=Void then
 				from_external_pointer (gtk_message_dialog_new (default_pointer, some_flags, a_type, some_buttons, a_message.to_external))
@@ -137,8 +137,8 @@ feature {} -- Creation
 		require
 			gtk_initialized: gtk.is_initialized
 			valid_dialog_flags: are_valid_dialog_flags (some_flags)
-			valid_message_type: is_valid_message_type (a_type)
-			valid_buttons_type: is_valid_buttons_type (some_buttons)
+			valid_message_type: is_valid_gtk_message_type (a_type)
+			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
 			if a_parent=Void then from_external_pointer
 				(gtk_message_dialog_new_with_markup

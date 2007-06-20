@@ -34,6 +34,8 @@ inherit
 			make
 		end
 		-- GtkAssistant implements AtkImplementorIface.
+
+	CANCEL_SIGNAL_RECEIVER
 	
 insert
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
@@ -159,7 +161,7 @@ feature
 			-- page behavior in the assistant.
 		require
 			page_not_void: a_page /= Void
-			valid_page_type: is_valid_page_type(a_type)
+			valid_page_type: is_valid_gtk_page_type(a_type)
 		do
 			gtk_assistant_set_page_type (handle, a_page.handle, a_type)
 		end
@@ -169,7 +171,7 @@ feature
 		require page_not_void: a_page /= Void
 		do
 			Result := gtk_assistant_get_page_type (handle, a_page.handle)
-		ensure valid_page_type: is_valid_page_type(Result)
+		ensure valid_page_type: is_valid_gtk_page_type(Result)
 		end
 
 	set_page_title (a_page: GTK_WIDGET; a_title: STRING) is

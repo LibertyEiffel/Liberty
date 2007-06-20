@@ -241,7 +241,7 @@ insert
 		-- 			gtk_file_chooser_action_save as save_action,
 		-- 			gtk_file_chooser_action_select_folder as select_folder_action,
 		-- 			gtk_file_chooser_action_create_folder as create_folder_action,
-		-- 			is_valid_file_chooser_action	as is_valid_action
+		-- 			is_valid_gtk_file_chooser_action	as is_valid_gtk_action
 		-- 		end
 
 feature -- Actions

@@ -75,6 +75,5 @@ feature -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVScale)"
 		end
-	
 end
 	

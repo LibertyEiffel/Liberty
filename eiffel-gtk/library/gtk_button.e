@@ -124,7 +124,7 @@ feature -- Button's relief
 			-- widget. Three styles exist, `gtk_relief_normal',
 			-- `gtk_relief_half', `gtk_relief_none'. The default style is, as
 			-- one can guess, `gtk_relief_normal'.
-		require valid_relief_style: is_valid_relief_style (a_relief)
+		require valid_relief_style: is_valid_gtk_relief_style (a_relief)
 		do
 			gtk_button_set_relief (handle, a_relief)
 		end
@@ -133,7 +133,7 @@ feature -- Button's relief
 			-- the current relief style of the Current GtkButton.
 		do
 			Result := gtk_button_get_relief (handle)
-		ensure valid_relief_style: is_valid_relief_style (Result)
+		ensure valid_relief_style: is_valid_gtk_relief_style (Result)
 		end
 
 	is_relief_normal: BOOLEAN is
@@ -329,7 +329,7 @@ feature -- Label
 --			-- Sets the position of the image relative
 --			-- to the text inside the button.
 --		require
---			is_valid_position_type (a_position)
+--			is_valid_gtk_position_type (a_position)
 --		do
 --			gtk_button_set_image_position (handle, a_position)
 --		end
@@ -340,7 +340,7 @@ feature -- Label
 --		do
 --			Result := gtk_button_get_image_position (handle)
 --		ensure
---			is_valid_position_type (Result)
+--			is_valid_gtk_position_type (Result)
 --		end
 
 feature -- Properties 

@@ -190,7 +190,7 @@ feature
 			gtk_box_query_child_packing (handle,a_child.handle,
 												  $expand,$fill,$padding,$pack_type)
 			Result := [expand,fill, padding,pack_type]
-		ensure valid_packing: is_valid_pack_type (Result.item_4)
+		ensure valid_packing: is_valid_gtk_pack_type (Result.item_4)
 		end
 
 	set_child_packing_start (a_child: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER) is

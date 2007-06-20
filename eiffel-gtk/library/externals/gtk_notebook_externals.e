@@ -80,7 +80,7 @@ feature {} -- External calls
 		end
 
 	gtk_notebook_set_tab_pos (a_notebook: POINTER; a_position: INTEGER) is
-		require valid_position: is_valid_position_type (a_position)
+		require valid_position: is_valid_gtk_position_type (a_position)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -155,7 +155,7 @@ feature {} -- External calls
 		end
 
 	gtk_notebook_set_tab_label_packing (a_notebook, a_child: POINTER; expand, fill, pack_type: INTEGER) is
-		require valid_pack_type: is_valid_pack_type (pack_type)
+		require valid_pack_type: is_valid_gtk_pack_type (pack_type)
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -190,7 +190,7 @@ feature {} -- External calls
 
 	gtk_notebook_get_tab_pos (a_notebook: POINTER): INTEGER is -- GtkPositionType
 		external "C use <gtk/gtk.h>"
-		ensure valid_result: is_valid_position_type (Result)
+		ensure valid_result: is_valid_gtk_position_type (Result)
 		end
 
 	gtk_notebook_set_current_page (a_notebook: POINTER; a_page_num: INTEGER) is

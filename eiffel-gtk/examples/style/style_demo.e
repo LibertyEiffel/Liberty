@@ -5,7 +5,7 @@ insert
 	GTK
 	GTK_STATE_TYPE
 	PANGO_CONSTANTS
-	PANGO_WRAP_MODE rename is_valid_wrap_mode as is_valid_pango_wrap_mode end
+	PANGO_WRAP_MODE
 
 creation
 	make

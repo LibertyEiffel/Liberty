@@ -90,7 +90,7 @@ class GTK_PRINT_CONTEXT
 
 inherit SHARED_C_STRUCT
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 
@@ -160,7 +160,12 @@ feature {} -- Creation
 			p:=gtk_print_context_get_pango_fontmap(handle)
 			check valid_pango_font_map_pointer: p.is_not_null end
 			Result := r.eiffel_wrapper_from_gobject_pointer(p)
-			if Result=Void then create Result.from_external_pointer(p) end
+			if Result=Void then
+				debug
+					raise(pointer_to_unwrapped_deferred_object)
+				end
+				-- create Result.from_external_pointer(p)
+			end
 		end
 
 	pango_context: PANGO_CONTEXT is

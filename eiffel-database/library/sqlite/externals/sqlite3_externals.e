@@ -2,8 +2,8 @@ indexing
 	description: "External calls for SQLite3"
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
+	date: "$Date$"
+	revision: "$Revision$"
 
 deferred class SQLITE3_EXTERNALS
 
