@@ -130,7 +130,7 @@ feature {}
 		external "C use <cairo.h>"
 		end
 	
-	cairo_svg_surface_create_for_stream (a_write_func, a_closure: POINTER; a_width_in_points, an_height_in_points: REAL): POINTER Is
+	cairo_svg_surface_create_for_stream (a_write_func, a_closure: POINTER; a_width_in_points, an_height_in_points: REAL): POINTER is
 			-- cairo_surface_t* cairo_svg_surface_create_for_stream
 			-- (cairo_write_func_t write_func, void *closure, double
 			-- width_in_points, double height_in_points);

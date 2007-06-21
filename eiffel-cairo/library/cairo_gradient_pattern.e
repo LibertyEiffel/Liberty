@@ -23,8 +23,6 @@ deferred class CAIRO_GRADIENT_PATTERN
 
 inherit CAIRO_PATTERN
 
-creation make, from_external_pointer
-
 feature {} -- Creation
 
 	make_linear (x0,y0,x1,y1: REAL) is

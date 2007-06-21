@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _STRUCT
+deferred class CAIRO_PATH_DATA
 	--  union cairo_path_data_t
 	--
 	-- union cairo_path_data_t {

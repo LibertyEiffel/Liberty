@@ -23,7 +23,7 @@ class CAIRO_SURFACE_PATTERN
 
 inherit CAIRO_PATTERN
 
-creation make, from_external_pointer
+creation from_surface, from_external_pointer
 
 feature {} -- Creation
 	from_surface (a_surface: CAIRO_SURFACE) is
@@ -40,51 +40,5 @@ feature {} -- Creation
 			-- error.  To inspect the status of a pattern use
 			-- cairo_pattern_status().
 	end
-
-feature 
-	set_extend (an_extend: INTEGER) is
-		do
-			cairo_pattern_set_extend(handle,an_exte(cairo_pattern_t *pattern,
-	--                                              cairo_extend_t extend);
-	--
-	--   Sets the mode to be used for drawing outside the area of a pattern. See
-	--   cairo_extend_t for details on the semantics of each extend strategy.
-	--
-	--   pattern : a cairo_pattern_t
-	--   extend :  a cairo_extend_t describing how the area outside of the pattern
-	--             will be drawn
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  cairo_pattern_get_extend ()
-	--
-	-- cairo_extend_t cairo_pattern_get_extend     (cairo_pattern_t *pattern);
-	--
-	--   Gets the current extend mode for a pattern. See cairo_extend_t for details
-	--   on the semantics of each extend strategy.
-	--
-	--   pattern : a cairo_pattern_t
-	--   Returns : the current extend strategy used for drawing the pattern.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  cairo_pattern_set_filter ()
-	--
-	-- void        cairo_pattern_set_filter        (cairo_pattern_t *pattern,
-	--                                              cairo_filter_t filter);
-	--
-	--   pattern :
-	--   filter :
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  cairo_pattern_get_filter ()
-	--
-	-- cairo_filter_t cairo_pattern_get_filter     (cairo_pattern_t *pattern);
-	--
-	--   pattern :
-	--   Returns :
 
 end -- class CAIRO_SURFACE_PATTERN

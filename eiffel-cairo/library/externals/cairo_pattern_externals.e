@@ -67,7 +67,7 @@ feature {} -- External calls
 		external "C use <cairo.h>"
 		end
 
-	cairo_pattern_create_radial (a_cx0, a_cy0, a_radius0, a_cx1, a_cy1, a_radius1: REAL) is
+	cairo_pattern_create_radial (a_cx0, a_cy0, a_radius0, a_cx1, a_cy1, a_radius1: REAL): POINTER is
 			-- cairo_pattern_t* cairo_pattern_create_radial (double cx0,
 			-- double cy0, double radius0, double cx1, double cy1, double
 			-- radius1);
