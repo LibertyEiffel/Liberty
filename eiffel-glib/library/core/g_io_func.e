@@ -22,8 +22,8 @@ feature {} -- Creation
 feature -- Access
 
 	function: POINTER is
-		external "C macro use ..."
-		alias ""
+		external "C macro use <glib-callbacks.h>"
+		alias "g_io_func_closure_invoke"
 		end
 
 	data: POINTER is
@@ -48,7 +48,7 @@ feature {} -- Externals
 
 	struct_size: INTEGER is
 		external "C macro use <glib-callbacks.h>"
-		alias "(sizeof (GIOFuncClosure))"
+		alias "(sizeof (struct GIOFuncClosure))"
 		end
 
 	g_io_func_closure_init (h, self, func: POINTER) is

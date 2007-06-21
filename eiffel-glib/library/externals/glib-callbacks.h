@@ -18,6 +18,13 @@
  * 02111-1307, USA.
  */
 
-//#include <glib.h>
+#include <glib.h>
+
+struct GIOFuncClosure {
+	void *target;
+	gboolean (*callback)(void *, GIOChannel *, GIOCondition);
+};
+
+gboolean g_io_func_closure_invoke (GIOChannel *source, GIOCondition condition, gpointer data);
 
 int EiffelGCompareDataFunc (void *a, void *b, void *user_data);
