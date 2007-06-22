@@ -231,7 +231,7 @@ feature
 		do
 		end
 
-   pango_glyph_empty: INTEGER_32 is
+   empty_pango_glyph: INTEGER_32 is
 			-- The PANGO_GLYPH_EMPTY macro represents a PangoGlyph value
 			-- that has a special meaning, which is a zero-width empty
 			-- glyph. This is useful for example in shaper modules, to

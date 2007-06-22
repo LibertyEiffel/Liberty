@@ -85,4 +85,10 @@ feature -- Access
 			create Result.from_external_pointer (pango_cairo_font_map_create_context (handle))
 		end
 
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <pango/pango.h>"
+		alias "sizeof(PangoCairoFontMap)"
+		end
+	
 end -- class PANGO_CAIRO_FONT_MAP

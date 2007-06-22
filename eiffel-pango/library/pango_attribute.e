@@ -28,9 +28,19 @@ indexing
 
 
 class PANGO_ATTRIBUTE
-inherit SHARED_C_STRUCT redefine copy, is_equal, free end
-insert PANGO_ATTR_TYPE
-creation make, from_external_pointer
+
+inherit
+	SHARED_C_STRUCT
+		redefine
+			copy,
+			is_equal,
+			free
+		end
+
+insert
+	PANGO_ATTR_TYPE
+
+creation from_external_pointer
 
 feature {} -- Creation
 
@@ -100,7 +110,8 @@ feature  -- Markup parsing
 			attribute_list: PANGO_ATTR_LIST; text_ptr, error_ptr: POINTER
 		do
 			-- Note: please leave the following commented C documentation
-			-- as reference for further improvements
+			-- as reference for future implementation
+
 			--  gboolean pango_parse_markup (const char *markup_text, int
 			--  length, gunichar accel_marker, PangoAttrList **attr_list,
 			--  char **text, gunichar *accel_char, GError **error);
@@ -123,11 +134,12 @@ feature  -- Markup parsing
 			--    error :        address of return location for errors, or NULL
 			--    Returns :      FALSE if error is set, otherwise TRUE
 
-			is_parsing_successful := (pango_parse_markup
-											  (a_markup_text.to_external, -1,
-												0, -- gunichar accel_marker, 
-												-- PangoAttrList **attr_list,
-												--  char **text, gunichar *accel_char, GError **error);
+			-- is_parsing_successful := (pango_parse_markup
+			--							  (a_markup_text.to_external, -1,
+			--	0, -- gunichar accel_marker, 
+			-- PangoAttrList **attr_list,
+			--  char **text, gunichar *accel_char, GError **error);
+		ensure implemented: False
 		end
 
 	is_parsing_successful: BOOLEAN
@@ -163,10 +175,10 @@ feature
 		end
 
 feature {} -- Implementation
-	free (handle: POINTER) is
+	free (an_handle: POINTER) is
 			-- Destroy a PangoAttribute and free all associated memory.
 		do
-			pango_attribute_destroy (handle)
+			pango_attribute_destroy (an_handle)
 			-- Note: could be easily optimized renaming
 			-- pango_attribute_destroy as free. Paolo 2006-07-11
 		end

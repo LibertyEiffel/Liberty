@@ -23,7 +23,7 @@ class PANGO_FONT_FACE
 
 inherit G_OBJECT
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 --             PangoFontFace;
@@ -36,5 +36,10 @@ feature {} -- Creation
 --                                              int *n_sizes);
 -- PangoFontDescription* pango_font_face_describe
 --                                             (PangoFontFace *face);
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <pango/pango.h>"
+		alias "sizeof(PangoFontFace)"
+		end
 
 end -- class PANGO_FONT_FACE

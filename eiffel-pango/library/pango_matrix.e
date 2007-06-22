@@ -41,8 +41,10 @@ class PANGO_MATRIX
 
 inherit 
 	C_STRUCT
-	DISPOSABLE
-
+		redefine
+			copy,
+			dispose
+		end
 -- insert PANGO_MATRIX_EXTERNALS
 
 creation make, from_external_pointer
@@ -59,19 +61,19 @@ feature {} -- Creation
 	make is
 			-- Create a new, uninitialized 
 		do
-			from_pointer_external(pango_matrix_copy(default_pointer))
+			from_external_pointer(pango_matrix_copy(default_pointer))
 			-- pango_matrix_copy returns the newly allocated PangoMatrix,
 			-- which should be freed with pango_matrix_free(), or NULL if
 			-- matrix was NULL.
 		end
 
+feature
 	copy (another: like Current) is
 			-- Copies a PangoMatrix.
 		do
-			from_pointer_external(pango_matrix_copy(another.handle))
+			from_external_pointer(pango_matrix_copy(another.handle))
 		end
 
-feature 
 	dispose is
 		do 
 			-- pango_matrix_free free a PangoMatrix created with pango_matrix_copy(). Does nothing 
@@ -84,7 +86,7 @@ feature
 			-- transformation given by first translating by (`an_x,' `an_y') then
 			-- applying the original transformation.
 		do
-			pango_matrix_translate
+			pango_matrix_translate(handle,an_x,an_y)
 		end
 
 	scale (an_x, an_y: REAL) is 

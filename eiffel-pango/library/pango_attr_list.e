@@ -19,23 +19,21 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- The PangoAttrList structure represents a list of
-			-- attributes that apply to a section of text. The attributes
-			-- are, in general, allowed to overlap in an arbitrary
-			-- fashion, however, if the attributes are manipulated only
-			-- through pango_attr_list_change(), the overlap between
-			-- properties will meet stricter criteria.
-
-			-- Since the PangoAttrList structure is stored as a linear
-			-- list, it is not suitable for storing attributes for large
-			-- amounts of text. In general, you should not use a single
-			-- PangoAttrList for more than one paragraph of text.
-
 class PANGO_ATTR_LIST
+	-- The PangoAttrList structure represents a list of attributes that
+	-- apply to a section of text. The attributes are, in general,
+	-- allowed to overlap in an arbitrary fashion, however, if the
+	-- attributes are manipulated only through `change', the overlap
+	-- between properties will meet stricter criteria.
+
+	-- Since the PangoAttrList structure is stored as a linear list, it
+	-- is not suitable for storing attributes for large amounts of
+	-- text. In general, you should not use a single PangoAttrList for
+	-- more than one paragraph of text.
 
 inherit 
 	G_OBJECT
-		redefine ref, unref 
+		redefine ref, unref, copy
 		end
 
 creation make, from_external_pointer
@@ -134,7 +132,7 @@ feature
 		end
 
 	splice (another: PANGO_ATTR_LIST; a_position, a_length: INTEGER) is
-			-- This function splices `another0 attribute list into
+			-- This function splices `another' attribute list into
 			-- Current. This operation is equivalent to stretching every
 			-- attribute that applies at `a_position' in list by
 			-- `a_length' and then `change' with a copy of each attribute
@@ -163,8 +161,7 @@ feature
 			-- is_freezed = True) until says "list must not be modified until this iterator is 
 			-- freed". Implement it 
 		do
-			create Result.from_external_pointer (pango_attr_list_get_iterator (handle))
-			set_freezed
+			create Result.from_attribute_list (Current)
 		ensure freezed: is_freezed
 		end
 
@@ -172,12 +169,12 @@ feature -- Unchangability
 	is_freezed: BOOLEAN
 
 feature {PANGO_ATTR_ITERATOR} -- Freezed setter
-	set_freeze is 
+	set_freezed is 
 		do
 			is_freezed := True
 		end
 
-	unset_freeze is 
+	unset_freezed is 
 		do
 			is_freezed := False
 		end
@@ -211,9 +208,8 @@ feature {} -- Unwrapped
 
 --    ------------------------------------------------------------------------------------------------------------------------
 feature -- size
-
 	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
+		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoAttrList)"
 		end
 
@@ -230,7 +226,7 @@ feature {} -- External calls
 		external "C use <pango/pango.h>"
 		end
 	
-	pango_attr_list_copy (a_list: POINTER) is -- PangoAttrList* 
+	pango_attr_list_copy (a_list: POINTER): POINTER is -- PangoAttrList* 
 		external "C use <pango/pango.h>"
 		end
 	

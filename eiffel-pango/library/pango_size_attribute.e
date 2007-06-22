@@ -21,8 +21,12 @@ indexing
 
 class PANGO_SIZE_ATTRIBUTE
 
-inherit PANGO_ATTRIBUTE 
-
+inherit
+	PANGO_ATTRIBUTE 
+		redefine
+			struct_size
+		end
+	
 insert PANGO_SCALES
 	
 creation from_external_pointer

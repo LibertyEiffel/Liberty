@@ -21,9 +21,13 @@ indexing
 
 class PANGO_COLOR_ATTRIBUTE
 
-inherit PANGO_ATTRIBUTE
+inherit
+	PANGO_ATTRIBUTE
+		redefine
+			struct_size
+		end
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature -- Getters
 	red: INTEGER_32 is
@@ -78,7 +82,8 @@ feature {} -- Structure access
 		external "C use <pango/pango.h>"
 		alias "($an_attr_color)->color.green = $a_green;"
 		end
-	color_get_green (a_pango_attr_color: POINTER): INTEGER_32 is
+
+	color_get_blue (a_pango_attr_color: POINTER): INTEGER_32 is
 			-- TODO: This should be a NATURAL_32 since its values are between 0 and 65535. Using INTEGER_32 to avoid overflows
 		external "C use <pango/pango.h>"
 		alias "(($a_pango_attr_color)->color.blue)"

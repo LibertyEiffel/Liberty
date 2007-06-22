@@ -37,7 +37,7 @@ check_classes () {
 		grep -v stub  |
 		# Remove classes with errors (previously prepended)
 		grep -v -F -f $WRONG_CLASSES
-		rm $WRONG_CLASSES $CORRECT_CLASSES # We are checking them anew.
+		rm $WRONG_CLASSES # We are checking them anew.
             else find library -iname "*.e" | grep -v stub 
 	    fi
 	    );
@@ -80,8 +80,6 @@ compile_examples () {
     TIME_MARK=$(mktemp)
     if touch $TIME_MARK ; 
     then 
-	rm $WRONG_EXAMPLES $CORRECT_EXAMPLES # We're testing them anew
-
 	for EXAMPLE in $(find examples -iname "*.ace") 
 	do
 	    EXAMPLE_DIR=$(dirname $EXAMPLE)
@@ -119,53 +117,37 @@ compile_examples () {
     fi
 }
 
-print_usage () {
-    cat <<EOF
-$(basename $0) ARGUMENTS
+cat <<EOF
+$(basename $0) branch_name
 
-Arguments: 
+Create or update a branch for a release. 
+If all classes are correct, examples compiles, 
 
- library 
-
-   check all the library classes, starting with those that had error
-   the last time the check-cluster script were launched. Those with
-   errors are listed in "$WRONG_CLASSES", those without in
-   "$CORRECT_CLASSES".
-
- examples
-
-   re-compiles all the examples that needs to be recompiled, run them
-   and ask the developer to confirm its correct behaviour. Those that
-   seems to behave correctly are added to $CORRECT_EXAMPLES, the
-   others to $WRONG_EXAMPLES.
-
-Usage: run it in a cluster of the Eiffel Wrapper Library Collection,
-i.e. eiffel-gtk, eiffel-gda, eiffel-glib.
+TODO: IS IT USEFUL TO FINISH IT?
 
 EOF
-}
 
 if check_position ; then
     # This could become a good "commit-filter", i.e.: if the script
     # does not end successfully you should not commit your changes.
     until [ -z $1 ]  # Until all parameters used up...
     do
+	echo -n "$1 "
 	case $1 in 
 	    library )
 		# check library classes
-		check_classes
+		#check_classes
 		;;
 	    examples )
 		# check library examples
-		compile_examples
+		#compile_examples
 		;;
 	    all )
-		check_classes
-		compile_examples
+		#check_classes
+		#compile_examples
 		;;
 	    * )
-		print_usage
-		;;
+		
 	esac 
 	shift
     done

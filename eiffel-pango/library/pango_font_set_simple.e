@@ -24,10 +24,11 @@ class PANGO_FONT_SET_SIMPLE
 	-- PangoFontset base class in terms of an array of fonts, which the
 	-- creator provides when constructing the PangoFontsetSimple.
 
-inherit PANGO_FONT_SET redefine make, struct_size end
+inherit PANGO_FONT_SET redefine struct_size end
 
 creation make, from_external_pointer
 
+feature
 	make (a_language: PANGO_LANGUAGE) is
 			-- Creates a new PangoFontsetSimple for `a_language'.
 		require language_not_void: a_language/=Void

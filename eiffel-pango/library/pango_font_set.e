@@ -26,6 +26,7 @@ deferred class PANGO_FONT_SET
 	-- operations for finding the component font for a particular
 	-- Unicode character, and for finding a composite set of metrics
 	-- for the entire fontset.
+
 inherit G_OBJECT
 
 feature 
@@ -66,13 +67,14 @@ feature
 
 	metrics: PANGO_FONT_METRICS is
 			-- the overall metric information for the fonts in the fontset.
-		local r: G_RETRIEVER[PANGO_FONT_METRICS]; ptr: POINTER
+		local ptr: POINTER
 		do
 			ptr:=pango_fontset_get_metrics(handle)
 			check ptr.is_not_null end
-			Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
+			Result::=wrappers.reference_at(ptr)
 			if Result=Void then
-				create Result.from_external_pointer_no_ref(ptr)
+				create Result.from_external_pointer(ptr)
+				-- TODO: should be create Result.from_external_pointer_no_ref(ptr)
 			else
 				-- pango_fontset_get_metrics returns : a PangoFontMetrics
 				-- object. The caller must call pango_font_metrics_unref()
