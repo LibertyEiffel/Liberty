@@ -63,10 +63,11 @@ feature
 		end
 
 feature -- size
-	struct_size: REAL is
+	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GdkSegment)"
 		end
+
 feature {} -- External calls
 	get_x11 (segment: POINTER): REAL is
 		external "C struct GdkTrapezoid get x11 use <gdk/gdk.h>"
