@@ -1,5 +1,6 @@
 library/
 library/externals/
+../eiffel-glib/library/
 ../eiffel-glib/library/core/
 ../eiffel-glib/library/data_types/
 ../eiffel-glib/library/externals/
