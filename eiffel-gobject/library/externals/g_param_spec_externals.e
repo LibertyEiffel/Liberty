@@ -474,12 +474,12 @@ feature {} -- External calls for parameter specs of char type
 		external "C struct GParamSpecChar get minumum use <glib-object.h>"
 		end
 	-- gint8 maximum;
-	max_char (spec: POINTER): INTEGER is
+	max_char (spec: POINTER): INTEGER_8 is
 			-- gint8 maximum; maximum value for the property specified
 		external "C struct GParamSpecChar get maximum use <glib-object.h>"
 		end
 	-- gint8 default_value;	
-	def_char (spec: POINTER): INTEGER is
+	def_char (spec: POINTER): INTEGER_8 is
 			-- gint8 default_value; default value for the property specified
 		external "C struct GParamSpecChar get default_value use <glib-object.h>"
 		end

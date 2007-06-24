@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class G_SIGNAL_INVOCATION_HINT
+deferred class G_SIGNAL_INVOCATION_HINT
 
 inherit ANY undefine is_equal, copy end
 

@@ -7,74 +7,66 @@ indexing
 	date: "$Date:$"
 	revision: "$REvision:$"
 	
-			-- Description
-	
-			-- The basic concept of the signal system is that of the
-			-- emission of a signal. Signals are introduced per-type and
-			-- are identified through strings. Signals introduced for a
-			-- parent type are available in derived types as well, so
-			-- basically they are a per-type facility that is
-			-- inherited. A signal emission mainly involves invocation of
-			-- a certain set of callbacks in precisely defined
-			-- manner. There are two main categories of such callbacks,
-			-- per-object [11] ones and user provided ones. The
-			-- per-object callbacks are most often referred to as "object
-			-- method handler" or "default (signal) handler", while user
-			-- provided callbacks are usually just called "signal
-			-- handler". The object method handler is provided at signal
-			-- creation time (this most frequently happens at the end of
-			-- an object class' creation), while user provided handlers
-			-- are frequently connected and disconnected to/from a
-			-- certain signal on certain object instances.
-	
-			-- A signal emission consists of five stages, unless
-			-- prematurely stopped:
-	
-			-- 1 - Invocation of the object method handler for
-			-- G_SIGNAL_RUN_FIRST signals
-	
-			-- 2 - Invocation of normal user-provided signal handlers
-			-- (after flag FALSE)
-	
-			-- 3 - Invocation of the object method handler for
-			-- G_SIGNAL_RUN_LAST signals
-	
-			-- 4 - Invocation of user provided signal handlers, connected
-			-- with an after flag of TRUE
-	
-			-- 5 - Invocation of the object method handler for
-			-- G_SIGNAL_RUN_CLEANUP signals
-
-			-- The user-provided signal handlers are called in the order
-			-- they were connected in. All handlers may prematurely stop
-			-- a signal emission, and any number of handlers may be
-			-- connected, disconnected, blocked or unblocked during a
-			-- signal emission. There are certain criteria for skipping
-			-- user handlers in stages 2 and 4 of a signal
-			-- emission. First, user handlers may be blocked, blocked
-			-- handlers are omitted during callback invocation, to return
-			-- from the "blocked" state, a handler has to get unblocked
-			-- exactly the same amount of times it has been blocked
-			-- before. Second, upon emission of a G_SIGNAL_DETAILED
-			-- signal, an additional "detail" argument passed in to
-			-- g_signal_emit() has to match the detail argument of the
-			-- signal handler currently subject to
-			-- invocation. Specification of no detail argument for signal
-			-- handlers (omission of the detail part of the signal
-			-- specification upon connection) serves as a wildcard and
-			-- matches any detail argument passed in to emission.
-
-class G_SIGNAL
+deferred class G_SIGNAL
 
 	-- Note: a signal is not a c_struct inherit SHARED_C_STRUCT rename make as make_struct end
 	
+	-- The basic concept of the signal system is that of the emission
+	-- of a signal. Signals are introduced per-type and are identified
+	-- through strings. Signals introduced for a parent type are
+	-- available in derived types as well, so basically they are a
+	-- per-type facility that is inherited. A signal emission mainly
+	-- involves invocation of a certain set of callbacks in precisely
+	-- defined manner. There are two main categories of such callbacks,
+	-- per-object [11] ones and user provided ones. The per-object
+	-- callbacks are most often referred to as "object method handler"
+	-- or "default (signal) handler", while user provided callbacks are
+	-- usually just called "signal handler". The object method handler
+	-- is provided at signal creation time (this most frequently
+	-- happens at the end of an object class' creation), while user
+	-- provided handlers are frequently connected and disconnected
+	-- to/from a certain signal on certain object instances.
+	
+	-- A signal emission consists of five stages, unless prematurely
+	-- stopped:
+	
+	-- 1 - Invocation of the object method handler for
+	-- G_SIGNAL_RUN_FIRST signals
+	
+	-- 2 - Invocation of normal user-provided signal handlers
+	-- (after flag FALSE)
+	
+	-- 3 - Invocation of the object method handler for
+	-- G_SIGNAL_RUN_LAST signals
+	
+	-- 4 - Invocation of user provided signal handlers, connected
+	-- with an after flag of TRUE
+	
+	-- 5 - Invocation of the object method handler for
+	-- G_SIGNAL_RUN_CLEANUP signals
+	
+	-- The user-provided signal handlers are called in the order they
+	-- were connected in. All handlers may prematurely stop a signal
+	-- emission, and any number of handlers may be connected,
+	-- disconnected, blocked or unblocked during a signal
+	-- emission. There are certain criteria for skipping user handlers
+	-- in stages 2 and 4 of a signal emission. First, user handlers may
+	-- be blocked, blocked handlers are omitted during callback
+	-- invocation, to return from the "blocked" state, a handler has to
+	-- get unblocked exactly the same amount of times it has been
+	-- blocked before. Second, upon emission of a G_SIGNAL_DETAILED
+	-- signal, an additional "detail" argument passed in to
+	-- g_signal_emit() has to match the detail argument of the signal
+	-- handler currently subject to invocation. Specification of no
+	-- detail argument for signal handlers (omission of the detail part
+	-- of the signal specification upon connection) serves as a
+	-- wildcard and matches any detail argument passed in to emission.
+
 insert
 	G_SIGNAL_EXTERNALS 
 	G_SIGNAL_FLAGS
 	G_SIGNAL_INVOCATION_HINT
 	G_SIGNAL_MATCH_TYPE
-
-creation make
 
 feature -- Implementation
 	signal_id: INTEGER_64	
@@ -648,11 +640,7 @@ feature {} -- Creation
 	-- Since 2.4
 
 	-- [11] Although signals can deal with any kind of instantiatable type, i'm referring to those types as "object types" in the following, simply because that is the context most users will encounter signals in.
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(Foo)"
-		end
+
 end
 
 

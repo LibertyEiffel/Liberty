@@ -19,17 +19,29 @@ indexing
 					02110-1301 USA
 				]"
 
-	gtk_description: "[
-							The GLib type system provides fundamental types for enumeration and flags types. (Flags types are like enumerations, but allow their values to be combined by bitwise or). A registered enumeration or flags type associates a name and a nickname with each allowed value, and the methods g_enum_get_value_by_name(), g_enum_get_value_by_nick(), g_flags_get_value_by_name() and g_flags_get_value_by_nick() can look up values by their name or nickname. When an enumeration or flags type is registered with the GLib type system, it can be used as value type for object properties, using g_param_spec_enum() or g_param_spec_flags().
-							
-							GObject ships with a utility called glib-mkenums that can construct suitable type registration functions from C enumeration definitions.
-
-							]"
-
 class G_ENUM
+	-- TODO: unfinished
+
+	-- The GLib type system provides fundamental types for enumeration
+	-- and flags types. (Flags types are like enumerations, but allow
+	-- their values to be combined by bitwise or). A registered
+	-- enumeration or flags type associates a name and a nickname with
+	-- each allowed value, and the methods g_enum_get_value_by_name(),
+	-- g_enum_get_value_by_nick(), g_flags_get_value_by_name() and
+	-- g_flags_get_value_by_nick() can look up values by their name or
+	-- nickname. When an enumeration or flags type is registered with
+	-- the GLib type system, it can be used as value type for object
+	-- properties, using g_param_spec_enum() or g_param_spec_flags().
+							
+	-- GObject ships with a utility called glib-mkenums that can
+	-- construct suitable type registration functions from C
+	-- enumeration definitions.
+	
 inherit C_STRUCT
+	
 insert G_ENUM_EXTERNALS
-creation make
+	
+creation from_external_pointer
 
 feature -- size
 	struct_size: INTEGER is

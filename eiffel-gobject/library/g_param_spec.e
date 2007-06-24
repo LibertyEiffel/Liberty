@@ -395,7 +395,35 @@ feature -- TODO: POINTER parameter. Note: is this really needed? Paolo 2006-06-2
 feature -- TODO: G_OBJECT parameter
 
 feature -- TODO: UNICODE CHARACTER parameter
-feature -- TODO: CHARACTER parameter
+	
+feature -- CHARACTER parameter
+	is_character: BOOLEAN is
+			-- Is this a character parameter?
+		do
+			Result := g_is_param_spec_char (handle).to_boolean
+		end
+
+	default_character: CHARACTER is
+			-- The default character value
+		require is_character: is_character
+		do
+			Result := def_char (handle).to_character
+		end
+
+	minimum_character: CHARACTER is
+			-- The minimum character value
+		require is_character: is_character
+		do
+			Result := min_char (handle).to_character
+		end
+
+	maximum_character: CHARACTER is
+			-- The maximum character value
+		require is_character: is_character
+		do
+			Result := max_char (handle).to_character
+		end
+	
 feature -- TODO: (if meaningful) unsigned char parameter
 feature -- TODO: G_VALUE_ARRAY parameter
 feature -- TODO: override parameter

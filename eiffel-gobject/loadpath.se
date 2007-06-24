@@ -1,3 +1,4 @@
 library/
 library/externals/
+../eiffel-glib/loadpath.se
 ../loadpath.se

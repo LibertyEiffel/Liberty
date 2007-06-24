@@ -27,21 +27,12 @@ feature -- Creation
 			--`a_default' is the default value for the property
 			--`some_flags' are flags for the property specified
 		do
-			make_from_pointer (g_param_spec_integer(a_name.to_external,
-																	a_nick.to_external,
-																	a_blurb.to_external,
-																	a_min,
-																	a_max,
-																	a_default,
-																	some_flags))
+			from_external_pointer (g_param_spec_int
+										  (a_name.to_external, a_nick.to_external, a_blurb.to_external,
+											a_min, a_max, a_default, some_flags))
 		end
 	
 feature
-	default: BOOLEAN is
-		do
-			Result := default_int
-		end
-
 	struct_size: INTEGER is
 		external "C use <glib-object.h>"
 		alias "sizeof(GParamSpecInt)"

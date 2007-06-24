@@ -19,11 +19,11 @@ feature {}
 		external "C struct GParameter get value use <glib-object.h>"
 		end
 	
-	set_name (gparameter: POINTER): POINTER is
+	set_name_internal (gparameter: POINTER): POINTER is
 		external "C struct GParameter get name use <glib-object.h>"
 		end
 
-	set_value (gpointer, gvalue: POINTER): POINTER is
+	set_value_internal (gpointer, gvalue: POINTER): POINTER is
 		external "C struct GParameter get value use <glib-object.h>"
 		end
 	

@@ -30,7 +30,7 @@ inherit
 creation make, from_external_pointer
 	
 feature -- Creation
-	make (a_name,a_nick,a_blurb: STRING; a_default: BOOLEAN; some_flags) is
+	make (a_name,a_nick,a_blurb: STRING; a_default: BOOLEAN; some_flags: INTEGER) is
 			-- Creates a new G_PARAM_SPEC_BOOLEAN.
 			-- `a_name' is the canonical name of the property specified,
 			-- `a_nick' is the nick name for the property specified,
@@ -46,17 +46,10 @@ feature -- Creation
 			-- Note: where Gobject type system took this?
 			owner_class := g_type_class_peek(get_owner_type(handle))
 			param_id := get_param_id (handle)
-			--
 			set_shared
 		end
 	
 feature
-	default: BOOLEAN is
-		do
-			Result := default_gboolean(handle).to_boolean
-		end
-
-
 	struct_size: INTEGER is
 		external "C use <glib-object.h>"
 		alias "sizeof(GParamSpecInt)"

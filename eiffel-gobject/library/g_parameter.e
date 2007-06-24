@@ -13,24 +13,15 @@ inherit
 insert 
 	G_PARAMETER_EXTERNALS
 
-creation make
+creation from_external_pointer
 	
 feature 
-	get_name (gparameter: POINTER): POINTER is
-		external "C struct GParameter get name use <glib-object.h>"
-		end
-
-	get_value (gparameter: POINTER): POINTER is
-		external "C struct GParameter get value use <glib-object.h>"
+	name: STRING is
+			-- the parameter name
+		do
+			create {CONST_STRING} Result.from_external(get_name(handle))
 		end
 	
-	set_name (gparameter: POINTER): POINTER is
-		external "C struct GParameter get name use <glib-object.h>"
-		end
-
-	set_value (gpointer, gvalue: POINTER): POINTER is
-		external "C struct GParameter get value use <glib-object.h>"
-		end
 	
 	-- typedef struct {
 	--   const gchar *name;
@@ -40,5 +31,10 @@ feature
 	-- gparameter: POINTER to GParameter
 	-- const gchar *name; 	the parameter name
 	-- GValue value; 	the parameter value
-end
 
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <glib-object.h>"
+		alias "sizeof(GParameter)"
+		end	
+end

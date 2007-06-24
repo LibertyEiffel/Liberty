@@ -23,19 +23,11 @@ feature -- Creation
 			--`a_default' is the default value for the property
 			--`some_flags' are flags for the property specified
 		do
-			make_from_pointer (g_param_spec_character(a_name.to_external,
-																	a_nick.to_external,
-																	a_blurb.to_external,
-																	a_min.to_integer,
-																	a_max.to_integer,
-																	a_default.to_integer,
-																	some_flags))
+			from_external_pointer (g_param_spec_char
+										  (a_name.to_external, a_nick.to_external, a_blurb.to_external,
+											a_min.to_integer, a_max.to_integer, a_default.to_integer,
+											some_flags))
 		end
-	
-feature
-	default_value: CHARACTER is
-		do
-			Result := default_char.to_character
-		end
+
 end
 	
