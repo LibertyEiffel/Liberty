@@ -79,6 +79,10 @@ feature {} -- External calls
 		external "C use <pango/pango-layout.h>"
 		end
 
+	pango_layout_get_spacing (a_layout: POINTER): INTEGER is
+		external "C use <pango/pango-layout.h>"
+		end
+
 	pango_layout_get_justify (a_layout: POINTER): INTEGER is
 		external "C use <pango/pango-layout.h>"
 		end

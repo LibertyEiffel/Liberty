@@ -113,6 +113,13 @@ feature -- Access
 			is_valid_pango_alignment (Result)
 		end
 
+	spacing: INTEGER is
+			-- Gets the amount of spacing in PangoGlyphUnit between the
+			-- lines of the layout.
+		do
+			Result := pango_layout_get_spacing (handle)
+		end
+
 	justify: BOOLEAN is
 			-- Gets whether each complete line should be stretched to fill
 			-- the entire width of the layout.
