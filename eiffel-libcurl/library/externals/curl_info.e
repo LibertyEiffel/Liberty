@@ -78,11 +78,6 @@ feature {} -- Validator
 			Result := True -- FIXME!!!
 		end
 
---	curl_info_: INTEGER is
---		external "C macro use <curl/curl.h>"
---		alias "CURLINFO_"
---		end
-
 feature {} -- AVAILABLE INFORMATION
 
 	curl_info_effective_url: INTEGER is

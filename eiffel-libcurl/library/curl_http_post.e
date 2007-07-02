@@ -45,7 +45,7 @@ feature {} -- Creation
 
 	make is
 		do
-			allocate 
+			allocate
 			null
 		end
 
@@ -89,9 +89,9 @@ feature
 			-- `to_external' from STRING is adding the null character at
 			-- the end of each string
 			error_code := curl_formadd ($handle, $last_item,
-												 curl_form_copy_name, name.to_external,
-												 curl_form_copy_contents, content.to_external,
-												 curl_form_end)
+			                            curl_form_copy_name, name.to_external,
+			                            curl_form_copy_contents, content.to_external,
+			                            curl_form_end)
 		end
 
 	set_name_and_file (name, file: STRING) is
@@ -100,9 +100,9 @@ feature
 			file /= Void
 		do
 			error_code := curl_formadd ($handle, $last_item,
-												 curl_form_copy_name, name.to_external,
-												 curl_form_file, file.to_external,
-												 curl_form_end)
+			                            curl_form_copy_name, name.to_external,
+			                            curl_form_file, file.to_external,
+			                            curl_form_end)
 		end
 
 invariant

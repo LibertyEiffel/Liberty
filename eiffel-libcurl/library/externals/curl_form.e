@@ -39,11 +39,6 @@ feature {}
 			           a_form_code = curl_form_end)
 		end
 
---	curl_form_: INTEGER is
---		external "C macro use <curl/curl.h>"
---		alias "CURLFORM_"
---		end
-
 	curl_form_copy_name: INTEGER is
 			-- followed by a string which provides the name of this part. libcurl
 			-- copies the string so your application doesn't need to keep it around
