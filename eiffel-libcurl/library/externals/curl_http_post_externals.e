@@ -39,22 +39,25 @@ deferred class CURL_HTTP_POST_EXTERNALS
 		--                                        file, this link should link to following
 		--                                        files */
 		--   long flags;                       /* as defined below */
-		-- #define HTTPPOST_FILENAME (1<<0)    /* specified content is a file name */
-		-- #define HTTPPOST_READFILE (1<<1)    /* specified content is a file name */
-		-- #define HTTPPOST_PTRNAME (1<<2)     /* name is only stored pointer
+		-- #define HTTPPOST_FILENAME (1< <0)    /* specified content is a file name */
+		-- #define HTTPPOST_READFILE (1< <1)    /* specified content is a file name */
+		-- #define HTTPPOST_PTRNAME (1< <2)     /* name is only stored pointer
 		--                                        do not free in formfree */
-		-- #define HTTPPOST_PTRCONTENTS (1<<3) /* contents is only stored pointer
+		-- #define HTTPPOST_PTRCONTENTS (1< <3) /* contents is only stored pointer
 		--                                        do not free in formfree */
-		-- #define HTTPPOST_BUFFER (1<<4)      /* upload file from buffer */
-		-- #define HTTPPOST_PTRBUFFER (1<<5)   /* upload file from pointer contents */
+		-- #define HTTPPOST_BUFFER (1< <4)      /* upload file from buffer */
+		-- #define HTTPPOST_PTRBUFFER (1< <5)   /* upload file from pointer contents */
 		-- 
 		--   char *showfilename;               /* The file name to show. If not set, the
 		--                                        actual file name will be used (if this
 		--                                        is a file part) */
 		-- };
 
+inherit ANY undefine is_equal, copy end
+
 insert
 	CURL_FORM
+	CURL_FORM_ADD
 
 feature {} -- Externals
 
@@ -64,7 +67,7 @@ feature {} -- Externals
 		end
 
 	curl_formadd (post, last: POINTER; name_code: INTEGER; name: POINTER;
-			      content_code: INTEGER; content: POINTER; end_code: INTEGER): INTEGER
+			      content_code: INTEGER; content: POINTER; end_code: INTEGER): INTEGER is
 			-- CURLFORMcode curl_formadd(struct curl_httppost ** firstitem,
 			--                           struct curl_httppost ** lastitem, ...);
 		require

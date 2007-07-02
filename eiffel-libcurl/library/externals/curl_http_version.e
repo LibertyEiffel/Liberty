@@ -25,6 +25,8 @@ indexing
 
 deferred class CURL_HTTP_VERSION
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Validator
 
 	is_valid_curl_http_version (a_http_version: INTEGER) : BOOLEAN is

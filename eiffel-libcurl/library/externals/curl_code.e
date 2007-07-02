@@ -128,6 +128,8 @@ deferred class CURL_CODE
 		--   CURL_LAST /* never use! */
 		-- } CURLcode;
 
+inherit ANY undefine is_equal, copy end
+
 feature {}
 
 	is_valid_curl_code (a_code: INTEGER) : BOOLEAN is

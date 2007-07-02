@@ -32,8 +32,7 @@ inherit
 
 insert
 	CURL_EXTERNALS
-		undefine copy, is_equal end
-
+		
 creation
 	make
 

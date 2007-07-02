@@ -24,9 +24,10 @@ indexing
 	revision "$Revision:$"
 
 deferred class CURL_FORM
+		-- These are the options to be used to set these properties in
+		-- the parts that are wanted to add to the post.
 
-		-- These are the options to be used to set these properties in the
-		-- parts that are wanted to add to the post.
+inherit ANY undefine is_equal, copy end
 
 feature {}
 

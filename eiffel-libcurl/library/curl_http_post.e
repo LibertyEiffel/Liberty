@@ -26,7 +26,7 @@ indexing
 class CURL_HTTP_POST
 
 inherit
-	C_STRUCT redefine make, free end
+	C_STRUCT redefine free end
 
 insert
 	CURL_HTTP_POST_EXTERNALS
@@ -45,13 +45,13 @@ feature {} -- Creation
 
 	make is
 		do
-			Precursor
+			allocate 
 			null
 		end
 
 	null is
 		do
-			create last_item
+			create last_item.make
 			error_code := 0
 		end
 
@@ -74,7 +74,7 @@ feature -- Representation
 
 	is_valid: BOOLEAN is
 		do
-			error_code = 0
+			Result:= error_code = 0
 		end
 
 	error_code: INTEGER
@@ -88,10 +88,10 @@ feature
 		do
 			-- `to_external' from STRING is adding the null character at
 			-- the end of each string
-			error_code = curl_formadd ($handle, $last_item,
-			                           curl_form_copy_name, name.to_external,
-			                           curl_form_copy_contents, content.to_external,
-			                           curl_form_end)
+			error_code := curl_formadd ($handle, $last_item,
+												 curl_form_copy_name, name.to_external,
+												 curl_form_copy_contents, content.to_external,
+												 curl_form_end)
 		end
 
 	set_name_and_file (name, file: STRING) is
@@ -99,10 +99,10 @@ feature
 			name /= Void
 			file /= Void
 		do
-			error_code = curl_formadd ($handle, $last_item,
-			                           curl_form_copy_name, name.to_external,
-			                           curl_form_file, file.to_external,
-			                           curl_form_end)
+			error_code := curl_formadd ($handle, $last_item,
+												 curl_form_copy_name, name.to_external,
+												 curl_form_file, file.to_external,
+												 curl_form_end)
 		end
 
 invariant

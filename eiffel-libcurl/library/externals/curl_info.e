@@ -69,6 +69,8 @@ deferred class CURL_INFO
 		--   CURLINFO_LASTONE          = 30
 		-- } CURLINFO;
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Validator
 
 	is_valid_curl_info (an_info: INTEGER) : BOOLEAN is

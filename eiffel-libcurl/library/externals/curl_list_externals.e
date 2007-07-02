@@ -31,6 +31,8 @@ deferred class CURL_LIST_EXTERNALS
 		--   struct curl_slist *next;
 		-- };
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Externals
 
 	curl_slist_free_all (list: POINTER) is

@@ -605,6 +605,8 @@ deferred class CURL_OPTION
 		-- #undef CURLOPT_DNS_USE_GLOBAL_CACHE /* soon obsolete */
 		-- #endif
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Validator
 
 	is_valid_curl_option (a_option: INTEGER) : BOOLEAN is

@@ -39,6 +39,8 @@ deferred class CURL_FORM_ADD
 		--   CURL_FORMADD_LAST /* last */
 		-- } CURLFORMcode;
 
+inherit ANY undefine is_equal, copy end
+
 feature {}
 
 	is_valid_curl_form_add (a_form_add_code: INTEGER) : BOOLEAN is

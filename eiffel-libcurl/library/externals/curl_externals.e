@@ -25,6 +25,8 @@ indexing
 
 deferred class CURL_EXTERNALS
 
+inherit ANY undefine is_equal, copy end
+
 insert
 	CURL_CODE
 	CURL_OPTION
