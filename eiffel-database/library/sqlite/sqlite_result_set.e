@@ -14,5 +14,7 @@ inherit
 		undefine copy, is_equal 
 		end
 creation make
+
+feature
 -- feature get_new_iterator: ITERATOR [SQLITE_RESULT_ROW] is do end
 end
