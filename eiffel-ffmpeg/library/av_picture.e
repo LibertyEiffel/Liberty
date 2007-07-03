@@ -80,9 +80,32 @@ feature -- Operations
 
 	data (a_channel: INTEGER): POINTER is
 		require
-			a_channel.in_range (1, 4)
+			is_valid_channel (a_channel)
 		do
 			Result := av_picture_get_data (handle, a_channel - 1)
+		end
+
+	is_valid_channel (a_channel: INTEGER): BOOLEAN is
+		require
+			a_channel.in_range (1, 4)
+		do
+			Result := av_picture_get_data (handle, a_channel - 1).is_not_null
+		end
+
+	num_channels: INTEGER is
+		local
+			i: INTEGER
+		do
+			from
+				i := 0
+			until
+				i >= 4
+			loop
+				Result := Result + (av_picture_get_data (handle, i).is_not_null).to_integer
+				i := i + 1
+			end
+		ensure
+			Result.in_range (0, 4)
 		end
 
 feature -- Size

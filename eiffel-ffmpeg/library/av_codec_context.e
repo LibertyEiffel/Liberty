@@ -256,7 +256,14 @@ feature -- Operations
 			Result := avcodec_open (handle, a_codec.handle) = 0
 		end
 
-	got_picture: BOOLEAN
+	got_picture: BOOLEAN is
+			-- Returns true if the last call to decode_video completed a picture.
+			-- Subsequent calls will return False once again, until another picture
+			-- is decodec.
+		do
+			Result := internal_got_picture
+			internal_got_picture := False
+		end
 
 	decode_video (a_picture: AV_FRAME; a_packet: AV_PACKET; a_offset: INTEGER): INTEGER is
 			-- decode a frame.
@@ -271,7 +278,7 @@ feature -- Operations
 			got_picture_int: INTEGER
 		do
 			Result := avcodec_decode_video (handle, a_picture.handle, $got_picture_int, a_packet.data + a_offset, a_packet.size - a_offset)
-			got_picture := got_picture_int.to_boolean
+			internal_got_picture := got_picture_int.to_boolean
 		end
 
 feature {} -- Disposing
@@ -285,6 +292,10 @@ feature {} -- Disposing
 --			end
 --			handle := default_pointer
 		end
+
+feature {} -- Internal
+
+	internal_got_picture: BOOLEAN
 
 feature -- Size
 

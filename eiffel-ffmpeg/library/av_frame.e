@@ -34,9 +34,21 @@ creation
 feature {} -- Creation
 
 	make is
-	do
-		handle := avcodec_alloc_frame
-	end
+		do
+			handle := avcodec_alloc_frame
+		end
+
+feature -- Access
+
+	is_keyframe: BOOLEAN is
+		do
+			Result := av_frame_get_is_keyframe (handle).to_boolean
+		end
+
+	pts: INTEGER_64 is
+		do
+			Result := av_frame_get_pts (handle)
+		end
 
 feature -- Size
 

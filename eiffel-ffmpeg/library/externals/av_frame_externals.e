@@ -32,4 +32,12 @@ feature
 		external "C use <avcodec.h>"
 		end
 
+	av_frame_get_is_keyframe (a_frame: POINTER): INTEGER is
+		external "C struct AVFrame get key_frame use <avcodec.h>"
+		end
+
+	av_frame_get_pts (a_frame: POINTER): INTEGER is
+		external "C struct AVFrame get pts use <avcodec.h>"
+		end
+
 end -- class AV_FRAME_EXTERNALS
