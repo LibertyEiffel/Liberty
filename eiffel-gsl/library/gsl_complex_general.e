@@ -22,6 +22,8 @@ indexing
 deferred class GSL_COMPLEX_GENERAL[TYPE_->COMPARABLE]
 
 inherit C_STRUCT
+		export {GSL_COMPLEX_GENERAL}
+			struct_size
 		redefine
 			out, copy, is_equal
 		end
@@ -75,11 +77,13 @@ feature
 
 feature -- copying
 	copy(other: like Current) is
+		local
+			o: POINTER
 		do
 			check
 				equal_sizes: struct_size = other.struct_size
 			end
-			memcpy(handle, other.handle, struct_size)
+			o := memcpy(handle, other.handle, struct_size)
 		end
 	
 feature -- Printing

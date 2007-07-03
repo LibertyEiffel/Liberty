@@ -25,7 +25,7 @@ feature -- creation
 	make_zero is
 			-- Create a complex number with value (0 + 0i)
 		do
-			make
+			allocate
 			gsl_set_real(handle, 0)
 			gsl_set_real(handle, 0)
 		end
