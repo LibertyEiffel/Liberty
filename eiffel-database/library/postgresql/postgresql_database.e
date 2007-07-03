@@ -42,6 +42,10 @@ class POSTGRESQL_DATABASE
 
 inherit
 	DATABASE
+		undefine
+			copy,
+			is_equal
+		end
 	C_STRUCT
 	
 creation connect
@@ -183,7 +187,6 @@ feature -- Creation
 			-- environment variable (see Section 27.11) is checked. If
 			-- the environment variable is not set either, then the
 			-- indicated built-in defaults are used.
-		require valid_string: some_connection_informations/=Void
 		do
 			handle:= pqconnectdb (some_connection_informations.to_external)
 		end
@@ -372,7 +375,7 @@ feature -- Creation
 	close is
 			-- Closes the connection to the server. 
 		do
-			pqfinish (handle) 
+--			pqfinish (handle) 
 		end
 --    PQreset
 
@@ -419,7 +422,7 @@ feature {} -- External calls
          module_name: "postgresql"
          feature_name: "PQconnectdb"
 			}"
-
+		end
 --  PGconn *PQsetdbLogin(const char *pghost,
 --                       const char *pgport,
 --                       const char *pgoptions,
