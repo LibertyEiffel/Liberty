@@ -203,17 +203,7 @@ feature -- Operation
 		do
 			gtk_widget_add_events (handle, some_events)
 		end
--- widget : 	a GtkWidget
 
-	
-	-- Synopsis
-	
--- #include <gtk/gtk.h>
-
-
---             GtkWidget;
---             GtkWidgetClass;
--- enum        GtkWidgetFlags;
 -- #define     GTK_WIDGET_TYPE                 (wid)
 -- #define     GTK_WIDGET_STATE                (wid)
 -- #define     GTK_WIDGET_SAVED_STATE          (wid)
@@ -223,15 +213,26 @@ feature -- Operation
 
 	is_realized: BOOLEAN is
 		do
-			Result := gtk_widget_is_realized (handle).to_boolean
+			Result := gtk_widget_realized (handle).to_boolean
 		end
 
--- #define     GTK_WIDGET_MAPPED               (wid)
--- #define     GTK_WIDGET_VISIBLE              (wid)
--- #define     GTK_WIDGET_DRAWABLE             (wid)
+	is_mapped: BOOLEAN is
+		do
+			Result := gtk_widget_mapped (handle).to_boolean
+		end
+
+	is_visible: BOOLEAN is
+		do
+			Result := gtk_widget_visible (handle).to_boolean
+		end
+
+	is_drawable: BOOLEAN is
+		do
+			Result := gtk_widget_drawable (handle).to_boolean
+		end
+
 -- #define     GTK_WIDGET_SENSITIVE            (wid)
 -- #define     GTK_WIDGET_PARENT_SENSITIVE     (wid)
--- #define     GTK_WIDGET_IS_SENSITIVE         (wid)
 -- #define     GTK_WIDGET_CAN_FOCUS            (wid)
 -- #define     GTK_WIDGET_HAS_FOCUS            (wid)
 -- #define     GTK_WIDGET_CAN_DEFAULT          (wid)
@@ -264,10 +265,7 @@ feature -- Operation
 --                                              const gchar *first_property_name,
 --                                              ...);
 -- void        gtk_widget_unparent             (GtkWidget *widget);
--- void        gtk_widget_show                 (GtkWidget *widget);
 -- void        gtk_widget_show_now             (GtkWidget *widget);
--- void        gtk_widget_hide                 (GtkWidget *widget);
--- void        gtk_widget_show_all             (GtkWidget *widget);
 -- void        gtk_widget_hide_all             (GtkWidget *widget);
 -- void        gtk_widget_map                  (GtkWidget *widget);
 -- void        gtk_widget_unmap                (GtkWidget *widget);
@@ -301,7 +299,6 @@ feature -- Operation
 			gtk_widget_unrealize (handle)
 		end
 
--- void        gtk_widget_queue_draw           (GtkWidget *widget);
 -- void        gtk_widget_queue_resize         (GtkWidget *widget);
 -- void        gtk_widget_queue_resize_no_redraw
 --                                             (GtkWidget *widget);
@@ -446,11 +443,8 @@ feature -- Operation
 --                                              gint *dest_x,
 --                                              gint *dest_y);
 -- gboolean    gtk_widget_hide_on_delete       (GtkWidget *widget);
--- void        gtk_widget_set_style            (GtkWidget *widget,
---                                              GtkStyle *style);
 -- #define     gtk_widget_set_rc_style         (widget)
 -- void        gtk_widget_ensure_style         (GtkWidget *widget);
--- GtkStyle*   gtk_widget_get_style            (GtkWidget *widget);
 -- #define     gtk_widget_restore_default_style(widget)
 -- void        gtk_widget_reset_rc_styles      (GtkWidget *widget);
 -- void        gtk_widget_push_colormap        (GdkColormap *cmap);
@@ -1273,8 +1267,36 @@ feature -- button-press-event signal
 --             gboolean    user_function      (GtkWidget         *widget,
 --                                             GdkEventProximity *event,
 --                                             gpointer           user_data)      : Run last
+
+feature -- realize signal
+
+	realize_signal_name: STRING is "realize"
 -- "realize"   void        user_function      (GtkWidget *widget,
 --                                             gpointer   user_data)      : Run first
+
+	enable_on_realize is
+			-- Connects "realize" signal to `on_realize' feature.
+		do
+			connect (Current, realize_signal_name, $on_realize)
+		end
+
+	on_realize is
+			-- Built-in realize signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_realize_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_WIDGET]]) is
+			-- widget : 	the object which received the signal.
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			realize_callback: REALIZE_CALLBACK
+		do
+			create realize_callback.make
+			realize_callback.connect (Current, a_procedure)
+		end
+
 -- "screen-changed"
 --             void        user_function      (GtkWidget *widget,
 --                                             GdkScreen *arg1,
@@ -1559,7 +1581,6 @@ feature -- size-request signal
 		do
 			Result := gtk_widget_toplevel (handle).to_boolean
 		end
-			
 
 -- wid : 	a GtkWidget.
 -- GTK_WIDGET_NO_WINDOW()
@@ -1568,30 +1589,7 @@ feature -- size-request signal
 
 -- Evaluates to TRUE if the widget doesn't have an own GdkWindow.
 -- wid : 	a GtkWidget.
--- GTK_WIDGET_REALIZED()
 
--- #define GTK_WIDGET_REALIZED(wid)	  ((GTK_WIDGET_FLAGS (wid) & GTK_REALIZED) != 0)
-
--- Evaluates to TRUE if the widget is realized.
--- wid : 	a GtkWidget.
--- GTK_WIDGET_MAPPED()
-
--- #define GTK_WIDGET_MAPPED(wid)		  ((GTK_WIDGET_FLAGS (wid) & GTK_MAPPED) != 0)
-
--- Evaluates to TRUE if the widget is mapped.
--- wid : 	a GtkWidget.
--- GTK_WIDGET_VISIBLE()
-
--- #define GTK_WIDGET_VISIBLE(wid)		  ((GTK_WIDGET_FLAGS (wid) & GTK_VISIBLE) != 0)
-
--- Evaluates to TRUE if the widget is visible.
--- wid : 	a GtkWidget.
--- GTK_WIDGET_DRAWABLE()
-
--- #define GTK_WIDGET_DRAWABLE(wid)	  (GTK_WIDGET_VISIBLE (wid) && GTK_WIDGET_MAPPED (wid))
-
--- Evaluates to TRUE if the widget is mapped and visible.
--- wid : 	a GtkWidget.
 -- GTK_WIDGET_SENSITIVE()
 
 -- #define GTK_WIDGET_SENSITIVE(wid)	  ((GTK_WIDGET_FLAGS (wid) & GTK_SENSITIVE) != 0)
@@ -1604,12 +1602,6 @@ feature -- size-request signal
 
 -- Evaluates to TRUE if the GTK_PARENT_SENSITIVE flag has be set on the widget.
 -- wid : 	a GtkWidget.
--- GTK_WIDGET_IS_SENSITIVE()
-
--- #define     GTK_WIDGET_IS_SENSITIVE(wid)
-
--- Evaluates to TRUE if the widget is effectively sensitive.
--- wid : 	a GtkWidget.
 
 	can_focus: BOOLEAN is
 			-- Is the widget able to handle focus grabs?
@@ -1617,7 +1609,7 @@ feature -- size-request signal
 			Result := gtk_widget_can_focus(handle).to_boolean
 		end
 
-	-- GTK_WIDGET_HAS_FOCUS()
+-- GTK_WIDGET_HAS_FOCUS()
 
 -- #define GTK_WIDGET_HAS_FOCUS(wid)	  ((GTK_WIDGET_FLAGS (wid) & GTK_HAS_FOCUS) != 0)
 
@@ -1840,27 +1832,31 @@ feature -- size-request signal
 -- Recursively hides a widget and any child widgets.
 
 -- widget : 	a GtkWidget
--- gtk_widget_map ()
 
--- void        gtk_widget_map                  (GtkWidget *widget);
+	map is
+			-- This function is only for use in widget implementations. Causes a
+			-- widget to be mapped if it isn't already.
+		require
+			not is_mapped
+		do
+			gtk_widget_map (handle)
+		end
 
--- This function is only for use in widget implementations. Causes a widget to be mapped if it isn't already.
+	unmap is
+			-- This function is only for use in widget implementations. Causes a
+			-- widget to be unmapped if it's currently mapped.
+		require
+			is_mapped
+		do
+			gtk_widget_unmap (handle)
+		end
 
--- widget : 	a GtkWidget
--- gtk_widget_unmap ()
+	queue_draw is
+			-- Equivalent to calling queue_draw_area for the entire area of a widget.
+		do
+			gtk_widget_queue_draw (handle)
+		end
 
--- void        gtk_widget_unmap                (GtkWidget *widget);
-
--- This function is only for use in widget implementations. Causes a widget to be unmapped if it's currently mapped.
-
--- widget : 	a GtkWidget
--- gtk_widget_queue_draw ()
-
--- void        gtk_widget_queue_draw           (GtkWidget *widget);
-
--- Equivalent to calling gtk_widget_queue_draw_area() for the entire area of a widget.
-
--- widget : 	a GtkWidget
 -- gtk_widget_queue_resize ()
 
 -- void        gtk_widget_queue_resize         (GtkWidget *widget);
@@ -2321,15 +2317,6 @@ feature
 
 -- widget : 	a GtkWidget
 -- Returns : 	TRUE
--- gtk_widget_set_style ()
-
--- void        gtk_widget_set_style            (GtkWidget *widget,
---                                              GtkStyle *style);
-
--- Sets the GtkStyle for a widget (widget->style). You probably don't want to use this function; it interacts badly with themes, because themes work by replacing the GtkStyle. Instead, use gtk_widget_modify_style().
-
--- widget : 	a GtkWidget
--- style : 	a GtkStyle, or NULL to remove the effect of a previous gtk_widget_set_style() and go back to the default style
 -- gtk_widget_set_rc_style()
 
 -- #define gtk_widget_set_rc_style(widget)          (gtk_widget_set_style (widget, NULL))
@@ -2347,14 +2334,6 @@ feature
 -- Ensures that widget has a style (widget->style). Not a very useful function; most of the time, if you want the style, the widget is realized, and realized widgets are guaranteed to have a style already.
 
 -- widget : 	a GtkWidget
--- gtk_widget_get_style ()
-
--- GtkStyle*   gtk_widget_get_style            (GtkWidget *widget);
-
--- Simply an accessor function that returns widget->style.
-
--- widget : 	a GtkWidget
--- Returns : 	the widget's GtkStyle
 -- gtk_widget_restore_default_style()
 
 -- #define gtk_widget_restore_default_style(widget) (gtk_widget_set_style (widget, NULL))

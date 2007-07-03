@@ -40,14 +40,26 @@ feature {} -- External calls
 
 -- #define     GTK_WIDGET_NO_WINDOW            (wid)
 
-	gtk_widget_is_realized (a_widget: POINTER): INTEGER is
+	gtk_widget_realized (a_widget: POINTER): INTEGER is
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_WIDGET_REALIZED"
 		end
 
--- #define     GTK_WIDGET_MAPPED               (wid)
--- #define     GTK_WIDGET_VISIBLE              (wid)
--- #define     GTK_WIDGET_DRAWABLE             (wid)
+	gtk_widget_mapped (a_widget: POINTER): INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_WIDGET_MAPPED"
+		end
+
+	gtk_widget_visible (a_widget: POINTER): INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_WIDGET_VISIBLE"
+		end
+
+	gtk_widget_drawable (a_widget: POINTER): INTEGER is
+		external "C macro use <gtk/gtk.h>"
+		alias "GTK_WIDGET_DRAWABLE"
+		end
+
 -- #define     GTK_WIDGET_SENSITIVE            (wid)
 -- #define     GTK_WIDGET_PARENT_SENSITIVE     (wid)
 -- #define     GTK_WIDGET_IS_SENSITIVE         (wid)
@@ -135,7 +147,7 @@ feature {} -- External calls
 	gtk_widget_unmap (widget: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_widget_realize (widget: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end

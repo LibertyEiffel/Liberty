@@ -18,7 +18,7 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-				
+
 class GTK_ENTRY
 	-- The GtkEntry widget is a single line text entry widget. A fairly large set
 	-- of key bindings are supported by default. If the entered text is longer
@@ -65,28 +65,30 @@ feature
 		end
 
 feature -- visibility
-	set_visible is
+	set_contents_visible is
 			-- Makes the contents of the entry visible.
 		do
-			gtk_entry_set_visibility (handle,1)
-		ensure is_visible
+			gtk_entry_set_visibility (handle, 1)
+		ensure
+			contents_visible
 		end
 
-	set_invisible is
+	set_contents_invisible is
 			-- Makes the contents of the entry invisible. Characters are
 			-- displayed as the invisible char, and will also appear that
 			-- way when the text in the entry widget is copied
 			-- elsewhere. The default invisible char is the asterisk `*',
 			-- but it can be changed with `set_invisible_char'.
 		do
-			gtk_entry_set_visibility (handle,0)
-		ensure not is_visible
+			gtk_entry_set_visibility (handle, 0)
+		ensure
+			not contents_visible
 		end
 
-	is_visible: BOOLEAN is
+	contents_visible: BOOLEAN is
 			-- is the text currently visible?
 		do
-			Result:=(gtk_entry_get_visibility(handle)).to_boolean
+			Result := gtk_entry_get_visibility (handle).to_boolean
 		end
 
 	set_invisible_char (a_unicode: INTEGER) is
@@ -101,6 +103,7 @@ feature -- visibility
 			gtk_entry_set_invisible_char (handle, a_unicode)
 		end
 feature -- maximum lenght
+
 	max_length: INTEGER is
 			-- the maximum allowed length of the text in entry; 0 if
 			-- there is no maximum.
@@ -116,39 +119,40 @@ feature -- maximum lenght
 		do
 			gtk_entry_set_max_length (handle, a_maximum_length)
 		end
-	
+
 	set_no_maximum_length is
 		do
 			gtk_entry_set_max_length (handle, 0)
 		end
-	
+
 	activates_default: BOOLEAN is
 			-- Will the entry activate the default widget?
 		do
-			Result := gtk_entry_get_activates_default(handle).to_boolean	
+			Result := gtk_entry_get_activates_default (handle).to_boolean
 		end
 
 	has_frame: BOOLEAN is
 			-- Has the entry a beveled frame?
 		do
-			Result := (gtk_entry_get_has_frame(handle)).to_boolean
+			Result := gtk_entry_get_has_frame (handle).to_boolean
 		end
-	
+
 	set_has_frame is
 		do
-			gtk_entry_set_has_frame (handle,1)
+			gtk_entry_set_has_frame (handle, 1)
 		end
 
 	unset_has_frame is
 		do
-			gtk_entry_set_has_frame (handle,0)
+			gtk_entry_set_has_frame (handle, 0)
 		end
 
 feature -- 
+
 	width_chars: INTEGER is
 			-- number of chars to request space for, or negative if unset
 		do
-			Result:=gtk_entry_get_width_chars(handle)
+			Result := gtk_entry_get_width_chars (handle)
 		end
 
 	set_width_chars (n_chars: INTEGER) is
@@ -187,7 +191,7 @@ feature --
 			-- `set_invisible_char'. If 0 the entry does not show
 			-- invisible text at all.
 		do
-			Result:= gtk_entry_get_invisible_char (handle)
+			Result := gtk_entry_get_invisible_char (handle)
 		end
 
 feature -- Alignment
@@ -198,7 +202,7 @@ feature -- Alignment
 			-- entry. The horizontal alignment ranges from 0 (left) to 1
 			-- (right) and it is reversed for RTL layouts.
 		do
-			gtk_entry_set_alignment (handle,an_x_align)
+			gtk_entry_set_alignment (handle, an_x_align)
 		end
 
 	alignment: REAL is
@@ -216,12 +220,13 @@ feature -- Alignment
 			-- `text_index_to_layout_index' are needed to convert byte
 			-- indices in the layout to byte indices in the entry
 			-- contents.
-		local ptr: POINTER; --r: G_RETRIEVER[PANGO_LAYOUT]
+		local
+			ptr: POINTER; --r: G_RETRIEVER[PANGO_LAYOUT]
 		do
 			-- Note: The returned layout is owned by the entry and must
 			-- not be modified or freed by the caller.
-			ptr:=gtk_entry_get_layout(handle)
-			create Result.from_external_pointer(ptr)
+			ptr := gtk_entry_get_layout (handle)
+			create Result.from_external_pointer (ptr)
 			Result.set_shared
 		end
 
@@ -247,10 +252,11 @@ feature -- Alignment
 			-- `text_index_to_layout_index' are needed to convert byte
 			-- indices in the layout to byte indices in the entry
 			-- contents.
-		local an_x,an_y: INTEGER
+		local
+			an_x,an_y: INTEGER
 		do
-			gtk_entry_get_layout_offsets(handle,$an_x,$an_y)
-			create Result.make_2(an_x,an_y)
+			gtk_entry_get_layout_offsets (handle, $an_x, $an_y)
+			create Result.make_2 (an_x, an_y)
 		end
 
 	layout_index_to_text_index (a_layout_index: INTEGER): INTEGER is
@@ -264,7 +270,7 @@ feature -- Alignment
 		
 			-- Result is the byte index into the entry contents
 		do
-			Result:=gtk_entry_layout_index_to_text_index(handle, a_layout_index)
+			Result := gtk_entry_layout_index_to_text_index (handle, a_layout_index)
 		end
 
 	text_index_to_layout_index (a_text_index: INTEGER): INTEGER is
@@ -276,9 +282,9 @@ feature -- Alignment
 		
 			-- Result is the byte index into the entry layout text
 		do
-			Result:=gtk_entry_text_index_to_layout_index(handle,a_text_index)
+			Result := gtk_entry_text_index_to_layout_index (handle, a_text_index)
 		end
-	
+
 	set_completion (an_entry_completion: GTK_ENTRY_COMPLETION) is
 			-- Sets completion to be the auxiliary completion object to
 			-- use with entry. All further configuration of the
@@ -291,10 +297,9 @@ feature -- Alignment
 	completion: GTK_ENTRY_COMPLETION is
 			-- the auxiliary completion object currently in use by entry.
 		do
-			create Result.from_external_pointer (gtk_entry_get_completion(handle))
+			create Result.from_external_pointer (gtk_entry_get_completion (handle))
 		end
 
-	
 feature -- Property Details
 	-- The "activates-default" property
 	
@@ -395,7 +400,9 @@ feature -- Property Details
 
 -- Since 2.4
 -- Signal Details
+
 feature -- The "activate" signal
+
 	activate_signal_name: STRING is "activate"
 
 	on_activate is
@@ -420,6 +427,7 @@ feature -- The "activate" signal
 		end
 
 feature -- The "backspace" signal
+
 	backspace_signal_name: STRING is "backspace"
 
 	on_backspace is
@@ -438,8 +446,9 @@ feature -- The "backspace" signal
 	-- TODO: implement connect_agent_to_backspace_signal (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
-	
+
 feature -- The "copy-clipboard" signal
+
 	copy_clipboard_signal_name: STRING is "copy-clipboard"
 
 	on_copy_clipboard is
@@ -458,6 +467,7 @@ feature -- The "copy-clipboard" signal
 	-- inspiration.
 
 feature -- The "cut-clipboard" signal
+
 	cut_clipboard_signal_name: STRING is "cut-clipboard"
 
 	on_cut_clipboard is
@@ -511,6 +521,7 @@ feature -- The "move-cursor" signal
 -- user_data : 	user data set when the signal handler was connected.
 
 feature -- The "paste-clipboard" signal
+
 	paste_clipboard_signal_name: STRING is "paste-clipboard"
 
 	on_paste_clipboard is
@@ -529,11 +540,13 @@ feature -- The "paste-clipboard" signal
 	-- inspiration.
 
 feature -- The "populate-popup" signal
+
 	populate_popup_signal_name: STRING is "populate-popup"
 
 	on_populate_popup (a_menu: GTK_MENU) is
 			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
-		require menu_not_void: a_menu/=Void 
+		require
+			menu_not_void: a_menu /= Void
 		do
 		end
 
@@ -548,13 +561,15 @@ feature -- The "populate-popup" signal
 	-- inspiration.
 
 feature {} -- populate-popup signal implementation
+
 	hidden_on_populate_popup (a_gtk_menu, a_gtk_entry: POINTER) is
-		require 
+		require
 			menu_not_null: a_gtk_menu.is_not_null
 			entry_not_null: a_gtk_entry.is_not_null -- Otherwise very bad things are happening.
-		local a_menu: GTK_MENU
+		local
+			a_menu: GTK_MENU
 		do
-			a_menu := retrieve_eiffel_wrapper_from_gobject_pointer(a_gtk_menu)
+			a_menu := retrieve_eiffel_wrapper_from_gobject_pointer (a_gtk_menu)
 			check a_menu_not_void: a_menu /= Void end
 			on_populate_popup (a_menu)
 		end

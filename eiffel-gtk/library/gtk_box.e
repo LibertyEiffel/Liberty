@@ -89,6 +89,8 @@ feature
 			-- child is a widget at one of the reference ends of box,
 			-- then padding pixels are also put between child and the
 			-- reference edge of box.
+		require
+			a_widget /= Void
 		do
 			gtk_box_pack_start (handle,a_widget.handle,
 									  expand.to_integer, fill.to_integer,
@@ -99,6 +101,8 @@ feature
 			-- Adds `a_widget' to box, packed with reference to the end
 			-- of box. The child is packed after (away from end of) any
 			-- other child packed with reference to the end of box. See pack_end
+		require
+			a_widget /= Void
 		do
 			gtk_box_pack_end (handle,a_widget.handle,
 									expand.to_integer, fill.to_integer,
@@ -113,6 +117,8 @@ feature
 			-- pack the child widget, expand, fill, and padding in
 			-- GtkBoxChild-struct, are given their default values, TRUE,
 			-- TRUE, and 0, respectively.
+		require
+			a_widget /= Void
 		do
 			gtk_box_pack_start_defaults (handle, a_widget.handle)
 		end
@@ -124,10 +130,12 @@ feature
 			-- pack the child widget, expand, fill, and padding in
 			-- GtkBoxChild-struct, are given their default values, TRUE,
 			-- TRUE, and 0, respectively.
+		require
+			a_widget /= Void
 		do
 			gtk_box_pack_end_defaults (handle, a_widget.handle)
 		end
-	
+
 
 	is_homogeneous: BOOLEAN is
 			-- Is the box homogeneous? It means that all children are the same size
