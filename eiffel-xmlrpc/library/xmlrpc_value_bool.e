@@ -27,8 +27,6 @@ class XMLRPC_VALUE_BOOL
 
 inherit
 	XMLRPC_VALUE_ANY
-		rename make as p_make
-		end
 
 creation make, from_value
 

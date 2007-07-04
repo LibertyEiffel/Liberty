@@ -1,5 +1,4 @@
 se c -profile
+se c -flat_check
 se c -no_gc
-se c -loop_check
-se c -invariant_check
-se c -ensure_check
+se c -no_split

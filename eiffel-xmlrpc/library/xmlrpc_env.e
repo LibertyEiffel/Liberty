@@ -26,7 +26,10 @@ indexing
 class XMLRPC_ENV
 
 inherit
-	C_STRUCT redefine make, dispose end
+	C_STRUCT
+		redefine
+			dispose
+		end
 
 insert
 	XMLRPC_ENV_EXTERNALS
@@ -45,7 +48,7 @@ feature {} -- Creation
 
 	make is
 		do
-			Precursor
+			allocate
 			xmlrpc_env_init (handle)
 		end
 

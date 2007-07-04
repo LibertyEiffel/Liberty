@@ -2,7 +2,6 @@ class XMLRPC_CLIENT
 
 inherit
 	C_STRUCT
-		rename make as c_struct_make
 		redefine dispose
 		end
 
