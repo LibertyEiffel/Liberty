@@ -20,12 +20,12 @@ default -- section of the system
 	profile (no);
 	relax (yes);
 cluster -- section
-	eiffel_libraries: "../../../loadpath.se"
 	pango_cairo: "."
-	pango: "../../loadpath.se"
-	cairo: "../../../eiffel-cairo/loadpath.se"
-	gobject: "../../../eiffel-gobject/loadpath.se"
-	glib: "../../../eiffel-glib/loadpath.se"
+	pango: "../../library/loadpath.se"
+	cairo: "../../../eiffel-cairo/library/loadpath.se"
+	gobject: "../../../eiffel-gobject/library/loadpath.se"
+	glib: "../../../eiffel-glib/library/loadpath.se"
+	common: "../../../common/library/loadpath.se"
 
 	standard: "${path_lib}/loadpath.se"
 

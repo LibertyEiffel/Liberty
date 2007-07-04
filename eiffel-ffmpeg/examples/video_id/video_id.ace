@@ -20,9 +20,9 @@ default -- section of the system
 	profile (no);
 	relax (yes);
 cluster -- section
-	eiffel_libraries: "../../../loadpath.se"
 	video_id: "."
-	ffmpeg: "../../loadpath.se"
+	common: "../../../common/library/loadpath.se"
+	ffmpeg: "../../library/loadpath.se"
 
 	standard: "${path_lib}/loadpath.se"
 

@@ -1,4 +1,2 @@
-library/
-library/postgresql
-library/sqlite/loadpath.se
-../loadpath.se
+../common/loadpath.se
+./library/loadpath.se

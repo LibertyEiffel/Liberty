@@ -1,7 +1,6 @@
-library/
-library/externals/
+../common/loadpath.se
 ../eiffel-cairo/loadpath.se
 ../eiffel-glib/loadpath.se
 ../eiffel-gobject/loadpath.se
 ../eiffel-pango/loadpath.se
-../loadpath.se
+./library/loadpath.se

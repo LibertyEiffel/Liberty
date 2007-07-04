@@ -20,9 +20,9 @@ default -- section of the system
 	profile (no);
 	relax (yes);
 cluster -- section
-	eiffel_libraries: "../../../loadpath.se"
 	cairosimple: "."
-	cairo: "../../loadpath.se"
+	cairo: "../../library/loadpath.se"
+	cairo: "../../../common/library/loadpath.se"
 
 	standard: "${path_lib}/loadpath.se"
 

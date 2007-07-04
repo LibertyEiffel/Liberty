@@ -1,2 +1,2 @@
-library/
-../loadpath.se
+../common/loadpath.se
+./library/loadpath.se

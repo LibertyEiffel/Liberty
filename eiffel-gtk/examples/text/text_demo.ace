@@ -21,11 +21,7 @@ default -- section of the system
 	relax (no);
 
 cluster -- section
-	gdk: "${eiffel_libraries}/eiffel-gdk/loadpath.se"
 	gtk: "${eiffel_libraries}/eiffel-gtk/loadpath.se"
-	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
-	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
-	pango: "${eiffel_libraries}/eiffel-pango/loadpath.se"
 
 	text_demo: "."
 

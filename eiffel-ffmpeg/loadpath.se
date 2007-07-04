@@ -1,2 +1,2 @@
-library/
-library/externals/
+../common/loadpath.se
+./library/loadpath.se

@@ -63,11 +63,12 @@ default -- section of the system
 		 -- The equivalent of the -relax flag.
 
 cluster -- section
-	gtk: "${eiffel_libraries}/eiffel-gtk/loadpath.se"
-	gdk: "${eiffel_libraries}/eiffel-gdk/loadpath.se"
-	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
-	gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
-	pango: "${eiffel_libraries}/eiffel-pango/loadpath.se"
+	common: "${eiffel_libraries}/common/library/loadpath.se"
+	gtk: "${eiffel_libraries}/eiffel-gtk/library/loadpath.se"
+	gdk: "${eiffel_libraries}/eiffel-gdk/library/loadpath.se"
+	glib: "${eiffel_libraries}/eiffel-glib/library/loadpath.se"
+	gobject: "${eiffel_libraries}/eiffel-gobject/library/loadpath.se"
+	pango: "${eiffel_libraries}/eiffel-pango/library/loadpath.se"
 	hello_demo: "."
 
 	-- The cluster section is an ordered list of clusters. Roughly speaking,
