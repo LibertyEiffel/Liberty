@@ -139,7 +139,7 @@ feature
 			Result:=(gda_data_handler_accepts_gda_type(handle, a_type)).to_boolean
 		end
 
-	type_at_index (an_index: INTEGER) is
+	type_at_index (an_index: INTEGER): INTEGER is
 			-- the GType handled by the GdaDataHandler, at `an_index'
 			-- TODO: an_index shall be NATURAL, since it is a guint
 		require positive_index: an_index >= 0
