@@ -4,7 +4,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GLIB_MAIN_EVENT_LOOP
+expanded class GLIB_MAIN_EVENT_LOOP
 -- Prev 	Up 	Home 	GLib Reference Manual 	Next
 -- Top  |  Description
 -- The Main Event Loop
@@ -927,16 +927,31 @@ class GLIB_MAIN_EVENT_LOOP
 
 -- source : 	a GSource
 -- timeval : 	GTimeVal structure in which to store current time.
--- g_source_remove ()
 
--- gboolean    g_source_remove                 (guint tag);
 
--- Removes the source with the given id from the default main context. The id of a GSource is given by g_source_get_id(), or will be returned by the functions g_source_attach(), g_idle_add(), g_idle_add_full(), g_timeout_add(), g_timeout_add_full(), g_child_watch_add(), g_child_watch_add_full(), g_io_add_watch(), and g_io_add_watch_full().
+feature -- Operations
 
--- See also g_source_destroy().
+	source_remove (tag: INTEGER) is
+			-- Removes the source with the given id `tag' from the default
+			-- main context. The id of a GSource is given by 
+			-- g_source_get_id(), or will be returned by the functions 
+			-- g_source_attach(), g_idle_add(), g_idle_add_full(),
+			-- g_timeout_add(), g_timeout_add_full(), g_child_watch_add(),
+			-- g_child_watch_add_full(), g_io_add_watch(),
+			-- and g_io_add_watch_full().
+		do
+			source_removed := (g_source_remove (tag) /= 0)
+		end
 
--- tag : 	the id of the source to remove.
--- Returns : 	TRUE if the source was found and removed.
+	source_removed: BOOLEAN
+
+feature {} -- Externals
+
+	g_source_remove (tag: INTEGER): INTEGER is
+		external "C use <glib.h>"
+		alias "g_source_remove"
+		end
+
 -- g_source_remove_by_funcs_user_data ()
 
 -- gboolean    g_source_remove_by_funcs_user_data
