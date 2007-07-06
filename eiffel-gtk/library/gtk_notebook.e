@@ -192,19 +192,13 @@ feature -- page handling
 	--    Returns :    the index (starting from 0) of the inserted page in the notebook, or -1 if function
 	--                 fails
 
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_remove_page ()
-
-	--  void        gtk_notebook_remove_page        (GtkNotebook *notebook,
-	--                                               gint page_num);
-
-	--    Removes a page from the notebook given its index in the notebook.
-
-	--    notebook : a GtkNotebook.
-	--    page_num : the index of a notebook page, starting from 0. If -1, the last page will be removed.
-
-	--    ---------------------------------------------------------------------------------------------------
+	remove_page (page_num: INTEGER) is
+			-- Removes a page from the notebook given its index.
+		require
+			page_num >= 0
+		do
+			gtk_notebook_remove_page (handle, page_num)
+		end
 
 	--   gtk_notebook_current_page
 
