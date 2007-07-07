@@ -49,7 +49,13 @@ feature -- access
 			is_valid_gdk_modifier_type (Result)
 		end
 
--- Not implemented: GdkDevice *device; 	the device where the event originated.
+	key_value: INTEGER is
+			-- the key that was pressed or released. See the 
+			-- <gdk/gdkkeysyms.h> header file for a complete list of GDK
+			-- key codes.
+		do
+			Result := gdk_event_key_get_keyval (handle)
+		end
 
 feature -- size
 

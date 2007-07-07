@@ -33,4 +33,8 @@ feature {} -- External calls
 		external "C struct GdkEventKey get state use <gdk/gdk.h>"
 		end
 
+	gdk_event_key_get_keyval (ptr: POINTER): INTEGER is
+		external "C struct GdkEventKey get keyval use <gdk/gdk.h>"
+		end
+
 end -- class GDK_EVENT_KEY_EXTERNALS
