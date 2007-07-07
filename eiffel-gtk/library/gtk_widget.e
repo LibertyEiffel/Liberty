@@ -1120,10 +1120,40 @@ feature -- drag-motion signal
 --             void        user_function      (GtkWidget *widget,
 --                                             GtkWidget *widget2,
 --                                             gpointer   user_data)      : Run last
--- "key-press-event"
---             gboolean    user_function      (GtkWidget   *widget,
---                                             GdkEventKey *event,
---                                             gpointer     user_data)      : Run last
+feature -- key-press-event signal
+
+	key_press_event_signal_name: STRING is "key-press-event"
+		-- "key-press-event" signal
+		-- gboolean    user_function                  (GtkWidget       *widget,
+		--											   GdkEventKey     *event,
+		--											   gpointer        user_data)      : Run last
+
+	enable_on_key_press_event is
+			-- Connects "kry-press-event" signal to `on_key_press_event' feature.
+		do
+			connect (Current, key_press_event_signal_name, $on_key_press_event)
+		end
+
+	on_key_press_event: INTEGER is
+			-- Built-in key-press-event signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_key_press_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]) is
+			-- widget : 	the object which received the signal.
+			-- event :
+			-- user_data : 	user data set when the signal handler was connected.
+			-- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			key_press_event_callback: KEY_PRESS_EVENT_CALLBACK
+		do
+			create key_press_event_callback.make
+			key_press_event_callback.connect (Current, a_function)
+		end
+
 -- "key-release-event"
 --             gboolean    user_function      (GtkWidget   *widget,
 --                                             GdkEventKey *event,
