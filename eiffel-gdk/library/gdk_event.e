@@ -125,6 +125,12 @@ feature
 					  (event_type = gdk_event_button_release)
 		end
 
+	is_event_key: BOOLEAN is
+		do
+			Result := (event_type = gdk_event_key_press) or else
+					  (event_type = gdk_event_key_release)
+		end
+
 feature -- Convertion to different event types
 
 	event_any: GDK_EVENT_ANY is
@@ -150,6 +156,17 @@ feature -- Convertion to different event types
 	event_button: GDK_EVENT_BUTTON is
 		require
 			is_event_button
+		do
+			if wrappers.has (handle) then
+				Result ::= wrappers.at(handle)
+			else
+				create Result.from_event (Current)
+			end
+		end
+
+	event_key: GDK_EVENT_KEY is
+		require
+			is_event_key
 		do
 			if wrappers.has (handle) then
 				Result ::= wrappers.at(handle)
