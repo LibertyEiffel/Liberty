@@ -41,7 +41,10 @@ feature {} -- enum
 
 	is_valid_gdk_modifier_type (a_modifier: INTEGER) : BOOLEAN is
 		do
-			Result := a_modifier.bit_and (gdk_modifier_mask.bit_not) = 0
+			Result := True
+			-- Used to be a_modifier.bit_and (gdk_modifier_mask.bit_not) = 0
+			-- This is not useful, because sometimes we get some extra bits
+			-- set by XKB
 		end
 
 	gdk_shift_mask: INTEGER is

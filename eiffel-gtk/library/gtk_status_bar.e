@@ -1,5 +1,5 @@
 indexing
-	description: "GtkStatusbar — Report messages of minor importance to the user"
+	description: "Report messages of minor importance to the user"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -21,11 +21,6 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-
-			-- Note: since I haven't still understood the utility of the
-			-- context ids I have completely hidden this aspect from the
-			-- Eiffel wrapper. Paolo 2006-04-22
-	
 class GTK_STATUS_BAR
 	-- A GtkStatusbar is usually placed along the bottom of an
 	-- application's main GtkWindow. It may provide a regular
@@ -58,10 +53,7 @@ class GTK_STATUS_BAR
 	-- its message_id was recorded at the time it was added. This is
 	-- done using `remove'.
 
-
 inherit
-	-- TODO: Since it provides stack-like behaviour it could also be: STACK[STRING] redefine make, with_capacity, push,
-	-- pop end 
 	GTK_HBOX
 		rename make as make_hbox
 		export {} make_hbox
@@ -86,63 +78,44 @@ feature {} -- Creation
 		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_statusbar_new)
-			-- create context_ids.make
-			create message_ids.make
-			context_id := gtk_statusbar_get_context_id (handle, eiffel_context_id.to_external)
 		end
 
-feature {} -- Context ids
-	context_id: INTEGER
-	eiffel_context_id: STRING  is "Eiffel GTK_STATUS_BAR"
-	-- 	context_ids: STACK[INTEGER]
-	-- 			-- Note: it should be STACK[NATURAL] since context ids are guint
-	
-	-- 	set_context_id (a_context_description: STRING) is
-	-- 			-- Get a new context identifier, given a description of the
-	-- 			-- actual context (`a_context_description').
-	-- 		require valid_description: a_context_description /= Void
-	-- 		do
-	-- 			context_ids.push (gtk_statusbar_get_context_id (handle, a_context_description.to_external))
-	-- 		ensure positive: context_ids.top >= 0
-	-- 		end
-	
-feature -- Message ids
-	message_ids: STACK[INTEGER]
-			-- Note: it should be STACK[NATURAL] since message ids are guint
+feature -- Context ids
 
-	is_empty: BOOLEAN is
+	new_context_id (description: STRING) is
+		require
+			description /= Void
 		do
-			Result :=message_ids.is_empty
+			last_context_id := gtk_statusbar_get_context_id (handle, description.to_external)
 		end
-	
+
+	last_context_id: INTEGER
+
 feature -- Stack like behaviour
-	push (a_message: STRING) is
-			-- Pushes `a_message' onto a statusbar's stack.
 
-			-- The last context id will be used
+	push (context_id: INTEGER; a_message: STRING) is
+			-- Pushes `a_message' onto a statusbar's stack.
+			-- `context_id' will be used
+		require
+			a_message /= Void
 		do
-			message_ids.push (gtk_statusbar_push (handle, context_id,
-															  a_message.to_external)
-									-- gtk_statusbar_push returns the message's
-									-- new message id for use with
-									-- gtk_statusbar_remove().
-									)
+			last_pushed := gtk_statusbar_push (handle, context_id,
+									  a_message.to_external)
 		end
 
-	pop is
+	last_pushed: INTEGER
+			-- Message id for the last message pushed
+
+	pop (context_id: INTEGER) is
 			-- Pop last message with current (i.e.: last) context id.
 		do
 			gtk_statusbar_pop (handle, context_id);
 			-- Removes the message at the top of a GtkStatusBar's stack.
 		end
 
-	remove_message (a_message_id: INTEGER) is
+	remove_message (context_id, a_message_id: INTEGER) is
 			-- Forces the removal of a message from a statusbar's
-			-- stack. The exact `message_id' must be specified.  Note:
-			-- the original C implementation also offers a
-			-- `context_id'. The Eiffel API have been simplified, hiding
-			-- this context id. Otherwise it should have been provided to
-			-- `remove'.
+			-- stack. The exact `message_id' must be specified.
 		do
 			gtk_statusbar_remove (handle, context_id, a_message_id)
 		end
