@@ -215,7 +215,7 @@ feature {} -- External calls
 							  a_text: POINTER): INTEGER  is
 		require
 			-- Note: `a_context_id' is a guint and shall be a NATURAL
-			positive_context_id: a_context_id > 0 
+			positive_context_id: a_context_id >= 0 
 		external "C use <gtk/gtk.h>"
 		ensure positive: Result > 0
 		end
@@ -223,7 +223,7 @@ feature {} -- External calls
 	gtk_statusbar_pop (a_statusbar: POINTER; a_context_id: INTEGER)  is
 		require
 			-- Note: `a_context_id' is a guint and shall be a NATURAL
-			positive_context_id: a_context_id > 0 
+			positive_context_id: a_context_id >= 0 
 		external "C use <gtk/gtk.h>"
 		end
 
@@ -231,8 +231,8 @@ feature {} -- External calls
 								 a_message_id: INTEGER)  is
 		require
 			-- Note: `a_context_id' and `a_message_id' are guint and shall be NATURAL
-			positive_context_id: a_context_id > 0 
-			positive_message_id: a_message_id > 0 
+			positive_context_id: a_context_id >= 0 
+			positive_message_id: a_message_id >= 0 
 		external "C use <gtk/gtk.h>"
 		end
 
