@@ -117,11 +117,6 @@ inherit
 
 insert
 	GTK_DIALOG_EXTERNALS
-		rename
-			gtk_dialog_modal as modal_dialog,
-			gtk_dialog_destroy_with_parent as destroy_with_parent,
-			gtk_dialog_no_separator as no_separator
-		end
 	GTK_DIALOG_STRUCT
 	GTK_STOCK_ITEMS
 		-- GtkDialog implements AtkImplementorIface.	

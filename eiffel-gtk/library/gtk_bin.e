@@ -19,10 +19,6 @@ inherit GTK_CONTAINER
 
 insert
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
-		rename
-			retrieve_eiffel_wrapper_from_gobject_pointer as retrieve_widget_wrapper_from_pointer
-			eiffel_wrapper_from_gobject_pointer as widget_wrapper_from_pointer
-		end
 	GTK_BIN_EXTERNALS
 
 feature
@@ -33,7 +29,7 @@ feature
 		local a_widget_ptr: POINTER
 		do
 			a_widget_ptr := gtk_bin_get_child(handle)
-			Result := widget_wrapper_from_pointer (a_widget_ptr)
+			Result := retrieve_eiffel_wrapper_from_gobject_pointer (a_widget_ptr)
 			debug
 				if Result=Void then
 					print ("Warning GTK_BIN.child encountered an unwrapped gobject!%
