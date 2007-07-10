@@ -307,7 +307,6 @@ feature -- Data storing and retrieving
 			-- data : 	data to associate with that key
 		require
 			valid_key: a_key /= Void
-			data_not_expanded: not data.is_expanded_type
 		do
 			-- Note: a_key is not duplicated since g_object_set_data requires a const
 			-- gchar *;
@@ -343,8 +342,6 @@ feature -- Quark-based data storing and retrieving
 		do
 			ptr := g_object_get_qdata (handle, a_key.quark)
 			if ptr.is_not_null then Result:=ptr.to_any end
-		ensure
-			result_not_expanded: not Result.is_expanded_type
 		end
 
 	set_qdata (a_key: G_QUARK; data: ANY) is
@@ -355,8 +352,6 @@ feature -- Quark-based data storing and retrieving
 
 			-- a_key : 	name of the key
 			-- data : 	data to associate with that key
-		require
-			data_not_expanded: not data.is_expanded_type
 		do
 			g_object_set_qdata (handle,a_key.quark, data.to_pointer)
 		end
