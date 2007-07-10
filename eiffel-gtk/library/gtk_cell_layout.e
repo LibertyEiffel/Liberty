@@ -189,7 +189,7 @@ feature {} -- External calls
 	-- be wrapped correctly and it hasn't been wrapped. The high level 
 	-- set_attibutes has been implemented mimicking the C implementation.
 	
-	gtk_cell_layout_add_attribute (a_cell_layout, a_cell_renderer:	POINTER; attribute: POINTER; a_column: INTEGER) is
+	gtk_cell_layout_add_attribute (a_cell_layout, a_cell_renderer: POINTER; an_attribute: POINTER; a_column: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end
 
