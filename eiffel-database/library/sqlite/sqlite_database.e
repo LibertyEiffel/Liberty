@@ -139,10 +139,13 @@ feature {} -- Implementation
 			until
 				i >= n_columns
 			loop
-				
-				create a_value.from_external_copy(values.item(i))
-				debug print ("'" + a_value + "' ") end
-				a_tuple.put (a_value, i)
+				if values.item(i) /= default_pointer then
+					create a_value.from_external_copy(values.item(i))
+					debug print ("'" + a_value + "' ") end
+					a_tuple.put (a_value, i)
+				else
+					debug print ("''") end
+				end
 				i := i + 1
 			end
 			result_set.add_last (a_tuple)
@@ -154,8 +157,10 @@ feature {} -- Implementation
 				until
 					i >= n_columns
 				loop
-					create column_name.from_external_copy(column_names.item(i))
-					print ("'" + column_name + "' ") 
+					if column_names.item(i) /= default_pointer then
+						create column_name.from_external_copy(column_names.item(i))
+						print ("'" + column_name + "' ")
+					end
 					i := i + 1
 				end
 				print ("])%N")
