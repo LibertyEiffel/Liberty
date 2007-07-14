@@ -200,17 +200,6 @@ feature -- page handling
 			gtk_notebook_remove_page (handle, page_num)
 		end
 
-	--   gtk_notebook_current_page
-
-	--  #define gtk_notebook_current_page               gtk_notebook_get_current_page
-
-	--   Warning
-
-	--    gtk_notebook_current_page is deprecated and should not be used in newly-written code.
-
-	--    Deprecated compatibility macro. Use gtk_notebook_get_current_page() instead.
-
-	--    ---------------------------------------------------------------------------------------------------
 
 	--   gtk_notebook_page_num ()
 
@@ -222,18 +211,6 @@ feature -- page handling
 	--    notebook : a GtkNotebook
 	--    child :    a GtkWidget
 	--    Returns :  the index of the page containing child, or -1 if child is not in the notebook.
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_set_page
-
-	--  #define gtk_notebook_set_page                   gtk_notebook_set_current_page
-
-	--   Warning
-
-	--    gtk_notebook_set_page is deprecated and should not be used in newly-written code.
-
-	--    Deprecated compatibility macro. Use gtk_notebook_set_current_page() instead.
 
 	--    ---------------------------------------------------------------------------------------------------
 

@@ -35,6 +35,10 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
+	gtk_image_new_from_stock (a_stock_id: POINTER; an_icon_size: INTEGER): POINTER  is
+		external "C use <gtk/gtk.h>"
+		end
+
 	gtk_image_set_from_file (image: POINTER;filename: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end

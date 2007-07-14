@@ -29,9 +29,10 @@ inherit GTK_MISC
 insert
 	GTK_IMAGE_EXTERNALS
 	GTK_IMAGE_TYPE
+	GTK_ICON_SIZE
 
 creation
-	make, from_file, from_external_pointer, from_pixbuf, from_pixmap
+	make, from_file, from_external_pointer, from_pixbuf, from_pixmap, from_stock
 
 feature {} -- Initialization
 
@@ -76,13 +77,21 @@ feature {} -- Initialization
 			from_external_pointer (gtk_image_new_from_pixmap (pixmap_ptr, mask_ptr))
 		end
 
+	from_stock (a_stock_item: STRING; a_size: INTEGER) is
+		require
+			gtk.is_initialized
+			a_stock_item /= Void
+			is_valid_gtk_icon_size (a_size)
+		do
+			from_external_pointer (gtk_image_new_from_stock (a_stock_item.to_external, a_size))
+		end
+
 	-- Todo : Write gdk_visual, gdk_pixmap, ...
 	-- Todo : gtk_icon_stock (?), gtk_icon_size (?), I am looking how to good implement.
 
 
 	-- Todo : GtkWidget*  gtk_image_new_from_icon_set ()
 	-- Todo : GtkWidget*  gtk_image_new_from_image ()
-	-- Todo : GtkWidget*  gtk_image_new_from_stock ()
 	-- Todo : GtkWidget*  gtk_image_new_from_animation ()
 	-- Todo : GtkWidget*  gtk_image_new_from_icon_name ()
 
