@@ -40,9 +40,46 @@ inherit
 insert
 	PANGO_ATTR_TYPE
 
-creation from_external_pointer
+create
+	from_external_pointer,
+	background,
+	foreground,
+	weight,
+	style
 
 feature {} -- Creation
+
+	background (r, g, b: INTEGER) is
+		do
+			handle := pango_attr_background_new (r, g, b)
+		end
+
+	foreground (r, g, b: INTEGER) is
+		do
+			handle := pango_attr_foreground_new (r, g, b)
+		end
+
+	weight (a_weight: INTEGER) is
+		do
+			handle := pango_attr_weight_new (a_weight)
+		end
+
+	style (a_style: INTEGER) is
+		do
+			handle := pango_attr_style_new (a_style)
+		end
+
+feature -- Operations
+
+	set_start_index (index: INTEGER) is
+		do
+			c_set_start_index (handle, index)
+		end
+
+	set_end_index (index: INTEGER) is
+		do
+			c_set_end_index (handle, index)
+		end
 
 feature {} -- Unwrapped API
 --   PANGO_TYPE_ATTR_TYPE
@@ -89,12 +126,21 @@ feature {} --   PangoAttribute struct access
 
 	get_start_index (an_attribute: POINTER): INTEGER is 
 			-- guint start_index; the start index of the range (in bytes).
-		external "C struct PangoAttribute get klass use <pango/pango.h>"
+		external "C struct PangoAttribute get start_index use <pango/pango.h>"
 		end
+
 	get_end_index (an_attribute: POINTER): INTEGER is
 			-- guint end_index; end index of the range (in bytes). The
 			-- character at this index is not included in the range.
-		external "C struct PangoAttribute get klass use <pango/pango.h>"
+		external "C struct PangoAttribute get end_index use <pango/pango.h>"
+		end
+
+	c_set_start_index (an_attribute: POINTER; value: INTEGER) is 
+		external "C struct PangoAttribute set start_index use <pango/pango.h>"
+		end
+
+	c_set_end_index (an_attribute: POINTER; value: INTEGER) is
+		external "C struct PangoAttribute set end_index use <pango/pango.h>"
 		end
 
 feature  -- Markup parsing
@@ -440,9 +486,9 @@ feature {} -- External calls
 -- 		external "C use <pango/pango.h>"
 -- 		end
 
---  PangoAttribute* pango_attr_style_new        (PangoStyle style) is
--- 		external "C use <pango/pango.h>"
--- 		end
+	pango_attr_style_new (a_style: INTEGER): POINTER is
+		external "C use <pango/pango.h>"
+		end
 
 --  PangoAttribute* pango_attr_variant_new      (PangoVariant variant) is
 -- 		external "C use <pango/pango.h>"
@@ -452,9 +498,9 @@ feature {} -- External calls
 -- 		external "C use <pango/pango.h>"
 -- 		end
 
---  PangoAttribute* pango_attr_weight_new       (PangoWeight weight) is
--- 		external "C use <pango/pango.h>"
--- 		end
+	pango_attr_weight_new (a_weight: INTEGER): POINTER is
+		external "C use <pango/pango.h>"
+		end
 
 --  PangoAttribute* pango_attr_size_new         (int size) is
 -- 		external "C use <pango/pango.h>"
@@ -469,13 +515,13 @@ feature {} -- External calls
 -- 		external "C use <pango/pango.h>"
 -- 		end
 
---  PangoAttribute* pango_attr_foreground_new   (guint16 red, guint16 green, guint16 blue) is
--- 		external "C use <pango/pango.h>"
--- 		end
+	pango_attr_foreground_new (r, g, b: INTEGER): POINTER is
+		external "C use <pango/pango.h>"
+		end
 
---  PangoAttribute* pango_attr_background_new   (guint16 red, guint16 green, guint16 blue) is
--- 		external "C use <pango/pango.h>"
--- 		end
+	pango_attr_background_new (r, g, b: INTEGER): POINTER is
+		external "C use <pango/pango.h>"
+		end
 
 --  PangoAttribute* pango_attr_strikethrough_new
 --                                              (gboolean strikethrough) is

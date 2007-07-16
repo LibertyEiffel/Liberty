@@ -184,6 +184,15 @@ feature -- Operations
 			check unimplemented: False end
 		end
 
+	set_attributes (attrs: PANGO_ATTR_LIST) is
+			-- Sets the text attributes for a layout object.
+			-- References attrs, so the caller can unref its reference.
+		require
+			attrs /= Void
+		do
+			pango_layout_set_attributes (handle, attrs.handle)
+		end
+
 	set_wrap (a_wrap_mode: INTEGER) is
 			-- Sets the wrap mode; the wrap mode only has effect if a width
 			-- is set on the layout with set_width(). To turn off wrapping,

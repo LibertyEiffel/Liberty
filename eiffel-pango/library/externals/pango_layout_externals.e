@@ -39,6 +39,10 @@ feature {} -- External calls
 		external "C use <pango/pango-layout.h>"
 		end
 
+	pango_layout_set_attributes (a_layout, a_attrs: POINTER) is
+		external "C use <pango/pango-layout.h>"
+		end
+
 	pango_layout_new (a_context: POINTER): POINTER is
 		external "C use <pango/pango-layout.h>"
 		end

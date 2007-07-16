@@ -32,9 +32,8 @@ class PANGO_ATTR_LIST
 	-- more than one paragraph of text.
 
 inherit 
-	G_OBJECT
-		redefine ref, unref, copy
-		end
+	SHARED_C_STRUCT
+		redefine copy end
 
 creation make, from_external_pointer
 
@@ -43,7 +42,7 @@ feature {} -- Creation
 			-- Create a new empty attribute list with a reference count
 			-- of one.
 		do
-			from_external_pointer(pango_attr_list_new)
+			from_external_pointer (pango_attr_list_new)
 			-- pango_attr_list_new Returns the newly allocated
 			-- PangoAttrList, which should be freed with
 			-- pango_attr_list_unref().
@@ -94,6 +93,7 @@ feature
 			not_freezed: not is_freezed
 		do
 			pango_attr_list_insert (handle, an_attribute.handle)
+			an_attribute.set_shared
 		end
 
 	insert_before (an_attribute: PANGO_ATTRIBUTE) is
@@ -108,6 +108,7 @@ feature
 			not_freezed: not is_freezed
 		do
 			pango_attr_list_insert_before (handle, an_attribute.handle)
+			an_attribute.set_shared
 		end
 
 	change  (an_attribute: PANGO_ATTRIBUTE) is
@@ -129,6 +130,7 @@ feature
 			not_freezed: not is_freezed
 		do
 			pango_attr_list_change (handle, an_attribute.handle)
+			an_attribute.set_shared
 		end
 
 	splice (another: PANGO_ATTR_LIST; a_position, a_length: INTEGER) is
