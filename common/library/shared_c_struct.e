@@ -30,6 +30,7 @@ insert
 	SHARED_WRAPPERS_DICTIONARY
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
+
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			Precursor(a_ptr)
@@ -38,7 +39,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 		ensure then
 			stored: is_eiffel_wrapper_stored
 		end
-	
+
 	is_shared: BOOLEAN
 			-- Does anybody else (Eiffel or non-Eiffel) have a reference 
 			-- to `handle'? If False, then the C-object will be 
@@ -108,12 +109,14 @@ feature {} -- Storing wrapper pointer into wrapped object
 		end
 
 feature -- Copying
+
 	copy (another: like Current) is
 		do
 			from_external_pointer (another.handle)
 		end
-	
+
 feature {} -- Destroying
+
 	dispose is
 			-- Action to be executed just before garbage collection reclaims an 
 			-- object; frees the memory pointed by `handle'
@@ -126,4 +129,5 @@ feature {} -- Destroying
 		ensure then
 			now_null: is_null
 		end
-end
+
+end -- class SHARED_C_STRUCT
