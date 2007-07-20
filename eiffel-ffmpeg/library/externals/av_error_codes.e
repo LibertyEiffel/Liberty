@@ -25,7 +25,7 @@ inherit
 	ANY
 		undefine copy, is_equal end
 
-feature {NONE} -- Constants
+feature {} -- Constants
 
 	is_valid_av_error_code (a_error_code: INTEGER): BOOLEAN is
 		do

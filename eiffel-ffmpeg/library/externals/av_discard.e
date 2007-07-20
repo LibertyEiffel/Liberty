@@ -25,7 +25,7 @@ inherit
 	ANY
 		undefine copy, is_equal end
 
-feature {NONE}
+feature {}
 
 	is_valid_av_discard (a_discard: INTEGER): BOOLEAN is
 		do

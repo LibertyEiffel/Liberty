@@ -25,7 +25,7 @@ inherit
 	ANY
 		undefine copy, is_equal end
 
-feature {NONE}
+feature {}
 
 	is_valid_codec_type (a_codec_type: INTEGER): BOOLEAN is
 		do
