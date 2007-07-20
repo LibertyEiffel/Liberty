@@ -31,7 +31,7 @@ inherit GTK_SCROLLBAR
 	
 creation make, with_adjustment, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new horizontal scrollbar; a new adjustment is also created.
 		do

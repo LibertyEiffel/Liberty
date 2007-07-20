@@ -29,7 +29,7 @@ inherit GTK_ACTION redefine make, struct_size end
 
 creation from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (a_name, a_label, a_tooltip, a_stock_id: STRING) is
 			-- Creates a new GtkToggleAction object. To add the action to
 			-- a GtkActionGroup and set the accelerator for the action,

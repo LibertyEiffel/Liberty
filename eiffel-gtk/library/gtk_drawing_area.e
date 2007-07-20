@@ -108,10 +108,4 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_drawing_area_size (a_darea: POINTER; a_width, an_height: INTEGER) is
-			-- gtk_drawing_area_size (GtkDrawingArea *darea, gint width, gint 
-			-- height);
-		external "C use <gtk/gtk.h>"
-		end
-		
 end -- class GTK_DRAWING_AREA

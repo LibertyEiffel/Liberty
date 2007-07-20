@@ -386,11 +386,8 @@ feature -- Operation
 		do
 			c_window := gtk_widget_get_window (handle)
 			if c_window.is_not_null then
-				if r.has_eiffel_wrapper_stored (c_window) then
-					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_window)
-				else
-					create Result.from_external_pointer (c_window)
-				end
+				Result := r.eiffel_wrapper_from_gobject_pointer(c_window)
+				if Result=Void then create Result.from_external_pointer (c_window) end
 			end
 		end
 
@@ -1088,10 +1085,12 @@ feature -- drag-motion signal
 --             void        user_function      (GtkWidget *widget,
 --                                             GdkEvent  *event,
 --                                             gpointer   user_data)      : 
--- "expose-event"
---             gboolean    user_function      (GtkWidget      *widget,
---                                             GdkEventExpose *event,
---                                             gpointer        user_data)      : Run last
+feature -- "expose-event" signal
+	expose_event_signal_name: STRING is "expose-event" 
+			-- gboolean user_function (GtkWidget *widget,
+			--                         GdkEventExpose *event,
+			--                         gpointer user_data) : Run last
+	
 -- "focus"     gboolean    user_function      (GtkWidget       *widget,
 --                                             GtkDirectionType arg1,
 --                                             gpointer         user_data)      : Run last

@@ -74,4 +74,5 @@ feature
 
 	function: FUNCTION [ANY, TUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]
 
-end -- class BUTTON_EVENT_CALLBACK
+end -- class KEY_EVENT_CALLBACK
+

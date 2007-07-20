@@ -23,7 +23,7 @@ class GTK_RADIO_MENU_ITEM
 	-- A radio menu item is a check menu item that belongs to a
 	-- group. At each instant exactly one of the radio menu items from
 	-- a group is selected.
-					
+
 	-- The group list does not need to be freed, as each
 	-- GtkRadioMenuItem will remove itself and its list item when it is
 	-- destroyed.
@@ -47,10 +47,8 @@ class GTK_RADIO_MENU_ITEM
 
 inherit
 	GTK_MENU_ITEM
-		rename
-			with_mnemonic as as_menu_item_with_mnemomic
-		export
-			{}  as_menu_item_with_mnemomic
+		-- rename with_mnemonic as as_menu_item_with_mnemomic
+		-- export	{}  as_menu_item_with_mnemomic
 		redefine
 			struct_size
 		end
@@ -58,7 +56,7 @@ inherit
 	-- TODO: GtkRadioMenuItem implements AtkImplementorIface.
 
 creation 
-	from_group, with_group_label, with_mnemonic, from_widget,
+	from_group, with_group_label, with_group_and_mnemonic, from_widget,
 	with_label_from_widget, with_mnemonic_from_widget,
 	from_external_pointer
 
@@ -85,7 +83,7 @@ feature {} -- Creation
 										  (null_or(a_group), a_label.to_external))
 		end
 
-	with_mnemonic (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
+	with_group_and_mnemonic (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
 			-- Creates a new GtkRadioMenuItem containing `a_label'. An
 			-- underscores in label indicate the mnemonic for the menu
 			-- item. The menu item will be added to `a_group'; if it is
@@ -161,7 +159,7 @@ feature
 feature -- TODO:  The "group-changed" signal
 	group_changed_signal_name: STRING is "group-changed"
 	
-	on_group_changed is deferred end
+	on_group_changed is do end
 
 	enable_on_group_changed is
 		do

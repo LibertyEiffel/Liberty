@@ -59,7 +59,7 @@ insert GTK
 
 creation make, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make (a_name, a_label, a_tooltip, a_stock_id: STRING) is
 			-- Creates a new GtkAction object. To add the action to a
 			-- GtkActionGroup and set the accelerator for the action,
