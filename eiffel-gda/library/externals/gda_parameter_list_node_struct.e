@@ -58,7 +58,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaParameterListNode set hint use <libgda/libgda.h>"
 		end
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaParameterListNode)"

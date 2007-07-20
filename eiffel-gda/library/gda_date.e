@@ -47,6 +47,6 @@ feature
 		ensure positive: Result >=0
 		end
 
-feature -- TODO: setters
+feature {} -- TODO: setters
 
 end -- class FOO

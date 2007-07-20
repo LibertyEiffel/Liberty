@@ -24,7 +24,7 @@ deferred class GDA_DICT_CONSTRAINT_TYPE_ENUM
 inherit ANY undefine is_equal, copy end
 
 
-feature  -- enum
+feature {} -- enum
 	is_valid_constraint_type (a_type :INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type=constraint_primary_key) or else 

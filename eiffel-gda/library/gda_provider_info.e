@@ -83,7 +83,7 @@ feature -- Properties
 			create Result.from_external (get_description(handle))
 		ensure not_void: Result /= Void
 		end
-feature -- TODO: Setters:
+feature {} -- TODO: Setters:
 	-- TODO: add a modifyiable boolean flag
 	-- ramack: where should this flag come from (get its initial value 
 	-- from)?

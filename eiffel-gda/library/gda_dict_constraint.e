@@ -227,7 +227,7 @@ feature
 			Result.set_unshared
 		end
 
-feature -- Property Details
+feature {} -- Property Details
 	-- The "user-constraint" property "user-constraint" gboolean :
 	-- Read/Write Default value: FALSE
 end -- class GDA_DICT_CONSTRAINT

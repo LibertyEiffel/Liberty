@@ -91,13 +91,13 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_column_get_gda_type (a_column: POINTER): INTEGER is
-			-- GType gda_column_get_gda_type (GdaColumn *column);
+	gda_column_get_g_type (a_column: POINTER): INTEGER is
+			-- GType gda_column_get_g_type (GdaColumn *column);
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_column_set_gda_type (a_column: POINTER; a_type: INTEGER) is
-			-- void gda_column_set_gda_type (GdaColumn *column, GType type);
+	gda_column_set_g_type (a_column: POINTER; a_type: INTEGER) is
+			-- void gda_column_set_g_type (GdaColumn *column, GType type);
 		external "C use <libgda/libgda.h>"
 		end
 	
@@ -172,7 +172,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaColumn)"

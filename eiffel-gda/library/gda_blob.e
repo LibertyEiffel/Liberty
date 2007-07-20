@@ -27,7 +27,7 @@ insert GDA_BLOB_EXTERNALS
 
 creation make, from_external_pointer
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 
 --   gda_blob_open ()
@@ -131,7 +131,7 @@ feature {NONE} -- Creation
 --    deallocating blob itself.
 
 --    blob : a valid GdaBlob.
-feature -- size
+feature {} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <libgda/libgda.h>"

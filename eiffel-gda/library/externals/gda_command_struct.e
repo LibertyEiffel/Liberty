@@ -59,7 +59,7 @@ feature {} -- Structure getter/setter calls
 		end
 
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <$include>"
 		alias "sizeof(GdaCommand)"

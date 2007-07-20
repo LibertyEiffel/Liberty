@@ -86,7 +86,7 @@ feature {ANY} -- Copying
 			from_external_pointer (gda_command_copy (other.handle))
 		end
 
-feature -- Disposing
+feature {} -- Disposing
 	dispose is 
 			-- Frees the resources allocated by gda_command_new.
 		do

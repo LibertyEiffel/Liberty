@@ -32,7 +32,7 @@ inherit ANY undefine is_equal, copy end
 
 
 feature {} -- enum
-	is_valid_client_event (an_event :INTEGER): BOOLEAN is
+	is_valid_gda_client_event (an_event :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_event=gda_client_event_invalid) or else
 						(an_event=gda_client_event_error) or else                 

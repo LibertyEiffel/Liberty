@@ -73,6 +73,6 @@ feature
 			Result := get_timezone(handle)
 		end
 
-feature -- TODO: setters
+feature {} -- TODO: setters
 
 end -- class GDA_TIME

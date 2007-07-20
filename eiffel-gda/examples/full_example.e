@@ -140,7 +140,7 @@ feature --
 	username: STRING is once Result := Void end
 	password: STRING is once Result := Void end
 
-feature -- Warnings
+feature {} -- Warnings
 	warning is
 		once
 			print ("There was a little bug: gda_config_save_data_source() does not create the configuration directory ~/.libgda, so you have to do it.")

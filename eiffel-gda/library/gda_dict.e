@@ -451,7 +451,7 @@ feature
 	-- type : 	a Gtype type of object
 	-- xml_id : 	
 	-- Returns : 	a pointer to the requested object, or NULL if the object was not found
-feature 	-- TODO: Properties
+feature {} -- TODO: Properties
 
 	-- The "dsn" property
 
@@ -467,7 +467,7 @@ feature 	-- TODO: Properties
 	--   "dsn"                  gchararray            : Read / Write
 	--   "username"             gchararray            : Read / Write
 
-feature 	-- TODO: Signals
+feature {} -- TODO: Signals
 
 	-- "changed"   void        user_function      (GdaDict *gdadict,
 	--                                             gpointer user_data)      : Run first

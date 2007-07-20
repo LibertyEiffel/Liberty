@@ -324,7 +324,7 @@ feature {ANY}
 			end
 		end
 	
-feature -- TODO: Properties
+feature {} -- TODO: Properties
 --    "entry-plugin"         gchararray            : Read / Write
 --    "full-bind"            gpointer              : Read / Write
 --    "gda-type"             gulong                : Read / Write / Construct Only
@@ -383,7 +383,7 @@ feature -- TODO: Properties
 
 --    Default value: FALSE
 
-feature -- TODO: Signals
+feature {} -- TODO: Signals
 --  "restrict-changed"
 --              void        user_function      (GdaParameter *gdaparameter,
 --                                              gpointer      user_data)         : Run first

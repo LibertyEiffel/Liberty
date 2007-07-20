@@ -698,7 +698,7 @@ feature
 --    arg1 :
 --    user_data :     user data set when the signal handler was connected.
 
-feature -- TODO: Signals
+feature {} -- TODO: Signals
 
 
 	--  "conn-closed"

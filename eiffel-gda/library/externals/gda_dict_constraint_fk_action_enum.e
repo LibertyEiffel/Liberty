@@ -24,7 +24,7 @@ deferred class GDA_DICT_CONSTRAINT_FK_ACTION_ENUM
 inherit ANY undefine is_equal, copy end
 
 
-feature  -- enum
+feature {} -- enum
 	is_valid_fk_action (an_action :INTEGER): BOOLEAN is
 		do	
 			Result:=((an_action=constraint_fk_action_cascade) or else 

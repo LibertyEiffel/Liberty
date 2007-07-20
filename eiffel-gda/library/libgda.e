@@ -32,7 +32,7 @@ feature {} -- creation
 		do
 		end
 	
-feature -- size
+feature {} -- size
 	is_initialized: BOOLEAN
 			-- Has the Gnome Data Access library been initialized?
 	

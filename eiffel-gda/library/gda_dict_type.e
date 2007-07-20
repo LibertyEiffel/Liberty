@@ -104,7 +104,7 @@ feature
 			gda_dict_type_clear_synonyms (handle)
 		end
 
-feature -- TODO: The "prop" property
+feature {} -- TODO: The "prop" property
    -- "prop" gpointer : Read / Write
 
 end -- class GDA_DICT_TYPE

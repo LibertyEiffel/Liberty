@@ -20,7 +20,7 @@ indexing
 				]"
 
 deferred class  GDA_DICT_FIELD_ATTRIBUTE_ENUM
-feature  -- enum
+feature {} -- enum
 	are_valid_attributes (some_attributes: INTEGER): BOOLEAN is
 		do	
 			Result:=(an_attribute=field_auto_increment)

@@ -220,7 +220,7 @@ feature
 			end
 		end
 
-feature -- TODO: Properties
+feature {} -- TODO: Properties
 
 	--   "prop"                 gpointer              : Read / Write
 
@@ -230,7 +230,7 @@ feature -- TODO: Properties
 
 	--   "prop"                 gpointer              : Read / Write
 
-feature -- TODO: -- Signals
+feature {} -- TODO: -- Signals
 
 	-- "constraint-added"
 	--             void        user_function      (GdaDictDatabase *gdadictdatabase,

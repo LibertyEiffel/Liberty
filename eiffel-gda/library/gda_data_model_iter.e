@@ -116,7 +116,7 @@ feature
 			end
 		end
 
-feature -- TODO: Properties
+feature {} -- TODO: Properties
 
 
 	--    "current-row"          gint                  : Read / Write

@@ -42,7 +42,7 @@ feature
 			Result := gda_value_get_gtype 
 		end            
 
-feature {NONE} -- Creation
+feature {} -- Creation
 	make_null is
 			-- Makes a new GdaValue of type null.
 		do
@@ -487,7 +487,7 @@ feature -- 64 bit natural values
 		ensure value_set: a_value = natural_64
 		end
 
-feature -- TODO: Binary values
+feature {} -- TODO: Binary values
 --   gda_value_get_binary ()
 
 --  const gpointer gda_value_get_binary         (GdaValue *value,
@@ -511,7 +511,7 @@ feature -- TODO: Binary values
 --    val :   value to be stored in value.
 --    size :  the size of the memory pool pointed to by val.
 
-feature -- TODO: Blob value
+feature {} -- TODO: Blob value
 --   gda_value_get_blob ()
 
 --  const GdaBlob* gda_value_get_blob           (GdaValue *value);
@@ -616,7 +616,7 @@ feature -- Geometric point value
 			-- TODO: ensure a_point.is_equal (Result)
 		end
 
-feature -- TODO gobject value
+feature {} -- TODO gobject value
 
 --   gda_value_get_gobject ()
 
@@ -698,7 +698,7 @@ feature -- Money value
 			gda_value_set_money(handle, a_money.handle)
 		end
 
-feature -- Numeric value
+feature {} -- Numeric value
 
 --   gda_value_get_numeric ()
 

@@ -30,7 +30,7 @@ inherit
 	GDA_DATA_MODEL
 		-- Since GdaDataModelRow implements GdaDataModel interface.
 
-feature -- TODO
+feature {} -- TODO
 	-- Properties
 
 	--    "command-text"         gchararray            : Read / Write
@@ -60,7 +60,7 @@ feature -- TODO
 
 --    --------------------------------------------------------------------------
 
-feature -- TODO: Property Details
+feature {} -- TODO: Property Details
 
 --   The "command-text" property
 

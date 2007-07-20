@@ -45,7 +45,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdaDate set day use <libgda/libgda.h>"
 		end
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaDate)"

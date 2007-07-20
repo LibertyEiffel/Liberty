@@ -27,7 +27,7 @@ insert GDA_NUMERIC_STRUCT
 
 creation make, from_external_pointer
 
-feature -- TODO: understand its field and implement them
+feature {} -- TODO: understand its field and implement them
 
 -- GdaNumeric
 

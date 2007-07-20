@@ -62,8 +62,7 @@ feature
 	name: STRING is
 			-- the name of column.
 		do
-			create {CONST_STRING} Result.from_external
-			(gda_column_get_name(handle))
+			create {CONST_STRING} Result.from_external(gda_column_get_name(handle))
 		ensure not_void: Result /= Void
 		end
 	
@@ -277,10 +276,10 @@ feature
 			gda_column_set_default_value(handle, a_default.handle)
 		end
 	
-feature -- TODO: Properties
+feature {} -- TODO: Properties
 --    "id"                   gchararray            : Read / Write
 
-feature -- TODO: Signals
+feature {} -- TODO: Signals
 
 
 --  "gda-type-changed"
@@ -328,5 +327,319 @@ feature -- TODO: Signals
 --    gdacolumn : the object which received the signal.
 --    arg1 :
 --    user_data : user data set when the signal handler was connected.
+
+feature {} -- 3.0
+
+	--
+	--  gda_column_get_title ()
+	--
+	-- const gchar*        gda_column_get_title                (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : the column's title
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_title ()
+	--
+	-- void                gda_column_set_title                (GdaColumn *column,
+	--                                                          const gchar *title);
+	--
+	--   Sets the column's title
+	--
+	--   column : a GdaColumn.
+	--   title :  title name.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_table ()
+	--
+	-- const gchar*        gda_column_get_table                (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : the name of the table to which this column belongs.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_table ()
+	--
+	-- void                gda_column_set_table                (GdaColumn *column,
+	--                                                          const gchar *table);
+	--
+	--   Sets the name of the table to which the given column belongs.
+	--
+	--   column : a GdaColumn.
+	--   table :  table name.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_caption ()
+	--
+	-- const gchar*        gda_column_get_caption              (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : column's caption.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_caption ()
+	--
+	-- void                gda_column_set_caption              (GdaColumn *column,
+	--                                                          const gchar *caption);
+	--
+	--   Sets column's caption.
+	--
+	--   column :  a GdaColumn.
+	--   caption : caption.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_scale ()
+	--
+	-- glong               gda_column_get_scale                (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : the number of decimals of column.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_scale ()
+	--
+	-- void                gda_column_set_scale                (GdaColumn *column,
+	--                                                          glong scale);
+	--
+	--   Sets the scale of column to scale.
+	--
+	--   column : a GdaColumn.
+	--   scale :  number of decimals.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_dbms_type ()
+	--
+	-- const gchar*        gda_column_get_dbms_type            (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : the dbms_type of column.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_dbms_type ()
+	--
+	-- void                gda_column_set_dbms_type            (GdaColumn *column,
+	--                                                          const gchar *dbms_type);
+	--
+	--   column :
+	--   dbms_type :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_g_type ()
+	--
+	-- GType               gda_column_get_g_type               (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : the type of column.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_g_type ()
+	--
+	-- void                gda_column_set_g_type               (GdaColumn *column,
+	--                                                          GType type);
+	--
+	--   Sets the type of column to type.
+	--
+	--   column : a GdaColumn.
+	--   type :   the new type of column.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_allow_null ()
+	--
+	-- gboolean            gda_column_get_allow_null           (GdaColumn *column);
+	--
+	--   Gets the 'allow null' flag of the given column.
+	--
+	--   column :  a GdaColumn.
+	--   Returns : whether the given column allows null values or not (TRUE or
+	--             FALSE).
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_allow_null ()
+	--
+	-- void                gda_column_set_allow_null           (GdaColumn *column,
+	--                                                          gboolean allow);
+	--
+	--   Sets the 'allow null' flag of the given column.
+	--
+	--   column : a GdaColumn.
+	--   allow :  whether the given column should allows null values or not.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_primary_key ()
+	--
+	-- gboolean            gda_column_get_primary_key          (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : whether if the given column is a primary key (TRUE or FALSE).
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_primary_key ()
+	--
+	-- void                gda_column_set_primary_key          (GdaColumn *column,
+	--                                                          gboolean pk);
+	--
+	--   Sets the 'primary key' flag of the given column.
+	--
+	--   column : a GdaColumn.
+	--   pk :     whether if the given column should be a primary key.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_unique_key ()
+	--
+	-- gboolean            gda_column_get_unique_key           (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : whether if the given column is an unique key (TRUE or FALSE).
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_unique_key ()
+	--
+	-- void                gda_column_set_unique_key           (GdaColumn *column,
+	--                                                          gboolean uk);
+	--
+	--   Sets the 'unique key' flag of the given column.
+	--
+	--   column : a GdaColumn.
+	--   uk :     whether if the given column should be an unique key.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_references ()
+	--
+	-- const gchar*        gda_column_get_references           (GdaColumn *column);
+	--
+	--   Reference is returned in tablename.fieldname format. Do not free this
+	--   variable, it is used internally within GdaColumn.
+	--
+	--   column :  a GdaColumn.
+	--   Returns : column's references.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_references ()
+	--
+	-- void                gda_column_set_references           (GdaColumn *column,
+	--                                                          const gchar *ref);
+	--
+	--   Sets column's references.
+	--
+	--   column : a GdaColumn.
+	--   ref :    references.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_auto_increment ()
+	--
+	-- gboolean            gda_column_get_auto_increment       (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : whether the given column is an auto incremented one (TRUE or
+	--             FALSE).
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_auto_increment ()
+	--
+	-- void                gda_column_set_auto_increment       (GdaColumn *column,
+	--                                                          gboolean is_auto);
+	--
+	--   Sets the auto increment flag for the given column.
+	--
+	--   column :  a GdaColumn.
+	--   is_auto : auto increment status.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_position ()
+	--
+	-- gint                gda_column_get_position             (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : the position of the column refer to in the containing data
+	--             model.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_position ()
+	--
+	-- void                gda_column_set_position             (GdaColumn *column,
+	--                                                          gint position);
+	--
+	--   Sets the position of the column refer to in the containing data model.
+	--
+	--   column :   a GdaColumn.
+	--   position : the wanted position of the column in the containing data model.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_get_default_value ()
+	--
+	-- const GValue*       gda_column_get_default_value        (GdaColumn *column);
+	--
+	--   column :  a GdaColumn.
+	--   Returns : column's default value, as a GValue object.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_column_set_default_value ()
+	--
+	-- void                gda_column_set_default_value        (GdaColumn *column,
+	--                                                          const GValue *default_value);
+	--
+	--   Sets column's default GValue.
+	--
+	--   column :        a GdaColumn.
+	--   default_value : default GValue for the column
+	--
+	--Property Details
+	--
+	--  The "id" property
+	--
+	--   "id"                       gchararray            : Read / Write
+	--
+	--   Default value: NULL
+	--
+	--Signal Details
+	--
+	--  The "g-type-changed" signal
+	--
+	-- void                user_function                      (GdaColumn *gdacolumn,
+	--                                                         gint       arg1,
+	--                                                         gint       arg2,
+	--                                                         gpointer   user_data)      : Run Last
+	--
+	--   gdacolumn : the object which received the signal.
+	--   arg1 :
+	--   arg2 :
+	--   user_data : user data set when the signal handler was connected.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "name-changed" signal
+	--
+	-- void                user_function                      (GdaColumn *gdacolumn,
+	--                                                         gchar     *arg1,
+	--                                                         gpointer   user_data)      : Run Last
+	--
+	--   gdacolumn : the object which received the signal.
+	--   arg1 :
+	--   user_data : user data set when the signal handler was connected.
 
 end -- class GDA_COLUMN

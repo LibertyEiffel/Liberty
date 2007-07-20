@@ -114,7 +114,7 @@ feature
 								 (handle, address_of(error.handle)))
 		end
 
-feature -- TODO: Properties
+feature {} -- TODO: Properties
 --    "database"             gpointer              : Read / Write
 -- Property Details
 

@@ -17,7 +17,8 @@ insert
 	GDA_CONNECTION_OPTIONS_ENUM
 
 feature {} -- External calls
-	gda_client_new: POINTER is -- GdaClient*
+	gda_client_new: POINTER is 
+			-- GdaClient* gda_client_new (void);
 		external  "C use  <libgda/libgda.h>"
 		end
 
@@ -27,21 +28,30 @@ feature {} -- External calls
 		external  "C use  <libgda/libgda.h>"
 		end
 
-	gda_client_open_connection (a_client, a_const_dsn, a_const_username, a_const_passwd: POINTER; some_options: INTEGER; an_error: POINTER): POINTER is 
-			-- GdaConnection* gda_client_open_connection (GdaClient
-			-- *client, const gchar *dsn, const gchar *username, const
-			-- gchar *password, GdaConnectionOptions options, GError
-			-- **error); TODO: require valid_options:
-			-- are_valid_connection_options (some_options)w
+	gda_client_open_connection (a_client, a_const_dsn, a_const_username, a_const_passwd: POINTER; some_options: INTEGER; an_error_handle: POINTER): POINTER is
+			-- GdaConnection*      gda_client_open_connection          (GdaClient *client,
+			--                                                          const gchar *dsn,
+			--                                                          const gchar *username,
+			--                                                          const gchar *password,
+			--                                                          GdaConnectionOptions options,
+			--                                                          GError **error);
+
+			-- TODO: require valid_options: are_valid_connection_options
+			-- (some_options)w
 		external "C use  <libgda/libgda.h>"
 		end
 	
-	gda_client_open_connection_from_string (a_client, provider_id, cnc_string, a_username, a_password: POINTER; some_options: INTEGER; an_error_handle: POINTER): POINTER is
-			-- GdaConnection* gda_client_open_connection_from_string
-			-- (GdaClient *client, const gchar *provider_id, const gchar
-			-- *cnc_string, const gchar *username, const gchar *password,
-			-- GdaConnectionOptions options, GError **error);
-		--TODO: require valid_options: are_valid_connection_options (some_options)
+	gda_client_open_connection_from_string (a_client, a_const_provider_id, a_const_cnc_string, a_const_username, a_const_password: POINTER; some_options: INTEGER; an_error_handle: POINTER): POINTER is
+			-- GdaConnection* gda_client_open_connection_from_string (GdaClient *client,
+			--                                                        const gchar *provider_id,
+			--                                                        const gchar *cnc_string,
+			--                                                        const gchar *username,
+			--                                                        const gchar *password,
+			--                                                        GdaConnectionOptions options,
+			--                                                        GError **error);
+
+		
+			--TODO: require valid_options: are_valid_connection_options (some_options)
 		external "C use  <libgda/libgda.h>"
 		end
 
@@ -61,14 +71,15 @@ feature {} -- External calls
 		external "C use  <libgda/libgda.h>"
 		end
 
-	gda_client_notify_event (a_client, a_connection, an_event, a_parameter_list: POINTER): POINTER is
+	gda_client_notify_event (a_client, a_connection: POINTER; an_event: INTEGER; a_parameter_list: POINTER) is
 			-- void gda_client_notify_event (GdaClient *client,
 			-- GdaConnection *cnc, GdaClientEvent event, GdaParameterList
 			-- *params);
+		require valid_event: is_valid_gda_client_event(an_event)
 		external "C use  <libgda/libgda.h>"
 		end
 	
-	gda_client_notify_error_event (a_client, a_connection, an_error: POINTER): POINTER is 
+	gda_client_notify_error_event (a_client, a_connection, an_error: POINTER) is 
 			--  void gda_client_notify_error_event (GdaClient *client
 			--  GdaConnection *cnc, GdaError *error);
 		external "C use  <libgda/libgda.h>"
@@ -86,42 +97,26 @@ feature {} -- External calls
 		external "C use  <libgda/libgda.h>"
 		end
 
-	gda_client_notify_transaction_started_event (a_client, a_connection, a_transaction: POINTER) is 
-			-- void gda_client_notify_transaction_started_event
-			-- (GdaClient *client, GdaConnection *cnc, GdaTransaction
-			-- *xaction);
-		external "C use  <libgda/libgda.h>"
-		end
-
-	gda_client_notify_transaction_committed_event (a_client, a_connection, a_transaction: POINTER) is
-			-- void gda_client_notify_transaction_committed_event
-			-- (GdaClient *client, GdaConnection *cnc, GdaTransaction
-			-- *xaction);
-		external "C use  <libgda/libgda.h>"
-		end
-
-	gda_client_notify_transaction_cancelled_event (a_client, a_connection, a_transaction: POINTER) is
-			-- void gda_client_notify_transaction_cancelled_event
-			-- (GdaClient *client, GdaConnection *cnc, GdaTransaction
-			-- *xaction);
-		external "C use  <libgda/libgda.h>"
-		end
-
-	gda_client_begin_transaction (a_client, a_transaction: POINTER): INTEGER is
+	gda_client_begin_transaction (a_client, a_transaction: POINTER; an_isolation_level: INTEGER; an_error_handle: POINTER): INTEGER is
 			-- gboolean gda_client_begin_transaction (GdaClient *client,
-			-- GdaTransaction *xaction);
+			--                                        const gchar *name,
+			--                                        GdaTransactionIsolation level,
+			--                                        GError **error);
+		require valid_isolation_level: is_valid_gda_transaction_isolation_level(an_isolation_level)
 		external "C use  <libgda/libgda.h>"
 		end
 
-	gda_client_commit_transaction (a_client, a_transaction: POINTER): INTEGER is
-			-- gboolean gda_client_commit_transaction (GdaClient *client,
-			-- GdaTransaction *xaction);
+	gda_client_commit_transaction (a_client, a_transaction, an_error_handle: POINTER): INTEGER is
+			-- gboolean            gda_client_commit_transaction       (GdaClient *client,
+			--                                                          const gchar *name,
+			--                                                          GError **error);
 		external "C use  <libgda/libgda.h>"
 		end
 
-	gda_client_rollback_transaction (a_client, a_transaction: POINTER): INTEGER is
-			-- gboolean gda_client_rollback_transaction (GdaClient
-			-- *client, GdaTransaction *xaction);
+	gda_client_rollback_transaction (a_client, a_transaction, an_error_handle: POINTER): INTEGER is
+			-- gboolean            gda_client_rollback_transaction     (GdaClient *client,
+			--                                                          const gchar *name,
+			--                                                          GError **error);
 		external "C use  <libgda/libgda.h>"
 		end
 
@@ -131,33 +126,36 @@ feature {} -- External calls
 		external "C use  <libgda/libgda.h>"
 		end
 
-	gda_client_prepare_create_database (a_client, a_provider: POINTER): POINTER is
-			-- GdaServerOperation* gda_client_prepare_create_database
-			-- (GdaClient *client, const gchar *provider);
-		external "C use  <libgda/libgda.h>"
-		end
-	
-	gda_client_perform_create_database (a_client, a_provider, an_operation, an_error: POINTER): INTEGER is
-			-- gboolean gda_client_perform_create_database (GdaClient
-			-- *client, const gchar *provider, GdaServerOperation *op,
-			-- GError **error);
+	 gda_client_prepare_create_database (a_client, a_const_db_name, a_const_provider: POINTER): POINTER is 
+			-- GdaServerOperation* gda_client_prepare_create_database  (GdaClient *client,
+			--                                                          const gchar *db_name,
+			--                                                          const gchar *provider);
 		external "C use  <libgda/libgda.h>"
 		end
 
-	gda_client_prepare_drop_database (a_client, a_provider: POINTER): POINTER is
-			-- GdaServerOperation* gda_client_prepare_drop_database
-			-- (GdaClient *client, const gchar *provider);
+	gda_client_perform_create_database (a_client, an_operation, an_error_handle: POINTER): INTEGER is
+			-- gboolean gda_client_perform_create_database  (GdaClient *client,
+			--                                               GdaServerOperation *op,
+			--                                               GError **error);
+		external "C use  <libgda/libgda.h>"
+		end
+
+	gda_client_prepare_drop_database (a_client, a_const_db_name, a_provider: POINTER): POINTER is
+			-- GdaServerOperation* gda_client_prepare_drop_database    (GdaClient *client,
+			--                                                          const gchar *db_name,
+			--                                                          const gchar *provider);
 		external "C use  <libgda/libgda.h>"
 		end
 	
-	gda_client_perform_drop_database (a_client, a_provider, an_operation, an_error: POINTER): INTEGER is
-			-- gboolean gda_client_perform_drop_database (GdaClient
-			-- *client, const gchar *provider, GdaServerOperation *op,
-			-- GError **error);
+	gda_client_perform_drop_database (a_client, an_operation, an_error_handle: POINTER): INTEGER is
+			-- gboolean gda_client_perform_drop_database (GdaClient *client,
+			--                                            GdaServerOperation *op,
+			--                                            GError **error);
+
 		external "C use  <libgda/libgda.h>"
 		end
 	
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaClient)"

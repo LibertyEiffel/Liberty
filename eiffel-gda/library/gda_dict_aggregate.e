@@ -123,7 +123,7 @@ feature
 		end
  
 
-feature -- TODO: The "prop" property
+feature {} -- TODO: The "prop" property
 
 --    "prop"                 gpointer              : Read / Write
 end -- class  GDA_DICT_AGGREGATE

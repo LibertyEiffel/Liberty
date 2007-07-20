@@ -233,7 +233,7 @@ feature
 	-- object : 	
 	-- offset : 	the offset (in caracters) at which the dump will start
 
-feature -- TODO: Properties
+feature {} -- TODO: Properties
 
 	--   "changed-blocked"      gboolean              : Read / Write
 	--   "dict"                 gpointer              : Read / Write / Construct Only
@@ -256,7 +256,7 @@ feature -- TODO: Properties
 
 	-- Default value: NULL
 
-feature -- TODO: Signals
+feature {} -- TODO: Signals
 
 	-- "changed"   void        user_function      (GdaObject *gdaobject,
 	--                                             gpointer   user_data)      : Run first

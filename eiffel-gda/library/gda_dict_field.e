@@ -156,7 +156,7 @@ feature
 			Result:= gda_dict_field_get_attributes (handle);
 		end
 
-feature -- TODO: Properties
+feature {} -- TODO: Properties
 
 
 --    "db-table"             gpointer              : Read / Write
