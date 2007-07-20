@@ -19,15 +19,15 @@ indexing
 					02110-1301 USA
 			]"
 
-class FOO
+class ##CLASS##
 
 inherit
 	(SHARED_?)C_STRUCT
 
 insert
-	FOO_EXTERNALS
+	##CLASS##_EXTERNALS
 
 creation make, from_external_pointer
 
 feature {} -- Creation
-end -- class FOO
+end -- class ##CLASS##
