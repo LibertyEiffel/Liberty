@@ -26,7 +26,7 @@ inherit
 	INTERNALS_HANDLER
 		undefine copy, is_equal end
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	handle: POINTER is deferred end
 

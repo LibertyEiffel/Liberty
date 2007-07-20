@@ -67,7 +67,7 @@ insert
 create
 	make
 
-feature {NONE} -- Creation
+feature {} -- Creation
 
 	make (file: STRING) is
 			-- Load Glade XML from `file'
