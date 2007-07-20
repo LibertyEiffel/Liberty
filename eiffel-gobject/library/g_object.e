@@ -12,67 +12,12 @@ indexing
 	license: "LGPL v2 or later"
 
 deferred class G_OBJECT
-	-- GObject is the fundamental type providing the common attributes
-	-- and methods for all object types in GTK+, Pango and other
-	-- libraries based on GObject. The GObject class provides methods
-	-- for object construction and destruction, property access
-	-- methods, and signal support. 
+	-- The fundamental type providing the common attributes and methods
+	-- for all object types in GTK+, Pango and other libraries based on
+	-- GObject. The GObject C class provides low-level methods for
+	-- object construction and destruction, property access methods,
+	-- and signal support.
 
-	-- TODO: provide Eiffellied descriptio for signals.
-
-	-- The initial reference a GObject is created with is flagged as a
-	-- floating reference. This means that it is not specifically
-	-- claimed to be "owned" by any code portion. The main motivation
-	-- for providing floating references is C convenience. In
-	-- particular, it allowes code to be written as:
-
-	-- TODO: Eiffelize Example 1.
-
-	--    container = create_container();
-	--    container_add_child (container, create_child());
-
-	-- If container_add_child() will g_object_ref_sink() the
-	-- passed in child, no reference of the newly created child
-	-- is leaked. Without floating references,
-	-- container_add_child() can only g_object_ref() the new
-	-- child, so to implement this code without reference leaks,
-	-- it would have to be written as:
-
-	-- TODO: Eiffelize Example 2.
-
-	--    Child *child;
-	--    container = create_container();
-	--    child = create_child();
-	--    container_add_child (container, child);
-	--    g_object_unref (child);
-
-	-- The floating reference can be converted into an ordinary
-	-- reference by calling g_object_ref_sink(). For already
-	-- sunken objects (objects that don't have a floating
-	-- reference anymore), g_object_ref_sink() is equivalent to
-	-- g_object_ref() and returns a new reference. Since floating
-	-- references are useful allmost exclusively for C
-	-- convenience, language bindings that provide automated
-	-- reference and memory ownership maintenance (such as smart
-	-- pointers or garbage collection) therefore don't need to
-	-- expose floating references in their API.
-
-	-- Some object implementations may need to save an objects
-	-- floating state across certain code portions (an example is
-	-- GtkMenu), to achive this, the following sequence can be
-	-- used:
-
-	-- Example 3.
-
-	-- /* save floating state */
-	-- gboolean was_floating = g_object_is_floating (object);
-	-- g_object_ref_sink (object);
-	-- /* protected code portion */
-	-- ...;
-	-- /* restore floating state */
-	-- if (was_floating)
-	--   g_object_force_floating (object);
-	-- g_obejct_unref (object); /* release previously acquired reference */
 
 inherit
 	SHARED_C_STRUCT
@@ -95,8 +40,8 @@ insert
 	G_TYPE_EXTERNALS
 
 	POINTER_HANDLING -- to get `address_of' and `content_of'
-feature
 
+feature {WRAPPER,WRAPPER_HANDLER}
 	store_eiffel_wrapper is
 			-- Store a pointer to Current into the underlying
 			-- gobject. This pointer will be used to retrieve the Eiffel
@@ -197,7 +142,7 @@ feature -- Creating
 			set_shared
 		end
 
-feature -- Disposing
+feature  {WRAPPER,WRAPPER_HANDLER} -- Disposing
 
 	dispose is
 			-- Dispose the g_object, calling unref and setting its handle to default_pointer.
@@ -232,6 +177,63 @@ feature -- Disposing
 			handle := default_pointer
 		end
 
+feature  {} -- Unconverted documentation
+	-- TODO: provide Eiffellied description for signals.
+
+	-- The initial reference a GObject is created with is flagged as a
+	-- floating reference. This means that it is not specifically
+	-- claimed to be "owned" by any code portion. The main motivation
+	-- for providing floating references is C convenience. In
+	-- particular, it allowes code to be written as:
+
+	-- TODO: Eiffelize Example 1.
+
+	--    container = create_container();
+	--    container_add_child (container, create_child());
+
+	-- If container_add_child() will g_object_ref_sink() the
+	-- passed in child, no reference of the newly created child
+	-- is leaked. Without floating references,
+	-- container_add_child() can only g_object_ref() the new
+	-- child, so to implement this code without reference leaks,
+	-- it would have to be written as:
+
+	-- TODO: Eiffelize Example 2.
+
+	--    Child *child;
+	--    container = create_container();
+	--    child = create_child();
+	--    container_add_child (container, child);
+	--    g_object_unref (child);
+
+	-- The floating reference can be converted into an ordinary
+	-- reference by calling g_object_ref_sink(). For already
+	-- sunken objects (objects that don't have a floating
+	-- reference anymore), g_object_ref_sink() is equivalent to
+	-- g_object_ref() and returns a new reference. Since floating
+	-- references are useful allmost exclusively for C
+	-- convenience, language bindings that provide automated
+	-- reference and memory ownership maintenance (such as smart
+	-- pointers or garbage collection) therefore don't need to
+	-- expose floating references in their API.
+
+	-- Some object implementations may need to save an objects
+	-- floating state across certain code portions (an example is
+	-- GtkMenu), to achive this, the following sequence can be
+	-- used:
+
+	-- Example 3.
+
+	-- /* save floating state */
+	-- gboolean was_floating = g_object_is_floating (object);
+	-- g_object_ref_sink (object);
+	-- /* protected code portion */
+	-- ...;
+	-- /* restore floating state */
+	-- if (was_floating)
+	--   g_object_force_floating (object);
+	-- g_obejct_unref (object); /* release previously acquired reference */
+
 feature {} -- Implementation
 	g_object_class: POINTER
 			-- Pointer to the GObjectClass structure of the current
@@ -262,7 +264,7 @@ feature {} -- Disposing helper
 			Result := (g_is_object (handle) /= 0)
 		end
 
-feature -- Reference count
+feature  {WRAPPER,WRAPPER_HANDLER} -- Reference count
 
 	ref is
 			-- Increases the reference count of object.
@@ -281,13 +283,12 @@ feature -- Reference count
 			g_object_unref (handle)
 		end
 
-feature -- Data storing and retrieving
-
+feature  {WRAPPER,WRAPPER_HANDLER} -- Data storing and retrieving
 	get_data (a_key: STRING): ANY is
 			-- Gets a named field from the objects table of associations (see
 			-- set_data).  `a_key': name of the key for that association; Void if no
 			-- `a_key' field is present
-		require valid_key: a_key /= Void
+		require key_not_void: a_key /= Void
 		local ptr: POINTER
 		do
 			-- Note: wrappers that needs to store C pointers and do other low-level
@@ -304,13 +305,15 @@ feature -- Data storing and retrieving
 			-- association will be destroyed.
 			
 			-- a_key : 	name of the key
-			-- data : 	data to associate with that key
-		require
-			valid_key: a_key /= Void
+			-- data: 	data to associate with that key
+		require 
+			key_not_void: a_key /= Void
 		do
-			-- Note: a_key is not duplicated since g_object_set_data requires a const
-			-- gchar *;
-			g_object_set_data (handle,a_key.to_external, data.to_pointer)
+			-- Note: a_key is not duplicated since g_object_set_data
+			-- requires a const gchar *;
+			if data=Void then g_object_set_data (handle,a_key.to_external, default_pointer)
+			else g_object_set_data (handle,a_key.to_external, data.to_pointer)
+			end
 		end
 
 	steal_data (a_key: STRING): ANY is
@@ -324,8 +327,17 @@ feature -- Data storing and retrieving
 			if ptr.is_not_null then Result:=ptr.to_any end
 		end
 
-feature -- Quark-based data storing and retrieving
-
+feature  {WRAPPER,WRAPPER_HANDLER} -- Quark-based data storing and retrieving
+	-- Note: many features in this section used to have precondition and
+	-- postcondition lile
+	
+	-- ensure	result_not_expanded: not Result.is_expanded_type
+	
+	-- That are now unnecessary: is_expanded_type is now obsolete
+	-- because an expanded type does not conform to ANY, i.e. they are
+	-- not an ANY. Therefore an expanded type cannot be used in i.e.
+	-- `set_qdata' and cannot be returned by `get_qdata'
+	
 	has_qdata (a_key: G_QUARK): BOOLEAN is
 			-- Is `a_key' field present in table of associations (see
 			-- set_qdata)? `a_key': a GQuark, naming the user data
@@ -338,6 +350,7 @@ feature -- Quark-based data storing and retrieving
 			-- Gets a named field from the objects table of associations
 			-- (see set_data). `a_key': a GQuark, naming the user data
 			-- pointer; Void if no `a_key' field is present
+
 		local ptr: POINTER
 		do
 			ptr := g_object_get_qdata (handle, a_key.quark)
@@ -553,41 +566,41 @@ feature -- Property getter/setter
 			value_set: -- TODO: a_value.is_equal (get_property(a_property_name))
 		end
 
-	property, get_property (a_property_name: STRING): G_VALUE is
-			-- Gets the property name `a_property_name' of an object.
-
+	property (a_property_name: STRING): G_VALUE is
+			-- the property named `a_property_name' of an object.
+			-- 
 			-- Note: The underlying C implementation has the following
 			-- "preconditions" that are not compiled-in in optimized
 			-- code:
-
+			--
 			-- * handle is a GObject
-
+			--
 			-- * property name C-string is not a NULL pointer
-
+			--
 			-- * the GValue passed in should be a GValue....
-
+			--
 			-- It also always check that:
-			
+			--
 			-- * There's a property with that name
-
+			--
 			-- * the property is readable
-
+			--
 			-- * the value passed in is of the same type of the property
 			--   or it is convertible into a correct type
-
+			--
 			-- All those checkes are made for each and every access to
 			-- any property, beside the fact that the actual property
 			-- getter is usually a big switch statement hidded under
 			-- another 2 layers of calls.
-
+			--
 			-- Isn't it nicely inefficient, it is?
-
+			--
 			-- In this Eiffel wrapper the first checks are statically
 			-- enforced, while second group of checks can be handled by
 			-- preconditions and it is duty of the caller to check them
 			-- if necessary. The very last check is automatically 
 			-- followed 
-
+			--
 			-- Therefore this implementation will directly
 			-- call the hidden virtual call, i.e.: "class->get_property
 			-- (object, param_id, value, pspec);" see gobject/gobject.c
