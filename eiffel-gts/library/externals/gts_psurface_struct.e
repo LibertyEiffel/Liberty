@@ -21,7 +21,7 @@ deferred class GTS_PSURFACE_STRUCT
 inherit ANY undefine is_equal, copy end
 
 feature {} -- Structure getter/setter calls
-   GtsSurface * s;
+   -- GtsSurface * s;
 	get_s (a_struct: POINTER): POINTER is
 		external "C struct GtsPSurface get s use <gts.h>"
 		end
@@ -30,16 +30,17 @@ feature {} -- Structure getter/setter calls
 		external "C struct GtsPSurface set s use <gts.h>"
 		end
 
-   GPtrArray * split;
-get_split (a_struct: POINTER): POINTER is
+   -- GPtrArray * split;
+	get_split (a_struct: POINTER): POINTER is
 		external "C struct GtsPSurface get split use <gts.h>"
 		end
 
 	set_split (a_struct: POINTER; a_split: POINTER) is
 		external "C struct GtsPSurface set split use <gts.h>"
 		end
-   GtsSplitClass * split_class;
-get_split_class (a_struct: POINTER): POINTER is
+	
+   -- GtsSplitClass * split_class;
+	get_split_class (a_struct: POINTER): POINTER is
 		external "C struct GtsPSurface get split_class use <gts.h>"
 		end
 
@@ -84,9 +85,4 @@ get_split_class (a_struct: POINTER): POINTER is
 		end
 
 
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gts.h>"
-		alias "sizeof(GtsPSurface)"
-		end
 end

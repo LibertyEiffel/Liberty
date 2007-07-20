@@ -19,22 +19,20 @@ indexing
 					02110-1301 USA
 			]"
 
-class GTS_FIFO [ITEM -> WRAPPER]
+class GTS_FIFO [ITEM -> SHARED_C_STRUCT]
 
 inherit
-	C_STRUCT
-	STREAM_HANDLER
-	DISPOSABLE
-	WRAPPER_FACTORY[ITEM]
+	SHARED_C_STRUCT undefine print_on redefine dispose end
+	STREAM_HANDLER undefine copy,is_equal,print_on end
+	WRAPPER_FACTORY[ITEM] undefine print_on end
 	
 creation make, from_external_pointer
 
-feature {} -- Creation
+feature 
 	make is
 		do
 			from_external_pointer(gts_fifo_new)
 		end
-	
 
 	push (an_item: ITEM) is
 			-- Push `an_item' into fifo.

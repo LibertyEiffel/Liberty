@@ -68,8 +68,8 @@ feature {} -- External calls
 	
 	gts_split_height (root: POINTER): INTEGER is
 			-- guint gts_split_height (GtsSplit *root);
-		obsolete "Should be NATURAL since it is guint"
 		external "C use <gts.h>"
+		ensure natural: Result >= 0
 		end
 	
 	-- gboolean (*GtsSplitTraverseFunc) (GtsSplit *vs, gpointer data);
@@ -81,7 +81,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsSplit)"

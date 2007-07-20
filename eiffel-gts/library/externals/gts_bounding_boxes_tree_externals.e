@@ -10,26 +10,6 @@ deferred class GTS_BOUNDING_BOXES_TREE_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
--- #include <gts.h>
-
-
-	gts_bbox_class (a_class: POINTER): POINTER is
-			-- #define GTS_BBOX_CLASS (klass) Casts a_class - a
-			-- descendant of GtsBBoxClass - to GtsBBoxClass.
-		external "C macro use <gts.h>"
-		alias "GTS_BBOX_CLASS"
-		end
-
-	gts_bbox (an_obj: POINTER): POINTER is
-			-- #define GTS_BBOX (obj) Casts an_obj to GtsBBox. an_obj : a
-			-- descendant of GtsBBox.
-
-		alias "GTS_BBOX"
-		end
-
-		-- GtsBBoxClass;
-		-- GtsBBox;
-
 	gts_bbox_class: POINTER is
 			-- GtsBBoxClass* gts_bbox_class (void);
 		external "C use <gts.h>"
@@ -212,7 +192,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsBBox)"

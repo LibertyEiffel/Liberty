@@ -1,5 +1,5 @@
 indexing
-	description: "Anchestor of all GTS objects."
+	description: "Ancestor of all GTS objects."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, Gts team
 					
@@ -19,18 +19,11 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- All GTS objects are derived from this base class. Objects
-			-- of any class can be constructed using the gts_object_new()
-			-- function and destroyed using the gts_object_destroy()
-			-- function. Default virtual methods include read() and
-			-- write() functions which can be used to read or write
-			-- associated objects attributes from or to GTS geometrical
-			-- files.
-
 deferred class GTS_OBJECT
+	-- All GTS objects are derived from this base class.
 
 inherit 
-	SHARED_C_STRUCT
+	COMPARABLE_SHARED_C_STRUCT
 		redefine dispose
 		end
 

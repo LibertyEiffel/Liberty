@@ -25,13 +25,13 @@ inherit C_STRUCT
 
 insert GTS_BOOLEAN_OPERATIONS_ENUM
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 --	make (s1,s2: GTS_SURFACE; 
 --   gts_surface_inter_new ()
 
---  GtsSurfaceInter* gts_surface_inter_new      (GtsSurfaceInterClass *klass,
+	--  GtsSurfaceInter* gts_surface_inter_new      (GtsSurfaceInterClass *klass,
 --                                               GtsSurface *s1,
 --                                               GtsSurface *s2,
 --                                               GNode *faces_tree1,
@@ -197,4 +197,10 @@ feature {} -- External calls
 			-- *s);
 		external "C use <gts.h>"
 		end
+
+	struct_size: INTEGER is
+		external "C inline use <gts.h>"
+		alias "sizeof(GtsSurfaceInter)"
+		end
+
 end -- class GTS_SURFACES_INTERSECTION

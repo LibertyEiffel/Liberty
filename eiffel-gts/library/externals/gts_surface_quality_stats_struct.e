@@ -28,7 +28,7 @@ feature {} -- Structure getter/setter calls
 -- 		external "C struct $struct set $field use <$include>"
 -- 		end
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsSurfaceQualityStats)"

@@ -26,13 +26,13 @@ class GTS_BOUNDING_BOX
 	-- collection of others using `point_distance', `segment_distance',
 	-- `triangle_distance' or `surface_distance'.
 
-inherit C_STRUCT
+inherit SHARED_C_STRUCT
 
 insert GTS_BOUNDING_BOX_EXTERNALS
 
 creation 
 	make, from_external_pointer,
-	os_segment, of_triangle, of_surface, of_points, of_boxes
+	of_segment, of_triangle, of_surface, of_points, of_bounding_boxes
 
 feature {} -- Creation
 	make (a_bounded_object: GTS_OBJECT; an_x1, an_y1, a_z1, an_x2, an_y2, a_z2: REAL) is
@@ -84,7 +84,7 @@ feature {} -- Creation
 			from_external_pointer(gts_bbox_points(gts_bbox_class,some_points.handle))
 		end
 
-	of_bounding_boxes (some_bounding_boxes: GTS_bboxes) is
+	of_bounding_boxes (some_bounding_boxes: G_SLIST[GTS_BOUNDING_BOX]) is
 			-- Create a new bounding box for bboxes
 		require bboxes_not_void: some_bounding_boxes /= Void
 		do
@@ -108,7 +108,7 @@ feature
 			-- `a_z2' : z-coordinate of the upper right corner.
 		require bounded_not_void: a_bounded /= Void
 		do
-			gts_bbox_set (handle, a_bounded.handle
+			gts_bbox_set (handle, a_bounded.handle,
 							  an_x1, an_y1, a_z1, an_x2, an_y2, a_z2)
 		end
 
@@ -126,7 +126,7 @@ feature
 			-- Is `a_point' inside (or on the boundary) of bounding box?
 		require point_not_void: a_point /= Void
 		do
-			gts_bbox_point_is_inside(handle,a_point.handle)
+			Result:=gts_bbox_point_is_inside(handle,a_point.handle).to_boolean
 		end
 
 	overlaps (another: GTS_BOUNDING_BOX): BOOLEAN is
@@ -169,7 +169,7 @@ feature
 			-- (http://www.cs.lth.se/home/Tomas_Akenine_Moller/).
 		require triangle_not_void: a_triangle /= Void
 		do
-			Result:=gts_bbox_overlaps_triangle(handle,a_triangle.handle)
+			Result:=gts_bbox_overlaps_triangle(handle,a_triangle.handle).to_boolean
 		end
 
 

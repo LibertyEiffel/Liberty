@@ -86,7 +86,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GtsFileVariable set pos use <gts.h>"
 		end
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsFileVariable)"

@@ -30,7 +30,7 @@ inherit
 insert
 	GTS_TOKEN_TYPE
 	
-creation make, from_external_pointer
+creation make, from_standard_input, from_external_pointer
 
 feature {} -- Creation
 	make (a_file: INPUT_STREAM) is
@@ -72,7 +72,7 @@ feature
 			variables_not_void: some_variables/=Void
 			-- TODO: variables are GTS_NONE terminated
 		do
-			gts_file_assign_start (handle,some_variables.handle)
+			gts_file_assign_start (handle,some_variables.storage.to_external)
 		end
 
 --    -----------------------------------------------------------------------------------------------------------

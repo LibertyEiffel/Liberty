@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class GTS_PROGRESSIVE_SURFACE
+class GTS_PROGRESSIVE_SURFACE
    -- Progressive surfaces allow you to control precisely and
    -- continuously the level of detail of a GtsSurface.  They are
    -- built off-line by storing the sequence of edge collapses

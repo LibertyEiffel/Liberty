@@ -176,6 +176,7 @@ feature
 		local 
 			p: POINTER
 		do
+			not_yet_implemented
 			p:=gts_edge_is_encroached (handle, -- GtsEdge *e,
 												a_surface.handle, -- GtsSurface *s,
 												default_pointer, -- GtsEncroachFunc,

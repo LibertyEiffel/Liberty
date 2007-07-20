@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class GTS_DELAUNAY
+deferred class GTS_DELAUNAY
 	-- Delaunay and constrained Delaunay triangulations implementation
 	-- of a dynamic Delaunay triangulation algorithm.
 
@@ -41,12 +41,7 @@ class GTS_DELAUNAY
 	-- Delaunay conforming constrained triangulations and to refine
 	-- them.
 	
-inherit C_STRUCT
-
-creation make, from_external_pointer
-
-feature {} -- Creation
-
+feature 
 --    -----------------------------------------------------------------------------------------------------------
 
 --   gts_delaunay_add_vertex ()
@@ -194,7 +189,7 @@ feature {} -- External call
 		external "C use <gts.h>"
 		end
 
-	gts_delaunay_add_vertex_to_face (a_surface, a_vertex, a_face): POINTER is
+	gts_delaunay_add_vertex_to_face (a_surface, a_vertex, a_face: POINTER): POINTER is
 			-- GtsVertex* gts_delaunay_add_vertex_to_face (GtsSurface
 			-- *surface, GtsVertex *v, GtsFace *f);
 		external "C use <gts.h>"

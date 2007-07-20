@@ -22,13 +22,12 @@ indexing
 class GTS_SURFACE_TRAVERSE
 
 inherit
-	ITERATOR[GTS_FACE]
-	C_STRUCT
-	DISPOSABLE
+	ITERATOR[GTS_FACE] undefine copy, is_equal end
+	C_STRUCT redefine dispose end
 	
 insert GTS_SURFACE_TRAVERSE_EXTERNALS
 
-creation make, from_external_pointer
+creation make, from_face, from_external_pointer
 
 feature {} -- Creation
 	make (a_surface: GTS_SURFACE) is
@@ -85,7 +84,7 @@ feature
 	level: INTEGER
 			-- the level of `item' face; 0 for the initial face, 1 for its
 			-- neighbors and so on
-	.
+	
 	dispose is
 		do
 			gts_surface_traverse_destroy(handle)

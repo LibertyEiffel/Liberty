@@ -19,18 +19,17 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- A GtsTriangle is defined by three GtsEdge. They are
-			-- oriented, the normal to the triangle points toward an
-			-- observer seing the three edges in counter-clockwise order.
-
-			-- When destroying a GtsTriangle, all the edges not used by
-			-- another triangle are also destroyed. This default
-			-- behaviour can be changed punctually by setting the global
-			-- variable gts_allow_floating_edges to TRUE. You must not
-			-- forget to set this variable back to FALSE as all the
-			-- algorithms of GTS assume the default behaviour.
-
 class GTS_TRIANGLE
+	-- A GTS_TRIANGLE is defined by three GTS_EDGE. They are oriented,
+	-- the normal to the triangle points toward an observer seing the
+	-- three edges in counter-clockwise order.
+
+	-- When destroying a GTS_TRIANGLE, all the edges not used by another
+	-- triangle are also destroyed. This default behaviour can be
+	-- changed punctually by setting the global variable
+	-- gts_allow_floating_edges to TRUE. You must not forget to set
+	-- this variable back to FALSE as all the algorithms of GTS assume
+	-- the default behaviour.
 
 inherit GTS_OBJECT redefine struct_size end
 
@@ -152,6 +151,7 @@ feature
 				else create Result.from_external_pointer(p)
 				end
 			end
+		ensure not_void: Result/=Void
 		end
 
 	angle (another: GTS_TRIANGLE): REAL is
@@ -181,6 +181,7 @@ feature
 		do
 			ptr := gts_triangles_common_edge (handle, another.handle)
 			if ptr.is_not_null then create Result.from_external_pointer(ptr) end
+		ensure not_void: Result/=Void
 		end
 
 	neighbor_number: INTEGER is
@@ -205,6 +206,7 @@ feature {} -- Implementation
 			-- `stored_vertices' and `stored_edges'.
 		local v1,v2,v3, e1,e2,e3: POINTER
 		do
+			not_yet_implemented
 			gts_triangle_vertices_edges (handle, default_pointer,
 												  $v1, $v2, $v3, $e1, $e2, $e3)
 			create stored_vertices.make_3 (create {GTS_VERTEX}.from_external_pointer (v1),
@@ -222,28 +224,51 @@ feature
 	vertices: TUPLE [GTS_VERTEX, GTS_VERTEX, GTS_VERTEX] is
 		local v1,v2,v3: POINTER
 		do
+			not_yet_implemented
 			gts_triangle_vertices (handle, $v1, $v2, $v3)
 			create Result.make_3 (create {GTS_VERTEX}.from_external_pointer (v1),
 										 create {GTS_VERTEX}.from_external_pointer (v2),
 										 create {GTS_VERTEX}.from_external_pointer (v3))
+		ensure not_void: Result/=Void
 		end
 
  	edge_1: GTS_EDGE is
 			-- First edge
+		local ptr: POINTER
 		do
-			create Result.from_external_pointer(get_e1(handle))
+			ptr:=get_e1(handle)
+			check ptr.is_not_null end 
+			Result::=wrappers.reference_at(ptr)
+			if Result=Void then 
+				create Result.from_external_pointer (ptr)
+			end
+		ensure not_void: Result/=Void
 		end
 
 	edge_2: GTS_EDGE is
 			-- Second edge
+		local ptr: POINTER
 		do
-			create Result.from_external_pointer(get_e2(handle))
+			ptr:=get_e2(handle)
+			check ptr.is_not_null end 
+			Result::=wrappers.reference_at(ptr)
+			if Result=Void then 
+				create Result.from_external_pointer (ptr)
+			end
+		ensure not_void: Result/=Void
 		end
 
 	edge_3: GTS_EDGE is
 			-- Third edge
+		local ptr: POINTER
 		do
-			create Result.from_external_pointer(get_e3(handle))
+			ptr:=get_e3(handle)
+			check ptr.is_not_null end 
+			Result::=wrappers.reference_at(ptr)
+			if Result=Void then 
+				create Result.from_external_pointer (ptr)
+			end
+		ensure not_void: Result/=Void
 		end
 
 	edges: TUPLE [GTS_EDGE, GTS_EDGE, GTS_EDGE] is
@@ -251,8 +276,8 @@ feature
 		do
 			if stored_edges = Void then retrieve_vertices_and_edges end
 			Result := stored_edges
+		ensure not_void: Result/=Void
 		end
-
 
 	vertex_opposite (an_edge: GTS_EDGE): GTS_VERTEX is
 			-- the vertex of Current triangle which does not belong to
@@ -264,6 +289,7 @@ feature
 									  (an_edge = edge_3))
 		do
 			create Result.from_external_pointer (gts_triangle_vertex_opposite(handle,an_edge.handle))
+		ensure not_void: Result/=Void
 		end
 	
 	edge_opposite (a_vertex: GTS_VERTEX): GTS_EDGE is
@@ -273,12 +299,23 @@ feature
 			-- Returns the edge of t opposite v or NULL if v is not a
 			-- vertice of t.
 			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
+		ensure not_void: Result/=Void
 		end
 
 	vertex: GTS_VERTEX is
 			-- the GtsVertex not used by `e1'.
+		local ptr: POINTER
 		do
-			create Result.from_external_pointer (gts_triangle_vertex(handle))
+			ptr:=gts_triangle_vertex(handle)
+			if ptr.is_not_null then
+				Result::=wrappers.reference_at(ptr)
+				if Result=Void then 
+					create Result.from_external_pointer (ptr)
+				end
+			else
+				raise("Void GTS_TRIANGLE.vertex!")
+			end
+		ensure not_void: Result/=Void
 		end
 
 
@@ -306,6 +343,7 @@ feature
 			if ptr.is_not_null then 
 				create Result.from_external_pointer (ptr)
 			end
+		ensure not_void: Result/=Void
 		end
 
 	-- TODO: gts_triangle_is_stabbed ()
@@ -338,7 +376,7 @@ feature
 --     t :  a GtsTriangle.
 --     p :  a GtsPoint.
 
-feature -- size
+feature {} -- size
  	struct_size: INTEGER is
  		external "C inline use <gts.h>"
 		alias "sizeof(GtsTriangle)"
@@ -356,20 +394,20 @@ feature {} -- GtsTriangle struct access
 		external "C struct GtsTriangle get e3 use <gts.h>"
 		end
 
---  typedef struct {
---    GtsObject object;
-
-			--    GtsEdge * e1;
---    GtsEdge * e2;
---    GtsEdge * e3;
---  } GtsTriangle;
-
---    The triangle object.
-
---     GtsObject object;  Parent object.
---     GtsEdge *e1;       First edge.
---     GtsEdge *e2;       Second edge.
---     GtsEdge *e3;       Third edge.
+	--  typedef struct {
+	--    GtsObject object;
+	
+	--    GtsEdge * e1;
+	--    GtsEdge * e2;
+	--    GtsEdge * e3;
+	--  } GtsTriangle;
+	
+	--    The triangle object.
+	
+	--     GtsObject object;  Parent object.
+	--     GtsEdge *e1;       First edge.
+	--     GtsEdge *e2;       Second edge.
+	--     GtsEdge *e3;       Third edge.
 
 feature {} -- External calls
 -- Synopsis
@@ -484,15 +522,7 @@ feature {} -- External calls
 	gts_triangle_is_stabbed (a_triangle, a_pointer, gdouble_orientation: POINTER): POINTER is -- GtsObject*
 		external "C use <gts.h>"
 		end
-	
-	gts_triangles_are_folded (some_triangles, vertex_a, vertex_b: POINTER; a_max: REAL): INTEGER is -- gboolean
-		external "C use <gts.h>"
-		end
-	
-	gts_triangles_from_edges (some_edges: POINTER): POINTER is -- GSList*
-		external "C use <gts.h>"
-		end
-
+		
 	gts_triangle_interpolate_height (a_triangle, a_point: POINTER) is -- void
 		external "C use <gts.h>"
 		end

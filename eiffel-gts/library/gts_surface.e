@@ -20,12 +20,12 @@ indexing
 			]"
 
 class GTS_SURFACE
-	-- A GtsSurface is defined as a collection of GtsFace. No topological
-	-- constraint is imposed: the surface may or may not be manifold, closed or
-	-- orientable.
+	-- A GtsSurface is defined as a collection of GtsFace. No
+	-- topological constraint is imposed: the surface may or may not be
+	-- manifold, closed or orientable.
 	
-	-- When destroying a GtsSurface, all the faces not used by another surface
-	-- are also destroyed.
+	-- When destroying a GtsSurface, all the faces not used by another
+	-- surface are also destroyed.
 
 	-- TODO: translate this note - relevant for C - into something that fits
 	-- Eiffel better: "This default behaviour can be changed punctually by
@@ -46,6 +46,7 @@ insert
 	GTS_EDGE_EXTERNALS
 	GTS_VERTEX_EXTERNALS
 	GTS_DELAUNAY_EXTERNALS
+	GTS_SURFACE_STRUCT
 	GTS_SURFACE_SIMPLIFICATION_AND_REFINEMENT_EXTERNALS
 
 creation make, copy, from_external_pointer
@@ -89,18 +90,203 @@ feature
 			gts_surface_merge (handle, another.handle)
 		end
 
-feature -- Input output
+feature -- Input
 	read (a_file: GTS_FILE) is
 			-- Add to surface the data read from `a_file'. The format of the file
 			-- pointed to by `a_file' is as described in `write'.
+
+			-- If no faces are defined in `a_file' nothing is imported.
+		require
+			file_not_void: a_file/=Void
+			file_not_void: a_file/=Void
 		local got_errors: INTEGER
 		do
 			got_errors:=gts_surface_read(handle, a_file.handle)
+			debug
+				if got_errors/=0 then
+					print ("GTS_SURFACE.read error at line "+got_errors.out+"%N")
+				end
+			end
+			
 			-- got_errors is 0 if successful or the line number at which the
 			-- parsing stopped in case of error (in which case the error field of f
 			-- is set to a description of the error which occured).
 		end
 
+	-- 	read_contours (a_file: GTS_FILE) is
+	-- 			-- Add to surface the data read from `a_file'. The format of the file
+	-- 			-- pointed to by `a_file' is mostly the one described in `write'.
+
+	-- 			-- The differences are:
+
+	-- 			-- This feature does not stop if no faces are defined in `a_file'.
+
+	-- 			-- This feature creates only GTS_VERTEXs, GTS_EDGEs and GTS_FACEs.
+
+	-- 			-- In case of error during input, `current_line' feature of
+	-- 			-- `a_file' will contain the line number at which the parsing
+	-- 			-- stopped in case of error; the `error' field is set to a
+	-- 			-- description of the error which occured.
+	-- 		local nv,ne,nf: INTEGER; got_error: BOOLEAN
+	-- 			a_vertex: GTS_VERTEX; an_edge: GTS_EDGE; a_face: GTS_FACE
+	-- 		do
+	-- 			-- This feature is the direct translation of gts_surface_read
+	-- 			-- C function. We use raise_exception(Routine_failure) as a
+	-- 			-- quick exit route in case of error, even if AFAIK this is
+	-- 			-- not nice Eiffel.
+	-- 			if not got_error then -- First try
+	-- 				if a_file.type/=a_file.gts_int then
+	-- 					a_file.error ("expecting an integer (number of vertices)")
+	-- 					got_error:=True; raise_exception(Routine_failure)
+	-- 				else nv := a_file.token.as_string.to_integer
+	-- 				end
+	-- 				a_file.next_token
+	-- 				if a_file.type/=a_file.gts_int then
+	-- 					a_file.error ("expecting an integer (number of edges)")
+	-- 					got_error:=True; raise_exception(Routine_failure)
+	-- 				else ne := a_file.token.as_string.to_integer
+	-- 				end
+	-- 				a_file.next_token
+	-- 				if a_file.type/=a_file.gts_int then
+	-- 					a_file.error ("expecting an integer (number of faces)")
+	-- 					got_error:=True; raise_exception(Routine_failure)
+	-- 				else nf := a_file.token.as_string.to_integer
+	-- 				end
+				
+	-- 				from n:=nv until got_error or else n=0 loop
+	-- 					n:=n-1
+	-- 					--     GtsObject * new_vertex =
+	-- 					--       gts_object_new (GTS_OBJECT_CLASS (surface->vertex_class));
+
+	-- 					--     (* GTS_OBJECT_CLASS (surface->vertex_class)->read) (&new_vertex, f);
+	-- 					--     if (f->type != GTS_ERROR) {
+	-- 					--       if (!GTS_POINT_CLASS (surface->vertex_class)->binary)
+	-- 					-- 	gts_file_first_token_after (f, '\n');
+	-- 					--       vertices[n++] = GTS_VERTEX (new_vertex);
+	-- 					--     }
+	-- 					--     else
+	-- 					--       gts_object_destroy (new_vertex);
+	-- 					--   }
+	-- 				end
+	-- 				--   if (f->type == GTS_ERROR)
+	-- 				--     nv = n;
+	-- 				--   if (GTS_POINT_CLASS (surface->vertex_class)->binary)
+	-- 				--     gts_file_first_token_after (f, '\n');
+
+	-- 				--   n = 0;
+	-- 				--   while (n < ne && f->type != GTS_ERROR) {
+	-- 				--     guint p1, p2;
+
+	-- 				--     if (f->type != GTS_INT)
+	-- 				--       gts_file_error (f, "expecting an integer (first vertex index)");
+	-- 				--     else {
+	-- 				--       p1 = atoi (f->token->str);
+	-- 				--       if (p1 == 0 || p1 > nv)
+	-- 				-- 	gts_file_error (f, "vertex index `%d' is out of range `[1,%d]'", 
+	-- 				-- 			p1, nv);
+	-- 				--       else {
+	-- 				-- 	gts_file_next_token (f);
+	-- 				-- 	if (f->type != GTS_INT)
+	-- 				-- 	  gts_file_error (f, "expecting an integer (second vertex index)");
+	-- 				-- 	else {
+	-- 				-- 	  p2 = atoi (f->token->str);
+	-- 				-- 	  if (p2 == 0 || p2 > nv)
+	-- 				-- 	    gts_file_error (f, "vertex index `%d' is out of range `[1,%d]'", 
+	-- 				-- 			    p2, nv);
+	-- 				-- 	  else {
+	-- 				-- 	    GtsEdge * new_edge =
+	-- 				-- 	      gts_edge_new (surface->edge_class,
+	-- 				-- 			    vertices[p1 - 1], vertices[p2 - 1]);
+
+	-- 				-- 	    gts_file_next_token (f);
+	-- 				-- 	    if (f->type != '\n')
+	-- 				-- 	      if (GTS_OBJECT_CLASS (surface->edge_class)->read)
+	-- 				-- 		(*GTS_OBJECT_CLASS (surface->edge_class)->read)
+	-- 				-- 		  ((GtsObject **) &new_edge, f);
+	-- 				-- 	    gts_file_first_token_after (f, '\n');
+	-- 				-- 	    edges[n++] = new_edge;
+	-- 				-- 	  }
+	-- 				-- 	}
+	-- 				--       }
+	-- 				--     }
+	-- 				--   }
+	-- 				--   if (f->type == GTS_ERROR)
+	-- 				--     ne = n;
+
+	-- 				--   n = 0;
+	-- 				--   while (n < nf && f->type != GTS_ERROR) {
+	-- 				--     guint s1, s2, s3;
+
+	-- 				--     if (f->type != GTS_INT)
+	-- 				--       gts_file_error (f, "expecting an integer (first edge index)");
+	-- 				--     else {
+	-- 				--       s1 = atoi (f->token->str);
+	-- 				--       if (s1 == 0 || s1 > ne)
+	-- 				-- 	gts_file_error (f, "edge index `%d' is out of range `[1,%d]'", 
+	-- 				-- 			s1, ne);
+	-- 				--       else {
+	-- 				-- 	gts_file_next_token (f);
+	-- 				-- 	if (f->type != GTS_INT)
+	-- 				-- 	  gts_file_error (f, "expecting an integer (second edge index)");
+	-- 				-- 	else {
+	-- 				-- 	  s2 = atoi (f->token->str);
+	-- 				-- 	  if (s2 == 0 || s2 > ne)
+	-- 				-- 	    gts_file_error (f, "edge index `%d' is out of range `[1,%d]'", 
+	-- 				-- 			    s2, ne);
+	-- 				-- 	  else {
+	-- 				-- 	    gts_file_next_token (f);
+	-- 				-- 	    if (f->type != GTS_INT)
+	-- 				-- 	      gts_file_error (f, "expecting an integer (third edge index)");
+	-- 				-- 	    else {
+	-- 				-- 	      s3 = atoi (f->token->str);
+	-- 				-- 	      if (s3 == 0 || s3 > ne)
+	-- 				-- 		gts_file_error (f, "edge index `%d' is out of range `[1,%d]'", 
+	-- 				-- 				s3, ne);
+	-- 				-- 	      else {
+	-- 				-- 		GtsFace * new_face = gts_face_new (surface->face_class,
+	-- 				-- 						   edges[s1 - 1],
+	-- 				-- 						   edges[s2 - 1],
+	-- 				-- 						   edges[s3 - 1]);
+
+	-- 				-- 		gts_file_next_token (f);
+	-- 				-- 		if (f->type != '\n')
+	-- 				-- 		  if (GTS_OBJECT_CLASS (surface->face_class)->read)
+	-- 				-- 		    (*GTS_OBJECT_CLASS (surface->face_class)->read)
+	-- 				-- 		      ((GtsObject **) &new_face, f);
+	-- 				-- 		gts_file_first_token_after (f, '\n');
+	-- 				-- 		gts_surface_add_face (surface, new_face);
+	-- 				-- 		n++;
+	-- 				-- 	      }
+	-- 				-- 	    }
+	-- 				-- 	  }
+	-- 				-- 	}
+	-- 				--       }
+	-- 				--     }
+	-- 				--   }
+
+	-- 				--   if (f->type == GTS_ERROR) {
+	-- 				--     gts_allow_floating_vertices = TRUE;
+	-- 				--     while (nv)
+	-- 				--       gts_object_destroy (GTS_OBJECT (vertices[nv-- - 1]));
+	-- 				--     gts_allow_floating_vertices = FALSE;
+	-- 				--   }
+
+	-- 				--   g_free (vertices);
+	-- 				--   g_free (edges);
+
+	-- 				--   if (f->type == GTS_ERROR)
+	-- 				--     return f->line;
+	-- 				--   return 0;
+	-- 				-- }
+	-- 			else
+	-- 				-- got an error during input
+	-- 			end
+	-- 		rescue
+	-- 			if is_developer_exception then retry end
+	-- 			-- In all other case Huston has some serious problem.
+	-- 		end
+
+feature -- Output
 	print_stats_on (a_file: OUTPUT_STREAM) is
 			-- Writes the statistics for surface to `a_file'
 		require file_not_void: a_file /= Void
@@ -191,21 +377,33 @@ feature -- Element number queries
 
 	edges_count: INTEGER is 
 			-- The number of edges in the surface.
-		
-			-- TODO: should be NATURAL
 		do
 			Result:=gts_surface_edge_number(handle)
+		ensure natural: Result>=0
 		end
-
 
 	faces_count: INTEGER is
 			-- the number of faces in the surface.
-		
-			-- TODO: should be NATURAL
 		do
 			Result:=gts_surface_face_number(handle)
+		ensure natural: Result>=0
 		end
 
+feature
+	faces: DICTIONARY[GTS_FACE,GTS_FACE] is
+		do
+			if cached_faces=Void then
+				-- Note: the following if tense will be eliminated by the 
+				-- optimizer since 
+				if use_surface_btree=0 then
+					create {G_TREE[GTS_FACE,GTS_FACE]} cached_faces.from_external_pointer(get_faces_internal(handle))
+				else
+					create {G_HASH_TABLE[GTS_FACE,GTS_FACE]} cached_faces.from_external_pointer(get_faces_internal(handle))
+				end
+			end
+			check cached_faces/=Void end
+			Result:=cached_faces
+		end
 feature
 	boundary: G_SLIST[GTS_EDGE] is
 			-- the boundary edges of surface.
@@ -497,8 +695,19 @@ feature -- Delaunay and constrained Delaunay triangulations
 	-- Delaunay conforming constrained triangulations and to refine
 	-- them.
 
+	is_triangulated: BOOLEAN is
+		do
+			Result := ((faces_count = 0) and
+						  (vertices_count >= 3) and
+						  (edges_count >= 3))
+		end
+						  
 	is_successful: BOOLEAN
-			-- Has last operation been successful?
+			-- Is the last `add_vertex' call been successful?
+	
+	duplicate_vertex: GTS_VERTEX
+			-- A vertex with the same coordinates of the vertex used as 
+			-- argument of the last call to `add_vertex'
 	
 	add_vertex (a_vertex: GTS_VERTEX; a_guess: GTS_FACE) is
 			-- Adds `a_vertex' to the Delaunay triangulation defined by
@@ -510,18 +719,32 @@ feature -- Delaunay and constrained Delaunay triangulations
 			-- an initial guess for point location; can be Void.
 
 			-- `is_successful' will be True if `a_vertex' have been
-			-- actually added.
+			-- actually added, False otherwise. In this case
+			-- `duplicate_vertex' will be Void if `a_vertex' is not
+			-- contained in the convex hull bounding surface, otherwise
+			-- it will contain the vertex having the same x and y
+			-- coordinates of `vertex'
 		require vertex_not_void: a_vertex/=Void
 		local ptr: POINTER
 		do
-			is_successful:=(gts_delaunay_add_vertex
-								 (handle, a_vertex.handle, null_or(a_guess))
-								 ).is_null
+			ptr := gts_delaunay_add_vertex(handle, a_vertex.handle, null_or(a_guess))
 			-- gts_delaunay_add_vertex returns NULL is v has been
-			-- successfully added to surface or was already contained in
-			-- surface, v if v is not contained in the convex hull
+			-- successfully added to surface or was already contained
+			-- in surface, v if v is not contained in the convex hull
 			-- bounding surface or a GtsVertex having the same x and y
 			-- coordinates as v.
+			if ptr.is_null then is_successful:=True
+			else
+				is_successful:=False
+				if ptr=a_vertex.handle then -- vertex not contained in the convex hull of bounding surface
+					duplicate_vertex:=Void
+				else -- there is a vertex with the same coordinates
+					duplicate_vertex::=wrappers.reference_at(ptr)
+					if duplicate_vertex=Void then
+						create duplicate_vertex.from_external_pointer(ptr)
+					end
+				end
+			end
 		end
 	
 	add_vertex_to_face (a_vertex: GTS_VERTEX; a_face: GTS_FACE) is
@@ -814,9 +1037,7 @@ feature -- Delaunay and constrained Delaunay triangulations
 
 	triangulate is
 		require
-			not_triangulated: (faces_count = 0) and
-									(vertices_count > 3) and
-									(edges_count > 3)
+			not_triangulated: not is_triangulated
 		local big: GTS_TRIANGLE
 		do
 			-- create triangle enclosing all the vertices
@@ -831,7 +1052,7 @@ feature -- Delaunay and constrained Delaunay triangulations
 			--   }
 			--   gts_triangle_vertices (t, &v1, &v2, &v3);
 
-			add(create {GTS_FACE}.from_triangle(big))
+			add (create {GTS_FACE}.from_triangle(big))
 
 			--   /* add vertices */
 			--   for (i = 0; i < vertices->len; i++) {
@@ -1188,9 +1409,12 @@ feature {} -- Implementation
 	stop_function: POINTER
 			-- Pointer to the C function used as stop function in refine
 
-feature -- size
+	cached_faces: DICTIONARY[GTS_FACE,GTS_FACE]
+
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsSurface)"
 		end
+
 end -- class GTS_SURFACE

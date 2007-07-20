@@ -24,8 +24,6 @@ deferred class GTS_CONTAINER
 
 inherit GTS_OBJECT
 
-creation from_external_pointer
-
 feature {} -- Creation
 
 
@@ -112,7 +110,7 @@ feature
 		obsolete "Should be NATURAL"
 		do
 			Result := gts_container_size(handle)
-		ensure positive >= 0 
+		ensure positive: Result >= 0 
 		end
 
 	-- TODO: foreach ()
@@ -246,8 +244,8 @@ feature {} -- External calls
 	
 	 gts_container_size (a_container: POINTER): INTEGER is
 			-- 	guint gts_container_size (GtsContainer *c);
-		obsolete "Result should be a NATURAL, since it is a guint"
 		external "C use <gts.h>"
+		ensure natural: Result >= 0
 		end
 
 	gts_container_foreach (a_container, a_function, some_data: POINTER) is

@@ -179,7 +179,7 @@ feature {} -- Structure getter/setter calls
 		external "C struct GtsRange get n use <$include>"
 		end
  
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsRange)"

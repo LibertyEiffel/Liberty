@@ -1,5 +1,5 @@
 indexing
-	description: "Vertex split -- object encoding a reversible edge-collapse operation.."
+	description: "Vertex split -- object encoding a reversible edge-collapse operation."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -20,18 +20,20 @@ indexing
 			]"
 
 class GTS_VERTEX_SPLIT [EDGE->GTS_EDGE]
-	-- Description: The vertex split object is the building block of
-	-- the progressive mesh representation proposed by Hoppe
-	-- ("Progressive meshes", SIGGRAPH, 1996). It encodes an edge
-	-- collapse operation and its inverse the "vertex split". The
-	-- implementation of vertex split in GTS is somewhat more general
-	-- than the original version of Hoppe. Non-manifold edges can be
-	-- collapsed and non-manifold vertices can be split.
+	-- A vertex split encodes a reversible edge-collapse operation. It
+	-- is the building block of the progressive mesh representation
+	-- proposed by Hoppe ("Progressive meshes", SIGGRAPH, 1996). It
+	-- encodes an edge collapse operation and its inverse the "vertex
+	-- split". The implementation of vertex split in GTS is somewhat
+	-- more general than the original version of Hoppe. Non-manifold
+	-- edges can be collapsed and non-manifold vertices can be split.
 
-inherit C_STRUCT
+inherit SHARED_C_STRUCT
 
-insert GTS_VERTEX_SPLIT_EXTERNALS
-
+insert
+	GTS_VERTEX_SPLIT_EXTERNALS
+	GTS_EDGE_EXTERNALS
+	
 creation make, from_external_pointer
 
 feature {} -- Creation
@@ -47,17 +49,13 @@ feature {} -- Creation
 		end
 	
 feature
-	collapse (an_heap: GTS_EXTENDED_BINARY_HEAP) is
+	collapse (an_heap: GTS_EXTENDED_BINARY_HEAP[GTS_EDGE]) is
 			-- Collapses the vertex split. Any new edge created during
 			-- the process will be of class of `item'. If `an_heap' is
 			-- not Void, the new edges will be inserted into it and the
 			-- destroyed edges will be removed from it.
-		local hp: POINTER
 		do
-			if an_heap/=Void then hp:=an_heap.handle end
-			gts_split_collapse (handle,
-									  -- GtsEdgeClass *klass,
-									  hp)
+			gts_split_collapse (handle, gts_edge_class, null_or(an_heap))
 		end
 
 	expand (a_surface: GTS_SURFACE) is
@@ -78,7 +76,7 @@ feature
 			Result:=gts_split_height(handle)
 		end
 	
-	traverse (an_order, a_depth: INTEGER; a_function: FUNCTION[]) is
+	traverse (an_order, a_depth: INTEGER; a_function: PROCEDURE[TUPLE[GTS_VERTEX_SPLIT[EDGE]]]) is
 			-- Traverses the GtsSplit tree having Current as root. Calls
 			-- `a_function' for each GtsSplit of the tree in the order
 			-- specified by `an_order'. If order is set to `g_pre_order'
@@ -104,23 +102,23 @@ feature
 feature
 	v1: GTS_VERTEX is
 			-- the first vertex of the edge collapsed by Current.
-		local p: POINTER
+		local a_pointer: POINTER
 		do
-			p:=gts_split_v1(handle)
-			if wrappers.has(p)
-			 then	Result ::= wrappers.at(p)
-			else create Result.from_external_pointer(a_pointer)
+			a_pointer:=gts_split_v2(handle)
+			Result::= wrappers.reference_at(a_pointer)
+			if Result=Void then
+				create Result.from_external_pointer(a_pointer)
 			end
 		end
 
 	v2: GTS_VERTEX is
 			-- the second vertex of the edge collapsed by Current.
-		local p: POINTER
+		local a_pointer: POINTER
 		do
-			p:=gts_split_v2(handle)
-			if wrappers.has(p)
-			 then	Result ::= wrappers.at(p)
-			else create Result.from_external_pointer(a_pointer)
+			a_pointer:=gts_split_v2(handle)
+			Result::= wrappers.reference_at(a_pointer)
+			if Result=Void then
+				create Result.from_external_pointer(a_pointer)
 			end
 		end
 
@@ -172,29 +170,30 @@ feature {} -- Unwrapped code
 
 --    -----------------------------------------------------------------------------------------------------------
 
---   GtsSplit
+	--   GtsSplit
+	
+	--  typedef struct {
+	--    GtsObject object;
+	
+	--    GtsVertex * v;
+	--    GtsObject * v1;
+	--    GtsObject * v2;
+	--    GtsSplitCFace * cfaces;
+	--    guint ncf;
+	--  } GtsSplit;
 
---  typedef struct {
---    GtsObject object;
+	-- The vertex split object. If v1 is a GtsSplit the corresponding
+	-- vertex can be found in GTS_SPLIT(v1)->v.  This conversion is
+	-- performed directly by the two macros GTS_SPLIT_V1 and
+	-- GTS_SPLIT_V2. Together with the current GtsSplit, v1 and v2
+	-- define one level of a vertex split tree. If v1 or v2 are both
+	-- GtsVertex, the current vertex split is a leaf of the tree.
 
---    GtsVertex * v;
---    GtsObject * v1;
---    GtsObject * v2;
---    GtsSplitCFace * cfaces;
---    guint ncf;
---  } GtsSplit;
-
---    The vertex split object. If v1 is a GtsSplit the corresponding vertex can be found in GTS_SPLIT(v1)->v.
---    This conversion is performed directly by the two macros GTS_SPLIT_V1 and GTS_SPLIT_V2. Together with the
---    current GtsSplit, v1 and v2 define one level of a vertex split tree. If v1 or v2 are both GtsVertex, the
---    current vertex split is a leaf of the tree.
-
---     GtsObject object;
---     GtsVertex *v;           Vertex to be split.
---     GtsObject *v1;          Either a GtsSplit or GtsVertex, first vertex of the edge to be expanded.
---     GtsObject *v2;          Either a GtsSplit or GtsVertex, second vertex of the edge to be expanded.
---     GtsSplitCFace *cfaces;  An array of GtsSplitCFace describing the faces collapsed by the vertex split.
---     guint ncf;              Number of faces collapsed in cfaces.
+	--     GtsVertex *v;           Vertex to be split.
+	--     GtsObject *v1;          Either a GtsSplit or GtsVertex, first vertex of the edge to be expanded.
+	--     GtsObject *v2;          Either a GtsSplit or GtsVertex, second vertex of the edge to be expanded.
+	--     GtsSplitCFace *cfaces;  An array of GtsSplitCFace describing the faces collapsed by the vertex split.
+	--     guint ncf;              Number of faces collapsed in cfaces.
 
 --    -----------------------------------------------------------------------------------------------------------
 

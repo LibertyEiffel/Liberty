@@ -25,15 +25,15 @@ class GTS_FACE
 	
 inherit
 	GTS_TRIANGLE
-		redefine struct_size
+		redefine struct_size, from_edges, enclosing
 		end
 
 insert GTS_FACE_EXTERNALS
 	
-creation make, from_triangle, from_external_pointer
+creation from_edges, from_triangle, enclosing, from_external_pointer
 
 feature {} -- Creation
-	make (first, second, third: GTS_EDGE) is
+	from_edges (first, second, third: GTS_EDGE) is
 			-- a new GtsFace using `first,' `second' and `third' as
 			-- edges.
 		do
@@ -45,9 +45,14 @@ feature {} -- Creation
 	from_triangle (a_triangle: GTS_TRIANGLE) is
 		require triangle_not_void: a_triangle /= Void
 		do
-			make(a_triangle.edge_1,a_triangle.edge_2,a_triangle.edge_3)
+			from_edges(a_triangle.edge_1,a_triangle.edge_2,a_triangle.edge_3)
 		end
-	
+
+	enclosing (some_points: G_SLIST[GTS_POINT]; a_scale: REAL) is
+		do
+			from_external_pointer(gts_triangle_enclosing (gts_face_class, some_points.handle, a_scale))
+		end
+
 feature
 	has_parent_surface (a_surface: GTS_SURFACE): BOOLEAN is
 			-- Does Current face belong to `a_surface'?
@@ -102,7 +107,7 @@ feature
 			create Result.from_external_pointer (get_surfaces(handle))
 		end
 	
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsFace)"

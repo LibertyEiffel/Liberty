@@ -48,8 +48,8 @@ feature {} -- External calls
 	
 	gts_heap_size (an_heap: POINTER): INTEGER is
 			-- guint gts_heap_size (GtsHeap *heap);
-		obsolete "Result should be NATURAL since it is a guint"
 		external "C use <gts.h>"
+		ensure natural: Result >= 0
 		end
 
 	gts_heap_destroy (an_heap: POINTER) is
@@ -57,7 +57,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 	
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsHeap)"

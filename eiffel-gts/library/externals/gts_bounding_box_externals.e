@@ -17,7 +17,7 @@ feature {} -- External calls
 -- GtsBBoxClass;
 -- GtsBBox;
 
-	gts_bbox_class (void): POINTER is
+	gts_bbox_class: POINTER is
 			--  GtsBBoxClass* gts_bbox_class (void);
 		external "C use <gts.h>"
 		end
@@ -100,98 +100,88 @@ feature {} -- External calls
 	
 	-- void (*GtsBBTreeTraverseFunc) (GtsBBox *bb1, GtsBBox *bb2, gpointer data);
 	
-	gts_bb_tree_new (some_bboxes): POINTER is
+	gts_bb_tree_new (some_bboxes: POINTER): POINTER is
 			--  GNode* gts_bb_tree_new (GSList *bboxes);
 		external "C use <gts.h>"
 		end
 
-  gts_bb_tree_surface (GtsSurface *s): POINTER is
+  gts_bb_tree_surface (a_surface: POINTER): POINTER is
 			--  GNode* gts_bb_tree_surface (GtsSurface *s);
 		external "C use <gts.h>"
 		end
 
-  gts_bb_tree_overlap (GNode *tree, GtsBBox *bbox): POINTER is
+  gts_bb_tree_overlap (a_node, a_bbox: POINTER): POINTER is
 			--  GSList* gts_bb_tree_overlap (GNode *tree, GtsBBox *bbox);
 		external "C use <gts.h>"
 		end
 
- gboolean gts_bb_tree_is_overlapping (GNode *tree, GtsBBox *bbox) is
+	gts_bb_tree_is_overlapping (a_node, a_bbox: POINTER): INTEGER is
 			--  gboolean gts_bb_tree_is_overlapping (GNode *tree, GtsBBox *bbox);
 		external "C use <gts.h>"
 		end
 
- void gts_bb_tree_traverse_overlapping
- (GNode *tree1, GNode *tree2, GtsBBTreeTraverseFunc func, gpointer data) is
-			--  (GNode *tree1, GNode *tree2, GtsBBTreeTraverseFunc func, gpointer data);
+	gts_bb_tree_traverse_overlapping (a_node1, a_node2, a_bbtreetraversefunc, some_data: POINTER) is
+			--  void gts_bb_tree_traverse_overlapping (GNode *tree1,
+			--  GNode *tree2, GtsBBTreeTraverseFunc func, gpointer data);
 		external "C use <gts.h>"
 		end
 
- void gts_bb_tree_draw (GNode *tree, guint depth, FILE *fptr) is
+	 gts_bb_tree_draw (a_node: POINTER; a_depth: INTEGER; a_fptr: POINTER) is
 			--  void gts_bb_tree_draw (GNode *tree, guint depth, FILE *fptr);
+		require natural_depth: a_depth >= 0
 		external "C use <gts.h>"
 		end
 
- void gts_bb_tree_destroy (GNode *tree, gboolean free_leaves) is
+	gts_bb_tree_destroy (a_node: POINTER; free_leaves_bool: INTEGER) is
 			--  void gts_bb_tree_destroy (GNode *tree, gboolean free_leaves);
 		external "C use <gts.h>"
 		end
 
-
- gdouble (*GtsBBoxDistFunc) (GtsPoint *p, gpointer bounded) is
-			--  gdouble (*GtsBBoxDistFunc) (GtsPoint *p, gpointer bounded);
-		external "C use <gts.h>"
-		end
-
-  (*GtsBBoxClosestFunc) (GtsPoint *p, gpointer bounded): POINTER is
-			--  GtsPoint* (*GtsBBoxClosestFunc) (GtsPoint *p, gpointer bounded);
-		external "C use <gts.h>"
-		end
-
- gdouble gts_bb_tree_point_distance (GNode *tree, GtsPoint *p, GtsBBoxDistFunc distance, GtsBBox **bbox) is
+	--  gdouble (*GtsBBoxDistFunc) (GtsPoint *p, gpointer bounded);
+	--  GtsPoint* (*GtsBBoxClosestFunc) (GtsPoint *p, gpointer bounded);
+	
+	gts_bb_tree_point_distance (a_node, a_point, a_boxdistfunc, a_bbox_ref: POINTER): REAL is
 			--  gdouble gts_bb_tree_point_distance (GNode *tree, GtsPoint *p, GtsBBoxDistFunc distance, GtsBBox **bbox);
 		external "C use <gts.h>"
 		end
 
-  gts_bb_tree_point_closest (GNode *tree, GtsPoint *p, GtsBBoxClosestFunc closest, gdouble *distance): POINTER is
+	gts_bb_tree_point_closest (a_node, a_point, a_box_dist_func: POINTER; a_delta: REAL; a_range: POINTER) is
 			--  GtsPoint* gts_bb_tree_point_closest (GNode *tree, GtsPoint *p, GtsBBoxClosestFunc closest, gdouble *distance);
 		external "C use <gts.h>"
 		end
 
- void gts_bb_tree_segment_distance (GNode *tree, GtsSegment *s, GtsBBoxDistFunc distance, gdouble delta, GtsRange *range) is
+	gts_bb_tree_segment_distance (a_node, a_segment, a_box_dist_func: POINTER; a_delta: REAL; a_range: POINTER) is
 			--  void gts_bb_tree_segment_distance (GNode *tree, GtsSegment *s, GtsBBoxDistFunc distance, gdouble delta, GtsRange *range);
 		external "C use <gts.h>"
 		end
-
- void gts_bb_tree_triangle_distance (GNode *tree, GtsTriangle *t, GtsBBoxDistFunc distance, gdouble delta, GtsRange *range) is
+	
+	 gts_bb_tree_triangle_distance (a_node, a_triangle, a_box_dist_func: POINTER; a_delta: REAL; a_range: POINTER) is
 			--  void gts_bb_tree_triangle_distance (GNode *tree, GtsTriangle *t, GtsBBoxDistFunc distance, gdouble delta, GtsRange *range);
 		external "C use <gts.h>"
 		end
 
- GSList* gts_bb_tree_point_closest_bboxes
- (GNode *tree, GtsPoint *p) is
-			--  (GNode *tree, GtsPoint *p);
+	gts_bb_tree_point_closest_bboxes (a_node, a_point: POINTER): POINTER is
+			-- 	GSList* gts_bb_tree_point_closest_bboxes (GNode *tree, GtsPoint *p);
 		external "C use <gts.h>"
 		end
 
- void gts_bb_tree_surface_boundary_distance
- (GNode *tree, GtsSurface *s, GtsBBoxDistFunc distance, gdouble delta, GtsRange *range) is
-			--  (GNode *tree, GtsSurface *s, GtsBBoxDistFunc distance, gdouble delta, GtsRange *range);
+	 gts_bb_tree_surface_boundary_distance (a_node, a_surface, a_box_dist_func: POINTER; a_delta: REAL; a_range: POINTER) is
+			-- void gts_bb_tree_surface_boundary_distance (GNode *tree, GtsSurface *s, GtsBBoxDistFunc distance, gdouble delta, GtsRange *range);
 		external "C use <gts.h>"
 		end
 
- void gts_bb_tree_surface_distance (GNode *tree, GtsSurface *s, GtsBBoxDistFunc distance, gdouble delta, GtsRange *range) is
+	gts_bb_tree_surface_distance (a_node, a_surface, a_box_dist_func: POINTER; a_delta: REAL; a_range: POINTER) is
 			--  void gts_bb_tree_surface_distance (GNode *tree, GtsSurface *s, GtsBBoxDistFunc distance, gdouble delta, GtsRange *range);
 		external "C use <gts.h>"
 		end
 
-
-  gts_bb_tree_stabbed (GNode *tree, GtsPoint *p): POINTER is
+	gts_bb_tree_stabbed (a_node, a_point: POINTER): POINTER is
 			--  GSList* gts_bb_tree_stabbed (GNode *tree, GtsPoint *p);
 		external "C use <gts.h>"
 		end
 
 
-feature -- size
+feature {} -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"

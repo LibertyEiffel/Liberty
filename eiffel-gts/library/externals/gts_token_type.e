@@ -1,7 +1,7 @@
 indexing
-	description: "Enum "
+	description: "Enum GTS_TOKEN_TYPE"
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2006 Paolo Redaelli, GTS team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -23,7 +23,7 @@ deferred class GTS_TOKEN_TYPE
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 	is_valid_token (a_token: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_token = gts_none) or else

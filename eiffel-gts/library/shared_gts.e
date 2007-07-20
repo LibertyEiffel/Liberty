@@ -25,7 +25,9 @@ insert
 	GTS_VERTEX_EXTERNALS
 	GTS_SEGMENT_EXTERNALS
 	GTS_EDGE_EXTERNALS
-
+	WRAPPER_HANDLER
+	SHARED_WRAPPERS_DICTIONARY
+	
 feature 
 
 	vertices_from_segments (some_segments: G_SLIST[GTS_SEGMENT]): G_SLIST[GTS_VERTEX] is
@@ -49,15 +51,15 @@ feature
 			-- check : function called for each pair of vertices about to
 			-- be merged or NULL.
 		do
-			create Result.from_external_pointer (gts_vertices_merge (some_vertices.handle, epsilon, default_pointer))
+			create Result.from_external_pointer (gts_vertices_merge (some_vertices.handle, an_epsilon, default_pointer))
 			-- gboolean (*check) (GtsVertex *, GtsVertex *));
 		end
 
-	segments_from_vertices (some_vertices: G_SLIST[GTS_VERTEX]) is
+	segments_from_vertices (some_vertices: G_SLIST[GTS_VERTEX]): G_SLIST[GTS_SEGMENT] is
 			-- a list of unique GtsSegment which have one of their vertices in
 			-- vertices.
 		do
-			create Result.from_external_pointer(some_vertices.handle)
+			create Result.from_external_pointer(gts_segments_from_vertices(some_vertices.handle))
 		end
 
 feature -- Edge features
@@ -67,13 +69,13 @@ feature -- Edge features
 		require 
 			vertices_not_void: some_vertices /= Void
 			parent_not_void: a_parent /= Void
-		local p: POINTER
+		local a_pointer: POINTER
 		do
-			p:=gts_edges_from_vertices(some_vertices.handle, a_parent.handle)
-			if p.is_not_null then
-				if wrappers.has(p)
-				 then Result ::= wrappers.at(p)
-				else create Result.from_external_pointer(a_pointer)
+			a_pointer:=gts_edges_from_vertices(some_vertices.handle, a_parent.handle)
+			if a_pointer.is_not_null then
+				Result ::= wrappers.reference_at(a_pointer)
+				if Result=Void then
+					create Result.from_external_pointer(a_pointer)
 				end
 			end
 		end
@@ -96,12 +98,13 @@ feature -- Triangle related
 	triangles_from_edges (some_edges: G_SLIST[GTS_EDGE]):	G_SLIST[GTS_EDGE] is
 			-- A list of unique triangles which have one of their edges
 			-- in `some_edges'.
+		local a_pointer: POINTER
 		do
-			p:=gts_triangles_from_edges(some_edges.handle)
-			if p.is_not_null then
-				if wrappers.has(p)
-				 then Result ::= wrappers.at(p)
-				else create Result.from_external_pointer(a_pointer)
+			a_pointer:=gts_triangles_from_edges(some_edges.handle)
+			if a_pointer.is_not_null then
+				Result ::= wrappers.reference_at(a_pointer)
+				if Result=Void then
+					create Result.from_external_pointer(a_pointer)
 				end
 			end
 		end
@@ -111,18 +114,27 @@ feature -- Face related
 			-- A list of unique faces which belong to `a_surface' and
 			-- have one of their edges in `some_edges'.
 		require edges_not_void: some_edges /= Void
+		local a_pointer: POINTER
 		do
-			p:=gts_faces_from_edges(some_edges.handle, null_or(a_surface))
-			if p.is_not_null then
-				if wrappers.has(p)
-				 then Result ::= wrappers.at(p)
-				else create Result.from_external_pointer(a_pointer)
+			a_pointer:=gts_faces_from_edges(some_edges.handle, null_or(a_surface))
+			if a_pointer.is_not_null then
+				Result ::= wrappers.reference_at(a_pointer)
+				if Result=Void then
+					create Result.from_external_pointer(a_pointer)
 				end
 			end
 		end
 			
 feature {} -- External calls
 	gts_faces_from_edges (some_edges, a_surface: POINTER): POINTER is
+		external "C use <gts.h>"
+		end
+	
+	gts_triangles_from_edges (some_edges: POINTER): POINTER is
+		external "C use <gts.h>"
+		end	
+
+	gts_triangles_are_folded (some_triangles, vertex_a, vertex_b: POINTER; a_max: REAL): INTEGER is -- gboolean
 		external "C use <gts.h>"
 		end
 	

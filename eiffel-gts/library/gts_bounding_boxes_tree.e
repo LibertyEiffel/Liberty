@@ -19,8 +19,9 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class GTS_BOUNDING_BOXES_TREE
-	-- TODO: require wrappping of Glib's n-ary tree.
+class GTS_BOUNDING_BOXES_TREE
+	-- TODO: require wrappping of Glib's n-ary tree. Once implemented 
+	-- remove the invariant implemented: False.
 
 	-- Axis-aligned bounding box trees can be used for
 	-- intersection/collision detection using `traverse_overlapping',
@@ -28,12 +29,12 @@ deferred class GTS_BOUNDING_BOXES_TREE
 	-- collection of others using `point_distance', `segment_distance',
 	-- `triangle_distance' or `surface_distance'.
 
-inherit C_STRUCT
+inherit SHARED_C_STRUCT
 
 insert 
 	GTS_BOUNDING_BOXES_TREE_EXTERNALS
-	GTS_BOUNDING_BOXES_TREE
-creation make, from_external_pointer
+
+creation from_external_pointer
 
 feature {} -- Creation
 	
@@ -528,4 +529,5 @@ feature {} -- Creation
 --     Returns :  a list of bounding boxes, leaves of tree which are stabbed by the ray defined by p (see
 --                gts_bbox_is_stabbed()).
 
+invariant implemented: False
 end --  class GTS_BOUNDING_BOXES_TREE

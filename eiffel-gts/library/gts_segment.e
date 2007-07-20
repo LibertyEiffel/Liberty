@@ -19,17 +19,17 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: Segments are defined by their two GtsVertex. They are
-			-- not oriented.
-
-			-- When destroying a GtsSegment, all the vertices not used by another
-			-- edge are also destroyed. This default behaviour can be changed
-			-- punctually by setting the global variable
-			-- gts_allow_floating_vertices to TRUE. You must not forget to set this
-			-- variable back to FALSE as all the algorithms of GTS assume the
-			-- default behaviour.
-			
 class GTS_SEGMENT
+	-- Segments are defined by their two GTS_VERTEX. They are not
+	-- oriented.
+
+	-- When destroying a GTS_SEGMENT, all the vertices not used by
+	-- another edge are also destroyed. This default behaviour can be
+	-- changed punctually by setting the global variable
+	-- gts_allow_floating_vertices to TRUE. You must not forget to set
+	-- this variable back to FALSE as all the algorithms of GTS assume
+	-- the default behaviour.
+	
 
 inherit GTS_OBJECT redefine struct_size, is_equal end
 
@@ -59,8 +59,9 @@ feature
 		local p: POINTER
 		do
 			p:=get_v1(handle)
-			if wrappers.has(p) then Result::=wrappers.at(p)
-			else
+			check p.is_not_null end
+			Result::=wrappers.reference_at(p)
+			if Result=Void then
 				debug vertex_creation_notice.print_on(std_error) end
 				create Result.from_external_pointer(p)
 			end
@@ -70,8 +71,9 @@ feature
 		local p: POINTER
 		do
 			p:=get_v2(handle)
-			if wrappers.has(p) then Result::=wrappers.at(p)
-			else
+			check p.is_not_null end
+			Result::=wrappers.reference_at(p)
+			if Result=Void then
 				debug vertex_creation_notice.print_on(std_error) end
 				create Result.from_external_pointer(p)
 			end
@@ -191,7 +193,7 @@ feature {} -- size
 feature {} -- Implementation
 	vertex_creation_notice: STRING is
 		"[
-		 A GTS_SEGMENT created a GTS_VERTEX wrapper for either v1 or v2.%N
+		 A GTS_SEGMENT created a GTS_VERTEX wrapper for either v1 or v2.
 		 ]"
 		 
 end -- class GTS_SEGMENT

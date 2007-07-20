@@ -20,8 +20,8 @@ indexing
 			]"
 
  
-deferred class GTS_BINARY_HEAP [ITEM_ -> COMPARABLE_WRAPPER]
-	-- Binary heaps: efficient data structure for priority heaps.
+deferred class GTS_BINARY_HEAP [ITEM_ ->  COMPARABLE_SHARED_C_STRUCT]
+	-- Binary heaps: efficient data structure for priorit heaps.
 
 	-- The basic operations `insert_item' and `remove_top' are
 	-- performed in O(log n) time. Calling `freeze', inserting elements
@@ -30,7 +30,7 @@ deferred class GTS_BINARY_HEAP [ITEM_ -> COMPARABLE_WRAPPER]
 
 	-- TODO: is this wrapper class really shared?
 	
-	-- Note: this class is unfinished.
+	-- Note: unfinished.
 
 inherit
 	SHARED_C_STRUCT
@@ -40,9 +40,7 @@ inherit
 
 insert
 	WRAPPER_FACTORY [ITEM_]
-	GTS_HEAP_EXTERNALS
-
-creation make, from_external_pointer
+	GTS_BINARY_HEAP_EXTERNALS
 
 feature {} -- Creation
 	make is
@@ -84,9 +82,8 @@ feature
 		local p: POINTER
 		do
 			p:=gts_heap_top(handle)
-			if wrappers.has(p) then 
-				Result ::= wrappers.at(p)
-			else
+			Result ::= wrappers.reference_at(p)
+			if Result=Void then
 				Result := new_item
 				Result.from_external_pointer(p)
 			end
@@ -130,4 +127,4 @@ feature {}
 		do
 			gts_heap_destroy(handle)
 		end
-end -- class GTS_HEAP
+end -- class GTS_BINARY_HEAP

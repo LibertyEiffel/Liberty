@@ -59,7 +59,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_delaunay_conform (surface: POINTER; a_steiner_max: INTEGER: a_gtsencroachfunc,, some_data: POINTER): INTEGER is
+	gts_delaunay_conform (surface: POINTER; a_steiner_max: INTEGER; a_gtsencroachfunc, some_data: POINTER): INTEGER is
 			-- guint gts_delaunay_conform (GtsSurface *surface, gint steiner_max,
 			-- GtsEncroachFunc encroaches, gpointer data);
 
@@ -76,7 +76,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsConstraint)"

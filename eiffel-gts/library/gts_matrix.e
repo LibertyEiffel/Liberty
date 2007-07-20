@@ -342,7 +342,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsMatrix)"

@@ -47,7 +47,7 @@ feature {GTS_OBJECT} -- Implementation
 			-- `callback'.
 		do
 			-- external "C use <callbacks.h>" alias "EiffelGtsFunc"
- 			Result:=function.item(gts_object)
+ 			Result:=function.item([gts_object]).to_integer
 		end 
 
 	callback_pointer: POINTER is
@@ -62,13 +62,20 @@ feature {GTS_OBJECT} -- Implementation
 			Result:=a_foo
 		end
 
-feature
+feature {}
 	-- Dummy implementation of unneeded features. TODO: refine this
 	-- crude hack
 	dispose is do end
-
-	is_equal (another: like Current): BOOLEAN is do end
 	
-	copy (another: like Current) is do end
+feature 
+	is_equal (another: like Current): BOOLEAN is
+		do
+			not_yet_implemented
+		end
+	
+	copy (another: like Current) is
+		do
+			not_yet_implemented
+		end
 
 end -- class GTS_FUNCTION

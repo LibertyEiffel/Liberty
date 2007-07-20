@@ -28,7 +28,11 @@ inherit
 			make, struct_size, fill_tagged_out_memory
 		end
 
-insert GTS_VERTEX_EXTERNALS
+insert
+	GTS_VERTEX_EXTERNALS
+		undefine
+			fill_tagged_out_memory
+		end
 
 creation make, from_external_pointer
 
@@ -168,8 +172,7 @@ feature {} -- Struct access
 	-- GSList *segments; Contains all the GtsSegment using this vertex
 	-- as one of their endpoints.
 
-feature -- size
-
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsVertex)"

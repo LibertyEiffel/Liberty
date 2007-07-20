@@ -10,16 +10,6 @@ deferred class GTS_PROGRESSIVE_SURFACE_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
-	gts_psurface_class (a_pointer: POINTER): POINTER is
-		external "C macro use <gts.h>"
-		alias "GTS_PSURFACE_CLASS"
-		end
-
-	gts_psurface (a_pointer: POINTER): POINTER is
-		external "C macro use <gts.h>"
-		alias "GTS_PSURFACE"
-		end
-
 	gts_is_psurface (a_pointer: POINTER): INTEGER is
 		external "C macro use <gts.h>"
 		alias "GTS_IS_PSURFACE"
@@ -111,7 +101,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
 		alias "sizeof(GtsPSurface)"

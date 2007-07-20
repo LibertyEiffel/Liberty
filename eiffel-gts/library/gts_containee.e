@@ -173,7 +173,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	gts_containee_is_contained (an_item, a_container: POINTER) is
+	gts_containee_is_contained (an_item, a_container: POINTER): INTEGER is
 			-- gboolean gts_containee_is_contained (GtsContainee *item, GtsContainer *c);
 		external "C use <gts.h>"
 		end
