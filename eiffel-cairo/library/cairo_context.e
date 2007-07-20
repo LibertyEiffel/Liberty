@@ -872,7 +872,7 @@ feature -- Path managing
 			create Result.from_external_pointer (cairo_copy_path (handle))
 		end
 
-	get_flat_path: CAIRO_PATHG is
+	get_flat_path: CAIRO_PATH is
 			-- Gets a newly-allocated flattened copy of the current path
 	
 			-- This feature is like `get_path' except that any curves in

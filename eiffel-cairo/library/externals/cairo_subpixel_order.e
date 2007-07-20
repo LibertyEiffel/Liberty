@@ -26,7 +26,7 @@ deferred class CAIRO_SUBPIXEL_ORDER
 	
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 	is_valid_subpixel_order (an_order: INTEGER): BOOLEAN is
 		do	
 			Result:=((an_order = cairo_subpixel_order_default) or else

@@ -25,7 +25,7 @@ deferred class CAIRO_SVG_VERSION
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 	is_valid_svg_version (a_version: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_version = cairo_svg_version_1_1) or else

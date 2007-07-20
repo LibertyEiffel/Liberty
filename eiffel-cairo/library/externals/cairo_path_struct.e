@@ -25,6 +25,12 @@ indexing
 	wrapped_version: "1.2.4"
 
 deferred class CAIRO_PATH_STRUCT
+	-- A data structure for holding a path. This data structure serves as the
+	-- return value for cairo_copy_path() and cairo_copy_path_flat() as well the
+	-- input value for cairo_append_path().
+
+	-- See cairo_path_data_t for hints on how to iterate over the
+	-- actual data within the path.
 
 inherit
 	ANY
@@ -37,14 +43,6 @@ inherit
 	--     cairo_path_data_t *data;
 	--     int num_data;
 	-- } cairo_path_t;
-
-	-- A data structure for holding a path. This data structure serves
-	-- as the return value for cairo_copy_path() and
-	-- cairo_copy_path_flat() as well the input value for
-	-- cairo_append_path().
-
-	-- See cairo_path_data_t for hints on how to iterate over the
-	-- actual data within the path.
 
 	-- The num_data member gives the number of elements in the data
 	-- array. This number is larger than the number of independent path

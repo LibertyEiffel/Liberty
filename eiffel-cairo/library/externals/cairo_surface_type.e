@@ -50,7 +50,7 @@ deferred class CAIRO_SURFACE_TYPE
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 
 	is_valid_surface_type (a_type: INTEGER): BOOLEAN is
 		do

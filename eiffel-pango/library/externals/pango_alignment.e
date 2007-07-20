@@ -30,7 +30,7 @@ deferred class PANGO_ALIGNMENT
 
 inherit ANY undefine is_equal, copy end
 
-feature -- enum
+feature {} -- enum
 
 	is_valid_pango_alignment (an_alignment: INTEGER) : BOOLEAN is
 		do
