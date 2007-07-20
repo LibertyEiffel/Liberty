@@ -27,7 +27,7 @@ feature {} -- external calls
 		alias "G_TYPE_FUNDAMENTAL"
 		end
 
-feature -- Fundamental g_type
+feature {} -- Fundamental g_type
 
 	g_type: INTEGER_32 is
 			-- The type used for GType, a number used to identify various

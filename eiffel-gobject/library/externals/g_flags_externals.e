@@ -51,5 +51,10 @@ feature {} -- External calls
 	g_flags_register_static (a_const_name: POINTER; some_const_static_gflagsvalues: POINTER): INTEGER is -- GType
 		external "C macro use <glib-object.h>"
 		end
-	
+
+	g_flags_complete_type_info (a_flags_gtype: INTEGER; a_typeinfo, some_const_gflagsvalue: POINTER) is
+			-- void g_flags_complete_type_info (GType g_flags_type,
+			-- GTypeInfo *info, const GFlagsValue *const_values);
+		external "C macro use <glib-object.h>"
+		end
 end

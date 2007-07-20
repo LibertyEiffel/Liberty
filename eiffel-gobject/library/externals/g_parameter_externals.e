@@ -11,11 +11,11 @@ deferred class G_PARAMETER_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {}
-	get_name (gparameter: POINTER): POINTER is
+	get_name_internal (gparameter: POINTER): POINTER is
 		external "C struct GParameter get name use <glib-object.h>"
 		end
 
-	get_value (gparameter: POINTER): POINTER is
+	get_value_internal (gparameter: POINTER): POINTER is
 		external "C struct GParameter get value use <glib-object.h>"
 		end
 	

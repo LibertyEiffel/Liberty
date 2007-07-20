@@ -7,21 +7,24 @@ indexing
 
 class G_PARAMETER
 
-inherit
-	C_STRUCT
+inherit C_STRUCT
 
-insert 
-	G_PARAMETER_EXTERNALS
+insert G_PARAMETER_EXTERNALS
 
 creation from_external_pointer
 	
+feature
+	--	is_equal(another: like Current): BOOLEAN is do Result:= 
+	--	handle=another.handle end
+	
+	-- copy(another: like Current) is do 
+	-- from_external_pointer(memcpy(handle)) end
 feature 
 	name: STRING is
 			-- the parameter name
 		do
-			create {CONST_STRING} Result.from_external(get_name(handle))
+			create {CONST_STRING} Result.from_external(get_name_internal(handle))
 		end
-	
 	
 	-- typedef struct {
 	--   const gchar *name;

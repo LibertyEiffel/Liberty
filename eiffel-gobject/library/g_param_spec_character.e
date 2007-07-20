@@ -25,7 +25,7 @@ feature -- Creation
 		do
 			from_external_pointer (g_param_spec_char
 										  (a_name.to_external, a_nick.to_external, a_blurb.to_external,
-											a_min.to_integer, a_max.to_integer, a_default.to_integer,
+											a_min.to_integer_8, a_max.to_integer_8, a_default.to_integer_8,
 											some_flags))
 		end
 
