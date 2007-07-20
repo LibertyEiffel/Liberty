@@ -20,16 +20,6 @@ feature {} -- Initialization
 		ensure memory_allocated: handle.is_not_null
 		end
 
-feature -- Queries
-
-	exists: BOOLEAN is
-			-- Does Current wrap an existing object?
-			-- Speaking in C: is handle not NULL?
-		obsolete "use is_not_null instead"
-		do
-			Result := is_not_null
-		end
-
 feature -- Copying
 
 	copy (other: like Current) is
