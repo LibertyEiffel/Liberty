@@ -36,7 +36,7 @@ insert
 creation
 	make
 
-feature -- Size
+feature {} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <curl/curl.h>"

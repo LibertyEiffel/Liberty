@@ -35,7 +35,7 @@ insert
 creation
 	null, from_external_pointer
 
-feature -- Size
+feature {} -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <curl/curl.h>"
