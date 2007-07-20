@@ -6,6 +6,14 @@ indexing
 deferred class COMPARABLE_SHARED_C_STRUCT
 	-- A comparable wrapper
 inherit
-	SHARED_C_STRUCT undefine is_equal end
+	SHARED_C_STRUCT
 	COMPARABLE undefine copy, is_equal end
+feature 
+	infix "<" (other: like Current): BOOLEAN is
+			-- Default comparison of wrappers made comparing the memory 
+			-- address of the underlying wrapped data structure.
+		do
+			Result:=(Current.handle.hash_code < other.handle.hash_code)
+		end
+
 end
