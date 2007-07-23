@@ -21,12 +21,12 @@ indexing
 class GDK_REGION
 
 inherit
-	C_STRUCT
+	SHARED_C_STRUCT
 		redefine copy, dispose end
 
 insert
-	GDK_FILL_RULE -- 	redefine copy end
-	GDK_OVERLAP_TYPE -- redefine copy end
+	GDK_FILL_RULE
+	GDK_OVERLAP_TYPE
 
 creation
 	make, from_polygon, from_external_pointer, from_rectangle, copy
