@@ -685,11 +685,10 @@ feature -- String property
 		do
 			hidden_gvalue.turn_to_string
 			g_object_get_property (handle,a_property_name.to_external,hidden_gvalue.handle)
-			Result := hidden_gvalue.string
+			Result := hidden_gvalue.string.twin
 		end
 
 feature -- integer property
-
 	set_integer_property (a_property_name: STRING; a_value: INTEGER) is
 			-- Set property with `a_name' to `a_value'
 		require
@@ -742,31 +741,6 @@ feature -- float/REAL_32 property
 			Result := hidden_gvalue.real_32
 		end
 
-	real_32_property_from_pspec, float_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_32 is
-			-- the float property with `a_parameter_specification'. This
-			-- feature is faster than the plain `float_property'
-			-- because the latter retrieves the parameter specification
-			-- from the name given. Storing the specification in a once
-			-- feature hasten property retrieving.
-
-			-- TODO: I'm unsure but I suspect that this feature still has
-			-- sub-optimal performance because it still creates a new
-			-- G_VALUE each time. I would help if G_VALUE is expanded and
-			-- holds the actual GValue C structure like an expanded
-			-- feature. This way the G_VALUE would be created on the
-			-- stack, obtaining better performances.
-
-			-- Note: the previous TODO should have been implemented in
-			-- may 2007
-		require
-			specification_not_void: a_parameter_specification /= Void
-		do
-			hidden_gvalue.turn_to_real_32
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.real_32
-		end
 	
 feature -- boolean property
 
@@ -791,32 +765,6 @@ feature -- boolean property
 		do
 			hidden_gvalue.turn_to_boolean
 			g_object_get_property (handle, a_property_name.to_external, hidden_gvalue.handle)
-			Result := hidden_gvalue.boolean
-		end
-
-	boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): BOOLEAN is
-			-- the boolean property with `a_parameter_specification'. This
-			-- feature is faster than the plain `boolean_property'
-			-- because the latter retrieves the parameter specification
-			-- from the name given. Storing the specification in a once
-			-- feature hasten property retrieving.
-
-			-- TODO: I'm unsure but I suspect that this feature still has
-			-- sub-optimal performance because it still creates a new
-			-- G_VALUE each time. I would help if G_VALUE is expanded and
-			-- holds the actual GValue C structure like an expanded
-			-- feature. This way the G_VALUE would be created on the
-			-- stack, obtaining better performances.
-
-			-- Note: the previous TODO should have been implemented in
-			-- may 2007
-		require
-			specification_not_void: a_parameter_specification /= Void
-		do
-			hidden_gvalue.turn_to_boolean
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
 			Result := hidden_gvalue.boolean
 		end
 
@@ -846,6 +794,99 @@ feature -- enum property
 			Result:=hidden_gvalue.integer
 		end
 
+feature {} -- Getting properties from a parameter specification
+	-- These features retrieve a property from `a_parameter_specification'. This
+	-- is faster than the features that ask for the property name because the
+	-- they must nevertheless retrieve the parameter specification from the name
+	-- given. Storing the specification in a once feature hasten property
+	-- retrieving.
+
+	string_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): STRING is
+			-- the STRING property with `a_parameter_specification'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			string_property: a_parameter_specification.is_string
+		do
+			hidden_gvalue.turn_to_string
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
+			Result := hidden_gvalue.string
+		end
+
+	integer_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): INTEGER is
+			-- the integer property with `a_parameter_specification'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			integer_property: a_parameter_specification.is_integer
+		do
+			hidden_gvalue.turn_to_integer
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
+			Result := hidden_gvalue.integer
+		end
+	
+
+	real_32_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_32 is
+			-- the float/real32 property with `a_parameter_specification'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			real_32_property: a_parameter_specification.is_real_32
+		do
+			hidden_gvalue.turn_to_real_32
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
+			Result := hidden_gvalue.real_32
+		end
+	
+	float_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_32 is
+		obsolete "Use real_32_property_from_pspec"
+		do
+			Result := real_32_property_from_pspec(a_parameter_specification)
+		end
+	
+	boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): BOOLEAN is
+			-- the boolean property with `a_parameter_specification'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			boolean_parameter: a_parameter_specification.is_boolean
+		do
+			hidden_gvalue.turn_to_boolean
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
+			Result := hidden_gvalue.boolean
+		end
+
+	enum_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): INTEGER is
+			-- the float/real32 property with `a_parameter_specification'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			enum_property: a_parameter_specification.is_enum
+		do
+			hidden_gvalue.turn_to_enum
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
+			Result := hidden_gvalue.enum
+		end
+
+	object_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): POINTER is
+			-- the object property with `a_parameter_specification'. The result is
+			-- a pointer to allow the creation of an arbitrary wrapper.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			object_property: a_parameter_specification.is_object
+		do
+			hidden_gvalue.turn_to_object
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
+			Result := hidden_gvalue.object
+		end
+	
 feature {} -- Unwrapped API
 --    ----------------------------------------------------------------------------------------------------------------
 

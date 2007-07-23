@@ -22,9 +22,9 @@ insert
 creation
 	make, from_external_pointer, with_gtype,
 	make_boolean, make_integer, make_natural, make_real, make_real_32,
-	make_string, make_object, make_pointer,
-	from_boolean, from_integer, from_natural, from_real, from_string,
-	from_object, from_pointer
+	make_enum, make_string, make_object, make_pointer,
+	from_boolean, from_integer, from_natural, from_real, from_enum,
+	from_string, from_object, from_pointer
 
 feature {} -- Creation
 
@@ -95,6 +95,13 @@ feature {} -- Creation
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
 		ensure is_real: is_real
+		end
+
+	make_enum is
+			-- create a new enumeration G_VALUE
+		do
+			handle := g_value_init (malloc_g_value, g_type_enum)
+		ensure is_enum: is_enum
 		end
 
 	make_string is
@@ -174,6 +181,16 @@ feature {} -- Creation
 		ensure
 			is_real_32: is_real_32
 			value_set: real_32 = a_real_32
+		end
+
+	from_enum (an_enumeration: INTEGER) is
+			-- create a new enumeration G_VALUE
+		do
+			handle := g_value_init (malloc_g_value, g_type_enum)
+			set_enum (an_enumeration)
+		ensure
+			is_enum: is_enum
+			value_set: an_enumeration=enum
 		end
 
 	from_string (a_string: STRING) is
@@ -310,7 +327,6 @@ feature {ANY} -- Natural
 		end
 
 feature {ANY} -- Real
-
 	is_real: BOOLEAN is
 			-- Is current value a real? Note: REAL is mapped to C double
 		do
@@ -334,7 +350,6 @@ feature {ANY} -- Real
 		end
 
 feature {ANY} -- Real_32
-
 	is_real_32: BOOLEAN is
 			-- Is current value a REAL_32? Note: REAL is mapped to C float
 		do
@@ -357,8 +372,49 @@ feature {ANY} -- Real_32
 			g_value_set_float (handle, a_value)
 		end
 
-feature {ANY} -- Character
+feature {ANY} -- Enumeration
+	is_enum: BOOLEAN is
+		do
+			Result:=g_value_holds_enum (handle).to_boolean
+		end
 
+	set_enum (a_value: INTEGER) is
+		require
+			is_enum: is_enum
+		do
+			g_value_set_enum (handle, a_value)
+		ensure set: enum=a_value
+		end
+	
+	enum: INTEGER is
+		require
+			is_enum: is_enum
+		do
+			Result:=g_value_get_enum (handle)
+		end
+
+feature {ANY} -- Flags
+	is_flags: BOOLEAN is
+		do
+			Result:=g_value_holds_flags(handle).to_boolean
+		end
+
+	set_flags (a_value: INTEGER) is
+		require
+			is_flags: is_flags
+			natural_value: a_value>=0
+		do
+			g_value_set_flags (handle, a_value)
+		ensure set: a_value=flags
+		end
+
+	flags: INTEGER is
+		do
+			Result:=g_value_get_flags (handle)
+		ensure positive: Result>=0
+		end
+
+feature {ANY} -- Character
 	is_character: BOOLEAN is
 			-- Is current value a character?
 		do
@@ -382,7 +438,6 @@ feature {ANY} -- Character
 		end
 
 feature {ANY} -- String
-
 	is_string: BOOLEAN is
 			-- Is current value a string?
 		do
@@ -390,8 +445,7 @@ feature {ANY} -- String
 		end
 
 	string: STRING is
-			-- If current value is an string, returns it.
-			-- Note that a gvalue might be holding a NULL string
+			-- The current string value. Can be Void
 		require
 			is_string: is_string
 		local
@@ -413,7 +467,6 @@ feature {ANY} -- String
 		end
 
 feature {ANY} -- Object
-
 	is_object: BOOLEAN is
 			-- Is current value an object?
 		do
@@ -421,7 +474,7 @@ feature {ANY} -- Object
 		end
 
 	object: POINTER is
-			-- If current value is an string, returns it.
+			-- If current value is an object, returns it.
 		require
 			is_object: is_object
 		do
@@ -438,7 +491,6 @@ feature {ANY} -- Object
 		end
 
 feature {ANY} -- Pointer
-
 	is_pointer: BOOLEAN is
 			-- Is current value a pointer?
 		do
@@ -506,6 +558,22 @@ feature {G_OBJECT} -- Type changing features
 		ensure is_real_32: is_real_32
 		end
 
+	turn_to_enum is
+			-- Reset Current and make it an enumeration value
+		do
+			g_value_unset (handle)
+			handle := g_value_init (handle, g_type_enum)
+		ensure is_enum: is_enum
+		end
+
+	turn_to_object is
+			-- Reset Current and make it an object value
+		do
+			g_value_unset (handle)
+			handle := g_value_init (handle, g_type_object)
+		ensure is_object: is_object
+		end
+
 	turn_to_string is
 			-- Reset Current and make it a string value
 		do
@@ -521,7 +589,6 @@ feature
 		end
 
 feature {} -- Disposing
-
 	dispose is
 		do
 			if is_initialized then

@@ -393,6 +393,11 @@ feature -- TODO: G_PARAM_SPEC parameter
 feature -- TODO: G_BOXED parameter. Note: this require a wrapper for G_BOXED
 feature -- TODO: POINTER parameter. Note: is this really needed? Paolo 2006-06-28
 feature -- TODO: G_OBJECT parameter
+	is_object: BOOLEAN is
+			-- Is this a object parameter?
+		do
+			Result := g_is_param_spec_object (handle).to_boolean
+		end
 
 feature -- TODO: UNICODE CHARACTER parameter
 	

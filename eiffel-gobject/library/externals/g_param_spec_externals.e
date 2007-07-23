@@ -103,7 +103,7 @@ feature {} -- External calls
 		end
 
 
-	-- TODO: wrap in necessary access to GParamSpecClass struct
+	-- TODO: wrap access to GParamSpecClass struct
 	
 	-- typedef struct {
 	--   GTypeClass      g_type_class;
@@ -1233,11 +1233,11 @@ feature {} -- External calls for parameter specs of pointer type
 feature	{} -- TODO: Unwrapped code
 -- -- G_IS_PARAM_SPEC_OBJECT()
 
--- G_IS_PARAM_SPEC_OBJECT (a_pspec: POINTER) (G_TYPE_CHECK_INSTANCE_TYPE ((pspec), G_TYPE_PARAM_OBJECT)) is
---  external "C macro use <glib-object.h>"
---  alias "G_IS_PARAM_SPEC_OBJECT"
---  end
-
+	g_is_param_spec_object (a_pspec: POINTER): INTEGER is
+			-- G_IS_PARAM_SPEC_OBJECT (a_pspec: POINTER) (G_TYPE_CHECK_INSTANCE_TYPE ((pspec), G_TYPE_PARAM_OBJECT)) is
+		external "C macro use <glib-object.h>"
+		alias "G_IS_PARAM_SPEC_OBJECT"
+		end
 
 -- -- Returns whether the given GParamSpec is of type G_TYPE_PARAM_OBJECT.
 -- -- pspec : a valid GParamSpec instance
