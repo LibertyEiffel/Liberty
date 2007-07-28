@@ -108,18 +108,13 @@ feature
 		ensure set: a_style/=Void implies a_style.is_equal(tag_style(a_tag_id))
 		end
 
-	tag_default_style (a_tag_id: STRING): GTK_SOURCE
-	--
-	-- GtkSourceTagStyle*  gtk_source_language_get_tag_default_style
-	--                                                         (GtkSourceLanguage *language,
-	--                                                          const gchar *tag_id);
-	--
-	--   Gets the default style of the tag whose ID is tag_id.
-	--
-	--   language : a GtkSourceLanguage.
-	--   tag_id :   the ID of a GtkSourceTag.
-	--   Returns :  a GtkSourceTagStyle.
-	--
+	tag_default_style (a_tag_id: STRING): GTK_SOURCE_TAG_STYLE is
+			-- The default style of the tag whose ID is `a_tag_id'.
+		do
+			create Result.from_external_pointer(gtk_source_language_get_tag_default_style
+															(handle, a_tag_id.to_external))
+		ensure not_void: Result /= Void
+		end
 
 feature {} -- TODO: Signals
 	--  The "tag-style-changed" signal
@@ -132,7 +127,7 @@ feature {} -- TODO: Signals
 	--   arg1 :
 	--   user_data :      user data set when the signal handler was connected.
 
-feature -- size
+feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkSourceLanguage)"
@@ -158,43 +153,50 @@ feature {} -- External calls
 		end
 
 	gtk_source_language_get_escape_char (a_language: POINTER): like gunichar is
-			--  gunichar gtk_source_language_get_escape_char (GtkSourceLanguage *language);
+			-- gunichar gtk_source_language_get_escape_char (GtkSourceLanguage
+			-- *language);
 		external "C use <gtksourceview/gtksourcelanguage.h>"
 		end
 
- GSList* gtk_source_language_get_mime_types (a_language: POINTER) is
-			--  GSList* gtk_source_language_get_mime_types (GtkSourceLanguage *language);
+	gtk_source_language_get_mime_types (a_language: POINTER): POINTER is
+			-- GSList* gtk_source_language_get_mime_types (GtkSourceLanguage
+			-- *language);
 		external "C use <gtksourceview/gtksourcelanguage.h>"
 		end
 
- void gtk_source_language_set_mime_types (a_language: POINTER, const GSList *mime_types) is
-			--  void gtk_source_language_set_mime_types (GtkSourceLanguage *language, const GSList *mime_types);
+	gtk_source_language_set_mime_types (a_language, some_mime_types: POINTER) is
+			-- void gtk_source_language_set_mime_types (GtkSourceLanguage
+			-- *language, const GSList *mime_types);
 		external "C use <gtksourceview/gtksourcelanguage.h>"
 		end
 
- GtkSourceStyleScheme* gtk_source_language_get_style_scheme (a_language: POINTER) is
-			--  GtkSourceStyleScheme* gtk_source_language_get_style_scheme (GtkSourceLanguage *language);
+	gtk_source_language_get_style_scheme (a_language: POINTER): POINTER is
+			-- GtkSourceStyleScheme* gtk_source_language_get_style_scheme
+			-- (GtkSourceLanguage *language);
 		external "C use <gtksourceview/gtksourcelanguage.h>"
 		end
 
- void gtk_source_language_set_style_scheme (a_language: POINTER, GtkSourceStyleScheme *scheme) is
-			--  void gtk_source_language_set_style_scheme (GtkSourceLanguage *language, GtkSourceStyleScheme *scheme);
+	gtk_source_language_set_style_scheme (a_language, a_gtk_source_style_scheme: POINTER) is
+			-- void gtk_source_language_set_style_scheme (GtkSourceLanguage
+			-- *language, GtkSourceStyleScheme *scheme);
 		external "C use <gtksourceview/gtksourcelanguage.h>"
 		end
 
- GtkSourceTagStyle* gtk_source_language_get_tag_style (a_language: POINTER, const gchar *tag_id) is
-			--  GtkSourceTagStyle* gtk_source_language_get_tag_style (GtkSourceLanguage *language, const gchar *tag_id);
+	 gtk_source_language_get_tag_style (a_language, a_tag_id: POINTER): POINTER is
+			-- GtkSourceTagStyle* gtk_source_language_get_tag_style
+			-- (GtkSourceLanguage *language, const gchar *tag_id);
 		external "C use <gtksourceview/gtksourcelanguage.h>"
 		end
 
- void gtk_source_language_set_tag_style (a_language: POINTER, const gchar *tag_id, const GtkSourceTagStyle *style) is
-			--  void gtk_source_language_set_tag_style (GtkSourceLanguage *language, const gchar *tag_id, const GtkSourceTagStyle *style);
+	gtk_source_language_set_tag_style (a_language, a_tag_id, a_style: POINTER) is
+			-- void gtk_source_language_set_tag_style (GtkSourceLanguage *language,
+			-- const gchar *tag_id, const GtkSourceTagStyle *style);
 		external "C use <gtksourceview/gtksourcelanguage.h>"
 		end
 
- GtkSourceTagStyle* gtk_source_language_get_tag_default_style (a_language: POINTER, const gchar *tag_id) is
-			--  GtkSourceTagStyle* gtk_source_language_get_tag_default_style (GtkSourceLanguage *language, const gchar *tag_id);
+	gtk_source_language_get_tag_default_style (a_language, a_tag_id: POINTER): POINTER is
+			-- GtkSourceTagStyle* gtk_source_language_get_tag_default_style
+			-- (GtkSourceLanguage *language, const gchar *tag_id);
 		external "C use <gtksourceview/gtksourcelanguage.h>"
 		end
-
 end -- class GTK_SOURCE_LANGUAGE
