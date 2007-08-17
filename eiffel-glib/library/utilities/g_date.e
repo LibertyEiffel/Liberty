@@ -63,7 +63,8 @@ inherit
 		redefine
 			dispose,
 			compare,
-			infix "<"
+			infix "<",
+			is_equal
 		end
 	
 creation make_dmy, from_tuple
@@ -352,12 +353,12 @@ feature -- Date arithmetics
 
 	is_equal (another: like Current): BOOLEAN is
 		do
-			Result:=(compare(another)=0)
+			Result := (compare(another) = 0)
 		end
 	
-	infix "<"(another: like Current): BOOLEAN is
+	infix "<" (another: like Current): BOOLEAN is
 		do
-			Result:=(compare(another)<0)
+			Result := (compare(another) < 0)
 		end
 	
 	compare (another: like Current): INTEGER is
@@ -381,21 +382,23 @@ feature -- Date arithmetics
 			-- min_date : minimum accepted value for date. 
 			-- max_date : maximum accepted value for date.
 		require
-			valid_min: a_min/=Void implies a_min.is_valid
-			valid_max: a_max/=Void implies a_max.is_valid
-			valid_dates: (a_min=Void implies a_max/=Void) and
-							 (a_max=Void implies a_min/=Void)
-		local min_ptr, max_ptr: POINTER
+			valid_min: a_min /= Void implies a_min.is_valid
+			valid_max: a_max /= Void implies a_max.is_valid
+			valid_dates: (a_min = Void implies a_max /= Void) and
+							 (a_max = Void implies a_min /= Void)
+		local
+			min_ptr, max_ptr: POINTER
 		do
-			if a_min/=Void then min_ptr := a_min.handle end
-			if a_max/=Void then max_ptr := a_max.handle end
+			if a_min /= Void then min_ptr := a_min.handle end
+			if a_max /= Void then max_ptr := a_max.handle end
 			g_date_clamp (handle, min_ptr, max_ptr)
 		end
 
 	order (another: like Current) is
 			-- Checks if Current is less than or equal to `another', and swap the values if
 			-- this is not the case.
-		require valid_other: another /= Void
+		require
+			valid_other: another /= Void
 		do
 			g_date_order (handle, another.handle)
 		end

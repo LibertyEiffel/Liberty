@@ -392,10 +392,10 @@ feature -- Element number queries
 feature
 	faces: DICTIONARY[GTS_FACE,GTS_FACE] is
 		do
-			if cached_faces=Void then
+			if cached_faces = Void then
 				-- Note: the following if tense will be eliminated by the 
 				-- optimizer since 
-				if use_surface_btree=0 then
+				if use_surface_btree = 0 then
 					create {G_TREE[GTS_FACE,GTS_FACE]} cached_faces.from_external_pointer(get_faces_internal(handle))
 				else
 					create {G_HASH_TABLE[GTS_FACE,GTS_FACE]} cached_faces.from_external_pointer(get_faces_internal(handle))

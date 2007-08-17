@@ -350,7 +350,7 @@ feature {} -- External calls for advanced file operations
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
  
-	gnome_vfs_forget_cache (an_handle: POINTER; an_offset: like gnome_vfs_file_offset, a_size: gnome_vfs_file_size): INTEGER is
+	gnome_vfs_forget_cache (an_handle: POINTER; an_offset: like gnome_vfs_file_offset; a_size: gnome_vfs_file_size): INTEGER is
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 end -- class GNOME_VFS_FILE

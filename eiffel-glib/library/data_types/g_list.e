@@ -54,9 +54,6 @@ inherit
 			-- Note: a NULL pointer is the actual *valid* empty
 			-- G_LIST. Therefore any handle.is_not_null postcondition
 			-- shall be circumvented.
-		rename
-			exists as wrapped_object_exists
-			--	undefine fill_tagged_out_memory
 		redefine
 			copy, dispose
 		end

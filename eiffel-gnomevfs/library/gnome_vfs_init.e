@@ -59,7 +59,7 @@ feature -- SSL support
 	is_ssl_enabled: BOOLEAN is
 			-- Was gnome-vfs compiled with SSL support?				 
 		do
-			Result:=gnome_vfs_ssl_enable.to_boolean
+			Result := gnome_vfs_ssl_enabled.to_boolean
 		end
 
 feature {} -- External calls

@@ -23,7 +23,7 @@ class GNOME_VFS_DRIVE
 
 inherit G_OBJECT
 
-creation make, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 

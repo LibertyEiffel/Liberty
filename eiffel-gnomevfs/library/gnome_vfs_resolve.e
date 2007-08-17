@@ -62,10 +62,12 @@ feature -- Iterator features
 			Result := (item /= Void)
 		end
 
-	item: GNOME_VFS_ADDRESS is
+	item: GNOME_VFS_ADDRESS
 
 	next is
-		local an_address_ptr: POINTER; is_stored: BOOLEAN
+		local
+			an_address_ptr: POINTER
+			is_stored: BOOLEAN
 		do
 			is_stored := (gnome_vfs_resolve_next_address
 							  (handle, $an_address_ptr)).to_boolean

@@ -26,9 +26,11 @@ inherit
 		redefine
 			type, ref, unref
 		end
+
 	COMPARABLE
 		undefine
-			copy
+			copy,
+			is_equal
 		end
 	
 insert

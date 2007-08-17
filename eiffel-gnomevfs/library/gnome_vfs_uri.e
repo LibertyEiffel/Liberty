@@ -27,7 +27,12 @@ inherit
 			copy, 
 			is_equal 
 		end 
+
 	HASHABLE
+		undefine
+			copy,
+			is_equal
+		end
 
 insert GNOME_VFS_URI_HIDE_OPTIONS
 
@@ -113,7 +118,7 @@ feature {} -- Creation
 			-- URI.
 		require
 			uri_not_void: an_uri /= Void
-			path_not_void: a_path /= Void
+			filename_not_void: a_filename /= Void
 		do
 			from_external_pointer
 			(gnome_vfs_uri_append_file_name (an_uri.handle,

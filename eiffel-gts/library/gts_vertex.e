@@ -178,6 +178,7 @@ feature {} -- size
 		alias "sizeof(GtsVertex)"
 		end
 
+feature
 	fill_tagged_out_memory is
 		do
 			tagged_out_memory.append(once "(")
