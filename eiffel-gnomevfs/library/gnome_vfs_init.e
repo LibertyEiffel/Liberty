@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class GNOME_VFS
+deferred class GNOME_VFS_INIT
 	-- Starting GnomeVFS up and shutting it down. Usually when using
 	-- the whole GNOME framework this library is initialized and
 	-- shutdown automatically when calling gnome_init.

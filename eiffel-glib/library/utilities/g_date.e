@@ -62,7 +62,8 @@ inherit
 	COMPARABLE_SHARED_C_STRUCT
 		redefine
 			dispose,
-			compare
+			compare,
+			infix "<"
 		end
 	
 creation make_dmy, from_tuple

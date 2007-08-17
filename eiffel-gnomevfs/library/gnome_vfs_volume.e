@@ -27,6 +27,9 @@ inherit
 			type, ref, unref
 		end
 	COMPARABLE
+		undefine
+			copy
+		end
 	
 insert
 	GNOME_VFS_VOLUME_TYPE
@@ -38,7 +41,6 @@ feature -- Creation
 		do
 			Result:=gnome_vfs_volume_compare(handle,another.handle)
 		end
-
 	
 	eject is
 		-- TODO: document it; there is a "GnomeVFSVolumeOpCallback 

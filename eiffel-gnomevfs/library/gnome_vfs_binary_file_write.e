@@ -86,7 +86,8 @@ feature
 				else
 					debug
 						print ("GNOME_VFS_BINARY_FILE_WRITE: unhandled GnomeVFS error: ")
-						print (string_from(last_result) print ("%N")
+						print (string_from(last_result))
+						print ("%N")
 					end
 				end
 			end

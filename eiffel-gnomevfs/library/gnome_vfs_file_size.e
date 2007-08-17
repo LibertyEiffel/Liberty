@@ -84,6 +84,6 @@ feature {} -- External calls
 --  typedef     GnomeVFSFileSize;
 --  typedef     GnomeVFSFileOffset;
 invariant
-	file_size_is_64_bit: size_of_gnome_vfs_file_size=8
-	offset_is_64_bit size_of_gnome_vfs_file_offset=8
+	file_size_is_64_bit: size_of_gnome_vfs_file_size = 8
+	offset_is_64_bit: size_of_gnome_vfs_file_offset = 8
  end

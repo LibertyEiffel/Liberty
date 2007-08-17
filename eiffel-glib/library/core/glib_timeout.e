@@ -62,7 +62,7 @@ feature -- Operations
 		deferred
 		end
 
-feature {NONE} -- Internal
+feature {} -- Internal
 
 	event_id: INTEGER_32
 
@@ -72,7 +72,7 @@ feature {NONE} -- Internal
 			Result := enabled.to_integer
 		end
 
-feature {NONE} -- Externals
+feature {} -- Externals
 
 	g_timeout_add (interval: INTEGER_32; function, data: POINTER): INTEGER_32 is
 			-- Sets a `function' to be called at regular intervals, with the

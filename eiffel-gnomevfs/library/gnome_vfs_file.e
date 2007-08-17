@@ -187,7 +187,7 @@ feature -- Advanced File Operations
 	--    operation_data : data needed to execute the operation.
 	--    Returns :        an integer representing the success of the operation.
 
-	forget_cache (an_offset: like gnome_vfs_file_offset, a_size: like gnome_vfs_file_size) is
+	forget_cache (an_offset: like gnome_vfs_file_offset; a_size: like gnome_vfs_file_size) is
 			-- Announce to gnome-vfs that you will no longer use the
 			-- region of data starting at `an_offset' with `a_size'. Any
 			-- cached data for this region might then be freed.

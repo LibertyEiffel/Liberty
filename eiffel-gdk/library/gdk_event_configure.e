@@ -24,9 +24,9 @@ class GDK_EVENT_CONFIGURE
 	
 inherit SHARED_C_STRUCT redefine from_external_pointer end
 
-creation make, from_external_pointer
+creation from_external_pointer
 
-feature {} -- Creation
+feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 	from_external_pointer(a_pointer: POINTER) is
 		do
 			Precursor(a_pointer)
@@ -37,7 +37,7 @@ feature
 	type: INTEGER is
 			-- the type of the event (GDK_CONFIGURE).
 		do
-			Result:=get_type(handle)
+			Result := get_type(handle)
 		end
 
 	window: GDK_WINDOW is
@@ -81,7 +81,7 @@ feature
 		end
 
 feature {} -- Structure getter/setter calls
-  get_type (a_ptr: POINTER): GdkEventType is
+  get_type (a_ptr: POINTER): INTEGER is
 			-- GdkEventType type;
 		external "C struct GdkEventExpose get type use <gdk/gdk.h>"
 		end

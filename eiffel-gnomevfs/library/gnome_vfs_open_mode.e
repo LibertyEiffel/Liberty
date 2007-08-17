@@ -32,7 +32,7 @@ feature  -- enum
 									 gnome_vfs_open_read |
 									 gnome_vfs_open_write |
 									 gnome_vfs_open_random |
-									 gnome_vfs_open_truncat)).to_boolean
+									 gnome_vfs_open_truncate)).to_boolean
 		end
 
 	gnome_vfs_open_none: INTEGER is

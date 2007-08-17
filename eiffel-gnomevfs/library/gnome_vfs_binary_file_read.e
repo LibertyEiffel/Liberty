@@ -43,7 +43,8 @@ feature {} -- Buffering
 			else
 				debug
 					print ("GNOME_VFS_BINARY_FILE_READ: unhandled GnomeVFS error: ")
-					print (string_from(last_result) print ("%N")
+					print (string_from(last_result))
+					print ("%N")
 				end
 			end
 		end

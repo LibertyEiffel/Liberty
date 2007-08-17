@@ -45,7 +45,7 @@ class STRING_ARRAY
 inherit
 	COLLECTION [STRING]
 		redefine
-			swap, first_index_of, fast_first_index_of, reverse
+			swap
 		end
 
 insert WRAPPER_HANDLER -- only to get null_or_string
@@ -317,7 +317,7 @@ feature {ANY} -- Looking and Searching:
 			Result:=strings.first_index_of(element)
 		end
 
-	index_of (element: like item): INTEGER is
+	index_of (element: like item; start_index: INTEGER): INTEGER is
 		do
 			not_yet_implemented
 		end
@@ -332,7 +332,7 @@ feature {ANY} -- Looking and Searching:
 			not_yet_implemented
 		end
 
-	fast_index_of (element: like item): INTEGER is
+	fast_index_of (element: like item; start_index: INTEGER): INTEGER is
 		do
 			not_yet_implemented
 		end

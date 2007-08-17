@@ -157,12 +157,13 @@ feature
 			-- On the other hand, a file: URI for a UNC path looks like
 			-- file:////server/share/foo/bar.txt, and in that case the
 			-- part after file:// is the correct file name.
-		require valid_options: is_valid_uri_hide_option(some_options)
+		require
+			valid_options: is_valid_uri_hide_option(some_options)
 		do
-			create Result.from_external
-			(gnome_vfs_uri_to_string (handle, some_hide_options)
+			create Result.from_external(gnome_vfs_uri_to_string (handle, some_hide_options))
 			-- gnome_vfs_uri_to_string returns a malloc'd printable string representing uri.
-		ensure not_void: Result/=Void
+		ensure
+			not_void: Result /= Void
 		end
 
 	is_local: BOOLEAN is

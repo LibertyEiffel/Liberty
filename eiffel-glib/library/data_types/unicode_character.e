@@ -42,10 +42,10 @@ expanded class UNICODE_CHARACTER
 -- using it should be as compact and as fast like those using plain
 -- INTEGER_32.
 
-inherit WRAPPER_HANDLER
 
 insert
 	ANY
+	WRAPPER_HANDLER
 	GLIB_UNICODE_MANIPULATION_EXTERNALS
 	G_UNICODE_TYPE
 	G_UNICODE_BREAK_TYPE
