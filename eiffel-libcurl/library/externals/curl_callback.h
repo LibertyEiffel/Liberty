@@ -34,4 +34,12 @@ size_t WriteCallback (void *ptr, size_t size, size_t nmemb, CallbackClosure data
 
 size_t ReadCallback (void *ptr, size_t size, size_t nmemb, CallbackClosure data);
 
+typedef struct _ProgressCallbackClosure *ProgressCallbackClosure;
+
+ProgressCallbackClosure new_curl_progress_closure (void *C, void *f);
+
+ProgressCallbackClosure free_curl_progress_closure (CallbackClosure c);
+
+int ProgressCallback (void *ptr, double dltotal, double dlnow, double ultotal, double ulnow, ProgressCallbackClosure data);
+
 #endif

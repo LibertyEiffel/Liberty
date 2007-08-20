@@ -44,12 +44,34 @@ CallbackClosure free_curl_closure (CallbackClosure c) {
 
 size_t WriteCallback (void *ptr, size_t size, size_t nmemb, CallbackClosure data) {
 	assert (data != NULL && ptr != NULL);
-	//printf ("\nWriteCallback started Current %p, f %p, size %i, nmemb %i\n\n", data->Current,data->f, size, nmemb);
-    return (data->f)(data->Current, ptr, size, nmemb);
+	return (data->f)(data->Current, ptr, size, nmemb);
 }
 
 size_t ReadCallback (void *ptr, size_t size, size_t nmemb, CallbackClosure data) {
 	assert (data != NULL && ptr != NULL);
-	//printf ("\nReadCallback started: Current %p, f %p, size %i, nmemb %i\n\n", data->Current,data->f, size, nmemb);
-    return (data->f)(data->Current, ptr, size, nmemb);
+	return (data->f)(data->Current, ptr, size, nmemb);
+}
+
+typedef struct {
+    void *Current;
+    int (*f)(void *C, void *ptr, double dltotal, double dlnow, double ultotal, double ulnow);
+} *ProgressCallbackClosure;
+
+ProgressCallbackClosure new_curl_progress_closure (void *C, void *f) {
+    ProgressCallbackClosure result;
+    result = malloc (sizeof (*result));
+    result->Current = C;
+    result->f = f;
+    return result;
+}
+
+ProgressCallbackClosure free_curl_progress_closure (ProgressCallbackClosure c) {
+	free (c);
+	c = NULL;
+	return c;
+}
+
+int ProgressCallback (void *ptr, double dltotal, double dlnow, double ultotal, double ulnow, ProgressCallbackClosure data) {
+	assert (data != NULL && ptr != NULL);
+	return (data->f)(data->Current, ptr, dltotal, dlnow, ultotal, ulnow);
 }

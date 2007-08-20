@@ -91,6 +91,19 @@ feature {} -- Externals
 		alias "ReadCallback"
 		end
 
+	new_curl_progress_closure (c, f: POINTER): POINTER is
+		external "C use <curl_callback.h>"
+		end
+
+	free_curl_progress_closure (ptr: POINTER): POINTER is
+		external "C use <curl_callback.h>"
+		end
+
+	c_progress_callback: POINTER is
+		external "C macro use <curl_callback.h>"
+		alias "ProgressCallback"
+		end
+
 	curl_easy_setopt_pointer (curl: POINTER; opt: INTEGER; ptr: POINTER): INTEGER is
 			-- To set `char *', `void *', `FILE *', `struct curl_httppost *',
 			-- `struct curl_slist *', `struct Curl_share *'

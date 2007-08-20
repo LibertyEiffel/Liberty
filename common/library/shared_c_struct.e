@@ -121,11 +121,13 @@ feature {} -- Destroying
 			-- Action to be executed just before garbage collection reclaims an 
 			-- object; frees the memory pointed by `handle'
 		do
-			if not is_shared then
-				free (handle)
+			if is_not_null then
+				if not is_shared then
+					free (handle)
+				end
+				unstore_eiffel_wrapper
+				handle := default_pointer
 			end
-			unstore_eiffel_wrapper
-			handle:= default_pointer
 		ensure then
 			now_null: is_null
 		end

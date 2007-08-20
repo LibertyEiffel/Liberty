@@ -76,6 +76,15 @@ feature {} -- Creation
 			end
 			
 			if is_valid then
+				progress_callback_closure := new_curl_progress_closure (to_pointer, $progress_callback)
+				if progress_callback_closure.is_not_null then
+					error_code := curl_ok
+				else
+					error_code := curl_failed_init
+				end
+			end
+			
+			if is_valid then
 				error_code := curl_easy_setopt_pointer (handle, curl_option_write_function, c_write_callback)
 			end
 			if is_valid then
@@ -87,6 +96,12 @@ feature {} -- Creation
 			if is_valid then
 				error_code := curl_easy_setopt_pointer (handle, curl_option_read_data, read_callback_closure)
 			end
+			if is_valid then
+				error_code := curl_easy_setopt_pointer (handle, curl_option_progress_function, c_progress_callback)
+			end
+			if is_valid then
+				error_code := curl_easy_setopt_pointer (handle, curl_option_progress_data, progress_callback_closure)
+			end
 		ensure
 			memory_allocated: handle.is_not_null
 		end
@@ -97,6 +112,7 @@ feature {} -- Destruction
 		do
 			write_callback_closure := free_curl_closure (write_callback_closure)
 			read_callback_closure := free_curl_closure (read_callback_closure)
+			progress_callback_closure := free_curl_progress_closure (progress_callback_closure)
 			
 			curl_easy_cleanup (handle)
 			handle := default_pointer
@@ -124,10 +140,12 @@ feature -- Representation
 feature {} -- Representation
 
 	write_callback_closure: POINTER
-	read_callback_closure: POINTER
 
+	--typedef size_t (*curl_write_callback)(char *buffer,
+	--                                      size_t size,
+	--                                      size_t nitems,
+	--                                      void *outstream);
 	write_function: FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER]
-	read_function:  FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER]
 
 	write_callback (ptr: POINTER; size, nmemb: INTEGER): INTEGER is
 		require
@@ -141,6 +159,14 @@ feature {} -- Representation
 			Result := write_function.item ([array, size, nmemb])
 		end
 
+	read_callback_closure: POINTER
+
+	--typedef size_t (*curl_read_callback)(char *buffer,
+	--                                      size_t size,
+	--                                      size_t nitems,
+	--                                      void *instream);
+	read_function:  FUNCTION [ANY, TUPLE [NATIVE_ARRAY [CHARACTER], INTEGER, INTEGER], INTEGER]
+
 	read_callback (ptr: POINTER; size, nmemb: INTEGER): INTEGER is
 		require
 			ptr_not_null: ptr.is_not_null
@@ -151,6 +177,22 @@ feature {} -- Representation
 		do
 			array := array.from_pointer (ptr)
 			Result := read_function.item ([array, size, nmemb])
+		end
+
+	progress_callback_closure: POINTER
+
+	--typedef int (*curl_progress_callback)(void *clientp,
+	--                                      double dltotal,
+	--                                      double dlnow,
+	--                                      double ultotal,
+	--                                      double ulnow);
+	progress_function:  FUNCTION [ANY, TUPLE [POINTER, REAL, REAL, REAL, REAL], INTEGER]
+
+	progress_callback (ptr: POINTER; dltotal, dlnow, ultotal, ulnow: REAL): INTEGER is
+		require
+			progress_function /= Void
+		do
+			Result := progress_function.item ([ptr, dltotal, dlnow, ultotal, ulnow])
 		end
 
 feature -- Operations
@@ -174,6 +216,17 @@ feature -- Operations
 			error_code := curl_ok
 		ensure
 			read_function /= Void
+			is_valid
+		end
+
+	set_progress_callback (a_function: FUNCTION [ANY, TUPLE [POINTER, REAL, REAL, REAL, REAL], INTEGER]) is
+		require
+			a_function /= Void
+		do
+			progress_function := a_function
+			error_code := curl_ok
+		ensure
+			progress_function /= Void
 			is_valid
 		end
 
@@ -289,14 +342,6 @@ feature -- set_option_xxx (option: INTEGER; x: XXX)
 		do
 			error_code := curl_easy_setopt_pointer (handle, option, default_pointer)
 		end
-
---	set_option_callback (option: INTEGER; callback: ??) is
---		require
---			is_valid_curl_option (option)
---			callback /= Void
---		do
---			error_code := curl_easy_setopt_pointer (handle, option, $callback)
---		end
 
 feature -- get_info_XXX (info: INTEGER): XXX
 

@@ -94,6 +94,7 @@ feature
 		do
 			pango_attr_list_insert (handle, an_attribute.handle)
 			an_attribute.set_shared
+			an_attribute.dispose -- detach Eiffel object from C object 
 		end
 
 	insert_before (an_attribute: PANGO_ATTRIBUTE) is
@@ -109,6 +110,7 @@ feature
 		do
 			pango_attr_list_insert_before (handle, an_attribute.handle)
 			an_attribute.set_shared
+			an_attribute.dispose -- detach Eiffel object from C object
 		end
 
 	change  (an_attribute: PANGO_ATTRIBUTE) is
@@ -131,6 +133,7 @@ feature
 		do
 			pango_attr_list_change (handle, an_attribute.handle)
 			an_attribute.set_shared
+			an_attribute.dispose -- detach Eiffel object from C object
 		end
 
 	splice (another: PANGO_ATTR_LIST; a_position, a_length: INTEGER) is

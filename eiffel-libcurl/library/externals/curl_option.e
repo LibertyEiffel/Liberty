@@ -634,22 +634,24 @@ feature {} -- BEHAVIOR OPTIONS
 		alias "CURLOPT_VERBOSE"
 		end
 
-			-- CURLOPT_HEADER
-			-- 
+	curl_option_header: INTEGER is
 			-- A non-zero parameter tells the library to include the header in the body
 			-- output. This is only relevant for protocols that actually have headers
 			-- preceding the data (like HTTP).
-			-- 
-			-- CURLOPT_NOPROGRESS
-			-- 
+		external "C macro use <curl/curl.h>"
+		alias "CURLOPT_HEADER"
+		end
+
+	curl_option_no_progress: INTEGER is
 			-- A non-zero parameter tells the library to shut off the built-in progress
 			-- meter completely.
-			-- 
 			-- Future versions of libcurl is likely to not have any built-in progress
 			-- meter at all.
-			-- 
-			-- CURLOPT_NOSIGNAL
-			-- 
+		external "C macro use <curl/curl.h>"
+		alias "CURLOPT_NOPROGRESS"
+		end
+
+	curl_option_no_signal: INTEGER is
 			-- Pass a long. If it is non-zero, libcurl will not use any functions that
 			-- install signal handlers or any functions that cause signals to be sent
 			-- to the process. This option is mainly here to allow multi-threaded unix
@@ -658,12 +660,15 @@ feature {} -- BEHAVIOR OPTIONS
 			-- 
 			-- Consider building libcurl with ares support to enable asynchronous DNS
 			-- lookups. It enables nice timeouts for name resolves without signals.
+		external "C macro use <curl/curl.h>"
+		alias "CURLOPT_NOSIGNAL"
+		end
 
 feature {} -- CALLBACK OPTIONS
 
 	curl_option_write_function: INTEGER is
 			-- Function pointer that should match the following prototype:
-			-- `size_t function( void *ptr, size_t size, size_t nmemb, void *stream);'
+			-- `size_t function(void *ptr, size_t size, size_t nmemb, void *stream);'
 			-- This function gets called by libcurl as soon as there is data received
 			-- that needs to be saved. The size of the data pointed to by ptr is size
 			-- multiplied with nmemb, it will not be zero terminated. Return the number
@@ -710,7 +715,7 @@ feature {} -- CALLBACK OPTIONS
 
 	curl_option_read_function: INTEGER is
 			-- Function pointer that should match the following prototype:
-			-- `size_t function( void *ptr, size_t size, size_t nmemb, void *stream);'
+			-- `size_t function(void *ptr, size_t size, size_t nmemb, void *stream);'
 			-- This function gets called by libcurl as soon as it needs to read data in
 			-- order to send it to the peer. The data area pointed at by the pointer
 			-- ptr may be filled with at most size multiplied with nmemb number of
@@ -764,7 +769,7 @@ feature {} -- CALLBACK OPTIONS
 			-- Pass a pointer that will be untouched by libcurl and passed as the 3rd
 			-- argument in the ioctl callback set with CURLOPT_IOCTLFUNCTION. (Option
 			-- added in 7.12.3)
-			-- 
+
 			-- CURLOPT_SOCKOPTFUNCTION
 			-- 
 			-- Function pointer that should match the curl_sockopt_callback prototype
@@ -786,11 +791,12 @@ feature {} -- CALLBACK OPTIONS
 			-- argument in the sockopt callback set with CURLOPT_SOCKOPTFUNCTION.
 			-- (Option added in 7.15.6.)
 			-- 
-			-- CURLOPT_PROGRESSFUNCTION
-			-- 
-			-- Function pointer that should match the curl_progress_callback prototype
-			-- found in <curl/curl.h>. This function gets called by libcurl instead of
-			-- its internal equivalent with a frequent interval during operation
+
+	curl_option_progress_function: INTEGER is
+			-- Function pointer that should match the following protype:
+			-- `int curl_progress_callback(void *clientp, double dltotal, double dlnow, double ultotal, double ulnow);'
+			-- This function gets called by libcurl instead of its internal
+			-- equivalent with a frequent interval during operation
 			-- (roughly once per second) no matter if data is being transfered or not.
 			-- Unknown/unused argument values passed to the callback will be set to
 			-- zero (like if you only download data, the upload size will remain 0).
@@ -802,15 +808,20 @@ feature {} -- CALLBACK OPTIONS
 			-- libcurl function that performs transfers. Usage of the
 			-- CURLOPT_PROGRESSFUNCTION callback is not recommended when using the
 			-- multi interface.
-			-- 
 			-- CURLOPT_NOPROGRESS must be set to FALSE to make this function actually
 			-- get called.
-			-- 
-			-- CURLOPT_PROGRESSDATA
-			-- 
+
+		external "C macro use <curl/curl.h>"
+		alias "CURLOPT_PROGRESSFUNCTION"
+		end
+
+	curl_option_progress_data: INTEGER is
 			-- Pass a pointer that will be untouched by libcurl and passed as the first
 			-- argument in the progress callback set with CURLOPT_PROGRESSFUNCTION.
-			-- 
+		external "C macro use <curl/curl.h>"
+		alias "CURLOPT_PROGRESSDATA"
+		end
+
 			-- CURLOPT_HEADERFUNCTION
 			-- 
 			-- Function pointer that should match the following prototype: size_t
@@ -833,7 +844,7 @@ feature {} -- CALLBACK OPTIONS
 			-- and not an ordinary header: 1) it comes after the response-body. 2) it
 			-- comes after the final header line (CR LF) 3) a Trailer: header among the
 			-- response-headers mention what header to expect in the trailer.
-			-- 
+
 			-- CURLOPT_WRITEHEADER
 			-- 
 			-- (This option is also known as CURLOPT_HEADERDATA) Pass a pointer to be
@@ -841,11 +852,11 @@ feature {} -- CALLBACK OPTIONS
 			-- your own callback to take care of the writing, this must be a valid FILE
 			-- *. See also the CURLOPT_HEADERFUNCTION option above on how to set a
 			-- custom get-all-headers callback.
-			-- 
+
 			-- CURLOPT_DEBUGFUNCTION
 			-- 
-			-- Function pointer that should match the following prototype: int
-			-- curl_debug_callback (CURL *, curl_infotype, char *, size_t, void *);
+			-- Function pointer that should match the following prototype:
+			-- `int	curl_debug_callback(CURL *, curl_infotype, char *, size_t, void *);'
 			-- CURLOPT_DEBUGFUNCTION replaces the standard debug function used when
 			-- CURLOPT_VERBOSE is in effect. This callback receives debug information,
 			-- as specified with the curl_infotype argument. This function must return

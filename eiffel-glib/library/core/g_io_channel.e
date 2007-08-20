@@ -111,6 +111,7 @@ feature {} -- Memory handling
 		do
 			g_io_channel_unref (handle)
 			handle := default_pointer
+			watch_list := Void
 		end
 
 feature -- Access
@@ -139,6 +140,10 @@ feature -- Operations
 			callback: G_IO_FUNC
 		do
 			create callback.make (Current, action)
+			if watch_list = Void then
+				create watch_list.make (0)
+			end
+			watch_list.add_last (callback)
 			last_event_source := g_io_add_watch (handle, condition, callback.function, callback.data)
 		end
 
@@ -787,6 +792,11 @@ feature -- Operations
 -- gtk_input_add_full(), gtk_input_remove(), gdk_input_add(), gdk_input_add_full(), gdk_input_remove() 	
 
 -- Convenience functions for creating GIOChannel instances and adding them to the main event loop.
+
+feature {} -- Internal
+
+	watch_list: FAST_ARRAY [G_IO_FUNC]
+		-- We keep g_io_funcs here, to save them from the GC
 
 feature {} -- Externals
 

@@ -31,6 +31,8 @@ class PANGO_ATTRIBUTE
 
 inherit
 	SHARED_C_STRUCT
+		export
+			{PANGO_ATTR_LIST} dispose
 		redefine
 			copy,
 			is_equal,

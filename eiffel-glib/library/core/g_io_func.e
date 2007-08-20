@@ -39,7 +39,7 @@ feature {} -- Internal
 
 	call (ch: POINTER; condition: INTEGER): BOOLEAN is
 		do
-			-- We ignore the passed channel, it should `channel'
+			-- We ignore the passed channel, it should be `channel'
 				check channel.handle = ch end
 			Result := action.item ([channel, condition])
 		end
