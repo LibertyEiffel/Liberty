@@ -262,32 +262,33 @@ feature -- Style Properties
 			Result:=integer_property(right_margin_overlay_alpha_property_name)
 		ensure valid: Result.in_range(0,255)
 		end
-	--
-	--  The "right_margin_overlay_color" style property
-	--
-	--   "right_margin_overlay_color" GdkColor              : Read
-	--
-	--   The ::right_margin_overlay_color property contains the color with which
-	--   the right margin overlay will be drawn. Setting this property will only
-	--   have an effect if ::right_margin_overlay_toggle is TRUE.
-	--
-	--   Since 1.6
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  The "right_margin_overlay_toggle" style property
-	--
-	--   "right_margin_overlay_toggle" gchararray            : Read
-	--
-	--   The ::right_margin_overlay_toggle property determines whether the widget
-	--   will draw a transparent overlay on top of the area on the right side of
-	--   the right margin line. On some systems, this has a noticable performance
-	--   impact, so this property is FALSE by default.
-	--
-	--   Default value: "FALSE"
-	--
-	--   Since 1.6
-	--
+	
+	right_margin_overlay_color: GDK_COLOR is
+			-- The color with which the right margin overlay will be
+			-- drawn. This property will have an effect if only
+			-- is_right_margin_overlay_toggled is True.
+		do
+			create Result.from_external_pointer
+			(property(right_margin_overlay_color_property_name).pointer)
+		ensure not_void: Result/=Void
+		end
+
+	is_right_margin_overlay_toggle: BOOLEAN is
+			-- The ::right_margin_overlay_toggle property determines
+			-- whether the widget will draw a transparent overlay on top
+			-- of the area on the right side of the right margin line. On
+			-- some systems, this has a noticable performance impact, so
+			-- this property is FALSE by default.
+
+			-- Default value: "FALSE"
+
+			-- Note: the documentation of the C library says that this
+			-- property is actually an array of (8 bit) characters. This
+			-- is quite strange for a property.
+		do
+			Result:=boolean_property(right_margin_overlay_toggle_property_name)
+		end
+ 
 feature {} -- Style properties labels
 	right_margin_line_alpha_property_name: STRING is "right-margin-line-alpha"
 	right_margin_line_color_property_name: STRING is "right-margin-line-color"
@@ -296,12 +297,9 @@ feature {} -- Style properties labels
 	right_margin_overlay_toggle_property_name: STRING is "right-margin-overlay-toggle"
 
 feature -- Signals
-	--
-	--
 	--   "redo"                                           : Run Last / Action
 	--   "undo"                                           : Run Last / Action
-	--Signal Details
-	--
+
 	--  The "redo" signal
 	--
 	-- void                user_function                      (GtkSourceView *sourceview,

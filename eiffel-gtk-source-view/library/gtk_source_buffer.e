@@ -396,7 +396,7 @@ feature -- Markers
 		end
 
 feature {} -- TODO: Signals
-1	--   "can-redo"                                       : Run Last
+	--   "can-redo"                                       : Run Last
 	--   "can-undo"                                       : Run Last
 	--   "highlight-updated"                              : Run Last
 	--   "marker-updated"                                 : Run Last
