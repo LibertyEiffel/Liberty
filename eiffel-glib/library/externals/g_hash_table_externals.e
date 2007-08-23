@@ -16,7 +16,6 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-
 	g_hash_table_new_full (a_hash_func, a_key_equal_func, a_key_destroy_func, a_value_destroy_func: POINTER): POINTER is
 			-- GHashTable* g_hash_table_new_full (GHashFunc hash_func,
 			-- GEqualFunc key_equal_func, GDestroyNotify
@@ -40,19 +39,16 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-
 	g_hash_table_size (an_hash_table: POINTER): INTEGER is
 			-- guint g_hash_table_size (GHashTable *hash_table);
 			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
 	
-
 	g_hash_table_lookup (an_hash_table, a_key: POINTER): POINTER is
 			-- gpointer g_hash_table_lookup (GHashTable *hash_table, gconstpointer key);
 		external "C use <glib.h>"
 		end
-	
 
 	g_hash_table_lookup_extended (an_hash_table, a_lookup_key, an_orig_key, a_value: POINTER): INTEGER is
 			-- gboolean g_hash_table_lookup_extended (GHashTable
@@ -61,13 +57,12 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
-	
 	g_hash_table_foreach (an_hash_table, a_func, a_user_data: POINTER) is
 			-- void g_hash_table_foreach (GHashTable *hash_table, GHFunc
 			-- func, gpointer user_data);
 		external "C use <glib.h>"
 		end
-	
+
 
 	g_hash_table_find (an_hash_table, a_predicate, a_user_data: POINTER): POINTER is
 			-- gpointer g_hash_table_find (GHashTable *hash_table,
@@ -93,7 +88,7 @@ feature {} -- External calls
 			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
-	
+
 
 	g_hash_table_foreach_steal (an_hash_table, a_func, a_user_data: POINTER): INTEGER is
 			-- guint g_hash_table_foreach_steal (GHashTable *hash_table,
@@ -101,12 +96,31 @@ feature {} -- External calls
 			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
-	
+
+	g_hash_table_remove_all (a_hash_table: POINTER) is
+			-- void g_hash_table_remove_all (GHashTable *hash_table);
+		external "C use <glib.h>"
+		end
+
+	g_hash_table_steal_all (a_hash_table: POINTER) is
+			-- void g_hash_table_steal_all (GHashTable *hash_table);
+		external "C use <glib.h>"
+		end
 
 	-- gboolean (*GHRFunc) (gpointer key, gpointer value, gpointer user_data);
 	
 	g_hash_table_destroy (an_hash_table: POINTER) is
 			-- void g_hash_table_destroy (GHashTable *hash_table);
+		external "C use <glib.h>"
+		end
+	
+	g_hash_table_ref (a_hash_table: POINTER): POINTER is
+			-- GHashTable* g_hash_table_ref (GHashTable *hash_table);
+		external "C use <glib.h>"
+		end
+	
+	g_hash_table_unref (a_hash_table: POINTER) is
+			-- void g_hash_table_unref (GHashTable *hash_table);
 		external "C use <glib.h>"
 		end
 	
@@ -121,13 +135,13 @@ feature {} -- External calls
 			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
-	
+
 
 	g_int_equal (v1, v2: POINTER): INTEGER is
 			-- gboolean g_int_equal (gconstpointer v1, gconstpointer v2);
 		external "C use <glib.h>"
 		end
-	
+
 
 	g_int_hash (v: POINTER): INTEGER is
 			-- guint g_int_hash (gconstpointer v);
@@ -136,16 +150,16 @@ feature {} -- External calls
 		end
 	
 	
-	g_str_equal (v1, v2: POINTE): INTEGER is
+	g_str_equal (v1, v2: POINTER): INTEGER is
 			-- gboolean g_str_equal (gconstpointer v1, gconstpointer v2);
 		external "C use <glib.h>"
 		end
-	
 
-	g_str_hash (v: POINTE): INTEGER is
+
+	g_str_hash (v: POINTER): INTEGER is
 			-- guint g_str_hash (gconstpointer v);
 			-- TODO: Result should be NATURAL
 		external "C use <glib.h>"
 		end
-	
+
 end

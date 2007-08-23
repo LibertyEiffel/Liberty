@@ -30,7 +30,7 @@ insert
 creation {ANY}
 	make, copy, make_empty, from_string
 	
-feature {C_HANDLE, G_STRING}
+feature {WRAPPER_HANDLER, G_STRING}
 
 	c_string: POINTER is
 			-- Pointer to the str field of GString structure pointed by

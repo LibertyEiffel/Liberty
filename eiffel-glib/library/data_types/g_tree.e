@@ -20,61 +20,33 @@ indexing
 			]"
    license: "LGPL v2 or later"
 
-class G_TREE [KEY->COMPARABLE_SHARED_C_STRUCT, VALUE->SHARED_C_STRUCT]
-	-- The GTree structure and its associated functions provide a
-	-- sorted collection of key/value pairs optimized for searching and
-	-- traversing in order.
-
-	-- To create a new GTree use make.
-	
-	-- To insert a key/value pair into a GTree use `insert_value'.
-
-	-- To lookup the value corresponding to a given key, use `lookup' and
-	-- `lookup_extended'.
-	
-	-- To find out the number of nodes in a GTree, use `count'. To get
-	-- the height of a GTree, use `height'.
-	
-	-- To traverse a GTree, calling a function for each node visited in
-	-- the traversal, use foreach.
-
-	-- To remove a key/value pair use `remove'.
+class G_TREE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
+	-- A sorted collection of key/value pairs optimized for searching
+	-- and traversing in order.
 
 inherit
+	DICTIONARY[VALUE, KEY]
+		undefine
+			is_equal, copy -- using the definition given by SHARED_C_STRUCT
+		redefine
+			get_new_iterator_on_items,
+			manifest_make,
+			do_all, for_all, exists
+		end
+
 	SHARED_C_STRUCT redefine dispose end
-	
-	WRAPPER_FACTORY[KEY]
-		-- Note: G_TREE must be an effective heir of
-		-- WRAPPER_FACTORY. This is needed because the companion
-		-- G_COMPARE_DATA_CALLBACK (`comparator') will need a factory to
-		-- create a wrapper for unwrapped C objects. 
 	
 insert
 	G_TREE_EXTERNALS
 		--	GLIB_TYPE_CONVERSION_MACROS -- Temporary
 	
-	
-creation make, from_external_pointer
+creation with_comparer, from_external_pointer
 
 feature {} -- Creation
-	make (a_compare_function: FUNCTION[ANY,TUPLE[COMPARABLE_SHARED_C_STRUCT,COMPARABLE_SHARED_C_STRUCT],INTEGER]) is
+	with_comparer (a_compare_function: FUNCTION[ANY,TUPLE[KEY,KEY],INTEGER]) is
 			-- Creates a new GTree.
-
-			-- key_compare_func : the function used to order the nodes in
-			-- the GTree. It should return values similar to the standard
-			-- strcmp() function - 0 if the two arguments are equal, a
-			-- negative value if the first argument comes before the
-			-- second, or a positive value if the first argument comes
-			-- after the second.
-
-			-- Creates a new GTree with a comparison function that
-			-- accepts user data. See g_tree_new() for more details.
-		
-			-- key_compare_func : 	qsort()-style comparison function.
-			-- key_compare_data : 	data to pass to comparison function.
-			-- Returns : 	a new GTree.
 		do
-			create comparator.make (Current, a_compare_function)
+			create comparator.make (a_compare_function)
 			from_external_pointer(g_tree_new_with_data
 										 (comparator.callback_address, comparator.to_pointer))
 		end
@@ -95,78 +67,38 @@ feature {} -- Creation
 	-- value_destroy_func : 	a function to free the memory allocated for the value used when removing the entry from the GTree or NULL if you don't want to supply such a function.
 	-- Returns : 	a new GTree.
 
-feature
-	insert_value (a_key: KEY; a_value: VALUE) is
-			-- Inserts a key/value pair into a GTree. If `a_key' already
-			-- exists in the GTree its corresponding value is set to new
-			-- `a_value'.
-
-			-- TODO: Eiffelize this: If you supplied a value_destroy_func
-			-- when creating the GTree, the old value is freed using that
-			-- function. If you supplied a key_destroy_func when creating
-			-- the GTree, the passed key is freed using that function.
-
-			-- The tree is automatically 'balanced' as new key/value
-			-- pairs are added, so that the distance from the root to
-			-- every leaf is as small as possible.
-
-			-- tree : 	a GTree.
-			-- key : 	the key to insert.
-			-- value : 	the value corresponding to the key.
-		require
-			key_not_void: a_key/=Void
-			value_not_void: a_value/=Void
-		do
-			g_tree_insert(handle, a_key.handle, a_value.handle);
-		end
-
-	replace (a_key: KEY; a_value: VALUE) is
-			-- Inserts `a_key' and `a_value' into a GTree similar to
-			-- `insert_value'. The difference is that if `a_key' already
-			-- exists in the GTree, it gets replaced by the new key. If
-			-- you supplied a value_destroy_func when creating the GTree,
-			-- the old value is freed using that function. If you
-			-- supplied a key_destroy_func when creating the GTree, the
-			-- old key is freed using that function.
-
-			-- The tree is automatically 'balanced' as new key/value
-			-- pairs are added, so that the distance from the root to
-			-- every leaf is as small as possible.
-		require
-			key_not_void: a_key/=Void
-			value_not_void: a_value/=Void
-		do
-			g_tree_replace(handle,a_key.handle,a_value.handle)
-		end
-
-	count: INTEGER is
-			-- the number of nodes in the GTree.
-		do
-			Result:=g_tree_nnodes(handle)
-		end
-
-	height: INTEGER is
-			-- The height of a GTree.
-		
-			-- If the GTree contains no nodes, the height is 0. If the GTree contains only one root node the height is 1. If the root node has children the height is 2, etc.
-		
-			-- tree : 	a GTree.
-			-- Returns : 	the height of the GTree.
-		do
-			Result:=g_tree_height(handle)
-		end
-
+feature {ANY} -- Basic access:
 	has (a_key: KEY): BOOLEAN is
+			-- Is there a value currently associated with `a_key'?
+			-- 
+			-- See also `fast_has', `at'.
 		do
+			if (g_tree_lookup (handle,a_key.handle)).is_not_null then
+				Result:=True
+			else
+				check default_result: Result=False end
+			end
 		end
-	
-	lookup (a_key: KEY): VALUE is
+
+	at (a_key: KEY): VALUE is
+			-- Return the value associated to `a_key'.
+			--
+			-- See also `fast_at', `reference_at', `has'.
+		local p: POINTER; r: WRAPPER_RETRIEVER[VALUE]
+		do
+			p:=g_tree_lookup(handle, a_key.handle)
+			check require_has_key_implies_result_pointer_not_null:
+				p.is_not_null 
+			end
+			Result:=r.item_from(p)
+		end
+
+	reference_at (a_key: KEY): VALUE is
 			-- the value corresponding to `a_key'. Since a GTree is
 			-- automatically balanced as key/value pairs are added, key
 			-- lookup is very fast.
 		
 			-- Void if `a_key' was not found.
-		require key_not_void: a_key/=Void
 		local p: POINTER; r: WRAPPER_RETRIEVER[VALUE]
 		do
 			p:=g_tree_lookup(handle, a_key.handle)
@@ -174,56 +106,221 @@ feature
 				Result:=r.item_from(p)
 			end
 		end
-	
-	-- TODO: it is necessary to wrap g_tree_lookup_extended ?
-	
-	-- gboolean g_tree_lookup_extended (GTree *tree, gconstpointer
-	-- lookup_key, gpointer *orig_key, gpointer *value);
 
-	-- Looks up a key in the GTree, returning the original key and the
-	-- associated value and a gboolean which is TRUE if the key was
-	-- found. This is useful if you need to free the memory allocated
-	-- for the original key, for example before calling
-	-- g_tree_remove().
-	
-	-- tree : 	a GTree.
-	-- lookup_key : 	the key to look up.
-	-- orig_key : 	returns the original key.
-	-- value : 	returns the value associated with the key.
-	-- Returns : 	TRUE if the key was found in the GTree.
-	
-	for_all (a_test: FUNCTION[TUPLE[ANY, TUPLE[INTEGER,VALUE]], BOOLEAN]): BOOLEAN is
-			-- Calls `a_test' for each of the key/value pairs in the
-			-- GTree. The function is passed the key and value of each
-			-- pair, and the given data parameter. The tree is traversed
-			-- in sorted order.
-	
-			-- The tree may not be modified while iterating over it (you
-			-- can't add/remove items). To remove all items matching a
-			-- predicate, you need to add each item to a list in your
-			-- GTraverseFunc as you walk over the tree, then walk the
-			-- list and remove each item.
-	
-			-- tree : 	a GTree.
-			-- func : 	the function to call for each node visited. If this function returns TRUE, the traversal is stopped.
-			-- user_data : 	user data to pass to the function.
-		require a_test /= Void
+	fast_has (a_key: KEY): BOOLEAN is
+			-- Is there a value currently associated with `a_key'?
+			-- Using basic `=' for comparison.
+			--
+			-- See also `has', `at', `fast_at'.
+		do
+			debug print_no_fast_notice; print (fast_fallback_notice) end
+			Result:=has(a_key)
+		end
+
+	fast_at (a_key: KEY): VALUE is
+			-- Return the value associated to key `k' using basic `=' for comparison.
+			--
+			-- See also `at', `reference_at', `fast_reference_at'.
+		do
+			debug print_no_fast_notice; print (fast_fallback_notice) end
+			Result:=at(a_key)
+		end
+
+	fast_reference_at (a_key: KEY): VALUE is
+			-- Same work as `reference_at', but basic `=' is used for comparison.
+			--
+			-- See also `reference_at', `at', `has'.
+		do
+			debug print_no_fast_notice; print (fast_fallback_notice) end
+			Result:=reference_at(a_key)
+		end
+
+feature {ANY}
+	put (a_value: VALUE; a_key: KEY) is
+			-- Change some existing entry or `add' the new one. If an entry with `a_key' is not yet in the dictionary,
+			-- enter it with `a_value'. Otherwise overwrite the item associated with `a_key'.
+			-- 
+			-- The tree is automatically 'balanced' as new key/value
+			-- pairs are added, so that the distance from the root to
+			-- every leaf is as small as possible.
+		require else value_not_void: a_value/=Void
+		do
+			-- TODO: Eiffelize this: If you supplied a value_destroy_func
+			-- when creating the GTree, the old value is freed using that
+			-- function. If you supplied a key_destroy_func when creating
+			-- the GTree, the passed key is freed using that function.
+			g_tree_insert(handle, a_key.handle, a_value.handle)
+		end
+
+	fast_put (a_value: VALUE; a_key: KEY) is
+			-- Same job as `put', but uses basic `=' for comparison.
+			--
+			-- See also `put', `add'.
+		do
+			debug print_no_fast_notice; print (fast_fallback_notice) end
+			put(a_value,a_key)
+		end
+
+	add (a_value: VALUE; a_key: KEY) is
+			-- To add a new entry `k' with its associated value `v'.
+			-- Actually, this is equivalent to call `put', but it may run a little bit faster.
+			--
+			-- See also `put', `fast_put'.
+		do
+			debug print_add_fallback end
+			put(a_value,a_key)
+		end
+
+feature {ANY} -- Removing:
+	remove (a_key: KEY) is
+			-- Remove entry `a_key' (which may exist or not before this call).
+			-- As the `remove' procedure actually uses `is_equal', you may consider to use `fast_remove' for expanded
+			-- objects as well while trying to get the very best performances.
+			--
+			-- See also `fast_remove', `clear_count'.
+		local a_result: INTEGER
+		do
+			a_result:=g_tree_steal(handle,a_key.handle)
+			-- Note: g_tree_steal removes a key and its associated value
+			-- from a GTree without calling the key and value destroy
+			-- functions.
+
+			-- a_result is True(1) if the key was found (prior to 2.8,
+			-- this function returned nothing)
+
+			-- TODO: see if the following informations have some
+			-- relevance for Eiffel. We could use g_tree_remove in case
+			-- of particular cases of memory handling. Infact using
+			-- g_tree_remove the following applies: If the GTree was
+			-- created using g_tree_new_full(), the key and value are
+			-- freed using the supplied destroy functions, otherwise you
+			-- have to make sure that any dynamically allocated values
+			-- are freed yourself. If the key does not exist in the
+			-- GTree, the function does nothing.
+		end
+
+	fast_remove (a_key: KEY) is
+			-- Same job as `remove', but uses basic `=' for comparison.
+			--
+			-- See also `remove', `clear_count'.
+		do
+			debug print_no_fast_notice; print (fast_fallback_notice) end
+			remove (a_key)
+		end
+
+	clear_count is
+			-- Discard all items (`is_empty' is True after that call). The internal `capacity' is not changed
+			-- by this call.
+			--
+			-- See also `clear_count_and_capacity', `remove'.
+		do
+			not_yet_implemented
+		end
+
+	clear_count_and_capacity is
+			-- Discard all items (`is_empty' is True after that call). The internal `capacity' may also be
+			-- reduced after this call.
+			--
+			-- See also `clear_count', `remove'.
+		do
+			dispose -- and reallocate
+			from_external_pointer(g_tree_new_with_data
+										 (comparator.callback_address, comparator.to_pointer))
+		end
+
+	capacity: INTEGER is
+			-- Approximation of the actual internal storage `capacity'. The `capacity' will grow automatically
+			-- when needed (i.e. `capacity' is not a limit for the number of values stored). Also note that
+			-- the `capacity' value may not be always accurate depending of the implementation (anyway, this
+			-- `capacity' value is at least equals to `count').
+		do
+			-- Note: implemented to be equal to count
+			Result:=count
+		end
+
+
+feature -- counting
+	count: INTEGER_32 is
+		do
+			Result:=g_tree_nnodes(handle)
+		end
+
+feature {ANY} -- To provide iterating facilities:
+	item (index: INTEGER): VALUE is
+		do
+			not_yet_implemented
+		end
+
+	key (index: INTEGER): KEY is
+		do
+			not_yet_implemented
+		end
+
+	get_new_iterator_on_items: ITERATOR[VALUE] is
+		do
+			not_yet_implemented
+		end
+
+	get_new_iterator_on_keys: ITERATOR[KEY] is
+		do
+			not_yet_implemented
+		end
+
+feature {ANY} -- Agents based features:
+	do_all (action: ROUTINE[TUPLE[VALUE, KEY]]) is
+			-- Apply `action' to every [VALUE, KEY] associations of `Current'.
+			--
+			-- See also `for_all', `exist'.
+		do
+			not_yet_implemented
+		end
+
+	for_all (test: PREDICATE[TUPLE[VALUE, KEY]]): BOOLEAN is
+			-- Do all [VALUE, KEY] associations satisfy `test'?
+			--
+			-- See also `do_all', `exist'.
 		-- local callback: G_TRAVERSE_CALLBACK
 		do
-			-- create callback.make (a_test)
+			not_yet_implemented
+			-- create callback.make a_test)
 			-- g_tree_foreach (handle, callback.low_level_callback, $callback)
 		end
 
-	-- enum GTraverseType
+	exists (test: PREDICATE[TUPLE[VALUE, KEY]]): BOOLEAN is
+		do
+			not_yet_implemented
+		end
 
-	-- typedef enum { G_IN_ORDER, G_PRE_ORDER, G_POST_ORDER,
-	--   G_LEVEL_ORDER } GTraverseType;
+feature {ANY} -- Other features:
+	internal_key (a_key: KEY): KEY is
+			-- Retrieve the internal key object which correspond to the existing
+			-- entry `a_key' (the one memorized into the `Current' dictionary).
+			--
+			-- See also `has', `fast_has'.
+		do
+			not_yet_implemented
+		end
+
+feature {} -- Implement manifest generic creation:
+	manifest_make (needed_capacity: INTEGER) is
+			-- Manifest creation of a dictionary.
+		do
+			not_yet_implemented
+		end
+
+feature
+	height: INTEGER is
+			-- The height of a G_TREE.
+		
+			-- If the G_TREE contains no nodes, the height is 0. If the
+			-- G_TREE contains only one root node the height is 1. If the
+			-- root node has children the height is 2, etc.
+		do
+			Result:=g_tree_height(handle)
+		end
+
 	
-	-- Specifies the type of traveral performed by g_tree_traverse(), g_node_traverse() and g_node_find().
-	-- G_IN_ORDER 	vists a node's left child first, then the node itself, then its right child. This is the one to use if you want the output sorted according to the compare function.
-	-- G_PRE_ORDER 	visits a node, then its children.
-	-- G_POST_ORDER 	visits the node's children, then the node itself.
-	-- G_LEVEL_ORDER 	is not implemented for Balanced Binary Trees. For N-ary Trees, it vists the root node first, then its children, then its grandchildren, and so on. Note that this is less efficient than the other orders.
+
 	-- g_tree_search ()
 
 	-- gpointer    g_tree_search                   (GTree *tree,
@@ -238,31 +335,6 @@ feature
 	-- search_func : 	a function used to search the GTree.
 	-- user_data : 	the data passed as the second argument to the search_func function.
 	-- Returns : 	the value corresponding to the found key, or NULL if the key was not found.
-	-- g_tree_remove ()
-
-	-- gboolean    g_tree_remove                   (GTree *tree,
-	--                                              gconstpointer key);
-
-	-- Removes a key/value pair from a GTree.
-
-	-- If the GTree was created using g_tree_new_full(), the key and value are freed using the supplied destroy functions, otherwise you have to make sure that any dynamically allocated values are freed yourself. If the key does not exist in the GTree, the function does nothing.
-
-	-- tree : 	a GTree.
-	-- key : 	the key to remove.
-	-- Returns : 	TRUE if the key was found (prior to 2.8, this function returned nothing)
-	-- g_tree_steal ()
-
-	-- gboolean    g_tree_steal                    (GTree *tree,
-	--                                              gconstpointer key);
-
-	-- Removes a key and its associated value from a GTree without calling the key and value destroy functions.
-
-	-- If the key does not exist in the GTree, the function does nothing.
-
-	-- tree : 	a GTree.
-	-- key : 	the key to remove.
-	-- Returns : 	TRUE if the key was found (prior to 2.8, this function returned nothing)
-	-- g_tree_destroy ()
 
 	dispose is
 			-- Destroys the GTree.
@@ -289,7 +361,66 @@ feature
 		end
 	
 feature {} -- Low level implementation
-	comparator: G_COMPARE_DATA_CALLBACK 
+	comparator: G_COMPARE_DATA_CALLBACK [KEY]
 			-- The object containing the callback that will be called by C
+
+	print_no_fast_notice is
+		once
+			print(no_fast_notice)
+		end
+
+	no_fast_notice: STRING is
+		"Original C GTree implementation does not offer functions equivalent to `fast_has,' `fast_at', `fast_reference_at', `fast_put' and `fast_remove'. An eventual implementation of those features would require to manipulate directly GTree data-structure, skipping the Glib abstraction. Paolo 2007-07-15%N"
+
+	fast_fallback_notice: STRING is
+		"Fast_[has|at|reference_at|put] feature not available. Falling back to non-fast features.%N"
+
+	print_add_fallback is
+		once
+			print (print_add_fallback_notice)
+		end
+	
+	print_add_fallback_notice: STRING is
+		"Original C GTree implementation does not offer a function equivalent to `add'. Falling back to `put' feature. Paolo 2007-07-15%N"
+
+feature {} -- Unwrapped code
+	-- TODO: it is necessary to wrap g_tree_lookup_extended ?
+	
+	-- gboolean g_tree_lookup_extended (GTree *tree, gconstpointer
+	-- lookup_key, gpointer *orig_key, gpointer *value);
+
+	-- Looks up a key in the GTree, returning the original key and the
+	-- associated value and a gboolean which is TRUE if the key was
+	-- found. This is useful if you need to free the memory allocated
+	-- for the original key, for example before calling
+	-- g_tree_remove().
+	
+	-- tree : 	a GTree.
+	-- lookup_key : 	the key to look up.
+	-- orig_key : 	returns the original key.
+	-- value : 	returns the value associated with the key.
+	-- Returns : 	TRUE if the key was found in the GTree.
+
+	-- AFAIK wrapping replace is just not necessary in Eiffel
+	
+	-- 		replace (a_key: KEY; a_value: VALUE) is
+	-- 			-- Inserts `a_key' and `a_value' into a GTree similar to
+	-- 			-- `insert_value'. The difference is that if `a_key' already
+	-- 			-- exists in the GTree, it gets replaced by the new key. If
+	-- 			-- you supplied a value_destroy_func when creating the GTree,
+	-- 			-- the old value is freed using that function. If you
+	-- 			-- supplied a key_destroy_func when creating the GTree, the
+	-- 			-- old key is freed using that function.
+
+	-- 			-- The tree is automatically 'balanced' as new key/value
+	-- 			-- pairs are added, so that the distance from the root to
+	-- 			-- every leaf is as small as possible.
+	-- 		require
+	-- 			key_not_void: a_key/=Void
+	-- 			value_not_void: a_value/=Void
+	-- 		do
+	-- 			g_tree_replace(handle,a_key.handle,a_value.handle)
+	-- 		end
+
 end
 

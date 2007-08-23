@@ -6,61 +6,34 @@ indexing
 	revision: "$Revision:$"
 
 class G_SLIST [ITEM->SHARED_C_STRUCT]
-
-	-- At C level a NULL pointer is considered to be the empty list so
-	-- you simply set a GSList* to NULL.
-	
-	-- To add elements, use `add_last', `append', `add_first', `prepend',
-	-- `add' and (TODO `insert_sorted').
-
-	-- To remove elements, use `remove', `remove_first' and `remove_last'.
-
-	-- To find elements in the list use `last', (TODO: `next'), 
-	-- `item', `fast_has' (PS: `has' calls `fast_has' in turn), `first_index_of'.
-
-	-- To find the index of an element use TODO: g_slist_position() and
-	-- g_slist_index().
-	
-	-- TODO: To call a function for each element in the list use
-	-- g_slist_foreach().
-	
-	-- To free the entire list, use g_slist_free().
+	-- A standard singly-linked list data structure for wrapped object.
 
 inherit
-	-- TODO: uncomment this when possible:
-	-- Temporary commented out to let some example work with SnartEiffel 
-	-- version 2.2 and SVN
-	-- 	LINKED_COLLECTION [ITEM]
-	-- 		redefine
-	-- 			append_collection,
-	-- 			clear_all,
-	-- 			has,
-	-- 			fast_has,1
-	-- 			fast_first_index_of,
-	-- 			first_index_of,
-	-- 			reverse,
-	-- 			upper,
-	-- 			swap
-	-- 		end
-	SHARED_C_STRUCT
-			-- Note: a NULL pointer is the actual *valid* empty
-			-- G_LIST. Therefore any handle.is_not_null postcondition
-			-- shall be circumvented.
+	LINKED_COLLECTION [ITEM]
 		redefine
-			copy, dispose
+			append_collection, clear_all,
+			has, fast_has,
+			fast_first_index_of, first_index_of,
+			upper, swap
+		end
+	SHARED_C_STRUCT
+		-- Note: a NULL pointer is the actual *valid* empty
+		-- G_LIST. Therefore any handle.is_not_null postcondition
+		-- shall be circumvented.
+		undefine fill_tagged_out_memory
+		redefine copy, free
 		end
 
 insert
-	G_SLIST_EXTERNALS 
-	WRAPPER_FACTORY [ITEM]
+	G_SLIST_EXTERNALS  undefine fill_tagged_out_memory end
+	SHARED_WRAPPER_FACTORY [ITEM]
 
 creation make, empty, make_empty, from_external_pointer
 
 feature
-	-- Note that most of the low-level C GSList functions expect to be
-	-- passed a pointer to the first element in the list. The functions
-	-- which insert elements return the new start of the list, which
-	-- may have changed.
+	-- Note: most low-level C GSList functions expect to be passed a pointer to
+	-- the first element in the list. The functions which insert elements return
+	-- the new start of the list, which may have changed.
 
 	make, empty, make_empty is
 		do
@@ -68,52 +41,25 @@ feature
 		end
 
 	first: ITEM is
-		require not_empty: not is_empty
-		local p: POINTER -- Item Pointer
 		do
-			p:=g_slist_get_data (handle)
-			if wrappers.has(p) then 
-				Result ::= wrappers.at(p)
-			else
-				Result := new_item
-				Result.from_external_pointer(p)
-			end
-		ensure Result/=Void
+			Result:=wrapper_for_not_null(g_slist_get_data (handle))
 		end
 
 	last: like first is
-		require not_empty: not is_empty
-		local p: POINTER -- Item Pointer
 		do
-			p:=g_slist_get_data (g_slist_last (handle))
-			if wrappers.has(p) then 
-				Result ::= wrappers.at(p)
-			else
-				Result := new_item
-				Result.from_external_pointer(p)
-			end
-		ensure Result/=Void
+			Result:=wrapper_for_not_null(g_slist_get_data
+												  (g_slist_last(handle)))
 		end
 
 	item (i: INTEGER): like first is
-		require not_empty: not is_empty
-		local p: POINTER -- Item Pointer
 		do
-			p:=g_slist_nth_data (handle, i)
-			if wrappers.has(p) then 
-				Result ::= wrappers.at(p) 
-			else
-				Result := new_item
-				Result.from_external_pointer(p)
-			end
+			Result:=wrapper_for_not_null(g_slist_nth_data (handle, i-1))
 		ensure Result/=Void
 		end
 
 	put (an_item: like first; i: INTEGER) is
-		require -- else 
-					valid_item: an_item/=Void 
 		do
-			g_slist_set_data (g_slist_nth(handle,i), an_item.handle)
+			g_slist_set_data (g_slist_nth(handle,i),null_or(an_item))
 		end
 
 	swap (i,j: INTEGER) is
@@ -142,16 +88,12 @@ feature
 
 	add_first,prepend (an_item: like first) is
 			-- Adds `an_item' on to the start of the list.
-		require
-			valid_item: an_item/=Void
 		do
-			handle := g_slist_prepend (handle, an_item.handle)
-			-- Note: The return value is the new start of the list, which
-			-- may have changed, so make sure you store the new value.
+			handle := g_slist_prepend (handle, null_or(an_item))
+			-- Note: The return value of g_slist_prepend is the new start
+			-- of the list, which may have changed, so make sure you
+			-- store the new value.
 
-			-- /* Notice that it is initialized to the empty list. */
-			-- GSList *list = NULL; list = g_slist_prepend (list,
-			-- "last"); list = g_slist_prepend (list, "first");
 		end
 
 	add_last, append (an_item: like first) is
@@ -161,10 +103,8 @@ feature
 			-- common idiom to avoid the inefficiency is to prepend the
 			-- elements and reverse the list when all elements have been
 			-- added.
-		require
-			valid_item: an_item/=Void
 		do
-			handle:=g_slist_append (handle, an_item.handle)
+			handle:=g_slist_append (handle, null_or(an_item))
 
 			-- Note: The return value is the new start of the list, which
 			-- may have changed, so make sure you store the new value.
@@ -312,13 +252,14 @@ feature
 		do
 			old_handle := handle
 			handle:=g_slist_reverse (handle)
-			g_slist_free (handle) -- TODO is this call correct?
+			-- g_slist_free (handle) -- TODO is this call correct?
 		end
 
 	upper,count: INTEGER is 
 		do
-			Result:=g_slist_length(handle)
-		ensure positive: Result >= 0 
+			if handle.is_null then Result:=0 
+			else Result:=g_slist_length(handle)
+			end
 		end
 
 	is_empty: BOOLEAN is 
@@ -339,17 +280,12 @@ feature
 	get_new_iterator: ITERATOR[ITEM] is 
 		do
 			create {ITERATOR_ON_G_SLIST[ITEM]} Result.make (Current)
-		ensure valid: Result/=Void
 		end
 
-feature -- Memory management
-
-	dispose is
+feature {} -- Memory management
+	free (a_pointer: POINTER) is
 		do
-			-- We override the default dispose routine; list nodes are not
-			-- allocated with malloc() so we should not use free()
-			g_slist_free (handle)
-			handle:= default_pointer
+			g_slist_free(a_pointer)
 		end
 
 	-- Glib's doc, useful for implementing unimplemented

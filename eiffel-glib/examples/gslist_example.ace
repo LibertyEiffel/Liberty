@@ -1,5 +1,5 @@
 system
-"gslist-example"
+"gslist_example"
 		-- Replace SYSTEM_NAME with the name of the executable file
 		-- to be generated for your system. (This is the equivalent of
 		-- the -o flag in traditional command line mode.)

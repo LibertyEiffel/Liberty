@@ -54,17 +54,17 @@ feature -- Iterator's features
 		local ptr: POINTER
 		do
 			ptr := g_slist_get_data (current_element)
-			if wrappers.has(ptr) then
-				Result ::= wrappers.at(ptr)
+			Result::=wrappers.reference_at(ptr)
+			if Result=Void then
+				debug
+					print ("Warning: ITERATOR_ON_G_SLIST is creating a wrapper without knowing its effective type. If the list item is deferred a crash will come%N")
+				end
+				Result := new_item
+				Result.from_external_pointer (ptr)
+			else
 				check
 					wrappers_handle_is_pointer: Result.handle = ptr
 				end
-			else
-				debug
-					print ("Warning: ITERATOR_ON_G_SLIST is creating a wrapper without knowing its effective type. If the list item is deferred a crash will come")
-				end
-				Result := new_item
-				Result.from_external_pointer (ptr)				
 			end
 		end
 	

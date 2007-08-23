@@ -42,7 +42,6 @@ expanded class UNICODE_CHARACTER
 -- using it should be as compact and as fast like those using plain
 -- INTEGER_32.
 
-
 insert
 	ANY
 	WRAPPER_HANDLER

@@ -4,9 +4,9 @@ root TREE_EXAMPLE: make
 
 default -- section of the system
 
-	assertion (all);
+	assertion (boost); -- boost, no, require, ensure, invariant, loop, check, all.
 	assertion_flat_check (no);
-	debug (yes);
+	debug (no);
 	trace (no);
 	collect (yes);
 	no_style_warning (no);
@@ -25,6 +25,14 @@ default -- section of the system
 
 cluster -- section
 	glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
+	      default
+		assertion (boost);
+		debug(no);
+		trace(no)
+	      option
+		assertion (boost): G_TREE--,G_TREE_EXTERNALS,G_COMPARE_DATA_CALLBACK
+		debug(no): G_TREE, G_COMPARE_DATA_CALLBACK
+	end -- glib cluster
 	standard: "${path_lib}/loadpath.se"
 	demo: "."
 
@@ -32,7 +40,7 @@ cluster -- section
 external -- section for elements written in another language
 	-- Directories where to search for C .h files:
 	-- external_header_path: "/usr/local/expat/include /usr/local/include/mjpegtools"
-	external_header_path: "${eiffel_libraries}/eiffel-glib/library/externals"
+	-- external_header_path: "${eiffel_libraries}/eiffel-glib/library/externals"
 
 	-- External object files to be considered; update and uncomment the
 	-- following line:
@@ -41,7 +49,7 @@ external -- section for elements written in another language
 	-- External C files to be considered; update and uncomment the
 	-- following line:
 	-- external_c_files: "foo.c bar.c"
-	external_c_files: "${eiffel_libraries}/eiffel-glib/library/externals/glib-callbacks.c"
+	-- external_c_files: "${eiffel_libraries}/eiffel-glib/library/externals/glib-callbacks.c"
 
 	-- External C++ files to be considered; update and uncomment the
 	-- following line:
@@ -51,7 +59,7 @@ external -- section for elements written in another language
 	-- To indicate some cecil file to be considered, update and uncomment
 	-- the following lines:
 	
-	cecil ("${eiffel_libraries}/eiffel-glib/library/externals/cecil.se")
+	-- cecil ("${eiffel_libraries}/eiffel-glib/library/externals/cecil.se")
 
 	-- External libraries directory path to be considered; update and uncomment
 	-- the following line:

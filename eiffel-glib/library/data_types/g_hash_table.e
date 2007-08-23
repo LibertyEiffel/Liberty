@@ -5,25 +5,25 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class G_HASH_TABLE [KEY->SHARED_C_STRUCT, VALUE->SHARED_C_STRUCT]
-	--A GHashTable provides associations between keys and values which
-	--is optimized so that given a key, the associated value can be
-	--found very quickly.
+class G_HASH_TABLE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
+	-- A G_HASH_TABLE provides associations between keys and values
+	-- which is optimized so that given a key, the associated value can
+	-- be found very quickly.
 	
 	-- Note that neither keys nor values are copied when inserted into
-	-- the GHashTable, so they must exist for the lifetime of the
-	-- GHashTable. This means that the use of static strings is OK, but
+	-- the G_HASH_TABLE, so they must exist for the lifetime of the
+	-- G_HASH_TABLE. This means that the use of static strings is OK, but
 	-- temporary strings (i.e. those created in buffers and those
 	-- returned by GTK+ widgets) should be copied with g_strdup()
 	-- before being inserted.
 
 	-- If keys or values are dynamically allocated, you must be careful
 	-- to ensure that they are freed when they are removed from the
-	-- GHashTable, and also when they are overwritten by new insertions
-	-- into the GHashTable. It is also not advisable to mix static
-	-- strings and dynamically-allocated strings in a GHashTable,
-	-- because it then becomes difficult to determine whether the
-	-- string should be freed.
+	-- G_HASH_TABLE, and also when they are overwritten by new
+	-- insertions into the G_HASH_TABLE. It is also not advisable to
+	-- mix static strings and dynamically-allocated strings in a
+	-- GHashTable, because it then becomes difficult to determine
+	-- whether the string should be freed.
 
 	-- To create a GHashTable, use g_hash_table_new().
 	
@@ -41,9 +41,14 @@ class G_HASH_TABLE [KEY->SHARED_C_STRUCT, VALUE->SHARED_C_STRUCT]
 	-- To destroy a GHashTable use g_hash_table_destroy().
 
 inherit
+	DICTIONARY[VALUE, KEY]
+		undefine
+			is_equal, copy -- using the definition given by SHARED_C_STRUCT
+		end
+	
 	SHARED_C_STRUCT
 		redefine
-			dispose, is_equal
+			dispose
 		end
 
 	WRAPPER_FACTORY [VALUE]
@@ -54,28 +59,34 @@ insert
 creation from_external_pointer
 
 feature {} -- Creation
-	-- make (hash_function, key_equal_function: FUNCTION[]) is
-	-- Creates a new GHashTable.
-	
-	-- hash_func : a function to create a hash value from a
-	-- key. Hash values are used to determine where keys are
-	-- stored within the GHashTable data structure. The
-	-- g_direct_hash(), g_int_hash() and g_str_hash() functions
-	-- are provided for some common types of keys. If hash_func
-	-- is NULL, g_direct_hash() is used.
-	
-	-- key_equal_func : a function to check two keys for
-	-- equality. This is used when looking up keys in the
-	-- GHashTable. The g_direct_equal(), g_int_equal() and
-	-- g_str_equal() functions are provided for the most common
-	-- types of keys. If key_equal_func is NULL, keys are
-	-- compared directly in a similar fashion to
-	-- g_direct_equal(), but without the overhead of a function
-	-- call.
-	--	do
-	--from_external_pointer (g_hash_table_new
-	--(hash_function,  key_equal_function))
-	--end
+	make is
+		do
+			from_external_pointer(g_hash_table_new
+										 (-- Using g_direct_hash as hash function;
+										  default_pointer,
+										  -- Direct comparison of address, like
+										  -- using g_direct_equal as key equal
+										  -- function but with no overhead:
+										  default_pointer
+										  ))
+			-- g_hash_table_new creates a new GHashTable.
+			
+			-- hash_func : a function to create a hash value from a
+			-- key. Hash values are used to determine where keys are
+			-- stored within the GHashTable data structure. The
+			-- g_direct_hash(), g_int_hash() and g_str_hash() functions
+			-- are provided for some common types of keys. If hash_func
+			-- is NULL, g_direct_hash() is used.
+			
+			-- key_equal_func : a function to check two keys for
+			-- equality. This is used when looking up keys in the
+			-- GHashTable. The g_direct_equal(), g_int_equal() and
+			-- g_str_equal() functions are provided for the most common
+			-- types of keys. If key_equal_func is NULL, keys are
+			-- compared directly in a similar fashion to
+			-- g_direct_equal(), but without the overhead of a function
+			-- call.
+		end
 
 	-- TODO: GHashTable* g_hash_table_new_full (GHashFunc hash_func,
 	-- GEqualFunc key_equal_func, GDestroyNotify key_destroy_func,
@@ -91,6 +102,186 @@ feature {} -- Creation
 	-- key_destroy_func : 	a function to free the memory allocated for the key used when removing the entry from the GHashTable or NULL if you don't want to supply such a function.
 	-- value_destroy_func : 	a function to free the memory allocated for the value used when removing the entry from the GHashTable or NULL if you don't want to supply such a function.
 	-- Returns : 	a new GHashTable.
+
+	-- TODO: feature {} -- Implement manifest generic creation:
+	-- 	manifest_make (needed_capacity: INTEGER) is
+	-- 			-- Manifest creation of a dictionary.
+	-- 		do
+	-- 			allocate
+	-- 		end
+	
+feature {ANY} -- Basic access:
+	has (a_key: KEY): BOOLEAN is
+		local orig_key_ptr, value_ptr: POINTER
+		do
+			Result:=(g_hash_table_lookup_extended
+						(handle, a_key.handle, orig_key_ptr, value_ptr)).to_boolean
+		end
+
+	at (a_key: KEY): VALUE is
+			-- Looks up `a_key' in a GHashTable. 
+		local ptr: POINTER
+		do
+			ptr := g_hash_table_lookup (handle, a_key.handle)
+			if ptr.is_not_null then
+				Result:=item_from(ptr)
+				-- if wrappers.has(ptr) then Result::=wrappers.at(ptr)
+				-- else print_wrapper_factory_notice end
+			end
+		end
+
+	reference_at (a_key: KEY): VALUE is
+			-- The value associated to `a_key'. Void if there is no value
+			-- for `a_key'.
+		local ptr: POINTER
+		do
+			ptr := g_hash_table_lookup (handle, a_key.handle)
+			if ptr.is_not_null then
+				Result:=item_from(ptr)
+				-- Result::=wrappers.reference_at(ptr) if Result=Void then
+				-- print_wrapper_factory_notice end
+			end
+
+			-- Looks up a key in the GHashTable, returning the original
+			-- key and the associated value and a gboolean which is TRUE
+			-- if the key was found. This is useful if you need to free
+			-- the memory allocated for the original key, for example
+			-- before calling `remove'.
+
+			-- `a_key': 	the key to look up.
+		
+			-- orig_key : 	returns the original key.
+			-- value : 	returns the value associated with the key.
+			-- Returns : 	TRUE if the key was found in the GHashTable.
+			-- gboolean g_hash_table_lookup_extended (GHashTable
+			-- *hash_table, gconstpointer lookup_key, gpointer *orig_key,
+			-- gpointer *value);
+		end
+
+	fast_has (k: KEY): BOOLEAN is
+		do
+			debug 
+				print_no_fast_notice
+				print(fast_fallback_notice)
+			end
+			Result:=has(k)
+		end
+
+	fast_at (k: KEY): VALUE is
+		do	
+			debug 
+				print_no_fast_notice
+				print(fast_fallback_notice)
+			end
+			Result:=at(k)
+		end
+
+	fast_reference_at (k: KEY): VALUE is
+		do
+			debug 
+				print_no_fast_notice
+				print(fast_fallback_notice)
+			end
+			Result:=reference_at(k)
+		end
+
+feature {ANY}
+	put (a_value: VALUE; a_key: KEY) is
+			-- Inserts a new key and value into a GHashTable.
+		
+			-- If the key already exists in the GHashTable its current
+			-- value is replaced with the new value. If you supplied a
+			-- value_destroy_func when creating the GHashTable, the old
+			-- value is freed using that function. If you supplied a
+			-- key_destroy_func when creating the GHashTable, the passed
+			-- key is freed using that function.
+		
+			-- hash_table : 	a GHashTable.
+			-- key : 	a key to insert.
+			-- value : 	the value to associate with the key.
+		require else value_not_void: a_value /= Void
+		do
+			g_hash_table_insert (handle, a_key.handle, a_value.handle)
+		end
+
+	fast_put (v: VALUE; k: KEY) is
+		require else value_not_void: v /= Void
+		do
+			debug 
+				print_no_fast_notice
+				print(fast_fallback_notice)
+			end
+			put(v,k)
+		end
+
+	add (v: VALUE; k: KEY) is
+		require else value_not_void: v /= Void
+		do
+			put(v,k)
+		end
+
+feature {ANY} -- Removing:
+	remove (a_key: KEY) is
+			-- Removes a key and its associated value from a GHashTable.
+
+			-- `is_successful' will be True if the key was found and
+			-- removed from the GHashTable.
+		do
+			-- TODO: Translate/implement this C-ism: If the GHashTable
+			-- was created using `make_full', the key and value are freed
+			-- using the supplied destroy functions, otherwise you have
+			-- to make sure that any dynamically allocated values are
+			-- freed yourself.
+			is_successful := (g_hash_table_remove (handle, a_key.handle)).to_boolean
+		end
+
+	fast_remove (k: KEY) is
+		do
+			debug 
+				print_no_fast_notice
+				print(fast_fallback_notice)
+			end
+			remove(k)
+		end
+
+	clear_count is
+		do
+			g_hash_table_remove_all(handle)
+		end
+
+	clear_count_and_capacity is
+		do
+			dispose
+			make
+		end
+
+	capacity: INTEGER is
+		do
+			Result:=g_hash_table_size(handle)
+		end
+
+feature {ANY} -- To provide iterating facilities:
+	item (index: INTEGER): VALUE is
+		do
+		ensure then implemented: False
+		end
+
+	key (index: INTEGER): KEY is
+		do
+		ensure then implemented: False
+		end
+
+	get_new_iterator_on_keys: ITERATOR[KEY] is
+		do
+		ensure then implemented: False
+		end
+
+feature {ANY} -- Other features:
+	internal_key (k: KEY): KEY is
+		do
+		ensure then implemented: False
+		end
+
 	-- GHashFunc ()
 
 	-- guint       (*GHashFunc)                    (gconstpointer key);
@@ -122,90 +313,12 @@ feature {} -- Creation
 	-- g_hash_table_insert ()
 
 feature
-	insert_value (a_key: KEY; a_value: VALUE) is
-			-- Inserts a new key and value into a GHashTable.
-		
-			-- If the key already exists in the GHashTable its current
-			-- value is replaced with the new value. If you supplied a
-			-- value_destroy_func when creating the GHashTable, the old
-			-- value is freed using that function. If you supplied a
-			-- key_destroy_func when creating the GHashTable, the passed
-			-- key is freed using that function.
-		
-			-- hash_table : 	a GHashTable.
-			-- key : 	a key to insert.
-			-- value : 	the value to associate with the key.
-		require
-			key_not_void: a_key /= Void
-			value_not_void: a_value /= Void
-		do
-			g_hash_table_insert (handle, a_key.handle, a_value.handle)
-		end
 
-	replace (a_key: KEY; a_value: VALUE) is
-			-- Inserts a new key and value into a GHashTable similar to
-			-- g_hash_table_insert(). The difference is that if the key
-			-- already exists in the GHashTable, it gets replaced by the
-			-- new key. If you supplied a value_destroy_func when
-			-- creating the GHashTable, the old value is freed using that
-			-- function. If you supplied a key_destroy_func when creating
-			-- the GHashTable, the old key is freed using that function.
-		
-			-- hash_table : 	a GHashTable.
-			-- key : 	a key to insert.
-			-- value : 	the value to associate with the key.
-		require
-			key_not_void: a_key /= Void
-			value_not_void: a_value /= Void
-		do
-			g_hash_table_replace (handle, a_key.handle, a_value.handle)
-		end
-
-	table_size: INTEGER is
+	count: INTEGER is
 			-- the number of elements (key/value pairs) contained in the
 			-- GHashTable.
 		do
 			Result := g_hash_table_size (handle)
-		ensure positive: Result >= 0
-		end
-
-
-	lookup (a_key: KEY): VALUE is
-			-- Looks up `a_key' in a GHashTable. Note that this function
-			-- cannot distinguish between a key that is not present and
-			-- one which is present and has the value NULL (Void). If you
-			-- need this distinction, use `lookup_extended'. It is the
-			-- associated value, or Void if the key is not found.
-		require
-			key_not_void: a_key /= Void
-		local ptr: POINTER 
-		do
-			ptr := g_hash_table_lookup (handle, a_key.handle)
-			if ptr.is_not_null then
-				if wrappers.has(ptr) then Result::=wrappers.at(ptr)
-				else print_wrapper_factory_notice
-				end
-			end
-		end
-
-	lookup_extended (a_key: KEY): VALUE is
-			-- Looks up a key in the GHashTable, returning the original
-			-- key and the associated value and a gboolean which is TRUE
-			-- if the key was found. This is useful if you need to free
-			-- the memory allocated for the original key, for example
-			-- before calling `remove'.
-
-			-- `a_key': 	the key to look up.
-		
-			-- orig_key : 	returns the original key.
-			-- value : 	returns the value associated with the key.
-			-- Returns : 	TRUE if the key was found in the GHashTable.
-		require
-			key_not_void: a_key /= Void
-		do
-			-- gboolean g_hash_table_lookup_extended (GHashTable
-			-- *hash_table, gconstpointer lookup_key, gpointer *orig_key,
-			-- gpointer *value);
 		end
 
 	-- g_hash_table_foreach ()
@@ -253,34 +366,6 @@ feature
 
 	is_successful: BOOLEAN
 	
-	remove (a_key: KEY) is
-			-- Removes a key and its associated value from a GHashTable.
-
-			-- If the GHashTable was created using `make_full' (TODO),
-			-- the key and value are freed using the supplied destroy
-			-- functions, otherwise you have to make sure that any
-			-- dynamically allocated values are freed yourself.
-
-			-- `is_successful' will be True if the key was found and
-			-- removed from the GHashTable.
-		require
-			key_not_void: a_key /= Void
-		do
-			is_successful := (g_hash_table_remove (handle, a_key.handle)).to_boolean
-		end
-
-	steal (a_key: KEY): VALUE is
-			-- Removes a key and its associated value from a GHashTable
-			-- without calling the key and value destroy functions.
-
-			-- `is_successful' is True if the key was found and removed
-			-- from the GHashTable.
-		require
-			key_not_void: a_key /= Void
-		do
-			is_successful := (g_hash_table_steal (handle, a_key.handle)).to_boolean
-		end
-
 	-- g_hash_table_foreach_remove ()
 	
 	-- guint       g_hash_table_foreach_remove     (GHashTable *hash_table,
@@ -328,15 +413,14 @@ feature
 			g_hash_table_destroy (handle)
 		end
 
-	is_equal (another: like Current): BOOLEAN is
-			-- Compares two gpointer arguments and returns TRUE if they
-			-- are equal. It can be passed to `g_hash_table_new' as the
-			-- key_equal_func parameter, when using pointers as keys in a
-			-- GHashTable.
-		do
-			Result := (g_direct_equal (handle, another.handle)).to_boolean
-		end
+feature {}
+	-- g_direct_equal ()
 
+	-- Compares two gpointer arguments and returns TRUE if they
+	-- are equal. It can be passed to `g_hash_table_new' as the
+	-- key_equal_func parameter, when using pointers as keys in a
+	-- GHashTable.
+	
 	-- g_direct_hash ()
 
 	-- guint       g_direct_hash                   (gconstpointer v);
@@ -387,4 +471,42 @@ feature -- size
 		external "C inline use <glib.h>"
 		alias "sizeof(GHashTable)"
 		end
+
+feature {} -- Low level implementation
+	print_no_fast_notice is
+		once
+			print(no_fast_notice)
+		end
+
+	no_fast_notice: STRING is
+		"Original C GHashTable implementation does not offer functions equivalent to `fast_has,' `fast_at', `fast_reference_at', `fast_put' and `fast_remove'. An eventual implementation of those features would require to manipulate directly GHashTable data-structure, skipping the Glib abstraction. Paolo 2007-07-15%N"
+
+	fast_fallback_notice: STRING is
+		"Fast_[has|at|reference_at|put|remove] feature not available. Falling back to non-fast features.%N"
+
+
+		--	steal (a_key: KEY): VALUE is
+		-- Removes a key and its associated value from a GHashTable
+		-- without calling the key and value destroy functions.
+	
+		-- `is_successful' is True if the key was found and removed
+		-- from the GHashTable.
+		-- require key_not_void: a_key /= Void
+
+		-- do is_successful := (g_hash_table_steal (handle,
+		-- a_key.handle)).to_boolean end
+
+		-- replace (a_key: KEY; a_value: VALUE) is Inserts a new key and
+		-- value into a GHashTable similar to g_hash_table_insert(). The
+		-- difference is that if the key already exists in the
+		-- GHashTable, it gets replaced by the new key. If you supplied
+		-- a value_destroy_func when creating the GHashTable, the old
+		-- value is freed using that function. If you supplied a
+		-- key_destroy_func when creating the GHashTable, the old key is
+		-- freed using that function.  hash_table : a GHashTable.  key :
+		-- a key to insert.  value : the value to associate with the
+		-- key.  require key_not_void: a_key /= Void value_not_void:
+		-- a_value /= Void do g_hash_table_replace (handle,
+		-- a_key.handle, a_value.handle) end
+	
 end

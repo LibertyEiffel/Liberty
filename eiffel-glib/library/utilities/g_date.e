@@ -8,63 +8,57 @@ indexing
 
 			-- Todo: Implement G_DATES that holds all the constants
 			-- (weekdays, month names etc)
-
+	
 							 
 class G_DATE
-	-- The GDate data structure represents a day between January 1,
-	-- Year 1, and sometime a few thousand years in the future (right
-	-- now it will go to the year 65535 or so, but g_date_set_parse()
-	-- only parses up to the year 8000 or so - just count on "a few
-	-- thousand"). GDate is meant to represent everyday dates, not
-	-- astronomical dates or historical dates or ISO timestamps or the
-	-- like. It extrapolates the current Gregorian calendar forward and
-	-- backward in time; there is no attempt to change the calendar to
-	-- match time periods or locations. GDate does not store time
-	-- information; it represents a day.
+	-- G_DATE represents a day between January 1, Year 1, and sometime
+	-- a few thousand years in the future (right now it will go to the
+	-- year 65535 or so, but `parse' only parses up to the year 8000 or
+	-- so - just count on "a few thousand"). G_DATE is meant to
+	-- represent everyday dates, not astronomical dates or historical
+	-- dates or ISO timestamps or the like. It extrapolates the current
+	-- Gregorian calendar forward and backward in time; there is no
+	-- attempt to change the calendar to match time periods or
+	-- locations. G_DATE does not store time information; it represents
+	-- a day.
 
-	-- The GDate implementation has several nice features; it is only a
+	-- Its implementation has several nice features; it is only a
 	-- 64-bit struct, so storing large numbers of dates is very
 	-- efficient. It can keep both a Julian and day-month-year
 	-- representation of the date, since some calculations are much
 	-- easier with one representation or the other.  A Julian
 	-- representation is simply a count of days since some fixed day in
-	-- the past; for GDate the fixed day is January 1, 1 AD. ("Julian"
-	-- dates in the GDate API aren't really Julian dates in the
-	-- technical sense; technically, Julian dates count from the start
-	-- of the Julian period, Jan 1, 4713 BC).
+	-- the past; the fixed day is January 1, 1 AD.; "Julian" dates in
+	-- the G_DATE API aren't really Julian dates in the technical
+	-- sense; technically, Julian dates count from the start of the
+	-- Julian period, Jan 1, 4713 BC.
 
-	-- GDate is simple to use. First you need a "blank" date; you can
-	-- get a dynamically allocated date from g_date_new(), or you can
-	-- declare an automatic variable or array and initialize it to a
-	-- sane state by calling g_date_clear(). A cleared date is sane;
-	-- it's safe to call g_date_set_dmy() and the other mutator
+	-- Usage: create a "blank" date; you can create a dynamically
+	-- allocated date with `make' creation feature (TODO: provide an
+	-- expanded version, to be cleared with `clear'). A cleared date is
+	-- sane; it's safe to call `set_dmy' and the other mutator
 	-- functions to initialize the value of a cleared date. However, a
 	-- cleared date is initially invalid, meaning that it doesn't
 	-- represent a day that exists. It is undefined to call any of the
 	-- date calculation routines on an invalid date. If you obtain a
 	-- date from a user or other unpredictable source, you should check
-	-- its validity with the g_date_valid() predicate. g_date_valid()
-	-- is also used to check for errors with g_date_set_parse() and
-	-- other functions that can fail. Dates can be invalidated by
-	-- calling g_date_clear() again.
-
-	-- It is very important to use the API to access the GDate
-	-- struct. Often only the day-month-year or only the Julian
-	-- representation is valid.  Sometimes neither is valid. Use the
-	-- API.
+	-- its validity with `is_valid' predicate. `is_valid' is also used
+	-- to check for errors with `parse' and other functions that can
+	-- fail. Dates can be invalidated by calling `clear' again.
 
 	-- GLib doesn't contain any time-manipulation functions; however,
-	-- there is a GTime typedef and a GTimeVal struct which represents
-	-- a more precise time (with microseconds). You can request the
-	-- current time as a GTimeVal with g_get_current_time().
+	-- there is G_TIME (and at C level the GTimeVal struct which
+	-- represents a more precise time, i.e. with microseconds). You can
+	-- request the current time as a GTimeVal with
+	-- g_get_current_time().
 	
 inherit
 	COMPARABLE_SHARED_C_STRUCT
 		redefine
-			dispose,
-			compare,
+			is_equal,
 			infix "<",
-			is_equal
+			dispose,
+			compare
 		end
 	
 creation make_dmy, from_tuple
