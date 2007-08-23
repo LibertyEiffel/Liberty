@@ -23,7 +23,7 @@ class GTK_DEMO
 
 insert
 	GTK
-	G_TYPES
+	G_TYPE
 	GTK_STANDARD_ENUMERATIONS
 	PANGO_STYLE
 	-- Eventually insert this - when it will be implemented:

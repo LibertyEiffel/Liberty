@@ -277,7 +277,7 @@ class TREE_DEMO
 
 insert
 	GTK -- to initialize the Gimp ToolKit
-	G_TYPES
+	G_TYPE
 		-- TODO: This class is necessary when creating GTK_LIST_STOREs,
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12

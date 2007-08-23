@@ -1,5 +1,5 @@
 indexing
-	description: "GtkFileChooserButton — A button to launch a file selection dialog"
+	description: "GtkFileChooserButton - A button to launch a file selection dialog"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others
 					
@@ -18,8 +18,6 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"
-	date: "$Date:$"
-	revision "$REvision:$"
 
 class GTK_FILE_CHOOSER_BUTTON
 
@@ -30,11 +28,12 @@ inherit
 		end
 	GTK_FILE_CHOOSER
 
+		-- Implemented Interfaces: GtkFileChooserButton implements GtkFileChooser
+		-- and AtkImplementorIface.
+
 insert
 	GTK_FILE_CHOOSER_ACTION
 	GTK_FILE_CHOOSER_BUTTON_EXTERNALS
-		-- Implemented Interfaces
-		-- GtkFileChooserButton implements GtkFileChooser and AtkImplementorIface.
 
 creation
 	from_title,
@@ -48,7 +47,8 @@ feature {} -- Creation
 			-- an_action : 	the open mode for the widget.
 		require
 			valid_title: a_title /= Void
-			is_valid_gtk_file_chooser_action (an_action)
+			valid_action: (an_action = gtk_file_chooser_action_open) or
+							  (an_action = gtk_file_chooser_action_select_folder)
 		do
 			from_external_pointer (gtk_file_chooser_button_new (a_title.to_external, an_action))
 		end
@@ -81,110 +81,53 @@ feature {} -- Creation
 -- Since 2.6
 
 feature
-
 	title: STRING is
-			-- Retrieves the title of the browse dialog used by button.
-			-- The returned value should not be modified or freed.
+			-- the title of the browse dialog used by button.
 		do
-			create Result.from_external (gtk_file_chooser_button_get_title (handle))
+			-- The returned value should not be modified or freed.
+			create {CONST_STRING} Result.from_external
+			(gtk_file_chooser_button_get_title (handle))
 		end
 
--- gtk_file_chooser_button_set_title ()
--- 
--- void        gtk_file_chooser_button_set_title
---                                             (GtkFileChooserButton *button,
---                                              const gchar *title);
--- 
--- Modifies the title of the browse dialog used by button.
--- 
--- button : 	the button widget to modify.
--- title : 	the new browse dialog title.
--- 
--- Since 2.6
--- gtk_file_chooser_button_get_width_chars ()
--- 
--- gint        gtk_file_chooser_button_get_width_chars
---                                             (GtkFileChooserButton *button);
--- 
--- Retrieves the width in characters of the button widget's entry and/or label.
--- 
--- button : 	the button widget to examine.
--- Returns : 	an integer width (in characters) that the button will use to size itself.
--- 
--- Since 2.6
--- gtk_file_chooser_button_set_width_chars ()
--- 
--- void        gtk_file_chooser_button_set_width_chars
---                                             (GtkFileChooserButton *button,
---                                              gint n_chars);
--- 
--- Sets the width (in characters) that button will use to n_chars.
--- 
--- button : 	the button widget to examine.
--- n_chars : 	the new width, in characters.
--- 
--- Since 2.6
--- gtk_file_chooser_button_get_focus_on_click ()
--- 
--- gboolean    gtk_file_chooser_button_get_focus_on_click
---                                             (GtkFileChooserButton *button);
--- 
--- Returns whether the button grabs focus when it is clicked with the mouse. See gtk_file_chooser_button_set_focus_on_click().
--- 
--- button : 	a GtkFileChooserButton
--- Returns : 	TRUE if the button grabs focus when it is clicked with the mouse.
--- 
--- Since 2.10
--- gtk_file_chooser_button_set_focus_on_click ()
--- 
--- void        gtk_file_chooser_button_set_focus_on_click
---                                             (GtkFileChooserButton *button,
---                                              gboolean focus_on_click);
--- 
--- Sets whether the button will grab focus when it is clicked with the mouse. Making mouse clicks not grab focus is useful in places like toolbars where you don't want the keyboard focus removed from the main area of the application.
--- 
--- button : 	a GtkFileChooserButton
--- focus_on_click : 	whether the button grabs focus when clicked with the mouse
--- 
--- Since 2.10
--- Property Details
--- The "dialog" property
--- 
---   "dialog"               GtkFileChooserDialog  : Write / Construct Only
--- 
--- Instance of the GtkFileChooserDialog associated with the button.
--- 
--- Since 2.6
--- The "focus-on-click" property
--- 
---   "focus-on-click"       gboolean              : Read / Write
--- 
--- Whether the GtkFileChooserButton button grabs focus when it is clicked with the mouse.
--- 
--- Default value: TRUE
--- 
--- Since 2.10
--- The "title" property
--- 
---   "title"                gchararray            : Read / Write
--- 
--- Title to put on the GtkFileChooserDialog associated with the button.
--- 
--- Default value: "Select A File"
--- 
--- Since 2.6
--- The "width-chars" property
--- 
---   "width-chars"          gint                  : Read / Write
--- 
--- The width of the entry and label inside the button, in characters.
--- 
--- Allowed values: >= -1
--- 
--- Default value: -1
--- 
--- Since 2.6
--- See Also
--- 
--- GtkFileChooserDialog
+	set_title (a_title: STRING) is
+			-- Modifies the title of the browse dialog used by button.
+		require title_not_void: a_title/=Void
+		do
+			gtk_file_chooser_button_set_title(handle,a_title.to_external)-- 
+		ensure set: title.is_equal(a_title)
+		end
+
+	width_chars: INTEGER is
+			-- the width in characters of the button widget's entry and/or label.
+			-- It will be used to size the button.
+		do
+			Result:=gtk_file_chooser_button_get_width_chars(handle)
+		ensure valid: Result >= -1
+		end
+
+	set_width_chars (a_width: INTEGER) is
+			-- Sets the width (in characters) that button will use to `a_width'.
+		require allowed_value: a_width >= -1
+		do
+			gtk_file_chooser_button_set_width_chars(handle,a_width)
+		ensure set: width_chars = a_width
+		end
+
+	does_focus_on_click: BOOLEAN is
+			-- Does the button grab focus when it is clicked with the mouse?
+			-- Default value: True
+		do
+			Result:=gtk_file_chooser_button_get_focus_on_click(handle).to_boolean
+		end
+
+	set_focus_on_click (a_setting: BOOLEAN) is
+			-- Sets whether the button will grab focus when it is clicked with the
+			-- mouse. Making mouse clicks not grab focus is useful in places like
+			-- toolbars where you don't want the keyboard focus removed from the
+			-- main area of the application.
+		do
+			gtk_file_chooser_button_set_focus_on_click
+			(handle, a_setting.to_integer)
+		ensure set: does_focus_on_click = a_setting
+		end
 end -- GTK_FILE_CHOOSER_BUTTON

@@ -223,138 +223,138 @@ feature
 	
 	-- void        gtk_grab_remove                 (GtkWidget *widget);
 
--- Removes the grab from the given widget. You have to pair calls to gtk_grab_add() and gtk_grab_remove().
--- widget : 	The widget which gives up the grab.
--- gtk_init_add ()
+	-- Removes the grab from the given widget. You have to pair calls to gtk_grab_add() and gtk_grab_remove().
+	-- widget : 	The widget which gives up the grab.
+	-- gtk_init_add ()
 
--- void        gtk_init_add                    (GtkFunction function,
---                                              gpointer data);
+	-- void        gtk_init_add                    (GtkFunction function,
+	--                                              gpointer data);
 
--- Registers a function to be called when the mainloop is started.
--- function : 	Function to invoke when gtk_main() is called next.
--- data : 	Data to pass to that function.
--- gtk_quit_add_destroy ()
+	-- Registers a function to be called when the mainloop is started.
+	-- function : 	Function to invoke when gtk_main() is called next.
+	-- data : 	Data to pass to that function.
+	-- gtk_quit_add_destroy ()
 
--- void        gtk_quit_add_destroy            (guint main_level,
---                                              GtkObject *object);
+	-- void        gtk_quit_add_destroy            (guint main_level,
+	--                                              GtkObject *object);
 
--- Trigger destruction of object in case the mainloop at level main_level is quit.
--- main_level : 	Level of the mainloop which shall trigger the destruction.
--- object : 	Object to be destroyed.
--- gtk_quit_add ()
+	-- Trigger destruction of object in case the mainloop at level main_level is quit.
+	-- main_level : 	Level of the mainloop which shall trigger the destruction.
+	-- object : 	Object to be destroyed.
+	-- gtk_quit_add ()
 
--- guint       gtk_quit_add                    (guint main_level,
---                                              GtkFunction function,
---                                              gpointer data);
+	-- guint       gtk_quit_add                    (guint main_level,
+	--                                              GtkFunction function,
+	--                                              gpointer data);
 
--- Registers a function to be called when an instance of the mainloop is left.
--- main_level : 	Level at which termination the function shall be called. You can pass 0 here to have the function run at the termination of the current mainloop.
--- function : 	The function to call. This should return 0 to be removed from the list of quit handlers. Otherwise the function might be called again.
--- data : 	Pointer to pass when calling function.
--- Returns : 	A handle for this quit handler (you need this for gtk_quit_remove()) or 0 if you passed a NULL pointer in function.
--- gtk_quit_add_full ()
+	-- Registers a function to be called when an instance of the mainloop is left.
+	-- main_level : 	Level at which termination the function shall be called. You can pass 0 here to have the function run at the termination of the current mainloop.
+	-- function : 	The function to call. This should return 0 to be removed from the list of quit handlers. Otherwise the function might be called again.
+	-- data : 	Pointer to pass when calling function.
+	-- Returns : 	A handle for this quit handler (you need this for gtk_quit_remove()) or 0 if you passed a NULL pointer in function.
+	-- gtk_quit_add_full ()
 
--- guint       gtk_quit_add_full               (guint main_level,
---                                              GtkFunction function,
---                                              GtkCallbackMarshal marshal,
---                                              gpointer data,
---                                              GtkDestroyNotify destroy);
+	-- guint       gtk_quit_add_full               (guint main_level,
+	--                                              GtkFunction function,
+	--                                              GtkCallbackMarshal marshal,
+	--                                              gpointer data,
+	--                                              GtkDestroyNotify destroy);
 
--- Registers a function to be called when an instance of the mainloop is left. In comparison to gtk_quit_add() this function adds the possibility to pass a marshaller and a function to be called when the quit handler is freed.
+	-- Registers a function to be called when an instance of the mainloop is left. In comparison to gtk_quit_add() this function adds the possibility to pass a marshaller and a function to be called when the quit handler is freed.
 
--- The former can be used to run interpreted code instead of a compilxfed function while the latter can be used to free the information stored in data (while you can do this in function as well)... So this function will mostly be used by GTK+ wrappers for languages other than C.
--- main_level : 	Level at which termination the function shall be called. You can pass 0 here to have the function run at the termination of the current mainloop.
--- function : 	The function to call. This should return 0 to be removed from the list of quit handlers. Otherwise the function might be called again.
--- marshal : 	The marshaller to be used. If this is non-NULL, function is ignored.
--- data : 	Pointer to pass when calling function.
--- destroy : 	Function to call to destruct data. Gets data as argument.
--- Returns : 	A handle for this quit handler (you need this for gtk_quit_remove()) or 0 if you passed a NULL pointer in function.
--- gtk_quit_remove ()
+	-- The former can be used to run interpreted code instead of a compilxfed function while the latter can be used to free the information stored in data (while you can do this in function as well)... So this function will mostly be used by GTK+ wrappers for languages other than C.
+	-- main_level : 	Level at which termination the function shall be called. You can pass 0 here to have the function run at the termination of the current mainloop.
+	-- function : 	The function to call. This should return 0 to be removed from the list of quit handlers. Otherwise the function might be called again.
+	-- marshal : 	The marshaller to be used. If this is non-NULL, function is ignored.
+	-- data : 	Pointer to pass when calling function.
+	-- destroy : 	Function to call to destruct data. Gets data as argument.
+	-- Returns : 	A handle for this quit handler (you need this for gtk_quit_remove()) or 0 if you passed a NULL pointer in function.
+	-- gtk_quit_remove ()
 
--- void        gtk_quit_remove                 (guint quit_handler_id);
+	-- void        gtk_quit_remove                 (guint quit_handler_id);
 
--- Removes a quit handler by its identifier.
--- quit_handler_id : 	Identifier for the handler returned when installing it.
--- gtk_quit_remove_by_data ()
+	-- Removes a quit handler by its identifier.
+	-- quit_handler_id : 	Identifier for the handler returned when installing it.
+	-- gtk_quit_remove_by_data ()
 
--- void        gtk_quit_remove_by_data         (gpointer data);
+	-- void        gtk_quit_remove_by_data         (gpointer data);
 
--- Removes a quit handler identified by its data field.
--- data : 	The pointer passed as data to gtk_quit_add() or gtk_quit_add_full().
--- gtk_timeout_add_full ()
+	-- Removes a quit handler identified by its data field.
+	-- data : 	The pointer passed as data to gtk_quit_add() or gtk_quit_add_full().
+	-- gtk_timeout_add_full ()
 
 
--- gtk_key_snooper_install ()
+	-- gtk_key_snooper_install ()
 
--- guint       gtk_key_snooper_install         (GtkKeySnoopFunc snooper,
---                                              gpointer func_data);
+	-- guint       gtk_key_snooper_install         (GtkKeySnoopFunc snooper,
+	--                                              gpointer func_data);
 
--- Installs a key snooper function, which will get called on all key events before delivering them normally.
--- snooper : 	a GtkKeySnoopFunc.
--- func_data : 	data to pass to snooper.
--- Returns : 	a unique id for this key snooper for use with gtk_key_snooper_remove().
+	-- Installs a key snooper function, which will get called on all key events before delivering them normally.
+	-- snooper : 	a GtkKeySnoopFunc.
+	-- func_data : 	data to pass to snooper.
+	-- Returns : 	a unique id for this key snooper for use with gtk_key_snooper_remove().
 
 	-- GtkKeySnoopFunc ()
 
--- gint        (*GtkKeySnoopFunc)              (GtkWidget *grab_widget,
---                                              GdkEventKey *event,
---                                              gpointer func_data);
+	-- gint        (*GtkKeySnoopFunc)              (GtkWidget *grab_widget,
+	--                                              GdkEventKey *event,
+	--                                              gpointer func_data);
 
--- Key snooper functions are called before normal event delivery. They can be used to implement custom key event handling.
--- grab_widget : 	the widget to which the event will be delivered.
--- event : 	the key event.
--- func_data : 	the func_data supplied to gtk_key_snooper_install().
--- Returns : 	TRUE to stop further processing of event, FALSE to continue.
--- gtk_key_snooper_remove ()
+	-- Key snooper functions are called before normal event delivery. They can be used to implement custom key event handling.
+	-- grab_widget : 	the widget to which the event will be delivered.
+	-- event : 	the key event.
+	-- func_data : 	the func_data supplied to gtk_key_snooper_install().
+	-- Returns : 	TRUE to stop further processing of event, FALSE to continue.
+	-- gtk_key_snooper_remove ()
 
--- void        gtk_key_snooper_remove          (guint snooper_handler_id);
+	-- void        gtk_key_snooper_remove          (guint snooper_handler_id);
 
--- Removes the key snooper function with the given id.
--- snooper_handler_id : 	Identifies the key snooper to remove.
--- gtk_get_current_event ()
+	-- Removes the key snooper function with the given id.
+	-- snooper_handler_id : 	Identifies the key snooper to remove.
+	-- gtk_get_current_event ()
 
--- GdkEvent*   gtk_get_current_event           (void);
+	-- GdkEvent*   gtk_get_current_event           (void);
 
--- Obtains a copy of the event currently being processed by GTK+. For example, if you get a "clicked" signal from GtkButton, the current event will be the GdkEventButton that triggered the "clicked" signal. The returned event must be freed with gdk_event_free(). If there is no current event, the function returns NULL.
+	-- Obtains a copy of the event currently being processed by GTK+. For example, if you get a "clicked" signal from GtkButton, the current event will be the GdkEventButton that triggered the "clicked" signal. The returned event must be freed with gdk_event_free(). If there is no current event, the function returns NULL.
 
--- Returns : 	a copy of the current event, or NULL if no current event.
--- gtk_get_current_event_time ()
+	-- Returns : 	a copy of the current event, or NULL if no current event.
+	-- gtk_get_current_event_time ()
 
--- guint32     gtk_get_current_event_time      (void);
+	-- guint32     gtk_get_current_event_time      (void);
 
--- If there is a current event and it has a timestamp, return that timestamp, otherwise return GDK_CURRENT_TIME.
+	-- If there is a current event and it has a timestamp, return that timestamp, otherwise return GDK_CURRENT_TIME.
 
--- Returns : 	the timestamp from the current event, or GDK_CURRENT_TIME.
--- gtk_get_current_event_state ()
+	-- Returns : 	the timestamp from the current event, or GDK_CURRENT_TIME.
+	-- gtk_get_current_event_state ()
 
--- gboolean    gtk_get_current_event_state     (GdkModifierType *state);
+	-- gboolean    gtk_get_current_event_state     (GdkModifierType *state);
 
--- If there is a current event and it has a state field, place that state field in state and return TRUE, otherwise return FALSE.
+	-- If there is a current event and it has a state field, place that state field in state and return TRUE, otherwise return FALSE.
 
--- state : 	a location to store the state of the current event
--- Returns : 	TRUE if there was a current event and it had a state field
--- gtk_get_event_widget ()
+	-- state : 	a location to store the state of the current event
+	-- Returns : 	TRUE if there was a current event and it had a state field
+	-- gtk_get_event_widget ()
 
--- GtkWidget*  gtk_get_event_widget            (GdkEvent *event);
+	-- GtkWidget*  gtk_get_event_widget            (GdkEvent *event);
 
--- If event is NULL or the event was not associated with any widget, returns NULL, otherwise returns the widget that received the event originally.
+	-- If event is NULL or the event was not associated with any widget, returns NULL, otherwise returns the widget that received the event originally.
 
--- event : 	a GdkEvent
--- Returns : 	the widget that originally received event, or NULL
--- gtk_propagate_event ()
+	-- event : 	a GdkEvent
+	-- Returns : 	the widget that originally received event, or NULL
+	-- gtk_propagate_event ()
 
--- void        gtk_propagate_event             (GtkWidget *widget,
---                                              GdkEvent *event);
+	-- void        gtk_propagate_event             (GtkWidget *widget,
+	--                                              GdkEvent *event);
 
--- Sends an event to a widget, propagating the event to parent widgets if the event remains unhandled. Events received by GTK+ from GDK normally begin in gtk_main_do_event(). Depending on the type of event, existence of modal dialogs, grabs, etc., the event may be propagated; if so, this function is used. gtk_propagate_event() calls gtk_widget_event() on each widget it decides to send the event to. So gtk_widget_event() is the lowest-level function; it simply emits the "event" and possibly an event-specific signal on a widget. gtk_propagate_event() is a bit higher-level, and gtk_main_do_event() is the highest level.
+	-- Sends an event to a widget, propagating the event to parent widgets if the event remains unhandled. Events received by GTK+ from GDK normally begin in gtk_main_do_event(). Depending on the type of event, existence of modal dialogs, grabs, etc., the event may be propagated; if so, this function is used. gtk_propagate_event() calls gtk_widget_event() on each widget it decides to send the event to. So gtk_widget_event() is the lowest-level function; it simply emits the "event" and possibly an event-specific signal on a widget. gtk_propagate_event() is a bit higher-level, and gtk_main_do_event() is the highest level.
 
--- All that said, you most likely don't want to use any of these functions; synthesizing events is rarely needed. Consider asking on the mailing list for better ways to achieve your goals. For example, use gdk_window_invalidate_rect() or gtk_widget_queue_draw() instead of making up expose events.
+	-- All that said, you most likely don't want to use any of these functions; synthesizing events is rarely needed. Consider asking on the mailing list for better ways to achieve your goals. For example, use gdk_window_invalidate_rect() or gtk_widget_queue_draw() instead of making up expose events.
 
--- widget : 	a GtkWidget
--- event : 	an event
--- See Also
+	-- widget : 	a GtkWidget
+	-- event : 	an event
+	-- See Also
 
--- See the GLib manual, especially GMainLoop and signal-related functions such as g_signal_connect().
+	-- See the GLib manual, especially GMainLoop and signal-related functions such as g_signal_connect().
 
 feature -- global windows features
 	toplevels: G_LIST [GTK_WINDOW] is

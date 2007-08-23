@@ -20,16 +20,8 @@ indexing
 			]"
 
 deferred class GTK_STORE_SETTERS
+	-- Easy to use store setters
 
-insert
-	ANY
-		undefine
-			copy,
-			is_equal
-		end
-	
-feature -- Easy to use setters
-	
 	-- Note: wrapping gtk_list/tree_store_set is problematic since it's
 	-- a variadic function but also its not-variadic variant
 	-- (gtk_list_store_set_valist) is not easy to use from within
@@ -38,13 +30,16 @@ feature -- Easy to use setters
 	-- gtk_list_store_set_value can be an answer but I haven't checked
 	-- its performance (2005-05-16 Paolo)
 
+inherit G_OBJECT
+	
+feature -- Store setters
 	set_string (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_string: STRING) is
 		require
 			a_column_contains_a_string: -- TODO
 			valid_iterator: an_iterator/=Void
-		local a_value: G_VALUE
 		do
-			create a_value.from_string (a_string)
+			hidden_gvalue.turn_to_string
+			hidden_gvalue.set_string(a_string)
 			set_value (an_iterator, a_column, a_value)
 		end
 
@@ -53,9 +48,9 @@ feature -- Easy to use setters
 			a_column_contains_a_natural: -- TODO
 			valid_natural: a_natural >= 0
 			valid_iterator: an_iterator/=Void
-		local a_value: G_VALUE
 		do
-			create a_value.from_natural (a_natural)
+			hidden_gvalue.turn_to_natural
+			hidden_gvalue.set_natural(a_natural)
 			set_value (an_iterator, a_column, a_value)
 		end
 
@@ -63,9 +58,9 @@ feature -- Easy to use setters
 		require
 			a_column_contains_a_integer: -- TODO
 			valid_iterator: an_iterator/=Void
-		local a_value: G_VALUE
 		do
-			create a_value.from_integer (an_integer)
+			hidden_gvalue.turn_to_integer
+			hidden_gvalue.set_integer(a_integer)
 			set_value (an_iterator, a_column, a_value)
 		end
 	
@@ -73,9 +68,9 @@ feature -- Easy to use setters
 		require
 			a_column_contains_a_double: -- TODO
 			valid_iterator: an_iterator/=Void				
-		local
-			a_value: G_VALUE
 		do
+			hidden_gvalue.turn_to_real
+			hidden_gvalue.set_real(a_real)
 			create a_value.from_real (a_real)
 			set_value (an_iterator, a_column, a_value)
 		end
@@ -84,10 +79,9 @@ feature -- Easy to use setters
 		require
 			valid_iterator: an_iterator/=Void
 			a_column_contains_a_boolean: -- TODO
-		local
-			a_value: G_VALUE
 		do
-			create a_value.from_boolean (a_boolean)
+			hidden_gvalue.turn_to_boolean
+			hidden_gvalue.set_boolean(a_boolean)
 			set_value (an_iterator, a_column, a_value)
 		end
 
@@ -95,10 +89,9 @@ feature -- Easy to use setters
 		require
 			valid_iterator: an_iterator/=Void
 			a_column_contains_an_object: -- TODO
-		local
-			a_value: G_VALUE
 		do
-			create a_value.from_object (an_object)
+			hidden_gvalue.turn_to_object
+			hidden_gvalue.set_object(an_object)
 			set_value (an_iterator, a_column, a_value)
 		end
 
@@ -106,15 +99,10 @@ feature -- Easy to use setters
 		require
 			valid_iterator: an_iterator/=Void
 			a_column_contains_an_object: -- TODO
-		local
-			a_value: G_VALUE
 		do
-			create a_value.from_pointer (a_pointer)
+			hidden_gvalue.turn_to_pointer
+			hidden_gvalue.set_pointer(a_pointer)
 			set_value (an_iterator, a_column, a_value)
 		end
 
-feature -- Generic setter
-	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
-		deferred
-		end
 end -- class GTK_STORE_SETTERS

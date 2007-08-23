@@ -43,7 +43,7 @@ inherit
 	GTK_TREE_DRAG_SOURCE
 
 insert
-	G_TYPES
+	G_TYPE
 
 creation make, from_external_pointer
 

@@ -1,3 +1,8 @@
+* A dummy GtkWindow is created during the Eiffel library
+   initialization and it is used to create the GTK_WINDOW
+   archetype. Sometimes the underlying GtkWindow is not freed and gets
+   listed in gtk.toplevels.
+
 * (Done for G_OBJECTs see G_OBJECT_RETRIEVER; not a totally generic
    solution, but covers most of our needs) Generic data structure now
    re-create an object every time it delivers an object to the eiffel

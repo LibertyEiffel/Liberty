@@ -18,7 +18,7 @@ deferred class GTK_BINDING_ARG_STRUCT
 	-- } GtkBindingArg;
 
 insert
-	G_TYPES
+	G_TYPE
 	GLIB_BASIC_TYPES
 	
 feature {} -- Structure getter/setter calls

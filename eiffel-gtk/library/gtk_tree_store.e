@@ -45,7 +45,9 @@ feature {} -- Creation
 			-- Creates a new tree store. `some_columns' is an array of integers; each
 			-- integer is the G_TYPE of an actual column. Note that only types
 			-- derived from standard GObject fundamental types are supported.
-		require gtk_initialized: gtk.is_initialized
+		require
+			gtk_initialized: gtk.is_initialized
+			valid_columns: are_valid_gtypes(some_columns)
 		do
 			from_external_pointer (gtk_tree_store_newv (some_columns.count, some_columns.to_external))
 		end
@@ -337,4 +339,6 @@ feature -- struct size
 -- -- void        gtk_tree_store_set_valist       (GtkTreeStore *tree_store,
 -- --                                              GtkTreeIter *iter,
 -- --                                              va_list var_args);
+
+feature 
 end

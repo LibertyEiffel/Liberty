@@ -11,7 +11,7 @@ class ICON_VIEW_DEMO
 inherit
 	GTK
 	GDK_TYPE_EXTERNALS
-	G_TYPES
+	G_TYPE
 	WRAPPER_HANDLER
 
 creation make

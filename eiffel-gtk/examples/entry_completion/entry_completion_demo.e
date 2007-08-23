@@ -23,7 +23,7 @@ class ENTRY_COMPLETION_DEMO
 
 insert
 	GTK
-	G_TYPES
+	G_TYPE
 	ANY
 	
 creation make
