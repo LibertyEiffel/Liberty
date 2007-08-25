@@ -18,6 +18,18 @@ check_position () {
     fi
 }
 
+run_tests () {
+    ## Run eiffeltest test
+    if [ ! -d tests ] ; then 
+	echo "Couldn't find tests in current directory cluster"
+	exit 5
+    else
+	echo "Running tests"
+	eiffeltest tests
+    fi
+	
+}
+
 check_classes () {
     # check all the library classes, starting with those that had
     # error the oast time the check-cluster script were launched
@@ -119,11 +131,27 @@ compile_examples () {
     fi
 }
 
+clear_temporary_files () {
+    for EXAMPLE in $(find examples -iname "*.ace") 
+    do
+	EXAMPLE_DIR=$(dirname $EXAMPLE)
+	EXAMPLE_NAME=$(basename $EXAMPLE)
+	EXECUTABLE=$(se ace_check $EXAMPLE |
+	    grep system |
+	    cut  --delimiter=" " --fields=2)
+	echo -n "Testing $EXAMPLE_NAME in $EXAMPLE_DIR. "
+	( cd $EXAMPLE_DIR; se clean $EXAMPLE_NAME )
+    done
+}
 print_usage () {
     cat <<EOF
 $(basename $0) ARGUMENTS
 
 Arguments: 
+
+ test
+
+   run eiffeltest using the "test" directory
 
  library 
 
@@ -139,18 +167,27 @@ Arguments:
    seems to behave correctly are added to $CORRECT_EXAMPLES, the
    others to $WRONG_EXAMPLES.
 
+ clean
+
+   remove all the temporary files.
+
 Usage: run it in a cluster of the Eiffel Wrapper Library Collection,
 i.e. eiffel-gtk, eiffel-gda, eiffel-glib.
+
+This script would like to be (become) a good "commit-filter", i.e.: if
+it does not end successfully you should not commit your changes.
 
 EOF
 }
 
 if check_position ; then
-    # This could become a good "commit-filter", i.e.: if the script
-    # does not end successfully you should not commit your changes.
     until [ -z $1 ]  # Until all parameters used up...
     do
 	case $1 in 
+	    test )
+		# run tests
+		run_tests
+		;;
 	    library )
 		# check library classes
 		check_classes
@@ -158,6 +195,10 @@ if check_position ; then
 	    examples )
 		# check library examples
 		compile_examples
+		;;
+	    clean )
+		# Remove temporary files
+		clear_temporary_files
 		;;
 	    all )
 		check_classes

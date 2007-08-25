@@ -8,33 +8,17 @@ deferred class G_TYPE_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
---insert G_TYPE
-
-feature {} -- external calls
-
-	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
-	-- 2006-01-07)
-
-	-- GType: A numerical value which represents the unique identifier
-	-- of a registered type.
-
-	g_type_fundamental (a_type_number: INTEGER): INTEGER is
-			-- Returns the fundamental type which is the ancestor of
-			-- `a_type_number'. Fundamental types are types that serve as
-			-- fundaments for the derived types, thus they are the roots
-			-- of distinct inheritance hierarchies.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_FUNDAMENTAL"
-		end
-
 feature {} -- Fundamental g_type
 
 	g_type: INTEGER_32 is
-			-- The type used for GType, a number used to identify various
-			-- classes.
-
-			-- This feature is empty by design. It exists as an anchored
-			-- declaration.
+			-- GType is a numerical value which represents the unique
+			-- identifier of a registered type.
+		
+			-- This feature exists for anchored declaration; it is empty
+			-- by design.
+		
+			-- TODO: according to libglib 2.9.1 "typedef gulong GType;", 
+			-- so g_type should be NATURAL_32. Paolo 2006-01-07
 		do
 		end
 
@@ -49,6 +33,15 @@ feature {} -- Fundamental g_type
 		alias "G_TYPE_FUNDAMENTAL_MAX"
 		end
  
+	g_type_fundamental (a_type_number: like g_type): like g_type is
+			-- Returns the fundamental type which is the ancestor of
+			-- `a_type_number'. Fundamental types are types that serve as
+			-- fundaments for the derived types, thus they are the roots
+			-- of distinct inheritance hierarchies.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_FUNDAMENTAL"
+		end
+
 	-- G_TYPE_MAKE_FUNDAMENTAL()
 	
 	-- #define	G_TYPE_MAKE_FUNDAMENTAL(x)	((GType) ((x) < < G_TYPE_FUNDAMENTAL_SHIFT))
@@ -475,7 +468,7 @@ feature {} -- External calls
 -- debug_flags : 	Bitwise combination of GTypeDebugFlags values for debugging purposes.
 -- g_type_name ()
 
-	g_type_name (a_type_number: INTEGER): POINTER is -- const gchar*
+	g_type_name (a_type_number: like g_type): POINTER is -- const gchar*
 			-- Returns the unique name that is assigned to a type ID
 			-- (this is the preferred method to find out whether a
 			-- specific type has been registered for the passed in ID
@@ -484,7 +477,7 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 
-	g_type_qname (a_type_number: INTEGER): INTEGER_32 is -- GQuark, i.e. guint32
+	g_type_qname (a_type_number: like g_type): INTEGER_32 is -- GQuark, i.e. guint32
 			-- Return the corresponding quark of the type IDs name.
 			-- a_type_number : 	Type to return quark of type name for.
 			-- Returns : 	The type names quark or 0.
@@ -523,7 +516,7 @@ feature {} -- External calls
 	-- root_type : 	Immediate parent of the returned type.
 	-- Returns : 	Immediate child of root_type and anchestor of leaf_type.
 	
-	g_type_is_a (a_type, is_a_type: INTEGER): INTEGER is
+	g_type_is_a (a_type, is_a_type: like g_type): like g_type is
 		external "C use <glib-object.h>"
 		end
 
@@ -535,7 +528,7 @@ feature {} -- External calls
 	-- type : 	Type ID of a classed type.
 	-- Returns : 	The GTypeClass structure for the given type ID.
 	
-	g_type_class_peek (a_type: INTEGER): POINTER is
+	g_type_class_peek (a_type: like g_type): POINTER is
 			-- This function is essentially the same as
 			-- g_type_class_ref(), except that the classes reference
 			-- count isn't incremented. Therefore, this function may
@@ -1153,4 +1146,126 @@ feature {} -- External calls
 	-- CODE : 	Custom code that gets inserted in the *_get_type() function.
 
 	-- Since 2.4
+
+
+	-- The numerical values of fundamental GTypes, with some commodity 
+	-- features to check validity of GTypes
+feature {} --  numerical values of fundamental GTypes
+
+	g_type_invalid: like g_type is
+			-- An invalid GType, used as error return value in some functions which
+			-- return a GType.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_INVALID"
+		end
+	g_type_none: like g_type is
+			-- A fundamental type which is used as a replacement for the C void return type.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_NONE"
+		end
+	g_type_interface: like g_type is
+			-- The fundamental type from which all interfaces are derived.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_INTERFACE"
+		end
+	g_type_char: like g_type is
+			-- The fundamental type corresponding to gchar.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_CHAR"
+		end
+	g_type_uchar: like g_type is
+			-- The fundamental type corresponding to guchar.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_UCHAR"
+		end
+	g_type_boolean: like g_type is
+			-- The fundamental type corresponding to gboolean.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_BOOLEAN"
+		end
+	g_type_int: like g_type is
+			-- The fundamental type corresponding to gint.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_INT"
+		end
+	g_type_uint: like g_type is
+			-- The fundamental type corresponding to guint.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_UINT"
+		end
+	g_type_long: like g_type is
+			-- The fundamental type corresponding to glong.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_LONG"
+		end
+	g_type_ulong: like g_type is
+			-- The fundamental type corresponding to gulong.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_ULONG"
+		end
+	g_type_int_64: like g_type is
+			-- The fundamental type corresponding to gint64.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_INT_64"
+		end
+	g_type_uint_64: like g_type is
+			-- -- The fundamental type corresponding to guint64.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_UINT_64"
+		end
+	g_type_enum: like g_type is
+			-- The fundamental type from which all enumeration types are derived.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_ENUM"
+		end
+
+	g_type_flags: like g_type is
+			-- The fundamental type from which all flags types are derived.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_FLAGS"
+		end
+	
+	g_type_float: like g_type is
+			-- The fundamental type corresponding to gfloat.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_FLOAT"
+		end
+	
+	g_type_double: like g_type is
+			-- The fundamental type corresponding to gdouble.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_DOUBLE"
+		end
+	
+	g_type_string: like g_type is
+			-- The fundamental type corresponding to nul-terminated C strings.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_STRING"
+		end
+	
+	g_type_pointer: like g_type is
+			-- The fundamental type corresponding to gpointer.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_POINTER"
+		end
+	
+	g_type_boxed: like g_type is
+			-- The fundamental type from which all boxed types are derived.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_BOXED"
+		end
+	
+	g_type_param: like g_type is
+			-- The fundamental type from which all GParamSpec types are derived.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_PARAM"
+		end
+	
+	g_type_object: like g_type is
+			-- The fundamental type for GObject.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_OBJECT"
+		end
+
+invariant g_type_is_32_bit: g_type.object_size = 4	
 end

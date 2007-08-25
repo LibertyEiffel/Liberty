@@ -37,7 +37,7 @@ insert
 
 	-- Features inserted to implement smart_get_property and smart_set_property
 	G_PARAM_SPEC_EXTERNALS export {} all end
-	G_TYPE_EXTERNALS
+	G_TYPE --_EXTERNALS
 
 	POINTER_HANDLING -- to get `address_of' and `content_of'
 
@@ -873,9 +873,8 @@ feature {} -- Getting properties from a parameter specification
 			Result := hidden_gvalue.enum
 		end
 
-	object_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): POINTER is
-			-- the object property with `a_parameter_specification'. The result is
-			-- a pointer to allow the creation of an arbitrary wrapper.
+	object_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): G_OBJECT is
+			-- the object property with `a_parameter_specification'. 
 		require
 			specification_not_void: a_parameter_specification /= Void
 			object_property: a_parameter_specification.is_object
@@ -887,9 +886,20 @@ feature {} -- Getting properties from a parameter specification
 			Result := hidden_gvalue.object
 		end
 	
+	any_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): ANY is
+			-- the property with `a_parameter_specification'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			object_property: a_parameter_specification.is_pointer
+		do
+			hidden_gvalue.turn_to_pointer
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
+			Result := hidden_gvalue.pointer.to_any
+		end
+	
 feature {} -- Unwrapped API
---    ----------------------------------------------------------------------------------------------------------------
-
 --   GObjectClass
 
 --  typedef struct {

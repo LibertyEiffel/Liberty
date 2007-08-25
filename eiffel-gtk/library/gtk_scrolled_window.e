@@ -36,7 +36,8 @@ class GTK_SCROLLED_WINDOW
 	-- and so on.
 	
 	-- If a widget has native scrolling abilities, it can be added to
-	-- the GtkScrolledWindow with `add'. If a widget does not, you must
+	-- the GtkScrolledWindow with `add' (Note: GtkTreeView support 
+	-- scrolling). If a widget does not, you must
 	-- first add the widget to a GtkViewport, then add the GtkViewport
 	-- to the scrolled window. The convenience function
 	-- gtk_scrolled_window_add_with_viewport() does exactly this, so
@@ -58,17 +59,17 @@ class GTK_SCROLLED_WINDOW
 	-- GtkTable.
 
 inherit
-	GTK_BIN
+	GTK_BIN redefine default_create end
 		-- GtkScrolledWindow implements AtkImplementorIface interface.
 insert
-	GTK_POLICY_TYPE
-	GTK_CORNER_TYPE
-	GTK_SHADOW_TYPE
+	GTK_POLICY_TYPE redefine default_create end
+	GTK_CORNER_TYPE redefine default_create end
+	GTK_SHADOW_TYPE redefine default_create end
 	
-creation make, make_default, from_external_pointer
+creation default_create, make, from_external_pointer
 
 feature {} -- Creation
-	make_default is
+	default_create is
 			-- Creates a new scrolled window. The adjustments will be 
 			-- created with it.
 		require gtk_initialized: gtk.is_initialized

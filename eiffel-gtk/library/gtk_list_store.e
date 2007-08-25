@@ -175,10 +175,6 @@ feature -- Generic setter
 			-- `an_iterator': A valid GtkTreeIter for the row being modified
 			-- `a_column' : column number to modify
 			-- `a_value' : new value for the cell
-		require
-			valid_iterator: an_iterator/=Void
-			valid_value: a_value /= Void -- and then Eiffelize "The type of
-			-- `a_value' must be convertible to the type of the column."
 		do
 			gtk_list_store_set_value (handle, an_iterator.handle, a_column, a_value.handle)
 		end

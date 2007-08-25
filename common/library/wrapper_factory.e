@@ -6,22 +6,27 @@ indexing
 	revision: "$Revision:$"
 
 deferred class WRAPPER_FACTORY [ITEM_->WRAPPER]
-	-- wrapper factory would be inserted into the class that 
-	-- needs to use it; if multiple usage are needed it is 
+	-- A wrapper that is also a generic container needs a way to 
+	-- create new specialized Eiffel wrappers. Such a container needs 
+	-- to inherit for WRAPPER_FACTORY that allow to magically create 
+	-- such items, using INTERNALS_HANDLER
+
+	-- If multiple usage are needed it is 
 	-- perhaps better to use its expanded variant, 
 	-- WRAPPER_RETRIEVER. The pattern usage is more or less like 
 	-- this:
 	
-	--  foo: FOO_WRAPPER is 
-	-- 		local p: POINTER
-	-- 		do
-	-- 			p:=my_wrapper_get_foo (handle)
-	-- 			if wrappers.has(p) then
-	-- 				Result ::= wrappers.at(p)
-	-- 			else
-	-- 				create Result.from_external_pointer(a_pointer)
+	-- 	 foo: FOO_WRAPPER is 
+	-- 			local p: POINTER
+	-- 			do
+	-- 				p:=my_wrapper_get_foo (handle)
+	-- 				if p.is_not_null then
+	-- 					Result::= wrappers.reference_at(p)
+	-- 					if Result=Void then
+	-- 						create Result.from_external_pointer(a_pointer)
+	-- 					end
+	-- 				end
 	-- 			end
-	-- 		end
 	
 	-- I know it is tedious, but it is the only feasible solution
 	-- I was able to find.
@@ -70,19 +75,16 @@ feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
 		end
 
 	item_from (a_pointer: POINTER): ITEM_ is
-			-- Retrieve the wrapper of `a_pointer' if it exists, 
-			-- otherwise create a new one.
+			-- A new wrapper for the structure at address `a_pointer'.
 		require
 			pointer_not_null: a_pointer.is_not_null
 			dont_create_duplicate_wrappers: not wrappers.has(a_pointer)
 		do
-			-- if wrappers.has(a_pointer) then
-			-- Result:=wrappers.at(a_pointer) else
 			Result:=new_item
 			Result.from_external_pointer(a_pointer)
 		ensure not_void: Result/=Void
 		end
-	
+
 feature {}
 	print_wrapper_factory_notice is
 		once

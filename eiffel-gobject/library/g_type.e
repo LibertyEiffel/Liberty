@@ -5,63 +5,68 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Description
-			
-			-- The GType API is the foundation of the GObject system. It
-			-- provides the facilities for registering and managing all
-			-- fundamental data types, user-defined object and interface
-			-- types. Before using any GType or GObject functions,
-			-- g_type_init() must be called to initialize the type
-			-- system.
-			
-			-- For type creation and registration purposes, all types
-			-- fall into one of two categories: static or dynamic. Static
-			-- types are never loaded or unloaded at run-time as dynamic
-			-- types may be. Static types are created with
-			-- g_type_register_static() that gets type specific
-			-- information passed in via a GTypeInfo structure. Dynamic
-			-- types are created with g_type_register_dynamic() which
-			-- takes a GTypePlugin structure instead. The remaining type
-			-- information (the GTypeInfo structure) is retrieved during
-			-- runtime through GTypePlugin and the g_type_plugin_*()
-			-- API. These registration functions are usually called only
-			-- once from a function whose only purpose is to return the
-			-- type identifier for a specific class. Once the type (or
-			-- class or interface) is registered, it may be instantiated,
-			-- inherited, or implemented depending on exactly what sort
-			-- of type it is. There is also a third registration function
-			-- for registering fundamental types called
-			-- g_type_register_fundamental() which requires both a
-			-- GTypeInfo structure and a GTypeFundamentalInfo structure
-			-- but it is seldom used since most fundamental types are
-			-- predefined rather than user-defined.
-
-			-- A final word about type names. Such an identifier needs to
-			-- be at least three characters long. There is no upper
-			-- length limit. The first character needs to be a letter
-			-- (a-z or A-Z) or an underscore '_'. Subsequent characters
-			-- can be letters, numbers or any of '-_+'.
 
 deferred class G_TYPE
+	-- The GType API is the foundation of the GObject system. It
+	-- provides the facilities for registering and managing all
+	-- fundamental data types, user-defined object and interface
+	-- types. Before using any GType or GObject functions,
+	-- `g_type_init' must be called to initialize the type system.
+			
+	-- For type creation and registration purposes, all types fall into
+	-- one of two categories: static or dynamic. Static types are never
+	-- loaded or unloaded at run-time as dynamic types may be. Static
+	-- types are created with `g_type_register_static' that gets type
+	-- specific information passed in via a GTypeInfo
+	-- structure. Dynamic types are created with
+	-- `g_type_register_dynamic' which takes a GTypePlugin structure
+	-- instead. The remaining type information (the GTypeInfo
+	-- structure) is retrieved during runtime through GTypePlugin and
+	-- the `g_type_plugin_*' API. These registration functions are
+	-- usually called only once from a function whose only purpose is
+	-- to return the type identifier for a specific class. Once the
+	-- type (or class or interface) is registered, it may be
+	-- instantiated, inherited, or implemented depending on exactly
+	-- what sort of type it is. There is also a third registration
+	-- function for registering fundamental types called
+	-- `g_type_register_fundamental' which requires both a GTypeInfo
+	-- structure and a GTypeFundamentalInfo structure but it is seldom
+	-- used since most fundamental types are predefined rather than
+	-- user-defined.
+
+	-- A final word about type names. Such an identifier needs to be at
+	-- least three characters long. There is no upper length limit. The
+	-- first character needs to be a letter (a-z or A-Z) or an
+	-- underscore '_'. Subsequent characters can be letters, numbers or
+	-- any of '-_+'.
 
 insert G_TYPE_EXTERNALS
 
 feature
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
 	-- 2006-01-07)
-
-	is_g_type (a_type_number: INTEGER): BOOLEAN is
+	
+	is_g_type (a_type_number: like g_type): BOOLEAN is
 			-- Is `a_type_number' a valid value for a g_type? (i.e. a
-			-- type number that can be used for g_value_init()?
+			-- type number that can be used for `g_value_init'?
 		do
 			Result := (g_type_is_value_type (a_type_number)).to_boolean
 		end
 
-
--- #define G_TYPE_FUNDAMENTAL(type)	(g_type_fundamental (type))
-
--- Returns the fundamental type which is the ancestor of type. Fundamental types are types that serve as fundaments for the derived types, thus they are the roots of distinct inheritance hierarchies.
--- type : 	A GType value.
+	are_valid_gtypes (some_types: COLLECTION[INTEGER_32]): BOOLEAN is
+		require some_types_not_void: some_types /= Void
+		do
+			-- local i: INTEGER do from Result:=True; i :=
+			-- some_types.lower until Result or else i >=
+			-- some_types.upper loop Result :=
+			-- is_g_type(some_types.item(i)) i := i+1 end
+			Result := some_types.for_all(agent is_g_type)
+		end
+	
+	-- #define G_TYPE_FUNDAMENTAL(type)	(g_type_fundamental (type))
+	
+	-- Returns the fundamental type which is the ancestor of type. Fundamental types are types that serve as fundaments for the derived types, thus they are the roots of distinct inheritance hierarchies.
+	-- type : 	A GType value.
 -- G_TYPE_MAKE_FUNDAMENTAL()
 
 -- #define	G_TYPE_MAKE_FUNDAMENTAL(x)	((GType) ((x) << G_TYPE_FUNDAMENTAL_SHIFT))
@@ -88,6 +93,9 @@ feature
 -- type : 	A GType value.
 -- G_TYPE_IS_VALUE_TYPE()
 
+
+
+																		  
 -- #define G_TYPE_IS_VALUE_TYPE(type)              (g_type_check_is_value_type (type))
 
 -- Returns TRUE if type is a value type which can be used for g_value_init().

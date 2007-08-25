@@ -1,108 +1,59 @@
 indexing
-	description: "Doubly-Linked Lists are linked lists containing integer values or pointers to data, with the ability to iterate over the list in both directions."
-	copyright: "(C) 2006 Paolo Redaelli "
+	description: "A special version of GList (doubly-linked list) containing strings."
+	copyright: "(C) 2007 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class G_LIST [ITEM->SHARED_C_STRUCT]
-	-- Doubly-Linked Lists, with the ability to iterate over the list in
-	-- both directions.
-
-	-- Each element in the list contains a piece of data, together with
-	-- pointers which link to the previous and next elements in the
-	-- list. Using these pointers it is possible to move through the
-	-- list in both directions (unlike the Singly-Linked Lists which
-	-- only allows movement through the list in the forward direction).
-
-	-- List elements are allocated from the slice allocator, which is
-	-- more efficient than allocating elements individually.
+class G_LIST_STRING
 
 inherit
-	-- TODO: uncomment this when possible:
-	-- Temporary commented out to let some example work with SmartEiffel 
-	-- version 2.2 and SVN
-	-- 	LINKED_COLLECTION [ITEM]
-	-- 		redefine
-	-- 			append_collection,
-	-- 			clear_all,
-	-- 			has,
-	-- 			fast_has,
-	-- 			fast_first_index_of,
-	-- 			first_index_of,
-	-- 			get_new_iterator,
-	-- 			reverse,
-	-- 			upper,
-	-- 			swap
-	-- 		end
-	
 	SHARED_C_STRUCT
-			-- Note: a NULL pointer is the actual *valid* empty
-			-- G_LIST. Therefore any handle.is_not_null postcondition
-			-- shall be circumvented.
+		rename
+			is_not_null as wrapped_object_exists
 		redefine
-			copy, dispose
+			copy,
+			dispose
 		end
-	-- Note: Shall the wrapper factory be inserted rather than 
-	-- inherited?
-	WRAPPER_FACTORY [ITEM] -- undefine copy,is_equal end
 
 insert
 	G_LIST_EXTERNALS undefine fill_tagged_out_memory end
+		-- TODO: inserting INTERNALS_HANDLER is NOT necessary. Remove it
+		-- INTERNALS_HANDLER
+		-- needed to materialize an object of type STRING, without knowing
+		-- which type STRING will really be.
+		-- undefine copy 
+		-- end
 
-creation make, empty, from_external_pointer
+creation make, from_external_pointer
 
 feature
-	
-	make, empty is
+	make is
 		do
 			handle := default_pointer
+			--create factory_item
 		end
 
-	first: ITEM is
-		require not_empty: not is_empty
-		local p: POINTER -- Item Pointer
+	first: STRING is 
 		do
-			p:=g_list_get_data (handle)
-			Result::= wrappers.reference_at(p)
-			if Result=Void then
-				Result := new_item
-				Result.from_external_pointer(p)
-			end
-		ensure Result/=Void
+			create Result.from_external_copy (g_list_get_data (handle))
 		end
 
-	last: like first is
-		require not_empty: not is_empty
-		local p: POINTER -- Item Pointer
+	last: like first is 
 		do
-			p:=g_list_get_data (g_list_last (handle))
-			Result::= wrappers.reference_at(p)
-			if Result=Void then
-				Result := new_item
-				Result.from_external_pointer(p)
-			end
-		ensure Result/=Void
+			create Result.from_external_copy (g_list_get_data (g_list_last (handle)))
 		end
 
 	item (i: INTEGER): like first is
-		require not_empty: not is_empty
-		local p: POINTER -- Item Pointer
 		do
-			p:=g_list_nth_data (handle, i)
-			Result::= wrappers.reference_at(p)
-			if Result=Void then
-				Result := new_item
-				Result.from_external_pointer(p)
-			end
-		ensure Result/=Void
+			create Result.from_external_copy (g_list_nth_data (handle, i))
 		end
 
-	put (an_item: like first; i: INTEGER) is
-		require -- else 
-			valid_item: an_item /= Void
+	put (a_string: like first; i: INTEGER) is
+		require -- else
+			valid_item: a_string/=Void
 		do
-			g_list_set_data (g_list_nth(handle,i), an_item.handle)
+			g_list_set_data (g_list_nth(handle,i), a_string.to_external)
 		end
 
 	swap (i,j: INTEGER) is
@@ -122,40 +73,42 @@ feature
 			from ith:=handle
 			until ith.is_null
 			loop
-				g_list_set_data (ith, v.handle)
+				g_list_set_data (ith, v.to_external)
 				ith := g_list_get_next (ith)
 			end
 		end
 
 	clear_all is do not_yet_implemented end
 
-	add_first (element: like first) is
+	add_first (a_string: like first) is
 		do
-			handle := g_list_prepend (handle, element.handle)
+			handle := g_list_prepend (handle, a_string.to_external)
 		end
 
-	add_last (element: like first) is
+	add_last (a_string: like first) is
 			-- Note that add_last has to traverse the entire list to find
 			-- the end, which is inefficient when adding multiple
 			-- elements. A common idiom to avoid the inefficiency is to
 			-- prepend the elements and reverse the list when all
 			-- elements have been added.
 		do
-			handle := g_list_append (handle, element.handle)
+			handle := g_list_append (handle, a_string.to_external)	
 		end
 
-	add (element: like first; index: INTEGER) is
+	add (a_string: like first; index: INTEGER) is
 		do
-			handle := g_list_insert (handle, element.handle, index-1)
+			handle := g_list_insert (handle, a_string.to_external, index-1)
 		end
 
 	
-	append_collection (other: COLLECTION[ITEM]) is
+	append_collection (other: COLLECTION[STRING]) is
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
-	force (element: like first; index: INTEGER) is do not_yet_implemented end
+	force (a_string: like first; index: INTEGER) is do not_yet_implemented end
 
 	remove_first is
 		do
@@ -164,7 +117,8 @@ feature
 
 	remove (index: INTEGER) is
 		do
-			handle:=g_list_delete_link (handle, g_list_nth_data (handle, index-1))
+			handle:=g_list_delete_link (handle,
+												  g_list_nth_data (handle, index-1))
 		end
 
 	remove_last is
@@ -190,55 +144,61 @@ feature
 			Result:=fast_has(x)
 		end
 	
-	fast_has (x: like first): BOOLEAN is
+	fast_has (a_string: like first): BOOLEAN is
 			-- Look for x using basic = for comparison.
 		do
-			if (g_list_find(handle,x.handle).is_not_null)
+			if (g_list_find(handle,a_string.to_external).is_not_null)
 			then Result:=True
 			else check Result=False end
 			end
 		end
 	
-	first_index_of (element: like first): INTEGER is
+	first_index_of (a_string: like first): INTEGER is
 			-- Give the index of the first occurrence of element using
 			-- is_equal for comparison. Answer upper + 1 when element is
 			-- not inside.
 		do
-			Result:=g_list_index(handle,element.handle)
+			Result:=g_list_index(handle,a_string.to_external)
 		end
 
-	index_of (element: like first; start_index: INTEGER): INTEGER is
+	index_of (a_string: like first): INTEGER is
 		do
-			Result:=first_index_of(element)
+			Result:=first_index_of(a_string)
 		end
 
-	reverse_index_of (element: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
+	reverse_index_of (a_string: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
 
-	fast_first_index_of (element: like first): INTEGER is
+	fast_first_index_of (a_string: like first): INTEGER is
 			-- Give the index of the first occurrence of element using
 			-- basic = for comparison. Answer upper + 1 when element is
 			-- not inside.
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
-	fast_index_of (element: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
+	fast_index_of (a_string: like first): INTEGER is do not_yet_implemented end
 
-	fast_reverse_index_of (element: like first; start_index: INTEGER): INTEGER  is
+	fast_reverse_index_of (a_string: like first; start_index: INTEGER): INTEGER  is
 			-- Using basic = comparison, gives the index of the first
 			-- occurrence of element at or before start_index. Search is
 			-- done in reverse direction, which means from the
 			-- start_index down to the lower index . Answer lower -1 when
 			-- the search fail.
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
-	is_equal_map (other: LINKED_COLLECTION [ITEM]): BOOLEAN is
+	is_equal_map (other: LINKED_COLLECTION [STRING]): BOOLEAN is
 			-- Do both collections have the same lower, upper, and items?
 			-- Feature is_equal is used for comparison of items.
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
 	all_default: BOOLEAN is
@@ -246,65 +206,91 @@ feature
 			--	non Void items, the test is performed with the is_default
 			--	predicate.
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
-	copy (other: like Current) is
+	copy (other: G_LIST_STRING) is
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
-	occurrences (element: like first): INTEGER is
+	occurrences (a_string: like first): INTEGER is
 			-- Number of occurrences of element using is_equal for comparison.
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
-	fast_occurrences (element: like first): INTEGER is
+	fast_occurrences (a_string: like first): INTEGER is 
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 	
 
-	replace_all (old_value, new_value: like first) is
+	replace_all (old_value, new_value: like first) is 
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
-	fast_replace_all (old_value, new_value: like first) is
+	fast_replace_all (old_value, new_value: like first) is 
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
-	slice (min, max: INTEGER): G_LIST [ITEM] is
+	slice (min, max: INTEGER): G_LIST_STRING is 
 		do
+			check implemented: False end
 			not_yet_implemented -- TODO
+
 		end
 
 	reverse is
 		local old_handle: POINTER
 		do
 			old_handle := handle
-			handle:=g_list_reverse (old_handle)
+			handle:=g_list_reverse (handle)
+			g_list_free (handle) -- TODO is this call correct?
 		end
 
-	upper,count: INTEGER is
+	upper,count: INTEGER is 
 		do
 			Result:=g_list_length(handle)
-		ensure positive: Result >= 0
+		ensure -- then
+			positive: Result >= 0 
 		end
 
-	is_empty: BOOLEAN is
+	is_empty: BOOLEAN is 
 		do
 			Result:= (handle.is_null)
 		end
-
-	from_collection (model: COLLECTION[ITEM]) is do not_yet_implemented end
-
-	get_new_iterator: ITERATOR[ITEM] is
+	
+	from_collection (model: COLLECTION[STRING]) is do not_yet_implemented end
+	
+	get_new_iterator: ITERATOR[STRING] is 
 		do
-			create {ITERATOR_ON_G_LIST[ITEM]} Result.make (Current)
+			create {ITERATOR_ON_G_LIST_STRING} Result.make (Current) 
 		ensure valid: Result/=Void
+		end
+
+feature -- Memory management
+
+	dispose is
+		do
+			-- We override the default dispose routine; list nodes are not
+			-- allocated with malloc() so we should not use free()
+			g_list_free (handle)
+			handle:= default_pointer
 		end
 
 	-- Glib's doc, useful for implementing unimplemented
@@ -324,10 +310,10 @@ feature
 -- Allocates space for one GList element. It is called by the g_list_append(), g_list_prepend(), g_list_insert() and g_list_insert_sorted() functions and so is rarely used on its own.
 -- Returns : 	a pointer to the newly-allocated GList element.
 
-	append (an_item: like first) is
-			-- Adds `an_item' on to the end of the list.
+	append (a_string: like first) is
+			-- Adds `a_string' on to the end of the list.
 		do
-			handle:=g_list_append (handle, an_item.handle)
+			handle:=g_list_append (handle, a_string.to_external)
 
 			-- Note: The return value is the new start of the list, which may have changed, so make sure you store the new value.
 			
@@ -349,11 +335,12 @@ feature
 			--   number_list = g_list_append (number_list, GINT_TO_POINTER (14));
 		end
 
-	prepend  (an_item: like first) is
+			
+	prepend  (a_string: like first) is
 			-- Adds a new element on to the start of the list.
-		require valid_item: an_item/=Void
+		require valid_item: a_string/=Void
 		do
-			handle := g_list_prepend (handle,an_item.handle)
+			handle := g_list_prepend (handle,a_string.to_external)
 			-- Note: The return value is the new start of the list, which
 			-- may have changed, so make sure you store the new value.
 
@@ -374,10 +361,10 @@ feature
 -- Returns : 	the new start of the GList.
 -- g_list_insert_before ()
 
--- GList*     g_list_insert_before           (GList *slist, GList *sibling, gpointer data);
+-- GList*     g_list_insert_before           (GList *list, GList *sibling, gpointer data);
 
 -- Inserts a node before sibling containing data. Returns the new head of the list.
--- slist : 	a GList.
+-- list : 	a GList.
 -- sibling : 	node to insert data before.
 -- data : 	data to put in the newly-inserted node.
 -- Returns : 	new head of the list.
@@ -422,15 +409,12 @@ feature
 -- list : 	a GList.
 -- data : 	data to remove.
 -- Returns : 	new head of list.
+-- g_list_free ()
 
-	dispose is
-			-- Frees all of the memory used by a GList. The freed
-			-- elements are added to the GAllocator free list.
-		do
-			g_list_free (handle)
-			handle:= default_pointer
-		end
+-- void        g_list_free                    (GList *list);
 
+-- Frees all of the memory used by a GList. The freed elements are added to the GAllocator free list.
+-- list : 	a GList.
 -- g_list_free_1 ()
 
 -- void        g_list_free_1                  (GList *list);
@@ -502,10 +486,10 @@ feature
 -- Returns : 	the last element in the GList, or NULL if the GList has no elements.
 -- g_list_next()
 
--- #define     g_list_next(slist)
+-- #define     g_list_next(list)
 
 -- A convenience macro to gets the next element in a GList.
--- slist : 	an element in a GList.
+-- list : 	an element in a GList.
 -- Returns : 	the next element, or NULL if there are no more elements.
 -- g_list_nth ()
 
@@ -572,11 +556,12 @@ feature
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
 
-
-feature -- struct size
+feature {}
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GList)"
 		end
-
 end
+
+
+

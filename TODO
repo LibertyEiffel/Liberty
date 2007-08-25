@@ -1,3 +1,8 @@
+* When NATURAL_32 will be available in SmartEiffel the first thing to
+   fix is G_TYPE.g_type and all the gtype_... function calls that now
+   use an INTEGER_64. Many G_TYPE_EXTERNAL calls are now inlined with
+   type casting at C level.
+
 * Fix and make examples for
   * GtkAssistant
   * GtkAboutDialog
@@ -94,7 +99,7 @@ CONST_STRING has been created to address this need. The code pattern
 
  foo: STRING is
    do
-      create {CONST_STRING} Result.from_external_copy (external_get_foo (a_pointer))
+      create {CONST_STRING} Result.from_external (external_get_foo (a_pointer))
    end
 
 we should check if such a code pattern is a performance bottleneck

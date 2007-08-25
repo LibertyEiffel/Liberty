@@ -391,7 +391,14 @@ feature -- TODO: STRING parameter
 feature -- TODO: G_PARAM_SPEC parameter 
 	-- Note: call me dumb but it seems a little too recursive IMHO. Paolo 2006-06-28
 feature -- TODO: G_BOXED parameter. Note: this require a wrapper for G_BOXED
-feature -- TODO: POINTER parameter. Note: is this really needed? Paolo 2006-06-28
+	
+feature -- POINTER parameter.
+	is_pointer: BOOLEAN is
+			-- Is this a pointer parameter?
+		do
+			Result := g_is_param_spec_pointer (handle).to_boolean
+		end
+	
 feature -- TODO: G_OBJECT parameter
 	is_object: BOOLEAN is
 			-- Is this a object parameter?

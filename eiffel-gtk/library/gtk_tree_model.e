@@ -119,7 +119,13 @@ feature
 		ensure are_valid_tree_model_flags (Result)
 		end
 
-	n_columns, columns_count: INTEGER is
+	n_columns: INTEGER is
+		obsolete "Use columns_count instead"
+		do
+			Result:=columns_count
+		end
+
+	columns_count: INTEGER is
 			-- the number of columns supported by tree_model.
 		do
 			Result := gtk_tree_model_get_n_columns (handle)
@@ -193,6 +199,7 @@ feature
 			-- Note: When done with value, g_value_unset() needs to be
 			-- called to free any allocated memory. This should be
 			-- already implemented into G_VALUE
+		ensure not_null: Result /= Void
 		end
 
 	ref_node (an_iter: GTK_TREE_ITER) is

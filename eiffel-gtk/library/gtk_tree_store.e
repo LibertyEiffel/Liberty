@@ -61,10 +61,6 @@ feature -- Generic setter
 			-- `an_iterator': A valid GtkTreeIter for the row being modified
 			-- `a_column' : column number to modify
 			-- `a_value' : new value for the cell
-		require
-			valid_iterator: an_iterator/=Void
-			valid_value: a_value /= Void -- and then Eiffelize "The type of
-			-- `a_value' must be convertible to the type of the column."
 		do
 			gtk_tree_store_set_value (handle, an_iterator.handle, a_column, a_value.handle)
 		end
@@ -155,6 +151,9 @@ feature -- Generic setter
 			-- be appended to the list. The row will be filled with the
 			-- values given to this function.
 
+			-- `an_iterator' is an unset GTK_TREE_ITER to set to the
+			-- inserted row
+		
 			-- Calling store.insert_with_values (iter, parent, position,
 			-- cols, vals) has the same effect as calling
 
@@ -340,5 +339,4 @@ feature -- struct size
 -- --                                              GtkTreeIter *iter,
 -- --                                              va_list var_args);
 
-feature 
 end

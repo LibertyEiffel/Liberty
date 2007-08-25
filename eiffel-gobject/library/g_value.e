@@ -15,7 +15,6 @@ inherit
 
 insert
 	G_TYPE
-	G_TYPES
 	GLIB_MEMORY_ALLOCATION export {} all end
 	G_VALUE_EXTERNALS
 	
@@ -84,7 +83,7 @@ feature {} -- Creation
 		end
 
 	make_real is
-			-- create a new real G_VALUE (Note: using C type `double'
+			-- create a new real G_VALUE (Note: using C type `double')
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
 		ensure is_real: is_real
@@ -212,7 +211,7 @@ feature {} -- Creation
 			set_object (an_object)
 		ensure
 			is_object: is_object
-			value_set: object.is_equal(an_object.handle)
+			value_set: object.is_equal(an_object)
 		end
 
 	from_pointer (a_pointer: POINTER) is
@@ -473,12 +472,14 @@ feature {ANY} -- Object
 			Result := g_value_holds_object(handle).to_boolean
 		end
 
-	object: POINTER is
+	object: G_OBJECT is
 			-- If current value is an object, returns it.
 		require
 			is_object: is_object
+		local r: G_RETRIEVER[G_OBJECT]
 		do
-			Result := g_value_get_object (handle)
+			debug print_reimplement end 
+			Result:=r.eiffel_wrapper_from_gobject_pointer(g_value_get_object (handle))
 		end
 
 	set_object (a_value: G_OBJECT) is
@@ -574,6 +575,14 @@ feature {G_OBJECT} -- Type changing features
 		ensure is_object: is_object
 		end
 
+	turn_to_pointer is
+			-- Reset Current and make it an pointer value
+		do
+			g_value_unset (handle)
+			handle := g_value_init (handle, g_type_pointer)
+		ensure is_pointer: is_pointer
+		end
+
 	turn_to_string is
 			-- Reset Current and make it a string value
 		do
@@ -600,6 +609,14 @@ feature {} -- Disposing
 			handle := default_pointer
 		end
 
+feature {} -- Notices
+	print_reimplement is
+		once
+			print(once "G_VALUE.object is currently implemented using G_RETRIEVER,%
+                    % that have know issues. Please reimplement it %
+                    %with a factory%N")
+		end
+			
 invariant
 
 	handle_not_null: is_not_null

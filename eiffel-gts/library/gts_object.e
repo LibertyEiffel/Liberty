@@ -24,7 +24,7 @@ deferred class GTS_OBJECT
 
 inherit 
 	COMPARABLE_SHARED_C_STRUCT
-		redefine dispose
+		redefine free
 		end
 
 feature {} -- Unwrapped code
@@ -370,14 +370,6 @@ feature {} -- Unwrapped code
 
 	--     object :  a GtsObject.
 
-	dispose is 
-			-- Calls the destroy method of object, freeing all memory
-			-- allocated for it.
-		do
-			gts_object_destroy (handle)
-			handle := default_pointer
-		end
-
 	--   gts_finalize ()
 
 	--  void        gts_finalize                    (void);
@@ -385,7 +377,14 @@ feature {} -- Unwrapped code
 	--    Free all the memory allocated by the object system of GTS. No other GTS function can be called after this
 	--    function has been called.
 
-feature {} -- size
+feature {} -- size and memory handling
+	free (a_pointer: POINTER) is 
+			-- Calls the destroy method of object, freeing all memory
+			-- allocated for it.
+		do
+			check freeing_current: a_pointer=handle end
+			gts_object_destroy (a_pointer)
+		end
 
 	struct_size: INTEGER is
 		external "C inline use <gts.h>"
