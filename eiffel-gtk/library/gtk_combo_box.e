@@ -57,7 +57,7 @@ inherit
 insert 
 	GTK_COMBO_BOX_EXTERNALS
 
-creation make, with_text_only
+creation make, with_text_only, with_model
 
 feature {} -- Creation
 
@@ -381,6 +381,7 @@ feature -- Properties
 	-- "appears-as-list" gboolean : Read
 
 	-- Property Details
+feature
 	-- The "active" property
 
 	-- "active" gint : Read / Write

@@ -893,29 +893,26 @@ feature -- Search
 	-- search_equal_func : 	the compare function to use during the search
 	-- search_user_data : 	user data to pass to search_equal_func, or NULL
 	-- search_destroy : 	Destroy notifier for search_user_data, or NULL
-	-- gtk_tree_view_get_fixed_height_mode ()
+	
+	is_height_fixed: BOOLEAN is
+			-- Is fixed height mode turned on for Current tree view?
+		do
+			Result := gtk_tree_view_get_fixed_height_mode(handle).to_boolean
+		end
 
-	-- gboolean    gtk_tree_view_get_fixed_height_mode
-	--                                             (GtkTreeView *tree_view);
+	set_fixed_height_mode (a_setting: BOOLEAN) is
+			-- Enables or disables the fixed height mode of
+			-- tree_view. Fixed height mode speeds up GtkTreeView by
+			-- assuming that all rows have the same height.
 
-	-- Returns whether fixed height mode is turned on for tree_view.
-
-	-- tree_view : 	a GtkTreeView
-	-- Returns : 	TRUE if tree_view is in fixed height mode
-
-	-- Since 2.6
-	-- gtk_tree_view_set_fixed_height_mode ()
-
-	-- void        gtk_tree_view_set_fixed_height_mode
-	--                                             (GtkTreeView *tree_view,
-	--                                              gboolean enable);
-
-	-- Enables or disables the fixed height mode of tree_view. Fixed height mode speeds up GtkTreeView by assuming that all rows have the same height. Only enable this option if all rows are the same height and all columns are of type GTK_TREE_VIEW_COLUMN_FIXED.
-
-	-- tree_view : 	a GtkTreeView
-	-- enable : 	TRUE to enable fixed height mode
-
-	-- Since 2.6
+			-- TODO: Translate this into preconditions: "Only enable this
+			-- option if all rows are the same height and all columns are
+			-- of type `gtk_tree_view_column_fixed'".
+		do
+			gtk_tree_view_set_fixed_height_mode(handle,a_setting.to_integer)
+		ensure set: a_setting = is_height_fixed
+		end
+	
 	-- gtk_tree_view_get_hover_selection ()
 
 	-- gboolean    gtk_tree_view_get_hover_selection
@@ -1640,8 +1637,12 @@ feature -- The "row_activated" signal
 		--                                             GtkTreeViewColumn *arg2,
 		--                                             gpointer user_data);
 
-	on_row_activated is
+	on_row_activated (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN; a_view: GTK_TREE_VIEW) is
 			-- Built-in row_activated signal handler; empty by design; redefine it.
+		require
+			path_not_void: a_path /= Void
+			column_not_void: a_column /= Void
+			view_not_void: a_view /= Void
 		do
 		end
 
@@ -1852,51 +1853,7 @@ feature
 
 	-- tree_view : 	A GtkTreeNode.
 	-- model : 	The model.
-	-- gtk_tree_view_get_selection ()
 
-	-- GtkTreeSelection* gtk_tree_view_get_selection
-	--                                             (GtkTreeView *tree_view);
-
-	-- Gets the GtkTreeSelection associated with tree_view.
-
-	-- tree_view : 	A GtkTreeView.
-	-- Returns : 	A GtkTreeSelection object.
-	-- gtk_tree_view_get_hadjustment ()
-
-	-- GtkAdjustment* gtk_tree_view_get_hadjustment
-	--                                             (GtkTreeView *tree_view);
-
-	-- Gets the GtkAdjustment currently being used for the horizontal aspect.
-
-	-- tree_view : 	A GtkTreeView
-	-- Returns : 	A GtkAdjustment object, or NULL if none is currently being used.
-	-- gtk_tree_view_set_hadjustment ()
-
-	-- void        gtk_tree_view_set_hadjustment   (GtkTreeView *tree_view,
-	--                                              GtkAdjustment *adjustment);
-
-	-- Sets the GtkAdjustment for the current horizontal aspect.
-
-	-- tree_view : 	A GtkTreeView
-	-- adjustment : 	The GtkAdjustment to set, or NULL
-	-- gtk_tree_view_get_vadjustment ()
-
-	-- GtkAdjustment* gtk_tree_view_get_vadjustment
-	--                                             (GtkTreeView *tree_view);
-
-	-- Gets the GtkAdjustment currently being used for the vertical aspect.
-
-	-- tree_view : 	A GtkTreeView
-	-- Returns : 	A GtkAdjustment object, or NULL if none is currently being used.
-	-- gtk_tree_view_set_vadjustment ()
-
-	-- void        gtk_tree_view_set_vadjustment   (GtkTreeView *tree_view,
-	--                                              GtkAdjustment *adjustment);
-
-	-- Sets the GtkAdjustment for the current vertical aspect.
-
-	-- tree_view : 	A GtkTreeView
-	-- adjustment : 	The GtkAdjustment to set, or NULL
 	-- gtk_tree_view_get_headers_visible ()
 
 	-- gboolean    gtk_tree_view_get_headers_visible

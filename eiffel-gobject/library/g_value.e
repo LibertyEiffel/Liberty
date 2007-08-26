@@ -267,7 +267,7 @@ feature {ANY} -- Boolean
 		require
 			is_boolean: is_boolean
 		do
-			Result := (g_value_get_boolean (handle) = 1)
+			Result := g_value_get_boolean(handle).to_boolean
 		end
 
 
