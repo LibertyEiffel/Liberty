@@ -511,13 +511,20 @@ feature {} -- Implementation
 				-- storage as it is and not free it, since it hasn't been 
 				-- allocated by Eiffel and must NOT be freed.
 				-- change it to a dummy array
-				print(dispose_notice) 
+
+				-- TODO: Remove when consolidated. Commenting
+				-- "print(dispose_notice)": it seems that the hack satisfy
+				-- SmartEiffel garbage collector.
+				
 				storage := storage.from_pointer(sacrificial_lamb)
 			end
 		end
-
-	dispose_notice: STRING is
-		"CONST_STRING.dispose: the string is unchanged; using a tentative hack to avoid crash during quitting or disposing; a pre-allocated 1-char-long memory area will be set as storage.%N"
+	
+	-- Commenting """ dispose_notice: STRING is "CONST_STRING.dispose:
+	-- the string is unchanged; using a tentative hack to avoid crash
+	-- during quitting or disposing; a pre-allocated 1-char-long memory
+	-- area will be set as storage.%N" """ it seems that the hack
+	-- satisfy SmartEiffel garbage collector.
 
 	calloc (a_number, a_size: INTEGER): POINTER is
 			-- void *calloc(size_t nmemb, size_t size);

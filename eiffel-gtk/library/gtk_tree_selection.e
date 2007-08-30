@@ -142,23 +142,18 @@ feature -- View
 		ensure result_not_void: Result/=Void
 		end
 
-
-	is_node_selected: BOOLEAN is
-			-- Is there a selected node?
-		require not_multiple: not is_mode_multiple
-		do
-			Result:=(gtk_tree_selection_get_selected (handle, default_pointer, default_pointer)).to_boolean
-		end
-	
 feature -- selections
+	is_node_selected: BOOLEAN
+			-- Is there a selected node?
+
 	selected: GTK_TREE_ITER is
 			-- the currently selected node if selection is set to
 			-- `gtk_selection_single' or `gtk_selection_browse'.
+			-- `is_node_selected' is updated.
 		require not_multiple: not is_mode_multiple
-		local discarded_result: INTEGER
 		do
 			create Result.make
-			discarded_result := gtk_tree_selection_get_selected (handle, default_pointer, Result.handle)
+			is_node_selected:=(gtk_tree_selection_get_selected (handle, default_pointer, Result.handle)).to_boolean
 		end
 	
 	-- TODO: gtk_tree_selection_selected_foreach ()

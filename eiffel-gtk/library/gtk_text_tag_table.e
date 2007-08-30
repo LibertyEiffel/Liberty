@@ -53,8 +53,12 @@ feature
 			-- Add a tag to the table. The tag is assigned the highest priority in the table.
 		require
 			tag_not_void: a_tag /= Void
+			named_tag: a_tag.name/=Void
 			-- TODO: tag must not be in a tag table already,
-			-- TODO: a tagmay not have the same name as an already-added tag.
+						  
+			-- TODO: a tag may not have the same name as an already-added
+			-- tag.
+			no_tag_with_same_name: lookup(a_tag.name)=Void
 		do
 			gtk_text_tag_table_add (handle, a_tag.handle)
 		end
@@ -83,18 +87,24 @@ feature
 			end
 		end
 
--- gtk_text_tag_table_foreach ()
-
--- void        gtk_text_tag_table_foreach      (GtkTextTagTable *table,
---                                              GtkTextTagTableForeach func,
---                                              gpointer data);
-
--- Calls func on each tag in table, with user data data. Note that the table may not be modified while iterating over it (you can't add/remove tags).
-
--- table : 	a GtkTextTagTable
--- func : 	a function to call on each tag
--- data : 	user data
--- gtk_text_tag_table_get_size ()
+	has (a_tag: GTK_TEXT_TAG): BOOLEAN is
+		require
+			tag_not_void: a_tag /= Void
+			named_tag: a_tag.name /= Void
+		do
+			Result:= lookup(a_tag.name)/=Void
+		end
+		-- gtk_text_tag_table_foreach ()
+	
+		-- void        gtk_text_tag_table_foreach      (GtkTextTagTable *table,
+		--                                              GtkTextTagTableForeach func,
+		--                                              gpointer data);
+	
+		-- Calls func on each tag in table, with user data data. Note that the table may not be modified while iterating over it (you can't add/remove tags).
+	
+		-- table : 	a GtkTextTagTable
+		-- func : 	a function to call on each tag
+		-- data : 	user data
 
 	size: INTEGER is
 			-- Returns the size of the table (number of tags)

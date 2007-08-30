@@ -151,7 +151,7 @@ feature -- Style properties:
 
 feature
 	scroll_to_mark (a_mark: GTK_TEXT_MARK; within_margin: REAL;
-			        use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
+					  use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
 			-- Scrolls Current so that `a_mark' is on the screen in the
 			-- position indicated by `an_x_align' and `an_y_align'. An
 			-- alignment of 0.0 indicates left or top, 1.0 indicates
@@ -174,11 +174,11 @@ feature
 		require mark_not_void: a_mark /= Void
 		do
 			gtk_text_view_scroll_to_mark (handle, a_mark.handle, within_margin,
-			                              use_align.to_integer, an_x_align, an_y_align)
+													use_align.to_integer, an_x_align, an_y_align)
 		end
 
 	scroll_to_iter (an_iter: GTK_TEXT_ITER; within_margin: REAL;
-			        use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
+					  use_align: BOOLEAN; an_x_align, an_y_align: REAL) is
 			-- Scrolls text_view so that iter is on the screen in the
 			-- position indicated by xalign and yalign. An alignment of
 			-- 0.0 indicates left or top, 1.0 indicates right or bottom,
@@ -271,8 +271,8 @@ feature
 		require iterator_not_void: an_iterator/=Void
 		do
 			gtk_text_view_get_line_at_y (handle, an_iterator.handle, a_y,
-			                             default_pointer -- gint *line_top
-			                            )
+												  default_pointer -- gint *line_top
+												 )
 			-- Gets the GtkTextIter at the start of the line containing
 			-- the coordinate y. y is in buffer coordinates, convert from
 			-- window coordinates with
@@ -352,7 +352,7 @@ feature
 		end
 
 	window_to_buffer_coords (a_window_type: INTEGER;
-			                 window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
+								  window_x, window_y: INTEGER): TUPLE[INTEGER, INTEGER] is
 			-- Converts coordinates on the window identified by win to
 			-- buffer coordinates, storing the result in
 			-- (buffer_x,buffer_y).
@@ -618,22 +618,13 @@ feature -- Wrap mode
 		end
 
 feature -- Editabilty
-	set_editable is
+	set_editable (a_setting: BOOLEAN) is
 			-- Makes Current GtkTextView editable. You can override this
 			-- default setting with tags in the buffer, using the
 			-- "editable" attribute of tags.
 		do
-			gtk_text_view_set_editable (handle, 1)
-		ensure editable: is_editable
-		end
-
-	set_uneditable is
-			-- Makes Current GtkTextView not editable. You can override this
-			-- default setting with tags in the buffer, using the
-			-- "editable" attribute of tags.
-		do
-			gtk_text_view_set_editable (handle, 0)
-		ensure uneditable: not is_editable
+			gtk_text_view_set_editable (handle,a_setting.to_integer)
+		ensure set: is_editable = a_setting
 		end
 
 	is_editable: BOOLEAN is
@@ -644,20 +635,13 @@ feature -- Editabilty
 		end
 
 feature -- Cursor visibility
-	set_cursor_visible is
-			-- Displays the insertion point.
+	set_cursor_visible (a_setting: BOOLEAN) is
+			-- Displays or hides the insertion point. A buffer with no
+			-- editable text probably shouldn't have a visible cursor, so
+			-- you may want to turn the cursor off.
 		do
-			gtk_text_view_set_cursor_visible (handle, 1)
-		ensure visible_cursor: is_cursor_visible
-		end
-
-	set_cursor_invisible is
-			-- Hides the insertion point. A buffer with no editable text
-			-- probably shouldn't have a visible cursor, so you may want
-			-- to turn the cursor off.
-		do
-			gtk_text_view_set_cursor_visible (handle, 0)
-		ensure invisible_cursor: not is_cursor_visible
+			gtk_text_view_set_cursor_visible (handle, a_setting.to_integer)
+		ensure set: is_cursor_visible=a_setting
 		end
 
 	is_cursor_visible: BOOLEAN is

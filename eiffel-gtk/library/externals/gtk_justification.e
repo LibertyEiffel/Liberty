@@ -34,7 +34,7 @@ feature {} -- enum
 						(a_justification= gtk_justify_center) or else
 						(a_justification= gtk_justify_fill))
 		end
-
+	
 	gtk_justify_left: INTEGER is
 			-- 	The text is placed at the left edge of the label.
 		external "C macro use <gtk/gtk.h>"

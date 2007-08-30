@@ -106,16 +106,18 @@ feature -- Access
 			-- the GtkTextTagTable associated with this buffer.
 		local retriever: G_RETRIEVER [GTK_TEXT_TAG_TABLE]; ptr: POINTER
 		do
+			ptr := gtk_text_buffer_get_tag_table (handle)
 			if hidden_tag_table /= Void then -- retrieve the cached reference to the Eiffel wrapper
 				Result := hidden_tag_table
 			else -- try to retrieve the wrapper 
-				ptr := gtk_text_buffer_get_tag_table (handle)
 				if retriever.has_eiffel_wrapper_stored (ptr) then -- return the retrieved wrapper
 					Result :=  retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
 				else -- create a new wrapper for the underlying C object
 					create Result.from_external_pointer (ptr)
 				end
 			end
+			check correct_wrapper: Result.handle = ptr end
+		ensure not_void: Result /= Void
 		end
 
 	insert_at (an_iter: GTK_TEXT_ITER; some_text: STRING) is
@@ -256,6 +258,7 @@ feature -- Access
 			iter_not_void: an_iter /= Void
 			text_not_void: some_text /= Void
 			tags_not_void: some_tags /= Void
+			-- TODO: all_tags_are_in_tag_table: some_tags.for_all(agent tag_table.has)
 		local
 			tags: ITERATOR[GTK_TEXT_TAG];
 			a_start_offset: INTEGER
@@ -276,6 +279,29 @@ feature -- Access
 			end
 		end
 
+	insert_with_tag (an_iter: GTK_TEXT_ITER; some_text: STRING; a_tags: GTK_TEXT_TAG) is
+			-- Inserts `some_text' into buffer at `an_iter', applying
+			-- `a_tag' to the newly-inserted text. Equivalent to calling
+			-- `insert_at', then `apply_tag' on the inserted text; this
+			-- is just a convenience feature.
+
+			-- `an_iter': 	an iterator in buffer
+			-- `some_text': 	UTF-8 text
+			-- `a_tags': 	a_tags to apply to text
+		require
+			iter_not_void: an_iter /= Void
+			text_not_void: some_text /= Void
+			tag_not_void: a_tags /= Void
+		local
+			a_start_offset: INTEGER
+			a_start_iter: GTK_TEXT_ITER
+		do
+			a_start_offset := an_iter.offset
+			insert_at (an_iter, some_text) -- Now an_iter points to the end of the inserted text
+			a_start_iter := iter_at_offset (a_start_offset)
+			apply_tag (a_tags, a_start_iter, an_iter)
+		end
+	
 	insert_with_tags_by_name (an_iter: GTK_TEXT_ITER; some_text: STRING; 
 									  some_tag_names: COLLECTION[STRING]) is
 			-- Inserts `some_text' into buffer at `an_iter', applying the
