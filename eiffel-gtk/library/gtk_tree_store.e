@@ -329,8 +329,10 @@ feature -- struct size
 		end
 
 	dummy_gobject: POINTER is
+		local ca: ARRAY[INTEGER_32]
 		do
-			Result:=gtk_tree_store_newv(1,$g_type_int)
+			ca := <<g_type_int>>
+			Result:=gtk_tree_store_newv(1,ca.to_external)
 		end
 	
 	-- TODO:

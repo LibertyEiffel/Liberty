@@ -46,7 +46,7 @@ class GTK_TREE_SELECTION
 	-- programmers calling select_row on an already selected row).
 
 inherit
-	G_OBJECT
+	G_OBJECT redefine dummy end
 insert
 	GTK
 	G_SIGNALS
@@ -394,10 +394,21 @@ feature  -- The "changed" signal
 	-- path : 	The GtkTreePath of a selected row
 	-- iter : 	A GtkTreeIter pointing to a selected row
 	-- data : 	user data
+
 feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeSelection)"
+		end
+
+	dummy is
+			-- Note: GtkTreeSelection API does not provide a creation
+			-- features useful to implement dummy_gobject. So we redefine dummy to get its type from the class name.
+		local gtypeclass_ptr: POINTER
+		do
+			stored_type := g_type_from_name((once "GtkTreeSelection").to_external)
+			gtypeclass_ptr := g_type_class_ref (stored_type)
+			
 		end
 
 	dummy_gobject: POINTER is
