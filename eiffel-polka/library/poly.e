@@ -42,7 +42,7 @@ insert
 	POLKA_GLOBAL
 	POLY_EXTERNALS
 
-creation empty, universe, from_constraints, from_frame, copy, from_external_pointer
+creation dummy, empty, universe, from_constraints, from_frame, copy, from_external_pointer
 
 feature {} -- Creation
 
@@ -570,8 +570,8 @@ feature {} --  Linear transformations -- Several variables/expressions
 		do
 			-- FIXME: convert `some_assignments' to external representation!
 			create Result.from_external_pointer (poly_assign_variables (handle,
-			                                                            some_assignments.to_external,
-			                                                            some_assignments.count))
+																							some_assignments.to_external,
+																							some_assignments.count))
 		ensure
 			Result /= Void
 			Result.dimension = dimension
@@ -590,8 +590,8 @@ feature {} --  Linear transformations -- Several variables/expressions
 		do
 			-- FIXME: convert `some_substitutions' to external representation!
 			create Result.from_external_pointer (poly_substitute_variables (handle,
-			                                                                some_substitutions.to_external,
-			                                                                some_substitutions.count))
+																								 some_substitutions.to_external,
+																								 some_substitutions.count))
 		ensure
 			Result /= Void
 			Result.dimension = dimension

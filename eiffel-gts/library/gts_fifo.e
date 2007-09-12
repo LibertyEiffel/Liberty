@@ -26,7 +26,7 @@ inherit
 	STREAM_HANDLER undefine copy,is_equal,print_on end
 	WRAPPER_FACTORY[ITEM] undefine print_on end
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature 
 	make is
@@ -133,7 +133,7 @@ feature {} -- External calls
 		external "C use <gts.h>"
 		end
 
-	 gts_fifo_foreach (a_fifo, a_func, a_data: POINTER) is
+	gts_fifo_foreach (a_fifo, a_func, a_data: POINTER) is
 			--  void gts_fifo_foreach (GtsFifo *fifo, GtsFunc func, gpointer data);
 		external "C use <gts.h>"
 		end

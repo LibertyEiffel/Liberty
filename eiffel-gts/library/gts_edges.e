@@ -25,7 +25,7 @@ inherit G_LIST [GTS_EDGE]
 
 insert GTS_EDGE_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 feature -- Edges related functions

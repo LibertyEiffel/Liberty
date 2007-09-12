@@ -26,11 +26,6 @@ deferred class GTK_LIST_STORE_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {}
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkListStore)"
-		end
-
 	-- unwrappable since variadic GtkListStore* gtk_list_store_new (gint n_columns, ...);
 	
 	gtk_list_store_newv (n_columns: INTEGER; types: POINTER): POINTER is -- GtkListStore*

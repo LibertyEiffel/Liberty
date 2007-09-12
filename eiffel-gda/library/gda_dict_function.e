@@ -42,10 +42,10 @@ inherit
 	
 insert GDA_DICT_FUNCTION_EXTERNALS
 
-creation from_dict, from_external_pointer
+creation dummy, from_dict, from_external_pointer
 
 feature {} -- Creation
-   from_dict (a_dict: GDA_DICT) is
+	from_dict (a_dict: GDA_DICT) is
 			-- Creates a new GdaDictFunction object which represents a
 			-- function in the dictionary
 		require dict_not_void: a_dict /= Void

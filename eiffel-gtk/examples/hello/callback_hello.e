@@ -10,7 +10,7 @@ inherit
 	GTK
 	G_SIGNALS
 	
-creation	make
+creation dummy,	make
 	
 feature {} -- creation
 	make is

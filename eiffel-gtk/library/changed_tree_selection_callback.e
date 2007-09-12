@@ -30,7 +30,7 @@ inherit
 insert
 	G_OBJECT_RETRIEVER [GTK_TREE_SELECTION]
 
-creation make
+creation dummy, make
 
 feature
 	object: GTK_TREE_SELECTION

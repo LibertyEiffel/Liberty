@@ -2,8 +2,8 @@ indexing
 	description: "Font Options -- How a font should be rendered."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,
-					                   Soluciones Informaticas Libres S.A. (Except),
-					                   Cairo team
+											 Soluciones Informaticas Libres S.A. (Except),
+											 Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -38,7 +38,7 @@ insert
 	CAIRO_FONT_OPTIONS_EXTERNALS
 	CAIRO_STATUS
 
-creation make, from_external_pointer_shared
+creation dummy, make, from_external_pointer_shared
 
 feature {} -- Creation
 

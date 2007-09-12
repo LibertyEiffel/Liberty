@@ -45,7 +45,7 @@ insert
 	GDA_DICT_EXTERNALS
 	SHARED_G_ERROR
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is

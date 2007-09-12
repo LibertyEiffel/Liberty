@@ -34,7 +34,7 @@ class GTK_HSEPARATOR
 inherit GTK_SEPARATOR
 	--   GtkHSeparator implements AtkImplementorIface.
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -48,6 +48,11 @@ feature -- size
 		alias "sizeof(GtkHseparator)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_hseparator_new
+		end
+	
 feature {} -- External calls
 	gtk_hseparator_new: POINTER is
 			-- GtkWidget* gtk_hseparator_new (void);

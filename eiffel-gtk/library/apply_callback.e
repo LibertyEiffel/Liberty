@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [GTK_ASSISTANT]
 
-creation make
+creation dummy, make
 
 feature 
 	object: GTK_ASSISTANT

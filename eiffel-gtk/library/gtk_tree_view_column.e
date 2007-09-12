@@ -44,11 +44,11 @@ insert
 	GTK_TREE_VIEW_COLUMN_EXTERNALS
 	GTK_TREE_VIEW_COLUMN_SIZING
 	GTK_SORT_TYPE
+	GTK_FACTORIES
 	
-creation make, with_attributes, from_external_pointer
+creation dummy, make, with_attributes, from_external_pointer
 
-feature {} -- Creation
-
+feature -- Creation
 	make is
 			-- Creates a new GtkTreeViewColumn.
 		require gtk_initialized: gtk.is_initialized
@@ -115,7 +115,7 @@ feature
 			-- particular order.
 		do
 			-- Returns a newly-allocated GList of all the cell renderers in the column, in no particular order. The list must be freed with g_list_free().
-			create Result.from_external_pointer (gtk_tree_view_column_get_cell_renderers (handle))
+			create Result.from_external (gtk_tree_view_column_get_cell_renderers (handle), cell_renderer_factory)
 		ensure Result/=Void
 		end
 
@@ -812,5 +812,11 @@ feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeViewColumn)"
+		end
+
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_tree_view_column_new 
 		end
 end

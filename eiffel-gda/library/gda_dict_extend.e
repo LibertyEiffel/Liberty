@@ -41,7 +41,7 @@ inherit GDA_OBJECT
 
 insert GDA_DICT_EXTEND_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 --              GdaDictRegisterStruct;

@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision:$"
 
 class TEST_VECTOR
-creation make
+creation dummy, make
 feature make is
 		local
 			i: INTEGER

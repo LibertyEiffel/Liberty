@@ -1,19 +1,19 @@
 class TEST_MATRIX08
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
-      local
+	make is
+		local
 			m: GSL_MATRIX_REAL_64
 			min_x: TUPLE[INTEGER_32, INTEGER_32]
 			max_x: TUPLE[INTEGER_32, INTEGER_32]
-      do
+		do
 			create m.make_zero(10, 3)
 
 			assert(m.min = 0.0)
@@ -34,6 +34,6 @@ feature
 			
 			assert(m.all_default)
 			
-      end
+		end
 
 end -- TEST_MATRIX08

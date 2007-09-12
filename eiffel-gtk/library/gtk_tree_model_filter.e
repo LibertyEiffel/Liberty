@@ -44,8 +44,9 @@ inherit
 
 insert
 	G_TYPE
+	GTK_TREE_STORE_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_child_model: GTK_TREE_MODEL; a_root: GTK_TREE_PATH) is
@@ -240,6 +241,12 @@ feature -- size
 		alias "sizeof(GtkTreeModelFilter)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=(gtk_tree_model_filter_new
+						(gtk_tree_store_newv(1,$g_type_int),default_pointer))
+		end
+	
 feature {} -- External calls
 	-- TODO: wrap function pointer gboolean (*GtkTreeModelFilterVisibleFunc)
 	-- (GtkTreeModel *model, GtkTreeIter *iter, gpointer data);

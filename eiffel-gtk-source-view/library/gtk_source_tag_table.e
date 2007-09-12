@@ -25,7 +25,7 @@ class GTK_SOURCE_TAG_TABLE
 
 inherit GTK_TEXT_TAG_TABLE
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is

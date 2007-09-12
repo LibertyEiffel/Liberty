@@ -24,7 +24,7 @@ class GDK_EVENT_CONFIGURE
 	
 inherit SHARED_C_STRUCT redefine from_external_pointer end
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 	from_external_pointer(a_pointer: POINTER) is

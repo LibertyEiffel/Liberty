@@ -36,7 +36,7 @@ inherit
 
 insert GNOME_VFS_URI_HIDE_OPTIONS
 
-creation
+creation dummy,
 	make, from_external_pointer,
 	resolve_relative,
 	append_string, append_path, append_file_name,
@@ -402,82 +402,82 @@ feature {} -- External calls
 	-- GnomeVFSURI;
 	-- GnomeVFSToplevelURI;
 
- 	gnome_vfs_uri_new (a_text_uri: POINTER): POINTER is
+	gnome_vfs_uri_new (a_text_uri: POINTER): POINTER is
 			-- GnomeVFSURI* gnome_vfs_uri_new (const gchar *text_uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_resolve_relative (a_base, a_relative_reference: POINTER): POINTER is
+	gnome_vfs_uri_resolve_relative (a_base, a_relative_reference: POINTER): POINTER is
 			-- GnomeVFSURI* gnome_vfs_uri_resolve_relative (const GnomeVFSURI *base, const gchar *relative_reference);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_ref (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_ref (a_uri: POINTER): POINTER is
 			-- GnomeVFSURI* gnome_vfs_uri_ref (GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_unref (a_uri: POINTER) is
+	gnome_vfs_uri_unref (a_uri: POINTER) is
 			-- void gnome_vfs_uri_unref (GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_append_string (a_uri, a_uri_fragment: POINTER): POINTER is
+	gnome_vfs_uri_append_string (a_uri, a_uri_fragment: POINTER): POINTER is
 			-- GnomeVFSURI* gnome_vfs_uri_append_string (const GnomeVFSURI *uri, const char *uri_fragment);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_append_path (a_uri, a_path: POINTER): POINTER is
+	gnome_vfs_uri_append_path (a_uri, a_path: POINTER): POINTER is
 			-- GnomeVFSURI* gnome_vfs_uri_append_path (const GnomeVFSURI *uri, const char *path);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_append_file_name (a_uri, a_filename: POINTER): POINTER is
+	gnome_vfs_uri_append_file_name (a_uri, a_filename: POINTER): POINTER is
 			-- GnomeVFSURI* gnome_vfs_uri_append_file_name (const GnomeVFSURI *uri, const gchar *filename);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_to_string (a_uri: POINTER; some_hide_options: INTEGER): POINTER is
+	gnome_vfs_uri_to_string (a_uri: POINTER; some_hide_options: INTEGER): POINTER is
 			-- gchar* gnome_vfs_uri_to_string (const GnomeVFSURI *uri, GnomeVFSURIHideOptions hide_options);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_dup (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_dup (a_uri: POINTER): POINTER is
 			-- GnomeVFSURI* gnome_vfs_uri_dup (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_is_local (a_uri: POINTER): INTEGER is
+	gnome_vfs_uri_is_local (a_uri: POINTER): INTEGER is
 			-- gboolean gnome_vfs_uri_is_local (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_has_parent (a_uri: POINTER): INTEGER is
+	gnome_vfs_uri_has_parent (a_uri: POINTER): INTEGER is
 			-- gboolean gnome_vfs_uri_has_parent (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_get_parent (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_get_parent (a_uri: POINTER): POINTER is
 			-- GnomeVFSURI* gnome_vfs_uri_get_parent (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_get_toplevel (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_get_toplevel (a_uri: POINTER): POINTER is
 			-- GnomeVFSToplevelURI* gnome_vfs_uri_get_toplevel (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_get_host_name (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_get_host_name (a_uri: POINTER): POINTER is
 			-- gchar* gnome_vfs_uri_get_host_name (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_get_scheme (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_get_scheme (a_uri: POINTER): POINTER is
 			-- const gchar* gnome_vfs_uri_get_scheme (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_get_host_port (a_uri: POINTER): INTEGER is
+	gnome_vfs_uri_get_host_port (a_uri: POINTER): INTEGER is
 			-- guint gnome_vfs_uri_get_host_port (const GnomeVFSURI 
 			--*uri);
 
@@ -485,79 +485,79 @@ feature {} -- External calls
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_get_user_name (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_get_user_name (a_uri: POINTER): POINTER is
 			-- const gchar* gnome_vfs_uri_get_user_name (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_get_password (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_get_password (a_uri: POINTER): POINTER is
 			-- const gchar* gnome_vfs_uri_get_password (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_set_host_name (a_uri, a_host_name: POINTER) is
+	gnome_vfs_uri_set_host_name (a_uri, a_host_name: POINTER) is
 			-- void gnome_vfs_uri_set_host_name (GnomeVFSURI *uri, const gchar *host_name);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_set_host_port (a_uri: POINTER; a_host_port: INTEGER) is
+	gnome_vfs_uri_set_host_port (a_uri: POINTER; a_host_port: INTEGER) is
 			-- void gnome_vfs_uri_set_host_port (GnomeVFSURI *uri, guint host_port);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_set_user_name (a_uri, a_user_name: POINTER) is
+	gnome_vfs_uri_set_user_name (a_uri, a_user_name: POINTER) is
 			-- void gnome_vfs_uri_set_user_name (GnomeVFSURI *uri, const gchar *user_name);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_set_password (a_uri, a_password: POINTER) is
+	gnome_vfs_uri_set_password (a_uri, a_password: POINTER) is
 			-- void gnome_vfs_uri_set_password (GnomeVFSURI *uri, const gchar *password);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_equal (an_a, a_b: POINTER): INTEGER is
+	gnome_vfs_uri_equal (an_a, a_b: POINTER): INTEGER is
 			-- gboolean gnome_vfs_uri_equal (const GnomeVFSURI *a, const GnomeVFSURI *b);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_is_parent (a_possible_parent, a_possible_child: POINTER; recursive: INTEGER): INTEGER is
+	gnome_vfs_uri_is_parent (a_possible_parent, a_possible_child: POINTER; recursive: INTEGER): INTEGER is
 			-- gboolean gnome_vfs_uri_is_parent (const GnomeVFSURI
 			-- *possible_parent, const GnomeVFSURI *possible_child,
 			-- gboolean recursive);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_get_path (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_get_path (a_uri: POINTER): POINTER is
 			-- const gchar* gnome_vfs_uri_get_path (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_get_fragment_identifier (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_get_fragment_identifier (a_uri: POINTER): POINTER is
 			-- const gchar* gnome_vfs_uri_get_fragment_identifier (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_extract_dirname (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_extract_dirname (a_uri: POINTER): POINTER is
 			-- gchar* gnome_vfs_uri_extract_dirname (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_extract_short_name (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_extract_short_name (a_uri: POINTER): POINTER is
 			-- gchar* gnome_vfs_uri_extract_short_name (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_extract_short_path_name (a_uri: POINTER): POINTER is
+	gnome_vfs_uri_extract_short_path_name (a_uri: POINTER): POINTER is
 			-- gchar* gnome_vfs_uri_extract_short_path_name (const GnomeVFSURI *uri);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_hequal (an_a, a_b: POINTER): INTEGER is
+	gnome_vfs_uri_hequal (an_a, a_b: POINTER): INTEGER is
 			-- gint gnome_vfs_uri_hequal (gconstpointer a, gconstpointer b);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_hash (a_p: POINTER): INTEGER is
+	gnome_vfs_uri_hash (a_p: POINTER): INTEGER is
 			-- guint gnome_vfs_uri_hash (gconstpointer p);
 
 			-- TODO: Result should be NATURAL, since it is a guint

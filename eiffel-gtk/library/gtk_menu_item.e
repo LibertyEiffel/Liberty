@@ -29,13 +29,14 @@ class GTK_MENU_ITEM
 	-- child widget, altough only a few are really useful.
 	
 inherit
-	GTK_ITEM --redefine make end
-		-- GtkMenuItem implements AtkImplementorIface.
+	GTK_ITEM
+	
+	-- TODO: AtkImplementorIface.
 
 insert
 	G_OBJECT_RETRIEVER  [GTK_WIDGET]
 
-creation make, with_label, with_mnemonic, from_external_pointer
+creation dummy, make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -149,33 +150,29 @@ feature
 			gtk_menu_item_activate (handle)
 		end
 
---    -----------------------------------------------------------------------
 
---   gtk_menu_item_toggle_size_request ()
+	--   gtk_menu_item_toggle_size_request ()
 
---  void        gtk_menu_item_toggle_size_request
---                                              (GtkMenuItem *menu_item,
---                                               gint *requisition);
+	--  void        gtk_menu_item_toggle_size_request
+	--                                              (GtkMenuItem *menu_item,
+	--                                               gint *requisition);
 
---    Emits the "toggle_size_request" signal on the given item.
+	--    Emits the "toggle_size_request" signal on the given item.
 
---    menu_item :   the menu item
---    requisition : the requisition to use as signal data.
+	--    menu_item :   the menu item
+	--    requisition : the requisition to use as signal data.
 
---    -----------------------------------------------------------------------
 
---   gtk_menu_item_toggle_size_allocate ()
+	--   gtk_menu_item_toggle_size_allocate ()
 
---  void        gtk_menu_item_toggle_size_allocate
---                                              (GtkMenuItem *menu_item,
---                                               gint allocation);
+	--  void        gtk_menu_item_toggle_size_allocate
+	--                                              (GtkMenuItem *menu_item,
+	--                                               gint allocation);
 
---    Emits the "toggle_size_allocate" signal on the given item.
+	--    Emits the "toggle_size_allocate" signal on the given item.
 
---    menu_item :  the menu item.
---    allocation : the allocation to use as signal data.
-
---    -----------------------------------------------------------------------
+	--    menu_item :  the menu item.
+	--    allocation : the allocation to use as signal data.
 
 	is_right_justified: BOOLEAN is
 			-- Does the menu item appears justified at the right side of
@@ -195,54 +192,51 @@ feature
 		end
 
 
---    menu_item : a GtkMenuItem
+	-- Style Property Details
 
+	--   The "arrow-spacing" style property
 
--- Style Property Details
+	--    "arrow-spacing"        gint                  : Read
 
---   The "arrow-spacing" style property
+	--    Space between label and arrow.
 
---    "arrow-spacing"        gint                  : Read
+	--    Allowed values: >= 0
 
---    Space between label and arrow.
+	--    Default value: 10
 
---    Allowed values: >= 0
+	--    -----------------------------------------------------------------------
 
---    Default value: 10
+	--   The "horizontal-padding" style property
 
---    -----------------------------------------------------------------------
+	--    "horizontal-padding"   gint                  : Read
 
---   The "horizontal-padding" style property
+	--    Padding to left and right of the menu item.
 
---    "horizontal-padding"   gint                  : Read
+	--    Allowed values: >= 0
 
---    Padding to left and right of the menu item.
+	--    Default value: 3
 
---    Allowed values: >= 0
+	--    -----------------------------------------------------------------------
 
---    Default value: 3
+	--   The "selected-shadow-type" style property
 
---    -----------------------------------------------------------------------
+	--    "selected-shadow-type" GtkShadowType         : Read
 
---   The "selected-shadow-type" style property
+	--    Shadow type when item is selected.
 
---    "selected-shadow-type" GtkShadowType         : Read
+	--    Default value: GTK_SHADOW_NONE
 
---    Shadow type when item is selected.
+	--    -----------------------------------------------------------------------
 
---    Default value: GTK_SHADOW_NONE
+	--   The "toggle-spacing" style property
 
---    -----------------------------------------------------------------------
+	--    "toggle-spacing"       gint                  : Read
 
---   The "toggle-spacing" style property
+	--    Space between icon and label.
 
---    "toggle-spacing"       gint                  : Read
+	--    Allowed values: >= 0
 
---    Space between icon and label.
-
---    Allowed values: >= 0
-
---    Default value: 5
+	--    Default value: 5
 
 feature -- Signals
 
@@ -270,88 +264,88 @@ feature -- Signals
 			activate_callback.connect (Current, a_procedure)
 		end
 
---   The "activate-item" signal
+	--   The "activate-item" signal
 
---  void        user_function                  (GtkMenuItem *menuitem,
---                                              gpointer     user_data)      : Run first
+	--  void        user_function                  (GtkMenuItem *menuitem,
+	--                                              gpointer     user_data)      : Run first
 
---    Emitted when the item is activated, but also if the menu item has a
---    submenu. For normal applications, the relevant signal is "activate".
+	--    Emitted when the item is activated, but also if the menu item has a
+	--    submenu. For normal applications, the relevant signal is "activate".
 
---    menuitem :  the object which received the signal.
---    user_data : user data set when the signal handler was connected.
+	--    menuitem :  the object which received the signal.
+	--    user_data : user data set when the signal handler was connected.
 
---    -----------------------------------------------------------------------
+	--    -----------------------------------------------------------------------
 
---   The "toggle-size-allocate" signal
+	--   The "toggle-size-allocate" signal
 
---  void        user_function                  (GtkMenuItem *menuitem,
---                                              gint         arg1,
---                                              gpointer     user_data)      : Run first
+	--  void        user_function                  (GtkMenuItem *menuitem,
+	--                                              gint         arg1,
+	--                                              gpointer     user_data)      : Run first
 
---    menuitem :  the object which received the signal.
---    arg1 :
---    user_data : user data set when the signal handler was connected.
+	--    menuitem :  the object which received the signal.
+	--    arg1 :
+	--    user_data : user data set when the signal handler was connected.
 
---    -----------------------------------------------------------------------
+	--    -----------------------------------------------------------------------
 
---   The "toggle-size-request" signal
+	--   The "toggle-size-request" signal
 
---  void        user_function                  (GtkMenuItem *menuitem,
---                                              gpointer     arg1,
---                                              gpointer     user_data)      : Run first
+	--  void        user_function                  (GtkMenuItem *menuitem,
+	--                                              gpointer     arg1,
+	--                                              gpointer     user_data)      : Run first
 
---    menuitem :  the object which received the signal.
---    arg1 :
---    user_data : user data set when the signal handler was connected.
+	--    menuitem :  the object which received the signal.
+	--    arg1 :
+	--    user_data : user data set when the signal handler was connected.
 
--- end
-
-
--- Synopsis
+	-- end
 
 
-
--- Style Properties
-
-
---    "arrow-spacing"        gint                  : Read
---    "horizontal-padding"   gint                  : Read
---    "selected-shadow-type" GtkShadowType         : Read
---    "toggle-spacing"       gint                  : Read
-
--- Signals
+	-- Synopsis
 
 
---  "activate"  void        user_function      (GtkMenuItem *menuitem,
---                                              gpointer     user_data)      : Run first / Action
---  "activate-item"
---              void        user_function      (GtkMenuItem *menuitem,
---                                              gpointer     user_data)      : Run first
---  "toggle-size-allocate"
---              void        user_function      (GtkMenuItem *menuitem,
---                                              gint         arg1,
---                                              gpointer     user_data)      : Run first
---  "toggle-size-request"
---              void        user_function      (GtkMenuItem *menuitem,
---                                              gpointer     arg1,
---                                              gpointer     user_data)      : Run first
+
+	-- Style Properties
 
 
--- Details
+	--    "arrow-spacing"        gint                  : Read
+	--    "horizontal-padding"   gint                  : Read
+	--    "selected-shadow-type" GtkShadowType         : Read
+	--    "toggle-spacing"       gint                  : Read
 
---   GtkMenuItem
-
---  typedef struct _GtkMenuItem GtkMenuItem;
+	-- Signals
 
 
--- See Also
+	--  "activate"  void        user_function      (GtkMenuItem *menuitem,
+	--                                              gpointer     user_data)      : Run first / Action
+	--  "activate-item"
+	--              void        user_function      (GtkMenuItem *menuitem,
+	--                                              gpointer     user_data)      : Run first
+	--  "toggle-size-allocate"
+	--              void        user_function      (GtkMenuItem *menuitem,
+	--                                              gint         arg1,
+	--                                              gpointer     user_data)      : Run first
+	--  "toggle-size-request"
+	--              void        user_function      (GtkMenuItem *menuitem,
+	--                                              gpointer     arg1,
+	--                                              gpointer     user_data)      : Run first
 
---    GtkBin       for how to handle the child.
---    GtkItem      is the abstract class for all sorts of items.
---    GtkMenuShell is always the parent of GtkMenuItem.
 
--- References
+	-- Details
+
+	--   GtkMenuItem
+
+	--  typedef struct _GtkMenuItem GtkMenuItem;
+
+
+	-- See Also
+
+	--    GtkBin       for how to handle the child.
+	--    GtkItem      is the abstract class for all sorts of items.
+	--    GtkMenuShell is always the parent of GtkMenuItem.
+
+	-- References
 
 feature -- size
 	struct_size: INTEGER is
@@ -359,6 +353,11 @@ feature -- size
 		alias "sizeof(GtkMenuItem)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_menu_item_new
+		end
+	
 feature {} -- External calls
 	gtk_menu_item_new: POINTER is
 		external "C use <gtk/gtk.h>"

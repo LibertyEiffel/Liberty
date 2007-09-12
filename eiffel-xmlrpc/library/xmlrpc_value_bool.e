@@ -28,7 +28,7 @@ class XMLRPC_VALUE_BOOL
 inherit
 	XMLRPC_VALUE_ANY
 
-creation make, from_value
+creation dummy, make, from_value
 
 feature {} -- Creation
 

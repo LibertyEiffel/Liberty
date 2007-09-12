@@ -37,11 +37,11 @@ insert
 	GTK_STORE_SETTERS
 	GTK_TREE_STORE_EXTERNALS
 
-creation make
+creation dummy, make
 
 feature {} -- Creation
 
-	make (some_columns: ARRAY[INTEGER]) is
+	make (some_columns: ARRAY[INTEGER_32]) is
 			-- Creates a new tree store. `some_columns' is an array of integers; each
 			-- integer is the G_TYPE of an actual column. Note that only types
 			-- derived from standard GObject fundamental types are supported.
@@ -175,16 +175,16 @@ feature -- Generic setter
 			not_yet_implemented
 			-- TODO: some_values.to_external is an array of pointers to the Eiffel wrappers!!!
 			gtk_tree_store_insert_with_valuesv (handle, an_iterator.handle,
-			                                    a_parent.handle,
-			                                    a_position,
-			                                    -- gint *columns an array of column numbers
-			                                    some_columns.to_external,
-			                                    -- GValue *values an array of GValues
-			                                    some_values.to_external,
-			                                    -- gint n_values the length of the
-			                                    -- columns and values arrays
-			                                    some_values.count
-			                                   )
+															a_parent.handle,
+															a_position,
+															-- gint *columns an array of column numbers
+															some_columns.to_external,
+															-- GValue *values an array of GValues
+															some_values.to_external,
+															-- gint n_values the length of the
+															-- columns and values arrays
+															some_values.count
+														  )
 		end
 
 	add_first, prepend (an_iterator, a_parent: GTK_TREE_ITER) is
@@ -328,15 +328,18 @@ feature -- struct size
 		alias "sizeof(GtkTreeStore)"
 		end
 
--- TODO:
--- --             GtkTreeStore;
--- -- GtkTreeStore* gtk_tree_store_newv           (gint n_columns,
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_tree_store_newv(1,$g_type_int)
+		end
+	
+	-- TODO:
+	--             GtkTreeStore;
+	-- GtkTreeStore* gtk_tree_store_newv           (gint n_columns,
+	
+	-- void gtk_tree_store_set (GtkTreeStore *tree_store, GtkTreeIter
+	-- *iter, ...);
 
--- -- void        gtk_tree_store_set              (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              ...);
--- -- void        gtk_tree_store_set_valist       (GtkTreeStore *tree_store,
--- --                                              GtkTreeIter *iter,
--- --                                              va_list var_args);
-
+	-- void gtk_tree_store_set_valist (GtkTreeStore *tree_store,
+	-- GtkTreeIter *iter, va_list var_args);
 end

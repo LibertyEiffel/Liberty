@@ -29,7 +29,7 @@ insert
 	AV_CODEC_EXTERNALS
 	AV_CODEC_IDS
 
-creation
+creation dummy,
 	from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation

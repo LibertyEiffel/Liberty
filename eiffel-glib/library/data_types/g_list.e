@@ -2,107 +2,76 @@ indexing
 	description: "Doubly-Linked Lists are linked lists containing integer values or pointers to data, with the ability to iterate over the list in both directions."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
 
 class G_LIST [ITEM->SHARED_C_STRUCT]
-	-- Doubly-Linked Lists, with the ability to iterate over the list in
-	-- both directions.
-
-	-- Each element in the list contains a piece of data, together with
-	-- pointers which link to the previous and next elements in the
-	-- list. Using these pointers it is possible to move through the
-	-- list in both directions (unlike the Singly-Linked Lists which
-	-- only allows movement through the list in the forward direction).
-
-	-- List elements are allocated from the slice allocator, which is
-	-- more efficient than allocating elements individually.
+	-- Doubly-Linked Lists, with the ability to iterate over the list
+	-- in both directions.
 
 inherit
-	-- TODO: uncomment this when possible:
-	-- Temporary commented out to let some example work with SmartEiffel 
-	-- version 2.2 and SVN
-	-- 	LINKED_COLLECTION [ITEM]
-	-- 		redefine
-	-- 			append_collection,
-	-- 			clear_all,
-	-- 			has,
-	-- 			fast_has,
-	-- 			fast_first_index_of,
-	-- 			first_index_of,
-	-- 			get_new_iterator,
-	-- 			reverse,
-	-- 			upper,
-	-- 			swap
-	-- 		end
-	
-	SHARED_C_STRUCT
-			-- Note: a NULL pointer is the actual *valid* empty
-			-- G_LIST. Therefore any handle.is_not_null postcondition
-			-- shall be circumvented.
+	WRAPPER_COLLECTION [ITEM]
 		redefine
-			copy, dispose
+			dispose,
+			append_collection, clear_all,
+			has, fast_has, swap
 		end
-	-- Note: Shall the wrapper factory be inserted rather than 
-	-- inherited?
-	WRAPPER_FACTORY [ITEM] -- undefine copy,is_equal end
 
-insert
-	G_LIST_EXTERNALS undefine fill_tagged_out_memory end
+insert G_LIST_EXTERNALS undefine fill_tagged_out_memory end
 
-creation make, empty, from_external_pointer
+creation dummy, make, from_external
 
 feature
+	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[ITEM]) is
+		require factory_not_void: a_factory/=Void
+		do
+			factory := a_factory
+			handle := a_pointer
+		end
 	
-	make, empty is
+	make (a_factory: WRAPPER_FACTORY[ITEM]) is
+		require factory_not_void: a_factory/=Void
 		do
 			handle := default_pointer
 		end
 
+	from_collection (model: TRAVERSABLE[ITEM]) is
+			-- Initialize the current object with the contents of `model'.
+		local iter: ITERATOR[ITEM]
+		do
+			iter := model.get_new_iterator
+			from iter.start until iter.is_off loop
+				append(iter.item)
+				iter.next
+			end
+		end
+
 	first: ITEM is
-		require not_empty: not is_empty
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_get_data (handle)
-			Result::= wrappers.reference_at(p)
-			if Result=Void then
-				Result := new_item
-				Result.from_external_pointer(p)
+			if p.is_not_null then
+				Result := factory.wrapper(p)
 			end
-		ensure Result/=Void
 		end
 
 	last: like first is
-		require not_empty: not is_empty
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_get_data (g_list_last (handle))
-			Result::= wrappers.reference_at(p)
-			if Result=Void then
-				Result := new_item
-				Result.from_external_pointer(p)
+			if p.is_not_null then
+				Result := factory.wrapper(p)
 			end
-		ensure Result/=Void
 		end
 
 	item (i: INTEGER): like first is
-		require not_empty: not is_empty
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_nth_data (handle, i)
-			Result::= wrappers.reference_at(p)
-			if Result=Void then
-				Result := new_item
-				Result.from_external_pointer(p)
-			end
-		ensure Result/=Void
+			Result::= factory.wrapper(p)
 		end
 
 	put (an_item: like first; i: INTEGER) is
-		require -- else 
-			valid_item: an_item /= Void
 		do
-			g_list_set_data (g_list_nth(handle,i), an_item.handle)
+			g_list_set_data (g_list_nth(handle,i), null_or(an_item))
 		end
 
 	swap (i,j: INTEGER) is
@@ -148,7 +117,6 @@ feature
 		do
 			handle := g_list_insert (handle, element.handle, index-1)
 		end
-
 	
 	append_collection (other: COLLECTION[ITEM]) is
 		do
@@ -156,6 +124,15 @@ feature
 		end
 
 	force (element: like first; index: INTEGER) is do not_yet_implemented end
+
+	remove_head (n: INTEGER) is
+		local i: INTEGER
+		do
+			from i:=n until i=0 loop
+				remove_first
+				i := i - 1
+			end
+		end
 
 	remove_first is
 		do
@@ -167,6 +144,15 @@ feature
 			handle:=g_list_delete_link (handle, g_list_nth_data (handle, index-1))
 		end
 
+	remove_tail (n: INTEGER) is
+		local i: INTEGER
+		do
+			from i:=n until i=0 loop
+				remove_last
+				i := i - 1
+			end
+		end
+	
 	remove_last is
 		do
 			handle:=g_list_delete_link (handle,g_list_last (handle))
@@ -234,7 +220,12 @@ feature
 			not_yet_implemented -- TODO
 		end
 
-	is_equal_map (other: LINKED_COLLECTION [ITEM]): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN is
+		do
+			not_yet_implemented
+		end
+
+	is_equal_map (other: like Current): BOOLEAN is
 			-- Do both collections have the same lower, upper, and items?
 			-- Feature is_equal is used for comparison of items.
 		do
@@ -288,10 +279,21 @@ feature
 			handle:=g_list_reverse (old_handle)
 		end
 
-	upper,count: INTEGER is
+	count: INTEGER is
 		do
 			Result:=g_list_length(handle)
-		ensure positive: Result >= 0
+		ensure then positive: Result >= 0
+		end
+
+	lower: INTEGER is 0
+
+	upper: INTEGER is
+		do
+			Result := g_list_length(handle)-1
+			-- Note: the "ensure positive: Result >= 0" postcondition
+			-- actually clashes with TRAVERSABLE definition of count,
+			-- having "ensure definition: Result = upper - lower + 1" as
+			-- a postcondition
 		end
 
 	is_empty: BOOLEAN is
@@ -299,12 +301,9 @@ feature
 			Result:= (handle.is_null)
 		end
 
-	from_collection (model: COLLECTION[ITEM]) is do not_yet_implemented end
-
 	get_new_iterator: ITERATOR[ITEM] is
 		do
 			create {ITERATOR_ON_G_LIST[ITEM]} Result.make (Current)
-		ensure valid: Result/=Void
 		end
 
 	-- Glib's doc, useful for implementing unimplemented
@@ -579,4 +578,8 @@ feature -- struct size
 		alias "sizeof(GList)"
 		end
 
+	manifest_put (index: INTEGER_32; element: ITEM) is
+		do
+			put(element,index)
+		end
 end

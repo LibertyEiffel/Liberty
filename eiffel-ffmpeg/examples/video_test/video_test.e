@@ -30,7 +30,7 @@ insert
 	AV_SEEK_FLAGS
 	ARGUMENTS
 
-creation
+creation dummy,
 	make
 
 feature

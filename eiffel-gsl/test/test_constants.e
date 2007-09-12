@@ -1,18 +1,18 @@
 class TEST_CONSTANTS
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
 insert
 	GSL_CONSTANTS
 	
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
-      do
+	make is
+		do
 			assert((const_e - 2.718281828).abs < 0.00000001)
 			assert((const_pi - 3.141592654).abs < 0.00000001)
 			assert((const_log2e - (const_e.log / 2.log)).abs < 0.00000001)
@@ -23,6 +23,6 @@ feature
 			assert((const_1_pi - 1.0 / const_pi).abs < 0.00000001)
 			assert((const_lnpi - const_pi.log).abs < 0.00000001)
 			
-      end
+		end
 
 end -- TEST_CONSTANTS

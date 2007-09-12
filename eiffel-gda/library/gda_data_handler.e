@@ -48,7 +48,7 @@ inherit WRAPPER
 
 insert GDA_DATA_HANDLER_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature
 	sql_from_value (a_value: G_VALUE): STRING is
@@ -63,7 +63,7 @@ feature
 			if ptr.is_not_null then create Result.from_external(ptr) end
 		end 
 
-   string_from_value  (a_value: G_VALUE): STRING is
+	string_from_value  (a_value: G_VALUE): STRING is
 			-- a new, "user friendly" representation of `a_value', in the
 			-- users's locale (specially for the dates). If the value is
 			-- Void or is of type GDA_TYPE_NULL, the returned string is a

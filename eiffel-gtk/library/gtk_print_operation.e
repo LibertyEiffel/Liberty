@@ -98,7 +98,7 @@ insert
 		-- SHARED_G_ERROR
 	GTK -- to get error
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is 
@@ -1059,4 +1059,8 @@ feature -- size
 		alias "sizeof(GtkPrintOperation)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_print_operation_new
+		end
 end -- class GTK_PRINT_OPERATION

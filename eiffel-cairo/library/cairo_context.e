@@ -2,8 +2,8 @@ indexing
 	description: "The cairo drawing context (cairo_t in C)"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,
-					                   Soluciones Informaticas Libres S.A. (Except),
-					                   Cairo team
+											 Soluciones Informaticas Libres S.A. (Except),
+											 Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -60,7 +60,7 @@ insert
 	CAIRO_FONT_WEIGHT
 	CAIRO_STATUS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_target: CAIRO_SURFACE) is

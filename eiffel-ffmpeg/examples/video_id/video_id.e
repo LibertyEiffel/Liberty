@@ -5,7 +5,7 @@ insert
 	AV_CODEC_TYPES
 	ARGUMENTS
 
-creation
+creation dummy,
 	make
 
 feature
@@ -32,8 +32,8 @@ feature
 					minutes := video.duration // (av_time_base * 60)
 					seconds := (video.duration / av_time_base) - (minutes * 60).to_integer
 					print ("minutes: " + minutes.out + "%Nseconds: " +
-					       seconds.to_string_format (3) + "%Nformat: " +
-					       video.input_format.name + "%N")
+							 seconds.to_string_format (3) + "%Nformat: " +
+							 video.input_format.name + "%N")
 					from
 						stream := video.streams.get_new_iterator
 						video_stream := -1
@@ -44,10 +44,10 @@ feature
 							video_stream := stream.item.index
 							time_base := stream.item.time_base
 							print ("width: " + stream.item.codec.width.out +
-							       "%Nheight: " + stream.item.codec.height.out +
-							       "%Nduration: " + stream.item.duration.out +
-							       "%Ntime base: " + time_base.numerator.out +
-							       " / " + time_base.denominator.out)
+									 "%Nheight: " + stream.item.codec.height.out +
+									 "%Nduration: " + stream.item.duration.out +
+									 "%Ntime base: " + time_base.numerator.out +
+									 " / " + time_base.denominator.out)
 							if stream.item.codec.find_and_open_decoder then
 								print ("%Ncodec: " + stream.item.codec.codec.name + "%N")
 							else

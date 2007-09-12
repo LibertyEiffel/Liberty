@@ -3,7 +3,7 @@ class LIBGLADE_EXAMPLE
 inherit
 	GTK
 	
-creation
+creation dummy,
 	make
 	
 feature {NONE} -- creation

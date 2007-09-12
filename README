@@ -68,7 +68,7 @@ C compiler. I work on Debian Ubuntu with the GNU compiler on x86 and
 PowerPc. I value CPU portability more than compiler portability since
 my laptop is an Ubuntu iBook G3. As far as I can say using SmartEiffel
 with a GCC will produce code that will run on almost every computing
-facility produces in the last 20 years.
+facility produced in the last 20 years.
 
 * Compiler specific code will be used when any other alternative is
 awkward, incovenient, inefficient or just clumsy.
@@ -203,3 +203,151 @@ S.G. Gorshkov.
 
 [3] http://os.newsforge.com/article.pl?sid=05/06/09/2128249 "Linus
 compares Linux and BSDs"
+
+
+MEMORY HANDLING
+===============
+
+Having a one-to-one relationship between a C structure and an Eiffel
+object should not be a taboo.
+
+If we allow the existance of multiple wrappers per wrapped structure
+we have almost automatically solved all the memory handling
+problems. The only missing issue is containers that have proconditions
+like "first = item(lower)" that require having single wrappers. This
+can be solved giving containers a local dictionary of
+pointers-wrappers; this dictionary will not be plagued by the problems
+we found ...
+
+
+2007-08-16:
+
+Using "normal" wrapper objects as archetypes causes bugs. For example
+when registering the archetype of GTK_WINDOW, if it is created with a
+"normal" creation clause, like `make_toplevel' (one that will be used
+during plain usage of the library) creates a hidden top-level window
+that will confuse the user: he/she will always see an unwanted window
+in gtk.toplevels. Therefore we must create dummy G_OBJECT wrappers
+that actually does not really wrap any underlying C GObject. Such
+objects must be created using the `dummy' creation clause that takes
+the name of the underlying GObject as an argument; i.e. create
+{GTK_WINDOW}.dummy("GtkWindow"); create {GTK_LABEL}.dummy("GtkLabel")
+and so on. The dummy creation clause will query the GType run-time
+type system for the GType id linked to that class name and store it in
+the `type_from_name' feature. When
+SHARED_ARCHETYPES_DICTIONARY.store_archetype is invoked with each
+dummy-wrapper it will query for the object's type. The G_OBJECT.type,
+seeing that its handle is NULL will return the type_from_name value.
+
+This solution seems quite convoluted. 
+
+This solution is really convoluted. 
+
+This solution is much more convoluted and complicated that expected: I
+would have preferred something simpler and more easily understandable;
+yet this is the only solution I found that is correct and that does
+not breaks preconditions, postcondition, class invariants here and
+there, in seemingly random places. All in all an archetype should be a
+dummy wrapper and a dummy wrapper is supposed to wrap no real C
+structure, shouldn't it be?
+
+
+2007-08-17: Huston, we have a problem: GTK does not register all its
+classes during initialization, but only when the first instance of
+such an object gets created, together with all the other needed
+classes, for example, creating a GtkLabel on a freshly initializated
+GTK brings in: GtkObject, GtkWidget, GtkMisc, GtkLabel, GtkContainer,
+GtkMenuShell, GtkMenu, GtkStyle, GdkDragContext, GtkSettings,
+GtkRcStyle. So the design of the dummy creation procedure given
+yesterday will never ever work. Some ideas for a workaround:
+
+- make dummy deferred, effecting it in non-deferred heirs 
+
+- dummy creates an underlying GObject, retrieve its type, register the
+  type and immediatly destroy it. This does not work because the
+  efficient GObject type system when the last object of a given class
+  is destroyed, deletes its type from the known GTypes.
+
+- therefore dummy wrappers must actually create the real thing at C
+  level, i.e. invoke creation functions of their GObject. This has the
+  unwanted effect that gtk_window_list_toplevels will always show the
+  archetype.
+
+- perhaps there is a way to avoid creation of actual low-level
+  GObject: the dummy creation clause of the wrapper creates the
+  GObject instance and ref its GType using "g_type_class_ref". When it
+  quits the low-level GObject will be freed but the GType will be
+  "locked" in memory. (Paolo: I hope to fix it in a couple of days)>>>>>>> .merge-dx.r789
+=======
+This branch wants to test an idea for handling wrapper.
+
+Having a one-to-one relationship between a C structure and an Eiffel object should not be a taboo.
+
+If we allow the existance of multiple wrappers per wrapped structure
+we have almost automatically solved all the memory handling
+problems. The only missing issue is containers that have proconditions
+like "first = item(lower)" that require having single wrappers. This
+can be solved giving containers a local dictionary of
+pointers-wrappers; this dictionary will not be plagued by the problems we found ...
+
+
+2007-08-16:
+
+Using "normal" wrapper objects as archetypes causes bugs. For example
+when registering the archetype of GTK_WINDOW, if it is created with a
+"normal" creation clause, like `make_toplevel' (one that will be used
+during plain usage of the library) creates a hidden top-level window
+that will confuse the user: he/she will always see an unwanted window
+in gtk.toplevels. Therefore we must create dummy G_OBJECT wrappers
+that actually does not really wrap any underlying C GObject. Such
+objects must be created using the `dummy' creation clause that takes
+the name of the underlying GObject as an argument; i.e. create
+{GTK_WINDOW}.dummy("GtkWindow"); create {GTK_LABEL}.dummy("GtkLabel")
+and so on. The dummy creation clause will query the GType run-time
+type system for the GType id linked to that class name and store it in
+the `type_from_name' feature. When
+SHARED_ARCHETYPES_DICTIONARY.store_archetype is invoked with each
+dummy-wrapper it will query for the object's type. The G_OBJECT.type,
+seeing that its handle is NULL will return the type_from_name value.
+
+This solution seems quite convoluted. 
+
+This solution is really convoluted. 
+
+This solution is much more convoluted and complicated that expected: I
+would have preferred something simpler and more easily understandable;
+yet this is the only solution I found that is correct and that does
+not breaks preconditions, postcondition, class invariants here and
+there, in seemingly random places. All in all an archetype should be a
+dummy wrapper and a dummy wrapper is supposed to wrap no real C
+structure, shouldn't it be?
+
+
+2007-08-17: Huston, we have a problem: GTK does not register all its
+classes during initialization, but only when the first instance of
+such an object gets created, together with all the other needed
+classes, for example, creating a GtkLabel on a freshly initializated
+GTK brings in: GtkObject, GtkWidget, GtkMisc, GtkLabel, GtkContainer,
+GtkMenuShell, GtkMenu, GtkStyle, GdkDragContext, GtkSettings,
+GtkRcStyle. So the design of the dummy creation procedure given
+yesterday will never ever work. Some ideas for a workaround:
+
+- make dummy deferred, effecting it in non-deferred heirs 
+
+- dummy creates an underlying GObject, retrieve its type, register the
+  type and immediatly destroy it. This does not work because the
+  efficient GObject type system when the last object of a given class
+  is destroyed, deletes its type from the known GTypes.
+
+- therefore dummy wrappers must actually create the real thing at C
+  level, i.e. invoke creation functions of their GObject. This has the
+  unwanted effect that gtk_window_list_toplevels will always show the
+  archetype.
+
+- perhaps there is a way to avoid creation of actual low-level
+  GObject: the dummy creation clause of the wrapper creates the
+  GObject instance and ref its GType using "g_type_class_ref". When it
+  quits the low-level GObject will be freed but the GType will be
+  "locked" in memory. (Paolo: I hope to fix it in a couple of days)
+
+

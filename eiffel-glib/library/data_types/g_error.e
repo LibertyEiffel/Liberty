@@ -336,7 +336,7 @@ inherit
 insert
 	G_ERROR_EXTERNALS
 
-creation
+creation dummy,
 	make, empty, from_external_pointer
 
 feature {} -- Creation

@@ -56,7 +56,7 @@ insert
 	GTK_ENTRY_COMPLETION_EXTERNALS
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	
@@ -175,8 +175,8 @@ feature
 			-- a completion list with just strings.
 			-- This function will set up completion to have a list displaying all (and just)
 			-- strings in the completion list, and to get those strings from column
- 			-- in the model of completion.
- 			-- This functions creates and adds a GtkCellRendererText for the selected column.
+			-- in the model of completion.
+			-- This functions creates and adds a GtkCellRendererText for the selected column.
 			-- If you need to set the text column, but don't want the cell renderer,
 			-- use g_object_set() to set the ::text_column property directly.
 		do
@@ -429,4 +429,9 @@ feature
 		alias "sizeof(GtkEntryCompletion)"
 		end
 
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_entry_completion_new
+		end
 end -- class GTK_ENTRY_COMPLETION

@@ -15,7 +15,8 @@ deferred class GTK
 insert
 	ANY undefine copy,is_equal,fill_tagged_out_memory end
 	GTK_STANDARD_ENUMERATIONS undefine fill_tagged_out_memory end
-
+	GTK_FACTORIES
+	
 feature -- Gtk 
 
 	gtk: GTK_MAIN is

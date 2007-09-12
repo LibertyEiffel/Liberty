@@ -2,7 +2,7 @@ indexing
 	description: "Cairo Renderier -- Allows Rendering with the Cairo backend"
 	copyright: "[
 					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except),
-					                   Cairo team
+											 Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -28,7 +28,7 @@ insert
 	PANGO_CAIRO_RENDERER_EXTERNALS
 	WRAPPER_HANDLER
 
-creation for_cairo_context
+creation dummy, for_cairo_context
 
 feature {} -- Representation
 

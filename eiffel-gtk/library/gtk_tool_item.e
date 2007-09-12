@@ -30,10 +30,10 @@ class GTK_TOOL_ITEM
 	--GtkToolbar class for a description of the toolbar widget.
 
 inherit
-    GTK_BIN
-	 --GtkToolItem implements AtkImplementorIface.
+	GTK_BIN
+	--GtkToolItem implements AtkImplementorIface.
 
-creation make
+creation dummy, make
 
 feature {} -- Creation
 
@@ -263,7 +263,7 @@ feature
 		do
 			gtk_tool_item_rebuild_menu (handle)
 		end
-	 
+	
 	-- Note: "is-important", "visible-horizontal", "visible-vertical"
 	-- properties are not wrapped since there are strongly-typed,
 	-- specific feature calls to access and set them.
@@ -438,13 +438,13 @@ feature {} -- External calls
 		ensure valid_relief_style: is_valid_gtk_relief_style(Result)
 		end
 
-	 gtk_tool_item_retrieve_proxy_menu_item (a_tool_item: POINTER): POINTER is
+	gtk_tool_item_retrieve_proxy_menu_item (a_tool_item: POINTER): POINTER is
 			-- 	GtkWidget* gtk_tool_item_retrieve_proxy_menu_item
 			-- 	(GtkToolItem *tool_item)
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gtk_tool_item_get_proxy_menu_item (a_tool_item, a_menu_item_id: POINTER): POINTER is
+	gtk_tool_item_get_proxy_menu_item (a_tool_item, a_menu_item_id: POINTER): POINTER is
 			-- GtkWidget* gtk_tool_item_get_proxy_menu_item (GtkToolItem
 			-- *tool_item, const gchar *menu_item_id)
 		external "C use <gtk/gtk.h>"
@@ -468,4 +468,8 @@ feature -- size
 		alias "sizeof(GtkToolItem)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_tool_item_new
+		end
 end

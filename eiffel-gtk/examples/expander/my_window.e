@@ -5,7 +5,7 @@ inherit
 		redefine make, on_destroy
 		end
 	
-creation make
+creation dummy, make
 
 feature
 	make is

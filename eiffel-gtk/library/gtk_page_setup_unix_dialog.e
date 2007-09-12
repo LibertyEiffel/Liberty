@@ -35,12 +35,13 @@ inherit
 		rename
 			make as make_dialog
 		redefine
+			dummy_gobject,
 			struct_size
 		end
 	
-	--   GtkPageSetupUnixDialog implements AtkImplementorIface.
+	-- TODO: AtkImplementorIface
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_title: STRING; a_parent: GTK_WINDOW) is
@@ -127,7 +128,7 @@ feature {} -- External calls
 		external "C use <gtk/gtkpagesetupunixdialog.h>"
 		end
 
-	 gtk_page_setup_unix_dialog_get_print_settings (a_dialog: POINTER): POINTER is
+	gtk_page_setup_unix_dialog_get_print_settings (a_dialog: POINTER): POINTER is
 			-- GtkPrintSettings*
 			-- gtk_page_setup_unix_dialog_get_print_settings
 			-- (GtkPageSetupUnixDialog *dialog);
@@ -138,5 +139,11 @@ feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtkpagesetupunixdialog.h>"
 		alias "sizeof(GtkPageSetupUnixDialog)"
+		end
+
+	dummy_gobject: POINTER is
+		do
+			Result:=(gtk_page_setup_unix_dialog_new
+						(default_pointer, default_pointer))
 		end
 end -- class GTK_PAGE_SETUP_UNIX_DIALOG

@@ -61,14 +61,21 @@ class GTK_TOGGLE_BUTTON
 	-- end
 
 inherit
-	GTK_BUTTON redefine make, with_label, with_mnemonic end
+	GTK_BUTTON
+		redefine
+			dummy_gobject,
+			make,
+			struct_size,
+			with_label,
+			with_mnemonic
+		end
 
 insert
 	GTK
 	GTK_TOGGLE_BUTTON_EXTERNALS
 		-- TODO: GtkToggleButton implements AtkImplementorIface.
 
-creation make, with_label, with_mnemonic
+creation dummy, make, with_label, with_mnemonic
 
 feature {} -- Creation
 
@@ -243,5 +250,15 @@ feature -- The "toggled" signal
 			create toggled_callback.make
 			toggled_callback.connect (Current, a_procedure)
 		end
-
+	
+feature
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkToggleButton)"
+		end
+	
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_toggle_button_new
+		end
 end

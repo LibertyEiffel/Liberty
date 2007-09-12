@@ -45,7 +45,7 @@ insert
 	GDA_CLIENT_EXTERNALS
 	SHARED_G_ERROR
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
  
@@ -175,7 +175,7 @@ feature
 		do
 			ptr := (gda_client_find_connection
 					  (handle, a_data_source_name.to_external,
-					   a_username.to_external, a_password.to_external))
+						a_username.to_external, a_password.to_external))
 			if ptr.is_not_null then
 				Result:=wrappers.reference_at(ptr)
 				if Result=Void then 

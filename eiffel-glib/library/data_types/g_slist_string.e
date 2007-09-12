@@ -6,40 +6,33 @@ indexing
 	revision: "$Revision:$"
 
 class G_SLIST_STRING
+	-- A list of strings. 
 
-inherit
-	-- TODO: create a common heir of G_SLIST_STRING and G_SLIST
-	-- [ITEM->WRAPPER] and the hypotetical G_SLIST for Eiffel objects
+	-- Note for the developer of wrappers: The item strings are not
+	-- owned by the list, but by list's clients, so their memory area
+	-- will be collected by the Eiffel garbage collector. If the
+	-- wrapped GSList contains const char* and their memory is handled
+	-- elsewhere use G_SLIST_CONST_STRING.
 	
-	-- TODO: make it inherit from:
-	-- 	LINKED_COLLECTION [STRING]
-	-- 		redefine
-	-- 			append_collection,
-	-- 			clear_all,
-	-- 			has,
-	-- 			fast_has,
-	-- 			fast_first_index_of,
-	-- 			first_index_of,
-	-- 			reverse,
-	-- 			upper,
-	-- 			swap
-	-- 		end
+inherit
+	COLLECTION [STRING]
+		redefine
+			clear_all,
+			has,
+			fast_has
+		end
 	SHARED_C_STRUCT
 		rename
 			is_not_null as wrapped_object_exists
+		undefine
+			fill_tagged_out_memory
 		redefine
 			copy,
 			dispose
 		end
 
 insert
-	G_SLIST_EXTERNALS undefine fill_tagged_out_memory end
-		-- TODO: inserting INTERNALS_HANDLER is NOT necessary. Remove it
-		-- INTERNALS_HANDLER
-		-- needed to materialize an object of type STRING, without knowing
-		-- which type STRING will really be.
-		-- undefine copy 
-		-- end
+	G_SLIST_EXTERNALS
 
 creation make, from_external_pointer
 
@@ -52,36 +45,39 @@ feature
 
 	first: STRING is 
 		do
-			create Result.from_external_copy (g_slist_get_data (handle))
+			create Result.from_external (g_slist_get_data (handle))
 		end
 
 	last: like first is 
 		do
-			create Result.from_external_copy (g_slist_get_data (g_slist_last (handle)))
+			create Result.from_external (g_slist_get_data (g_slist_last (handle)))
 		end
 
 	item (i: INTEGER): like first is
+		local cstr: POINTER
 		do
-			create Result.from_external_copy (g_slist_nth_data (handle, i))
+			cstr := g_slist_nth_data (handle, i)
+			if cstr.is_not_null then
+				create Result.from_external (cstr)
+			end
 		end
 
 	put (a_string: like first; i: INTEGER) is
-		require -- else
-			valid_item: a_string/=Void
 		do
-			g_slist_set_data (g_slist_nth(handle,i), a_string.to_external)
+			g_slist_set_data (g_slist_nth(handle,i),
+									null_or_string(a_string))
 		end
 
-	swap (i,j: INTEGER) is
-		local ith,jth,tmp: POINTER
-		do
-			ith := g_slist_nth_data (handle,i)
-			jth := g_slist_nth_data (handle,j)
-
-			tmp := g_slist_get_data(ith)
-			g_slist_set_data (ith, g_slist_get_data(jth))
-			g_slist_set_data (jth, tmp)
-		end
+	-- swap (i,j: INTEGER) is
+	-- 		local ith,jth,tmp: POINTER
+	-- 		do
+	-- 			ith := g_slist_nth_data (handle,i)
+	-- 			jth := g_slist_nth_data (handle,j)
+	
+	-- 			tmp := g_slist_get_data(ith)
+	-- 			g_slist_set_data (ith, g_slist_get_data(jth))
+	-- 			g_slist_set_data (jth, tmp)
+	-- end
 
 	set_all_with (v: like first) is
 		local ith:POINTER
@@ -116,16 +112,17 @@ feature
 			handle := g_slist_insert (handle, a_string.to_external, index-1)
 		end
 
-	
-	append_collection (other: COLLECTION[STRING]) is
-		do
-			check implemented: False end
-			not_yet_implemented -- TODO
-
-		end
-
 	force (a_string: like first; index: INTEGER) is do not_yet_implemented end
 
+	remove_head (n: INTEGER) is
+		local i: INTEGER
+		do
+			from i:=n until i=0 loop
+				remove_first
+				i:=i-1
+			end
+		end
+	
 	remove_first is
 		do
 			handle:=g_slist_delete_link (handle, handle)
@@ -142,6 +139,15 @@ feature
 			handle:=g_slist_delete_link (handle,g_slist_last (handle))
 		end
 
+	remove_tail (n: INTEGER_32) is
+		local i: INTEGER
+		do
+			from i:=n until i=0 loop
+				remove_last
+				i := i-1
+			end
+		end
+	
 	clear_count, clear_count_and_capacity is
 			-- Discard all items (is_empty is True after that call). Frees
 			-- all of the memory used by a GSList. The freed elements are
@@ -177,9 +183,10 @@ feature
 			Result:=g_slist_index(handle,a_string.to_external)
 		end
 
-	index_of (a_string: like first): INTEGER is
+	index_of (a_string: like first; start_index: INTEGER): INTEGER is
 		do
-			Result:=first_index_of(a_string)
+			Result:=g_slist_index(g_slist_nth_data(handle,start_index),
+										 a_string.to_external)
 		end
 
 	reverse_index_of (a_string: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
@@ -194,13 +201,13 @@ feature
 
 		end
 
-	fast_index_of (a_string: like first): INTEGER is do not_yet_implemented end
+	fast_index_of (a_string: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
 
 	fast_reverse_index_of (a_string: like first; start_index: INTEGER): INTEGER  is
 			-- Using basic = comparison, gives the index of the first
 			-- occurrence of element at or before start_index. Search is
 			-- done in reverse direction, which means from the
-			-- start_index down to the lower index . Answer lower -1 when
+			---start_index down to the lower index . Answer lower -1 when
 			-- the search fail.
 		do
 			check implemented: False end
@@ -208,8 +215,8 @@ feature
 
 		end
 
-	is_equal_map (other: LINKED_COLLECTION [STRING]): BOOLEAN is
-			-- Do both collections have the same lower, upper, and items?
+	is_equal_map (other: like Current): BOOLEAN is
+			-- Do both collections have the same lower, upper, and ites?
 			-- Feature is_equal is used for comparison of items.
 		do
 			check implemented: False end
@@ -279,11 +286,13 @@ feature
 			g_slist_free (handle) -- TODO is this call correct?
 		end
 
+	lower: INTEGER is 0
+	
 	upper,count: INTEGER is 
 		do
 			Result:=g_slist_length(handle)
-		ensure -- then
-			positive: Result >= 0 
+			-- This postcondition "ensure then positive: Result >= 0" is
+			-- not that useful...
 		end
 
 	is_empty: BOOLEAN is 
@@ -295,10 +304,7 @@ feature
 	
 	get_new_iterator: ITERATOR[STRING] is 
 		do
-			-- check implemented: False end
-			-- not_yet_implemented -- TODO
 			create {ITERATOR_ON_G_SLIST_STRING} Result.make (Current) 
-		ensure valid: Result/=Void
 		end
 
 feature -- Memory management
@@ -574,6 +580,11 @@ feature -- Memory management
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
 
+
+	manifest_put (index: INTEGER; element: like item) is
+		do
+			put(element,index)
+		end
 feature {}
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"

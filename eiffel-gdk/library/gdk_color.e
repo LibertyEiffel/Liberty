@@ -10,7 +10,7 @@ class GDK_COLOR
 inherit
 	C_STRUCT
 
-creation
+creation dummy,
 	from_external_pointer, make
 
 feature -- size

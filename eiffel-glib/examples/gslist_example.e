@@ -6,7 +6,7 @@ indexing
 
 class GSLIST_EXAMPLE
 
-creation make
+creation dummy, make
 
 feature
 	list: G_SLIST[G_STRING]

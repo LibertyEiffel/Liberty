@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [O]
 
-creation make
+creation dummy, make
 
 feature
 	object: O

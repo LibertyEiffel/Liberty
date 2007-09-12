@@ -31,14 +31,18 @@ class GTK_CHECK_MENU_ITEM
 inherit
 	GTK_MENU_ITEM
 		redefine
-			make, with_label, with_mnemonic, struct_size
+			dummy_gobject,
+			make,
+			struct_size,
+			with_label,
+			with_mnemonic
 		end
 	-- Known heirs: GtkRadioMenuItem
 
 	-- GtkCheckMenuItem implements AtkImplementorIface.
 
 	
-creation make, with_label, with_mnemonic, from_external_pointer
+creation dummy, make, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 	make	is
@@ -212,12 +216,17 @@ feature
 
 	-- checkmenuitem : the object which received the signal.
 	-- user_data : user data set when the signal handler was connected.
-feature -- size
+
+feature 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCheckMenuItem)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_check_menu_item_new
+		end
 feature {} -- External calls
 	
 	gtk_check_menu_item_new: POINTER is
@@ -263,4 +272,5 @@ feature {} -- External calls
 	gtk_check_menu_item_get_draw_as_radio (a_check_menu_item: POINTER): INTEGER is 	-- gboolean
 		external "C use <gtk/gtk.h>"
 		end
+
 end

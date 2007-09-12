@@ -27,13 +27,13 @@ class GTK_STYLE
 	-- shall be freed by C when the widget is freed.
 
 inherit
-	GTK_STYLE_EXTERNALS
 	SHARED_C_STRUCT
 
 insert
+	GTK_STYLE_EXTERNALS
 	GTK_STATE_TYPE
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature -- size
 

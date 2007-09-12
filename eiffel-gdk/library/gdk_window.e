@@ -26,10 +26,13 @@ insert
 	GDK_WINDOW_EXTERNALS
 	GDK_MODIFIER_TYPE
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
-feature {} -- Creation
-
+feature -- Creation
+	dummy_gobject: POINTER is
+		do
+			Result:=gdk_window_new(default_pointer,default_pointer,0)
+		end
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
@@ -37,8 +40,6 @@ feature -- size
 		end
 
 feature
-
-
 	set_cursor (a_cursor: GDK_CURSOR) is
 		require
 			a_cursor /= Void

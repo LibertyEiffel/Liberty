@@ -23,8 +23,8 @@ class ITERATOR_ON_G_SLIST [ITEM->SHARED_C_STRUCT]
 inherit
 	ITERATOR [ITEM]
 	WRAPPER_HANDLER
+
 insert
-	WRAPPER_FACTORY [ITEM]
 	G_SLIST_EXTERNALS
 	
 creation make
@@ -33,16 +33,17 @@ feature {} -- Creation
 	make (a_list: G_SLIST[ITEM]) is
 		require valid_list: a_list/=Void
 		do
-			list := a_list.handle
+			list := a_list
 		end
 	
 feature {} -- Implementation
-	list: POINTER
+	list: G_SLIST[ITEM]
+	
 	current_element: POINTER
 feature -- Iterator's features
 	start is
 		do
-			current_element := list
+			current_element := list.handle
 		end
 	
 	is_off: BOOLEAN is
@@ -54,22 +55,11 @@ feature -- Iterator's features
 		local ptr: POINTER
 		do
 			ptr := g_slist_get_data (current_element)
-			Result::=wrappers.reference_at(ptr)
-			if Result=Void then
-				debug
-					print ("Warning: ITERATOR_ON_G_SLIST is creating a wrapper without knowing its effective type. If the list item is deferred a crash will come%N")
-				end
-				Result := new_item
-				Result.from_external_pointer (ptr)
-			else
-				check
-					wrappers_handle_is_pointer: Result.handle = ptr
-				end
-			end
+			if ptr.is_not_null then Result := list.factory.wrapper(ptr) end
 		end
 	
 	next is
 		do
-			current_element := g_slist_get_next (current_element)
+			current_element := g_slist_next (current_element)
 		end
 end

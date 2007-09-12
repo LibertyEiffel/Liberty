@@ -23,7 +23,7 @@ class CAIRO_LINEAR_PATTERN
 
 inherit CAIRO_GRADIENT_PATTERN
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 

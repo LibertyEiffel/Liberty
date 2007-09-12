@@ -109,9 +109,18 @@ inherit
 
 insert GTK_LABEL_EXTERNALS
 	
-creation empty, with_label, with_mnemonic, with_markup_label, from_external_pointer
+creation
+	dummy, empty, from_external_pointer, with_label, with_mnemonic, with_markup_label
+		
+feature -- Dummy creation
+	dummy_gobject: POINTER is
+		do
+			debug print_known_gobject_heirs end
+			Result:=gtk_label_new(default_pointer)
+			debug print_known_gobject_heirs end
+		end
 
-feature {} -- Creation
+feature {} -- Creation	
 	empty is
 			-- Creates a new empty label
 		require gtk_initialized: gtk.is_initialized

@@ -11,13 +11,13 @@ insert
 	ANY
 	G_QUARK_EXTERNALS
 	
-creation
+creation 
 	default_create,
 	from_string,
 	try_string
 
 feature
-	quark: INTEGER
+	quark: like gquark
 			-- Integer representation. TODO: Shall be instead a
 			-- NATURAL_32 since in C it's a guint32
 
@@ -66,11 +66,10 @@ feature
 			Result := (quark /= 0)
 		end
 
-	set_quark (a_quark: INTEGER) is
+	set_quark (a_quark: like gquark) is
 		do
 			quark := a_quark
 		ensure
 			quark = a_quark
 		end
-
 end

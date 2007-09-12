@@ -2,9 +2,9 @@ class ENTRIES_WINDOW
 inherit
 	GTK_WINDOW redefine make, on_destroy end
 insert
-	G_SIGNALS
+	G_SIGNALS undefine fill_tagged_out_memory end
 	GTK
-creation make
+creation dummy, make
 feature make is
 		do
 			Precursor

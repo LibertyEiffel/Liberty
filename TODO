@@ -1,7 +1,25 @@
+
+
+* There are a lot of G_OBJECT_FACTORY scattered throught the
+   code. While the code is (erhm should) be correct it feels not
+   efficient. Perhaps a shared singleton called SHARED_FACTORIES could
+   group at least some of them, achieving some memory efficiency; some
+   of them have been grouped in GTK_FACTORIES
+
 * When NATURAL_32 will be available in SmartEiffel the first thing to
    fix is G_TYPE.g_type and all the gtype_... function calls that now
    use an INTEGER_64. Many G_TYPE_EXTERNAL calls are now inlined with
-   type casting at C level.
+   type casting at C level. Change the invariant of G_TYPE_EXTERNALS
+   from "g_type_is_at_least_32_bit: g_type.object_size >= 4" to
+   "g_type_is_32_bit: g_type.object_size = 4". 
+
+* Classes that accepts collection of GTypes must pass a
+   COLLECTION[INTEGER_32] instead of a COLLECTION[INTEGER_64]
+   (COLLECTION[like gtype] is no allowed). This is required until
+   NATURAL_32 is available; otherwise programs will fail in a
+   non-obvious fashion, i.e. the C function that accepts the
+   collection and should return the GObject actually returns
+   NULL. I discovered it fro GtkTreeStore
 
 * Fix and make examples for
   * GtkAssistant

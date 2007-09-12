@@ -25,7 +25,7 @@ class GTK_SELECTION_DATA
 
 inherit SHARED_C_STRUCT 
 
-creation from_external_pointer, make
+creation dummy, from_external_pointer, make
 
 feature -- size
 	struct_size: INTEGER is

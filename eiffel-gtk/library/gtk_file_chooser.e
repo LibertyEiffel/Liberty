@@ -78,150 +78,150 @@ deferred class GTK_FILE_CHOOSER
 	-- that indicates whether your callback could successfully generate
 	-- a preview.
 
-			-- Example 2. Sample Usage
+	-- Example 2. Sample Usage
 
-			-- {
-			--   GtkImage *preview;
+	-- {
+	--   GtkImage *preview;
 
-			--   ...
+	--   ...
 
-			--   preview = gtk_image_new ();
+	--   preview = gtk_image_new ();
 
-			--   gtk_file_chooser_set_preview_widget (my_file_chooser, preview);
-			--   g_signal_connect (my_file_chooser, "update-preview",
-			-- 		    G_CALLBACK (update_preview_cb), preview);
-			-- }
+	--   gtk_file_chooser_set_preview_widget (my_file_chooser, preview);
+	--   g_signal_connect (my_file_chooser, "update-preview",
+	-- 		    G_CALLBACK (update_preview_cb), preview);
+	-- }
 
-			-- static void
-			-- update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
-			-- {
-			--   GtkWidget *preview;
-			--   char *filename;
-			--   GdkPixbuf *pixbuf;
-			--   gboolean have_preview;
+	-- static void
+	-- update_preview_cb (GtkFileChooser *file_chooser, gpointer data)
+	-- {
+	--   GtkWidget *preview;
+	--   char *filename;
+	--   GdkPixbuf *pixbuf;
+	--   gboolean have_preview;
 
-			--   preview = GTK_WIDGET (data);
-			--   filename = gtk_file_chooser_get_preview_filename (file_chooser);
+	--   preview = GTK_WIDGET (data);
+	--   filename = gtk_file_chooser_get_preview_filename (file_chooser);
 
-			--   pixbuf = gdk_pixbuf_new_from_file_at_size (filename, 128, 128, NULL);
-			--   have_preview = (pixbuf != NULL);
-			--   g_free (filename);
+	--   pixbuf = gdk_pixbuf_new_from_file_at_size (filename, 128, 128, NULL);
+	--   have_preview = (pixbuf != NULL);
+	--   g_free (filename);
 
-			--   gtk_image_set_from_pixbuf (GTK_IMAGE (preview), pixbuf);
-			--   if (pixbuf)
-			--     gdk_pixbuf_unref (pixbuf);
+	--   gtk_image_set_from_pixbuf (GTK_IMAGE (preview), pixbuf);
+	--   if (pixbuf)
+	--     gdk_pixbuf_unref (pixbuf);
 
-			--   gtk_file_chooser_set_preview_widget_active (file_chooser, have_preview);
-			-- }
+	--   gtk_file_chooser_set_preview_widget_active (file_chooser, have_preview);
+	-- }
 	
 
-			-- Adding Extra Widgets
+	-- Adding Extra Widgets
 
-			-- You can add extra widgets to a file chooser to provide options that are not present in the default design. For example, you can add a toggle button to give the user the option to open a file in read-only mode. You can use gtk_file_chooser_set_extra_widget() to insert additional widgets in a file chooser.
+	-- You can add extra widgets to a file chooser to provide options that are not present in the default design. For example, you can add a toggle button to give the user the option to open a file in read-only mode. You can use gtk_file_chooser_set_extra_widget() to insert additional widgets in a file chooser.
 
-			-- Example 3. Sample Usage
+	-- Example 3. Sample Usage
 
-			-- {
-			--   GtkWidget *toggle;
+	-- {
+	--   GtkWidget *toggle;
 
-			--   ...
+	--   ...
 
-			--   toggle = gtk_check_button_new_with_label ("Open file read-only");
-			--   gtk_widget_show (toggle);
-			--   gtk_file_chooser_set_extra_widget (my_file_chooser, toggle);
-			-- }
-	
-
-			-- Note
-
-			-- If you want to set more than one extra widget in the file chooser, you can a container such as a GtkVBox or a GtkTable and include your widgets in it. Then, set the container as the whole extra widget.
-			-- Key Bindings
-
-			-- Internally, GTK+ implements a file chooser's graphical user interface with the private GtkFileChooserDefaultClass. This widget has several key bindings and their associated signals. This section describes the available key binding signals.
-
-			-- Example 4. GtkFileChooser key binding example
-
-			-- The default keys that activate the key-binding signals in GtkFileChooserDefaultClass are as follows:
-			-- Signal name 	Default key combinations
-			-- location-popup 	Control-L; /
-			-- up-folder 	Alt-Up[a] ; Backspace
-			-- down-folder 	Alt-Down
-			-- home-folder 	Alt-Home
-
-			-- [a] Both the individual Up key and the numeric keypad's Up key are supported.
-
-			-- You can change these defaults to something else. For example, to add a Shift modifier to a few of the default bindings, you can include the following fragment in your .gtkrc-2.0 file:
-
-			-- binding "my-own-gtkfilechooser-bindings" {
-			-- 	bind "<Alt><Shift>Up" {
-			-- 		"up-folder" ()
-			-- 	}
-			-- 	bind "<Alt><Shift>Down" {
-			-- 		"down-folder" ()
-			-- 	}
-			-- 	bind "<Alt><Shift>Home" {
-			-- 		"home-folder" ()
-			-- 	}
-			-- }
-	
-			-- class "GtkFileChooserDefault" binding "my-own-gtkfilechooser-bindings"
-	
-	
-			-- The "GtkFileChooserDefault::location-popup" signal
-	
-			--           void user_function (GtkFileChooserDefault
-			--           *chooser, const char *path, gpointer user_data);
-	
-	
-			-- This is used to make the file chooser show a "Location" dialog which the user can use to manually type the name of the file he wishes to select. The path argument is a string that gets put in the text entry for the file name. By default this is bound to Control-L with a path string of "" (the empty string); it is also bound to / with a path string of "/" (a slash): this lets you type / and immediately type a path name.
-			-- chooser : 	the object which received the signal.
-			-- path : 	default contents for the text entry for the file name
-			-- user_data : 	user data set when the signal handler was connected.
-			-- Tip
-	
-			-- You can create your own bindings for the location-popup
-			-- signal with custom path strings, and have a crude form of
-			-- easily-to-type bookmarks. For example, say you access the
-			-- path /home/username/misc very frequently. You could then
-			-- create an Alt-M shortcut by including the following in
-			-- your .gtkrc-2.0:
-
-			-- binding "misc-shortcut" {
-			-- 	bind "<Alt>M" {
-			-- 		"location-popup" ("/home/username/misc")
-			-- 	}
-			-- }
-	
-			-- class "GtkFileChooserDefault" binding "misc-shortcut"
+	--   toggle = gtk_check_button_new_with_label ("Open file read-only");
+	--   gtk_widget_show (toggle);
+	--   gtk_file_chooser_set_extra_widget (my_file_chooser, toggle);
+	-- }
 	
 
-			-- The "GtkFileChooserDefault::up-folder" signal
+	-- Note
+
+	-- If you want to set more than one extra widget in the file chooser, you can a container such as a GtkVBox or a GtkTable and include your widgets in it. Then, set the container as the whole extra widget.
+	-- Key Bindings
+
+	-- Internally, GTK+ implements a file chooser's graphical user interface with the private GtkFileChooserDefaultClass. This widget has several key bindings and their associated signals. This section describes the available key binding signals.
+
+	-- Example 4. GtkFileChooser key binding example
+
+	-- The default keys that activate the key-binding signals in GtkFileChooserDefaultClass are as follows:
+	-- Signal name 	Default key combinations
+	-- location-popup 	Control-L; /
+	-- up-folder 	Alt-Up[a] ; Backspace
+	-- down-folder 	Alt-Down
+	-- home-folder 	Alt-Home
+
+	-- [a] Both the individual Up key and the numeric keypad's Up key are supported.
+
+	-- You can change these defaults to something else. For example, to add a Shift modifier to a few of the default bindings, you can include the following fragment in your .gtkrc-2.0 file:
+
+	-- binding "my-own-gtkfilechooser-bindings" {
+	-- 	bind "<Alt><Shift>Up" {
+	-- 		"up-folder" ()
+	-- 	}
+	-- 	bind "<Alt><Shift>Down" {
+	-- 		"down-folder" ()
+	-- 	}
+	-- 	bind "<Alt><Shift>Home" {
+	-- 		"home-folder" ()
+	-- 	}
+	-- }
 	
-			--           void user_function (GtkFileChooserDefault
-			--           *chooser, gpointer user_data);
+	-- class "GtkFileChooserDefault" binding "my-own-gtkfilechooser-bindings"
 	
 	
-			-- This is used to make the file chooser go to the parent of the current folder in the file hierarchy. By default this is bound to Backspace and Alt-Up (the Up key in the numeric keypad also works).
-			-- chooser : 	the object which received the signal.
-			-- user_data : 	user data set when the signal handler was connected.
-			-- The "GtkFileChooserDefault::down-folder" signal
+	-- The "GtkFileChooserDefault::location-popup" signal
 	
-			--           void user_function (GtkFileChooserDefault *chooser,
-			--                               gpointer user_data);
+	--           void user_function (GtkFileChooserDefault
+	--           *chooser, const char *path, gpointer user_data);
 	
 	
-			-- This is used to make the file chooser go to a child of the current folder in the file hierarchy. The subfolder that will be used is displayed in the path bar widget of the file chooser. For example, if the path bar is showing "/foo/bar/baz", then this will cause the file chooser to switch to the "baz" subfolder. By default this is bound to Alt-Down (the Down key in the numeric keypad also works).
-			-- chooser : 	the object which received the signal.
-			-- user_data : 	user data set when the signal handler was connected.
-			-- The "GtkFileChooserDefault::home-folder" signal
+	-- This is used to make the file chooser show a "Location" dialog which the user can use to manually type the name of the file he wishes to select. The path argument is a string that gets put in the text entry for the file name. By default this is bound to Control-L with a path string of "" (the empty string); it is also bound to / with a path string of "/" (a slash): this lets you type / and immediately type a path name.
+	-- chooser : 	the object which received the signal.
+	-- path : 	default contents for the text entry for the file name
+	-- user_data : 	user data set when the signal handler was connected.
+	-- Tip
 	
-			--           void user_function (GtkFileChooserDefault *chooser,
-			--                               gpointer user_data);
+	-- You can create your own bindings for the location-popup
+	-- signal with custom path strings, and have a crude form of
+	-- easily-to-type bookmarks. For example, say you access the
+	-- path /home/username/misc very frequently. You could then
+	-- create an Alt-M shortcut by including the following in
+	-- your .gtkrc-2.0:
+
+	-- binding "misc-shortcut" {
+	-- 	bind "<Alt>M" {
+	-- 		"location-popup" ("/home/username/misc")
+	-- 	}
+	-- }
+	
+	-- class "GtkFileChooserDefault" binding "misc-shortcut"
+	
+
+	-- The "GtkFileChooserDefault::up-folder" signal
+	
+	--           void user_function (GtkFileChooserDefault
+	--           *chooser, gpointer user_data);
 	
 	
-			-- This is used to make the file chooser show the user's home folder in the file list. By default this is bound to Alt-Home (the Home key in the numeric keypad also works).
-			-- chooser : 	the object which received the signal.
-			-- user_data : 	user data set when the signal handler was connected.
+	-- This is used to make the file chooser go to the parent of the current folder in the file hierarchy. By default this is bound to Backspace and Alt-Up (the Up key in the numeric keypad also works).
+	-- chooser : 	the object which received the signal.
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "GtkFileChooserDefault::down-folder" signal
+	
+	--           void user_function (GtkFileChooserDefault *chooser,
+	--                               gpointer user_data);
+	
+	
+	-- This is used to make the file chooser go to a child of the current folder in the file hierarchy. The subfolder that will be used is displayed in the path bar widget of the file chooser. For example, if the path bar is showing "/foo/bar/baz", then this will cause the file chooser to switch to the "baz" subfolder. By default this is bound to Alt-Down (the Down key in the numeric keypad also works).
+	-- chooser : 	the object which received the signal.
+	-- user_data : 	user data set when the signal handler was connected.
+	-- The "GtkFileChooserDefault::home-folder" signal
+	
+	--           void user_function (GtkFileChooserDefault *chooser,
+	--                               gpointer user_data);
+	
+	
+	-- This is used to make the file chooser show the user's home folder in the file list. By default this is bound to Alt-Home (the Home key in the numeric keypad also works).
+	-- chooser : 	the object which received the signal.
+	-- user_data : 	user data set when the signal handler was connected.
 
 inherit
 	-- "Prerequisites: GtkFileChooser requires GtkWidget." IMHO this
@@ -235,15 +235,7 @@ insert
 	GTK_FILE_CHOOSER_CONFIRMATION
 	GTK_FILE_CHOOSER_ERROR
 	GTK_FILE_CHOOSER_ACTION
-		-- Here this renaming is not useful; BTW, it produce incorrect code into GTK_FILE_CHOOSER's heirs
-		-- 		rename
-		-- 			gtk_file_chooser_action_open as open_action,
-		-- 			gtk_file_chooser_action_save as save_action,
-		-- 			gtk_file_chooser_action_select_folder as select_folder_action,
-		-- 			gtk_file_chooser_action_create_folder as create_folder_action,
-		-- 			is_valid_gtk_file_chooser_action	as is_valid_gtk_action
-		-- 		end
-
+	
 feature -- Actions
 
 	set_open_action is
@@ -561,7 +553,7 @@ feature -- Name, filenames and uris
 		require valid_folder_name: a_folder_name/=Void
 		do
 			is_last_action_successful := (gtk_file_chooser_set_current_folder(handle,
-			                              a_folder_name.to_external)).to_boolean
+													a_folder_name.to_external)).to_boolean
 		end
 
 	current_folder: STRING is
@@ -850,14 +842,16 @@ feature -- Filters
 			gtk_file_chooser_remove_filter  (handle, a_filter.handle)
 		end
 
-	filters: G_SLIST [GTK_FILE_FILTER] is
+	filters: G_OBJECT_SLIST [GTK_FILE_FILTER] is
 			-- The current set of user-selectable filters; see `add_filter', `remove_filter'.		
 		do
 			create Result.from_external_pointer (gtk_file_chooser_list_filters (handle))
-			-- TODO: Eiffelize this peculiar memory handling: The
-			-- contents of the list are owned by GTK+, but you must free
-			-- the list itself with g_slist_free() when you are done with
-			-- it.
+			-- The documentation of the C library says "the contents of
+			-- the list are owned by GTK+, but you must free the list
+			-- itself with g_slist_free() when you are done with it."
+			-- Result does not need any particular cure because all the
+			-- returned items are correctly ref-fed and unreffed by
+			-- G_OBJECT (Eiffel class).
 		end
 
 	set_filter  (a_filter: GTK_FILE_FILTER) is
@@ -911,10 +905,11 @@ feature -- Shortcuts folders
 			-- Returns : 	TRUE if the folder could be added successfully, FALSE otherwise. In the latter case, the error will be set as appropriate.
 
 			-- TODO: Create G_ERROR
-			is_last_action_successful := gtk_file_chooser_add_shortcut_folder (handle,
-			                                                                   a_folder.to_external,
-			                                                                   default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
-			                                                                  ).to_boolean
+			is_last_action_successful := (gtk_file_chooser_add_shortcut_folder
+													(handle,
+													 a_folder.to_external,
+													 default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
+													 ).to_boolean)
 		end
 
 	remove_shortcut_folder (a_folder: STRING) is
@@ -927,10 +922,11 @@ feature -- Shortcuts folders
 			-- `last_error' will be filled with the cause
 		require valid_folder: a_folder /= Void
 		do
-			is_last_action_successful := gtk_file_chooser_remove_shortcut_folder (handle,
-			                                                                      a_folder.to_external,
-			                                                                      default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
-			                                                                      ).to_boolean
+			is_last_action_successful := (gtk_file_chooser_remove_shortcut_folder
+													(handle,
+													 a_folder.to_external,
+													 default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
+													 ).to_boolean)
 		end
 
 	shortcut_folders: G_SLIST_STRING is
@@ -1197,8 +1193,4 @@ feature -- The "file-activated" signal
 
 -- chooser : 	the object which received the signal.
 -- user_data : 	user data set when the signal handler was connected.
--- See Also
-
--- GtkFileChooserDialog, GtkFileChooserWidget, GtkFileChooserButton
-
 end

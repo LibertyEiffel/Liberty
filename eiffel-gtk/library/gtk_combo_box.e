@@ -48,16 +48,13 @@ inherit
 	GTK_BIN
 	GTK_CELL_EDITABLE
 	GTK_CELL_LAYOUT 
-		undefine 
-			store_eiffel_wrapper
-		end
 
 	-- GtkComboBox also implements AtkImplementorIface interface.
 
 insert 
 	GTK_COMBO_BOX_EXTERNALS
 
-creation make, with_text_only, with_model
+creation dummy, make, with_text_only, with_model
 
 feature {} -- Creation
 
@@ -505,10 +502,14 @@ feature -- The "changed" signal
 			changed_callback.connect (Current, a_procedure)
 		end
 
-feature -- size
+feature 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkComboBox)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_combo_box_new
+		end
 end

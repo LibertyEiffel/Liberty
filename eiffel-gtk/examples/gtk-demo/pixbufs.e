@@ -21,7 +21,7 @@ indexing
 
 class PIXBUFS
 
-creation make
+creation dummy, make
 
 feature
 -- /* Pixbufs

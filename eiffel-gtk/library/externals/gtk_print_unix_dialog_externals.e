@@ -66,10 +66,4 @@ feature {} -- External calls
 			-- (GtkPrintUnixDialog *dialog, GtkPrintCapabilities capabilities);
 		external "C use <gtk/gtkprintunixdialog.h>"
 		end
-
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtkprintunixdialog.h>"
-		alias "sizeof(GtkPrintUnixDialog)"
-		end
 end

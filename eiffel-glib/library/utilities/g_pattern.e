@@ -23,10 +23,10 @@ class G_PATTERN
 	-- Glob-style pattern matching - matches strings against patterns
 	-- containing '*' (wildcard) and '?' (joker).
 	
-   -- G_PATTERN match a string against a pattern containing '*' and
-   -- '?' wildcards with similar semantics as the standard glob()
-   -- function: '*' matches an arbitrary, possibly empty, string, '?'
-   -- matches an arbitrary character.
+	-- G_PATTERN match a string against a pattern containing '*' and
+	-- '?' wildcards with similar semantics as the standard glob()
+	-- function: '*' matches an arbitrary, possibly empty, string, '?'
+	-- matches an arbitrary character.
 
 	-- Note that in contrast to glob(), the '/' character can be
 	-- matched by the wildcards, there are no '[...]' character ranges
@@ -44,7 +44,7 @@ inherit
 			is_equal, free
 		end
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 

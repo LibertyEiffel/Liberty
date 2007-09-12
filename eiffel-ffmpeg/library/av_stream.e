@@ -30,7 +30,7 @@ inherit
 insert
 	AV_STREAM_EXTERNALS
 
-creation
+creation dummy,
 	from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation

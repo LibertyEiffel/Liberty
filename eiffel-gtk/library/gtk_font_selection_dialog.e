@@ -1,5 +1,5 @@
 indexing
-	description: "GtkFontSelectionDialog — A dialog box for selecting fonts."
+	description: "GtkFontSelectionDialog - A dialog box for selecting fonts."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -21,35 +21,33 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- Description: The GtkFontSelectionDialog widget is a dialog box for selecting a 
-			-- font.
-			
-			-- To set the font which is initially selected, use 
-			-- gtk_font_selection_dialog_set_font_name().
-			
-			-- To get the selected font use
-			-- gtk_font_selection_dialog_get_font_name().
-
-			-- To change the text which is shown in the preview area, use
-			-- gtk_font_selection_dialog_set_preview_text().
 
 class GTK_FONT_SELECTION_DIALOG
+	-- The GtkFontSelectionDialog widget is a dialog box for selecting
+	-- a font.
+			
+	-- To set the font which is initially selected, use
+	-- `set_font_name'.
+			
+	-- To get the selected font use `font_name'.
 
-inherit GTK_DIALOG
-	-- GtkFontSelectionDialog implements AtkImplementorIface.
-	rename make as dialog_make
-	redefine struct_size
-	end
+	-- To change the text which is shown in the preview area, use
+	-- `set_preview_text'.
 
-insert
-	GTK_FONT_SELECTION_DIALOG_EXTERNALS
+inherit
+	GTK_DIALOG
+		rename
+			make as dialog_make
+		redefine
+			dummy_gobject,
+			struct_size
+		end
 
-creation make, from_external_pointer
+	-- TODO: AtkImplementorIface
+	
+insert GTK_FONT_SELECTION_DIALOG_EXTERNALS
 
--- feature {} -- Creation
-
-
-creation make
+creation dummy, make, from_external_pointer
 
 feature -- Creation
 	make (a_title: STRING) is
@@ -131,22 +129,27 @@ feature {} -- GtkFontSelectionDialog struct
 -- } GtkFontSelectionDialog;
 
 	get_ok_button (a_struct: POINTER): POINTER is
-      external "C struct GtkFontSelectionDialog get ok_button use <gtk/gtk.h>"
-      end
+		external "C struct GtkFontSelectionDialog get ok_button use <gtk/gtk.h>"
+		end
 	
 	get_apply_button (a_struct: POINTER): POINTER is
-      external "C struct GtkFontSelectionDialog get apply_button use <gtk/gtk.h>"
-      end
+		external "C struct GtkFontSelectionDialog get apply_button use <gtk/gtk.h>"
+		end
 	
 	get_cancel_button (a_struct: POINTER): POINTER is
-      external "C struct GtkFontSelectionDialog get cancel_button use <gtk/gtk.h>"
-      end
+		external "C struct GtkFontSelectionDialog get cancel_button use <gtk/gtk.h>"
+		end
 
-feature -- size
+feature
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof (GtkFontSelectionDialog)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_font_selection_dialog_new 
+			((once "Dummy GTK_FONT_SELECTION_DIALOG").to_external)
+		end
 end -- class GTK_FONT_SELECTION_DIALOG

@@ -21,14 +21,14 @@ indexing
 
 class G_KEY_FILE
 	-- G_KEY_FILE lets you parse, edit or create files containing
-   -- groups of key-value pairs, which we call key files for lack of a
-   -- better name. Several freedesktop.org specifications use key
-   -- files now, e.g the Desktop Entry Specification and the Icon
-   -- Theme Specification.
+	-- groups of key-value pairs, which we call key files for lack of a
+	-- better name. Several freedesktop.org specifications use key
+	-- files now, e.g the Desktop Entry Specification and the Icon
+	-- Theme Specification.
 	
-   -- The syntax of key files is described in detail in the Desktop
-   -- Entry Specification, here is a quick summary: Key files consists
-   -- of groups of key-value pairs, interspersed with comments.
+	-- The syntax of key files is described in detail in the Desktop
+	-- Entry Specification, here is a quick summary: Key files consists
+	-- of groups of key-value pairs, interspersed with comments.
 
 	-- # this is just an example
 	-- # there can be comments before the first group
@@ -51,26 +51,26 @@ class G_KEY_FILE
 
 	-- Lines beginning with a '#' and blank lines are considered comments.
 
-   -- Groups are started by a header line containing the group name
-   -- enclosed in '[' and ']', and ended implicitly by the start of
-   -- the next group or the end of the file.  Each key-value pair must
-   -- be contained in a group.
+	-- Groups are started by a header line containing the group name
+	-- enclosed in '[' and ']', and ended implicitly by the start of
+	-- the next group or the end of the file.  Each key-value pair must
+	-- be contained in a group.
 
-   -- Key-value pairs generally have the form key=value, with the
-   -- exception of localized strings, which have the form
-   -- key[locale]=value. Space before and after the '=' character are
-   -- ignored. Newline, tab, carriage return and backslash characters
-   -- are escaped as \n, \t, \r, and \\, respectively. To preserve
-   -- initial and final spaces, these can also be escaped as \s.
+	-- Key-value pairs generally have the form key=value, with the
+	-- exception of localized strings, which have the form
+	-- key[locale]=value. Space before and after the '=' character are
+	-- ignored. Newline, tab, carriage return and backslash characters
+	-- are escaped as \n, \t, \r, and \\, respectively. To preserve
+	-- initial and final spaces, these can also be escaped as \s.
 
-   -- Key files can store strings (possibly with localized variants),
-   -- integers, booleans and lists of these. Lists are separated by a
-   -- separator character, typically ';' or ','. To use the list
-   -- separator character in a value in a list, it has to be escaped
-   -- by prefixing it with a backslash.
+	-- Key files can store strings (possibly with localized variants),
+	-- integers, booleans and lists of these. Lists are separated by a
+	-- separator character, typically ';' or ','. To use the list
+	-- separator character in a value in a list, it has to be escaped
+	-- by prefixing it with a backslash.
 	
-   -- This syntax is obviously inspired by the .ini files commonly met
-   -- on Windows, but there are some important differences:
+	-- This syntax is obviously inspired by the .ini files commonly met
+	-- on Windows, but there are some important differences:
 
 	-- o .ini files use the ';' character to begin comments, key files
 	-- use the '#' character.
@@ -93,7 +93,7 @@ insert
 	G_KEY_FILE_ERROR
 	G_KEY_FILE_FLAGS
 	
-creation make, load_from_file, from_external_pointer
+creation dummy, make, load_from_file, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -128,16 +128,16 @@ feature {} -- Creation
 	-- gboolean g_key_file_load_from_data (GKeyFile *key_file, const
 	-- gchar *data, gsize length, GKeyFileFlags flags, GError **error);
 
-   -- Loads a key file from memory into an empty GKeyFile
-   -- structure. If the object cannot be created then error is set to
-   -- a GKeyFileError.
+	-- Loads a key file from memory into an empty GKeyFile
+	-- structure. If the object cannot be created then error is set to
+	-- a GKeyFileError.
 
 	-- key_file : an empty GKeyFile struct
 	-- data :     key file loaded in memory.
-   -- length :   the length of data in bytes
-   -- flags :    flags from GKeyFileFlags
-   -- error :    return location for a GError, or NULL
-   -- Returns :  TRUE if a key file could be loaded, FALSE othewise
+	-- length :   the length of data in bytes
+	-- flags :    flags from GKeyFileFlags
+	-- error :    return location for a GError, or NULL
+	-- Returns :  TRUE if a key file could be loaded, FALSE othewise
 
 	load_from_data_dirs (a_file: STRING; some_flags: INTEGER) is
 			-- Looks for `a_key_file' in the paths returned from
@@ -188,7 +188,7 @@ feature
 		end
 
 	to_string: STRING is
-		   -- The key file as a string.
+			-- The key file as a string.
 		do
 			create Result.from_external
 			(g_key_file_to_data (handle, 
@@ -418,13 +418,13 @@ feature -- Queries
 
 	string_list (a_group, a_key: STRING): COLLECTION[STRING] is
 			-- the values associated with `a_key' under `a_group'.
- 		require
- 			group_not_void: a_group/=Void
- 			key_not_void: a_key/=Void
- 			has_key: has_key(a_group, a_key)
- 		local value_ptr: POINTER
- 		do
- 			value_ptr:=(g_key_file_get_string_list
+		require
+			group_not_void: a_group/=Void
+			key_not_void: a_key/=Void
+			has_key: has_key(a_group, a_key)
+		local value_ptr: POINTER
+		do
+			value_ptr:=(g_key_file_get_string_list
 							(handle, a_group.to_external, a_key.to_external,
 							 default_pointer, -- gsize *length,
 							 error.reference))
@@ -451,10 +451,10 @@ feature -- Queries
 		end
 
 	localized_string_list (a_group, a_key, a_locale: STRING): COLLECTION[STRING] is
- 			-- the values associated with `a_key' under `a_group'
- 			-- translated in `a_locale' if available. If `a_locale' is
- 			-- Void then the current locale is assumed.
- 		require
+			-- the values associated with `a_key' under `a_group'
+			-- translated in `a_locale' if available. If `a_locale' is
+			-- Void then the current locale is assumed.
+		require
 			group_not_void: a_group/=Void
 			key_not_void: a_key/=Void
 			has_key: has_key(a_group, a_key)
@@ -546,13 +546,13 @@ feature -- Queries
 		end
 	
 	real_list (a_group, a_key: STRING): COLLECTION[REAL] is
- 			-- the real values associated with `a_key' under `a_group'. `is_valid'
+			-- the real values associated with `a_key' under `a_group'. `is_valid'
 			-- will be False if the values associated with key cannot be
 			-- interpreted as real.
- 		require
- 			group_not_void: a_group/=Void
- 			key_not_void: a_key/=Void
- 			has_key: has_key(a_group, a_key)
+		require
+			group_not_void: a_group/=Void
+			key_not_void: a_key/=Void
+			has_key: has_key(a_group, a_key)
 		local
 			value_ptr: POINTER; a_storage: NATIVE_ARRAY[REAL];
 			a_length, i: INTEGER
@@ -829,9 +829,9 @@ feature {}
 	
 	-- #define G_KEY_FILE_ERROR g_key_file_error_quark()
 	
-   -- Error domain for key file parsing. Errors in this domain will be
-   -- from the GKeyFileError enumeration. See GError for information
-   -- on error domains.
+	-- Error domain for key file parsing. Errors in this domain will be
+	-- from the GKeyFileError enumeration. See GError for information
+	-- on error domains.
 
 feature {} -- External calls
 	-- #define     G_KEY_FILE_ERROR

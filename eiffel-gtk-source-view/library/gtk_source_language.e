@@ -27,7 +27,7 @@ inherit G_OBJECT
 	
 insert GLIB_UNICODE_MANIPULATION_EXTERNALS
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature 
 	name: STRING is
@@ -182,7 +182,7 @@ feature {} -- External calls
 		external "C use <gtksourceview/gtksourcelanguage.h>"
 		end
 
-	 gtk_source_language_get_tag_style (a_language, a_tag_id: POINTER): POINTER is
+	gtk_source_language_get_tag_style (a_language, a_tag_id: POINTER): POINTER is
 			-- GtkSourceTagStyle* gtk_source_language_get_tag_style
 			-- (GtkSourceLanguage *language, const gchar *tag_id);
 		external "C use <gtksourceview/gtksourcelanguage.h>"

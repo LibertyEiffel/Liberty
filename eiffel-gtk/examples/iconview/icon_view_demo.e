@@ -14,7 +14,7 @@ inherit
 	G_TYPE
 	WRAPPER_HANDLER
 
-creation make
+creation dummy, make
 
 feature -- Columns
 
@@ -27,10 +27,10 @@ feature
 			-- icon model with some data set
 		once
 			create Result.make (<<g_type_int, -- this is column 0
-			                      g_type_int, -- this is column 1
-			                      gdk_type_pixbuf, g_type_string,  -- these are columns 2 and 3
-			                      g_type_int  -- this is column 4
-			                    >>)
+										 g_type_int, -- this is column 1
+										 gdk_type_pixbuf, g_type_string,  -- these are columns 2 and 3
+										 g_type_int  -- this is column 4
+									  >>)
 			-- We can have as many columns as we need.
 			-- But at least we need a gdk_type_pixbuf
 			-- column and a g_type_string column.
@@ -100,19 +100,19 @@ feature -- Agents
 feature -- Helper -- we need this 'cause we can wrap this directly (it uses varargs)
 
 	set_pixbuf_and_string (a_list_store: GTK_LIST_STORE; an_iter: GTK_TREE_ITER;
-	                       pixbuf_column: INTEGER; a_pixbuf: GDK_PIXBUF;
-	                       text_column: INTEGER; a_string: STRING) is
+								  pixbuf_column: INTEGER; a_pixbuf: GDK_PIXBUF;
+								  text_column: INTEGER; a_string: STRING) is
 		do
 			gtk_list_store_set_pixbuf_and_string (a_list_store.handle, an_iter.handle,
-			                                      pixbuf_column, a_pixbuf.handle,
-			                                      text_column, a_string.to_external, -1)
+															  pixbuf_column, a_pixbuf.handle,
+															  text_column, a_string.to_external, -1)
 		end
 
 feature {} -- Low level
 
 	gtk_list_store_set_pixbuf_and_string (a_gtk_list_store, a_gtk_tree_iter: POINTER;
-	                                      pixbuf_column: INTEGER; a_gdk_pixbuf: POINTER;
-	                                      text_column: INTEGER; a_string: POINTER; a_minus_one: INTEGER) is
+													  pixbuf_column: INTEGER; a_gdk_pixbuf: POINTER;
+													  text_column: INTEGER; a_string: POINTER; a_minus_one: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		alias "gtk_list_store_set"
 		end

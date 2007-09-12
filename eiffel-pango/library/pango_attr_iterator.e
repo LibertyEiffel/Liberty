@@ -49,7 +49,7 @@ insert SHARED_WRAPPERS_DICTIONARY
 	-- stored into wrappers dictionary, so we need to retrieve them
 	-- throught the shared dictionary.
 		
-creation from_attribute_list, copy, from_external_pointer
+creation dummy, from_attribute_list, copy, from_external_pointer
 
 feature {} --
 	from_attribute_list (an_attribute_list: PANGO_ATTR_LIST) is
@@ -78,7 +78,7 @@ feature
 			-- a list of all attributes at the current position of the
 			-- iterator.
 		do
-			create Result.from_external_pointer (pango_attr_iterator_get_attrs (handle))
+			create Result.from_external (pango_attr_iterator_get_attrs (handle),factory)
 			-- Note: Pango C documentation says that
 			-- pango_attr_iterator_get_attrs "returns a list of all
 			-- attributes for the current range. To free this value, call
@@ -151,16 +151,16 @@ feature
 		local 
 			a_description: PANGO_FONT_DESCRIPTION
 			a_language: PANGO_LANGUAGE;  some_attributes: G_SLIST[PANGO_ATTRIBUTE]
-			a_language_ptr, extra_attrs_ptr: POINTER
+			language_ptr, extra_attrs_ptr: POINTER
 		do
 			create a_description.make
 			pango_attr_iterator_get_font (handle, a_description.handle,
-													address_of(a_language_ptr), address_of(extra_attrs_ptr))
-			if a_language_ptr.is_not_null then 
-				create a_language.from_external_pointer(a_language_ptr) 
+													$language_ptr, $extra_attrs_ptr)
+			if language_ptr.is_not_null then
+				create a_language.from_external_pointer(language_ptr)
 			end
 			if extra_attrs_ptr.is_not_null then
-				create some_attributes.from_external_pointer(extra_attrs_ptr) 
+				create some_attributes.from_external(extra_attrs_ptr,factory) 
 			end
 			create Result.make_3 (a_description, a_language, some_attributes)
 		end
@@ -188,6 +188,12 @@ feature {} -- Implementation
 	attribute_list: PANGO_ATTR_LIST
 			-- The list Current iterator is linked to.
 	
+	factory: CACHING_FACTORY[PANGO_ATTRIBUTE] is
+		once
+			create Result.with_archetype(pango_attribute_archetype)
+		end
+
+	pango_attribute_archetype: PANGO_ATTRIBUTE is once create Result.dummy end
 feature {} -- External calls
 	pango_attr_list_get_iterator (a_list: POINTER): POINTER is -- PangoAttrIterator* 
 		external "C use <pango/pango.h>"

@@ -56,7 +56,7 @@ inherit
 insert
 	G_HASH_TABLE_EXTERNALS
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature {} -- Creation
 	make is

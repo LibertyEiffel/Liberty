@@ -23,7 +23,7 @@ class PANGO_FONT_FACE
 
 inherit G_OBJECT
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature {} -- Creation
 --             PangoFontFace;

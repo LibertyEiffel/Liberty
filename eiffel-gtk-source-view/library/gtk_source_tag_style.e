@@ -25,7 +25,7 @@ class GTK_SOURCE_TAG_STYLE
 
 inherit SHARED_C_STRUCT redefine copy, free end
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	--

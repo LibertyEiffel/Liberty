@@ -90,7 +90,7 @@ class GTK_PRINT_CONTEXT
 
 inherit SHARED_C_STRUCT
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature {} -- Creation
 
@@ -220,19 +220,19 @@ feature {} -- External calls
 		external "C inline use <gtk/gtk.h>"
 		end
 
-	 gtk_print_context_get_pango_fontmap (a_context: POINTER): POINTER is
+	gtk_print_context_get_pango_fontmap (a_context: POINTER): POINTER is
 			-- PangoFontMap* gtk_print_context_get_pango_fontmap (GtkPrintContext
 			-- *context);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	 gtk_print_context_create_pango_context (a_context: POINTER): POINTER is
+	gtk_print_context_create_pango_context (a_context: POINTER): POINTER is
 			-- PangoContext* gtk_print_context_create_pango_context
 			-- (GtkPrintContext --*context);
 		external "C inline use <gtk/gtk.h>"
 		end
 	
-	 gtk_print_context_create_pango_layout (a_context: POINTER): POINTER is
+	gtk_print_context_create_pango_layout (a_context: POINTER): POINTER is
 			-- PangoLayout* gtk_print_context_create_pango_layout (GtkPrintContext
 			-- *context);
 		external "C inline use <gtk/gtk.h>"

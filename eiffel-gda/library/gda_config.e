@@ -27,7 +27,7 @@ insert
 	GDA_CONFIG_EXTERNALS
 	SINGLETON
 	
-creation {SHARED_GDA_CONFIG}
+creation dummy, {SHARED_GDA_CONFIG}
 	make
 
 feature {} -- creation

@@ -24,7 +24,7 @@ class LIBGDA
 insert
 	SINGLETON
 	
-creation {SHARED_LIBGDA}
+creation dummy, {SHARED_LIBGDA}
 	make
 	
 feature {} -- creation
@@ -50,7 +50,7 @@ feature {} -- size
 			-- nargs :   number of arguments, usually argc from main().
 			-- args :    list of arguments, usually argv from main().
 			gda_init (an_application_id.to_external, a_version.to_external,
-                   some_arguments.count, some_arguments.to_external)
+						 some_arguments.count, some_arguments.to_external)
 			is_initialized := True
 		end
 	
@@ -69,7 +69,7 @@ feature {} -- size
 			gda_main_run (default_pointer, default_pointer)
 		end
 
-   quit is
+	quit is
 			-- Exits the main loop.
 		do
 			gda_main_quit
@@ -83,12 +83,12 @@ feature {} -- External calls
 	
 	--  void (*GdaInitFunc) (gpointer user_data)
 	
-	 gda_main_run (init_func, user_data: POINTER) is
+	gda_main_run (init_func, user_data: POINTER) is
 			--  void gda_main_run (GdaInitFunc init_func, gpointer user_data)
 		external "C use <libgda/libgda.h>"
 		end
 
-	 gda_main_quit is
+	gda_main_quit is
 			--  void gda_main_quit (void)
 		external "C use <libgda/libgda.h>"
 		end

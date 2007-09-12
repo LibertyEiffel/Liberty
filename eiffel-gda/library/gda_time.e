@@ -25,7 +25,7 @@ inherit C_STRUCT
 
 insert GDA_TIME_STRUCT
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature 
 	hour: INTEGER_16 is

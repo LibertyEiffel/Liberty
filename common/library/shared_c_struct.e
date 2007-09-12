@@ -30,14 +30,13 @@ insert
 	SHARED_WRAPPERS_DICTIONARY
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
-
+	
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			Precursor(a_ptr)
-			store_eiffel_wrapper
+			-- store_eiffel_wrapper
 			set_shared
-		ensure then
-			stored: is_eiffel_wrapper_stored
+		-- ensure then stored: is_eiffel_wrapper_stored
 		end
 
 	is_shared: BOOLEAN
@@ -56,67 +55,67 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Access to C features
 			is_shared := False
 		end
 
-feature {} -- Storing wrapper pointer into wrapped object
+-- feature {} -- Storing wrapper pointer into wrapped object
 
-	store_eiffel_wrapper is
-		local
-			a: ANY
-		do
-			a := Current -- Workaround for SE bug
-			if wrappers.has(handle) then
-				debug
-					if Current/=wrappers.at(handle) then
-						print ("Warning! The wrapper ") print (wrappers.at(handle).out)
-						print (" already stored in the wrappers dictionary for the wrapped object ")
-						print (handle.out)
-						print (" is not equal to Current (")
-						print (out)
-						print ("). Really bad things will happen...%N")
-				end
-			end
-			else
-				wrappers.add (Current, handle)
-			end
-		ensure stored: is_eiffel_wrapper_stored
-		end
+-- 	store_eiffel_wrapper is
+-- 		local
+-- 			a: ANY
+-- 		do
+-- 			a := Current -- Workaround for SE bug
+-- 			if wrappers.has(handle) then
+-- 				debug
+-- 					if Current/=wrappers.at(handle) then
+-- 						print ("Warning! The wrapper ") print (wrappers.at(handle).out)
+-- 						print (" already stored in the wrappers dictionary for the wrapped object ")
+-- 						print (handle.out)
+-- 						print (" is not equal to Current (")
+-- 						print (out)
+-- 						print ("). Really bad things will happen...%N")
+-- 				end
+-- 			end
+-- 			else
+-- 				wrappers.add (Current, handle)
+-- 			end
+-- 		ensure stored: is_eiffel_wrapper_stored
+-- 		end
 
-	unstore_eiffel_wrapper is
-			-- Remove the "reference" to Current from the underlying
-			-- wrapped object. Note: the reference is not necessarily
-			-- stored into the wrapped object itself. The default
-			-- implementation for SHARED_C_STRUCT stores it into a shared
-			-- dictionary.
-		require
-			not_null: is_not_null
-		do
-			wrappers.remove (handle)
-		end
+-- 	unstore_eiffel_wrapper is
+-- 			-- Remove the "reference" to Current from the underlying
+-- 			-- wrapped object. Note: the reference is not necessarily
+-- 			-- stored into the wrapped object itself. The default
+-- 			-- implementation for SHARED_C_STRUCT stores it into a shared
+-- 			-- dictionary.
+-- 		require
+-- 			not_null: is_not_null
+-- 		do
+-- 			wrappers.remove (handle)
+-- 		end
 
-	is_eiffel_wrapper_stored: BOOLEAN is
-			-- Is a "reference" of the Current Eiffel wrapper object
-			-- stored in the underlying wrapped object? 
-		do
-			Result := wrappers.has(handle)
-			debug
-				if Result and then Current/=wrappers.at(handle) then
-					print ("Warning! The wrapper ") print (wrappers.at(handle).out)
-					print (" stored in the wrappers dictionary for the wrapped object ") print (handle.out)
-					print (" is not equal to Current (")
-					print (out)
-					print ("). Really bad things will happen...%N")
-				end
-			end
-		end
+-- 	is_eiffel_wrapper_stored: BOOLEAN is
+-- 			-- Is a "reference" of the Current Eiffel wrapper object
+-- 			-- stored in the underlying wrapped object? 
+-- 		do
+-- 			Result := wrappers.has(handle)
+-- 			debug
+-- 				if Result and then Current/=wrappers.at(handle) then
+-- 					print ("Warning! The wrapper ") print (wrappers.at(handle).out)
+-- 					print (" stored in the wrappers dictionary for the wrapped object ") print (handle.out)
+-- 					print (" is not equal to Current (")
+-- 					print (out)
+-- 					print ("). Really bad things will happen...%N")
+-- 				end
+-- 			end
+-- 		end
 
 feature -- Copying
 
 	copy (another: like Current) is
 		do
-			from_external_pointer (another.handle)
+			set_handle (another.handle)
+			-- It was from_external_pointer (another.handle)
 		end
 
-feature {} -- Destroying
-
+feature {WRAPPER, WRAPPER_HANDLER} -- Destroying
 	dispose is
 			-- Action to be executed just before garbage collection reclaims an 
 			-- object; frees the memory pointed by `handle'
@@ -125,7 +124,7 @@ feature {} -- Destroying
 				if not is_shared then
 					free (handle)
 				end
-				unstore_eiffel_wrapper
+				-- unstore_eiffel_wrapper
 				handle := default_pointer
 			end
 		ensure then

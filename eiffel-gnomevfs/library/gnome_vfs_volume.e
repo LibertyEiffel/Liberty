@@ -36,7 +36,7 @@ inherit
 insert
 	GNOME_VFS_VOLUME_TYPE
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature -- Creation
 	compare (another: like Current): BOOLEAN is
@@ -138,7 +138,7 @@ feature -- Creation
 			Result:=gnome_vfs_volume_is_mounted(handle).to_boolean
 		end
 
-   is_read_only: BOOLEAN is
+	is_read_only: BOOLEAN is
 			-- Is the volume read-only to the user?
 		do
 			Result:=gnome_vfs_volume_is_read_only(handle).to_boolean
@@ -196,13 +196,13 @@ feature {} -- Unwrapped code
 
 	--    k :
 
-   
+	
 
 	--   GNOME_VFS_TYPE_VOLUME
 
 	--  #define GNOME_VFS_TYPE_VOLUME        (gnome_vfs_volume_get_type ())
 
-   
+	
 
 	--   GNOME_VFS_VOLUME()
 
@@ -210,7 +210,7 @@ feature {} -- Unwrapped code
 
 	--    o :
 
-   
+	
 
 	--   GNOME_VFS_VOLUME_CLASS()
 
@@ -218,13 +218,13 @@ feature {} -- Unwrapped code
 
 	--    k :
 
-   
+	
 
 	--   GnomeVFSVolume
 
 	--  typedef struct _GnomeVFSVolume GnomeVFSVolume;
 
-   
+	
 
 	--   GnomeVFSVolumeClass
 
@@ -232,7 +232,7 @@ feature {} -- Unwrapped code
 	--          GObjectClass parent_class;
 	--  } GnomeVFSVolumeClass;
 
-   
+	
 
 	--   GnomeVFSVolumeOpCallback ()
 
@@ -246,7 +246,7 @@ feature {} -- Unwrapped code
 	--    detailed_error :
 	--    data :
 
-   
+	
 feature {}
 	--  #define     GNOME_IS_VFS_VOLUME             (o)
 	--  #define     GNOME_IS_VFS_VOLUME_CLASS       (k)

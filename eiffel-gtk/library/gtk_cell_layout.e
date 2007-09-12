@@ -24,16 +24,33 @@ deferred class GTK_CELL_LAYOUT
 	-- which want to provide a GtkTreeViewColumn-like API for packing
 	-- cells, setting attributes and data funcs.
 
+	-- One of the notable features provided by implementations of
+	-- GtkCellLayout are attributes. Attributes let you set the
+	-- properties in flexible ways. They can just be set to constant
+	-- values like regular properties. But they can also be mapped to a
+	-- column of the underlying tree model with
+	-- `set_attributes', which means that the value of
+	-- the attribute can change from cell to cell as they are rendered
+	-- by the cell renderer. Finally, it is possible to specify a
+	-- function with `set_cell_data_func' that is
+	-- called to determine the value of the attribute for each cell
+	-- that is rendered.
+
+
+	-- GtkCellLayout is an interface to be implemented by all objects
+	-- which want to provide a GtkTreeViewColumn-like API for packing
+	-- cells, setting attributes and data funcs.
+
 inherit
 	-- Note: since "GtkCellLayout requires GObject" I assume it is
 	-- actually a G_OBJECT: GObject type system lacks multiple
 	-- inheritance. Paolo 2006-04-28.
 	
-	-- GtkCellLayout should also inherit from G_INTERFACE (GInterface)
 	G_OBJECT
-	-- Known Implementations: GtkCellLayout is implemented by
-	-- 
-	-- GtkComboBox, GtkIconView and GtkComboBoxEntry.
+	
+	-- GtkCellLayout is implemented by GtkCellView, GtkEntryCompletion,
+	-- GtkTreeViewColumn, GtkComboBox, GtkIconView and
+	-- GtkComboBoxEntry.
 	
 
 feature

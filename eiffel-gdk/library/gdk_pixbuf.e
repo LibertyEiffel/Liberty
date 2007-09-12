@@ -35,10 +35,16 @@ insert
 	GDK_PIXBUF_EXTERNALS
 	GDK_COLORSPACE
 
-creation
+creation dummy,
 	make, from_external_pointer,
 	from_file, from_file_at_size, from_file_at_scale,
 	from_drawable, from_pixbuf, from_data
+
+feature -- Dummy creation
+	dummy_gobject: POINTER is
+		do
+			Result := gdk_pixbuf_new(gdk_colorspace_rgb,0,8,1,1)
+		end
 
 feature -- Creation
 
@@ -85,8 +91,8 @@ feature {} -- Creation
 			-- only RGB images with 8 bits per sample are supported.
 		do
 			from_external_pointer (gdk_pixbuf_new_from_data (some_data, gdk_colorspace_rgb, an_alpha.to_integer,
-			                                                 a_bits_per_sample, a_width, a_height,
-			                                                 a_rowstride, default_pointer, default_pointer))
+																			 a_bits_per_sample, a_width, a_height,
+																			 a_rowstride, default_pointer, default_pointer))
 		ensure
 			is_valid = is_g_object
 		end
@@ -105,7 +111,7 @@ feature {} -- Creation
 			error_ptr: POINTER
 		do
 			from_external_pointer (gdk_pixbuf_new_from_file_at_size (filename.to_external,
-			                                                         a_width, a_height, $error_ptr))
+																						a_width, a_height, $error_ptr))
 			if error_ptr.is_not_null then
 				create last_error.from_external_pointer (error_ptr)
 			end
@@ -131,7 +137,7 @@ feature {} -- Creation
 			error_ptr: POINTER
 		do
 			from_external_pointer (gdk_pixbuf_new_from_file_at_scale (filename.to_external, a_width, a_height,
-			                                                          preserve_aspect_ration.to_integer, $error_ptr))
+																						 preserve_aspect_ration.to_integer, $error_ptr))
 			if error_ptr.is_not_null then
 				create last_error.from_external_pointer (error_ptr)
 			end
@@ -144,8 +150,8 @@ feature {} -- Creation
 			a_drawable /= Void
 		do
 			from_external_pointer (gdk_pixbuf_get_from_drawable (default_pointer, a_drawable.handle,
-			                                                     default_pointer, src_x, src_y,
-			                                                     0, 0, a_width, a_height))
+																				  default_pointer, src_x, src_y,
+																				  0, 0, a_width, a_height))
 		ensure
 			is_valid = is_g_object
 		end
@@ -251,8 +257,8 @@ feature -- Operations
 			blue_is_valid: a_blue.in_range (0, 255)
 		do
 			create Result.from_external_pointer (gdk_pixbuf_add_alpha (handle,
-			                                     a_substitute_color, a_red.to_character,
-			                                     a_green.to_character, a_blue.to_character))
+															 a_substitute_color, a_red.to_character,
+															 a_green.to_character, a_blue.to_character))
 		end
 
 	save (a_filename, a_type: STRING) is
@@ -260,7 +266,7 @@ feature -- Operations
 			-- "jpeg", "png", "tiff", "ico" or "bmp".
 		do
 			if gdk_pixbuf_savev (handle, a_filename.to_external, a_type.to_external,
-			               default_pointer, default_pointer, default_pointer).to_boolean then
+								default_pointer, default_pointer, default_pointer).to_boolean then
 				debug
 					print ("Error saving pixbuf!%N")
 				end
@@ -449,7 +455,7 @@ feature -- Scaling
 		end
 
 	scale (other: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
-	       offset_x, offset_y, scale_x, scale_y: REAL_64; interp_type: INTEGER) is
+			 offset_x, offset_y, scale_x, scale_y: REAL_64; interp_type: INTEGER) is
 			-- Creates a transformation of the Current image by scaling by
 			-- scale_x and scale_y then translating by offset_x and offset_y,
 			-- then renders the rectangle (dest_x, dest_y, dest_width, dest_height)
@@ -476,7 +482,7 @@ feature -- Scaling
 		end
 
 	composite_color_simple (dest_width, dest_height: INTEGER; interp_type: INTEGER;
-	                        overall_alpha, check_size: INTEGER; color1, color2: INTEGER_64) : GDK_PIXBUF is
+									overall_alpha, check_size: INTEGER; color1, color2: INTEGER_64) : GDK_PIXBUF is
 			-- Creates a new GDK_PIXBUF by scaling Current to `dest_width' x `dest_height'
 			-- and compositing the result with a checkboard of colors `color1' and
 			-- `color2'.
@@ -489,15 +495,15 @@ feature -- Scaling
 			res: POINTER
 		do
 			res := gdk_pixbuf_composite_color_simple (handle, dest_width, dest_height, interp_type,
-			                                          overall_alpha, check_size, color1, color2)
+																	overall_alpha, check_size, color1, color2)
 			Result := create {GDK_PIXBUF}.from_external_pointer (res)
 		ensure
 			Result /= Void
 		end
 
 	composite (dest: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
-	           offset_x, offset_y, scale_x, scale_y: REAL_64;
-	           interp_type: INTEGER; overall_alpha: INTEGER) is
+				  offset_x, offset_y, scale_x, scale_y: REAL_64;
+				  interp_type: INTEGER; overall_alpha: INTEGER) is
 			-- Creates a transformation of the source image Current by scaling by
 			-- `scale_x' and `scale_y' then translating by `offset_x' and `offset_y'.
 			-- This gives an image in the coordinates of the destination pixbuf. The
@@ -510,13 +516,13 @@ feature -- Scaling
 			valid_interp_type: is_valid_gdk_interp_type (interp_type)
 		do
 			gdk_pixbuf_composite (handle, dest.handle, dest_x, dest_y, dest_width, dest_height,
-			                      offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha)
+										 offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha)
 		end
 
 	composite_color (dest: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
-	                 offset_x, offset_y, scale_x, scale_y: REAL_64;
-	                 interp_type: INTEGER; overall_alpha, check_x, check_y, check_size: INTEGER;
-	                 color1, color2: INTEGER_64) is
+						  offset_x, offset_y, scale_x, scale_y: REAL_64;
+						  interp_type: INTEGER; overall_alpha, check_x, check_y, check_size: INTEGER;
+						  color1, color2: INTEGER_64) is
 			-- Creates a transformation of the source image Current by
 			-- scaling by `scale_x' and `scale_y' then translating by `offset_x'
 			-- and `offset_y', then composites the rectangle (`dest_x' ,`dest_y',
@@ -532,8 +538,8 @@ feature -- Scaling
 			valid_interp_type: is_valid_gdk_interp_type (interp_type)
 		do
 			gdk_pixbuf_composite_color (handle, dest.handle, dest_x, dest_y, dest_width, dest_height,
-			                            offset_x, offset_y, scale_x, scale_y, interp_type,
-			                            overall_alpha, check_x, check_y, check_size, color1, color2)
+												 offset_x, offset_y, scale_x, scale_y, interp_type,
+												 overall_alpha, check_x, check_y, check_size, color1, color2)
 		end
 
 end -- GDK_PIXBUF

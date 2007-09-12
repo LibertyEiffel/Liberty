@@ -52,12 +52,12 @@ class GTK_TOOLTIPS
 
 
 inherit
-    GTK_OBJECT
+	GTK_OBJECT
 
 insert
 	GTK_TOOLTIPS_EXTERNALS
 
-creation make
+creation dummy, make
 
 feature {} -- Creation
 
@@ -107,7 +107,7 @@ feature -- Operations
 			-- useful if the user gets stuck.
 		do
 			gtk_tooltips_set_tip (handle, a_widget.handle, a_tip_text.to_external,
-			                      a_tip_private.to_external)
+										 a_tip_private.to_external)
 		end
 
 feature -- size
@@ -116,4 +116,8 @@ feature -- size
 		alias "sizeof(GtkTooltips)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_tooltips_new
+		end
 end

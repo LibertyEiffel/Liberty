@@ -28,7 +28,7 @@ inherit
 insert
 	AV_INPUT_FORMAT_EXTERNALS
 
-creation
+creation dummy,
 	from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation

@@ -29,11 +29,11 @@ class GDA_DICT_CONSTRAINT
 inherit
 	GDA_OBJECT
 
-   -- TODO: GdaDictConstraint implements GdaXmlStorage and GdaReferer.
+	-- TODO: GdaDictConstraint implements GdaXmlStorage and GdaReferer.
 
 insert GDA_DICT_CONSTRAINT_EXTERNALS
 
-creation from_table, from_external_pointer
+creation dummy, from_table, from_external_pointer
 
 feature {} -- Creation
 	from_table (a_table: GDA_DICT_TABLE; a_type: INTEGER) is

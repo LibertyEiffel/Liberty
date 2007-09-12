@@ -48,7 +48,7 @@ class GTK_TEXT_MARK
 
 inherit G_OBJECT
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature
 
@@ -124,6 +124,11 @@ feature -- size
 		alias "sizeof(GtkTextMark)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			unimplemented
+		end
+	
 feature {} -- External features
 	gtk_text_mark_set_visible (a_mark: POINTER; a_gboolean_setting: INTEGER) is
 		external "C use <gtk/gtk.h>"

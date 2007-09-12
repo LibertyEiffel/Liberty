@@ -28,14 +28,14 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [GTK_WIDGET]
 
-creation make
+creation dummy, make
 
 feature
 	object: GTK_WIDGET
 
 feature
 	callback (drag_context: POINTER; x,y: INTEGER; selection_data: POINTER;
-	          info, time: INTEGER; instance: POINTER) is
+				 info, time: INTEGER; instance: POINTER) is
 		require
 			info >= 0
 			time >= 0

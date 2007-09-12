@@ -27,7 +27,7 @@ inherit
 insert
 	FOO_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 -- GdaConnectionEvent — Any event which has occurred on a GdaConnection

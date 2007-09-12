@@ -58,7 +58,7 @@ inherit
 	
 insert G_OBJECT_RETRIEVER [GTK_WIDGET]	
 
-creation make, make_with_mnemonic
+creation dummy, make, make_with_mnemonic
 
 feature {} -- Creation
 
@@ -365,5 +365,11 @@ feature {} -- External calls
 	
 	gtk_expander_get_label_widget (an_expander: POINTER): POINTER is -- GtkWidget*
 		external "C use <gtk/gtk.h>"
+		end
+
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_expander_new((once "Dummy GTK_EXPANDER").to_external)
 		end
 end

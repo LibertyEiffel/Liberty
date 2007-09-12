@@ -917,23 +917,27 @@ feature {} -- External calls for parameter specs of double type
 		alias "G_TYPE_PARAM_DOUBLE"
 		end
 
-	-- TODO: wrap if necessary GParamSpecDouble
+	get_min_double (spec: POINTER): REAL is
+			-- gdouble minimum; minimum value for the property specified
+		external "C struct GParamSpecDouble get minumum use <glib-object.h>"
+		end
+	
+	get_max_double (spec: POINTER): REAL is
+			-- gdouble maximum; maximum value for the property specified
+		external "C struct GParamSpecDouble get maximum use <glib-object.h>"
+		end
+	
+	get_default_double (spec: POINTER): REAL is
+			-- gdouble maximum; maximum value for the property specified
+		external "C struct GParamSpecDouble get default_value use <glib-object.h>"
+		end
 
-	-- typedef struct {
-	-- GParamSpec parent_instance;
- 
-	-- gdouble minimum;
-	-- gdouble maximum;
-	-- gdouble default_value;
-	-- gdouble epsilon;
-	-- } GParamSpecDouble;
-
-	-- A GParamSpec derived structure that contains the meta data for double properties.
-	-- GParamSpec parent_instance; private GParamSpec portion
-	-- gdouble minimum; minimum value for the property specified
-	-- gdouble maximum; maximum value for the property specified
-	-- gdouble default_value; default value for the property specified
-	-- gdouble epsilon; values closer than epsilon will be considered identical by g_param_values_cmp(); the default value is 1e-90.
+	get_epsilong_double (spec: POINTER): REAL is
+			-- gdouble epsilon; values closer than epsilon will be
+			-- considered identical by g_param_values_cmp(); the default
+			-- value is 1e-90.
+		external "C struct GParamSpecDouble get default_value use <glib-object.h>"
+		end
 
 	g_param_spec_double (a_const_name, a_const_nick, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: REAL; some_flags: INTEGER): POINTER is -- GParamSpec*
 

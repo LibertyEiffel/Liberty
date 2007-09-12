@@ -59,10 +59,10 @@ class GTK_MESSAGE_DIALOG
 
 inherit
 	GTK_DIALOG
-		rename
-			new as new_dialog -- redefine new end
-			make as make_dialog -- redefine make end
-		redefine struct_size
+		rename make as make_dialog -- redefine make end
+		redefine
+			dummy_gobject,
+			struct_size
 		end
 		-- Implemented Interfaces: GtkMessageDialog implements
 		-- AtkImplementorIface.
@@ -70,9 +70,18 @@ inherit
 insert
 	GTK_MESSAGE_DIALOG_EXTERNALS
 
-creation new, make, with_markup, from_external_pointer
+creation dummy, make, with_markup, from_external_pointer
 
-feature -- size
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=(gtk_message_dialog_new
+						(default_pointer,
+						 -- some_flags, a_type, some_buttons,
+						 0,0,0,
+						 (once "Dummy GtkMessageDialog").to_external))
+		end
+	
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMessageDialog)"
@@ -95,17 +104,10 @@ feature {} -- Creation
 			valid_message_type: is_valid_gtk_message_type (a_type)
 			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
-			if a_parent=Void then
-				from_external_pointer (gtk_message_dialog_new (default_pointer, some_flags, a_type, some_buttons, a_message.to_external))
-			else
-				from_external_pointer (gtk_message_dialog_new (a_parent.handle, some_flags, a_type, some_buttons, a_message.to_external))
-			end
-		end
-
-	new (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
-		obsolete "use `make' instead."
-		do
-			make (a_parent, some_flags, a_type, some_buttons, a_message)
+			from_external_pointer (gtk_message_dialog_new
+										  (null_or(a_parent),
+											some_flags, a_type,
+											some_buttons, a_message.to_external))
 		end
 
 	with_markup (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
@@ -140,13 +142,9 @@ feature {} -- Creation
 			valid_message_type: is_valid_gtk_message_type (a_type)
 			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
-			if a_parent=Void then from_external_pointer
-				(gtk_message_dialog_new_with_markup
-				 (default_pointer,some_flags,a_type,some_buttons,a_message.to_external))
-			else from_external_pointer
-				(gtk_message_dialog_new_with_markup
-				 (a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external))
-			end
+			from_external_pointer (gtk_message_dialog_new_with_markup
+										  (null_or(a_parent),some_flags,a_type,
+											some_buttons,a_message.to_external))
 		end
 
 feature -- Dialog's message

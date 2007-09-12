@@ -32,7 +32,7 @@ inherit
 insert
 	XMLRPC_VALUE_EXTERNALS
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature -- size
 

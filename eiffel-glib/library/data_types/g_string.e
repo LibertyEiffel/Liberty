@@ -27,7 +27,7 @@ insert
 	G_STRING_EXTERNALS
 	GLIB_STRING_UTILITY_FUNCTIONS
 	
-creation {ANY}
+creation dummy, {ANY}
 	make, copy, make_empty, from_string
 	
 feature {WRAPPER_HANDLER, G_STRING}

@@ -30,7 +30,7 @@ inherit
 insert
 	G_OBJECT_RETRIEVER [W]
 
-creation make
+creation dummy, make
 
 feature
 	object: W

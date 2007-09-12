@@ -30,7 +30,7 @@ inherit
 insert
 	GDA_COLUMN_EXTERNALS
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 	
 feature {} -- Creation
 	make is
@@ -99,7 +99,7 @@ feature
 		end
 
 	set_table (a_table: STRING) is
-		   -- Sets the name of the table to which the given column belongs.
+			-- Sets the name of the table to which the given column belongs.
 		require
 			table_not_void: a_table /= Void
 		do

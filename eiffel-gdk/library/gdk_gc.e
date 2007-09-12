@@ -19,19 +19,20 @@ indexing
 					02110-1301 USA
 			]"
 
-	-- All drawing operations in GDK take a graphics context (GC) argument.
-	-- A graphics context encapsulates information about the way things are drawn,
-	-- such as the foreground color or line width. By using graphics contexts, the
-	-- number of arguments to each drawing call is greatly reduced, and
-	-- communication overhead is minimized, since identical arguments do not need
-	-- to be passed repeatedly.
-	--
-	-- Most values of a graphics context can be set at creation time by using
-	-- create gc.with_values() (NOT IMPLEMENTED), or can be set one-by-one using
-	-- functions such as gc.set_foreground(). A few of the values in the GC,
-	-- such as the dash pattern, can only be set by the latter method. 
-
 class GDK_GC
+	-- All drawing operations in GDK take a graphics context (GC)
+	-- argument.  A graphics context encapsulates information about the
+	-- way things are drawn, such as the foreground color or line
+	-- width. By using graphics contexts, the number of arguments to
+	-- each drawing call is greatly reduced, and communication overhead
+	-- is minimized, since identical arguments do not need to be passed
+	-- repeatedly.
+	
+	-- Most values of a graphics context can be set at creation time by
+	-- using create gc.with_values() (NOT IMPLEMENTED), or can be set
+	-- one-by-one using functions such as gc.set_foreground(). A few of
+	-- the values in the GC, such as the dash pattern, can only be set
+	-- by the latter method.
 
 inherit
 	G_OBJECT
@@ -39,7 +40,7 @@ inherit
 insert
 	GDK_GC_EXTERNALS
 
-creation from_external_pointer, make
+creation dummy, from_external_pointer, make
 
 feature {} -- Creation
 
@@ -84,4 +85,10 @@ feature -- Operations
 			gdk_gc_set_rgb_bg_color (handle, a_color.handle)
 		end
 
+feature
+	dummy_gobject: POINTER is
+		do
+			unimplemented
+			-- raise("GDK_GC.dummy called. This event is somehow unexpected. Please contact EWLC developers or the developer of the application.")
+		end
 end

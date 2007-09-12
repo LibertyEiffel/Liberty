@@ -7,7 +7,7 @@ indexing
 
 class TREE_EXAMPLE
 
-creation make
+creation dummy, make
 
 feature
 	tree: G_TREE[G_STRING,G_DATE]
@@ -51,7 +51,7 @@ feature
 			-- ("%N")
 		end
 					 
- 	compare(a_date,another_date: G_DATE): INTEGER is --COMPARABLE_SHARED_C_STRUCT): INTEGER is
+	compare(a_date,another_date: G_DATE): INTEGER is --COMPARABLE_SHARED_C_STRUCT): INTEGER is
 		require 
 			date_not_void: a_date/=Void
 			another_not_void: another_date/=Void

@@ -77,7 +77,7 @@ insert
 	WRAPPER_FACTORY [ITEM] -- undefine fill_tagged_out_memory end
 	G_PTR_ARRAY_EXTERNALS undefine fill_tagged_out_memory end
 	
-creation empty, with_capacity, from_external_pointer
+creation dummy, empty, with_capacity, from_external_pointer
 
 feature 
 	empty is
@@ -102,10 +102,10 @@ feature
 
 feature -- Indexing:
 	lower: INTEGER_32 is 0 
-      -- Minimum index.  See also `upper', `valid_index', `item'.
+		-- Minimum index.  See also `upper', `valid_index', `item'.
 
-   upper: INTEGER_32 is 
-      -- Maximum index.  See also `lower', `valid_index', `item'.
+	upper: INTEGER_32 is 
+		-- Maximum index.  See also `lower', `valid_index', `item'.
 		do
 			Result:=count-1
 		end
@@ -298,14 +298,14 @@ feature -- Modification:
 		end
 
 feature -- Removing:
-    remove_first is
+	remove_first is
 			-- Remove the `first' element of the collection.
 		local removed: POINTER
 		do
 			removed := g_ptr_array_remove_index (handle, lower)
 		end
 	
-    remove_head (n: INTEGER_32) is
+	remove_head (n: INTEGER_32) is
 			-- Remove the `n' elements of the collection.
 
 			-- See also `remove_tail', `remove', `remove_first'.
@@ -350,7 +350,7 @@ feature -- Removing:
 			set_size(0)
 		end
 	
-   clear_count_and_capacity is
+	clear_count_and_capacity is
 			-- Discard all items (`is_empty' is True after that call). If
 			-- possible, the actual implementation is supposed to release
 			-- its internal storage area for this memory to be used by
@@ -358,13 +358,13 @@ feature -- Removing:
 		
 			-- See also `clear_count'.
 		local p: POINTER
-      do
+		do
 			-- Implemented freeing the old one and recreating it.
 			p := g_ptr_array_free (handle, 1)
 		end
 	
 feature -- Looking and Searching:
-   has (x: ITEM): BOOLEAN is
+	has (x: ITEM): BOOLEAN is
 			-- Look for `x' using `is_equal' for comparison.
 
 			-- See also `fast_has', `index_of', `fast_index_of'.
@@ -377,7 +377,7 @@ feature -- Looking and Searching:
 			end
 		end
 	
-   fast_has (x: ITEM): BOOLEAN is
+	fast_has (x: ITEM): BOOLEAN is
 			-- Look for `x' using basic `=' for comparison.
 
 			-- See also `has', `fast_index_of', `index_of'.
@@ -433,7 +433,7 @@ feature -- Looking and Searching:
 -- 			-- `start_index'. Search is done in reverse direction, which
 -- 			-- means from the `start_index' down to the `lower' index
 -- 			-- . Answer `lower -1' when the search fail.
-      
+		
 -- 			-- See also `fast_reverse_index_of', `last_index_of', 
 -- 			-- `index_of'.
 -- 		local i: INTEGER_32; found: BOOLEAN
@@ -453,7 +453,7 @@ feature -- Looking and Searching:
 -- 			-- is done in reverse direction, which means from the `upper'
 -- 			-- down to the `lower' index . Answer `lower -1' when the
 -- 			-- search fail.
-      
+		
 -- 			-- See also `fast_last_index_of', `reverse_index_of', `index_of'.
 -- 		local i: INTEGER_32; found: BOOLEAN
 -- 		do
@@ -466,11 +466,11 @@ feature -- Looking and Searching:
 -- 			end
 -- 		end
 
-   fast_first_index_of (element: ITEM): INTEGER_32 is
+	fast_first_index_of (element: ITEM): INTEGER_32 is
 			-- Give the index of the first occurrence of `element' using
 			-- basic `=' for comparison.  Answer `upper + 1' when
 			-- `element' is not inside.
-      
+		
 			-- See also `first_index_of', `last_index_of', `fast_last_index_of'.
 		local i: INTEGER_32; found: BOOLEAN
 		do
@@ -483,7 +483,7 @@ feature -- Looking and Searching:
 			end
 		end
 		
-   fast_index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32 is
+	fast_index_of (element: ITEM; start_index: INTEGER_32): INTEGER_32 is
 			-- Using basic `=' for comparison, gives the index of the
 			-- first occurrence of `element' at or after
 			-- `start_index'. Answer `upper + 1' when `element' when the
@@ -521,7 +521,7 @@ feature -- Looking and Searching:
 			end
 		end
 
-   fast_last_index_of (element: ITEM): INTEGER_32 is
+	fast_last_index_of (element: ITEM): INTEGER_32 is
 			-- Using basic `=' for comparison, gives the index of the
 			-- last occurrence of `element' at or before `upper'. Search
 			-- is done in reverse direction, which means from the `upper'
@@ -539,7 +539,7 @@ feature -- Looking and Searching:
 		end
 
 feature -- Looking and comparison:
-   is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN is
 			-- Do both collections have the same `lower', `upper', and items?
 			-- The basic `=' is used for comparison of items.
 
@@ -559,7 +559,7 @@ feature -- Looking and comparison:
 			end
 		end
 
-   is_equal_map (other: like Current): BOOLEAN is
+	is_equal_map (other: like Current): BOOLEAN is
 			-- Do both collections have the same `lower', `upper', and
 			-- items?  Feature `is_equal' is used for comparison of
 			-- items.
@@ -578,7 +578,7 @@ feature -- Looking and comparison:
 			end
 		end
 
-   all_default: BOOLEAN is
+	all_default: BOOLEAN is
 			-- Are all items Void?
 		local i: INTEGER_32
 		do
@@ -589,7 +589,7 @@ feature -- Looking and comparison:
 			end
 		end
 
-   same_items (other: COLLECTION[ITEM]): BOOLEAN is
+	same_items (other: COLLECTION[ITEM]): BOOLEAN is
 			-- Do both collections have the same items? The basic `=' is used
 			-- for comparison of items and indices are not considered (for
 			-- example this routine may yeld True with `Current' indexed in
@@ -611,7 +611,7 @@ feature -- Looking and comparison:
 			end
 		end
 		
-   occurrences (element: ITEM): INTEGER_32 is
+	occurrences (element: ITEM): INTEGER_32 is
 			-- Number of occurrences of `element' using `is_equal' for comparison.
 		
 			-- See also `fast_occurrences', `index_of'.
@@ -624,7 +624,7 @@ feature -- Looking and comparison:
 			end
 		end
 	
-   fast_occurrences (element: ITEM): INTEGER_32 is
+	fast_occurrences (element: ITEM): INTEGER_32 is
 			-- Number of occurrences of `element' using basic `=' for comparison.
 		
 			-- See also `occurrences', `index_of'.

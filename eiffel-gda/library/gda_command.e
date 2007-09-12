@@ -59,7 +59,7 @@ insert
 	GDA_COMMAND_OPTIONS_ENUM
 	GDA_COMMAND_STRUCT
 
-creation
+creation dummy,
 	make, copy, from_external_pointer
 
 feature {} -- Creation

@@ -9,20 +9,20 @@ indexing
 class TEST_CODES
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
-      local
-         err: SQLITE_ERROR_CODES
+	make is
+		local
+			err: SQLITE_ERROR_CODES
 		 type: SQLITE_TYPE_CODES
-      do
-	     err.check_error_codes
+		do
+		  err.check_error_codes
 		 type.check_type_codes
-      end
+		end
 
 end

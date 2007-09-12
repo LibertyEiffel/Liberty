@@ -1,5 +1,5 @@
 indexing
-	description: "GtkAccelLabel — A label which displays an accelerator key on the right of the text."
+	description: "A label which displays an accelerator key on the right of the text."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -20,6 +20,9 @@ indexing
 			]"
 
 class GTK_ACCEL_LABEL
+	-- A label which displays an accelerator key on the right of the
+	-- text.
+
 	-- The GtkAccelLabel widget is a subclass of GtkLabel that also
 	-- displays an accelerator key on the right of the label text,
 	-- e.g. 'Ctl+S'. It is commonly used in menus to show the keyboard
@@ -75,6 +78,7 @@ class GTK_ACCEL_LABEL
 inherit
 	GTK_LABEL
 		redefine
+			dummy_gobject,
 			struct_size
 		end
 	-- TODO: GtkAccelLabel implements AtkImplementorIface.
@@ -83,7 +87,7 @@ insert
 	GTK_ACCEL_LABEL_EXTERNALS
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_label: STRING) is
@@ -164,5 +168,10 @@ feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAccelLabel)"
+		end
+	
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_accel_label_new((once "Dummy GtkAccelLabel").to_external)
 		end
 end -- GTK_ACCEL_LABEL

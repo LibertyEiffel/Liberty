@@ -25,7 +25,7 @@ inherit C_STRUCT
 
 insert GDA_NUMERIC_STRUCT
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- TODO: understand its field and implement them
 

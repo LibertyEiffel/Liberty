@@ -31,7 +31,7 @@ inherit
 insert
 	GDA_CONFIG_EXTERNALS 
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature
 	free(ptr: POINTER) is

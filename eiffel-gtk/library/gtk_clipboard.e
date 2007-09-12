@@ -87,7 +87,7 @@ class GTK_CLIPBOARD
 	
 inherit G_OBJECT 
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature {} -- Creation
 
@@ -624,5 +624,6 @@ feature -- size
 		external "C use <gtk/gtk.h>"
 		alias "sizeof(GtkClipboard)"
 		end
-	
+
+	dummy_gobject: POINTER is do unimplemented end 
 end -- class GTK_CLIPBOARD

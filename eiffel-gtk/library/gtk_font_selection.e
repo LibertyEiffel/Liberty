@@ -39,20 +39,32 @@ inherit
 	GTK_VBOX
 		rename
 			make as make_vbox 
-		undefine
+		redefine
+			dummy_gobject,
 			struct_size
 		end
 		-- GtkFontSelection implements AtkImplementorIface.
 
 insert GTK_FONT_SELECTION_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is
 			--   Creates a new GtkFontSelection.
 		do
 			from_external_pointer(gtk_font_selection_new)
+		end
+
+feature 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_font_selection_new
+		end
+	
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkFontSelection)"
 		end
 
 feature 
@@ -112,8 +124,5 @@ feature
 		do
 			gtk_font_selection_set_preview_text(handle, a_text.to_external)
 		end
-
-	--   GtkFontSelectionDialog a dialog box which uses GtkFontSelection.
-
 end -- class GTK_FONT_SELECTION
 

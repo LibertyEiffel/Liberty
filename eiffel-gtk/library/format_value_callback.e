@@ -30,7 +30,7 @@ insert
 	G_OBJECT_RETRIEVER [GTK_SCALE]
 	GLIB_STRING_UTILITY_FUNCTIONS
 
-creation make
+creation dummy, make
 
 feature
 	object: GTK_SCALE
@@ -71,10 +71,10 @@ feature
 			end
 			
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			function:=a_function
 		end
 

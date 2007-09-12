@@ -1,7 +1,7 @@
 indexing
 	description: "."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli 
+					Copyright (C) 2006, 2007 Paolo Redaelli 
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -24,73 +24,49 @@ class C_ARRAY [ITEM -> SHARED_C_STRUCT]
 	-- of pointers of item's struct. For example a C_ARRAY[GTK_BUTTON] 
 	-- wraps a GtkButton** array.
 
-inherit 
-	COLLECTION [ITEM]
+inherit WRAPPER_COLLECTION [ITEM]
 
-	-- SHARED_C_STRUCT rename exists as struct_exists undefine
-	-- fill_tagged_out_memory redefine is_equal end
-	WRAPPER_HANDLER
-		-- undefine fill_tagged_out_memory, copy, is_equal end
+insert EXCEPTIONS undefine fill_tagged_out_memory, copy, is_equal end
 
-insert
-	SHARED_WRAPPERS_DICTIONARY
-	
-	WRAPPER_FACTORY [ITEM]
-			
-	EXCEPTIONS undefine fill_tagged_out_memory, copy, is_equal end
-
-creation
+creation 
 	with_capacity,
 	from_collection,
 	from_external_array
 
 feature {} -- Creation
-	from_external_array (an_array: POINTER; a_length: INTEGER) is
+	from_external_array (an_array: POINTER; a_length: INTEGER; a_factory: WRAPPER_FACTORY[ITEM]) is
 		require
 			array_not_null: an_array.is_not_null
 			positive_length: a_length > 0
+			factory_not_void: a_factory /= Void
 		do
 			upper := a_length - 1 
 			capacity := a_length
 			storage := storage.from_pointer (an_array)
+			factory := a_factory
 		end
 	
-	with_capacity (a_capacity: INTEGER) is
-		require positive_capacity: a_capacity > 0
+	with_capacity (a_capacity: INTEGER; a_factory: WRAPPER_FACTORY[ITEM]) is
+		require
+			positive_capacity: a_capacity > 0
+			factory_not_void: a_factory /= Void
 		do
 			capacity := a_capacity
 			upper := -1
 			storage := storage.calloc(a_capacity)
 		end
 
-feature {} -- 	
-	object_materialization_notice: STRING is
-			-- The notice printed when creating a new wrapper object from
-			-- no-where.
-		"Warning: C_ARRAY is going to create a new wrapper; if ITEM is deferred the program will almost surely crash. The actual ITEM must be made non-deferred.%N"
-
 feature
 	item (i: INTEGER_32): ITEM is
 		local ptr: POINTER
 		do
 			ptr := storage.item(i)
-			if ptr.is_not_null then 
-				if wrappers.has (ptr) then 
-					Result ::= wrappers.at (ptr)
-				else
-					debug print(object_materialization_notice) end
-					Result := new_item
-					debug print(" Object materialized ") end
-					Result.from_external_pointer(ptr)
-				end
-				Result.set_shared 
-				-- check shared_result: Result.is_shared end
-			end
+			if ptr.is_not_null then Result:=factory.wrapper(ptr) end
 		end
 
-   first: ITEM is do Result:=item(lower) end
+	first: ITEM is do Result:=item(lower) end
 
-   last: ITEM is do Result:=item(upper) end
+	last: ITEM is do Result:=item(upper) end
 	
 feature {ANY} -- Writing:
 	put (element: like item; i: INTEGER) is 
@@ -161,6 +137,16 @@ feature {ANY} -- Adding:
 		end
 
 feature {ANY} -- Modification:
+	from_collection (model: COLLECTION[ITEM]) is
+		local i: INTEGER
+		do
+			from i := model.lower until i>model.upper
+			loop
+				add_last(model.item(i))
+				i := i + 1
+			end
+		end
+	
 	copy (other: like Current) is
 		local i: INTEGER
 		do
@@ -190,23 +176,12 @@ feature {ANY} -- Modification:
 			put(element,index)
 		end
 
-	from_collection (model: COLLECTION[like item]) is
-		local i: ITERATOR[like item]
-		do
-            -- FIXME: signature should be model: TRAVERSABLE, once SE2.3 is out
-			with_capacity(model.count)
-			from i:=model.get_new_iterator; i.start
-			until i.is_off 
-			loop add_last(i.item); i.next
-			end
-		end
-
 feature {ANY} -- Removing:
 	remove_first is
 			-- Performance: O(count)
 		local i,j: INTEGER
 		do
- 			-- Remove the `first' element of the collection.
+			-- Remove the `first' element of the collection.
 			from i:=lower; j:=lower+1 until j>upper
 			loop
 				storage.put(storage.item(j),i)
@@ -292,7 +267,7 @@ feature {ANY} -- Removing:
 feature {ANY} -- Looking and Searching:
 	first_index_of (element: like item): INTEGER is
 		do
-            Result := index_of (element, lower)
+				Result := index_of (element, lower)
 		end
 
 	index_of (element: like item; start_index: INTEGER): INTEGER is
@@ -316,11 +291,11 @@ feature {ANY} -- Looking and Searching:
 
 	reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
 		do
- 			-- Using `is_equal' for comparison, gives the index of the
- 			-- first occurrence of `element' at or before
- 			-- `start_index'. Search is done in reverse direction, which
- 			-- means from the `start_index' down to the `lower'
- 			-- index. Answer `lower -1' when the search fail.
+			-- Using `is_equal' for comparison, gives the index of the
+			-- first occurrence of `element' at or before
+			-- `start_index'. Search is done in reverse direction, which
+			-- means from the `start_index' down to the `lower'
+			-- index. Answer `lower -1' when the search fail.
 			if element=Void then
 				from Result:=start_index
 				until item(Result)=Void or else Result<lower
@@ -339,7 +314,7 @@ feature {ANY} -- Looking and Searching:
 			-- Note: comparison is done using the address of the wrapped
 			-- structure.
 		do
-            Result := fast_index_of (element,lower)
+				Result := fast_index_of (element,lower)
 		end
 
 	fast_index_of (element: like item; start_index: INTEGER): INTEGER is
@@ -544,6 +519,7 @@ feature {ANY} -- Other features:
 	fast_replace_all (old_value, new_value: like item) is
 		obsolete "Unimplemented!"
 		do
+			not_yet_implemented
 			-- 			-- Replace all occurrences of the element `old_value' by `new_value' using basic `=' for comparison.
 			-- 			--
 			-- 			-- See also `replace_all', `move'.
@@ -598,6 +574,7 @@ feature {ANY} -- Other features:
 	slice (min, max: INTEGER): like Current is
 		obsolete "Unimplemented!"
 		do
+			not_yet_implemented
 			-- 			-- New collection consisting of items at indexes in [`min'..`max'].
 			-- 			-- Result has the same dynamic type as `Current'.
 			-- 			-- The `lower' index of the `Result' is the same as `lower'.
@@ -615,12 +592,8 @@ feature {ANY} -- Other features:
 		end
 
 	reverse is
-		obsolete "Unimplemented!"
 		do
-			-- 			-- Reverse the order of the elements.
-			-- 		deferred
-			-- 		ensure
-			-- 			count = old count
+			not_yet_implemented
 		end
 
 feature
@@ -655,4 +628,10 @@ feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 			put(element, index)
 		end
 
+feature {} --
+	struct_size: INTEGER is
+			-- The memory used for the array.
+		do
+			Result:=count*handle.object_size
+		end
 end -- class C_ARRAY

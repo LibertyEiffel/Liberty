@@ -29,7 +29,7 @@ insert
 	ARGUMENTS
 	MEMORY
 	
-creation make
+creation dummy, make
 
 feature -- objects and 
 	timer: G_TIMER

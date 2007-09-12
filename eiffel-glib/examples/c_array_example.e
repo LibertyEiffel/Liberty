@@ -6,7 +6,7 @@ class C_ARRAY_EXAMPLE
 
 inherit WRAPPER_HANDLER -- to play with pointers
 
-creation make
+creation dummy, make
 
 feature
 	array: C_ARRAY[G_STRING]

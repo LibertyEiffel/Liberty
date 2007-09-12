@@ -19,7 +19,7 @@ inherit
 			is_equal
 		end
 
-creation make
+creation dummy, make
 
 feature -- Type queries
 	is_integer (a_column: INTEGER): BOOLEAN is

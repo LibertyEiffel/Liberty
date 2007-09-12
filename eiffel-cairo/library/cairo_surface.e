@@ -2,8 +2,8 @@ indexing
 	description: "cairo_surface_t: base class for Cairo surfaces."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,
-					                   Soluciones Informaticas Libres S.A. (Except),
-					                   Cairo team
+											 Soluciones Informaticas Libres S.A. (Except),
+											 Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -40,7 +40,7 @@ insert
 	CAIRO_STATUS
 	CAIRO_CONTENT
 
-creation make_similar, from_external_pointer
+creation dummy, make_similar, from_external_pointer
 
 feature {} -- Creation
 

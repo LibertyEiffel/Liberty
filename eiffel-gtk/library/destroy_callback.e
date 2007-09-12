@@ -27,7 +27,7 @@ class DESTROY_CALLBACK
 inherit CALLBACK redefine object end
 insert G_OBJECT_RETRIEVER [GTK_OBJECT]
 
-creation make
+creation dummy, make
 
 feature
 	object: GTK_OBJECT

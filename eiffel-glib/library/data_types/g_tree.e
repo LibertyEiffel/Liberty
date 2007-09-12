@@ -18,7 +18,7 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
-   license: "LGPL v2 or later"
+	license: "LGPL v2 or later"
 
 class G_TREE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
 	-- A sorted collection of key/value pairs optimized for searching
@@ -40,7 +40,7 @@ insert
 	G_TREE_EXTERNALS
 		--	GLIB_TYPE_CONVERSION_MACROS -- Temporary
 	
-creation with_comparer, from_external_pointer
+creation dummy, with_comparer, from_external_pointer
 
 feature {} -- Creation
 	with_comparer (a_compare_function: FUNCTION[ANY,TUPLE[KEY,KEY],INTEGER]) is

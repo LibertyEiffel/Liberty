@@ -3,7 +3,7 @@ inherit
 	GTK_BUTTON
 		redefine with_label, on_clicked
 		end
-creation make,with_label
+creation dummy, make,with_label
 feature
 	on_clicked is
 		do

@@ -19,21 +19,20 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: A GtkAssistant is a widget used to represent
-			-- a generally complex operation splitted in several steps,
-			-- guiding the user through its pages and controlling the
-			-- page flow to collect the necessary data.
-
 class GTK_ASSISTANT
+	-- A widget used to represent a generally complex operation
+	-- splitted in several steps, guiding the user through its pages
+	-- and controlling the page flow to collect the necessary data.
 
 inherit
 	GTK_WINDOW
-		undefine
-			struct_size
 		redefine
-			make
+			dummy_gobject,
+			make,
+			struct_size
 		end
-		-- GtkAssistant implements AtkImplementorIface.
+	
+	-- TODO: AtkImplementorIface.
 
 	CANCEL_SIGNAL_RECEIVER
 	
@@ -41,15 +40,26 @@ insert
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
 	GTK_ASSISTANT_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
-feature {} -- Creation
+feature -- Creation
 	make is
 			-- Creates a new GtkAssistant.
 		do
 			from_external_pointer(gtk_assistant_new)
 		end
 	
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_assistant_new
+		end
+	
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkAssistant)"
+		end
+
 feature
 	current_page: INTEGER is
 			-- The index (starting from 0) of the current page in the
@@ -92,9 +102,9 @@ feature
 				if Result=Void then
 					debug
 						print("Warning: GTK_ASSISTANT.item received a %
-                        %GtkWidget pointer of an unwrapped widget. %
-                        %Since we don't know which the correct effective wrapper %
-                        %class feature Result will be Void.%N")
+								%GtkWidget pointer of an unwrapped widget. %
+								%Since we don't know which the correct effective wrapper %
+								%class feature Result will be Void.%N")
 					end
 				end
 			end
@@ -480,5 +490,4 @@ feature --   The "prepare" signal
 	--    user_data : user data set when the signal handler was connected.
 
 	--    Since 2.10
-
 end -- class GTK_ASSISTANT

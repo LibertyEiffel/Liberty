@@ -10,7 +10,7 @@ inherit
 			on_changed
 		end
 	
-creation with_label
+creation dummy, with_label
 feature with_label (a_label: STRING) is
 		require a_label/=Void
 		do

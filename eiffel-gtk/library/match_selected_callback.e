@@ -26,38 +26,30 @@ class MATCH_SELECTED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert
-	G_OBJECT_RETRIEVER [GTK_ENTRY_COMPLETION]
-	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
-	rename
-		retrieve_eiffel_wrapper_from_gobject_pointer as tree_model_retrieve_eiffel_wrapper
-		has_eiffel_wrapper_stored as tree_model_has_eiffel_wrapper_stored
-		g_object_get_eiffel_wrapper as tree_model_get_eiffel_wrapper
-		eiffel_wrapper_from_gobject_pointer as tree_model_eiffel_wrapper_from_gobject
-	end
-
-
-creation make
+creation dummy, make
 
 feature
 	object: GTK_ENTRY_COMPLETION
 
 feature
 	callback (model, iter, instance: POINTER): INTEGER is
-		require
-			tree_model_has_eiffel_wrapper_stored (model)
-			eiffel_created_the_entry_completion: has_eiffel_wrapper_stored (instance)
 		local
 			iter_obj: GTK_TREE_ITER
 			model_obj: GTK_TREE_MODEL
+			cr: G_OBJECT_EXPANDED_FACTORY[GTK_ENTRY_COMPLETION]; mr: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_MODEL]
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create iter_obj.copy_from_pointer (iter)
-			model_obj := tree_model_retrieve_eiffel_wrapper (model)
+			object := cr.wrapper(instance)
+			check object/=Void end
+			-- create iter_obj.copy_from_pointer (iter) Note: This should
+			-- not be necessary anymore, because of the new memory
+			-- handling.
+			create iter_obj.from_external_pointer (iter)
+			model_obj := mr.wrapper(model)
+			check model_obj/=Void end
 			Result := function.item ([model_obj, iter_obj, object]).to_integer
 		end
 

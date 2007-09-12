@@ -1,7 +1,7 @@
 
 class STATUS_BAR_DEMO
 insert GTK
-creation make
+creation dummy, make
 
 feature -- GUI elements
 	window: GTK_WINDOW

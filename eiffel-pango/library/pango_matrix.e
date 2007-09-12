@@ -20,9 +20,9 @@ indexing
 			]"
 
 class PANGO_MATRIX
-   -- A structure specifying a transformation between user-space
-   -- coordinates and device coordinates. The transformation is given
-   -- by
+	-- A structure specifying a transformation between user-space
+	-- coordinates and device coordinates. The transformation is given
+	-- by
 
 	-- x_device = x_user * matrix->xx + y_user * matrix->xy + matrix->x0;
 
@@ -47,13 +47,13 @@ inherit
 		end
 -- insert PANGO_MATRIX_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	-- #define PANGO_MATRIX_INIT { 1., 0., 0., 1., 0., 0. }
 
-   -- Constant that can be used to initialize a PangoMatrix to the
-   -- identity transform.
+	-- Constant that can be used to initialize a PangoMatrix to the
+	-- identity transform.
 
 	--  PangoMatrix matrix = PANGO_MATRIX_INIT; pango_matrix_rotate
 	-- (&matrix, 45.);
@@ -142,7 +142,7 @@ feature {}
 
 	-- #define PANGO_TYPE_MATRIX (pango_matrix_get_type ())
 
-   -- The GObject type for PangoMatrix
+	-- The GObject type for PangoMatrix
 
 feature {} -- External calls
 	-- #define     PANGO_TYPE_MATRIX

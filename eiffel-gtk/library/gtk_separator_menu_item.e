@@ -27,18 +27,20 @@ class GTK_SEPARATOR_MENU_ITEM
 inherit 
 	GTK_MENU_ITEM 
 		redefine 
-			make, struct_size
+			dummy_gobject,
+			make,
+			struct_size
 		end
 	
-	-- TODO: GtkSeparatorMenuItem implements AtkImplementorIface.	
+	-- TODO: AtkImplementorIface.	
 	
-creation make
+creation dummy, make
 
 feature {} -- Creation
 	make is
 			-- Creates a new GtkSeparatorMenuItem.
 		do
-			from_external_pointer (gtk_separator_menu_item_new )
+			from_external_pointer (gtk_separator_menu_item_new)
 		end
 
 feature -- size
@@ -47,8 +49,13 @@ feature -- size
 		alias "sizeof(GtkSeparatorMenuItem)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_separator_menu_item_new
+		end
+	
 feature {} -- External features
-   gtk_separator_menu_item_new: POINTER is
+	gtk_separator_menu_item_new: POINTER is
 		external "C use <gtk/gtk.h>"
 		end
 

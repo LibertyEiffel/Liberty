@@ -32,7 +32,7 @@ feature {} -- Low-level functions
 			if a_wrapper/=Void then Result:=a_wrapper.handle end
 		ensure
 			definition: Result = default_pointer or else
-			            (a_wrapper/=Void and then Result = a_wrapper.handle)
+							(a_wrapper/=Void and then Result = a_wrapper.handle)
 		end
 
 	null_or_string(a_string: STRING): POINTER is
@@ -52,6 +52,27 @@ feature {} -- Wrapper related exceptions
 		"A C function returned a pointer to an unwrapped object which is wrapped by a deferred class. It is not possible to create a correct wrapper."
 	retrieved_object_mismatch: STRING is
 		"Retrieved_object_mismatch: the Eiffel wrapper associated with a pointer is not an actual wrapper for the object referred by that pointer "
+	no_proper_wrapper_available: STRING is
+		"The Eiffel wrapper library encountered an unwrapped object pointer. Its type, obtained by the run-time of the wrapped library and its parent types have no available wrapper. The Eiffel library is unable to handle this object. This is a bug, please inform the developers of the program."
+	
+	unimplemented is
+		do
+			sedb_breakpoint
+			std_error.put_string
+			("[
+			  An unimplemented feature has been called.
+			  Please notify this bug to the developer of the application or to the
+			  Eiffel Wrapper Library Collection project, writing to the mailing list
+			  eiffel-libraries-devel@gna.org
+
+														 Happy hacking and thanks in advance.
+																					 The EWLC  team.
+
+			  The error occured in the type ]")
+			std_error.put_string(generating_type)
+			std_error.put_string(".%N%N")
+			crash
+		end
 
 feature {} -- External calls
 	memcpy (a_dest, a_src: POINTER; a_size: INTEGER): POINTER is

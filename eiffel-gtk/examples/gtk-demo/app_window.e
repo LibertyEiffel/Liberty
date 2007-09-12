@@ -30,7 +30,7 @@ insert
 	GTK_MESSAGE_TYPE
 	GTK_BUTTONS_TYPE
 	
-creation make
+creation dummy, make
 
 feature 
 	name: STRING is "Appliction main window"
@@ -66,12 +66,12 @@ feature -- Creation
 			--                         &window);
 
 			--       table = gtk_table_new (1, 4, FALSE);
-      
+		
 			--       gtk_container_add (GTK_CONTAINER (window), table);
-      
+		
 			--       /* Create the menubar and toolbar
 			--        */
-      
+		
 			--       action_group = gtk_action_group_new ("AppWindowActions");
 			--       open_action = g_object_new (tool_menu_action_get_type (), 
 			-- 				  "name", "Open",
@@ -103,7 +103,7 @@ feature -- Creation
 			--       gtk_ui_manager_insert_action_group (merge, action_group, 0);
 			--       gtk_window_add_accel_group (GTK_WINDOW (window), 
 			-- 				  gtk_ui_manager_get_accel_group (merge));
-      
+		
 			--       if (!gtk_ui_manager_add_ui_from_string (merge, ui_info, -1, &error))
 			-- 	{
 			-- 	  g_message ("building menus failed: %s", error->message);
@@ -140,7 +140,7 @@ feature -- Creation
 
 			--       gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw),
 			--                                            GTK_SHADOW_IN);
-      
+		
 			--       gtk_table_attach (GTK_TABLE (table),
 			--                         sw,
 			--                         /* X direction */       /* Y direction */
@@ -150,10 +150,10 @@ feature -- Creation
 
 			--       gtk_window_set_default_size (GTK_WINDOW (window),
 			--                                    200, 200);
-      
+		
 			--       contents = gtk_text_view_new ();
 			--       gtk_widget_grab_focus (contents);
-      
+		
 			--       gtk_container_add (GTK_CONTAINER (sw),
 			--                          contents);
 
@@ -169,7 +169,7 @@ feature -- Creation
 
 			--       /* Show text widget info in the statusbar */
 			--       buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (contents));
-      
+		
 			--       g_signal_connect_object (buffer,
 			--                                "changed",
 			--                                G_CALLBACK (update_statusbar),
@@ -187,7 +187,7 @@ feature -- Creation
 			-- 			       G_CALLBACK (update_resize_grip),
 			-- 			       statusbar,
 			-- 			       0);
-      
+		
 			--       update_statusbar (buffer, GTK_STATUSBAR (statusbar));
 			--     }
 
@@ -495,12 +495,12 @@ feature -- Actions
 			--           "_GTK!",
 			--           0, 0, NULL }
 			--       };
-      
+		
 			--       registered = TRUE;
 
 			--       /* Register our stock items */
 			--       gtk_stock_add (items, G_N_ELEMENTS (items));
-      
+		
 			--       /* Add our custom icon factory to the list of defaults */
 			--       factory = gtk_icon_factory_new ();
 			--       gtk_icon_factory_add_default (factory);
@@ -525,7 +525,7 @@ feature -- Actions
 
 			--           /* The gtk-logo-rgb icon has a white background, make it transparent */
 			--           transparent = gdk_pixbuf_add_alpha (pixbuf, TRUE, 0xff, 0xff, 0xff);
-          
+			 
 			--           icon_set = gtk_icon_set_new_from_pixbuf (transparent);
 			--           gtk_icon_factory_add (factory, "demo-gtk-logo", icon_set);
 			--           gtk_icon_set_unref (icon_set);
@@ -534,7 +534,7 @@ feature -- Actions
 			--         }
 			--       else
 			--         g_warning ("failed to load GTK logo for toolbar");
-      
+		
 			--       /* Drop our reference to the factory, GTK will hold a reference. */
 			--       g_object_unref (factory);
 			--     }

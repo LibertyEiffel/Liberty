@@ -17,7 +17,7 @@ inherit
 insert
 	GTK_RESPONSE_TYPE
 	
-creation make
+creation dummy, make
 
 feature -- dialogs
 	dialog: GTK_DIALOG

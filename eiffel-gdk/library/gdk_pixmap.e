@@ -21,19 +21,21 @@ indexing
 
 class GDK_PIXMAP
 
-inherit
-	GDK_DRAWABLE
+inherit GDK_DRAWABLE
 
---insert
---	GDK_PIXMAP_EXTERNALS
+insert GDK_PIXMAP_EXTERNALS
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature -- size
 
 	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
+		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkPixmap)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gdk_pixmap_new(default_pointer,5,5,1)
+		end 
 end

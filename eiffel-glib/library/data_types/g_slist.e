@@ -9,51 +9,51 @@ class G_SLIST [ITEM->SHARED_C_STRUCT]
 	-- A standard singly-linked list data structure for wrapped object.
 
 inherit
-	LINKED_COLLECTION [ITEM]
+	WRAPPER_COLLECTION [ITEM]
 		redefine
-			append_collection, clear_all,
-			has, fast_has,
-			fast_first_index_of, first_index_of,
-			upper, swap
-		end
-	SHARED_C_STRUCT
-		-- Note: a NULL pointer is the actual *valid* empty
-		-- G_LIST. Therefore any handle.is_not_null postcondition
-		-- shall be circumvented.
-		undefine fill_tagged_out_memory
-		redefine copy, free
+			append_collection, clear_all, dispose, 
+			has, fast_has, swap
 		end
 
-insert
-	G_SLIST_EXTERNALS  undefine fill_tagged_out_memory end
-	SHARED_WRAPPER_FACTORY [ITEM]
+insert G_SLIST_EXTERNALS  
 
-creation make, empty, make_empty, from_external_pointer
+creation dummy, from_external, make
 
-feature
-	-- Note: most low-level C GSList functions expect to be passed a pointer to
-	-- the first element in the list. The functions which insert elements return
-	-- the new start of the list, which may have changed.
-
-	make, empty, make_empty is
+feature {WRAPPER, WRAPPER_HANDLER} -- Creation
+	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[ITEM]) is
+		require factory_not_void: a_factory/=Void
 		do
+			factory := a_factory
+			handle := a_pointer
+		end
+	
+feature
+	make (a_factory: WRAPPER_FACTORY[ITEM]) is
+		require factory_not_void: a_factory/=Void
+		do
+			factory := a_factory
 			handle := default_pointer
 		end
 
 	first: ITEM is
+		local p: POINTER
 		do
-			Result:=wrapper_for_not_null(g_slist_get_data (handle))
+			p := g_slist_get_data (handle)
+			if p.is_not_null then Result:=factory.wrapper(p) end
 		end
 
 	last: like first is
+		local p: POINTER
 		do
-			Result:=wrapper_for_not_null(g_slist_get_data
-												  (g_slist_last(handle)))
+			p := g_slist_last(handle)
+			if p.is_not_null then Result:=factory.wrapper(p) end
 		end
 
 	item (i: INTEGER): like first is
+		local p: POINTER
 		do
-			Result:=wrapper_for_not_null(g_slist_nth_data (handle, i-1))
+			p := g_slist_nth_data (handle, i-1)
+			if p.is_not_null then Result:=factory.wrapper(p) end
 		ensure Result/=Void
 		end
 
@@ -122,6 +122,15 @@ feature
 
 	force (element: like first; index: INTEGER) is do not_yet_implemented end
 
+	remove_head (n: INTEGER) is
+		local i: INTEGER
+		do
+			from i:=n until i=0 loop
+				remove_first
+				i := i - 1
+			end
+		end
+
 	remove_first is
 		do
 			handle:=g_slist_delete_link (handle, handle)
@@ -133,6 +142,15 @@ feature
 												  g_slist_nth_data (handle, index-1))
 		end
 
+	remove_tail (n: INTEGER) is
+		local i: INTEGER
+		do
+			from i:=n until i=0 loop
+				remove_last
+				i := i - 1
+			end
+		end
+	
 	remove_last is
 		do
 			handle:=g_slist_delete_link (handle,g_slist_last (handle))
@@ -200,7 +218,12 @@ feature
 			not_yet_implemented -- TODO
 		end
 
-	is_equal_map (other: LINKED_COLLECTION [ITEM]): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN is
+		do
+			not_yet_implemented
+		end
+
+	is_equal_map (other: like Current): BOOLEAN is
 			-- Do both collections have the same lower, upper, and items?
 			-- Feature is_equal is used for comparison of items.
 		do
@@ -215,7 +238,7 @@ feature
 			not_yet_implemented -- TODO
 		end
 
-	copy (other: G_SLIST [ITEM]) is
+	copy (other: like Current) is
 		do
 			not_yet_implemented -- TODO
 		end
@@ -242,7 +265,7 @@ feature
 			not_yet_implemented -- TODO
 		end
 
-	slice (min, max: INTEGER): G_SLIST [ITEM] is 
+	slice (min, max: INTEGER): like Current is
 		do
 			not_yet_implemented -- TODO
 		end
@@ -254,12 +277,21 @@ feature
 			handle:=g_slist_reverse (handle)
 			-- g_slist_free (handle) -- TODO is this call correct?
 		end
-
-	upper,count: INTEGER is 
+	
+	count: INTEGER is 
 		do
 			if handle.is_null then Result:=0 
 			else Result:=g_slist_length(handle)
 			end
+		ensure then positive: Result >= 0
+		end
+
+	lower: INTEGER is 0
+
+	upper: INTEGER is
+		do
+			Result:=g_slist_length(handle)-1
+		ensure positive: Result >= 0
 		end
 
 	is_empty: BOOLEAN is 
@@ -267,7 +299,7 @@ feature
 			Result:= (handle.is_null)
 		end
 	
-	from_collection (model: COLLECTION[ITEM]) is
+	from_collection (model: TRAVERSABLE[ITEM]) is
 		local i: ITERATOR[ITEM]
 		do
 			from i:=model.get_new_iterator; i.start
@@ -282,13 +314,14 @@ feature
 			create {ITERATOR_ON_G_SLIST[ITEM]} Result.make (Current)
 		end
 
-feature {} -- Memory management
-	free (a_pointer: POINTER) is
+feature -- Memory management
+	dispose is
 		do
-			g_slist_free(a_pointer)
+			g_slist_free(handle)
+			handle := default_pointer
 		end
 
-	-- Glib's doc, useful for implementing unimplemented
+feature {}	-- Glib's doc, useful for implementing unimplemented
 	
 -- typedef struct {
 --   gpointer data;
@@ -518,6 +551,10 @@ feature -- size
 		alias "sizeof(GSList)"
 		end
 
+	manifest_put (index: INTEGER_32; element: ITEM) is
+		do
+			put(element,index)
+		end
 end
 
 

@@ -25,7 +25,7 @@ inherit C_STRUCT
 
 insert PANGO_RECTANGLE_EXTERNALS
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature -- Access
 

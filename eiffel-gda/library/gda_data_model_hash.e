@@ -28,12 +28,12 @@ indexing
 class GDA_DATA_MODEL_HASH
 
 inherit 
-   GDA_DATA_MODEL_ROW
+	GDA_DATA_MODEL_ROW
 	GDA_DATA_MODEL -- since GdaDataModelHash implements GdaDataModel.
 
 insert GDA_DATA_MODEL_HASH_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	with_column (a_column_number: INTEGER) is
@@ -52,7 +52,7 @@ feature
 			gda_data_model_hash_insert_row (handle, a_row_number, a_row.handle)
 		end
 
-   set_n_columns (a_column_number: INTEGER) is
+	set_n_columns (a_column_number: INTEGER) is
 			-- Sets the number of columns for rows inserted in this model. Also
 			-- clears model's contents, calling `clear' to free/dispose the
 			-- existing rows if any.

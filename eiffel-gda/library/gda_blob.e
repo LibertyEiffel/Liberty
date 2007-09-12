@@ -25,7 +25,7 @@ inherit SHARED_C_STRUCT
 
 insert GDA_BLOB_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 

@@ -34,7 +34,7 @@ insert
 	GTK
 	GTK_TREE_MODEL_EXTERNALS
 
-creation
+creation 
 	make, make_first, copy_from_pointer,
 	from_string, first, from_path, from_external_pointer
 

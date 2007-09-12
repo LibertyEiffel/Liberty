@@ -32,7 +32,7 @@ insert
 	CURL_LIST_EXTERNALS
 		-- undefine copy, is_equal end
 
-creation
+creation dummy,
 	null, from_external_pointer
 
 feature {} -- Size

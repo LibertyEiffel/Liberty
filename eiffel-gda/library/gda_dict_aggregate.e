@@ -36,7 +36,7 @@ inherit
 
 insert  GDA_DICT_AGGREGATE_EXTERNALS
 
-creation from_dict, from_external_pointer
+creation dummy, from_dict, from_external_pointer
 
 feature {} -- Creation
   

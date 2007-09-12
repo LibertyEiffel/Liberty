@@ -34,7 +34,7 @@ class GDK_EVENT_EXPOSE
 
 inherit SHARED_C_STRUCT redefine from_external_pointer end
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature -- Creation
 	from_external_pointer(a_pointer: POINTER) is
@@ -99,7 +99,7 @@ feature {} -- Internal
 		external "C struct GdkEventExpose get type <gdk/gdk.h>"
 		end
 
-   get_window (a_ptr: POINTER): POINTER is
+	get_window (a_ptr: POINTER): POINTER is
 			-- GdkWindow *window;
 		external "C struct GdkEventExpose get window <gdk/gdk.h>"
 		end

@@ -30,7 +30,7 @@ inherit
 insert
 	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
 
-creation make
+creation dummy, make
 
 feature
 	object: GTK_TREE_MODEL
@@ -63,7 +63,7 @@ feature
 		end
 
 	connect (an_object: GTK_TREE_MODEL;
-	         a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
+				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
 		do
 			debug
 				print ("ROW_DELETED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -73,10 +73,10 @@ feature
 				print ("%N")
 			end
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			procedure := a_procedure
 		end
 

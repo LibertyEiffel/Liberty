@@ -33,7 +33,7 @@ insert
 			is_equal
 		end
 	
-creation connect
+creation dummy, connect
 
 feature {}
 	dispose is

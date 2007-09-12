@@ -27,7 +27,7 @@ inherit
 	
 insert GTS_SURFACE_TRAVERSE_EXTERNALS
 
-creation make, from_face, from_external_pointer
+creation dummy, make, from_face, from_external_pointer
 
 feature {} -- Creation
 	make (a_surface: GTS_SURFACE) is
@@ -65,9 +65,9 @@ feature
 			Result:=(item=Void)
 		end
 
-   item: GTS_FACE 
+	item: GTS_FACE 
 	
-   next is
+	next is
 		local item_ptr: POINTER
 		do
 			item_ptr:=gts_surface_traverse_next(handle,$level)

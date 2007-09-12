@@ -30,10 +30,16 @@ inherit
 
 insert
 	PANGO_CONTEXT_EXTERNALS
+	PANGO_RENDERING_EXTERNALS
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
-feature -- size
+feature 
+	dummy_gobject: POINTER is
+		do
+			Result := pango_context_new
+		end
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PangoContext)"

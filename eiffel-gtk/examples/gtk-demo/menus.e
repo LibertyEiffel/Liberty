@@ -21,7 +21,7 @@ indexing
 
 class MENUS
 
-creation make
+creation dummy, make
 
 feature
 	

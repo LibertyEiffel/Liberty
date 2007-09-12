@@ -24,7 +24,7 @@ class AV_FORMAT_PARAMETERS
 inherit
 	C_STRUCT
 
-creation
+creation dummy,
 	make, from_external_pointer
 
 feature -- Size

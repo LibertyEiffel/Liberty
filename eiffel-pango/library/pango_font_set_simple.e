@@ -26,7 +26,7 @@ class PANGO_FONT_SET_SIMPLE
 
 inherit PANGO_FONT_SET redefine struct_size end
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature
 	make (a_language: PANGO_LANGUAGE) is

@@ -50,7 +50,7 @@ insert
 	GTK_PRINTER_EXTERNALS
 		rename is_default as is_void end
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_name: STRING; a_backend: GTK_PRINT_BACKEND; virtual: BOOLEAN) is
@@ -328,5 +328,10 @@ feature 	-- TODO: Signals
 	--   user_data : user data set when the signal handler was connected.
 	--
 	--   Since 2.10
-
+feature
+	dummy_gobject: POINTER is
+		do
+			unimplemented
+		end
+	
 end -- class GTK_PRINTER

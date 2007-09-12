@@ -22,20 +22,25 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_ALLOCATION
-		-- A GtkAllocation of a widget represents
-		-- region which has been allocated to the widget by its parent. It is a
-		-- subregion of its parents allocation. See the section called ?Size
-		-- Allocation? for more information.
+	-- A GtkAllocation of a widget represents region which has been
+	-- allocated to the widget by its parent. It is a subregion of its
+	-- parents allocation. See the section called ?Size Allocation? for
+	-- more information.
 
-		-- gint x; 	the X position of the widget's area relative to its parents allocation.
-		-- gint y; 	the Y position of the widget's area relative to its parents allocation.
-		-- gint width; 	the width of the widget's allocated area.
-		-- gint height; 	the height of the widget's allocated area.
+	-- gint x; the X position of the widget's area relative to its
+	-- parents allocation.
+	
+	-- gint y; the Y position of the widget's area relative to its
+	-- parents allocation.
+	
+	-- gint width; the width of the widget's allocated area.
+	
+	-- gint height; the height of the widget's allocated area.
 
 inherit
 	C_STRUCT redefine is_equal end
 
-creation copy, copy_from_pointer
+creation dummy, copy, copy_from_pointer
 
 feature {} -- Creation
 
@@ -52,8 +57,9 @@ feature
 
 	is_equal (other: like Current): BOOLEAN is
 		do
-			Result := width = other.width and height = other.height and
-			          x = other.x and y = other.y
+			Result := ((width = other.width) and
+						  (height = other.height) and
+						  (x = other.x) and (y = other.y))
 		end
 
 	width: INTEGER is

@@ -108,7 +108,7 @@ insert
 	CAIRO_PATH_STRUCT
 	CAIRO_STATUS
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature {} -- Creation
 

@@ -64,7 +64,7 @@ inherit
 	
 insert GTK_SHADOW_TYPE
 	
-creation make
+creation dummy, make
 	
 feature -- size
 	struct_size: INTEGER is

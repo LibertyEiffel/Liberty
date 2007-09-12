@@ -46,7 +46,7 @@ insert
 	PANGO_STYLE
 	PANGO_WEIGHT
 
-creation from_class_name
+creation dummy, from_class_name
 
 feature {GTK_EIFFEL_DOC} -- Creation
 	from_class_name (a_class_name: CLASS_NAME) is

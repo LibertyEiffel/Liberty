@@ -35,7 +35,7 @@ inherit GTS_OBJECT redefine struct_size end
 
 insert GTS_POINT_EXTERNALS
 	
-creation from_edges, enclosing, from_external_pointer
+creation dummy, from_edges, enclosing, from_external_pointer
 
 feature {} -- Creation
 	from_edges (first,second,third: GTS_EDGE) is
@@ -232,7 +232,7 @@ feature
 		ensure not_void: Result/=Void
 		end
 
- 	edge_1: GTS_EDGE is
+	edge_1: GTS_EDGE is
 			-- First edge
 		local ptr: POINTER
 		do
@@ -377,10 +377,10 @@ feature
 --     p :  a GtsPoint.
 
 feature {} -- size
- 	struct_size: INTEGER is
- 		external "C inline use <gts.h>"
+	struct_size: INTEGER is
+		external "C inline use <gts.h>"
 		alias "sizeof(GtsTriangle)"
- 		end
+		end
 
 feature {} -- GtsTriangle struct access
 	get_e1 (a_triangle: POINTER): POINTER is

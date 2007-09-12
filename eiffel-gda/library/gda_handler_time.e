@@ -25,7 +25,7 @@ inherit
 	GDA_OBJECT
 	GDA_DATA_HANDLER
 
-creation make, make_no_locale, from_external_pointer
+creation dummy, make, make_no_locale, from_external_pointer
 
 feature {} -- Creation
 

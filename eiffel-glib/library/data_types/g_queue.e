@@ -47,7 +47,7 @@ inherit
 
 insert WRAPPER_FACTORY [ITEM]
 	
-creation make, copy, from_external_pointer
+creation dummy, make, copy, from_external_pointer
 
 feature -- Copying
 

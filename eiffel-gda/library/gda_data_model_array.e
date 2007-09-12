@@ -27,7 +27,7 @@ inherit
 		-- Known heirs: GdaDataModelFilterSQL
 insert GDA_DATA_MODEL_ARRAY_EXTERNALS
 
-creation with_column_number, from_external_pointer
+creation dummy, with_column_number, from_external_pointer
 
 feature {} -- Creation
 	with_column_number (a_number_of_columns: INTEGER) is

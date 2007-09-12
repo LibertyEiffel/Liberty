@@ -35,7 +35,7 @@ inherit
 			print_on
 		end
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -64,7 +64,7 @@ feature -- Commands
 			gts_range_reset(handle)
 		end
 
-   print_on (a_file: OUTPUT_STREAM) is
+	print_on (a_file: OUTPUT_STREAM) is
 			-- Writes a text representation of range on `a_file'.
 		require
 			file_not_void: a_file /= Void

@@ -34,7 +34,7 @@ insert
 	GDA_DICT_DATABASE_EXTERNALS
 	SHARED_G_ERROR
 
-creation from_dict, from_external_pointer
+creation dummy, from_dict, from_external_pointer
 
 feature {} -- Creation
 	from_dict (a_dictionary: GDA_DICT) is

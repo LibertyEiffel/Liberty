@@ -31,7 +31,7 @@ insert
 	GTK_IMAGE_TYPE
 	GTK_ICON_SIZE
 
-creation
+creation dummy,
 	make, from_file, from_external_pointer, from_pixbuf, from_pixmap, from_stock
 
 feature {} -- Initialization
@@ -56,7 +56,7 @@ feature {} -- Initialization
 
 
 	from_pixbuf (pic: GDK_PIXBUF) is
-            -- Creates a new GtkImage displaying `pic'.
+				-- Creates a new GtkImage displaying `pic'.
 		require
 			gtk_initialized: gtk.is_initialized
 			pixbuf_not_void: pic /= Void
@@ -182,4 +182,9 @@ feature
 		alias "sizeof(GtkImage)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_image_new
+		end
+	
 end

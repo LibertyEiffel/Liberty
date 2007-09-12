@@ -30,7 +30,7 @@ inherit
 insert
 	GTS_TOKEN_TYPE
 	
-creation make, from_standard_input, from_external_pointer
+creation dummy, make, from_standard_input, from_external_pointer
 
 feature {} -- Creation
 	make (a_file: INPUT_STREAM) is

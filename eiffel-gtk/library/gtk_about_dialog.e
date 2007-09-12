@@ -1,5 +1,5 @@
 indexing
-	description: "GtkAboutDialog œôòô Display information about an application."
+	description: "GtkAboutDialog displays information about an application."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -45,15 +45,17 @@ class GTK_ABOUT_DIALOG
 inherit
 	GTK_DIALOG
 		redefine
-			make, struct_size
+			dummy_gobject,
+			make,
+			struct_size
 		end
 		-- TODO: GtkAboutDialog implements AtkImplementorIface.	
 
 		-- insert FOO_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
-feature {} -- Creation
+feature -- Creation
 	make is
 			-- a newly created GtkAboutDialog
 		do
@@ -517,9 +519,7 @@ feature -- Property Details
 	-- Default value: FALSE
 
 	-- Since 2.8
-	-- See Als
 
-	-- feature -- 
 	-- Properties
 
 	--   "artists"              GStrv                 : Read / Write
@@ -538,6 +538,11 @@ feature -- Property Details
 	--   "wrap-license"         gboolean              : Read / Write
 
 feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_about_dialog_new
+		end
+	
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAboutDialog)"
@@ -708,5 +713,5 @@ feature {} -- External calls
 
 	-- void gtk_show_about_dialog (GtkWindow *parent, const gchar
 	-- *first_property_name, ...);
-		
+
 end -- class GTK_ABOUT_DIALOG

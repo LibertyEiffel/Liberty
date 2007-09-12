@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [GTK_WIDGET]
 
-creation make
+creation dummy, make
 
 feature
 	object: GTK_WIDGET
@@ -60,7 +60,7 @@ feature
 		end
 
 	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
-	                                                                  INTEGER, GTK_WIDGET], BOOLEAN]) is
+																							INTEGER, GTK_WIDGET], BOOLEAN]) is
 		do
 			debug
 				print ("DRAG_MOTION_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -71,10 +71,10 @@ feature
 			end
 			
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			function:=a_function
 		end
 

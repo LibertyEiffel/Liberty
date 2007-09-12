@@ -37,9 +37,14 @@ inherit GTK_CELL_RENDERER
 
 insert GTK_CELL_RENDERER_PIXBUF_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
-feature -- size
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_cell_renderer_pixbuf_new
+		end
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererPixbuf)"

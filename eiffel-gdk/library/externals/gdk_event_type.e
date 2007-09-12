@@ -22,12 +22,11 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-		-- Do not confuse these events with the signals that GTK+
-		-- widgets emit. Although many of these events result in
-		-- corresponding signals being emitted, the events are often
-		-- transformed or filtered along the way.
-
 deferred class GDK_EVENT_TYPE
+	-- Do not confuse these events with the signals that GTK+ widgets
+	-- emit. Although many of these events result in corresponding
+	-- signals being emitted, the events are often transformed or
+	-- filtered along the way.
 
 inherit ANY undefine is_equal, copy end
 
@@ -36,42 +35,42 @@ feature {} --  enum
 	is_valid_gdk_event_type (an_event_type: INTEGER) : BOOLEAN is
 		do
 			Result:=((an_event_type=gdk_event_nothing) or else
-			         (an_event_type=gdk_event_delete) or else
-			         (an_event_type=gdk_event_destroy) or else
-			         (an_event_type=gdk_event_expose) or else
-			         (an_event_type=gdk_event_motion_notify) or else
-			         (an_event_type=gdk_event_button_press) or else
-			         (an_event_type=gdk_event_2button_press) or else
-			         (an_event_type=gdk_event_3button_press) or else
-			         (an_event_type=gdk_event_button_release) or else
-			         (an_event_type=gdk_event_key_press) or else
-			         (an_event_type=gdk_event_key_release) or else
-			         (an_event_type=gdk_event_enter_notify) or else
-			         (an_event_type=gdk_event_leave_notify) or else
-			         (an_event_type=gdk_event_focus_change) or else
-			         (an_event_type=gdk_event_configure) or else
-			         (an_event_type=gdk_event_map) or else
-			         (an_event_type=gdk_event_unmap) or else
-			         (an_event_type=gdk_event_property_notify) or else
-			         (an_event_type=gdk_event_selection_clear) or else
-			         (an_event_type=gdk_event_selection_request) or else
-			         (an_event_type=gdk_event_selection_notify) or else
-			         (an_event_type=gdk_event_proximity_in) or else
-			         (an_event_type=gdk_event_proximity_out) or else
-			         (an_event_type=gdk_event_drag_enter) or else
-			         (an_event_type=gdk_event_drag_leave) or else
-			         (an_event_type=gdk_event_drag_motion) or else
-			         (an_event_type=gdk_event_drag_status) or else
-			         (an_event_type=gdk_event_drop_start) or else
-			         (an_event_type=gdk_event_drop_finished) or else
-			         (an_event_type=gdk_event_client_event) or else
-			         (an_event_type=gdk_event_visibility_notify) or else
-			         (an_event_type=gdk_event_no_expose) or else
-			         (an_event_type=gdk_event_scroll) or else
-			         (an_event_type=gdk_event_window_state) or else
-			         (an_event_type=gdk_event_setting) or else
+						(an_event_type=gdk_event_delete) or else
+						(an_event_type=gdk_event_destroy) or else
+						(an_event_type=gdk_event_expose) or else
+						(an_event_type=gdk_event_motion_notify) or else
+						(an_event_type=gdk_event_button_press) or else
+						(an_event_type=gdk_event_2button_press) or else
+						(an_event_type=gdk_event_3button_press) or else
+						(an_event_type=gdk_event_button_release) or else
+						(an_event_type=gdk_event_key_press) or else
+						(an_event_type=gdk_event_key_release) or else
+						(an_event_type=gdk_event_enter_notify) or else
+						(an_event_type=gdk_event_leave_notify) or else
+						(an_event_type=gdk_event_focus_change) or else
+						(an_event_type=gdk_event_configure) or else
+						(an_event_type=gdk_event_map) or else
+						(an_event_type=gdk_event_unmap) or else
+						(an_event_type=gdk_event_property_notify) or else
+						(an_event_type=gdk_event_selection_clear) or else
+						(an_event_type=gdk_event_selection_request) or else
+						(an_event_type=gdk_event_selection_notify) or else
+						(an_event_type=gdk_event_proximity_in) or else
+						(an_event_type=gdk_event_proximity_out) or else
+						(an_event_type=gdk_event_drag_enter) or else
+						(an_event_type=gdk_event_drag_leave) or else
+						(an_event_type=gdk_event_drag_motion) or else
+						(an_event_type=gdk_event_drag_status) or else
+						(an_event_type=gdk_event_drop_start) or else
+						(an_event_type=gdk_event_drop_finished) or else
+						(an_event_type=gdk_event_client_event) or else
+						(an_event_type=gdk_event_visibility_notify) or else
+						(an_event_type=gdk_event_no_expose) or else
+						(an_event_type=gdk_event_scroll) or else
+						(an_event_type=gdk_event_window_state) or else
+						(an_event_type=gdk_event_setting) or else
 --			         (an_event_type=gdk_event_grab_broken) or else
-			         (an_event_type=gdk_event_owner_change))
+						(an_event_type=gdk_event_owner_change))
 		end
 
 	gdk_event_nothing: INTEGER is

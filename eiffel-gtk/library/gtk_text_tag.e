@@ -48,14 +48,19 @@ insert
 	PANGO_WEIGHT
 	GTK
 
-creation make, with_name, from_external_pointer
+creation dummy, make, with_name, from_external_pointer
 
-feature {} -- Creation
+feature -- Creation
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_text_tag_new(default_pointer)
+		end
+
 	make is
 			-- Create a nameless GtkTextTag
 		require gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer (gtk_text_tag_new (default_pointer))
+			from_external_pointer(gtk_text_tag_new(default_pointer))
 		end
 
 	with_name (a_name: STRING) is

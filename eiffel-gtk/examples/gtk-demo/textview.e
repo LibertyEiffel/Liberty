@@ -34,7 +34,7 @@ insert
 	PANGO_WEIGHT
 	PANGO_STYLE
 	
-creation make
+creation dummy, make
 
 feature -- Widgets
 	buffer: GTK_TEXT_BUFFER
@@ -238,7 +238,7 @@ feature -- tags
 			-- 			      "rise", 10 * PANGO_SCALE,	  /* 10 pixels */
 			-- 			      "size", 8 * PANGO_SCALE,	  /* 8 points */
 			-- 			      NULL);
-  		end
+		end
 
 	subscript: GTK_TEXT_TAG is
 		once

@@ -15,10 +15,11 @@ inherit
 
 insert
 	G_TYPE
+	G_TYPES
 	GLIB_MEMORY_ALLOCATION export {} all end
 	G_VALUE_EXTERNALS
 	
-creation
+creation dummy,
 	make, from_external_pointer, with_gtype,
 	make_boolean, make_integer, make_natural, make_real, make_real_32,
 	make_enum, make_string, make_object, make_pointer,
@@ -597,7 +598,7 @@ feature
 		alias "sizeof(GValue)"
 		end
 
-feature {} -- Disposing
+feature -- Disposing
 	dispose is
 		do
 			if is_initialized then
@@ -613,8 +614,8 @@ feature {} -- Notices
 	print_reimplement is
 		once
 			print(once "G_VALUE.object is currently implemented using G_RETRIEVER,%
-                    % that have know issues. Please reimplement it %
-                    %with a factory%N")
+						  % that have know issues. Please reimplement it %
+						  %with a factory%N")
 		end
 			
 invariant

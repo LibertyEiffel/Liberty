@@ -25,7 +25,7 @@ inherit GTS_SEGMENT redefine duplicate, make, struct_size end
 	
 insert GTS_EDGE_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_vertex, another_vertex: GTS_VERTEX) is
@@ -195,10 +195,10 @@ feature
 			gts_edge_swap (handle, a_surface.handle)
 		end
 feature {} -- size
- 	struct_size: INTEGER is
- 		external "C inline use <gts.h>"
+	struct_size: INTEGER is
+		external "C inline use <gts.h>"
 		alias "sizeof(GtsEdge)"
- 		end
+		end
 
 end -- class GTS_EDGE
 

@@ -27,7 +27,7 @@ inherit
 
 insert GNOME_VFS_RESULT
 
-creation resolve, from_external_pointer
+creation dummy, resolve, from_external_pointer
 
 feature {} -- Creation
 
@@ -43,7 +43,7 @@ feature {} -- Creation
 		end
 
 feature
-   dispose is
+	dispose is
 		do	
 			gnome_vfs_resolve_free(handle)
 		end

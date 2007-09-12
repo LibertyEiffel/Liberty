@@ -32,17 +32,166 @@ insert
 	ARGUMENTS redefine default_create end
 	GTK_MAIN_EXTERNALS redefine default_create end
 	POINTER_HANDLING redefine default_create end
-
+	SHARED_ARCHETYPES_DICTIONARY redefine default_create end
+	GTK_FACTORIES  redefine default_create end
+	GDK_FACTORIES  redefine default_create end
+	
 creation default_create
 
 feature -- Creation
-
 	default_create is
 		do
 			create error.empty
 			initialize
+			initialize_eiffel_library
 		end
 
+	initialize_eiffel_library is
+			-- Initialize the Eiffel-side of the run-time type system 
+			-- needed for a functional GObject-using library.
+
+			-- Before using any feature of the GTK wrapper you must call
+			-- this feature; it stores the archetypes for each known
+			-- effective GTK class; they are needed to provide proper 
+			-- Eiffel wrappers when the wrapper receive an arbitrary GObject 
+			-- from the underlying library and it is not possible to 
+			-- know at compile time a useful type for it.
+
+			-- Note: another possible workaround would be to remove the 
+			-- "deferred" mark from some parent classes. This works fine 
+			-- until you want to "downcast" an object into a more 
+			-- specialized type (i.e.: the "::=" operator).
+		
+			-- NOTE: In this test-implementation only GTK_LABEL and GTK_WINDOW
+		require gtk_initialized: is_initialized
+		do
+			store_archetype(create {GTK_ABOUT_DIALOG}.dummy)
+			-- store_archetype(create {GTK_ACCELERATOR_MAP}.dummy)
+			store_archetype(create {GTK_ACCEL_LABEL}.dummy)
+			store_archetype(create {GTK_ACTION}.dummy)
+			store_archetype(create {GTK_ACTION_GROUP}.dummy)
+			store_archetype(create {GTK_ADJUSTMENT}.dummy)
+			store_archetype(create {GTK_ALIGNMENT}.dummy)
+			store_archetype(create {GTK_ARROW}.dummy)
+			store_archetype(create {GTK_ASPECT_FRAME}.dummy)
+			store_archetype(create {GTK_ASSISTANT}.dummy)
+			store_archetype(create {GTK_BUTTON}.dummy)
+			store_archetype(create {GTK_CALENDAR}.dummy)
+			store_archetype(create {GTK_CELL_RENDERER_ACCEL}.dummy)
+			store_archetype(create {GTK_CELL_RENDERER_COMBO}.dummy)
+			store_archetype(create {GTK_CELL_RENDERER_PIXBUF}.dummy)
+			store_archetype(create {GTK_CELL_RENDERER_PROGRESS}.dummy)
+			store_archetype(create {GTK_CELL_RENDERER_SPIN}.dummy)
+			store_archetype(create {GTK_CELL_RENDERER_TEXT}.dummy)
+			store_archetype(create {GTK_CELL_RENDERER_TOGGLE}.dummy)
+			store_archetype(create {GTK_CELL_VIEW}.dummy)
+			store_archetype(create {GTK_CHECK_BUTTON}.dummy)
+			store_archetype(create {GTK_CHECK_MENU_ITEM}.dummy)
+			-- TODO: store_archetype(create {GTK_CLIPBOARD}.dummy) --
+			-- first implement its dummy_gobject
+
+			-- TODO: discover why the commented line triggers some oscure 
+			-- bug:
+			-- store_archetype(create {GTK_COLOR_BUTTON}.dummy)
+
+			store_archetype(create {GTK_COLOR_SELECTION_DIALOG}.dummy)
+			store_archetype(create {GTK_COLOR_SELECTION}.dummy)
+			store_archetype(create {GTK_COMBO_BOX}.dummy)
+			store_archetype(create {GTK_COMBO_BOX_ENTRY}.dummy)
+			store_archetype(create {GTK_DIALOG}.dummy)
+			store_archetype(create {GTK_DRAWING_AREA}.dummy)
+			store_archetype(create {GTK_ENTRY_COMPLETION}.dummy)
+			store_archetype(create {GTK_ENTRY}.dummy)
+			store_archetype(create {GTK_EVENT_BOX}.dummy)
+			store_archetype(create {GTK_EXPANDER}.dummy)
+			store_archetype(create {GTK_FILE_CHOOSER_BUTTON}.dummy)
+			store_archetype(create {GTK_FILE_CHOOSER_DIALOG}.dummy)
+			store_archetype(create {GTK_FILE_CHOOSER_WIDGET}.dummy)
+			store_archetype(create {GTK_FILE_FILTER}.dummy)
+			store_archetype(create {GTK_FONT_BUTTON}.dummy)
+			store_archetype(create {GTK_FONT_SELECTION_DIALOG}.dummy)
+			store_archetype(create {GTK_FONT_SELECTION}.dummy)
+			store_archetype(create {GTK_FRAME}.dummy)
+			store_archetype(create {GTK_HBOX}.dummy)
+			store_archetype(create {GTK_HBUTTON_BOX}.dummy)
+			store_archetype(create {GTK_HPANED}.dummy)
+			store_archetype(create {GTK_HSCALE}.dummy)
+			store_archetype(create {GTK_HSCROLLBAR}.dummy)
+			store_archetype(create {GTK_HSEPARATOR}.dummy)
+			store_archetype(create {GTK_ICON_THEME}.dummy)
+			store_archetype(create {GTK_ICON_VIEW}.dummy)
+			store_archetype(create {GTK_IMAGE}.dummy)
+			store_archetype(create {GTK_IMAGE_MENU_ITEM}.dummy)
+			store_archetype(create {GTK_LABEL}.dummy)
+			store_archetype(create {GTK_LAYOUT}.dummy)
+			store_archetype(create {GTK_LINK_BUTTON}.dummy)
+			store_archetype(create {GTK_LIST_STORE}.dummy)
+			store_archetype(create {GTK_MENU_BAR}.dummy)
+			store_archetype(create {GTK_MENU}.dummy)
+			store_archetype(create {GTK_MENU_ITEM}.dummy)
+			store_archetype(create {GTK_MENU_TOOL_BUTTON}.dummy)
+			store_archetype(create {GTK_MESSAGE_DIALOG}.dummy)
+			store_archetype(create {GTK_NOTEBOOK}.dummy)
+			store_archetype(create {GTK_PAGE_SETUP}.dummy)
+			store_archetype(create {GTK_PAGE_SETUP_UNIX_DIALOG}.dummy)
+			store_archetype(create {GTK_PRINT_BACKEND}.dummy)
+			store_archetype(create {GTK_PRINTER}.dummy)
+			store_archetype(create {GTK_PRINT_JOB}.dummy)
+			store_archetype(create {GTK_PRINT_OPERATION}.dummy)
+			store_archetype(create {GTK_PRINT_SETTINGS}.dummy)
+			store_archetype(create {GTK_PRINT_UNIX_DIALOG}.dummy)
+			store_archetype(create {GTK_PROGRESS_BAR}.dummy)
+			store_archetype(create {GTK_RADIO_ACTION}.dummy)
+			store_archetype(create {GTK_RADIO_BUTTON}.dummy)
+			store_archetype(create {GTK_RADIO_MENU_ITEM}.dummy)
+			store_archetype(create {GTK_RADIO_TOOL_BUTTON}.dummy)
+			store_archetype(create {GTK_RC_STYLE}.dummy)
+			store_archetype(create {GTK_SCROLLED_WINDOW}.dummy)
+			store_archetype(create {GTK_SEPARATOR_MENU_ITEM}.dummy)
+			store_archetype(create {GTK_SEPARATOR_TOOL_ITEM}.dummy)
+			store_archetype(create {GTK_SPIN_BUTTON}.dummy)
+			store_archetype(create {GTK_STATUS_BAR}.dummy)
+			store_archetype(create {GTK_STATUS_ICON}.dummy)
+			store_archetype(create {GTK_TABLE}.dummy)
+			store_archetype(create {GTK_TEAROFF_MENU_ITEM}.dummy)
+			store_archetype(create {GTK_TEXT_BUFFER}.dummy)
+			store_archetype(create {GTK_TEXT_CHILD_ANCHOR}.dummy)
+			-- TODO: store_archetype(create {GTK_TEXT_MARK}.dummy)
+			store_archetype(create {GTK_TEXT_TAG}.dummy)
+			store_archetype(create {GTK_TEXT_TAG_TABLE}.dummy)
+			store_archetype(create {GTK_TEXT_VIEW}.dummy)
+			store_archetype(create {GTK_TOGGLE_ACTION}.dummy)
+			store_archetype(create {GTK_TOGGLE_BUTTON}.dummy)
+			store_archetype(create {GTK_TOGGLE_TOOL_BUTTON}.dummy)
+			store_archetype(create {GTK_TOOLBAR}.dummy)
+			store_archetype(create {GTK_TOOL_BUTTON}.dummy)
+			store_archetype(create {GTK_TOOL_ITEM}.dummy)
+			store_archetype(create {GTK_TOOLTIPS}.dummy)
+			store_archetype(create {GTK_TREE_MODEL_FILTER}.dummy)
+			store_archetype(create {GTK_TREE_MODEL_SORT}.dummy)
+			store_archetype(create {GTK_TREE_SELECTION}.dummy)
+			store_archetype(create {GTK_TREE_STORE}.dummy)
+			store_archetype(create {GTK_TREE_VIEW_COLUMN}.dummy)
+			store_archetype(create {GTK_TREE_VIEW}.dummy)
+			store_archetype(create {GTK_VBOX}.dummy)
+			store_archetype(create {GTK_VBUTTON_BOX}.dummy)
+			store_archetype(create {GTK_VIEWPORT}.dummy)
+			store_archetype(create {GTK_VPANED}.dummy)
+			store_archetype(create {GTK_VSCALE}.dummy)
+			store_archetype(create {GTK_VSCROLLBAR}.dummy)
+			store_archetype(create {GTK_VSEPARATOR}.dummy)
+			store_archetype(create {GTK_WINDOW}.dummy)
+			store_archetype(create {GTK_WINDOW_GROUP}.dummy)
+			
+			is_eiffel_library_initialized := True
+		ensure
+			archetypes_added: archetypes.count > old archetypes.count
+			eiffel_library_initialized: is_eiffel_library_initialized = True
+		end
+
+	is_eiffel_library_initialized: BOOLEAN
+			-- Has `initialize_eiffel_library' already been invoked?
+	
 feature
 
 	disable_setlocale is
@@ -69,15 +218,17 @@ feature
 			-- accordingly so your own code will never see those standard
 			-- arguments.
 
-			-- Note that there are some alternative ways to initialize GTK+: if you
-			-- are calling gtk_parse_args(), gtk_init_check(), gtk_init_with_args()
-			-- or g_option_context_parse() with the option group returned by
-			-- gtk_get_option_group(), you don't have to call gtk_init().
+			-- Note that there are some alternative ways to initialize
+			-- GTK+: if you are calling `parse_args',
+			-- `try_initilizing_gtk', (TODO) gtk_init_with_args() or
+			-- G_OPTION_CONTEXT's `parse' with the option group returned
+			-- by (TOD) `option_group', you don't have to call this
+			-- feature.
 
-			-- Note: This function will terminate your program if it was unable to
-			-- initialize the GUI for some reason. If you want your program to fall
-			-- back to a textual interface you want to call gtk_init_check()
-			-- instead.
+			-- Note: This function will terminate your program if it was
+			-- unable to initialize the GUI for some reason. If you want
+			-- your program to fall back to a textual interface you want
+			-- to call `try_initilizing_gtk' instead.
 		local argc: INTEGER; argv: POINTER
 		do
 			if not is_initialized then
@@ -85,6 +236,10 @@ feature
 				argv := command_arguments.to_external
 				gtk_init ($argc, $argv)
 				is_initialized := True
+			else
+				debug
+					io.put_line(once "GTK.initialize has been already invoked")
+				end
 			end
 		ensure initialized: is_initialized = True
 		end
@@ -97,9 +252,15 @@ feature
 		-- `is_gtk_initialized' will be True.
 		local argc: INTEGER; argv: POINTER
 		do
-			argc := argument_count
-			argv := command_arguments.to_external
-			is_initialized := gtk_init_check ($argc, $argv).to_boolean
+			if not is_initialized then
+				argc := argument_count
+				argv := command_arguments.to_external
+				is_initialized := gtk_init_check ($argc, $argv).to_boolean
+			else
+				debug
+					io.put_line(once "GTK.try_initializing_gtk has been already invoked")
+				end
+			end
 		end
 
 	-- TODO: wrap gtk_init_with_args ()
@@ -360,7 +521,8 @@ feature -- global windows features
 	toplevels: G_LIST [GTK_WINDOW] is
 			-- A list of all existing toplevel windows.
 		do
-			create Result.from_external_pointer (gtk_window_list_toplevels)
+			create Result.from_external(gtk_window_list_toplevels, window_factory)
+
 			-- Note: (adapted from original documentation)
 			-- `gtk_window_list_toplevels' returns a list in which the
 			-- widgets are not individually referenced. Therefore before
@@ -369,16 +531,18 @@ feature -- global windows features
 			-- (GFunc)g_object_ref, NULL)" (implemented in
 			-- `ref_all_toplevels') first, and then unref all the widgets
 			-- afterwards.
-			ref_all_toplevels (Result.handle)
-		end
 
+			-- "ref_all_toplevels (Result.handle)" is not necessary and
+			-- *harmful*, since each G_OBJECT wrapper refs its wrapped
+			-- GObject at creation time!
+		end
 
 	default_icon_list: G_LIST[GDK_PIXBUF] is
 			-- an icon list to be used as fallback for windows that
 			-- haven't had `icon_list' called on them to set up a
 			-- window-specific icon list.
 		do
-			create Result.from_external_pointer (gtk_window_get_default_icon_list)
+			create Result.from_external (gtk_window_get_default_icon_list, pixbuf_factory)
 			-- Gets the value set by
 			-- gtk_window_set_default_icon_list(). The list is a copy and
 			-- should be freed with g_list_free(), but the pixbufs in the
@@ -463,7 +627,7 @@ feature -- Global error
 	
 feature {} -- External calls for global windows features
 	ref_all_toplevels (toplevel_list: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C inline use <gtk/gtk.h>"
 		alias "g_list_foreach ($toplevel_list, (GFunc)g_object_ref, NULL)"
 		end
 

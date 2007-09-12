@@ -17,7 +17,7 @@ inherit
 		redefine copy, free
 		end
 	
-creation make
+creation dummy, make
 
 feature {} -- Creation
 	make (n_prealloced: INTEGER) is

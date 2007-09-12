@@ -9,6 +9,21 @@ deferred class G_QUARK_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
+feature -- GQuark
+	gquark: INTEGER_32 is
+			-- A GQuark is an integer which uniquely identifies a
+			-- particular string.
+
+			-- Empty feautre useful for anchored declarations ("like 
+			-- gquark")
+
+			-- typedef guint32 GQuark;
+
+			-- TODO: Should be a NATURAL_32
+		do
+			-- Empty by design
+		end
+		
 feature {} -- external calls
 
 	g_quark_from_string (string: POINTER): INTEGER_32 is

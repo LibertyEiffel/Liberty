@@ -92,7 +92,7 @@ inherit
 		-- GtkEditable.
 insert GTK_SPIN_BUTTON_EXTERNALS
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (an_adjustment: GTK_ADJUSTMENT; a_climb_rate: REAL; some_digits: INTEGER) is

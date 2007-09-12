@@ -1,17 +1,17 @@
 class TEST_VECTOR09
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
-      local
+	make is
+		local
 			v: GSL_VECTOR_REAL_64
-      do
+		do
 			create v.make_zero(5)
 			assert(v.absolut_sum < 0.00000001)
 			
@@ -22,6 +22,6 @@ feature
 			v.put({REAL_32 5.0}, 4)
 			assert((v.absolut_sum - 15).abs < 0.00000001)
 			
-      end
+		end
 
 end -- TEST_VECTOR09

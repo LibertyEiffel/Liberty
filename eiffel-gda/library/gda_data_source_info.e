@@ -36,7 +36,7 @@ insert
 			fill_tagged_out_memory
 		end
 	
-creation make, copy, from_external_pointer
+creation dummy, make, copy, from_external_pointer
 
 feature {ANY}
 	copy (another: like Current) is

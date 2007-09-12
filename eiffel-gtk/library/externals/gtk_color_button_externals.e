@@ -79,12 +79,4 @@ feature {} -- External calls
 			-- 	*color_button);
 		external "C use <gtk/gtk.h>"
 		end
-
-
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkColorButton)"
-		end
-
 end

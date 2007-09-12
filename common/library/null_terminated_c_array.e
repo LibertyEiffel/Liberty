@@ -29,7 +29,7 @@ class NULL_TERMINATED_C_ARRAY [ITEM -> SHARED_C_STRUCT]
 inherit  
 	C_ARRAY [ITEM]	redefine with_capacity end
 								 
-creation
+creation 
 	with_capacity,
 	from_collection,
 	from_external
@@ -38,12 +38,13 @@ feature {} -- Creation
 	-- Note: space allocated in storage must always be capacity+1 large, to
 	-- store the ending NULL pointer
 
-
-	from_external (an_array: POINTER) is
+	from_external (an_array: POINTER; a_factory: WRAPPER_FACTORY[ITEM]) is
 			-- Initialize the NULL_TERMINATED_C_ARRAY from `an_array'
 			-- pointer. The array is inspected from the beginning to
 			-- discover the first NULL pointer that marks its end.
-		require array_not_null: an_array.is_not_null
+		require
+			array_not_null: an_array.is_not_null
+			factory_not_void: a_factory /= Void
 		local i: INTEGER
 		do
 			storage := storage.from_pointer (an_array)
@@ -53,7 +54,9 @@ feature {} -- Creation
 			capacity := count
 		end
 	
-	with_capacity (a_capacity: INTEGER) is
+	with_capacity (a_capacity: INTEGER; a_factory: WRAPPER_FACTORY[ITEM]) is
+		require
+			factory_not_void: a_factory /= Void
 		do
 			capacity := a_capacity
 			upper := -1

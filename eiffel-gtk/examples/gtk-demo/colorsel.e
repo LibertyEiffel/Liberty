@@ -21,7 +21,7 @@ indexing
 
 class COLORSEL
 	
-creation make
+creation dummy, make
 
 feature
 -- /* Color Selector

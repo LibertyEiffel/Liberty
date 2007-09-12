@@ -2,8 +2,8 @@ indexing
 	description: "CAIRO_FONT_FACE -- Base class for fonts"
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli,
-					              Soluciones Informaticas Libres S.A. (Except),
-					              Cairo team
+									  Soluciones Informaticas Libres S.A. (Except),
+									  Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -40,7 +40,7 @@ insert
 	CAIRO_FONT_TYPE
 	CAIRO_STATUS
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature -- Access
 	ref is

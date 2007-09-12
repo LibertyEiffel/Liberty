@@ -23,7 +23,7 @@ class GNOME_VFS_ADDRESS
 
 inherit SHARED_C_STRUCT
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation 
 	from_ipv4 (ipv4_address: INTEGER_64) is
@@ -51,7 +51,7 @@ feature {} -- Creation
 	
 	--    Since 2.8
 	
-   from_string (an_address: STRING) is
+	from_string (an_address: STRING) is
 			-- Creates a new GNOME_VFS_ADDRESS from `an_address'. If it
 			-- isn't a valid, `is_valid' will be False.
 		require 

@@ -35,7 +35,7 @@ class GTK_COMBO_BOX_ENTRY
 	-- GtkComboBoxEntry, as well as when selecting an item from the
 	-- GtkComboBoxEntry's list. Use `active_row' or `active_iter' to
 	-- discover whether an item was actually selected from the list.
-	       
+			 
 	-- Connect to the activate signal of the GtkEntry (use `child') to
 	-- detect when the user actually finishes entering text.
 
@@ -48,17 +48,26 @@ inherit
 		rename
 			with_model as make_combo_box_with_model,
 			child as entry
-		export {} make_combo_box_with_model
-		redefine make, with_text_only, struct_size, entry
+		export
+			{} make_combo_box_with_model
+		redefine
+			dummy_gobject,
+			entry,
+			make,
+			struct_size,
+			with_text_only
 		end
-	-- GtkComboBoxEntry implements the same interfaces implemented by
-	-- GtkComboBox, i.e.: AtkImplementorIface, GtkCellEditable and
-	-- GtkCellLayout.
 
+	GTK_CELL_EDITABLE
+
+	GTK_CELL_LAYOUT
+
+		-- TODO: AtkImplementorIface
+	
 insert
 	GTK_COMBO_BOX_ENTRY_EXTERNALS
 
-creation make, with_model, with_text_only, from_external_pointer
+creation dummy, make, with_model, with_text_only, from_external_pointer
 
 feature {} -- Creation
 
@@ -123,11 +132,16 @@ feature
 feature {} -- Implementation
 	hidden_child_wrapper: GTK_ENTRY
 
-feature -- size
+feature 
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkComboBoxEntry)"
+		end
+
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_combo_box_entry_new
 		end
 
 end

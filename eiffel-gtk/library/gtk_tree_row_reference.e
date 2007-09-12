@@ -22,6 +22,7 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_TREE_ROW_REFERENCE
+
 inherit
 	SHARED_C_STRUCT redefine dispose end
 
@@ -29,7 +30,7 @@ insert
 	GTK
 	GTK_TREE_MODEL_EXTERNALS
 	
-creation make
+creation dummy, make
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -50,7 +51,8 @@ feature {} -- Creation
 			valid_path: a_path /= Void
 		do
 			handle:= gtk_tree_row_reference_new (a_model.handle, a_path.handle)
-			store_eiffel_wrapper
+			if handle=default_pointer then
+			end
 		end
 
 	from_reference (another: like Current) is

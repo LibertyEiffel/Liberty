@@ -46,7 +46,7 @@ insert
 	GTK_PAGE_ORIENTATION
 	GTK_PRINT_SETTINGS_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -177,7 +177,7 @@ feature
 		end
 
 
- 	get_integer (a_key: STRING): INTEGER is
+	get_integer (a_key: STRING): INTEGER is
 			-- The integer value of `a_key,' or 0.
 		require
 			key_not_void: a_key /= Void
@@ -900,7 +900,12 @@ feature
 	--
 			-- #define GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION 
 			-- "win32-driver-version"
-			
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_print_settings_new
+		end
+	
 invariant
 	valid_unit: is_valid_gtk_unit(unit)
 end -- class GTK_PRINT_SETTINGS

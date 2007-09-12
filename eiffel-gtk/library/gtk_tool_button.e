@@ -39,11 +39,10 @@ class GTK_TOOL_BUTTON
 	-- the button does not have a label.
 
 inherit
-	GTK_TOOL_ITEM redefine struct_size end
+	GTK_TOOL_ITEM redefine dummy_gobject, struct_size end
 	
 create
-	from_external_pointer, from_stock, from_label
-
+	dummy, from_external_pointer, from_stock, from_label
 
 feature {} -- Creation
 	from_label (an_icon_widget: GTK_WIDGET; a_label: STRING) is
@@ -258,6 +257,12 @@ feature -- size
 		alias "sizeof(GtkToolButton)"
 		end
 	
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_tool_button_new(default_pointer,
+												 default_pointer)
+		end
+
 feature {} -- External calls
 	gtk_tool_button_new (a_icon_widget, a_label: POINTER): POINTER is
 			-- GtkToolItem* gtk_tool_button_new (GtkWidget *icon_widget, const gchar *label);

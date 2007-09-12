@@ -25,7 +25,7 @@ inherit GDA_DATA_MODEL_FILTER_SQL
 
 insert GDA_DATA_MODEL_FILTER_SQL_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 
@@ -33,21 +33,21 @@ feature {} -- Creation
 Object Hierarchy
 
 
-   GObject
-    +----GdaObject
-          +----GdaDataModelRow
-                +----GdaDataModelArray
-                      +----GdaDataModelFilterSQL
+	GObject
+	+----GdaObject
+			 +----GdaDataModelRow
+					 +----GdaDataModelArray
+							 +----GdaDataModelFilterSQL
 
 Implemented Interfaces
 
-   GdaDataModelFilterSQL implements GdaDataModel.
+	GdaDataModelFilterSQL implements GdaDataModel.
 
 Description
 
-   The GdaDataModelFilterSQL object implements simple SQL "SELECT" queries
-   accessing data stored in various GdaDataModel objects which it is
-   instructed to use.
+	The GdaDataModelFilterSQL object implements simple SQL "SELECT" queries
+	accessing data stored in various GdaDataModel objects which it is
+	instructed to use.
 
 Details
 
@@ -55,69 +55,69 @@ Details
 
  typedef struct _GdaDataModelFilterSQL GdaDataModelFilterSQL;
 
-   --------------------------------------------------------------------------
+	--------------------------------------------------------------------------
 
   gda_data_model_filter_sql_new ()
 
  GdaDataModel* gda_data_model_filter_sql_new (void);
 
-   Creates a new GdaDataModelFilterSQL object, which allows programs to
-   filter GdaDataModel's based on a given SQL SELECT command.
+	Creates a new GdaDataModelFilterSQL object, which allows programs to
+	filter GdaDataModel's based on a given SQL SELECT command.
 
-   A GdaDataModelFilterSQL is just another GdaDataModel-based class, so it
-   can be used in the same way any other data model class is.
+	A GdaDataModelFilterSQL is just another GdaDataModel-based class, so it
+	can be used in the same way any other data model class is.
 
-   Returns : the newly created object.
+	Returns : the newly created object.
 
-   --------------------------------------------------------------------------
+	--------------------------------------------------------------------------
 
   gda_data_model_filter_sql_add_source ()
 
  void        gda_data_model_filter_sql_add_source
-                                             (GdaDataModelFilterSQL *sel,
-                                              const gchar *name,
-                                              GdaDataModel *source);
+															(GdaDataModelFilterSQL *sel,
+															 const gchar *name,
+															 GdaDataModel *source);
 
-   Adds a data model as a source of data for the GdaDataModelFilterSQL
-   object. When the select object is run (via gda_data_model_filter_sql_run),
-   it will parse the SQL and get the required data from the source data
-   models.
+	Adds a data model as a source of data for the GdaDataModelFilterSQL
+	object. When the select object is run (via gda_data_model_filter_sql_run),
+	it will parse the SQL and get the required data from the source data
+	models.
 
-   sel :    a GdaDataModelFilterSQL object.
-   name :   name to identify the data model (usually a table name).
-   source : a GdaDataModel from which to get data.
+	sel :    a GdaDataModelFilterSQL object.
+	name :   name to identify the data model (usually a table name).
+	source : a GdaDataModel from which to get data.
 
-   --------------------------------------------------------------------------
+	--------------------------------------------------------------------------
 
   gda_data_model_filter_sql_set_sql ()
 
  void        gda_data_model_filter_sql_set_sql
-                                             (GdaDataModelFilterSQL *sel,
-                                              const gchar *sql);
+															(GdaDataModelFilterSQL *sel,
+															 const gchar *sql);
 
-   Sets the SQL command to be used on the given GdaDataModelFilterSQL object
-   for filtering rows from the source data model (which is set with
-   gda_data_model_filter_sql_set_source).
+	Sets the SQL command to be used on the given GdaDataModelFilterSQL object
+	for filtering rows from the source data model (which is set with
+	gda_data_model_filter_sql_set_source).
 
-   sel : a GdaDataModelFilterSQL object.
-   sql : the SQL command to be used for filtering rows.
+	sel : a GdaDataModelFilterSQL object.
+	sql : the SQL command to be used for filtering rows.
 
-   --------------------------------------------------------------------------
+	--------------------------------------------------------------------------
 
   gda_data_model_filter_sql_run ()
 
  gboolean    gda_data_model_filter_sql_run   (GdaDataModelFilterSQL *sel);
 
-   Runs the query and fills in the GdaDataModelFilterSQL object with the rows
-   that matched the SQL command (which can be set with
-   gda_data_model_filter_sql_set_sql) associated with this
-   GdaDataModelFilterSQL object.
+	Runs the query and fills in the GdaDataModelFilterSQL object with the rows
+	that matched the SQL command (which can be set with
+	gda_data_model_filter_sql_set_sql) associated with this
+	GdaDataModelFilterSQL object.
 
-   After calling this function, if everything is successful, the
-   GdaDataModelFilterSQL object will contain the matched rows, which can then
-   be accessed like a normal GdaDataModel.
+	After calling this function, if everything is successful, the
+	GdaDataModelFilterSQL object will contain the matched rows, which can then
+	be accessed like a normal GdaDataModel.
 
-   sel :     a GdaDataModelFilterSQL object.
-   Returns : TRUE if successful, FALSE if there was an error.
+	sel :     a GdaDataModelFilterSQL object.
+	Returns : TRUE if successful, FALSE if there was an error.
 
 end -- class  GDA_DATA_MODEL_FILTER_SQL

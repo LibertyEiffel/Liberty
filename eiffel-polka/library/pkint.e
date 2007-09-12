@@ -48,7 +48,7 @@ inherit
 insert
 	PKINT_EXTERNALS
 
-creation
+creation dummy,
 	make, copy, from_natural, from_integer, from_string, from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation

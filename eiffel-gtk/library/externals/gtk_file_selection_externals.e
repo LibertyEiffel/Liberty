@@ -63,9 +63,4 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkFileSelection)"
-		end
 end

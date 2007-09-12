@@ -28,7 +28,7 @@ class ROW_HAS_CHILD_TOGGLED_CALLBACK
 
 inherit CALLBACK redefine object end
 insert G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
-creation make
+creation dummy, make
 
 feature object: GTK_TREE_MODEL
 
@@ -62,7 +62,7 @@ feature
 		end
 
 	connect (an_object: GTK_TREE_MODEL;
-	         a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
+				a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
 		do
 			debug
 				print ("ROW_HAS_CHILD_TOGGLED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -72,7 +72,7 @@ feature
 				print ("%N")
 			end
 			handler_id := g_signal_connect_closure (an_object.handle, signal_name.to_external,
-			                                        handle, 0 -- i.e. call it before default handler
+																 handle, 0 -- i.e. call it before default handler
 																 )
 			procedure := a_procedure
 		end

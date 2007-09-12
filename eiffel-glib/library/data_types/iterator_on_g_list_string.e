@@ -32,16 +32,17 @@ feature {} -- Creation
 	make (a_list: G_SLIST_STRING) is
 		require valid_list: a_list/=Void
 		do
-			list := a_list.handle
+			list := a_list
 		end
 	
 feature {} -- Implementation
-	list: POINTER
+	list: G_LIST_STRING
 	current_element: POINTER
+
 feature -- Iterator's features
 	start is
 		do
-			current_element := list
+			current_element := list.handle
 		end
 	
 	is_off: BOOLEAN is
@@ -53,10 +54,9 @@ feature -- Iterator's features
 		local cstr: POINTER
 		do
 			cstr := g_slist_get_data(current_element)
-			check 
-				string_not_null: cstr.is_not_null 
+			if cstr.is_not_null then 
+				create Result.from_external_copy(cstr)
 			end
-			create Result.from_external_copy(cstr)
 		ensure result_not_void: Result /= Void
 		end
 	

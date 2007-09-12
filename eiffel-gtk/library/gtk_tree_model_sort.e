@@ -122,6 +122,11 @@ inherit
 	GTK_TREE_DRAG_SOURCE
 	GTK_TREE_SORTABLE
 
+insert
+	GTK_LIST_STORE_EXTERNALS -- To get a dummy child model
+	
+creation dummy
+
 feature {} 
 -- gtk_tree_model_sort_new_with_model ()
 
@@ -259,4 +264,8 @@ feature -- size
 		alias "sizeof(GtkTreeModel)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_list_store_newv(1,$g_type_int)
+		end
 end -- class GTK_TREE_MODEL_SORT

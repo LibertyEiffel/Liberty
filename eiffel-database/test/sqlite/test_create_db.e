@@ -9,32 +9,32 @@ indexing
 class TEST_CREATE_DB
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
 insert
-   FILE_TOOLS
+	FILE_TOOLS
 
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
-      local
+	make is
+		local
 			db: SQLITE_DATABASE
 			file_name: STRING
-      do
+		do
 			file_name := "new_db.sqlite"
 			if file_exists (file_name) then
 				delete (file_name)
 			end
 			create db.connect (file_name)
 			db.close
-         assert (file_exists (file_name))
+			assert (file_exists (file_name))
 		 
 			if file_exists (file_name) then
 				delete (file_name)
 			end
-      end
+		end
 
 end

@@ -48,7 +48,7 @@ inherit
 		end
 	C_STRUCT
 	
-creation connect
+creation dummy, connect
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -419,8 +419,8 @@ feature {} -- External calls
 		external "plug_in"
 		alias "{
 			location: "${eiffel_libraries}plugins"
-         module_name: "postgresql"
-         feature_name: "PQconnectdb"
+			module_name: "postgresql"
+			feature_name: "PQconnectdb"
 			}"
 		end
 --  PGconn *PQsetdbLogin(const char *pghost,

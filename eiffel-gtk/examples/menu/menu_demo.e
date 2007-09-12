@@ -1,6 +1,6 @@
 class MENU_DEMO
 insert GTK 
-creation make
+creation dummy, make
 feature
 	make is
 		local label: STRING

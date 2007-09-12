@@ -1,20 +1,20 @@
 class TEST_COMPLEX00
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
-      local
+	make is
+		local
 			c: GSL_COMPLEX_REAL_64
-      do
+		do
 			create c.make_rect(0, 0)
 			assert(c.out.is_equal("0.000000+0.000000i"))
 
-      end
+		end
 
 end -- TEST_COMPLEX00

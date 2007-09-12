@@ -33,7 +33,7 @@ inherit
 insert
 	CURL_EXTERNALS
 		
-creation
+creation dummy,
 	make
 
 feature {} -- Size

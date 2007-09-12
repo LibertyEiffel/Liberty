@@ -128,85 +128,85 @@ feature
 		end
 
 feature
-   resize (new_count: INTEGER_32) is
+	resize (new_count: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (new_count)
 		end
 
-   clear_count is
+	clear_count is
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-   wipe_out is
+	wipe_out is
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-   clear_count_and_capacity is
+	clear_count_and_capacity is
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-   copy (other: like Current) is
+	copy (other: like Current) is
 		do
 			if is_unchanged then modify end
 			Precursor (other)
 		end
 
-   fill_with (c: CHARACTER) is
+	fill_with (c: CHARACTER) is
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-   replace_all (old_character, new_character: CHARACTER) is
+	replace_all (old_character, new_character: CHARACTER) is
 		do
 			if is_unchanged then modify end
 			Precursor (old_character, new_character)
 		end
 
-   append (s: STRING) is
+	append (s: STRING) is
 		do
 			if is_unchanged then modify end
 			Precursor (s)
 		end
 
-   append_string (s: STRING) is
+	append_string (s: STRING) is
 		do
 			if is_unchanged then modify end
 			Precursor (s)
 		end
 
-   append_substring (s: STRING; start_index, end_index: INTEGER_32) is
+	append_substring (s: STRING; start_index, end_index: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (s, start_index, end_index)
 		end
 
-   prepend (other: STRING) is
+	prepend (other: STRING) is
 		do
 			if is_unchanged then modify end
 			Precursor (other)
 		end
 
-   insert_string (s: STRING; i: INTEGER_32) is
+	insert_string (s: STRING; i: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (s,i)
 		end
 
-   replace_substring (s: STRING; start_index, end_index: INTEGER_32) is
+	replace_substring (s: STRING; start_index, end_index: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor  (s, start_index, end_index)
 		end
 
-   put (c: CHARACTER; i: INTEGER_32) is
+	put (c: CHARACTER; i: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (c,i)
@@ -293,79 +293,79 @@ feature
 			end
 		end
 	
-   swap (i1, i2: INTEGER_32) is
+	swap (i1, i2: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (i1, i2)
 		end
 
-   insert_character (c: CHARACTER; i: INTEGER_32) is
+	insert_character (c: CHARACTER; i: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (c,i)
 		end
 
-   shrink (min_index, max_index: INTEGER_32) is
+	shrink (min_index, max_index: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (min_index,max_index)
 		end
 
-   remove (i: INTEGER_32) is
+	remove (i: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (i)
 		end
 
-   add_first (c: CHARACTER) is
+	add_first (c: CHARACTER) is
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-   precede (c: CHARACTER) is
+	precede (c: CHARACTER) is
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-   add_last (c: CHARACTER) is
+	add_last (c: CHARACTER) is
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-   append_character (c: CHARACTER) is
+	append_character (c: CHARACTER) is
 		do
 			if is_unchanged then modify end
 			Precursor (c) 
 		end
 
-   extend (c: CHARACTER) is
+	extend (c: CHARACTER) is
 		do
 			if is_unchanged then modify end
 			Precursor (c)
 		end
 
-   to_lower is
+	to_lower is
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-   to_upper is
+	to_upper is
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-   keep_head (n: INTEGER_32) is
+	keep_head (n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (n)
 		end
 
-   keep_tail (n: INTEGER_32) is
+	keep_tail (n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (n)
@@ -385,37 +385,37 @@ feature -- commented out to achieve compatibility with both SE 2.2 and 2.3
 	-- 		end
 
 feature 
-   remove_substring (start_index, end_index: INTEGER_32) is
+	remove_substring (start_index, end_index: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (start_index, end_index)
 		end
 
-   remove_between (start_index, end_index: INTEGER_32) is
+	remove_between (start_index, end_index: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (start_index, end_index)
 		end
 
-   remove_suffix (s: STRING) is
+	remove_suffix (s: STRING) is
 		do
 			if is_unchanged then modify end
 			Precursor (s)
 		end
 
-   remove_prefix (s: STRING) is
+	remove_prefix (s: STRING) is
 		do
 			if is_unchanged then modify end
 			Precursor (s)
 		end
 
-   left_adjust is
+	left_adjust is
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-   right_adjust is
+	right_adjust is
 		do
 			if is_unchanged then modify end
 			Precursor 
@@ -436,43 +436,43 @@ feature {} -- functions from STRING that change signature in 2.3. Note: commente
 	-- 		end
 
 feature {ANY} -- from STRING
-   do_all (action: ROUTINE[TUPLE[CHARACTER]]) is
+	do_all (action: ROUTINE[TUPLE[CHARACTER]]) is
 		do
 			if is_unchanged then modify end
 			Precursor (action)
 		end
 
-   extend_multiple (c: CHARACTER; n: INTEGER_32) is
+	extend_multiple (c: CHARACTER; n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (c,n)
 		end
 
-   precede_multiple (c: CHARACTER; n: INTEGER_32) is
+	precede_multiple (c: CHARACTER; n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (c, n) 
 		end
 
-   extend_to_count (c: CHARACTER; needed_count: INTEGER_32) is
+	extend_to_count (c: CHARACTER; needed_count: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (c,needed_count)
 		end
 
-   precede_to_count (c: CHARACTER; needed_count: INTEGER_32) is
+	precede_to_count (c: CHARACTER; needed_count: INTEGER_32) is
 		do
 			if is_unchanged then modify end
 			Precursor (c,needed_count)
 		end
 
-   reverse is
+	reverse is
 		do
 			if is_unchanged then modify end
 			Precursor 
 		end
 
-   remove_all_occurrences (ch: CHARACTER) is
+	remove_all_occurrences (ch: CHARACTER) is
 		do
 			if is_unchanged then modify end
 			Precursor (ch)

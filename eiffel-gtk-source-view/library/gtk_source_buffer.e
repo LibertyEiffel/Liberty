@@ -40,7 +40,7 @@ inherit GTK_TEXT_BUFFER
 
 insert GLIB_UNICODE_MANIPULATION_EXTERNALS
 	
-creation make, with_language, from_external_pointer
+creation dummy, make, with_language, from_external_pointer
 
 feature {} -- Creation
 	make (a_source_tag_table: GTK_SOURCE_TAG_TABLE) is

@@ -42,7 +42,7 @@ class GTK_VBUTTON_BOX
 inherit  GTK_BUTTON_BOX
 	--   GtkVbuttonBox implements AtkImplementorIface.
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -58,6 +58,11 @@ feature {} -- External calls
 		end
 
 feature -- size
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_vbutton_box_new
+		end
+	
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVbuttonBox)"

@@ -23,7 +23,7 @@ class PANGO_STRING_ATTRIBUTE
 
 inherit C_STRUCT
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature 
 	value: STRING is

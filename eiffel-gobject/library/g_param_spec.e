@@ -45,7 +45,7 @@ insert
 	G_PARAM_SPEC_EXTERNALS
 	G_TYPE_EXTERNALS
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 	
 feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
@@ -340,7 +340,7 @@ feature -- TODO: long parameter. Note: could it be the same of INTEGER_64?
 feature -- TODO: unsigned long parameter. Note: could it be the same of an eventual NATURAL_64?
 feature -- TODO: NATURAL_64 (uint64) parameter
 
-feature -- TODO: REAL_32 (float) parameter
+feature -- REAL_32 (float) parameter
 	is_real_32: BOOLEAN is
 			-- Is this an integer parameter?
 		do
@@ -368,7 +368,33 @@ feature -- TODO: REAL_32 (float) parameter
 			Result := get_max_float (handle)
 		end
 
-feature -- TODO: REAL_64 (double) parameter
+feature -- REAL (double) parameter
+	is_real: BOOLEAN is
+			-- Is this an integer parameter?
+		do
+			Result := g_is_param_spec_double (handle).to_boolean
+		end
+
+	default_real: REAL is
+			-- The default integer value
+		require is_integer: is_integer
+		do
+			Result := get_default_double (handle)
+		end
+
+	minimum_real: REAL is
+			-- The minimum real value
+		require is_real: is_real
+		do
+			Result := get_min_double (handle)
+		end
+
+	maximum_real: REAL is
+			-- The maximum real value
+		require is_real: is_real
+		do
+			Result := get_max_double (handle)
+		end
 
 feature -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
 	is_enum: BOOLEAN is

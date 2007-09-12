@@ -30,7 +30,7 @@ inherit SHARED_C_STRUCT
 
 insert GTS_BOUNDING_BOX_EXTERNALS
 
-creation 
+creation dummy, 
 	make, from_external_pointer,
 	of_segment, of_triangle, of_surface, of_points, of_bounding_boxes
 

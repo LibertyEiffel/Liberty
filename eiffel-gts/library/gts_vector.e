@@ -29,7 +29,7 @@ inherit
 		redefine print_on
 		end
 	
-creation init, allocate, from_external_pointer
+creation dummy, init, allocate, from_external_pointer
 
 feature {} -- Creation
 	init (a_point, another_point: GTS_POINT) is
@@ -70,7 +70,7 @@ feature
 		end
 
 feature -- Input Output
-   print_on (a_file: OUTPUT_STREAM) is
+	print_on (a_file: OUTPUT_STREAM) is
 			-- Print Current to `a_file.
 		require
 			file_not_void: a_file /= Void

@@ -46,7 +46,7 @@ class GTK_ACTION_GROUP
 
 inherit G_OBJECT
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 
@@ -54,6 +54,7 @@ feature {} -- Creation
 			-- Creates a new GtkActionGroup object. `a_name' is used as
 			-- the name of the action group and it is used when
 			-- associating keybindings with the actions.
+		require name_not_void: a_name /= Void
 		do
 			from_external_pointer (gtk_action_group_new (a_name.to_external))
 		end
@@ -66,21 +67,14 @@ feature
 		ensure not_void: Result /= Void
 		end
 
-
-	--  gtk_action_group_get_sensitive ()
-
-	-- gboolean    gtk_action_group_get_sensitive  (GtkActionGroup *action_group);
-
-	--   Returns TRUE if the group is sensitive. The constituent actions can only
-	--   be logically sensitive (see gtk_action_is_sensitive()) if they are
-	--   sensitive (see gtk_action_get_sensitive()) and their group is sensitive.
-
-	--   action_group : the action group
-	--   Returns :      TRUE if the group is sensitive.
-
-	--   Since 2.4
-
-	--   --------------------------------------------------------------------------
+	is_sensitive: BOOLEAN is
+			-- Is Current group sensitive? The constituent actions can
+			-- only be logically sensitive (see GTK_ACTION's
+			-- `is_sensitive') if they are sensitive (see GTK_ACTION's
+			-- `is_potentially_sensitive') and their group is sensitive.
+		do
+			Result:=gtk_action_group_get_sensitive(handle).to_boolean
+		end
 
 	--  gtk_action_group_set_sensitive ()
 
@@ -662,6 +656,11 @@ feature -- size
 		alias "sizeof(GtkActionGroup)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=(gtk_action_group_new
+						((once "Dummy GTK_ACTION_GROUP").to_external))
+		end
 feature {} -- External calls
 	gtk_action_group_new (a_name: POINTER): POINTER is
 			-- GtkActionGroup* gtk_action_group_new (const gchar *name);

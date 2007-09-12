@@ -44,7 +44,7 @@ insert
 			fill_tagged_out_memory
 		end
 	
-creation
+creation dummy,
 	make, copy, from_external_pointer
 
 feature -- Properties

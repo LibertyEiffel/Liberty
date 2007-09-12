@@ -34,9 +34,14 @@ insert
 	PANGO_STYLE
 	GTK_CELL_RENDERER_TEXT_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
-feature -- size
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_cell_renderer_text_new
+		end
+	
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererText)"
@@ -477,4 +482,5 @@ feature {} -- Properties name strings
   width_chars_property_name: STRING is "width-chars"
   wrap_mode_property_name: STRING is "wrap-mode"
   wrap_width_property_name: STRING is "wrap-width"
+
 end

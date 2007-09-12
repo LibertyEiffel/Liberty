@@ -27,7 +27,7 @@ insert
 	GTS_POINT_EXTERNALS
 	GTS_POINT_STRUCT
 
-creation make, from_external_pointer, make_uninitialized
+creation dummy, make, from_external_pointer, make_uninitialized
 
 feature {} -- Creation
 

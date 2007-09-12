@@ -20,10 +20,10 @@ indexing
 			]"
 
 class CAIRO_RADIAL_PATTERN
-	 
+	
 inherit CAIRO_GRADIENT_PATTERN
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (cx0,cy0,radius0,cx1,cy1,radius1: REAL) is

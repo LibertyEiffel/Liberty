@@ -59,7 +59,7 @@ insert
 	SHARED_G_ERROR
 	GDA_PARAMETER_EXTERNALS
 
-creation
+creation dummy,
 	make, from_external_pointer, copy, make_string, make_boolean
 
 feature {} -- Creation

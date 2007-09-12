@@ -41,9 +41,13 @@ class GTK_CELL_RENDERER_SPIN
 
 inherit
 	GTK_CELL_RENDERER_TEXT
-		redefine make, struct_size end
+		redefine
+			dummy_gobject,
+			make,
+			struct_size
+		end
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -106,8 +110,13 @@ feature -- size
 		alias "sizeof(GtkCellRendererSpin)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_cell_renderer_spin_new
+		end
+	
 feature {} -- 
-   adjustment_property_name: STRING is "adjustment"
+	adjustment_property_name: STRING is "adjustment"
 	climb_rate_property_name: STRING is "climb-rate"
 	digits_property_name: STRING is "digits"
 

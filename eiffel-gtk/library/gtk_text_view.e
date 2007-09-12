@@ -39,7 +39,7 @@ insert
 	GTK_TEXT_WINDOW_TYPE
 	GTK_WRAP_MODE
 	
-creation
+creation dummy,
 	make, make_with_buffer, from_external_pointer
 
 feature {} -- Creation
@@ -1222,5 +1222,10 @@ feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextView)"
+		end
+
+	dummy_gobject: POINTER is
+		do
+			Result := gtk_text_view_new
 		end
 end -- class GTK_TEXT_VIEW

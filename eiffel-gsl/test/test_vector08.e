@@ -1,17 +1,17 @@
 class TEST_VECTOR08
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
-      local
+	make is
+		local
 			v: GSL_VECTOR_REAL_32
-      do
+		do
 			create v.make_zero(5)
 			assert(v.norm.abs < 0.00000001)
 			
@@ -22,6 +22,6 @@ feature
 			v.put({REAL_32 5.0}, 4)
 			assert((v.norm - 7.416198487).abs < 0.000001)
 			
-      end
+		end
 
 end -- TEST_VECTOR08

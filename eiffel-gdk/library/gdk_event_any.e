@@ -31,11 +31,12 @@ insert
 	GDK_EVENT_ANY_EXTERNALS
 	GDK_EVENT_TYPE
 
-creation from_event
+creation dummy, from_event, from_external_pointer
 
 feature {} -- Creation
 
 	from_event (a_event: GDK_EVENT) is
+		obsolete "GDK_EVENT_ANY.from_event should not be necessary with the new memory handling design"
 		require
 			a_event /= Void
 			not wrappers.has (a_event.handle)
@@ -92,7 +93,6 @@ feature -- Operations
 				if not is_shared then
 					gdk_event_free (handle)
 				end
-				unstore_eiffel_wrapper
 				handle:= default_pointer
 				event.dispose
 			end

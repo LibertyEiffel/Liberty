@@ -32,7 +32,7 @@ inherit
 insert
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
 
-creation make
+creation dummy, make
 
 feature
 
@@ -56,10 +56,10 @@ feature
 	connect (an_object: GTK_WIDGET; a_procedure: PROCEDURE [ANY, TUPLE[GTK_WIDGET]]) is
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        1 -- i.e. call it after default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 1 -- i.e. call it after default handler
+																)
 			procedure := a_procedure
 		end
 

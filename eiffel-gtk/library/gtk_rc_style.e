@@ -27,7 +27,7 @@ inherit
 insert
 	GTK_RC_EXTERNALS
 
-creation from_external_pointer, make, copy
+creation dummy, from_external_pointer, make, copy
 
 feature -- size
 
@@ -36,6 +36,11 @@ feature -- size
 		alias "sizeof(GtkRcStyle)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_rc_style_new
+		end
+	
 feature {} -- Creation
 
 	make is

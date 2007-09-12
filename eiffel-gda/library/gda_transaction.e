@@ -30,7 +30,7 @@ insert
 	GDA_TRANSACTION_EXTERNALS
 	GDA_TRANSACTION_ISOLATION_ENUM
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 

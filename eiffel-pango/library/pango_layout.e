@@ -35,7 +35,9 @@ insert
 	PANGO_WRAP_MODE
 	PANGO_ALIGNMENT
 
-creation make, from_external_pointer
+	PANGO_RENDERING_EXTERNALS -- for pango_context_new
+
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 
@@ -49,6 +51,10 @@ feature {} -- Creation
 		end
 
 feature -- size
+	dummy_gobject: POINTER is
+		do
+			Result:=pango_layout_new(pango_context_new)
+		end
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

@@ -25,7 +25,7 @@ inherit C_STRUCT
 
 insert GDA_GEOMETRIC_POINT_STRUCT
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature 
 	x: REAL is

@@ -20,19 +20,19 @@ indexing
 			]"
 
 class GTS_PROGRESSIVE_SURFACE
-   -- Progressive surfaces allow you to control precisely and
-   -- continuously the level of detail of a GtsSurface.  They are
-   -- built off-line by storing the sequence of edge collapses
-   -- performed during surface simplification (see `make'). Fast
-   -- traversal of the pre-built sequence allow on-line selection of
-   -- the required level of detail.
+	-- Progressive surfaces allow you to control precisely and
+	-- continuously the level of detail of a GtsSurface.  They are
+	-- built off-line by storing the sequence of edge collapses
+	-- performed during surface simplification (see `make'). Fast
+	-- traversal of the pre-built sequence allow on-line selection of
+	-- the required level of detail.
 
-   -- Using the `write' function a text representation of a
-   -- progressive surface can be written to a file, pipe or
-   -- socket. This text representation allows the progressive
-   -- transmission of a surface, starting with the coarsest
-   -- representation and progressively refining it as data is read or
-   -- received (see `open', `read_vertex' and `close' for details).
+	-- Using the `write' function a text representation of a
+	-- progressive surface can be written to a file, pipe or
+	-- socket. This text representation allows the progressive
+	-- transmission of a surface, starting with the coarsest
+	-- representation and progressively refining it as data is read or
+	-- received (see `open', `read_vertex' and `close' for details).
 
 inherit SHARED_C_STRUCT
 
@@ -40,7 +40,7 @@ insert
 	GTS_PROGRESSIVE_SURFACE_EXTERNALS
 	GTS_PSURFACE_STRUCT
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is

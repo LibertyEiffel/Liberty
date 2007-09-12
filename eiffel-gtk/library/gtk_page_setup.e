@@ -71,7 +71,7 @@ insert
 	GTK_PAGE_SETUP_EXTERNALS
 	GTK_PAGE_ORIENTATION
 
-creation make, copy, from_external_pointer
+creation dummy, make, copy, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -220,5 +220,11 @@ feature -- Setters
 		require size_not_void: a_size /= Void
 		do
 			gtk_page_setup_set_paper_size_and_default_margins(handle,a_size.handle)
+		end
+	
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_page_setup_new
 		end
 end -- class GTK_PAGE_SETUP

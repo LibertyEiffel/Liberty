@@ -38,10 +38,15 @@ class GTK_LINK_BUTTON
 
 inherit
 	GTK_BUTTON
-		rename make as make_button end
+		rename
+			make as make_button
+		redefine
+			dummy_gobject,
+			struct_size
+		end
 		-- TODO: GtkLinkButton implements AtkImplementorIface.
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (an_uri: STRING) is
@@ -50,7 +55,7 @@ feature {} -- Creation
 			uri_not_void: an_uri /= Void
 			valid_uri: -- TODO:
 		do
-			from_external_pointer (gtk_link_button_new(gtk_link_button_new(an_uri.to_external)))
+			from_external_pointer(gtk_link_button_new(an_uri.to_external))
 		end
 	
 	make_with_label (an_uri, a_label: STRING) is
@@ -98,35 +103,47 @@ feature
 
 	-- GtkLinkButtonUriFunc gtk_link_button_set_uri_hook (GtkLinkButtonUriFunc
 	-- func, gpointer data, GDestroyNotify destroy);
+	
+	-- Sets func as the function that should be invoked every time a
+	-- user clicks a GtkLinkButton. This function is called before
+	-- every callback registered for the "clicked" signal.
 
--- Sets func as the function that should be invoked every time a user clicks a GtkLinkButton. This function is called before every callback registered for the "clicked" signal.
+	-- func : 	a function called each time a GtkLinkButton is clicked, or NULL
+	-- data : 	user data to be passed to func, or NULL
+	-- destroy : 	a GDestroyNotify that gets called when data is no longer needed, or NULL
+	-- Returns : 	the previously set hook function.
 
--- func : 	a function called each time a GtkLinkButton is clicked, or NULL
--- data : 	user data to be passed to func, or NULL
--- destroy : 	a GDestroyNotify that gets called when data is no longer needed, or NULL
--- Returns : 	the previously set hook function.
+	-- Since 2.10
+	-- Property Details
+	-- The "uri" property
 
--- Since 2.10
--- Property Details
--- The "uri" property
+	--   "uri"                  gchararray            : Read / Write
 
---   "uri"                  gchararray            : Read / Write
+	-- The URI bound to this button.
 
--- The URI bound to this button.
+	-- Default value: "http://www.gtk.org"
+	-- Properties
 
--- Default value: "http://www.gtk.org"
--- Properties
+	--   "uri"                  gchararray            : Read / Write
 
---   "uri"                  gchararray            : Read / Write
+feature
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkLinkButton)"
+		end
 
-
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_link_button_new((once "http://www.gnu.org").to_external)
+		end
+	
 feature {} -- External calls
 	gtk_link_button_new  (an_uri: POINTER): POINTER is
 			-- GtkWidget* gtk_link_button_new (const gchar *uri);
 		external "C use <gtk/gtk.h>"
 		end
 
-	 gtk_link_button_new_with_label (an_uri, a_label: POINTER): POINTER is
+	gtk_link_button_new_with_label (an_uri, a_label: POINTER): POINTER is
 			-- GtkWidget* gtk_link_button_new_with_label (const gchar
 			-- *uri, const gchar *label);
 		external "C use <gtk/gtk.h>"

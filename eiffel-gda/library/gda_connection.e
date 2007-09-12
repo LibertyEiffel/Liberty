@@ -49,7 +49,7 @@ insert
 			fill_tagged_out_memory
 		end
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation	
 
@@ -198,7 +198,7 @@ feature
 			dsn_not_void: a_datasource /= Void
 		do
 			is_successful := (gda_connection_set_dsn
-								   (handle, a_datasource.to_external)).to_boolean
+									(handle, a_datasource.to_external)).to_boolean
 		end
 	
 	dsn: STRING is
@@ -261,7 +261,7 @@ feature
 			password_not_void: a_password /= Void
 		do
 			is_successful := (gda_connection_set_password
-								    (handle, a_password.to_external)).to_boolean
+									 (handle, a_password.to_external)).to_boolean
 		end
 
 	password: STRING is
@@ -300,7 +300,7 @@ feature
 
 	--    Adds a new error to the given connection object. This is just a
 	--    convenience function that simply creates a GdaConnectionEvent and then
- 	--    calls gda_server_connection_add_error.
+	--    calls gda_server_connection_add_error.
 
 	--    cnc : a GdaServerConnection object.
 	--    str : a format string (see the printf(3) documentation).

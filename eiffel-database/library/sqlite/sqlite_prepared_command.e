@@ -16,7 +16,7 @@ inherit
 
 	SQLITE_PREPARED_STATEMENT
 
-creation {SQLITE_DATABASE} make
+creation dummy, {SQLITE_DATABASE} make
 
 feature
 	execute (some_parameters: TRAVERSABLE[ANY]) is

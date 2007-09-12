@@ -37,7 +37,7 @@ insert
 		-- Implemented Interfaces GtkButton implements
 		-- AtkImplementorIface.
 
-creation
+creation dummy,
 	make,
 	with_label,
 	with_mnemonic,
@@ -511,6 +511,11 @@ feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkButton)"
+		end
+
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_button_new
 		end
 
 feature {} -- Property names

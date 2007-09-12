@@ -1,6 +1,6 @@
 class SQLITE_EXAMPLE
 
-creation make
+creation dummy, make
 
 feature 
 	make is

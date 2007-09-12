@@ -2,8 +2,8 @@ indexing
 	description: "."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
+	date: "$Date$"
+	revision: "$Revision$"
 
 class SQLITE_PREPARED_QUERY
 inherit
@@ -29,7 +29,7 @@ insert
 			is_equal
 		end
 	
-creation {SQLITE_DATABASE} make
+creation dummy, {SQLITE_DATABASE} make
 	
 feature
 	last_result: SQLITE_RESULT_SET

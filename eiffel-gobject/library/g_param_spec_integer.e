@@ -13,7 +13,7 @@ inherit
 			struct_size
 		end
 
-creation
+creation dummy,
 	make, from_external_pointer
 	
 feature -- Creation

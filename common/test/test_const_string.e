@@ -1,9 +1,9 @@
 class TEST_CONST_STRING
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
-creation make
+creation dummy, make
 
 feature
 	make is

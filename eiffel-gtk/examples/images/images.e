@@ -3,7 +3,7 @@ class IMAGES
 inherit 
 	GTK_MAIN
 
-creation 
+creation dummy, 
 	make
 
 feature

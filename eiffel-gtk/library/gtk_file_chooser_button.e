@@ -23,9 +23,11 @@ class GTK_FILE_CHOOSER_BUTTON
 
 inherit
 	GTK_HBOX
-		undefine
+		redefine
+			dummy_gobject,
 			struct_size
 		end
+	
 	GTK_FILE_CHOOSER
 
 		-- Implemented Interfaces: GtkFileChooserButton implements GtkFileChooser
@@ -35,7 +37,7 @@ insert
 	GTK_FILE_CHOOSER_ACTION
 	GTK_FILE_CHOOSER_BUTTON_EXTERNALS
 
-creation
+creation dummy,
 	from_title,
 	from_external_pointer
 
@@ -129,5 +131,18 @@ feature
 			gtk_file_chooser_button_set_focus_on_click
 			(handle, a_setting.to_integer)
 		ensure set: does_focus_on_click = a_setting
+		end
+
+feature
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkFileChooserButton)"
+		end
+
+	dummy_gobject: POINTER is
+		do
+			Result:= gtk_file_chooser_button_new 
+			((once "Dummy GTK_FILE_CHOOSER_BUTTON").to_external, 
+			 gtk_file_chooser_action_open)
 		end
 end -- GTK_FILE_CHOOSER_BUTTON

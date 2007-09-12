@@ -21,26 +21,30 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- The GtkEventBox widget is a subclass of GtkBin which also
-			-- has its own window. It is useful since it allows you to
-			-- catch events for widgets which do not have their own window.
-
 class GTK_EVENT_BOX
+	-- The GtkEventBox widget is a subclass of GtkBin which also has
+	-- its own window. It is useful since it allows you to catch events
+	-- for widgets which do not have their own window.
 
 inherit GTK_BIN
 -- GtkEventBox implements AtkImplementorIface.
 
 insert GTK_EVENT_BOX_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 
-feature -- size
+feature
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEventBox)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_event_box_new
+		end
+	
 feature {} -- Creation
 	make is
 			-- Creates a new GtkEventBox.
@@ -114,5 +118,4 @@ feature -- Operations
 			do
 				Result := gtk_event_box_get_visible_window(handle).to_boolean
 			end
-
 end

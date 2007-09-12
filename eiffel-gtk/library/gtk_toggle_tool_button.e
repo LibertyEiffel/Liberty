@@ -33,7 +33,7 @@ insert
 	GTK_TOGGLE_TOOL_BUTTON_EXTERNALS
 
 create
-	from_external_pointer, make
+	dummy, from_external_pointer, make
 
 feature {} -- Creation
 

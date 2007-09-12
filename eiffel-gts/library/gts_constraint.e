@@ -23,7 +23,7 @@ class GTS_CONSTRAINT
 
 inherit GTS_EDGE redefine make, struct_size, fill_tagged_out_memory end
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_vertex, another_vertex: GTS_VERTEX) is

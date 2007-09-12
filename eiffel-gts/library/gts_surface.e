@@ -49,7 +49,7 @@ insert
 	GTS_SURFACE_STRUCT
 	GTS_SURFACE_SIMPLIFICATION_AND_REFINEMENT_EXTERNALS
 
-creation make, copy, from_external_pointer
+creation dummy, make, copy, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -1121,7 +1121,7 @@ feature -- Delaunay and constrained Delaunay triangulations
 			--     if (encroached_number == 0 && refine) {
 			--       guint unrefined_number;
 			--       gpointer data[2];
-      
+		
 			--       data[0] = &quality;
 			--       data[1] = &area;
 			--       unrefined_number = 
@@ -1172,7 +1172,7 @@ feature -- Delaunay and constrained Delaunay triangulations
 
 feature -- Simplification and refinement: reducing or increasing the number of edges of a triangulated surface (not Delaunay)
 
-   -- `coarsen' function allows to reduce the number of edges (and of course
+	-- `coarsen' function allows to reduce the number of edges (and of course
 -- faces and vertices) of a given surface.
 
 	-- TODO: The original C implementation allows to provide the
@@ -1180,8 +1180,8 @@ feature -- Simplification and refinement: reducing or increasing the number of e
 	-- standard C-library-provided cost functions.
 	
 	-- Each edge is collapsed according to an order described by the
-   -- cost function.  It is then replaced by a single vertex given by
-   -- another user-defined function (TODO: like cost function).
+	-- cost function.  It is then replaced by a single vertex given by
+	-- another user-defined function (TODO: like cost function).
 
 	-- Two sets of cost and replacement functions are provided with the
 	-- library. The default uses the squared length of the segment as
@@ -1196,16 +1196,16 @@ feature -- Simplification and refinement: reducing or increasing the number of e
 	-- preserves the volume enclosed by the surface both globally and
 	-- locally.
 
-   -- Surface refinement is obtained by splitting the edges in two
-   -- equal parts according to an order described by a user-defined
-   -- cost function. The default is to use the squared length of the
-   -- segments as cost.
+	-- Surface refinement is obtained by splitting the edges in two
+	-- equal parts according to an order described by a user-defined
+	-- cost function. The default is to use the squared length of the
+	-- segments as cost.
 	
-   -- The coarsening or refinement processes are stopped using a
-   -- user-defined stop function. Two functions are provided stopping
-   -- either when the cost of collapsing an edge is too large
-   -- (`gts_coarsen_stop_cost') or when the number of edges is too
-   -- small (`gts_coarsen_stop_number').
+	-- The coarsening or refinement processes are stopped using a
+	-- user-defined stop function. Two functions are provided stopping
+	-- either when the cost of collapsing an edge is too large
+	-- (`gts_coarsen_stop_cost') or when the number of edges is too
+	-- small (`gts_coarsen_stop_number').
 
 
 	refine is

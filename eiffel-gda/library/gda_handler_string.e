@@ -27,7 +27,7 @@ inherit
 
 insert GDA_HANDLER_STRING_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is

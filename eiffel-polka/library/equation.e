@@ -37,7 +37,7 @@ insert
 	POLKA_GLOBAL
 	EQUATION_EXTERNALS
 
-creation
+creation dummy,
 	make
 
 feature {} -- Creation

@@ -25,7 +25,7 @@ class GTK_PATTERN_TAG
 
 inherit GTK_SOURCE_TAG
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 	
 feature {} -- Creation
 	make 	(an_id, a_name, a_pattern: STRING) is

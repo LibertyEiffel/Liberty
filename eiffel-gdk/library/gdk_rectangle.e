@@ -22,7 +22,7 @@ indexing
 class GDK_RECTANGLE
 inherit C_STRUCT
 
-creation from_external_pointer, make
+creation dummy, from_external_pointer, make
 
 feature --Creation
 
@@ -66,7 +66,7 @@ feature -- Union and intersection
 			another_rectangle_not_void: another_rectangle /= Void
 		do
 			Result := (gdk_rectangle_intersect (a_rectangle.handle, another_rectangle.handle,
-			                                    handle).to_boolean)
+															handle).to_boolean)
 		end
 	
 	union (a_rectangle, another_rectangle: GDK_RECTANGLE) is

@@ -28,14 +28,19 @@ inherit
 insert
 	GTK_ALIGNMENT_EXTERNALS
 	
-creation make
+creation dummy, make
 
-feature {} -- size
+feature
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAlignment)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_alignment_new({REAL_32 0.0}, {REAL_32 0.0},
+											  {REAL_32 1.0}, {REAL_32 1.0})
+		end
 feature {} -- Creation
 	make (xalign, yalign, xscale, yscale: REAL_32) is
 			-- Creates a new GtkAlignment.  `xalign' : the horizontal
@@ -70,42 +75,43 @@ feature -- Scaling and alignment
 			gtk_alignment_set (handle,xalign,yalign,xscale,yscale)
 		end
 	
--- The "xalign" property
+	-- The "xalign" property
 
---   "xalign"               gfloat                : Read / Write
+	--   "xalign"               gfloat                : Read / Write
 
--- Horizontal position of child in available space. 0.0 is left aligned, 1.0 is right aligned.
+	-- Horizontal position of child in available space. 0.0 is left aligned, 1.0 is right aligned.
 
--- Allowed values: [0,1]
+	-- Allowed values: [0,1]
 
--- Default value: 0.5
--- The "xscale" property
+	-- Default value: 0.5
+	-- The "xscale" property
 
---   "xscale"               gfloat                : Read / Write
+	--   "xscale"               gfloat                : Read / Write
 
--- If available horizontal space is bigger than needed for the child, how much of it to use for the child. 0.0 means none, 1.0 means all.
+	-- If available horizontal space is bigger than needed for the child, how much of it to use for the child. 0.0 means none, 1.0 means all.
 
--- Allowed values: [0,1]
+	-- Allowed values: [0,1]
 
--- Default value: 1
--- The "yalign" property
+	-- Default value: 1
+	-- The "yalign" property
 
---   "yalign"               gfloat                : Read / Write
+	--   "yalign"               gfloat                : Read / Write
 
--- Vertical position of child in available space. 0.0 is top aligned, 1.0 is bottom aligned.
+	-- Vertical position of child in available space. 0.0 is top aligned, 1.0 is bottom aligned.
 
--- Allowed values: [0,1]
+	-- Allowed values: [0,1]
 
--- Default value: 0.5
--- The "yscale" property
+	-- Default value: 0.5
+	-- The "yscale" property
 
---   "yscale"               gfloat                : Read / Write
+	--   "yscale"               gfloat                : Read / Write
 
--- If available vertical space is bigger than needed for the child, how much of it to use for the child. 0.0 means none, 1.0 means all.
+	-- If available vertical space is bigger than needed for the child, how much of it to use for the child. 0.0 means none, 1.0 means all.
 
--- Allowed values: [0,1]
+	-- Allowed values: [0,1]
 
--- Default value: 1
+	-- Default value: 1
+
 feature -- paddings
 
 	paddings: TUPLE[INTEGER,INTEGER,INTEGER,INTEGER] is
@@ -140,6 +146,7 @@ feature -- paddings
 			gtk_alignment_get_padding (handle, default_pointer, default_pointer,$Result, default_pointer)
 		ensure positive: Result>=0
 		end
+
 	right_padding: INTEGER is
 			-- Right padding
 		do

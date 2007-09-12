@@ -1,5 +1,5 @@
 indexing
-	description: "GtkCellRendererProgress — Renders numbers as progress bars."
+	description: "GtkCellRendererProgress renders numbers as progress bars."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -22,20 +22,27 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_CELL_RENDERER_PROGRESS
-inherit GTK_CELL_RENDERER
-creation make, from_external_pointer
 
-feature {} -- size
+inherit GTK_CELL_RENDERER
+
+creation dummy, make, from_external_pointer
+
+feature 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererProgress)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_cell_renderer_progress_new
+		end
+	
 feature {} -- Creation
 	make is
 			-- Creates a new GtkCellRendererProgress.
 		do
-			from_external_pointer (gtk_cell_renderer_progress_new)
+			from_external_pointer(gtk_cell_renderer_progress_new)
 		end 
 
 feature -- Properties
@@ -76,7 +83,7 @@ feature -- The "value" property
 		do
 			set_integer_property(value_property_name,a_value)
 		end
-	
+
 feature {} -- Properties names
 	text_property_name: STRING is "text"
 	value_property_name: STRING is "value"

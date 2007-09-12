@@ -7,7 +7,7 @@ insert
 	PANGO_CONSTANTS
 	PANGO_WRAP_MODE
 
-creation
+creation dummy,
 	make
 
 feature

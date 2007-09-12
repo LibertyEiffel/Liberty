@@ -27,7 +27,7 @@ inherit CAIRO_SURFACE
 
 insert CAIRO_PDF_SURFACE_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_filename: STRING; a_width_in_points, an_height_in_points: REAL) is

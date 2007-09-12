@@ -48,7 +48,7 @@ insert
 	GTK_ORIENTATION
 	GTK_TOOLBAR_STYLE
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 
@@ -523,4 +523,9 @@ feature -- size
 		alias "sizeof(GtkToolbar)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_toolbar_new
+		end
+	
 end -- class GTK_TOOLBAR

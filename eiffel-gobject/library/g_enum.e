@@ -41,7 +41,7 @@ inherit C_STRUCT
 	
 insert G_ENUM_EXTERNALS
 	
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature -- size
 	struct_size: INTEGER is

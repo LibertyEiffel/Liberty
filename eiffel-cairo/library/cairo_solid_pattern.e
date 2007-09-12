@@ -23,7 +23,7 @@ class CAIRO_SOLID_PATTERN
 
 inherit CAIRO_PATTERN
 
-creation from_external_pointer
+creation dummy, from_external_pointer
 
 feature {} -- Creation
 end -- class CAIRO_SOLID_PATTERN

@@ -40,7 +40,7 @@ insert
 	GTS_POINT_EXTERNALS	
 	GTS_INTERSECT_ENUM
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_v1, a_v2: GTS_VERTEX) is

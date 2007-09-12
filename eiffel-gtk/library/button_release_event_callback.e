@@ -27,7 +27,7 @@ class BUTTON_RELEASE_EVENT_CALLBACK
 inherit
 	BUTTON_EVENT_CALLBACK
 
-creation make
+creation dummy, make
 
 feature
 

@@ -30,8 +30,8 @@ class GTK_TEXT_CHILD_ANCHOR
 inherit G_OBJECT
 
 insert GTK
-
-creation make, from_external_pointer
+	
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -50,26 +50,32 @@ feature
 	widgets: G_LIST [GTK_WIDGET] is
 			-- a list of all widgets anchored at this child anchor.
 		do
-			create Result.from_external_pointer (gtk_text_child_anchor_get_widgets (handle))
+			create Result.from_external(gtk_text_child_anchor_get_widgets(handle),
+												 widget_factory)
 		end
 
 	get_deleted: BOOLEAN is
-			-- Has the child anchor been deleted from its buffer? Keep in
-			-- mind that the child anchor will be unreferenced when
-			-- removed from the buffer, so you need to hold your own
-			-- reference (with `ref') if you plan to use this function
-			-- otherwise all deleted child anchors will also be
-			-- finalized. 
+			-- Has the child anchor been deleted from its buffer?
 		do
 			Result := gtk_text_child_anchor_get_deleted(handle).to_boolean
+			-- Note: the child anchor will be unreferenced when removed
+			-- from the buffer, so you need to hold your own reference
+			-- (with `ref') if you plan to use this function otherwise
+			-- all deleted child anchors will also be finalized.
 		end
 	
-feature -- size
+feature
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextChildAnchor)"
 
 		end
+
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_text_child_anchor_new
+		end
+	
 feature {} -- External calls
 
 	gtk_text_child_anchor_new: POINTER is --GtkTextChildAnchor*

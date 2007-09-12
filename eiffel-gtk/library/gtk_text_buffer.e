@@ -30,7 +30,7 @@ insert
 	GTK_TEXT_BUFFER_EXTERNALS
 	G_SIGNALS
 
-creation
+creation dummy,
 	make, from_external_pointer
 
 feature {} -- Creation
@@ -1187,10 +1187,14 @@ feature {} -- Implementation
 			-- Hidden reference to the Eiffel wrapper of the
 			-- GtkTextTagTable of Current. Handled by `tag_table'.
 
-feature -- struct size
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_text_buffer_new(default_pointer)
+		end
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextBuffer)"
 		end
-
 end -- class GTK_TEXT_BUFFER

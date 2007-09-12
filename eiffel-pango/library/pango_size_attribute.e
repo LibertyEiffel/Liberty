@@ -29,7 +29,7 @@ inherit
 	
 insert PANGO_SCALES
 	
-creation from_external_pointer
+creation dummy, from_external_pointer
 	-- TODO: make_small, make_x_small, make_xx_small, 
 	-- TODO: make_medium,
 	-- TODO: make_large, make_x_large, make_xx_large

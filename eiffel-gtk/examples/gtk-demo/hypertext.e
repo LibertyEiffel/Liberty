@@ -21,7 +21,7 @@ indexing
 
 class HYPERTEXT
 
-creation make
+creation dummy, make
 
 feature
 -- /* Text Widget/Hypertext

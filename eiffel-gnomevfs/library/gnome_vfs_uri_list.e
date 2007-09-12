@@ -22,7 +22,7 @@ indexing
 class GNOME_VFS_URI_LIST
 
 inherit G_LIST[GNOME_VFS_URI] redefine dispose end
-creation parse, from_external_pointer
+creation dummy, parse, from_external_pointer
 
 feature {} -- Creation
 	parse (an_uri_list: STRING) is
@@ -71,27 +71,27 @@ feature
 
 feature {} -- External calls
 
- 	gnome_vfs_uri_list_parse (a_uri_list: POINTER): POINTER is
+	gnome_vfs_uri_list_parse (a_uri_list: POINTER): POINTER is
 			-- GList* gnome_vfs_uri_list_parse (const gchar *uri_list);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_list_ref (a_list: POINTER): POINTER is
+	gnome_vfs_uri_list_ref (a_list: POINTER): POINTER is
 			-- GList* gnome_vfs_uri_list_ref (GList *list);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_list_unref (a_list: POINTER): POINTER is
+	gnome_vfs_uri_list_unref (a_list: POINTER): POINTER is
 			-- GList* gnome_vfs_uri_list_unref (GList *list);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_list_copy (a_list: POINTER): POINTER is
+	gnome_vfs_uri_list_copy (a_list: POINTER): POINTER is
 			-- GList* gnome_vfs_uri_list_copy (GList *list);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end
 
- 	gnome_vfs_uri_list_free (a_list: POINTER) is
+	gnome_vfs_uri_list_free (a_list: POINTER) is
 			-- void gnome_vfs_uri_list_free (GList *list);
 		external "C use <libgnomevfs/gnome-vfs.h>"
 		end

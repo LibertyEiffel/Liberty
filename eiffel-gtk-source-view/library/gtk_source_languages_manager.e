@@ -25,7 +25,7 @@ class GTK_SOURCE_LANGUAGES_MANAGER
 
 inherit G_OBJECT
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is

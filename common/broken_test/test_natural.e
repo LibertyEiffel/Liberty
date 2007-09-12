@@ -1,9 +1,9 @@
 class TEST_NATURAL
 	
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
-creation make
+creation dummy, make
 
 feature
 	make is

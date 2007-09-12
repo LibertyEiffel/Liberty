@@ -26,13 +26,13 @@ inherit
 		undefine struct_size 
 		redefine is_valid
 		end
-	 -- TODO: ITERATOR [something] I still have to understand on what 
-	 -- it does iterate... it seems on GdaParameters
+	-- TODO: ITERATOR [something] I still have to understand on what 
+	-- it does iterate... it seems on GdaParameters
 
 insert
-	 GDA_DATA_MODEL_ITER_EXTERNALS
+	GDA_DATA_MODEL_ITER_EXTERNALS
 
-creation from_model, from_external_pointer
+creation dummy, from_model, from_external_pointer
 
 feature {} -- Creation
 

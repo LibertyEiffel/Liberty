@@ -36,12 +36,23 @@ class GTK_CELL_RENDERER_COMBO
 	
 inherit
 	GTK_CELL_RENDERER_TEXT
-		redefine make, struct_size end
+		redefine
+			dummy_gobject,
+			make,
+			struct_size
+		end
+	
 insert
 	GTK_CELL_RENDERER_COMBO_EXTERNALS
-creation make
+	
+creation dummy, make
 
-feature -- size
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_cell_renderer_combo_new
+		end
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererCombo)"

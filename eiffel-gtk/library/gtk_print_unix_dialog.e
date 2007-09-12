@@ -43,7 +43,8 @@ inherit
 	GTK_DIALOG
 		rename
 			make as dialog_make
-		undefine
+		redefine
+			dummy_gobject,
 			struct_size
 		end
 	-- TODO: GtkPrintUnixDialog implements AtkImplementorIface.
@@ -52,18 +53,17 @@ insert
 	GTK_PRINT_UNIX_DIALOG_EXTERNALS
 	GTK_PRINT_CAPABILITIES
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_title: STRING; a_parent: GTK_WINDOW) is
 			-- Creates a new GtkPrintUnixDialog with `a_title' and `a_parent' as
 			-- the transient parent of the dialog. Both `a_title' and `a_parent'
 			-- can be Void.
-		local tp, pp: POINTER
 		do
-			if a_title/=Void then tp:=a_title.to_external end
-			if a_parent/=Void then pp:=a_parent.handle end
-			from_external_pointer(gtk_print_unix_dialog_new(tp,pp))
+			from_external_pointer(gtk_print_unix_dialog_new
+										 (null_or_string(a_title),
+										  null_or(a_parent)))
 		end
 
 feature
@@ -181,10 +181,19 @@ feature -- TODO: Properties
 	--   "selected-printer"     GtkPrinter            : Read
 	--
 	--   The GtkPrinter which is selected.
-	--
-	--See Also
-	--
-	--   GtkPageSetupUnixDialog, GtkPrinter, GtkPrintJob
 
+feature
+
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtkprintunixdialog.h>"
+		alias "sizeof(GtkPrintUnixDialog)"
+		end
+	
+
+	dummy_gobject: POINTER is
+		do
+			Result:=(gtk_print_unix_dialog_new
+						(default_pointer, default_pointer))
+		end
 end -- class GTK_PRINT_UNIX_DIALOG
 

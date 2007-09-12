@@ -21,7 +21,7 @@ indexing
 
 class TREE_STORE
 
-creation make
+creation dummy, make
 
 feature  -- Creation
 -- /* Tree View/Tree Store

@@ -66,7 +66,7 @@ insert
 	GTK_CORNER_TYPE redefine default_create end
 	GTK_SHADOW_TYPE redefine default_create end
 	
-creation default_create, make, from_external_pointer
+creation dummy, default_create, make, from_external_pointer
 
 feature {} -- Creation
 	default_create is
@@ -404,78 +404,83 @@ feature -- size
 
 feature {} -- External calls
 	gtk_scrolled_window_new (a_hadjustment, a_vadjustment: POINTER): POINTER is -- GtkWidget*
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_get_hadjustment (a_scrolled_window: POINTER): POINTER is --  GtkAdjustment*
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_get_vadjustment (a_scrolled_window: POINTER): POINTER is -- GtkAdjustment*
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_get_hscrollbar (a_scrolled_window: POINTER): POINTER is -- GtkWidget*
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_get_vscrollbar (a_scrolled_window: POINTER): POINTER is -- GtkWidget*
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_set_policy (a_scrolled_window: POINTER; hscrollbar_policy, vscrollbar_policy: INTEGER) is
 		require
 			valid_horizontal_policy: is_valid_gtk_policy (hscrollbar_policy)
 			valid_vorizontal_policy: is_valid_gtk_policy (vscrollbar_policy)
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 
 	gtk_scrolled_window_add_with_viewport(a_scrolled_window, a_child_gtkwidget: POINTER) is
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_set_placement (a_scrolled_window: POINTER;  window_placement: INTEGER) is
 		require
 			valid_placement: is_valid_gtk_corner_type (window_placement)
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_set_shadow_type (a_scrolled_window: POINTER; a_shadow_type: INTEGER) is
 		require
 			valid_shadow_type: is_valid_gtk_shadow_type (a_shadow_type)
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_set_hadjustment (a_scrolled_window, an_hadjustment: POINTER) is
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_set_vadjustment (a_scrolled_window, a_vadjustment: POINTER) is
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_get_placement (a_scrolled_window: POINTER): INTEGER is
-      external "C use <gtk/gtk.h>"
+		external "C use <gtk/gtk.h>"
 		ensure
 			valid_result: is_valid_gtk_corner_type (Result)
-      end
+		end
 	
 	gtk_scrolled_window_get_policy (a_scrolled_window, a_hscrollbar_policy_pointer, a_vscrollbar_policy_pointer: POINTER) is
-      external "C use <gtk/gtk.h>"
-      end
+		external "C use <gtk/gtk.h>"
+		end
 	
 	gtk_scrolled_window_get_shadow_type (a_scrolled_window: POINTER): INTEGER is
-      external "C use <gtk/gtk.h>"
+		external "C use <gtk/gtk.h>"
 		ensure valid_result: is_valid_gtk_shadow_type (Result)
-      end
+		end
 
--- GtkScrolledWindow struct has no public fields; it should only be
--- accessed using the functions above. Nevertheless the original GTK+
--- documentation still provides this detail:
+	-- GtkScrolledWindow struct has no public fields; it should only be
+	-- accessed using the functions above. Nevertheless the original
+	-- GTK+ documentation still provides this detail:
+	
+	-- typedef struct {
+	--   GtkWidget *hscrollbar;
+	--   GtkWidget *vscrollbar;
+	-- } GtkScrolledWindow;
 
--- typedef struct {
---   GtkWidget *hscrollbar;
---   GtkWidget *vscrollbar;
--- } GtkScrolledWindow;
-
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_scrolled_window_new(default_pointer,default_pointer)
+		end
 end -- class GTK_SCROLLED_WINDOW

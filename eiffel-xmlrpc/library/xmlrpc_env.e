@@ -34,7 +34,7 @@ inherit
 insert
 	XMLRPC_ENV_EXTERNALS
 
-creation
+creation dummy,
 	make
 
 feature -- Size

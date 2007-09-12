@@ -18,33 +18,26 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	gtk_documentation: "[
 
-							A GtkTargetEntry structure represents a
-							single type of data than can be supplied for
-							by a widget for a selection or for supplied
-							or received during drag-and-drop. It
-							contains a string representing the drag
-							type, a flags field (used only for drag and
-							drop - see GtkTargetFlags), and an
-							application assigned integer ID. The integer
-							ID will later be passed as a signal
-							parameter for signals like %"selection_get%".
-							It allows the application to identify the
-							target type without extensive string
-							compares.
-
-						 ]"
 
 class GTK_TARGET_ENTRY
+	-- A GtkTargetEntry structure represents a single type of data than
+	-- can be supplied for by a widget for a selection or for supplied
+	-- or received during drag-and-drop. It contains a string
+	-- representing the drag type, a flags field (used only for drag
+	-- and drop - see GtkTargetFlags), and an application assigned
+	-- integer ID. The integer ID will later be passed as a signal
+	-- parameter for signals like "selection_get".  It allows the
+	-- application to identify the target type without extensive string
+	-- compares.
 
-		-- GtkTargetEntry
-		-- 
-		-- typedef struct {
-		--   gchar *target;
-		--   guint  flags;
-		--   guint  info;
-		-- } GtkTargetEntry;
+	-- GtkTargetEntry
+	
+	-- typedef struct {
+	--   gchar *target;
+	--   guint  flags;
+	--   guint  info;
+	-- } GtkTargetEntry;
 
 inherit
 	C_STRUCT
@@ -61,6 +54,11 @@ feature -- Creation
 			allocate
 		end
 
+	dummy_gobject: POINTER is
+		do
+			
+		end
+	
 feature -- Access
 
 	target: STRING is

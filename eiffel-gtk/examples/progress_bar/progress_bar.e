@@ -3,7 +3,7 @@ class PROGRESS_BAR
 inherit 
 	GTK
 
-creation 
+creation dummy, 
 	make
 
 feature

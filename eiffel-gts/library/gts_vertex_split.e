@@ -34,7 +34,7 @@ insert
 	GTS_VERTEX_SPLIT_EXTERNALS
 	GTS_EDGE_EXTERNALS
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_vertex: GTS_VERTEX; an_object, another_object: GTS_OBJECT) is

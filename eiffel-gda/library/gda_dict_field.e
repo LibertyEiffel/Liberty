@@ -28,11 +28,11 @@ class GDA_DICT_FIELD
 inherit
 	GDA_OBJECT
 
-   -- GdaDictField implements GdaXmlStorage, GdaEntityField and GdaRenderer.
+	-- GdaDictField implements GdaXmlStorage, GdaEntityField and GdaRenderer.
 	
 insert GDA_DICT_FIELD_EXTERNALS
 
-creation from_dict, from_external_pointer
+creation dummy, from_dict, from_external_pointer
 
 feature {} -- Creation
 
@@ -64,7 +64,7 @@ feature
 			gda_dict_field_set_scale (handle, a_length)
 		end
 
-   scale: INTEGER is
+	scale: INTEGER is
 			-- the scale of a field, the size of the corresponding data type has a
 			-- fixed size, or -1
 		do

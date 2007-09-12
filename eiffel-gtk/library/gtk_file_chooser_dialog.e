@@ -121,7 +121,11 @@ class GTK_FILE_CHOOSER_DIALOG
 	-- you use GtkFileChooserDialog to ensure proper operation.
 	
 inherit
-	GTK_DIALOG redefine struct_size end
+	GTK_DIALOG
+		redefine
+			dummy_gobject,
+			struct_size
+		end
 	GTK_FILE_CHOOSER
 		-- Implemented Interfaces: GtkFileChooserDialog implements
 		-- AtkImplementorIface and GtkFileChooser.
@@ -130,7 +134,9 @@ insert
 	GTK_FILE_CHOOSER_DIALOG_EXTERNALS
 
 creation
-	make_open, make_save
+	dummy,
+	make_open,
+	make_save
 
 feature {} -- Creation
 	make_open (a_title: STRING; a_parent: GTK_WINDOW; some_buttons: COLLECTION[TUPLE[STRING,INTEGER]]) is
@@ -163,12 +169,11 @@ feature {} -- Creation
 			-- ... : 	response ID for the first button, then additional (button, id) pairs, ending with NULL
 			-- Returns : 	a new GtkFileChooserDialog
 
-		local title_ptr, parent_ptr: POINTER; iterator: ITERATOR[TUPLE[STRING,INTEGER]]
+		local iterator: ITERATOR[TUPLE[STRING,INTEGER]]
 		do
-			if a_title/=Void then title_ptr := a_title.to_external end
-			if a_parent/=Void then parent_ptr := a_parent.handle end
 			from_external_pointer (gtk_file_chooser_dialog_new 
-										  (title_ptr, parent_ptr, an_action, default_pointer))
+										  (null_or_string(a_title), 
+											null_or(a_parent), an_action, default_pointer))
 			if some_buttons/=Void then
 				from iterator := some_buttons.get_new_iterator; iterator.start
 				until iterator.is_off
@@ -199,6 +204,13 @@ feature {} -- Creation
 	-- Since 2.4
 
 feature
+	dummy_gobject: POINTER is
+		do
+			Result:=(gtk_file_chooser_dialog_new 
+						((once "GTK_FILE_CHOOSER_DIALOG title").to_external, 
+						 default_pointer, gtk_file_chooser_action_open, default_pointer))
+		end
+	
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileChooserDialog)"

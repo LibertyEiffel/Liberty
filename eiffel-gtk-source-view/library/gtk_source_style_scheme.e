@@ -26,7 +26,7 @@ deferred class GTK_SOURCE_STYLE_SCHEME
 inherit SHARED_C_STRUCT
 	-- Heir of GInterface
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature -- Creation
 	tag_style (a_style_name: STRING): GTK_SOURCE_TAG_STYLE is

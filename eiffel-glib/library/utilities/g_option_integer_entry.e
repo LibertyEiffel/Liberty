@@ -27,7 +27,7 @@ inherit
 
 	-- REFERENCE[INTEGER]
 
-creation make
+creation dummy, make
 
 feature
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
@@ -39,7 +39,7 @@ feature
 
 feature -- Queries
 	-- GOptionArg arg; The type of the option, as a GOptionArg.
-   
+	
 	--gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then
 	--arg_data must point to a GOptionArgFunc callback function, which
 	--will be called to handle the extra argument. Otherwise, arg_data

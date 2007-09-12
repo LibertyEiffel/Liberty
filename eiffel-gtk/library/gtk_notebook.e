@@ -41,7 +41,7 @@ insert
 	G_OBJECT_RETRIEVER [GTK_WIDGET]
 	GTK_NOTEBOOK_EXTERNALS
 
-creation make
+creation dummy, make
 
 feature -- struct size
 	struct_size: INTEGER is
@@ -49,12 +49,17 @@ feature -- struct size
 		alias "sizeof(GtkNotebook)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_notebook_new
+		end
+	
 feature {} -- Creation
 	make is
 			-- Creates a new GtkNotebook widget with no pages.
 		require gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer (gtk_notebook_new)
+			from_external_pointer(gtk_notebook_new)
 		end
 
 feature -- page handling
@@ -73,8 +78,8 @@ feature -- page handling
 		do
 			if a_tab_label /= Void then label_ptr := a_tab_label.handle end
 			last_appended_page_index := gtk_notebook_append_page (handle,
-			                                                      a_child.handle,
-			                                                      label_ptr)
+																					a_child.handle,
+																					label_ptr)
 		end
 
 	append_page_menu (a_child, a_tab_label, a_menu_label: GTK_WIDGET) is
@@ -104,8 +109,8 @@ feature -- page handling
 			if a_tab_label /= Void then label_ptr := a_tab_label.handle end
 			if a_menu_label /= Void then menu_ptr := a_menu_label.handle end
 			last_appended_page_index := (gtk_notebook_append_page_menu (handle,
-			                                                            a_child.handle,
-			                                                            label_ptr, menu_ptr))
+																							a_child.handle,
+																							label_ptr, menu_ptr))
 		end
 
 	
@@ -383,7 +388,7 @@ feature -- page handling
 			-- fill : location to store the fill value (or NULL)
 			-- pack_type : location to store the pack_type (or NULL)
 			create Result.make_3 (an_expand.to_boolean,
-			                      a_fill.to_boolean, a_pack_type)
+										 a_fill.to_boolean, a_pack_type)
 		end
 	
 	set_menu_label (a_child, a_menu_label: GTK_WIDGET) is
@@ -393,7 +398,7 @@ feature -- page handling
 			valid_label: a_menu_label /= Void
 		do
 			gtk_notebook_set_menu_label (handle, a_child.handle,
-			                             a_menu_label.handle)
+												  a_menu_label.handle)
 		end
 
 	set_default_menu_label (a_child: GTK_WIDGET) is
@@ -420,7 +425,7 @@ feature -- page handling
 			valid_label: a_tab_label /= Void
 		do
 			gtk_notebook_set_tab_label (handle, a_child.handle,
-			                            a_tab_label.handle)
+												 a_tab_label.handle)
 		end
 
 	set_default_tab_label (a_child: GTK_WIDGET) is
@@ -432,7 +437,7 @@ feature -- page handling
 		end
 
 	set_tab_label_packing (a_child: GTK_WIDGET; expand,fill: BOOLEAN;
-	                       a_pack_type: INTEGER) is
+								  a_pack_type: INTEGER) is
 			-- Sets the packing parameters for the tab label of the page
 			-- containing child. See GTK_BOX.pack_start for the exact
 			-- meaning of the parameters. `expand': whether to expand the

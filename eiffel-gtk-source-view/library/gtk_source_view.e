@@ -28,7 +28,7 @@ inherit
 	
 		-- Implemented Interfaces: GtkSourceView implements AtkImplementorIface.
 
-creation make, from_buffer, from_external_pointer
+creation dummy, make, from_buffer, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -326,7 +326,7 @@ feature {} -- External calls
 		external "C use <gtksourceview/gtksourceview.h>"
 		end
 
-	 gtk_source_view_new_with_buffer (a_buffer: POINTER): POINTER is
+	gtk_source_view_new_with_buffer (a_buffer: POINTER): POINTER is
 			-- GtkWidget* gtk_source_view_new_with_buffer (GtkSourceBuffer
 			-- *buffer);
 		external "C use <gtksourceview/gtksourceview.h>"
@@ -440,7 +440,7 @@ feature {} -- External calls
 		external "C use <gtksourceview/gtksourceview.h>"
 		end
 
-	 gtk_source_view_get_marker_pixbuf (a_view, a_marker_type: POINTER): POINTER is
+	gtk_source_view_get_marker_pixbuf (a_view, a_marker_type: POINTER): POINTER is
 			-- GdkPixbuf* gtk_source_view_get_marker_pixbuf (GtkSourceView *view,
 			-- const gchar *marker_type);
 		external "C use <gtksourceview/gtksourceview.h>"
@@ -451,7 +451,7 @@ feature {} -- External calls
 		external "C use <gtksourceview/gtksourceview.h>"
 		end
 
-	 gtk_source_view_get_smart_home_end (a_view: POINTER): INTEGER is
+	gtk_source_view_get_smart_home_end (a_view: POINTER): INTEGER is
 			-- gboolean gtk_source_view_get_smart_home_end (GtkSourceView *view);
 		external "C use <gtksourceview/gtksourceview.h>"
 		end

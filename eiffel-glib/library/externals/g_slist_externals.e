@@ -6,7 +6,13 @@ indexing
 
 deferred class G_SLIST_EXTERNALS
 	
-inherit ANY undefine is_equal, copy end
+inherit
+	ANY
+		undefine
+			copy,
+			fill_tagged_out_memory,
+			is_equal
+		end
 
 feature {} -- external calls
 	

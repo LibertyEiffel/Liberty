@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [CANCEL_SIGNAL_RECEIVER]
 
-creation make
+creation dummy, make
 
 feature 
 	object: CANCEL_SIGNAL_RECEIVER

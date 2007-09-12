@@ -16,14 +16,13 @@ feature {} -- External calls
 	--             GObject;
 	--             GObjectClass;
 	--             GObjectConstructParam;
-	-- void        (*GObjectGetPropertyFunc)       (GObject *object,
-	--                                              guint property_id,
-	--                                              GValue *value,
-	--                                              GParamSpec *pspec);
-	-- void        (*GObjectSetPropertyFunc)       (GObject *object,
-	--                                              guint property_id,
-	--                                              const GValue *value,
-	--                                              GParamSpec *pspec);
+
+	-- void (*GObjectGetPropertyFunc) (GObject *object, guint
+	-- property_id, GValue *value, GParamSpec *pspec);
+
+	-- void (*GObjectSetPropertyFunc) (GObject *object, guint
+	-- property_id, const GValue *value, GParamSpec *pspec);
+
 	-- void        (*GObjectFinalizeFunc)          (GObject *object);
 
 	g_type_is_object (type: INTEGER): INTEGER is
@@ -74,155 +73,17 @@ feature {} -- External calls
 	-- #define     G_OBJECT_TYPE_NAME              (object)
 	-- #define     G_OBJECT_CLASS_TYPE             (class)
 	-- #define     G_OBJECT_CLASS_NAME             (class)
-	-- void        g_object_class_install_property (GObjectClass *oclass,
-	--                                              guint property_id,
-	--                                              GParamSpec *pspec);
 
-	-- GParamSpec** g_object_class_list_properties (GObjectClass *oclass,
-	--                                              guint *n_properties);
-	-- void        g_object_class_override_property
-	--                                             (GObjectClass *oclass,
-	--                                              guint property_id,
-	--                                              const gchar *name);
-	-- void        g_object_interface_install_property
-	--                                             (gpointer g_iface,
-	--                                              GParamSpec *pspec);
-	-- GParamSpec* g_object_interface_find_property
-	--                                             (gpointer g_iface,
-	--                                              const gchar *property_name);
-	-- GParamSpec** g_object_interface_list_properties
-	--                                             (gpointer g_iface,
-	--                                              guint *n_properties_p);
-	-- gpointer    g_object_new                    (GType object_type,
-	--                                              const gchar *first_property_name,
-	--                                              ...);
-	-- gpointer    g_object_newv                   (GType object_type,
-	--                                              guint n_parameters,
-	--                                              GParameter *parameters);
-	--             GParameter;
-	-- gpointer    g_object_ref                    (gpointer object);
-	-- void        g_object_unref                  (gpointer object);
-	-- void        (*GWeakNotify)                  (gpointer data,
-	--                                              GObject *where_the_object_was);
-	-- void        g_object_weak_ref               (GObject *object,
-	--                                              GWeakNotify notify,
-	--                                              gpointer data);
-	-- void        g_object_weak_unref             (GObject *object,
-	--                                              GWeakNotify notify,
-	--                                              gpointer data);
-	-- void        g_object_add_weak_pointer       (GObject *object,
-	--                                              gpointer *weak_pointer_location);
-	-- void        g_object_remove_weak_pointer    (GObject *object,
-	--                                              gpointer *weak_pointer_location);
-	-- void        (*GToggleNotify)                (gpointer data,
-	--                                              GObject *object,
-	--                                              gboolean is_last_ref);
-	-- void        g_object_add_toggle_ref         (GObject *object,
-	--                                              GToggleNotify notify,
-	--                                              gpointer data);
-	-- void        g_object_remove_toggle_ref      (GObject *object,
-	--                                              GToggleNotify notify,
-	--                                              gpointer data);
-	-- gpointer    g_object_connect                (gpointer object,
-	--                                              const gchar *signal_spec,
-	--                                              ...);
-	-- void        g_object_disconnect             (gpointer object,
-	--                                              const gchar *signal_spec,
-	--                                              ...);
-	-- void        g_object_set                    (gpointer object,
-	--                                              const gchar *first_property_name,
-	--                                              ...);
-	-- void        g_object_get                    (gpointer object,
-	--                                              const gchar *first_property_name,
-	--                                              ...);
-	-- void        g_object_notify                 (GObject *object,
-	--                                              const gchar *property_name);
-	-- void        g_object_freeze_notify          (GObject *object);
-	-- void        g_object_thaw_notify            (GObject *object);
-	-- gpointer    g_object_get_data               (GObject *object,
-	--                                              const gchar *key);
-	-- void        g_object_set_data               (GObject *object,
-	--                                              const gchar *key,
-	--                                              gpointer data);
-	-- void        g_object_set_data_full          (GObject *object,
-	--                                              const gchar *key,
-	--                                              gpointer data,
-	--                                              GDestroyNotify destroy);
-	-- gpointer    g_object_steal_data             (GObject *object,
-	--                                              const gchar *key);
-	-- gpointer    g_object_get_qdata              (GObject *object,
-	--                                              GQuark quark);
-	-- void        g_object_set_qdata              (GObject *object,
-	--                                              GQuark quark,
-	--                                              gpointer data);
-	-- void        g_object_set_qdata_full         (GObject *object,
-	--                                              GQuark quark,
-	--                                              gpointer data,
-	--                                              GDestroyNotify destroy);
-	-- gpointer    g_object_steal_qdata            (GObject *object,
-	--                                              GQuark quark);
-	-- void        g_object_set_property           (GObject *object,
-	--                                              const gchar *property_name,
-	--                                              const GValue *value);
-	-- void        g_object_get_property           (GObject *object,
-	--                                              const gchar *property_name,
-	--                                              GValue *value);
-	-- GObject*    g_object_new_valist             (GType object_type,
-	--                                              const gchar *first_property_name,
-	--                                              va_list var_args);
-	-- void        g_object_set_valist             (GObject *object,
-	--                                              const gchar *first_property_name,
-	--                                              va_list var_args);
-	-- void        g_object_get_valist             (GObject *object,
-	--                                              const gchar *first_property_name,
-	--                                              va_list var_args);
-	-- void        g_object_watch_closure          (GObject *object,
-	--                                              GClosure *closure);
-	-- void        g_object_run_dispose            (GObject *object);
-	-- #define     G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec)
-
-
-	-- G_OBJECT_TYPE_NAME()
-
-	-- #define G_OBJECT_TYPE_NAME(object)  (g_type_name (G_OBJECT_TYPE (object)))
-
-	-- Returns the name of an object's type.
-	-- object : 	Object to return the type name for.
-	-- Returns : 	Type name of object. The string is owned by the type system and should not be freed.
-	-- G_OBJECT_CLASS_TYPE()
-
-	-- #define G_OBJECT_CLASS_TYPE(class)  (G_TYPE_FROM_CLASS (class))
-
-	-- Return the type id of a class structure.
-	-- class : 	a valid GObjectClass
-	-- Returns : 	Type id of class.
-	-- G_OBJECT_CLASS_NAME()
-
-	-- #define G_OBJECT_CLASS_NAME(class)  (g_type_name (G_OBJECT_CLASS_TYPE (class)))
-
-	-- Return the name of a class structure's type.
-	-- class : 	a valid GObjectClass
-	-- Returns : 	Type name of class. The string is owned by the type system and should not be freed.
-	-- g_object_class_install_property ()
-
-	g_object_class_install_property (gobjectclass: POINTER;
-												property_id: INTEGER;
-												gparamspec: POINTER) is
-			-- Installs a new property. This is usually done in the class
-			-- initializer.  gobjectoclass: a GObjectClass; property_id: the id for
-			-- the new property; pspec: the GParamSpec for the new property
+	g_object_class_install_property (gobjectclass: POINTER; property_id: INTEGER; gparamspec: POINTER) is
+			-- void g_object_class_install_property (GObjectClass
+			-- *oclass, guint property_id, GParamSpec *pspec);
 		external "C use <glib-object.h>"
 		end
-	
-	g_object_class_find_property (oclass, property_name: POINTER): POINTER is
-			-- Looks up the GParamSpec for a property of a class.  oclass: a
-			-- GObjectClass property_name: the name of the property to look up
-			-- Returns : the GParamSpec for the property, or NULL if the class
-			-- doesn't have a property of that name
-		external "C use <glib-object.h>"
-		end
+
+		g_object_class_list_properties (oclass,n_properties: POINTER): POINTER is
+			-- GParamSpec** g_object_class_list_properties (GObjectClass
+			-- *oclass, guint *n_properties);
 		
-	g_object_class_list_properties (oclass,n_properties: POINTER): POINTER is
 			-- Returns an array of GParamSpec* for all properties of a class.
 			-- oclass: a GObjectClass n_properties: return location for the length
 			-- of the returned array (i.e. a guint *). Returns: an array of
@@ -230,7 +91,61 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 	
+	
+	-- void g_object_class_override_property (GObjectClass *oclass, guint property_id, const gchar *name);
+	
+	-- void        g_object_interface_install_property
+	--                                             (gpointer g_iface, GParamSpec *pspec);
 
+		g_object_class_find_property (oclass, property_name: POINTER): POINTER is
+			-- GParamSpec* g_object_interface_find_property (gpointer
+			-- g_iface, const gchar *property_name);
+		
+			-- Looks up the GParamSpec for a property of a class.  oclass: a
+			-- GObjectClass property_name: the name of the property to look up
+			-- Returns : the GParamSpec for the property, or NULL if the class
+			-- doesn't have a property of that name
+		external "C use <glib-object.h>"
+		end
+
+	-- GParamSpec** g_object_interface_list_properties (gpointer g_iface, guint *n_properties_p);
+	-- gpointer    g_object_new                    (GType object_type, const gchar *first_property_name, ...);
+	-- gpointer    g_object_newv                   (GType object_type, guint n_parameters, GParameter *parameters);
+	--             GParameter;
+	-- gpointer    g_object_ref                    (gpointer object);
+	-- void        g_object_unref                  (gpointer object);
+	-- void        (*GWeakNotify)                  (gpointer data, GObject *where_the_object_was);
+	-- void        g_object_weak_ref               (GObject *object, GWeakNotify notify, gpointer data);
+	-- void        g_object_weak_unref             (GObject *object, GWeakNotify notify, gpointer data);
+	-- void        g_object_add_weak_pointer       (GObject *object, gpointer *weak_pointer_location);
+	-- void        g_object_remove_weak_pointer    (GObject *object, gpointer *weak_pointer_location);
+	-- void        (*GToggleNotify)                (gpointer data, GObject *object, gboolean is_last_ref);
+	-- void        g_object_add_toggle_ref         (GObject *object, GToggleNotify notify, gpointer data);
+	-- void        g_object_remove_toggle_ref      (GObject *object, GToggleNotify notify, gpointer data);
+	-- gpointer    g_object_connect                (gpointer object, const gchar *signal_spec, ...);
+	-- void        g_object_disconnect             (gpointer object, const gchar *signal_spec, ...);
+	-- void        g_object_set                    (gpointer object, const gchar *first_property_name, ...);
+	-- void        g_object_get                    (gpointer object, const gchar *first_property_name, ...);
+	-- void        g_object_notify                 (GObject *object, const gchar *property_name);
+	-- void        g_object_freeze_notify          (GObject *object);
+	-- void        g_object_thaw_notify            (GObject *object);
+	-- gpointer    g_object_get_data               (GObject *object, const gchar *key);
+	-- void        g_object_set_data               (GObject *object, const gchar *key, gpointer data);
+	-- void        g_object_set_data_full          (GObject *object, const gchar *key, gpointer data, GDestroyNotify destroy);
+	-- gpointer    g_object_steal_data             (GObject *object, const gchar *key);
+	-- gpointer    g_object_get_qdata              (GObject *object, GQuark quark);
+	-- void        g_object_set_qdata              (GObject *object, GQuark quark, gpointer data);
+	-- void        g_object_set_qdata_full         (GObject *object, GQuark quark, gpointer data, GDestroyNotify destroy);
+	-- gpointer    g_object_steal_qdata            (GObject *object, GQuark quark);
+	-- void        g_object_set_property           (GObject *object, const gchar *property_name, const GValue *value);
+	-- void        g_object_get_property           (GObject *object, const gchar *property_name, GValue *value);
+	-- GObject*    g_object_new_valist             (GType object_type, const gchar *first_property_name, va_list var_args);
+	-- void        g_object_set_valist             (GObject *object, const gchar *first_property_name, va_list var_args);
+	-- void        g_object_get_valist             (GObject *object, const gchar *first_property_name, va_list var_args);
+	-- void        g_object_watch_closure          (GObject *object, GClosure *closure);
+	-- void        g_object_run_dispose            (GObject *object);
+	-- #define     G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec)
+		
 	g_object_class_override_property (oclass: POINTER; guint_property_id: INTEGER; gchar_name: STRING) is
 			-- Registers property_id as referring to a property with the name name
 			-- in a parent class or in an interface implemented by oclass. This
@@ -243,8 +158,7 @@ feature {} -- External calls
 			-- properties of the object class, such as
 			-- g_object_class_find_property() or g_object_class_list_properties()
 			-- will return the overridden property. However, in one case, the
-			-- construct_properties argument of the constructor virtual function,
-			-- the GParamSpecOverride is passed instead, so that the param_id field
+			-- construct_properties argument of the constructor virtual function, the GParamSpecOverride is passed instead, so that the param_id field
 			-- of the GParamSpec will be correct. For virtually all uses, this
 			-- makes no difference. If you need to get the overridden property, you
 			-- can call g_param_spec_get_redirect_target().
@@ -259,9 +173,7 @@ feature {} -- External calls
 		end
 
 	
-	-- void        g_object_interface_install_property
-	--                                             (gpointer g_iface,
-	--                                              GParamSpec *pspec);
+	-- void        g_object_interface_install_property (gpointer g_iface, GParamSpec *pspec);
 
 	-- Add a property to an interface; this is only useful for interfaces that
 	-- are added to GObject-derived types. Adding a property to an interface
@@ -283,9 +195,7 @@ feature {} -- External calls
 
 	-- g_object_interface_find_property ()
 
-	-- GParamSpec* g_object_interface_find_property
-	--                                             (gpointer g_iface,
-	--                                              const gchar *property_name);
+	-- GParamSpec* g_object_interface_find_property (gpointer g_iface, const gchar *property_name);
 
 	-- Find the GParamSpec with the given name for an interface. Generally, the interface vtable passed in as g_iface will be the default vtable from g_type_default_interface_ref(), or, if you know the interface has already been loaded, g_type_default_interface_peek().
 	-- g_iface : 	any interface vtable for the interface, or the default vtable for the interface
@@ -296,9 +206,7 @@ feature {} -- External calls
 
 	-- g_object_interface_list_properties ()
 
-	-- GParamSpec** g_object_interface_list_properties
-	--                                             (gpointer g_iface,
-	--                                              guint *n_properties_p);
+	-- GParamSpec** g_object_interface_list_properties (gpointer g_iface, guint *n_properties_p);
 
 	-- Lists the properties of an interface.Generally, the interface vtable passed in as g_iface will be the default vtable from g_type_default_interface_ref(), or, if you know the interface has already been loaded, g_type_default_interface_peek().
 	-- g_iface : 	any interface vtable for the interface, or the default vtable for the interface
@@ -326,8 +234,7 @@ feature {} -- External calls
 						parameters:	POINTER): POINTER is 
 			-- Creates a new instance of a GObject subtype and sets its properties.
 		
-			-- Construction parameters (see G_PARAM_CONSTRUCT,
-			-- G_PARAM_CONSTRUCT_ONLY) which are not explicitly specified are set
+			-- Construction parameters (see G_PARAM_CONSTRUCT, G_PARAM_CONSTRUCT_ONLY) which are not explicitly specified are set
 			-- to their default values.
 		
 			-- object_type : 	the type id of the GObject subtype to instantiate
@@ -385,9 +292,7 @@ feature {} -- Property low-level setters
 	-- Note: g_object_set is variadic; we wrap it with various kind of basic 
 	-- types
 
-	-- void        g_object_set                    (gpointer object,
-	--                                              const gchar *first_property_name,
-	--                                              ...);
+	-- void        g_object_set                    (gpointer object, const gchar *first_property_name, ...);
 
 	-- Sets properties on an object.
 	-- object : 	a GObject
@@ -436,11 +341,7 @@ feature {} -- Low-level properties getters
 	--  gchar *strval;
 	--  GObject *objval; 
  
-	--  g_object_get (my_object,
-	--                "intproperty", &intval,
-	--                "strproperty", &strval,
-	--                "objproperty", &objval,
-	--                NULL);
+	--  g_object_get (my_object, "intproperty", &intval, "strproperty", &strval, "objproperty", &objval, NULL);
 
 	--  /* Do something with intval, strval, objval */
  
@@ -495,10 +396,7 @@ feature {} -- Low-level properties getters
 	
 	-- g_object_set_data_full ()
 
-	-- void        g_object_set_data_full          (GObject *object,
-	--                                              const gchar *key,
-	--                                              gpointer data,
-	--                                              GDestroyNotify destroy);
+	-- void        g_object_set_data_full          (GObject *object, const gchar *key, gpointer data, GDestroyNotify destroy);
 
 	-- Like g_object_set_data() except it adds notification for when the association is destroyed, either by setting it to a different value or when the object is destroyed.
 	-- object : 	GObject containing the associations
@@ -533,8 +431,7 @@ feature {} -- Low-level properties getters
 			-- g_quark_from_static_string()), and the pointer can be
 			-- gotten back from the object with g_object_get_qdata()
 			-- until the object is finalized. Setting a previously set
-			-- user data pointer, overrides (frees) the old pointer set,
-			-- using NULL as pointer essentially removes the data stored.
+			-- user data pointer, overrides (frees) the old pointer set, using NULL as pointer essentially removes the data stored.
 		
 			-- object : 	The GObject to set store a user data pointer
 			-- quark : 	A GQuark, naming the user data pointer
@@ -544,28 +441,23 @@ feature {} -- Low-level properties getters
 	
 	-- g_object_set_qdata_full ()
 
-	-- void        g_object_set_qdata_full         (GObject *object,
-	--                                              GQuark quark,
-	--                                              gpointer data,
-	--                                              GDestroyNotify destroy);
+	-- void        g_object_set_qdata_full         (GObject *object, GQuark quark, gpointer data, GDestroyNotify destroy);
 
 	-- This function works like g_object_set_qdata(), but in addition, a void (*destroy) (gpointer) function may be specified which is called with data as argument when the object is finalized, or the data is being overwritten by a call to g_object_set_qdata() with the same quark.
 	-- object : 	The GObject to set store a user data pointer
 	-- quark : 	A GQuark, naming the user data pointer
 	-- data : 	An opaque user data pointer
 	-- destroy : 	Function to invoke with data as argument, when data needs to be freed
-		-- external "C use <glib-object.h>"
-		-- end
+	-- external "C use <glib-object.h>"
+	-- end
 	-- g_object_steal_qdata ()
 
-	-- gpointer    g_object_steal_qdata            (GObject *object,
-	--                                              GQuark quark);
+	-- gpointer    g_object_steal_qdata            (GObject *object, GQuark quark);
 
 	-- This function gets back user data pointers stored via g_object_set_qdata() and removes the data from object without invoking it's destroy() function (if any was set). Usually, calling this function is only required to update user data pointers with a destroy notifier, for example:
 
 	-- void
-	-- object_add_to_user_list (GObject     *object,
-	--                          const gchar *new_string)
+	-- object_add_to_user_list (GObject     *object, const gchar *new_string)
 	-- {
 	--   /* the quark, naming the object data */
 	--   GQuark quark_string_list = g_quark_from_static_string ("my-string-list");
@@ -591,8 +483,8 @@ feature {} -- Low-level properties getters
 	-- object : 	The GObject to get a stored user data pointer from
 	-- quark : 	A GQuark, naming the user data pointer
 	-- Returns : 	The user data pointer set, or NULL
-		-- external "C use <glib-object.h>"
-		-- end
+	-- external "C use <glib-object.h>"
+	-- end
 
 
 	g_object_set_property (object, property_name,value: POINTER) is
@@ -606,31 +498,31 @@ feature {} -- Low-level properties getters
 	g_object_set_int_property (object, property_name: POINTER; value: INTEGER) is
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
-			alias "g_object_set_property"
+		alias "g_object_set_property"
 		end
 
 	g_object_set_int32_property (object, property_name: POINTER; value: INTEGER_32) is
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
-			alias "g_object_set_property"
+		alias "g_object_set_property"
 		end
 
 	g_object_set_int16_property (object, property_name: POINTER; value: INTEGER_16) is
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
-			alias "g_object_set_property"
+		alias "g_object_set_property"
 		end
 
 	g_object_set_int64_property (object, property_name: POINTER; value: INTEGER_64) is
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
-			alias "g_object_set_property"
+		alias "g_object_set_property"
 		end
 
 	g_object_set_double_property (object, property_name: POINTER; value: REAL) is
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
-			alias "g_object_set_property"
+		alias "g_object_set_property"
 		end
 
 	g_object_set_float_property (object, property_name: POINTER; value: REAL_32) is
@@ -642,7 +534,7 @@ feature {} -- Low-level properties getters
 	g_object_set_real64_property (object, property_name: POINTER; value: REAL_64) is
 			-- see g_object_set_property
 		external "C use <glib-object.h>"
-			alias "g_object_set_property"
+		alias "g_object_set_property"
 		end
 	
 	g_object_get_property (object,property_name,value: POINTER) is
@@ -651,20 +543,20 @@ feature {} -- Low-level properties getters
 			-- In general, a copy is made of the property contents and the caller
 			-- is responsible for freeing the memory by calling g_value_unset().
 
-			-- Note that g_object_get_property() is really intended for language
-			-- bindings, g_object_get() is much more convenient for C programming.
-			-- (hey! It is just our case! Paolo 2005-12-28)
+			-- Note that g_object_get_property() is really intended for
+			-- language bindings, g_object_get() is much more convenient
+			-- for C programming. (hey! It is just our case! Paolo
+			-- 2005-12-28)
 		
 			-- object : 	a GObject
 			-- property_name : 	(const gchar *) the name of the property to get
 			-- value : 	(GValue *) return location for the property value
 			 external "C use <glib-object.h>"
 			 end
+			 
 	-- g_object_new_valist ()
 
-	-- GObject*    g_object_new_valist             (GType object_type,
-	--                                              const gchar *first_property_name,
-	--                                              va_list var_args);
+	-- GObject*    g_object_new_valist             (GType object_type, const gchar *first_property_name, va_list var_args);
 
 	-- Creates a new instance of a GObject subtype and sets its properties.
 
@@ -677,9 +569,7 @@ feature {} -- Low-level properties getters
 		-- end
 	-- g_object_set_valist ()
 
-	-- void        g_object_set_valist             (GObject *object,
-	--                                              const gchar *first_property_name,
-	--                                              va_list var_args);
+	-- void        g_object_set_valist             (GObject *object, const gchar *first_property_name, va_list var_args);
 
 	-- Sets properties on an object.
 	-- object : 	a GObject
@@ -689,9 +579,7 @@ feature {} -- Low-level properties getters
 		-- end
 	-- g_object_get_valist ()
 
-	-- void        g_object_get_valist             (GObject *object,
-	--                                              const gchar *first_property_name,
-	--                                              va_list var_args);
+	-- void        g_object_get_valist             (GObject *object, const gchar *first_property_name, va_list var_args);
 
 	-- Gets properties of an object.
 
@@ -705,8 +593,7 @@ feature {} -- Low-level properties getters
 		-- end
 	-- g_object_watch_closure ()
 
-	-- void        g_object_watch_closure          (GObject *object,
-	--                                              GClosure *closure);
+	-- void        g_object_watch_closure          (GObject *object, GClosure *closure);
 
 	-- This function essentially limits the life time of the closure to the life time of the object. That is, when the object is finalized, the closure is invalidated by calling g_closure_invalidate() on it, in order to prevent invocations of the closure with a finalized (nonexisting) object. Also, g_object_ref() and g_object_unref() are added as marshal guards to the closure, to ensure that an extra reference count is held on object during invocation of the closure. Usually, this function will be called on closures that use this object as closure data.
 	-- object : 	GObject restricting lifetime of closure
@@ -739,9 +626,7 @@ feature {} -- Low-level properties getters
 	-- Signal Details
 	-- The "notify" signal
 
-	-- void        user_function                  (GObject *gobject,
-	--                                             GParamSpec *arg1,
-	--                                             gpointer user_data);
+	-- void        user_function                  (GObject *gobject, GParamSpec *arg1, gpointer user_data);
 
 	-- The notify signal is emitted on an object when one of its properties has been changed. Note that getting this signal doesn't guarantee that the value of the property has actually changed, it may also be emitted when the setter for the property is called to reinstate the previous value.
 	-- gobject : 	the object which received the signal.

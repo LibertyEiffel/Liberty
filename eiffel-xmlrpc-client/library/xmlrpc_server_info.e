@@ -8,7 +8,7 @@ inherit
 insert
 	XMLRPC_SERVER_INFO_EXTERNALS
 
-creation
+creation dummy,
 	from_url, from_server_info, make
 
 feature -- Size
@@ -81,7 +81,7 @@ feature -- Operations
 	set_basic_auth (username, password: STRING) is
 		do
 			xmlrpc_server_info_set_basic_auth (env.handle, handle,
-			                                   username.to_external, password.to_external)
+														  username.to_external, password.to_external)
 		end
 
 invariant

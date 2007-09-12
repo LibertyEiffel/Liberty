@@ -8,7 +8,7 @@ class HELLO
 
 insert GTK
 	
-creation	make
+creation dummy,	make
 	
 feature
 	on_clicked (a_button: GTK_BUTTON) is

@@ -1,71 +1,3 @@
-		-- Description
-
-		-- GtkObject is the base class for all widgets, and for a few
-		-- non-widget objects such as GtkAdjustment. GtkObject predates
-		-- GObject; non-widgets that derive from GtkObject rather than
-		-- GObject do so for backward compatibility reasons.
-
-		-- The most interesting difference between GtkObject and GObject
-		-- is the "floating" reference count. A GObject is created with
-		-- a reference count of 1, owned by the creator of the
-		-- GObject. (The owner of a reference is the code section that
-		-- has the right to call g_object_unref() in order to remove
-		-- that reference.) A GtkObject is created with a reference
-		-- count of 1 also, but it isn't owned by anyone; calling
-		-- g_object_unref() on the newly-created GtkObject is
-		-- incorrect. Instead, the initial reference count of a
-		-- GtkObject is "floating". The floating reference can be
-		-- removed by anyone at any time, by calling
-		-- gtk_object_sink(). gtk_object_sink() does nothing if an
-		-- object is already sunk (has no floating reference).
-
-		-- When you add a widget to its parent container, the parent
-		-- container will do this:
-
-		--   g_object_ref (G_OBJECT (child_widget));
-		--   gtk_object_sink (GTK_OBJECT (child_widget));
-
-		-- This means that the container now owns a reference to the
-		-- child widget (since it called g_object_ref()), and the child
-		-- widget has no floating reference.
-
-		-- The purpose of the floating reference is to keep the child widget alive
-		-- until you add it to a parent container:
-	
-		-- button = gtk_button_new (); /* button has one floating reference to keep
-		-- it alive */ gtk_container_add (GTK_CONTAINER (container), button); /*
-		-- button has one non-floating reference owned by the container */
-
-		-- GtkWindow is a special case, because GTK+ itself will ref/sink it on
-		-- creation. That is, after calling gtk_window_new(), the GtkWindow will have
-		-- one reference which is owned by GTK+, and no floating references.
-
-		-- One more factor comes into play: the "destroy" signal, emitted by the
-		-- gtk_object_destroy() method. The "destroy" signal asks all code owning a
-		-- reference to an object to release said reference. So, for example, if you
-		-- call gtk_object_destroy() on a GtkWindow, GTK+ will release the reference
-		-- count that it owns; if you call gtk_object_destroy() on a GtkButton, then
-		-- the button will be removed from its parent container and the parent
-		-- container will release its reference to the button. Because these
-		-- references are released, calling gtk_object_destroy() should result in
-		-- freeing all memory associated with an object, unless some buggy code fails
-		-- to release its references in response to the "destroy" signal. Freeing
-		-- memory (referred to as finalization only happens if the reference count
-		-- reaches zero.
-
-		-- Some simple rules for handling GtkObject:
-
-		-- * Never call g_object_unref() unless you have previously called
-		-- g_object_ref(), even if you created the GtkObject. (Note: this is not true
-		-- for GObject; for GObject, the creator of the object owns a reference.) 
-
-		-- * Call gtk_object_destroy() to get rid of most objects in most cases. In
-		-- particular, widgets are almost always destroyed in this way. 
-
-		-- * Because of the floating reference count, you don't need to worry about
-		-- reference counting for widgets and toplevel windows, unless you explicitly
-		-- call g_object_ref() yourself.
-
 indexing
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
@@ -89,19 +21,85 @@ indexing
 	revision "$REvision:$"
 
 deferred class GTK_OBJECT
+	-- GTK_OBJECT is the base class for all widgets, and for a few
+	-- non-widget objects such as GTK_ADJUSTMENT. GTK_OBJECT predates
+	-- G_OBJECT; non-widgets that derive from GTK_OBJECT rather than
+	-- G_OBJECT do so for backward compatibility reasons.
+	
+	-- TODO: Check it the following notes needs to be shown to the
+	-- Eiffel programmer. These shall be already be handled by a proper
+	-- memory handling in the Eiffel wrappers.
+
+	-- The most interesting difference between GTK_OBJECT and G_OBJECT is
+	-- the "floating" reference count. A GObject is created with a
+	-- reference count of 1, owned by the creator of the GObject. (The
+	-- owner of a reference is the code section that has the right to
+	-- call g_object_unref() in order to remove that reference.) A
+	-- GtkObject is created with a reference count of 1 also, but it
+	-- isn't owned by anyone; calling g_object_unref() on the
+	-- newly-created GtkObject is incorrect. Instead, the initial
+	-- reference count of a GtkObject is "floating". The floating
+	-- reference can be removed by anyone at any time, by calling
+	-- gtk_object_sink(). gtk_object_sink() does nothing if an object
+	-- is already sunk (has no floating reference).
+
+	-- When you add a widget to its parent container, the parent
+	-- container will do this:
+	
+	--   g_object_ref (G_OBJECT (child_widget));
+	--   gtk_object_sink (GTK_OBJECT (child_widget));
+	
+	-- This means that the container now owns a reference to the child
+	-- widget (since it called g_object_ref()), and the child widget
+	-- has no floating reference.
+
+	-- The purpose of the floating reference is to keep the child
+	-- widget alive until you add it to a parent container:
+	
+	-- button = gtk_button_new (); /* button has one floating reference to keep
+	-- it alive */ gtk_container_add (GTK_CONTAINER (container), button); /*
+	-- button has one non-floating reference owned by the container */
+
+	-- GtkWindow is a special case, because GTK+ itself will ref/sink
+	-- it on creation. That is, after calling gtk_window_new(), the
+	-- GtkWindow will have one reference which is owned by GTK+, and no
+	-- floating references.
+	
+	-- One more factor comes into play: the "destroy" signal, emitted
+	-- by the gtk_object_destroy() method. The "destroy" signal asks
+	-- all code owning a reference to an object to release said
+	-- reference. So, for example, if you call gtk_object_destroy() on
+	-- a GtkWindow, GTK+ will release the reference count that it owns;
+	-- if you call gtk_object_destroy() on a GtkButton, then the button
+	-- will be removed from its parent container and the parent
+	-- container will release its reference to the button. Because
+	-- these references are released, calling gtk_object_destroy()
+	-- should result in freeing all memory associated with an object,
+	-- unless some buggy code fails to release its references in
+	-- response to the "destroy" signal. Freeing memory (referred to as
+	-- finalization only happens if the reference count reaches zero.
+
+	-- Some simple rules for handling GtkObject:
+
+	-- * Never call g_object_unref() unless you have previously called
+	-- g_object_ref(), even if you created the GtkObject. (Note: this is not true
+	-- for GObject; for GObject, the creator of the object owns a reference.) 
+
+	-- * Call gtk_object_destroy() to get rid of most objects in most cases. In
+	-- particular, widgets are almost always destroyed in this way. 
+	
+	-- * Because of the floating reference count, you don't need to
+	-- worry about reference counting for widgets and toplevel windows,
+	-- unless you explicitly call g_object_ref() yourself.
 
 inherit
 	G_OBJECT
-		-- undefine make
-		redefine store_eiffel_wrapper
-		end
 
 insert
 	GTK -- that provides the gtk singleton.
 	GTK_OBJECT_EXTERNALS
 
 feature
-
 	is_floating: BOOLEAN is
 			-- Evaluates to TRUE if the object still has its floating reference
 			-- count. See the overview documentation for GtkObject.
@@ -128,11 +126,20 @@ feature
 			gtk_object_destroy (handle)
 		end
 
-	store_eiffel_wrapper is
-		do
-			Precursor
-			ref -- This takes care of sinking the object and/or adding a reference
-		end
+	-- The following redefinition is unnecessary and creates memory
+	-- leakes. It is unnecessary because the original definition in
+	-- G_OBJECT already ref the underlying GObject; it creates memory
+	-- leaks because two refs takes place at creation time - one in
+	-- G_OBJECT's store_eiffel_wrapper and one here - and only one
+	-- un-ref is done at dispose time, the one in G_OBJECT, so
+	-- GtkObjects created by Eiffel will be never freed. Please correct
+	-- me and the code if this is wrong. Paolo 2007-09-09
+
+	--  store_eiffel_wrapper is
+	-- do
+	-- Precursor
+	-- ref -- This takes care of sinking the object and/or adding a reference
+	-- end
 
 feature -- Signals
 	-- The "destroy" signal

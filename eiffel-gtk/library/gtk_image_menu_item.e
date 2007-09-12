@@ -24,10 +24,19 @@ class GTK_IMAGE_MENU_ITEM
 	-- text label. Note that the user can disable display of menu
 	-- icons, so make sure to still fill in the text label.
 
-inherit GTK_MENU_ITEM redefine make, struct_size, with_mnemonic, with_label end
-	--    GtkImageMenuItem implements AtkImplementorIface.
+inherit
+	GTK_MENU_ITEM
+		redefine
+			dummy_gobject,
+			make,
+			struct_size,
+			with_mnemonic,
+			with_label
+		end
+	
+	-- TODO: AtkImplementorIface
 
-creation make, from_stock, with_label, with_mnemonic
+creation dummy, make, from_stock, with_label, with_mnemonic
 
 feature {} -- Creation
 	make is
@@ -100,6 +109,12 @@ feature -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkImageMenuItem)"
 		end
+
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_image_menu_item_new
+		end
+	
 feature {} -- External calls
 	gtk_image_menu_item_set_image (an_image_menu_item,a_widget: POINTER) is
 		external "C use <gtk/gtk.h>"

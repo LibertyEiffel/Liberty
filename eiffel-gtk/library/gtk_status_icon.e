@@ -52,6 +52,7 @@ insert
 		--GTK_STATUS_ICON_EXTERNALS
 
 creation
+	dummy,
 	make,
 	make_from_pixbuf,
 	make_from_file,
@@ -364,7 +365,10 @@ feature -- size
 		alias "sizeof(GtkStatusIcon)"
 		end
 
-	
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_status_icon_new
+		end
 
 feature {} -- External calls
 	gtk_status_icon_new: POINTER is

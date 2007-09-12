@@ -32,7 +32,7 @@ class GTS_FUNCTION
 	
 inherit WRAPPER -- WRAPPER_HANDLER
 
-creation make
+creation dummy, make
 
 feature {GTS_OBJECT} -- Implementation
 	make (a_function: PREDICATE[ANY, TUPLE[GTS_OBJECT]]) is
@@ -47,7 +47,7 @@ feature {GTS_OBJECT} -- Implementation
 			-- `callback'.
 		do
 			-- external "C use <callbacks.h>" alias "EiffelGtsFunc"
- 			Result:=function.item([gts_object]).to_integer
+			Result:=function.item([gts_object]).to_integer
 		end 
 
 	callback_pointer: POINTER is

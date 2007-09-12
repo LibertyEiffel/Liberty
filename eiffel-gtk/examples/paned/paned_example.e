@@ -8,7 +8,7 @@ indexing
 class PANED_EXAMPLE
 insert GTK_MAIN
 	
-creation make
+creation dummy, make
 
 feature {} -- Creation
 	make is

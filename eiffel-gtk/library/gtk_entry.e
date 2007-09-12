@@ -35,7 +35,7 @@ insert
 	G_OBJECT_RETRIEVER [GTK_MENU]
 	GTK_ENTRY_EXTERNALS
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 	
 feature {} -- Creation
 	make is
@@ -593,5 +593,11 @@ feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEntry)"
+		end
+
+feature
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_entry_new
 		end
 end

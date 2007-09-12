@@ -30,9 +30,14 @@ inherit
 	GTK_PANED
 		-- GtkHPaned implements AtkImplementorIface.
 	
-creation make,from_external_pointer
+creation dummy, make,from_external_pointer
 
-feature {} -- size
+feature -- size
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_hpaned_new
+		end
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHPaned)"

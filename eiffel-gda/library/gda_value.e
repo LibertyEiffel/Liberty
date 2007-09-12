@@ -33,7 +33,7 @@ inherit
 		end
 insert GDA_VALUE_EXTERNALS
 
-creation 
+creation dummy, 
 
 feature 
 	gtype: INTEGER is

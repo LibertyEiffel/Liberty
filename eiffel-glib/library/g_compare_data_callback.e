@@ -23,7 +23,7 @@ class G_COMPARE_DATA_CALLBACK[ITEM->COMPARABLE_SHARED_C_STRUCT]
 
 inherit GLIB_CALLBACK
 
-creation make
+creation dummy, make
 
 feature {} -- Creation
 	make (a_function: FUNCTION[ANY,TUPLE[ITEM,ITEM],INTEGER]) is

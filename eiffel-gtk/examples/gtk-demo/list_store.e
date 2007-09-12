@@ -21,7 +21,7 @@ indexing
 
 class LIST_STORE
 
-creation make
+creation dummy, make
 
 feature
 	-- /* Tree View/List Store

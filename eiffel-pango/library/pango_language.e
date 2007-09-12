@@ -23,7 +23,7 @@ class PANGO_LANGUAGE
 	-- PangoLanguage pointers can be efficiently copied and compared with each other.
 inherit C_STRUCT
 
-creation allocate, from_external_pointer
+creation dummy, allocate, from_external_pointer
 
 feature {} -- Creation
 

@@ -9,45 +9,45 @@ indexing
 class TEST_CREATE_TABLE
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
 insert
-   FILE_TOOLS
+	FILE_TOOLS
 
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
-      local
+	make is
+		local
 			db: SQLITE_DATABASE
 			file_name: STRING
 			it: ITERATOR[RESULT_ROW]
-      do
+		do
 			file_name := "test_db.sqlite"
 			if file_exists (file_name) then
 				delete (file_name)
 			end
-         create db.connect (file_name)
-         db.execute ("SELECT * FROM inexist;")
-         assert (not db.last_action_success) -- selecting from inexisting tables should failed
+			create db.connect (file_name)
+			db.execute ("SELECT * FROM inexist;")
+			assert (not db.last_action_success) -- selecting from inexisting tables should failed
 
-         db.execute ("CREATE TABLE existant (name VARCHAR(32), age INTEGER);")
-         assert (db.last_action_success) -- creating a simple table should work
+			db.execute ("CREATE TABLE existant (name VARCHAR(32), age INTEGER);")
+			assert (db.last_action_success) -- creating a simple table should work
 
-         db.execute ("SELECT * FROM existant;")
-         assert (db.last_action_success)
+			db.execute ("SELECT * FROM existant;")
+			assert (db.last_action_success)
 
 			it := db.result_set.get_new_iterator
 			it.start
-         assert (it.is_off) -- should be empty
+			assert (it.is_off) -- should be empty
 
-         db.close
+			db.close
 		 
 			if file_exists (file_name) then
 				delete (file_name)
 			end
-      end
+		end
 
 end

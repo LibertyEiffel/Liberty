@@ -18,14 +18,12 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
-	gtk_documentation: "[
-							 You may wish to begin by reading the text widget conceptual
-							 overview which gives an overview of all the objects and data
-							 types related to the text widget and how they work together.
-						 ]"
 
 class GTK_TEXT_ITER
-	
+	-- You may wish to begin by reading the text widget conceptual
+	-- overview which gives an overview of all the objects and data
+	-- types related to the text widget and how they work together.
+
 inherit
 	SHARED_C_STRUCT
 		-- Note: This class isn't really shared, but we need to make it
@@ -53,7 +51,7 @@ inherit
 insert 
 	GTK
 	GTK_TEXT_SEARCH_FLAGS
-
+	
 creation make, from_external_pointer, copy
 
 feature {} -- Creation
@@ -63,7 +61,7 @@ feature {} -- Creation
 			allocate
 		end
 	
-feature {} -- Disposing
+feature -- Disposing
 
 	dispose is
 			-- Free an iterator allocated on the heap. This function is
@@ -225,7 +223,6 @@ feature
 			end
 		end
 
-
 	marks: G_SLIST [GTK_TEXT_MARK] is
 			-- a list of all GtkTextMark at this location. Because marks
 			-- are not iterable (they don't take up any "space" in the
@@ -233,7 +230,8 @@ feature
 			-- locations), multiple marks can exist in the same
 			-- place. The returned list is not in any meaningful order.
 		do
-			create Result.from_external_pointer (gtk_text_iter_get_marks(handle))
+			create Result.from_external (gtk_text_iter_get_marks(handle),
+												  gtk.text_mark_factory)
 		ensure result_not_void: Result /= Void
 		end
 
@@ -249,8 +247,9 @@ feature
 			-- iter : 	an iterator
 			-- toggled_on : 	TRUE to get toggled-on tags
 		do
-			create Result.from_external_pointer
-			(gtk_text_iter_get_toggled_tags (handle, toggled_on.to_integer))
+			create Result.from_external(gtk_text_iter_get_toggled_tags
+												 (handle, toggled_on.to_integer),
+												 gtk.text_tag_factory)
 		end
 
 	child_anchor: GTK_TEXT_CHILD_ANCHOR is
@@ -310,7 +309,7 @@ feature
 			Result := gtk_text_iter_has_tag(handle,a_tag.handle).to_boolean
 		end
 	
-	tags: G_SLIST [GTK_TEXT_ITER] is
+	tags: G_SLIST [GTK_TEXT_TAG] is
 			-- a list of tags that apply to iter, in ascending order of
 			-- priority (highest-priority tags are last).
 
@@ -319,7 +318,8 @@ feature
 			-- itself". Check if this should be translated into a
 			-- particular Eiffel implementation
 		do
-			create Result.from_external_pointer (gtk_text_iter_get_tags (handle))
+			create Result.from_external (gtk_text_iter_get_tags (handle),
+												  gtk.text_tag_factory)
 		end
 
 	is_editable (a_default_setting: BOOLEAN): BOOLEAN is

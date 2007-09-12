@@ -39,13 +39,12 @@ insert
 	GTK_ICON_VIEW_DROP_POSITION
 	G_OBJECT_EXTERNALS
 
-creation
+creation dummy,
 	make, with_model, from_external_pointer
 
 feature {} -- Creation
 
 	make is
-			-- Creates a new GtkIconView widget
 			-- Creates a new GtkIconView widget
 		do
 			from_external_pointer (gtk_icon_view_new)
@@ -268,7 +267,7 @@ feature -- Operations
 -- icon_view : 	
 -- path : 	The GtkTreePath of a selected row
 -- data : 	user data
-	 
+	
 -- Since 2.6
 -- gtk_icon_view_get_text_column ()
 
@@ -709,8 +708,8 @@ feature -- Operations
 -- } GtkIconViewDropPosition;
 
 	enable_model_drag_source (a_start_button_mask: INTEGER;
-	                          a_target: GTK_TARGET_ENTRY;
-	                          some_actions: INTEGER) is
+									  a_target: GTK_TARGET_ENTRY;
+									  some_actions: INTEGER) is
 			-- Turns icon_view into a drag source for automatic DND.
 			-- start_button_mask : 	Mask of allowed buttons to start drag
 			-- some_targets : 	the table of targets that the drag will support
@@ -727,7 +726,7 @@ feature -- Operations
 			-- into a GtkTargetEntry *.
 			-- nessa, 2006-10-30
 			gtk_icon_view_enable_model_drag_source (handle, a_start_button_mask,
-			                                        a_target.handle, 1, some_actions)
+																 a_target.handle, 1, some_actions)
 		end
 
 	enable_model_drag_dest (a_target: GTK_TARGET_ENTRY; some_actions: INTEGER) is
@@ -1124,4 +1123,8 @@ feature
 		alias "sizeof(GtkIconView)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_icon_view_new
+		end
 end -- class GTK_ICON_VIEW

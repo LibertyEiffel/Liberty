@@ -1,20 +1,20 @@
 class TEST_MATH_FUN
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
 insert
 	GSL_MATH_FUNCTIONS
 	
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
+	make is
 		local
 			t: TUPLE[REAL_64, INTEGER_32]
-      do
+		do
 			assert((gsl_log1p(1) - 0.69314718).abs < 0.00000001)
 			assert((gsl_asinh(5) - 2.312438341).abs < 0.00000001)
 
@@ -29,6 +29,6 @@ feature
 			assert(gsl_fcmp(2.0, 2.0, 0.01) = 0)
 			assert(gsl_fcmp(2.0, 2.1, 10) = 0)
 			
-      end
+		end
 
 end -- TEST_MATH_FUN

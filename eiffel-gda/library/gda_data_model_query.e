@@ -36,7 +36,7 @@ insert
 	GDA_DATA_MODEL_EXTERNALS
 	SHARED_G_ERROR
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 

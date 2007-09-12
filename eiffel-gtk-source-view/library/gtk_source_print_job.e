@@ -29,7 +29,7 @@ inherit
 insert
 	GTK_SOURCE_PRINT_JOB_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 

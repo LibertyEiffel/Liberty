@@ -178,7 +178,7 @@ class TEXT_DEMO
 inherit
 	GTK
 	ANY
-creation make
+creation dummy, make
 feature
 	make is
 		do

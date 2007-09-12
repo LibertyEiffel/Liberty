@@ -55,7 +55,7 @@ insert
 	WRAPPER_FACTORY [PKINT]
 	POLKA_MATRIX_EXTERNALS
 
-creation make, copy, copy_from_pointer
+creation dummy, make, copy, copy_from_pointer
 
 feature {} -- Creation
 

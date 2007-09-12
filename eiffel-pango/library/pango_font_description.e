@@ -41,7 +41,7 @@ insert
 	PANGO_FONT_MASK
 	PANGO_STRETCH
 
-creation
+creation dummy,
 	make, from_string, from_external_shared
 
 feature {} -- Creation
@@ -191,7 +191,7 @@ feature -- Access
 				a_ptr := a_match.handle
 			end
 			Result := pango_font_description_better_match (handle, a_ptr,
-			                                               b_match.handle).to_boolean
+																		  b_match.handle).to_boolean
 		end
 
 	to_string: STRING is
@@ -312,7 +312,7 @@ feature -- Operations
 			-- set will be replaced as well.
 		do
 			pango_font_description_merge (handle, a_font_description.handle,
-			                              replace_existing.to_integer)
+													replace_existing.to_integer)
 		end
 
 feature -- Copying and comparison
@@ -340,7 +340,6 @@ feature -- Disposing
 	dispose is
 			-- Frees a font description.
 		do
-			unstore_eiffel_wrapper
 			if not is_shared then
 				pango_font_description_free (handle)
 			end

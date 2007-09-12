@@ -34,13 +34,13 @@ feature {} -- enum
 
 	gtk_pack_start: INTEGER is
 			-- The child is packed into the start of the box
-		external "C macro use <gtk/gth.h>"
+		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PACK_START"
 		end
 
 	gtk_pack_end: INTEGER is
 			-- The child is packed into the end of the box
-		external "C macro use <gtk/gth.h>"
+		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PACK_END"
 		end
 

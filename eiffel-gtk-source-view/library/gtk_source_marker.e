@@ -25,7 +25,7 @@ class GTK_SOURCE_MARKER
 
 inherit SHARED_C_STRUCT
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature
 	set_marker_type (a_type: STRING) is

@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2007 Paolo Redaelli "
 	license: "LGPL v2 or later"
 
-deferred class SHARED_WRAPPER_FACTORY [ITEM->SHARED_C_STRUCT]
+class SHARED_WRAPPER_FACTORY [ITEM->SHARED_C_STRUCT]
 
 inherit WRAPPER_FACTORY[ITEM]
 

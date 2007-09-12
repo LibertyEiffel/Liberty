@@ -3,13 +3,12 @@ indexing
 
 	
 deferred class G_SIGNALS
-inherit
-	WRAPPER_HANDLER
-		undefine null_or end
 
+inherit WRAPPER_HANDLER
+	
 insert G_SIGNAL_EXTERNALS
+	
 feature
-
 	query (an_id: INTEGER): G_SIGNAL_QUERY is
 			-- Queries the signal system for in-depth information about a
 			-- specific signal. This function will fill in a
@@ -40,9 +39,15 @@ feature
 
 
 	get_signal_name (an_id: INTEGER): STRING is
-			-- Name of the signal with identifier equals to `an_id'. Two
-			-- different signals may have the same name, if they have
-			-- differing types.
+		obsolete "Use `signal_name' instead"
+		do
+			Result:=signal_name(an_id)
+		end
+	
+	signal_name (an_id: INTEGER): STRING is
+			-- The name of the signal with identifier equals to
+			-- `an_id'. Two different signals may have the same name, if
+			-- they have differing types.
 		require valid_id: an_id>0
 		local ptr: POINTER
 		do
@@ -53,6 +58,7 @@ feature
 			end
 		end
 
+feature {} -- Implementation
 	connect (an_object: G_OBJECT;
 				a_signal_name: STRING;
 				a_function_pointer: POINTER) is

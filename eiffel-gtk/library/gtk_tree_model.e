@@ -107,7 +107,8 @@ insert
 	GTK
 	GTK_TREE_MODEL_EXTERNALS
 	GTK_TREE_MODEL_FLAGS
-
+	G_TYPES
+	
 feature
 	flags: INTEGER is
 			-- The set of flags supported by Current's interface. The
@@ -131,12 +132,12 @@ feature
 			Result := gtk_tree_model_get_n_columns (handle)
 		end
 
-	column_type (a_column_number: INTEGER): INTEGER is
+	column_type (a_column_number: INTEGER): like g_type is
 			-- the type of the column; it is a G_TYPE integer
 			-- TODO: require: valid_column_number: a_column_number.in_range (0,columns_count)
 		do
 			Result := gtk_tree_model_get_column_type  (handle, a_column_number)
-			-- TODO: ensure is_g_type (Result)
+		ensure is_valid_g_type: is_g_type (Result)
 		end
 
 	get_new_iterator (a_path: GTK_TREE_PATH): GTK_TREE_ITER is
@@ -283,7 +284,7 @@ feature
 				a_bool:=for_each_helper(a_path,an_iter,a_test)
 				-- for_each_helper ultimate result is thrown away
 			end
- 		end
+		end
 
 	row_changed (a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER) is
 			-- Emits the "row_changed" signal on tree_model. `a_path'
@@ -359,9 +360,9 @@ feature
 		do
 			if an_iter /= Void then
 				gtk_tree_model_rows_reordered (handle, a_path.handle, an_iter.handle,
-				                               a_new_order.to_external)
+														 a_new_order.to_external)
 			else gtk_tree_model_rows_reordered (handle, a_path.handle, default_pointer,
-			                                    a_new_order.to_external)
+															a_new_order.to_external)
 			end
 		end
 
@@ -416,7 +417,7 @@ feature -- The "row-deleted" signal
 		end
 
 	connect_agent_to_row_deleted_signal (a_procedure: PROCEDURE [ANY,
-		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
+																					 TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -474,7 +475,7 @@ feature -- The "row-inserted" signal
 		end
 
 	connect_agent_to_row_inserted_signal (a_procedure: PROCEDURE [ANY,
-		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]) is
+																					 TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]) is
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
 			-- arg2 : 	

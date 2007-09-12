@@ -24,7 +24,7 @@ indexing
 class GTK_TREE_ITER
 
 inherit
-	SHARED_C_STRUCT redefine dispose end
+	SHARED_C_STRUCT redefine dispose, dummy end
 
 insert
 	GTK
@@ -33,7 +33,7 @@ insert
 	GLIB_MEMORY_ALLOCATION
 
 creation
-	make,
+	dummy, make,
 	make_from_model, from_model,
 	from_external_pointer,
 	copy_from_pointer,
@@ -133,7 +133,7 @@ feature
 			attached_to_model
 		do
 			Result := (gtk_tree_model_iter_has_child (tree_model.handle,
-			           handle)).to_boolean
+						  handle)).to_boolean
 		end
 
 	n_children, children_count: INTEGER is
@@ -173,7 +173,7 @@ feature
 		do
 			if a_parent/=Void then parent_ptr := a_parent.handle end
 			is_valid := (gtk_tree_model_iter_nth_child  (tree_model.handle,handle,
-			             parent_ptr, an_index)).to_boolean
+							 parent_ptr, an_index)).to_boolean
 		end
 
 	to_parent (a_child: like Current) is
@@ -186,7 +186,7 @@ feature
 			attached_to_model
 		do
 			is_valid := (gtk_tree_model_iter_parent (tree_model.handle,handle,
-			             a_child.handle)).to_boolean
+							 a_child.handle)).to_boolean
 		end
 
 	to_string: STRING is
@@ -257,4 +257,10 @@ feature
 			-- Note: It could have been just a POINTER but in this case
 			-- we would not be sure that the model is still alive when
 			-- the iterator tries to access it.
+feature
+	dummy is
+		do
+			allocate
+			set_unshared
+		end
 end

@@ -27,6 +27,16 @@ insert
 	POINTER_HANDLING -- to access `address_of' and `content_of'
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
+	dummy is
+			-- Creation feature for dummy object. Sometime an Eiffel
+			-- wrapper shall be created without having a real wrapped
+			-- object, i.e. as an archetype in COLLECTIONs or when an
+			-- effective G_OBJECT heir dummy object is registered to
+			-- create a link between a GType and its Eiffel wrapper
+			-- class.
+		do
+		end
+	
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			handle := a_ptr

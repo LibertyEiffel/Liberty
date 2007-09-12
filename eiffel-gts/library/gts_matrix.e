@@ -37,7 +37,7 @@ inherit
 			print_on
 		end
 	
-creation
+creation dummy,
 	make, from_external_pointer,
 	zero, identity
 
@@ -224,7 +224,7 @@ feature
 	-- 	Returns :  the new number of constraints defined by A and b.
 
 feature
-   print_on (a_file: OUTPUT_STREAM) is
+	print_on (a_file: OUTPUT_STREAM) is
 			-- Print Current to `a_file'.
 		do
 			gts_matrix_print(handle, a_file.stream_pointer)

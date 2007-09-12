@@ -1,6 +1,6 @@
 class EXPANDER_DEMO
 insert GTK
-creation make
+creation dummy, make
 feature
 	make is
 		do

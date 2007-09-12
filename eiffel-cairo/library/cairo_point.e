@@ -34,7 +34,7 @@ insert
 	CAIRO_MATRIX_EXTERNALS
 	CAIRO_TRANSFORMATIONS_EXTERNALS
 
-creation make
+creation dummy, make
 
 feature {} -- Creation
 

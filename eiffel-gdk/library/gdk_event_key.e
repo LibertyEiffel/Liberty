@@ -29,7 +29,7 @@ insert
 	GDK_EVENT_KEY_EXTERNALS
 	GDK_MODIFIER_TYPE
 
-creation from_event
+creation dummy, from_external_pointer
 
 feature -- access
 

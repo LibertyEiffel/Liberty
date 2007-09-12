@@ -1,17 +1,17 @@
 class TEST_VECTOR07
 
 inherit
-   EIFFELTEST_TOOLS
+	EIFFELTEST_TOOLS
 
-creation
-   make
-   
+creation dummy,
+	make
+	
 feature
 
-   make is
-      local
+	make is
+		local
 			m, n: GSL_VECTOR_REAL_32
-      do
+		do
 			create m.make_zero(2)
 			create n.make_zero(2)
 
@@ -24,6 +24,6 @@ feature
 			assert(m.dot(n) = 5)
 			assert(m.dot(n) = n.dot(m))
 			
-      end
+		end
 
 end -- TEST_VECTOR07

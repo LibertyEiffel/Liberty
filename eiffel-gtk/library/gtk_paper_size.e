@@ -41,7 +41,7 @@ insert
 	GTK_PAPER_SIZE_EXTERNALS
 	GTK_UNIT
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_paper_name: STRING) is
@@ -138,7 +138,7 @@ feature -- Queries
 			Result:=stored_display_name
 		end
 	
-	 ppd_name:CONST_STRING is
+	ppd_name:CONST_STRING is
 			-- the PPD name of the GtkPaperSize, which may be Void.
 		local ptr: POINTER
 		do

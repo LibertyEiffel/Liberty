@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [CLOSE_SIGNAL_RECEIVER]
 
-creation make
+creation dummy, make
 
 feature
 	object: CLOSE_SIGNAL_RECEIVER

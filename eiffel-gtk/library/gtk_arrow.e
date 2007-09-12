@@ -38,7 +38,7 @@ class GTK_ARROW
 inherit GTK_MISC
 	--   GtkArrow implements AtkImplementorIface.
 	
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make (a_type, a_shadow: INTEGER) is
@@ -50,7 +50,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_arrow_new(a_type, a_shadow))
 		end
 feature
-	set(a_type, a_shadow: INTEGER) is
+	set (a_type, a_shadow: INTEGER) is
 			--   Sets the direction and style of the GtkArrow.
 		require
 			valid_type: is_valid_gtk_arrow_type (a_type)
@@ -60,28 +60,22 @@ feature
 		end
 	
 feature -- TODO: Property Details
-	--
+
 	--  The "arrow-type" property
-	--
+
 	--   "arrow-type"           GtkArrowType          : Read / Write
 	--
 	--   The direction the arrow should point.
 	--
 	--   Default value: GTK_ARROW_RIGHT
-	--
-	--   --------------------------------------------------------------------------
-	--
+
 	--  The "shadow-type" property
-	--
+
 	--   "shadow-type"          GtkShadowType         : Read / Write
 	--
 	--   Appearance of the shadow surrounding the arrow.
 	--
 	--   Default value: GTK_SHADOW_OUT
-	--
-	--See Also
-	--
-	--   gtk_paint_arrow() the function used internally to paint the arrow.
 
 feature {} -- External calls
 	gtk_arrow_new (an_arrow_type, a_shadow_type: INTEGER): POINTER is
@@ -99,5 +93,10 @@ feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkArrow)"
+		end
+
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_arrow_new(gtk_arrow_left,gtk_shadow_out)
 		end
 end -- class GTK_ARROW

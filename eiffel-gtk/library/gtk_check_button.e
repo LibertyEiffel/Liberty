@@ -22,12 +22,22 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_CHECK_BUTTON
+
 inherit
-	GTK_TOGGLE_BUTTON redefine make,with_label,with_mnemonic,struct_size end
+	GTK_TOGGLE_BUTTON
+		redefine
+			dummy_gobject,
+			make,
+			struct_size,
+			with_label,
+			with_mnemonic
+		end
+
 insert
 	GTK_CHECK_BUTTON_EXTERNALS
 	
-creation make,with_label,with_mnemonic
+creation dummy, make,with_label,with_mnemonic
+
 feature {} -- Creation
 
 	make is
@@ -50,7 +60,13 @@ feature {} -- Creation
 		do
 			from_external_pointer (gtk_check_button_new_with_mnemonic (a_label.to_external))
 		end
-feature
+
+feature	
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_check_button_new
+		end
+	
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCheckButton)"

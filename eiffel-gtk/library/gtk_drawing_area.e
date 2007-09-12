@@ -87,7 +87,7 @@ inherit GTK_WIDGET
 
 	-- GtkDrawingArea implements AtkImplementorIface.
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -102,10 +102,15 @@ feature -- size
 		alias "sizeof(GtkDrawingArea)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_drawing_area_new
+		end
+
 feature {} -- External calls
 
 	gtk_drawing_area_new: POINTER is
 		external "C use <gtk/gtk.h>"
 		end
-
+	
 end -- class GTK_DRAWING_AREA

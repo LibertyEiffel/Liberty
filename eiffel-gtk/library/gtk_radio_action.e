@@ -19,19 +19,20 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: A GtkRadioAction is similar to
-			-- GtkRadioMenuItem. A number of radio actions can be linked
-			-- together so that only one may be active at any one time.
-
 class GTK_RADIO_ACTION
+	-- A GTK_RADIO_ACTION is similar to GTK_RADIO_MENU_ITEM. A number
+	-- of radio actions can be linked together so that only one may be
+	-- active at any one time.
 
 inherit
 	GTK_TOGGLE_ACTION
 		rename make as make_toggle
-		redefine struct_size
+		redefine
+			dummy_gobject,
+			struct_size
 		end
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature  -- Creation
 	make  (a_name, a_label, a_tooltip, a_stock_id: STRING; a_value: INTEGER) is
@@ -40,9 +41,11 @@ feature  -- Creation
 			-- call `GTK_ACTION_GROUP.add_action_with_accel'.
 		require gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer (gtk_radio_action_new (a_name.to_external, a_label.to_external,
-																		a_tooltip.to_external, a_stock_id.to_external, a_value))
+			from_external_pointer (gtk_radio_action_new
+										  (a_name.to_external, a_label.to_external,
+											a_tooltip.to_external, a_stock_id.to_external, a_value))
 		end
+	
 feature
 	group: G_SLIST [GTK_RADIO_ACTION] is
 			-- the list representing the radio group for this
@@ -61,7 +64,9 @@ feature
 			--        group = gtk_radio_action_get_group (action);
 			--   }
 		do
-			create Result.from_external_pointer (gtk_radio_action_get_group(handle))
+			create Result.from_external
+			(gtk_radio_action_get_group(handle),
+			 gtk.radio_action_factory)
 		end
 
 	set_group (a_group: G_SLIST [GTK_RADIO_ACTION]) is
@@ -125,6 +130,15 @@ feature -- size
 		alias "sizeof(GtkRadioAction)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=(gtk_radio_action_new
+						((once "Dummy name").to_external,
+						 (once "Dummy label").to_external,
+						 (once "Dummy tooltip").to_external,
+						 (once "Dummy stock id").to_external,1))
+		end
+		
 feature {} -- External calls
 	gtk_radio_action_new (name_str,label_str,tooltip_str,stock_id_str: POINTER; a_value: INTEGER): POINTER is -- GtkRadioAction*
 		external "C use <gtk/gtk.h>"

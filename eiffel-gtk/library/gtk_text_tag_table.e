@@ -35,7 +35,7 @@ insert
 	GTK
 	GTK_TEXT_TAG_TABLE_EXTERNALS
 
-creation make, from_external_pointer
+creation dummy, make, from_external_pointer
 
 feature {} -- Creation
 
@@ -165,4 +165,8 @@ feature -- size
 		alias "sizeof(GtkTextTagTable)"
 		end
 
+	dummy_gobject: POINTER is
+		do
+			Result:=gtk_text_tag_table_new
+		end
 end

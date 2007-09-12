@@ -43,7 +43,7 @@ inherit
 
 insert GDA_DICT_TYPE_EXTERNALS
 
-creation from_dict, from_external_pointer
+creation dummy, from_dict, from_external_pointer
 
 feature {} -- Creation
 	from_dict (a_dict: GDA_DICT) is
@@ -70,7 +70,7 @@ feature
 		do
 			create {CONST_STRING} Result.from_external(gda_dict_type_get_sqlname(handle))
 		end
-	 
+	
 	set_gda_type (a_type: INTEGER) is
 			-- Set the gda type for a data type
 		do
@@ -98,13 +98,13 @@ feature
 			create Result.from_external_pointer(gda_dict_type_get_synonyms(handle))
 		end
 
-   clear_synonyms is
+	clear_synonyms is
 			--    Removes any synonym attached to dt
 		do
 			gda_dict_type_clear_synonyms (handle)
 		end
 
 feature {} -- TODO: The "prop" property
-   -- "prop" gpointer : Read / Write
+	-- "prop" gpointer : Read / Write
 
 end -- class GDA_DICT_TYPE
