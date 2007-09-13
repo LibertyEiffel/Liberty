@@ -342,16 +342,18 @@ feature -- TODO: The "invisible-set" property
 --    Default value: FALSE
 
 
-feature -- TODO: The "justification" property
-	--    "justification"        GtkJustification      : Read / Write
-	
-	--    Left, right, or center justification.
-	
-	--    Default value: GTK_JUSTIFY_LEFT
+feature -- "justification" property
+	justification: INTEGER is 
+			-- "justification" property; left, right, or center
+			-- justification. Default value: `gtk_justify_left'
+		do
+			ensure valid: is_valid_gtk_justification(Result)
+		end
 
 	set_justification (a_justification: INTEGER) is
+		require valid: is_valid_gtk_justification(a_justification)
 		do
-			set_integer_property(justification_property_name,a_justification)
+			set_enum_property(justification_property_name,a_justification)
 		rescue
 			io.put_line("HEYYYYY!!!! GTK_TEXT_TAG.set_justification FAAAAILEEED!")
 		end

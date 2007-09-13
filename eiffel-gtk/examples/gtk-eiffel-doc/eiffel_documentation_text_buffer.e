@@ -65,7 +65,10 @@ feature {GTK_EIFFEL_DOC} -- Creation
 			iter := start_iter
 			
 			if  class_text /= Void then
-				if class_text.index_list/=Void then put_indexing end
+				put_indexing 
+				-- remove the line above and put "if
+				-- class_text.index_list/=Void then put_indexing end" when
+				-- 2.4 is out.
 				if class_text.heading_comment1/=Void then put_comment(class_text.heading_comment1) end
 				put_class_name
 				if class_text.heading_comment2/=Void then put_comment(class_text.heading_comment2) end
@@ -88,31 +91,39 @@ feature
 			-- to the buffer.
 	
 	put_indexing is
-		require index_list_not_void: class_text.index_list /= Void
-		local
-			index_list: INDEX_LIST; string: STRING
-			ici: ITERATOR[INDEX_CLAUSE]; index_clause: INDEX_CLAUSE;
+			-- Append the indexing clauses to Current buffer; TODO:
+			-- currently only a small note is printed since the real
+			-- implementation is commented out; in fact SmartEiffel 2.3
+			-- does not export to visitors enought features to implement
+			-- this. A couple of one-liner patches have already been
+			-- applied to the SE repository.
 		do
-			index_list := class_name.class_text.index_list
-			-- insert_at(iter, once "indexing")
-			from ici:=index_list.list.get_new_iterator; ici.start; until ici.is_off
-			loop
-				index_clause := ici.item
-				if index_clause /= Void then
-					if index_clause.tag /= Void
-					then insert_with_tag(iter,index_clause.tag.to_string+" ",keyword_tag)
-					else insert_at(iter, once " (No tag?!?!) ")
-					end
-					if index_clause.list /= Void then
-						string := merged_manifest_strings(index_clause.list)
-						string.append_character('%N')
-						insert_with_tag(iter,string,string_tag)
-					end -- index_clause.list /= Void
-				else
-					debug io.put_line("Void index clause") end
-				end -- index_claue /= Void
-				ici.next
-			end -- Loop over index list
+			insert_with_tag(iter,once "SmartEiffel 2.3 does not export to visitors enought features to implement this. A couple of one-liner patches have already been applied to the compiler SVN repository.",note_tag)
+			-- require index_list_not_void: class_text.index_list /= Void
+			-- local
+			--	index_list: INDEX_LIST; string: STRING
+			--	ici: ITERATOR[INDEX_CLAUSE]; index_clause: INDEX_CLAUSE;
+			-- 		do
+			-- 			index_list := class_name.class_text.index_list
+			-- 			-- insert_at(iter, once "indexing")
+			-- 			from ici:=index_list.list.get_new_iterator; ici.start; until ici.is_off
+			-- 			loop
+			-- 				index_clause := ici.item
+			-- 				if index_clause /= Void then
+			-- 					if index_clause.tag /= Void
+			-- 					then insert_with_tag(iter,index_clause.tag.to_string+" ",keyword_tag)
+			-- 					else insert_at(iter, once " (No tag?!?!) ")
+			-- 					end
+			-- 					if index_clause.list /= Void then
+			-- 						string := merged_manifest_strings(index_clause.list)
+			-- 						string.append_character('%N')
+			-- 						insert_with_tag(iter,string,string_tag)
+			-- 					end -- index_clause.list /= Void
+			-- 				else
+			-- 					debug io.put_line("Void index clause") end
+			-- 				end -- index_claue /= Void
+			-- 				ici.next
+			-- 			end -- Loop over index list
 		end
 
 	put_comment(a_comment: COMMENT) is
@@ -233,7 +244,7 @@ feature -- Visitor features. Mostly empty
 
 feature -- Tags
 	add_tags is
-			-- Add all the tags used in the buffer to its `tag_table'
+			-- Creates all the tags and add the them to the `tag_table'
 		do
 			create keyword_tag.with_name(once "keyword")
 			-- keyword_tag.set_foreground(once "blue")
@@ -264,6 +275,12 @@ feature -- Tags
 			
 			create cluster_tag.with_name(once "cluster")
 			tag_table.add(cluster_tag)
+
+			create note_tag.with_name(once "note")
+			note_tag.set_scale(pango_scale_xx_small)
+			note_tag.set_weight(pango_weight_ultralight)
+			tag_table.add(note_tag)
+		ensure
 		end
 	
 	keyword_tag: GTK_TEXT_TAG 
@@ -272,6 +289,8 @@ feature -- Tags
 	class_tag: GTK_TEXT_TAG 
 	feature_tag: GTK_TEXT_TAG
 	cluster_tag: GTK_TEXT_TAG
+	
+	note_tag: GTK_TEXT_TAG
 
 feature {} -- Implementation, syntactic sugar
 	class_name: CLASS_NAME

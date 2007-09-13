@@ -135,15 +135,22 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Dummy creation
 		local gobject_ptr, gtypeclass_ptr: POINTER
 		do
 			gobject_ptr := dummy_gobject
-			stored_type := g_object_type(gobject_ptr)
-			debug
-				io.put_string(once "Storing archetype for ")
-				io.put_string(name_of_type(stored_type))
-				io.put_line(once ": ")
-				print_known_gobject_heirs
+			if gobject_ptr.is_null then
+				debug
+					io.put_string(generating_type)
+					io.put_line(once ".dummy_gobject is NULL. This could be a bug.")
+				end
+			else
+				stored_type := g_object_type(gobject_ptr)
+				debug
+					io.put_string(once "Storing archetype for ")
+					io.put_string(name_of_type(stored_type))
+					io.put_line(once ": ")
+					print_known_gobject_heirs
+				end
+				gtypeclass_ptr := g_type_class_ref (stored_type)
+				debug io.put_line(once " g_object_unref (gobject_ptr) not invoked. This is a know (little?) memory leak; in a furious hacking night it seemed to me that calling it on not-reffed Gobject can confuse the C type system. Fixme. Paolo 2007-09-12") end
 			end
-			gtypeclass_ptr := g_type_class_ref (stored_type)
-			g_object_unref (gobject_ptr)
 		ensure
 			dummy_is_null: is_null
 			stored_type_set: stored_type/=0
@@ -205,10 +212,12 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Creating
 feature  {WRAPPER,WRAPPER_HANDLER} -- Disposing
 
 	dispose is
-			-- Dispose the g_object, calling unref and setting its handle to default_pointer.
+			-- Dispose the g_object, calling unref and setting its handle
+			-- to default_pointer.
 		
-			-- TODO: once the iusse explained in the debug tense in the implementation is 
-			-- solved put a "require is_a_gobject: g_is_object (handle)" precondition
+			-- TODO: once the iusse explained in the debug tense in the
+			-- implementation is solved put a "require is_a_gobject:
+			-- g_is_object (handle)" precondition
 		do
 			if is_not_null then 
 				-- Note: when Eiffel dispose a G_OBJECT it just unref it and
@@ -237,9 +246,8 @@ feature  {WRAPPER,WRAPPER_HANDLER} -- Disposing
 				end
 				handle := default_pointer
 			else
-				debug
-					print(once "Disposing a wrapper with a NULL handle. All archetypes have NULL handles.%N")
-				end
+				-- Disposing a wrapper with a NULL handle. All archetypes
+				-- have NULL handles. Currently nothing shall be done.
 			end
 		end
 
