@@ -1,11 +1,11 @@
 indexing
 	description: "."
 	copyright: "[
-					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
+					Copyright (C) 2007 Paolo Redaelli
 					
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
+					This program is free software; you can redistribute it and/or
+					modify it under the terms of the GNU General Public License
+					as published by the Free Software Foundation; either version 2.0 of
 					the License, or (at your option) any later version.
 					
 					This library is distributed in the hope that it will be useful, but
@@ -13,14 +13,14 @@ indexing
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 					Lesser General Public License for more details.
 
-					You should have received a copy of the GNU Lesser General Public
+					You should have received a copy of the GNU General Public
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
 
 class EIFFEL_DOCUMENTATION_TEXT_BUFFER
-	-- TODO: Recognize class names stored into comments and add proper link to it
+	-- TODO: Recognize class names stored into comments and add proper link to them
 
 inherit
 	GTK_TEXT_BUFFER
@@ -40,6 +40,9 @@ inherit
 
 	CREATION_CLAUSE_LIST_VISITOR undefine is_equal, copy end
 	CREATION_CLAUSE_VISITOR undefine is_equal, copy end
+	
+	CLIENT_LIST_VISITOR undefine is_equal, copy end
+	FEATURE_NAME_VISITOR undefine is_equal, copy end
 	
 insert
 	PANGO_SCALES
@@ -98,7 +101,7 @@ feature
 			-- this. A couple of one-liner patches have already been
 			-- applied to the SE repository.
 		do
-			insert_with_tag(iter,once "SmartEiffel 2.3 does not export to visitors enought features to implement this. A couple of one-liner patches have already been applied to the compiler SVN repository.",note_tag)
+			insert_with_tag(iter,once "SmartEiffel 2.3 does not export to visitors enought features to implement this. A couple of one-liner patches have already been applied to the compiler SVN repository.%N",note_tag)
 			-- require index_list_not_void: class_text.index_list /= Void
 			-- local
 			--	index_list: INDEX_LIST; string: STRING
@@ -202,18 +205,51 @@ feature
 		require some_parent_edges /= Void
 		local i: INTEGER; edge: PARENT_EDGE
 		do
-			from i := some_parent_edges.lower until i > some_parent_edges.upper loop
+			from i:=some_parent_edges.lower until i>some_parent_edges.upper-1
+			loop
 				edge := some_parent_edges.item(i)
-				insert_with_tag(iter, edge.class_text_name+"%N",feature_tag)
+				insert_with_tag(iter, edge.class_text_name+", ",feature_tag)
 				i := i + 1
 			end
+			insert_with_tag(iter,some_parent_edges.item(i).class_text_name+"%N",
+								 feature_tag)
 		end
 	
 	put_creation_clause_list is
 		require class_text.creation_clause_list /= Void
+		local cci: ITERATOR[CREATION_CLAUSE]; cc: CREATION_CLAUSE; i: INTEGER
 		do
-			-- Useful CREATION_CLAUSE_LIST features clients: CLIENT_LIST
-			-- comment: COMMENT; procedure_list: FEATURE_NAME_LIST
+			insert_with_tag(iter,once "creation features: ",feature_tag)
+			
+			cci := class_text.creation_clause_list.list.get_new_iterator
+			from cci.start until cci.is_off loop
+				cc:=cci.item
+				
+				if cc.clients/=Void
+				then 
+					-- The Eiffel view of the allowed classe(s) list.
+					insert_with_tag(iter, cc.clients.eiffel_view, feature_tag)
+					
+					-- class_name_list: CLASS_NAME_LIST		
+				else io.put_line(once "Void clients in creation clause list.")
+				end
+
+				if cc.comment/=Void
+				then put_comment(cc.comment)
+				else io.put_line(once "Void comment in creation clause list.")
+				end
+										
+				if cc.procedure_list/=Void
+				then
+					from i:=1 until i>cc.procedure_list.count loop
+						put_feature_name(cc.procedure_list.item(i))
+						i:=i+1
+					end
+				else io.put_line(once "Void procedure list in creation clause list.")
+				end
+				insert_at(iter, once "%N")
+				cci.next
+			end
 		end
 
 	put_feature_clause_list is
@@ -221,6 +257,27 @@ feature
 		do
 			-- count: INTEGER_32 Number of items in Current. list:
 			-- FAST_ARRAY[FEATURE_CLAUSE]
+		end
+
+	
+	put_feature_name (a_name: FEATURE_NAME) is
+		require name_not_void: a_name /= Void
+		do
+			if a_name.is_frozen then
+				insert_with_tag(iter,once "frozen ",feature_tag)
+			end
+			if a_name.is_infix_name then
+				insert_with_tag(iter,once "infix ",feature_tag)
+			end
+			if a_name.is_prefix_name then
+				insert_with_tag(iter,once "prefix ",feature_tag)
+			end
+			insert_with_tag(iter,a_name.name.to_string,feature_tag)
+
+			insert_with_tag(iter,once "(to_string is: "+a_name.to_string+")",note_tag)
+			if a_name.is_simple_feature_name then
+				insert_with_tag(iter,once " is_simple_feature_name ",note_tag)
+			end
 		end
 	
 feature -- Visitor features. Mostly empty
@@ -239,6 +296,8 @@ feature -- Visitor features. Mostly empty
 		
 	visit_creation_clause_list (visited: CREATION_CLAUSE_LIST) is do raise(dead_code) end
 	visit_creation_clause (visited: CREATION_CLAUSE) is do raise(dead_code) end
+	visit_client_list (visited: CLIENT_LIST) is do raise(dead_code) end
+	visit_feature_name (visited: FEATURE_NAME) is do raise(dead_code) end
 	
 	dead_code: STRING is "Visitor feature of an EIFFEL_DOCUMENTATION_TEXT_BUFFER invoked. They should never be invoked by design, since they're empty."
 
