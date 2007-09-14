@@ -113,13 +113,33 @@ feature
 	
 feature -- TODO: The "background" property
 
---    "background"           gchararray            : Write
+	set_background (a_color: STRING) is
+			-- Background color as a string.
+		require color_not_void: a_color /= Void
+		do
+			set_string_property(background_property_name,a_color)
+		end
 
---    Background color as a string.
-
---    Default value: NULL
-
-
+	set_background_color (a_color: GDK_COLOR) is
+			-- Set the background color from a (possibly unallocated?)
+			-- GdkColor.
+		require color_not_void: a_color /= Void
+		do
+			set_pointer_property(background_gdk_property_name,a_color.handle)
+		end
+	
+	background: GDK_COLOR is
+			-- The background color (property "background-gdk" GdkColor:
+			-- Read / Write)
+		local ptr: POINTER
+		do
+			ptr:=pointer_property_from_pspec(background_gdk_pspec)
+			if ptr.is_not_null then
+				create Result.from_external_pointer(ptr)
+			end
+		ensure not_void: Result /= Void
+		end
+		
 feature -- TODO: The "background-full-height" property
 
 --    "background-full-height" gboolean              : Read / Write
@@ -137,13 +157,6 @@ feature -- TODO: The "background-full-height-set" property
 --    Whether this tag affects background height.
 
 --    Default value: FALSE
-
-
-feature -- TODO: The "background-gdk" property
-
---    "background-gdk"       GdkColor              : Read / Write
-
---    Background color as a (possibly unallocated) GdkColor.
 
 
 feature -- TODO: The "background-set" property

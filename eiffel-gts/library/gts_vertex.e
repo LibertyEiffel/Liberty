@@ -54,22 +54,23 @@ feature
 			-- Is Current used by a GtsEdge boundary of `a_surface' as determined
 			-- by GTS_EDGE.is_boundary? 
 
-			-- Note: GTS allow `a_surface' is allowed to be NULL. The reason why it
-			-- is not clear
-		require surface_not_void: a_surface /= Void
+			-- Note: GTS allows `a_surface' to be NULL. The reason is not
+			-- clear,
 		do
-			Result:=(gts_vertex_is_boundary(handle,a_surface.handle).to_boolean)
+			-- require surface_not_void: a_surface /= Void
+			Result:=(gts_vertex_is_boundary(handle,null_or(a_surface)).to_boolean)
 		end
 
 	contact_number (do_sever: BOOLEAN): INTEGER is
-			-- the number of sets of connected triangles sharing v as a
-			-- contact vertex. 
+			-- the number of sets of connected triangles sharing Current
+			-- as a contact vertex.
 
-			-- `do_sever': if TRUE and if v is a contact vertex between
-			-- two or more sets of connected triangles replaces it with
-			-- as many vertices, clones of v.
+			-- `do_sever': if TRUE and if Current vertex is a contact
+			-- vertex between two or more sets of connected triangles
+			-- replaces it with as many vertices, clones of v.
 
 			-- TODO: Should be NATURAL since it is guint
+		obsolete "This feature breaks command-query separation principle!"
 		do
 			Result:=gts_vertex_is_contact(handle, do_sever.to_integer)
 		end
@@ -84,25 +85,27 @@ feature
 
 	replace_with (another: GTS_VERTEX) is
 			-- Replaces Current vertex with `another'. v and with must be
-			-- different. All the GtsSegment which have v has one of their vertices
-			-- are updated. The segments list of vertex is freed and `segments'
-			-- is set to Void.
+			-- different. All the GtsSegment which have v has one of
+			-- their vertices are updated. The segments list of vertex is
+			-- freed and `segments' is set to Void.
 		require 
 			another_not_void: another/=Void
 			not_equal: not is_equal(another)
 		do
 			gts_vertex_replace (handle, another.handle)
 		end
-
+	
 	neighbors (except_list: G_SLIST[GTS_VERTEX]; a_surface: GTS_SURFACE): G_SLIST[GTS_VERTEX] is
-			-- the GtsVertex connected to v by a GtsSegment, except those listed in
-			-- `except_list' . If `a_surface' is not Void only the vertices
-			-- connected to v by an edge belonging to surface are considered.
+			-- the vertices connected to Current vertex by a segment,
+			-- except those listed in `except_list' . If `a_surface' is
+			-- not Void only the vertices connected to Current by an edge
+			-- belonging to surface are considered.
 		local l,s: POINTER
 		do
 			if except_list /= Void then l:=except_list.handle end
 			if a_surface /= Void then s:=a_surface.handle end
-			create Result.from_external_pointer(gts_vertex_neighbors(handle,l,s))
+			create Result.from_external(gts_vertex_neighbors(handle,l,s),
+												 vertex_factory)
 		end
 
 	triangles: G_SLIST[GTS_TRIANGLE] is

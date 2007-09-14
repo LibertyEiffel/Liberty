@@ -72,18 +72,15 @@ feature {GTK_EIFFEL_DOC} -- Creation
 				-- remove the line above and put "if
 				-- class_text.index_list/=Void then put_indexing end" when
 				-- 2.4 is out.
-				if class_text.heading_comment1/=Void then put_comment(class_text.heading_comment1) end
+				put_comment(class_text.heading_comment1)
 				put_class_name
-				if class_text.heading_comment2/=Void then put_comment(class_text.heading_comment2) end
+				put_comment(class_text.heading_comment2)
 				if class_text.obsolete_mark /= Void then put_obsolete_mark end
 				if class_text.parent_lists /= Void then put_parent_lists end
 				if class_text.creation_clause_list /= Void then put_creation_clause_list end
 				if class_text.feature_clause_list /= Void then put_feature_clause_list end
-				-- # class_invariant: CLASS_INVARIANT
-				-- If any, the class invariant.
-				-- # end_comment: COMMENT
-				-- Comment after end of class.
-
+				if class_text.class_invariant/=Void then put_class_invariant end
+				put_comment(class_text.end_comment)
 			else insert_at(iter, once "No class text")
 			end
 		end
@@ -129,10 +126,11 @@ feature
 			-- 			end -- Loop over index list
 		end
 
-	put_comment(a_comment: COMMENT) is
-		require  a_comment /= Void
+	put_comment (a_comment: COMMENT) is
 		do
-			insert_with_tag(iter,merged_strings(a_comment.list),comment_tag)
+			if a_comment/=Void then
+				insert_with_tag(iter,merged_strings(a_comment.list),comment_tag)
+			end
 		end
 
 	put_class_name is
@@ -187,13 +185,13 @@ feature
 				then insert_with_tag(iter,once "Direct parent ",keyword_tag)
 				else insert_with_tag(iter,once "Direct parents ",keyword_tag)
 				end
-				if parents.inherit_comment /= Void then put_comment(parents.inherit_comment) end
+				put_comment(parents.inherit_comment)
 				if parents.inherit_list /= Void then put_parent_edges(parents.inherit_list) end
 			end
 			
 			if parents.insert_count > 0 then
 				insert_with_tag(iter,once "Directly inserting ",keyword_tag)
-				if parents.insert_comment /= Void then put_comment(parents.insert_comment) end
+				put_comment(parents.insert_comment)
 				if parents.default_insert_any_added_flag
 				then insert_with_tag(iter,once "ANY has been automatically inserted%N",comment_tag)
 				end
@@ -253,10 +251,31 @@ feature
 		end
 
 	put_feature_clause_list is
-		require class_text.feature_clause_list /= Void 
+		require class_text.feature_clause_list /= Void
+		local
+			fci: ITERATOR[FEATURE_CLAUSE] -- Feature Clause Iterator
+			fc: FEATURE_CLAUSE -- Feature Clause
+			i: INTEGER
 		do
-			-- count: INTEGER_32 Number of items in Current. list:
-			-- FAST_ARRAY[FEATURE_CLAUSE]
+			fci := class_text.feature_clause_list.list.get_new_iterator
+			from fci.start until fci.is_off loop
+				fc := fci.item
+				-- clients: CLIENT_LIST The clients allowed to use these
+				-- features.
+				insert_with_tag(iter, fc.clients.eiffel_view, feature_tag)
+
+				-- comment: COMMENT The heading comment comming with the
+				-- clause.
+				put_comment(fc.comment)
+
+				-- list: FAST_ARRAY[FEATURE_TEXT] Only the features of the
+				-- current clause.
+				from i := fc.list.lower until i > fc.list.upper loop
+					put_feature_text(fc.list.item(i))
+					i := i + 1
+				end
+				fci.next
+			end
 		end
 
 	
@@ -278,6 +297,48 @@ feature
 			if a_name.is_simple_feature_name then
 				insert_with_tag(iter,once " is_simple_feature_name ",note_tag)
 			end
+		end
+
+	put_feature_text(a_text: FEATURE_TEXT) is
+		require text_not_void: a_text/=Void
+		local i: INTEGER
+		do
+			-- names: FEATURE_NAME_LIST All the names of the feature.
+			if a_text.names/=Void then
+				from i:=1 until i>a_text.names.count loop
+					put_feature_name(a_text.names.item(i))
+					i:=i+1
+				end
+			else io.put_line(once "Void feature names list!")
+			end
+
+			-- arguments: FORMAL_ARG_LIST Arguments if any.
+
+			-- result_type: TYPE_MARK Result type if any.
+
+			-- anonymous_feature: ANONYMOUS_FEATURE The corresponding one.
+
+			-- constant_value: EXPRESSION The one if any.
+
+			put_comment(a_text.header_comment)
+			-- Header comment for a routine or following comment for an
+			-- attribute.
+			
+			-- obsolete_mark: MANIFEST_STRING The obsolete mark if any.
+
+			-- clients: CLIENT_LIST
+
+			-- require_assertion: E_REQUIRE Not Void if any.
+
+			-- (not useful here) rescue_compound: INSTRUCTION Not Void if any.
+
+			-- ensure_assertion: E_ENSURE Not Void if any.			
+		end
+	
+	put_class_invariant is
+		require class_text.class_invariant/=Void
+		do
+			
 		end
 	
 feature -- Visitor features. Mostly empty
@@ -330,6 +391,7 @@ feature -- Tags
 			
 			create feature_tag.with_name(once "feature")
 			feature_tag.set_weight(pango_weight_bold)
+			--feature_tag.set_foreground_color (midcolor (feature_tag.foreground, feature_tag.background))
 			tag_table.add(feature_tag)
 			
 			create cluster_tag.with_name(once "cluster")
@@ -348,7 +410,7 @@ feature -- Tags
 	class_tag: GTK_TEXT_TAG 
 	feature_tag: GTK_TEXT_TAG
 	cluster_tag: GTK_TEXT_TAG
-	
+
 	note_tag: GTK_TEXT_TAG
 
 feature {} -- Implementation, syntactic sugar
@@ -416,6 +478,18 @@ feature {} -- Implementation, syntactic sugar
 			Result := (U"%/Ux2192/").to_string 
 		end
 
+
+	midcolor (a,b: GDK_COLOR): GDK_COLOR is
+		require
+			a /= Void
+			b /= Void
+		do
+			create Result.make
+			Result.set_red((a.red+b.red)//2)
+			Result.set_green((a.green+b.green)//2)
+			Result.set_blue((a.blue+b.blue)//2)
+		end
+	
 invariant
 	class_name/=Void
 	class_text/=Void

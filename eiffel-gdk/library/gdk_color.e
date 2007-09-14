@@ -7,8 +7,7 @@ indexing
 
 class GDK_COLOR
 
-inherit
-	C_STRUCT
+inherit SHARED_C_STRUCT redefine copy, free end
 
 creation dummy,
 	from_external_pointer, make
@@ -25,8 +24,15 @@ feature -- Creation
 	make is
 		do
 			allocate
+			set_unshared
 		end
 
+	copy (another: like Current) is
+		do
+			from_external_pointer(gdk_color_copy(another.handle))
+			set_unshared
+		end
+	
 feature -- Getters and setters
 
 	is_allocated: BOOLEAN
@@ -97,7 +103,18 @@ feature -- Getters and setters
 			blue = a_blue
 		end
 
+feature {} -- External call
+	gdk_color_copy (a_color: POINTER): POINTER is
+			--	gdkColor* gdk_color_copy (const GdkColor *color);
+		external "C use <gdk/gdk.h>"
+		end
 
+	free (a_color: POINTER) is
+			-- void gdk_color_free (GdkColor *color);
+		external "C use <gdk/gdk.h>"
+		alias "gdk_color_free"
+		end
+	
 feature {} -- Low level access
 
 	get_pixel_external (ptr: POINTER): INTEGER is

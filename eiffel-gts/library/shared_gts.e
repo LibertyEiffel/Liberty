@@ -124,7 +124,18 @@ feature -- Face related
 				end
 			end
 		end
-			
+
+feature {} -- Factories
+	vertex_factory: ARCHETYPE_FACTORY[GTS_VERTEX] is
+		once
+			create Result.with_archetype(create {GTS_VERTEX}.dummy)
+		end
+
+	triangle_factory: ARCHETYPE_FACTORY[GTS_TRIANGLE] is
+		once
+			create Result.with_archetype(create {GTS_TRIANGLE}.dummy)
+		end
+
 feature {} -- External calls
 	gts_faces_from_edges (some_edges, a_surface: POINTER): POINTER is
 		external "C use <gts.h>"

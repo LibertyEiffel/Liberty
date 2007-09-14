@@ -71,7 +71,11 @@ feature
 		
 			-- `a_point' is the lower-left front corner of the box. 
 			-- `another_point' is the upper-right back corner of the box.
-
+		require 
+			point_not_void: a_point/=Void
+			another_point_not_void: another_point/=Void
+			point_is_low_left_corner: ((a_point.x < another_point.x) and
+												a_point.y < another_point.y))
 		do
 			Result:=(gts_point_is_in_rectangle
 						(handle, a_point.handle, another_point.handle)).to_boolean
@@ -151,10 +155,10 @@ feature
 		end
 
 	in_circle (p1,p2,p3: GTS_POINT): REAL is
-			-- A positive number if Current lies inside, a negative
-			-- number if Current lies outside and zero if Current lies on
-			-- the circle defined by the planar projection of p1, p2 and
-			-- p3.
+			-- A positive number if Current lies inside the circle
+			-- defined by the planar projection of `p1', `p2' and `p3'; a
+			-- negative number if Current lies outside the circle and
+			-- zero if Current lies on it.
 		require 
 			p1_not_void: p1 /= Void
 			p2_not_void: p2 /= Void
@@ -181,14 +185,13 @@ feature
 			-- inside, outside or on the boundary of the planar
 			-- projection of `a_triangle'. This function is geometrically
 			-- robust. `gts_in' if Current is inside `a_triangle',
-			-- `gts_on' if Current is on the boundary of `a_triangle',
-			-- GTS_OUT otherwise.
+			-- `gts_on' if Current is on the boundary, `gts_out'
+			-- otherwise.
 		require
 			triangle_not_void: a_triangle /= Void
 		do
 			Result := gts_point_is_in_triangle (handle, a_triangle.handle)
 		end
-
 
 	segment_distance2 (a_segment: GTS_SEGMENT): REAL is
 			-- the square of the minimun Euclidean distance between Current and `a_segment'.
