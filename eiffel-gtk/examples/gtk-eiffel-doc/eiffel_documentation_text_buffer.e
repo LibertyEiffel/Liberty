@@ -43,6 +43,12 @@ inherit
 	
 	CLIENT_LIST_VISITOR undefine is_equal, copy end
 	FEATURE_NAME_VISITOR undefine is_equal, copy end
+
+	ASSERTION_LIST_VISITOR undefine is_equal, copy end
+		-- ASSERTION_LIST_VISITOR is an heir of CHECK_INVARIANT_VISITOR,
+		-- CLASS_INVARIANT_VISITOR, E_ENSURE_VISITOR,
+		-- LOOP_INVARIANT_VISITOR, REQUIRE_ITEM_VISITOR so there's no
+		-- need to inherit them anew.
 	
 insert
 	PANGO_SCALES
@@ -75,11 +81,15 @@ feature {GTK_EIFFEL_DOC} -- Creation
 				put_comment(class_text.heading_comment1)
 				put_class_name
 				put_comment(class_text.heading_comment2)
-				if class_text.obsolete_mark /= Void then put_obsolete_mark end
+				if class_text.obsolete_mark/=Void then 
+					insert_with_tag(iter,once "obsolete ", class_tag)
+					insert_with_tag(iter,class_text.obsolete_mark.to_string, string_tag)
+					insert_at(iter,newline)
+				end
 				if class_text.parent_lists /= Void then put_parent_lists end
 				if class_text.creation_clause_list /= Void then put_creation_clause_list end
 				if class_text.feature_clause_list /= Void then put_feature_clause_list end
-				if class_text.class_invariant/=Void then put_class_invariant end
+				if class_text.class_invariant/=Void then put_class_invariant(class_text.class_invariant) end
 				put_comment(class_text.end_comment)
 			else insert_at(iter, once "No class text")
 			end
@@ -155,7 +165,7 @@ feature
 				put_formal_generic_arg(class_text.formal_generic_list.item(i))
 				insert_with_tag(iter,once "]",class_tag)				
 			end
-			insert_at(iter,once "%N")
+			insert_at(iter,newline)
 		end
 
 	put_formal_generic_arg (an_arg: FORMAL_GENERIC_ARG) is
@@ -166,27 +176,22 @@ feature
 				insert_with_tag(iter,an_arg.constraint.written_mark,class_tag)
 			end
 		end
-	
-	put_obsolete_mark is
-		require class_text.obsolete_mark/=Void
-		do
-			insert_with_tag(iter,once "obsolete%N", class_tag)
-			insert_with_tag(iter,class_text.obsolete_mark.to_string, string_tag)
-		end
-			
+				
 	put_parent_lists is
+			-- Put parent_lists if not Void
 		require class_text.parent_lists /= Void
 		local parents: PARENT_LISTS
-		do
+		do	
 			parents := class_text.parent_lists
-
 			if parents.inherit_count > 0 then
 				if parents.inherit_count = 1
 				then insert_with_tag(iter,once "Direct parent ",keyword_tag)
 				else insert_with_tag(iter,once "Direct parents ",keyword_tag)
 				end
 				put_comment(parents.inherit_comment)
-				if parents.inherit_list /= Void then put_parent_edges(parents.inherit_list) end
+				if parents.inherit_list /= Void
+				then put_parent_edges(parents.inherit_list)
+				end
 			end
 			
 			if parents.insert_count > 0 then
@@ -195,10 +200,12 @@ feature
 				if parents.default_insert_any_added_flag
 				then insert_with_tag(iter,once "ANY has been automatically inserted%N",comment_tag)
 				end
-				if parents.insert_list /= Void then put_parent_edges(parents.insert_list) end
+				if parents.insert_list /= Void
+				then put_parent_edges(parents.insert_list)
+				end
 			end
 		end
-
+	
 	put_parent_edges (some_parent_edges: COLLECTION[PARENT_EDGE]) is
 		require some_parent_edges /= Void
 		local i: INTEGER; edge: PARENT_EDGE
@@ -209,8 +216,9 @@ feature
 				insert_with_tag(iter, edge.class_text_name+", ",feature_tag)
 				i := i + 1
 			end
-			insert_with_tag(iter,some_parent_edges.item(i).class_text_name+"%N",
+			insert_with_tag(iter,some_parent_edges.item(i).class_text_name,
 								 feature_tag)
+			insert_at(iter,newline)
 		end
 	
 	put_creation_clause_list is
@@ -219,34 +227,31 @@ feature
 		do
 			insert_with_tag(iter,once "creation features: ",feature_tag)
 			
-			cci := class_text.creation_clause_list.list.get_new_iterator
-			from cci.start until cci.is_off loop
-				cc:=cci.item
-				
-				if cc.clients/=Void
-				then 
-					-- The Eiffel view of the allowed classe(s) list.
-					insert_with_tag(iter, cc.clients.eiffel_view, feature_tag)
-					
-					-- class_name_list: CLASS_NAME_LIST		
-				else io.put_line(once "Void clients in creation clause list.")
-				end
-
-				if cc.comment/=Void
-				then put_comment(cc.comment)
-				else io.put_line(once "Void comment in creation clause list.")
-				end
-										
-				if cc.procedure_list/=Void
-				then
-					from i:=1 until i>cc.procedure_list.count loop
-						put_feature_name(cc.procedure_list.item(i))
-						i:=i+1
+			if class_text.creation_clause_list.list /= Void then 
+				cci := class_text.creation_clause_list.list.get_new_iterator
+				from cci.start until cci.is_off loop
+					cc:=cci.item 					
+					if cc.clients/=Void then 
+						-- The Eiffel view of the allowed classe(s) list.
+						insert_with_tag(iter, cc.clients.eiffel_view, feature_tag)
+						-- class_name_list: CLASS_NAME_LIST		
+					else io.put_line(once "Void clients in creation clause list.")
 					end
-				else io.put_line(once "Void procedure list in creation clause list.")
-				end
-				insert_at(iter, once "%N")
-				cci.next
+
+					if cc.comment/=Void then put_comment(cc.comment)
+					else io.put_line(once "Void comment in creation clause list.")
+					end
+										
+					if cc.procedure_list/=Void then
+						from i:=1 until i>cc.procedure_list.count loop
+							put_feature_name(cc.procedure_list.item(i))
+							i:=i+1
+						end
+					else io.put_line(once "Void procedure list in creation clause list.")
+					end
+					insert_at(iter, newline)
+					cci.next
+				end -- loop over creation clauses
 			end
 		end
 
@@ -267,17 +272,20 @@ feature
 				-- comment: COMMENT The heading comment comming with the
 				-- clause.
 				put_comment(fc.comment)
-
+				
 				-- list: FAST_ARRAY[FEATURE_TEXT] Only the features of the
 				-- current clause.
-				from i := fc.list.lower until i > fc.list.upper loop
-					put_feature_text(fc.list.item(i))
-					i := i + 1
+				if fc.list/=Void then 
+					from i := fc.list.lower until i > fc.list.upper loop
+						put_feature_text(fc.list.item(i))
+						i := i + 1
+					end
+				else insert_with_tag(iter, once "no feature text into a feature clause%N", note_tag)
 				end
-				fci.next
-			end
-		end
 
+				fci.next
+			end -- Loop over Feature Clause
+		end
 	
 	put_feature_name (a_name: FEATURE_NAME) is
 		require name_not_void: a_name /= Void
@@ -312,34 +320,88 @@ feature
 			else io.put_line(once "Void feature names list!")
 			end
 
-			-- arguments: FORMAL_ARG_LIST Arguments if any.
-
-			-- result_type: TYPE_MARK Result type if any.
-
-			-- anonymous_feature: ANONYMOUS_FEATURE The corresponding one.
-
-			-- constant_value: EXPRESSION The one if any.
-
-			put_comment(a_text.header_comment)
-			-- Header comment for a routine or following comment for an
-			-- attribute.
+			if a_text.arguments/=Void
+			then put_formal_arg_list(a_text.arguments)
+			end
 			
-			-- obsolete_mark: MANIFEST_STRING The obsolete mark if any.
+			if a_text.result_type/=Void then 
+				-- result_type: TYPE_MARK Result type if any.
+				insert_with_tag(iter,a_text.result_type.written_mark,feature_tag)
+			end
+			
+			put_comment(a_text.header_comment) -- Header comment for a routine or following comment for an attribute.
+			
+			if a_text.obsolete_mark/=Void then
+				-- obsolete_mark: MANIFEST_STRING The obsolete mark if any.
+				insert_with_tag(iter,once "obsolete ", feature_tag)
+				insert_with_tag(iter,a_text.obsolete_mark.to_string, string_tag)
+				insert_at(iter,newline)
+			end
+			
+			if a_text.clients/=Void then
+				-- clients: CLIENT_LIST
+			end
+			
+			if a_text.require_assertion/=Void then
+				-- require_assertion: E_REQUIRE Not Void if any.
+			end
 
-			-- clients: CLIENT_LIST
-
-			-- require_assertion: E_REQUIRE Not Void if any.
-
-			-- (not useful here) rescue_compound: INSTRUCTION Not Void if any.
-
-			-- ensure_assertion: E_ENSURE Not Void if any.			
+			if a_text.ensure_assertion/=Void then 
+				-- ensure_assertion: E_ENSURE Not Void if any.
+				put_ensure_assertion(a_text.ensure_assertion)
+			end
 		end
 	
-	put_class_invariant is
+	put_class_invariant (an_invariant: CLASS_INVARIANT) is
 		require class_text.class_invariant/=Void
+		local assertion_iter: ITERATOR[ASSERTION]; an_assertion: ASSERTION
+		do
+			if an_invariant.list/=Void then
+				assertion_iter:=an_invariant.list.get_new_iterator
+				from assertion_iter.start until assertion_iter.is_off
+				loop
+					an_assertion := assertion_iter.item
+					if an_assertion/=Void then put_assertion(an_assertion) end
+					assertion_iter.next
+				end
+			else io.put_line(once "Empty assertion list in a class invariant.")
+			end
+		end
+
+	put_assertion (an_assertion: ASSERTION) is
+		require an_assertion/=Void
+		do
+			-- tag: TAG_NAME
+			-- expression: EXPRESSION
+			-- comment: COMMENT
+		end
+	
+	put_formal_arg_list (some_arguments: FORMAL_ARG_LIST) is
+			-- Put formal arguments
+		require some_arguments/=Void
+		local i: INTEGER; type_mark: TYPE_MARK
+		do
+			from i:=1 until i>some_arguments.count loop
+				type_mark := some_arguments.type_mark(i)
+				i := i + 1
+				if type_mark/=Void then
+					insert_with_tag(iter, type_mark.written_mark,feature_tag)
+				end
+			end
+		end
+	
+	put_require_assertion (a_require_assertion: E_REQUIRE) is
+		require a_require_assertion/=Void
 		do
 			
 		end
+
+	put_ensure_assertion (an_ensure_assertion: E_ENSURE) is
+		require an_ensure_assertion /= Void
+		do
+			
+		end
+
 	
 feature -- Visitor features. Mostly empty
 	visit_class_name (visited: CLASS_NAME) is do raise(dead_code) end
@@ -359,6 +421,16 @@ feature -- Visitor features. Mostly empty
 	visit_creation_clause (visited: CREATION_CLAUSE) is do raise(dead_code) end
 	visit_client_list (visited: CLIENT_LIST) is do raise(dead_code) end
 	visit_feature_name (visited: FEATURE_NAME) is do raise(dead_code) end
+
+	-- ASSERTION_LIST_VISITOR features
+	visit_loop_invariant (visited: LOOP_INVARIANT) is do raise(dead_code) end
+	visit_require_item (visited: REQUIRE_ITEM) is do raise(dead_code) end
+	visit_check_invariant (visited: CHECK_INVARIANT) is do raise(dead_code) end
+	visit_e_ensure (an_ensure: E_ENSURE) is do raise(dead_code) end
+	visit_e_require (a_require: E_REQUIRE) is do raise(dead_code) end
+	visit_class_invariant (visited: CLASS_INVARIANT) is do raise(dead_code) end
+	
+	visit_assertion (visited: ASSERTION) is do raise(dead_code) end
 	
 	dead_code: STRING is "Visitor feature of an EIFFEL_DOCUMENTATION_TEXT_BUFFER invoked. They should never be invoked by design, since they're empty."
 
@@ -426,7 +498,8 @@ feature {} -- Implementation, syntactic sugar
 
 	no_padding: INTEGER is 0
 
-
+	newline: STRING is "%N"
+	
 	merged_strings (some_strings: COLLECTION[STRING]): STRING is
 			-- A new string with all the strings in `some_strings'
 			-- appended; all carriage return are replaced with a space. A
@@ -492,5 +565,4 @@ feature {} -- Implementation, syntactic sugar
 	
 invariant
 	class_name/=Void
-	class_text/=Void
 end -- class EIFFEL_DOCUMENTATION_TEXT_BUFFER
