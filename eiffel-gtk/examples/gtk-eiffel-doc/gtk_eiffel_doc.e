@@ -132,10 +132,10 @@ feature -- Classes and clusters storage
 	
 feature -- Clusters and classes list
 	clusters: HASHED_DICTIONARY[CLUSTER,HASHED_STRING] 
-			-- All the clusters known was: LINKED_LIST[CLUSTER]
+			-- All the clusters known 
 	
 	classes: HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING]
-			-- All the known classes was: LINKED_LIST[CLASS_TEXT]
+			-- All the known classes
 	
 feature -- 
 	on_fatal_error is
@@ -243,7 +243,7 @@ feature --
 		do
 			class_documentation := class_text_buffers.reference_at(an_hashed_class_name)
 			if class_documentation = Void then
-				class_documentation := generate_documentation_for(an_hashed_class_name)
+				class_documentation := documentation_for(an_hashed_class_name)
 				class_text_buffers.put(class_documentation, an_hashed_class_name)
 			else
 				debug
@@ -253,9 +253,11 @@ feature --
 			text_view.set_buffer(class_documentation)
 		end
 	
-	generate_documentation_for(an_hashed_class_name: HASHED_STRING): EIFFEL_DOCUMENTATION_TEXT_BUFFER is
-			-- Generate the documentation of the class named
-			-- `an_hashed_class_name'. If the 
+	documentation_for (an_hashed_class_name: HASHED_STRING): EIFFEL_DOCUMENTATION_TEXT_BUFFER is
+			-- The documentation of the class named
+			-- `an_hashed_class_name'. If it hasn't already been make a 
+			-- new text buffer is created and it's content is stored 
+			-- into `classes' dictionary.
 		require
 			name_not_void: an_hashed_class_name/=Void
 			is_a_class: classes.has(an_hashed_class_name)

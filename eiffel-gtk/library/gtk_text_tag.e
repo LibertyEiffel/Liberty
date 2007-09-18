@@ -111,7 +111,7 @@ feature
 	--    iter :         location where the event was received
 	--    Returns :      result of signal emission (whether the event was handled)
 	
-feature -- TODO: The "background" property
+feature -- The "background" property
 
 	set_background (a_color: STRING) is
 			-- Background color as a string.
@@ -315,12 +315,18 @@ feature -- TODO: The "foreground-stipple-set" property
 
 feature -- TODO: The "indent" property
 
---    "indent"               gint                  : Read / Write
+	indent: INTEGER is
+			-- Indent of the paragraph, in pixels. Default value: 0
+		do
+			Result :=integer_property_from_pspec(indent_pspec)
+		end
 
---    Amount to indent the paragraph, in pixels.
-
---    Default value: 0
-
+	set_indent (an_amount: INTEGER) is
+		-- Set `indent' to `an_amount'.
+		do
+			set_integer_property(indent_property_name,an_amount)
+		ensure set: an_amount = indent
+		end
 
 feature -- TODO: The "indent-set" property
 
@@ -367,8 +373,6 @@ feature -- "justification" property
 		require valid: is_valid_gtk_justification(a_justification)
 		do
 			set_enum_property(justification_property_name,a_justification)
-		rescue
-			io.put_line("HEYYYYY!!!! GTK_TEXT_TAG.set_justification FAAAAILEEED!")
 		end
 
 feature -- TODO: The "justification-set" property
@@ -464,17 +468,22 @@ feature -- TODO: The "paragraph-background-set" property
 
 --    Default value: FALSE
 
-
-feature -- TODO: The "pixels-above-lines" property
-
---    "pixels-above-lines"   gint                  : Read / Write
-
---    Pixels of blank space above paragraphs.
-
---    Allowed values: >= 0
-
---    Default value: 0
-
+feature -- The "pixels-above-lines" property
+	pixels_above_lines: INTEGER is
+			-- Pixels of blank space above paragraphs; default is 0;
+			-- gint read-write property: "pixels-above-lines"
+		do
+			Result:=integer_property_from_pspec(pixels_above_lines_pspec)
+		ensure valid: Result >= 0
+		end
+	
+	set_pixels_above_lines (a_value: INTEGER) is
+			-- Set `pixels_above_lines' to `a_value'
+		require valid: a_value >= 0
+		do
+			set_integer_property(pixels_above_lines_property_name,a_value)
+		ensure set: a_value = pixels_above_lines
+		end
 
 feature -- TODO: The "pixels-above-lines-set" property
 
@@ -486,15 +495,21 @@ feature -- TODO: The "pixels-above-lines-set" property
 
 
 feature -- TODO: The "pixels-below-lines" property
-
---    "pixels-below-lines"   gint                  : Read / Write
-
---    Pixels of blank space below paragraphs.
-
---    Allowed values: >= 0
-
---    Default value: 0
-
+	pixels_below_lines: INTEGER is
+			-- Pixels of blank space below paragraphs; default is 0;
+			-- gint read-write property: "pixels-below-lines"
+		do
+			Result:=integer_property_from_pspec(pixels_below_lines_pspec)
+		ensure valid: Result >= 0
+		end
+	
+	set_pixels_below_lines (a_value: INTEGER) is
+			-- Set `pixels_below_lines' to `a_value'
+		require valid: a_value >= 0
+		do
+			set_integer_property(pixels_below_lines_property_name,a_value)
+		ensure set: a_value = pixels_below_lines
+		end
 
 feature -- TODO: The "pixels-below-lines-set" property
 
@@ -572,7 +587,6 @@ feature -- TODO: The "rise-set" property
 
 
 feature --   The "scale" property
-	--    "scale"                gdouble               : Read / Write
 
 	scale: REAL is 
 			-- Font size as a scale factor relative to the default font
@@ -601,10 +615,9 @@ feature -- TODO: The "scale-set" property
 
 
 feature --   The "size" property
-	--    "size"                 gint                  : Read / Write
 
 	set_size (a_size: INTEGER) is
-			-- Set "size" property
+			-- Set "size" property (gint Read / Write)
 		require valid_size: a_size >= 0
 		do
 			set_integer_property (size_property_name, a_size)

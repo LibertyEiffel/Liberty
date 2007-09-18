@@ -26,6 +26,7 @@ inherit
 	GTK_TEXT_BUFFER
 	
 	CLASS_NAME_VISITOR undefine is_equal, copy end
+	CLASS_NAME_LIST_VISITOR  undefine is_equal, copy end
 	CLASS_TEXT_VISITOR undefine is_equal, copy end
 	INDEX_LIST_VISITOR undefine is_equal, copy end
 	INDEX_CLAUSE_VISITOR undefine is_equal, copy end
@@ -69,17 +70,16 @@ feature {GTK_EIFFEL_DOC} -- Creation
 				io.put_string(a_class_name.to_string)
 				io.put_line(once ")")
 			end
-			make
-			add_tags
-			iter := start_iter
+			make; add_tags; iter := start_iter
 			
-			if  class_text /= Void then
+			if  class_text = Void then insert_at(iter, once "No class text")
+			else
 				put_indexing 
 				-- remove the line above and put "if
 				-- class_text.index_list/=Void then put_indexing end" when
 				-- 2.4 is out.
 				put_comment(class_text.heading_comment1)
-				put_class_name
+				put_main_class_name
 				put_comment(class_text.heading_comment2)
 				if class_text.obsolete_mark/=Void then 
 					insert_with_tag(iter,once "obsolete ", class_tag)
@@ -91,7 +91,6 @@ feature {GTK_EIFFEL_DOC} -- Creation
 				if class_text.feature_clause_list /= Void then put_feature_clause_list end
 				if class_text.class_invariant/=Void then put_class_invariant(class_text.class_invariant) end
 				put_comment(class_text.end_comment)
-			else insert_at(iter, once "No class text")
 			end
 		end
 	
@@ -143,7 +142,11 @@ feature
 			end
 		end
 
-	put_class_name is
+	put_main_class_name is
+			-- Append to `iter' the name of the class text with full
+			-- details as expected when you start reading an Eiffel
+			-- class; i.e.  "deferred class FOO [ITEM_->BAR]" or
+			-- "expanded class MAMAN"
 		local i: INTEGER; an_arg: FORMAL_GENERIC_ARG
 		do
 			if class_text.is_deferred
@@ -165,7 +168,7 @@ feature
 				put_formal_generic_arg(class_text.formal_generic_list.item(i))
 				insert_with_tag(iter,once "]",class_tag)				
 			end
-			insert_at(iter,newline)
+			put_newline
 		end
 
 	put_formal_generic_arg (an_arg: FORMAL_GENERIC_ARG) is
@@ -213,35 +216,27 @@ feature
 			from i:=some_parent_edges.lower until i>some_parent_edges.upper-1
 			loop
 				edge := some_parent_edges.item(i)
-				insert_with_tag(iter, edge.class_text_name+", ",feature_tag)
+				insert_with_tag(iter, edge.class_text_name+", ",feature_name_tag)
 				i := i + 1
 			end
 			insert_with_tag(iter,some_parent_edges.item(i).class_text_name,
-								 feature_tag)
+								 feature_name_tag)
 			insert_at(iter,newline)
 		end
 	
 	put_creation_clause_list is
 		require class_text.creation_clause_list /= Void
-		local cci: ITERATOR[CREATION_CLAUSE]; cc: CREATION_CLAUSE; i: INTEGER
+		local cci: ITERATOR[CREATION_CLAUSE]; cc: CREATION_CLAUSE; i, a_count: INTEGER
 		do
-			insert_with_tag(iter,once "creation features: ",feature_tag)
-			
-			if class_text.creation_clause_list.list /= Void then 
-				cci := class_text.creation_clause_list.list.get_new_iterator
-				from cci.start until cci.is_off loop
-					cc:=cci.item 					
-					if cc.clients/=Void then 
-						-- The Eiffel view of the allowed classe(s) list.
-						insert_with_tag(iter, cc.clients.eiffel_view, feature_tag)
-						-- class_name_list: CLASS_NAME_LIST		
-					else io.put_line(once "Void clients in creation clause list.")
-					end
+			insert_with_tag(iter,once "creation features: ",feature_clause_tag)
+			put_newline
 
-					if cc.comment/=Void then put_comment(cc.comment)
-					else io.put_line(once "Void comment in creation clause list.")
-					end
-										
+			if class_text.creation_clause_list.list /= Void then
+				from cci:=class_text.creation_clause_list.list.get_new_iterator
+				until cci.is_off loop
+					cc:=cci.item
+					if cc/=Void then put_creation_clause(cc) end
+					if cc.comment/=Void then put_comment(cc.comment) end
 					if cc.procedure_list/=Void then
 						from i:=1 until i>cc.procedure_list.count loop
 							put_feature_name(cc.procedure_list.item(i))
@@ -249,12 +244,38 @@ feature
 						end
 					else io.put_line(once "Void procedure list in creation clause list.")
 					end
-					insert_at(iter, newline)
+					put_newline
 					cci.next
 				end -- loop over creation clauses
 			end
 		end
 
+	put_creation_clause (a_creation_clause: CREATION_CLAUSE) is
+		require non_void_clause: a_creation_clause/=Void
+		do
+			if a_creation_clause.clients/=Void then
+				put_client_list(a_creation_clause.clients)
+			end
+			if a_creation_clause.comment/=Void then
+				put_comment(a_creation_clause.comment)
+			end
+			if a_creation_clause.procedure_list/=Void then
+				
+			end
+		end
+	
+	put_client_list (some_clients: CLIENT_LIST) is
+		require clients_not_void: some_clients/=Void
+		local i: INTEGER 
+		do
+			if some_clients.class_name_list/=Void then
+				from i:=1 until i>some_clients.class_name_list.count-1 loop
+					insert_with_tag(iter,some_clients.class_name_list.item(i).to_string,feature_clause_tag)
+					i := i + 1
+				end
+			end
+		end
+	
 	put_feature_clause_list is
 		require class_text.feature_clause_list /= Void
 		local
@@ -267,7 +288,8 @@ feature
 				fc := fci.item
 				-- clients: CLIENT_LIST The clients allowed to use these
 				-- features.
-				insert_with_tag(iter, fc.clients.eiffel_view, feature_tag)
+				insert_with_tag(iter, "Feature clause "+fc.clients.eiffel_view,
+									 feature_name_tag)
 
 				-- comment: COMMENT The heading comment comming with the
 				-- clause.
@@ -291,32 +313,30 @@ feature
 		require name_not_void: a_name /= Void
 		do
 			if a_name.is_frozen then
-				insert_with_tag(iter,once "frozen ",feature_tag)
+				insert_with_tag(iter,once "frozen ",feature_name_tag)
 			end
 			if a_name.is_infix_name then
-				insert_with_tag(iter,once "infix ",feature_tag)
+				insert_with_tag(iter,once "infix ",feature_name_tag)
 			end
 			if a_name.is_prefix_name then
-				insert_with_tag(iter,once "prefix ",feature_tag)
+				insert_with_tag(iter,once "prefix ",feature_name_tag)
 			end
-			insert_with_tag(iter,a_name.name.to_string,feature_tag)
-
-			insert_with_tag(iter,once "(to_string is: "+a_name.to_string+")",note_tag)
-			if a_name.is_simple_feature_name then
-				insert_with_tag(iter,once " is_simple_feature_name ",note_tag)
-			end
+			insert_with_tag(iter,a_name.to_string,feature_name_tag)
 		end
 
-	put_feature_text(a_text: FEATURE_TEXT) is
+	put_feature_text (a_text: FEATURE_TEXT) is
 		require text_not_void: a_text/=Void
-		local i: INTEGER
+		local i, a_count: INTEGER
 		do
 			-- names: FEATURE_NAME_LIST All the names of the feature.
 			if a_text.names/=Void then
-				from i:=1 until i>a_text.names.count loop
+				from i:=1; a_count:=a_text.names.count until i>a_count-1 
+				loop
 					put_feature_name(a_text.names.item(i))
+					insert_with_tag(iter, once ",",feature_name_tag)
 					i:=i+1
-				end
+				end 
+				put_feature_name(a_text.names.item(a_count))
 			else io.put_line(once "Void feature names list!")
 			end
 
@@ -326,16 +346,19 @@ feature
 			
 			if a_text.result_type/=Void then 
 				-- result_type: TYPE_MARK Result type if any.
-				insert_with_tag(iter,a_text.result_type.written_mark,feature_tag)
+				insert_with_tag(iter,once ": ",argument_type_tag)
+				insert_with_tag(iter,a_text.result_type.written_mark,argument_type_tag)
 			end
 			
+			put_newline
+
 			put_comment(a_text.header_comment) -- Header comment for a routine or following comment for an attribute.
 			
 			if a_text.obsolete_mark/=Void then
 				-- obsolete_mark: MANIFEST_STRING The obsolete mark if any.
-				insert_with_tag(iter,once "obsolete ", feature_tag)
+				insert_with_tag(iter,once "obsolete ", feature_clause_tag)
 				insert_with_tag(iter,a_text.obsolete_mark.to_string, string_tag)
-				insert_at(iter,newline)
+				put_newline
 			end
 			
 			if a_text.clients/=Void then
@@ -379,15 +402,36 @@ feature
 	put_formal_arg_list (some_arguments: FORMAL_ARG_LIST) is
 			-- Put formal arguments
 		require some_arguments/=Void
-		local i: INTEGER; type_mark: TYPE_MARK
+		local i, a_count: INTEGER; a_name: ARGUMENT_NAME1; a_type_mark: TYPE_MARK
 		do
-			from i:=1 until i>some_arguments.count loop
-				type_mark := some_arguments.type_mark(i)
+			insert_with_tag(iter, once " (",feature_clause_tag)
+			from i:=1; a_count:=some_arguments.count 
+			until i > a_count-1 loop
+				a_name := some_arguments.name(i)
+				a_type_mark := some_arguments.type_mark(i)
 				i := i + 1
-				if type_mark/=Void then
-					insert_with_tag(iter, type_mark.written_mark,feature_tag)
+				check
+					name_not_void: a_name /= Void
+					type_not_void: a_type_mark /= Void
 				end
+				-- if a_name=Void then io.put_line(once "Void argument name") end
+				-- if a_type_mark=Void then io.put_line(once "Void argument type 
+				-- mark") end
+				insert_with_tag(iter, a_name.to_string,argument_name_tag)
+				insert_with_tag(iter, once ": ",argument_name_tag)
+				insert_with_tag(iter, a_type_mark.written_mark,argument_type_tag)
+				insert_with_tag(iter, once ", ",feature_clause_tag)
 			end
+			a_name := some_arguments.name(a_count)
+			a_type_mark := some_arguments.type_mark(a_count)
+			check
+				name_not_void: a_name /= Void
+				type_not_void: a_type_mark /= Void
+			end
+			insert_with_tag(iter,a_name.to_string,argument_name_tag)
+			insert_with_tag(iter, once ": ",argument_name_tag)
+			insert_with_tag(iter, a_type_mark.written_mark,argument_type_tag)
+			insert_with_tag(iter, once ")",feature_clause_tag)
 		end
 	
 	put_require_assertion (a_require_assertion: E_REQUIRE) is
@@ -405,6 +449,7 @@ feature
 	
 feature -- Visitor features. Mostly empty
 	visit_class_name (visited: CLASS_NAME) is do raise(dead_code) end
+	visit_class_name_list (visited: CLASS_NAME_LIST) is do raise(dead_code) end
 	visit_class_text (visited: CLASS_TEXT) is do raise(dead_code) end
 	visit_index_list (visited: INDEX_LIST) is do raise(dead_code) end
 	visit_index_clause (visited: INDEX_CLAUSE) is do raise(dead_code) end
@@ -445,7 +490,7 @@ feature -- Tags
 			
 			create comment_tag.with_name(once "comment")
 			-- comment_tag.set_foreground(once "green")
-			comment_tag.set_style(pango_style_oblique)
+			comment_tag.set_style(pango_style_italic)
 			comment_tag.set_left_margin(25)
 			comment_tag.set_justification(gtk_justify_left) -- TODO: when supported gtk_justify_fill)
 			tag_table.add(comment_tag)
@@ -459,13 +504,35 @@ feature -- Tags
 			create class_tag.with_name(once "class")
 			class_tag.set_scale(pango_scale_xx_large*pango_scale_large)
 			class_tag.set_weight(pango_weight_ultrabold)
+			class_tag.set_pixels_above_lines(10)
+			class_tag.set_pixels_below_lines(10)
 			tag_table.add(class_tag)
 			
-			create feature_tag.with_name(once "feature")
-			feature_tag.set_weight(pango_weight_bold)
-			--feature_tag.set_foreground_color (midcolor (feature_tag.foreground, feature_tag.background))
-			tag_table.add(feature_tag)
+			create feature_clause_tag.with_name(once "feature-clause")
+			feature_clause_tag.set_weight(pango_weight_bold)
+			feature_clause_tag.set_scale(pango_scale_x_large)
+			feature_clause_tag.set_pixels_above_lines(5)
+			feature_clause_tag.set_pixels_below_lines(5)
+			tag_table.add(feature_clause_tag)
+
+			create feature_name_tag.with_name(once "feature-name")
+			feature_name_tag.set_weight(pango_weight_bold)
+			feature_name_tag.set_scale(pango_scale_large)
+			feature_clause_tag.set_pixels_above_lines(2)
+			tag_table.add(feature_name_tag)
 			
+			create argument_name_tag.with_name(once "argument-name")
+			argument_name_tag.set_scale(pango_scale_large)
+			tag_table.add(argument_name_tag)
+
+			create argument_type_tag.with_name(once "argument-type")
+			argument_type_tag.set_weight(pango_weight_bold)
+			argument_type_tag.set_scale(pango_scale_large)
+			tag_table.add(argument_type_tag)
+
+			-- TODO: instead of argument make argument-name and
+			-- argument-type
+
 			create cluster_tag.with_name(once "cluster")
 			tag_table.add(cluster_tag)
 
@@ -474,13 +541,26 @@ feature -- Tags
 			note_tag.set_weight(pango_weight_ultralight)
 			tag_table.add(note_tag)
 		ensure
+			keyword_tag /= Void
+			comment_tag /= Void
+			string_tag /= Void
+			class_tag /= Void
+			feature_clause_tag /= Void
+			feature_name_tag /= Void
+			argument_name_tag /= Void
+			argument_type_tag /= Void
+			cluster_tag /= Void
+			note_tag /= Void
 		end
 	
 	keyword_tag: GTK_TEXT_TAG 
-	comment_tag: GTK_TEXT_TAG
+	comment_tag: GTK_TEXT_TAG 
 	string_tag: GTK_TEXT_TAG 
 	class_tag: GTK_TEXT_TAG 
-	feature_tag: GTK_TEXT_TAG
+	feature_clause_tag: GTK_TEXT_TAG
+	feature_name_tag: GTK_TEXT_TAG
+	argument_name_tag: GTK_TEXT_TAG
+	argument_type_tag: GTK_TEXT_TAG
 	cluster_tag: GTK_TEXT_TAG
 
 	note_tag: GTK_TEXT_TAG
@@ -500,6 +580,11 @@ feature {} -- Implementation, syntactic sugar
 
 	newline: STRING is "%N"
 	
+	put_newline is 
+		do 
+			insert_at(iter,newline) 
+		end
+
 	merged_strings (some_strings: COLLECTION[STRING]): STRING is
 			-- A new string with all the strings in `some_strings'
 			-- appended; all carriage return are replaced with a space. A
