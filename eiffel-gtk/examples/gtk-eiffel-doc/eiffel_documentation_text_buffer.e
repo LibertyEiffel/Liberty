@@ -43,6 +43,7 @@ inherit
 	CREATION_CLAUSE_VISITOR undefine is_equal, copy end
 	
 	CLIENT_LIST_VISITOR undefine is_equal, copy end
+	FEATURE_NAME_LIST_VISITOR undefine is_equal, copy end
 	FEATURE_NAME_VISITOR undefine is_equal, copy end
 
 	ASSERTION_LIST_VISITOR undefine is_equal, copy end
@@ -236,14 +237,6 @@ feature
 				until cci.is_off loop
 					cc:=cci.item
 					if cc/=Void then put_creation_clause(cc) end
-					if cc.comment/=Void then put_comment(cc.comment) end
-					if cc.procedure_list/=Void then
-						from i:=1 until i>cc.procedure_list.count loop
-							put_feature_name(cc.procedure_list.item(i))
-							i:=i+1
-						end
-					else io.put_line(once "Void procedure list in creation clause list.")
-					end
 					put_newline
 					cci.next
 				end -- loop over creation clauses
@@ -260,10 +253,11 @@ feature
 				put_comment(a_creation_clause.comment)
 			end
 			if a_creation_clause.procedure_list/=Void then
-				
+				put_feature_name_list(a_creation_clause.procedure_list)
+			else io.put_line(once "Void procedure list in creation clause list.")
 			end
 		end
-	
+
 	put_client_list (some_clients: CLIENT_LIST) is
 		require clients_not_void: some_clients/=Void
 		local i: INTEGER 
@@ -307,6 +301,17 @@ feature
 
 				fci.next
 			end -- Loop over Feature Clause
+		end
+	
+	put_feature_name_list (a_list: FEATURE_NAME_LIST) is
+		require list_not_void: a_list/=Void
+		local i: INTEGER
+		do
+			from i:=1 until i> a_list.count-1 loop
+				put_feature_name(a_list.item(i))
+				insert_with_tag(iter,once ", ",feature_name_tag)
+				i:=i+1
+			end
 		end
 	
 	put_feature_name (a_name: FEATURE_NAME) is
@@ -466,7 +471,8 @@ feature -- Visitor features. Mostly empty
 	visit_creation_clause (visited: CREATION_CLAUSE) is do raise(dead_code) end
 	visit_client_list (visited: CLIENT_LIST) is do raise(dead_code) end
 	visit_feature_name (visited: FEATURE_NAME) is do raise(dead_code) end
-
+	visit_feature_name_list (visited: FEATURE_NAME_LIST) is do raise(dead_code) end
+	
 	-- ASSERTION_LIST_VISITOR features
 	visit_loop_invariant (visited: LOOP_INVARIANT) is do raise(dead_code) end
 	visit_require_item (visited: REQUIRE_ITEM) is do raise(dead_code) end

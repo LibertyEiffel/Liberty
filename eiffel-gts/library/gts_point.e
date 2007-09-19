@@ -75,7 +75,7 @@ feature
 			point_not_void: a_point/=Void
 			another_point_not_void: another_point/=Void
 			point_is_low_left_corner: ((a_point.x < another_point.x) and
-												a_point.y < another_point.y))
+												(a_point.y < another_point.y))
 		do
 			Result:=(gts_point_is_in_rectangle
 						(handle, a_point.handle, another_point.handle)).to_boolean

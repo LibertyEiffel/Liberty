@@ -34,6 +34,8 @@ insert
 			fill_tagged_out_memory
 		end
 
+	SHARED_GTS
+
 creation dummy, make, from_external_pointer
 
 feature {} -- Creation

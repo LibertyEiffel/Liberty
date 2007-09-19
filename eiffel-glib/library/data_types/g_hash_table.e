@@ -9,6 +9,11 @@ class G_HASH_TABLE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
 	-- A G_HASH_TABLE provides associations between keys and values
 	-- which is optimized so that given a key, the associated value can
 	-- be found very quickly.
+
+	-- TODO: provide non-fast features, i.e. features that compare 
+	-- keys by their content, not by their address.
+
+	-- TODO: Eiffellize the following documentation.
 	
 	-- Note that neither keys nor values are copied when inserted into
 	-- the G_HASH_TABLE, so they must exist for the lifetime of the
@@ -46,12 +51,7 @@ inherit
 			is_equal, copy -- using the definition given by SHARED_C_STRUCT
 		end
 	
-	SHARED_C_STRUCT
-		redefine
-			dispose
-		end
-
-	WRAPPER_FACTORY [VALUE]
+	WRAPPER_COLLECTION[VALUE]
 	
 insert
 	G_HASH_TABLE_EXTERNALS
@@ -59,16 +59,17 @@ insert
 creation dummy, from_external_pointer
 
 feature {} -- Creation
-	make is
+	make (a_factory: WRAPPER_FACTORY[VALUE]) is
 		do
-			from_external_pointer(g_hash_table_new
-										 (-- Using g_direct_hash as hash function;
-										  default_pointer,
-										  -- Direct comparison of address, like
-										  -- using g_direct_equal as key equal
-										  -- function but with no overhead:
-										  default_pointer
-										  ))
+			from_external(g_hash_table_new
+							  (-- Using g_direct_hash as hash function;
+								default_pointer,
+								-- Direct comparison of address, like
+								-- using g_direct_equal as key equal
+								-- function but with no overhead:
+								default_pointer
+								),
+								 a_factory)
 			-- g_hash_table_new creates a new GHashTable.
 			
 			-- hash_func : a function to create a hash value from a

@@ -69,6 +69,7 @@ feature
 			create clusters.make
 			create classes.make
 			create classes_by_cluster.make(tree_store_columns)
+			classes_by_cluster.set_sort_column_id (class_name_column_n, gtk_sort_ascending)
 			
 			-- The pointer will store the address of the Eiffel object
 			create cluster_iter.make_from_model(classes_by_cluster)
@@ -96,6 +97,9 @@ feature
 	
 feature -- Classes and clusters storage 
 	classes_by_name: GTK_TREE_STORE
+	classes_by_cluster: GTK_TREE_STORE
+	
+	cluster_iter, class_iter: GTK_TREE_ITER
 
 	class_name_column_n: INTEGER is 0
 	hashed_name_column_n: INTEGER is 1
@@ -121,10 +125,6 @@ feature -- Classes and clusters storage
 
 		end
 	
-	classes_by_cluster: GTK_TREE_STORE
-	
-	cluster_iter, class_iter: GTK_TREE_ITER
-
 	class_text_buffers: HASHED_DICTIONARY[EIFFEL_DOCUMENTATION_TEXT_BUFFER,HASHED_STRING] is
 		once
 			create Result.make

@@ -1,7 +1,7 @@
 indexing
 	description: "general matrix"
 	copyright: "(C) 2006 Paolo Redaelli %
-   %Raphael Mack <mail@raphael-mack.de>"
+	%Raphael Mack <mail@raphael-mack.de>"
 	authors: "Paolo Redaelli, Raphael Mack"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
@@ -11,24 +11,24 @@ deferred class GSL_MATRIX_GENERAL[TYPE_ -> NUMERIC]
 
 insert
 	WRAPPER
-      undefine
-         out, fill_tagged_out_memory
+		undefine
+			out, fill_tagged_out_memory
 		end
 
 	COLLECTION2 [TYPE_]
-      redefine
-         out
-      end
+		redefine
+			out
+		end
 
-   GSL_ERRNO
+	GSL_ERRNO
 		undefine
-         out, copy, is_equal, fill_tagged_out_memory
-      end
+			out, copy, is_equal, fill_tagged_out_memory
+		end
 
-   GSL_CBLAS_CONSTANTS
+	GSL_CBLAS_CONSTANTS
 		undefine
-         out, copy, is_equal, fill_tagged_out_memory
-      end
+			out, copy, is_equal, fill_tagged_out_memory
+		end
 
 feature -- Creating
 	make_zero  (rows, columns: INTEGER) is
@@ -42,9 +42,9 @@ feature -- Creating
 				gsl_matrix_free(handle)
 			end
 			set_handle(gsl_matrix_calloc (rows, columns))
-      ensure
-         row_cnt: rows = count1
-         loc_cnt: columns = count2
+		ensure
+			row_cnt: rows = count1
+			loc_cnt: columns = count2
 		end
 
 	make (rows, columns: INTEGER) is
@@ -58,24 +58,24 @@ feature -- Creating
 				gsl_matrix_free (handle)
 			end
 			set_handle(gsl_matrix_alloc (rows, columns))
-      ensure
-         row_cnt: rows = count1
-         loc_cnt: columns = count2				
+		ensure
+			row_cnt: rows = count1
+			loc_cnt: columns = count2				
 		end
 
 	make_identity  (rows, columns: INTEGER) is
 			-- Creates a matrix of size `rows' by `columns' and
 			-- initializes all the elements except the diagonal to 0
-         -- the diagonal is 1
+			-- the diagonal is 1
 		require
 			valid_rows: rows > 0
 			valid_columns: columns > 0
 		do
-         make(rows, columns)
-         set_identity
-      ensure
-         row_cnt: rows = count1
-         loc_cnt: columns = count2
+			make(rows, columns)
+			set_identity
+		ensure
+			row_cnt: rows = count1
+			loc_cnt: columns = count2
 		end
 		
 	from_collection2 (model: COLLECTION2[like item]) is
@@ -106,50 +106,50 @@ feature -- Creating
 		local
 			i, j, cols, rows: INTEGER_32
 			subcollection: COLLECTION[TYPE_]
-         it: ITERATOR[COLLECTION[TYPE_]]
+			it: ITERATOR[COLLECTION[TYPE_]]
 		do
-         rows := model.count
-         from
-            -- find the biggest subcollection
-            it := model.get_new_iterator
-            it.start
-         until
-            it.is_off
-         loop
-            cols := cols.max(it.item.count)
-            it.next
-         end
-         sedb_breakpoint
-         make_zero(rows, cols)
-         
-         from
-            i := model.lower
-         until
-            i > model.upper
-         loop
-            subcollection := model.item (i)
-            from
-               j := subcollection.lower
-            until
-               j > subcollection.upper
-            loop
-               put (subcollection.item(j),
-                    i - model.lower,
-                    j - subcollection.lower)
-               j := j + 1
-            end
-            i := i + 1
-         end
-      end
+			rows := model.count
+			from
+				-- find the biggest subcollection
+				it := model.get_new_iterator
+				it.start
+			until
+				it.is_off
+			loop
+				cols := cols.max(it.item.count)
+				it.next
+			end
+			sedb_breakpoint
+			make_zero(rows, cols)
+			
+			from
+				i := model.lower
+			until
+				i > model.upper
+			loop
+				subcollection := model.item (i)
+				from
+					j := subcollection.lower
+				until
+					j > subcollection.upper
+				loop
+					put (subcollection.item(j),
+						  i - model.lower,
+						  j - subcollection.lower)
+					j := j + 1
+				end
+				i := i + 1
+			end
+		end
 
-   from_transposed(model: like Current) is
-         -- This function makes the matrix Current the transpose of
-         -- the matrix src by copying the elements of model into Current.
-      do
+	from_transposed(model: like Current) is
+			-- This function makes the matrix Current the transpose of
+			-- the matrix src by copying the elements of model into Current.
+		do
 			make(model.count2, model.count1)
-         handle_code(gsl_matrix_transpose_memcpy(handle, model.handle))
-      end
-   
+			handle_code(gsl_matrix_transpose_memcpy(handle, model.handle))
+		end
+	
 feature {} -- Disposing
 	dispose is
 		do
@@ -161,8 +161,8 @@ feature {} -- Disposing
 			-- memory is still owned by that object and will not be
 			-- deallocated.
 			handle := default_pointer
-         -- we may violate the invariant here, since the object is 
-         -- destroyed from now on.
+			-- we may violate the invariant here, since the object is 
+			-- destroyed from now on.
 		end
 	
 feature -- Accessing
@@ -186,55 +186,55 @@ feature -- Accessing
 			-- resized first when (`line',`column') is not inside current
 			-- bounds. New bounds are initialized with default values.
 			-- Required to be a COLLECTION2
-      local
-         new_count1, new_count2: INTEGER_32         
+		local
+			new_count1, new_count2: INTEGER_32         
 		do
-         if not valid_index(line, column) then
-            new_count1 := count1.max(line + 1)
-            new_count2 := count2.max(column + 1)
-            enlarge(new_count1, new_count2)
-         end
-         put(element, line, column)   
+			if not valid_index(line, column) then
+				new_count1 := count1.max(line + 1)
+				new_count2 := count2.max(column + 1)
+				enlarge(new_count1, new_count2)
+			end
+			put(element, line, column)   
 		ensure then
 			size_ok: valid_index(line, column)
 		end
 
 
-   enlarge(rows, columns: INTEGER_32) is
-         -- enlarges the matrix, preserving values, new fields will 
-         -- be initialized to 0
-      require
-         not_lessoeq_rows: rows > count1
-         not_lessoeq_cols: columns > count2
-      local
-         tmp: POINTER
-         i, j: INTEGER_32
-         old_count1, old_count2: INTEGER_32
-      do
-         old_count1 := count1
-         old_count2 := count2
-         tmp := handle
-         set_handle(gsl_matrix_calloc (rows, columns))
-         from
-            i := 0
-         until
-            i >= old_count1
-         loop
-            from
-               j := 0
-            until
-               j >= old_count2
-            loop
-               put(gsl_matrix_get(tmp, i, j), i, j)
-               j := j + 1
-            end
-            i := i + 1
-         end
-         gsl_matrix_free(tmp)
-      ensure
-         valid_count1: count1 = rows
-         valid_count2: count2 = columns
-      end
+	enlarge(rows, columns: INTEGER_32) is
+			-- enlarges the matrix, preserving values, new fields will 
+			-- be initialized to 0
+		require
+			not_lessoeq_rows: rows > count1
+			not_lessoeq_cols: columns > count2
+		local
+			tmp: POINTER
+			i, j: INTEGER_32
+			old_count1, old_count2: INTEGER_32
+		do
+			old_count1 := count1
+			old_count2 := count2
+			tmp := handle
+			set_handle(gsl_matrix_calloc (rows, columns))
+			from
+				i := 0
+			until
+				i >= old_count1
+			loop
+				from
+					j := 0
+				until
+					j >= old_count2
+				loop
+					put(gsl_matrix_get(tmp, i, j), i, j)
+					j := j + 1
+				end
+				i := i + 1
+			end
+			gsl_matrix_free(tmp)
+		ensure
+			valid_count1: count1 = rows
+			valid_count2: count2 = columns
+		end
 
 feature -- Initializing matrix elements
 	set_all_with (an_x: TYPE_) is
@@ -264,16 +264,16 @@ feature -- Copying matrices
 			-- copies the elements of the `other' matrix into the
 			-- Current.
 		do
-         if handle.is_null then
-            -- invariant handle.is_not_null is not satisfied, if copy 
-            -- is called as creation procedure
-            make(other.line_count, other.column_count)
-         elseif not has_same_size(other) then
-            gsl_matrix_free(handle)
-            make(other.line_count, other.column_count)
-         end
-         
-         handle_code(gsl_matrix_memcpy (handle, other.handle))
+			if handle.is_null then
+				-- invariant handle.is_not_null is not satisfied, if copy 
+				-- is called as creation procedure
+				make(other.line_count, other.column_count)
+			elseif not has_same_size(other) then
+				gsl_matrix_free(handle)
+				make(other.line_count, other.column_count)
+			end
+			
+			handle_code(gsl_matrix_memcpy (handle, other.handle))
 		end
 
 	swap_with (other: like Current) is
@@ -283,81 +283,81 @@ feature -- Copying matrices
 			valid_other: other /= Void
 			same_size: has_same_size (other)
 		do
-         handle_code(gsl_matrix_swap (handle, other.handle))
+			handle_code(gsl_matrix_swap (handle, other.handle))
 		end
 	
 feature -- Copying rows and columns
- 	copy_row_on (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
- 			-- Copies the elements of the i-th row of Current matrix m
- 			-- into `a_vector'. The length of the vector must be the
- 			-- same as the length of the row.
-         -- See also get_row.
- 		require
- 			valid_row: valid_line (i)
- 			vector_not_void: a_vector /= Void
- 			valid_vector: a_vector.count = count2
- 		do
- 			handle_code(gsl_matrix_get_row (a_vector.handle, handle, i))
- 		end
-
- 	copy_column_on (j: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
- 			-- Copies the elements of the j-th column of the Current
- 			-- matrix into `a_vector'. The length of the vector must be
- 			-- the same as the length of the column.
-         -- See also get_row.
- 		require
- 			valid_row: valid_column (j)
- 			vector_not_void: a_vector /= Void
- 			valid_vector: a_vector.count = count1
- 		do
- 			handle_code(gsl_matrix_get_col (a_vector.handle, handle, j))
- 		end
-
- 	get_row (i: INTEGER_32): GSL_VECTOR_GENERAL[TYPE_] is
- 			-- Returns a new vector with the same values as the ith row 
- 			-- of Current
-         -- See also copy_row_on.
- 		require
- 			valid_row: valid_line (i)
- 		deferred
-      ensure
- 			valid_vector: Result.count = column_count
- 		end
-
-   get_column (i: INTEGER_32): GSL_VECTOR_GENERAL[TYPE_] is
- 			-- Returns a new vector with the same values as the ith column 
- 			-- of Current
-         -- See also copy_column_on.
- 		require
- 			valid_row: valid_column (i)
- 		deferred
-      ensure
- 			valid_vector: Result.count = line_count
- 		end
-
- 	set_row (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
- 			-- Copies the elements of `a_vector' into the i-th row of the
- 			-- Current matrix. The length of the vector must be the same
- 			-- as the length of the row.
+	copy_row_on (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
+			-- Copies the elements of the i-th row of Current matrix m
+			-- into `a_vector'. The length of the vector must be the
+			-- same as the length of the row.
+			-- See also get_row.
 		require
- 			valid_row: valid_line (i)
- 			vector_not_void: a_vector /= Void
- 			valid_vector: a_vector.count = count2
- 		do
- 			handle_code(gsl_matrix_set_row (handle, i, a_vector.handle))
- 		end
+			valid_row: valid_line (i)
+			vector_not_void: a_vector /= Void
+			valid_vector: a_vector.count = count2
+		do
+			handle_code(gsl_matrix_get_row (a_vector.handle, handle, i))
+		end
+
+	copy_column_on (j: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
+			-- Copies the elements of the j-th column of the Current
+			-- matrix into `a_vector'. The length of the vector must be
+			-- the same as the length of the column.
+			-- See also get_row.
+		require
+			valid_row: valid_column (j)
+			vector_not_void: a_vector /= Void
+			valid_vector: a_vector.count = count1
+		do
+			handle_code(gsl_matrix_get_col (a_vector.handle, handle, j))
+		end
+
+	get_row (i: INTEGER_32): GSL_VECTOR_GENERAL[TYPE_] is
+			-- Returns a new vector with the same values as the ith row 
+			-- of Current
+			-- See also copy_row_on.
+		require
+			valid_row: valid_line (i)
+		deferred
+		ensure
+			valid_vector: Result.count = column_count
+		end
+
+	get_column (i: INTEGER_32): GSL_VECTOR_GENERAL[TYPE_] is
+			-- Returns a new vector with the same values as the ith column 
+			-- of Current
+			-- See also copy_column_on.
+		require
+			valid_row: valid_column (i)
+		deferred
+		ensure
+			valid_vector: Result.count = line_count
+		end
+
+	set_row (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
+			-- Copies the elements of `a_vector' into the i-th row of the
+			-- Current matrix. The length of the vector must be the same
+			-- as the length of the row.
+		require
+			valid_row: valid_line (i)
+			vector_not_void: a_vector /= Void
+			valid_vector: a_vector.count = count2
+		do
+			handle_code(gsl_matrix_set_row (handle, i, a_vector.handle))
+		end
 	
- 	set_column (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
- 			-- Copies the elements of `a_vector' into the i-th column of the
- 			-- Current matrix. The length of the vector must be the same
- 			-- as the length of the column.
- 		require
- 			valid_column: valid_column (i)
- 			vector_not_void: a_vector /= Void
- 			valid_vector: a_vector.count = count1
- 		do
- 			handle_code(gsl_matrix_set_col (handle, i, a_vector.handle))
- 		end
+	set_column (i: INTEGER; a_vector: GSL_VECTOR_GENERAL[TYPE_]) is
+			-- Copies the elements of `a_vector' into the i-th column of the
+			-- Current matrix. The length of the vector must be the same
+			-- as the length of the column.
+		require
+			valid_column: valid_column (i)
+			vector_not_void: a_vector /= Void
+			valid_vector: a_vector.count = count1
+		do
+			handle_code(gsl_matrix_set_col (handle, i, a_vector.handle))
+		end
 	
 feature -- Exchanging rows and columns
 
@@ -379,34 +379,34 @@ feature -- Exchanging rows and columns
 			handle_code(gsl_matrix_swap_columns (handle, i, j))
 		end
 
-   swap_rowcol (i, j: INTEGER_32) is
-         -- This function exchanges the i-th row and
-         -- j-th column of the matrix m in-place. The matrix must be square
-         -- for this operation to be possible.
-      require
-         row: valid_line(i)
-         col: valid_column(j)
-         square: count1 = count2
-      do
-         handle_code(gsl_matrix_swap_rowcol(handle, i, j))
-      ensure
-         sw1: (old get_row(i)).is_equal(get_column(j))
-         sw2: (old get_column(j)).is_equal(get_row(i))
-      end
+	swap_rowcol (i, j: INTEGER_32) is
+			-- This function exchanges the i-th row and
+			-- j-th column of the matrix m in-place. The matrix must be square
+			-- for this operation to be possible.
+		require
+			row: valid_line(i)
+			col: valid_column(j)
+			square: count1 = count2
+		do
+			handle_code(gsl_matrix_swap_rowcol(handle, i, j))
+		ensure
+			sw1: (old get_row(i)).is_equal(get_column(j))
+			sw2: (old get_column(j)).is_equal(get_row(i))
+		end
 
-   transpose is
-         -- This function replaces the matrix m by its transpose by copying
-         -- the elements of the matrix in-place. The matrix must be square
-         -- for this operation to be possible.
-      require
-         square: count1 = count2
-      do
-         handle_code(gsl_matrix_transpose(handle))
-      ensure
-         -- TODO: add a meaningful postcondition
-         True
-      end
-   
+	transpose is
+			-- This function replaces the matrix m by its transpose by copying
+			-- the elements of the matrix in-place. The matrix must be square
+			-- for this operation to be possible.
+		require
+			square: count1 = count2
+		do
+			handle_code(gsl_matrix_transpose(handle))
+		ensure
+			-- TODO: add a meaningful postcondition
+			True
+		end
+	
 feature -- Matrix operations
 
 	plus (other: like Current) is
@@ -465,7 +465,7 @@ feature -- Matrix operations
 	scale (an_x: REAL_64) is
 			-- Multiplies the elements of Current matrix (a) by the constant factor x, a'(i,j) = x a(i,j).
 		do
-         handle_code(gsl_matrix_scale (handle, an_x))
+			handle_code(gsl_matrix_scale (handle, an_x))
 		end
 
 	add_constant (a_constant: REAL_32) is
@@ -481,6 +481,9 @@ feature -- Matrix operations
 		do
 			Result := twin
 			Result.subtract (other)
+		ensure
+			not_void: Result /= Void
+			same_size: has_same_size(Result)
 		end
 
 	infix "+" (other: like Current): like Current is
@@ -490,6 +493,9 @@ feature -- Matrix operations
 		do
 			Result := twin
 			Result.plus (other)
+		ensure
+			not_void: Result /= Void
+			same_size: has_same_size(Result)
 		end
 	
 feature {ANY} -- matrix vector operations (BLAS 2)
@@ -523,43 +529,43 @@ feature -- Finding maximum and minimum elements of matrices
 			Result := gsl_matrix_min (handle)
 		end
 
-   minmax: TUPLE[TYPE_, TYPE_] is
-         -- minimum and maximum
-      local
-         mn, mx: TYPE_
-      do
-         gsl_matrix_minmax(handle, $mn, $mx)
-         Result := [mn, mx]
-      end
+	minmax: TUPLE[TYPE_, TYPE_] is
+			-- minimum and maximum
+		local
+			mn, mx: TYPE_
+		do
+			gsl_matrix_minmax(handle, $mn, $mx)
+			Result := [mn, mx]
+		end
 
 	max_index: TUPLE[INTEGER_32, INTEGER_32] is
-         -- [row, col] of the max element
-      local
-         r, c: INTEGER_32
+			-- [row, col] of the max element
+		local
+			r, c: INTEGER_32
 		do
-         gsl_matrix_max_index(handle, $r, $c)
-         Result := [r, c]
+			gsl_matrix_max_index(handle, $r, $c)
+			Result := [r, c]
 		end
 
 	min_index: TUPLE[INTEGER_32, INTEGER_32] is
-         -- index of the min element
-      local
-         r, c: INTEGER_32
+			-- index of the min element
+		local
+			r, c: INTEGER_32
 		do
-         gsl_matrix_min_index(handle, $r, $c)
-         Result := [r, c]
+			gsl_matrix_min_index(handle, $r, $c)
+			Result := [r, c]
 		end
 
-   minmax_index: TUPLE[TUPLE[INTEGER_32, INTEGER_32], TUPLE[INTEGER_32, INTEGER_32]] is
-         -- [[min_row, min_col], [max_row, max_col]]
-         -- if there are several, the first index will be returned
-      local
-         mn_r, mn_c, mx_r, mx_c: INTEGER_32
-      do
-         gsl_matrix_minmax_index(handle, $mn_r, $mn_c, $mx_r, $mx_c)
-         Result := [[mn_r, mn_c], [mx_r, mx_c]]
-      end
-   
+	minmax_index: TUPLE[TUPLE[INTEGER_32, INTEGER_32], TUPLE[INTEGER_32, INTEGER_32]] is
+			-- [[min_row, min_col], [max_row, max_col]]
+			-- if there are several, the first index will be returned
+		local
+			mn_r, mn_c, mx_r, mx_c: INTEGER_32
+		do
+			gsl_matrix_minmax_index(handle, $mn_r, $mn_c, $mx_r, $mx_c)
+			Result := [[mn_r, mn_c], [mx_r, mx_c]]
+		end
+	
 feature -- Matrix properties, looking and comparison:
 	all_default: BOOLEAN is
 			-- Are  all the elements of the matrix zero?
@@ -607,12 +613,12 @@ feature {ANY} -- Indexing:
 		end
 
 feature {ANY}
-   out: STRING is
-         -- print in nice, readable format
-      local
-         line, column: INTEGER_32
-      do
-         create Result.make(count * 5)
+	out: STRING is
+			-- print in nice, readable format
+		local
+			line, column: INTEGER_32
+		do
+			create Result.make(count * 5)
 			Result.append(once "[")
 			from
 				line := lower1
@@ -624,26 +630,26 @@ feature {ANY}
 				until
 					column > upper2
 				loop
-               Result.append(item(line, column).out)
+					Result.append(item(line, column).out)
 					column := column + 1
-               if column <= upper2 then
-                  Result.extend(',')
-               end
+					if column <= upper2 then
+						Result.extend(',')
+					end
 				end
 				line := line + 1
-            if line <= upper1 then
-               Result.extend('%N')
-            end
+				if line <= upper1 then
+					Result.extend('%N')
+				end
 			end
-         Result.extend(']')
-         
-      end
+			Result.extend(']')
+			
+		end
 
 feature {ANY}
 	swap (line1, column1, line2, column2: INTEGER_32) is
 			-- Swap the element at index (`line1',`column1') with the
 			-- the element at index (`line2',`column2').
-      -- TOOD: add precondition
+		-- TOOD: add precondition
 		local
 			temp: like item
 		do
@@ -732,29 +738,29 @@ feature {ANY} -- Miscellaneous features:
 		local
 			i, j, k, l: INTEGER
 		do
-         Result := twin
+			Result := twin
 			Result.make(line_max - line_max + 1, column_max - column_min + 1)
 			from
 				i := line_min
-            k := 1
+				k := 1
 			until
 				i > line_max
 			loop
 				from
 					j := column_min
-               l := 1
+					l := 1
 				until
 					j > column_max
 				loop
-               check
-                  Result.valid_index(k, l)
-               end
+					check
+						Result.valid_index(k, l)
+					end
 					Result.put(item(i, j), k, l)
 					j := j + 1
-               l := l + 1
+					l := l + 1
 				end
 				i := i + 1
-            k := k + 1
+				k := k + 1
 			end
 		end
 
@@ -882,7 +888,7 @@ feature {} -- External calls
 	gsl_matrix_get_row (a_vector, a_gsl_matrix: POINTER; an_i: INTEGER_32): INTEGER_32 is
 		require
 			valid_matrix: a_gsl_matrix.is_not_null
-		   valid_vector: a_vector.is_not_null
+			valid_vector: a_vector.is_not_null
 		deferred
 		end
 
@@ -968,7 +974,7 @@ feature {} -- External calls
 		end
 
 	gsl_matrix_scale (a_gsl_matrix: POINTER; a_scale: REAL_64): INTEGER_32 is
-      -- type TYPE_ would make sense for a_scale, but in gsl it's a double...
+		-- type TYPE_ would make sense for a_scale, but in gsl it's a double...
 		require
 			a_gsl_matrix.is_not_null
 		deferred
@@ -1004,26 +1010,26 @@ feature {} -- External calls
 	gsl_matrix_max_index (a_gsl_matrix, an_imax_ptr, a_jmax_ptr: POINTER) is
 		require
 			a_gsl_matrix.is_not_null
-         an_imax_ptr.is_not_null
-         a_jmax_ptr.is_not_null
+			an_imax_ptr.is_not_null
+			a_jmax_ptr.is_not_null
 		deferred
 		end
 
 	gsl_matrix_min_index (a_gsl_matrix, an_imin_ptr, a_jmin_ptr: POINTER) is
 		require
 			a_gsl_matrix.is_not_null
-         an_imin_ptr.is_not_null
-         a_jmin_ptr.is_not_null
+			an_imin_ptr.is_not_null
+			a_jmin_ptr.is_not_null
 		deferred
 		end
 
 	gsl_matrix_minmax_index (matrix, imin_ptr, jmin_ptr, imax_ptr, jmax_ptr : POINTER) is
 		require
 			matrix.is_not_null
-         imin_ptr.is_not_null
-         jmin_ptr.is_not_null
-         imax_ptr.is_not_null
-         jmax_ptr.is_not_null
+			imin_ptr.is_not_null
+			jmin_ptr.is_not_null
+			imax_ptr.is_not_null
+			jmax_ptr.is_not_null
 		deferred
 		end
 
@@ -1041,37 +1047,37 @@ feature {} -- external struct access
 	get_size1 (a_matrix: POINTER): INTEGER_32 is
 		require
 			a_matrix.is_not_null
-      deferred
+		deferred
 		end
 
 	get_size2 (a_matrix: POINTER): INTEGER_32 is
 		require
 			a_matrix.is_not_null
-      deferred
+		deferred
 		end
 
 	get_tda (a_matrix: POINTER): INTEGER_32 is
 		require
 			a_matrix.is_not_null
-      deferred
-      end
+		deferred
+		end
 
 	get_data (a_matrix: POINTER): POINTER is
 		require
 			a_matrix.is_not_null
-      deferred
+		deferred
 		end
 	
 	get_block  (a_matrix: POINTER): POINTER is
 		require
 			a_matrix.is_not_null
-      deferred
+		deferred
 		end
 
 	get_owner (a_matrix: POINTER): INTEGER_32 is
 		require
 			a_matrix.is_not_null
-      deferred
+		deferred
 		end
 
 	gsl_blas_gemv(trans_a: INTEGER_32; alpha: TYPE_; a_p, x_p:POINTER; beta: TYPE_; y_p: POINTER): INTEGER_32 is

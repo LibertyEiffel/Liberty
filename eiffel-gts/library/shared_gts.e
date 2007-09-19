@@ -22,11 +22,10 @@ indexing
 deferred class SHARED_GTS
 
 insert
-	GTS_VERTEX_EXTERNALS
-	GTS_SEGMENT_EXTERNALS
-	GTS_EDGE_EXTERNALS
-	WRAPPER_HANDLER
-	SHARED_WRAPPERS_DICTIONARY
+	GTS_VERTEX_EXTERNALS undefine fill_tagged_out_memory end
+	GTS_SEGMENT_EXTERNALS undefine fill_tagged_out_memory end
+	GTS_EDGE_EXTERNALS undefine fill_tagged_out_memory end
+	WRAPPER_HANDLER undefine fill_tagged_out_memory end
 	
 feature 
 
@@ -34,7 +33,8 @@ feature
 			-- a list of the vertices of `some_segments'. Each element in the list
 			-- is unique (no duplicates).
 		do
-			create Result.from_external_pointer(gts_vertices_from_segments(some_segments.handle))
+			create Result.from_external(gts_vertices_from_segments(some_segments.handle),
+												 vertex_factory)
 		end
 	
 	
@@ -51,7 +51,8 @@ feature
 			-- check : function called for each pair of vertices about to
 			-- be merged or NULL.
 		do
-			create Result.from_external_pointer (gts_vertices_merge (some_vertices.handle, an_epsilon, default_pointer))
+			create Result.from_external(gts_vertices_merge (some_vertices.handle, an_epsilon, default_pointer),
+			vertex_factory)
 			-- gboolean (*check) (GtsVertex *, GtsVertex *));
 		end
 
@@ -59,7 +60,8 @@ feature
 			-- a list of unique GtsSegment which have one of their vertices in
 			-- vertices.
 		do
-			create Result.from_external_pointer(gts_segments_from_vertices(some_vertices.handle))
+			create Result.from_external(gts_segments_from_vertices(some_vertices.handle),
+			segment_factory)
 		end
 
 feature -- Edge features
@@ -69,15 +71,10 @@ feature -- Edge features
 		require 
 			vertices_not_void: some_vertices /= Void
 			parent_not_void: a_parent /= Void
-		local a_pointer: POINTER
 		do
-			a_pointer:=gts_edges_from_vertices(some_vertices.handle, a_parent.handle)
-			if a_pointer.is_not_null then
-				Result ::= wrappers.reference_at(a_pointer)
-				if Result=Void then
-					create Result.from_external_pointer(a_pointer)
-				end
-			end
+			create Result.from_external
+			(gts_edges_from_vertices(some_vertices.handle, a_parent.handle),
+			edge_factory)
 		end
 
 feature -- Triangle related 
@@ -100,13 +97,9 @@ feature -- Triangle related
 			-- in `some_edges'.
 		local a_pointer: POINTER
 		do
-			a_pointer:=gts_triangles_from_edges(some_edges.handle)
-			if a_pointer.is_not_null then
-				Result ::= wrappers.reference_at(a_pointer)
-				if Result=Void then
-					create Result.from_external_pointer(a_pointer)
-				end
-			end
+			create Result.from_external
+			(gts_triangles_from_edges(some_edges.handle),
+			triangle_factory)
 		end
 	
 feature -- Face related
@@ -129,6 +122,11 @@ feature {} -- Factories
 	vertex_factory: ARCHETYPE_FACTORY[GTS_VERTEX] is
 		once
 			create Result.with_archetype(create {GTS_VERTEX}.dummy)
+		end
+
+	edge_factory: ARCHETYPE_FACTORY[GTS_EDGE] is
+		once
+			create Result.with_archetype(create {GTS_EDGE}.dummy)
 		end
 
 	triangle_factory: ARCHETYPE_FACTORY[GTS_TRIANGLE] is

@@ -24,64 +24,48 @@ deferred class GTK_PAPER_SIZES
 inherit ANY undefine is_equal, copy end
 
 feature -- Paper sizes
-	--	a3_paper_name: STRING is
-			
-	--
-	-- #define GTK_PAPER_NAME_A3 "iso_a3"
-	--
-	--   Name for the A4 paper size.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  GTK_PAPER_NAME_A4
-	--
-	-- #define GTK_PAPER_NAME_A4 "iso_a4"
-	--
-	--   Name for the A4 paper size.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  GTK_PAPER_NAME_A5
-	--
-	-- #define GTK_PAPER_NAME_A5 "iso_a5"
-	--
-	--   Name for the A5 paper size.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  GTK_PAPER_NAME_B5
-	--
-	-- #define GTK_PAPER_NAME_B5 "iso_b5"
-	--
-	--   Name for the B5 paper size.
-	--
-	--   --------------------------------------------------------------------------
-	--
+	a3_paper_name: STRING is
+			--   Name for the A3 paper size. "iso_a3"
+		do
+			create {CONST_STRING} Result.from_external(gtk_paper_name_a3_ptr)
+		end
+
+	a4_paper_name: STRING is
+			--   Name for the A4 paper size. "iso_a4"
+		do
+			create {CONST_STRING} Result.from_external(gtk_paper_name_a4_ptr)
+		end
+
+	a5_paper_name: STRING is
+			--   Name for the A5 paper size. "iso_a5"
+		do
+			create {CONST_STRING} Result.from_external(gtk_paper_name_a5_ptr)
+		end
+
+	b5_paper_name: STRING is
+			--   Name for the A5 paper size. "iso_b5"
+		do
+			create {CONST_STRING} Result.from_external(gtk_paper_name_b5_ptr)
+		end
+
 	--  GTK_PAPER_NAME_LETTER
 	--
 	-- #define GTK_PAPER_NAME_LETTER "na_letter"
 	--
 	--   Name for the Letter paper size.
-	--
-	--   --------------------------------------------------------------------------
-	--
+
 	--  GTK_PAPER_NAME_EXECUTIVE
 	--
 	-- #define GTK_PAPER_NAME_EXECUTIVE "na_executive"
 	--
 	--   Name for the Executive paper size.
-	--
-	--   --------------------------------------------------------------------------
-	--
+
 	--  GTK_PAPER_NAME_LEGAL
 	--
 	-- #define GTK_PAPER_NAME_LEGAL "na_legal"
 	--
 	--   Name for the Legal paper size.
-	--
-	--   --------------------------------------------------------------------------
 
-	--
 
 	default_paper_size_name: CONST_STRING is
 			-- the name of the default paper size, which depends on the current
@@ -91,43 +75,43 @@ feature -- Paper sizes
 		end
 
 feature {} -- External calls
-	gtk_paper_name_a3_ptr: INTEGER is
+	gtk_paper_name_a3_ptr: POINTER is
 			-- #define GTK_PAPER_NAME_A3
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_A3"
 		end
 
-	gtk_paper_name_a4_ptr: INTEGER is
+	gtk_paper_name_a4_ptr: POINTER is
 			-- #define GTK_PAPER_NAME_A4
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_A4"
 		end
 
-	gtk_paper_name_a5_ptr: INTEGER is
+	gtk_paper_name_a5_ptr: POINTER is
 			-- #define GTK_PAPER_NAME_A5
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_A5"
 		end
 
-	gtk_paper_name_b5_ptr: INTEGER is
+	gtk_paper_name_b5_ptr: POINTER is
 			-- #define GTK_PAPER_NAME_B5
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_B5"
 		end
 
-	gtk_paper_name_letter_ptr: INTEGER is
+	gtk_paper_name_letter_ptr: POINTER is
 			-- #define GTK_PAPER_NAME_LETTER
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_LETTER"
 		end
 
-	gtk_paper_name_executive_ptr: INTEGER is
+	gtk_paper_name_executive_ptr: POINTER is
 			-- #define GTK_PAPER_NAME_EXECUTIVE
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_EXECUTIVE"
 		end
 
-	gtk_paper_name_legal_ptr: INTEGER is
+	gtk_paper_name_legal_ptr: POINTER is
 			-- #define GTK_PAPER_NAME_LEGAL
 		external "C macro use <gtk/gtk.h>"
 		alias "GTK_PAPER_NAME_LEGAL"

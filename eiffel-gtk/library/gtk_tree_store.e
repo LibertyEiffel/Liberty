@@ -110,13 +110,10 @@ feature -- Generic setter
 			-- To fill in values, you need to call some of the set_* methods.
 		require
 			valid_iterator: an_iterator /= Void
-		local
-			parent_pointer, sibling_pointer: POINTER
 		do
-			if a_parent /= Void then parent_pointer := a_parent.handle end
-			if a_sibling /= Void then sibling_pointer := a_sibling.handle end
 			gtk_tree_store_insert_before (handle, an_iterator.handle,
-										 parent_pointer, sibling_pointer)
+													null_or(a_parent),
+													null_or(a_sibling))
 		end
 
 	put_after, insert_after (an_iterator, a_parent, a_sibling: GTK_TREE_ITER) is
