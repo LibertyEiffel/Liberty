@@ -56,8 +56,7 @@ feature -- Access
 		do
 			create Result.from_external_copy (av_codec_get_name (handle))
 		end
-
-
+	
 feature -- Size
 
 	struct_size: INTEGER is

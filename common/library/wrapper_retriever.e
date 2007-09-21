@@ -19,12 +19,15 @@ indexing
 					02110-1301 USA
 			]"
 
-expanded class WRAPPER_RETRIEVER [ITEM_->WRAPPER]
+expanded class WRAPPER_RETRIEVER [ITEM_->SHARED_C_STRUCT]
+obsolete "Use a WRAPPER_FACTORY implementation"
 insert
-	WRAPPER_FACTORY[ITEM_]
+	MAGICAL_FACTORY[ITEM_]
 		export {WRAPPER, WRAPPER_HANDLER}
 			all -- new_item, item_from
 		end
 	ANY -- to get is_equal and copy
 
+feature 
+	
 end -- class WRAPPER_RETRIEVER

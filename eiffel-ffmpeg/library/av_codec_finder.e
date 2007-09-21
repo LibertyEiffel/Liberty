@@ -24,7 +24,6 @@ class AV_CODEC_FINDER
 insert
 	AV_CODEC_FINDER_EXTERNALS
 	AV_CODEC_IDS
-	WRAPPER_RETRIEVER [AV_CODEC]
 
 feature {} -- Private access
 
@@ -36,11 +35,7 @@ feature {} -- Private access
 		do
 			codec_ptr := avcodec_find_decoder (a_codec_id)
 			if codec_ptr.is_not_null then
-				if wrappers.has (codec_ptr) then
-					Result ::= wrappers.at(codec_ptr)
-				else
-					create Result.from_external_pointer (codec_ptr)
-				end
+				create Result.from_external_pointer (codec_ptr)
 			end
 		end
 
@@ -52,11 +47,7 @@ feature {} -- Private access
 		do
 			codec_ptr := avcodec_find_encoder (a_codec_id)
 			if codec_ptr.is_not_null then
-				if wrappers.has (codec_ptr) then
-					Result ::= wrappers.at(codec_ptr)
-				else
-					create Result.from_external_pointer (codec_ptr)
-				end
+				create Result.from_external_pointer (codec_ptr)
 			end
 		end
 
@@ -68,11 +59,7 @@ feature {} -- Private access
 		do
 			codec_ptr := avcodec_find_decoder_by_name (a_name.to_external)
 			if codec_ptr.is_not_null then
-				if wrappers.has (codec_ptr) then
-					Result ::= wrappers.at(codec_ptr)
-				else
-					create Result.from_external_pointer (codec_ptr)
-				end
+				create Result.from_external_pointer (codec_ptr)
 			end
 		end
 

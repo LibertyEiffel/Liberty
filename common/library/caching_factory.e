@@ -8,26 +8,6 @@ indexing
 class CACHING_FACTORY [ITEM->SHARED_C_STRUCT]
 	-- A factory that retrieves wrappers from a dictionary cache
 
-	-- TODO: update-revise the following documentaion, it is out of
-	-- date. wrapper factory would be inserted into the class that
-	-- needs to use it; if multiple usage are needed it is perhaps
-	-- better to use its expanded variant, WRAPPER_RETRIEVER. The
-	-- pattern usage is more or less like this:
-	
-	--  foo: FOO_WRAPPER is 
-	-- 		local p: POINTER
-	-- 		do
-	-- 			p:= get_foo (handle)
-	-- 			if wrappers.has(p) then
-	-- 				Result ::= wrappers.at(p)
-	-- 			else
-	-- 				create Result.from_external_pointer(a_pointer)
-	-- 			end
-	-- 		end
-	
-	-- I know it is tedious, but it is the only feasible solution
-	-- I was able to find.
-	
 inherit
 	ARCHETYPE_FACTORY[ITEM]
 		-- TODO: ideally we should avoid the usage of archetypes here
@@ -37,12 +17,13 @@ inherit
 		end
 	
 creation with_archetype
-
+	-- default_create
+	
 feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
-	with_archetype (an_archetype: ITEM) is
+	with_archetype (an_archetype: ITEM) is 
 		do
-			Precursor(an_archetype)
-			create wrappers.make
+			Precursor(an_archetype) 
+			create wrappers.make 
 		end
 	
 	wrapper (a_pointer: POINTER): ITEM is

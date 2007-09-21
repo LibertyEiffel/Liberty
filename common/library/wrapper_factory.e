@@ -23,8 +23,8 @@ deferred class WRAPPER_FACTORY [ITEM->WRAPPER]
 	-- to store a reference to its wrapper; i.e. all GObjects allow 
 	-- storing arbitrary properties in them.
 
-	-- If multiple usage are needed it is perhaps better to use its
-	-- expanded variant, WRAPPER_RETRIEVER.
+	-- If multiple usage are needed it is perhaps better to use an
+	-- expanded class that inserts WRAPPER_FACTORY.
 
 inherit WRAPPER_HANDLER
 

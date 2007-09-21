@@ -46,30 +46,36 @@ class G_HASH_TABLE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
 	-- To destroy a GHashTable use g_hash_table_destroy().
 
 inherit
-	DICTIONARY[VALUE, KEY]
-		undefine
-			is_equal, copy -- using the definition given by SHARED_C_STRUCT
+	WRAPPER_DICTIONARY [VALUE, KEY]
+		redefine
+			from_external_pointer,
+			dispose
 		end
-	
-	WRAPPER_COLLECTION[VALUE]
-	
+		
 insert
 	G_HASH_TABLE_EXTERNALS
 
-creation dummy, from_external_pointer
+creation dummy, from_external
 
 feature {} -- Creation
-	make (a_factory: WRAPPER_FACTORY[VALUE]) is
+	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[VALUE]) is
+		require factory_not_void: a_factory/=Void
 		do
-			from_external(g_hash_table_new
-							  (-- Using g_direct_hash as hash function;
-								default_pointer,
-								-- Direct comparison of address, like
-								-- using g_direct_equal as key equal
-								-- function but with no overhead:
-								default_pointer
-								),
-								 a_factory)
+			factory := a_factory
+			from_external_pointer(a_pointer)
+		end
+	
+
+	with_factory (a_factory: WRAPPER_FACTORY[VALUE]) is
+		require factory_not_void: a_factory/=Void
+		do
+			factory := a_factory
+			from_external_pointer
+			(g_hash_table_new
+			 (default_pointer, -- Using g_direct_hash as hash function;
+			  default_pointer, -- Direct comparison of address, like using g_direct_equal as key equal function but with no overhead
+			  ),a_factory)
+	
 			-- g_hash_table_new creates a new GHashTable.
 			
 			-- hash_func : a function to create a hash value from a
@@ -125,9 +131,7 @@ feature {ANY} -- Basic access:
 		do
 			ptr := g_hash_table_lookup (handle, a_key.handle)
 			if ptr.is_not_null then
-				Result:=item_from(ptr)
-				-- if wrappers.has(ptr) then Result::=wrappers.at(ptr)
-				-- else print_wrapper_factory_notice end
+				Result:=factory.wrapper(ptr)
 			end
 		end
 

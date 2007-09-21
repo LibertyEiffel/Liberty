@@ -20,14 +20,13 @@ indexing
 			]"
 
 class PANGO_ATTR_ITERATOR
-	-- An iterator through a `PANGO_ATTR_LIST' (PangoAttrList). A new
-	-- iterator is created with
-	-- `PANGO_ATTR_LIST.get_new_iterator'. Once the iterator is
-	-- created, it can be advanced through the style changes in the
-	-- text using `next'. At each style change, you can query the range
-	-- of the current style segment with `range' and the attributes currently in
-	-- effect with `item' (a G_SLIST[PANGO_ATTRIBUTE]), `item_of_type' 
-	-- and `details'.
+	-- An iterator through a `PANGO_ATTR_LIST'. A new iterator is
+	-- created with `PANGO_ATTR_LIST.get_new_iterator'. Once the
+	-- iterator is created, it can be advanced through the style
+	-- changes in the text using `next'. At each style change, you can
+	-- query the range of the current style segment with `range' and
+	-- the attributes currently in effect with `item' (a
+	-- G_SLIST[PANGO_ATTRIBUTE]), `item_of_type' and `details'.
 
 inherit 
 	ITERATOR [G_SLIST[PANGO_ATTRIBUTE]]
@@ -194,6 +193,7 @@ feature {} -- Implementation
 		end
 
 	pango_attribute_archetype: PANGO_ATTRIBUTE is once create Result.dummy end
+	
 feature {} -- External calls
 	pango_attr_list_get_iterator (a_list: POINTER): POINTER is -- PangoAttrIterator* 
 		external "C use <pango/pango.h>"

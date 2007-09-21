@@ -107,15 +107,11 @@ feature -- Face related
 			-- A list of unique faces which belong to `a_surface' and
 			-- have one of their edges in `some_edges'.
 		require edges_not_void: some_edges /= Void
-		local a_pointer: POINTER
 		do
-			a_pointer:=gts_faces_from_edges(some_edges.handle, null_or(a_surface))
-			if a_pointer.is_not_null then
-				Result ::= wrappers.reference_at(a_pointer)
-				if Result=Void then
-					create Result.from_external_pointer(a_pointer)
-				end
-			end
+			create Result.from_external
+			(gts_faces_from_edges(some_edges.handle,
+										 null_or(a_surface)),
+			edge_factory)
 		end
 
 feature {} -- Factories
@@ -127,6 +123,11 @@ feature {} -- Factories
 	edge_factory: ARCHETYPE_FACTORY[GTS_EDGE] is
 		once
 			create Result.with_archetype(create {GTS_EDGE}.dummy)
+		end
+
+	segment_factory: ARCHETYPE_FACTORY[GTS_SEGMENT] is
+		once
+			create Result.with_archetype(create {GTS_SEGMENT}.dummy)
 		end
 
 	triangle_factory: ARCHETYPE_FACTORY[GTS_TRIANGLE] is

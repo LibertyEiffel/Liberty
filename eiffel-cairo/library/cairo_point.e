@@ -44,6 +44,8 @@ feature {} -- Creation
 			y := an_y
 		end
 
+	dummy is do end 
+
 feature
 	x, y: REAL
 

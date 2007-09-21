@@ -55,8 +55,6 @@ feature {} -- Creation
 		end
 	
 	with_capacity (a_capacity: INTEGER; a_factory: WRAPPER_FACTORY[ITEM]) is
-		require
-			factory_not_void: a_factory /= Void
 		do
 			capacity := a_capacity
 			upper := -1
