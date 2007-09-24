@@ -10,25 +10,25 @@ class G_OBJECT_FACTORY [ITEM -> G_OBJECT]
 	-- stored in the actual GObject data strutcture, using
 	-- "g_object_get_qdata".
 
-	-- If the GObject does not have an associated wrapper, makes a copy
-	-- of `archetype' and initialize it with the given pointer.
-
-	-- The proper general-purpose solution would be to retrieve a proper
-	-- wrapper using `g_type_get_qdata'(*), wrapper that the library
-	-- has stored at initialization time.
+	-- If the GObject does not have an associated wrapper an archetype
+	-- is retrieved from the GObject's GType using `g_type_get_qdata';
+	-- such an archetype should have been stored in the GObject's GType
+	-- during the initialization of the Eiffel wrapper library.
 
 	-- At initialization time each library wrapper that implements
-	-- non-deferred G_OBJECT heirs should create an "archetype" object
-	-- of each effective type and "connect" it to the underlying GType.
+	-- non-deferred G_OBJECT heirs is required to create an "archetype"
+	-- object of each effective type and "connect" it to the underlying
+	-- GType.
 
 	-- i.e. having a w: GTK_WINDOW
 
 	-- (TODO) g_object_archetypes.put(w,w.type)
 	-- g_type_set_archetype (w.type, eiffel_archetype_key.quark, w) 
 
-	-- (*): actually here we cheat a little: we re-wrap
-	-- `g_type_get_qdata' as `g_type_get_archetype', changing the
-	-- signature a little to avoid type-convertions (aka casts).
+	-- Actually the Eiffel type system is stretched a little: we
+	-- re-wrap `g_type_get_qdata' as `g_type_get_archetype', changing
+	-- the signature of the result from POINTER to ITEM, to avoid an
+	-- ugly type-convertion (aka cast) on the Eiffel side.
 	
 inherit WRAPPER_FACTORY[ITEM]
 
@@ -44,56 +44,73 @@ feature {WRAPPER,WRAPPER_HANDLER}
 	wrapper (a_pointer: POINTER): ITEM is
 			-- Retrieve the eiffel wrapper object from gobject's
 			-- `a_pointer'. It the GObject does not have a wrapper,
-			-- Result is obtained from an archetype. Such an archetype is
-			-- retrieved from the a property of the GObject's GType and
-			-- it is stored there at initialization time.
+			-- Result is copied from an archetype and set using
+			-- `a_pointer'. Such an archetype is retrieved from the a
+			-- property of the GObject's GType and it is stored there at
+			-- initialization time.
 
-			-- require pointer_has_stored_wrapper: has_eiffel_wrapper_stored (a_pointer)
 		require else pointer_is_gobject: g_is_object(a_pointer)=1
 		local an_archetype: ITEM; gobject_type: like g_type
 		do
-			if g_is_object(a_pointer) /= 0 then
-				Result ::= g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
-				if Result=Void then
-					debug
-						print ("G_OBJECT_FACTORY.wrapper: no wrapper for GObject at " + a_pointer.out)
-						print (" (type %"")
-						print (create {STRING}.from_external_copy(g_object_type_name(a_pointer)))
-						print ("%"). Looking for an archetype... ")
-						-- wrapper twinned from an archetype obtained from the GObject's type.%N")
-					end
-					gobject_type := g_object_type (a_pointer)
-					an_archetype ::= g_type_get_archetype (gobject_type, eiffel_archetype_key.quark)
-					if an_archetype /= Void then
-						debug print(an_archetype.out+" found.") end
-					else
-						debug print(" not found. ") end
-						an_archetype := archetype_for(gobject_type)
-					end
-					Result := an_archetype.standard_twin
-					Result.set_handle(a_pointer)
-				end
-				check Result/=Void end
-			else
+			Result ::= g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
+			if Result=Void then
 				debug
-					print("G_OBJECT_FACTORY.wrapper "+a_pointer.out+" is not a GObject, so Result is Void!%N")
+					print ("G_OBJECT_FACTORY.wrapper: no wrapper for GObject at " + a_pointer.out)
+					print (" (type %"")
+					print (create {STRING}.from_external_copy(g_object_type_name(a_pointer)))
+					print ("%"). Looking for an archetype... ")
+					-- wrapper twinned from an archetype obtained from the GObject's type.%N")
 				end
+				gobject_type := g_object_type (a_pointer)
+				an_archetype ::= g_type_get_archetype (gobject_type, eiffel_archetype_key.quark)
+				if an_archetype = Void then
+					debug print(" not found. ") end
+					an_archetype := archetype_for(gobject_type)
+				else
+					debug print(an_archetype.out+" found.") end
+				end
+				Result := an_archetype.standard_twin
+				Result.set_handle(a_pointer)
 			end
 		end
 	
 	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
 			-- Have `a_pointer' already been wrapped?
+
+			-- Note: if True, the cost of this query is the same of a
+			-- call to `wrapper'. So a code pattern like:
+
+			-- if has_eiffel_wrapper_stored(c_pointer) then
+			--   Result:=wrapper(c_pointer)
+			-- else
+			--   create	Result.from_external_pointer (c_pointer) 
+			-- end
+
+			-- is on average slower than the equivalent:
+			-- "Result:=wrapper(c_pointer)".
+
+			-- Yet, if the effective type of the Gobject referred by
+			-- `a_pointer' is actually known for sure, the most efficient
+			-- code pattern is:
+
+			-- if not has_eiffel_wrapper_stored(c_pointer)
+			-- then create Result.from_external_pointer (c_pointer)
+			-- else Result:=wrapper(c_pointer)
+			-- end
+
+			-- Because 
+
 		do
 			Result := (g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
 		end
 
+feature {} -- Implementation
 	has_archetype_for (a_type: like g_type): BOOLEAN is
 			-- Does GType `a_type' have an Eiffel archetype?
 		do
 			Result := (g_type_get_archetype(a_type,eiffel_archetype_key.quark) /= Void)
 		end
 	
-feature {} -- Implementation
 	archetype_for (a_starting_type: like g_type): ITEM is
 			-- The archetype of the GObject referred by `a_pointer'. 
 		require

@@ -28,7 +28,7 @@ inherit G_LIST [ITEM] redefine from_external_pointer end
 	
 creation make, from_external_pointer
 
-feature {} -- Creation
+feature -- Creation
 	from_external_pointer (a_pointer: POINTER) is
 		do
 			create {G_OBJECT_FACTORY[ITEM]} factory

@@ -41,22 +41,4 @@ feature -- Creation
 			handle := a_pointer
 		end
 
--- 	copy (other: like Current) is
--- 		do
--- 			not_yet_implemented
--- 		end
-	
--- feature -- Queries
--- 	is_equal (other: like Current): BOOLEAN is
--- 		do
--- 			not_yet_implemented
--- 		end
-
--- 	is_equal_map (other: like Current): BOOLEAN is
--- 			-- Do both collections have the same lower, upper, and items?
--- 			-- Feature is_equal is used for comparison of items.
--- 		do
--- 			not_yet_implemented
--- 		end
-
-end -- class G_OBJECT_LIST
+end -- class G_OBJECT_SLIST
