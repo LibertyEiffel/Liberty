@@ -23,7 +23,7 @@ class G_COMPARE_DATA_CALLBACK[ITEM->COMPARABLE_SHARED_C_STRUCT]
 
 inherit GLIB_CALLBACK
 
-creation dummy, make
+creation make
 
 feature {} -- Creation
 	make (a_function: FUNCTION[ANY,TUPLE[ITEM,ITEM],INTEGER]) is
@@ -38,8 +38,8 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	callback (a,b, a_current: POINTER): INTEGER is
 		local
 			item_a, item_b: ITEM
-			factory: WRAPPER_RETRIEVER[ITEM]
 		do
+			not_yet_implemented
 			-- Big fat warning: this feature MUST use ONLY local
 			-- objects. No features from the class, only local features.
 			-- In addition this class must compiled with boost and no
@@ -47,15 +47,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			-- function with the correct fingerprint, i.e.:
 
 			-- gint (*GCompareFunc) (gconstpointer a, gconstpointer b);
-			factory.print ("G_COMPARE_DATA_CALLBACK.callback("+a.out+","+b.out+")%N")
-			item_a ::= factory.wrappers.reference_at(a)
-			if item_a=Void then item_a ::= factory.item_from(a) end
 			
-			item_b ::= factory.wrappers.reference_at(b)
-			if item_b=Void then item_b ::= factory.item_from(b) end
+			-- factory.print ("G_COMPARE_DATA_CALLBACK.callback("+a.out+","+b.out+")%N")
+			--item_a ::= factory.wrappers.reference_at(a)
+			-- if item_a=Void then item_a ::= factory.wrapper(a) end
 			
-			factory.print("G_COMPARE_DATA_CALLBACK: comparing by address and not with the given function.%N")
-			Result := item_a.compare(item_b) -- was: (function.item([item_a,item_b]))
+			-- item_b ::= factory.wrappers.reference_at(b)
+			-- if item_b=Void then item_b ::= factory.wrapper(b) end
+			
+			-- factory.print("G_COMPARE_DATA_CALLBACK: comparing by address and not with the given function.%N")
+			-- Result := item_a.compare(item_b) -- was: (function.item([item_a,item_b]))
 		end
 
 	callback_address: POINTER is

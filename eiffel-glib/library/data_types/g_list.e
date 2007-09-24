@@ -267,7 +267,7 @@ feature
 			not_yet_implemented -- TODO
 		end
 
-	slice (min, max: INTEGER): G_LIST [ITEM] is
+	slice (min, max: INTEGER): like Current is
 		do
 			not_yet_implemented -- TODO
 		end

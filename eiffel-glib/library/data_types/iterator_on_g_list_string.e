@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class ITERATOR_ON_G_SLIST_STRING 
+class ITERATOR_ON_G_LIST_STRING 
 inherit
 	ITERATOR [STRING]
 	WRAPPER_HANDLER
@@ -29,7 +29,7 @@ insert
 creation make
 	
 feature {} -- Creation
-	make (a_list: G_SLIST_STRING) is
+	make (a_list: G_LIST_STRING) is
 		require valid_list: a_list/=Void
 		do
 			list := a_list

@@ -27,8 +27,12 @@ insert
 	G_STRING_EXTERNALS
 	GLIB_STRING_UTILITY_FUNCTIONS
 	
-creation dummy, {ANY}
-	make, copy, make_empty, from_string
+creation
+	copy,
+	dummy,
+	make,
+	make_empty,
+	from_string
 	
 feature {WRAPPER_HANDLER, G_STRING}
 
@@ -65,7 +69,6 @@ feature {ANY} -- Creation / Modification:
 			handle := g_string_sized_new (needed_capacity)
 			-- The following is needed to comply with the postcondition
 			handle := g_string_set_size (handle, needed_capacity)
-			store_eiffel_wrapper
 			set_unshared
 		ensure
 			count = needed_capacity
@@ -75,7 +78,6 @@ feature {ANY} -- Creation / Modification:
 			-- Create an empty string.
 		do
 			make(0)
-			store_eiffel_wrapper
 			set_unshared
 		end
 
@@ -84,7 +86,6 @@ feature {ANY} -- Creation / Modification:
 		require a_string_not_void: a_string/=Void
 		do
 			handle := g_string_new (a_string.to_external)
-			store_eiffel_wrapper
 			set_unshared
 		end
 	
@@ -190,14 +191,13 @@ feature -- Conversion to STRING
 			create Result.from_external (c_string)
 		end
 	
-feature {} -- Disposing
+feature -- Disposing
 	dispose is
 		local p: POINTER
 		do
 			if not is_shared then
 				p:=g_string_free (handle, 1)
 			end
-			unstore_eiffel_wrapper
 			handle := default_pointer
 		end
 	

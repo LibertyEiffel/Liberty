@@ -4,7 +4,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-expanded class GLIB_MAIN_EVENT_LOOP
+class G_MAIN_LOOP
 -- Prev 	Up 	Home 	GLib Reference Manual 	Next
 -- Top  |  Description
 -- The Main Event Loop

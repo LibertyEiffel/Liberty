@@ -43,12 +43,30 @@ insert
 creation dummy, with_comparer, from_external_pointer
 
 feature {} -- Creation
+	make (a_key_factory: WRAPPER_FACTORY[KEY]; a_value_factory: WRAPPER_FACTORY[VALUE]) is
+			-- Creates a new G_TREE; comparison is made using 
+		require
+			key_factory_not_void: a_key_factory/=Void
+			value_factory_not_void: a_value_factory/=Void
+		do
+			key_factory   := a_key_factory
+			value_factory := a_value_factory
+			create comparator.make(agent {KEY}.compare)
+			from_external_pointer(g_tree_new_with_data
+										 (comparator.callback_address,
+										  comparator.to_pointer))
+		end
+	
 	with_comparer (a_compare_function: FUNCTION[ANY,TUPLE[KEY,KEY],INTEGER]) is
 			-- Creates a new GTree.
+		require
+			key_factory_not_void: a_key_factory/=Void
+			value_factory_not_void: a_value_factory/=Void
 		do
 			create comparator.make (a_compare_function)
 			from_external_pointer(g_tree_new_with_data
-										 (comparator.callback_address, comparator.to_pointer))
+										 (comparator.callback_address,
+										  comparator.to_pointer))
 		end
 
 	-- g_tree_new_full ()
@@ -68,29 +86,28 @@ feature {} -- Creation
 	-- Returns : 	a new GTree.
 
 feature {ANY} -- Basic access:
+
 	has (a_key: KEY): BOOLEAN is
 			-- Is there a value currently associated with `a_key'?
-			-- 
+
 			-- See also `fast_has', `at'.
 		do
-			if (g_tree_lookup (handle,a_key.handle)).is_not_null then
-				Result:=True
-			else
-				check default_result: Result=False end
+			if (g_tree_lookup (handle,a_key.handle)).is_not_null
+			then Result:=True
 			end
 		end
 
 	at (a_key: KEY): VALUE is
 			-- Return the value associated to `a_key'.
-			--
+
 			-- See also `fast_at', `reference_at', `has'.
-		local p: POINTER; r: WRAPPER_RETRIEVER[VALUE]
+		local p: POINTER
 		do
 			p:=g_tree_lookup(handle, a_key.handle)
 			check require_has_key_implies_result_pointer_not_null:
 				p.is_not_null 
 			end
-			Result:=r.item_from(p)
+			Result:=value_factory.wrapper(p)
 		end
 
 	reference_at (a_key: KEY): VALUE is
@@ -103,7 +120,7 @@ feature {ANY} -- Basic access:
 		do
 			p:=g_tree_lookup(handle, a_key.handle)
 			if p.is_not_null then
-				Result:=r.item_from(p)
+				Result:=value_wrapper.wrapper(p)
 			end
 		end
 
@@ -319,8 +336,6 @@ feature
 			Result:=g_tree_height(handle)
 		end
 
-	
-
 	-- g_tree_search ()
 
 	-- gpointer    g_tree_search                   (GTree *tree,
@@ -363,6 +378,10 @@ feature
 feature {} -- Low level implementation
 	comparator: G_COMPARE_DATA_CALLBACK [KEY]
 			-- The object containing the callback that will be called by C
+
+	key_factory: WRAPPER_FACTORY[KEY]
+
+	value_factory: WRAPPER_FACTORY[VALUE]
 
 	print_no_fast_notice is
 		once

@@ -21,6 +21,7 @@ inherit
 			has,
 			fast_has
 		end
+
 	SHARED_C_STRUCT
 		rename
 			is_not_null as wrapped_object_exists
@@ -234,7 +235,7 @@ feature
 
 		end
 
-	copy (other: G_SLIST_STRING) is
+	copy (other: like Current) is
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -271,7 +272,7 @@ feature
 
 		end
 
-	slice (min, max: INTEGER): G_SLIST_STRING is 
+	slice (min, max: INTEGER): like Current is 
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO

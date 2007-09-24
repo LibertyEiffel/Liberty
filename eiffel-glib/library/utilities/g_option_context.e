@@ -346,7 +346,9 @@ feature -- group options
 			-- debug print ("G_OPTION_CONTEXT.add_main_entries%N") end
 			if entries_array ?:= some_entries then
 				entries_array ::= some_entries 
-			else create entries_array.from_collection(some_entries,create {DUMMY_FACTORY[G_OPTION_ENTRY]}) 
+			else 
+				create entries_array.with_capacity(some_entries.count, create {DUMMY_FACTORY[G_OPTION_ENTRY]}) 
+				entries_array.from_collection (some_entries)
 			end
 			-- debug print (" entries array created:%N") end
 			debug entries_array.print_on(std_output) std_output.put_new_line end 

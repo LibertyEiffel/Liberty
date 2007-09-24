@@ -25,7 +25,8 @@ inherit
 	G_SLIST_STRING
 		redefine
 			first,last,item
-			
+		end
+	
 creation make, from_external_pointer
 
 feature

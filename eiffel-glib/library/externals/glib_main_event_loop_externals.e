@@ -4,7 +4,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-expanded class GLIB_MAIN_EVENT_LOOP_EXTERNALS
+deferred class GLIB_MAIN_EVENT_LOOP_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
@@ -45,7 +45,7 @@ feature {} -- External calls
 		end
 
 
-	g_main_context_new (void): POINTER is
+	g_main_context_new: POINTER is
 			-- GMainContext* g_main_context_new (void);
 		external "C use <glib.h>"
 		end
@@ -139,7 +139,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	 g_main_context_get_poll_func (a_context: POINTER): POINTER is
+	g_main_context_get_poll_func (a_context: POINTER): POINTER is
 			-- GPollFunc g_main_context_get_poll_func (GMainContext *context);
 		external "C use <glib.h>"
 		end

@@ -20,15 +20,15 @@ indexing
 			]"
 
 class G_COMPLETION
-	--  Automatic String Completion supports for automatic completion
-	--  using a group of target strings.
+	-- Automatic String Completion supports for automatic completion
+	-- using a group of target strings.
 
-	--  G_COMPLETION provides support for automatic completion of a
-	--  string using any group of target strings. It is typically used
-	--  for file name completion as is common in many UNIX shells.
+	-- G_COMPLETION provides support for automatic completion of a
+	-- string using any group of target strings. It is typically used
+	-- for file name completion as is common in many UNIX shells.
 
-	--  Target items are added and removed with `add', `remove',
-	--  `clear'.  A completion attempt is requested with `complete'.
+	-- Target items are added and removed with `add', `remove',
+	-- `clear'.  A completion attempt is requested with `complete'.
 
 	-- TODO: the underlying GCompletion allows strings to be UTF8 with
 	-- "g_completion_complete_utf8". Provide an UTF_8 variant. Items in
@@ -45,7 +45,7 @@ inherit SHARED_C_STRUCT redefine default_create, dispose end
 
 insert G_COMPLETION_EXTERNALS redefine default_create end 
 
-creation dummy, make, from_external_pointer
+creation dummy, from_external_pointer
 
 feature
 	default_create is

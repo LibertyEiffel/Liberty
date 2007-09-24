@@ -35,7 +35,6 @@ feature {} -- Creation
 			description_not_void: a_description /= Void
 		do
 			allocate
-			store_eiffel_wrapper
 			set_long_name (handle, a_long_name.to_external)
 			set_short_name (handle,a_short_name)
 			set_description (handle, a_description.to_external)
@@ -84,8 +83,8 @@ feature -- Queries
 		end
 
 	
-   -- GOptionArg arg; The type of the option, as a GOptionArg.
-   
+	-- GOptionArg arg; The type of the option, as a GOptionArg.
+	
 	--gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then
 	--arg_data must point to a GOptionArgFunc callback function, which
 	--will be called to handle the extra argument. Otherwise, arg_data
@@ -99,7 +98,7 @@ feature -- Queries
 	-- G_OPTION_ARG_STRING_ARRAY   gchar**
 	-- G_OPTION_ARG_FILENAME_ARRAY gchar**
 	-- G_OPTION_ARG_DOUBLE         gdouble
-   
+	
 
 	description: STRING is
 			-- the description for the option in --help output.  The

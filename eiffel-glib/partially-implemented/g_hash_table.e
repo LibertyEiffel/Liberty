@@ -15,12 +15,15 @@ class G_HASH_TABLE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
 
 	-- TODO: Eiffellize the following documentation.
 	
-	-- Note that neither keys nor values are copied when inserted into
-	-- the G_HASH_TABLE, so they must exist for the lifetime of the
-	-- G_HASH_TABLE. This means that the use of static strings is OK, but
-	-- temporary strings (i.e. those created in buffers and those
-	-- returned by GTK+ widgets) should be copied with g_strdup()
-	-- before being inserted.
+	-- Note: the following note, valid for the manual memory management
+	-- of the C world is not true anymore in an Eiffel program, if a
+	-- caching wrapper factory is used... "Note that neither keys nor
+	-- values are copied when inserted into the G_HASH_TABLE, so they
+	-- must exist for the lifetime of the G_HASH_TABLE. This means that
+	-- the use of static strings is OK, but temporary strings
+	-- (i.e. those created in buffers and those returned by GTK+
+	-- widgets) should be copied with g_strdup() before being
+	-- inserted".
 
 	-- If keys or values are dynamically allocated, you must be careful
 	-- to ensure that they are freed when they are removed from the
@@ -48,7 +51,6 @@ class G_HASH_TABLE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
 inherit
 	WRAPPER_DICTIONARY [VALUE, KEY]
 		redefine
-			from_external_pointer,
 			dispose
 		end
 		
@@ -142,9 +144,7 @@ feature {ANY} -- Basic access:
 		do
 			ptr := g_hash_table_lookup (handle, a_key.handle)
 			if ptr.is_not_null then
-				Result:=item_from(ptr)
-				-- Result::=wrappers.reference_at(ptr) if Result=Void then
-				-- print_wrapper_factory_notice end
+				Result:=factory.wrapper(ptr)
 			end
 
 			-- Looks up a key in the GHashTable, returning the original
