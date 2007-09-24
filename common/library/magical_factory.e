@@ -73,16 +73,18 @@ feature {} -- Notice
 	print_wrapper_factory_notice is
 		once
 			print ("[
-					  Warning! WRAPPER_FACTORY.retrieve feature could 
-					  produce objects which type is effectively deferred, 
-					  instead of giving it the correct type.%NFor example, 
-					  a button in a G_LIST[GTK_WIDGET] would have type `GTK_WIDGET'
-					  instead of `GTK_BUTTON'. I strongly suspect that this will 
-					  inevitably lead  to horrible crashes at run-time. 
-					  Obviously this couldn't be accepted and should be a 
-					  temporary solution.
-					  
-					  Paolo 2006-10-20
+					  Warning! MAGICAL_FACTORY.wrapper feature could 
+					  produce objects which effective type is actually deferred, 
+					  instead of giving it a valid, correct, effective type.
+
+					  This inevitably leads to horrible crashes at run-time as the
+					  Eiffel run-time system gets confused.
+					  Obviously this couldn't be accepted and should be used only as
+					  a temporary solution, or when the developer of a library wrapper 
+					  uses an effective types as generic. Sadly I coudln't find a way
+					  to express the 'ITEM shall no be deferred' precondition.
+
+					  Paolo 2007-09-24
 					  ]")
 		end
 

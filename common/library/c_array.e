@@ -30,7 +30,6 @@ insert EXCEPTIONS undefine fill_tagged_out_memory, copy, is_equal end
 
 creation 
 	with_capacity,
-	from_collection,
 	from_external_array
 
 feature {} -- Creation

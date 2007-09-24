@@ -116,6 +116,7 @@ feature -- Copying
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Destroying
+
 	dispose is
 			-- Action to be executed just before garbage collection reclaims an 
 			-- object; frees the memory pointed by `handle'
