@@ -42,12 +42,6 @@ inherit
 			dispose
 		end
 
-insert SHARED_WRAPPERS_DICTIONARY
-	-- because even if PANGO_ATTR_ITERATOR is not shared it returns
-	-- references to objects that are actually SHARED_C_STRUCT and
-	-- stored into wrappers dictionary, so we need to retrieve them
-	-- throught the shared dictionary.
-		
 creation dummy, from_attribute_list, copy, from_external_pointer
 
 feature {} --
@@ -117,12 +111,7 @@ feature
 		local ptr: POINTER 
 		do
 			ptr := pango_attr_iterator_get (handle, a_type)
-			if ptr.is_not_null then
-				Result::=wrappers.reference_at(ptr)
-				if Result=Void then
-					create Result.from_external_pointer (ptr)
-				end
-			end
+			if ptr.is_not_null then Result:=factory.wrapper(ptr) end
 		end
 	
 	details: TUPLE[PANGO_FONT_DESCRIPTION, PANGO_LANGUAGE, G_SLIST[PANGO_ATTRIBUTE]] is
@@ -187,7 +176,7 @@ feature {} -- Implementation
 	attribute_list: PANGO_ATTR_LIST
 			-- The list Current iterator is linked to.
 	
-	factory: CACHING_FACTORY[PANGO_ATTRIBUTE] is
+	factory: ARCHETYPE_CACHING_FACTORY[PANGO_ATTRIBUTE] is
 		once
 			create Result.with_archetype(pango_attribute_archetype)
 		end

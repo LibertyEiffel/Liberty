@@ -94,7 +94,7 @@ feature -- Operations
 					gdk_event_free (handle)
 				end
 				handle:= default_pointer
-				event.dispose
+				event.dispose -- instead of event := Void
 			end
 		end
 

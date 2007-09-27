@@ -32,7 +32,7 @@ insert
 	ARGUMENTS redefine default_create end
 	GTK_MAIN_EXTERNALS redefine default_create end
 	POINTER_HANDLING redefine default_create end
-	SHARED_ARCHETYPES_DICTIONARY redefine default_create end
+	SHARED_ARCHETYPES_DICTIONARY [G_OBJECT] redefine default_create end
 	GTK_FACTORIES  redefine default_create end
 	GDK_FACTORIES  redefine default_create end
 	

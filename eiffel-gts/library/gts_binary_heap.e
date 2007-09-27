@@ -20,7 +20,7 @@ indexing
 			]"
 
  
-deferred class GTS_BINARY_HEAP [ITEM_ ->  COMPARABLE_SHARED_C_STRUCT]
+deferred class GTS_BINARY_HEAP [ITEM -> COMPARABLE_SHARED_C_STRUCT]
 	-- Binary heaps: efficient data structure for priorit heaps.
 
 	-- The basic operations `insert_item' and `remove_top' are
@@ -39,12 +39,13 @@ inherit
 		end
 
 insert
-	WRAPPER_FACTORY [ITEM_]
 	GTS_BINARY_HEAP_EXTERNALS
 
 feature {} -- Creation
-	make is
+	make (a_factory: WRAPPER_FACTORY[ITEM]) is
+		require a_factory/=Void
 		do
+			factory := a_factory
 			from_external_pointer (gts_heap_new ($comparison_function))
 		end
 	
@@ -82,12 +83,8 @@ feature
 		local p: POINTER
 		do
 			p:=gts_heap_top(handle)
-			Result ::= wrappers.reference_at(p)
-			if Result=Void then
-				Result := new_item
-				Result.from_external_pointer(p)
-			end
-		ensure implemented: False
+			if p.is_not_null then
+				Result := factory.wrapper(p)
 		end
 
 	freeze is

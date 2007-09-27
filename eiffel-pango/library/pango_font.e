@@ -32,11 +32,11 @@ inherit G_OBJECT
 
 insert PANGO_GLYPH
 
-creation dummy, from_external_pointer, from_external_pointer_no_ref
-
-feature {} -- Creation
+creation from_external_pointer, from_external_pointer_no_ref
 
 feature -- size
+	dummy_gobject: POINTER is do end
+
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoFont)"

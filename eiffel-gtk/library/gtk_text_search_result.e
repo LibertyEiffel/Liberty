@@ -21,10 +21,16 @@ indexing
 
 class GTK_TEXT_SEARCH_RESULT
 	-- The result of a search command over a GTK_TEXT_BUFFER
-	
-inherit WRAPPER_HANDLER redefine default_create end
 
-creation dummy, default_create
+insert
+	ANY
+		redefine
+			copy,
+			default_create,
+			is_equal
+		end
+	
+creation default_create, copy
 
 feature {} -- Creation
 	default_create is
@@ -48,8 +54,8 @@ feature
 	copy (another: like Current) is
 		do
 			found:=another.found
-			match_start.copy(another.match_start)
-			match_end.copy(another.match_end)
+			create match_start.copy(another.match_start)
+			create match_end.copy(another.match_end)
 		end
 
 feature
@@ -62,4 +68,5 @@ feature
 	match_end: GTK_TEXT_ITER	
 			-- The end of the found match
 	
-end -- class 
+end -- class GTK_TEXT_SEARCH_RESULT
+

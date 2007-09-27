@@ -30,8 +30,6 @@ inherit
 
 insert
 	PANGO_LAYOUT_EXTERNALS
-	G_OBJECT_RETRIEVER [PANGO_CONTEXT]
-		rename retrieve_eiffel_wrapper_from_gobject_pointer as retrieve_context end
 	PANGO_WRAP_MODE
 	PANGO_ALIGNMENT
 
@@ -67,13 +65,11 @@ feature -- Access
 			-- Retrieves the PANGO_CONTEXT used for this layout.
 		local
 			context_pointer: POINTER
+			r: G_OBJECT_RETRIEVER [PANGO_CONTEXT]
 		do
 			context_pointer := pango_layout_get_context(handle)
-			if has_eiffel_wrapper_stored (context_pointer) then
-				Result := retrieve_context (context_pointer)
-			else
-				create Result.from_external_pointer (context_pointer)
-			end
+			check context_pointer.is_not_null end
+			Result := r.wrapper(context_pointer)
 		end
 
 	text: STRING is
@@ -134,10 +130,11 @@ feature -- Access
 		end
 
 	font_description: PANGO_FONT_DESCRIPTION is
-			-- Gets the font description for the layout, if any.
-			-- Returns a pointer to the layout's font description, or Void if
-			-- the font description from the layout's context is inherited.
-			-- This value owned by the layout and *must not be modified*.
+			-- The font description for the layout, if any or Void if the
+			-- font description from the layout's context is inherited.
+		
+			-- TODO: This value owned by the layout and *must not be
+			-- modified*.
 		local
 			fd_ptr: POINTER
 		do

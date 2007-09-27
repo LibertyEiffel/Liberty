@@ -36,6 +36,8 @@ feature
 			from_external_pointer(pango_fontset_simple_new(a_language.handle))
 		end
 
+	dummy_gobject: POINTER is do end
+
 feature 
 	append (a_font: PANGO_FONT) is
 			-- Adds `a_font' to the fontset.

@@ -25,7 +25,7 @@ insert
 	GTS_VERTEX_EXTERNALS undefine fill_tagged_out_memory end
 	GTS_SEGMENT_EXTERNALS undefine fill_tagged_out_memory end
 	GTS_EDGE_EXTERNALS undefine fill_tagged_out_memory end
-	WRAPPER_HANDLER undefine fill_tagged_out_memory end
+	WRAPPER_HANDLER
 	
 feature 
 

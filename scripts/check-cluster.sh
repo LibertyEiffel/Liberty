@@ -1,5 +1,7 @@
 #!/bin/sh
 
+TIMESTAMP=.check_cluster_timestamp
+
 WRONG_CLASSES=classes-with-errors
 CORRECT_CLASSES=correct-classes
 
@@ -30,6 +32,33 @@ run_tests () {
 	
 }
 
+wrong_and_correct_classes () { 
+    # All the testable classes; the classes with known error are listed first
+
+    if [ -s $WRONG_CLASSES ] ; 
+    then # Prepend wrong classes
+	cat $WRONG_CLASSES
+	# Find all classes in the library
+	find library -iname "*.e" | 
+	# Remove stubs
+	grep -v stub  |
+	# Remove classes with errors (previously prepended)
+	grep -v -F -f $WRONG_CLASSES
+	rm $WRONG_CLASSES $CORRECT_CLASSES # We are checking them anew.
+    else find library -iname "*.e" | grep -v stub 
+    fi
+}
+
+classes_first_changed () {
+    if [ -f $TIMESTAMP ] ; then
+	find library -iname "*.e" -newer $TIMESTAMP   | grep -v stub 
+	find library -iname "*.e" ! -newer $TIMESTAMP | grep -v stub 
+    else
+	find library -iname "*.e" | grep -v stub 
+    fi
+    touch $TIMESTAMP
+}
+
 check_classes () {
     # check all the library classes, starting with those that had
     # error the oast time the check-cluster script were launched
@@ -39,20 +68,7 @@ check_classes () {
 	exit 5
     else
 	echo "Testing library classes."
-	for CLASS in $( # Testable classes 
-            if [ -s $WRONG_CLASSES ] ; 
-	    then # Prepend wrong classes
-		cat $WRONG_CLASSES
-	        # Find all classes in the library
-		find library -iname "*.e" | 
-		## Remove stubs
-		grep -v stub  |
-		# Remove classes with errors (previously prepended)
-		grep -v -F -f $WRONG_CLASSES
-		rm $WRONG_CLASSES $CORRECT_CLASSES # We are checking them anew.
-            else find library -iname "*.e" | grep -v stub 
-	    fi
-	    );
+	for CLASS in $( classes_first_changed ) # $( wrong_and_correct_classes )
 	do
 	    echo -n "Checking $CLASS: "
 	    if se class_check $CLASS 2>&1;
@@ -74,6 +90,7 @@ check_classes () {
 	    echo $(wc -l $WRONG_CLASSES) classes with errors
 	    exit 5
 	fi
+	
     fi ## library exits
 }
 
@@ -155,8 +172,8 @@ Arguments:
 
  library 
 
-   check all the library classes, starting with those that had error
-   the last time the check-cluster script were launched. Those with
+   check all the library classes, starting with those that have been 
+   changed since the last time this were launched. Those with
    errors are listed in "$WRONG_CLASSES", those without in
    "$CORRECT_CLASSES".
 
@@ -178,6 +195,12 @@ This script would like to be (become) a good "commit-filter", i.e.: if
 it does not end successfully you should not commit your changes.
 
 EOF
+
+## library was: check all the library classes, starting with those
+## that had error the last time the check-cluster script were
+## launched. Those with errors are listed in "$WRONG_CLASSES", those
+## without in "$CORRECT_CLASSES".
+
 }
 
 if check_position ; then

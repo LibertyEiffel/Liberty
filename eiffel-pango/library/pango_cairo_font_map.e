@@ -64,8 +64,8 @@ feature -- Operations
 			-- between points specified in a PANGO_FONT_DESCRIPTION and Cairo
 			-- units. The default value is 96, meaning that a 10 point font
 			-- will be 13 units high. (10 * 96. / 72. = 13.3).
-			--
-			-- a_dpi: the resolution in "dots per inch". (Physical inches aren't
+
+			-- `a_dpi': the resolution in "dots per inch". (Physical inches aren't
 			--        actually involved; the terminology is conventional.)
 		do
 			pango_cairo_font_map_set_resolution (handle, a_dpi)
@@ -85,7 +85,12 @@ feature -- Access
 			create Result.from_external_pointer (pango_cairo_font_map_create_context (handle))
 		end
 
-feature -- size
+feature 
+	dummy_gobject: POINTER is
+		do
+			Result := pango_cairo_font_map_new
+		end
+
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoCairoFontMap)"

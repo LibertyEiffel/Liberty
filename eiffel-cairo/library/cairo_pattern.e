@@ -194,7 +194,6 @@ feature -- Access
 			is_valid_extend (Result)
 		end
 
-feature {} -- Hidden
 	dispose is
 			-- Decreases the reference count on pattern by one. If the
 			-- result is zero, then pattern and all associated resources
@@ -203,6 +202,7 @@ feature {} -- Hidden
 			cairo_pattern_destroy(handle)
 		end
 
+feature {} -- Hidden
 	ref is
 			-- Increases the reference count on pattern by one. This
 			-- prevents pattern from being destroyed until a matching

@@ -138,7 +138,8 @@ feature
 
 
 	is_homogeneous: BOOLEAN is
-			-- Is the box homogeneous? It means that all children are the same size
+			-- Is the box homogeneous? It means that all children are the
+			-- same size. The "homogeneous" property
 		do
 			Result:=(gtk_box_get_homogeneous(handle)).to_boolean
 		end
@@ -208,6 +209,7 @@ feature
 			gtk_box_set_child_packing (handle,  a_child.handle, expand.to_integer, fill.to_integer,
 												a_padding, gtk_pack_start)
 		end
+
 	set_child_packing_end (a_child: GTK_WIDGET; expand,fill: BOOLEAN; a_padding: INTEGER) is
 			-- Sets the way child is packed into box. From the end
 		require valid_child: a_child/=Void
@@ -216,8 +218,8 @@ feature
 												a_padding, gtk_pack_end)
 		end
 
-	feature -- Property Details TODO
--- The "homogeneous" property
+feature -- Property Details TODO
+
 
 --   "homogeneous"          gboolean              : Read / Write
 

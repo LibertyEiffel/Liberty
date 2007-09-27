@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 					]"
 					
-deferred class SHARED_ARCHETYPES_DICTIONARY
+deferred class SHARED_ARCHETYPES_DICTIONARY [ITEM->G_OBJECT]
 	-- Shared class that offers the archetypes dictionary.
 	
 	-- An archetype is a empty wrapper object. One archetype shall be 
@@ -75,7 +75,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 		end
 
 feature {} -- External call
-	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: like gquark): G_OBJECT is
+	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: like gquark): ITEM is
 			-- This function gets back the Eiffel wrapper stored using `g_object_set_qdata'
 		external "C use <glib-object.h>"
 		alias "g_object_get_qdata"
@@ -94,7 +94,7 @@ feature {} -- External call
 		alias "g_type_set_qdata"
 		end
 	
-	g_type_get_archetype (a_type: like g_type; a_quark: like gquark): G_OBJECT is
+	g_type_get_archetype (a_type: like g_type; a_quark: like gquark): ITEM is
 			-- Gets back the Eiffel wrapper stored using
 			-- `g_object_set_qdata'. Here we stretch the type system a
 			-- bit, because actually Result should be a POINTER, so

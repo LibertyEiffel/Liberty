@@ -9,7 +9,12 @@ deferred class G_OBJECT_RETRIEVER [ITEM_ -> G_OBJECT]
 	
 obsolete "G_OBJECT_RETRIEVER has been reimplemented to use the new G_OBJECT_FACTORY. Please use such a class directly. Paolo 2007-09-23"
 		
-inherit G_OBJECT_FACTORY[ITEM_]
+inherit
+	G_OBJECT_FACTORY[ITEM_]
+		undefine 
+			copy,
+			is_equal 
+		end
 	
 feature {WRAPPER}
 

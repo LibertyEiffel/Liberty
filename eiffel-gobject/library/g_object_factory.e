@@ -35,7 +35,7 @@ inherit WRAPPER_FACTORY[ITEM]
 insert
 	G_OBJECT_EXTERNALS
 	G_TYPE_EXTERNALS
-	SHARED_ARCHETYPES_DICTIONARY
+	SHARED_ARCHETYPES_DICTIONARY[ITEM]
 	SHARED_EIFFEL_KEY
 
 creation default_create
@@ -52,7 +52,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 		require else pointer_is_gobject: g_is_object(a_pointer)=1
 		local an_archetype: ITEM; gobject_type: like g_type
 		do
-			Result ::= g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
+			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
 			if Result=Void then
 				debug
 					print ("G_OBJECT_FACTORY.wrapper: no wrapper for GObject at " + a_pointer.out)
@@ -62,7 +62,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 					-- wrapper twinned from an archetype obtained from the GObject's type.%N")
 				end
 				gobject_type := g_object_type (a_pointer)
-				an_archetype ::= g_type_get_archetype (gobject_type, eiffel_archetype_key.quark)
+				an_archetype := g_type_get_archetype (gobject_type, eiffel_archetype_key.quark)
 				if an_archetype = Void then
 					debug print(" not found. ") end
 					an_archetype := archetype_for(gobject_type)
@@ -124,7 +124,7 @@ feature {} -- Implementation
 			loop
 				a_type:=g_type_parent(a_type)
 				fundamental_type_found:=g_type_is_fundamental(a_type).to_boolean
-				Result::=g_type_get_archetype(a_type,eiffel_archetype_key.quark)
+				Result:=g_type_get_archetype(a_type,eiffel_archetype_key.quark)
 
 				debug
 					if fundamental_type_found then print("Fundamental GType '")
