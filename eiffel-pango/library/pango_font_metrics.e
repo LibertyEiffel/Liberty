@@ -25,7 +25,7 @@ inherit SHARED_C_STRUCT
 
 -- insert FOO_EXTERNALS
 
-creation dummy, from_external_pointer
+creation  from_external_pointer
 
 feature -- TODO: PangoFontMetrics structure access
 

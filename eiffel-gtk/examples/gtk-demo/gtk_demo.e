@@ -29,7 +29,7 @@ insert
 	-- Eventually insert this - when it will be implemented:
 	-- PANGO_STANDARD_ENUMERATIONS
 
-creation dummy, make
+creation make
 
 feature -- Buffers
 	info_buffer, source_buffer: GTK_TEXT_BUFFER

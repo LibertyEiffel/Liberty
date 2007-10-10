@@ -26,9 +26,9 @@ class DRAG_DATA_RECEIVED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_WIDGET
@@ -40,29 +40,17 @@ feature
 			info >= 0
 			time >= 0
 		local
-			r_drag_context: G_RETRIEVER [GDK_DRAG_CONTEXT]
+			drag_context_factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
 			drag_context_obj: GDK_DRAG_CONTEXT
 			selection_data_obj: GTK_SELECTION_DATA
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			
-			if r_drag_context.has_eiffel_wrapper_stored (drag_context) then
-				drag_context_obj := r_drag_context.retrieve_eiffel_wrapper_from_gobject_pointer (drag_context)
-			else
-				create drag_context_obj.from_external_pointer (drag_context)
-			end
-			
-			if wrappers.has (selection_data) then
-				selection_data_obj ::= wrappers.at(selection_data)
-			else
-				create selection_data_obj.from_external_pointer (selection_data)
-			end
+			object := wrapper(instance)
+			drag_context_obj := drag_context_factory.wrapper(drag_context)
+			selection_data_obj := wrapper(selection_data)
+
 			
 			procedure.call ([drag_context_obj, x, y, selection_data_obj, info, time, object])
 		ensure

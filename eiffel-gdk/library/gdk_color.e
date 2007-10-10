@@ -9,7 +9,7 @@ class GDK_COLOR
 
 inherit SHARED_C_STRUCT redefine copy, free end
 
-creation dummy,
+creation 
 	from_external_pointer, make
 
 feature -- size

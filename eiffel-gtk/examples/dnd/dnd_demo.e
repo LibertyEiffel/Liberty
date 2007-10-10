@@ -7,8 +7,7 @@ insert
 	GDK_DRAG_ACTION
 	GDK_MODIFIER_TYPE
 
-creation dummy,
-	make
+creation	make
 
 feature
 

@@ -25,7 +25,7 @@ insert
 		-- undefine copy 
 		-- end
 
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature
 	make is

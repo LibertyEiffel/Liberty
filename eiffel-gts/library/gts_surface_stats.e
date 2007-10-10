@@ -28,7 +28,7 @@ insert
 	GTS_SURFACE_STATS_STRUCT
 		-- redefine copy end
 	
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature {} -- Creation
 	make is

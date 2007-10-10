@@ -30,7 +30,7 @@ inherit
 insert
 	PANGO_CAIRO_FONT_MAP_EXTERNALS
 
-creation dummy,
+creation 
 	make, make_default
 
 feature {} -- Creation

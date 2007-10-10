@@ -5,7 +5,7 @@ insert
 	AV_CODEC_TYPES
 	ARGUMENTS
 
-creation dummy,
+creation 
 	make
 
 feature

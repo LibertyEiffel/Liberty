@@ -49,7 +49,7 @@ insert
 	GTS_SURFACE_STRUCT
 	GTS_SURFACE_SIMPLIFICATION_AND_REFINEMENT_EXTERNALS
 
-creation dummy, make, copy, from_external_pointer
+creation  make, copy, from_external_pointer
 
 feature {} -- Creation
 	make is

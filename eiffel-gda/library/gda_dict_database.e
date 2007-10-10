@@ -56,7 +56,7 @@ feature
 
 	dict: GDA_DICT is
 			-- Fetch the GdaDict object to which the GdaDictDatabase belongs.
-		local r: G_RETRIEVER[GDA_DICT]; p: POINTER
+		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT]; p: POINTER
 		do
 			p:=gda_dict_database_get_dict(handle)
 			Result:=r.eiffel_wrapper_from_gobject_pointer(p)

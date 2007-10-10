@@ -30,7 +30,7 @@ inherit
 insert
 	AV_RATIONAL_EXTERNALS
 
-creation dummy,
+creation 
 	from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation

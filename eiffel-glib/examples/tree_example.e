@@ -7,7 +7,7 @@ indexing
 
 class TREE_EXAMPLE
 
-creation dummy, make
+creation  make
 
 feature
 	tree: G_TREE[G_STRING,G_DATE]

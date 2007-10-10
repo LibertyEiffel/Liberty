@@ -26,9 +26,9 @@ class CHANGED_CALLBACK [O -> G_OBJECT]
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [O]
+insert G_OBJECT_FACTORY [O]
 
-creation dummy, make
+creation  make
 
 feature
 	object: O
@@ -39,14 +39,8 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement 
-			-- that the editable is actually created bu the Eiffel 
-			-- application. 
-			check
-				eiffel_created_the_editable: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			-- The above line replaces "create object.from_external_pointer
+			object := wrapper(instance)
+
 			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])
 		end

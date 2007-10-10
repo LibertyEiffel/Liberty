@@ -36,7 +36,7 @@ inherit
 insert
 	GNOME_VFS_VOLUME_TYPE
 
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature -- Creation
 	compare (another: like Current): BOOLEAN is

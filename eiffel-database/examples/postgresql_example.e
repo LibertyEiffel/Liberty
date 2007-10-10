@@ -1,6 +1,6 @@
 class POSTGRESQL_EXAMPLE
 
-creation dummy, make
+creation  make
 
 feature 
 	make is

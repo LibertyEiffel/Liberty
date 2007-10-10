@@ -27,7 +27,7 @@ inherit
 			struct_size
 		end
 
-creation dummy, from_external_pointer
+creation  from_external_pointer
 
 feature -- Getters
 	red: INTEGER_32 is

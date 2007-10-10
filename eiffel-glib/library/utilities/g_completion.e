@@ -45,7 +45,7 @@ inherit SHARED_C_STRUCT redefine default_create, dispose end
 
 insert G_COMPLETION_EXTERNALS redefine default_create end 
 
-creation dummy, from_external_pointer
+creation  from_external_pointer
 
 feature
 	default_create is

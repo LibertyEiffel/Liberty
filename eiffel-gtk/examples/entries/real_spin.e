@@ -1,6 +1,6 @@
 class REAL_SPIN
 inherit GTK_SPIN_BUTTON rename make as make_spin redefine on_changed end
-creation dummy, make
+creation make
 feature make is
 		local adj: GTK_ADJUSTMENT
 		do

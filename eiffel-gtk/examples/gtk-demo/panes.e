@@ -21,7 +21,7 @@ indexing
 
 class PANES
 
-creation dummy, make
+creation make
 
 feature 
 -- /* Paned Widgets

@@ -21,7 +21,7 @@ indexing
 
 class SIZEGROUP
 
-creation dummy, make
+creation make
 
 feature
 	

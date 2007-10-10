@@ -96,7 +96,7 @@ feature
 			-- implementation require that the object that will be retrieved must
 			-- be already be wrapped. Otherwise it will be Void *EVEN* if such an
 			-- object actually exists.
-		local retriever: G_RETRIEVER[GDA_OBJECT]; ptr: POINTER
+		local retriever: G_OBJECT_EXPANDED_FACTORY[GDA_OBJECT]; ptr: POINTER
 		do
 			ptr := gda_dict_get_object_by_string_id (handle, an_id.to_external)
 			Result := (retriever.eiffel_wrapper_from_gobject_pointer(ptr))

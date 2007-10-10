@@ -11,7 +11,7 @@ inherit C_STRUCT
 
 insert G_SIGNAL_FLAGS 	
 
-creation dummy, allocate
+creation  allocate
 
 feature -- getters
 	id: INTEGER is

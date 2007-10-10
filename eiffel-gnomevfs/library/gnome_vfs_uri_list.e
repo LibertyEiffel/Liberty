@@ -22,7 +22,7 @@ indexing
 class GNOME_VFS_URI_LIST
 
 inherit G_LIST[GNOME_VFS_URI] redefine dispose end
-creation dummy, parse, from_external_pointer
+creation  parse, from_external_pointer
 
 feature {} -- Creation
 	parse (an_uri_list: STRING) is

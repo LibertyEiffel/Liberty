@@ -61,7 +61,7 @@ feature
 			res: POINTER
 			window: GDK_WINDOW
 			x, y, mask: INTEGER
-			r: G_RETRIEVER [GDK_WINDOW]
+			r: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
 			res := gdk_window_get_pointer (handle, $x, $y, $mask)
 			if res.is_not_null then
@@ -80,7 +80,7 @@ feature
 --	children: G_LIST [GDK_WINDOW] is
 --		local
 --			ptr: POINTER
---			g_retriever: G_RETRIEVER [G_LIST [GDK_WINDOW]]
+--			g_retriever: G_OBJECT_EXPANDED_FACTORY [G_LIST [GDK_WINDOW]]
 --		do
 --			ptr := gdk_window_get_children (handle)
 --			if g_retriever.has_eiffel_wrapper_stored (ptr) then

@@ -7,6 +7,8 @@ indexing
 
 expanded class G_RETRIEVER [ITEM_ -> G_OBJECT]
 
+obsolete "Use G_OBJECT_EXPANDED_FACTORY instead."
+
 insert
 	G_OBJECT_RETRIEVER [ITEM_]
 		export {ANY}

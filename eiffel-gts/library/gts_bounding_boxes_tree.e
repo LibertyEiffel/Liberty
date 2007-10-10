@@ -34,7 +34,7 @@ inherit SHARED_C_STRUCT
 insert 
 	GTS_BOUNDING_BOXES_TREE_EXTERNALS
 
-creation dummy, from_external_pointer
+creation  from_external_pointer
 
 feature {} -- Creation
 	

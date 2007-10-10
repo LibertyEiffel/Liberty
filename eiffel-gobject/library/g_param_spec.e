@@ -45,7 +45,7 @@ insert
 	G_PARAM_SPEC_EXTERNALS
 	G_TYPE_EXTERNALS
 
-creation dummy, from_external_pointer
+creation  from_external_pointer
 	
 feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is

@@ -19,7 +19,7 @@ insert
 	GLIB_MEMORY_ALLOCATION export {} all end
 	G_VALUE_EXTERNALS
 	
-creation dummy,
+creation 
 	make, from_external_pointer, with_gtype,
 	make_boolean, make_integer, make_natural, make_real, make_real_32,
 	make_enum, make_string, make_object, make_pointer,
@@ -477,10 +477,9 @@ feature {ANY} -- Object
 			-- If current value is an object, returns it.
 		require
 			is_object: is_object
-		local r: G_RETRIEVER[G_OBJECT]
+		local r: G_OBJECT_EXPANDED_FACTORY[G_OBJECT]
 		do
-			debug print_reimplement end 
-			Result:=r.eiffel_wrapper_from_gobject_pointer(g_value_get_object (handle))
+			Result:=r.wrapper(g_value_get_object (handle))
 		end
 
 	set_object (a_value: G_OBJECT) is
@@ -610,17 +609,7 @@ feature -- Disposing
 			handle := default_pointer
 		end
 
-feature {} -- Notices
-	print_reimplement is
-		once
-			print(once "G_VALUE.object is currently implemented using G_RETRIEVER,%
-						  % that have know issues. Please reimplement it %
-						  %with a factory%N")
-		end
-			
 invariant
-
 	handle_not_null: is_not_null
 --	is_initialized
-
 end

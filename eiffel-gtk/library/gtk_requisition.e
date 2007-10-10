@@ -45,7 +45,7 @@ class GTK_REQUISITION
 inherit
 	C_STRUCT redefine is_equal end
 
-creation dummy, make, copy, copy_from_pointer
+creation  make, copy, copy_from_pointer
 
 feature {} -- Creation
 

@@ -17,7 +17,7 @@ inherit
 
 insert G_LIST_EXTERNALS undefine fill_tagged_out_memory end
 
-creation dummy, make, from_external
+creation  make, from_external
 
 feature
 	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[ITEM]) is

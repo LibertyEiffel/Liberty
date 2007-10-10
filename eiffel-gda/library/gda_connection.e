@@ -111,7 +111,7 @@ feature
 			-- the GdaClient object associated with a connection. This is
 			-- always the client that created the connection, as returned
 			-- by GDA_CLIENT `open_connection'.
-		local retriever: G_RETRIEVER [GDA_CLIENT]
+		local retriever: G_OBJECT_EXPANDED_FACTORY [GDA_CLIENT]
 		do
 			Result := (retriever.eiffel_wrapper_from_gobject_pointer
 						  (gda_connection_get_client (handle)))

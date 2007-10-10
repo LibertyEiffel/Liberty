@@ -35,7 +35,7 @@ insert
 
 	PANGO_RENDERING_EXTERNALS -- for pango_context_new
 
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature {} -- Creation
 
@@ -65,7 +65,7 @@ feature -- Access
 			-- Retrieves the PANGO_CONTEXT used for this layout.
 		local
 			context_pointer: POINTER
-			r: G_OBJECT_RETRIEVER [PANGO_CONTEXT]
+			r: G_OBJECT_EXPANDED_FACTORY [PANGO_CONTEXT]
 		do
 			context_pointer := pango_layout_get_context(handle)
 			check context_pointer.is_not_null end

@@ -58,7 +58,7 @@ inherit
 insert
 	GDK_EVENT_EXTERNALS
 
-creation dummy, from_external_pointer
+creation  from_external_pointer
 
 feature -- size
 

@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [GTK_RANGE]
 
-creation dummy, make
+creation  make
 
 feature
 	object: GTK_RANGE

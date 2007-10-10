@@ -56,7 +56,7 @@ inherit
 
 		-- Implemented Interfaces: GtkExpander implements AtkImplementorIface.
 	
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]	
+insert G_OBJECT_FACTORY [GTK_WIDGET]	
 
 creation dummy, make, make_with_mnemonic
 
@@ -209,12 +209,9 @@ feature
 		do
 			ptr:= gtk_expander_get_label_widget (handle)
 			if ptr.is_not_null then
-				Result:=retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
+				Result:=wrapper(ptr)
 			end
 		end
-
-
---    Since 2.4
 
 feature -- Properties
 	

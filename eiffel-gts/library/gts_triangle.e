@@ -35,7 +35,7 @@ inherit GTS_OBJECT redefine struct_size end
 
 insert GTS_POINT_EXTERNALS
 	
-creation dummy, from_edges, enclosing, from_external_pointer
+creation  from_edges, enclosing, from_external_pointer
 
 feature {} -- Creation
 	from_edges (first,second,third: GTS_EDGE) is

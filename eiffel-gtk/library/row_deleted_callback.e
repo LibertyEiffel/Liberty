@@ -28,9 +28,9 @@ inherit
 	CALLBACK redefine object end
 
 insert
-	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
+	G_OBJECT_EXPANDED_FACTORY [GTK_TREE_MODEL]
 
-creation dummy, make
+creation  make
 
 feature
 	object: GTK_TREE_MODEL
@@ -50,7 +50,7 @@ feature
 			check
 				eiffel_created_the_instance: has_eiffel_wrapper_stored (instance)
 			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			create tree_path_obj.copy_from_pointer (tree_path)
 			procedure.call ([tree_path_obj, object])
 		end

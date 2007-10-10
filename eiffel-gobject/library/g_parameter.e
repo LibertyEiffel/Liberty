@@ -11,7 +11,7 @@ inherit C_STRUCT
 
 insert G_PARAMETER_EXTERNALS
 
-creation dummy, from_external_pointer
+creation  from_external_pointer
 	
 feature
 	--	is_equal(another: like Current): BOOLEAN is do Result:= 

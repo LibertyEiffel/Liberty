@@ -81,7 +81,7 @@ feature
 
 	table: GDA_DICT_TABLE is
 			-- the table to which the constraint is attached
-		local r: G_RETRIEVER[GDA_DICT_TABLE]; p: POINTER
+		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_TABLE]; p: POINTER
 		do
 			p:=gda_dict_constraint_get_table(handle)
 			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
@@ -114,7 +114,7 @@ feature
 			-- the list of fields composing the primary key constraint which
 			-- Current represents. The returned list is allocated and must be
 			-- de-allocated by the caller.
-		local r: G_RETRIEVER[G_SLIST[GDA_DICT_FIELD]]; p: POINTER
+		local r: G_OBJECT_EXPANDED_FACTORY[G_SLIST[GDA_DICT_FIELD]]; p: POINTER
 		do
 			p:=gda_dict_constraint_pkey_get_fields(handle)
 			-- TODO: The returned list is allocated and must be de-allocated by the
@@ -157,7 +157,7 @@ feature
 			-- is NOT INCREASED, which means the caller of this function
 			-- DOES NOT hold any reference on the mentionned GObjects (if
 			-- he needs to, it has to call G_OBJECT.ref)".
-		local r: G_RETRIEVER[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
+		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
 		do
 			p:=gda_dict_constraint_fkey_get_fields(handle)
 			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
@@ -200,7 +200,7 @@ feature
 	unique_fields: G_SLIST[GDA_DICT_FIELD] is
 			-- the list of fields represented by this UNIQUE
 			-- constraint. It's up to the caller to free the list.
-		local r: G_RETRIEVER[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
+		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
 		do
 			p:=gda_dict_constraint_unique_get_fields(handle)
 			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
@@ -217,7 +217,7 @@ feature
 		end
 
 	not_null_field: GDA_DICT_FIELD is
-		local r: G_RETRIEVER[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
+		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
 		do
 			p:=gda_dict_constraint_not_null_get_field(handle)
 			Result:=r.eiffel_wrapper_from_gobject_pointer(p)

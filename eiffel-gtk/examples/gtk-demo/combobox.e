@@ -21,7 +21,7 @@ indexing
 
 class COMBOBOX
 
-creation dummy, make
+creation make
 
 feature
 -- /* Combo boxes 

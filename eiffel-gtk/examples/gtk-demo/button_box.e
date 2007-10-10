@@ -21,7 +21,7 @@ indexing
 
 class BUTTON_BOX
 
-creation dummy, make
+creation make
 
 feature
 -- /* Button Boxes

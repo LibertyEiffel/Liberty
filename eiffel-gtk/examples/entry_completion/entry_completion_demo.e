@@ -26,7 +26,8 @@ insert
 	G_TYPE
 	ANY
 	
-creation dummy, make
+creation make
+
 feature
 	make is
 		do

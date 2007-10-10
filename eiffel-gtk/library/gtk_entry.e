@@ -32,7 +32,7 @@ inherit
 		-- GtkEntry implements AtkImplementorIface, GtkCellEditable and GtkEditable.
 
 insert
-	G_OBJECT_RETRIEVER [GTK_MENU]
+	G_OBJECT_FACTORY [GTK_MENU]
 	GTK_ENTRY_EXTERNALS
 	
 creation dummy, make, from_external_pointer
@@ -221,12 +221,11 @@ feature -- Alignment
 			-- indices in the layout to byte indices in the entry
 			-- contents.
 		local
-			ptr: POINTER; --r: G_RETRIEVER[PANGO_LAYOUT]
+			ptr: POINTER; r: G_OBJECT_EXPANDED_FACTORY[PANGO_LAYOUT]
 		do
 			-- Note: The returned layout is owned by the entry and must
 			-- not be modified or freed by the caller.
-			ptr := gtk_entry_get_layout (handle)
-			create Result.from_external_pointer (ptr)
+			Result := r.wrapper(gtk_entry_get_layout(handle))
 			Result.set_shared
 		end
 
@@ -562,16 +561,12 @@ feature -- The "populate-popup" signal
 
 feature {} -- populate-popup signal implementation
 
-	hidden_on_populate_popup (a_gtk_menu, a_gtk_entry: POINTER) is
+	hidden_on_populate_popup (a_gtk_menu_pointer, a_gtk_entry_pointer: POINTER) is
 		require
 			menu_not_null: a_gtk_menu.is_not_null
 			entry_not_null: a_gtk_entry.is_not_null -- Otherwise very bad things are happening.
-		local
-			a_menu: GTK_MENU
 		do
-			a_menu := retrieve_eiffel_wrapper_from_gobject_pointer (a_gtk_menu)
-			check a_menu_not_void: a_menu /= Void end
-			on_populate_popup (a_menu)
+			on_populate_popup (wrapper (a_gtk_menu_pointer))
 		end
 	-- void user_function (GtkEntry *entry, GtkMenu *arg1, gpointer
 	--                                             user_data) : Run

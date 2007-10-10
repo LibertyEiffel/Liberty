@@ -21,7 +21,7 @@ indexing
 
 class CLIPBOARD
 
-creation dummy, make
+creation make
 
 feature
 -- /* Clipboard

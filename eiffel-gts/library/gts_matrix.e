@@ -37,7 +37,7 @@ inherit
 			print_on
 		end
 	
-creation dummy,
+creation 
 	make, from_external_pointer,
 	zero, identity
 

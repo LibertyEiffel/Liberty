@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_RETRIEVER [GTK_WIDGET]
 
-creation dummy, make
+creation  make
 
 feature
 	object: GTK_WIDGET

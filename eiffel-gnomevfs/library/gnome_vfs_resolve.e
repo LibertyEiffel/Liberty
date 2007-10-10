@@ -27,7 +27,7 @@ inherit
 
 insert GNOME_VFS_RESULT
 
-creation dummy, resolve, from_external_pointer
+creation  resolve, from_external_pointer
 
 feature {} -- Creation
 

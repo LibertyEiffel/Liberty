@@ -11,7 +11,7 @@ class TEST_CODES
 inherit
 	EIFFELTEST_TOOLS
 
-creation dummy,
+creation 
 	make
 	
 feature

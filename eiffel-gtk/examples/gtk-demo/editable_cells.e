@@ -21,7 +21,7 @@ indexing
 
 class EDITABLE_CELLS
 
-creation dummy, make
+creation make
 
 feature
 -- /* Tree View/Editable Cells

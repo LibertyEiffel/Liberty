@@ -28,7 +28,7 @@ insert
 	GDK_FILL_RULE
 	GDK_OVERLAP_TYPE
 
-creation dummy,
+creation 
 	make, from_polygon, from_external_pointer, from_rectangle, copy
 
 feature {} -- Creation

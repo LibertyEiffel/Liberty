@@ -415,8 +415,6 @@ feature {} -- Low-level properties getters
 		external "C use <glib-object.h>"
 		end
 	
-	-- g_object_get_qdata ()
-
 	g_object_get_qdata (a_object: POINTER; a_quark: INTEGER_32): POINTER is
 			-- This function gets back user data pointers stored via g_object_set_qdata().
 			-- object : 	The GObject to get a stored user data pointer from

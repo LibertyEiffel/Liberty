@@ -42,7 +42,7 @@ inherit
 			dispose
 		end
 
-creation dummy, from_attribute_list, copy, from_external_pointer
+creation  from_attribute_list, copy, from_external_pointer
 
 feature {} --
 	from_attribute_list (an_attribute_list: PANGO_ATTR_LIST) is

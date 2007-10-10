@@ -30,7 +30,7 @@ insert
 	SHARED_WRAPPERS_DICTIONARY
 	G_PTR_ARRAY_EXTERNALS
 
-creation dummy, make 
+creation  make 
 
 feature {} -- Creation
 	make (an_array: G_REFERENCE_ARRAY [ITEM]) is

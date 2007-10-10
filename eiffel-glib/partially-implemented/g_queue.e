@@ -32,7 +32,7 @@ inherit
 			dispose
 		end
 
-creation dummy, make, copy, from_external_pointer
+creation  make, copy, from_external_pointer
 
 feature -- Copying
 

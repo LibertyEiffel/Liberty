@@ -35,7 +35,7 @@ inherit
 			print_on
 		end
 	
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature {} -- Creation
 	make is

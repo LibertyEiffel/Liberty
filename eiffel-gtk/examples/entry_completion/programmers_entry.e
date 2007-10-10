@@ -12,7 +12,7 @@ insert G_TYPE
 	-- since it requires explicit reference to g_type_*; it's ugly, or
 	-- better it feels mostly unEiffelish to me. Paolo 2006-05-30
 	
-creation dummy, make
+creation make
 
 feature 
 	make is

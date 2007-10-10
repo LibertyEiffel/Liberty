@@ -14,28 +14,20 @@ indexing
 
 deferred class GTK_BIN
 
-inherit GTK_CONTAINER
-	-- Implemented Interfaces: GtkBin implements AtkImplementorIface.
+inherit
+	GTK_CONTAINER
+		-- Implemented Interfaces: GtkBin implements AtkImplementorIface.
+	G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
 
-insert
-	G_OBJECT_RETRIEVER [GTK_WIDGET]
-	GTK_BIN_EXTERNALS
-
+insert GTK_BIN_EXTERNALS
+			
 feature
 	child: GTK_WIDGET is
 			-- the child of the GTK_BIN, or Void if the bin contains no
 			-- child widget. The widget does not have a reference added,
 			-- so you do not need to unref it.
-		local a_widget_ptr: POINTER
 		do
-			a_widget_ptr := gtk_bin_get_child(handle)
-			Result := retrieve_eiffel_wrapper_from_gobject_pointer (a_widget_ptr)
-			debug
-				if Result=Void then
-					print ("Warning GTK_BIN.child encountered an unwrapped gobject!%
-                      % Returning Void insted.%N")
-				end
-			end
+			Result := wrapper(gtk_bin_get_child(handle))
 		end
 
 end

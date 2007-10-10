@@ -21,7 +21,7 @@ indexing
 
 class PICKERS
 
-creation dummy, make
+creation make
 	
 feature
 -- /* Pickers 

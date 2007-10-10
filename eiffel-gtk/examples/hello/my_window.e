@@ -1,6 +1,6 @@
 class MY_WINDOW
 inherit GTK_WINDOW redefine make, on_destroy end
-creation dummy, make
+creation make
 feature {}
 	make is
 		do

@@ -48,7 +48,7 @@ inherit
 		end
 	C_STRUCT
 	
-creation dummy, connect
+creation  connect
 
 feature {} -- size
 	struct_size: INTEGER is

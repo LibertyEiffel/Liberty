@@ -23,7 +23,7 @@ class PANGO_SHAPE_ATTRIBUTE
 
 inherit C_STRUCT
 
-creation dummy, from_external_pointer
+creation  from_external_pointer
 
 feature {} -- Creation
 

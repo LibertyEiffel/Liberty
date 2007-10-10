@@ -17,7 +17,7 @@ inherit
 
 insert G_SLIST_EXTERNALS  
 
-creation dummy, from_external, make
+creation  from_external, make
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[ITEM]) is

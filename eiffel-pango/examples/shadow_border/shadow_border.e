@@ -4,7 +4,7 @@ insert
 	CAIRO_FORMAT
 	PANGO_CONSTANTS
 
-creation dummy,
+creation 
 	make
 
 feature

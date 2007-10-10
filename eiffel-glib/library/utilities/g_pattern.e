@@ -44,7 +44,7 @@ inherit
 			is_equal, free
 		end
 
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature {} -- Creation
 

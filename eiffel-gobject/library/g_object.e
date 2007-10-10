@@ -80,6 +80,15 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			Result := has_qdata (eiffel_key)
 		end
 
+	is_main_wrapper: BOOLEAN is
+			-- Is Current the main wrapper of a GObject? A "main" wrapper
+			-- is the Eiffel object linked to by in the underlying
+			-- Gobject, whose reference is stored in a qdata property
+			-- with the `eiffel_key' Gquark key.
+		do
+			Result := (to_pointer = g_object_get_qdata (handle, eiffel_key.quark))
+		end
+
 feature {WRAPPER, WRAPPER_HANDLER} -- GObject type system implementation.
 	stored_type: like g_type
 			-- The (stored) numerical value which represents the unique
@@ -167,16 +176,56 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Dummy creation
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creating
+	main_wrapper_from (an_external_pointer: POINTER) is
+			-- Create a "main" wrapper from `an_external_pointer'. A
+			-- "main" wrapper is the Eiffel object linked to in the
+			-- underlying Gobject, whose reference is stored in a qdata
+			-- property with the `eiffel_key' Gquark key.
+		require
+			called_on_creation: is_null
+			pointer_not_null: an_external_pointer.is_not_null
+			no_other_wrappers_exists: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (an_external_pointer)
+		do
+			handle := an_external_pointer
+			ref
+			set_shared
+			store_eiffel_wrapper
+		end
+
+	unreffed_main_wrapper_from (an_external_pointer: POINTER) is
+			-- Create a "main" wrapper from `an_external_pointer'. The
+			-- underlying GObject is not ref-fed; it is useful when a
+			-- particular C function returns an already referenced
+			-- pointer.
+		require
+			called_on_creation: is_null
+			pointer_not_null: an_external_pointer.is_not_null
+			no_other_wrappers_exists: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (an_external_pointer)
+		do
+			handle := an_external_pointer
+			set_shared
+			store_eiffel_wrapper
+		end
+
 	from_external_pointer (a_ptr: POINTER) is
 		require
 			called_on_creation: is_null
 			pointer_not_null: a_ptr.is_not_null
-			not_existing_wrapper: not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
 		do
 			Precursor (a_ptr)
-			unset_shared
-			store_eiffel_wrapper
-			ref -- Adds a reference to the underlying g_object. When Current is actually a GTK_OBJECT this will also sink the object.
+			ref -- Adds a reference to the underlying g_object. When
+			-- Current is actually a GTK_OBJECT this will also sink the
+			-- object.
+			
+			-- Note: a G_OBJECT, like all ref-counted objects,
+			-- is shared by definition; in fact the Eiffel side should
+			-- never free the memory allocated by C, since it will get
+			-- freed when ref-count drop to zero.
+			set_shared
+			if g_object_get_qdata(handle, eiffel_key.quark).is_null then
+				-- There is no other wrapper 
+				store_eiffel_wrapper
+			end
 		end
 
 	from_external_pointer_no_ref (a_ptr: POINTER) is
@@ -188,7 +237,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Creating
 		require
 			called_on_creation: is_null
 			pointer_not_null: a_ptr.is_not_null
-			not_existing_wrapper: not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
+			not_existing_wrapper: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (a_ptr)
 		do
 			handle := a_ptr
 			store_eiffel_wrapper
@@ -202,7 +251,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Creating
 		require
 			called_on_creation: is_null
 			pointer_not_null: a_ptr.is_not_null
-			not_existing_wrapper: not (create {G_RETRIEVER [like Current]}).has_eiffel_wrapper_stored (a_ptr)
+			not_existing_wrapper: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (a_ptr)
 		do
 			handle := a_ptr
 			store_eiffel_wrapper

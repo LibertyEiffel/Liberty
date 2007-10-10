@@ -34,7 +34,7 @@ class GDK_EVENT_EXPOSE
 
 inherit SHARED_C_STRUCT redefine from_external_pointer end
 
-creation dummy, from_external_pointer
+creation  from_external_pointer
 
 feature -- Creation
 	from_external_pointer(a_pointer: POINTER) is

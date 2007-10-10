@@ -27,7 +27,7 @@ insert
 	GTS_FILE_VARIABLE_STRUCT
 	GTS_TOKEN_TYPE
 	
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature {} -- Creation
 	make is

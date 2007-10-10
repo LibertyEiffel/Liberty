@@ -25,7 +25,8 @@ indexing
 class DESTROY_CALLBACK
 
 inherit CALLBACK redefine object end
-insert G_OBJECT_RETRIEVER [GTK_OBJECT]
+
+insert G_OBJECT_FACTORY [GTK_OBJECT]
 
 creation dummy, make
 
@@ -38,7 +39,7 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			check
 				object_not_void: object /= Void
 			end

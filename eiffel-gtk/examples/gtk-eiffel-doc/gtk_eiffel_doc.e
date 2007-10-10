@@ -45,7 +45,7 @@ insert
 	GTK_FILE_CHOOSER_ACTION	undefine fill_tagged_out_memory end
 	G_TYPES undefine fill_tagged_out_memory end
 
-creation dummy, main
+creation main
 
 feature 
 	main is

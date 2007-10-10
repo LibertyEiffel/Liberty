@@ -6,7 +6,7 @@ indexing
 
 class STRING_EXAMPLE
 
-creation dummy, make
+creation  make
 feature
 	string: G_STRING
 	make is

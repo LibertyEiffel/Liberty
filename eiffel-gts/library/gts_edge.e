@@ -25,7 +25,7 @@ inherit GTS_SEGMENT redefine duplicate, make, struct_size end
 	
 insert GTS_EDGE_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature {} -- Creation
 	make (a_vertex, another_vertex: GTS_VERTEX) is

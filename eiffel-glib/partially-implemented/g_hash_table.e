@@ -57,7 +57,7 @@ inherit
 insert
 	G_HASH_TABLE_EXTERNALS
 
-creation dummy, from_external
+creation  from_external
 
 feature {} -- Creation
 	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[VALUE]) is

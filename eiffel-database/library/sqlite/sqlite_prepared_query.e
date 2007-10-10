@@ -29,7 +29,7 @@ insert
 			is_equal
 		end
 	
-creation dummy, {SQLITE_DATABASE} make
+creation  {SQLITE_DATABASE} make
 	
 feature
 	last_result: SQLITE_RESULT_SET

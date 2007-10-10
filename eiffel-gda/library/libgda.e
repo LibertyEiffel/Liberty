@@ -24,7 +24,7 @@ class LIBGDA
 insert
 	SINGLETON
 	
-creation dummy, {SHARED_LIBGDA}
+creation  {SHARED_LIBGDA}
 	make
 	
 feature {} -- creation

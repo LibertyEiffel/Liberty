@@ -79,7 +79,7 @@ feature -- Representation
 			-- the parent instance
 		local
 			object: POINTER
-			retriever: G_RETRIEVER [G_OBJECT]
+			retriever: G_OBJECT_EXPANDED_FACTORY [G_OBJECT]
 		do
 			object := gdk_drag_context_parent_instance (handle)
 			if retriever.has_eiffel_wrapper_stored (object) then
@@ -105,7 +105,7 @@ feature -- Representation
 			-- the source of this drag
 		local
 			window: POINTER
-			retriever: G_RETRIEVER [GDK_WINDOW]
+			retriever: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
 			window := gdk_drag_context_source_window (handle)
 			if retriever.has_eiffel_wrapper_stored (window) then
@@ -119,7 +119,7 @@ feature -- Representation
 			-- the destination window of this drag
 		local
 			window: POINTER
-			retriever: G_RETRIEVER [GDK_WINDOW]
+			retriever: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
 			window := gdk_drag_context_dest_window (handle)
 			if retriever.has_eiffel_wrapper_stored (window) then

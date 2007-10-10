@@ -5,7 +5,8 @@ inherit
 		export {} make_expander
 		redefine on_activate			
 		end
-creation dummy, make
+creation make
+	
 feature make (a_statusbar: GTK_STATUS_BAR) is
 		require valid_statusbar: a_statusbar/=Void
 		do

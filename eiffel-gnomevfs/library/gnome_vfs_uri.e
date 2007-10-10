@@ -36,7 +36,7 @@ inherit
 
 insert GNOME_VFS_URI_HIDE_OPTIONS
 
-creation dummy,
+creation 
 	make, from_external_pointer,
 	resolve_relative,
 	append_string, append_path, append_file_name,

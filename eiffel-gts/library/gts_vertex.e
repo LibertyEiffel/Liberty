@@ -36,7 +36,7 @@ insert
 
 	SHARED_GTS
 
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature {} -- Creation
 	make (an_x, an_y, a_z: REAL) is 

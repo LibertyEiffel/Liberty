@@ -30,11 +30,17 @@ class GTK_MENU_ITEM
 	
 inherit
 	GTK_ITEM
+		-- The abstract class for all sorts of items that inherits from
+		-- GTK_BIN, to handle the child.
 	
-	-- TODO: AtkImplementorIface.
+	-- TODO: GtkBuildable, AtkImplementorIface.
 
-insert
-	G_OBJECT_RETRIEVER  [GTK_WIDGET]
+insert 
+	G_OBJECT_FACTORY [GTK_WIDGET]
+		undefine 
+			copy, 
+			is_equal
+		end
 
 creation dummy, make, with_label, with_mnemonic, from_external_pointer
 
@@ -184,9 +190,10 @@ feature
 	submenu: GTK_WIDGET is 
 			-- The submenu underneath this menu item, if is exists. See
 			-- `set_submenu'.
+		local ptr: POINTER
 		do
-			Result := (eiffel_wrapper_from_gobject_pointer
-						  (gtk_menu_item_get_submenu (handle)))
+			ptr:=gtk_menu_item_get_submenu(handle)
+			if ptr.is_not_null then Result := wrapper(ptr) end
 			-- gtk_menu_item_get_submenu returns : submenu for this menu
 			-- item, or NULL if none.
 		end
@@ -330,13 +337,6 @@ feature -- Signals
 	--              void        user_function      (GtkMenuItem *menuitem,
 	--                                              gpointer     arg1,
 	--                                              gpointer     user_data)      : Run first
-
-
-	-- Details
-
-	--   GtkMenuItem
-
-	--  typedef struct _GtkMenuItem GtkMenuItem;
 
 
 	-- See Also

@@ -47,7 +47,7 @@ inherit
 		end
 -- insert PANGO_MATRIX_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation  make, from_external_pointer
 
 feature {} -- Creation
 	-- #define PANGO_MATRIX_INIT { 1., 0., 0., 1., 0., 0. }

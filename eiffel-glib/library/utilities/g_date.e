@@ -61,7 +61,7 @@ inherit
 			compare
 		end
 	
-creation dummy, make_dmy, from_tuple
+creation  make_dmy, from_tuple
 
 feature {} -- size
 	struct_size: INTEGER is

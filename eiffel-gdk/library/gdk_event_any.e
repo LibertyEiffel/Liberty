@@ -27,11 +27,11 @@ inherit
 			dispose
 		end
 insert
-	G_OBJECT_RETRIEVER [GDK_WINDOW]
+	G_OBJECT_FACTORY [GDK_WINDOW]
 	GDK_EVENT_ANY_EXTERNALS
 	GDK_EVENT_TYPE
 
-creation dummy, from_event, from_external_pointer
+creation  from_event, from_external_pointer
 
 feature {} -- Creation
 
@@ -39,7 +39,6 @@ feature {} -- Creation
 		obsolete "GDK_EVENT_ANY.from_event should not be necessary with the new memory handling design"
 		require
 			a_event /= Void
-			not wrappers.has (a_event.handle)
 		do
 			event := a_event
 			set_shared
@@ -65,15 +64,8 @@ feature -- access
 
 	window: GDK_WINDOW is
 			-- the window which received the event.
-		local
-			window_ptr: POINTER
 		do
-			window_ptr := gdk_event_any_get_window (handle)
-			if has_eiffel_wrapper_stored (window_ptr) then
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer (window_ptr)
-			else
-				create Result.from_external_pointer (window_ptr)
-			end
+			Result := wrapper(gdk_event_any_get_window(handle))
 		end
 
 	send_event: BOOLEAN is

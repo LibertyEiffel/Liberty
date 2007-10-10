@@ -7,7 +7,7 @@ insert
 	GTK 
 	ANY 
 
-creation dummy, make
+creation make
 feature
 	make is
 		do

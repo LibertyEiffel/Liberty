@@ -13,7 +13,7 @@ inherit
 	LINKED_LIST [SQLITE_RESULT_ROW]
 		undefine copy, is_equal 
 		end
-creation dummy, make
+creation  make
 
 feature
 -- feature get_new_iterator: ITERATOR [SQLITE_RESULT_ROW] is do end

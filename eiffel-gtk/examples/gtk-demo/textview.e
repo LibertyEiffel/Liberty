@@ -34,7 +34,7 @@ insert
 	PANGO_WEIGHT
 	PANGO_STYLE
 	
-creation dummy, make
+creation make
 
 feature -- Widgets
 	buffer: GTK_TEXT_BUFFER

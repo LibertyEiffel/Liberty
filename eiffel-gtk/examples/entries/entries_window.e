@@ -4,7 +4,7 @@ inherit
 insert
 	G_SIGNALS undefine fill_tagged_out_memory end
 	GTK
-creation dummy, make
+creation make
 feature make is
 		do
 			Precursor

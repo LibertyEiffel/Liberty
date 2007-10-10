@@ -21,7 +21,7 @@ indexing
 
 class ICONVIEW
 
-creation dummy, make
+creation make
 	
 feature
 -- /* Icon View/Icon View Basics

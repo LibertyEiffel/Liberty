@@ -30,7 +30,7 @@ insert
 	GTK_MESSAGE_TYPE
 	GTK_BUTTONS_TYPE
 	
-creation dummy, make
+creation make
 
 feature 
 	name: STRING is "Appliction main window"

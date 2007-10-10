@@ -85,7 +85,7 @@ inherit
 
 insert
 	GTK_ACCEL_LABEL_EXTERNALS
-	G_OBJECT_RETRIEVER [GTK_WIDGET]
+	G_OBJECT_FACTORY [GTK_WIDGET]
 	
 creation dummy, make, from_external_pointer
 
@@ -114,7 +114,7 @@ feature
 		do
 			ptr:=gtk_accel_label_get_accel_widget(handle)
 			if ptr.is_not_null then
-				Result:=eiffel_wrapper_from_gobject_pointer(ptr)
+				Result:=wrapper(ptr)
 			end
 		end
 

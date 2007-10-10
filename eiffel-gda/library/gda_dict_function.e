@@ -114,7 +114,7 @@ feature
 			-- the return type of a function (To consult it). Note: the
 			-- setter feature allows Void values while the C version of
 			-- this getter feature does not specify it. It could be Void
-		local r: G_RETRIEVER[GDA_DICT_TYPE]; p: POINTER
+		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_TYPE]; p: POINTER
 		do
 			p:=gda_dict_function_get_ret_type(handle)
 			if p.is_not_null then 

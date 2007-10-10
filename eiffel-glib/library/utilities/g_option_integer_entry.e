@@ -27,7 +27,7 @@ inherit
 
 	-- REFERENCE[INTEGER]
 
-creation dummy, make
+creation  make
 
 feature
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is

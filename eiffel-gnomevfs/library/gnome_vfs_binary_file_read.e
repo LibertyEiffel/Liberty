@@ -30,7 +30,7 @@ inherit
 			connect_to
 		end
 
-creation dummy, make, connect_to, with_buffer_size, from_external_pointer
+creation  make, connect_to, with_buffer_size, from_external_pointer
 
 feature {} -- Buffering
 	fill_buffer is
