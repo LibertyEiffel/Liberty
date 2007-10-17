@@ -381,14 +381,9 @@ feature -- Operation
 	window: GDK_WINDOW is
 			-- Result can be void if window isn't realized yet
 		local
-			c_window: POINTER
-			r: G_RETRIEVER [GDK_WINDOW]
+			factory: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
-			c_window := gtk_widget_get_window (handle)
-			if c_window.is_not_null then
-				Result := r.eiffel_wrapper_from_gobject_pointer(c_window)
-				if Result=Void then create Result.from_external_pointer (c_window) end
-			end
+			Result := factory.wrapper_or_void(gtk_widget_get_window(handle))
 		end
 
 	parent_window: GDK_WINDOW is

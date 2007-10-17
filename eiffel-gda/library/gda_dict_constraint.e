@@ -28,7 +28,9 @@ class GDA_DICT_CONSTRAINT
 
 inherit
 	GDA_OBJECT
-
+		redefine 
+			is_equal
+		end
 	-- TODO: GdaDictConstraint implements GdaXmlStorage and GdaReferer.
 
 insert GDA_DICT_CONSTRAINT_EXTERNALS

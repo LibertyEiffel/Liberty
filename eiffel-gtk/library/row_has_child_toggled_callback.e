@@ -27,7 +27,7 @@ class ROW_HAS_CHILD_TOGGLED_CALLBACK
 	-- *arg1, GtkTreeIter *arg2, gpointer user_data) : Run last
 
 inherit CALLBACK redefine object end
-insert G_OBJECT_FACTORY [GTK_TREE_MODEL]
+insert 	G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
 creation  make
 
 feature object: GTK_TREE_MODEL

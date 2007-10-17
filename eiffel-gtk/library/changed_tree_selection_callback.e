@@ -28,7 +28,7 @@ inherit
 	CALLBACK redefine object end
 
 insert
-	G_OBJECT_RETRIEVER [GTK_TREE_SELECTION]
+		G_OBJECT_FACTORY [GTK_TREE_SELECTION] undefine is_equal, copy end
 
 creation dummy, make
 
@@ -42,15 +42,7 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement
-			-- that the object is actually created by the Eiffel
-			-- application.
-			check
-				eiffel_created_the_object: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			-- The above line replaces "create object.from_external_pointer
-			-- (instance)" which continuosly creates new Eiffel wrappers
+			object := wrapper(instance)
 			procedure.call ([object])
 		end
 

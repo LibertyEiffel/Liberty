@@ -54,7 +54,7 @@ inherit
 
 insert
 	GTK_ENTRY_COMPLETION_EXTERNALS
-	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
+		G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
 
 creation dummy, make, from_external_pointer
 
@@ -69,15 +69,9 @@ feature {} -- Creation
 feature
 	entry: GTK_ENTRY is
 			-- the entry completion has been attached to.
-		local retriever: G_RETRIEVER[GTK_ENTRY]; p: POINTER
+		local entry_factory: G_OBJECT_EXPANDED_FACTORY[GTK_ENTRY]
 		do
-			p:=gtk_entry_completion_get_entry (handle)
-			if p.is_not_null then
-				Result:=retriever.eiffel_wrapper_from_gobject_pointer(p)
-				if Result=Void then
-					create Result.from_external_pointer (p)
-				end
-			end
+			Result:=entry_factory.wrapper_or_void(gtk_entry_completion_get_entry (handle))
 		end
 	
 	set_model (a_model: GTK_TREE_MODEL) is
@@ -101,8 +95,7 @@ feature
 		require
 			is_model_set
 		do
-			Result := (retrieve_eiffel_wrapper_from_gobject_pointer
-						  (gtk_entry_completion_get_model (handle)))
+			Result := wrapper(gtk_entry_completion_get_model (handle))
 		end
 	
 	is_model_set: BOOLEAN is

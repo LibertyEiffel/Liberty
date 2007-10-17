@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class _STRUCT
+deferred class GDA_PARAMETER_LIST_NODE_STRUCT
 
 inherit ANY undefine is_equal, copy end
 

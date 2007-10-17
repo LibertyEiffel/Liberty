@@ -17,7 +17,6 @@ inherit
 	SQLITE_PREPARED_STATEMENT
 
 creation
-	dummy
 	{SQLITE_DATABASE} make
 
 feature

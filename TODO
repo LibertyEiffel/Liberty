@@ -1,4 +1,13 @@
-
+* When receiving a pointer to a GObject and we know for sure its
+  effective type we have two choices: we can use a factory that
+  retrieves the main wrapper if it exists or create it by necessity,
+  but the code is not so straightforward and requires processing or we
+  can instead create another wrapper; the first solution uses less
+  memory but requires more computing, the latter would tend to use
+  more memory, putting the actual burden of memory handling on the
+  garbage collector. I haven't made benchmarks but I suspect that the
+  first best in memory-tight enviroments, for example my brand-new
+  Nokia N800.
 
 * There are a lot of G_OBJECT_FACTORY scattered throught the
    code. While the code is (erhm should) be correct it feels not
@@ -105,15 +114,15 @@ GTK singleton as hidden features.
       create Result.from_external_copy (external_get_foo (a_pointer))
    end
 
-While this is correct AFAIK it is not that efficient, since it
+   While this is correct AFAIK it is not that efficient, since it
    reallocate memory every time foo is accessed.
 
-Usually such strings are almost always used read-only. Is there a code
-   pattern or a class that allow to stress out or model better this
-   "constantness"? 
+   Usually such strings are almost always used read-only. Is there a
+   code pattern or a class that allow to stress out or model better
+   this "constantness"?
 
-CONST_STRING has been created to address this need. The code pattern
-   is:
+   CONST_STRING has been created to address this need. The code
+   pattern is:
 
  foo: STRING is
    do

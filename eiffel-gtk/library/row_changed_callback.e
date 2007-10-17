@@ -28,7 +28,7 @@ inherit
 	CALLBACK redefine object end
 
 insert
-	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
+		G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
 
 creation dummy, make
 
@@ -45,13 +45,7 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement
-			-- that the model is actually created by the Eiffel
-			-- application.
-			check
-				eiffel_created_the_instance: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			-- Note: path and iter are shared wrappers.
 			create path.copy_from_pointer (path_ptr)
 			create iter.copy_from_pointer (iter_ptr)

@@ -85,7 +85,7 @@ inherit
 
 insert
 	GTK_ACCEL_LABEL_EXTERNALS
-	G_OBJECT_FACTORY [GTK_WIDGET]
+		G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 	
 creation dummy, make, from_external_pointer
 

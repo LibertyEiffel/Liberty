@@ -58,19 +58,11 @@ feature
 			--                                              gint *y,
 			--                                              GdkModifierType *mask);
 		local
-			res: POINTER
 			window: GDK_WINDOW
 			x, y, mask: INTEGER
-			r: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
+			factory: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
-			res := gdk_window_get_pointer (handle, $x, $y, $mask)
-			if res.is_not_null then
-				if r.has_eiffel_wrapper_stored (res) then
-					window := r.retrieve_eiffel_wrapper_from_gobject_pointer (res)
-				else
-					create window.from_external_pointer (res)
-				end
-			end
+			window := factory.wrapper_or_void(gdk_window_get_pointer(handle, $x, $y, $mask))
 			mask := mask & gdk_modifier_mask
 			Result := [window, x, y, mask]
 		ensure

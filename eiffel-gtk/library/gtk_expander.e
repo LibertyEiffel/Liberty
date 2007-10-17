@@ -56,7 +56,7 @@ inherit
 
 		-- Implemented Interfaces: GtkExpander implements AtkImplementorIface.
 	
-insert G_OBJECT_FACTORY [GTK_WIDGET]	
+insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end	
 
 creation dummy, make, make_with_mnemonic
 

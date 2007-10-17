@@ -53,14 +53,10 @@ feature
 	colorselection: GTK_COLOR_SELECTION is
 		local
 			selection_ptr: POINTER
-			cs: G_RETRIEVER [GTK_COLOR_SELECTION]
+			factory: G_OBJECT_EXPANDED_FACTORY [GTK_COLOR_SELECTION]
 		do
-			selection_ptr := gtk_color_selection_dialog_get_colorsel (handle)
-			if cs.has_eiffel_wrapper_stored (selection_ptr) then
-				Result := cs.retrieve_eiffel_wrapper_from_gobject_pointer (selection_ptr)
-			else
-				create Result.from_external_pointer (selection_ptr)
-			end
+			Result := (factory.wrapper_or_void
+						  (gtk_color_selection_dialog_get_colorsel (handle)))
 		end
 
 feature {} -- GtkColorSelectionDialog struct

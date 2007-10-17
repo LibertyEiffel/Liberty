@@ -26,7 +26,7 @@ class DELETE_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 
 creation dummy, make
 
@@ -38,29 +38,17 @@ feature
 		require
 			instance_not_null: instance.is_not_null
 		local
-			event_obj: GDK_EVENT
-			specific_event: GDK_EVENT_ANY
+			an_event: GDK_EVENT
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 				print ("is_object: "+g_is_object (instance).out+"%N")
 				print ("type: "+g_object_type (instance).out+"%N")
 			end
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-			end
-			-- retrieve event, object
-			if wrappers.has (ev_ptr) then
-				specific_event ::= wrappers.at(ev_ptr)
-				event_obj := specific_event.event
-			else
-				create event_obj.from_external_pointer (ev_ptr)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			-- FIXME: event should be retrieved when GDK_EVENT is implemented **trixx, 20060616
-			Result := function.item ([object, event_obj]).to_integer
-			-- GTK is about to release this event, detach it from Eiffel
-			event_obj.event_any.dispose
+			
+			create an_event.from_external_pointer(ev_ptr)
+			object := wrapper(instance)
+			Result := function.item ([object, an_event]).to_integer
 		end
 
 	callback_pointer: POINTER is

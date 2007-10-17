@@ -28,7 +28,7 @@ inherit
 	CALLBACK redefine object end
 
 insert
-	G_OBJECT_RETRIEVER [W]
+		G_OBJECT_FACTORY [W] undefine is_equal, copy end
 
 creation dummy, make
 
@@ -41,13 +41,7 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement 
-			-- that the button is actually created bu the Eiffel 
-			-- application. 
-			check
-				eiffel_created_the_button: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			-- The above line replaces "create object.from_external_pointer
 			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])

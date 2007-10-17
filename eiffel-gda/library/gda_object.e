@@ -19,47 +19,43 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: This class defines a common behaviour for
-			-- most of the objects of this library. As the data
-			-- dictionary is quite dynamic, the default way by which
-			-- GObjects are managed (referenced and unreferenced when not
-			-- needed anymore using g_object_[un]ref()) is not enough:
-			-- sometimes this behaviour should be kept, and sometimes an
-			-- object's destruction should be forced and all the other
-			-- reference holders of that object should take appropriate
-			-- actions and drop their reference on that object.
-
-			-- Just an example to illustrate this: suppose a data type
-			-- has been removed from the database itself, then the
-			-- corresponding GdaDictType must be destroyed since it does
-			-- not represent a valid data type anymore. GdaDictType
-			-- object are all managed by a GdaDict which has a reference
-			-- on them. When the GdaDict object does a metadata
-			-- sychronization (using gda_dict_update_dbms_data()), it
-			-- calls gda_object_destroy() on the proper GdaDictType which
-			-- must be destroyed. The other objects which did use tha
-			-- particular GdaDictType object (such as GdaDictField and
-			-- GdaDictFunction for example) catch the "destroy" signal
-			-- which is emitted by the GdaDictType object being destroyed
-			-- and take appropriate actions (in this case both these
-			-- objects will destroy themselves and release any reference
-			-- they had on the GdaDictType object). The reference count
-			-- of the GdaDictType object being destroyed then should
-			-- normally reach 0 and the destruction occur as for any
-			-- other GObject object.
-
-			-- This class also introduces common attributes that can be
-			-- exploited by the classes inheriting that class, such as:
-
-			-- * The GdaDict object to which any GdaObject relates
-			
-			-- * The string ID of the object: any string which uniquely
-			-- identifies a GdaObject within a dictionary
-
-			-- * The ID as a guint, the name, description and owner
-			-- attached to the GdaObject.
-
 deferred class GDA_OBJECT
+	-- This class defines a common behaviour for most of the objects of
+	-- this library. As the data dictionary is quite dynamic, the
+	-- default way by which GObjects are managed (referenced and
+	-- unreferenced when not needed anymore using g_object_[un]ref())
+	-- is not enough: sometimes this behaviour should be kept, and
+	-- sometimes an object's destruction should be forced and all the
+	-- other reference holders of that object should take appropriate
+	-- actions and drop their reference on that object.
+
+	-- Just an example to illustrate this: suppose a data type has been
+	-- removed from the database itself, then the corresponding
+	-- GdaDictType must be destroyed since it does not represent a
+	-- valid data type anymore. GdaDictType object are all managed by a
+	-- GdaDict which has a reference on them. When the GdaDict object
+	-- does a metadata sychronization (using
+	-- gda_dict_update_dbms_data()), it calls gda_object_destroy() on
+	-- the proper GdaDictType which must be destroyed. The other
+	-- objects which did use tha particular GdaDictType object (such as
+	-- GdaDictField and GdaDictFunction for example) catch the
+	-- "destroy" signal which is emitted by the GdaDictType object
+	-- being destroyed and take appropriate actions (in this case both
+	-- these objects will destroy themselves and release any reference
+	-- they had on the GdaDictType object). The reference count of the
+	-- GdaDictType object being destroyed then should normally reach 0
+	-- and the destruction occur as for any other GObject object.
+
+	-- This class also introduces common attributes that can be
+	-- exploited by the classes inheriting that class, such as:
+	
+	-- * The GdaDict object to which any GdaObject relates
+			
+	-- * The string ID of the object: any string which uniquely
+	-- identifies a GdaObject within a dictionary
+
+	-- * The ID as a guint, the name, description and owner attached to
+	-- the GdaObject.
 
 inherit G_OBJECT redefine dispose end
 

@@ -19,22 +19,20 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: The GdaDictFunction represents a function, it
-			-- has zero or more input parameters, and one and only one
-			-- return type. In this way it does not represent procedures
-			-- which does not return any data type. Also the argument
-			-- types are always of the IN kind (no OUT or IN OUT kinds);
-			-- there may one day be a specific object for procedures. It
-			-- does not either represent a function returning a SET OF a
-			-- given data type; there may on day be a specific object for
-			-- such functions.
-
-			-- Because functions can be polymorphic, the name is not
-			-- enough to identify them, so the DBMS provides a unique id
-			-- which can be used to uniquely identify a function.
-	
 class GDA_DICT_FUNCTION
-
+	-- GDA_DICT_FUNCTION represents a function, it has zero or more
+	-- input parameters, and one and only one return type. In this way
+	-- it does not represent procedures which does not return any data
+	-- type. Also the argument types are always of the IN kind (no OUT
+	-- or IN OUT kinds); there may one day be a specific object for
+	-- procedures. It does not either represent a function returning a
+	-- SET OF a given data type; there may on day be a specific object
+	-- for such functions.
+	
+	-- Because functions can be polymorphic, the name is not enough to
+	-- identify them, so the DBMS provides a unique id which can be
+	-- used to uniquely identify a function.
+	
 inherit
 	GDA_OBJECT
 
@@ -49,9 +47,12 @@ feature {} -- Creation
 			-- Creates a new GdaDictFunction object which represents a
 			-- function in the dictionary
 		require dict_not_void: a_dict /= Void
-			do
+		do
 				from_external_pointer(gda_dict_function_new(handle))
-			end
+		end
+
+	dummy
+			
 feature 
 	set_dbms_id (an_id: STRING) is
 			-- Set the DBMS identifier of the function

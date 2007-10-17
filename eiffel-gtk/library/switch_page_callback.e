@@ -26,7 +26,7 @@ class SWITCH_PAGE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_NOTEBOOK]
+insert 	G_OBJECT_FACTORY [GTK_NOTEBOOK] undefine is_equal, copy end
 
 creation dummy, make
 
@@ -39,10 +39,7 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			check
-				eiffel_created_the_notebook: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			-- XXX: we need GTK_NOTEBOOK_PAGE as first argument
 			procedure.call ([Void, arg1, object])
 		end

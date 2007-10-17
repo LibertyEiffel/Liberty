@@ -26,7 +26,7 @@ class DRAG_DATA_RECEIVED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_WIDGET]
+insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 
 creation make
 
@@ -34,25 +34,24 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_context: POINTER; x,y: INTEGER; selection_data: POINTER;
+	callback (drag_context_ptr: POINTER; x,y: INTEGER; selection_data_ptr: POINTER;
 				 info, time: INTEGER; instance: POINTER) is
 		require
 			info >= 0
 			time >= 0
 		local
 			drag_context_factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
-			drag_context_obj: GDK_DRAG_CONTEXT
-			selection_data_obj: GTK_SELECTION_DATA
+			drag_context: GDK_DRAG_CONTEXT
+			selection_data: GTK_SELECTION_DATA
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			object := wrapper(instance)
-			drag_context_obj := drag_context_factory.wrapper(drag_context)
-			selection_data_obj := wrapper(selection_data)
-
+			drag_context := drag_context_factory.wrapper(drag_context_ptr)
+			create selection_data.from_external_pointer(selection_data_ptr)
 			
-			procedure.call ([drag_context_obj, x, y, selection_data_obj, info, time, object])
+			procedure.call ([drag_context, x, y, selection_data, info, time, object])
 		ensure
 			info >= 0
 			time >= 0

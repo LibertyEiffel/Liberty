@@ -26,30 +26,23 @@ class DRAG_BEGIN_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_context, instance: POINTER) is
+	callback (a_drag_context_ptr, instance: POINTER) is
 		local
-			r_drag_context: G_RETRIEVER [GDK_DRAG_CONTEXT]
-			drag_context_obj: GDK_DRAG_CONTEXT
+			drag_context_factory: G_RETRIEVER [GDK_DRAG_CONTEXT]
+			drag_context: GDK_DRAG_CONTEXT
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
-			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			
-			if r_drag_context.has_eiffel_wrapper_stored (drag_context) then
-				drag_context_obj := r_drag_context.retrieve_eiffel_wrapper_from_gobject_pointer (drag_context)
-			else
-				create drag_context_obj.from_external_pointer (drag_context)
-			end
-			
-			procedure.call ([drag_context_obj, object])
+			object := wrapper(instance)
+			drag_context := drag_context_factory.wrapper_or_void(a_drag_context_ptr)
+			procedure.call ([drag_context, object])
 		end
 
 	callback_pointer: POINTER is

@@ -147,7 +147,7 @@ feature
 
 	connections: G_LIST [GDA_CONNECTION] is
 			-- The open connections of Current GDA_CLIENT.
-		local temp: like Result
+		local temp: G_LIST [GDA_CONNECTION] 
 		do
 			create temp.from_external_pointer (gda_client_get_connections (handle))
 			temp.set_shared

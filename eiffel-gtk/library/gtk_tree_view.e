@@ -29,7 +29,7 @@ inherit
 insert
 	GTK_TREE_VIEW_EXTERNALS
 	GTK_TREE_VIEW_DROP_POSITION
-	G_OBJECT_RETRIEVER [GTK_TREE_VIEW_COLUMN]
+		G_OBJECT_FACTORY [GTK_TREE_VIEW_COLUMN] undefine is_equal, copy end
 	GTK_FACTORIES
 	
 creation dummy, make, with_model, from_external_pointer
@@ -55,13 +55,9 @@ feature
 	model: GTK_TREE_MODEL is
 			-- The model the GtkTreeView is based on. Void if the model
 			-- is unset.
-		local ptr: POINTER; r: G_RETRIEVER [GTK_TREE_MODEL]
+		local r: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_MODEL]
 		do
-			ptr := gtk_tree_view_get_model (handle)
-			if ptr.is_not_null then
-				Result := r.eiffel_wrapper_from_gobject_pointer(ptr)
-				-- Note: this assumes that we are in an Eiffel-only world
-			end
+			Result := r.wrapper_or_void(gtk_tree_view_get_model (handle))
 		end
 
 	set_model (a_model: GTK_TREE_MODEL) is
@@ -90,10 +86,9 @@ feature
 	hadjustment: GTK_ADJUSTMENT is
 			-- the GtkAdjustment currently being used for the horizontal
 			-- aspect or Void if none is currently being used.
-		local ptr: POINTER; f: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
+		local f: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
 		do
-			ptr:=gtk_tree_view_get_hadjustment (handle)
-			if ptr.is_not_null then Result:=f.wrapper(ptr) end
+			Result:=f.wrapper_or_void(gtk_tree_view_get_hadjustment (handle))
 		end
 
 	set_hadjustment (an_adjustment: GTK_ADJUSTMENT) is
@@ -112,10 +107,9 @@ feature
 	vadjustment: GTK_ADJUSTMENT is
 			-- the GtkAdjustment currently being used for the
 			-- vertical aspect or Void if none is currently being used.
-		local ptr: POINTER; f: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
+		local f: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
 		do
-			ptr:=gtk_tree_view_get_vadjustment (handle)
-			if ptr.is_not_null then Result:=f.wrapper(ptr) end
+			Result:=f.wrapper_or_void(gtk_tree_view_get_vadjustment(handle))
 		end
 
 	set_vadjustment (an_adjustment: GTK_ADJUSTMENT) is
@@ -441,12 +435,8 @@ feature
 			a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN; 
 		do
 			gtk_tree_view_get_cursor (handle, $path_ptr, $column_ptr)
-			if path_ptr.is_not_null then 
-				a_path:=gtk.path_factory.wrapper(path_ptr)
-			end
-			if column_ptr.is_not_null then
-				a_column:=gtk.tree_view_column_factory.wrapper(column_ptr)
-			end
+			create a_path.from_external_pointer(path_ptr)
+			a_column:=gtk.tree_view_column_factory.wrapper_or_void(column_ptr)
 			create Result.make_2 (a_path, a_column)
 		ensure
 			Result /= Void

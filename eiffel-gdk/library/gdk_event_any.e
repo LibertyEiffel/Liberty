@@ -27,7 +27,7 @@ inherit
 			dispose
 		end
 insert
-	G_OBJECT_FACTORY [GDK_WINDOW]
+	G_OBJECT_FACTORY [GDK_WINDOW] undefine is_equal, copy end
 	GDK_EVENT_ANY_EXTERNALS
 	GDK_EVENT_TYPE
 

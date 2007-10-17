@@ -77,17 +77,12 @@ feature
 
 	buffer: GTK_TEXT_BUFFER is
 			-- the GtkTextBuffer this iterator is associated with.
-		local retriever: G_RETRIEVER[GTK_TEXT_BUFFER]; buffer_ptr: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TEXT_BUFFER]; buffer_ptr: POINTER
 		do
-			buffer_ptr := gtk_text_iter_get_buffer (handle)
-			check
-				pointer_not_void: buffer_ptr.is_not_null
+			if cached_buffer=Void then
+				cached_buffer := factory.wrapper(gtk_text_iter_get_buffer (handle))
 			end
-			if retriever.has_eiffel_wrapper_stored (buffer_ptr) then
-				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer(buffer_ptr)
-			else
-				create Result.from_external_pointer (buffer_ptr)
-			end
+			Result:=cached_buffer
 		end
 
 	copy (another: like Current) is
@@ -1203,6 +1198,8 @@ feature -- size
 		alias "sizeof(GtkTextIter)"
 		end
 
+feature {} -- Implementation
+	cached_buffer: GTK_TEXT_BUFFER
 
 feature {} -- External call
 	gtk_text_iter_get_buffer (an_iter: POINTER): POINTER is -- GtkTextBuffer*

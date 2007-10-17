@@ -26,7 +26,7 @@ class CHANGED_CALLBACK [O -> G_OBJECT]
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [O]
+insert 	G_OBJECT_FACTORY [O] undefine is_equal, copy end
 
 creation  make
 

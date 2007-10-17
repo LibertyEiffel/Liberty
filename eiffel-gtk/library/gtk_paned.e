@@ -54,7 +54,7 @@ inherit
 	GTK_CONTAINER 
 		-- GtkPaned implements AtkImplementorIface.
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 
 feature
 	add1 (a_child: GTK_WIDGET) is
@@ -107,24 +107,14 @@ feature
 
 	child1: GTK_WIDGET is
 			-- The first child of the paned widget; Void if not set.
-		local ptr: POINTER
 		do
-			ptr:=gtk_paned_get_child1(handle)
-			if ptr.is_not_null then
-				check child_is_a_wrapped_object: has_eiffel_wrapper_stored (ptr) end
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer(ptr)
-			end
+			Result:=wrapper_or_void(gtk_paned_get_child1(handle))
 		end
 
 	child: GTK_WIDGET is
 			-- The second child of the paned widget; Void if not set.
-		local ptr: POINTER
 		do
-			ptr:=gtk_paned_get_child1(handle)
-			if ptr.is_not_null then
-				check child_is_a_wrapped_object: has_eiffel_wrapper_stored (ptr) end
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer(ptr)
-			end
+			Result:=wrapper_or_void(gtk_paned_get_child1(handle))
 		end
 
 feature -- Divider position

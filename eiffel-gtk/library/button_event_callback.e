@@ -27,7 +27,7 @@ deferred class BUTTON_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 
 feature
 	object: GTK_WIDGET
@@ -40,8 +40,7 @@ feature
 			specific_event: GDK_EVENT_ANY
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
-			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			if wrappers.has (event_button) then
 				specific_event ::= wrappers.at(event_button)
 				event_obj := specific_event.event

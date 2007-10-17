@@ -26,38 +26,31 @@ class MOTION_NOTIFY_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_WIDGET
 
 feature
-	callback (event_motion: POINTER; instance: POINTER): INTEGER is
+	callback (event_ptr: POINTER; instance: POINTER): INTEGER is
 		local
-			event_obj: GDK_EVENT
-			specific_event: GDK_EVENT_ANY
+			event: GDK_EVENT
+			event_motion: GDK_EVENT_MOTION
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
+			object := wrapper(instance)
+			debug 
+				create event.from_external_pointer (event_ptr)
+				check
+					is_a_motion_event: event.is_event_motion
+				end
 			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			if wrappers.has (event_motion) then
-				specific_event ::= wrappers.at(event_motion)
-				event_obj := specific_event.event
-			else
-				create event_obj.from_external_pointer (event_motion)
-			end
-			check
-				is_a_motion_event: event_obj.is_event_motion
-			end
-			Result := function.item ([event_obj.event_motion, object]).to_integer
-			-- GTK is about to release this event, detach it from Eiffel
-			event_obj.event_motion.dispose
+			create event_motion.from_external_pointer(event_ptr)
+			Result := function.item ([event_motion, object]).to_integer
 		end
 
 	callback_pointer: POINTER is

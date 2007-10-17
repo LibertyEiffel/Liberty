@@ -98,10 +98,7 @@ feature
 			-- image_menu_item. See `set_image'.
 		local retriever: G_RETRIEVER [GTK_WIDGET]; ptr: POINTER
 		do
-			ptr := gtk_image_menu_item_get_image (handle)
-			if ptr.is_not_null then
-				Result := eiffel_wrapper_from_gobject_pointer (ptr)
-			end
+			Result := wrapper_or_void(gtk_image_menu_item_get_image (handle))
 		end
 
 feature -- size

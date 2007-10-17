@@ -144,22 +144,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Dummy creation
 		local gobject_ptr, gtypeclass_ptr: POINTER
 		do
 			gobject_ptr := dummy_gobject
-			if gobject_ptr.is_null then
-				debug
-					io.put_string(generating_type)
-					io.put_line(once ".dummy_gobject is NULL. This could be a bug.")
-				end
-			else
-				stored_type := g_object_type(gobject_ptr)
-				debug
-					io.put_string(once "Storing archetype for ")
-					io.put_string(name_of_type(stored_type))
-					io.put_line(once ": ")
-					print_known_gobject_heirs
-				end
-				gtypeclass_ptr := g_type_class_ref (stored_type)
-				debug io.put_line(once "g_object_unref (gobject_ptr) not invoked. This is a know (little?) memory leak; in a furious hacking night it seemed to me that calling it on not-reffed Gobject can confuse the C type system. Fixme. Paolo 2007-09-12") end
+			check non_null_dummy_gobject_pointer: gobject_ptr.is_not_null end
+			stored_type := g_object_type(gobject_ptr)
+			debug
+				io.put_string(once "Storing archetype for ")
+				io.put_string(name_of_type(stored_type))
+				io.put_line(once ": ")
+				print_known_gobject_heirs
 			end
+			gtypeclass_ptr := g_type_class_ref (stored_type)
+			debug io.put_line(once "g_object_unref (gobject_ptr) not invoked. This is a know (little?) memory leak; in a furious hacking night it seemed to me that calling it on not-reffed Gobject can confuse the C type system. Fixme. Paolo 2007-09-12") end
 		ensure
 			dummy_is_null: is_null
 			stored_type_set: stored_type/=0
@@ -207,7 +201,28 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Creating
 			store_eiffel_wrapper
 		end
 
+	secondary_wrapper_from (an_external_pointer: POINTER) is
+			-- Create a non-main wrapper from `an_external_pointer'.
+		require
+			called_on_creation: is_null
+			pointer_not_null: an_external_pointer.is_not_null
+			main_wrapper_exists: (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (an_external_pointer)
+		do
+			handle := an_external_pointer
+			ref
+			set_shared
+		ensure
+			is_secondary_wrapper: not is_main_wrapper
+		end
+
 	from_external_pointer (a_ptr: POINTER) is
+			-- Low-level creation feature. If is_eiffel_wrapper_stored 
+			-- is False, store_eiffel_wrapper is invoked. 
+
+			-- Usually either `main_wrapper_from' or
+			-- `secondary_wrapper_from' shall be used instead of this
+			-- feature when it is known if a wrapper for the GObject
+			-- pointer exists or not.
 		require
 			called_on_creation: is_null
 			pointer_not_null: a_ptr.is_not_null

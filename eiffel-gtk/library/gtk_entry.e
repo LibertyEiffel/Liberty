@@ -32,7 +32,7 @@ inherit
 		-- GtkEntry implements AtkImplementorIface, GtkCellEditable and GtkEditable.
 
 insert
-	G_OBJECT_FACTORY [GTK_MENU]
+	G_OBJECT_FACTORY [GTK_MENU] undefine is_equal, copy end
 	GTK_ENTRY_EXTERNALS
 	
 creation dummy, make, from_external_pointer
@@ -563,8 +563,8 @@ feature {} -- populate-popup signal implementation
 
 	hidden_on_populate_popup (a_gtk_menu_pointer, a_gtk_entry_pointer: POINTER) is
 		require
-			menu_not_null: a_gtk_menu.is_not_null
-			entry_not_null: a_gtk_entry.is_not_null -- Otherwise very bad things are happening.
+			menu_not_null: a_gtk_menu_pointer.is_not_null
+			entry_not_null: a_gtk_entry_pointer.is_not_null -- Otherwise very bad things are happening.
 		do
 			on_populate_popup (wrapper (a_gtk_menu_pointer))
 		end

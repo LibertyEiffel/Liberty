@@ -28,7 +28,7 @@ inherit
 	CALLBACK redefine object end
 
 insert
-	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
+		G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
 
 creation dummy, make
 
@@ -51,7 +51,7 @@ feature
 			check
 				eiffel_created_the_instance: has_eiffel_wrapper_stored (instance)
 			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			create tree_iter_obj.copy_from_pointer (tree_iter)
 			tree_iter_obj.attach_to (object)
 			create tree_path_obj.copy_from_pointer (tree_path)

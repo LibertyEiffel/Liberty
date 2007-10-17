@@ -26,7 +26,7 @@ class DESTROY_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_OBJECT]
+insert 	G_OBJECT_FACTORY [GTK_OBJECT] undefine is_equal, copy end
 
 creation dummy, make
 

@@ -36,11 +36,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Shared factories
 			create Result
 		end
 
-	path_factory: ARCHETYPE_FACTORY[GTK_TREE_PATH] is
+	path_factory: ARCHETYPE_CACHING_FACTORY[GTK_TREE_PATH] is
 		once
 			create Result.with_archetype(path_archetype)
-		end	
-
+		end
 	radio_action_factory: G_OBJECT_FACTORY[GTK_RADIO_ACTION] is
 		once
 			create Result

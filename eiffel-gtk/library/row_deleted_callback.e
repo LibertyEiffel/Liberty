@@ -28,7 +28,7 @@ inherit
 	CALLBACK redefine object end
 
 insert
-	G_OBJECT_EXPANDED_FACTORY [GTK_TREE_MODEL]
+	G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine copy, is_equal end
 
 creation  make
 

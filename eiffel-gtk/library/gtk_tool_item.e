@@ -211,12 +211,11 @@ feature
 			-- the GTK_MENU_ITEM that was last set by
 			-- `set_proxy_menu_item', ie. the GtkMenuItem that is going
 			-- to appear in the overflow menu.
-		local r: G_RETRIEVER[GTK_WIDGET]; p: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_WIDGET]
 		do
-			p := gtk_tool_item_retrieve_proxy_menu_item (handle)
-			if p.is_not_null then
-				Result := r.eiffel_wrapper_from_gobject_pointer(p)
-			end
+			Result := (factory.wrapper_or_void
+						  (gtk_tool_item_retrieve_proxy_menu_item 
+							(handle)))
 		end
 
 	menu_item_by_id (an_id: STRING): GTK_WIDGET is
@@ -231,13 +230,11 @@ feature
 
 			--`an_id' : 	a string used to identify the menu item
 		require id_not_void: an_id /= Void
-		local r: G_RETRIEVER[GTK_WIDGET]; p: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_WIDGET]
 		do
-			p:=gtk_tool_item_get_proxy_menu_item(handle, an_id.to_external)
-			if p.is_not_null then
-				Result := r.eiffel_wrapper_from_gobject_pointer(p)
-				check proxy_menu_item_retrieved: Result/=Void end
-			end
+			Result := (factory.wrapper_or_void
+						  (gtk_tool_item_get_proxy_menu_item
+							(handle, an_id.to_external)))
 		end
 
 	set_proxy_menu_item (an_id: STRING; a_menu_item: GTK_WIDGET) is

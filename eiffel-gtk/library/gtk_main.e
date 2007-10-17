@@ -62,9 +62,11 @@ feature -- Creation
 			-- until you want to "downcast" an object into a more 
 			-- specialized type (i.e.: the "::=" operator).
 		
-			-- NOTE: In this test-implementation only GTK_LABEL and GTK_WINDOW
 		require gtk_initialized: is_initialized
 		do
+			debug
+				print(once "FIXME: in GTK_MAIN.initialize_eiffel_library many archetypes are still not created. Paolo 2007-10-15%N")
+			end
 			store_archetype(create {GTK_ABOUT_DIALOG}.dummy)
 			-- store_archetype(create {GTK_ACCELERATOR_MAP}.dummy)
 			store_archetype(create {GTK_ACCEL_LABEL}.dummy)

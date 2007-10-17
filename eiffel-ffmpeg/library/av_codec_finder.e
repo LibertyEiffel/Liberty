@@ -21,6 +21,9 @@ indexing
 
 class AV_CODEC_FINDER
 
+inherit 
+	CACHING_FACTORY [AV_CODEC]
+
 insert
 	AV_CODEC_FINDER_EXTERNALS
 	AV_CODEC_IDS
@@ -69,13 +72,9 @@ feature {} -- Private access
 		local
 			codec_ptr: POINTER
 		do
-			codec_ptr := avcodec_find_encoder_by_name (a_name.to_external)
+			codec_ptr := avcodec_find_encoder_by_name(a_name.to_external)
 			if codec_ptr.is_not_null then
-				if wrappers.has (codec_ptr) then
-					Result ::= wrappers.at(codec_ptr)
-				else
-					create Result.from_external_pointer (codec_ptr)
-				end
+				create Result.from_external_pointer (codec_ptr)
 			end
 		end
 

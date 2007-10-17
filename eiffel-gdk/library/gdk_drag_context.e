@@ -78,16 +78,9 @@ feature -- Representation
 	parent_instance: G_OBJECT is
 			-- the parent instance
 		local
-			object: POINTER
-			retriever: G_OBJECT_EXPANDED_FACTORY [G_OBJECT]
+			factory: G_OBJECT_EXPANDED_FACTORY [G_OBJECT]
 		do
-			object := gdk_drag_context_parent_instance (handle)
-			if retriever.has_eiffel_wrapper_stored (object) then
-				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (object)
-			else -- XXX: check this!
-				--create Result.from_external_pointer (object)
-				not_yet_implemented
-			end
+			Result := factory.wrapper(gdk_drag_context_parent_instance (handle))
 		end
 
 	protocol: INTEGER is -- GdkDragProtocol
@@ -104,33 +97,22 @@ feature -- Representation
 	source_window: GDK_WINDOW is
 			-- the source of this drag
 		local
-			window: POINTER
-			retriever: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
+			factory: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
-			window := gdk_drag_context_source_window (handle)
-			if retriever.has_eiffel_wrapper_stored (window) then
-				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (window)
-			else
-				create Result.from_external_pointer (window)
-			end
+			Result := factory.wrapper(gdk_drag_context_source_window (handle))
 		end
 
 	dest_window: GDK_WINDOW is
 			-- the destination window of this drag
 		local
 			window: POINTER
-			retriever: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
+			factory: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
-			window := gdk_drag_context_dest_window (handle)
-			if retriever.has_eiffel_wrapper_stored (window) then
-				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (window)
-			else
-				create Result.from_external_pointer (window)
-			end
+			Result := factory.wrapper(gdk_drag_context_dest_window (handle))
 		end
 
---	targets: G_LIST
-			-- a list of targets offered by the source
+	--	targets: G_LIST
+	-- a list of targets offered by the source
 
 	actions: INTEGER is -- GdkDragAction
 			-- a bitmask of actions proposed by the source when suggested_action is GDK_ACTION_ASK

@@ -35,7 +35,7 @@ inherit
 
 insert
 	GTK_ICON_VIEW_EXTERNALS
-	G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
+		G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
 	GTK_ICON_VIEW_DROP_POSITION
 	G_OBJECT_EXTERNALS
 
@@ -68,16 +68,8 @@ feature -- Access
 	model: GTK_TREE_MODEL is
 			-- the model the GtkIconView is based on. Void if the model
 			-- is unset.
-		local c_ptr: POINTER
 		do
-			c_ptr := gtk_icon_view_get_model (handle)
-			if c_ptr.is_not_null then
-				if has_eiffel_wrapper_stored (c_ptr) then
-					Result := retrieve_eiffel_wrapper_from_gobject_pointer (c_ptr)
-				else
-					create {GTK_LIST_STORE}Result.from_external_pointer (c_ptr)
-				end
-			end
+			Result := wrapper_or_void(gtk_icon_view_get_model(handle))
 		end
 
 	text_column: INTEGER is
@@ -373,44 +365,32 @@ feature -- Operations
 -- Since 2.8
 
 	cursor: TUPLE [GTK_TREE_PATH, GTK_CELL_RENDERER] is
-			-- Fills in path and cell with the current cursor path and cell.
-			-- If the cursor isn't currently set, then *path will be NULL.
-			-- If no cell currently has focus, then *cell will be NULL.
-			-- The returned GtkTreePath must be freed with gtk_successtree_path_free().
+			-- The current cursor path and cell.
+
+			-- If the cursor isn't currently set, then path (the first
+			-- item) will be Void.
+			-- If no cell currently has focus, then cell (the second 
+			-- item) will be Void.
 		local
 			path_ptr, cell_ptr: POINTER
 			res: BOOLEAN
 			path: GTK_TREE_PATH
 			cell: GTK_CELL_RENDERER
 			cell_name: STRING
-			retriever: G_RETRIEVER [GTK_CELL_RENDERER]
+			cell_factory: G_OBJECT_EXPANDED_FACTORY [GTK_CELL_RENDERER]
 		do
 			res := gtk_icon_view_get_cursor (handle, $path_ptr, $cell_ptr).to_boolean
-			
-			if path_ptr.is_not_null then
+
+			if path_ptr.is_not_null then 
 				create path.from_external_pointer (path_ptr)
-			else
-				path := Void
+				-- The returned GtkTreePath must be freed with
+				-- gtk_successtree_path_free(), so
+				path.set_unshared
+			else check path = Void end
 			end
 
-			if cell_ptr.is_not_null then
-				if retriever.has_eiffel_wrapper_stored (cell_ptr) then
-					cell := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (cell_ptr)
-				else
-					create cell_name.from_external (g_object_type_name (cell_ptr))
-					inspect
-						cell_name
-					when once "GtkCellRendererText" then
-						create {GTK_CELL_RENDERER_TEXT}cell.from_external_pointer (cell_ptr)
-					when once "GtkCellRendererPixbuf" then
-						create {GTK_CELL_RENDERER_PIXBUF}cell.from_external_pointer (cell_ptr)
-					when once "GtkCellRendererProgress" then
-						create {GTK_CELL_RENDERER_PROGRESS}cell.from_external_pointer (cell_ptr)
-					when once "GtkCellRendererToggle" then
-						create {GTK_CELL_RENDERER_TOGGLE}cell.from_external_pointer (cell_ptr)
-					end
-				end
-			end
+			cell := cell_factory.wrapper_or_void(cell_ptr)
+
 			Result := [path, cell]
 		end
 

@@ -20,6 +20,9 @@ indexing
 				]"
 
 deferred class  GDA_DICT_FIELD_ATTRIBUTE_ENUM
+
+insert ANY undefine is_equal, copy end
+
 feature {} -- enum
 	are_valid_attributes (some_attributes: INTEGER): BOOLEAN is
 		do	

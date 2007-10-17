@@ -29,10 +29,12 @@ creation dummy, make, from_external_pointer
 	
 feature {} -- Creation
 	make 	(an_id, a_name, a_pattern: STRING) is
-			-- Creates a new string tag object with `an_id', the ID for the tag.,
-			-- `a_name': the name of the tag, `a_starting_pattern' and
-			-- `an_ending_pattern'. `end_at_line_end' indicates whether the ending
-			-- pattern should be suffixed by an -- end-of-line character.
+			-- Creates a new string tag object with `an_id', the ID for
+			-- the tag; `a_name': the name of the tag,
+			-- `a_starting_pattern' and
+			-- `an_ending_pattern'. `end_at_line_end' indicates whether
+			-- the ending pattern should be suffixed by an -- end-of-line
+			-- character.
 		do
 			from_external_pointer
 			(gtk_string_tag_new(an_id.to_external,

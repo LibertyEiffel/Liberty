@@ -37,7 +37,7 @@ inherit
 	CANCEL_SIGNAL_RECEIVER
 	
 insert
-	G_OBJECT_RETRIEVER [GTK_WIDGET]
+	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 	GTK_ASSISTANT_EXTERNALS
 
 creation dummy, make, from_external_pointer
@@ -94,20 +94,8 @@ feature
 			--    page_num : The index of a page in the assistant, or -1
 			--    to get the last page; Returns : The child widget, or
 			--    NULL if page_num is out of bounds.
-		local ptr: POINTER
 		do
-			ptr:=gtk_assistant_get_nth_page(handle, a_page_num)
-			if ptr.is_not_null then
-				Result:=eiffel_wrapper_from_gobject_pointer(ptr)
-				if Result=Void then
-					debug
-						print("Warning: GTK_ASSISTANT.item received a %
-								%GtkWidget pointer of an unwrapped widget. %
-								%Since we don't know which the correct effective wrapper %
-								%class feature Result will be Void.%N")
-					end
-				end
-			end
+			Result := wrapper(gtk_assistant_get_nth_page(handle, a_page_num))
 		end
 
 	last_inserted_page: INTEGER
@@ -217,16 +205,9 @@ feature
 	page_header_image (a_page: GTK_WIDGET): GDK_PIXBUF is
 			-- The header image for page; Void if there's no header image
 			-- for the page.
-		local p: POINTER
+		local f: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
 		do
-			p := gtk_assistant_get_page_header_image(handle, a_page.handle)
-			if p.is_not_null then
-				if wrappers.has(p) then
-					Result::=wrappers.at(p)
-				else
-					create Result.from_external_pointer(p)
-				end
-			end
+			Result := f.wrapper_or_void(gtk_assistant_get_page_header_image(handle, a_page.handle))
 		end
 	
 	set_page_side_image (a_page: GTK_WIDGET; a_pixbuf: GDK_PIXBUF) is
@@ -244,16 +225,9 @@ feature
 			-- The side image for page, or Void if there's no side image
 			-- for the page.
 		require page_not_void: a_page /= Void
-		local p: POINTER
+		local f: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
 		do
-			p := gtk_assistant_get_page_side_image(handle, a_page.handle)
-			if p.is_not_null then
-				if wrappers.has(p) then
-					Result::=wrappers.at(p)
-				else
-					create Result.from_external_pointer(p)
-				end
-			end
+			Result := f.wrapper_or_void(gtk_assistant_get_page_side_image(handle, a_page.handle))
 		end
 	
 	set_page_complete (a_page: GTK_WIDGET; is_complete: BOOLEAN) is

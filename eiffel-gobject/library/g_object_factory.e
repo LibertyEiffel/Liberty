@@ -6,30 +6,31 @@ indexing
 	revision: "$Revision:$"
 
 class G_OBJECT_FACTORY [ITEM -> G_OBJECT]
-	-- A factory for G_OBJECTS. It retrieves them from the reference
-	-- stored in the actual GObject data strutcture, using
-	-- "g_object_get_qdata".
+	-- A factory for G_OBJECTS. Given a pointer to a valid GObject C 
+	-- data structure it return the fittest wrapper.
 
-	-- If the GObject does not have an associated wrapper an archetype
-	-- is retrieved from the GObject's GType using `g_type_get_qdata';
+	-- If the underlying C object ("C") has already been wrapped by an
+	-- Eiffel object ("E"), `wrapper' will be "E". When "E" - the first
+	-- wrapper for "C" was created a back-reference to "E" was stored
+	-- into "C"; see G_OBJECT's `store_eiffel_wrapper' for the details.
+
+	-- If "C" does not have an associated wrapper an archetype is
+	-- retrieved from the GObject's GType using `g_type_get_qdata';
 	-- such an archetype should have been stored in the GObject's GType
 	-- during the initialization of the Eiffel wrapper library.
 
 	-- At initialization time each library wrapper that implements
 	-- non-deferred G_OBJECT heirs is required to create an "archetype"
 	-- object of each effective type and "connect" it to the underlying
-	-- GType.
-
-	-- i.e. having a w: GTK_WINDOW
-
-	-- (TODO) g_object_archetypes.put(w,w.type)
-	-- g_type_set_archetype (w.type, eiffel_archetype_key.quark, w) 
+	-- GType. This is done creating the archetype with the `dummy'
+	-- creation procedure; it takes care of storing a reference to
+	-- itself in the proper GType.
 
 	-- Actually the Eiffel type system is stretched a little: we
 	-- re-wrap `g_type_get_qdata' as `g_type_get_archetype', changing
 	-- the signature of the result from POINTER to ITEM, to avoid an
 	-- ugly type-convertion (aka cast) on the Eiffel side.
-	
+
 inherit WRAPPER_FACTORY[ITEM]
 
 insert
@@ -74,6 +75,33 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			end
 		end
 	
+	wrapper_or_void (a_pointer: POINTER): ITEM is
+			-- A wrapper for `a_pointer' or Void if `a_pointer' is
+			-- default_pointer (NULL in C). A commodity feature to
+			-- replace the following code snippet:
+			 
+			-- my_gobject: A_G_OBJECT_HEIR
+			-- local p: POINTER
+			-- do
+			--   p := get_foo(handle)
+			--   if p.is_not_null then
+			--     Result := gobject_heir_factory.wrapper(p)
+			--   end
+			-- end
+
+			-- with
+
+			-- my_gobject: A_G_OBJECT_HEIR is
+			--   do
+			--     Result := gobject_heir_factory.wrapper_or_void(get_foo(handle))
+			--   end
+		do
+			if a_pointer.is_not_null then
+				Result := wrapper(a_pointer)
+			end
+		ensure void_case: a_pointer.is_null implies Result = Void
+		end
+
 	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
 			-- Have `a_pointer' already been wrapped?
 

@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class  GDA_DICT_AGGREGATE_EXTERNALS
+
+insert ANY undefine is_equal, copy end
+
 feature {} -- External calls
 	
  gda_dict_aggregate_new (a_dict: POINTER): POINTER is

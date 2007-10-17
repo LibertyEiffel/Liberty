@@ -38,7 +38,7 @@ inherit GTK_CONTAINER
 	-- GtkNotebook implements AtkImplementorIface.
 
 insert
-	G_OBJECT_RETRIEVER [GTK_WIDGET]
+		G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 	GTK_NOTEBOOK_EXTERNALS
 
 creation dummy, make
@@ -335,24 +335,16 @@ feature -- page handling
 			-- Void if the notebook page does not have a menu label other
 			-- than the default (the tab label).
 		require valid_child: a_child /= Void
-		local ptr: POINTER
 		do
-			ptr := gtk_notebook_get_menu_label (handle, a_child.handle)
-			if ptr.is_not_null then
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer(ptr)
-			end
+			Result := wrapper_or_void(gtk_notebook_get_menu_label (handle, a_child.handle))
 		end
 
 	nth_page (a_page_num: INTEGER): GTK_WIDGET is
 			-- The child widget contained in page number
 			-- `a_page_num'. Set `a_page__num' to -1 to get the last
 			-- page.  Void if `a_page_num' is out of bounds.
-		local ptr: POINTER
 		do
-			ptr := gtk_notebook_get_nth_page (handle, a_page_num)
-			if ptr.is_not_null then
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer(ptr)
-			end
+			Result := wrapper_or_void(gtk_notebook_get_nth_page (handle, a_page_num))
 		end
 
 	n_pages: INTEGER is
@@ -369,10 +361,7 @@ feature -- page handling
 		local ptr: POINTER
 		do
 			-- Note: see also the note in `set_tab_label_text' postcondition
-			ptr := gtk_notebook_get_tab_label (handle, a_child.handle)
-			if ptr.is_not_null then
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer(ptr)
-			end
+			Result := wrapper_or_void(gtk_notebook_get_tab_label(handle, a_child.handle))
 		end
 
 	tab_label_packing  (a_child: GTK_WIDGET): TUPLE[BOOLEAN,BOOLEAN,INTEGER] is
@@ -469,9 +458,6 @@ feature -- page handling
 			end
 		ensure
 			label_wrapper_exists: tab_label (a_child) /= Void
-			-- Note: This should trigger an exception in
-			-- `G_OBJECT_RETRIEVER.retrieve_eiffel_wrapper_from_gobject_pointer'
-			-- if the wrapper actually has to be created. 
 		end
 
 	menu_label_text (a_child: GTK_WIDGET): STRING is

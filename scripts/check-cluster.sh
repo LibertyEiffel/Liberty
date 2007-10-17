@@ -50,13 +50,24 @@ wrong_and_correct_classes () {
 }
 
 classes_first_changed () {
-    if [ -f $TIMESTAMP ] ; then
-	find library -iname "*.e" -newer $TIMESTAMP   | grep -v stub 
-	find library -iname "*.e" ! -newer $TIMESTAMP | grep -v stub 
-    else
-	find library -iname "*.e" | grep -v stub 
-    fi
-    touch $TIMESTAMP
+    # The files ordered from the latest to the oldest
+
+    ## Find in the directory "library" all Eiffel source code, print
+    ## its change time (in seconds from epoch) and its name
+    find library -name "*.e" -printf "%T@ %p\n" |
+    ## remove stubs
+    grep -v stub |
+    sort --numeric-sort --reverse | 
+    ## Remove the first column (changetime)
+    cut -f 2 -d ' '
+
+    # if [ -f $TIMESTAMP ] ; then
+    # find library -iname "*.e" -newer $TIMESTAMP   | grep -v stub 
+    # find library -iname "*.e" ! -newer $TIMESTAMP | grep -v stub 
+    # else
+    # find library -iname "*.e" | grep -v stub 
+    # fi
+    # touch $TIMESTAMP
 }
 
 check_classes () {

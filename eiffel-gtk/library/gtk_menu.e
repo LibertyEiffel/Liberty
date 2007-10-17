@@ -82,7 +82,7 @@ inherit
 		-- TODO: AtkImplementorIface
 
 insert
-	G_OBJECT_RETRIEVER [GTK_WIDGET]
+		G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 	GTK_MENU_EXTERNALS
 
 creation dummy, make, from_external_pointer
@@ -280,13 +280,8 @@ feature
 			-- the selected menu item from the menu. This is used by the
 			-- GtkOptionMenu. If a selection has not yet been made, the
 			-- first menu item is selected.
-		local item_ptr: POINTER
 		do
-			item_ptr:=(gtk_menu_get_active (handle))
-			check pointer_has_stored_wrapper: 
-				has_eiffel_wrapper_stored (item_ptr) 
-			end
-			Result := (retrieve_eiffel_wrapper_from_gobject_pointer (item_ptr))
+			Result := wrapper(gtk_menu_get_active (handle))
 		end
 
 	set_active (an_index: INTEGER) is

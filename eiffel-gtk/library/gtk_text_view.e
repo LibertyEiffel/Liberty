@@ -35,12 +35,12 @@ inherit GTK_CONTAINER rename window as widget_window  end
 
 insert
 	GTK_TEXT_VIEW_EXTERNALS
-	G_OBJECT_RETRIEVER [GTK_TEXT_BUFFER]
+		G_OBJECT_FACTORY [GTK_TEXT_BUFFER] undefine is_equal, copy end
 	GTK_TEXT_WINDOW_TYPE
 	GTK_WRAP_MODE
 	
-creation dummy,
-	make, make_with_buffer, from_external_pointer
+creation 
+	dummy, make, make_with_buffer, from_external_pointer
 
 feature {} -- Creation
 
@@ -105,14 +105,10 @@ feature -- Access
 			c_buff: POINTER
 		do
 			if cached_buffer = Void then
-				c_buff := gtk_text_view_get_buffer (handle)
 				-- The reference count on the buffer returned by
 				-- gtk_text_view_get_buffer is not incremented; the caller
 				-- of this function won't own a new reference.
-				cached_buffer:=eiffel_wrapper_from_gobject_pointer (c_buff)
-				if cached_buffer=Void then
-					create cached_buffer.from_external_pointer (c_buff)
-				end
+				cached_buffer := wrapper (gtk_text_view_get_buffer (handle))
 			end
 			Result := cached_buffer
 		end
@@ -378,17 +374,9 @@ feature
 			-- nonexistent before the widget has been realized.
 		require valid_window_type: is_valid_gtk_text_window_type (a_text_window_type)
 		local
-			ptr: POINTER
-			g_retriever: G_RETRIEVER [GDK_WINDOW]
+			gdk_win_factory: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
-			ptr := gtk_text_view_get_window (handle, a_text_window_type)
-			if ptr.is_not_null then
-				if g_retriever.has_eiffel_wrapper_stored (ptr) then
-					Result := g_retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
-				else
-					create Result.from_external_pointer (ptr)
-				end
-			end
+			Result := gdk_win_factory.wrapper_or_void(gtk_text_view_get_window (handle, a_text_window_type))
 		end
 
 	window_type (a_window: GDK_WINDOW): INTEGER is
