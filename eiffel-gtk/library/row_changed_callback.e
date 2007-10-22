@@ -30,7 +30,7 @@ inherit
 insert
 		G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_TREE_MODEL
@@ -47,8 +47,8 @@ feature
 			end
 			object := wrapper(instance)
 			-- Note: path and iter are shared wrappers.
-			create path.copy_from_pointer (path_ptr)
-			create iter.copy_from_pointer (iter_ptr)
+			create path.copy_from_pointer(path_ptr)
+			create iter.copy_from_pointer(iter_ptr)
 			procedure.call ([object, path, iter])
 		end
 

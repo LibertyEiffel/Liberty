@@ -28,20 +28,22 @@ inherit CALLBACK redefine object end
 
 insert 	G_OBJECT_FACTORY [GTK_NOTEBOOK] undefine is_equal, copy end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_NOTEBOOK
 
 feature
-	callback (notebook_page: POINTER; arg1: INTEGER; instance: POINTER) is
+	callback (notebook_page_ptr: POINTER; page_number: INTEGER; instance: POINTER) is
+			-- TODO: `page_number' should be NATURAL
+		local page: GTK_NOTEBOOK_PAGE
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			object := wrapper(instance)
-			-- XXX: we need GTK_NOTEBOOK_PAGE as first argument
-			procedure.call ([Void, arg1, object])
+			create page.from_external_pointer(notebook_page_ptr)
+			procedure.call ([Void, page_number, object])
 		end
 
 	callback_pointer: POINTER is

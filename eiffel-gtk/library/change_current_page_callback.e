@@ -28,7 +28,7 @@ inherit CALLBACK redefine object end
 
 insert 	G_OBJECT_FACTORY [GTK_NOTEBOOK] undefine is_equal, copy end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_NOTEBOOK

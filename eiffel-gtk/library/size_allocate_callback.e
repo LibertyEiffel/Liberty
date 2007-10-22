@@ -26,26 +26,25 @@ class SIZE_ALLOCATE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_WIDGET
 
 feature
 
-	callback (allocation: POINTER; instance: POINTER) is
+	callback (allocation_ptr: POINTER; instance: POINTER) is
 		local
-			allocation_obj: GTK_ALLOCATION
+			allocation: GTK_ALLOCATION
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
-			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			
-			create allocation_obj.copy_from_pointer (allocation)
+			create allocation.copy_from_pointer (allocation_ptr)
 			
-			procedure.call ([allocation_obj, object])
+			procedure.call ([allocation, object])
 		end
 
 	callback_pointer: POINTER is

@@ -97,15 +97,9 @@ feature
 	buffer: GTK_TEXT_BUFFER is 
 			-- the buffer this mark is located inside, or Void if the
 			-- mark is deleted.
-		local ptr: POINTER; retriever: G_RETRIEVER [GTK_TEXT_BUFFER]
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_TEXT_BUFFER]
 		do
-			ptr:=gtk_text_mark_get_buffer (handle)
-			if ptr.is_not_null then
-				Result:=retriever.eiffel_wrapper_from_gobject_pointer(ptr)
-				if Result=Void then
-					create Result.from_external_pointer (ptr)
-				end
-			end
+			Result := factory.wrapper_or_void(gtk_text_mark_get_buffer (handle))
 		end
 
 	has_left_gravity: BOOLEAN is 

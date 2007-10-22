@@ -76,15 +76,8 @@ feature
 	lookup (a_name: STRING): GTK_TEXT_TAG is
 			-- Lookup the tag with `a_name', or Void if none by that name
 			-- is in the table.
-		local ptr: POINTER; retriever: G_RETRIEVER [GTK_TEXT_TAG]
 		do
-			ptr := gtk_text_tag_table_lookup (handle, a_name.to_external)
-			if ptr.is_not_null then
-				Result := retriever.eiffel_wrapper_from_gobject_pointer (ptr)
-				if Result = Void then
-					create Result.from_external_pointer (ptr)
-				end
-			end
+			Result := text_tag_factory.wrapper_or_void(gtk_text_tag_table_lookup(handle, a_name.to_external))
 		end
 
 	has (a_tag: GTK_TEXT_TAG): BOOLEAN is
@@ -92,7 +85,7 @@ feature
 			tag_not_void: a_tag /= Void
 			named_tag: a_tag.name /= Void
 		do
-			Result:= lookup(a_tag.name)/=Void
+			Result:= gtk_text_tag_table_lookup(handle, a_tag.name.to_external).is_not_null
 		end
 		-- gtk_text_tag_table_foreach ()
 	

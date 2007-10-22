@@ -29,7 +29,7 @@ inherit
 insert
 	GTK_TREE_VIEW_EXTERNALS
 	GTK_TREE_VIEW_DROP_POSITION
-		G_OBJECT_FACTORY [GTK_TREE_VIEW_COLUMN] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_TREE_VIEW_COLUMN] undefine is_equal, copy end
 	GTK_FACTORIES
 	
 creation dummy, make, with_model, from_external_pointer

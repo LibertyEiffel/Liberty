@@ -57,27 +57,17 @@ feature {} -- Creation
 feature
 	settings: GTK_PRINT_SETTINGS is
 			-- the GtkPrintSettings of the print job.
-		local p: POINTER; r: G_RETRIEVER[GTK_PRINT_SETTINGS]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PRINT_SETTINGS]
 		do
-			p:=gtk_print_job_get_settings(handle)
-			check pointer_not_void: p.is_not_null end 
-			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
-			if Result=Void then
-				create Result.from_external_pointer(p)
-			end
+			Result := factory.wrapper(gtk_print_job_get_settings(handle))
 		ensure not_void: Result/=Void
 		end
 
 	printer: GTK_PRINTER is
 			-- the GtkPrinter of the print job.
-		local p: POINTER; r: G_RETRIEVER[GTK_PRINTER]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PRINTER]
 		do
-			p:=gtk_print_job_get_printer(handle)
-			check pointer_not_void: p.is_not_null end 
-			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
-			if Result=Void then
-				create Result.from_external_pointer(p)
-			end
+			Result := factory.wrapper(gtk_print_job_get_printer(handle))
 		ensure not_void: Result/=Void
 		end
 			

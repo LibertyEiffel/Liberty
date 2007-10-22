@@ -26,7 +26,7 @@ class DRAG_BEGIN_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
 
 creation make
 
@@ -36,7 +36,7 @@ feature
 feature
 	callback (a_drag_context_ptr, instance: POINTER) is
 		local
-			drag_context_factory: G_RETRIEVER [GDK_DRAG_CONTEXT]
+			drag_context_factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
 			drag_context: GDK_DRAG_CONTEXT
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end

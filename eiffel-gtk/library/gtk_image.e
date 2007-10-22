@@ -108,14 +108,9 @@ feature -- Access
 		require
 			storage_type = gtk_image_pixbuf or storage_type = gtk_image_empty
 		local
-			pixbuf_ptr: POINTER
-			retriever: G_RETRIEVER [GDK_PIXBUF]
+			factory: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
 		do
-			pixbuf_ptr := gtk_image_get_pixbuf (handle)
-			Result := retriever.eiffel_wrapper_from_gobject_pointer (pixbuf_ptr)
-			if Result = Void then
-				create Result.from_external_pointer (pixbuf_ptr)
-			end
+			Result := factory.wrapper(gtk_image_get_pixbuf(handle))
 		end
 
 feature -- Element change

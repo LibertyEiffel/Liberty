@@ -25,7 +25,7 @@ class EXPOSE_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
 
 creation dummy, make
 
@@ -34,20 +34,19 @@ feature
 	expose_event: GDK_EVENT_EXPOSE
 	
 feature
-	callback (a_widget, an_expose_event, instance: POINTER): INTEGER is
+	callback (a_widget_ptr, an_expose_event_ptr, instance: POINTER): INTEGER is
 		do
 			debug
-				print("callback(a_widget=") print(a_widget.to_string)
-				print(", an_expose_event") print(an_expose_event.to_string)
+				print("callback(a_widget=") print(a_widget_ptr.to_string)
+				print(", an_expose_event") print(an_expose_event_ptr.to_string)
 				print(", instance=") print(instance.to_string) print (")%N")
 			end
 			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-				widget_not_null: a_widget.is_not_null
-				expose_event_not_null: an_expose_event.is_not_null
+				widget_not_null: a_widget_ptr.is_not_null
+				expose_event_not_null: an_expose_eventptr.is_not_null
 			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create expose_event.from_external_pointer(an_expose_event)
+			object := wrapper(instance)
+			create expose_event.from_external_pointer(an_expose_event_ptr)
 			
 			Result:= (function.item([object,expose_event])).to_integer
 		end

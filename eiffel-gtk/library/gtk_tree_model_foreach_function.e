@@ -28,10 +28,8 @@ class GTK_TREE_MODEL_FOREACH_FUNCTION
 inherit WRAPPER_HANDLER -- It wraps a callback function
 	
 insert
-	ANY
+	G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine copy, is_equal end
 	GTK
-		-- G_OBJECT_RETRIEVER [GTK_TREE_MODEL]
-	SHARED_WRAPPERS_DICTIONARY
 	
 creation make
 	
@@ -52,8 +50,8 @@ feature {} --
 
 feature
 	callback (model_ptr, path_ptr, iter_ptr, data: POINTER): INTEGER is 
-		local a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER
-			r: G_RETRIEVER [GTK_TREE_MODEL]
+		local
+			a_model: GTK_TREE_MODEL; a_path: GTK_TREE_PATH; an_iter: GTK_TREE_ITER
 		do
 			debug
 				print ("Gtk tree select foreach function callback:")
@@ -64,11 +62,7 @@ feature
 				print ("%N")
 			end
 			
-			a_model := r.eiffel_wrapper_from_gobject_pointer (model_ptr)
-			if a_model = Void then
-				print ("GTK_TREE_MODEL_FOREACH_CALLBACK: callback invoked with a pointer to an unwrapped GtkTreeModel; raising an exception.")
-				raise(pointer_to_unwrapped_deferred_object)
-			end
+			a_model := wrapper (model_ptr)
 
 			if wrappers.has(path_ptr) then a_path ::= wrappers.at(path_ptr)
 			else  create a_path.from_external_pointer (path_ptr)

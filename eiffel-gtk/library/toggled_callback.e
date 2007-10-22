@@ -22,18 +22,18 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class TOGGLED_CALLBACK [W -> G_OBJECT]
+class TOGGLED_CALLBACK [WIDGET_ -> G_OBJECT]
 
 inherit
 	CALLBACK redefine object end
 
 insert
-		G_OBJECT_FACTORY [W] undefine is_equal, copy end
+		G_OBJECT_FACTORY [WIDGET_] undefine is_equal, copy end
 
 creation dummy, make
 
 feature
-	object: W
+	object: WIDGET_
 
 feature
 	callback (instance: POINTER) is
@@ -54,7 +54,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: W; a_procedure: PROCEDURE [ANY, TUPLE[W]]) is
+	connect (an_object: WIDGET_; a_procedure: PROCEDURE [ANY, TUPLE[WIDGET_]]) is
 		do
 			debug
 				print ("TOGGLED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -74,5 +74,5 @@ feature
 
 		signal_name: STRING is "toggled"
 
-	procedure: PROCEDURE [ANY, TUPLE[W]]
+	procedure: PROCEDURE [ANY, TUPLE[WIDGET_]]
 end

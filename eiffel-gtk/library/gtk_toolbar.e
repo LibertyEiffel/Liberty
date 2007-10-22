@@ -117,13 +117,9 @@ feature
 	item (an_index: INTEGER): GTK_TOOL_ITEM is
 			-- then item on toolbar at `an_index'; Void if `an_index' is
 			-- not valid.
-		local ptr: POINTER; r: G_RETRIEVER[GTK_TOOL_ITEM]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TOOL_ITEM]
 		do
-			ptr:=gtk_toolbar_get_nth_item(handle, an_index)
-			if ptr.is_not_null then
-				Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
-				check non_void_retrieved_wrapper: Result /= Void end
-			end
+			Result:=factory.wrapper_or_void(gtk_toolbar_get_nth_item(handle, an_index))
 		end
 
 	drop_index (an_x, an_y: INTEGER): INTEGER is

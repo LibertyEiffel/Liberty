@@ -630,13 +630,9 @@ feature -- Dialog's parts
 	vbox: GTK_VBOX is
 			-- main part of the dialog box
 		local
-			retriever: G_RETRIEVER [GTK_VBOX]
+			factory: G_OBJECT_EXPANDED_FACTORY [GTK_VBOX]
 		do
-			if retriever.has_eiffel_wrapper_stored (get_vbox (handle)) then
-				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (get_vbox (handle))
-			else
-				create Result.from_external_pointer (get_vbox(handle))
-			end
+			Result := factory.wrapper(get_vbox(handle))
 		ensure
 			result_not_void: Result /= Void
 		end
@@ -646,13 +642,9 @@ feature -- Dialog's parts
 			--  buttons into the dialog which may perform functions such
 			--  as cancel, ok, or apply
 		local
-			retriever: G_RETRIEVER [GTK_HBOX]
+			factory: G_OBJECT_EXPANDED_FACTORY [GTK_HBOX]
 		do
-			if retriever.has_eiffel_wrapper_stored (get_action_area (handle)) then
-				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (get_action_area (handle))
-			else
-				create Result.from_external_pointer (get_action_area(handle))
-			end
+			Result := factory.wrapper(get_action_area(handle))
 		ensure result_bot_void: Result /= Void
 		end
 	

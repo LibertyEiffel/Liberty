@@ -100,38 +100,18 @@ feature -- Adjustments
 			-- the horizontal scrollbar's adjustment, used to connect the
 			-- horizontal scrollbar to the child widget's horizontal
 			-- scroll functionality.
-		local hadj: POINTER; retriever: G_RETRIEVER [GTK_ADJUSTMENT]
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_ADJUSTMENT]
 		do
-			hadj := gtk_scrolled_window_get_hadjustment (handle)
-			if hadj.is_not_null then 
-				Result := retriever.eiffel_wrapper_from_gobject_pointer (hadj)
-				if Result = Void then
-					debug
-						print ("Warning: GTK_SCROLLED_WINDOW encountered an %
-								 %unwrapped GTK_ADJUSTMENT in horizontal_adjustment.")
-					end
-					create Result.from_external_pointer (hadj)
-				end -- check void result
-			end -- check hadj nullness
+			Result := factory.wrapper_or_void(gtk_scrolled_window_get_hadjustment (handle))
 		end
 	
 	vertical_adjustment: GTK_ADJUSTMENT is
 			-- the vertical scrollbar's adjustment, used to connect the
 			-- vertical scrollbar to the child widget's vertical
 			-- scroll functionality.
-		local vadj: POINTER; retriever: G_RETRIEVER [GTK_ADJUSTMENT]
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_ADJUSTMENT]
 		do
-			vadj := gtk_scrolled_window_get_vadjustment (handle)
-			if vadj.is_not_null then 
-				Result := retriever.eiffel_wrapper_from_gobject_pointer (vadj)
-				if Result = Void then
-					debug
-						print ("Warning: GTK_SCROLLED_WINDOW encountered an %
-								 %unwrapped GTK_ADJUSTMENT in horizontal_adjustment.")
-					end
-					create Result.from_external_pointer (vadj)
-				end -- check void result
-			end -- check vadj nullness
+			Result  := factory.wrapper_or_void(gtk_scrolled_window_get_vadjustment (handle))
 		end
 
 	

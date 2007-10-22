@@ -100,24 +100,21 @@ feature
 
 	ok_button: GTK_WIDGET is
 			--	The OK button of the dialog
-		local retriever: G_RETRIEVER [GTK_WIDGET]
 		do
-			Result := retriever.eiffel_wrapper_from_gobject_pointer (get_ok_button(handle))
+			Result := widget_factory.wrapper(get_ok_button(handle))
 		end
 
 	apply_button: GTK_WIDGET is
 			-- The Apply button of the dialog. This button is hidden by
 			-- default but you can show/hide it
-		local retriever: G_RETRIEVER [GTK_WIDGET]
 		do
-			Result := retriever.eiffel_wrapper_from_gobject_pointer (get_apply_button(handle))
+			Result := widget_factory.wrapper(get_apply_button(handle))
 		end
 	
 	cancel_button: GTK_WIDGET is
 			-- The Cancel button of the dialog
-		local retriever: G_RETRIEVER [GTK_WIDGET]
 		do
-			Result := retriever.eiffel_wrapper_from_gobject_pointer (get_cancel_button(handle))
+			Result := widget_factory.wrapper(get_cancel_button(handle))
 		end
 	
 feature {} -- GtkFontSelectionDialog struct

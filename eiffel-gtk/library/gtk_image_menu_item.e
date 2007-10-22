@@ -96,7 +96,7 @@ feature
 	image: GTK_WIDGET is
 			-- The widget currently set as the image of
 			-- image_menu_item. See `set_image'.
-		local retriever: G_RETRIEVER [GTK_WIDGET]; ptr: POINTER
+		local retriever: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]; ptr: POINTER
 		do
 			Result := wrapper_or_void(gtk_image_menu_item_get_image (handle))
 		end

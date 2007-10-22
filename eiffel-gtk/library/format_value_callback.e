@@ -27,7 +27,7 @@ class FORMAT_VALUE_CALLBACK
 inherit CALLBACK redefine object end
 
 insert
-	G_OBJECT_RETRIEVER [GTK_SCALE]
+	G_OBJECT_FACTORY [GTK_SCALE] undefine copy, is_equal end
 	GLIB_STRING_UTILITY_FUNCTIONS
 
 creation dummy, make
@@ -45,11 +45,7 @@ feature
 				print ("is_object: "+g_is_object (instance).out+"%N")
 				print ("type: "+g_object_type (instance).out+"%N")
 			end
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-			end
-			-- retrieve object
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			Result := g_strdup (function.item ([value, object]).to_external)
 		end
 

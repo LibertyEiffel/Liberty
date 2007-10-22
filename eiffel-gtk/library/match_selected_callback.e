@@ -32,25 +32,25 @@ feature
 	object: GTK_ENTRY_COMPLETION
 
 feature
-	callback (model, iter, instance: POINTER): INTEGER is
+	callback (model_ptr, iter_ptr, instance_ptr: POINTER): INTEGER is
 		local
-			iter_obj: GTK_TREE_ITER
-			model_obj: GTK_TREE_MODEL
-			cr: G_OBJECT_EXPANDED_FACTORY[GTK_ENTRY_COMPLETION]; mr: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_MODEL]
+			iter: GTK_TREE_ITER
+			model: GTK_TREE_MODEL
+			cr: G_OBJECT_EXPANDED_FACTORY[GTK_ENTRY_COMPLETION]; 
+			mr: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_MODEL]
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			
-			object := cr.wrapper(instance)
+			object := cr.wrapper(instance_ptr)
 			check object/=Void end
 			-- create iter_obj.copy_from_pointer (iter) Note: This should
 			-- not be necessary anymore, because of the new memory
 			-- handling.
-			create iter_obj.from_external_pointer (iter)
-			model_obj := mr.wrapper(model)
-			check model_obj/=Void end
-			Result := function.item ([model_obj, iter_obj, object]).to_integer
+			create iter.from_external_pointer(iter_ptr)
+			model := mr.wrapper(model_ptr)
+			Result := function.item ([model, iter, object]).to_integer
 		end
 
 	callback_pointer: POINTER is

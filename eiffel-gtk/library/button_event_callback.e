@@ -34,24 +34,19 @@ feature
 
 feature
 
-	callback (event_button: POINTER; instance: POINTER): INTEGER is
+	callback (event_button_ptr: POINTER; instance: POINTER): INTEGER is
 		local
-			event_obj: GDK_EVENT
+			event: GDK_EVENT
 			specific_event: GDK_EVENT_ANY
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
 			object := wrapper(instance)
-			if wrappers.has (event_button) then
-				specific_event ::= wrappers.at(event_button)
-				event_obj := specific_event.event
-			else
-				create event_obj.from_external_pointer (event_button)
-			end
-			check is_a_button_event: event_obj.is_event_button end
+			create event.from_external_pointer(event_button_ptr)
+			check is_a_button_event: event.is_event_button end
 			
-			Result := function.item ([event_obj.event_button, object]).to_integer
+			Result := function.item ([event.event_button, object]).to_integer
 			-- GTK is about to release this event, detach it from Eiffel
-			event_obj.event_button.dispose
+			event.event_button.dispose
 		end
 
 	callback_pointer: POINTER is

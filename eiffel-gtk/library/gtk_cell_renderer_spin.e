@@ -61,13 +61,10 @@ feature -- Properties getters
 			-- The adjustment that holds the value of the spin
 			-- button. This must be non-NULL for the cell renderer to be
 			-- editable.
-		local r: G_RETRIEVER[GTK_ADJUSTMENT]; p: POINTER
+		local r: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
 		do
-			p:=property(adjustment_property_name).pointer
-			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
-			if Result=Void then
-				create Result.from_external_pointer(p)
-			end
+			
+			Result:=r.wrapper(property(adjustment_property_name).pointer)
 		end
 
 	climb_rate: REAL is

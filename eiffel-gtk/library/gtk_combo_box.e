@@ -177,11 +177,8 @@ feature -- Model-related features
 			-- the GtkTreeModel which is acting as data source for
 			-- combo_box.
 		require no_simple_api: not is_text_only
-		local model_ptr: POINTER; r: G_RETRIEVER [GTK_TREE_MODEL]
 		do
-			model_ptr := gtk_combo_box_get_model (handle)
-			check model_pointer_not_void: model_ptr.is_not_null end
-			Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (model_ptr)
+			Result := tree_model_factory.wrapper(gtk_combo_box_get_model(handle))
 		end
 
 	set_model (a_model: GTK_TREE_MODEL) is

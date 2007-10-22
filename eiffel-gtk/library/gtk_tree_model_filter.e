@@ -110,14 +110,8 @@ feature
 
 	model: GTK_TREE_MODEL is
 			-- the child model of filter.
-		local model_ptr: POINTER; retriever: G_RETRIEVER[GTK_TREE_MODEL]
 		do
-			model_ptr := gtk_tree_model_filter_get_model(handle)
-			check 
-				model_ptr_not_null: model_ptr.is_not_null
-				wrapper_exists: retriever.has_eiffel_wrapper_stored(model_ptr)
-			end
-			Result := retriever.eiffel_wrapper_from_gobject_pointer(model_ptr)
+			Result := tree_model_factory.wrapper(gtk_tree_model_filter_get_model(handle))
 		end
 	
 	iter_from_child_iter (a_child_iter: GTK_TREE_ITER): GTK_TREE_ITER is

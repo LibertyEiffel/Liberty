@@ -155,17 +155,9 @@ feature {} -- Creation
 	pango_font_map: PANGO_FONT_MAP is
 			-- a PangoFontMap that is suitable for use with the 
 			-- GtkPrintContext.
-		local r: G_RETRIEVER[PANGO_FONT_MAP]; p: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY[PANGO_FONT_MAP]
 		do
-			p:=gtk_print_context_get_pango_fontmap(handle)
-			check valid_pango_font_map_pointer: p.is_not_null end
-			Result := r.eiffel_wrapper_from_gobject_pointer(p)
-			if Result=Void then
-				debug
-					raise(pointer_to_unwrapped_deferred_object)
-				end
-				-- create Result.from_external_pointer(p)
-			end
+			Result := factory.wrapper(gtk_print_context_get_pango_fontmap(handle))
 		end
 
 	pango_context: PANGO_CONTEXT is
@@ -176,7 +168,7 @@ feature {} -- Creation
 		end
 	
 	pango_layout: PANGO_LAYOUT is
-			-- a PangoLayout that is suitable for use with the GtkPrintContext.
+			-- a (newly allocated) PangoLayout that is suitable for use with the GtkPrintContext.
 		do
 			create Result.from_external_pointer
 			(gtk_print_context_create_pango_layout(handle))

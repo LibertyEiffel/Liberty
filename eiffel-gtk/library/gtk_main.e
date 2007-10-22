@@ -63,7 +63,7 @@ feature -- Creation
 			-- specialized type (i.e.: the "::=" operator).
 		
 		require gtk_initialized: is_initialized
-		do
+		once
 			debug
 				print(once "FIXME: in GTK_MAIN.initialize_eiffel_library many archetypes are still not created. Paolo 2007-10-15%N")
 			end
@@ -94,7 +94,7 @@ feature -- Creation
 
 			-- TODO: discover why the commented line triggers some oscure 
 			-- bug:
-			-- store_archetype(create {GTK_COLOR_BUTTON}.dummy)
+			store_archetype(create {GTK_COLOR_BUTTON}.dummy)
 			
 			-- store_archetype(create {GTK_COLOR_SELECTION_DIALOG}.dummy)
 			-- store_archetype(create {GTK_COLOR_SELECTION}.dummy)
@@ -190,9 +190,9 @@ feature -- Creation
 			-- 			store_archetype(create {GTK_WINDOW_GROUP}.dummy)
 			
 			is_eiffel_library_initialized := True
-		ensure
-			archetypes_added: archetypes.count > old archetypes.count
-			eiffel_library_initialized: is_eiffel_library_initialized = True
+			-- ensure
+			--archetypes_added: archetypes.count > old archetypes.count
+			-- eiffel_library_initialized: is_eiffel_library_initialized = True
 		end
 
 	is_eiffel_library_initialized: BOOLEAN

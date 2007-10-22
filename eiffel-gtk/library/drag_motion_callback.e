@@ -36,7 +36,7 @@ feature
 feature
 	callback (drag_context_ptr: POINTER; x, y, time: INTEGER; instance: POINTER): INTEGER is
 		local
-			drag_context_factory: G_RETRIEVER [GDK_DRAG_CONTEXT]
+			drag_context_factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
 			drag_context: GDK_DRAG_CONTEXT
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end

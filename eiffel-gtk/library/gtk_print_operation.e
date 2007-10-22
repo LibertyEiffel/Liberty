@@ -94,7 +94,7 @@ inherit
 insert
 	GTK_PRINT_OPERATION_EXTERNALS
 	GTK_PRINT_OPERATION_ACTIONS
-	G_OBJECT_RETRIEVER[GTK_PAGE_SETUP]
+	G_OBJECT_FACTORY [GTK_PAGE_SETUP] undefine copy, is_equal end
 		-- SHARED_G_ERROR
 	GTK -- to get error
 	
@@ -263,15 +263,8 @@ feature -- Getters
 
 	default_page_setup: GTK_PAGE_SETUP is
 			-- The default page setup. Can be Void
-		local ptr: POINTER; r: G_RETRIEVER[GTK_PAGE_SETUP]
 		do
-			ptr:=gtk_print_operation_get_default_page_setup(handle)
-			if ptr.is_not_null then
-				Result := eiffel_wrapper_from_gobject_pointer(ptr)
-				if Result=Void then
-					create Result.from_external_pointer(ptr)
-				end    				
-			end
+			Result := wrapper_or_void(gtk_print_operation_get_default_page_setup(handle))
 		end
 
 	settings: GTK_PRINT_SETTINGS is

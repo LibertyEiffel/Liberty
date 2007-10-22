@@ -173,21 +173,8 @@ feature
 	icon_widget: GTK_WIDGET is
 			-- the widget used as icon widget on button. See
 			-- `set_icon_widget'. 
-
-			-- Note: In debug mode an unwrapped object obtained from the
-			-- GTK library will produce an exception; otherwise Result
-			-- will be Void
-		local ptr: POINTER; r: G_RETRIEVER[GTK_WIDGET]
 		do
-			ptr:=gtk_tool_button_get_icon_widget(handle)
-			if ptr.is_not_null then
-				Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
-				debug 
-					if Result=Void then
-						raise(pointer_to_unwrapped_deferred_object)
-					end
-				end
-			end
+			Result:=widget_factory.wrapper_or_void(gtk_tool_button_get_icon_widget(handle))
 		end
 
 	set_label_widget (a_label_widget: GTK_WIDGET) is
@@ -205,17 +192,8 @@ feature
 	label_widget: GTK_WIDGET is
 		-- The widget used as label on button. Can be Void. See
 		-- `set_label_widget'.
-		local ptr: POINTER; r: G_RETRIEVER[GTK_WIDGET]
 		do
-			ptr:=gtk_tool_button_get_label_widget(handle)
-			if ptr.is_not_null then
-				Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
-				debug 
-					if Result=Void then
-						raise(pointer_to_unwrapped_deferred_object)
-					end
-				end
-			end
+			Result:=widget_factory.wrapper_or_void(gtk_tool_button_get_label_widget(handle))
 		end
 	
 feature --Properties 

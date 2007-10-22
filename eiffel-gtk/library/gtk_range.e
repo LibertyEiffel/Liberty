@@ -22,9 +22,12 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_RANGE
+	-- Base class for widgets which visualize an adjustment.
 
 inherit
 	GTK_WIDGET
+
+insert
 	GTK_RANGE_EXTERNALS
 
 feature -- The adjustment
@@ -34,22 +37,14 @@ feature -- The adjustment
 			-- GtkRange. It contains the current value of this range
 			-- object.
 		local
-			c_adjustment: POINTER
-			r: G_RETRIEVER [GTK_ADJUSTMENT]
+			factory: G_OBJECT_EXPANDED_FACTORY [GTK_ADJUSTMENT]
 		do
-			c_adjustment := gtk_range_get_adjustment (handle)
-			check c_adjustment.is_not_null end
-			if r.has_eiffel_wrapper_stored (c_adjustment) then
-				Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_adjustment)
-			else
-				create Result.from_external_pointer (c_adjustment)
-				-- GTK documentation says "See gtk_range_set_adjustment() for
-				-- details. The return value does not have a reference added,
-				-- so should not be unreferenced." Instead we just add a
-				-- reference to the adjustment, because there will be an
-				-- effective refence on the Eiffel side
-				Result.ref
-			end
+			Result := factory.wrapper(gtk_range_get_adjustment(handle))
+			-- GTK documentation says "See gtk_range_set_adjustment() for
+			-- details. The return value does not have a reference added,
+			-- so should not be unreferenced." Shall instead we just add
+			-- a reference to the adjustment, because there will be an
+			-- effective refence on the Eiffel side?
 		ensure
 			valid_adjustment: Result /= Void
 		end

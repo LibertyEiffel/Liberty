@@ -26,9 +26,9 @@ class FILE_ACTIVATED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_FILE_CHOOSER]
+insert G_OBJECT_FACTORY [GTK_FILE_CHOOSER] undefine copy, is_equal end
 
-creation dummy, make
+creation make
 
 feature
 
@@ -43,10 +43,7 @@ feature
 			-- The following is written with the implicit requirement 
 			-- that the button is actually created bu the Eiffel 
 			-- application. 
-			check
-				eiffel_created_the_button: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper (instance)
 			procedure.call ([object])
 		end
 

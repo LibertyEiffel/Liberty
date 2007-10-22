@@ -27,29 +27,25 @@ class ROW_COLLAPSED_CALLBACK
 inherit
 	CALLBACK redefine object end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_TREE_VIEW
 
 feature
-
-	callback (tree_iter, tree_path, instance: POINTER) is
+	callback (tree_iter_ptr, tree_path_ptr, instance: POINTER) is
 		local
-			tree_iter_obj: GTK_TREE_ITER
-			tree_path_obj: GTK_TREE_PATH
-			g_tree_view: G_RETRIEVER [GTK_TREE_VIEW]
+			iter: GTK_TREE_ITER
+			path: GTK_TREE_PATH
+			view_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_VIEW]
 		do
 			debug
-				print ("Callback: instance=") print (instance.to_string) print ("%N")
+				print("Callback: instance=") print(instance.to_string) print("%N")
 			end
-			check
-				eiffel_created_the_tree_view: g_tree_view.has_eiffel_wrapper_stored (instance)
-			end
-			object := g_tree_view.retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			create tree_iter_obj.copy_from_pointer (tree_iter)
-			create tree_path_obj.copy_from_pointer (tree_path)
-			procedure.call ([tree_iter_obj, tree_path_obj, object])
+			object := view_factory.wrapper(instance)
+			create iter.copy_from_pointer(tree_iter_ptr)
+			create path.copy_from_pointer(tree_path_ptr)
+			procedure.call ([iter, path, object])
 		end
 
 	callback_pointer: POINTER is

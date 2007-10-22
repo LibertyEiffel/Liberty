@@ -26,9 +26,9 @@ class CANCEL_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [CANCEL_SIGNAL_RECEIVER] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [CANCEL_SIGNAL_RECEIVER] undefine is_equal, copy end
 
-creation dummy, make
+creation make
 
 feature 
 	object: CANCEL_SIGNAL_RECEIVER
@@ -39,9 +39,6 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement 
-			-- that the button is actually created bu the Eiffel 
-			-- application. 
 			object := wrapper(instance)
 			procedure.call ([object])
 		end

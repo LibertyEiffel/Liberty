@@ -26,7 +26,7 @@ class SIZE_REQUEST_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
 
 creation dummy, make
 
@@ -40,8 +40,7 @@ feature
 			request_obj: GTK_REQUISITION
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
-			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			
 			create request_obj.copy_from_pointer (request)
 			

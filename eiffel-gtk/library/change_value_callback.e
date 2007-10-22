@@ -26,9 +26,9 @@ class CHANGE_VALUE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_RANGE]
+insert G_OBJECT_FACTORY [GTK_RANGE] undefine copy, is_equal end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_RANGE
@@ -43,11 +43,8 @@ feature
 				print ("is_object: "+g_is_object (instance).out+"%N")
 				print ("type: "+g_object_type (instance).out+"%N")
 			end
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-			end
 			-- retrieve object
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			Result := function.item ([value, scroll, object]).to_integer
 		end
 

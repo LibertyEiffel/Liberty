@@ -66,15 +66,9 @@ feature {} -- Creation
 
 	page_setup: GTK_PAGE_SETUP is
 			--  the current page setup
-		local p: POINTER; r: G_RETRIEVER[GTK_PAGE_SETUP]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PAGE_SETUP]
 		do
-			p:=gtk_page_setup_unix_dialog_get_page_setup(handle)
-			if p.is_not_null then
-				Result:=r.eiffel_wrapper_from_gobject_pointer(p)
-				if Result=Void then
-					create Result.from_external_pointer(p)
-				end
-			end
+			Result := factory.wrapper_or_void(gtk_page_setup_unix_dialog_get_page_setup(handle))
 		end
 
 	set_print_settings (some_settings: GTK_PRINT_SETTINGS) is
@@ -88,15 +82,9 @@ feature {} -- Creation
 
 	print_settings: GTK_PRINT_SETTINGS is
 			-- The current print settings
-		local p: POINTER; r: G_RETRIEVER[GTK_PRINT_SETTINGS]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PRINT_SETTINGS]
 		do
-			p:=gtk_page_setup_unix_dialog_get_print_settings(handle)
-			if p.is_not_null then
-				Result:=r.eiffel_wrapper_from_gobject_pointer(p)
-				if Result=Void then
-					create Result.from_external_pointer(p)
-				end
-			end
+			Result := factory.wrapper_or_void(gtk_page_setup_unix_dialog_get_print_settings(handle))
 		end
 
 feature {} -- External calls

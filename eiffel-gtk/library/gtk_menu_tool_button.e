@@ -83,21 +83,9 @@ feature
 
 	menu: GTK_MENU is
 			-- the GTK_MENU associated with GTK_MENU_TOOL_BUTTON.
-		local ptr: POINTER; r: G_RETRIEVER[GTK_MENU]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_MENU]
 		do
-			ptr:=gtk_menu_tool_button_get_menu(handle)
-			if ptr.is_not_null then 
-				check 
-					pointer_is_menu: gtk_is_menu(ptr).to_boolean=True
-				end
-				Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
-				if Result=Void then 
-					debug
-						print("gtk_menu_tool_button_get_menu returned an unwrapped GtkMenu. Creating wrapper.")
-					end
-					create Result.from_external_pointer(ptr)
-				end
-			end
+			Result:= factory.wrapper_or_void(gtk_menu_tool_button_get_menu(handle))
 		end
 
 	set_arrow_tooltip (some_tooltips: GTK_TOOLTIPS; a_tip_text, a_tip_private: STRING) is

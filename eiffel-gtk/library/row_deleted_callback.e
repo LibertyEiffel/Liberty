@@ -36,23 +36,16 @@ feature
 	object: GTK_TREE_MODEL
 
 feature
-
-	callback (tree_path, instance: POINTER) is
+	callback (tree_path_ptr, instance: POINTER) is
 		local
-			tree_path_obj: GTK_TREE_PATH
+			path: GTK_TREE_PATH
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement 
-			-- that the button is actually created by the Eiffel
-			-- application. 
-			check
-				eiffel_created_the_instance: has_eiffel_wrapper_stored (instance)
-			end
 			object := wrapper(instance)
-			create tree_path_obj.copy_from_pointer (tree_path)
-			procedure.call ([tree_path_obj, object])
+			create path.copy_from_pointer (tree_path_ptr)
+			procedure.call ([path, object])
 		end
 
 	callback_pointer: POINTER is

@@ -34,27 +34,20 @@ feature
 
 feature
 
-	callback (tree_path, tree_view_col, instance: POINTER) is
+	callback (tree_path_ptr, tree_view_col_ptr, instance: POINTER) is
 		local
-			tree_path_obj: GTK_TREE_PATH
-			tree_view_col_obj: GTK_TREE_VIEW_COLUMN
-			g_tree_view: G_RETRIEVER [GTK_TREE_VIEW]
-			g_tree_view_col: G_RETRIEVER [GTK_TREE_VIEW_COLUMN]
+			tree_path: GTK_TREE_PATH
+			tree_view_col: GTK_TREE_VIEW_COLUMN
+			tree_view_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_VIEW]
+			tree_view_col_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_VIEW_COLUMN]
 		do
 			debug
-				print ("Callback: instance=") print (instance.to_string) print ("%N")
+				print("Callback: instance=") print(instance.to_string) print("%N")
 			end
-			-- The following is written with the implicit requirement 
-			-- that the button is actually created bu the Eiffel 
-			-- application. 
-			check
-				eiffel_created_the_tree_view: g_tree_view.has_eiffel_wrapper_stored (instance)
-				eiffel_created_the_tree_view_col: g_tree_view_col.has_eiffel_wrapper_stored (tree_view_col)
-			end
-			object := g_tree_view.retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			tree_view_col_obj := g_tree_view_col.retrieve_eiffel_wrapper_from_gobject_pointer (tree_view_col)
-			create tree_path_obj.copy_from_pointer (tree_path)
-			procedure.call ([tree_path_obj, tree_view_col_obj, object])
+			object := tree_view_factory.wrapper(instance)
+			tree_view_col := tree_view_col_factory.wrapper(tree_view_col_ptr)
+			create tree_path.copy_from_pointer(tree_path_ptr)
+			procedure.call ([tree_path, tree_view_col, object])
 		end
 
 	callback_pointer: POINTER is

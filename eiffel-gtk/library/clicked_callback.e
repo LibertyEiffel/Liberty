@@ -22,16 +22,16 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class CLICKED_CALLBACK [O -> GTK_WIDGET]
+class CLICKED_CALLBACK [WIDGET_ -> GTK_WIDGET]
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [O] undefine is_equal, copy end
+insert 	G_OBJECT_FACTORY [WIDGET_] undefine is_equal, copy end
 
 creation dummy, make
 
 feature
-	object: O
+	object: WIDGET_
 
 feature
 	callback (instance: POINTER) is --  a_button: GTK_BUTTON) is
@@ -44,8 +44,6 @@ feature
 			-- application. 
 
 			object := wrapper (instance)
-			-- The above line replaces "create object.from_external_pointer
-			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])
 		end
 
@@ -56,7 +54,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: O; a_procedure: like procedure) is
+	connect (an_object: WIDGET_; a_procedure: like procedure) is
 		do
 			debug
 				print ("CLICKED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -76,5 +74,5 @@ feature
 
 		signal_name: STRING is "clicked"
 
-	procedure: PROCEDURE [ANY, TUPLE[O]]
+	procedure: PROCEDURE [ANY, TUPLE[WIDGET_]]
 end

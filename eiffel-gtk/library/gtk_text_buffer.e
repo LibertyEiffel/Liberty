@@ -104,19 +104,13 @@ feature -- Access
 
 	tag_table: GTK_TEXT_TAG_TABLE is
 			-- the GtkTextTagTable associated with this buffer.
-		local retriever: G_RETRIEVER [GTK_TEXT_TAG_TABLE]; ptr: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_TEXT_TAG_TABLE]
 		do
-			ptr := gtk_text_buffer_get_tag_table (handle)
-			if hidden_tag_table /= Void then -- retrieve the cached reference to the Eiffel wrapper
-				Result := hidden_tag_table
-			else -- try to retrieve the wrapper 
-				if retriever.has_eiffel_wrapper_stored (ptr) then -- return the retrieved wrapper
-					Result :=  retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
-				else -- create a new wrapper for the underlying C object
-					create Result.from_external_pointer (ptr)
-				end
+			if hidden_tag_table = Void then
+				-- create or retrieve and then cache the Eiffel wrapper
+				hidden_tag_table := factory.wrapper(gtk_text_buffer_get_tag_table(handle))
 			end
-			check correct_wrapper: Result.handle = ptr end
+			Result := hidden_tag_table
 		ensure not_void: Result /= Void
 		end
 

@@ -40,8 +40,6 @@ feature
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			object := wrapper(instance)
-
-			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])
 		end
 

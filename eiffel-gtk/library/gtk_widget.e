@@ -388,17 +388,9 @@ feature -- Operation
 
 	parent_window: GDK_WINDOW is
 		local
-			c_window: POINTER
-			r: G_RETRIEVER [GDK_WINDOW]
+			factory: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
-			c_window := gtk_widget_get_parent_window (handle)
-			if c_window.is_not_null then
-				if r.has_eiffel_wrapper_stored (c_window) then
-					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_window)
-				else
-					create Result.from_external_pointer (c_window)
-				end
-			end
+			Result := factory.wrapper_or_void(gtk_widget_get_parent_window (handle))
 		end
 
 -- void        gtk_widget_set_uposition        (GtkWidget *widget,
@@ -2216,44 +2208,41 @@ feature
 -- Returns : 	extension events for widget
 
 	toplevel: GTK_WIDGET is
+			-- The topmost ancestor of Current widget, or widget itself
+			-- if there's no ancestor in the container hierarchy widget
+			-- is a part of. If Current has no parent widgets, it will be
+			-- returned as the topmost widget.
+
+			-- Note the difference in behavior vs. `ancestor';
+			-- ancestor(gtk_type_window) would return Void if widget
+			-- wasn't inside a toplevel window, and if the window was
+			-- inside a GtkWindow-derived widget which was in turn inside
+			-- the toplevel GtkWindow. While the second case may seem
+			-- unlikely, it actually happens when a GtkPlug is embedded
+			-- inside a GtkSocket within the same application.
+
+			-- To reliably find the toplevel GtkWindow, use `toplevel'
+			-- and check if the TOPLEVEL (TODO) flags is set on the
+			-- result.
 		local
-			c_widget: POINTER
-			r: G_RETRIEVER [GTK_WIDGET]
+			factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
 		do
-			c_widget := gtk_widget_get_toplevel (handle)
-			if c_widget.is_not_null then
-				if r.has_eiffel_wrapper_stored (c_widget) then
-					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_widget)
-				else
-					create {GTK_WINDOW}Result.from_external_pointer (c_widget)
-				end
-			end
+			Result := factory.wrapper(gtk_widget_get_toplevel(handle))
+			-- Original documentation says "No reference will be added to
+			-- the widget returned by gtk_widget_get_toplevel; so it
+			-- should not be unreferenced". This actually does not apply
+			-- to Result. In fact if a wrapper already exists it does not
+			-- need no ref, since it is already reffed. If a new wrapper
+			-- is created it will ref the underlying GObjet at creation
+			-- time and unref it at dispose time. Paolo 2007-10-19
 		end
 
--- gtk_widget_get_toplevel ()
+	-- gtk_widget_get_ancestor ()
 
--- GtkWidget*  gtk_widget_get_toplevel         (GtkWidget *widget);
+	-- GtkWidget*  gtk_widget_get_ancestor         (GtkWidget *widget,
+	--                                              GType widget_type);
 
--- This function returns the topmost widget in the container hierarchy widget is a part of. If widget has no parent widgets, it will be returned as the topmost widget. No reference will be added to the returned widget; it should not be unreferenced.
-
--- Note the difference in behavior vs. gtk_widget_get_ancestor(); gtk_widget_get_ancestor (widget, GTK_TYPE_WINDOW) would return NULL if widget wasn't inside a toplevel window, and if the window was inside a GtkWindow-derived widget which was in turn inside the toplevel GtkWindow. While the second case may seem unlikely, it actually happens when a GtkPlug is embedded inside a GtkSocket within the same application.
-
--- To reliably find the toplevel GtkWindow, use gtk_widget_get_toplevel() and check if the TOPLEVEL flags is set on the result.
-
---  GtkWidget *toplevel = gtk_widget_get_toplevel (widget);
---  if (GTK_WIDGET_TOPLEVEL (toplevel))
---    {
---      [ Perform action on toplevel. ]
---    }
-
--- widget : 	a GtkWidget
--- Returns : 	the topmost ancestor of widget, or widget itself if there's no ancestor.
--- gtk_widget_get_ancestor ()
-
--- GtkWidget*  gtk_widget_get_ancestor         (GtkWidget *widget,
---                                              GType widget_type);
-
--- Gets the first ancestor of widget with type widget_type. For example, gtk_widget_get_ancestor (widget, GTK_TYPE_BOX) gets the first GtkBox that's an ancestor of widget. No reference will be added to the returned widget; it should not be unreferenced. See note about checking for a toplevel GtkWindow in the docs for gtk_widget_get_toplevel().
+	-- Gets the first ancestor of widget with type widget_type. For example, gtk_widget_get_ancestor (widget, GTK_TYPE_BOX) gets the first GtkBox that's an ancestor of widget. No reference will be added to the returned widget; it should not be unreferenced. See note about checking for a toplevel GtkWindow in the docs for gtk_widget_get_toplevel().
 
 -- Note that unlike gtk_widget_is_ancestor(), gtk_widget_get_ancestor() considers widget to be an ancestor of itself.
 
@@ -2612,15 +2601,9 @@ feature
 			-- context_changed on the layout in response to the ::style-set
 			-- and ::direction-changed signals for the widget.
 		local
-			context_ptr: POINTER
-			retriever: G_RETRIEVER [PANGO_CONTEXT]
+			factory: G_OBJECT_EXPANDED_FACTORY [PANGO_CONTEXT]
 		do
-			context_ptr := gtk_widget_get_pango_context (handle)
-			if retriever.has_eiffel_wrapper_stored (context_ptr) then
-				Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (context_ptr)
-			else
-				create Result.from_external_pointer (context_ptr)
-			end
+			Result := factory.wrapper(gtk_widget_get_pango_context(handle))
 		end
 
 	create_pango_layout (a_text: STRING): PANGO_LAYOUT is
@@ -2638,80 +2621,76 @@ feature
 			(gtk_widget_create_pango_layout (handle, a_text.to_external))
 		end
 
--- gtk_widget_render_icon ()
+	render_icon (a_stock_id: STRING; a_size: INTEGER; some_detail: STRING): GDK_PIXBUF is
+			-- A convenience feature that uses the theme engine and RC
+			-- file settings for Current widget to look up `a_stock_id'
+			-- and render it to a pixbuf. `a_stock_id' should be a stock
+			-- icon ID such as `gtk_stock_open' or
+			-- `gtk_stock_ok'. `a_size' should be a size such as
+			-- `gtk_icon_size_menu'. `some_detail' should be a string
+			-- that identifies the widget or code doing the rendering, so
+			-- that theme engines can special-case rendering for that
+			-- widget or code.
+		
+			-- The pixels in the returned GdkPixbuf are shared with the
+			-- rest of the application and should not be modified. The
+			-- pixbuf should be freed after use with `unref'.
+		
+			-- stock_id : 	a stock ID
 
--- GdkPixbuf*  gtk_widget_render_icon          (GtkWidget *widget,
---                                              const gchar *stock_id,
---                                              GtkIconSize size,
---                                              const gchar *detail);
+			-- size : a stock size. A size of (GtkIconSize)-1 means
+			-- render at the size of the source and don't scale (if there
+			-- are multiple source sizes, GTK+ picks one of the available
+			-- sizes).
+		
+			-- detail : 	render detail to pass to theme engine
 
--- A convenience function that uses the theme engine and RC file settings for widget to look up stock_id and render it to a pixbuf. stock_id should be a stock icon ID such as GTK_STOCK_OPEN or GTK_STOCK_OK. size should be a size such as GTK_ICON_SIZE_MENU. detail should be a string that identifies the widget or code doing the rendering, so that theme engines can special-case rendering for that widget or code.
+			-- Result is Void if the stock ID wasn't known.
+		require 
+			stock_id_not_void: a_stock_id /= Void
+			some_detail_not_void: some_detail /= Void
+		local pixbuf_ptr: POINTER
+		do
+ 			pixbuf_ptr := (gtk_widget_render_icon(handle, a_stock_id.to_external,
+															  a_size, some_detail.to_external))
+			if pixbuf_ptr.is_not_null then 
+				create Result.from_external_pointer(pixbuf_ptr)
+			end
+		end
+			
+	pop_composite_child is
+			-- Cancels the effect of a previous call to
+			-- `push_composite_child'.
+		do
+			gtk_widget_pop_composite_child
+		end
 
--- The pixels in the returned GdkPixbuf are shared with the rest of the application and should not be modified. The pixbuf should be freed after use with g_object_unref().
+	push_composite_child is
+			-- Makes all newly-created widgets as composite children
+			-- until the corresponding `pop_composite_child' call.
 
--- widget : 	a GtkWidget
--- stock_id : 	a stock ID
--- size : 	a stock size. A size of (GtkIconSize)-1 means render at the size of the source and don't scale (if there are multiple source sizes, GTK+ picks one of the available sizes).
--- detail : 	render detail to pass to theme engine
--- Returns : 	a new pixbuf, or NULL if the stock ID wasn't known
--- gtk_widget_pop_composite_child ()
+			-- A composite child is a child that's an implementation
+			-- detail of the container it's inside and should not be
+			-- visible to people using the container. Composite children
+			-- aren't treated differently by GTK (but see
+			-- gtk_container_foreach() vs. gtk_container_forall()), but
+			-- e.g. GUI builders might want to treat them in a different
+			-- way.
 
--- void        gtk_widget_pop_composite_child  (void);
+			-- Here is a simple example:
+		
+			--   gtk_widget_push_composite_child ();
+			--   scrolled_window->hscrollbar = gtk_hscrollbar_new (hadjustment);
+			--   gtk_widget_set_composite_name (scrolled_window->hscrollbar, "hscrollbar");
+			--   gtk_widget_pop_composite_child ();
+			--   gtk_widget_set_parent (scrolled_window->hscrollbar, 
+			--                          GTK_WIDGET (scrolled_window));
+			--   g_object_ref (scrolled_window->hscrollbar);
+		do
+			gtk_widget_push_composite_child
+		end
 
--- Cancels the effect of a previous call to gtk_widget_push_composite_child().
 
--- gtk_widget_push_composite_child ()
-
--- void        gtk_widget_push_composite_child (void);
-
--- Makes all newly-created widgets as composite children until the corresponding gtk_widget_pop_composite_child() call.
-
--- A composite child is a child that's an implementation detail of the container it's inside and should not be visible to people using the container. Composite children aren't treated differently by GTK (but see gtk_container_foreach() vs. gtk_container_forall()), but e.g. GUI builders might want to treat them in a different way.
-
--- Here is a simple example:
-
---   gtk_widget_push_composite_child ();
---   scrolled_window->hscrollbar = gtk_hscrollbar_new (hadjustment);
---   gtk_widget_set_composite_name (scrolled_window->hscrollbar, "hscrollbar");
---   gtk_widget_pop_composite_child ();
---   gtk_widget_set_parent (scrolled_window->hscrollbar, 
---                          GTK_WIDGET (scrolled_window));
---   g_object_ref (scrolled_window->hscrollbar);
-
--- gtk_widget_queue_clear ()
-
--- void        gtk_widget_queue_clear          (GtkWidget *widget);
-
--- Warning
-
--- gtk_widget_queue_clear is deprecated and should not be used in newly-written code.
-
--- This function does the same as gtk_widget_queue_draw().
-
--- Deprecated: Use gtk_widget_queue_draw() instead.
-
--- widget : 	a GtkWidget
--- gtk_widget_queue_clear_area ()
-
--- void        gtk_widget_queue_clear_area     (GtkWidget *widget,
---                                              gint x,
---                                              gint y,
---                                              gint width,
---                                              gint height);
-
--- Warning
-
--- gtk_widget_queue_clear_area is deprecated and should not be used in newly-written code.
-
--- This function is no longer different from gtk_widget_queue_draw_area(), though it once was. Now it just calls gtk_widget_queue_draw_area(). Originally gtk_widget_queue_clear_area() would force a redraw of the background for GTK_NO_WINDOW widgets, and gtk_widget_queue_draw_area() would not. Now both functions ensure the background will be redrawn.
-
--- Deprecated: Use gtk_widget_queue_draw_area() instead.
-
--- widget : 	a GtkWidget
--- x : 	x coordinate of upper-left corner of rectangle to redraw
--- y : 	y coordinate of upper-left corner of rectangle to redraw
--- width : 	width of region to draw
--- height : 	height of region to draw
 -- gtk_widget_queue_draw_area ()
 
 -- void        gtk_widget_queue_draw_area      (GtkWidget *widget,
@@ -2970,19 +2949,8 @@ feature
 
 	parent: GTK_WIDGET is
 			-- Returns the parent container of widget, or Void if none.
-		local
-			c_widget: POINTER
-			r: G_RETRIEVER [GTK_WIDGET]
 		do
-			c_widget := gtk_widget_get_parent (handle)
-			if c_widget.is_not_null then
-				if r.has_eiffel_wrapper_stored (c_widget) then
-					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (c_widget)
-				else
-					crash -- Need to autodetect parent's type for this!
---					create Result.from_external_pointer (c_widget)
-				end
-			end
+			Result := widget_factory.wrapper_or_void(handle)
 		end
 
 -- gtk_widget_get_settings ()

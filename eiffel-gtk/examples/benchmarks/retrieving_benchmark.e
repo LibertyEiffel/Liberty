@@ -90,7 +90,7 @@ feature
 		end
 
 	retriever_benchmark is
-		local counter: INTEGER; l: GTK_LABEL; r: G_RETRIEVER[GTK_LABEL]
+		local counter: INTEGER; l: GTK_LABEL; r: G_OBJECT_EXPANDED_FACTORY[GTK_LABEL]
 		do	
 			from counter := iterations_number; timer.start
 			until counter = 0
@@ -98,7 +98,7 @@ feature
 				random.next
 				label := labels.item(random.last_integer(iterations_number-1))
 				pointer := label.handle
-				l := r.eiffel_wrapper_from_gobject_pointer(pointer)
+				l := r.wrapper(pointer)
 				check l_is_label: l = label end
 				counter := counter - 1
 			end

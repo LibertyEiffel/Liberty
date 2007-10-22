@@ -153,7 +153,12 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Dummy creation
 				print_known_gobject_heirs
 			end
 			gtypeclass_ptr := g_type_class_ref (stored_type)
-			debug io.put_line(once "g_object_unref (gobject_ptr) not invoked. This is a know (little?) memory leak; in a furious hacking night it seemed to me that calling it on not-reffed Gobject can confuse the C type system. Fixme. Paolo 2007-09-12") end
+			g_object_unref (gobject_ptr)
+			-- debug io.put_line(once "g_object_unref (gobject_ptr) not
+			-- invoked. This is a know (little?) memory leak; in a
+			-- furious hacking night it seemed to me that calling it on
+			-- not-reffed Gobject can confuse the C type
+			-- system. Fixme. Paolo 2007-09-12") end
 		ensure
 			dummy_is_null: is_null
 			stored_type_set: stored_type/=0

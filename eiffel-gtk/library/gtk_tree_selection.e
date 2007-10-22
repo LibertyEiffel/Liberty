@@ -132,14 +132,9 @@ feature -- selection mode
 feature -- View	
 	tree_view: GTK_TREE_VIEW is
 			-- the tree view associated with selection.
-		local ptr: POINTER; r: G_RETRIEVER[GTK_TREE_VIEW]
+		local view_factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_VIEW]
 		do
-			ptr:=gtk_tree_selection_get_tree_view (handle)
-			check ptr.is_not_null end
-			Result:=r.eiffel_wrapper_from_gobject_pointer(ptr)
-			if Result=Void then
-				create Result.from_external_pointer (ptr)
-			end
+			Result := view_factory.wrapper(gtk_tree_selection_get_tree_view(handle))
 		ensure result_not_void: Result/=Void
 		end
 

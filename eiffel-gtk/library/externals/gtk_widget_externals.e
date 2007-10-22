@@ -564,32 +564,23 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
--- GdkPixbuf*  gtk_widget_render_icon          (GtkWidget *widget,
---                                              const gchar *stock_id,
---                                              GtkIconSize size,
---                                              const gchar *detail) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_render_icon (a_widget, a_stock_id: POINTER; a_size: INTEGER; a_detail: POINTER): POINTER is
+			-- GdkPixbuf*  gtk_widget_render_icon          (GtkWidget *widget,
+			--                                              const gchar *stock_id,
+			--                                              GtkIconSize size,
+			--                                              const gchar *detail) is
+		external "C use <gtk/gtk.h>"
+		end
 
--- void        gtk_widget_pop_composite_child  (void) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_pop_composite_child  is
+			-- void        gtk_widget_pop_composite_child  (void) is
+		external "C use <gtk/gtk.h>"
+		end
 
--- void        gtk_widget_push_composite_child (void) is
---		external "C use <gtk/gtk.h>"
---		end
-
--- gtk_widget_queue_clear (widget: POINTER) is
---		external "C use <gtk/gtk.h>"
---		end
-
--- gtk_widget_queue_clear_area (widget: POINTER,
---                                              gint x,
---                                              gint y,
---                                              gint width,
---                                              gint height) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_push_composite_child is
+			-- void        gtk_widget_push_composite_child (void) is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- gtk_widget_queue_draw_area (widget: POINTER,
 --                                              gint x,

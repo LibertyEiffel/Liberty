@@ -57,17 +57,9 @@ feature -- layout
 			-- Gets the PangoLayout used to display the scale.
 			-- The returned object is owned by the scale.
 		local
-			ptr: POINTER
-			r: G_RETRIEVER [PANGO_LAYOUT]
+			factory: G_OBJECT_EXPANDED_FACTORY [PANGO_LAYOUT]
 		do
-			ptr := gtk_scale_get_layout (handle)
-			if ptr.is_not_null then
-				if r.has_eiffel_wrapper_stored (ptr) then
-					Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
-				else
-					create Result.from_external_pointer (ptr)
-				end
-			end
+			Result := factory.wrapper_or_void(gtk_scale_get_layout (handle))
 		ensure
 			(not is_value_drawn) = (Result = Void)
 		end

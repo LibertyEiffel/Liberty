@@ -307,20 +307,8 @@ feature -- Label
 			-- The widget that is currently set as the image of
 			-- button. This may have been explicitly set by `set_image'
 			-- or constructed by `from_stock'.
-		local
-			retriever: G_RETRIEVER [GTK_WIDGET]
-			ptr: POINTER
 		do
-			ptr := gtk_button_get_image (handle)
-			if ptr.is_not_null then
-				if retriever.has_eiffel_wrapper_stored (ptr) then
-					Result := retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
-				else
-					-- FIXME: line below has to be improved
-					raise(pointer_to_unwrapped_deferred_object)
-					create {GTK_IMAGE}Result.from_external_pointer (ptr)
-				end
-			end
+			Result:=widget_factory.wrapper_or_void(gtk_button_get_image(handle))
 		end
 
 -- Since 2.10
