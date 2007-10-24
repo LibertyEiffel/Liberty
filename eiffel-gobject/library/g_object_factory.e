@@ -50,6 +50,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			-- property of the GObject's GType and it is stored there at
 			-- initialization time.
 
+			-- If REsult is created the underlying GObject is reffed
 		require else pointer_is_gobject: g_is_object(a_pointer)=1
 		local an_archetype: ITEM; gobject_type: like g_type
 		do
@@ -72,9 +73,38 @@ feature {WRAPPER,WRAPPER_HANDLER}
 				end
 				Result := an_archetype.standard_twin
 				Result.set_handle(a_pointer)
+				Result.ref
 			end
 		end
 	
+	unreffed_wrapper (a_pointer: POINTER): ITEM is
+			-- A non-referred wrapper. See `wrapper' for further
+			-- informations
+		require pointer_is_gobject: g_is_object(a_pointer)=1
+		local an_archetype: ITEM; gobject_type: like g_type
+		do
+			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
+			if Result=Void then
+				debug
+					print ("G_OBJECT_FACTORY.unreffed_wrapper: no wrapper for GObject at " + a_pointer.out)
+					print (" (type %"")
+					print (create {STRING}.from_external_copy(g_object_type_name(a_pointer)))
+					print ("%"). Looking for an archetype... ")
+					-- wrapper twinned from an archetype obtained from the GObject's type.%N")
+				end
+				gobject_type := g_object_type (a_pointer)
+				an_archetype := g_type_get_archetype (gobject_type, eiffel_archetype_key.quark)
+				if an_archetype = Void then
+					debug print(" not found. ") end
+					an_archetype := archetype_for(gobject_type)
+				else
+					debug print(an_archetype.out+" found.") end
+				end
+				Result := an_archetype.standard_twin
+				Result.set_handle(a_pointer)
+			end
+		end
+
 	wrapper_or_void (a_pointer: POINTER): ITEM is
 			-- A wrapper for `a_pointer' or Void if `a_pointer' is
 			-- default_pointer (NULL in C). A commodity feature to
@@ -102,6 +132,17 @@ feature {WRAPPER,WRAPPER_HANDLER}
 		ensure void_case: a_pointer.is_null implies Result = Void
 		end
 
+	unreffed_wrapper_or_void (a_pointer: POINTER): ITEM is
+			-- A (unreffed) wrapper for `a_pointer' or Void if `a_pointer' is
+			-- default_pointer (NULL in C). See `wrapper_or_void' for 
+			-- further informations
+		do
+			if a_pointer.is_not_null then
+				Result := unreffed_wrapper(a_pointer)
+			end
+		ensure void_case: a_pointer.is_null implies Result = Void
+		end
+
 	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
 			-- Have `a_pointer' already been wrapped?
 
@@ -114,20 +155,11 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			--   create	Result.from_external_pointer (c_pointer) 
 			-- end
 
-			-- is on average slower than the equivalent:
+			-- is on average twice slower than the equivalent:
 			-- "Result:=wrapper(c_pointer)".
 
-			-- Yet, if the effective type of the Gobject referred by
-			-- `a_pointer' is actually known for sure, the most efficient
-			-- code pattern is:
-
-			-- if not has_eiffel_wrapper_stored(c_pointer)
-			-- then create Result.from_external_pointer (c_pointer)
-			-- else Result:=wrapper(c_pointer)
-			-- end
-
-			-- Because 
-
+			-- This feature is actually useful only in pre and 
+			-- postconditions.
 		do
 			Result := (g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
 		end

@@ -101,8 +101,6 @@ feature -- Access
 
 	buffer: GTK_TEXT_BUFFER is
 			-- The GTK_TEXT_BUFFER being displayed by this text view.
-		local
-			c_buff: POINTER
 		do
 			if cached_buffer = Void then
 				-- The reference count on the buffer returned by

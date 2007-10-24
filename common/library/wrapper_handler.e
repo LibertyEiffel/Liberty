@@ -68,9 +68,10 @@ feature {} -- Wrapper related exceptions
 														 Happy hacking and thanks in advance.
 																					 The EWLC  team.
 
-			  The error occured in the type ]")
+			  The error occurred in the type
+			  ]")
 			std_error.put_string(generating_type)
-			std_error.put_string(".%N%N")
+			std_error.put_line(".")
 			crash
 		end
 

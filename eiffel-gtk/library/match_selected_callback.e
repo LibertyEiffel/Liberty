@@ -40,7 +40,7 @@ feature
 			mr: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_MODEL]
 		do
 			debug
-				print ("Callback: instance=") print (instance.to_string) print ("%N")
+				print ("Callback: instance=") print (instance_ptr.to_string) print ("%N")
 			end
 			
 			object := cr.wrapper(instance_ptr)

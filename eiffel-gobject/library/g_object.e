@@ -118,7 +118,6 @@ feature -- Copying
 				raise_exception(No_more_memory)
 			end
 			handle := a_ptr
-			store_eiffel_wrapper
 			ref -- Let's add a reference to the underlying g_object
 		end
 	

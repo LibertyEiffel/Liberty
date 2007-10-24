@@ -56,8 +56,8 @@ generate -- section
 	no_split(no);
 	clean(no);
 
-	c_compiler_options : "$(pkg-config --cflags gtk+-2.0)"
+	c_compiler_options : "$(pkg-config --cflags gtk+-2.0 gtk+-unix-print-2.0)"
 
-	linker_options : "$(pkg-config --libs gtk+-2.0)"
+	linker_options : "$(pkg-config --libs gtk+-2.0 gtk+-unix-print-2.0)"
 
 end
