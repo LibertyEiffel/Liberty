@@ -393,7 +393,6 @@ feature
 			nick_column.pack_start (flag_renderer, True)
 			nick_column.add_attribute (text_renderer, "text", flag_column_n)
 			
-			
 			create Result.make
 			Result.insert_column (name_column, name_column_n)
 			Result.insert_column (nick_column, nick_column_n)
