@@ -106,7 +106,7 @@ feature -- Access
 				-- The reference count on the buffer returned by
 				-- gtk_text_view_get_buffer is not incremented; the caller
 				-- of this function won't own a new reference.
-				cached_buffer := wrapper (gtk_text_view_get_buffer (handle))
+				cached_buffer := wrapper(gtk_text_view_get_buffer(handle))
 			end
 			Result := cached_buffer
 		end

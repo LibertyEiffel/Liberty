@@ -1,5 +1,5 @@
 indexing
-	description: "GtkRadioAction — An action of which only one in a group can be active."
+	description: "GtkRadioAction - An action of which only one in a group can be active."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTS team
 					
@@ -20,6 +20,8 @@ indexing
 			]"
 
 class GTK_RADIO_ACTION
+	-- An action of which only one in a group can be active.
+
 	-- A GTK_RADIO_ACTION is similar to GTK_RADIO_MENU_ITEM. A number
 	-- of radio actions can be linked together so that only one may be
 	-- active at any one time.

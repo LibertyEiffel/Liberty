@@ -1,31 +1,51 @@
 indexing
-	description: "External features of G_OBJECT"
-	copyright: "(C) 2005 Paolo Redaelli "
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision "$REvision:$"
+	description: "External calls for G_OBJECT."
+	copyright: "[
+					Copyright (C) 2006-2007 Paolo Redaelli, GLib developers
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
 
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
+	wrapped_version: "2.12.11"
 
 deferred class G_OBJECT_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
+
 	-- #include <glib-object.h>
-
-	--             GObject;
-	--             GObjectClass;
-	--             GObjectConstructParam;
-
-	-- void (*GObjectGetPropertyFunc) (GObject *object, guint
-	-- property_id, GValue *value, GParamSpec *pspec);
-
-	-- void (*GObjectSetPropertyFunc) (GObject *object, guint
-	-- property_id, const GValue *value, GParamSpec *pspec);
-
-	-- void        (*GObjectFinalizeFunc)          (GObject *object);
+	--
+	--
+	--                     GObject;
+	--                     GObjectClass;
+	--                     GObjectConstructParam;
+	-- void                (*GObjectGetPropertyFunc)           (GObject *object,
+	--                                                          guint property_id,
+	--                                                          GValue *value,
+	--                                                          GParamSpec *pspec);
+	-- void                (*GObjectSetPropertyFunc)           (GObject *object,
+	--                                                          guint property_id,
+	--                                                          const GValue *value,
+	--                                                          GParamSpec *pspec);
+	-- void                (*GObjectFinalizeFunc)              (GObject *object);
 
 	g_type_is_object (type: INTEGER): INTEGER is
+			-- #define G_TYPE_IS_OBJECT (type)
+
 			-- Returns a boolean value of FALSE or TRUE indicating whether the
 			-- passed in type id is a G_TYPE_OBJECT or derived from it.  type :
 			-- Type id to check for is a G_TYPE_OBJECT relationship.  Returns :
@@ -35,28 +55,154 @@ feature {} -- External calls
 		end
 
 	g_object (a_pointer: POINTER): POINTER is
+			-- #define G_OBJECT (object)
 		external "C macro use <glib-object.h>"
 		alias "G_OBJECT"
 		end
 
 	g_is_object (object: POINTER): INTEGER is
+			-- #define G_IS_OBJECT (object)
 		external "C macro use <glib-object.h>"
 		alias "G_IS_OBJECT"
 		end
 
-	-- Note: shall we wrap casting macro such as G_OBJECT_CLASS
-	-- (class)? Paolo 2006-07-27
-
 	g_is_object_class (a_class: POINTER): INTEGER is
+			-- #define G_OBJECT_CLASS (class)
 		external "C macro use  <glib-object.h>"
 		alias "G_IS_OBJECT_CLASS"
 		end
 
+	-- #define             G_IS_OBJECT_CLASS                   (class)
+
 	g_object_get_class (an_object: POINTER): POINTER is
+			-- #define G_OBJECT_GET_CLASS (object)
 		external "C macro use  <glib-object.h>"
 		alias "G_OBJECT_GET_CLASS"
 		end
 
+	-- #define             G_OBJECT_TYPE                       (object)
+	-- #define             G_OBJECT_TYPE_NAME                  (object)
+	-- #define             G_OBJECT_CLASS_TYPE                 (class)
+	-- #define             G_OBJECT_CLASS_NAME                 (class)
+	-- void                g_object_class_install_property     (GObjectClass *oclass,
+	--                                                          guint property_id,
+	--                                                          GParamSpec *pspec);
+	-- GParamSpec*         g_object_class_find_property        (GObjectClass *oclass,
+	--                                                          const gchar *property_name);
+	-- GParamSpec**        g_object_class_list_properties      (GObjectClass *oclass,
+	--                                                          guint *n_properties);
+	-- void                g_object_class_override_property    (GObjectClass *oclass,
+	--                                                          guint property_id,
+	--                                                          const gchar *name);
+	-- void                g_object_interface_install_property (gpointer g_iface,
+	--                                                          GParamSpec *pspec);
+	-- GParamSpec*         g_object_interface_find_property    (gpointer g_iface,
+	--                                                          const gchar *property_name);
+	-- GParamSpec**        g_object_interface_list_properties  (gpointer g_iface,
+	--                                                          guint *n_properties_p);
+	-- gpointer            g_object_new                        (GType object_type,
+	--                                                          const gchar *first_property_name,
+	--                                                          ...);
+	-- gpointer            g_object_newv                       (GType object_type,
+	--                                                          guint n_parameters,
+	--                                                          GParameter *parameters);
+	--                     GParameter;
+	-- gpointer            g_object_ref                        (gpointer object);
+	-- void                g_object_unref                      (gpointer object);
+	
+	g_object_ref_sink (an_object: POINTER): POINTER is
+			-- gpointer g_object_ref_sink (gpointer object);
+		external "C use  <glib-object.h>"
+		end
+
+	-- typedef             GInitiallyUnowned;
+	-- typedef             GInitiallyUnownedClass;
+	-- #define             G_TYPE_INITIALLY_UNOWNED
+	-- gboolean            g_object_is_floating                (gpointer object);
+	-- void                g_object_force_floating             (GObject *object);
+	-- void                (*GWeakNotify)                      (gpointer data,
+	--                                                          GObject *where_the_object_was);
+	-- void                g_object_weak_ref                   (GObject *object,
+	--                                                          GWeakNotify notify,
+	--                                                          gpointer data);
+	-- void                g_object_weak_unref                 (GObject *object,
+	--                                                          GWeakNotify notify,
+	--                                                          gpointer data);
+	-- void                g_object_add_weak_pointer           (GObject *object,
+	--                                                          gpointer *weak_pointer_location);
+	-- void                g_object_remove_weak_pointer        (GObject *object,
+	--                                                          gpointer *weak_pointer_location);
+	-- void                (*GToggleNotify)                    (gpointer data,
+	--                                                          GObject *object,
+	--                                                          gboolean is_last_ref);
+	-- void                g_object_add_toggle_ref             (GObject *object,
+	--                                                          GToggleNotify notify,
+	--                                                          gpointer data);
+	-- void                g_object_remove_toggle_ref          (GObject *object,
+	--                                                          GToggleNotify notify,
+	--                                                          gpointer data);
+	-- gpointer            g_object_connect                    (gpointer object,
+	--                                                          const gchar *signal_spec,
+	--                                                          ...);
+	-- void                g_object_disconnect                 (gpointer object,
+	--                                                          const gchar *signal_spec,
+	--                                                          ...);
+	-- void                g_object_set                        (gpointer object,
+	--                                                          const gchar *first_property_name,
+	--                                                          ...);
+	-- void                g_object_get                        (gpointer object,
+	--                                                          const gchar *first_property_name,
+	--                                                          ...);
+	-- void                g_object_notify                     (GObject *object,
+	--                                                          const gchar *property_name);
+	-- void                g_object_freeze_notify              (GObject *object);
+	-- void                g_object_thaw_notify                (GObject *object);
+	-- gpointer            g_object_get_data                   (GObject *object,
+	--                                                          const gchar *key);
+	-- void                g_object_set_data                   (GObject *object,
+	--                                                          const gchar *key,
+	--                                                          gpointer data);
+	-- void                g_object_set_data_full              (GObject *object,
+	--                                                          const gchar *key,
+	--                                                          gpointer data,
+	--                                                          GDestroyNotify destroy);
+	-- gpointer            g_object_steal_data                 (GObject *object,
+	--                                                          const gchar *key);
+	-- gpointer            g_object_get_qdata                  (GObject *object,
+	--                                                          GQuark quark);
+	-- void                g_object_set_qdata                  (GObject *object,
+	--                                                          GQuark quark,
+	--                                                          gpointer data);
+	-- void                g_object_set_qdata_full             (GObject *object,
+	--                                                          GQuark quark,
+	--                                                          gpointer data,
+	--                                                          GDestroyNotify destroy);
+	-- gpointer            g_object_steal_qdata                (GObject *object,
+	--                                                          GQuark quark);
+	-- void                g_object_set_property               (GObject *object,
+	--                                                          const gchar *property_name,
+	--                                                          const GValue *value);
+	-- void                g_object_get_property               (GObject *object,
+	--                                                          const gchar *property_name,
+	--                                                          GValue *value);
+	-- GObject*            g_object_new_valist                 (GType object_type,
+	--                                                          const gchar *first_property_name,
+	--                                                          va_list var_args);
+	-- void                g_object_set_valist                 (GObject *object,
+	--                                                          const gchar *first_property_name,
+	--                                                          va_list var_args);
+	-- void                g_object_get_valist                 (GObject *object,
+	--                                                          const gchar *first_property_name,
+	--                                                          va_list var_args);
+	-- void                g_object_watch_closure              (GObject *object,
+	--                                                          GClosure *closure);
+	-- void                g_object_run_dispose                (GObject *object);
+	-- #define             G_OBJECT_WARN_INVALID_PROPERTY_ID   (object, property_id, pspec)
+	--
+
+	-- ### OLD
+
+	
 	g_object_type (an_object: POINTER): INTEGER is
 			-- Return the type id of an object.
 			-- object : 	Object to return the type id for.

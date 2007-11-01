@@ -442,7 +442,8 @@ feature -- Generic setter
 feature
 	dummy_gobject: POINTER is
 		do
-			Result:=gtk_list_store_newv(1,$g_type_int)
+			Result:=(gtk_list_store_newv
+						(1, {NATIVE_ARRAY[INTEGER] <<g_type_int>>}.to_external))
 		end
 
 	struct_size: INTEGER is

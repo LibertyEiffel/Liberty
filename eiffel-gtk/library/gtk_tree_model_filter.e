@@ -20,8 +20,8 @@ indexing
 			]"
 
 class GTK_TREE_MODEL_FILTER
-	-- Description: a GtkTreeModelFilter is a tree model which wraps
-	-- another tree model, and can do the following things:
+	-- A tree model which wraps another tree model, and can do the
+	-- following things:
 
 	-- * Filter specific rows, based on data from a "visible column", a
 	-- column storing booleans indicating whether the row should be
@@ -238,7 +238,8 @@ feature -- size
 	dummy_gobject: POINTER is
 		do
 			Result:=(gtk_tree_model_filter_new
-						(gtk_tree_store_newv(1,$g_type_int),default_pointer))
+						(gtk_tree_store_newv(1, {NATIVE_ARRAY[INTEGER] <<g_type_int>>}.to_external),
+						 default_pointer))
 		end
 	
 feature {} -- External calls

@@ -187,6 +187,8 @@ feature -- Creation
 			-- environment variable (see Section 27.11) is checked. If
 			-- the environment variable is not set either, then the
 			-- indicated built-in defaults are used.
+		require
+			info_not_void: some_connection_informations/=Void
 		do
 			handle:= pqconnectdb (some_connection_informations.to_external)
 		end

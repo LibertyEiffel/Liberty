@@ -50,12 +50,15 @@ feature -- Creation
 			-- Initialize the Eiffel-side of the run-time type system 
 			-- needed for a functional GObject-using library.
 
-			-- Before using any feature of the GTK wrapper you must call
-			-- this feature; it stores the archetypes for each known
-			-- effective GTK class; they are needed to provide proper 
-			-- Eiffel wrappers when the wrapper receive an arbitrary GObject 
-			-- from the underlying library and it is not possible to 
-			-- know at compile time a useful type for it.
+			-- This feature is automatically invoked when creating the
+			-- first GTK-related object; it stores the archetypes for
+			-- each known effective GTK class; they are needed to provide
+			-- proper Eiffel wrappers when the wrapper receive an
+			-- arbitrary GObject from the underlying library and it is
+			-- not possible to know at compile time a useful type for it.
+
+			-- Note: automatic invoking is obtained having a `gtk' 
+			-- singleton object in each GTK_OBJECT
 
 			-- Note: another possible workaround would be to remove the 
 			-- "deferred" mark from some parent classes. This works fine 
@@ -65,10 +68,10 @@ feature -- Creation
 		require gtk_initialized: is_initialized
 		once
 			debug
-				print(once "FIXME: in GTK_MAIN.initialize_eiffel_library many archetypes are still not created. Paolo 2007-10-15%N")
+				io.put_line(once "FIXME: in GTK_MAIN.initialize_eiffel_library many archetypes are still not created. Paolo 2007-10-15")
 			end
 			store_archetype(create {GTK_ABOUT_DIALOG}.dummy)
-			-- store_archetype(create {GTK_ACCELERATOR_MAP}.dummy)
+			debug io.put_line("FIXME: store_archetype(create {GTK_ACCELERATOR_MAP}.dummy)") end
 			store_archetype(create {GTK_ACCEL_LABEL}.dummy)
 			store_archetype(create {GTK_ACTION}.dummy)
 			store_archetype(create {GTK_ACTION_GROUP}.dummy)
@@ -128,16 +131,15 @@ feature -- Creation
 			store_archetype(create {GTK_MENU}.dummy)
 			store_archetype(create {GTK_MENU_ITEM}.dummy)
 			store_archetype(create {GTK_MENU_TOOL_BUTTON}.dummy)
-			store_archetype(create {GTK_MESSAGE_DIALOG}.dummy)
+			debug  io.put_line("FIXME: NULL dummy_gobject in store_archetype(create {GTK_MESSAGE_DIALOG}.dummy)") end
 			store_archetype(create {GTK_NOTEBOOK}.dummy)
 			store_archetype(create {GTK_PAGE_SETUP}.dummy)
-			-- store_archetype(create {GTK_PAGE_SETUP_UNIX_DIALOG}.dummy)
-			store_archetype(create {GTK_PRINT_BACKEND}.dummy)
-			store_archetype(create {GTK_PRINTER}.dummy)
-			store_archetype(create {GTK_PRINT_JOB}.dummy)
-			store_archetype(create {GTK_PRINT_OPERATION}.dummy)
-			store_archetype(create {GTK_PRINT_SETTINGS}.dummy)
-			-- store_archetype(create {GTK_PRINT_UNIX_DIALOG}.dummy)
+			debug io.put_line("FIXME: find a proper way to implement dummy_gobject in GTK_PRINT_BACKEND, GTK_PRINTER, GTK_PRINT_JOB, GTK_PRINT_OPERATION, GTK_PRINT_SETTINGS") end
+			-- store_archetype(create {GTK_PRINT_BACKEND}.dummy)") end
+			-- store_archetype(create {GTK_PRINTER}.dummy)
+			-- store_archetype(create {GTK_PRINT_JOB}.dummy)
+			-- store_archetype(create {GTK_PRINT_OPERATION}.dummy)
+			-- store_archetype(create {GTK_PRINT_SETTINGS}.dummy)
 			store_archetype(create {GTK_PROGRESS_BAR}.dummy)
 			store_archetype(create {GTK_RADIO_ACTION}.dummy)
 			store_archetype(create {GTK_RADIO_BUTTON}.dummy)
@@ -154,7 +156,7 @@ feature -- Creation
 			store_archetype(create {GTK_TEAROFF_MENU_ITEM}.dummy)
 			store_archetype(create {GTK_TEXT_BUFFER}.dummy)
 			store_archetype(create {GTK_TEXT_CHILD_ANCHOR}.dummy)
-			store_archetype(create {GTK_TEXT_MARK}.dummy)
+			debug io.put_line("FIXME: re-enable itstore_archetype(create {GTK_TEXT_MARK}.dummy)") end
 			store_archetype(create {GTK_TEXT_TAG}.dummy)
 			store_archetype(create {GTK_TEXT_TAG_TABLE}.dummy)
 			store_archetype(create {GTK_TEXT_VIEW}.dummy)

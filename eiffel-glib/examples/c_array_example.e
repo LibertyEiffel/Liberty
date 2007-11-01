@@ -39,7 +39,11 @@ feature
 	test_null_terminated_array is
 		local i: INTEGER; it: ITERATOR[G_STRING]; s: G_STRING
 		do
-			create {NULL_TERMINATED_C_ARRAY[G_STRING]} array.from_external(null_terminated_array_pointer)
+			create {NULL_TERMINATED_C_ARRAY[G_STRING]} array.from_external
+			(null_terminated_array_pointer, 
+			 create {ARCHETYPE_FACTORY[G_STRING]}.with_archetype
+			 (create {G_STRING}.make_empty))
+			
 			check array.count=3 end
 			from print("Using indexes: "); i:=array.lower until i>array.upper
 			loop

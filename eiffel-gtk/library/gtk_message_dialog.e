@@ -21,41 +21,46 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-	-- Description
-
--- GtkMessageDialog presents a dialog with an image representing the type of message (Error, Question, etc.) alongside some message text. It's simply a convenience widget; you could construct the equivalent of GtkMessageDialog from GtkDialog without too much effort, but GtkMessageDialog saves typing.
-
--- The easiest way to do a modal message dialog is to use gtk_dialog_run(), though you can also pass in the GTK_DIALOG_MODAL flag, gtk_dialog_run() automatically makes the dialog modal and waits for the user to respond to it. gtk_dialog_run() returns when any dialog button is clicked.
-
--- Example 2. A modal dialog.
-
---  dialog = gtk_message_dialog_new (main_application_window,
---                                   GTK_DIALOG_DESTROY_WITH_PARENT,
---                                   GTK_MESSAGE_ERROR,
---                                   GTK_BUTTONS_CLOSE,
---                                   "Error loading file '%s': %s",
---                                   filename, g_strerror (errno));
---  gtk_dialog_run (GTK_DIALOG (dialog));
---  gtk_widget_destroy (dialog);
-
--- You might do a non-modal GtkMessageDialog as follows:
-
--- Example 3. A non-modal dialog.
-
---  dialog = gtk_message_dialog_new (main_application_window,
---                                   GTK_DIALOG_DESTROY_WITH_PARENT,
---                                   GTK_MESSAGE_ERROR,
---                                   GTK_BUTTONS_CLOSE,
---                                   "Error loading file '%s': %s",
---                                   filename, g_strerror (errno));
-
---  /* Destroy the dialog when the user responds to it (e.g. clicks a button) */
---  g_signal_connect_swapped (dialog, "response",
---                            G_CALLBACK (gtk_widget_destroy),
---                            dialog);
-
-
 class GTK_MESSAGE_DIALOG
+	-- GtkMessageDialog presents a dialog with an image representing
+	-- the type of message (Error, Question, etc.) alongside some
+	-- message text. It's simply a convenience widget; you could
+	-- construct the equivalent of GtkMessageDialog from GtkDialog
+	-- without too much effort, but GtkMessageDialog saves typing.
+
+	-- The easiest way to do a modal message dialog is to use `run',
+	-- though you can also pass in the `gtk_dialog_modal' flag, `run'
+	-- automatically makes the dialog modal and waits for the user to
+	-- respond to it. `run' returns when any dialog button is clicked.
+
+	-- TODO: Eiffelize Example 2. A modal dialog.
+	
+	--  dialog = gtk_message_dialog_new (main_application_window,
+	--                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+	--                                   GTK_MESSAGE_ERROR,
+	--                                   GTK_BUTTONS_CLOSE,
+	--                                   "Error loading file '%s': %s",
+	--                                   filename, g_strerror (errno));
+	--  gtk_dialog_run (GTK_DIALOG (dialog));
+	--  gtk_widget_destroy (dialog);
+	
+	-- You might do a non-modal GtkMessageDialog as follows:
+	
+	-- Example 3. A non-modal dialog.
+	
+	--  dialog = gtk_message_dialog_new (main_application_window,
+	--                                   GTK_DIALOG_DESTROY_WITH_PARENT,
+	--                                   GTK_MESSAGE_ERROR,
+	--                                   GTK_BUTTONS_CLOSE,
+	--                                   "Error loading file '%s': %s",
+	--                                   filename, g_strerror (errno));
+
+	--  /* Destroy the dialog when the user responds to it (e.g. clicks a button) */
+	--  g_signal_connect_swapped (dialog, "response",
+	--                            G_CALLBACK (gtk_widget_destroy),
+	--                            dialog);
+
+
 
 inherit
 	GTK_DIALOG
@@ -74,12 +79,19 @@ creation dummy, make, with_markup, from_external_pointer
 
 feature
 	dummy_gobject: POINTER is
+		local p: POINTER
 		do
-			Result:=(gtk_message_dialog_new
+			p:=(gtk_message_dialog_new
 						(default_pointer,
 						 -- some_flags, a_type, some_buttons,
-						 0,0,0,
+						 gtk_dialog_modal, gtk_response_ok, gtk_buttons_ok,
 						 (once "Dummy GtkMessageDialog").to_external))
+			debug
+				io.put_string("GTK_MESSAGE_DIALOG.dummy_gobject p=")
+				io.put_pointer(p) io.put_new_line
+				io.flush
+			end
+			Result:=p
 		end
 	
 	struct_size: INTEGER is

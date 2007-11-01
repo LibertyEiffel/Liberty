@@ -72,7 +72,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 					debug print(an_archetype.out+" found.") end
 				end
 				Result := an_archetype.standard_twin
-				Result.set_handle(a_pointer)
+				Result.main_wrapper_from(a_pointer)
 				Result.ref
 			end
 		end

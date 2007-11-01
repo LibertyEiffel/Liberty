@@ -140,37 +140,40 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Dummy creation
 		require
 			called_on_creation: is_null
 			-- TODO called_on_wrapper_library_initialization: not gtk.is_eiffel_library_initialized
-		local gobject_ptr, gtypeclass_ptr: POINTER
+		local gtypeclass_ptr: POINTER
 		do
-			gobject_ptr := dummy_gobject
-			check non_null_dummy_gobject_pointer: gobject_ptr.is_not_null end
-			stored_type := g_object_type(gobject_ptr)
-			debug
-				io.put_string(once "Storing archetype for ")
-				io.put_string(name_of_type(stored_type))
-				io.put_line(once ": ")
-				print_known_gobject_heirs
+ 			from_external_pointer(dummy_gobject)
+			check non_null_dummy_gobject_pointer: handle.is_not_null end
+			stored_type := g_object_type(handle)
+
+ 			debug
+				io.put_string(once "Storing ") io.put_string(generating_type)
+				io.put_string(once " as archetype for ")
+				io.put_line(name_of_type(stored_type))
+				io.flush
 			end
+
 			gtypeclass_ptr := g_type_class_ref (stored_type)
-			g_object_unref (gobject_ptr)
-			-- debug io.put_line(once "g_object_unref (gobject_ptr) not
-			-- invoked. This is a know (little?) memory leak; in a
-			-- furious hacking night it seemed to me that calling it on
-			-- not-reffed Gobject can confuse the C type
-			-- system. Fixme. Paolo 2007-09-12") end
+			handle := default_pointer
 		ensure
 			dummy_is_null: is_null
 			stored_type_set: stored_type/=0
+		rescue
+			io.put_string(once "Some problems storing ") io.put_string(generating_type)
+			io.put_string(once "' for GType ") 
+			io.put_integer(g_object_type(handle))
+			io.put_line(once "; the hierarchy of classes known by the GObject C type system is:")
+			print_known_gobject_heirs
+			io.flush			
 		end
 
 	dummy_gobject: POINTER is
 			-- A pointer to a newly allocated effective instance of a GObject. 
 			-- Used in `dummy' creation feature. 
 		deferred
-		ensure
-			not_null: Result.is_not_null
-			is_gobject: g_is_object(Result) /= 0
-			its_type_exists: g_object_type(Result) /= 0
+		-- ensure not_null: Result.is_not_null is_gobject:
+		-- g_is_object(Result) /= 0 its_type_exists:
+		-- g_object_type(Result) /= 0
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creating

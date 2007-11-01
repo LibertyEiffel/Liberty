@@ -19,14 +19,13 @@ indexing
 					02110-1301 USA
 			]"
 
-
-			-- Description: You may wish to begin by reading the text
-			-- widget conceptual overview which gives an overview of all
-			-- the objects and data types related to the text widget and
-			-- how they work together.
-
-
 class GTK_TEXT_TAG_TABLE
+	-- A collection of tags that can be used together.
+
+	-- You may wish to begin by reading the text widget conceptual
+	-- overview which gives an overview of all the objects and data
+	-- types related to the text widget and how they work together.
+
 
 inherit
 	G_OBJECT rename lookup as g_object_lookup end

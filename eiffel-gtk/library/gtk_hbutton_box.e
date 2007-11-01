@@ -54,7 +54,7 @@ feature {} -- Creation
 feature {} -- External calls
 	gtk_hbutton_box_new: POINTER is
 			-- GtkWidget* gtk_hbutton_box_new (void);
-		external "C inline use <gtk/gtk.h>"
+		external "C use <gtk/gtk.h>"
 		end
 
 feature -- size

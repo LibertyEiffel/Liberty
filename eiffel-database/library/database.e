@@ -2,8 +2,8 @@ indexing
 	description: "Relational database."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
+	date: "$Date$"
+	revision: "$Revision$"
 
 deferred class DATABASE
 feature
