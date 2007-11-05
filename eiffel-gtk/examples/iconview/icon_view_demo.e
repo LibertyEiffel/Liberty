@@ -14,7 +14,7 @@ inherit
 	G_TYPE
 	WRAPPER_HANDLER
 
-creation dummy, make
+creation make
 
 feature -- Columns
 

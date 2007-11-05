@@ -18,6 +18,10 @@ deferred class G_OBJECT
 	-- object construction and destruction, property access methods,
 	-- and signal support.
 
+	-- A G_OBJECT, like all ref-counted objects, is shared by
+	-- definition; in fact the Eiffel side should never free the memory
+	-- allocated by C, since it will get freed when ref-count drop to
+	-- zero.
 
 inherit
 	SHARED_C_STRUCT
@@ -142,18 +146,23 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Dummy creation
 			-- TODO called_on_wrapper_library_initialization: not gtk.is_eiffel_library_initialized
 		local gtypeclass_ptr: POINTER
 		do
- 			from_external_pointer(dummy_gobject)
+			handle := dummy_gobject
+			ref_sink
+			
 			check non_null_dummy_gobject_pointer: handle.is_not_null end
 			stored_type := g_object_type(handle)
 
- 			debug
+			debug
 				io.put_string(once "Storing ") io.put_string(generating_type)
 				io.put_string(once " as archetype for ")
-				io.put_line(name_of_type(stored_type))
+				io.put_string(name_of_type(stored_type))
+				io.put_line(once " in its GType.")
 				io.flush
 			end
 
 			gtypeclass_ptr := g_type_class_ref (stored_type)
+
+			unref
 			handle := default_pointer
 		ensure
 			dummy_is_null: is_null
@@ -239,11 +248,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Creating
 			-- Current is actually a GTK_OBJECT this will also sink the
 			-- object.
 			
-			-- Note: a G_OBJECT, like all ref-counted objects,
-			-- is shared by definition; in fact the Eiffel side should
-			-- never free the memory allocated by C, since it will get
-			-- freed when ref-count drop to zero.
-			set_shared
 			if g_object_get_qdata(handle, eiffel_key.quark).is_null then
 				-- There is no other wrapper 
 				store_eiffel_wrapper
@@ -1544,20 +1548,18 @@ feature {} -- Unwrapped API
 --    object : a GObject
 
 --    ----------------------------------------------------------------------------------------------------------------
+	
+	ref_sink is
+			-- Increase the reference count of Current object, and
+			-- possibly remove the floating reference, if it has a
+			-- floating reference.
 
---   g_object_ref_sink ()
-
---  gpointer    g_object_ref_sink               (gpointer object);
-
---    Increase the reference count of object, and possibly remove the floating reference, if object has a floating
---    reference.
-
---    object :  a GObject
---    Returns : object
-
---    Since 2.10
-
---    ----------------------------------------------------------------------------------------------------------------
+			--    Since 2.10
+		local ptr: POINTER
+		do
+			ptr := g_object_ref_sink(handle)
+			check returned_current: ptr = handle end
+		end
 
 --   g_object_is_floating ()
 

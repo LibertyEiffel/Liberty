@@ -1661,7 +1661,7 @@ feature
 		do
 			Result:=gtk_window_new(gtk_window_popup)
 			gtk_window_set_title (Result, "a dummy GtkWindow that	will become the Eiffel archetype".to_external)
-			-- g_object_unref(Result)
+			-- TODO: Remove it! g_object_unref(Result)
 			-- The GtkWindow must be un-reffed, because GTK+ itself will
 			-- ref/sink it on creation.
 		end
