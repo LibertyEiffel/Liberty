@@ -282,9 +282,6 @@ insert
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
 	
-	WRAPPER_HANDLER -- required to check for some bug in the
-		-- implementation and accessing wrappers' handles
-	
 	GTK_STOCK_ITEMS
 	
 	GLIB_MESSAGE_LOGGING
@@ -292,7 +289,7 @@ insert
 	GDK_TYPE_EXTERNALS -- To store GDK_PIXMAPS into the store. TODO:
 			-- give the end-user a better interface.
 	
-creation dummy, make
+creation make
 	
 feature -- Columns
 	name_column_n: INTEGER is 0
@@ -310,7 +307,7 @@ feature
 				["Natalia B. Bidart", "nessa"],
 				["Oliver Elphick", "oliver_elphick"],
 				["Raphael Mack", "ramack"],
-				["Daniel F Moisset", "trixx"]
+				["Daniel F Moisset", "trixx"],
 				["Paolo Redaelli", "tybor"],
 				["Walter Alini", "walteralini"] >>
 		}

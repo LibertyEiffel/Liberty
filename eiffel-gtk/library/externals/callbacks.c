@@ -54,8 +54,8 @@ int EiffelGtkTreeSelectionFunc (void *selection,
   current = data->Current;
   /* casting data[0], a pointer to function into the function
      signature*/
-  function = data[0]; //((int)(void *, void *, void *, void *, int)) data[0];
-  return function(data [1] /* Eiffel's Current */,
+  function = data->function; //((int)(void *, void *, void *, void *, int)) data[0];
+  return function(current,
 		  selection, model, path,
 		  path_currently_selected));
 };

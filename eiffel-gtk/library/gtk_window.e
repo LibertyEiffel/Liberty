@@ -28,8 +28,7 @@ class GTK_WINDOW
 	-- TODO: remove the commented "redefine fill_tagged_out_memory"
 	-- when code is stabilized. Paolo 2007-09-09
 	
-inherit
-	GTK_BIN -- redefine fill_tagged_out_memory end
+inherit GTK_BIN 
 
 insert
 	GTK -- redefine fill_tagged_out_memory end
@@ -315,7 +314,7 @@ feature -- various queries
 		do
 			Result:=gtk_window_has_toplevel_focus (handle).to_boolean
 		end
-
+	
 	-- TODO: wrap gtk_window_list_toplevels: POINTER (GList *) needs
 	-- G_LIST[WRAPPED]. Returns a list of all existing toplevel
 	-- windows. The widgets in the list are not individually

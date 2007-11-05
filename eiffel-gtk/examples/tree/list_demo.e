@@ -15,8 +15,9 @@ inherit
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
 	
-	WRAPPER_HANDLER -- required to check for some bug in the implementation and accessing wrappers' handles
-creation dummy, make
+	-- WRAPPER_HANDLER -- required to check for some bug in the implementation and accessing wrappers' handles
+
+creation make
 	
 feature -- Columns
 	name_column_n: INTEGER is 0
@@ -171,16 +172,9 @@ feature -- Agents
 		do
 			print ("Path '") print (a_path.to_string)
 			if path_selected
-			 then print ("' is selected")
-			else  print ("' is de-selected")
+			 then print ("' is selected%N")
+			else  print ("' is de-selected%N")
 			end
-			debug
-				if a_model = Void 
-				 then print ("; no model passed but we're sure that out GTK_LIST_STORE at"+model.to_pointer.out+" has handle="+model.handle.out)
-				else print (".")
-				end
-			end
-			print ("%N")
 			Result := True
 		end
 								

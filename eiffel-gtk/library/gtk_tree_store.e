@@ -171,17 +171,13 @@ feature -- Generic setter
 		do
 			not_yet_implemented
 			-- TODO: some_values.to_external is an array of pointers to the Eiffel wrappers!!!
-			gtk_tree_store_insert_with_valuesv (handle, an_iterator.handle,
-															a_parent.handle,
-															a_position,
-															-- gint *columns an array of column numbers
-															some_columns.to_external,
-															-- GValue *values an array of GValues
-															some_values.to_external,
-															-- gint n_values the length of the
-															-- columns and values arrays
-															some_values.count
-														  )
+			gtk_tree_store_insert_with_valuesv
+			(handle, an_iterator.handle,
+			 a_parent.handle, a_position,
+			 some_columns.to_external,-- gint *columns an array of column numbers
+			 some_values.to_external, -- GValue *values an array of GValues
+			 some_values.count -- gint n_values the length of the columns and values arrays
+			 )
 		end
 
 	add_first, prepend (an_iterator, a_parent: GTK_TREE_ITER) is

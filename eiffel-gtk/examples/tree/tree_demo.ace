@@ -6,12 +6,12 @@ root
  TREE_DEMO: make
 
 default -- section of the system
-	assertion (all); 
+	assertion (ensure); 
 	-- Choose the appropriate value: boost, no, require, ensure, invariant, loop, check, all.
 
 	assertion_flat_check (no);
 	
-	debug (yes);
+	debug (no);
 	
 	trace (no);
 	
@@ -22,12 +22,12 @@ default -- section of the system
 		 -- flag in traditional command line mode.
 
 	no_style_warning (no);
-	no_warning (yes); -- shall be no
+	no_warning (no); -- shall be no
 	verbose (no);
 	manifest_string_trace (no);
 	high_memory_compiler (no);	
 	profile (no);
-	relax (yes);
+	relax (no);
 
 cluster -- section
 	gtk: "${eiffel_libraries}/eiffel-gtk/loadpath.se"

@@ -90,9 +90,9 @@ feature -- Creation
 			store_archetype(create {GTK_CELL_RENDERER_TEXT}.dummy)
 			store_archetype(create {GTK_CELL_RENDERER_TOGGLE}.dummy)
 			store_archetype(create {GTK_CELL_VIEW}.dummy)
-			store_archetype(create {GTK_CHECK_BUTTON}.dummy)
+			-- store_archetype(create {GTK_CHECK_BUTTON}.dummy)
 			store_archetype(create {GTK_CHECK_MENU_ITEM}.dummy)
-			-- GTK_CLIPBOARD does not have an easy to grasp candidate 
+			-- Note: GTK_CLIPBOARD does not have an easy to grasp candidate 
 			-- for dummy g_object
 			store_archetype(create {GTK_COLOR_BUTTON}.dummy)
 			store_archetype(create {GTK_COLOR_SELECTION_DIALOG}.dummy)
