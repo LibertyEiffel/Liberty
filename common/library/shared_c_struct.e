@@ -111,8 +111,7 @@ feature -- Copying
 
 	copy (another: like Current) is
 		do
-			set_handle (another.handle)
-			-- It was from_external_pointer (another.handle)
+			handle := another.handle
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Destroying

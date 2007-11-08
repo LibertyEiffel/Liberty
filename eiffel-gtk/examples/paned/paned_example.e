@@ -14,19 +14,26 @@ feature {} -- Creation
 	make is
 			-- TODO: Eiffelize this example Example 1. Creating a paned widget with minimum sizes.
 		do
-			-- GtkWidget *hpaned = gtk_hpaned_new ();
-			-- GtkWidget *frame1 = gtk_frame_new (NULL);
-			-- GtkWidget *frame2 = gtk_frame_new (NULL);
-			-- gtk_frame_set_shadow_type (GTK_FRAME (frame1), GTK_SHADOW_IN);
-			-- gtk_frame_set_shadow_type (GTK_FRAME (frame2), GTK_SHADOW_IN);
+			gtk.initialize
+			create paned.make
+			create frame1.make; create frame2.make
+
+			frame1.set_shadow_type(gtk_shadow_in)
+			frame2.set_shadow_type(gtk_shadow_in)
+
+			paned.set_size_request(200 + paned.gutter_size, -1)
 	
-			-- gtk_widget_set_size_request (hpaned, 200 + GTK_PANED (hpaned)->gutter_size, -1);
+			paned.pack1(frame1, True, False)
+			frame1.set_size_request(50, -1)
 	
-			-- gtk_paned_pack1 (GTK_PANED (hpaned), frame1, TRUE, FALSE);
-			-- gtk_widget_set_size_request (frame1, 50, -1);
-	
-			-- gtk_paned_pack2 (GTK_PANED (hpaned), frame2, FALSE, FALSE);
-			-- gtk_widget_set_size_request (frame2, 50, -1);
+			paned.pack2 (frame2, False, False)
+			frame2.set_size_request(50, -1)
 		end
+	
+feature -- Widgets
+	window: GTK_WINDOW
+	paned: GTK_HPANED
+	frame1, frame2: GTK_FRAME
+
 end
 
