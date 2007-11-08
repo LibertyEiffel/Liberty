@@ -289,13 +289,19 @@ feature
 
 	lower: INTEGER is 0
 	
-	upper,count: INTEGER is 
+	upper: INTEGER is 
 		do
-			Result:=g_slist_length(handle)
-			-- This postcondition "ensure then positive: Result >= 0" is
-			-- not that useful...
+			Result:=g_slist_length(handle)-1
 		end
 
+	count: INTEGER is
+		do			
+			if is_empty then Result:=0 
+			else Result:=g_slist_length(handle)
+			end
+		ensure then positive: Result >= 0
+		end
+			
 	is_empty: BOOLEAN is 
 		do
 			Result:= (handle.is_null)

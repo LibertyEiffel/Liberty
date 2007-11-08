@@ -280,7 +280,7 @@ feature
 	
 	count: INTEGER is 
 		do
-			if handle.is_null then Result:=0 
+			if is_empty then Result:=0 
 			else Result:=g_slist_length(handle)
 			end
 		ensure then positive: Result >= 0
@@ -291,7 +291,7 @@ feature
 	upper: INTEGER is
 		do
 			Result:=g_slist_length(handle)-1
-		ensure positive: Result >= 0
+		ensure non_empty_implies_non_negative: not is_empty implies Result >= 0
 		end
 
 	is_empty: BOOLEAN is 

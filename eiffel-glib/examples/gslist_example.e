@@ -15,7 +15,7 @@ feature
 	make is
 		local i: ITERATOR [G_STRING]
 		do
-			create list.make_empty
+			create list.make(create {MAGICAL_FACTORY[G_STRING]})
 			list.prepend (gstring("Third and last Foo"))
 			list.prepend (gstring("Second Foo"))
 			list.prepend (gstring("First Foo"))
