@@ -9,12 +9,16 @@ inherit WRAPPER_HANDLER -- to play with pointers
 creation  make
 
 feature
+	factory: ARCHETYPE_CACHING_FACTORY[G_STRING] is
+		once 
+			create Result.with_archetype(create {G_STRING}.dummy)
+		end
 	array: C_ARRAY[G_STRING]
 
 	make is
 		local s: G_STRING; i: INTEGER
 		do
-			create array.with_capacity(4)
+			create array.with_capacity(4,factory)
 			create s.from_string(first); array.force(s,0)
 			create s.from_string(second); array.force(s,1)
 			create s.from_string(third); array.force(s,2)

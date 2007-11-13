@@ -43,8 +43,9 @@ insert
 creation  with_comparer, from_external_pointer
 
 feature {} -- Creation
-	make (a_key_factory: WRAPPER_FACTORY[KEY]; a_value_factory: WRAPPER_FACTORY[VALUE]) is
-			-- Creates a new G_TREE; comparison is made using 
+	make (a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE]) is
+			-- Creates a new G_TREE; comparison is made using KEY's 
+			-- `compare' feature.
 		require
 			key_factory_not_void: a_key_factory/=Void
 			value_factory_not_void: a_value_factory/=Void
@@ -57,19 +58,21 @@ feature {} -- Creation
 										  comparator.to_pointer))
 		end
 	
-	with_comparer (a_compare_function: FUNCTION[ANY,TUPLE[KEY,KEY],INTEGER]) is
+	with_comparer (a_comparison_function: FUNCTION[ANY,TUPLE[KEY,KEY],INTEGER];
+						a_key_factory: CACHING_FACTORY[KEY]; a_value_factory: CACHING_FACTORY[VALUE]) is
 			-- Creates a new GTree.
 		require
+			comparison_function_not_void: a_comparison_function /= Void
 			key_factory_not_void: a_key_factory/=Void
 			value_factory_not_void: a_value_factory/=Void
 		do
-			create comparator.make (a_compare_function)
+			create comparator.make (a_comparison_function)
 			from_external_pointer(g_tree_new_with_data
 										 (comparator.callback_address,
 										  comparator.to_pointer))
 		end
 
-	-- g_tree_new_full ()
+	-- TODO: if necessary g_tree_new_full ()
 	
 	-- GTree* g_tree_new_full (GCompareDataFunc key_compare_func,
 	-- gpointer key_compare_data, GDestroyNotify key_destroy_func,
@@ -92,13 +95,13 @@ feature {ANY} -- Basic access:
 
 			-- See also `fast_has', `at'.
 		do
-			if (g_tree_lookup (handle,a_key.handle)).is_not_null
+			if (g_tree_lookup(handle,a_key.handle)).is_not_null
 			then Result:=True
 			end
 		end
 
 	at (a_key: KEY): VALUE is
-			-- Return the value associated to `a_key'.
+			-- The value associated to `a_key'.
 
 			-- See also `fast_at', `reference_at', `has'.
 		local p: POINTER

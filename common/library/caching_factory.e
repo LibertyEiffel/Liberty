@@ -21,7 +21,17 @@ feature
 			-- can get back an already-created Eiffel wrapper. Heirs of
 			-- SHARED_C_STRUCT, i.e. G_OBJECT could provide alternative
 			-- implementation that will not rely on this dictionary.
-		
+
+	put (a_wrapper: ITEM) is
+		require 
+			wrapper_not_void: a_wrapper /= Void
+			non_dummy_wrapper: a_wrapper.is_not_null
+			not_already_present: 
+		do
+			wrappers.put(a_wrapper,a_wrapper.handle)
+		ensure definition: wrapper(a_wrapper.handle) = a_wrapper 
+		end
+
 invariant
 	dictionary_not_void: wrappers /= Void
 end

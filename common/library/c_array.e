@@ -33,7 +33,7 @@ creation
 	from_external_array
 
 feature {} -- Creation
-	from_external_array (an_array: POINTER; a_length: INTEGER; a_factory: WRAPPER_FACTORY[ITEM]) is
+	from_external_array (an_array: POINTER; a_length: INTEGER; a_factory: CACHING_FACTORY[ITEM]) is
 		require
 			array_not_null: an_array.is_not_null
 			positive_length: a_length > 0
@@ -53,6 +53,7 @@ feature {} -- Creation
 			capacity := a_capacity
 			upper := -1
 			storage := storage.calloc(a_capacity)
+			factory := a_factory
 		end
 
 feature
@@ -72,6 +73,7 @@ feature {ANY} -- Writing:
 		do
 			if element/=Void then
 				storage.put(element.handle,i)
+				factory.put(element)
 				element.set_shared
 			else
 				storage.put(default_pointer,i)

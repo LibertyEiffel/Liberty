@@ -105,11 +105,17 @@ feature {ANY}
 		end
 
 	is_equal (other: like Current): BOOLEAN is
-			-- Do both strings have the same character sequence?
-			--
+			-- Do both strings have the same character sequence? Two 
+			-- G_STRINGs are equal when they wrap the same object or 
+			-- when they wrap two different GString with the same content
+			
 			-- See also `same_as'.
 		do
-			Result := g_string_equal( handle, other.handle).to_boolean
+			Result := (-- Dummy objects case (used in postconditions of copy)
+						  Current.handle = other.handle
+						  or else -- General case
+						  g_string_equal(handle, other.handle).to_boolean
+						  )
 		end
 
 	index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
@@ -149,7 +155,9 @@ feature {ANY} -- Modification:
 	copy (other: like Current) is
 			-- Copy `other' onto Current.
 		do
-			handle := g_string_new_len (str(other.handle), len (other.handle))
+			if other.is_not_null then 
+				handle := g_string_new_len (str(other.handle), len (other.handle))
+			end
 		end
 
 	fill_with (c: CHARACTER) is
