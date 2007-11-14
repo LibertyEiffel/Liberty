@@ -1,5 +1,5 @@
 indexing
-	description: "."
+	description: "A single line text entry widget."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -20,10 +20,10 @@ indexing
 				]"
 
 class GTK_ENTRY
-	-- The GtkEntry widget is a single line text entry widget. A fairly large set
-	-- of key bindings are supported by default. If the entered text is longer
-	-- than the allocation of the widget, the widget will scroll so that the
-	-- cursor position is visible.
+	-- The GtkEntry widget is a single line text entry widget. A fairly
+	-- large set of key bindings are supported by default. If the
+	-- entered text is longer than the allocation of the widget, the
+	-- widget will scroll so that the cursor position is visible.
 	
 inherit
 	GTK_WIDGET
@@ -404,18 +404,8 @@ feature -- The "activate" signal
 
 	activate_signal_name: STRING is "activate"
 
-	on_activate is
-			-- Built-in activate signal handler; empty by design; redefine it.
-		do
-		end
-
-	enable_on_activate is
-			-- Connects "activate" signal to `on_activate' feature.
-		do
-			connect (Current, activate_signal_name, $on_activate)
-		end
-
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ENTRY]]) is
+	connect_activate_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ENTRY]]) is
+			-- Connects "activate" signal to `a_procedure'.
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -429,60 +419,25 @@ feature -- The "backspace" signal
 
 	backspace_signal_name: STRING is "backspace"
 
-	on_backspace is
-			-- Built-in backspace signal handler; empty by design; redefine it.
-		local a_foo: INTEGER
-		do
-			a_foo := 12 -- Dummy instructions
-		end
-
-	enable_on_backspace is
-			-- Connects "backspace" signal to `on_backspace' feature.
-		do
-			connect (Current, backspace_signal_name, $on_backspace)
-		end
-
-	-- TODO: implement connect_agent_to_backspace_signal (a_procedure:
+	-- TODO: implement connect_backspace_signal_to (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
+	-- Connects "backspace" signal to `on_backspace' feature.
 
 feature -- The "copy-clipboard" signal
 
-	copy_clipboard_signal_name: STRING is "copy-clipboard"
-
-	on_copy_clipboard is
-			-- Built-in copy-clipboard signal handler; empty by design; redefine it.
-		do
-		end
-
-	enable_on_copy_clipboard is
-			-- Connects "copy_clipboard" signal to `on_copy_clipboard' feature.
-		do
-			connect (Current, copy_clipboard_signal_name, $on_copy_clipboard)
-		end
-
-	-- TODO: implement connect_agent_to_backspace_signal (a_procedure:
+	-- TODO: implement connect_backspace_signal_to (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
-	-- inspiration.
+	-- inspiration. -- Connects "copy_clipboard" signal to `on_copy_clipboard' feature.
 
 feature -- The "cut-clipboard" signal
 
 	cut_clipboard_signal_name: STRING is "cut-clipboard"
 
-	on_cut_clipboard is
-			-- Built-in cut_clipboard signal handler; empty by design; redefine it.
-		do
-		end
-
-	enable_on_cut_clipboard is
-			-- Connects "cut_clipboard" signal to `on_cut_clipboard' feature.
-		do
-			connect (Current, cut_clipboard_signal_name, $on_cut_clipboard)
-		end
-
-	-- TODO: implement connect_agent_to_cut_clipboard_signal (a_procedure:
+	-- TODO: implement connect_cut_clipboard_signal_to (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
+	-- Connects "cut_clipboard" signal to `on_cut_clipboard' feature.
 
 feature -- The "delete-from-cursor" signal
 
@@ -523,41 +478,19 @@ feature -- The "paste-clipboard" signal
 
 	paste_clipboard_signal_name: STRING is "paste-clipboard"
 
-	on_paste_clipboard is
-			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
-		do
-		end
-
-	enable_on_paste_clipboard is
-			-- Connects "paste-clipboard" signal to `on_paste_clipboard' feature.
-		do
-			connect (Current, paste_clipboard_signal_name, $on_paste_clipboard)
-		end
-
-	-- TODO: implement connect_agent_to_paste_clipboard_signal (a_procedure:
+	-- TODO: implement connect_paste_clipboard_signal_to (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
+	-- Connects "paste-clipboard" signal to `on_paste_clipboard' feature.
 
 feature -- The "populate-popup" signal
 
 	populate_popup_signal_name: STRING is "populate-popup"
 
-	on_populate_popup (a_menu: GTK_MENU) is
-			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
-		require
-			menu_not_void: a_menu /= Void
-		do
-		end
-
-	enable_on_populate_popup is
-			-- Connects "paste-clipboard" signal to `on_populate_popup' feature.
-		do
-			connect (Current, populate_popup_signal_name, $hidden_on_populate_popup)
-		end
-
-	-- TODO: implement connect_agent_to_populate_popup_signal (a_procedure:
+	-- TODO: implement connect_populate_popup_signal_to (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
+	-- Connects "paste-clipboard" signal to `on_populate_popup' feature.
 
 feature {} -- populate-popup signal implementation
 

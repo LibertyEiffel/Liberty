@@ -26,18 +26,8 @@ inherit GTK_WIDGET
 feature -- The "close" signal
 	close_signal_name: STRING is "close"
 	
-	enable_on_close is
-			-- Connects "close" signal to `on_close' feature.
-		do
-			connect (Current, close_signal_name, $on_close)
-		end
-		
-	on_close is
-			-- Built-in close signal handler; empty by design; redefine it.
-		do
-		end
-
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[CLOSE_SIGNAL_RECEIVER]]) is
+	connect_activate_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[CLOSE_SIGNAL_RECEIVER]]) is
+			-- Connects "close" signal to `a_procedure'.
 		require
 			valid_procedure: a_procedure /= Void
 		local close_callback: CLOSE_CALLBACK

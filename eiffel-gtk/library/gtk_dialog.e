@@ -648,53 +648,6 @@ feature -- Dialog's parts
 		ensure result_bot_void: Result /= Void
 		end
 	
-	-- feature -- The "close" signal
-	-- 	close_signal_name: STRING is "close"
-
-	-- 	enable_on_close is
-	-- 			-- Connects "close" signal to `on_close' feature.
-	-- 		do
-	-- 			connect (Current, close_signal_name, $on_close)
-	-- 		end
-
-	-- 	on_close is
-	-- 			-- Built-in close signal handler; empty by design; redefine it.
-	-- 		do
-	-- 		end
-
-	-- 	connect_agent_to_close_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_DIALOG]]) is
-	-- 		require
-	-- 			valid_procedure: a_procedure /= Void
-	-- 			wrapper_is_stored: is_eiffel_wrapper_stored
-	-- 		local close_callback: CLOSE_CALLBACK
-	-- 		do
-	-- 			create close_callback.make
-	-- 			close_callback.connect (Current, a_procedure)
-	-- 		end
-
-	-- 	content_area_border: INTEGER is
-	-- 			-- Width of border around the main dialog area.
-	-- 		local
-	-- 			value: G_VALUE
-	-- 		do
-	-- 			create value.make_new_shared
-	-- 			g_object_get_property (item,
-	-- 										  content_area_border_property_name,
-	-- 										  value.item)
-	-- 			Result := value.integer
-	-- 		ensure
-	-- 			positive_result: Result >= 0
-	-- 		end
-
-
-	-- feature -- TODO: close signal
-	-- 	-- connect_close_signal_receiver (a_receiver: GTK_CLOSE_SIGNAL_RECEIVER) is
-	-- 	-- Connect `a_receiver' to the current widget
-	-- 	--require
-	-- 	--		a_receiver_not_void: a_receiver /= Void
-	-- 	--		do
-	-- 	--	connect_signal_receiver (a_receiver)
-	-- 	--end
 
 	-- feature -- TODO: response signals
 	
@@ -706,14 +659,6 @@ feature -- Dialog's parts
 	-- 	-- connect_signal_receiver (a_receiver)
 	-- 	-- end
 	
-	-- feature {} -- Signals' names
-	
-	-- 	action_area_border_property_name: STRING is "action-area-border"
-	
-	-- 	button_spacing_property_name: STRING is "button-spacing"
-
-	-- 	content_area_border_property_name: STRING is  "content-area-border"
-	-- end
 feature {} -- property names strings
 	action_area_border_property_name: STRING is "action-area-border"
 	button_spacing_property_name: STRING is "button-spacing"

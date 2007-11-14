@@ -14,7 +14,7 @@ feature -- Initialisation
 			gtk.initialize
 			create window.make
 			window.set_title (window_title)
-			window.connect_agent_to_destroy_signal (agent on_destroy)
+			window.connect_destroy_signal_to (agent on_destroy)
 
 			create push_button.with_label ("Push a message")
 			create pop_button.with_label ("Pop last message")
@@ -23,8 +23,8 @@ feature -- Initialisation
 
 			statusbar.push (startup_message)
 			-- Connect "clicked" signals of the buttons to callbacks
-			push_button.connect_agent_to_clicked_signal (agent on_push_clicked (?))
-			pop_button.connect_agent_to_clicked_signal (agent on_pop_clicked (?))
+			push_button.connect_clicked_signal_to (agent on_push_clicked (?))
+			pop_button.connect_clicked_signal_to (agent on_pop_clicked (?))
 			--	Pack and show all our widgets
 			push_button.show; pop_button.show
 			statusbar.pack_start(push_button,False,False,0)

@@ -363,27 +363,13 @@ feature -- The "match-selected" signal
 
 	match_selected_signal_name: STRING is "match-selected"
 
-	on_match_selected is
-			-- Built-in clicked signal handler; empty by design; redefine it.
-		do
-		end
+	connect_match_selected_signal_to (a_function: FUNCTION [ANY, TUPLE [GTK_TREE_MODEL, GTK_TREE_ITER, GTK_ENTRY_COMPLETION], BOOLEAN]) is
+			-- Connects "match-selected" signal to `a_function' feature.
 
-	enable_on_match_selected is
-			-- Connects "match-selected" signal to `on_match_selected' feature.
-
-			-- Emitted when the button has been activated (pressed and released).
-
-			-- Gets emitted when a match from the list is selected.
-			-- The default behaviour is to replace the contents of the entry
-			-- with the contents of the text column in the row pointed to by iter.
-		do
-			connect (Current, match_selected_signal_name, $on_match_selected)
-		end
-
-	connect_agent_to_match_selected_signal (a_function: FUNCTION [ANY, TUPLE [GTK_TREE_MODEL, GTK_TREE_ITER, GTK_ENTRY_COMPLETION], BOOLEAN]) is
-			-- widget : 	 the object which received the signal
-			-- model : 	the GtkTreeModel containing the matches
-			-- iter : 	a GtkTreeIter positioned at the selected match
+			-- This signal is emitted when a match from the list is
+			-- selected.  The default behaviour is to replace the
+			-- contents of the entry with the contents of the text column
+			-- in the row pointed to by iter.
 		require valid_function: a_function /= Void
 		local match_selected_callback: MATCH_SELECTED_CALLBACK
 		do

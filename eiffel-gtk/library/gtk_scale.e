@@ -226,7 +226,7 @@ feature -- The "format-value" signal
 		do
 		end
 
-	connect_agent_to_format_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING]) is
+	connect_format_value_signal_to (a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING]) is
 			-- scale : 	the object which received the signal.
 			-- arg1 : 	
 			-- Returns : 	allocated string representing value

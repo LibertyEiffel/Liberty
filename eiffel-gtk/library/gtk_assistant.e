@@ -384,15 +384,9 @@ feature -- The "apply" signal
 
 	apply_signal_name: STRING is "apply"
 
-	enable_on_apply is
-			-- Connects "apply" signal to `on_apply' feature.
-		do
-			connect (Current, apply_signal_name, $on_apply)
-		end
+	connect_apply_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
+			-- Connects "apply" signal to `a_procedure'.
 
-	on_apply is
-			-- Built-in activate signal handler; empty by design; redefine it.
-		
 			-- The ::apply signal is emitted when the apply button is
 			-- clicked. The default behavior of the GtkAssistant is to
 			-- switch to the page after the current page, unless the
@@ -404,10 +398,6 @@ feature -- The "apply" signal
 			-- to put a page of type GTK_ASSISTANT_PAGE_PROGRESS after
 			-- the confirmation page and handle this operation within the
 			-- ::prepare signal of the progress page.
-		do
-		end
-
-	connect_agent_to_apply_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -429,8 +419,6 @@ feature --   The "cancel" signal
 	--    user_data : user data set when the signal handler was connected.
 
 	--    Since 2.10
-
-	--    --------------------------------------------------------------------------
 
 feature --   The "close" signal
 

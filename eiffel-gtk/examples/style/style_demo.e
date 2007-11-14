@@ -35,7 +35,7 @@ feature
 			gtk.initialize
 			create window.make
 			window.set_default_size (280, 190)
-			window.connect_agent_to_destroy_signal (agent on_delete_event)
+			window.connect_destroy_signal_to (agent on_delete_event)
 
 			create label.with_label ("Hello World!")
 

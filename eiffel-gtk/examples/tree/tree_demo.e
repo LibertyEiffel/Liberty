@@ -423,7 +423,7 @@ feature {}  -- Creation
 			window.set_title (window_title)
 
 			-- It is a good idea to do this for all windows
-			window.connect_agent_to_destroy_signal (agent on_destroy)
+			window.connect_destroy_signal_to (agent on_destroy)
 
 			view.show
 
@@ -435,9 +435,9 @@ feature {}  -- Creation
 			button_box.add(remove_button)
 			button_box.add(quit_button)
 
-			add_button.connect_agent_to_clicked_signal (agent add_clicked)
-			remove_button.connect_agent_to_clicked_signal (agent remove_clicked)
-			quit_button.connect_agent_to_clicked_signal (agent quit_clicked)
+			add_button.connect_clicked_signal_to (agent add_clicked)
+			remove_button.connect_clicked_signal_to (agent remove_clicked)
+			quit_button.connect_clicked_signal_to (agent quit_clicked)
 
 			create vbox.make(False,0) -- i.e. unhomogeneous, no spacing
 			vbox.add(view)

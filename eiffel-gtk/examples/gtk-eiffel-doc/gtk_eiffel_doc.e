@@ -379,7 +379,7 @@ feature -- Widgets
 			Result.pack_start(tree_text_box,True,True,spaceless)
 			Result.pack_start(progress_bar,False,True,spaceless)
 
-			load_button.connect_agent_to_clicked_signal(agent on_load_ace_button)			
+			load_button.connect_clicked_signal_to(agent on_load_ace_button)			
 		end
 	
 	tree_text_box: GTK_HPANED is

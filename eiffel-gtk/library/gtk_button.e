@@ -437,24 +437,14 @@ feature -- Style Properties
 
 feature -- The "activate" signal
 	activate_signal_name: STRING is "activate"
-	enable_on_activate is
-			-- Connects "activate" signal to `on_activate' feature.
-		do
-			connect (Current, activate_signal_name, $on_activate)
-		end
 
-	on_activate is
-			-- Built-in activate signal handler; empty by design; redefine it.
+	connect_activate_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+			-- Connects "activate" signal to `a_procedure'.
 
 			-- The "activate" signal on GtkButton is an action signal and
 			-- emitting it causes the button to animate press then
 			-- release. Applications should never connect to this signal,
 			-- but use the "activate" signal.
-		
-		do
-		end
-
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -467,34 +457,23 @@ feature -- The "activate" signal
 feature -- The "clicked" signal
 	clicked_signal_name: STRING is "clicked"
 
-	on_clicked is
-			-- Built-in clicked signal handler; empty by design; redefine it.
-		local a_foo: INTEGER
-		do
-			a_foo := 12 -- Dummy instructions
-		end
-
-	enable_on_clicked is
-			-- Connects "clicked" signal to `on_clicked' feature.
+	connect_clicked_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
+			-- Connects "clicked" signal to `a_procedure' feature.
 			
-			-- Emitted when the button has been activated (pressed and released).
+			-- Emitted when the button has been activated (pressed and
+			-- released).
 			
 			-- Emitted when a button clicked on by the mouse and the
 			-- cursor stays on the button. If the cursor is not on the
 			-- button when the mouse button is released, the signal is
 			-- not emitted.
-		do
-			connect (Current, clicked_signal_name, $on_clicked)
-		end
-
-	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_BUTTON]]) is
-			-- button : 	the object that received the signal
 		require valid_procedure: a_procedure /= Void
 		local clicked_callback: CLICKED_CALLBACK [like Current]
 		do
 			create clicked_callback.make
 			clicked_callback.connect (Current, a_procedure)
 		end
+
 feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"

@@ -220,7 +220,7 @@ feature -- The "clicked" signal
 			connect (Current, clicked_signal_name, $on_clicked)
 		end
 
-	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOOL_BUTTON]]) is
+	connect_clicked_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOOL_BUTTON]]) is
 			-- button : 	the object that received the signal
 		require valid_procedure: a_procedure /= Void
 		local clicked_callback: CLICKED_CALLBACK [like Current]

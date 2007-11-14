@@ -66,7 +66,7 @@ feature {}  -- Creation
 			window.set_title (once "This is a nice window title")
 			
 			-- It is a good idea to do this for all windows
-			window.connect_agent_to_destroy_signal (agent on_destroy)
+			window.connect_destroy_signal_to (agent on_destroy)
 			
 			 -- the following three lines are not necessary when working with glade
 			view.show

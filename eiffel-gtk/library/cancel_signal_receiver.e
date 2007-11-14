@@ -26,14 +26,8 @@ inherit GTK_WIDGET
 feature -- The "cancel" signal
 	cancel_signal_name: STRING is "cancel"
 	
-	enable_on_cancel is
-			-- Connects "cancel" signal to `on_cancel' feature.
-		do
-			connect (Current, cancel_signal_name, $on_cancel)
-		end
-		
-	on_cancel is
-			-- Built-in activate signal handler; empty by design; redefine it.
+	connect_activate_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[CANCEL_SIGNAL_RECEIVER]]) is
+			-- Connect `a_procedure' to "cancel" signal
 		
 			-- The ::cancel signal is emitted when the cancel button is
 			-- clicked. The default behavior of the GtkAssistant is to
@@ -46,10 +40,6 @@ feature -- The "cancel" signal
 			-- to put a page of type GTK_ASSISTANT_PAGE_PROGRESS after
 			-- the confirmation page and handle this operation within the
 			-- ::prepare signal of the progress page.
-		do
-		end
-
-	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[CANCEL_SIGNAL_RECEIVER]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local

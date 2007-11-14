@@ -675,7 +675,7 @@ feature -- delete-event signal
 		do
 		end
 
-	connect_agent_to_delete_event_signal (a_function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
+	connect_delete_event_signal_to (a_function: FUNCTION[ANY, TUPLE [GTK_WIDGET, GDK_EVENT], BOOLEAN]) is
 		require
 			valid_function: a_function /= Void
 			wrapper_is_stored: is_eiffel_wrapper_stored
@@ -715,7 +715,7 @@ feature -- drag-begin signal
 		do
 		end
 
-	connect_agent_to_drag_begin_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+	connect_drag_begin_signal_to (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 		require
@@ -753,7 +753,7 @@ feature -- drag-data-delete signal
 		do
 		end
 
-	connect_agent_to_drag_data_delete_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+	connect_drag_data_delete_signal_to (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 		require
@@ -794,7 +794,7 @@ feature -- drag-data-get signal
 		do
 		end
 
-	connect_agent_to_drag_data_get_signal (a_procedure: PROCEDURE[ANY,
+	connect_drag_data_get_signal_to (a_procedure: PROCEDURE[ANY,
 	                                                              TUPLE [GDK_DRAG_CONTEXT, GTK_SELECTION_DATA,
 	                                                                     INTEGER, INTEGER, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
@@ -852,7 +852,7 @@ feature -- drag-data-received signal
 		do
 		end
 
-	connect_agent_to_drag_data_received_signal (a_procedure: PROCEDURE[ANY,
+	connect_drag_data_received_signal_to (a_procedure: PROCEDURE[ANY,
 	                                                                   TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
 	                                                                          GTK_SELECTION_DATA, INTEGER, INTEGER,
 	                                                                          GTK_WIDGET]]) is
@@ -906,7 +906,7 @@ feature -- drag-drop signal
 		do
 		end
 
-	connect_agent_to_drag_drop_signal (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	connect_drag_drop_signal_to (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
 	                                                                    INTEGER, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
@@ -946,7 +946,7 @@ feature -- drag-end signal
 		do
 		end
 
-	connect_agent_to_drag_end_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
+	connect_drag_end_signal_to (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 		require
@@ -984,7 +984,7 @@ feature -- drag-leave signal
 		do
 		end
 
-	connect_agent_to_drag_leave_signal (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, GTK_WIDGET]]) is
+	connect_drag_leave_signal_to (a_procedure: PROCEDURE[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
 			-- time : 	the timestamp of the motion event
@@ -1043,7 +1043,7 @@ feature -- drag-motion signal
 		do
 		end
 
-	connect_agent_to_drag_motion_signal (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
+	connect_drag_motion_signal_to (a_function: FUNCTION[ANY, TUPLE [GDK_DRAG_CONTEXT, INTEGER, INTEGER,
 	                                                                      INTEGER, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- drag_context : 	the drag context
@@ -1125,7 +1125,7 @@ feature -- key-press-event signal
 		do
 		end
 
-	connect_agent_to_key_press_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]) is
+	connect_key_press_event_signal_to (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event :
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1177,7 +1177,7 @@ feature -- motion-notify-event signal
 		do
 		end
 
-	connect_agent_to_motion_notify_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]) is
+	connect_motion_notify_event_signal_to (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_MOTION, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1211,7 +1211,7 @@ feature -- button-release-event signal
 		do
 		end
 
-	connect_agent_to_button_release_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
+	connect_button_release_event_signal_to (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event :
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1245,7 +1245,7 @@ feature -- button-press-event signal
 		do
 		end
 
-	connect_agent_to_button_press_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
+	connect_button_press_event_signal_to (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_BUTTON, GTK_WIDGET], BOOLEAN]) is
 			-- widget : 	the object which received the signal.
 			-- event :
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1301,7 +1301,7 @@ feature -- realize signal
 		do
 		end
 
-	connect_agent_to_realize_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_WIDGET]]) is
+	connect_realize_signal_to (a_procedure: PROCEDURE[ANY, TUPLE [GTK_WIDGET]]) is
 			-- widget : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void
@@ -1374,7 +1374,7 @@ feature -- size-allocate signal
 		do
 		end
 
-	connect_agent_to_size_allocate_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_ALLOCATION, GTK_WIDGET]]) is
+	connect_size_allocate_signal_to (a_procedure: PROCEDURE[ANY, TUPLE [GTK_ALLOCATION, GTK_WIDGET]]) is
 		require
 			valid_procedure: a_procedure /= Void
 			wrapper_is_stored: is_eiffel_wrapper_stored
@@ -1409,7 +1409,7 @@ feature -- size-request signal
 		do
 		end
 
-	connect_agent_to_size_request_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_REQUISITION, GTK_WIDGET]]) is
+	connect_size_request_signal_to (a_procedure: PROCEDURE[ANY, TUPLE [GTK_REQUISITION, GTK_WIDGET]]) is
 		require
 			valid_procedure: a_procedure /= Void
 			wrapper_is_stored: is_eiffel_wrapper_stored

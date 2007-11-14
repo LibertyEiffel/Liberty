@@ -18,8 +18,6 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 					]"					
-	date: "$Date:$"
-	revision: "$Revision:$"
 
 deferred class GTK_EDITABLE
 	-- The GtkEditable interface is an interface which should be
@@ -205,20 +203,12 @@ feature
 
 feature -- The "changed" signal
 	changed_signal_name: STRING is "changed"
-	enable_on_changed is
-			-- Connects "changed" signal to `on_changed' feature.
-		do
-			connect (Current, changed_signal_name, $on_changed)
-		end
+			
+	connect_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
+			-- Connects "changed" signal to `a_procedure'.
 
-	on_changed is
-			-- Built-in changed signal handler; empty by design; redefine it.
-
-			-- Indicates that the user has changed the contents of the widget.
-		do 
-		end
-
-	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
+			-- The "changed" signal is emitted when the user changes
+			-- the contents of the widget.
 		require valid_procedure: a_procedure /= Void
 		local changed_callback: CHANGED_CALLBACK [like Current]
 		do
@@ -257,20 +247,8 @@ feature	-- The "delete-text" signal
 feature -- The "insert-text" signal
 
 	insert_text_signal_name: STRING is "insert-text"
-		-- 		"insert-text"
-		--             void        user_function      (GtkEditable *editable,
-		--                                             gchar       *new_text,
-		--                                             gint         new_text_length,
-		--                                             gint        *position,
-		--                                             gpointer     user_data)            : Run last
 
-
-	on_insert_text is
-			-- Built-in insert-text signal handler; empty by design; redefine it.
-		do
-		end
-
-	enable_on_insert_text is
+	connect_insert_text_signal_to (a_procedure: PROCEDURE [ANY, TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]) is
 			-- Connects "insert-text" signal to `on_insert_text' feature.
 			
 			-- This signal is emitted when text is inserted into the widget by
@@ -279,12 +257,13 @@ feature -- The "insert-text" signal
 			-- signal and then stopping the signal with gtk_signal_emit_stop(),
 			-- it is possible to modify the inserted text, or prevent it from
 			-- being inserted entirely.
+			
+			-- void user_function (GtkEditable *editable,
+			--                     gchar       *new_text,
+			--                     gint         new_text_length,
+			--                     gint        *position,
+			--                     gpointer     user_data)            : Run last
 
-		do
-			connect (Current, insert_text_signal_name, $on_insert_text)
-		end
-
-	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]) is
 			-- editable : 	the object which received the signal.
 			-- new_text : 	the new text to insert.
 			-- new_text_length : 	the length of the new text, in bytes,

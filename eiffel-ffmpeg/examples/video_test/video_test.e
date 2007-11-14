@@ -65,7 +65,7 @@ feature
 				create window.make
 				window.set_border_width (6)
 				window.set_title ("Thumbnails!")
-				window.connect_agent_to_destroy_signal (agent gtk.quit)
+				window.connect_destroy_signal_to (agent gtk.quit)
 				create box.make (True, 10)
 				window.add (box)
 

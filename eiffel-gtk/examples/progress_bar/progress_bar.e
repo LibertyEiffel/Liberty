@@ -32,7 +32,7 @@ feature
 			hbox.pack_start_defaults (bar)
 
 			create pulse.with_label("Pulse!")
-			pulse.connect_agent_to_clicked_signal(agent clicked)
+			pulse.connect_clicked_signal_to(agent clicked)
 			hbox.pack_end_defaults (pulse)
 			
 			window.add (hbox)

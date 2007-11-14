@@ -1076,7 +1076,7 @@ feature -- The "changed" signal
 		do 
 		end
 
-	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+	connect_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
 		require valid_procedure: a_procedure /= Void
 		local changed_callback: CHANGED_CALLBACK [like Current]
 		do

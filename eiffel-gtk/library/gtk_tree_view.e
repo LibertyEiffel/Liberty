@@ -1234,7 +1234,7 @@ feature -- "unselect-all" signal
 		do
 		end
 
-	connect_agent_to_unselect_all_signal (a_function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]) is
+	connect_unselect_all_signal_to (a_function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]) is
 			-- treeview : 	the object which received the signal.
 			-- user_data : 	user data set when the signal handler was connected.
 			-- Returns : ?
@@ -1522,7 +1522,7 @@ feature -- The "cursor_changed" signal
 			connect (Current, cursor_changed_signal_name, $on_cursor_changed)
 		end
 
-	connect_agent_to_cursor_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_VIEW]]) is
+	connect_cursor_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
 		local cursor_changed_callback: CURSOR_CHANGED_CALLBACK
 		do
@@ -1550,7 +1550,7 @@ feature -- "expand-collapse-cursor-row"
 		do
 		end
 
-	connect_agent_to_expand_collapse_cursor_row_signal (a_function: FUNCTION[ANY, TUPLE [BOOLEAN, BOOLEAN, BOOLEAN,
+	connect_expand_collapse_cursor_row_signal_to (a_function: FUNCTION[ANY, TUPLE [BOOLEAN, BOOLEAN, BOOLEAN,
 																												  GTK_TREE_VIEW], BOOLEAN]) is
 			-- treeview : 	the object which received the signal.
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1594,7 +1594,7 @@ feature -- The "row_activated" signal
 			connect (Current, row_activated_signal_name, $on_row_activated)
 		end
 
-	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH,
+	connect_row_activated_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH,
 																									 GTK_TREE_VIEW_COLUMN,
 																									 GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
@@ -1622,7 +1622,7 @@ feature -- The "row_collapsed" signal
 			connect (Current, row_collapsed_signal_name, $on_row_collapsed)
 		end
 
-	connect_agent_to_row_collapsed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
+	connect_row_collapsed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
 																									 GTK_TREE_PATH,
 																									 GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
@@ -1650,7 +1650,7 @@ feature -- The "row_expanded" signal
 			connect (Current, row_expanded_signal_name, $on_row_expanded)
 		end
 
-	connect_agent_to_row_expanded_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
+	connect_row_expanded_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
 																									GTK_TREE_PATH,
 																									GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void

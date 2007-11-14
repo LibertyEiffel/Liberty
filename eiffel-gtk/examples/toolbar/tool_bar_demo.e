@@ -21,7 +21,7 @@ feature -- Initialisation
 			gtk.initialize
 			create window.make
 			window.set_title (window_title)
-			window.connect_agent_to_destroy_signal (agent on_destroy)
+			window.connect_destroy_signal_to (agent on_destroy)
 
 			create new_button.from_stock(gtk_stock_new) 
 			create open_button.from_stock(gtk_stock_open)
@@ -43,7 +43,7 @@ feature -- Initialisation
 			menu.append(find_foo)
 			menu.append(find_bar)
 
-			quit_button.connect_agent_to_clicked_signal(agent on_destroy)
+			quit_button.connect_clicked_signal_to(agent on_destroy)
 
 			create toolbar.make
 			toolbar.append (new_button)

@@ -14,7 +14,7 @@ feature {NONE} -- creation
 			gtk.initialize
 			create x.make ("ui.xml")
 			window := x.get_window ("main")
-			window.connect_agent_to_delete_event_signal (agent quit)
+			window.connect_delete_event_signal_to (agent quit)
 			window.show
 			gtk.run_main_loop
 		end

@@ -291,14 +291,14 @@ feature -- Properties
 feature  --   The "activate" signal
 	activate_signal_name: STRING is "activate"
 
-	on_activate is
+	connect_activate_signal_to (a_procedure: PROCEDURE[ANY,[]]) is
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			activate_callback: ACTIVATE_CALLBACK
 		do
-			-- Empty by default
-		end
-
-	enable_on_activate is
-		do
-			connect (Current, activate_signal_name, $on_activate)
+			create activate_callback.make
+			activate_callback.connect (Current, a_procedure)
 		end
 
 feature {} -- size

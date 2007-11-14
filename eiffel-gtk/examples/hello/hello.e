@@ -27,7 +27,7 @@ feature {} -- creation
 			create button.with_label (label)
 			window.set_title (title)
 			window.add (button)
-			button.connect_agent_to_clicked_signal (agent on_clicked)
+			button.connect_clicked_signal_to (agent on_clicked)
 			button.show
 			window.show
 			debug

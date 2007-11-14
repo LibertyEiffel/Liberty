@@ -1132,30 +1132,22 @@ feature -- Shortcuts folders
 
 feature -- The "file-activated" signal
 
-		-- This signal is emitted when the user "activates" a file in
-		-- the file chooser. This can happen by double-clicking on a file
-		-- in the file list, or by pressing Enter.
-
-		-- Normally you do not need to connect to this signal. It is
-		-- used internally by GtkFileChooserDialog to know when to activate
-		-- the default button in the dialog.
-
 	file_activated_signal_name: STRING is "file-activated"
-		-- void        user_function                  (GtkFileChooser *chooser,
-		--                                             gpointer user_data);
 
-	enable_on_file_activated is
-			-- Connects "file-activated" signal to `on_file_activated' feature.
-		do
-			connect (Current, file_activated_signal_name, $on_file_activated)
-		end
 
-	on_file_activated is
-		do
-		end
 
-	connect_agent_to_file_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
-			-- chooser : 	the object which received the signal.
+	connect_file_activated_signal_to (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+			-- Connects "file-activated" signal to `a_procedure'.	
+
+			-- This signal is emitted when the user "activates" a file in
+			-- the file chooser. This can happen by double-clicking on a
+			-- file in the file list, or by pressing Enter.
+		
+			-- Normally you do not need to connect to this signal. It is
+			-- used internally by GtkFileChooserDialog to know when to
+			-- activate the default button in the dialog.  void
+			-- user_function (GtkFileChooser *chooser, gpointer
+			-- user_data);
 		require
 			valid_procedure: a_procedure /= Void
 		local

@@ -40,9 +40,6 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement 
-			-- that the button is actually created bu the Eiffel 
-			-- application. 
 			object := wrapper (instance)
 			procedure.call ([object])
 		end
