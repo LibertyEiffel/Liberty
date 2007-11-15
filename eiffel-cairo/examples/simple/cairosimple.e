@@ -3,7 +3,7 @@ class CAIROSIMPLE
 insert
 	CAIRO_FORMAT
 
-creation dummy,
+creation
 	make
 
 feature
