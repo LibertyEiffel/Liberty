@@ -1,5 +1,5 @@
 indexing
-	description: "Expanded G_OBJECT factory"
+	description: "An expanded G_OBJECT factory, useful as a local feature in classes that generates many kind of wrapper objects."
 	copyright: "[
 					Copyright (C) 2007 Paolo Redaelli
 					
@@ -20,6 +20,8 @@ indexing
 			]"
 
 expanded class G_OBJECT_EXPANDED_FACTORY[ITEM -> G_OBJECT]
+-- An expanded G_OBJECT factory, useful as a local feature in classes
+-- that generates many kind of wrapper objects.
 
 insert G_OBJECT_FACTORY[ITEM]
 

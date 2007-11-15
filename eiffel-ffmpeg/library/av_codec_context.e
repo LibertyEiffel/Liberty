@@ -169,11 +169,7 @@ feature -- Access
 			codec_ptr: POINTER
 		do
 			codec_ptr := av_codec_context_get_codec (handle)
-			if wrappers.has (codec_ptr) then
-				Result ::= wrappers.at(codec_ptr)
-			else
-				create Result.from_external_pointer (codec_ptr)
-			end
+			Result := wrapper(codec)
 		end
 
 	pix_fmt: INTEGER is
@@ -229,7 +225,7 @@ feature -- Operations
 			a_codec: AV_CODEC
 		do
 			a_codec := get_decoder (codec_id)
-			if a_codec.is_not_null then
+			if a_codec/=Void.is_not_null then
 				Result := open (a_codec)
 			end
 		end

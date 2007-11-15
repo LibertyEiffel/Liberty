@@ -1,5 +1,5 @@
 indexing
-	description: "Wrapper factory creates objects without knowing its type and creation clause at compile-time. Needed to implement generic C data structures."
+	description: "Wrapper factories creates and retries objects using various schemes. Needed to implement generic C data structures."
 	copyright: "(C) 2006, 2007 Paolo Redaelli"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
@@ -46,4 +46,12 @@ feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
 			correct_result: Result.handle = a_pointer
 		end
 
+	void_or_wrapper (a_pointer: POINTER): ITEM is
+			-- a wrapper for `a_pointer' or Void when the pointer is 
+			-- NULL (the default pointer)
+		do
+			if a_pointer.is_not_null then Result:=wrapper(a_pointer) end
+		ensure
+			definition: a_pointer.is_null = (Result=Void)
+		end
 end

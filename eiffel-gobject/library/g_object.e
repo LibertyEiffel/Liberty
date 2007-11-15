@@ -569,14 +569,15 @@ feature -- Properties query
 
 	properties: COLLECTION[G_PARAM_SPEC] is
 			-- The properties of the G_OBJECT
-		local a_length: INTEGER; c_array_ptr: POINTER; factory: ARCHETYPE_FACTORY[G_PARAM_SPEC]
+		local 
+			a_length: INTEGER; 
+			c_array_ptr: POINTER; 
+			factory: CACHING_ARCHETYPE_FACTORY[G_PARAM_SPEC]
 		do
 			c_array_ptr:=g_object_class_list_properties(g_object_get_class(handle), $a_length)
 			check c_array_ptr.is_not_null end
 			create factory.with_archetype(create {G_PARAM_SPEC}.dummy)
 			create {C_ARRAY[G_PARAM_SPEC]} Result.from_external_array(c_array_ptr, a_length, factory)
-			-- io.put_line(once "Warning: in G_OBJECT.properties g_object_class_list_properties returned a NULL POINTER. Creating an empty")
-			-- create {FAST_ARRAY[G_PARAM_SPEC]} Result.make(0)
 		end
 
 feature -- Property getter/setter
