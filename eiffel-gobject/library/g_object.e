@@ -65,9 +65,8 @@ feature {WRAPPER,WRAPPER_HANDLER}
 
 	unstore_eiffel_wrapper is
 			-- Remove the pointer to Current stored into the underlying
-			-- gobject. Note: a precondition like "require stored:
-			-- is_eiffel_wrapper_stored" is not necessary; an unnecessary
-			-- call to this feature is not harmful, only useless.
+			-- gobject. Unnecessary calls to this feature are not
+			-- harmful, only useless.
 		do
 			if is_not_null then 
 				g_object_set_qdata (handle, eiffel_key.quark,
@@ -548,15 +547,9 @@ feature -- Properties query
 		local
 			param_spec_ptr: POINTER
 		do
-			param_spec_ptr:=g_object_class_find_property (g_object_get_class(handle),a_property_name.to_external)
-			if param_spec_ptr.is_not_null then
-				if wrappers.has (param_spec_ptr) then
-					Result ::= wrappers.at(param_spec_ptr)
-				else
-					create Result.from_external_pointer (param_spec_ptr)
-				end
-				Result.set_shared
-			end
+			Result := (g_param_spec_factory.void_or_wrapper
+						  (g_object_class_find_property 
+							(g_object_get_class(handle), a_property_name.to_external)))
 		end
 
 	has_property (a_property_name: STRING): BOOLEAN is
@@ -570,14 +563,29 @@ feature -- Properties query
 	properties: COLLECTION[G_PARAM_SPEC] is
 			-- The properties of the G_OBJECT
 		local 
-			a_length: INTEGER; 
-			c_array_ptr: POINTER; 
-			factory: CACHING_ARCHETYPE_FACTORY[G_PARAM_SPEC]
+			a_length, another_length: INTEGER; 
+			c_array_ptr: POINTER;
+			another: C_ARRAY[G_PARAM_SPEC]
 		do
-			c_array_ptr:=g_object_class_list_properties(g_object_get_class(handle), $a_length)
-			check c_array_ptr.is_not_null end
-			create factory.with_archetype(create {G_PARAM_SPEC}.dummy)
-			create {C_ARRAY[G_PARAM_SPEC]} Result.from_external_array(c_array_ptr, a_length, factory)
+			if hidden_properties=Void then
+				create {C_ARRAY[G_PARAM_SPEC]} 
+				hidden_properties.from_external_array
+				(g_object_class_list_properties(g_object_get_class(handle), $a_length),
+				 a_length, g_param_spec_factory)
+			end
+			Result:=hidden_properties
+			debug
+				create another.from_external_array
+				(g_object_class_list_properties(g_object_get_class(handle), $another_length),
+				 another_length_param_spec_factory)
+				check -- the assumption that list properties is "stable" over time.
+					-- Using a cached, hidden properties collection requires 
+					-- that the actual properties are the same. Having a 
+					-- caching factory allows to use same_items of the 
+					-- result, after having created another copy of.
+					Result.same_items(another)
+				end
+			end
 		end
 
 feature -- Property getter/setter
@@ -2171,6 +2179,9 @@ feature {} -- Implementation
 		once
 			create Result.make
 		end
+
+	hiddem_properties: COLLECTION[G_PARAM_SPEC]
+			-- Hidden, cached properties collection. See `properties'
 
 	unknown_type_exception: STRING is
 			-- The message printed when eiffel-gobject finds an unregistered GType
