@@ -1,7 +1,7 @@
 indexing
 	description: "GdaObject The base class for many of the library's objects."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTK+ team
+					Copyright (C) 2006 Paolo Redaelli
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -17,7 +17,8 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+					]"
+	wrapped_version: "3.0.1"
 
 deferred class GDA_OBJECT
 	-- This class defines a common behaviour for most of the objects of
@@ -32,11 +33,11 @@ deferred class GDA_OBJECT
 	-- Just an example to illustrate this: suppose a data type has been
 	-- removed from the database itself, then the corresponding
 	-- GdaDictType must be destroyed since it does not represent a
-	-- valid data type anymore. GdaDictType object are all managed by a
-	-- GdaDict which has a reference on them. When the GdaDict object
+	-- valid data type anymore.  GdaDictType object are all managed by
+	-- a GdaDict which has a reference on them. When the GdaDict object
 	-- does a metadata sychronization (using
-	-- gda_dict_update_dbms_data()), it calls gda_object_destroy() on
-	-- the proper GdaDictType which must be destroyed. The other
+	-- gda_dict_update_dbms_meta_data()), it calls gda_object_destroy()
+	-- on the proper GdaDictType which must be destroyed. The other
 	-- objects which did use tha particular GdaDictType object (such as
 	-- GdaDictField and GdaDictFunction for example) catch the
 	-- "destroy" signal which is emitted by the GdaDictType object
@@ -45,45 +46,45 @@ deferred class GDA_OBJECT
 	-- they had on the GdaDictType object). The reference count of the
 	-- GdaDictType object being destroyed then should normally reach 0
 	-- and the destruction occur as for any other GObject object.
-
+	
 	-- This class also introduces common attributes that can be
 	-- exploited by the classes inheriting that class, such as:
+
+	-- o The GdaDict object to which any GdaObject relates
 	
-	-- * The GdaDict object to which any GdaObject relates
-			
-	-- * The string ID of the object: any string which uniquely
-	-- identifies a GdaObject within a dictionary
+	-- o The string ID of the object: any string which uniquely
+	--   identifies a GdaObject within a dictionary
+	
+	-- o The ID as a guint, the name, description and owner attached to
+	--   the GdaObject.
 
-	-- * The ID as a guint, the name, description and owner attached to
-	-- the GdaObject.
+inherit 
+	G_OBJECT redefine dispose end
 
-inherit G_OBJECT redefine dispose end
+		-- Known heirs: GdaHandlerTime, GdaHandlerBoolean,
+		-- GdaHandlerString, GdaHandlerNumerical, GdaHandlerBin,
+		-- GdaHandlerType, GdaDataModelRow, GdaDataModelImport,
+		-- GdaParameterList, GdaDataModelQuery, GdaDataAccessWrapper,
+		-- GdaDataProxy, GdaDictAggregate, GdaDictConstraint,
+		-- GdaDictDatabase, GdaDictField, GdaDictFunction, GdaDictTable,
+		-- GdaDictType, GdaGraphviz, GdaObjectRef, GdaParameter,
+		-- GdaQueryObject, GdaGraph, GdaGraphItem,
 
-	-- Known heirs: GdaHandlerTime, GdaHandlerBoolean,
-	-- GdaHandlerString, GdaHandlerNumerical, GdaHandlerBin,
-	-- GdaHandlerType, GdaDataModelRow, GdaDataModelImport,
-	-- GdaParameterList, GdaDataModelQuery, GdaDataAccessWrapper,
-	-- GdaDataProxy, GdaDictAggregate, GdaDictConstraint,
-	-- GdaDictDatabase, GdaDictField, GdaDictFunction, GdaDictTable,
-	-- GdaDictType, GdaGraphviz, GdaObjectRef, GdaParameter,
-	-- GdaQueryObject, GdaGraph, GdaGraphItem,
-
-	-- Known Derived Interfaces: GdaObject is required by GdaDataModel,
-	-- GdaEntity, GdaEntityField and GdaXmlStorage.
+		-- Known Derived Interfaces: GdaObject is required by
+		-- GdaDataModel, GdaEntity, GdaEntityField and GdaXmlStorage.
 	
 insert GDA_OBJECT_EXTERNALS
 
-feature {} -- Creation
 
 feature
-	-- Note: I'm not sure that if the following shall be used.
-	
-	-- "dict: GDA_DICT is -- the GdaDict object
-	-- to which an object is attached to do create
-	-- Result.from_external_pointer (gda_object_get_dict (handle))
-	-- ensure not_void: Result /= Void end"
-
-	-- it clashes with a feature defined in GDA_DICT_DATABASE 
+	dict: GDA_DICT is 
+			-- the GdaDict object to which an object is attached to 
+		local dict_factory: G_OBJECT[GDA_DICT]
+		do 
+			Result := dict_factory.wrapper(gda_object_get_dict (handle))
+			-- create Result.from_external_pointer ()
+		ensure not_void: Result /= Void 
+		end
 
 	set_id (an_id: STRING) is
 			-- Sets the string ID of the object object.  The string ID
@@ -113,7 +114,6 @@ feature
 		do
 			gda_object_set_description (handle, a_description.to_external)
 		end
-
 
 	set_owner (an_owner: STRING) is
 			-- Sets the owner of the GdaObject object. If the owner is
@@ -149,8 +149,7 @@ feature
 			create Result.from_external (gda_object_get_owner(handle))
 		end
 
-
-	dispose is
+	destroy is
 			-- Force the gdaobj object to be destroyed, even if we don't
 			-- have a reference on it (we can't call `G_OBJECT.unref'
 			-- then) and even if the object is referenced multiple times
@@ -184,8 +183,6 @@ feature
 			gda_object_destroy_check (handle)
 		end
 
-
-
 	-- gda_object_connect_destroy ()
 
 	-- gulong      gda_object_connect_destroy      (gpointer object,
@@ -205,29 +202,25 @@ feature
 	-- Force emission of the "changed" signal, except if gda_object_block_changed() has been called.
 
 	-- object : 	
-	-- gda_object_block_changed ()
 
-	-- void        gda_object_block_changed        (GdaObject *object);
+	block_changed is
+			-- No "changed" signal will be emitted.
+		do
+			gda_object_block_changed(handle)
+		end
 
-	-- No "changed" signal will be emitted.
+	unblock_changed is
+			-- The "changed" signal will again be emitted.
+		do
+			gda_object_unblock_changed(handle)
+		end
 
-	-- object : 	
-	-- gda_object_unblock_changed ()
-
-	-- void        gda_object_unblock_changed      (GdaObject *object);
-
-	-- The "changed" signal will again be emitted.
-
-	-- object : 	
-	-- gda_object_dump ()
-
-	-- void        gda_object_dump                 (GdaObject *object,
-	--                                              guint offset);
-
-	-- Writes a textual description of the object to STDOUT. This function only exists if libergeant is compiled with the "--enable-debug" option. This is a virtual function.
-
-	-- object : 	
-	-- offset : 	the offset (in caracters) at which the dump will start
+	-- TODO: uncomment if necessary dump (an_offset: INTEGER) is Writes
+	-- a textual description of the object to STDOUT. This function
+	-- only exists if libergeant is compiled with the "--enable-debug"
+	-- option. This is a virtual function. offset : the offset (in
+	-- caracters) at which the dump will start require positive_offset:
+	-- an_offset>=0 do gda_object_dump(handle,offset) end
 
 feature {} -- TODO: Properties
 
@@ -253,7 +246,6 @@ feature {} -- TODO: Properties
 	-- Default value: NULL
 
 feature {} -- TODO: Signals
-
 	-- "changed"   void        user_function      (GdaObject *gdaobject,
 	--                                             gpointer   user_data)      : Run first
 	-- "descr-changed"
@@ -325,4 +317,5 @@ feature {} -- TODO: Signals
 	-- gdaobject : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 
+	--
 end -- class GDA_OBJECT

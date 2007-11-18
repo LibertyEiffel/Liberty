@@ -19,26 +19,28 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: This object is a "proxy repository" for all the objects:
-
-			-- * existing within a database such as data types (see the GdaDictType
-			-- object), functions (see the GdaDictFunction object), aggregates (see the
-			-- GdaDictAggregate object), and the database structure (through the
-			-- GdaDictDatabase and associated object)
-			
-			-- * pre-defined queries as GdaQuery objects
-
-			-- * graphs as GdaGraph objects
-
-			-- Each GdaDict object can be saved to an XML file and loaded back in
-			-- an efficient way; any GdaDict object can be assigned a GdaConnection
-			-- object which tells it how to use a real connection to a data source.
-
-			-- The GdaDict object is responsible for the life management of all the
-			-- objects it handles; see the GdaObject object for more information.
-			
 class GDA_DICT
+	-- This object is a "proxy repository" for all the objects:
+	
+	-- * existing within a database such as data types (see the
+	--   GdaDictType object), functions (see the GdaDictFunction
+	--   object), aggregates (see the GdaDictAggregate object), and the
+	--   database structure (through the GdaDictDatabase and associated
+	--   object)
+			
+	-- * pre-defined queries as GdaQuery objects
+	
+	-- * graphs as GdaGraph objects
+	
+	-- Each GdaDict object can be saved to an XML file and loaded back
+	-- in an efficient way; any GdaDict object can be assigned a
+	-- GdaConnection object which tells it how to use a real connection
+	-- to a data source.
 
+	-- The GdaDict object is responsible for the life management of all
+	-- the objects it handles; see the GdaObject object for more
+	-- information.
+	
 inherit G_OBJECT
 
 insert 
@@ -53,6 +55,12 @@ feature {} -- Creation
 		do
 			from_external_pointer(gda_dict_new)
 		end
+
+	dummy_gobject: POINTER is
+		do
+			Result := gda_dict_new
+		end
+
 feature
 	extend_with_functions is
 			-- Make dict handle functions and aggregates

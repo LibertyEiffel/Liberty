@@ -1,7 +1,7 @@
 indexing
-	description: "Enum  GdaConnectionOptions"
+	description: "Enum "
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,32 +19,34 @@ indexing
 					02110-1301 USA
 				]"
 
-deferred class GDA_CONNECTION_OPTIONS_ENUM
+deferred class GDA_CONNECTION_EVENT_TYPE
+	--  enum GdaConnectionEventType
 
 inherit ANY undefine is_equal, copy end
 
-
 feature {} -- enum
-	are_valid_connection_option (some_options :INTEGER): BOOLEAN is
+	is_valid_connection_event_type (a_type :INTEGER): BOOLEAN is
 		do	
-			Result:=(some_options & (gda_connection_options_read_only |
-											 gda_connection_options_dont_share)
-						).to_boolean
+			Result:=((a_type=gda_connection_event_notice) or else
+						(a_type=gda_connection_event_warning) or else
+						(a_type=gda_connection_event_error))
 		end
 
-	gda_connection_options_none: INTEGER is
+	gda_connection_event_notice: INTEGER is
+			-- GDA_CONNECTION_EVENT_NOTICE
 		external "C macro use <libgda/libgda.h>"
-		alias "GDA_CONNECTION_OPTIONS_NONE"
-		end 
+		alias "GDA_CONNECTION_EVENT_NOTICE"
+		end
 
-	gda_connection_options_read_only: INTEGER is
+	gda_connection_event_warning: INTEGER is
+			-- GDA_CONNECTION_EVENT_WARNING
 		external "C macro use <libgda/libgda.h>"
-		alias "GDA_CONNECTION_OPTIONS_READ_ONLY"
-		end 
+		alias "GDA_CONNECTION_EVENT_WARNING"
+		end
 
-	gda_connection_options_dont_share: INTEGER is
-	external "C macro use <libgda/libgda.h>"
-	alias "GDA_CONNECTION_OPTIONS_DONT_SHARE"
-	end
-
+	gda_connection_event_error: INTEGER is
+			-- GDA_CONNECTION_EVENT_ERROR
+		external "C macro use <libgda/libgda.h>"
+		alias "GDA_CONNECTION_EVENT_ERROR"
+		end
 end

@@ -9,7 +9,6 @@ deferred class GDA_CONNECTION_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
-
 insert
 	GDA_CONNECTION_OPTIONS_ENUM
 	GDA_CONNECTION_FEATURE_ENUM
@@ -22,14 +21,14 @@ feature {} -- External calls
 			-- GdaServerProvider *provider, const gchar *dsn, const gchar
 			-- *username, const gchar *password, GdaConnectionOptions
 			-- options);
-      external "C use <libgda/libgda.h>"
-      end
+		external "C use <libgda/libgda.h>"
+		end
 
 	gda_connection_open (a_connection, an_error_handle: POINTER): INTEGER is 
 			-- gboolean gda_connection_open (GdaConnection *cnc, GError
 			-- **error);
-      external "C use <libgda/libgda.h>"
-      end
+		external "C use <libgda/libgda.h>"
+		end
 
 	gda_connection_close (a_connection: POINTER) is
 			-- void gda_connection_close (GdaConnection *cnc);
@@ -163,19 +162,21 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
  
--- from version 1.9.103
+	-- GdaDataModel*       gda_connection_execute_select_command
+	--                                                         (GdaConnection *cnc,
+	--                                                          GdaCommand *cmd,
+	--                                                          GdaParameterList *params,
+	--                                                          GError **error);
+	-- gint                gda_connection_execute_non_select_command
+	--                                                         (GdaConnection *cnc,
+	--                                                          GdaCommand *cmd,
+	--                                                          GdaParameterList *params,
+	--                                                          GError **error);
 
 	gda_connection_execute_command (a_connection, a_command, a_parameter_list, an_error: POINTER): POINTER is
 			-- GdaDataModel* gda_connection_execute_command
 			-- (GdaConnection *cnc, GdaCommand *cmd, GdaParameterList
 			-- *params, GError **error);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_connection_execute_command_l (a_connection, a_command, a_parameter_list, an_error: POINTER): POINTER is
-			-- GList* gda_connection_execute_command_l (GdaConnection
-			-- *cnc, GdaCommand *cmd, GdaParameterList *params, GError
-			-- **error);
 		external "C use <libgda/libgda.h>"
 		end
 
@@ -185,22 +186,45 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_connection_begin_transaction (a_connection, a_gdatransaction: POINTER): INTEGER is
-			-- gboolean gda_connection_begin_transaction (GdaConnection *cnc, GdaTransaction *xaction)
-		external "C use <libgda/libgda.h>"
-		end
-	
-
-	 gda_connection_commit_transaction (a_connection, a_transaction: POINTER): INTEGER is
-			-- gboolean gda_connection_commit_transaction (GdaConnection *cnc, GdaTransaction *xaction)
+	gda_connection_begin_transaction (a_connection, a_name: POINTER; an_isolation_level: INTEGER; an_error_ref: POINTER): INTEGER is
+			-- gboolean gda_connection_begin_transaction (GdaConnection
+			-- *cnc, const gchar *name, GdaTransactionIsolation level,
+			-- GError **error);
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_connection_rollback_transaction (a_connection, a_transaction: POINTER) is
-			-- gboolean gda_connection_rollback_transaction (GdaConnection *cnc, GdaTransaction *xaction)
+	gda_connection_commit_transaction (a_connection, a_name, an_error_ref: POINTER): INTEGER is
+			-- gboolean gda_connection_commit_transaction (GdaConnection
+			-- *cnc, const gchar *name, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_connection_rollback_transaction (a_connection, a_name, an_error_ref: POINTER) is
+			-- gboolean gda_connection_rollback_transaction
+			-- (GdaConnection *cnc, const gchar *name, GError **error);
 		external "C use <libgda/libgda.h>"
 		end
 	
+	gda_connection_add_savepoint (a_connection, a_name, a_error_ref: POINTER): INTEGER is
+			-- gboolean gda_connection_add_savepoint (GdaConnection *cnc, const gchar *name, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_connection_rollback_savepoint (a_connection, a_name, an_error_ref: POINTER): INTEGER is
+			-- gboolean gda_connection_rollback_savepoint (GdaConnection *cnc, const gchar *name, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_connection_delete_savepoint (a_connection, a_name, an_error_ref: POINTER): INTEGER is
+			-- gboolean gda_connection_delete_savepoint (GdaConnection *cnc, const gchar *name, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_connection_get_transaction_status (a_connection: POINTER): POINTER is
+	-- GdaTransactionStatus* gda_connection_get_transaction_status (GdaConnection *cnc);
+		external "C use <libgda/libgda.h>"
+		end
+
 	gda_connection_supports_feature (a_connection: POINTER; a_feature: INTEGER): BOOLEAN is
 			-- gboolean gda_connection_supports_feature (GdaConnection
 			-- *cnc, GdaConnectionFeature feature);
@@ -214,22 +238,10 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_connection_create_blob (a_connection: POINTER): POINTER is 
-			--  GdaBlob* gda_connection_create_blob (GdaConnection *cnc);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_connection_fetch_blob_by_id (a_conncetion, an_sql_id: POINTER): POINTER is
-			-- GdaBlob* gda_connection_fetch_blob_by_id (GdaConnection
-			-- *cnc, const gchar *sql_id);
-		external "C use <libgda/libgda.h>"
-		end
-	
 	gda_connection_value_to_sql_string (a_connection, a_gvalue: POINTER): POINTER is
 			-- gchar* gda_connection_value_to_sql_string (GdaConnection
 			-- *cnc, GValue *from);
 		external "C use <libgda/libgda.h>"
 		end
-	
 end
 

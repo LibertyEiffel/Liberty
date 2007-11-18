@@ -1,7 +1,7 @@
 indexing
-	description: "Enum  GdaConnectionOptions"
+	description: "--  enum GdaServerOperationNodeStatus"
 	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
+					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,32 +19,35 @@ indexing
 					02110-1301 USA
 				]"
 
-deferred class GDA_CONNECTION_OPTIONS_ENUM
+deferred class GDA_SERVER_OPERATION_NODE_TYPE
 
 inherit ANY undefine is_equal, copy end
 
-
 feature {} -- enum
-	are_valid_connection_option (some_options :INTEGER): BOOLEAN is
+	is_valid_ (a_ :INTEGER): BOOLEAN is
 		do	
-			Result:=(some_options & (gda_connection_options_read_only |
-											 gda_connection_options_dont_share)
-						).to_boolean
+			Result:=((a_type = gda_server_operation_status_optional) or else
+						(a_type = gda_server_operation_status_required) or else
+						(a_type = gda_server_operation_status_unknown))
 		end
 
-	gda_connection_options_none: INTEGER is
+	gda_server_operation_status_optional: INTEGER is
+			-- GDA_SERVER_OPERATION_STATUS_OPTIONAL
 		external "C macro use <libgda/libgda.h>"
-		alias "GDA_CONNECTION_OPTIONS_NONE"
-		end 
+		alias "GDA_SERVER_OPERATION_STATUS_OPTIONAL"
+		end
 
-	gda_connection_options_read_only: INTEGER is
+	gda_server_operation_status_required: INTEGER is
+			-- GDA_SERVER_OPERATION_STATUS_REQUIRED
 		external "C macro use <libgda/libgda.h>"
-		alias "GDA_CONNECTION_OPTIONS_READ_ONLY"
-		end 
+		alias "GDA_SERVER_OPERATION_STATUS_REQUIRED"
+		end
 
-	gda_connection_options_dont_share: INTEGER is
-	external "C macro use <libgda/libgda.h>"
-	alias "GDA_CONNECTION_OPTIONS_DONT_SHARE"
-	end
+	gda_server_operation_status_unknown: INTEGER is
+			-- GDA_SERVER_OPERATION_STATUS_UNKNOWN
+		external "C macro use <libgda/libgda.h>"
+		alias "GDA_SERVER_OPERATION_STATUS_UNKNOWN"
+		end
+
 
 end

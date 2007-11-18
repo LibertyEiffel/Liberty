@@ -19,19 +19,17 @@ indexing
 					02110-1301 USA
 					]"
 
-					documentation: "[
-										 The GdaConnection class offers access to all operations involving an
-										 opened connection to a database. GdaConnection objects are obtained via
-										 the GdaClient class.
-										 
-										 on-ce obtained, applications can use GdaConnection to execute commands, run
-										 transactions, and get information about all objects stored in the
-										 underlying database.
-										 ]"
-
+	wrapped_version: "3.0.1"
 
 class GDA_CONNECTION
-
+	-- The GdaConnection class offers access to all operations
+	-- involving an opened connection to a database. GdaConnection
+	-- objects are obtained via the GdaClient class.
+	
+	-- Once obtained, applications can use GdaConnection to execute
+	-- commands, run transactions, and get information about all
+	-- objects stored in the underlying database.
+	
 inherit
 	G_OBJECT
 		redefine
@@ -48,6 +46,9 @@ insert
 		undefine
 			fill_tagged_out_memory
 		end
+
+	GDA_CONNECTION_FEATURE_ENUM
+	GDA_CONNECTION_OPTIONS_ENUM
 
 creation dummy, make, from_external_pointer
 

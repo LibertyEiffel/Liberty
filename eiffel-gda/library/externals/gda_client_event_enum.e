@@ -40,8 +40,7 @@ feature {} -- enum
 						(an_event=gda_client_event_connection_closed) or else     
 						(an_event=gda_client_event_transaction_started) or else   
 						(an_event=gda_client_event_transaction_committed) or else 
-						(an_event=gda_client_event_transaction_cancelled)
-						)
+						(an_event=gda_client_event_transaction_cancelled))
 		end
 
 	gda_client_event_invalid: INTEGER is

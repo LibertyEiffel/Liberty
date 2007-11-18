@@ -9,8 +9,6 @@ deferred class GDA_CLIENT_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
-
-
 insert
 	ANY undefine copy, is_equal end
 	GDA_CLIENT_EVENT_ENUM
@@ -126,7 +124,7 @@ feature {} -- External calls
 		external "C use  <libgda/libgda.h>"
 		end
 
-	 gda_client_prepare_create_database (a_client, a_const_db_name, a_const_provider: POINTER): POINTER is 
+	gda_client_prepare_create_database (a_client, a_const_db_name, a_const_provider: POINTER): POINTER is 
 			-- GdaServerOperation* gda_client_prepare_create_database  (GdaClient *client,
 			--                                                          const gchar *db_name,
 			--                                                          const gchar *provider);
