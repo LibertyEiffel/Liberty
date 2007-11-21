@@ -18,13 +18,13 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 			]"
+	wrapped_version: "3.0.1"
 
 class GDA_COMMAND
-	--The GdaCommand structure holds data needed to issue a command to
-	--the providers. Applications usually create a GdaCommand (via
-	--gda_command_new), set its properties (via the gda_command_set_*
-	--functions) and pass it over to the database using the
-	--GdaConnection functions.
+	-- The GDA_COMMAND holds data needed to issue a command to
+	-- providers. Applications create a GDA_COMMAND using `make', set
+	-- its properties (via `set_*' features) and pass it over to the
+	-- database using the GDA_CONNECTION functions.
 
 	-- One interesting thing about GdaCommand's is that they can be
 	-- reused over and over. That is, applications don't need to create
@@ -63,16 +63,18 @@ creation dummy,
 feature {} -- Creation
 
 	make (a_text: STRING; a_type,some_options: INTEGER) is
-			-- Creates a new GdaCommand from the parameters that should
-			-- be freed by calling gda_command_free.
+			-- Creates a new GdaCommand.
 		
 			-- If there are conflicting options, this will set options to
 			-- GDA_COMMAND_OPTION_DEFAULT.
 
-			-- text : 	the text of the command.
-			-- type : 	a GdaCommandType value.
-			-- options : 	a GdaCommandOptions value.
-			-- Returns : 	a newly allocated GdaCommand.
+			-- `a_text' : 	the text of the command.
+			-- `a_type' : 	a GdaCommandType value.
+			-- `some_options' : 	a GdaCommandOptions value.
+		require 
+			text_not_void: a_text/=Void
+			valid_type: is_valid_command_type(a_type)
+			valid_options: are_valid_connection_option(some_options)
 		do
 			from_external_pointer (gda_command_new(a_text.to_external, a_type, some_options))
 		end
@@ -95,13 +97,27 @@ feature -- Command text
 	text: STRING is
 			-- the command text.
 		do
-			create {CONST_STRING} Result.from_external (gda_command_get_text(handle))
+			if cached_text=Void then
+				create cached_text.from_external(gda_command_get_text(handle))
+			else
+				check 
+					constant_handle_or_constant_content: 
+					(cached_text.handle = gda_command_get_text(handle)) 
+						or else
+					(cached_text.is_equal
+					 (create {CONST_STRING}.from_external
+					  (gda_command_get_text(handle))))
+				end
+			end
+			Result := cached_text
 		ensure not_void: Result /= Void
 		end
 
 	set_text (a_text: STRING) is 
 			-- Sets the command text to `a_text'.
 		do
+			-- Dispose the hidden text
+			hidden_text := Void
 			gda_command_set_text (handle, a_text.to_external)
 		ensure set: a_text.is_equal (text)
 		end
@@ -158,4 +174,8 @@ feature -- Transaction
 		do
 			gda_command_set_transaction (handle, a_transaction.handle)
 		end
+
+feature {} -- Implementation
+	cached_text: CONST_STRING
+
 end -- class GDA_COMMAND
