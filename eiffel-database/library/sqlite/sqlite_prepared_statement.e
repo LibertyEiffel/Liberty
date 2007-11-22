@@ -149,9 +149,10 @@ feature {} -- Implementation
 	sqlite_db: SQLITE_DATABASE
 	
 invariant
-	state1: is_prepared or is_stepped or is_failed
-	state2: not (is_prepared and is_stepped)
-	state3: not (is_prepared and is_failed)
-	state4: not (is_stepped and is_failed)
+	correct_state: is_prepared xor is_stepped xor is_failed
+	-- state1: is_prepared or is_stepped or is_failed
+	-- state2: not (is_prepared and is_stepped)
+	-- state3: not (is_prepared and is_failed)
+	-- state4: not (is_stepped and is_failed)
 
 end
