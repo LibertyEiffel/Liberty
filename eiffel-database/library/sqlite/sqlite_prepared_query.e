@@ -86,6 +86,7 @@ feature {} -- Implementation
 			a_column: INTEGER
 			a_type_number: INTEGER
 			a_row: SQLITE_RESULT_ROW
+			cstr: POINTER
 		do
 			create a_row.make (last_result.columns)
 			last_result.add_last (a_row)
@@ -105,9 +106,15 @@ feature {} -- Implementation
 								  (sqlite3_column_double (handle, a_column)),
 								  a_column)
 				when Sqlite_text then 
-					a_row.put (create {STRING}.from_external_copy
-								  (sqlite3_column_text (handle, a_column)),
-								  a_column)
+					cstr := sqlite3_column_text (handle, a_column)
+					if cstr.is_not_null then 
+						a_row.put (create {STRING}.from_external_copy(cstr),
+									  a_column)
+					else
+						debug
+							io.put_line(once "Warning: SQLITE_PREPARED_QUERY fill_in_row found a NULL string.")
+						end
+					end
 				when Sqlite_blob then 
 					debug
 						io.put_string ("Warning: an SQLITE_PREPARED_QUERY returned a blob. Since it is currently not handled Void takes its place%N")

@@ -62,8 +62,7 @@ feature -- Column queries
 	string_item (a_column: INTEGER): STRING is
 		do
 			Result ::= item(a_column)
-		ensure
-			result_not_void: Result /= Void
+			-- ensure result_not_void: Result /= Void
 		end
 
 	boolean_item (a_column: INTEGER): BOOLEAN is
