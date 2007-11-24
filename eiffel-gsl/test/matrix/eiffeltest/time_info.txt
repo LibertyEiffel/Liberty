@@ -1,3 +1,3 @@
-Execution of "se test" started: Monday October 23 18:12:3 2006
-                    terminated: Monday October 23 18:22:31 2006
-628 (elapsed seconds.)
+Execution of "se test" started: Thursday August 23 14:19:4 2007
+                    terminated: Thursday August 23 14:25:37 2007
+393 (elapsed seconds.)

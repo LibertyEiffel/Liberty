@@ -28,8 +28,8 @@ action you want to avoid in the "excluded.lst". Just update your "excluded.lst"
 file and re-run again "eiffeltest" and the corresponding action won't be executed.
 Actually, as soon as an entry of "excluded.lst" is the prefix of an action, this
 action is excluded. Then one may exclude many actions with a single entry in file
-"excluded.lst" file. As an example, the line "se c -debug_check" added in the
-"excluded.lst" file would avoid all compilations with the -debug_check mode.
+"excluded.lst" file. As an example, the line "se c -all_check" added in the
+"excluded.lst" file would avoid all compilations with the -all_check mode.
 
 Take the time to read carefully the content of the generated "log.new" file and
 you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.

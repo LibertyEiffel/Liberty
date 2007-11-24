@@ -1,5 +1,4 @@
 * name conventions multiply, ... wann wird REsult zurückgegene,wann wir Current verändert?
-
 * add support to read from and write to streams (matrices and vectors)
 * add view / subvector aliasing support
 * add test for error codes
