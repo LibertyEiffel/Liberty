@@ -3,8 +3,8 @@ inherit
 	GTK_EXPANDER
 		rename make as make_expander
 		export {} make_expander
-		redefine on_activate			
 		end
+
 creation make
 	
 feature
@@ -15,7 +15,7 @@ feature
 			statusbar.new_context_id(context)
 			context_id := statusbar.last_context_id
 			make_with_mnemonic (expander_label)
-			enable_on_activate
+			connect_activate_signal_to (agent on_activate)
 		end
 
 	on_activate is

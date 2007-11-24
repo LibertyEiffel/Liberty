@@ -3,7 +3,9 @@ inherit
 	GTK_BUTTON
 		redefine with_label, on_clicked
 		end
-creation dummy, make,with_label
+
+creation make,with_label
+
 feature
 	on_clicked is
 		do
@@ -13,7 +15,7 @@ feature
 	with_label (a_label:STRING) is
 		do
 			Precursor (a_label)
-			enable_on_clicked
+			connect_clicked_signal_to( agent on_clicked)
 		end
 
 end

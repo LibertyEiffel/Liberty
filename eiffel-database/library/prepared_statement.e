@@ -53,9 +53,21 @@ feature	{ANY}
 		end
 	
 feature -- State
-	is_prepared: BOOLEAN
-	is_stepped: BOOLEAN
-	is_failed: BOOLEAN	
+	-- Status reporting for the prepared statement. The actual
+	-- implementation of those features are backend depending
 
-	last_exec_success: BOOLEAN -- was last call to execute successful?
+	is_prepared: BOOLEAN is deferred end
+			-- Has the statement been successfully prepared? 
+
+	is_stepped: BOOLEAN is deferred end
+			-- Is the statement being queried for results?
+
+	is_failed: BOOLEAN is deferred end
+			-- Has the statement failed?
+
+	last_exec_success: BOOLEAN  is deferred end
+			-- was last call to execute successful?
+
+				state: INTEGER 
+
 end

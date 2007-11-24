@@ -24,8 +24,8 @@ class C_ARRAY [ITEM -> SHARED_C_STRUCT]
 	-- of pointers of item's struct. For example a C_ARRAY[GTK_BUTTON] 
 	-- wraps a GtkButton** array.
 
-inherit WRAPPER_COLLECTION [ITEM]
-
+inherit WRAPPER_COLLECTION [ITEM] redefine factory end
+	
 insert EXCEPTIONS undefine fill_tagged_out_memory, copy, is_equal end
 
 creation 
@@ -45,7 +45,7 @@ feature {} -- Creation
 			factory := a_factory
 		end
 	
-	with_capacity (a_capacity: INTEGER; a_factory: WRAPPER_FACTORY[ITEM]) is
+	with_capacity (a_capacity: INTEGER; a_factory: CACHING_FACTORY[ITEM]) is
 		require
 			positive_capacity: a_capacity > 0
 			factory_not_void: a_factory /= Void
@@ -598,7 +598,6 @@ feature {ANY} -- Other features:
 		end
 
 feature
-	-- struct_size: INTEGER
 
 	count: INTEGER is
 		do
@@ -619,6 +618,8 @@ feature
 			create {ITERATOR_ON_C_ARRAY[ITEM]} Result.from_array(Current)
 		end
 
+feature factory: CACHING_FACTORY[ITEM]
+
 feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 	storage: NATIVE_ARRAY[POINTER]
 
@@ -629,10 +630,10 @@ feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 			put(element, index)
 		end
 
-feature {} --
 	struct_size: INTEGER is
 			-- The memory used for the array.
 		do
 			Result:=count*handle.object_size
 		end
+
 end -- class C_ARRAY

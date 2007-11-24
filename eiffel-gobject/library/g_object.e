@@ -36,6 +36,7 @@ insert
 	G_OBJECT_EXTERNALS
 	G_VALUE_EXTERNALS
 	SHARED_EIFFEL_KEY
+	SHARED_FACTORIES
 	G_SIGNALS
 
 	-- Features inserted to implement smart_get_property and smart_set_property
@@ -577,7 +578,7 @@ feature -- Properties query
 			debug
 				create another.from_external_array
 				(g_object_class_list_properties(g_object_get_class(handle), $another_length),
-				 another_length_param_spec_factory)
+				 another_length, g_param_spec_factory)
 				check -- the assumption that list properties is "stable" over time.
 					-- Using a cached, hidden properties collection requires 
 					-- that the actual properties are the same. Having a 
@@ -2180,7 +2181,7 @@ feature {} -- Implementation
 			create Result.make
 		end
 
-	hiddem_properties: COLLECTION[G_PARAM_SPEC]
+	hidden_properties: COLLECTION[G_PARAM_SPEC]
 			-- Hidden, cached properties collection. See `properties'
 
 	unknown_type_exception: STRING is

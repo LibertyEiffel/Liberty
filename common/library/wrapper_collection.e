@@ -9,7 +9,7 @@ deferred class WRAPPER_COLLECTION [ITEM->SHARED_C_STRUCT]
 	-- and so on.
 
 inherit
-	COLLECTION[ITEM]
+	COLLECTION[ITEM] 
 
 	SHARED_C_STRUCT undefine copy, is_equal, fill_tagged_out_memory end
 
@@ -29,7 +29,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			-- The wrapper factory takes a pointer and returns a correct 
 			-- wrapper for it. 
 
-	from_collection_and_factory (model: COLLECTION[ITEM]; a_factory: WRAPPER_FACTORY[ITEM]) is
+	from_collection_and_factory (model: COLLECTION[ITEM]; a_factory: like factory) is
 		local i: ITERATOR[ITEM]
 		do
 			-- FIXME: signature should be model: TRAVERSABLE, once SE2.3 is out

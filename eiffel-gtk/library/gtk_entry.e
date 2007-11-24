@@ -492,15 +492,15 @@ feature -- The "populate-popup" signal
 	-- inspiration.
 	-- Connects "paste-clipboard" signal to `on_populate_popup' feature.
 
-feature {} -- populate-popup signal implementation
+feature {} -- TODO: populate-popup signal implementation
 
-	hidden_on_populate_popup (a_gtk_menu_pointer, a_gtk_entry_pointer: POINTER) is
-		require
-			menu_not_null: a_gtk_menu_pointer.is_not_null
-			entry_not_null: a_gtk_entry_pointer.is_not_null -- Otherwise very bad things are happening.
-		do
-			on_populate_popup (wrapper (a_gtk_menu_pointer))
-		end
+	-- hidden_on_populate_popup (a_gtk_menu_pointer, a_gtk_entry_pointer: POINTER) is
+	--	require
+	--	menu_not_null: a_gtk_menu_pointer.is_not_null
+	--		entry_not_null: a_gtk_entry_pointer.is_not_null -- Otherwise very bad things are happening.
+	--	do
+	--		on_populate_popup (wrapper (a_gtk_menu_pointer))
+	-- end
 	-- void user_function (GtkEntry *entry, GtkMenu *arg1, gpointer
 	--                                             user_data) : Run
 	--                                             last

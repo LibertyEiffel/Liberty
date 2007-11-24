@@ -133,15 +133,15 @@ feature {} -- Creation of heirs (command and query)
 												  some_sql.count,
 												  $handle,
 												  $unused_portion)
-			if res_code = Sqlite_ok then
-				is_prepared := True
-			else
-				is_failed := True
-			end
 		ensure
 			state: is_prepared or is_failed
 		end
 
+feature -- Statement state
+	is_prepared: BOOLEAN is do Result:=(res_code=Sqlite_ok) end
+	is_stepped: BOOLEAN is do Result:=(res_code=) end
+	is_failed: BOOLEAN is do Result:=(res_code=) end
+	last_exec_success: BOOLEAN is do Result:=(res_code=Sqlite_done) end
 
 feature {} -- Implementation
 	res_code: INTEGER 
@@ -150,9 +150,4 @@ feature {} -- Implementation
 	
 invariant
 	correct_state: is_prepared xor is_stepped xor is_failed
-	-- state1: is_prepared or is_stepped or is_failed
-	-- state2: not (is_prepared and is_stepped)
-	-- state3: not (is_prepared and is_failed)
-	-- state4: not (is_stepped and is_failed)
-
 end

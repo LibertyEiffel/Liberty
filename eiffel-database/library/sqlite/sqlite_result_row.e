@@ -55,8 +55,14 @@ feature -- Column queries
 		end
 
 	real_item (a_column: INTEGER): REAL is
+		local
+			ri: REFERENCE[REAL]
 		do
-			-- empty
+			ri ::= item(a_column)
+				check
+					ri /= Void
+				end
+			Result := ri.item
 		end
 
 	string_item (a_column: INTEGER): STRING is
@@ -66,7 +72,16 @@ feature -- Column queries
 		end
 
 	boolean_item (a_column: INTEGER): BOOLEAN is
+		local
+			ri: REFERENCE[INTEGER]
 		do
-			-- empty
+			debug 
+				raise("SQLITE_RESULT_ROW boolean value encountered. SQLite does *NOT* have boolean values!")
+			end
+			ri ::= item(a_column)
+				check
+					ri /= Void
+				end
+			Result := ri.item.to_boolean
 		end
 end

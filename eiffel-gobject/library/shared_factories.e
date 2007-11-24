@@ -22,6 +22,8 @@ indexing
 deferred class SHARED_FACTORIES
 	-- Various shared factories used in the eiffel-gobject cluster
 
+insert ANY undefine is_equal, copy end
+
 feature {} -- Factories and archetypes
 	g_param_spec_factory: ARCHETYPE_CACHING_FACTORY [G_PARAM_SPEC] is
 		once

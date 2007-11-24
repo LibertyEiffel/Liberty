@@ -291,11 +291,11 @@ feature -- Properties
 feature  --   The "activate" signal
 	activate_signal_name: STRING is "activate"
 
-	connect_activate_signal_to (a_procedure: PROCEDURE[ANY,[]]) is
+	connect_activate_signal_to (a_procedure: PROCEDURE[ANY,TUPLE[GTK_EXPANDER]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local
-			activate_callback: ACTIVATE_CALLBACK
+			activate_callback: ACTIVATE_CALLBACK[GTK_EXPANDER]
 		do
 			create activate_callback.make
 			activate_callback.connect (Current, a_procedure)

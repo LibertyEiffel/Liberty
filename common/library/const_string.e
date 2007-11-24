@@ -484,7 +484,7 @@ feature {ANY} -- from STRING
 			Precursor (ch)
 		end
 
-	is_equal (other: STRING ): BOOLEAN is -- like Current
+	is_equal (other: STRING): BOOLEAN is
 		do
 			if count = other.count
 			 then Result := storage.fast_memcmp(other.storage,count)

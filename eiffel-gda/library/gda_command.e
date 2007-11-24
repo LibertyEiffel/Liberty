@@ -155,11 +155,10 @@ feature -- Options
 
 feature -- Transaction
 	transaction: GDA_TRANSACTION is
-			-- the GDA_TRANSACTION associated with the given GdaCommand.
-		local r: G_OBJECT_EXPANDED_FACTORY[GDA_TRANSACTION]; ptr: POINTER
+			-- the GDA_TRANSACTION associated with the Current GDA_COMMAND.
+		local r: G_OBJECT_EXPANDED_FACTORY[GDA_TRANSACTION]; 
 		do
-			ptr := gda_command_get_transaction (handle)
-			Result := r.eiffel_wrapper_from_gobject_pointer(ptr)
+			Result := r.wrapper_or_void(gda_command_get_transaction(handle))
 			if Result=Void then 
 				debug
 					print ("Warning! GDA_COMMAND.transaction got an unwrapped GdaTransaction object. Wrapping it%N")

@@ -470,17 +470,6 @@ feature
 feature -- The "changed" signal
 	changed_signal_name: STRING is "changed"
 
-			
-		do
-			connect (Current, changed_signal_name, $on_changed)
-		end
-
-	on_changed is
-			-- Built-in changed signal handler; empty by design; redefine it.
-
-		do
-		end
-
 	connect_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COMBO_BOX]]) is
 			-- Connects "changed" signal to `on_changed' feature.
 
