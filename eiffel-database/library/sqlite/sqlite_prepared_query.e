@@ -73,7 +73,6 @@ feature {} -- Implementation
 				fill_in_row
 				res_code := sqlite3_step (handle)
 			end
-			last_exec_success := res_code = Sqlite_done
 			debug
 				if not last_exec_success then
 					io.put_string("Unexpected sqlite result code: " + res_code.out + "(" + code.error_message(res_code) + ")%N")

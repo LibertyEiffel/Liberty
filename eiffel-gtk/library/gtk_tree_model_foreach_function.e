@@ -64,13 +64,21 @@ feature
 			
 			a_model := wrapper (model_ptr)
 
-			if wrappers.has(path_ptr) then a_path ::= wrappers.at(path_ptr)
-			else  create a_path.from_external_pointer (path_ptr)
-			end
-	
-			if wrappers.has(iter_ptr) then an_iter ::= wrappers.at(iter_ptr)
-			else  create an_iter.from_external_pointer (iter_ptr)
-			end
+			create a_path.from_external_pointer (path_ptr)
+			create an_iter.from_external_pointer (iter_ptr)
+
+			-- Note: the above two lines could be a suboptimal
+			-- implementation. Whenever possibile path and iter factories
+			-- could be used. Previous global-wrappers-dictionary based
+			-- implementation is left commented out. Paolo 2007.11.25
+
+			-- if wrappers.has(path_ptr) then a_path ::= wrappers.at(path_ptr)
+			-- else create a_path.from_external_pointer (path_ptr)
+			-- end
+
+			-- if wrappers.has(iter_ptr) then an_iter ::= wrappers.at(iter_ptr)
+			-- else create an_iter.from_external_pointer (iter_ptr)
+			-- end
 
 			Result := (function.item ([a_model,a_path,an_iter]).to_integer)
 		end

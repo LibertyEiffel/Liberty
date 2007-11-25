@@ -117,7 +117,6 @@ feature -- selection mode
 			-- function should return TRUE if the state of the node may
 			-- be toggled, and FALSE if the state of the node should be
 			-- left unchanged.
-		local select_callback: GTK_TREE_SELECT_FUNCTION
 		do
 			create select_callback.make (Current, a_function)
 		end
@@ -409,6 +408,10 @@ feature -- struct size
 	dummy_gobject: POINTER is
 		do
 			unimplemented
-			-- raise("GTK_TREE_SELECTION.dummy called. This should not happen")
 		end
+
+feature {} -- Implementation
+	select_callback: GTK_TREE_SELECT_FUNCTION
+			-- The callback object used by `set_select_function'
+
 end

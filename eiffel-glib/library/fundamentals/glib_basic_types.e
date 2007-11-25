@@ -152,7 +152,6 @@ feature {} -- Basic Types: standard GLib types, defined for ease-of-use and port
 			-- range from G_MINLONG to G_MAXLONG.
 		do
 			-- empty by design
-		ensure glong_is_32_bit: glong_size=4
 		end
 
 	--   gulong
@@ -472,5 +471,7 @@ feature {} -- Limits of Basic Types
 -- #define G_MAXDOUBLE	DBL_MAX
 
 -- The maximum value which can be held in a gdouble.
+invariant
+	glong_is_32_bit: glong_size=4
 end
 	

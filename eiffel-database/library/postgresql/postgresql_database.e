@@ -3,9 +3,9 @@ indexing
 	copyright: "(C) 2006 Paolo Redaelli, Raphael Mack"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision: "$Revision:$"
-
+	revision: "$Revision:$"	
 	
+class POSTGRESQL_DATABASE
 --    libpq is the C application programmer's interface to PostgreSQL. libpq is
 --    a set of library functions that allow client programs to pass queries to
 --    the PostgreSQL backend server and to receive the results of these queries.
@@ -36,9 +36,6 @@ indexing
 --    perhaps there is too little memory even to allocate the PGconn object. The
 --    PQstatus function should be called to check whether a connection was
 --    successfully made before queries are sent via the connection object.
-
-	
-class POSTGRESQL_DATABASE
 
 inherit
 	DATABASE
@@ -377,7 +374,7 @@ feature -- Creation
 	close is
 			-- Closes the connection to the server. 
 		do
---			pqfinish (handle) 
+			--			pqfinish (handle)
 		end
 --    PQreset
 

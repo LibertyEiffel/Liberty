@@ -27,7 +27,7 @@ inherit CALLBACK redefine object end
 
 insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_WIDGET
@@ -43,7 +43,7 @@ feature
 			end
 			check
 				widget_not_null: a_widget_ptr.is_not_null
-				expose_event_not_null: an_expose_eventptr.is_not_null
+				expose_event_not_null: an_expose_event_ptr.is_not_null
 			end
 			object := wrapper(instance)
 			create expose_event.from_external_pointer(an_expose_event_ptr)

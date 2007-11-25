@@ -45,7 +45,6 @@ feature {} -- Disposing
 			res := sqlite3_finalize (handle)
 			-- TODO: use the result call of the finalize somehow
 			handle := default_pointer
-			is_failed := True
 		end
 
 feature -- parameters validity
@@ -118,7 +117,6 @@ feature -- parameters validity
 							 %bind_parameter ("+a_parameter.out+", "+an_index.out+")%N")
 				end
 			end
-			last_exec_success := res_code = Sqlite_ok
 		end
 
 feature {} -- Creation of heirs (command and query)
@@ -139,8 +137,8 @@ feature {} -- Creation of heirs (command and query)
 
 feature -- Statement state
 	is_prepared: BOOLEAN is do Result:=(res_code=Sqlite_ok) end
-	is_stepped: BOOLEAN is do Result:=(res_code=) end
-	is_failed: BOOLEAN is do Result:=(res_code=) end
+	is_stepped: BOOLEAN is obsolete "Please implement me!" do end
+	is_failed: BOOLEAN is obsolete "Please implement me!" do end
 	last_exec_success: BOOLEAN is do Result:=(res_code=Sqlite_done) end
 
 feature {} -- Implementation

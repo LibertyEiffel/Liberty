@@ -26,6 +26,11 @@ insert
 	AV_CODEC_IDS
 
 feature {} -- Private access
+	wrapper (a_pointer: POINTER): AV_CODEC is
+			-- Dummy (unused) implementation.
+		do
+			unimplemented
+		end
 
 	get_decoder (a_codec_id: INTEGER): AV_CODEC is
 		require

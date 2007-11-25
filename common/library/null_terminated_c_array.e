@@ -38,7 +38,7 @@ feature {} -- Creation
 	-- Note: space allocated in storage must always be capacity+1 large, to
 	-- store the ending NULL pointer
 
-	from_external (an_array: POINTER; a_factory: WRAPPER_FACTORY[ITEM]) is
+	from_external (an_array: POINTER; a_factory: CACHING_FACTORY[ITEM]) is
 			-- Initialize the NULL_TERMINATED_C_ARRAY from `an_array'
 			-- pointer. The array is inspected from the beginning to
 			-- discover the first NULL pointer that marks its end.
@@ -47,6 +47,7 @@ feature {} -- Creation
 			factory_not_void: a_factory /= Void
 		local i: INTEGER
 		do
+			factory := a_factory
 			storage := storage.from_pointer (an_array)
 			-- Look for NULL
 			from i:=lower until storage.item(i).is_null loop i:=i+1 end
@@ -54,8 +55,9 @@ feature {} -- Creation
 			capacity := count
 		end
 	
-	with_capacity (a_capacity: INTEGER; a_factory: WRAPPER_FACTORY[ITEM]) is
+	with_capacity (a_capacity: INTEGER; a_factory: CACHING_FACTORY[ITEM]) is
 		do
+			factory := a_factory
 			capacity := a_capacity
 			upper := -1
 			storage := storage.calloc(a_capacity+1)

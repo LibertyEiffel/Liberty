@@ -448,7 +448,7 @@ feature {}  -- Creation
 
 			selection := view.selection
 			selection.set_single_mode
-			selection.set_select_function (agent on_select)
+			--selection.set_select_function (agent on_select)
 			gtk.run_main_loop
 		end
 

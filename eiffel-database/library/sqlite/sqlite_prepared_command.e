@@ -44,8 +44,6 @@ feature
 			end
 			res_code := sqlite3_clear_bindings (handle)
 			res_code := sqlite3_reset (handle)
-			is_prepared := True
-			is_stepped := False
 		end
 
 	last_affected_rows: INTEGER

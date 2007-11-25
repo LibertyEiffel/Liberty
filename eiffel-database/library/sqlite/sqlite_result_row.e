@@ -19,6 +19,8 @@ inherit
 			is_equal
 		end
 
+insert EXCEPTIONS undefine copy, is_equal, fill_tagged_out_memory end
+
 creation make
 
 feature -- Type queries
