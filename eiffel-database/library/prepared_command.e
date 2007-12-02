@@ -16,10 +16,8 @@ inherit
 
 feature
 	last_affected_rows: INTEGER is
-		require
-			success: last_exec_success
+		-- require success: last_exec_success
 		deferred
-		ensure
-			meningful: Result >= 0
+		-- ensure meningful: Result >= 0
 		end
 end

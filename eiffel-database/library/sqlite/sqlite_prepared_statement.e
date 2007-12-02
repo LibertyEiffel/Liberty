@@ -90,7 +90,7 @@ feature -- parameters validity
 														 a_string.count, sqlite_transient)
 			end
 							
-			Result := res_code = Sqlite_ok
+			Result := res_code = sqlite_ok
 		end
 
 	bind_parameter (a_parameter: ANY; an_index: INTEGER) is
@@ -119,6 +119,14 @@ feature -- parameters validity
 			end
 		end
 
+	clear_bindings is
+			-- Unsets all host parameters to Void. Note that contrary to
+			-- the intuition of many, `reset' does not reset the bindings
+			-- on a prepared statement.
+		do
+			res_code := sqlite3_clear_bindings(handle)
+		end
+
 feature {} -- Creation of heirs (command and query)
 	make (a_sqlite_db: SQLITE_DATABASE; some_sql: STRING) is
 			-- Makes a prepared query from `some_sql'
@@ -135,17 +143,54 @@ feature {} -- Creation of heirs (command and query)
 			state: is_prepared or is_failed
 		end
 
+feature 
+	reset is
+			-- Reset the compiled SQL statement back to it's initial
+			-- state, ready to be re-executed. Any SQL statement
+			-- variables that had values bound to them using the
+			-- `bind_parameter', `bind_*' retain their values. Use
+			-- `clear_bindings' to reset the bindings.
+		do
+			res_code :=sqlite3_reset(handle)
+		end
+
 feature -- Statement state
-	is_prepared: BOOLEAN is do Result:=(res_code=Sqlite_ok) end
-	is_stepped: BOOLEAN is obsolete "Please implement me!" do end
-	is_failed: BOOLEAN is obsolete "Please implement me!" do end
-	last_exec_success: BOOLEAN is do Result:=(res_code=Sqlite_done) end
+	-- `step' sets `res_code' to `sqlite_row' if it is returning
+	-- a single row of the result set, `sqlite_done' if execution has
+	-- completed, either normally or due to an error. It might also
+	-- return `sqlite_busy' if it is unable to open the database file. 
+
+	-- TODO: If the return value is `sqlite_row,' then the following
+	-- routines can be used to extract information about that row of
+	-- the result set:
+
+	--        const void *sqlite3_column_blob(sqlite3_stmt*, int iCol);
+	--        int sqlite3_column_bytes(sqlite3_stmt*, int iCol);
+	--        int sqlite3_column_bytes16(sqlite3_stmt*, int iCol);
+	--        int sqlite3_column_count(sqlite3_stmt*);
+	--        const char *sqlite3_column_decltype(sqlite3_stmt *, int iCol);
+	--        const void *sqlite3_column_decltype16(sqlite3_stmt *, int iCol);
+	--        double sqlite3_column_double(sqlite3_stmt*, int iCol);
+	--        int sqlite3_column_int(sqlite3_stmt*, int iCol);
+	--        long long int sqlite3_column_int64(sqlite3_stmt*, int iCol);
+	--        const char *sqlite3_column_name(sqlite3_stmt*, int iCol);
+	--        const void *sqlite3_column_name16(sqlite3_stmt*, int iCol);
+	--        const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);
+	--        const void *sqlite3_column_text16(sqlite3_stmt*, int iCol);
+	--        int sqlite3_column_type(sqlite3_stmt*, int iCol);
+
+
+	-- TODO: Temporary implementation
+	is_prepared: BOOLEAN is do Result:=(res_code=sqlite_ok) end
+	is_stepped: BOOLEAN is do Result:=(res_code=sqlite_row) end
+	is_failed: BOOLEAN is do Result:=((not is_prepared) and (not is_stepped)) end
+	last_exec_success: BOOLEAN is	do Result:=(not is_failed)	end
 
 feature {} -- Implementation
 	res_code: INTEGER 
-			-- The result code of the last sqlite operation
+			-- The result code of the last sqlite function call
+
 	sqlite_db: SQLITE_DATABASE
 	
-invariant
-	correct_state: is_prepared xor is_stepped xor is_failed
+-- invariant correct_state: is_prepared xor is_stepped xor is_failed
 end

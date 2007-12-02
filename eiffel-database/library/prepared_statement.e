@@ -68,6 +68,6 @@ feature -- State
 	last_exec_success: BOOLEAN  is deferred end
 			-- was last call to execute successful?
 
-				state: INTEGER 
+	state: INTEGER 
 
 end

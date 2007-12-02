@@ -56,9 +56,81 @@ feature
 		end
 
 feature {} -- Implementation
+	-- TODO: Evaluate An SQL Statement
+	
+	--     int sqlite3_step(sqlite3_stmt*);
+	
+	-- After an SQL statement has been prepared with a call to either
+	-- sqlite3_prepare_v2() or sqlite3_prepare16_v2() or to one of the
+	-- legacy interfaces sqlite3_prepare() or sqlite3_prepare16(), then
+	-- this function must be called one or more times to evaluate the
+	-- statement.
+
+	-- The details of the behavior of this sqlite3_step() interface
+	-- depend on whether the statement was prepared using the newer
+	-- "v2" interface sqlite3_prepare_v2() and sqlite3_prepare16_v2()
+	-- or the older legacy interface sqlite3_prepare() and
+	-- sqlite3_prepare16(). The use of the new "v2" interface is
+	-- recommended for new applications but the legacy interface will
+	-- continue to be supported.
+
+	-- In the lagacy interface, the return value will be either
+	-- SQLITE_BUSY, SQLITE_DONE, SQLITE_ROW, SQLITE_ERROR, or
+	-- SQLITE_MISUSE. With the "v2" interface, any of the other result
+	-- code or extended result code might be returned as well.
+
+	-- SQLITE_BUSY means that the database engine was unable to acquire
+	-- the database locks it needs to do its job. If the statement is a
+	-- COMMIT or occurs outside of an explicit transaction, then you
+	-- can retry the statement. If the statement is not a COMMIT and
+	-- occurs within a explicit transaction then you should rollback
+	-- the transaction before continuing.
+	
+	-- SQLITE_DONE means that the statement has finished executing
+	-- successfully. sqlite3_step() should not be called again on this
+	-- virtual machine without first calling sqlite3_reset() to reset
+	-- the virtual machine back to its initial state.
+
+	-- If the SQL statement being executed returns any data, then
+	-- SQLITE_ROW is returned each time a new row of data is ready for
+	-- processing by the caller. The values may be accessed using the
+	-- column access functions. sqlite3_step() is called again to
+	-- retrieve the next row of data.
+
+	-- SQLITE_ERROR means that a run-time error (such as a constraint
+	-- violation) has occurred. sqlite3_step() should not be called
+	-- again on the VM. More information may be found by calling
+	-- sqlite3_errmsg(). With the legacy interface, a more specific
+	-- error code (example: SQLITE_INTERRUPT, SQLITE_SCHEMA,
+	-- SQLITE_CORRUPT, and so forth) can be obtained by calling
+	-- sqlite3_reset() on the prepared statement. In the "v2"
+	-- interface, the more specific error code is returned directly by
+	-- sqlite3_step().
+
+	-- SQLITE_MISUSE means that the this routine was called
+	-- inappropriately. Perhaps it was called on a prepared statement
+	-- that has already been finalized or on one that had previously
+	-- returned SQLITE_ERROR or SQLITE_DONE. Or it could be the case
+	-- that the same database connection is being used by two or more
+	-- threads at the same moment in time.
+
+	-- Goofy Interface Alert: In the legacy interface, the
+	-- sqlite3_step() API always returns a generic error code,
+	-- SQLITE_ERROR, following any error other than SQLITE_BUSY and
+	-- SQLITE_MISUSE. You must call sqlite3_reset() or
+	-- sqlite3_finalize() in order to find one of the specific result
+	-- codes that better describes the error. We admit that this is a
+	-- goofy design. The problem has been fixed with the "v2"
+	-- interface. If you prepare all of your SQL statements using
+	-- either sqlite3_prepare_v2() or sqlite3_prepare16_v2() instead of
+	-- the legacy sqlite3_prepare() and sqlite3_prepare16(), then the
+	-- more specific result codes are returned directly by
+	-- sqlite3_step(). The use of the "v2" interface is recommended.
+
+
 	fill_in_results is
 		require 
-			correct_sqlite_status: res_code = Sqlite_ok
+			correct_sqlite_status: res_code = sqlite_ok
 		local
 			code: SQLITE_ERROR_CODES
 		do
@@ -68,7 +140,7 @@ feature {} -- Implementation
 				res_code := sqlite3_step(handle)
 				last_result.set_columns_number (sqlite3_column_count(handle))
 			until
-				res_code /= Sqlite_row
+				res_code /= sqlite_row
 			loop
 				fill_in_row
 				res_code := sqlite3_step (handle)
@@ -95,16 +167,15 @@ feature {} -- Implementation
 				a_column > a_row.upper
 			loop
 				a_type_number := sqlite3_column_type (handle, a_column)
-				inspect a_type_number
-				when Sqlite_integer then
+				if a_type_number=sqlite_integer then
 					a_row.put (create {REFERENCE[INTEGER]}.set_item
 								  (sqlite3_column_int (handle,a_column)),
 								  a_column)
-				when Sqlite_float then 	
+				elseif a_type_number=sqlite_float then 	
 					a_row.put (create {REFERENCE[REAL]}.set_item
 								  (sqlite3_column_double (handle, a_column)),
 								  a_column)
-				when Sqlite_text then 
+				elseif a_type_number=sqlite_text then 
 					cstr := sqlite3_column_text (handle, a_column)
 					if cstr.is_not_null then 
 						a_row.put (create {STRING}.from_external_copy(cstr),
@@ -114,12 +185,12 @@ feature {} -- Implementation
 							io.put_line(once "Warning: SQLITE_PREPARED_QUERY fill_in_row found a NULL string.")
 						end
 					end
-				when Sqlite_blob then 
+				elseif a_type_number=sqlite_blob then 
 					debug
 						io.put_string ("Warning: an SQLITE_PREPARED_QUERY returned a blob. Since it is currently not handled Void takes its place%N")
 					end
 					a_row.put (Void, a_column)
-				when Sqlite_null then
+				elseif a_type_number=sqlite_null then
 					a_row.put (Void, a_column)
 				else
 					raise ("SQLITE_PREPARED_QUERY.fill_in_row: got unknown type number " + a_type_number.out + "%N")

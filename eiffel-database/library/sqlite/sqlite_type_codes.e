@@ -8,15 +8,7 @@ indexing
 expanded class SQLITE_TYPE_CODES
 
 feature -- Type codes
-
-	Sqlite_integer: INTEGER is 1
-	Sqlite_float: INTEGER is 2
-	Sqlite_text: INTEGER is 3
-	Sqlite_blob: INTEGER is 4
-	Sqlite_null: INTEGER is 5
-
-feature
-	ext_sqlite_integer: INTEGER is
+	sqlite_integer: INTEGER is
 			-- #define SQLITE_INTEGER 1
 		external "plug_in"
 		alias "{
@@ -26,7 +18,7 @@ feature
 			}"
 		end
 
-	ext_sqlite_float: INTEGER is
+	sqlite_float: INTEGER is
 			-- #define SQLITE_FLOAT 2
 		external "plug_in"
 		alias "{
@@ -36,7 +28,7 @@ feature
 			}"
 		end
 
-	ext_sqlite_text: INTEGER is
+	sqlite_text: INTEGER is
 			-- #define SQLITE_TEXT 3
 		external "plug_in"
 		alias "{
@@ -46,7 +38,7 @@ feature
 			}"
 		end
 
-	ext_sqlite_blob: INTEGER is
+	sqlite_blob: INTEGER is
 			-- #define SQLITE_BLOB 4
 		external "plug_in"
 		alias "{
@@ -56,7 +48,7 @@ feature
 			}"
 		end
 
-	ext_sqlite_null: INTEGER is
+	sqlite_null: INTEGER is
 			-- #define SQLITE_NULL 5
 		external "plug_in"
 		alias "{
@@ -65,20 +57,5 @@ feature
 			feature_name: "SQLITE_NULL"
 			}"
 		end
-
-
-feature -- test
-
-	check_type_codes is
-		do
-			check
-				Sqlite_integer = ext_sqlite_integer
-				Sqlite_float = ext_sqlite_float
-				Sqlite_text = ext_sqlite_text
-				Sqlite_blob = ext_sqlite_blob
-				Sqlite_null = ext_sqlite_null
-			end
-		end
-
 end
 

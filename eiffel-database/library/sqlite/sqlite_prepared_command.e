@@ -37,15 +37,13 @@ feature
 				query_index := query_index + 1
 			end
 			res_code := sqlite3_step (handle)
-			if last_exec_success then
-				last_affected_rows := sqlite3_changes (sqlite_db.handle)
-			else
-				last_affected_rows := 0
-			end
 			res_code := sqlite3_clear_bindings (handle)
 			res_code := sqlite3_reset (handle)
 		end
 
-	last_affected_rows: INTEGER
+	last_affected_rows: INTEGER is 
+		do
+			Result := sqlite3_changes (sqlite_db.handle)
+		end
 
 end

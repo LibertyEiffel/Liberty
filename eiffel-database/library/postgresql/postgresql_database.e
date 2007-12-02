@@ -2,8 +2,8 @@ indexing
 	description: "."
 	copyright: "(C) 2006 Paolo Redaelli, Raphael Mack"
 	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"	
+	date: "$Date: $"
+	revision: "$Revision: $"
 	
 class POSTGRESQL_DATABASE
 --    libpq is the C application programmer's interface to PostgreSQL. libpq is
@@ -411,6 +411,25 @@ feature -- Creation
 --            connection using PQconnectPoll.
 
 --    --------------------------------------------------------------------------
+
+feature 
+	prepare_command (some_sql: STRING): PREPARED_COMMAND is
+		do
+		end
+
+	prepare_query (some_sql: STRING): PREPARED_QUERY is
+		do
+		end
+
+	execute (some_sql: STRING) is
+		do
+			unimplemented
+		end
+
+	result_set: RESULT_SET [RESULT_ROW] is
+		do
+			unimplemented
+		end
 
 feature {} -- External calls
 	

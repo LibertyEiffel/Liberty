@@ -62,13 +62,13 @@ feature
 feature
 	connect (a_connection_string: STRING) is
 			-- Try to connect to an SQLite database. `last_action_result'
-			-- will hols the result of this feature call. is_connected
+			-- will hold the result of this feature call. `is_connected'
 			-- will be true if database is usable; i.e. readable and
 			-- writable.
 		do
 			last_action_result := sqlite3_open (a_connection_string.to_external,
 															$handle)
-			last_action_success := last_action_result = Sqlite_ok
+			last_action_success := last_action_result = sqlite_ok
 			is_connected := last_action_success
 		end
 	
@@ -86,7 +86,7 @@ feature
 			connected: is_connected
 		do
 			last_action_result := sqlite3_close (handle)
-			last_action_success := last_action_result = Sqlite_ok
+			last_action_success := last_action_result = sqlite_ok
 			is_connected := False
 		end
 
@@ -104,7 +104,7 @@ feature
 															Current.to_pointer, 
 															default_pointer -- as char **error_msg, since it is currently not used
 														  )
-			last_action_success := last_action_result = Sqlite_ok
+			last_action_success := last_action_result = sqlite_ok
 		end
 	
 	last_action_result: INTEGER
@@ -172,5 +172,5 @@ feature {} -- Implementation
 		end
 
 invariant
-	success: last_action_success implies last_action_result = Sqlite_ok
+	success: last_action_success implies last_action_result = sqlite_ok
 end
