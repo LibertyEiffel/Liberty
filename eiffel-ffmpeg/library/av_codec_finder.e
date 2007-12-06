@@ -24,7 +24,8 @@ class AV_CODEC_FINDER
 insert
 	AV_CODEC_FINDER_EXTERNALS
 	AV_CODEC_IDS
-
+	WRAPPER_HANDLER -- to get `unimplemented' feature
+	
 feature {} -- Private access
 	wrapper (a_pointer: POINTER): AV_CODEC is
 			-- Dummy (unused) implementation.

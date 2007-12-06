@@ -1,7 +1,7 @@
 indexing
 	description: "GdaParameter -- Represents a GValue with various attributes"
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTK+ team
+					Copyright (C) 2007 Paolo Redaelli, GDA team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,31 +19,31 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- A GdaParameter object basically is a specification for a
-			-- value and can convey a value once one has been set.
-
-			-- The GdaParameter object offers other features such as:
-
-			-- o keeping a list of objects which "are interested"
-			-- (mentioned as "users" in the API) in the value placed in
-			-- the parameter: this feature is usefull when parameters are
-			-- created by objects and when these objects want to be
-			-- reminded that the parameter has been created by them at a
-			-- later time
-
-			-- o aliasing (binding) to another parameter: this is an easy
-			-- way to keep several parameters synchronized. There are two
-			-- modes: one where parameters A and B will always have the
-			-- same value and where parameter B will update itself whan A
-			-- changes to mirror tha change but will be allowed to have
-			-- its own changes afterwards.
-
-			-- o values restrictions: a parameter can be told to choose a
-			-- value among the values in a colmun in a GdaDataModel
-			-- (beware that this is a declarative feature only and that
-			-- no policy is enforced regarding values changes)
+	wrapped_version: "3.0.1"
 
 class GDA_PARAMETER
+	-- A GDA_PARAMETER object basically is a specification for a value
+	-- and can convey a value once one has been set.
+	
+	-- The GdaParameter object offers other features such as:
+	
+	-- o keeping a list of objects which "are interested" (mentioned as
+	--   "users" in the API) in the value placed in the parameter: this
+	--   feature is usefull when parameters are created by objects and
+	--   when these objects want to be reminded that the parameter has
+	--   been created by them at a later time
+	
+	-- o aliasing (binding) to another parameter: this is an easy way
+	--   to keep several parameters synchronized. There are two modes:
+	--   one where parameters A and B will always have the same value
+	--   and where parameter B will update itself whan A changes to
+	--   mirror tha change but will be allowed to have its own changes
+	--   afterwards.
+
+	-- o values restrictions: a parameter can be told to choose a value
+	--   among the values in a colmun in a GdaDataModel (beware that
+	--   this is a declarative feature only and that no policy is
+	--   enforced regarding values changes)
 
 inherit 
 	GDA_OBJECT
@@ -54,12 +54,15 @@ inherit
 		redefine
 			copy, type
 		end
+
 		-- GdaParameter implements GdaReferer.
+
 insert 
 	SHARED_G_ERROR
 	GDA_PARAMETER_EXTERNALS
 
-creation dummy,
+creation 
+	dummy, 
 	make, from_external_pointer, copy, make_string, make_boolean
 
 feature {} -- Creation
@@ -101,43 +104,22 @@ feature {ANY}
 		require
 			valid_handle: handle.is_not_null
 		do
-			Result := gda_parameter_get_gda_type (handle)
+			Result := gda_parameter_get_g_type (handle)
 		end 
 	
-	declare_user (an_user: GDA_OBJECT) is
-			--  Tells that `an_user' is potentially using Current parameter.
-
-		require
-			user_not_void: an_user /= Void
-		do
-			gda_parameter_declare_param_user (handle, an_user.handle)
-		end
-
-	users: G_SLIST [GDA_OBJECT] is
-			-- the GdaEntityField objects which created param (and which
-			-- will use its value)
-		local p:POINTER
-		do
-			p:=gda_parameter_get_param_users(handle)
-			if wrappers.has(p) then Result::=wrappers.at(p)
-			else create Result.from_external_pointer(p) end
-			Result.set_shared
-			-- Note: the returned list of GdaEntityField objects must not be
-			-- changed or free'd
-			
-			-- TODO: implement the above note into G_SLIST with those 
-			-- features: `is_changeable', `set_changeable', 
-			-- `set_unchangeable'.
-		end
-
 	value: G_VALUE is
-			-- the value held into the parameter. 
+			-- the value held into the parameter. An SQL NULL value
+			-- returns a `GDA_TYPE_NULL' Result.
 		local p: POINTER
 		do
 			p:=gda_parameter_get_value (handle)
 			check pointer_not_null: p.is_not_null end
-			if wrappers.has(p) then Result::=wrappers.at(p)
-			else create Result.from_external_pointer (p) end
+			if stored_value=Void then create stored_value.from_external_pointer(p) end
+			if stored_value.handle/=p then 
+				debug io.put_line("GDA_PARAMETER.value: stored_value.handle differs from gda_parameter_get_value(handle); replacing previous stored_value with a new one") end
+				create stored_value.from_external_pointer(p)
+			end
+			Result := stored_value
 		ensure not_void: Result /= Void
 		end
 	
@@ -147,9 +129,20 @@ feature {ANY}
 			gda_parameter_set_value (handle, a_value.handle)
 		end
 
+	string_value: STRING is 
+			-- A string representation of the value stored in
+			-- param. Calling `set_string_value' with this value will
+			-- restore the parameter's current state. Void if the
+			-- parameter's value is an SQL NULL.
+		local p: POINTER
+		do
+			p:=gda_parameter_get_value_str(handle)
+			if p.is_not_null then create Result.from_external(p) end
+		end
+
 	set_string_value (a_string: STRING) is
 			-- Same function as `set_value' except that the value is
-			-- provided as a string, `is_successful' may be False if the
+			-- provided as a string; `is_successful' may be False if the
 			-- string did not represent a correct value for the data type
 			-- of the parameter.
 		require string_not_void: a_string /= Void
@@ -176,11 +169,8 @@ feature {ANY}
 			-- the default value held into the parameter. WARNING: the
 			-- default value does not need to be of the same type as the
 			-- one required by param.
-		local p: POINTER
 		do
-			p:=gda_parameter_get_default_value(handle)
-			if wrappers.has(p) then Result::=wrappers.at(p)
-			else create Result.from_external_pointer(p) end
+			create Result.from_external_pointer(gda_parameter_get_default_value(handle))
 		end
 
 	set_default_value (a_value: G_VALUE) is
@@ -195,34 +185,47 @@ feature {ANY}
 			Result:= gda_parameter_get_exists_default_value (handle).to_boolean
 		end
 
-	set_has_default_value: BOOLEAN is
-			-- Tells if param has default unspecified value. This
-			-- function is usefull if one wants to inform that param has
-			-- a default value but does not know what that default value
+	set_has_default_value (a_setting: BOOLEAN) is
+			-- Sets if parameter has default unspecified value. This is
+			-- usefull if one wants to inform that parameter has a
+			-- default value but does not know what that default value
 			-- actually is.
 		do
-			gda_parameter_set_exists_default_value (handle, 1)
+			gda_parameter_set_exists_default_value (handle, a_setting.to_integer)
 		ensure set: has_default_value
 		end
 	
-	unset_has_default_value: BOOLEAN is
-			-- Unset default value. See `set_has_default_value'.
+	enable_default_value is 
+			-- Give the parameter a default value.
+		do 
+			set_has_default_value(True)
+		end
+
+	disable_default_value is 
+			-- Remove the default value from the paramter.
 		do
-			gda_parameter_set_exists_default_value (handle, 0)
-		ensure unset: not has_default_value
+			set_has_default_value(False) 
+		end
+	
+	set_not_null (a_setting: BOOLEAN) is
+			-- Sets if the parameter can have a NULL value. If
+			-- `a_setting' is True, then that won't be allowed.
+		do
+			gda_parameter_set_not_null (handle, a_setting.to_integer)
+		ensure definition: a_setting = is_null_forbidden
 		end
 
 	forbid_null is
 			-- Does not allow the parameter to have a NULL value.
 		do
-			gda_parameter_set_not_null (handle, 1)
+			set_not_null(True)
 		ensure null_forbidden: is_null_forbidden
 		end
 
 	allow_null is
 			-- Allows the parameter to have a NULL value.
 		do
-			gda_parameter_set_not_null (handle, 0)
+			set_not_null(False)
 		ensure null_allowed: not is_null_forbidden
 		end
 
@@ -240,12 +243,9 @@ feature {ANY}
 
 			-- TODO: the original C library allow a_model to be 
 			-- NULL/Void. It is not clear what it should mean.
-		require 
-			model_not_void: a_model/=Void
-			correct_columnd: -- TODO:
 		do
 			is_successful:=(gda_parameter_restrict_values
-								 (handle, a_model.handle, a_column,
+								 (handle, null_or(a_model), a_column,
 								  address_of (error.handle))).to_boolean
 		end
 
@@ -260,56 +260,23 @@ feature {ANY}
 	
 	has_restrict_values: BOOLEAN is
 			-- Does the Current parameter have its values restricted by a
-			-- GdaDataModel? and optionnaly allows to fetch the
-			-- resteictions.
-
-			-- param : a GdaParameter 
-
-			-- model : a place to store a pointer to the model
-			-- restricting the parameter, or NULL 
-
-			-- col : a place to store the column in the model restricting
-			-- the parameter, or NULL Returns : TRUE if param has its
-			-- values restricted.
-
+			-- GdaDataModel? After calling this feature `model_values'
+			-- and `values_column' will contains the allowed values.
 		do
 			if model_values=Void then create model_values.make end
 			Result := (gda_parameter_has_restrict_values
-						  (handle,
-							address_of (model_values.handle),
+						  (handle, address_of (model_values.handle),
 							$values_column)).to_boolean
 		ensure
 			model_values_not_void: Result=True implies (model_values /= Void)
-			--TODO: and model_values.is_valid_column(values_column))
 		end
 
-	-- TODO: replace_users (some_replacements: G_HASH_TABLE ) is
-	-- requires G_HASH_TABLE
-	-- 			-- For each declared parameter user in the replacements keys,
-	-- 			-- declare the value stored in replacements also as a user of
-	-- 			-- param.
-	
-	-- 			-- replacements : the (objects to be replaced, replacing object) 
-	-- 			-- pairs
-	-- 		require
-	-- 			replacements_not_void: some_replacements /= Void
-	-- 		do
-	-- 			gda_parameter_replace_param_users (handle, some_replacements.handle)
-	-- 		end
-	
 	bind_to_param (a_binding_parameter: GDA_PARAMETER) is
 			-- Sets Current to change when `a_binding_parameter's (and
 			-- does not make `a_binding_parameter' change when Current
 			-- changes). `a_binding_parameter' can be Void
-
-			-- TODO: it is not clear what happens when
-			-- `a_binding_parameter' is Void.
 		do
-			if a_binding_parameter = Void then
-				gda_parameter_bind_to_param (handle,default_pointer)
-			else
-				gda_parameter_bind_to_param (handle,a_binding_parameter.handle)
-			end
+			gda_parameter_bind_to_param (handle,null_or(a_binding_parameter))
 		end
 	
 	binding_parameter: GDA_PARAMETER is
@@ -324,78 +291,89 @@ feature {ANY}
 			end
 		end
 	
-feature {} -- TODO: Properties
---    "entry-plugin"         gchararray            : Read / Write
---    "full-bind"            gpointer              : Read / Write
---    "gda-type"             gulong                : Read / Write / Construct Only
---    "restrict-column"      gint                  : Read / Write
---    "restrict-model"       gpointer              : Read / Write
---    "simple-bind"          gpointer              : Read / Write
---    "use-default-value"    gboolean              : Read / Write
+feature {} -- TODO: The "restrict-changed" signal
 
--- Property Details
+	--  void user_function (GdaParameter *gdaparameter, gpointer
+	--  user_data) : Run first
+	
+	--    gdaparameter : the object which received the signal.
+	--    user_data :    user data set when the signal handler was connected.
+	
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <libgda/libgda.h>"
+		alias "sizeof(GdaParameter)"
+		end
 
---   The "entry-plugin" property
+feature {} -- Implementation
+	stored_value: G_VALUE
+	
+feature -- Property Details
 
---    "entry-plugin"         gchararray            : Read / Write
-
---    Default value: NULL
-
---    ---------------------------------------------------------------------------------------
-
---   The "full-bind" property
-
---    "full-bind"            gpointer              : Read / Write
-
---    ---------------------------------------------------------------------------------------
-
---   The "gda-type" property
-
---    "gda-type"             gulong                : Read / Write / Construct Only
-
---    ---------------------------------------------------------------------------------------
-
---   The "restrict-column" property
-
---    "restrict-column"      gint                  : Read / Write
-
---    Allowed values: >= 0
-
---    Default value: 0
-
---    ---------------------------------------------------------------------------------------
-
---   The "restrict-model" property
-
---    "restrict-model"       gpointer              : Read / Write
-
---    ---------------------------------------------------------------------------------------
-
---   The "simple-bind" property
-
---    "simple-bind"          gpointer              : Read / Write
-
---    ---------------------------------------------------------------------------------------
-
---   The "use-default-value" property
-
---    "use-default-value"    gboolean              : Read / Write
-
---    Default value: FALSE
-
-feature {} -- TODO: Signals
---  "restrict-changed"
---              void        user_function      (GdaParameter *gdaparameter,
---                                              gpointer      user_data)         : Run first
-
--- Signal Details
-
---   The "restrict-changed" signal
-
---  void        user_function                  (GdaParameter *gdaparameter,
---                                              gpointer      user_data)         : Run first
-
---    gdaparameter : the object which received the signal.
---    user_data :    user data set when the signal handler was connected.
+	--  The "entry-plugin" property
+	--
+	--   "entry-plugin"             gchararray            : Read / Write
+	--
+	--   Default value: NULL
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "full-bind" property
+	--
+	--   "full-bind"                GdaParameter          : Read / Write
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "g-type" property
+	--
+	--   "g-type"                   gulong                : Read / Write / Construct Only
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "not-null" property
+	--
+	--   "not-null"                 gboolean              : Read / Write
+	--
+	--   Default value: FALSE
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "restrict-column" property
+	--
+	--   "restrict-column"          gint                  : Read / Write
+	--
+	--   Allowed values: >= 0
+	--
+	--   Default value: 0
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "restrict-model" property
+	--
+	--   "restrict-model"           GdaDataModel          : Read / Write
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "simple-bind" property
+	--
+	--   "simple-bind"              GdaParameter          : Read / Write
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "use-default-value" property
+	--
+	--   "use-default-value"        gboolean              : Read / Write
+	--
+	--   Default value: FALSE
+	--
+	--Signal Details
+	--
+	--  The "restrict-changed" signal
+	--
+	-- void                user_function                      (GdaParameter *gdaparameter,
+	--                                                         gpointer      user_data)         : Run First
+	--
+	--   gdaparameter : the object which received the signal.
+	--   user_data :    user data set when the signal handler was connected.
 
 end -- class GDA_PARAMETER

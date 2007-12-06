@@ -75,6 +75,13 @@ feature {} -- Wrapper related exceptions
 			crash
 		end
 
+	ewlc_log (a_message: STRING) is 
+		do
+			debug
+				io.put_line(a_message)
+			end
+		end
+
 feature {} -- External calls
 	memcpy (a_dest, a_src: POINTER; a_size: INTEGER): POINTER is
 			-- void *memcpy(void *dest, const void *src, size_t n);

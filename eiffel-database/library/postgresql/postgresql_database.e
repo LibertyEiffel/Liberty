@@ -6,36 +6,11 @@ indexing
 	revision: "$Revision: $"
 	
 class POSTGRESQL_DATABASE
---    libpq is the C application programmer's interface to PostgreSQL. libpq is
---    a set of library functions that allow client programs to pass queries to
---    the PostgreSQL backend server and to receive the results of these queries.
-
---    libpq is also the underlying engine for several other PostgreSQL
---    application interfaces, including those written for C++, Perl, Python, Tcl
---    and ECPG. So some aspects of libpq's behavior will be important to you if
---    you use one of those packages. In particular, Section 27.11, Section 27.12
---    and Section 27.13 describe behavior that is visible to the user of any
---    application that uses libpq.
-
---    Some short programs are included at the end of this chapter (Section
---    27.16) to show how to write programs that use libpq. There are also
---    several complete examples of libpq applications in the directory
---    src/test/examples in the source code distribution.
-
---    Client programs that use libpq must include the header file libpq-fe.h and
---    must link with the libpq library.
-
---                   27.1. Database Connection Control Functions
-
---    The following functions deal with making a connection to a PostgreSQL
---    backend server. An application program can have several backend
---    connections open at one time. (One reason to do that is to access more
---    than one database.) Each connection is represented by a PGconn object,
---    which is obtained from the function PQconnectdb or PQsetdbLogin. Note that
---    these functions will always return a non-null object pointer, unless
---    perhaps there is too little memory even to allocate the PGconn object. The
---    PQstatus function should be called to check whether a connection was
---    successfully made before queries are sent via the connection object.
+	-- Eiffel interface to PostgreSQL is based on libpq, the C
+	-- application programmer's interface to PostgreSQL. libpq is a set
+	-- of library functions that allow client programs to pass queries
+	-- to the PostgreSQL backend server and to receive the results of
+	-- these queries.
 
 inherit
 	DATABASE
@@ -173,7 +148,7 @@ feature -- Creation
 			-- compiled with SSL support.
 
 			-- `service': Service name to use for additional
-			-- parameters. It specifies a service name in pg_service.conf
+			-- parameters. It specifies a service name in pg3C_service.conf
 			-- that holds additional connection parameters. This allows
 			-- applications to specify only a service name so connection
 			-- parameters can be centrally maintained.  See
@@ -374,18 +349,19 @@ feature -- Creation
 	close is
 			-- Closes the connection to the server. 
 		do
-			--			pqfinish (handle)
+			pqfinish (handle)
 		end
---    PQreset
 
---            Resets the communication channel to the server.
+	reset is
+			-- Resets the communication channel to the server.  It closes
+			-- the connection to the server and attempt to reestablish a
+			-- new connection to the same server, using all the same
+			-- parameters previously used. This may be useful for error
+			-- recovery if a working connection is lost.
+		do
+			pqreset(handle)
+		end
 
---  void PQreset(PGconn *conn);
-
---            This function will close the connection to the server and attempt
---            to reestablish a new connection to the same server, using all the
---            same parameters previously used. This may be useful for error
---            recovery if a working connection is lost.
 
 --    PQresetStart
 --    PQresetPoll
@@ -430,6 +406,144 @@ feature
 		do
 			unimplemented
 		end
+
+feature -- Connection Status 
+	-- These functions may be used to interrogate the status of an
+	-- existing database connection object.
+
+	-- Tip: libpq application programmers should be careful to maintain
+	-- the PGconn abstraction. Use the accessor functions described
+	-- below to get at the contents of PGconn. Reference to internal
+	-- PGconn fields using libpq-int.h is not recommended because they
+	-- are subject to change in the future.
+
+	-- The following functions return parameter values established at connection. These values are fixed for the life of the PGconn object.
+
+	-- PQdb
+
+	--     Returns the database name of the connection.
+
+	--     char *PQdb(const PGconn *conn);
+
+	-- PQuser
+
+	--     Returns the user name of the connection.
+
+	--     char *PQuser(const PGconn *conn);
+
+	-- PQpass
+
+	--     Returns the password of the connection.
+
+	--     char *PQpass(const PGconn *conn);
+
+	-- PQhost
+
+	--     Returns the server host name of the connection.
+
+	--     char *PQhost(const PGconn *conn);
+
+	-- PQport
+
+	--     Returns the port of the connection.
+
+	--     char *PQport(const PGconn *conn);
+
+	-- PQtty
+
+	--     Returns the debug TTY of the connection. (This is obsolete, since the server no longer pays attention to the TTY setting, but the function remains for backwards compatibility.)
+
+	--     char *PQtty(const PGconn *conn);
+
+	-- PQoptions
+
+	--     Returns the command-line options passed in the connection request.
+
+	--     char *PQoptions(const PGconn *conn);
+
+	-- The following functions return status data that can change as operations are executed on the PGconn object.
+
+	-- PQstatus
+
+	--     Returns the status of the connection.
+
+	--     ConnStatusType PQstatus(const PGconn *conn);
+
+	--     The status can be one of a number of values. However, only two of these are seen outside of an asynchronous connection procedure: CONNECTION_OK and CONNECTION_BAD. A good connection to the database has the status CONNECTION_OK. A failed connection attempt is signaled by status CONNECTION_BAD. Ordinarily, an OK status will remain so until PQfinish, but a communications failure might result in the status changing to CONNECTION_BAD prematurely. In that case the application could try to recover by calling PQreset.
+
+	--     See the entry for PQconnectStart and PQconnectPoll with regards to other status codes that might be seen. 
+	-- PQtransactionStatus
+
+	--     Returns the current in-transaction status of the server.
+
+	--     PGTransactionStatusType PQtransactionStatus(const PGconn *conn);
+
+	--     The status can be PQTRANS_IDLE (currently idle), PQTRANS_ACTIVE (a command is in progress), PQTRANS_INTRANS (idle, in a valid transaction block), or PQTRANS_INERROR (idle, in a failed transaction block). PQTRANS_UNKNOWN is reported if the connection is bad. PQTRANS_ACTIVE is reported only when a query has been sent to the server and not yet completed.
+
+	--     Caution
+
+	--     PQtransactionStatus will give incorrect results when using a PostgreSQL 7.3 server that has the parameter autocommit set to off. The server-side autocommit feature has been deprecated and does not exist in later server versions.
+	-- PQparameterStatus
+
+	--     Looks up a current parameter setting of the server.
+
+	--     const char *PQparameterStatus(const PGconn *conn, const char *paramName);
+
+	--     Certain parameter values are reported by the server automatically at connection startup or whenever their values change. PQparameterStatus can be used to interrogate these settings. It returns the current value of a parameter if known, or NULL if the parameter is not known.
+
+	--     Parameters reported as of the current release include server_version, server_encoding, client_encoding, is_superuser, session_authorization, DateStyle, TimeZone, integer_datetimes, and standard_conforming_strings. (server_encoding, TimeZone, and integer_datetimes were not reported by releases before 8.0; standard_conforming_strings was not reported by releases before 8.1.) Note that server_version, server_encoding and integer_datetimes cannot change after startup.
+
+	--     Pre-3.0-protocol servers do not report parameter settings, but libpq includes logic to obtain values for server_version and client_encoding anyway. Applications are encouraged to use PQparameterStatus rather than ad hoc code to determine these values. (Beware however that on a pre-3.0 connection, changing client_encoding via SET after connection startup will not be reflected by PQparameterStatus.) For server_version, see also PQserverVersion, which returns the information in a numeric form that is much easier to compare against.
+
+	--     If no value for standard_conforming_strings is reported, applications may assume it is off, that is, backslashes are treated as escapes in string literals. Also, the presence of this parameter may be taken as an indication that the escape string syntax (E'...') is accepted.
+
+	--     Although the returned pointer is declared const, it in fact points to mutable storage associated with the PGconn structure. It is unwise to assume the pointer will remain valid across queries.
+	-- PQprotocolVersion
+
+	--     Interrogates the frontend/backend protocol being used.
+
+	--     int PQprotocolVersion(const PGconn *conn);
+
+	--     Applications may wish to use this to determine whether certain features are supported. Currently, the possible values are 2 (2.0 protocol), 3 (3.0 protocol), or zero (connection bad). This will not change after connection startup is complete, but it could theoretically change during a connection reset. The 3.0 protocol will normally be used when communicating with PostgreSQL 7.4 or later servers; pre-7.4 servers support only protocol 2.0. (Protocol 1.0 is obsolete and not supported by libpq.)
+	-- PQserverVersion
+
+	--     Returns an integer representing the backend version.
+
+	--     int PQserverVersion(const PGconn *conn);
+
+	--     Applications may use this to determine the version of the database server they are connected to. The number is formed by converting the major, minor, and revision numbers into two-decimal-digit numbers and appending them together. For example, version 8.1.5 will be returned as 80105, and version 8.2 will be returned as 80200 (leading zeroes are not shown). Zero is returned if the connection is bad.
+	-- PQerrorMessage
+
+	--     Returns the error message most recently generated by an operation on the connection.
+
+	--     char *PQerrorMessage(const PGconn *conn);
+
+	--     Nearly all libpq functions will set a message for PQerrorMessage if they fail. Note that by libpq convention, a nonempty PQerrorMessage result will include a trailing newline. The caller should not free the result directly. It will be freed when the associated PGconn handle is passed to PQfinish. The result string should not be expected to remain the same across operations on the PGconn structure. 
+	-- PQsocket
+
+	--     Obtains the file descriptor number of the connection socket to the server. A valid descriptor will be greater than or equal to 0; a result of -1 indicates that no server connection is currently open. (This will not change during normal operation, but could change during connection setup or reset.)
+
+	--     int PQsocket(const PGconn *conn);
+
+	-- PQbackendPID
+
+	--     Returns the process ID (PID) of the backend server process handling this connection.
+
+	--     int PQbackendPID(const PGconn *conn);
+
+	--     The backend PID is useful for debugging purposes and for comparison to NOTIFY messages (which include the PID of the notifying backend process). Note that the PID belongs to a process executing on the database server host, not the local host! 
+	-- PQgetssl
+
+	--     Returns the SSL structure used in the connection, or null if SSL is not in use.
+
+	--     SSL *PQgetssl(const PGconn *conn);
+
+	--     This structure can be used to verify encryption levels, check server certificates, and more. Refer to the OpenSSL documentation for information about this structure.
+
+	-- You must define USE_SSL in order to get the correct prototype
+	-- for this function. Doing this will also automatically include
+	-- ssl.h from OpenSSL.
+
 
 feature {} -- External calls
 	
@@ -500,13 +614,28 @@ feature {} -- PostgresPollingStatusType  enum
 --      int     dispsize;  /* Field size in characters for dialog */
 --  } PQconninfoOption;
 
+	pqfinish (a_connection: POINTER) is
+			--  void PQfinish(PGconn *conn);
+		external "plug_in"
+		alias "{
+			location: "${eiffel_libraries}plugins"
+			module_name: "postgresql"
+			feature_name: "PGfinish"
+			}"
+		end
 
---  void PQfinish(PGconn *conn);
+	pqreset(a_connection: POINTER) is
+			--  void PQreset(PGconn *conn);
+		external "plug_in"
+		alias "{
+			location: "${eiffel_libraries}plugins"
+			module_name: "postgresql"
+			feature_name: "PGfinish"
+			}"
+		end
 
---  void PQreset(PGconn *conn);
-
---  int PQresetStart(PGconn *conn);
-
---  PostgresPollingStatusType PQresetPoll(PGconn *conn);
+	--  int PQresetStart(PGconn *conn);
+	
+	--  PostgresPollingStatusType PQresetPoll(PGconn *conn);
 
 end
