@@ -347,7 +347,7 @@ feature -- group options
 			if entries_array ?:= some_entries then
 				entries_array ::= some_entries 
 			else 
-				create entries_array.with_capacity(some_entries.count, create {DUMMY_FACTORY[G_OPTION_ENTRY]}) 
+				create entries_array.with_capacity(some_entries.count, create {DUMMY_CACHING_FACTORY[G_OPTION_ENTRY]}) 
 				entries_array.from_collection (some_entries)
 			end
 			-- debug print (" entries array created:%N") end
