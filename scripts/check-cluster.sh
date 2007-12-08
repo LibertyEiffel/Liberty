@@ -42,14 +42,14 @@ wrong_and_correct_classes () {
 	find library -iname "*.e" | 
 	# Remove stubs
 	grep -v stub  |
+	sort --numeric-sort --reverse | 
 	# Remove classes with errors (previously prepended)
 	grep -v -F -f $WRONG_CLASSES
-	rm $WRONG_CLASSES $CORRECT_CLASSES # We are checking them anew.
     else find library -iname "*.e" | grep -v stub 
     fi
 }
 
-classes_first_changed () {
+changed_classes_first () {
     # The files ordered from the latest to the oldest
 
     ## Find in the directory "library" all Eiffel source code, print
@@ -79,7 +79,10 @@ check_classes () {
 	exit 5
     else
 	echo "Testing library classes."
-	for CLASS in $( classes_first_changed ) # $( wrong_and_correct_classes )
+	if [ -s $WRONG_CLASSES ] ; then rm $WRONG_CLASSES; fi
+	if [ -s  $CORRECT_CLASSES ] ; then rm  $CORRECT_CLASSES; fi
+
+	for CLASS in $( changed_classes_first ) # $( wrong_and_correct_classes )
 	do
 	    echo -n "Checking $CLASS: "
 	    if se class_check $CLASS 2>&1;
