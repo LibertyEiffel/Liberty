@@ -18,15 +18,6 @@ feature {} -- external calls
 	-- GType: A numerical value which represents the unique identifier
 	-- of a registered type.
 
-	g_type_fundamental (a_type_number: INTEGER): INTEGER is
-			-- Returns the fundamental type which is the ancestor of
-			-- `a_type_number'. Fundamental types are types that serve as
-			-- fundaments for the derived types, thus they are the roots
-			-- of distinct inheritance hierarchies.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_FUNDAMENTAL"
-		end
-
 feature {} -- Fundamental g_type
 
 	g_type: INTEGER_32 is
