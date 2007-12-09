@@ -225,7 +225,7 @@ feature -- Operations
 			a_codec: AV_CODEC
 		do
 			a_codec := get_decoder (codec_id)
-			if a_codec/=Void.is_not_null then
+			if a_codec /= Void then
 				Result := open (a_codec)
 			end
 		end
