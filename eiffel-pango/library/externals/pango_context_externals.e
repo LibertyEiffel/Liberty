@@ -27,4 +27,8 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
+	pango_context_set_matrix (a_context, a_matrix: POINTER) is
+		external "C use <pango/pango.h>"
+		end
+
 end -- class PANGO_CONTEXT_EXTERNALS

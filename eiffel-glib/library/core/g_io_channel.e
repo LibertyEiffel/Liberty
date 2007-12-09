@@ -192,6 +192,7 @@ feature -- Operations
 --                                              gsize count,
 --                                              gsize *bytes_read);
 -- enum        GIOError;
+
 -- GIOError    g_io_channel_write              (GIOChannel *channel,
 --                                              const gchar *buf,
 --                                              gsize count,
@@ -321,6 +322,29 @@ feature -- Operations
 -- Returns : 	G_IO_STATUS_NORMAL on success. This function never returns G_IO_STATUS_EOF.
 -- g_io_channel_write_chars ()
 
+
+	write_chars (chars: STRING) is
+			-- Replacement for g_io_channel_write() with the new API.
+			-- On seekable channels with encodings other than NULL or
+			-- UTF-8, generic mixing of reading and writing is not
+			-- allowed. A call to g_io_channel_write_chars() may only
+			-- be made on a channel from which data has been read in
+			-- the cases described in the documentation for
+			-- g_io_channel_set_encoding().
+		local
+			r: INTEGER
+		do
+			r := g_io_channel_write_chars (handle, chars.to_external,
+				chars.count, $last_written, default_pointer)
+			last_failed := (r /= g_io_status_normal)
+		end
+
+	last_failed: BOOLEAN
+		-- Error status of last operation
+
+	last_written: INTEGER
+		-- Number of bytes read/written by last operation
+
 -- GIOStatus   g_io_channel_write_chars        (GIOChannel *channel,
 --                                              const gchar *buf,
 --                                              gssize count,
@@ -349,16 +373,17 @@ feature -- Operations
 -- thechar : 	a character
 -- error : 	A location to return an error of type GConvertError or GIOChannelError
 -- Returns : 	a GIOStatus
--- g_io_channel_flush ()
 
--- GIOStatus   g_io_channel_flush              (GIOChannel *channel,
---                                              GError **error);
+	flush is
+			-- Flushes the write buffer for the GIOChannel.
+			-- sets `last_failed' on error.
+		local
+			status: INTEGER
+		do
+			status := g_io_channel_flush (handle, default_pointer) --TODO: error handling
+			last_failed := status /= (g_io_status_normal)
+		end
 
--- Flushes the write buffer for the GIOChannel.
-
--- channel : 	a GIOChannel
--- error : 	location to store an error of type GIOChannelError
--- Returns : 	the status of the operation: One of G_IO_CHANNEL_NORMAL, G_IO_CHANNEL_AGAIN, or G_IO_CHANNEL_ERROR.
 -- g_io_channel_seek_position ()
 
 -- GIOStatus   g_io_channel_seek_position      (GIOChannel *channel,
@@ -399,6 +424,12 @@ feature -- Operations
 -- err : 	location to store a GIOChannelError
 -- Returns : 	the status of the operation.
 -- enum GIOStatus
+
+feature {} -- Internal constants
+
+	g_io_status_normal: INTEGER is
+		external "C macro use <glib.h>" alias "G_IO_STATUS_NORMAL"
+		end
 
 -- typedef enum
 -- {
@@ -827,6 +858,14 @@ feature {} -- Externals
 		end
 
 	g_io_add_watch (channel: POINTER; condition: INTEGER; func, user_data: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_write_chars (channel: POINTER; buffer: POINTER; count: INTEGER; written: POINTER; error: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_flush (channel, error: POINTER): INTEGER is
 		external "C use <glib.h>"
 		end
 

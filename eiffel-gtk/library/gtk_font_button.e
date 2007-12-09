@@ -49,12 +49,14 @@ feature {} -- Creation
 	with_font (a_font_name: STRING) is
 			-- Creates a new font picker widget. `a_font_name' is the
 			-- name of font to display in font selection dialog
-		require name_not_void: a_font_name /= Void
+		require
+			name_not_void: a_font_name /= Void
 		do
 			from_external_pointer(gtk_font_button_new_with_font(a_font_name.to_external))
 		end
 
-feature 
+feature
+
 	set_font_name (a_font_name: STRING) is
 			-- Sets or updates the currently-displayed font in font
 			-- picker dialog.
@@ -76,13 +78,11 @@ feature
 	font_exists: BOOLEAN 
 			-- Has the last call to `set_font' successful?
 
-	font_name: CONST_STRING is
+	font_name: STRING is
 			-- The name of the currently selected font. 
-
 			-- Default value: "Sans 12"
 		do
-			create Result.from_external
-			(gtk_font_button_get_font_name(handle))
+			create Result.from_external_copy (gtk_font_button_get_font_name(handle))
 		end
 
 	set_show_style (a_setting: BOOLEAN) is
@@ -162,7 +162,8 @@ feature
 			-- the title of the font selection dialog.
 		do
 			create Result.from_external(gtk_font_button_get_title(handle))
-		ensure not_void: Result/=Void
+		ensure
+            not_void: Result /= Void
 		end
 	
 	-- Note: "font-name", "show-size", "show-style", "title",
@@ -187,34 +188,6 @@ feature
 	--
 	--   Since 2.4
 	--
-	--Signals
-	--
-	--
-	-- "font-set"  void        user_function      (GtkFontButton *widget,
-	--                                             gpointer       user_data)      : Run first
-	--Signal Details
-	--
-	--  The "font-set" signal
-	--
-	-- void        user_function                  (GtkFontButton *widget,
-	--                                             gpointer       user_data)      : Run first
-	--
-	--   The ::font-set signal is emitted when the user selects a font. When
-	--   handling this signal, use gtk_font_button_get_font_name() to find out
-	--   which font was just selected.
-	--
-	--   Note that this signal is only emitted when the user changes the font. If
-	--   you need to react to programmatic font changes as well, use the
-	--   notify::font-name signal.
-	--
-	--   widget :    the object which received the signal.
-	--   user_data : user data set when the signal handler was connected.
-	--
-	--   Since 2.4
-	--
-	--See Also
-	--
-	--   GtkFontSelectionDialog, GtkColorButton.
 
 
 feature 
@@ -227,4 +200,28 @@ feature
 		do
 			Result:=gtk_font_button_new
 		end
+
+feature -- The "font-set" signal
+
+	connect_agent_to_font_set_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_FONT_BUTTON]]) is
+			--   The ::font-set signal is emitted when the user selects a font. When
+			--   handling this signal, use `font_name()' to find out
+			--   which font was just selected.
+			--
+			--   Note that this signal is only emitted when the user changes the font. If
+			--   you need to react to programmatic font changes as well, use the
+			--   notify::font-name signal.
+			--
+			--   widget :    the object which received the signal.
+			--
+			--   Since 2.4
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			font_set_callback: FONT_SET_CALLBACK
+		do
+			create font_set_callback.make
+			font_set_callback.connect (Current, a_procedure)
+		end
+
 end -- class GTK_FONT_BUTTON_EXTERNALS

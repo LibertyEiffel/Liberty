@@ -40,6 +40,15 @@ feature
 			Result := pango_context_new
 		end
 
+feature -- Operations
+
+	set_default_matrix is
+		do
+			pango_context_set_matrix (handle, default_pointer)
+		end
+
+feature -- size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PangoContext)"

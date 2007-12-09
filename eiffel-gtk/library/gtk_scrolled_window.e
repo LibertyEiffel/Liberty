@@ -335,16 +335,51 @@ feature -- Properties
 
 -- Default value: 3
 
+feature -- scroll-child signal
+
+	scroll_child_signal_name: STRING is "scroll-child"
+		-- "scroll-child"
+		--             void        user_function      (GtkScrolledWindow *scrolledwindow,
+		--                                             GtkScrollType     *arg1,
+		--                                             gboolean           arg2,
+		--                                             gpointer           user_data)           : Run last / Action
+
+	enable_on_scroll_child is
+			-- Connects "scroll-child" signal to `on_scroll_child' feature.
+		do
+			connect (Current, scroll_child_signal_name, $on_scroll_child)
+		end
+
+	on_scroll_child: INTEGER is
+			-- Built-in scroll-child signal handler; empty by design; redefine it.
+			
+			-- The `scroll-child' signal is emitted on the drag source
+			-- when a drag is started. A typical reason to connect to this
+			-- signal is to set up a custom drag icon with
+			-- gtk_drag_source_set_icon().
+		do
+		end
+
+	connect_agent_to_scroll_child_signal (a_function: FUNCTION[ANY, TUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW],
+	                                                           BOOLEAN]) is
+			-- scrolledwindow : 	the object which received the signal.
+			-- arg1 : 	
+			-- arg2 : 	
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			scroll_child_callback: SCROLL_CHILD_CALLBACK
+		do
+			create scroll_child_callback.make
+			scroll_child_callback.connect (Current, a_function)
+		end
+
 feature -- Signals
 
 -- "move-focus-out"
 --             void        user_function      (GtkScrolledWindow *scrolledwindow,
 --                                             GtkDirectionType  *arg1,
---                                             gpointer           user_data)           : Run last / Action
--- "scroll-child"
---             void        user_function      (GtkScrolledWindow *scrolledwindow,
---                                             GtkScrollType     *arg1,
---                                             gboolean           arg2,
 --                                             gpointer           user_data)           : Run last / Action
 
 -- Signal Details
@@ -357,19 +392,6 @@ feature -- Signals
 -- scrolledwindow : 	the object which received the signal.
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
--- The "scroll-child" signal
-
--- void        user_function                  (GtkScrolledWindow *scrolledwindow,
---                                             GtkScrollType     *arg1,
---                                             gboolean           arg2,
---                                             gpointer           user_data)           : Run last / Action
-
--- scrolledwindow : 	the object which received the signal.
--- arg1 : 	
--- arg2 : 	
--- user_data : 	user data set when the signal handler was connected.
--- See Also
-
 -- GtkViewport, GtkAdjustment, GtkWidgetClass
 
 -- [5] The scrolled window installs GtkAdjustment objects in the child window's slots using the set_scroll_adjustments_signal, found in GtkWidgetClass. (Conceptually, these widgets implement a "Scrollable" interface; because GTK+ 1.2 lacked interface support in the object system, this interface is hackily implemented as a signal in GtkWidgetClass. The GTK+ 2.0 object system would allow a clean implementation, but it wasn't worth breaking the API.)
@@ -380,7 +402,6 @@ feature -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkScrolledWindow)"
 		end
-
 
 feature {} -- External calls
 	gtk_scrolled_window_new (a_hadjustment, a_vadjustment: POINTER): POINTER is -- GtkWidget*

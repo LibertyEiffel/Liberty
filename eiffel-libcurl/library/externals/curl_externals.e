@@ -130,17 +130,7 @@ feature {} -- Externals
 		end
 
 	curl_easy_setopt_integer (curl: POINTER; opt: INTEGER; i: INTEGER): INTEGER is
-			-- To set `int'
-			--
-			-- CURLcode curl_easy_setopt(CURL *handle, CURLoption option, parameter);
-		require is_valid_curl_option (opt)
-		external "C use <curl/curl.h>"
-		alias "curl_easy_setopt"
-		ensure is_valid_curl_code (Result)
-		end
-
-	curl_easy_setopt_integer64 (curl: POINTER; opt: INTEGER; i: INTEGER_64): INTEGER is
-			-- To set `long', `curl_off_t'
+			-- To set `int', `long', `curl_off_t'
 			--
 			-- CURLcode curl_easy_setopt(CURL *handle, CURLoption option, parameter);
 		require is_valid_curl_option (opt)

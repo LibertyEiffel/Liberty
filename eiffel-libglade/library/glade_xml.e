@@ -63,9 +63,12 @@ insert
 	GLADE_GETTER [GTK_TREE_VIEW]              rename get as get_tree_view end
 	GLADE_GETTER [GTK_VBOX]                   rename get as get_vbox end
 	GLADE_GETTER [GTK_WINDOW]                 rename get as get_window end
+	GLADE_GETTER [GTK_LAYOUT]                 rename get as get_layout end
+	GLADE_GETTER [GTK_FONT_BUTTON]            rename get as get_font_button end
+	GLADE_GETTER [GTK_ALIGNMENT]              rename get as get_alignment end
 
 create
-	make
+	make, make_with_root
 
 feature {} -- Creation
 
@@ -73,9 +76,22 @@ feature {} -- Creation
 			-- Load Glade XML from `file'
 		require
 			file_not_null: file /= Void
-			file_ok: (create {FILE_TOOLS}).is_readable(file)
+			file_ok: (create {FILE_TOOLS}).is_readable (file)
 		do
 			handle := glade_xml_new (file.to_external, default_pointer, default_pointer)
+			store_eiffel_wrapper
+		ensure
+			handle.is_not_null
+		end
+
+	make_with_root (file, root: STRING) is
+			-- Load Glade XML from `file' with root `root'
+		require
+			file_not_null: file /= Void
+			file_ok: (create {FILE_TOOLS}).is_readable (file)
+			root_not_null: root /= Void
+		do
+			handle := glade_xml_new (file.to_external, root.to_external, default_pointer)
 			store_eiffel_wrapper
 		ensure
 			handle.is_not_null
@@ -94,6 +110,13 @@ feature -- Operations
 	signal_autoconnect is
 		do
 			glade_xml_signal_autoconnect (handle)
+		end
+
+feature -- struct size
+
+	struct_size: INTEGER is
+		external "C inline use <glade/glade.h>"
+		alias "sizeof (GladeXML)"
 		end
 
 end

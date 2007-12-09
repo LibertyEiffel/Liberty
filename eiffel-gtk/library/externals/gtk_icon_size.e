@@ -23,7 +23,7 @@ deferred class GTK_ICON_SIZE
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 
 	is_valid_gtk_icon_size (an_icon_size: INTEGER): BOOLEAN is
 		do

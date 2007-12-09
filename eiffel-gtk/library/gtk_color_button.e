@@ -146,18 +146,7 @@ feature
 	-- The selected color.
 
 	
-	-- Signal Details
-	-- The "color-set" signal
-	-- 
-	-- void        user_function                  (GtkColorButton *widget,
-	--                                             gpointer        user_data)      : Run first
-	-- 
-	-- The ::color-set signal is emitted when the user selects a color. When handling this signal, use gtk_color_button_get_color() and gtk_color_button_get_alpha() to find out which color was just selected.
--- 
-	-- Note that this signal is only emitted when the user changes the color. If you need to react to programmatic color changes as well, use the notify::color signal.
-	-- 
-	-- widget : 	the object which received the signal.
-	-- user_data : 	user data set when the signal handler was connected.
+feature -- The "color-set" signal
 
 feature
 	struct_size: INTEGER is
@@ -169,4 +158,24 @@ feature
 		do
 			Result:=gtk_color_button_new
 		end
+
+	connect_agent_to_color_set_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COLOR_BUTTON]]) is
+			-- The ::color-set signal is emitted when the user selects a color.
+			-- When handling this signal, use `get_color()' and `get_alpha()'
+			-- to find out which color was just selected.
+			-- 
+			-- Note that this signal is only emitted when the user changes the
+			-- color. If you need to react to programmatic color changes as
+			-- well, use the notify::color signal.
+			-- 
+			-- widget : 	the object which received the signal.
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			color_set_callback: COLOR_SET_CALLBACK
+		do
+			create color_set_callback.make
+			color_set_callback.connect (Current, a_procedure)
+		end
+
 end -- GTK_COLOR_BUTTON

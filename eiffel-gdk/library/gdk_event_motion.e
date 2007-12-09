@@ -97,7 +97,7 @@ feature -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
-		alias "sizeof(GdkEventButton)"
+		alias "sizeof(GdkEventMotion)"
 		end
 
 end -- class GDK_EVENT_MOTION

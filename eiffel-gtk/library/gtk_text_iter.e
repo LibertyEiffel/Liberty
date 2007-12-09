@@ -210,11 +210,16 @@ feature
 
 	pixbuf: GDK_PIXBUF is
 			-- The pixbuf at Current iter position, if any. Otherwise Void
-		local ptr: POINTER
+		local
+			pixbuf_ptr: POINTER
+			retriever: G_RETRIEVER [GDK_PIXBUF]
 		do
-			ptr := gtk_text_iter_get_pixbuf (handle)
-			if ptr.is_not_null then
-				create Result.from_external_pointer (ptr)
+			pixbuf_ptr := gtk_text_iter_get_pixbuf (handle)
+			Result := retriever.eiffel_wrapper_from_gobject_pointer (pixbuf_ptr)
+			if Result = Void then
+					-- We use from_external_pointer here because we *need* to
+					-- increase the pixbuf's refcount
+				create Result.from_external_pointer (pixbuf_ptr)
 			end
 		end
 

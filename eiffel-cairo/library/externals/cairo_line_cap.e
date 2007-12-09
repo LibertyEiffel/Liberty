@@ -34,21 +34,21 @@ feature  -- enum
 	
 	cairo_line_cap_butt: INTEGER is
 			-- start(stop) the line exactly at the start(end) point
-		external "C macro use <pango.h>"
+		external "C macro use <cairo.h>"
 		alias "CAIRO_LINE_CAP_BUTT"
 		end
 
 	cairo_line_cap_round: INTEGER is
 			-- use a round ending, the center of the circle is the end
 			-- point
-		external "C macro use <pango.h>"
+		external "C macro use <cairo.h>"
 		alias "CAIRO_LINE_CAP_ROUND"
 		end
 
 	cairo_line_cap_square: INTEGER is
 			-- use squared ending, the center of the square is the end
 			-- point)
-		external "C macro use <pango.h>"
+		external "C macro use <cairo.h>"
 		alias "CAIRO_LINE_CAP_SQUARE"
 		end
 

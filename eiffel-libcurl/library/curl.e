@@ -97,10 +97,10 @@ feature {} -- Creation
 				error_code := curl_easy_setopt_pointer (handle, curl_option_read_data, read_callback_closure)
 			end
 			if is_valid then
-				error_code := curl_easy_setopt_pointer (handle, curl_option_progress_function, c_progress_callback)
+				error_code := curl_easy_setopt_pointer (handle, curl_option_progress_function, $progress_callback)
 			end
 			if is_valid then
-				error_code := curl_easy_setopt_pointer (handle, curl_option_progress_data, progress_callback_closure)
+				error_code := curl_easy_setopt_pointer (handle, curl_option_progress_data, to_pointer)
 			end
 		ensure
 			memory_allocated: handle.is_not_null
@@ -127,7 +127,7 @@ feature -- Representation
 
 	error_code: INTEGER
 
-	last_integer64: INTEGER_64
+	last_integer: INTEGER
 	last_real64: REAL_64
 	last_string: STRING
 	last_curl_list: CURL_LIST
@@ -186,13 +186,13 @@ feature {} -- Representation
 	--                                      double dlnow,
 	--                                      double ultotal,
 	--                                      double ulnow);
-	progress_function:  FUNCTION [ANY, TUPLE [POINTER, REAL, REAL, REAL, REAL], INTEGER]
+	progress_function: FUNCTION [ANY, TUPLE [REAL, REAL, REAL, REAL], INTEGER]
 
-	progress_callback (ptr: POINTER; dltotal, dlnow, ultotal, ulnow: REAL): INTEGER is
-		require
-			progress_function /= Void
+	progress_callback (dltotal, dlnow, ultotal, ulnow: REAL): INTEGER is
 		do
-			Result := progress_function.item ([ptr, dltotal, dlnow, ultotal, ulnow])
+			if progress_function /= Void then
+				Result := progress_function.item ([dltotal, dlnow, ultotal, ulnow])
+			end
 		end
 
 feature -- Operations
@@ -219,7 +219,7 @@ feature -- Operations
 			is_valid
 		end
 
-	set_progress_callback (a_function: FUNCTION [ANY, TUPLE [POINTER, REAL, REAL, REAL, REAL], INTEGER]) is
+	set_progress_callback (a_function: FUNCTION [ANY, TUPLE [REAL, REAL, REAL, REAL], INTEGER]) is
 		require
 			a_function /= Void
 		do
@@ -270,16 +270,16 @@ feature -- set_option_xxx (option: INTEGER; x: XXX)
 		-- because the library is too old to support it or the option was removed
 		-- in a recent version, this function will return CURLE_FAILED_INIT.
 
-	set_option_verbose (i: INTEGER_64) is
+	set_option_verbose (i: INTEGER) is
 		do
-			error_code := curl_easy_setopt_integer64 (handle, curl_option_verbose, i)
+			error_code := curl_easy_setopt_integer (handle, curl_option_verbose, i)
 		ensure
 			is_valid
 		end
 
-	set_option_post (i: INTEGER_64) is
+	set_option_post (i: INTEGER) is
 		do
-			error_code := curl_easy_setopt_integer64 (handle, curl_option_post, i)
+			error_code := curl_easy_setopt_integer (handle, curl_option_post, i)
 		ensure
 			is_valid
 		end
@@ -293,11 +293,13 @@ feature -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid
 		end
 
-	set_option_integer64 (option: INTEGER; i: INTEGER_64) is
+	set_option_integer (option: INTEGER; i: INTEGER) is
 		require
 			is_valid_curl_option (option)
 		do
-			error_code := curl_easy_setopt_integer64 (handle, option, i)
+			error_code := curl_easy_setopt_integer (handle, option, i)
+		ensure
+			is_valid
 		end
 
 	set_option_string (option: INTEGER; str: STRING) is
@@ -306,6 +308,8 @@ feature -- set_option_xxx (option: INTEGER; x: XXX)
 			str /= Void
 		do
 			error_code := curl_easy_setopt_pointer (handle, option, str.to_external)
+		ensure
+			is_valid
 		end
 
 	set_option_input_stream (option: INTEGER; stream: INPUT_STREAM) is
@@ -316,6 +320,8 @@ feature -- set_option_xxx (option: INTEGER; x: XXX)
 			stream.has_stream_pointer
 		do
 			error_code := curl_easy_setopt_pointer (handle, option, stream.stream_pointer)
+		ensure
+			is_valid
 		end
 
 	set_option_output_stream (option: INTEGER; stream: OUTPUT_STREAM) is
@@ -326,6 +332,8 @@ feature -- set_option_xxx (option: INTEGER; x: XXX)
 			stream.has_stream_pointer
 		do
 			error_code := curl_easy_setopt_pointer (handle, option, stream.stream_pointer)
+		ensure
+			is_valid
 		end
 
 	set_option_curl_list (option: INTEGER; list: CURL_LIST) is
@@ -334,6 +342,8 @@ feature -- set_option_xxx (option: INTEGER; x: XXX)
 			list /= Void
 		do
 			error_code := curl_easy_setopt_pointer (handle, option, list.handle)
+		ensure
+			is_valid
 		end
 
 	set_option_null (option: INTEGER) is
@@ -341,6 +351,31 @@ feature -- set_option_xxx (option: INTEGER; x: XXX)
 			is_valid_curl_option (option)
 		do
 			error_code := curl_easy_setopt_pointer (handle, option, default_pointer)
+		ensure
+			is_valid
+		end
+
+	set_option_cookies (cookies: DICTIONARY[STRING, STRING]) is
+			-- The cookies passed in will be used to set a cookie in the http request.
+			-- Using this option multiple times will only make the latest cookies override the
+			-- previous ones.
+		require
+			cookies /= Void
+		local
+			cookie_str: STRING
+			cookie_iter: ITERATOR[STRING]
+			separator: STRING
+		do
+			from
+				cookie_iter := cookies.get_new_iterator_on_keys
+			until
+				cookie_iter.is_off
+			loop
+				cookie_iter.next
+			end
+			set_option_string (curl_option_cookie, cookie_str)
+		ensure
+			is_valid
 		end
 
 feature -- get_info_XXX (info: INTEGER): XXX
@@ -359,11 +394,11 @@ feature -- get_info_XXX (info: INTEGER): XXX
 		-- RETURN VALUE: If the operation was successful, CURLE_OK is returned.
 		-- Otherwise an appropriate error code will be returned.
 
-	get_info_integer64 (info: INTEGER) is
+	get_info_integer (info: INTEGER) is
 		require
 			is_valid_curl_info (info)
 		do
-			error_code := curl_easy_getinfo_pointer (handle, info, $last_integer64)
+			error_code := curl_easy_getinfo_pointer (handle, info, $last_integer)
 		end
 
 	get_info_real64 (info: INTEGER) is

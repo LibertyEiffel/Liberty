@@ -50,6 +50,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_layout_new(null_or(an_h_adjustment),null_or(a_v_adjustment)))
 		end
 
+feature -- Operations
 
 	put (a_child: GTK_WIDGET; an_x, an_y: INTEGER) is
 			-- Adds `a_child' to layout, at position (`an_x',`an_y').
@@ -75,6 +76,8 @@ feature {} -- Creation
 		do
 			gtk_layout_set_size(handle,a_width,an_height)
 		end
+
+feature -- Access
 
 	width: INTEGER is
 			-- the width set on layout

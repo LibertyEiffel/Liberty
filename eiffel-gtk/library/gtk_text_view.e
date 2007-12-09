@@ -490,7 +490,8 @@ feature -- Iterator moving command
 		end
 
 feature -- Iterator queries
-	does_start_display_line (an_iter: GTK_TREE_ITER): BOOLEAN is
+
+	does_start_display_line (an_iter: GTK_TEXT_ITER): BOOLEAN is
 			-- Does `an_iter' begin a display (wrapped) line? See
 			-- `forward_display_line' for an explanation of display lines
 			-- vs. paragraphs.
@@ -836,21 +837,19 @@ feature -- Pixels above and below lines
 
 	-- 	-----------------------------------------------------------------------
 
-	--   gtk_text_view_get_default_attributes ()
-
-	--  GtkTextAttributes* gtk_text_view_get_default_attributes
-	-- 															(GtkTextView *text_view);
-
-	-- 	Obtains a copy of the default text attributes. These are the attributes
-	-- 	used for text unless a tag overrides them. You'd typically pass the
-	-- 	default attributes in to gtk_text_iter_get_attributes() in order to get
-	-- 	the attributes in effect at a given text position.
-
-	-- 	The return value is a copy owned by the caller of this function, and
-	-- 	should be freed.
-
-	-- 	text_view : a GtkTextView
-	-- 	Returns :   a new GtkTextAttributes
+	default_attributes: GTK_TEXT_ATTRIBUTES is
+			-- 	Obtains a copy of the default text attributes. These are the attributes
+			-- 	used for text unless a tag overrides them. You'd typically pass the
+			-- 	default attributes in to TEXT_ITER:attributes() in order to get
+			-- 	the attributes in effect at a given text position.
+			--
+			-- 	The return value is a copy owned by the caller of this function, and
+			-- 	should be freed.
+			-- 	text_view : a GtkTextView
+			-- 	Returns :   a new GtkTextAttributes
+		do
+			create Result.from_external_pointer (gtk_text_view_get_default_attributes (handle))
+		end
 
 	-- 	-----------------------------------------------------------------------
 

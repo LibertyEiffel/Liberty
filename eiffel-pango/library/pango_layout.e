@@ -89,6 +89,19 @@ feature -- Access
 			Result := [a_width, a_height]
 		end
 
+	pixel_size: TUPLE [INTEGER, INTEGER] is
+			-- Determines the logical width and height of a PANGO_LAYOUT in
+			-- device units. ('size' returns the width and height scaled by
+			-- 'pango_scale'.)   This is simply a convenience function around
+			-- 'pixel_extents'.
+		local
+			a_width, a_height: INTEGER
+		do
+			--pango_layout_get_pixel_size (handle, $a_width, $a_height)
+			Result := [a_width, a_height]
+		end
+
+
 	wrap: INTEGER is
 			-- Gets the wrap mode for the layout.
 		do
@@ -142,6 +155,25 @@ feature -- Access
 			if fd_ptr.is_not_null then
 				create Result.from_external_shared (fd_ptr)
 			end
+		end
+
+	count: INTEGER is
+			-- Retrieves the count of lines for the layout.
+		do
+			Result := pango_layout_get_line_count (handle)
+		end
+
+	line (an_index: INTEGER): PANGO_LAYOUT_LINE is
+			-- Retrieves a particular line from a PangoLayout.
+			--
+			-- Use the faster line_readonly() if you do not plan to modify the contents of the
+			-- line (glyphs, glyph widths, etc.).
+		require
+			an_index.in_range (0, count - 1)
+		do
+			create Result.from_external_pointer (pango_layout_get_line (handle, an_index))
+		ensure
+			Result /= Void
 		end
 
 feature -- Operations

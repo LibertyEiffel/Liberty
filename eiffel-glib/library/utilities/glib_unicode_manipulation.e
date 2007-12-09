@@ -1,4 +1,32 @@
+indexing
+	description: "C string Utility Functions -- various C-string-related functions."
+	copyright: "[
+					Copyright (C) 2007 Paolo Redaelli, Anthony Lenton,
+					                   Soluciones Informaticas Libres S.A., GLib team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
 deferred class GLIB_UNICODE_MANIPULATION
+
+insert
+	ANY undefine is_equal, copy end
+
+feature {} -- Utility functions, inherit them if you need them
+
 --    Unicode Manipulation -- functions operating on Unicode characters and UTF-8
 --    strings.
 
@@ -1220,17 +1248,23 @@ deferred class GLIB_UNICODE_MANIPULATION
 
 --    ---------------------------------------------------------------------------------
 
---   g_unichar_to_utf8 ()
+	unichar_to_utf8 (a_gunichar: INTEGER): STRING is
+			-- Converts a single Unicode character to UTF-8.
+			-- a_gunichar :       a Unicode character code
+			-- Returns : the UTF-8 representation of a_unichar
+		local
+			size: INTEGER
+		do
+			create Result.make_filled ('x', 6)
+			size := g_unichar_to_utf8 (a_gunichar, Result.to_external)
+			Result.keep_head (size)
+		end
 
---  gint        g_unichar_to_utf8               (gunichar c,
---                                               gchar *outbuf);
+feature {} -- External calls
 
---    Converts a single character to UTF-8.
-
---    c :       a Unicode character code
---    outbuf :  output buffer, must have at least 6 bytes of space. If NULL, the length
---              will be computed and returned and nothing will be written to outbuf.
---    Returns : number of bytes written
+	g_unichar_to_utf8 (a_gunichar: INTEGER; an_outbuf: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
 
 -- See Also
 

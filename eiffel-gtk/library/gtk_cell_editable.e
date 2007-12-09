@@ -61,19 +61,41 @@ feature -- Editing
 		end
 
 
-feature -- The "editing-done" signal
-
-	-- void        user_function                  (GtkCellEditable *celleditable,
-	--                                             gpointer         user_data)         : Run last
-	
-	-- celleditable : 	the object which received the signal.
-	-- user_data : 	user data set when the signal handler was connected.
 	-- The "remove-widget" signal
 
 	-- void        user_function                  (GtkCellEditable *celleditable,
 	--                                             gpointer         user_data)         : Run last
 	
 	-- celleditable : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
-	
+	-- user_data : 	user data set when the signal handler was connected.
+
+feature -- "editing-done"
+
+	editing_done_signal_name: STRING is "editing-done"
+		-- "editing-done"
+		-- void        user_function                  (GtkCellEditable *celleditable,
+		--                                             gpointer         user_data)         : Run last
+
+	enable_on_editing_done is
+			-- Connects "editing-done" signal to `on_editing_done' feature.
+		do
+			connect (Current, editing_done_signal_name, $on_editing_done)
+		end
+
+	on_editing_done: INTEGER is
+		do
+		end
+
+	connect_agent_to_editing_done_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_EDITABLE]]) is
+			-- celleditable : 	the object which received the signal.
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			editing_done_callback: EDITING_DONE_CALLBACK
+		do
+			create editing_done_callback.make
+			editing_done_callback.connect (Current, a_procedure)
+		end
+
 end

@@ -53,6 +53,11 @@ feature -- Access
 			Result := av_rational_get_denominator (handle)
 		end
 
+	to_real: REAL is
+		do
+			Result := numerator / denominator
+		end
+
 feature -- Operations
 
 	set_numerator (a_num: INTEGER) is
@@ -63,6 +68,13 @@ feature -- Operations
 	set_denominator (a_den: INTEGER) is
 		do
 			av_rational_set_denominator (handle, a_den)
+		end
+
+feature -- Size
+
+	struct_size: INTEGER is
+		external "C inline use <rational.h>"
+		alias "sizeof(AVRational)"
 		end
 
 end -- class AV_RATIONAL

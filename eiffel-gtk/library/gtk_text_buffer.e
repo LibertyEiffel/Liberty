@@ -31,7 +31,7 @@ insert
 	G_SIGNALS
 
 creation dummy,
-	make, from_external_pointer
+	make, from_external_pointer, with_tag_table
 
 feature {} -- Creation
 
@@ -43,6 +43,13 @@ feature {} -- Creation
 			from_external_pointer (gtk_text_buffer_new(default_pointer))
 			-- TODO: Support GTK_TEXT_TAG_TABLEs.  For now, creating a
 			-- new one every time.
+		end
+
+	with_tag_table (a_tag_table: GTK_TEXT_TAG_TABLE) is
+		require
+			gtk_initialized: gtk.is_initialized
+		do
+			from_external_pointer (gtk_text_buffer_new(a_tag_table.handle))
 		end
 
 feature -- Operations
@@ -59,6 +66,7 @@ feature -- Operations
 		end
 
 feature -- Access
+
 	text (a_start, an_end: GTK_TEXT_ITER; include_hidden_chars: BOOLEAN): STRING is
 			-- the text in the range [`a_start',`an_end'). Excludes
 			-- undisplayed text (text marked with tags that set the
@@ -755,7 +763,8 @@ feature -- Access
 			-- `a_tag_name': name of the new tag, or Void
 		local
 			iterator: ITERATOR[TUPLE[STRING,G_VALUE]]
-			a_name: STRING; a_value: G_VALUE
+			a_name: STRING
+			a_value: G_VALUE
 		do
 			if a_tag_name /= Void then
 				create Result.with_name (a_tag_name)
@@ -765,7 +774,10 @@ feature -- Access
 			
 			tag_table.add (Result)
 			iterator := some_properties.get_new_iterator
-			from iterator.start until iterator.is_off
+			from
+				iterator.start
+			until
+				iterator.is_off
 			loop
 				a_name := iterator.item.item_1
 				a_value := iterator.item.item_2
@@ -1053,17 +1065,38 @@ feature  -- TODO: The "apply-tag" signal
 	-- arg3 : 	
 	-- user_data : 	user data set when the signal handler was connected.
 	
-feature  -- TODO: The "begin-user-action" signal
 
-	-- void        user_function                  (GtkTextBuffer *textbuffer,
-	--                                             gpointer       user_data)       : Run last
+feature -- The "begin-user-action" signal
 
-	-- textbuffer : 	the object which received the signal.
-	-- user_data : 	user data set when the signal handler was connected.
+	begin_user_action_signal_name: STRING is "begin-user-action"
+		-- void        user_function                  (GtkTextBuffer *textbuffer,
+		--                                             gpointer       user_data)       : Run last
+
+	enable_on_begin_user_action is
+			-- Connects "begin_user_action" signal to `on_begin_user_action' feature.
+		do
+			connect (Current, begin_user_action_signal_name, $on_begin_user_action)
+		end
+
+	on_begin_user_action is
+			-- Built-in begin_user_action signal handler; empty by design; redefine it.
+			-- Indicates that the user has begin_user_action the contents of the widget.
+		do
+		end
+
+	connect_agent_to_begin_user_action_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+			-- textbuffer : 	the object which received the signal.
+		require valid_procedure: a_procedure /= Void
+		local begin_user_action_callback: BEGIN_USER_ACTION_CALLBACK
+		do
+			create begin_user_action_callback.make
+			begin_user_action_callback.connect (Current, a_procedure)
+		end
 
 feature -- The "changed" signal
 
 	changed_signal_name: STRING is "changed"
+
 	enable_on_changed is
 			-- Connects "changed" signal to `on_changed' feature.
 		do
@@ -1073,7 +1106,7 @@ feature -- The "changed" signal
 	on_changed is
 			-- Built-in changed signal handler; empty by design; redefine it.
 			-- Indicates that the user has changed the contents of the widget.
-		do 
+		do
 		end
 
 	connect_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
@@ -1095,15 +1128,34 @@ feature -- TODO: The "delete-range" signal
 	-- arg1 : 	
 	-- arg2 : 	
 	-- user_data : 	user data set when the signal handler was connected.
-	
-feature 	-- TODO: The "end-user-action" signal
 
-	-- void        user_function                  (GtkTextBuffer *textbuffer,
-	--                                             gpointer       user_data)       : Run last
+feature -- The "end-user-action" signal
 
-	-- textbuffer : 	the object which received the signal.
-	-- user_data : 	user data set when the signal handler was connected.
-	
+	end_user_action_signal_name: STRING is "end-user-action"
+		-- void        user_function                  (GtkTextBuffer *textbuffer,
+		--                                             gpointer       user_data)       : Run last
+
+	enable_on_end_user_action is
+			-- Connects "end_user_action" signal to `on_end_user_action' feature.
+		do
+			connect (Current, end_user_action_signal_name, $on_end_user_action)
+		end
+
+	on_end_user_action is
+			-- Built-in end_user_action signal handler; empty by design; redefine it.
+			-- Indicates that the user has end_user_action the contents of the widget.
+		do
+		end
+
+	connect_agent_to_end_user_action_signal (a_procedure: PROCEDURE [ANY, TUPLE[like Current]]) is
+			-- textbuffer : 	the object which received the signal.
+		require valid_procedure: a_procedure /= Void
+		local end_user_action_callback: END_USER_ACTION_CALLBACK
+		do
+			create end_user_action_callback.make
+			end_user_action_callback.connect (Current, a_procedure)
+		end
+
 feature -- TODO: The "insert-child-anchor" signal
 
 	-- void        user_function                  (GtkTextBuffer      *textbuffer,

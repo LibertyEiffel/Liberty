@@ -114,9 +114,12 @@ feature
 			-- a GList of all the cell renderers in the column, in no
 			-- particular order.
 		do
-			-- Returns a newly-allocated GList of all the cell renderers in the column, in no particular order. The list must be freed with g_list_free().
+			-- Returns a newly-allocated GList of all the cell renderers
+			-- in the column, in no particular order. The list must be
+			-- freed with g_list_free().
 			create Result.from_external (gtk_tree_view_column_get_cell_renderers (handle), cell_renderer_factory)
-		ensure Result/=Void
+		ensure
+			Result/=Void
 		end
 
 	add_attribute (a_cell_renderer: GTK_CELL_RENDERER; an_attribute: STRING; a_column: INTEGER) is

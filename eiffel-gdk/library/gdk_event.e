@@ -115,16 +115,27 @@ feature
 
 	is_event_button: BOOLEAN is
 		do
-			Result := ((event_type = gdk_event_button_press) or else
-						  (event_type = gdk_event_2button_press) or else
-						  (event_type = gdk_event_3button_press) or else
-						  (event_type = gdk_event_button_release))
+			Result := (event_type = gdk_event_button_press) or else
+			          (event_type = gdk_event_2button_press) or else
+			          (event_type = gdk_event_3button_press) or else
+			          (event_type = gdk_event_button_release)
 		end
 
 	is_event_key: BOOLEAN is
 		do
-			Result := ((event_type = gdk_event_key_press) or else
-						  (event_type = gdk_event_key_release))
+			Result := (event_type = gdk_event_key_press) or else
+			          (event_type = gdk_event_key_release)
+		end
+
+	is_event_focus: BOOLEAN is
+		do
+			Result := (event_type = gdk_event_focus_change)
+		end
+
+	is_event_crossing: BOOLEAN is
+		do
+			Result := (event_type = gdk_event_enter_notify) or else
+			          (event_type = gdk_event_leave_notify)
 		end
 
 feature -- Convertion to different event types
@@ -154,6 +165,29 @@ feature -- Convertion to different event types
 			create Result.from_external_pointer(handle)
 		end
 
+	event_focus: GDK_EVENT_FOCUS is
+		require
+			is_event_focus
+		do
+			if wrappers.has (handle) then
+				Result ::= wrappers.at(handle)
+			else
+				create Result.from_event (Current)
+			end
+		end
+
+	event_crossing: GDK_EVENT_CROSSING is
+		require
+			is_event_crossing
+		do
+			if wrappers.has (handle) then
+				Result ::= wrappers.at(handle)
+			else
+				create Result.from_event (Current)
+			end
+		end
+
 invariant
 	is_shared
-end
+
+end -- class GDK_EVENT

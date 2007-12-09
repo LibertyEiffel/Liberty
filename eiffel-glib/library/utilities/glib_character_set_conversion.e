@@ -1,200 +1,123 @@
+indexing
+	description: "C string Utility Functions -- various C-string-related functions."
+	copyright: "[
+					Copyright (C) 2007 Anthony Lenton, Soluciones Informaticas Libres S.A.,
+					                   GLib team
+					
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public License
+					as published by the Free Software Foundation; either version 2.1 of
+					the License, or (at your option) any later version.
+					
+					This library is distributed in the hopeOA that it will be useful, but
+					WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+
+					You should have received a copy of the GNU Lesser General Public
+					License along with this library; if not, write to the Free Software
+					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+					02110-1301 USA
+			]"
+
 deferred class GLIB_CHARACTER_SET_CONVERSION
-	
---    Character Set Conversion
 
---    Character Set Conversion -- convert strings between different character sets
---    using iconv().
+feature
 
--- Synopsis
+	convert (a_string, to_codeset, from_codeset: STRING): STRING is
+			--    Converts a string from one character set to another.
+			--    Note that you should use iconv() for streaming conversions.
+			--    a_strint :      the string to convert
+			--    to_codeset :    name of character set into which to convert str
+			--    from_codeset :  character set of str.
+			--    Returns :       If the conversion was successful, a newly allocated
+			--                    string.  Otherwise Result is Void.
+		local
+			res_ptr: POINTER
+			bytes_read, bytes_written: INTEGER
+		do
+			res_ptr := g_convert (a_string.to_external, a_string.count, to_codeset.to_external,
+			                      from_codeset.to_external, $bytes_read, $bytes_written, default_pointer)
+			if res_ptr.is_not_null then
+				create Result.from_external (res_ptr)
+			end
+		end
 
+	locale_to_utf8 (a_string: STRING): STRING is
+			--    Converts a string which is in the encoding used for strings by the C runtime
+			--    (usually the same as that used by the operating system) in the current locale
+			--    into a UTF-8 string.
+			--    a_string    :   a string in the encoding of the current locale. On Windows this
+			--                    means the system codepage.
+			--    Returns :       The converted string, or Void on an error.
+		local
+			res_ptr: POINTER
+			bytes_read, bytes_written: INTEGER
+		do
+			res_ptr := g_locale_to_utf8 (a_string.to_external, a_string.count, $bytes_read, $bytes_written, default_pointer)
+			if res_ptr.is_not_null then
+				create Result.from_external (res_ptr)
+			end
+		end
 
---  #include <glib.h>
+	filename_from_utf8 (an_utf8_string: STRING): STRING is
+			--    Converts a string from UTF-8 to the encoding GLib uses for filenames. Note that
+			--    on Windows GLib uses UTF-8 for filenames.
+			--    an_utf8string :    a UTF-8 encoded string.
+			--    Returns :       The converted string, or Void on an error.
+		local
+			res_ptr: POINTER
+			bytes_read, bytes_written: INTEGER
+		do
+			res_ptr := g_filename_from_utf8 (an_utf8_string.to_external, an_utf8_string.count, $bytes_read, $bytes_written, default_pointer)
+			if res_ptr.is_not_null then
+				create Result.from_external (res_ptr)
+			end
+		end
 
+	locale_from_utf8 (a_string: STRING): STRING is
+			--    Converts a string from UTF-8 to the encoding used for strings by the C runtime
+			--    (usually the same as that used by the operating system) in the current locale.
+			--    a_string :      a UTF-8 encoded string
+			--    Returns :       The converted string, or Void on an error.
+		local
+			res_ptr: POINTER
+			bytes_read, bytes_written: INTEGER
+		do
+			res_ptr := g_locale_from_utf8 (a_string.to_external, a_string.count, $bytes_read, $bytes_written, default_pointer)
+			if res_ptr.is_not_null then
+				create Result.from_external (res_ptr)
+			end
+		end
+		
+feature {} -- External calls
 
---  gchar*      g_convert                       (const gchar *str,
---                                               gssize len,
---                                               const gchar *to_codeset,
---                                               const gchar *from_codeset,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
---  gchar*      g_convert_with_fallback         (const gchar *str,
---                                               gssize len,
---                                               const gchar *to_codeset,
---                                               const gchar *from_codeset,
---                                               gchar *fallback,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
---              GIConv;
---  gchar*      g_convert_with_iconv            (const gchar *str,
---                                               gssize len,
---                                               GIConv converter,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
---  #define     G_CONVERT_ERROR
---  GIConv      g_iconv_open                    (const gchar *to_codeset,
---                                               const gchar *from_codeset);
---  size_t      g_iconv                         (GIConv converter,
---                                               gchar **inbuf,
---                                               gsize *inbytes_left,
---                                               gchar **outbuf,
---                                               gsize *outbytes_left);
---  gint        g_iconv_close                   (GIConv converter);
---  gchar*      g_locale_to_utf8                (const gchar *opsysstring,
---                                               gssize len,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
---  gchar*      g_filename_to_utf8              (const gchar *opsysstring,
---                                               gssize len,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
---  gchar*      g_filename_from_utf8            (const gchar *utf8string,
---                                               gssize len,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
---  gchar*      g_filename_from_uri             (const gchar *uri,
---                                               gchar **hostname,
---                                               GError **error);
---  gchar*      g_filename_to_uri               (const gchar *filename,
---                                               const gchar *hostname,
---                                               GError **error);
---  gboolean    g_get_filename_charsets         (G_CONST_RETURN gchar ***charsets);
---  gchar*      g_filename_display_name         (const gchar *filename);
---  gchar*      g_filename_display_basename     (const gchar *filename);
---  gchar**     g_uri_list_extract_uris         (const gchar *uri_list);
---  gchar*      g_locale_from_utf8              (const gchar *utf8string,
---                                               gssize len,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
---  enum        GConvertError;
-
---  gboolean    g_get_charset                   (G_CONST_RETURN char **charset);
-
-
--- Description
-
---   File Name Encodings
-
---    Historically, Unix has not had a defined encoding for file names: a file name is
---    valid as long as it does not have path separators in it ("/"). However,
---    displaying file names may require conversion: from the character set in which
---    they were created, to the character set in which the application operates.
---    Consider the Spanish file name "Presentacion.sxi". If the application which
---    created it uses ISO-8859-1 for its encoding, then the actual file name on disk
---    would look like this:
-
---  Character:  P  r  e  s  e  n  t  a  c  i  o  n  .  s  x  i
---  Hex code:   50 72 65 73 65 6e 74 61 63 69 f3 6e 2e 73 78 69
-
-
---    However, if the application use UTF-8, the actual file name on disk would look
---    like this:
-
---  Character:  P  r  e  s  e  n  t  a  c  i  o     n  .  s  x  i
---  Hex code:   50 72 65 73 65 6e 74 61 63 69 c3 b3 6e 2e 73 78 69
-
-
---    Glib uses UTF-8 for its strings, and GUI toolkits like GTK+ that use Glib do the
---    same thing. If you get a file name from the file system, for example, from
---    readdir(3) or from g_dir_read_name(), and you wish to display the file name to
---    the user, you will need to convert it into UTF-8. The opposite case is when the
---    user types the name of a file he wishes to save: the toolkit will give you that
---    string in UTF-8 encoding, and you will need to convert it to the character set
---    used for file names before you can create the file with open(2) or fopen(3).
-
---    By default, Glib assumes that file names on disk are in UTF-8 encoding. This is a
---    valid assumption for file systems which were created relatively recently: most
---    applications use UTF-8 encoding for their strings, and that is also what they use
---    for the file names they create. However, older file systems may still contain
---    file names created in "older" encodings, such as ISO-8859-1. In this case, for
---    compatibility reasons, you may want to instruct Glib to use that particular
---    encoding for file names rather than UTF-8. You can do this by specifying the
---    encoding for file names in the G_FILENAME_ENCODING environment variable. For
---    example, if your installation uses ISO-8859-1 for file names, you can put this in
---    your ~/.profile:
-
---  export G_FILENAME_ENCODING=ISO-8859-1
-
-
---    Glib provides the functions g_filename_to_utf8() and g_filename_from_utf8() to
---    perform the necessary conversions. These functions convert file names from the
---    encoding specified in G_FILENAME_ENCODING to UTF-8 and vice-versa. Figure 1,
---    "Conversion between File Name Encodings" illustrates how these functions are used
---    to convert between UTF-8 and the encoding for file names in the file system.
-
---    Figure 1. Conversion between File Name Encodings
-
---    Conversion between File Name Encodings
-
---     Checklist for Application Writers
-
---    This section is a practical summary of the detailed description above. You can
---    use this as a checklist of things to do to make sure your applications process
---    file name encodings correctly.
-
---     1. If you get a file name from the file system from a function such as
---        readdir(3) or gtk_file_chooser_get_filename(), you do not need to do any
---        conversion to pass that file name to functions like open(2), rename(2), or
---        fopen(3) -- those are "raw" file names which the file system understands.
-
---     2. If you need to display a file name, convert it to UTF-8 first by using
---        g_filename_to_utf8(). If conversion fails, display a string like "Unknown
---        file name". Do not convert this string back into the encoding used for file
---        names if you wish to pass it to the file system; use the original file name
---        instead. For example, the document window of a word processor could display
---        "Unknown file name" in its title bar but still let the user save the file, as
---        it would keep the raw file name internally. This can happen if the user has
---        not set the G_FILENAME_ENCODING environment variable even though he has files
---        whose names are not encoded in UTF-8.
-
---     3. If your user interface lets the user type a file name for saving or renaming,
---        convert it to the encoding used for file names in the file system by using
---        g_filename_from_utf8(). Pass the converted file name to functions like
---        fopen(3). If conversion fails, ask the user to enter a different file name.
---        This can happen if the user types Japanese characters when
---        G_FILENAME_ENCODING is set to ISO-8859-1, for example.
-
--- Details
-
---   g_convert ()
-
---  gchar*      g_convert                       (const gchar *str,
---                                               gssize len,
---                                               const gchar *to_codeset,
---                                               const gchar *from_codeset,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
-
---    Converts a string from one character set to another.
-
---    Note that you should use g_iconv() for streaming conversions^[2].
-
---    str :           the string to convert
---    len :           the length of the string, or -1 if the string is
---                    nul-terminated^[1].
---    to_codeset :    name of character set into which to convert str
---    from_codeset :  character set of str.
---    bytes_read :    location to store the number of bytes in the input string that
---                    were successfully converted, or NULL. Even if the conversion was
---                    successful, this may be less than len if there were partial
---                    characters at the end of the input. If the error
---                    G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value stored will
---                    the byte offset after the last valid input sequence.
---    bytes_written : the number of bytes stored in the output buffer (not including
---                    the terminating nul).
---    error :         location to store the error occuring, or NULL to ignore errors.
---                    Any of the errors in GConvertError may occur.
---    Returns :       If the conversion was successful, a newly allocated
---                    nul-terminated string, which must be freed with g_free().
---                    Otherwise NULL and error will be set.
-
+	g_convert (a_str: POINTER; a_len: INTEGER; to_codeset, from_codeset, bytes_read, bytes_written, error: POINTER): POINTER is
+			--    Converts a string from one character set to another.
+			--    Note that you should use g_iconv() for streaming conversions^[2].
+			--    str :           the string to convert
+			--    len :           the length of the string, or -1 if the string is
+			--                    nul-terminated.  Note that some encodings may
+			--                    allow nul bytes to occur inside strings. In that
+			--                    case, using -1 for the len parameter is unsafe.
+			--    to_codeset :    name of character set into which to convert str
+			--    from_codeset :  character set of str.
+			--    bytes_read :    location to store the number of bytes in the input string that
+			--                    were successfully converted, or NULL. Even if the conversion was
+			--                    successful, this may be less than len if there were partial
+			--                    characters at the end of the input. If the error
+			--                    G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value stored will
+			--                    the byte offset after the last valid input sequence.
+			--    bytes_written : the number of bytes stored in the output buffer (not including
+			--                    the terminating nul).
+			--    error :         location to store the error occuring, or NULL to ignore errors.
+			--                    Any of the errors in GConvertError may occur.
+			--    Returns :       If the conversion was successful, a newly allocated
+			--                    nul-terminated string, which must be freed with g_free().
+			--                    Otherwise NULL and error will be set.
+		external "C use <glib.h>"
+		end
+		
 --    ---------------------------------------------------------------------------------
 
 --   g_convert_with_fallback ()
@@ -349,33 +272,28 @@ deferred class GLIB_CHARACTER_SET_CONVERSION
 
 --    ---------------------------------------------------------------------------------
 
---   g_locale_to_utf8 ()
+	g_locale_to_utf8 (opsysstring: POINTER; opsysstring_len: INTEGER; bytes_read, bytes_written, error: POINTER): POINTER is
+			--    Converts a string which is in the encoding used for strings by the C runtime
+			--    (usually the same as that used by the operating system) in the current locale
+			--    into a UTF-8 string.
 
---  gchar*      g_locale_to_utf8                (const gchar *opsysstring,
---                                               gssize len,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
-
---    Converts a string which is in the encoding used for strings by the C runtime
---    (usually the same as that used by the operating system) in the current locale
---    into a UTF-8 string.
-
---    opsysstring :   a string in the encoding of the current locale. On Windows this
---                    means the system codepage.
---    len :           the length of the string, or -1 if the string is
---                    nul-terminated^[1].
---    bytes_read :    location to store the number of bytes in the input string that
---                    were successfully converted, or NULL. Even if the conversion was
---                    successful, this may be less than len if there were partial
---                    characters at the end of the input. If the error
---                    G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value stored will
---                    the byte offset after the last valid input sequence.
---    bytes_written : the number of bytes stored in the output buffer (not including
---                    the terminating nul).
---    error :         location to store the error occuring, or NULL to ignore errors.
---                    Any of the errors in GConvertError may occur.
---    Returns :       The converted string, or NULL on an error.
+			--    opsysstring :   a string in the encoding of the current locale. On Windows this
+			--                    means the system codepage.
+			--    opsysstring_len :  the length of the string, or -1 if the string is
+			--                       nul-terminated^[1].
+			--    bytes_read :    location to store the number of bytes in the input string that
+			--                    were successfully converted, or NULL. Even if the conversion was
+			--                    successful, this may be less than len if there were partial
+			--                    characters at the end of the input. If the error
+			--                    G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value stored will
+			--                    the byte offset after the last valid input sequence.
+			--    bytes_written : the number of bytes stored in the output buffer (not including
+			--                    the terminating nul).
+			--    error :         location to store the error occuring, or NULL to ignore errors.
+			--                    Any of the errors in GConvertError may occur.
+			--    Returns :       The converted string, or NULL on an error.
+		external "C use <glib.h>"
+		end
 
 --    ---------------------------------------------------------------------------------
 
@@ -407,30 +325,25 @@ deferred class GLIB_CHARACTER_SET_CONVERSION
 
 --    ---------------------------------------------------------------------------------
 
---   g_filename_from_utf8 ()
-
---  gchar*      g_filename_from_utf8            (const gchar *utf8string,
---                                               gssize len,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
-
---    Converts a string from UTF-8 to the encoding GLib uses for filenames. Note that
---    on Windows GLib uses UTF-8 for filenames.
-
---    utf8string :    a UTF-8 encoded string.
---    len :           the length of the string, or -1 if the string is nul-terminated.
---    bytes_read :    location to store the number of bytes in the input string that
---                    were successfully converted, or NULL. Even if the conversion was
---                    successful, this may be less than len if there were partial
---                    characters at the end of the input. If the error
---                    G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value stored will
---                    the byte offset after the last valid input sequence.
---    bytes_written : the number of bytes stored in the output buffer (not including
---                    the terminating nul).
---    error :         location to store the error occuring, or NULL to ignore errors.
---                    Any of the errors in GConvertError may occur.
---    Returns :       The converted string, or NULL on an error.
+	g_filename_from_utf8 (an_utf8_string: POINTER; a_len: INTEGER;
+	                      a_bytes_read, a_bytes_written, an_error: POINTER): POINTER is
+			--    Converts a string from UTF-8 to the encoding GLib uses for filenames. Note that
+			--    on Windows GLib uses UTF-8 for filenames.
+			--    utf8string :    a UTF-8 encoded string.
+			--    len :           the length of the string, or -1 if the string is nul-terminated.
+			--    bytes_read :    location to store the number of bytes in the input string that
+			--                    were successfully converted, or NULL. Even if the conversion was
+			--                    successful, this may be less than len if there were partial
+			--                    characters at the end of the input. If the error
+			--                    G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value stored will
+			--                    the byte offset after the last valid input sequence.
+			--    bytes_written : the number of bytes stored in the output buffer (not including
+			--                    the terminating nul).
+			--    error :         location to store the error occuring, or NULL to ignore errors.
+			--                    Any of the errors in GConvertError may occur.
+			--    Returns :       The converted string, or NULL on an error.
+		external "C use <glib.h>"
+		end
 
 --    ---------------------------------------------------------------------------------
 
@@ -578,31 +491,25 @@ deferred class GLIB_CHARACTER_SET_CONVERSION
 
 --    ---------------------------------------------------------------------------------
 
---   g_locale_from_utf8 ()
-
---  gchar*      g_locale_from_utf8              (const gchar *utf8string,
---                                               gssize len,
---                                               gsize *bytes_read,
---                                               gsize *bytes_written,
---                                               GError **error);
-
---    Converts a string from UTF-8 to the encoding used for strings by the C runtime
---    (usually the same as that used by the operating system) in the current locale.
-
---    utf8string :    a UTF-8 encoded string
---    len :           the length of the string, or -1 if the string is
---                    nul-terminated^[1].
---    bytes_read :    location to store the number of bytes in the input string that
---                    were successfully converted, or NULL. Even if the conversion was
---                    successful, this may be less than len if there were partial
---                    characters at the end of the input. If the error
---                    G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value stored will
---                    the byte offset after the last valid input sequence.
---    bytes_written : the number of bytes stored in the output buffer (not including
---                    the terminating nul).
---    error :         location to store the error occuring, or NULL to ignore errors.
---                    Any of the errors in GConvertError may occur.
---    Returns :       The converted string, or NULL on an error.
+	g_locale_from_utf8 (a_string: POINTER; a_string_length: INTEGER; bytes_read, bytes_written, error: POINTER): POINTER is
+			--    Converts a string from UTF-8 to the encoding used for strings by the C runtime
+			--    (usually the same as that used by the operating system) in the current locale.
+			--    utf8string :    a UTF-8 encoded string
+			--    len :           the length of the string, or -1 if the string is
+			--                    nul-terminated^[1].
+			--    bytes_read :    location to store the number of bytes in the input string that
+			--                    were successfully converted, or NULL. Even if the conversion was
+			--                    successful, this may be less than len if there were partial
+			--                    characters at the end of the input. If the error
+			--                    G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value stored will
+			--                    the byte offset after the last valid input sequence.
+			--    bytes_written : the number of bytes stored in the output buffer (not including
+			--                    the terminating nul).
+			--    error :         location to store the error occuring, or NULL to ignore errors.
+			--                    Any of the errors in GConvertError may occur.
+			--    Returns :       The converted string, or NULL on an error.
+		external "C use <glib.h>"
+		end
 
 --    ---------------------------------------------------------------------------------
 

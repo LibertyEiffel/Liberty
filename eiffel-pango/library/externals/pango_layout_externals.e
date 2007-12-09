@@ -103,4 +103,12 @@ feature {} -- External calls
 		external "C use <pango/pango-layout.h>"
 		end
 
+	pango_layout_get_line_count (a_layout: POINTER): INTEGER is
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_get_line (a_layout: POINTER; a_index: INTEGER): POINTER is
+		external "C use <pango/pango-layout.h>"
+		end
+
 end -- class PANGO_LAYOUT_EXTERNALS

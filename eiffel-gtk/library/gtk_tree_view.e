@@ -331,7 +331,7 @@ feature
 			-- are specified in tree window coordinates. The tree_view
 			-- must be realized before this function is called. If it
 			-- isn't, you probably want to be using `scroll_to_cell'.
-		
+			
 			-- If either `an_x' or `an_y' are -1, then that direction isn't scrolled.
 		do
 			gtk_tree_view_scroll_to_point(handle, an_x, an_y)
@@ -367,12 +367,18 @@ feature
 			-- `use_align' : 	whether to use alignment arguments, or FALSE.
 			-- `row_align' : 	The vertical alignment of the row specified by path.
 			-- `col_align' : 	The horizontal alignment of the column specified by column.
-		require either_column_or_path_not_void: a_column/=Void or a_path/=Void
+		require
+			either_column_or_path_not_void: a_column/=Void or a_path/=Void
 			valid_row_align: row_align.in_range ({REAL_32 0.0}, {REAL_32 1.0})
 			valid_col_align: col_align.in_range ({REAL_32 0.0}, {REAL_32 1.0})
+		local
+			column_ptr, path_ptr: POINTER
 		do
-			gtk_tree_view_scroll_to_cell(handle, null_or(a_path), null_or(a_column),
-												  use_align.to_integer, row_align, col_align)
+			if a_column /= Void then column_ptr := a_column.handle end
+			if a_path /= Void then path_ptr := a_path.handle end
+			
+			gtk_tree_view_scroll_to_cell (handle, path_ptr, column_ptr,
+			                              use_align.to_integer, row_align, col_align)
 		end
 
 	set_cursor (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN; start_editing: BOOLEAN) is

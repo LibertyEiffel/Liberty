@@ -425,62 +425,72 @@ feature -- The "underline" property
 -- Default value: -1
 
 -- Since 2.8
--- Signal Details
--- The "edited" signal
 
--- void        user_function                  (GtkCellRendererText *cellrenderertext,
---                                             gchar *arg1,
---                                             gchar *arg2,
---                                             gpointer user_data);
+feature -- "edited"
 
--- cellrenderertext : 	the object which received the signal.
--- arg1 : 	
--- arg2 : 	
--- user_data : 	user data set when the signal handler was connected.
+	edited_signal_name: STRING is "edited"
+		-- "edited"
+		-- void        user_function                  (GtkCellRendererText *cellrenderertext,
+		--                                             gchar *arg1,
+		--                                             gchar *arg2,
+		--                                             gpointer user_data);
 
-feature {} -- Properties name strings
-  alignment_property_name: STRING is "alignment"
-  attributes_property_name: STRING is "attributes"
-  background_property_name: STRING is "background"
-  background_gdk_property_name: STRING is "background-gdk"
-  background_set_property_name: STRING is "background-set"
-  editable_property_name: STRING is "editable"
-  editable_set_property_name: STRING is "editable-set"
-  ellipsize_property_name: STRING is "ellipsize"
-  ellipsize_set_property_name: STRING is "ellipsize-set"
-  family_property_name: STRING is "family"
-  family_set_property_name: STRING is "family-set"
-  font_property_name: STRING is "font"
-  font_desc_property_name: STRING is "font-desc"
-  foreground_property_name: STRING is "foreground"
-  foreground_gdk_property_name: STRING is "foreground-gdk"
-  foreground_set_property_name: STRING is "foreground-set"
-  language_property_name: STRING is "language"
-  language_set_property_name: STRING is "language-set"
-  markup_property_name: STRING is "markup"
-  rise_property_name: STRING is "rise"
-  rise_set_property_name: STRING is "rise-set"
-  scale_property_name: STRING is "scale"
-  scale_set_property_name: STRING is "scale-set"
-  single_paragraph_mode_property_name: STRING is "single-paragraph-mode"
-  size_property_name: STRING is "size"
-  size_points_property_name: STRING is "size-points"
-  size_set_property_name: STRING is "size-set"
-  stretch_property_name: STRING is "stretch"
-  stretch_set_property_name: STRING is "stretch-set"
-  strikethrough_property_name: STRING is "strikethrough"
-  strikethrough_set_property_name: STRING is "strikethrough-set"
-  style_property_name: STRING is "style"
-  style_set_property_name: STRING is "style-set"
-  text_property_name: STRING is "text"
-  underline_property_name: STRING is "underline"
-  underline_set_property_name: STRING is "underline-set"
-  variant_property_name: STRING is "variant"
-  variant_set_property_name: STRING is "variant-set"
-  weight_property_name: STRING is "weight"
-  weight_set_property_name: STRING is "weight-set"
-  width_chars_property_name: STRING is "width-chars"
-  wrap_mode_property_name: STRING is "wrap-mode"
-  wrap_width_property_name: STRING is "wrap-width"
+	connect_agent_to_edited_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, STRING, GTK_CELL_RENDERER_TEXT]]) is
+			-- cellrenderertext : 	the object which received the signal.
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			edited_callback: EDITED_CALLBACK
+		do
+			create edited_callback.make
+			edited_callback.connect (Current, a_procedure)
+		end
 
-end
+feature -- Properties name strings
+
+	alignment_property_name: STRING is "alignment"
+	attributes_property_name: STRING is "attributes"
+	background_property_name: STRING is "background"
+	background_gdk_property_name: STRING is "background-gdk"
+	background_set_property_name: STRING is "background-set"
+	editable_property_name: STRING is "editable"
+	editable_set_property_name: STRING is "editable-set"
+	ellipsize_property_name: STRING is "ellipsize"
+	ellipsize_set_property_name: STRING is "ellipsize-set"
+	family_property_name: STRING is "family"
+	family_set_property_name: STRING is "family-set"
+	font_property_name: STRING is "font"
+	font_desc_property_name: STRING is "font-desc"
+	foreground_property_name: STRING is "foreground"
+	foreground_gdk_property_name: STRING is "foreground-gdk"
+	foreground_set_property_name: STRING is "foreground-set"
+	language_property_name: STRING is "language"
+	language_set_property_name: STRING is "language-set"
+	markup_property_name: STRING is "markup"
+	rise_property_name: STRING is "rise"
+	rise_set_property_name: STRING is "rise-set"
+	scale_property_name: STRING is "scale"
+	scale_set_property_name: STRING is "scale-set"
+	single_paragraph_mode_property_name: STRING is "single-paragraph-mode"
+	size_property_name: STRING is "size"
+	size_points_property_name: STRING is "size-points"
+	size_set_property_name: STRING is "size-set"
+	stretch_property_name: STRING is "stretch"
+	stretch_set_property_name: STRING is "stretch-set"
+	strikethrough_property_name: STRING is "strikethrough"
+	strikethrough_set_property_name: STRING is "strikethrough-set"
+	style_property_name: STRING is "style"
+	style_set_property_name: STRING is "style-set"
+	text_property_name: STRING is "text"
+	underline_property_name: STRING is "underline"
+	underline_set_property_name: STRING is "underline-set"
+	variant_property_name: STRING is "variant"
+	variant_set_property_name: STRING is "variant-set"
+	weight_property_name: STRING is "weight"
+	weight_set_property_name: STRING is "weight-set"
+	width_chars_property_name: STRING is "width-chars"
+	wrap_mode_property_name: STRING is "wrap-mode"
+	wrap_width_property_name: STRING is "wrap-width"
+
+end -- class GTK_CELL_RENDERER_TEXT

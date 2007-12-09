@@ -46,6 +46,8 @@ inherit G_OBJECT
 
 insert
 	PANGO_WEIGHT
+	PANGO_STYLE
+	PANGO_UNDERLINE
 	GTK
 
 creation dummy, make, with_name, from_external_pointer
@@ -68,9 +70,11 @@ feature -- Creation
 			-- arguments, i.e. using G_OBJECT.set().
 		require
 			gtk_initialized: gtk.is_initialized
-			name_not_void: a_name /=Void
+			name_not_void: a_name /= Void
 		do
 			from_external_pointer(gtk_text_tag_new (a_name.to_external))
+		ensure
+			name.is_equal (a_name)
 		end
 
 feature
@@ -235,16 +239,28 @@ feature -- TODO: The "family-set" property
 --    Default value: FALSE
 
 
-feature -- TODO: The "font" property
+feature --   The "font" property
 
---    "font"                 gchararray            : Read / Write
+	set_font (a_font: STRING) is
+		require
+			a_font /= Void
+		do
+			set_string_property (font_property_name, a_font)
+		end
 
---    Font description as string, e.g. \"Sans Italic 12\".
-
---    Note that the initial value of this property depends on the internals of
---    PangoFontDescription.
-
---    Default value: NULL
+	font: STRING is
+			-- Font description as string, e.g. "Sans Italic 12".
+			-- Note that the initial value of this property depends on the
+			-- internals of PangoFontDescription.
+			-- Default value: Void
+		local
+			font_ptr: POINTER
+		do
+			g_object_get_one_property (handle, font_property_name.to_external, $font_ptr, default_pointer)
+			if font_ptr.is_not_null then
+				create Result.from_external (font_ptr)
+			end
+		end
 
 
 feature -- TODO: The "font-desc" property
@@ -298,6 +314,28 @@ feature -- The foreground color
 		end
 
 feature -- TODO:	The "foreground-stipple" property 
+
+--    -------------------------------------------------------------------------------------
+
+--   The "foreground-gdk" property
+
+--    "foreground-gdk"       GdkColor              : Read / Write
+
+--    Foreground color as a (possibly unallocated) GdkColor.
+
+--    -------------------------------------------------------------------------------------
+
+--   The "foreground-set" property
+
+--    "foreground-set"       gboolean              : Read / Write
+
+--    Whether this tag affects the foreground color.
+
+--    Default value: FALSE
+
+--    -------------------------------------------------------------------------------------
+
+--   The "foreground-stipple" property
 
 --    "foreground-stipple"   GdkPixmap             : Read / Write
 
@@ -439,8 +477,11 @@ feature --   The "name" property
 		end
 	
 
-
 feature -- TODO: The "paragraph-background" property
+
+--    -------------------------------------------------------------------------------------
+
+--   The "paragraph-background" property
 
 --    "paragraph-background" gchararray            : Write
 
@@ -687,15 +728,24 @@ feature -- TODO: The "strikethrough-set" property
 
 feature --   The "style" property
 
---    "style"                PangoStyle            : Read / Write
-
---    Font style as a PangoStyle, e.g. PANGO_STYLE_ITALIC.
-
 	set_style (a_style: INTEGER) is
+		require
+			valid: is_valid_pango_style (a_style)
 		do
+			set_enum_property (style_property_name, a_style)
 		end
---    Default value: PANGO_STYLE_NORMAL
 
+	style: INTEGER is
+			-- Font style as a PANGO_STYLE, see predefined values in
+			-- PANGO_WEIGHT; for example, pango_style_normal.
+			-- Default value: PANGO_STYLE_NORMAL
+		do
+			g_object_get_one_property (handle, style_property_name.to_external, $Result, default_pointer)
+		ensure
+			valid: is_valid_pango_style (Result)
+		end
+	
+--    -------------------------------------------------------------------------------------
 
 feature -- TODO: The "style-set" property
 
@@ -722,13 +772,21 @@ feature -- TODO: The "tabs-set" property
 --    Default value: FALSE
 
 
-feature -- TODO: The "underline" property
+	set_underline (an_underline: INTEGER) is
+		require
+			valid: is_valid_pango_underline (an_underline)
+		do
+			set_enum_property (underline_property_name, an_underline)
+		end
 
---    "underline"            PangoUnderline        : Read / Write
-
---    Style of underline for this text.
-
---    Default value: PANGO_UNDERLINE_NONE
+	underline: INTEGER is
+			--    Style of underline for this text.
+			--    Default value: pango_underline_none
+		do
+			g_object_get_one_property (handle, underline_property_name.to_external, $Result, default_pointer)
+		ensure
+			valid: is_valid_pango_underline (Result)
+		end
 
 
 feature -- TODO: The "underline-set" property
@@ -775,9 +833,11 @@ feature --   The "weight" property
 			-- Font weight as an integer, see predefined values in
 			-- PANGO_WEIGHT; for example, pango_weight_bold. Default
 			-- value: 400
+			-- Default value: 400
 		do
 			g_object_get_one_property (handle, weight_property_name.to_external, $Result, default_pointer)
-		ensure valid: is_valid_pango_weight (Result)
+		ensure
+			valid: is_valid_pango_weight (Result)
 		end
 	
 

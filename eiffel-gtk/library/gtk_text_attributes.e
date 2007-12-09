@@ -33,7 +33,13 @@ feature -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextAttributes)"
 		end
-feature 
+
+feature -- Access
+
+	font: PANGO_FONT_DESCRIPTION is
+		do
+			create Result.from_external_shared (gtk_text_attributes_get_font (handle))
+		end
 
 	--   gtk_text_attributes_new ()
 
@@ -121,7 +127,10 @@ feature {} -- Structure accessing
 	--    GtkTextDirection direction;
 
 	--    /* Individual chunks of this can be set/unset as a group */
-	--    PangoFontDescription *font;
+
+	gtk_text_attributes_get_font (a_text_attr: POINTER): POINTER is
+		external "C struct GtkTextAttributes get font use <gtk/gtk.h>"
+		end
 
 	--    gdouble font_scale;
 
@@ -183,4 +192,5 @@ feature {} -- Structure accessing
 	--    guint bg_full_height : 1;
 	--    guint editable : 1;
 	--    guint realized : 1;
+
 end

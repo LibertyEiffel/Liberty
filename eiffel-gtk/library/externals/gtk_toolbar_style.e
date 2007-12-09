@@ -29,7 +29,7 @@ deferred class
 
 inherit ANY undefine is_equal, copy end
 
-feature  -- enum
+feature {} -- enum
 	-- Used to customize the appearance of a GtkToolbar. Note that
 	-- setting the toolbar style overrides the user's preferences for
 	-- the default toolbar style. Note that if the button has only a

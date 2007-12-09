@@ -302,14 +302,13 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
--- gtk_widget_set_name (widget: POINTER,
---                                              const gchar *name) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_set_name (widget, a_name: POINTER) is
+		external "C use <gtk/gtk.h>"
+		end
 
--- const gchar* gtk_widget_get_name            (GtkWidget *widget) is
---		external "C use <gtk/gtk.h>"
---		end
+	gtk_widget_get_name (widget: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
 
 -- gtk_widget_set_state (widget: POINTER,
 --                                              GtkStateType state) is

@@ -63,17 +63,17 @@ feature -- Store setters
 			hidden_gvalue.set_integer(an_integer)
 			set_value (an_iterator, a_column, hidden_gvalue)
 		end
-	
+
 	set_real (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_real: REAL) is
 		require
 			a_column_contains_a_double: -- TODO
-			valid_iterator: an_iterator/=Void				
+			valid_iterator: an_iterator/=Void
 		do
 			hidden_gvalue.turn_to_real
 			hidden_gvalue.set_real(a_real)
 			set_value (an_iterator, a_column, hidden_gvalue)
 		end
-	
+
 	set_boolean (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_boolean: BOOLEAN) is
 		require
 			valid_iterator: an_iterator/=Void

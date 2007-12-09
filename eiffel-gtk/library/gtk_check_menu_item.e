@@ -156,6 +156,32 @@ feature
 
 	-- Signals
 
+feature -- Signals
+
+	toggle_signal_name: STRING is "toggle"
+
+	on_toggle is
+			-- Built-in toggle signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_toggle is
+			-- Connects "toggle" signal to `on_toggle' feature.
+			-- Emitted when the item is toggled.
+		do
+			connect (Current, toggle_signal_name, $on_toggle)
+		end
+
+	connect_agent_to_toggle_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_CHECK_MENU_ITEM]]) is
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			toggle_callback: TOGGLED_CALLBACK [like Current]
+		do
+			create toggle_callback.make
+			toggle_callback.connect (Current, a_procedure)
+		end
+
 
 	-- "toggled" void user_function (GtkCheckMenuItem *checkmenuitem,
 	-- gpointer user_data) : Run first

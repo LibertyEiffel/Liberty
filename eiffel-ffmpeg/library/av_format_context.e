@@ -58,9 +58,9 @@ feature -- Operations
 			-- force the file format.
 			--
 			-- Parameters:
-			--     a_filename:   filename to open.
-			--     a_parameters: additionnal parameters needed when opening the
-			--                   file (Void if default)
+			--	 a_filename:   filename to open.
+			--	 a_parameters: additionnal parameters needed when opening the
+			--				   file (Void if default)
 			--
 			-- Sets error_code on exit.
 		do
@@ -79,8 +79,8 @@ feature -- Operations
 			-- Sets error_code if an error ocurred.
 			--
 			-- Todo:
-			--    let user decide somehow what information is needed so we
-			--    dont waste time geting stuff the user doesnt need
+			--	let user decide somehow what information is needed so we
+			--	dont waste time geting stuff the user doesnt need
 		require
 			is_valid
 		local
@@ -93,14 +93,14 @@ feature -- Operations
 	seek_frame (a_stream_index: INTEGER; a_timestamp: INTEGER_64; some_flags: INTEGER): BOOLEAN is
 			-- Seek to the key frame at `a_timestamp' in `stream_index'.
 			-- Parameters:
-			--    a_stream_index: If a_stream_index is (-1), a default stream
-			--                    is selected, and a_timestamp is automatically
-			--                    converted from AV_TIME_BASE units to the stream
-			--                    specific time_base.
-			--    a_timestamp:    timestamp in AV_STREAM.time_base units or
-			--                    if there is no stream specified then in
-			--                    AV_TIME_BASE units
-			--    some_flags:     flags which select direction and seeking mode
+			--	a_stream_index: If a_stream_index is (-1), a default stream
+			--					is selected, and a_timestamp is automatically
+			--					converted from AV_TIME_BASE units to the stream
+			--					specific time_base.
+			--	a_timestamp:	timestamp in AV_STREAM.time_base units or
+			--					if there is no stream specified then in
+			--					AV_TIME_BASE units
+			--	some_flags:	 flags which select direction and seeking mode
 			--
 			-- Returns True on success
 		require
@@ -126,7 +126,7 @@ feature -- Operations
 			-- the payload.
 			--
 			-- Returns:
-			--    0 if OK, < 0 if error or end of file. 
+			--	0 if OK, < 0 if error or end of file. 
 		do
 			Result := av_read_frame (handle, a_packet.handle)
 		end
@@ -303,7 +303,21 @@ feature -- Access
 feature {} -- Disposing
 
 	dispose is
+		local
+			i: INTEGER
 		do
+			if wrapped_streams /= Void then
+				from
+					i := wrapped_streams.lower
+				until
+					i > wrapped_streams.upper
+				loop
+					if wrapped_streams.item (i) /= Void then
+						wrapped_streams.item (i).dispose
+					end
+					i := i + 1
+				end
+			end
 			close
 		end
 

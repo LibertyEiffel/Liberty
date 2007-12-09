@@ -9,6 +9,7 @@ deferred class G_VALUE_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {C_STRUCT} -- allocation
+
 	malloc_g_value: POINTER is
 			-- Allocate a GValue struct
 		external "C inline use <glib-object.h>"
@@ -21,38 +22,29 @@ feature {C_STRUCT} -- allocation
 		alias "sizeof (GValue)"
 		end
 
-feature {C_STRUCT} 
+feature {C_STRUCT}
 
 	g_value_holds(value: POINTER; type: INTEGER): INTEGER is
-			-- Convenience feature wrapping g_value_holds_macro
-			-- local r: INTEGER
-		do
-			Result := g_value_holds_macro(value, type)
-		end
-	
-	g_value_holds_macro(value: POINTER; type: INTEGER): INTEGER is
 			 -- Returns TRUE if value holds (or contains) a value of type. This macro will also check for value != NULL and issue a warning if the check fails.
 			 -- value : 	A GValue structure.
 			 -- type : 	A GType value.
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS"
-		end			
-
+		end
 
 	g_value_type (value: POINTER): INTEGER is
 			 -- Returns the type identifier of value.
 			 -- value : 	A GValue structure.
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_TYPE"
-		end			
-
+		end
 
 	g_value_type_name(value: POINTER): POINTER is
 			 -- Returns the type name of value.
 			 -- value : 	A GValue structure.
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_TYPE_NAME"
-		end			
+		end
 
 	-- #define	G_TYPE_IS_VALUE(type)		(g_type_check_is_value_type (type))
 
@@ -203,12 +195,11 @@ feature {C_STRUCT}
 	g_value_get_boolean (gvalue: POINTER): INTEGER is
 		external "C use <glib-object.h>"
 		end
-	
 
 	g_value_holds_char (value: POINTER): INTEGER is
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_CHAR"
-		end			
+		end
 
 	g_value_set_char (gvalue: POINTER; gchar: CHARACTER) is
 		external "C use <glib-object.h>"
@@ -228,7 +219,6 @@ feature {C_STRUCT}
 
 	-- TODO wrap guchar g_value_get_uchar (const GValue *value);
 
-
 	g_value_holds_int (value: POINTER): INTEGER is
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_INT"
@@ -237,6 +227,7 @@ feature {C_STRUCT}
 	g_value_set_int (gvalue: POINTER; gint: INTEGER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_int (gvalue: POINTER): INTEGER is
 		external "C use <glib-object.h>"
 		end
@@ -245,12 +236,13 @@ feature {C_STRUCT}
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_UINT"
 		end
-	
+
 	g_value_set_uint (gvalue: POINTER; guint: INTEGER) is
 			-- TODO: obsolete "g_value_set_uint shall use NATUAL instead INTEGER"
 		require positive_int: guint >= 0
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_uint (gvalue: POINTER): INTEGER is
 		-- TODO: obsolete "g_value_get_uint shall return NATURAL instead of INTEGER"
 		external "C use <glib-object.h>"
@@ -261,9 +253,11 @@ feature {C_STRUCT}
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_LONG"
 		end
+
 	g_value_set_long (gvalue: POINTER; glong: INTEGER_64) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_long (gvalue: POINTER): INTEGER_64 is
 		external "C use <glib-object.h>"
 		end
@@ -283,6 +277,7 @@ feature {C_STRUCT}
 	g_value_set_int64 (gvalue: POINTER; gint64: INTEGER_64) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_int64 (gvalue: POINTER): INTEGER_64 is
 		external "C use <glib-object.h>"
 		end
@@ -295,35 +290,39 @@ feature {C_STRUCT}
 	-- TODO wrap guint64 g_value_get_uint64 (const GValue *value);
 
 	g_value_holds_float (value: POINTER): INTEGER is
-		external "C macro G_VALUE_HOLDS_FLOAT use <glib-object.h>"			
+		external "C macro G_VALUE_HOLDS_FLOAT use <glib-object.h>"
 		end
 
 	g_value_set_float (gvalue: POINTER; gfloat: REAL_32) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_float (gvalue: POINTER): REAL_32 is
 		external "C use <glib-object.h>"
 		end
-	
+
 	g_value_holds_double (value: POINTER): INTEGER is
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_DOUBLE"
-		end			
+		end
+
 	g_value_set_double (gvalue: POINTER; gdouble: REAL_64) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_double (gvalue: POINTER): REAL_64 is
 		external "C use <glib-object.h>"
 		end
 
-	
 	g_value_holds_enum (value: POINTER): INTEGER is
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_ENUM"
 		end
+
 	g_value_set_enum (gvalue: POINTER; enum: INTEGER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_enum (gvalue: POINTER): INTEGER is
 		external "C use <glib-object.h>"
 		end
@@ -332,52 +331,62 @@ feature {C_STRUCT}
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_FLAGS"
 		end
+
 	g_value_set_flags (gvalue: POINTER; guint: INTEGER) is
 			-- TODO: obsolete "g_value_set_flags' guint shall be NATURAL instead of INTEGER"
 		require positive_int: guint>=0
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_flags (gvalue: POINTER): INTEGER is
 			-- TODO: obsolete "g_value_get_flags shall return NATURAL instead of INTEGER"
 		external "C use <glib-object.h>"
 		ensure positive: Result>=0
 		end
-	
+
 	g_value_holds_string (value: POINTER): INTEGER is
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_STRING"
-		end			
+		end
+
 	g_value_set_string (gvalue, string: POINTER) is
 		external "C use <glib-object.h>"
 		end
+
 	-- TODO: shall g_value_set_static_string be wrapped"
 	g_value_take_string (gvalue, string: POINTER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_string (gvalue: POINTER): POINTER is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_dup_string (gvalue: POINTER): POINTER is
 		external "C use <glib-object.h>"
 		end
 
-	
 	g_value_holds_param (value: POINTER): INTEGER is
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_PARAM"
-		end			
+		end
+
 	g_value_set_param (gvalue, param: POINTER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_take_param (gvalue, param: POINTER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_set_param_take_ownership (gvalue, param: POINTER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_param (gvalue: POINTER): POINTER is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_dup_param (gvalue: POINTER): POINTER is
 		external "C use <glib-object.h>"
 		end
@@ -385,19 +394,22 @@ feature {C_STRUCT}
 	g_value_holds_boxed (value: POINTER): INTEGER is
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_BOXED"
-		end			
+		end
+
 	g_value_set_boxed (gvalue, boxed: POINTER) is
 		external "C use <glib-object.h>"
 		end
 	-- TODO: shall be wrapper" void g_value_set_static_boxed (GValue
 	-- *value,-- gconstpointer v_boxed);
-	
+
 	g_value_take_boxed (gvalue, boxed: POINTER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_boxed (gvalue: POINTER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_dup_boxed (gvalue: POINTER) is
 		external "C use <glib-object.h>"
 		end
@@ -405,10 +417,12 @@ feature {C_STRUCT}
 	g_value_holds_pointer (value: POINTER): INTEGER is
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_POINTER"
-		end			
+		end
+
 	g_value_set_pointer (gvalue, pointer: POINTER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_pointer (gvalue: POINTER): POINTER is
 		external "C use <glib-object.h>"
 		end
@@ -417,9 +431,11 @@ feature {C_STRUCT}
 		external "C macro use <glib-object.h>"
 		alias "G_VALUE_HOLDS_OBJECT"
 		end
+
 	g_value_set_object (gvalue, pointer: POINTER) is
 		external "C use <glib-object.h>"
 		end
+
 	g_value_get_object (gvalue: POINTER): POINTER is
 		external "C use <glib-object.h>"
 		end
@@ -488,7 +504,7 @@ feature {C_STRUCT}
 
 	-- typedef struct {
 	--   GParamSpec    parent_instance;
-  
+
 	--   gboolean      default_value;
 	-- } GParamSpecBoolean;
 
@@ -554,7 +570,7 @@ feature {C_STRUCT}
 
 	-- typedef struct {
 	--   GParamSpec    parent_instance;
-  
+
 	--   gint8         minimum;
 	--   gint8         maximum;
 	--   gint8         default_value;
@@ -626,7 +642,7 @@ feature {C_STRUCT}
 
 	-- typedef struct {
 	--   GParamSpec    parent_instance;
-  
+
 	--   guint8        minimum;
 	--   guint8        maximum;
 	--   guint8        default_value;
@@ -2012,4 +2028,3 @@ feature {C_STRUCT}
 	-- GParamSpec, GValue, g_object_class_install_property().
 
 end
-	

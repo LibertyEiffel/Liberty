@@ -47,7 +47,8 @@ feature {} -- Creation
 			from_external_pointer (gtk_text_tag_table_new)
 		end
 
-feature
+feature -- Operations
+
 	add (a_tag: GTK_TEXT_TAG) is
 			-- Add a tag to the table. The tag is assigned the highest priority in the table.
 		require
@@ -71,12 +72,21 @@ feature
 		do
 			gtk_text_tag_table_remove (handle, a_tag.handle)
 		end
+
+feature -- Access
+
+	has (a_name: STRING): BOOLEAN is
+		do
+			Result := lookup (a_name) /= Void
+		end
 	
 	lookup (a_name: STRING): GTK_TEXT_TAG is
 			-- Lookup the tag with `a_name', or Void if none by that name
 			-- is in the table.
 		do
 			Result := text_tag_factory.wrapper_or_void(gtk_text_tag_table_lookup(handle, a_name.to_external))
+		ensure
+			has (a_name) implies Result /= Void
 		end
 
 	has (a_tag: GTK_TEXT_TAG): BOOLEAN is

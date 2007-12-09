@@ -92,7 +92,7 @@ class GTK_LIST_STORE
 	--	Note: GTK_LIST_STORE has some features that are deliberately similar to COLLECTION's
 
 inherit
-	GTK_TREE_MODEL 
+	GTK_TREE_MODEL
 	GTK_TREE_SORTABLE
 	GTK_TREE_DRAG_SOURCE
 	GTK_TREE_DRAG_DEST
@@ -167,6 +167,7 @@ feature {} -- Unwrapped code
 	-- var_args : 	va_list of column/value pairs
 
 feature -- Generic setter
+
 	set_value (an_iterator: GTK_TREE_ITER; a_column: INTEGER; a_value: G_VALUE) is
 			-- Sets the data in the cell specified by `an_iterator' and
 			-- `a_column'. The type of `a_value' must be convertible to the type of
@@ -178,10 +179,10 @@ feature -- Generic setter
 		do
 			gtk_list_store_set_value (handle, an_iterator.handle, a_column, a_value.handle)
 		end
-	
+
 	is_last_iterator_valid: BOOLEAN
 			-- Is the last iterator passed as an argument still valid?
-	
+
 	remove (an_iterator: GTK_TREE_ITER) is
 			-- Removes the given row from the list store. After being removed,
 			-- `an_iterator' is set to be the next valid row, or invalidated if it
@@ -192,7 +193,7 @@ feature -- Generic setter
 		do
 			is_last_iterator_valid := gtk_list_store_remove (handle,an_iterator.handle).to_boolean
 		end
-	
+
 	put (an_iterator: GTK_TREE_ITER; a_position: INTEGER) is
 			-- Creates a new row at position. iter will be changed to
 			-- point to this new row. If position is larger than the
@@ -230,7 +231,6 @@ feature -- Generic setter
 		do
 			gtk_list_store_insert_before (handle, an_iterator.handle, default_pointer)
 		end
-
 
 	put_after, insert_after (an_iterator, a_sibling: GTK_TREE_ITER) is
 			-- Inserts a new row after `a_sibling'. `an_iterator' iter
@@ -286,7 +286,6 @@ feature -- Generic setter
 	-- iter : 	An unset GtkTreeIter to set to the new row
 	-- position : 	position to insert the new row
 	-- ... : 	pairs of column number and value, terminated with -1
-
 
 	insert_with_values (an_iterator: GTK_TREE_ITER;
 							  a_position: INTEGER;
@@ -438,7 +437,6 @@ feature -- Generic setter
 		do
 			gtk_list_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
-
 feature
 	dummy_gobject: POINTER is
 		do

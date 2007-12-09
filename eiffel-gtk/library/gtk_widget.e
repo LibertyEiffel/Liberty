@@ -368,9 +368,29 @@ feature -- Operation
 			gtk_widget_grab_default (handle)
 		end
 	
--- void        gtk_widget_set_name             (GtkWidget *widget,
---                                              const gchar *name);
--- const gchar* gtk_widget_get_name            (GtkWidget *widget);
+	set_name (a_name: STRING) is
+			-- Widgets can be named, which allows you to refer to them from
+			-- a gtkrc file. You can apply a style to widgets with a particular
+			-- name in the gtkrc file. See the documentation for gtkrc files
+			-- (on the same page as the docs for GtkRcStyle).
+			--
+			-- Note that widget names are separated by periods in paths (see
+			-- `path'), so names with embedded periods may cause confusion.
+			--
+			-- a_name : name for the widget
+		do
+			gtk_widget_set_name (handle, a_name.to_external)
+		end
+
+	name: STRING is
+			-- Retrieves the name of a widget. See `set_name' for the
+			-- significance of widget names.
+			--
+			-- Returns : name of the widget.
+		do
+			create Result.from_external_copy (gtk_widget_get_name (handle))
+		end
+
 -- void        gtk_widget_set_state            (GtkWidget *widget,
 --                                              GtkStateType state);
 -- void        gtk_widget_set_parent           (GtkWidget *widget,
@@ -1061,10 +1081,41 @@ feature -- drag-motion signal
 			drag_motion_callback.connect (Current, a_function)
 		end
 
--- "enter-notify-event"
---             gboolean    user_function      (GtkWidget        *widget,
---                                             GdkEventCrossing *event,
---                                             gpointer          user_data)      : Run last
+feature -- enter-notify-event signal
+
+	enter_notify_event_signal_name: STRING is "enter-notify-event"
+			-- "enter-notify-event"
+			--  gboolean user_function (GtkWidget        *widget,
+			--                          GdkEventCrossing *event,
+			--                          gpointer          user_data)  : Run last
+
+	enable_on_enter_notify_event is
+			-- Connects "enter-notify-event" signal to `on_enter_notify_event' feature.
+		do
+			connect (Current, enter_notify_event_signal_name, $on_enter_notify_event)
+		end
+
+	on_enter_notify_event (an_event_crossing: GDK_EVENT_CROSSING; a_widget: GTK_WIDGET): BOOLEAN is
+			-- Built-in enter-notify-event signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_enter_notify_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_CROSSING, GTK_WIDGET], BOOLEAN]) is
+			-- widget : 	the object which received the signal.
+			-- event : 	
+			-- user_data : 	user data set when the signal handler was connected.
+			-- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			enter_notify_event_callback: ENTER_NOTIFY_EVENT_CALLBACK
+		do
+			create enter_notify_event_callback.make
+			enter_notify_event_callback.connect (Current, a_function)
+		end
+
+
 -- "event"     gboolean    user_function      (GtkWidget *widget,
 --                                             GdkEvent  *event,
 --                                             gpointer   user_data)      : Run last
@@ -1085,10 +1136,46 @@ feature -- "expose-event" signal
 --             gboolean    user_function      (GtkWidget     *widget,
 --                                             GdkEventFocus *event,
 --                                             gpointer       user_data)      : Run last
--- "focus-out-event"
---             gboolean    user_function      (GtkWidget     *widget,
---                                             GdkEventFocus *event,
---                                             gpointer       user_data)      : Run last
+feature -- focus-out-event signal
+
+	focus_out_event_signal_name: STRING is "focus-out-event"
+		-- "focus-out-event"
+		--             gboolean    user_function      (GtkWidget     *widget,
+		--                                             GdkEventFocus *event,
+		--                                             gpointer       user_data)      : Run last
+
+	enable_on_focus_out_event is
+			-- Connects "kry-press-event" signal to `on_focus_out_event' feature.
+		do
+			connect (Current, focus_out_event_signal_name, $on_focus_out_event)
+		end
+
+	on_focus_out_event: INTEGER is
+			-- Built-in focus-out-event signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_focus_out_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_FOCUS, GTK_WIDGET], BOOLEAN]) is
+			-- The `focus-out-event' signal will be emitted when the keyboard focus
+			-- leaves the widget's window.
+
+			-- To receive this signal, the GdkWindow associated to the widget needs to
+			-- enable the GDK_FOCUS_CHANGE_MASK mask.
+
+			-- widget: the object which received the signal
+			-- event: the GdkEventFocus which triggered this signal
+			-- Returns: True to stop other handlers from being invoked for the
+			--          event. False to propagate the event further.
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			focus_out_event_callback: FOCUS_OUT_EVENT_CALLBACK
+		do
+			create focus_out_event_callback.make
+			focus_out_event_callback.connect (Current, a_function)
+		end
+
 -- "grab-broken-event"
 --             gboolean    user_function      (GtkWidget *widget,
 --                                             GdkEvent  *event,
@@ -1144,10 +1231,42 @@ feature -- key-press-event signal
 --             gboolean    user_function      (GtkWidget   *widget,
 --                                             GdkEventKey *event,
 --                                             gpointer     user_data)      : Run last
--- "leave-notify-event"
---             gboolean    user_function      (GtkWidget        *widget,
---                                             GdkEventCrossing *event,
---                                             gpointer          user_data)      : Run last
+
+feature -- leave-notify-event signal
+
+	leave_notify_event_signal_name: STRING is "leave-notify-event"
+			-- "leave-notify-event"
+			--  gboolean user_function (GtkWidget        *widget,
+			--                          GdkEventCrossing *event,
+			--                          gpointer          user_data)  : Run last
+
+	enable_on_leave_notify_event is
+			-- Connects "leave-notify-event" signal to `on_leave_notify_event' feature.
+		do
+			connect (Current, leave_notify_event_signal_name, $on_leave_notify_event)
+		end
+
+	on_leave_notify_event (an_event_crossing: GDK_EVENT_CROSSING; a_widget: GTK_WIDGET): BOOLEAN is
+			-- Built-in leave-notify-event signal handler; empty by design; redefine it.
+		do
+		end
+
+	connect_agent_to_leave_notify_event_signal (a_function: FUNCTION[ANY, TUPLE [GDK_EVENT_CROSSING, GTK_WIDGET], BOOLEAN]) is
+			-- widget : 	the object which received the signal.
+			-- event : 	
+			-- user_data : 	user data set when the signal handler was connected.
+			-- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
+		require
+			valid_function: a_function /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			leave_notify_event_callback: LEAVE_NOTIFY_EVENT_CALLBACK
+		do
+			create leave_notify_event_callback.make
+			leave_notify_event_callback.connect (Current, a_function)
+		end
+
+
 -- "map"       void        user_function      (GtkWidget *widget,
 --                                             gpointer   user_data)      : Run first
 -- "map-event" gboolean    user_function      (GtkWidget *widget,
@@ -1172,7 +1291,7 @@ feature -- motion-notify-event signal
 			connect (Current, motion_notify_event_signal_name, $on_motion_notify_event)
 		end
 
-	on_motion_notify_event: INTEGER is
+	on_motion_notify_event (a_event_motion: GDK_EVENT_MOTION; a_widet: GTK_WIDGET): BOOLEAN is
 			-- Built-in motion-notify-event signal handler; empty by design; redefine it.
 		do
 		end
@@ -1206,7 +1325,7 @@ feature -- button-release-event signal
 			connect (Current, button_release_event_signal_name, $on_button_release_event)
 		end
 
-	on_button_release_event: INTEGER is
+	on_button_release_event (event: GDK_EVENT_BUTTON; a_widget: GTK_WIDGET): BOOLEAN is
 			-- Built-in button-release-event signal handler; empty by design; redefine it.
 		do
 		end
@@ -1240,7 +1359,7 @@ feature -- button-press-event signal
 			connect (Current, button_press_event_signal_name, $on_button_press_event)
 		end
 
-	on_button_press_event: INTEGER is
+	on_button_press_event (event: GDK_EVENT_BUTTON; a_widget: GTK_WIDGET): BOOLEAN is
 			-- Built-in button-press-event signal handler; empty by design; redefine it.
 		do
 		end
@@ -2054,25 +2173,7 @@ feature -- size-request signal
 
 -- widget : 	a GtkWidget
 -- Returns : 	TRUE if the widget is the focus widget.
--- gtk_widget_set_name ()
 
--- void        gtk_widget_set_name             (GtkWidget *widget,
---                                              const gchar *name);
-
--- Widgets can be named, which allows you to refer to them from a gtkrc file. You can apply a style to widgets with a particular name in the gtkrc file. See the documentation for gtkrc files (on the same page as the docs for GtkRcStyle).
-
--- Note that widget names are separated by periods in paths (see gtk_widget_path()), so names with embedded periods may cause confusion.
-
--- widget : 	a GtkWidget
--- name : 	name for the widget
--- gtk_widget_get_name ()
-
--- const gchar* gtk_widget_get_name            (GtkWidget *widget);
-
--- Retrieves the name of a widget. See gtk_widget_set_name() for the significance of widget names.
-
--- widget : 	a GtkWidget
--- Returns : 	name of the widget. This string is owned by GTK+ and should not be modified or freed
 -- gtk_widget_set_state ()
 
 -- void        gtk_widget_set_state            (GtkWidget *widget,
@@ -3478,16 +3579,6 @@ feature
 -- arg1 : 	
 -- user_data : 	user data set when the signal handler was connected.
 
--- The "enter-notify-event" signal
-
--- gboolean    user_function                  (GtkWidget        *widget,
--- 														  GdkEventCrossing *event,
--- 														  gpointer          user_data)      : Run last
-
--- widget : 	the object which received the signal.
--- event : 	
--- user_data : 	user data set when the signal handler was connected.
--- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
 -- The "event" signal
 
 -- gboolean    user_function                  (GtkWidget *widget,
@@ -3498,6 +3589,7 @@ feature
 -- event : 	
 -- user_data : 	user data set when the signal handler was connected.
 -- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
+
 -- The "event-after" signal
 
 -- void        user_function                  (GtkWidget *widget,
@@ -3596,6 +3688,7 @@ feature
 -- widget : 	the object which received the signal.
 -- widget2 : 	
 -- user_data : 	user data set when the signal handler was connected.
+
 -- The "key-press-event" signal
 
 -- gboolean    user_function                  (GtkWidget   *widget,
@@ -3606,6 +3699,7 @@ feature
 -- event : 	
 -- user_data : 	user data set when the signal handler was connected.
 -- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
+
 -- The "key-release-event" signal
 
 -- gboolean    user_function                  (GtkWidget   *widget,
@@ -3616,16 +3710,7 @@ feature
 -- event : 	
 -- user_data : 	user data set when the signal handler was connected.
 -- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
--- The "leave-notify-event" signal
 
--- gboolean    user_function                  (GtkWidget        *widget,
--- 														  GdkEventCrossing *event,
--- 														  gpointer          user_data)      : Run last
-
--- widget : 	the object which received the signal.
--- event : 	
--- user_data : 	user data set when the signal handler was connected.
--- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
 -- The "map" signal
 
 -- void        user_function                  (GtkWidget *widget,

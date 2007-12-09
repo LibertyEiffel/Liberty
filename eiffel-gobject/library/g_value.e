@@ -256,6 +256,13 @@ feature {ANY}
 			Result := g_type_is_a (type, a_type).to_boolean
 		end
 
+	holds (a_type: INTEGER): BOOLEAN is
+		require
+			is_g_type (a_type)
+		do
+			Result := g_value_holds (handle, a_type).to_boolean
+		end
+
 feature {ANY} -- Boolean
 	is_boolean: BOOLEAN is
 			-- Is current value a boolean?
@@ -453,7 +460,9 @@ feature {ANY} -- String
 		do
 			p := g_value_get_string (handle)
 			if p.is_not_null then
-				create Result.from_external (p)
+				-- ATTENTION: because this returns a const, we need to copy the memory
+				-- const gchar* g_value_get_string (const GValue *value);
+				create Result.from_external_copy (p)
 			end
 		end
 
@@ -518,45 +527,60 @@ feature {ANY} -- Pointer
 	-- g_param_spec_* ()
 
 feature {G_OBJECT} -- Type changing features
+
 	turn_to_boolean is
 			-- Reset Current and make it a boolean value
 		do
-			g_value_unset (handle)
+			if is_initialized then
+				g_value_unset (handle)
+			end
 			handle := g_value_init (handle, g_type_boolean)
-		ensure is_boolean: is_boolean
+		ensure
+			is_boolean: is_boolean
 		end
-
 
 	turn_to_integer is
 			-- Reset Current and make it a integer value
 		do
-			g_value_unset (handle)
+			if is_initialized then
+				g_value_unset (handle)
+			end
 			handle := g_value_init (handle, g_type_int)
-		ensure is_integer: is_integer
+		ensure
+			is_integer: is_integer
 		end
-	
+
 	turn_to_natural is
 			-- Reset Current and make it a natural value
 		do
-			g_value_unset (handle)
+			if is_initialized then
+				g_value_unset (handle)
+			end
 			handle := g_value_init (handle, g_type_uint)
-		ensure is_natural: is_natural
+		ensure
+			is_natural: is_natural
 		end
 
 	turn_to_real is
 			-- Reset Current and make it a real value
 		do
-			g_value_unset (handle)
+			if is_initialized then
+				g_value_unset (handle)
+			end
 			handle := g_value_init (handle, g_type_double)
-		ensure is_real: is_real
+		ensure
+			is_real: is_real
 		end
 
 	turn_to_real_32 is
 			-- Reset Current and make it a REAL_32 value
 		do
-			g_value_unset (handle)
+			if is_initialized then
+				g_value_unset (handle)
+			end
 			handle := g_value_init (handle, g_type_float)
-		ensure is_real_32: is_real_32
+		ensure
+			is_real_32: is_real_32
 		end
 
 	turn_to_enum is
@@ -586,9 +610,12 @@ feature {G_OBJECT} -- Type changing features
 	turn_to_string is
 			-- Reset Current and make it a string value
 		do
-			g_value_unset (handle)
+			if is_initialized then
+				g_value_unset (handle)
+			end
 			handle := g_value_init (handle, g_type_string)
-		ensure is_string: is_string
+		ensure
+			is_string: is_string
 		end
 
 feature

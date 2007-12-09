@@ -1300,8 +1300,7 @@ feature {} -- HTTP OPTIONS
 			-- encoding done by the server is ignored. See the special file
 			-- lib/README.encoding for details.
 			-- 
-			-- CURLOPT_FOLLOWLOCATION
-			-- 
+	curl_option_follow_location: INTEGER is
 			-- A non-zero parameter tells the library to follow any Location: header
 			-- that the server sends as part of an HTTP header.
 			-- 
@@ -1309,7 +1308,10 @@ feature {} -- HTTP OPTIONS
 			-- location and follow new Location: headers all the way until no more such
 			-- headers are returned. CURLOPT_MAXREDIRS can be used to limit the number
 			-- of redirects libcurl will follow.
-			-- 
+		external "C macro use <curl/curl.h>"
+		alias "CURLOPT_FOLLOWLOCATION"
+		end
+
 			-- CURLOPT_UNRESTRICTED_AUTH
 			-- 
 			-- A non-zero parameter tells the library it can continue to send
@@ -1317,14 +1319,18 @@ feature {} -- HTTP OPTIONS
 			-- hostname changed. This option is meaningful only when setting
 			-- CURLOPT_FOLLOWLOCATION.
 			-- 
-			-- CURLOPT_MAXREDIRS
-			-- 
+
+	curl_option_max_redirs: INTEGER is
 			-- Pass a long. The set number will be the redirection limit. If that many
 			-- redirections have been followed, the next redirect will cause an error
 			-- (CURLE_TOO_MANY_REDIRECTS). This option only makes sense if the
 			-- CURLOPT_FOLLOWLOCATION is used at the same time. Added in 7.15.1:
 			-- Setting the limit to 0 will make libcurl refuse any redirect. Set it to
 			-- -1 for an infinite number of redirects (which is the default)
+		external "C macro use <curl/curl.h>"
+		alias "CURLOPT_MAXREDIRS"
+		end
+
 			-- 
 			-- CURLOPT_PUT
 			-- 

@@ -105,11 +105,19 @@ feature -- Operations
 			is_valid_av_error_code (error_code)
 		end
 
+	free_payload is
+			-- Dispose of the memory that's being used up by the demuxed packet.
+			-- Call this after reading each frame, and before the next read.
+		do
+			av_free_packet (handle)
+		end
+
 feature {} -- Destroying
 
 	dispose, force_free_handle  is
 		do
-			av_free_packet (handle)
+			free_payload
+			free (handle)
 			handle:= default_pointer
 		end
 

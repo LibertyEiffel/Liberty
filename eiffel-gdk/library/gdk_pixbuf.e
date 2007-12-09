@@ -28,15 +28,14 @@ class GDK_PIXBUF
 
 inherit
 	G_OBJECT
-		rename from_external_pointer as g_object_from_external_pointer
-		redefine dispose end
+		redefine dispose, store_eiffel_wrapper, unstore_eiffel_wrapper end
 
 insert
 	GDK_PIXBUF_EXTERNALS
 	GDK_COLORSPACE
 
 creation dummy,
-	make, from_external_pointer,
+	make, from_external_pointer_no_ref, from_external_pointer,
 	from_file, from_file_at_size, from_file_at_scale,
 	from_drawable, from_pixbuf, from_data
 
@@ -64,10 +63,15 @@ feature {} -- Creation
 	from_pixbuf (other: like Current) is
 		require
 			other_not_void: other /= Void
+		local
+			pixbuf_ptr: POINTER
 		do
-			from_external_pointer (gdk_pixbuf_copy (other.handle))
-		ensure
-			is_valid = is_g_object
+			pixbuf_ptr := gdk_pixbuf_copy (other.handle)
+			if pixbuf_ptr.is_not_null then
+				from_external_pointer_no_ref (pixbuf_ptr)
+			else
+				set_handle (invalid_pixbuf_handle)
+			end
 		end
 
 	from_file (filename: STRING) is
@@ -76,23 +80,35 @@ feature {} -- Creation
 		require
 			filename /= Void
 		local
-			error_ptr: POINTER
+			error_ptr, pixbuf_ptr: POINTER
 		do
-			from_external_pointer (gdk_pixbuf_new_from_file (filename.to_external, $error_ptr))
+			pixbuf_ptr := gdk_pixbuf_new_from_file (filename.to_external, $error_ptr)
 			if error_ptr.is_not_null then
 				create last_error.from_external_pointer (error_ptr)
+				set_handle (invalid_pixbuf_handle)
+			elseif pixbuf_ptr.is_not_null then
+				from_external_pointer_no_ref (pixbuf_ptr)
+			else
+				-- No error reported, but no pixbuf either :(
+				set_handle (invalid_pixbuf_handle)
 			end
-		ensure
-			is_valid = is_g_object
 		end
 
 	from_data (some_data: POINTER; an_alpha: BOOLEAN; a_bits_per_sample, a_width, a_height, a_rowstride: INTEGER) is
 			-- Creates a new GdkPixbuf out of in-memory image data. Currently
 			-- only RGB images with 8 bits per sample are supported.
+		local
+			pixbuf_ptr: POINTER
 		do
-			from_external_pointer (gdk_pixbuf_new_from_data (some_data, gdk_colorspace_rgb, an_alpha.to_integer,
-																			 a_bits_per_sample, a_width, a_height,
-																			 a_rowstride, default_pointer, default_pointer))
+			pixbuf_ptr := gdk_pixbuf_new_from_data (some_data, gdk_colorspace_rgb, an_alpha.to_integer,
+			                                        a_bits_per_sample, a_width, a_height,
+			                                        a_rowstride, default_pointer, default_pointer)
+			if pixbuf_ptr.is_not_null then
+				from_external_pointer_no_ref (pixbuf_ptr)
+			else
+				-- No error reported, but no pixbuf either :(
+				set_handle (invalid_pixbuf_handle)
+			end
 		ensure
 			is_valid = is_g_object
 		end
@@ -108,15 +124,19 @@ feature {} -- Creation
 			a_height >= -1
 			filename /= Void
 		local
-			error_ptr: POINTER
+			pixbuf_ptr, error_ptr: POINTER
 		do
-			from_external_pointer (gdk_pixbuf_new_from_file_at_size (filename.to_external,
-																						a_width, a_height, $error_ptr))
+			pixbuf_ptr := gdk_pixbuf_new_from_file_at_size (filename.to_external,
+			                                                a_width, a_height, $error_ptr)
 			if error_ptr.is_not_null then
 				create last_error.from_external_pointer (error_ptr)
+				set_handle (invalid_pixbuf_handle)
+			elseif pixbuf_ptr.is_not_null then
+				from_external_pointer_no_ref (pixbuf_ptr)
+			else
+				-- No error reported, but no pixbuf either :(
+				set_handle (invalid_pixbuf_handle)
 			end
-		ensure
-			is_valid = is_g_object
 		end
 
 	from_file_at_scale (filename: STRING; a_width, a_height: INTEGER; preserve_aspect_ration: BOOLEAN) is
@@ -134,24 +154,36 @@ feature {} -- Creation
 		require
 			filename /= Void
 		local
-			error_ptr: POINTER
+			pixbuf_ptr, error_ptr: POINTER
 		do
-			from_external_pointer (gdk_pixbuf_new_from_file_at_scale (filename.to_external, a_width, a_height,
-																						 preserve_aspect_ration.to_integer, $error_ptr))
+			pixbuf_ptr := gdk_pixbuf_new_from_file_at_scale (filename.to_external, a_width, a_height,
+			                                                 preserve_aspect_ration.to_integer, $error_ptr)
 			if error_ptr.is_not_null then
 				create last_error.from_external_pointer (error_ptr)
+				set_handle (invalid_pixbuf_handle)
+			elseif pixbuf_ptr.is_not_null then
+				from_external_pointer_no_ref (pixbuf_ptr)
+			else
+				-- No error reported, but no pixbuf either :(
+				set_handle (invalid_pixbuf_handle)
 			end
-		ensure
-			is_valid = is_g_object
 		end
 
 	from_drawable (a_drawable: GDK_DRAWABLE; src_x, src_y, a_width, a_height: INTEGER) is
 		require
 			a_drawable /= Void
+		local
+			pixbuf_ptr: POINTER
 		do
-			from_external_pointer (gdk_pixbuf_get_from_drawable (default_pointer, a_drawable.handle,
-																				  default_pointer, src_x, src_y,
-																				  0, 0, a_width, a_height))
+			pixbuf_ptr := gdk_pixbuf_get_from_drawable (default_pointer, a_drawable.handle,
+			                                            default_pointer, src_x, src_y,
+			                                            0, 0, a_width, a_height)
+			if pixbuf_ptr.is_not_null then
+				from_external_pointer_no_ref (pixbuf_ptr)
+			else
+				-- No error reported, but no pixbuf either :(
+				set_handle (invalid_pixbuf_handle)
+			end
 		ensure
 			is_valid = is_g_object
 		end
@@ -164,16 +196,14 @@ feature {} -- Creation
 			a_width >= 0
 			a_height >= 0
 		local
-			ptr: POINTER
+			pixbuf_ptr: POINTER
 		do
-			ptr := gdk_pixbuf_new(gdk_colorspace_rgb, a_alpha.to_integer, 8, a_width, a_height)
-			if ptr.is_not_null then
-				set_handle(ptr)
-				is_valid := True
-				store_eiffel_wrapper
+			pixbuf_ptr := gdk_pixbuf_new(gdk_colorspace_rgb, a_alpha.to_integer, 8, a_width, a_height)
+			if pixbuf_ptr.is_not_null then
+				from_external_pointer_no_ref (pixbuf_ptr)
+			else
+				set_handle (invalid_pixbuf_handle)
 			end
-		ensure
-			is_valid = is_g_object
 		end
 
 feature -- Access
@@ -255,10 +285,15 @@ feature -- Operations
 			red_is_valid: a_red.in_range (0, 255)
 			green_is_valid: a_green.in_range (0, 255)
 			blue_is_valid: a_blue.in_range (0, 255)
+		local
+			pixbuf_ptr: POINTER
 		do
-			create Result.from_external_pointer (gdk_pixbuf_add_alpha (handle,
-															 a_substitute_color, a_red.to_character,
-															 a_green.to_character, a_blue.to_character))
+			pixbuf_ptr := gdk_pixbuf_add_alpha (handle,
+			                                    a_substitute_color, a_red.to_character,
+			                                    a_green.to_character, a_blue.to_character)
+			if pixbuf_ptr.is_not_null then
+				create Result.from_external_pointer_no_ref (pixbuf_ptr)
+			end
 		end
 
 	save (a_filename, a_type: STRING) is
@@ -419,12 +454,41 @@ feature -- Disposing
 		do
 			if is_valid then
 				Precursor
+			else
+				handle := default_pointer
 			end
+		end
+
+	store_eiffel_wrapper is
+		do
+			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
+			g_object_class := g_object_get_class (handle)
+		end
+
+	unstore_eiffel_wrapper is
+		do
+			g_object_set_qdata (handle, eiffel_key.quark, default_pointer)
 		end
 
 feature -- Error reporting
 
-	is_valid: BOOLEAN
+	is_valid: BOOLEAN is
+		do
+			Result := handle /= invalid_pixbuf_handle
+		end
+
+feature {} -- Error reporting
+
+	invalid_pixbuf: GDK_PIXBUF is
+			-- Pointer to a 1x1 opaque pixbuf
+		once
+			create Result.make (False, 1, 1)
+		end
+
+	invalid_pixbuf_handle: POINTER is
+		once
+			Result := invalid_pixbuf.handle
+		end
 
 feature -- size
 	struct_size: INTEGER is
@@ -450,8 +514,13 @@ feature -- Scaling
 		require
 			is_valid_gdk_interp_type (a_interp_type)
 			is_valid
+		local
+			pixbuf_ptr: POINTER
 		do
-			create Result.from_external_pointer (gdk_pixbuf_scale_simple (handle, a_width, a_height, a_interp_type))
+			pixbuf_ptr := gdk_pixbuf_scale_simple (handle, a_width, a_height, a_interp_type)
+			if pixbuf_ptr.is_not_null then
+				create Result.from_external_pointer_no_ref (pixbuf_ptr)
+			end
 		end
 
 	scale (other: GDK_PIXBUF; dest_x, dest_y, dest_width, dest_height: INTEGER;
@@ -477,6 +546,7 @@ feature -- Scaling
 			-- interp_type : the interpolation type for the transformation.
 		require
 			is_valid_gdk_interp_type (interp_type)
+			is_valid
 		do
 			gdk_pixbuf_scale (handle, other.handle, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type)
 		end
@@ -491,12 +561,15 @@ feature -- Scaling
 			valid_alpha: overall_alpha.in_range (0, 255)
 			valid_check_size: check_size.is_a_power_of_2
 			valid_interp_type: is_valid_gdk_interp_type (interp_type)
+			valid_src: is_valid
 		local
 			res: POINTER
 		do
 			res := gdk_pixbuf_composite_color_simple (handle, dest_width, dest_height, interp_type,
 																	overall_alpha, check_size, color1, color2)
-			Result := create {GDK_PIXBUF}.from_external_pointer (res)
+			if res.is_not_null then
+				create Result.from_external_pointer_no_ref (res)
+			end
 		ensure
 			Result /= Void
 		end
@@ -514,6 +587,8 @@ feature -- Scaling
 		require
 			valid_alpha: overall_alpha.in_range (0, 255)
 			valid_interp_type: is_valid_gdk_interp_type (interp_type)
+			valid_dest: dest.is_valid
+			valid_src: is_valid
 		do
 			gdk_pixbuf_composite (handle, dest.handle, dest_x, dest_y, dest_width, dest_height,
 										 offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha)
@@ -536,10 +611,14 @@ feature -- Scaling
 			valid_alpha: overall_alpha.in_range (0, 255)
 			valid_check_size: check_size.is_a_power_of_2
 			valid_interp_type: is_valid_gdk_interp_type (interp_type)
+			valid_src: is_valid
+			valid_dst: dest.is_valid
 		do
 			gdk_pixbuf_composite_color (handle, dest.handle, dest_x, dest_y, dest_width, dest_height,
 												 offset_x, offset_y, scale_x, scale_y, interp_type,
 												 overall_alpha, check_x, check_y, check_size, color1, color2)
 		end
 
+invariant
+	handle.is_not_null
 end -- GDK_PIXBUF

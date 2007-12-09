@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 
 deferred class GTK_EDITABLE
 	-- The GtkEditable interface is an interface which should be
@@ -62,7 +62,7 @@ inherit
 		-- any harm.
 insert
 	GTK_EDITABLE_EXTERNALS
-	GTK_EDITABLE_STRUCT 
+	GTK_EDITABLE_STRUCT
 		-- Known Implementations: GtkEditable is implemented by
 		-- GtkEntry, GtkOldEditable, GtkSpinButton and GtkText.
 
@@ -74,7 +74,7 @@ feature
 			-- the the characters selected will be those characters from
 			-- `a_start' to the end of the text.
 		do
-			gtk_editable_select_region (handle, a_start,an_end)
+			gtk_editable_select_region (handle, a_start, an_end)
 		end
 
 	selection_bounds: TUPLE[BOOLEAN,INTEGER,INTEGER] is
@@ -101,11 +101,10 @@ feature
 			-- to the position at which to insert the text. After the
 			-- call it points at the position after the newly inserted
 			-- text.
-
+			
 			not_yet_implemented -- TODO missing position_ptr := WHAT? + a_position
 			-- gtk_editable_insert_text (handle, a_text.to_external, a_text.count, position_ptr)
 		end
-
 
 	delete_text (a_start, an_end: INTEGER) is
 			-- Deletes a sequence of characters. The characters that are
@@ -151,13 +150,12 @@ feature
 		do
 			gtk_editable_paste_clipboard (handle)
 		end
-	
+
 	delete_selection is
 			-- Deletes the current contents of the widgets selection and disclaims the selection.
 		do
 			gtk_editable_delete_selection (handle)
 		end
-	
 
 	set_position (a_position: INTEGER) is
 			-- Sets the cursor position. The cursor is displayed before
@@ -206,7 +204,6 @@ feature -- The "changed" signal
 			
 	connect_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
 			-- Connects "changed" signal to `a_procedure'.
-
 			-- The "changed" signal is emitted when the user changes
 			-- the contents of the widget.
 		require valid_procedure: a_procedure /= Void
@@ -225,7 +222,7 @@ feature -- The "changed" signal
 	-- editable : 	the object which received the signal.
 	-- user_data : 	user data set when the signal handler was connected.
 
-feature	-- The "delete-text" signal
+feature -- The "delete-text" signal
 
 	-- void user_function (GtkEditable *editable, gint `a_start', gint
 	-- `an_end', gpointer user_data);
@@ -279,4 +276,5 @@ feature -- The "insert-text" signal
 			create insert_text_callback.make
 			insert_text_callback.connect (Current, a_procedure)
 		end
-end
+
+end -- class GTK_EDITABLE

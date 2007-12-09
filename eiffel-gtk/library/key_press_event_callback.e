@@ -1,5 +1,5 @@
 indexing
-	description: "Generic callback for the kry-press-event signal"
+	description: "Generic callback for the key-press-event signal"
 	copyright: "[
 					Copyright (C) 2006 Paolo redaelli, eiffel-libraries team,  GTK+ team and others
 					

@@ -42,6 +42,42 @@ feature -- size
 		alias "sizeof(GtkStyle)"
 		end
 
+feature -- Access
+
+	states: ARRAY [STRING] is
+		once
+			Result := <<"NORMAL", "ACTIVE", "PRELIGHT", "SELECTED", "INSENSITIVE">>
+			Result.reindex(0)
+		end
+
+	background_color (a_state: STRING): GDK_COLOR is
+		require
+			states.has (a_state)
+		do
+			create Result.from_external_pointer (gtk_style_get_bg (handle, states.index_of(a_state)))
+		end
+
+	foreground_color (a_state: STRING): GDK_COLOR is
+		require
+			states.has (a_state)
+		do
+			create Result.from_external_pointer (gtk_style_get_fg (handle, states.index_of(a_state)))
+		end
+
+	text_color (a_state: STRING): GDK_COLOR is
+		require
+			states.has (a_state)
+		do
+			create Result.from_external_pointer (gtk_style_get_text (handle, states.index_of(a_state)))
+		end
+
+	base_color (a_state: STRING): GDK_COLOR is
+		require
+			states.has (a_state)
+		do
+			create Result.from_external_pointer (gtk_style_get_base (handle, states.index_of(a_state)))
+		end
+
 feature -- Operations
 	set_background_pixmap (a_pixmap: GDK_PIXMAP; a_state: INTEGER) is
 		require

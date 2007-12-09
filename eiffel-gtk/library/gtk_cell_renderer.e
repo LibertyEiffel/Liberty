@@ -60,6 +60,7 @@ insert
 	GTK_CELL_RENDERER_EXTERNALS
 
 feature
+
 	size (a_widget: GTK_WIDGET): TUPLE[INTEGER,INTEGER,INTEGER,INTEGER,GDK_RECTANGLE] is
 			-- The x and y offset width and height needed to render the
 			-- cell. Used by view widgets to determine the appropriate
@@ -68,10 +69,10 @@ feature
 			-- values set in width and height, as well as those in
 			-- x_offset and y_offset are inclusive of the xpad and ypad
 			-- properties.
-		require 
+		require
 			widget_not_void: a_widget/=Void
-		local  
-			an_x_offset, an_y_offset, a_width, an_height: INTEGER; 
+		local
+			an_x_offset, an_y_offset, a_width, an_height: INTEGER
 			a_rectangle: GDK_RECTANGLE
 		do
 			create a_rectangle.make
@@ -86,8 +87,8 @@ feature
 												 a_rectangle.handle, $an_x_offset, $an_y_offset,
 												 $a_width, $an_height)
 			create Result.make_5(an_x_offset, an_y_offset, a_width, an_height, a_rectangle)
-		ensure 
-			not_void: Result/=Void 
+		ensure
+			not_void: Result/=Void
 			rectangle_not_void: Result.item_5 /= Void
 		end
 
@@ -137,6 +138,7 @@ feature
 	-- cell_area : 	cell area as passed to gtk_cell_renderer_render
 	-- flags : 	render flags
 	-- Returns : 	TRUE if the event was consumed/handled
+
 	-- gtk_cell_renderer_start_editing ()
 
 	-- GtkCellEditable* gtk_cell_renderer_start_editing
@@ -291,55 +293,96 @@ feature -- Property Details
 	-- The ypad.
 
 	-- Default value: 0
-	-- Signal Details
-	-- The "editing-canceled" signal
 
-	-- void        user_function                  (GtkCellRenderer *renderer,
-	--                                             gpointer user_data);
+feature -- "editing-canceled"
 
-	-- This signal gets emitted when the user cancels the process of editing a cell. For example, an editable cell renderer could be written to cancel editing when the user presses Escape.
+	editing_canceled_signal_name: STRING is "editing-canceled"
+		-- "editing-canceled"
+		-- void        user_function                  (GtkCellRenderer *renderer,
+		--                                             gpointer user_data);
 
-	-- See also: gtk_cell_renderer_editing_canceled()
+	enable_on_editing_canceled is
+			-- Connects "editing-canceled" signal to `on_editing_canceled' feature.
+		do
+			connect (Current, editing_canceled_signal_name, $on_editing_canceled)
+		end
 
-	-- renderer : 	the object which received the signal
-	-- user_data : 	user data set when the signal handler was connected.
+	on_editing_canceled: INTEGER is
+			-- This signal gets emitted when the user cancels the process of
+			-- editing a cell. For example, an editable cell renderer could be
+			-- written to cancel editing when the user presses Escape.
+		do
+		end
 
-	-- Since 2.4
-	-- The "editing-started" signal
+	connect_agent_to_editing_canceled_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_RENDERER]]) is
+			-- renderer : 	the object which received the signal
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			editing_canceled_callback: EDITING_CANCELED_CALLBACK
+		do
+			create editing_canceled_callback.make
+			editing_canceled_callback.connect (Current, a_procedure)
+		end
 
-	-- void        user_function                  (GtkCellRenderer *renderer,
-	--                                             GtkCellEditable *editable,
-	--                                             gchar *path,
-	--                                             gpointer user_data);
+feature -- "editing-started"
 
-	-- This signal gets emitted when a cell starts to be edited. The indended use of this signal is to do special setup on editable, e.g. adding a GtkEntryCompletion or setting up additional columns in a GtkComboBox.
+	editing_started_signal_name: STRING is "editing-started"
+		-- "editing-started"
+		-- void        user_function                  (GtkCellRenderer *renderer,
+		--                                             GtkCellEditable *editable,
+		--                                             gchar *path,
+		--                                             gpointer user_data);
 
-	-- Note that GTK+ doesn't guarantee that cell renderers will continue to use the same kind of widget for editing in future releases, therefore you should check the type of editable before doing any specific setup, as in the following example:
+	enable_on_editing_started is
+			-- Connects "editing-started" signal to `on_editing_started' feature.
+		do
+			connect (Current, editing_started_signal_name, $on_editing_started)
+		end
 
-	-- static void
-	-- text_editing_started (GtkCellRenderer *cell,
-	--                       GtkCellEditable *editable,
-	--                       const gchar     *path,
-	--                       gpointer         data)
-	-- {
-	--   if (GTK_IS_ENTRY (editable)) 
-	--     {
-	--       GtkEntry *entry = GTK_ENTRY (editable);
-		
-	--       /* ... create a GtkEntryCompletion */
-		
-	--       gtk_entry_set_completion (entry, completion);
-	--     }
-	-- }
+	on_editing_started: INTEGER is
+			-- This signal gets emitted when a cell starts to be edited. The
+			-- indended use of this signal is to do special setup on editable, e.g.
+			-- adding a GtkEntryCompletion or setting up additional columns in a
+			-- GtkComboBox.
+			
+			-- Note that GTK+ doesn't guarantee that cell renderers will
+			-- continue to use the same kind of widget for editing in future
+			-- releases, therefore you should check the type of editable before
+			-- doing any specific setup, as in the following example:
+			
+			-- static void
+			-- text_editing_started (GtkCellRenderer *cell,
+			--                       GtkCellEditable *editable,
+			--                       const gchar     *path,
+			--                       gpointer         data)
+			-- {
+			--   if (GTK_IS_ENTRY (editable)) 
+			--     {
+			--       GtkEntry *entry = GTK_ENTRY (editable);
+			
+			--       /* ... create a GtkEntryCompletion */
+			
+			--       gtk_entry_set_completion (entry, completion);
+			--     }
+			-- }
+		do
+		end
 
-	-- renderer : 	the object which received the signal
-	-- editable : 	the GtkCellEditable
-	-- path : 	the path identifying the edited cell
-	-- user_data : 	user data set when the signal handler was connected.
+	connect_agent_to_editing_started_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_EDITABLE,
+	                                                                            GTK_TREE_PATH, GTK_CELL_RENDERER]]) is
+			-- renderer : 	the object which received the signal
+			-- editable : 	the GtkCellEditable
+			-- path     : 	the path identifying the edited cell
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			editing_started_callback: EDITING_STARTED_CALLBACK
+		do
+			create editing_started_callback.make
+			editing_started_callback.connect (Current, a_procedure)
+		end
 
-	-- Since 2.6
-	-- See Also
-
-	-- 													GtkCellRendererText,GtkCellRendererPixbuf,GtkCellRendererToggle
-													
-end
+end -- class GTK_CELL_RENDERER
