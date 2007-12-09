@@ -41,7 +41,7 @@ feature {} -- Private access
 		do
 			codec_ptr := avcodec_find_decoder (a_codec_id)
 			if codec_ptr.is_not_null then
-				create Result.from_externalpointerr (codec_ptr)
+				create Result.from_external_pointer (codec_ptr)
 			end
 		end
 

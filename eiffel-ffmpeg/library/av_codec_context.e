@@ -26,8 +26,6 @@ inherit
 		redefine dispose end
 
 insert
-	WRAPPER_RETRIEVER [AV_CODEC]
-		undefine copy, is_equal end
 	AV_CODEC_CONTEXT_EXTERNALS
 	AV_PIXEL_FORMATS
 	AV_CODEC_TYPES
@@ -45,8 +43,8 @@ feature {} -- Creation
 			-- creates a new AV_CODEC_CONTEXT and sets it to default values
 		do
 			handle := avcodec_alloc_context
+			create factory.with_archetype(create {AV_CODEC}.dummy)
 		end
-
 
 feature -- Access
 
@@ -165,11 +163,8 @@ feature -- Access
 		end
 
 	codec: AV_CODEC is
-		local
-			codec_ptr: POINTER
 		do
-			codec_ptr := av_codec_context_get_codec (handle)
-			Result := wrapper(codec)
+			Result := factory.wrapper(av_codec_context_get_codec (handle))
 		end
 
 	pix_fmt: INTEGER is
@@ -292,6 +287,7 @@ feature {} -- Disposing
 feature {} -- Internal
 
 	internal_got_picture: BOOLEAN
+	factory: ARCHETYPE_CACHING_FACTORY[AV_CODEC]
 
 feature -- Size
 
