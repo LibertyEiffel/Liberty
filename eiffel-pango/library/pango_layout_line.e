@@ -75,4 +75,11 @@ feature -- Access
 			is_valid_pango_direction (Result)
 		end
 
+feature -- Size
+
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(PangoLayoutLine)"
+		end
+
 end -- PANGO_LAYOUT_LINE

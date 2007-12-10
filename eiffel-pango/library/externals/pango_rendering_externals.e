@@ -129,11 +129,6 @@ feature {} -- External calls
 		external "C use <pango/pango.h>"
 		end
 
-	pango_context_set_matrix (a_context, a_matrix: POINTER) is
-			-- 	void pango_context_set_matrix (PangoContext *context, const PangoMatrix *matrix);
-		external "C use <pango/pango.h>"
-		end
-
 	pango_context_load_font (a_context, a_desc: POINTER): POINTER is
 			-- 	PangoFont* pango_context_load_font (PangoContext *context, const PangoFontDescription *desc);
 		external "C use <pango/pango.h>"
