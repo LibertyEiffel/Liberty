@@ -14,9 +14,7 @@ insert
 		export {ANY}
 			retrieve_eiffel_wrapper_from_gobject_pointer,
 			eiffel_wrapper_from_gobject_pointer,
-			has_eiffel_wrapper_stored,
-			type_from_gobject_pointer,
-			type_name_from_gobject_pointer
+			has_eiffel_wrapper_stored
 		end
 	ANY -- to get is_equal and copy
 

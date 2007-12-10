@@ -10,15 +10,13 @@ inherit ANY undefine is_equal, copy end
 
 --insert G_TYPE
 
-feature {} -- external calls
+feature {} -- Fundamental g_type
 
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
 	-- 2006-01-07)
 
 	-- GType: A numerical value which represents the unique identifier
 	-- of a registered type.
-
-feature {} -- Fundamental g_type
 
 	g_type: INTEGER_32 is
 			-- The type used for GType, a number used to identify various
