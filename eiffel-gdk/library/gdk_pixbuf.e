@@ -28,7 +28,7 @@ class GDK_PIXBUF
 
 inherit
 	G_OBJECT
-		redefine dispose, store_eiffel_wrapper, unstore_eiffel_wrapper end
+		redefine dispose end
 
 insert
 	GDK_PIXBUF_EXTERNALS
@@ -43,19 +43,6 @@ feature -- Dummy creation
 	dummy_gobject: POINTER is
 		do
 			Result := gdk_pixbuf_new(gdk_colorspace_rgb,0,8,1,1)
-		end
-
-feature -- Creation
-
-	from_external_pointer (a_ptr: POINTER) is
-		do
-			if a_ptr.is_not_null then
-				g_object_from_external_pointer (a_ptr)
-				is_valid := True
-			end
-		ensure
-			a_ptr.is_not_null = is_valid
-			is_valid = is_g_object
 		end
 
 feature {} -- Creation
@@ -457,17 +444,6 @@ feature -- Disposing
 			else
 				handle := default_pointer
 			end
-		end
-
-	store_eiffel_wrapper is
-		do
-			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
-			g_object_class := g_object_get_class (handle)
-		end
-
-	unstore_eiffel_wrapper is
-		do
-			g_object_set_qdata (handle, eiffel_key.quark, default_pointer)
 		end
 
 feature -- Error reporting

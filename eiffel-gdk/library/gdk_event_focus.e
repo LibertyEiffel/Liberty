@@ -22,13 +22,12 @@ indexing
 class GDK_EVENT_FOCUS
 
 inherit
-	GDK_EVENT_ANY
-		redefine struct_size end
+	SHARED_C_STRUCT
 
 insert
 	GDK_EVENT_FOCUS_EXTERNALS
 
-creation from_event
+creation from_external_pointer
 
 feature -- access
 

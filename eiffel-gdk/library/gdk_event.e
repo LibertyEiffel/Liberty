@@ -169,22 +169,14 @@ feature -- Convertion to different event types
 		require
 			is_event_focus
 		do
-			if wrappers.has (handle) then
-				Result ::= wrappers.at(handle)
-			else
-				create Result.from_event (Current)
-			end
+			create Result.from_external_pointer (handle)
 		end
 
 	event_crossing: GDK_EVENT_CROSSING is
 		require
 			is_event_crossing
 		do
-			if wrappers.has (handle) then
-				Result ::= wrappers.at(handle)
-			else
-				create Result.from_event (Current)
-			end
+			create Result.from_external_pointer (handle)
 		end
 
 invariant

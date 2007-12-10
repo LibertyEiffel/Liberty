@@ -22,8 +22,7 @@ indexing
 class GDK_EVENT_CROSSING
 
 inherit
-	GDK_EVENT_ANY
-		redefine struct_size end
+	SHARED_C_STRUCT
 
 insert
 	GDK_EVENT_CROSSING_EXTERNALS
@@ -31,7 +30,7 @@ insert
 	GDK_CROSSING_MODE
 	GDK_NOTIFY_TYPE
 
-creation from_event
+creation from_external_pointer
 
 feature -- access
 
@@ -41,11 +40,12 @@ feature -- access
 			window_ptr: POINTER
 		do
 			window_ptr := gdk_event_crossing_get_subwindow (handle)
-			if has_eiffel_wrapper_stored (window_ptr) then
-				Result := retrieve_eiffel_wrapper_from_gobject_pointer (window_ptr)
+			if internal_subwindow = Void then
+				create internal_subwindow.from_external_pointer (window_ptr)
 			else
-				create Result.from_external_pointer (window_ptr)
+				internal_subwindow.from_external_pointer (window_ptr)
 			end
+			Result := internal_subwindow
 		end
 
 	time: INTEGER is
@@ -113,6 +113,9 @@ feature -- size
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkEventCrossing)"
 		end
+feature {} -- Internal
+
+	internal_subwindow: like subwindow
 
 end -- class GDK_EVENT_CROSSING
  
