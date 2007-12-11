@@ -54,28 +54,28 @@ feature -- Access
 		require
 			states.has (a_state)
 		do
-			create Result.from_external_pointer (gtk_style_get_bg (handle, states.index_of(a_state)))
+			create Result.from_external_pointer (gtk_style_get_bg (handle, states.index_of(a_state, 1)))
 		end
 
 	foreground_color (a_state: STRING): GDK_COLOR is
 		require
 			states.has (a_state)
 		do
-			create Result.from_external_pointer (gtk_style_get_fg (handle, states.index_of(a_state)))
+			create Result.from_external_pointer (gtk_style_get_fg (handle, states.index_of(a_state, 1)))
 		end
 
 	text_color (a_state: STRING): GDK_COLOR is
 		require
 			states.has (a_state)
 		do
-			create Result.from_external_pointer (gtk_style_get_text (handle, states.index_of(a_state)))
+			create Result.from_external_pointer (gtk_style_get_text (handle, states.index_of(a_state, 1)))
 		end
 
 	base_color (a_state: STRING): GDK_COLOR is
 		require
 			states.has (a_state)
 		do
-			create Result.from_external_pointer (gtk_style_get_base (handle, states.index_of(a_state)))
+			create Result.from_external_pointer (gtk_style_get_base (handle, states.index_of(a_state, 1)))
 		end
 
 feature -- Operations

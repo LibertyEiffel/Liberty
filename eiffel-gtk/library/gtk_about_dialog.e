@@ -63,8 +63,9 @@ feature -- Creation
 		end
 
 feature -- Queries
-	name: STRING is
+	program_name: STRING is
 			-- the program name displayed in the about dialog.
+			-- Not called `name' to avoid conflict with GTK_WIDGET.name
 		do
 			-- The string returned by gtk_about_dialog_get_name is owned
 			-- by the about dialog and must not be modified.
@@ -130,7 +131,7 @@ feature -- Queries
 	-- Returns : 	A NULL-terminated string array containing the authors. The array is owned by the about dialog and must not be modified.
 
 feature -- Setters
-	set_name (a_name: STRING) is
+	set_program_name (a_name: STRING) is
 			-- Sets the name to display in the about dialog. If this is
 			-- not set, it defaults to result of the C function-g_get_application_name().
 		require

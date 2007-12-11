@@ -87,9 +87,10 @@ feature -- Access
 			Result := text_tag_factory.wrapper_or_void(gtk_text_tag_table_lookup(handle, a_name.to_external))
 		ensure
 			has (a_name) implies Result /= Void
+			has_tag (Result)
 		end
 
-	has (a_tag: GTK_TEXT_TAG): BOOLEAN is
+	has_tag (a_tag: GTK_TEXT_TAG): BOOLEAN is
 		require
 			tag_not_void: a_tag /= Void
 			named_tag: a_tag.name /= Void

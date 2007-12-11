@@ -26,7 +26,9 @@ class EDITING_STARTED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_CELL_RENDERER]
+insert
+	G_OBJECT_FACTORY [GTK_CELL_RENDERER]
+		undefine copy, is_equal end
 
 creation make
 
@@ -36,7 +38,7 @@ feature
 feature
 	callback (editable, path, instance: POINTER) is
 		local
-			r: G_RETRIEVER [GTK_CELL_EDITABLE]
+			f: G_OBJECT_FACTORY [GTK_CELL_EDITABLE]
 			editable_obj: GTK_CELL_EDITABLE
 			path_obj: GTK_TREE_PATH
 		do
@@ -44,18 +46,11 @@ feature
 			check
 				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
 			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper (instance)
 			
-			if r.has_eiffel_wrapper_stored (editable) then
-				editable_obj := r.retrieve_eiffel_wrapper_from_gobject_pointer (editable)
-			else
-				-- FIXME: remove this quick and nasty ungly hack, we don't like to hard code
-				-- a class name
-				if r.type_name_from_gobject_pointer (editable).is_equal (once "GtkEntry") then
-					create {GTK_ENTRY}editable_obj.from_external_pointer (editable)
-				end
-			end
-			
+			create f
+			editable_obj := f.wrapper (editable)
+
 			if not path.is_null then
 				-- path is a const gchar *
 				create path_obj.from_string (create {STRING}.from_external_copy (path))
