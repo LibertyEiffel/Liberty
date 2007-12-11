@@ -13,7 +13,7 @@ insert
 			copy, is_equal
 		end
 	
-	G_TYPE_EXTERNAL -- for "like g_type" anchored declarations
+	G_TYPE_EXTERNALS -- for "like g_type" anchored declarations
 
 feature {} -- External calls
 

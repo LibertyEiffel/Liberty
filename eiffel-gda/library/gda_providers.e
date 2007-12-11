@@ -35,8 +35,8 @@ class GDA_PROVIDERS
 	-- AFAIK.
 
 inherit G_LIST [GDA_PROVIDER_INFO] redefine free end 
-insert GDA_CONFIG_EXTERNALS
-creation dummy, from_external_pointer
+insert GDA_CONFIG_EXTERNALS undefine fill_tagged_out_memory end
+creation from_external_pointer
 feature {} -- Freeing
 	free (ptr: POINTER) is
 		do

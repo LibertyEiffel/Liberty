@@ -47,10 +47,6 @@ class GDA_PARAMETER
 
 inherit 
 	GDA_OBJECT
-		rename
-			make as allocate_struct
-		export {}
-			allocate_struct 
 		redefine
 			copy, type
 		end
@@ -263,10 +259,11 @@ feature {ANY}
 			-- GdaDataModel? After calling this feature `model_values'
 			-- and `values_column' will contains the allowed values.
 		do
-			if model_values=Void then create model_values.make end
-			Result := (gda_parameter_has_restrict_values
-						  (handle, address_of (model_values.handle),
-							$values_column)).to_boolean
+			unimplemented -- Requires an actual GDA_DATA_MODEL
+			-- if model_values=Void then create model_values.make end
+			-- Result := (gda_parameter_has_restrict_values
+			-- 			  (handle, address_of (model_values.handle),
+			--				$values_column)).to_boolean
 		ensure
 			model_values_not_void: Result=True implies (model_values /= Void)
 		end
@@ -299,12 +296,6 @@ feature {} -- TODO: The "restrict-changed" signal
 	--    gdaparameter : the object which received the signal.
 	--    user_data :    user data set when the signal handler was connected.
 	
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <libgda/libgda.h>"
-		alias "sizeof(GdaParameter)"
-		end
-
 feature {} -- Implementation
 	stored_value: G_VALUE
 	
@@ -375,5 +366,7 @@ feature -- Property Details
 	--
 	--   gdaparameter : the object which received the signal.
 	--   user_data :    user data set when the signal handler was connected.
+
+feature dummy_gobject: POINTER is do unimplemented end 
 
 end -- class GDA_PARAMETER

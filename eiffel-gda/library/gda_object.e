@@ -58,33 +58,19 @@ deferred class GDA_OBJECT
 	-- o The ID as a guint, the name, description and owner attached to
 	--   the GdaObject.
 
-inherit 
-	G_OBJECT redefine dispose end
+inherit G_OBJECT 
 
-		-- Known heirs: GdaHandlerTime, GdaHandlerBoolean,
-		-- GdaHandlerString, GdaHandlerNumerical, GdaHandlerBin,
-		-- GdaHandlerType, GdaDataModelRow, GdaDataModelImport,
-		-- GdaParameterList, GdaDataModelQuery, GdaDataAccessWrapper,
-		-- GdaDataProxy, GdaDictAggregate, GdaDictConstraint,
-		-- GdaDictDatabase, GdaDictField, GdaDictFunction, GdaDictTable,
-		-- GdaDictType, GdaGraphviz, GdaObjectRef, GdaParameter,
-		-- GdaQueryObject, GdaGraph, GdaGraphItem,
-
-		-- Known Derived Interfaces: GdaObject is required by
-		-- GdaDataModel, GdaEntity, GdaEntityField and GdaXmlStorage.
-	
 insert GDA_OBJECT_EXTERNALS
 
-
 feature
-	dict: GDA_DICT is 
-			-- the GdaDict object to which an object is attached to 
-		local dict_factory: G_OBJECT[GDA_DICT]
-		do 
-			Result := dict_factory.wrapper(gda_object_get_dict (handle))
-			-- create Result.from_external_pointer ()
-		ensure not_void: Result /= Void 
-		end
+	-- TODO: dict: GDA_DICT is 
+	-- the GdaDict object to which an object is attached to 
+	--		local dict_factory: G_OBJECT_EXPANDED_FACTORY[GDA_DICT]
+	--	do 
+	--		Result := dict_factory.wrapper(gda_object_get_dict (handle))
+	--		-- create Result.from_external_pointer ()
+	--	ensure not_void: Result /= Void 
+	--	end
 
 	set_id (an_id: STRING) is
 			-- Sets the string ID of the object object.  The string ID

@@ -19,12 +19,12 @@ indexing
 					02110-1301 USA
 				]"
 
-deferred class GDA_SERVER_OPERATION_NODE_TYPE
+deferred class GDA_SERVER_OPERATION_NODE_STATUS
 
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_ (a_ :INTEGER): BOOLEAN is
+	is_valid_server_operation_status (a_type: INTEGER): BOOLEAN is
 		do	
 			Result:=((a_type = gda_server_operation_status_optional) or else
 						(a_type = gda_server_operation_status_required) or else

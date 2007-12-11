@@ -87,7 +87,7 @@ insert
 
 	SHARED_G_ERROR
 	
-creation dummy, make, from_external_pointer
+creation dummy, from_external_pointer
 
 feature 
 	changed is
@@ -246,26 +246,25 @@ feature
 								 ).to_boolean
 		end
 
-	get_new_iterator: GDA_DATA_MODEL_ITER is
-			-- Creates a new iterator object GdaDataModelIter object which can be
-			-- used to iterate through rows in model.
-		
-
-			-- TODO: 
-			-- The row the returned GdaDataModelIter represents is undefined. For
-			-- models which can be accessed randomly the correspoding row can be
-			-- set using gda_data_model_move_iter_at_row(), and for models which
-			-- are accessible sequentially only then the first row will be fetched
-			-- using gda_data_model_move_iter_next().
-		
-			-- It will be Void if an error occurred.
-		local ptr: POINTER
-		do
-			ptr:= gda_data_model_create_iter (handle)
-			if ptr.is_not_null then
-				create Result.from_external_pointer(ptr)
-			end
-		end
+	-- get_new_iterator: GDA_DATA_MODEL_ITER is
+	-- Creates a new iterator object GdaDataModelIter object which can be
+	-- used to iterate through rows in model.
+	
+	-- TODO: 
+	-- The row the returned GdaDataModelIter represents is undefined. For
+	-- models which can be accessed randomly the correspoding row can be
+	-- set using gda_data_model_move_iter_at_row(), and for models which
+	-- are accessible sequentially only then the first row will be fetched
+	-- using gda_data_model_move_iter_next().
+	
+	-- It will be Void if an error occurred.
+	-- local ptr: POINTER
+	--	do
+	--		ptr:= gda_data_model_create_iter (handle)
+	--		if ptr.is_not_null then
+	--			create Result.from_external_pointer(ptr)
+	--		end
+	
 			
 feature {} -- Duplicated iterator features
 	
@@ -599,4 +598,7 @@ feature
 --    gdadatamodel : the object which received the signal.
 --    arg1 :
 --    user_data :    user data set when the signal handler was connected.
+
+feature dummy_gobject: POINTER is do unimplemented end 
+
 end -- class GDA_DATA_MODEL

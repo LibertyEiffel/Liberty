@@ -67,8 +67,13 @@ insert
 		-- rename struct_size as gda_parameter_list_source_struct_size end
 	SHARED_G_ERROR
 		
-creation dummy, make, from_external_pointer
+creation dummy, from_external_pointer
 
+feature 
+	dummy_gobject: POINTER is
+		do
+			unimplemented 
+		end
 feature {} -- Creation
 	from_parameters (some_parameters: G_SLIST [GDA_PARAMETER]) is
 			-- Creates a new GdaParameterList object, and populates it with 

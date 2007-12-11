@@ -1,7 +1,7 @@
 indexing
 	description: "GdaConnection -- Management of connections to data sources."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTK+ team
+					Copyright (C) 2007 Paolo Redaelli, GDA team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -50,7 +50,7 @@ insert
 	GDA_CONNECTION_FEATURE_ENUM
 	GDA_CONNECTION_OPTIONS_ENUM
 
-creation dummy, make, from_external_pointer
+creation dummy, from_external_pointer
 
 feature {} -- Creation	
 
@@ -112,10 +112,9 @@ feature
 			-- the GdaClient object associated with a connection. This is
 			-- always the client that created the connection, as returned
 			-- by GDA_CLIENT `open_connection'.
-		local retriever: G_OBJECT_EXPANDED_FACTORY [GDA_CLIENT]
+		local factory: G_OBJECT_EXPANDED_FACTORY [GDA_CLIENT]
 		do
-			Result := (retriever.eiffel_wrapper_from_gobject_pointer
-						  (gda_connection_get_client (handle)))
+			Result := (factory.wrapper(gda_connection_get_client (handle)))
 		ensure not_void: Result /= Void
 		end
 
@@ -429,11 +428,11 @@ feature
 			-- if set to TRUE will preferably return a data model which
 			-- can be accessed only using an iterator.
 
-			ptr := (gda_connection_execute_command_l
+			ptr := (gda_connection_execute_command
 					  (handle, some_commands.handle, some_parameters.handle,
 						address_of (error.handle)))
 			if ptr.is_not_null then
-				create results.from_external_pointer (ptr)
+				unimplemented
 			end
 		end
 	
@@ -458,246 +457,6 @@ feature
 			end
 		end
 
-	begin_transaction (a_transaction: GDA_TRANSACTION) is
-			-- Starts `a_transaction' on the data source
-		
-			-- Before starting a transaction, you can check whether the
-			-- underlying provider does support transactions or not by
-			-- using the `supports' feature.
-
-			-- `is_successful' will be True if the transaction was
-			-- started successfully, FALSE otherwise.
-		require transaction_not_void: a_transaction/=Void
-		do
-			is_successful:=(gda_connection_begin_transaction
-								  (handle, a_transaction.handle)).to_boolean
-		end
-
-	commit_transaction  (a_transaction: GDA_TRANSACTION) is
-			-- Commits `a_transaction' to the backend database. You need
-			-- to do gda_connection_begin_transaction() first.
-
-		
-			-- `is_successful' will be True if the transaction was
-			-- started successfully, FALSE otherwise.
-		require transaction_not_void: a_transaction/=Void
-		do
-			is_successful:=(gda_connection_commit_transaction
-								 (handle, a_transaction.handle)).to_boolean
-		end
-
-	--    cnc :     a GdaConnection object.
-	--    xaction : a GdaTransaction object.
-	--    Returns : TRUE if the transaction was finished successfully, FALSE
-	--              otherwise.
-
-	--    --------------------------------------------------------------------------
-
-	--   gda_connection_rollback_transaction  (a_transaction: GDA_TRANSACTION) is
-			-- Starts `a_transaction' on the data source
-		
-			-- Before starting a transaction, you can check whether the
-			-- underlying provider does support transactions or not by
-			-- using the `supports' feature.
-
-			-- `is_successful' ill be True if the transaction was
-			-- started successfully, FALSE otherwise.
-		-- require 			transaction_not_void: a_transaction/=Void
-		-- do 		is_successful:=(
-
-	--  gboolean    gda_connection_rollback_transaction
-	--                                              (GdaConnection *cnc,
-	--                                               GdaTransaction *xaction);
-
-	--    Rollbacks the given transaction. This means that all changes made to the
-	--    underlying data source since the last call to
-	--    gda_connection_begin_transaction or gda_connection_commit_transaction will
-	--    be discarded.
-
-	--    cnc :     a GdaConnection object.
-	--    xaction : a GdaTransaction object.
-	--    Returns : TRUE if the operation was successful, FALSE otherwise.
-
-	--    --------------------------------------------------------------------------
-
-	--   gda_connection_supports_feature ()
-
-	--  gboolean    gda_connection_supports_feature (GdaConnection *cnc,
-	--                                               GdaConnectionFeature feature);
-
-	--    Asks the underlying provider for if a specific feature is supported.
-
-	--    cnc :     a GdaConnection object.
-	--    feature : feature to ask for.
-	--    Returns : TRUE if the provider supports it, FALSE if not.
-
-	--    --------------------------------------------------------------------------
-
-	--   gda_connection_get_schema ()
-
-	--  GdaDataModel* gda_connection_get_schema     (GdaConnection *cnc,
-	--                                               GdaConnectionSchema schema,
-	--                                               GdaParameterList *params,
-	--                                               GError **error);
-
-	--    Asks the underlying data source for a list of database objects.
-
-	--    This is the function that lets applications ask the different providers
-	--    about all their database objects (tables, views, procedures, etc). The set
-	--    of database objects that are retrieved are given by the 2 parameters of
-	--    this function: schema, which specifies the specific schema required, and
-	--    params, which is a list of parameters that can be used to give more detail
-	--    about the objects to be returned.
-
-	--    The list of parameters is specific to each schema type.
-
-	--    cnc :     a GdaConnection object.
-	--    schema :  database schema to get.
-	--    params :  parameter list.
-	--    error :   a place to store errors, or NULL
-	--    Returns : a GdaDataModel containing the data required. The caller is
-	--              responsible of freeing the returned model.
-
-	--    --------------------------------------------------------------------------
-
-	--   gda_connection_create_blob ()
-
-	--  GdaBlob*    gda_connection_create_blob      (GdaConnection *cnc);
-
-	--    Fetch an existing BLOB (Binary Large OBject) using its SQL ID.
-
-	--    cnc :     a GdaConnection object.
-	--    Returns : FALSE if the database does not support BLOBs. TRUE otherwise and
-	--              the GdaBlob is created and ready to be used.
-
-	--    --------------------------------------------------------------------------
-
-	--   gda_connection_fetch_blob_by_id ()
-
-	--  GdaBlob*    gda_connection_fetch_blob_by_id (GdaConnection *cnc,
-	--                                               const gchar *sql_id);
-
-	--    cnc :
-	--    sql_id :
-	--    Returns :
-
-	--    --------------------------------------------------------------------------
-
-	--   gda_connection_value_to_sql_string ()
-
-	--  gchar*      gda_connection_value_to_sql_string
-	--                                              (GdaConnection *cnc,
-	--                                               GValue *from);
-
-	--    Produces a fully quoted and escaped string from a GValue
-
-	--    cnc :     a GdaConnection object.
-	--    from :    GValue to convert from
-	--    Returns : escaped and quoted value or NULL if not supported.
-
-	-- Property Details
-
-	--   The "client" property
-
-	--    "client"               gpointer              : Read / Write
-
-	--    --------------------------------------------------------------------------
-
-	--   The "cnc-string" property
-
-	--    "cnc-string"           gchararray            : Read / Write
-
-	--    Default value: NULL
-
-	--    --------------------------------------------------------------------------
-
-	--   The "dsn" property
-
-	--    "dsn"                  gchararray            : Read / Write
-
-	--    Default value: NULL
-
-	--    --------------------------------------------------------------------------
-
-	--   The "options" property
-
-	--    "options"              guint                 : Read / Write
-
-	--    Default value: 0
-
-	--    --------------------------------------------------------------------------
-
-	--   The "password" property
-
-	--    "password"             gchararray            : Read / Write
-
---    Default value: NULL
-
---    --------------------------------------------------------------------------
-
---   The "provider-obj" property
-
---    "provider-obj"         gpointer              : Read / Write
-
---    --------------------------------------------------------------------------
-
---   The "username" property
-
---    "username"             gchararray            : Read / Write
-
---    Default value: NULL
-
--- Signal Details
-
---   The "conn-closed" signal
-
---  void        user_function                  (GdaConnection *gdaconnection,
---                                              gpointer       user_data)          : Run first
-
---    gdaconnection : the object which received the signal.
---    user_data :     user data set when the signal handler was connected.
-
---    --------------------------------------------------------------------------
-
---   The "conn-opened" signal
-
---  void        user_function                  (GdaConnection *gdaconnection,
---                                              gpointer       user_data)          : Run first
-
---    gdaconnection : the object which received the signal.
---    user_data :     user data set when the signal handler was connected.
-
---    --------------------------------------------------------------------------
-
---   The "conn-to-close" signal
-
---  void        user_function                  (GdaConnection *gdaconnection,
---                                              gpointer       user_data)          : Run first
-
---    gdaconnection : the object which received the signal.
---    user_data :     user data set when the signal handler was connected.
-
---    --------------------------------------------------------------------------
-
---   The "dsn-changed" signal
-
---  void        user_function                  (GdaConnection *gdaconnection,
---                                              gpointer       user_data)          : Run last
-
---    gdaconnection : the object which received the signal.
---    user_data :     user data set when the signal handler was connected.
-
---    --------------------------------------------------------------------------
-
---   The "error" signal
-
---  void        user_function                  (GdaConnection      *gdaconnection,
---                                              GdaConnectionEvent *arg1,
---                                              gpointer            user_data)          : Run last
-
---    gdaconnection : the object which received the signal.
---    arg1 :
---    user_data :     user data set when the signal handler was connected.
 
 feature {} -- TODO: Signals
 
@@ -803,11 +562,22 @@ feature {ANY} -- Printing
 				tagged_out_memory.append(once "Void")
 			end
 			tagged_out_memory.append("%N password = %"********%"")
-			
 		end
-	
+
+feature 
+	dummy_gobject: POINTER is
+		do
+			raise("GDA_CONNECTION.dummy_gobject invoked")
+		end
+
+	struct_size: INTEGER is
+		external "C inline use <libgda/libgda.h>"
+		alias "sizeof(GdaConnection)"
+		end
+
+feature {} -- Constant property names 
 -- TODO: what it this? Should this be initialized here??? ramack 
--- doubts that!	
+-- doubts that! Paolo 2007-12-09 
 	client_property_name: STRING is "string"
 	connection_string_property_name: STRING is "cnc-string"
 	dsn_property_name: STRING is "dsn"

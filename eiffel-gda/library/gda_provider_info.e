@@ -24,7 +24,7 @@ class GDA_PROVIDER_INFO
 inherit
 	SHARED_C_STRUCT
 		redefine
-			fill_tagged_out_memory, free
+			copy, fill_tagged_out_memory, free
 		end
 	
 insert
@@ -44,8 +44,7 @@ insert
 			fill_tagged_out_memory
 		end
 	
-creation dummy,
-	make, copy, from_external_pointer
+creation dummy, copy, from_external_pointer
 
 feature -- Properties
 	id: STRING is 

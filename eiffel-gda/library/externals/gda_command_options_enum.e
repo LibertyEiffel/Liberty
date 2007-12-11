@@ -28,14 +28,14 @@ insert
 		end
 
 feature {} -- enum
-	are_valid_options (some_options :INTEGER): BOOLEAN is
+	are_valid_command_options (some_options :INTEGER): BOOLEAN is
 		do	
 			Result := (some_options & (gda_command_option_ignore_errors |
-											   gda_command_option_stop_on_errors |
-											   gda_command_option_bad_option)).to_boolean
+												gda_command_option_stop_on_errors |
+												gda_command_option_bad_option)).to_boolean
 		end
 
- 	gda_command_option_ignore_errors: INTEGER is
+	gda_command_option_ignore_errors: INTEGER is
 		external "C macro use <libgda/ligda.h>"
 		alias "GDA_COMMAND_OPTION_IGNORE_ERRORS"
 		end 

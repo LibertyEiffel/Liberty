@@ -8,6 +8,8 @@ indexing
 deferred class GDA_STATUS_EVENT_STRUCT
 	-- TODO: Entirely!
 
+inherit ANY undefine is_equal, copy end
+
 feature {} -- Structure getter/setter calls
 	--  GdaTransactionStatusEvent
 	--

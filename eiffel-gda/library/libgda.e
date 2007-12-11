@@ -23,7 +23,7 @@ class LIBGDA
 
 insert
 	SINGLETON
-	SHARED_ARCHETYPE_DICTIONARY[G_OBJECT] 
+	SHARED_ARCHETYPES_DICTIONARY[G_OBJECT] 
 	
 creation  {SHARED_LIBGDA}
 	make
@@ -32,7 +32,7 @@ feature {} -- creation
 	make is
 		do
 			-- Store archetypes
-			store_archetype(create {GDA_DICT}.dummy)
+			--store_archetype(create {GDA_DICT}.dummy)
 		end
 	
 feature {} -- size

@@ -1,7 +1,5 @@
 indexing
 	description: "GdaClient -- Database client access."
-indexing
-	description: "."
 	copyright: "[
 					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
 					
@@ -44,14 +42,18 @@ class GDA_CLIENT
 inherit 
 	G_OBJECT
 	G_OBJECT_FACTORY [GDA_CONNECTION]
-		-- Note: GDA_CLIENT is a proper heir of G_OBJECT_FACTORY because
-		-- it is re-used as factory in `connections'
+		undefine copy, is_equal
+			-- Note: GDA_CLIENT is a proper heir of G_OBJECT_FACTORY because
+			-- it is re-used as factory in `connections'
+		end
 
 insert
 	GDA_CLIENT_EXTERNALS
 	SHARED_G_ERROR
 	
 creation dummy, make, from_external_pointer
+
+feature dummy_gobject: POINTER is do unimplemented end
 
 feature {} -- Creation
  
@@ -133,7 +135,7 @@ feature
 			Result:=wrapper_or_void(gda_client_open_connection_from_string
 											(handle, a_provider_id.to_external, 
 											 a_connection_string.to_external,
-											 null_or_string(a_user), null_or_string(a_password),
+											 null_or_string(a_username), null_or_string(a_password),
 											 some_options, address_of(error.handle)))
 		end
 
@@ -191,10 +193,14 @@ feature {} -- Transactions
 
 			-- `is_successful' will be True if all transactions could be
 			-- started successfully, or False if one of them fails. `error' 
-			-- is updated
+			-- is updated.
+		
+			-- To execute a transaction on a unique connection, use
+			-- `begin_transaction', `commit_transaction' and
+			-- `rollback_transaction'.
 		require
 			name_not_void: a_name /= Void
-			valid_isolation_level: is_valid_gda_transaction_isolation_level(an_isolation_level)
+			valid_isolation_level: is_valid_transaction_isolation_level(an_isolation_level)
 		do
 			is_successful:=(gda_client_begin_transaction
 								 (handle,a_name.to_external,
@@ -234,9 +240,10 @@ feature {} -- Transactions
 		end
 
 feature -- Database creation and dropping
-	dsn_specs (a_provides: STRING): STRING is
+	dsn_specs (a_provider: STRING): STRING is
 			-- an XML string representing the parameters which can be
-			-- present in the DSN string used to open a connection.
+			-- present in the DSN string used to open a connection. Can
+			-- be Void if an error occurred.
 		local ptr: POINTER
 		do
 			ptr:=gda_client_get_dsn_specs(handle, a_provider.to_external)
@@ -260,14 +267,14 @@ feature -- Database creation and dropping
 
 			-- Note: This feature and `perform_create_database' follow
 			-- closely the original C API. It is debatable if that
-			-- approach is a correct OO design. Surely it requires revere
-			-- precondition in the latter feature. Perhaps it is meant to
-			-- allow the end-user to set up some provider-dependant
+			-- approach is a correct OO design. Surely it requires severe
+			-- preconditions in the latter feature. Perhaps it is meant
+			-- to allow the end-user to set up some provider-dependant
 			-- settings before actual database creation. Paolo 2007-07-07
 		local ptr: POINTER
 		do
 			ptr := (gda_client_prepare_create_database (handle,
-																	  null_or(a_database_name),
+																	  null_or_string(a_database_name),
 																	  a_provider.to_external))
 			if ptr.is_not_null then
 				create Result.from_external_pointer(ptr)
@@ -284,7 +291,7 @@ feature -- Database creation and dropping
 		require operation_is_database_creation: -- TODO
 		do
 			is_successful:=(gda_client_perform_create_database(handle,an_operation.handle,
-			address_of(error.handle))).to_boolean
+																				address_of(error.handle))).to_boolean
 		end
 	
 	--  gda_client_prepare_drop_database ()
@@ -459,91 +466,7 @@ feature {} -- Unwrapped code
 	--   PostgreSQL and MySQL connection strings. It is a semicolumn-separated
 	--   series of key=value pairs. Do not add extra whitespace after the
 	
-	begin_transaction (a_name: STRING; an_isolation_level: INTEGER) is
-		do
-			is_successful := (gda_client_begin_transaction
-			(GdaClient *client,
-	--                                                          const gchar *name,
-	--                                                          GdaTransactionIsolation level,
-	--                                                          GError **error);
-	--
-	--   Starts a transaction on all connections being managed by the given
-	--   GdaClient. It is important to note that this operates on all connections
-	--   opened within a GdaClient, which could not be what you're looking for.
-	--
-	--   To execute a transaction on a unique connection, use
-	--   gda_connection_begin_transaction, gda_connection_commit_transaction and
-	--   gda_connection_rollback_transaction.
-	--
-	--   client :  a GdaClient object.
-	--   name :    the name of the transation to start
-	--   level :
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if all transactions could be started successfully, or FALSE
-	--             if one of them fails.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_client_commit_transaction ()
-	--
-	-- gboolean            gda_client_commit_transaction       (GdaClient *client,
-	--                                                          const gchar *name,
-	--                                                          GError **error);
-	--
-	--   Commits a running transaction on all connections being managed by the
-	--   given GdaClient. It is important to note that this operates on all
-	--   connections opened within a GdaClient, which could not be what you're
-	--   looking for.
-	--
-	--   To execute a transaction on a unique connection, use
-	--   gda_connection_begin_transaction, gda_connection_commit_transaction and
-	--   gda_connection_rollback_transaction.
-	--
-	--   client :  a GdaClient object.
-	--   name :    the name of the transation to commit
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if all transactions could be committed successfully, or
-	--             FALSE if one of them fails.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_client_rollback_transaction ()
-	--
-	-- gboolean            gda_client_rollback_transaction     (GdaClient *client,
-	--                                                          const gchar *name,
-	--                                                          GError **error);
-	--
-	--   Cancels a running transaction on all connections being managed by the
-	--   given GdaClient. It is important to note that this operates on all
-	--   connections opened within a GdaClient, which could not be what you're
-	--   looking for.
-	--
-	--   To execute a transaction on a unique connection, use
-	--   gda_connection_begin_transaction, gda_connection_commit_transaction and
-	--   gda_connection_rollback_transaction.
-	--
-	--   client :  a GdaClient object.
-	--   name :    the name of the transation to rollback
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if all transactions could be cancelled successfully, or
-	--             FALSE if one of them fails.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_client_get_dsn_specs ()
-	--
-	-- gchar*              gda_client_get_dsn_specs            (GdaClient *client,
-	--                                                          const gchar *provider);
-	--
-	--   Get an XML string representing the parameters which can be present in the
-	--   DSN string used to open a connection.
-	--
-	--   client :   a GdaClient object.
-	--   provider : a provider
-	--   Returns :  a string (free it after usage), or NULL if an error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
+
 	--  gda_client_prepare_create_database ()
 	--
 	-- GdaServerOperation* gda_client_prepare_create_database  (GdaClient *client,
@@ -635,12 +558,5 @@ feature {} -- Unwrapped code
 	--   arg2 :
 	--   arg3 :
 	--   user_data : user data set when the signal handler was connected.
-	--
-	--See Also
-	--
-	--   GdaConnection.
-
-end -- class GDA_CLIENT
-
 end -- class GDA_CLIENT
 

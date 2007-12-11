@@ -148,13 +148,13 @@ feature
 	type: INTEGER is
 			-- the type of column.
 		do
-			Result:=gda_column_get_gda_type(handle)
+			Result:=gda_column_get_g_type(handle)
 		end
 
 	set_type (a_type: INTEGER) is
 			-- Sets the type of column to `a_type'.
 		do
-			gda_column_set_gda_type (handle, a_type)
+			gda_column_set_g_type (handle, a_type)
 		end
 
 	does_allow_null: BOOLEAN is
@@ -641,5 +641,7 @@ feature {} -- 3.0
 	--   gdacolumn : the object which received the signal.
 	--   arg1 :
 	--   user_data : user data set when the signal handler was connected.
+
+feature dummy_gobject: POINTER is do unimplemented end
 
 end -- class GDA_COLUMN

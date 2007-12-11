@@ -30,20 +30,19 @@ deferred class GDA_STATUS_EVENT_TYPE
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
-	is_valid_gda (a_ :INTEGER): BOOLEAN is
+	is_valid_status_event_type (a_type: INTEGER): BOOLEAN is
 		do	
-			Result:=(
-	--  enum GdaTransactionStatusEventType
-	--
-	-- typedef enum {
-	--         GDA_TRANSACTION_STATUS_EVENT_SAVEPOINT,
-	--         GDA_TRANSACTION_STATUS_EVENT_SQL,
-	--         GDA_TRANSACTION_STATUS_EVENT_SUB_TRANSACTION,
-	-- } GdaTransactionStatusEventType;
-)
+			
+			--  enum GdaTransactionStatusEventType
+			--
+			-- typedef enum {
+			--         GDA_TRANSACTION_STATUS_EVENT_SAVEPOINT,
+			--         GDA_TRANSACTION_STATUS_EVENT_SQL,
+			--         GDA_TRANSACTION_STATUS_EVENT_SUB_TRANSACTION,
+			-- } GdaTransactionStatusEventType;
+			
 		end
 
-	--
 	-- typedef enum {
 	--         GDA_TRANSACTION_STATUS_EVENT_SAVEPOINT,
 	--         GDA_TRANSACTION_STATUS_EVENT_SQL,

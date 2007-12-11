@@ -17,7 +17,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_server_operation_get_op_type (an_op: POINTER): POINTER is
+	gda_server_operation_get_op_type (an_op: POINTER): INTEGER is
 			--  GdaServerOperationType gda_server_operation_get_op_type (GdaServerOperation *op)
 		external "C use <libgda/libgda.h>"
 		end

@@ -35,6 +35,7 @@ inherit
 insert 
 	GDA_CONNECTION_EVENT_TYPE
 	GDA_CONNECTION_EVENT_CODE
+	GLIB_BASIC_TYPES
 
 creation make, from_external_pointer
 
@@ -122,7 +123,7 @@ feature
 			Result:=gda_connection_event_get_gda_code(handle)
 		end
 
-	set_gda_code (a_code: INTEGER) is
+	set_gda_code (a_code: like glong) is
 			-- Sets event's gda code: that code is standardized by the
 			-- libgda library. If you want to specify the corresponding
 			-- provider specific code, use `code' instead.
@@ -249,7 +250,7 @@ feature {} -- External calls
 		external "C  use <libgda/libgda.h>"
 		end
 
-	gda_connection_event_set_gda_code (an_event: POINTER; a_connection_event_code: INTEGER) is
+	gda_connection_event_set_gda_code (an_event: POINTER; a_connection_event_code: like glong) is
 			--	void gda_connection_event_set_gda_code (GdaConnectionEvent *event, GdaConnectionEventCode code);
 		external "C  use <libgda/libgda.h>"
 		end
@@ -275,4 +276,7 @@ feature {} -- External calls
 			--	*event, const gchar *sqlstate);
 		external "C  use <libgda/libgda.h>"
 		end
+
+feature dummy_gobject: POINTER is do unimplemented end 
+
 end -- class GDA_CONNECTION_EVENT

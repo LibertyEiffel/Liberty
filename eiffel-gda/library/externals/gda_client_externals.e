@@ -13,7 +13,7 @@ insert
 	ANY undefine copy, is_equal end
 	GDA_CLIENT_EVENT_ENUM
 	GDA_CONNECTION_OPTIONS_ENUM
-
+	GDA_TRANSACTION_ISOLATION_ENUM
 feature {} -- External calls
 	gda_client_new: POINTER is 
 			-- GdaClient* gda_client_new (void);
@@ -100,7 +100,8 @@ feature {} -- External calls
 			--                                        const gchar *name,
 			--                                        GdaTransactionIsolation level,
 			--                                        GError **error);
-		require valid_isolation_level: is_valid_gda_transaction_isolation_level(an_isolation_level)
+		
+			-- require valid_isolation_level: is_valid_gda_transaction_isolation_level(an_isolation_level)
 		external "C use  <libgda/libgda.h>"
 		end
 

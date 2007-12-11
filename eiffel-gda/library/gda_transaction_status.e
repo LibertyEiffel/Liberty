@@ -47,7 +47,7 @@ inherit
 insert
 	GDA_TRANSACTION_ISOLATION_ENUM
 	GDA_STATUS_EVENT_STRUCT -- TODO: Entirely!
-	GDA_STATUS_EVENT_TYOE -- TODO: Entirely!
+	GDA_STATUS_EVENT_TYPE -- TODO: Entirely!
 
 creation make, from_external_pointer
 
@@ -72,4 +72,7 @@ feature -- size
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaTransactionStatus)"
 		end
+
+feature dummy_gobject: POINTER is do unimplemented end 
+
 end -- class GDA_TRANSACTION_STATUS

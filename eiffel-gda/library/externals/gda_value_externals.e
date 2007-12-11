@@ -54,9 +54,9 @@ feature {} -- Accessing
 --          glong binary_length;
 --  } GdaValue;
 
-   ----------------------------------------------------------------------------------------------
+	----------------------------------------------------------------------------------------------
 feature {} -- External calls
-   timezone_invalid: INTEGER is
+	timezone_invalid: INTEGER is
 		external "C macro use <libgda/libgda.h>"
 		alias "TIMEZONE_INVALID"
 		end
@@ -70,12 +70,12 @@ feature {} -- External calls
 			--  GdaValue* gda_value_new_null (void)
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_new_bigint (a_val: INTEGER_64): POINTER is
 			--  GdaValue* gda_value_new_bigint (gint64 val)
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_new_biguint (a_value: INTEGER_64): POINTER is 
 			--  GdaValue* gda_value_new_biguint (guint64 val)
 			-- a_value should be NATURAL_64
@@ -91,6 +91,7 @@ feature {} -- External calls
 			--  GdaValue* gda_value_new_blob (const GdaBlob *val)
 		external "C use <libgda/libgda.h>"
 		end
+
 	
 	gda_value_new_boolean (a_gboolean: INTEGER): POINTER is 
 			--  GdaValue* gda_value_new_boolean (gboolean val)
@@ -108,7 +109,7 @@ feature {} -- External calls
 		end
 	
 	gda_value_new_geometric_point (a_gdageometricpoint: POINTER): POINTER is
-      	      --  GdaValue* gda_value_new_geometric_point (const GdaGeometricPoint *val)
+					--  GdaValue* gda_value_new_geometric_point (const GdaGeometricPoint *val)
 		external "C use <libgda/libgda.h>"
 		end
 	
@@ -152,18 +153,18 @@ feature {} -- External calls
 			-- an_ushort should be a NATURAL_16
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_new_string (a_string: POINTER): POINTER is
 			--  GdaValue* gda_value_new_string (const gchar *val)
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_new_time (a_time: POINTER): POINTER is
 			--  GdaValue* gda_value_new_time (const GdaTime *val)
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_value_new_timestamp (a_timestamp): POINTER is
+	gda_value_new_timestamp (a_timestamp: POINTER): POINTER is
 			--  GdaValue* gda_value_new_timestamp (const GdaTimestamp *val)
 		external "C use <libgda/libgda.h>"
 		end
@@ -204,12 +205,12 @@ feature {} -- External calls
 	-- GdaValue* gda_value_new_from_xml (const xmlNodePtr node)
 	--	external "C use <libgda/libgda.h>"
 	-- end
-	    
+		 
 	gda_value_free (a_value: POINTER) is
 			--  void gda_value_free (GdaValue *value)
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_get_type (a_value: POINTER): INTEGER is
 			--  GdaValueType gda_value_get_type (GdaValue *value)
 		external "C use <libgda/libgda.h>"
@@ -240,35 +241,35 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_value_set_bigint (a_value: POINTER; a_value: INTEGER_64) is
+	gda_value_set_bigint (a_value: POINTER; a_gint64: INTEGER_64) is
 			--  void gda_value_set_bigint (GdaValue *value, gint64 val)
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_get_biguint (a_value: POINTER): INTEGER_64 is
 			--  guint64 gda_value_get_biguint (GdaValue *value)
 			-- result should be NATURAL_64
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_value_set_biguint (a_value: POINTER; a_value: INTEGER_64) is
+	gda_value_set_biguint (a_value: POINTER; a_guint64: INTEGER_64) is
 			--  void gda_value_set_biguint (GdaValue *value, guint64 val)
 			-- a_value should be a NATURAL_64
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	-- TODO: const gpointer gda_value_get_binary (a_value: POINTER, glong *size) is
 	--  const gpointer gda_value_get_binary (GdaValue *value, glong *size)
 	-- external "C use <libgda/libgda.h>"
 	-- end
-	    
+		 
 	-- gda_value_set_binary (a_value: POINTER, gconstpointer val, glong size) is
 	--  void gda_value_set_binary (GdaValue *value, gconstpointer val, glong size)
 	-- external "C use <libgda/libgda.h>"
 	-- end
-	    
+		 
 	gda_value_get_blob (a_value: POINTER): POINTER is
-      	      --  const GdaBlob* gda_value_get_blob (GdaValue *value)
+					--  const GdaBlob* gda_value_get_blob (GdaValue *value)
 		external "C use <libgda/libgda.h>"
 		end
 	
@@ -276,7 +277,7 @@ feature {} -- External calls
 			--  void gda_value_set_blob (GdaValue *value, const GdaBlob *val)
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_get_boolean (a_value: POINTER): INTEGER is
 			--  gboolean gda_value_get_boolean (GdaValue *value)
 		external "C use <libgda/libgda.h>"
@@ -301,7 +302,7 @@ feature {} -- External calls
 			--  gdouble gda_value_get_double (GdaValue *value)
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_set_double (a_value: POINTER; a_double: REAL) is
 			--  void gda_value_set_double (GdaValue *value, gdouble val)
 		external "C use <libgda/libgda.h>"
@@ -351,7 +352,7 @@ feature {} -- External calls
 			--  void gda_value_set_null (GdaValue *value)
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_get_money (a_value: POINTER): INTEGER is
 			--  const GdaMoney* gda_value_get_money (GdaValue *value)
 		external "C use <libgda/libgda.h>"
@@ -361,7 +362,7 @@ feature {} -- External calls
 			--  void gda_value_set_money (GdaValue *value, const GdaMoney *val)
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_get_numeric (a_value: POINTER): POINTER is
 			--  const GdaNumeric* gda_value_get_numeric (GdaValue *value)
 		external "C use <libgda/libgda.h>"
@@ -397,7 +398,7 @@ feature {} -- External calls
 			-- Result should NATURAL_16
 		external "C use <libgda/libgda.h>"
 		end
-	    
+		 
 	gda_value_set_smalluint (a_value: POINTER; an_unsigned: INTEGER_16) is
 			--  void gda_value_set_smalluint (GdaValue *value, gushort val)
 			-- an_unsigned should be NATURAL_16
@@ -450,7 +451,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_value_set_tinyuint (a_value: POINTER; a_value: INTEGER_8) is
+	gda_value_set_tinyuint (a_value: POINTER; a_guchar: INTEGER_8) is
 			--  void gda_value_set_tinyuint (GdaValue *value, guchar val)
 			-- a_value should be NATURAL_8
 		external "C use <libgda/libgda.h>"
@@ -462,7 +463,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_value_set_uinteger (a_value: POINTER a_value: INTEGER) is
+	gda_value_set_uinteger (a_value: POINTER; a_guint: INTEGER) is
 			--  void gda_value_set_uinteger (GdaValue *value, guint val)
 			-- a_value should be NATURAL
 		external "C use <libgda/libgda.h>"

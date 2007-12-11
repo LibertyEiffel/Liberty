@@ -45,8 +45,6 @@ class GDA_COMMAND
 
 inherit 
 	G_OBJECT 
-		rename
-			make as allocate_struct
 		redefine
 			dispose, copy
 		end
@@ -74,9 +72,9 @@ feature {} -- Creation
 		require 
 			text_not_void: a_text/=Void
 			valid_type: is_valid_command_type(a_type)
-			valid_options: are_valid_connection_option(some_options)
+			valid_options: are_valid_command_options(some_options)
 		do
-			from_external_pointer (gda_command_new(a_text.to_external, a_type, some_options))
+			from_external_pointer(gda_command_new(a_text.to_external, a_type, some_options))
 		end
 
 feature {ANY} -- Copying
@@ -102,7 +100,7 @@ feature -- Command text
 			else
 				check 
 					constant_handle_or_constant_content: 
-					(cached_text.handle = gda_command_get_text(handle)) 
+					(cached_text.to_external = gda_command_get_text(handle)) 
 						or else
 					(cached_text.is_equal
 					 (create {CONST_STRING}.from_external
@@ -116,8 +114,7 @@ feature -- Command text
 	set_text (a_text: STRING) is 
 			-- Sets the command text to `a_text'.
 		do
-			-- Dispose the hidden text
-			hidden_text := Void
+			cached_text := Void -- Dispose the cached text
 			gda_command_set_text (handle, a_text.to_external)
 		ensure set: a_text.is_equal (text)
 		end
@@ -142,39 +139,24 @@ feature -- Options
 			-- the command options.
 		do
 			Result :=  gda_command_get_options (handle)
-		ensure valid: are_valid_options (Result)
+		ensure valid: are_valid_command_options(Result)
 		end
 
 	set_options (some_options: INTEGER) is
 			-- Sets the command options. If there conflicting options, it
 			-- will just leave the value as before.
-		require valid_options: are_valid_options (some_options)
+		require valid_options: are_valid_command_options(some_options)
 		do
 			gda_command_set_options (handle, some_options)
 		end
 
-feature -- Transaction
-	transaction: GDA_TRANSACTION is
-			-- the GDA_TRANSACTION associated with the Current GDA_COMMAND.
-		local r: G_OBJECT_EXPANDED_FACTORY[GDA_TRANSACTION]; 
-		do
-			Result := r.wrapper_or_void(gda_command_get_transaction(handle))
-			if Result=Void then 
-				debug
-					print ("Warning! GDA_COMMAND.transaction got an unwrapped GdaTransaction object. Wrapping it%N")
-				end
-				create Result.from_external_pointer (ptr)
-			end
-		end
-
-	set_transaction (a_transaction: GDA_TRANSACTION) is
-			-- Sets the GDA_TRANSACTION associated with Current GDA_COMMAND.
-		require transaction_not_void: a_transaction /= Void
-		do
-			gda_command_set_transaction (handle, a_transaction.handle)
-		end
-
 feature {} -- Implementation
 	cached_text: CONST_STRING
+
+feature 
+	dummy_gobject: POINTER is
+		do
+			unimplemented
+		end
 
 end -- class GDA_COMMAND

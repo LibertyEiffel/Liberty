@@ -162,16 +162,15 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
  
-	-- GdaDataModel*       gda_connection_execute_select_command
-	--                                                         (GdaConnection *cnc,
-	--                                                          GdaCommand *cmd,
-	--                                                          GdaParameterList *params,
-	--                                                          GError **error);
-	-- gint                gda_connection_execute_non_select_command
-	--                                                         (GdaConnection *cnc,
-	--                                                          GdaCommand *cmd,
-	--                                                          GdaParameterList *params,
-	--                                                          GError **error);
+	gda_connection_execute_select_command (a_connection, a_command, a_parameter_list, an_error_ref: POINTER): POINTER is
+			-- GdaDataModel* gda_connection_execute_select_command (GdaConnection *cnc, GdaCommand *cmd, GdaParameterList *params, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_connection_execute_non_select_command (a_connection, a_command, a_parameter_list, an_error_ref: POINTER): INTEGER is
+			-- gint gda_connection_execute_non_select_command (GdaConnection *cnc, GdaCommand *cmd, GdaParameterList *params, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
 
 	gda_connection_execute_command (a_connection, a_command, a_parameter_list, an_error: POINTER): POINTER is
 			-- GdaDataModel* gda_connection_execute_command

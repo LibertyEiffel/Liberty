@@ -43,6 +43,8 @@ insert
 	
 creation make, from_external_pointer
 
+feature dummy_gobject: POINTER is do unimplemented end
+
 feature {} -- Creation
 
 	make (an_operation_type: INTEGER; an_xml_file: STRING) is
@@ -68,10 +70,10 @@ feature
 		ensure is_valid_operation_type(Result)
 		end
 
-	operation_name: CONST_STRING is
+	operation_name (a_type: INTEGER): CONST_STRING is
 			-- The string version of type
 		do
-			create Result.from_external(gda_server_operation_op_type_to_string())
+			create Result.from_external(gda_server_operation_op_type_to_string(a_type))
 		end
 
 	--  gda_server_operation_get_node_info ()

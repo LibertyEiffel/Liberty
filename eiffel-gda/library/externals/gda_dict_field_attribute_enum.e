@@ -26,7 +26,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- enum
 	are_valid_attributes (some_attributes: INTEGER): BOOLEAN is
 		do	
-			Result:=(an_attribute=field_auto_increment)
+			Result:=(some_attributes=field_auto_increment)
 		end
 
 	field_auto_increment: INTEGER is
