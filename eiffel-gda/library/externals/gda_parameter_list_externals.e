@@ -9,16 +9,19 @@ deferred class GDA_PARAMETER_LIST_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
-
 insert
 	GDA_PARAMETER_LIST_PARAM_HINT_ENUM
+	G_TYPE_EXTERNALS
 
 feature {} -- External calls
 	gda_parameter_list_new (some_params: POINTER): POINTER is
 			-- GdaParameterList* gda_parameter_list_new (GSList *params)
 		external "C use <libgda/libgda.h>"
 		end
-	
+
+	-- GdaParameterList* gda_parameter_list_new_inline (GdaDict *dict,
+	-- ...);
+		
 	gda_parameter_list_new_from_spec_string (a_dict, an_xml_spec, a_error_ref: POINTER): POINTER is
 			-- GdaParameterList* gda_parameter_list_new_from_spec_string (GdaDict *dict, const gchar *xml_spec, GError **error)
 		external "C use <libgda/libgda.h>"
@@ -40,7 +43,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	gda_parameter_list_add_param_from_string (a_parameter_list, a_name: POINTER; a_type: INTEGER; a_str: POINTER): POINTER is
+	gda_parameter_list_add_param_from_string (a_parameter_list, a_name: POINTER; a_type: like g_type; a_str: POINTER): POINTER is
 			-- GdaParameter* gda_parameter_list_add_param_from_string
 			-- (GdaParameterList *paramlist, const gchar *name, GType type, const
 			-- gchar *str)
@@ -70,12 +73,6 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
  end
  
- gda_parameter_list_find_param_for_user (a_parameter_list, an_object: POINTER): POINTER is
-			-- GdaParameter* gda_parameter_list_find_param_for_user
-			-- (GdaParameterList *paramlist, GdaObject *user)
-		external "C use <libgda/libgda.h>"
-		end
-	
 	gda_parameter_list_find_node_for_param (a_parameter_list, a_parameter: POINTER): POINTER is
 			-- GdaParameterListNode* gda_parameter_list_find_node_for_param
 			-- (GdaParameterList *paramlist, GdaParameter *param)

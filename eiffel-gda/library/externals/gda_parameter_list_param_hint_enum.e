@@ -24,6 +24,23 @@ deferred class GDA_PARAMETER_LIST_PARAM_HINT_ENUM
 insert ANY undefine copy, is_equal end
 
 feature {} -- enum
+	are_valid_param_hints (some_hints: INTEGER): BOOLEAN is
+		do
+			Result:=(some_hints & (gda_parameter_list_param_read_only |
+										  gda_parameter_list_param_hide)).to_boolean
+		end
+	
+	gda_parameter_list_param_read_only: INTEGER is 
+			--  param should not be affected by user modifications 
+		external "C macro use <libgda/libgda.h>"
+		alias "GDA_PARAMETER_LIST_PARAM_READ_ONLY"
+		end
+
+	gda_parameter_list_param_hide: INTEGER is
+			--  param should not be shown to the user 
+		external "C macro use <libgda/libgda.h>"
+		alias "GDA_PARAMETER_LIST_PARAM_HIDE"
+		end
 end
 
 
