@@ -3,7 +3,7 @@ class TEST_VECTOR09
 inherit
 	EIFFELTEST_TOOLS
 
-creation dummy,
+creation 
 	make
 	
 feature

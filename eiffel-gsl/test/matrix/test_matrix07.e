@@ -3,7 +3,7 @@ class TEST_MATRIX07
 inherit
 	EIFFELTEST_TOOLS
 
-creation dummy,
+creation 
 	make
 	
 feature

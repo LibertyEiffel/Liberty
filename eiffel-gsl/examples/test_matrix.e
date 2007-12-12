@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision:$"
 
 class TEST_MATRIX
-creation dummy, make
+creation  make
 feature
 	make is
 		local

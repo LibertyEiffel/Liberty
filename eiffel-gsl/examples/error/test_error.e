@@ -6,7 +6,7 @@ indexing
 	revision: "$Revision:$"
 
 class TEST_ERROR
-creation dummy, make
+creation  make
 
 feature
 	make is

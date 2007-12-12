@@ -6,7 +6,7 @@ inherit
 insert
 	GSL_MATH_FUNCTIONS
 	
-creation dummy,
+creation 
 	make
 	
 feature
