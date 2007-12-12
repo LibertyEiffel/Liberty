@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_PARAMETER_LIST_SOURCE_STRUCT
+	-- There is a GdaParameterListSource structure for each
+	-- GdaDataModel which constrains at least on parameter in the
+	-- GdaParameterList object.
 
 insert ANY undefine copy, is_equal end
 

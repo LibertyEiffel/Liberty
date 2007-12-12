@@ -6,9 +6,13 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_PARAMETER_LIST_GROUP_STRUCT
+	-- The GdaParameterListGroup is another view of the parameters list
+	-- contained in the GdaParameterList object: there is one such
+	-- structure for each _independant_ parameter (parameters which are
+	-- constrained by the same data model all appear in the same
+	-- GdaParameterListGroup structure).
 
 inherit ANY undefine is_equal, copy end
-
 
 feature {} -- Structure getter/setter c
 
