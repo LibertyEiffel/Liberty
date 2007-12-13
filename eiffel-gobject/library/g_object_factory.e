@@ -143,16 +143,15 @@ feature {WRAPPER,WRAPPER_HANDLER}
 		ensure void_case: a_pointer.is_null implies Result = Void
 		end
 
-	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
+	has, has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
 			-- Have `a_pointer' already been wrapped?
 
 			-- Note: if True, the cost of this query is the same of a
 			-- call to `wrapper'. So a code pattern like:
 
-			-- if has_eiffel_wrapper_stored(c_pointer) then
-			--   Result:=wrapper(c_pointer)
-			-- else
-			--   create	Result.from_external_pointer (c_pointer) 
+			-- if has(c_pointer) 
+			-- then Result:=wrapper(c_pointer)
+			-- else create Result.from_external_pointer(c_pointer) 
 			-- end
 
 			-- is on average twice slower than the equivalent:
