@@ -212,10 +212,10 @@ feature
 			-- The pixbuf at Current iter position, if any. Otherwise Void
 		local
 			pixbuf_ptr: POINTER
-			retriever: G_RETRIEVER [GDK_PIXBUF]
+			retriever: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
 		do
 			pixbuf_ptr := gtk_text_iter_get_pixbuf (handle)
-			Result := retriever.eiffel_wrapper_from_gobject_pointer (pixbuf_ptr)
+			Result := retriever.existent_wrapper(pixbuf_ptr)
 			if Result = Void then
 					-- We use from_external_pointer here because we *need* to
 					-- increase the pixbuf's refcount

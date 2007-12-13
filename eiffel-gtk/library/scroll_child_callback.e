@@ -26,7 +26,7 @@ class SCROLL_CHILD_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_SCROLLED_WINDOW]
+insert G_OBJECT_FACTORY [GTK_SCROLLED_WINDOW] undefine copy, is_equal end
 
 creation make
 
@@ -37,11 +37,7 @@ feature
 
 	callback (scroll_type, a_bool: INTEGER; instance: POINTER): INTEGER is
 		do
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			
+			object := wrapper(instance)
 			Result := function.item ([scroll_type, a_bool.to_boolean, object]).to_integer
 		end
 
@@ -63,10 +59,10 @@ feature
 			end
 			
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			function:=a_function
 		end
 

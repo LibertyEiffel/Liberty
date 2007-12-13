@@ -30,7 +30,7 @@ inherit
 			object
 		end
 
-insert G_OBJECT_RETRIEVER [GTK_COLOR_BUTTON]
+insert G_OBJECT_FACTORY [GTK_COLOR_BUTTON] undefine copy, is_equal end
 
 creation make
 
@@ -41,8 +41,7 @@ feature
 
 	callback (instance: POINTER) is
 		do
-			check has_eiffel_wrapper_stored (instance) end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper (instance)
 			procedure.call ([object])
 		end
 

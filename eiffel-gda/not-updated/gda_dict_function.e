@@ -115,14 +115,12 @@ feature
 			-- the return type of a function (To consult it). Note: the
 			-- setter feature allows Void values while the C version of
 			-- this getter feature does not specify it. It could be Void
-		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_TYPE]; p: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_TYPE]; ptr: POINTER
 		do
-			p:=gda_dict_function_get_ret_type(handle)
-			if p.is_not_null then 
-				Result:=r.eiffel_wrapper_from_gobject_pointer(p)
-				if Result=Void then 
-					create Result.from_external_pointer(p) 
-				end
+			ptr:=gda_dict_function_get_ret_type(handle)
+			if ptr.is_not_null then 
+				Result:=r.existent_wrapper(ptr)
+				if Result=Void then create Result.from_external_pointer(ptr) end
 			end
 		end
 			

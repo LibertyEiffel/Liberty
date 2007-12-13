@@ -26,7 +26,7 @@ class EDITED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_CELL_RENDERER_TEXT]
+insert G_OBJECT_FACTORY [GTK_CELL_RENDERER_TEXT] undefine copy, is_equal end
 
 creation make
 
@@ -41,10 +41,7 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
+			object := wrapper(instance)
 			
 			if arg1.is_not_null then
 				-- FIXME: are we leaving a mem leak by doing a copy? :-/
@@ -75,10 +72,10 @@ feature
 			end
 			
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			procedure:=a_procedure
 		end
 

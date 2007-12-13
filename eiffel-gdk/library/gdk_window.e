@@ -72,14 +72,11 @@ feature
 --	children: G_LIST [GDK_WINDOW] is
 --		local
 --			ptr: POINTER
---			g_retriever: G_OBJECT_EXPANDED_FACTORY [G_LIST [GDK_WINDOW]]
+--			f: G_OBJECT_EXPANDED_FACTORY [G_LIST [GDK_WINDOW]]
 --		do
 --			ptr := gdk_window_get_children (handle)
---			if g_retriever.has_eiffel_wrapper_stored (ptr) then
---				Result := g_retriever.retrieve_eiffel_wrapper_from_gobject_pointer (ptr)
---			else
---				create Result.from_external_pointer (ptr)
---			end
+--			Result := f.exixstent_wrapper (ptr)
+--			if Result=Void then create Result.from_external_pointer (ptr) end
 --		end
 
 	-- GList*      gdk_window_peek_children        (GdkWindow *window);

@@ -19,12 +19,11 @@ indexing
 					02110-1301 USA
 			]"
 
-class GLADE_GETTER [W -> GTK_WIDGET]
+deferred class GLADE_GETTER [W -> GTK_WIDGET]
 
-inherit
-	GLADE_XML_EXTERNAL
-	INTERNALS_HANDLER
-		undefine copy, is_equal end
+inherit WRAPPER_HANDLER 
+
+insert GLADE_XML_EXTERNAL
 
 feature {} -- Creation
 
@@ -36,19 +35,11 @@ feature -- Access
 		require
 			name /= Void
 		local
-			r: G_RETRIEVER [W]
+			r: G_OBJECT_EXPANDED_FACTORY [W]
 			p: POINTER
 			internal: TYPED_INTERNALS [W] -- Magic for dynamic object creation
 		do
-			p := glade_xml_get_widget (handle, name.to_external)
-			if r.has_eiffel_wrapper_stored (p) then
-				Result := r.retrieve_eiffel_wrapper_from_gobject_pointer (p)
-			else
-				create internal.make_blank
-				internal.set_object_can_be_retrieved
-				internal.object.from_external_pointer (p)
-				Result := internal.object
-			end
+			Result:=r.wrapper(glade_xml_get_widget (handle, name.to_external))
 		ensure
 			Result /= Void
 		end

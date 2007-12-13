@@ -14,14 +14,14 @@ inherit ANY undefine is_equal, copy end
 
 
 feature {} -- Structure getter/setter calls
--- GdaParameterListNode
-
--- typedef struct {
--- 	GdaParameter   *param;         /* Can't be NULL */
--- 	GdaDataModel   *source_model;  /* may be NULL if @param is free-fill */
--- 	gint            source_column; /* unused is @source_model is NULL */
--- 	guint           hint;
--- } GdaParameterListNode;
+	-- GdaParameterListNode
+	
+	-- typedef struct {
+	-- 	GdaParameter   *param;         /* Can't be NULL */
+	-- 	GdaDataModel   *source_model;  /* may be NULL if @param is free-fill */
+	-- 	gint            source_column; /* unused is @source_model is NULL */
+	-- 	guint           hint;
+	-- } GdaParameterListNode;
 
 	-- GdaParameter   *param;         /* Can't be NULL */
 	get_param (a_struct: POINTER): POINTER is

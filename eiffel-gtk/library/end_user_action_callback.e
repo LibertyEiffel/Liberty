@@ -26,7 +26,7 @@ class END_USER_ACTION_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_TEXT_BUFFER]
+insert G_OBJECT_FACTORY [GTK_TEXT_BUFFER] undefine copy, is_equal end
 
 creation make
 
@@ -39,15 +39,7 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement 
-			-- that the editable is actually created bu the Eiffel 
-			-- application. 
-			check
-				eiffel_created_the_tree_view: has_eiffel_wrapper_stored (instance)
-			end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			-- The above line replaces "create object.from_external_pointer
-			-- (instance)" which continuosly creates new Eiffel wrappers
+			object := wrapper(instance)
 			procedure.call ([object])
 		end
 
@@ -69,10 +61,10 @@ feature
 			end
 					 
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                        )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																 )
 			procedure:=a_procedure
 		end
 

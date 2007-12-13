@@ -30,18 +30,41 @@ creation from_external_pointer
 feature -- Getter features 
 	parameter: GDA_PARAMETER is
 		do
-			-- 	GdaParameter   *param;         /* Can't be NULL */
+			-- GdaParameter *param; /* Can't be NULL */
+			if cached_parameter=Void 
+			then create cached_parameter.from_external_pointer(get_param(handle))
+			else check cached_parameter.handle=get_param(handle) end 
+			end
+			Result:=cached_parameter
 		ensure not_void: Result/=Void
 		end
 
 	model: GDA_DATA_MODEL is
+		local p: POINTER
 		do
-			--GdaDataModel *source_model; /* may be NULL if @param is
-			--free-fill */
+			--GdaDataModel *source_model; may be NULL if @param is
+			--free-fill
+			p:=get_source_model(handle)
+			if p.is_not_null then 
+				if cached_model=Void then
+					create cached_model.from_external_pointer(p)
+				else 
+					check 
+						stable_model: p = cached_model.handle
+					end
+				end
+			else
+				check cached_model=Void end
+			end
 		end
 	
 	column: INTEGER is
 		do
-			-- gint source_column; /* unused is @source_model is NULL */
+			Result:=get_source_column(handle)
 		end
+
+feature {} -- Cached wrappers
+	cached_parameter: GDA_PARAMETER
+
+	cached_model: GDA_DATA_MODEL
 end 

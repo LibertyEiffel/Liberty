@@ -65,7 +65,7 @@ feature
 -- 		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT]; p: POINTER
 -- 		do
 -- 			p:=gda_dict_database_get_dict(handle)
--- 			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
+-- 			Result:=r.wrapper(p)
 -- 			if Result = Void then 
 -- 				debug 
 -- 					print ("Creating a GDA_DICT from a gda_dict_database_get_dict call. This event is correctly handled, even if it is a little unexpected since a GDA_DICT_DATABASE is usually created by an already existing GDA_DICT.%N")

@@ -27,7 +27,7 @@ deferred class CROSSING_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_RETRIEVER [GTK_WIDGET]
+insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
 
 feature
 	object: GTK_WIDGET
@@ -39,14 +39,8 @@ feature
 			event_obj: GDK_EVENT
 			specific_event: GDK_EVENT_ANY
 		do
-			check eiffel_created_the_widget: has_eiffel_wrapper_stored (instance) end
-			object := retrieve_eiffel_wrapper_from_gobject_pointer (instance)
-			if wrappers.has (event_crossing) then
-				specific_event ::= wrappers.at(event_crossing)
-				event_obj := specific_event.event
-			else
-				create event_obj.from_external_pointer (event_crossing)
-			end
+			object := wrapper(instance)
+			create event_obj.from_external_pointer (event_crossing)
 			check is_a_crossing_event: event_obj.is_event_crossing end
 			
 			Result := function.item ([event_obj.event_crossing, object]).to_integer
@@ -64,9 +58,9 @@ feature
 	connect (an_object: GTK_WIDGET; a_function: FUNCTION [ANY, TUPLE [GDK_EVENT_CROSSING, GTK_WIDGET], BOOLEAN]) is
 		do
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle, 0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle, 0 -- i.e. call it before default handler
+																)
 			function := a_function
 		end
 

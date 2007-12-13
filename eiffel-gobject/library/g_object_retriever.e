@@ -20,6 +20,7 @@ feature {WRAPPER}
 
 	retrieve_eiffel_wrapper_from_gobject_pointer (a_pointer: POINTER): ITEM_ is
 			-- Retrieve the eiffel wrapper object from gobject's `a_pointer'
+		obsolete "Use either wrapper, unreffed_wrapper instead"
 		require
 			pointer_not_null: a_pointer.is_not_null
 			pointer_has_stored_wrapper: has_eiffel_wrapper_stored (a_pointer)
@@ -34,6 +35,7 @@ feature {WRAPPER}
 			-- Retrieve the eiffel wrapper object from gobject's 
 			-- `a_pointer'. Can be Void if the GObject referred by `a_pointer' 
 			-- hasn't an Eiffel wrapper
+		obsolete "Use either wrapper, unreffed_wrapper instead"
 		require pointer_not_null: a_pointer.is_not_null
 		do
 			Result:=wrapper(a_pointer)

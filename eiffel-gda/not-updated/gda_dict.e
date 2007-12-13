@@ -105,10 +105,10 @@ feature
 			-- implementation require that the object that will be retrieved must
 			-- be already be wrapped. Otherwise it will be Void *EVEN* if such an
 			-- object actually exists.
-		local retriever: G_OBJECT_EXPANDED_FACTORY[GDA_OBJECT]; ptr: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY[GDA_OBJECT]; ptr: POINTER
 		do
 			ptr := gda_dict_get_object_by_string_id (handle, an_id.to_external)
-			Result := (retriever.eiffel_wrapper_from_gobject_pointer(ptr))
+			Result := (factory.wrapper(ptr))
 			if Result=Void then
 				print ("Warning: could not retrieve GdaObject with id `")
 				print (an_id) print("': it is a generic object and we do not know its effective type%N")

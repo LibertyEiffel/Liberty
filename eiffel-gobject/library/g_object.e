@@ -545,8 +545,6 @@ feature -- Properties query
 			-- Find the parameter's spec for `a_property_name'. Void if
 			-- the class doesn't have a property of that name.
 		require valid_name: a_property_name /= Void
-		local
-			param_spec_ptr: POINTER
 		do
 			Result := (g_param_spec_factory.void_or_wrapper
 						  (g_object_class_find_property 

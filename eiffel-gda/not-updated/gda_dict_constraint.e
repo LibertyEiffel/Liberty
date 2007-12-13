@@ -35,7 +35,7 @@ inherit
 
 insert GDA_DICT_CONSTRAINT_EXTERNALS
 
-creation dummy, from_table, from_external_pointer
+creation dummy, from_table, from_external_pointer, with_db
 
 feature dummy_gobject: POINTER is do unimplemented end
 
@@ -85,12 +85,14 @@ feature
 
 	table: GDA_DICT_TABLE is
 			-- the table to which the constraint is attached
-		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_TABLE]; p: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_TABLE]
 		do
-			p:=gda_dict_constraint_get_table(handle)
-			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
-			if Result=Void then 
-				create Result.from_external_pointer(p) 
+			if cached_table=Void 
+			then create cached_table.from_external_pointer(gda_dict_constraint_get_table(handle))
+			else
+				check
+					wrapped_table_did_not_change: cached_table.handle = gda_dict_constraint_get_table(handle)
+				end
 			end
 		end
 
@@ -110,23 +112,21 @@ feature
 			-- TODO: All the fields must belong to the same GdaDictTable to which
 			-- the constraint is attached
 		do
-			gda_dict_constraint_pkey_set_fields
-			(handle, some_fields.handle)
+			gda_dict_constraint_pkey_set_fields(handle, some_fields.handle)
+			cached_primary_key_fields := some_fields
 		end
 
 	primary_key_fields: G_OBJECT_SLIST[GDA_DICT_FIELD] is
 			-- the list of fields composing the primary key constraint which
 			-- Current represents. The returned list is allocated and must be
 			-- de-allocated by the caller.
-		local r: G_OBJECT_EXPANDED_FACTORY[G_OBJECT_SLIST[GDA_DICT_FIELD]]; p: POINTER
 		do
-			p:=gda_dict_constraint_pkey_get_fields(handle)
-			-- TODO: The returned list is allocated and must be de-allocated by the
-			-- caller.
-			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
-			if Result=Void then 
-				create Result.from_external_pointer(p) 
+			if cached_primary_key_fields=Void then 
+				create cached_primary_key_fields.from_external_pointer(gda_dict_constraint_pkey_get_fields(handle))
+				-- TODO: The returned list is allocated and must be de-allocated by the
+				-- caller.
 			end
+			Result :=cached_primary_key_fields
 		end
 		
 	-- set_foreign_key_fields (some_fields: G_OBJECT_SLIST[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]) is
@@ -166,7 +166,7 @@ feature
 	--	local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
 	-- do
 	--	p:=gda_dict_constraint_fkey_get_fields(handle)
-	--	Result:=r.eiffel_wrapper_from_gobject_pointer(p)
+	--	Result:=r.wrapper(p)
 	--	if Result=Void then 
 	--		create Result.from_external_pointer(p) 
 	--end
@@ -212,7 +212,7 @@ feature
 	-- local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
 	-- do
 	-- 			p:=gda_dict_constraint_unique_get_fields(handle)
-	-- 			Result:=r.eiffel_wrapper_from_gobject_pointer(p)
+	-- 			Result:=r.wrapper(p)
 	-- 			if Result=Void then 
 	-- 				create Result.from_external_pointer(p) 
 	-- 			end
@@ -229,7 +229,7 @@ feature
 	-- local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
 	-- do
 	--	p:=gda_dict_constraint_not_null_get_field(handle)
-	--	Result:=r.eiffel_wrapper_from_gobject_pointer(p)
+	--	Result:=r.wrapper(p)
 	--	if Result=Void then 
 	--		create Result.from_external_pointer(p) 
 	--end
@@ -239,4 +239,9 @@ feature
 feature {} -- Property Details
 	-- The "user-constraint" property "user-constraint" gboolean :
 	-- Read/Write Default value: FALSE
+
+feature {} -- Cached features
+	cached_table: GDA_DICT_TABLE
+	cached_primary_key_fields: G_OBJECT_SLIST[GDA_DICT_FIELD]
+
 end -- class GDA_DICT_CONSTRAINT

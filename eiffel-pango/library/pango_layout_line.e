@@ -28,8 +28,7 @@ inherit SHARED_C_STRUCT
 insert
 	PANGO_DIRECTION
 	PANGO_LAYOUT_LINE_EXTERNALS
-	G_OBJECT_RETRIEVER [PANGO_LAYOUT]
-		rename retrieve_eiffel_wrapper_from_gobject_pointer as retrieve_layout end
+	G_OBJECT_FACTORY [PANGO_LAYOUT] undefine copy, is_equal end
 
 creation
 	from_external_pointer
@@ -38,15 +37,8 @@ feature -- Access
 
 	layout: PANGO_LAYOUT is
 			-- the parent layout for this line
-		local
-			layout_pointer: POINTER
 		do
-			layout_pointer := pango_layout_line_get_layout (handle)
-			if has_eiffel_wrapper_stored (layout_pointer) then
-				Result := retrieve_layout (layout_pointer)
-			else
-				create Result.from_external_pointer (layout_pointer)
-			end
+			Result := wrapper(pango_layout_line_get_layout(handle))
 		end
 
 	start_index: INTEGER is
