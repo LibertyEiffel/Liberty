@@ -75,7 +75,7 @@ feature
 feature {} -- Creation
 	from_parameters (some_parameters: G_SLIST [GDA_PARAMETER]) is
 			-- Creates a new GdaParameterList object, and populates it with 
-			-- `some_paramaters'. 
+			-- `some_parameters'. 
 		do
 			-- Note: The list given as argument can be freed by the caller
 			-- later on as it gets copied. All the parameters in params
@@ -111,14 +111,10 @@ feature
 			positive: Result >= 0
 		end
 
-
 	spec: STRING is
-			-- the specification as an XML string. See `from_spec_string'
-			-- feature for more information about the XML specification
-			-- string format.
+			-- the specification as an XML string.
 		do
-			create Result.from_external_copy
-			(gda_parameter_list_get_spec (handle))
+			create Result.from_external(gda_parameter_list_get_spec(handle))
 		ensure not_void: Result /= Void
 		end
 
@@ -159,20 +155,13 @@ feature
 		require
 			name_not_void: a_name /= Void
 			value_not_void: a_value /= Void
-			value_not_null: -- TODO: not a_value.is_null 
+			value_not_sql_null: -- TODO: a_value.type /= null_type_id
 		local ptr: POINTER
 		do
-			ptr:=gda_parameter_list_add_param_from_value (handle,
-																		 a_name.to_external,
-																		 a_value.handle)
-			--value : the value to give to the new parameter, must not be
-			--NULL or of type null
-
-			--Returns : the new GdaParameter for information, or NULL if
-			--an error occurred
+			ptr:=(gda_parameter_list_add_param_from_value 
+					(handle, a_name.to_external, a_value.handle))
 			if ptr.is_null then last_added_parameter:=Void
-			else
-				create last_added_parameter.from_external_pointer(ptr)
+			else create last_added_parameter.from_external_pointer(ptr)
 			end
 		end
 
@@ -181,8 +170,7 @@ feature
 			-- `error' will be updated as necessary.
 		do
 			Result := (gda_parameter_list_is_coherent
-						  (handle,
-							address_of(error.handle))).to_boolean
+						  (handle,address_of(error.handle))).to_boolean
 		end
 
 	is_valid: BOOLEAN is
@@ -193,183 +181,20 @@ feature
 
 	
 	find_parameter (a_name: STRING): GDA_PARAMETER is
-			-- Finds a GdaParameter using its name. Void if not found
-		local p:POINTER
+			-- The GDA_PARAMETER with `a_name'. Void if not found
+		require name_not_void: a_name/=Void
+		local p:POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_PARAMETER]
 		do
 			p:=gda_parameter_list_find_param(handle, a_name.to_external)
 			if p.is_not_null then
-				if wrappers.has(p) then
-					Result ::= wrappers.at(p)
-				else
-					create Result.from_external_pointer(p)
+				if factory.has(p) then Result:=factory.wrapper(p)
+				else create Result.from_external_pointer(p)
 				end
 			end
 		end
 
 feature {} -- Version 3 API
-	--  gda_parameter_list_new ()
-	--
-	-- GdaParameterList*   gda_parameter_list_new              (GSList *params);
-	--
-	--   Creates a new GdaParameterList object, and populates it with the list
-	--   given as argument. The list can then be freed as it gets copied. All the
-	--   parameters in params are referenced counted and modified, so they should
-	--   not be used anymore afterwards, and the params list gets copied (so it
-	--   should be freed by the caller).
-	--
-	--   params :  a list of GdaParameter objects
-	--   Returns : a new GdaParameterList object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_new_inline ()
-	--
-	-- GdaParameterList*   gda_parameter_list_new_inline       (GdaDict *dict,
-	--                                                          ...);
-	--
-	--   Creates a new GdaParameterList containing parameters defined by each
-	--   triplet in ... For each triplet (name, Glib type and value), the value
-	--   must be of the correct type (gchar * if type is G_STRING, ...)
-	--
-	--   dict :    a GdaDict object, or NULL
-	--   ... :     a serie of a (const gchar*) name, (GType) type, and value,
-	--             terminated by a NULL
-	--   Returns : a new GdaParameterList object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_new_from_spec_string ()
-	--
-	-- GdaParameterList*   gda_parameter_list_new_from_spec_string
-	--                                                         (GdaDict *dict,
-	--                                                          const gchar *xml_spec,
-	--                                                          GError **error);
-	--
-	--   Creates a new GdaParameterList object from the xml_spec specifications
-	--
-	--   dict :     a GdaDict object, or NULL
-	--   xml_spec : a string
-	--   error :    a place to store the error, or NULL
-	--   Returns :  a new object, or NULL if an error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_get_length ()
-	--
-	-- guint               gda_parameter_list_get_length       (GdaParameterList *paramlist);
-	--
-	--   Get the number of GdaParameter objects in paramlist
-	--
-	--   paramlist : a GdaParameterList object
-	--   Returns :
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_get_spec ()
-	--
-	-- gchar*              gda_parameter_list_get_spec         (GdaParameterList *paramlist);
-	--
-	--   Get the specification as an XML string. See the
-	--   gda_parameter_list_new_from_spec_string() form more information about the
-	--   XML specification string format.
-	--
-	--   paramlist : a GdaParameterList object
-	--   Returns :   a new string
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_add_param ()
-	--
-	-- void                gda_parameter_list_add_param        (GdaParameterList *paramlist,
-	--                                                          GdaParameter *param);
-	--
-	--   Adds param to the list of parameters managed within paramlist. WARNING:
-	--   the paramlist may decide not to use the param parameter, but to modify
-	--   another parameter already present within the paramlist. The publicly
-	--   available lists from the paramlist object may also be changed in the
-	--   process.
-	--
-	--   paramlist : a GdaParameterList object
-	--   param :     a GdaParameter object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_add_param_from_string ()
-	--
-	-- GdaParameter*       gda_parameter_list_add_param_from_string
-	--                                                         (GdaParameterList *paramlist,
-	--                                                          const gchar *name,
-	--                                                          GType type,
-	--                                                          const gchar *str);
-	--
-	--   Creates and adds a new GdaParameter to paramlist. The ID and name of the
-	--   new parameter are set as name. The parameter's value is set from str.
-	--
-	--   paramlist : a GdaParameterList object
-	--   name :      the name to give to the new parameter
-	--   type :      the type of parameter to add
-	--   str :       the string representation of the parameter
-	--   Returns :   the new GdaParameter for information, or NULL if an error
-	--               occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_add_param_from_value ()
-	--
-	-- GdaParameter*       gda_parameter_list_add_param_from_value
-	--                                                         (GdaParameterList *paramlist,
-	--                                                          const gchar *name,
-	--                                                          GValue *value);
-	--
-	--   Creates and adds a new GdaParameter to paramlist. The ID and name of the
-	--   new parameter are set as name. The parameter's value is a copy of value.
-	--
-	--   paramlist : a GdaParameterList object
-	--   name :      the name to give to the new parameter
-	--   value :     the value to give to the new parameter, must not be NULL or of
-	--               type null
-	--   Returns :   the new GdaParameter for information, or NULL if an error
-	--               occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_is_coherent ()
-	--
-	-- gboolean            gda_parameter_list_is_coherent      (GdaParameterList *paramlist,
-	--                                                          GError **error);
-	--
-	--   Checks that paramlist has a coherent public data structure
-	--
-	--   paramlist : a GdaParameterList object
-	--   error :
-	--   Returns :   TRUE if paramlist is coherent
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_is_valid ()
-	--
-	-- gboolean            gda_parameter_list_is_valid         (GdaParameterList *paramlist);
-	--
-	--   Tells if all the paramlist's parameters have valid data
-	--
-	--   paramlist : a GdaParameterList object
-	--   Returns :   TRUE if the paramlist is valid
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_parameter_list_find_param ()
-	--
-	-- GdaParameter*       gda_parameter_list_find_param       (GdaParameterList *paramlist,
-	--                                                          const gchar *param_name);
-	--
-	--   Finds a GdaParameter using its name
-	--
-	--   paramlist :  a GdaParameterList object
-	--   param_name : the name of the requested parameter
-	--   Returns :    a GdaParameter or NULL
-	--
-	--   --------------------------------------------------------------------------
-	--
+
 	--  gda_parameter_list_find_node_for_param ()
 	--
 	-- GdaParameterListNode* gda_parameter_list_find_node_for_param
@@ -518,5 +343,19 @@ feature {} -- Version 3 API
 	--
 	--   gdaparameterlist : the object which received the signal.
 	--   user_data :        user data set when the signal handler was connected.
+feature {} -- "Unwrappable" variadic C functions
+	-- Unwrappable since variadic: gda_parameter_list_new_inline ()
+	
+	-- GdaParameterList*   gda_parameter_list_new_inline       (GdaDict *dict,
+	--                                                          ...);
+	--
+	--   Creates a new GdaParameterList containing parameters defined by each
+	--   triplet in ... For each triplet (name, Glib type and value), the value
+	--   must be of the correct type (gchar * if type is G_STRING, ...)
+	--
+	--   dict :    a GdaDict object, or NULL
+	--   ... :     a serie of a (const gchar*) name, (GType) type, and value,
+	--             terminated by a NULL
+	--   Returns : a new GdaParameterList object
 
 end -- class GDA_PARAMETER_LIST
