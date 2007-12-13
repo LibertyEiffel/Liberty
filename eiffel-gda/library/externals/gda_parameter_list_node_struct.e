@@ -6,6 +6,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GDA_PARAMETER_LIST_NODE_STRUCT
+	-- For each GdaParameter object in the GdaParameterList object,
+	-- there is a GdaParameterListNode structure which sums up all the
+	-- information for each parameter.
 
 inherit ANY undefine is_equal, copy end
 
@@ -30,7 +33,7 @@ feature {} -- Structure getter/setter calls
 		end
 
 	-- GdaDataModel   *source_model;  /* may be NULL if @param is free-fill */
-		get_source_model (a_struct: POINTER): POINTER is
+	get_source_model (a_struct: POINTER): POINTER is
 		external "C struct GdaParameterListNode get source_model use <libgda/libgda.h>"
 		end
 
