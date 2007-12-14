@@ -40,14 +40,14 @@ feature -- Getter features
 		end
 
 	model: GDA_DATA_MODEL is
-		local p: POINTER
+		local p: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_DATA_MODEL]
 		do
 			--GdaDataModel *source_model; may be NULL if @param is
 			--free-fill
 			p:=get_source_model(handle)
 			if p.is_not_null then 
 				if cached_model=Void then
-					create cached_model.from_external_pointer(p)
+					cached_model := factory.wrapper(p)
 				else 
 					check 
 						stable_model: p = cached_model.handle

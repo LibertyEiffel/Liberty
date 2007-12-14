@@ -32,8 +32,7 @@ feature {} -- enum
 										  gda_data_model_access_insert |  
 										  gda_data_model_access_update |  
 										  gda_data_model_access_delete |  
-										  gda_data_model_access_write | 
-										  gda_data_model_access_delete)).to_boolean
+										  gda_data_model_access_write)).to_boolean
 		end
 	
 	gda_data_model_access_random: INTEGER is
