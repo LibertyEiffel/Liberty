@@ -642,6 +642,6 @@ feature {} -- 3.0
 	--   arg1 :
 	--   user_data : user data set when the signal handler was connected.
 
-feature dummy_gobject: POINTER is do unimplemented end
+feature dummy_gobject: POINTER is do Result:=gda_column_new end
 
 end -- class GDA_COLUMN

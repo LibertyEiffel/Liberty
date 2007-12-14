@@ -1,7 +1,7 @@
 indexing
 	description: "   libgda -- Library initialization."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTK+ team
+					Copyright (C) 2006 Paolo Redaelli, GDA team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -32,7 +32,7 @@ feature {} -- creation
 	make is
 		do
 			-- Store archetypes
-			--store_archetype(create {GDA_DICT}.dummy)
+			store_archetype(create {GDA_COLUMN}.dummy)
 		end
 	
 feature {} -- size

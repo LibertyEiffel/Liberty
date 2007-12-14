@@ -143,31 +143,21 @@ feature
 		end
 
 
-	--  gda_data_model_get_column_index_by_name ()
-	--
-	-- gint                gda_data_model_get_column_index_by_name
-	--                                                         (GdaDataModel *model,
-	--                                                          const gchar *name);
-	--
-	--   Get the index of the column named name in model
-	--
-	--   model :   a GdaDataModel object.
-	--   name :    a column name
-	--   Returns : the column index, or -1 if no column named name was found
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_get_column_title ()
-	--
-	-- const gchar*        gda_data_model_get_column_title     (GdaDataModel *model,
-	--                                                          gint col);
-	--
-	--   model :   a GdaDataModel object.
-	--   col :     column number.
-	--   Returns : the title for the given column in a data model object.
-	--
-	--   --------------------------------------------------------------------------
-	--
+	column_index_by_name (a_name: STRING): INTEGER is
+			-- The index of the column named `a_name' in model, or -1 if
+			-- no such column exists.
+		require name_not_void: a_name/=Void
+		do
+			Result:=gda_data_model_get_column_index_by_name(handle,a_name.to_external)
+		end
+
+	column_title (a_column: INTEGER): CONST_STRING is
+			-- the title for the given column in a data model object.
+		do
+			create Result.from_external(gda_data_model_get_column_title(handle,a_column))
+		ensure not_void: Result/=Void
+		end
+
 	--  gda_data_model_set_column_title ()
 	--
 	-- void                gda_data_model_set_column_title     (GdaDataModel *model,
