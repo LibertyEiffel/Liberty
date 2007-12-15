@@ -12,7 +12,8 @@ inherit
 		redefine
 			dispose
 		end
-
+	FREEZABLE
+	
 insert
 	G_TYPE
 	G_TYPES
@@ -352,6 +353,7 @@ feature {ANY} -- Real
 			-- If the current value is a real, set it. Note: REAL is mapped to C double
 		require
 			is_real: is_real
+			thawed: not is_freezed
 		do
 			g_value_set_double (handle, a_value)
 		end
@@ -375,6 +377,7 @@ feature {ANY} -- Real_32
 			-- If the current value is a REAL_32, set it. Note: REAL_32 is mapped to C float
 		require
 			is_real_32: is_real_32
+			thawed: not is_freezed
 		do
 			g_value_set_float (handle, a_value)
 		end
@@ -388,6 +391,7 @@ feature {ANY} -- Enumeration
 	set_enum (a_value: INTEGER) is
 		require
 			is_enum: is_enum
+			thawed: not is_freezed
 		do
 			g_value_set_enum (handle, a_value)
 		ensure set: enum=a_value
@@ -410,6 +414,7 @@ feature {ANY} -- Flags
 		require
 			is_flags: is_flags
 			natural_value: a_value>=0
+			thawed: not is_freezed
 		do
 			g_value_set_flags (handle, a_value)
 		ensure set: a_value=flags
@@ -440,6 +445,7 @@ feature {ANY} -- Character
 			-- If the current value is a character, set it.
 		require
 			is_character: is_character
+			thawed: not is_freezed
 		do
 			g_value_set_char (handle, a_value)
 		end
@@ -471,6 +477,7 @@ feature {ANY} -- String
 		require
 			is_string: is_string
 			value_not_void: a_value/=Void
+			thawed: not is_freezed
 		do
 			g_value_set_string (handle, a_value.to_external)
 		end
@@ -496,6 +503,7 @@ feature {ANY} -- Object
 		require
 			a_value /= Void
 			is_object: is_object
+			thawed: not is_freezed
 		do
 			g_value_set_object (handle, a_value.handle)
 		end
@@ -519,6 +527,7 @@ feature {ANY} -- Pointer
 			-- If the current value is a pointer, set it.
 		require
 			is_pointer: is_pointer
+			thawed: not is_freezed
 		do
 			g_value_set_pointer (handle, a_value)
 		end
@@ -530,6 +539,7 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_boolean is
 			-- Reset Current and make it a boolean value
+		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -541,6 +551,7 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_integer is
 			-- Reset Current and make it a integer value
+		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -552,6 +563,7 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_natural is
 			-- Reset Current and make it a natural value
+		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -563,6 +575,7 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_real is
 			-- Reset Current and make it a real value
+		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -574,6 +587,7 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_real_32 is
 			-- Reset Current and make it a REAL_32 value
+		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -585,6 +599,7 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_enum is
 			-- Reset Current and make it an enumeration value
+		require thawed: not is_freezed
 		do
 			g_value_unset (handle)
 			handle := g_value_init (handle, g_type_enum)
@@ -593,6 +608,7 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_object is
 			-- Reset Current and make it an object value
+		require thawed: not is_freezed
 		do
 			g_value_unset (handle)
 			handle := g_value_init (handle, g_type_object)
@@ -601,6 +617,7 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_pointer is
 			-- Reset Current and make it an pointer value
+		require thawed: not is_freezed
 		do
 			g_value_unset (handle)
 			handle := g_value_init (handle, g_type_pointer)
@@ -609,6 +626,7 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_string is
 			-- Reset Current and make it a string value
+		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -630,7 +648,14 @@ feature -- Disposing
 			if is_initialized then
 				g_value_unset (handle)
 			else
-				print ("G_VALUE::dispose: disposing an uninitialised G_VALUE%N")
+				debug
+					print ("G_VALUE::dispose: disposing an uninitialised G_VALUE%N")
+				end
+			end
+			debug
+				if is_freezed then
+					print("G_VALUE.dispose: disposing a freezed G_VALUE%N")
+				end
 			end
 			g_free (handle)
 			handle := default_pointer

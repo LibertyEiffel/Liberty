@@ -71,9 +71,10 @@ inherit GDA_OBJECT
 	-- GdaDataModelImport and GdaDataModelArray.
 
 insert 
+	SHARED_G_ERROR
 	GDA_DATA_MODEL_ACCESS_FLAGS_ENUM
 	GDA_DATA_MODEL_HINT_ENUM
-
+	
 feature 
 	row_inserted (a_row: INTEGER) is
 			-- Emits the 'row_inserted' and 'changed' signals on model.
@@ -158,100 +159,79 @@ feature
 		ensure not_void: Result/=Void
 		end
 
-	--  gda_data_model_set_column_title ()
-	--
-	-- void                gda_data_model_set_column_title     (GdaDataModel *model,
-	--                                                          gint col,
-	--                                                          const gchar *title);
-	--
-	--   Sets the title of the given col in model.
-	--
-	--   model : a GdaDataModel object.
-	--   col :   column number
-	--   title : title for the given column.
-	--
-	--   --------------------------------------------------------------------------
-	--
+	set_column_title (a_column: INTEGER; a_title: STRING) is
+			-- Sets the title of `a_column' in model.
+		require title_not_void: a_title/=Void
+		do
+			gda_data_model_set_column_title(handle,a_column,a_title.to_external)
+		end
+
 	--  gda_data_model_get_attributes_at ()
 	--
 	-- GdaValueAttribute   gda_data_model_get_attributes_at    (GdaDataModel *model,
 	--                                                          gint col,
 	--                                                          gint row);
-	--
+
 	--   Get the attributes of the value stored at (row, col) in proxy, which is an
 	--   ORed value of GdaValueAttribute flags. As a special case, if row is -1,
 	--   then the attributes returned correspond to a "would be" value if a row was
 	--   added to model.
-	--
+
 	--   model :   a GdaDataModel object
 	--   col :     a valid column number
 	--   row :     a valid row number, or -1
 	--   Returns : the attributes as an ORed value of GdaValueAttribute
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_get_value_at ()
-	--
-	-- const GValue*       gda_data_model_get_value_at         (GdaDataModel *model,
-	--                                                          gint col,
-	--                                                          gint row);
-	--
-	--   Retrieves the data stored in the given position (identified by the col and
-	--   row parameters) on a data model.
-	--
-	--   This is the main function for accessing data in a model.
-	--
-	--   Note that the returned GValue must not be modified directly (unexpected
-	--   behaviours may occur if you do so). If you want to modify a value stored
-	--   in a GdaDataModel, use the gda_data_model_set_value() method.
-	--
-	--   model :   a GdaDataModel object.
-	--   col :     a valid column number.
-	--   row :     a valid row number.
-	--   Returns : a GValue containing the value stored in the given position, or
-	--             NULL on error (out-of-bound position, etc).
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_get_value_at_col_name ()
-	--
-	-- const GValue*       gda_data_model_get_value_at_col_name
-	--                                                         (GdaDataModel *model,
-	--                                                          const gchar *column_name,
-	--                                                          gint row);
-	--
-	--   Retrieves the data stored in the given position (identified by the
-	--   col_name column and row parameters) on a data model.
-	--
-	--   See also gda_data_model_get_value_at().
-	--
-	--   model :       a GdaDataModel object.
-	--   column_name : a valid column name.
-	--   row :         a valid row number.
-	--   Returns :     a GValue containing the value stored in the given position,
-	--                 or NULL on error (out-of-bound position, etc).
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_set_value_at ()
-	--
-	-- gboolean            gda_data_model_set_value_at         (GdaDataModel *model,
-	--                                                          gint col,
-	--                                                          gint row,
-	--                                                          const GValue *value,
-	--                                                          GError **error);
-	--
-	--   model :   a GdaDataModel object.
-	--   col :     column number.
-	--   row :     row number.
-	--   value :   a GValue, or NULL
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if the value in the data model has been updated and no
-	--             error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_set_values ()
+
+	value_at (a_column, a_row: INTEGER): G_VALUE is
+			-- the data stored at `a_column' and `a_row'.
+		
+			-- Note that the Result is petriefied so it cannot be
+			-- modified directly without raising an exception since
+			-- unexpected behaviours may occur if you do so. If you want
+			-- to modify a value stored in a GdaDataModel, use the
+			-- `set_value' feature.
+		
+			-- Void on error (out-of-bound position, etc).
+			
+			-- TODO: require valid_column, valid_row valid column
+			-- number. and a valid row number.
+		local ptr: POINTER
+		do
+			ptr := gda_data_model_get_value_at(handle, a_column, a_row)
+			if ptr.is_not_null then 
+				create Result.from_external_pointer(ptr) 
+				Result.petrify
+			end
+		end	
+
+	value_at_col_name (a_column_name: STRING; a_row: INTEGER): G_VALUE is
+			-- the data stored in the position identified by the
+			-- `a_column_name' and `a_row' on a data model.
+
+			-- Void on errors (out-of-bound position, etc).
+
+			-- TODO: require -- column_name : a valid column name.  row :
+			-- a valid row number.
+		local ptr: POINTER 
+		do
+			ptr := gda_data_model_get_value_at_col_name(handle, a_column_name.to_external, a_row)
+			if ptr.is_not_null then
+				create Result.from_external_pointer(ptr)
+			end 
+		end
+
+	set_value_at (a_column, a_row: INTEGER; a_value: G_VALUE) is
+			-- Set `a_value' at `a_column' and `a_row'. `is_successful' and `error' are updated.
+		local res: INTEGER
+		do
+			is_successful:=(gda_data_model_set_value_at
+								 (handle,a_column,a_row,null_or(a_value), address_of(error.handle))
+								 ).to_boolean
+			-- res TRUE if the value in the data model has been updated
+			-- and no error occurred
+		end
+
+	-- TODO: gda_data_model_set_values ()
 	--
 	-- gboolean            gda_data_model_set_values           (GdaDataModel *model,
 	--                                                          gint row,
@@ -268,8 +248,8 @@ feature
 	--   Returns : TRUE if the value in the data model has been updated and no
 	--             error occurred
 	--
-	--   --------------------------------------------------------------------------
-	--
+
+
 	--  gda_data_model_create_iter ()
 	--
 	-- GdaDataModelIter*   gda_data_model_create_iter          (GdaDataModel *model);
