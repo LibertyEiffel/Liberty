@@ -62,13 +62,15 @@ deferred class GDA_DATA_MODEL
 	--   memory-efficient random access on top of a wrapped cursor
 	--   based access data model
 
-inherit GDA_OBJECT
+inherit 
+	GDA_OBJECT
 	-- TODO: its a GInnterface
 
 	-- Known Implementations: GdaDataModel is implemented by
 	-- GdaDataModelFilterSQL, GdaDataProxy, GdaDataModelRow,
 	-- GdaDataModelHash, GdaDataModelQuery, GdaDataAccessWrapper,
 	-- GdaDataModelImport and GdaDataModelArray.
+	STREAM_HANDLER undefine copy, is_equal end
 
 insert 
 	SHARED_G_ERROR
@@ -227,8 +229,6 @@ feature
 			is_successful:=(gda_data_model_set_value_at
 								 (handle,a_column,a_row,null_or(a_value), address_of(error.handle))
 								 ).to_boolean
-			-- res TRUE if the value in the data model has been updated
-			-- and no error occurred
 		end
 
 	-- TODO: gda_data_model_set_values ()
@@ -249,25 +249,23 @@ feature
 	--             error occurred
 	--
 
+	get_new_iterator: GDA_DATA_MODEL_ITER is
+			-- A new iterator object GdaDataModelIter object which can be
+			-- used to iterate through rows in model.
 
-	--  gda_data_model_create_iter ()
-	--
-	-- GdaDataModelIter*   gda_data_model_create_iter          (GdaDataModel *model);
-	--
-	--   Creates a new iterator object GdaDataModelIter object which can be used to
-	--   iterate through rows in model.
-	--
-	--   The row the returned GdaDataModelIter represents is undefined. For models
-	--   which can be accessed randomly the correspoding row can be set using
-	--   gda_data_model_move_iter_at_row(), and for models which are accessible
-	--   sequentially only then the first row will be fetched using
-	--   gda_data_model_move_iter_next().
-	--
-	--   model :   a GdaDataModel object.
-	--   Returns : a new GdaDataModelIter object, or NULL if an error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
+			-- The row the returned GdaDataModelIter represents is
+			-- undefined. For models which can be accessed randomly the
+			-- correspoding row can be set using `move_iter_at_row', and
+			-- for models which are accessible sequentially only then the
+			-- first row will be fetched using `move_iter_next'.
+	
+			-- Can be Void if an error occurred
+		local p: POINTER
+		do
+			p := gda_data_model_create_iter(handle)
+			if p.is_not_null then create Result.from_external_pointer(p) end
+		end
+
 	--  gda_data_model_append_values ()
 	--
 	-- gint                gda_data_model_append_values        (GdaDataModel *model,
@@ -286,34 +284,27 @@ feature
 	--
 	--   --------------------------------------------------------------------------
 	--
-	--  gda_data_model_append_row ()
-	--
-	-- gint                gda_data_model_append_row           (GdaDataModel *model,
-	--                                                          GError **error);
-	--
-	--   Appends a row to the data model.
-	--
-	--   model :   a GdaDataModel object.
-	--   error :   a place to store errors, or NULL
-	--   Returns : the number of the added row, or -1 if an error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_remove_row ()
-	--
-	-- gboolean            gda_data_model_remove_row           (GdaDataModel *model,
-	--                                                          gint row,
-	--                                                          GError **error);
-	--
-	--   Removes a row from the data model.
-	--
-	--   model :   a GdaDataModel object.
-	--   row :     the row number to be removed.
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if successful, FALSE otherwise.
-	--
-	--   --------------------------------------------------------------------------
-	--
+	
+	appended_row: INTEGER 
+			-- The number of a row newly appeded to the data
+			-- model with `append_row'.
+	
+	append_row is 
+			-- Append a new row to the data model. `is_successful' and
+			-- `error' are updated.
+		do
+			appended_row:=gda_data_model_append_row(handle,address_of(error.handle))
+			is_successful := appended_row /= -1 
+		ensure is_successful = (appended_row /= -1)
+		end
+
+	remove_row (a_row: INTEGER) is
+			--   Removes `a_row' from the data model. `is_successful' and
+			-- `error' are updated.
+		do
+			is_successful:=(gda_data_model_remove_row(handle,a_row,address_of(error.handle))).to_boolean
+		end
+
 	--  gda_data_model_get_row_from_values ()
 	--
 	-- gint                gda_data_model_get_row_from_values  (GdaDataModel *model,
@@ -505,29 +496,21 @@ feature
 	--   options :    list of options for the export
 	--   error :      a place to store errors, or NULL
 	--   Returns :    TRUE if no error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_dump ()
-	--
-	-- void                gda_data_model_dump                 (GdaDataModel *model,
-	--                                                          FILE *to_stream);
-	--
-	--   Dumps a textual representation of the model to the to_stream stream
-	--
-	--   model :     a GdaDataModel.
-	--   to_stream : where to dump the data model
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_dump_as_string ()
-	--
-	-- gchar*              gda_data_model_dump_as_string       (GdaDataModel *model);
-	--
-	--   Dumps a textual representation of the model into a new string
-	--
-	--   model :   a GdaDataModel.
-	--   Returns : a new string.
+
+
+	dump_to (a_stream: OUTPUT_STREAM) is
+			-- Dumps a textual representation of the model to `a_stream'.
+		require stream_not_void: a_stream/=Void
+		do
+			gda_data_model_dump(handle, a_stream.stream_pointer)
+		end
+
+	to_string: STRING is
+			-- A textual representation of the model. Useful as a dump.
+		do
+			create Result.from_external(gda_data_model_dump_as_string(handle))
+		ensure not_void: Result/=Void
+		end
 
 feature -- TODO: Signals
 	--   "reset"                                          : Run Last

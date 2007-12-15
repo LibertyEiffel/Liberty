@@ -25,6 +25,8 @@ class GDA_DATA_MODEL_ITER
 
 inherit GDA_PARAMETER_LIST
 
+	-- TODO: make it an ITERATOR
+
 -- insert GDA_DATA_MODEL_ITER_EXTERNALS
 
 creation from_external_pointer
