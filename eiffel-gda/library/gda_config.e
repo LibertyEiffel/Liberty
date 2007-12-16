@@ -230,8 +230,9 @@ feature -- Configuration
 
 			-- Rows are separated in 3 columns: 'Id', 'Location' and
 			-- 'Description'.
+		local factory: G_OBJECT_EXPANDED_FACTORY[GDA_DATA_MODEL]
 		do
-			create Result.from_external_pointer (gda_config_get_provider_model)
+			Result := factory.wrapper(gda_config_get_provider_model)
 		end
 	
 	
@@ -280,9 +281,9 @@ feature -- Configuration
 
 			-- Rows are separated in 7 columns: `Name', `Provider', `Connection
 			-- string', `Description', `Username', `Password' and `Global'.
+		local factory: G_OBJECT_EXPANDED_FACTORY[GDA_DATA_MODEL]
 		do
-			create Result.from_external_pointer
-			(gda_config_get_data_source_model)
+			Result := factory.wrapper(gda_config_get_data_source_model)
 		end
 
 	can_modify_global_config: BOOLEAN is

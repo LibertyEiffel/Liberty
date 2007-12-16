@@ -168,7 +168,8 @@ feature
 			gda_data_model_set_column_title(handle,a_column,a_title.to_external)
 		end
 
-	--  gda_data_model_get_attributes_at ()
+	--	TODO: attributes_at  (a_column, a_row: INTEGER): GDA_VALUE_ATTRIBUTE is
+	-- Couldn't find definition of GdaValueAttribute
 	--
 	-- GdaValueAttribute   gda_data_model_get_attributes_at    (GdaDataModel *model,
 	--                                                          gint col,
@@ -430,73 +431,63 @@ feature
 	--   node :    a XML node representing a <gda_array_data> XML node.
 	--   error :
 	--   Returns : TRUE if successful, FALSE otherwise.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_import_from_model ()
-	--
-	-- gboolean            gda_data_model_import_from_model    (GdaDataModel *to,
-	--                                                          GdaDataModel *from,
-	--                                                          gboolean overwrite,
-	--                                                          GHashTable *cols_trans,
-	--                                                          GError **error);
-	--
-	--   Copy the contents of the from data model to the to data model. The copy
-	--   stops as soon as an error orrurs.
-	--
-	--   The cols_trans is a hash table for which keys are to columns numbers and
-	--   the values are the corresponding column numbers in the from data model. To
-	--   set the values of a column in to to NULL, create an entry in the hash
-	--   table with a negative value.
-	--
-	--   to :         the destination GdaDataModel
-	--   from :       the source GdaDataModel
-	--   overwrite :  TRUE if to is completely overwritten by from's data, and
-	--                FALSE if from's data is appended to to
-	--   cols_trans : a GHashTable for columns translating, or NULL
-	--   error :      a place to store errors, or NULL
-	--   Returns :    TRUE if no error occurred.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_import_from_string ()
-	--
-	-- gboolean            gda_data_model_import_from_string   (GdaDataModel *model,
-	--                                                          const gchar *string,
-	--                                                          GHashTable *cols_trans,
-	--                                                          GdaParameterList *options,
-	--                                                          GError **error);
-	--
-	--   Loads the data from string into model.
-	--
-	--   model :      a GdaDataModel
-	--   string :     the string to import data from
-	--   cols_trans : a hash table containing which columns of model will be
-	--                imported, or NULL for all columns
-	--   options :    list of options for the export
-	--   error :      a place to store errors, or NULL
-	--   Returns :    TRUE if no error occurred.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_import_from_file ()
-	--
-	-- gboolean            gda_data_model_import_from_file     (GdaDataModel *model,
-	--                                                          const gchar *file,
-	--                                                          GHashTable *cols_trans,
-	--                                                          GdaParameterList *options,
-	--                                                          GError **error);
-	--
-	--   Imports data contained in the file file into model; the format is
-	--   detected.
-	--
-	--   model :      a GdaDataModel
-	--   file :       the filename to import from
-	--   cols_trans : a GHashTable for columns translating, or NULL
-	--   options :    list of options for the export
-	--   error :      a place to store errors, or NULL
-	--   Returns :    TRUE if no error occurred
 
+	import_from_model (a_model: GDA_DATA_MODEL; overwrite: BOOLEAN) is
+			-- Copy the contents of `a_model' to Current model. The copy
+			-- stops as soon as an error orrurs.
+			
+			-- TODO: add support for the cols_trans hash table (for which
+			-- keys are to columns numbers and the values are the
+			-- corresponding column numbers in the from data model. To
+			-- set the values of a column in to to NULL, create an entry
+			-- in the hash table with a negative value.)
+
+			-- overwrite : TRUE if to is completely overwritten by from's
+			-- data, and FALSE if from's data is appended to to
+		
+			-- `error' and `is_successful' are updated.
+		require model_not_void: a_model/=Void
+		do
+			is_successful:=(gda_data_model_import_from_model
+								  (handle,a_model.handle,overwrite.to_integer,
+									default_pointer, -- Or GHashTable *cols_trans,
+									address_of(error.handle))).to_boolean
+		end
+
+	import_from_string (a_string: STRING; some_options: GDA_PARAMETER_LIST) is
+			-- Loads the data from `a_string' into model.  TODO: add
+			-- support for cols_trans : a hash table containing which
+			-- columns of model will be imported, or NULL for all columns
+			-- options : list of options for the export. `error' and
+			-- `is_successful' are updated
+		require 
+			string_not_void: a_string/=Void
+			options_not_void: some_options/=Void
+		do
+			is_successful:=(gda_data_model_import_from_string
+								 (handle, a_string.to_external,
+								  default_pointer, -- TODO: GHashTable *cols_trans,
+								  some_options.handle, address_of(error.handle))).to_boolean
+		end	
+
+	import_from_file (a_file: STRING; some_options: GDA_PARAMETER_LIST) is
+			-- Imports data contained in `a_file' file into model; the
+			-- format is detected. `some_options' is list of options
+			-- considered for the import.
+
+			-- TODO: support for cols_trans : a GHashTable for columns
+			-- translating, or NULL
+
+			-- `error' and `is_successful' are updated.
+		require 
+			file_not_void: a_file/=Void
+			options_not_void: some_options/=Void
+		do
+			is_successful:=(gda_data_model_import_from_file
+								 (handle, a_file.to_external,
+								  default_pointer, -- TODO: support for GHashTable *cols_trans,
+								  some_options.handle, address_of(error.handle))).to_boolean
+		end
 
 	dump_to (a_stream: OUTPUT_STREAM) is
 			-- Dumps a textual representation of the model to `a_stream'.
