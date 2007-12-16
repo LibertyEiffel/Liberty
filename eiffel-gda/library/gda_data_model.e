@@ -324,9 +324,7 @@ feature
 	--   cols_index : an array of gint containing the column number to match each
 	--                value of values
 	--   Returns :    the requested row number, of -1 if not found
-	--
-	--   --------------------------------------------------------------------------
-	--
+
 	--  gda_data_model_send_hint ()
 	--
 	-- void                gda_data_model_send_hint            (GdaDataModel *model,
@@ -339,9 +337,7 @@ feature
 	--   model :      a GdaDataModel
 	--   hint :       a hint to send to the model
 	--   hint_value : an optional value to specify the hint, or NULL
-	--
-	--   --------------------------------------------------------------------------
-	--
+
 	--  gda_data_model_export_to_string ()
 	--
 	-- gchar*              gda_data_model_export_to_string     (GdaDataModel *model,

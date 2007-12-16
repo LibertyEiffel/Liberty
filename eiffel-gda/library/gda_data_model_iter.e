@@ -23,188 +23,100 @@ indexing
 
 class GDA_DATA_MODEL_ITER
 
-inherit GDA_PARAMETER_LIST
+inherit
+	GDA_PARAMETER_LIST
+		redefine struct_size end 
+		-- TODO: make it an ITERATOR
 
-	-- TODO: make it an ITERATOR
-
--- insert GDA_DATA_MODEL_ITER_EXTERNALS
-
-creation from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
-	--   GdaDataModelIter
-	--
-	--Synopsis
-	--
-	--
-	--
-	--
-	--                     GdaDataModelIter;
-	-- GdaDataModelIter*   gda_data_model_iter_new             (GdaDataModel *model);
-	-- gboolean            gda_data_model_iter_is_valid        (GdaDataModelIter *iter);
-	-- gboolean            gda_data_model_iter_set_at_row      (GdaDataModelIter *iter,
-	--                                                          gint row);
-	-- gboolean            gda_data_model_iter_move_next       (GdaDataModelIter *iter);
-	-- gboolean            gda_data_model_iter_move_prev       (GdaDataModelIter *iter);
-	-- gint                gda_data_model_iter_get_row         (GdaDataModelIter *iter);
-	-- void                gda_data_model_iter_invalidate_contents
-	--                                                         (GdaDataModelIter *iter);
-	-- gint                gda_data_model_iter_get_column_for_param
-	--                                                         (GdaDataModelIter *iter,
-	--                                                          GdaParameter *param);
-	-- GdaParameter*       gda_data_model_iter_get_param_for_column
-	--                                                         (GdaDataModelIter *iter,
-	--                                                          gint col);
-	--
-	--
-	--Object Hierarchy
-	--
-	--
-	--   GObject
-	--    +----GdaObject
-	--          +----GdaParameterList
-	--                +----GdaDataModelIter
-	--
-	--Properties
+	make (a_model: GDA_DATA_MODEL) is
+			-- Creates a new GdaDataModelIter object which represents a
+			-- value or a parameter from `a_model'.
+		require model_not_void: a_model/=Void
+		do
+			from_external_pointer(gda_data_model_iter_new(a_model.handle))
+		end
+
+feature 
+	is_valid_iter: BOOLEAN is
+			-- Is Current valid iterator (if it actually corresponds to a
+			-- valid row in the model)?
+		do
+			Result:=gda_data_model_iter_is_valid(handle).to_boolean
+		end
+
+	set_at_row (a_row: INTEGER) is
+			-- Synchronizes the values of the parameters in iter with the
+			-- values at `a_row'.
+		
+			-- If `a_row' < 0 then iter is not bound to any row of the
+			-- data model it iters through.
+		
+			-- `is_successful' is updated
+		do
+			is_successful:=(gda_data_model_iter_set_at_row
+								 (handle, a_row)).to_boolean
+		end
+
+	move_next is
+			-- Moves iter one row further than where it already is
+			-- (synchronizes the values of the parameters in iter with
+			-- the values at the new row). `is_successful' is updated
+		do
+			is_successful:=(gda_data_model_iter_move_next(handle).to_boolean)
+		end
+
+	move_prev is
+			-- Moves iter one row before where it already is
+			-- (synchronizes the values of the parameters in iter with
+			-- the values at the new row). `is_successful' is updated
+		do
+			is_successful:=gda_data_model_iter_move_prev(handle).to_boolean
+		end
+
+	row: INTEGER is
+			-- The row which iter represents in the data model or -1 if
+			-- not available.
+		do
+			Result:=gda_data_model_iter_get_row(handle)
+		end
+
+	invalidate_contents is
+			-- Declare all the parameters in iter invalid, without
+			-- modifying the GdaDataModel iter is for or changing the row
+			-- it represents.
+		do
+			gda_data_model_iter_invalidate_contents(handle)
+		end
+
+	column_for_param (a_parameter: GDA_PARAMETER): INTEGER is
+			-- The column number in the GdaDataModel for which iter is an
+			-- iterator as represented by the param parameter.
+		do
+			Result:=gda_data_model_iter_get_column_for_param(handle,a_parameter.handle)
+		end	
+
+	parameter_for_column (a_column: INTEGER): GDA_PARAMETER is
+			-- the GdaParameter synchronized with data at
+			-- `a_column'. Void if an error occurred
+		local ptr: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_PARAMETER]
+		do
+			ptr := gda_data_model_iter_get_param_for_column(handle,a_column)
+			if ptr.is_not_null then 
+				Result:=factory.existant_wrapper(ptr)
+				if Result=Void then create Result.from_external_pointer(ptr) end
+			end
+		end	
+
+feature -- TODO: Properties
 	--
 	--
 	--   "current-row"              gint                  : Read / Write
 	--   "data-model"               GdaDataModel          : Read / Write / Construct Only
 	--   "forced-model"             GdaDataModel          : Read / Write
 	--   "update-model"             gboolean              : Read / Write
-	--
-	--Signals
-	--
-	--
-	--   "end-of-data"                                    : Run First
-	--   "row-changed"                                    : Run First
-	--   "row-to-change"                                  : Run Last
-	--
-	--Description
-	--
-	--Details
-	--
-	--  GdaDataModelIter
-	--
-	-- typedef struct _GdaDataModelIter GdaDataModelIter;
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_iter_new ()
-	--
-	-- GdaDataModelIter*   gda_data_model_iter_new             (GdaDataModel *model);
-	--
-	--   Creates a new GdaDataModelIter object which represents a value or a
-	--   parameter.
-	--
-	--   model :   Model used to create the GdaDataModelIter
-	--   Returns : the new object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_iter_is_valid ()
-	--
-	-- gboolean            gda_data_model_iter_is_valid        (GdaDataModelIter *iter);
-	--
-	--   Tells if iter is a valid iterator (if it actually corresponds to a valid
-	--   row in the model)
-	--
-	--   iter :    a GdaDataModelIter object
-	--   Returns : TRUE if iter is valid
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_iter_set_at_row ()
-	--
-	-- gboolean            gda_data_model_iter_set_at_row      (GdaDataModelIter *iter,
-	--                                                          gint row);
-	--
-	--   Synchronizes the values of the parameters in iter with the values at the
-	--   row row
-	--
-	--   If row < 0 then iter is not bound to any row of the data model it iters
-	--   through.
-	--
-	--   iter :    a GdaDataModelIter object
-	--   row :     the row to set iter to
-	--   Returns : TRUE if no error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_iter_move_next ()
-	--
-	-- gboolean            gda_data_model_iter_move_next       (GdaDataModelIter *iter);
-	--
-	--   Moves iter one row further than where it already is (synchronizes the
-	--   values of the parameters in iter with the values at the new row).
-	--
-	--   iter :    a GdaDataModelIter object
-	--   Returns : TRUE if no error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_iter_move_prev ()
-	--
-	-- gboolean            gda_data_model_iter_move_prev       (GdaDataModelIter *iter);
-	--
-	--   Moves iter one row before where it already is (synchronizes the values of
-	--   the parameters in iter with the values at the new row).
-	--
-	--   iter :    a GdaDataModelIter object
-	--   Returns : TRUE if no error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_iter_get_row ()
-	--
-	-- gint                gda_data_model_iter_get_row         (GdaDataModelIter *iter);
-	--
-	--   Get the row which iter represents in the data model
-	--
-	--   iter :    a GdaDataModelIter object
-	--   Returns : the row number, or -1 if not available
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_iter_invalidate_contents ()
-	--
-	-- void                gda_data_model_iter_invalidate_contents
-	--                                                         (GdaDataModelIter *iter);
-	--
-	--   Declare all the parameters in iter invalid, without modifying the
-	--   GdaDataModel iter is for or changing the row it represents
-	--
-	--   iter : a GdaDataModelIter object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_iter_get_column_for_param ()
-	--
-	-- gint                gda_data_model_iter_get_column_for_param
-	--                                                         (GdaDataModelIter *iter,
-	--                                                          GdaParameter *param);
-	--
-	--   Get the column number in the GdaDataModel for which iter is an iterator as
-	--   represented by the param parameter
-	--
-	--   iter :    a GdaDataModelIter object
-	--   param :   a GdaParameter object, listed in iter
-	--   Returns : the column number, or param is not valid
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_iter_get_param_for_column ()
-	--
-	-- GdaParameter*       gda_data_model_iter_get_param_for_column
-	--                                                         (GdaDataModelIter *iter,
-	--                                                          gint col);
-	--
-	--   Fetch a pointer to the GdaParameter object which is synchronized with data
-	--   at column col
-	--
-	--   iter :    a GdaDataModelIter object
-	--   col :     the requested column
-	--   Returns : the GdaParameter, or NULL if an error occurred
 	--
 	--Property Details
 	--
@@ -236,6 +148,13 @@ feature {} -- Creation
 	--
 	--   Default value: TRUE
 	--
+	--Signals
+	--
+	--
+	--   "end-of-data"                                    : Run First
+	--   "row-changed"                                    : Run First
+	--   "row-to-change"                                  : Run Last
+
 	--Signal Details
 	--
 	--  The "end-of-data" signal
@@ -271,4 +190,63 @@ feature {} -- Creation
 	--   user_data :        user data set when the signal handler was connected.
 	--   Returns :
 
+feature {} -- External calls
+	gda_data_model_iter_new (a_model: POINTER): POINTER is
+			-- GdaDataModelIter* gda_data_model_iter_new (GdaDataModel
+			-- *model);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_iter_is_valid (an_iter: POINTER): INTEGER is
+			-- gboolean gda_data_model_iter_is_valid (GdaDataModelIter
+			-- *iter);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_iter_set_at_row (an_iter: POINTER; a_row: INTEGER): INTEGER is
+			-- gboolean gda_data_model_iter_set_at_row (GdaDataModelIter
+			-- *iter, gint row);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_iter_move_next (an_iter: POINTER): INTEGER is
+			-- gboolean gda_data_model_iter_move_next (GdaDataModelIter
+			-- *iter);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_iter_move_prev (an_iter: POINTER): INTEGER is
+			-- gboolean gda_data_model_iter_move_prev (GdaDataModelIter
+			-- *iter);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_data_model_iter_get_row (an_iter: POINTER): INTEGER is
+			-- gint gda_data_model_iter_get_row (GdaDataModelIter *iter);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_iter_invalidate_contents (an_iter: POINTER) is
+			-- void gda_data_model_iter_invalidate_contents
+			-- (GdaDataModelIter *iter);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_iter_get_column_for_param (an_iter, a_parameter: POINTER): INTEGER is
+			-- gint gda_data_model_iter_get_column_for_param
+			-- (GdaDataModelIter *iter, GdaParameter *param);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_iter_get_param_for_column (an_iter: POINTER; a_column: INTEGER): POINTER is
+			-- GdaParameter* gda_data_model_iter_get_param_for_column
+			-- (GdaDataModelIter *iter, gint col);
+		external "C use <libgda/libgda.h>"
+		end
+
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <libgda/libgda.h>"
+		alias "sizeof(GdaDataModelIter)"
+		end
 end -- class GDA_DATA_MODEL_ITER

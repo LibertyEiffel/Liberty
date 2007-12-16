@@ -119,7 +119,7 @@ feature
 		do
 			ptr:=gda_dict_function_get_ret_type(handle)
 			if ptr.is_not_null then 
-				Result:=r.existent_wrapper(ptr)
+				Result:=r.existant_wrapper(ptr)
 				if Result=Void then create Result.from_external_pointer(ptr) end
 			end
 		end
