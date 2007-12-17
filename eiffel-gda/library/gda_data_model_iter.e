@@ -105,7 +105,7 @@ feature
 		do
 			ptr := gda_data_model_iter_get_param_for_column(handle,a_column)
 			if ptr.is_not_null then 
-				Result:=factory.existant_wrapper(ptr)
+				Result:=factory.existent_wrapper(ptr)
 				if Result=Void then create Result.from_external_pointer(ptr) end
 			end
 		end	

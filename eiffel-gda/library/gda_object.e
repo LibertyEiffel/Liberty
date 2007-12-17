@@ -58,7 +58,9 @@ deferred class GDA_OBJECT
 	-- o The ID as a guint, the name, description and owner attached to
 	--   the GdaObject.
 
-inherit G_OBJECT 
+inherit 
+	G_OBJECT 
+		--	WRAPPER_HANDLER -- to get unimplemented 
 
 insert GDA_OBJECT_EXTERNALS
 
