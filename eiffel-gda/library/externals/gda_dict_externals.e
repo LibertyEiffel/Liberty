@@ -204,6 +204,12 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 
+	gda_dict_object_is_assumed (a_dict, an_object: POINTER): INTEGER is
+			-- gboolean gda_dict_object_is_assumed (GdaDict *dict,
+			-- GdaObject *object);
+		external "C use <libgda/libgda.h>"
+		end
+	
 	gda_dict_get_objects (a_dict: POINTER; a_type: INTEGER): POINTER is
 			-- 	GSList* gda_dict_get_objects (GdaDict *dict, GType type);
 		external "C use <libgda/libgda.h>"
