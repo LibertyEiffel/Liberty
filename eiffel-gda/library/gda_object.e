@@ -62,7 +62,9 @@ inherit
 	G_OBJECT 
 		--	WRAPPER_HANDLER -- to get unimplemented 
 
-insert GDA_OBJECT_EXTERNALS
+insert 
+	GDA_OBJECT_EXTERNALS
+	SHARED_GDA_FACTORIES
 
 feature
 	-- TODO: dict: GDA_DICT is 

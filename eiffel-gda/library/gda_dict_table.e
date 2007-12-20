@@ -1,7 +1,7 @@
 indexing
 	description: "GdaDictTable Represents a table or a view in the database."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GDA team
+					Copyright (C) 2006, 2007 Paolo Redaelli, GDA team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,11 +19,11 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: Use this object to query the real structure
-			-- of the table it represents.  It implements the
-			-- GdaXmlStorage and GdaEntity interfaces.
-
+			wrapped_version: "3.0.1"
+			
 class GDA_DICT_TABLE
+	-- A table or a view in the database.  Use this object to query the
+	-- real structure of the table it represents.
 
 inherit
 	GDA_OBJECT
@@ -43,12 +43,11 @@ feature {} -- Creation
 feature 
 	database: GDA_DICT_DATABASE is
 			-- the database to which the table belongs
-		local p: POINTER
+		local a_pointer: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_DATABASE]
 		do
-			p := gda_dict_table_get_database (handle)
-			if wrappers.has(p) then
-				Result ::= wrappers.at(p)
-			else
+			a_pointer := gda_dict_table_get_database (handle)
+			Result ::= factory.existant_wrapper(a_pointer)
+			if Result=Void then
 				create Result.from_external_pointer(a_pointer)
 			end
 		end
@@ -73,14 +72,10 @@ feature
 			-- the constraints which apply to the given table (each
 			-- constraint can represent a NOT NULL, a primary key or
 			-- foreign key or a check constraint.
-		local p: POINTER; -- r: WRAPPER_RETRIEVER[G_SLIST[GDA_DICT_CONSTRAINT]]
+		local p: POINTER;
 		do
 			p:=gda_dict_table_get_constraints(handle)
-			if wrappers.has(p) then
-				Result ::= wrappers.at(p)
-			else
-				create Result.from_external_pointer(a_pointer)
-			end
+			create Result.from_external_pointer(a_pointer, gda_dict_constraint_factory)
 		end
 
 	public_key_constraint: GDA_DICT_CONSTRAINT is
@@ -88,13 +83,12 @@ feature
 			--several GdaDictConstraint represent a primary key
 			--constraint for table, then the first one in the list of
 			--constraints is returned. Can be Void
-		local p: POINTER; -- r: WRAPPER_RETRIEVER[GDA_DICT_CONSTRAINT]
+		local a_pointer: POINTER; factory: G_OBJECT_FACTORY[GDA_DICT_CONSTRAINT]
 		do
-			p:=gda_dict_table_get_pk_constraint(handle)
-			if p.is_not_null then
-				if wrappers.has(p) then
-					Result ::= wrappers.at(p)
-				else
+			a_pointer:=gda_dict_table_get_pk_constraint(handle)
+			if a_pointer.is_not_null then
+				Result:=factory.existant_wrapper(a_pointer)
+				if Result=Void then 
 					create Result.from_external_pointer(a_pointer)
 				end
 			end
@@ -115,10 +109,22 @@ feature
 		end
 
 feature {} -- TODO: Properties
---    "database"             gpointer              : Read / Write
--- Property Details
+	--Properties
+	--
+	--
+	--   "database"                 GdaDictDatabase       : Read / Write
+	--   "is-view"                  gboolean              : Read / Write
 
---   The "database" property
-
---    "database"             gpointer              : Read / Write
+	
+	--  The "database" property
+	--
+	--   "database"                 GdaDictDatabase       : Read / Write
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "is-view" property
+	--
+	--   "is-view"                  gboolean              : Read / Write
+	--
+	--   Default value: FALSE
 end -- class GDA_DICT_TABLE
