@@ -25,7 +25,7 @@ class GTK_SOURCE_TAG_STYLE
 
 inherit SHARED_C_STRUCT redefine copy, free end
 
-creation dummy, make, from_external_pointer
+creation dummy, from_external_pointer
 
 feature {} -- Creation
 	--
@@ -53,27 +53,13 @@ feature {} -- Creation
 	--   Creates a new tag style object.
 	--
 	--   Returns : a new GtkSourceTagStyle.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gtk_source_tag_style_copy ()
-	--
-	-- GtkSourceTagStyle*  gtk_source_tag_style_copy           (const GtkSourceTagStyle *style);
-	--
-	--   Makes a copy of the given style.
-	--
-	--   style :   a GtkSourceTagStyle.
-	--   Returns : a new GtkSourceTagStyle.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gtk_source_tag_style_free ()
-	--
-	-- void                gtk_source_tag_style_free           (GtkSourceTagStyle *style);
-	--
-	--   Frees the resources allocated by the given style.
-	--
-	--   style : a GtkSourceTagStyle.
+
+feature
+	copy (another: like Current) is
+			-- Makes a copy of the given style.
+		do
+			from_external_pointer(gtk_source_tag_style_copy(handle))
+		end
 
 feature {} -- External calls
 	-- #include <gtksourceview/gtksourcetagstyle.h>
@@ -95,19 +81,20 @@ feature {} -- External calls
 		external "C use <gtksourceview/gtksourcetagstyle.h>"
 		end
 
-	gtk_source_tag_style_free (a_style: POINTER) is
+	free (a_style: POINTER) is
 			-- void gtk_source_tag_style_free (GtkSourceTagStyle *style);
 		external "C use <gtksourceview/gtksourcetagstyle.h>"
+		alias "gtk_source_tag_style_free"
 		end
 
 feature {} -- GtkSourceTagStyle Structure getter/setter calls
-	get_$field (a_struct: POINTER): $type is
-		external "C struct $struct get $field use <$include>"
-		end
+	-- get_$field (a_struct: POINTER): $type is
+	-- external "C struct $struct get $field use <$include>"
+	-- end
 
-	set_$field (a_struct: POINTER; a_$field: $type) is
-		external "C struct $struct set $field use <$include>"
-		end
+	-- set_$field (a_struct: POINTER; a_$field: $type) is
+	-- external "C struct $struct set $field use <$include>"
+	-- end
 
 	-- typedef struct {
 	--         /* readonly */

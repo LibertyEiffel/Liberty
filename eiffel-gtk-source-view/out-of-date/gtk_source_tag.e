@@ -25,8 +25,6 @@ deferred class GTK_SOURCE_TAG
 
 inherit G_OBJECT
 
-insert GTK_SOURCE_TAG_EXTERNALS
-
 feature {} -- Creation
 
 	--Object Hierarchy
@@ -100,7 +98,7 @@ feature
 		local p: POINTER
 		do
 			p := gtk_source_tag_get_style (handle)
-			if p.is_not_null then create Result.from_external_pointer(ptr) end
+			if p.is_not_null then create Result.from_external_pointer(p) end
 		end
 
 	set_style (a_style: GTK_SOURCE_TAG_STYLE) is
@@ -248,4 +246,6 @@ feature {} -- size and implementation
 		end
 
 	tag_style_property_name: STRING is "tag-style"
+
+
 end -- class GTK_SOURCE_TAG

@@ -23,7 +23,12 @@ indexing
 
 class GTK_SOURCE_TAG_TABLE
 
-inherit GTK_TEXT_TAG_TABLE
+inherit
+	GTK_TEXT_TAG_TABLE
+		redefine 
+			make,
+			struct_size
+		end
 
 creation dummy, make, from_external_pointer
 

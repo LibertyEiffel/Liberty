@@ -41,6 +41,6 @@ feature {} -- Creation
 									  a_name.to_external,
 									  a_starting_pattern.to_external,
 									  an_ending_pattern.to_external,
-									  end_at_line_end.to_boolean);
+									  end_at_line_end.to_boolean))
 		end
 end -- class GTK_STRING_TAG

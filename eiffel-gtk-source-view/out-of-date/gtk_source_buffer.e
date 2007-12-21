@@ -249,7 +249,7 @@ feature -- Undo-Redo
 		end
 	
 feature -- Markers
-	create_marker (a_name, a_type: STRING: a_place: GTK_TEXT_ITER): GTK_SOURCE_MARKER is
+	create_marker (a_name, a_type: STRING; a_place: GTK_TEXT_ITER): GTK_SOURCE_MARKER is
 			-- Creates a marker in the buffer of type type. A marker is
 			-- semantically very similar to a GTK_TEXT_MARK, except it has a type
 			-- which is used by the GTK_SOURCE_VIEW displaying the buffer to show a

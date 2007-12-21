@@ -25,8 +25,12 @@ class GTK_SOURCE_VIEW
 
 inherit
 	GTK_TEXT_VIEW
-	
-		-- Implemented Interfaces: GtkSourceView implements AtkImplementorIface.
+		redefine 
+			make,
+			struct_size
+		end
+
+	--  TODO: GtkSourceView implements AtkImplementorIface.
 
 creation dummy, make, from_buffer, from_external_pointer
 
