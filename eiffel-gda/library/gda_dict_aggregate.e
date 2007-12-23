@@ -34,7 +34,7 @@ inherit
 	-- TODO: GdaDictAggregate implements GdaXmlStorage.
 insert  GDA_DICT_AGGREGATE_EXTERNALS
 
-creation dummy, from_dict, from_external_pointer
+creation from_dict, from_external_pointer
 
 feature {} -- Creation
 

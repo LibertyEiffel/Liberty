@@ -24,16 +24,32 @@ class LIBGDA
 insert
 	SINGLETON
 	SHARED_ARCHETYPES_DICTIONARY[G_OBJECT] 
+	GDA_DICT_CONSTRAINT_TYPE_ENUM
+		
 	
 creation  {SHARED_LIBGDA}
 	make
 	
 feature {} -- creation
 	make is
+		local 
+			dummy_gda_dict: GDA_DICT
+			dummy_gda_dict_table: GDA_DICT_TABLE
+			dummy_gda_dict_type: GDA_DICT_TYPE
 		do
 			-- Store archetypes
 			store_archetype(create {GDA_COLUMN}.dummy)
-			
+			create dummy_gda_dict.dummy
+			store_archetype(dummy_gda_dict)
+			store_archetype(create {GDA_DICT_AGGREGATE}.from_dict(dummy_gda_dict))
+			store_archetype(create {GDA_DICT_DATABASE}.from_dict(dummy_gda_dict))
+			store_archetype(create {GDA_DICT_FUNCTION}.from_dict(dummy_gda_dict))
+			create dummy_gda_dict_table.from_dict(dummy_gda_dict)
+			store_archetype(dummy_gda_dict_table)
+			store_archetype(create {GDA_DICT_CONSTRAINT}.from_table(dummy_gda_dict_table,constraint_not_null))
+			create dummy_gda_dict_type.from_dict(dummy_gda_dict)
+			store_archetype(dummy_gda_dict_type)
+			store_archetype(create {GDA_DICT_FIELD}.from_dict(dummy_gda_dict,dummy_gda_dict_type))
 		end
 	
 feature {} -- size

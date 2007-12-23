@@ -31,7 +31,7 @@ inherit
 	
 insert GDA_DICT_FIELD_EXTERNALS
 
-creation dummy, from_dict, from_external_pointer
+creation from_dict, from_external_pointer
 
 feature {} -- Creation
 
