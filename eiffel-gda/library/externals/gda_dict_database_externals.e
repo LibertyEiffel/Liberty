@@ -9,7 +9,42 @@ deferred class GDA_DICT_DATABASE_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
-
+feature {} -- V3 API 
+	--                     GdaDictDatabase;
+	-- GObject*            gda_dict_database_new               (GdaDict *dict);
+	-- void                gda_dict_database_add_constraint    (GdaDictDatabase *db,
+	--                                                          GdaDictConstraint *cstr);
+	-- GdaDict*            gda_dict_database_get_dict          (GdaDictDatabase *db);
+	-- gboolean            gda_dict_database_update_dbms_data  (GdaDictDatabase *db,
+	--                                                          GType limit_to_type,
+	--                                                          const gchar *limit_obj_name,
+	--                                                          GError **error);
+	-- void                gda_dict_database_stop_update_dbms_data
+	--                                                         (GdaDictDatabase *db);
+	-- GSList*             gda_dict_database_get_tables        (GdaDictDatabase *db);
+	-- GdaDictTable*       gda_dict_database_get_table_by_name (GdaDictDatabase *db,
+	--                                                          const gchar *name);
+	-- GdaDictTable*       gda_dict_database_get_table_by_xml_id
+	--                                                         (GdaDictDatabase *db,
+	--                                                          const gchar *xml_id);
+	-- GdaDictField*       gda_dict_database_get_field_by_name (GdaDictDatabase *db,
+	--                                                          const gchar *fullname);
+	-- GdaDictField*       gda_dict_database_get_field_by_xml_id
+	--                                                         (GdaDictDatabase *db,
+	--                                                          const gchar *xml_id);
+	-- GSList*             gda_dict_database_get_all_constraints
+	--                                                         (GdaDictDatabase *db);
+	-- GSList*             gda_dict_database_get_table_constraints
+	--                                                         (GdaDictDatabase *db,
+	--                                                          GdaDictTable *table);
+	-- GSList*             gda_dict_database_get_all_fk_constraints
+	--                                                         (GdaDictDatabase *db);
+	-- GSList*             gda_dict_database_get_tables_fk_constraints
+	--                                                         (GdaDictDatabase *db,
+	--                                                          GdaDictTable *table1,
+	--                                                          GdaDictTable *table2,
+	--                                                          gboolean table1_has_fk);
+	
 feature {} -- External calls
 	gda_dict_database_new (a_dict: POINTER): POINTER is
 			-- GObject* gda_dict_database_new (GdaDict *dict);
@@ -26,7 +61,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	 gda_dict_database_update_dbms_data (a_db: POINTER; a_limiting_type: INTEGER; a_limiting_obj_name, an_error_handle: POINTER): INTEGER is
+	gda_dict_database_update_dbms_data (a_db: POINTER; a_limiting_type: INTEGER; a_limiting_obj_name, an_error_handle: POINTER): INTEGER is
 			-- gboolean gda_dict_database_update_dbms_data
 			-- (GdaDictDatabase *db, GType limit_to_type, const gchar
 			-- *limit_obj_name, GError **error);
@@ -56,7 +91,7 @@ feature {} -- External calls
 		external "C use <libgda/libgda.h>"
 		end
 	
-	 gda_dict_database_get_field_by_name (a_db, a_fullname: POINTER): POINTER is
+	gda_dict_database_get_field_by_name (a_db, a_fullname: POINTER): POINTER is
 			-- GdaDictField* gda_dict_database_get_field_by_name
 			-- (GdaDictDatabase *db, const gchar *fullname);
 		external "C use <libgda/libgda.h>"

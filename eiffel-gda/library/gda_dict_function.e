@@ -98,8 +98,8 @@ feature
 			--	to be read-only nad MUST NOT be modified.
 			-- TODO: shall not be modified
 		do
-			create Result.from_external_pointer
-			(gda_dict_function_get_arg_types(handle))
+			create Result.from_external(gda_dict_function_get_arg_types(handle),
+												 gda_dict_function_factory)
 		end
 
 	set_return_type (a_type: GDA_DICT_TYPE) is
@@ -119,7 +119,7 @@ feature
 		do
 			ptr:=gda_dict_function_get_ret_type(handle)
 			if ptr.is_not_null then 
-				Result:=r.existant_wrapper(ptr)
+				Result:=factory.existant_wrapper(ptr)
 				if Result=Void then create Result.from_external_pointer(ptr) end
 			end
 		end

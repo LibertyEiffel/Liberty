@@ -33,6 +33,7 @@ feature {} -- creation
 		do
 			-- Store archetypes
 			store_archetype(create {GDA_COLUMN}.dummy)
+			
 		end
 	
 feature {} -- size

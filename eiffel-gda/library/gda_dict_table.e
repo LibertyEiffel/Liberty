@@ -46,7 +46,7 @@ feature
 		local a_pointer: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_DATABASE]
 		do
 			a_pointer := gda_dict_table_get_database (handle)
-			Result ::= factory.existant_wrapper(a_pointer)
+			Result := factory.existant_wrapper(a_pointer)
 			if Result=Void then
 				create Result.from_external_pointer(a_pointer)
 			end
@@ -72,10 +72,10 @@ feature
 			-- the constraints which apply to the given table (each
 			-- constraint can represent a NOT NULL, a primary key or
 			-- foreign key or a check constraint.
-		local p: POINTER;
+		local a_pointer: POINTER
 		do
-			p:=gda_dict_table_get_constraints(handle)
-			create Result.from_external_pointer(a_pointer, gda_dict_constraint_factory)
+			a_pointer:=gda_dict_table_get_constraints(handle)
+			create Result.from_external(a_pointer, gda_dict_constraint_factory)
 		end
 
 	public_key_constraint: GDA_DICT_CONSTRAINT is
@@ -105,7 +105,7 @@ feature
 			database_connected: database.dict.connection.is_opened
 		do
 			is_successful:=(gda_dict_table_update_dbms_data
-								 (handle, address_of(error.handle)))
+								 (handle, address_of(error.handle)).to_boolean)
 		end
 
 feature {} -- TODO: Properties
@@ -127,4 +127,7 @@ feature {} -- TODO: Properties
 	--   "is-view"                  gboolean              : Read / Write
 	--
 	--   Default value: FALSE
+feature
+	dummy_gobject: POINTER is do unimplemented end
+
 end -- class GDA_DICT_TABLE

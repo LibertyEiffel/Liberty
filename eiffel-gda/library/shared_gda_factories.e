@@ -21,12 +21,13 @@ indexing
 
 deferred class SHARED_GDA_FACTORIES
 
+insert ANY undefine copy, is_equal, fill_tagged_out_memory end
+
 feature {} -- Factories
 	gda_dict_aggregate_factory: G_OBJECT_FACTORY[GDA_DICT_AGGREGATE] is once create Result end
 	gda_dict_constraint_factory: G_OBJECT_FACTORY[GDA_DICT_CONSTRAINT] is once create Result end
 	gda_dict_database_factory: G_OBJECT_FACTORY[GDA_DICT_DATABASE] is once create Result end
 	gda_dict_factory: G_OBJECT_FACTORY[GDA_DICT] is once create Result end
-	gda_dict_extend_factory: G_OBJECT_FACTORY[GDA_DICT_EXTEND] is once create Result end
 	gda_dict_field_factory: G_OBJECT_FACTORY[GDA_DICT_FIELD] is once create Result end
 	gda_dict_function_factory: G_OBJECT_FACTORY[GDA_DICT_FUNCTION] is once create Result end
 	gda_dict_table_factory: G_OBJECT_FACTORY[GDA_DICT_TABLE] is once create Result end

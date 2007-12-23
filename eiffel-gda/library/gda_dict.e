@@ -86,7 +86,7 @@ feature
 			 local p: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_CONNECTION]
 	do
 		p := gda_dict_get_connection(handle)
-		Result:=factory.existent_wrapper(p)
+		Result:=factory.existant_wrapper(p)
 		if Result=Void then 
 			 create Result.from_external_pointer(p)
 		end

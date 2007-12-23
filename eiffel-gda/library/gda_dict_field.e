@@ -74,8 +74,8 @@ feature
 			-- the constraints which impact the given field. Constraints are of
 			-- several type: NOT NULL, primary key, foreign key, check constrains
 		do
-			create Result.from_external_pointer
-			(gda_dict_field_get_constraints (handle))
+			create Result.from_external(gda_dict_field_get_constraints(handle),
+												 gda_dict_constraint_factory)
 		end
 
 	set_dict_type (a_type: GDA_DICT_TYPE) is
@@ -105,7 +105,7 @@ feature
 		do
 			p:=gda_dict_field_get_default_value(handle)
 			if p.is_not_null then
-				create Result.from_external(p)
+				create Result.from_external_pointer(p)
 			end
 		end
 
@@ -157,23 +157,21 @@ feature
 
 feature {} -- TODO: Properties
 
+	--    "db-table"             gpointer              : Read / Write
+	--    "entry-plugin"         gchararray            : Read / Write
+	
+	--   The "db-table" property
+	
+	--    "db-table"             gpointer              : Read / Write
 
---    "db-table"             gpointer              : Read / Write
---    "entry-plugin"         gchararray            : Read / Write
+	--   The "entry-plugin" property
+	
+	--    "entry-plugin"         gchararray            : Read / Write
+	
+	--    Default value: NULL
 
--- 												 Property Details
-
---   The "db-table" property
-
---    "db-table"             gpointer              : Read / Write
-
---    -----------------------------------------------------------------------------------------------------------------------
-
---   The "entry-plugin" property
-
---    "entry-plugin"         gchararray            : Read / Write
-
---    Default value: NULL
+feature
+	dummy_gobject: POINTER is do unimplemented end
 
 end -- class GDA_DICT_FIELD
 									

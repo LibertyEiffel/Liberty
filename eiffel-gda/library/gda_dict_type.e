@@ -1,14 +1,14 @@
 indexing
 	description: "GdaDictType Represents a data type in the DBMS."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GDA team
+					Copyright (C) 2007 Paolo Redaelli, GDA developers
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
 					
-					This library is distributed in the hopeOA that it will be useful, but
+					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 					Lesser General Public License for more details.
@@ -19,22 +19,24 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: DBMS systems usually have quite large set of
-			-- data types (which can sometimes be expanded by
-			-- users). Each GdaDictType object represents one data
-			-- type. The libgda library provides some data types, and so
-			-- it is possible, for each GdaDictType object, to get the
-			-- corresponding libgda data type.
-			
-			-- Every data type can be represented by a GdaDictType (even
-			-- user defined data types). Complex data types (data types
-			-- described as the aggregation of several other data types,
-			-- like C structures) are handled like any other data type
-			-- and it is not possible to individually access the
-			-- different components of the complex data type (it is,
-			-- however, possible to write a plugin for this data type).
+	wrapped_version: "3.0.1"
 
 class GDA_DICT_TYPE
+	-- A data type in the DBMS
+
+	-- DBMS systems usually have quite large set of data types (which
+	-- can sometimes be expanded by users). Each GdaDictType object
+	-- represents one data type. The libgda library provides some data
+	-- types, and so it is possible, for each GdaDictType object, to
+	-- get the corresponding libgda data type.
+
+	-- Every data type can be represented by a GdaDictType (even user
+	-- defined data types). Complex data types (data types described as
+	-- the aggregation of several other data types, like C structures)
+	-- are handled like any other data type and it is not possible to
+	-- individually access the different components of the complex data
+	-- type (it is, however, possible to write a plugin for this data
+	-- type).
 
 inherit 
 	GDA_OBJECT
@@ -52,10 +54,7 @@ feature {} -- Creation
 			-- a new GdaDictType object which represent a data type
 			-- defined in a data dictionary. `a_dict' can be Void
 		do
-			if a_dict/=Void
-			 then	from_external_pointer(gda_dict_type_new(a_dict.handle))
-			else from_external_pointer(gda_dict_type_new(default_pointer))
-			end
+			from_external_pointer(gda_dict_type_new(null_or(a_dict)))
 		end
 
 feature
@@ -67,22 +66,22 @@ feature
 			gda_dict_type_set_sqlname(handle, an_sql_name.to_external)
 		end
 
-	sql_name: STRING is
-			-- the DBMS's name of a data type.
+	sql_name: CONST_STRING is
+			-- the DBMS's name of Current data type.
 		do
-			create {CONST_STRING} Result.from_external(gda_dict_type_get_sqlname(handle))
+			create Result.from_external(gda_dict_type_get_sqlname(handle))
 		end
 	
-	set_gda_type (a_type: INTEGER) is
-			-- Set the gda type for a data type
+	set_data_type (a_type: INTEGER) is
+			-- Set the gtype for a data type
 		do
-			gda_dict_type_set_gda_type(handle, a_type)
+			gda_dict_type_set_g_type(handle, a_type)
 		end
 
-	gda_type: INTEGER is
-			-- the gda type of a data type
+	data_type: INTEGER is
+			-- the gtype of a data type
 		do
-			Result := gda_dict_type_get_gda_type(handle)
+			Result := gda_dict_type_get_g_type(handle)
 		end
 	
 	add_synonym (a_synonym: STRING) is
@@ -94,14 +93,17 @@ feature
 		end
 
 	synonyms: G_SLIST_STRING is
-			-- a list of datatype's synonyms. TODO: this list must not be
-			-- modified. This fact is still to be implemented
+			-- a list of datatype's synonyms.
 		do
 			create Result.from_external_pointer(gda_dict_type_get_synonyms(handle))
+			Result.petrify
+		ensure 
+			not_void: Result/=Void
+			petrified: Result.is_petrified
 		end
 
 	clear_synonyms is
-			--    Removes any synonym attached to dt
+			--    Removes any synonym attached to data type
 		do
 			gda_dict_type_clear_synonyms (handle)
 		end
