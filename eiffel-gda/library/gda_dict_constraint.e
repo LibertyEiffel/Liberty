@@ -1,7 +1,7 @@
 indexing
 	description: "GdaDictConstraint Represents a constraint within a database."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTK+ team
+					Copyright (C) 2006,2007 Paolo Redaelli, GDA team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,23 +19,29 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: Any type of constraint in a database is represented by
-			-- one instance of the class (see the possible types of
-			-- constraints). As some constraints may not depend exclusively on a
-			-- table, all the constraints are attached to the database itself.
+wrapped_version: "3.0.1"
+
 
 class GDA_DICT_CONSTRAINT
+	-- GDA_DICT_CONSTRAINT represents a constraint within a database
+
+	-- Any type of constraint in a database is represented by one
+	-- instance of the class (see the possible types of
+	-- constraints). As some constraints may not depend exclusively on
+	-- a table, all the constraints are attached to the database
+	-- itself.
 
 inherit
 	GDA_OBJECT
 		redefine 
 			is_equal
 		end
-	-- TODO: GdaDictConstraint implements GdaXmlStorage and GdaReferer.
+	-- TODO: GdaDictConstraint implements GdaXmlStorage
+	GDA_REFERER
 
 insert GDA_DICT_CONSTRAINT_EXTERNALS
 
-creation dummy, from_table, from_external_pointer, with_db
+creation from_table, from_external_pointer, with_db
 
 feature dummy_gobject: POINTER is do unimplemented end
 
@@ -85,14 +91,12 @@ feature
 
 	table: GDA_DICT_TABLE is
 			-- the table to which the constraint is attached
-		local factory: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_TABLE]
+		local ptr: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_TABLE]
 		do
-			if cached_table=Void 
-			then create cached_table.from_external_pointer(gda_dict_constraint_get_table(handle))
-			else
-				check
-					wrapped_table_did_not_change: cached_table.handle = gda_dict_constraint_get_table(handle)
-				end
+			ptr:=gda_dict_constraint_get_table(handle)
+			Result:=factory.existant_wrapper(ptr)
+			if Result=Void then 
+				create Result.from_external_pointer(ptr)
 			end
 		end
 
@@ -113,7 +117,6 @@ feature
 			-- the constraint is attached
 		do
 			gda_dict_constraint_pkey_set_fields(handle, some_fields.handle)
-			cached_primary_key_fields := some_fields
 		end
 
 	primary_key_fields: G_OBJECT_SLIST[GDA_DICT_FIELD] is
@@ -121,12 +124,7 @@ feature
 			-- Current represents. The returned list is allocated and must be
 			-- de-allocated by the caller.
 		do
-			if cached_primary_key_fields=Void then 
-				create cached_primary_key_fields.from_external_pointer(gda_dict_constraint_pkey_get_fields(handle))
-				-- TODO: The returned list is allocated and must be de-allocated by the
-				-- caller.
-			end
-			Result :=cached_primary_key_fields
+			create Result.from_external_pointer(gda_dict_constraint_pkey_get_fields(handle))
 		end
 		
 	-- set_foreign_key_fields (some_fields: G_OBJECT_SLIST[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]) is
@@ -205,19 +203,13 @@ feature
 			gda_dict_constraint_unique_set_fields(handle,some_fields.handle)
 		end
 
-	-- TODO: unique_fields: G_OBJECT_SLIST[GDA_DICT_FIELD] is
-	
-	-- the list of fields represented by this UNIQUE
-	-- constraint. It's up to the caller to free the list.
-	-- local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
-	-- do
-	-- 			p:=gda_dict_constraint_unique_get_fields(handle)
-	-- 			Result:=r.wrapper(p)
-	-- 			if Result=Void then 
-	-- 				create Result.from_external_pointer(p) 
-	-- 			end
-	-- 			Result.set_unshared
-	-- 		end
+	unique_fields: G_OBJECT_SLIST[GDA_DICT_FIELD] is
+			-- the list of fields represented by this UNIQUE
+			-- constraint. It's up to the caller to free the list.
+		do
+			create Result.from_external_pointer(gda_dict_constraint_unique_get_fields(handle))
+			Result.set_unshared
+		end
 	
 	set_not_null_field (a_field: GDA_DICT_FIELD) is
 		require field_not_void: a_field /= Void
@@ -225,23 +217,19 @@ feature
 			gda_dict_constraint_not_null_set_field(handle,a_field.handle)
 		end
 
-	-- not_null_field: GDA_DICT_FIELD is
-	-- local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_CONSTRAINT_FOREIGN_KEY_PAIR]; p: POINTER
-	-- do
-	--	p:=gda_dict_constraint_not_null_get_field(handle)
-	--	Result:=r.wrapper(p)
-	--	if Result=Void then 
-	--		create Result.from_external_pointer(p) 
-	--end
-	--	Result.set_unshared
-	--end
-
+	not_null_field: GDA_DICT_FIELD is
+		local r: G_OBJECT_EXPANDED_FACTORY[GDA_DICT_FIELD]; p: POINTER
+		do
+			p:=gda_dict_constraint_not_null_get_field(handle)
+			Result:=r.existant_wrapper(p)
+			if Result=Void then 
+				create Result.from_external_pointer(p) 
+			end
+			Result.set_unshared
+		end
+	
 feature {} -- Property Details
 	-- The "user-constraint" property "user-constraint" gboolean :
 	-- Read/Write Default value: FALSE
-
-feature {} -- Cached features
-	cached_table: GDA_DICT_TABLE
-	cached_primary_key_fields: G_OBJECT_SLIST[GDA_DICT_FIELD]
 
 end -- class GDA_DICT_CONSTRAINT

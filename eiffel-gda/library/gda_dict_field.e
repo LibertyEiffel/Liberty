@@ -1,8 +1,8 @@
 indexing
 	description: "GdaDictField represents a field in a table or a view in the database."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GDA team
-					
+					Copyright (C) 2006, 2007 Paolo Redaelli, GDA team
+										
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
@@ -19,15 +19,18 @@ indexing
 					02110-1301 USA
 			]"
 
-			-- Description: It implements the following interfaces: GdaEntityField,
-			-- GdaXmlStorage and GdaRenderer.
+	wrapped_version: "3.0.1"
 
 class GDA_DICT_FIELD
+	-- GDA_DICT_FIELD represents a field in a table or a view in the
+	-- database.
+
+	
 
 inherit
 	GDA_OBJECT
 
-	-- GdaDictField implements GdaXmlStorage, GdaEntityField and GdaRenderer.
+	-- TODO: GdaDictField implements GdaXmlStorage, GdaEntityField and GdaRenderer.
 	
 insert GDA_DICT_FIELD_EXTERNALS
 
@@ -70,12 +73,11 @@ feature
 			Result := gda_dict_field_get_scale (handle)
 		end
 
-	constraints: G_SLIST[GDA_DICT_CONSTRAINT] is
+	constraints: G_OBJECT_SLIST[GDA_DICT_CONSTRAINT] is
 			-- the constraints which impact the given field. Constraints are of
 			-- several type: NOT NULL, primary key, foreign key, check constrains
 		do
-			create Result.from_external(gda_dict_field_get_constraints(handle),
-												 gda_dict_constraint_factory)
+			create Result.from_external_pointer(gda_dict_field_get_constraints(handle))
 		end
 
 	set_dict_type (a_type: GDA_DICT_TYPE) is
@@ -172,6 +174,5 @@ feature {} -- TODO: Properties
 
 feature
 	dummy_gobject: POINTER is do unimplemented end
-
 end -- class GDA_DICT_FIELD
 									
