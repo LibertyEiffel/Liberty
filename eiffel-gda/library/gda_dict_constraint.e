@@ -21,7 +21,6 @@ indexing
 
 wrapped_version: "3.0.1"
 
-
 class GDA_DICT_CONSTRAINT
 	-- GDA_DICT_CONSTRAINT represents a constraint within a database
 

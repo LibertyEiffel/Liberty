@@ -90,14 +90,14 @@ feature
 			-- TODO: NULL values in the list is currently not supported
 		require types_not_void: some_types /= Void
 		do
-			gda_dict_function_set_arg_types(handle, some_types.handle)
+			gda_dict_function_set_arg_dict_types(handle, some_types.handle)
 		end
 
 	argument_types: G_SLIST[GDA_DICT_FUNCTION] is
 			--	the list of arguments types (and number) of a
 			--	function. 
 		do
-			create Result.from_external(gda_dict_function_get_arg_types(handle),
+			create Result.from_external(gda_dict_function_get_arg_dict_types(handle),
 												 gda_dict_function_factory)
 			Result.petrify
 		ensure 
@@ -108,10 +108,7 @@ feature
 	set_return_type (a_type: GDA_DICT_TYPE) is
 			-- Set the return type of a function. `a_type' can be Void.
 		do
-			if a_type=Void 
-			 then	gda_dict_function_set_ret_type(handle, default_pointer)
-			else gda_dict_function_set_ret_type(handle, a_type.handle)
-			end
+			gda_dict_function_set_ret_type(handle, null_or(a_type))
 		end
 
 	return_type: GDA_DICT_TYPE is
@@ -135,84 +132,12 @@ feature
 			-- TODO: the C version allows NULL values in
 			-- `some_arguments'. This is still unimplemented
 		do
-			Result:=(gda_dict_function_accepts_args
+			Result:=(gda_dict_function_accepts_arg_dict_types
 						(handle, some_arguments.handle)).to_boolean
 		end
 
 feature--  The "prop" property
 	--   "prop"                 gpointer              : Read / Write
-
-feature {} -- V3 API
-
-	--                     GdaDictFunction;
-	-- GObject*            gda_dict_function_new               (GdaDict *dict);
-	-- void                gda_dict_function_set_dbms_id       (GdaDictFunction *func,
-	--                                                          const gchar *id);
-	-- gchar*              gda_dict_function_get_dbms_id       (GdaDictFunction *func);
-	-- void                gda_dict_function_set_sqlname       (GdaDictFunction *func,
-	--                                                          const gchar *sqlname);
-	-- const gchar*        gda_dict_function_get_sqlname       (GdaDictFunction *func);
-	-- void                gda_dict_function_set_arg_dict_types
-	--                                                         (GdaDictFunction *func,
-	--                                                          const GSList *arg_types);
-	-- const GSList*       gda_dict_function_get_arg_dict_types
-	--                                                         (GdaDictFunction *func);
-	-- void                gda_dict_function_set_ret_dict_type (GdaDictFunction *func,
-	--                                                          GdaDictType *dt);
-	-- GdaDictType*        gda_dict_function_get_ret_dict_type (GdaDictFunction *func);
-	-- gboolean            gda_dict_function_accepts_arg_dict_types
-	--                                                         (GdaDictFunction *func,
-	--
-	--  gda_dict_function_get_arg_dict_types ()
-	--
-	-- const GSList*       gda_dict_function_get_arg_dict_types
-	--                                                         (GdaDictFunction *func);
-	--
-	--   To consult the list of arguments types (and number) of a function.
-	--
-	--   func :    a GdaDictFunction object
-	--   Returns : a list of GdaDictType objects, the list MUST NOT be modified.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_dict_function_set_ret_dict_type ()
-	--
-	-- void                gda_dict_function_set_ret_dict_type (GdaDictFunction *func,
-	--                                                          GdaDictType *dt);
-	--
-	--   Set the return type of a function
-	--
-	--   func : a GdaDictFunction object
-	--   dt :   a GdaDictType object or NULL
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_dict_function_get_ret_dict_type ()
-	--
-	-- GdaDictType*        gda_dict_function_get_ret_dict_type (GdaDictFunction *func);
-	--
-	--   To consult the return type of a function.
-	--
-	--   func :    a GdaDictFunction object
-	--   Returns : a GdaDictType object.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_dict_function_accepts_arg_dict_types ()
-	--
-	-- gboolean            gda_dict_function_accepts_arg_dict_types
-	--                                                         (GdaDictFunction *func,
-	--                                                          const GSList *arg_types);
-	--
-	--   Test if the proposed list of arguments (arg_types) would be accepted by
-	--   the func function.
-	--
-	--   The non acceptance can be beause of data type incompatibilities or a wrong
-	--   number of data types.
-	--
-	--   func :      a GdaDictFunction object
-	--   arg_types : a list of GdaDictType objects or NULL values, ordered
-	--   Returns :   TRUE if accepted
 
 end -- class GDA_DICT_FUNCTION
 	
