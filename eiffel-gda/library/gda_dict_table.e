@@ -108,25 +108,6 @@ feature
 								 (handle, address_of(error.handle)).to_boolean)
 		end
 
-feature {} -- TODO: Properties
-	--Properties
-	--
-	--
-	--   "database"                 GdaDictDatabase       : Read / Write
-	--   "is-view"                  gboolean              : Read / Write
-
-	
-	--  The "database" property
-	--
-	--   "database"                 GdaDictDatabase       : Read / Write
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  The "is-view" property
-	--
-	--   "is-view"                  gboolean              : Read / Write
-	--
-	--   Default value: FALSE
 feature
 	dummy_gobject: POINTER is do unimplemented end
 
