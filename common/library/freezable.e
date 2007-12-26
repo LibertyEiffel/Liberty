@@ -22,7 +22,7 @@ indexing
 deferred class FREEZABLE
 	-- An object that can be made temporary or permanently unchangable.
 
-insert ANY undefine copy, is_equal end 
+insert ANY undefine copy, is_equal, fill_tagged_out_memory end
 
 feature
 	freeze is
