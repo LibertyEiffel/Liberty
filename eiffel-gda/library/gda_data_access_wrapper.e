@@ -47,11 +47,10 @@ feature {} -- Creation
 		end
 
 feature 
-	row_exists (a_row_number: INTEGER): BOOLEAN is
+	row_exists (a_row: INTEGER): BOOLEAN is
 			-- Does the row number `a_row' exist?
 		do
-			Result:=(gda_data_access_wrapper_row_exists
-						(handle, a_row).to_boolean))
+			Result:=(gda_data_access_wrapper_row_exists(handle, a_row).to_boolean)
 		end	
 
 	-- TODO:  The "model" property
@@ -72,7 +71,7 @@ feature {}
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_data_access_wrapper_row_exists  (a_wrapper: POINTER: a_row: INTEGER): INTEGER is
+	gda_data_access_wrapper_row_exists  (a_wrapper: POINTER; a_row: INTEGER): INTEGER is
 			-- gboolean gda_data_access_wrapper_row_exists  (GdaDataAccessWrapper *wrapper, gint row);
 		external "C use <libgda/libgda.h>"
 		end

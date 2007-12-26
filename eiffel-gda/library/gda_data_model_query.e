@@ -63,19 +63,14 @@ feature
 			end
 		end
 
-	--refresh 
-	--
-	-- gboolean            gda_data_model_query_refresh        (GdaDataModelQuery *model,
-	--                                                          GError **error);
-	--
-	--   (Re)-runs the SELECT query to update the contents of model
-	--
-	--   model :   a GdaDataModelQuery data model
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if no error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
+	refresh is
+			-- (Re)-runs the SELECT query to update the contents of
+			-- model. `is_successful' and `error' are updated.
+		do
+			is_successful:=(gda_data_model_query_refresh
+								 (handle, error.handle)).to_boolean
+		end
+
 	--  gda_data_model_query_set_modification_query ()
 	--
 	-- gboolean            gda_data_model_query_set_modification_query
