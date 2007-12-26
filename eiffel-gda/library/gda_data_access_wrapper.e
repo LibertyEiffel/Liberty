@@ -34,38 +34,28 @@ inherit
 	GDA_OBJECT
 	GDA_DATA_MODEL
 
-creation from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
-	
-	--  gda_data_access_wrapper_new ()
-	--
-	-- GdaDataModel*       gda_data_access_wrapper_new         (GdaDataModel *model);
-	--
-	--   Creates a new GdaDataModel object which buffers the rows of model. This
-	--   object is usefull only if model can only be accessed using cursor based
-	--   method.
-	--
-	--   model :   a GdaDataModel
-	--   Returns : a pointer to the newly created GdaDataModel.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_access_wrapper_row_exists ()
-	--
-	-- gboolean            gda_data_access_wrapper_row_exists  (GdaDataAccessWrapper *wrapper,
-	--                                                          gint row);
-	--
-	--   Tests if the wrapper model of wrapper has a row number row
-	--
-	--   wrapper : a GdaDataAccessWrapper objects
-	--   row :     a row number to test existance
-	--   Returns : TRUE if row number row exists
-	--
-	--Property Details
-	--
-	--  The "model" property
-	--
+	make (a_model: GDA_DATA_MODEL) is
+			-- Creates a new GdaDataModel object which buffers the rows
+			-- of model. This object is usefull only if model can only be
+			-- accessed using cursor based method.
+		require model_not_void: a_model/=Void
+		do
+			from_external_pointer(gda_data_access_wrapper_new(a_model.handle))
+		end
+
+feature 
+	row_exists (a_row_number: INTEGER): BOOLEAN is
+			-- Does the row number `a_row' exist?
+		do
+			Result:=(gda_data_access_wrapper_row_exists
+						(handle, a_row).to_boolean))
+		end	
+
+	-- TODO:  The "model" property
+
 	--   "model"                    GdaDataModel          : Read / Write / Construct Only
 
 feature 
@@ -77,11 +67,14 @@ feature
 		alias "sizeof(GdaDataAccessWrapper)"
 		end
 feature {}
-	
-	--                     GdaDataAccessWrapperClass;
-	--                     GdaDataAccessWrapperPrivate;
-	-- GdaDataModel*       gda_data_access_wrapper_new         (GdaDataModel *model);
-	-- gboolean            gda_data_access_wrapper_row_exists  (GdaDataAccessWrapper *wrapper,
-	--                                                          gint row);
-	--
+	gda_data_access_wrapper_new (a_model: POINTER): POINTER is
+			-- GdaDataModel*       gda_data_access_wrapper_new         (GdaDataModel *model);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_access_wrapper_row_exists  (a_wrapper: POINTER: a_row: INTEGER): INTEGER is
+			-- gboolean gda_data_access_wrapper_row_exists  (GdaDataAccessWrapper *wrapper, gint row);
+		external "C use <libgda/libgda.h>"
+		end
+
 end -- class GDA_DATA_ACCESS_WRAPPER

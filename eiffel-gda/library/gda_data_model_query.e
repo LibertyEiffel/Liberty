@@ -30,37 +30,40 @@ class GDA_DATA_MODEL_QUERY
 
 inherit GDA_DATA_MODEL
 
-creation from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
-		
-	--  gda_data_model_query_new ()
-	--
-	-- GdaDataModel*       gda_data_model_query_new            (GdaQuery *query);
-	--
-	--   Creates a new GdaDataModel object using the data returned by the execution
-	--   of the query SELECT query.
-	--
-	--   query :   a SELECT query
-	--   Returns : a pointer to the newly created GdaDataModel.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_query_get_parameter_list ()
-	--
-	-- GdaParameterList*   gda_data_model_query_get_parameter_list
-	--                                                         (GdaDataModelQuery *model);
-	--
-	--   If some parameters are required to execute the SELECT query used in the
-	--   model data model, then returns the GdaParameterList used; otherwise does
-	--   nothing and returns NULL.
-	--
-	--   model :   a GdaDataModelQuery data model
-	--   Returns : a GdaParameterList object, or NULL
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_query_refresh ()
+	make (a_query: GDA_QUERY) is
+			-- Creates a new GdaDataModel object using the data returned
+			-- by the execution of `a_query'.
+		require 
+			query_not_void: a_query/=Void
+			-- TODO: a_query is a select
+		do
+			from_external_pointer(gda_data_model_query_new(a_query.handle))
+		end
+
+feature	
+	parameter_list: GDA_PARAMETER_LIST is
+			-- If some parameters are required to execute the SELECT
+			-- query used in the model data model, then returns the
+			-- GdaParameterList used; otherwise does nothing and returns
+			-- Void.
+			
+			--   model :   a GdaDataModelQuery data model
+			--   Returns : a GdaParameterList object, or NULL
+		local p: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_PARAMETER_LIST]
+		do
+			p:=gda_data_model_query_get_parameter_list(handle)
+			if p.is_not_null then
+				Result:=factory.existant_wrapper(p)
+				if Result=Void then
+					create Result.from_external_pointer(p)
+				end
+			end
+		end
+
+	--refresh 
 	--
 	-- gboolean            gda_data_model_query_refresh        (GdaDataModelQuery *model,
 	--                                                          GError **error);
@@ -192,25 +195,31 @@ feature {} -- Creation
 	--   Default value: FALSE
 
 feature {} -- External calls
-	--                     GdaDataModelQuery;
-	--                     GdaDataModelQueryClass;
-	--                     GdaDataModelQueryPrivate;
-	-- GdaDataModel*       gda_data_model_query_new            (GdaQuery *query);
-	-- GdaParameterList*   gda_data_model_query_get_parameter_list
-	--                                                         (GdaDataModelQuery *model);
-	-- gboolean            gda_data_model_query_refresh        (GdaDataModelQuery *model,
-	--                                                          GError **error);
-	-- gboolean            gda_data_model_query_set_modification_query
-	--                                                         (GdaDataModelQuery *model,
-	--                                                          const gchar *query,
-	--                                                          GError **error);
-	-- gboolean            gda_data_model_query_compute_modification_queries
-	--                                                         (GdaDataModelQuery *model,
-	--                                                          const gchar *target,
-	--                                                          GdaDataModelQueryOptions options,
-	--                                                          GError **error);
-	--
-	--
+	gda_data_model_query_new (a_query: POINTER): POINTER is
+			-- GdaDataModel* gda_data_model_query_new (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_query_get_parameter_list (a_model: POINTER): POINTER is
+			-- GdaParameterList* gda_data_model_query_get_parameter_list (GdaDataModelQuery *model);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_query_refresh (a_model, an_error_ref: POINTER): INTEGER is
+			-- gboolean gda_data_model_query_refresh (GdaDataModelQuery *model, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_query_set_modification_query (a_model, a_query, an_error_ref: POINTER): INTEGER is
+			-- gboolean gda_data_model_query_set_modification_query (GdaDataModelQuery *model, const gchar *query, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_model_query_compute_modification_queries (a_model, a_target: POINTER; some_options: INTEGER; an_error_ref: POINTER): INTEGER is
+			-- gboolean gda_data_model_query_compute_modification_queries (GdaDataModelQuery *model, const gchar *target, GdaDataModelQueryOptions options, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
 feature -- Various
 	dummy_gobject: POINTER is do unimplemented end
 
@@ -218,5 +227,4 @@ feature -- Various
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaDataModelQuery)"
 		end
-
 end -- class GDA_DATA_MODEL_QUERY
