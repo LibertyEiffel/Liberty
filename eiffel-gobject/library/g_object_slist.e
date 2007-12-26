@@ -24,13 +24,7 @@ class G_OBJECT_SLIST [ITEM -> G_OBJECT]
 	-- created by the list itself, thus saving some typing in client
 	-- code, without sacrifying readability. 
 
-inherit G_SLIST [ITEM]
-		redefine
-			-- copy,
-			from_external_pointer -- ,
-			-- is_equal,
-			-- is_equal_map
-		end 
+inherit G_SLIST [ITEM] redefine from_external_pointer end 
 	
 creation make, from_external_pointer
 

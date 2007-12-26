@@ -42,7 +42,7 @@ insert
 creation default_create
 
 feature {WRAPPER,WRAPPER_HANDLER}
-	existent_wrapper (a_pointer: POINTER): ITEM is
+	existant_wrapper (a_pointer: POINTER): ITEM is
 			-- Retrieve the eiffel wrapper object from gobject's
 			-- `a_pointer' or Void when it does not have a wrapper.
 
@@ -50,7 +50,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			-- you still want to avoid wrapper duplication; i.e.:
 
 			-- pointer := get_foo(handle)
-			-- Result := factory.existent_wrapper(pointer)
+			-- Result := factory.existant_wrapper(pointer)
 			-- if Result=Void then create Result.from_external_pointer(pointer) end
 		require pointer_is_gobject: g_is_object(a_pointer)=1
 		do
