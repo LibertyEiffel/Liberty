@@ -16,6 +16,8 @@ inherit
 			dispose
 		end
 
+	FREEZABLE
+
 insert
 	G_LIST_EXTERNALS undefine fill_tagged_out_memory end
 		-- TODO: inserting INTERNALS_HANDLER is NOT necessary. Remove it

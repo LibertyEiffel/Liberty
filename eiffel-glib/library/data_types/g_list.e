@@ -7,6 +7,7 @@ class G_LIST [ITEM->SHARED_C_STRUCT]
 	-- Doubly-Linked Lists, with the ability to iterate over the list
 	-- in both directions.
 
+	-- Add "require not is_freezed" where appropriated
 inherit
 	WRAPPER_COLLECTION [ITEM]
 		redefine
@@ -14,6 +15,8 @@ inherit
 			append_collection, clear_all,
 			has, fast_has, swap
 		end
+
+	FREEZABLE 
 
 insert G_LIST_EXTERNALS undefine fill_tagged_out_memory end
 

@@ -215,7 +215,7 @@ feature
 			retriever: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
 		do
 			pixbuf_ptr := gtk_text_iter_get_pixbuf (handle)
-			Result := retriever.existent_wrapper(pixbuf_ptr)
+			Result := retriever.existant_wrapper(pixbuf_ptr)
 			if Result = Void then
 					-- We use from_external_pointer here because we *need* to
 					-- increase the pixbuf's refcount

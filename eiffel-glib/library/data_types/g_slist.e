@@ -8,12 +8,14 @@ indexing
 class G_SLIST [ITEM->SHARED_C_STRUCT]
 	-- A standard singly-linked list data structure for wrapped object.
 
+	-- TODO: add "require not is_freezed" where appropriated
 inherit
 	WRAPPER_COLLECTION [ITEM]
 		redefine
 			append_collection, clear_all, dispose, 
 			has, fast_has, swap
 		end
+	FREEZABLE
 
 insert G_SLIST_EXTERNALS  
 
