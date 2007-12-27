@@ -64,7 +64,10 @@ deferred class GDA_DATA_MODEL
 
 inherit 
 	GDA_OBJECT
-	-- TODO: its a GInnterface
+	
+	-- TODO: COLLECTION2 [GDA_VALUE]
+
+	-- TODO: if ever necessary: GInnterface
 
 	-- Known Implementations: GdaDataModel is implemented by
 	-- GdaDataModelFilterSQL, GdaDataProxy, GdaDataModelRow,
@@ -232,23 +235,27 @@ feature
 								 ).to_boolean
 		end
 
-	-- TODO: gda_data_model_set_values ()
-	--
-	-- gboolean            gda_data_model_set_values           (GdaDataModel *model,
-	--                                                          gint row,
-	--                                                          GList *values,
-	--                                                          GError **error);
-	--
-	--   If any value in values is actually NULL, then it is considered as a
-	--   default value.
-	--
-	--   model :   a GdaDataModel object.
-	--   row :     row number.
-	--   values :  a list of GValue, one for each n (<nb_cols) columns of model
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if the value in the data model has been updated and no
-	--             error occurred
-	--
+	set_values (a_row: INTEGER; some_values: G_LIST[G_VALUE]) is
+			-- Set `some_values' in `a_row'. `is_successful' and `error'
+			-- are updated.
+		
+			-- If any value in values is actually Void, then it is
+			-- considered as a default value.
+		
+			--   model :   a GdaDataModel object.
+			--   row :     row number.
+			--   values :  a list of GValue, one for each n (<nb_cols) columns of model
+			--   error :   a place to store errors, or NULL
+			--   Returns : TRUE if the value in the data model has been updated and no
+			--             error occurred
+		require 
+			values_not_void: some_values/=Void
+			correct_size: some_values.count<=columns_count
+		do
+			is_successful:=(gda_data_model_set_values
+								 (handle, a_row, some_values.handle, 
+								  address_of(error.handle)).to_boolean)
+		end
 
 	get_new_iterator: GDA_DATA_MODEL_ITER is
 			-- A new iterator object GdaDataModelIter object which can be
@@ -267,32 +274,27 @@ feature
 			if p.is_not_null then create Result.from_external_pointer(p) end
 		end
 
-	--  gda_data_model_append_values ()
-	--
-	-- gint                gda_data_model_append_values        (GdaDataModel *model,
-	--                                                          const GList *values,
-	--                                                          GError **error);
-	--
-	--   Appends a row to the given data model. If any value in values is actually
-	--   NULL, then it is considered as a default value.
-	--
-	--   model :   a GdaDataModel object.
-	--   values :  GList of GValue* representing the row to add. The length must
-	--             match model's column count. These GValue are value-copied (the
-	--             user is still responsible for freeing them).
-	--   error :   a place to store errors, or NULL
-	--   Returns : the number of the added row, or -1 if an error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	
 	appended_row: INTEGER 
 			-- The number of a row newly appeded to the data
-			-- model with `append_row'.
+			-- model with `append_row' or `append_values'.
+	
+	append_values (some_values: G_LIST[G_VALUE]) is
+			--   Appends a row to the Current data model. If any value in
+			--   values is actually Void, then it is considered as a
+			--   default value.  `appended_row' will contain the number
+			--   of the newly appended row or -1 in case of errors
+		require 
+			values_not_void: some_values/=Void
+			correct_size: some_values.count=columns_count
+		local res: INTEGER
+		do
+			res:=gda_data_model_append_values(handle, some_values.handle, address_of(error.handle))
+		end
 	
 	append_row is 
 			-- Append a new row to the data model. `is_successful' and
-			-- `error' are updated.
+			-- `error' are updated. `appended_row' will contain the 
+			-- number of the newly appended row or -1 in case of errors
 		do
 			appended_row:=gda_data_model_append_row(handle,address_of(error.handle))
 			is_successful := appended_row /= -1 
@@ -306,71 +308,62 @@ feature
 			is_successful:=(gda_data_model_remove_row(handle,a_row,address_of(error.handle))).to_boolean
 		end
 
-	--  gda_data_model_get_row_from_values ()
-	--
-	-- gint                gda_data_model_get_row_from_values  (GdaDataModel *model,
-	--                                                          GSList *values,
-	--                                                          gint *cols_index);
-	--
-	--   Returns the first row where all the values in values at the columns
-	--   identified at cols_index match. If the row can't be identified, then
-	--   returns -1;
-	--
-	--   NOTE: the cols_index array MUST contain a column index for each value in
-	--   values
-	--
-	--   model :      a GdaDataModel object.
-	--   values :     a list of GValue values
-	--   cols_index : an array of gint containing the column number to match each
-	--                value of values
-	--   Returns :    the requested row number, of -1 if not found
+	row_from_values (some_values: G_SLIST[GDA_VALUE]; some_column_indexes: ARRAY[INTEGER]): INTEGER is
+			-- Tthe first row where all the values in `some_values' at the
+			-- columns identified at `some_column_indexes' match. If the row can't
+			-- be identified, then returns -1;
+		require
+			values_not_void: some_values/=Void
+			indexes_not_void: some_column_indexes/=Void
+			one_value_per_index: some_values.count = some_column_indexes.count
+		do
+			Result:=gda_data_model_get_row_from_values(handle,some_values.handle,
+																	 some_column_indexes.to_external)
+		end
 
-	--  gda_data_model_send_hint ()
-	--
-	-- void                gda_data_model_send_hint            (GdaDataModel *model,
-	--                                                          GdaDataModelHint hint,
-	--                                                          const GValue *hint_value);
-	--
-	--   Sends a hint to the data model. The hint may or may not be handled by the
-	--   data model, depending on its implementation
-	--
-	--   model :      a GdaDataModel
-	--   hint :       a hint to send to the model
-	--   hint_value : an optional value to specify the hint, or NULL
+	send_hint (a_hint: INTEGER; a_hint_value: G_VALUE) is
+			-- Sends `a_hint' to the data model. The hint may or may not
+			-- be handled by the data model, depending on its
+			-- implementation. `a_hint_value' is an optional value to
+			-- specify the hint; it can be Void.
+		require valid_hint: is_valid_hint(a_hint)
+		do
+			gda_data_model_send_hint(handle, a_hint, null_or(a_hint_value))
+		end
 
-	--  gda_data_model_export_to_string ()
-	--
-	-- gchar*              gda_data_model_export_to_string     (GdaDataModel *model,
-	--                                                          GdaDataModelIOFormat format,
-	--                                                          const gint *cols,
-	--                                                          gint nb_cols,
-	--                                                          const gint *rows,
-	--                                                          gint nb_rows,
-	--                                                          GdaParameterList *options);
-	--
-	--   Exports data contained in model to a string; the format is specified using
-	--   the format argument.
-	--
-	--   Specifically, the parameters in the options list can be:
-	--
-	--     o "SEPARATOR": a string value of which the first character is used as a
-	--       separator in case of CSV export
-	--
-	--     o "NAME": a string value used to name the exported data if the export
-	--       format is XML
-	--
-	--   model :   a GdaDataModel
-	--   format :  the format in which to export data
-	--   cols :    an array containing which columns of model will be exported, or
-	--             NULL for all columns
-	--   nb_cols : the number of columns in cols
-	--   rows :    an array containing which rows of model will be exported, or
-	--             NULL for all rows
-	--   nb_rows : the number of rows in rows
-	--   options : list of options for the export
-	--   Returns : a new string.
-	--
-	--   --------------------------------------------------------------------------
+	export_to_string (a_format: INTEGER; some_columns: ARRAY[INTEGER]; 
+							some_rows: ARRAY[INTEGER]; some_options: GDA_PARAMETER_LIST): STRING is 
+			-- Exports data contained in model to a string; the format is
+			-- specified using `a_format' argument.
+		
+			-- Specifically, the parameters in `an_options_list' can be:
+		
+			-- o "SEPARATOR": a string value of which the first character
+			--   is used as a separator in case of CSV export
+	
+			-- o "NAME": a string value used to name the exported data if
+			--   the export format is XML
+	
+			--   model :   a GdaDataModel
+			--   format :  the format in which to export data
+			--   cols :    an array containing which columns of model will be exported, or
+			--             NULL for all columns
+			--   nb_cols : the number of columns in cols
+			--   rows :    an array containing which rows of model will be exported, or
+			--             NULL for all rows
+		require 
+			options_not_void: some_options/=Void
+		local columns_ptr, rows_ptr: POINTER; cols_n, rows_n: INTEGER
+		do
+			if some_columns/=Void then columns_ptr:=some_columns.to_external; cols_n:=some_columns.count end
+			if some_rows/=Void then rows_ptr:=some_rows.to_external; cols_n:=some_rows.count end
+			create Result.from_external(gda_data_model_export_to_string
+												 (handle, a_format, 
+												  columns_ptr, cols_n,
+												  rows_ptr, rows_n,
+												  some_options.handle))
+		end
+
 	--
 	--  gda_data_model_export_to_file ()
 	--

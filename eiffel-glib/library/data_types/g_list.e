@@ -69,7 +69,7 @@ feature
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_nth_data (handle, i)
-			Result::= factory.wrapper(p)
+			if p.is_not_null then Result::= factory.wrapper(p) end
 		end
 
 	put (an_item: like first; i: INTEGER) is
@@ -118,7 +118,7 @@ feature
 
 	add (element: like first; index: INTEGER) is
 		do
-			handle := g_list_insert (handle, element.handle, index-1)
+			handle := g_list_insert (handle, null_or(element), index-1)
 		end
 	
 	append_collection (other: COLLECTION[ITEM]) is
@@ -182,7 +182,7 @@ feature
 	fast_has (x: like first): BOOLEAN is
 			-- Look for x using basic = for comparison.
 		do
-			if (g_list_find(handle,x.handle).is_not_null)
+			if (g_list_find(handle,null_or(x)).is_not_null)
 			then Result:=True
 			else check Result=False end
 			end
@@ -193,7 +193,7 @@ feature
 			-- is_equal for comparison. Answer upper + 1 when element is
 			-- not inside.
 		do
-			Result:=g_list_index(handle,element.handle)
+			Result:=g_list_index(handle,null_or(element))
 		end
 
 	index_of (element: like first; start_index: INTEGER): INTEGER is
@@ -309,6 +309,47 @@ feature
 			create {ITERATOR_ON_G_LIST[ITEM]} Result.make (Current)
 		end
 
+	append (an_item: like first) is
+			-- Adds `an_item' on to the end of the list.
+
+			-- Note: `append' traverses the entire list to find the end,
+			-- which is inefficient when adding multiple elements. A
+			-- common idiom to avoid the inefficiency is to prepend the
+			-- elements and reverse the list when all elements have been
+			-- added.
+		do
+			handle:=g_list_append (handle, an_item.handle)
+		end
+
+	prepend  (an_item: like first) is
+			-- Adds a new element on to the start of the list.
+		require valid_item: an_item/=Void
+		do
+			handle := g_list_prepend (handle,an_item.handle)
+		end
+
+
+
+	dispose is
+			-- Frees all of the memory used by a GList. The freed
+			-- elements are added to the GAllocator free list.
+		do
+			g_list_free (handle)
+			handle:= default_pointer
+		end
+
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <glib.h>"
+		alias "sizeof(GList)"
+		end
+
+	manifest_put (index: INTEGER_32; element: ITEM) is
+		do
+			put(element,index)
+		end
+
+feature {} -- Unwrapped code
 	-- Glib's doc, useful for implementing unimplemented
 	
 -- typedef struct {
@@ -325,45 +366,6 @@ feature
 
 -- Allocates space for one GList element. It is called by the g_list_append(), g_list_prepend(), g_list_insert() and g_list_insert_sorted() functions and so is rarely used on its own.
 -- Returns : 	a pointer to the newly-allocated GList element.
-
-	append (an_item: like first) is
-			-- Adds `an_item' on to the end of the list.
-		do
-			handle:=g_list_append (handle, an_item.handle)
-
-			-- Note: The return value is the new start of the list, which may have changed, so make sure you store the new value.
-			
-			-- Note: g_list_append() has to traverse the entire list to
-			-- find the end, which is inefficient when adding multiple
-			-- elements. A common idiom to avoid the inefficiency is to
-			-- prepend the elements and reverse the list when all
-			-- elements have been added.
-
-			--   /* Notice that these are initialized to the empty list. */
-			--   GList *list = NULL, *number_list = NULL;
-			
-			--   /* This is a list of strings. */
-			--   list = g_list_append (list, "first");
-			--   list = g_list_append (list, "second");
-			
-			--   /* This is a list of integers. */
-			--   number_list = g_list_append (number_list, GINT_TO_POINTER (27));
-			--   number_list = g_list_append (number_list, GINT_TO_POINTER (14));
-		end
-
-	prepend  (an_item: like first) is
-			-- Adds a new element on to the start of the list.
-		require valid_item: an_item/=Void
-		do
-			handle := g_list_prepend (handle,an_item.handle)
-			-- Note: The return value is the new start of the list, which
-			-- may have changed, so make sure you store the new value.
-
-			-- /* Notice that it is initialized to the empty list. */
-			-- GList *list = NULL; list = g_list_prepend (list,
-			-- "last"); list = g_list_prepend (list, "first");
-		end
-
 
 -- g_list_insert ()
 
@@ -424,14 +426,6 @@ feature
 -- list : 	a GList.
 -- data : 	data to remove.
 -- Returns : 	new head of list.
-
-	dispose is
-			-- Frees all of the memory used by a GList. The freed
-			-- elements are added to the GAllocator free list.
-		do
-			g_list_free (handle)
-			handle:= default_pointer
-		end
 
 -- g_list_free_1 ()
 
@@ -574,15 +568,4 @@ feature
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
 
-
-feature -- struct size
-	struct_size: INTEGER is
-		external "C inline use <glib.h>"
-		alias "sizeof(GList)"
-		end
-
-	manifest_put (index: INTEGER_32; element: ITEM) is
-		do
-			put(element,index)
-		end
 end

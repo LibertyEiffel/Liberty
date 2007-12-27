@@ -22,7 +22,8 @@ indexing
 	wrapped_version: "3.0.1"
 
 deferred class GDA_DATA_HANDLER
-	-- GdaDataHandler -- Interface which provides data handling capabilities
+	-- GdaDataHandler, an interface providing data handling
+	-- capabilities.
 	
 	-- Because data types vary a lot from a DBMS to another, the
 	-- GdaDataHandler interface helps designing modules which can
@@ -92,96 +93,57 @@ feature
 		end
 
 
-	--  gda_data_handler_get_value_from_str ()
-	--
-	-- GValue*             gda_data_handler_get_value_from_str (GdaDataHandler *dh,
-	--                                                          const gchar *str,
-	--                                                          GType type);
-	--
-	--   Creates a new GValue which represents the STR value given as argument.
-	--   This is the opposite of the function
-	--   gda_data_handler_get_str_from_value(). The type argument is used to
-	--   determine the real data type requested for the returned value.
-	--
-	--   If the str string is NULL, then the returned GValue is of type
-	--   GDA_TYPE_NULL; if the str string does not correspond to a valid STR string
-	--   for the requested type, then NULL is returned.
-	--
-	--   dh :      an object which implements the GdaDataHandler interface
-	--   str :
-	--   type :
-	--   Returns : the new GValue or NULL on error
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_handler_get_sane_init_value ()
-	--
-	-- GValue*             gda_data_handler_get_sane_init_value
-	--                                                         (GdaDataHandler *dh,
-	--                                                          GType type);
-	--
-	--   Creates a new GValue which holds a sane initial value to be used if no
-	--   value is specifically provided. For example for a simple string, this
-	--   would return a new value containing the "" string.
-	--
-	--   dh :      an object which implements the GdaDataHandler interface
-	--   type :
-	--   Returns : the new GValue, or NULL if no such value can be created.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_handler_get_nb_g_types ()
-	--
-	-- guint               gda_data_handler_get_nb_g_types     (GdaDataHandler *dh);
-	--
-	--   Get the number of GType types the GdaDataHandler can handle correctly
-	--
-	--   dh :      an object which implements the GdaDataHandler interface
-	--   Returns : the number.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_handler_accepts_g_type ()
-	--
-	-- gboolean            gda_data_handler_accepts_g_type     (GdaDataHandler *dh,
-	--                                                          GType type);
-	--
-	--   Checks wether the GdaDataHandler is able to handle the gda type given as
-	--   argument.
-	--
-	--   dh :      an object which implements the GdaDataHandler interface
-	--   type :
-	--   Returns : TRUE if the gda type can be handled
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_handler_get_g_type_index ()
-	--
-	-- GType               gda_data_handler_get_g_type_index   (GdaDataHandler *dh,
-	--                                                          guint index);
-	--
-	--   Get the GType handled by the GdaDataHandler, at the given position
-	--   (starting at zero).
-	--
-	--   dh :      an object which implements the GdaDataHandler interface
-	--   index :
-	--   Returns : the GType
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_handler_get_descr ()
-	--
-	-- const gchar*        gda_data_handler_get_descr          (GdaDataHandler *dh);
-	--
-	--   Get a short description of the GdaDataHandler
-	--
-	--   dh :      an object which implements the GdaDataHandler interface
-	--   Returns : the description
-	--
-	--See Also
-	--
-	--   The GdaDictType class an the GnomeDbDataEntry interface.
+	value_from_string (a_string: STRING; a_type: like g_type): G_VALUE is
+			-- Creates a new GValue which represents the STR value given
+			-- as argument.  This is the opposite of the function
+			-- `string_from_value'. `a_type' is used to determine the
+			-- real data type requested for the returned value.
+		
+			-- If `a_string' is Void, then Result is of type
+			-- GDA_TYPE_NULL; if `a_string' does not correspond to a
+			-- valid string for the requested type, then Void is
+			-- returned.
+		local p: POINTER
+		do
+			p:=gda_data_handler_get_value_from_str(handle,null_or_string(a_string),a_type)
+			if p.is_not_null then create Result.from_external_pointer(p) end
+		end
 
+	sane_init_value (a_type: like g_type): G_VALUE is
+			-- A new G_VALUE which holds a sane initial value to be used
+			-- if no value is specifically provided. For example for a
+			-- simple string, this would return a new value containing
+			-- the "" string. Void if no such value can be created.
+		local p: POINTER
+		do
+			p:=gda_data_handler_get_sane_init_value(handle,a_type)
+			if p.is_not_null then create Result.from_external_pointer(p) end
+		end
+
+	handled_g_types_count: like guint is
+			-- The number of GType types the GdaDataHandler can handle
+			-- correctly.
+		do
+			Result:=gda_data_handler_get_nb_g_types(handle)
+		end
+
+	accepts_g_type (a_type: like g_type): BOOLEAN is
+			-- Is Current GDA_DATA_HANDLER able to handle a_type?
+		do
+			Result:=(gda_data_handler_accepts_g_type(handle,a_type).to_boolean)
+		end
+
+	type_item (an_index: like guint): like g_type is
+			-- The type handled by the GdaDataHandler, at `an_index' (starting at zero).
+		do
+			Result:=gda_data_handler_get_g_type_index(handle, an_index)
+		end
+
+	handler_description: CONST_STRING is
+			-- A short description of the GdaDataHandler
+		do
+			create Result.from_external(gda_data_handler_get_descr(handle))
+		end
 	
 feature {} -- External calls
 	--                     GdaDataHandler;
