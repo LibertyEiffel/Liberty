@@ -79,7 +79,8 @@ insert
 	SHARED_G_ERROR
 	GDA_DATA_MODEL_ACCESS_FLAGS_ENUM
 	GDA_DATA_MODEL_HINT_ENUM
-	
+	GDA_DATA_MODEL_IO_FORMAT_ENUM	
+
 feature 
 	row_inserted (a_row: INTEGER) is
 			-- Emits the 'row_inserted' and 'changed' signals on model.
@@ -344,15 +345,12 @@ feature
 			-- o "NAME": a string value used to name the exported data if
 			--   the export format is XML
 	
-			--   model :   a GdaDataModel
-			--   format :  the format in which to export data
-			--   cols :    an array containing which columns of model will be exported, or
-			--             NULL for all columns
-			--   nb_cols : the number of columns in cols
-			--   rows :    an array containing which rows of model will be exported, or
-			--             NULL for all rows
+			-- `some_columns' will be exported; Void means all columns
+
+			-- `some_rows' will be exported; Void means all rows.
 		require 
 			options_not_void: some_options/=Void
+			valid_format: is_valid_io_format (a_format)
 		local columns_ptr, rows_ptr: POINTER; cols_n, rows_n: INTEGER
 		do
 			if some_columns/=Void then columns_ptr:=some_columns.to_external; cols_n:=some_columns.count end
@@ -364,62 +362,38 @@ feature
 												  some_options.handle))
 		end
 
-	--
-	--  gda_data_model_export_to_file ()
-	--
-	-- gboolean            gda_data_model_export_to_file       (GdaDataModel *model,
-	--                                                          GdaDataModelIOFormat format,
-	--                                                          const gchar *file,
-	--                                                          const gint *cols,
-	--                                                          gint nb_cols,
-	--                                                          const gint *rows,
-	--                                                          gint nb_rows,
-	--                                                          GdaParameterList *options,
-	--                                                          GError **error);
-	--
-	--   Exports data contained in model to the file file; the format is specified
-	--   using the format argument.
-	--
-	--   Specifically, the parameters in the options list can be:
-	--
-	--     o "SEPARATOR": a string value of which the first character is used as a
-	--       separator in case of CSV export
-	--
-	--     o "NAME": a string value used to name the exported data if the export
-	--       format is XML
-	--
-	--     o "OVERWRITE": a boolean value which tells if the file must be
-	--       over-written if it already exists.
-	--
-	--   model :   a GdaDataModel
-	--   format :  the format in which to export data
-	--   file :    the filename to export to
-	--   cols :    an array containing which columns of model will be exported, or
-	--             NULL for all columns
-	--   nb_cols : the number of columns in cols
-	--   rows :    an array containing which rows of model will be exported, or
-	--             NULL for all rows
-	--   nb_rows : the number of rows in rows
-	--   options : list of options for the export
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if no error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_add_data_from_xml_node ()
-	--
-	-- gboolean            gda_data_model_add_data_from_xml_node
-	--                                                         (GdaDataModel *model,
-	--                                                          xmlNodePtr node,
-	--                                                          GError **error);
-	--
-	--   Adds the data from a XML node to the given data model (see the DTD for
-	--   that node in the $prefix/share/libgda/dtd/libgda-array.dtd file).
-	--
-	--   model :   a GdaDataModel.
-	--   node :    a XML node representing a <gda_array_data> XML node.
-	--   error :
-	--   Returns : TRUE if successful, FALSE otherwise.
+	export_to_file (a_format: INTEGER; a_file: STRING; some_columns: ARRAY[INTEGER]; 
+						 some_rows: ARRAY[INTEGER]; some_options: GDA_PARAMETER_LIST) is 
+			-- Exports data contained in model to `a_file'; `a_format' is
+			-- specified using the format argument.
+
+			-- Specifically, the parameters in `an_options_list' can be:
+
+			-- o "SEPARATOR": a string value of which the first character
+			--   is used as a separator in case of CSV export
+	
+			-- o "NAME": a string value used to name the exported data if
+			--   the export format is XML
+	
+			-- o "OVERWRITE": a boolean value which tells if the file
+			--   must be over-written if it already exists.
+	
+			-- `is_successful' and `error' are updated.
+		require 
+			options_not_void: some_options/=Void
+			valid_format: is_valid_io_format (a_format)
+			file_not_void: a_file/=Void
+		local columns_ptr, rows_ptr: POINTER; cols_n, rows_n: INTEGER
+		do
+			if some_columns/=Void then columns_ptr:=some_columns.to_external; cols_n:=some_columns.count end
+			if some_rows/=Void then rows_ptr:=some_rows.to_external; cols_n:=some_rows.count end
+			is_successful:=(gda_data_model_export_to_file
+								 (handle, a_format, a_file.to_external,
+								  columns_ptr, cols_n,
+								  rows_ptr, rows_n,
+								  some_options.handle, address_of(error.handle))).to_boolean
+		end
+
 
 	import_from_model (a_model: GDA_DATA_MODEL; overwrite: BOOLEAN) is
 			-- Copy the contents of `a_model' to Current model. The copy
@@ -543,6 +517,22 @@ feature -- TODO: Signals
 	--   arg1 :
 	--   user_data :    user data set when the signal handler was connected.
 
+feature {} -- Unwrapped code
+	--  gda_data_model_add_data_from_xml_node ()
+	--
+	-- gboolean            gda_data_model_add_data_from_xml_node
+	--                                                         (GdaDataModel *model,
+	--                                                          xmlNodePtr node,
+	--                                                          GError **error);
+	--
+	--   Adds the data from a XML node to the given data model (see the DTD for
+	--   that node in the $prefix/share/libgda/dtd/libgda-array.dtd file).
+	--
+	--   model :   a GdaDataModel.
+	--   node :    a XML node representing a <gda_array_data> XML node.
+	--   error :
+	--   Returns : TRUE if successful, FALSE otherwise.
+	
 feature {} -- External calls
 																	--                     GdaDataModel;
 	-- enum                GdaDataModelAccessFlags;

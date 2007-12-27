@@ -71,7 +71,7 @@ insert
 feature -- Implementation
 	signal_id: INTEGER_64	
 	
-feature -- Unwrapped C 
+feature {} -- Unwrapped C 
 
 	-- GSignalAccumulator ()
 
@@ -192,7 +192,8 @@ feature {} -- Creation
 			not_yet_implemented
 		end
 	
-	-- g_signal_new_valist is unwrappable since it uses va_list
+
+feature {} -- Unwrapped TODO g_signal_new_valist is unwrappable since it uses va_list
 		
 		
 	-- g_signal_list_ids ()

@@ -88,6 +88,8 @@ feature
 			Result := some_types.for_all(agent is_g_type)
 		end
 	
+feature {} -- TODO wrap unwrapped
+
 -- #define G_TYPE_FUNDAMENTAL(type)	(g_type_fundamental (type))
 
 -- Returns the fundamental type which is the ancestor of type. Fundamental types are types that serve as fundaments for the derived types, thus they are the roots of distinct inheritance hierarchies.

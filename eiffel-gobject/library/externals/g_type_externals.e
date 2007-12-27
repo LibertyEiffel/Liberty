@@ -8,8 +8,6 @@ deferred class G_TYPE_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
---insert G_TYPE
-
 feature {} -- Fundamental g_type
 
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo

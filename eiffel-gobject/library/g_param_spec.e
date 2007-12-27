@@ -88,6 +88,7 @@ feature -- Flags
 			Result:= (flags & g_param_construct_only).to_boolean
 		end
 
+feature {} -- Unwrapped 
 	-- TODO: find a better, not-clashing name for is_readable: BOOLEAN
 	-- is -- Is strict validation not required upon parameter
 	-- conversion?  (see `convert') do Result:=
@@ -112,6 +113,7 @@ feature -- Flags
 --			Result:= (flags & g_param_static_blurb).to_boolean
 --		end
 
+feature
 	is_readwrite: BOOLEAN is
 			-- Is parameter read/write?
 		do
@@ -119,7 +121,6 @@ feature -- Flags
 		ensure definition: Result implies (is_readable and is_writable)
 		end
 
-feature
 	set_default (a_value: G_VALUE) is
 			-- Sets `a_value' to its default value as specified in Current.
 		require valid_value: a_value /= Void

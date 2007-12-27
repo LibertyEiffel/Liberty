@@ -49,21 +49,21 @@ feature -- size
 		alias "sizeof(GEnum)"
 		end
 
-feature -- TODO: typedef struct {
---   GTypeClass  g_type_class;
+feature -- {} TODO: typedef struct {
+	--   GTypeClass  g_type_class;
 
---   gint	      minimum;
---   gint	      maximum;
---   guint	      n_values;
---   GEnumValue *values;
--- } GEnumClass;
+	--   gint	      minimum;
+	--   gint	      maximum;
+	--   guint	      n_values;
+	--   GEnumValue *values;
+	-- } GEnumClass;
 
--- The class of an enumeration type holds information about its possible values.
--- GTypeClass g_type_class; 	the parent class
--- gint minimum; 	the smallest possible value.
--- gint maximum; 	the largest possible value.
--- guint n_values; 	the number of possible values.
--- GEnumValue *values; 	an array of GEnumValue structs describing the individual values.
+	-- The class of an enumeration type holds information about its possible values.
+	-- GTypeClass g_type_class; 	the parent class
+	-- gint minimum; 	the smallest possible value.
+	-- gint maximum; 	the largest possible value.
+	-- guint n_values; 	the number of possible values.
+	-- GEnumValue *values; 	an array of GEnumValue structs describing the individual values.
 feature
 	value (an_index: INTEGER): G_ENUM_VALUE is
 			-- the GEnumValue for `an_index' value. Void if `an_index' 
@@ -92,7 +92,7 @@ do
 			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
 		end
  
-	-- TODO: Eiffelize g_enum_register_static and glib_mkenums 
+feature -- {} Unwrapped TODO: Eiffelize g_enum_register_static and glib_mkenums 
 	-- related tools.
 
 	-- TODO: wrap g_enum_complete_type_info ()
