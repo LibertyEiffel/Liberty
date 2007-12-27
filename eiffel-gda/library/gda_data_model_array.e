@@ -32,18 +32,16 @@ creation from_external_pointer
 
 feature {} -- Creation
 
-	--  gda_data_model_array_new ()
-	--
-	-- GdaDataModel*       gda_data_model_array_new            (gint cols);
-	--
-	--   Creates a new GdaDataModel object without initializing the column types.
-	--   Using gda_data_model_array_new_with_g_types() is usually better.
-	--
-	--   cols :    number of columns for rows in this data model.
-	--   Returns : a pointer to the newly created GdaDataModel.
-	--
-	--   --------------------------------------------------------------------------
-	--
+	make (a_column_n: INTEGER) is
+			-- Creates a new GdaDataModel object without initializing the
+			-- column types. Using (TODO) `with_types' is usually better.
+		
+			-- `a_column_n' is the number of columns for rows in this
+			-- data model.
+		do
+			from_external_pointer(gda_data_model_array_new(a_column_n))
+		end
+
 	--  gda_data_model_array_new_with_g_types ()
 	--
 	-- GdaDataModel*       gda_data_model_array_new_with_g_types
@@ -55,12 +53,9 @@ feature {} -- Creation
 	--   cols :    number of columns for rows in this data model.
 	--   ... :     types of the columns of the model to create as GType
 	--   Returns : a pointer to the newly created GdaDataModel.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_array_copy_model ()
-	--
-	-- GdaDataModel*       gda_data_model_array_copy_model     (GdaDataModel *src,
+
+feature	
+	-- TODO: GdaDataModel*       gda_data_model_array_copy_model     (GdaDataModel *src,
 	--                                                          GError **error);
 	--
 	--   Makes a copy of src into a new GdaDataModelArray object
@@ -68,35 +63,24 @@ feature {} -- Creation
 	--   src :     a GdaDataModel to copy data from
 	--   error :   a place to store errors, or NULL
 	--   Returns : a new data model, or NULL if an error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_array_set_n_columns ()
-	--
-	-- void                gda_data_model_array_set_n_columns  (GdaDataModelArray *model,
-	--                                                          gint cols);
-	--
-	--   Sets the number of columns for rows inserted in this model. cols must be
-	--   greated than or equal to 0.
-	--
-	--   Also clears model's contents.
-	--
-	--   model : the GdaDataModelArray.
-	--   cols :  number of columns for rows this data model should use.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_array_clear ()
-	--
-	-- void                gda_data_model_array_clear          (GdaDataModelArray *model);
-	--
-	--   Frees all the rows in model.
-	--
-	--   model : the model to clear.
-	--
-	--Property Details
-	--
-	--  The "n-columns" property
+	
+	set_n_columns (a_columns_n: INTEGER) is
+			-- Sets the number of columns for rows inserted in this
+			-- model. `a_columns_n' must be greated than or equal to 0.
+		
+			-- It also clears model's contents.
+		require positive: a_columns_n>=0
+		do
+			gda_data_model_array_set_n_columns(handle, a_columns_n)
+		end
+
+	clear is
+			-- Frees all the rows in model.
+		do
+			gda_data_model_array_clear(handle)
+		end
+
+feature  -- TODO: The "n-columns" property
 	--
 	--   "n-columns"                guint                 : Read / Write
 	--
@@ -114,15 +98,26 @@ feature
 
 feature {} -- v3 API
 
-	--                     GdaDataModelArrayClass;
-	--                     GdaDataModelArrayPrivate;
-	-- GdaDataModel*       gda_data_model_array_new            (gint cols);
-	-- GdaDataModel*       gda_data_model_array_new_with_g_types
-	--                                                         (gint cols,
-	--                                                          ...);
-	-- GdaDataModel*       gda_data_model_array_copy_model     (GdaDataModel *src,
-	--                                                          GError **error);
-	-- void                gda_data_model_array_set_n_columns  (GdaDataModelArray *model,
-	--                                                          gint cols);
-	-- void                gda_data_model_array_clear          (GdaDataModelArray *model);
+	gda_data_model_array_new (a_cols: INTEGER): POINTER is
+			-- GdaDataModel* gda_data_model_array_new (gint cols)
+		external "C <libgda/libgda.h>"
+		end
+
+	-- GdaDataModel* gda_data_model_array_new_with_g_types (gint cols, ...)
+	
+	gda_data_model_array_copy_model (a_src, an_error_ref: POINTER): POINTER is
+			-- GdaDataModel* gda_data_model_array_copy_model (GdaDataModel *src, GError **error)
+		external "C <libgda/libgda.h>"
+		end
+
+	gda_data_model_array_set_n_columns (a_model: POINTER; a_cols: INTEGER) is
+			-- void gda_data_model_array_set_n_columns (GdaDataModelArray *model, gint cols)
+		external "C <libgda/libgda.h>"
+		end
+	
+	gda_data_model_array_clear (a_model: POINTER) is
+			-- void gda_data_model_array_clear (GdaDataModelArray *model)
+		external "C <libgda/libgda.h>"
+		end
+
 end -- class GDA_DATA_MODEL_ARRAY

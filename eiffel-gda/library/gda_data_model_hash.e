@@ -106,15 +106,26 @@ feature
 		alias "sizeof(GdaDataModelHash)"
 		end
 
-feature {}
-	--                     GdaDataModelHashClass;
-	--                     GdaDataModelHashPrivate;
-	-- GdaDataModel*       gda_data_model_hash_new             (gint cols);
-	-- void                gda_data_model_hash_insert_row      (GdaDataModelHash *model,
-	--                                                          gint rownum,
-	--                                                          GdaRow *row);
-	-- void                gda_data_model_hash_set_n_columns   (GdaDataModelHash *model,
-	--                                                          gint cols);
-	-- void                gda_data_model_hash_clear           (GdaDataModelHash *model);
+feature {} -- External calls
+	gda_data_model_hash_new (a_cols: INTEGER): POINTER is
+			-- GdaDataModel* gda_data_model_hash_new (gint cols)
+		external "C <libgda/libgda.h>"
+		end
+
+	 gda_data_model_hash_insert_row (a_model: POINTER; a_rownum: INTEGER; a_row: POINTER) is
+			-- void gda_data_model_hash_insert_row (GdaDataModelHash *model, gint rownum, GdaRow *row)
+		external "C <libgda/libgda.h>"
+		end
+
+	gda_data_model_hash_set_n_columns (a_model: POINTER; a_cols: INTEGER) is
+			-- void gda_data_model_hash_set_n_columns (GdaDataModelHash *model, gint cols)
+		external "C <libgda/libgda.h>"
+		end
+
+	gda_data_model_hash_clear (a_model: POINTER) is
+			-- void gda_data_model_hash_clear (GdaDataModelHash *model)
+		external "C <libgda/libgda.h>"
+		end
+
 	--
 end -- class GDA_DATA_MODEL_HASH
