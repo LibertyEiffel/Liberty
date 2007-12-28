@@ -284,6 +284,7 @@ feature {ANY} -- Boolean
 			-- If the current value is a boolean, set it.
 		require
 			is_boolean: is_boolean
+			not_freezed: not is_freezed
 		do
 			g_value_set_boolean (handle, a_value.to_integer)
 		end
@@ -307,6 +308,7 @@ feature {ANY} -- Integer
 			-- If the current value is a integer, set it.
 		require
 			is_integer: is_integer
+			not_freezed: not is_freezed
 		do
 			g_value_set_int (handle, a_value)
 		end
@@ -330,6 +332,7 @@ feature {ANY} -- Natural
 			-- If the current value is a natural, set it.
 		require
 			is_natural: is_natural
+			not_freezed: not is_freezed
 		do
 			g_value_set_uint (handle, a_value)
 		end
@@ -353,7 +356,7 @@ feature {ANY} -- Real
 			-- If the current value is a real, set it. Note: REAL is mapped to C double
 		require
 			is_real: is_real
-			thawed: not is_freezed
+			not_freezed: not is_freezed
 		do
 			g_value_set_double (handle, a_value)
 		end
@@ -400,6 +403,7 @@ feature {ANY} -- Enumeration
 	enum: INTEGER is
 		require
 			is_enum: is_enum
+			thawed: not is_freezed
 		do
 			Result:=g_value_get_enum (handle)
 		end

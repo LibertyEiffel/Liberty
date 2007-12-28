@@ -73,11 +73,13 @@ feature
 		end
 
 	put (an_item: like first; i: INTEGER) is
+		require else thawed: not is_freezed
 		do
 			g_list_set_data (g_list_nth(handle,i), null_or(an_item))
 		end
 
 	swap (i,j: INTEGER) is
+		require else thawed: not is_freezed
 		local ith,jth,tmp: POINTER
 		do
 			ith := g_list_nth_data (handle,i)
@@ -89,6 +91,7 @@ feature
 		end
 
 	set_all_with (v: like first) is
+		require thawed: not is_freezed
 		local ith:POINTER
 		do
 			from ith:=handle
@@ -102,6 +105,7 @@ feature
 	clear_all is do not_yet_implemented end
 
 	add_first (element: like first) is
+		require thawed: not is_freezed
 		do
 			handle := g_list_prepend (handle, element.handle)
 		end
@@ -112,16 +116,19 @@ feature
 			-- elements. A common idiom to avoid the inefficiency is to
 			-- prepend the elements and reverse the list when all
 			-- elements have been added.
+		require thawed: not is_freezed
 		do
 			handle := g_list_append (handle, element.handle)
 		end
 
 	add (element: like first; index: INTEGER) is
+		require else thawed: not is_freezed
 		do
 			handle := g_list_insert (handle, null_or(element), index-1)
 		end
 	
 	append_collection (other: COLLECTION[ITEM]) is
+		require else thawed: not is_freezed		
 		do
 			not_yet_implemented -- TODO
 		end
@@ -129,6 +136,7 @@ feature
 	force (element: like first; index: INTEGER) is do not_yet_implemented end
 
 	remove_head (n: INTEGER) is
+		require else thawed: not is_freezed
 		local i: INTEGER
 		do
 			from i:=n until i=0 loop
@@ -138,11 +146,13 @@ feature
 		end
 
 	remove_first is
+		require else thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle, handle)
 		end
 
 	remove (index: INTEGER) is
+		require thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle, g_list_nth_data (handle, index-1))
 		end
