@@ -38,16 +38,13 @@ inherit
 creation from_external_pointer
 
 feature {} -- Creation
+	make (a_columns_n: INTEGER) is
+			-- Creates a new GdaDataModel with `a_columns_n'
+		do
+			from_external_pointer(gda_data_model_hash_new(a_columns_n))
+		end
 
-	--  gda_data_model_hash_new ()
-	--
-	-- GdaDataModel*       gda_data_model_hash_new             (gint cols);
-	--
-	--   cols :    number of columns for rows in this data model.
-	--   Returns : a pointer to the newly created GdaDataModel.
-	--
-	--   --------------------------------------------------------------------------
-	--
+feature
 	--  gda_data_model_hash_insert_row ()
 	--
 	-- void                gda_data_model_hash_insert_row      (GdaDataModelHash *model,
