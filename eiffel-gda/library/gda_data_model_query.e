@@ -71,83 +71,61 @@ feature
 								 (handle, error.handle)).to_boolean
 		end
 
-	--  gda_data_model_query_set_modification_query ()
-	--
-	-- gboolean            gda_data_model_query_set_modification_query
-	--                                                         (GdaDataModelQuery *model,
-	--                                                          const gchar *query,
-	--                                                          GError **error);
-	--
-	--   Sets the modification query to be used by model to actually perform any
-	--   change to the dataset in the database.
-	--
-	--   The provided query (the query SQL) must be either a INSERT, UPDATE or
-	--   DELETE query. It can contain parameters, and the parameters named
-	--   '[+-]<num>' will be replaced when the query is run:
-	--
-	--     o a parameter named +<num> will take the new value set at the <num>th
-	--       column in model
-	--
-	--     o a parameter named -<num> will take the old value set at the <num>th
-	--       column in model
-	--
-	--   Please note that the "+0" and "-0" parameters names are valid and will
-	--   respectively take the new and old values of the first column of model.
-	--
-	--   Examples of queries are: "INSERT INTO orders (customer, creation_date,
-	--   delivery_before, delivery_date) VALUES (## / *name:'Customer'
-	--   type:integer* /, date('now'), ## / *name:"+2" type:date nullok:TRUE * /,
-	--   NULL)", "DELETE FROM orders WHERE id = ## / *name:"-0" type:integer* /"
-	--   and "UPDATE orders set id=## / *name:"+0" type:integer* /,
-	--   delivery_before=## / *name:"+2" type:date nullok:TRUE* /, delivery_date=##
-	--   / *name:"+3" type:date nullok:TRUE* / WHERE id=## / *name:"-0"
-	--   type:integer* /"
-	--
-	--   model :   a GdaDataModelQuery data model
-	--   query :   the SQL code for a query
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if no error occurred.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_query_compute_modification_queries ()
-	--
-	-- gboolean            gda_data_model_query_compute_modification_queries
-	--                                                         (GdaDataModelQuery *model,
-	--                                                          const gchar *target,
-	--                                                          GdaDataModelQueryOptions options,
-	--                                                          GError **error);
-	--
-	--   Try to compute the INSERT, DELETE and UPDATE queries; any previous
-	--   modification query will be discarded.
-	--
-	--   If specified, the table which will be updated is the one represented by
-	--   the target.
-	--
-	--   If target is NULL, then an error will be returned if model's SELECT query
-	--   has more than one target.
-	--
-	--   model :   a GdaDataModelQuery object
-	--   target :  the target table to modify, or NULL
-	--   options : options to specify how the queries must be built in some special
-	--             cases
-	--   error :   a place to store errors or NULL
-	--   Returns : TRUE if the INSERT, DELETE and UPDATE queries have been
-	--             computed.
-	--
-
-
+	set_modification_query (a_query: STRING) is
+			-- Sets the modification query to be used by model to
+			-- actually perform any change to the dataset in the
+			-- database. `a_query' is the SQL code for a query.
 	
-	--
-	--Properties
-	--
-	--
-	--   "delete-query"             GdaQuery              : Read / Write
-	--   "insert-query"             GdaQuery              : Read / Write
-	--   "query"                    GdaQuery              : Read / Write / Construct Only
-	--   "update-query"             GdaQuery              : Read / Write
-	--   "use-transaction"          gboolean              : Read / Write / Construct
-	--Property Details
+			-- The provided query (the query SQL) must be either a
+			-- INSERT, UPDATE or DELETE query. It can contain parameters,
+			-- and the parameters named '[+-]<num>' will be replaced when
+			-- the query is run:
+		
+			-- o a parameter named +<num> will take the new value set at
+			--   the <num>th column in model
+			
+			-- o a parameter named -<num> will take the old value set at
+			--   the <num>th column in model
+	
+			-- Please note that the "+0" and "-0" parameters names are
+			-- valid and will respectively take the new and old values of
+			-- the first column of model.
+	
+			-- Examples of queries are: "INSERT INTO orders (customer,
+			-- creation_date, delivery_before, delivery_date) VALUES (##
+			-- / *name:'Customer' type:integer* /, date('now'), ## /
+			-- *name:"+2" type:date nullok:TRUE * /, NULL)", "DELETE FROM
+			-- orders WHERE id = ## / *name:"-0" type:integer* /" and
+			-- "UPDATE orders set id=## / *name:"+0" type:integer* /,
+			-- delivery_before=## / *name:"+2" type:date nullok:TRUE* /,
+			-- delivery_date=## / *name:"+3" type:date nullok:TRUE* /
+			-- WHERE id=## / *name:"-0" type:integer* /"
+	
+			-- `is_successful' and `error' are updated.
+		do
+			is_successful:=(gda_data_model_query_set_modification_query
+								 (handle, a_query.to_external, address_of(error.handle))).to_boolean
+		end
+
+	compute_modification_queries (a_target: STRING; some_options: INTEGER) is
+			-- Try to compute the INSERT, DELETE and UPDATE queries; any
+			-- previous modification query will be discarded.
+
+			-- If specified (i.e. not Void), the table `a_target' which
+			-- will be updated is the one represented by the target.
+		
+			-- If target is Void, then an error will be returned if
+			-- model's SELECT query has more than one target.
+	
+			-- `some_options' specify how the queries must be built in
+			-- some special cases. (TODO: the enum shall be documented)
+		do
+			is_successful:=(gda_data_model_query_compute_modification_queries
+								 (handle, a_target.to_external,
+								  some_options, address_of(error.handle)).to_boolean)
+		end	
+
+feature 	-- TODO Properties
 	--
 	--  The "delete-query" property
 	--
