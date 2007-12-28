@@ -54,11 +54,13 @@ feature
 	put (a_string: like first; i: INTEGER) is
 		require -- else
 			valid_item: a_string/=Void
+			thawed: not is_freezed
 		do
 			g_list_set_data (g_list_nth(handle,i), a_string.to_external)
 		end
 
 	swap (i,j: INTEGER) is
+		require thawed: not is_freezed
 		local ith,jth,tmp: POINTER
 		do
 			ith := g_list_nth_data (handle,i)
@@ -70,6 +72,7 @@ feature
 		end
 
 	set_all_with (v: like first) is
+		require thawed: not is_freezed
 		local ith:POINTER
 		do
 			from ith:=handle
@@ -80,9 +83,14 @@ feature
 			end
 		end
 
-	clear_all is do not_yet_implemented end
+	clear_all is
+		require thawed: not is_freezed
+		do 
+			not_yet_implemented 
+		end
 
 	add_first (a_string: like first) is
+		require thawed: not is_freezed
 		do
 			handle := g_list_prepend (handle, a_string.to_external)
 		end
@@ -93,17 +101,20 @@ feature
 			-- elements. A common idiom to avoid the inefficiency is to
 			-- prepend the elements and reverse the list when all
 			-- elements have been added.
+		require thawed: not is_freezed
 		do
 			handle := g_list_append (handle, a_string.to_external)	
 		end
 
 	add (a_string: like first; index: INTEGER) is
+		require thawed: not is_freezed
 		do
 			handle := g_list_insert (handle, a_string.to_external, index-1)
 		end
 
 	
 	append_collection (other: COLLECTION[STRING]) is
+		require thawed: not is_freezed
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -113,17 +124,20 @@ feature
 	force (a_string: like first; index: INTEGER) is do not_yet_implemented end
 
 	remove_first is
+		require thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle, handle)
 		end
 
 	remove (index: INTEGER) is
+		require  thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle,
 												  g_list_nth_data (handle, index-1))
 		end
 
 	remove_last is
+		require thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle,g_list_last (handle))
 		end
@@ -132,6 +146,7 @@ feature
 			-- Discard all items (is_empty is True after that call). Frees
 			-- all of the memory used by a GList. The freed elements are
 			-- added to the GAllocator free list.
+		require thawed: not is_freezed
 		do
 			g_list_free (handle)
 			handle := default_pointer
@@ -237,6 +252,7 @@ feature
 	
 
 	replace_all (old_value, new_value: like first) is 
+		require thawed: not is_freezed
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -244,6 +260,7 @@ feature
 		end
 
 	fast_replace_all (old_value, new_value: like first) is 
+		require thawed: not is_freezed
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -258,6 +275,7 @@ feature
 		end
 
 	reverse is
+		require thawed: not is_freezed
 		local old_handle: POINTER
 		do
 			old_handle := handle

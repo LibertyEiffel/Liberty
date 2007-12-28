@@ -65,7 +65,7 @@ feature
 		end
 
 	put (a_string: like first; i: INTEGER) is
-		require else not is_freezed
+		require else thawed: not is_freezed
 		do
 			g_slist_set_data (g_slist_nth(handle,i),
 									null_or_string(a_string))
@@ -83,7 +83,8 @@ feature
 	-- end
 
 	set_all_with (v: like first) is
-		require not is_freezed
+		require thawed: not is_freezed
+
 		local ith:POINTER
 		do
 			from ith:=handle
@@ -95,13 +96,13 @@ feature
 		end
 
 	clear_all is
-		require not is_freezed
+		require thawed: not is_freezed
 		do
 			not_yet_implemented 
 		end
 
 	add_first (a_string: like first) is
-		require not is_freezed
+		require thawed: not is_freezed	
 		do
 			handle := g_slist_prepend (handle, a_string.to_external)
 		end
@@ -112,25 +113,25 @@ feature
 			-- elements. A common idiom to avoid the inefficiency is to
 			-- prepend the elements and reverse the list when all
 			-- elements have been added.
-		require not is_freezed
+		require thawed: not is_freezed
 		do
 			handle := g_slist_append (handle, a_string.to_external)	
 		end
 
 	add (a_string: like first; index: INTEGER) is
-		require else not is_freezed
+		require else thawed: not is_freezed
 		do
 			handle := g_slist_insert (handle, a_string.to_external, index-1)
 		end
 
 	force (a_string: like first; index: INTEGER) is 
-		require else not is_freezed
+		require else thawed: not is_freezed
 		do
 			not_yet_implemented 
 		end
 
 	remove_head (n: INTEGER) is
-		require else not is_freezed
+		require else thawed: not is_freezed
 		local i: INTEGER
 		do
 			from i:=n until i=0 loop
@@ -140,26 +141,26 @@ feature
 		end
 	
 	remove_first is
-		require else not is_freezed
+		require else thawed: not is_freezed
 		do
 			handle:=g_slist_delete_link (handle, handle)
 		end
 
 	remove (index: INTEGER) is
-		require else not is_freezed
+		require else thawed: not is_freezed
 		do
 			handle:=g_slist_delete_link (handle,
 												  g_slist_nth_data (handle, index-1))
 		end
 
 	remove_last is
-		require else not is_freezed
+		require else thawed: not is_freezed
 		do
 			handle:=g_slist_delete_link (handle,g_slist_last (handle))
 		end
 
 	remove_tail (n: INTEGER_32) is
-		require else not is_freezed
+		require else thawed: not is_freezed
 		local i: INTEGER
 		do
 			from i:=n until i=0 loop
@@ -172,7 +173,7 @@ feature
 			-- Discard all items (is_empty is True after that call). Frees
 			-- all of the memory used by a GSList. The freed elements are
 			-- added to the GAllocator free list.
-		require not is_freezed
+		require thawed: not is_freezed
 		do
 			g_slist_free (handle)
 			handle := default_pointer
@@ -256,7 +257,7 @@ feature
 		end
 
 	copy (other: like Current) is
-		require else not is_freezed
+		require else thawed: not is_freezed
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -280,7 +281,7 @@ feature
 	
 
 	replace_all (old_value, new_value: like first) is 
-		require not is_freezed
+		require thawed: not is_freezed
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -288,7 +289,7 @@ feature
 		end
 
 	fast_replace_all (old_value, new_value: like first) is 
-		require not is_freezed
+		require thawed: not is_freezed
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -303,7 +304,7 @@ feature
 		end
 
 	reverse is
-		require not is_freezed
+		require thawed: not is_freezed
 		local old_handle: POINTER
 		do
 			old_handle := handle

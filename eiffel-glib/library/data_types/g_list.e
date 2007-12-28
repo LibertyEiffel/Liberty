@@ -152,12 +152,13 @@ feature
 		end
 
 	remove (index: INTEGER) is
-		require thawed: not is_freezed
+		require else thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle, g_list_nth_data (handle, index-1))
 		end
 
 	remove_tail (n: INTEGER) is
+		require else thawed: not is_freezed
 		local i: INTEGER
 		do
 			from i:=n until i=0 loop
@@ -166,7 +167,8 @@ feature
 			end
 		end
 	
-	remove_last is
+	remove_last is	
+		require else thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle,g_list_last (handle))
 		end
@@ -175,6 +177,7 @@ feature
 			-- Discard all items (is_empty is True after that call). Frees
 			-- all of the memory used by a GList. The freed elements are
 			-- added to the GAllocator free list.
+		require thawed: not is_freezed
 		do
 			g_list_free (handle)
 			handle := default_pointer
@@ -333,7 +336,9 @@ feature
 
 	prepend  (an_item: like first) is
 			-- Adds a new element on to the start of the list.
-		require valid_item: an_item/=Void
+		require 
+			thawed: not is_freezed
+			valid_item: an_item/=Void
 		do
 			handle := g_list_prepend (handle,an_item.handle)
 		end
