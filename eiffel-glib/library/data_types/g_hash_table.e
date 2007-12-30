@@ -4,7 +4,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class GLIB_HASH_TABLES
+class G_HASH_TABLE
 	-- Prev 	Up 	Home 	GLib Reference Manual 	Next
 -- Top  |  Description
 -- Hash Tables
