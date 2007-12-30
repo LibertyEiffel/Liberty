@@ -1,15 +1,24 @@
 indexing
 	description: "The base object type of gobject library"
-	long:  "[
-				Currently the only wrapped features are those explicitly necessary to
-				wrap GTK+ 2.x GObject is the fundamental type providing the common
-				attributes and methods for all object types in GTK+, Pango and other
-				libraries based on GObject. The GObject class provides methods for
-				object construction and destruction, property access methods, and signal
-				support. Signals are described in detail in Signals(3).
-			]"
-	copyright: "(C) 2005 Paolo Redaelli "
-	license: "LGPL v2 or later"
+	copyright: "[
+					Copyright (C) 2005,2006,2007 Paolo Redaelli 
+					Copyright (C) 1998-1999, 2000-2001 Tim Janik and Red Hat, Inc.
+
+					This library is free software; you can redistribute it and/or
+					modify it under the terms of the GNU Lesser General Public
+					License as published by the Free Software Foundation; either
+					version 2 of the License, or (at your option) any later version.
+ 
+					This library is distributed in the hope that it will be useful,
+					but WITHOUT ANY WARRANTY; without even the implied warranty of
+					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+					Lesser General Public License for more details.
+				
+					You should have received a copy of the GNU Lesser General
+					Public License along with this library; if not, write to the
+					Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+					Boston, MA 02111-1307, USA.
+					]"
 
 deferred class G_OBJECT
 	-- The fundamental type providing the common attributes and methods
@@ -1120,6 +1129,104 @@ feature {} -- Getting properties from a parameter specification
 										a_parameter_specification.param_id, hidden_gvalue.handle,
 										a_parameter_specification.handle)
 			Result := hidden_gvalue.pointer.to_any
+		end
+	
+feature {} -- Properties setters from a parameter specification
+	-- These features sets a property from its
+	-- `a_parameter_specification'. This is faster than the features
+	-- that ask for the property name because the they must
+	-- nevertheless retrieve the parameter specification from the name
+	-- given. Storing the specification in a once feature hasten
+	-- property retrieving and setting.
+
+	set_string_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: STRING) is
+			-- Set the string property with `a_parameter_specification' to `a_value'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			value_not_void: a_value/=Void 
+			string_property: a_parameter_specification.is_string
+		do
+			hidden_gvalue.turn_to_string
+			hidden_gvalue.set_string(a_value)
+			smart_set_property (a_parameter_specification,hidden_gvalue)
+		end
+
+	set_integer_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: INTEGER) is
+			-- Set the integer property with `a_parameter_specification' to `a_value'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			integer_property: a_parameter_specification.is_integer
+		do
+			hidden_gvalue.turn_to_integer
+			hidden_gvalue.set_integer(a_value)
+			smart_set_property (a_parameter_specification,hidden_gvalue)
+		end
+
+	set_real_32_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: REAL_32) is
+			-- Set the float/real32 property with `a_parameter_specification' to `a_value'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			real_32_property: a_parameter_specification.is_real_32
+		do
+			hidden_gvalue.turn_to_real_32
+			hidden_gvalue.set_real_32(a_value)
+			smart_set_property (a_parameter_specification,hidden_gvalue)
+		end
+	
+	set_real_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: REAL) is
+			-- Set the float/real32 property with `a_parameter_specification' to `a_value'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			real_property: a_parameter_specification.is_real
+		do
+			hidden_gvalue.turn_to_real
+			hidden_gvalue.set_real(a_value)
+			smart_set_property (a_parameter_specification,hidden_gvalue)
+		end
+
+	set_boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: BOOLEAN) is
+			-- Set the boolean property with `a_parameter_specification' to `a_value'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			boolean_parameter: a_parameter_specification.is_boolean
+		do
+			hidden_gvalue.turn_to_boolean
+			hidden_gvalue.set_boolean(a_value)
+			smart_set_property (a_parameter_specification,hidden_gvalue)
+		end
+
+	set_enum_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: INTEGER) is
+			-- Set the enumeration property with `a_parameter_specification' to `a_value'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			enum_property: a_parameter_specification.is_enum
+		do
+			hidden_gvalue.turn_to_enum
+			hidden_gvalue.set_enum(a_value)
+			smart_set_property (a_parameter_specification,hidden_gvalue)
+		end
+
+	set_object_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: G_OBJECT) is
+			-- Set the object property with `a_parameter_specification'. to `a_value'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			value_not_void: a_value/=Void 
+			object_property: a_parameter_specification.is_object
+		do
+			hidden_gvalue.turn_to_object
+			hidden_gvalue.set_object(a_value)
+			smart_set_property (a_parameter_specification,hidden_gvalue)
+		end
+	
+	set_pointer_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: POINTER) is
+			-- Set the pointer property with `a_parameter_specification'. to `a_value'.
+		require
+			specification_not_void: a_parameter_specification /= Void
+			object_property: a_parameter_specification.is_pointer
+		do
+			hidden_gvalue.turn_to_pointer
+			hidden_gvalue.set_pointer(a_value)
+			smart_set_property (a_parameter_specification,hidden_gvalue)
 		end
 	
 feature {} -- Unwrapped API

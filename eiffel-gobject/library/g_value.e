@@ -403,7 +403,6 @@ feature {ANY} -- Enumeration
 	enum: INTEGER is
 		require
 			is_enum: is_enum
-			thawed: not is_freezed
 		do
 			Result:=g_value_get_enum (handle)
 		end
