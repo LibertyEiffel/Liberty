@@ -62,14 +62,20 @@ feature {} -- Creation
 		end
 	
 feature -- Disposing
-
 	dispose is
 			-- Free an iterator allocated on the heap. This function is
 			-- intended for use in language bindings, and is not
 			-- especially useful for applications, because iterators can
 			-- simply be allocated on the stack.
 		do
-			gtk_text_iter_free (handle)
+			-- There's an invariant that provides handle.is_not_null, but C_STRUCT
+			-- calls dispose from within the constructor from_external_copy, which
+			-- is certain to reach this code with a Void handle.  Nothing breaks
+			-- if you call gtk_text_iter_free here, but noisy Gtk warnings would
+			-- ensue.
+			if handle.is_not_null then
+				gtk_text_iter_free (handle)
+			end
 			handle := default_pointer
 		end
 
@@ -1603,4 +1609,6 @@ feature
 	
 	predicate: PREDICATE[TUPLE[INTEGER_32]]
 
+invariant
+	handle.is_not_null
 end
