@@ -34,8 +34,9 @@ inherit
 		-- TODO: GdaQuery implements GdaXmlStorage, GdaReferer,
 		-- GdaRenderer and GdaEntity.
 
-insert GDA_QUERY_TYPE
-
+insert 
+	GDA_QUERY_TYPE
+	
 creation from_external_pointer
 
 feature {} -- Creation
@@ -43,13 +44,11 @@ feature {} -- Creation
 			-- Creates a new GdaQuery object from a
 		require dictionary_not_void: a_dictionary/=Void
 		do
-			unimplemented -- from_external_pointer(gda_query_new(a_dictionary.handle))
+			from_external_pointer(gda_query_new(a_dictionary.handle))
 		end
 
-
-	--  gda_query_new_copy ()
-	--
-	-- GdaQuery*           gda_query_new_copy                  (GdaQuery *orig,
+	--TODO: copy_with_replacement (another: GDA_QUERY; some_replacements: G_HASH_TABLE) is
+	-- do			from_external_pointer(gda_query_new_copy                  (GdaQuery *orig,
 	--                                                          GHashTable *replacements);
 	--
 	--   Copy constructor
@@ -57,265 +56,170 @@ feature {} -- Creation
 	--   orig :         a GdaQuery to make a copy of
 	--   replacements : a hash table to store replacements, or NULL
 	--   Returns :      a the new copy of orig
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_new_from_sql ()
-	--
-	-- GdaQuery*           gda_query_new_from_sql              (GdaDict *dict,
-	--                                                          const gchar *sql,
-	--                                                          GError **error);
-	--
-	--   Creates a new GdaQuery object and fills its structure by parsing the sql.
-	--   If the parsing failed, then the returned query is of type
-	--   GDA_QUERY_TYPE_NON_PARSED_SQL.
-	--
-	--   To be parsed successfully, the expected SQL must respect the SQL standard;
-	--   some extensions have been added to be able to define variables within the
-	--   SQL statement. See the introduction to the GdaQuery for more information.
-	--
-	--   The error is set only if the SQL statement parsing produced an error;
-	--   there is always a new GdaQuery object which is returned.
-	--
-	--   dict :    a GdaDict object
-	--   sql :     an SQL statement
-	--   error :   location to store error, or NULL
-	--   Returns : a new GdaQuery
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_declare_condition ()
-	--
-	-- void                gda_query_declare_condition         (GdaQuery *query,
-	--                                                          GdaQueryCondition *cond);
-	--
-	--   Declares the existence of a new condition to query. All the
-	--   GdaQueryCondition objects MUST be declared to the corresponding GdaQuery
-	--   object for the library to work correctly. Once cond has been declared,
-	--   query does not hold any reference to cond.
-	--
-	--   This functions is called automatically from each gda_query_condition_new*
-	--   function, and it should not be necessary to call it except for classes
-	--   extending the GdaQueryCondition class.
-	--
-	--   query : a GdaQuery object
-	--   cond :  a GdaQueryCondition object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_undeclare_condition ()
-	--
-	-- void                gda_query_undeclare_condition       (GdaQuery *query,
-	--                                                          GdaQueryCondition *cond);
-	--
-	--   Explicitely ask query to forget about the existence of cond. This function
-	--   is used by the GdaQueryCondition implementation, and should not be called
-	--   directly
-	--
-	--   query : a GdaQuery object
-	--   cond :  a GdaQueryCondition object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_set_query_type ()
-	--
-	-- void                gda_query_set_query_type            (GdaQuery *query,
-	--                                                          GdaQueryType type);
-	--
-	--   Sets the type of query
-	--
-	--   query : a GdaQuery object
-	--   type :  the new type of query
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_query_type ()
-	--
-	-- GdaQueryType        gda_query_get_query_type            (GdaQuery *query);
-	--
-	--   Get the type of a query
-	--
-	--   query :   a GdaQuery object
-	--   Returns : the type of query
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_query_type_string ()
-	--
-	-- const gchar*        gda_query_get_query_type_string     (GdaQuery *query);
-	--
-	--   Get the type of a query as a human readable string
-	--
-	--   query :   a GdaQuery object
-	--   Returns : a string for the type of query
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_is_select_query ()
-	--
-	-- gboolean            gda_query_is_select_query           (GdaQuery *query);
-	--
-	--   Tells if query is a SELECTION query (a simple SELECT, UNION, INTERSECT or
-	--   EXCEPT);
-	--
-	--   query :   a # GdaQuery object
-	--   Returns : TRUE if query is a selection query
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_is_insert_query ()
-	--
-	-- gboolean            gda_query_is_insert_query           (GdaQuery *query);
-	--
-	--   Tells if query is a INSERT query.
-	--
-	--   query :   a # GdaQuery object
-	--   Returns : TRUE if query is an insertion query
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_is_update_query ()
-	--
-	-- gboolean            gda_query_is_update_query           (GdaQuery *query);
-	--
-	--   Tells if query is a UPDATE query.
-	--
-	--   query :   a # GdaQuery object
-	--   Returns : TRUE if query is an update query
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_is_delete_query ()
-	--
-	-- gboolean            gda_query_is_delete_query           (GdaQuery *query);
-	--
-	--   Tells if query is a DELETE query.
-	--
-	--   query :   a # GdaQuery object
-	--   Returns : TRUE if query is an delete query
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_is_well_formed ()
-	--
-	-- gboolean            gda_query_is_well_formed            (GdaQuery *query,
-	--                                                          GdaParameterList *context,
-	--                                                          GError **error);
-	--
-	--   Tells if query is well formed, and if context is not NULL, also tells if
-	--   rendering to SQL can be done without error
-	--
-	--   query :   a GdaQuery object
-	--   context : a GdaParameterList obtained using
-	--             gda_query_get_parameter_list(), or NULL
-	--   error :   a place to store errors, or NULL
-	--   Returns : FALSE if query is not well formed
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_set_sql_text ()
-	--
-	-- void                gda_query_set_sql_text              (GdaQuery *query,
-	--                                                          const gchar *sql,
-	--                                                          GError **error);
-	--
-	--   Defines query's contents from an SQL statement. The SQL text is parsed and
-	--   the internal query structured is built from that; the query type is also
-	--   set. If the SQL text cannot be parsed, then the internal structure of the
-	--   query is emptied and the query type is set to
-	--   GDA_QUERY_TYPE_NON_PARSED_SQL.
-	--
-	--   To be parsed successfully, the expected SQL must respect the SQL standard;
-	--   some extensions have been added to be able to define variables within the
-	--   SQL statement. See the introduction to the GdaQuery for more information.
-	--
-	--   query : a # GdaQuery object
-	--   sql :   the SQL statement
-	--   error : location to store parsing error, or NULL
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_sql_text ()
-	--
-	-- const gchar*        gda_query_get_sql_text              (GdaQuery *query);
-	--
-	--   Obtain a new string representing the SQL version of the query.
-	--
-	--   WARNING: the returned SQL statement may contain some extensions which
-	--   allow for the definition of variables (see the introduction to the
-	--   GdaQuery for more information). As such the returned SQL cannot be
-	--   executed as it may provoque errors. To get an executable statement, use
-	--   the GdaRenderer interface's methods.
-	--
-	--   query :   a GdaQuery object
-	--   Returns : the new string
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_parameters ()
-	--
-	-- GSList*             gda_query_get_parameters            (GdaQuery *query);
-	--
-	--   Get a list of parameters which the query accepts.
-	--
-	--   query :   a GdaQuery object
-	--   Returns : a list of GdaParameter objects (the list and objects must be
-	--             freed by the caller)
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_parameter_list ()
-	--
-	-- GdaParameterList*   gda_query_get_parameter_list        (GdaQuery *query);
-	--
-	--   Like the gda_query_get_parameters() method, get a list of parameters which
-	--   the query accepts, except that the parameters are stored within a
-	--   GdaParameterList object, and can be used as an argument to the
-	--   gda_query_execute() method.
-	--
-	--   query :   a GdaQuery object
-	--   Returns : a new GdaParameterList object, or NULL if query does not accept
-	--             any parameter.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_execute ()
-	--
-	-- GdaObject*          gda_query_execute                   (GdaQuery *query,
-	--                                                          GdaParameterList *params,
-	--                                                          gboolean iter_model_only_requested,
-	--                                                          GError **error);
-	--
-	--   Executes query and returns GdaDataModel if query's execution yields to a
-	--   data set, or a GdaParameterList object otherwise, or NULL if an error
-	--   occurred. You can test the return value using GObject's introscpection
-	--   features such as GDA_IS_DATA_MODEL() or GDA_IS_PARAMETER_LIST().
-	--
-	--   For more information about the returned value, see
-	--   gda_server_provider_execute_command().
-	--
-	--   query :                     the GdaQuery to execute
-	--   params :                    a GdaParameterList object obtained using
-	--                               gda_query_get_parameter_list()
-	--   iter_model_only_requested : set to TRUE if the returned data model will
-	--                               only be accessed using an iterator
-	--   error :                     a place to store errors, or NULL
-	--   Returns :                   a GdaDataModel, a GdaParameterList or NULL.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_parent_query ()
-	--
-	-- GdaQuery*           gda_query_get_parent_query          (GdaQuery *query);
-	--
-	--   Get the parent query of query
-	--
-	--   query :   a GdaQuery object
-	--   Returns : the parent query, or NULL if query does not have any parent
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_field_by_ref_field ()
+
+
+	from_sql (a_dictionary: GDA_DICT; some_sql: STRING) is
+			-- Creates a new GdaQuery object and fills its structure by
+			-- parsing the `some_sql'. If the parsing failed, then the
+			-- returned query is of type GDA_QUERY_TYPE_NON_PARSED_SQL.
+
+			-- To be parsed successfully, the expected SQL must respect
+			-- the SQL standard; some extensions have been added to be
+			-- able to define variables within the SQL statement. See the
+			-- introduction to the GdaQuery for more information.
+			
+			-- `error' is updated and set only if the SQL statement
+			-- parsing produced an error.
+		require
+			dictionary_not_void: a_dictionary/=Void
+			sql_not_void: some_sql/=Void
+		do
+			from_external_pointer(gda_query_new_from_sql
+										 (a_dictionary.handle,some_sql.to_external,
+										  address_of(error.handle)))
+		end
+
+feature 
+	set_query_type (a_type: INTEGER) is
+			-- Sets the type of query
+		require is_valid_query_type(a_type)
+		do
+			gda_query_set_query_type(handle,a_type)
+		end
+
+	query_type: INTEGER is
+			-- the type of query
+		do
+			Result:=gda_query_get_query_type(handle)
+		end
+
+	query_type_as_string: CONST_STRING is
+			-- The type of a query as a human readable string.
+		do
+			create Result.from_external(gda_query_get_query_type_string(handle))
+		end
+
+	is_select_query: BOOLEAN is
+			-- Is Current query a SELECTION query (a simple SELECT,
+			-- UNION, INTERSECT or EXCEPT)?
+		do
+			Result:=gda_query_is_select_query(handle).to_boolean
+		end
+
+	is_insert_query: BOOLEAN is
+			--   Tells if query is a INSERT query.	
+		do
+			Result:=gda_query_is_insert_query(handle).to_boolean
+		end	
+
+	is_update_query: BOOLEAN is
+			-- Is query a UPDATE query?
+		do
+			Result:=gda_query_is_update_query(handle).to_boolean
+		end
+
+	is_delete_query: BOOLEAN is
+			-- Is Current query a DELETE query?
+		do
+			Result:=gda_query_is_delete_query(handle).to_boolean
+		end
+
+	is_well_formed (a_context: GDA_PARAMETER_LIST): BOOLEAN is
+			-- Is Current query well formed? If `a_context' is not Void,
+			-- it also tells if rendering to SQL can be done without
+			-- error. `error' is updated.
+		do
+			Result:=(gda_query_is_well_formed(handle,null_or(a_context),
+														 address_of(error.handle)).to_boolean)
+		end
+
+	set_sql_text (an_sql: STRING) is
+			-- Defines query's contents from an SQL statement. The SQL
+			-- text is parsed and the internal query structured is built
+			-- from that; the query type is also set. If the SQL text
+			-- cannot be parsed, then the internal structure of the query
+			-- is emptied and the query type is set to
+			-- GDA_QUERY_TYPE_NON_PARSED_SQL.
+
+			-- To be parsed successfully, the expected SQL must respect
+			-- the SQL standard; some extensions have been added to be
+			-- able to define variables within the SQL statement. See the
+			-- introduction to the GdaQuery for more information.
+		
+			-- `error' is updated.
+		require sql_not_void: an_sql/=Void
+		do
+			gda_query_set_sql_text(handle, an_sql.to_external, address_of(error.handle))
+		end	
+
+	sql_text: CONST_STRING is
+			-- A new string representing the SQL version of the query.
+			
+			-- WARNING: the returned SQL statement may contain some
+			-- extensions which allow for the definition of variables
+			-- (see the introduction to the GdaQuery for more
+			-- information). As such the returned SQL cannot be executed
+			-- as it may provoque errors. To get an executable statement,
+			-- use the GdaRenderer interface's methods.
+		do
+			create Result.from_external(gda_query_get_sql_text(handle))
+		end
+
+	parameters: G_OBJECT_SLIST[GDA_PARAMETER] is
+			-- A list of parameters which the query accepts.
+		do
+			create Result.from_external_pointer(gda_query_get_parameters(handle))
+			-- TODO: the list and objects contained must be freed by the
+			-- caller
+			Result.set_unshared
+			Result.set_shared_items(False)
+		end
+
+	parameter_list: GDA_PARAMETER_LIST is
+			-- A list of parameters which the query accepts like
+			-- `parameters'; this feature can be directly used as an
+			-- argument to the `execute' method.  Void when the query
+			-- does not accept any parameter.
+		local p: POINTER
+		do
+			p:=gda_query_get_parameter_list(handle)
+			if p.is_not_null then 
+				create Result.from_external_pointer(p) 
+			end
+		end
+
+	execute (some_parameters: GDA_PARAMETER_LIST; iter_model_only_requested: BOOLEAN) is
+			-- Executes query; Result is GDA_DATA_MODEL if query's
+			-- execution yields to a data set, or a GDA_PARAMETER_LIST
+			-- object otherwise; Void if an error occurred. Use ?:= operator 
+
+			
+			-- For more information about the returned value, see
+			-- GDA_SERVER_PROVIDER.`execute_command'.
+		
+			-- `some_parameters' can be obtained using an `parameter_list'.
+
+			-- `iter_model_only_requested' : set to TRUE if the returned
+			-- data model will only be accessed using an iterator.
+
+			-- `error' is updated
+		do
+			from_external_pointer(gda_query_execute
+										 (handle, null_or(some_parameters),
+										  iter_model_only_requested.to_integer,
+										  address_of(error.handle)))
+		end
+
+	parent_query: GDA_QUERY is
+			-- the parent query, or Void if query does not have any
+			-- parent.
+		local factory: G_OBJECT_EXPANDED_FACTORY[GDA_QUERY]; ptr: POINTER
+		do
+			ptr:=gda_query_get_parent_query(handle)
+			if ptr.is_not_null then Result:=factory.wrapper(ptr) end
+		end
+
+	-- field_by_ref_field ()
 	--
 	-- GdaQueryField*      gda_query_get_field_by_ref_field    (GdaQuery *query,
 	--                                                          GdaQueryTarget *target,
@@ -982,111 +886,304 @@ feature {} -- Creation
 feature 
 	dummy_gobject: POINTER is do unimplemented end
 
-feature {} -- External calls
---                     GdaQuery;
-	-- enum                GdaQueryType;
-	-- GdaQuery*           gda_query_new                       (GdaDict *dict);
-	-- GdaQuery*           gda_query_new_copy                  (GdaQuery *orig,
-	--                                                          GHashTable *replacements);
-	-- GdaQuery*           gda_query_new_from_sql              (GdaDict *dict,
-	--                                                          const gchar *sql,
-	--                                                          GError **error);
+feature {} -- Unwrapped code
+	-- Note: gda_query_declare_condition and
+	-- gda_query_undeclare_condition are not wrapped because they are
+	-- needed only to extend GDA_QUERY_CONDITION. This is currently not
+	-- supported.
+
+	-- void gda_query_declare_condition (GdaQuery *query,
+	-- GdaQueryCondition *cond);
+	
+	--   Declares the existence of a new condition to query. All the
+	--   GdaQueryCondition objects MUST be declared to the corresponding GdaQuery
+			--   object for the library to work correctly. Once cond has been declared,
+			--   query does not hold any reference to cond.
+		
+			--   This functions is called automatically from each gda_query_condition_new*
+			--   function, and it should not be necessary to call it except for classes
+			--   extending the GdaQueryCondition class.
+		
+	--
 	-- void                gda_query_declare_condition         (GdaQuery *query,
 	--                                                          GdaQueryCondition *cond);
+	--
+	--
+	--   query : a GdaQuery object
+	--   cond :  a GdaQueryCondition object
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_query_undeclare_condition ()
+	--
 	-- void                gda_query_undeclare_condition       (GdaQuery *query,
 	--                                                          GdaQueryCondition *cond);
-	-- void                gda_query_set_query_type            (GdaQuery *query,
-	--                                                          GdaQueryType type);
-	-- GdaQueryType        gda_query_get_query_type            (GdaQuery *query);
-	-- const gchar*        gda_query_get_query_type_string     (GdaQuery *query);
-	-- gboolean            gda_query_is_select_query           (GdaQuery *query);
-	-- gboolean            gda_query_is_insert_query           (GdaQuery *query);
-	-- gboolean            gda_query_is_update_query           (GdaQuery *query);
-	-- gboolean            gda_query_is_delete_query           (GdaQuery *query);
-	-- gboolean            gda_query_is_well_formed            (GdaQuery *query,
-	--                                                          GdaParameterList *context,
-	--                                                          GError **error);
-	-- void                gda_query_set_sql_text              (GdaQuery *query,
-	--                                                          const gchar *sql,
-	--                                                          GError **error);
-	-- const gchar*        gda_query_get_sql_text              (GdaQuery *query);
-	-- GSList*             gda_query_get_parameters            (GdaQuery *query);
-	-- GdaParameterList*   gda_query_get_parameter_list        (GdaQuery *query);
-	-- GdaObject*          gda_query_execute                   (GdaQuery *query,
-	--                                                          GdaParameterList *params,
-	--                                                          gboolean iter_model_only_requested,
-	--                                                          GError **error);
-	-- GdaQuery*           gda_query_get_parent_query          (GdaQuery *query);
-	-- GdaQueryField*      gda_query_get_field_by_ref_field    (GdaQuery *query,
-	--                                                          GdaQueryTarget *target,
-	--                                                          GdaEntityField *ref_field,
-	--                                                          GdaQueryFieldState field_state);
-	-- GdaQueryField*      gda_query_get_field_by_param_name   (GdaQuery *query,
-	--                                                          const gchar *param_name);
-	-- GdaQueryField*      gda_query_get_first_field_for_target
-	--                                                         (GdaQuery *query,
-	--                                                          GdaQueryTarget *target);
-	-- GSList*             gda_query_get_sub_queries           (GdaQuery *query);
-	-- void                gda_query_add_param_source          (GdaQuery *query,
-	--                                                          GdaDataModel *param_source);
-	-- void                gda_query_del_param_source          (GdaQuery *query,
-	--                                                          GdaDataModel *param_source);
-	-- const GSList*       gda_query_get_param_sources         (GdaQuery *query);
-	-- void                gda_query_add_sub_query             (GdaQuery *query,
-	--                                                          GdaQuery *sub_query);
-	-- void                gda_query_del_sub_query             (GdaQuery *query,
-	--                                                          GdaQuery *sub_query);
-	-- GSList*             gda_query_get_targets               (GdaQuery *query);
-	-- gboolean            gda_query_add_target                (GdaQuery *query,
-	--                                                          GdaQueryTarget *target,
-	--                                                          GError **error);
-	-- void                gda_query_del_target                (GdaQuery *query,
-	--                                                          GdaQueryTarget *target);
-	-- GdaQueryTarget*     gda_query_get_target_by_xml_id      (GdaQuery *query,
-	--                                                          const gchar *xml_id);
-	-- GdaQueryTarget*     gda_query_get_target_by_alias       (GdaQuery *query,
-	--                                                          const gchar *alias_or_name);
-	-- GSList*             gda_query_get_target_pkfields       (GdaQuery *query,
-	--                                                          GdaQueryTarget *target);
-	-- GSList*             gda_query_get_joins                 (GdaQuery *query);
-	-- GdaQueryJoin*       gda_query_get_join_by_targets       (GdaQuery *query,
-	--                                                          GdaQueryTarget *target1,
-	--                                                          GdaQueryTarget *target2);
-	-- gboolean            gda_query_add_join                  (GdaQuery *query,
-	--                                                          GdaQueryJoin *join);
-	-- void                gda_query_del_join                  (GdaQuery *query,
-	--                                                          GdaQueryJoin *join);
-	-- GdaQueryCondition*  gda_query_get_condition             (GdaQuery *query);
-	-- void                gda_query_set_condition             (GdaQuery *query,
-	--                                                          GdaQueryCondition *cond);
-	-- GdaQueryField*      gda_query_add_field_from_sql        (GdaQuery *query,
-	--                                                          const gchar *field,
-	--                                                          GError **error);
-	-- void                gda_query_set_order_by_field        (GdaQuery *query,
-	--                                                          GdaQueryField *field,
-	--                                                          gint order,
-	--                                                          gboolean ascendant);
-	-- gint                gda_query_get_order_by_field        (GdaQuery *query,
-	--                                                          GdaQueryField *field,
-	--                                                          gboolean *ascendant);
-	-- GSList*             gda_query_get_all_fields            (GdaQuery *query);
-	-- GdaQueryField*      gda_query_get_field_by_sql_naming   (GdaQuery *query,
-	--                                                          const gchar *sql_name);
-	-- GdaQueryField*      gda_query_get_field_by_sql_naming_fields
-	--                                                         (GdaQuery *query,
-	--                                                          const gchar *sql_name,
-	--                                                          GSList *fields_list);
-	-- GSList*             gda_query_get_fields_by_target      (GdaQuery *query,
-	--                                                          GdaQueryTarget *target,
-	--                                                          gboolean visible_fields_only);
-	-- GSList*             gda_query_get_main_conditions       (GdaQuery *query);
-	-- void                gda_query_append_condition          (GdaQuery *query,
-	--                                                          GdaQueryCondition *cond,
-	--                                                          gboolean append_as_and);
-	-- GSList*             gda_query_expand_all_field          (GdaQuery *query,
-	--                                                          GdaQueryTarget *target);
-	-- void                gda_query_order_fields_using_join_conds
-	--                                                         (GdaQuery *query);
+	--
+	--   Explicitely ask query to forget about the existence of cond. This function
+	--   is used by the GdaQueryCondition implementation, and should not be called
+	--   directly
+	--
+	--   query : a GdaQuery object
+	--   cond :  a GdaQueryCondition object
+	--
+	--   --------------------------------------------------------------------------
+
+feature {} -- External calls
+	gda_query_new (a_dict: POINTER): POINTER is
+			-- GdaQuery* gda_query_new (GdaDict *dict);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_new_copy (a_orig, a_replacements: POINTER): POINTER is
+			-- GdaQuery* gda_query_new_copy (GdaQuery *orig, GHashTable *replacements);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_new_from_sql (a_dict, a_sql, an_error_ref: POINTER): POINTER is
+			-- GdaQuery* gda_query_new_from_sql (GdaDict *dict, const gchar *sql, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_declare_condition (a_query, a_cond: POINTER) is
+			-- void gda_query_declare_condition (GdaQuery *query, GdaQueryCondition *cond);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_undeclare_condition (a_query, a_cond: POINTER) is
+			-- void gda_query_undeclare_condition (GdaQuery *query, GdaQueryCondition *cond);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_set_query_type (a_query: POINTER; a_type: INTEGER) is
+			-- void gda_query_set_query_type (GdaQuery *query, GdaQueryType type);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_query_type (a_query: POINTER): INTEGER is
+			-- GdaQueryType gda_query_get_query_type (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_query_type_string (a_query: POINTER): POINTER is
+			-- const gchar* gda_query_get_query_type_string (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_is_select_query (a_query: POINTER): INTEGER is
+			-- gboolean gda_query_is_select_query (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_is_insert_query (a_query: POINTER): INTEGER is
+			-- gboolean gda_query_is_insert_query (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_is_update_query (a_query: POINTER): INTEGER is
+			-- gboolean gda_query_is_update_query (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_is_delete_query (a_query: POINTER): INTEGER is
+			-- gboolean gda_query_is_delete_query (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_is_well_formed (a_query, a_context, an_error_ref: POINTER): INTEGER is
+			-- gboolean gda_query_is_well_formed (GdaQuery *query, GdaParameterList *context, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_set_sql_text (a_query, a_sql, an_error_ref: POINTER) is
+			-- void gda_query_set_sql_text (GdaQuery *query, const gchar *sql, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_sql_text (a_query: POINTER): POINTER is
+			-- const gchar* gda_query_get_sql_text (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_parameters (a_query: POINTER): POINTER is
+			-- GSList* gda_query_get_parameters (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_parameter_list (a_query: POINTER): POINTER is
+			-- GdaParameterList* gda_query_get_parameter_list (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_execute (a_query, a_params: POINTER; a_iter_model_only_requested_bool: INTEGER; an_error_ref: POINTER): POINTER is
+			-- GdaObject* gda_query_execute (GdaQuery *query, GdaParameterList *params, gboolean iter_model_only_requested, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_parent_query (a_query: POINTER): POINTER is
+			-- GdaQuery* gda_query_get_parent_query (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_field_by_ref_field (a_query, a_target, an_ref_field: POINTER; a_field_state: INTEGER): POINTER is
+			-- GdaQueryField* gda_query_get_field_by_ref_field (GdaQuery *query, GdaQueryTarget *target, GdaEntityField *ref_field, GdaQueryFieldState field_state);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_field_by_param_name (a_query, a_param_name: POINTER): POINTER is
+			-- GdaQueryField* gda_query_get_field_by_param_name (GdaQuery *query, const gchar *param_name);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_first_field_for_target (a_query, a_target: POINTER): POINTER is
+			-- GdaQueryField* gda_query_get_first_field_for_target (GdaQuery *query, GdaQueryTarget *target);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_sub_queries (a_query: POINTER): POINTER is
+			-- GSList* gda_query_get_sub_queries (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_add_param_source (a_query, a_param_source: POINTER) is
+			-- void gda_query_add_param_source (GdaQuery *query, GdaDataModel *param_source);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_del_param_source (a_query, a_param_source: POINTER) is
+			-- void gda_query_del_param_source (GdaQuery *query, GdaDataModel *param_source);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_param_sources (a_query: POINTER): POINTER is
+			-- const GSList* gda_query_get_param_sources (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_add_sub_query (a_query, a_sub_query: POINTER) is
+			-- void gda_query_add_sub_query (GdaQuery *query, GdaQuery *sub_query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_del_sub_query (a_query, a_sub_query: POINTER) is
+			-- void gda_query_del_sub_query (GdaQuery *query, GdaQuery *sub_query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_targets (a_query: POINTER): POINTER is
+			-- GSList* gda_query_get_targets (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_add_target (a_query, a_target, an_error_ref: POINTER): INTEGER is
+			-- gboolean gda_query_add_target (GdaQuery *query, GdaQueryTarget *target, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_del_target (a_query, a_target: POINTER) is
+			-- void gda_query_del_target (GdaQuery *query, GdaQueryTarget *target);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_target_by_xml_id (a_query, a_xml_id: POINTER): POINTER is
+			-- GdaQueryTarget* gda_query_get_target_by_xml_id (GdaQuery *query, const gchar *xml_id);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_target_by_alias (a_query, a_alias_or_name: POINTER): POINTER is
+			-- GdaQueryTarget* gda_query_get_target_by_alias (GdaQuery *query, const gchar *alias_or_name);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_target_pkfields (a_query, a_target: POINTER): POINTER is
+			-- GSList* gda_query_get_target_pkfields (GdaQuery *query, GdaQueryTarget *target);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_joins (a_query: POINTER): POINTER is
+			-- GSList* gda_query_get_joins (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_join_by_targets (a_query, a_target1, a_targer2: POINTER): POINTER is
+			-- GdaQueryJoin* gda_query_get_join_by_targets (GdaQuery *query, GdaQueryTarget *target1, GdaQueryTarget *target2);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_add_join (a_query, a_join: POINTER): INTEGER is
+			-- gboolean gda_query_add_join (GdaQuery *query, GdaQueryJoin *join);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_del_join (a_query, a_join: POINTER) is
+			-- void gda_query_del_join (GdaQuery *query, GdaQueryJoin *join);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_condition (a_query: POINTER): POINTER is
+			-- GdaQueryCondition* gda_query_get_condition (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_set_condition (a_query, a_cond: POINTER) is
+			-- void gda_query_set_condition (GdaQuery *query, GdaQueryCondition *cond);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_add_field_from_sql (a_query, a_field, an_error_ref: POINTER): POINTER is
+			-- GdaQueryField* gda_query_add_field_from_sql (GdaQuery *query, const gchar *field, GError **error);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_set_order_by_field (a_query, a_field: POINTER; an_order: INTEGER; an_ascendant_bool: INTEGER) is
+			-- void gda_query_set_order_by_field (GdaQuery *query, GdaQueryField *field, gint order, gboolean ascendant);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_order_by_field (a_query, a_field, an_ascendant_bool_ref: POINTER): INTEGER is
+			-- gint gda_query_get_order_by_field (GdaQuery *query, GdaQueryField *field, gboolean *ascendant);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_all_fields (a_query: POINTER): POINTER is
+			-- GSList* gda_query_get_all_fields (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_field_by_sql_naming (a_query, a_sql_name: POINTER): POINTER is
+			-- GdaQueryField* gda_query_get_field_by_sql_naming (GdaQuery *query, const gchar *sql_name);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_field_by_sql_naming_fields (a_query, a_sql_name, a_fields_list: POINTER): POINTER is
+			-- GdaQueryField* gda_query_get_field_by_sql_naming_fields (GdaQuery *query, const gchar *sql_name, GSList *fields_list);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_fields_by_target (a_query, a_target: POINTER; a_visible_fields_only_bool: INTEGER): POINTER is
+			-- GSList* gda_query_get_fields_by_target (GdaQuery *query, GdaQueryTarget *target, gboolean visible_fields_only);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_get_main_conditions (a_query: POINTER): POINTER is
+			-- GSList* gda_query_get_main_conditions (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_append_condition (a_query, a_cond: POINTER; an_append_as_and_bool: INTEGER) is
+			-- void gda_query_append_condition (GdaQuery *query, GdaQueryCondition *cond, gboolean append_as_and);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_expand_all_field (a_query, a_target: POINTER): POINTER is
+			-- GSList* gda_query_expand_all_field (GdaQuery *query, GdaQueryTarget *target);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_order_fields_using_join_conds (a_query: POINTER) is
+			-- void gda_query_order_fields_using_join_conds (GdaQuery *query);
+		external "C use <libgda/libgda.h>"
+		end
+
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <libgda/libgda.h>"

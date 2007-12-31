@@ -65,6 +65,7 @@ inherit
 insert 
 	GDA_OBJECT_EXTERNALS
 	SHARED_GDA_FACTORIES
+	SHARED_G_ERROR
 
 feature
 	-- TODO: dict: GDA_DICT is 

@@ -32,8 +32,10 @@ class GDA_DATA_MODEL_HASH
 	-- one requested).
 	
 inherit
-	GDA_DATA_MODEL
 	GDA_DATA_MODEL_ROW
+		redefine 
+			columns_count
+		end
 
 creation from_external_pointer
 
@@ -45,55 +47,45 @@ feature {} -- Creation
 		end
 
 feature
-	--  gda_data_model_hash_insert_row ()
-	--
-	-- void                gda_data_model_hash_insert_row      (GdaDataModelHash *model,
-	--                                                          gint rownum,
-	--                                                          GdaRow *row);
-	--
-	--   Inserts a row in the model.
-	--
-	--   model :  the GdaDataModelHash which is gonna hold the row.
-	--   rownum : the number of the row.
-	--   row :    the row to insert. The model is responsible of freeing it!
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_hash_set_n_columns ()
-	--
-	-- void                gda_data_model_hash_set_n_columns   (GdaDataModelHash *model,
-	--                                                          gint cols);
-	--
-	--   Sets the number of columns for rows inserted in this model. cols must be
-	--   greater than or equal to 0.
-	--
-	--   Also clears model's contents.
-	--
-	--   This function calls gda_data_model_hash_clear to free the existing rows if
-	--   any.
-	--
-	--   model : the GdaDataModelHash.
-	--   cols :  the number of columns for rows inserted in model.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_data_model_hash_clear ()
-	--
-	-- void                gda_data_model_hash_clear           (GdaDataModelHash *model);
-	--
-	--   Frees all the rows inserted in model.
-	--
-	--   model : the model to clear.
-	--
-	--Property Details
-	--
-	--  The "n-columns" property
-	--
-	--   "n-columns"                guint                 : Read / Write
-	--
-	--   The number of columns in the model.
-	--
-	--   Default value: 0
+	insert (a_row: GDA_ROW; a_row_number: INTEGER) is
+			--   Inserts `a_row' in the model at `a_row_number'.
+		do
+			gda_data_model_hash_insert_row(handle, a_row_number, a_row.handle)
+			-- Note: The C documentation says that the model is
+			-- responsible of freeing the inserted row. AFAIK it should
+			-- be a problem in Eiffel, since a GDA_ROW is already a
+			-- shared-by-definition G_OBJECT.
+		end
+
+	set_n_columns (a_number: INTEGER) is
+			-- Sets the number of columns for rows inserted in this
+			-- model. Is also clears model's contents (invoking `clear').
+		require not_negative: a_number>=0
+		do
+			gda_data_model_hash_set_n_columns(handle,a_number)
+		end
+
+	clear is
+			--   Frees all the rows inserted in model.
+		do
+			gda_data_model_hash_clear(handle)
+		end
+
+	columns_count: INTEGER is
+			--   The number of columns in the model.
+		do
+			Result:=integer_property_from_pspec(n_cols_pspec)
+		end
+
+feature {} -- 
+	n_cols_property_name: STRING is "n-columns" 
+	
+	n_cols_pspec: G_PARAM_SPEC is
+			--  "n-columns" guint : Read / Write
+		require has_property (n_cols_property_name)
+		once
+			create Result.from_external_pointer(g_object_class_find_property(g_object_get_class(handle),n_cols_property_name.to_external))
+		end			
 
 feature
 	dummy_gobject: POINTER is do unimplemented end
@@ -109,7 +101,7 @@ feature {} -- External calls
 		external "C <libgda/libgda.h>"
 		end
 
-	 gda_data_model_hash_insert_row (a_model: POINTER; a_rownum: INTEGER; a_row: POINTER) is
+	gda_data_model_hash_insert_row (a_model: POINTER; a_rownum: INTEGER; a_row: POINTER) is
 			-- void gda_data_model_hash_insert_row (GdaDataModelHash *model, gint rownum, GdaRow *row)
 		external "C <libgda/libgda.h>"
 		end

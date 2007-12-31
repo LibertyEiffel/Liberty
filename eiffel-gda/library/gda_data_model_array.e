@@ -58,7 +58,6 @@ feature
 	-- TODO: GdaDataModel*       gda_data_model_array_copy_model     (GdaDataModel *src,
 	--                                                          GError **error);
 	--
-	--   Makes a copy of src into a new GdaDataModelArray object
 	--
 	--   src :     a GdaDataModel to copy data from
 	--   error :   a place to store errors, or NULL

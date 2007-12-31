@@ -32,8 +32,18 @@ inherit
 	GDA_OBJECT
 	GDA_DATA_MODEL
 
-feature {} -- TODO: Properties
-	--   "command-text"             gchararray            : Read / Write
+feature -- Command text 
+	command_text: STRING is 
+		do
+			Result:=string_property_from_pspec(command_text_pspec)
+		end
+
+	set_command_text (a_text: STRING) is
+		do
+			set_string_property_from_pspec(command_text_pspec,a_text)
+		end
+
+feature {} -- TODO: properties
 	--   "command-type"             gint                  : Read / Write
 	--   "read-only"                gboolean              : Read / Write
 	--
@@ -62,5 +72,31 @@ feature {} -- TODO: Properties
 	--   "read-only"                gboolean              : Read / Write
 	--
 	--   Default value: FALSE
+
+feature {} -- Property names
+	command_text_property_name: STRING is "command-text"
+	command_type_property_name: STRING is "command-type"
+	read_only_property_name: STRING is "read-only"
+feature {} -- Properties parameter specification
+	command_text_pspec: G_PARAM_SPEC is
+			-- "command-text" gchararray            : Read / Write
+		require has_property (command_text_property_name)
+		once
+			create Result.from_external_pointer(g_object_class_find_property(g_object_get_class(handle),command_text_property_name.to_external))
+		end
+
+	command_type_pspec: G_PARAM_SPEC is
+			-- "command-type" gint                  : Read / Write
+		require has_property (command_type_property_name)
+		once
+			create Result.from_external_pointer(g_object_class_find_property(g_object_get_class(handle),command_type_property_name.to_external))
+		end
+
+	read_only_pspec: G_PARAM_SPEC is
+			-- "read-only" gboolean              : Read / Write
+		require has_property (read_only_property_name)
+		once
+			create Result.from_external_pointer(g_object_class_find_property(g_object_get_class(handle),read_only_property_name.to_external))
+		end
 
 end -- class GDA_DATA_MODEL_ROW
