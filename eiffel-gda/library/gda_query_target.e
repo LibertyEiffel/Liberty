@@ -35,7 +35,7 @@ class GDA_QUERY_TARGET
 	-- making usage of an entity more than one time.
 
 inherit
-	GDA_QUERY_OBJECT
+	GDA_QUERY_OBJECT redefine copy, struct_size end
 	
 	GDA_REFERER
 	GDA_RENDERER
@@ -44,90 +44,72 @@ inherit
 creation from_external_pointer
 
 feature {} -- Creation
-	--  gda_query_target_new ()
-	--
-	-- GdaQueryTarget*     gda_query_target_new                (GdaQuery *query,
-	--                                                          const gchar *table);
-	--
-	--   Creates a new GdaQueryTarget object, specifying the name of the table to
-	--   reference.
-	--
-	--   query :   a GdaQuery object
-	--   table :   the name of the table to reference
-	--   Returns : the new object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_target_new_copy ()
-	--
-	-- GdaQueryTarget*     gda_query_target_new_copy           (GdaQueryTarget *orig);
-	--
-	--   Makes a copy of an existing object (copy constructor)
-	--
-	--   orig :    a GdaQueryTarget object to copy
-	--   Returns : the new object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_target_get_query ()
-	--
-	-- GdaQuery*           gda_query_target_get_query          (GdaQueryTarget *target);
-	--
-	--   Get the GdaQuery in which target is
-	--
-	--   target :  a GdaQueryTarget object
-	--   Returns : the GdaQuery object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_target_get_represented_table_name ()
-	--
-	-- const gchar*        gda_query_target_get_represented_table_name
-	--                                                         (GdaQueryTarget *target);
-	--
-	--   Get the table name represented by target
-	--
-	--   target :  a GdaQueryTarget object
-	--   Returns : the table name or NULL if target does not represent a database
-	--             table
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_target_get_represented_entity ()
-	--
-	-- GdaEntity*          gda_query_target_get_represented_entity
-	--                                                         (GdaQueryTarget *target);
-	--
-	--   Get the GdaEntity object which is represented by target
-	--
-	--   target :  a GdaQueryTarget object
-	--   Returns : the GdaEntity object or NULL if target is not active
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_target_set_alias ()
-	--
-	-- void                gda_query_target_set_alias          (GdaQueryTarget *target,
-	--                                                          const gchar *alias);
-	--
-	--   Sets target's alias to alias
-	--
-	--   target : a GdaQueryTarget object
-	--   alias :  the alias
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_target_get_alias ()
-	--
-	-- const gchar*        gda_query_target_get_alias          (GdaQueryTarget *target);
-	--
-	--   Get target's alias
-	--
-	--   target :  a GdaQueryTarget object
-	--   Returns : the alias
-	--
-	--   --------------------------------------------------------------------------
-	--
+	make (a_query: GDA_QUERY; a_table: STRING) is
+			-- Creates a new GdaQueryTarget object, specifying the name
+			-- of the table to reference.
+		require 
+			query_not_void: a_query/=Void
+			table_not_void: a_table/=Void
+		do
+			from_external_pointer(gda_query_target_new
+										 (a_query.handle, a_table.to_external))
+
+		end
+
+feature
+	copy (another: like Current) is
+			-- Makes a copy of an existing object (copy constructor)
+		do
+			from_external_pointer(gda_query_target_new_copy(another.handle))
+		end
+
+feature
+	gda_query: GDA_QUERY is
+			--  the GdaQuery in which target is
+		local p: POINTER; f: G_OBJECT_EXPANDED_FACTORY[GDA_QUERY]
+		do
+			p:=gda_query_target_get_query(handle)
+			check p.is_not_null end
+			Result:=f.existant_wrapper(p)
+			if Result=Void then create Result.from_external_pointer(p) end
+		end
+
+	represented_table_name: CONST_STRING is
+		-- the table name represented by target; Void if Current does
+		-- not represent a database table
+		local p: POINTER
+		do
+			p:=gda_query_target_get_represented_table_name(handle)
+			if p.is_not_null then create Result.from_external(p) end
+		end
+
+	represented_entity: GDA_ENTITY is
+			-- the GdaEntity object which is represented by Current; 
+			-- Void if Current target is not active
+		
+		local f: G_OBJECT_EXPANDED_FACTORY[GDA_ENTITY]; p: POINTER
+		do
+			p:=gda_query_target_get_represented_entity(handle)
+			if p.is_not_null then
+				Result:=f.wrapper(p)
+			end
+		end
+	
+	set_alias (an_alias: STRING) is
+			--   Sets target's alias to alias
+		require an_alias/=Void
+		do
+			gda_query_target_set_alias(handle,an_alias.to_external)
+		ensure set: an_alias.is_equal(target_alias)
+		end
+
+	target_alias: CONST_STRING is
+			-- Alias of Current.
+		do
+			create Result.from_external(gda_query_target_get_alias(handle)) 
+		ensure not_void: Result/=Void
+		end	
+
 	--  gda_query_target_get_complete_name ()
 	--
 	-- gchar*              gda_query_target_get_complete_name  (GdaQueryTarget *target);
@@ -176,20 +158,50 @@ feature {} -- Creation
 feature
 	dummy_gobject: POINTER is do unimplemented end
 	
+	struct_size: INTEGER is
+		external "C macro use <libgda/libgda.h>"
+		alias "sizeof(GdaQueryTarget)"
+		end
+
 feature {} -- External calls
-	--                     GdaQueryTarget;
-	-- GdaQueryTarget*     gda_query_target_new                (GdaQuery *query,
-	--                                                          const gchar *table);
-	-- GdaQueryTarget*     gda_query_target_new_copy           (GdaQueryTarget *orig);
-	-- GdaQuery*           gda_query_target_get_query          (GdaQueryTarget *target);
-	-- const gchar*        gda_query_target_get_represented_table_name
-	--                                                         (GdaQueryTarget *target);
-	-- GdaEntity*          gda_query_target_get_represented_entity
-	--                                                         (GdaQueryTarget *target);
-	-- void                gda_query_target_set_alias          (GdaQueryTarget *target,
-	--                                                          const gchar *alias);
-	-- const gchar*        gda_query_target_get_alias          (GdaQueryTarget *target);
-	-- gchar*              gda_query_target_get_complete_name  (GdaQueryTarget *target);
-	--
+	 gda_query_target_new (a_query, a_table: POINTER): POINTER is
+			-- GdaQueryTarget* gda_query_target_new (GdaQuery *query, const gchar *table);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_query_target_new_copy (an_orig: POINTER): POINTER is
+			-- GdaQueryTarget* gda_query_target_new_copy (GdaQueryTarget *orig);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_target_get_query (a_target: POINTER): POINTER is
+			-- GdaQuery* gda_query_target_get_query (GdaQueryTarget *target);
+		external "C use <libgda/libgda.h>"
+		end
+
+	 gda_query_target_get_represented_table_name (a_target: POINTER): POINTER is
+			-- const gchar* gda_query_target_get_represented_table_name (GdaQueryTarget *target);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_target_get_represented_entity (a_target: POINTER): POINTER is
+			-- GdaEntity* gda_query_target_get_represented_entity (GdaQueryTarget *target);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_target_set_alias (a_target, an_alias: POINTER) is
+			-- void gda_query_target_set_alias (GdaQueryTarget *target, const gchar *alias);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_query_target_get_alias (a_target: POINTER): POINTER is
+			-- const gchar* gda_query_target_get_alias (GdaQueryTarget *target);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_query_target_get_complete_name (a_target: POINTER): POINTER is
+			-- gchar* gda_query_target_get_complete_name (GdaQueryTarget *target);
+		external "C use <libgda/libgda.h>"
+		end
 
 end -- class GDA_QUERY_TARGET
