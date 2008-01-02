@@ -179,33 +179,26 @@ feature
 			gda_query_condition_node_del_child  (handle, a_child.handle)
 		end
 
-	--  gda_query_condition_leaf_set_operator ()
-	--
-	-- void                gda_query_condition_leaf_set_operator
-	--                                                         (GdaQueryCondition *condition,
-	--                                                          GdaQueryConditionOperator op,
-	--                                                          GdaQueryField *field);
-	--
-	--   condition :
-	--   op :
-	--   field :
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_condition_leaf_get_operator ()
-	--
-	-- GdaQueryField*      gda_query_condition_leaf_get_operator
-	--                                                         (GdaQueryCondition *condition,
-	--                                                          GdaQueryConditionOperator op);
-	--
-	--   Get one of condition's operators.
-	--
-	--   condition : a GdaQueryCondition object
-	--   op :        which oparetor is concerned
-	--   Returns :   the requested GdaQueryField object
-	--
-	--   --------------------------------------------------------------------------
-	--
+	leaf_set_operator (an_operator: INTEGER; a_field: GDA_QUERY_FIELD) is
+		require 
+			valid_operator: is_valid_condition_operator(an_operator)
+			field_not_void: a_field/=Void
+		do
+			gda_query_condition_leaf_set_operator(handle, an_operator, a_field.handle)
+		end
+
+	leaf_operator (an_operator: INTEGER ): GDA_QUERY_FIELD is
+			-- One of condition's operators.
+		require 
+			valid_operator: is_valid_condition_operator(an_operator)
+		local p: POINTER; f: G_OBJECT_EXPANDED_FACTORY[GDA_QUERY_FIELD]
+		do
+			p:=gda_query_condition_leaf_get_operator(handle,an_operator)
+			check p.is_not_null end
+			Result:=f.existant_wrapper(p)
+			if Result=Void then create Result.from_external_pointer(p) end
+		end
+
 	--  gda_query_condition_represents_join ()
 	--
 	-- gboolean            gda_query_condition_represents_join (GdaQueryCondition *condition,
