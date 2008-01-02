@@ -33,6 +33,7 @@ inherit
 	GDA_QUERY_OBJECT redefine struct_size end
 		-- TODO: GdaQuery implements GdaXmlStorage, GdaReferer,
 		-- GdaRenderer and GdaEntity.
+	GDA_ENTITY
 
 insert 
 	GDA_QUERY_TYPE

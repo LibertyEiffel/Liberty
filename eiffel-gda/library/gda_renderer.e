@@ -25,7 +25,7 @@ deferred class GDA_RENDERER
 	-- GdaRenderer Interface to get representations of objects as SQL
 	-- statements, XML nodes or human readable text
 
-inherit G_OBJECT
+inherit G_OBJECT  undefine copy, is_equal end
 	-- Known Implementations: GdaRenderer is implemented by
 	-- GdaQueryFieldFunc, GdaQueryFieldAgg, GdaQueryFieldValue,
 	-- GdaQueryCondition, GdaQueryFieldAll, GdaQueryTarget,

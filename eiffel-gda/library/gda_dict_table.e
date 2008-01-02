@@ -27,7 +27,9 @@ class GDA_DICT_TABLE
 
 inherit
 	GDA_OBJECT
-		-- TODO: GdaDictTable implements GdaXmlStorage and GdaEntity.
+	GDA_XML_STORAGE
+	GDA_ENTITY
+
 insert 
 	GDA_DICT_TABLE_EXTERNALS
 	SHARED_G_ERROR

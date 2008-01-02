@@ -27,7 +27,8 @@ deferred class GDA_XML_STORAGE
 
 	-- Any object which implements this interface can be streamed and
 	-- restored to and from an XML file.
-inherit GDA_OBJECT
+
+inherit GDA_OBJECT undefine copy, is_equal end
 	-- Known Implementations: GdaXmlStorage is implemented by
 	-- GdaGraphItem, GdaQueryFieldFunc, GdaQueryJoin, GdaDictDatabase,
 	-- GdaQueryFieldAgg, GdaGraphQuery, GdaDictConstraint,

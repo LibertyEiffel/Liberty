@@ -25,12 +25,11 @@ class GDA_DICT_FIELD
 	-- GDA_DICT_FIELD represents a field in a table or a view in the
 	-- database.
 
-	
-
 inherit
 	GDA_OBJECT
-
-	-- TODO: GdaDictField implements GdaXmlStorage, GdaEntityField and GdaRenderer.
+	GDA_ENTITY_FIELD
+	GDA_RENDERER
+	GDA_XML_STORAGE
 	
 insert GDA_DICT_FIELD_EXTERNALS
 
