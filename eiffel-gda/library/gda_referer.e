@@ -22,7 +22,8 @@ indexing
 	wrapped_version: "3.0.1"
 
 deferred class GDA_REFERER
-	--   GdaReferer -- Interface to know when on object is completely defined
+	-- GdaReferer, an interface to know when on object is completely
+	-- defined.
 
 	-- Some objects can be initialized in an uncomplete state. This is
 	-- the case for example of a primary key database constraint, when
@@ -49,16 +50,8 @@ inherit G_OBJECT undefine copy, is_equal end
 	--GdaDictConstraint, GdaQueryFieldValue, GdaQueryCondition,
 	--GdaQueryFieldAll, GdaQueryTarget, GdaQuery and
 	--GdaQueryFieldField.
-feature {} -- Creation
 
-
-	--                     GdaReferer;
-	-- gboolean            gda_referer_activate                (GdaReferer *iface);
-	-- void                gda_referer_deactivate              (GdaReferer *iface);
-	-- gboolean            gda_referer_is_active               (GdaReferer *iface);
-	-- GSList*             gda_referer_get_ref_objects         (GdaReferer *iface);
-	-- void                gda_referer_replace_refs            (GdaReferer *iface,
-	--                                                          GHashTable *replacements);
+feature 
 	--
 	--
 	--Signals
@@ -67,16 +60,6 @@ feature {} -- Creation
 	--   "activated"                                      : Run First
 	--   "deactivated"                                    : Run First
 	--
-	--Description
-	--
-	--
-	--Details
-	--
-	--  GdaReferer
-	--
-	-- typedef struct _GdaReferer GdaReferer;
-	--
-	--   --------------------------------------------------------------------------
 	--
 	--  gda_referer_activate ()
 	--
@@ -164,5 +147,12 @@ feature {} -- Creation
 	--
 	--   dbreferer : the object which received the signal.
 	--   user_data : user data set when the signal handler was connected.
+feature {} -- External calls
+	--                     GdaReferer;
+	-- gboolean            gda_referer_activate                (GdaReferer *iface);
+	-- void                gda_referer_deactivate              (GdaReferer *iface);
+	-- gboolean            gda_referer_is_active               (GdaReferer *iface);
+	-- GSList*             gda_referer_get_ref_objects         (GdaReferer *iface);
+	-- void                gda_referer_replace_refs            (GdaReferer *iface,GHashTable *replacements);
 
 end -- class GDA_REFERER

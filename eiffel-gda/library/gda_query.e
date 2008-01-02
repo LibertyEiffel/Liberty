@@ -37,7 +37,8 @@ inherit
 
 insert 
 	GDA_QUERY_TYPE
-	
+	GDA_QUERY_FIELD_STATE	
+
 creation from_external_pointer
 
 feature {} -- Creation
@@ -220,55 +221,67 @@ feature
 			if ptr.is_not_null then Result:=factory.wrapper(ptr) end
 		end
 
-	-- field_by_ref_field ()
-	--
-	-- GdaQueryField*      gda_query_get_field_by_ref_field    (GdaQuery *query,
-	--                                                          GdaQueryTarget *target,
-	--                                                          GdaEntityField *ref_field,
-	--                                                          GdaQueryFieldState field_state);
-	--
-	--   Finds the first GdaQueryField object in query which represents ref_field.
-	--   The returned object will be a GdaQueryFieldField object which represents
-	--   ref_field.
-	--
-	--   If target is specified, then the returned field will be linked to that
-	--   GdaQueryTarget object.
-	--
-	--   query :       a GdaQuery object
-	--   target :      a GdaQueryTarget, or NULL
-	--   ref_field :   a GdaEntityField object
-	--   field_state : tells about the status of the requested field, see
-	--                 GdaQueryFieldState
-	--   Returns :     a GdaQueryFieldField object or NULL
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_field_by_param_name ()
-	--
-	-- GdaQueryField*      gda_query_get_field_by_param_name   (GdaQuery *query,
-	--                                                          const gchar *param_name);
-	--
-	--   query :
-	--   param_name :
-	--   Returns :
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_first_field_for_target ()
-	--
-	-- GdaQueryField*      gda_query_get_first_field_for_target
-	--                                                         (GdaQuery *query,
-	--                                                          GdaQueryTarget *target);
-	--
-	--   Finds the first occurence of a GdaQueryFieldField object whose target is
-	--   target in query
-	--
-	--   query :   a GdaQuery object
-	--   target :
-	--   Returns : the requested field, or NULL
-	--
-	--   --------------------------------------------------------------------------
-	--
+	field_by_ref_field (a_ref_field: GDA_ENTITY_FIELD; a_field_state: INTEGER; a_target: GDA_QUERY_TARGET): GDA_QUERY_FIELD is
+			-- The first GdaQueryField object in query which represents
+			-- `a_ref_field'; can be Void.
+
+			-- The returned object will be a GdaQueryFieldField object
+			-- which represents `a_ref_field'. (TODO: the documentation
+			-- is unclear about the type of the returned C object.
+			-- Please inquire the developers of GDA for further
+			-- informations).
+		
+			-- If `a_target' is specified (i.e. not Void), then the
+			-- returned field will be linked to that GdaQueryTarget
+			-- object.
+	
+			-- `a_field_state' tells about the status of the requested
+			-- field, see GdaQueryFieldState. 
+		require 
+			field_not_void: a_ref_field/=Void
+			valid_field_state: is_valid_field_state(a_field_state)
+		local p: POINTER; f: G_OBJECT_EXPANDED_FACTORY[GDA_QUERY_FIELD]
+		do
+			p:=(gda_query_get_field_by_ref_field(handle, null_or(a_target),
+															 a_ref_field.handle,
+															 a_field_state))
+			if p.is_not_null then 
+				Result:=f.existant_wrapper(p)
+				if Result=Void then 
+					create Result.from_external_pointer(p)
+				end
+			end
+		end
+
+	field_by_param_name (a_name: STRING): GDA_QUERY_FIELD is
+			-- The field with `a_name'. Can be Void
+		require name_not_void: a_name/=Void
+		local p: POINTER; f:  G_OBJECT_EXPANDED_FACTORY[GDA_QUERY_FIELD]
+		do
+			p:=gda_query_get_field_by_param_name(handle,a_name.to_external)
+			if p.is_not_null then
+				Result:=f.existant_wrapper(p)
+				if Result=Void then 
+					create Result.from_external_pointer(p)
+				end
+			end
+		end
+
+	first_field_for_target (a_target: GDA_QUERY_TARGET): GDA_QUERY_FIELD is
+			-- The first occurence of a GdaQueryFieldField object whose
+			-- target is `a_target' in query
+		require target_not_void: a_target/=Void
+		local p: POINTER; f:  G_OBJECT_EXPANDED_FACTORY[GDA_QUERY_FIELD]
+		do
+			p:=gda_query_get_first_field_for_target(handle,a_target.handle)
+			if p.is_not_null then
+				Result:=f.existant_wrapper(p)
+				if Result=Void then 
+					create Result.from_external_pointer(p)
+				end
+			end
+		end
+
 	--  gda_query_get_sub_queries ()
 	--
 	-- GSList*             gda_query_get_sub_queries           (GdaQuery *query);
