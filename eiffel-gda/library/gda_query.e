@@ -282,56 +282,42 @@ feature
 			end
 		end
 
-	--  gda_query_get_sub_queries ()
-	--
-	-- GSList*             gda_query_get_sub_queries           (GdaQuery *query);
-	--
-	--   Get a list of all the sub-queries managed by query
-	--
-	--   query :   a GdaQuery object
-	--   Returns : a new list of the sub-queries
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_add_param_source ()
-	--
-	-- void                gda_query_add_param_source          (GdaQuery *query,
-	--                                                          GdaDataModel *param_source);
-	--
-	--   Tells query that param_source is a query which potentially will constraint
-	--   the possible values of one or more of query's parameters. This implies
-	--   that query keeps a reference on param_source.
-	--
-	--   query :        a GdaQuery object
-	--   param_source : a GdaDataModel object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_del_param_source ()
-	--
-	-- void                gda_query_del_param_source          (GdaQuery *query,
-	--                                                          GdaDataModel *param_source);
-	--
-	--   Tells query that it should no longer take care of param_source. The
-	--   parameters which depend on param_source will still depend on it, though.
-	--
-	--   query :        a GdaQuery object
-	--   param_source : a GdaDataModel object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_param_sources ()
-	--
-	-- const GSList*       gda_query_get_param_sources         (GdaQuery *query);
-	--
-	--   Get a list of the parameter source queries that are references as such by
-	--   query.
-	--
-	--   query :   a GdaQuery object
-	--   Returns : the list of GdaQuery objects
-	--
-	--   --------------------------------------------------------------------------
-	--
+	sub_queries: G_OBJECT_SLIST[GDA_QUERY] is
+			-- A new copy of a list with all the sub-queries managed by
+			-- Current query.
+		do
+			create Result.from_external_pointer(gda_query_get_sub_queries(handle))
+		end	
+		
+	add_param_source (a_parameter_source: GDA_DATA_MODEL) is 
+			-- Tells Current query that `a_parameter_source' is a query which
+			-- potentially will constraint the possible values of one or
+			-- more of query's parameters. 
+		require source_not_void: a_parameter_source/=Void
+		do
+			gda_query_add_param_source(handle,a_parameter_source.handle)
+			-- Note: this implies that Current query keeps a reference on
+			-- `a_param_source'.
+		end
+
+	delete_param_source (a_parameter_source: GDA_DATA_MODEL) is 
+			-- Tells Current query that it should no longer take care of
+			-- `a_parameter_source'. The parameters which depend on
+			-- param_source will still depend on it, though.
+		require source_not_void: a_parameter_source/=Void
+		do
+			gda_query_del_param_source(handle, a_parameter_source.handle)
+		end
+
+	sources: G_OBJECT_SLIST[GDA_QUERY] is
+			-- A list of the parameter source queries that are references
+			-- as such by query.
+		do
+			create Result.from_external_pointer(gda_query_get_param_sources(handle))
+			Result.petrify
+		end
+
+
 	--  gda_query_add_sub_query ()
 	--
 	-- void                gda_query_add_sub_query             (GdaQuery *query,
