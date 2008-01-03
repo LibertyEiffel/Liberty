@@ -317,68 +317,54 @@ feature
 			Result.petrify
 		end
 
+	add_sub_query (a_sub_query: GDA_QUERY) is
+			-- Add `a_sub_query' to query. Sub queries are managed by
+			-- their parent query, and as such they are destroyed when
+			-- their parent query is destroyed.
+		require not_void: a_sub_query/=Void
+		do
+			gda_query_add_sub_query(handle,a_sub_query.handle)
+		end
+	
+	delete_sub_query (a_sub_query: GDA_QUERY) is
+			--   Removes `a_sub_query' from query; 
+		require 
+			not_void: a_sub_query/=Void
+			-- TODO: a_sub_query MUST be present within query.
+		do
+			gda_query_del_sub_query(handle,a_sub_query.handle)
+		end	
 
-	--  gda_query_add_sub_query ()
-	--
-	-- void                gda_query_add_sub_query             (GdaQuery *query,
-	--                                                          GdaQuery *sub_query);
-	--
-	--   Add sub_query to query. Sub queries are managed by their parent query, and
-	--   as such they are destroyed when their parent query is destroyed.
-	--
-	--   query :     a GdaQuery object
-	--   sub_query : a GdaQuery object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_del_sub_query ()
-	--
-	-- void                gda_query_del_sub_query             (GdaQuery *query,
-	--                                                          GdaQuery *sub_query);
-	--
-	--   Removes sub_query from query. sub_query MUST be present within query.
-	--
-	--   query :     a GdaQuery object
-	--   sub_query : a GdaQuery object
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_get_targets ()
-	--
-	-- GSList*             gda_query_get_targets               (GdaQuery *query);
-	--
-	--   Get a list of all the targets used in query
-	--
-	--   query :   a GdaQuery object
-	--   Returns : a new list of the targets
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_add_target ()
-	--
-	-- gboolean            gda_query_add_target                (GdaQuery *query,
-	--                                                          GdaQueryTarget *target,
-	--                                                          GError **error);
-	--
-	--   Adds a target to query. A target represents a entity (it can actually be a
-	--   table, a view, or another query) which query will use.
-	--
-	--   For a SELECT query, the targets appear after the FROM clause. The targets
-	--   can be joined two by two using GdaQueryJoin objects
-	--
-	--   For UPDATE, DELETE or INSERT queries, there can be only ONE GdaQueryTarget
-	--   object which is the one where the data modifications are performed.
-	--
-	--   For UNION and INTERSECT queries, there is no possible GdaQueryTarget
-	--   object.
-	--
-	--   query :   a GdaQuery object
-	--   target :  a GdaQueryTarget to add to query
-	--   error :   location to store error, or NULL
-	--   Returns : TRUE if no error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
+feature -- Targets 
+	targets: G_OBJECT_SLIST[GDA_QUERY_TARGET] is
+			-- A (newly allocated) list of all the targets used in query
+		do
+			create Result.from_external_pointer(gda_query_get_targets(handle))
+		end
+
+	add_target (a_target: GDA_QUERY_TARGET) is
+			-- Adds `a_target' to query. A target represents a entity (it
+			-- can actually be a table, a view, or another query) which
+			-- query will use.
+		
+			-- For a SELECT query, the targets appear after the FROM
+			-- clause. The targets can be joined two by two using
+			-- GdaQueryJoin objects
+		
+			-- For UPDATE, DELETE or INSERT queries, there can be only
+			-- ONE GdaQueryTarget object which is the one where the data
+			-- modifications are performed.
+		
+			-- For UNION and INTERSECT queries, there is no possible
+			-- GdaQueryTarget object.
+
+			-- `error' and `is_successful' are updated
+		do
+			is_successful:=(gda_query_add_target
+								 (handle, a_target.handle,
+								  address_of(error.handle))).to_boolean
+		end
+
 	--  gda_query_del_target ()
 	--
 	-- void                gda_query_del_target                (GdaQuery *query,

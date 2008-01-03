@@ -199,99 +199,80 @@ feature
 			if Result=Void then create Result.from_external_pointer(p) end
 		end
 
-	--  gda_query_condition_represents_join ()
-	--
-	-- gboolean            gda_query_condition_represents_join (GdaQueryCondition *condition,
-	--                                                          GdaQueryTarget **target1,
-	--                                                          GdaQueryTarget **target2,
-	--                                                          gboolean *is_equi_join);
-	--
-	--   Tells if condition represents a join condition: it is a condition (within
-	--   a GdaQuery object) for which the only GdaQueryFieldField fields taking
-	--   part in the condition are from two distincts GdaQueryTarget objects. Such
-	--   conditions can be assigned to a GdaQueryJoin object using the
-	--   gda_query_join_set_condition() or
-	--   gda_query_join_set_condition_from_fkcons() methods.
-	--
-	--   Additionnaly, if condition is a join condition, and if target1 and target2
-	--   are not NULL then they are set to point to the two GdaQueryTarget objects
-	--   taking part in the condition. In this case target1 and target2 wil hold
-	--   non NULL values.
-	--
-	--   In a similar way, if is_equi_join is not NULL, then it will be set to TRUE
-	--   if the join condition is an equi join (that is the only comparison
-	--   operator is the equal sign and there are only AND operators in the
-	--   condition).
-	--
-	--   If condition is not a join condition, then target1, target2 and
-	--   is_equi_join are left untouched.
-	--
-	--   condition :    a GdaQueryCondition object
-	--   target1 :      place to store one of the targets, or NULL
-	--   target2 :      place to store the other target, or NULL
-	--   is_equi_join : place to store if the join is an equi join
-	--   Returns :      TRUE if condition is a join condition
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_condition_represents_join_strict ()
-	--
-	-- gboolean            gda_query_condition_represents_join_strict
-	--                                                         (GdaQueryCondition *condition,
-	--                                                          GdaQueryTarget **target1,
-	--                                                          GdaQueryTarget **target2);
-	--
-	--   Tells if condition represents a strict join condition: it is a join
-	--   condition as defined for the gda_query_condition_represents_join() method,
-	--   but where the condition is either "target1.field1=target2.field2" or a
-	--   list of such conditions conjuncted by the AND operator.
-	--
-	--   If condition is not a join condition, then target1 and target2 are left
-	--   untouched.
-	--
-	--   condition : a GdaQueryCondition object
-	--   target1 :   place to store one of the targets, or NULL
-	--   target2 :   place to store the other target, or NULL
-	--   Returns :   TRUE if condition is a strict join condition
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_condition_get_main_conditions ()
-	--
-	-- GSList*             gda_query_condition_get_main_conditions
-	--                                                         (GdaQueryCondition *condition);
-	--
-	--   Makes a list of all the conditions which are always verified by condition
-	--   when it returns TRUE when evaluated. Basically the returned list lists the
-	--   atomic conditions which are AND'ed together to form the complex condition.
-	--
-	--   Examples: if condition is:
-	--
-	--     o "A and B" then the list will contains {A, B}
-	--
-	--     o "A and (B or C)" it will contain {A, B or C}
-	--
-	--     o "A and (B and not C)", it will contain {A, B, not C}
-	--
-	--   condition : a GdaQueryCondition object
-	--   Returns :   a new list of GdaQueryCondition objects
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_query_condition_get_ref_objects_all ()
-	--
-	-- GSList*             gda_query_condition_get_ref_objects_all
-	--                                                         (GdaQueryCondition *cond);
-	--
-	--   Get a complete list of the objects referenced by cond, including its
-	--   descendants (unlike the gda_referer_get_ref_objects() function applied to
-	--   cond).
-	--
-	--   cond :    a GdaQueryCondition object
-	--   Returns : a new list of referenced objects
-	--
-	--Property Details
-	--
+feature -- Join queries
+	target, another_target: GDA_QUERY_TARGET
+
+	is_equi_join: BOOLEAN 
+
+	represents_join: BOOLEAN is
+			-- Does Current condition represent a join condition? It is a
+			-- condition (within a GdaQuery object) for which the only
+			-- GdaQueryFieldField fields taking part in the condition are
+			-- from two distincts GdaQueryTarget objects. Such conditions
+			-- can be assigned to a GdaQueryJoin object using the
+			-- GDA_QUERY_JOIN.`set_condition' or
+			-- GDA_QUERY_JOIN.`set_condition_from_fkcons' methods.
+			
+			-- Additionnaly, if Current condition is a join condition,
+			-- and if `target' and `another_target' are not Void then
+			-- they are set to point to the two GdaQueryTarget objects
+			-- taking part in the condition. In this case `target' and
+			-- `another_target' wil hold non Void values.
+			
+			-- In `is_equi_joi' will be set to TRUE if the join condition
+			-- is an equi join (that is the only comparison operator is
+			-- the equal sign and there are only AND operators in the
+			-- condition).
+			
+			-- If condition is not a join condition, then `target',
+			-- `another_target2' and `is_equi_join' are left untouched.
+	
+			--   condition :    a GdaQueryCondition object
+			--   target1 :      place to store one of the targets, or NULL
+			--   target2 :      place to store the other target, or NULL
+			--   is_equi_join : place to store if the join is an equi join
+			--   Returns :      TRUE if condition is a join condition
+		do	
+			Result:=(gda_query_condition_represents_join 
+						(handle,
+						 null_or(target), null_or(another_target),
+						 $is_equi_join)).to_boolean
+		end
+
+	represents_join_strict: BOOLEAN is
+			-- Does Current condition represents a strict join condition?
+			-- It is a join condition as defined for the
+			-- `represents_join', but where the condition is either
+			-- "target1.field1=target2.field2" or a list of such
+			-- conditions conjuncted by the AND operator.
+	
+			-- If condition is not a join condition, then `target' and
+			-- `another_target' are left untouched.
+		do
+			Result:=(gda_query_condition_represents_join_strict
+						(handle, null_or(target), null_or(another_target))).to_boolean
+		end	
+
+
+	main_conditions: G_OBJECT_SLIST[GDA_QUERY_CONDITION] is
+			-- A newly allocated list of all the conditions which are
+			-- always verified by condition when it returns TRUE when
+			-- evaluated. Basically the returned list lists the atomic
+			-- conditions which are AND'ed together to form the complex
+			-- condition.
+		
+			--   Examples: if condition is:
+		
+			--     o "A and B" then the list will contains {A, B}
+		
+			--     o "A and (B or C)" it will contain {A, B or C}
+		
+			--     o "A and (B and not C)", it will contain {A, B, not C}
+		do
+			create Result.from_external_pointer(gda_query_condition_get_main_conditions(handle))
+		ensure not_void: Result/=Void
+		end			
+
 	--  The "cond-type" property
 	--
 	--   "cond-type"                gint                  : Read / Write
@@ -314,6 +295,22 @@ feature
 feature
 	dummy_gobject: POINTER is do unimplemented end
 	
+feature {} -- unwrapped 
+	-- Note: it is not necessary to wrap  gda_query_condition_get_ref_objects_all ()
+	--
+	-- GSList*             gda_query_condition_get_ref_objects_all
+	--                                                         (GdaQueryCondition *cond);
+	--
+	--   Get a complete list of the objects referenced by cond, including its
+	--   descendants (unlike the gda_referer_get_ref_objects() function applied to
+	--   cond).
+	--
+	--   cond :    a GdaQueryCondition object
+	--   Returns : a new list of referenced objects
+	--
+	--Property Details
+	--
+
 feature {} -- External calls
 	-- GdaQueryCondition;
 	gda_query_condition_new (a_query: POINTER; a_type: INTEGER): POINTER is
