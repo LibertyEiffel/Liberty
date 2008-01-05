@@ -1,5 +1,5 @@
 indexing
-	description: "Configuration Access/Management of libgda configuration."
+	description: "Gnome Data Access library shared object."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GDA team
 					
@@ -8,7 +8,7 @@ indexing
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
 					
-					This library is distributed in the hopeOA that it will be useful, but
+					This library is distributed in the hope that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 					Lesser General Public License for more details.
@@ -19,27 +19,400 @@ indexing
 					02110-1301 USA
 			]"
 
-	wrapped_version: "3.0.1"
+class GDA
 
-class GDA_CONFIG
-	-- Features to allow applications an easy access to the libgda
-	-- configuration, thus making them able to access the list of data
-	-- sources configured in the system, for instance.
-
-inherit WRAPPER_HANDLER
+inherit WRAPPER_HANDLER redefine default_create end
 
 insert
-	GDA_CONFIG_EXTERNALS
 	SINGLETON
+	GDA_DICT_CONSTRAINT_TYPE_ENUM redefine default_create end
+	GDA_CONFIG_EXTERNALS redefine default_create end
 	
-creation {SHARED_GDA_CONFIG} make
+creation  {SHARED_LIBGDA} make
 
 feature {} -- creation
 	make is
+		local 
+			dummy_gda_dict: GDA_DICT
+			dummy_gda_dict_table: GDA_DICT_TABLE
+			dummy_gda_dict_type: GDA_DICT_TYPE
 		do
+			-- Store archetypes
+			store_archetype(create {GDA_COLUMN}.dummy)
+			create dummy_gda_dict.dummy
+			store_archetype(dummy_gda_dict)
+			store_archetype(create {GDA_DICT_AGGREGATE}.from_dict(dummy_gda_dict))
+			store_archetype(create {GDA_DICT_DATABASE}.from_dict(dummy_gda_dict))
+			store_archetype(create {GDA_DICT_FUNCTION}.from_dict(dummy_gda_dict))
+			create dummy_gda_dict_table.from_dict(dummy_gda_dict)
+			store_archetype(dummy_gda_dict_table)
+			store_archetype(create {GDA_DICT_CONSTRAINT}.from_table(dummy_gda_dict_table,constraint_not_null))
+			create dummy_gda_dict_type.from_dict(dummy_gda_dict)
+			store_archetype(dummy_gda_dict_type)
+			store_archetype(create {GDA_DICT_FIELD}.from_dict(dummy_gda_dict,dummy_gda_dict_type))
 		end
 	
+feature 
+	is_initialized: BOOLEAN
+			-- Has the Gnome Data Access library been initialized?
+	
+	init (an_application_id, a_version: STRING; some_arguments: FAST_ARRAY [STRING]) is
+			-- Initializes the GDA library with `an_application_id' as
+			-- name of the program, `a_version' as revision number of the
+			-- program.  `some_arguments' is a list of arguments, usually
+			-- taken from ARGUMENTS.command_arguments. 
+		require
+			id_not_void: an_application_id /= Void
+			version_not_void: a_version /= Void
+			arguments_not_void: some_arguments /= Void
+		once
+			-- nargs :   number of arguments, usually argc from main().
+			-- args :    list of arguments, usually argv from main().
+			gda_init (an_application_id.to_external, a_version.to_external,
+						 some_arguments.count, some_arguments.to_external)
+			is_initialized := True
+		end
+	
+	run is
+			-- Runs the GDA main loop, which is nothing more than the
+			-- Bonobo main loop, but with internally added stuff specific
+			-- for applications using libgda.
+		
+			-- You can specify a function to be called after everything
+			-- has been correctly initialized (that is, for initializing
+			-- your own stuff).
+
+			-- TODO: support for `an_initialization_function', a function to
+			-- be called when everything has been initialized.
+		do
+			gda_main_run (default_pointer, default_pointer)
+		end
+
+	quit is
+			-- Exits the main loop.
+		do
+			gda_main_quit
+		end
+
+	default_dict: GDA_DICT is
+			-- the default dictionary.
+		local ptr: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_DICT]
+		do
+			ptr:=gda_get_default_dict
+			Result:=factory.existant_wrapper(ptr)
+			if Result=Void then create Result.from_external_pointer(ptr) end
+		ensure not_void: Result/=Void
+		end
+
+feature {} -- External calls
+	gda_init (app_id, version: POINTER; nargs: INTEGER; args: POINTER) is
+			--  void gda_init (const gchar *app_id, const gchar *version, gint nargs, gchar *args[])
+		external "C use <libgda/libgda.h>"
+		end
+	
+	--  void (*GdaInitFunc) (gpointer user_data)
+	
+	gda_get_default_dict: POINTER is
+			-- GdaDict* gda_get_default_dict (void);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_main_run (init_func, user_data: POINTER) is
+			--  void gda_main_run (GdaInitFunc init_func, gpointer user_data)
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_main_quit is
+			--  void gda_main_quit (void)
+		external "C use <libgda/libgda.h>"
+		end
+
+feature {} -- TODO: Convenient functions - Do quickly some actions
+	--Description
+	--
+	--Details
+	--
+	--  gda_open_connection ()
+	--
+	-- GdaConnection*      gda_open_connection                 (const gchar *dsn,
+	--                                                          const gchar *username,
+	--                                                          const gchar *password,
+	--                                                          GdaConnectionOptions options,
+	--                                                          GError **error);
+	--
+	--   Convenient function to open a connection to a Data Source, see also
+	--   gda_client_open_connection().
+	--
+	--   dsn :      a data source name
+	--   username :
+	--   password :
+	--   options :
+	--   error :    a place to store errors, or NULL
+	--   Returns :  a GdaConnection object if the connection was sucessfully
+	--              opened, NULL otherwise
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_execute_select_command ()
+	--
+	-- GdaDataModel*       gda_execute_select_command          (GdaConnection *cnn,
+	--                                                          const gchar *sql,
+	--                                                          GError **error);
+	--
+	--   Execute a SQL SELECT command over an opened connection.
+	--
+	--   Return: a new GdaDataModel if succesfull, NULL otherwise
+	--
+	--   cnn :     an opened connection
+	--   sql :     a query statament must begin with "SELECT"
+	--   error :   a place to store errors, or NULL
+	--   Returns :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_execute_sql_command ()
+	--
+	-- gint                gda_execute_sql_command             (GdaConnection *cnn,
+	--                                                          const gchar *sql,
+	--                                                          GError **error);
+	--
+	--   This is a convenient function to execute a SQL command over the opened
+	--   connection.
+	--
+	--   cnn :     an opened connection
+	--   sql :     a query statament must begin with "SELECT"
+	--   error :   a place to store errors, or NULL
+	--   Returns : the number of rows affected or -1.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_create_table ()
+	--
+	-- gboolean            gda_create_table                    (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error,
+	--                                                          ...);
+	--
+	--   Create a Table over an opened connection using a pair list of colum name
+	--   and GType as arguments, you need to finish the list using NULL.
+	--
+	--   This is just a convenient function to create tables quickly, using
+	--   defaults for the provider and converting the GType passed to the
+	--   corresponding type in the provider; to use a custom type or more advanced
+	--   characteristics in a specific provider use the GdaServerOperation
+	--   framework.
+	--
+	--   cnn :        an opened connection
+	--   table_name : num_columns
+	--   error :      a place to store errors, or NULL
+	--   ... :        pairs of column name and GType, finish with NULL
+	--   Returns :    TRUE if the table was created; FALSE and set error otherwise
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_drop_table ()
+	--
+	-- gboolean            gda_drop_table                      (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error);
+	--
+	--   This is just a convenient function to drop a table in an opened
+	--   connection.
+	--
+	--   cnn :        an opened connection
+	--   table_name :
+	--   error :      a place to store errors, or NULL
+	--   Returns :    TRUE if the table was dropped
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_insert_row_into_table ()
+	--
+	-- gboolean            gda_insert_row_into_table           (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error,
+	--                                                          ...);
+	--
+	--   This is just a convenient function to insert a row with the values given
+	--   as argument. The values must correspond with the GType of the column to
+	--   set, otherwise throw to an error. Finish the list with NULL.
+	--
+	--   The arguments must be pairs of column name followed by his value.
+	--
+	--   cnn :        an opened connection
+	--   table_name :
+	--   error :      a place to store errors, or NULL
+	--   ... :        a list of string/GValue pairs where the string is the name of
+	--                the column followed by its GValue to set in the insert
+	--                operation, finished by NULL
+	--   Returns :    TRUE if no error occurred, and FALSE and set error otherwise
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_insert_row_into_table_from_string ()
+	--
+	-- gboolean            gda_insert_row_into_table_from_string
+	--                                                         (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error,
+	--                                                          ...);
+	--
+	--   This is just a convenient function to insert a row with the values given
+	--   as arguments. The values must be strings that could be converted to the
+	--   type in the corresponding column. Finish the list with NULL.
+	--
+	--   The arguments must be pairs of column name followed by his value.
+	--
+	--   The SQL command is like: INSERT INTO table_name (column1, column2, ...)
+	--   VALUES (value1, value2, ...)
+	--
+	--   cnn :        an opened connection
+	--   table_name :
+	--   error :      a place to store errors, or NULL
+	--   ... :        a list of strings to be converted as value, finished by NULL
+	--   Returns :    TRUE if no error occurred, and FALSE and set error otherwise
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_update_value_in_table ()
+	--
+	-- gboolean            gda_update_value_in_table           (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          const gchar *search_for_column,
+	--                                                          const GValue *condition,
+	--                                                          const gchar *column_name,
+	--                                                          const GValue *new_value,
+	--                                                          GError **error);
+	--
+	--   This is just a convenient function to update values in a table on a given
+	--   column where the row is fitting the given condition.
+	--
+	--   The SQL command is like: UPDATE INTO table_name SET column_name =
+	--   new_value WHERE search_for_column = condition
+	--
+	--   cnn :               an opened connection
+	--   table_name :
+	--   search_for_column : the name of the column to used in the WHERE condition
+	--                       clause
+	--   condition :         a GValue to used to find the value to be updated; it
+	--                       must correspond with the GType of the column used to
+	--                       search
+	--   column_name :       the column containing the value to be updated
+	--   new_value :         the new value to update to; the GValue must correspond
+	--                       with the GType of the column to update
+	--   error :             a place to store errors, or NULL
+	--   Returns :           TRUE if no error occurred
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_update_values_in_table ()
+	--
+	-- gboolean            gda_update_values_in_table          (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          const gchar *condition_column_name,
+	--                                                          const GValue *condition,
+	--                                                          GError **error,
+	--                                                          ...);
+	--
+	--   This is just a convenient function to update values in a table on a given
+	--   column where the row is fitting the given condition.
+	--
+	--   The SQL command is like: UPDATE INTO table_name SET column1 = new_value1,
+	--   column2 = new_value2 ... WHERE condition_column_name = condition
+	--
+	--   cnn :                   an opened connection
+	--   table_name :            the name of the table where the update will be
+	--                           done
+	--   condition_column_name : the name of the column to used in the WHERE
+	--                           condition clause
+	--   condition :             a GValue to used to find the values to be updated;
+	--                           it must correspond with the column's GType
+	--   error :                 a place to store errors, or NULL
+	--   ... :                   a list of string/GValue pairs where the string is
+	--                           the name of the column to be updated followed by
+	--                           the new GValue to set, finished by NULL
+	--   Returns :               TRUE if no error occurred
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_delete_row_from_table ()
+	--
+	-- gboolean            gda_delete_row_from_table           (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          const gchar *condition_column_name,
+	--                                                          const GValue *condition,
+	--                                                          GError **error);
+	--
+	--   This is just a convenient function to delete the row fitting the given
+	--   condition from the given table.
+	--
+	--   condition must be a valid GValue and must correspond with the GType of the
+	--   column to use in the WHERE clause.
+	--
+	--   The SQL command is like: DELETE FROM table_name WHERE
+	--   contition_column_name = condition
+	--
+	--   cnn :                   an opened connection
+	--   table_name :
+	--   condition_column_name : the name of the column to used in the WHERE
+	--                           condition clause
+	--   condition :             a GValue to used to find the row to be deleted
+	--   error :                 a place to store errors, or NULL
+	--   Returns :               TRUE if no error occurred, and FALSE and set error
+	--                           otherwise
+
+feature {} -- Convenient functions extaernal calls
+	-- GdaConnection*      gda_open_connection                 (const gchar *dsn,
+	--                                                          const gchar *username,
+	--                                                          const gchar *password,
+	--                                                          GdaConnectionOptions options,
+	--                                                          GError **error);
+	-- GdaDataModel*       gda_execute_select_command          (GdaConnection *cnn,
+	--                                                          const gchar *sql,
+	--                                                          GError **error);
+	-- gint                gda_execute_sql_command             (GdaConnection *cnn,
+	--                                                          const gchar *sql,
+	--                                                          GError **error);
+	-- gboolean            gda_create_table                    (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error,
+	--                                                          ...);
+	-- gboolean            gda_drop_table                      (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error);
+	-- gboolean            gda_insert_row_into_table           (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error,
+	--                                                          ...);
+	-- gboolean            gda_insert_row_into_table_from_string
+	--                                                         (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error,
+	--                                                          ...);
+	-- gboolean            gda_update_value_in_table           (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          const gchar *search_for_column,
+	--                                                          const GValue *condition,
+	--                                                          const gchar *column_name,
+	--                                                          const GValue *new_value,
+	--                                                          GError **error);
+	-- gboolean            gda_update_values_in_table          (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          const gchar *condition_column_name,
+	--                                                          const GValue *condition,
+	--                                                          GError **error,
+	--                                                          ...);
+	-- gboolean            gda_delete_row_from_table           (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          const gchar *condition_column_name,
+	--                                                          const GValue *condition,
+	--                                                          GError **error);
+	--
+
 feature -- Configuration
+	-- Features to allow applications an easy access to the libgda
+	-- configuration, thus making them able to access the list of data
+	-- sources configured in the system, for instance.
 	
 	get_string (a_path: STRING): STRING is
 			-- the value of the configuration entry `a_path'.
@@ -73,8 +446,6 @@ feature -- Configuration
 			Result := (gda_config_get_boolean(a_path.to_external)).to_boolean
 		end
 
-	is_successful: BOOLEAN
-	
 	set_string (a_path, a_new_value: STRING) is
 			-- Sets the configuration entry `a_path' to contain
 			-- `a_new_value'. `is_successful' will be True if no errors
@@ -851,4 +1222,184 @@ feature {} -- V3
 	--
 	--   id : the ID of the listener to remove.
 
-end -- class GDA_CONFIG
+feature {} -- Gda config external calls
+
+	-- void (*GdaConfigListenerFunc) (const gchar *path, gpointer
+	-- user_data);
+
+	gda_config_get_string (a_path: POINTER): POINTER is
+			-- gchar* gda_config_get_string (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_get_int (a_path: POINTER): INTEGER is
+			-- gint gda_config_get_int (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_get_float (a_path: POINTER): REAL is
+			-- gdouble gda_config_get_float (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_get_boolean (a_path: POINTER): INTEGER is
+			-- gboolean gda_config_get_boolean (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_set_string (a_path, a_new_value: POINTER): INTEGER is
+			-- gboolean gda_config_set_string (const gchar *path, const gchar *new_value);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_set_int (a_path: POINTER; a_new_value: INTEGER): INTEGER is
+					-- gboolean gda_config_set_int (const gchar *path, gint new_value);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_set_float (a_path: POINTER; a_new_value: REAL): INTEGER is
+			-- gboolean gda_config_set_float (const gchar *path, gdouble new_value);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_set_boolean (a_path: POINTER; a_new_value: INTEGER): INTEGER is
+					-- gboolean gda_config_set_boolean (const gchar *path, gboolean new_value);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_remove_section (a_path: POINTER) is
+			-- void gda_config_remove_section (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_remove_key (a_path: POINTER) is
+			-- void gda_config_remove_key (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_has_section (a_path: POINTER): INTEGER is
+			-- gboolean gda_config_has_section (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_has_key (a_path: POINTER): INTEGER is
+			-- gboolean gda_config_has_key (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_list_sections (a_path: POINTER): POINTER is
+					-- GList* gda_config_list_sections (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_list_keys (a_path: POINTER): POINTER is
+			-- GList* gda_config_list_keys (const gchar *path);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_free_list (a_list: POINTER) is
+			-- void gda_config_free_list (GList *list);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_get_provider_list: POINTER is
+			-- GList* gda_config_get_provider_list (void);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_free_provider_list (a_list: POINTER) is
+			-- void gda_config_free_provider_list (GList *list);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_get_provider_by_name (a_name: POINTER): POINTER is
+			-- GdaProviderInfo* gda_config_get_provider_by_name (const gchar *name);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_provider_model: POINTER is
+			-- GdaDataModel* gda_config_get_provider_model (void);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_provider_info_copy (a_source: POINTER): POINTER is
+			-- GdaProviderInfo* gda_provider_info_copy (GdaProviderInfo *src);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_provider_info_free (a_provider_info: POINTER) is
+			-- void gda_provider_info_free (GdaProviderInfo *provider_info);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_data_source_list: POINTER is
+			-- GList* gda_config_get_data_source_list (void);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_find_data_source (a_name: POINTER): POINTER is
+			-- GdaDataSourceInfo* gda_config_find_data_source (const gchar *name);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_data_source_info_copy (a_source: POINTER): POINTER is
+			-- GdaDataSourceInfo* gda_data_source_info_copy (GdaDataSourceInfo *src);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_data_source_info_equal (info_1, info_2: POINTER): INTEGER is
+			-- gboolean gda_data_source_info_equal (GdaDataSourceInfo *info1, GdaDataSourceInfo *info2);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_data_source_info_free (an_info: POINTER) is
+			-- void gda_data_source_info_free (GdaDataSourceInfo *info);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_free_data_source_list (a_list: POINTER) is
+			-- void gda_config_free_data_source_list (GList *list);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_data_source_model: POINTER is
+			-- GdaDataModel* gda_config_get_data_source_model (void);
+		external "C use <libgda/libgda.h>"
+		end
+	
+	gda_config_can_modify_global_config: INTEGER is
+			-- gboolean gda_config_can_modify_global_config (void);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_save_data_source (a_name, a_provider, a_cnc_string, a_description, a_username, a_password: POINTER; is_global_bool: INTEGER): INTEGER is
+			-- gboolean gda_config_save_data_source (const gchar *name,
+			-- const gchar *provider, const gchar *cnc_string, const
+			-- gchar *description, const gchar *username, const gchar
+			-- *password, gboolean is_global);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_save_data_source_info (a_dsn_info: INTEGER): INTEGER is
+					-- gboolean gda_config_save_data_source_info (GdaDataSourceInfo *dsn_info);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_remove_data_source (a_name: POINTER) is
+					-- void gda_config_remove_data_source (const gchar *name);
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_add_listener (a_path, a_gdaconfiglistenerfunc, some_data: POINTER): INTEGER is
+			-- guint gda_config_add_listener (const gchar *path,
+			-- GdaConfigListenerFunc func, gpointer user_data);
+			-- Result should be NATURAL
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_remove_listener (a_guint_id: INTEGER) is
+			-- void gda_config_remove_listener (guint id);
+		external "C use <libgda/libgda.h>"
+		end
+
+end 

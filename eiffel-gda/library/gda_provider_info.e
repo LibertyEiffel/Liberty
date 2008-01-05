@@ -39,11 +39,6 @@ insert
 			fill_tagged_out_memory
 		end
 
-	GDA_CONFIG_EXTERNALS -- To get gda_provider_info_copy
-		undefine
-			fill_tagged_out_memory
-		end
-	
 creation dummy, copy, from_external_pointer
 
 feature -- Properties
@@ -134,6 +129,63 @@ feature {ANY} -- Printing
 			end
 			tagged_out_memory.extend('%N')
 
+		end
+
+feature {} -- Structure getter/setter external calls
+	-- GdaProviderInfo
+
+	-- typedef struct {
+	-- 	gchar *id;
+	-- 	gchar *location;
+	-- 	gchar *description;
+	-- 	GdaParameterList *gda_params; /* Contains a list of GdaParameter to create a DSN */
+	-- 	gchar *dsn_spec; /* XML string with all the parameters required to create a DSN */
+	-- } GdaProviderInfo;
+
+	get_id (a_struct: POINTER): POINTER is
+		external "C struct GdaProviderInfo get id use <libgda/libgda.h>"
+		end
+
+	set_id_internal (a_struct: POINTER; a_id: POINTER) is
+		external "C struct GdaProviderInfo set id use <libgda/libgda.h>"
+		end
+
+	get_location (a_struct: POINTER): POINTER is
+		external "C struct GdaProviderInfo get location use <libgda/libgda.h>"
+		end
+
+	set_location_internal (a_struct: POINTER; a_location: POINTER) is
+		external "C struct GdaProviderInfo set location use <libgda/libgda.h>"
+		end
+
+	get_description (a_struct: POINTER): POINTER is
+		external "C struct GdaProviderInfo get description use <libgda/libgda.h>"
+		end
+
+	set_description_internal (a_struct: POINTER; a_description: POINTER) is
+		external "C struct GdaProviderInfo set description use <libgda/libgda.h>"
+		end
+
+	get_gda_params (a_struct: POINTER): POINTER is
+		external "C struct GdaProviderInfo get gda_params use <libgda/libgda.h>"
+		end
+
+	set_gda_params_internal (a_struct: POINTER; a_gda_params: POINTER) is
+		external "C struct GdaProviderInfo set gda_params use <libgda/libgda.h>"
+		end
+
+	get_dsn_spec (a_struct: POINTER): POINTER is
+		external "C struct GdaProviderInfo get dsn_spec use <libgda/libgda.h>"
+		end
+
+	set_dsn_spec_internal (a_struct: POINTER; a_dsn_spec: POINTER) is
+		external "C struct GdaProviderInfo set dsn_spec use <libgda/libgda.h>"
+		end
+
+feature {} -- size
+	struct_size: INTEGER is
+		external "C inline use <libgda/libgda.h>"
+		alias "sizeof(GdaProviderInfo)"
 		end
 
 end -- class GDA_PROVIDER_INFO
