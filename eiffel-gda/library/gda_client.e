@@ -97,7 +97,6 @@ feature
 		require
 			dsn_not_void: a_dsn /= Void
 			-- valid_options: are_valid_connection_options (some_options)
-		local ptr: POINTER
 		do
 			Result:=wrapper_or_void(gda_client_open_connection
 											(handle, a_dsn.to_external,

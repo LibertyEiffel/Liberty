@@ -41,9 +41,6 @@ feature
 
 			gda.init ("Full eiffel-gda test", "0.1", command_arguments)
 			
-			gda.save_data_source(database_name, provider, connection_string,
-										description, username, password);
-
 			list_providers
 			list_data_sources
 
@@ -90,7 +87,7 @@ feature
 		do
 			print ("Data sources:%N")
 			from
-				info_iterator := gda_config.data_sources.get_new_iterator
+				info_iterator := gda.data_sources.get_new_iterator
 				info_iterator.start
 			until
 				info_iterator.is_off
@@ -109,15 +106,15 @@ feature
 	connection: GDA_CONNECTION is
 			-- Connection to an example SQLite database. Void if couldn't find the database
 		once
-			if not gda_config.has_data_source(database_name) then 
+			if not gda.has_data_source(database_name) then 
 				print ("Creating example database%N")
-				gda_config.save_data_source (database_name, provider, connection_string,
-													  description, username, password,
-													  False -- Not global
-													  )
+				gda.save_data_source (database_name, provider, connection_string,
+											 description, username, password,
+											 False -- Not global
+											 )
 			end
 
-			Result := (client.get_new_connection 
+			Result := (client.open_connection 
 						  (database_name, username, password,
 							0 -- No options such as	gda_connection_options_read_only
 							))
@@ -150,7 +147,9 @@ feature
 								once "source: "+event.source+
 								once "sqlstate: TODO")
 				event_iterator.next
+			end
 		end
+
 feature -- Constants
 	database_name: STRING is "eiffel-gda-example"
 	provider: STRING is "SQLite"

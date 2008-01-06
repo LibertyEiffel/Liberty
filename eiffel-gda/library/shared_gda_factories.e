@@ -23,7 +23,7 @@ deferred class SHARED_GDA_FACTORIES
 
 insert ANY undefine copy, is_equal, fill_tagged_out_memory end
 
-feature {} -- Factories
+feature {WRAPPER_HANDLER} -- Factories
 	gda_dict_aggregate_factory: G_OBJECT_FACTORY[GDA_DICT_AGGREGATE] is once create Result end
 	gda_dict_constraint_factory: G_OBJECT_FACTORY[GDA_DICT_CONSTRAINT] is once create Result end
 	gda_dict_database_factory: G_OBJECT_FACTORY[GDA_DICT_DATABASE] is once create Result end
@@ -33,6 +33,15 @@ feature {} -- Factories
 	gda_dict_table_factory: G_OBJECT_FACTORY[GDA_DICT_TABLE] is once create Result end
 	gda_dict_type_factory: G_OBJECT_FACTORY[GDA_DICT_TYPE] is once create Result end
 
+	gda_provider_info_factory: ARCHETYPE_CACHING_FACTORY[GDA_PROVIDER_INFO] is
+		once
+			create Result.with_archetype(create {GDA_PROVIDER_INFO}.dummy)
+		end
+
+	gda_data_source_info_factory: ARCHETYPE_CACHING_FACTORY[GDA_DATA_SOURCE_INFO] is
+		once
+			create Result.with_archetype(create {GDA_DATA_SOURCE_INFO}.dummy)
+		end
 end -- class SHARED_GDA_FACTORIES
 
 

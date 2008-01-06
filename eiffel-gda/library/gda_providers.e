@@ -21,9 +21,12 @@ indexing
 
 class GDA_PROVIDERS
 
-inherit G_LIST [GDA_PROVIDER_INFO] redefine from_external_pointer, free end 
+inherit 
+	G_LIST [GDA_PROVIDER_INFO] redefine from_external_pointer, free end 
 
-insert GDA_CONFIG_EXTERNALS 
+insert 
+	GDA
+	GDA_CONFIG_EXTERNALS 
 
 creation from_external_pointer
 
@@ -34,7 +37,7 @@ feature
 	
 	from_external_pointer (a_pointer: POINTER) is
 		do
-			create {DUMMY_CACHING_FACTORY[GDA_PROVIDER_INFO]} factory
+			factory := gda.gda_provider_info_factory
 			handle := a_pointer
 			set_shared
 			petrify

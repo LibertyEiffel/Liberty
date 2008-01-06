@@ -23,14 +23,16 @@ class GDA_DATA_SOURCE_INFO_LIST
 
 inherit G_LIST[GDA_DATA_SOURCE_INFO] redefine free, from_external_pointer end
 	
-insert GDA_CONFIG_EXTERNALS 
+insert 
+	GDA 
+	GDA_CONFIG_EXTERNALS 
 
 creation dummy, from_external_pointer
 
 feature
 	from_external_pointer (a_pointer: POINTER) is
 		do
-			create {DUMMY_CACHING_FACTORY[GDA_DATA_SOURCE_INFO]} factory
+			factory := gda.gda_data_source_info_factory
 			handle := a_pointer
 			set_shared
 			petrify

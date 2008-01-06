@@ -26,6 +26,7 @@ inherit WRAPPER_HANDLER redefine default_create end
 insert
 	SINGLETON  redefine default_create end
 	SHARED_ARCHETYPES_DICTIONARY [GDA_OBJECT] redefine default_create end
+	SHARED_GDA_FACTORIES redefine default_create end
 	SHARED_G_ERROR redefine default_create end
 	GDA_DICT_CONSTRAINT_TYPE_ENUM redefine default_create end
 	GDA_CONFIG_EXTERNALS redefine default_create end
@@ -34,24 +35,25 @@ creation  {GDA} default_create
 
 feature {} -- creation
 	default_create is
-		local 
-			dummy_gda_dict: GDA_DICT
-			dummy_gda_dict_table: GDA_DICT_TABLE
-			dummy_gda_dict_type: GDA_DICT_TYPE
 		do
+			-- local 
+			--	dummy_gda_dict: GDA_DICT
+			--	dummy_gda_dict_table: GDA_DICT_TABLE
+			--	dummy_gda_dict_type: GDA_DICT_TYPE
+			-- do
 			-- Store archetypes
-			store_archetype(create {GDA_COLUMN}.dummy)
-			create dummy_gda_dict.dummy
-			store_archetype(dummy_gda_dict)
-			store_archetype(create {GDA_DICT_AGGREGATE}.from_dict(dummy_gda_dict))
-			store_archetype(create {GDA_DICT_DATABASE}.from_dict(dummy_gda_dict))
-			store_archetype(create {GDA_DICT_FUNCTION}.from_dict(dummy_gda_dict))
-			create dummy_gda_dict_table.from_dict(dummy_gda_dict)
-			store_archetype(dummy_gda_dict_table)
-			store_archetype(create {GDA_DICT_CONSTRAINT}.from_table(dummy_gda_dict_table,constraint_not_null))
-			create dummy_gda_dict_type.from_dict(dummy_gda_dict)
-			store_archetype(dummy_gda_dict_type)
-			store_archetype(create {GDA_DICT_FIELD}.from_dict(dummy_gda_dict,dummy_gda_dict_type))
+			-- store_archetype(create {GDA_COLUMN}.dummy)
+			-- create dummy_gda_dict.dummy
+			-- store_archetype(dummy_gda_dict)
+			-- 			store_archetype(create {GDA_DICT_AGGREGATE}.from_dict(dummy_gda_dict))
+			-- 			store_archetype(create {GDA_DICT_DATABASE}.from_dict(dummy_gda_dict))
+			-- 			store_archetype(create {GDA_DICT_FUNCTION}.from_dict(dummy_gda_dict))
+			-- 			create dummy_gda_dict_table.from_dict(dummy_gda_dict)
+			-- 			store_archetype(dummy_gda_dict_table)
+			-- 			store_archetype(create {GDA_DICT_CONSTRAINT}.from_table(dummy_gda_dict_table,constraint_not_null))
+			-- 			create dummy_gda_dict_type.from_dict(dummy_gda_dict)
+			-- 			store_archetype(dummy_gda_dict_type)
+			-- 			store_archetype(create {GDA_DICT_FIELD}.from_dict(dummy_gda_dict,dummy_gda_dict_type))
 		end
 	
 feature 
@@ -584,14 +586,12 @@ feature -- Configuration
 		end
 	
 	
-	-- data_sources: GDA_DATA_SOURCE_INFO_LIST is
-	-- a list of all data sources currently configured in the
-	-- system.  TODO: to implement the following we need a
-	-- specialized class "To free the returned list, call the
-	-- gda_config_free_data_source_list function."
-	-- do
-	--	create Result.from_external_pointer (gda_config_get_data_source_list)
-	-- end
+	data_sources: GDA_DATA_SOURCE_INFO_LIST is
+			-- a list of all data sources currently configured in the
+			-- system.  
+		do
+			create Result.from_external_pointer (gda_config_get_data_source_list)
+		end
 
 	has_data_source (a_name: STRING): BOOLEAN is
 			-- Does the data source `a_name' exist?

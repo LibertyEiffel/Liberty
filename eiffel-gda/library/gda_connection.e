@@ -271,78 +271,52 @@ feature
 		ensure not_void: Result /= Void
 		end
 
-	--   gda_connection_add_event ()
 
-	--  void        gda_connection_add_event        (GdaConnection *cnc,
-	--                                               GdaConnectionEvent *error);
 
-	--    Adds an event to the given connection. This function is usually called by
-	--    providers, to inform clients of events that happened during some
-	--    operation.
+feature -- Events handling
+	add_event (an_error: GDA_CONNECTION_EVENT) is
+			-- Adds `an_event' to the given connection. This function is
+			-- usually called by providers, to inform clients of events
+			-- that happened during some operation.
+		
+			-- As soon as a provider (or a client, it does not matter)
+			-- calls this function with an event object which is an
+			-- error, the connection object (and the associated GdaClient
+			-- object) emits the "error" signal, to which clients can
+			-- connect to be informed of events.
+		do
+			gda_connection_add_event(handle, an_error.handle)
+			-- WARNING: the reference to the event object is stolen by
+			-- this function!
+		end	
 
-	--    As soon as a provider (or a client, it does not matter) calls this
-	--    function with an event object which is an error, the connection object
-	--    (and the associated GdaClient object) emits the "error" signal, to which
-	--    clients can connect to be informed of events.
+	add_events (a_list: G_LIST[GDA_CONNECTION_EVENT]) is
+			-- A convenience function which lets you add a list of
+			-- GdaConnectionEvent's to the Current connection. As with
+			-- `add_event', this function makes the connection object
+			-- emit the "error" signal for each error event.
+		require list_not_void: a_list/=Void
+		do
+			gda_connection_add_events_list(handle,a_list.handle)
+		end
 
-	--    WARNING: the reference to the event object is stolen by this function!
-
-	--    cnc :   a GdaConnection object.
-	--    error :
-
-	--    --------------------------------------------------------------------------
-
-	--   gda_connection_add_event_string ()
-
-	--  void        gda_connection_add_event_string (GdaConnection *cnc,
-	--                                               const gchar *str,
-	--                                               ...);
-
-	--    Adds a new error to the given connection object. This is just a
-	--    convenience function that simply creates a GdaConnectionEvent and then
-	--    calls gda_server_connection_add_error.
-
-	--    cnc : a GdaServerConnection object.
-	--    str : a format string (see the printf(3) documentation).
-	--    ... : the arguments to insert in the error message.
-
-	--    --------------------------------------------------------------------------
-
-	--   gda_connection_add_events_list ()
-
-	--  void        gda_connection_add_events_list  (GdaConnection *cnc,
-	--                                               GList *events_list);
-
-	--    This is just another convenience function which lets you add a list of
-	--    GdaConnectionEvent's to the given connection.* As with
-	--    gda_connection_add_event and gda_connection_add_event_string, this
-	--    function makes the connection object emit the "error" signal for each
-	--    error event.
-
-	--    events_list is copied to an internal list and freed.
-
-	--    cnc :         a GdaConnection object.
-	--    events_list : a list of GdaConnectionEvent.
-
-	--   gda_connection_get_events ()
-
-	--  const GList* gda_connection_get_events      (GdaConnection *cnc);
-
+	events: G_OBJECT_LIST[GDA_CONNECTION_EVENT] is
 	--    Retrieves a list of the last errors occurred in the connection. You can
 	--    make a copy of the list using gda_connection_event_list_copy.
 
 	--    cnc :     a GdaConnection.
-	--    Returns : a GList of GdaConnectionEvent.
+		do
+			create Result.from_external_pointer(gda_connection_get_events(handle))
+		end
 
-	-- gda_connection_clear_events_list ()
+	clear_events_list is
+			-- Clear the list of GdaConnectionEvent's of the given
+			-- connection.
+		do
+			gda_connection_clear_events_list(handle)
+		end
 
-	-- void gda_connection_clear_events_list (GdaConnection *cnc);
-
-	-- This function lets you clear the list of GdaConnectionEvent's of
-	-- the given connection.
-
-	-- cnc : a GdaConnection object.
-
+feature 
 	change_database (a_name: STRING) is
 			-- Changes the current database for the given
 			-- connection. This operation is not available in all
@@ -352,7 +326,6 @@ feature
 			is_successful:=(gda_connection_change_database(handle,a_name.to_external)).to_boolean
 		end
 
-	
 	single_result: GDA_DATA_MODEL
 			-- Results of the last invocation of `execute_command'
 	
@@ -586,4 +559,18 @@ feature {} -- Constant property names
 	provider_object_property_name: STRING is "provider-obj"
 	username_property_name: STRING is "username"
 
+feature {} -- Unwrapped code
+	-- TODO: if necessary  gda_connection_add_event_string ()
+
+	--  void        gda_connection_add_event_string (GdaConnection *cnc,
+	--                                               const gchar *str,
+	--                                               ...);
+
+	--    Adds a new error to the given connection object. This is just a
+	--    convenience function that simply creates a GdaConnectionEvent and then
+	--    calls gda_server_connection_add_error.
+
+	--    cnc : a GdaServerConnection object.
+	--    str : a format string (see the printf(3) documentation).
+	--    ... : the arguments to insert in the error message.
 end -- class GDA_CONNECTION

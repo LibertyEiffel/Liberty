@@ -177,9 +177,9 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Dummy creation
 			dummy_is_null: is_null
 			stored_type_set: stored_type/=0
 		rescue
-			io.put_string(once "Some problems storing ") io.put_string(generating_type)
+			io.put_string(once "Some problems storing `") io.put_string(generating_type)
 			io.put_string(once "' for GType ") 
-			io.put_integer(g_object_type(handle))
+			io.put_integer(stored_type)
 			io.put_line(once "; the hierarchy of classes known by the GObject C type system is:")
 			print_known_gobject_heirs
 			io.flush			
