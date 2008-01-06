@@ -1,7 +1,7 @@
 indexing
 	description: "."
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GDA team
+					Copyright (C) 2006, 2007 Paolo Redaelli, GDA team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -21,36 +21,25 @@ indexing
 
 class GDA_DATA_SOURCE_INFO_LIST
 
-inherit
-	G_LIST [GDA_DATA_SOURCE_INFO]
-		redefine
-			new_item, -- Redefining new_item is necessary to make the created GDA_DATA_SOURCE_INFO shared so it will not be freed by Eiffel, thus causing a double memory freeing with inevitable core dump.
-			free
-		end
+inherit G_LIST[GDA_DATA_SOURCE_INFO] redefine free, from_external_pointer end
 	
-insert
-	GDA_CONFIG_EXTERNALS 
+insert GDA_CONFIG_EXTERNALS 
 
 creation dummy, from_external_pointer
 
 feature
-	free(ptr: POINTER) is
-			-- Frees a list of GdaDataSourceInfo structures.
+	from_external_pointer (a_pointer: POINTER) is
 		do
-			debug 
-				print("freeing DATA_SRC_INFO_LIST ptr = " + ptr.out + "%N")
-			end
-			gda_config_free_data_source_list(handle)
+			create {DUMMY_CACHING_FACTORY[GDA_DATA_SOURCE_INFO]} factory
+			handle := a_pointer
+			set_shared
+			petrify
 		end
 
-feature 
-	new_item: GDA_DATA_SOURCE_INFO is
+	free (ptr: POINTER) is
+			-- Frees a list of GdaDataSourceInfo structures.
 		do
-			debug
-				print("called GDA_DATA_SOURCE_INFO_LIST.new_item ...%N")
-			end
-			Result := Precursor
-			-- Result.set_shared
+			gda_config_free_data_source_list(handle)
 		end
 
 end -- class GDA_DATA_SOURCE_INFO_LIST

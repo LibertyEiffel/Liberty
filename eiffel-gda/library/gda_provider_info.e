@@ -26,19 +26,9 @@ inherit
 		redefine
 			copy, fill_tagged_out_memory, free
 		end
-	
-insert
-	GDA_PROVIDER_INFO_STRUCT
-		rename 
-			set_id as set_id_internal,
-			set_location as set_location_internal,
-			set_description as set_description_internal,
-			set_gda_params as set_gda_params_internal,
-			set_dsn_spec as set_dsn_spec_internal
-		undefine
-			fill_tagged_out_memory
-		end
 
+insert GDA_CONFIG_EXTERNALS
+	
 creation dummy, copy, from_external_pointer
 
 feature -- Properties
@@ -100,9 +90,14 @@ feature
 
 feature {ANY} -- Printing
 	fill_tagged_out_memory is
-		-- TODO: ramack is not sure, whether this should better be 
-		-- feature out
 		do
+			-- TODO: ramack is not sure, whether this should better be 
+			-- feature out
+
+			-- Note: out is not the correct feature to be
+			-- redefined. SmartEiffel documentation says to redefine
+			-- fill_tagged_out_memory
+
 			tagged_out_memory.append(" id = ")
 			if id /= Void then
 				tagged_out_memory.extend('"')

@@ -65,6 +65,10 @@ feature -- Creation
 			-- until you want to "downcast" an object into a more 
 			-- specialized type (i.e.: the "::=" operator).
 		
+			-- TODO: find which kind of classes require archetypes,
+			-- i.e. find which functions returns a "polymorphic" pointer
+			-- and store archetypes for that types and all their
+			-- anchestors
 		require gtk_initialized: is_initialized
 		once
 			debug

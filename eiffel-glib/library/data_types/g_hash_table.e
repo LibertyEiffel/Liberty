@@ -4,7 +4,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class G_HASH_TABLE
+class G_HASH_TABLE [VALUE->WRAPPER, KEY->HASHABLE_WRAPPER]
 	-- Prev 	Up 	Home 	GLib Reference Manual 	Next
 -- Top  |  Description
 -- Hash Tables

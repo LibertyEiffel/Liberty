@@ -54,6 +54,9 @@ feature
 			if p.is_not_null then
 				Result := factory.wrapper(p)
 			end
+		ensure then 
+			container_sharedness_maintained: 
+				Result/=Void and then are_items_shared = Result.is_shared
 		end
 
 	last: like first is
@@ -63,6 +66,9 @@ feature
 			if p.is_not_null then
 				Result := factory.wrapper(p)
 			end
+		ensure then 
+			container_sharedness_maintained: 
+				Result/=Void and then are_items_shared = Result.is_shared
 		end
 
 	item (i: INTEGER): like first is
@@ -70,6 +76,9 @@ feature
 		do
 			p:=g_list_nth_data (handle, i)
 			if p.is_not_null then Result::= factory.wrapper(p) end
+		ensure 
+			container_sharedness_maintained: 
+				Result/=Void and then are_items_shared = Result.is_shared
 		end
 
 	put (an_item: like first; i: INTEGER) is

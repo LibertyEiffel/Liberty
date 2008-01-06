@@ -7,9 +7,14 @@ indexing
 
 deferred class GDA_CONFIG_EXTERNALS
 
-insert ANY undefine copy, is_equal end
+insert ANY undefine copy, is_equal, fill_tagged_out_memory end
 
 feature {} -- External calls
+
+	-- void (*GdaConfigListenerFunc) (const gchar *path, gpointer
+	-- user_data);
+
+feature {} -- Gda config external calls
 
 	-- void (*GdaConfigListenerFunc) (const gchar *path, gpointer
 	-- user_data);
@@ -188,6 +193,5 @@ feature {} -- External calls
 			-- void gda_config_remove_listener (guint id);
 		external "C use <libgda/libgda.h>"
 		end
-
 
 end

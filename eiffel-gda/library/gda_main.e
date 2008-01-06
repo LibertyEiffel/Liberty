@@ -19,19 +19,21 @@ indexing
 					02110-1301 USA
 			]"
 
-class GDA
+class GDA_MAIN
 
 inherit WRAPPER_HANDLER redefine default_create end
 
 insert
-	SINGLETON
+	SINGLETON  redefine default_create end
+	SHARED_ARCHETYPES_DICTIONARY [GDA_OBJECT] redefine default_create end
+	SHARED_G_ERROR redefine default_create end
 	GDA_DICT_CONSTRAINT_TYPE_ENUM redefine default_create end
 	GDA_CONFIG_EXTERNALS redefine default_create end
 	
-creation  {SHARED_LIBGDA} make
+creation  {GDA} default_create
 
 feature {} -- creation
-	make is
+	default_create is
 		local 
 			dummy_gda_dict: GDA_DICT
 			dummy_gda_dict_table: GDA_DICT_TABLE
@@ -525,19 +527,18 @@ feature -- Configuration
 			Result:=gda_config_has_key(a_path.to_external).to_boolean
 		end
 
-	-- sections: TODO (this is messy because the disposing is 
-	-- "redefined" here) GList* gda_config_list_sections (const gchar
-	-- *path);
-	
-	-- Returns a GList containing the names of all the sections
-	-- available under the given root directory.
+	sections (a_path: STRING): GDA_SECTIONS is
+			-- A list with the names of all the sections available under
+			-- the given root directory (`a_path').
+		require path_not_void: a_path/=Void
+		do
+			create Result.from_external_pointer(gda_config_list_sections(a_path.to_external))
+		ensure Result.is_petrified
+		end	
 
-	-- To free the returned value, you can use gda_config_free_list.
-
-	-- path : 	path for root dir.
-	-- Returns : 	a list containing all the section names.
-	-- gda_config_list_keys ()
-
+	--  TODO keys (a_path: STRING): GDA_CONFIG_SECTIONS is require
+	--  path_not_void: a_path/=Void do
+			
 	-- GList*      gda_config_list_keys            (const gchar *path);
 
 	-- Returns a list of all keys that exist under the given path.
@@ -546,45 +547,16 @@ feature -- Configuration
 
 	-- path : 	path for root dir.
 	-- Returns : 	a list containing all the key names.
-	-- gda_config_free_list ()
-
-	-- void        gda_config_free_list            (GList *list);
-
-	-- Frees all memory used by the given GList, which must be the return value from either gda_config_list_sections and gda_config_list_keys.
-
-	-- list : 	list to be freed.
-	-- gda_config_get_provider_list ()
-
 	providers: GDA_PROVIDERS is
-			-- a list of all providers currently installed in the
-			-- system. 
-
-			-- WARNING: this G_LIST should not be modified 
-
-			-- TODO: the "read-only" behaviour is still to be
-			-- implemented. AFAIK it is not as easy as adding a
-			-- "modifiable: BOOLEAN" feature and some "require
-			-- modifiable" in the in-place changing features, because
-			-- this would mean strenghtening the preconditions of those
-			-- features when we will make G_LIST an heir of
-			-- COLLECTION. Strenghtening preconditions is always wrong,
-			-- AFAIK.
+			-- a list of all providers currently installed in the system.
 		do
 				create Result.from_external_pointer (gda_config_get_provider_list)
 				-- the underlying GList - made of GdaProviderInfo
 				-- structures - shouldn't be freed or modified. Garbage
 				-- collector should not free the list. Then:
-				Result.set_shared
+		ensure Result.is_petrified
 		end
 	
-	-- gda_config_free_provider_list ()
-	
-	-- void        gda_config_free_provider_list   (GList *list);
-
-	-- Frees a list of GdaProviderInfo structures.
-
-	-- list : 	the list to be freed.
-
 	provider (a_name: STRING): GDA_PROVIDER_INFO is
 			-- the GdaProviderInfo structure from the provider list given
 			-- its name, don't modify or free it. Void if provider `a_name' is not found.
@@ -1221,185 +1193,5 @@ feature {} -- V3
 	--   gda_config_add_listener, given its ID.
 	--
 	--   id : the ID of the listener to remove.
-
-feature {} -- Gda config external calls
-
-	-- void (*GdaConfigListenerFunc) (const gchar *path, gpointer
-	-- user_data);
-
-	gda_config_get_string (a_path: POINTER): POINTER is
-			-- gchar* gda_config_get_string (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_int (a_path: POINTER): INTEGER is
-			-- gint gda_config_get_int (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_float (a_path: POINTER): REAL is
-			-- gdouble gda_config_get_float (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_boolean (a_path: POINTER): INTEGER is
-			-- gboolean gda_config_get_boolean (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_set_string (a_path, a_new_value: POINTER): INTEGER is
-			-- gboolean gda_config_set_string (const gchar *path, const gchar *new_value);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_set_int (a_path: POINTER; a_new_value: INTEGER): INTEGER is
-					-- gboolean gda_config_set_int (const gchar *path, gint new_value);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_set_float (a_path: POINTER; a_new_value: REAL): INTEGER is
-			-- gboolean gda_config_set_float (const gchar *path, gdouble new_value);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_set_boolean (a_path: POINTER; a_new_value: INTEGER): INTEGER is
-					-- gboolean gda_config_set_boolean (const gchar *path, gboolean new_value);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_remove_section (a_path: POINTER) is
-			-- void gda_config_remove_section (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_remove_key (a_path: POINTER) is
-			-- void gda_config_remove_key (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_has_section (a_path: POINTER): INTEGER is
-			-- gboolean gda_config_has_section (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_has_key (a_path: POINTER): INTEGER is
-			-- gboolean gda_config_has_key (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_list_sections (a_path: POINTER): POINTER is
-					-- GList* gda_config_list_sections (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_list_keys (a_path: POINTER): POINTER is
-			-- GList* gda_config_list_keys (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_free_list (a_list: POINTER) is
-			-- void gda_config_free_list (GList *list);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_provider_list: POINTER is
-			-- GList* gda_config_get_provider_list (void);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_free_provider_list (a_list: POINTER) is
-			-- void gda_config_free_provider_list (GList *list);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_provider_by_name (a_name: POINTER): POINTER is
-			-- GdaProviderInfo* gda_config_get_provider_by_name (const gchar *name);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_get_provider_model: POINTER is
-			-- GdaDataModel* gda_config_get_provider_model (void);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_provider_info_copy (a_source: POINTER): POINTER is
-			-- GdaProviderInfo* gda_provider_info_copy (GdaProviderInfo *src);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_provider_info_free (a_provider_info: POINTER) is
-			-- void gda_provider_info_free (GdaProviderInfo *provider_info);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_get_data_source_list: POINTER is
-			-- GList* gda_config_get_data_source_list (void);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_find_data_source (a_name: POINTER): POINTER is
-			-- GdaDataSourceInfo* gda_config_find_data_source (const gchar *name);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_data_source_info_copy (a_source: POINTER): POINTER is
-			-- GdaDataSourceInfo* gda_data_source_info_copy (GdaDataSourceInfo *src);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_data_source_info_equal (info_1, info_2: POINTER): INTEGER is
-			-- gboolean gda_data_source_info_equal (GdaDataSourceInfo *info1, GdaDataSourceInfo *info2);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_data_source_info_free (an_info: POINTER) is
-			-- void gda_data_source_info_free (GdaDataSourceInfo *info);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_free_data_source_list (a_list: POINTER) is
-			-- void gda_config_free_data_source_list (GList *list);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_get_data_source_model: POINTER is
-			-- GdaDataModel* gda_config_get_data_source_model (void);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_can_modify_global_config: INTEGER is
-			-- gboolean gda_config_can_modify_global_config (void);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_save_data_source (a_name, a_provider, a_cnc_string, a_description, a_username, a_password: POINTER; is_global_bool: INTEGER): INTEGER is
-			-- gboolean gda_config_save_data_source (const gchar *name,
-			-- const gchar *provider, const gchar *cnc_string, const
-			-- gchar *description, const gchar *username, const gchar
-			-- *password, gboolean is_global);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_save_data_source_info (a_dsn_info: INTEGER): INTEGER is
-					-- gboolean gda_config_save_data_source_info (GdaDataSourceInfo *dsn_info);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_remove_data_source (a_name: POINTER) is
-					-- void gda_config_remove_data_source (const gchar *name);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_add_listener (a_path, a_gdaconfiglistenerfunc, some_data: POINTER): INTEGER is
-			-- guint gda_config_add_listener (const gchar *path,
-			-- GdaConfigListenerFunc func, gpointer user_data);
-			-- Result should be NATURAL
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_remove_listener (a_guint_id: INTEGER) is
-			-- void gda_config_remove_listener (guint id);
-		external "C use <libgda/libgda.h>"
-		end
 
 end 

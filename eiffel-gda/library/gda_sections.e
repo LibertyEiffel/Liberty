@@ -1,5 +1,5 @@
 indexing
-	description: "A list of GDA_PROVIDER_INFO."
+	description: "A list of GDA config sections."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -19,31 +19,30 @@ indexing
 					02110-1301 USA
 			]"
 
-class GDA_PROVIDERS
+class GDA_SECTIONS
 
-inherit G_LIST [GDA_PROVIDER_INFO] redefine from_external_pointer, free end 
+inherit G_LIST_STRING redefine from_external_pointer, free end
 
-insert GDA_CONFIG_EXTERNALS 
+insert GDA_CONFIG_EXTERNALS
 
 creation from_external_pointer
 
 feature 	
-	-- Note: This specific implementation is needed because providers
-	-- list returned by gda with gda_config_get_provider_list needs to
-	-- be specially handled when you free them.
-	
 	from_external_pointer (a_pointer: POINTER) is
 		do
-			create {DUMMY_CACHING_FACTORY[GDA_PROVIDER_INFO]} factory
-			handle := a_pointer
-			set_shared
+			Precursor(a_pointer)
+			set_unshared
 			petrify
 		end
 
 	free (ptr: POINTER) is
 		do
+			-- Note: This specific implementation is needed because
+			-- providers list returned by gda with
+			-- gda_config_get_provider_list needs to be specially handled
+			-- when you free them.
 			gda_config_free_provider_list(ptr)
 		end
 
 invariant is_petrified
-end -- class GDA_PROVIDERS
+end -- class GDA_SECTIONS

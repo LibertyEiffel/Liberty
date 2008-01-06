@@ -228,7 +228,7 @@ feature
 
 		end
 
-	copy (other: G_LIST_STRING) is
+	copy (other: like Current) is
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO

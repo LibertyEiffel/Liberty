@@ -21,7 +21,7 @@ indexing
 
 class GDA_DATA_SOURCE_INFO
 
-inherit SHARED_C_STRUCT
+inherit SHARED_C_STRUCT redefine copy, is_equal, free end
 
 insert SHARED_G_ERROR
 
@@ -70,7 +70,7 @@ feature {} -- External calls
 		alias "gda_data_source_info_free"
 		end
 
-	gda_config_save_data_source_info (an_info: POINTER) is
+	gda_config_save_data_source_info (an_info: POINTER): INTEGER is
 			-- gboolean gda_config_save_data_source_info
 			-- (GdaDataSourceInfo *dsn_info);
 		external "C use <libgda/libgda.h>"

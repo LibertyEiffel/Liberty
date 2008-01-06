@@ -22,11 +22,10 @@ indexing
 class FULL_EXAMPLE
 
 insert 
+	GDA
 	ARGUMENTS
 	GDA_CONNECTION_OPTIONS_ENUM
 	SHARED_G_ERROR
-	SHARED_GDA_CONFIG
-	SHARED_LIBGDA
 	
 creation make
 
@@ -40,30 +39,31 @@ feature
 				io.put_line("Warning: There were a little bug in version 1.9.x; gda_config_save_data_source() does not create the configuration directory ~/.libgda, so you have to do it. Check if it is still present.")
 			end
 
-			libgda.init ("Full eiffel-gda test", "0.1", command_arguments)
+			gda.init ("Full eiffel-gda test", "0.1", command_arguments)
 			
-			gda_config.save_data_source(database_name, provider, connection_string,
-												 description, username, password);
+			gda.save_data_source(database_name, provider, connection_string,
+										description, username, password);
 
 			list_providers
 			list_data_sources
 
- 			if has_connection then
- 				print("Using connection:%N")
+			if has_connection then
+				print("Using connection:%N")
 				print(connection.out)
 				print("%N")
- 			else 
- 				print ("Unable to connect to database `" + database_name + "'!%N")
- 				check error.is_not_null end
- 				if error.message /= Void then
- 					print ("Error message `") print(error.message) print ("'") 
- 				else print ("No error message available. ") end
+			else 
+				print ("Unable to connect to database `" + database_name + "'!%N")
+				check error.is_not_null end
+				if error.message /= Void then
+					print ("Error message `") print(error.message) print ("'") 
+				else print ("No error message available. ") 
+				end
 				
- 				if error.domain.is_valid then 
- 					print ("Error domain `") print(error.domain.to_string) print ("'%N")
- 				else print ("Error domain invalid%N")
- 				end
- 			end
+				if error.domain.is_valid then 
+					print ("Error domain `") print(error.domain.to_string) print ("'%N")
+				else print ("Error domain invalid%N")
+				end
+			end
 			print ("Ending%N")
 		end
 
@@ -73,7 +73,7 @@ feature
 		do
 			print ("Providers:%N")
 			from
-				info_iterator := gda_config.providers.get_new_iterator
+				info_iterator := gda.providers.get_new_iterator
 				info_iterator.start
 			until
 				info_iterator.is_off
