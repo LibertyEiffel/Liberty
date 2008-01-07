@@ -97,11 +97,18 @@ feature
 		require
 			dsn_not_void: a_dsn /= Void
 			-- valid_options: are_valid_connection_options (some_options)
+		local ptr: POINTER
 		do
-			Result:=wrapper_or_void(gda_client_open_connection
-											(handle, a_dsn.to_external,
-											 null_or_string(a_username), null_or_string(a_password),
-											 some_options, address_of(error.handle)))
+			ptr := (gda_client_open_connection
+					  (handle, a_dsn.to_external,
+						null_or_string(a_username), null_or_string(a_password),
+						some_options, address_of(error.handle)))
+			if ptr.is_not_null then
+				Result:=existant_wrapper(ptr)
+				if Result=Void then
+					create Result.from_external_pointer(ptr)
+				end
+			end
 		end
 	
 	open_connection_from_string (a_provider_id, a_connection_string, a_username, a_password: STRING; some_options: INTEGER): GDA_CONNECTION is
@@ -130,12 +137,19 @@ feature
 			provider_not_void: a_provider_id /= Void
 			connection_string_not_void: a_connection_string /= Void
 			-- valid_options: are_valid_connection_options (some_options)
+		local ptr: POINTER
 		do
-			Result:=wrapper_or_void(gda_client_open_connection_from_string
-											(handle, a_provider_id.to_external, 
-											 a_connection_string.to_external,
-											 null_or_string(a_username), null_or_string(a_password),
-											 some_options, address_of(error.handle)))
+			ptr := (gda_client_open_connection_from_string
+					  (handle, a_provider_id.to_external, 
+						a_connection_string.to_external,
+						null_or_string(a_username), null_or_string(a_password),
+						some_options, address_of(error.handle)))
+			if ptr.is_not_null then
+				Result:=existant_wrapper(ptr)
+				if Result=Void then
+					create Result.from_external_pointer(ptr)
+				end
+			end
 		end
 
 	connections: G_LIST [GDA_CONNECTION] is
@@ -162,10 +176,17 @@ feature
 			dsn_not_void: a_data_source_name /= Void
 			username_not_void: a_username /= Void
 			password_not_void: a_password /= Void
+		local ptr: POINTER 
 		do
-			Result:=wrapper_or_void(gda_client_find_connection
-											(handle, a_data_source_name.to_external,
-											 a_username.to_external, a_password.to_external))
+			ptr := (gda_client_find_connection
+						(handle, a_data_source_name.to_external,
+						 a_username.to_external, a_password.to_external))
+			if ptr.is_not_null then
+				Result:=existant_wrapper(ptr)
+				if Result=Void then
+					create Result.from_external_pointer(ptr)
+				end
+			end
 		end
 
 	close_all_connections is

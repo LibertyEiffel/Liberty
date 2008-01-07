@@ -67,13 +67,6 @@ feature -- Properties
 			create Result.from_external (get_description(handle))
 		ensure not_void: Result /= Void
 		end
-feature {} -- TODO: Setters:
-	-- TODO: add a modifyiable boolean flag
-	-- ramack: where should this flag come from (get its initial value 
-	-- from)?
-	-- I (ramack) have the feeling, that ProviderInfo should never be 
-	-- changed from the eiffel side, but didn't find understandable 
-	-- docs for this...
 	
 feature
 	copy (another: like Current) is
@@ -98,7 +91,7 @@ feature {ANY} -- Printing
 			-- redefined. SmartEiffel documentation says to redefine
 			-- fill_tagged_out_memory
 
-			tagged_out_memory.append(" id = ")
+			tagged_out_memory.append(once " id = ")
 			if id /= Void then
 				tagged_out_memory.extend('"')
 				tagged_out_memory.append(id)
@@ -106,7 +99,7 @@ feature {ANY} -- Printing
 			else
 				tagged_out_memory.append(once "Void")
 			end
-			tagged_out_memory.append("%N location = ")
+			tagged_out_memory.append(once "%N location = ")
 			if location /= Void then
 				tagged_out_memory.extend('"')
 				tagged_out_memory.append(location)

@@ -38,14 +38,11 @@ inherit
 
 insert 
 	SHARED_G_ERROR
-		undefine
-			fill_tagged_out_memory
-		end
-	
 	GDA_CONNECTION_EXTERNALS
 		undefine
 			fill_tagged_out_memory
 		end
+	GDA_CONVENIENT_FUNCTIONS_EXTERNALS
 
 	GDA_CONNECTION_FEATURE_ENUM
 	GDA_CONNECTION_OPTIONS_ENUM
@@ -169,16 +166,6 @@ feature
 		ensure not_void: Result /= Void
 		end
 
-	--   gda_connection_get_server_version ()
-
-	--  const gchar* gda_connection_get_server_version
-	--                                              (GdaConnection *cnc);
-
-	--    Gets the version string of the underlying database server.
-
-	--    cnc :     a GdaConnection object.
-	--    Returns : the server version string.
-
 	database: STRING is
 			-- the name of the currently active database
 		do
@@ -270,8 +257,6 @@ feature
 			create {CONST_STRING} Result.from_external (gda_connection_get_password(handle))
 		ensure not_void: Result /= Void
 		end
-
-
 
 feature -- Events handling
 	add_event (an_error: GDA_CONNECTION_EVENT) is
@@ -430,6 +415,226 @@ feature
 			end
 		end
 
+feature -- Commodity features  - Do quickly some actions
+	--Description
+	--
+	--Details
+	--
+	--  gda_open_connection ()
+	--
+	-- GdaConnection*      gda_open_connection                 (const gchar *dsn,
+	--                                                          const gchar *username,
+	--                                                          const gchar *password,
+	--                                                          GdaConnectionOptions options,
+	--                                                          GError **error);
+	--
+	--   Convenient function to open a connection to a Data Source, see also
+	--   gda_client_open_connection().
+	--
+	--   dsn :      a data source name
+	--   username :
+	--   password :
+	--   options :
+	--   error :    a place to store errors, or NULL
+	--   Returns :  a GdaConnection object if the connection was sucessfully
+	--              opened, NULL otherwise
+	--
+
+	execute_select_command (an_sql: STRING): GDA_DATA_MODEL is
+			-- Execute `an_sql' SELECT command. Result can be Void. `error' is updated.
+		require 
+			an_sql /= Void
+			-- TODO: a query statament must begin with "SELECT".
+		local ptr: POINTER; a_factory: G_OBJECT_EXPANDED_FACTORY[GDA_DATA_MODEL]
+		do
+			ptr:=gda_execute_select_command(handle,an_sql.to_external, address_of(error.handle))
+			if ptr.is_not_null then Result:=a_factory.wrapper(ptr) end
+		end
+
+	row_affected_by_sql_command (an_sql: STRING): INTEGER is
+			-- the number of rows affected by the execution of `an_sql'
+			-- command. `error' is updated. -1 in case of error.
+		require 
+			an_sql /= Void
+			-- TODO: a query statament must begin with "SELECT".
+		do
+			Result:=gda_execute_sql_command(handle,an_sql.to_external,address_of(error.handle))
+		end
+
+	--  gda_create_table ()
+	--
+	-- gboolean            gda_create_table                    (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error,
+	--                                                          ...);
+	--
+	--   Create a Table over an opened connection using a pair list of colum name
+	--   and GType as arguments, you need to finish the list using NULL.
+	--
+	--   This is just a convenient function to create tables quickly, using
+	--   defaults for the provider and converting the GType passed to the
+	--   corresponding type in the provider; to use a custom type or more advanced
+	--   characteristics in a specific provider use the GdaServerOperation
+	--   framework.
+	--
+	--   cnn :        an opened connection
+	--   table_name : num_columns
+	--   error :      a place to store errors, or NULL
+	--   ... :        pairs of column name and GType, finish with NULL
+	--   Returns :    TRUE if the table was created; FALSE and set error otherwise
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_drop_table ()
+	--
+	-- gboolean            gda_drop_table                      (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error);
+	--
+	--   This is just a convenient function to drop a table in an opened
+	--   connection.
+	--
+	--   cnn :        an opened connection
+	--   table_name :
+	--   error :      a place to store errors, or NULL
+	--   Returns :    TRUE if the table was dropped
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_insert_row_into_table ()
+	--
+	-- gboolean            gda_insert_row_into_table           (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error,
+	--                                                          ...);
+	--
+	--   This is just a convenient function to insert a row with the values given
+	--   as argument. The values must correspond with the GType of the column to
+	--   set, otherwise throw to an error. Finish the list with NULL.
+	--
+	--   The arguments must be pairs of column name followed by his value.
+	--
+	--   cnn :        an opened connection
+	--   table_name :
+	--   error :      a place to store errors, or NULL
+	--   ... :        a list of string/GValue pairs where the string is the name of
+	--                the column followed by its GValue to set in the insert
+	--                operation, finished by NULL
+	--   Returns :    TRUE if no error occurred, and FALSE and set error otherwise
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_insert_row_into_table_from_string ()
+	--
+	-- gboolean            gda_insert_row_into_table_from_string
+	--                                                         (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          GError **error,
+	--                                                          ...);
+	--
+	--   This is just a convenient function to insert a row with the values given
+	--   as arguments. The values must be strings that could be converted to the
+	--   type in the corresponding column. Finish the list with NULL.
+	--
+	--   The arguments must be pairs of column name followed by his value.
+	--
+	--   The SQL command is like: INSERT INTO table_name (column1, column2, ...)
+	--   VALUES (value1, value2, ...)
+	--
+	--   cnn :        an opened connection
+	--   table_name :
+	--   error :      a place to store errors, or NULL
+	--   ... :        a list of strings to be converted as value, finished by NULL
+	--   Returns :    TRUE if no error occurred, and FALSE and set error otherwise
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_update_value_in_table ()
+	--
+	-- gboolean            gda_update_value_in_table           (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          const gchar *search_for_column,
+	--                                                          const GValue *condition,
+	--                                                          const gchar *column_name,
+	--                                                          const GValue *new_value,
+	--                                                          GError **error);
+	--
+	--   This is just a convenient function to update values in a table on a given
+	--   column where the row is fitting the given condition.
+	--
+	--   The SQL command is like: UPDATE INTO table_name SET column_name =
+	--   new_value WHERE search_for_column = condition
+	--
+	--   cnn :               an opened connection
+	--   table_name :
+	--   search_for_column : the name of the column to used in the WHERE condition
+	--                       clause
+	--   condition :         a GValue to used to find the value to be updated; it
+	--                       must correspond with the GType of the column used to
+	--                       search
+	--   column_name :       the column containing the value to be updated
+	--   new_value :         the new value to update to; the GValue must correspond
+	--                       with the GType of the column to update
+	--   error :             a place to store errors, or NULL
+	--   Returns :           TRUE if no error occurred
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_update_values_in_table ()
+	--
+	-- gboolean            gda_update_values_in_table          (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          const gchar *condition_column_name,
+	--                                                          const GValue *condition,
+	--                                                          GError **error,
+	--                                                          ...);
+	--
+	--   This is just a convenient function to update values in a table on a given
+	--   column where the row is fitting the given condition.
+	--
+	--   The SQL command is like: UPDATE INTO table_name SET column1 = new_value1,
+	--   column2 = new_value2 ... WHERE condition_column_name = condition
+	--
+	--   cnn :                   an opened connection
+	--   table_name :            the name of the table where the update will be
+	--                           done
+	--   condition_column_name : the name of the column to used in the WHERE
+	--                           condition clause
+	--   condition :             a GValue to used to find the values to be updated;
+	--                           it must correspond with the column's GType
+	--   error :                 a place to store errors, or NULL
+	--   ... :                   a list of string/GValue pairs where the string is
+	--                           the name of the column to be updated followed by
+	--                           the new GValue to set, finished by NULL
+	--   Returns :               TRUE if no error occurred
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_delete_row_from_table ()
+	--
+	-- gboolean            gda_delete_row_from_table           (GdaConnection *cnn,
+	--                                                          const gchar *table_name,
+	--                                                          const gchar *condition_column_name,
+	--                                                          const GValue *condition,
+	--                                                          GError **error);
+	--
+	--   This is just a convenient function to delete the row fitting the given
+	--   condition from the given table.
+	--
+	--   condition must be a valid GValue and must correspond with the GType of the
+	--   column to use in the WHERE clause.
+	--
+	--   The SQL command is like: DELETE FROM table_name WHERE
+	--   contition_column_name = condition
+	--
+	--   cnn :                   an opened connection
+	--   table_name :
+	--   condition_column_name : the name of the column to used in the WHERE
+	--                           condition clause
+	--   condition :             a GValue to used to find the row to be deleted
+	--   error :                 a place to store errors, or NULL
+	--   Returns :               TRUE if no error occurred, and FALSE and set error
+	--                           otherwise
 
 feature {} -- TODO: Signals
 

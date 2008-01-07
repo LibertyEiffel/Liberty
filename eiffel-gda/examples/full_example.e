@@ -29,7 +29,8 @@ insert
 	
 creation make
 
-feature 
+feature -- Commands
+
 	default_buffer_size: INTEGER is 1024
 
 	make is
@@ -48,6 +49,10 @@ feature
 				print("Using connection:%N")
 				print(connection.out)
 				print("%N")
+				
+				execute_some_queries
+				process_accounts
+				play_with_parameters				
 			else 
 				print ("Unable to connect to database `" + database_name + "'!%N")
 				check error.is_not_null end
@@ -62,8 +67,8 @@ feature
 				end
 			end
 			print ("Ending%N")
+			gda.quit
 		end
-
 
 	list_providers is
 		local info_iterator: ITERATOR [GDA_PROVIDER_INFO]
@@ -98,6 +103,57 @@ feature
 			end
 		end
 
+	execute_some_queries is
+		do
+			
+	-- execute_some_queries (GdaConnection * connection)
+	-- {
+	--
+	--         execute_sql (connection, "DELETE FROM cliente");
+	--         execute_sql (connection,
+	--                                "INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
+	--                                "VALUES ('1', '1234', 'Xabier',"
+	--                                "'Rua Unha calquera', '123')"
+	--                                "; INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
+	--                                "VALUES ('2', '2345', 'Rodriguez',"
+	--                                "'Rua Outra calquera', '234')");
+	--         execute_sql (connection,
+	--                                "INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
+	--                                "VALUES ('1', '1234', 'Xabier',"
+	--                                "'Rua Unha calquera', '123')"
+	--                                "; INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
+	--                                "VALUES ('2', '2345', 'Rodriguez',"
+	--                                "'Rua Outra calquera', '234')");
+	--
+	--         execute_sql_command (connection, "SELECT * FROM cliente");
+	--
+	--
+	--         execute_sql (connection,
+	--                                "DELETE FROM accounts;"
+	--                                "INSERT INTO accounts"
+	--                                "(client_code, account_code, balance)"
+	--                                "VALUES (123, 456, 1000);"
+	--                                "INSERT INTO accounts"
+	--                                "(client_code, account_code, balance)"
+	--                                "VALUES (789, 012, 5000);");
+	--
+	--         execute_sql_command (connection, "SELECT * FROM accounts");
+	-- }
+	--
+
+		end
+	
+	process_accounts is
+		do
+			not_yet_implemented
+		end
+
+	play_with_parameters	is
+		do
+			not_yet_implemented
+		end
+
+feature -- Queries
 	client: GDA_CLIENT is
 		once 
 			create Result.make
@@ -153,7 +209,7 @@ feature
 feature -- Constants
 	database_name: STRING is "eiffel-gda-example"
 	provider: STRING is "SQLite"
-	connection_string: STRING is "DB_NAME=example,DB_DIR=."
+	connection_string: STRING is "DB_NAME=example;DB_DIR=."
 	description: STRING is "Example database for eiffel-gda"
 	username: STRING is once Result := Void end
 	password: STRING is once Result := Void end
@@ -313,103 +369,7 @@ feature {} -- original C example
 	--
 	--
 	--
-	-- void
-	-- execute_sql (GdaConnection * connection, const gchar * buffer)
-	-- {
-	--         GdaCommand *command;
-	--         gint number;
-	--
-	--         command = gda_command_new (buffer, GDA_COMMAND_TYPE_SQL,
-	--                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
-	--         gda_connection_execute_select_command (connection, command, NULL);
-	--
-	--         gda_command_free (command);
-	-- }
-	--
-	--
-	--
-	-- void
-	-- execute_some_queries (GdaConnection * connection)
-	-- {
-	--
-	--         execute_sql (connection, "DELETE FROM cliente");
-	--         execute_sql (connection,
-	--                                "INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
-	--                                "VALUES ('1', '1234', 'Xabier',"
-	--                                "'Rua Unha calquera', '123')"
-	--                                "; INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
-	--                                "VALUES ('2', '2345', 'Rodriguez',"
-	--                                "'Rua Outra calquera', '234')");
-	--         execute_sql (connection,
-	--                                "INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
-	--                                "VALUES ('1', '1234', 'Xabier',"
-	--                                "'Rua Unha calquera', '123')"
-	--                                "; INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
-	--                                "VALUES ('2', '2345', 'Rodriguez',"
-	--                                "'Rua Outra calquera', '234')");
-	--
-	--         execute_sql_command (connection, "SELECT * FROM cliente");
-	--
-	--
-	--         execute_sql (connection,
-	--                                "DELETE FROM accounts;"
-	--                                "INSERT INTO accounts"
-	--                                "(client_code, account_code, balance)"
-	--                                "VALUES (123, 456, 1000);"
-	--                                "INSERT INTO accounts"
-	--                                "(client_code, account_code, balance)"
-	--                                "VALUES (789, 012, 5000);");
-	--
-	--         execute_sql_command (connection, "SELECT * FROM accounts");
-	-- }
-	--
-	--
-	--
-	-- void
-	-- list_datasources (void)
-	-- {
-	--         GList *ds_list;
-	--         GList *node;
-	--         GdaDataSourceInfo *info;
-	--
-	--         ds_list = gda_config_get_data_source_list ();
-	--
-	--         g_print ("\n");
-	--         for (node = g_list_first (ds_list); node != NULL; node = g_list_next (node)) {
-	--                 info = (GdaDataSourceInfo *) node->data;
-	--
-	--                 g_print
-	--                         ("NAME: %s PROVIDER: %s CNC: %s DESC: %s USER: %s PASSWORD: %s\n",
-	--                          info->name, info->provider, info->cnc_string, info->description,
-	--                          info->username, info->password);
-	--
-	--         }
-	--         g_print ("\n");
-	--
-	--         gda_config_free_data_source_list (ds_list);
-	--
-	-- }
-	--
-	--
-	--
-	-- void
-	-- list_providers (void)
-	-- {
-	--         GList *prov_list;
-	--         GList *node;
-	--         GdaProviderInfo *info;
-	--
-	--         prov_list = gda_config_get_provider_list ();
-	--
-	--         for (node = g_list_first (prov_list); node != NULL;
-	--              node = g_list_next (node)) {
-	--                 info = (GdaProviderInfo *) node->data;
-	--
-	--                 g_print ("ID: %s\n", info->id);
-	--         }
-	-- }
-	--
-	--
+
 	-- void
 	-- play_with_parameters ()
 	-- {
@@ -436,7 +396,6 @@ feature {} -- original C example
 	--
 	--
 	--
-	-- void
 	-- do_stuff ()
 	-- {
 	--         GdaClient *client;

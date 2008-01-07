@@ -21,11 +21,11 @@ indexing
 
 class GDA_DATA_SOURCE_INFO
 
-inherit SHARED_C_STRUCT redefine copy, is_equal, free end
+inherit SHARED_C_STRUCT redefine copy, is_equal, fill_tagged_out_memory, free end
 
 insert SHARED_G_ERROR
 
-creation copy, from_external_pointer
+creation copy, dummy, from_external_pointer
 
 feature
 	copy (another: like Current) is
@@ -49,6 +49,96 @@ feature
 			-- `is_successful' is True if no error occurred
 		do
 			is_successful:=gda_config_save_data_source_info(handle).to_boolean
+		end
+
+feature -- Queries
+	name: CONST_STRING is
+			local ptr: POINTER
+			do
+				ptr := get_name(handle)
+				if ptr.is_not_null then create Result.from_external(ptr) end
+			end
+
+	provider: CONST_STRING is
+			local ptr: POINTER
+			do
+				ptr := get_provider(handle)
+				if ptr.is_not_null then create Result.from_external(ptr) end
+			end
+
+	cnc_string: CONST_STRING is
+			local ptr: POINTER
+			do
+				ptr := get_cnc_string(handle)
+				if ptr.is_not_null then create Result.from_external(ptr) end
+			end
+
+	description: CONST_STRING is
+			local ptr: POINTER
+			do
+				ptr := get_description(handle)
+				if ptr.is_not_null then create Result.from_external(ptr) end
+			end
+
+	username: CONST_STRING is
+			local ptr: POINTER
+			do
+				ptr := get_username(handle)
+				if ptr.is_not_null then create Result.from_external(ptr) end
+			end
+
+	password: CONST_STRING is
+			local ptr: POINTER
+			do
+				ptr := get_password(handle)
+				if ptr.is_not_null then create Result.from_external(ptr) end
+			end
+			
+	is_global: BOOLEAN is
+		do
+			Result:=get_is_global(handle).to_boolean
+		end
+
+	fill_tagged_out_memory is
+		local a_name, a_provider, a_cnc_string, a_description, a_username, a_password: STRING
+		do
+			a_name := name
+			if a_name /= Void then
+				tagged_out_memory.append(once "name: `")
+				tagged_out_memory.append(a_name)
+				tagged_out_memory.append(once "',%N")
+			end
+			a_provider := provider
+			if a_provider /= Void then
+				tagged_out_memory.append(once "provider: `")
+				tagged_out_memory.append(a_provider)
+				tagged_out_memory.append(once "',%N")
+			end
+			a_cnc_string := cnc_string
+			if a_cnc_string /= Void then
+				tagged_out_memory.append(once "cnc_string: `")
+				tagged_out_memory.append(a_cnc_string)
+				tagged_out_memory.append(once "',%N")
+			end
+			a_description := description
+			if a_description /= Void then
+				tagged_out_memory.append(once "description: `")
+				tagged_out_memory.append(a_description)
+				tagged_out_memory.append(once "',%N")
+			end
+			a_username := username
+			if a_username /= Void then
+				tagged_out_memory.append(once "username: `")
+				tagged_out_memory.append(a_username)
+				tagged_out_memory.append(once "',%N")
+			end
+			a_password := password
+			if a_password /= Void then
+				tagged_out_memory.append(once "password: `")
+				tagged_out_memory.append(a_password)
+				tagged_out_memory.append(once "',%N")
+			end
+			tagged_out_memory.append(once "is_global: "); is_global.append_in(tagged_out_memory)
 		end
 
 feature {} -- External calls
@@ -83,8 +173,6 @@ feature -- size
 		end
 
 feature {} -- Structure access
-	--  GdaDataSourceInfo
-	--
 	-- typedef struct {
 	--         gchar    *name;
 	--         gchar    *provider;
@@ -94,5 +182,25 @@ feature {} -- Structure access
 	--         gchar    *password;
 	--         gboolean  is_global;
 	-- } GdaDataSourceInfo;
-
+	get_name (a_struct: POINTER): POINTER is
+		external "C struct GdaDataSourceInfo get name use <libgda/libgda.h>"
+		end
+	get_provider (a_struct: POINTER): POINTER is
+		external "C struct GdaDataSourceInfo get provider use <libgda/libgda.h>"
+		end
+	get_cnc_string (a_struct: POINTER): POINTER is
+		external "C struct GdaDataSourceInfo get cnc_string use <libgda/libgda.h>"
+		end
+	get_description (a_struct: POINTER): POINTER is
+		external "C struct GdaDataSourceInfo get description use <libgda/libgda.h>"
+		end
+	get_username (a_struct: POINTER): POINTER is
+		external "C struct GdaDataSourceInfo get username use <libgda/libgda.h>"
+		end
+	get_password (a_struct: POINTER): POINTER is
+		external "C struct GdaDataSourceInfo get password use <libgda/libgda.h>"
+		end
+	get_is_global (a_struct: POINTER): INTEGER is
+		external "C struct GdaDataSourceInfo get is_global use <libgda/libgda.h>"
+		end
 end -- class GDA_DATA_SOURCE_INFO
