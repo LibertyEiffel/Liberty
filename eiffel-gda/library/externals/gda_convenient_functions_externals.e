@@ -7,7 +7,7 @@ indexing
 
 deferred class GDA_CONVENIENT_FUNCTIONS_EXTERNALS
 
-inherit ANY undefine is_equal, copy end
+inherit ANY undefine is_equal, copy, fill_tagged_out_memory end
 
 feature {} -- Convenient functions extaernal calls
 	gda_open_connection (a_dsn, a_username, a_password: POINTER; some_options: INTEGER; a_error: POINTER): POINTER is

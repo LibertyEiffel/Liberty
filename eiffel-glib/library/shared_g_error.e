@@ -24,7 +24,7 @@ indexing
 			
 deferred class SHARED_G_ERROR
 
-inherit ANY undefine is_equal, copy end
+inherit ANY undefine is_equal, copy, fill_tagged_out_memory end
 
 insert POINTER_HANDLING
 	
