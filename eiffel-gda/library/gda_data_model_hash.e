@@ -37,7 +37,7 @@ inherit
 			columns_count
 		end
 
-creation from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (a_columns_n: INTEGER) is

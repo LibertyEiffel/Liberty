@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+					]"
 
 class FULL_EXAMPLE
 
@@ -106,52 +106,150 @@ feature -- Commands
 	execute_some_queries is
 		do
 			
-	-- execute_some_queries (GdaConnection * connection)
-	-- {
-	--
-	--         execute_sql (connection, "DELETE FROM cliente");
-	--         execute_sql (connection,
-	--                                "INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
-	--                                "VALUES ('1', '1234', 'Xabier',"
-	--                                "'Rua Unha calquera', '123')"
-	--                                "; INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
-	--                                "VALUES ('2', '2345', 'Rodriguez',"
-	--                                "'Rua Outra calquera', '234')");
-	--         execute_sql (connection,
-	--                                "INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
-	--                                "VALUES ('1', '1234', 'Xabier',"
-	--                                "'Rua Unha calquera', '123')"
-	--                                "; INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
-	--                                "VALUES ('2', '2345', 'Rodriguez',"
-	--                                "'Rua Outra calquera', '234')");
-	--
-	--         execute_sql_command (connection, "SELECT * FROM cliente");
-	--
-	--
-	--         execute_sql (connection,
-	--                                "DELETE FROM accounts;"
-	--                                "INSERT INTO accounts"
-	--                                "(client_code, account_code, balance)"
-	--                                "VALUES (123, 456, 1000);"
-	--                                "INSERT INTO accounts"
-	--                                "(client_code, account_code, balance)"
-	--                                "VALUES (789, 012, 5000);");
-	--
-	--         execute_sql_command (connection, "SELECT * FROM accounts");
-	-- }
-	--
+			-- execute_some_queries (GdaConnection * connection)
+			-- {
+			--
+			--         execute_sql (connection, "DELETE FROM cliente");
+			--         execute_sql (connection,
+			--                                "INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
+			--                                "VALUES ('1', '1234', 'Xabier',"
+			--                                "'Rua Unha calquera', '123')"
+			--                                "; INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
+			--                                "VALUES ('2', '2345', 'Rodriguez',"
+			--                                "'Rua Outra calquera', '234')");
+			--         execute_sql (connection,
+			--                                "INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
+			--                                "VALUES ('1', '1234', 'Xabier',"
+			--                                "'Rua Unha calquera', '123')"
+			--                                "; INSERT INTO cliente(cd_cli, dni, nombr, direc, telef) "
+			--                                "VALUES ('2', '2345', 'Rodriguez',"
+			--                                "'Rua Outra calquera', '234')");
+			--
+			--         execute_sql_command (connection, "SELECT * FROM cliente");
+			--
+			--
+			--         execute_sql (connection,
+			--                                "DELETE FROM accounts;"
+			--                                "INSERT INTO accounts"
+			--                                "(client_code, account_code, balance)"
+			--                                "VALUES (123, 456, 1000);"
+			--                                "INSERT INTO accounts"
+			--                                "(client_code, account_code, balance)"
+			--                                "VALUES (789, 012, 5000);");
+			--
+			--         execute_sql_command (connection, "SELECT * FROM accounts");
+			-- }
+			--
 
 		end
 	
 	process_accounts is
 		do
 			not_yet_implemented
+			-- void
+			-- process_accounts (GdaConnection * connection)
+			-- {
+			--         GdaTransaction *transaction_one, *transaction_two;
+			--         GdaCommand *command;
+			--
+			--         transaction_one = gda_transaction_new ("accounts1");
+			--         gda_transaction_set_isolation_level (transaction_one,
+			--                                              GDA_TRANSACTION_ISOLATION_SERIALIZABLE);
+			--         gda_connection_begin_transaction (connection, transaction_one);
+			--
+			--         command = gda_command_new ("UPDATE accounts SET balance=balance+50"
+			--                                    "WHERE account_code=456",
+			--                                    GDA_COMMAND_TYPE_SQL,
+			--                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
+			--         gda_command_set_transaction (command, transaction_one);
+			--         gda_connection_execute_select_command (connection, command, NULL);
+			--         gda_command_free (command);
+			--
+			--         command = gda_command_new ("UPDATE accounts SET balance=balance-50"
+			--                                    "WHERE account_code=12",
+			--                                    GDA_COMMAND_TYPE_SQL,
+			--                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
+			--         gda_command_set_transaction (command, transaction_one);
+			--         gda_connection_execute_select_command (connection, command, NULL);
+			--         gda_command_free (command);
+			--
+			--         gda_connection_commit_transaction (connection, transaction_one);
+			--         g_object_unref (transaction_one);
+			--
+			--         transaction_two = gda_transaction_new ("accounts2");
+			--         gda_transaction_set_isolation_level (transaction_two,
+			--                                              GDA_TRANSACTION_ISOLATION_SERIALIZABLE);
+			--         gda_connection_begin_transaction (connection, transaction_two);
+			--
+			--         command = gda_command_new ("UPDATE accounts SET balance=balance+400"
+			--                                    "WHERE account_code=456",
+			--                                    GDA_COMMAND_TYPE_SQL,
+			--                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
+			--         gda_command_set_transaction (command, transaction_two);
+			--         gda_connection_execute_select_command (connection, command, NULL);
+			--         gda_command_free (command);
+			--
+			--         command = gda_command_new ("UPDATE accounts SET balance=balance-400"
+			--                                    "WHERE account_code=12",
+			--                                    GDA_COMMAND_TYPE_SQL,
+			--                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
+			--         gda_command_set_transaction (command, transaction_two);
+			--         gda_connection_execute_select_command (connection, command, NULL);
+			--         gda_command_free (command);
+			--
+			--         gda_connection_rollback_transaction (connection, transaction_two);
+			--         g_object_unref (transaction_two);
+			--
+			--         execute_sql_command (connection, "SELECT * FROM accounts");
+			-- }
 		end
 
 	play_with_parameters	is
 		do
 			not_yet_implemented
+			-- void
+			-- play_with_parameters ()
+			-- {
+			--         GdaParameterList *list;
+			--         GdaParameter *parameter;
+			--         GValue *value;
+			--
+			--         list = gda_parameter_list_new (NULL);
+			--
+			--         g_value_set_int (value = gda_value_new (G_TYPE_INT), 10);
+			--         parameter = gda_parameter_new_from_value ("p1", value);
+			--         gda_parameter_list_add_param (list, parameter);
+			--         gda_value_free (value);
+			--         g_object_unref (parameter);
+			--
+			--         g_value_set_int (value = gda_value_new (G_TYPE_INT), 2);
+			--         parameter = gda_parameter_new_from_value ("p2", value);
+			--         gda_parameter_list_add_param (list, parameter);
+			--         gda_value_free (value);
+			--         g_object_unref (parameter);
+			--
+			--         g_object_unref (list);
+			-- }
 		end
+	execute_sql (an_sql: STRING) is
+		do
+       -- void
+        -- execute_sql (GdaConnection * connection, const gchar * 
+        -- buffer)
+        -- {
+        --         GdaCommand *command;
+        --         gint number;
+        --
+        --         command = gda_command_new (buffer, 
+        --         GDA_COMMAND_TYPE_SQL,
+        --                                    
+        --                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
+        --         gda_connection_execute_select_command (connection, 
+        --         command, NULL);
+        --
+        --         gda_command_free (command);
+        -- }
+		end  
 
 feature -- Queries
 	client: GDA_CLIENT is
@@ -202,9 +300,9 @@ feature -- Queries
 								once "description: "+event.description+
 								once "source: "+event.source+
 								once "sqlstate: TODO")
-				event_iterator.next
+					event_iterator.next
+				end
 			end
-		end
 
 feature -- Constants
 	database_name: STRING is "eiffel-gda-example"
@@ -274,62 +372,6 @@ feature {} -- original C example
 	--
 	--
 	--
-	-- void
-	-- process_accounts (GdaConnection * connection)
-	-- {
-	--         GdaTransaction *transaction_one, *transaction_two;
-	--         GdaCommand *command;
-	--
-	--         transaction_one = gda_transaction_new ("accounts1");
-	--         gda_transaction_set_isolation_level (transaction_one,
-	--                                              GDA_TRANSACTION_ISOLATION_SERIALIZABLE);
-	--         gda_connection_begin_transaction (connection, transaction_one);
-	--
-	--         command = gda_command_new ("UPDATE accounts SET balance=balance+50"
-	--                                    "WHERE account_code=456",
-	--                                    GDA_COMMAND_TYPE_SQL,
-	--                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
-	--         gda_command_set_transaction (command, transaction_one);
-	--         gda_connection_execute_select_command (connection, command, NULL);
-	--         gda_command_free (command);
-	--
-	--         command = gda_command_new ("UPDATE accounts SET balance=balance-50"
-	--                                    "WHERE account_code=12",
-	--                                    GDA_COMMAND_TYPE_SQL,
-	--                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
-	--         gda_command_set_transaction (command, transaction_one);
-	--         gda_connection_execute_select_command (connection, command, NULL);
-	--         gda_command_free (command);
-	--
-	--         gda_connection_commit_transaction (connection, transaction_one);
-	--         g_object_unref (transaction_one);
-	--
-	--         transaction_two = gda_transaction_new ("accounts2");
-	--         gda_transaction_set_isolation_level (transaction_two,
-	--                                              GDA_TRANSACTION_ISOLATION_SERIALIZABLE);
-	--         gda_connection_begin_transaction (connection, transaction_two);
-	--
-	--         command = gda_command_new ("UPDATE accounts SET balance=balance+400"
-	--                                    "WHERE account_code=456",
-	--                                    GDA_COMMAND_TYPE_SQL,
-	--                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
-	--         gda_command_set_transaction (command, transaction_two);
-	--         gda_connection_execute_select_command (connection, command, NULL);
-	--         gda_command_free (command);
-	--
-	--         command = gda_command_new ("UPDATE accounts SET balance=balance-400"
-	--                                    "WHERE account_code=12",
-	--                                    GDA_COMMAND_TYPE_SQL,
-	--                                    GDA_COMMAND_OPTION_STOP_ON_ERRORS);
-	--         gda_command_set_transaction (command, transaction_two);
-	--         gda_connection_execute_select_command (connection, command, NULL);
-	--         gda_command_free (command);
-	--
-	--         gda_connection_rollback_transaction (connection, transaction_two);
-	--         g_object_unref (transaction_two);
-	--
-	--         execute_sql_command (connection, "SELECT * FROM accounts");
-	-- }
 	--
 	--
 	-- gint
@@ -370,29 +412,6 @@ feature {} -- original C example
 	--
 	--
 
-	-- void
-	-- play_with_parameters ()
-	-- {
-	--         GdaParameterList *list;
-	--         GdaParameter *parameter;
-	--         GValue *value;
-	--
-	--         list = gda_parameter_list_new (NULL);
-	--
-	--         g_value_set_int (value = gda_value_new (G_TYPE_INT), 10);
-	--         parameter = gda_parameter_new_from_value ("p1", value);
-	--         gda_parameter_list_add_param (list, parameter);
-	--         gda_value_free (value);
-	--         g_object_unref (parameter);
-	--
-	--         g_value_set_int (value = gda_value_new (G_TYPE_INT), 2);
-	--         parameter = gda_parameter_new_from_value ("p2", value);
-	--         gda_parameter_list_add_param (list, parameter);
-	--         gda_value_free (value);
-	--         g_object_unref (parameter);
-	--
-	--         g_object_unref (list);
-	-- }
 	--
 	--
 	--

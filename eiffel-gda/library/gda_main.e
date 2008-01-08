@@ -35,25 +35,37 @@ creation  {GDA} default_create
 
 feature {} -- creation
 	default_create is
+		local 
+			dummy_dict: GDA_DICT
+			dummy_dict_table: GDA_DICT_TABLE
+			dummy_dict_type: GDA_DICT_TYPE
+			dummy_query: GDA_QUERY
 		do
-			-- local 
-			--	dummy_gda_dict: GDA_DICT
-			--	dummy_gda_dict_table: GDA_DICT_TABLE
-			--	dummy_gda_dict_type: GDA_DICT_TYPE
-			-- do
 			-- Store archetypes
 			-- store_archetype(create {GDA_COLUMN}.dummy)
-			-- create dummy_gda_dict.dummy
-			-- store_archetype(dummy_gda_dict)
-			-- 			store_archetype(create {GDA_DICT_AGGREGATE}.from_dict(dummy_gda_dict))
-			-- 			store_archetype(create {GDA_DICT_DATABASE}.from_dict(dummy_gda_dict))
-			-- 			store_archetype(create {GDA_DICT_FUNCTION}.from_dict(dummy_gda_dict))
-			-- 			create dummy_gda_dict_table.from_dict(dummy_gda_dict)
-			-- 			store_archetype(dummy_gda_dict_table)
-			-- 			store_archetype(create {GDA_DICT_CONSTRAINT}.from_table(dummy_gda_dict_table,constraint_not_null))
-			-- 			create dummy_gda_dict_type.from_dict(dummy_gda_dict)
-			-- 			store_archetype(dummy_gda_dict_type)
-			-- 			store_archetype(create {GDA_DICT_FIELD}.from_dict(dummy_gda_dict,dummy_gda_dict_type))
+			
+			-- Store dictionaries archetypes
+			create dummy_dict.dummy 
+			store_archetype(dummy_dict)
+			store_archetype(create {GDA_DICT_AGGREGATE}.from_dict(dummy_dict))
+			store_archetype(create {GDA_DICT_DATABASE}.from_dict(dummy_dict))
+			store_archetype(create {GDA_DICT_FUNCTION}.from_dict(dummy_dict))
+			create dummy_dict_table.from_dict(dummy_dict)
+			store_archetype(dummy_dict_table)
+			store_archetype(create {GDA_DICT_CONSTRAINT}.from_table(dummy_dict_table,constraint_not_null))
+			create dummy_dict_type.from_dict(dummy_dict)
+			store_archetype(dummy_dict_type)
+			store_archetype(create {GDA_DICT_FIELD}.from_dict(dummy_dict,dummy_dict_type))
+			
+			-- Queries archetypes
+			create dummy_query.from_dictionary(dummy_dict)
+			
+			-- Data model archetypes
+			store_archetype(create {GDA_DATA_MODEL_ARRAY}.make(1))
+			store_archetype(create {GDA_DATA_MODEL_HASH}.make(1))
+			-- TODO store_archetype(create {GDA_DATA_MODEL_IMPORT}.)
+			store_archetype(create {GDA_DATA_MODEL_QUERY}.with_query(dummy_query))
+
 		end
 	
 feature 

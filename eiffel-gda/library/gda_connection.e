@@ -330,7 +330,7 @@ feature
 		require 
 			command_not_void: a_command /= Void
 			parameters_not_void: some_parameters /= Void
-		local model_ptr: POINTER
+		local model_ptr: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_DATA_MODEL]
 		do
 			-- Returns : a GdaDataModel containing the data returned by
 			-- the data source, NULL if no data was expected, or
@@ -339,18 +339,8 @@ feature
 							(handle, a_command.handle,
 							 some_parameters.handle, address_of (error.handle)))
 			if model_ptr.is_null then single_result:=Void
-			else
-				-- Note: implementation hints:
-
-				--inspect get_c_type
-				--when type_foo then
-				--	create {TYPE_FOO} single_result.from_external_pointer (model_ptr)
-				--when type_bar then
-				--	create {TYPE_BAR} single_result.from_external_pointer (model_ptr)
-				--......
-				--end
+			else single_result := factory.wrapper(model_ptr)
 			end
-		ensure implemented: False
 		end
 
 	results: G_LIST [GDA_DATA_MODEL]

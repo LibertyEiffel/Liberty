@@ -30,10 +30,10 @@ class GDA_DATA_MODEL_QUERY
 
 inherit GDA_DATA_MODEL
 
-creation make, from_external_pointer
+creation with_query, from_external_pointer
 
 feature {} -- Creation
-	make (a_query: GDA_QUERY) is
+	with_query (a_query: GDA_QUERY) is
 			-- Creates a new GdaDataModel object using the data returned
 			-- by the execution of `a_query'.
 		require 

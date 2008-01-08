@@ -39,10 +39,10 @@ insert
 	GDA_QUERY_TYPE
 	GDA_QUERY_FIELD_STATE	
 
-creation from_external_pointer
+creation from_dictionary, from_external_pointer
 
 feature {} -- Creation
-	make (a_dictionary: GDA_DICT) is
+	from_dictionary (a_dictionary: GDA_DICT) is
 			-- Creates a new GdaQuery object from a
 		require dictionary_not_void: a_dictionary/=Void
 		do

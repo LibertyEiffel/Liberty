@@ -111,7 +111,7 @@ feature {} -- Basic Types: standard GLib types, defined for ease-of-use and port
 		end
 
 	glong_size: INTEGER is
-		external "C use <glib.h>"
+		external "C inline use <glib.h>"
 		alias "sizeof(glong)"
 		end
 	

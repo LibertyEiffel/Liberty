@@ -28,7 +28,7 @@ inherit
 	GDA_DATA_MODEL
 	GDA_DATA_MODEL_ROW
 
-creation from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 
