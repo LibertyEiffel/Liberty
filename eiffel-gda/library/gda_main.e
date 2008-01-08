@@ -31,6 +31,8 @@ insert
 	GDA_DICT_CONSTRAINT_TYPE_ENUM redefine default_create end
 	GDA_CONFIG_EXTERNALS redefine default_create end
 	
+	ARGUMENTS
+	
 creation  {GDA} default_create
 
 feature {} -- creation
@@ -41,11 +43,14 @@ feature {} -- creation
 			dummy_dict_type: GDA_DICT_TYPE
 			dummy_query: GDA_QUERY
 		do
+			-- TODO: GDA_MAIN should insert a user provided class to
+			-- provide application name, version and arguments.
+			init ("Eiffel GDA Application", "0.1", command_arguments)
 			-- Store archetypes
 			-- store_archetype(create {GDA_COLUMN}.dummy)
 			
 			-- Store dictionaries archetypes
-			create dummy_dict.dummy 
+			create dummy_dict.from_external_pointer(gda_get_default_dict)
 			store_archetype(dummy_dict)
 			store_archetype(create {GDA_DICT_AGGREGATE}.from_dict(dummy_dict))
 			store_archetype(create {GDA_DICT_DATABASE}.from_dict(dummy_dict))
