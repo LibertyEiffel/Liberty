@@ -25,7 +25,7 @@ class GTK_TREE_MODEL_FOREACH_FUNCTION
 	-- gboolean (*GtkTreeModelForeachFunc) (GtkTreeModel *model,
 	-- GtkTreePath *path, GtkTreeIter *iter, gpointer data);
 	
-inherit WRAPPER_HANDLER -- It wraps a callback function
+inherit WRAPPER -- It wraps a callback function
 	
 insert
 	G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine copy, is_equal end

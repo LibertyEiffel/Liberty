@@ -204,13 +204,6 @@ feature -- Operation
 			gtk_widget_add_events (handle, some_events)
 		end
 
--- #define     GTK_WIDGET_TYPE                 (wid)
--- #define     GTK_WIDGET_STATE                (wid)
--- #define     GTK_WIDGET_SAVED_STATE          (wid)
--- #define     GTK_WIDGET_FLAGS                (wid)
--- #define     GTK_WIDGET_TOPLEVEL             (wid)
--- #define     GTK_WIDGET_NO_WINDOW            (wid)
-
 	is_realized: BOOLEAN is
 		do
 			Result := gtk_widget_realized (handle).to_boolean
@@ -230,45 +223,6 @@ feature -- Operation
 		do
 			Result := gtk_widget_drawable (handle).to_boolean
 		end
-
--- #define     GTK_WIDGET_SENSITIVE            (wid)
--- #define     GTK_WIDGET_PARENT_SENSITIVE     (wid)
--- #define     GTK_WIDGET_CAN_FOCUS            (wid)
--- #define     GTK_WIDGET_HAS_FOCUS            (wid)
--- #define     GTK_WIDGET_CAN_DEFAULT          (wid)
--- #define     GTK_WIDGET_RECEIVES_DEFAULT     (wid)
--- #define     GTK_WIDGET_HAS_DEFAULT          (wid)
--- #define     GTK_WIDGET_HAS_GRAB             (wid)
--- #define     GTK_WIDGET_RC_STYLE             (wid)
--- #define     GTK_WIDGET_COMPOSITE_CHILD      (wid)
--- #define     GTK_WIDGET_APP_PAINTABLE        (wid)
--- #define     GTK_WIDGET_DOUBLE_BUFFERED      (wid)
--- #define     GTK_WIDGET_SET_FLAGS            (wid,flag)
--- #define     GTK_WIDGET_UNSET_FLAGS          (wid,flag)
--- void        (*GtkCallback)                  (GtkWidget *widget,
---                                              gpointer data);
---             GtkRequisition;
--- struct      GtkAllocation;
---             GtkSelectionData;
---             GtkWidgetAuxInfo;
---             GtkWidgetShapeInfo;
--- enum        GtkWidgetHelpType;
--- GtkWidget*  gtk_widget_new                  (GType type,
---                                              const gchar *first_property_name,
---                                              ...);
--- GtkWidget*  gtk_widget_ref                  (GtkWidget *widget);
--- void        gtk_widget_unref                (GtkWidget *widget);
--- void        gtk_widget_destroy              (GtkWidget *widget);
--- void        gtk_widget_destroyed            (GtkWidget *widget,
---                                              GtkWidget **widget_pointer);
--- void        gtk_widget_set                  (GtkWidget *widget,
---                                              const gchar *first_property_name,
---                                              ...);
--- void        gtk_widget_unparent             (GtkWidget *widget);
--- void        gtk_widget_show_now             (GtkWidget *widget);
--- void        gtk_widget_hide_all             (GtkWidget *widget);
--- void        gtk_widget_map                  (GtkWidget *widget);
--- void        gtk_widget_unmap                (GtkWidget *widget);
 
 	realize is
 			-- Creates the GDK (windowing system) resources associated with a widget. For example,
@@ -299,12 +253,6 @@ feature -- Operation
 			gtk_widget_unrealize (handle)
 		end
 
--- void        gtk_widget_queue_resize         (GtkWidget *widget);
--- void        gtk_widget_queue_resize_no_redraw
---                                             (GtkWidget *widget);
--- void        gtk_widget_draw                 (GtkWidget *widget,
---                                              GdkRectangle *area);
-
 	actual_size_request: GTK_REQUISITION is
 		do
 			create Result.make
@@ -313,36 +261,6 @@ feature -- Operation
 			Result /= Void
 		end
 
--- void        gtk_widget_get_child_requisition
---                                             (GtkWidget *widget,
---                                              GtkRequisition *requisition);
--- void        gtk_widget_size_allocate        (GtkWidget *widget,
---                                              GtkAllocation *allocation);
--- void        gtk_widget_add_accelerator      (GtkWidget *widget,
---                                              const gchar *accel_signal,
---                                              GtkAccelGroup *accel_group,
---                                              guint accel_key,
---                                              GdkModifierType accel_mods,
---                                              GtkAccelFlags accel_flags);
--- gboolean    gtk_widget_remove_accelerator   (GtkWidget *widget,
---                                              GtkAccelGroup *accel_group,
---                                              guint accel_key,
---                                              GdkModifierType accel_mods);
--- void        gtk_widget_set_accel_path       (GtkWidget *widget,
---                                              const gchar *accel_path,
---                                              GtkAccelGroup *accel_group);
--- GList*      gtk_widget_list_accel_closures  (GtkWidget *widget);
--- gboolean    gtk_widget_can_activate_accel   (GtkWidget *widget,
---                                              guint signal_id);
--- gboolean    gtk_widget_event                (GtkWidget *widget,
---                                              GdkEvent *event);
--- gboolean    gtk_widget_activate             (GtkWidget *widget);
--- void        gtk_widget_reparent             (GtkWidget *widget,
---                                              GtkWidget *new_parent);
--- gboolean    gtk_widget_intersect            (GtkWidget *widget,
---                                              GdkRectangle *area,
---                                              GdkRectangle *intersection);
-	-- gboolean    gtk_widget_is_focus             (GtkWidget *widget);
 	
 	grab_focus is
 			-- Causes widget to have the keyboard focus for the GtkWindow
@@ -391,12 +309,6 @@ feature -- Operation
 			create Result.from_external_copy (gtk_widget_get_name (handle))
 		end
 
--- void        gtk_widget_set_state            (GtkWidget *widget,
---                                              GtkStateType state);
--- void        gtk_widget_set_parent           (GtkWidget *widget,
---                                              GtkWidget *parent);
--- void        gtk_widget_set_parent_window    (GtkWidget *widget,
---                                              GdkWindow *parent_window);
 
 	window: GDK_WINDOW is
 			-- Result can be void if window isn't realized yet
@@ -413,267 +325,7 @@ feature -- Operation
 			Result := factory.wrapper_or_void(gtk_widget_get_parent_window (handle))
 		end
 
--- void        gtk_widget_set_uposition        (GtkWidget *widget,
---                                              gint x,
---                                              gint y);
--- void        gtk_widget_set_usize            (GtkWidget *widget,
---                                              gint width,
---                                              gint height);
--- void        gtk_widget_set_events           (GtkWidget *widget,
---                                              gint events);
--- void        gtk_widget_add_events           (GtkWidget *widget,
---                                              gint events);
--- void        gtk_widget_set_extension_events (GtkWidget *widget,
---                                              GdkExtensionMode mode);
--- GdkExtensionMode gtk_widget_get_extension_events
---                                             (GtkWidget *widget);
--- GtkWidget*  gtk_widget_get_ancestor         (GtkWidget *widget,
---                                              GType widget_type);
--- GdkColormap* gtk_widget_get_colormap        (GtkWidget *widget);
--- void        gtk_widget_set_colormap         (GtkWidget *widget,
---                                              GdkColormap *colormap);
--- GdkVisual*  gtk_widget_get_visual           (GtkWidget *widget);
--- gint        gtk_widget_get_events           (GtkWidget *widget);
--- void        gtk_widget_get_pointer          (GtkWidget *widget,
---                                              gint *x,
---                                              gint *y);
--- gboolean    gtk_widget_is_ancestor          (GtkWidget *widget,
---                                              GtkWidget *ancestor);
--- gboolean    gtk_widget_translate_coordinates
---                                             (GtkWidget *src_widget,
---                                              GtkWidget *dest_widget,
---                                              gint src_x,
---                                              gint src_y,
---                                              gint *dest_x,
---                                              gint *dest_y);
--- gboolean    gtk_widget_hide_on_delete       (GtkWidget *widget);
--- #define     gtk_widget_set_rc_style         (widget)
--- void        gtk_widget_ensure_style         (GtkWidget *widget);
--- #define     gtk_widget_restore_default_style(widget)
--- void        gtk_widget_reset_rc_styles      (GtkWidget *widget);
--- void        gtk_widget_push_colormap        (GdkColormap *cmap);
--- void        gtk_widget_pop_colormap         (void);
--- void        gtk_widget_set_default_colormap (GdkColormap *colormap);
--- GtkStyle*   gtk_widget_get_default_style    (void);
--- GdkColormap* gtk_widget_get_default_colormap
---                                             (void);
--- GdkVisual*  gtk_widget_get_default_visual   (void);
--- void        gtk_widget_set_direction        (GtkWidget *widget,
---                                              GtkTextDirection dir);
--- enum        GtkTextDirection;
--- GtkTextDirection gtk_widget_get_direction   (GtkWidget *widget);
--- void        gtk_widget_set_default_direction
---                                             (GtkTextDirection dir);
--- GtkTextDirection gtk_widget_get_default_direction
---                                             (void);
--- void        gtk_widget_shape_combine_mask   (GtkWidget *widget,
---                                              GdkBitmap *shape_mask,
---                                              gint offset_x,
---                                              gint offset_y);
--- void        gtk_widget_path                 (GtkWidget *widget,
---                                              guint *path_length,
---                                              gchar **path,
---                                              gchar **path_reversed);
--- void        gtk_widget_class_path           (GtkWidget *widget,
---                                              guint *path_length,
---                                              gchar **path,
---                                              gchar **path_reversed);
--- gchar*      gtk_widget_get_composite_name   (GtkWidget *widget);
--- void        gtk_widget_modify_style         (GtkWidget *widget,
---                                              GtkRcStyle *style);
--- GtkRcStyle* gtk_widget_get_modifier_style   (GtkWidget *widget);
--- void        gtk_widget_modify_fg            (GtkWidget *widget,
---                                              GtkStateType state,
---                                              const GdkColor *color);
--- void        gtk_widget_modify_bg            (GtkWidget *widget,
---                                              GtkStateType state,
---                                              const GdkColor *color);
--- void        gtk_widget_modify_text          (GtkWidget *widget,
---                                              GtkStateType state,
---                                              const GdkColor *color);
--- void        gtk_widget_modify_base          (GtkWidget *widget,
---                                              GtkStateType state,
---                                              const GdkColor *color);
--- void        gtk_widget_modify_font          (GtkWidget *widget,
---                                              PangoFontDescription *font_desc);
--- PangoContext* gtk_widget_get_pango_context  (GtkWidget *widget);
--- PangoLayout* gtk_widget_create_pango_layout (GtkWidget *widget,
---                                              const gchar *text);
--- GdkPixbuf*  gtk_widget_render_icon          (GtkWidget *widget,
---                                              const gchar *stock_id,
---                                              GtkIconSize size,
---                                              const gchar *detail);
--- void        gtk_widget_pop_composite_child  (void);
--- void        gtk_widget_push_composite_child (void);
--- void        gtk_widget_queue_clear          (GtkWidget *widget);
--- void        gtk_widget_queue_clear_area     (GtkWidget *widget,
---                                              gint x,
---                                              gint y,
---                                              gint width,
---                                              gint height);
--- void        gtk_widget_queue_draw_area      (GtkWidget *widget,
---                                              gint x,
---                                              gint y,
---                                              gint width,
---                                              gint height);
--- void        gtk_widget_reset_shapes         (GtkWidget *widget);
--- void        gtk_widget_set_app_paintable    (GtkWidget *widget,
---                                              gboolean app_paintable);
--- void        gtk_widget_set_double_buffered  (GtkWidget *widget,
---                                              gboolean double_buffered);
--- void        gtk_widget_set_redraw_on_allocate
---                                             (GtkWidget *widget,
---                                              gboolean redraw_on_allocate);
--- void        gtk_widget_set_composite_name   (GtkWidget *widget,
---                                              const gchar *name);
--- gboolean    gtk_widget_set_scroll_adjustments
---                                             (GtkWidget *widget,
---                                              GtkAdjustment *hadjustment,
---                                              GtkAdjustment *vadjustment);
--- gboolean    gtk_widget_mnemonic_activate    (GtkWidget *widget,
---                                              gboolean group_cycling);
--- void        gtk_widget_class_install_style_property
---                                             (GtkWidgetClass *klass,
---                                              GParamSpec *pspec);
--- void        gtk_widget_class_install_style_property_parser
---                                             (GtkWidgetClass *klass,
---                                              GParamSpec *pspec,
---                                              GtkRcPropertyParser parser);
--- GParamSpec* gtk_widget_class_find_style_property
---                                             (GtkWidgetClass *klass,
---                                              const gchar *property_name);
--- GParamSpec** gtk_widget_class_list_style_properties
---                                             (GtkWidgetClass *klass,
---                                              guint *n_properties);
--- GdkRegion*  gtk_widget_region_intersect     (GtkWidget *widget,
---                                              GdkRegion *region);
--- gint        gtk_widget_send_expose          (GtkWidget *widget,
---                                              GdkEvent *event);
--- void        gtk_widget_style_get            (GtkWidget *widget,
---                                              const gchar *first_property_name,
---                                              ...);
--- void        gtk_widget_style_get_property   (GtkWidget *widget,
---                                              const gchar *property_name,
---                                              GValue *value);
--- void        gtk_widget_style_get_valist     (GtkWidget *widget,
---                                              const gchar *first_property_name,
---                                              va_list var_args);
--- AtkObject*  gtk_widget_get_accessible       (GtkWidget *widget);
--- gboolean    gtk_widget_child_focus          (GtkWidget *widget,
---                                              GtkDirectionType direction);
--- void        gtk_widget_child_notify         (GtkWidget *widget,
---                                              const gchar *child_property);
--- void        gtk_widget_freeze_child_notify  (GtkWidget *widget);
--- gboolean    gtk_widget_get_child_visible    (GtkWidget *widget);
--- GtkWidget*  gtk_widget_get_parent           (GtkWidget *widget);
--- GtkSettings* gtk_widget_get_settings        (GtkWidget *widget);
--- GtkClipboard* gtk_widget_get_clipboard      (GtkWidget *widget,
---                                              GdkAtom selection);
--- GdkDisplay* gtk_widget_get_display          (GtkWidget *widget);
--- GdkWindow*  gtk_widget_get_root_window      (GtkWidget *widget);
--- GdkScreen*  gtk_widget_get_screen           (GtkWidget *widget);
--- gboolean    gtk_widget_has_screen           (GtkWidget *widget);
 
--- #define     gtk_widget_pop_visual           ()
--- #define     gtk_widget_push_visual          (visual)
--- void        gtk_widget_set_child_visible    (GtkWidget *widget,
---                                              gboolean is_visible);
--- #define     gtk_widget_set_default_visual   (visual)
--- #define     gtk_widget_set_visual           (widget,visual)
--- void        gtk_widget_thaw_child_notify    (GtkWidget *widget);
--- void        gtk_widget_set_no_show_all      (GtkWidget *widget,
---                                              gboolean no_show_all);
--- gboolean    gtk_widget_get_no_show_all      (GtkWidget *widget);
--- GList*      gtk_widget_list_mnemonic_labels (GtkWidget *widget);
--- void        gtk_widget_add_mnemonic_label   (GtkWidget *widget,
---                                              GtkWidget *label);
--- void        gtk_widget_remove_mnemonic_label
---                                             (GtkWidget *widget,
---                                              GtkWidget *label);
-
--- GtkRequisition* gtk_requisition_copy        (const GtkRequisition *requisition);
--- void        gtk_requisition_free            (GtkRequisition *requisition);
-
-
-
--- Object Hierarchy
-
---   GObject
---    +----GtkObject
---          +----GtkWidget
---                +----GtkContainer
---                +----GtkMisc
---                +----GtkCalendar
---                +----GtkCellView
---                +----GtkDrawingArea
---                +----GtkEntry
---                +----GtkRuler
---                +----GtkRange
---                +----GtkSeparator
---                +----GtkInvisible
---                +----GtkOldEditable
---                +----GtkPreview
---                +----GtkProgress
-
--- Known Derived Interfaces
-
--- GtkWidget is required by GtkFileChooser and GtkCellEditable.
--- Implemented Interfaces
-
--- GtkWidget implements AtkImplementorIface.
--- Properties
-
---   "app-paintable"        gboolean              : Read / Write
---   "can-default"          gboolean              : Read / Write
---   "can-focus"            gboolean              : Read / Write
---   "composite-child"      gboolean              : Read
---   "events"               GdkEventMask          : Read / Write
---   "extension-events"     GdkExtensionMode      : Read / Write
---   "has-default"          gboolean              : Read / Write
---   "has-focus"            gboolean              : Read / Write
---   "height-request"       gint                  : Read / Write
---   "is-focus"             gboolean              : Read / Write
---   "name"                 gchararray            : Read / Write
---   "no-show-all"          gboolean              : Read / Write
---   "parent"               GtkContainer          : Read / Write
---   "receives-default"     gboolean              : Read / Write
---   "sensitive"            gboolean              : Read / Write
---   "style"                GtkStyle              : Read / Write
---   "visible"              gboolean              : Read / Write
---   "width-request"        gint                  : Read / Write
-
--- Style Properties
-
---   "cursor-aspect-ratio"  gfloat                : Read
---   "cursor-color"         GdkColor              : Read
---   "draw-border"          GtkBorder             : Read
---   "focus-line-pattern"   gchararray            : Read
---   "focus-line-width"     gint                  : Read
---   "focus-padding"        gint                  : Read
---   "interior-focus"       gboolean              : Read
---   "secondary-cursor-color" GdkColor              : Read
-
-feature -- Signals
-
--- "accel-closures-changed"
---             void        user_function      (GtkWidget *widget,
---                                             gpointer   user_data)      : 
--- "can-activate-accel"
---             gboolean    user_function      (GtkWidget *widget,
---                                             guint      signal_id,
---                                             gpointer   user_data)      : Run last
--- "child-notify"
---             void        user_function      (GtkWidget  *widget,
---                                             GParamSpec *pspec,
---                                             gpointer    user_data)      : Run first / No recursion / Has details / No hooks
--- "client-event"
---             gboolean    user_function      (GtkWidget      *widget,
---                                             GdkEventClient *event,
---                                             gpointer        user_data)      : Run last
--- "configure-event"
---             gboolean    user_function      (GtkWidget         *widget,
---                                             GdkEventConfigure *event,
---                                             gpointer           user_data)      : Run last
 
 feature -- delete-event signal
 
@@ -705,11 +357,6 @@ feature -- delete-event signal
 			create delete_event_callback.make
 			delete_event_callback.connect (Current, a_function)
 		end
-
--- "direction-changed"
---             void        user_function      (GtkWidget       *widget,
---                                             GtkTextDirection arg1,
---                                             gpointer         user_data)      : Run first
 
 feature -- drag-begin signal
 
@@ -1116,26 +763,12 @@ feature -- enter-notify-event signal
 		end
 
 
--- "event"     gboolean    user_function      (GtkWidget *widget,
---                                             GdkEvent  *event,
---                                             gpointer   user_data)      : Run last
--- "event-after"
---             void        user_function      (GtkWidget *widget,
---                                             GdkEvent  *event,
---                                             gpointer   user_data)      : 
 feature -- "expose-event" signal
 	expose_event_signal_name: STRING is "expose-event" 
 			-- gboolean user_function (GtkWidget *widget,
 			--                         GdkEventExpose *event,
 			--                         gpointer user_data) : Run last
 	
--- "focus"     gboolean    user_function      (GtkWidget       *widget,
---                                             GtkDirectionType arg1,
---                                             gpointer         user_data)      : Run last
--- "focus-in-event"
---             gboolean    user_function      (GtkWidget     *widget,
---                                             GdkEventFocus *event,
---                                             gpointer       user_data)      : Run last
 feature -- focus-out-event signal
 
 	focus_out_event_signal_name: STRING is "focus-out-event"
@@ -1176,23 +809,6 @@ feature -- focus-out-event signal
 			focus_out_event_callback.connect (Current, a_function)
 		end
 
--- "grab-broken-event"
---             gboolean    user_function      (GtkWidget *widget,
---                                             GdkEvent  *event,
---                                             gpointer   user_data)      : Run last
--- "grab-focus"
---             void        user_function      (GtkWidget *widget,
---                                             gpointer   user_data)      : Run last / Action
--- "grab-notify"
---             void        user_function      (GtkWidget *widget,
---                                             gboolean   arg1,
---                                             gpointer   user_data)      : Run first
--- "hide"      void        user_function      (GtkWidget *widget,
---                                             gpointer   user_data)      : Run first
--- "hierarchy-changed"
---             void        user_function      (GtkWidget *widget,
---                                             GtkWidget *widget2,
---                                             gpointer   user_data)      : Run last
 feature -- key-press-event signal
 
 	key_press_event_signal_name: STRING is "key-press-event"
@@ -1226,11 +842,6 @@ feature -- key-press-event signal
 			create key_press_event_callback.make
 			key_press_event_callback.connect (Current, a_function)
 		end
-
--- "key-release-event"
---             gboolean    user_function      (GtkWidget   *widget,
---                                             GdkEventKey *event,
---                                             gpointer     user_data)      : Run last
 
 feature -- leave-notify-event signal
 
@@ -1266,16 +877,6 @@ feature -- leave-notify-event signal
 			leave_notify_event_callback.connect (Current, a_function)
 		end
 
-
--- "map"       void        user_function      (GtkWidget *widget,
---                                             gpointer   user_data)      : Run first
--- "map-event" gboolean    user_function      (GtkWidget *widget,
---                                             GdkEvent  *event,
---                                             gpointer   user_data)      : Run last
--- "mnemonic-activate"
---             gboolean    user_function      (GtkWidget *widget,
---                                             gboolean   arg1,
---                                             gpointer   user_data)      : Run last
 
 feature -- motion-notify-event signal
 
@@ -1379,30 +980,6 @@ feature -- button-press-event signal
 			button_press_event_callback.connect (Current, a_function)
 		end
 
--- "no-expose-event"
---             gboolean    user_function      (GtkWidget        *widget,
---                                             GdkEventNoExpose *event,
---                                             gpointer          user_data)      : Run last
--- "parent-set"
---             void        user_function      (GtkWidget *widget,
---                                             GtkObject *old_parent,
---                                             gpointer   user_data)       : Run first
--- "popup-menu"
---             gboolean    user_function      (GtkWidget *widget,
---                                             gpointer   user_data)      : Run last / Action
--- "property-notify-event"
---             gboolean    user_function      (GtkWidget        *widget,
---                                             GdkEventProperty *event,
---                                             gpointer          user_data)      : Run last
--- "proximity-in-event"
---             gboolean    user_function      (GtkWidget         *widget,
---                                             GdkEventProximity *event,
---                                             gpointer           user_data)      : Run last
--- "proximity-out-event"
---             gboolean    user_function      (GtkWidget         *widget,
---                                             GdkEventProximity *event,
---                                             gpointer           user_data)      : Run last
-
 feature -- realize signal
 
 	realize_signal_name: STRING is "realize"
@@ -1431,43 +1008,6 @@ feature -- realize signal
 			create realize_callback.make
 			realize_callback.connect (Current, a_procedure)
 		end
-
--- "screen-changed"
---             void        user_function      (GtkWidget *widget,
---                                             GdkScreen *arg1,
---                                             gpointer   user_data)      : Run last
--- "scroll-event"
---             gboolean    user_function      (GtkWidget      *widget,
---                                             GdkEventScroll *event,
---                                             gpointer        user_data)      : Run last
--- "selection-clear-event"
---             gboolean    user_function      (GtkWidget         *widget,
---                                             GdkEventSelection *event,
---                                             gpointer           user_data)      : Run last
--- "selection-get"
---             void        user_function      (GtkWidget        *widget,
---                                             GtkSelectionData *data,
---                                             guint             info,
---                                             guint             time,
---                                             gpointer          user_data)      : Run last
--- "selection-notify-event"
---             gboolean    user_function      (GtkWidget         *widget,
---                                             GdkEventSelection *event,
---                                             gpointer           user_data)      : Run last
--- "selection-received"
---             void        user_function      (GtkWidget        *widget,
---                                             GtkSelectionData *data,
---                                             guint             time,
---                                             gpointer          user_data)      : Run last
--- "selection-request-event"
---             gboolean    user_function      (GtkWidget         *widget,
---                                             GdkEventSelection *event,
---                                             gpointer           user_data)      : Run last
--- "show"      void        user_function      (GtkWidget *widget,
---                                             gpointer   user_data)      : Run first
--- "show-help" gboolean    user_function      (GtkWidget        *widget,
---                                             GtkWidgetHelpType arg1,
---                                             gpointer          user_data)      : Run last / Action
 
 feature -- size-allocate signal
 
@@ -1539,6 +1079,754 @@ feature -- size-request signal
 			size_request_callback.connect (Current, a_procedure)
 		end
 
+	allocation: GTK_ALLOCATION is
+			-- The widget's allocated size.
+		do
+			create Result.copy_from_pointer (gtk_widget_get_allocation (handle))
+		end
+ 
+	is_toplevel: BOOLEAN is
+			-- Evaluates to TRUE if the widget is a toplevel widget.
+		do
+			Result := gtk_widget_toplevel (handle).to_boolean
+		end
+
+
+
+	can_focus: BOOLEAN is
+			-- Is the widget able to handle focus grabs?
+		do
+			Result := gtk_widget_can_focus(handle).to_boolean
+		end
+
+	can_default: BOOLEAN is
+			-- Evaluates to TRUE if the widget is allowed to receive the 
+			-- default action via `grab_default'.
+		do
+			Result := gtk_widget_can_default(handle).to_boolean
+		end
+	map is
+			-- This function is only for use in widget implementations. Causes a
+			-- widget to be mapped if it isn't already.
+		require
+			not is_mapped
+		do
+			gtk_widget_map (handle)
+		end
+
+	unmap is
+			-- This function is only for use in widget implementations. Causes a
+			-- widget to be unmapped if it's currently mapped.
+		require
+			is_mapped
+		do
+			gtk_widget_unmap (handle)
+		end
+
+	queue_draw is
+			-- Equivalent to calling queue_draw_area for the entire area of a widget.
+		do
+			gtk_widget_queue_draw (handle)
+		end
+
+feature -- Sensitivity
+
+	set_sensitive (sens: BOOLEAN) is
+			-- Sets the sensitivity of Current. A widget is sensitive
+			-- if the user can interact with it. Insensitive widgets are
+			-- "grayed out" and the user can't interact with them.
+		do
+			gtk_widget_set_sensitive (handle, sens.to_integer)
+		end
+
+-- 	set_sensitive is
+-- 			-- Makes the widget sensitive. A widget is sensitive if the
+-- 			-- user can interact with it. Insensitive widgets are "grayed
+-- 			-- out" and the user can't interact with them. Insensitive
+-- 			-- widgets are known as "inactive", "disabled", or "ghosted"
+-- 			-- in some other toolkits.
+-- 		do
+-- 			gtk_widget_set_sensitive (handle, 1)
+-- 		ensure sensitive: is_sensitive
+-- 		end
+-- 
+-- 	unset_sensitive is
+-- 			-- Makes the widget not sensitive. See `set_sensitive'.
+-- 		do
+-- 			gtk_widget_set_sensitive (handle, 0)
+-- 		ensure unsensitive: not is_sensitive
+-- 		end
+
+feature
+
+	toplevel: GTK_WIDGET is
+			-- The topmost ancestor of Current widget, or widget itself
+			-- if there's no ancestor in the container hierarchy widget
+			-- is a part of. If Current has no parent widgets, it will be
+			-- returned as the topmost widget.
+
+			-- Note the difference in behavior vs. `ancestor';
+			-- ancestor(gtk_type_window) would return Void if widget
+			-- wasn't inside a toplevel window, and if the window was
+			-- inside a GtkWindow-derived widget which was in turn inside
+			-- the toplevel GtkWindow. While the second case may seem
+			-- unlikely, it actually happens when a GtkPlug is embedded
+			-- inside a GtkSocket within the same application.
+
+			-- To reliably find the toplevel GtkWindow, use `toplevel'
+			-- and check if the TOPLEVEL (TODO) flags is set on the
+			-- result.
+		local
+			factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
+		do
+			Result := factory.wrapper(gtk_widget_get_toplevel(handle))
+			-- Original documentation says "No reference will be added to
+			-- the widget returned by gtk_widget_get_toplevel; so it
+			-- should not be unreferenced". This actually does not apply
+			-- to Result. In fact if a wrapper already exists it does not
+			-- need no ref, since it is already reffed. If a new wrapper
+			-- is created it will ref the underlying GObjet at creation
+			-- time and unref it at dispose time. Paolo 2007-10-19
+		end
+
+
+	create_pango_context: PANGO_CONTEXT is
+			-- Creates a new PANGO_CONTEXT with the appropriate colormap,
+			-- font description, and base direction for drawing text for
+			-- this widget. See also pango_context.
+		do
+			create Result.from_external_pointer (gtk_widget_create_pango_context (handle))
+		ensure
+			Result /= Void
+		end
+
+	pango_context: PANGO_CONTEXT is
+			-- Gets a PANGO_CONTEXT with the appropriate colormap, font
+			-- description and base direction for this widget. Unlike the
+			-- context returned by create_pango_context, this context is
+			-- owned by the widget (it can be used until the screen for
+			-- the widget changes or the widget is removed from its
+			-- toplevel), and will be updated to match any changes to the
+			-- widget's attributes.
+			--
+			-- If you create and keep a PANGO_LAYOUT using this context,
+			-- you must deal with changes to the context by calling
+			-- context_changed on the layout in response to the ::style-set
+			-- and ::direction-changed signals for the widget.
+		local
+			factory: G_OBJECT_EXPANDED_FACTORY [PANGO_CONTEXT]
+		do
+			Result := factory.wrapper(gtk_widget_get_pango_context(handle))
+		end
+
+	create_pango_layout (a_text: STRING): PANGO_LAYOUT is
+			-- Creates a new PANGO_LAYOUT with the appropriate colormap,
+			-- font description, and base direction for drawing text for this
+			-- widget.
+			--
+			-- If you keep a PANGO_LAYOUT created in this way around, in order
+			-- notify the layout of changes to the base direction or font of
+			-- this widget, you must call layout.context_changed in response
+			-- to the ::style-set and ::direction-changed signals for the
+			-- widget.
+		do
+			create Result.from_external_pointer
+			(gtk_widget_create_pango_layout (handle, a_text.to_external))
+		end
+
+	render_icon (a_stock_id: STRING; a_size: INTEGER; some_detail: STRING): GDK_PIXBUF is
+			-- A convenience feature that uses the theme engine and RC
+			-- file settings for Current widget to look up `a_stock_id'
+			-- and render it to a pixbuf. `a_stock_id' should be a stock
+			-- icon ID such as `gtk_stock_open' or
+			-- `gtk_stock_ok'. `a_size' should be a size such as
+			-- `gtk_icon_size_menu'. `some_detail' should be a string
+			-- that identifies the widget or code doing the rendering, so
+			-- that theme engines can special-case rendering for that
+			-- widget or code.
+		
+			-- The pixels in the returned GdkPixbuf are shared with the
+			-- rest of the application and should not be modified. The
+			-- pixbuf should be freed after use with `unref'.
+		
+			-- stock_id : 	a stock ID
+
+			-- size : a stock size. A size of (GtkIconSize)-1 means
+			-- render at the size of the source and don't scale (if there
+			-- are multiple source sizes, GTK+ picks one of the available
+			-- sizes).
+		
+			-- detail : 	render detail to pass to theme engine
+
+			-- Result is Void if the stock ID wasn't known.
+		require 
+			stock_id_not_void: a_stock_id /= Void
+			some_detail_not_void: some_detail /= Void
+		local pixbuf_ptr: POINTER
+		do
+ 			pixbuf_ptr := (gtk_widget_render_icon(handle, a_stock_id.to_external,
+															  a_size, some_detail.to_external))
+			if pixbuf_ptr.is_not_null then 
+				create Result.from_external_pointer(pixbuf_ptr)
+			end
+		end
+			
+	pop_composite_child is
+			-- Cancels the effect of a previous call to
+			-- `push_composite_child'.
+		do
+			gtk_widget_pop_composite_child
+		end
+
+	push_composite_child is
+			-- Makes all newly-created widgets as composite children
+			-- until the corresponding `pop_composite_child' call.
+
+			-- A composite child is a child that's an implementation
+			-- detail of the container it's inside and should not be
+			-- visible to people using the container. Composite children
+			-- aren't treated differently by GTK (but see
+			-- gtk_container_foreach() vs. gtk_container_forall()), but
+			-- e.g. GUI builders might want to treat them in a different
+			-- way.
+
+			-- Here is a simple example:
+		
+			--   gtk_widget_push_composite_child ();
+			--   scrolled_window->hscrollbar = gtk_hscrollbar_new (hadjustment);
+			--   gtk_widget_set_composite_name (scrolled_window->hscrollbar, "hscrollbar");
+			--   gtk_widget_pop_composite_child ();
+			--   gtk_widget_set_parent (scrolled_window->hscrollbar, 
+			--                          GTK_WIDGET (scrolled_window));
+			--   g_object_ref (scrolled_window->hscrollbar);
+		do
+			gtk_widget_push_composite_child
+		end
+	parent: GTK_WIDGET is
+			-- Returns the parent container of widget, or Void if none.
+		do
+			Result := widget_factory.wrapper_or_void(handle)
+		end
+	set_size_request (a_width, an_height: INTEGER) is
+			-- Sets the minimum size of a widget; that is, the widget's
+			-- size request will be `a_width' by `an_height'. You can use
+			-- this function to force a widget to be either larger or
+			-- smaller than it normally would be.
+
+			-- In most cases, `set_default_size' is a better choice for
+			-- toplevel windows than this function; setting the default
+			-- size will still allow users to shrink the window. Setting
+			-- the size request will force them to leave the window at
+			-- least as large as the size request. When dealing with
+			-- window sizes, GTK_WINDOW's `set_geometry_hints' can be a
+			-- useful function as well.
+
+			-- Note the inherent danger of setting any fixed size -
+			-- themes, translations into other languages, different
+			-- fonts, and user action can all change the appropriate size
+			-- for a given widget. So, it's basically impossible to
+			-- hardcode a size that will always be correct.
+
+			-- The size request of a widget is the smallest size a widget
+			-- can accept while still functioning well and drawing itself
+			-- correctly. However in some strange cases a widget may be
+			-- allocated less than its requested size, and in many cases
+			-- a widget may be allocated more space than it requested.
+
+			-- If the size request in a given direction is -1 (unset),
+			-- then the "natural" size request of the widget will be used
+			-- instead.
+
+			-- Widgets can't actually be allocated a size less than 1 by
+			-- 1, but you can pass 0,0 to this function to mean "as small
+			-- as possible."
+			
+			-- width : 	width widget should request, or -1 to unset
+			-- height : 	height widget should request, or -1 to unset
+		require
+			valid_width: a_width >= -1
+			valid_height: an_height >= -1
+		do
+			gtk_widget_set_size_request (handle, a_width, an_height);
+		end
+
+	size_request: TUPLE [INTEGER, INTEGER] is
+		local
+			width, height: INTEGER
+		do
+			gtk_widget_get_size_request (handle, $width, $height)
+			Result := [width, height]
+		ensure
+			Result /= Void
+		end
+
+
+end -- GTK_WIDGET
+
+-- Unwrapped API
+
+-- #define     GTK_WIDGET_TYPE                 (wid)
+-- #define     GTK_WIDGET_STATE                (wid)
+-- #define     GTK_WIDGET_SAVED_STATE          (wid)
+-- #define     GTK_WIDGET_FLAGS                (wid)
+-- #define     GTK_WIDGET_TOPLEVEL             (wid)
+-- #define     GTK_WIDGET_NO_WINDOW            (wid)
+-- #define     GTK_WIDGET_SENSITIVE            (wid)
+-- #define     GTK_WIDGET_PARENT_SENSITIVE     (wid)
+-- #define     GTK_WIDGET_CAN_FOCUS            (wid)
+-- #define     GTK_WIDGET_HAS_FOCUS            (wid)
+-- #define     GTK_WIDGET_CAN_DEFAULT          (wid)
+-- #define     GTK_WIDGET_RECEIVES_DEFAULT     (wid)
+-- #define     GTK_WIDGET_HAS_DEFAULT          (wid)
+-- #define     GTK_WIDGET_HAS_GRAB             (wid)
+-- #define     GTK_WIDGET_RC_STYLE             (wid)
+-- #define     GTK_WIDGET_COMPOSITE_CHILD      (wid)
+-- #define     GTK_WIDGET_APP_PAINTABLE        (wid)
+-- #define     GTK_WIDGET_DOUBLE_BUFFERED      (wid)
+-- #define     GTK_WIDGET_SET_FLAGS            (wid,flag)
+-- #define     GTK_WIDGET_UNSET_FLAGS          (wid,flag)
+-- void        (*GtkCallback)                  (GtkWidget *widget,
+--                                              gpointer data);
+--             GtkRequisition;
+-- struct      GtkAllocation;
+--             GtkSelectionData;
+--             GtkWidgetAuxInfo;
+--             GtkWidgetShapeInfo;
+-- enum        GtkWidgetHelpType;
+-- GtkWidget*  gtk_widget_new                  (GType type,
+--                                              const gchar *first_property_name,
+--                                              ...);
+-- GtkWidget*  gtk_widget_ref                  (GtkWidget *widget);
+-- void        gtk_widget_unref                (GtkWidget *widget);
+-- void        gtk_widget_destroy              (GtkWidget *widget);
+-- void        gtk_widget_destroyed            (GtkWidget *widget,
+--                                              GtkWidget **widget_pointer);
+-- void        gtk_widget_set                  (GtkWidget *widget,
+--                                              const gchar *first_property_name,
+--                                              ...);
+-- void        gtk_widget_unparent             (GtkWidget *widget);
+-- void        gtk_widget_show_now             (GtkWidget *widget);
+-- void        gtk_widget_hide_all             (GtkWidget *widget);
+-- void        gtk_widget_map                  (GtkWidget *widget);
+-- void        gtk_widget_unmap                (GtkWidget *widget);
+
+-- void        gtk_widget_queue_resize         (GtkWidget *widget);
+-- void        gtk_widget_queue_resize_no_redraw
+--                                             (GtkWidget *widget);
+-- void        gtk_widget_draw                 (GtkWidget *widget,
+--                                              GdkRectangle *area);
+
+-- void        gtk_widget_get_child_requisition
+--                                             (GtkWidget *widget,
+--                                              GtkRequisition *requisition);
+-- void        gtk_widget_size_allocate        (GtkWidget *widget,
+--                                              GtkAllocation *allocation);
+-- void        gtk_widget_add_accelerator      (GtkWidget *widget,
+--                                              const gchar *accel_signal,
+--                                              GtkAccelGroup *accel_group,
+--                                              guint accel_key,
+--                                              GdkModifierType accel_mods,
+--                                              GtkAccelFlags accel_flags);
+-- gboolean    gtk_widget_remove_accelerator   (GtkWidget *widget,
+--                                              GtkAccelGroup *accel_group,
+--                                              guint accel_key,
+--                                              GdkModifierType accel_mods);
+-- void        gtk_widget_set_accel_path       (GtkWidget *widget,
+--                                              const gchar *accel_path,
+--                                              GtkAccelGroup *accel_group);
+-- GList*      gtk_widget_list_accel_closures  (GtkWidget *widget);
+-- gboolean    gtk_widget_can_activate_accel   (GtkWidget *widget,
+--                                              guint signal_id);
+-- gboolean    gtk_widget_event                (GtkWidget *widget,
+--                                              GdkEvent *event);
+-- gboolean    gtk_widget_activate             (GtkWidget *widget);
+-- void        gtk_widget_reparent             (GtkWidget *widget,
+--                                              GtkWidget *new_parent);
+-- gboolean    gtk_widget_intersect            (GtkWidget *widget,
+--                                              GdkRectangle *area,
+--                                              GdkRectangle *intersection);
+	-- gboolean    gtk_widget_is_focus             (GtkWidget *widget);
+-- void        gtk_widget_set_state            (GtkWidget *widget,
+--                                              GtkStateType state);
+-- void        gtk_widget_set_parent           (GtkWidget *widget,
+--                                              GtkWidget *parent);
+-- void        gtk_widget_set_parent_window    (GtkWidget *widget,
+--                                              GdkWindow *parent_window);
+
+-- void        gtk_widget_set_uposition        (GtkWidget *widget,
+--                                              gint x,
+--                                              gint y);
+-- void        gtk_widget_set_usize            (GtkWidget *widget,
+--                                              gint width,
+--                                              gint height);
+-- void        gtk_widget_set_events           (GtkWidget *widget,
+--                                              gint events);
+-- void        gtk_widget_add_events           (GtkWidget *widget,
+--                                              gint events);
+-- void        gtk_widget_set_extension_events (GtkWidget *widget,
+--                                              GdkExtensionMode mode);
+-- GdkExtensionMode gtk_widget_get_extension_events
+--                                             (GtkWidget *widget);
+-- GtkWidget*  gtk_widget_get_ancestor         (GtkWidget *widget,
+--                                              GType widget_type);
+-- GdkColormap* gtk_widget_get_colormap        (GtkWidget *widget);
+-- void        gtk_widget_set_colormap         (GtkWidget *widget,
+--                                              GdkColormap *colormap);
+-- GdkVisual*  gtk_widget_get_visual           (GtkWidget *widget);
+-- gint        gtk_widget_get_events           (GtkWidget *widget);
+-- void        gtk_widget_get_pointer          (GtkWidget *widget,
+--                                              gint *x,
+--                                              gint *y);
+-- gboolean    gtk_widget_is_ancestor          (GtkWidget *widget,
+--                                              GtkWidget *ancestor);
+-- gboolean    gtk_widget_translate_coordinates
+--                                             (GtkWidget *src_widget,
+--                                              GtkWidget *dest_widget,
+--                                              gint src_x,
+--                                              gint src_y,
+--                                              gint *dest_x,
+--                                              gint *dest_y);
+-- gboolean    gtk_widget_hide_on_delete       (GtkWidget *widget);
+-- #define     gtk_widget_set_rc_style         (widget)
+-- void        gtk_widget_ensure_style         (GtkWidget *widget);
+-- #define     gtk_widget_restore_default_style(widget)
+-- void        gtk_widget_reset_rc_styles      (GtkWidget *widget);
+-- void        gtk_widget_push_colormap        (GdkColormap *cmap);
+-- void        gtk_widget_pop_colormap         (void);
+-- void        gtk_widget_set_default_colormap (GdkColormap *colormap);
+-- GtkStyle*   gtk_widget_get_default_style    (void);
+-- GdkColormap* gtk_widget_get_default_colormap
+--                                             (void);
+-- GdkVisual*  gtk_widget_get_default_visual   (void);
+-- void        gtk_widget_set_direction        (GtkWidget *widget,
+--                                              GtkTextDirection dir);
+-- enum        GtkTextDirection;
+-- GtkTextDirection gtk_widget_get_direction   (GtkWidget *widget);
+-- void        gtk_widget_set_default_direction
+--                                             (GtkTextDirection dir);
+-- GtkTextDirection gtk_widget_get_default_direction
+--                                             (void);
+-- void        gtk_widget_shape_combine_mask   (GtkWidget *widget,
+--                                              GdkBitmap *shape_mask,
+--                                              gint offset_x,
+--                                              gint offset_y);
+-- void        gtk_widget_path                 (GtkWidget *widget,
+--                                              guint *path_length,
+--                                              gchar **path,
+--                                              gchar **path_reversed);
+-- void        gtk_widget_class_path           (GtkWidget *widget,
+--                                              guint *path_length,
+--                                              gchar **path,
+--                                              gchar **path_reversed);
+-- gchar*      gtk_widget_get_composite_name   (GtkWidget *widget);
+-- void        gtk_widget_modify_style         (GtkWidget *widget,
+--                                              GtkRcStyle *style);
+-- GtkRcStyle* gtk_widget_get_modifier_style   (GtkWidget *widget);
+-- void        gtk_widget_modify_fg            (GtkWidget *widget,
+--                                              GtkStateType state,
+--                                              const GdkColor *color);
+-- void        gtk_widget_modify_bg            (GtkWidget *widget,
+--                                              GtkStateType state,
+--                                              const GdkColor *color);
+-- void        gtk_widget_modify_text          (GtkWidget *widget,
+--                                              GtkStateType state,
+--                                              const GdkColor *color);
+-- void        gtk_widget_modify_base          (GtkWidget *widget,
+--                                              GtkStateType state,
+--                                              const GdkColor *color);
+-- void        gtk_widget_modify_font          (GtkWidget *widget,
+--                                              PangoFontDescription *font_desc);
+-- PangoContext* gtk_widget_get_pango_context  (GtkWidget *widget);
+-- PangoLayout* gtk_widget_create_pango_layout (GtkWidget *widget,
+--                                              const gchar *text);
+-- GdkPixbuf*  gtk_widget_render_icon          (GtkWidget *widget,
+--                                              const gchar *stock_id,
+--                                              GtkIconSize size,
+--                                              const gchar *detail);
+-- void        gtk_widget_pop_composite_child  (void);
+-- void        gtk_widget_push_composite_child (void);
+-- void        gtk_widget_queue_clear          (GtkWidget *widget);
+-- void        gtk_widget_queue_clear_area     (GtkWidget *widget,
+--                                              gint x,
+--                                              gint y,
+--                                              gint width,
+--                                              gint height);
+-- void        gtk_widget_queue_draw_area      (GtkWidget *widget,
+--                                              gint x,
+--                                              gint y,
+--                                              gint width,
+--                                              gint height);
+-- void        gtk_widget_reset_shapes         (GtkWidget *widget);
+-- void        gtk_widget_set_app_paintable    (GtkWidget *widget,
+--                                              gboolean app_paintable);
+-- void        gtk_widget_set_double_buffered  (GtkWidget *widget,
+--                                              gboolean double_buffered);
+-- void        gtk_widget_set_redraw_on_allocate
+--                                             (GtkWidget *widget,
+--                                              gboolean redraw_on_allocate);
+-- void        gtk_widget_set_composite_name   (GtkWidget *widget,
+--                                              const gchar *name);
+-- gboolean    gtk_widget_set_scroll_adjustments
+--                                             (GtkWidget *widget,
+--                                              GtkAdjustment *hadjustment,
+--                                              GtkAdjustment *vadjustment);
+-- gboolean    gtk_widget_mnemonic_activate    (GtkWidget *widget,
+--                                              gboolean group_cycling);
+-- void        gtk_widget_class_install_style_property
+--                                             (GtkWidgetClass *klass,
+--                                              GParamSpec *pspec);
+-- void        gtk_widget_class_install_style_property_parser
+--                                             (GtkWidgetClass *klass,
+--                                              GParamSpec *pspec,
+--                                              GtkRcPropertyParser parser);
+-- GParamSpec* gtk_widget_class_find_style_property
+--                                             (GtkWidgetClass *klass,
+--                                              const gchar *property_name);
+-- GParamSpec** gtk_widget_class_list_style_properties
+--                                             (GtkWidgetClass *klass,
+--                                              guint *n_properties);
+-- GdkRegion*  gtk_widget_region_intersect     (GtkWidget *widget,
+--                                              GdkRegion *region);
+-- gint        gtk_widget_send_expose          (GtkWidget *widget,
+--                                              GdkEvent *event);
+-- void        gtk_widget_style_get            (GtkWidget *widget,
+--                                              const gchar *first_property_name,
+--                                              ...);
+-- void        gtk_widget_style_get_property   (GtkWidget *widget,
+--                                              const gchar *property_name,
+--                                              GValue *value);
+-- void        gtk_widget_style_get_valist     (GtkWidget *widget,
+--                                              const gchar *first_property_name,
+--                                              va_list var_args);
+-- AtkObject*  gtk_widget_get_accessible       (GtkWidget *widget);
+-- gboolean    gtk_widget_child_focus          (GtkWidget *widget,
+--                                              GtkDirectionType direction);
+-- void        gtk_widget_child_notify         (GtkWidget *widget,
+--                                              const gchar *child_property);
+-- void        gtk_widget_freeze_child_notify  (GtkWidget *widget);
+-- gboolean    gtk_widget_get_child_visible    (GtkWidget *widget);
+-- GtkWidget*  gtk_widget_get_parent           (GtkWidget *widget);
+-- GtkSettings* gtk_widget_get_settings        (GtkWidget *widget);
+-- GtkClipboard* gtk_widget_get_clipboard      (GtkWidget *widget,
+--                                              GdkAtom selection);
+-- GdkDisplay* gtk_widget_get_display          (GtkWidget *widget);
+-- GdkWindow*  gtk_widget_get_root_window      (GtkWidget *widget);
+-- GdkScreen*  gtk_widget_get_screen           (GtkWidget *widget);
+-- gboolean    gtk_widget_has_screen           (GtkWidget *widget);
+
+-- #define     gtk_widget_pop_visual           ()
+-- #define     gtk_widget_push_visual          (visual)
+-- void        gtk_widget_set_child_visible    (GtkWidget *widget,
+--                                              gboolean is_visible);
+-- #define     gtk_widget_set_default_visual   (visual)
+-- #define     gtk_widget_set_visual           (widget,visual)
+-- void        gtk_widget_thaw_child_notify    (GtkWidget *widget);
+-- void        gtk_widget_set_no_show_all      (GtkWidget *widget,
+--                                              gboolean no_show_all);
+-- gboolean    gtk_widget_get_no_show_all      (GtkWidget *widget);
+-- GList*      gtk_widget_list_mnemonic_labels (GtkWidget *widget);
+-- void        gtk_widget_add_mnemonic_label   (GtkWidget *widget,
+--                                              GtkWidget *label);
+-- void        gtk_widget_remove_mnemonic_label
+--                                             (GtkWidget *widget,
+--                                              GtkWidget *label);
+
+-- GtkRequisition* gtk_requisition_copy        (const GtkRequisition *requisition);
+-- void        gtk_requisition_free            (GtkRequisition *requisition);
+
+
+
+-- Object Hierarchy
+
+--   GObject
+--    +----GtkObject
+--          +----GtkWidget
+--                +----GtkContainer
+--                +----GtkMisc
+--                +----GtkCalendar
+--                +----GtkCellView
+--                +----GtkDrawingArea
+--                +----GtkEntry
+--                +----GtkRuler
+--                +----GtkRange
+--                +----GtkSeparator
+--                +----GtkInvisible
+--                +----GtkOldEditable
+--                +----GtkPreview
+--                +----GtkProgress
+
+-- Known Derived Interfaces
+
+-- GtkWidget is required by GtkFileChooser and GtkCellEditable.
+-- Implemented Interfaces
+
+-- GtkWidget implements AtkImplementorIface.
+-- Properties
+
+--   "app-paintable"        gboolean              : Read / Write
+--   "can-default"          gboolean              : Read / Write
+--   "can-focus"            gboolean              : Read / Write
+--   "composite-child"      gboolean              : Read
+--   "events"               GdkEventMask          : Read / Write
+--   "extension-events"     GdkExtensionMode      : Read / Write
+--   "has-default"          gboolean              : Read / Write
+--   "has-focus"            gboolean              : Read / Write
+--   "height-request"       gint                  : Read / Write
+--   "is-focus"             gboolean              : Read / Write
+--   "name"                 gchararray            : Read / Write
+--   "no-show-all"          gboolean              : Read / Write
+--   "parent"               GtkContainer          : Read / Write
+--   "receives-default"     gboolean              : Read / Write
+--   "sensitive"            gboolean              : Read / Write
+--   "style"                GtkStyle              : Read / Write
+--   "visible"              gboolean              : Read / Write
+--   "width-request"        gint                  : Read / Write
+
+-- Style Properties
+
+--   "cursor-aspect-ratio"  gfloat                : Read
+--   "cursor-color"         GdkColor              : Read
+--   "draw-border"          GtkBorder             : Read
+--   "focus-line-pattern"   gchararray            : Read
+--   "focus-line-width"     gint                  : Read
+--   "focus-padding"        gint                  : Read
+--   "interior-focus"       gboolean              : Read
+--   "secondary-cursor-color" GdkColor              : Read
+
+-- Signals
+
+-- "accel-closures-changed"
+--             void        user_function      (GtkWidget *widget,
+--                                             gpointer   user_data)      : 
+-- "can-activate-accel"
+--             gboolean    user_function      (GtkWidget *widget,
+--                                             guint      signal_id,
+--                                             gpointer   user_data)      : Run last
+-- "child-notify"
+--             void        user_function      (GtkWidget  *widget,
+--                                             GParamSpec *pspec,
+--                                             gpointer    user_data)      : Run first / No recursion / Has details / No hooks
+-- "client-event"
+--             gboolean    user_function      (GtkWidget      *widget,
+--                                             GdkEventClient *event,
+--                                             gpointer        user_data)      : Run last
+-- "configure-event"
+--             gboolean    user_function      (GtkWidget         *widget,
+--                                             GdkEventConfigure *event,
+--                                             gpointer           user_data)      : Run last
+
+-- "direction-changed"
+--             void        user_function      (GtkWidget       *widget,
+--                                             GtkTextDirection arg1,
+--                                             gpointer         user_data)      : Run first
+
+-- "event"     gboolean    user_function      (GtkWidget *widget,
+--                                             GdkEvent  *event,
+--                                             gpointer   user_data)      : Run last
+-- "event-after"
+--             void        user_function      (GtkWidget *widget,
+--                                             GdkEvent  *event,
+--                                             gpointer   user_data)      : 
+-- "focus"     gboolean    user_function      (GtkWidget       *widget,
+--                                             GtkDirectionType arg1,
+--                                             gpointer         user_data)      : Run last
+-- "focus-in-event"
+--             gboolean    user_function      (GtkWidget     *widget,
+--                                             GdkEventFocus *event,
+--                                             gpointer       user_data)      : Run last
+-- "grab-broken-event"
+--             gboolean    user_function      (GtkWidget *widget,
+--                                             GdkEvent  *event,
+--                                             gpointer   user_data)      : Run last
+-- "grab-focus"
+--             void        user_function      (GtkWidget *widget,
+--                                             gpointer   user_data)      : Run last / Action
+-- "grab-notify"
+--             void        user_function      (GtkWidget *widget,
+--                                             gboolean   arg1,
+--                                             gpointer   user_data)      : Run first
+-- "hide"      void        user_function      (GtkWidget *widget,
+--                                             gpointer   user_data)      : Run first
+-- "hierarchy-changed"
+--             void        user_function      (GtkWidget *widget,
+--                                             GtkWidget *widget2,
+--                                             gpointer   user_data)      : Run last
+-- "key-release-event"
+--             gboolean    user_function      (GtkWidget   *widget,
+--                                             GdkEventKey *event,
+--                                             gpointer     user_data)      : Run last
+
+-- "map"       void        user_function      (GtkWidget *widget,
+--                                             gpointer   user_data)      : Run first
+-- "map-event" gboolean    user_function      (GtkWidget *widget,
+--                                             GdkEvent  *event,
+--                                             gpointer   user_data)      : Run last
+-- "mnemonic-activate"
+--             gboolean    user_function      (GtkWidget *widget,
+--                                             gboolean   arg1,
+--                                             gpointer   user_data)      : Run last
+
+-- "no-expose-event"
+--             gboolean    user_function      (GtkWidget        *widget,
+--                                             GdkEventNoExpose *event,
+--                                             gpointer          user_data)      : Run last
+-- "parent-set"
+--             void        user_function      (GtkWidget *widget,
+--                                             GtkObject *old_parent,
+--                                             gpointer   user_data)       : Run first
+-- "popup-menu"
+--             gboolean    user_function      (GtkWidget *widget,
+--                                             gpointer   user_data)      : Run last / Action
+-- "property-notify-event"
+--             gboolean    user_function      (GtkWidget        *widget,
+--                                             GdkEventProperty *event,
+--                                             gpointer          user_data)      : Run last
+-- "proximity-in-event"
+--             gboolean    user_function      (GtkWidget         *widget,
+--                                             GdkEventProximity *event,
+--                                             gpointer           user_data)      : Run last
+-- "proximity-out-event"
+--             gboolean    user_function      (GtkWidget         *widget,
+--                                             GdkEventProximity *event,
+--                                             gpointer           user_data)      : Run last
+
+-- "screen-changed"
+--             void        user_function      (GtkWidget *widget,
+--                                             GdkScreen *arg1,
+--                                             gpointer   user_data)      : Run last
+-- "scroll-event"
+--             gboolean    user_function      (GtkWidget      *widget,
+--                                             GdkEventScroll *event,
+--                                             gpointer        user_data)      : Run last
+-- "selection-clear-event"
+--             gboolean    user_function      (GtkWidget         *widget,
+--                                             GdkEventSelection *event,
+--                                             gpointer           user_data)      : Run last
+-- "selection-get"
+--             void        user_function      (GtkWidget        *widget,
+--                                             GtkSelectionData *data,
+--                                             guint             info,
+--                                             guint             time,
+--                                             gpointer          user_data)      : Run last
+-- "selection-notify-event"
+--             gboolean    user_function      (GtkWidget         *widget,
+--                                             GdkEventSelection *event,
+--                                             gpointer           user_data)      : Run last
+-- "selection-received"
+--             void        user_function      (GtkWidget        *widget,
+--                                             GtkSelectionData *data,
+--                                             guint             time,
+--                                             gpointer          user_data)      : Run last
+-- "selection-request-event"
+--             gboolean    user_function      (GtkWidget         *widget,
+--                                             GdkEventSelection *event,
+--                                             gpointer           user_data)      : Run last
+-- "show"      void        user_function      (GtkWidget *widget,
+--                                             gpointer   user_data)      : Run first
+-- "show-help" gboolean    user_function      (GtkWidget        *widget,
+--                                             GtkWidgetHelpType arg1,
+--                                             gpointer          user_data)      : Run last / Action
+
 -- "state-changed"
 --             void        user_function      (GtkWidget   *widget,
 --                                             GtkStateType state,
@@ -1583,12 +1871,6 @@ feature -- size-request signal
 --    */
 --   GtkRequisition requisition;
 
-	allocation: GTK_ALLOCATION is
-			-- The widget's allocated size.
-		do
-			create Result.copy_from_pointer (gtk_widget_get_allocation (handle))
-		end
- 
 --   /* The widget's window or its parent window if it does
 --    *  not have a window. (Which will be indicated by the
 --    *  GTK_NO_WINDOW flag being set).
@@ -1711,13 +1993,6 @@ feature -- size-request signal
 -- Returns the widget flags from wid.
 -- wid : 	a GtkWidget.
 
-	is_toplevel: BOOLEAN is
-			-- Evaluates to TRUE if the widget is a toplevel widget.
-		do
-			Result := gtk_widget_toplevel (handle).to_boolean
-		end
-
--- wid : 	a GtkWidget.
 -- GTK_WIDGET_NO_WINDOW()
 
 -- #define GTK_WIDGET_NO_WINDOW(wid)	  ((GTK_WIDGET_FLAGS (wid) & GTK_NO_WINDOW) != 0)
@@ -1738,11 +2013,6 @@ feature -- size-request signal
 -- Evaluates to TRUE if the GTK_PARENT_SENSITIVE flag has be set on the widget.
 -- wid : 	a GtkWidget.
 
-	can_focus: BOOLEAN is
-			-- Is the widget able to handle focus grabs?
-		do
-			Result := gtk_widget_can_focus(handle).to_boolean
-		end
 
 -- GTK_WIDGET_HAS_FOCUS()
 
@@ -1750,13 +2020,6 @@ feature -- size-request signal
 
 -- Evaluates to TRUE if the widget has grabbed the focus and no other widget has done so more recently.
 -- wid : 	a GtkWidget.
-
-	can_default: BOOLEAN is
-			-- Evaluates to TRUE if the widget is allowed to receive the 
-			-- default action via `grab_default'.
-		do
-			Result := gtk_widget_can_default(handle).to_boolean
-		end
 
 -- GTK_WIDGET_RECEIVES_DEFAULT()
 
@@ -1968,29 +2231,6 @@ feature -- size-request signal
 
 -- widget : 	a GtkWidget
 
-	map is
-			-- This function is only for use in widget implementations. Causes a
-			-- widget to be mapped if it isn't already.
-		require
-			not is_mapped
-		do
-			gtk_widget_map (handle)
-		end
-
-	unmap is
-			-- This function is only for use in widget implementations. Causes a
-			-- widget to be unmapped if it's currently mapped.
-		require
-			is_mapped
-		do
-			gtk_widget_unmap (handle)
-		end
-
-	queue_draw is
-			-- Equivalent to calling queue_draw_area for the entire area of a widget.
-		do
-			gtk_widget_queue_draw (handle)
-		end
 
 -- gtk_widget_queue_resize ()
 
@@ -2184,36 +2424,6 @@ feature -- size-request signal
 -- widget : 	a GtkWidget
 -- state : 	new state for widget
 
-feature -- Sensitivity
-
-	set_sensitive (sens: BOOLEAN) is
-			-- Sets the sensitivity of Current. A widget is sensitive
-			-- if the user can interact with it. Insensitive widgets are
-			-- "grayed out" and the user can't interact with them.
-		do
-			gtk_widget_set_sensitive (handle, sens.to_integer)
-		end
-
--- 	set_sensitive is
--- 			-- Makes the widget sensitive. A widget is sensitive if the
--- 			-- user can interact with it. Insensitive widgets are "grayed
--- 			-- out" and the user can't interact with them. Insensitive
--- 			-- widgets are known as "inactive", "disabled", or "ghosted"
--- 			-- in some other toolkits.
--- 		do
--- 			gtk_widget_set_sensitive (handle, 1)
--- 		ensure sensitive: is_sensitive
--- 		end
--- 
--- 	unset_sensitive is
--- 			-- Makes the widget not sensitive. See `set_sensitive'.
--- 		do
--- 			gtk_widget_set_sensitive (handle, 0)
--- 		ensure unsensitive: not is_sensitive
--- 		end
-
-feature
-
 -- gtk_widget_set_parent ()
 
 -- void        gtk_widget_set_parent           (GtkWidget *widget,
@@ -2307,36 +2517,6 @@ feature
 
 -- widget : 	a GtkWidget
 -- Returns : 	extension events for widget
-
-	toplevel: GTK_WIDGET is
-			-- The topmost ancestor of Current widget, or widget itself
-			-- if there's no ancestor in the container hierarchy widget
-			-- is a part of. If Current has no parent widgets, it will be
-			-- returned as the topmost widget.
-
-			-- Note the difference in behavior vs. `ancestor';
-			-- ancestor(gtk_type_window) would return Void if widget
-			-- wasn't inside a toplevel window, and if the window was
-			-- inside a GtkWindow-derived widget which was in turn inside
-			-- the toplevel GtkWindow. While the second case may seem
-			-- unlikely, it actually happens when a GtkPlug is embedded
-			-- inside a GtkSocket within the same application.
-
-			-- To reliably find the toplevel GtkWindow, use `toplevel'
-			-- and check if the TOPLEVEL (TODO) flags is set on the
-			-- result.
-		local
-			factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
-		do
-			Result := factory.wrapper(gtk_widget_get_toplevel(handle))
-			-- Original documentation says "No reference will be added to
-			-- the widget returned by gtk_widget_get_toplevel; so it
-			-- should not be unreferenced". This actually does not apply
-			-- to Result. In fact if a wrapper already exists it does not
-			-- need no ref, since it is already reffed. If a new wrapper
-			-- is created it will ref the underlying GObjet at creation
-			-- time and unref it at dispose time. Paolo 2007-10-19
-		end
 
 	-- gtk_widget_get_ancestor ()
 
@@ -2678,118 +2858,6 @@ feature
 -- widget : 	a GtkWidget
 -- font_desc : 	the font description to use, or NULL to undo the effect of previous calls to gtk_widget_modify_font().
 
-	create_pango_context: PANGO_CONTEXT is
-			-- Creates a new PANGO_CONTEXT with the appropriate colormap,
-			-- font description, and base direction for drawing text for
-			-- this widget. See also pango_context.
-		do
-			create Result.from_external_pointer (gtk_widget_create_pango_context (handle))
-		ensure
-			Result /= Void
-		end
-
-	pango_context: PANGO_CONTEXT is
-			-- Gets a PANGO_CONTEXT with the appropriate colormap, font
-			-- description and base direction for this widget. Unlike the
-			-- context returned by create_pango_context, this context is
-			-- owned by the widget (it can be used until the screen for
-			-- the widget changes or the widget is removed from its
-			-- toplevel), and will be updated to match any changes to the
-			-- widget's attributes.
-			--
-			-- If you create and keep a PANGO_LAYOUT using this context,
-			-- you must deal with changes to the context by calling
-			-- context_changed on the layout in response to the ::style-set
-			-- and ::direction-changed signals for the widget.
-		local
-			factory: G_OBJECT_EXPANDED_FACTORY [PANGO_CONTEXT]
-		do
-			Result := factory.wrapper(gtk_widget_get_pango_context(handle))
-		end
-
-	create_pango_layout (a_text: STRING): PANGO_LAYOUT is
-			-- Creates a new PANGO_LAYOUT with the appropriate colormap,
-			-- font description, and base direction for drawing text for this
-			-- widget.
-			--
-			-- If you keep a PANGO_LAYOUT created in this way around, in order
-			-- notify the layout of changes to the base direction or font of
-			-- this widget, you must call layout.context_changed in response
-			-- to the ::style-set and ::direction-changed signals for the
-			-- widget.
-		do
-			create Result.from_external_pointer
-			(gtk_widget_create_pango_layout (handle, a_text.to_external))
-		end
-
-	render_icon (a_stock_id: STRING; a_size: INTEGER; some_detail: STRING): GDK_PIXBUF is
-			-- A convenience feature that uses the theme engine and RC
-			-- file settings for Current widget to look up `a_stock_id'
-			-- and render it to a pixbuf. `a_stock_id' should be a stock
-			-- icon ID such as `gtk_stock_open' or
-			-- `gtk_stock_ok'. `a_size' should be a size such as
-			-- `gtk_icon_size_menu'. `some_detail' should be a string
-			-- that identifies the widget or code doing the rendering, so
-			-- that theme engines can special-case rendering for that
-			-- widget or code.
-		
-			-- The pixels in the returned GdkPixbuf are shared with the
-			-- rest of the application and should not be modified. The
-			-- pixbuf should be freed after use with `unref'.
-		
-			-- stock_id : 	a stock ID
-
-			-- size : a stock size. A size of (GtkIconSize)-1 means
-			-- render at the size of the source and don't scale (if there
-			-- are multiple source sizes, GTK+ picks one of the available
-			-- sizes).
-		
-			-- detail : 	render detail to pass to theme engine
-
-			-- Result is Void if the stock ID wasn't known.
-		require 
-			stock_id_not_void: a_stock_id /= Void
-			some_detail_not_void: some_detail /= Void
-		local pixbuf_ptr: POINTER
-		do
- 			pixbuf_ptr := (gtk_widget_render_icon(handle, a_stock_id.to_external,
-															  a_size, some_detail.to_external))
-			if pixbuf_ptr.is_not_null then 
-				create Result.from_external_pointer(pixbuf_ptr)
-			end
-		end
-			
-	pop_composite_child is
-			-- Cancels the effect of a previous call to
-			-- `push_composite_child'.
-		do
-			gtk_widget_pop_composite_child
-		end
-
-	push_composite_child is
-			-- Makes all newly-created widgets as composite children
-			-- until the corresponding `pop_composite_child' call.
-
-			-- A composite child is a child that's an implementation
-			-- detail of the container it's inside and should not be
-			-- visible to people using the container. Composite children
-			-- aren't treated differently by GTK (but see
-			-- gtk_container_foreach() vs. gtk_container_forall()), but
-			-- e.g. GUI builders might want to treat them in a different
-			-- way.
-
-			-- Here is a simple example:
-		
-			--   gtk_widget_push_composite_child ();
-			--   scrolled_window->hscrollbar = gtk_hscrollbar_new (hadjustment);
-			--   gtk_widget_set_composite_name (scrolled_window->hscrollbar, "hscrollbar");
-			--   gtk_widget_pop_composite_child ();
-			--   gtk_widget_set_parent (scrolled_window->hscrollbar, 
-			--                          GTK_WIDGET (scrolled_window));
-			--   g_object_ref (scrolled_window->hscrollbar);
-		do
-			gtk_widget_push_composite_child
-		end
 
 
 -- gtk_widget_queue_draw_area ()
@@ -3048,11 +3116,6 @@ feature
 -- widget : 	a GtkWidget
 -- Returns : 	TRUE if the widget is mapped with the parent.
 
-	parent: GTK_WIDGET is
-			-- Returns the parent container of widget, or Void if none.
-		do
-			Result := widget_factory.wrapper_or_void(handle)
-		end
 
 -- gtk_widget_get_settings ()
 
@@ -3178,58 +3241,6 @@ feature
 -- This function is deprecated; it does nothing.
 -- visual : 	
 
-	set_size_request (a_width, an_height: INTEGER) is
-			-- Sets the minimum size of a widget; that is, the widget's
-			-- size request will be `a_width' by `an_height'. You can use
-			-- this function to force a widget to be either larger or
-			-- smaller than it normally would be.
-
-			-- In most cases, `set_default_size' is a better choice for
-			-- toplevel windows than this function; setting the default
-			-- size will still allow users to shrink the window. Setting
-			-- the size request will force them to leave the window at
-			-- least as large as the size request. When dealing with
-			-- window sizes, GTK_WINDOW's `set_geometry_hints' can be a
-			-- useful function as well.
-
-			-- Note the inherent danger of setting any fixed size -
-			-- themes, translations into other languages, different
-			-- fonts, and user action can all change the appropriate size
-			-- for a given widget. So, it's basically impossible to
-			-- hardcode a size that will always be correct.
-
-			-- The size request of a widget is the smallest size a widget
-			-- can accept while still functioning well and drawing itself
-			-- correctly. However in some strange cases a widget may be
-			-- allocated less than its requested size, and in many cases
-			-- a widget may be allocated more space than it requested.
-
-			-- If the size request in a given direction is -1 (unset),
-			-- then the "natural" size request of the widget will be used
-			-- instead.
-
-			-- Widgets can't actually be allocated a size less than 1 by
-			-- 1, but you can pass 0,0 to this function to mean "as small
-			-- as possible."
-			
-			-- width : 	width widget should request, or -1 to unset
-			-- height : 	height widget should request, or -1 to unset
-		require
-			valid_width: a_width >= -1
-			valid_height: an_height >= -1
-		do
-			gtk_widget_set_size_request (handle, a_width, an_height);
-		end
-
-	size_request: TUPLE [INTEGER, INTEGER] is
-		local
-			width, height: INTEGER
-		do
-			gtk_widget_get_size_request (handle, $width, $height)
-			Result := [width, height]
-		ensure
-			Result /= Void
-		end
 
 -- gtk_widget_set_visual()
 
@@ -3976,5 +3987,3 @@ feature
 -- event : 	
 -- user_data : 	user data set when the signal handler was connected.
 -- Returns : 	TRUE to stop other handlers from being invoked for the event. FALSE to propagate the event further.
-
-end

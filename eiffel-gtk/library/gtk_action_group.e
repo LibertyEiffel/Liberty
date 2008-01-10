@@ -738,7 +738,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_action_group_add_actions_full (an_action_group, some_entries: POINTE; guint_n_entries: INTEGER; user_data, gdestroynotify: POINTER) is
+	gtk_action_group_add_actions_full (an_action_group, some_entries: POINTER; guint_n_entries: INTEGER; user_data, gdestroynotify: POINTER) is
 			-- void gtk_action_group_add_actions_full (GtkActionGroup
 			-- *action_group, const GtkActionEntry *entries, guint
 			-- n_entries, gpointer user_data, GDestroyNotify destroy);

@@ -511,7 +511,7 @@ feature {} -- External calls
 	-- #define gdk_window_get_visual
 	-- #define gdk_window_get_colormap
 	-- #define gdk_window_get_type
-	gdk_window_get_origin (a_window: POINTER; a_gint_x, a_gint_y: POINTER): INTEGR is
+	gdk_window_get_origin (a_window: POINTER; a_gint_x, a_gint_y: POINTER): INTEGER is
 			--  gint gdk_window_get_origin (GdkWindow *window, gint *x, gint *y);
 		external "C use  <gdk/gdk.h>"
 		end

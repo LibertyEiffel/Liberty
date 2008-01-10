@@ -481,16 +481,6 @@ feature  {WRAPPER,WRAPPER_HANDLER} -- Data storing and retrieving
 		end
 
 feature  {WRAPPER,WRAPPER_HANDLER} -- Quark-based data storing and retrieving
-	-- Note: many features in this section used to have precondition and
-	-- postcondition lile
-	
-	-- ensure	result_not_expanded: not Result.is_expanded_type
-	
-	-- That are now unnecessary: is_expanded_type is now obsolete
-	-- because an expanded type does not conform to ANY, i.e. they are
-	-- not an ANY. Therefore an expanded type cannot be used in i.e.
-	-- `set_qdata' and cannot be returned by `get_qdata'
-	
 	has_qdata (a_key: G_QUARK): BOOLEAN is
 			-- Is `a_key' field present in table of associations (see
 			-- set_qdata)? `a_key': a GQuark, naming the user data
@@ -1229,7 +1219,79 @@ feature {} -- Properties setters from a parameter specification
 			smart_set_property (a_parameter_specification,hidden_gvalue)
 		end
 	
-feature {} -- Unwrapped API
+	
+	ref_sink is
+			-- Increase the reference count of Current object, and
+			-- possibly remove the floating reference, if it has a
+			-- floating reference.
+
+			--    Since 2.10
+		local ptr: POINTER
+		do
+			ptr := g_object_ref_sink(handle)
+			check returned_current: ptr = handle end
+		end
+
+feature {} -- Implementation
+	hidden_gvalue: G_VALUE is
+			-- The shared, hidden G_VALUE used in the type-specialized properties 
+			-- setter and getter
+		once
+			create Result.make
+		end
+
+	hidden_properties: COLLECTION[G_PARAM_SPEC]
+			-- Hidden, cached properties collection. See `properties'
+
+	unknown_type_exception: STRING is
+			-- The message printed when eiffel-gobject finds an unregistered GType
+		"Eiffel is trying to register a wrapper for a GObject unknown to the underlying GObject-GType run-time type system. This is either a bug in an Eiffel library (usually a typing error) or a real bug in some underlying C library"
+
+	print_known_gobject_heirs is
+		local root: like g_type
+		do
+			root:=g_type_from_name("GObject".to_external)
+			io.put_line(once "Children of:")
+			print_heirs(root)
+		end
+	
+	print_heirs (a_type: like g_type) is
+		require valid: a_type/=0
+		local
+			name_ptr, children: POINTER; a_depth: INTEGER; child: like g_type
+			i, children_count: INTEGER
+		do
+			name_ptr := g_type_name(a_type)
+			check name_ptr.is_not_null end
+			a_depth := g_type_depth(a_type)
+			io.put_string (create {STRING}.make_filled(' ',a_depth))
+			io.put_line (create {STRING}.from_external_copy(name_ptr))
+
+			children := g_type_children (a_type,$children_count)
+			from i:=0; child:=get_child(children,i)
+			until child=0
+			loop
+				print_heirs(child)
+				i:=i+1; child:=get_child(children,i)
+			end
+			g_free(children)
+		end
+
+	get_child (a_ptr: POINTER; an_index: INTEGER): like g_type is
+		external "C inline"
+			-- alias "((gint64) *(((GType*) $a_ptr) + $an_index))"
+		alias "( *(((GType*) $a_ptr) + $an_index))"
+		end
+	
+invariant
+	stored_eiffel_wrapper: is_not_null implies is_eiffel_wrapper_stored
+	gtype_is_at_least_32_bit: g_type.object_size >= 4
+			-- Note: The previous invariant should be onlu equal when 
+			-- NATURAL_32 will be available
+end -- class G_OBJECT
+
+-- Unwrapped code
+
 --   GObjectClass
 
 --  typedef struct {
@@ -1659,18 +1721,6 @@ feature {} -- Unwrapped API
 --    object : a GObject
 
 --    ----------------------------------------------------------------------------------------------------------------
-	
-	ref_sink is
-			-- Increase the reference count of Current object, and
-			-- possibly remove the floating reference, if it has a
-			-- floating reference.
-
-			--    Since 2.10
-		local ptr: POINTER
-		do
-			ptr := g_object_ref_sink(handle)
-			check returned_current: ptr = handle end
-		end
 
 --   g_object_is_floating ()
 
@@ -2278,60 +2328,3 @@ feature {} -- Unwrapped API
 --    pspec :     the GParamSpec of the property which changed
 --    user_data : user data set when the signal handler was connected.
 	
-feature {} -- Implementation
-	hidden_gvalue: G_VALUE is
-			-- The shared, hidden G_VALUE used in the type-specialized properties 
-			-- setter and getter
-		once
-			create Result.make
-		end
-
-	hidden_properties: COLLECTION[G_PARAM_SPEC]
-			-- Hidden, cached properties collection. See `properties'
-
-	unknown_type_exception: STRING is
-			-- The message printed when eiffel-gobject finds an unregistered GType
-		"Eiffel is trying to register a wrapper for a GObject unknown to the underlying GObject-GType run-time type system. This is either a bug in an Eiffel library (usually a typing error) or a real bug in some underlying C library"
-
-	print_known_gobject_heirs is
-		local root: like g_type
-		do
-			root:=g_type_from_name("GObject".to_external)
-			io.put_line(once "Children of:")
-			print_heirs(root)
-		end
-	
-	print_heirs (a_type: like g_type) is
-		require valid: a_type/=0
-		local
-			name_ptr, children: POINTER; a_depth: INTEGER; child: like g_type
-			i, children_count: INTEGER
-		do
-			name_ptr := g_type_name(a_type)
-			check name_ptr.is_not_null end
-			a_depth := g_type_depth(a_type)
-			io.put_string (create {STRING}.make_filled(' ',a_depth))
-			io.put_line (create {STRING}.from_external_copy(name_ptr))
-
-			children := g_type_children (a_type,$children_count)
-			from i:=0; child:=get_child(children,i)
-			until child=0
-			loop
-				print_heirs(child)
-				i:=i+1; child:=get_child(children,i)
-			end
-			g_free(children)
-		end
-
-	get_child (a_ptr: POINTER; an_index: INTEGER): like g_type is
-		external "C inline"
-			-- alias "((gint64) *(((GType*) $a_ptr) + $an_index))"
-		alias "( *(((GType*) $a_ptr) + $an_index))"
-		end
-	
-invariant
-	stored_eiffel_wrapper: is_not_null implies is_eiffel_wrapper_stored
-	gtype_is_at_least_32_bit: g_type.object_size >= 4
-			-- Note: The previous invariant should be onlu equal when 
-			-- NATURAL_32 will be available
-end
