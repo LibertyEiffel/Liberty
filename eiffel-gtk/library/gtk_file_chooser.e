@@ -266,7 +266,7 @@ feature -- Actions
 			gtk_file_chooser_set_action (handle,gtk_file_chooser_action_create_folder)
 		end
 
-	-- GETTERS
+feature	-- Getters
 	is_action_open: BOOLEAN is
 			-- Set open mode. The file chooser will only let the user
 			-- pick an existing file.

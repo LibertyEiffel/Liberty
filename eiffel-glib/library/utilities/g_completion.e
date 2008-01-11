@@ -116,62 +116,60 @@ feature
 		do
 			g_completion_free(handle)
 		end
-	
-feature {} -- Unimplemented parts
-	-- Details
-
-	--   GCompletion
-
-	--  typedef struct {
-	--    GList* items;
-	--    GCompletionFunc func;
-
-	--    gchar* prefix;
-	--    GList* cache;
-	--    GCompletionStrncmpFunc strncmp_func;
-	--  } GCompletion;
-
-	--    The data structure used for automatic completion.
-
-	--    GList *items;                        list of target items (strings or data
-	--                                         structures).
-	--    GCompletionFunc func;                function which is called to get the string
-	--                                         associated with a target item. It is NULL if
-	--                                         the target items are strings.
-	--    gchar *prefix;                       the last prefix passed to
-	--                                         g_completion_complete() or
-	--                                         g_completion_complete_utf8().
-	--    GList *cache;                        the list of items which begin with prefix.
-	--    GCompletionStrncmpFunc strncmp_func; The function to use when comparing strings.
-	--                                         Use g_completion_set_compare() to modify
-	--                                         this function.
-
-	--   GCompletionFunc ()
-	
-	--  gchar*      (*GCompletionFunc)              (gpointer );
-
-	-- Specifies the type of the function passed to
-	-- g_completion_new(). It should return the string corresponding to
-	-- the given target item. This is used when you use data structures
-	-- as GCompletion items.
-	
-	--    Param1 :  the completion item.
-	--    Returns : the string corresponding to the item.
-
-	--   GCompletionStrncmpFunc ()
-
-	--  gint        (*GCompletionStrncmpFunc)       (const gchar *s1,
-	--                                               const gchar *s2,
-	--                                               gsize n);
-
-	--    Specifies the type of the function passed to g_completion_set_compare(). This is
-	--    used when you use strings as GCompletion items.
-
-	--    s1 :      string to compare with s2.
-	--    s2 :      string to compare with s1.
-	--    n :       maximal number of bytes to compare.
-	--    Returns : an integer less than, equal to, or greater than zero if the first n
-	--              bytes of s1 is found, respectively, to be less than, to match, or to be
-	--              greater than the first n bytes of s2.
 end --  class G_COMPLETION
+
+--   GCompletion
+
+--  typedef struct {
+--    GList* items;
+--    GCompletionFunc func;
+
+--    gchar* prefix;
+--    GList* cache;
+--    GCompletionStrncmpFunc strncmp_func;
+--  } GCompletion;
+
+--    The data structure used for automatic completion.
+
+--    GList *items;                        list of target items (strings or data
+--                                         structures).
+--    GCompletionFunc func;                function which is called to get the string
+--                                         associated with a target item. It is NULL if
+--                                         the target items are strings.
+--    gchar *prefix;                       the last prefix passed to
+--                                         g_completion_complete() or
+--                                         g_completion_complete_utf8().
+--    GList *cache;                        the list of items which begin with prefix.
+--    GCompletionStrncmpFunc strncmp_func; The function to use when comparing strings.
+--                                         Use g_completion_set_compare() to modify
+--                                         this function.
+
+--   GCompletionFunc ()
+	
+--  gchar*      (*GCompletionFunc)              (gpointer );
+
+-- Specifies the type of the function passed to
+-- g_completion_new(). It should return the string corresponding to
+-- the given target item. This is used when you use data structures
+-- as GCompletion items.
+	
+--    Param1 :  the completion item.
+--    Returns : the string corresponding to the item.
+
+--   GCompletionStrncmpFunc ()
+
+--  gint        (*GCompletionStrncmpFunc)       (const gchar *s1,
+--                                               const gchar *s2,
+--                                               gsize n);
+
+--    Specifies the type of the function passed to g_completion_set_compare(). This is
+--    used when you use strings as GCompletion items.
+
+--    s1 :      string to compare with s2.
+--    s2 :      string to compare with s1.
+--    n :       maximal number of bytes to compare.
+--    Returns : an integer less than, equal to, or greater than zero if the first n
+--              bytes of s1 is found, respectively, to be less than, to match, or to be
+--              greater than the first n bytes of s2.
+
 

@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 				]"
 
-class G_OPTION_ARG_ENUM
+class G_OPTION_ARG
 	-- The GOptionArg enum values determine which type of extra
 	-- argument the options expect to find. If an option expects an
 	-- extra argument, it can be specified in several ways; with a

@@ -1060,40 +1060,42 @@ feature {} --
 			-- The format used in feature `to_string'; the double %% is 
 			-- becuase both Eiffel and the C function use % as a special character.
 
-feature {} -- GDate struct access
-	-- typedef struct {
-	--   guint julian_days : 32; /* julian days representation - we use a
-	--                            *  bitfield hoping that 64 bit platforms
-	--                            *  will pack this whole struct in one big
-	--                            *  int
-	--                            */
-
-	--   guint julian : 1;    /* julian is valid */
-	--   guint dmy    : 1;    /* dmy is valid */
-	
-	--   /* DMY representation */
-	--   guint day    : 6;
-	--   guint month  : 4;
-	--   guint year   : 16;
-	-- } GDate;
-
-	-- Represents a day between January 1, Year 1 and a few thousand
-	-- years in the future. None of its members should be accessed
-	-- directly. If the GDate is obtained from g_date_new(), it will be
-	-- safe to mutate but invalid and thus not safe for calendrical
-	-- computations. If it's declared on the stack, it will contain
-	-- garbage so must be initialized with
-	-- g_date_clear(). g_date_clear() makes the date invalid but
-	-- sane. An invalid date doesn't represent a day, it's "empty." A
-	-- date becomes valid after you set it to a Julian day or you set a
-	-- day, month, and year.
-	
-	-- guint julian_days : 32; 	the Julian representation of the date
-	-- guint julian : 1; 	this bit is set if julian_days is valid
-	-- guint dmy : 1; 	this is set if day, month and year are valid
-	-- guint day : 6; 	the day of the day-month-year representation of the date, as a number between 1 and 31
-	-- guint month : 4; 	the day of the day-month-year representation of the date, as a number between 1 and 12
-	-- guint year : 16; 	the day of the day-month-year representation of the date
 end
+
+-- GDate struct access
+-- typedef struct {
+--   guint julian_days : 32; /* julian days representation - we use a
+--                            *  bitfield hoping that 64 bit platforms
+--                            *  will pack this whole struct in one big
+--                            *  int
+--                            */
+
+--   guint julian : 1;    /* julian is valid */
+--   guint dmy    : 1;    /* dmy is valid */
+	
+--   /* DMY representation */
+--   guint day    : 6;
+--   guint month  : 4;
+--   guint year   : 16;
+-- } GDate;
+
+-- Represents a day between January 1, Year 1 and a few thousand
+-- years in the future. None of its members should be accessed
+-- directly. If the GDate is obtained from g_date_new(), it will be
+-- safe to mutate but invalid and thus not safe for calendrical
+-- computations. If it's declared on the stack, it will contain
+-- garbage so must be initialized with
+-- g_date_clear(). g_date_clear() makes the date invalid but
+-- sane. An invalid date doesn't represent a day, it's "empty." A
+-- date becomes valid after you set it to a Julian day or you set a
+-- day, month, and year.
+	
+-- guint julian_days : 32; 	the Julian representation of the date
+-- guint julian : 1; 	this bit is set if julian_days is valid
+-- guint dmy : 1; 	this is set if day, month and year are valid
+-- guint day : 6; 	the day of the day-month-year representation of the date, as a number between 1 and 31
+-- guint month : 4; 	the day of the day-month-year representation of the date, as a number between 1 and 12
+-- guint year : 16; 	the day of the day-month-year representation of the date
+
 	
 	

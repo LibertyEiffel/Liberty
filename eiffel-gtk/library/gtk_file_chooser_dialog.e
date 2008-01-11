@@ -203,7 +203,7 @@ feature {} -- Creation
 	
 	-- Since 2.4
 
-feature
+feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	dummy_gobject: POINTER is
 		do
 			Result:=(gtk_file_chooser_dialog_new 

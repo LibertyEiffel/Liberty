@@ -26,8 +26,6 @@ deferred class G_OPTION_ENTRY
 
 inherit SHARED_C_STRUCT redefine fill_tagged_out_memory end
 
-insert G_OPTION_ARG_ENUM undefine fill_tagged_out_memory end
-
 feature {} -- Creation
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		require
@@ -83,22 +81,24 @@ feature -- Queries
 		end
 
 	
-	-- GOptionArg arg; The type of the option, as a GOptionArg.
-	
-	--gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then
-	--arg_data must point to a GOptionArgFunc callback function, which
-	--will be called to handle the extra argument. Otherwise, arg_data
-	--is a pointer to a location to store the value, the required type
-	--of the location depends on the arg type:
-	
-	-- G_OPTION_ARG_NONE           gboolean
-	-- G_OPTION_ARG_STRING         gchar*
-	-- G_OPTION_ARG_INT            gint
-	-- G_OPTION_ARG_FILENAME       gchar*
-	-- G_OPTION_ARG_STRING_ARRAY   gchar**
-	-- G_OPTION_ARG_FILENAME_ARRAY gchar**
-	-- G_OPTION_ARG_DOUBLE         gdouble
-	
+	argument_type: G_OPTION_ARG 
+			-- The type of the option, as a GOptionArg.
+		do
+			Result.set_value()
+			--gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then
+			--arg_data must point to a GOptionArgFunc callback function, which
+			--will be called to handle the extra argument. Otherwise, arg_data
+			--is a pointer to a location to store the value, the required type
+			--of the location depends on the arg type:
+			
+			-- G_OPTION_ARG_NONE           gboolean
+			-- G_OPTION_ARG_STRING         gchar*
+			-- G_OPTION_ARG_INT            gint
+			-- G_OPTION_ARG_FILENAME       gchar*
+			-- G_OPTION_ARG_STRING_ARRAY   gchar**
+			-- G_OPTION_ARG_FILENAME_ARRAY gchar**
+			-- G_OPTION_ARG_DOUBLE         gdouble
+		end
 
 	description: STRING is
 			-- the description for the option in --help output.  The
