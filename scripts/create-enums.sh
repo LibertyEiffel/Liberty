@@ -59,8 +59,11 @@ process_enum () {
 	ENUM_PART=$(mktemp)
 	csplit --quiet --prefix=$ENUM_PART $ENUM_FILE "/{/1" "/}/" 
 	ENUMERATION_ITEMS=$(cat ${ENUM_PART}01 | tr --delete ",")
-	echo Enumeration items: $ENUMERATION_ITEMS TODO: build a list with the longest common part removed to be used as Eiffel feature names
-
+	echo Enumeration items: $ENUMERATION_ITEMS 
+        ## TODO: build a list with the longest common part removed to
+        ## be used as Eiffel feature names
+	echo  LONGEST_PREFIX = $(longest_prefix $ENUMERATION_ITEMS)
+	
 	emit_header
 	emit_setters
 	emit_queries
@@ -70,6 +73,24 @@ process_enum () {
 	rm ${ENUM_PART}* 2>/dev/null # Cleaning up
     else echo No enum file to work on
     fi
+}
+
+longest_prefix () {
+    LENGTH=$(echo $@ | wc --max-line-length )
+    PREFIXES=$@
+    echo >/dev/stderr Looking for longest prefix at length $LENGTH in $PREFIXES...
+    until [ -n $PREFIX ] 
+    do
+	PREFIXES=$(echo $@ | sort | cut --bytes -$LENGTH )
+	if [ $(echo $PREFIXES | wc --lines ) -eq 1 ]
+	then 
+	    PREFIX=$PREFIXES
+	    echo >/dev/stderr Found \"$PREFIX\"
+	else
+	    echo >/dev/stderr Not found, length $LENGTH -- $PREFIXES --
+	    LENGTH=$(($LENGTH - 1 ))
+	fi
+    done
 }
 
 emit_header () {
@@ -130,6 +151,12 @@ emit_queries () {
 feature -- Queries
 
 EOF
+    for VALUE in $ENUMERATION_ITEMS; do
+	ITEM=$(echo $VALUE| tr '[:upper:]' '[:lower:]')
+	cat >>$EIFFEL_ENUM_FILE <<EOF
+    is_$ITEM: BOOLEAN is do Result:=$ITEM end
+EOF
+    done
 }
 
 emit_values () {
@@ -137,6 +164,15 @@ emit_values () {
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 
 EOF
+    for VALUE in $ENUMERATION_ITEMS; do
+	ITEM=$(echo $VALUE| tr '[:upper:]' '[:lower:]')
+	cat >>$EIFFEL_ENUM_FILE <<EOF
+    $ITEM: INTEGER is
+         external "C macro use $HEADER"
+         alias "$VALUE"
+         end
+EOF
+    done
 }
 
 emit_footer () {
