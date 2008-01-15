@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ## Process C files finding enumeration and turning them into proper
 ## Eiffel enumeration class with the design of Eiffel Wrapper
@@ -58,10 +58,11 @@ process_enum () {
 	echo Converting $ENUM_NAME into $EIFFEL_ENUM, file "$EIFFEL_ENUM_FILE"
 	ENUM_PART=$(mktemp)
 	csplit --quiet --prefix=$ENUM_PART $ENUM_FILE "/{/1" "/}/" 
+	##declare -a ENUMERATION_ITEMS
 	ENUMERATION_ITEMS=$(cat ${ENUM_PART}01 | tr --delete ",")
-	PRE=$(longest_prefix $ENUMERATION_ITEMS)
-	ITEMS=${ENUMERATION_ITEMS/PRE/ }
-	echo Enumeration items: $ITEMS
+	PREFIX=$(longest_prefix $ENUMERATION_ITEMS)
+	EIFFEL_PREFIX=$(echo $PREFIX| tr '[:upper:]' '[:lower:]')
+	echo Prefix \"$PREFIX\", enumerations \"${ENUMERATION_ITEMS//${PREFIX}/}\"
 	
 	emit_header
 	emit_setters
@@ -83,21 +84,22 @@ longest_prefix () {
     LENGTH=$(for item; do echo $item;done | wc --max-line-length )
     ##echo >/dev/stderr "Prefixes (max length $LENGTH): $@"
         
-    while [ -z $PRE ] ; do
-	PRE=$(expr substr $1 1 $LENGTH )
-	## echo >/dev/stderr "Trying $PRE (length $LENGTH)"
+    while [ -z $PREFIX ] ; do
+	PREFIX=$(expr substr $1 1 $LENGTH )
+	## echo >/dev/stderr "Trying $PREFIX (length $LENGTH)"
 	for item; do
-	    if expr match "$item" "$PRE" >/dev/null
+	    if expr match "$item" "$PREFIX" >/dev/null
 	    then : # Found
-	    else PRE="" # Not found
+	    else PREFIX="" # Not found
 	    fi
 	done
 	LENGTH=$(( $LENGTH - 1 ))
     done
-    echo $PRE
+    echo $PREFIX
 }
 
 emit_header () {
+    CREATION_CLAUSE=$(set_$1)
     cat >$EIFFEL_ENUM_FILE <<EOF
 indexing
 	description: "Enum $ENUM_NAME"
@@ -143,12 +145,11 @@ feature -- Setters
 
 EOF
     for VALUE in $ENUMERATION_ITEMS; do
-	ITEM=$(echo ${VALUE#${PRE}} | tr '[:upper:]' '[:lower:]')
-	echo "Prefix $PRE, v ${VALUE##${PRE}}"
+	ITEM=$(echo ${VALUE#${PREFIX}} | tr '[:upper:]' '[:lower:]')
 	cat >>$EIFFEL_ENUM_FILE <<EOF
     set_$ITEM is 
        do
-          value := $ITEM 
+          value := $EIFFEL_PREFIX$ITEM 
        ensure is_$ITEM 
        end
 
@@ -162,9 +163,9 @@ feature -- Queries
 
 EOF
     for VALUE in $ENUMERATION_ITEMS; do
-	ITEM=$(echo ${VALUE#$PRE}| tr '[:upper:]' '[:lower:]')
+	ITEM=$(echo ${VALUE#$PREFIX}| tr '[:upper:]' '[:lower:]')
 	cat >>$EIFFEL_ENUM_FILE <<EOF
-    is_$ITEM: BOOLEAN is do Result:=$ITEM end
+    is_$ITEM: BOOLEAN is do Result:=$EIFFEL_PREFIX$ITEM end
 
 EOF
     done
@@ -176,12 +177,13 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 
 EOF
     for VALUE in $ENUMERATION_ITEMS; do
-	ITEM=$(echo ${VALUE#$PRE}| tr '[:upper:]' '[:lower:]')
+	ITEM=$(echo ${VALUE}| tr '[:upper:]' '[:lower:]')
 	cat >>$EIFFEL_ENUM_FILE <<EOF
     $ITEM: INTEGER is
          external "C macro use $HEADER"
          alias "$VALUE"
          end
+
 EOF
     done
 }
