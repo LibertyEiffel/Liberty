@@ -41,7 +41,7 @@ EOF
 }
 
 eiffellize_class_name () {
-    ## Eiffellize class name 
+    ## Eiffellize class name, i.e from GtkButton to GTK_BUTTON
     if [ -n $1 ] ; then 
 	echo $1 | 
 	sed 's/\B\([A-Z]\)/_\1/g' |
@@ -59,8 +59,9 @@ process_enum () {
 	ENUM_PART=$(mktemp)
 	csplit --quiet --prefix=$ENUM_PART $ENUM_FILE "/{/1" "/}/" 
 	ENUMERATION_ITEMS=$(cat ${ENUM_PART}01 | tr --delete ",")
-	export PREFIX=$(longest_prefix $ENUMERATION_ITEMS)
-	echo Enumeration items: $ENUMERATION_ITEMS
+	PRE=$(longest_prefix $ENUMERATION_ITEMS)
+	ITEMS=${ENUMERATION_ITEMS/PRE/ }
+	echo Enumeration items: $ITEMS
 	
 	emit_header
 	emit_setters
@@ -82,18 +83,18 @@ longest_prefix () {
     LENGTH=$(for item; do echo $item;done | wc --max-line-length )
     ##echo >/dev/stderr "Prefixes (max length $LENGTH): $@"
         
-    while [ -z $PREFIX ] ; do
-	PREFIX=$(expr substr $1 1 $LENGTH )
-	## echo >/dev/stderr "Trying $PREFIX (length $LENGTH)"
+    while [ -z $PRE ] ; do
+	PRE=$(expr substr $1 1 $LENGTH )
+	## echo >/dev/stderr "Trying $PRE (length $LENGTH)"
 	for item; do
-	    if expr match "$item" "$PREFIX" >/dev/null
+	    if expr match "$item" "$PRE" >/dev/null
 	    then : # Found
-	    else PREFIX="" # Not found
+	    else PRE="" # Not found
 	    fi
 	done
 	LENGTH=$(( $LENGTH - 1 ))
     done
-    echo $PREFIX
+    echo $PRE
 }
 
 emit_header () {
@@ -142,8 +143,8 @@ feature -- Setters
 
 EOF
     for VALUE in $ENUMERATION_ITEMS; do
-	ITEM=$(echo ${VALUE#${PREFIX}} | tr '[:upper:]' '[:lower:]')
-	echo "Prefix $PREFIX, v ${VALUE##${PREFIX}}"
+	ITEM=$(echo ${VALUE#${PRE}} | tr '[:upper:]' '[:lower:]')
+	echo "Prefix $PRE, v ${VALUE##${PRE}}"
 	cat >>$EIFFEL_ENUM_FILE <<EOF
     set_$ITEM is 
        do
@@ -161,7 +162,7 @@ feature -- Queries
 
 EOF
     for VALUE in $ENUMERATION_ITEMS; do
-	ITEM=$(echo ${VALUE#$PREFIX}| tr '[:upper:]' '[:lower:]')
+	ITEM=$(echo ${VALUE#$PRE}| tr '[:upper:]' '[:lower:]')
 	cat >>$EIFFEL_ENUM_FILE <<EOF
     is_$ITEM: BOOLEAN is do Result:=$ITEM end
 
@@ -175,7 +176,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 
 EOF
     for VALUE in $ENUMERATION_ITEMS; do
-	ITEM=$(echo ${VALUE#$PREFIX}| tr '[:upper:]' '[:lower:]')
+	ITEM=$(echo ${VALUE#$PRE}| tr '[:upper:]' '[:lower:]')
 	cat >>$EIFFEL_ENUM_FILE <<EOF
     $ITEM: INTEGER is
          external "C macro use $HEADER"
