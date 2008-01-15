@@ -12,7 +12,7 @@ process_file () {
         # Loop initialization
 	PROCESSABLE=$(mktemp -t create-eiffel-enum-processable-XXXX)
 	PROCESSED=$(mktemp -t partially-processed-enum-XXXX)
-	# echo Processable $PROCESSABLE Processed $PROCESSED
+	#echo Processable $PROCESSABLE Processed $PROCESSED
 	cp $FILE $PROCESSABLE 
 	
 	while csplit --quiet --prefix=$PROCESSED $PROCESSABLE "/\benum\b/" "/}/1" 2>/dev/null
@@ -37,7 +37,11 @@ $(basename $0) OPTIONS FILES
 Options:
   --header=HEADER   Use HEADER instead of current file in external features
 
+Known limitation: it currently handle only naked enumeration, without
+explicit setting of values and comments.
+
 EOF
+
 }
 
 eiffellize_class_name () {
@@ -59,26 +63,28 @@ process_enum () {
 	ENUM_PART=$(mktemp)
 	csplit --quiet --prefix=$ENUM_PART $ENUM_FILE "/{/1" "/}/" 
 	ENUMERATION_ITEMS=$(cat ${ENUM_PART}01 | tr --delete ",")
-	PREFIX=$(longest_prefix $ENUMERATION_ITEMS)
-	ITEMS=${ENUMERATION_ITEMS//$PREFIX}
-	EIFFEL_PREFIX=$(echo $PREFIX| tr '[:upper:]' '[:lower:]')
-	
-	emit_header
-	emit_setters
-	emit_queries
-	if [ -z $HEADER ] ; then 
-	    HEADER=$FILE
-	    emit_values
-	    unset HEADER
-	    if [ $HEADER ] ; then echo Header not unset; exit 10; fi
-	else emit_values
-	fi
-	emit_footer
-	
-	apply_patch
-
+	if [ $(echo $ENUMERATION_ITEMS| tr --delete '_' | wc --words) -eq 1 ] 
+	then echo Skipping $EIFFEL_ENUM because it has only one value
+	else
+	    PREFIX=$(longest_prefix $ENUMERATION_ITEMS)
+	    ITEMS=${ENUMERATION_ITEMS//$PREFIX}
+	    EIFFEL_PREFIX=$(echo $PREFIX| tr '[:upper:]' '[:lower:]')
+	    
+	    emit_header
+	    emit_setters
+	    emit_queries
+	    if [ -z $HEADER ] ; then 
+		HEADER=$FILE
+		emit_values
+		unset HEADER
+		if [ $HEADER ] ; then echo Header not unset; exit 10; fi
+	    else emit_values
+	    fi
+	    emit_footer
+	    apply_patch
+	fi	    
 	# Cleaning up
-	rm ${ENUM_PART}* 2>/dev/null 
+	    rm ${ENUM_PART}* 2>/dev/null 
     else echo No enum file to work on
     fi
 }
@@ -90,11 +96,11 @@ longest_prefix () {
     LENGTH=$(for item; do echo $item;done | wc --max-line-length )
     PREFIX=""
 
-    ##echo >/dev/stderr "Prefixes (max length $LENGTH): $@"
+    echo >/dev/stderr "Prefixes (max length $LENGTH): $@"
         
     while [ -z $PREFIX ] ; do
 	PREFIX=$(expr substr $1 1 $LENGTH )
-	## echo >/dev/stderr "Trying $PREFIX (length $LENGTH)"
+	echo >/dev/stderr "Trying $PREFIX (length $LENGTH)"
 	for item; do
 	    if expr match "$item" "$PREFIX" >/dev/null
 	    then : # Found
@@ -102,6 +108,9 @@ longest_prefix () {
 	    fi
 	done
 	LENGTH=$(( $LENGTH - 1 ))
+	if [ $LENGTH -le 0 ] ; 
+	then echo >/dev/stderr "Couldn't find a proper prefix, bailing out"; exit 5
+	fi
     done
     echo $PREFIX
 }
