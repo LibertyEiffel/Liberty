@@ -1,48 +1,244 @@
 indexing
-	description: "Enum "
-	copyright: "[
-					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
-					
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
-					the License, or (at your option) any later version.
-					
-					This library is distributed in the hope that it will be useful, but
-					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
+	description: "Enum GdaQueryFieldState"
+	status: "[
+                  AUTOMATICALLY GENERATED FILE. 
 
-					You should have received a copy of the GNU Lesser General Public
-					License along with this library; if not, write to the Free Software
-					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-					02110-1301 USA
-				]"
+                  ANY CHANGE TO THIS WILL BE OVERWRITTEN BY NEXT
+                  EXECUTION OF GENERATING SCRIPT!  You can put your
+                  changes in the patch file gda_query_field_state.e.patch;
+                  those changes will be applied to the newly generated
+                  file.
+                  ]"
 
-deferred class	GDA_QUERY_FIELD_STATE
+expanded class GDA_QUERY_FIELD_STATE
+       -- Enum GdaQueryFieldState
 
-inherit ANY undefine is_equal, copy end
+insert ENUM
 
-feature {} -- enum
-	is_valid_field_state (a_state: INTEGER): BOOLEAN is
-		do	
-			Result:=((a_state = gda_entity_field_visible) or else 
-						(a_state = gda_entity_field_invisible) or else 
-						(a_state =  gda_entity_field_any))
-		end
+creation set_gda_entity_field_visible
 
-	gda_entity_field_visible: INTEGER is
-		external "C macro <libgda/libgda.h>"
-		alias "GDA_ENTITY_FIELD_VISIBLE"
-		end
-	
-	gda_entity_field_invisible: INTEGER is
-		external "C macro <libgda/libgda.h>"
-		alias "GDA_ENTITY_FIELD_INVISIBLE"
-		end
- 
-	gda_entity_field_any: INTEGER is
-		external "C macro <libgda/libgda.h>"
-		alias "GDA_ENTITY_FIELD_ANY"
-		end
-end
+feature -- Setters
+
+    set_gda_entity_field_visible is 
+       do
+          value := gda_entity_field_visible 
+       ensure is_gda_entity_field_visible 
+       end
+
+    set_= is 
+       do
+          value := = 
+       ensure is_= 
+       end
+
+    set_1 is 
+       do
+          value := 1 
+       ensure is_1 
+       end
+
+    set_<< is 
+       do
+          value := << 
+       ensure is_<< 
+       end
+
+    set_0 is 
+       do
+          value := 0 
+       ensure is_0 
+       end
+
+    set_gda_entity_field_invisible is 
+       do
+          value := gda_entity_field_invisible 
+       ensure is_gda_entity_field_invisible 
+       end
+
+    set_= is 
+       do
+          value := = 
+       ensure is_= 
+       end
+
+    set_1 is 
+       do
+          value := 1 
+       ensure is_1 
+       end
+
+    set_<< is 
+       do
+          value := << 
+       ensure is_<< 
+       end
+
+    set_1 is 
+       do
+          value := 1 
+       ensure is_1 
+       end
+
+    set_gda_entity_field_any is 
+       do
+          value := gda_entity_field_any 
+       ensure is_gda_entity_field_any 
+       end
+
+    set_= is 
+       do
+          value := = 
+       ensure is_= 
+       end
+
+    set_gda_entity_field_visible is 
+       do
+          value := gda_entity_field_visible 
+       ensure is_gda_entity_field_visible 
+       end
+
+    set_| is 
+       do
+          value := | 
+       ensure is_| 
+       end
+
+    set_gda_entity_field_invisible is 
+       do
+          value := gda_entity_field_invisible 
+       ensure is_gda_entity_field_invisible 
+       end
+
+feature -- Queries
+
+    is_gda_entity_field_visible: BOOLEAN is do Result:=(value=gda_entity_field_visible) end
+
+    is_=: BOOLEAN is do Result:=(value==) end
+
+    is_1: BOOLEAN is do Result:=(value=1) end
+
+    is_<<: BOOLEAN is do Result:=(value=<<) end
+
+    is_0: BOOLEAN is do Result:=(value=0) end
+
+    is_gda_entity_field_invisible: BOOLEAN is do Result:=(value=gda_entity_field_invisible) end
+
+    is_=: BOOLEAN is do Result:=(value==) end
+
+    is_1: BOOLEAN is do Result:=(value=1) end
+
+    is_<<: BOOLEAN is do Result:=(value=<<) end
+
+    is_1: BOOLEAN is do Result:=(value=1) end
+
+    is_gda_entity_field_any: BOOLEAN is do Result:=(value=gda_entity_field_any) end
+
+    is_=: BOOLEAN is do Result:=(value==) end
+
+    is_gda_entity_field_visible: BOOLEAN is do Result:=(value=gda_entity_field_visible) end
+
+    is_|: BOOLEAN is do Result:=(value=|) end
+
+    is_gda_entity_field_invisible: BOOLEAN is do Result:=(value=gda_entity_field_invisible) end
+
+
+    is_valid_value (a_value: INTEGER): BOOLEAN is 
+        do 
+           Result:=(
+                    (a_value=gda_entity_field_visible) or else
+                    (a_value==) or else
+                    (a_value=1) or else
+                    (a_value=<<) or else
+                    (a_value=0) or else
+                    (a_value=gda_entity_field_invisible) or else
+                    (a_value==) or else
+                    (a_value=1) or else
+                    (a_value=<<) or else
+                    (a_value=1) or else
+                    (a_value=gda_entity_field_any) or else
+                    (a_value==) or else
+                    (a_value=gda_entity_field_visible) or else
+                    (a_value=|) or else
+                    (a_value=gda_entity_field_invisible) or else
+                    False -- A little hack to simplifies the generating script.
+                    )
+        end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
+
+    gda_entity_field_visible: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "GDA_ENTITY_FIELD_VISIBLE"
+         end
+
+    =: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "="
+         end
+
+    1: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "1"
+         end
+
+    <<: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "<<"
+         end
+
+    0: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "0"
+         end
+
+    gda_entity_field_invisible: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "GDA_ENTITY_FIELD_INVISIBLE"
+         end
+
+    =: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "="
+         end
+
+    1: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "1"
+         end
+
+    <<: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "<<"
+         end
+
+    1: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "1"
+         end
+
+    gda_entity_field_any: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "GDA_ENTITY_FIELD_ANY"
+         end
+
+    =: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "="
+         end
+
+    gda_entity_field_visible: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "GDA_ENTITY_FIELD_VISIBLE"
+         end
+
+    |: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "|"
+         end
+
+    gda_entity_field_invisible: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-enums.h"
+         alias "GDA_ENTITY_FIELD_INVISIBLE"
+         end
+
+end -- class GDA_QUERY_FIELD_STATE

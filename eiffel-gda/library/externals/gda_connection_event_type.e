@@ -1,52 +1,76 @@
 indexing
-	description: "Enum "
-	copyright: "[
-					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
-					
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
-					the License, or (at your option) any later version.
-					
-					This library is distributed in the hope that it will be useful, but
-					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
+	description: "Enum GdaConnectionEventType"
+	status: "[
+                  AUTOMATICALLY GENERATED FILE. 
 
-					You should have received a copy of the GNU Lesser General Public
-					License along with this library; if not, write to the Free Software
-					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-					02110-1301 USA
-				]"
+                  ANY CHANGE TO THIS WILL BE OVERWRITTEN BY NEXT
+                  EXECUTION OF GENERATING SCRIPT!  You can put your
+                  changes in the patch file gda_connection_event_type.e.patch;
+                  those changes will be applied to the newly generated
+                  file.
+                  ]"
 
-deferred class GDA_CONNECTION_EVENT_TYPE
-	--  enum GdaConnectionEventType
+expanded class GDA_CONNECTION_EVENT_TYPE
+       -- Enum GdaConnectionEventType
 
-inherit ANY undefine is_equal, copy end
+insert ENUM
 
-feature {} -- enum
-	is_valid_connection_event_type (a_type :INTEGER): BOOLEAN is
-		do	
-			Result:=((a_type=gda_connection_event_notice) or else
-						(a_type=gda_connection_event_warning) or else
-						(a_type=gda_connection_event_error))
-		end
+creation set_notice
 
-	gda_connection_event_notice: INTEGER is
-			-- GDA_CONNECTION_EVENT_NOTICE
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_CONNECTION_EVENT_NOTICE"
-		end
+feature -- Setters
 
-	gda_connection_event_warning: INTEGER is
-			-- GDA_CONNECTION_EVENT_WARNING
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_CONNECTION_EVENT_WARNING"
-		end
+    set_notice is 
+       do
+          value := gda_connection_event_notice 
+       ensure is_notice 
+       end
 
-	gda_connection_event_error: INTEGER is
-			-- GDA_CONNECTION_EVENT_ERROR
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_CONNECTION_EVENT_ERROR"
-		end
-end
+    set_warning is 
+       do
+          value := gda_connection_event_warning 
+       ensure is_warning 
+       end
+
+    set_error is 
+       do
+          value := gda_connection_event_error 
+       ensure is_error 
+       end
+
+feature -- Queries
+
+    is_notice: BOOLEAN is do Result:=(value=gda_connection_event_notice) end
+
+    is_warning: BOOLEAN is do Result:=(value=gda_connection_event_warning) end
+
+    is_error: BOOLEAN is do Result:=(value=gda_connection_event_error) end
+
+
+    is_valid_value (a_value: INTEGER): BOOLEAN is 
+        do 
+           Result:=(
+                    (a_value=gda_connection_event_notice) or else
+                    (a_value=gda_connection_event_warning) or else
+                    (a_value=gda_connection_event_error) or else
+                    False -- A little hack to simplifies the generating script.
+                    )
+        end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
+
+    gda_connection_event_notice: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-connection-event.h"
+         alias "GDA_CONNECTION_EVENT_NOTICE"
+         end
+
+    gda_connection_event_warning: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-connection-event.h"
+         alias "GDA_CONNECTION_EVENT_WARNING"
+         end
+
+    gda_connection_event_error: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-connection-event.h"
+         alias "GDA_CONNECTION_EVENT_ERROR"
+         end
+
+end -- class GDA_CONNECTION_EVENT_TYPE

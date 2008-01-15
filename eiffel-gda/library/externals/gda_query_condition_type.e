@@ -1,139 +1,286 @@
 indexing
-	description: "Enum "
-	copyright: "[
-					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
-					
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
-					the License, or (at your option) any later version.
-					
-					This library is distributed in the hope that it will be useful, but
-					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
+	description: "Enum GdaQueryConditionType"
+	status: "[
+                  AUTOMATICALLY GENERATED FILE. 
 
-					You should have received a copy of the GNU Lesser General Public
-					License along with this library; if not, write to the Free Software
-					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-					02110-1301 USA
-				]"
+                  ANY CHANGE TO THIS WILL BE OVERWRITTEN BY NEXT
+                  EXECUTION OF GENERATING SCRIPT!  You can put your
+                  changes in the patch file gda_query_condition_type.e.patch;
+                  those changes will be applied to the newly generated
+                  file.
+                  ]"
 
-deferred class GDA_QUERY_CONDITION_TYPE
+expanded class GDA_QUERY_CONDITION_TYPE
+       -- Enum GdaQueryConditionType
 
-inherit ANY undefine is_equal, copy end
+insert ENUM
 
-feature {} -- enum
-	is_valid_condition_type (a_type: INTEGER): BOOLEAN is
-		do	
-			Result:=((a_type = gda_query_condition_node_and) or else
-						(a_type = gda_query_condition_node_or) or else
-						(a_type = gda_query_condition_node_not) or else
-						(a_type = gda_query_condition_leaf_equal) or else
-						(a_type = gda_query_condition_leaf_diff) or else
-						(a_type = gda_query_condition_leaf_sup) or else
-						(a_type = gda_query_condition_leaf_supequal) or else
-						(a_type = gda_query_condition_leaf_inf) or else
-						(a_type = gda_query_condition_leaf_infequal) or else
-						(a_type = gda_query_condition_leaf_like) or else
-						(a_type = gda_query_condition_leaf_similar) or else
-						(a_type = gda_query_condition_leaf_regex) or else
-						(a_type = gda_query_condition_leaf_regex_nocase) or else
-						(a_type = gda_query_condition_leaf_not_regex) or else
-						(a_type = gda_query_condition_leaf_not_regex_nocase) or else
-						(a_type = gda_query_condition_leaf_in) or else
-						(a_type = gda_query_condition_leaf_between) or else
-						(a_type = gda_query_condition_type_unknown))
-		end
-	
-	gda_query_condition_node_and: INTEGER is
-			-- GDA_QUERY_CONDITION_NODE_AND
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_NODE_AND"
-		end
-	gda_query_condition_node_or: INTEGER is
-			-- GDA_QUERY_CONDITION_NODE_OR
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_NODE_OR"
-		end
-	gda_query_condition_node_not: INTEGER is
-			-- GDA_QUERY_CONDITION_NODE_NOT
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_NODE_NOT"
-		end
-	gda_query_condition_leaf_equal: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_EQUAL
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_EQUAL"
-		end
-	gda_query_condition_leaf_diff: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_DIFF
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_DIFF"
-		end
-	gda_query_condition_leaf_sup: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_SUP
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_SUP"
-		end
-	gda_query_condition_leaf_supequal: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_SUPEQUAL
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_SUPEQUAL"
-		end
-	gda_query_condition_leaf_inf: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_INF
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_INF"
-		end
-	gda_query_condition_leaf_infequal: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_INFEQUAL
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_INFEQUAL"
-		end
-	gda_query_condition_leaf_like: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_LIKE
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_LIKE"
-		end
-	gda_query_condition_leaf_similar: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_SIMILAR
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_SIMILAR"
-		end
-	gda_query_condition_leaf_regex: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_REGEX
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_REGEX"
-		end
-	gda_query_condition_leaf_regex_nocase: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_REGEX_NOCASE
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_REGEX_NOCASE"
-		end
-	gda_query_condition_leaf_not_regex: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_NOT_REGEX
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_NOT_REGEX"
-		end
-	gda_query_condition_leaf_not_regex_nocase: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_NOT_REGEX_NOCASE
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_NOT_REGEX_NOCASE"
-		end
-	gda_query_condition_leaf_in: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_IN
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_IN"
-		end
-	gda_query_condition_leaf_between: INTEGER is
-			-- GDA_QUERY_CONDITION_LEAF_BETWEEN
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_LEAF_BETWEEN"
-		end
-	gda_query_condition_type_unknown: INTEGER is
-			-- GDA_QUERY_CONDITION_TYPE_UNKNOWN
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_CONDITION_TYPE_UNKNOWN"
-		end
-end
+creation set_node_and
+
+feature -- Setters
+
+    set_node_and is 
+       do
+          value := gda_query_condition_node_and 
+       ensure is_node_and 
+       end
+
+    set_node_or is 
+       do
+          value := gda_query_condition_node_or 
+       ensure is_node_or 
+       end
+
+    set_node_not is 
+       do
+          value := gda_query_condition_node_not 
+       ensure is_node_not 
+       end
+
+    set_leaf_equal is 
+       do
+          value := gda_query_condition_leaf_equal 
+       ensure is_leaf_equal 
+       end
+
+    set_leaf_diff is 
+       do
+          value := gda_query_condition_leaf_diff 
+       ensure is_leaf_diff 
+       end
+
+    set_leaf_sup is 
+       do
+          value := gda_query_condition_leaf_sup 
+       ensure is_leaf_sup 
+       end
+
+    set_leaf_supequal is 
+       do
+          value := gda_query_condition_leaf_supequal 
+       ensure is_leaf_supequal 
+       end
+
+    set_leaf_inf is 
+       do
+          value := gda_query_condition_leaf_inf 
+       ensure is_leaf_inf 
+       end
+
+    set_leaf_infequal is 
+       do
+          value := gda_query_condition_leaf_infequal 
+       ensure is_leaf_infequal 
+       end
+
+    set_leaf_like is 
+       do
+          value := gda_query_condition_leaf_like 
+       ensure is_leaf_like 
+       end
+
+    set_leaf_similar is 
+       do
+          value := gda_query_condition_leaf_similar 
+       ensure is_leaf_similar 
+       end
+
+    set_leaf_regex is 
+       do
+          value := gda_query_condition_leaf_regex 
+       ensure is_leaf_regex 
+       end
+
+    set_leaf_regex_nocase is 
+       do
+          value := gda_query_condition_leaf_regex_nocase 
+       ensure is_leaf_regex_nocase 
+       end
+
+    set_leaf_not_regex is 
+       do
+          value := gda_query_condition_leaf_not_regex 
+       ensure is_leaf_not_regex 
+       end
+
+    set_leaf_not_regex_nocase is 
+       do
+          value := gda_query_condition_leaf_not_regex_nocase 
+       ensure is_leaf_not_regex_nocase 
+       end
+
+    set_leaf_in is 
+       do
+          value := gda_query_condition_leaf_in 
+       ensure is_leaf_in 
+       end
+
+    set_leaf_between is 
+       do
+          value := gda_query_condition_leaf_between 
+       ensure is_leaf_between 
+       end
+
+    set_type_unknown is 
+       do
+          value := gda_query_condition_type_unknown 
+       ensure is_type_unknown 
+       end
+
+feature -- Queries
+
+    is_node_and: BOOLEAN is do Result:=(value=gda_query_condition_node_and) end
+
+    is_node_or: BOOLEAN is do Result:=(value=gda_query_condition_node_or) end
+
+    is_node_not: BOOLEAN is do Result:=(value=gda_query_condition_node_not) end
+
+    is_leaf_equal: BOOLEAN is do Result:=(value=gda_query_condition_leaf_equal) end
+
+    is_leaf_diff: BOOLEAN is do Result:=(value=gda_query_condition_leaf_diff) end
+
+    is_leaf_sup: BOOLEAN is do Result:=(value=gda_query_condition_leaf_sup) end
+
+    is_leaf_supequal: BOOLEAN is do Result:=(value=gda_query_condition_leaf_supequal) end
+
+    is_leaf_inf: BOOLEAN is do Result:=(value=gda_query_condition_leaf_inf) end
+
+    is_leaf_infequal: BOOLEAN is do Result:=(value=gda_query_condition_leaf_infequal) end
+
+    is_leaf_like: BOOLEAN is do Result:=(value=gda_query_condition_leaf_like) end
+
+    is_leaf_similar: BOOLEAN is do Result:=(value=gda_query_condition_leaf_similar) end
+
+    is_leaf_regex: BOOLEAN is do Result:=(value=gda_query_condition_leaf_regex) end
+
+    is_leaf_regex_nocase: BOOLEAN is do Result:=(value=gda_query_condition_leaf_regex_nocase) end
+
+    is_leaf_not_regex: BOOLEAN is do Result:=(value=gda_query_condition_leaf_not_regex) end
+
+    is_leaf_not_regex_nocase: BOOLEAN is do Result:=(value=gda_query_condition_leaf_not_regex_nocase) end
+
+    is_leaf_in: BOOLEAN is do Result:=(value=gda_query_condition_leaf_in) end
+
+    is_leaf_between: BOOLEAN is do Result:=(value=gda_query_condition_leaf_between) end
+
+    is_type_unknown: BOOLEAN is do Result:=(value=gda_query_condition_type_unknown) end
+
+
+    is_valid_value (a_value: INTEGER): BOOLEAN is 
+        do 
+           Result:=(
+                    (a_value=gda_query_condition_node_and) or else
+                    (a_value=gda_query_condition_node_or) or else
+                    (a_value=gda_query_condition_node_not) or else
+                    (a_value=gda_query_condition_leaf_equal) or else
+                    (a_value=gda_query_condition_leaf_diff) or else
+                    (a_value=gda_query_condition_leaf_sup) or else
+                    (a_value=gda_query_condition_leaf_supequal) or else
+                    (a_value=gda_query_condition_leaf_inf) or else
+                    (a_value=gda_query_condition_leaf_infequal) or else
+                    (a_value=gda_query_condition_leaf_like) or else
+                    (a_value=gda_query_condition_leaf_similar) or else
+                    (a_value=gda_query_condition_leaf_regex) or else
+                    (a_value=gda_query_condition_leaf_regex_nocase) or else
+                    (a_value=gda_query_condition_leaf_not_regex) or else
+                    (a_value=gda_query_condition_leaf_not_regex_nocase) or else
+                    (a_value=gda_query_condition_leaf_in) or else
+                    (a_value=gda_query_condition_leaf_between) or else
+                    (a_value=gda_query_condition_type_unknown) or else
+                    False -- A little hack to simplifies the generating script.
+                    )
+        end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
+
+    gda_query_condition_node_and: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_NODE_AND"
+         end
+
+    gda_query_condition_node_or: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_NODE_OR"
+         end
+
+    gda_query_condition_node_not: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_NODE_NOT"
+         end
+
+    gda_query_condition_leaf_equal: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_EQUAL"
+         end
+
+    gda_query_condition_leaf_diff: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_DIFF"
+         end
+
+    gda_query_condition_leaf_sup: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_SUP"
+         end
+
+    gda_query_condition_leaf_supequal: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_SUPEQUAL"
+         end
+
+    gda_query_condition_leaf_inf: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_INF"
+         end
+
+    gda_query_condition_leaf_infequal: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_INFEQUAL"
+         end
+
+    gda_query_condition_leaf_like: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_LIKE"
+         end
+
+    gda_query_condition_leaf_similar: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_SIMILAR"
+         end
+
+    gda_query_condition_leaf_regex: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_REGEX"
+         end
+
+    gda_query_condition_leaf_regex_nocase: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_REGEX_NOCASE"
+         end
+
+    gda_query_condition_leaf_not_regex: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_NOT_REGEX"
+         end
+
+    gda_query_condition_leaf_not_regex_nocase: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_NOT_REGEX_NOCASE"
+         end
+
+    gda_query_condition_leaf_in: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_IN"
+         end
+
+    gda_query_condition_leaf_between: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_LEAF_BETWEEN"
+         end
+
+    gda_query_condition_type_unknown: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query-condition.h"
+         alias "GDA_QUERY_CONDITION_TYPE_UNKNOWN"
+         end
+
+end -- class GDA_QUERY_CONDITION_TYPE

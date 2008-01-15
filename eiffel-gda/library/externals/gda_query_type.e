@@ -1,87 +1,146 @@
 indexing
-	description: "Enum "
-	copyright: "[
-					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
-					
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
-					the License, or (at your option) any later version.
-					
-					This library is distributed in the hope that it will be useful, but
-					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
+	description: "Enum GdaQueryType"
+	status: "[
+                  AUTOMATICALLY GENERATED FILE. 
 
-					You should have received a copy of the GNU Lesser General Public
-					License along with this library; if not, write to the Free Software
-					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-					02110-1301 USA
-				]"
+                  ANY CHANGE TO THIS WILL BE OVERWRITTEN BY NEXT
+                  EXECUTION OF GENERATING SCRIPT!  You can put your
+                  changes in the patch file gda_query_type.e.patch;
+                  those changes will be applied to the newly generated
+                  file.
+                  ]"
 
-deferred class GDA_QUERY_TYPE
+expanded class GDA_QUERY_TYPE
+       -- Enum GdaQueryType
 
-inherit ANY undefine is_equal, copy end
+insert ENUM
 
-feature {} -- enum
-	is_valid_query_type (a_type: INTEGER): BOOLEAN is
-		do	
-			Result:=((a_type = gda_query_type_select) or else
-						(a_type = gda_query_type_insert) or else
-						(a_type = gda_query_type_update) or else
-						(a_type = gda_query_type_delete) or else
-						(a_type = gda_query_type_union) or else
-						(a_type = gda_query_type_intersect) or else
-						(a_type = gda_query_type_except) or else
-						(a_type = gda_query_type_non_parsed_sql))
-		end
+creation set_select
 
-	gda_query_type_select: INTEGER is
-			-- GDA_QUERY_TYPE_SELECT
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_TYPE_SELECT"
-		end
+feature -- Setters
 
-	gda_query_type_insert: INTEGER is
-			-- GDA_QUERY_TYPE_INSERT
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_TYPE_INSERT"
-		end
+    set_select is 
+       do
+          value := gda_query_type_select 
+       ensure is_select 
+       end
 
-	gda_query_type_update: INTEGER is
-			-- GDA_QUERY_TYPE_UPDATE
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_TYPE_UPDATE"
-		end
+    set_insert is 
+       do
+          value := gda_query_type_insert 
+       ensure is_insert 
+       end
 
-	gda_query_type_delete: INTEGER is
-			-- GDA_QUERY_TYPE_DELETE
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_TYPE_DELETE"
-		end
+    set_update is 
+       do
+          value := gda_query_type_update 
+       ensure is_update 
+       end
 
-	gda_query_type_union: INTEGER is
-			-- GDA_QUERY_TYPE_UNION
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_TYPE_UNION"
-		end
+    set_delete is 
+       do
+          value := gda_query_type_delete 
+       ensure is_delete 
+       end
 
-	gda_query_type_intersect: INTEGER is
-			-- GDA_QUERY_TYPE_INTERSECT
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_TYPE_INTERSECT"
-		end
+    set_union is 
+       do
+          value := gda_query_type_union 
+       ensure is_union 
+       end
 
-	gda_query_type_except: INTEGER is
-			-- GDA_QUERY_TYPE_EXCEPT
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_TYPE_EXCEPT"
-		end
+    set_intersect is 
+       do
+          value := gda_query_type_intersect 
+       ensure is_intersect 
+       end
 
-	gda_query_type_non_parsed_sql: INTEGER is
-			-- GDA_QUERY_TYPE_NON_PARSED_SQL
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_QUERY_TYPE_NON_PARSED_SQL"
-		end
+    set_except is 
+       do
+          value := gda_query_type_except 
+       ensure is_except 
+       end
 
-end
+    set_non_parsed_sql is 
+       do
+          value := gda_query_type_non_parsed_sql 
+       ensure is_non_parsed_sql 
+       end
+
+feature -- Queries
+
+    is_select: BOOLEAN is do Result:=(value=gda_query_type_select) end
+
+    is_insert: BOOLEAN is do Result:=(value=gda_query_type_insert) end
+
+    is_update: BOOLEAN is do Result:=(value=gda_query_type_update) end
+
+    is_delete: BOOLEAN is do Result:=(value=gda_query_type_delete) end
+
+    is_union: BOOLEAN is do Result:=(value=gda_query_type_union) end
+
+    is_intersect: BOOLEAN is do Result:=(value=gda_query_type_intersect) end
+
+    is_except: BOOLEAN is do Result:=(value=gda_query_type_except) end
+
+    is_non_parsed_sql: BOOLEAN is do Result:=(value=gda_query_type_non_parsed_sql) end
+
+
+    is_valid_value (a_value: INTEGER): BOOLEAN is 
+        do 
+           Result:=(
+                    (a_value=gda_query_type_select) or else
+                    (a_value=gda_query_type_insert) or else
+                    (a_value=gda_query_type_update) or else
+                    (a_value=gda_query_type_delete) or else
+                    (a_value=gda_query_type_union) or else
+                    (a_value=gda_query_type_intersect) or else
+                    (a_value=gda_query_type_except) or else
+                    (a_value=gda_query_type_non_parsed_sql) or else
+                    False -- A little hack to simplifies the generating script.
+                    )
+        end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
+
+    gda_query_type_select: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query.h"
+         alias "GDA_QUERY_TYPE_SELECT"
+         end
+
+    gda_query_type_insert: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query.h"
+         alias "GDA_QUERY_TYPE_INSERT"
+         end
+
+    gda_query_type_update: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query.h"
+         alias "GDA_QUERY_TYPE_UPDATE"
+         end
+
+    gda_query_type_delete: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query.h"
+         alias "GDA_QUERY_TYPE_DELETE"
+         end
+
+    gda_query_type_union: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query.h"
+         alias "GDA_QUERY_TYPE_UNION"
+         end
+
+    gda_query_type_intersect: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query.h"
+         alias "GDA_QUERY_TYPE_INTERSECT"
+         end
+
+    gda_query_type_except: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query.h"
+         alias "GDA_QUERY_TYPE_EXCEPT"
+         end
+
+    gda_query_type_non_parsed_sql: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-query.h"
+         alias "GDA_QUERY_TYPE_NON_PARSED_SQL"
+         end
+
+end -- class GDA_QUERY_TYPE

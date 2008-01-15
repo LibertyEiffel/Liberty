@@ -1,53 +1,76 @@
 indexing
-	description: "--  enum GdaServerOperationNodeStatus"
-	copyright: "[
-					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
-					
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
-					the License, or (at your option) any later version.
-					
-					This library is distributed in the hope that it will be useful, but
-					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
+	description: "Enum GdaServerOperationNodeStatus"
+	status: "[
+                  AUTOMATICALLY GENERATED FILE. 
 
-					You should have received a copy of the GNU Lesser General Public
-					License along with this library; if not, write to the Free Software
-					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-					02110-1301 USA
-				]"
+                  ANY CHANGE TO THIS WILL BE OVERWRITTEN BY NEXT
+                  EXECUTION OF GENERATING SCRIPT!  You can put your
+                  changes in the patch file gda_server_operation_node_status.e.patch;
+                  those changes will be applied to the newly generated
+                  file.
+                  ]"
 
-deferred class GDA_SERVER_OPERATION_NODE_STATUS
+expanded class GDA_SERVER_OPERATION_NODE_STATUS
+       -- Enum GdaServerOperationNodeStatus
 
-inherit ANY undefine is_equal, copy end
+insert ENUM
 
-feature {} -- enum
-	is_valid_server_operation_status (a_type: INTEGER): BOOLEAN is
-		do	
-			Result:=((a_type = gda_server_operation_status_optional) or else
-						(a_type = gda_server_operation_status_required) or else
-						(a_type = gda_server_operation_status_unknown))
-		end
+creation set_optional
 
-	gda_server_operation_status_optional: INTEGER is
-			-- GDA_SERVER_OPERATION_STATUS_OPTIONAL
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_SERVER_OPERATION_STATUS_OPTIONAL"
-		end
+feature -- Setters
 
-	gda_server_operation_status_required: INTEGER is
-			-- GDA_SERVER_OPERATION_STATUS_REQUIRED
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_SERVER_OPERATION_STATUS_REQUIRED"
-		end
+    set_optional is 
+       do
+          value := gda_server_operation_status_optional 
+       ensure is_optional 
+       end
 
-	gda_server_operation_status_unknown: INTEGER is
-			-- GDA_SERVER_OPERATION_STATUS_UNKNOWN
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_SERVER_OPERATION_STATUS_UNKNOWN"
-		end
+    set_required is 
+       do
+          value := gda_server_operation_status_required 
+       ensure is_required 
+       end
+
+    set_unknown is 
+       do
+          value := gda_server_operation_status_unknown 
+       ensure is_unknown 
+       end
+
+feature -- Queries
+
+    is_optional: BOOLEAN is do Result:=(value=gda_server_operation_status_optional) end
+
+    is_required: BOOLEAN is do Result:=(value=gda_server_operation_status_required) end
+
+    is_unknown: BOOLEAN is do Result:=(value=gda_server_operation_status_unknown) end
 
 
-end
+    is_valid_value (a_value: INTEGER): BOOLEAN is 
+        do 
+           Result:=(
+                    (a_value=gda_server_operation_status_optional) or else
+                    (a_value=gda_server_operation_status_required) or else
+                    (a_value=gda_server_operation_status_unknown) or else
+                    False -- A little hack to simplifies the generating script.
+                    )
+        end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
+
+    gda_server_operation_status_optional: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-server-operation.h"
+         alias "GDA_SERVER_OPERATION_STATUS_OPTIONAL"
+         end
+
+    gda_server_operation_status_required: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-server-operation.h"
+         alias "GDA_SERVER_OPERATION_STATUS_REQUIRED"
+         end
+
+    gda_server_operation_status_unknown: INTEGER is
+         external "C macro use /usr/include/libgda-3.0/libgda/gda-server-operation.h"
+         alias "GDA_SERVER_OPERATION_STATUS_UNKNOWN"
+         end
+
+end -- class GDA_SERVER_OPERATION_NODE_STATUS
