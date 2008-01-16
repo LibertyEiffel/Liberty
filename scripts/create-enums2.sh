@@ -15,27 +15,22 @@ process_file () {
 	    DEFAULT_HEADER=true
 	fi 
         	
-	## Find functions
-	echo Functions:
-	sed --expression "/(.*);/M {p}" --quiet $FILE |
-	## Removing multiple spaces
-	sed --expression "s/[\t ]\{2,\}/ /g" |
-	sed --expression "s/, +/, /" |
-	## Note the usage of # as separator of substitution command
-	sed --expression 's#\(.*\);#\t\1 is\n\t\t\t-- \1;\n\t\texternal "C use '"$HEADER"'"\n\tend\n#g' |
-	## Remove "(void)" from Eiffel signatures
-	sed --expression "/is$/ s/(void)//g" 
-	
-	if [ -n $DEFAULT_HEADER ] ; then
-	    ## remove computed header
-	    unset HEADER DEFAULT_HEADER
-	fi
+	# Find functions
+	#echo Functions:
+	#create_functions $FILE
 
 	## Find Enumerations
+	ENUM_FILES=$(mktemp -t eiffel-enum-XXXXX)
 	echo -e "\nEnumerations:"
-	sed --quiet --expression "/\benum\b/,/}/ p" $FILE 
-         ##) 	do	    echo $ENUM     echo =====	done
-	
+	sed --quiet --expression '/\benum\b/,/}/ { 
+          s/;/;\n====/g ## Separate each enum
+          { s_\([A-Z_]+.*\)_\1@@_ } ## Leave only the enumeration value  
+          p }' $FILE |
+	csplit --quiet --prefix=$ENUM_FILES - "/====/" "{*}" 
+        for ENUM in $(ls $ENUM_FILES*); do 
+	    process_enum $ENUM
+	done
+	rm $ENUM_FILES*
     else echo "process_file: no file to work on."
     fi
 }
@@ -51,6 +46,22 @@ WORK IN PROGRESS
 
 EOF
 
+}
+
+create_functions () {
+	sed --expression "/(.*);/M {p}" --quiet $FILE |
+	## Removing multiple spaces
+	sed --expression "s/[\t ]\{2,\}/ /g" |
+	sed --expression "s/, +/, /" |
+	## Note the usage of # as separator of substitution command
+	sed --expression 's#\(.*\);#\t\1 is\n\t\t\t-- \1;\n\t\texternal "C use '"$HEADER"'"\n\tend\n#g' |
+	## Remove "(void)" from Eiffel signatures
+	sed --expression "/is$/ s/(void)//g" 
+	
+	if [ -n $DEFAULT_HEADER ] ; then
+	    ## remove computed header
+	    unset HEADER DEFAULT_HEADER
+	fi
 }
 
 eiffellize_class_name () {
