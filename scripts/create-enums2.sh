@@ -21,15 +21,18 @@ process_file () {
 
 	## Find Enumerations
 	ENUM_FILES=$(mktemp -t eiffel-enum-XXXXX)
-	echo -e "\nEnumerations:"
 	sed --quiet --expression '/\benum\b/,/}/ { 
           s/;/;\n====/g ## Separate each enum
           { s_\([A-Z_]+.*\)_\1@@_ } ## Leave only the enumeration value  
           p }' $FILE |
-	csplit --quiet --prefix=$ENUM_FILES - "/====/" "{*}" 
-        for ENUM in $(ls $ENUM_FILES*); do 
-	    process_enum $ENUM
-	done
+	if csplit --quiet --prefix=$ENUM_FILES - "/====/" "{*}" 2>/dev/null 
+        then
+	    echo -e "\nEnumerations:"
+	    for ENUM in $(ls $ENUM_FILES*); do 
+		if [ -s $ENUM ] ; then process_enum $ENUM; fi
+	    done
+	else echo No enumeration found
+	fi
 	rm $ENUM_FILES*
     else echo "process_file: no file to work on."
     fi
@@ -56,7 +59,9 @@ create_functions () {
 	## Note the usage of # as separator of substitution command
 	sed --expression 's#\(.*\);#\t\1 is\n\t\t\t-- \1;\n\t\texternal "C use '"$HEADER"'"\n\tend\n#g' |
 	## Remove "(void)" from Eiffel signatures
-	sed --expression "/is$/ s/(void)//g" 
+	sed --expression "/is$/ s/(void)//g" |
+	## Convert all pointer return types 
+	sed --expression "/is$/ s/[A-Za-z0-9]+ *\*+\(.*\) is/\1: POINTER is/g" 
 	
 	if [ -n $DEFAULT_HEADER ] ; then
 	    ## remove computed header
@@ -74,39 +79,47 @@ eiffellize_class_name () {
 }
 
 process_enum () {
-    if [ -n $1 ] ; then 
-	ENUM_FILE=$1
-	ENUM_NAME=$(grep ";" $ENUM_FILE | tr --delete --complement [:alnum:] )
-	EIFFEL_ENUM=$(eiffellize_class_name $ENUM_NAME)
-	EIFFEL_ENUM_FILE=$(echo $EIFFEL_ENUM.e | tr '[:upper:]' '[:lower:]')
-	echo "Converting $ENUM_NAME into $EIFFEL_ENUM, file \"$EIFFEL_ENUM_FILE\""
-	ENUM_PART=$(mktemp)
-	csplit --quiet --prefix=$ENUM_PART $ENUM_FILE "/{/1" "/}/" 
-	ENUMERATION_ITEMS=$(cat ${ENUM_PART}01 | tr --delete ",")
-	if [ $(echo $ENUMERATION_ITEMS| tr --delete '_' | wc --words) -eq 1 ] 
-	then echo Skipping $EIFFEL_ENUM because it has only one value
-	else
-	    PREFIX=$(longest_prefix $ENUMERATION_ITEMS)
-	    ITEMS=${ENUMERATION_ITEMS//$PREFIX}
-	    EIFFEL_PREFIX=$(echo $PREFIX| tr '[:upper:]' '[:lower:]')
-	    
-	    emit_header
-	    emit_setters
-	    emit_queries
-	    if [ -z $HEADER ] ; then 
-		HEADER=$FILE
-		emit_values
-		unset HEADER
-		if [ $HEADER ] ; then echo Header not unset; exit 10; fi
-	    else emit_values
-	    fi
-	    emit_footer
-	    apply_patch
-	fi	    
-	# Cleaning up
-	    rm ${ENUM_PART}* 2>/dev/null 
-    else echo No enum file to work on
+    if [ ! -s $1 ] ; then  
+	echo No enum file to work on, bailing out; 
+	exit 5;
     fi
+    
+    ENUM_FILE=$1
+    ENUM_NAME=$(grep ";" $ENUM_FILE | tr --delete --complement [:alnum:] )
+    EIFFEL_ENUM=$(eiffellize_class_name $ENUM_NAME)
+    EIFFEL_ENUM_FILE=$(echo $EIFFEL_ENUM.e | tr '[:upper:]' '[:lower:]')
+    echo "Converting $ENUM_NAME into $EIFFEL_ENUM, file \"$EIFFEL_ENUM_FILE\""
+    ENUM_PART=$(mktemp)
+    if ! csplit --quiet --prefix=$ENUM_PART $ENUM_FILE "/{/1" "/}/" 2>/dev/null
+    then exit 5; fi
+    #ENUMERATION_ITEMS=$()
+    sed --quiet --expression "/[A-Z0-9_]+/ p" ${ENUM_PART}01 #)
+    echo Items:
+    for ITEM in $ENUMERATION_ITEMS;do echo -n "'$ITEM' "; done
+    echo
+	#
+	#if [ $(echo $ENUMERATION_ITEMS| tr --delete '_' | wc --words) -eq 1 ] 
+	#then echo Skipping $EIFFEL_ENUM because it has only one value
+	#else
+	#    PREFIX=$(longest_prefix $ENUMERATION_ITEMS)
+	#    ITEMS=${ENUMERATION_ITEMS//$PREFIX}
+	#    EIFFEL_PREFIX=$(echo $PREFIX| tr '[:upper:]' '[:lower:]')
+	#    
+	#    emit_header
+	#    emit_setters
+	#    emit_queries
+	#    if [ -z $HEADER ] ; then 
+	#	HEADER=$FILE
+	#	emit_values
+	#	unset HEADER
+	#	if [ $HEADER ] ; then echo Header not unset; exit 10; fi
+	#    else emit_values
+	#    fi
+	#    emit_footer
+	#    apply_patch
+	#fi	    
+	# Cleaning up
+    rm ${ENUM_PART}* 2>/dev/null 
 }
 
 longest_prefix () {
