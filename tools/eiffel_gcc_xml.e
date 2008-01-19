@@ -37,8 +37,16 @@ feature
 
 			if input.is_connected then
 				create tree.make(input)
-				initialize
+				create files.make
+				create functions.make 
+				create structures.make
+				create enumerations.make
+			
 				visit(tree.root)
+				functions.do_all(agent emit_function)
+				structures.do_all(agent emit_structure)
+				enumerations.do_all(agent emit_enumeration)
+
 			end
 		--rescue
 		--	io.put_string
@@ -50,28 +58,21 @@ feature
 		--	  ]")
 		end
 
-	initialize is
-		do
-			create files.make
-			create functions.make 
-			create structures.make
-		ensure 
-			files_not_void: files /= Void
-			functions_not_void: functions /= Void 
-			structures_not_void: structures /= Void
-		end
-
-	
 	visit (a_node: XML_NODE) is
 		require node_not_void: a_node/=Void
-		local i: INTEGER; a_child: XML_NODE; 
+		local i: INTEGER; a_child: XML_NODE; c_name: STRING
 		do
-			inspect a_node.name
-			when "Function" then functions.fast_put(a_node,a_node.attribute_at(once "name"))
-			when "Struct" then structures.fast_put(a_node,a_node.attribute_at(once "name"))
-			when "File" then files.fast_put(a_node,a_node.attribute_at(once "name"))
+			c_name := a_node.attribute_at(once "name")
+			if c_name/=Void then
+				inspect a_node.name
+				when "Function" then functions.fast_put(a_node,c_name)
+				when "Struct" then structures.fast_put(a_node,a_node.attribute_at(once "name"))
+				when "Enumeration" then enumerations.fast_put(a_node,a_node.attribute_at(once "name"))
+				when "File" then files.fast_put(a_node,a_node.attribute_at(once "name"))
+				else -- Ignoring
+				end
 			end
-
+			-- recursively visit all children
 			from i:=1 until i>a_node.children_count loop
 				a_child := a_node.child(i)
 				if a_child/=Void then visit(a_child) end
@@ -87,6 +88,7 @@ feature
 		do 
 			file := a_node.attribute_at(once "file")
 			returns := a_node.attribute_at(once "returns")
+			
 			-- if (once "returns").is_equal(a_node.
 			str := a_node.name.twin
 			from i:=1 until i>a_node.attributes_count loop
@@ -99,14 +101,39 @@ feature
 			io.put_line(str)
 		end
 
-	visit_struct (a_node: XML_NODE) is
+	emit_function (a_node: XML_NODE; a_name: STRING) is
 		require 
 			node_not_void: a_node/=Void
-		do
+			is_function_node: a_node.name.is_equal(once "Function")
+			name_not_void: a_name/=Void
+		local str, file,returns: STRING
+		do 
+			file := a_node.attribute_at(once "file")
+			returns := a_node.attribute_at(once "returns")			
+			-- if (once "returns").is_equal(a_node.
+			str := "Function "+a_node.attribute_at(once "name")
+			
+			io.put_line(str)
+		end
+
+	emit_structure (a_node: XML_NODE; a_name: STRING) is
+		require 
+			node_not_void: a_node/=Void
+			is_function_node: a_node.name.is_equal(once "Struct")
+			name_not_void: a_name/=Void
+		do 
+		end
+
+	emit_enumeration (a_node: XML_NODE; a_name: STRING) is
+		require 
+			node_not_void: a_node/=Void
+			is_function_node: a_node.name.is_equal(once "Enumeration")
+			name_not_void: a_name/=Void
+		do 
 		end
 
 feature 
 	tree: XML_TREE
-	files, functions, structures: HASHED_DICTIONARY [XML_NODE, STRING]
+	files, functions, structures, enumerations: HASHED_DICTIONARY [XML_NODE, STRING]
 
 end 
