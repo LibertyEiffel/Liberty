@@ -21,6 +21,8 @@ indexing
 
 class EIFFEL_GCC_XML
 
+
+	-- Implementation notes: types are identified by id.
 insert ARGUMENTS
 
 creation make
@@ -41,6 +43,8 @@ feature
 				create structures.make
 				create enumerations.make
 				create types.make
+				create pointer_types.make
+				create fields.make
 				debug create node_names.make end
 
 				visit(tree.root)
@@ -69,41 +73,74 @@ feature
 
 	visit (a_node: XML_NODE) is
 		require node_not_void: a_node/=Void
-		local i: INTEGER; a_child: XML_NODE; c_name,file: STRING
+		local i: INTEGER; a_child: XML_NODE; c_name,file, id: STRING;
 		do
 			debug node_names.add(a_node.name) end
 			c_name := a_node.attribute_at(once "name")
 			file := a_node.attribute_at(once "file")
-			if file/=Void then 
-				if file.is_equal(once "f0") and 
-					c_name/=Void then
-					inspect a_node.name
-					when "Function" then functions.fast_put(a_node,c_name)
-					when "Struct" then structures.fast_put(a_node,c_name)
-					when "Enumeration" then enumerations.fast_put(a_node,c_name)
-					when "File" then files.fast_put(a_node,c_name)
-					when "FundamentalType" then -- add_type(a_node,c_name)
-					when "Typedef" then -- add_type(a_node,c_name)
-					else 
-						-- Ignoring other nodes: Ellipsis (which stands for
-						-- the feared variadic functions), ArrayType,
-						-- Argument, PointerType, EnumValue, GCC_XML,
-						-- CvQualifiedType, Namespace, FunctionType,
-						-- Variable, File, Field, Union, ReferenceType,
-					end
-				else 
-					debug
-						io.put_string(once "Skipping ") 
-						io.put_line(a_node.name +" in line "+a_node.line.out) 
-					end
-				end
-			end
+			id :=  a_node.attribute_at(once "id")
 
-			-- recursively visit all children
-			from i:=1 until i>a_node.children_count loop
-				a_child := a_node.child(i)
-				if a_child/=Void then visit(a_child) end
-				i:=i+1
+			inspect a_node.name
+			when "Function" then 
+				check file/=Void; c_name/=Void end
+				if file.is_equal(once "f0") then 
+					functions.fast_put(a_node,c_name)
+				else  
+					debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
+				end
+			when "Struct" then 
+				check file/=Void end
+				if c_name/=Void then
+					if file.is_equal(once "f0") then 
+						structures.fast_put(a_node,c_name)
+					else 
+						debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
+					end
+				else
+					debug io.put_line("Skipping nameless structure in line "+a_node.line.out) end
+				end
+			when "Field" then 
+				check id_not_void: id/=Void end
+				fields.fast_put(a_node, id)
+			when "Enumeration" then 
+				check file/=Void; c_name/=Void end
+				if file.is_equal(once "f0") then 
+					enumerations.fast_put(a_node,c_name)
+				else
+					debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
+				end
+				-- Type system
+			when "FundamentalType" then 
+				check id/=Void end
+				types.put(a_node,id)
+			when "Typedef" then 
+				check file/=Void; id/=Void end
+				if file.is_equal(once "f0") then 
+					types.put(a_node,id)
+				else 
+					debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
+				end
+			when "PointerType" then 
+				check id_not_void: id/=Void end
+				types.put(a_node,id)
+				pointer_types.add(id)
+
+				-- The rest
+			when "File" then 
+				check c_name/=Void end
+				files.fast_put(a_node,c_name)
+			else 
+				-- Ignoring other nodes: Ellipsis (which stands for
+				-- the feared variadic functions), ArrayType,
+				-- Argument, EnumValue, GCC_XML,
+				-- CvQualifiedType, Namespace, FunctionType,
+				-- Variable, Union, ReferenceType,
+				-- Recursively visit all children:
+				from i:=1 until i>a_node.children_count loop
+					a_child := a_node.child(i)
+					if a_child/=Void then visit(a_child) end
+					i:=i+1
+				end
 			end
 		end
 	
@@ -135,8 +172,8 @@ feature -- Creation of external class
 					if argument_placeholder /= Void and then 
 						an_argument.name.is_equal(once "Argument") then 
 						output.put_string(argument_placeholder)
-						-- output.put_string(once ": ")
-						-- output.put_string(eiffel_type_of(an_argument.attribute_at(once "type")))
+						output.put_string(once ": ")
+						output.put_string(eiffel_type_of(an_argument))
 						output.put_string(once "; ")
 					elseif an_argument.name.is_equal(once "Ellipsis") then variadic := True
 					end
@@ -151,9 +188,15 @@ feature -- Creation of external class
 			end
 		end
 
-	eiffel_type_of (a_type: STRING): STRING is
+	eiffel_type_of (an_argument: XML_NODE): STRING is
+		local id: STRING
 		do
-		ensure implemented: False
+			id := an_argument.attribute_at(once "type")
+			if id/=Void and then pointer_types.has(id) 
+			 then	Result := once "POINTER" 
+			else  Result := once "unknown" 
+			end
+		ensure not_void: 
 		end
 		
 feature -- Creation of structure classes
@@ -162,8 +205,22 @@ feature -- Creation of structure classes
 			node_not_void: a_node/=Void
 			is_function_node: a_node.name.is_equal(once "Struct")
 			name_not_void: a_name/=Void
+		local id: STRING; field: XML_NODE; fields_iter: ITERATOR[STRING]
 		do 
-			io.put_line("Structure "+a_node.attribute_at(once "name"))
+			io.put_string("Structure "+a_node.attribute_at(once "name"))
+			fields_iter := a_node.attribute_at(once "members").split.get_new_iterator
+			from fields_iter.start until fields_iter.is_off loop
+				id := fields_iter.item
+				field := fields.reference_at(id)
+				if field/=Void then
+					io.put_string(once " ")
+					io.put_string(field.attribute_at(once "name"))
+					-- output.put_string(eiffel_type_of(field.attribute_at(once 
+					-- "type")))
+				else  debug io.put_string("(no field with id "+id+" probably a Constructor) ") end
+				end
+				fields_iter.next
+			end			
 		end
 
 feature -- Creation of enumeration classes
@@ -182,7 +239,14 @@ feature
 
 	tree: XML_TREE
 	files, functions, structures, enumerations, types: HASHED_DICTIONARY [XML_NODE, STRING]
+			-- Files, functions, structures, enumeration, types by their 
+			-- name
 
+	fields: HASHED_DICTIONARY [XML_NODE, STRING]
+			-- Fields by their id
+
+	pointer_types: HASHED_SET[STRING]
+	
 	node_names: HASHED_SET[STRING]
 
 feature {} -- Constants
