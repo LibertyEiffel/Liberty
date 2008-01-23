@@ -1,7 +1,7 @@
 indexing
 	description: "."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli
+					Copyright (C) 2008 Paolo Redaelli
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -30,11 +30,7 @@ creation make
 feature
 	make is
 		do
-			if argument_count<1 then
-				debug io.put_line(once "Using standard input.") end
-				input:=std_input
-			else create {TEXT_FILE_READ} input.connect_to(argument(1))
-			end
+			process_arguments
 
 			if input.is_connected then
 				create_tree
@@ -55,6 +51,21 @@ feature
 			end
 		end
 
+	process_arguments is
+		local n: INTEGER; arg: STRING
+		do
+			from i:=1 until i>argument_count loop 
+				arg := argument(i)
+				if arg.is_equal(once "--local") then only_local:=True  
+				else create {TEXT_FILE_READ} input.connect_to(arg)
+				end
+				i:=i+1
+			end
+			if input=Void then
+				debug io.put_line(once "Using standard input.") end
+				input:=std_input
+			end
+		end
 	create_tree is
 		do
 			create tree.make(input)
@@ -229,8 +240,20 @@ feature -- Creation of enumeration classes
 			node_not_void: a_node/=Void
 			is_function_node: a_node.name.is_equal(once "Enumeration")
 			name_not_void: a_name/=Void
+		local i: INTEGER; a_child: XML_NODE; value: STRING
 		do 
-			io.put_line("Enumeration "+a_node.attribute_at(once "name"))
+			io.put_string("Enumeration "+a_name+"[")
+			from i:=1 until i>a_node.children_count loop
+				a_child := a_node.child(i)
+				if a_child.name.is_equal(once "EnumValue") then
+					value := a_child.attribute_at(once "name")
+					check value/=Void end
+					io.put_string(value); io.put_string(once ", ") 
+				else  debug io.put_string("Unhandled child in Enumeration at line"+a_child.line.out) end
+				end
+				i:=i+1
+			end
+			io.put_line(once "]")
 		end
 
 feature 
