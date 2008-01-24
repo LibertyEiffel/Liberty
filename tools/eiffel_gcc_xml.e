@@ -23,7 +23,9 @@ class EIFFEL_GCC_XML
 
 
 	-- Implementation notes: types are identified by id.
-insert ARGUMENTS
+insert 
+	ARGUMENTS
+	FILE_TOOLS
 
 creation make
 
@@ -48,16 +50,20 @@ feature
  				make_external_class
 				structures.do_all(agent emit_structure)
 				enumerations.do_all(agent emit_enumeration)
+			else std_error.put_line(once "File not found.")
 			end
 		end
 
 	process_arguments is
-		local n: INTEGER; arg: STRING
+		local i: INTEGER; arg: STRING
 		do
+			global:=True
 			from i:=1 until i>argument_count loop 
 				arg := argument(i)
-				if arg.is_equal(once "--local") then only_local:=True  
-				else create {TEXT_FILE_READ} input.connect_to(arg)
+				if arg.is_equal(once "--local") then global:=False
+				elseif file_exists(arg) then 
+					create {TEXT_FILE_READ} input.connect_to(arg)
+				else print_usage
 				end
 				i:=i+1
 			end
@@ -66,6 +72,20 @@ feature
 				input:=std_input
 			end
 		end
+
+	print_usage is
+		do
+			std_error.put_line 
+			("[
+			  eiffel_gcc_xml [--local] file_name
+			  
+			  --local produces functions, structures and enumeration 
+			  classes only for the given file. Otherwise all the 
+			  necessary file will be created.
+			  ]")
+			die_with_code (exit_success_code)
+		end
+
 	create_tree is
 		do
 			create tree.make(input)
@@ -94,7 +114,7 @@ feature
 			inspect a_node.name
 			when "Function" then 
 				check file/=Void; c_name/=Void end
-				if file.is_equal(once "f0") then 
+				if global or else file.is_equal(once "f0") then 
 					functions.fast_put(a_node,c_name)
 				else  
 					debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
@@ -102,7 +122,7 @@ feature
 			when "Struct" then 
 				check file/=Void end
 				if c_name/=Void then
-					if file.is_equal(once "f0") then 
+					if global or else file.is_equal(once "f0") then 
 						structures.fast_put(a_node,c_name)
 					else 
 						debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
@@ -115,7 +135,7 @@ feature
 				fields.fast_put(a_node, id)
 			when "Enumeration" then 
 				check file/=Void; c_name/=Void end
-				if file.is_equal(once "f0") then 
+				if  global or else file.is_equal(once "f0") then 
 					enumerations.fast_put(a_node,c_name)
 				else
 					debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
@@ -126,7 +146,7 @@ feature
 				types.put(a_node,id)
 			when "Typedef" then 
 				check file/=Void; id/=Void end
-				if file.is_equal(once "f0") then 
+				if  global or else file.is_equal(once "f0") then 
 					types.put(a_node,id)
 				else 
 					debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
@@ -216,22 +236,33 @@ feature -- Creation of structure classes
 			node_not_void: a_node/=Void
 			is_function_node: a_node.name.is_equal(once "Struct")
 			name_not_void: a_name/=Void
-		local id: STRING; field: XML_NODE; fields_iter: ITERATOR[STRING]
+		local filename, id, members: STRING; field: XML_NODE; members_iter: ITERATOR[STRING]
 		do 
-			io.put_string("Structure "+a_node.attribute_at(once "name"))
-			fields_iter := a_node.attribute_at(once "members").split.get_new_iterator
-			from fields_iter.start until fields_iter.is_off loop
-				id := fields_iter.item
-				field := fields.reference_at(id)
-				if field/=Void then
-					io.put_string(once " ")
-					io.put_string(field.attribute_at(once "name"))
-					-- output.put_string(eiffel_type_of(field.attribute_at(once 
-					-- "type")))
-				else  debug io.put_string("(no field with id "+id+" probably a Constructor) ") end
+			filename := eiffel_class_file_name(a_name)
+			io.put_string("Structure "+a_name)
+			members := a_node.attribute_at(once "members")
+			if members/=Void then
+				members_iter := members.split.get_new_iterator
+				from members_iter.start until members_iter.is_off loop
+					id := members_iter.item
+					field := fields.reference_at(id)
+					if field/=Void then
+						io.put_string(once " ")
+						io.put_string(field.attribute_at(once "name"))
+						-- output.put_string(eiffel_type_of(field.attribute_at(once 
+						-- "type")))
+					else
+						debug
+							io.put_string("(no field with id "+id+" probably a Constructor) ") 
+						end
+					end
+					members_iter.next
 				end
-				fields_iter.next
-			end			
+			else
+				debug
+					std_error.put_line("Found a structure with no fields")
+				end
+			end
 		end
 
 feature -- Creation of enumeration classes
@@ -256,7 +287,27 @@ feature -- Creation of enumeration classes
 			io.put_line(once "]")
 		end
 
+feature -- Auxiliary features
+	eiffel_class_file_name (a_name: STRING): STRING is
+		-- Convert `a_name' into a proper Eiffel class name file. CamelCase are turned
+		do
+			Result := a_name.as_lower
+			Result.append(once ".e")		
+		ensure implemented: False
+		end
+
+	eiffel_class_name (a_name: STRING): STRING is
+			-- Translate `a_name' from CamelCase into CAMEL_CASE
+		local up: BOOLEAN; i: INTEGER
+		do
+			create Result.copy(a_name)
+			-- from i:=Result.lower until i>Result.upper loop
+		ensure implemented: False
+		end
+	
 feature 
+	global: BOOLEAN
+			
 	input: INPUT_STREAM
 	output: OUTPUT_STREAM
 
@@ -269,7 +320,8 @@ feature
 			-- Fields by their id
 
 	pointer_types: HASHED_SET[STRING]
-	
+			-- Ids of pointer types
+
 	node_names: HASHED_SET[STRING]
 
 feature {} -- Constants
