@@ -26,6 +26,7 @@ class EIFFEL_GCC_XML
 insert 
 	ARGUMENTS
 	FILE_TOOLS
+	EIFFEL_NAME_CONVERTER
 
 creation make
 
@@ -47,7 +48,7 @@ feature
 
 				visit(tree.root)
 				debug print_node_names end
- 				make_external_class
+				make_external_class
 				structures.do_all(agent emit_structure)
 				enumerations.do_all(agent emit_enumeration)
 			else std_error.put_line(once "File not found.")
@@ -236,31 +237,49 @@ feature -- Creation of structure classes
 			node_not_void: a_node/=Void
 			is_function_node: a_node.name.is_equal(once "Struct")
 			name_not_void: a_name/=Void
-		local filename, id, members: STRING; field: XML_NODE; members_iter: ITERATOR[STRING]
+		local classname,filename, id, members: STRING; field: XML_NODE; members_iter: ITERATOR[STRING]
+			file: TEXT_FILE_WRITE
 		do 
-			filename := eiffel_class_file_name(a_name)
-			io.put_string("Structure "+a_name)
-			members := a_node.attribute_at(once "members")
-			if members/=Void then
-				members_iter := members.split.get_new_iterator
-				from members_iter.start until members_iter.is_off loop
-					id := members_iter.item
-					field := fields.reference_at(id)
-					if field/=Void then
-						io.put_string(once " ")
-						io.put_string(field.attribute_at(once "name"))
-						-- output.put_string(eiffel_type_of(field.attribute_at(once 
-						-- "type")))
-					else
-						debug
-							io.put_string("(no field with id "+id+" probably a Constructor) ") 
+			classname := eiffel_class_name(a_name)+(once "_STRUCT")
+			filename := eiffel_class_file_name(classname)
+			create file.connect_to (filename)
+			if file.is_connected then 
+				put_strings
+				(file,
+				 << automatically_generated_header,
+					 once "deferred class ", eiffel_class_name(a_name),
+					 "[
+					  inherit ANY undefine is_equal, copy end
+									  
+					  feature {} -- getters
+					  ]" >>)
+				members := a_node.attribute_at(once "members")
+				if members/=Void then
+					members_iter := members.split.get_new_iterator
+					from members_iter.start until members_iter.is_off loop
+						id := members_iter.item
+						field := fields.reference_at(id)
+						if field/=Void then
+							put_strings
+							(file, <<field.attribute_at(once "name"),
+							 "%N%T%Texternal %"C macro use <",
+							 files.at(once "f0").attribute_at(once "name"),
+							 ">%"%N%Tend%N">>)
+							-- io.put_string(once " ")
+							-- io.put_string(field.attribute_at(once "name"))
+							-- output.put_string(eiffel_type_of(field.attribute_at(once
+							-- "type")))
+						else
+							debug
+								io.put_string("(no field with id "+id+" probably a Constructor) ") 
+							end
 						end
+						members_iter.next
 					end
-					members_iter.next
-				end
-			else
-				debug
-					std_error.put_line("Found a structure with no fields")
+				else
+					debug
+						std_error.put_line("Found a structure with no fields")
+					end
 				end
 			end
 		end
@@ -287,24 +306,7 @@ feature -- Creation of enumeration classes
 			io.put_line(once "]")
 		end
 
-feature -- Auxiliary features
-	eiffel_class_file_name (a_name: STRING): STRING is
-		-- Convert `a_name' into a proper Eiffel class name file. CamelCase are turned
-		do
-			Result := a_name.as_lower
-			Result.append(once ".e")		
-		ensure implemented: False
-		end
 
-	eiffel_class_name (a_name: STRING): STRING is
-			-- Translate `a_name' from CamelCase into CAMEL_CASE
-		local up: BOOLEAN; i: INTEGER
-		do
-			create Result.copy(a_name)
-			-- from i:=Result.lower until i>Result.upper loop
-		ensure implemented: False
-		end
-	
 feature 
 	global: BOOLEAN
 			
@@ -326,8 +328,24 @@ feature
 
 feature {} -- Constants
 	variadic_function_note: STRING is "%T%T%T-- Aaargh! A dreadful variadic call"
+	
+	automatically_generated_header: STRING is
+		"[
+		 -- This file have been created by eiffel-gcc-xml.
+		 -- Any change will be lost by the next execution of the tool.
+		 
+		 ]"
 				
-feature {} -- Auxiliary features for debug
+feature {} -- Auxiliary features
+	put_strings (a_file: OUTPUT_STREAM; some_strings: COLLECTION[STRING]) is
+		local i: ITERATOR[STRING]
+		do
+			from i:=some_strings.get_new_iterator; i.start until i.is_off loop
+				a_file.put_string(i.item)
+				i.next
+			end
+		end
+
 	print_node_names is
 		require node_names/=Void 
 		local i: ITERATOR[STRING]

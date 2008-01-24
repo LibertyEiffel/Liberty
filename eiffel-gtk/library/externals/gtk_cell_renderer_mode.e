@@ -1,56 +1,76 @@
 indexing
 	description: "Enum GtkCellRendererMode"
-	copyright: "[
-					Copyright (C) 2006 eiffel-libraries team, GTK+ team
-					
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
-					the License, or (at your option) any later version.
-					
-					This library is distributed in the hope that it will be useful, but
-					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
+	status: "[
+                  AUTOMATICALLY GENERATED FILE. 
 
-					You should have received a copy of the GNU Lesser General Public
-					License along with this library; if not, write to the Free Software
-					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-					02110-1301 USA
-				]"
-	date: "$Date:$"
-	revision: "$Revision:$"
+                  ANY CHANGE TO THIS WILL BE OVERWRITTEN BY NEXT
+                  EXECUTION OF GENERATING SCRIPT!  You can put your
+                  changes in the patch file gtk_cell_renderer_mode.e.patch;
+                  those changes will be applied to the newly generated
+                  file.
+                  ]"
 
-deferred class GTK_CELL_RENDERER_MODE
+expanded class GTK_CELL_RENDERER_MODE
+       -- Enum GtkCellRendererMode
 
-inherit ANY undefine is_equal, copy end
+insert ENUM
 
-feature {} -- enum
-	is_valid_gtk_cell_renderer_mode (a_mode :INTEGER): BOOLEAN is
-		do
-			Result:=((a_mode = gtk_cell_renderer_mode_inert) or else
-						(a_mode = gtk_cell_renderer_mode_activatable) or else
-						(a_mode = gtk_cell_renderer_mode_editable))
-		end
+creation set_inert
 
-	gtk_cell_renderer_mode_inert: INTEGER is
-			-- The cell is just for display and cannot be interacted
-			-- with. Note that this doesn't mean that eg. the row being
-			-- drawn can't be selected, just that a particular element of
-			-- it cannot be individually modified.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_CELL_RENDERER_MODE_INERT"
-		end
-	
-	gtk_cell_renderer_mode_activatable: INTEGER is
-			-- 	The cell can be clicked.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_CELL_RENDERER_MODE_ACTIVATABLE"
-		end
-	
-	gtk_cell_renderer_mode_editable: INTEGER is
-			-- 	The cell can be edited or otherwise modified.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_CELL_RENDERER_MODE_EDITABLE"
-		end
-end
+feature -- Setters
+
+    set_inert is 
+       do
+          value := gtk_cell_renderer_mode_inert 
+       ensure is_inert 
+       end
+
+    set_activatable is 
+       do
+          value := gtk_cell_renderer_mode_activatable 
+       ensure is_activatable 
+       end
+
+    set_editable is 
+       do
+          value := gtk_cell_renderer_mode_editable 
+       ensure is_editable 
+       end
+
+feature -- Queries
+
+    is_inert: BOOLEAN is do Result:=(value=gtk_cell_renderer_mode_inert) end
+
+    is_activatable: BOOLEAN is do Result:=(value=gtk_cell_renderer_mode_activatable) end
+
+    is_editable: BOOLEAN is do Result:=(value=gtk_cell_renderer_mode_editable) end
+
+
+    is_valid_value (a_value: INTEGER): BOOLEAN is 
+        do 
+           Result:=(
+                    (a_value=gtk_cell_renderer_mode_inert) or else
+                    (a_value=gtk_cell_renderer_mode_activatable) or else
+                    (a_value=gtk_cell_renderer_mode_editable) or else
+                    False -- A little hack to simplifies the generating script.
+                    )
+        end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
+
+    gtk_cell_renderer_mode_inert: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CELL_RENDERER_MODE_INERT"
+         end
+
+    gtk_cell_renderer_mode_activatable: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CELL_RENDERER_MODE_ACTIVATABLE"
+         end
+
+    gtk_cell_renderer_mode_editable: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CELL_RENDERER_MODE_EDITABLE"
+         end
+
+end -- class GTK_CELL_RENDERER_MODE

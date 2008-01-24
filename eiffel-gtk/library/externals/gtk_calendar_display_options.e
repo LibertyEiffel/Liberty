@@ -1,62 +1,384 @@
 indexing
-	description: "Enum "
-	copyright: "[
-					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
-					
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
-					the License, or (at your option) any later version.
-					
-					This library is distributed in the hope that it will be useful, but
-					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
+	description: "Enum GtkCalendarDisplayOptions"
+	status: "[
+                  AUTOMATICALLY GENERATED FILE. 
 
-					You should have received a copy of the GNU Lesser General Public
-					License along with this library; if not, write to the Free Software
-					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-					02110-1301 USA
-				]"
+                  ANY CHANGE TO THIS WILL BE OVERWRITTEN BY NEXT
+                  EXECUTION OF GENERATING SCRIPT!  You can put your
+                  changes in the patch file gtk_calendar_display_options.e.patch;
+                  those changes will be applied to the newly generated
+                  file.
+                  ]"
 
-deferred class GTK_CALENDAR_DISPLAY_OPTIONS
-	--    These options can be used to influence the display and
-	--    behaviour of a GtkCalendar.
-inherit ANY undefine is_equal, copy end
+expanded class GTK_CALENDAR_DISPLAY_OPTIONS
+       -- Enum GtkCalendarDisplayOptions
 
-feature {} -- enum
-	are_valid_gtk_calendar_display_options (some_options: INTEGER): BOOLEAN is
-		do	
-			Result:=(some_options & (gtk_calendar_show_heading |
-											 gtk_calendar_show_day_names |
-											 gtk_calendar_no_month_change |
-											 gtk_calendar_show_week_numbers)).to_boolean
-		end
+insert ENUM
 
-	gtk_calendar_show_heading: INTEGER is
-			-- Specifies that the month and year should be displayed.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_CALENDAR_SHOW_HEADING"
-		end
+creation set_gtk_calendar_show_heading
 
-	gtk_calendar_show_day_names: INTEGER is
-			-- Specifies that three letter day descriptions should be
-			-- present.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_CALENDAR_SHOW_DAY_NAMES"
-		end
+feature -- Setters
 
-	gtk_calendar_no_month_change: INTEGER is
-			-- Prevents the user from switching months with the calendar.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_CALENDAR_NO_MONTH_CHANGE"
-		end
+    set_gtk_calendar_show_heading is 
+       do
+          value := gtk_calendar_show_heading 
+       ensure is_gtk_calendar_show_heading 
+       end
 
-	gtk_calendar_show_week_numbers: INTEGER is
-			-- Displays each week numbers of the current year, down the
-			-- left side of the calendar.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_CALENDAR_SHOW_WEEK_NUMBERS"
-		end
+    set_= is 
+       do
+          value := = 
+       ensure is_= 
+       end
 
-end
+    set_1 is 
+       do
+          value := 1 
+       ensure is_1 
+       end
+
+    set_<< is 
+       do
+          value := << 
+       ensure is_<< 
+       end
+
+    set_0 is 
+       do
+          value := 0 
+       ensure is_0 
+       end
+
+    set_gtk_calendar_show_day_names is 
+       do
+          value := gtk_calendar_show_day_names 
+       ensure is_gtk_calendar_show_day_names 
+       end
+
+    set_= is 
+       do
+          value := = 
+       ensure is_= 
+       end
+
+    set_1 is 
+       do
+          value := 1 
+       ensure is_1 
+       end
+
+    set_<< is 
+       do
+          value := << 
+       ensure is_<< 
+       end
+
+    set_1 is 
+       do
+          value := 1 
+       ensure is_1 
+       end
+
+    set_gtk_calendar_no_month_change is 
+       do
+          value := gtk_calendar_no_month_change 
+       ensure is_gtk_calendar_no_month_change 
+       end
+
+    set_= is 
+       do
+          value := = 
+       ensure is_= 
+       end
+
+    set_1 is 
+       do
+          value := 1 
+       ensure is_1 
+       end
+
+    set_<< is 
+       do
+          value := << 
+       ensure is_<< 
+       end
+
+    set_2 is 
+       do
+          value := 2 
+       ensure is_2 
+       end
+
+    set_gtk_calendar_show_week_numbers is 
+       do
+          value := gtk_calendar_show_week_numbers 
+       ensure is_gtk_calendar_show_week_numbers 
+       end
+
+    set_= is 
+       do
+          value := = 
+       ensure is_= 
+       end
+
+    set_1 is 
+       do
+          value := 1 
+       ensure is_1 
+       end
+
+    set_<< is 
+       do
+          value := << 
+       ensure is_<< 
+       end
+
+    set_3 is 
+       do
+          value := 3 
+       ensure is_3 
+       end
+
+    set_gtk_calendar_week_start_monday is 
+       do
+          value := gtk_calendar_week_start_monday 
+       ensure is_gtk_calendar_week_start_monday 
+       end
+
+    set_= is 
+       do
+          value := = 
+       ensure is_= 
+       end
+
+    set_1 is 
+       do
+          value := 1 
+       ensure is_1 
+       end
+
+    set_<< is 
+       do
+          value := << 
+       ensure is_<< 
+       end
+
+    set_4 is 
+       do
+          value := 4 
+       ensure is_4 
+       end
+
+feature -- Queries
+
+    is_gtk_calendar_show_heading: BOOLEAN is do Result:=(value=gtk_calendar_show_heading) end
+
+    is_=: BOOLEAN is do Result:=(value==) end
+
+    is_1: BOOLEAN is do Result:=(value=1) end
+
+    is_<<: BOOLEAN is do Result:=(value=<<) end
+
+    is_0: BOOLEAN is do Result:=(value=0) end
+
+    is_gtk_calendar_show_day_names: BOOLEAN is do Result:=(value=gtk_calendar_show_day_names) end
+
+    is_=: BOOLEAN is do Result:=(value==) end
+
+    is_1: BOOLEAN is do Result:=(value=1) end
+
+    is_<<: BOOLEAN is do Result:=(value=<<) end
+
+    is_1: BOOLEAN is do Result:=(value=1) end
+
+    is_gtk_calendar_no_month_change: BOOLEAN is do Result:=(value=gtk_calendar_no_month_change) end
+
+    is_=: BOOLEAN is do Result:=(value==) end
+
+    is_1: BOOLEAN is do Result:=(value=1) end
+
+    is_<<: BOOLEAN is do Result:=(value=<<) end
+
+    is_2: BOOLEAN is do Result:=(value=2) end
+
+    is_gtk_calendar_show_week_numbers: BOOLEAN is do Result:=(value=gtk_calendar_show_week_numbers) end
+
+    is_=: BOOLEAN is do Result:=(value==) end
+
+    is_1: BOOLEAN is do Result:=(value=1) end
+
+    is_<<: BOOLEAN is do Result:=(value=<<) end
+
+    is_3: BOOLEAN is do Result:=(value=3) end
+
+    is_gtk_calendar_week_start_monday: BOOLEAN is do Result:=(value=gtk_calendar_week_start_monday) end
+
+    is_=: BOOLEAN is do Result:=(value==) end
+
+    is_1: BOOLEAN is do Result:=(value=1) end
+
+    is_<<: BOOLEAN is do Result:=(value=<<) end
+
+    is_4: BOOLEAN is do Result:=(value=4) end
+
+
+    is_valid_value (a_value: INTEGER): BOOLEAN is 
+        do 
+           Result:=(
+                    (a_value=gtk_calendar_show_heading) or else
+                    (a_value==) or else
+                    (a_value=1) or else
+                    (a_value=<<) or else
+                    (a_value=0) or else
+                    (a_value=gtk_calendar_show_day_names) or else
+                    (a_value==) or else
+                    (a_value=1) or else
+                    (a_value=<<) or else
+                    (a_value=1) or else
+                    (a_value=gtk_calendar_no_month_change) or else
+                    (a_value==) or else
+                    (a_value=1) or else
+                    (a_value=<<) or else
+                    (a_value=2) or else
+                    (a_value=gtk_calendar_show_week_numbers) or else
+                    (a_value==) or else
+                    (a_value=1) or else
+                    (a_value=<<) or else
+                    (a_value=3) or else
+                    (a_value=gtk_calendar_week_start_monday) or else
+                    (a_value==) or else
+                    (a_value=1) or else
+                    (a_value=<<) or else
+                    (a_value=4) or else
+                    False -- A little hack to simplifies the generating script.
+                    )
+        end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
+
+    gtk_calendar_show_heading: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CALENDAR_SHOW_HEADING"
+         end
+
+    =: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "="
+         end
+
+    1: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "1"
+         end
+
+    <<: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "<<"
+         end
+
+    0: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "0"
+         end
+
+    gtk_calendar_show_day_names: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CALENDAR_SHOW_DAY_NAMES"
+         end
+
+    =: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "="
+         end
+
+    1: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "1"
+         end
+
+    <<: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "<<"
+         end
+
+    1: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "1"
+         end
+
+    gtk_calendar_no_month_change: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CALENDAR_NO_MONTH_CHANGE"
+         end
+
+    =: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "="
+         end
+
+    1: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "1"
+         end
+
+    <<: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "<<"
+         end
+
+    2: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "2"
+         end
+
+    gtk_calendar_show_week_numbers: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CALENDAR_SHOW_WEEK_NUMBERS"
+         end
+
+    =: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "="
+         end
+
+    1: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "1"
+         end
+
+    <<: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "<<"
+         end
+
+    3: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "3"
+         end
+
+    gtk_calendar_week_start_monday: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CALENDAR_WEEK_START_MONDAY"
+         end
+
+    =: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "="
+         end
+
+    1: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "1"
+         end
+
+    <<: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "<<"
+         end
+
+    4: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "4"
+         end
+
+end -- class GTK_CALENDAR_DISPLAY_OPTIONS

@@ -1,44 +1,62 @@
 indexing
-	description: "enum GtkCellRendererAccelMode"
-	copyright: "[
-					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
-					
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
-					the License, or (at your option) any later version.
-					
-					This library is distributed in the hope that it will be useful, but
-					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
+	description: "Enum GtkCellRendererAccelMode"
+	status: "[
+                  AUTOMATICALLY GENERATED FILE. 
 
-					You should have received a copy of the GNU Lesser General Public
-					License along with this library; if not, write to the Free Software
-					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-					02110-1301 USA
-				]"
+                  ANY CHANGE TO THIS WILL BE OVERWRITTEN BY NEXT
+                  EXECUTION OF GENERATING SCRIPT!  You can put your
+                  changes in the patch file gtk_cell_renderer_accel_mode.e.patch;
+                  those changes will be applied to the newly generated
+                  file.
+                  ]"
 
-deferred class GTK_CELL_RENDERER_ACCEL_MODE
+expanded class GTK_CELL_RENDERER_ACCEL_MODE
+       -- Enum GtkCellRendererAccelMode
 
-inherit ANY undefine is_equal, copy end
+insert ENUM
 
-feature {} -- enum
-	is_valid_gtk_accel_mode (a_mode: INTEGER): BOOLEAN is
-		do	
-			Result:=((a_mode = gtk_cell_renderer_accel_mode_gtk) or else
-						(a_mode = gtk_cell_renderer_accel_mode_other))
-		end
+creation set_gtk
 
-   gtk_cell_renderer_accel_mode_gtk: INTEGER is
-			-- GTK_CELL_RENDERER_ACCEL_MODE_GTK
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_CELL_RENDERER_ACCEL_MODE_GTK"
-		end
+feature -- Setters
 
-	gtk_cell_renderer_accel_mode_other: INTEGER is
-			-- GTK_CELL_RENDERER_ACCEL_MODE_OTHER
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_CELL_RENDERER_ACCEL_MODE_OTHER"
-		end
-end
+    set_gtk is 
+       do
+          value := gtk_cell_renderer_accel_mode_gtk 
+       ensure is_gtk 
+       end
+
+    set_other is 
+       do
+          value := gtk_cell_renderer_accel_mode_other 
+       ensure is_other 
+       end
+
+feature -- Queries
+
+    is_gtk: BOOLEAN is do Result:=(value=gtk_cell_renderer_accel_mode_gtk) end
+
+    is_other: BOOLEAN is do Result:=(value=gtk_cell_renderer_accel_mode_other) end
+
+
+    is_valid_value (a_value: INTEGER): BOOLEAN is 
+        do 
+           Result:=(
+                    (a_value=gtk_cell_renderer_accel_mode_gtk) or else
+                    (a_value=gtk_cell_renderer_accel_mode_other) or else
+                    False -- A little hack to simplifies the generating script.
+                    )
+        end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
+
+    gtk_cell_renderer_accel_mode_gtk: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CELL_RENDERER_ACCEL_MODE_GTK"
+         end
+
+    gtk_cell_renderer_accel_mode_other: INTEGER is
+         external "C macro use <gtk/gtk.h>"
+         alias "GTK_CELL_RENDERER_ACCEL_MODE_OTHER"
+         end
+
+end -- class GTK_CELL_RENDERER_ACCEL_MODE
