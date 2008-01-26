@@ -30,7 +30,7 @@ insert
 
 creation make
 
-feature
+feature -- Initialization
 	make is
 		do
 			process_arguments
@@ -46,13 +46,21 @@ feature
 				create pointer_types.make
 				create fields.make
 				debug create node_names.make end
-				
+
+				if verbose then io.put_line(once "Reading XML file.") end
 				create_tree 
+				if verbose then io.put_line(once "Examining XML tree.") end
 				visit(tree.root)
 
 				debug print_node_names end
+
+				if verbose then io.put_line(once "Making external functions classes.") end
 				make_external_class
+ 
+				if verbose then io.put_line(once "Making structure accessing classes.")	end
 				make_structures
+
+				if verbose then io.put_line(once "Making enumerations classes.")	end
 				enumerations.do_all(agent emit_enumeration)
 			else std_error.put_line(once "File not found.")
 			end
@@ -75,15 +83,18 @@ feature
 							module:=argument(i)
 						end
 					end
+				elseif arg.is_equal(once "--header") then
+					not_yet_implemented
 				elseif file_exists(arg) then 
 					-- Current arg should be the XML file. The following 
-					-- headers to consider.
+					-- are headers to process.
 					create {TEXT_FILE_READ} input.connect_to(arg)
 					from i:=i+1 until i>argument_count loop
-						print(" Arg "+argument(i))
-						
+						headers.add(argument(i))
 						i:=i+1
 					end
+				elseif (arg.is_equal(once "--verbose") or else 
+						  arg.is_equal(once "-v")) then verbose:=True
 				else print_usage
 				end
 				i:=i+1
@@ -99,16 +110,30 @@ feature
 			std_error.put_line 
 			(once 
 			 "[
-			  eiffel_gcc_xml [--local] [--global] [--plugin location module] output.gcc-xml filenames....
+			  eiffel_gcc_xml [--verbose|-v] [--local] [--global] [--plugin location module] output.gcc-xml filenames....
 			  
-			  --local produces functions, structures and enumeration 
-			  classes only for the given files. Otherwise all the 
-			  necessary file will be created.
+			  --local    produces functions, structures and enumeration 
+			             classes only for the given files. Otherwise all the 
+			             necessary file will be created.
 			  
+			  --global   emits wrappers for every features found in the XML 
+			             file. For usual wrappers it is normally not needed.
+
 			  --plugin location module
-			  Emits classes that uses the plugin mechanism instead of the more 
-			  traditional C external clauses. location and module arguments are 
-			  mandatory; it often useful to quote them.
+			             Emits classes that uses the plugin mechanism instead 
+                      of the more traditional C external clauses. location 
+			             and module arguments are mandatory; it often useful 
+			             to quote them.
+
+			  --header file 
+                      Use file as header file in external features instead 
+                      of the file where the feature actually reside. Useful
+			             for many libraries which provides a single header that
+                      includes all the library features.
+
+			  -v --verbose   
+			             Turn on verbose output, printing information about the
+			             ongoing operations.
 			  ]")
 			die_with_code (exit_success_code)
 		end
@@ -132,6 +157,7 @@ feature
 	visit (a_node: XML_NODE) is
 		require node_not_void: a_node/=Void
 		local i: INTEGER; a_child: XML_NODE; c_name,file, id: STRING;
+			functions_list: LINKED_LIST[XML_NODE]
 		do
 			debug node_names.add(a_node.name) end
 			c_name := a_node.attribute_at(once "name")
@@ -141,10 +167,10 @@ feature
 			inspect a_node.name
 			when "Function" then 
 				check file/=Void; c_name/=Void end
-				if global or else file.is_equal(once "f0") then 
-					functions.fast_put(a_node,c_name)
-				else  
-					debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
+				functions_list := functions.reference_at(file)
+				if not functions.has(file) then
+					create functions_list.make
+					-- functions.fast_put(a_node,c_name)
 				end
 			when "Struct" then 
 				check file/=Void end
@@ -203,12 +229,11 @@ feature
 			end
 		end
 	
-
-feature -- Creation of external class
+feature -- Creation of external classes
 	make_external_class is
 		do
 			output := std_output
-			functions.do_all(agent emit_function)
+			-- functions.do_all(agent emit_function)
 		end
 
 	emit_function (a_node: XML_NODE; a_name: STRING) is
@@ -245,26 +270,6 @@ feature -- Creation of external class
 			if variadic then 
 				output.put_line(variadic_function_note) 
 			end
-		end
-
-	eiffel_type_of (an_argument: XML_NODE): STRING is
-		local id: STRING
-		do
-			id := an_argument.attribute_at(once "type")
-			if id/=Void and then pointer_types.has(id) 
-			 then	Result := once "POINTER" 
-			else  Result := once "unknown" 
-			end
-		ensure not_void: Result/=Void
-		end
-		
-	is_public (a_name: STRING): BOOLEAN is
-			-- Does `a_name' not have underscores '_' prefixed?
-		require 
-			not_void: a_name/=Void
-			meaningful_length: a_name.count>1
-		do
-			Result := not (a_name@1).is_equal('_')
 		end
 
 feature -- Creation of structure classes
@@ -380,6 +385,27 @@ feature -- Creation of enumeration classes
 			io.put_line(once "]")
 		end
 
+feature -- Type-system translations
+	eiffel_type_of (an_argument: XML_NODE): STRING is
+		local id: STRING
+		do
+			id := an_argument.attribute_at(once "type")
+			if id/=Void and then pointer_types.has(id) 
+			 then	Result := once "POINTER" 
+			else  Result := once "unknown" 
+			end
+		ensure not_void: Result/=Void
+		end
+		
+	is_public (a_name: STRING): BOOLEAN is
+			-- Does `a_name' not have underscores '_' prefixed?
+		require 
+			not_void: a_name/=Void
+			meaningful_length: a_name.count>1
+		do
+			Result := not (a_name@1).is_equal('_')
+		end
+
 	adapted_name (a_name: STRING): STRING is
 			-- 
 		do
@@ -392,8 +418,9 @@ feature -- Creation of enumeration classes
 			end
 		end
 	
-feature 
+feature -- Data 
 	global: BOOLEAN
+	verbose: BOOLEAN
 
 	use_plugin: BOOLEAN
 	location: STRING
@@ -406,9 +433,11 @@ feature
 	headers: HASHED_SET[STRING]
 
 	tree: XML_TREE
-	files, functions, structures, enumerations, types: HASHED_DICTIONARY [XML_NODE, STRING]
-			-- Files, functions, structures, enumeration, types by their 
-			-- name
+	files, structures, enumerations, types: HASHED_DICTIONARY [XML_NODE, STRING]
+			-- Files, structures, enumeration, types by their name
+
+	functions: HASHED_DICTIONARY[LINKED_LIST[XML_NODE], STRING]
+			-- Functions grouped by the file they are defined in.
 	
 	typedefs: LINKED_LIST[XML_NODE]
 
@@ -442,6 +471,7 @@ feature {} -- Constants
 						 "rescue", "obsolete"
 						 >>
 		end
+
 feature {} -- Auxiliary features
 	put_strings (a_file: OUTPUT_STREAM; some_strings: COLLECTION[STRING]) is
 		local i: ITERATOR[STRING]
