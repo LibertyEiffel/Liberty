@@ -100,7 +100,7 @@ feature -- Initialization
 				i:=i+1
 			end
 			if input=Void then
-				debug io.put_line(once "Using standard input.") end
+				if verbose then  io.put_line(once "Using standard input.") end
 				input:=std_input
 			end
 		end
@@ -113,27 +113,29 @@ feature -- Initialization
 			  eiffel_gcc_xml [--verbose|-v] [--local] [--global] [--plugin location module] output.gcc-xml filenames....
 			  
 			  --local    produces functions, structures and enumeration 
-			             classes only for the given files. Otherwise all the 
-			             necessary file will be created.
+							 classes only for the given files. Otherwise all the 
+							 necessary file will be created. This is the default
+							 Only the last global and local flag will be considered.
 			  
 			  --global   emits wrappers for every features found in the XML 
-			             file. For usual wrappers it is normally not needed.
+							 file. For usual wrappers it is normally not needed.
+							 Only the last global and local flag will be considered.
 
 			  --plugin location module
-			             Emits classes that uses the plugin mechanism instead 
-                      of the more traditional C external clauses. location 
-			             and module arguments are mandatory; it often useful 
-			             to quote them.
+							 Emits classes that uses the plugin mechanism instead 
+							 of the more traditional C external clauses. location 
+							 and module arguments are mandatory; it often useful 
+							 to quote them.
 
 			  --header file 
-                      Use file as header file in external features instead 
-                      of the file where the feature actually reside. Useful
-			             for many libraries which provides a single header that
-                      includes all the library features.
+							 Use file as header file in external features instead 
+							 of the file where the feature actually reside. Useful
+							 for many libraries which provides a single header that
+							 includes all the library features.
 
 			  -v --verbose   
-			             Turn on verbose output, printing information about the
-			             ongoing operations.
+							 Turn on verbose output, printing information about the
+							 ongoing operations.
 			  ]")
 			die_with_code (exit_success_code)
 		end
@@ -156,50 +158,55 @@ feature -- Initialization
 
 	visit (a_node: XML_NODE) is
 		require node_not_void: a_node/=Void
-		local i: INTEGER; a_child: XML_NODE; c_name,file, id: STRING;
-			functions_list: LINKED_LIST[XML_NODE]
+		local i: INTEGER; a_child: XML_NODE; c_name,file,file_id,id: STRING;
+			functions_in_file: LINKED_LIST[XML_NODE]
 		do
 			debug node_names.add(a_node.name) end
 			c_name := a_node.attribute_at(once "name")
-			file := a_node.attribute_at(once "file")
-			id :=  a_node.attribute_at(once "id")
+			file_id := a_node.attribute_at(once "file")
+			id := a_node.attribute_at(once "id")
 
 			inspect a_node.name
 			when "Function" then 
-				check file/=Void; c_name/=Void end
-				functions_list := functions.reference_at(file)
-				if not functions.has(file) then
-					create functions_list.make
-					-- functions.fast_put(a_node,c_name)
+				check file_id/=Void end
+				functions_in_file := functions.reference_at(file_id)
+				if functions_in_file=Void then
+					-- This is the first function belonging to `file'
+					-- found. Let's add a list for them.
+					create functions_in_file.make
+					functions.add(functions_in_file, file_id)
 				end
+				functions_in_file.add_last(a_node)
 			when "Struct" then 
-				check file/=Void end
+				check file_id/=Void end
 				if c_name/=Void then
-					if global or else file.is_equal(once "f0") then 
+					if global or else headers.has(file_id) then 
 						structures.fast_put(a_node,c_name)
 					else 
-						debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
+						if verbose then io.put_line(a_node.name+" skipped: defined in an included file. ") end
 					end
-				else
-					debug io.put_line("Skipping nameless structure in line "+a_node.line.out) end
+				else -- void name
+					if verbose then io.put_line("Skipping nameless structure in line "+a_node.line.out) end
 				end
 			when "Field" then 
 				check id_not_void: id/=Void end
 				fields.fast_put(a_node, id)
 			when "Enumeration" then 
-				check file/=Void; c_name/=Void end
-				if  global or else file.is_equal(once "f0") then 
+				check file_id/=Void; c_name/=Void end
+				if global or else files.has(file) then 
 					enumerations.fast_put(a_node,c_name)
 				else
-					debug io.put_line(a_node.name+" skipped: defined in an included file. ") end
+					if verbose then
+						io.put_line(a_node.name+" skipped: defined in an included file. ") 
+					end
 				end
 				-- Type system
 			when "FundamentalType" then 
-				check id/=Void end
+					check id/=Void end
 				types.put(a_node,id)
 			when "Typedef" then 
-				check file/=Void; id/=Void end
-				if global or else file.is_equal(once "f0") then 
+				check file_id/=Void; id/=Void end
+				if global or else files.has(file) then 
 					types.put(a_node,id)
 					typedefs.add_last(a_node)
 				else 
@@ -233,7 +240,42 @@ feature -- Creation of external classes
 	make_external_class is
 		do
 			output := std_output
-			-- functions.do_all(agent emit_function)
+			functions.do_all(agent emit_functions)
+		end
+
+	emit_functions (some_functions: LINKED_LIST[XML_NODE]; a_file: STRING) is
+		require 
+			not_void_functions: some_functions/=Void 
+			file_not_void: a_file/=Void
+		local iterator: ITERATOR[XML_NODE]; a_function: XML_NODE; a_name: STRING
+		do
+			-- Performance-wise code repetition
+			if use_plugin then 
+				if global or else headers.has(a_file) then
+					iterator:=some_functions.get_new_iterator			
+					from iterator.start until iterator.is_off loop
+						emit_plugin_function(a_function,a_name)
+						iterator.next
+					end
+				end -- if global 
+			else -- use externals
+				if global or else headers.has(a_file) then
+					iterator:=some_functions.get_new_iterator			
+					from iterator.start until iterator.is_off loop
+						emit_function(a_function,a_name)
+						iterator.next
+					end
+				end -- if global 
+			end
+		end
+	
+	emit_plugin_function (a_node: XML_NODE; a_name: STRING) is
+		require 
+			node_not_void: a_node/=Void
+			is_function_node: a_node.name.is_equal(once "Function")
+			name_not_void: a_name/=Void
+		do
+			not_yet_implemented
 		end
 
 	emit_function (a_node: XML_NODE; a_name: STRING) is
@@ -275,14 +317,16 @@ feature -- Creation of external classes
 feature -- Creation of structure classes
 	make_structures is
 		local
-			typedef, structure: XML_NODE; typedef_iterator: ITERATOR[XML_NODE];
-			name, referred_type: STRING
+			typedef, structure: XML_NODE; iterator: ITERATOR[XML_NODE];
+			name, referred_type, file_name, file_id: STRING
 		do
 			structures.do_all(agent emit_structure)
+
 			-- Many structures are often "hidden behind" a typedef.
-			typedef_iterator := typedefs.get_new_iterator
-			from typedef_iterator.start until typedef_iterator.is_off loop
-				typedef := typedef_iterator.item
+			-- typedefs.do_all(agent emit_typedeffed_structure)
+			iterator := typedefs.get_new_iterator
+			from iterator.start until iterator.is_off loop
+				typedef := iterator.item
 				referred_type := typedef.attribute_at(once "type")
 				name := typedef.attribute_at(once "name")
 				check  
@@ -292,29 +336,49 @@ feature -- Creation of structure classes
 				structure := structures.reference_at(referred_type)
 				if structure/=Void then
 					-- Referred type is actually a structure
-					put_strings (std_output, 
-									 << once "Wrapping typedef structure ",
-										 name>>)
-					emit_structure(structure, name)
-				end
-				typedef_iterator.next
+					file_id := structure.attribute_at(once "file")
+					file_name := files.at(file_id).attribute_at(once "name")
+					if global or else headers.has(file_name) then 
+						put_strings (std_output, 
+										 << once "Wrapping typedef structure ",
+											 name>>)
+						if use_plugin then emit_plugin_structure(structure,name)
+						else emit_structure(structure, name)
+						end
+					else -- structure not in a desired header
+						if verbose then io.put_line(structure.name+" skipped: defined in an included file. ") end
+					end
+				end -- void structure
+				iterator.next
 			end
 		end
 
-	emit_structure (a_node: XML_NODE; a_name: STRING) is
+	emit_plugin_structure (a_node: XML_NODE; structure_name: STRING) is
 		require 
 			node_not_void: a_node/=Void
 			is_function_node: a_node.name.is_equal(once "Struct")
-			name_not_void: a_name/=Void
-		local classname,filename, id, members: STRING; field: XML_NODE; members_iter: ITERATOR[STRING]
+			name_not_void: structure_name/=Void
+		do
+			not_yet_implemented
+		end
+
+	emit_structure (a_node: XML_NODE; structure_name: STRING) is
+		require 
+			node_not_void: a_node/=Void
+			is_function_node: a_node.name.is_equal(once "Struct")
+			name_not_void: structure_name/=Void
+		local 
+			classname, filename, id, members, fieldname: STRING; 
+			field: XML_NODE; 
+			members_iter: ITERATOR[STRING]
 			file: TEXT_FILE_WRITE
 		do 
-			if is_public(a_name) then
-				classname := eiffel_class_name(a_name)+(once "_STRUCT")
-				filename := eiffel_class_file_name(a_name+once "_struct")
+			if is_public(structure_name) then
+				classname := eiffel_class_name(structure_name)+(once "_STRUCT")
+				filename := eiffel_class_file_name(structure_name+once "_struct")
 				put_strings (std_output, 
 								 << once "Wrapping structure ",
-									 a_name, once " to class ",
+									 structure_name, once " to class ",
 									 classname, once " in file ",
 									 filename>>)
 				create file.connect_to (filename)
@@ -322,44 +386,54 @@ feature -- Creation of structure classes
 					put_strings
 					(file,
 					 << automatically_generated_header,
-						 once "deferred class ", eiffel_class_name(a_name),
-						 "[
-						  inherit ANY undefine is_equal, copy end
-						  
-						  feature {} -- getters
-						  ]" >>)
+						 once "deferred class ",classname,
+						 once "[
+
+								 inherit ANY undefine is_equal, copy end
+								 
+								 feature {} -- getters
+								 ]" >>)
 					members := a_node.attribute_at(once "members")
 					if members/=Void then
 						members_iter := members.split.get_new_iterator
 						from members_iter.start until members_iter.is_off loop
 							id := members_iter.item
 							field := fields.reference_at(id)
+							fieldname := field.attribute_at(once "name")
 							if field/=Void then
-								put_strings
-								(file, <<field.attribute_at(once "name"),
-								 "%N%T%Texternal %"C macro use <$TODO_HEADER",
-								 ">%"%N%Tend%N">>)
-								io.put_string(once " ")
-								io.put_string(field.attribute_at(once "name"))
-								output.put_string(eiffel_type_of(field))
-							else
-								debug
+								put_strings 
+								(file,
+								 <<once "get_",fieldname,
+									once " (a_structure: POINTER): ",
+									eiffel_type_of(field),
+									once " is %N%T%Texternal %"C struct ",
+									structure_name, once " get ", fieldname
+									once " use <",
+									header,
+									once ">%"%N%Tend%N">>)
+								if verbose then
+									std_output.put_string(once " ")
+									std_output.put_string(field.attribute_at(once "name"))
+								end
+							else -- Void field
+								if verbose then
 									io.put_string("(no field with id "+id+" probably a Constructor) ") 
 								end
-							end
+							end -- field is void?
 							members_iter.next
 						end -- loop over members
 					else -- void members
-						debug
-							std_error.put_line("Found a structure with no fields")
+						if verbose then
+							std_output.put_line("Found a structure with no fields")
 						end
 					end
+					put_strings(file, <<"end -- class ",classname>> )
 					file.disconnect
 				else put_strings (std_output, 
 										<< once "Couldn't open file ",
 											filename>>)
 				end -- if file.is_connected
-			else put_strings(std_output,<<a_name, once " is not public">>)
+			else put_strings(std_output,<<structure_name, once " is not public">>)
 			end -- name is public
 		end
 
@@ -422,6 +496,7 @@ feature -- Data
 	global: BOOLEAN
 	verbose: BOOLEAN
 
+	header: STRING
 	use_plugin: BOOLEAN
 	location: STRING
 	module: STRING
@@ -437,7 +512,8 @@ feature -- Data
 			-- Files, structures, enumeration, types by their name
 
 	functions: HASHED_DICTIONARY[LINKED_LIST[XML_NODE], STRING]
-			-- Functions grouped by the file they are defined in.
+			-- Functions grouped by the id of the file they are defined
+			-- in, i.e. "f0" "f12".
 	
 	typedefs: LINKED_LIST[XML_NODE]
 
