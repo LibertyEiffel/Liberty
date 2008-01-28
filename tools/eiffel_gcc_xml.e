@@ -75,13 +75,16 @@ feature -- Initialization
 				if arg.is_equal(once "--local") then global:=False
 				elseif arg.is_equal(once "--global") then global:=True
 				elseif arg.is_equal(once "--plugin") then
+					use_plugin := True
 					i:=i+1
 					if i<=argument_count then
 						location:=argument(i)
 						i:=i+1
 						if i<=argument_count then
 							module:=argument(i)
+						else print_usage
 						end
+					else print_usage
 					end
 				elseif arg.is_equal(once "--header") then
 					not_yet_implemented
