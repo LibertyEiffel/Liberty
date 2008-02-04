@@ -11,7 +11,6 @@ feature -- Creation
 		do
 			create types.make
 			create typedefs.make
-			create pointer_types.make
 		end
 
 feature -- Type-system translations
@@ -24,8 +23,7 @@ feature -- Type-system translations
 		require 
 			argument_not_void: an_argument /= Void
 		local 
-			id,name: STRING; size: INTEGER
-			type_node: XML_NODE
+			name: STRING; size: INTEGER
 		do
 			-- Known nodes: FundamentalType Constructor Ellipsis Typedef
 			-- ArrayType Argument Enumeration PointerType EnumValue
@@ -85,27 +83,23 @@ feature -- Type-system translations
 					end
 					raise(unhandled_type) -- Result := once "unknown" 
 				end
-			elseif an_argument.name.is_equal(once "Typedef") then
+			elseif (an_argument.name.is_equal(once "Argument") or else
+					  an_argument.name.is_equal(once "Typedef") or else
+					  an_argument.name.is_equal(once "Variable")) then
 				-- Recursively discover the correct type: the actual type
 				-- of a typedef is the type it is referring to.
-				Result:=eiffel_type_of(types.at(an_argument.attribute_at(once "type")))
-			elseif an_argument.name.is_equal(once "ArrayType") then
-
+				Result:=eiffel_type_of(types.at(deconst(an_argument.attribute_at(once "type"))))
 			elseif an_argument.name.is_equal(once "Enumeration") then
-				Result:=once "INTEGER_32"
-			elseif an_argument.name.is_equal(once "PointerType") then
+				Result:=once "INTEGER_32"						
+			elseif (an_argument.name.is_equal(once "ArrayType") or else
+					  an_argument.name.is_equal(once "PointerType")) then
+				Result:=once "POINTER"
+			elseif an_argument.name.is_equal(once "FunctionType") then
+				std_error.put_line(once "FunctionType wrapped as a POINTER.")
 				Result:=once "POINTER"
 			elseif an_argument.name.is_equal(once "Struct") then
 				std_error.put_line(once "C structures does not have a valid Eiffel wrapper type.")
 				raise(unhandled_type) 
-			elseif an_argument.name.is_equal(once "FunctionType") then
-				std_error.put_line(once "FunctionType wrapped as a POINTER.")
-				Result:=once "POINTER"
-			elseif an_argument.name.is_equal(once "Variable") then
-				-- Recursively discover the correct type: the actual type
-				-- of a typedef is the type it is referring to.
-				not_yet_implemented
-				-- Result:=types.at(an_argument.attribute_at(once "type"))
 			elseif an_argument.name.is_equal(once "Field") then Result:=once "Field"
 			elseif an_argument.name.is_equal(once "Function") then Result:=once "Function"
 			elseif an_argument.name.is_equal(once "Union") then
@@ -123,11 +117,23 @@ feature -- Type-system translations
 
 	typedefs: LINKED_LIST[XML_NODE]
 
-	pointer_types: HASHED_SET[STRING]
-			-- Ids of pointer types
+feature {} -- Implementation
+	deconst (a_string: STRING): STRING is
+			-- `a_string' if it does not end with 'c' or 'r'; otherwise it is a
+			-- copy of `a_string' with the last character ('c' or 'r')
+			-- removed. In gcc-xml output 'c' should mean that the referred id
+			-- shall be constant, 'r' a reference type.
+		require not_void: a_string/=Void
+		do
+			inspect a_string.last
+			when 'c', 'r' then 
+				Result := a_string.substring(a_string.lower, a_string.upper-1)
+			else Result:=a_string
+			end
+		end
 
 feature {} -- Constants
-	unhandled_type: STRING is "Unhandled type"
+	unhandled_type: STRING is "Unhandled type: "
 			
 	integer_size: INTEGER is do Result:=({INTEGER 1}.object_size//8) end
 	real_size: INTEGER is do Result:=({REAL 1.0}.object_size//8) end

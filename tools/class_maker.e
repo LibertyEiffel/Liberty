@@ -3,6 +3,7 @@ deferred class CLASS_MAKER
 
 insert 
 	EIFFEL_NAME_CONVERTER
+	FILE_TOOLS
 
 feature 
 	initialize is
@@ -37,6 +38,7 @@ feature
 			input_not_void: input/=Void
 			connected_input: input.is_connected
 			initialized: is_initialized
+		--local dir: BASIC_DIRECTORY; successful: BOOLEAN
 		do
 			if verbose then io.put_line(once "Reading XML file.") end
 			create_tree
@@ -44,8 +46,17 @@ feature
 			if verbose then io.put_line(once "Examining XML tree.") end
 			visit(tree.root)
 
+			--if directory/=Void then
+			--	if not file_exists(directory) then
+			--		if dir.create_new_directory(directory) then
+			-- else
+			--			std_error.put_line(once "Couldn't create directory.")
+			--			die_with_code(exit_failure_code)
+			--		end
+			--else -- No directory
+			--end
 			if verbose then io.put_line(once "Making external functions classes.") end
-			make_external_class
+			make_external_classes
 			
 			if verbose then io.put_line(once "Making structure accessing classes.")	end
 			make_structures
@@ -100,21 +111,15 @@ feature
 				check id_not_void: id/=Void end
 				fields.fast_put(a_node, id)
 			when "Enumeration" then 
-				check file_id/=Void; c_name/=Void end
+				check id/=Void; c_name/=Void end
 				enumerations.fast_put(a_node,c_name)
+				type_translator.types.put(a_node,id)
 				
-				-- Type system
-			when "FundamentalType" then 
+			when -- Type system
+				"FundamentalType", "ArrayType", 
+				"FunctionType", "PointerType", "Typedef" then 
 				check id/=Void end
 				type_translator.types.put(a_node,id)
-			when "Typedef" then 
-				check file_id/=Void; id/=Void end
-				type_translator.types.put(a_node,id)
-				type_translator.typedefs.add_last(a_node)
-			when "PointerType" then 
-				check id_not_void: id/=Void end
-				type_translator.types.put(a_node,id)
-				type_translator.pointer_types.add(id)
 
 				-- The rest
 			when "File" then 
@@ -122,9 +127,9 @@ feature
 				files.fast_put(a_node,c_name)
 			else 
 				-- Ignoring other nodes: Ellipsis (which stands for
-				-- the feared variadic functions), ArrayType,
+				-- the feared variadic functions),
 				-- Argument, EnumValue, GCC_XML,
-				-- CvQualifiedType, Namespace, FunctionType,
+				-- CvQualifiedType, Namespace, 
 				-- Variable, Union, ReferenceType,
 				-- Recursively visit all children:
 				from i:=1 until i>a_node.children_count loop
@@ -136,7 +141,7 @@ feature
 		end
 	
 feature -- Functions-providing external classes making
-	make_external_class is
+	make_external_classes is
 		do
 			functions.do_all(agent emit_functions)
 		end
@@ -147,9 +152,9 @@ feature -- Functions-providing external classes making
 			file_not_void: a_file_name/=Void
 		local 
 			iterator: ITERATOR[XML_NODE]; a_function: XML_NODE; a_name: STRING
-			
 		do
 			if global or else headers.has(a_file_name) then
+				--emit_functions_header(a_file
 				iterator:=some_functions.get_new_iterator
 				from iterator.start until iterator.is_off loop
 					a_function := iterator.item
