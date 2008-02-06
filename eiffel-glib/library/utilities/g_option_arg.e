@@ -19,17 +19,19 @@ indexing
 					02110-1301 USA
 				]"
 
-class G_OPTION_ARG
+expanded class G_OPTION_ARG
 	-- The GOptionArg enum values determine which type of extra
 	-- argument the options expect to find. If an option expects an
 	-- extra argument, it can be specified in several ways; with a
 	-- short option: -x arg, with a long option: --name arg or combined
 	-- in a single argument: --name=arg.
 
-insert ENUM 
+insert ENUM redefine default_create end
+
+creation default_create
 
 feature
-	set_none is
+	default_create, set_none is
 			-- No extra argument. This is useful for simple flags.
 		do
 			value:=g_option_arg_none
@@ -95,18 +97,18 @@ feature -- Queries
 	is_real: BOOLEAN is do Result := (value=g_option_arg_double) end
 	is_integer_64: BOOLEAN is do Result := (value=g_option_arg_int64) end
 
-feature {} -- enum
-	is_valid: BOOLEAN is
+feature {WRAPPER_HANDLER} -- enum
+	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do	
-			Result:=((value = g_option_arg_none) or else
-						(value = g_option_arg_string) or else
-						(value = g_option_arg_int) or else
-						(value = g_option_arg_callback) or else
-						(value = g_option_arg_filename) or else
-						(value = g_option_arg_string_array) or else
-						(value = g_option_arg_filename_array) or else
-						(value = g_option_arg_double) or else
-						(value = g_option_arg_int64))
+			Result:=((a_value = g_option_arg_none) or else
+						(a_value = g_option_arg_string) or else
+						(a_value = g_option_arg_int) or else
+						(a_value = g_option_arg_callback) or else
+						(a_value = g_option_arg_filename) or else
+						(a_value = g_option_arg_string_array) or else
+						(a_value = g_option_arg_filename_array) or else
+						(a_value = g_option_arg_double) or else
+						(a_value = g_option_arg_int64))
 		end
 
 	g_option_arg_none: INTEGER is

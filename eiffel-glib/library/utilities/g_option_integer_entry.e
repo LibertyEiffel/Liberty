@@ -33,7 +33,7 @@ feature
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		do
 			Precursor (a_long_name,a_short_name, a_description)
-			set_arg(handle, g_option_arg_int)
+			set_arg(handle, argument_type.g_option_arg_int)
 			set_arg_data(handle, $item) 
 		end
 

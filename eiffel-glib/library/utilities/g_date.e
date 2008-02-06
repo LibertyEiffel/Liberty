@@ -1057,11 +1057,11 @@ feature {} --  enum GDateWeekday;
 
 feature {} --
 	to_string_format: STRING is "%%Y-%%m-%%d"
-			-- The format used in feature `to_string'; the double %% is 
-			-- becuase both Eiffel and the C function use % as a special character.
-
-end
-
+			-- The format used in feature `to_string'; the double %% is
+			-- becuase both Eiffel and the C function use % as a special
+			-- character.
+	
+feature {} -- Unwrapped code
 -- GDate struct access
 -- typedef struct {
 --   guint julian_days : 32; /* julian days representation - we use a
@@ -1099,3 +1099,5 @@ end
 
 	
 	
+end
+
