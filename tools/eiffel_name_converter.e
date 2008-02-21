@@ -45,6 +45,44 @@ feature -- Auxiliary features
 			else Result:=a_name
 			end
 		end
+
+	longest_prefix_of_children_of (a_node: XML_NODE): INTEGER is
+			-- The length of longest prefix common to all direct children
+			-- of `a_node'. Useful to remove the common part of many
+			-- enumeration values.
+		require 
+			non_void_node: a_node/=Void
+			node_has_children: a_node.children_count>1
+		local 
+			char_idx,string_n,lenght: INTEGER; c: CHARACTER; found: BOOLEAN; 
+			a_name: STRING; some_names: FAST_ARRAY[STRING]
+		do
+			-- Gather the names of the children and find the shortest one
+			create some_names.with_capacity(a_node.children_count)
+			from -- Initialization
+				a_name:=a_node.child(1).attribute_at(once "name")
+				lenght:=a_name.count; string_n:=2
+			until string_n>a_node.children_count
+			loop
+				a_name := a_node.child(string_n).attribute_at(once "name")
+				lenght := lenght.min(a_name.count)
+				some_names.add_last(a_name)
+				string_n:=string_n+1
+			end
+			-- Find the longest prefix.
+			from char_idx:=1 until found or else char_idx>lenght loop 
+				char_idx:=char_idx+1
+				from c:=some_names.first.item(char_idx); string_n:=2
+				until found or else string_n>some_names.count 
+				loop
+					if c /= some_names.item(string_n).item(char_idx) 
+					then Result:=char_idx-1; found:=True
+					else string_n:=string_n+1
+					end
+				end	
+			end
+		end
+
 	keywords: ARRAY[STRING] is
 		once
 			Result:=<<"indexing",

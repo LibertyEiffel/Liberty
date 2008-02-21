@@ -20,6 +20,10 @@ feature
 			not_yet_implemented
 		end
 
+	emit_enumeration (a_node: XML_NODE; a_name: STRING) is
+		do
+			not_yet_implemented
+		end
 feature
 	location: STRING
 	module: STRING

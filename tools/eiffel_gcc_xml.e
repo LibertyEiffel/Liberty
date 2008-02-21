@@ -12,7 +12,7 @@ indexing
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 					Lesser General Public License for more details.
-
+					
 					You should have received a copy of the GNU Lesser General Public
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
@@ -44,16 +44,17 @@ feature
 			input: INPUT_STREAM
 			headers: HASHED_SET[STRING]
 			arg, header, location, module, directory: STRING
-			global, verbose: BOOLEAN
+			global, verbose, plugin: BOOLEAN
 			i: INTEGER
 		do
-			global:=False
+			global:=False; plugin:=False
 			create headers.make
 			from i:=1 until i>argument_count loop 
 				arg := argument(i)
 				if arg.is_equal(once "--local") then global:=False
 				elseif arg.is_equal(once "--global") then global:=True
 				elseif arg.is_equal(once "--plugin") then
+					plugin:=True
 					i:=i+1
 					if i<=argument_count then
 						location:=argument(i)
@@ -99,11 +100,27 @@ feature
 
 			maker.set_verbose(verbose)
 			maker.set_global(global)
+
 			if directory/=Void then maker.set_directory(directory) end
 			if input=Void then
 				if verbose then std_output.put_line(once "Using standard input.") end
 				maker.set_input(std_input)
 			else maker.set_input(input)
+			end
+		
+			if verbose then
+				if global then std_output.put_line(once "Generating low-level wrappers for the C features found.")
+				else  std_output.put_line(once "Generating low-level wrappers only for the given files.")
+				end
+				if plugin then std_output.put_line(once "Generating plugin wrappers.")
+				else std_output.put_line(once "Generating external wrappers.")
+				end
+				if not headers.is_empty then
+					std_output.put_integer(headers.count)
+					std_output.put_string(once " headers: ")
+					headers.do_all(agent put_comma_separated_string(std_output,?))
+					std_output.put_new_line
+				end
 			end
 		ensure
 			maker/=Void
@@ -148,4 +165,10 @@ feature
 			die_with_code (exit_success_code)
 		end
 
+	put_comma_separated_string (a_stream: OUTPUT_STREAM; a_str: STRING) is
+		do
+			a_stream.put_string(a_str)
+			a_stream.put_string(once ", ")
+		end
+			
 end 
