@@ -62,32 +62,37 @@ feature
 						if i<=argument_count then
 							module:=argument(i)
 							create {PLUGIN_CLASS_MAKER} maker.with_location_and_module (location, module)
-						else print_usage
+						else std_error.put_line(once "No plugin module") print_usage
 						end
-					else print_usage
+					else std_error.put_line(once "No plugin location") print_usage
 					end
 					not_yet_implemented
 				elseif arg.is_equal(once "--header") then
 					i:=i+1
 					if i<=argument_count then header := argument(i)
-					else print_usage
+					else std_error.put_line(once "No header argument") print_usage
 					end
 				elseif (arg.is_equal(once "--verbose") or else 
 						  arg.is_equal(once "-v")) then verbose:=True
 				elseif arg.is_equal(once "--directory") then 
 					i:=i+1
 					if i<=argument_count then directory := argument(i)
-					else print_usage
+					else std_error.put_line(once "No directory given") print_usage
 					end
-				elseif file_exists(arg) then 
-					-- Current arg should be the XML file. The following 
-					-- are headers to process.
-					create {TEXT_FILE_READ} input.connect_to(arg)
-					from i:=i+1 until i>argument_count loop
-						headers.add(argument(i))
-						i:=i+1
+				else
+					if file_exists(arg) then 
+						-- Current arg should be the XML file. The following 
+						-- are headers to process.
+						create {TEXT_FILE_READ} input.connect_to(arg)
+						from i:=i+1 until i>argument_count loop
+							headers.add(argument(i))
+							i:=i+1
+						end
+					else 
+						std_error.put_string(once "Input file does not exist: ") 
+						std_error.put_line(arg)
+						print_usage
 					end
-				else print_usage
 				end
 				i:=i+1
 			end
@@ -167,8 +172,9 @@ feature
 
 	put_comma_separated_string (a_stream: OUTPUT_STREAM; a_str: STRING) is
 		do
+			a_stream.put_string(once "'")
 			a_stream.put_string(a_str)
-			a_stream.put_string(once ", ")
+			a_stream.put_string(once "', ")
 		end
 			
 end 

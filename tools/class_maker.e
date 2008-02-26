@@ -191,20 +191,16 @@ feature -- Functions-providing external classes making
 					iterator.next
 				end
 				output.put_line(footer)
-			else 
+			else -- local
 				if verbose then
-					std_output.put_string(once "Skipping ")
-					std_output.put_line(a_file_name)
-					std_output.put_string(once ": ")
-					iterator:=some_functions.get_new_iterator
-					from iterator.start until iterator.is_off loop
-						a_function := iterator.item
-						a_name := a_function.name
-						std_output.put_string(a_name)
-						std_output.put_string(once ", ")
-						iterator.next
+					if global then std_output.put_string(once "Global mode, ") 
+					else std_output.put_string(once "Local mode, ") 
 					end
-					std_output.put_new_line
+					std_output.put_string(once "skipping '")
+					std_output.put_string(a_file_name)
+					std_output.put_line(once "'.")
+					if not headers.has(a_file_name) then std_output.put_string(once "It doesn't belong to ") end
+					std_output.put_line(headers.out)
 				end -- if verbose
 			end -- if global 
 		end
@@ -235,7 +231,10 @@ feature -- Low-level structure class creator
 					print(once "Wrapping typedef structure ") print(name)
 					emit_structure(structure, name)
 				else -- structure not in a desired header
-					if verbose then print(name) print(" skipped: defined in an included file. ") end
+					if verbose then 
+						std_output.put_string(name) 
+						std_output.put_line(" skipped.")
+					end
 				end
 				iterator.next
 			end
@@ -313,14 +312,18 @@ feature -- Enumeration class creator
 						else Result:=False
 						end 
 					else  
-						debug io.put_string("Unhandled child in Enumeration at line"+child.line.out) end -- debug
+						debug 
+							io.put_string("Unhandled child in Enumeration at line"+child.line.out)
+						end -- debug
 					end -- Is an EnumValue
-				else 
-					debug	io.put_string("Void child in Enumeration!") end
+				else -- child is void
+					debug
+						io.put_string("Void child in Enumeration!") 
+					end
 				end -- Void child
 				i:=i+1
-			end
-			
+			end -- loop over childs
+		end
 	
 feature -- Data 
 	global: BOOLEAN

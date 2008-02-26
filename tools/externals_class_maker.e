@@ -26,6 +26,7 @@ feature
 	initialize is
 		do
 			create headers.make
+			create function.with_capacity(2048)
 			Precursor
 		end
 
@@ -35,15 +36,18 @@ feature
 		end
 
 feature 
+	function: STRING 
+			-- Buffer to render the text of an external function call
+
 	emit_function (a_node: XML_NODE; a_name: STRING) is
 		local 
 			name, returns, argument_placeholder, argument_type: STRING
 			an_argument: XML_NODE; i: INTEGER; 
 			unwrappable, variadic: BOOLEAN
-			function: STRING
 		do 
 			name := a_node.attribute_at(once "name")
-			function := name.twin
+			function.copy(name)
+			
 			if a_node.children_count>0 then 
 				function.append(once " (")
 				from i:=1 until i>a_node.children_count loop
@@ -77,9 +81,7 @@ feature
 			else function.append(returns) 
 			end
 			function.append(once " is%N")
-			if variadic then 
-				function.append(variadic_function_note) 
-			end
+			if variadic then function.append(variadic_function_note) end
 			if unwrappable then 
 				if verbose then
 					std_error.put_line("Unwrappable functions: "+name)
@@ -96,7 +98,7 @@ feature
 			members_iter: ITERATOR[STRING]
 			content: STRING_OUTPUT_STREAM
 			printer: STRING_PRINTER
-			file: TEXT_FILE_WRITE
+			-- file: TEXT_FILE_WRITE
 		do 
 			if is_public(structure_name) then
 				create content.make
@@ -185,10 +187,6 @@ feature
 			end
 			
 	emit_enumeration (a_node: XML_NODE; a_name: STRING) is
-		require 
-			node_not_void: a_node/=Void
-			is_enumeration: a_node.name.is_equal(once "Enumeration")
-			name_not_void: a_name/=Void
 		local i, prefix_length: INTEGER; a_child: XML_NODE; value, filename: STRING
 		do 
 			-- Set the file TODO: put an actual file.
