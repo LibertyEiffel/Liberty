@@ -10,7 +10,7 @@ feature
 			not_yet_implemented
 		end
 
-	emit_function (a_node: XML_NODE; a_name: STRING) is
+	emit_function (a_file_name: STRING; a_node: XML_NODE) is
 		do	
 			not_yet_implemented
 		end

@@ -28,6 +28,7 @@ feature
 			end
 
 feature -- Settings
+	set_headers (some_headers: HASHED_SET[STRING]) is do headers := some_headers end
 	set_verbose (a_value: BOOLEAN) is do verbose := a_value end
 	set_global (a_value: BOOLEAN) is do global := a_value end
 	set_input (an_input: INPUT_STREAM) is do input := an_input end
@@ -86,7 +87,7 @@ feature
 			("[
 			  Couldnt correctly parse XML file, probably because of some
 			  glitches in current implementation of XML parser in
-			  SmartEiffel 2.3 standard library has .
+			  SmartEiffel 2.3 standard library.
 
 			  As a temporary solution you can recompile this program
 			  replacing the original XML_TREE and XML_CALLBACKS with
@@ -159,57 +160,61 @@ feature
 feature -- Functions-providing external classes making
 	make_external_classes is
 		do
-			functions.do_all(agent emit_functions)
+			functions.do_all(agent examine_functions)
 		end
 
-	emit_functions (some_functions: LINKED_LIST[XML_NODE]; a_file_id: STRING) is
+	examine_functions (some_functions: LINKED_LIST[XML_NODE]; a_file_id: STRING) is
 		require 
 			not_void_functions: some_functions/=Void 
 			file_name_not_void: a_file_id/=Void
 		local 
-			iterator: ITERATOR[XML_NODE]; a_function: XML_NODE; 
-			a_file_name, a_name: STRING
+			a_file_name: STRING
 			basic_dir: BASIC_DIRECTORY
 		do
 			a_file_name := files_by_id.at(a_file_id).attribute_at(once "name")
 			if global or else headers.has(a_file_name) then
 				basic_dir.compute_file_path_with(directory,a_file_id)
-				create {STRING_OUTPUT_STREAM} output.make
-				-- create {TEXT_FILE_WRITE} output.connect_to(eiffel_class_file_name(a_file_id+"_EXTERNALS")
-				output.put_string(automatically_generated_header)
-				output.put_string(deferred_class)
-				output.put_line(eiffel_class_name(a_file_name)+once "_EXTERNALS")
-				output.put_line(struct_inherits)
-				output.put_line(externals_header)
-				
-				iterator:=some_functions.get_new_iterator
-				from iterator.start until iterator.is_off loop
-					a_function := iterator.item
-					a_name := a_function.name
-					check a_name/=Void end
-					emit_function(a_function,a_name)
-					iterator.next
-				end
+				output:=std_output 
+				-- create {TEXT_FILE_WRITE}
+				-- output.connect_to(eiffel_class_file_name(a_file_id+"_EXTERNALS")
+				emit_functions_class_headers(a_file_name)
+				some_functions.do_all(agent emit_function(a_file_name,?))
 				output.put_line(footer)
-			else -- local
+			else 
 				if verbose then
-					if global then std_output.put_string(once "Global mode, ") 
-					else std_output.put_string(once "Local mode, ") 
-					end
-					std_output.put_string(once "skipping '")
-					std_output.put_string(a_file_name)
-					std_output.put_line(once "'.")
-					if not headers.has(a_file_name) then std_output.put_string(once "It doesn't belong to ") end
+					std_output.put_string(once "Skipping '")
+					std_output.put_string(a_file_name)					
+					std_output.put_string(once "': it doesn't belong to ") 					
 					std_output.put_line(headers.out)
 				end -- if verbose
-			end -- if global 
+			end -- if globalor else headers.has(a_file_name)
 		end
 	
-	emit_function (a_node: XML_NODE; a_name: STRING) is
+	emit_functions_class_headers (a_file_name: STRING) is
+			-- Put on `output' the header on an "external" class
+			-- containing the functions declared in `a_file_name,' from
+			-- the beginning until the "feature {} -- External calls"
+			-- label included
+		require a_file_name/=Void
+		local class_name: STRING; path: POSIX_PATH_NAME
+		do
+			create path.make_from_string(a_file_name)
+			class_name := path.last -- basaname
+			class_name.remove_suffix(once ".h")
+			class_name:=eiffel_class_name(class_name)+once "_EXTERNALS"
+			output.put_string(automatically_generated_header)
+			output.put_string(deferred_class)
+			output.put_line(class_name)
+			output.put_line(struct_inherits)
+			output.put_line(externals_header)
+		end
+
+	emit_function (a_file_name: STRING; a_node: XML_NODE) is
+			-- Put the declaration for the function at `a_node' on
+			-- `output'.
 		require 
 			node_not_void: a_node/=Void
 			is_function_node: a_node.name.is_equal(once "Function")
-			name_not_void: a_name/=Void
 			output_not_void: output/=Void
 			connected_output: output.is_connected
 		deferred 
@@ -256,9 +261,8 @@ feature -- Low-level structure class creator
 					file_id := structure.attribute_at(once "file")
 					file_name := files.at(file_id).attribute_at(once "name")
 					if global or else headers.has(file_name) then 
-						put_strings (std_output, 
-										 << once "Wrapping typedef structure ",
-											 name>>)
+						std_output.put_string(once "Wrapping typedef structure ")
+						std_output.put_line(name)
 						emit_structure(structure, name)
 					else -- structure not in a desired header
 						if verbose then io.put_line(structure.name+" skipped: defined in an included file. ") end
@@ -279,6 +283,9 @@ feature -- Low-level structure class creator
 feature -- Enumeration class creator
 	make_enumerations is
 		do
+			create setters.make_empty
+			create queries.make_empty
+			create low_level_values.make_empty
 			enumerations.do_all(agent emit_enumeration)
 		end
 
@@ -292,7 +299,7 @@ feature -- Enumeration class creator
 
 	is_flag_enumeration (a_node: XML_NODE): BOOLEAN is
 			-- Does `a_node' represent some flags? i.e. is it an
-			-- enumeration where all values are 2^n with no n repeated?
+			-- enumeration with all values set to 2^n with no n repeated?
 		require 
 			node_not_void: a_node/=Void
 			is_enumeration: a_node.name.is_equal(once "Enumeration")
@@ -352,8 +359,12 @@ feature -- Data
 	fields: HASHED_DICTIONARY [XML_NODE, STRING]
 			-- Fields by their id
 
+	setters, queries, low_level_values: STRING
+			-- Temporary strings used to build enumerations and structures external classes
+
 feature {} -- Constants
-	variadic_function_note: STRING is "%T%T%T-- Aaargh! A dreadful variadic call"
+	variadic_function_note: STRING is "%T%T%T-- Variadic call%N"
+	unwrappable_function_note: STRING is "%T%T%T-- Unwrappable function%N%T%Tobsolete %"Unwrappable C function%"%N"
 	
 	deferred_class: STRING is "deferred class "
 	struct: STRING is "_STRUCT"

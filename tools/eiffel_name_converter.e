@@ -31,7 +31,7 @@ feature -- Auxiliary features
 			not_void: a_name/=Void
 			meaningful_length: a_name.count>1
 		do
-			Result := not (a_name@1).is_equal('_')
+			Result := (a_name@1 /= '_')
 		end
 
 	adapted_name (a_name: STRING): STRING is
@@ -45,16 +45,16 @@ feature -- Auxiliary features
 			else Result:=a_name
 			end
 		end
-
+	
 	longest_prefix_of_children_of (a_node: XML_NODE): INTEGER is
 			-- The length of longest prefix common to all direct children
-			-- of `a_node'. Useful to remove the common part of many
-			-- enumeration values.
+			-- names of `a_node'. Useful to remove the common part of
+			-- many enumeration values.
 		require 
 			non_void_node: a_node/=Void
 			node_has_children: a_node.children_count>1
 		local 
-			char_idx,string_n,lenght: INTEGER; c: CHARACTER; found: BOOLEAN; 
+			char_idx,string_n,lenght: INTEGER; c,e: CHARACTER; found: BOOLEAN; 
 			a_name: STRING; some_names: FAST_ARRAY[STRING]
 		do
 			-- Gather the names of the children and find the shortest one
@@ -71,15 +71,20 @@ feature -- Auxiliary features
 			end
 			-- Find the longest prefix.
 			from char_idx:=1 until found or else char_idx>lenght loop 
-				char_idx:=char_idx+1
 				from c:=some_names.first.item(char_idx); string_n:=2
-				until found or else string_n>some_names.count 
+				until found or else string_n>=some_names.count 
 				loop
-					if c /= some_names.item(string_n).item(char_idx) 
+					e:=some_names.item(string_n).item(char_idx) 
+					debug 
+						print("Examining char "+char_idx.out+", string "+string_n.out+
+								" '"+e.out+"'%N")
+					end
+					if c /= e 
 					then Result:=char_idx-1; found:=True
 					else string_n:=string_n+1
 					end
 				end	
+				char_idx:=char_idx+1
 			end
 		end
 
@@ -89,7 +94,7 @@ feature -- Auxiliary features
 						 "class", "deferred", "expanded", "separate", "end",
 						 "inherit", "insert", "creation", "feature",
 						 "rename","redefine","undefine","select","export",
-						 "require","local","deferred","do","once","ensure","alias","external","attribute",
+						 "require","local","do","once","ensure","alias","external","attribute",
 						 "if", "then", "else", "elseif", "when", "from", "until", "loop",
 						 "check", "debug", "invariant", "variant",
 						 "rescue", "obsolete"

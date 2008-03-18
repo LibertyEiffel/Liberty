@@ -103,6 +103,7 @@ feature
 				end
 			end
 
+			maker.set_headers(headers)
 			maker.set_verbose(verbose)
 			maker.set_global(global)
 
@@ -115,16 +116,15 @@ feature
 		
 			if verbose then
 				if global then std_output.put_line(once "Generating low-level wrappers for the C features found.")
-				else  std_output.put_line(once "Generating low-level wrappers only for the given files.")
+				else 
+					std_output.put_string(once "Generating low-level wrappers only for ")
+					std_output.put_integer(headers.count)
+					std_output.put_string(once " files: ")
+					headers.do_all(agent put_comma_separated_string(std_output,?))
+					std_output.put_new_line
 				end
 				if plugin then std_output.put_line(once "Generating plugin wrappers.")
 				else std_output.put_line(once "Generating external wrappers.")
-				end
-				if not headers.is_empty then
-					std_output.put_integer(headers.count)
-					std_output.put_string(once " headers: ")
-					headers.do_all(agent put_comma_separated_string(std_output,?))
-					std_output.put_new_line
 				end
 			end
 		ensure
@@ -176,5 +176,4 @@ feature
 			a_stream.put_string(a_str)
 			a_stream.put_string(once "', ")
 		end
-			
 end 
