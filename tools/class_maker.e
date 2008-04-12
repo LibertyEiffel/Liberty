@@ -1,7 +1,8 @@
 deferred class CLASS_MAKER
-	-- Outputs wrapper classes for functions, structure, enumeration.
+	-- Outputs wrapper classes for functions, structures and enumerations.
 
 insert 
+	SHARED_SETTINGS
 	EIFFEL_NAME_CONVERTER
 	FILE_TOOLS
 
@@ -24,15 +25,14 @@ feature
 						  (functions /= Void ) and then 
 						  (structures /= Void ) and then
 						  (enumerations /= Void ) and then
-						  (fields /= Void))
+						  (fields /= Void) and then
+						  (headers/=Void) and then
+						  (translate/=Void))
 			end
 
-feature -- Settings
+feature -- Settings 
 	set_headers (some_headers: HASHED_SET[STRING]) is do headers := some_headers end
-	set_verbose (a_value: BOOLEAN) is do verbose := a_value end
-	set_global (a_value: BOOLEAN) is do global := a_value end
 	set_input (an_input: INPUT_STREAM) is do input := an_input end
-	set_directory (a_directory: STRING) is do directory := a_directory end
 
 feature	
 	process is
@@ -42,15 +42,13 @@ feature
 			initialized: is_initialized
 		local bd: BASIC_DIRECTORY
 		do
-			if verbose then io.put_line(once "Reading XML file.") end
+			if verbose then std_error.put_line(once "Reading XML file.") end
 			create_tree
 
-			if verbose then io.put_line(once "Examining XML tree.") end
+			if verbose then std_error.put_line(once "Examining XML tree.") end
 			visit(tree.root)
 
 			-- Compute external class file name
-			if directory=Void then directory:= once "." end
-			-- TODO: Remove the above shameful assumption "." for current directory
 			if not is_directory(directory) then
 				if not bd.create_new_directory(directory) then
 					if verbose then
@@ -69,13 +67,13 @@ feature
 				output:=std_output 
 			end
 
-			if verbose then io.put_line(once "Making external functions classes.") end
+			if verbose then std_error.put_line(once "Making external functions classes.") end
 			make_external_classes
 			
-			if verbose then io.put_line(once "Making structure accessing classes.")	end
+			if verbose then std_error.put_line(once "Making structure accessing classes.")	end
 			make_structures
 
-			if verbose then io.put_line(once "Making enumerations classes.")	end
+			if verbose then std_error.put_line(once "Making enumerations classes.")	end
 			make_enumerations
 		end
 
@@ -83,7 +81,7 @@ feature
 		do
 			create tree.make(input)
 		rescue
-			io.put_string
+			std_error.put_string
 			("[
 			  Couldnt correctly parse XML file, probably because of some
 			  glitches in current implementation of XML parser in
@@ -121,7 +119,7 @@ feature
 					translate.types.put(a_node,id)
 					structures.fast_put(a_node,c_name)
 				else -- void name
-					if verbose then io.put_line("Skipping nameless structure in line "+a_node.line.out) end
+					if verbose then std_error.put_line("Skipping nameless structure in line "+a_node.line.out) end
 				end
 			when "Field" then 
 				check id_not_void: id/=Void end
@@ -172,7 +170,7 @@ feature -- Functions-providing external classes making
 			basic_dir: BASIC_DIRECTORY
 		do
 			a_file_name := files_by_id.at(a_file_id).attribute_at(once "name")
-			if global or else headers.has(a_file_name) then
+			if is_to_be_emitted (a_file_name) then
 				basic_dir.compute_file_path_with(directory,a_file_id)
 				output:=std_output 
 				-- create {TEXT_FILE_WRITE}
@@ -187,7 +185,7 @@ feature -- Functions-providing external classes making
 					std_output.put_string(once "': it doesn't belong to ") 					
 					std_output.put_line(headers.out)
 				end -- if verbose
-			end -- if globalor else headers.has(a_file_name)
+			end -- if is_to_be_emitted (a_file_name) 
 		end
 	
 	emit_functions_class_headers (a_file_name: STRING) is
@@ -232,13 +230,13 @@ feature -- Low-level structure class creator
 				name := structure.attribute_at(once "name")
 				file_id := structure.attribute_at(once "file")
 				file_name := files_by_id.reference_at(file_id).attribute_at(once "name")
-				if global or else headers.has(file_name) then 
-					print(once "Wrapping typedef structure ") print(name)
+				if is_to_be_emitted (file_name) then 
+					std_error.put_string("Wrapping structure ") std_error.put_line(name)
 					emit_structure(structure, name)
 				else -- structure not in a desired header
-					if verbose then 
-						std_output.put_string(name) 
-						std_output.put_line(" skipped.")
+					if verbose then
+						std_error.put_string(name)
+						std_error.put_line(" skipped.")
 					end
 				end
 				iterator.next
@@ -260,12 +258,12 @@ feature -- Low-level structure class creator
 					-- Referred type is actually a structure
 					file_id := structure.attribute_at(once "file")
 					file_name := files.at(file_id).attribute_at(once "name")
-					if global or else headers.has(file_name) then 
-						std_output.put_string(once "Wrapping typedef structure ")
-						std_output.put_line(name)
+					if is_to_be_emitted (file_name) then 
+						std_error.put_string(once "Wrapping typedef structure ")
+						std_error.put_line(name)
 						emit_structure(structure, name)
 					else -- structure not in a desired header
-						if verbose then io.put_line(structure.name+" skipped: defined in an included file. ") end
+						if verbose then std_error.put_line(structure.name+" skipped: defined in an included file. ") end
 					end
 				end -- void structure
 				iterator.next
@@ -320,22 +318,29 @@ feature -- Enumeration class creator
 						end 
 					else  
 						debug 
-							io.put_string("Unhandled child in Enumeration at line"+child.line.out)
+							std_error.put_string("Unhandled child in Enumeration at line"+child.line.out)
 						end -- debug
 					end -- Is an EnumValue
 				else -- child is void
 					debug
-						io.put_string("Void child in Enumeration!") 
+						std_error.put_string("Void child in Enumeration!") 
 					end
 				end -- Void child
 				i:=i+1
 			end -- loop over childs
 		end
+
+feature 
+	is_to_be_emitted (a_file_name: STRING): BOOLEAN is
+			-- Shall the declaration in file named `a_file_name' be
+			-- wrapped? The content of a file will be emitted when global
+			-- is True or if `a_file_name' is in `headers' hashed set.
+		require is_initialized
+		do
+			Result := global or else headers.has(a_file_name)
+		end
 	
 feature -- Data 
-	global: BOOLEAN
-	verbose: BOOLEAN
-	directory: STRING
 
 	input: INPUT_STREAM
 	output: TERMINAL_OUTPUT_STREAM
@@ -368,7 +373,7 @@ feature {} -- Constants
 	
 	deferred_class: STRING is "deferred class "
 	struct: STRING is "_STRUCT"
-	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%N"
+	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%N%N"
 	getters_header: STRING is "feature {} -- Low-level getters%N"
 	setters_header: STRING is "feature {} -- Low-level setters%N"
 	externals_header: STRING is "feature {} -- External calls%N"
@@ -392,6 +397,4 @@ feature {} -- Auxiliary features
 			end
 			a_file.put_new_line
 		end
-
-invariant is_initialized
 end

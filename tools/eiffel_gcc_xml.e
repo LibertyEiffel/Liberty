@@ -25,6 +25,7 @@ class EIFFEL_GCC_XML
 insert 
 	ARGUMENTS
 	FILE_TOOLS
+	SHARED_SETTINGS
 
 creation make
 
@@ -43,16 +44,21 @@ feature
 		local 
 			input: INPUT_STREAM
 			headers: HASHED_SET[STRING]
-			arg, header, location, module, directory: STRING
-			global, verbose, plugin: BOOLEAN
+			arg, header, location, module: STRING
+			plugin: BOOLEAN
 			i: INTEGER
 		do
-			global:=False; plugin:=False
+			check 
+				global=False 
+				verbose=False
+			end
+
+			plugin:=False
 			create headers.make
 			from i:=1 until i>argument_count loop 
 				arg := argument(i)
-				if arg.is_equal(once "--local") then global:=False
-				elseif arg.is_equal(once "--global") then global:=True
+				if arg.is_equal(once "--local") then settings.set_global(False)
+				elseif arg.is_equal(once "--global") then settings.set_global(True)
 				elseif arg.is_equal(once "--plugin") then
 					plugin:=True
 					i:=i+1
@@ -72,11 +78,13 @@ feature
 					if i<=argument_count then header := argument(i)
 					else std_error.put_line(once "No header argument") print_usage
 					end
+				elseif arg.is_equal(once "--use-naturals") then settings.use_naturals
+				elseif arg.is_equal(once "--use-integers") then	settings.use_integers
 				elseif (arg.is_equal(once "--verbose") or else 
-						  arg.is_equal(once "-v")) then verbose:=True
+						  arg.is_equal(once "-v")) then settings.set_verbose(True)
 				elseif arg.is_equal(once "--directory") then 
 					i:=i+1
-					if i<=argument_count then directory := argument(i)
+					if i<=argument_count then settings.set_directory(argument(i))
 					else std_error.put_line(once "No directory given") print_usage
 					end
 				else
@@ -104,27 +112,24 @@ feature
 			end
 
 			maker.set_headers(headers)
-			maker.set_verbose(verbose)
-			maker.set_global(global)
 
-			if directory/=Void then maker.set_directory(directory) end
 			if input=Void then
-				if verbose then std_output.put_line(once "Using standard input.") end
+				if verbose then std_error.put_line(once "Using standard input.") end
 				maker.set_input(std_input)
 			else maker.set_input(input)
 			end
 		
 			if verbose then
-				if global then std_output.put_line(once "Generating low-level wrappers for the C features found.")
+				if global then std_error.put_line(once "Generating low-level wrappers for the C features found.")
 				else 
-					std_output.put_string(once "Generating low-level wrappers only for ")
-					std_output.put_integer(headers.count)
-					std_output.put_string(once " files: ")
-					headers.do_all(agent put_comma_separated_string(std_output,?))
-					std_output.put_new_line
+					std_error.put_string(once "Generating low-level wrappers only for ")
+					std_error.put_integer(headers.count)
+					std_error.put_string(once " files: ")
+					headers.do_all(agent put_comma_separated_string(std_error,?))
+					std_error.put_new_line
 				end
-				if plugin then std_output.put_line(once "Generating plugin wrappers.")
-				else std_output.put_line(once "Generating external wrappers.")
+				if plugin then std_error.put_line(once "Generating plugin wrappers.")
+				else std_error.put_line(once "Generating external wrappers.")
 				end
 			end
 		ensure
@@ -159,6 +164,14 @@ feature
 							 of the file where the feature actually reside. Useful
 							 for many libraries which provides a single header that
 							 includes all the library features.
+			  
+			  --use-naturals
+			             Wrap unsigned integers with NATURAL classes. This is the
+			             default behaviour.
+
+			  --use-integers
+			             Wrap unsigned integers with INTEGER classes. Note that 
+			             this leads to silent overflows and trimming. 
 
 			  --directory dir
 							 Put the generated class in `dir'.

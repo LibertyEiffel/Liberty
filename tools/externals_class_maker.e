@@ -25,7 +25,6 @@ feature
 feature 
 	initialize is
 		do
-			create headers.make
 			create function.with_capacity(2048)
 			Precursor
 		end
@@ -178,7 +177,7 @@ feature
 							end
 						else -- Void field
 							if verbose then
-								io.put_string("(no field with id "+id+" probably a Constructor) ") 
+								std_error.put_string("(no field with id "+id+" probably a Constructor) ") 
 							end
 						end -- field is void?
 						members_iter.next
@@ -191,27 +190,24 @@ feature
 						if field/=Void then
 							fieldname := field.attribute_at(once "name")
 							check	fieldname/=Void end
-							printer.put_message("[
-														external_set_@(0) (a_structure: POINTER; a_value: @(1)) is 
-														external "C struct @(2) set @(3) use <@(4)>"  
-														end
-														]",
-														 <<fieldname, translate.eiffel_type_of(field),
-															structure_name, fieldname,	header>>)
+							printer.put_message
+							("%Tlow_level_set_@(1) (a_structure: POINTER; a_value: @(2)) is%N%T%Texternal %"C struct @(3) set @(4) use <@(5)>%"%N%T%Tend%N%N",
+							 <<fieldname, translate.eiffel_type_of(field),
+								structure_name, fieldname,	header>>)
 							if verbose then
-								std_output.put_string(once " setter ")
-								std_output.put_string(field.attribute_at(once "name"))
+								std_error.put_string(once " setter ")
+								std_error.put_string(field.attribute_at(once "name"))
 							end
 						else -- Void field
 							if verbose then
-								std_output.put_string("(no field with id "+id+" probably a Constructor) ") 
+								std_error.put_string("(no field with id "+id+" probably a Constructor) ") 
 							end
 						end -- field is void?
 						members_iter.next
 					end -- loop over members
 				else -- void members
 					if verbose then
-						std_output.put_line("Found a structure with no fields")
+						std_error.put_line("Found a structure with no fields")
 					end
 				end
 				content.put_string(once "end")
@@ -243,7 +239,7 @@ feature -- Enumeration emitter
 				low_level_values.clear_count
 				emit_enumeration_header(a_name)
 				if a_node.children_count=0 then
-					debug io.put_string(once "-- Degenerate case: an enumeration without values%N") end
+					debug std_error.put_string(once "-- Degenerate case: an enumeration without values%N") end
 				else				
 					if a_node.children_count>1 then prefix_length:=longest_prefix_of_children_of(a_node) end
 					-- Obtain the path of the file where the enumeration is

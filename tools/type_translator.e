@@ -1,8 +1,8 @@
-
 class TYPE_TRANSLATOR
-	-- 
 
-insert EXCEPTIONS
+insert
+	SHARED_SETTINGS 
+	EXCEPTIONS
 
 creation make
 
@@ -45,7 +45,7 @@ feature -- Type-system translations
 		local 
 			name: STRING; size: INTEGER
 		do
-			Result := once "Unhandled type"
+			Result := unhandled_type
 			-- Known nodes: FundamentalType Constructor Ellipsis Typedef
 			-- ArrayType Argument Enumeration PointerType EnumValue
 			-- Struct GCC_XML CvQualifiedType Namespace FunctionType
@@ -67,13 +67,24 @@ feature -- Type-system translations
 						debug raise(unhandled_type) end
 					elseif name.has_substring(once "unsigned") then
 						-- check name.has_substring(once "int") end
-						inspect size
-						when 16 then Result:=once "NATURAL_16"
-						when 32 then Result:=once "NATURAL_32"
-						when 64 then Result:=once "NATURAL_64"
-						else 
-							std_error.put_line("Unknown unsigned int of size"+size.out) 
-							debug raise(unhandled_type) end
+						if are_naturals_used then
+							inspect size
+							when 16 then Result:=once "NATURAL_16"
+							when 32 then Result:=once "NATURAL_32"
+							when 64 then Result:=once "NATURAL_64"
+							else 
+								std_error.put_line("Unknown unsigned int of size"+size.out) 
+								debug raise(unhandled_type) end
+							end
+						else
+							inspect size
+							when 16 then Result:=once "INTEGER_16"
+							when 32 then Result:=once "INTEGER_32"
+							when 64 then Result:=once "INTEGER_64"
+							else 
+								std_error.put_line("Unknown unsigned int of size"+size.out) 
+								debug raise(unhandled_type) end
+							end
 						end
 					elseif name.has_substring(once "int") then
 						inspect size
