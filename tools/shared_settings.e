@@ -8,9 +8,6 @@ feature
 			-- The singleton to access all the shared settings
 		once 
 			create Result
-			Result.set_directory(once ".") -- Set current directory as default
-			-- TODO: Remove the above shameful assumption "." for current
-			-- directory
 		end
 
 	-- Syntactic sugar

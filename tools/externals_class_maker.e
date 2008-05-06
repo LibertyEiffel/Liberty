@@ -1,18 +1,12 @@
 class EXTERNALS_CLASS_MAKER
 
-inherit 
-	CLASS_MAKER
-		redefine 
-			initialize,
-			is_initialized
-		end
+inherit CLASS_MAKER redefine is_initialized end
 
-insert
-	EXCEPTIONS
+insert EXCEPTIONS
 
 creation with_header, without_header
 
-feature 
+feature -- Creation and initialization
 	with_header (an_header: STRING) is
 		require header_not_void: an_header/=Void
 		do
@@ -22,50 +16,58 @@ feature
 
 	without_header is do initialize end
 
-feature 
-	initialize is
-		do
-			create function.with_capacity(2048)
-			Precursor
-		end
-
 	is_initialized: BOOLEAN is
 		do
 			Result := Precursor and then (headers /= Void )
 		end
 
 feature 
-	function: STRING 
-			-- Buffer to render the text of an external function call
+	header: STRING
+			-- The C header that shall be included to use the wrapped
+			-- features.
 	
-	unwrappable: BOOLEAN
-			-- Is the function currently being emitted unwrappable?
+feature -- Functions emittion 
 
-	variadic: BOOLEAN
-			-- Is the function currently being emitted variadi?
+	variadic: BOOLEAN 
+			-- Is the function currently being emitted variadic?
 
 	emit_function (a_file_name: STRING; a_node: XML_NODE) is
-		local name: STRING
+		local 
+			name: STRING; unwrappable: BOOLEAN
 		do 
-			name := a_node.attribute_at(once "name")
-			unwrappable:=False; variadic:=False
-			if is_public(name) then 
-				function := "%T"+name
-				if a_node.children_count>0 then append_function_arguments(a_node) end
-				append_return_type(a_node)
-				append_function_body(a_node)
-				if unwrappable then 
-					if verbose then std_error.put_line("Unwrappable functions: "+name) end
-					output.put_line("%T-- Unwrappable "+name)
-				else output.put_line(function)
+			if unwrappable then
+				if verbose then log.put_message(once "Function @(1) is not wrappable: ", <<name>>) end
+				buffer.clear_count
+				if is_developer_exception 
+				 then printer.put_message(once "%T-- Function @(1) is wrappable: @(2)", <<name, developer_exception_name>>)
+				else printer.put_message(once "%T-- Function @(1) not wrappable: exception code @(2)", <<name, exception.out>>)
 				end
+				output.put_line(buffer)
+				output.flush
 			else 
-				if verbose then std_error.put_line("Skipping 'hidden' function "+name) end
-			end -- if is_public(name)
+				name := a_node.attribute_at(once "name").as_lower
+				if is_public(name) then 
+					buffer.clear_count
+					buffer.append_character('%T')
+					buffer.append_string(name)
+					if a_node.children_count>0 then append_function_arguments(a_node) end
+					append_return_type(a_node)
+					append_function_body(a_node)
+					output.put_line(buffer)
+					output.flush
+				else 
+					if verbose then log.put_message(once "Skipping 'hidden' function @(1)",<<name>>) end
+				end -- if is_public(name)
+			end -- if unwrappable
+		rescue
+			unwrappable:=True
+			retry
 		end
 
 	append_function_arguments (a_node: XML_NODE) is
-			-- Append the arguments of `a_node' into `function'.
+			-- Append the arguments of function referred by `a_node' into
+			-- `buffer'. If an Ellipsis ("...") is found `variadic' flag
+			-- is set to True
 		require 
 			node_not_void: a_node/=Void
 			is_function_node: a_node.name.is_equal(once "Function")
@@ -74,41 +76,41 @@ feature
 			argument_placeholder, argument_type: STRING
 			an_argument: XML_NODE; i: INTEGER
 		do
-			function.append(once " (")
+			variadic := False
+			buffer.append(once " (")
 			from i:=1 until i>a_node.children_count loop
 				an_argument :=a_node.child(i)
 				argument_placeholder := an_argument.attribute_at(once "name")
 				if argument_placeholder /= Void and then 
 					an_argument.name.is_equal(once "Argument") then 
-					function.append(once "a_")
-					function.append(argument_placeholder)
-					function.append(once ": ")
+					buffer.append(once "a_")
+					buffer.append(argument_placeholder)
+					buffer.append(once ": ")
 					argument_type := translate.eiffel_type_of(an_argument)
-					if argument_type=Void
-					then function.append(once "unhandled type!"); unwrappable:=True
-					else function.append(argument_type)
-					end
-					if i<a_node.children_count then function.append(once "; ") end
+					-- if argument_type=Void then buffer.append(once
+					-- "unhandled type!"); else
+					buffer.append(argument_type)
+					if i<a_node.children_count then buffer.append(once "; ") end
 				elseif an_argument.name.is_equal(once "Ellipsis") then variadic := True
-				else function.append(once "Unknown XML child in funtion")
+				else buffer.append(once "Unknown XML child in function")
 				end
 				i:=i+1
 			end
-			function.append(once ")")
+			buffer.append(once ")")
 		end
 
 	append_return_type (a_node: XML_NODE) is
+			-- Append the Eiffel equivalent type of the return type of
+			-- `a_node' to `buffer', i.e. ": INTEGER_32" or ":
+			-- POINTER". Do nothing when result of `a_node' is "void".
 		require 
 			node_not_void: a_node/=Void
 			is_function_node: a_node.name.is_equal(once "Function")
 		local returns: STRING
 		do
-			-- emit return type
-			returns := translate.eiffel_type_of_string(a_node.attribute_at(once "returns"))
-			if returns=Void 
-			then function.append(once "unhandled type!"); unwrappable:=True 
-			elseif returns = translate.void_type then -- Nothing
-			else function.append(once ": "); function.append(returns) 
+			returns := a_node.attribute_at(once "returns")
+			if returns = translate.void_type then -- Nothing
+			else buffer.append(once ": "); buffer.append(translate.eiffel_type_of_string(returns))
 			end
 		end
 
@@ -117,114 +119,131 @@ feature
 			node_not_void: a_node/=Void
 			is_function_node: a_node.name.is_equal(once "Function")
 		do
-			function.append(once " is%N")
-			if variadic then function.append(variadic_function_note) end
-			if unwrappable then function.append(unwrappable_function_note) end
-			function.append(once "%T%Texternal %"C use <")
-			function.append(header)
-			function.append(">%"%N%T%Tend%N")
+			buffer.append(once " is%N")
+			if variadic then buffer.append(variadic_function_note) end
+			buffer.append(once "%T%Texternal %"C use <")
+			buffer.append(header)
+			buffer.append(">%"%N%T%Tend%N")
 		end
 
-feature
+feature -- Structure emission
 	emit_structure (a_node: XML_NODE; structure_name: STRING) is
 		local 
-			classname, filename, id, members, fieldname: STRING; 
-			field: XML_NODE; 
-			members_iter: ITERATOR[STRING]
-			content: STRING_OUTPUT_STREAM
-			printer, logger: STRING_PRINTER
-			-- file: TEXT_FILE_WRITE
+			classname, filename: STRING; 
+			file_path: POSIX_PATH_NAME;
+			unwrappable: BOOLEAN
 		do 
-			if is_public(structure_name) then
-				create content.make
-				create printer.make(content)
-				create logger.make(std_error)
-				filename := eiffel_class_file_name(structure_name+once "_struct")
-				classname := eiffel_class_name(structure_name+once "_struct")
-				if verbose then logger.put_message
-					(once "Wrapping structure @(1) to class @(2) in file @(3)%N",
-					 <<structure_name,classname,filename>>)
-				end
-
-				-- emit_structure_header(structure_name
-				content.put_string(automatically_generated_header)
-				content.put_string(deferred_class)
-				content.put_string(eiffel_class_name(structure_name))
-				content.put_string(struct) 
-				content.put_string(struct_inherits)
-				
-				members := a_node.attribute_at(once "members")
-				if members/=Void then
-					members_iter := members.split.get_new_iterator
-					-- Emit getters
-					content.put_string(getters_header)
-					from members_iter.start until members_iter.is_off loop
-						id := members_iter.item
-						field := fields.reference_at(id)
-						if field/=Void then
-							fieldname := field.attribute_at(once "name")
-							check	fieldname/=Void end
-							put_strings
-							(content,
-							 <<once "%Tget_", fieldname, once " (a_structure: POINTER): ",
-								translate.eiffel_type_of(field), once " is%N",
-								once "%T%Texternal %"C struct ",
-								structure_name, once " get ",fieldname,
-								" use <",header,">%"%N%T%Tend%N">>)
-							if verbose then
-								std_output.put_string(once " ")
-								std_output.put_string(fieldname)
-							end
-						else -- Void field
-							if verbose then
-								std_error.put_string("(no field with id "+id+" probably a Constructor) ") 
-							end
-						end -- field is void?
-						members_iter.next
-					end -- loop over members
-					-- Emit setters
-					content.put_string(setters_header)
-					from members_iter.start until members_iter.is_off loop
-						id := members_iter.item
-						field := fields.reference_at(id)
-						if field/=Void then
-							fieldname := field.attribute_at(once "name")
-							check	fieldname/=Void end
-							printer.put_message
-							("%Tlow_level_set_@(1) (a_structure: POINTER; a_value: @(2)) is%N%T%Texternal %"C struct @(3) set @(4) use <@(5)>%"%N%T%Tend%N%N",
-							 <<fieldname, translate.eiffel_type_of(field),
-								structure_name, fieldname,	header>>)
-							if verbose then
-								std_error.put_string(once " setter ")
-								std_error.put_string(field.attribute_at(once "name"))
-							end
-						else -- Void field
-							if verbose then
-								std_error.put_string("(no field with id "+id+" probably a Constructor) ") 
-							end
-						end -- field is void?
-						members_iter.next
-					end -- loop over members
-				else -- void members
-					if verbose then
-						std_error.put_line("Found a structure with no fields")
+			if unwrappable then
+				buffer.clear_count
+				printer.put_message(once "%T-- @(1) is not wrappable", <<structure_name>>)	
+				-- printer.append_in(buffer)
+				output.put_line(buffer)
+				output.flush
+			else
+				if is_public(structure_name) then
+					classname := eiffel_class_name(structure_name+once "_struct")
+					if directory=Void then -- Output to standard output
+						output := std_output
+						if verbose 
+						 then log.put_message(once "Wrapping structure @(1) to class @(2) to standard output%N",
+													 <<structure_name,classname>>)
+						end
+					else  
+						create file_path.make_from_string(directory)
+						file_path.add_last(eiffel_class_file_name(structure_name+once "_struct"))
+						filename := file_path.to_string
+						if verbose 
+						 then log.put_message(once "Wrapping structure @(1) to class @(2) in file @(3)%N",
+													 <<structure_name,classname,filename>>)
+						end
+						create {TEXT_FILE_WRITE} output.connect_to(filename)	
 					end
-				end
-				content.put_string(once "end")
-				-- Actual output only when no error found.
-				-- create file.connect_to (filename)
-				output.put_string(content.to_string)
-			else 
-				if verbose then std_error.put_line("Skipping 'hidden' structure "+structure_name) end
-			end -- name is public
+					append_structure_header(structure_name)
+					append_structure_members (a_node,structure_name)
+					buffer.append(once "end%N")
+					output.put_string(buffer)
+				else 
+					if verbose then log.put_message(once "Skipping 'hidden' structure @(1)",<<structure_name>>) end
+				end -- name is public
+			end -- if unwrappable 
+		rescue 
+			if not unwrappable then
+				unwrappable:=True
+				retry
+			end
 		end
 
-	emit_struct_setters is
+	append_structure_header (a_structure_name: STRING) is
+			-- Append the header of a structure named `a_structure_name' to buffer.
+		require 
+			a_structure_name/=Void
 		do
+			buffer.append(automatically_generated_header)
+			buffer.append(deferred_class)
+			buffer.append(eiffel_class_name(a_structure_name))
+			buffer.append(struct) 
+			buffer.append(struct_inherits)
+		ensure buffer_grew: buffer.count > old buffer.count
+		end
+
+	append_structure_members (a_node: XML_NODE; structure_name: STRING) is
+		require 
+			node_not_void: a_node/=Void
+			name_not_void: structure_name/=Void
+		local	
+			members: STRING 
+			members_iter: ITERATOR[STRING]
+			id, fieldname: STRING; 
+			field: XML_NODE; 		
+		do
+			members := a_node.attribute_at(once "members")
+			if members/=Void then
+				from 
+					setters.copy(setters_header); setters_stream.clear
+					queries.copy(queries_header); queries_stream.clear
+					members_iter := members.split.get_new_iterator
+					members_iter.start
+				until members_iter.is_off loop
+					id := members_iter.item
+					field := fields.reference_at(id)
+					if field/=Void then
+						fieldname := field.attribute_at(once "name")
+						if verbose then 
+							log.put_message(once "Appending query for @(1)",<<field.attribute_at(once "name")>>) 
+						end
+						queries_printer.put_message
+						(once "%Tget_@(1) (a_structure: POINTER): @(2) is%N%
+									%%T%Texternal %"C struct @(3) get @(4) use <@(5)>%"%N%T%Tend%N%N",
+						 <<fieldname, translate.eiffel_type_of(field), structure_name, fieldname, header>>)
+						if verbose then
+							log.put_message(once "Appending setter for @(1)",<<field.attribute_at(once "name")>>)
+						end
+						setters_printer.put_message
+						(once "%Tlow_level_set_@(1) (a_structure: POINTER; a_value: @(2)) is%N%
+									%%T%Texternal %"C struct @(3) set @(4) use <@(5)>%"%N%
+									%%T%Tend%N%N",
+									<<fieldname, translate.eiffel_type_of(field),
+									  structure_name, fieldname,	header>>)
+					else -- Void field
+						if verbose then
+							log.put_message(once "No field with id @(1) probably a Constructor.", <<id>>) 
+						end
+					end -- field is void?
+					members_iter.next
+				end -- loop over members
+				setters_stream.append_in(setters)
+				queries_stream.append_in(queries)
+				buffer.append(setters)
+				buffer.append(queries)
+			else -- void members
+				if verbose then log.put_message(once "Structure @(1) have no fields", <<structure_name>>)
+				end
+			end
+		ensure buffer_grew: buffer.count > old buffer.count
 		end
 			
 feature -- Enumeration emitter
-			
+	
 	emit_enumeration (a_node: XML_NODE; a_name: STRING) is
 		local 
 			i, prefix_length: INTEGER; a_child: XML_NODE; 
@@ -337,6 +356,4 @@ feature -- Enumeration emitter
 			low_level_values.append(once "%"%N%T%Tend%N%N")
 		end
 
-feature 
-	header: STRING
 end

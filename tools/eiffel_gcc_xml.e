@@ -174,7 +174,7 @@ feature
 			             this leads to silent overflows and trimming. 
 
 			  --directory dir
-							 Put the generated class in `dir'.
+							 Put the generated class in `dir'. Otherwise everything is outputted to standard output
 
 			  -v --verbose   
 							 Turn on verbose output, printing information about the

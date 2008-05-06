@@ -4,12 +4,14 @@ deferred class CLASS_MAKER
 insert 
 	SHARED_SETTINGS
 	EIFFEL_NAME_CONVERTER
+	EIFFEL_GCC_XML_EXCEPTIONS
 	FILE_TOOLS
 
 feature 
 	initialize is
 			-- Initialize the data structures
 		do
+			-- Initialize data structure
 			create files.make
 			create files_by_id.make
 			create functions.make 
@@ -17,6 +19,21 @@ feature
 			create enumerations.make
 			create translate.make
 			create fields.make
+
+			-- Initialize output buffers, streams and message printers
+			-- for functions, structures and enumerations.
+			create buffer.with_capacity(2048)
+			create buffer_stream.make
+			create printer.make(buffer_stream)
+			create log.make(std_error)
+
+			create setters.with_capacity(2048)
+			create setters_stream.make
+			create setters_printer.make(setters_stream)
+
+			create queries.with_capacity(2048)
+			create queries_stream.make
+			create queries_printer.make(queries_stream)
 		end
 
 	is_initialized: BOOLEAN is
@@ -48,24 +65,21 @@ feature
 			if verbose then std_error.put_line(once "Examining XML tree.") end
 			visit(tree.root)
 
-			-- Compute external class file name
-			if not is_directory(directory) then
-				if not bd.create_new_directory(directory) then
-					if verbose then
-						std_error.put_line(once "Couldn't create directory "+directory)
-					end
-					die_with_code(exit_failure_code)
-				else 
-					if verbose then
-						std_error.put_line("Successfully created "+directory)
-					end
-				end
+			if directory=Void then
+				if verbose then std_error.put_line(once "Outputting everything on standard output.") end
+			else
+				if not is_directory(directory) then
+					if not bd.create_new_directory(directory) then
+						if verbose then std_error.put_line(once "Couldn't create directory "+directory) end
+						die_with_code(exit_failure_code)
+					else 
+						if verbose then std_error.put_line("Successfully created "+directory) end
+					end -- if create directory
+				end -- is directory
 			end
 
-			debug
-				std_output.put_line(once "Outputting everything to standard output.")
-				output:=std_output 
-			end
+			-- debug std_output.put_line(once "Outputting everything to
+			-- standard output.")  output:=std_output end
 
 			if verbose then std_error.put_line(once "Making external functions classes.") end
 			make_external_classes
@@ -166,26 +180,39 @@ feature -- Functions-providing external classes making
 			not_void_functions: some_functions/=Void 
 			file_name_not_void: a_file_id/=Void
 		local 
-			a_file_name: STRING
-			basic_dir: BASIC_DIRECTORY
+			header_name, wrapper_name: STRING
+			path, file_path: POSIX_PATH_NAME
 		do
-			a_file_name := files_by_id.at(a_file_id).attribute_at(once "name")
-			if is_to_be_emitted (a_file_name) then
-				basic_dir.compute_file_path_with(directory,a_file_id)
-				output:=std_output 
-				-- create {TEXT_FILE_WRITE}
-				-- output.connect_to(eiffel_class_file_name(a_file_id+"_EXTERNALS")
-				emit_functions_class_headers(a_file_name)
-				some_functions.do_all(agent emit_function(a_file_name,?))
+			create header_name.copy(files_by_id.at(a_file_id).attribute_at(once "name"))
+			if is_to_be_emitted (header_name) then
+				if directory=Void then 
+					if verbose then log.put_message("Outputting wrapper for functions found in file @(1) on standard error",<<header_name>>) end
+					output:=std_output
+				else
+					-- Compute Eiffel class name from header name
+					create file_path.make_from_string(header_name)
+					create wrapper_name.copy(file_path.last)
+					wrapper_name.remove_suffix(".h")
+					wrapper_name:=eiffel_class_file_name(wrapper_name+"_externals")
+					file_path.make_from_string(wrapper_name)
+					create path.make_from_string(directory)
+					path.join(file_path)
+					if verbose then std_error.put_line("Outputting wrapper for functions found in file "+header_name+" on "+path.to_string) end
+
+					create {TEXT_FILE_WRITE} output.connect_to(path.to_string)	
+				end
+				emit_functions_class_headers(header_name)
+				some_functions.do_all(agent emit_function(header_name,?))
 				output.put_line(footer)
+				output.disconnect
 			else 
 				if verbose then
-					std_output.put_string(once "Skipping '")
-					std_output.put_string(a_file_name)					
-					std_output.put_string(once "': it doesn't belong to ") 					
-					std_output.put_line(headers.out)
+					std_error.put_string(once "Skipping '")
+					std_error.put_string(header_name)					
+					std_error.put_string(once "': it doesn't belong to ") 					
+					std_error.put_line(headers.out)
 				end -- if verbose
-			end -- if is_to_be_emitted (a_file_name) 
+			end -- if is_to_be_emitted (header_name) 
 		end
 	
 	emit_functions_class_headers (a_file_name: STRING) is
@@ -281,8 +308,8 @@ feature -- Low-level structure class creator
 feature -- Enumeration class creator
 	make_enumerations is
 		do
-			create setters.make_empty
-			create queries.make_empty
+			setters.clear_count
+			queries.clear_count
 			create low_level_values.make_empty
 			enumerations.do_all(agent emit_enumeration)
 		end
@@ -364,8 +391,24 @@ feature -- Data
 	fields: HASHED_DICTIONARY [XML_NODE, STRING]
 			-- Fields by their id
 
+feature {} -- Implementation 
+	buffer: STRING 
+			-- Buffer to render the text of the feature currently being
+			-- wrapped (a function call, a structure or an enumeration).
+	
+	printer: STRING_PRINTER
+			-- The string formatter used put output in buffer
+
+	log: STRING_PRINTER
+			-- The formatter used to log messages
+
 	setters, queries, low_level_values: STRING
 			-- Temporary strings used to build enumerations and structures external classes
+	buffer_stream, queries_stream, setters_stream: STRING_OUTPUT_STREAM
+			-- Streams linked to setter and getter buffers.
+	queries_printer, setters_printer: STRING_PRINTER
+			-- String printer formatter for setters and queries.
+
 
 feature {} -- Constants
 	variadic_function_note: STRING is "%T%T%T-- Variadic call%N"
@@ -374,7 +417,7 @@ feature {} -- Constants
 	deferred_class: STRING is "deferred class "
 	struct: STRING is "_STRUCT"
 	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%N%N"
-	getters_header: STRING is "feature {} -- Low-level getters%N"
+	queries_header: STRING is "feature {} -- Low-level queries%N"
 	setters_header: STRING is "feature {} -- Low-level setters%N"
 	externals_header: STRING is "feature {} -- External calls%N"
 	footer: STRING is "end"

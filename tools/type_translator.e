@@ -2,6 +2,7 @@ class TYPE_TRANSLATOR
 
 insert
 	SHARED_SETTINGS 
+	EIFFEL_GCC_XML_EXCEPTIONS
 	EXCEPTIONS
 
 creation make
@@ -45,7 +46,8 @@ feature -- Type-system translations
 		local 
 			name: STRING; size: INTEGER
 		do
-			Result := unhandled_type
+			Result := Void
+			last_error := Void
 			-- Known nodes: FundamentalType Constructor Ellipsis Typedef
 			-- ArrayType Argument Enumeration PointerType EnumValue
 			-- Struct GCC_XML CvQualifiedType Namespace FunctionType
@@ -64,7 +66,8 @@ feature -- Type-system translations
 						-- could be "complex double" "complex float",
 						-- "complex long double" 
 						std_error.put_line("Unhandled complex type found: "+name)
-						debug raise(unhandled_type) end
+						last_error := unhandled_complex_type
+						raise(unhandled_complex_type) 
 					elseif name.has_substring(once "unsigned") then
 						-- check name.has_substring(once "int") end
 						if are_naturals_used then
@@ -74,7 +77,8 @@ feature -- Type-system translations
 							when 64 then Result:=once "NATURAL_64"
 							else 
 								std_error.put_line("Unknown unsigned int of size"+size.out) 
-								debug raise(unhandled_type) end
+								last_error := unhandled_unsigned_integer_type
+								raise(unhandled_unsigned_integer_type)
 							end
 						else
 							inspect size
@@ -83,7 +87,8 @@ feature -- Type-system translations
 							when 64 then Result:=once "INTEGER_64"
 							else 
 								std_error.put_line("Unknown unsigned int of size"+size.out) 
-								debug raise(unhandled_type) end
+								last_error := unhandled_unsigned_integer_type
+								raise(unhandled_unsigned_integer_type)
 							end
 						end
 					elseif name.has_substring(once "int") then
@@ -93,7 +98,8 @@ feature -- Type-system translations
 						when 64 then Result:=once "INTEGER_64"
 						else
 							std_error.put_line("Unknown int of size"+size.out)
-							debug raise(unhandled_type) end
+							last_error := unhandled_integer_type
+							raise(unhandled_integer_type)
 						end
 					elseif name.has_substring(once "float") then
 						-- check size=32 end
@@ -108,9 +114,12 @@ feature -- Type-system translations
 						when 128 then Result := once "REAL_128"
 						else
 							std_error.put_line("Double of unhandled length "+size.out+" using REAL_128")
-							Result:= once "REAL_128"
+							last_error := unhandled_double_type 
+							raise(unhandled_double_type) -- Result:= once "REAL_128"
 						end
 					else std_error.put_line(unhandled_type+name)
+						last_error := unhandled_type
+						raise(unhandled_type)
 					end -- searching name substrings
 				end -- if name.is_equal(once "void")
 			elseif (an_argument.name.is_equal(once "Argument") or else
@@ -129,20 +138,29 @@ feature -- Type-system translations
 				Result:=once "POINTER"
 			elseif an_argument.name.is_equal(once "Struct") then
 				std_error.put_line(once "(expanded) C structures does not have a valid Eiffel wrapper type.")
-				debug raise(unhandled_type) end
+				last_error := unhandled_structure_type
+				raise(unhandled_structure_type)
 			elseif an_argument.name.is_equal(once "Field") then -- recursively find
 				Result:=eiffel_type_of(types.at(deconst(an_argument.attribute_at(once "type"))))
 			elseif an_argument.name.is_equal(once "Function") then 
 				std_error.put_line(once "C functions does not have a valid Eiffel wrapper type (a function pointer does have it).")
-				debug raise(unhandled_type) end
+				last_error := unhandled_type
+				raise(unhandled_type)
 			elseif an_argument.name.is_equal(once "Union") then
 				std_error.put_line(once "C union does not have a valid Eiffel wrapper type.")
-				debug raise(unhandled_type) end
+				last_error := unhandled_union_type
+				raise(unhandled_union_type)
 			elseif an_argument.name.is_equal(once "ReferenceType") then
 				std_error.put_line(once "C++ reference does not have a valid Eiffel wrapper type.")
-				debug raise(unhandled_type) end
+				last_error := unhandled_reference_type 
+				raise(unhandled_reference_type)
 			end
+		ensure 
+			when_void_last_error_is_set: Result=Void implies last_error/=Void
 		end
+	
+	last_error: STRING
+			-- A description of the latest error occurred 
 
 	types: HASHED_DICTIONARY [XML_NODE, STRING]
 			-- Types by their name
@@ -165,10 +183,8 @@ feature {} -- Implementation
 		end
 
 feature -- Constants
-	unhandled_type: STRING is "Unhandled type: "
 	void_type: STRING is "void"
-			
-	integer_size: INTEGER is do Result:=({INTEGER 1}.object_size//8) end
-	real_size: INTEGER is do Result:=({REAL 1.0}.object_size//8) end
+	integer_size: INTEGER is once Result:=({INTEGER 1}.object_size//8) end
+	real_size: INTEGER is once Result:=({REAL 1.0}.object_size//8) end
 
 end
