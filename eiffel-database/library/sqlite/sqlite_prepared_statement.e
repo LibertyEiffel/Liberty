@@ -184,7 +184,10 @@ feature -- Statement state
 	is_prepared: BOOLEAN is do Result:=(res_code=sqlite_ok) end
 	is_stepped: BOOLEAN is do Result:=(res_code=sqlite_row) end
 	is_failed: BOOLEAN is do Result:=((not is_prepared) and (not is_stepped)) end
-	last_exec_success: BOOLEAN is	do Result:=(not is_failed)	end
+	last_exec_success: BOOLEAN is
+		do
+			Result := (not is_failed) or else res_code = sqlite_done
+		end
 
 feature {} -- Implementation
 	res_code: INTEGER 
