@@ -33,14 +33,20 @@ feature -- Type-system translations
 		end
 
 	eiffel_type_of_string (an_id: STRING): STRING is
-		require types.has(deconst(an_id))
+		local a_type: XML_NODE
 		do
-			Result := eiffel_type_of(types.at(deconst(an_id)))
+			a_type := types.reference_at(deconst(an_id))
+			if a_type/=Void then Result := eiffel_type_of(a_type) end
+			-- require types.has(deconst(an_id)) do
+			-- Result:=eiffel_type_of(types.at(deconst(an_id)))
 		end
 
 	eiffel_type_of (an_argument: XML_NODE): STRING is
-			-- The Eiffel type usable to wrap `an_argument'. Can be Void
-			-- if it does not have a proper wrapper type. "Expanded" structures, unions,
+			-- The Eiffel type usable to wrap `an_argument'. If it does
+			-- not have a proper wrapper type Result is Void and
+			-- `last_error' describes the issue using one of the STRINGs
+			-- from EIFFEL_GCC_XML_EXCEPTIONS. "Expanded" structures,
+			-- unions,
 		require 
 			argument_not_void: an_argument /= Void
 		local 
@@ -67,7 +73,7 @@ feature -- Type-system translations
 						-- "complex long double" 
 						std_error.put_line("Unhandled complex type found: "+name)
 						last_error := unhandled_complex_type
-						raise(unhandled_complex_type) 
+						-- raise(unhandled_complex_type) 
 					elseif name.has_substring(once "unsigned") then
 						-- check name.has_substring(once "int") end
 						if are_naturals_used then
@@ -78,7 +84,7 @@ feature -- Type-system translations
 							else 
 								std_error.put_line("Unknown unsigned int of size"+size.out) 
 								last_error := unhandled_unsigned_integer_type
-								raise(unhandled_unsigned_integer_type)
+								-- raise(unhandled_unsigned_integer_type)
 							end
 						else
 							inspect size
@@ -88,7 +94,7 @@ feature -- Type-system translations
 							else 
 								std_error.put_line("Unknown unsigned int of size"+size.out) 
 								last_error := unhandled_unsigned_integer_type
-								raise(unhandled_unsigned_integer_type)
+								-- raise(unhandled_unsigned_integer_type)
 							end
 						end
 					elseif name.has_substring(once "int") then
@@ -99,7 +105,7 @@ feature -- Type-system translations
 						else
 							std_error.put_line("Unknown int of size"+size.out)
 							last_error := unhandled_integer_type
-							raise(unhandled_integer_type)
+							-- raise(unhandled_integer_type)
 						end
 					elseif name.has_substring(once "float") then
 						-- check size=32 end
@@ -115,11 +121,11 @@ feature -- Type-system translations
 						else
 							std_error.put_line("Double of unhandled length "+size.out+" using REAL_128")
 							last_error := unhandled_double_type 
-							raise(unhandled_double_type) -- Result:= once "REAL_128"
+							-- raise(unhandled_double_type) -- Result:= once "REAL_128"
 						end
 					else std_error.put_line(unhandled_type+name)
 						last_error := unhandled_type
-						raise(unhandled_type)
+						-- raise(unhandled_type)
 					end -- searching name substrings
 				end -- if name.is_equal(once "void")
 			elseif (an_argument.name.is_equal(once "Argument") or else
@@ -139,21 +145,21 @@ feature -- Type-system translations
 			elseif an_argument.name.is_equal(once "Struct") then
 				std_error.put_line(once "(expanded) C structures does not have a valid Eiffel wrapper type.")
 				last_error := unhandled_structure_type
-				raise(unhandled_structure_type)
+				-- raise(unhandled_structure_type)
 			elseif an_argument.name.is_equal(once "Field") then -- recursively find
 				Result:=eiffel_type_of(types.at(deconst(an_argument.attribute_at(once "type"))))
 			elseif an_argument.name.is_equal(once "Function") then 
 				std_error.put_line(once "C functions does not have a valid Eiffel wrapper type (a function pointer does have it).")
 				last_error := unhandled_type
-				raise(unhandled_type)
+				-- raise(unhandled_type)
 			elseif an_argument.name.is_equal(once "Union") then
 				std_error.put_line(once "C union does not have a valid Eiffel wrapper type.")
 				last_error := unhandled_union_type
-				raise(unhandled_union_type)
+				-- raise(unhandled_union_type)
 			elseif an_argument.name.is_equal(once "ReferenceType") then
 				std_error.put_line(once "C++ reference does not have a valid Eiffel wrapper type.")
 				last_error := unhandled_reference_type 
-				raise(unhandled_reference_type)
+				-- raise(unhandled_reference_type)
 			end
 		ensure 
 			when_void_last_error_is_set: Result=Void implies last_error/=Void

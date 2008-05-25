@@ -80,6 +80,8 @@ feature
 					end
 				elseif arg.is_equal(once "--use-naturals") then settings.use_naturals
 				elseif arg.is_equal(once "--use-integers") then	settings.use_integers
+				elseif arg.is_equal(once "--apply-patches") then
+					print("Patches applying not yet implemented.")
 				elseif (arg.is_equal(once "--verbose") or else 
 						  arg.is_equal(once "-v")) then settings.set_verbose(True)
 				elseif arg.is_equal(once "--directory") then 
@@ -107,7 +109,7 @@ feature
 
 			if maker=Void then  
 				if header/=Void then  create {EXTERNALS_CLASS_MAKER} maker.with_header(header)
-				else create {EXTERNALS_CLASS_MAKER} maker.without_header
+				else  create {EXTERNALS_CLASS_MAKER} maker.without_header
 				end
 			end
 
@@ -142,7 +144,7 @@ feature
 			std_error.put_line 
 			(once 
 			 "[
-			  eiffel_gcc_xml [--verbose|-v] [--local] [--global] [--plugin location module | --header header] output.gcc-xml filenames....
+			  eiffel_gcc_xml [--verbose|-v] [--local] [--global] --plugin location module | --header header output.gcc-xml filenames....
 			  
 			  --local    produces functions, structures and enumeration 
 							 classes only for the given files. Otherwise all the 
@@ -166,15 +168,18 @@ feature
 							 includes all the library features.
 			  
 			  --use-naturals
-			             Wrap unsigned integers with NATURAL classes. This is the
-			             default behaviour.
+							 Wrap unsigned integers with NATURAL classes. This is the
+							 default behaviour.
 
 			  --use-integers
-			             Wrap unsigned integers with INTEGER classes. Note that 
-			             this leads to silent overflows and trimming. 
+							 Wrap unsigned integers with INTEGER classes. Note that 
+							 this leads to silent overflows and trimming. 
 
 			  --directory dir
 							 Put the generated class in `dir'. Otherwise everything is outputted to standard output
+
+			  --apply-patches (not yet implemented)
+			             Apply the patches found in the output directory to the newly generated classes, i.e. foo.e will be patched by foo.diff
 
 			  -v --verbose   
 							 Turn on verbose output, printing information about the

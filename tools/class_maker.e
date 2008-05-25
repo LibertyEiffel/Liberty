@@ -6,6 +6,7 @@ insert
 	EIFFEL_NAME_CONVERTER
 	EIFFEL_GCC_XML_EXCEPTIONS
 	FILE_TOOLS
+	MEMORY
 
 feature 
 	initialize is
@@ -26,6 +27,8 @@ feature
 			create buffer_stream.make
 			create printer.make(buffer_stream)
 			create log.make(std_error)
+
+			create validity_query.with_capacity(2048)
 
 			create setters.with_capacity(2048)
 			create setters_stream.make
@@ -59,35 +62,32 @@ feature
 			initialized: is_initialized
 		local bd: BASIC_DIRECTORY
 		do
-			if verbose then std_error.put_line(once "Reading XML file.") end
+			if verbose then log.put_message(once "Reading XML file (total memory usage @(1) bytes).%N",<<allocated_bytes.out>>) end
 			create_tree
 
-			if verbose then std_error.put_line(once "Examining XML tree.") end
+			if verbose then log.put_message(once "Examining XML tree (total memory usage @(1) bytes).%N",<<allocated_bytes.out>>) end
 			visit(tree.root)
 
 			if directory=Void then
-				if verbose then std_error.put_line(once "Outputting everything on standard output.") end
+				if verbose then log.put_message(once "Outputting everything on standard output.",Void) end
 			else
 				if not is_directory(directory) then
 					if not bd.create_new_directory(directory) then
-						if verbose then std_error.put_line(once "Couldn't create directory "+directory) end
+						if verbose then log.put_message(once "Couldn't create directory @(1).%N",<<directory>>) end
 						die_with_code(exit_failure_code)
 					else 
-						if verbose then std_error.put_line("Successfully created "+directory) end
+						if verbose then log.put_message(once "Successfully created @(1).%N",<<directory>>) end
 					end -- if create directory
 				end -- is directory
 			end
 
-			-- debug std_output.put_line(once "Outputting everything to
-			-- standard output.")  output:=std_output end
-
-			if verbose then std_error.put_line(once "Making external functions classes.") end
+			if verbose then log.put_message(once "Making external functions classes (total memory usage @(1) bytes).%N",<<allocated_bytes.out>>) end
 			make_external_classes
 			
-			if verbose then std_error.put_line(once "Making structure accessing classes.")	end
+			if verbose then log.put_message(once "Making structure accessing classes (total memory usage @(1) bytes).%N",<<allocated_bytes.out>>) end
 			make_structures
 
-			if verbose then std_error.put_line(once "Making enumerations classes.")	end
+			if verbose then log.put_message(once "Making enumerations classes  (total memory usage @(1) bytes).%N",<<allocated_bytes.out>>)	end
 			make_enumerations
 		end
 
@@ -133,7 +133,7 @@ feature
 					translate.types.put(a_node,id)
 					structures.fast_put(a_node,c_name)
 				else -- void name
-					if verbose then std_error.put_line("Skipping nameless structure in line "+a_node.line.out) end
+					if verbose then log.put_message("Skipping nameless structure in line @(1).%N",<<a_node.line.out>>) end 
 				end
 			when "Field" then 
 				check id_not_void: id/=Void end
@@ -197,20 +197,18 @@ feature -- Functions-providing external classes making
 					file_path.make_from_string(wrapper_name)
 					create path.make_from_string(directory)
 					path.join(file_path)
-					if verbose then std_error.put_line("Outputting wrapper for functions found in file "+header_name+" on "+path.to_string) end
+					if verbose then log.put_message(once "Outputting wrapper for functions found in file @(1) on @(2).%N", <<header_name,path.to_string>>) end
 
 					create {TEXT_FILE_WRITE} output.connect_to(path.to_string)	
 				end
+				printer.make(output)
 				emit_functions_class_headers(header_name)
 				some_functions.do_all(agent emit_function(header_name,?))
 				output.put_line(footer)
 				output.disconnect
 			else 
 				if verbose then
-					std_error.put_string(once "Skipping '")
-					std_error.put_string(header_name)					
-					std_error.put_string(once "': it doesn't belong to ") 					
-					std_error.put_line(headers.out)
+					log.put_message(once "Skipping '@(1)': it doesn't belong to @(2)%N" ,<<header_name,headers.out>>)
 				end -- if verbose
 			end -- if is_to_be_emitted (header_name) 
 		end
@@ -257,14 +255,9 @@ feature -- Low-level structure class creator
 				name := structure.attribute_at(once "name")
 				file_id := structure.attribute_at(once "file")
 				file_name := files_by_id.reference_at(file_id).attribute_at(once "name")
-				if is_to_be_emitted (file_name) then 
-					std_error.put_string("Wrapping structure ") std_error.put_line(name)
-					emit_structure(structure, name)
+				if is_to_be_emitted (file_name) then emit_structure(structure, name)
 				else -- structure not in a desired header
-					if verbose then
-						std_error.put_string(name)
-						std_error.put_line(" skipped.")
-					end
+					if verbose then log.put_message(once "@(1) structure skipped.%N",<<name>>) end
 				end
 				iterator.next
 			end
@@ -286,11 +279,10 @@ feature -- Low-level structure class creator
 					file_id := structure.attribute_at(once "file")
 					file_name := files.at(file_id).attribute_at(once "name")
 					if is_to_be_emitted (file_name) then 
-						std_error.put_string(once "Wrapping typedef structure ")
-						std_error.put_line(name)
+						log.put_message(once "Wrapping typedef structure @(1).%N",<<name>>)
 						emit_structure(structure, name)
 					else -- structure not in a desired header
-						if verbose then std_error.put_line(structure.name+" skipped: defined in an included file. ") end
+						if verbose then log.put_message("@(1) skipped: defined in an included file.%N",<<structure.name>>) end
 					end
 				end -- void structure
 				iterator.next
@@ -322,42 +314,44 @@ feature -- Enumeration class creator
 		deferred 
 		end
 
-	is_flag_enumeration (a_node: XML_NODE): BOOLEAN is
-			-- Does `a_node' represent some flags? i.e. is it an
-			-- enumeration with all values set to 2^n with no n repeated?
+	have_flags_values (an_enumeration: XML_NODE): BOOLEAN is
+			-- Can the values of `an_enumeration' be used as flags? They
+			-- can be used as flags when they are different powers of 2,
+			-- i.e. setting each a different bit.
 		require 
-			node_not_void: a_node/=Void
-			is_enumeration: a_node.name.is_equal(once "Enumeration")
-		local i, flags_so_far, value: INTEGER; child: XML_NODE
+			node_not_void: an_enumeration/=Void
+			is_enumeration: an_enumeration.name.is_equal(once "Enumeration")
+		local i: COUNT; flags_so_far, value: INTEGER; child: XML_NODE
 		do
-			from i:=1; Result:=True; variant i
-			until Result=False or else i>a_node.children_count 
+			from i.set(1); Result:=True; variant i.value
+			until Result=False or else i>an_enumeration.children_count 
 			loop
-				child:=a_node.child(i)
+				child:=an_enumeration.child(i.value)
 				if child/=Void then 
 					if (once "EnumValue").is_equal(child.attribute_at(once "name")) then
 						value:=child.attribute_at(once "init").to_integer
-						if not value.is_a_power_of_2 then Result:=False
-						elseif flags_so_far & value = 0 then
-							-- They are indipendent
+						-- It seems not useful to check 
+						-- if not value.is_a_power_of_2 then Result:=False
+						if flags_so_far & value = 0 
+						 then -- values are indipendent so far
 							flags_so_far := flags_so_far + value 
 						else Result:=False
 						end 
 					else  
 						debug 
-							std_error.put_string("Unhandled child in Enumeration at line"+child.line.out)
+							log.put_message(once "Unhandled child in Enumeration at line @(1)",<<child.line.out>>)
 						end -- debug
 					end -- Is an EnumValue
 				else -- child is void
 					debug
-						std_error.put_string("Void child in Enumeration!") 
+						log.put_message(once "Void child in Enumeration!",Void)
 					end
 				end -- Void child
-				i:=i+1
+				i.increment
 			end -- loop over childs
 		end
 
-feature 
+feature -- Auxiliary features
 	is_to_be_emitted (a_file_name: STRING): BOOLEAN is
 			-- Shall the declaration in file named `a_file_name' be
 			-- wrapped? The content of a file will be emitted when global
@@ -366,8 +360,8 @@ feature
 		do
 			Result := global or else headers.has(a_file_name)
 		end
-	
-feature -- Data 
+
+feature -- Data structures
 
 	input: INPUT_STREAM
 	output: TERMINAL_OUTPUT_STREAM
@@ -402,7 +396,7 @@ feature {} -- Implementation
 	log: STRING_PRINTER
 			-- The formatter used to log messages
 
-	setters, queries, low_level_values: STRING
+	validity_query, setters, queries, low_level_values: STRING
 			-- Temporary strings used to build enumerations and structures external classes
 	buffer_stream, queries_stream, setters_stream: STRING_OUTPUT_STREAM
 			-- Streams linked to setter and getter buffers.
@@ -414,8 +408,10 @@ feature {} -- Constants
 	variadic_function_note: STRING is "%T%T%T-- Variadic call%N"
 	unwrappable_function_note: STRING is "%T%T%T-- Unwrappable function%N%T%Tobsolete %"Unwrappable C function%"%N"
 	
+	expanded_class: STRING is "expanded class "
 	deferred_class: STRING is "deferred class "
 	struct: STRING is "_STRUCT"
+	enum: STRING is "_ENUM"
 	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%N%N"
 	queries_header: STRING is "feature {} -- Low-level queries%N"
 	setters_header: STRING is "feature {} -- Low-level setters%N"
