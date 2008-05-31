@@ -370,9 +370,9 @@ feature -- Enumeration emitter
 			node_not_void: a_node/=Void
 			enumeration_node: a_node.name.is_equal(once "Enumeration")
 		local 
-			i, prefix_length: INTEGER; a_child: XML_NODE; 
-			label, eiffel_value, c_value, filename: STRING
-			creation_flag: BOOLEAN
+			i, prefix_length: INTEGER;
+			filename: STRING
+			position: ENUM_POSITION
 		do
 			if a_node.children_count=0 then
 				debug log.put_message(once "-- Degenerate case: an enumeration @(1) without values.",<<a_node.attribute_at(once "name")>>) end
@@ -382,56 +382,77 @@ feature -- Enumeration emitter
 				-- declared. TODO: make it cleaner, currently it is a
 				-- mess.
 				filename := files_by_id.at(a_node.attribute_at(once "file")).attribute_at(once "name")
-				initialize_valitidy_query
-				from creation_flag:=True; i:=1 until i>a_node.children_count loop
-					a_child := a_node.child(i)
-					check 
-						a_child.name.is_equal(once "EnumValue") 
-					end
-					c_value := a_child.attribute_at(once "name")
-					eiffel_value := c_value.as_lower						
-					create label.copy(eiffel_value)
-					label.remove_head(prefix_length)
-					append_enumeration_validity_value(eiffel_value)
-					append_enumeration_value_setter(label,eiffel_value,creation_flag)
-					append_enumeration_value_query(label,eiffel_value)
-					append_enumeration_value_low_level(eiffel_value,c_value,filename)
-					creation_flag:=False -- All the following setters won't be creation
+				initialize_validity_query
+				position.set_first
+				append_enumeration_item (a_node.child(1),filename,prefix_length,position)
+				from i:=2; position.set_middle
+				until i>a_node.children_count-1 loop
+					append_enumeration_item (a_node.child(i),filename,prefix_length,position)
 					i:=i+1
 				end -- loop over children
+				position.set_last
+				append_enumeration_item (a_node.child(a_node.children_count),filename,prefix_length,position)
 				finalize_validity_query
 			end -- if a_node.children_count=0 then
 		end
 
-	initialize_valitidy_query is
+	append_enumeration_item (a_node: XML_NODE; a_filename: STRING; prefix_length: INTEGER; a_position: ENUM_POSITION) is
+		require 
+			node_not_void: a_node/=Void
+			node_is_enuma_value: a_node.name.is_equal(once "EnumValue") 
+		local c_value, eiffel_value, label: STRING
+		do
+			c_value := a_node.attribute_at(once "name")
+			eiffel_value := c_value.as_lower						
+			create label.copy(eiffel_value)
+			label.remove_head(prefix_length)
+			append_enumeration_validity_value(eiffel_value,a_position)
+			append_enumeration_value_setter(label,eiffel_value,a_position)
+			append_enumeration_value_query(label,eiffel_value)
+			append_enumeration_value_low_level(eiffel_value,c_value,a_filename)
+		end
+
+	-- Updates `validity_query' with a proper `is_valid' query
+	-- for the enumeration described in `a_node'.
+
+	initialize_validity_query is
 		do
 			validity_query.make_from_string
- 			(once "%Tis_valid_value (a_value: INTEGER): BOOLEAN is%N%
+			(once "%Tis_valid_value (a_value: INTEGER): BOOLEAN is%N%
 					%%T%Tdo%N%
 					%%T%T%TResult := (%N")
 		end
 	
-	append_enumeration_validity_value (a_value: STRING) is
+	append_enumeration_validity_value (a_value: STRING; a_position: ENUM_POSITION) is
 		require value_not_void: a_value/=Void
 		do
-			validity_query.append(once "%T%T%T(a_value = ")
-			validity_query.append(a_value)
-			validity_query.append(once ")%N")
+			if a_position.is_first 
+			 then validity_query.append(once "(a_value = ")
+			else 	validity_query.append(once "%T%T%T%T(a_value = ")
 			end
+			validity_query.append(a_value)
+			if a_position.is_last then validity_query.append(once ")")
+			else validity_query.append(once ") or else %N")
+			end
+			-- Note: the position enumeration validity is ensured by its
+			-- invariant.
+		ensure validity_query_grew: validity_query.count > old validity_query.count
+		end
 
-	finalize_valitidy_query is
+	finalize_validity_query is
 		do
 			validity_query.append(once ")%N%T%Tend%N%N")
+		ensure validity_query_grew: validity_query.count > old validity_query.count
 		end
 	
-	append_enumeration_value_setter (a_name, a_value: STRING; is_creation: BOOLEAN) is
+	append_enumeration_value_setter (a_name, a_value: STRING; a_position: ENUM_POSITION) is
 			-- Append to `setters'
 		require 
 			name_not_void: a_name/=Void
 			value_not_void: a_value/=Void
 			setters_not_void: setters/=Void
 		do
-			if is_creation 
+			if a_position.is_first 
 			then setters.append(once "%Tdefault_create, ")
 			else setters.append(once "%T")
 			end

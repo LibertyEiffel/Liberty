@@ -12,7 +12,7 @@ feature
 	initialize is
 			-- Initialize the data structures
 		do
-			-- Initialize data structure
+			-- Initialize data structures
 			create files.make
 			create files_by_id.make
 			create functions.make 
