@@ -48,7 +48,7 @@ feature -- Functions emittion
 				if is_public(name) then 
 					buffer.clear_count
 					buffer.append_character('%T')
-					buffer.append_string(name)
+					buffer.append_string(adapt(name))
 					if a_node.children_count>0 then append_function_arguments(a_node) end
 					append_return_type(a_node)
 					append_function_body(a_node)
@@ -162,8 +162,10 @@ feature -- Structure emission
 				printer.put_message(once "%T-- @(1) is not wrappable", <<a_structure_name>>)	
 				output.put_line(buffer)
 				output.flush
+				output.disconnect
 			else
 				if is_public(a_structure_name) then
+					buffer.clear_count	
 					filename := a_structure_name+once "_struct"
 					classname := eiffel_class_name(filename)
 					if header=Void 
@@ -192,6 +194,7 @@ feature -- Structure emission
 					append_structure_members (a_node,a_structure_name,structure_header)
 					buffer.append(once "end%N")
 					output.put_string(buffer)
+					output.flush
 					output.disconnect
 				else 
 					if verbose then log.put_message(once "Skipping 'hidden' structure @(1)%N",<<a_structure_name>>) end
@@ -235,7 +238,8 @@ feature -- Structure emission
 					id := members_iter.item
 					field := fields.reference_at(id)
 					if field/=Void then emit_structure_field(field,structure_name,an_header)
-					else printer.put_message(once "%T-- No field with id @(1) probably a Constructor.", <<id>>) 
+					else log.put_message(once "No field with id @(1) in @(2) structure; it is probably a Constructor.%N", 
+												<<id, structure_name>>) 
 					end
 					members_iter.next
 				end -- loop over members
@@ -262,15 +266,15 @@ feature -- Structure emission
 			header_not_void: an_header/=Void
 		local fieldname, type: STRING
 		do
-			fieldname := a_field.attribute_at(once "name")
+			fieldname := adapt(a_field.attribute_at(once "name"))
 			type := translate.eiffel_type_of(a_field)
 			if type/=Void then
-				if verbose then log.put_message(once "Appending query for @(1)",<<fieldname>>) end
+				if verbose then log.put_message(once "Appending query for @(1)%N",<<fieldname>>) end
 				queries_printer.put_message
 				(once "%Tget_@(1) (a_structure: POINTER): @(2) is%N%
 							%%T%Texternal %"C struct @(3) get @(4) use <@(5)>%"%N%T%Tend%N%N",
 							<<fieldname, type, a_structure_name, fieldname, an_header>>)
-				if verbose then log.put_message(once "Appending setter for @(1)",<<fieldname>>) end
+				if verbose then log.put_message(once "Appending setter for @(1)%N",<<fieldname>>) end
 				setters_printer.put_message
 				(once "%Tlow_level_set_@(1) (a_structure: POINTER; a_value: @(2)) is%N%T%Texternal %"C struct @(3) set @(4) use <@(5)>%"%N%T%Tend%N%N",
 				 <<fieldname, type, a_structure_name, fieldname,	an_header>>)
@@ -296,7 +300,7 @@ feature -- Enumeration emitter
 				then enum_header := files_by_id.at(a_node.attribute_at(once "file")).attribute_at(once "name")
 				else enum_header := header
 				end
-
+				
 				if directory=Void then -- Output to standard output
 					output := std_output
 					if verbose 
@@ -317,8 +321,12 @@ feature -- Enumeration emitter
 				queries.clear_count
 				low_level_values.clear_count
 				emit_enumeration_header(classname)
-				append_enumeration_items(a_node)
+				if have_flags_values(a_node) 
+				then append_flag_items(a_node)
+				else append_enumeration_items(a_node)
+				end
 				emit_enumeration_items
+				output.flush
 				output.disconnect
 			else -- not public
 				if verbose then
@@ -369,11 +377,12 @@ feature -- Enumeration emitter
 		require 
 			node_not_void: a_node/=Void
 			enumeration_node: a_node.name.is_equal(once "Enumeration")
+			is_plain_enumeration: not have_flags_values(a_node)
 		local 
 			i, prefix_length: INTEGER;
 			filename: STRING
-			position: ENUM_POSITION
 		do
+			-- debug log.put_message(once "@(1) is a plain enumeration%N", <<an_enum_name>>) end
 			if a_node.children_count=0 then
 				debug log.put_message(once "-- Degenerate case: an enumeration @(1) without values.",<<a_node.attribute_at(once "name")>>) end
 			else
@@ -383,20 +392,21 @@ feature -- Enumeration emitter
 				-- mess.
 				filename := files_by_id.at(a_node.attribute_at(once "file")).attribute_at(once "name")
 				initialize_validity_query
-				position.set_first
-				append_enumeration_item (a_node.child(1),filename,prefix_length,position)
-				from i:=2; position.set_middle
-				until i>a_node.children_count-1 loop
-					append_enumeration_item (a_node.child(i),filename,prefix_length,position)
-					i:=i+1
-				end -- loop over children
-				position.set_last
-				append_enumeration_item (a_node.child(a_node.children_count),filename,prefix_length,position)
+				if a_node.children_count=1 
+				then append_enumeration_item (a_node.child(1),filename,prefix_length,True,True)
+				else
+					append_enumeration_item (a_node.child(1),filename,prefix_length,True,False)
+					from i:=2 until i>a_node.children_count-1 loop
+						append_enumeration_item (a_node.child(i),filename,prefix_length,False,False)
+						i:=i+1
+					end -- loop over children
+					append_enumeration_item (a_node.child(a_node.children_count),filename,prefix_length,False,True)
+				end
 				finalize_validity_query
 			end -- if a_node.children_count=0 then
 		end
 
-	append_enumeration_item (a_node: XML_NODE; a_filename: STRING; prefix_length: INTEGER; a_position: ENUM_POSITION) is
+	append_enumeration_item (a_node: XML_NODE; a_filename: STRING; prefix_length: INTEGER; is_first, is_last: BOOLEAN) is
 		require 
 			node_not_void: a_node/=Void
 			node_is_enuma_value: a_node.name.is_equal(once "EnumValue") 
@@ -406,36 +416,31 @@ feature -- Enumeration emitter
 			eiffel_value := c_value.as_lower						
 			create label.copy(eiffel_value)
 			label.remove_head(prefix_length)
-			append_enumeration_validity_value(eiffel_value,a_position)
-			append_enumeration_value_setter(label,eiffel_value,a_position)
+			label := adapt(label)
+			append_enumeration_validity_value(eiffel_value,is_first,is_last)
+			append_enumeration_value_setter(label,eiffel_value,is_first)
 			append_enumeration_value_query(label,eiffel_value)
 			append_enumeration_value_low_level(eiffel_value,c_value,a_filename)
 		end
-
-	-- Updates `validity_query' with a proper `is_valid' query
-	-- for the enumeration described in `a_node'.
 
 	initialize_validity_query is
 		do
 			validity_query.make_from_string
 			(once "%Tis_valid_value (a_value: INTEGER): BOOLEAN is%N%
 					%%T%Tdo%N%
-					%%T%T%TResult := (%N")
+					%%T%T%TResult := (")
 		end
 	
-	append_enumeration_validity_value (a_value: STRING; a_position: ENUM_POSITION) is
+	append_enumeration_validity_value (a_value: STRING; is_first, is_last: BOOLEAN) is
 		require value_not_void: a_value/=Void
 		do
-			if a_position.is_first 
-			 then validity_query.append(once "(a_value = ")
+			if is_first  then validity_query.append(once "(a_value = ")
 			else 	validity_query.append(once "%T%T%T%T(a_value = ")
 			end
 			validity_query.append(a_value)
-			if a_position.is_last then validity_query.append(once ")")
+			if is_last then validity_query.append(once ")")
 			else validity_query.append(once ") or else %N")
 			end
-			-- Note: the position enumeration validity is ensured by its
-			-- invariant.
 		ensure validity_query_grew: validity_query.count > old validity_query.count
 		end
 
@@ -445,15 +450,14 @@ feature -- Enumeration emitter
 		ensure validity_query_grew: validity_query.count > old validity_query.count
 		end
 	
-	append_enumeration_value_setter (a_name, a_value: STRING; a_position: ENUM_POSITION) is
+	append_enumeration_value_setter (a_name, a_value: STRING; is_first: BOOLEAN) is
 			-- Append to `setters'
 		require 
 			name_not_void: a_name/=Void
 			value_not_void: a_value/=Void
 			setters_not_void: setters/=Void
 		do
-			if a_position.is_first 
-			then setters.append(once "%Tdefault_create, ")
+			if is_first then setters.append(once "%Tdefault_create, ")
 			else setters.append(once "%T")
 			end
 			setters.append(once "set_")
@@ -498,4 +502,128 @@ feature -- Enumeration emitter
 			low_level_values.append(once "%"%N%T%Tend%N%N")
 		end
 
+feature -- Flag enumeration
+	append_flag_items (a_node: XML_NODE) is
+			-- For each child of `a_node':
+
+			-- * consider it into the `is_valid' query,
+		
+			-- * append a query into `getters',
+
+			-- * append a setting command into `setters', 
+
+			-- * append a low-level external value to `low_level_values'.
+		require 
+			node_not_void: a_node/=Void
+			enumeration_node: a_node.name.is_equal(once "Enumeration")
+			is_flag_enumeration: have_flags_values(a_node)
+		local 
+			i, prefix_length: INTEGER;
+			filename: STRING
+		do
+			--debug log.put_message(once "@(1) is a flag enumeration%N", <<an_enum_name>>) end
+			if a_node.children_count=0 then
+				debug log.put_message(once "-- Degenerate case: a flag enumeration @(1) without values.",<<a_node.attribute_at(once "name")>>) end
+			else
+				if a_node.children_count>1 then prefix_length:=longest_prefix_of_children_of(a_node) end
+				-- Obtain the path of the file where the enumeration is
+				-- declared. TODO: make it cleaner, currently it is a
+				-- mess.
+				filename := files_by_id.at(a_node.attribute_at(once "file")).attribute_at(once "name")
+				initialize_flag_validity_query
+				if a_node.children_count=1 
+				then append_flag_item (a_node.child(1),filename,prefix_length,True,True)
+				else
+					append_flag_item (a_node.child(1),filename,prefix_length,True,False)
+					from i:=2 until i>a_node.children_count-1 loop
+						append_flag_item (a_node.child(i),filename,prefix_length,False,False)
+						i:=i+1
+					end -- loop over children
+					append_flag_item (a_node.child(a_node.children_count),filename,prefix_length,False,True)
+				end
+				finalize_flag_validity_query
+			end -- if a_node.children_count=0 then
+		end
+
+	append_flag_item (a_node: XML_NODE; a_filename: STRING; prefix_length: INTEGER; is_first, is_last: BOOLEAN) is
+		require 
+			node_not_void: a_node/=Void
+			node_is_enuma_value: a_node.name.is_equal(once "EnumValue") 
+		local c_value, eiffel_value, label: STRING
+		do
+			c_value := a_node.attribute_at(once "name")
+			eiffel_value := c_value.as_lower						
+			create label.copy(eiffel_value)
+			label.remove_head(prefix_length)
+			label := adapt(label)
+			append_flag_validity_value(eiffel_value,is_first,is_last)
+			append_flag_value_setter(label,eiffel_value,is_first)
+			append_flag_value_query(label,eiffel_value)
+			append_enumeration_value_low_level(eiffel_value,c_value,a_filename)
+		end
+
+	initialize_flag_validity_query is
+		do
+			validity_query.make_from_string
+			(once "%Tis_valid_value (some_flags: INTEGER): BOOLEAN is%N%
+					%%T%Tdo%N%
+					%%T%T%TResult := (some_flags & (")
+		end
+	
+	append_flag_validity_value (a_value: STRING; is_first, is_last: BOOLEAN) is
+		require value_not_void: a_value/=Void
+		do
+			if not is_first 
+			 then validity_query.append(once "%T%T%T%T")
+			end
+			validity_query.append(a_value)
+			if not is_last then validity_query.append(once " | %N") end
+		ensure validity_query_grew: validity_query.count > old validity_query.count
+		end
+
+	finalize_flag_validity_query is
+		do
+			validity_query.append(once ")).to_boolean%N%T%Tend%N%N")
+		ensure validity_query_grew: validity_query.count > old validity_query.count
+		end
+
+	append_flag_value_setter (a_name, a_value: STRING; is_first: BOOLEAN) is
+		require 
+			name_not_void: a_name/=Void
+			value_not_void: a_value/=Void
+			setters_not_void: setters/=Void
+		do
+			if is_first then 
+				setters.append
+				(once "%Tdefault_create is%N%T%T-- Default creation feature; it leaves all the bits cleared.%N%Tdo%N%Tend%N%N")
+			end
+			setters.append(once "%Tset_")
+			setters.append(a_name)
+			setters.append(once " is%N%T%Tdo%N%T%T%Tvalue := value.bit_or(")
+			setters.append(a_value)
+			setters.append(once ")%N%T%Tend%N%N")
+
+			setters.append(once "%Tunset_")
+			setters.append(a_name)
+			setters.append(once " is%N%T%Tdo%N%T%T%Tvalue := value.bit_xor(")
+			setters.append(a_value)
+			setters.append(once ")%N%T%Tend%N%N")
+
+		end
+
+	append_flag_value_query (a_name, a_value: STRING) is
+			-- Append in `queries' the text of a query for an
+			-- enumeration value with `a_name' with a low level value
+			-- `a_value'.
+		require 
+			queries_not_void: queries/=Void
+			name_not_void: a_name/=Void
+			value_not_void: a_value/=Void
+		do
+			queries.append(once "%Tis_") queries.append(a_name)
+			queries.append(once ": BOOLEAN is%N%T%Tdo%N%T%T%TResult := (value &")
+			queries.append(a_value)
+			queries.append(once ").to_boolean%N%T%Tend%N%N")
+		end
+	
 end

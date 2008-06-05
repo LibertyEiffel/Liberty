@@ -32,6 +32,7 @@ feature -- Auxiliary features
 			when 'a', 'e', 'o', 'i', 'u' then Result.prepend(once "an_") 
 			else Result.prepend(once "a_") 
 			end
+			Result:=adapt(Result)
 		end
 
 	eiffellizer: REGULAR_EXPRESSION is
@@ -70,13 +71,14 @@ feature -- Auxiliary features
 			end
 		end
 
-	adapted_name (a_name: STRING): STRING is
+	adapt (a_name: STRING): STRING is
+			-- A valid, adapted identifier for an Eiffel feature labelled
+			-- `a_name'. Can be either `a_name' itself or a new string
+			-- containing an adapatation. Reserved words and those of
+			-- features belonging to ANY are "escaped".
 		do
-			-- TODO: make it general. A valid identifier for an eventual
-			-- Eiffel feature with `a_name'. Can be either `a_name'
-			-- itself or a new string containing an adapatation. Reserved
-			-- words are "escaped"
-			if keywords.has(a_name) then Result:=a_name+(once "_external")
+			if keywords.has(a_name) or else any_features.has(a_name)
+			then Result:=a_name+(once "_external")
 			else Result:=a_name
 			end
 		end
@@ -121,17 +123,41 @@ feature -- Auxiliary features
 			end
 		end
 
-	keywords: ARRAY[STRING] is
+	keywords: HASHED_SET[STRING] is
 		once
-			Result:=<<"indexing",
-						 "class", "deferred", "expanded", "separate", "end",
-						 "inherit", "insert", "creation", "feature",
-						 "rename","redefine","undefine","select","export",
-						 "require","local","do","once","ensure","alias","external","attribute",
-						 "if", "then", "else", "elseif", "when", "from", "until", "loop",
-						 "check", "debug", "invariant", "variant",
-						 "rescue", "obsolete"
-						 >>
+			Result := {HASHED_SET[STRING]
+			<<"indexing",
+			  "class", "deferred", "expanded", "separate", "end",
+			  "inherit", "insert", "creation", "feature",
+			  "rename","redefine","undefine","select","export",
+			  "require","local","do","once","ensure","alias","external","attribute",
+			  "if", "then", "else", "elseif", "when", "from", "until", "loop",
+			  "check", "debug", "invariant", "variant",
+			  "rescue", "obsolete"
+			  >>}
 		end
 
+	any_features: HASHED_SET[STRING] is
+			-- The names of the features contained in class ANY. A
+			-- wrapper can either add a proper prefix or suffix to the
+			-- feature s/he is wrapping or
+		once 
+			-- The following "static" definition of the features of ANY
+			-- is somehow unacceptable in a perfect world. Yet computing
+			-- it each and every time would enlarge the memory usage of
+			-- the program wildly, not counting the runtime requirements. 
+			Result:= {HASHED_SET[STRING]
+			<<"generating", "generator",
+			  "same_dynamic_type", "is_equal",
+			  "standard_is_equal", "is_deep_equal",
+			  "twin", "copy", 
+			  "standard_twin", "standard_copy",
+			  "deep_twin", 
+			  "default", "is_default",
+			  "print_on",   "tagged_out",
+			  "out", "out_in_tagged_out_memory",
+			  "tagged_out_memory", "fill_tagged_out_memory",
+			  "to_pointer", "is_basic_expanded_type",
+			  "object_size">>}
+		end
 end

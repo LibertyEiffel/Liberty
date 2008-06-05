@@ -323,28 +323,28 @@ feature -- Enumeration class creator
 			is_enumeration: an_enumeration.name.is_equal(once "Enumeration")
 		local i: COUNT; flags_so_far, value: INTEGER; child: XML_NODE
 		do
-			from i.set(1); Result:=True; variant i.value
+			from i.set(1); Result:=True; variant an_enumeration.children_count-i.value
 			until Result=False or else i>an_enumeration.children_count 
 			loop
 				child:=an_enumeration.child(i.value)
 				if child/=Void then 
-					if (once "EnumValue").is_equal(child.attribute_at(once "name")) then
+					if (once "EnumValue").is_equal(child.name) then
 						value:=child.attribute_at(once "init").to_integer
-						-- It seems not useful to check 
-						-- if not value.is_a_power_of_2 then Result:=False
-						if flags_so_far & value = 0 
-						 then -- values are indipendent so far
-							flags_so_far := flags_so_far + value 
+						
+						if (value>0 and then value.is_a_power_of_2) and
+							flags_so_far & value = 0 
+						 then -- value is valid and indipendent from values so far.
+							flags_so_far := flags_so_far | value 
 						else Result:=False
 						end 
 					else  
 						debug 
-							log.put_message(once "Unhandled child in Enumeration at line @(1)",<<child.line.out>>)
+							log.put_message(once "Unhandled child in Enumeration at line @(1)%N",<<child.line.out>>)
 						end -- debug
 					end -- Is an EnumValue
 				else -- child is void
 					debug
-						log.put_message(once "Void child in Enumeration!",Void)
+						log.put_message(once "CLASS_MAKER.have_flags_values: Void child in Enumeration!",Void)
 					end
 				end -- Void child
 				i.increment
