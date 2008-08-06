@@ -21,9 +21,11 @@ indexing
 
 class PANGO_STRING_ATTRIBUTE
 
-inherit C_STRUCT
+inherit 
+	C_STRUCT
+	MIXED_MEMORY_HANDLING
 
-creation  from_external_pointer
+creation from_external_pointer
 
 feature 
 	value: STRING is

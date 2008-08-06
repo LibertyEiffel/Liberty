@@ -30,7 +30,7 @@ inherit
 			object
 		end
 
-insert G_OBJECT_FACTORY [GTK_FONT_BUTTON] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_FONT_BUTTON]
 
 creation make
 
@@ -40,6 +40,7 @@ feature
 feature
 	callback (instance: POINTER) is
 		do
+			check has_eiffel_wrapper_stored (instance) end
 			object := wrapper(instance)
 			procedure.call ([object])
 		end

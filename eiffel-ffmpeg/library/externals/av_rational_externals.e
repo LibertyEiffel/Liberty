@@ -43,10 +43,5 @@ feature {} -- External calls
 	av_rational_set_denominator (a_handle: POINTER; a_den: INTEGER) is
 		external "C struct AVRational set den use <rational.h>"
 		end
-feature {} -- size
-	struct_size: INTEGER is
-		external "C inline use <rational.h>"
-		alias "sizeof(AVRational)"
-		end
 
 end -- class AV_RATIONAL_EXTERNALS

@@ -29,8 +29,6 @@ deferred class GDK_DRAG_ACTION
 
 inherit ANY undefine is_equal, copy end
 
-
-
 feature {} -- enum
 
 	is_valid_gdk_drag_action (an_action: INTEGER) : BOOLEAN is

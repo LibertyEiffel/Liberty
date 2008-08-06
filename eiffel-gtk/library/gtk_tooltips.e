@@ -57,7 +57,7 @@ inherit
 insert
 	GTK_TOOLTIPS_EXTERNALS
 
-creation dummy, make
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -116,8 +116,4 @@ feature -- size
 		alias "sizeof(GtkTooltips)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_tooltips_new
-		end
 end

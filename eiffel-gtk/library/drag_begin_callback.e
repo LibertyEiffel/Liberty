@@ -26,7 +26,7 @@ class DRAG_BEGIN_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 creation make
 
@@ -34,14 +34,14 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (a_drag_context_ptr, instance: POINTER) is
+	callback (drag_context_ptr, instance: POINTER) is
 		local
-			drag_context_factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
+			factory: G_OBJECT_FACTORY [GDK_DRAG_CONTEXT]
 			drag_context: GDK_DRAG_CONTEXT
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
 			object := wrapper(instance)
-			drag_context := drag_context_factory.wrapper_or_void(a_drag_context_ptr)
+			create drag_context.secondary_wrapper_from (drag_context_ptr)
 			procedure.call ([drag_context, object])
 		end
 
@@ -72,5 +72,5 @@ feature
 
 		signal_name: STRING is "drag-begin"
 
-	procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, GTK_WIDGET]]
+		procedure: PROCEDURE [ANY, TUPLE[GDK_DRAG_CONTEXT, GTK_WIDGET]]
 end

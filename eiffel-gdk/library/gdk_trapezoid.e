@@ -25,9 +25,9 @@ indexing
 
 class GDK_TRAPEZOID
 
-inherit C_STRUCT
+inherit G_STRUCT
 
-creation  from_external_pointer
+creation from_external_pointer
 
 feature
 

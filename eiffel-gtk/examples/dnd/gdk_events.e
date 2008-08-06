@@ -5,7 +5,7 @@ insert
 	GTK
 	GDK_EVENT_MASK
 
-creation dummy,
+creation
 	make
 
 feature
@@ -28,14 +28,14 @@ feature
 			-- Create and configure window
 			create window.make
 			window.set_default_size (280, 190)
-			window.connect_destroy_signal_to (agent on_delete_event)
+			window.connect_agent_to_destroy_signal (agent on_delete_event)
 			window.set_border_width (20)
 
 			-- Create and configure event box
 			create event_box.make
 			window.add (event_box)
 			event_box.add_events (gdk_button1_motion_mask) -- If you want hints: .bit_or (gdk_pointer_motion_hint_mask))
-			event_box.connect_motion_notify_event_signal_to (agent motion_notified)
+			event_box.connect_agent_to_motion_notify_event_signal (agent motion_notified)
 
 			create label.with_markup_label ("<span font_desc='Sans Italic Bold 20'>Hello World!</span>")
 			event_box.add (label)

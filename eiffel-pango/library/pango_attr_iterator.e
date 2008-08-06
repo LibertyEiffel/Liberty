@@ -20,13 +20,14 @@ indexing
 			]"
 
 class PANGO_ATTR_ITERATOR
-	-- An iterator through a `PANGO_ATTR_LIST'. A new iterator is
-	-- created with `PANGO_ATTR_LIST.get_new_iterator'. Once the
-	-- iterator is created, it can be advanced through the style
-	-- changes in the text using `next'. At each style change, you can
-	-- query the range of the current style segment with `range' and
-	-- the attributes currently in effect with `item' (a
-	-- G_SLIST[PANGO_ATTRIBUTE]), `item_of_type' and `details'.
+	-- An iterator through a `PANGO_ATTR_LIST' (PangoAttrList). A new
+	-- iterator is created with
+	-- `PANGO_ATTR_LIST.get_new_iterator'. Once the iterator is
+	-- created, it can be advanced through the style changes in the
+	-- text using `next'. At each style change, you can query the range
+	-- of the current style segment with `range' and the attributes currently in
+	-- effect with `item' (a G_SLIST[PANGO_ATTRIBUTE]), `item_of_type' 
+	-- and `details'.
 
 inherit 
 	ITERATOR [G_SLIST[PANGO_ATTRIBUTE]]
@@ -38,11 +39,16 @@ inherit
 		undefine
 			is_equal
 		redefine
-			copy,
-			dispose
+			copy
 		end
 
-creation  from_attribute_list, copy, from_external_pointer
+	WRAPPERS_CACHE[PANGO_ATTRIBUTE]
+		-- because even if PANGO_ATTR_ITERATOR is not shared it returns
+		-- references to objects that are actually C_STRUCT and stored into
+		-- wrappers dictionary, so we need to retrieve them throught the
+		-- shared dictionary.
+	
+creation from_attribute_list, copy, from_external_pointer
 
 feature {} --
 	from_attribute_list (an_attribute_list: PANGO_ATTR_LIST) is
@@ -71,13 +77,7 @@ feature
 			-- a list of all attributes at the current position of the
 			-- iterator.
 		do
-			create Result.from_external (pango_attr_iterator_get_attrs (handle),factory)
-			-- Note: Pango C documentation says that
-			-- pango_attr_iterator_get_attrs "returns a list of all
-			-- attributes for the current range. To free this value, call
-			-- pango_attribute_destroy() on each value and g_slist_free()
-			-- on the list." This should be automatically handled by 
-			-- `dispose' in PANGO_ATTRIBUTE and in G_SLIST.
+			create {G_SLIST_PANGO_ATTRIBUTE}  Result.from_external_pointer (pango_attr_iterator_get_attrs (handle))
 		end
 
 	is_off: BOOLEAN
@@ -111,7 +111,10 @@ feature
 		local ptr: POINTER 
 		do
 			ptr := pango_attr_iterator_get (handle, a_type)
-			if ptr.is_not_null then Result:=factory.wrapper(ptr) end
+			if ptr.is_not_null then
+				create Result.from_external_pointer (ptr)
+				Result.set_shared
+			end
 		end
 	
 	details: TUPLE[PANGO_FONT_DESCRIPTION, PANGO_LANGUAGE, G_SLIST[PANGO_ATTRIBUTE]] is
@@ -139,16 +142,16 @@ feature
 		local 
 			a_description: PANGO_FONT_DESCRIPTION
 			a_language: PANGO_LANGUAGE;  some_attributes: G_SLIST[PANGO_ATTRIBUTE]
-			language_ptr, extra_attrs_ptr: POINTER
+			a_language_ptr, extra_attrs_ptr: POINTER
 		do
 			create a_description.make
 			pango_attr_iterator_get_font (handle, a_description.handle,
-													$language_ptr, $extra_attrs_ptr)
-			if language_ptr.is_not_null then
-				create a_language.from_external_pointer(language_ptr)
+													address_of(a_language_ptr), address_of(extra_attrs_ptr))
+			if a_language_ptr.is_not_null then 
+				create a_language.from_external_pointer(a_language_ptr) 
 			end
 			if extra_attrs_ptr.is_not_null then
-				create some_attributes.from_external(extra_attrs_ptr,factory) 
+				create {G_SLIST_PANGO_ATTRIBUTE} some_attributes.from_external_pointer(extra_attrs_ptr) 
 			end
 			create Result.make_3 (a_description, a_language, some_attributes)
 		end
@@ -175,13 +178,6 @@ feature -- size
 feature {} -- Implementation
 	attribute_list: PANGO_ATTR_LIST
 			-- The list Current iterator is linked to.
-	
-	factory: ARCHETYPE_CACHING_FACTORY[PANGO_ATTRIBUTE] is
-		once
-			create Result.with_archetype(pango_attribute_archetype)
-		end
-
-	pango_attribute_archetype: PANGO_ATTRIBUTE is once create Result.dummy end
 	
 feature {} -- External calls
 	pango_attr_list_get_iterator (a_list: POINTER): POINTER is -- PangoAttrIterator* 

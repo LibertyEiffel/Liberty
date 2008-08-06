@@ -26,7 +26,7 @@ class PANGO_FONT_SET_SIMPLE
 
 inherit PANGO_FONT_SET redefine struct_size end
 
-creation  make, from_external_pointer
+creation make, from_external_pointer
 
 feature
 	make (a_language: PANGO_LANGUAGE) is
@@ -35,8 +35,6 @@ feature
 		do
 			from_external_pointer(pango_fontset_simple_new(a_language.handle))
 		end
-
-	dummy_gobject: POINTER is do end
 
 feature 
 	append (a_font: PANGO_FONT) is

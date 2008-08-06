@@ -28,9 +28,12 @@ class GTK_CELL_VIEW
 inherit
 	GTK_WIDGET
 	GTK_CELL_LAYOUT
-		-- TODO: AtkImplementorIface
+		undefine
+			store_eiffel_wrapper
+		end
+		-- GtkCellView also implements AtkImplementorIface.
 		
-creation dummy, make
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -132,8 +135,8 @@ feature
 			-- the cell renderers which have been added to Current
 			-- cell_view.
 		do
-			create Result.from_external(gtk_cell_view_get_cell_renderers (handle),
-												 cell_renderer_factory)
+			create {G_OBJECT_LIST[GTK_CELL_RENDERER]}
+			Result.from_external_pointer (gtk_cell_view_get_cell_renderers (handle))
 			debug print (once "Warning! Possible memory problems in GTK_CELL_VIEW.cell_renderers%N") end
 			-- TODO: The returned list, but not the renderers has been newly
 			-- allocated and should be freed with g_list_free() when no
@@ -164,15 +167,10 @@ feature 	-- The "background" property
 
 	-- Default value: FALSE
 
-feature
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellView)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_cell_view_new
 		end
 
 feature {} -- Properties string-names

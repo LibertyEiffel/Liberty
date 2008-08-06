@@ -22,11 +22,11 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_TABLE_CHILD
-	-- TODO: wrap this structure for real
-	
-inherit SHARED_C_STRUCT
-	
 
+inherit 
+	C_STRUCT
+	EIFFEL_OWNED
+	-- TODO: wrap this structure for real	
 creation from_external_pointer
 
 feature {} -- size

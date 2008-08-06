@@ -35,12 +35,12 @@ inherit GTK_CONTAINER rename window as widget_window  end
 
 insert
 	GTK_TEXT_VIEW_EXTERNALS
-		G_OBJECT_FACTORY [GTK_TEXT_BUFFER] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_TEXT_BUFFER]
 	GTK_TEXT_WINDOW_TYPE
 	GTK_WRAP_MODE
-	
-creation 
-	dummy, make, make_with_buffer, from_external_pointer
+
+creation
+	make, make_with_buffer, from_external_pointer
 
 feature {} -- Creation
 
@@ -74,7 +74,7 @@ feature -- Queries
 			-- Has last `scroll_to_iter' have produced a scrolling?
 
 	have_been_cursor_moved: BOOLEAN
-			-- Had last feature call moded the cursor?
+			-- Had last feature call moved the cursor?
 
 	was_iter_moved: BOOLEAN
 			--  was iter moved? Used in `forward_display_line'
@@ -101,12 +101,19 @@ feature -- Access
 
 	buffer: GTK_TEXT_BUFFER is
 			-- The GTK_TEXT_BUFFER being displayed by this text view.
+		local
+			c_buff: POINTER
 		do
 			if cached_buffer = Void then
 				-- The reference count on the buffer returned by
 				-- gtk_text_view_get_buffer is not incremented; the caller
 				-- of this function won't own a new reference.
-				cached_buffer := wrapper(gtk_text_view_get_buffer(handle))
+				cached_buffer:= unreffed_wrapper (gtk_text_view_get_buffer (handle))
+			else
+				check
+					cached_buffer_doesnt_change:
+					cached_buffer.handle = gtk_text_view_get_buffer (handle) 
+				end
 			end
 			Result := cached_buffer
 		end
@@ -214,7 +221,7 @@ feature
 		do
 			gtk_text_view_scroll_mark_onscreen (handle, a_mark.handle)
 		end
-	
+
 	move_mark_onscreen (a_mark: GTK_TEXT_MARK): BOOLEAN is
 			-- Moves a mark within the buffer so that it's located within
 			-- the currently-visible text area.
@@ -320,7 +327,7 @@ feature
 			gtk_text_view_get_iter_at_position (handle, an_iter.handle,
 															$a_trailing, an_x, an_y)
 			create Result.make_2(an_iter, a_trailing)
-		ensure 
+		ensure
 			not_void: Result /= Void
 			iter_not_void: Result.item_1 /= Void
 		end
@@ -371,10 +378,9 @@ feature
 			-- nonexistent if their width or height is 0, and are
 			-- nonexistent before the widget has been realized.
 		require valid_window_type: is_valid_gtk_text_window_type (a_text_window_type)
-		local
-			gdk_win_factory: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
+		local factory: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
-			Result := gdk_win_factory.wrapper_or_void(gtk_text_view_get_window (handle, a_text_window_type))
+			Result := factory.wrapper (gtk_text_view_get_window (handle, a_text_window_type))
 		end
 
 	window_type (a_window: GDK_WINDOW): INTEGER is
@@ -434,7 +440,7 @@ feature -- Iterator moving command
 		do
 			was_iter_moved := gtk_text_view_forward_display_line (handle, an_iterator.handle).to_boolean
 		end
-	
+
 	backward_display_line (an_iter: GTK_TEXT_ITER) is
 			-- Moves `an_iter' backward by one display (wrapped) line. A
 			-- display line is different from a paragraph. Paragraphs are
@@ -590,6 +596,7 @@ feature -- Iterator queries
 -- 	-----------------------------------------------------------------------
 
 feature -- Wrap mode
+
 	set_wrap_mode (a_mode: INTEGER) is
 			-- 	Sets the line wrapping for the view.
 		require valid_mode: is_valid_gtk_wrap_mode (a_mode)
@@ -605,13 +612,23 @@ feature -- Wrap mode
 		end
 
 feature -- Editabilty
-	set_editable (a_setting: BOOLEAN) is
+
+	set_editable is
 			-- Makes Current GtkTextView editable. You can override this
 			-- default setting with tags in the buffer, using the
 			-- "editable" attribute of tags.
 		do
-			gtk_text_view_set_editable (handle,a_setting.to_integer)
-		ensure set: is_editable = a_setting
+			gtk_text_view_set_editable (handle, 1)
+		ensure editable: is_editable
+		end
+
+	set_uneditable is
+			-- Makes Current GtkTextView not editable. You can override this
+			-- default setting with tags in the buffer, using the
+			-- "editable" attribute of tags.
+		do
+			gtk_text_view_set_editable (handle, 0)
+		ensure uneditable: not is_editable
 		end
 
 	is_editable: BOOLEAN is
@@ -622,13 +639,21 @@ feature -- Editabilty
 		end
 
 feature -- Cursor visibility
-	set_cursor_visible (a_setting: BOOLEAN) is
-			-- Displays or hides the insertion point. A buffer with no
-			-- editable text probably shouldn't have a visible cursor, so
-			-- you may want to turn the cursor off.
+
+	set_cursor_visible is
+			-- Displays the insertion point.
 		do
-			gtk_text_view_set_cursor_visible (handle, a_setting.to_integer)
-		ensure set: is_cursor_visible=a_setting
+			gtk_text_view_set_cursor_visible (handle, 1)
+		ensure visible_cursor: is_cursor_visible
+		end
+
+	set_cursor_invisible is
+			-- Hides the insertion point. A buffer with no editable text
+			-- probably shouldn't have a visible cursor, so you may want
+			-- to turn the cursor off.
+		do
+			gtk_text_view_set_cursor_visible (handle, 0)
+		ensure invisible_cursor: not is_cursor_visible
 		end
 
 	is_cursor_visible: BOOLEAN is
@@ -638,6 +663,7 @@ feature -- Cursor visibility
 		end
 
 feature
+
 	set_overwrite is
 			-- Turns the GtkTextView overwrite mode on.
 		do
@@ -677,7 +703,7 @@ feature -- Pixels above and below lines
 			Result:=gtk_text_view_get_pixels_above_lines(handle)
 		end
 
-	set_pixels_below_lines (a_setting: INTEGER) is 
+	set_pixels_below_lines (a_setting: INTEGER) is
 			-- Sets the default number of pixels of blank space to put
 			-- below paragraphs in text_view. May be overridden by tags
 			-- applied to text_view's buffer.
@@ -691,14 +717,14 @@ feature -- Pixels above and below lines
 			-- default number of blank pixels below paragraphs
 		do
 			Result := gtk_text_view_get_pixels_below_lines(handle)
-		end 
+		end
 
 	set_pixels_inside_wrap (a_setting: INTEGER) is
 			-- Sets the default number of pixels of blank space to leave
 			-- between display/wrapped lines within a paragraph. May be
 			-- overridden by tags in text_view's buffer.
 		do
-			gtk_text_view_set_pixels_inside_wrap(handle,a_setting) 
+			gtk_text_view_set_pixels_inside_wrap(handle,a_setting)
 		ensure
 			set: pixels_inside_wrap = a_setting
 		end
@@ -1063,38 +1089,45 @@ feature {} -- TODO: Signals
 
 -- 	-----------------------------------------------------------------------
 
---   The "insert-at-cursor" signal
-
---  void        user_function                  (GtkTextView *textview,
--- 															gchar       *arg1,
--- 															gpointer     user_data)      : Run last / Action
-
--- 	textview :  the object which received the signal.
--- 	arg1 :
--- 	user_data : user data set when the signal handler was connected.
-
+feature --   The "insert-at-cursor" signal
+	connect_agent_to_insert_at_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, GTK_TEXT_VIEW]]) is
+			-- 	textview :  the object which received the signal.
+			-- 	arg1 :
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			insert_at_cursor_callback: INSERT_AT_CURSOR_CALLBACK
+		do
+			create insert_at_cursor_callback.make
+			insert_at_cursor_callback.connect (Current, a_procedure)
+		end
+	
 -- 	-----------------------------------------------------------------------
 
---   The "move-cursor" signal
+feature -- The "move-cursor" signal
 
---  void        user_function                  (GtkTextView     *widget,
--- 															GtkMovementStep *step,
--- 															gint             count,
--- 															gboolean         extend_selection,
--- 															gpointer         user_data)             : Run last / Action
+	connect_agent_to_move_cursor_signal (a_procedure: PROCEDURE[ANY, TUPLE [INTEGER, INTEGER, BOOLEAN, GTK_TEXT_VIEW]]) is
+			-- 	The ::move-cursor signal is a keybinding signal which gets emitted when
+			-- 	the user initiates a cursor movement.
 
--- 	The ::move-cursor signal is a keybinding signal which gets emitted when
--- 	the user initiates a cursor movement.
+			-- 	Applications should not connect to it, but may emit it with
+			-- 	g_signal_emit_by_name() if they need to control scrolling
+			-- 	programmatically.
 
--- 	Applications should not connect to it, but may emit it with
--- 	g_signal_emit_by_name() if they need to control scrolling
--- 	programmatically.
-
--- 	widget :           the object which received the signal
--- 	step :             the granularity of the move, as a GtkMovementStep
--- 	count :            the number of step units to move
--- 	extend_selection : TRUE if the move should extend the selection
--- 	user_data :        user data set when the signal handler was connected.
+			-- 	widget :           the object which received the signal
+			-- 	step :             the granularity of the move, as a GtkMovementStep
+			-- 	count :            the number of step units to move
+			-- 	extend_selection : True if the move should extend the selection
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			move_cursor_callback: MOVE_CURSOR_CALLBACK
+		do
+			create move_cursor_callback.make
+			move_cursor_callback.connect (Current, a_procedure)
+		end
 
 -- 	-----------------------------------------------------------------------
 
@@ -1138,13 +1171,25 @@ feature {} -- TODO: Signals
 
 -- 	-----------------------------------------------------------------------
 
---   The "paste-clipboard" signal
+feature -- The "paste-clipboard" signal
 
---  void        user_function                  (GtkTextView *textview,
--- 															gpointer     user_data)      : Run last / Action
-
--- 	textview :  the object which received the signal.
--- 	user_data : user data set when the signal handler was connected.
+	connect_agent_to_paste_clipboard_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_TEXT_VIEW]]) is
+			-- The ::paste-clipboard signal is a keybinding signal which gets
+			-- emitted to paste the contents of the clipboard into the text view.
+			--
+			-- The default bindings for this signal are Ctrl-v and Shift-Insert.
+			--
+			-- 	textview :  the object which received the signal.
+			-- 	user_data : user data set when the signal handler was connected.
+		require
+			valid_procedure: a_procedure /= Void
+			wrapper_is_stored: is_eiffel_wrapper_stored
+		local
+			paste_clipboard_callback: PASTE_CLIPBOARD_CALLBACK
+		do
+			create paste_clipboard_callback.make
+			paste_clipboard_callback.connect (Current, a_procedure)
+		end
 
 -- 	-----------------------------------------------------------------------
 
@@ -1203,14 +1248,12 @@ feature {} -- TODO: Signals
 
 -- 	textview :  the object which received the signal.
 -- 	user_data : user data set when the signal handler was connected.
+
 feature -- struct size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTextView)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result := gtk_text_view_new
-		end
 end -- class GTK_TEXT_VIEW

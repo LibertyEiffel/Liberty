@@ -7,32 +7,36 @@ indexing
 
 class GDK_COLOR
 
-inherit SHARED_C_STRUCT redefine copy, free end
-
-creation 
+inherit
+	C_STRUCT
+		redefine 
+			copy
+		end
+creation
 	from_external_pointer, make
 
-feature -- size
+feature 
 
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
 		alias "sizeof(GdkColor)"
 		end
 
-feature -- Creation
-
 	make is
 		do
 			allocate
-			set_unshared
 		end
 
-	copy (another: like Current) is
+	dispose is
 		do
-			from_external_pointer(gdk_color_copy(another.handle))
-			set_unshared
+			gdk_color_free (handle)			
 		end
 	
+	copy (another: like Current) is
+		do
+			from_external_pointer(gdk_color_copy(handle))
+		end
+
 feature -- Getters and setters
 
 	is_allocated: BOOLEAN
@@ -103,19 +107,17 @@ feature -- Getters and setters
 			blue = a_blue
 		end
 
-feature {} -- External call
+feature {} -- Low level access
+
 	gdk_color_copy (a_color: POINTER): POINTER is
-			--	gdkColor* gdk_color_copy (const GdkColor *color);
+			-- GdkColor* gdk_color_copy (const GdkColor *color);
 		external "C use <gdk/gdk.h>"
 		end
 
-	free (a_color: POINTER) is
+	gdk_color_free (a_color: POINTER) is
 			-- void gdk_color_free (GdkColor *color);
 		external "C use <gdk/gdk.h>"
-		alias "gdk_color_free"
 		end
-	
-feature {} -- Low level access
 
 	get_pixel_external (ptr: POINTER): INTEGER is
 			-- Note: Result shall be NATURAL_32 since itr's a guint32

@@ -26,9 +26,9 @@ class APPLY_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_ASSISTANT] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_ASSISTANT]
 
-creation dummy, make
+creation make
 
 feature 
 	object: GTK_ASSISTANT
@@ -39,6 +39,8 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that object actually has an Eiffel wrapper
 			object := wrapper(instance)
 			procedure.call ([object])
 		end

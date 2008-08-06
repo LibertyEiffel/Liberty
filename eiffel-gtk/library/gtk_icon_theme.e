@@ -87,7 +87,7 @@ insert
 		
 		-- TODO: enum        GtkIconThemeError;
 	
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -597,11 +597,6 @@ feature -- size
 		alias "sizeof(GtkIconTheme)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_icon_theme_new
-		end
-	
 feature {} -- External calls
 	gtk_icon_theme_error: INTEGER is
 			--    The GQuark used for GtkIconThemeError errors.

@@ -28,13 +28,12 @@ class GTK_VSCALE
 	
 inherit
 	GTK_SCALE
+	GTK_VSCALE_EXTERNALS
+
 		-- Implemented Interfaces: GtkVscale implements
 		-- AtkImplementorIface.
-insert
-	GTK_VSCALE_EXTERNALS
-	GTK_ADJUSTMENT_EXTERNALS -- Needed by dummy_gobject
-	
-creation dummy, from_adjustment, with_range
+
+creation from_adjustment, with_range, from_external_pointer
 
 feature {} -- Creation
 	from_adjustment (an_adjustment: GTK_ADJUSTMENT) is
@@ -67,20 +66,14 @@ feature {} -- Creation
 			-- shortcuts
 		require gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer(gtk_vscale_new_with_range (a_min, a_max, a_step))
+			handle:=gtk_vscale_new_with_range (a_min, a_max, a_step)
+			store_eiffel_wrapper
 		end
 
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVScale)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=(gtk_vscale_new
-						(gtk_adjustment_new
-						 (0.1, 0.0, 1.0, 0.05, 0.1, 0.2)))
 		end
 end
 	

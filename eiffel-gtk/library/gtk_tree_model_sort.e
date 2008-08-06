@@ -122,10 +122,7 @@ inherit
 	GTK_TREE_DRAG_SOURCE
 	GTK_TREE_SORTABLE
 
-insert
-	GTK_TREE_STORE_EXTERNALS -- To get a dummy child model
-	
-creation dummy
+creation from_external_pointer
 
 feature {} 
 -- gtk_tree_model_sort_new_with_model ()
@@ -230,77 +227,38 @@ feature -- "model" properties
 -- The model for the TreeModelSort to sort.
 
 feature {} -- External calls
-	gtk_tree_model_sort_new_with_model (a_child_model: POINTER): POINTER is
-			-- GtkTreeModel* gtk_tree_model_sort_new_with_model
-			-- (GtkTreeModel *child_model);
-		external "C use <gtk/gtk.h>"
-		end
 
-	
-	gtk_tree_model_sort_get_model (a_tree_model: POINTER): POINTER is
-			-- GtkTreeModel* gtk_tree_model_sort_get_model
-			-- (GtkTreeModelSort *tree_model);
-		external "C use <gtk/gtk.h>"
-		end
+-- #include <gtk/gtk.h>
 
-	gtk_tree_model_sort_convert_child_path_to_path (a_tree_model_sort, a_child_path: POINTER): POINTER is
-			-- GtkTreePath*
-			-- gtk_tree_model_sort_convert_child_path_to_path
-			-- (GtkTreeModelSort *tree_model_sort, GtkTreePath
-			-- *child_path);
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_tree_model_sort_convert_child_iter_to_iter (a_tree_model_sort, a_sort_iter, a_child_iter: POINTER) is
-			-- void gtk_tree_model_sort_convert_child_iter_to_iter
-			-- (GtkTreeModelSort *tree_model_sort, GtkTreeIter
-			-- *sort_iter, GtkTreeIter *child_iter);
-		external "C use <gtk/gtk.h>"
-		end
 
-	gtk_tree_model_sort_convert_path_to_child_path (a_tree_model_sort, a_sorted_path: POINTER): POINTER is
-			--	GtkTreePath*
-			--	gtk_tree_model_sort_convert_path_to_child_path
-			--	(GtkTreeModelSort *tree_model_sort, GtkTreePath
-			--	*sorted_path);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_tree_model_sort_convert_iter_to_child_iter (a_tree_model_sort, a_child_iter, a_sorted_iter: POINTER) is
-			--	void gtk_tree_model_sort_convert_iter_to_child_iter
-			--	(GtkTreeModelSort *tree_model_sort, GtkTreeIter
-			--	*child_iter, GtkTreeIter *sorted_iter);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_tree_model_sort_reset_default_sort_func (a_tree_model_sort: POINTER) is
-			--	void gtk_tree_model_sort_reset_default_sort_func
-			--	(GtkTreeModelSort *tree_model_sort);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_tree_model_sort_clear_cache (a_tree_model_sort: POINTER) is
-			--	void gtk_tree_model_sort_clear_cache (GtkTreeModelSort
-			--	*tree_model_sort);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_tree_model_sort_iter_is_valid (a_tree_model_sort, an_iter: POINTER): INTEGER is
-			-- gboolean gtk_tree_model_sort_iter_is_valid
-			-- (GtkTreeModelSort *tree_model_sort, GtkTreeIter *iter);
-		external "C use <gtk/gtk.h>"
-		end
-
+--             GtkTreeModelSort;
+-- GtkTreeModel* gtk_tree_model_sort_new_with_model
+--                                             (GtkTreeModel *child_model);
+-- GtkTreeModel* gtk_tree_model_sort_get_model (GtkTreeModelSort *tree_model);
+-- GtkTreePath* gtk_tree_model_sort_convert_child_path_to_path
+--                                             (GtkTreeModelSort *tree_model_sort,
+--                                              GtkTreePath *child_path);
+-- void        gtk_tree_model_sort_convert_child_iter_to_iter
+--                                             (GtkTreeModelSort *tree_model_sort,
+--                                              GtkTreeIter *sort_iter,
+--                                              GtkTreeIter *child_iter);
+-- GtkTreePath* gtk_tree_model_sort_convert_path_to_child_path
+--                                             (GtkTreeModelSort *tree_model_sort,
+--                                              GtkTreePath *sorted_path);
+-- void        gtk_tree_model_sort_convert_iter_to_child_iter
+--                                             (GtkTreeModelSort *tree_model_sort,
+--                                              GtkTreeIter *child_iter,
+--                                              GtkTreeIter *sorted_iter);
+-- void        gtk_tree_model_sort_reset_default_sort_func
+--                                             (GtkTreeModelSort *tree_model_sort);
+-- void        gtk_tree_model_sort_clear_cache (GtkTreeModelSort *tree_model_sort);
+-- gboolean    gtk_tree_model_sort_iter_is_valid
+--                                             (GtkTreeModelSort *tree_model_sort,
+--                                              GtkTreeIter *iter);
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeModel)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=(gtk_tree_model_sort_new_with_model
-						(gtk_tree_store_newv
-						 (1,{NATIVE_ARRAY[INTEGER] <<g_type_int>>}.to_external)))
-		end
 end -- class GTK_TREE_MODEL_SORT

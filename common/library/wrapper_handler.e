@@ -24,7 +24,7 @@ insert
 			fill_tagged_out_memory
 		end
 
-feature {} -- Low-level functions
+feature
 	null_or (a_wrapper: WRAPPER): POINTER is
 			-- The handle of `a_wrapper', or the default_pointer if 
 			-- `a_wrapper' is Void
@@ -52,37 +52,33 @@ feature {} -- Wrapper related exceptions
 		"A C function returned a pointer to an unwrapped object which is wrapped by a deferred class. It is not possible to create a correct wrapper."
 	retrieved_object_mismatch: STRING is
 		"Retrieved_object_mismatch: the Eiffel wrapper associated with a pointer is not an actual wrapper for the object referred by that pointer "
-	no_proper_wrapper_available: STRING is
-		"The Eiffel wrapper library encountered an unwrapped object pointer. Its type, obtained by the run-time of the wrapped library and its parent types have no available wrapper. The Eiffel library is unable to handle this object. This is a bug, please inform the developers of the program."
-	
-	unimplemented is
-		do
-			sedb_breakpoint
-			std_error.put_string
-			("[
-			  An unimplemented feature has been called.
-			  Please notify this bug to the developer of the application or to the
-			  Eiffel Wrapper Library Collection project, writing to the mailing list
-			  eiffel-libraries-devel@gna.org
-
-														 Happy hacking and thanks in advance.
-																					 The EWLC  team.
-
-			  The error occurred in the type
-			  ]")
-			std_error.put_string(generating_type)
-			std_error.put_line(".")
-			crash
-		end
-
-	ewlc_log (a_message: STRING) is 
-		do
-			debug
-				io.put_line(a_message)
-			end
-		end
+	copying_an_uncopyable: STRING is
+		"Trying to copy an uncopyable wrapper: such objects are usually shortly lived" 
 
 feature {} -- External calls
+
+	calloc (a_number, a_size: INTEGER): POINTER is
+			-- void *calloc(size_t nmemb, size_t size);
+			--
+			-- calloc() allocates memory for an array of nmemb elements
+			-- of size bytes each and returns a pointer to the allocated
+			-- memory. The memory is set to zero.
+		external "C use <stdlib.h>"
+		alias "se_calloc"
+		ensure Result.is_not_null
+		end
+
+	free (a_ptr: POINTER) is
+			-- void free(void *ptr);
+			--
+			-- free() frees the memory space pointed to by ptr, which
+			-- must have been returned by a previous call to malloc(),
+			-- calloc() or realloc(). Otherwise, or if free(ptr) has
+			-- already been called before, undefined behaviour occurs.
+			-- If ptr is NULL, no operation is performed.
+		external "C use <stdlib.h>"
+		end
+
 	memcpy (a_dest, a_src: POINTER; a_size: INTEGER): POINTER is
 			-- void *memcpy(void *dest, const void *src, size_t n);
 			-- 

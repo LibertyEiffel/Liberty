@@ -28,7 +28,7 @@ inherit
 	CALLBACK redefine object end
 
 insert
-		G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_TREE_MODEL]
 
 creation make
 
@@ -45,10 +45,12 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that the object is actually created by the Eiffel 
 			object := wrapper(instance)
 			-- Note: path and iter are shared wrappers.
-			create path.copy_from_pointer(path_ptr)
-			create iter.copy_from_pointer(iter_ptr)
+			create path.copy_from_pointer (path_ptr)
+			create iter.copy_from_pointer (iter_ptr)
 			procedure.call ([object, path, iter])
 		end
 

@@ -22,8 +22,8 @@ indexing
 class GDK_EVENT_CONFIGURE
 	-- Generated when a window size or position has changed.
 	
-inherit SHARED_C_STRUCT redefine from_external_pointer end
-
+inherit GDK_EVENT redefine send_event end 
+		
 creation  from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
@@ -121,10 +121,10 @@ feature {} -- Structure getter/setter calls
 
 	internal_window: GDK_WINDOW
 
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <gdk/gdk.h>"
-		alias "sizeof(GdkEventConfigure)"
-		end
+-- feature -- size
+-- 	struct_size: INTEGER is
+-- 		external "C inline use <gdk/gdk.h>"
+-- 		alias "sizeof(GdkEventConfigure)"
+-- 		end
 
 end -- class GDK_EVENT_CONFIGURE

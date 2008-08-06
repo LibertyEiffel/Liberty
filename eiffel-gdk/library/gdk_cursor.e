@@ -25,12 +25,13 @@ indexing
 class GDK_CURSOR
 
 inherit
-	C_STRUCT
+	G_STRUCT
+		redefine dispose end
 
 insert
 	GDK_CURSOR_EXTERNALS
 
-creation  from_type, from_external_pointer
+creation from_type, from_external_cursor
 
 feature -- size
 
@@ -48,6 +49,26 @@ feature {} -- Creation
 			from_external_pointer (gdk_cursor_new (a_cursor_type))
 		end
 
+	from_external_cursor (a_cursor: POINTER) is
+			-- Creates a cursor from an already existing C cursor.  This feature
+			-- Increases the reference count to a_cursor by one.
+		require
+			a_cursor.is_not_null
+		local
+			dummy: POINTER
+		do
+			from_external_pointer (a_cursor)
+			dummy := gdk_cursor_ref (a_cursor)
+		end
+
+feature -- Disposing
+
+	dispose is
+		do
+			gdk_cursor_unref (handle)
+			handle:= default_pointer -- null
+		end
+
 feature
 
 --typedef struct {
@@ -61,4 +82,5 @@ feature
 			is_valid_gdk_cursor_type (Result)
 		end
 
-end
+end -- class GDK_CURSOR
+

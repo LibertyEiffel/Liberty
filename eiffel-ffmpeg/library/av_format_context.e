@@ -23,15 +23,15 @@ class AV_FORMAT_CONTEXT
 
 inherit
 	C_STRUCT
-		redefine dispose end
-
+	EIFFEL_OWNED redefine dispose end
+	
 insert
 	AV_FORMAT_CONTEXT_EXTERNALS
 	AV_ERROR_CODES
 	AV_SEEK_FLAGS
 	AV_CODEC_TYPES
 
-creation 
+creation
 	from_file
 
 feature {} -- Creation
@@ -300,25 +300,27 @@ feature -- Access
 		end
 
 
-feature {} -- Disposing
+feature -- Disposing
 
 	dispose is
-		local
-			i: INTEGER
 		do
-			if wrapped_streams /= Void then
-				from
-					i := wrapped_streams.lower
-				until
-					i > wrapped_streams.upper
-				loop
-					if wrapped_streams.item (i) /= Void then
-						wrapped_streams.item (i).dispose
-					end
-					i := i + 1
-				end
-			end
+			-- wrapped_streams items shall not be disposed because this
+			-- shall be handled by the garbage collector; in fact a
+			-- reference to some of those streams could be used
+			-- elsewhere. Paolo 2008-04-20
+			
+			--if wrapped_streams /= Void then
+			-- from i := wrapped_streams.lower
+			-- until	i > wrapped_streams.upper
+			--	loop
+			--		if wrapped_streams.item (i) /= Void then
+			--			wrapped_streams.item (i).dispose
+			--		end
+			--		i := i + 1
+			--	end
+			--end
 			close
+			Precursor
 		end
 
 feature {} -- Representation

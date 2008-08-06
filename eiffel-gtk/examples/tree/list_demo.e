@@ -10,13 +10,12 @@ class LIST_DEMO
 
 inherit
 	GTK
-	G_TYPE
+	G_TYPES
 		-- TODO: This class is necessary when creating GTK_LIST_STOREs,
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
 	
-	-- WRAPPER_HANDLER -- required to check for some bug in the implementation and accessing wrappers' handles
-
+	WRAPPER_HANDLER -- required to check for some bug in the implementation and accessing wrappers' handles
 creation make
 	
 feature -- Columns
@@ -101,7 +100,7 @@ feature {}  -- Creation
 			window.set_title (window_title)
 
 			-- It is a good idea to do this for all windows
-			window.connect_destroy_signal_to (agent on_destroy)
+			window.connect_agent_to_destroy_signal (agent on_destroy)
 
 			view.show
 			window.add (view)
@@ -172,9 +171,16 @@ feature -- Agents
 		do
 			print ("Path '") print (a_path.to_string)
 			if path_selected
-			 then print ("' is selected%N")
-			else  print ("' is de-selected%N")
+			 then print ("' is selected")
+			else  print ("' is de-selected")
 			end
+			debug
+				if a_model = Void 
+				 then print ("; no model passed but we're sure that out GTK_LIST_STORE at"+model.to_pointer.out+" has handle="+model.handle.out)
+				else print (".")
+				end
+			end
+			print ("%N")
 			Result := True
 		end
 								

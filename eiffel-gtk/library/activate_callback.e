@@ -28,21 +28,24 @@ inherit
 	CALLBACK redefine object end
 
 insert
-		G_OBJECT_FACTORY [W] undefine is_equal, copy end
+	G_OBJECT_FACTORY [W]
 
 creation make
 
 feature
 	object: W
 
-feature
-
 	callback (instance: POINTER) is 
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that the button is actually created bu the Eiffel 
+			-- application. 
 			object := wrapper(instance)
+			-- The above line replaces "create object.from_external_pointer
+			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])
 		end
 

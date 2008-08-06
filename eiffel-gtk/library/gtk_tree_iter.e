@@ -24,7 +24,7 @@ indexing
 class GTK_TREE_ITER
 
 inherit
-	SHARED_C_STRUCT redefine dispose, dummy end
+	C_STRUCT redefine allocate end
 
 insert
 	GTK
@@ -33,7 +33,7 @@ insert
 	GLIB_MEMORY_ALLOCATION
 
 creation
-	dummy, make,
+	make,
 	make_from_model, from_model,
 	from_external_pointer,
 	copy_from_pointer,
@@ -46,7 +46,6 @@ feature -- Creation
 			gtk_initialized: gtk.is_initialized
 		do
 			allocate
-			set_unshared
 		end
 	
 	make_from_model, from_model (a_model: GTK_TREE_MODEL) is
@@ -54,9 +53,8 @@ feature -- Creation
 			gtk_initialized: gtk.is_initialized
 			valid_model: a_model/=Void
 		do
-			allocate 
+			allocate
 			tree_model := a_model
-			set_unshared
 		ensure
 			handle.is_not_null
 			attached_to_model
@@ -67,9 +65,6 @@ feature -- Creation
 			a_ptr.is_not_null
 		do
 			handle := gtk_tree_iter_copy (a_ptr)
-			set_unshared
-		ensure
-			not is_shared
 		end
 
 	as_children_of (a_parent: GTK_TREE_ITER) is
@@ -84,7 +79,6 @@ feature -- Creation
 			is_valid := (gtk_tree_model_iter_children
 							 (tree_model.handle, handle,
 							  a_parent.handle).to_boolean)
-			set_unshared
 		end
 
 feature
@@ -227,6 +221,28 @@ feature  -- struct size
 		alias "sizeof(GtkTreeIter)"
 		end
 
+feature {}
+
+	allocate is
+			-- There is no malloc-like function in GTK to allocate iterators.
+			-- Therefore, we allocate iterators using gtk_tree_iter_copy()
+		require
+			handle.is_null
+		do
+			handle := gtk_tree_iter_copy (dummy_iter)
+			if handle.is_null then
+				raise_exception (No_more_memory)
+			end
+		end
+
+	dummy_iter: POINTER is
+		once
+			Result := calloc (1, struct_size)
+			if Result.is_null then
+				raise_exception (No_more_memory)
+			end
+		end
+
 feature
 	dispose is
 		do
@@ -257,10 +273,4 @@ feature
 			-- Note: It could have been just a POINTER but in this case
 			-- we would not be sure that the model is still alive when
 			-- the iterator tries to access it.
-feature
-	dummy is
-		do
-			allocate
-			set_unshared
-		end
 end

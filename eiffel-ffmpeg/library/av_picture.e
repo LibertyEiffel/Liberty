@@ -25,6 +25,8 @@ inherit
 	C_STRUCT
 		rename allocate as c_struct_allocate end
 
+	EIFFEL_OWNED
+
 insert
 	AV_PICTURE_EXTERNALS
 	AV_PIXEL_FORMATS

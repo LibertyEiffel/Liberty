@@ -21,15 +21,14 @@ indexing
 
 class GDK_EVENT_BUTTON
 
-inherit
-	GDK_EVENT_ANY
-		redefine struct_size end
+inherit 
+	GDK_EVENT
 
 insert
 	GDK_EVENT_BUTTON_EXTERNALS
 	GDK_MODIFIER_TYPE
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature -- access
 
@@ -98,11 +97,13 @@ feature -- access
 			Result := gdk_event_button_get_y_root (handle)
 		end
 
-feature -- size
+-- feature -- size
+-- 
+-- 	struct_size: INTEGER is
+-- 		external "C inline use <gdk/gdk.h>"
+-- 		alias "sizeof(GdkEventButton)"
+-- 		end
 
-	struct_size: INTEGER is
-		external "C inline use <gdk/gdk.h>"
-		alias "sizeof(GdkEventButton)"
-		end
+invariant is_event_button
 
 end -- class GDK_EVENT_BUTTON

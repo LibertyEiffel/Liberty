@@ -16,16 +16,12 @@ class GTK_ASPECT_FRAME
 
 inherit
 	GTK_FRAME
-		redefine
-			dummy_gobject,
-			struct_size
-		end
-	-- TODO: AtkImplementorIface
-	
+		redefine struct_size end
+		-- GtkAspectFrame implements AtkImplementorIface.
 insert
 	GTK_ASPECT_FRAME_EXTERNALS
 
-creation dummy, make
+creation make, from_external_pointer
 
 feature 
 	struct_size: INTEGER is
@@ -33,14 +29,7 @@ feature
 		alias "sizeof(GtkAspectFrame)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=(gtk_aspect_frame_new
-						((once "Dummy GTK_ASPECT_FRAME").to_external,
-						 {REAL_32 0.5}, {REAL_32 0.5}, {REAL_32 1.0}, 1))
-		end
-	
-feature -- Creation
+feature {} -- Creation
 	make (a_label: STRING; an_xalign, an_yalign, a_ratio: REAL_32; obey_child: BOOLEAN) is
 			-- Create a new GtkAspectFrame. `an_xalign' ranges from 0.0
 			-- (left aligned) to 1.0 (right aligned); `an_yalign' ranges
@@ -77,39 +66,39 @@ feature -- Creation
 
 feature -- Property Details TODO
 	
-	-- The "obey-child" property
+-- The "obey-child" property
 
-	--   "obey-child"           gboolean              : Read / Write
+--   "obey-child"           gboolean              : Read / Write
 
-	-- Force aspect ratio to match that of the frame's child.
+-- Force aspect ratio to match that of the frame's child.
 
-	-- Default value: TRUE
-	-- The "ratio" property
+-- Default value: TRUE
+-- The "ratio" property
 
-	--   "ratio"                gfloat                : Read / Write
+--   "ratio"                gfloat                : Read / Write
 
-	-- Aspect ratio if obey_child is FALSE.
+-- Aspect ratio if obey_child is FALSE.
 
-	-- Allowed values: [1e-04,10000]
+-- Allowed values: [1e-04,10000]
 
-	-- Default value: 0.5
-	-- The "xalign" property
+-- Default value: 0.5
+-- The "xalign" property
 
-	--   "xalign"               gfloat                : Read / Write
+--   "xalign"               gfloat                : Read / Write
 
-	-- X alignment of the child.
+-- X alignment of the child.
 
-	-- Allowed values: [0,1]
+-- Allowed values: [0,1]
 
-	-- Default value: 0.5
-	-- The "yalign" property
+-- Default value: 0.5
+-- The "yalign" property
 
-	--   "yalign"               gfloat                : Read / Write
+--   "yalign"               gfloat                : Read / Write
 
-	-- Y alignment of the child.
+-- Y alignment of the child.
 
-	-- Allowed values: [0,1]
+-- Allowed values: [0,1]
 
-	-- Default value: 0.5
+-- Default value: 0.5
 	
 end

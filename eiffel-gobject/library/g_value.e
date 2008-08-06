@@ -8,31 +8,27 @@ indexing
 class G_VALUE
 
 inherit
-	SHARED_C_STRUCT
-		redefine
-			dispose
-		end
-	FREEZABLE
-	
+	C_STRUCT
+
 insert
 	G_TYPE
 	G_TYPES
 	GLIB_MEMORY_ALLOCATION export {} all end
 	G_VALUE_EXTERNALS
 	
-creation 
+creation
 	make, from_external_pointer, with_gtype,
 	make_boolean, make_integer, make_natural, make_real, make_real_32,
-	make_enum, make_string, make_object, make_pointer,
-	from_boolean, from_integer, from_natural, from_real, from_enum,
-	from_string, from_object, from_pointer
+	make_string, make_object, make_pointer,
+	from_boolean, from_integer, from_natural, from_real, from_string,
+	from_object, from_pointer
 
 feature {} -- Creation
 
 	make is
 			-- Create a undefined GValue.
 		do
-			handle := calloc (1, struct_size)
+			handle := g_try_malloc0 (struct_size)
 			if handle.is_null then raise_exception (No_more_memory) end
 			-- handle := g_value_init(malloc_g_value, g_type_invalid)
 		ensure
@@ -85,7 +81,7 @@ feature {} -- Creation
 		end
 
 	make_real is
-			-- create a new real G_VALUE (Note: using C type `double')
+			-- create a new real G_VALUE (Note: using C type `double'
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
 		ensure is_real: is_real
@@ -96,13 +92,6 @@ feature {} -- Creation
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
 		ensure is_real: is_real
-		end
-
-	make_enum is
-			-- create a new enumeration G_VALUE
-		do
-			handle := g_value_init (malloc_g_value, g_type_enum)
-		ensure is_enum: is_enum
 		end
 
 	make_string is
@@ -184,16 +173,6 @@ feature {} -- Creation
 			value_set: real_32 = a_real_32
 		end
 
-	from_enum (an_enumeration: INTEGER) is
-			-- create a new enumeration G_VALUE
-		do
-			handle := g_value_init (malloc_g_value, g_type_enum)
-			set_enum (an_enumeration)
-		ensure
-			is_enum: is_enum
-			value_set: an_enumeration=enum
-		end
-
 	from_string (a_string: STRING) is
 			-- create a new string G_VALUE
 		require string_not_void: a_string/=Void
@@ -213,7 +192,7 @@ feature {} -- Creation
 			set_object (an_object)
 		ensure
 			is_object: is_object
-			value_set: object.is_equal(an_object)
+			value_set: object.is_equal(an_object.handle)
 		end
 
 	from_pointer (a_pointer: POINTER) is
@@ -276,7 +255,7 @@ feature {ANY} -- Boolean
 		require
 			is_boolean: is_boolean
 		do
-			Result := g_value_get_boolean(handle).to_boolean
+			Result := (g_value_get_boolean (handle) = 1)
 		end
 
 
@@ -284,7 +263,6 @@ feature {ANY} -- Boolean
 			-- If the current value is a boolean, set it.
 		require
 			is_boolean: is_boolean
-			not_freezed: not is_freezed
 		do
 			g_value_set_boolean (handle, a_value.to_integer)
 		end
@@ -308,7 +286,6 @@ feature {ANY} -- Integer
 			-- If the current value is a integer, set it.
 		require
 			is_integer: is_integer
-			not_freezed: not is_freezed
 		do
 			g_value_set_int (handle, a_value)
 		end
@@ -332,12 +309,12 @@ feature {ANY} -- Natural
 			-- If the current value is a natural, set it.
 		require
 			is_natural: is_natural
-			not_freezed: not is_freezed
 		do
 			g_value_set_uint (handle, a_value)
 		end
 
 feature {ANY} -- Real
+
 	is_real: BOOLEAN is
 			-- Is current value a real? Note: REAL is mapped to C double
 		do
@@ -356,12 +333,12 @@ feature {ANY} -- Real
 			-- If the current value is a real, set it. Note: REAL is mapped to C double
 		require
 			is_real: is_real
-			not_freezed: not is_freezed
 		do
 			g_value_set_double (handle, a_value)
 		end
 
 feature {ANY} -- Real_32
+
 	is_real_32: BOOLEAN is
 			-- Is current value a REAL_32? Note: REAL is mapped to C float
 		do
@@ -380,56 +357,12 @@ feature {ANY} -- Real_32
 			-- If the current value is a REAL_32, set it. Note: REAL_32 is mapped to C float
 		require
 			is_real_32: is_real_32
-			thawed: not is_freezed
 		do
 			g_value_set_float (handle, a_value)
 		end
 
-feature {ANY} -- Enumeration
-	is_enum: BOOLEAN is
-		do
-			Result:=g_value_holds_enum (handle).to_boolean
-		end
-
-	set_enum (a_value: INTEGER) is
-		require
-			is_enum: is_enum
-			thawed: not is_freezed
-		do
-			g_value_set_enum (handle, a_value)
-		ensure set: enum=a_value
-		end
-	
-	enum: INTEGER is
-		require
-			is_enum: is_enum
-		do
-			Result:=g_value_get_enum (handle)
-		end
-
-feature {ANY} -- Flags
-	is_flags: BOOLEAN is
-		do
-			Result:=g_value_holds_flags(handle).to_boolean
-		end
-
-	set_flags (a_value: INTEGER) is
-		require
-			is_flags: is_flags
-			natural_value: a_value>=0
-			thawed: not is_freezed
-		do
-			g_value_set_flags (handle, a_value)
-		ensure set: a_value=flags
-		end
-
-	flags: INTEGER is
-		do
-			Result:=g_value_get_flags (handle)
-		ensure positive: Result>=0
-		end
-
 feature {ANY} -- Character
+
 	is_character: BOOLEAN is
 			-- Is current value a character?
 		do
@@ -448,12 +381,12 @@ feature {ANY} -- Character
 			-- If the current value is a character, set it.
 		require
 			is_character: is_character
-			thawed: not is_freezed
 		do
 			g_value_set_char (handle, a_value)
 		end
 
 feature {ANY} -- String
+
 	is_string: BOOLEAN is
 			-- Is current value a string?
 		do
@@ -461,7 +394,8 @@ feature {ANY} -- String
 		end
 
 	string: STRING is
-			-- The current string value. Can be Void
+			-- If current value is an string, returns it.
+			-- Note that a gvalue might be holding a NULL string
 		require
 			is_string: is_string
 		local
@@ -480,25 +414,24 @@ feature {ANY} -- String
 		require
 			is_string: is_string
 			value_not_void: a_value/=Void
-			thawed: not is_freezed
 		do
 			g_value_set_string (handle, a_value.to_external)
 		end
 
 feature {ANY} -- Object
+
 	is_object: BOOLEAN is
 			-- Is current value an object?
 		do
 			Result := g_value_holds_object(handle).to_boolean
 		end
 
-	object: G_OBJECT is
-			-- If current value is an object, returns it.
+	object: POINTER is
+			-- If current value is an string, returns it.
 		require
 			is_object: is_object
-		local r: G_OBJECT_EXPANDED_FACTORY[G_OBJECT]
 		do
-			Result:=r.wrapper(g_value_get_object (handle))
+			Result := g_value_get_object (handle)
 		end
 
 	set_object (a_value: G_OBJECT) is
@@ -506,12 +439,12 @@ feature {ANY} -- Object
 		require
 			a_value /= Void
 			is_object: is_object
-			thawed: not is_freezed
 		do
 			g_value_set_object (handle, a_value.handle)
 		end
 
 feature {ANY} -- Pointer
+
 	is_pointer: BOOLEAN is
 			-- Is current value a pointer?
 		do
@@ -530,7 +463,6 @@ feature {ANY} -- Pointer
 			-- If the current value is a pointer, set it.
 		require
 			is_pointer: is_pointer
-			thawed: not is_freezed
 		do
 			g_value_set_pointer (handle, a_value)
 		end
@@ -542,7 +474,6 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_boolean is
 			-- Reset Current and make it a boolean value
-		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -554,7 +485,6 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_integer is
 			-- Reset Current and make it a integer value
-		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -566,7 +496,6 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_natural is
 			-- Reset Current and make it a natural value
-		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -578,7 +507,6 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_real is
 			-- Reset Current and make it a real value
-		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -590,7 +518,6 @@ feature {G_OBJECT} -- Type changing features
 
 	turn_to_real_32 is
 			-- Reset Current and make it a REAL_32 value
-		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -600,36 +527,8 @@ feature {G_OBJECT} -- Type changing features
 			is_real_32: is_real_32
 		end
 
-	turn_to_enum is
-			-- Reset Current and make it an enumeration value
-		require thawed: not is_freezed
-		do
-			g_value_unset (handle)
-			handle := g_value_init (handle, g_type_enum)
-		ensure is_enum: is_enum
-		end
-
-	turn_to_object is
-			-- Reset Current and make it an object value
-		require thawed: not is_freezed
-		do
-			g_value_unset (handle)
-			handle := g_value_init (handle, g_type_object)
-		ensure is_object: is_object
-		end
-
-	turn_to_pointer is
-			-- Reset Current and make it an pointer value
-		require thawed: not is_freezed
-		do
-			g_value_unset (handle)
-			handle := g_value_init (handle, g_type_pointer)
-		ensure is_pointer: is_pointer
-		end
-
 	turn_to_string is
 			-- Reset Current and make it a string value
-		require thawed: not is_freezed
 		do
 			if is_initialized then
 				g_value_unset (handle)
@@ -645,26 +544,22 @@ feature
 		alias "sizeof(GValue)"
 		end
 
-feature -- Disposing
+feature {} -- Disposing
+
 	dispose is
 		do
 			if is_initialized then
 				g_value_unset (handle)
 			else
-				debug
-					print ("G_VALUE::dispose: disposing an uninitialised G_VALUE%N")
-				end
-			end
-			debug
-				if is_freezed then
-					print("G_VALUE.dispose: disposing a freezed G_VALUE%N")
-				end
+				print ("G_VALUE::dispose: disposing an uninitialised G_VALUE%N")
 			end
 			g_free (handle)
 			handle := default_pointer
 		end
 
 invariant
+
 	handle_not_null: is_not_null
 --	is_initialized
+
 end

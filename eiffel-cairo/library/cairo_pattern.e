@@ -27,8 +27,8 @@ indexing
 class CAIRO_PATTERN
 
 inherit
-	SHARED_C_STRUCT
-		redefine dispose end
+	C_STRUCT
+	REFERENCE_COUNTED
 
 insert
 	CAIRO_PATTERN_EXTERNALS
@@ -37,7 +37,7 @@ insert
 	CAIRO_FILTER
 	CAIRO_STATUS
 
-creation dummy, make_rgb, make_rgba, from_external_pointer
+creation make_rgb, make_rgba, from_external_pointer
 
 feature {} -- Creation
 	make_rgb (a_red, a_green, a_blue: REAL) is
@@ -142,12 +142,7 @@ feature -- Access
 	--
 	--   pattern : a cairo_pattern_t
 	--   matrix :  return value for the matrix
-	--
-	--   --------------------------------------------------------------------------
-	--
 
-	--   --------------------------------------------------------------------------
-	--
 	type: INTEGER is
 			-- This function returns the type a pattern. See CAIRO_PATTERN_TYPE
 			-- for available types.
@@ -194,7 +189,8 @@ feature -- Access
 			is_valid_extend (Result)
 		end
 
-	dispose is
+feature -- Memory handling
+	unref is
 			-- Decreases the reference count on pattern by one. If the
 			-- result is zero, then pattern and all associated resources
 			-- are freed. See `ref'
@@ -202,7 +198,6 @@ feature -- Access
 			cairo_pattern_destroy(handle)
 		end
 
-feature {} -- Hidden
 	ref is
 			-- Increases the reference count on pattern by one. This
 			-- prevents pattern from being destroyed until a matching
@@ -211,7 +206,7 @@ feature {} -- Hidden
 			-- This feature is currently hidden because memory handling 
 			-- should be automatically done by Eiffel garbage collector.
 			--
-			-- Wrapped as 'ref' to not collide with SHARED_C_STRUCT.reference
+			-- Wrapped as 'ref' to not collide with C_STRUCT.reference
 		local p: POINTER
 		do
 			p := cairo_pattern_reference(handle)

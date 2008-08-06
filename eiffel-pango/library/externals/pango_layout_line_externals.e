@@ -26,6 +26,16 @@ deferred class PANGO_LAYOUT_LINE_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
+	pango_layout_line_ref (a_line: POINTER): POINTER is
+			-- PangoLayoutLine* pango_layout_line_ref      (PangoLayoutLine *line);
+		external "C use <pango/pango-layout.h>"
+		end
+
+	pango_layout_line_unref (a_line: POINTER) is
+		-- void pango_layout_line_unref (PangoLayoutLine *line);
+			external "C use <pango/pango-layout.h>"
+		end
+
 
 	pango_layout_line_get_layout (a_layout_line: POINTER): POINTER is
 		external "C struct PangoLayoutLine get layout use <pango/pango-layout.h>"

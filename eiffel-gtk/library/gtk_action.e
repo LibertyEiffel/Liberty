@@ -29,17 +29,17 @@ class GTK_ACTION
 	-- As well as the callback that is called when the action gets
 	-- activated, the following also gets associated with the action:
 
-	--     * a name (not translated, for path lookup)
-	--     * a label (translated, for display)
-	--     * an accelerator
-	--     * whether label indicates a stock id
-	--     * a tooltip (optional, translated)
-	--     * a toolbar label (optional, shorter than label)
+	--     *a name (not translated, for path lookup)
+	--     *a label (translated, for display)
+	--     *an accelerator
+	--     *whether label indicates a stock id
+	--     *a tooltip (optional, translated)
+	--     *a toolbar label (optional, shorter than label)
 	
 	-- The action will also have some state information:
 	
-	--     * visible (shown/hidden)
-	--     * sensitive (enabled/disabled)
+	--     *visible (shown/hidden)
+	--     *sensitive (enabled/disabled)
 	
 	-- Apart from regular actions, there are toggle actions, which can
 	-- be toggled between two states and radio actions, of which only
@@ -57,7 +57,7 @@ inherit G_OBJECT
 
 insert GTK
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (a_name, a_label, a_tooltip, a_stock_id: STRING) is
@@ -453,105 +453,96 @@ feature -- size
 		alias "sizeof(GtkAction)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=(gtk_action_new
-						((once "Dummy GtkAction name").to_external,
-						 (once "Dummy GtkAction label").to_external,
-						 (once "Dummy GtkAction tooltip").to_external,
-						 (once "Dummy GtkAction stockid").to_external))
-		end
-	
 feature {} -- External calls
 	gtk_action_new (name_str, label_str, tooltip_str, stock_id_str: POINTER): POINTER is -- GtkAction*
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
  
 	gtk_action_get_name (action: POINTER): POINTER is -- const gchar*
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_is_sensitive (action: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_get_sensitive (action: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_set_sensitive (action: POINTER; sensitive_bool: INTEGER) is -- void
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_is_visible (action: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_get_visible (action: POINTER): INTEGER is -- gboolean
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_set_visible (action: POINTER; visible_bool: INTEGER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_activate (action: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
  
 	gtk_action_create_icon (action: POINTER; gtk_icon_size: INTEGER): POINTER is -- GtkWidget*
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_create_menu_item (action: POINTER): POINTER is -- GtkWidget*
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_create_tool_item (action: POINTER): POINTER is -- GtkWidget*
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
  
 	gtk_action_connect_proxy (action, gtk_widget_proxy: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_disconnect_proxy (action, gtk_widget_proxy: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
  
 	gtk_action_get_proxies (action: POINTER): POINTER is -- GSList*
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_connect_accelerator (action: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
  
 	gtk_action_disconnect_accelerator (action: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
  
 	gtk_action_block_activate_from (action, gtk_widget_proxy: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
  
 	gtk_action_unblock_activate_from (action, gtk_widget_proxy: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_get_accel_path (action: POINTER): POINTER is -- const gchar*
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_set_accel_path (action, accel_path_str: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_get_accel_closure (action: POINTER): POINTER is -- GClosure*
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 	
 	gtk_action_set_accel_group (action, accel_group: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C use <gtk/gth.h>"
 		end
 end -- class GTK_ACTION

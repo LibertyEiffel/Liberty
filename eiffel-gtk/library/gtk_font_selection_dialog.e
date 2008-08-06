@@ -1,5 +1,5 @@
 indexing
-	description: "GtkFontSelectionDialog - A dialog box for selecting fonts."
+	description: "GtkFontSelectionDialog — A dialog box for selecting fonts."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -21,7 +21,6 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-
 class GTK_FONT_SELECTION_DIALOG
 	-- The GtkFontSelectionDialog widget is a dialog box for selecting
 	-- a font.
@@ -34,20 +33,22 @@ class GTK_FONT_SELECTION_DIALOG
 	-- To change the text which is shown in the preview area, use
 	-- `set_preview_text'.
 
-inherit
-	GTK_DIALOG
-		rename
-			make as dialog_make
-		redefine
-			dummy_gobject,
-			struct_size
-		end
 
-	-- TODO: AtkImplementorIface
-	
-insert GTK_FONT_SELECTION_DIALOG_EXTERNALS
+inherit GTK_DIALOG
+	-- GtkFontSelectionDialog implements AtkImplementorIface.
+	rename make as dialog_make
+	redefine struct_size
+	end
 
-creation dummy, make, from_external_pointer
+insert
+	GTK_FONT_SELECTION_DIALOG_EXTERNALS
+
+creation make, from_external_pointer
+
+-- feature {} -- Creation
+
+
+creation make
 
 feature -- Creation
 	make (a_title: STRING) is
@@ -100,21 +101,24 @@ feature
 
 	ok_button: GTK_WIDGET is
 			--	The OK button of the dialog
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
 		do
-			Result := widget_factory.wrapper(get_ok_button(handle))
+			Result := factory.wrapper (get_ok_button(handle))
 		end
 
 	apply_button: GTK_WIDGET is
-			-- The Apply button of the dialog. This button is hidden by
-			-- default but you can show/hide it
+			-- The Apply button of the dialog. This button is hidden by default
+			-- but you can show/hide it
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
 		do
-			Result := widget_factory.wrapper(get_apply_button(handle))
+			Result := factory.wrapper (get_apply_button(handle))
 		end
 	
 	cancel_button: GTK_WIDGET is
 			-- The Cancel button of the dialog
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
 		do
-			Result := widget_factory.wrapper(get_cancel_button(handle))
+			Result := factory.wrapper (get_cancel_button(handle))
 		end
 	
 feature {} -- GtkFontSelectionDialog struct
@@ -137,16 +141,11 @@ feature {} -- GtkFontSelectionDialog struct
 		external "C struct GtkFontSelectionDialog get cancel_button use <gtk/gtk.h>"
 		end
 
-feature
+feature -- size
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof (GtkFontSelectionDialog)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_font_selection_dialog_new 
-			((once "Dummy GTK_FONT_SELECTION_DIALOG").to_external)
-		end
 end -- class GTK_FONT_SELECTION_DIALOG

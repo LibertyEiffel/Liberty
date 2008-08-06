@@ -24,19 +24,18 @@ indexing
 	wrapped_version: "1.2.4"
 
 deferred class CAIRO_STATUS
-	-- CAIRO_STATUS is used to indicate errors that can occur when using Cairo.
-	-- In some cases it is returned directly by functions. but when using a
-	-- CAIRO_CONTEXT, the last error, if any, is stored in the context and can be
-	-- retrieved with `status'.
-
-	--
-
-	-- New entries may be added in future versions. Use `status_to_string' to
-	-- get a human-readable representation of an error message.
 
 inherit ANY undefine is_equal, copy end
 
-feature {} -- Enum 
+	-- CAIRO_STATUS is used to indicate errors that can occur when using Cairo.
+	-- In some cases it is returned directly by functions. but when using a
+	-- CAIRO_CONTEXT, the last error, if any, is stored in the context and can
+	-- be retrieved with 'status'.
+	--
+	-- New entries may be added in future versions. Use 'status_to_string' to
+	-- get a human-readable representation of an error message.
+
+feature
 
 	is_valid_cairo_status (a_status: INTEGER): BOOLEAN is
 		do

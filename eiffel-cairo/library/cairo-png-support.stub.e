@@ -29,7 +29,7 @@ inherit
 insert
 	FOO_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 

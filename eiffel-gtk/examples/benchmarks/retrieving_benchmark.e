@@ -90,7 +90,7 @@ feature
 		end
 
 	retriever_benchmark is
-		local counter: INTEGER; l: GTK_LABEL; r: G_OBJECT_EXPANDED_FACTORY[GTK_LABEL]
+		local counter: INTEGER; l: GTK_LABEL; r: G_RETRIEVER[GTK_LABEL]
 		do	
 			from counter := iterations_number; timer.start
 			until counter = 0

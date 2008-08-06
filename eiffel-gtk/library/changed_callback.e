@@ -26,9 +26,9 @@ class CHANGED_CALLBACK [O -> G_OBJECT]
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [O] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [O]
 
-creation  make
+creation make
 
 feature
 	object: O
@@ -39,6 +39,9 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that the editable is actually created bu the Eiffel 
+			-- application. 
 			object := wrapper(instance)
 			procedure.call ([object])
 		end

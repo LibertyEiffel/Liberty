@@ -110,7 +110,6 @@ class GTK_DIALOG
 inherit 
 	GTK_WINDOW 
 		redefine 
-			dummy_gobject,
 			make, 
 			struct_size 
 		end
@@ -122,9 +121,10 @@ insert
 	GTK_STOCK_ITEMS
 		-- GtkDialog implements AtkImplementorIface.	
 
-creation dummy, make, from_external_pointer
+creation new, make, from_external_pointer
 
-feature 
+feature {} -- Creation
+
 	make is
 			-- Creates a new dialog box. Widgets should not be packed
 			-- into this GtkWindow directly, but into the vbox and
@@ -133,6 +133,13 @@ feature
 			from_external_pointer (gtk_dialog_new)
 		end
 
+	new is
+		obsolete "use `make' instead."
+		do
+			make
+		end
+
+	
 	-- TODO: reimplement gtk_dialog_new_with_buttons () without variadic as with_buttons
 
 	-- GtkWidget* gtk_dialog_new_with_buttons (const gchar *title,
@@ -190,10 +197,10 @@ feature -- Running dialog
 			-- will be modal. You can force run to return at any time by
 			-- calling emit_response to emit the "response" signal.
 		do
-			Result:= gtk_dialog_run (handle)
-
+			Result := gtk_dialog_run (handle)
+			
 			-- TODO: eiffelize this description and example
-		
+			
 			-- Blocks in a recursive main loop until the dialog either
 			-- emits the response signal, or is destroyed. If the dialog
 			-- is destroyed during the call to gtk_dialog_run(),
@@ -250,7 +257,7 @@ feature -- Running dialog
 			-- monitoring the "response" signal and take appropriate
 			-- action.
 		do
-			gtk_dialog_response (handle,a_response_id)
+			gtk_dialog_response (handle, a_response_id)
 		end
 
 	add_button (a_button_text: STRING; a_response_id: INTEGER) is
@@ -630,9 +637,10 @@ feature -- Dialog's parts
 	vbox: GTK_VBOX is
 			-- main part of the dialog box
 		local
-			factory: G_OBJECT_EXPANDED_FACTORY [GTK_VBOX]
+			retriever: G_OBJECT_FACTORY [GTK_VBOX]
 		do
-			Result := factory.wrapper(get_vbox(handle))
+			Result := retriever.existant_wrapper (get_vbox (handle))
+			if Result=Void then create Result.from_external_pointer (get_vbox(handle)) end
 		ensure
 			result_not_void: Result /= Void
 		end
@@ -642,38 +650,86 @@ feature -- Dialog's parts
 			--  buttons into the dialog which may perform functions such
 			--  as cancel, ok, or apply
 		local
-			factory: G_OBJECT_EXPANDED_FACTORY [GTK_HBOX]
+			retriever: G_OBJECT_EXPANDED_FACTORY [GTK_HBOX]
 		do
-			Result := factory.wrapper(get_action_area(handle))
-		ensure result_bot_void: Result /= Void
-		end
-	
+			Result := retriever.existant_wrapper (get_action_area (handle)) 
+			if Result=Void then create Result.from_external_pointer (get_action_area(handle)) end
+			ensure result_bot_void: Result /= Void
+			end
 
-	-- feature -- TODO: response signals
+-- feature -- The "close" signal
+-- 	close_signal_name: STRING is "close"
+
+-- 	enable_on_close is
+-- 			-- Connects "close" signal to `on_close' feature.
+-- 		do
+-- 			connect (Current, close_signal_name, $on_close)
+-- 		end
+
+-- 	on_close is
+-- 			-- Built-in close signal handler; empty by design; redefine it.
+-- 		do
+-- 		end
+
+-- 	connect_agent_to_close_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_DIALOG]]) is
+-- 		require
+-- 			valid_procedure: a_procedure /= Void
+-- 			wrapper_is_stored: is_eiffel_wrapper_stored
+-- 		local close_callback: CLOSE_CALLBACK
+-- 		do
+-- 			create close_callback.make
+-- 			close_callback.connect (Current, a_procedure)
+-- 		end
+
+-- 	content_area_border: INTEGER is
+-- 			-- Width of border around the main dialog area.
+-- 		local
+-- 			value: G_VALUE
+-- 		do
+-- 			create value.make_new_shared
+-- 			g_object_get_property (item,
+-- 										  content_area_border_property_name,
+-- 										  value.item)
+-- 			Result := value.integer
+-- 		ensure
+-- 			positive_result: Result >= 0
+-- 		end
+
+
+-- feature -- TODO: close signal
+-- 	-- connect_close_signal_receiver (a_receiver: GTK_CLOSE_SIGNAL_RECEIVER) is
+-- 	-- Connect `a_receiver' to the current widget
+-- 	--require
+-- 	--		a_receiver_not_void: a_receiver /= Void
+-- 	--		do
+-- 	--	connect_signal_receiver (a_receiver)
+-- 	--end
+
+-- feature -- TODO: response signals
 	
-	-- 	-- connect_response_signal_receiver (a_receiver: GTK_RESPONSE_SIGNAL_RECEIVER) is
-	-- 	-- Connect `a_receiver' to the current widget
-	-- 	--	require
-	-- 	-- a_receiver_not_void: a_receiver /= Void
-	-- 	-- do
-	-- 	-- connect_signal_receiver (a_receiver)
-	-- 	-- end
+-- 	-- connect_response_signal_receiver (a_receiver: GTK_RESPONSE_SIGNAL_RECEIVER) is
+-- 	-- Connect `a_receiver' to the current widget
+-- 	--	require
+-- 	-- a_receiver_not_void: a_receiver /= Void
+-- 	-- do
+-- 	-- connect_signal_receiver (a_receiver)
+-- 	-- end
 	
+-- feature {} -- Signals' names
+	
+-- 	action_area_border_property_name: STRING is "action-area-border"
+	
+-- 	button_spacing_property_name: STRING is "button-spacing"
+
+-- 	content_area_border_property_name: STRING is  "content-area-border"
+-- end
 feature {} -- property names strings
 	action_area_border_property_name: STRING is "action-area-border"
 	button_spacing_property_name: STRING is "button-spacing"
 	content_area_border_property_name: STRING is "content-area-border"
-	
-feature 
-
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkDialog)"
 		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_dialog_new
-		end
-
 end

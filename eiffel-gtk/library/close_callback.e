@@ -26,9 +26,9 @@ class CLOSE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [CLOSE_SIGNAL_RECEIVER] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [CLOSE_SIGNAL_RECEIVER]
 
-creation dummy, make
+creation make
 
 feature
 	object: CLOSE_SIGNAL_RECEIVER
@@ -41,9 +41,10 @@ feature
 				print ("is_object: "+g_is_object (instance).out+"%N")
 				print ("type: "+g_object_type (instance).out+"%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that the dialog is actually created bu the Eiffel 
+			-- application. 
 			object := wrapper(instance)
-			-- The above line replaces "create object.from_external_pointer
-			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])
 		end
 

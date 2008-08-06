@@ -26,9 +26,9 @@ class VALUE_CHANGED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_RANGE] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_RANGE]
 
-creation  make
+creation make
 
 feature
 	object: GTK_RANGE
@@ -40,8 +40,6 @@ feature
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			object := wrapper(instance)
-			-- The above line replaces "create object.from_external_pointer
-			-- (instance)" which continuosly creates new Eiffel wrappers
 			procedure.call ([object])
 		end
 

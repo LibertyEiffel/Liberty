@@ -112,7 +112,7 @@ feature {} -- External calls
 		external "C use <gdk/gdk.h>"
 		end
 
-	gdk_draw_glyphs_transformed (a_gdkdrawable, a_gdk_gc, a_pangomatrix, a_pangofont: POINTER; an_x, an_y: INTEGER; some_pangoglyphstring: POINTER) is
+	gdk_draw_glyphs_transformed (a_gdkdrawable, a_gdk_gc, a_pangomatrix, a_pangofont: POINTER; an_x, an_y: INTEGERM; some_pangoglyphstring: POINTER) is
 		external "C use <gdk/gdk.h>"
 		end
 

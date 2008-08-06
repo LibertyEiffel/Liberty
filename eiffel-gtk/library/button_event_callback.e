@@ -27,7 +27,7 @@ deferred class BUTTON_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 feature
 	object: GTK_WIDGET
@@ -36,17 +36,16 @@ feature
 
 	callback (event_button_ptr: POINTER; instance: POINTER): INTEGER is
 		local
-			event: GDK_EVENT
-			specific_event: GDK_EVENT_ANY
+			button_event: GDK_EVENT_BUTTON
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
+			-- The following is written with the implicit requirement 
+			-- that object actually has an Eiffel wrapper
 			object := wrapper(instance)
-			create event.from_external_pointer(event_button_ptr)
-			check is_a_button_event: event.is_event_button end
-			
-			Result := function.item ([event.event_button, object]).to_integer
+			create button_event.from_external_pointer (event_button_ptr)
+			Result := function.item ([button_event, object]).to_integer
 			-- GTK is about to release this event, detach it from Eiffel
-			event.event_button.dispose
+			button_event.dispose
 		end
 
 	callback_pointer: POINTER is

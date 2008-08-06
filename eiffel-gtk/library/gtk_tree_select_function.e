@@ -29,7 +29,7 @@ inherit
 insert
 	ANY
 	GTK
-	G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_TREE_MODEL]
 	GTK_TREE_SELECTION_EXTERNALS
 	
 creation make
@@ -37,6 +37,7 @@ creation make
 feature
 	make (a_selection: GTK_TREE_SELECTION; a_function: FUNCTION[ANY,TUPLE[GTK_TREE_SELECTION, GTK_TREE_MODEL, GTK_TREE_PATH, BOOLEAN],BOOLEAN]) is
 		require gtk_initialized: gtk.is_initialized
+		local array: NATIVE_ARRAY [POINTER]; callback_ptr: POINTER
 		do
 			function := a_function
 			gtk_tree_selection_set_select_function (a_selection.handle, 
@@ -52,7 +53,7 @@ feature {} --
 		-- the address of an Eiffel feature (namely callback). `$' 
 		-- operator thought can be used only in a feature call. Hence this.
 		do
-			Result := {NATIVE_ARRAY[POINTER] <<a_callback_pointer,to_pointer>>}.to_external
+	Result:= {NATIVE_ARRAY[POINTER] <<a_callback_pointer ,Current.to_pointer>>}.to_external
 		end
 	
 	low_level_callback (selection, model, path: POINTER; path_currently_selected: INTEGER; data: POINTER): INTEGER is
@@ -68,7 +69,7 @@ feature
 			a_selection: GTK_TREE_SELECTION;
 			a_model: GTK_TREE_MODEL
 			a_path: GTK_TREE_PATH
-			f: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_SELECTION]
+			selection_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_SELECTION]
 		do
 			debug
 				print ("Gtk tree select function callback:")
@@ -79,10 +80,11 @@ feature
 				--print (" instance=") print (instance.to_string)
 				print ("%N")
 			end
-			a_selection := f.wrapper(selection_ptr)
-			a_model := wrapper(model_ptr)
+			a_selection := selection_factory.wrapper(selection_ptr)
+			a_model := wrapper (model_ptr)
+				
 			create a_path.from_external_pointer (path_ptr)
-
+				
 			Result := (function.item ([a_selection,a_model,a_path,
 												path_currently_selected.to_boolean]).to_integer)
 		end

@@ -8,7 +8,9 @@ deferred class G_TYPE_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
-feature {} -- Fundamental g_type
+--insert G_TYPE
+
+feature {} -- external calls
 
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
 	-- 2006-01-07)
@@ -16,14 +18,23 @@ feature {} -- Fundamental g_type
 	-- GType: A numerical value which represents the unique identifier
 	-- of a registered type.
 
+	g_type_fundamental (a_type_number: INTEGER): INTEGER is
+			-- Returns the fundamental type which is the ancestor of
+			-- `a_type_number'. Fundamental types are types that serve as
+			-- fundaments for the derived types, thus they are the roots
+			-- of distinct inheritance hierarchies.
+		external "C macro use <glib-object.h>"
+		alias "G_TYPE_FUNDAMENTAL"
+		end
+
+feature {} -- Fundamental g_type
+
 	g_type: INTEGER_32 is
 			-- The type used for GType, a number used to identify various
 			-- classes.
 
 			-- This feature is empty by design. It exists as an anchored
 			-- declaration.
-
-			-- TODO: should be NATURAL_32
 		do
 		end
 
@@ -38,61 +49,40 @@ feature {} -- Fundamental g_type
 		alias "G_TYPE_FUNDAMENTAL_MAX"
 		end
  
-	g_type_fundamental (a_type_number: like g_type): like g_type is
-			-- Returns the fundamental type which is the ancestor of
-			-- `a_type_number'. Fundamental types are types that serve as
-			-- fundaments for the derived types, thus they are the roots
-			-- of distinct inheritance hierarchies.
-		external "C macro use <glib-object.h>"
-			--alias "(GInt64) (G_TYPE_FUNDAMENTAL($a_type_number))"
-		alias "G_TYPE_FUNDAMENTAL"
-		end
-
 	-- G_TYPE_MAKE_FUNDAMENTAL()
 	
 	-- #define	G_TYPE_MAKE_FUNDAMENTAL(x)	((GType) ((x) < < G_TYPE_FUNDAMENTAL_SHIFT))
 	
 	-- Returns the type ID for the fundamental type number x. Use g_type_fundamental_next() instead of this macro to create new fundamental types.
 	-- x : 	the fundamental type number.
-
-	g_type_is_abstract(a_type: like g_type): INTEGER is
-			-- #define G_TYPE_IS_ABSTRACT(type) (g_type_test_flags
-			-- ((type), G_TYPE_FLAG_ABSTRACT))
-		
-			-- Returns TRUE if type is an abstract type. An abstract type
-			-- can not be instantiated and is normally used as an
-			-- abstract base class for derived classes.
-		external "C macro use <glib-object.h>"
-			-- alias "G_TYPE_IS_ABSTRACT ((GType) $a_type)"
-		alias "G_TYPE_IS_ABSTRACT"
-		end
-		
-	g_type_is_derived (a_type: like g_type): INTEGER is
-			-- #define G_TYPE_IS_DERIVED(type) ((type) >
-			-- G_TYPE_FUNDAMENTAL_MAX)
+	-- G_TYPE_IS_ABSTRACT()
 	
-			-- Returns TRUE if type is derived (or in object-oriented
-			-- terminology: inherited) from another type (this holds true
-			-- for all non-fundamental types).
-		external "C macro use <glib-object.h>"
-			-- alias "G_TYPE_IS_DERIVED ((GType) $a_type)"
-		alias "G_TYPE_IS_DERIVED"
-		end
-
-	g_type_is_fundamental (a_type: like g_type): INTEGER is
+	-- #define G_TYPE_IS_ABSTRACT(type)                (g_type_test_flags ((type), G_TYPE_FLAG_ABSTRACT))
+	
+	-- Returns TRUE if type is an abstract type. An abstract type can not be instantiated and is normally used as an abstract base class for derived classes.
+	-- type : 	A GType value.
+	-- G_TYPE_IS_DERIVED()
+	
+	-- #define G_TYPE_IS_DERIVED(type)                 ((type) > G_TYPE_FUNDAMENTAL_MAX)
+	
+	-- Returns TRUE if type is derived (or in object-oriented terminology: inherited) from another type (this holds true for all non-fundamental types).
+	-- type : 	A GType value.
+	-- G_TYPE_IS_FUNDAMENTAL()
+	
+	g_type_is_fundamental (a_type: like g_type): BOOLEAN is
 			-- #define G_TYPE_IS_FUNDAMENTAL(type) ((type) <=
 			-- G_TYPE_FUNDAMENTAL_MAX)
 
-			-- Returns TRUE if type is a fundamental type.
+			-- Returns TRUE if type is a fundamental type. Note: Eiffel
+			-- type system is stretched a bit; Result should be
+			-- INTEGER_32
 		external "C macro use <glib-object.h>"
-			-- alias "G_TYPE_IS_FUNDAMENTAL((GType) $a_type)"
 		alias "G_TYPE_IS_FUNDAMENTAL"
 		end
-	
-	g_type_is_value_type (a_type: like g_type): INTEGER is
+		
+	g_type_is_value_type (a_type: INTEGER): INTEGER is
 			-- Is `a_type' a value type which can be used for G_VALUE? init().
 		external "C macro use <glib-object.h>"
-		-- 		alias "G_TYPE_IS_VALUE_TYPE ((GType) $a_type)"
 		alias "G_TYPE_IS_VALUE_TYPE"
 		end
 	
@@ -485,71 +475,53 @@ feature {} -- enum GTypeDebugFlags
 feature {} -- External calls
 	-- g_type_init_with_debug_flags ()
 
-	-- void g_type_init_with_debug_flags (GTypeDebugFlags debug_flags);
+-- void        g_type_init_with_debug_flags    (GTypeDebugFlags debug_flags);
 
-	-- Similar to g_type_init(), but additionally sets debug flags.
-	-- debug_flags : 	Bitwise combination of GTypeDebugFlags values for debugging purposes.
+-- Similar to g_type_init(), but additionally sets debug flags.
+-- debug_flags : 	Bitwise combination of GTypeDebugFlags values for debugging purposes.
+-- g_type_name ()
 
-	g_type_name (a_type_number: like g_type): POINTER is -- const gchar*
+	g_type_name (a_type_number: INTEGER): POINTER is -- const gchar*
 			-- Returns the unique name that is assigned to a type ID
 			-- (this is the preferred method to find out whether a
 			-- specific type has been registered for the passed in ID
 			-- yet).  a_type_number : Type to return name for.  Returns :
 			-- Static type name or NULL.
-		external "C inline use <glib-object.h>"
-			-- alias "g_type_name((GType)($a_type_number))"
-		alias "((gchar*) g_type_name($a_type_number))"
+		external "C use <glib-object.h>"
 		end
 
-	g_type_qname (a_type_number: like g_type): INTEGER_32 is -- GQuark, i.e. guint32
+	g_type_qname (a_type_number: INTEGER): INTEGER_32 is -- GQuark, i.e. guint32
 			-- Return the corresponding quark of the type IDs name.
 			-- a_type_number : 	Type to return quark of type name for.
 			-- Returns : 	The type names quark or 0.
-		external "C use <glib-object.h>"
+		do
+			Result := g_type_qname (a_type_number)
 		end
 
-	g_type_from_name (a_name: POINTER): like g_type is
-			-- GType g_type_from_name (const gchar *name);
-
-			-- Lookup the type ID from a given type name, returns 0 if no
-			-- type has been registered under this name (this is the
-			-- preferred method to find out by name whether a specific
-			-- type has been registered yet).
-		
-			-- name : 	Type name to lookup.
-			-- Returns : 	Corresponding type ID or 0.
-		external "C use <glib-object.h>"
-		-- alias "(gint64) (g_type_from_name($a_name))"
-		end
+	-- g_type_from_name ()
+	
+	-- GType       g_type_from_name                (const gchar *name);
+	
+	-- Lookup the type ID from a given type name, returns 0 if no type has been registered under this name (this is the preferred method to find out by name whether a specific type has been registered yet).
+	-- name : 	Type name to lookup.
+	-- Returns : 	Corresponding type ID or 0.
 
 	g_type_parent (a_type: like g_type): like g_type is
 			-- GType g_type_parent (GType type);
 		
-			-- Return the direct parent type of the passed in type. If
-			-- the passed in type has no parent, i.e. is a fundamental
-			-- type, 0 is returned.
-		
+			-- Return the direct parent type of the passed in type. If the passed in type has no parent, i.e. is a fundamental type, 0 is returned.
 			-- type : 	The derived type.
 			-- Returns : 	The parent type.
 		external "C use <glib-object.h>"
-			-- alias "(gint64) (g_type_from_name((GType)($a_type)))"
 		end
 
 	g_type_depth (a_type: like g_type): INTEGER is
-			--	TODO: a_type should be like g_type when NATURAL_32 is
-			--	available
-		
-			-- guint g_type_depth (GType type);
+			-- guint       g_type_depth                    (GType type);
 	
 			-- Returns the length of the ancestry of the passed in
 			-- type. This includes the type itself, so that e.g. a
 			-- fundamental type has depth 1.
-		
-			-- type : 	A GType value.
-			-- Returns : 	The depth of type.
 		external "C use <glib-object.h>"
-		-- alias "g_type_depth((GType)($a_type))"
-		ensure natural: Result >= 0
 		end
 
 	-- g_type_next_base ()
@@ -562,35 +534,28 @@ feature {} -- External calls
 	-- root_type : 	Immediate parent of the returned type.
 	-- Returns : 	Immediate child of root_type and anchestor of leaf_type.
 	
-	g_type_is_a (a_type, is_a_type: like g_type): like g_type is
+	g_type_is_a (a_type, is_a_type: INTEGER): INTEGER is
 		external "C use <glib-object.h>"
-			-- alias "((GInt64) g_type_is_a((GTYpe)$a_type, (GType) $is_a_type))"
 		end
 
-	g_type_class_ref (a_type: like g_type): POINTER is
-			-- gpointer g_type_class_ref (GType type);
-
-			-- Increments the reference count of the class structure
-			-- belonging to type. This function will demand-create the
-			-- class if it doesn't exist already.
-		
-			-- type : 	Type ID of a classed type.
-			-- Returns : 	The GTypeClass structure for the given type ID.
-		external "C <glib-object.h>"
-		-- alias "g_type_class_ref((GType) $a_type)"
-		end
+	-- g_type_class_ref ()
 	
-	g_type_class_peek (a_type: like g_type): POINTER is
+	-- gpointer    g_type_class_ref                (GType type);
+
+	-- Increments the reference count of the class structure belonging to type. This function will demand-create the class if it doesn't exist already.
+	-- type : 	Type ID of a classed type.
+	-- Returns : 	The GTypeClass structure for the given type ID.
+	
+	g_type_class_peek (a_type: INTEGER): POINTER is
 			-- This function is essentially the same as
 			-- g_type_class_ref(), except that the classes reference
 			-- count isn't incremented. Therefore, this function may
 			-- return NULL if the class of the type passed in does not
-			-- currently exist (hasn't been referenced before).  type:
-			-- Type ID of a classed type. Returns: The GTypeClass
+			-- currently exist (hasn't been referenced before).  -- type
+			-- : Type ID of a classed type.  -- Returns : The GTypeClass
 			-- structure for the given type ID or NULL if the class does
 			-- not currently exist.
-		external "C <glib-object.h>"
-		-- alias "g_type_class_peek((GType) $a_type)"
+		external "C use <glib-object.h>"
 		end
 
 	-- g_type_class_peek_static ()
@@ -601,49 +566,29 @@ feature {} -- External calls
 	-- type : 	Type ID of a classed type.
 	-- Returns : 	The GTypeClass structure for the given type ID or NULL if the class does not currently exist or is dynamically loaded.
 
-	g_type_class_unref (a_gclass: POINTER) is
-			-- void        g_type_class_unref              (gpointer g_class);
+	-- Since 2.4
+	-- g_type_class_unref ()
 
-			-- Decrements the reference count of the class structure
-			-- being passed in. Once the last reference count of a class
-			-- has been released, classes may be finalized by the type
-			-- system, so further dereferencing of a class pointer after
-			-- g_type_class_unref() are invalid.
-		
-			-- g_class : 	The GTypeClass structure to unreference.
-			-- g_type_class_peek_parent ()
-		external "C use <glib-object.h>"
-		end
+	-- void        g_type_class_unref              (gpointer g_class);
 
-	-- gpointer g_type_class_peek_parent (gpointer g_class);
+	-- Decrements the reference count of the class structure being passed in. Once the last reference count of a class has been released, classes may be finalized by the type system, so further dereferencing of a class pointer after g_type_class_unref() are invalid.
+	-- g_class : 	The GTypeClass structure to unreference.
+	-- g_type_class_peek_parent ()
 
-	-- This is a convenience function, often needed in class
-	-- initializers. It essentially takes the immediate parent type of
-	-- the class passed in, and returns the class structure
-	-- thereof. Since derived classes hold a reference count on their
-	-- parent classes as long as they are instantiated, the returned
-	-- class will always exist. This function is essentially equivalent
-	-- to:
+	-- gpointer    g_type_class_peek_parent        (gpointer g_class);
+
+	-- This is a convenience function, often needed in class initializers. It essentially takes the immediate parent type of the class passed in, and returns the class structure thereof. Since derived classes hold a reference count on their parent classes as long as they are instantiated, the returned class will always exist. This function is essentially equivalent to:
 
 	-- g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)));
 
 	-- g_class : 	The GTypeClass structure to retrieve the parent class for.
 	-- Returns : 	The parent class of g_class.
-	
 	-- g_type_class_add_private ()
 
-	-- void g_type_class_add_private (gpointer g_class, gsize
-	-- private_size);
+	-- void        g_type_class_add_private        (gpointer g_class,
+	-- 															gsize private_size);
 
-	-- Registers a private structure for a instantiatable type; when an
-	-- object is allocated, the private structures for the type and and
-	-- all of its parent types are allocated sequentially in the same
-	-- memory block as the public structures. This function should be
-	-- called in the type's class_init() function. The private
-	-- structure can be retrieved using the
-	-- G_TYPE_INSTANCE_GET_PRIVATE() macro. The following example shows
-	-- attaching a private structure MyObjectPrivate to an object
-	-- MyObject defined in the standard GObject fashion.
+	-- Registers a private structure for a instantiatable type; when an object is allocated, the private structures for the type and and all of its parent types are allocated sequentially in the same memory block as the public structures. This function should be called in the type's class_init() function. The private structure can be retrieved using the G_TYPE_INSTANCE_GET_PRIVATE() macro. The following example shows attaching a private structure MyObjectPrivate to an object MyObject defined in the standard GObject fashion.
 
 	-- typedef struct _MyObjectPrivate MyObjectPrivate;
 
@@ -670,7 +615,6 @@ feature {} -- External calls
 
 	-- g_class : 	class structure for an instantiatable type
 	-- private_size : 	size of private structure.
-
 	-- g_type_interface_peek ()
 
 	-- gpointer    g_type_interface_peek           (gpointer instance_class,
@@ -715,22 +659,15 @@ feature {} -- External calls
 	-- g_iface : 	the default vtable structure for a interface, as returned by g_type_default_interface_ref()
 
 	-- Since 2.4
+	-- g_type_children ()
 
-	g_type_children (a_type: like g_type; an_n_children: POINTER): POINTER is
-			-- GType* g_type_children (GType type, guint *n_children);
-		
-			-- Return a newly allocated and 0-terminated array of type IDs,
-			-- listing the child types of type. The return value has to be
-			-- g_free()ed after use.
-		
-			-- type : 	The parent type.
-			-- n_children : 	Optional guint pointer to contain the number of child types.
-			-- Returns : 	Newly allocated and 0-terminated array of child 
-			--types.
-		external "C use <glib-object.h>"
-		-- alias "g_type_children( (GType) $a_type, $an_n_children)"
-		end
-	
+	-- GType*      g_type_children                 (GType type,
+	-- 															guint *n_children);
+
+	-- Return a newly allocated and 0-terminated array of type IDs, listing the child types of type. The return value has to be g_free()ed after use.
+	-- type : 	The parent type.
+	-- n_children : 	Optional guint pointer to contain the number of child types.
+	-- Returns : 	Newly allocated and 0-terminated array of child types.
 	-- g_type_interfaces ()
 
 	-- GType*      g_type_interfaces               (GType type,
@@ -751,17 +688,28 @@ feature {} -- External calls
 	-- Returns : 	a newly-allocated zero-terminated array of GType containing the prerequisites of interface_type
 
 	-- Since 2.2
-	-- g_type_set_qdata ()
 
+	g_type_set_qdata (a_type, a_quark: INTEGER; some_data: POINTER) is
 	-- void        g_type_set_qdata                (GType type,
 	-- 															GQuark quark,
 	-- 															gpointer data);
-
 	-- Attaches arbitrary data to a type.
 	-- type : 	a GType
 	-- quark : 	a GQuark id to identify the data
 	-- data : 	the data
-	-- g_type_get_qdata ()
+external "C use <glib-object.h>"
+end
+ 
+	g_type_get_qdata (a_type, a_quark: INTEGER): POINTER is
+	-- void        g_type_set_qdata                (GType type,
+	-- 															GQuark quark,
+	-- 															gpointer data);
+	-- Attaches arbitrary data to a type.
+	-- type : 	a GType
+	-- quark : 	a GQuark id to identify the data
+	-- data : 	the data
+external "C use <glib-object.h>"
+end	
 
 	-- gpointer    g_type_get_qdata                (GType type,
 	-- 															GQuark quark);
@@ -806,37 +754,24 @@ feature {} -- External calls
 	-- g_class : 	The GTypeClass structure to finalize.
 	-- GClassInitFunc ()
 
-	-- void (*GClassInitFunc) (gpointer g_class, gpointer class_data);
+	-- void        (*GClassInitFunc)               (gpointer g_class,
+	-- 															gpointer class_data);
 
-	-- A callback function used by the type system to initialize the
-	-- class of a specific type. This function should initialize all
-	-- static class members. The initialization process of a class
-	-- involves:
+	-- A callback function used by the type system to initialize the class of a specific type. This function should initialize all static class members. The initialization process of a class involves:
 	
-	-- 1 - Copying common members from the parent class over to the
-	-- derived class structure.
+
+	-- 1 - Copying common members from the parent class over to the derived class structure.
 	
-	-- 2 - Zero initialization of the remaining members not copied over
-	-- from the parent class.
+
+	-- 2 - Zero initialization of the remaining members not copied over from the parent class.
 	
-	-- 3 - Invocation of the GBaseInitFunc() initializers of all parent
-	-- types and the class' type.
+
+	-- 3 - Invocation of the GBaseInitFunc() initializers of all parent types and the class' type.
 	
+
 	-- 4 - Invocation of the class' GClassInitFunc() initializer.
 
-	-- Since derived classes are partially initialized through a memory
-	-- copy of the parent class, the general rule is that
-	-- GBaseInitFunc() and GBaseFinalizeFunc() should take care of
-	-- necessary reinitialization and release of those class members
-	-- that were introduced by the type that specified these
-	-- GBaseInitFunc()/GBaseFinalizeFunc(). GClassInitFunc() should
-	-- only care about initializing static class members, while dynamic
-	-- class members (such as allocated strings or reference counted
-	-- resources) are better handled by a GBaseInitFunc() for this
-	-- type, so proper initialization of the dynamic class members is
-	-- performed for class initialization of derived types as well. An
-	-- example may help to correspond the intend of the different class
-	-- initializers:
+	-- Since derived classes are partially initialized through a memory copy of the parent class, the general rule is that GBaseInitFunc() and GBaseFinalizeFunc() should take care of necessary reinitialization and release of those class members that were introduced by the type that specified these GBaseInitFunc()/GBaseFinalizeFunc(). GClassInitFunc() should only care about initializing static class members, while dynamic class members (such as allocated strings or reference counted resources) are better handled by a GBaseInitFunc() for this type, so proper initialization of the dynamic class members is performed for class initialization of derived types as well. An example may help to correspond the intend of the different class initializers:
 
 	-- typedef struct {
 	--   GObjectClass parent_class;
@@ -880,28 +815,7 @@ feature {} -- External calls
 	--   class->static_float = 3.14159265358979323846;
 	-- }
 
-	-- Initialization of TypeBClass will first cause initialization of
-	-- TypeAClass (derived classes reference their parent classes, see
-	-- g_type_class_ref() on this). Initialization of TypeAClass
-	-- roughly involves zero-initializing its fields, then calling its
-	-- GBaseInitFunc() type_a_base_class_init() that allocates its
-	-- dynamic members (dynamic_string) and finally calling its
-	-- GClassInitFunc() type_a_class_init() to initialize its static
-	-- members (static_integer). The first step in the initialization
-	-- process of TypeBClass is then a plain memory copy of the
-	-- contents of TypeAClass into TypeBClass and zero-initialization
-	-- of the remaining fields in TypeBClass. The dynamic members of
-	-- TypeAClass within TypeBClass now need reinitialization which is
-	-- performed by calling type_a_base_class_init() with an argument
-	-- of TypeBClass. After that, the GBaseInitFunc() of TypeBClass,
-	-- type_b_base_class_init() is called to allocate the dynamic
-	-- members of TypeBClass (dynamic_gstring), and finally the
-	-- GClassInitFunc() of TypeBClass, type_b_class_init(), is called
-	-- to complete the initialization process with the static members
-	-- (static_float). Corresponding finalization counter parts to the
-	-- GBaseInitFunc() functions have to be provided to release
-	-- allocated resources at class finalization time.
-	
+	-- Initialization of TypeBClass will first cause initialization of TypeAClass (derived classes reference their parent classes, see g_type_class_ref() on this). Initialization of TypeAClass roughly involves zero-initializing its fields, then calling its GBaseInitFunc() type_a_base_class_init() that allocates its dynamic members (dynamic_string) and finally calling its GClassInitFunc() type_a_class_init() to initialize its static members (static_integer). The first step in the initialization process of TypeBClass is then a plain memory copy of the contents of TypeAClass into TypeBClass and zero-initialization of the remaining fields in TypeBClass. The dynamic members of TypeAClass within TypeBClass now need reinitialization which is performed by calling type_a_base_class_init() with an argument of TypeBClass. After that, the GBaseInitFunc() of TypeBClass, type_b_base_class_init() is called to allocate the dynamic members of TypeBClass (dynamic_gstring), and finally the GClassInitFunc() of TypeBClass, type_b_class_init(), is called to complete the initialization process with the static members (static_float). Corresponding finalization counter parts to the GBaseInitFunc() functions have to be provided to release allocated resources at class finalization time.
 	-- g_class : 	The GTypeClass structure to initialize.
 	-- class_data : 	The class_data member supplied via the GTypeInfo structure.
 	-- GClassFinalizeFunc ()
@@ -909,15 +823,7 @@ feature {} -- External calls
 	-- void        (*GClassFinalizeFunc)           (gpointer g_class,
 	-- 															gpointer class_data);
 
-	-- A callback function used by the type system to finalize a
-	-- class. This function is rarely needed, as dynamically allocated
-	-- class resources should be handled by GBaseInitFunc() and
-	-- GBaseFinalizeFunc(). Also, specification of a
-	-- GClassFinalizeFunc() in the GTypeInfo structure of a static type
-	-- is invalid, because classes of static types will never be
-	-- finalized (they are artificially kept alive when their reference
-	-- count drops to zero).
-	
+	-- A callback function used by the type system to finalize a class. This function is rarely needed, as dynamically allocated class resources should be handled by GBaseInitFunc() and GBaseFinalizeFunc(). Also, specification of a GClassFinalizeFunc() in the GTypeInfo structure of a static type is invalid, because classes of static types will never be finalized (they are artificially kept alive when their reference count drops to zero).
 	-- g_class : 	The GTypeClass structure to finalize.
 	-- class_data : 	The class_data member supplied via the GTypeInfo structure.
 	-- GInstanceInitFunc ()
@@ -925,15 +831,7 @@ feature {} -- External calls
 	-- void        (*GInstanceInitFunc)            (GTypeInstance *instance,
 	-- 															gpointer g_class);
 
-	-- A callback function used by the type system to initialize a new
-	-- instance of a type. This function initializes all instance
-	-- members and allocates any resources required by
-	-- it. Initialization of a derived instance involves calling all
-	-- its parent types instance initializers, therefore the class
-	-- member of the instance is altered during its initialization to
-	-- always point to the class that belongs to the type the current
-	-- initializer was introduced for.
-	
+	-- A callback function used by the type system to initialize a new instance of a type. This function initializes all instance members and allocates any resources required by it. Initialization of a derived instance involves calling all its parent types instance initializers, therefore the class member of the instance is altered during its initialization to always point to the class that belongs to the type the current initializer was introduced for.
 	-- instance : 	The instance to initialize.
 	-- g_class : 	The class of the type the instance is created for.
 	-- GInterfaceInitFunc ()
@@ -946,33 +844,20 @@ feature {} -- External calls
 	-- iface_data : 	The class_data supplied via the GTypeInfo structure.
 	-- GInterfaceFinalizeFunc ()
 
-	-- void (*GInterfaceFinalizeFunc) (gpointer g_iface, gpointer
-	-- iface_data);
+	-- void        (*GInterfaceFinalizeFunc)       (gpointer g_iface,
+	-- 															gpointer iface_data);
 
-	-- A callback function used by the type system to finalize an
-	-- interface. This function should destroy any internal data and
-	-- release any resources allocated by the corresponding
-	-- GInterfaceInitFunc() function.
-	
+	-- A callback function used by the type system to finalize an interface. This function should destroy any internal data and release any resources allocated by the corresponding GInterfaceInitFunc() function.
 	-- g_iface : 	The interface structure to finalize.
 	-- iface_data : 	The class_data supplied via the GTypeInfo structure.
 	-- GTypeClassCacheFunc ()
 
-	-- gboolean (*GTypeClassCacheFunc) (gpointer cache_data, GTypeClass
-	-- *g_class);
+	-- gboolean    (*GTypeClassCacheFunc)          (gpointer cache_data,
+	-- 															GTypeClass *g_class);
 
-	-- A callback function which is called when the reference count of
-	-- a class drops to zero. It may use g_type_class_ref() to prevent
-	-- the class from being freed. You should not call
-	-- g_type_class_unref() from a GTypeClassCacheFunc function to
-	-- prevent infinite recursion, use g_type_class_unref_uncached()
-	-- instead.
+	-- A callback function which is called when the reference count of a class drops to zero. It may use g_type_class_ref() to prevent the class from being freed. You should not call g_type_class_unref() from a GTypeClassCacheFunc function to prevent infinite recursion, use g_type_class_unref_uncached() instead.
 
-	-- The functions have to check the class id passed in to figure
-	-- whether they actually want to cache the class of this type,
-	-- since all classes are routed through the same
-	-- GTypeClassCacheFunc chain.
-	
+	-- The functions have to check the class id passed in to figure whether they actually want to cache the class of this type, since all classes are routed through the same GTypeClassCacheFunc chain.
 	-- cache_data : 	data that was given to the g_type_add_class_cache_func() call
 	-- g_class : 	The GTypeClass structure which is unreferenced
 	-- Returns : 	TRUE to stop further GTypeClassCacheFuncs from being called, FALSE to continue.
@@ -1004,15 +889,12 @@ feature {} -- External calls
 	-- G_TYPE_FLAG_DEEP_DERIVABLE 	Indicates a deep derivable type (implies derivable).
 	-- g_type_register_static ()
 
-	-- GType g_type_register_static (GType parent_type, const gchar
-	-- *type_name, const GTypeInfo *info, GTypeFlags flags);
+	-- GType       g_type_register_static          (GType parent_type,
+	-- 															const gchar *type_name,
+	-- 															const GTypeInfo *info,
+	-- 															GTypeFlags flags);
 
-	-- Registers type_name as the name of a new static type derived
-	-- from parent_type. The type system uses the information contained
-	-- in the GTypeInfo structure pointed to by info to manage the type
-	-- and its instances (if not abstract). The value of flags
-	-- determines the nature (e.g. abstract or not) of the type.
-	
+	-- Registers type_name as the name of a new static type derived from parent_type. The type system uses the information contained in the GTypeInfo structure pointed to by info to manage the type and its instances (if not abstract). The value of flags determines the nature (e.g. abstract or not) of the type.
 	-- parent_type : 	Type which this type will be derived from.
 	-- type_name : 	0-terminated string used as the name of the new type.
 	-- info : 	The GTypeInfo structure for this type.
@@ -1020,102 +902,74 @@ feature {} -- External calls
 	-- Returns : 	The new type identifier.
 	-- g_type_register_dynamic ()
 
-	-- GType g_type_register_dynamic (GType parent_type, const gchar
-	-- *type_name, GTypePlugin *plugin, GTypeFlags flags);
+	-- GType       g_type_register_dynamic         (GType parent_type,
+	-- 															const gchar *type_name,
+	-- 															GTypePlugin *plugin,
+	-- 															GTypeFlags flags);
 
-	-- Registers type_name as the name of a new dynamic type derived
-	-- from parent_type. The type system uses the information contained
-	-- in the GTypePlugin structure pointed to by plugin to manage the
-	-- type and its instances (if not abstract). The value of flags
-	-- determines the nature (e.g. abstract or not) of the type.
-	
+	-- Registers type_name as the name of a new dynamic type derived from parent_type. The type system uses the information contained in the GTypePlugin structure pointed to by plugin to manage the type and its instances (if not abstract). The value of flags determines the nature (e.g. abstract or not) of the type.
 	-- parent_type : 	Type which this type will be derived from.
 	-- type_name : 	0-terminated string used as the name of the new type.
 	-- plugin : 	The GTypePlugin structure to retrieve the GTypeInfo from.
 	-- flags : 	Bitwise combination of GTypeFlags values.
 	-- Returns : 	The new type identifier or G_TYPE_INVALID if registration failed.
-
 	-- g_type_register_fundamental ()
 
-	-- GType g_type_register_fundamental (GType type_id, const gchar
-	-- *type_name, const GTypeInfo *info, const GTypeFundamentalInfo
-	-- *finfo, GTypeFlags flags);
+	-- GType       g_type_register_fundamental     (GType type_id,
+	-- 															const gchar *type_name,
+	-- 															const GTypeInfo *info,
+	-- 															const GTypeFundamentalInfo *finfo,
+	-- 															GTypeFlags flags);
 
-	-- Registers type_id as the predefined identifier and type_name as
-	-- the name of a fundamental type. The type system uses the
-	-- information contained in the GTypeInfo structure pointed to by
-	-- info and the GTypeFundamentalInfo structure pointed to by finfo
-	-- to manage the type and its instances. The value of flags
-	-- determines additional characteristics of the fundamental type.
-	
+	-- Registers type_id as the predefined identifier and type_name as the name of a fundamental type. The type system uses the information contained in the GTypeInfo structure pointed to by info and the GTypeFundamentalInfo structure pointed to by finfo to manage the type and its instances. The value of flags determines additional characteristics of the fundamental type.
 	-- type_id : 	A predefined GTypeFundamentals value.
 	-- type_name : 	0-terminated string used as the name of the new type.
 	-- info : 	The GTypeInfo structure for this type.
 	-- finfo : 	The GTypeFundamentalInfo structure for this type.
 	-- flags : 	Bitwise combination of GTypeFlags values.
 	-- Returns : 	The predefined type identifier.
-
 	-- g_type_add_interface_static ()
 
-	-- void g_type_add_interface_static (GType instance_type, GType
-	-- interface_type, const GInterfaceInfo *info);
+	-- void        g_type_add_interface_static     (GType instance_type,
+	-- 															GType interface_type,
+	-- 															const GInterfaceInfo *info);
 
-	-- Adds the static interface_type to instantiable_type. The
-	-- information contained in the GTypeInterfaceInfo structure
-	-- pointed to by info is used to manage the relationship.
-	
+	-- Adds the static interface_type to instantiable_type. The information contained in the GTypeInterfaceInfo structure pointed to by info is used to manage the relationship.
 	-- instance_type : 	GType value of an instantiable type.
 	-- interface_type : 	GType value of an interface type.
 	-- info : 	The GInterfaceInfo structure for this (instance_type, interface_type) combination.
-
 	-- g_type_add_interface_dynamic ()
 
-	-- void g_type_add_interface_dynamic (GType instance_type, GType
-	-- interface_type, GTypePlugin *plugin);
+	-- void        g_type_add_interface_dynamic    (GType instance_type,
+	-- 															GType interface_type,
+	-- 															GTypePlugin *plugin);
 
-	-- Adds the dynamic interface_type to instantiable_type. The
-	-- information contained in the GTypePlugin structure pointed to by
-	-- plugin is used to manage the relationship.
-	
+	-- Adds the dynamic interface_type to instantiable_type. The information contained in the GTypePlugin structure pointed to by plugin is used to manage the relationship.
 	-- instance_type : 	the GType value of an instantiable type.
 	-- interface_type : 	the GType value of an interface type.
 	-- plugin : 	the GTypePlugin structure to retrieve the GInterfaceInfo from.
 	-- g_type_interface_add_prerequisite ()
 
-	-- void g_type_interface_add_prerequisite (GType interface_type,
-	-- GType prerequisite_type);
+	-- void        g_type_interface_add_prerequisite
+	-- 														  (GType interface_type,
+	-- 															GType prerequisite_type);
 
-	-- Adds prerequisite_type to the list of prerequisites of
-	-- interface_type. This means that any type implementing
-	-- interface_type must also implement
-	-- prerequisite_type. Prerequisites can be thought of as an
-	-- alternative to interface derivation (which GType doesn't
-	-- support). An interface can have at most one instantiatable
-	-- prerequisite type.
-	
+	-- Adds prerequisite_type to the list of prerequisites of interface_type. This means that any type implementing interface_type must also implement prerequisite_type. Prerequisites can be thought of as an alternative to interface derivation (which GType doesn't support). An interface can have at most one instantiatable prerequisite type.
 	-- interface_type : 	GType value of an interface type.
 	-- prerequisite_type : 	GType value of an interface or instantiatable type.
-
 	-- g_type_get_plugin ()
 
 	-- GTypePlugin* g_type_get_plugin              (GType type);
 
 	-- Returns the GTypePlugin structure for type or NULL if type does not have a GTypePlugin structure.
 	-- type : 	The GType to retrieve the plugin for.
-	-- Returns : 	The corresponding plugin if type is a dynamic type,
-	-- NULL otherwise.
-	
+	-- Returns : 	The corresponding plugin if type is a dynamic type, NULL otherwise.
 	-- g_type_interface_get_plugin ()
 
-	-- GTypePlugin* g_type_interface_get_plugin (GType instance_type,
-	-- GType interface_type);
+	-- GTypePlugin* g_type_interface_get_plugin    (GType instance_type,
+	-- 															GType interface_type);
 
-	-- Returns the GTypePlugin structure for the dynamic interface
-	-- interface_type which has been added to instance_type, or NULL if
-	-- interface_type has not been added to instance_type or does not
-	-- have a GTypePlugin structure. See
-	-- g_type_add_interface_dynamic().
-	
+	-- Returns the GTypePlugin structure for the dynamic interface interface_type which has been added to instance_type, or NULL if interface_type has not been added to instance_type or does not have a GTypePlugin structure. See g_type_add_interface_dynamic().
 	-- instance_type : 	the GType value of an instantiatable type.
 	-- interface_type : 	the GType value of an interface type.
 	-- Returns : 	the GTypePlugin for the dynamic interface interface_type of instance_type.
@@ -1125,10 +979,9 @@ feature {} -- External calls
 
 	-- Returns the next free fundamental type id which can be used to register a new fundamental type with g_type_register_fundamental(). The returned type ID represents the highest currently registered fundamental type identifier.
 	-- Returns : 	The nextmost fundamental type ID to be registered, or 0 if the type system ran out of fundamental type IDs.
-
 	-- g_type_fundamental ()
 
-	-- GType g_type_fundamental (GType type_id);
+	-- GType       g_type_fundamental              (GType type_id);
 
 	-- Internal function, used to extract the fundamental type ID portion. use G_TYPE_FUNDAMENTAL() instead.
 	-- type_id : 	valid type ID
@@ -1322,126 +1175,4 @@ feature {} -- External calls
 	-- CODE : 	Custom code that gets inserted in the *_get_type() function.
 
 	-- Since 2.4
-
-
-	-- The numerical values of fundamental GTypes, with some commodity 
-	-- features to check validity of GTypes
-feature {} --  numerical values of fundamental GTypes
-
-	g_type_invalid: like g_type is
-			-- An invalid GType, used as error return value in some functions which
-			-- return a GType.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_INVALID"
-		end
-	g_type_none: like g_type is
-			-- A fundamental type which is used as a replacement for the C void return type.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_NONE"
-		end
-	g_type_interface: like g_type is
-			-- The fundamental type from which all interfaces are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_INTERFACE"
-		end
-	g_type_char: like g_type is
-			-- The fundamental type corresponding to gchar.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_CHAR"
-		end
-	g_type_uchar: like g_type is
-			-- The fundamental type corresponding to guchar.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_UCHAR"
-		end
-	g_type_boolean: like g_type is
-			-- The fundamental type corresponding to gboolean.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_BOOLEAN"
-		end
-	g_type_int: like g_type is
-			-- The fundamental type corresponding to gint.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_INT"
-		end
-	g_type_uint: like g_type is
-			-- The fundamental type corresponding to guint.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_UINT"
-		end
-	g_type_long: like g_type is
-			-- The fundamental type corresponding to glong.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_LONG"
-		end
-	g_type_ulong: like g_type is
-			-- The fundamental type corresponding to gulong.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_ULONG"
-		end
-	g_type_int_64: like g_type is
-			-- The fundamental type corresponding to gint64.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_INT_64"
-		end
-	g_type_uint_64: like g_type is
-			-- -- The fundamental type corresponding to guint64.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_UINT_64"
-		end
-	g_type_enum: like g_type is
-			-- The fundamental type from which all enumeration types are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_ENUM"
-		end
-
-	g_type_flags: like g_type is
-			-- The fundamental type from which all flags types are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_FLAGS"
-		end
-	
-	g_type_float: like g_type is
-			-- The fundamental type corresponding to gfloat.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_FLOAT"
-		end
-	
-	g_type_double: like g_type is
-			-- The fundamental type corresponding to gdouble.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_DOUBLE"
-		end
-	
-	g_type_string: like g_type is
-			-- The fundamental type corresponding to nul-terminated C strings.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_STRING"
-		end
-	
-	g_type_pointer: like g_type is
-			-- The fundamental type corresponding to gpointer.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_POINTER"
-		end
-	
-	g_type_boxed: like g_type is
-			-- The fundamental type from which all boxed types are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_BOXED"
-		end
-	
-	g_type_param: like g_type is
-			-- The fundamental type from which all GParamSpec types are derived.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_PARAM"
-		end
-	
-	g_type_object: like g_type is
-			-- The fundamental type for GObject.
-		external "C macro use <glib-object.h>"
-		alias "G_TYPE_OBJECT"
-		end
-
-invariant g_type_is_at_least_32_bit: g_type.object_size = 4	
 end

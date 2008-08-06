@@ -27,24 +27,23 @@ deferred class FOCUS_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 feature
 	object: GTK_WIDGET
 
 feature
 
-	callback (event_focus: POINTER; instance: POINTER): INTEGER is
+	callback (event_ptr: POINTER; instance: POINTER): INTEGER is
 		local
-			event_obj: GDK_EVENT
-			specific_event: GDK_EVENT_ANY
+			focus_event: GDK_EVENT_FOCUS
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
 			object := wrapper(instance)
-			create event_obj.from_external_pointer (event_focus)
-
-			Result := function.item ([event_obj.event_focus, object]).to_integer
+			create focus_event.from_external_pointer(event_ptr)
+			Result := function.item ([focus_event, object]).to_integer
 			-- GTK is about to release this event, detach it from Eiffel
+			focus_event.dispose
 		end
 
 	callback_pointer: POINTER is

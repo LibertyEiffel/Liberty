@@ -21,9 +21,12 @@ indexing
 
 class PANGO_LANGUAGE
 	-- PangoLanguage pointers can be efficiently copied and compared with each other.
-inherit C_STRUCT
 
-creation  allocate, from_external_pointer
+inherit 
+	C_STRUCT
+	UNHANDLED_MEMORY
+
+creation allocate, from_external_pointer
 
 feature {} -- Creation
 

@@ -27,7 +27,7 @@ deferred class KEY_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end 
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 feature
 	object: GTK_WIDGET
@@ -36,16 +36,17 @@ feature
 
 	callback (event_key_ptr: POINTER; instance: POINTER): INTEGER is
 		local
-			event: GDK_EVENT
+			key_event: GDK_EVENT_KEY
 			specific_event: GDK_EVENT_ANY
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
+			-- The following is written with the implicit requirement 
+			-- that object actually has an Eiffel wrapper
 			object := wrapper(instance)
-			create event.from_external_pointer (event_key_ptr)
-			
-			Result := function.item ([event.event_key, object]).to_integer
+			create key_event.from_external_pointer (event_key_ptr)
+			Result := function.item ([key_event, object]).to_integer
 			-- GTK is about to release this event, detach it from Eiffel
-			event.event_key.dispose
+			key_event.dispose
 		end
 
 	callback_pointer: POINTER is
@@ -68,4 +69,3 @@ feature
 	function: FUNCTION [ANY, TUPLE [GDK_EVENT_KEY, GTK_WIDGET], BOOLEAN]
 
 end -- class KEY_EVENT_CALLBACK
-

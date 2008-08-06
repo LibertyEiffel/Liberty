@@ -24,7 +24,6 @@ deferred class GTK_TREE_SORTABLE
 	-- GtkTreeSortable is an interface to be implemented by tree models
 	-- which support sorting. The GtkTreeView uses the methods provided
 	-- by this interface to sort the model.
-
 inherit
 	-- TODO: G_INTERFACE 
 	-- Prerequisites: GtkTreeSortable requires GtkTreeModel and GObject.
@@ -80,20 +79,23 @@ feature
 			-- Returns : 	TRUE if the sort column is not one of the special sort column ids.
 		local an_order: INTEGER
 		do
-			is_sort_column_id_not_special := (gtk_tree_sortable_get_sort_column_id
-														 (handle,
-														  $Result,
-														  $an_order
-														  )).to_boolean
+			is_sort_column_id_not_special := (gtk_tree_sortable_get_sort_column_id (handle,
+																											$Result,
+																											$an_order
+																											)).to_boolean
 		end
 
 	order: INTEGER is
-			-- The order with the current sort column and the order. 
+			-- Fills in sort_column_id and order with the current sort column and the order. It returns TRUE unless the sort_column_id is GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID or GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID.
+		
+			-- sortable : 	A GtkTreeSortable
+			-- sort_column_id : 	The sort column id to be filled in
+			-- order : 	The GtkSortType to be filled in
+			-- Returns : 	TRUE if the sort column is not one of the special sort column ids.
 		local a_column: INTEGER
 		do
-			is_sort_column_id_not_special := (gtk_tree_sortable_get_sort_column_id
-														 (handle, $a_column,
-														  $Result)).to_boolean
+			is_sort_column_id_not_special := (gtk_tree_sortable_get_sort_column_id (handle, $a_column,
+																											$Result)).to_boolean
 		ensure is_valid_gtk_sort_type (Result)
 		end
 	

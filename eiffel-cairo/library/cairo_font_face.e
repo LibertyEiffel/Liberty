@@ -33,16 +33,18 @@ class CAIRO_FONT_FACE
 	-- `set_font_size' and `set_font_matrix'.
 
 inherit
-	SHARED_C_STRUCT
+	C_STRUCT
 
 insert
 	CAIRO_FONT_FACE_EXTERNALS
 	CAIRO_FONT_TYPE
 	CAIRO_STATUS
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
-feature -- Access
+feature -- Memory handling
+	dispose is do unref end
+
 	ref is
 			-- Increases the reference count on font_face by one. This
 			-- prevents font_face from being destroyed until a matching
@@ -52,7 +54,7 @@ feature -- Access
 			p:=cairo_font_face_reference(handle)
 		end
 
-	destroy is
+	unref is
 			-- Decreases the reference count on font_face by one. If the
 			-- result is zero, then font_face and all associated
 			-- resources are freed. See `reference'.
@@ -60,6 +62,7 @@ feature -- Access
 			cairo_font_face_destroy(handle)
 		end
 
+feature
 	status: INTEGER is
 			-- The status of font face. Useful to check whether an error has previously occurred.
 		do

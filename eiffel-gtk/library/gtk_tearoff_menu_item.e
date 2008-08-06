@@ -32,10 +32,11 @@ class GTK_TEAROFF_MENU_ITEM
 	-- graphic indicating that the tearoff menu can be
 	-- reattached. Activating it will erase the tearoff menu window.
 
-inherit GTK_MENU_ITEM redefine dummy_gobject, make, struct_size end
+inherit GTK_MENU_ITEM redefine make, struct_size end
 
 -- TODO: GtkTearoffMenuItem implements AtkImplementorIface.
-creation dummy, make
+
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -51,11 +52,6 @@ feature -- size
 		alias "sizeof(GtkTearoffMenuItem)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_tearoff_menu_item_new
-		end
-	
 feature {} -- External features
 
 	gtk_tearoff_menu_item_new: POINTER is  -- GtkWidget*

@@ -1,6 +1,8 @@
 deferred class ENUM
 	-- A wrapper for an enumeration
 
+inherit ANY undefine default_create end
+
 feature 
 	is_valid: BOOLEAN is 
 			-- Is the value of the enumeration valid?
@@ -23,6 +25,6 @@ feature {WRAPPER_HANDLER}
 			-- Can `a_value' be used in a `set_value' feature call?
 		deferred
 		end
-invariant is_valid
 
+invariant is_valid
 end -- class ENUM

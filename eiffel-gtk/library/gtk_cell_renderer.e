@@ -371,7 +371,7 @@ feature -- "editing-started"
 		end
 
 	connect_agent_to_editing_started_signal (a_procedure: PROCEDURE[ANY, TUPLE [GTK_CELL_EDITABLE,
-	                                                                            GTK_TREE_PATH, GTK_CELL_RENDERER]]) is
+																										 STRING, GTK_CELL_RENDERER]]) is
 			-- renderer : 	the object which received the signal
 			-- editable : 	the GtkCellEditable
 			-- path     : 	the path identifying the edited cell

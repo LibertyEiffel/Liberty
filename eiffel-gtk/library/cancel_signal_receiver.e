@@ -24,17 +24,15 @@ deferred class CANCEL_SIGNAL_RECEIVER
 inherit GTK_WIDGET
 
 feature -- The "cancel" signal
-	cancel_signal_name: STRING is "cancel"
-	
-	connect_activate_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[CANCEL_SIGNAL_RECEIVER]]) is
-			-- Connect `a_procedure' to "cancel" signal
-		
-			-- The ::cancel signal is emitted when the cancel button is
+	cancel_signal_name: STRING is "cancel"	
+
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[CANCEL_SIGNAL_RECEIVER]]) is
+			-- The "::cancel" signal is emitted when the cancel button is
 			-- clicked. The default behavior of the GtkAssistant is to
 			-- switch to the page after the current page, unless the
 			-- current page is the last one.
 
-			-- A handler for the ::cancel signal should carry out the
+			-- A handler for the "::cancel" signal should carry out the
 			-- actions for which the wizard has collected data. If the
 			-- action takes a long time to complete, you might consider
 			-- to put a page of type GTK_ASSISTANT_PAGE_PROGRESS after

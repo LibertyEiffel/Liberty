@@ -22,18 +22,18 @@ indexing
 	date: "$Date:$"
 	revision "$Revision:$"
 
-class TOGGLED_CALLBACK [WIDGET_ -> G_OBJECT]
+class TOGGLED_CALLBACK [W -> G_OBJECT]
 
 inherit
 	CALLBACK redefine object end
 
 insert
-		G_OBJECT_FACTORY [WIDGET_] undefine is_equal, copy end
+	G_OBJECT_FACTORY [W]
 
-creation dummy, make
+creation make
 
 feature
-	object: WIDGET_
+	object: W
 
 feature
 	callback (instance: POINTER) is
@@ -41,6 +41,9 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that the button is actually created bu the Eiffel 
+			-- application. 
 			object := wrapper(instance)
 			-- The above line replaces "create object.from_external_pointer
 			-- (instance)" which continuosly creates new Eiffel wrappers
@@ -54,7 +57,7 @@ feature
 			Result.is_not_null
 		end
 
-	connect (an_object: WIDGET_; a_procedure: PROCEDURE [ANY, TUPLE[WIDGET_]]) is
+	connect (an_object: W; a_procedure: PROCEDURE [ANY, TUPLE[W]]) is
 		do
 			debug
 				print ("TOGGLED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -74,5 +77,5 @@ feature
 
 		signal_name: STRING is "toggled"
 
-	procedure: PROCEDURE [ANY, TUPLE[WIDGET_]]
+	procedure: PROCEDURE [ANY, TUPLE[W]]
 end

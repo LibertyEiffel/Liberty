@@ -1,7 +1,7 @@
 indexing
 	description: "."
 	copyright: "[
-					Copyright (C) 2006, 2007 Paolo Redaelli 
+					Copyright (C) 2006 Paolo Redaelli 
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,49 +19,52 @@ indexing
 					02110-1301 USA
 			]"
 
-class C_ARRAY [ITEM -> SHARED_C_STRUCT]
+deferred class C_ARRAY [ITEM -> C_STRUCT]
 	-- An array of wrapped item which is also a wrapper to a C array 
 	-- of pointers of item's struct. For example a C_ARRAY[GTK_BUTTON] 
 	-- wraps a GtkButton** array.
 
-inherit WRAPPER_COLLECTION [ITEM] redefine factory end
-	
+inherit WRAPPER_COLLECTION [ITEM]
+
 insert EXCEPTIONS undefine fill_tagged_out_memory, copy, is_equal end
 
-creation 
-	with_capacity,
-	from_external_array
+-- creation with_capacity, from_collection, from_external_array
 
 feature {} -- Creation
-	from_external_array (an_array: POINTER; a_length: INTEGER; a_factory: CACHING_FACTORY[ITEM]) is
+	from_external_array (an_array: POINTER; a_length: INTEGER) is
 		require
 			array_not_null: an_array.is_not_null
 			positive_length: a_length > 0
-			factory_not_void: a_factory /= Void
 		do
+			create cache.make
 			upper := a_length - 1 
 			capacity := a_length
 			storage := storage.from_pointer (an_array)
-			factory := a_factory
 		end
 	
-	with_capacity (a_capacity: INTEGER; a_factory: CACHING_FACTORY[ITEM]) is
-		require
-			positive_capacity: a_capacity > 0
-			factory_not_void: a_factory /= Void
+	with_capacity (a_capacity: INTEGER) is
+		require positive_capacity: a_capacity > 0
 		do
+			create cache.make
 			capacity := a_capacity
 			upper := -1
 			storage := storage.calloc(a_capacity)
-			factory := a_factory
 		end
+
+feature {} -- 	
+	object_materialization_notice: STRING is
+			-- The notice printed when creating a new wrapper object from
+			-- no-where.
+		"Warning: C_ARRAY is going to create a new wrapper; if ITEM is deferred the program will almost surely crash. The actual ITEM must be made non-deferred.%N"
 
 feature
 	item (i: INTEGER_32): ITEM is
 		local ptr: POINTER
 		do
 			ptr := storage.item(i)
-			if ptr.is_not_null then Result:=factory.wrapper(ptr) end
+			if ptr.is_not_null then 
+				Result:=wrapper(ptr)
+			end
 		end
 
 	first: ITEM is do Result:=item(lower) end
@@ -71,12 +74,8 @@ feature
 feature {ANY} -- Writing:
 	put (element: like item; i: INTEGER) is 
 		do
-			if element/=Void then
-				storage.put(element.handle,i)
-				factory.put(element)
-				element.set_shared
-			else
-				storage.put(default_pointer,i)
+			if element/=Void then storage.put(element.handle,i)
+			else storage.put(default_pointer,i)
 			end
 		end
 
@@ -138,16 +137,6 @@ feature {ANY} -- Adding:
 		end
 
 feature {ANY} -- Modification:
-	from_collection (model: COLLECTION[ITEM]) is
-		local i: INTEGER
-		do
-			from i := model.lower until i>model.upper
-			loop
-				add_last(model.item(i))
-				i := i + 1
-			end
-		end
-	
 	copy (other: like Current) is
 		local i: INTEGER
 		do
@@ -175,6 +164,17 @@ feature {ANY} -- Modification:
 				end
 			end
 			put(element,index)
+		end
+
+	from_collection (model: COLLECTION[like item]) is
+		local i: ITERATOR[like item]
+		do
+				-- FIXME: signature should be model: TRAVERSABLE, once SE2.3 is out
+			with_capacity(model.count)
+			from i:=model.get_new_iterator; i.start
+			until i.is_off 
+			loop add_last(i.item); i.next
+			end
 		end
 
 feature {ANY} -- Removing:
@@ -278,12 +278,12 @@ feature {ANY} -- Looking and Searching:
 			-- `start_index'. Answer `upper + 1' when `element' when the
 			-- search fail.
 			if element=Void then
-				from Result:=start_index
+				from Result:=lower -- start_index
 				until item(Result)=Void or else Result>upper
 				loop Result:=Result+1
 				end
 			else
-				from Result:=start_index
+				from Result:=lower -- start_index
 				until item(Result).is_equal(element) or else Result>upper
 				loop Result:=Result+1
 				end				
@@ -315,7 +315,7 @@ feature {ANY} -- Looking and Searching:
 			-- Note: comparison is done using the address of the wrapped
 			-- structure.
 		do
-				Result := fast_index_of (element,lower)
+				Result := fast_index_of (element, lower)
 		end
 
 	fast_index_of (element: like item; start_index: INTEGER): INTEGER is
@@ -328,8 +328,7 @@ feature {ANY} -- Looking and Searching:
 			-- `start_index'. Answer `upper + 1' when `element' when the
 			-- search fail.
 			element_ptr:=null_or(element)
-			from Result:=start_index
-			until storage.item(Result)=element_ptr or else Result>upper
+			from Result:=lower until storage.item(Result)=element_ptr or else Result>upper
 			loop Result:=Result+1
 			end
 		end
@@ -520,7 +519,6 @@ feature {ANY} -- Other features:
 	fast_replace_all (old_value, new_value: like item) is
 		obsolete "Unimplemented!"
 		do
-			not_yet_implemented
 			-- 			-- Replace all occurrences of the element `old_value' by `new_value' using basic `=' for comparison.
 			-- 			--
 			-- 			-- See also `replace_all', `move'.
@@ -575,7 +573,6 @@ feature {ANY} -- Other features:
 	slice (min, max: INTEGER): like Current is
 		obsolete "Unimplemented!"
 		do
-			not_yet_implemented
 			-- 			-- New collection consisting of items at indexes in [`min'..`max'].
 			-- 			-- Result has the same dynamic type as `Current'.
 			-- 			-- The `lower' index of the `Result' is the same as `lower'.
@@ -593,11 +590,16 @@ feature {ANY} -- Other features:
 		end
 
 	reverse is
+		obsolete "Unimplemented!"
 		do
-			not_yet_implemented
+			-- 			-- Reverse the order of the elements.
+			-- 		deferred
+			-- 		ensure
+			-- 			count = old count
 		end
 
 feature
+	-- struct_size: INTEGER
 
 	count: INTEGER is
 		do
@@ -618,8 +620,6 @@ feature
 			create {ITERATOR_ON_C_ARRAY[ITEM]} Result.from_array(Current)
 		end
 
-feature factory: CACHING_FACTORY[ITEM]
-
 feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 	storage: NATIVE_ARRAY[POINTER]
 
@@ -628,12 +628,6 @@ feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 	manifest_put (index: INTEGER_32; element: ITEM) is
 		do
 			put(element, index)
-		end
-
-	struct_size: INTEGER is
-			-- The memory used for the array.
-		do
-			Result:=count*handle.object_size
 		end
 
 end -- class C_ARRAY

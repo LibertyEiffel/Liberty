@@ -32,6 +32,13 @@ deferred class GTK_MENU_SHELL
 inherit GTK_CONTAINER
 	-- GtkMenuShell implements AtkImplementorIface Interface
 
+feature -- size
+
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkMenuShell)"
+		end
+
 feature
 	-- TODO: check if all those `a_child' shall be GTK_MENU_ITEM
 	-- instead of GTK_WIDGET

@@ -27,10 +27,10 @@ class FORMAT_VALUE_CALLBACK
 inherit CALLBACK redefine object end
 
 insert
-	G_OBJECT_FACTORY [GTK_SCALE] undefine copy, is_equal end
+	G_OBJECT_FACTORY[GTK_SCALE]
 	GLIB_STRING_UTILITY_FUNCTIONS
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_SCALE

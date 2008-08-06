@@ -48,7 +48,7 @@ insert
 	GTK_ORIENTATION
 	GTK_TOOLBAR_STYLE
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -119,7 +119,7 @@ feature
 			-- not valid.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TOOL_ITEM]
 		do
-			Result:=factory.wrapper_or_void(gtk_toolbar_get_nth_item(handle, an_index))
+			Result := factory.wrapper_or_void (gtk_toolbar_get_nth_item(handle, an_index))
 		end
 
 	drop_index (an_x, an_y: INTEGER): INTEGER is
@@ -519,9 +519,4 @@ feature -- size
 		alias "sizeof(GtkToolbar)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_toolbar_new
-		end
-	
 end -- class GTK_TOOLBAR

@@ -21,31 +21,27 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-			-- 	Size Requisition
-
-			-- The size requisition of a widget is it's desired width and
-			-- height. This is represented by a GtkRequisition.
-
-			-- How a widget determines its desired size depends on the
-			-- widget. A GtkLabel, for example, requests enough space to
-			-- display all its text. Container widgets generally base
-			-- their size request on the requisitions of their children.
-
-			-- The size requisition phase of the widget layout process
-			-- operates top-down. It starts at a top-level widget,
-			-- typically a GtkWindow. The top-level widget asks its child
-			-- for its size requisition by calling
-			-- gtk_widget_size_request(). To determine its requisition,
-			-- the child asks its own children for their requisitions and
-			-- so on. Finally, the top-level widget will get a
-			-- requisition back from its child.
-
 class GTK_REQUISITION
+	-- The size requisition of a widget is it's desired width and
+	-- height. This is represented by a GtkRequisition.
+
+	-- How a widget determines its desired size depends on the
+	-- widget. A GtkLabel, for example, requests enough space to
+	-- display all its text. Container widgets generally base their
+	-- size request on the requisitions of their children.
+
+	-- The size requisition phase of the widget layout process operates
+	-- top-down. It starts at a top-level widget, typically a
+	-- GtkWindow. The top-level widget asks its child for its size
+	-- requisition by calling gtk_widget_size_request(). To determine
+	-- its requisition, the child asks its own children for their
+	-- requisitions and so on. Finally, the top-level widget will get a
+	-- requisition back from its child.
 
 inherit
-	C_STRUCT redefine is_equal end
+	G_STRUCT redefine is_equal end
 
-creation  make, copy, copy_from_pointer
+creation make, copy, copy_from_pointer, from_external_pointer
 
 feature {} -- Creation
 

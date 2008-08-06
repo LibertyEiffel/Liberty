@@ -1,5 +1,5 @@
 indexing
-	description: "GtkColorSelectionDialog A standard dialog box for selecting a color."
+	description: "GtkColorSelectionDialog — A standard dialog box for selecting a color."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -29,34 +29,41 @@ class GTK_COLOR_SELECTION_DIALOG
 inherit
 	GTK_DIALOG
 		rename make as make_dialog
-		redefine
-			dummy_gobject,
-			struct_size
+		redefine struct_size
 		end 
-	-- TODO: AtkImplementorIface
+	-- GtkColorSelectionDialog implements AtkImplementorIface.
 
 insert
 	GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
-creation dummy, make
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (a_title: STRING) is
 			-- Creates a new GtkColorSelectionDialog.
 		require title_not_void: a_title /= Void
 		do
-			from_external_pointer (gtk_color_selection_dialog_new(a_title.to_external))
+			from_external_pointer (gtk_color_selection_new(a_title.to_external))
 		end
 	
+
 feature
 
 	colorselection: GTK_COLOR_SELECTION is
 		local
 			selection_ptr: POINTER
-			factory: G_OBJECT_EXPANDED_FACTORY [GTK_COLOR_SELECTION]
+			cs: G_OBJECT_FACTORY [GTK_COLOR_SELECTION]
 		do
-			Result := (factory.wrapper_or_void
-						  (gtk_color_selection_dialog_get_colorsel (handle)))
+			selection_ptr := gtk_color_selection_dialog_get_colorsel (handle)
+			Result := cs.existant_wrapper (selection_ptr)
+			if Result=Void then
+				create Result.from_external_pointer (selection_ptr)
+			end
+		end
+
+feature {} -- External call
+	gtk_color_selection_dialog_new  (a_title: POINTER): POINTER is -- GtkWidget*
+		external "C use <gtk/gtk.h>"
 		end
 
 feature {} -- GtkColorSelectionDialog struct
@@ -82,15 +89,9 @@ feature {} -- GtkColorSelectionDialog struct
 	-- GtkWidget *help_button; The help button widget contained within
 	-- the dialog. Connect a handler for the clicked event.
 	
-feature 
+feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkColorSelectionDialog)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=(gtk_color_selection_dialog_new
-						((once "Dummy GTK_COLOR_SELECTION_DIALOG").to_external))
 		end
 end -- class GTK_COLOR_SELECTION_DIALOG

@@ -28,7 +28,7 @@ inherit
 insert
 	GTK_VBOX_EXTERNALS
 		
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (an_homogeneous: BOOLEAN; a_spacing: INTEGER) is
@@ -45,10 +45,5 @@ feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkVBox)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_vbox_new (0,0)
 		end
 end

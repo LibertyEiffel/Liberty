@@ -277,10 +277,13 @@ class TREE_DEMO
 
 insert
 	GTK -- to initialize the Gimp ToolKit
-	G_TYPE
+	G_TYPES
 		-- TODO: This class is necessary when creating GTK_LIST_STOREs,
 		-- since it requires explicit reference to g_type_*; it's ugly,
 		-- or better it feels mostly unEiffelish to me. Paolo 2005-06-12
+	
+	WRAPPER_HANDLER -- required to check for some bug in the
+		-- implementation and accessing wrappers' handles
 	
 	GTK_STOCK_ITEMS
 	
@@ -307,7 +310,7 @@ feature
 				["Natalia B. Bidart", "nessa"],
 				["Oliver Elphick", "oliver_elphick"],
 				["Raphael Mack", "ramack"],
-				["Daniel F Moisset", "trixx"],
+				["Daniel F Moisset", "trixx"]
 				["Paolo Redaelli", "tybor"],
 				["Walter Alini", "walteralini"] >>
 		}
@@ -390,6 +393,7 @@ feature
 			nick_column.pack_start (flag_renderer, True)
 			nick_column.add_attribute (text_renderer, "text", flag_column_n)
 			
+			
 			create Result.make
 			Result.insert_column (name_column, name_column_n)
 			Result.insert_column (nick_column, nick_column_n)
@@ -423,7 +427,7 @@ feature {}  -- Creation
 			window.set_title (window_title)
 
 			-- It is a good idea to do this for all windows
-			window.connect_destroy_signal_to (agent on_destroy)
+			window.connect_agent_to_destroy_signal (agent on_destroy)
 
 			view.show
 
@@ -435,9 +439,9 @@ feature {}  -- Creation
 			button_box.add(remove_button)
 			button_box.add(quit_button)
 
-			add_button.connect_clicked_signal_to (agent add_clicked)
-			remove_button.connect_clicked_signal_to (agent remove_clicked)
-			quit_button.connect_clicked_signal_to (agent quit_clicked)
+			add_button.connect_agent_to_clicked_signal (agent add_clicked)
+			remove_button.connect_agent_to_clicked_signal (agent remove_clicked)
+			quit_button.connect_agent_to_clicked_signal (agent quit_clicked)
 
 			create vbox.make(False,0) -- i.e. unhomogeneous, no spacing
 			vbox.add(view)
@@ -448,7 +452,7 @@ feature {}  -- Creation
 
 			selection := view.selection
 			selection.set_single_mode
-			--selection.set_select_function (agent on_select)
+			selection.set_select_function (agent on_select)
 			gtk.run_main_loop
 		end
 

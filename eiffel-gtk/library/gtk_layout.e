@@ -33,11 +33,9 @@ class GTK_LAYOUT
 	-- (layout)->window, as you would for a drawing area.
 
 inherit GTK_CONTAINER
-	-- GtkLayout implements AtkImplementorIface.
+   -- GtkLayout implements AtkImplementorIface.
 
-insert GTK_ADJUSTMENT_EXTERNALS
-	
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (an_h_adjustment, a_v_adjustment: GTK_ADJUSTMENT) is
@@ -317,13 +315,6 @@ feature {} -- External calls
 		end
 
 feature -- size
-	dummy_gobject: POINTER is
-		do
-			Result:=(gtk_layout_new
-						(gtk_adjustment_new(0.5,0.0,1.0,0.05,0.1,0.2),
-						 gtk_adjustment_new(0.5,0.0,1.0,0.05,0.1,0.2)))
-		end
-
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkLayout)"

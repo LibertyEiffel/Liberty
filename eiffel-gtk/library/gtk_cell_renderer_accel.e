@@ -31,15 +31,11 @@ class GTK_CELL_RENDERER_ACCEL
 
 inherit
 	GTK_CELL_RENDERER_TEXT
-		redefine
-			dummy_gobject,
-			make,
-			struct_size
-		end
+		redefine make, struct_size end
 
 insert GTK_CELL_RENDERER_ACCEL_MODE
 	
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -165,15 +161,10 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 		
-feature
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererAccel)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_cell_renderer_accel_new
 		end
 end -- class GTK_CELL_RENDERER_ACCEL
 

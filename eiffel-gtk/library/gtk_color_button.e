@@ -1,5 +1,5 @@
 indexing
-	description: "GtkColorButton, a button to launch a color selection dialog"
+	description: "GtkColorButton — A button to launch a color selection dialog"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others
 					
@@ -30,40 +30,41 @@ class GTK_COLOR_BUTTON
 
 inherit
 	GTK_BUTTON
-		redefine
-			dummy_gobject,
-			make,
-			struct_size
-		end
+		undefine struct_size
+		redefine make end
 
 insert
 	GTK_COLOR_BUTTON_EXTERNALS
 		-- Implemented Interfaces
 		-- GtkColorButton implements AtkImplementorIface.
 
-creation dummy,
+creation
 	make, with_color,
 	from_external_pointer
 	
 feature {} -- Creation
 
 	make is
-			-- Creates a new color button. This is a widget in the form
-			-- of a small button containing a swatch representing the
-			-- current selected color.  When the button is clicked, a
-			-- color-selection dialog will open, allowing the user to
-			-- select a color.  The swatch will be updated to reflect the
-			-- new color when the user finishes.
+			-- Creates a new color button. This is a widget in the form of a small button
+			-- containing a swatch representing the current selected color.
+			-- When the button is clicked, a color-selection dialog will open,
+			-- allowing the user to select a color.
+			-- The swatch will be updated to reflect the new color when the user finishes.
 		do
 			from_external_pointer (gtk_color_button_new)
 		end
 
 	with_color (a_color: GDK_COLOR) is
-			-- Creates a new color button; `a_color' will be set as the
-			-- current color.
 		do
 			from_external_pointer( gtk_color_button_new_with_color (a_color.handle))
 		end
+-- 
+-- Creates a new color button.
+-- 
+-- color : 	A GdkColor to set the current color with.
+-- Returns : 	a new color button.
+-- 
+-- Since 2.4
 
 feature
 
@@ -142,22 +143,11 @@ feature
 	-- TODO: The "color" property
 	
 	--   "color"                GdkColor              : Read / Write
-	
+	 
 	-- The selected color.
 
 	
 feature -- The "color-set" signal
-
-feature
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkColorButton)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_color_button_new
-		end
 
 	connect_agent_to_color_set_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COLOR_BUTTON]]) is
 			-- The ::color-set signal is emitted when the user selects a color.

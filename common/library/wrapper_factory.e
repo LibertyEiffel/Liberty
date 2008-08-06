@@ -1,57 +1,63 @@
 indexing
-	description: "Wrapper factories creates and retries objects using various schemes. Needed to implement generic C data structures."
-	copyright: "(C) 2006, 2007 Paolo Redaelli"
+	description: ""
+	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
 deferred class WRAPPER_FACTORY [ITEM->WRAPPER]
-	-- A wrapper that is also a generic container needs a way to 
-	-- create new specialized Eiffel wrappers. 
+	-- A wrapper factory returns the "fittest" wrapper object given a
+	-- pointer to a wrapped "thing". 
 
-	-- WRAPPER_FACTORY given the address of an underlying wrapped C 
-	-- structure returns a valid WRAPPER object. Depending on the 
-	-- actual factory used this object can be:
+	-- Wrapper factory would be inserted into the class that needs to
+	-- use it; if a class needs to create wrappers of several types it is
+	-- better to use (as a client) one of its expanded variant, i.e.
+	-- G_OBJECT_EXPANDED_WRAPPER.
 
-	-- * copied from an archetype,
-
-	-- * magically created from nowhere using internals of SmartEiffel,
-
-	-- * retrieved from a dictionary cache
-
-	-- * retrieved from the underlying object itself, if it has space 
-	-- to store a reference to its wrapper; i.e. all GObjects allow 
-	-- storing arbitrary properties in them.
-
-	-- If multiple usage are needed it is perhaps better to use an
-	-- expanded class that inserts WRAPPER_FACTORY.
-
-inherit WRAPPER_HANDLER
-
-insert ANY -- to re-insert is_equal and other undefined features
+inherit WRAPPER_HANDLER 
 
 feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
 	wrapper (a_pointer: POINTER): ITEM is
-			-- A wrapper for the structure at address `a_pointer'. The 
-			-- default implementation in WRAPPER_FACTORY "creates" a new 
-			-- wrapper every time, while their heirs are allowed to 
-			-- provide implementations that fits better to peculiar 
-			-- memory handling schemes.
-		require
-			pointer_not_null: a_pointer.is_not_null
-			-- dont_create_duplicate_wrappers: not wrappers.has(a_pointer)
+			-- The wrapper for `a_pointer'. It could be newly created or
+			-- retrieved from a cache, a dictionary, from the underlying
+			-- object, depending on the implementation.
+
+			-- See also wrapper_or_void: when `a_pointer' is the
+			-- default pointer (known as NULL in C) Result will be Void.
+		require pointer_not_null: a_pointer.is_not_null
 		deferred
-		ensure
-			not_void: Result/=Void
-			correct_result: Result.handle = a_pointer
+		ensure 
+			non_void: Result/=Void 
+			correct: Result.handle=a_pointer
 		end
 
-	void_or_wrapper (a_pointer: POINTER): ITEM is
-			-- a wrapper for `a_pointer' or Void when the pointer is 
-			-- NULL (the default pointer)
+	wrapper_or_void (a_pointer: POINTER): ITEM is
+			-- A wrapper for `a_pointer' or Void if `a_pointer' is
+			-- default_pointer (NULL in C). A commodity feature to
+			-- replace the following code snippet:
+			 
+			-- my_gobject: A_WRAPPER
+			-- local p: POINTER
+			-- do
+			--   p := get_foo(handle)
+			--   if p.is_not_null then
+			--     Result := factory.wrapper(p)
+			--   end
+			-- end
+
+			-- with
+
+			-- my_gobject: A_G_OBJECT_HEIR is
+			--   do
+			--     Result := factory.wrapper_or_void(get_foo(handle))
+			--   end
 		do
-			if a_pointer.is_not_null then Result:=wrapper(a_pointer) end
+			if a_pointer.is_not_null then
+				Result := wrapper(a_pointer)
+			end
 		ensure
-			definition: a_pointer.is_null = (Result=Void)
+			null_pointer_returns_void: a_pointer.is_null implies Result=Void 
+			correct: a_pointer.is_not_null implies Result/=Void and then Result.handle=a_pointer
 		end
+
 end

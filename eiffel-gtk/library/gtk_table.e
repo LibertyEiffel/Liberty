@@ -65,7 +65,7 @@ inherit GTK_CONTAINER -- rename make as make_c_struct end
 
 insert GTK_ATTACH_OPTIONS
 
-creation dummy, make
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (rows, columns: INTEGER; homogeneous: BOOLEAN) is
@@ -87,8 +87,8 @@ feature {} -- Creation
 			rows_fits_natural_16: rows.in_range (0,65535)
 			columns_fits_natural_16: columns.in_range (0,65535)
 		do
-			from_external_pointer(gtk_table_new
-										 (rows,columns,homogeneous.to_integer))
+			handle :=gtk_table_new (rows, columns, homogeneous.to_integer)
+			store_eiffel_wrapper
 		end
 	
 feature
@@ -464,11 +464,6 @@ feature -- size
 		alias "sizeof(GtkTable)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_table_new({INTEGER_16 1},{INTEGER_16 1},1)
-		end
-	
 feature {} -- External calls
 -- #include <gtk/gtk.h>
 -- GtkTable;

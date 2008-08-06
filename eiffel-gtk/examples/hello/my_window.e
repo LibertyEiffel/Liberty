@@ -1,10 +1,7 @@
 class MY_WINDOW
-	
 inherit GTK_WINDOW redefine make, on_destroy end
-
 creation make
-
-feature 
+feature {}
 	make is
 		do
 			Precursor

@@ -290,7 +290,8 @@ feature {C_STRUCT}
 	-- TODO wrap guint64 g_value_get_uint64 (const GValue *value);
 
 	g_value_holds_float (value: POINTER): INTEGER is
-		external "C macro G_VALUE_HOLDS_FLOAT use <glib-object.h>"
+		external "C macro use <glib-object.h>"
+		alias "G_VALUE_HOLDS_FLOAT"
 		end
 
 	g_value_set_float (gvalue: POINTER; gfloat: REAL_32) is

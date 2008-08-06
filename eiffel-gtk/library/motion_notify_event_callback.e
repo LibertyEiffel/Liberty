@@ -26,7 +26,7 @@ class MOTION_NOTIFY_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 creation make
 
@@ -34,23 +34,20 @@ feature
 	object: GTK_WIDGET
 
 feature
-	callback (event_ptr: POINTER; instance: POINTER): INTEGER is
+	callback (motion_event_ptr: POINTER; instance: POINTER): INTEGER is
 		local
-			event: GDK_EVENT
-			event_motion: GDK_EVENT_MOTION
+			motion_event: GDK_EVENT_MOTION
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that the object is actually created by the Eiffel 
 			object := wrapper(instance)
-			debug 
-				create event.from_external_pointer (event_ptr)
-				check
-					is_a_motion_event: event.is_event_motion
-				end
-			end
-			create event_motion.from_external_pointer(event_ptr)
-			Result := function.item ([event_motion, object]).to_integer
+			create motion_event.from_external_pointer (motion_event_ptr)
+			Result := function.item ([motion_event, object]).to_integer
+			-- GTK is about to release this event, detach it from Eiffel
+			motion_event.dispose
 		end
 
 	callback_pointer: POINTER is

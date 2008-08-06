@@ -22,13 +22,14 @@ indexing
 	wrapped_version: "2.10.6"
 
 class GTK_BINDING_SET
-	-- Key bindings for individual widgets.
-	
-inherit SHARED_C_STRUCT
+
+inherit 
+	C_STRUCT
+	EIFFEL_OWNED -- TODO: This is temporary
 
 insert GTK_BINDING_SET_EXTERNALS
 
-creation dummy, from_external_pointer --, make
+creation from_external_pointer --, make
 
 feature {} -- Creation
 	--  gtk_binding_set_new ()

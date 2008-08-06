@@ -46,7 +46,7 @@ insert
 	GTK_PAGE_ORIENTATION
 	GTK_PRINT_SETTINGS_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -900,12 +900,7 @@ feature
 	--
 			-- #define GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION 
 			-- "win32-driver-version"
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_print_settings_new
-		end
-	
+			
 invariant
 	valid_unit: is_valid_gtk_unit(unit)
 end -- class GTK_PRINT_SETTINGS

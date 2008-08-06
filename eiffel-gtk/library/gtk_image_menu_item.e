@@ -24,19 +24,10 @@ class GTK_IMAGE_MENU_ITEM
 	-- text label. Note that the user can disable display of menu
 	-- icons, so make sure to still fill in the text label.
 
-inherit
-	GTK_MENU_ITEM
-		redefine
-			dummy_gobject,
-			make,
-			struct_size,
-			with_mnemonic,
-			with_label
-		end
-	
-	-- TODO: AtkImplementorIface
+inherit GTK_MENU_ITEM redefine make, struct_size, with_mnemonic, with_label end
+	--    GtkImageMenuItem implements AtkImplementorIface.
 
-creation dummy, make, from_stock, with_label, with_mnemonic
+creation make, from_stock, with_label, with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -96,9 +87,9 @@ feature
 	image: GTK_WIDGET is
 			-- The widget currently set as the image of
 			-- image_menu_item. See `set_image'.
-		local retriever: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]; ptr: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_WIDGET]
 		do
-			Result := wrapper_or_void(gtk_image_menu_item_get_image (handle))
+			Result := factory.wrapper_or_void (gtk_image_menu_item_get_image (handle))
 		end
 
 feature -- size
@@ -107,11 +98,6 @@ feature -- size
 		alias "sizeof(GtkImageMenuItem)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_image_menu_item_new
-		end
-	
 feature {} -- External calls
 	gtk_image_menu_item_set_image (an_image_menu_item,a_widget: POINTER) is
 		external "C use <gtk/gtk.h>"

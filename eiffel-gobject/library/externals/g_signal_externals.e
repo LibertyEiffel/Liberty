@@ -190,6 +190,13 @@ feature {} -- External calls
 -- void        g_signal_stop_emission          (gpointer instance,
 --                                              guint signal_id,
 --                                              GQuark detail);
+	g_signal_stop_emission_by_name (an_instance, a_detailed_signal: POINTER) is
+		require
+			valid_instance: an_instance.is_not_null
+			valid_detailed_signal: a_detailed_signal.is_not_null
+		external "C use <glib-object.h>"
+		end
+		
 -- void        g_signal_stop_emission_by_name  (gpointer instance,
 --                                              const gchar *detailed_signal);
 -- void        g_signal_override_class_closure (guint signal_id,

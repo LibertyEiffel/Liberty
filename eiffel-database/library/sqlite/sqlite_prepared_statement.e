@@ -14,7 +14,9 @@ inherit
 		end
 
 	C_STRUCT
-		redefine
+
+	UNHANDLED_MEMORY 
+		redefine 
 			dispose
 		end
 

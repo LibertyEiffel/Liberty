@@ -21,15 +21,13 @@ indexing
 
 class GDK_EVENT_MOTION
 
-inherit
-	GDK_EVENT_ANY
-		redefine struct_size end
+inherit GDK_EVENT
 
 insert
 	GDK_EVENT_MOTION_EXTERNALS
 	GDK_MODIFIER_TYPE
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature -- access
 
@@ -93,11 +91,12 @@ feature -- access
 			Result := gdk_event_motion_get_y_root (handle)
 		end
 
-feature -- size
+-- feature -- size
+-- 	struct_size: INTEGER is
+-- 		external "C inline use <gdk/gdk.h>"
+-- 		alias "sizeof(GdkEventMotion)"
+-- 		end
 
-	struct_size: INTEGER is
-		external "C inline use <gdk/gdk.h>"
-		alias "sizeof(GdkEventMotion)"
-		end
+invariant is_event_motion
 
 end -- class GDK_EVENT_MOTION

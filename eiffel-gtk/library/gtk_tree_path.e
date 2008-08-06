@@ -23,18 +23,17 @@ indexing
 
 class GTK_TREE_PATH
 
-inherit
-	SHARED_C_STRUCT
-		redefine
-			copy,
-			dispose
-		end
+inherit 
+	C_STRUCT undefine free redefine copy end
+	EIFFEL_OWNED undefine free end
 
 insert
 	GTK
-	GTK_TREE_MODEL_EXTERNALS
+	GTK_TREE_MODEL_EXTERNALS 
+		rename gtk_tree_path_free as free
+		end
 
-creation 
+creation
 	make, make_first, copy_from_pointer,
 	from_string, first, from_path, from_external_pointer
 
@@ -45,8 +44,6 @@ feature {} -- Creation
 		require gtk_initialized: gtk.is_initialized
 		do
 			handle := gtk_tree_path_new
-		ensure
-			not_shared: not is_shared
 		end
 
 	copy_from_pointer (a_ptr: POINTER) is
@@ -54,8 +51,6 @@ feature {} -- Creation
 			a_ptr.is_not_null
 		do
 			handle := gtk_tree_path_copy (a_ptr)
-		ensure
-			not is_shared
 		end
 
 	from_string (a_path: STRING) is
@@ -71,8 +66,6 @@ feature {} -- Creation
 			path_not_void: a_path /= Void
 		do
 			handle := gtk_tree_path_new_from_string (a_path.to_external)
-		ensure
-			not is_shared
 		end
 
 	-- unwrappable varargs function GtkTreePath*
@@ -87,8 +80,6 @@ feature {} -- Creation
 		require gtk_initialized: gtk.is_initialized
 		do
 			handle := gtk_tree_path_new_first
-		ensure
-			not is_shared
 		end
 
 	from_path (a_path: like Current) is
@@ -96,8 +87,6 @@ feature {} -- Creation
 		require gtk_initialized: gtk.is_initialized
 		do
 			handle := gtk_tree_path_copy (a_path.handle)
-		ensure
-			not is_shared
 		end
 
 feature
@@ -176,12 +165,6 @@ feature
 
 feature -- Disposing
 
-	dispose is
-			-- Frees path. 
-		do
-			if not is_shared and handle.is_not_null then gtk_tree_path_free (handle) end
-			handle := default_pointer
-		end
 
 feature -- Comparing
 

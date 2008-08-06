@@ -19,10 +19,10 @@ indexing
 					02110-1301 USA
 				]"
 class GDK_POINT
-inherit
-	C_STRUCT
 
-creation  from_external_pointer
+inherit G_STRUCT
+
+creation from_external_pointer
 
 feature -- size
 	struct_size: INTEGER is

@@ -27,27 +27,29 @@ class ROW_ACTIVATED_CALLBACK
 inherit
 	CALLBACK redefine object end
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_TREE_VIEW
 
 feature
 
-	callback (tree_path_ptr, tree_view_col_ptr, instance: POINTER) is
+	callback (tree_path, tree_view_col, instance: POINTER) is
 		local
-			tree_path: GTK_TREE_PATH
-			tree_view_col: GTK_TREE_VIEW_COLUMN
-			tree_view_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_VIEW]
-			tree_view_col_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_VIEW_COLUMN]
+			tree_path_obj: GTK_TREE_PATH
+			tree_view_col_obj: GTK_TREE_VIEW_COLUMN
+			view_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_VIEW]
+			column_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_VIEW_COLUMN]
 		do
 			debug
-				print("Callback: instance=") print(instance.to_string) print("%N")
+				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			object := tree_view_factory.wrapper(instance)
-			tree_view_col := tree_view_col_factory.wrapper(tree_view_col_ptr)
-			create tree_path.copy_from_pointer(tree_path_ptr)
-			procedure.call ([tree_path, tree_view_col, object])
+			-- The following is written with the implicit requirement 
+			-- that the object is actually created by the Eiffel 
+			object := view_factory.wrapper(instance)
+			tree_view_col_obj := column_factory.wrapper(tree_view_col)
+			create tree_path_obj.copy_from_pointer (tree_path)
+			procedure.call ([tree_path_obj, tree_view_col_obj, object])
 		end
 
 	callback_pointer: POINTER is

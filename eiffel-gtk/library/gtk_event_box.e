@@ -31,20 +31,15 @@ inherit GTK_BIN
 
 insert GTK_EVENT_BOX_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 
-feature
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEventBox)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_event_box_new
-		end
-	
 feature {} -- Creation
 	make is
 			-- Creates a new GtkEventBox.
@@ -118,4 +113,5 @@ feature -- Operations
 			do
 				Result := gtk_event_box_get_visible_window(handle).to_boolean
 			end
+
 end

@@ -26,7 +26,7 @@ class DRAG_DROP_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 creation make
 
@@ -35,20 +35,15 @@ feature
 
 feature
 	callback (drag_context_ptr: POINTER; x, y, time: INTEGER; instance: POINTER): INTEGER is
-		require
-			--time >= 0
-		local
-			drag_context_factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
-			drag_context: GDK_DRAG_CONTEXT
+		-- require time >= 0
+		local drag_context: GDK_DRAG_CONTEXT
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			object := wrapper(instance)
-			drag_context := drag_context_factory.wrapper(drag_context_ptr) 
+			create drag_context.secondary_wrapper_from(drag_context_ptr)
 			Result := function.item ([drag_context, x, y, time, object]).to_integer
-		ensure
-			--time >= 0
 		end
 
 	callback_pointer: POINTER is

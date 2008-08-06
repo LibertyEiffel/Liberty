@@ -19,35 +19,29 @@ indexing
 					02110-1301 USA
 			]"
 
-class NULL_TERMINATED_C_ARRAY [ITEM -> SHARED_C_STRUCT]
+deferred class NULL_TERMINATED_C_ARRAY [ITEM -> C_STRUCT]
 	-- A NULL-terminated C_ARRAY, useful since many low-level C
 	-- functions expect to receive such arrays. 
 
 	-- The NULL (default_pointer in Eiffel) is not counted as an
 	-- element of the array.
 
-inherit  
-	C_ARRAY [ITEM]	redefine with_capacity end
+inherit C_ARRAY [ITEM]	redefine with_capacity end
 								 
-creation 
-	with_capacity,
-	from_collection,
-	from_external
+-- creation with_capacity, from_collection, from_external
 
 feature {} -- Creation
 	-- Note: space allocated in storage must always be capacity+1 large, to
 	-- store the ending NULL pointer
 
-	from_external (an_array: POINTER; a_factory: CACHING_FACTORY[ITEM]) is
+
+	from_external (an_array: POINTER) is
 			-- Initialize the NULL_TERMINATED_C_ARRAY from `an_array'
 			-- pointer. The array is inspected from the beginning to
 			-- discover the first NULL pointer that marks its end.
-		require
-			array_not_null: an_array.is_not_null
-			factory_not_void: a_factory /= Void
+		require array_not_null: an_array.is_not_null
 		local i: INTEGER
 		do
-			factory := a_factory
 			storage := storage.from_pointer (an_array)
 			-- Look for NULL
 			from i:=lower until storage.item(i).is_null loop i:=i+1 end
@@ -55,9 +49,8 @@ feature {} -- Creation
 			capacity := count
 		end
 	
-	with_capacity (a_capacity: INTEGER; a_factory: CACHING_FACTORY[ITEM]) is
+	with_capacity (a_capacity: INTEGER) is
 		do
-			factory := a_factory
 			capacity := a_capacity
 			upper := -1
 			storage := storage.calloc(a_capacity+1)

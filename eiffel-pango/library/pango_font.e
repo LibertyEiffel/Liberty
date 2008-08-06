@@ -34,9 +34,9 @@ insert PANGO_GLYPH
 
 creation from_external_pointer, from_external_pointer_no_ref
 
-feature -- size
-	dummy_gobject: POINTER is do end
+feature {} -- Creation
 
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoFont)"

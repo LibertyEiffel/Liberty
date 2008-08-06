@@ -27,7 +27,7 @@ inherit
 			struct_size
 		end	
 
-creation  make, from_external_pointer
+creation make, from_external_pointer
 	
 feature -- Creation
 	make (a_name,a_nick,a_blurb: STRING; a_default: BOOLEAN; some_flags: INTEGER) is
@@ -46,7 +46,6 @@ feature -- Creation
 			-- Note: where Gobject type system took this?
 			owner_class := g_type_class_peek(get_owner_type(handle))
 			param_id := get_param_id (handle)
-			set_shared
 		end
 	
 feature

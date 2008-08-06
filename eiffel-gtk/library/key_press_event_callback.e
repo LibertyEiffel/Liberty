@@ -27,7 +27,7 @@ class KEY_PRESS_EVENT_CALLBACK
 inherit
 	KEY_EVENT_CALLBACK
 
-creation dummy, make
+creation make
 
 feature
 

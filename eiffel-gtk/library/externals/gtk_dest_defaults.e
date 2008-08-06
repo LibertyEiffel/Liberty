@@ -29,6 +29,7 @@ deferred class GTK_DEST_DEFAULTS
 inherit ANY undefine is_equal, copy end
 
 feature {} -- enum
+
 	is_valid_gtk_dest_defaults (a_dest_default :INTEGER): BOOLEAN is
 		do
 			Result := a_dest_default.bit_and (gtk_dest_default_all.bit_not) = 0

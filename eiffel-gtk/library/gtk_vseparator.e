@@ -29,7 +29,7 @@ class GTK_VSEPARATOR
 inherit GTK_SEPARATOR
 	-- GtkVSeparator implements AtkImplementorIface.
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -48,11 +48,5 @@ feature {} -- External calls
 	gtk_vseparator_new: POINTER is
 			-- GtkWidget* gtk_vseparator_new (void);
 		external "C use <gtk/gtk.h>"
-		end
-
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_vseparator_new
 		end
 end -- class GTK_VSEPARATOR

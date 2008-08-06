@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 				]"
 	date: "$Date:$"
-	revision: "$Revision:$"			
+	revision: "$Revision:$"
 
 deferred class GTK_FILE_CHOOSER
 	-- GtkFileChooser is an interface that can be implemented by file
@@ -78,8 +78,8 @@ deferred class GTK_FILE_CHOOSER
 	-- that indicates whether your callback could successfully generate
 	-- a preview.
 
-	-- Example 2. Sample Usage
-
+	-- TODO: Eiffellize Example 2. Sample Usage
+	
 	-- {
 	--   GtkImage *preview;
 
@@ -119,7 +119,7 @@ deferred class GTK_FILE_CHOOSER
 
 	-- You can add extra widgets to a file chooser to provide options that are not present in the default design. For example, you can add a toggle button to give the user the option to open a file in read-only mode. You can use gtk_file_chooser_set_extra_widget() to insert additional widgets in a file chooser.
 
-	-- Example 3. Sample Usage
+	-- TODO: Eiffelize Example 3. Sample Usage
 
 	-- {
 	--   GtkWidget *toggle;
@@ -139,7 +139,7 @@ deferred class GTK_FILE_CHOOSER
 
 	-- Internally, GTK+ implements a file chooser's graphical user interface with the private GtkFileChooserDefaultClass. This widget has several key bindings and their associated signals. This section describes the available key binding signals.
 
-	-- Example 4. GtkFileChooser key binding example
+	-- TODO: Eiffellize Example 4. GtkFileChooser key binding example
 
 	-- The default keys that activate the key-binding signals in GtkFileChooserDefaultClass are as follows:
 	-- Signal name 	Default key combinations
@@ -235,7 +235,15 @@ insert
 	GTK_FILE_CHOOSER_CONFIRMATION
 	GTK_FILE_CHOOSER_ERROR
 	GTK_FILE_CHOOSER_ACTION
-	
+		-- Here this renaming is not useful; BTW, it produce incorrect code into GTK_FILE_CHOOSER's heirs
+		-- 		rename
+		-- 			gtk_file_chooser_action_open as open_action,
+		-- 			gtk_file_chooser_action_save as save_action,
+		-- 			gtk_file_chooser_action_select_folder as select_folder_action,
+		-- 			gtk_file_chooser_action_create_folder as create_folder_action,
+		-- 			is_valid_gtk_file_chooser_action	as is_valid_gtk_action
+		-- 		end
+
 feature -- Actions
 
 	set_open_action is
@@ -266,7 +274,7 @@ feature -- Actions
 			gtk_file_chooser_set_action (handle,gtk_file_chooser_action_create_folder)
 		end
 
-feature	-- Getters
+	-- GETTERS
 	is_action_open: BOOLEAN is
 			-- Set open mode. The file chooser will only let the user
 			-- pick an existing file.
@@ -397,7 +405,7 @@ feature -- Overwrite confirmation
 			-- "confirm-overwrite" signal; please refer to its
 			-- documentation for the details.
 		do
-			gtk_file_chooser_set_do_overwrite_confirmation (handle, 1)
+			gtk_file_chooser_set_do_overwrite_confirmation (handle, 0)
 		ensure not shall_overwrite_be_confirmed
 		end
 	
@@ -706,14 +714,10 @@ feature -- Preview
 		end
 
 	preview_widget: GTK_WIDGET is
-		-- the current preview widget; can be Void; see `set_preview_widget'.
+			-- the current preview widget; can be Void; see `set_preview_widget'.
+		local factory: G_OBJECT_FACTORY [GTK_WIDGET]
 		do
-			-- TODO: find a way to return the "correct" type/heir of GTK_WIDGET
-			
-			-- create Result.from_external_pointer (gtk_file_chooser_get_preview_widget(handle))
-				check
-					preview_widget_implemented: False
-				end
+			Result := factory.wrapper_or_void (gtk_file_chooser_get_preview_widget(handle))
 		end
 
 	set_preview_widget_active is
@@ -842,16 +846,11 @@ feature -- Filters
 			gtk_file_chooser_remove_filter  (handle, a_filter.handle)
 		end
 
-	filters: G_OBJECT_SLIST [GTK_FILE_FILTER] is
+	filters: G_SLIST [GTK_FILE_FILTER] is
 			-- The current set of user-selectable filters; see `add_filter', `remove_filter'.		
 		do
-			create Result.from_external_pointer (gtk_file_chooser_list_filters (handle))
-			-- The documentation of the C library says "the contents of
-			-- the list are owned by GTK+, but you must free the list
-			-- itself with g_slist_free() when you are done with it."
-			-- Result does not need any particular cure because all the
-			-- returned items are correctly ref-fed and unreffed by
-			-- G_OBJECT (Eiffel class).
+			create {G_OBJECT_SLIST [GTK_FILE_FILTER]} 
+			Result.from_external_pointer (gtk_file_chooser_list_filters (handle))
 		end
 
 	set_filter  (a_filter: GTK_FILE_FILTER) is
@@ -905,11 +904,10 @@ feature -- Shortcuts folders
 			-- Returns : 	TRUE if the folder could be added successfully, FALSE otherwise. In the latter case, the error will be set as appropriate.
 
 			-- TODO: Create G_ERROR
-			is_last_action_successful := (gtk_file_chooser_add_shortcut_folder
-													(handle,
-													 a_folder.to_external,
-													 default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
-													 ).to_boolean)
+			is_last_action_successful := gtk_file_chooser_add_shortcut_folder (handle,
+																									 a_folder.to_external,
+																									 default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
+																									).to_boolean
 		end
 
 	remove_shortcut_folder (a_folder: STRING) is
@@ -922,11 +920,10 @@ feature -- Shortcuts folders
 			-- `last_error' will be filled with the cause
 		require valid_folder: a_folder /= Void
 		do
-			is_last_action_successful := (gtk_file_chooser_remove_shortcut_folder
-													(handle,
-													 a_folder.to_external,
-													 default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
-													 ).to_boolean)
+			is_last_action_successful := gtk_file_chooser_remove_shortcut_folder (handle,
+																										 a_folder.to_external,
+																										 default_pointer -- TODO: it will be last_error.handle when G_ERROR exists
+																										 ).to_boolean
 		end
 
 	shortcut_folders: G_SLIST_STRING is
@@ -1132,22 +1129,30 @@ feature -- Shortcuts folders
 
 feature -- The "file-activated" signal
 
+		-- This signal is emitted when the user "activates" a file in
+		-- the file chooser. This can happen by double-clicking on a file
+		-- in the file list, or by pressing Enter.
+
+		-- Normally you do not need to connect to this signal. It is
+		-- used internally by GtkFileChooserDialog to know when to activate
+		-- the default button in the dialog.
+
 	file_activated_signal_name: STRING is "file-activated"
+		-- void        user_function                  (GtkFileChooser *chooser,
+		--                                             gpointer user_data);
 
+	enable_on_file_activated is
+			-- Connects "file-activated" signal to `on_file_activated' feature.
+		do
+			connect (Current, file_activated_signal_name, $on_file_activated)
+		end
 
+	on_file_activated is
+		do
+		end
 
-	connect_file_activated_signal_to (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
-			-- Connects "file-activated" signal to `a_procedure'.	
-
-			-- This signal is emitted when the user "activates" a file in
-			-- the file chooser. This can happen by double-clicking on a
-			-- file in the file list, or by pressing Enter.
-		
-			-- Normally you do not need to connect to this signal. It is
-			-- used internally by GtkFileChooserDialog to know when to
-			-- activate the default button in the dialog.  void
-			-- user_function (GtkFileChooser *chooser, gpointer
-			-- user_data);
+	connect_agent_to_file_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+			-- chooser : 	the object which received the signal.
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -1157,32 +1162,91 @@ feature -- The "file-activated" signal
 			file_activated_callback.connect (Current, a_procedure)
 		end
 
--- The "selection-changed" signal
+feature -- The "selection-changed" signal
 
--- void        user_function                  (GtkFileChooser *chooser,
---                                             gpointer user_data);
+			-- This signal is emitted when there is a change in the set of selected
+			-- files in a GtkFileChooser. This can happen when the user modifies the
+			-- selection with the mouse or the keyboard, or when explicitly calling
+			-- functions to change the selection.
 
--- This signal is emitted when there is a change in the set of selected files in a GtkFileChooser. This can happen when the user modifies the selection with the mouse or the keyboard, or when explicitly calling functions to change the selection.
+			-- Normally you do not need to connect to this signal, as it is easier
+			-- to wait for the file chooser to finish running, and then to get the list
+			-- of selected files using the functions mentioned below.
 
--- Normally you do not need to connect to this signal, as it is easier to wait for the file chooser to finish running, and then to get the list of selected files using the functions mentioned below.
+			-- See also: gtk_file_chooser_select_filename(),
+			-- gtk_file_chooser_unselect_filename(), gtk_file_chooser_get_filename(),
+			-- gtk_file_chooser_get_filenames(), gtk_file_chooser_select_uri(),
+			-- gtk_file_chooser_unselect_uri(), gtk_file_chooser_get_uri(),
+			-- gtk_file_chooser_get_uris().
 
--- See also: gtk_file_chooser_select_filename(), gtk_file_chooser_unselect_filename(), gtk_file_chooser_get_filename(), gtk_file_chooser_get_filenames(), gtk_file_chooser_select_uri(), gtk_file_chooser_unselect_uri(), gtk_file_chooser_get_uri(), gtk_file_chooser_get_uris().
+	selection_changed_signal_name: STRING is "selection-changed"
 
--- chooser : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
--- The "update-preview" signal
+	enable_on_selection_changed is
+			-- Connects "selection-changed" signal to `on_selection_changed' feature.
+		do
+			connect (Current, selection_changed_signal_name, $on_selection_changed)
+		end
 
--- void        user_function                  (GtkFileChooser *chooser,
---                                             gpointer user_data);
+	on_selection_changed is
+		do
+		end
 
--- This signal is emitted when the preview in a file chooser should be regenerated. For example, this can happen when the currently selected file changes. You should use this signal if you want your file chooser to have a preview widget.
+	connect_agent_to_selection_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+			-- chooser : 	the object which received the signal.
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			selection_changed_callback: SELECTION_CHANGED_CALLBACK
+		do
+			create selection_changed_callback.make
+			selection_changed_callback.connect (Current, a_procedure)
+		end
 
--- Once you have installed a preview widget with gtk_file_chooser_set_preview_widget(), you should update it when this signal is emitted. You can use the functions gtk_file_chooser_get_preview_filename() or gtk_file_chooser_get_preview_uri() to get the name of the file to preview. Your widget may not be able to preview all kinds of files; your callback must call gtk_file_chooser_set_preview_wiget_active() to inform the file chooser about whether the preview was generated successfully or not.
+feature -- The "update-preview" signal
 
--- Please see the example code in the section called �dding a Preview Widget�
+		-- This signal is emitted when the preview in a file chooser should be
+		-- regenerated. For example, this can happen when the currently selected
+		-- file changes. You should use this signal if you want your file chooser
+		-- to have a preview widget.
+		
+		-- Once you have installed a preview widget with
+		-- gtk_file_chooser_set_preview_widget(), you should update it when this
+		-- signal is emitted. You can use the functions
+		-- gtk_file_chooser_get_preview_filename() or
+		-- gtk_file_chooser_get_preview_uri() to get the name of the file to
+		-- preview. Your widget may not be able to preview all kinds of files;
+		-- your callback must call gtk_file_chooser_set_preview_wiget_active()
+		-- to inform the file chooser about whether the preview was generated
+		-- successfully or not.
+		
+		-- See also: gtk_file_chooser_set_preview_widget(),
+		-- gtk_file_chooser_set_preview_widget_active(),
+		-- gtk_file_chooser_set_use_preview_label(),
+		-- gtk_file_chooser_get_preview_filename(),
+		-- gtk_file_chooser_get_preview_uri().
 
--- See also: gtk_file_chooser_set_preview_widget(), gtk_file_chooser_set_preview_widget_active(), gtk_file_chooser_set_use_preview_label(), gtk_file_chooser_get_preview_filename(), gtk_file_chooser_get_preview_uri().
+	update_preview_signal_name: STRING is "update-preview"
+		-- void user_function (GtkFileChooser *chooser, gpointer user_data);
 
--- chooser : 	the object which received the signal.
--- user_data : 	user data set when the signal handler was connected.
+	enable_on_update_preview is
+			-- Connects "update-preview" signal to `on_update_preview' feature.
+		do
+			connect (Current, update_preview_signal_name, $on_update_preview)
+		end
+
+	on_update_preview is
+		do
+		end
+
+	connect_agent_to_update_preview_signal (a_procedure: PROCEDURE [ANY, TUPLE [GTK_FILE_CHOOSER]]) is
+			-- chooser: the object which received the signal.
+		require
+			valid_procedure: a_procedure /= Void
+		local
+			update_preview_callback: UPDATE_PREVIEW_CALLBACK
+		do
+			create update_preview_callback.make
+			update_preview_callback.connect (Current, a_procedure)
+		end
+
 end

@@ -35,13 +35,17 @@ class GTK_PAPER_SIZE
 	-- Printing support has been added in GTK+ 2.10.
 
 inherit
-	C_STRUCT redefine copy, is_equal, dispose end
+	C_STRUCT 
+		undefine free 
+		redefine copy, is_equal 
+		end
+	EIFFEL_OWNED undefine free end
 
 insert 
-	GTK_PAPER_SIZE_EXTERNALS
-	GTK_UNIT
+	GTK_PAPER_SIZE_EXTERNALS rename gtk_paper_size_free as free end
+	GTK_UNIT 
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (a_paper_name: STRING) is
@@ -213,12 +217,6 @@ feature -- Setters
 			gtk_paper_size_set_size(handle, a_width, an_height, a_unit)
 		end
 
-feature {} -- Disposing
-	dispose is
-		do
-			gtk_paper_size_free(handle)
-		end
-	
 feature {} -- Implementation
 	stored_name, stored_display_name, stored_ppd_name: CONST_STRING
 	ppd_name_retrieved: BOOLEAN

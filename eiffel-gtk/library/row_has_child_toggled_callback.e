@@ -27,8 +27,8 @@ class ROW_HAS_CHILD_TOGGLED_CALLBACK
 	-- *arg1, GtkTreeIter *arg2, gpointer user_data) : Run last
 
 inherit CALLBACK redefine object end
-insert 	G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
-creation  make
+insert G_OBJECT_FACTORY [GTK_TREE_MODEL]
+creation make
 
 feature object: GTK_TREE_MODEL
 
@@ -43,9 +43,8 @@ feature
 				print ("%N")
 			end
 			-- The following is written with the implicit requirement 
-			-- that the model is actually created by the Eiffel
-			-- application. 
-			object := wrapper (instance)
+			-- that the object is actually created by the Eiffel 
+			object := wrapper(instance)
 			create a_path.copy_from_pointer (path_ptr)
 			create an_iter.copy_from_pointer(iter_ptr)
 			procedure.call ([object, a_path, an_iter])

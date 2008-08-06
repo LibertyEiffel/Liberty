@@ -5,54 +5,66 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
+			-- Description
+			
+			-- The GType API is the foundation of the GObject system. It
+			-- provides the facilities for registering and managing all
+			-- fundamental data types, user-defined object and interface
+			-- types. Before using any GType or GObject functions,
+			-- g_type_init() must be called to initialize the type
+			-- system.
+			
+			-- For type creation and registration purposes, all types
+			-- fall into one of two categories: static or dynamic. Static
+			-- types are never loaded or unloaded at run-time as dynamic
+			-- types may be. Static types are created with
+			-- g_type_register_static() that gets type specific
+			-- information passed in via a GTypeInfo structure. Dynamic
+			-- types are created with g_type_register_dynamic() which
+			-- takes a GTypePlugin structure instead. The remaining type
+			-- information (the GTypeInfo structure) is retrieved during
+			-- runtime through GTypePlugin and the g_type_plugin_*()
+			-- API. These registration functions are usually called only
+			-- once from a function whose only purpose is to return the
+			-- type identifier for a specific class. Once the type (or
+			-- class or interface) is registered, it may be instantiated,
+			-- inherited, or implemented depending on exactly what sort
+			-- of type it is. There is also a third registration function
+			-- for registering fundamental types called
+			-- g_type_register_fundamental() which requires both a
+			-- GTypeInfo structure and a GTypeFundamentalInfo structure
+			-- but it is seldom used since most fundamental types are
+			-- predefined rather than user-defined.
+
+			-- A final word about type names. Such an identifier needs to
+			-- be at least three characters long. There is no upper
+			-- length limit. The first character needs to be a letter
+			-- (a-z or A-Z) or an underscore '_'. Subsequent characters
+			-- can be letters, numbers or any of '-_+'.
 
 deferred class G_TYPE
-	-- The GType API is the foundation of the GObject system. It
-	-- provides the facilities for registering and managing all
-	-- fundamental data types, user-defined object and interface
-	-- types. Before using any GType or GObject functions,
-	-- `g_type_init' must be called to initialize the type system.
-			
-	-- For type creation and registration purposes, all types fall into
-	-- one of two categories: static or dynamic. Static types are never
-	-- loaded or unloaded at run-time as dynamic types may be. Static
-	-- types are created with `g_type_register_static' that gets type
-	-- specific information passed in via a GTypeInfo
-	-- structure. Dynamic types are created with
-	-- `g_type_register_dynamic' which takes a GTypePlugin structure
-	-- instead. The remaining type information (the GTypeInfo
-	-- structure) is retrieved during runtime through GTypePlugin and
-	-- the `g_type_plugin_*' API. These registration functions are
-	-- usually called only once from a function whose only purpose is
-	-- to return the type identifier for a specific class. Once the
-	-- type (or class or interface) is registered, it may be
-	-- instantiated, inherited, or implemented depending on exactly
-	-- what sort of type it is. There is also a third registration
-	-- function for registering fundamental types called
-	-- `g_type_register_fundamental' which requires both a GTypeInfo
-	-- structure and a GTypeFundamentalInfo structure but it is seldom
-	-- used since most fundamental types are predefined rather than
-	-- user-defined.
-
-	-- A final word about type names. Such an identifier needs to be at
-	-- least three characters long. There is no upper length limit. The
-	-- first character needs to be a letter (a-z or A-Z) or an
-	-- underscore '_'. Subsequent characters can be letters, numbers or
-	-- any of '-_+'.
 
 insert G_TYPE_EXTERNALS
 
-feature {} -- Unwrapped code
+feature
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
 	-- 2006-01-07)
-	
-	-- #define G_TYPE_FUNDAMENTAL(type)	(g_type_fundamental (type))
-	
-	-- Returns the fundamental type which is the ancestor of type. Fundamental types are types that serve as fundaments for the derived types, thus they are the roots of distinct inheritance hierarchies.
-	-- type : 	A GType value.
+
+	is_g_type (a_type_number: INTEGER): BOOLEAN is
+			-- Is `a_type_number' a valid value for a g_type? (i.e. a
+			-- type number that can be used for g_value_init()?
+		do
+			Result := (g_type_is_value_type (a_type_number)).to_boolean
+		end
+
+
+-- #define G_TYPE_FUNDAMENTAL(type)	(g_type_fundamental (type))
+
+-- Returns the fundamental type which is the ancestor of type. Fundamental types are types that serve as fundaments for the derived types, thus they are the roots of distinct inheritance hierarchies.
+-- type : 	A GType value.
 -- G_TYPE_MAKE_FUNDAMENTAL()
 
--- #define	G_TYPE_MAKE_FUNDAMENTAL(x)	((GType) ((x) < < G_TYPE_FUNDAMENTAL_SHIFT))
+-- #define	G_TYPE_MAKE_FUNDAMENTAL(x)	((GType) ((x) << G_TYPE_FUNDAMENTAL_SHIFT))
 
 -- Returns the type ID for the fundamental type number x. Use g_type_fundamental_next() instead of this macro to create new fundamental types.
 -- x : 	the fundamental type number.
@@ -76,9 +88,6 @@ feature {} -- Unwrapped code
 -- type : 	A GType value.
 -- G_TYPE_IS_VALUE_TYPE()
 
-
-
-																		  
 -- #define G_TYPE_IS_VALUE_TYPE(type)              (g_type_check_is_value_type (type))
 
 -- Returns TRUE if type is a value type which can be used for g_value_init().
@@ -435,7 +444,7 @@ feature {} -- Unwrapped code
 -- g_type : 	The type to be checked.
 -- G_TYPE_FLAG_RESERVED_ID_BIT
 
--- #define	G_TYPE_FLAG_RESERVED_ID_BIT	((GType) (1 < < 0))
+-- #define	G_TYPE_FLAG_RESERVED_ID_BIT	((GType) (1 << 0))
 
 -- A bit in the type number that's supposed to be left untouched.
 -- g_type_init ()
@@ -448,8 +457,8 @@ feature {} -- Unwrapped code
 -- typedef enum	/*< skip >*/
 -- {
 --   G_TYPE_DEBUG_NONE	= 0,
---   G_TYPE_DEBUG_OBJECTS	= 1 < < 0,
---   G_TYPE_DEBUG_SIGNALS	= 1 < < 1,
+--   G_TYPE_DEBUG_OBJECTS	= 1 << 0,
+--   G_TYPE_DEBUG_SIGNALS	= 1 << 1,
 --   G_TYPE_DEBUG_MASK	= 0x03
 -- } GTypeDebugFlags;
 
@@ -463,22 +472,14 @@ feature {} -- Unwrapped code
 -- void        g_type_init_with_debug_flags    (GTypeDebugFlags debug_flags);
 
 -- Similar to g_type_init(), but additionally sets debug flags.
-	-- debug_flags : 	Bitwise combination of GTypeDebugFlags values for debugging purposes.
-	
-	name_of_type (a_type: like g_type): CONST_STRING is
-			-- the unique name that is assigned to `a_type' ID (this is
-			-- the preferred method to find out whether a specific type
-			-- has been registered for the passed in ID yet). Void if no
-			-- type with that ID has been registered.
-		local cstr: POINTER
-		do
-			cstr := g_type_name (a_type)
-			if cstr.is_not_null then
-				create Result.from_external(cstr)
-			end
-		end			
+-- debug_flags : 	Bitwise combination of GTypeDebugFlags values for debugging purposes.
+-- g_type_name ()
 
+-- const gchar* g_type_name                    (GType type);
 
+-- Returns the unique name that is assigned to a type ID (this is the preferred method to find out whether a specific type has been registered for the passed in ID yet).
+-- type : 	Type to return name for.
+-- Returns : 	Static type name or NULL.
 -- g_type_qname ()
 
 -- GQuark      g_type_qname                    (GType type);
@@ -834,8 +835,8 @@ feature {} -- Unwrapped code
 
 -- typedef enum    /*< skip >*/
 -- {
---   G_TYPE_FLAG_ABSTRACT		= (1 < < 4),
---   G_TYPE_FLAG_VALUE_ABSTRACT	= (1 < < 5)
+--   G_TYPE_FLAG_ABSTRACT		= (1 << 4),
+--   G_TYPE_FLAG_VALUE_ABSTRACT	= (1 << 5)
 -- } GTypeFlags;
 
 -- Bit masks used to check or determine characteristics of a type.
@@ -845,10 +846,10 @@ feature {} -- Unwrapped code
 
 -- typedef enum    /*< skip >*/
 -- {
---   G_TYPE_FLAG_CLASSED           = (1 < < 0),
---   G_TYPE_FLAG_INSTANTIATABLE    = (1 < < 1),
---   G_TYPE_FLAG_DERIVABLE         = (1 < < 2),
---   G_TYPE_FLAG_DEEP_DERIVABLE    = (1 < < 3)
+--   G_TYPE_FLAG_CLASSED           = (1 << 0),
+--   G_TYPE_FLAG_INSTANTIATABLE    = (1 << 1),
+--   G_TYPE_FLAG_DERIVABLE         = (1 << 2),
+--   G_TYPE_FLAG_DEEP_DERIVABLE    = (1 << 3)
 -- } GTypeFundamentalFlags;
 
 -- Bit masks used to check or determine specific characteristics of a fundamental type.

@@ -38,15 +38,18 @@ feature {} -- External calls
 		end
 
 	gdk_pixbuf_new_from_file_at_size (filename: POINTER; a_width, a_height: INTEGER;
-												 error: POINTER): POINTER is
+	                                  error: POINTER): POINTER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
-	gdk_pixbuf_new_from_file_at_scale (filename: POINTER; a_width, a_height, preserve_aspect_ratio: INTEGER; error_dummy: POINTER): POINTER is
+	gdk_pixbuf_new_from_file_at_scale (filename: POINTER; a_width, a_height, preserve_aspect_ratio: INTEGER;
+	                                   error_dummy: POINTER): POINTER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
-	gdk_pixbuf_new_from_data (some_data: POINTER; a_colorspace, an_alpha, a_bits_per_sample, a_width, a_height,  a_rowstride: INTEGER; dummy_destroy_func, dummy_destroy_data: POINTER): POINTER is
+	gdk_pixbuf_new_from_data (some_data: POINTER; a_colorspace, an_alpha,
+							 a_bits_per_sample, a_width, a_height,
+							 a_rowstride: INTEGER; dummy_destroy_func, dummy_destroy_data: POINTER): POINTER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
@@ -59,18 +62,26 @@ feature {} -- External calls
 		end
 
 
-	gdk_pixbuf_savev (a_handle, a_filename, a_type, some_option_keys, some_option_values,	an_error: POINTER): INTEGER is
+	gdk_pixbuf_savev (a_handle, a_filename, a_type, some_option_keys, some_option_values,
+	                  an_error: POINTER): INTEGER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 
-	-- GdkPixbufFormat* gdk_pixbuf_get_file_info (const gchar
-	-- *filename, gint *width, gint *height);
+	gdk_pixbuf_save_with_one_arg (a_handle, a_filename, a_type, an_error, an_arg_name,
+		                          a_value, a_default_pointer: POINTER): INTEGER is
+		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
+		alias "gdk_pixbuf_save"
+		end
 
-	-- FIXME: A lot more missing, but it is hard to make a complete
-	-- list, because the docs for GdkPixbuf are spread over lots of
-	-- pages **trixx, 20060608
+-- GdkPixbufFormat* gdk_pixbuf_get_file_info   (const gchar *filename,
+--                                             gint *width,
+--                                             gint *height);
+--
+-- FIXME: A lot more missing, but it is hard to make a complete list, because
+-- the docs for GdkPixbuf are spread over lots of pages **trixx, 20060608
 
-	gdk_pixbuf_composite_color_simple (src: POINTER; dest_width, dest_height: INTEGER; interp_type: INTEGER; overall_alpha, check_size: INTEGER; color1, color2: INTEGER_64) : POINTER is
+	gdk_pixbuf_composite_color_simple (src: POINTER; dest_width, dest_height: INTEGER; interp_type: INTEGER;
+	                                   overall_alpha, check_size: INTEGER; color1, color2: INTEGER_64) : POINTER is
 			-- GdkPixbuf*  gdk_pixbuf_composite_color_simple (const GdkPixbuf *src,
 			--                                                int dest_width,
 			--                                                int dest_height,
@@ -93,8 +104,8 @@ feature {} -- External calls
 		end
 
 	gdk_pixbuf_composite (src, dest: POINTER; dest_x, dest_y, dest_width, dest_height: INTEGER;
-								 offset_x, offset_y, scale_x, scale_y: REAL_64;
-								 interp_type: INTEGER; overall_alpha: INTEGER) is
+	                      offset_x, offset_y, scale_x, scale_y: REAL_64;
+	                      interp_type: INTEGER; overall_alpha: INTEGER) is
 			-- void        gdk_pixbuf_composite            (const GdkPixbuf *src,
 			--                                              GdkPixbuf *dest,
 			--                                              int dest_x,
@@ -124,9 +135,9 @@ feature {} -- External calls
 		end
 
 	gdk_pixbuf_composite_color (src, dest: POINTER; dest_x, dest_y, dest_width, dest_height: INTEGER;
-										 offset_x, offset_y, scale_x, scale_y: REAL_64;
-										 interp_type: INTEGER; overall_alpha, check_x, check_y, check_size: INTEGER;
-										 color1, color2: INTEGER_64) is
+	                            offset_x, offset_y, scale_x, scale_y: REAL_64;
+	                            interp_type: INTEGER; overall_alpha, check_x, check_y, check_size: INTEGER;
+	                            color1, color2: INTEGER_64) is
 			-- void        gdk_pixbuf_composite_color      (const GdkPixbuf *src,
 			--                                              GdkPixbuf *dest,
 			--                                              int dest_x,
@@ -192,7 +203,7 @@ feature {} -- External calls
 		end
 
 	gdk_pixbuf_add_alpha (handle: POINTER; a_substitute_color: BOOLEAN;
-								 a_red, a_green, a_blue: CHARACTER): POINTER is
+	                      a_red, a_green, a_blue: CHARACTER): POINTER is
 		external "C use <gdk-pixbuf/gdk-pixbuf.h>"
 		end
 

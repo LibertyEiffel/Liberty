@@ -23,6 +23,8 @@ class PANGO_FONT_FAMILY
 
 inherit G_OBJECT
 
+-- insert FOO_EXTERNALS
+
 creation from_external_pointer
 
 feature {} -- Creation
@@ -32,11 +34,11 @@ feature {} -- Creation
 -- #define     PANGO_IS_FONT_FAMILY            (object)
 -- const char* pango_font_family_get_name      (PangoFontFamily *family);
 -- gboolean    pango_font_family_is_monospace  (PangoFontFamily *family);
--- void        pango_font_family_list_faces    (PangoFontFamily *family, PangoFontFace ***faces, int *n_faces);
+-- void        pango_font_family_list_faces    (PangoFontFamily *family,
+--                                              PangoFontFace ***faces,
+--                                              int *n_faces);
 
-feature 
-	dummy_gobject: POINTER is do end 
-
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoFontFamily)"

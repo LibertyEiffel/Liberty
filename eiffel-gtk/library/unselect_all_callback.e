@@ -26,9 +26,9 @@ class UNSELECT_ALL_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_TREE_VIEW] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_TREE_VIEW]
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_TREE_VIEW
@@ -43,7 +43,8 @@ feature
 				print ("is_object: "+g_is_object (instance).out+"%N")
 				print ("type: "+g_object_type (instance).out+"%N")
 			end
-			object := wrapper(instance)
+			-- We're assuming that Eiffel created the wrapper
+			object := wrapper (instance)
 			Result := function.item ([object]).to_integer
 		end
 

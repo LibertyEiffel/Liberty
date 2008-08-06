@@ -56,9 +56,9 @@ inherit
 
 		-- Implemented Interfaces: GtkExpander implements AtkImplementorIface.
 	
-insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end	
+insert G_OBJECT_FACTORY [GTK_WIDGET]	
 
-creation dummy, make, make_with_mnemonic
+creation make, make_with_mnemonic, from_external_pointer
 
 feature {} -- Creation
 
@@ -205,13 +205,12 @@ feature
 	label_widget: GTK_WIDGET is
 			-- The label widget for the frame. 'set_label_widget'. Can 
 			-- be Void
-		local ptr: POINTER 
 		do
-			ptr:= gtk_expander_get_label_widget (handle)
-			if ptr.is_not_null then
-				Result:=wrapper(ptr)
-			end
+			Result := wrapper (gtk_expander_get_label_widget (handle))
 		end
+
+
+--    Since 2.4
 
 feature -- Properties
 	
@@ -291,14 +290,14 @@ feature -- Properties
 feature  --   The "activate" signal
 	activate_signal_name: STRING is "activate"
 
-	connect_activate_signal_to (a_procedure: PROCEDURE[ANY,TUPLE[GTK_EXPANDER]]) is
-		require
-			valid_procedure: a_procedure /= Void
-		local
-			activate_callback: ACTIVATE_CALLBACK[GTK_EXPANDER]
+	on_activate is
 		do
-			create activate_callback.make
-			activate_callback.connect (Current, a_procedure)
+			-- Empty by default
+		end
+
+	enable_on_activate is
+		do
+			connect (Current, activate_signal_name, $on_activate)
 		end
 
 feature {} -- size
@@ -362,11 +361,5 @@ feature {} -- External calls
 	
 	gtk_expander_get_label_widget (an_expander: POINTER): POINTER is -- GtkWidget*
 		external "C use <gtk/gtk.h>"
-		end
-
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_expander_new((once "Dummy GTK_EXPANDER").to_external)
 		end
 end

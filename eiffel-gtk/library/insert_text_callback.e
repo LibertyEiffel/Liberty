@@ -26,17 +26,17 @@ class INSERT_TEXT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_EDITABLE] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_EDITABLE]
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_EDITABLE
 
 feature
-	callback (new_text_ptr: POINTER; new_text_length: INTEGER; position: POINTER; instance: POINTER) is
+	callback (new_text: POINTER; new_text_length: INTEGER; position: POINTER; instance: POINTER) is
 		local
-			new_text: STRING
+			new_text_obj: STRING
 			position_obj: REFERENCE [INTEGER]
 			int_ptr: NATIVE_ARRAY [INTEGER]
 		do
@@ -44,10 +44,10 @@ feature
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			object := wrapper(instance)
-			create new_text.from_external (new_text_ptr)
+			create new_text_obj.from_external (new_text)
 			int_ptr := int_ptr.from_pointer (position)
 			create position_obj.set_item (int_ptr.item (0))
-			procedure.call ([new_text, new_text_length, position_obj, object])
+			procedure.call ([new_text_obj, new_text_length, position_obj, object])
 			int_ptr.put (position_obj.item, 0)
 		end
 

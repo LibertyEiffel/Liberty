@@ -28,24 +28,27 @@ inherit
 	CALLBACK redefine object end
 
 insert
-	G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine copy, is_equal end
+	G_OBJECT_FACTORY [GTK_TREE_MODEL]
 
-creation  make
+creation make
 
 feature
 	object: GTK_TREE_MODEL
 
 feature
-	callback (tree_path_ptr, instance: POINTER) is
+
+	callback (tree_path, instance: POINTER) is
 		local
-			path: GTK_TREE_PATH
+			tree_path_obj: GTK_TREE_PATH
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that the object is actually created by the Eiffel 
 			object := wrapper(instance)
-			create path.copy_from_pointer (tree_path_ptr)
-			procedure.call ([path, object])
+			create tree_path_obj.copy_from_pointer (tree_path)
+			procedure.call ([tree_path_obj, object])
 		end
 
 	callback_pointer: POINTER is

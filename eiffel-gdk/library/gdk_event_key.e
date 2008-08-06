@@ -21,15 +21,13 @@ indexing
 
 class GDK_EVENT_KEY
 
-inherit
-	GDK_EVENT_ANY
-		redefine struct_size end
+inherit GDK_EVENT
 
 insert
 	GDK_EVENT_KEY_EXTERNALS
 	GDK_MODIFIER_TYPE
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature -- access
 
@@ -57,11 +55,10 @@ feature -- access
 			Result := gdk_event_key_get_keyval (handle)
 		end
 
-feature -- size
-
-	struct_size: INTEGER is
-		external "C inline use <gdk/gdk.h>"
-		alias "sizeof(GdkEventKey)"
-		end
+-- feature -- size
+-- 	struct_size: INTEGER is
+-- 		external "C inline use <gdk/gdk.h>"
+-- 		alias "sizeof(GdkEventKey)"
+-- 		end
 
 end -- class GDK_EVENT_KEY

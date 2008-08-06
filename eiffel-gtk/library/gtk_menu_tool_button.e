@@ -46,7 +46,7 @@ insert
 	GTK_MENU_TOOL_BUTTON_EXTERNALS
 	GTK_MENU_EXTERNALS -- to access gtk_is_menu
 
-creation dummy, from_label, from_stock, from_external_pointer
+creation from_label, from_stock, from_external_pointer
 
 feature {} -- Creation
 	from_label (an_icon_widget: GTK_WIDGET; a_label: STRING) is
@@ -85,7 +85,7 @@ feature
 			-- the GTK_MENU associated with GTK_MENU_TOOL_BUTTON.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_MENU]
 		do
-			Result:= factory.wrapper_or_void(gtk_menu_tool_button_get_menu(handle))
+			Result := factory.wrapper (gtk_menu_tool_button_get_menu(handle))
 		end
 
 	set_arrow_tooltip (some_tooltips: GTK_TOOLTIPS; a_tip_text, a_tip_private: STRING) is

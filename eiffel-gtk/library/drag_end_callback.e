@@ -26,25 +26,22 @@ class DRAG_END_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_WIDGET
 
 feature
-	callback (a_drag_context_pointer, instance: POINTER) is
-		local
-			drag_context_factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
-			drag_context: GDK_DRAG_CONTEXT
+	callback (drag_context_ptr, instance: POINTER) is
+		local drag_context: GDK_DRAG_CONTEXT
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			object := wrapper(instance)
-			drag_context := drag_context_factory.wrapper(a_drag_context_pointer)
-			
+			create drag_context.secondary_wrapper_from(drag_context_ptr)
 			procedure.call ([drag_context, object])
 		end
 

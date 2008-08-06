@@ -40,7 +40,7 @@ class CAIRO_CONTEXT
 	-- saved state.
 
 inherit
-	SHARED_C_STRUCT
+	C_STRUCT
 		redefine
 			from_external_pointer
 		end
@@ -60,7 +60,7 @@ insert
 	CAIRO_FONT_WEIGHT
 	CAIRO_STATUS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (a_target: CAIRO_SURFACE) is
@@ -88,7 +88,9 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 			ref
 		end
 
-feature
+feature -- State and memory handling
+	dispose is do unref end
+
 	ref is
 			-- Increases the reference count on cr by one. This prevents
 			-- cr from being destroyed until a matching call to `dispose'
@@ -149,14 +151,11 @@ feature
 			-- `cairo_status_success'.
 		local ptr: POINTER
 		do
-			ptr := cairo_get_target(handle)
+			create Result.from_external_pointer(cairo_get_target(handle))
 			-- cairo_get_target returns the target surface. This object
 			-- is owned by cairo. To keep a reference to it, you must
 			-- call `ref'.
-			Result ?= wrappers.reference_at (ptr)
-			if Result = Void then
-				create Result.from_external_pointer (handle)
-			end
+			Result.ref
 		end
 
 	push_group is
@@ -374,16 +373,12 @@ feature
 
 	source: CAIRO_PATTERN is
 			--  the current source pattern for context.
-		local ptr: POINTER
 		do
-			ptr := cairo_get_source (handle)
+			create Result.from_external_pointer(cairo_get_source(handle))
 			-- cairo_get_source returns the current source
 			-- pattern. This object is owned by cairo. To keep a
-			-- reference to it, you must call CAIRO_PATTERN.`reference'.
-			Result ?= wrappers.reference_at (ptr)
-			if Result = Void then
-				create Result.from_external_pointer (ptr)
-			end
+			-- reference to it, you must call CAIRO_PATTERN.`ref'.
+			Result.ref
 		end
 
 	set_antialias (an_antialias_type: INTEGER) is
@@ -872,7 +867,7 @@ feature -- Path managing
 			create Result.from_external_pointer (cairo_copy_path (handle))
 		end
 
-	get_flat_path: CAIRO_PATH is
+	get_flat_path: CAIRO_PATHG is
 			-- Gets a newly-allocated flattened copy of the current path
 	
 			-- This feature is like `get_path' except that any curves in

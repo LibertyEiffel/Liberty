@@ -36,7 +36,7 @@ feature
 -- typedef struct {
 --   GObjectClass parent_class;
 
-   
+	
 --   PangoFont *       (*get_font)     (PangoFontset     *fontset,
 -- 				     guint             wc);
 
@@ -70,21 +70,13 @@ feature
 		local ptr: POINTER
 		do
 			ptr:=pango_fontset_get_metrics(handle)
-			check ptr.is_not_null end
-			Result::=wrappers.reference_at(ptr)
-			if Result=Void then
-				create Result.from_external_pointer(ptr)
-				-- TODO: should be create Result.from_external_pointer_no_ref(ptr)
-			else
-				-- pango_fontset_get_metrics returns : a PangoFontMetrics
-				-- object. The caller must call pango_font_metrics_unref()
-				-- when finished using the object. Since we already reffed
-				-- the PangoFontMetrics structure when creating we unref
-				-- it now to avoid memory leaks
-				Result.unref
-			end
+			-- pango_fontset_get_metrics returns a PangoFontMetrics
+			-- object. The caller must call pango_font_metrics_unref when
+			-- finished using the object. This is automatically done
+			-- because a PANGO_FONT_METRICS object is actually also
+			-- REFERENCE_COUNTED
+			create Result.from_external_pointer(ptr)
 		end
-
 
 -- PangoFontsetForeachFunc ()
 
@@ -116,7 +108,7 @@ feature
 feature {} -- External calls
 	-- #define     PANGO_TYPE_FONTSET
 
-	 pango_fontset_get_font (a_fontset: POINTER; a_wc: INTEGER): POINTER is
+	pango_fontset_get_font (a_fontset: POINTER; a_wc: INTEGER): POINTER is
 			-- PangoFont* pango_fontset_get_font (PangoFontset *fontset,
 			-- guint wc);
 		

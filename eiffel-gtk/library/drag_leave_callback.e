@@ -26,7 +26,7 @@ class DRAG_LEAVE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 creation make
 
@@ -38,14 +38,16 @@ feature
 		require
 			time >= 0
 		local
-			drag_context_factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
+			-- factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
 			drag_context: GDK_DRAG_CONTEXT
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			object := wrapper(instance)	
-			drag_context := drag_context_factory.wrapper(drag_context_ptr)
+			-- The following is written with the implicit requirement 
+			-- that object actually has an Eiffel wrapper.
+			object := wrapper(instance)
+			create drag_context.secondary_wrapper_from(drag_context_ptr)
 			procedure.call ([drag_context, time, object])
 		ensure
 			time >= 0

@@ -20,9 +20,10 @@ indexing
 				]"
 
 class GDK_RECTANGLE
-inherit C_STRUCT
 
-creation  from_external_pointer, make
+inherit G_STRUCT
+
+creation from_external_pointer, from_external_copy, make
 
 feature --Creation
 

@@ -20,9 +20,9 @@ indexing
 				]"
 class GTK_TEXT_ATTRIBUTES
 	
-inherit C_STRUCT
+inherit G_STRUCT
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 	-- TODO: wrap this structure for real
 
@@ -38,7 +38,7 @@ feature -- Access
 
 	font: PANGO_FONT_DESCRIPTION is
 		do
-			create Result.from_external_shared (gtk_text_attributes_get_font (handle))
+			create Result.from_external_pointer (gtk_text_attributes_get_font (handle))
 		end
 
 	--   gtk_text_attributes_new ()

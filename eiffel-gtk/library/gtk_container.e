@@ -23,10 +23,11 @@ indexing
 deferred class GTK_CONTAINER
 
 inherit GTK_WIDGET
-	-- TODO: AtkImplementorIface
+	-- Implemented Interfaces: GtkContainer implements
+	-- AtkImplementorIface.
 
 insert GTK_CONTAINER_EXTERNALS
-	
+
 feature
 	add (a_widget: GTK_WIDGET) is
 			-- Adds widget to container. Typically used for simple
@@ -148,9 +149,7 @@ feature
 		local ptr: POINTER
 		do
 			ptr:=gtk_container_get_children(handle)
-			if ptr.is_not_null then
-				create Result.from_external (ptr, gtk.widget_factory)
-			end
+			create {G_OBJECT_LIST[GTK_WIDGET]} Result.from_external_pointer (ptr)
 		ensure result_not_void: Result/=Void
 		end
 

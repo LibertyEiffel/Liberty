@@ -1,5 +1,5 @@
 indexing
-	description: "A single line text entry widget."
+	description: "."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -20,10 +20,10 @@ indexing
 				]"
 
 class GTK_ENTRY
-	-- The GtkEntry widget is a single line text entry widget. A fairly
-	-- large set of key bindings are supported by default. If the
-	-- entered text is longer than the allocation of the widget, the
-	-- widget will scroll so that the cursor position is visible.
+	-- The GtkEntry widget is a single line text entry widget. A fairly large set
+	-- of key bindings are supported by default. If the entered text is longer
+	-- than the allocation of the widget, the widget will scroll so that the
+	-- cursor position is visible.
 	
 inherit
 	GTK_WIDGET
@@ -32,10 +32,10 @@ inherit
 		-- GtkEntry implements AtkImplementorIface, GtkCellEditable and GtkEditable.
 
 insert
-	G_OBJECT_FACTORY [GTK_MENU] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_MENU]
 	GTK_ENTRY_EXTERNALS
 	
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 	
 feature {} -- Creation
 	make is
@@ -213,20 +213,19 @@ feature -- Alignment
 
 	
 	layout: PANGO_LAYOUT is
-			-- the PangoLayout used to display the entry. The layout is useful to e.g. convert text positions to pixel positions, in combination with `layout_offsets'. 
+			-- the PangoLayout used to display the entry. The layout is useful
+			-- to e.g. convert text positions to pixel positions, in
+			-- combination with `layout_offsets'. 
 		
-			-- Keep in mind that the layout text may contain a preedit
-			-- string, so `layout_index_to_text_index' and
-			-- `text_index_to_layout_index' are needed to convert byte
-			-- indices in the layout to byte indices in the entry
-			-- contents.
-		local
-			ptr: POINTER; r: G_OBJECT_EXPANDED_FACTORY[PANGO_LAYOUT]
+			-- Keep in mind that the layout text may contain a preedit string,
+			-- so `layout_index_to_text_index' and `text_index_to_layout_index'
+			-- are needed to convert byte indices in the layout to byte indices
+			-- in the entry contents.
+		local factory: G_OBJECT_EXPANDED_FACTORY[PANGO_LAYOUT]
 		do
-			-- Note: The returned layout is owned by the entry and must
-			-- not be modified or freed by the caller.
-			Result := r.wrapper(gtk_entry_get_layout(handle))
-			Result.set_shared
+			-- Note: The returned layout is owned by the entry and must not be
+			-- modified or freed by the caller.
+			Result := factory.wrapper(gtk_entry_get_layout (handle))
 		end
 
 	layout_offsets: TUPLE[INTEGER,INTEGER] is
@@ -404,8 +403,18 @@ feature -- The "activate" signal
 
 	activate_signal_name: STRING is "activate"
 
-	connect_activate_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ENTRY]]) is
-			-- Connects "activate" signal to `a_procedure'.
+	on_activate is
+			-- Built-in activate signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_activate is
+			-- Connects "activate" signal to `on_activate' feature.
+		do
+			connect (Current, activate_signal_name, $on_activate)
+		end
+
+	connect_agent_to_activate_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ENTRY]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -419,25 +428,60 @@ feature -- The "backspace" signal
 
 	backspace_signal_name: STRING is "backspace"
 
-	-- TODO: implement connect_backspace_signal_to (a_procedure:
+	on_backspace is
+			-- Built-in backspace signal handler; empty by design; redefine it.
+		local a_foo: INTEGER
+		do
+			a_foo := 12 -- Dummy instructions
+		end
+
+	enable_on_backspace is
+			-- Connects "backspace" signal to `on_backspace' feature.
+		do
+			connect (Current, backspace_signal_name, $on_backspace)
+		end
+
+	-- TODO: implement connect_agent_to_backspace_signal (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
-	-- Connects "backspace" signal to `on_backspace' feature.
 
 feature -- The "copy-clipboard" signal
 
-	-- TODO: implement connect_backspace_signal_to (a_procedure:
+	copy_clipboard_signal_name: STRING is "copy-clipboard"
+
+	on_copy_clipboard is
+			-- Built-in copy-clipboard signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_copy_clipboard is
+			-- Connects "copy_clipboard" signal to `on_copy_clipboard' feature.
+		do
+			connect (Current, copy_clipboard_signal_name, $on_copy_clipboard)
+		end
+
+	-- TODO: implement connect_agent_to_backspace_signal (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
-	-- inspiration. -- Connects "copy_clipboard" signal to `on_copy_clipboard' feature.
+	-- inspiration.
 
 feature -- The "cut-clipboard" signal
 
 	cut_clipboard_signal_name: STRING is "cut-clipboard"
 
-	-- TODO: implement connect_cut_clipboard_signal_to (a_procedure:
+	on_cut_clipboard is
+			-- Built-in cut_clipboard signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_cut_clipboard is
+			-- Connects "cut_clipboard" signal to `on_cut_clipboard' feature.
+		do
+			connect (Current, cut_clipboard_signal_name, $on_cut_clipboard)
+		end
+
+	-- TODO: implement connect_agent_to_cut_clipboard_signal (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
-	-- Connects "cut_clipboard" signal to `on_cut_clipboard' feature.
 
 feature -- The "delete-from-cursor" signal
 
@@ -478,29 +522,51 @@ feature -- The "paste-clipboard" signal
 
 	paste_clipboard_signal_name: STRING is "paste-clipboard"
 
-	-- TODO: implement connect_paste_clipboard_signal_to (a_procedure:
+	on_paste_clipboard is
+			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_paste_clipboard is
+			-- Connects "paste-clipboard" signal to `on_paste_clipboard' feature.
+		do
+			connect (Current, paste_clipboard_signal_name, $on_paste_clipboard)
+		end
+
+	-- TODO: implement connect_agent_to_paste_clipboard_signal (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
-	-- Connects "paste-clipboard" signal to `on_paste_clipboard' feature.
 
 feature -- The "populate-popup" signal
 
 	populate_popup_signal_name: STRING is "populate-popup"
 
-	-- TODO: implement connect_populate_popup_signal_to (a_procedure:
+	on_populate_popup (a_menu: GTK_MENU) is
+			-- Built-in paste-clipboard signal handler; empty by design; redefine it.
+		require
+			menu_not_void: a_menu /= Void
+		do
+		end
+
+	enable_on_populate_popup is
+			-- Connects "paste-clipboard" signal to `on_populate_popup' feature.
+		do
+			connect (Current, populate_popup_signal_name, $hidden_on_populate_popup)
+		end
+
+	-- TODO: implement connect_agent_to_populate_popup_signal (a_procedure:
 	-- PROCEDURE [ANY, TUPLE[GTK_ENTRY]]). See GTK_BUTTON's clicked for
 	-- inspiration.
-	-- Connects "paste-clipboard" signal to `on_populate_popup' feature.
 
-feature {} -- TODO: populate-popup signal implementation
+feature {} -- populate-popup signal implementation
 
-	-- hidden_on_populate_popup (a_gtk_menu_pointer, a_gtk_entry_pointer: POINTER) is
-	--	require
-	--	menu_not_null: a_gtk_menu_pointer.is_not_null
-	--		entry_not_null: a_gtk_entry_pointer.is_not_null -- Otherwise very bad things are happening.
-	--	do
-	--		on_populate_popup (wrapper (a_gtk_menu_pointer))
-	-- end
+	hidden_on_populate_popup (a_gtk_menu, a_gtk_entry: POINTER) is
+		require
+			menu_not_null: a_gtk_menu.is_not_null
+			entry_not_null: a_gtk_entry.is_not_null -- Otherwise very bad things are happening.
+		do
+			on_populate_popup (wrapper (a_gtk_menu))
+		end
 	-- void user_function (GtkEntry *entry, GtkMenu *arg1, gpointer
 	--                                             user_data) : Run
 	--                                             last
@@ -521,11 +587,5 @@ feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkEntry)"
-		end
-
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_entry_new
 		end
 end

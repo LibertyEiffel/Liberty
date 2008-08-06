@@ -26,9 +26,9 @@ class DESTROY_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_OBJECT] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_OBJECT]
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_OBJECT
@@ -39,10 +39,9 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that object actually has an Eiffel wrapper.
 			object := wrapper(instance)
-			check
-				object_not_void: object /= Void
-			end
 			procedure.call ([object])
 		end
 

@@ -30,7 +30,7 @@ inherit
 			object
 		end
 
-insert G_OBJECT_FACTORY [GTK_COLOR_BUTTON] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_COLOR_BUTTON]
 
 creation make
 
@@ -41,7 +41,9 @@ feature
 
 	callback (instance: POINTER) is
 		do
-			object := wrapper (instance)
+			-- The following is written with the implicit requirement 
+			-- that object actually has an Eiffel wrapper.
+			object := wrapper(instance)
 			procedure.call ([object])
 		end
 

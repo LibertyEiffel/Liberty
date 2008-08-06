@@ -29,16 +29,12 @@ class GTK_RADIO_TOOL_BUTTON
 inherit
 	GTK_TOGGLE_TOOL_BUTTON
 		rename from_stock as toggle_from_stock
-		redefine dummy_gobject, struct_size
+		redefine struct_size
 		end
-	-- TODO: AtkImplementorIface
+	-- GtkRadioToolButton implements AtkImplementorIface.
 	
 creation
-	dummy,
-	from_group,
-	from_stock,
-	from_widget,
-	from_external_pointer
+	from_group, from_stock, from_widget, from_external_pointer
 
 feature {} -- Creation
 
@@ -92,11 +88,11 @@ feature
 			-- the radio button group button belongs to. 
 
 			-- Note: this feature is re-computed every time it is accessed.
-		local ptr: POINTER;
+		local ptr: POINTER
 		do
 			ptr:=gtk_radio_tool_button_get_group (handle)
 			if ptr.is_not_null then 
-				create Result.from_external(ptr,gtk.radio_tool_button_factory)
+				create {G_OBJECT_SLIST[GTK_RADIO_TOOL_BUTTON]} Result.from_external_pointer(ptr)
 			end
 		end
 
@@ -151,10 +147,4 @@ feature -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkRadioToolButton)"
 		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_radio_tool_button_new(default_pointer)
-		end
-	
 end -- class GTK_RADIO_TOOL_BUTTON

@@ -48,13 +48,16 @@ inherit
 	GTK_BIN
 	GTK_CELL_EDITABLE
 	GTK_CELL_LAYOUT 
+		undefine 
+			store_eiffel_wrapper
+		end
 
 	-- GtkComboBox also implements AtkImplementorIface interface.
 
 insert 
 	GTK_COMBO_BOX_EXTERNALS
 
-creation dummy, make, with_text_only, with_model
+creation make, with_text_only, from_external_pointer
 
 feature {} -- Creation
 
@@ -177,8 +180,9 @@ feature -- Model-related features
 			-- the GtkTreeModel which is acting as data source for
 			-- combo_box.
 		require no_simple_api: not is_text_only
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_MODEL]
 		do
-			Result := tree_model_factory.wrapper(gtk_combo_box_get_model(handle))
+			Result := factory.wrapper(gtk_combo_box_get_model (handle))
 		end
 
 	set_model (a_model: GTK_TREE_MODEL) is
@@ -375,7 +379,6 @@ feature -- Properties
 	-- "appears-as-list" gboolean : Read
 
 	-- Property Details
-feature
 	-- The "active" property
 
 	-- "active" gint : Read / Write
@@ -470,15 +473,26 @@ feature
 feature -- The "changed" signal
 	changed_signal_name: STRING is "changed"
 
-	connect_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COMBO_BOX]]) is
+	enable_on_changed is
 			-- Connects "changed" signal to `on_changed' feature.
+		do
+			connect (Current, changed_signal_name, $on_changed)
+		end
 
-			-- The `changed' signal is emitted when the active item is
-			-- changed.  The can be due to the user selecting a different
-			-- item from the list, or due to a call to
-			-- `set_active_iter'. It will also be emitted while typing
-			-- into a GTK_COMBO_BOX_ENTRY, as well as when selecting an item
-			-- from the GTK_COMBO_BOX_ENTRY's list.
+	on_changed is
+			-- Built-in changed signal handler; empty by design; redefine it.
+
+			-- The `changed' signal is emitted when the active item is changed.
+			-- The can be due to the user selecting a different item from the list,
+			-- or due to a call to gtk_combo_box_set_active_iter(). It will also be
+			-- emitted while typing into a GtkComboBoxEntry, as well as when
+			-- selecting an item from the GtkComboBoxEntry's list.
+		do
+		end
+
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_COMBO_BOX]]) is
+			-- widget : 	the object which received the signal
+			-- user_data : 	user data set when the signal handler was connected.
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -488,14 +502,10 @@ feature -- The "changed" signal
 			changed_callback.connect (Current, a_procedure)
 		end
 
-feature 
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkComboBox)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_combo_box_new
-		end
 end

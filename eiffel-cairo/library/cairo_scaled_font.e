@@ -28,9 +28,9 @@ class CAIRO_SCALED_FONT
 	-- scaled font to speed up the computation of metrics.
 
 	-- TODO: mostly unimplemented
-inherit SHARED_C_STRUCT
+inherit C_STRUCT
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 
@@ -325,6 +325,9 @@ feature {} -- Creation
 	--   Returns :     The type of scaled_font.
 	--
 	--   Since 1.2
+
+feature -- Memory handling 
+	dispose is do free(handle) end
 
 feature -- size
 	struct_size: INTEGER is

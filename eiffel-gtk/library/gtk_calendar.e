@@ -41,19 +41,14 @@ class GTK_CALENDAR
 	
 inherit 
 	GTK_WIDGET
-		-- TODO: AtkImplementorIface
+	-- GtkCalendar implements AtkImplementorIface interface.
 
 insert
 	GTK_CALENDAR_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_calendar_new
-		end
-	
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCalendar)"
@@ -374,4 +369,5 @@ feature {} -- typedef struct _GtkCalendar GtkCalendar;
 	get_year (a_struct: POINTER): INTEGER is
 		external "C struct GtkCalendar get year use <gtk/gtk.h>"
 		end
+
 end

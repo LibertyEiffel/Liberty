@@ -26,7 +26,7 @@ class EDITING_DONE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_CELL_EDITABLE] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_CELL_EDITABLE]
 
 creation make
 
@@ -40,7 +40,6 @@ feature
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			object := wrapper(instance)
-			
 			procedure.call ([object])
 		end
 

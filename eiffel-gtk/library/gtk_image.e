@@ -31,7 +31,7 @@ insert
 	GTK_IMAGE_TYPE
 	GTK_ICON_SIZE
 
-creation dummy,
+creation
 	make, from_file, from_external_pointer, from_pixbuf, from_pixmap, from_stock
 
 feature {} -- Initialization
@@ -108,9 +108,18 @@ feature -- Access
 		require
 			storage_type = gtk_image_pixbuf or storage_type = gtk_image_empty
 		local
+			pixbuf_ptr: POINTER
 			factory: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
 		do
-			Result := factory.wrapper(gtk_image_get_pixbuf(handle))
+			pixbuf_ptr := gtk_image_get_pixbuf (handle)
+			if pixbuf_ptr.is_not_null then
+				Result := factory.wrapper (pixbuf_ptr)
+				if Result = Void then
+					-- We use from_external_pointer here because we *need* to
+					-- increase the pixbuf's refcount
+					create Result.from_external_pointer (pixbuf_ptr)
+				end
+			end
 		end
 
 feature -- Element change
@@ -177,9 +186,4 @@ feature
 		alias "sizeof(GtkImage)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_image_new
-		end
-	
 end

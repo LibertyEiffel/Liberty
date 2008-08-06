@@ -9,7 +9,7 @@ indexing
 	
 deferred class G_SIGNAL
 
-	-- Note: a signal is not a c_struct inherit SHARED_C_STRUCT rename make as make_struct end
+	-- Note: a signal is not a c_struct inherit C_STRUCT rename make as make_struct end
 	
 	-- The basic concept of the signal system is that of the emission
 	-- of a signal. Signals are introduced per-type and are identified
@@ -71,7 +71,7 @@ insert
 feature -- Implementation
 	signal_id: INTEGER_64	
 	
-feature {} -- Unwrapped C 
+feature -- Unwrapped C 
 
 	-- GSignalAccumulator ()
 
@@ -192,8 +192,7 @@ feature {} -- Creation
 			not_yet_implemented
 		end
 	
-
-feature {} -- Unwrapped TODO g_signal_new_valist is unwrappable since it uses va_list
+	-- g_signal_new_valist is unwrappable since it uses va_list
 		
 		
 	-- g_signal_list_ids ()
@@ -540,16 +539,6 @@ feature {} -- Unwrapped TODO g_signal_new_valist is unwrappable since it uses va
 	-- instance : 	the object whose signal handlers you wish to stop.
 	-- signal_id : 	the signal identifier, as returned by g_signal_lookup().
 	-- detail : 	the detail which the signal was emitted with.
-	-- g_signal_stop_emission_by_name ()
-
-	-- void        g_signal_stop_emission_by_name  (gpointer instance,
-	--                                              const gchar *detailed_signal);
-
-	-- Stops a signal's current emission.
-
-	-- This is just like g_signal_stop_emission() except it will look up the signal id for you.
-	-- instance : 	the object whose signal handlers you wish to stop.
-	-- detailed_signal : 	a string of the form "signal-name::detail".
 	-- g_signal_override_class_closure ()
 
 	-- void        g_signal_override_class_closure (guint signal_id,

@@ -21,13 +21,14 @@ indexing
 
 deferred class GLADE_GETTER [W -> GTK_WIDGET]
 
-inherit WRAPPER_HANDLER 
+inherit
+	G_OBJECT 
+	INTERNALS_HANDLER
+		undefine copy, is_equal end
 
-insert GLADE_XML_EXTERNAL
-
-feature {} -- Creation
-
-	handle: POINTER is deferred end
+insert 
+	GLADE_XML_EXTERNAL
+	G_OBJECT_EXTERNALS
 
 feature -- Access
 
@@ -35,11 +36,21 @@ feature -- Access
 		require
 			name /= Void
 		local
-			r: G_OBJECT_EXPANDED_FACTORY [W]
+			factory: G_OBJECT_EXPANDED_FACTORY [W]
 			p: POINTER
-			internal: TYPED_INTERNALS [W] -- Magic for dynamic object creation
 		do
-			Result:=r.wrapper(glade_xml_get_widget (handle, name.to_external))
+			p := glade_xml_get_widget (handle, name.to_external)
+			check p.is_not_null end
+			debug 
+				std_error.put_string(once "GLADE_GETTER.get(%"")
+				std_error.put_string(name)
+				std_error.put_string(once "%"): "); std_error.put_pointer(p)
+			end
+			Result := factory.wrapper (p)
+			debug 
+				std_error.put_string(once ", wrapper "); 
+				std_error.put_string(Result.generator)
+				std_error.put_new_line end
 		ensure
 			Result /= Void
 		end

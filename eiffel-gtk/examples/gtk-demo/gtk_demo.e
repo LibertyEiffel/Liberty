@@ -23,7 +23,7 @@ class GTK_DEMO
 
 insert
 	GTK
-	G_TYPE
+	G_TYPES
 	GTK_STANDARD_ENUMERATIONS
 	PANGO_STYLE
 	-- Eventually insert this - when it will be implemented:
@@ -58,14 +58,14 @@ feature -- widgets
 			Result.set_default_size (600, 400)			
 		end
 
-	hbox: GTK_HBOX is
+   hbox: GTK_HBOX is
 		once 
 			create Result.make (False, 0)
 			Result.pack_start (demo_list, False, False, 0)
 			Result.pack_start (notebook, True, True, 0)
 		end
 
-	notebook: GTK_NOTEBOOK is
+   notebook: GTK_NOTEBOOK is
 		once 
 			create Result.make
 			Result.append_page (text_from (info_buffer),
@@ -75,7 +75,7 @@ feature -- widgets
 									  create {GTK_LABEL}.with_mnemonic (source_label_string));
 		end
 
-	tag: GTK_TEXT_TAG
+   tag: GTK_TEXT_TAG
 
 	demo_list: GTK_TREE_VIEW is
 		local
@@ -261,7 +261,7 @@ feature {} -- Creation
 	--       gchar *p = buffer->str;
 	--       gchar *q;
 	--       gchar *r;
-		
+      
 	--       switch (state)
 	-- 	{
 	-- 	case 0:
@@ -291,11 +291,11 @@ feature {} -- Creation
 	-- 	      gtk_text_buffer_apply_tag_by_name (info_buffer, "title", &start, &end);
 
 	-- 	      start = end;
-			
+	      
 	-- 	      state++;
 	-- 	    }
 	-- 	  break;
-		 
+	    
 	-- 	case 1:
 	-- 	  /* Reading body of info section */
 	-- 	  while (g_ascii_isspace (*p))
@@ -308,14 +308,14 @@ feature {} -- Creation
 	-- 	  else
 	-- 	    {
 	-- 	      int len;
-			
+	      
 	-- 	      while (*p == '*' || g_ascii_isspace (*p))
 	-- 		p++;
 
 	-- 	      len = strlen (p);
 	-- 	      while (g_ascii_isspace (*(p + len - 1)))
 	-- 		len--;
-			
+	      
 	-- 	      if (len > 0)
 	-- 		{
 	-- 		  if (in_para)
@@ -345,7 +345,7 @@ feature {} -- Creation
 	-- 	    }
 	-- 	  else
 	-- 	    break;
-	
+	  
 	-- 	case 3:
 	-- 	  /* Reading program body */
 	-- 	  gtk_text_buffer_insert (source_buffer, &start, p, -1);

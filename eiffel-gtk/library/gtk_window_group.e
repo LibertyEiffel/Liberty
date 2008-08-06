@@ -23,7 +23,7 @@ class GTK_WINDOW_GROUP
 
 inherit G_OBJECT 
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -34,12 +34,7 @@ feature {} -- Creation
 		do
 			from_external_pointer (gtk_window_group_new)
 		end
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_window_group_new
-		end
-feature
+
 	add (a_window: GTK_WINDOW) is
 			-- Adds `a_window' to a GtkWindowGroup.
 		require window_not_void: a_window/=Void

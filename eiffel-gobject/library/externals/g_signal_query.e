@@ -7,11 +7,11 @@ indexing
 
 class G_SIGNAL_QUERY
 
-inherit C_STRUCT
+inherit G_STRUCT
 
-insert G_SIGNAL_FLAGS 	
+insert G_SIGNAL_FLAGS
 
-creation  allocate
+creation allocate
 
 feature -- getters
 	id: INTEGER is
@@ -96,4 +96,3 @@ feature {} -- Implementation
 	-- there's no setters for this structure
 	
 end
-	

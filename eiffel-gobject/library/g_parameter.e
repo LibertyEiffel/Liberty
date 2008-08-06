@@ -6,24 +6,23 @@ indexing
 	description: "G_PARAMETER is an auxiliary data type (structure) used to hand parameter name/value to the creation feature of a G_OBJECT."
 
 class G_PARAMETER
+	-- An auxiliary data type (structure) used to hand parameter
+	-- name/value to the creation feature of a G_OBJECT.
 
-inherit C_STRUCT
+inherit
+	C_STRUCT
+	EIFFEL_OWNED
 
-insert G_PARAMETER_EXTERNALS
+insert 
+	G_PARAMETER_EXTERNALS
 
-creation  from_external_pointer
+creation from_external_pointer
 	
-feature
-	--	is_equal(another: like Current): BOOLEAN is do Result:= 
-	--	handle=another.handle end
-	
-	-- copy(another: like Current) is do 
-	-- from_external_pointer(memcpy(handle)) end
 feature 
 	name: STRING is
 			-- the parameter name
 		do
-			create {CONST_STRING} Result.from_external(get_name_internal(handle))
+			create {CONST_STRING} Result.from_external(get_name(handle))
 		end
 	
 	-- typedef struct {

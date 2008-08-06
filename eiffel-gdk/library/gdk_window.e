@@ -19,6 +19,12 @@ indexing
 					02110-1301 USA
 				]"
 class GDK_WINDOW
+	-- A GdkWindow is a rectangular region on the screen. It's a low-level
+	-- object, used to implement high-level objects such as GtkWidget and
+	-- GtkWindow on the GTK+ level. A GtkWindow is a toplevel window, the thing
+	-- a user might think of as a "window" with a titlebar and so on; a
+	-- GtkWindow may contain many GdkWindow. For example, each GtkButton has a
+	-- GdkWindow associated with it.
 
 inherit GDK_DRAWABLE
 
@@ -26,13 +32,8 @@ insert
 	GDK_WINDOW_EXTERNALS
 	GDK_MODIFIER_TYPE
 
-creation dummy, from_external_pointer
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer, secondary_wrapper_from
 
-feature -- Creation
-	dummy_gobject: POINTER is
-		do
-			Result:=gdk_window_new(default_pointer,default_pointer,0)
-		end
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gdk/gdk.h>"
@@ -40,6 +41,7 @@ feature -- size
 		end
 
 feature
+
 	set_cursor (a_cursor: GDK_CURSOR) is
 		require
 			a_cursor /= Void
@@ -58,26 +60,28 @@ feature
 			--                                              gint *y,
 			--                                              GdkModifierType *mask);
 		local
+			res: POINTER
 			window: GDK_WINDOW
 			x, y, mask: INTEGER
 			factory: G_OBJECT_EXPANDED_FACTORY [GDK_WINDOW]
 		do
-			window := factory.wrapper_or_void(gdk_window_get_pointer(handle, $x, $y, $mask))
+			res := gdk_window_get_pointer (handle, $x, $y, $mask)
+			if res.is_not_null then
+				window := factory.existant_wrapper (res)
+				if window=Void then 
+					create window.from_external_pointer (res)
+				end
+			end
 			mask := mask & gdk_modifier_mask
 			Result := [window, x, y, mask]
 		ensure
 			Result /= Void implies is_valid_gdk_modifier_type (Result.fourth)
 		end
-
---	children: G_LIST [GDK_WINDOW] is
---		local
---			ptr: POINTER
---			f: G_OBJECT_EXPANDED_FACTORY [G_LIST [GDK_WINDOW]]
---		do
---			ptr := gdk_window_get_children (handle)
---			Result := f.exixstent_wrapper (ptr)
---			if Result=Void then create Result.from_external_pointer (ptr) end
---		end
+	
+	children: G_LIST [GDK_WINDOW] is
+		do
+			create {G_OBJECT_LIST[GDK_WINDOW]} Result.from_external_pointer(gdk_window_get_children(handle))
+		end
 
 	-- GList*      gdk_window_peek_children        (GdkWindow *window);
 	-- GdkEventMask gdk_window_get_events          (GdkWindow *window);
@@ -109,22 +113,6 @@ feature
 
 	--             GdkPointerHooks;
 	-- GdkPointerHooks* gdk_set_pointer_hooks      (const GdkPointerHooks *new_hooks);
-
-
-
-	-- Object Hierarchy
-
-	--   GObject
-	--    +----GdkDrawable
-	--          +----GdkWindow
-
-	-- Description
-
-	-- A GdkWindow is a rectangular region on the screen. It's a low-level object, used to implement high-level objects such as GtkWidget and GtkWindow on the GTK+ level. A GtkWindow is a toplevel window, the thing a user might think of as a "window" with a titlebar and so on; a GtkWindow may contain many GdkWindow. For example, each GtkButton has a GdkWindow associated with it.
-	-- Details
-	-- struct GdkWindow
-
-	-- struct GdkWindow;
 
 	-- An opaque structure representing an onscreen drawable. Pointers to structures of type GdkPixmap, GdkBitmap, and GdkWindow, can often be used interchangeably. The type GdkDrawable refers generically to any of these types.
 	-- enum GdkWindowType

@@ -22,18 +22,18 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_ADJUSTMENT
-	-- The GTK_ADJUSTMENT object represents a value which has an
+	-- The GtkAdjustment object represents a value which has an
 	-- associated lower and upper bound, together with step and page
 	-- increments, and a page size. It is used within several GTK+
-	-- widgets, including GTK_SPIN_BUTTON, GTK_VIEW_PORT, and GTK_RANGE
-	-- (which is a base class for GTK_HSCROLLBAR, GTK_VSCROLLBAR,
-	-- GTK_HSCALE, and GTK_VSCALE).
-	
-	-- The GTK_ADJUSTMENT object does not update the value
+	-- widgets, including GtkSpinButton, GtkViewport, and GtkRange
+	-- (which is a base class for GtkHScrollbar, GtkVScrollbar,
+	-- GtkHScale, and GtkVScale).
+
+	-- The GtkAdjustment object does not update the value
 	-- itself. Instead it is left up to the owner of the GtkAdjustment
 	-- to control the value.
 
-	-- The owner of the GTK_ADJUSTMENT typically calls the
+	-- The owner of the GtkAdjustment typically calls the
 	-- `value_changed' and `changed' features after changing the value
 	-- and its bounds. This results in the emission of the
 	-- "value_changed" or "changed" signal respectively.
@@ -47,17 +47,12 @@ insert
 		undefine copy, is_equal
 		end
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkAdjustment)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_adjustment_new(0.5,0.0,1.0,0.05,0.1,0.2)
 		end
 
 feature {} -- Creation

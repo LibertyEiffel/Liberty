@@ -32,13 +32,6 @@ feature {} -- enum
 		alias "GTK_OBJECT_FLAGS"
 		end
 
-	gtk_object_floating (obj: POINTER): INTEGER is
-			-- Evaluates to TRUE if the object still has its floating reference
-			-- count. See the overview documentation for GtkObject.
-		external "C macro use <gtk/gtk.h>"
-		alias "GTK_OBJECT_FLOATING"
-		end
-
 	gtk_object_sink (object: POINTER) is
 			-- Removes the floating reference from a GtkObject, if it exists;
 			-- otherwise does nothing. See the GtkObject overview documentation at

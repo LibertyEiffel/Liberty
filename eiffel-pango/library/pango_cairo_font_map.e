@@ -23,6 +23,9 @@ indexing
 	revision: "$Revision:$"
 
 class PANGO_CAIRO_FONT_MAP
+	-- PANGO_CAIRO_FONT_MAP is an interface exported by font maps for
+	-- use with Cairo. The actual type of the font map will depend on
+	-- the particular font technology Cairo was compiled to use.
 
 inherit
 	PANGO_FONT_MAP
@@ -30,8 +33,8 @@ inherit
 insert
 	PANGO_CAIRO_FONT_MAP_EXTERNALS
 
-creation 
-	make, make_default
+creation
+	make, make_default, from_external_pointer
 
 feature {} -- Creation
 
@@ -40,13 +43,14 @@ feature {} -- Creation
 			-- cache information about available fonts, and holds certain global
 			-- parameters such as the resolution. In most cases, you can use
 			-- PANGO_CAIRO_RENDERER.default_font_map instead.
-			--
+			
 			-- Note that the type of the returned object will depend on the
 			-- particular font backend Cairo was compiled to use; You generally
 			-- should only use the PANGO_FONT_MAP and PANGO_CAIRO_FONT_MAP
-			-- interfaces on the returned object.
+			-- interfaces on the object.
 		do
 			from_external_pointer (pango_cairo_font_map_new)
+			
 		end
 
 	make_default is
@@ -54,7 +58,7 @@ feature {} -- Creation
 			-- Returns the default Cairo fontmap for Pango. This object is owned
 			-- by Pango and must not be freed.
 		do
-			from_external_pointer_shared (pango_cairo_font_map_get_default)
+			from_external_pointer (pango_cairo_font_map_get_default)
 		end
 
 feature -- Operations
@@ -64,8 +68,8 @@ feature -- Operations
 			-- between points specified in a PANGO_FONT_DESCRIPTION and Cairo
 			-- units. The default value is 96, meaning that a 10 point font
 			-- will be 13 units high. (10 * 96. / 72. = 13.3).
-
-			-- `a_dpi': the resolution in "dots per inch". (Physical inches aren't
+			--
+			-- a_dpi: the resolution in "dots per inch". (Physical inches aren't
 			--        actually involved; the terminology is conventional.)
 		do
 			pango_cairo_font_map_set_resolution (handle, a_dpi)
@@ -85,12 +89,7 @@ feature -- Access
 			create Result.from_external_pointer (pango_cairo_font_map_create_context (handle))
 		end
 
-feature 
-	dummy_gobject: POINTER is
-		do
-			Result := pango_cairo_font_map_new
-		end
-
+feature {} -- Implementation
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
 		alias "sizeof(PangoCairoFontMap)"

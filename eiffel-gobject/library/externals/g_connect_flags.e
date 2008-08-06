@@ -10,7 +10,7 @@ deferred class G_CONNECT_FLAGS
 
 inherit ANY undefine is_equal, copy end
 
-feature {} 
+feature
 	are_valid_connect_flags (some_flags: INTEGER): BOOLEAN is
 		do
 			Result:=(some_flags & (g_connect_after | g_connect_swapped)).to_boolean

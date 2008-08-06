@@ -32,7 +32,7 @@ insert
 	PANGO_CAIRO_LAYOUT_EXTERNALS
 	WRAPPER_HANDLER
 
-creation dummy,
+creation
 	for_cairo, make
 
 feature {} -- Creation

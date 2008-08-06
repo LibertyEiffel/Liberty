@@ -43,4 +43,12 @@ feature {} -- enum
 		external "C use <gdk/gdk.h>"
 		end
 
+	gdk_cursor_ref (handle: POINTER): POINTER is
+		external "C use <gdk/gdk.h>"
+		end
+
+	gdk_cursor_unref (handle: POINTER) is
+		external "C use <gdk/gdk.h>"
+		end
+
 end -- GDK_CURSOR_EXTERNALS

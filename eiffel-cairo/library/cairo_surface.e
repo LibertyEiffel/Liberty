@@ -32,7 +32,8 @@ class CAIRO_SURFACE
 	-- a bitmap image in memory.
 
 inherit
-	SHARED_C_STRUCT
+	C_STRUCT 
+	REFERENCE_COUNTED 
 
 insert
 	CAIRO_SURFACE_EXTERNALS
@@ -40,9 +41,9 @@ insert
 	CAIRO_STATUS
 	CAIRO_CONTENT
 
-creation dummy, make_similar, from_external_pointer
+creation make_similar, from_external_pointer
 
-feature {} -- Creation
+feature -- Creation
 
 	make_similar (another: CAIRO_SURFACE; a_content: INTEGER; a_width, an_height: INTEGER) is
 			-- Create a new surface that is as compatible as possible
@@ -74,14 +75,6 @@ feature {} -- Creation
 			-- function always returns a valid pointer, but it will
 			-- return a pointer to a "nil" surface if other is already in
 			-- an error state or any other error occurs.
-		end
-
-	destroy is
-			-- Decreases the reference count on surface by one. If the
-			-- result is zero, then surface and all associated resources
-			-- are freed. See `reference'.
-		do
-			cairo_surface_destroy(handle)
 		end
 
 feature -- Operations
@@ -199,16 +192,6 @@ feature -- Operations
 			cairo_surface_mark_dirty_rectangle (handle, an_x, an_y, a_width, an_height)
 		end
 
-	ref is
-			-- Increases the reference count on surface by one. This
-			-- prevents surface from being destroyed until a matching
-			-- call to `destroy' is made.
-		local
-			p: POINTER
-		do
-			p := cairo_surface_reference (handle)
-		end
-
 	set_device_offset (an_offset: CAIRO_POINT) is
 			-- Sets an offset that is added to the device coordinates
 			-- determined by the CTM when drawing to surface. One use
@@ -276,9 +259,28 @@ feature -- Operations
 			valid_result: is_valid_cairo_status (Result)
 		end
 
-feature {WRAPPER, WRAPPER_HANDLER} -- Low-level features
+feature -- Memory handling
+	ref is
+			-- Increases the reference count on surface by one. This
+			-- prevents surface from being destroyed until a matching
+			-- call to `destroy' is made.
+		local
+			p: POINTER
+		do
+			p := cairo_surface_reference (handle)
+			check p=handle end
+		end
 
-	type: INTEGER is
+	unref is
+			-- Decreases the reference count on surface by one. If the
+			-- result is zero, then surface and all associated resources
+			-- are freed. See `reference'.
+		do
+			cairo_surface_destroy(handle)
+		end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Low-level features
+		type: INTEGER is
 			-- the type of the backend used to create a surface.  See
 			-- CAIRO_SURFACE_TYPE for available types.
 		do

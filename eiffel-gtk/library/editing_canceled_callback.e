@@ -26,7 +26,7 @@ class EDITING_CANCELED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_CELL_RENDERER] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_CELL_RENDERER]
 
 creation make
 

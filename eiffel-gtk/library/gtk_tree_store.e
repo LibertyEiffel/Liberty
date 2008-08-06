@@ -37,17 +37,15 @@ insert
 	GTK_STORE_SETTERS
 	GTK_TREE_STORE_EXTERNALS
 
-creation dummy, make
+creation make, from_external_pointer
 
 feature {} -- Creation
 
-	make (some_columns: ARRAY[INTEGER_32]) is
+	make (some_columns: ARRAY[INTEGER]) is
 			-- Creates a new tree store. `some_columns' is an array of integers; each
 			-- integer is the G_TYPE of an actual column. Note that only types
 			-- derived from standard GObject fundamental types are supported.
-		require
-			gtk_initialized: gtk.is_initialized
-			valid_columns: are_valid_gtypes(some_columns)
+		require gtk_initialized: gtk.is_initialized
 		do
 			from_external_pointer (gtk_tree_store_newv (some_columns.count, some_columns.to_external))
 		end
@@ -61,6 +59,10 @@ feature -- Generic setter
 			-- `an_iterator': A valid GtkTreeIter for the row being modified
 			-- `a_column' : column number to modify
 			-- `a_value' : new value for the cell
+		require
+			valid_iterator: an_iterator/=Void
+			valid_value: a_value /= Void -- and then Eiffelize "The type of
+			-- `a_value' must be convertible to the type of the column."
 		do
 			gtk_tree_store_set_value (handle, an_iterator.handle, a_column, a_value.handle)
 		end
@@ -110,10 +112,13 @@ feature -- Generic setter
 			-- To fill in values, you need to call some of the set_* methods.
 		require
 			valid_iterator: an_iterator /= Void
+		local
+			parent_pointer, sibling_pointer: POINTER
 		do
+			if a_parent /= Void then parent_pointer := a_parent.handle end
+			if a_sibling /= Void then sibling_pointer := a_sibling.handle end
 			gtk_tree_store_insert_before (handle, an_iterator.handle,
-													null_or(a_parent),
-													null_or(a_sibling))
+										 parent_pointer, sibling_pointer)
 		end
 
 	put_after, insert_after (an_iterator, a_parent, a_sibling: GTK_TREE_ITER) is
@@ -148,9 +153,6 @@ feature -- Generic setter
 			-- be appended to the list. The row will be filled with the
 			-- values given to this function.
 
-			-- `an_iterator' is an unset GTK_TREE_ITER to set to the
-			-- inserted row
-		
 			-- Calling store.insert_with_values (iter, parent, position,
 			-- cols, vals) has the same effect as calling
 
@@ -171,13 +173,17 @@ feature -- Generic setter
 		do
 			not_yet_implemented
 			-- TODO: some_values.to_external is an array of pointers to the Eiffel wrappers!!!
-			gtk_tree_store_insert_with_valuesv
-			(handle, an_iterator.handle,
-			 a_parent.handle, a_position,
-			 some_columns.to_external,-- gint *columns an array of column numbers
-			 some_values.to_external, -- GValue *values an array of GValues
-			 some_values.count -- gint n_values the length of the columns and values arrays
-			 )
+			gtk_tree_store_insert_with_valuesv (handle, an_iterator.handle,
+															a_parent.handle,
+															a_position,
+															-- gint *columns an array of column numbers
+															some_columns.to_external,
+															-- GValue *values an array of GValues
+															some_values.to_external,
+															-- gint n_values the length of the
+															-- columns and values arrays
+															some_values.count
+														  )
 		end
 
 	add_first, prepend (an_iterator, a_parent: GTK_TREE_ITER) is
@@ -321,20 +327,14 @@ feature -- struct size
 		alias "sizeof(GtkTreeStore)"
 		end
 
-	dummy_gobject: POINTER is
-		local ca: ARRAY[INTEGER_32]
-		do
-			ca := <<g_type_int>>
-			Result:=gtk_tree_store_newv(1,ca.to_external)
-		end
-	
-	-- TODO:
-	--             GtkTreeStore;
-	-- GtkTreeStore* gtk_tree_store_newv           (gint n_columns,
-	
-	-- void gtk_tree_store_set (GtkTreeStore *tree_store, GtkTreeIter
-	-- *iter, ...);
+-- TODO:
+-- --             GtkTreeStore;
+-- -- GtkTreeStore* gtk_tree_store_newv           (gint n_columns,
 
-	-- void gtk_tree_store_set_valist (GtkTreeStore *tree_store,
-	-- GtkTreeIter *iter, va_list var_args);
+-- -- void        gtk_tree_store_set              (GtkTreeStore *tree_store,
+-- --                                              GtkTreeIter *iter,
+-- --                                              ...);
+-- -- void        gtk_tree_store_set_valist       (GtkTreeStore *tree_store,
+-- --                                              GtkTreeIter *iter,
+-- --                                              va_list var_args);
 end

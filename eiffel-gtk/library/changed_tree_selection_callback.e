@@ -28,9 +28,9 @@ inherit
 	CALLBACK redefine object end
 
 insert
-		G_OBJECT_FACTORY [GTK_TREE_SELECTION] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_TREE_SELECTION]
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_TREE_SELECTION
@@ -42,6 +42,9 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement
+			-- that the object is actually created by the Eiffel
+			-- application.
 			object := wrapper(instance)
 			procedure.call ([object])
 		end

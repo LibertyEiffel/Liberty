@@ -1,7 +1,7 @@
 indexing
-	description: "."
+	description: "GDK_ATOM - An opaque type representing a string as an index into a table of strings on the X server."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli
+					Copyright (C) 2008 eiffel-libraries team, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -17,22 +17,24 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-			]"
+				]"
 
-deferred class SHARED_FACTORIES
-	-- Various shared factories used in the eiffel-gobject cluster
+expanded class GDK_ATOM
 
-insert ANY undefine is_equal, copy end
+insert
+	EXPANDED_WRAPPER
+		
+create initialize
 
-feature {} -- Factories and archetypes
-	g_param_spec_factory: ARCHETYPE_CACHING_FACTORY [G_PARAM_SPEC] is
-		once
-			create Result.with_archetype(g_param_spec_archetype)
+feature
+	initialize is 
+			-- Empty initialization
+		do
 		end
-	
-	g_param_spec_archetype: G_PARAM_SPEC is
-		once 
-			create Result.dummy
+
+	struct_size: INTEGER is
+		external "C inline use <gdk/gdk.h>"
+		alias "sizeof(GdkAtom)"
 		end
-	
-end -- class  SHARED_FACTORIES
+
+end -- class GDK_ATOM

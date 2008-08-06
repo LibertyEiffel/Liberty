@@ -103,7 +103,7 @@ feature {} -- External calls
 		end
 
 
-	-- TODO: wrap access to GParamSpecClass struct
+	-- TODO: wrap in necessary access to GParamSpecClass struct
 	
 	-- typedef struct {
 	--   GTypeClass      g_type_class;
@@ -917,27 +917,23 @@ feature {} -- External calls for parameter specs of double type
 		alias "G_TYPE_PARAM_DOUBLE"
 		end
 
-	get_min_double (spec: POINTER): REAL is
-			-- gdouble minimum; minimum value for the property specified
-		external "C struct GParamSpecDouble get minumum use <glib-object.h>"
-		end
-	
-	get_max_double (spec: POINTER): REAL is
-			-- gdouble maximum; maximum value for the property specified
-		external "C struct GParamSpecDouble get maximum use <glib-object.h>"
-		end
-	
-	get_default_double (spec: POINTER): REAL is
-			-- gdouble maximum; maximum value for the property specified
-		external "C struct GParamSpecDouble get default_value use <glib-object.h>"
-		end
+	-- TODO: wrap if necessary GParamSpecDouble
 
-	get_epsilong_double (spec: POINTER): REAL is
-			-- gdouble epsilon; values closer than epsilon will be
-			-- considered identical by g_param_values_cmp(); the default
-			-- value is 1e-90.
-		external "C struct GParamSpecDouble get default_value use <glib-object.h>"
-		end
+	-- typedef struct {
+	-- GParamSpec parent_instance;
+ 
+	-- gdouble minimum;
+	-- gdouble maximum;
+	-- gdouble default_value;
+	-- gdouble epsilon;
+	-- } GParamSpecDouble;
+
+	-- A GParamSpec derived structure that contains the meta data for double properties.
+	-- GParamSpec parent_instance; private GParamSpec portion
+	-- gdouble minimum; minimum value for the property specified
+	-- gdouble maximum; maximum value for the property specified
+	-- gdouble default_value; default value for the property specified
+	-- gdouble epsilon; values closer than epsilon will be considered identical by g_param_values_cmp(); the default value is 1e-90.
 
 	g_param_spec_double (a_const_name, a_const_nick, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: REAL; some_flags: INTEGER): POINTER is -- GParamSpec*
 
@@ -1237,11 +1233,11 @@ feature {} -- External calls for parameter specs of pointer type
 feature	{} -- TODO: Unwrapped code
 -- -- G_IS_PARAM_SPEC_OBJECT()
 
-	g_is_param_spec_object (a_pspec: POINTER): INTEGER is
-			-- G_IS_PARAM_SPEC_OBJECT (a_pspec: POINTER) (G_TYPE_CHECK_INSTANCE_TYPE ((pspec), G_TYPE_PARAM_OBJECT)) is
-		external "C macro use <glib-object.h>"
-		alias "G_IS_PARAM_SPEC_OBJECT"
-		end
+-- G_IS_PARAM_SPEC_OBJECT (a_pspec: POINTER) (G_TYPE_CHECK_INSTANCE_TYPE ((pspec), G_TYPE_PARAM_OBJECT)) is
+--  external "C macro use <glib-object.h>"
+--  alias "G_IS_PARAM_SPEC_OBJECT"
+--  end
+
 
 -- -- Returns whether the given GParamSpec is of type G_TYPE_PARAM_OBJECT.
 -- -- pspec : a valid GParamSpec instance

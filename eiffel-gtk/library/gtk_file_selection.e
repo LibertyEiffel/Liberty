@@ -22,32 +22,28 @@ indexing
 	wrapped_version: "2.10.6"
 
 class GTK_FILE_SELECTION
-	-- GtkFileSelection has been superseded by the newer GtkFileChooser
-	-- family of widgets.
-
-	-- GtkFileSelection should be used to retrieve file or directory
-	-- names from the user. It will create a new dialog window
-	-- containing a directory list, and a file list corresponding to
-	-- the current working directory. The filesystem can be navigated
-	-- using the directory list or the drop-down history
-	-- menu. Alternatively, the TAB key can be used to navigate using
-	-- filename completion - common in text based editors such as emacs
-	-- and jed.
+	-- GtkFileSelection has been superseded by the newer GtkFileChooser family
+	-- of widgets.
+	--
+	-- GtkFileSelection should be used to retrieve file or directory names from
+	-- the user. It will create a new dialog window containing a directory list,
+	-- and a file list corresponding to the current working directory. The
+	-- filesystem can be navigated using the directory list or the drop-down
+	-- history menu. Alternatively, the TAB key can be used to navigate using
+	-- filename completion - common in text based editors such as emacs and jed.
 
 	-- File selection dialogs are created with a call to `make'.
 	
-	-- The default filename can be set using `set_filename' and the
-	-- selected filename retrieved using `filename'.
+	-- The default filename can be set using `set_filename' and the selected
+	-- filename retrieved using `filename'.
 	
-	-- Use gtk_file_selection_complete() to display files and
-	-- directories that match a given pattern. This can be used for
-	-- example, to show only *.txt files, or only files beginning with
-	-- gtk*.
+	-- Use gtk_file_selection_complete() to display files and directories that
+	-- match a given pattern. This can be used for example, to show only *.txt
+	-- files, or only files beginning with gtk*.
 	
-	-- Simple file operations; create directory, delete file, and
-	-- rename file, are available from buttons at the top of the
-	-- dialog. These can be hidden using
-	-- gtk_file_selection_hide_fileop_buttons() and shown again using
+	-- Simple file operations; create directory, delete file, and rename file,
+	-- are available from buttons at the top of the dialog. These can be hidden
+	-- using gtk_file_selection_hide_fileop_buttons() and shown again using
 	-- gtk_file_selection_show_fileop_buttons().
 	
 	-- Example 1. Getting a filename from the user.
@@ -100,18 +96,20 @@ obsolete
 inherit
 	GTK_DIALOG
 		undefine
+			struct_size,
 			get_action_area
-		redefine
-			dummy_gobject,
-			struct_size
 		end
-	-- TODO: AtkImplementorIface
+		--   GtkFileSelection implements AtkImplementorIface.
 
 insert
 	GTK_FILE_SELECTION_EXTERNALS
 	GTK_FILE_SELECTION_STRUCT
+		undefine
+			copy,
+			is_equal
+		end
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	with_title (a_title: STRING) is
@@ -225,15 +223,4 @@ feature
 	-- properties already have strongly-typed setter and getter
 	-- features, so they don't need to be wrapped.
 	
-feature 
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkFileSelection)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=(gtk_file_selection_new
-						((once "GTK_FILE_SELECTION title").to_external))
-		end
 end -- class GTK_FILE_SELECTION

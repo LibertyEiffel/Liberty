@@ -1,5 +1,5 @@
 indexing
-	description: "GtkHScrollbar — A vertical scrollbar."
+	description: "GtkHScrollbar, a vertical scrollbar."
 	copyright: "[
 					Copyright (C) 2006 Paolo Redaelli, GTK+ team
 					
@@ -28,7 +28,7 @@ class GTK_VSCROLLBAR
 inherit GTK_SCROLLBAR
 	-- GtkHScrollbar implements AtkImplementorIface.
 	
-creation dummy, make, with_adjustment, from_external_pointer
+creation make, with_adjustment, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -58,10 +58,5 @@ feature -- size
 feature {} -- External calls
 	gtk_vscrollbar_new (gtk_adjustment: POINTER): POINTER is -- GtkWidget*
 		external "C use <gtk/gtk.h>"
-		end
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_vscrollbar_new (default_pointer)
 		end
 end -- class GTK_VSCROLLBAR

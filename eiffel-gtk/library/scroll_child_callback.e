@@ -26,7 +26,7 @@ class SCROLL_CHILD_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_SCROLLED_WINDOW] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_SCROLLED_WINDOW]
 
 creation make
 

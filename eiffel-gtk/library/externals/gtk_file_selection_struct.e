@@ -6,14 +6,6 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_FILE_SELECTION_STRUCT
-
-insert
-	ANY
-		undefine
-			copy,
-			is_equal
-		end
-
 feature {} -- Structure getter/setter calls
 	--  GtkFileSelection
 	--

@@ -9,7 +9,8 @@ class PLAIN_WINDOW_EXAMPLE
 inherit
 	GTK_MAIN
 	
-creation	make
+creation
+	make
 	
 feature {} -- creation
 	make is

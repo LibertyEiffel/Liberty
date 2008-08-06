@@ -26,9 +26,9 @@ class EXPAND_COLLAPSE_CURSOR_ROW_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_TREE_VIEW] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_TREE_VIEW]
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_TREE_VIEW

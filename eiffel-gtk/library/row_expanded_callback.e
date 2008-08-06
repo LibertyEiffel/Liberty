@@ -38,12 +38,14 @@ feature
 		local
 			tree_iter_obj: GTK_TREE_ITER
 			tree_path_obj: GTK_TREE_PATH
-			g_tree_view: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_VIEW]
+			view_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_VIEW]
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			object := g_tree_view.wrapper(instance)
+			-- The following is written with the implicit requirement 
+			-- that the object is actually created by the Eiffel 
+			object := view_factory.wrapper(instance)
 			create tree_iter_obj.copy_from_pointer (tree_iter)
 			create tree_path_obj.copy_from_pointer (tree_path)
 			procedure.call ([tree_iter_obj, tree_path_obj, object])

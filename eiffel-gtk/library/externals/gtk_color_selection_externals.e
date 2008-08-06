@@ -114,7 +114,7 @@ feature {} -- Externals
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_color_selection_palette_to_string (some_colors: POINTER; an_n_colors: INTEGER): POINTER is
+	gtk_color_selection_palette_to_string (some_colors: POINTERM an_n_colors: INTEGER): POINTER is
 			-- gchar* gtk_color_selection_palette_to_string (const GdkColor *colors, gint n_colors);
 		external "C use <gtk/gtk.h>"
 		end

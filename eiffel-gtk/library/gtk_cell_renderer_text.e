@@ -34,14 +34,9 @@ insert
 	PANGO_STYLE
 	GTK_CELL_RENDERER_TEXT_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_cell_renderer_text_new
-		end
-	
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkCellRendererText)"
@@ -434,6 +429,16 @@ feature -- "edited"
 		--                                             gchar *arg1,
 		--                                             gchar *arg2,
 		--                                             gpointer user_data);
+
+	enable_on_edited is
+			-- Connects "edited" signal to `on_edited' feature.
+		do
+			connect (Current, edited_signal_name, $on_edited)
+		end
+
+	on_edited: INTEGER is
+		do
+		end
 
 	connect_agent_to_edited_signal (a_procedure: PROCEDURE[ANY, TUPLE [STRING, STRING, GTK_CELL_RENDERER_TEXT]]) is
 			-- cellrenderertext : 	the object which received the signal.

@@ -26,14 +26,13 @@ class GTK_STYLE
 	-- it shouldn't be freed by our code, but
 	-- shall be freed by C when the widget is freed.
 
-inherit
-	SHARED_C_STRUCT
+inherit G_OBJECT
 
 insert
-	GTK_STYLE_EXTERNALS
 	GTK_STATE_TYPE
+	GTK_STYLE_EXTERNALS
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature -- size
 
@@ -42,40 +41,45 @@ feature -- size
 		alias "sizeof(GtkStyle)"
 		end
 
-feature -- Access
+feature -- Accessq
+	-- Using strings for color lookups is inefficient! And it is much less
+	-- efficient to search for the index of an item in an array which contains
+	-- the given "pen-name" and then using it to get access the low-level C
+	-- array. Not to speak of correctness. How easy is to break the contract!
+	-- As easy as a mistype or much subtler as easy as issuing
+	-- "states.put(2,Void)". Paolo 2008-08-01
 
-	states: ARRAY [STRING] is
+	states: FAST_ARRAY [STRING] is
 		once
-			Result := <<"NORMAL", "ACTIVE", "PRELIGHT", "SELECTED", "INSENSITIVE">>
-			Result.reindex(0)
+			Result := {FAST_ARRAY[STRING] <<"NORMAL", "ACTIVE", "PRELIGHT", "SELECTED", "INSENSITIVE">>}
 		end
 
 	background_color (a_state: STRING): GDK_COLOR is
 		require
 			states.has (a_state)
 		do
-			create Result.from_external_pointer (gtk_style_get_bg (handle, states.index_of(a_state, 1)))
+			create Result.from_external_pointer (gtk_style_get_bg (handle, states.first_index_of(a_state)))
 		end
 
 	foreground_color (a_state: STRING): GDK_COLOR is
 		require
 			states.has (a_state)
 		do
-			create Result.from_external_pointer (gtk_style_get_fg (handle, states.index_of(a_state, 1)))
+			create Result.from_external_pointer (gtk_style_get_fg (handle, states.first_index_of(a_state)))
 		end
 
 	text_color (a_state: STRING): GDK_COLOR is
 		require
 			states.has (a_state)
 		do
-			create Result.from_external_pointer (gtk_style_get_text (handle, states.index_of(a_state, 1)))
+			create Result.from_external_pointer (gtk_style_get_text (handle, states.first_index_of(a_state)))
 		end
 
 	base_color (a_state: STRING): GDK_COLOR is
 		require
 			states.has (a_state)
 		do
-			create Result.from_external_pointer (gtk_style_get_base (handle, states.index_of(a_state, 1)))
+			create Result.from_external_pointer (gtk_style_get_base (handle, states.first_index_of(a_state)))
 		end
 
 feature -- Operations

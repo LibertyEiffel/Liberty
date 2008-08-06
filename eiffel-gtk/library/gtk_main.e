@@ -29,178 +29,330 @@ inherit
 	WRAPPER_HANDLER  redefine default_create end
 
 insert
+	SHARED_CREATION_DICTIONARY  redefine default_create end
+	GDK
+	PANGO
 	ARGUMENTS redefine default_create end
 	GTK_MAIN_EXTERNALS redefine default_create end
 	POINTER_HANDLING redefine default_create end
-	SHARED_ARCHETYPES_DICTIONARY [G_OBJECT] redefine default_create end
-	GTK_FACTORIES  redefine default_create end
-	GDK_FACTORIES  redefine default_create end
-	
+
 creation default_create
 
 feature -- Creation
+
 	default_create is
 		do
 			create error.empty
 			initialize
-			initialize_eiffel_library
+			store_creation_agents
 		end
 
-	initialize_eiffel_library is
-			-- Initialize the Eiffel-side of the run-time type system 
-			-- needed for a functional GObject-using library.
-
-			-- This feature is automatically invoked when creating the
-			-- first GTK-related object; it stores the archetypes for
-			-- each known effective GTK class; they are needed to provide
-			-- proper Eiffel wrappers when the wrapper receive an
-			-- arbitrary GObject from the underlying library and it is
-			-- not possible to know at compile time a useful type for it.
-
-			-- Note: automatic invoking is obtained having a `gtk' 
-			-- singleton object in each GTK_OBJECT
-
-			-- Note: another possible workaround would be to remove the 
-			-- "deferred" mark from some parent classes. This works fine 
-			-- until you want to "downcast" an object into a more 
-			-- specialized type (i.e.: the "::=" operator).
-		
-			-- TODO: find which kind of classes require archetypes,
-			-- i.e. find which functions returns a "polymorphic" pointer
-			-- and store archetypes for that types and all their
-			-- anchestors
-		require gtk_initialized: is_initialized
-		once
-			debug
-				io.put_line(once "FIXME: in GTK_MAIN.initialize_eiffel_library many archetypes are still not created. Paolo 2007-10-15")
+feature -- Creation agents
+	-- Creation agents are functions that given a pointer returns an
+	-- Eiffel wrapper of a precise kind. They are usually stored into
+	store_creation_agents is
+		local old_count: INTEGER
+		do
+			debug 
+				std_error.put_string(once "Putting wrapper-creation-agents into creation_agents dictionary%N")
+				old_count := creation_agents.count
 			end
-			store_archetype(create {GTK_ABOUT_DIALOG}.dummy)
-			debug io.put_line("FIXME: store_archetype(create {GTK_ACCELERATOR_MAP}.dummy)") end
-			store_archetype(create {GTK_ACCEL_LABEL}.dummy)
-			store_archetype(create {GTK_ACTION}.dummy)
-			store_archetype(create {GTK_ACTION_GROUP}.dummy)
-			store_archetype(create {GTK_ADJUSTMENT}.dummy)
-			store_archetype(create {GTK_ALIGNMENT}.dummy)
-			store_archetype(create {GTK_ARROW}.dummy)
-			store_archetype(create {GTK_ASPECT_FRAME}.dummy)
-			store_archetype(create {GTK_ASSISTANT}.dummy)
-			store_archetype(create {GTK_BUTTON}.dummy)
-			store_archetype(create {GTK_CALENDAR}.dummy)
-			store_archetype(create {GTK_CELL_RENDERER_ACCEL}.dummy)
-			store_archetype(create {GTK_CELL_RENDERER_COMBO}.dummy)
-			store_archetype(create {GTK_CELL_RENDERER_PIXBUF}.dummy)
-			store_archetype(create {GTK_CELL_RENDERER_PROGRESS}.dummy)
-			store_archetype(create {GTK_CELL_RENDERER_SPIN}.dummy)
-			store_archetype(create {GTK_CELL_RENDERER_TEXT}.dummy)
-			store_archetype(create {GTK_CELL_RENDERER_TOGGLE}.dummy)
-			store_archetype(create {GTK_CELL_VIEW}.dummy)
-			-- store_archetype(create {GTK_CHECK_BUTTON}.dummy)
-			store_archetype(create {GTK_CHECK_MENU_ITEM}.dummy)
-			-- Note: GTK_CLIPBOARD does not have an easy to grasp candidate 
-			-- for dummy g_object
-			store_archetype(create {GTK_COLOR_BUTTON}.dummy)
-			store_archetype(create {GTK_COLOR_SELECTION_DIALOG}.dummy)
-			store_archetype(create {GTK_COLOR_SELECTION}.dummy)
-			store_archetype(create {GTK_COMBO_BOX}.dummy)
-			store_archetype(create {GTK_COMBO_BOX_ENTRY}.dummy)
-			store_archetype(create {GTK_DIALOG}.dummy)
-			store_archetype(create {GTK_DRAWING_AREA}.dummy)
-			store_archetype(create {GTK_ENTRY_COMPLETION}.dummy)
-			store_archetype(create {GTK_ENTRY}.dummy)
-			store_archetype(create {GTK_EVENT_BOX}.dummy)
-			store_archetype(create {GTK_EXPANDER}.dummy)
-			store_archetype(create {GTK_FILE_CHOOSER_BUTTON}.dummy)
-			store_archetype(create {GTK_FILE_CHOOSER_DIALOG}.dummy)
-			store_archetype(create {GTK_FILE_CHOOSER_WIDGET}.dummy)
-			store_archetype(create {GTK_FILE_FILTER}.dummy)
-			store_archetype(create {GTK_FONT_BUTTON}.dummy)
-			store_archetype(create {GTK_FONT_SELECTION_DIALOG}.dummy)
-			store_archetype(create {GTK_FONT_SELECTION}.dummy)
-			store_archetype(create {GTK_FRAME}.dummy)
-			store_archetype(create {GTK_HBOX}.dummy)
-			store_archetype(create {GTK_HBUTTON_BOX}.dummy)
-			store_archetype(create {GTK_HPANED}.dummy)
-			store_archetype(create {GTK_HSCALE}.dummy)
-			store_archetype(create {GTK_HSCROLLBAR}.dummy)
-			store_archetype(create {GTK_HSEPARATOR}.dummy)
-			store_archetype(create {GTK_ICON_THEME}.dummy)
-			store_archetype(create {GTK_ICON_VIEW}.dummy)
-			store_archetype(create {GTK_IMAGE}.dummy)
-			store_archetype(create {GTK_IMAGE_MENU_ITEM}.dummy)
-			store_archetype(create {GTK_LABEL}.dummy)
-			store_archetype(create {GTK_LAYOUT}.dummy)
-			store_archetype(create {GTK_LINK_BUTTON}.dummy)
-			store_archetype(create {GTK_LIST_STORE}.dummy)
-			store_archetype(create {GTK_MENU_BAR}.dummy)
-			store_archetype(create {GTK_MENU}.dummy)
-			store_archetype(create {GTK_MENU_ITEM}.dummy)
-			store_archetype(create {GTK_MENU_TOOL_BUTTON}.dummy)
-			debug  io.put_line("FIXME: NULL dummy_gobject in store_archetype(create {GTK_MESSAGE_DIALOG}.dummy)") end
-			store_archetype(create {GTK_NOTEBOOK}.dummy)
-			store_archetype(create {GTK_PAGE_SETUP}.dummy)
-			debug io.put_line("FIXME: find a proper way to implement dummy_gobject in GTK_PRINT_BACKEND, GTK_PRINTER, GTK_PRINT_JOB, GTK_PRINT_OPERATION, GTK_PRINT_SETTINGS") end
-			-- store_archetype(create {GTK_PRINT_BACKEND}.dummy)") end
-			-- store_archetype(create {GTK_PRINTER}.dummy)
-			-- store_archetype(create {GTK_PRINT_JOB}.dummy)
-			-- store_archetype(create {GTK_PRINT_OPERATION}.dummy)
-			-- store_archetype(create {GTK_PRINT_SETTINGS}.dummy)
-			store_archetype(create {GTK_PROGRESS_BAR}.dummy)
-			store_archetype(create {GTK_RADIO_ACTION}.dummy)
-			store_archetype(create {GTK_RADIO_BUTTON}.dummy)
-			store_archetype(create {GTK_RADIO_MENU_ITEM}.dummy)
-			store_archetype(create {GTK_RADIO_TOOL_BUTTON}.dummy)
-			store_archetype(create {GTK_RC_STYLE}.dummy)
-			store_archetype(create {GTK_SCROLLED_WINDOW}.dummy)
-			store_archetype(create {GTK_SEPARATOR_MENU_ITEM}.dummy)
-			store_archetype(create {GTK_SEPARATOR_TOOL_ITEM}.dummy)
-			store_archetype(create {GTK_SPIN_BUTTON}.dummy)
-			store_archetype(create {GTK_STATUS_BAR}.dummy)
-			store_archetype(create {GTK_STATUS_ICON}.dummy)
-			store_archetype(create {GTK_TABLE}.dummy)
-			store_archetype(create {GTK_TEAROFF_MENU_ITEM}.dummy)
-			store_archetype(create {GTK_TEXT_BUFFER}.dummy)
-			store_archetype(create {GTK_TEXT_CHILD_ANCHOR}.dummy)
-			debug io.put_line("FIXME: re-enable itstore_archetype(create {GTK_TEXT_MARK}.dummy)") end
-			store_archetype(create {GTK_TEXT_TAG}.dummy)
-			store_archetype(create {GTK_TEXT_TAG_TABLE}.dummy)
-			store_archetype(create {GTK_TEXT_VIEW}.dummy)
-			store_archetype(create {GTK_TOGGLE_ACTION}.dummy)
-			store_archetype(create {GTK_TOGGLE_BUTTON}.dummy)
-			store_archetype(create {GTK_TOGGLE_TOOL_BUTTON}.dummy)
-			store_archetype(create {GTK_TOOLBAR}.dummy)
-			store_archetype(create {GTK_TOOL_BUTTON}.dummy)
-			store_archetype(create {GTK_TOOL_ITEM}.dummy)
-			store_archetype(create {GTK_TOOLTIPS}.dummy)
-			store_archetype(create {GTK_TREE_MODEL_FILTER}.dummy)
-			store_archetype(create {GTK_TREE_MODEL_SORT}.dummy)
-			
-			store_archetype(create {GTK_TREE_STORE}.dummy)
-			store_archetype(create {GTK_TREE_VIEW_COLUMN}.dummy)
-			store_archetype(create {GTK_TREE_VIEW}.dummy)
-			-- GTK_TREE_VIEW archetype must be stored before
-			-- GTK_TREE_SELECTION; otherwise the GtkTreeSelection Gobject
-			-- class won't be present. Is this still relevant? Paolo
-			-- 2007-10-24
-			store_archetype(create {GTK_TREE_SELECTION}.dummy)
-			store_archetype(create {GTK_VBOX}.dummy)
-			store_archetype(create {GTK_VBUTTON_BOX}.dummy)
-			store_archetype(create {GTK_VIEWPORT}.dummy)
-			store_archetype(create {GTK_VPANED}.dummy)
-			store_archetype(create {GTK_VSCALE}.dummy)
-			store_archetype(create {GTK_VSCROLLBAR}.dummy)
-			store_archetype(create {GTK_VSEPARATOR}.dummy)
-			store_archetype(create {GTK_WINDOW}.dummy)
-			store_archetype(create {GTK_WINDOW_GROUP}.dummy)
-			
-			is_eiffel_library_initialized := True
-			-- ensure
-			--archetypes_added: archetypes.count > old archetypes.count
-			-- eiffel_library_initialized: is_eiffel_library_initialized = True
+			creation_agents.put (agent create_gtk_about_dialog, "GtkAboutDialog")
+			--creation_agents.put (agent create_gtk_accel_group, "GtkAccelGroup")
+			creation_agents.put (agent create_gtk_accel_label, "GtkAccelLabel")
+			-- creation_agents.put (agent create_gtk_accel_map, "GtkAccelMap")
+			-- creation_agents.put (agent create_gtk_accessible, "GtkAccessible")
+			creation_agents.put (agent create_gtk_action, "GtkAction")
+			creation_agents.put (agent create_gtk_action_group, "GtkActionGroup")
+			creation_agents.put (agent create_gtk_alignment, "GtkAlignment")
+			creation_agents.put (agent create_gtk_arrow, "GtkArrow")
+			-- creation_agents.put (agent create_gtk_aspect_frame, "GtkAspectFrame")
+			-- 			creation_agents.put (agent create_gtk_assistant, "GtkAssistant")
+			creation_agents.put (agent create_gtk_button, "GtkButton")
+			creation_agents.put (agent create_gtk_calendar, "GtkCalendar")
+			creation_agents.put (agent create_gtk_cell_renderer_accel, "GtkCellRendererAccel")
+			creation_agents.put (agent create_gtk_cell_renderer_combo, "GtkCellRendererCombo")
+			creation_agents.put (agent create_gtk_cell_renderer_pixbuf, "GtkCellRendererPixbuf")
+			creation_agents.put (agent create_gtk_cell_renderer_progress, "GtkCellRendererProgress")
+			creation_agents.put (agent create_gtk_cell_renderer_spin, "GtkCellRendererSpin")
+			creation_agents.put (agent create_gtk_cell_renderer_text, "GtkCellRendererText")
+			creation_agents.put (agent create_gtk_cell_renderer_toggle, "GtkCellRendererToggle")
+			creation_agents.put (agent create_gtk_cell_view, "GtkCellView")
+			creation_agents.put (agent create_gtk_check_button, "GtkCheckButton")
+			creation_agents.put (agent create_gtk_check_menu_item, "GtkCheckMenuItem")
+			creation_agents.put (agent create_gtk_clipboard, "GtkClipboard")
+			creation_agents.put (agent create_gtk_color_button, "GtkColorButton")
+			creation_agents.put (agent create_gtk_color_selection, "GtkColorSelection")
+			creation_agents.put (agent create_gtk_color_selection_dialog, "GtkColorSelectionDialog")
+			-- GtkCombo is deprecated
+			creation_agents.put (agent create_gtk_combo_box, "GtkComboBox")
+			creation_agents.put (agent create_gtk_combo_box_entry, "GtkComboBoxEntry")
+			-- creation_agents.put (agent create_gtk_Curve, "GtkCurve")
+			creation_agents.put (agent create_gtk_dialog, "GtkDialog")
+			creation_agents.put (agent create_gtk_drawing_area, "GtkDrawingArea")
+			creation_agents.put (agent create_gtk_entry, "GtkEntry")
+			creation_agents.put (agent create_gtk_entry_completion, "GtkEntryCompletion")
+			creation_agents.put (agent create_gtk_event_box, "GtkEventBox")
+			creation_agents.put (agent create_gtk_expander, "GtkExpander")
+			creation_agents.put (agent create_gtk_file_chooser_button, "GtkFileChooserButton")
+			creation_agents.put (agent create_gtk_file_chooser_dialog, "GtkFileChooserDialog")
+			creation_agents.put (agent create_gtk_file_chooser_widget, "GtkFileChooserWidget")
+			creation_agents.put (agent create_gtk_file_filter, "GtkFileFilter")
+			-- GtkFileSelection is deprecated
+			-- creation_agents.put (agent create_gtk_Fixed, "GtkFixed")
+			creation_agents.put (agent create_gtk_font_button, "GtkFontButton")
+			creation_agents.put (agent create_gtk_font_selection, "GtkFontSelection")
+			creation_agents.put (agent create_gtk_font_selection_dialog, "GtkFontSelectionDialog")
+			creation_agents.put (agent create_gtk_frame, "GtkFrame")
+			--creation_agents.put (agent create_gtk_GammaCurve, "GtkGammaCurve")
+			creation_agents.put (agent create_gtk_hbox, "GtkHBox")
+			creation_agents.put (agent create_gtk_hbutton_box, "GtkHButtonBox")
+			creation_agents.put (agent create_gtk_hpaned, "GtkHPaned")
+			--creation_agents.put (agent create_gtk_hruler, "GtkHRuler")
+			creation_agents.put (agent create_gtk_hscale, "GtkHScale")
+			creation_agents.put (agent create_gtk_hscrollbar, "GtkHScrollbar")
+			creation_agents.put (agent create_gtk_hseparator, "GtkHSeparator")
+			--creation_agents.put (agent create_gtk_handle_box, "GtkHandleBox")
+			--creation_agents.put (agent create_gtkIM_Context, "GtkIMContext")
+			--creation_agents.put (agent create_gtkIM_ContextSimple, "GtkIMContextSimple")
+			--creation_agents.put (agent create_gtkIM_Multicontext, "GtkIMMulticontext")
+			-- creation_agents.put (agent create_gtk_iconf_actory, "GtkIconFactory")
+			creation_agents.put (agent create_gtk_icon_theme, "GtkIconTheme")
+			creation_agents.put (agent create_gtk_icon_view, "GtkIconView")
+			creation_agents.put (agent create_gtk_image, "GtkImage")
+			creation_agents.put (agent create_gtk_image_menu_item, "GtkImageMenuItem")
+			-- creation_agents.put (agent create_gtk_Invisible, "GtkInvisible")
+			creation_agents.put (agent create_gtk_label, "GtkLabel")
+			creation_agents.put (agent create_gtk_layout, "GtkLayout")
+			creation_agents.put (agent create_gtk_link_button, "GtkLinkButton")
+			creation_agents.put (agent create_gtk_list_store, "GtkListStore")
+			creation_agents.put (agent create_gtk_menu, "GtkMenu")
+			creation_agents.put (agent create_gtk_menu_bar, "GtkMenuBar")
+			creation_agents.put (agent create_gtk_menu_item, "GtkMenuItem")
+			creation_agents.put (agent create_gtk_menu_tool_button, "GtkMenuToolButton")
+			creation_agents.put (agent create_gtk_message_dialog, "GtkMessageDialog")
+			creation_agents.put (agent create_gtk_notebook, "GtkNotebook")
+			creation_agents.put (agent create_gtk_page_setup, "GtkPageSetup")
+			-- creation_agents.put (agent create_gtk_PageSetupUnixDialog, "GtkPageSetupUnixDialog")
+			-- creation_agents.put (agent create_gtk_plug, "GtkPlug")
+			-- creation_agents.put (agent create_gtk_preview, "GtkPreview")
+			-- creation_agents.put (agent create_gtk_PrintBackend, "GtkPrintBackend")
+			creation_agents.put (agent create_gtk_print_context, "GtkPrintContext")
+			creation_agents.put (agent create_gtk_print_job, "GtkPrintJob")
+			creation_agents.put (agent create_gtk_print_operation, "GtkPrintOperation")
+			creation_agents.put (agent create_gtk_print_settings, "GtkPrintSettings")
+			-- creation_agents.put (agent create_gtk_PrintUnixDialog, "GtkPrintUnixDialog")
+			creation_agents.put (agent create_gtk_printer, "GtkPrinter")
+			creation_agents.put (agent create_gtk_progress_bar, "GtkProgressBar")
+			creation_agents.put (agent create_gtk_radio_action, "GtkRadioAction")
+			creation_agents.put (agent create_gtk_radio_button, "GtkRadioButton")
+			creation_agents.put (agent create_gtk_radio_menu_item, "GtkRadioMenuItem")
+			creation_agents.put (agent create_gtk_radio_tool_button, "GtkRadioToolButton")
+						--creation_agents.put (agent create_gtk_RcStyle, "GtkRcStyle")
+			--creation_agents.put (agent create_gtk_RecentChooserDialog, "GtkRecentChooserDialog")
+			--creation_agents.put (agent create_gtk_RecentChooserMenu, "GtkRecentChooserMenu")
+			--creation_agents.put (agent create_gtk_RecentChooserWidget, "GtkRecentChooserWidget")
+			--creation_agents.put (agent create_gtk_RecentFilter, "GtkRecentFilter")
+			--creation_agents.put (agent create_gtk_RecentManager, "GtkRecentManager")
+			creation_agents.put (agent create_gtk_scrolled_window, "GtkScrolledWindow")
+			creation_agents.put (agent create_gtk_separator_menu_item, "GtkSeparatorMenuItem")
+			creation_agents.put (agent create_gtk_separator_tool_item, "GtkSeparatorToolItem")
+			-- creation_agents.put (agent create_gtk_settings, "GtkSettings")
+			-- creation_agents.put (agent create_gtk_size_group, "GtkSizeGroup")
+			-- creation_agents.put (agent create_gtk_socket, "GtkSocket")
+			creation_agents.put (agent create_gtk_spin_button, "GtkSpinButton")
+			creation_agents.put (agent create_gtk_status_icon, "GtkStatusIcon")
+			creation_agents.put (agent create_gtk_status_bar, "GtkStatusbar")
+			creation_agents.put (agent create_gtk_style, "GtkStyle")
+			creation_agents.put (agent create_gtk_table, "GtkTable")
+			creation_agents.put (agent create_gtk_tearoff_menu_item, "GtkTearoffMenuItem")
+			-- GtkText is deprecated
+			creation_agents.put (agent create_gtk_text_buffer, "GtkTextBuffer")
+			creation_agents.put (agent create_gtk_text_child_anchor, "GtkTextChildAnchor")
+			creation_agents.put (agent create_gtk_text_mark, "GtkTextMark")
+			creation_agents.put (agent create_gtk_text_tag, "GtkTextTag")
+			creation_agents.put (agent create_gtk_text_tag_table, "GtkTextTagTable")
+			creation_agents.put (agent create_gtk_text_view, "GtkTextView")
+			-- GtkTipsQuery is deprecated
+			creation_agents.put (agent create_gtk_toggle_action, "GtkToggleAction")
+			creation_agents.put (agent create_gtk_toggle_button, "GtkToggleButton")
+			creation_agents.put (agent create_gtk_toggle_tool_button, "GtkToggleToolButton")
+			creation_agents.put (agent create_gtk_tool_button, "GtkToolButton")
+			creation_agents.put (agent create_gtk_tool_item, "GtkToolItem")
+			creation_agents.put (agent create_gtk_toolbar, "GtkToolbar")
+			creation_agents.put (agent create_gtk_tooltips, "GtkTooltips")
+			-- GtkTree and GtkTreeItem are deprecated.
+			creation_agents.put (agent create_gtk_tree_model_filter, "GtkTreeModelFilter")
+			creation_agents.put (agent create_gtk_tree_model_sort, "GtkTreeModelSort")
+			creation_agents.put (agent create_gtk_tree_selection, "GtkTreeSelection")
+			creation_agents.put (agent create_gtk_tree_store, "GtkTreeStore")
+			creation_agents.put (agent create_gtk_tree_view, "GtkTreeView")
+			creation_agents.put (agent create_gtk_tree_view_column, "GtkTreeViewColumn")
+			-- creation_agents.put (agent create_gtkUI_Manager, "GtkUIManager")
+			creation_agents.put (agent create_gtk_vbox, "GtkVBox")
+			creation_agents.put (agent create_gtk_vbutton_box, "GtkVButtonBox")
+			creation_agents.put (agent create_gtk_vpaned, "GtkVPaned")
+			-- creation_agents.put (agent create_gtk_vruler, "GtkVRuler")
+			creation_agents.put (agent create_gtk_vscale, "GtkVScale")
+			creation_agents.put (agent create_gtk_vscrollbar, "GtkVScrollbar")
+			creation_agents.put (agent create_gtk_vseparator, "GtkVSeparator")
+			-- creation_agents.put (agent create_gtk_Viewport, "GtkViewport")
+			creation_agents.put (agent create_gtk_window, "GtkWindow")
+			creation_agents.put (agent create_gtk_window_group, "GtkWindowGroup")
+
+			-- Store creation agents of preconditions
+			store_gdk_creation_agents
+			store_pango_creation_agents
+
+			debug 
+				std_error.put_line
+				((creation_agents.count-old_count).out+" function agents put into creation_agents dictionary.")
+			end
 		end
 
-	is_eiffel_library_initialized: BOOLEAN
-			-- Has `initialize_eiffel_library' already been invoked?
-	
+	create_gtk_about_dialog (p: POINTER): GTK_ABOUT_DIALOG is do create Result.from_external_pointer(p) end
+		-- create_gtk_accel_group (p: POINTER): GTK_ACCEL_GROUP is do create Result.from_external_pointer(p) end
+	create_gtk_accel_label (p: POINTER): GTK_ACCEL_LABEL is do create Result.from_external_pointer(p) end
+		-- create_gtk_accel_map (p: POINTER): Gtk_AccelMap is do create Result.from_external_pointer(p) end
+		-- create_gtk_accessible (p: POINTER): GTK_ACCESSIBLE is do create Result.from_external_pointer(p) end
+	create_gtk_action (p: POINTER): GTK_ACTION is do create Result.from_external_pointer(p) end
+	create_gtk_action_group (p: POINTER): GTK_ACTION_GROUP is do create Result.from_external_pointer(p) end
+	create_gtk_adjustment (p: POINTER): GTK_ADJUSTMENT is do create Result.from_external_pointer(p) end
+	create_gtk_alignment (p: POINTER): GTK_ALIGNMENT is do create Result.from_external_pointer(p) end
+	create_gtk_arrow (p: POINTER): GTK_ARROW is do create Result.from_external_pointer(p) end
+	create_gtk_aspect_frame (p: POINTER): GTK_ASPECT_FRAME is do create Result.from_external_pointer(p) end
+	create_gtk_assistant (p: POINTER): GTK_ASSISTANT is do create Result.from_external_pointer(p) end
+	create_gtk_button (p: POINTER): GTK_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_calendar (p: POINTER): GTK_CALENDAR is do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_accel (p: POINTER): GTK_CELL_RENDERER_ACCEL is do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_combo (p: POINTER): GTK_CELL_RENDERER_COMBO is do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_pixbuf (p: POINTER): GTK_CELL_RENDERER_PIXBUF is do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_progress (p: POINTER): GTK_CELL_RENDERER_PROGRESS is do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_spin (p: POINTER): GTK_CELL_RENDERER_SPIN is do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_text (p: POINTER): GTK_CELL_RENDERER_TEXT is do create Result.from_external_pointer(p) end
+	create_gtk_cell_renderer_toggle (p: POINTER): GTK_CELL_RENDERER_TOGGLE is do create Result.from_external_pointer(p) end
+	create_gtk_cell_view (p: POINTER): GTK_CELL_VIEW is do create Result.from_external_pointer(p) end
+	create_gtk_check_button (p: POINTER): GTK_CHECK_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_check_menu_item (p: POINTER): GTK_CHECK_MENU_ITEM is do create Result.from_external_pointer(p) end
+	create_gtk_clipboard (p: POINTER): GTK_CLIPBOARD is do create Result.from_external_pointer(p) end
+	create_gtk_color_button (p: POINTER): GTK_COLOR_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_color_selection (p: POINTER): GTK_COLOR_SELECTION is do create Result.from_external_pointer(p) end
+	create_gtk_color_selection_dialog (p: POINTER): GTK_COLOR_SELECTION_DIALOG is do create Result.from_external_pointer(p) end
+	create_gtk_combo_box (p: POINTER): GTK_COMBO_BOX is do create Result.from_external_pointer(p) end
+	create_gtk_combo_box_entry (p: POINTER): GTK_COMBO_BOX_ENTRY is do create Result.from_external_pointer(p) end
+		-- create_gtk_Curve (p: POINTER): Gtk_Curve is do create Result.from_external_pointer(p) end
+	create_gtk_dialog (p: POINTER): GTK_DIALOG is do create Result.from_external_pointer(p) end
+	create_gtk_drawing_area (p: POINTER): GTK_DRAWING_AREA is do create Result.from_external_pointer(p) end
+	create_gtk_entry (p: POINTER): GTK_ENTRY is do create Result.from_external_pointer(p) end
+	create_gtk_entry_completion (p: POINTER): GTK_ENTRY_COMPLETION is do create Result.from_external_pointer(p) end
+	create_gtk_event_box (p: POINTER): GTK_EVENT_BOX is do create Result.from_external_pointer(p) end
+	create_gtk_expander (p: POINTER): GTK_EXPANDER is do create Result.from_external_pointer(p) end
+	create_gtk_file_chooser_button (p: POINTER): GTK_FILE_CHOOSER_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_file_chooser_dialog (p: POINTER): GTK_FILE_CHOOSER_DIALOG is do create Result.from_external_pointer(p) end
+	create_gtk_file_chooser_widget (p: POINTER): GTK_FILE_CHOOSER_WIDGET is do create Result.from_external_pointer(p) end
+	create_gtk_file_filter (p: POINTER): GTK_FILE_FILTER is do create Result.from_external_pointer(p) end
+	-- create_gtk_Fixed (p: POINTER): Gtk_Fixed is do create Result.from_external_pointer(p) end
+	create_gtk_font_button (p: POINTER): GTK_FONT_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_font_selection (p: POINTER): GTK_FONT_SELECTION is do create Result.from_external_pointer(p) end
+	create_gtk_font_selection_dialog (p: POINTER): GTK_FONT_SELECTION_DIALOG is do create Result.from_external_pointer(p) end
+	create_gtk_frame (p: POINTER): GTK_FRAME is do create Result.from_external_pointer(p) end
+	--create_gtk_GammaCurve (p: POINTER): Gtk_GammaCurve is do create Result.from_external_pointer(p) end
+	create_gtk_hbox (p: POINTER): GTK_HBOX is do create Result.from_external_pointer(p) end
+	create_gtk_hbutton_box (p: POINTER): GTK_HBUTTON_BOX is do create Result.from_external_pointer(p) end
+	create_gtk_hpaned (p: POINTER): GTK_HPANED is do create Result.from_external_pointer(p) end
+	--create_gtk_hruler (p: POINTER): GTK_HRULER is do create Result.from_external_pointer(p) end
+	create_gtk_hscale (p: POINTER): GTK_HSCALE is do create Result.from_external_pointer(p) end
+	create_gtk_hscrollbar (p: POINTER): GTK_HSCROLLBAR is do create Result.from_external_pointer(p) end
+	create_gtk_hseparator (p: POINTER): GTK_HSEPARATOR is do create Result.from_external_pointer(p) end
+	--create_gtk_handle_box (p: POINTER): GTK_HANDLE_BOX is do create Result.from_external_pointer(p) end
+	--create_gtkIM_Context (p: POINTER): GtkIM_Context is do create Result.from_external_pointer(p) end
+	--create_gtkIM_ContextSimple (p: POINTER): GtkIM_ContextSimple is do create Result.from_external_pointer(p) end
+	--create_gtkIM_Multicontext (p: POINTER): GtkIM_Multicontext is do create Result.from_external_pointer(p) end
+	--create_gtk_IconFactory (p: POINTER): Gtk_IconFactory is do create Result.from_external_pointer(p) end
+	create_gtk_icon_theme (p: POINTER): GTK_ICON_THEME is do create Result.from_external_pointer(p) end
+	create_gtk_icon_view (p: POINTER): GTK_ICON_VIEW is do create Result.from_external_pointer(p) end
+	create_gtk_image (p: POINTER): GTK_IMAGE is do create Result.from_external_pointer(p) end
+	create_gtk_image_menu_item (p: POINTER): GTK_IMAGE_MENU_ITEM is do create Result.from_external_pointer(p) end
+	-- create_gtk_Invisible (p: POINTER): Gtk_Invisible is do create Result.from_external_pointer(p) end
+	create_gtk_label (p: POINTER): GTK_LABEL is do create Result.from_external_pointer(p) end
+	create_gtk_layout (p: POINTER): GTK_LAYOUT is do create Result.from_external_pointer(p) end
+	create_gtk_link_button (p: POINTER): GTK_LINK_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_list_store (p: POINTER): GTK_LIST_STORE is do create Result.from_external_pointer(p) end
+	create_gtk_menu (p: POINTER): GTK_MENU is do create Result.from_external_pointer(p) end
+	create_gtk_menu_bar (p: POINTER): GTK_MENU_BAR is do create Result.from_external_pointer(p) end
+	create_gtk_menu_item (p: POINTER): GTK_MENU_ITEM is do create Result.from_external_pointer(p) end
+	create_gtk_menu_tool_button (p: POINTER): GTK_MENU_TOOL_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_message_dialog (p: POINTER): GTK_MESSAGE_DIALOG is do create Result.from_external_pointer(p) end
+	create_gtk_notebook (p: POINTER): GTK_NOTEBOOK is do create Result.from_external_pointer(p) end
+	create_gtk_page_setup (p: POINTER): GTK_PAGE_SETUP is do create Result.from_external_pointer(p) end
+	-- create_gtk_PageSetupUnixDialog (p: POINTER): Gtk_PageSetupUnixDialog is do create Result.from_external_pointer(p) end
+	-- create_gtk_Plug (p: POINTER): Gtk_Plug is do create Result.from_external_pointer(p) end
+	-- create_gtk_preview (p: POINTER): GTK_PREVIEW is do create Result.from_external_pointer(p) end
+	-- create_gtk_print_backend (p: POINTER): GTK_PRINT_BACKEND is do create Result.from_external_pointer(p) end
+	create_gtk_print_context (p: POINTER): GTK_PRINT_CONTEXT is do create Result.from_external_pointer(p) end
+	create_gtk_print_job (p: POINTER): GTK_PRINT_JOB is do create Result.from_external_pointer(p) end
+	create_gtk_print_operation (p: POINTER): GTK_PRINT_OPERATION is do create Result.from_external_pointer(p) end
+	create_gtk_print_settings (p: POINTER): GTK_PRINT_SETTINGS is do create Result.from_external_pointer(p) end
+		--create_gtk_PrintUnixDialog (p: POINTER): Gtk_PrintUnixDialog is do create Result.from_external_pointer(p) end
+	create_gtk_printer (p: POINTER): GTK_PRINTER is do create Result.from_external_pointer(p) end
+	create_gtk_progress_bar (p: POINTER): GTK_PROGRESS_BAR is do create Result.from_external_pointer(p) end
+	create_gtk_radio_action (p: POINTER): GTK_RADIO_ACTION is do create Result.from_external_pointer(p) end
+	create_gtk_radio_button (p: POINTER): GTK_RADIO_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_radio_menu_item (p: POINTER): GTK_RADIO_MENU_ITEM is 
+		do
+			debug std_error.put_line(once "Don't ask me why, but SmartEiffel thinks that GTK_RADIO_MENU_ITEM is deferred.") end
+			create Result.from_external_pointer(p) 
+		end
+	create_gtk_radio_tool_button (p: POINTER): GTK_RADIO_TOOL_BUTTON is do create Result.from_external_pointer(p) end
+		-- create_gtk_RcStyle (p: POINTER): Gtk_RcStyle is do create Result.from_external_pointer(p) end
+		-- create_gtk_RecentChooserDialog (p: POINTER): Gtk_RecentChooserDialog is do create Result.from_external_pointer(p) end
+	-- create_gtk_RecentChooserMenu (p: POINTER): Gtk_RecentChooserMenu is do create Result.from_external_pointer(p) end
+	-- create_gtk_RecentChooserWidget (p: POINTER): Gtk_RecentChooserWidget is do create Result.from_external_pointer(p) end
+		-- create_gtk_RecentFilter (p: POINTER): Gtk_RecentFilter is do create Result.from_external_pointer(p) end
+		-- create_gtk_RecentManager (p: POINTER): Gtk_RecentManager is do create Result.from_external_pointer(p) end
+	create_gtk_scrolled_window (p: POINTER): GTK_SCROLLED_WINDOW is do create Result.from_external_pointer(p) end
+	create_gtk_separator_menu_item (p: POINTER): GTK_SEPARATOR_MENU_ITEM is do create Result.from_external_pointer(p) end
+	create_gtk_separator_tool_item (p: POINTER): GTK_SEPARATOR_TOOL_ITEM is do create Result.from_external_pointer(p) end
+		-- create_gtk_settings (p: POINTER): GTK_SETTINGS is do create Result.from_external_pointer(p) end
+		-- create_gtk_size_group (p: POINTER): GTK_SIZE_GROUP is do create Result.from_external_pointer(p) end
+		-- create_gtk_socket (p: POINTER): GTK_SOCKET is do create Result.from_external_pointer(p) end
+	create_gtk_spin_button (p: POINTER): GTK_SPIN_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_status_icon (p: POINTER): GTK_STATUS_ICON is do create Result.from_external_pointer(p) end
+	create_gtk_status_bar (p: POINTER): GTK_STATUS_BAR is do create Result.from_external_pointer(p) end
+	create_gtk_style (p: POINTER): GTK_STYLE is do create Result.from_external_pointer(p) end
+	create_gtk_table (p: POINTER): GTK_TABLE is do create Result.from_external_pointer(p) end
+	create_gtk_tearoff_menu_item (p: POINTER): GTK_TEAROFF_MENU_ITEM is do create Result.from_external_pointer(p) end
+	create_gtk_text_buffer (p: POINTER): GTK_TEXT_BUFFER is do create Result.from_external_pointer(p) end
+	create_gtk_text_child_anchor (p: POINTER): GTK_TEXT_CHILD_ANCHOR is do create Result.from_external_pointer(p) end
+	create_gtk_text_mark (p: POINTER): GTK_TEXT_MARK is do create Result.from_external_pointer(p) end
+	create_gtk_text_tag (p: POINTER): GTK_TEXT_TAG is do create Result.from_external_pointer(p) end
+	create_gtk_text_tag_table (p: POINTER): GTK_TEXT_TAG_TABLE is do create Result.from_external_pointer(p) end
+	create_gtk_text_view (p: POINTER): GTK_TEXT_VIEW is do create Result.from_external_pointer(p) end
+	create_gtk_toggle_action (p: POINTER): GTK_TOGGLE_ACTION is do create Result.from_external_pointer(p) end
+	create_gtk_toggle_button (p: POINTER): GTK_TOGGLE_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_toggle_tool_button (p: POINTER): GTK_TOGGLE_TOOL_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_tool_button (p: POINTER): GTK_TOOL_BUTTON is do create Result.from_external_pointer(p) end
+	create_gtk_tool_item (p: POINTER): GTK_TOOL_ITEM is do create Result.from_external_pointer(p) end
+	create_gtk_toolbar (p: POINTER): GTK_TOOLBAR is do create Result.from_external_pointer(p) end
+	create_gtk_tooltips (p: POINTER): GTK_TOOLTIPS is do create Result.from_external_pointer(p) end
+	create_gtk_tree_model_filter (p: POINTER): GTK_TREE_MODEL_FILTER is do create Result.from_external_pointer(p) end
+	create_gtk_tree_model_sort (p: POINTER): GTK_TREE_MODEL_SORT is do create Result.from_external_pointer(p) end
+	create_gtk_tree_selection (p: POINTER): GTK_TREE_SELECTION is do create Result.from_external_pointer(p) end
+	create_gtk_tree_store (p: POINTER): GTK_TREE_STORE is do create Result.from_external_pointer(p) end
+	create_gtk_tree_view (p: POINTER): GTK_TREE_VIEW is do create Result.from_external_pointer(p) end
+	create_gtk_tree_view_column (p: POINTER): GTK_TREE_VIEW_COLUMN is do create Result.from_external_pointer(p) end
+	-- create_gtkUI_Manager (p: POINTER): GtkUI_Manager is do create Result.from_external_pointer(p) end
+	create_gtk_vbox (p: POINTER): GTK_VBOX is do create Result.from_external_pointer(p) end
+	create_gtk_vbutton_box (p: POINTER): GTK_VBUTTON_BOX is do create Result.from_external_pointer(p) end
+	create_gtk_vpaned (p: POINTER): GTK_VPANED is do create Result.from_external_pointer(p) end
+	-- create_gtk_vruler (p: POINTER): GTK_VRULER is do create Result.from_external_pointer(p) end
+	create_gtk_vscale (p: POINTER): GTK_VSCALE is do create Result.from_external_pointer(p) end
+	create_gtk_vscrollbar (p: POINTER): GTK_VSCROLLBAR is do create Result.from_external_pointer(p) end
+	create_gtk_vseparator (p: POINTER): GTK_VSEPARATOR is do create Result.from_external_pointer(p) end
+		-- create_gtk_Viewport (p: POINTER): Gtk_Viewport is do create Result.from_external_pointer(p) end
+	create_gtk_window (p: POINTER): GTK_WINDOW is do create Result.from_external_pointer(p) end
+	create_gtk_window_group (p: POINTER): GTK_WINDOW_GROUP is do create Result.from_external_pointer(p) end
+
 feature
 
 	disable_setlocale is
@@ -227,17 +379,15 @@ feature
 			-- accordingly so your own code will never see those standard
 			-- arguments.
 
-			-- Note that there are some alternative ways to initialize
-			-- GTK+: if you are calling `parse_args',
-			-- `try_initilizing_gtk', (TODO) gtk_init_with_args() or
-			-- G_OPTION_CONTEXT's `parse' with the option group returned
-			-- by (TOD) `option_group', you don't have to call this
-			-- feature.
+			-- Note that there are some alternative ways to initialize GTK+: if you
+			-- are calling gtk_parse_args(), gtk_init_check(), gtk_init_with_args()
+			-- or g_option_context_parse() with the option group returned by
+			-- gtk_get_option_group(), you don't have to call gtk_init().
 
-			-- Note: This function will terminate your program if it was
-			-- unable to initialize the GUI for some reason. If you want
-			-- your program to fall back to a textual interface you want
-			-- to call `try_initilizing_gtk' instead.
+			-- Note: This function will terminate your program if it was unable to
+			-- initialize the GUI for some reason. If you want your program to fall
+			-- back to a textual interface you want to call gtk_init_check()
+			-- instead.
 		local argc: INTEGER; argv: POINTER
 		do
 			if not is_initialized then
@@ -245,10 +395,6 @@ feature
 				argv := command_arguments.to_external
 				gtk_init ($argc, $argv)
 				is_initialized := True
-			else
-				debug
-					io.put_line(once "GTK.initialize has been already invoked")
-				end
 			end
 		ensure initialized: is_initialized = True
 		end
@@ -261,15 +407,9 @@ feature
 		-- `is_gtk_initialized' will be True.
 		local argc: INTEGER; argv: POINTER
 		do
-			if not is_initialized then
-				argc := argument_count
-				argv := command_arguments.to_external
-				is_initialized := gtk_init_check ($argc, $argv).to_boolean
-			else
-				debug
-					io.put_line(once "GTK.try_initializing_gtk has been already invoked")
-				end
-			end
+			argc := argument_count
+			argv := command_arguments.to_external
+			is_initialized := gtk_init_check ($argc, $argv).to_boolean
 		end
 
 	-- TODO: wrap gtk_init_with_args ()
@@ -300,6 +440,7 @@ feature
 		require gtk_initialized: is_initialized
 		do
 			gtk_main
+			std_error.put_string (once "Exiting gtk_main%N")
 		end
 
 	gtk_nesting_level: INTEGER is
@@ -393,145 +534,144 @@ feature
 	
 	-- void        gtk_grab_remove                 (GtkWidget *widget);
 
-	-- Removes the grab from the given widget. You have to pair calls to gtk_grab_add() and gtk_grab_remove().
-	-- widget : 	The widget which gives up the grab.
-	-- gtk_init_add ()
+-- Removes the grab from the given widget. You have to pair calls to gtk_grab_add() and gtk_grab_remove().
+-- widget : 	The widget which gives up the grab.
+-- gtk_init_add ()
 
-	-- void        gtk_init_add                    (GtkFunction function,
-	--                                              gpointer data);
+-- void        gtk_init_add                    (GtkFunction function,
+--                                              gpointer data);
 
-	-- Registers a function to be called when the mainloop is started.
-	-- function : 	Function to invoke when gtk_main() is called next.
-	-- data : 	Data to pass to that function.
-	-- gtk_quit_add_destroy ()
+-- Registers a function to be called when the mainloop is started.
+-- function : 	Function to invoke when gtk_main() is called next.
+-- data : 	Data to pass to that function.
+-- gtk_quit_add_destroy ()
 
-	-- void        gtk_quit_add_destroy            (guint main_level,
-	--                                              GtkObject *object);
+-- void        gtk_quit_add_destroy            (guint main_level,
+--                                              GtkObject *object);
 
-	-- Trigger destruction of object in case the mainloop at level main_level is quit.
-	-- main_level : 	Level of the mainloop which shall trigger the destruction.
-	-- object : 	Object to be destroyed.
-	-- gtk_quit_add ()
+-- Trigger destruction of object in case the mainloop at level main_level is quit.
+-- main_level : 	Level of the mainloop which shall trigger the destruction.
+-- object : 	Object to be destroyed.
+-- gtk_quit_add ()
 
-	-- guint       gtk_quit_add                    (guint main_level,
-	--                                              GtkFunction function,
-	--                                              gpointer data);
+-- guint       gtk_quit_add                    (guint main_level,
+--                                              GtkFunction function,
+--                                              gpointer data);
 
-	-- Registers a function to be called when an instance of the mainloop is left.
-	-- main_level : 	Level at which termination the function shall be called. You can pass 0 here to have the function run at the termination of the current mainloop.
-	-- function : 	The function to call. This should return 0 to be removed from the list of quit handlers. Otherwise the function might be called again.
-	-- data : 	Pointer to pass when calling function.
-	-- Returns : 	A handle for this quit handler (you need this for gtk_quit_remove()) or 0 if you passed a NULL pointer in function.
-	-- gtk_quit_add_full ()
+-- Registers a function to be called when an instance of the mainloop is left.
+-- main_level : 	Level at which termination the function shall be called. You can pass 0 here to have the function run at the termination of the current mainloop.
+-- function : 	The function to call. This should return 0 to be removed from the list of quit handlers. Otherwise the function might be called again.
+-- data : 	Pointer to pass when calling function.
+-- Returns : 	A handle for this quit handler (you need this for gtk_quit_remove()) or 0 if you passed a NULL pointer in function.
+-- gtk_quit_add_full ()
 
-	-- guint       gtk_quit_add_full               (guint main_level,
-	--                                              GtkFunction function,
-	--                                              GtkCallbackMarshal marshal,
-	--                                              gpointer data,
-	--                                              GtkDestroyNotify destroy);
+-- guint       gtk_quit_add_full               (guint main_level,
+--                                              GtkFunction function,
+--                                              GtkCallbackMarshal marshal,
+--                                              gpointer data,
+--                                              GtkDestroyNotify destroy);
 
-	-- Registers a function to be called when an instance of the mainloop is left. In comparison to gtk_quit_add() this function adds the possibility to pass a marshaller and a function to be called when the quit handler is freed.
+-- Registers a function to be called when an instance of the mainloop is left. In comparison to gtk_quit_add() this function adds the possibility to pass a marshaller and a function to be called when the quit handler is freed.
 
-	-- The former can be used to run interpreted code instead of a compilxfed function while the latter can be used to free the information stored in data (while you can do this in function as well)... So this function will mostly be used by GTK+ wrappers for languages other than C.
-	-- main_level : 	Level at which termination the function shall be called. You can pass 0 here to have the function run at the termination of the current mainloop.
-	-- function : 	The function to call. This should return 0 to be removed from the list of quit handlers. Otherwise the function might be called again.
-	-- marshal : 	The marshaller to be used. If this is non-NULL, function is ignored.
-	-- data : 	Pointer to pass when calling function.
-	-- destroy : 	Function to call to destruct data. Gets data as argument.
-	-- Returns : 	A handle for this quit handler (you need this for gtk_quit_remove()) or 0 if you passed a NULL pointer in function.
-	-- gtk_quit_remove ()
+-- The former can be used to run interpreted code instead of a compilxfed function while the latter can be used to free the information stored in data (while you can do this in function as well)... So this function will mostly be used by GTK+ wrappers for languages other than C.
+-- main_level : 	Level at which termination the function shall be called. You can pass 0 here to have the function run at the termination of the current mainloop.
+-- function : 	The function to call. This should return 0 to be removed from the list of quit handlers. Otherwise the function might be called again.
+-- marshal : 	The marshaller to be used. If this is non-NULL, function is ignored.
+-- data : 	Pointer to pass when calling function.
+-- destroy : 	Function to call to destruct data. Gets data as argument.
+-- Returns : 	A handle for this quit handler (you need this for gtk_quit_remove()) or 0 if you passed a NULL pointer in function.
+-- gtk_quit_remove ()
 
-	-- void        gtk_quit_remove                 (guint quit_handler_id);
+-- void        gtk_quit_remove                 (guint quit_handler_id);
 
-	-- Removes a quit handler by its identifier.
-	-- quit_handler_id : 	Identifier for the handler returned when installing it.
-	-- gtk_quit_remove_by_data ()
+-- Removes a quit handler by its identifier.
+-- quit_handler_id : 	Identifier for the handler returned when installing it.
+-- gtk_quit_remove_by_data ()
 
-	-- void        gtk_quit_remove_by_data         (gpointer data);
+-- void        gtk_quit_remove_by_data         (gpointer data);
 
-	-- Removes a quit handler identified by its data field.
-	-- data : 	The pointer passed as data to gtk_quit_add() or gtk_quit_add_full().
-	-- gtk_timeout_add_full ()
+-- Removes a quit handler identified by its data field.
+-- data : 	The pointer passed as data to gtk_quit_add() or gtk_quit_add_full().
+-- gtk_timeout_add_full ()
 
 
-	-- gtk_key_snooper_install ()
+-- gtk_key_snooper_install ()
 
-	-- guint       gtk_key_snooper_install         (GtkKeySnoopFunc snooper,
-	--                                              gpointer func_data);
+-- guint       gtk_key_snooper_install         (GtkKeySnoopFunc snooper,
+--                                              gpointer func_data);
 
-	-- Installs a key snooper function, which will get called on all key events before delivering them normally.
-	-- snooper : 	a GtkKeySnoopFunc.
-	-- func_data : 	data to pass to snooper.
-	-- Returns : 	a unique id for this key snooper for use with gtk_key_snooper_remove().
+-- Installs a key snooper function, which will get called on all key events before delivering them normally.
+-- snooper : 	a GtkKeySnoopFunc.
+-- func_data : 	data to pass to snooper.
+-- Returns : 	a unique id for this key snooper for use with gtk_key_snooper_remove().
 
 	-- GtkKeySnoopFunc ()
 
-	-- gint        (*GtkKeySnoopFunc)              (GtkWidget *grab_widget,
-	--                                              GdkEventKey *event,
-	--                                              gpointer func_data);
+-- gint        (*GtkKeySnoopFunc)              (GtkWidget *grab_widget,
+--                                              GdkEventKey *event,
+--                                              gpointer func_data);
 
-	-- Key snooper functions are called before normal event delivery. They can be used to implement custom key event handling.
-	-- grab_widget : 	the widget to which the event will be delivered.
-	-- event : 	the key event.
-	-- func_data : 	the func_data supplied to gtk_key_snooper_install().
-	-- Returns : 	TRUE to stop further processing of event, FALSE to continue.
-	-- gtk_key_snooper_remove ()
+-- Key snooper functions are called before normal event delivery. They can be used to implement custom key event handling.
+-- grab_widget : 	the widget to which the event will be delivered.
+-- event : 	the key event.
+-- func_data : 	the func_data supplied to gtk_key_snooper_install().
+-- Returns : 	TRUE to stop further processing of event, FALSE to continue.
+-- gtk_key_snooper_remove ()
 
-	-- void        gtk_key_snooper_remove          (guint snooper_handler_id);
+-- void        gtk_key_snooper_remove          (guint snooper_handler_id);
 
-	-- Removes the key snooper function with the given id.
-	-- snooper_handler_id : 	Identifies the key snooper to remove.
-	-- gtk_get_current_event ()
+-- Removes the key snooper function with the given id.
+-- snooper_handler_id : 	Identifies the key snooper to remove.
+-- gtk_get_current_event ()
 
-	-- GdkEvent*   gtk_get_current_event           (void);
+-- GdkEvent*   gtk_get_current_event           (void);
 
-	-- Obtains a copy of the event currently being processed by GTK+. For example, if you get a "clicked" signal from GtkButton, the current event will be the GdkEventButton that triggered the "clicked" signal. The returned event must be freed with gdk_event_free(). If there is no current event, the function returns NULL.
+-- Obtains a copy of the event currently being processed by GTK+. For example, if you get a "clicked" signal from GtkButton, the current event will be the GdkEventButton that triggered the "clicked" signal. The returned event must be freed with gdk_event_free(). If there is no current event, the function returns NULL.
 
-	-- Returns : 	a copy of the current event, or NULL if no current event.
-	-- gtk_get_current_event_time ()
+-- Returns : 	a copy of the current event, or NULL if no current event.
+-- gtk_get_current_event_time ()
 
-	-- guint32     gtk_get_current_event_time      (void);
+-- guint32     gtk_get_current_event_time      (void);
 
-	-- If there is a current event and it has a timestamp, return that timestamp, otherwise return GDK_CURRENT_TIME.
+-- If there is a current event and it has a timestamp, return that timestamp, otherwise return GDK_CURRENT_TIME.
 
-	-- Returns : 	the timestamp from the current event, or GDK_CURRENT_TIME.
-	-- gtk_get_current_event_state ()
+-- Returns : 	the timestamp from the current event, or GDK_CURRENT_TIME.
+-- gtk_get_current_event_state ()
 
-	-- gboolean    gtk_get_current_event_state     (GdkModifierType *state);
+-- gboolean    gtk_get_current_event_state     (GdkModifierType *state);
 
-	-- If there is a current event and it has a state field, place that state field in state and return TRUE, otherwise return FALSE.
+-- If there is a current event and it has a state field, place that state field in state and return TRUE, otherwise return FALSE.
 
-	-- state : 	a location to store the state of the current event
-	-- Returns : 	TRUE if there was a current event and it had a state field
-	-- gtk_get_event_widget ()
+-- state : 	a location to store the state of the current event
+-- Returns : 	TRUE if there was a current event and it had a state field
+-- gtk_get_event_widget ()
 
-	-- GtkWidget*  gtk_get_event_widget            (GdkEvent *event);
+-- GtkWidget*  gtk_get_event_widget            (GdkEvent *event);
 
-	-- If event is NULL or the event was not associated with any widget, returns NULL, otherwise returns the widget that received the event originally.
+-- If event is NULL or the event was not associated with any widget, returns NULL, otherwise returns the widget that received the event originally.
 
-	-- event : 	a GdkEvent
-	-- Returns : 	the widget that originally received event, or NULL
-	-- gtk_propagate_event ()
+-- event : 	a GdkEvent
+-- Returns : 	the widget that originally received event, or NULL
+-- gtk_propagate_event ()
 
-	-- void        gtk_propagate_event             (GtkWidget *widget,
-	--                                              GdkEvent *event);
+-- void        gtk_propagate_event             (GtkWidget *widget,
+--                                              GdkEvent *event);
 
-	-- Sends an event to a widget, propagating the event to parent widgets if the event remains unhandled. Events received by GTK+ from GDK normally begin in gtk_main_do_event(). Depending on the type of event, existence of modal dialogs, grabs, etc., the event may be propagated; if so, this function is used. gtk_propagate_event() calls gtk_widget_event() on each widget it decides to send the event to. So gtk_widget_event() is the lowest-level function; it simply emits the "event" and possibly an event-specific signal on a widget. gtk_propagate_event() is a bit higher-level, and gtk_main_do_event() is the highest level.
+-- Sends an event to a widget, propagating the event to parent widgets if the event remains unhandled. Events received by GTK+ from GDK normally begin in gtk_main_do_event(). Depending on the type of event, existence of modal dialogs, grabs, etc., the event may be propagated; if so, this function is used. gtk_propagate_event() calls gtk_widget_event() on each widget it decides to send the event to. So gtk_widget_event() is the lowest-level function; it simply emits the "event" and possibly an event-specific signal on a widget. gtk_propagate_event() is a bit higher-level, and gtk_main_do_event() is the highest level.
 
-	-- All that said, you most likely don't want to use any of these functions; synthesizing events is rarely needed. Consider asking on the mailing list for better ways to achieve your goals. For example, use gdk_window_invalidate_rect() or gtk_widget_queue_draw() instead of making up expose events.
+-- All that said, you most likely don't want to use any of these functions; synthesizing events is rarely needed. Consider asking on the mailing list for better ways to achieve your goals. For example, use gdk_window_invalidate_rect() or gtk_widget_queue_draw() instead of making up expose events.
 
-	-- widget : 	a GtkWidget
-	-- event : 	an event
-	-- See Also
+-- widget : 	a GtkWidget
+-- event : 	an event
+-- See Also
 
-	-- See the GLib manual, especially GMainLoop and signal-related functions such as g_signal_connect().
+-- See the GLib manual, especially GMainLoop and signal-related functions such as g_signal_connect().
 
 feature -- global windows features
 	toplevels: G_LIST [GTK_WINDOW] is
 			-- A list of all existing toplevel windows.
 		do
-			create Result.from_external(gtk_window_list_toplevels, window_factory)
-
+			create {G_OBJECT_LIST [GTK_WINDOW]} Result.from_external_pointer (gtk_window_list_toplevels)
 			-- Note: (adapted from original documentation)
 			-- `gtk_window_list_toplevels' returns a list in which the
 			-- widgets are not individually referenced. Therefore before
@@ -540,18 +680,16 @@ feature -- global windows features
 			-- (GFunc)g_object_ref, NULL)" (implemented in
 			-- `ref_all_toplevels') first, and then unref all the widgets
 			-- afterwards.
-
-			-- "ref_all_toplevels (Result.handle)" is not necessary and
-			-- *harmful*, since each G_OBJECT wrapper refs its wrapped
-			-- GObject at creation time!
+			ref_all_toplevels (Result.handle)
 		end
+
 
 	default_icon_list: G_LIST[GDK_PIXBUF] is
 			-- an icon list to be used as fallback for windows that
 			-- haven't had `icon_list' called on them to set up a
 			-- window-specific icon list.
 		do
-			create Result.from_external (gtk_window_get_default_icon_list, pixbuf_factory)
+			create {G_OBJECT_LIST[GDK_PIXBUF]} Result.from_external_pointer (gtk_window_get_default_icon_list)
 			-- Gets the value set by
 			-- gtk_window_set_default_icon_list(). The list is a copy and
 			-- should be freed with g_list_free(), but the pixbufs in the
@@ -636,7 +774,7 @@ feature -- Global error
 	
 feature {} -- External calls for global windows features
 	ref_all_toplevels (toplevel_list: POINTER) is
-		external "C inline use <gtk/gtk.h>"
+		external "C use <gtk/gtk.h>"
 		alias "g_list_foreach ($toplevel_list, (GFunc)g_object_ref, NULL)"
 		end
 

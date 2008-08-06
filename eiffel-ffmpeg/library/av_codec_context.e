@@ -22,8 +22,7 @@ indexing
 class AV_CODEC_CONTEXT
 
 inherit
-	C_STRUCT
-		redefine dispose end
+	C_STRUCT redefine from_external_pointer end
 
 insert
 	AV_CODEC_CONTEXT_EXTERNALS
@@ -31,10 +30,10 @@ insert
 	AV_CODEC_TYPES
 	AV_DISCARD
 	AV_CODEC_IDS
-	AV_CODEC_FINDER
+	AV_CODEC_FINDER 
 		undefine copy, is_equal end
 
-creation 
+creation
 	make, from_external_pointer
 
 feature {} -- Creation
@@ -43,7 +42,14 @@ feature {} -- Creation
 			-- creates a new AV_CODEC_CONTEXT and sets it to default values
 		do
 			handle := avcodec_alloc_context
-			create factory.with_archetype(create {AV_CODEC}.dummy)
+			create cache.make
+		end
+
+feature
+	from_external_pointer (a_pointer: POINTER) is
+		do
+			create cache.make
+			Precursor(a_pointer)
 		end
 
 feature -- Access
@@ -163,8 +169,11 @@ feature -- Access
 		end
 
 	codec: AV_CODEC is
+		local codec_ptr: POINTER
 		do
-			Result := factory.wrapper(av_codec_context_get_codec (handle))
+			codec_ptr := av_codec_context_get_codec(handle)
+			check codec_ptr.is_not_null end
+			Result := wrapper(codec_ptr) -- create Result.from_external_pointer(codec_ptr)
 		end
 
 	pix_fmt: INTEGER is
@@ -272,22 +281,21 @@ feature -- Operations
 			internal_got_picture := got_picture_int.to_boolean
 		end
 
-feature {} -- Disposing
+feature -- Disposing
 
 	dispose is
 		do
---			if is_valid then
---				if avcodec_close (handle) /= 0 then
---					print ("Error in avcodec_close!%N")
---				end
---			end
---			handle := default_pointer
+			--			if is_valid then
+			--				if avcodec_close (handle) /= 0 then
+			--					print ("Error in avcodec_close!%N")
+			--				end
+			--			end
+			--			handle := default_pointer
 		end
 
 feature {} -- Internal
 
 	internal_got_picture: BOOLEAN
-	factory: ARCHETYPE_CACHING_FACTORY[AV_CODEC]
 
 feature -- Size
 

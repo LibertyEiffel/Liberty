@@ -2,7 +2,7 @@ indexing
 	description: "Cairo Image Surface: Cairo surfaces that represent data in memory."
 	copyright: "[
 					Copyright (C) 2007 Soluciones Informaticas Libres S.A. (Except),
-											 Cairo team
+					                   Cairo team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -35,7 +35,7 @@ insert
 	CAIRO_FORMAT
 	CAIRO_IMAGE_SURFACE_EXTERNALS
 
-creation dummy,
+creation
 	make, for_data, from_png
 
 feature {} -- Creation
@@ -82,7 +82,7 @@ feature {} -- Creation
 			is_valid_cairo_format (a_format)
 		do
 			from_external_pointer (cairo_image_surface_create_for_data (some_data,
-										  a_format, a_width, a_height, a_stride))
+			                       a_format, a_width, a_height, a_stride))
 		end
 
 	from_png (a_filename: STRING) is
@@ -98,7 +98,7 @@ feature {} -- Creation
 			a_filename /= Void
 		do
 			from_external_pointer (cairo_image_surface_create_from_png (
-										  a_filename.to_external))
+			                       a_filename.to_external))
 		end
 
 feature -- Access

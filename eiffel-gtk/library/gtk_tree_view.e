@@ -25,14 +25,12 @@ class GTK_TREE_VIEW
 inherit
 	GTK_CONTAINER
 
--- GtkTreeView implements AtkImplementorIface.
+		-- GtkTreeView implements AtkImplementorIface.
 insert
 	GTK_TREE_VIEW_EXTERNALS
 	GTK_TREE_VIEW_DROP_POSITION
-	G_OBJECT_FACTORY [GTK_TREE_VIEW_COLUMN] undefine is_equal, copy end
-	GTK_FACTORIES
-	
-creation dummy, make, with_model, from_external_pointer
+
+creation make, with_model, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -55,9 +53,9 @@ feature
 	model: GTK_TREE_MODEL is
 			-- The model the GtkTreeView is based on. Void if the model
 			-- is unset.
-		local r: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_MODEL]
+		local model_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_MODEL]
 		do
-			Result := r.wrapper_or_void(gtk_tree_view_get_model (handle))
+			Result := model_factory.wrapper_or_void(gtk_tree_view_get_model (handle))
 		end
 
 	set_model (a_model: GTK_TREE_MODEL) is
@@ -78,51 +76,52 @@ feature
 feature
 	selection: GTK_TREE_SELECTION is
 			-- the GtkTreeSelection associated with tree view.
-		local f: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_SELECTION]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_SELECTION]
 		do
-			Result:=f.wrapper(gtk_tree_view_get_selection(handle))
+			Result := factory.wrapper(gtk_tree_view_get_selection (handle))
 		end
 
 	hadjustment: GTK_ADJUSTMENT is
 			-- the GtkAdjustment currently being used for the horizontal
 			-- aspect or Void if none is currently being used.
-		local f: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
 		do
-			Result:=f.wrapper_or_void(gtk_tree_view_get_hadjustment (handle))
+			Result := factory.wrapper(gtk_tree_view_get_hadjustment (handle))
 		end
 
 	set_hadjustment (an_adjustment: GTK_ADJUSTMENT) is
 			-- Sets the GtkAdjustment for the current orizontal aspect.
 		require valid_adjustment: an_adjustment/=Void
 		do
-			gtk_tree_view_set_hadjustment(handle, an_adjustment.handle)
+			gtk_tree_view_set_hadjustment   (handle, an_adjustment.handle)
 		end
 	
-	unset_hadjustment is
+	unset_hadjustment  is
 			-- Unsets the GtkAdjustment for the current orizontal aspect.
 		do
-			gtk_tree_view_set_hadjustment(handle, default_pointer)
+			gtk_tree_view_set_hadjustment   (handle, default_pointer)
 		end
+	
 
 	vadjustment: GTK_ADJUSTMENT is
-			-- the GtkAdjustment currently being used for the
+			-- Gets the GtkAdjustment currently being used for the
 			-- vertical aspect or Void if none is currently being used.
-		local f: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
 		do
-			Result:=f.wrapper_or_void(gtk_tree_view_get_vadjustment(handle))
+			Result := factory.wrapper(gtk_tree_view_get_vadjustment (handle))
 		end
 
 	set_vadjustment (an_adjustment: GTK_ADJUSTMENT) is
 			-- Sets the GtkAdjustment for the current vertical aspect.
 		require valid_adjustment: an_adjustment/=Void
 		do
-			gtk_tree_view_set_vadjustment(handle, an_adjustment.handle)
+			gtk_tree_view_set_vadjustment   (handle, an_adjustment.handle)
 		end
 	
 	unset_vadjustment  is
 			-- Unsets the GtkAdjustment for the current vertical aspect.
 		do
-			gtk_tree_view_set_vadjustment(handle, default_pointer)
+			gtk_tree_view_set_vadjustment   (handle, default_pointer)
 		end
 	
 	are_headers_visible: BOOLEAN is
@@ -131,25 +130,37 @@ feature
 			Result := gtk_tree_view_get_headers_visible(handle).to_boolean
 		end
 
-	set_headers_visible (a_setting: BOOLEAN) is
-			-- Makes the headers visible (`a_setting'=True) or invisible.
+	set_headers_visible is
+			-- Makes the headers are visible
 		do
-			gtk_tree_view_set_headers_visible (handle,a_setting.to_integer)
+			gtk_tree_view_set_headers_visible (handle,1)
 		ensure are_headers_visible
+		end
+
+	set_headers_invisible is
+			-- Makes the headers are invisible
+		do
+			gtk_tree_view_set_headers_visible (handle,0)
+		ensure not are_headers_visible
 		end
 
 	columns_autosize is
 			-- Resizes all columns to their optimal width. Only works
 			-- after the treeview has been realized.
 		do
-			gtk_tree_view_columns_autosize(handle)
+			gtk_tree_view_columns_autosize  (handle)
 		end
 
-	set_headers_clickable (a_setting: BOOLEAN) is
-			-- Allow the column title buttons to be clicked when
-			-- `a_setting' is True; not clickable if False.
+	set_headers_clickable is
+			-- Allow the column title buttons to be clicked.
 		do
-			gtk_tree_view_set_headers_clickable (handle,a_setting.to_integer)
+			gtk_tree_view_set_headers_clickable (handle,1)
+		end
+
+	set_headers_unclickable is
+			-- Forbid the column title buttons to be clicked.
+		do
+			gtk_tree_view_set_headers_clickable (handle,0)
 		end
 
 	--TODO: set_rules_hint ()
@@ -271,7 +282,8 @@ feature
 	columns: G_LIST[GTK_TREE_VIEW_COLUMN] is
 			-- a GList of all the GtkTreeViewColumn s currently in tree view.
 		do
-			create Result.from_external(gtk_tree_view_get_columns(handle),tree_view_column_factory)
+			create {G_OBJECT_LIST[GTK_TREE_VIEW_COLUMN]}
+			Result.from_external_pointer(gtk_tree_view_get_columns(handle))
 			-- Note: The returned list must be freed with g_list_free().
 		end
 
@@ -281,7 +293,11 @@ feature
 			-- position.
 		require valid_column: a_column/=Void
 		do
-			gtk_tree_view_move_column_after(handle,a_column.handle,null_or(a_base))
+			if a_base /= Void then
+				gtk_tree_view_move_column_after (handle, a_column.handle, a_base.handle)
+			else
+				gtk_tree_view_move_column_after (handle, a_column.handle, default_pointer)
+			end
 		end
 
 	set_expander_column (a_column: GTK_TREE_VIEW_COLUMN) is
@@ -292,15 +308,18 @@ feature
 			-- If you do not want expander arrow to appear in your tree,
 			-- set the expander column to a hidden column.
 		do
-			gtk_tree_view_set_expander_column(handle,null_or(a_column))
+			if a_column = Void then
+				gtk_tree_view_set_expander_column (handle, default_pointer)
+			else
+				gtk_tree_view_set_expander_column (handle, a_column.handle)
+			end
 		end
 
 	expander_column: GTK_TREE_VIEW_COLUMN is
 			--  the column that is the current expander column. This
 			--  column has the expander arrow drawn next to it.
 		do
-			Result := (gtk.tree_view_column_factory.wrapper
-						  (gtk_tree_view_get_expander_column(handle)))
+			create Result.from_external_pointer (gtk_tree_view_get_expander_column (handle))
 		end
 	
 	-- TODO: wrap gtk_tree_view_set_column_drag_function ()
@@ -334,11 +353,11 @@ feature
 			
 			-- If either `an_x' or `an_y' are -1, then that direction isn't scrolled.
 		do
-			gtk_tree_view_scroll_to_point(handle, an_x, an_y)
+			gtk_tree_view_scroll_to_point   (handle, an_x, an_y)
 		end
-	
+
 	scroll_to_cell (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN;
-		use_align: BOOLEAN; row_align, col_align: REAL_32) is
+						 use_align: BOOLEAN; row_align, col_align: REAL_32) is
 			-- Moves the alignments of tree view to the position
 			-- specified by `a_column' and `a_path'. If `a_column' is
 			-- Void, then no horizontal scrolling occurs. Likewise, if
@@ -378,7 +397,7 @@ feature
 			if a_path /= Void then path_ptr := a_path.handle end
 			
 			gtk_tree_view_scroll_to_cell (handle, path_ptr, column_ptr,
-			                              use_align.to_integer, row_align, col_align)
+													use_align.to_integer, row_align, col_align)
 		end
 
 	set_cursor (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN; start_editing: BOOLEAN) is
@@ -398,9 +417,13 @@ feature
 			-- `start_editing' : 	TRUE if the specified cell should start being edited.
 		require valid_path: a_path /= Void
 		do
-			gtk_tree_view_set_cursor (handle, a_path.handle,
-											  null_or(a_focus_column),
-											  start_editing.to_integer)
+			if a_focus_column=Void then
+				gtk_tree_view_set_cursor (handle, a_path.handle,
+												  default_pointer, start_editing.to_integer)
+			else
+				gtk_tree_view_set_cursor (handle, a_path.handle,
+												  a_focus_column.handle, start_editing.to_integer)
+			end
 		end
 
 	set_cursor_on_cell (a_path: GTK_TREE_PATH; a_focus_column: GTK_TREE_VIEW_COLUMN;
@@ -425,29 +448,30 @@ feature
 			-- `a_focus_cell' : 	A GtkCellRenderer, or Void
 			-- `start_editing' : 	TRUE if the specified cell should start being edited.
 		require valid_path: a_path /= Void
+		local column_ptr,cell_ptr: POINTER
 		do
-			gtk_tree_view_set_cursor_on_cell
-			(handle, a_path.handle, null_or(a_focus_column),
-			 null_or(a_focus_cell), start_editing.to_integer)
+			if a_focus_column/=Void then column_ptr := a_focus_column.handle end
+			if a_focus_cell/=Void then cell_ptr := a_focus_cell.handle end
+			
+			gtk_tree_view_set_cursor_on_cell (handle, a_path.handle, column_ptr, cell_ptr,
+														 start_editing.to_integer)
 		end
 
 	cursor: TUPLE[GTK_TREE_PATH, GTK_TREE_VIEW_COLUMN] is
-			-- The path and focus column with the current path and focus
-			-- column. If the cursor isn't currently set, then path will
-			-- be Void. If no column currently has focus, then
-			-- focus_column will be Void.
+			-- The path and focus column with the current path and focus column. If the cursor isn't currently set, then path will be Void. If no column currently has focus, then the column will be Void.
 		local
 			path_ptr, column_ptr: POINTER;
-			a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN; 
+			a_path: GTK_TREE_PATH;
+			a_column: GTK_TREE_VIEW_COLUMN
 		do
 			gtk_tree_view_get_cursor (handle, $path_ptr, $column_ptr)
-			create a_path.from_external_pointer(path_ptr)
-			a_column:=gtk.tree_view_column_factory.wrapper_or_void(column_ptr)
+			if path_ptr.is_not_null then  create a_path.from_external_pointer(path_ptr) end
+			if column_ptr.is_not_null then create a_column.secondary_wrapper_from(column_ptr) end
 			create Result.make_2 (a_path, a_column)
 		ensure
 			Result /= Void
-			-- Result.first /= Void implies Result.first.handle.is_not_null
-			-- Result.second /= Void implies Result.second.handle.is_not_null
+			Result.first /= Void implies Result.first.is_not_null
+			Result.second /= Void implies Result.second.is_not_null
 		end
 
 	row_expanded (a_path: GTK_TREE_PATH): BOOLEAN is
@@ -841,26 +865,29 @@ feature -- Search
 	-- search_equal_func : 	the compare function to use during the search
 	-- search_user_data : 	user data to pass to search_equal_func, or NULL
 	-- search_destroy : 	Destroy notifier for search_user_data, or NULL
-	
-	is_height_fixed: BOOLEAN is
-			-- Is fixed height mode turned on for Current tree view?
-		do
-			Result := gtk_tree_view_get_fixed_height_mode(handle).to_boolean
-		end
+	-- gtk_tree_view_get_fixed_height_mode ()
 
-	set_fixed_height_mode (a_setting: BOOLEAN) is
-			-- Enables or disables the fixed height mode of
-			-- tree_view. Fixed height mode speeds up GtkTreeView by
-			-- assuming that all rows have the same height.
+	-- gboolean    gtk_tree_view_get_fixed_height_mode
+	--                                             (GtkTreeView *tree_view);
 
-			-- TODO: Translate this into preconditions: "Only enable this
-			-- option if all rows are the same height and all columns are
-			-- of type `gtk_tree_view_column_fixed'".
-		do
-			gtk_tree_view_set_fixed_height_mode(handle,a_setting.to_integer)
-		ensure set: a_setting = is_height_fixed
-		end
-	
+	-- Returns whether fixed height mode is turned on for tree_view.
+
+	-- tree_view : 	a GtkTreeView
+	-- Returns : 	TRUE if tree_view is in fixed height mode
+
+	-- Since 2.6
+	-- gtk_tree_view_set_fixed_height_mode ()
+
+	-- void        gtk_tree_view_set_fixed_height_mode
+	--                                             (GtkTreeView *tree_view,
+	--                                              gboolean enable);
+
+	-- Enables or disables the fixed height mode of tree_view. Fixed height mode speeds up GtkTreeView by assuming that all rows have the same height. Only enable this option if all rows are the same height and all columns are of type GTK_TREE_VIEW_COLUMN_FIXED.
+
+	-- tree_view : 	a GtkTreeView
+	-- enable : 	TRUE to enable fixed height mode
+
+	-- Since 2.6
 	-- gtk_tree_view_get_hover_selection ()
 
 	-- gboolean    gtk_tree_view_get_hover_selection
@@ -1240,7 +1267,7 @@ feature -- "unselect-all" signal
 		do
 		end
 
-	connect_unselect_all_signal_to (a_function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]) is
+	connect_agent_to_unselect_all_signal (a_function: FUNCTION[ANY, TUPLE [GTK_TREE_VIEW], BOOLEAN]) is
 			-- treeview : 	the object which received the signal.
 			-- user_data : 	user data set when the signal handler was connected.
 			-- Returns : ?
@@ -1528,7 +1555,7 @@ feature -- The "cursor_changed" signal
 			connect (Current, cursor_changed_signal_name, $on_cursor_changed)
 		end
 
-	connect_cursor_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_VIEW]]) is
+	connect_agent_to_cursor_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
 		local cursor_changed_callback: CURSOR_CHANGED_CALLBACK
 		do
@@ -1556,7 +1583,7 @@ feature -- "expand-collapse-cursor-row"
 		do
 		end
 
-	connect_expand_collapse_cursor_row_signal_to (a_function: FUNCTION[ANY, TUPLE [BOOLEAN, BOOLEAN, BOOLEAN,
+	connect_agent_to_expand_collapse_cursor_row_signal (a_function: FUNCTION[ANY, TUPLE [BOOLEAN, BOOLEAN, BOOLEAN,
 																												  GTK_TREE_VIEW], BOOLEAN]) is
 			-- treeview : 	the object which received the signal.
 			-- user_data : 	user data set when the signal handler was connected.
@@ -1585,12 +1612,8 @@ feature -- The "row_activated" signal
 		--                                             GtkTreeViewColumn *arg2,
 		--                                             gpointer user_data);
 
-	on_row_activated (a_path: GTK_TREE_PATH; a_column: GTK_TREE_VIEW_COLUMN; a_view: GTK_TREE_VIEW) is
+	on_row_activated is
 			-- Built-in row_activated signal handler; empty by design; redefine it.
-		require
-			path_not_void: a_path /= Void
-			column_not_void: a_column /= Void
-			view_not_void: a_view /= Void
 		do
 		end
 
@@ -1600,7 +1623,7 @@ feature -- The "row_activated" signal
 			connect (Current, row_activated_signal_name, $on_row_activated)
 		end
 
-	connect_row_activated_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH,
+	connect_agent_to_row_activated_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_PATH,
 																									 GTK_TREE_VIEW_COLUMN,
 																									 GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
@@ -1628,7 +1651,7 @@ feature -- The "row_collapsed" signal
 			connect (Current, row_collapsed_signal_name, $on_row_collapsed)
 		end
 
-	connect_row_collapsed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
+	connect_agent_to_row_collapsed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
 																									 GTK_TREE_PATH,
 																									 GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
@@ -1656,7 +1679,7 @@ feature -- The "row_expanded" signal
 			connect (Current, row_expanded_signal_name, $on_row_expanded)
 		end
 
-	connect_row_expanded_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
+	connect_agent_to_row_expanded_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_ITER,
 																									GTK_TREE_PATH,
 																									GTK_TREE_VIEW]]) is
 		require valid_procedure: a_procedure /= Void
@@ -1801,7 +1824,51 @@ feature
 
 	-- tree_view : 	A GtkTreeNode.
 	-- model : 	The model.
+	-- gtk_tree_view_get_selection ()
 
+	-- GtkTreeSelection* gtk_tree_view_get_selection
+	--                                             (GtkTreeView *tree_view);
+
+	-- Gets the GtkTreeSelection associated with tree_view.
+
+	-- tree_view : 	A GtkTreeView.
+	-- Returns : 	A GtkTreeSelection object.
+	-- gtk_tree_view_get_hadjustment ()
+
+	-- GtkAdjustment* gtk_tree_view_get_hadjustment
+	--                                             (GtkTreeView *tree_view);
+
+	-- Gets the GtkAdjustment currently being used for the horizontal aspect.
+
+	-- tree_view : 	A GtkTreeView
+	-- Returns : 	A GtkAdjustment object, or NULL if none is currently being used.
+	-- gtk_tree_view_set_hadjustment ()
+
+	-- void        gtk_tree_view_set_hadjustment   (GtkTreeView *tree_view,
+	--                                              GtkAdjustment *adjustment);
+
+	-- Sets the GtkAdjustment for the current horizontal aspect.
+
+	-- tree_view : 	A GtkTreeView
+	-- adjustment : 	The GtkAdjustment to set, or NULL
+	-- gtk_tree_view_get_vadjustment ()
+
+	-- GtkAdjustment* gtk_tree_view_get_vadjustment
+	--                                             (GtkTreeView *tree_view);
+
+	-- Gets the GtkAdjustment currently being used for the vertical aspect.
+
+	-- tree_view : 	A GtkTreeView
+	-- Returns : 	A GtkAdjustment object, or NULL if none is currently being used.
+	-- gtk_tree_view_set_vadjustment ()
+
+	-- void        gtk_tree_view_set_vadjustment   (GtkTreeView *tree_view,
+	--                                              GtkAdjustment *adjustment);
+
+	-- Sets the GtkAdjustment for the current vertical aspect.
+
+	-- tree_view : 	A GtkTreeView
+	-- adjustment : 	The GtkAdjustment to set, or NULL
 	-- gtk_tree_view_get_headers_visible ()
 
 	-- gboolean    gtk_tree_view_get_headers_visible
@@ -2837,10 +2904,5 @@ feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeView)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_tree_view_new
 		end
 end

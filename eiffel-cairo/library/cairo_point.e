@@ -34,7 +34,7 @@ insert
 	CAIRO_MATRIX_EXTERNALS
 	CAIRO_TRANSFORMATIONS_EXTERNALS
 
-creation dummy, make
+creation make
 
 feature {} -- Creation
 
@@ -43,8 +43,6 @@ feature {} -- Creation
 			x := an_x
 			y := an_y
 		end
-
-	dummy is do end 
 
 feature
 	x, y: REAL

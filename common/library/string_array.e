@@ -45,7 +45,7 @@ class STRING_ARRAY
 inherit
 	COLLECTION [STRING]
 		redefine
-			swap
+			swap 
 		end
 
 insert WRAPPER_HANDLER -- only to get null_or_string

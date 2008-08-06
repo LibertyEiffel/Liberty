@@ -23,14 +23,15 @@ indexing
 
 class GTK_TREE_ROW_REFERENCE
 
-inherit
-	SHARED_C_STRUCT redefine dispose end
+inherit 
+	C_STRUCT redefine copy end
+
 
 insert 
 	GTK
 	GTK_TREE_MODEL_EXTERNALS
 	
-creation dummy, make
+creation make, copy, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -50,14 +51,12 @@ feature {} -- Creation
 			valid_model: a_model /= Void
 			valid_path: a_path /= Void
 		do
-			handle:= gtk_tree_row_reference_new (a_model.handle, a_path.handle)
-			if handle=default_pointer then
-			end
+			from_external_pointer(gtk_tree_row_reference_new (a_model.handle, a_path.handle))
 		end
 
-	from_reference (another: like Current) is
+feature
+	copy (another: like Current) is
 			-- Create Current fron `another' GtkTreeRowReference.
-		require another/=Void
 		do
 			from_external_pointer (gtk_tree_row_reference_copy (another.handle))
 		end
@@ -93,8 +92,9 @@ feature -- Queries
 	model: GTK_TREE_MODEL is
 			-- the model which reference is monitoring in order to
 			-- appropriately the path. Can be Void
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_MODEL]
 		do
-			Result := tree_model_factory.wrapper_or_void(gtk_tree_row_reference_get_model(handle))
+			Result:= factory.wrapper_or_void (gtk_tree_row_reference_get_model (handle))
 		end
 
 	path: GTK_TREE_PATH is
@@ -121,6 +121,7 @@ feature -- Disposing
 			-- Free's reference. reference may be NULL.
 			gtk_tree_row_reference_free (handle)
 		end
+
 feature {} -- Unimplemented
 -- gtk_tree_row_reference_inserted ()
 
@@ -154,5 +155,12 @@ feature {} -- Unimplemented
 -- path : 	The parent path of the reordered signal
 -- iter : 	The iter pointing to the parent of the reordered
 -- new_order : 	The new order of rows
+feature {} -- Notices
+	no_wrapper_for_model_notice: STRING is 
+		"[
+		 Warning! GTK_TREE_REFERENCE.model receved from GTK library 
+		 a unwrapped pointer to a GtkTreeModel. Please report this
+		 as a bug to Eiffel Wrapper Library Collection project.
+		 ]"
 
 end

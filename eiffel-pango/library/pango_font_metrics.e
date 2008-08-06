@@ -21,11 +21,11 @@ indexing
 
 class PANGO_FONT_METRICS
 
-inherit SHARED_C_STRUCT
+inherit 
+	C_STRUCT
+	REFERENCE_COUNTED
 
--- insert FOO_EXTERNALS
-
-creation  from_external_pointer
+creation from_external_pointer
 
 feature -- TODO: PangoFontMetrics structure access
 

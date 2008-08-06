@@ -6,11 +6,27 @@ indexing
 	revision "$Revision:$"
 
 deferred class C_STRUCT
+	-- C_STRUCT's are "owned" by the Eiffel code, and the Eiffel side
+	-- should keep then longest lived reference to this struct.  This
+	-- allows us to forget about wrapping for this objects.  If you
+	-- have to share this struct and/or will have pointers to it around
+	-- that will outlive the wrapper, please use SHARED_C_STRUCT
 
 inherit
 	WRAPPER
 
 feature {} -- Initialization
+
+	from_external_copy (other: POINTER) is
+		do
+			dispose
+			if other.is_not_null then
+				allocate
+				handle := memcpy (handle, other, struct_size)
+			else
+				handle := default_pointer
+			end
+		end
 
 	allocate is
 			-- Allocate an initialized structure
@@ -48,31 +64,12 @@ feature {} -- Access to C features
 		ensure positive: Result > 0 -- TODO: having NATURAL it is plainly useless
 		end
 
-feature {} -- Handling wrappers
-
-	-- NOTE: C_STRUCT's are considered to be "owned" by the Eiffel
-	-- code, and the Eiffel side should keep then longest lived
-	-- reference to this struct.  This allows us to forget about
-	-- wrapping for this objects.  If you have to share this struct
-	-- and/or will have pointers to it around that will outlive the
-	-- wrapper, please use SHARED_C_STRUCT
-
-feature {} -- Destroying
-
-	dispose, force_free_handle  is
-			-- Frees the external pointer. Shall be called just before 
-			-- the garbage collector removes the wrapper object.
-		do
-			free (handle) -- if necessary. free(NULL) is a NOP
-			handle:= default_pointer -- null
-		ensure
-			cleared: is_null
-		end
-
+feature {WRAPPER_HANDLER} -- Destroying
 	free_handle is
 			-- release the external memory
 		do
 			free (handle)
+			-- Note free(NULL) is a harmless non-operation.
 		end
 
 end -- class C_STRUCT

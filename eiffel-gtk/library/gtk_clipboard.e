@@ -87,7 +87,8 @@ class GTK_CLIPBOARD
 	
 inherit G_OBJECT 
 
-creation from_external_pointer
+creation
+	make, from_external_pointer
 
 feature {} -- Creation
 
@@ -180,9 +181,13 @@ feature {} -- Creation
 -- user_data_or_owner : 	the user_data argument passed to gtk_clipboard_set_with_data(), or the owner argument passed to gtk_clipboard_set_with_owner()
 -- gtk_clipboard_get ()
 
--- GtkClipboard* gtk_clipboard_get             (GdkAtom selection);
 
--- Returns the clipboard object for the given selection. See gtk_clipboard_get_for_display() for complete details.
+	make (selection: GDK_ATOM) is
+			-- Returns the clipboard object for the given selection. See
+			-- `make_for_display' for complete details.
+		do
+			from_external_pointer (gtk_clipboard_get (selection.handle))
+		end
 
 -- selection : 	a GdkAtom which identifies the clipboard to use.
 -- Returns : 	the appropriate clipboard object. If no clipboard already exists, a new one will be created. Once a clipboard object has been created, it is persistent and, since it is owned by GTK+, must not be freed or unrefd.
@@ -267,15 +272,17 @@ feature {} -- Creation
 -- clipboard : 	a GtkClipboard
 -- gtk_clipboard_set_text ()
 
--- void        gtk_clipboard_set_text          (GtkClipboard *clipboard,
---                                              const gchar *text,
---                                              gint len);
+feature
 
--- Sets the contents of the clipboard to the given UTF-8 string. GTK+ will make a copy of the text and take responsibility for responding for requests for the text, and for converting the text into the requested format.
+	set_text (text: STRING) is
+			-- Sets the contents of the clipboard to the given UTF-8 string. GTK+ will
+			-- make a copy of the text and take responsibility for responding for
+			-- requests for the text, and for converting the text into the requested
+			-- format.
+		do
+			gtk_clipboard_set_text (handle, text.to_external, text.count)
+		end
 
--- clipboard : 	a GtkClipboard object
--- text : 	a UTF-8 string.
--- len : 	length of text, in bytes, or -1, in which case the length will be determined with strlen().
 -- gtk_clipboard_set_image ()
 
 -- void        gtk_clipboard_set_image         (GtkClipboard *clipboard,
@@ -373,13 +380,20 @@ feature {} -- Creation
 -- Returns : 	a newly-allocated GtkSelectionData object or NULL if retrieving the given target failed. If non-NULL, this value must be freed with gtk_selection_data_free() when you are finished with it.
 -- gtk_clipboard_wait_for_text ()
 
--- gchar*      gtk_clipboard_wait_for_text     (GtkClipboard *clipboard);
 
--- Requests the contents of the clipboard as text and converts the result to UTF-8 if necessary. This function waits for the data to be received using the main loop, so events, timeouts, etc, may be dispatched during the wait.
-
--- clipboard : 	a GtkClipboard
--- Returns : 	a newly-allocated UTF-8 string which must be freed with g_free(), or NULL if retrieving the selection data failed. (This could happen for various reasons, in particular if the clipboard was empty or if the contents of the clipboard could not be converted into text form.)
--- gtk_clipboard_wait_for_image ()
+	wait_for_text: STRING is
+			-- Requests the contents of the clipboard as text and converts the result
+			-- to UTF-8 if necessary. This function waits for the data to be received
+			-- using the main loop, so events, timeouts, etc, may be dispatched during
+			-- the wait.
+		local
+			r: POINTER
+		do
+			r := gtk_clipboard_wait_for_text (handle)
+			if not r.is_null then
+				create Result.from_external (r)
+			end
+		end
 
 -- GdkPixbuf*  gtk_clipboard_wait_for_image    (GtkClipboard *clipboard);
 
@@ -551,6 +565,11 @@ feature {} -- External calls
 -- void        (*GtkClipboardClearFunc)        (GtkClipboard *clipboard,
 --                                              gpointer user_data_or_owner);
 -- GtkClipboard* gtk_clipboard_get             (GdkAtom selection);
+
+	gtk_clipboard_get (selection: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
+
 -- GtkClipboard* gtk_clipboard_get_for_display (GdkDisplay *display,
 --                                              GdkAtom selection);
 -- GdkDisplay* gtk_clipboard_get_display       (GtkClipboard *clipboard);
@@ -568,9 +587,11 @@ feature {} -- External calls
 --                                              GObject *owner);
 -- GObject*    gtk_clipboard_get_owner         (GtkClipboard *clipboard);
 -- void        gtk_clipboard_clear             (GtkClipboard *clipboard);
--- void        gtk_clipboard_set_text          (GtkClipboard *clipboard,
---                                              const gchar *text,
---                                              gint len);
+
+	gtk_clipboard_set_text (clipboard: POINTER; text: POINTER; len: INTEGER) is
+		external "C use <gtk/gtk.h>"
+		end
+
 -- void        gtk_clipboard_set_image         (GtkClipboard *clipboard,
 --                                              GdkPixbuf *pixbuf);
 -- void        gtk_clipboard_request_contents  (GtkClipboard *clipboard,
@@ -593,7 +614,10 @@ feature {} -- External calls
 -- GtkSelectionData* gtk_clipboard_wait_for_contents
 --                                             (GtkClipboard *clipboard,
 --                                              GdkAtom target);
--- gchar*      gtk_clipboard_wait_for_text     (GtkClipboard *clipboard);
+	gtk_clipboard_wait_for_text (clipboard: POINTER): POINTER is
+		external "C use <gtk/gtk.h>"
+		end
+
 -- GdkPixbuf*  gtk_clipboard_wait_for_image    (GtkClipboard *clipboard);
 -- guint8*     gtk_clipboard_wait_for_rich_text
 --                                             (GtkClipboard *clipboard,
@@ -624,6 +648,5 @@ feature -- size
 		external "C use <gtk/gtk.h>"
 		alias "sizeof(GtkClipboard)"
 		end
-
-	dummy_gobject: POINTER is do unimplemented end 
+	
 end -- class GTK_CLIPBOARD

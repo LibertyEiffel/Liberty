@@ -101,11 +101,11 @@ insert
 	GTK_STORE_SETTERS
 	GTK_LIST_STORE_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 
-	make (some_columns: ARRAY[INTEGER_32]) is
+	make (some_columns: ARRAY[INTEGER]) is
 			-- Creates a new list store. `some_columns' is a list of integers; each
 			-- integer is the G_TYPE of an actual column. Note that only types
 			-- derived from standard GObject fundamental types are supported.
@@ -176,6 +176,10 @@ feature -- Generic setter
 			-- `an_iterator': A valid GtkTreeIter for the row being modified
 			-- `a_column' : column number to modify
 			-- `a_value' : new value for the cell
+		require
+			valid_iterator: an_iterator/=Void
+			valid_value: a_value /= Void -- and then Eiffelize "The type of
+			-- `a_value' must be convertible to the type of the column."
 		do
 			gtk_list_store_set_value (handle, an_iterator.handle, a_column, a_value.handle)
 		end
@@ -437,17 +441,5 @@ feature -- Generic setter
 		do
 			gtk_list_store_move_after (handle, an_iterator.handle, default_pointer)
 		end
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=(gtk_list_store_newv
-						(1, {NATIVE_ARRAY[INTEGER] <<g_type_int>>}.to_external))
-		end
-
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkListStore)"
-		end
 
 end
-

@@ -23,8 +23,9 @@ class AV_FORMAT_PARAMETERS
 
 inherit
 	C_STRUCT
+	EIFFEL_OWNED
 
-creation 
+creation
 	make, from_external_pointer
 
 feature -- Size

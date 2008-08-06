@@ -21,8 +21,7 @@ indexing
 
 class GDK_EVENT_FOCUS
 
-inherit
-	SHARED_C_STRUCT
+inherit GDK_EVENT
 
 insert
 	GDK_EVENT_FOCUS_EXTERNALS
@@ -38,11 +37,12 @@ feature -- access
 			Result := gdk_event_focus_get_in (handle).to_boolean
 		end
 
-feature -- size
+-- feature -- size
+-- 	struct_size: INTEGER is
+-- 		external "C inline use <gdk/gdk.h>"
+-- 		alias "sizeof(GdkEventFocus)"
+-- 		end
 
-	struct_size: INTEGER is
-		external "C inline use <gdk/gdk.h>"
-		alias "sizeof(GdkEventFocus)"
-		end
+invariant is_event_focus
 
 end -- class GDK_EVENT_FOCUS

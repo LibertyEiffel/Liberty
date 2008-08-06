@@ -88,9 +88,9 @@ class GTK_PRINT_CONTEXT
 
 	--   Printing support was added in GTK+ 2.10.
 
-inherit SHARED_C_STRUCT
+inherit G_OBJECT
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 
@@ -168,7 +168,7 @@ feature {} -- Creation
 		end
 	
 	pango_layout: PANGO_LAYOUT is
-			-- a (newly allocated) PangoLayout that is suitable for use with the GtkPrintContext.
+			-- a PangoLayout that is suitable for use with the GtkPrintContext.
 		do
 			create Result.from_external_pointer
 			(gtk_print_context_create_pango_layout(handle))

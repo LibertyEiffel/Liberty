@@ -25,10 +25,12 @@ indexing
 	wrapped_version: "1.2.4"
 
 class CAIRO_FONT_OPTIONS
+	-- Font options describes how a font should be rendered.
 
 inherit
-	SHARED_C_STRUCT
-		redefine dispose, copy, is_equal end
+	C_STRUCT	redefine copy, is_equal end
+
+	MIXED_MEMORY_HANDLING redefine dispose end
 
 insert
 	CAIRO_ANTIALIAS_TYPE
@@ -38,7 +40,7 @@ insert
 	CAIRO_FONT_OPTIONS_EXTERNALS
 	CAIRO_STATUS
 
-creation dummy, make, from_external_pointer_shared
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -53,21 +55,15 @@ feature {} -- Creation
 			-- allocated, then a special error object is returned where all
 			-- operations on the object do nothing. You can check for this with
 			-- cairo_font_options_status().
-			set_unshared
-		end
-
-	from_external_pointer_shared (a_ptr: POINTER) is
-		do
-			from_external_pointer (a_ptr)
-			set_shared
 		end
 
 feature -- Disposing
-
 	dispose is
 			-- Destroys a cairo_font_options_t
 		do
-			cairo_font_options_destroy (handle)
+			if not is_shared then 
+				cairo_font_options_destroy (handle)
+			end
 			handle := default_pointer
 		end
 

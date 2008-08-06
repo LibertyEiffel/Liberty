@@ -26,9 +26,7 @@ class EDITING_STARTED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert
-	G_OBJECT_FACTORY [GTK_CELL_RENDERER]
-		undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_CELL_RENDERER]
 
 creation make
 
@@ -36,26 +34,22 @@ feature
 	object: GTK_CELL_RENDERER
 
 feature
-	callback (editable, path, instance: POINTER) is
+	callback (editable_ptr, path_ptr, instance: POINTER) is
 		local
-			f: G_OBJECT_FACTORY [GTK_CELL_EDITABLE]
-			editable_obj: GTK_CELL_EDITABLE
-			path_obj: GTK_TREE_PATH
+			cell_editable_factory: G_OBJECT_FACTORY[GTK_CELL_EDITABLE]
+			an_editable: GTK_CELL_EDITABLE
+			a_path: STRING
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
-			check
-				eiffel_created_the_widget: has_eiffel_wrapper_stored (instance)
-			end
-			object := wrapper (instance)
+			-- The following is written with the implicit requirement 
+			-- that the button is actually created bu the Eiffel 
+			-- application. 
+			object := wrapper(instance)
 			
-			create f
-			editable_obj := f.wrapper (editable)
+			an_editable := cell_editable_factory.wrapper(editable_ptr)
 
-			if not path.is_null then
-				-- path is a const gchar *
-				create path_obj.from_string (create {STRING}.from_external_copy (path))
-			end
-			procedure.call ([editable_obj, path_obj, object])
+			if path_ptr.is_not_null then  create {CONST_STRING} a_path.from_external(path_ptr) end
+			procedure.call ([an_editable, a_path, object])
 		end
 
 	callback_pointer: POINTER is
@@ -66,7 +60,7 @@ feature
 		end
 
 	connect (an_object: GTK_CELL_RENDERER; a_procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_EDITABLE,
-	                                                                          GTK_TREE_PATH, GTK_CELL_RENDERER]]) is
+																									  STRING, GTK_CELL_RENDERER]]) is
 		do
 			debug
 				print ("EDITING_STARTED_CALLBACK.connect (an_object=") print (an_object.to_pointer.to_string)
@@ -77,14 +71,14 @@ feature
 			end
 			
 			handler_id := g_signal_connect_closure (an_object.handle,
-			                                        signal_name.to_external,
-			                                        handle,
-			                                        0 -- i.e. call it before default handler
-			                                       )
+																 signal_name.to_external,
+																 handle,
+																 0 -- i.e. call it before default handler
+																)
 			procedure:=a_procedure
 		end
 
 	signal_name: STRING is "editing-started"
 
-	procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_EDITABLE, GTK_TREE_PATH, GTK_CELL_RENDERER]]
+	procedure: PROCEDURE [ANY, TUPLE[GTK_CELL_EDITABLE, STRING, GTK_CELL_RENDERER]]
 end

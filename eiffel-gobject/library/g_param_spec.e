@@ -36,16 +36,17 @@ class G_PARAM_SPEC
 	-- use the correct heir; i.e. G_PARAM_SPEC_BOOLEAN.
 	
 inherit
-	SHARED_C_STRUCT
+	C_STRUCT
 		redefine 
 			from_external_pointer 
 		end
+	SHARED
 
 insert
 	G_PARAM_SPEC_EXTERNALS
 	G_TYPE_EXTERNALS
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 	
 feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
@@ -88,7 +89,6 @@ feature -- Flags
 			Result:= (flags & g_param_construct_only).to_boolean
 		end
 
-feature {} -- Unwrapped 
 	-- TODO: find a better, not-clashing name for is_readable: BOOLEAN
 	-- is -- Is strict validation not required upon parameter
 	-- conversion?  (see `convert') do Result:=
@@ -113,7 +113,6 @@ feature {} -- Unwrapped
 --			Result:= (flags & g_param_static_blurb).to_boolean
 --		end
 
-feature
 	is_readwrite: BOOLEAN is
 			-- Is parameter read/write?
 		do
@@ -121,6 +120,7 @@ feature
 		ensure definition: Result implies (is_readable and is_writable)
 		end
 
+feature
 	set_default (a_value: G_VALUE) is
 			-- Sets `a_value' to its default value as specified in Current.
 		require valid_value: a_value /= Void
@@ -260,8 +260,6 @@ feature {} -- Creation
 			-- Note: where Gobject type system took this?
 			owner_class := g_type_class_peek(get_owner_type(handle))
 			param_id := get_param_id (handle)
-			
-			set_shared
 		ensure is_integer: is_integer
 		end
 
@@ -341,7 +339,7 @@ feature -- TODO: long parameter. Note: could it be the same of INTEGER_64?
 feature -- TODO: unsigned long parameter. Note: could it be the same of an eventual NATURAL_64?
 feature -- TODO: NATURAL_64 (uint64) parameter
 
-feature -- REAL_32 (float) parameter
+feature -- TODO: REAL_32 (float) parameter
 	is_real_32: BOOLEAN is
 			-- Is this an integer parameter?
 		do
@@ -369,33 +367,7 @@ feature -- REAL_32 (float) parameter
 			Result := get_max_float (handle)
 		end
 
-feature -- REAL (double) parameter
-	is_real: BOOLEAN is
-			-- Is this an integer parameter?
-		do
-			Result := g_is_param_spec_double (handle).to_boolean
-		end
-
-	default_real: REAL is
-			-- The default integer value
-		require is_integer: is_integer
-		do
-			Result := get_default_double (handle)
-		end
-
-	minimum_real: REAL is
-			-- The minimum real value
-		require is_real: is_real
-		do
-			Result := get_min_double (handle)
-		end
-
-	maximum_real: REAL is
-			-- The maximum real value
-		require is_real: is_real
-		do
-			Result := get_max_double (handle)
-		end
+feature -- TODO: REAL_64 (double) parameter
 
 feature -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
 	is_enum: BOOLEAN is
@@ -418,20 +390,8 @@ feature -- TODO: STRING parameter
 feature -- TODO: G_PARAM_SPEC parameter 
 	-- Note: call me dumb but it seems a little too recursive IMHO. Paolo 2006-06-28
 feature -- TODO: G_BOXED parameter. Note: this require a wrapper for G_BOXED
-	
-feature -- POINTER parameter.
-	is_pointer: BOOLEAN is
-			-- Is this a pointer parameter?
-		do
-			Result := g_is_param_spec_pointer (handle).to_boolean
-		end
-	
+feature -- TODO: POINTER parameter. Note: is this really needed? Paolo 2006-06-28
 feature -- TODO: G_OBJECT parameter
-	is_object: BOOLEAN is
-			-- Is this a object parameter?
-		do
-			Result := g_is_param_spec_object (handle).to_boolean
-		end
 
 feature -- TODO: UNICODE CHARACTER parameter
 	

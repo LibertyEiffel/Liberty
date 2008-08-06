@@ -1,5 +1,5 @@
 indexing
-	description: "GtkFileChooserWidget File chooser widget that can be embedded in other widgets"
+	description: "GtkFileChooserWidget — File chooser widget that can be embedded in other widgets"
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team,  GTK+ team and others
 					
@@ -39,7 +39,7 @@ inherit
 insert
 	GTK_FILE_CHOOSER_WIDGET_EXTERNALS
 
-creation dummy,
+creation
 	make,
 	with_backend,
 	from_external_pointer
@@ -75,10 +75,5 @@ feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileChooserWidget)"
-		end
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_file_chooser_widget_new (gtk_file_chooser_action_open)
 		end
 end

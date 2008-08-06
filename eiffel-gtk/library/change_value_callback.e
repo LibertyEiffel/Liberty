@@ -26,7 +26,7 @@ class CHANGE_VALUE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_RANGE] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_RANGE]
 
 creation make
 
@@ -43,7 +43,6 @@ feature
 				print ("is_object: "+g_is_object (instance).out+"%N")
 				print ("type: "+g_object_type (instance).out+"%N")
 			end
-			-- retrieve object
 			object := wrapper(instance)
 			Result := function.item ([value, scroll, object]).to_integer
 		end

@@ -38,10 +38,10 @@ inherit GTK_CONTAINER
 	-- GtkNotebook implements AtkImplementorIface.
 
 insert
-		G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_WIDGET]
 	GTK_NOTEBOOK_EXTERNALS
 
-creation dummy, make
+creation make, from_external_pointer
 
 feature -- struct size
 	struct_size: INTEGER is
@@ -49,17 +49,12 @@ feature -- struct size
 		alias "sizeof(GtkNotebook)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_notebook_new
-		end
-	
 feature {} -- Creation
 	make is
 			-- Creates a new GtkNotebook widget with no pages.
 		require gtk_initialized: gtk.is_initialized
 		do
-			from_external_pointer(gtk_notebook_new)
+			from_external_pointer (gtk_notebook_new)
 		end
 
 feature -- page handling
@@ -219,25 +214,17 @@ feature -- page handling
 
 	--    ---------------------------------------------------------------------------------------------------
 
-	--   gtk_notebook_next_page ()
+	next_page is
+			-- Switches to the next page. Nothing happens if the current page is the last page.
+		do
+			gtk_notebook_next_page (handle)
+		end
 
-	--  void        gtk_notebook_next_page          (GtkNotebook *notebook);
-
-	--    Switches to the next page. Nothing happens if the current page is the last page.
-
-	--    notebook : a GtkNotebook
-
-	--    ---------------------------------------------------------------------------------------------------
-
-	--   gtk_notebook_prev_page ()
-
-	--  void        gtk_notebook_prev_page          (GtkNotebook *notebook);
-
-	--    Switches to the previous page. Nothing happens if the current page is the first page.
-
-	--    notebook : a GtkNotebook
-
-	--    ---------------------------------------------------------------------------------------------------
+	prev_page, previous_page is
+			-- Switches to the previous page. Nothing happens if the current page is the first page.
+		do
+			gtk_notebook_prev_page (handle)
+		end
 
 	--   gtk_notebook_reorder_child ()
 
@@ -336,7 +323,7 @@ feature -- page handling
 			-- than the default (the tab label).
 		require valid_child: a_child /= Void
 		do
-			Result := wrapper_or_void(gtk_notebook_get_menu_label (handle, a_child.handle))
+			Result := wrapper_or_void (gtk_notebook_get_menu_label (handle, a_child.handle))
 		end
 
 	nth_page (a_page_num: INTEGER): GTK_WIDGET is
@@ -344,7 +331,7 @@ feature -- page handling
 			-- `a_page_num'. Set `a_page__num' to -1 to get the last
 			-- page.  Void if `a_page_num' is out of bounds.
 		do
-			Result := wrapper_or_void(gtk_notebook_get_nth_page (handle, a_page_num))
+			Result := wrapper_or_void (gtk_notebook_get_nth_page (handle, a_page_num))
 		end
 
 	n_pages: INTEGER is
@@ -358,10 +345,9 @@ feature -- page handling
 			-- not in notebook or if no tab label has specifically been
 			-- set for child.
 		require valid_child: a_child /= Void
-		local ptr: POINTER
 		do
 			-- Note: see also the note in `set_tab_label_text' postcondition
-			Result := wrapper_or_void(gtk_notebook_get_tab_label(handle, a_child.handle))
+			Result := wrapper_or_void (gtk_notebook_get_tab_label (handle, a_child.handle))
 		end
 
 	tab_label_packing  (a_child: GTK_WIDGET): TUPLE[BOOLEAN,BOOLEAN,INTEGER] is
@@ -809,7 +795,7 @@ feature --   The "change-current-page" signal
 			connect (Current, change_current_page_signal_name, $on_change_current_page)
 		end
 
-	connect_change_current_page_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]]) is
+	connect_agent_to_change_current_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[INTEGER, GTK_NOTEBOOK]]) is
 			--  void        user_function                  (GtkNotebook *notebook,
 			--                                              gint         arg1,
 			--                                              gpointer     user_data)      : Run last / Action
@@ -842,7 +828,7 @@ feature --   The "switch-page" signal
 			connect (Current, switch_page_signal_name, $on_switch_page)
 		end
 
-	connect_switch_page_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]]) is
+	connect_agent_to_switch_page_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_NOTEBOOK_PAGE, INTEGER, GTK_NOTEBOOK]]) is
 			--  void        user_function                  (GtkNotebook     *notebook,
 			--                                              GtkNotebookPage *page,
 			--                                              guint            page_num,

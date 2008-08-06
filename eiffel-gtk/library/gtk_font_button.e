@@ -29,15 +29,15 @@ class GTK_FONT_BUTTON
 
 inherit
 	GTK_BUTTON
-		redefine
-			dummy_gobject,
-			make,
+		undefine
 			struct_size
+		redefine
+			make
 		end
 
 insert GTK_FONT_BUTTON_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -50,7 +50,7 @@ feature {} -- Creation
 			-- Creates a new font picker widget. `a_font_name' is the
 			-- name of font to display in font selection dialog
 		require
-			name_not_void: a_font_name /= Void
+            name_not_void: a_font_name /= Void
 		do
 			from_external_pointer(gtk_font_button_new_with_font(a_font_name.to_external))
 		end
@@ -188,18 +188,6 @@ feature
 	--
 	--   Since 2.4
 	--
-
-
-feature 
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkFontButton)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_font_button_new
-		end
 
 feature -- The "font-set" signal
 

@@ -22,12 +22,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class GTK_RANGE
-	-- Base class for widgets which visualize an adjustment.
 
 inherit
 	GTK_WIDGET
-
-insert
 	GTK_RANGE_EXTERNALS
 
 feature -- The adjustment
@@ -39,12 +36,13 @@ feature -- The adjustment
 		local
 			factory: G_OBJECT_EXPANDED_FACTORY [GTK_ADJUSTMENT]
 		do
-			Result := factory.wrapper(gtk_range_get_adjustment(handle))
+			Result := factory.unreffed_wrapper_or_void (gtk_range_get_adjustment (handle))
 			-- GTK documentation says "See gtk_range_set_adjustment() for
 			-- details. The return value does not have a reference added,
-			-- so should not be unreferenced." Shall instead we just add
-			-- a reference to the adjustment, because there will be an
-			-- effective refence on the Eiffel side?
+			-- so should not be unreferenced." Instead we just add a
+			-- reference to the adjustment, because there will be an
+			-- effective refence on the Eiffel side
+			-- Result.ref
 		ensure
 			valid_adjustment: Result /= Void
 		end
@@ -292,7 +290,7 @@ feature -- The "change-value" signal
 		do
 		end
 
-	connect_change_value_signal_to (a_function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]) is
+	connect_agent_to_change_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, INTEGER, GTK_RANGE], BOOLEAN]) is
 			-- range : the range that received the signal.
 			-- scroll: the type of scroll action that was performed.
 			-- value : the new value resulting from the scroll action.
@@ -340,7 +338,7 @@ feature -- The "value-changed" signal
 			connect (Current, value_changed_signal_name, $on_value_changed)
 		end
 
-	connect_value_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_RANGE]]) is
+	connect_agent_to_value_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_RANGE]]) is
 		require valid_procedure: a_procedure /= Void
 		local value_changed_callback: VALUE_CHANGED_CALLBACK
 		do

@@ -28,14 +28,15 @@ class GTK_HSCALE
 
 inherit
 	GTK_SCALE
-		-- Interfaces GtkHScale implements AtkImplementorIface.
 
 insert
 	GTK_HSCALE_EXTERNALS
-	GTK_ADJUSTMENT_EXTERNALS
 
-creation dummy,
-	from_adjustment, with_range
+		-- Implemented Interfaces: GtkHScale implements
+		-- AtkImplementorIface.
+
+creation
+	from_adjustment, with_range, from_external_pointer
 
 feature {} -- Creation
 
@@ -44,7 +45,8 @@ feature {} -- Creation
 			-- GtkAdjustment which sets the range of the scale.
 		require valid_adjustment: an_adjustment /= Void
 		do
-			from_external_pointer(gtk_hscale_new(an_adjustment.handle))
+			handle := gtk_hscale_new (an_adjustment.handle)
+			store_eiffel_wrapper
 		end
 
 	with_range (a_min, a_max, a_step: REAL) is
@@ -76,11 +78,6 @@ feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkHScale)"
-		end
-
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_hscale_new(gtk_adjustment_new(0.5,0.0,1.0,0.05,0.1,0.2))
 		end
 end
 

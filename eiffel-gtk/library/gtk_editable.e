@@ -18,42 +18,45 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+	date: "$Date:$"
+	revision: "$Revision:$"
+
+			-- The GtkEditable interface is an interface which should be
+			-- implemented by text editing widgets, such as GtkEntry and
+			-- GtkText. It contains functions for generically
+			-- manipulating an editable widget, a large number of action
+			-- signals used for key bindings, and several signals that an
+			-- application can connect to to modify the behavior of a
+			-- widget.
+
+			-- As an example of the latter usage, by connecting the
+			-- following handler to "insert_text", an application can
+			-- convert all entry into a widget into uppercase.
+
+			-- Example 3. Forcing entry to uppercase.
+	
+			-- include <ctype.h>
+	
+			-- void
+			-- insert_text_handler (GtkEditable *editable,
+			--                      const gchar *text,
+			--                      gint         length,
+			--                      gint        *position,
+			--                      gpointer     data)
+			-- {
+			--   int i;
+			--   gchar *result = g_utf8_strup (text, length);
+	
+			--   g_signal_handlers_block_by_func (editable,
+			-- 				   (gpointer) insert_text_handler, data);
+			--   gtk_editable_insert_text (editable, result, length, position);
+			--   g_signal_handlers_unblock_by_func (editable,
+			--                                      (gpointer) insert_text_handler, data);
+			--   g_signal_stop_emission_by_name (editable, "insert_text"); 
+			--   g_free (result);
+			-- }
 
 deferred class GTK_EDITABLE
-	-- The GtkEditable interface is an interface which should be
-	-- implemented by text editing widgets, such as GtkEntry and
-	-- GtkText. It contains functions for generically manipulating an
-	-- editable widget, a large number of action signals used for key
-	-- bindings, and several signals that an application can connect to
-	-- to modify the behavior of a widget.
-
-	-- As an example of the latter usage, by connecting the following
-	-- handler to "insert_text", an application can convert all entry
-	-- into a widget into uppercase.
-
-	-- TODO: Eiffelize this example 3. Forcing entry to uppercase.
-	
-	-- include <ctype.h>
-	
-	-- void
-	-- insert_text_handler (GtkEditable *editable,
-	--                      const gchar *text,
-	--                      gint         length,
-	--                      gint        *position,
-	--                      gpointer     data)
-	-- {
-	--   int i;
-	--   gchar *result = g_utf8_strup (text, length);
-	
-	--   g_signal_handlers_block_by_func (editable,
-	-- 				   (gpointer) insert_text_handler, data);
-	--   gtk_editable_insert_text (editable, result, length, position);
-	--   g_signal_handlers_unblock_by_func (editable,
-	--                                      (gpointer) insert_text_handler, data);
-	--   g_signal_stop_emission_by_name (editable, "insert_text"); 
-	--   g_free (result);
-	-- }
-
 inherit
 	GTK_WIDGET
 		-- DELETE: undefine make end
@@ -87,9 +90,9 @@ feature
 			create Result.make_3 (is_there.to_boolean,a_start,an_end)
 		end
 
-	insert_text (a_text: STRING; a_position: INTEGER) is
+	insert_text (a_text: STRING; a_position: REFERENCE [INTEGER]) is
 			-- Inserts `a_text' at `a_position'.
-		local position_ptr: POINTER
+		local io_position: INTEGER
 		do
 			-- editable : 	a GtkEditable widget.
 			
@@ -102,8 +105,10 @@ feature
 			-- call it points at the position after the newly inserted
 			-- text.
 			
-			not_yet_implemented -- TODO missing position_ptr := WHAT? + a_position
-			-- gtk_editable_insert_text (handle, a_text.to_external, a_text.count, position_ptr)
+--			not_yet_implemented -- TODO missing position_ptr := WHAT? + a_position
+			io_position := a_position.item
+			gtk_editable_insert_text (handle, a_text.to_external, a_text.count, $io_position)
+			a_position.set_item (io_position)
 		end
 
 	delete_text (a_start, an_end: INTEGER) is
@@ -201,11 +206,20 @@ feature
 
 feature -- The "changed" signal
 	changed_signal_name: STRING is "changed"
-			
-	connect_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
-			-- Connects "changed" signal to `a_procedure'.
-			-- The "changed" signal is emitted when the user changes
-			-- the contents of the widget.
+	enable_on_changed is
+			-- Connects "changed" signal to `on_changed' feature.
+		do
+			connect (Current, changed_signal_name, $on_changed)
+		end
+
+	on_changed is
+			-- Built-in changed signal handler; empty by design; redefine it.
+
+			-- Indicates that the user has changed the contents of the widget.
+		do
+		end
+
+	connect_agent_to_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_EDITABLE]]) is
 		require valid_procedure: a_procedure /= Void
 		local changed_callback: CHANGED_CALLBACK [like Current]
 		do
@@ -244,8 +258,19 @@ feature -- The "delete-text" signal
 feature -- The "insert-text" signal
 
 	insert_text_signal_name: STRING is "insert-text"
+		-- 		"insert-text"
+		--             void        user_function      (GtkEditable *editable,
+		--                                             gchar       *new_text,
+		--                                             gint         new_text_length,
+		--                                             gint        *position,
+		--                                             gpointer     user_data)            : Run last
 
-	connect_insert_text_signal_to (a_procedure: PROCEDURE [ANY, TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]) is
+	on_insert_text is
+			-- Built-in insert-text signal handler; empty by design; redefine it.
+		do
+		end
+
+	enable_on_insert_text is
 			-- Connects "insert-text" signal to `on_insert_text' feature.
 			
 			-- This signal is emitted when text is inserted into the widget by
@@ -254,13 +279,11 @@ feature -- The "insert-text" signal
 			-- signal and then stopping the signal with gtk_signal_emit_stop(),
 			-- it is possible to modify the inserted text, or prevent it from
 			-- being inserted entirely.
-			
-			-- void user_function (GtkEditable *editable,
-			--                     gchar       *new_text,
-			--                     gint         new_text_length,
-			--                     gint        *position,
-			--                     gpointer     user_data)            : Run last
+		do
+			connect (Current, insert_text_signal_name, $on_insert_text)
+		end
 
+	connect_agent_to_insert_text_signal (a_procedure: PROCEDURE [ANY, TUPLE [STRING, INTEGER, REFERENCE [INTEGER], GTK_EDITABLE]]) is
 			-- editable : 	the object which received the signal.
 			-- new_text : 	the new text to insert.
 			-- new_text_length : 	the length of the new text, in bytes,

@@ -32,18 +32,17 @@ class GTK_SEPARATOR_TOOL_ITEM
 
 inherit                                  
 	GTK_TOOL_ITEM
-		redefine
-			dummy_gobject,
+		redefine 
 			make,
 			struct_size
 		end
 
-	-- TODO: AtkImplementorIface.
+	--   GtkSeparatorToolItem implements AtkImplementorIface.
 
 insert 
 	GTK_SEPARATOR_TOOL_ITEM_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -75,8 +74,4 @@ feature -- size
 		alias "sizeof(GtkSeparatorToolItem)"
 		end
 	
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_separator_tool_item_new
-		end
 end -- class GTK_SEPARATOR_TOOL_ITEM

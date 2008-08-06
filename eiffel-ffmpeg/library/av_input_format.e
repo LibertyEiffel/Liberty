@@ -22,33 +22,27 @@ indexing
 class AV_INPUT_FORMAT
 
 inherit
-	SHARED_C_STRUCT
-		redefine from_external_pointer end
+	C_STRUCT
+	EIFFEL_OWNED
 
 insert
 	AV_INPUT_FORMAT_EXTERNALS
 
-creation 
+creation
 	from_external_pointer
-
-feature {WRAPPER, WRAPPER_HANDLER} -- Creation
-
-	from_external_pointer (a_ptr: POINTER) is
-		do
-			Precursor (a_ptr)
-			set_shared
-		end
 
 feature -- Access
 
 	name: STRING is
 		do
-			create Result.from_external_copy (av_input_format_get_name (handle))
+			--create Result.from_external_copy (av_input_format_get_name (handle))
+			create {CONST_STRING} Result.from_external(av_input_format_get_name(handle))
 		end
 
 	long_name: STRING is
 		do
-			create Result.from_external_copy (av_input_format_get_name (handle))
+			-- create Result.from_external_copy (av_input_format_get_name (handle))
+			create {CONST_STRING} Result.from_external(av_input_format_get_name(handle))
 		end
 
 feature -- Size

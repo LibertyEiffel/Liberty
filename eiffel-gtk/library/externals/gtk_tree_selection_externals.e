@@ -48,7 +48,7 @@ feature {}
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_tree_selection_get_selected (a_gtktreeselection a_gtktreemodel_ptr, a_gtktreeiter: POINTER): INTEGER is
+	gtk_tree_selection_get_selected (a_gtktreeselection, a_gtktreemodel_ptr, a_gtktreeiter: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		end
 	

@@ -30,12 +30,11 @@ inherit
 
 insert
 	PANGO_LAYOUT_EXTERNALS
+	G_OBJECT_FACTORY [PANGO_CONTEXT]
 	PANGO_WRAP_MODE
 	PANGO_ALIGNMENT
 
-	PANGO_RENDERING_EXTERNALS -- for pango_context_new
-
-creation  make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -49,10 +48,6 @@ feature {} -- Creation
 		end
 
 feature -- size
-	dummy_gobject: POINTER is
-		do
-			Result:=pango_layout_new(pango_context_new)
-		end
 
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
@@ -63,13 +58,8 @@ feature -- Access
 
 	context: PANGO_CONTEXT is
 			-- Retrieves the PANGO_CONTEXT used for this layout.
-		local
-			context_pointer: POINTER
-			r: G_OBJECT_EXPANDED_FACTORY [PANGO_CONTEXT]
 		do
-			context_pointer := pango_layout_get_context(handle)
-			check context_pointer.is_not_null end
-			Result := r.wrapper(context_pointer)
+			Result := wrapper (pango_layout_get_context(handle))
 		end
 
 	text: STRING is
@@ -143,17 +133,19 @@ feature -- Access
 		end
 
 	font_description: PANGO_FONT_DESCRIPTION is
-			-- The font description for the layout, if any or Void if the
+			-- The font description for the layout, if any; Void if the
 			-- font description from the layout's context is inherited.
-		
-			-- TODO: This value owned by the layout and *must not be
-			-- modified*.
 		local
 			fd_ptr: POINTER
 		do
+			-- Returns a pointer to the layout's font description, or
+			-- Void if the font description from the layout's context is
+			-- inherited.  This value owned by the layout and *must not
+			-- be modified*.
 			fd_ptr := pango_layout_get_font_description (handle)
 			if fd_ptr.is_not_null then
-				create Result.from_external_shared (fd_ptr)
+				create Result.from_external_pointer(fd_ptr)
+				Result.set_shared
 			end
 		end
 

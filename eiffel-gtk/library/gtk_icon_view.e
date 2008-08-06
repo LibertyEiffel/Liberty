@@ -35,11 +35,11 @@ inherit
 
 insert
 	GTK_ICON_VIEW_EXTERNALS
-		G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_TREE_MODEL]
 	GTK_ICON_VIEW_DROP_POSITION
 	G_OBJECT_EXTERNALS
 
-creation dummy,
+creation
 	make, with_model, from_external_pointer
 
 feature {} -- Creation
@@ -66,10 +66,10 @@ feature {} -- Creation
 feature -- Access
 
 	model: GTK_TREE_MODEL is
-			-- the model the GtkIconView is based on. Void if the model
-			-- is unset.
+			-- the model the GtkIconView is based on. Void if the model is
+			-- unset.
 		do
-			Result := wrapper_or_void(gtk_icon_view_get_model(handle))
+			Result := wrapper_or_void (gtk_icon_view_get_model (handle))
 		end
 
 	text_column: INTEGER is
@@ -365,32 +365,25 @@ feature -- Operations
 -- Since 2.8
 
 	cursor: TUPLE [GTK_TREE_PATH, GTK_CELL_RENDERER] is
-			-- The current cursor path and cell.
-
-			-- If the cursor isn't currently set, then path (the first
-			-- item) will be Void.
-			-- If no cell currently has focus, then cell (the second 
-			-- item) will be Void.
+			-- Fills in path and cell with the current cursor path and cell.
+			-- If the cursor isn't currently set, then *path will be NULL.
+			-- If no cell currently has focus, then *cell will be NULL.
+			-- The returned GtkTreePath must be freed with gtk_successtree_path_free().
 		local
 			path_ptr, cell_ptr: POINTER
 			res: BOOLEAN
 			path: GTK_TREE_PATH
 			cell: GTK_CELL_RENDERER
 			cell_name: STRING
-			cell_factory: G_OBJECT_EXPANDED_FACTORY [GTK_CELL_RENDERER]
+			retriever: G_OBJECT_EXPANDED_FACTORY [GTK_CELL_RENDERER]
 		do
 			res := gtk_icon_view_get_cursor (handle, $path_ptr, $cell_ptr).to_boolean
-
-			if path_ptr.is_not_null then 
-				create path.from_external_pointer (path_ptr)
-				-- The returned GtkTreePath must be freed with
-				-- gtk_successtree_path_free(), so
-				path.set_unshared
-			else check path = Void end
+			
+			if path_ptr.is_not_null then create path.from_external_pointer (path_ptr)
+			else path := Void
 			end
 
-			cell := cell_factory.wrapper_or_void(cell_ptr)
-
+			cell := retriever.wrapper_or_void(cell_ptr)
 			Result := [path, cell]
 		end
 
@@ -1103,8 +1096,4 @@ feature
 		alias "sizeof(GtkIconView)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_icon_view_new
-		end
 end -- class GTK_ICON_VIEW

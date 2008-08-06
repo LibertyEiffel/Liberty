@@ -1209,27 +1209,14 @@ feature {} -- External calls
 		--end
 
 
--- void        gtk_window_move                 (GtkWindow *window,
---                                              gint x,
---                                              gint y);
-
--- Asks the window manager to move window to the given position. Window managers are free to ignore this; most window managers ignore requests for initial window positions (instead using a user-defined placement algorithm) and honor requests after the window has already been shown.
-
--- Note: the position is the position of the gravity-determined reference point for the window. The gravity determines two things: first, the location of the reference point in root window coordinates; and second, which point on the window is positioned at the reference point.
-
--- By default the gravity is GDK_GRAVITY_NORTH_WEST, so the reference point is simply the x, y supplied to gtk_window_move(). The top-left corner of the window decorations (aka window frame or border) will be placed at x, y. Therefore, to position a window at the top left of the screen, you want to use the default gravity (which is GDK_GRAVITY_NORTH_WEST) and move the window to 0,0.
-
--- To position a window at the bottom right corner of the screen, you would set GDK_GRAVITY_SOUTH_EAST, which means that the reference point is at x + the window width and y + the window height, and the bottom-right corner of the window border will be placed at that reference point. So, to place a window in the bottom right corner you would first set gravity to south east, then write: gtk_window_move (window, gdk_screen_width() - window_width, gdk_screen_height() - window_height).
-
--- The Extended Window Manager Hints specification at http://www.freedesktop.org/Standards/wm-spec has a nice table of gravities in the "implementation notes" section.
-
--- The gtk_window_get_position() documentation may also be relevant.
-
--- window : 	a GtkWindow
--- x : 	X coordinate to move window to
--- y : 	Y coordinate to move window to
-		--external "C use <gtk/gtk.h>"
-		--end
+	gtk_window_move (window: POINTER; an_x, an_y: INTEGER) is
+			-- Asks the window manager to move window to the given position.
+			-- Window managers are free to ignore this; most window managers
+			-- ignore requests for initial window positions (instead using a
+			-- user-defined placement algorithm) and honor requests after the
+			-- window has already been shown.
+		external "C use <gtk/gtk.h>"
+		end
 
 
 -- gboolean    gtk_window_parse_geometry       (GtkWindow *window,

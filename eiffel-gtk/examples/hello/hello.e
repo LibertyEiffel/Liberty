@@ -8,7 +8,7 @@ class HELLO
 
 insert GTK
 	
-creation make
+creation	make
 	
 feature
 	on_clicked (a_button: GTK_BUTTON) is
@@ -21,18 +21,25 @@ feature
 			
 feature {} -- creation
 	make is
-		do
+		local 
+			w1,w2: GTK_WIDGET; win: GTK_WINDOW; b: GTK_BUTTON 
+			rw: G_RETRIEVER[GTK_WIDGET]; rw: G_RETRIEVER[GTK_WINDOW]; rb: G_RETRIEVER[GTK_BUTTON]
+		do 
 			gtk.initialize
 			create window.make
 			create button.with_label (label)
 			window.set_title (title)
 			window.add (button)
-			button.connect_clicked_signal_to (agent on_clicked)
+			button.connect_agent_to_clicked_signal (agent on_clicked)
 			button.show
 			window.show
 			debug
 				print ("button is at: "+button.to_pointer.to_string+"%N")
 			end
+			check
+				window = r.wrapper(window.handle)
+				
+			
 			gtk.run_main_loop -- instead of "gtk_main"
 		end
 feature -- Disposing

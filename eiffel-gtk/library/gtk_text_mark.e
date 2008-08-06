@@ -25,22 +25,20 @@ class GTK_TEXT_MARK
 	-- the objects and data types related to the text
 	-- widget and how they work together.
 
-	-- A GtkTextMark is like a bookmark in a text buffer; it preserves
-	-- a position in the text. You can convert the mark to an iterator
-	-- using GTK_TEXT_BUFFER's `iter_at_mark'. Unlike iterators, marks
-	-- remain valid across buffer mutations, because their behavior is
-	-- defined when text is inserted or deleted. When text containing a
-	-- mark is deleted, the mark remains in the position originally
-	-- occupied by the deleted text. When text is inserted at a mark, a
-	-- mark with left gravity will be moved to the beginning of the
-	-- newly-inserted text, and a mark with right gravity will be moved
-	-- to the end.
+	-- A GtkTextMark is like a bookmark in a text buffer; it preserves a position
+	-- in the text. You can convert the mark to an iterator using
+	-- GTK_TEXT_BUFFER's `iter_at_mark'. Unlike iterators, marks remain valid
+	-- across buffer mutations, because their behavior is defined when text is
+	-- inserted or deleted. When text containing a mark is deleted, the mark
+	-- remains in the position originally occupied by the deleted text. When text
+	-- is inserted at a mark, a mark with left gravity will be moved to the
+	-- beginning of the newly-inserted text, and a mark with right gravity will
+	-- be moved to the end.
 
-	-- Marks are reference counted, but the reference count only
-	-- controls the validity of the memory; marks can be deleted from
-	-- the buffer at any time with GTK_TEXT_BUFFER's
-	-- `delete_mark'. Once deleted from the buffer, a mark is
-	-- essentially useless.
+	-- Marks are reference counted, but the reference count only controls the
+	-- validity of the memory; marks can be deleted from the buffer at any time
+	-- with GTK_TEXT_BUFFER's `delete_mark'. Once deleted from the buffer, a mark
+	-- is essentially useless.
 
 	-- Marks optionally have names; these can be convenient to avoid passing the
 	-- GtkTextMark object around.
@@ -50,7 +48,7 @@ class GTK_TEXT_MARK
 
 inherit G_OBJECT
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature
 
@@ -96,15 +94,15 @@ feature
 			end
 		end
 
-	buffer: GTK_TEXT_BUFFER is 
+	buffer: GTK_TEXT_BUFFER is
 			-- the buffer this mark is located inside, or Void if the
 			-- mark is deleted.
 		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_TEXT_BUFFER]
 		do
-			Result := factory.wrapper_or_void(gtk_text_mark_get_buffer (handle))
+			Result := factory.wrapper_or_void (gtk_text_mark_get_buffer (handle))
 		end
 
-	has_left_gravity: BOOLEAN is 
+	has_left_gravity: BOOLEAN is
 			-- Does the mark have left gravity? "left" and "right" here
 			-- refer to logical direction (left is the toward the start
 			-- of the buffer); in some languages such as Hebrew the
@@ -120,20 +118,7 @@ feature -- size
 		alias "sizeof(GtkTextMark)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			unimplemented
-			-- Result := gtk_text_mark_new("Dummy text mark".to_external,
-			--									 True.to_integer)
-		end
-	
 feature {} -- External features
-	gtk_text_mark_new (a_name: POINTER; a_left_gravity: INTEGER): POINTER is
-			--	GtkTextMark* gtk_text_mark_new (const gchar *name,
-			--	gboolean left_gravity)
-		external "C use <gtk/gtk.h>"
-		end 
-
 	gtk_text_mark_set_visible (a_mark: POINTER; a_gboolean_setting: INTEGER) is
 		external "C use <gtk/gtk.h>"
 		end

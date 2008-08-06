@@ -26,7 +26,7 @@ class EDITED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_CELL_RENDERER_TEXT] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_CELL_RENDERER_TEXT]
 
 creation make
 
@@ -41,6 +41,8 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that object actually has an Eiffel wrapper.
 			object := wrapper(instance)
 			
 			if arg1.is_not_null then

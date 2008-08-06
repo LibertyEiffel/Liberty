@@ -25,15 +25,15 @@ class GTK_MESSAGE_DIALOG
 	-- GtkMessageDialog presents a dialog with an image representing
 	-- the type of message (Error, Question, etc.) alongside some
 	-- message text. It's simply a convenience widget; you could
-	-- construct the equivalent of GtkMessageDialog from GtkDialog
-	-- without too much effort, but GtkMessageDialog saves typing.
+	-- construct the equivalent of GTK_MESSAGE_DIALOG from GTK_DIALOG
+	-- without too much effort, but GTK_MESSAGE_DIALOG saves typing.
 
 	-- The easiest way to do a modal message dialog is to use `run',
 	-- though you can also pass in the `gtk_dialog_modal' flag, `run'
 	-- automatically makes the dialog modal and waits for the user to
 	-- respond to it. `run' returns when any dialog button is clicked.
 
-	-- TODO: Eiffelize Example 2. A modal dialog.
+	-- TODO: Eiffellize Example 2. A modal dialog.
 	
 	--  dialog = gtk_message_dialog_new (main_application_window,
 	--                                   GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -46,7 +46,7 @@ class GTK_MESSAGE_DIALOG
 	
 	-- You might do a non-modal GtkMessageDialog as follows:
 	
-	-- Example 3. A non-modal dialog.
+	-- TODO Eifelize Example 3. A non-modal dialog.
 	
 	--  dialog = gtk_message_dialog_new (main_application_window,
 	--                                   GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -54,20 +54,18 @@ class GTK_MESSAGE_DIALOG
 	--                                   GTK_BUTTONS_CLOSE,
 	--                                   "Error loading file '%s': %s",
 	--                                   filename, g_strerror (errno));
-
+	
 	--  /* Destroy the dialog when the user responds to it (e.g. clicks a button) */
 	--  g_signal_connect_swapped (dialog, "response",
 	--                            G_CALLBACK (gtk_widget_destroy),
 	--                            dialog);
 
-
-
 inherit
 	GTK_DIALOG
-		rename make as make_dialog -- redefine make end
-		redefine
-			dummy_gobject,
-			struct_size
+		rename
+			new as new_dialog -- redefine new end
+			make as make_dialog -- redefine make end
+		redefine struct_size
 		end
 		-- Implemented Interfaces: GtkMessageDialog implements
 		-- AtkImplementorIface.
@@ -75,25 +73,9 @@ inherit
 insert
 	GTK_MESSAGE_DIALOG_EXTERNALS
 
-creation dummy, make, with_markup, from_external_pointer
+creation new, make, with_markup, from_external_pointer
 
-feature
-	dummy_gobject: POINTER is
-		local p: POINTER
-		do
-			p:=(gtk_message_dialog_new
-						(default_pointer,
-						 -- some_flags, a_type, some_buttons,
-						 gtk_dialog_modal, gtk_response_ok, gtk_buttons_ok,
-						 (once "Dummy GtkMessageDialog").to_external))
-			debug
-				io.put_string("GTK_MESSAGE_DIALOG.dummy_gobject p=")
-				io.put_pointer(p) io.put_new_line
-				io.flush
-			end
-			Result:=p
-		end
-	
+feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMessageDialog)"
@@ -116,10 +98,17 @@ feature {} -- Creation
 			valid_message_type: is_valid_gtk_message_type (a_type)
 			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
-			from_external_pointer (gtk_message_dialog_new
-										  (null_or(a_parent),
-											some_flags, a_type,
-											some_buttons, a_message.to_external))
+			if a_parent=Void then
+				from_external_pointer (gtk_message_dialog_new (default_pointer, some_flags, a_type, some_buttons, a_message.to_external))
+			else
+				from_external_pointer (gtk_message_dialog_new (a_parent.handle, some_flags, a_type, some_buttons, a_message.to_external))
+			end
+		end
+
+	new (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
+		obsolete "use `make' instead."
+		do
+			make (a_parent, some_flags, a_type, some_buttons, a_message)
 		end
 
 	with_markup (a_parent: GTK_WINDOW; some_flags, a_type, some_buttons: INTEGER; a_message: STRING) is
@@ -154,9 +143,13 @@ feature {} -- Creation
 			valid_message_type: is_valid_gtk_message_type (a_type)
 			valid_buttons_type: is_valid_gtk_buttons_type (some_buttons)
 		do
-			from_external_pointer (gtk_message_dialog_new_with_markup
-										  (null_or(a_parent),some_flags,a_type,
-											some_buttons,a_message.to_external))
+			if a_parent=Void then from_external_pointer
+				(gtk_message_dialog_new_with_markup
+				 (default_pointer,some_flags,a_type,some_buttons,a_message.to_external))
+			else from_external_pointer
+				(gtk_message_dialog_new_with_markup
+				 (a_parent.handle,some_flags,a_type,some_buttons,a_message.to_external))
+			end
 		end
 
 feature -- Dialog's message

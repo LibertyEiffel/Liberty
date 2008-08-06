@@ -11,12 +11,12 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 	
-	gtk_font_button_new: POINTER is
+	 gtk_font_button_new: POINTER is
 			-- 	GtkWidget*  gtk_font_button_new             (void);
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_font_button_new_with_font (a_font_name: POINTER): POINTER is
+	 gtk_font_button_new_with_font (a_font_name: POINTER): POINTER is
 			-- GtkWidget* gtk_font_button_new_with_font (const gchar
 			-- *fontname);
 		external "C use <gtk/gtk.h>"
@@ -93,4 +93,9 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkFontButton)"
+		end
 end

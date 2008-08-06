@@ -22,7 +22,7 @@ indexing
 class GDK_EVENT_CROSSING
 
 inherit
-	SHARED_C_STRUCT
+	GDK_EVENT
 
 insert
 	GDK_EVENT_CROSSING_EXTERNALS
@@ -37,15 +37,13 @@ feature -- access
 	subwindow: GDK_WINDOW is
 			-- the window that was entered or left.
 		local
-			window_ptr: POINTER
+			window_ptr: POINTER; factory: G_OBJECT_FACTORY[GDK_WINDOW]
 		do
 			window_ptr := gdk_event_crossing_get_subwindow (handle)
-			if internal_subwindow = Void then
-				create internal_subwindow.from_external_pointer (window_ptr)
-			else
-				internal_subwindow.from_external_pointer (window_ptr)
+			Result := factory.existant_wrapper (window_ptr)
+			if Result=Void then
+				create Result.from_external_pointer (window_ptr)
 			end
-			Result := internal_subwindow
 		end
 
 	time: INTEGER is
@@ -107,15 +105,12 @@ feature -- access
 			is_valid_gdk_modifier_type (Result)
 		end
 
-feature -- size
-
-	struct_size: INTEGER is
-		external "C inline use <gdk/gdk.h>"
-		alias "sizeof(GdkEventCrossing)"
-		end
-feature {} -- Internal
-
-	internal_subwindow: like subwindow
-
+-- feature -- size
+-- 
+-- 	struct_size: INTEGER is
+-- 		external "C inline use <gdk/gdk.h>"
+-- 		alias "sizeof(GdkEventCrossing)"
+-- 		end
+-- 
 end -- class GDK_EVENT_CROSSING
  

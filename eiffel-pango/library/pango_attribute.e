@@ -19,27 +19,31 @@ indexing
 					02110-1301 USA
 			]"
 
+			-- Description: Attributed text is used in a number of places
+			-- in Pango. It is used as the input to the itemization
+			-- process and also when creating a PangoLayout. ThAe data
+			-- types and functions in this section are used to represent
+			-- and manipulate sets of attributes applied to a portion of
+			-- text.
+
+
 class PANGO_ATTRIBUTE
-	-- Attributed text is used in a number of places in Pango. It is
-	-- used as the input to the itemization process and also when
-	-- creating a PangoLayout. The data types and functions in this
-	-- section are used to represent and manipulate sets of attributes
-	-- applied to a portion of text.
 
 inherit
-	SHARED_C_STRUCT
-		-- Unnecessary export {PANGO_ATTR_LIST} dispose
+	C_STRUCT
+		-- export {PANGO_ATTR_LIST} dispose
 		redefine
 			copy,
 			is_equal,
 			free
 		end
 
+	MIXED_MEMORY_HANDLING redefine free end 
+
 insert
 	PANGO_ATTR_TYPE
 
 create
-	dummy,
 	from_external_pointer,
 	background,
 	foreground,
@@ -224,8 +228,6 @@ feature {} -- Implementation
 			-- Destroy a PangoAttribute and free all associated memory.
 		do
 			pango_attribute_destroy (an_handle)
-			-- Note: could be easily optimized renaming
-			-- pango_attribute_destroy as free. Paolo 2006-07-11
 		end
 
 --   pango_attr_shape_new ()
@@ -454,6 +456,7 @@ feature -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(PangoAttribute)"
 		end
+
 feature {} -- External calls
 -- 	gboolean    pango_parse_markup              (const char *markup_text, int length, gunichar accel_marker, PangoAttrList **attr_list, char **text, gunichar *accel_char, GError **error) is
 -- 		external "C use <pango/pango.h>"

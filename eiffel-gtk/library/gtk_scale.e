@@ -54,12 +54,11 @@ feature -- digits
 feature -- layout
 
 	layout: PANGO_LAYOUT is
-			-- Gets the PangoLayout used to display the scale.
-			-- The returned object is owned by the scale.
-		local
-			factory: G_OBJECT_EXPANDED_FACTORY [PANGO_LAYOUT]
+			-- the PangoLayout used to display the scale.
+		local factory: G_OBJECT_EXPANDED_FACTORY[PANGO_LAYOUT]
 		do
-			Result := factory.wrapper_or_void(gtk_scale_get_layout (handle))
+			Result := factory.wrapper_or_void (gtk_scale_get_layout (handle))
+			-- Note: The returned object is owned by the scale.
 		ensure
 			(not is_value_drawn) = (Result = Void)
 		end
@@ -226,7 +225,7 @@ feature -- The "format-value" signal
 		do
 		end
 
-	connect_format_value_signal_to (a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING]) is
+	connect_agent_to_format_value_signal (a_function: FUNCTION[ANY, TUPLE [REAL, GTK_SCALE], STRING]) is
 			-- scale : 	the object which received the signal.
 			-- arg1 : 	
 			-- Returns : 	allocated string representing value

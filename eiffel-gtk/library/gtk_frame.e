@@ -22,26 +22,19 @@ indexing
 	revision: "$Revision:$"
 
 class GTK_FRAME
-
 inherit
 	GTK_BIN
-
 insert
 	GTK_FRAME_EXTERNALS
 	
-creation dummy, from_label
+creation from_label, from_external_pointer
 
-feature 
+feature {WRAPPER, WRAPPER_HANDLER} -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFrame)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_frame_new((once "Dummy GTK_FRAME").to_external)
-		end
-	
 feature {} -- Creation
 	from_label (a_label: STRING) is
 			-- Creates a new GtkFrame, with optional `a_label' (if Void,

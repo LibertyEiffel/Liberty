@@ -25,13 +25,16 @@ inherit
 	G_OBJECT
 
 insert
-	GLADE_XML_EXTERNAL
+	-- GLADE_XML_EXTERNAL
+
 	-- Classes known, in alphabetical order
 	-- Add others if you need to extract them from glade
+	GLADE_GETTER [GTK_ABOUT_DIALOG]                 rename get as get_about_dialog end
 	GLADE_GETTER [GTK_BUTTON]                 rename get as get_button end
 	GLADE_GETTER [GTK_CALENDAR]               rename get as get_calendar end
 	GLADE_GETTER [GTK_CHECK_BUTTON]           rename get as get_check_button end
 	GLADE_GETTER [GTK_COLOR_BUTTON]           rename get as get_color_button end
+	GLADE_GETTER [GTK_COLOR_SELECTION]        rename get as get_color_selection end
 	GLADE_GETTER [GTK_COLOR_SELECTION_DIALOG] rename get as get_color_selection_dialog end
 	GLADE_GETTER [GTK_COMBO_BOX]              rename get as get_combo_box end
 	GLADE_GETTER [GTK_COMBO_BOX_ENTRY]        rename get as get_combo_box_entry end
@@ -41,6 +44,7 @@ insert
 	GLADE_GETTER [GTK_FILE_CHOOSER_BUTTON]    rename get as get_file_chooser_button end
 	GLADE_GETTER [GTK_FILE_CHOOSER_DIALOG]    rename get as get_file_chooser_dialog end
 	GLADE_GETTER [GTK_FILE_CHOOSER_WIDGET]    rename get as get_file_chooser_widget end
+	GLADE_GETTER [GTK_FONT_SELECTION]         rename get as get_font_selection end
 	GLADE_GETTER [GTK_FONT_SELECTION_DIALOG]  rename get as get_font_selection_dialog end
 	GLADE_GETTER [GTK_FRAME]                  rename get as get_frame end
 	GLADE_GETTER [GTK_HBOX]                   rename get as get_hbox end
@@ -49,6 +53,7 @@ insert
 	GLADE_GETTER [GTK_IMAGE]                  rename get as get_image end
 	GLADE_GETTER [GTK_IMAGE_MENU_ITEM]        rename get as get_image_menu_item end
 	GLADE_GETTER [GTK_LABEL]                  rename get as get_label end
+	GLADE_GETTER [GTK_MENU_BAR]              rename get as get_menu_bar end
 	GLADE_GETTER [GTK_MENU_ITEM]              rename get as get_menu_item end
 	GLADE_GETTER [GTK_NOTEBOOK]               rename get as get_notebook end
 	GLADE_GETTER [GTK_PROGRESS_BAR]           rename get as get_progress_bar end
@@ -56,6 +61,7 @@ insert
 	GLADE_GETTER [GTK_STATUS_BAR]             rename get as get_status_bar end
 	GLADE_GETTER [GTK_TABLE]                  rename get as get_table end
 	GLADE_GETTER [GTK_TEXT_VIEW]              rename get as get_text_view end
+	GLADE_GETTER [GTK_RADIO_BUTTON]           rename get as get_radio_button end
 	GLADE_GETTER [GTK_TOGGLE_BUTTON]          rename get as get_toggle_button end
 	GLADE_GETTER [GTK_TOGGLE_TOOL_BUTTON]     rename get as get_toggle_tool_button end
 	GLADE_GETTER [GTK_TOOLBAR]                rename get as get_toolbar end

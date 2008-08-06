@@ -28,7 +28,7 @@ inherit
 	CALLBACK redefine object end
 
 insert
-		G_OBJECT_FACTORY [GTK_TREE_MODEL] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_TREE_MODEL]
 
 creation make
 
@@ -37,22 +37,20 @@ feature
 
 feature
 
-	callback (path_ptr, iter_ptr, instance: POINTER) is
+	callback (tree_path, tree_iter, instance: POINTER) is
 		local
-			path: GTK_TREE_PATH
-			iter: GTK_TREE_ITER
+			tree_path_obj: GTK_TREE_PATH
+			tree_iter_obj: GTK_TREE_ITER
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			-- The following is written with the implicit requirement 
-			-- that the button is actually created bu the Eiffel 
-			-- application. 
 			object := wrapper(instance)
-			create iter.copy_from_pointer(iter_ptr)
-			iter.attach_to(object)
-			create path.copy_from_pointer(path_ptr)
-			procedure.call ([path, iter, object])
+
+			create tree_iter_obj.copy_from_pointer (tree_iter)
+			tree_iter_obj.attach_to (object)
+			create tree_path_obj.copy_from_pointer (tree_path)
+			procedure.call ([tree_path_obj, tree_iter_obj, object])
 		end
 
 	callback_pointer: POINTER is

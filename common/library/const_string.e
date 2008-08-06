@@ -90,7 +90,8 @@ feature
 			-- Allocating a small area of memory that will be freed in
 			-- place of the "const char *" when Eiffel Garbage Collector
 			-- disposes an unmodified CONST_STING.
-			sacrificial_lamb:= calloc(1,1)
+			
+			-- sacrificial_lamb:= calloc(1,1)
 			original_c_string := a_c_string
 			Precursor (a_c_string)
 			-- from_external_copy (a_c_string) 
@@ -484,7 +485,7 @@ feature {ANY} -- from STRING
 			Precursor (ch)
 		end
 
-	is_equal (other: STRING): BOOLEAN is
+	is_equal (other: STRING ): BOOLEAN is -- like Current
 		do
 			if count = other.count
 			 then Result := storage.fast_memcmp(other.storage,count)
@@ -496,6 +497,7 @@ feature {} -- Implementation
 			-- The address that contains the original C string 
 
 	sacrificial_lamb: POINTER 
+			-- Temporary keeping it NULL
 			-- A address of a small area of memory allocated at creation 
 			-- time that will take the place of the "const char *" when 
 			-- Eiffel Garbage Collector disposes an unmodified 
@@ -511,20 +513,13 @@ feature {} -- Implementation
 				-- storage as it is and not free it, since it hasn't been 
 				-- allocated by Eiffel and must NOT be freed.
 				-- change it to a dummy array
-
-				-- TODO: Remove when consolidated. Commenting
-				-- "print(dispose_notice)": it seems that the hack satisfy
-				-- SmartEiffel garbage collector.
-				
+				print(dispose_notice) 
 				storage := storage.from_pointer(sacrificial_lamb)
 			end
 		end
-	
-	-- Commenting """ dispose_notice: STRING is "CONST_STRING.dispose:
-	-- the string is unchanged; using a tentative hack to avoid crash
-	-- during quitting or disposing; a pre-allocated 1-char-long memory
-	-- area will be set as storage.%N" """ it seems that the hack
-	-- satisfy SmartEiffel garbage collector.
+
+	dispose_notice: STRING is
+		"CONST_STRING.dispose: the string is unchanged; using a tentative hack to avoid crash during quitting or disposing; a pre-allocated 1-char-long memory area will be set as storage.%N"
 
 	calloc (a_number, a_size: INTEGER): POINTER is
 			-- void *calloc(size_t nmemb, size_t size);

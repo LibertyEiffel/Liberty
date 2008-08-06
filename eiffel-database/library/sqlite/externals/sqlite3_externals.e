@@ -7,6 +7,8 @@ indexing
 
 deferred class SQLITE3_EXTERNALS
 
+insert ANY undefine copy, is_equal end
+
 feature {} -- External calls
 
 	sqlite3_aggregate_context(a_context: POINTER; n_bytes: INTEGER): POINTER is 

@@ -18,14 +18,21 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+
 class G_ENUM_VALUE
-inherit C_STRUCT
-creation  from_external_pointer
+
+inherit 
+	C_STRUCT
+	SHARED
+
+creation from_external_pointer
+
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GEnumValue)"
 		end
+
 feature 
 
 	value: INTEGER is

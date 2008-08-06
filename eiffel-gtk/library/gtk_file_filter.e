@@ -45,10 +45,9 @@ insert
 	GTK_FILE_FILTER_INFO_EXTERNALS
 	GTK_FILE_FILTER_FLAGS
 
-creation dummy, make, with_pattern, with_mime_type, from_external_pointer
+creation make, with_pattern, with_mime_type, from_external_pointer
 
-feature -- Creation
-
+feature {} -- Creation
 	make is
 			-- Creates a new GtkFileFilter with no rules added to
 			-- it. Such a filter doesn't accept any files, so is not
@@ -179,11 +178,5 @@ feature
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkFileFilter)"
-		end
-
-feature 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_file_filter_new
 		end
 end

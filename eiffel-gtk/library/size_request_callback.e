@@ -26,9 +26,9 @@ class SIZE_REQUEST_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_WIDGET
@@ -40,8 +40,10 @@ feature
 			request_obj: GTK_REQUISITION
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
+			-- The following is written with the implicit requirement 
+			-- that the button is actually created bu the Eiffel 
+			-- application. 
 			object := wrapper(instance)
-			
 			create request_obj.copy_from_pointer (request)
 			
 			procedure.call ([request_obj, object])

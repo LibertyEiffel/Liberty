@@ -45,7 +45,7 @@ insert
 	CAIRO_MATRIX_EXTERNALS
 	CAIRO_STATUS
 
-creation dummy, make, allocate, from_external_pointer
+creation make, allocate, from_external_pointer
 
 feature {} -- Creation
 	make (an_xx, an_yx, an_xy, an_yy, an_x0, an_y0: REAL) is
@@ -226,4 +226,9 @@ feature
 			ensure not_void: Result/=Void
 		end
 
+feature -- Memory handling
+	dispose is
+		do
+			free(handle)
+		end
 end -- class CAIRO_MATRIX

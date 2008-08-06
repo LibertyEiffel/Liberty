@@ -46,6 +46,26 @@ feature
 			sink
 		end
 
+	-- connect (an_object: like object; a_routine: like routine) is
+	-- 		do
+	-- 			debug
+	-- 				print (generating_type) print(".connect (an_object=") print (an_object.to_pointer.to_string)
+	-- 				print (" an_object.handle=") print (an_object.handle.to_string)
+	-- 				print (") Current=") print (to_pointer.to_string)
+	-- 				print (" Current.handle=") print (handle.to_string)
+	-- 				print ("%N")
+	-- 			end
+	
+	-- 			handler_id := g_signal_connect_closure (an_object.handle,
+	-- 																 signal_name.to_external,
+	-- 																 handle,
+	-- 																 0 -- i.e. call it before default handler
+	-- 																 )
+	-- 			-- routine:=a_routine
+	-- 		end
+
+	-- routine: FUNCTION [ANY, TUPLE , BOOLEAN]
+
 	signal_name: STRING is
 			-- The name of the signal that Current callback will connect to.
 		deferred

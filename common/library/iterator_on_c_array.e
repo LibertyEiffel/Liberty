@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class ITERATOR_ON_C_ARRAY [ITEM->SHARED_C_STRUCT]
+class ITERATOR_ON_C_ARRAY [ITEM->C_STRUCT]
 
 inherit ITERATOR[ITEM]
 

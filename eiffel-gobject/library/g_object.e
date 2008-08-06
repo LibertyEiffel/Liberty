@@ -1,342 +1,24 @@
 indexing
 	description: "The base object type of gobject library"
-	copyright: "[
-					Copyright (C) 2005,2006,2007 Paolo Redaelli 
-					Copyright (C) 1998-1999, 2000-2001 Tim Janik and Red Hat, Inc.
-
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public
-					License as published by the Free Software Foundation; either
-					version 2 of the License, or (at your option) any later version.
- 
-					This library is distributed in the hope that it will be useful,
-					but WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
-				
-					You should have received a copy of the GNU Lesser General
-					Public License along with this library; if not, write to the
-					Free Software Foundation, Inc., 59 Temple Place, Suite 330,
-					Boston, MA 02111-1307, USA.
-					]"
+	long:  "[
+				Currently the only wrapped features are those explicitly necessary to
+				wrap GTK+ 2.x GObject is the fundamental type providing the common
+				attributes and methods for all object types in GTK+, Pango and other
+				libraries based on GObject. The GObject class provides methods for
+				object construction and destruction, property access methods, and signal
+				support. Signals are described in detail in Signals(3).
+			]"
+	copyright: "(C) 2005 Paolo Redaelli "
+	license: "LGPL v2 or later"
 
 deferred class G_OBJECT
-	-- The fundamental type providing the common attributes and methods
-	-- for all object types in GTK+, Pango and other libraries based on
-	-- GObject. The GObject C class provides low-level methods for
-	-- object construction and destruction, property access methods,
-	-- and signal support.
+	-- GObject is the fundamental type providing the common attributes
+	-- and methods for all object types in GTK+, Pango and other
+	-- libraries based on GObject. The GObject class provides methods
+	-- for object construction and destruction, property access
+	-- methods, and signal support. 
 
-	-- A G_OBJECT, like all ref-counted objects, is shared by
-	-- definition; in fact the Eiffel side should never free the memory
-	-- allocated by C, since it will get freed when ref-count drop to
-	-- zero.
-
-inherit
-	SHARED_C_STRUCT
-		undefine
-			dummy
-		redefine 
-			from_external_pointer, dispose, set_handle
-		end
-
-insert
-	GLIB_MEMORY_ALLOCATION export {} all end
-	G_OBJECT_EXTERNALS
-	G_VALUE_EXTERNALS
-	SHARED_EIFFEL_KEY
-	SHARED_FACTORIES
-	G_SIGNALS
-
-	-- Features inserted to implement smart_get_property and smart_set_property
-	G_PARAM_SPEC_EXTERNALS export {} all end
-	G_TYPE --_EXTERNALS
-
-	POINTER_HANDLING -- to get `address_of' and `content_of'
-
-feature {WRAPPER,WRAPPER_HANDLER}
-	store_eiffel_wrapper is
-			-- Store a pointer to Current into the underlying
-			-- gobject. This pointer will be used to retrieve the Eiffel
-			-- wrapper object when a C feature returns a generic object
-			-- (i.e. the preview widget set in GTK_FILE_CHOOSER). 
-			
-			-- It also take care of storing an hidden pointer to the 
-			-- underlying GobjectClass
-		do
-			if is_not_null then
-				g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
-				-- Note: here `g_object_set_qdata' is called directly to
-				-- avoid an invariant check when passing Current as
-				-- argument. Using the Eiffel method "set_qdata (eiffel_key,
-				-- Current)" easily trigger a "fake" invariant violation.
-			end
-		end
-
-	unstore_eiffel_wrapper is
-			-- Remove the pointer to Current stored into the underlying
-			-- gobject. Unnecessary calls to this feature are not
-			-- harmful, only useless.
-		do
-			if is_not_null then 
-				g_object_set_qdata (handle, eiffel_key.quark,
-										  default_pointer)
-			end
-		ensure not_stored: not is_eiffel_wrapper_stored
-		end
-
-	is_eiffel_wrapper_stored: BOOLEAN is
-			-- Has a pointer to the Current Eiffel wrapper been stored
-			-- into the underlying GObject's qdata property with the
-			-- GQuark `eiffel_key' (which is currently "eiffel-wrapper")?
-		do
-			Result := has_qdata (eiffel_key)
-		end
-
-	is_main_wrapper: BOOLEAN is
-			-- Is Current the main wrapper of a GObject? A "main" wrapper
-			-- is the Eiffel object linked to by in the underlying
-			-- Gobject, whose reference is stored in a qdata property
-			-- with the `eiffel_key' Gquark key.
-		do
-			Result := (to_pointer = g_object_get_qdata (handle, eiffel_key.quark))
-		end
-
-feature {WRAPPER, WRAPPER_HANDLER} -- GObject type system implementation.
-	stored_type: like g_type
-			-- The (stored) numerical value which represents the unique
-			-- identifier of a registered type. This feature is used
-			-- during library initialization when archetypes are
-			-- created. Archetypes are created using the `dummy' creation
-			-- clause
-	
-	type: like g_type is
-			-- The numerical value which represents the unique identifier of a registered type.
-		do
-			-- require is_not_null
-			if is_null then Result:=stored_type	else
-				Result := g_object_type (handle)
-			end
-		end
-
-	type_name: STRING is
-		do
-			create {CONST_STRING} Result.from_external (g_object_type_name (handle))
-		end
-
-feature -- Copying
-	set_handle (a_ptr: POINTER) is
-		do
-			if a_ptr.is_null then
-				raise_exception(No_more_memory)
-			end
-			handle := a_ptr
-			ref -- Let's add a reference to the underlying g_object
-		end
-	
-feature {WRAPPER, WRAPPER_HANDLER} -- Dummy creation
-	dummy is
-			-- The creation feature to get a dummy G_OBJECT, the one that
-			-- will become the archetype when stored in `archetypes'
-			-- dictionary and linked to the proper GType in GObject
-			-- run-time type system.
-
-			-- Effective G_OBJECT's heirs shall do:
-
-			-- * call a C function to create the (C) GObject,
-
-			-- * store its GType in `stored_type',
-
-			-- * ref the GType,
-
-			-- * destroy the (C) GObject
-		require
-			called_on_creation: is_null
-			-- TODO called_on_wrapper_library_initialization: not gtk.is_eiffel_library_initialized
-		local gtypeclass_ptr: POINTER
-		do
-			handle := dummy_gobject
-			ref_sink
-			
-			check non_null_dummy_gobject_pointer: handle.is_not_null end
-			stored_type := g_object_type(handle)
-
-			debug
-				io.put_string(once "Storing ") io.put_string(generating_type)
-				io.put_string(once " as archetype for ")
-				io.put_string(name_of_type(stored_type))
-				io.put_line(once " in its GType.")
-				io.flush
-			end
-
-			gtypeclass_ptr := g_type_class_ref (stored_type)
-
-			unref
-			handle := default_pointer
-		ensure
-			dummy_is_null: is_null
-			stored_type_set: stored_type/=0
-		rescue
-			io.put_string(once "Some problems storing `") io.put_string(generating_type)
-			io.put_string(once "' for GType ") 
-			io.put_integer(stored_type)
-			io.put_line(once "; the hierarchy of classes known by the GObject C type system is:")
-			print_known_gobject_heirs
-			io.flush			
-		end
-
-	dummy_gobject: POINTER is
-			-- A pointer to a newly allocated effective instance of a GObject. 
-			-- Used in `dummy' creation feature. 
-		deferred
-		-- ensure not_null: Result.is_not_null is_gobject:
-		-- g_is_object(Result) /= 0 its_type_exists:
-		-- g_object_type(Result) /= 0
-		end
-
-feature {WRAPPER, WRAPPER_HANDLER} -- Creating
-	main_wrapper_from (an_external_pointer: POINTER) is
-			-- Create a "main" wrapper from `an_external_pointer'. A
-			-- "main" wrapper is the Eiffel object linked to in the
-			-- underlying Gobject, whose reference is stored in a qdata
-			-- property with the `eiffel_key' Gquark key.
-		require
-			called_on_creation: is_null
-			pointer_not_null: an_external_pointer.is_not_null
-			no_other_wrappers_exists: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (an_external_pointer)
-		do
-			handle := an_external_pointer
-			ref
-			set_shared
-			store_eiffel_wrapper
-		end
-
-	unreffed_main_wrapper_from (an_external_pointer: POINTER) is
-			-- Create a "main" wrapper from `an_external_pointer'. The
-			-- underlying GObject is not ref-fed; it is useful when a
-			-- particular C function returns an already referenced
-			-- pointer.
-		require
-			called_on_creation: is_null
-			pointer_not_null: an_external_pointer.is_not_null
-			no_other_wrappers_exists: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (an_external_pointer)
-		do
-			handle := an_external_pointer
-			set_shared
-			store_eiffel_wrapper
-		end
-
-	secondary_wrapper_from (an_external_pointer: POINTER) is
-			-- Create a non-main wrapper from `an_external_pointer'.
-		require
-			called_on_creation: is_null
-			pointer_not_null: an_external_pointer.is_not_null
-			main_wrapper_exists: (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (an_external_pointer)
-		do
-			handle := an_external_pointer
-			ref
-			set_shared
-		ensure
-			is_secondary_wrapper: not is_main_wrapper
-		end
-
-	from_external_pointer (a_ptr: POINTER) is
-			-- Low-level creation feature. If is_eiffel_wrapper_stored 
-			-- is False, store_eiffel_wrapper is invoked. 
-
-			-- Usually either `main_wrapper_from' or
-			-- `secondary_wrapper_from' shall be used instead of this
-			-- feature when it is known if a wrapper for the GObject
-			-- pointer exists or not.
-		require
-			called_on_creation: is_null
-			pointer_not_null: a_ptr.is_not_null
-		do
-			Precursor (a_ptr)
-			ref -- Adds a reference to the underlying g_object. When
-			-- Current is actually a GTK_OBJECT this will also sink the
-			-- object.
-			
-			if g_object_get_qdata(handle, eiffel_key.quark).is_null then
-				-- There is no other wrapper 
-				store_eiffel_wrapper
-			end
-		end
-
-	from_external_pointer_no_ref (a_ptr: POINTER) is
-			-- create a new wrapper for a GObject, without ref-ing it.
-			-- This is useful when some C function returns an already
-			-- reffed pointer to a Gobject. In this case the Eiffel
-			-- wrapper must not call ref at creation time, just unref at 
-			-- dispose time.
-		require
-			called_on_creation: is_null
-			pointer_not_null: a_ptr.is_not_null
-			not_existing_wrapper: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (a_ptr)
-		do
-			handle := a_ptr
-			store_eiffel_wrapper
-			unset_shared
-		end
-
-	from_external_pointer_shared (a_ptr: POINTER) is
-			-- Create a new wrapper to a GObject, but don't ref it on creation
-			-- or unref it at disposal time.  This is useful when we have to
-			-- wrap C objects that aren't ours to ref or free.
-		require
-			called_on_creation: is_null
-			pointer_not_null: a_ptr.is_not_null
-			not_existing_wrapper: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (a_ptr)
-		do
-			handle := a_ptr
-			store_eiffel_wrapper
-			set_shared
-		end
-
-feature  {WRAPPER,WRAPPER_HANDLER} -- Disposing
-
-	dispose is
-			-- Dispose the g_object, calling unref and setting its handle
-			-- to default_pointer.
-		
-			-- TODO: once the iusse explained in the debug tense in the
-			-- implementation is solved put a "require is_a_gobject:
-			-- g_is_object (handle)" precondition
-		do
-			if is_not_null then 
-				-- Note: when Eiffel dispose a G_OBJECT it just unref it and
-				-- cleans its handle. The actual reclaiming of the memory
-				-- allocated on the C side is left to gobject runtime.
-				unstore_eiffel_wrapper -- Remove the reference to Current stored into the underlying Gobject and from the wrappers.
-				if is_g_object then
-					if not is_shared then
-						-- There are some shared G_OBJECTS that we shouldn't unref!
-						-- Check for example pango_cairo_font_map_get_default
-						unref
-					end
-				else
-					debug
-						print ("Disposing g_object ") print (generator)
-						print (" (at ") print (handle.out) print ("). handle is not a g_object.%N")
-						print_notice
-						-- Please see the notes in G_OBJECT.dispose
-						-- Note: for the above perhaps dispose has been called
-						-- after GTK libraries has already shut down. This
-						-- could be a "feature" instead of a bug, since it is
-						-- possible that this part of dispose won't be called
-						-- if the garbage collector is called during
-						-- application normal usage. Paolo 2006-04-24
-					end
-				end
-				handle := default_pointer
-			else
-				-- Disposing a wrapper with a NULL handle. All archetypes
-				-- have NULL handles. Currently nothing shall be done.
-			end
-		end
-
-feature  {} -- Unconverted documentation
-	-- TODO: provide Eiffellied description for signals.
+	-- TODO: provide Eiffellied descriptio for signals.
 
 	-- The initial reference a GObject is created with is flagged as a
 	-- floating reference. This means that it is not specifically
@@ -392,32 +74,212 @@ feature  {} -- Unconverted documentation
 	--   g_object_force_floating (object);
 	-- g_obejct_unref (object); /* release previously acquired reference */
 
+inherit
+	REFERENCE_COUNTED
+		redefine
+			dispose,
+			from_external_pointer
+		end
+
+insert
+	GLIB_MEMORY_ALLOCATION export {} all end
+	G_OBJECT_EXTERNALS
+	G_VALUE_EXTERNALS
+	SHARED_EIFFEL_KEY
+	G_SIGNALS
+
+	-- Features inserted to implement smart_get_property and smart_set_property
+	G_PARAM_SPEC_EXTERNALS export {} all end
+	G_TYPE_EXTERNALS
+
+	POINTER_HANDLING -- to get `address_of' and `content_of'
+
+feature
+
+	store_eiffel_wrapper is
+			-- Store a pointer to Current into the underlying
+			-- gobject. This pointer will be used to retrieve the Eiffel
+			-- wrapper object when a C feature returns a generic object
+			-- (i.e. the preview widget set in GTK_FILE_CHOOSER). 
+			
+			-- It also take care of storing an hidden pointer to the 
+			-- underlying GobjectClass
+		require not_stored: not is_eiffel_wrapper_stored
+		do
+			g_object_set_qdata (handle, eiffel_key.quark, to_pointer)
+			-- g_object_set_qdata is called directly to avoid an
+			-- invariant check when passing Current as argument. Using
+			-- the Eiffel method "set_qdata (eiffel_key, Current)" easily
+			-- trigger a "fake" invariant violation.
+
+			-- Precursor -- To allow usage of the wrapped object with C
+			-- data structures that are not aware of the specificities of
+			-- G_OBJECT.
+
+			-- Note: it is necessary to call Precursor AFTER having
+			-- called g_object_set_qdata. Since we have re-defined the
+			-- feature `is_eiffel_wrapper_stored' that appears into a
+			-- postcondition to use `has_qdata', we must satisfy that 
+			-- postcondition before calling Precursor.
+		ensure 
+			stored: is_eiffel_wrapper_stored
+			main_wrapper: is_main_wrapper
+		end
+
+	unstore_eiffel_wrapper is
+			-- Remove the pointer to Current stored into the underlying
+			-- gobject. Note: a precondition like "require stored:
+			-- is_eiffel_wrapper_stored" is not necessary; an unnecessary
+			-- call to this feature should not be harmful
+		require is_main_wrapper
+		do
+			--Precursor
+			g_object_set_qdata (handle, eiffel_key.quark, default_pointer)
+		ensure not_stored: not is_eiffel_wrapper_stored
+		end
+
+	is_eiffel_wrapper_stored: BOOLEAN is
+			-- Has a pointer to the Current Eiffel wrapper been stored
+			-- into the underlying GObject's qdata property with the
+			-- GQuark `eiffel_key' (which is currently "eiffel-wrapper")?
+		do
+			Result := has_qdata (eiffel_key)
+		end
+
+	is_main_wrapper: BOOLEAN is
+			-- Is Current the wrapper G_OBJECT linked from the underlying
+			-- GObject?
+		do
+			Result := g_object_get_qdata(handle,eiffel_key.quark)=to_pointer
+		end
+
+feature {WRAPPER} -- GObject type system implementation.
+
+	type: like g_type is
+		do
+			Result := g_object_type (handle)
+		end
+
+	type_name: STRING is
+		do
+			create {CONST_STRING} Result.from_external (g_object_type_name (handle))
+		end
+
+feature {WRAPPER, WRAPPER_HANDLER} -- Object creation
+	-- There are several low-level features used to create an effective heir of G_OBJECT. 
+
+	-- main_wrapper_from is used to create long-lived wrappers that will be
+	-- used extensively, stored into collections; those Eiffel wrapper are the
+	-- one that will be returned by a G_OBJECT_FACTORY when asked for a GObject
+	-- that have already been wrapped. 
+	
+	-- transient, short-lived wrapper could be created with secondary_wrapper_from.
+
+	-- When you do not know if the Gobject you're wrapping has already been
+	-- wrapped you can either use secondary_wrapper or from_external_pointer.
+	-- from_external_pointer will check if there is already a wrapper for the
+	-- wrappee GObject. If it is not the case the G_OBJECT being created
+	-- becomes the main wrapper.
+
+	main_wrapper_from (an_external_pointer: POINTER) is
+			-- Create a "main" wrapper from `an_external_pointer'. A
+			-- "main" wrapper is the Eiffel object linked to in the
+			-- underlying Gobject, whose reference is stored in a qdata
+			-- property with the `eiffel_key' Gquark key.
+
+			-- "main" wrappers are used when the object will be used for a long
+			-- time, for example in collections
+		require
+			called_on_creation: is_null
+			not_null_pointer: an_external_pointer.is_not_null
+			no_other_wrappers_exists: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (an_external_pointer)
+		do
+			handle := an_external_pointer
+			ref
+			store_eiffel_wrapper
+		end
+
+	unreffed_main_wrapper_from (an_external_pointer: POINTER) is
+			-- Create a "main" wrapper from `an_external_pointer'. The
+			-- underlying GObject is not ref-fed; it is useful when a
+			-- particular C function returns an already referenced
+			-- pointer.
+		require
+			called_on_creation: is_null
+			pointer_not_null: an_external_pointer.is_not_null
+			no_other_wrappers_exists: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (an_external_pointer)
+		do
+			handle := an_external_pointer
+			store_eiffel_wrapper
+		end
+
+	secondary_wrapper_from (an_external_pointer: POINTER) is
+			-- Create a non-main wrapper from `an_external_pointer'.
+		require
+			called_on_creation: is_null
+			pointer_not_null: an_external_pointer.is_not_null
+		do
+			handle := an_external_pointer
+			ref
+		ensure
+			is_secondary_wrapper: not is_main_wrapper
+		end
+
+ 
+	from_external_pointer (a_ptr: POINTER) is
+		require
+			called_on_creation: is_null
+			pointer_not_null: a_ptr.is_not_null
+			-- not_existing_wrapper: not (create {G_OBJECT_FACTORY[like Current]}).has_eiffel_wrapper_stored (a_ptr)
+		do
+			Precursor (a_ptr)
+			if not is_eiffel_wrapper_stored then store_eiffel_wrapper end
+			ref -- add a reference to the underlying g_object
+		end
+
+	from_external_pointer_no_ref (a_ptr: POINTER) is
+			-- create a new wrapper for a GObject, without ref-ing it.
+			-- This is useful when some C function returns an already
+			-- reffed pointer to a Gobject. In this case the Eiffel
+			-- wrapper must not call ref at creation time, just unref at 
+			-- dispose time.
+		require
+			called_on_creation: is_null
+			pointer_not_null: a_ptr.is_not_null
+			-- not_existing_wrapper: not (create {G_OBJECT_EXPANDED_FACTORY [like Current]}).has_eiffel_wrapper_stored (a_ptr)
+		do
+			handle := a_ptr
+			if not is_eiffel_wrapper_stored then store_eiffel_wrapper end
+		end
+
+feature -- Disposing
+
+	dispose is
+			-- Dispose the g_object, calling unref and setting its handle to default_pointer.
+		
+			-- TODO: once the iusse explained in the debug tense in the implementation is 
+			-- solved put a "require is_a_gobject: g_is_object (handle)" precondition
+		do
+			-- Note: when Eiffel disposes a G_OBJECT it just unrefs it and
+			-- cleans its handle. The actual reclaiming of the memory
+			-- allocated on the C side is left to the gobject runtime.
+			check is_g_object end 
+			if is_main_wrapper then unstore_eiffel_wrapper end
+			debug print(once "Unreffing a "+generating_type+"%N") end
+			unref
+			-- There are some shared G_OBJECTS that we shouldn't unref.
+			-- Check for example pango_cairo_font_map_get_default
+			handle := default_pointer
+		end
+
 feature {} -- Disposing helper
-
-	print_notice is
-			-- Print once a copy of the note that has been put in 
-			-- `dispose' source code.
-		once
-			print ("[
-					  Please see the notes in G_OBJECT.dispose.
-					  Perhaps dispose has been called after 
-					  GTK libraries has already shut down. This
-					  could be the correct behavious and not a bug, since it is
-					  possible that this part of dispose  won't be called
-					  if  the garbage collector is called during
-					  application normal usage. 
-							 Paolo 2006-04-24
-					  
-				  ]")
-			end
-
 	is_g_object: BOOLEAN is
 			-- Is current handle a pointer to a g_object?
 		do
 			Result := (g_is_object (handle) /= 0)
 		end
 
-feature  {WRAPPER,WRAPPER_HANDLER} -- Reference count
+feature -- Reference count
 
 	ref is
 			-- Increases the reference count of object.
@@ -436,12 +298,13 @@ feature  {WRAPPER,WRAPPER_HANDLER} -- Reference count
 			g_object_unref (handle)
 		end
 
-feature  {WRAPPER,WRAPPER_HANDLER} -- Data storing and retrieving
+feature -- Data storing and retrieving
+
 	get_data (a_key: STRING): ANY is
 			-- Gets a named field from the objects table of associations (see
 			-- set_data).  `a_key': name of the key for that association; Void if no
 			-- `a_key' field is present
-		require key_not_void: a_key /= Void
+		require valid_key: a_key /= Void
 		local ptr: POINTER
 		do
 			-- Note: wrappers that needs to store C pointers and do other low-level
@@ -458,15 +321,13 @@ feature  {WRAPPER,WRAPPER_HANDLER} -- Data storing and retrieving
 			-- association will be destroyed.
 			
 			-- a_key : 	name of the key
-			-- data: 	data to associate with that key
-		require 
-			key_not_void: a_key /= Void
+			-- data : 	data to associate with that key
+		require
+			valid_key: a_key /= Void
 		do
-			-- Note: a_key is not duplicated since g_object_set_data
-			-- requires a const gchar *;
-			if data=Void then g_object_set_data (handle,a_key.to_external, default_pointer)
-			else g_object_set_data (handle,a_key.to_external, data.to_pointer)
-			end
+			-- Note: a_key is not duplicated since g_object_set_data requires a const
+			-- gchar *;
+			g_object_set_data (handle,a_key.to_external, data.to_pointer)
 		end
 
 	steal_data (a_key: STRING): ANY is
@@ -480,7 +341,8 @@ feature  {WRAPPER,WRAPPER_HANDLER} -- Data storing and retrieving
 			if ptr.is_not_null then Result:=ptr.to_any end
 		end
 
-feature  {WRAPPER,WRAPPER_HANDLER} -- Quark-based data storing and retrieving
+feature -- Quark-based data storing and retrieving
+
 	has_qdata (a_key: G_QUARK): BOOLEAN is
 			-- Is `a_key' field present in table of associations (see
 			-- set_qdata)? `a_key': a GQuark, naming the user data
@@ -493,7 +355,6 @@ feature  {WRAPPER,WRAPPER_HANDLER} -- Quark-based data storing and retrieving
 			-- Gets a named field from the objects table of associations
 			-- (see set_data). `a_key': a GQuark, naming the user data
 			-- pointer; Void if no `a_key' field is present
-
 		local ptr: POINTER
 		do
 			ptr := g_object_get_qdata (handle, a_key.quark)
@@ -544,10 +405,13 @@ feature -- Properties query
 			-- Find the parameter's spec for `a_property_name'. Void if
 			-- the class doesn't have a property of that name.
 		require valid_name: a_property_name /= Void
+		local
+			param_spec_ptr: POINTER
 		do
-			Result := (g_param_spec_factory.void_or_wrapper
-						  (g_object_class_find_property 
-							(g_object_get_class(handle), a_property_name.to_external)))
+			param_spec_ptr:=g_object_class_find_property (g_object_get_class(handle),a_property_name.to_external)
+			if param_spec_ptr.is_not_null then
+				create Result.from_external_pointer (param_spec_ptr)
+			end
 		end
 
 	has_property (a_property_name: STRING): BOOLEAN is
@@ -565,25 +429,26 @@ feature -- Properties query
 			c_array_ptr: POINTER;
 			another: C_ARRAY[G_PARAM_SPEC]
 		do
-			if hidden_properties=Void then
-				create {C_ARRAY[G_PARAM_SPEC]} 
-				hidden_properties.from_external_array
-				(g_object_class_list_properties(g_object_get_class(handle), $a_length),
-				 a_length, g_param_spec_factory)
-			end
-			Result:=hidden_properties
-			debug
-				create another.from_external_array
-				(g_object_class_list_properties(g_object_get_class(handle), $another_length),
-				 another_length, g_param_spec_factory)
-				check -- the assumption that list properties is "stable" over time.
-					-- Using a cached, hidden properties collection requires 
-					-- that the actual properties are the same. Having a 
-					-- caching factory allows to use same_items of the 
-					-- result, after having created another copy of.
-					Result.same_items(another)
-				end
-			end
+			not_yet_implemented
+			-- if hidden_properties=Void then
+			-- 	create {C_ARRAY[G_PARAM_SPEC]} 
+			-- 	hidden_properties.from_external_array
+			-- 	(g_object_class_list_properties(g_object_get_class(handle), $a_length),
+			-- 	 a_length, g_param_spec_factory)
+			-- end
+			-- Result:=hidden_properties
+			-- debug
+			-- 	create another.from_external_array
+			-- 	(g_object_class_list_properties(g_object_get_class(handle), $another_length),
+			-- 	 another_length, g_param_spec_factory)
+			-- 	check -- the assumption that list properties is "stable" over time.
+			-- 		-- Using a cached, hidden properties collection requires 
+			-- 		-- that the actual properties are the same. Having a 
+			-- 		-- caching factory allows to use same_items of the 
+			-- 		-- result, after having created another copy of.
+			-- 		Result.same_items(another)
+			-- 	end
+			-- end
 		end
 
 feature -- Property getter/setter
@@ -686,7 +551,6 @@ feature -- Property getter/setter
 										handle,
 										a_parameter_specification.param_id, a_value.handle,
 										a_parameter_specification.handle)
-			
 			-- g_object_notify_queue_add (object, nqueue, pspec);
 			-- g_object_notify_queue_thaw (object, nqueue);
 			-- NOTE: avoiding unref, since we didn't acquire any above			
@@ -712,41 +576,41 @@ feature -- Property getter/setter
 			value_set: -- TODO: a_value.is_equal (get_property(a_property_name))
 		end
 
-	property (a_property_name: STRING): G_VALUE is
-			-- the property named `a_property_name' of an object.
-			-- 
+	property, get_property (a_property_name: STRING): G_VALUE is
+			-- Gets the property name `a_property_name' of an object.
+
 			-- Note: The underlying C implementation has the following
 			-- "preconditions" that are not compiled-in in optimized
 			-- code:
-			--
+
 			-- * handle is a GObject
-			--
+
 			-- * property name C-string is not a NULL pointer
-			--
+
 			-- * the GValue passed in should be a GValue....
-			--
+
 			-- It also always check that:
-			--
+			
 			-- * There's a property with that name
-			--
+
 			-- * the property is readable
-			--
+
 			-- * the value passed in is of the same type of the property
 			--   or it is convertible into a correct type
-			--
+
 			-- All those checkes are made for each and every access to
 			-- any property, beside the fact that the actual property
 			-- getter is usually a big switch statement hidded under
 			-- another 2 layers of calls.
-			--
+
 			-- Isn't it nicely inefficient, it is?
-			--
+
 			-- In this Eiffel wrapper the first checks are statically
 			-- enforced, while second group of checks can be handled by
 			-- preconditions and it is duty of the caller to check them
 			-- if necessary. The very last check is automatically 
 			-- followed 
-			--
+
 			-- Therefore this implementation will directly
 			-- call the hidden virtual call, i.e.: "class->get_property
 			-- (object, param_id, value, pspec);" see gobject/gobject.c
@@ -831,10 +695,11 @@ feature -- String property
 		do
 			hidden_gvalue.turn_to_string
 			g_object_get_property (handle,a_property_name.to_external,hidden_gvalue.handle)
-			Result := hidden_gvalue.string.twin
+			Result := hidden_gvalue.string
 		end
 
 feature -- integer property
+
 	set_integer_property (a_property_name: STRING; a_value: INTEGER) is
 			-- Set property with `a_name' to `a_value'
 		require
@@ -861,6 +726,7 @@ feature -- integer property
 		end
 
 feature -- float/REAL_32 property
+
 	set_real_32_property, set_float_property (a_property_name: STRING; a_value: REAL_32) is
 			-- Set property with `a_name' to `a_value'
 		require
@@ -886,34 +752,34 @@ feature -- float/REAL_32 property
 			Result := hidden_gvalue.real_32
 		end
 
-feature -- Real property
-	set_real_property (a_property_name: STRING; a_value: REAL) is
-			-- Set property with `a_name' to `a_value'
-		require
-			valid_name: a_property_name /= Void
-			property_exists: has_property (a_property_name)
-			is_writable: find_property (a_property_name).is_writable
-			is_float_property: find_property (a_property_name).is_real
-		do
-			hidden_gvalue.turn_to_real
-			hidden_gvalue.set_real (a_value)
-			g_object_set_property (handle, a_property_name.to_external, hidden_gvalue.handle)
-		end
+	real_32_property_from_pspec, float_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_32 is
+			-- the float property with `a_parameter_specification'. This
+			-- feature is faster than the plain `float_property'
+			-- because the latter retrieves the parameter specification
+			-- from the name given. Storing the specification in a once
+			-- feature hasten property retrieving.
 
-	real_property (a_property_name: STRING): REAL is
-			-- the REAL property named `a_property_name' of an
-			-- object. REAL in the C language is usally called "double".
-		require
-			valid_name: a_property_name /= Void
-			has_property: has_property (a_property_name)
-			is_real_property: find_property (a_property_name).is_real
-		do
-			hidden_gvalue.turn_to_real
-			g_object_get_property (handle,a_property_name.to_external,hidden_gvalue.handle)
-			Result := hidden_gvalue.real
-		end
+			-- TODO: I'm unsure but I suspect that this feature still has
+			-- sub-optimal performance because it still creates a new
+			-- G_VALUE each time. I would help if G_VALUE is expanded and
+			-- holds the actual GValue C structure like an expanded
+			-- feature. This way the G_VALUE would be created on the
+			-- stack, obtaining better performances.
 
+			-- Note: the previous TODO should have been implemented in
+			-- may 2007
+		require
+			specification_not_void: a_parameter_specification /= Void
+		do
+			hidden_gvalue.turn_to_real_32
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
+			Result := hidden_gvalue.real_32
+		end
+	
 feature -- boolean property
+
 	set_boolean_property (a_property_name: STRING; a_value: BOOLEAN) is
 			-- Set boolean property with `a_name' to `a_value'
 		require
@@ -935,6 +801,32 @@ feature -- boolean property
 		do
 			hidden_gvalue.turn_to_boolean
 			g_object_get_property (handle, a_property_name.to_external, hidden_gvalue.handle)
+			Result := hidden_gvalue.boolean
+		end
+
+	boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): BOOLEAN is
+			-- the boolean property with `a_parameter_specification'. This
+			-- feature is faster than the plain `boolean_property'
+			-- because the latter retrieves the parameter specification
+			-- from the name given. Storing the specification in a once
+			-- feature hasten property retrieving.
+
+			-- TODO: I'm unsure but I suspect that this feature still has
+			-- sub-optimal performance because it still creates a new
+			-- G_VALUE each time. I would help if G_VALUE is expanded and
+			-- holds the actual GValue C structure like an expanded
+			-- feature. This way the G_VALUE would be created on the
+			-- stack, obtaining better performances.
+
+			-- Note: the previous TODO should have been implemented in
+			-- may 2007
+		require
+			specification_not_void: a_parameter_specification /= Void
+		do
+			hidden_gvalue.turn_to_boolean
+			invoke_get_property (a_parameter_specification.owner_class, handle,
+										a_parameter_specification.param_id, hidden_gvalue.handle,
+										a_parameter_specification.handle)
 			Result := hidden_gvalue.boolean
 		end
 
@@ -964,333 +856,8 @@ feature -- enum property
 			Result:=hidden_gvalue.integer
 		end
 
-feature -- pointer property
-	set_pointer_property (a_property_name: STRING; a_value: POINTER) is
-			-- Set the pointereration property with `a_name' to `a_value'. 
-		require
-			valid_name: a_property_name /= Void
-			property_exists: has_property (a_property_name)
-			is_writable: find_property (a_property_name).is_writable
-			is_pointer_property: find_property (a_property_name).is_pointer
-		do
-			hidden_gvalue.turn_to_pointer
-			hidden_gvalue.set_pointer (a_value)
-			g_object_set_property (handle, a_property_name.to_external,hidden_gvalue.handle)
-		end
-
-	pointer_property (a_property_name: STRING): POINTER is
-			-- the pointer property named `a_property_name' of an object.
-		require
-			valid_name: a_property_name /= Void
-			has_property: has_property (a_property_name)
-			is_string_property: find_property (a_property_name).is_pointer
-		do
-			hidden_gvalue.turn_to_pointer
-			g_object_get_property (handle,a_property_name.to_external,hidden_gvalue.handle)
-			Result:=hidden_gvalue.pointer
-		end
-
-feature {} -- Getting properties from a parameter specification
-	-- These features retrieve a property from `a_parameter_specification'. This
-	-- is faster than the features that ask for the property name because the
-	-- they must nevertheless retrieve the parameter specification from the name
-	-- given. Storing the specification in a once feature hasten property
-	-- retrieving.
-
-	string_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): STRING is
-			-- the STRING property with `a_parameter_specification'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			string_property: a_parameter_specification.is_string
-		do
-			hidden_gvalue.turn_to_string
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.string
-		end
-
-	integer_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): INTEGER is
-			-- the integer property with `a_parameter_specification'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			integer_property: a_parameter_specification.is_integer
-		do
-			hidden_gvalue.turn_to_integer
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.integer
-		end
-	
-
-	real_32_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_32 is
-			-- the float/real32 property with `a_parameter_specification'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			real_32_property: a_parameter_specification.is_real_32
-		do
-			hidden_gvalue.turn_to_real_32
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.real_32
-		end
-	
-	float_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL_32 is
-		obsolete "Use real_32_property_from_pspec"
-		do
-			Result := real_32_property_from_pspec(a_parameter_specification)
-		end
-	
-	real_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): REAL is
-			-- the float/real32 property with `a_parameter_specification'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			real_property: a_parameter_specification.is_real
-		do
-			hidden_gvalue.turn_to_real
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.real
-		end
-
-	boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): BOOLEAN is
-			-- the boolean property with `a_parameter_specification'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			boolean_parameter: a_parameter_specification.is_boolean
-		do
-			hidden_gvalue.turn_to_boolean
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.boolean
-		end
-
-	enum_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): INTEGER is
-			-- the float/real32 property with `a_parameter_specification'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			enum_property: a_parameter_specification.is_enum
-		do
-			hidden_gvalue.turn_to_enum
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.enum
-		end
-
-	object_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): G_OBJECT is
-			-- the object property with `a_parameter_specification'. 
-		require
-			specification_not_void: a_parameter_specification /= Void
-			object_property: a_parameter_specification.is_object
-		do
-			hidden_gvalue.turn_to_object
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.object
-		end
-	
-	pointer_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): POINTER is
-			-- the object property with `a_parameter_specification'. 
-		require
-			specification_not_void: a_parameter_specification /= Void
-			object_property: a_parameter_specification.is_pointer
-		do
-			hidden_gvalue.turn_to_pointer
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.pointer
-		end
-	
-	any_property_from_pspec (a_parameter_specification: G_PARAM_SPEC): ANY is
-			-- the property with `a_parameter_specification'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			object_property: a_parameter_specification.is_pointer
-		do
-			hidden_gvalue.turn_to_pointer
-			invoke_get_property (a_parameter_specification.owner_class, handle,
-										a_parameter_specification.param_id, hidden_gvalue.handle,
-										a_parameter_specification.handle)
-			Result := hidden_gvalue.pointer.to_any
-		end
-	
-feature {} -- Properties setters from a parameter specification
-	-- These features sets a property from its
-	-- `a_parameter_specification'. This is faster than the features
-	-- that ask for the property name because the they must
-	-- nevertheless retrieve the parameter specification from the name
-	-- given. Storing the specification in a once feature hasten
-	-- property retrieving and setting.
-
-	set_string_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: STRING) is
-			-- Set the string property with `a_parameter_specification' to `a_value'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			value_not_void: a_value/=Void 
-			string_property: a_parameter_specification.is_string
-		do
-			hidden_gvalue.turn_to_string
-			hidden_gvalue.set_string(a_value)
-			smart_set_property (a_parameter_specification,hidden_gvalue)
-		end
-
-	set_integer_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: INTEGER) is
-			-- Set the integer property with `a_parameter_specification' to `a_value'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			integer_property: a_parameter_specification.is_integer
-		do
-			hidden_gvalue.turn_to_integer
-			hidden_gvalue.set_integer(a_value)
-			smart_set_property (a_parameter_specification,hidden_gvalue)
-		end
-
-	set_real_32_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: REAL_32) is
-			-- Set the float/real32 property with `a_parameter_specification' to `a_value'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			real_32_property: a_parameter_specification.is_real_32
-		do
-			hidden_gvalue.turn_to_real_32
-			hidden_gvalue.set_real_32(a_value)
-			smart_set_property (a_parameter_specification,hidden_gvalue)
-		end
-	
-	set_real_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: REAL) is
-			-- Set the float/real32 property with `a_parameter_specification' to `a_value'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			real_property: a_parameter_specification.is_real
-		do
-			hidden_gvalue.turn_to_real
-			hidden_gvalue.set_real(a_value)
-			smart_set_property (a_parameter_specification,hidden_gvalue)
-		end
-
-	set_boolean_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: BOOLEAN) is
-			-- Set the boolean property with `a_parameter_specification' to `a_value'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			boolean_parameter: a_parameter_specification.is_boolean
-		do
-			hidden_gvalue.turn_to_boolean
-			hidden_gvalue.set_boolean(a_value)
-			smart_set_property (a_parameter_specification,hidden_gvalue)
-		end
-
-	set_enum_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: INTEGER) is
-			-- Set the enumeration property with `a_parameter_specification' to `a_value'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			enum_property: a_parameter_specification.is_enum
-		do
-			hidden_gvalue.turn_to_enum
-			hidden_gvalue.set_enum(a_value)
-			smart_set_property (a_parameter_specification,hidden_gvalue)
-		end
-
-	set_object_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: G_OBJECT) is
-			-- Set the object property with `a_parameter_specification'. to `a_value'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			value_not_void: a_value/=Void 
-			object_property: a_parameter_specification.is_object
-		do
-			hidden_gvalue.turn_to_object
-			hidden_gvalue.set_object(a_value)
-			smart_set_property (a_parameter_specification,hidden_gvalue)
-		end
-	
-	set_pointer_property_from_pspec (a_parameter_specification: G_PARAM_SPEC; a_value: POINTER) is
-			-- Set the pointer property with `a_parameter_specification'. to `a_value'.
-		require
-			specification_not_void: a_parameter_specification /= Void
-			object_property: a_parameter_specification.is_pointer
-		do
-			hidden_gvalue.turn_to_pointer
-			hidden_gvalue.set_pointer(a_value)
-			smart_set_property (a_parameter_specification,hidden_gvalue)
-		end
-	
-	
-	ref_sink is
-			-- Increase the reference count of Current object, and
-			-- possibly remove the floating reference, if it has a
-			-- floating reference.
-
-			--    Since 2.10
-		local ptr: POINTER
-		do
-			ptr := g_object_ref_sink(handle)
-			check returned_current: ptr = handle end
-		end
-
-feature {} -- Implementation
-	hidden_gvalue: G_VALUE is
-			-- The shared, hidden G_VALUE used in the type-specialized properties 
-			-- setter and getter
-		once
-			create Result.make
-		end
-
-	hidden_properties: COLLECTION[G_PARAM_SPEC]
-			-- Hidden, cached properties collection. See `properties'
-
-	unknown_type_exception: STRING is
-			-- The message printed when eiffel-gobject finds an unregistered GType
-		"Eiffel is trying to register a wrapper for a GObject unknown to the underlying GObject-GType run-time type system. This is either a bug in an Eiffel library (usually a typing error) or a real bug in some underlying C library"
-
-	print_known_gobject_heirs is
-		local root: like g_type
-		do
-			root:=g_type_from_name("GObject".to_external)
-			io.put_line(once "Children of:")
-			print_heirs(root)
-		end
-	
-	print_heirs (a_type: like g_type) is
-		require valid: a_type/=0
-		local
-			name_ptr, children: POINTER; a_depth: INTEGER; child: like g_type
-			i, children_count: INTEGER
-		do
-			name_ptr := g_type_name(a_type)
-			check name_ptr.is_not_null end
-			a_depth := g_type_depth(a_type)
-			io.put_string (create {STRING}.make_filled(' ',a_depth))
-			io.put_line (create {STRING}.from_external_copy(name_ptr))
-
-			children := g_type_children (a_type,$children_count)
-			from i:=0; child:=get_child(children,i)
-			until child=0
-			loop
-				print_heirs(child)
-				i:=i+1; child:=get_child(children,i)
-			end
-			g_free(children)
-		end
-
-	get_child (a_ptr: POINTER; an_index: INTEGER): like g_type is
-		external "C inline"
-			-- alias "((gint64) *(((GType*) $a_ptr) + $an_index))"
-		alias "( *(((GType*) $a_ptr) + $an_index))"
-		end
-	
-invariant
-	stored_eiffel_wrapper: is_not_null implies is_eiffel_wrapper_stored
-	gtype_is_at_least_32_bit: g_type.object_size >= 4
-			-- Note: The previous invariant should be onlu equal when 
-			-- NATURAL_32 will be available
-end -- class G_OBJECT
-
--- Unwrapped code
+feature {} -- Unwrapped API
+--    ----------------------------------------------------------------------------------------------------------------
 
 --   GObjectClass
 
@@ -1722,16 +1289,27 @@ end -- class G_OBJECT
 
 --    ----------------------------------------------------------------------------------------------------------------
 
---   g_object_is_floating ()
+--   g_object_ref_sink ()
 
---  gboolean    g_object_is_floating            (gpointer object);
+--  gpointer    g_object_ref_sink               (gpointer object);
 
---    Checks wether object has a floating reference.
+--    Increase the reference count of object, and possibly remove the floating reference, if object has a floating
+--    reference.
 
 --    object :  a GObject
---    Returns : TRUE if object has a floating reference
+--    Returns : object
 
 --    Since 2.10
+
+--    ----------------------------------------------------------------------------------------------------------------
+
+	is_floating: BOOLEAN is
+			-- TRUE if the object still has its floating reference count. 
+		require
+			handle.is_not_null
+		do
+			Result:= (g_object_is_floating(handle)).to_boolean
+		end
 
 --    ----------------------------------------------------------------------------------------------------------------
 
@@ -2327,4 +1905,20 @@ end -- class G_OBJECT
 --    gobject :   the object which received the signal.
 --    pspec :     the GParamSpec of the property which changed
 --    user_data : user data set when the signal handler was connected.
-	
+
+feature {} -- Implementation
+	hidden_gvalue: G_VALUE is
+			-- The shared, hidden G_VALUE used in the type-specialized properties 
+			-- setter and getter
+		once
+			create Result.make
+		end
+
+	hidden_properties: COLLECTION[G_PARAM_SPEC]
+			-- Hidden, cached properties collection. See `properties'
+
+invariant
+	stored_eiffel_wrapper: is_not_null implies is_eiffel_wrapper_stored
+	is_g_object: is_not_null implies is_g_object
+	gtype_is_32_bit: g_type.object_size = 4
+end

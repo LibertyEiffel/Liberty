@@ -26,27 +26,23 @@ class DRAG_DATA_DELETE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-creation  make
+creation make
 
 feature
 	object: GTK_WIDGET
 
 feature
-	callback (drag_context, instance: POINTER) is
-		local
-			drag_context_factory: G_OBJECT_EXPANDED_FACTORY [GDK_DRAG_CONTEXT]
-			drag_context_obj: GDK_DRAG_CONTEXT
+	callback (drag_context_ptr, instance: POINTER) is
+		local drag_context: GDK_DRAG_CONTEXT
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			object := wrapper(instance)
-
-			drag_context_obj := drag_context_factory.wrapper(drag_context)
-			
-			procedure.call ([drag_context_obj, object])
+			create drag_context.secondary_wrapper_from (drag_context_ptr)
+			procedure.call ([drag_context, object])
 		end
 
 	callback_pointer: POINTER is

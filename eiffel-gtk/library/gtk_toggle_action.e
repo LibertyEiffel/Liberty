@@ -27,7 +27,7 @@ class GTK_TOGGLE_ACTION
 
 inherit GTK_ACTION redefine make, struct_size end
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature {} -- Creation
 	make (a_name, a_label, a_tooltip, a_stock_id: STRING) is

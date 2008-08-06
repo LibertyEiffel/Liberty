@@ -27,7 +27,7 @@ class BUTTON_PRESS_EVENT_CALLBACK
 inherit
 	BUTTON_EVENT_CALLBACK
 
-creation  make
+creation make
 
 feature
 

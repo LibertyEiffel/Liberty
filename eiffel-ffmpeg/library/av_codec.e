@@ -22,24 +22,15 @@ indexing
 class AV_CODEC
 
 inherit
-	SHARED_C_STRUCT
-		redefine from_external_pointer end
+	C_STRUCT
+	EIFFEL_OWNED
 
 insert
 	AV_CODEC_EXTERNALS
 	AV_CODEC_IDS
 
-creation 
-	dummy,
+creation
 	from_external_pointer
-
-feature {WRAPPER, WRAPPER_HANDLER} -- Creation
-
-	from_external_pointer (a_ptr: POINTER) is
-		do
-			Precursor (a_ptr)
-			set_shared
-		end
 
 feature -- Operations
 
@@ -57,7 +48,8 @@ feature -- Access
 		do
 			create Result.from_external_copy (av_codec_get_name (handle))
 		end
-	
+
+
 feature -- Size
 
 	struct_size: INTEGER is

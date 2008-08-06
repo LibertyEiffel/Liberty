@@ -29,11 +29,7 @@ class GTK_GRAPHICS_CONTEXT
 	-- not, a new GdkGC is created. When the GdkGC is no longer needed,
 	-- `dispose' should be called.
 
-inherit 
-	SHARED_C_STRUCT
-		redefine
-			dispose
-		end
+inherit C_STRUCT
 	
 creation from_external_pointer
 

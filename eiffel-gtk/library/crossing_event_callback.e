@@ -27,25 +27,26 @@ deferred class CROSSING_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 feature
 	object: GTK_WIDGET
 
 feature
 
-	callback (event_crossing: POINTER; instance: POINTER): INTEGER is
+	callback (event_ptr: POINTER; instance: POINTER): INTEGER is
 		local
-			event_obj: GDK_EVENT
-			specific_event: GDK_EVENT_ANY
+			crossing_event: GDK_EVENT_CROSSING
 		do
+			-- The following is written with the implicit requirement 
+			-- that object actually has an Eiffel wrapper.
 			object := wrapper(instance)
-			create event_obj.from_external_pointer (event_crossing)
-			check is_a_crossing_event: event_obj.is_event_crossing end
-			
-			Result := function.item ([event_obj.event_crossing, object]).to_integer
+
+			create crossing_event.from_external_pointer (event_ptr)
+
+			Result := function.item ([crossing_event, object]).to_integer
 			-- GTK is about to release this event, detach it from Eiffel
-			event_obj.event_crossing.dispose
+			crossing_event.dispose
 		end
 
 	callback_pointer: POINTER is

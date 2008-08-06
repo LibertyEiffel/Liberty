@@ -26,7 +26,7 @@ class SWITCH_PAGE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert 	G_OBJECT_FACTORY [GTK_NOTEBOOK] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_NOTEBOOK]
 
 creation make
 
@@ -34,16 +34,17 @@ feature
 	object: GTK_NOTEBOOK
 
 feature
-	callback (notebook_page_ptr: POINTER; page_number: INTEGER; instance: POINTER) is
-			-- TODO: `page_number' should be NATURAL
-		local page: GTK_NOTEBOOK_PAGE
+	callback (notebook_page: POINTER; arg1: INTEGER; instance: POINTER) is
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
+			-- The following is written with the implicit requirement 
+			-- that the button is actually created bu the Eiffel 
+			-- application. 
 			object := wrapper(instance)
-			create page.from_external_pointer(notebook_page_ptr)
-			procedure.call ([Void, page_number, object])
+			-- XXX: we need GTK_NOTEBOOK_PAGE as first argument
+			procedure.call ([Void, arg1, object])
 		end
 
 	callback_pointer: POINTER is

@@ -19,19 +19,15 @@ indexing
 					02110-1301 USA
 			]"
 
-class AV_CODEC_FINDER
+deferred class AV_CODEC_FINDER
 
 insert
 	AV_CODEC_FINDER_EXTERNALS
 	AV_CODEC_IDS
-	WRAPPER_HANDLER -- to get `unimplemented' feature
-	
+	WRAPPERS_CACHE [AV_CODEC]
+	WRAPPER_FACTORY [AV_CODEC]
+
 feature {} -- Private access
-	wrapper (a_pointer: POINTER): AV_CODEC is
-			-- Dummy (unused) implementation.
-		do
-			unimplemented
-		end
 
 	get_decoder (a_codec_id: INTEGER): AV_CODEC is
 		require
@@ -41,7 +37,7 @@ feature {} -- Private access
 		do
 			codec_ptr := avcodec_find_decoder (a_codec_id)
 			if codec_ptr.is_not_null then
-				create Result.from_external_pointer (codec_ptr)
+				Result:=wrapper(codec_ptr)
 			end
 		end
 
@@ -53,7 +49,7 @@ feature {} -- Private access
 		do
 			codec_ptr := avcodec_find_encoder (a_codec_id)
 			if codec_ptr.is_not_null then
-				create Result.from_external_pointer (codec_ptr)
+				Result:=wrapper(codec_ptr)
 			end
 		end
 
@@ -65,7 +61,7 @@ feature {} -- Private access
 		do
 			codec_ptr := avcodec_find_decoder_by_name (a_name.to_external)
 			if codec_ptr.is_not_null then
-				create Result.from_external_pointer (codec_ptr)
+				Result:=wrapper(codec_ptr)
 			end
 		end
 
@@ -75,10 +71,18 @@ feature {} -- Private access
 		local
 			codec_ptr: POINTER
 		do
-			codec_ptr := avcodec_find_encoder_by_name(a_name.to_external)
+			codec_ptr := avcodec_find_encoder_by_name (a_name.to_external)
 			if codec_ptr.is_not_null then
-				create Result.from_external_pointer (codec_ptr)
+				Result:=wrapper(codec_ptr)
 			end
 		end
 
+	wrapper (a_ptr: POINTER): AV_CODEC is
+		do
+			Result := cache.reference_at(a_ptr)
+			if Result=Void then 
+				create Result.from_external_pointer(a_ptr)
+				cache.put(Result,a_ptr)
+			end
+		end
 end -- class AV_CODEC_FINDER

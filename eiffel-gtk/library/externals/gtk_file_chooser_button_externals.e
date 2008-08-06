@@ -28,48 +28,17 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_file_chooser_button_new_with_backend (a_title: POINTER; an_action: INTEGER; a_backend: POINTER): POINTER is
-			-- GtkWidget* gtk_file_chooser_button_new_with_backend (const gchar
-			-- *title, GtkFileChooserAction action, const gchar *backend);
-		external "C use <gtk/gtk.h>"
-		end
-	
-	gtk_file_chooser_button_new_with_dialog (a_dialog: POINTER): POINTER is
-			-- GtkWidget* gtk_file_chooser_button_new_with_dialog (GtkWidget
-			-- *dialog);
-		external "C use <gtk/gtk.h>"
-		end
-			
 	gtk_file_chooser_button_get_title (a_file_chooser_button: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_file_chooser_button_set_title (a_button, a_title: POINTER) is
-			-- void gtk_file_chooser_button_set_title (GtkFileChooserButton
-			-- *button, const gchar *title);
-		external "C use <gtk/gtk.h>"
-		end
-			
-	gtk_file_chooser_button_get_width_chars (a_button: POINTER): INTEGER is
-			-- gint gtk_file_chooser_button_get_width_chars (GtkFileChooserButton *button);
-		external "C use <gtk/gtk.h>"
+-- 	gtk_color_button_get_color (a_color_button, a_color: POINTER) is
+-- 		external "C use <gtk/gtk.h>"
+-- 		end
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkColorButton)"
 		end
 
-	gtk_file_chooser_button_set_width_chars (a_button: POINTER; an_n_chars: INTEGER) is
-			-- void gtk_file_chooser_button_set_width_chars (GtkFileChooserButton
-			-- *button, gint n_chars);
-		external "C use <gtk/gtk.h>"
-		end
-			
-	gtk_file_chooser_button_get_focus_on_click (a_button: POINTER): INTEGER is
-			-- gboolean gtk_file_chooser_button_get_focus_on_click
-			-- (GtkFileChooserButton *button);
-		external "C use <gtk/gtk.h>"
-		end
-
-	gtk_file_chooser_button_set_focus_on_click (a_button: POINTER; a_focus_on_click_bool: INTEGER) is
-			-- void gtk_file_chooser_button_set_focus_on_click (GtkFileChooserButton *button, gboolean focus_on_click);
-		external "C use <gtk/gtk.h>"
-		end
- 
 end

@@ -94,11 +94,11 @@ inherit
 insert
 	GTK_PRINT_OPERATION_EXTERNALS
 	GTK_PRINT_OPERATION_ACTIONS
-	G_OBJECT_FACTORY [GTK_PAGE_SETUP] undefine copy, is_equal end
+	G_OBJECT_FACTORY[GTK_PAGE_SETUP]
 		-- SHARED_G_ERROR
 	GTK -- to get error
 	
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is 
@@ -263,19 +263,23 @@ feature -- Getters
 
 	default_page_setup: GTK_PAGE_SETUP is
 			-- The default page setup. Can be Void
+		local ptr: POINTER; r: G_OBJECT_EXPANDED_FACTORY[GTK_PAGE_SETUP]
 		do
-			Result := wrapper_or_void(gtk_print_operation_get_default_page_setup(handle))
+			ptr:=gtk_print_operation_get_default_page_setup(handle)
+			if ptr.is_not_null then
+				Result := existant_wrapper(ptr)
+				if Result=Void then
+					create Result.from_external_pointer(ptr)
+				end    				
+			end
 		end
 
 	settings: GTK_PRINT_SETTINGS is
 			-- The current print settings. Void until either
 			-- `set_print_settings' or `run' have been called.
-		local ptr: POINTER
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PRINT_SETTINGS]
 		do
-			ptr:=gtk_print_operation_get_print_settings(handle)
-			if ptr.is_not_null
-			 then create Result.from_external_pointer(ptr)
-			end
+			Result := factory.wrapper_or_void (gtk_print_operation_get_print_settings(handle))
 		end
 
 	operation_result: INTEGER
@@ -1052,8 +1056,4 @@ feature -- size
 		alias "sizeof(GtkPrintOperation)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_print_operation_new
-		end
 end -- class GTK_PRINT_OPERATION

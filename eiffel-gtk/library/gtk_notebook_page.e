@@ -23,11 +23,14 @@ indexing
 
 class GTK_NOTEBOOK_PAGE
 
-inherit SHARED_C_STRUCT
+inherit 
+	C_STRUCT
+	UNHANDLED_MEMORY
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature -- size
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof (GtkNotebookPage)"

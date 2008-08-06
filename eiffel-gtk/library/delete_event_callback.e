@@ -26,9 +26,9 @@ class DELETE_EVENT_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
-creation dummy, make
+creation make
 
 feature
 	object: GTK_WIDGET
@@ -38,17 +38,18 @@ feature
 		require
 			instance_not_null: instance.is_not_null
 		local
-			an_event: GDK_EVENT
+			event: GDK_EVENT; factory: GDK_EVENT_FACTORY
 		do
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 				print ("is_object: "+g_is_object (instance).out+"%N")
 				print ("type: "+g_object_type (instance).out+"%N")
 			end
-			
-			create an_event.from_external_pointer(ev_ptr)
+			-- The following is written with the implicit requirement 
+			-- that object actually has an Eiffel wrapper.
 			object := wrapper(instance)
-			Result := function.item ([object, an_event]).to_integer
+			event := factory.wrapper(ev_ptr)
+			Result := function.item ([object, event]).to_integer
 		end
 
 	callback_pointer: POINTER is

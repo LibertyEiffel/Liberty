@@ -41,13 +41,9 @@ class GTK_CELL_RENDERER_SPIN
 
 inherit
 	GTK_CELL_RENDERER_TEXT
-		redefine
-			dummy_gobject,
-			make,
-			struct_size
-		end
+		redefine make, struct_size end
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -61,10 +57,11 @@ feature -- Properties getters
 			-- The adjustment that holds the value of the spin
 			-- button. This must be non-NULL for the cell renderer to be
 			-- editable.
-		local r: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_ADJUSTMENT]
 		do
-			
-			Result:=r.wrapper(property(adjustment_property_name).pointer)
+			-- TODO: suboptimal implementation; the generic `property' create a
+			-- new G_VALUE everytime this feature is invoked
+			Result:=factory.wrapper_or_void(property(adjustment_property_name).pointer)
 		end
 
 	climb_rate: REAL is
@@ -107,11 +104,6 @@ feature -- size
 		alias "sizeof(GtkCellRendererSpin)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_cell_renderer_spin_new
-		end
-	
 feature {} -- 
 	adjustment_property_name: STRING is "adjustment"
 	climb_rate_property_name: STRING is "climb-rate"

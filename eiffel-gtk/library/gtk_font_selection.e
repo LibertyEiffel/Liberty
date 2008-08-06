@@ -35,19 +35,18 @@ class GTK_FONT_SELECTION
 	-- To change the text which is shown in the preview area, use
 	-- `set_preview_text'.
 
-inherit 
+inherit
 	GTK_VBOX
 		rename
-			make as make_vbox 
-		redefine
-			dummy_gobject,
+			make as make_vbox
+		undefine
 			struct_size
 		end
 		-- GtkFontSelection implements AtkImplementorIface.
 
 insert GTK_FONT_SELECTION_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -56,18 +55,7 @@ feature {} -- Creation
 			from_external_pointer(gtk_font_selection_new)
 		end
 
-feature 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_font_selection_new
-		end
-	
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkFontSelection)"
-		end
-
-feature 
+feature
 	font_name: STRING is
 			-- The currently-selected font name. Note that this can be a
 			-- different string than what you set with `set_font_name',
@@ -89,8 +77,8 @@ feature
 				-- isntead pass it under the Garbage Collector.
 			end
 		end
-	
-	successfully_set: BOOLEAN 
+
+	successfully_set: BOOLEAN
 			-- Has the last call to `set_font_name' been successful?
 
 	set_font_name (a_font_name: STRING) is
@@ -99,7 +87,7 @@ feature
 			-- appear for this to work; this can be guaranteed by simply
 			-- making sure that the widget is inserted in a toplevel
 			-- window before you call this function.
-		
+			
 			-- `a_fontname': a font name like "Helvetica 12" or "Times
 			-- Bold 18"
 
@@ -124,5 +112,7 @@ feature
 		do
 			gtk_font_selection_set_preview_text(handle, a_text.to_external)
 		end
-end -- class GTK_FONT_SELECTION
 
+	--   GtkFontSelectionDialog a dialog box which uses GtkFontSelection.
+
+end -- class GTK_FONT_SELECTION

@@ -46,13 +46,13 @@ class GTK_TREE_SELECTION
 	-- programmers calling select_row on an already selected row).
 
 inherit
-	G_OBJECT redefine dummy end
+	G_OBJECT
+
 insert
-	GTK
 	G_SIGNALS
 	GTK_TREE_SELECTION_EXTERNALS
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature -- selection mode
 	set_single_mode is
@@ -117,6 +117,7 @@ feature -- selection mode
 			-- function should return TRUE if the state of the node may
 			-- be toggled, and FALSE if the state of the node should be
 			-- left unchanged.
+		local select_callback: GTK_TREE_SELECT_FUNCTION
 		do
 			create select_callback.make (Current, a_function)
 		end
@@ -131,61 +132,28 @@ feature -- selection mode
 feature -- View	
 	tree_view: GTK_TREE_VIEW is
 			-- the tree view associated with selection.
-		local view_factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_VIEW]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_VIEW]
 		do
-			Result := view_factory.wrapper(gtk_tree_selection_get_tree_view(handle))
+			Result :=factory.wrapper (gtk_tree_selection_get_tree_view (handle))
 		ensure result_not_void: Result/=Void
 		end
 
-feature -- selections
 	is_node_selected: BOOLEAN is
-			-- Is there a node selected?
+			-- Is there a selected node?
 		require not_multiple: not is_mode_multiple
 		do
-			Result:=(gtk_tree_selection_get_selected 
-						(handle,default_pointer,default_pointer)).to_boolean
-		end
-
-	selected: GTK_TREE_ITER is
-			-- the currently selected node if selection is set to
-			-- `gtk_selection_single' or `gtk_selection_browse'.  Void if
-			-- no node is selected.
-
-			-- Note: The pattern:
-
-			-- if a_selection.is_node_selection then
-			-- foo(a_selection.selected) end
-
-			-- is less efficient than:
-
-			-- selected_iter := a_selection.selected
-			-- if selected_iter/=Void then foo(selected_iter) end
-		require not_multiple: not is_mode_multiple
-		local a_node_selected: INTEGER 
-		do
-			create Result.make
-			a_node_selected:=gtk_tree_selection_get_selected (handle, default_pointer, Result.handle)
-			if a_node_selected=0 then Result.dispose; Result:=Void end
-		ensure is_node_selected implies Result /= Void
+			Result:=(gtk_tree_selection_get_selected (handle, default_pointer, default_pointer)).to_boolean
 		end
 	
-	selection: TUPLE[GTK_TREE_MODEL,GTK_TREE_ITER] is
-			-- The model and the iterator of the currect selection. Void
-			-- if no selection is made.
+feature -- selections
+	selected: GTK_TREE_ITER is
+			-- the currently selected node if selection is set to
+			-- `gtk_selection_single' or `gtk_selection_browse'.
 		require not_multiple: not is_mode_multiple
-		local
-			a_node_selected: INTEGER; model_ptr: POINTER; an_iter: GTK_TREE_ITER
+		local discarded_result: INTEGER
 		do
-			create an_iter.make
-			a_node_selected := (gtk_tree_selection_get_selected
-									  (handle, $model_ptr, an_iter.handle))
-			if a_node_selected=0 
-			then an_iter.dispose; an_iter:=Void
-			else
-				create Result.make_2
-				(gtk.tree_model_factory.wrapper(model_ptr),
-				 an_iter)
-			end
+			create Result.make
+			discarded_result := gtk_tree_selection_get_selected (handle, default_pointer, Result.handle)
 		end
 	
 	-- TODO: gtk_tree_selection_selected_foreach ()
@@ -203,20 +171,14 @@ feature -- selections
 
 	selected_rows: G_LIST [GTK_TREE_PATH] is
 			-- A (newly allocated) list of paths of all selected
-			-- rows. Additionally, if you are planning on modifying the
-			-- model after calling this function, you may want to convert
-			-- the returned list into a list of GtkTreeRowReferences. To
-			-- do this, you can use gtk_tree_row_reference_new().
-		do
-			create Result.from_external (gtk_tree_selection_get_selected_rows(handle,default_pointer),
-												  gtk.path_factory)
-			-- gtk_tree_selection_get_selected_rows Creates a list of
-			-- path of all selected rows. Additionally, if you are
+			-- rows. TODO: Eiffellize this Additionally, if you are
 			-- planning on modifying the model after calling this
 			-- function, you may want to convert the returned list into a
 			-- list of GtkTreeRowReferences. To do this, you can use
 			-- gtk_tree_row_reference_new().
-
+		do
+			create {GTK_TREE_PATH_LIST} Result.from_external_pointer
+			(gtk_tree_selection_get_selected_rows(handle,default_pointer))
 			-- To free the return value, use:
 			
 			-- g_list_foreach (list, gtk_tree_path_free, NULL);
@@ -388,30 +350,9 @@ feature  -- The "changed" signal
 	-- path : 	The GtkTreePath of a selected row
 	-- iter : 	A GtkTreeIter pointing to a selected row
 	-- data : 	user data
-
 feature -- struct size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkTreeSelection)"
 		end
-
-	dummy is
-			-- Note: GtkTreeSelection API does not provide a creation
-			-- features useful to implement dummy_gobject. So we redefine dummy to get its type from the class name.
-		local gtypeclass_ptr: POINTER
-		do
-			stored_type := g_type_from_name((once "GtkTreeSelection").to_external)
-			gtypeclass_ptr := g_type_class_ref (stored_type)
-			
-		end
-
-	dummy_gobject: POINTER is
-		do
-			unimplemented
-		end
-
-feature {} -- Implementation
-	select_callback: GTK_TREE_SELECT_FUNCTION
-			-- The callback object used by `set_select_function'
-
 end

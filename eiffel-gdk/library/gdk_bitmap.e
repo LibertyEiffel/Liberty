@@ -24,7 +24,7 @@ class GDK_BITMAP
 inherit
 	GDK_DRAWABLE
 
-creation dummy,
+creation
 	from_external_pointer
 
 feature -- size
@@ -34,8 +34,4 @@ feature -- size
 		alias "sizeof(GdkBitmap)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			not_yet_implemented
-		end
 end

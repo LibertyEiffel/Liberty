@@ -26,7 +26,7 @@ class END_USER_ACTION_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_TEXT_BUFFER] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_TEXT_BUFFER]
 
 creation make
 
@@ -39,7 +39,10 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			object := wrapper(instance)
+			-- The following is written with the implicit requirement 
+			-- that the editable is actually created bu the Eiffel 
+			-- application. 
+			object := wrapper (instance)
 			procedure.call ([object])
 		end
 

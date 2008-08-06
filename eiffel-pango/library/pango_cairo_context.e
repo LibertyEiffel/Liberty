@@ -30,7 +30,7 @@ inherit
 insert
 	PANGO_CAIRO_CONTEXT_EXTERNALS
 
-creation 
+creation
 	from_external_pointer -- Only to be used by FontMaps
 
 feature -- Operations
@@ -74,10 +74,10 @@ feature -- Operations
 feature -- Access
 
 	font_options: CAIRO_FONT_OPTIONS is
-			-- Retrieves any font rendering options previously set with
-			-- 'set_font_options'. This functions not report options that are
-			-- derived from the target surface by 'update'
-			--
+			-- Font rendering options previously set with
+			-- 'set_font_options'. These options does not report those
+			-- derived from the target surface by 'update'.
+
 			-- Returns the font options previously set on the context, or Void
 			-- if no options have been set. This value is owned by the context
 			-- and must not be modified!
@@ -86,7 +86,8 @@ feature -- Access
 		do
 			fo_ptr := pango_cairo_get_font_options (handle)
 			if fo_ptr.is_not_null then
-				create Result.from_external_pointer_shared (fo_ptr)
+				create Result.from_external_pointer (fo_ptr)
+				Result.set_shared
 			end
 		end
 

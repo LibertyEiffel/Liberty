@@ -30,8 +30,11 @@ class PANGO_FONT_DESCRIPTION
 	-- characteristics of a font to load.
 
 inherit
-	SHARED_C_STRUCT
-		redefine copy, is_equal, dispose end
+	C_STRUCT
+		redefine copy, free, is_equal
+		end
+
+	MIXED_MEMORY_HANDLING redefine free end
 
 insert
 	PANGO_FONT_DESCRIPTION_EXTERNALS
@@ -41,8 +44,8 @@ insert
 	PANGO_FONT_MASK
 	PANGO_STRETCH
 
-creation 
-	make, from_string, from_external_shared
+creation
+	make, from_string, from_external_pointer
 
 feature {} -- Creation
 
@@ -68,12 +71,6 @@ feature {} -- Creation
 			-- Example: "Sans Bold 27"
 		do
 			from_external_pointer (pango_font_description_from_string (a_string.to_external))
-		end
-
-	from_external_shared (an_external: POINTER) is
-		do
-			from_external_pointer (an_external)
-			set_shared
 		end
 
 feature -- Access
@@ -337,18 +334,11 @@ feature -- Copying and comparison
 
 feature -- Disposing
 
-	dispose is
+	free (a_ptr: POINTER)  is
 			-- Frees a font description.
 		do
-			if not is_shared then
-				pango_font_description_free (handle)
-			end
-			handle:= default_pointer
+			pango_font_description_free (a_ptr)
 		end
-
-
-
-
 
 -- enum PangoFontMask
 

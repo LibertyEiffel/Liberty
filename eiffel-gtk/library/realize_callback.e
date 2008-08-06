@@ -30,9 +30,9 @@ inherit
 		redefine object end
 
 insert
-	G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
+	G_OBJECT_FACTORY [GTK_WIDGET]
 
-creation dummy, make
+creation make
 
 feature
 
@@ -40,6 +40,8 @@ feature
 
 	callback (instance: POINTER) is
 		do
+			-- The following is written with the implicit requirement 
+			-- that the object is actually created by the Eiffel 
 			object := wrapper(instance)
 			procedure.call([object])
 		end

@@ -39,10 +39,11 @@ class GTK_TOOL_BUTTON
 	-- the button does not have a label.
 
 inherit
-	GTK_TOOL_ITEM redefine dummy_gobject, struct_size end
+	GTK_TOOL_ITEM redefine struct_size end
 	
 create
-	dummy, from_external_pointer, from_stock, from_label
+	from_external_pointer, from_stock, from_label
+
 
 feature {} -- Creation
 	from_label (an_icon_widget: GTK_WIDGET; a_label: STRING) is
@@ -173,8 +174,21 @@ feature
 	icon_widget: GTK_WIDGET is
 			-- the widget used as icon widget on button. See
 			-- `set_icon_widget'. 
+
+			-- Note: In debug mode an unwrapped object obtained from the
+			-- GTK library will produce an exception; otherwise Result
+			-- will be Void
+		local ptr: POINTER; r: G_OBJECT_EXPANDED_FACTORY[GTK_WIDGET]
 		do
-			Result:=widget_factory.wrapper_or_void(gtk_tool_button_get_icon_widget(handle))
+			ptr:=gtk_tool_button_get_icon_widget(handle)
+			if ptr.is_not_null then
+				Result:=r.wrapper(ptr)
+				debug 
+					if Result=Void then
+						raise(pointer_to_unwrapped_deferred_object)
+					end
+				end
+			end
 		end
 
 	set_label_widget (a_label_widget: GTK_WIDGET) is
@@ -192,8 +206,9 @@ feature
 	label_widget: GTK_WIDGET is
 		-- The widget used as label on button. Can be Void. See
 		-- `set_label_widget'.
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_WIDGET]
 		do
-			Result:=widget_factory.wrapper_or_void(gtk_tool_button_get_label_widget(handle))
+			Result := factory.wrapper_or_void (gtk_tool_button_get_label_widget(handle))
 		end
 	
 feature --Properties 
@@ -220,7 +235,7 @@ feature -- The "clicked" signal
 			connect (Current, clicked_signal_name, $on_clicked)
 		end
 
-	connect_clicked_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOOL_BUTTON]]) is
+	connect_agent_to_clicked_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TOOL_BUTTON]]) is
 			-- button : 	the object that received the signal
 		require valid_procedure: a_procedure /= Void
 		local clicked_callback: CLICKED_CALLBACK [like Current]
@@ -235,12 +250,6 @@ feature -- size
 		alias "sizeof(GtkToolButton)"
 		end
 	
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_tool_button_new(default_pointer,
-												 default_pointer)
-		end
-
 feature {} -- External calls
 	gtk_tool_button_new (a_icon_widget, a_label: POINTER): POINTER is
 			-- GtkToolItem* gtk_tool_button_new (GtkWidget *icon_widget, const gchar *label);

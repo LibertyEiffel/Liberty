@@ -32,12 +32,14 @@ class PANGO_ATTR_LIST
 	-- more than one paragraph of text.
 
 inherit 
-	SHARED_C_STRUCT
-		redefine copy end
+	REFERENCE_COUNTED redefine copy, from_external_pointer end
+	WRAPPERS_CACHE [PANGO_ATTRIBUTE]
+		-- TODO: improve it and turn into a WRAPPER_COLLECTION
+	
 
-creation  make, from_external_pointer
+creation make, from_external_pointer
 
-feature {} -- Creation
+feature -- Creation
 	make is
 			-- Create a new empty attribute list with a reference count
 			-- of one.
@@ -46,6 +48,12 @@ feature {} -- Creation
 			-- pango_attr_list_new Returns the newly allocated
 			-- PangoAttrList, which should be freed with
 			-- pango_attr_list_unref().
+		end
+
+	from_external_pointer (a_ptr: POINTER) is
+		do
+			Precursor(a_ptr)
+			create cache.make
 		end
 
 feature 
@@ -110,7 +118,7 @@ feature
 		do
 			pango_attr_list_insert_before (handle, an_attribute.handle)
 			an_attribute.set_shared
-			an_attribute.dispose -- detach Eiffel object from C object
+			an_attribute.dispose -- detach Eiffel object from C object 
 		end
 
 	change  (an_attribute: PANGO_ATTRIBUTE) is
@@ -133,7 +141,7 @@ feature
 		do
 			pango_attr_list_change (handle, an_attribute.handle)
 			an_attribute.set_shared
-			an_attribute.dispose -- detach Eiffel object from C object
+			an_attribute.dispose -- detach Eiffel object from C object 
 		end
 
 	splice (another: PANGO_ATTR_LIST; a_position, a_length: INTEGER) is

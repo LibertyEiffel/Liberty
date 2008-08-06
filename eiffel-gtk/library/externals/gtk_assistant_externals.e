@@ -12,12 +12,12 @@ inherit ANY undefine is_equal, copy end
 insert GTK_ASSISTANT_PAGE_TYPE_ENUM
 
 feature {} -- External calls
-	gtk_assistant_new: POINTER is
+	 gtk_assistant_new: POINTER is
 			--  GtkWidget* gtk_assistant_new (void);
 		external "C use <gtk/gtk.h>"
 		end
 	
-	gtk_assistant_get_current_page (an_assistant: POINTER): INTEGER is
+	 gtk_assistant_get_current_page (an_assistant: POINTER): INTEGER is
 			--  gint gtk_assistant_get_current_page (GtkAssistant *assistant);
 		external "C use <gtk/gtk.h>"
 		end
@@ -28,7 +28,7 @@ feature {} -- External calls
 		external "C use <gtk/gtk.h>"
 		end
 
-	gtk_assistant_get_n_pages (an_assistant: POINTER): INTEGER is
+	 gtk_assistant_get_n_pages (an_assistant: POINTER): INTEGER is
 			--  gint gtk_assistant_get_n_pages (GtkAssistant *assistant);
 		external "C use <gtk/gtk.h>"
 		end
@@ -50,7 +50,7 @@ feature {} -- External calls
 	external "C use <gtk/gtk.h>"
 	end
 
-	gtk_assistant_insert_page (an_assistant, a_page: POINTER; a_position: INTEGER): INTEGER is
+	 gtk_assistant_insert_page (an_assistant, a_page: POINTER; a_position: INTEGER): INTEGER is
 		--  gint gtk_assistant_insert_page (GtkAssistant *assistant, GtkWidget *page, gint position);
 	external "C use <gtk/gtk.h>"
 	end
@@ -139,5 +139,11 @@ feature {} -- External calls
 	gtk_assistant_update_buttons_state (an_assistant: POINTER) is
 			--  void gtk_assistant_update_buttons_state (GtkAssistant *assistant);
 		external "C use <gtk/gtk.h>"
+		end
+
+feature -- size
+	struct_size: INTEGER is
+		external "C inline use <gtk/gtk.h>"
+		alias "sizeof(GtkAssistant)"
 		end
 end

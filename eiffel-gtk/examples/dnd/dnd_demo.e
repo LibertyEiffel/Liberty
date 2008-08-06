@@ -7,7 +7,8 @@ insert
 	GDK_DRAG_ACTION
 	GDK_MODIFIER_TYPE
 
-creation	make
+creation
+	make
 
 feature
 
@@ -34,7 +35,7 @@ feature
 			create window.make
 			window.set_default_size (280, 190)
 			window.set_title ("Drag me!")
-			window.connect_destroy_signal_to (agent on_delete_event)
+			window.connect_agent_to_destroy_signal (agent on_delete_event)
 			window.set_border_width (20)
 			create hbox.make (True, 5)
 			window.add (hbox)
@@ -56,8 +57,8 @@ feature
 			window.show_all
 
 			-- Connect signals
-			button1.connect_drag_begin_signal_to (agent on_button1_drag_begin)
-			button1.connect_drag_data_get_signal_to (agent on_button1_drag_data_get)
+			button1.connect_agent_to_drag_begin_signal (agent on_button1_drag_begin)
+			button1.connect_agent_to_drag_data_get_signal (agent on_button1_drag_data_get)
 
 
 			gtk.run_main_loop

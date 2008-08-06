@@ -19,13 +19,14 @@ indexing
 					02110-1301 USA
 			]"
 
+
+			-- Description: You may wish to begin by reading the text
+			-- widget conceptual overview which gives an overview of all
+			-- the objects and data types related to the text widget and
+			-- how they work together.
+
+
 class GTK_TEXT_TAG_TABLE
-	-- A collection of tags that can be used together.
-
-	-- You may wish to begin by reading the text widget conceptual
-	-- overview which gives an overview of all the objects and data
-	-- types related to the text widget and how they work together.
-
 
 inherit
 	G_OBJECT rename lookup as g_object_lookup end
@@ -34,7 +35,7 @@ insert
 	GTK
 	GTK_TEXT_TAG_TABLE_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -53,12 +54,8 @@ feature -- Operations
 			-- Add a tag to the table. The tag is assigned the highest priority in the table.
 		require
 			tag_not_void: a_tag /= Void
-			named_tag: a_tag.name/=Void
 			-- TODO: tag must not be in a tag table already,
-						  
-			-- TODO: a tag may not have the same name as an already-added
-			-- tag.
-			no_tag_with_same_name: lookup(a_tag.name)=Void
+			-- TODO: a tagmay not have the same name as an already-added tag.
 		do
 			gtk_text_tag_table_add (handle, a_tag.handle)
 		end
@@ -83,31 +80,25 @@ feature -- Access
 	lookup (a_name: STRING): GTK_TEXT_TAG is
 			-- Lookup the tag with `a_name', or Void if none by that name
 			-- is in the table.
+		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_TEXT_TAG]
 		do
-			Result := text_tag_factory.wrapper_or_void(gtk_text_tag_table_lookup(handle, a_name.to_external))
+			Result := factory.wrapper (gtk_text_tag_table_lookup (handle, a_name.to_external))
 		ensure
 			has (a_name) implies Result /= Void
-			has_tag (Result)
 		end
 
-	has_tag (a_tag: GTK_TEXT_TAG): BOOLEAN is
-		require
-			tag_not_void: a_tag /= Void
-			named_tag: a_tag.name /= Void
-		do
-			Result:= gtk_text_tag_table_lookup(handle, a_tag.name.to_external).is_not_null
-		end
-		-- gtk_text_tag_table_foreach ()
-	
-		-- void        gtk_text_tag_table_foreach      (GtkTextTagTable *table,
-		--                                              GtkTextTagTableForeach func,
-		--                                              gpointer data);
-	
-		-- Calls func on each tag in table, with user data data. Note that the table may not be modified while iterating over it (you can't add/remove tags).
-	
-		-- table : 	a GtkTextTagTable
-		-- func : 	a function to call on each tag
-		-- data : 	user data
+-- gtk_text_tag_table_foreach ()
+
+-- void        gtk_text_tag_table_foreach      (GtkTextTagTable *table,
+--                                              GtkTextTagTableForeach func,
+--                                              gpointer data);
+
+-- Calls func on each tag in table, with user data data. Note that the table may not be modified while iterating over it (you can't add/remove tags).
+
+-- table : 	a GtkTextTagTable
+-- func : 	a function to call on each tag
+-- data : 	user data
+-- gtk_text_tag_table_get_size ()
 
 	size: INTEGER is
 			-- Returns the size of the table (number of tags)
@@ -168,8 +159,4 @@ feature -- size
 		alias "sizeof(GtkTextTagTable)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_text_tag_table_new
-		end
 end

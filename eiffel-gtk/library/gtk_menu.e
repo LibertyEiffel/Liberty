@@ -78,14 +78,14 @@ class GTK_MENU
 	-- }
 
 inherit
-	GTK_MENU_SHELL
-		-- TODO: AtkImplementorIface
+	GTK_MENU_SHELL redefine struct_size end
+		-- GtkMenu implements AtkImplementorIface interface.
 
 insert
-		G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_WIDGET]
 	GTK_MENU_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is 
@@ -567,8 +567,4 @@ feature -- size
 		alias "sizeof(GtkMenu)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_menu_new
-		end
 end

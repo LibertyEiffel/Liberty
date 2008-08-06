@@ -20,15 +20,13 @@ indexing
 				]"
 
 deferred class GDK_DRAWABLE
-	-- Drawables, as the name suggests, are things which support
-	-- drawing onto them, and are either GdkWindow or GdkPixmap
-	-- objects.
-	
-	-- This base class include features for drawing points, lines, arcs
-	-- and text onto those 'drawables'.
+	-- These functions provide support for drawing points, lines, arcs
+	-- and text onto what are called 'drawables'. Drawables, as the
+	-- name suggests, are things which support drawing onto them, and
+	-- are either GdkWindow or GdkPixmap objects.
 
-	-- Many of the drawing operations take a GDK_GC argument, which
-	-- represents a graphics context. This GDK_GC contains a number of
+	-- Many of the drawing operations take a GdkGC argument, which
+	-- represents a graphics context. This GdkGC contains a number of
 	-- drawing attributes such as foreground color, background color
 	-- and line width, and is used to reduce the number of arguments
 	-- needed for each drawing operation. See the Graphics Contexts
@@ -37,11 +35,11 @@ deferred class GDK_DRAWABLE
 	-- Some of the drawing operations take Pango data structures like
 	-- PangoContext, PangoLayout or PangoLayoutLine as arguments. If
 	-- you're using GTK+, the ususal way to obtain these structures is
-	-- via (TODO) gtk_widget_create_pango_context or (TODO)
+	-- via gtk_widget_create_pango_context() or
 	-- gtk_widget_create_pango_layout().
 
 inherit G_OBJECT
-	
+
 insert GDK_DRAWABLE_EXTERNALS
 
 feature

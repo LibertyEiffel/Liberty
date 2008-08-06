@@ -23,91 +23,93 @@ indexing
 	revision: "$Revision:$"
 
 class GDK_EVENT
-	-- The GdkEvent struct contains a union of all of the event
-	-- structs, and allows access to the data fields in a number of
-	-- ways.
-		
-	-- The event type is always the first field in all of the event
-	-- structs, and can always be accessed with the following code, no
-	-- matter what type of event it is:
-		
-	--  GdkEvent *event;
-	--  GdkEventType type;
-	--  type = event->type;
-	
-	-- To access other fields of the event structs, the pointer to the
-	-- event can be cast to the appropriate event struct pointer, or
-	-- the union member name can be used. For example if the event type
-	-- is GDK_BUTTON_PRESS then the x coordinate of the button press
-	-- can be accessed with:
-		
-	--  GdkEvent *event;
-	--  gdouble x;
-	--  x = ((GdkEventButton*)event)->x;
-	--or:
-	--  GdkEvent *event;
-	--  gdouble x;
-	--  x = event->button.x;
 
-inherit
-	SHARED_C_STRUCT
-		redefine
-			from_external_pointer
-		end
+inherit 
+	C_STRUCT 
+		redefine from_external_pointer end
 
 insert
 	GDK_EVENT_EXTERNALS
+	GDK_EVENT_ANY_EXTERNALS
+		-- The GdkEvent struct contains a union of all of the event
+		-- structs, and allows access to the data fields in a number of
+		-- ways.
+		
+		-- The event type is always the first field in all of the event
+		-- structs, and can always be accessed with the following code, no
+		-- matter what type of event it is:
+		
+		--  GdkEvent *event;
+		--  GdkEventType type;
+		--  type = event->type;
+		
+		-- To access other fields of the event structs, the pointer to
+		-- the event can be cast to the appropriate event struct pointer,
+		-- or the union member name can be used. For example if the event
+		-- type is GDK_BUTTON_PRESS then the x coordinate of the button
+		-- press can be accessed with:
+		
+		--  GdkEvent *event;
+		--  gdouble x;
+		--  x = ((GdkEventButton*)event)->x;
+		--or:
+		--  GdkEvent *event;
+		--  gdouble x;
+		--  x = event->button.x;
 
-creation  from_external_pointer
+		--union GdkEvent
+		--{
+		--  GdkEventType		    type;
+		--  GdkEventAny		    any;
+		--  GdkEventExpose	    expose;
+		--  GdkEventNoExpose	    no_expose;
+		--  GdkEventVisibility	    visibility;
+		--  GdkEventMotion	    motion;
+		--  GdkEventButton	    button;
+		--  GdkEventScroll            scroll;
+		--  GdkEventKey		    key;
+		--  GdkEventCrossing	    crossing;
+		--  GdkEventFocus		    focus_change;
+		--  GdkEventConfigure	    configure;
+		--  GdkEventProperty	    property;
+		--  GdkEventSelection	    selection;
+		--  GdkEventOwnerChange  	    owner_change;
+		--  GdkEventProximity	    proximity;
+		--  GdkEventClient	    client;
+		--  GdkEventDND               dnd;
+		--  GdkEventWindowState       window_state;
+		--  GdkEventSetting           setting;
+		--  GdkEventGrabBroken        grab_broken;
+		--};
 
-feature -- size
+creation {WRAPPER_HANDLER} from_external_pointer
 
-	struct_size: INTEGER is
-		external "C inline use <gdk/gdk.h>"
-		alias "sizeof(GdkEvent)"
-		end
-
-feature -- Creation
-
+feature 
 	from_external_pointer (a_pointer: POINTER) is
 		do
-			set_shared
-			Precursor (a_pointer)
+			Precursor(a_pointer)
+			debug
+				std_error.put_string("GDK_EVENT.from_external_pointer: creating a generic GDK_EVENT of type "+type.out)
+				if     is_event_motion then std_error.put_string(" motion ") 
+				elseif is_event_button then std_error.put_string(" button ") 
+				elseif is_event_scroll then std_error.put_string(" scroll ") 
+				elseif is_event_key then std_error.put_string(" key ") 
+				elseif is_event_focus then std_error.put_string(" focus ") 
+				elseif is_event_crossing then std_error.put_string(" crossing ") 
+				elseif is_event_expose then std_error.put_string(" expose ") 
+				end
+				std_error.put_line("from pointer "+a_pointer.out)
+			end
 		end
-
 feature
-	--union GdkEvent
-	--{
-	--  GdkEventType		    type;
-	--  GdkEventAny		    any;
-	--  GdkEventExpose	    expose;
-	--  GdkEventNoExpose	    no_expose;
-	--  GdkEventVisibility	    visibility;
-	--  GdkEventMotion	    motion;
-	--  GdkEventButton	    button;
-	--  GdkEventScroll            scroll;
-	--  GdkEventKey		    key;
-	--  GdkEventCrossing	    crossing;
-	--  GdkEventFocus		    focus_change;
-	--  GdkEventConfigure	    configure;
-	--  GdkEventProperty	    property;
-	--  GdkEventSelection	    selection;
-	--  GdkEventOwnerChange  	    owner_change;
-	--  GdkEventProximity	    proximity;
-	--  GdkEventClient	    client;
-	--  GdkEventDND               dnd;
-	--  GdkEventWindowState       window_state;
-	--  GdkEventSetting           setting;
-	--  GdkEventGrabBroken        grab_broken;
-	--};
-
-	event_type: INTEGER is
+	
+	type, event_type: INTEGER is
 		do
 			Result := gdk_event_type (handle)
 		ensure
 			is_valid_gdk_event_type (Result)
 		end
-
+	
 	is_event_motion: BOOLEAN is
 		do
 			Result := event_type = gdk_event_motion_notify
@@ -116,15 +118,20 @@ feature
 	is_event_button: BOOLEAN is
 		do
 			Result := (event_type = gdk_event_button_press) or else
-			          (event_type = gdk_event_2button_press) or else
-			          (event_type = gdk_event_3button_press) or else
-			          (event_type = gdk_event_button_release)
+						 (event_type = gdk_event_2button_press) or else
+						 (event_type = gdk_event_3button_press) or else
+						 (event_type = gdk_event_button_release)
+		end
+
+	is_event_scroll: BOOLEAN is
+		do
+			Result := event_type = gdk_event_scroll
 		end
 
 	is_event_key: BOOLEAN is
 		do
 			Result := (event_type = gdk_event_key_press) or else
-			          (event_type = gdk_event_key_release)
+						 (event_type = gdk_event_key_release)
 		end
 
 	is_event_focus: BOOLEAN is
@@ -135,51 +142,50 @@ feature
 	is_event_crossing: BOOLEAN is
 		do
 			Result := (event_type = gdk_event_enter_notify) or else
-			          (event_type = gdk_event_leave_notify)
+						 (event_type = gdk_event_leave_notify)
 		end
 
-feature -- Convertion to different event types
-	event_any: GDK_EVENT_ANY is
+	is_event_expose: BOOLEAN is
 		do
-			create Result.from_external_pointer (handle)
+			Result := (event_type = gdk_event_expose)
 		end
 
-	event_motion: GDK_EVENT_MOTION is
-		require
-			is_event_motion
+feature -- Common fields 
+	window: GDK_WINDOW is
+			-- the window which received the event.
+		local
+			 factory: G_OBJECT_EXPANDED_FACTORY[GDK_WINDOW]
 		do
-			create Result.from_external_pointer(handle)
+			Result := factory.existant_wrapper (gdk_event_any_get_window (handle))
 		end
 
-	event_button: GDK_EVENT_BUTTON is
-		require
-			is_event_button
+	send_event: BOOLEAN is
+			-- 	TRUE if the event was sent explicitly (e.g. using XSendEvent).
 		do
-			create Result.from_external_pointer(handle)
+			Result := gdk_event_any_get_send_event (handle).to_boolean
 		end
 
-	event_key: GDK_EVENT_KEY is
-		require
-			is_event_key
+feature -- Memory handling
+
+	dispose is
 		do
-			create Result.from_external_pointer(handle)
+			-- TODO: See if this class could be an EIFFEL_OWNED heir.
+
+			-- Note that dispose is public for this class. This is
+			-- because it can be called when knowing that the event will
+			-- no longer be valid (i.e, deallocated by C)
+			if handle.is_not_null then
+				gdk_event_free (handle)
+				handle:= default_pointer
+			end
 		end
 
-	event_focus: GDK_EVENT_FOCUS is
-		require
-			is_event_focus
-		do
-			create Result.from_external_pointer (handle)
+	struct_size: INTEGER is
+		external "C inline use <gdk/gdk.h>"
+		alias "sizeof(GdkEvent)"
 		end
 
-	event_crossing: GDK_EVENT_CROSSING is
-		require
-			is_event_crossing
-		do
-			create Result.from_external_pointer (handle)
-		end
 
-invariant
-	is_shared
 
+	invariant handle_is_not_null: is_not_null
 end -- class GDK_EVENT

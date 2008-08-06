@@ -40,14 +40,13 @@ class PANGO_MATRIX
 	--    double y0; y translation
 
 inherit 
-	C_STRUCT
-		redefine
-			copy,
-			dispose
-		end
+	C_STRUCT redefine copy end
+
+	-- locally reimplemented EIFFEL_OWNED 
+
 -- insert PANGO_MATRIX_EXTERNALS
 
-creation  make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	-- #define PANGO_MATRIX_INIT { 1., 0., 0., 1., 0., 0. }

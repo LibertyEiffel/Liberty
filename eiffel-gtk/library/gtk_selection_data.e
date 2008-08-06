@@ -23,9 +23,11 @@ indexing
 
 class GTK_SELECTION_DATA
 
-inherit SHARED_C_STRUCT 
+inherit 
+	C_STRUCT
+	UNHANDLED_MEMORY
 
-creation dummy, from_external_pointer, make
+creation from_external_pointer, make
 
 feature -- size
 	struct_size: INTEGER is

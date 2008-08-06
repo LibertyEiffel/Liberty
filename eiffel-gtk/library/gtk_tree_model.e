@@ -107,8 +107,7 @@ insert
 	GTK
 	GTK_TREE_MODEL_EXTERNALS
 	GTK_TREE_MODEL_FLAGS
-	G_TYPES
-	
+
 feature
 	flags: INTEGER is
 			-- The set of flags supported by Current's interface. The
@@ -120,24 +119,18 @@ feature
 		ensure are_valid_tree_model_flags (Result)
 		end
 
-	n_columns: INTEGER is
-		obsolete "Use columns_count instead"
-		do
-			Result:=columns_count
-		end
-
-	columns_count: INTEGER is
+	n_columns, columns_count: INTEGER is
 			-- the number of columns supported by tree_model.
 		do
 			Result := gtk_tree_model_get_n_columns (handle)
 		end
 
-	column_type (a_column_number: INTEGER): like g_type is
+	column_type (a_column_number: INTEGER): INTEGER is
 			-- the type of the column; it is a G_TYPE integer
 			-- TODO: require: valid_column_number: a_column_number.in_range (0,columns_count)
 		do
 			Result := gtk_tree_model_get_column_type  (handle, a_column_number)
-		ensure is_valid_g_type: is_g_type (Result)
+			-- TODO: ensure is_g_type (Result)
 		end
 
 	get_new_iterator (a_path: GTK_TREE_PATH): GTK_TREE_ITER is
@@ -200,7 +193,6 @@ feature
 			-- Note: When done with value, g_value_unset() needs to be
 			-- called to free any allocated memory. This should be
 			-- already implemented into G_VALUE
-		ensure not_null: Result /= Void
 		end
 
 	ref_node (an_iter: GTK_TREE_ITER) is
@@ -360,9 +352,9 @@ feature
 		do
 			if an_iter /= Void then
 				gtk_tree_model_rows_reordered (handle, a_path.handle, an_iter.handle,
-														 a_new_order.to_external)
+				                               a_new_order.to_external)
 			else gtk_tree_model_rows_reordered (handle, a_path.handle, default_pointer,
-															a_new_order.to_external)
+			                                    a_new_order.to_external)
 			end
 		end
 
@@ -390,7 +382,7 @@ feature -- The "row-changed" signal
 		do
 		end
 
-	connect_row_changed_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL,GTK_TREE_PATH,GTK_TREE_ITER]]) is
+	connect_agent_to_row_changed_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL,GTK_TREE_PATH,GTK_TREE_ITER]]) is
 		require valid_procedure: a_procedure /= Void
 		local
 			row_changed_callback: ROW_CHANGED_CALLBACK
@@ -416,8 +408,8 @@ feature -- The "row-deleted" signal
 			connect (Current, row_deleted_signal_name, $on_row_deleted)
 		end
 
-	connect_row_deleted_signal_to (a_procedure: PROCEDURE [ANY,
-																					 TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
+	connect_agent_to_row_deleted_signal (a_procedure: PROCEDURE [ANY,
+		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_MODEL]]) is
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -443,7 +435,7 @@ feature -- TODO:  "row-has-child-toggled" signal
 		do
 			connect (Current, row_has_child_toggled_signal_name, $on_row_has_child_toggled)
 		end
-	connect_row_has_child_toggled_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
+	connect_agent_to_row_has_child_toggled_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_TREE_MODEL, GTK_TREE_PATH, GTK_TREE_ITER]]) is
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
 			-- user_data : 	user data set when the signal handler was connected.
@@ -474,8 +466,8 @@ feature -- The "row-inserted" signal
 			connect (Current, row_inserted_signal_name, $on_row_inserted)
 		end
 
-	connect_row_inserted_signal_to (a_procedure: PROCEDURE [ANY,
-																					 TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]) is
+	connect_agent_to_row_inserted_signal (a_procedure: PROCEDURE [ANY,
+		                                                          TUPLE[GTK_TREE_PATH, GTK_TREE_ITER, GTK_TREE_MODEL]]) is
 			-- treemodel : 	the object which received the signal.
 			-- arg1 : 	
 			-- arg2 : 	

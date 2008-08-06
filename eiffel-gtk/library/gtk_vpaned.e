@@ -21,16 +21,16 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class GTK_VPANED
-	-- The GTK_VPANED widget is a container widget with two children
+	-- The Vpaned widget is a container widget with two children
 	-- arranged vertically. The division between the two panes is
-	-- adjustable by the user by dragging a handle. See GTK_PANED for
+	-- adjustable by the user by dragging a handle. See GtkPaned for
 	-- details.
 
+class GTK_VPANED
 inherit GTK_PANED
 	-- GtkVpaned implements AtkImplementorIface.
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -49,10 +49,5 @@ feature {} -- Creation
 feature {} 
 	gtk_vpaned_new: POINTER is
 		external "C use <gtk/gtk.h>"
-		end
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_vpaned_new
 		end
 end

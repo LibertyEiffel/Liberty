@@ -1,7 +1,7 @@
 
 class STATUS_BAR_DEMO
 insert GTK
-creation dummy, make
+creation make
 
 feature -- GUI elements
 	window: GTK_WINDOW
@@ -16,7 +16,7 @@ feature -- Initialisation
 			gtk.initialize
 			create window.make
 			window.set_title (window_title)
-			window.connect_destroy_signal_to (agent on_destroy)
+			window.connect_agent_to_destroy_signal (agent on_destroy)
 
 			create push_button.with_label ("Push a message")
 			create pop_button.with_label ("Pop last message")
@@ -25,8 +25,8 @@ feature -- Initialisation
 			create vbox.make(True,5)
 			create hbox.make(True,5)
 			-- Connect "clicked" signals of the buttons to callbacks
-			push_button.connect_clicked_signal_to (agent on_push_clicked (?))
-			pop_button.connect_clicked_signal_to (agent on_pop_clicked (?))
+			push_button.connect_agent_to_clicked_signal (agent on_push_clicked (?))
+			pop_button.connect_agent_to_clicked_signal (agent on_pop_clicked (?))
 			--	Pack and show all our widgets
 			push_button.show; pop_button.show
 			hbox.pack_start(push_button,True,True,10)

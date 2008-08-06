@@ -98,19 +98,16 @@ class CAIRO_PATH
 	-- paths from cairo_copy_path().
 
 inherit
-	SHARED_C_STRUCT
-		redefine
-			dispose
-		end
+	C_STRUCT
 
 insert
 	CAIRO_PATH_EXTERNALS
 	CAIRO_PATH_STRUCT
 	CAIRO_STATUS
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
-feature 
+feature {} -- Creation
 
 	dispose is
 			-- Immediately releases all memory associated with
@@ -141,8 +138,255 @@ feature
 			cairo_append_path(handle, another.handle)
 		end
 
-feature {} -- Unwrapped code
-
+	-- get_current_point ()
+	--
+	-- void        cairo_get_current_point         (cairo_t *cr,
+	--                                              double *x,
+	--                                              double *y);
+	--
+	--   Gets the current point of the current path, which is conceptually the
+	--   final point reached by the path so far.
+	--
+	--   The current point is returned in the user-space coordinate system. If
+	--   there is no defined current point then x and y will both be set to 0.0.
+	--
+	--   Most path construction functions alter the current point. See the
+	--   following for details on how they affect the current point:
+	--
+	--   cairo_new_path(), cairo_move_to(), cairo_line_to(), cairo_curve_to(),
+	--   cairo_arc(), cairo_rel_move_to(), cairo_rel_line_to(),
+	--   cairo_rel_curve_to(), cairo_arc(), cairo_text_path(),
+	--   cairo_stroke_to_path()
+	--
+	--   cr : a cairo context
+	--   x :  return value for X coordinate of the current point
+	--   y :  return value for Y coordinate of the current point
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_new_path ()
+	--
+	-- void        cairo_new_path                  (cairo_t *cr);
+	--
+	--   Clears the current path. After this call there will be no path and no
+	--   current point.
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_new_sub_path ()
+	--
+	-- void        cairo_new_sub_path              (cairo_t *cr);
+	--
+	--   Begin a new sub-path. Note that the existing path is not affected. After
+	--   this call there will be no current point.
+	--
+	--   In many cases, this call is not needed since new sub-paths are frequently
+	--   started with cairo_move_to().
+	--
+	--   A call to cairo_new_sub_path() is particularly useful when beginning a new
+	--   sub-path with one of the cairo_arc() calls. This makes things easier as it
+	--   is no longer necessary to manually compute the arc's initial coordinates
+	--   for a call to cairo_move_to().
+	--
+	--   cr : a cairo context
+	--
+	--   Since 1.2
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_close_path ()
+	--
+	-- void        cairo_close_path                (cairo_t *cr);
+	--
+	--   Adds a line segment to the path from the current point to the beginning of
+	--   the current sub-path, (the most recent point passed to cairo_move_to()),
+	--   and closes this sub-path. After this call the current point will be at the
+	--   joined endpoint of the sub-path.
+	--
+	--   The behavior of cairo_close_path() is distinct from simply calling
+	--   cairo_line_to() with the equivalent coordinate in the case of stroking.
+	--   When a closed sub-path is stroked, there are no caps on the ends of the
+	--   sub-path. Instead, there is a line join connecting the final and initial
+	--   segments of the sub-path.
+	--
+	--   If there is no current point before the call to cairo_close_path, this
+	--   function will have no effect.
+	--
+	--   Note: As of cairo version 1.2.4 any call to cairo_close_path will place an
+	--   explicit MOVE_TO element into the path immediately after the CLOSE_PATH
+	--   element, (which can be seen in cairo_copy_path() for example). This can
+	--   simplify path processing in some cases as it may not be necessary to save
+	--   the "last move_to point" during processing as the MOVE_TO immediately
+	--   after the CLOSE_PATH will provide that point.
+	--
+	--   cr : a cairo context
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_arc ()
+	--
+	-- void        cairo_arc                       (cairo_t *cr,
+	--                                              double xc,
+	--                                              double yc,
+	--                                              double radius,
+	--                                              double angle1,
+	--                                              double angle2);
+	--
+	--   Adds a circular arc of the given radius to the current path. The arc is
+	--   centered at (xc, yc), begins at angle1 and proceeds in the direction of
+	--   increasing angles to end at angle2. If angle2 is less than angle1 it will
+	--   be progressively increased by 2*M_PI until it is greater than angle1.
+	--
+	--   If there is a current point, an initial line segment will be added to the
+	--   path to connect the current point to the beginning of the arc.
+	--
+	--   Angles are measured in radians. An angle of 0.0 is in the direction of the
+	--   positive X axis (in user space). An angle of M_PI/2.0 radians (90 degrees)
+	--   is in the direction of the positive Y axis (in user space). Angles
+	--   increase in the direction from the positive X axis toward the positive Y
+	--   axis. So with the default transformation matrix, angles increase in a
+	--   clockwise direction.
+	--
+	--   (To convert from degrees to radians, use degrees * (M_PI / 180.).)
+	--
+	--   This function gives the arc in the direction of increasing angles; see
+	--   cairo_arc_negative() to get the arc in the direction of decreasing angles.
+	--
+	--   The arc is circular in user space. To achieve an elliptical arc, you can
+	--   scale the current transformation matrix by different amounts in the X and
+	--   Y directions. For example, to draw an ellipse in the box given by x, y,
+	--   width, height:
+	--
+	-- cairo_save (cr);
+	-- cairo_translate (cr, x + width / 2., y + height / 2.);
+	-- cairo_scale (cr, 1. / (height / 2.), 1. / (width / 2.));
+	-- cairo_arc (cr, 0., 0., 1., 0., 2 * M_PI);
+	-- cairo_restore (cr);
+	--
+	--   cr :     a cairo context
+	--   xc :     X position of the center of the arc
+	--   yc :     Y position of the center of the arc
+	--   radius : the radius of the arc
+	--   angle1 : the start angle, in radians
+	--   angle2 : the end angle, in radians
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_arc_negative ()
+	--
+	-- void        cairo_arc_negative              (cairo_t *cr,
+	--                                              double xc,
+	--                                              double yc,
+	--                                              double radius,
+	--                                              double angle1,
+	--                                              double angle2);
+	--
+	--   Adds a circular arc of the given radius to the current path. The arc is
+	--   centered at (xc, yc), begins at angle1 and proceeds in the direction of
+	--   decreasing angles to end at angle2. If angle2 is greater than angle1 it
+	--   will be progressively decreased by 2*M_PI until it is greater than angle1.
+	--
+	--   See cairo_arc() for more details. This function differs only in the
+	--   direction of the arc between the two angles.
+	--
+	--   cr :     a cairo context
+	--   xc :     X position of the center of the arc
+	--   yc :     Y position of the center of the arc
+	--   radius : the radius of the arc
+	--   angle1 : the start angle, in radians
+	--   angle2 : the end angle, in radians
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_curve_to ()
+	--
+	-- void        cairo_curve_to                  (cairo_t *cr,
+	--                                              double x1,
+	--                                              double y1,
+	--                                              double x2,
+	--                                              double y2,
+	--                                              double x3,
+	--                                              double y3);
+	--
+	--   Adds a cubic Bezier spline to the path from the current point to position
+	--   (x3, y3) in user-space coordinates, using (x1, y1) and (x2, y2) as the
+	--   control points. After this call the current point will be (x3, y3).
+	--
+	--   If there is no current point before the call to cairo_curve_to() this
+	--   function will behave as if preceded by a call to cairo_move_to (cr, x1,
+	--   y1).
+	--
+	--   cr : a cairo context
+	--   x1 : the X coordinate of the first control point
+	--   y1 : the Y coordinate of the first control point
+	--   x2 : the X coordinate of the second control point
+	--   y2 : the Y coordinate of the second control point
+	--   x3 : the X coordinate of the end of the curve
+	--   y3 : the Y coordinate of the end of the curve
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_line_to ()
+	--
+	-- void        cairo_line_to                   (cairo_t *cr,
+	--                                              double x,
+	--                                              double y);
+	--
+	--   Adds a line to the path from the current point to position (x, y) in
+	--   user-space coordinates. After this call the current point will be (x, y).
+	--
+	--   If there is no current point before the call to cairo_line_to() this
+	--   function will behave as cairo_move_to (cr, x, y).
+	--
+	--   cr : a cairo context
+	--   x :  the X coordinate of the end of the new line
+	--   y :  the Y coordinate of the end of the new line
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_move_to ()
+	--
+	-- void        cairo_move_to                   (cairo_t *cr,
+	--                                              double x,
+	--                                              double y);
+	--
+	--   Begin a new sub-path. After this call the current point will be (x, y).
+	--
+	--   cr : a cairo context
+	--   x :  the X coordinate of the new position
+	--   y :  the Y coordinate of the new position
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  cairo_rectangle ()
+	--
+	-- void        cairo_rectangle                 (cairo_t *cr,
+	--                                              double x,
+	--                                              double y,
+	--                                              double width,
+	--                                              double height);
+	--
+	--   Adds a closed sub-path rectangle of the given size to the current path at
+	--   position (x, y) in user-space coordinates.
+	--
+	--   This function is logically equivalent to:
+	--
+	-- cairo_move_to (cr, x, y);
+	-- cairo_rel_line_to (cr, width, 0);
+	-- cairo_rel_line_to (cr, 0, height);
+	-- cairo_rel_line_to (cr, -width, 0);
+	-- cairo_close_path (cr);
+	--
+	--   cr :     a cairo context
+	--   x :      the X coordinate of the top left corner of the rectangle
+	--   y :      the Y coordinate to the top left corner of the rectangle
+	--   width :  the width of the rectangle
+	--   height : the height of the rectangle
+	--
+	--   --------------------------------------------------------------------------
+	--
 	--  cairo_glyph_path ()
 	--
 	-- void        cairo_glyph_path                (cairo_t *cr,
@@ -243,7 +487,7 @@ feature {} -- Unwrapped code
 feature -- Access
 
 	status: INTEGER is
-			-- The current error status
+		-- The current error status
 		do
 			Result := cairo_path_get_status (handle)
 		ensure

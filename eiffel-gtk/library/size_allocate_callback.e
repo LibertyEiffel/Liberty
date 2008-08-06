@@ -26,7 +26,7 @@ class SIZE_ALLOCATE_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_WIDGET] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_WIDGET]
 
 creation make
 
@@ -35,16 +35,18 @@ feature
 
 feature
 
-	callback (allocation_ptr: POINTER; instance: POINTER) is
+	callback (allocation: POINTER; instance: POINTER) is
 		local
-			allocation: GTK_ALLOCATION
+			allocation_obj: GTK_ALLOCATION
 		do
 			debug print ("Callback: instance=") print (instance.to_string) print ("%N") end
+			-- The following is written with the implicit requirement 
+			-- that the button is actually created bu the Eiffel 
+			-- application. 
 			object := wrapper(instance)
+			create allocation_obj.copy_from_pointer (allocation)
 			
-			create allocation.copy_from_pointer (allocation_ptr)
-			
-			procedure.call ([allocation, object])
+			procedure.call ([allocation_obj, object])
 		end
 
 	callback_pointer: POINTER is

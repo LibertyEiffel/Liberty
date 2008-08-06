@@ -26,7 +26,7 @@ class FILE_ACTIVATED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-insert G_OBJECT_FACTORY [GTK_FILE_CHOOSER] undefine copy, is_equal end
+insert G_OBJECT_FACTORY [GTK_FILE_CHOOSER]
 
 creation make
 
@@ -40,7 +40,7 @@ feature
 			debug
 				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
-			object := wrapper (instance)
+			object := wrapper(instance)
 			procedure.call ([object])
 		end
 

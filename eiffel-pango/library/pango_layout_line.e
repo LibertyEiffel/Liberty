@@ -23,12 +23,14 @@ indexing
 
 class PANGO_LAYOUT_LINE
 
-inherit SHARED_C_STRUCT
+inherit 
+	C_STRUCT
+	REFERENCE_COUNTED
 
 insert
 	PANGO_DIRECTION
 	PANGO_LAYOUT_LINE_EXTERNALS
-	G_OBJECT_FACTORY [PANGO_LAYOUT] undefine copy, is_equal end
+	G_OBJECT_FACTORY [PANGO_LAYOUT]
 
 creation
 	from_external_pointer
@@ -37,8 +39,10 @@ feature -- Access
 
 	layout: PANGO_LAYOUT is
 			-- the parent layout for this line
+		local
+			layout_pointer: POINTER
 		do
-			Result := wrapper(pango_layout_line_get_layout(handle))
+			Result := wrapper(pango_layout_line_get_layout (handle))
 		end
 
 	start_index: INTEGER is
@@ -67,11 +71,24 @@ feature -- Access
 			is_valid_pango_direction (Result)
 		end
 
-feature -- Size
+feature -- Memory handling
+	ref is
+		local p: POINTER
+		do
+			p:=pango_layout_line_ref(handle)
+			check p=handle end
+		end
+
+	unref is
+		do
+			pango_layout_line_unref(handle)
+		end
+
+feature -- struct size
 
 	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(PangoLayoutLine)"
+		external "C inline use <pango/pango-layout.h>"
+		alias "sizeof (PangoLayoutLine)"
 		end
 
 end -- PANGO_LAYOUT_LINE

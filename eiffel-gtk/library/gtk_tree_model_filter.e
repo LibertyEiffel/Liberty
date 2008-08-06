@@ -20,8 +20,8 @@ indexing
 			]"
 
 class GTK_TREE_MODEL_FILTER
-	-- A tree model which wraps another tree model, and can do the
-	-- following things:
+	-- Description: a GtkTreeModelFilter is a tree model which wraps
+	-- another tree model, and can do the following things:
 
 	-- * Filter specific rows, based on data from a "visible column", a
 	-- column storing booleans indicating whether the row should be
@@ -43,10 +43,9 @@ inherit
 	GTK_TREE_DRAG_SOURCE
 
 insert
-	G_TYPE
-	GTK_TREE_STORE_EXTERNALS
+	G_TYPES
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (a_child_model: GTK_TREE_MODEL; a_root: GTK_TREE_PATH) is
@@ -110,8 +109,9 @@ feature
 
 	model: GTK_TREE_MODEL is
 			-- the child model of filter.
+		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_MODEL]
 		do
-			Result := tree_model_factory.wrapper(gtk_tree_model_filter_get_model(handle))
+			Result := factory.wrapper(gtk_tree_model_filter_get_model(handle))
 		end
 	
 	iter_from_child_iter (a_child_iter: GTK_TREE_ITER): GTK_TREE_ITER is
@@ -235,13 +235,6 @@ feature -- size
 		alias "sizeof(GtkTreeModelFilter)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=(gtk_tree_model_filter_new
-						(gtk_tree_store_newv(1, {NATIVE_ARRAY[INTEGER] <<g_type_int>>}.to_external),
-						 default_pointer))
-		end
-	
 feature {} -- External calls
 	-- TODO: wrap function pointer gboolean (*GtkTreeModelFilterVisibleFunc)
 	-- (GtkTreeModel *model, GtkTreeIter *iter, gpointer data);

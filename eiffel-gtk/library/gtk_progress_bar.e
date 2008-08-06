@@ -57,8 +57,8 @@ insert
 	GTK_PROGRESS_BAR_ORIENTATION
 	PANGO_ELLIPSIZE_MODE
 	
-creation dummy,
-	make
+creation
+	make, from_external_pointer
 
 feature {} -- Initialization
 
@@ -184,9 +184,5 @@ feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkProgressBar)"
-		end
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_progress_bar_new
 		end
 end

@@ -39,7 +39,7 @@ insert
 	GTK
 	GTK_PRINT_STATUS
 	
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation 
 	make (a_title: STRING; a_printer: GTK_PRINTER; some_settings: GTK_PRINT_SETTINGS; a_page_setup: GTK_PAGE_SETUP) is
@@ -57,17 +57,26 @@ feature {} -- Creation
 feature
 	settings: GTK_PRINT_SETTINGS is
 			-- the GtkPrintSettings of the print job.
-		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PRINT_SETTINGS]
+		local p: POINTER; r: G_OBJECT_EXPANDED_FACTORY[GTK_PRINT_SETTINGS]
 		do
-			Result := factory.wrapper(gtk_print_job_get_settings(handle))
+			p:=gtk_print_job_get_settings(handle)
+			check pointer_not_void: p.is_not_null end 
+			Result:=r.wrapper(p)
+			if Result=Void then
+				create Result.from_external_pointer(p)
+			end
 		ensure not_void: Result/=Void
 		end
 
 	printer: GTK_PRINTER is
 			-- the GtkPrinter of the print job.
-		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_PRINTER]
+		local p: POINTER; r: G_OBJECT_EXPANDED_FACTORY[GTK_PRINTER]
 		do
-			Result := factory.wrapper(gtk_print_job_get_printer(handle))
+			p:=gtk_print_job_get_printer(handle)
+			Result:=r.wrapper(p)
+			if Result=Void then
+				create Result.from_external_pointer(p)
+			end
 		ensure not_void: Result/=Void
 		end
 			
@@ -310,10 +319,4 @@ feature -- size
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkPrintJob)"
 		end
-
-	dummy_gobject: POINTER is
-		do
-			unimplemented
-		end
-	
 end -- class GTK_PRINT_JOB

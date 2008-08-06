@@ -19,47 +19,37 @@ indexing
 					02110-1301 USA
 			]"
 
+
 class GTK_ASSISTANT
-	-- A widget used to represent a generally complex operation
-	-- splitted in several steps, guiding the user through its pages
-	-- and controlling the page flow to collect the necessary data.
+	-- A GtkAssistant is a widget used to represent a generally complex
+	-- operation splitted in several steps, guiding the user through
+	-- its pages and controlling the page flow to collect the necessary
+	-- data.
 
 inherit
 	GTK_WINDOW
-		redefine
-			dummy_gobject,
-			make,
+		undefine
 			struct_size
+		redefine
+			make
 		end
-	
-	-- TODO: AtkImplementorIface.
+		-- GtkAssistant implements AtkImplementorIface.
 
 	CANCEL_SIGNAL_RECEIVER
 	
 insert
-	G_OBJECT_FACTORY [GTK_WIDGET] undefine is_equal, copy end
+	G_OBJECT_FACTORY [GTK_WIDGET]
 	GTK_ASSISTANT_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
-feature -- Creation
+feature {} -- Creation
 	make is
 			-- Creates a new GtkAssistant.
 		do
 			from_external_pointer(gtk_assistant_new)
 		end
 	
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_assistant_new
-		end
-	
-	struct_size: INTEGER is
-		external "C inline use <gtk/gtk.h>"
-		alias "sizeof(GtkAssistant)"
-		end
-
 feature
 	current_page: INTEGER is
 			-- The index (starting from 0) of the current page in the
@@ -89,13 +79,23 @@ feature
 		end
 
 	item (a_page_num: INTEGER): GTK_WIDGET is
-			-- The child widget contained in page number page_num.
-		
-			--    page_num : The index of a page in the assistant, or -1
-			--    to get the last page; Returns : The child widget, or
-			--    NULL if page_num is out of bounds.
+			-- The child widget contained in page number `a_page_num';
+			-- set it to -1 to get the last page; Result is Void
+			-- `a_page_num' is out of bounds.
+		local ptr: POINTER
 		do
-			Result := wrapper(gtk_assistant_get_nth_page(handle, a_page_num))
+			ptr:=gtk_assistant_get_nth_page(handle, a_page_num)
+			if ptr.is_not_null then
+				Result:=wrapper(ptr)
+				if Result=Void then
+					debug
+						print("Warning: GTK_ASSISTANT.item received a %
+								%GtkWidget pointer of an unwrapped widget. %
+								%Since we don't know which the correct effective wrapper %
+								%class feature Result will be Void.%N")
+					end
+				end
+			end
 		end
 
 	last_inserted_page: INTEGER
@@ -205,29 +205,31 @@ feature
 	page_header_image (a_page: GTK_WIDGET): GDK_PIXBUF is
 			-- The header image for page; Void if there's no header image
 			-- for the page.
-		local f: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GDK_PIXBUF]
 		do
-			Result := f.wrapper_or_void(gtk_assistant_get_page_header_image(handle, a_page.handle))
+			Result := factory.wrapper_or_void
+			(gtk_assistant_get_page_header_image
+			(handle, a_page.handle))
 		end
-	
+
 	set_page_side_image (a_page: GTK_WIDGET; a_pixbuf: GDK_PIXBUF) is
-			-- Sets a header image for `a_page'. This image is displayed
-			-- in the side area of the assistant when page is the current
-			-- page.
-		require
-			page_not_void: a_page /= Void
-			pixbuf_not_void: a_pixbuf /= Void
-		do
-			gtk_assistant_set_page_side_image(handle, a_page.handle, a_pixbuf.handle)
-		end
+		-- Sets a header image for `a_page'. This image is displayed
+		-- in the side area of the assistant when page is the current
+		-- page.
+	require
+		page_not_void: a_page /= Void
+		pixbuf_not_void: a_pixbuf /= Void
+	do
+		gtk_assistant_set_page_side_image(handle, a_page.handle, a_pixbuf.handle)
+	end
 
 	page_side_image (a_page: GTK_WIDGET): GDK_PIXBUF is
 			-- The side image for page, or Void if there's no side image
 			-- for the page.
 		require page_not_void: a_page /= Void
-		local f: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
+		local factory: G_OBJECT_EXPANDED_FACTORY[GDK_PIXBUF]
 		do
-			Result := f.wrapper_or_void(gtk_assistant_get_page_side_image(handle, a_page.handle))
+			Result:=factory.wrapper_or_void(gtk_assistant_get_page_side_image(handle, a_page.handle))
 		end
 	
 	set_page_complete (a_page: GTK_WIDGET; is_complete: BOOLEAN) is
@@ -384,9 +386,15 @@ feature -- The "apply" signal
 
 	apply_signal_name: STRING is "apply"
 
-	connect_apply_signal_to (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
-			-- Connects "apply" signal to `a_procedure'.
+	enable_on_apply is
+			-- Connects "apply" signal to `on_apply' feature.
+		do
+			connect (Current, apply_signal_name, $on_apply)
+		end
 
+	on_apply is
+			-- Built-in activate signal handler; empty by design; redefine it.
+		
 			-- The ::apply signal is emitted when the apply button is
 			-- clicked. The default behavior of the GtkAssistant is to
 			-- switch to the page after the current page, unless the
@@ -398,6 +406,10 @@ feature -- The "apply" signal
 			-- to put a page of type GTK_ASSISTANT_PAGE_PROGRESS after
 			-- the confirmation page and handle this operation within the
 			-- ::prepare signal of the progress page.
+		do
+		end
+
+	connect_agent_to_apply_signal (a_procedure: PROCEDURE [ANY, TUPLE[GTK_ASSISTANT]]) is
 		require
 			valid_procedure: a_procedure /= Void
 		local
@@ -419,6 +431,8 @@ feature --   The "cancel" signal
 	--    user_data : user data set when the signal handler was connected.
 
 	--    Since 2.10
+
+	--    --------------------------------------------------------------------------
 
 feature --   The "close" signal
 
@@ -452,4 +466,5 @@ feature --   The "prepare" signal
 	--    user_data : user data set when the signal handler was connected.
 
 	--    Since 2.10
+
 end -- class GTK_ASSISTANT

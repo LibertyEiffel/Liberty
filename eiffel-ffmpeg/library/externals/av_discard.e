@@ -35,7 +35,7 @@ feature {}
 	av_discard_none: INTEGER is
 			-- discard nothing
 		external "C macro use <avcodec.h>"
-		alias "AVDISCARD_NONE"
+		alias "AVDISCARD_"
 		end
 
 	av_discard_default: INTEGER is

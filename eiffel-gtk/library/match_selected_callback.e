@@ -26,31 +26,28 @@ class MATCH_SELECTED_CALLBACK
 
 inherit CALLBACK redefine object end
 
-creation dummy, make
+insert G_OBJECT_FACTORY [GTK_ENTRY_COMPLETION]
+
+creation make
 
 feature
 	object: GTK_ENTRY_COMPLETION
 
 feature
-	callback (model_ptr, iter_ptr, instance_ptr: POINTER): INTEGER is
+	callback (model_ptr, iter_ptr, instance: POINTER): INTEGER is
 		local
-			iter: GTK_TREE_ITER
-			model: GTK_TREE_MODEL
-			cr: G_OBJECT_EXPANDED_FACTORY[GTK_ENTRY_COMPLETION]; 
-			mr: G_OBJECT_EXPANDED_FACTORY[GTK_TREE_MODEL]
+			an_iter: GTK_TREE_ITER
+			a_model: GTK_TREE_MODEL
+			model_factory: G_OBJECT_EXPANDED_FACTORY [GTK_TREE_MODEL]
 		do
 			debug
-				print ("Callback: instance=") print (instance_ptr.to_string) print ("%N")
+				print ("Callback: instance=") print (instance.to_string) print ("%N")
 			end
 			
-			object := cr.wrapper(instance_ptr)
-			check object/=Void end
-			-- create iter_obj.copy_from_pointer (iter) Note: This should
-			-- not be necessary anymore, because of the new memory
-			-- handling.
-			create iter.from_external_pointer(iter_ptr)
-			model := mr.wrapper(model_ptr)
-			Result := function.item ([model, iter, object]).to_integer
+			object := wrapper(instance)
+			create an_iter.copy_from_pointer (iter_ptr)
+			a_model := model_factory.wrapper (model_ptr)
+			Result := function.item ([a_model, an_iter, object]).to_integer
 		end
 
 	callback_pointer: POINTER is

@@ -23,15 +23,12 @@ class AV_PACKET
 
 inherit
 	C_STRUCT
-		redefine
-			dispose, force_free_handle
-		end
 
 insert
 	AV_PACKET_EXTERNALS
 	AV_ERROR_CODES
 
-creation 
+creation
 	make, from_external_pointer
 
 feature {} -- Creation
@@ -112,9 +109,9 @@ feature -- Operations
 			av_free_packet (handle)
 		end
 
-feature {} -- Destroying
+feature -- Destroying
 
-	dispose, force_free_handle  is
+	dispose  is
 		do
 			free_payload
 			free (handle)

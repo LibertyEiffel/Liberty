@@ -23,12 +23,12 @@ class AV_FRAME
 
 inherit
 	AV_PICTURE
-		redefine struct_size, dispose end
+		redefine struct_size end
 
 insert
 	AV_FRAME_EXTERNALS
 
-creation 
+creation
 	make
 
 feature {} -- Creation
@@ -48,12 +48,6 @@ feature -- Access
 	pts: INTEGER_64 is
 		do
 			Result := av_frame_get_pts (handle)
-		end
-
-	dispose is
-		do
-			free (handle) -- if necessary. free(NULL) is a NOP
-			handle:= default_pointer -- null
 		end
 
 feature -- Size

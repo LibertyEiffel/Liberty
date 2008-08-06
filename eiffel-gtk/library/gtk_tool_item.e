@@ -33,7 +33,7 @@ inherit
 	GTK_BIN
 	--GtkToolItem implements AtkImplementorIface.
 
-creation dummy, make
+creation make, from_external_pointer
 
 feature {} -- Creation
 
@@ -213,9 +213,7 @@ feature
 			-- to appear in the overflow menu.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_WIDGET]
 		do
-			Result := (factory.wrapper_or_void
-						  (gtk_tool_item_retrieve_proxy_menu_item 
-							(handle)))
+			Result := factory.wrapper_or_void (gtk_tool_item_retrieve_proxy_menu_item (handle))
 		end
 
 	menu_item_by_id (an_id: STRING): GTK_WIDGET is
@@ -232,9 +230,7 @@ feature
 		require id_not_void: an_id /= Void
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_WIDGET]
 		do
-			Result := (factory.wrapper_or_void
-						  (gtk_tool_item_get_proxy_menu_item
-							(handle, an_id.to_external)))
+			Result := factory.wrapper_or_void(gtk_tool_item_get_proxy_menu_item(handle, an_id.to_external))
 		end
 
 	set_proxy_menu_item (an_id: STRING; a_menu_item: GTK_WIDGET) is
@@ -465,8 +461,4 @@ feature -- size
 		alias "sizeof(GtkToolItem)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_tool_item_new
-		end
 end

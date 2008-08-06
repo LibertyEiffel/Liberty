@@ -18,41 +18,34 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+	gtk_documentation: "[
+							 You may wish to begin by reading the text widget conceptual
+							 overview which gives an overview of all the objects and data
+							 types related to the text widget and how they work together.
+						 ]"
 
 class GTK_TEXT_ITER
-	-- You may wish to begin by reading the text widget conceptual
-	-- overview which gives an overview of all the objects and data
-	-- types related to the text widget and how they work together.
 
 inherit
-	SHARED_C_STRUCT
+	C_STRUCT
 		-- Note: This class isn't really shared, but we need to make it
 		-- conform to SHARED_C_STRUCT to be able to create G_SLISTs with
 		-- it. It should be expanded, if Smarteiffel implements
 		-- disposing expanded objects.
-		redefine 
-			dispose, 
-			copy, 
-			is_equal 
+		redefine
+			allocate, copy, is_equal
 		end
-	
 	COMPARABLE
-		redefine 
-			copy, 
-			is_equal, 
-			-- infix "<", 
-			infix "<=",
-			infix ">", 
-			infix ">=",
-			in_range,
-			compare, three_way_comparison
+		redefine
+			copy, is_equal, -- infix "<", 
+			infix "<=", infix ">", infix ">=", in_range, compare, three_way_comparison
 		end
 
-insert 
+insert
 	GTK
 	GTK_TEXT_SEARCH_FLAGS
-	
-creation make, from_external_pointer, copy
+
+creation make, from_external_pointer, copy, from_external_copy
 
 feature {} -- Creation
 	make is
@@ -60,8 +53,32 @@ feature {} -- Creation
 		do
 			allocate
 		end
-	
-feature -- Disposing
+
+feature {} -- Allocating
+	allocate is
+		require
+			handle.is_null
+		do
+			-- The semantic of an GTK_TEXT_ITER is akin to an expanded
+			-- object as they are usually allocated on the stack as
+			-- locally declared variables. So they usually rely on the
+			-- automatic memory handling of the stack. 
+
+			-- In our case there is no need to allocate a dummy object and then copy it.
+			handle := calloc (1, struct_size)
+
+			-- Different versions of GTK wrap either g_free or g_slice_free in gtk_text_iter_free.
+			-- Also, there is no malloc-like function in GTK to allocate iterators.
+			-- Therefore, we allocate iterators using gtk_text_iter_copy()
+			-- handle := gtk_text_iter_copy (dummy_iter)
+
+			if handle.is_null then
+				raise_exception (No_more_memory)
+			end
+		end
+
+feature {} -- Disposing
+
 	dispose is
 			-- Free an iterator allocated on the heap. This function is
 			-- intended for use in language bindings, and is not
@@ -73,9 +90,7 @@ feature -- Disposing
 			-- is certain to reach this code with a Void handle.  Nothing breaks
 			-- if you call gtk_text_iter_free here, but noisy Gtk warnings would
 			-- ensue.
-			if handle.is_not_null then
-				gtk_text_iter_free (handle)
-			end
+			if handle.is_not_null then free (handle) end
 			handle := default_pointer
 		end
 
@@ -85,22 +100,25 @@ feature
 			-- the GtkTextBuffer this iterator is associated with.
 		local factory: G_OBJECT_EXPANDED_FACTORY[GTK_TEXT_BUFFER]; buffer_ptr: POINTER
 		do
-			if cached_buffer=Void then
-				cached_buffer := factory.wrapper(gtk_text_iter_get_buffer (handle))
-			end
-			Result:=cached_buffer
+			Result := factory.wrapper (gtk_text_iter_get_buffer (handle))
 		end
 
 	copy (another: like Current) is
 			-- Copy `another' into Current. A new dynamically-allocated
 			-- copy of the underlying iterator is made.
+		require else
+			another /= Void
 		do
 			-- Using `gtk_text_iter_copy', a function used by language
 			-- bindings.  It is not useful in applications, because
 			-- iterators can be copied with a simple assignment
 			-- (GtkTextIter i=j;).
+
 			if handle.is_not_null then dispose end -- Frees any previously used resource
 			handle := gtk_text_iter_copy (another.handle)
+			if handle.is_null then
+				raise_exception (No_more_memory)
+			end
 		end
 
 	offset: INTEGER is
@@ -216,46 +234,33 @@ feature
 
 	pixbuf: GDK_PIXBUF is
 			-- The pixbuf at Current iter position, if any. Otherwise Void
-		local
-			pixbuf_ptr: POINTER
-			retriever: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
+		local retriever: G_OBJECT_EXPANDED_FACTORY [GDK_PIXBUF]
 		do
-			pixbuf_ptr := gtk_text_iter_get_pixbuf (handle)
-			Result := retriever.existant_wrapper(pixbuf_ptr)
-			if Result = Void then
-					-- We use from_external_pointer here because we *need* to
-					-- increase the pixbuf's refcount
-				create Result.from_external_pointer (pixbuf_ptr)
-			end
+			Result := retriever.wrapper (gtk_text_iter_get_pixbuf (handle))
 		end
 
 	marks: G_SLIST [GTK_TEXT_MARK] is
-			-- a list of all GtkTextMark at this location. Because marks
+			-- All the GTK_TEXT_MARK at Current location. Because marks
 			-- are not iterable (they don't take up any "space" in the
 			-- buffer, they are just marks in between iterable
 			-- locations), multiple marks can exist in the same
-			-- place. The returned list is not in any meaningful order.
+			-- place. The list is not in any meaningful order.
 		do
-			create Result.from_external (gtk_text_iter_get_marks(handle),
-												  gtk.text_mark_factory)
+			create {G_OBJECT_SLIST [GTK_TEXT_MARK]} Result.from_external_pointer (gtk_text_iter_get_marks(handle))
 		ensure result_not_void: Result /= Void
 		end
 
 	toggled_tags (toggled_on: BOOLEAN): G_SLIST [GTK_TEXT_TAG] is
-			-- a list of GtkTextTag that are toggled on or off at this
+			-- The GTK_TEXT_TAGs that are toggled on or off at this
 			-- point. (If toggled_on is TRUE, the list contains tags that
 			-- are toggled on.) If a tag is toggled on at iter, then some
 			-- non-empty range of characters following iter has that tag
 			-- applied to it. If a tag is toggled off, then some
 			-- non-empty range following iter does not have the tag
 			-- applied to it.
-
-			-- iter : 	an iterator
-			-- toggled_on : 	TRUE to get toggled-on tags
 		do
-			create Result.from_external(gtk_text_iter_get_toggled_tags
-												 (handle, toggled_on.to_integer),
-												 gtk.text_tag_factory)
+			create {G_OBJECT_SLIST [GTK_TEXT_TAG]} Result.from_external_pointer
+			(gtk_text_iter_get_toggled_tags (handle, toggled_on.to_integer))
 		end
 
 	child_anchor: GTK_TEXT_CHILD_ANCHOR is
@@ -293,7 +298,6 @@ feature
 			Result := (gtk_text_iter_ends_tag(handle, default_pointer).to_boolean)
 		end
 
-
 	toggles_tag (a_tag: GTK_TEXT_TAG): BOOLEAN is
 			-- Is `a_tag' toggled on or off at Current iterator? This is
 			-- equivalent to (tag_begins or tag_ends), i.e. it tells you
@@ -314,7 +318,7 @@ feature
 		do
 			Result := gtk_text_iter_has_tag(handle,a_tag.handle).to_boolean
 		end
-	
+
 	tags: G_SLIST [GTK_TEXT_TAG] is
 			-- a list of tags that apply to iter, in ascending order of
 			-- priority (highest-priority tags are last).
@@ -324,8 +328,7 @@ feature
 			-- itself". Check if this should be translated into a
 			-- particular Eiffel implementation
 		do
-			create Result.from_external (gtk_text_iter_get_tags (handle),
-												  gtk.text_tag_factory)
+			create {G_OBJECT_SLIST [GTK_TEXT_TAG]}  Result.from_external_pointer (gtk_text_iter_get_tags (handle))
 		end
 
 	is_editable (a_default_setting: BOOLEAN): BOOLEAN is
@@ -426,7 +429,7 @@ feature
 		do
 			Result:= gtk_text_iter_starts_sentence   (handle).to_boolean
 		end
-	
+
 	ends_sentence: BOOLEAN is
 			-- Does Curret iter end a sentence? Sentence boundaries are
 			-- determined by Pango and should be correct for nearly any
@@ -461,7 +464,6 @@ feature
 		do
 			Result:=gtk_text_iter_get_chars_in_line (handle)
 		end
-	
 
 	bytes_inline: INTEGER is
 			-- the number of bytes in the line containing iter, including
@@ -496,12 +498,14 @@ feature
 		end
 
 	language: PANGO_LANGUAGE is
-			-- The language in effect at iter. This is convenience
-			-- wrapper around `gtk_text_iter_get_attributes', which
-			-- returns - if no tags affecting language apply to iter -
-			-- the return value is identical to that of
-			-- gtk_get_default_language() (TODO).
+			-- The language in effect at iter. 	
 		do
+			-- Note: This is convenience wrapper around
+			-- `gtk_text_iter_get_attributes', which returns - if no
+			-- tags affecting language apply to iter - the return value
+			-- is identical to that of gtk_get_default_language()
+			-- (TODO).
+
 			create Result.from_external_pointer(gtk_text_iter_get_language(handle))
 		end
 
@@ -528,7 +532,7 @@ feature -- Iterator-like
 		do
 			Result := gtk_text_iter_is_start(handle).to_boolean
 		end
-	
+
 	next, forward_char is
 			-- Moves iter forward by one character offset. Note that
 			-- images embedded in the buffer occupy 1 character slot, so
@@ -634,7 +638,7 @@ feature -- Iterator-like
 		do
 			is_valid:=gtk_text_iter_forward_word_ends(handle, a_count).to_boolean
 		end
-	
+
 	backward_word_starts (a_count: INTEGER) is
 			-- Calls `backward_word_start' up to `a_count'
 			-- times. `is_valid' will be True if iter moved and is not
@@ -662,7 +666,6 @@ feature -- Iterator-like
 			-- after that). Word breaks are determined by Pango and
 			-- should be correct for nearly any language (if not, the
 			-- correct fix would be to the Pango word break algorithms).
- 
 			-- `is_valid' will be True if iter moved and is not the end
 			-- iterator.		
 		do
@@ -773,8 +776,8 @@ feature -- Iterator-like
 		do
 			is_valid:=gtk_text_iter_forward_visible_word_ends(handle, a_count).to_boolean
 		end
-	
-	backward_visible_word_starts (a_count: INTEGER) is		
+
+	backward_visible_word_starts (a_count: INTEGER) is
 			-- Calls `backward_visible_word_start' up to `a_count' times.
 		
 			-- `is_valid' will be True if iter moved and is not the end
@@ -872,8 +875,8 @@ feature -- Iterator-like
 			-- iteration is on line 0.)
 		do
 			is_valid:=gtk_text_iter_backward_visible_line(handle).to_boolean
-		end			
-	
+		end
+
 	forward_visible_lines (a_count: INTEGER) is
 			-- Moves `a_count' visible lines forward, if possible (if
 			-- count would move past the start or end of the buffer,
@@ -909,7 +912,7 @@ feature -- Iterator-like
 			-- with 0.
 		do
 			gtk_text_iter_set_offset(handle,a_char_offset)
-		end	
+		end
 
 	set_line (a_line_number: INTEGER) is
 			-- Moves iterator iter to the start of the line
@@ -965,7 +968,7 @@ feature -- Iterator-like
 		do
 			gtk_text_iter_forward_to_end(handle)
 			is_valid:=False
-		ensure 
+		ensure
 			not_valid: not is_valid
 			-- TODO: `char' called on the end iterator is 0, which is
 			-- convenient for writing loops (when writing C code).
@@ -996,7 +999,7 @@ feature -- Iterator-like
 			-- of the toggle, or to the end of the buffer if no toggle is
 			-- found.
 		do
-			if a_tag=Void then 
+			if a_tag=Void then
 				is_valid:=gtk_text_iter_forward_to_tag_toggle(handle,default_pointer).to_boolean
 			else
 				is_valid:=gtk_text_iter_forward_to_tag_toggle(handle,a_tag.handle).to_boolean
@@ -1012,14 +1015,14 @@ feature -- Iterator-like
 			-- location of the toggle, or the start of the buffer if no
 			-- toggle is found.
 		do
-			if a_tag=Void then 
-				is_valid:=gtk_text_iter_backward_to_tag_toggle(handle,default_pointer).to_boolean
+			if a_tag = Void then
+				is_valid := gtk_text_iter_backward_to_tag_toggle(handle,default_pointer).to_boolean
 			else
-				is_valid:=gtk_text_iter_backward_to_tag_toggle(handle,a_tag.handle).to_boolean
+				is_valid := gtk_text_iter_backward_to_tag_toggle(handle,a_tag.handle).to_boolean
 			end
 		end
 
-	is_found: BOOLEAN 
+	is_found: BOOLEAN
 			-- Have the last search/scan been successful?
 
 	forward_find_char (a_predicate: PREDICATE[TUPLE[INTEGER_32]]; a_limit: GTK_TEXT_ITER) is
@@ -1030,18 +1033,17 @@ feature -- Iterator-like
 			-- to the end iterator.
 		local ca: POINTER
 		do
-			ca:=	callback_array($callback)
-			if a_limit=Void
-			 then is_found:=gtk_text_iter_forward_find_char
-				(handle, $hidden_callback,
-				 ca, -- i.e.: user_data,
-				 default_pointer -- i.e. no limit
-				 ).to_boolean
-			else is_found:=gtk_text_iter_forward_find_char
-				(handle, $hidden_callback,
-				 ca, -- i.e.: user_data,
-				 a_limit.handle -- i.e. no limit
-				 ).to_boolean
+			ca := callback_array($callback)
+			if a_limit = Void then
+				is_found := gtk_text_iter_forward_find_char (handle, $hidden_callback,
+																			ca, -- i.e.: user_data,
+																			default_pointer -- i.e. no limit
+																		  ).to_boolean
+			else
+				is_found := gtk_text_iter_forward_find_char (handle, $hidden_callback,
+																			ca, -- i.e.: user_data,
+																			a_limit.handle -- i.e. no limit
+																		  ).to_boolean
 			end
 		end
 
@@ -1049,7 +1051,7 @@ feature -- Iterator-like
 			-- Same as `forward_find_char', but goes backward from iter.
 		local ca: POINTER
 		do
-			ca:=	callback_array($callback)
+			ca:=callback_array($callback)
 			if a_limit=Void
 			 then is_found:=gtk_text_iter_backward_find_char
 				(handle, $hidden_callback,
@@ -1103,7 +1105,7 @@ feature -- Iterator-like
 			-- does not strictly follow the no-side-effects requirement
 			-- usually expected in Eiffel design. Check for a best way to
 			-- wrap this feature.
-		require 
+		require
 			string_not_void: a_string /= Void
 			valid_flags: are_valid_search_flags(some_flags)
 		local smp, emp, lp: POINTER
@@ -1117,9 +1119,9 @@ feature -- Iterator-like
 		end
 
 	backward_search (a_string: STRING; some_flags: INTEGER;
-						 a_start_match, an_end_match, a_limit: GTK_TEXT_ITER) is
+						  a_start_match, an_end_match, a_limit: GTK_TEXT_ITER) is
 			-- Same as `forward_search', but moves backward.
-		require 
+		require
 			string_not_void: a_string /= Void
 			valid_flags: are_valid_search_flags(some_flags)
 		local smp, emp, lp: POINTER
@@ -1128,8 +1130,8 @@ feature -- Iterator-like
 			if an_end_match/=Void then emp:=an_end_match.handle end
 			if a_limit/=Void then lp:=a_limit.handle end
 			is_found:=gtk_text_iter_backward_search(handle,a_string.to_external,
-																some_flags,
-																smp, emp, lp).to_boolean
+																 some_flags,
+																 smp, emp, lp).to_boolean
 		end
 
 	order (another: GTK_TEXT_ITER) is
@@ -1164,7 +1166,7 @@ feature -- Comparability
 		end
 
 	infix "<=" (other: like Current): BOOLEAN is
-		do				
+		do
 			Result:= compare(other)<=0
 		end
 
@@ -1180,9 +1182,9 @@ feature -- Comparability
 
 	in_range (lower, upper: like Current): BOOLEAN is
 			-- Does Current fall in the range [lower, upper). 
-		require 
+		require
 			ascending_order: lower <= upper
-		do		
+		do
 			Result:=gtk_text_iter_in_range(handle, lower.handle, upper.handle).to_boolean
 		end
 
@@ -1209,10 +1211,8 @@ feature -- size
 		alias "sizeof(GtkTextIter)"
 		end
 
-feature {} -- Implementation
-	cached_buffer: GTK_TEXT_BUFFER
-
 feature {} -- External call
+
 	gtk_text_iter_get_buffer (an_iter: POINTER): POINTER is -- GtkTextBuffer*
 		external "C use <gtk/gtk.h>"
 		end
@@ -1579,11 +1579,11 @@ feature {} -- External call
 		end
 
 feature {} -- GtkTextCharPredicate callback
-	hidden_callback (a_gunichar: INTEGER_32; data: POINTER): INTEGER is
+	hidden_callback (a_gunichar: INTEGRER_32; data: POINTER): INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "$Result = ((*GtkTextCharPredicate)($data[0]) ($a_gunichar, $data[1]));"
 		end
-	
+
 	callback_array (a_callback_pointer: POINTER): POINTER is
 			-- This call is required because we need to build an array
 			-- with the address of an Eiffel feature (namely
@@ -1594,19 +1594,19 @@ feature {} -- GtkTextCharPredicate callback
 						 <<a_callback_pointer ,Current.to_pointer>>
 							}.to_external
 		end
-	
-feature
+
+feature {}
 	callback (a_unicode_character: INTEGER_32): BOOLEAN is
 		do
 			debug
 				print ("Gtk text char predicate function callback:")
-				print (" a_unicode_character=") print(a_unicode_character.to_string) 
+				print (" a_unicode_character=") print(a_unicode_character.to_string)
 				print ("%N")
 			end
 				
 			Result:=(predicate.item([a_unicode_character]).to_integer).to_boolean
 		end
-	
+
 	predicate: PREDICATE[TUPLE[INTEGER_32]]
 
 invariant

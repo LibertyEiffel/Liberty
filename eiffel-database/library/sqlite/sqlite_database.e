@@ -16,17 +16,10 @@ inherit
 		end
 
 	C_STRUCT
-		redefine
-			dispose
-		end
+	UNHANDLED_MEMORY 
 
 insert
 	SQLITE3_EXTERNALS
-		undefine
-			copy,
-			is_equal
-		end
-
 	SQLITE_ERROR_CODES
 		undefine
 			copy,
@@ -43,6 +36,10 @@ feature {}
 			res := sqlite3_close (handle)
 			handle := default_pointer
 			--TODO: handle res
+			-- Note: I'm not sure that res shall be handled at all here. In
+			-- fact we are actually disposing the database. We are not caring
+			-- anymore of its destiny. Instead we shall handle closing a
+			-- database and recycling the wrapper. Paolo 2008-08-96
 		end
 
 	struct_size: INTEGER is

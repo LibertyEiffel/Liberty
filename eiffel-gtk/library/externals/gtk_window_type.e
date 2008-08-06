@@ -32,7 +32,7 @@ feature {} -- Externals
 		end
 
 	gtk_window_popup: INTEGER is
-		external "C macro use <gtk/gtk.h>"
+		external "C use <gtk/gtk.h>"
 		alias "GTK_WINDOW_POPUP"
 		end
 

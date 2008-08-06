@@ -22,24 +22,14 @@ indexing
 class AV_RATIONAL
 
 inherit
-	SHARED_C_STRUCT
-		redefine
-			from_external_pointer
-		end
+	C_STRUCT
+	SHARED
 
 insert
 	AV_RATIONAL_EXTERNALS
 
-creation 
+creation
 	from_external_pointer
-
-feature {WRAPPER, WRAPPER_HANDLER} -- Creation
-
-	from_external_pointer (a_ptr: POINTER) is
-		do
-			is_shared := True
-			Precursor (a_ptr)
-		end
 
 feature -- Access
 

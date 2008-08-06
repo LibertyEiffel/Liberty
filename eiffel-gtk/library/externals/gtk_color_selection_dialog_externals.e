@@ -25,8 +25,9 @@ deferred class GTK_COLOR_SELECTION_DIALOG_EXTERNALS
 
 inherit ANY undefine is_equal, copy end
 
-feature {} -- External call
-	gtk_color_selection_dialog_new  (a_title: POINTER): POINTER is -- GtkWidget*
+feature {} -- Externals
+
+	gtk_color_selection_new (title: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"
 		end
 

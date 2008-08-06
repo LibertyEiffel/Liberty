@@ -23,11 +23,10 @@ class ENTRY_COMPLETION_DEMO
 
 insert
 	GTK
-	G_TYPE
+	G_TYPES
 	ANY
 	
 creation make
-
 feature
 	make is
 		do
@@ -43,7 +42,7 @@ feature
 			entry_box.pack_start_defaults (entry)
 			window.add(entry_box)
 			window.show_all
-			window.connect_destroy_signal_to (agent on_destroy_window(?))
+			window.connect_agent_to_destroy_signal (agent on_destroy_window(?))
 
 			gtk.run_main_loop
 		end

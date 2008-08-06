@@ -1,5 +1,5 @@
 indexing
-	description: "GtkRadioButton: a choice from multiple check buttons."
+	description: "GTK_RADIO_BUTTON -- A choice from multiple check buttons."
 	copyright: "[
 					Copyright (C) 2006 eiffel-libraries team, GTK+ team
 					
@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+				]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -37,48 +37,41 @@ class GTK_RADIO_BUTTON
 	-- then add further buttons with the other cration procedures
 	-- (i.e.: `from_group', `from_widget' and so on)
 
-	-- Retrieve the group a GtkRadioButton is assigned to use
-	-- gtk_radio_button_get_group().
+	-- Retrieve the group a GtkRadioButton is assigned to use gtk_radio_button_get_group().
 
-	-- To remove a GtkRadioButton from one group and make it part of a
-	-- new one, use gtk_radio_button_set_group().
+-- To remove a GtkRadioButton from one group and make it part of a new one, use gtk_radio_button_set_group().
 
-	-- The group list does not need to be freed, as each GtkRadioButton
-	-- will remove itself and its list item when it is destroyed.
+-- The group list does not need to be freed, as each GtkRadioButton will remove itself and its list item when it is destroyed.
 
 	-- Example 1. How to create a group of two radio buttons.
 
-	-- void create_radio_buttons (void) {
+-- void create_radio_buttons (void) {
 
-	--    GtkWidget *window, *radio1, *radio2, *box, *entry;
-	--    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	--    box = gtk_vbox_new (TRUE, 2);
+--    GtkWidget *window, *radio1, *radio2, *box, *entry;
+--    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+--    box = gtk_vbox_new (TRUE, 2);
 	
-	--    /* Create a radio button with a GtkEntry widget */
-	--    radio1 = gtk_radio_button_new (NULL);
-	--    entry = gtk_entry_new ();
-	--    gtk_container_add (GTK_CONTAINER (radio1), entry);
+--    /* Create a radio button with a GtkEntry widget */
+--    radio1 = gtk_radio_button_new (NULL);
+--    entry = gtk_entry_new ();
+--    gtk_container_add (GTK_CONTAINER (radio1), entry);
 	
 	
-	--    /* Create a radio button with a label */
-	--    radio2 = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio1),
-	-- 							"I'm the second radio button.");
+--    /* Create a radio button with a label */
+--    radio2 = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON (radio1),
+-- 							"I'm the second radio button.");
 	
-	--    /* Pack them into a box, then show all the widgets */
-	--    gtk_box_pack_start (GTK_BOX (box), radio1, TRUE, TRUE, 2);
-	--    gtk_box_pack_start (GTK_BOX (box), radio2, TRUE, TRUE, 2);
-	--    gtk_container_add (GTK_CONTAINER (window), box);
-	--    gtk_widget_show_all (window);
-	--    return;
-	-- }
+--    /* Pack them into a box, then show all the widgets */
+--    gtk_box_pack_start (GTK_BOX (box), radio1, TRUE, TRUE, 2);
+--    gtk_box_pack_start (GTK_BOX (box), radio2, TRUE, TRUE, 2);
+--    gtk_container_add (GTK_CONTAINER (window), box);
+--    gtk_widget_show_all (window);
+--    return;
+-- }
 
 
-	-- When an unselected button in the group is clicked the clicked
-	-- button receives the "toggled" signal, as does the previously
-	-- selected button. Inside the "toggled" handler,
-	-- gtk_toggle_button_get_active() can be used to determine if the
-	-- button has been selected or deselected.
-	
+-- When an unselected button in the group is clicked the clicked button receives the "toggled" signal, as does the previously selected button. Inside the "toggled" handler, gtk_toggle_button_get_active() can be used to determine if the button has been selected or deselected.
+
 inherit
 	GTK_CHECK_BUTTON
 		rename
@@ -87,22 +80,21 @@ inherit
 		export {} make_check_with_label, make_check_with_mnemonic
 			-- Instead of undefining, which would turn this class into a 
 			-- deferred one.
-		redefine dummy_gobject
 		end
 
-	-- TODO: AtkImplementorIface.
-	
 insert
 	GTK_RADIO_BUTTON_EXTERNALS
-	
-creation dummy,
+		-- GtkRadioButton implements AtkImplementorIface.	
+
+creation
 	in_a_new_group,
 	from_group,
 	from_widget,
 	with_label,
 	with_label_from_widget,
 	with_mnemonic,
-	with_mnemonic_from_widget
+	with_mnemonic_from_widget,
+	from_external_pointer
 
 feature {} -- Creation
 	in_a_new_group is
@@ -212,8 +204,7 @@ feature -- group
 	group: G_SLIST[GTK_RADIO_BUTTON] is
 			-- the group assigned to a radio button.
 		do
-			create Result.from_external(gtk_radio_button_get_group(handle),
-												 gtk.radio_button_factory)
+			create {G_OBJECT_SLIST[GTK_RADIO_BUTTON]} Result.from_external_pointer (gtk_radio_button_get_group(handle))
 		end
 
 feature -- Property Details TODO
@@ -239,9 +230,4 @@ feature -- Signal Details TODO
 -- GtkOptionMenu 	
 
 -- Another way of offering the user a single choice from many.
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_radio_button_new (default_pointer)
-		end
 end

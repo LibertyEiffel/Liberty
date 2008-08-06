@@ -17,7 +17,7 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"					
+					]"
 	date: "$Date:$"
 	revision: "$Revision:$"
 
@@ -109,18 +109,10 @@ inherit
 
 insert GTK_LABEL_EXTERNALS
 	
-creation
-	dummy, empty, from_external_pointer, with_label, with_mnemonic, with_markup_label
-		
-feature -- Dummy creation
-	dummy_gobject: POINTER is
-		do
-			debug print_known_gobject_heirs end
-			Result:=gtk_label_new(default_pointer)
-			debug print_known_gobject_heirs end
-		end
+creation empty, with_label, with_mnemonic, with_markup_label, from_external_pointer
 
-feature {} -- Creation	
+feature {} -- Creation
+
 	empty is
 			-- Creates a new empty label
 		require gtk_initialized: gtk.is_initialized

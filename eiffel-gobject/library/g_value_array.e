@@ -4,20 +4,21 @@ indexing
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
-			-- Description
-	
-			-- The prime purpose of a GValueArray is for it to be used as
-			-- an object property that holds an array of values. A
-			-- GValueArray wraps an array of GValue elements in order for
-			-- it to be used as a boxed type through G_TYPE_VALUE_ARRAY.
-	
+
 class G_VALUE_ARRAY
+	-- A container to maintain an array of generic values.
+	
+	-- The prime purpose of a GValueArray is for it to be used as an
+	-- object property that holds an array of values. A GValueArray
+	-- wraps an array of GValue elements in order for it to be used as
+	-- a boxed type through G_TYPE_VALUE_ARRAY.
+	
 inherit
-	SHARED_C_STRUCT
-		redefine copy, free
+	C_STRUCT
+		redefine copy
 		end
 	
-creation  make
+creation make
 
 feature {} -- Creation
 	make (n_prealloced: INTEGER) is
@@ -28,6 +29,13 @@ feature {} -- Creation
 		require positive_prealloced: n_prealloced>0
 		do
 			handle := g_value_array_new (n_prealloced);
+		end
+
+feature 
+	dispose is 
+		do
+			g_value_array_free (handle)
+			handle:=default_pointer
 		end
 
 feature -- Duplication
@@ -140,10 +148,9 @@ feature {} -- External calls
 		external "C use <glib-object.h>"
 		end
 	
-	free (a_value_array: POINTER) is
+	g_value_array_free (a_value_array: POINTER) is
 			-- Actually it is g_value_array_free
 		external "C use <glib-object.h>"
-		alias "g_value_array_free"
 		end
 	
 	g_value_array_append (a_value_array, a_value: POINTER): POINTER is -- GValueArray

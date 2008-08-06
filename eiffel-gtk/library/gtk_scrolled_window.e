@@ -36,8 +36,7 @@ class GTK_SCROLLED_WINDOW
 	-- and so on.
 	
 	-- If a widget has native scrolling abilities, it can be added to
-	-- the GtkScrolledWindow with `add' (Note: GtkTreeView support 
-	-- scrolling). If a widget does not, you must
+	-- the GtkScrolledWindow with `add'. If a widget does not, you must
 	-- first add the widget to a GtkViewport, then add the GtkViewport
 	-- to the scrolled window. The convenience function
 	-- gtk_scrolled_window_add_with_viewport() does exactly this, so
@@ -59,17 +58,17 @@ class GTK_SCROLLED_WINDOW
 	-- GtkTable.
 
 inherit
-	GTK_BIN redefine default_create end
+	GTK_BIN
 		-- GtkScrolledWindow implements AtkImplementorIface interface.
 insert
-	GTK_POLICY_TYPE redefine default_create end
-	GTK_CORNER_TYPE redefine default_create end
-	GTK_SHADOW_TYPE redefine default_create end
+	GTK_POLICY_TYPE
+	GTK_CORNER_TYPE
+	GTK_SHADOW_TYPE
 	
-creation dummy, default_create, make, from_external_pointer
+creation make, make_default, from_external_pointer
 
 feature {} -- Creation
-	default_create is
+	make_default is
 			-- Creates a new scrolled window. The adjustments will be 
 			-- created with it.
 		require gtk_initialized: gtk.is_initialized
@@ -87,12 +86,8 @@ feature {} -- Creation
 		
 			-- `an_horizontal_adjustment' : Horizontal adjustment.
 			--  `a_vertical_adjustment': Vertical adjustment.
-		require gtk_initialized: gtk.is_initialized
-		local hadj_ptr,vadj_ptr: POINTER
 		do
-			if an_horizontal_adjustment/=Void then hadj_ptr:=an_horizontal_adjustment.handle end
-			if a_vertical_adjustment/=Void then vadj_ptr:=a_vertical_adjustment.handle end
-			from_external_pointer (gtk_scrolled_window_new (hadj_ptr,vadj_ptr))
+			from_external_pointer (gtk_scrolled_window_new (null_or(an_horizontal_adjustment), null_or(a_vertical_adjustment)))
 		end
 
 feature -- Adjustments
@@ -102,7 +97,7 @@ feature -- Adjustments
 			-- scroll functionality.
 		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_ADJUSTMENT]
 		do
-			Result := factory.wrapper_or_void(gtk_scrolled_window_get_hadjustment (handle))
+			Result := factory.wrapper_or_void (gtk_scrolled_window_get_hadjustment (handle))
 		end
 	
 	vertical_adjustment: GTK_ADJUSTMENT is
@@ -111,7 +106,7 @@ feature -- Adjustments
 			-- scroll functionality.
 		local factory: G_OBJECT_EXPANDED_FACTORY [GTK_ADJUSTMENT]
 		do
-			Result  := factory.wrapper_or_void(gtk_scrolled_window_get_vadjustment (handle))
+			Result := factory.wrapper_or_void (gtk_scrolled_window_get_vadjustment (handle))
 		end
 
 	
@@ -361,7 +356,7 @@ feature -- scroll-child signal
 		end
 
 	connect_agent_to_scroll_child_signal (a_function: FUNCTION[ANY, TUPLE [INTEGER, BOOLEAN, GTK_SCROLLED_WINDOW],
-	                                                           BOOLEAN]) is
+																				  BOOLEAN]) is
 			-- scrolledwindow : 	the object which received the signal.
 			-- arg1 : 	
 			-- arg2 : 	
@@ -407,23 +402,23 @@ feature {} -- External calls
 	gtk_scrolled_window_new (a_hadjustment, a_vadjustment: POINTER): POINTER is -- GtkWidget*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_get_hadjustment (a_scrolled_window: POINTER): POINTER is --  GtkAdjustment*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_get_vadjustment (a_scrolled_window: POINTER): POINTER is -- GtkAdjustment*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_get_hscrollbar (a_scrolled_window: POINTER): POINTER is -- GtkWidget*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_get_vscrollbar (a_scrolled_window: POINTER): POINTER is -- GtkWidget*
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_set_policy (a_scrolled_window: POINTER; hscrollbar_policy, vscrollbar_policy: INTEGER) is
 		require
 			valid_horizontal_policy: is_valid_gtk_policy (hscrollbar_policy)
@@ -434,54 +429,49 @@ feature {} -- External calls
 	gtk_scrolled_window_add_with_viewport(a_scrolled_window, a_child_gtkwidget: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_set_placement (a_scrolled_window: POINTER;  window_placement: INTEGER) is
 		require
 			valid_placement: is_valid_gtk_corner_type (window_placement)
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_set_shadow_type (a_scrolled_window: POINTER; a_shadow_type: INTEGER) is
 		require
 			valid_shadow_type: is_valid_gtk_shadow_type (a_shadow_type)
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_set_hadjustment (a_scrolled_window, an_hadjustment: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_set_vadjustment (a_scrolled_window, a_vadjustment: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_get_placement (a_scrolled_window: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		ensure
 			valid_result: is_valid_gtk_corner_type (Result)
 		end
-	
+
 	gtk_scrolled_window_get_policy (a_scrolled_window, a_hscrollbar_policy_pointer, a_vscrollbar_policy_pointer: POINTER) is
 		external "C use <gtk/gtk.h>"
 		end
-	
+
 	gtk_scrolled_window_get_shadow_type (a_scrolled_window: POINTER): INTEGER is
 		external "C use <gtk/gtk.h>"
 		ensure valid_result: is_valid_gtk_shadow_type (Result)
 		end
 
-	-- GtkScrolledWindow struct has no public fields; it should only be
-	-- accessed using the functions above. Nevertheless the original
-	-- GTK+ documentation still provides this detail:
-	
-	-- typedef struct {
-	--   GtkWidget *hscrollbar;
-	--   GtkWidget *vscrollbar;
-	-- } GtkScrolledWindow;
+-- GtkScrolledWindow struct has no public fields; it should only be
+-- accessed using the functions above. Nevertheless the original GTK+
+-- documentation still provides this detail:
 
-feature
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_scrolled_window_new(default_pointer,default_pointer)
-		end
+-- typedef struct {
+--	GtkWidget *hscrollbar;
+--	GtkWidget *vscrollbar;
+-- } GtkScrolledWindow;
+
 end -- class GTK_SCROLLED_WINDOW

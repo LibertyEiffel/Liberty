@@ -27,7 +27,7 @@ inherit G_OBJECT
 
 -- insert GTK_PRINT_BACKEND_EXTERNALS
 
-creation dummy, from_external_pointer
+creation from_external_pointer
 
 feature -- TODO: Properties
 	
@@ -37,8 +37,4 @@ feature -- size
 		alias "sizeof(GtkPrintBackend)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			unimplemented
-		end
 end -- class GTK_PRINT_BACKEND

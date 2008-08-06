@@ -1,7 +1,7 @@
 indexing
 	description: "."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli
+					Copyright (C) 2008 Paolo Redaelli
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -19,20 +19,14 @@ indexing
 					02110-1301 USA
 			]"
 
-class G_OBJECT_LIST [ITEM -> G_OBJECT]
-	-- A G_LIST variant, specific for G_OBJECT. The G_OBJECT_FACTORY is
-	-- created by the list itself, thus saving some typing in client
-	-- code, without sacrifying readability. 
+class G_OBJECT_LIST [ITEM->G_OBJECT]
+	-- A G_LIST variant, specific for G_OBJECT with proper memory
+	-- handling.
 
-inherit G_LIST [ITEM] redefine from_external_pointer end 
-	
-creation make, from_external_pointer
+inherit 
+	G_LIST[ITEM]
+	G_OBJECT_FACTORY[ITEM] undefine fill_tagged_out_memory end
 
-feature -- Creation
-	from_external_pointer (a_pointer: POINTER) is
-		do
-			create {G_OBJECT_FACTORY[ITEM]} factory
-			handle := a_pointer
-		end
+creation make, empty, from_external_pointer
 
 end -- class G_OBJECT_LIST

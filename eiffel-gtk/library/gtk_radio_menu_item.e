@@ -23,7 +23,7 @@ class GTK_RADIO_MENU_ITEM
 	-- A radio menu item is a check menu item that belongs to a
 	-- group. At each instant exactly one of the radio menu items from
 	-- a group is selected.
-
+					
 	-- The group list does not need to be freed, as each
 	-- GtkRadioMenuItem will remove itself and its list item when it is
 	-- destroyed.
@@ -47,15 +47,18 @@ class GTK_RADIO_MENU_ITEM
 
 inherit
 	GTK_MENU_ITEM
+		rename
+			with_mnemonic as as_menu_item_with_mnemomic
+		export
+			{}  as_menu_item_with_mnemomic
 		redefine
-			dummy_gobject,
 			struct_size
 		end
 	
 	-- TODO: GtkRadioMenuItem implements AtkImplementorIface.
 
-creation dummy, 
-	from_group, with_group_label, with_group_and_mnemonic, from_widget,
+creation 
+	from_group, with_group_label, with_mnemonic, from_widget,
 	with_label_from_widget, with_mnemonic_from_widget,
 	from_external_pointer
 
@@ -82,7 +85,7 @@ feature {} -- Creation
 										  (null_or(a_group), a_label.to_external))
 		end
 
-	with_group_and_mnemonic (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
+	with_mnemonic (a_group: G_SLIST [GTK_RADIO_MENU_ITEM]; a_label: STRING) is
 			-- Creates a new GtkRadioMenuItem containing `a_label'. An
 			-- underscores in label indicate the mnemonic for the menu
 			-- item. The menu item will be added to `a_group'; if it is
@@ -145,18 +148,20 @@ feature
 	group: G_SLIST [GTK_RADIO_MENU_ITEM] is
 			--    Returns the group to which the radio menu item belongs, as a GList of
 			--    GtkRadioMenuItem. The list belongs to GTK+ and should not be freed.
-		local ptr: POINTER
 		do
-			ptr :=  gtk_radio_menu_item_get_group (handle)
-			create Result.from_external(ptr,gtk.radio_menu_item_factory)
-			-- The list belongs to GTK+ and should not be freed:
-			Result.set_shared_items(True)
+			create {G_OBJECT_SLIST[GTK_RADIO_MENU_ITEM]} Result.from_external_pointer 
+			(gtk_radio_menu_item_get_group (handle))
+			-- gtk_radio_menu_item_get_group returns the group to which
+			-- the radio menu item belongs, as a GList of
+			-- GtkRadioMenuItem. The list belongs to GTK+ and should not
+			-- be freed. Therefore
+			-- Result.set_shared
 		end
 
 feature -- TODO:  The "group-changed" signal
 	group_changed_signal_name: STRING is "group-changed"
 	
-	on_group_changed is do end
+	on_group_changed is do  end
 
 	enable_on_group_changed is
 		do
@@ -169,11 +174,6 @@ feature -- size
 		alias "sizeof(GtkRadioMenuItem)"
 		end
 
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_radio_menu_item_new(default_pointer)
-		end
-	
 feature {} -- External calls
 	gtk_radio_menu_item_new (a_group: POINTER): POINTER is
 		external "C use <gtk/gtk.h>"

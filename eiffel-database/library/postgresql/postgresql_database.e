@@ -399,12 +399,12 @@ feature
 
 	execute (some_sql: STRING) is
 		do
-			unimplemented
+			not_yet_implemented
 		end
 
 	result_set: RESULT_SET [RESULT_ROW] is
 		do
-			unimplemented
+			not_yet_implemented
 		end
 
 feature -- Connection Status 

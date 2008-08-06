@@ -21,17 +21,17 @@ indexing
 class GDK_REGION
 
 inherit
-	SHARED_C_STRUCT
+	G_STRUCT
 		redefine copy, dispose end
 
 insert
-	GDK_FILL_RULE
-	GDK_OVERLAP_TYPE
+	GDK_FILL_RULE -- 	redefine copy end
+	GDK_OVERLAP_TYPE -- redefine copy end
 
-creation 
-	make, from_polygon, from_external_pointer, from_rectangle, copy
+creation
+	make, from_polygon, from_external_pointer, from_rectangle, copy, from_external_copy
 
-feature {} -- Creation
+feature -- Creation
 	make is
 			-- Creates a new empty GdkRegion.
 		do
@@ -70,7 +70,6 @@ feature {} -- Creation
 		end
 
 
-feature
 	dispose is
 			-- Destroys a GdkRegion.
 		do

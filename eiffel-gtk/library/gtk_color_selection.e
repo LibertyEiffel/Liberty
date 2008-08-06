@@ -28,28 +28,22 @@ class GTK_COLOR_SELECTION
 	-- red, green, blue, and opacity. It is found on the standard color
 	-- selection dialog box GtkColorSelectionDialog.
 
-inherit
-	GTK_VBOX
-		rename
-			make as vbox_make
-		redefine
-			dummy_gobject,
-			struct_size
-		end
+inherit GTK_VBOX
+	rename
+		make as vbox_make
+	redefine
+		struct_size
+	end
 
-	-- TODO: AtkImplementorIface
+	-- TODO: GtkColorSelection implements AtkImplementorIface.
 
 insert
 	GTK_COLOR_SELECTION_EXTERNALS
 
-creation dummy, make, from_external_pointer
+creation make, from_external_pointer
 
 feature -- size
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_color_selection_new
-		end
-	
+
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkColorSelection)"
@@ -77,7 +71,6 @@ feature
 			gtk_color_selection_set_current_color (handle, a_color.handle)
 		end
 
-
 	set_has_opacity_control (a_setting: BOOLEAN) is
 			-- Sets Current color selection to use or not use opacity.
 			-- colorsel : a GtkColorSelection.  has_opacity : TRUE if
@@ -93,7 +86,7 @@ feature
 			Result := (gtk_color_selection_get_has_opacity_control
 						  (handle).to_boolean)
 		end
-	
+
 	set_has_palette (a_setting: BOOLEAN) is
 			-- Shows or hides the palette based upon the value of `a_setting'.
 		do

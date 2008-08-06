@@ -28,11 +28,16 @@ class GTK_MENU_BAR
 	
 inherit
 	GTK_MENU_SHELL 
-	-- TODO: AtkImplementorIface
+		redefine 
+			--make, 
+			struct_size 
+		end
+
+	-- TODO: GtkMenuBar implements AtkImplementorIface.
 	
 insert GTK_PACK_DIRECTION
 	
-creation dummy, make
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make is
@@ -145,11 +150,6 @@ feature -- size
 	struct_size: INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GtkMenuBar)"
-		end
-	
-	dummy_gobject: POINTER is
-		do
-			Result:=gtk_menu_bar_new
 		end
 	
 feature {} -- External calls
