@@ -8,8 +8,8 @@ class G_IO_CHANNEL
 	-- IO Channels -- portable support for using files, pipes and sockets.
 
 inherit
-	C_STRUCT
-		redefine dispose end
+	C_STRUCT 
+	REFERENCE_COUNTED redefine dispose end
 
 insert
 	G_IO_CONDITIONS
@@ -100,17 +100,27 @@ feature {} -- Creation
 -- GIOChannelError g_io_channel_error_from_errno
 --                                             (gint en);
 
--- GIOChannel* g_io_channel_ref                (GIOChannel *channel);
 
 -- GSource*    g_io_create_watch               (GIOChannel *channel,
 --                                              GIOCondition condition);
 
-feature {} -- Memory handling
+feature  -- Memory handling
+	ref is
+			-- Increments the reference count of a GIOChannel.
+		local p: POINTER
+		do
+			p:=g_io_channel_ref(handle)
+			check p=handle end
+		end
+	
+	unref is
+		do
+			g_io_channel_unref (handle)
+		end
 
 	dispose is
 		do
-			g_io_channel_unref (handle)
-			handle := default_pointer
+			Precursor
 			watch_list := Void
 		end
 
@@ -128,6 +138,37 @@ feature -- Access
 				create Result.from_external_copy (enc)
 			end
 		end
+
+	is_writable: BOOLEAN is
+		do
+			Result := (g_io_channel_get_flags(handle) & g_io_flag_is_writable) /= 0
+		end
+
+	is_blocking: BOOLEAN is
+		do
+			Result := (g_io_channel_get_flags(handle) & g_io_flag_nonblock) = 0
+		end
+
+	is_buffered: BOOLEAN is
+			-- Is the current channel buffered?
+		do
+			Result := g_io_channel_get_buffered (handle) /= 0
+		end
+
+	last_event_source: INTEGER
+		-- glib id of last g_io_add_watch
+
+	last_status: INTEGER
+		-- Status code of last operation
+
+	last_failed: BOOLEAN is
+			-- Error status of last operation
+		do
+			Result := last_status /= g_io_status_normal
+		end
+
+	last_written: INTEGER
+		-- Number of bytes read/written by last operation
 
 feature -- Operations
 
@@ -147,7 +188,51 @@ feature -- Operations
 			last_event_source := g_io_add_watch (handle, condition, callback.function, callback.data)
 		end
 
-	last_event_source: INTEGER
+	set_blocking (block: BOOLEAN) is
+		do
+			if block then
+				last_status := g_io_channel_set_flags(handle,
+									g_io_channel_get_flags(handle) &
+									~g_io_flag_nonblock,
+									default_pointer)
+			else
+				last_status := g_io_channel_set_flags(handle,
+									g_io_channel_get_flags(handle) |
+									g_io_flag_nonblock,
+									default_pointer)
+			end
+		end
+
+	set_buffered (buffered: BOOLEAN) is
+			-- Enable/disable channel buffering.
+			-- Default state is buffered
+		require
+			no_encoding_set: encoding = Void
+				-- The buffering state can only be set if the channel's
+				-- encoding is Void. For any other encoding, the channel
+				-- must be buffered.
+			no_buffered_data: -- No way to query this from GIOChannel
+				-- A buffered channel can only be set unbuffered if the
+				-- channel's internal buffers have been flushed. Newly
+				-- created channels or channels which have returned
+				-- G_IO_STATUS_EOF not require such a flush.
+				-- For write-only channels, a call to g_io_channel_flush()
+				-- is sufficient. For all other channels,
+				-- the buffers may be flushed by a call to
+				-- g_io_channel_seek_position(). This includes the possibility
+				-- of seeking with seek type G_SEEK_CUR and an offset
+				-- of zero. Note that this means that socket-based channels
+				-- cannot be set unbuffered once they have had data
+				-- read from them.
+				-- On unbuffered channels, it is safe to mix read and
+				-- write calls from the new and old APIs, if this is
+				-- necessary for maintaining old code.
+		do
+			g_io_channel_set_buffered (handle, buffered.to_integer)
+		ensure
+			is_buffered = buffered
+		end
+
 -- guint       g_io_add_watch_full             (GIOChannel *channel,
 --                                              gint priority,
 --                                              GIOCondition condition,
@@ -176,12 +261,7 @@ feature -- Operations
 -- void        g_io_channel_set_line_term      (GIOChannel *channel,
 --                                              const gchar *line_term,
 --                                              gint length);
--- gboolean    g_io_channel_get_buffered       (GIOChannel *channel);
--- void        g_io_channel_set_buffered       (GIOChannel *channel,
---                                              gboolean buffered);
--- GIOStatus   g_io_channel_set_encoding       (GIOChannel *channel,
---                                              const gchar *encoding,
---                                              GError **error);
+
 -- gboolean    g_io_channel_get_close_on_unref (GIOChannel *channel);
 -- void        g_io_channel_set_close_on_unref (GIOChannel *channel,
 --                                              gboolean do_close);
@@ -331,19 +411,17 @@ feature -- Operations
 			-- be made on a channel from which data has been read in
 			-- the cases described in the documentation for
 			-- g_io_channel_set_encoding().
-		local
-			r: INTEGER
 		do
-			r := g_io_channel_write_chars (handle, chars.to_external,
-				chars.count, $last_written, default_pointer)
-			last_failed := (r /= g_io_status_normal)
+				debug
+					print (once "Flags ") print(g_io_channel_get_flags (handle).to_string) print("%N")
+					if chars.count <= 512 then print (chars) print(once "%N")
+					else print (once "Writing ") print(chars.count.to_string) print(once "...%N")
+					end
+				end
+			last_status := g_io_channel_write_chars (handle, chars.to_external,
+																  chars.count, $last_written, default_pointer)
+				debug print (once "failed=") print(last_failed.to_string) print(once "%N") end
 		end
-
-	last_failed: BOOLEAN
-		-- Error status of last operation
-
-	last_written: INTEGER
-		-- Number of bytes read/written by last operation
 
 -- GIOStatus   g_io_channel_write_chars        (GIOChannel *channel,
 --                                              const gchar *buf,
@@ -376,12 +454,8 @@ feature -- Operations
 
 	flush is
 			-- Flushes the write buffer for the GIOChannel.
-			-- sets `last_failed' on error.
-		local
-			status: INTEGER
 		do
-			status := g_io_channel_flush (handle, default_pointer) --TODO: error handling
-			last_failed := status /= (g_io_status_normal)
+			last_status := g_io_channel_flush (handle, default_pointer) --TODO: error handling
 		end
 
 -- g_io_channel_seek_position ()
@@ -411,19 +485,56 @@ feature -- Operations
 -- G_SEEK_CUR 	the current position in the file.
 -- G_SEEK_SET 	the start of the file.
 -- G_SEEK_END 	the end of the file.
--- g_io_channel_shutdown ()
 
--- GIOStatus   g_io_channel_shutdown           (GIOChannel *channel,
---                                              gboolean flush,
---                                              GError **err);
+	shutdown (after_flush: BOOLEAN) is
+		-- Close an IO channel. Any pending data to be written will be
+		-- flushed if flush is TRUE. The channel will not be freed until the
+		-- last reference is dropped using g_io_channel_unref().
+		do
+			last_status := g_io_channel_shutdown(handle, after_flush, default_pointer)
+		end
 
--- Close an IO channel. Any pending data to be written will be flushed if flush is TRUE. The channel will not be freed until the last reference is dropped using g_io_channel_unref().
-
--- channel : 	a GIOChannel
--- flush : 	if TRUE, flush pending
--- err : 	location to store a GIOChannelError
--- Returns : 	the status of the operation.
--- enum GIOStatus
+	set_encoding (new_encoding: STRING) is
+			-- Sets the encoding for the input/output of the channel.
+			-- The internal encoding is always "UTF-8". The default encoding
+			-- for the external file is "UTF-8". encoding=Void sets binary
+			-- encoding.
+		require
+			-- The encoding can only be set if one of the following conditions
+			-- is true:
+			-- 1. The channel was just created, and has not been written to
+			--    or read from yet.
+			-- 2. The channel is write-only.
+			-- 3. The channel is a file, and the file pointer was just
+			--    repositioned by a call to g_io_channel_seek_position().
+			--    (This flushes all the internal buffers.)
+			-- 4. The current `encoding' is Void or "UTF-8".
+			-- 5. One of the (new API) read functions has just returned
+			--    G_IO_STATUS_EOF (or, in the case of
+			--    g_io_channel_read_to_end(), G_IO_STATUS_NORMAL).
+			-- 6. One of the functions g_io_channel_read_chars() or
+			--    g_io_channel_read_unichar() has returned G_IO_STATUS_AGAIN
+			--    or G_IO_STATUS_ERROR. This may be useful in the case of
+			--    G_CONVERT_ERROR_ILLEGAL_SEQUENCE. Returning one of these
+			--    statuses from g_io_channel_read_line(),
+			--    g_io_channel_read_line_string(), or
+			--    g_io_channel_read_to_end() does not guarantee that the
+			--    encoding can be changed.
+			--
+			-- Channels which do not meet one of the above conditions
+			-- cannot call g_io_channel_seek_position() with an offset
+			-- of G_SEEK_CUR, and, if they are "seekable", cannot call
+			-- g_io_channel_write_chars() after calling one of the API
+			-- "read" functions.
+		local
+			p_encoding: POINTER
+		do
+			if new_encoding /= Void then
+				p_encoding := new_encoding.to_external
+			end
+			last_status := g_io_channel_set_encoding (handle, p_encoding, default_pointer)
+			-- TODO: GError Handling
+		end
 
 feature {} -- Internal constants
 
@@ -485,13 +596,7 @@ feature {} -- Internal constants
 
 -- en : 	an errno error number, e.g. EINVAL.
 -- Returns : 	a GIOChannelError error number, e.g. G_IO_CHANNEL_ERROR_INVAL.
--- g_io_channel_ref ()
 
--- GIOChannel* g_io_channel_ref                (GIOChannel *channel);
-
--- Increments the reference count of a GIOChannel.
--- channel : 	a GIOChannel.
--- Returns : 	the channel that was passed in (since 2.6)
 -- g_io_create_watch ()
 
 -- GSource*    g_io_create_watch               (GIOChannel *channel,
@@ -627,14 +732,22 @@ feature {} -- Internal constants
 -- Returns : 	the status of the operation.
 -- enum GIOFlags
 
+	g_io_flag_is_writable: INTEGER is
+		external "C macro use <glib.h>" alias "G_IO_FLAG_IS_WRITEABLE"
+		end
+
+	g_io_flag_nonblock: INTEGER is
+		external "C macro use <glib.h>" alias "G_IO_FLAG_NONBLOCK"
+		end
+
 -- typedef enum
 -- {
---   G_IO_FLAG_APPEND = 1 << 0,
---   G_IO_FLAG_NONBLOCK = 1 << 1,
---   G_IO_FLAG_IS_READABLE = 1 << 2,	/* Read only flag */
---   G_IO_FLAG_IS_WRITEABLE = 1 << 3,	/* Read only flag */
---   G_IO_FLAG_IS_SEEKABLE = 1 << 4,	/* Read only flag */
---   G_IO_FLAG_MASK = (1 << 5) - 1,
+--   G_IO_FLAG_APPEND = 1 < < 0,
+--   G_IO_FLAG_NONBLOCK = 1 < < 1,
+--   G_IO_FLAG_IS_READABLE = 1 < < 2,	/* Read only flag */
+--   G_IO_FLAG_IS_WRITEABLE = 1 < < 3,	/* Read only flag */
+--   G_IO_FLAG_IS_SEEKABLE = 1 < < 4,	/* Read only flag */
+--   G_IO_FLAG_MASK = (1 < < 5) - 1,
 --   G_IO_FLAG_GET_MASK = G_IO_FLAG_MASK,
 --   G_IO_FLAG_SET_MASK = G_IO_FLAG_APPEND | G_IO_FLAG_NONBLOCK
 -- } GIOFlags;
@@ -669,60 +782,7 @@ feature {} -- Internal constants
 -- channel : 	a GIOChannel
 -- line_term : 	The line termination string. Use NULL for auto detect. Auto detection breaks on "\n", "\r\n", "\r", "\0", and the Unicode paragraph separator. Auto detection should not be used for anything other than file-based channels.
 -- length : 	The length of the termination string. If -1 is passed, the string is assumed to be nul-terminated. This option allows termination strings with embeded nuls.
--- g_io_channel_get_buffered ()
 
--- gboolean    g_io_channel_get_buffered       (GIOChannel *channel);
-
--- Returns whether channel is buffered.
-
--- channel : 	a GIOChannel.
--- Returns : 	TRUE if the channel is buffered.
--- g_io_channel_set_buffered ()
-
--- void        g_io_channel_set_buffered       (GIOChannel *channel,
---                                              gboolean buffered);
-
--- The buffering state can only be set if the channel's encoding is NULL. For any other encoding, the channel must be buffered.
-
--- A buffered channel can only be set unbuffered if the channel's internal buffers have been flushed. Newly created channels or channels which have returned G_IO_STATUS_EOF not require such a flush. For write-only channels, a call to g_io_channel_flush() is sufficient. For all other channels, the buffers may be flushed by a call to g_io_channel_seek_position(). This includes the possibility of seeking with seek type G_SEEK_CUR and an offset of zero. Note that this means that socket-based channels cannot be set unbuffered once they have had data read from them.
-
--- On unbuffered channels, it is safe to mix read and write calls from the new and old APIs, if this is necessary for maintaining old code.
-
--- The default state of the channel is buffered.
-
--- channel : 	a GIOChannel
--- buffered : 	whether to set the channel buffered or unbuffered
-
--- g_io_channel_set_encoding ()
-
--- GIOStatus   g_io_channel_set_encoding       (GIOChannel *channel,
---                                              const gchar *encoding,
---                                              GError **error);
-
--- Sets the encoding for the input/output of the channel. The internal encoding is always UTF-8. The default encoding for the external file is UTF-8.
-
--- The encoding NULL is safe to use with binary data.
-
--- The encoding can only be set if one of the following conditions is true:
-
--- 1. The channel was just created, and has not been written to or read from yet.
-
--- 2. The channel is write-only.
-
--- 3. The channel is a file, and the file pointer was just repositioned by a call to g_io_channel_seek_position(). (This flushes all the internal buffers.)
-
--- 4. The current encoding is NULL or UTF-8.
-
--- 5. One of the (new API) read functions has just returned G_IO_STATUS_EOF (or, in the case of g_io_channel_read_to_end(), G_IO_STATUS_NORMAL).
-
--- 6. One of the functions g_io_channel_read_chars() or g_io_channel_read_unichar() has returned G_IO_STATUS_AGAIN or G_IO_STATUS_ERROR. This may be useful in the case of G_CONVERT_ERROR_ILLEGAL_SEQUENCE. Returning one of these statuses from g_io_channel_read_line(), g_io_channel_read_line_string(), or g_io_channel_read_to_end() does not guarantee that the encoding can be changed.
-
--- Channels which do not meet one of the above conditions cannot call g_io_channel_seek_position() with an offset of G_SEEK_CUR, and, if they are "seekable", cannot call g_io_channel_write_chars() after calling one of the API "read" functions.
-
--- channel : 	a GIOChannel
--- encoding : 	the encoding type
--- error : 	location to store an error of type GConvertError.
--- Returns : 	G_IO_STATUS_NORMAL if the encoding was successfully set.
 -- g_io_channel_get_close_on_unref ()
 
 -- gboolean    g_io_channel_get_close_on_unref (GIOChannel *channel);
@@ -849,6 +909,11 @@ feature {} -- Externals
 		external "C use <glib.h>"
 		end
 
+	g_io_channel_ref (a_channel: POINTER): POINTER is
+			-- GIOChannel* g_io_channel_ref (GIOChannel *channel);
+		external "C use <glib.h>"
+		end
+
 	g_io_channel_unref (channel: POINTER) is
 		external "C use <glib.h>"
 		end
@@ -869,4 +934,32 @@ feature {} -- Externals
 		external "C use <glib.h>"
 		end
 
-end
+	g_io_channel_get_buffer_size (channel: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_get_flags (channel: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_shutdown (channel: POINTER; after_flush: BOOLEAN; error: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_set_flags (channel: POINTER; flags: INTEGER; error: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_get_buffered (channel: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_set_buffered (channel: POINTER; buffered: INTEGER) is
+		external "C use <glib.h>"
+		end
+
+	g_io_channel_set_encoding (channel, new_encoding, error: POINTER): INTEGER is
+		external "C use <glib.h>"
+		end
+
+end -- class G_IO_CHANNEL

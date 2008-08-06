@@ -6,19 +6,15 @@ class C_ARRAY_EXAMPLE
 
 inherit WRAPPER_HANDLER -- to play with pointers
 
-creation  make
+creation make
 
 feature
-	factory: ARCHETYPE_CACHING_FACTORY[G_STRING] is
-		once 
-			create Result.with_archetype(create {G_STRING}.dummy)
-		end
 	array: C_ARRAY[G_STRING]
 
 	make is
 		local s: G_STRING; i: INTEGER
 		do
-			create array.with_capacity(4,factory)
+			create array.with_capacity(4)
 			create s.from_string(first); array.force(s,0)
 			create s.from_string(second); array.force(s,1)
 			create s.from_string(third); array.force(s,2)
@@ -43,11 +39,7 @@ feature
 	test_null_terminated_array is
 		local i: INTEGER; it: ITERATOR[G_STRING]; s: G_STRING
 		do
-			create {NULL_TERMINATED_C_ARRAY[G_STRING]} array.from_external
-			(null_terminated_array_pointer, 
-			 create {ARCHETYPE_FACTORY[G_STRING]}.with_archetype
-			 (create {G_STRING}.make_empty))
-			
+			create {NULL_TERMINATED_C_ARRAY[G_STRING]} array.from_external(null_terminated_array_pointer)
 			check array.count=3 end
 			from print("Using indexes: "); i:=array.lower until i>array.upper
 			loop
@@ -76,7 +68,7 @@ feature
 			native:=native.calloc(4)
 			-- creating temporary G_STRING objects and throwing them away
 			-- after having added their wrapped string. This tests
-			-- storing/unstorig/disposing of SHARED_C_STRUCTs.
+			-- storing/unstorig/disposing of C_STRUCTs.
 			native.put( (create {G_STRING}.from_string(first)).handle,0)
 			native.put( (create {G_STRING}.from_string(second)).handle,1)
 			native.put( (create {G_STRING}.from_string(third)).handle,2)

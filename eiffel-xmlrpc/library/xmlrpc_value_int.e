@@ -28,7 +28,7 @@ class XMLRPC_VALUE_INT
 inherit
 	XMLRPC_VALUE_ANY
 
-creation  make, from_value
+creation make, from_value
 
 feature {} -- Creation
 

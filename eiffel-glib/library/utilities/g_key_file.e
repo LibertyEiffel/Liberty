@@ -83,17 +83,15 @@ class G_KEY_FILE
 	-- called [GROUP] is a different group from [group].
 
 inherit 
-	SHARED_C_STRUCT
-		redefine 
-			free
-		end
+	C_STRUCT redefine free end
+	EIFFEL_OWNED redefine free end
 
 insert
 	SHARED_G_ERROR
 	G_KEY_FILE_ERROR
 	G_KEY_FILE_FLAGS
 	
-creation  make, load_from_file, from_external_pointer
+creation make, load_from_file, from_external_pointer
 
 feature {} -- Creation
 	make is

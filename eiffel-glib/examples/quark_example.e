@@ -6,7 +6,7 @@ indexing
 
 class QUARK_EXAMPLE
 
-creation  make
+creation make
 feature
 	quark, another, unexisting: G_QUARK
 	make is

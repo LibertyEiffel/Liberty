@@ -10,6 +10,7 @@ deferred class GLIB_COMMANDLINE_OPTION_PARSER_EXTERNALS
 inherit ANY undefine is_equal, copy end
 
 insert
+	G_OPTION_ARG_ENUM
 	G_OPTION_FLAGS
 	G_OPTION_ERROR
 	
@@ -19,7 +20,7 @@ feature {} -- External calls
 
 	-- gboolean (*GOptionArgFunc) (const gchar *option_name, const
 	-- gchar *value, gpointer data, GError **error);
-	
+   
 	g_option_context_new (a_parameter_string: POINTER): POINTER is
 			-- GOptionContext* g_option_context_new (const gchar
 			-- *parameter_string);

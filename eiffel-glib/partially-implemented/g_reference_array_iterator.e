@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class G_REFERENCE_ARRAY_ITERATOR [ITEM->SHARED_C_STRUCT]
+class G_REFERENCE_ARRAY_ITERATOR [ITEM->C_STRUCT]
 
 inherit
 	ITERATOR[ITEM]
@@ -30,7 +30,7 @@ insert
 	SHARED_WRAPPERS_DICTIONARY
 	G_PTR_ARRAY_EXTERNALS
 
-creation  make 
+creation make 
 
 feature {} -- Creation
 	make (an_array: G_REFERENCE_ARRAY [ITEM]) is

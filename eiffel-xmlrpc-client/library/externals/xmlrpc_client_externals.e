@@ -71,9 +71,4 @@ feature {} -- Externals
 		external "C use <xmlrpc-c/client.h>"
 		end
 
-feature -- size
-	struct_size: INTEGER is
-		external "C inline use <xmlrpc-c/client.h>"
-		alias "sizeof(xmlrpc_client)"
-		end
 end -- class XMLRPC_CLIENT_EXTERNALS

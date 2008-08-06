@@ -10,7 +10,7 @@ indexing
 			 Every occurrence of gulong n_bytes	is wrapped as n_bytes: INTEGER; this shall change when SmartEiffel will provide NATURAL
 			 ]"
 
-			 
+
 deferred class GLIB_MEMORY_ALLOCATION
 
 inherit ANY undefine is_equal, copy end
@@ -22,7 +22,7 @@ feature {} -- external features
 -- Memory Allocation
 
 -- Memory Allocation %GÅ‚Äî%@ general memory-handling.
-	
+
 -- Synopsis
 
 -- #include <glib.h>
@@ -272,8 +272,15 @@ feature {} -- external features
 
 	-- #define     g_memmove(dest,src,len)
 
-	-- 	Copies a block of memory len bytes long, from src to dest. The source
-	-- 	and destination areas may overlap.
+	g_memmove(src, dst: POINTER; len:INTEGER) is
+			-- 	Copies a block of memory len bytes long, from src to dest. The source
+			-- 	and destination areas may overlap.
+		-- 	dest : the destination address to copy the bytes to.
+		-- 	src :  the source address to copy the bytes from.
+		-- 	len :  the number of bytes to copy.
+		external "C inline use <string.h>"
+		alias "memmove"
+		end
 
 	-- 	In order to use this function, you must include string.h yourself,
 	-- 	because this macro will typically simply resolve to memmove() and GLib

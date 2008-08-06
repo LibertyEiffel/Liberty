@@ -24,7 +24,7 @@ deferred class GLIB_CHARACTER_SET_CONVERSION
 
 feature
 
-	convert (a_string, to_codeset, from_codeset: STRING): STRING is
+	gconvert (a_string, to_codeset, from_codeset: STRING): STRING is
 			--    Converts a string from one character set to another.
 			--    Note that you should use iconv() for streaming conversions.
 			--    a_strint :      the string to convert

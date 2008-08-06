@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision "$REvision:$"
 
-class G_REFERENCE_ARRAY [ITEM->SHARED_C_STRUCT]
+class G_REFERENCE_ARRAY [ITEM->C_STRUCT]
 	-- Warning: this class will be soon called G_ARRAY and the "old" 
 	-- G_ARRAY will become G_EXPANDED_ARRAY or something like this. 
 	-- Paolo 2007-04-08
@@ -57,7 +57,7 @@ class G_REFERENCE_ARRAY [ITEM->SHARED_C_STRUCT]
 	--   g_ptr_array_free (gparray, TRUE);
 
 inherit 
-	SHARED_C_STRUCT 
+	C_STRUCT 
 		rename exists as struct_exists
 		undefine fill_tagged_out_memory
 		redefine copy, is_equal
@@ -77,7 +77,7 @@ insert
 	WRAPPER_FACTORY [ITEM] -- undefine fill_tagged_out_memory end
 	G_PTR_ARRAY_EXTERNALS undefine fill_tagged_out_memory end
 	
-creation  empty, with_capacity, from_external_pointer
+creation empty, with_capacity, from_external_pointer
 
 feature 
 	empty is

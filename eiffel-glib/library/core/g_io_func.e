@@ -2,7 +2,8 @@ class G_IO_FUNC
 
 inherit
 	C_STRUCT
-
+	EIFFEL_OWNED
+	
 insert
 	G_IO_CONDITIONS
 

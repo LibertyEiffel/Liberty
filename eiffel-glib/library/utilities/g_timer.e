@@ -6,7 +6,7 @@ indexing
 
 class G_TIMER
 
-inherit C_STRUCT redefine default_create, dispose end
+inherit C_STRUCT redefine default_create end
 
 insert G_TIMER_EXTERNALS undefine default_create end
 
@@ -18,7 +18,7 @@ feature {} --
 		alias "sizeof(GTimer)"
 		end
 
-feature {} -- Creation
+feature -- Creation
 	default_create is --, make is
 			-- Creates a new timer, and starts timing
 		do

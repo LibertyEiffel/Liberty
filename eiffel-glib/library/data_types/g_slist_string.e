@@ -6,35 +6,26 @@ indexing
 	revision: "$Revision:$"
 
 class G_SLIST_STRING
-	-- A list of strings. 
 
-	-- Note for the developer of wrappers: The item strings are not
-	-- owned by the list, but by list's clients, so their memory area
-	-- will be collected by the Eiffel garbage collector. If the
-	-- wrapped GSList contains const char* and their memory is handled
-	-- elsewhere use G_SLIST_CONST_STRING.
-	
 inherit
-	COLLECTION [STRING]
-		redefine
+	COLLECTION[STRING]
+		undefine 
+			append_collection,
 			clear_all,
 			has,
-			fast_has
+			fast_has,
+			swap
 		end
 
-	SHARED_C_STRUCT
-		rename
-			is_not_null as wrapped_object_exists
-		undefine
+	C_STRUCT
+		undefine 
 			fill_tagged_out_memory
 		redefine
-			copy,
-			dispose
+			copy, from_external_pointer
 		end
 
-	FREEZABLE
 insert
-	G_SLIST_EXTERNALS
+	G_SLIST_EXTERNALS undefine fill_tagged_out_memory end
 
 creation make, from_external_pointer
 
@@ -42,49 +33,47 @@ feature
 	make is
 		do
 			handle := default_pointer
-			--create factory_item
 		end
 
+	from_external_pointer (a_ptr: POINTER) is
+		do
+			Precursor(a_ptr)
+		end
+	
 	first: STRING is 
 		do
-			create Result.from_external (g_slist_get_data (handle))
+			create Result.from_external_copy (g_slist_get_data (handle))
 		end
 
 	last: like first is 
 		do
-			create Result.from_external (g_slist_get_data (g_slist_last (handle)))
+			create Result.from_external_copy (g_slist_get_data (g_slist_last (handle)))
 		end
 
 	item (i: INTEGER): like first is
-		local cstr: POINTER
 		do
-			cstr := g_slist_nth_data (handle, i)
-			if cstr.is_not_null then
-				create Result.from_external (cstr)
-			end
+			create Result.from_external_copy (g_slist_nth_data (handle, i))
 		end
 
 	put (a_string: like first; i: INTEGER) is
-		require else thawed: not is_freezed
+		require else
+			valid_item: a_string/=Void
 		do
-			g_slist_set_data (g_slist_nth(handle,i),
-									null_or_string(a_string))
+			g_slist_set_data (g_slist_nth(handle,i), a_string.to_external)
 		end
 
-	-- swap (i,j: INTEGER) is
-	-- 		local ith,jth,tmp: POINTER
-	-- 		do
-	-- 			ith := g_slist_nth_data (handle,i)
-	-- 			jth := g_slist_nth_data (handle,j)
-	
-	-- 			tmp := g_slist_get_data(ith)
-	-- 			g_slist_set_data (ith, g_slist_get_data(jth))
-	-- 			g_slist_set_data (jth, tmp)
-	-- end
+	swap (i,j: INTEGER) is
+		local ith,jth,tmp: POINTER
+		do
+			ith := g_slist_nth_data (handle,i)
+			jth := g_slist_nth_data (handle,j)
+
+			tmp := g_slist_get_data(ith)
+			g_slist_set_data (ith, g_slist_get_data(jth))
+			g_slist_set_data (jth, tmp)
+		end
 
 	set_all_with (v: like first) is
-		require thawed: not is_freezed
-
 		local ith:POINTER
 		do
 			from ith:=handle
@@ -95,14 +84,9 @@ feature
 			end
 		end
 
-	clear_all is
-		require thawed: not is_freezed
-		do
-			not_yet_implemented 
-		end
+	clear_all is do not_yet_implemented end
 
 	add_first (a_string: like first) is
-		require thawed: not is_freezed	
 		do
 			handle := g_slist_prepend (handle, a_string.to_external)
 		end
@@ -113,67 +97,56 @@ feature
 			-- elements. A common idiom to avoid the inefficiency is to
 			-- prepend the elements and reverse the list when all
 			-- elements have been added.
-		require thawed: not is_freezed
 		do
 			handle := g_slist_append (handle, a_string.to_external)	
 		end
 
 	add (a_string: like first; index: INTEGER) is
-		require else thawed: not is_freezed
 		do
 			handle := g_slist_insert (handle, a_string.to_external, index-1)
 		end
 
-	force (a_string: like first; index: INTEGER) is 
-		require else thawed: not is_freezed
+	
+	append_collection (other: COLLECTION[STRING]) is
 		do
-			not_yet_implemented 
+			check implemented: False end
+			not_yet_implemented -- TODO
+
 		end
 
-	remove_head (n: INTEGER) is
-		require else thawed: not is_freezed
-		local i: INTEGER
+	force (a_string: like first; index: INTEGER) is do not_yet_implemented end
+
+	lower: INTEGER is 0
+
+	remove_head (n: INTEGER) is do not_yet_implemented end
+	remove_tail (n: INTEGER) is do not_yet_implemented end
+
+	manifest_put (index: INTEGER; element: like item) is
 		do
-			from i:=n until i=0 loop
-				remove_first
-				i:=i-1
-			end
+			put(element,index)
 		end
-	
+			
+
 	remove_first is
-		require else thawed: not is_freezed
 		do
 			handle:=g_slist_delete_link (handle, handle)
 		end
 
 	remove (index: INTEGER) is
-		require else thawed: not is_freezed
 		do
 			handle:=g_slist_delete_link (handle,
 												  g_slist_nth_data (handle, index-1))
 		end
 
 	remove_last is
-		require else thawed: not is_freezed
 		do
 			handle:=g_slist_delete_link (handle,g_slist_last (handle))
 		end
 
-	remove_tail (n: INTEGER_32) is
-		require else thawed: not is_freezed
-		local i: INTEGER
-		do
-			from i:=n until i=0 loop
-				remove_last
-				i := i-1
-			end
-		end
-	
 	clear_count, clear_count_and_capacity is
 			-- Discard all items (is_empty is True after that call). Frees
 			-- all of the memory used by a GSList. The freed elements are
 			-- added to the GAllocator free list.
-		require thawed: not is_freezed
 		do
 			g_slist_free (handle)
 			handle := default_pointer
@@ -207,8 +180,7 @@ feature
 
 	index_of (a_string: like first; start_index: INTEGER): INTEGER is
 		do
-			Result:=g_slist_index(g_slist_nth_data(handle,start_index),
-										 a_string.to_external)
+			Result:=first_index_of(a_string)
 		end
 
 	reverse_index_of (a_string: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
@@ -229,7 +201,7 @@ feature
 			-- Using basic = comparison, gives the index of the first
 			-- occurrence of element at or before start_index. Search is
 			-- done in reverse direction, which means from the
-			---start_index down to the lower index . Answer lower -1 when
+			-- start_index down to the lower index . Answer lower -1 when
 			-- the search fail.
 		do
 			check implemented: False end
@@ -238,7 +210,7 @@ feature
 		end
 
 	is_equal_map (other: like Current): BOOLEAN is
-			-- Do both collections have the same lower, upper, and ites?
+			-- Do both collections have the same lower, upper, and items?
 			-- Feature is_equal is used for comparison of items.
 		do
 			check implemented: False end
@@ -256,8 +228,7 @@ feature
 
 		end
 
-	copy (other: like Current) is
-		require else thawed: not is_freezed
+	copy (other: G_SLIST_STRING) is
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -281,7 +252,6 @@ feature
 	
 
 	replace_all (old_value, new_value: like first) is 
-		require thawed: not is_freezed
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -289,14 +259,13 @@ feature
 		end
 
 	fast_replace_all (old_value, new_value: like first) is 
-		require thawed: not is_freezed
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
 
 		end
 
-	slice (min, max: INTEGER): like Current is 
+	slice (min, max: INTEGER): G_SLIST_STRING is 
 		do
 			check implemented: False end
 			not_yet_implemented -- TODO
@@ -304,7 +273,6 @@ feature
 		end
 
 	reverse is
-		require thawed: not is_freezed
 		local old_handle: POINTER
 		do
 			old_handle := handle
@@ -312,21 +280,12 @@ feature
 			g_slist_free (handle) -- TODO is this call correct?
 		end
 
-	lower: INTEGER is 0
-	
-	upper: INTEGER is 
+	upper,count: INTEGER is 
 		do
-			Result:=g_slist_length(handle)-1
+			Result:=g_slist_length(handle)
+			-- ensure then	positive: Result >= 0 
 		end
 
-	count: INTEGER is
-		do			
-			if is_empty then Result:=0 
-			else Result:=g_slist_length(handle)
-			end
-		ensure then positive: Result >= 0
-		end
-			
 	is_empty: BOOLEAN is 
 		do
 			Result:= (handle.is_null)
@@ -343,8 +302,8 @@ feature -- Memory management
 
 	dispose is
 		do
-			-- We override the default dispose routine; list nodes are not
-			-- allocated with malloc() so we should not use free()
+			-- list nodes are not allocated with malloc so we should not
+			-- use free.
 			g_slist_free (handle)
 			handle:= default_pointer
 		end
@@ -368,7 +327,6 @@ feature -- Memory management
 
 	append (a_string: like first) is
 			-- Adds `a_string' on to the end of the list.
-		require not is_freezed
 		do
 			handle:=g_slist_append (handle, a_string.to_external)
 
@@ -395,9 +353,7 @@ feature -- Memory management
 			
 	prepend  (a_string: like first) is
 			-- Adds a new element on to the start of the list.
-		require
-			not is_freezed
-			valid_item: a_string/=Void
+		require valid_item: a_string/=Void
 		do
 			handle := g_slist_prepend (handle,a_string.to_external)
 			-- Note: The return value is the new start of the list, which
@@ -615,13 +571,20 @@ feature -- Memory management
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
 
-
-	manifest_put (index: INTEGER; element: like item) is
-		require else not is_freezed
+feature {} -- Implementation
+	wrapper (a_ptr: POINTER): STRING is
 		do
-			put(element,index)
+			create Result.from_external(a_ptr)
+			debug print_notice end
 		end
-feature {}
+
+	print_notice is
+		once
+			print("[
+					 G_SLIST_STRING.wrapper does not copy the C string; the Eiffel STRING will use
+					 the same memory buffer.					 
+					 ]")
+		end
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GSList)"

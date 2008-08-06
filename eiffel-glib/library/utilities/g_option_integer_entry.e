@@ -27,19 +27,19 @@ inherit
 
 	-- REFERENCE[INTEGER]
 
-creation  make
+creation make
 
 feature
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		do
 			Precursor (a_long_name,a_short_name, a_description)
-			set_arg(handle, argument_type.g_option_arg_int)
+			set_arg(handle, g_option_arg_int)
 			set_arg_data(handle, $item) 
 		end
 
 feature -- Queries
 	-- GOptionArg arg; The type of the option, as a GOptionArg.
-	
+   
 	--gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then
 	--arg_data must point to a GOptionArgFunc callback function, which
 	--will be called to handle the extra argument. Otherwise, arg_data

@@ -16,25 +16,21 @@ inherit
 			copy, 
 			is_equal 
 		end
-	SHARED_C_STRUCT
+	
+	C_STRUCT
 		redefine
 			copy,
-			is_equal,
-			dispose
+			is_equal
 		end
 
 insert
 	G_STRING_EXTERNALS
 	GLIB_STRING_UTILITY_FUNCTIONS
 	
-creation
-	copy,
-	dummy,
-	make,
-	make_empty,
-	from_string
+creation {ANY}
+	make, copy, make_empty, from_string
 	
-feature {WRAPPER_HANDLER, G_STRING}
+feature {C_HANDLE, G_STRING}
 
 	c_string: POINTER is
 			-- Pointer to the str field of GString structure pointed by
@@ -69,7 +65,6 @@ feature {ANY} -- Creation / Modification:
 			handle := g_string_sized_new (needed_capacity)
 			-- The following is needed to comply with the postcondition
 			handle := g_string_set_size (handle, needed_capacity)
-			set_unshared
 		ensure
 			count = needed_capacity
 		end
@@ -78,7 +73,6 @@ feature {ANY} -- Creation / Modification:
 			-- Create an empty string.
 		do
 			make(0)
-			set_unshared
 		end
 
 	from_string (a_string: STRING) is
@@ -86,7 +80,6 @@ feature {ANY} -- Creation / Modification:
 		require a_string_not_void: a_string/=Void
 		do
 			handle := g_string_new (a_string.to_external)
-			set_unshared
 		end
 	
 feature {ANY} 
@@ -105,17 +98,11 @@ feature {ANY}
 		end
 
 	is_equal (other: like Current): BOOLEAN is
-			-- Do both strings have the same character sequence? Two 
-			-- G_STRINGs are equal when they wrap the same object or 
-			-- when they wrap two different GString with the same content
-			
+			-- Do both strings have the same character sequence?
+			--
 			-- See also `same_as'.
 		do
-			Result := (-- Dummy objects case (used in postconditions of copy)
-						  Current.handle = other.handle
-						  or else -- General case
-						  g_string_equal(handle, other.handle).to_boolean
-						  )
+			Result := g_string_equal( handle, other.handle).to_boolean
 		end
 
 	index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
@@ -155,9 +142,7 @@ feature {ANY} -- Modification:
 	copy (other: like Current) is
 			-- Copy `other' onto Current.
 		do
-			if other.is_not_null then 
-				handle := g_string_new_len (str(other.handle), len (other.handle))
-			end
+			handle := g_string_new_len (str(other.handle), len (other.handle))
 		end
 
 	fill_with (c: CHARACTER) is
@@ -199,13 +184,11 @@ feature -- Conversion to STRING
 			create Result.from_external (c_string)
 		end
 	
-feature -- Disposing
+feature  -- Disposing
 	dispose is
 		local p: POINTER
 		do
-			if not is_shared then
-				p:=g_string_free (handle, 1)
-			end
+			p:=g_string_free (handle, 1)
 			handle := default_pointer
 		end
 	

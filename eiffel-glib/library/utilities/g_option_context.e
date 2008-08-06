@@ -89,7 +89,9 @@ class G_OPTION_CONTEXT
 	-- GOption to parse the example commandline above and produce the
 	-- example help output.
 
-inherit SHARED_C_STRUCT redefine free end
+inherit 
+		C_STRUCT redefine free end
+		EIFFEL_OWNED redefine free end
 
 insert
 	SHARED_G_ERROR
@@ -148,95 +150,93 @@ feature
 			if sp.is_not_null then create {CONST_STRING} Result.from_external(sp) end
 		end
 	
+	--  void        g_option_context_set_description
+	--                                              (GOptionContext *context,
+	--                                               const gchar *description);
 
+	--    Adds a string to be displayed in --help output after the list of options. This
+	--    text often includes a bug reporting address.
 
---  void        g_option_context_set_description
---                                              (GOptionContext *context,
---                                               const gchar *description);
+	--    Note that the summary is translated (see g_option_context_set_translate_func()).
 
---    Adds a string to be displayed in --help output after the list of options. This
---    text often includes a bug reporting address.
+	--    context :     a GOptionContext
+	--    description : a string to be shown in --help output after the list of options, or
+	--                  NULL
 
---    Note that the summary is translated (see g_option_context_set_translate_func()).
+	--    Since 2.12
 
---    context :     a GOptionContext
---    description : a string to be shown in --help output after the list of options, or
---                  NULL
+	--    ---------------------------------------------------------------------------------
 
---    Since 2.12
+	--   g_option_context_get_description ()
 
---    ---------------------------------------------------------------------------------
+	--  const gchar* g_option_context_get_description
+	--                                              (GOptionContext *context);
 
---   g_option_context_get_description ()
+	--    Returns the description. See g_option_context_set_description().
 
---  const gchar* g_option_context_get_description
---                                              (GOptionContext *context);
+	--    context : a GOptionContext
+	--    Returns : the description
 
---    Returns the description. See g_option_context_set_description().
+	--    Since 2.12
 
---    context : a GOptionContext
---    Returns : the description
+	--    ---------------------------------------------------------------------------------
 
---    Since 2.12
+	--   GTranslateFunc ()
 
---    ---------------------------------------------------------------------------------
+	--  const gchar* (*GTranslateFunc)              (const gchar *str,
+	--                                               gpointer data);
 
---   GTranslateFunc ()
+	--    The type of functions which are used to translate user-visible strings, for
+	--    --help output.
 
---  const gchar* (*GTranslateFunc)              (const gchar *str,
---                                               gpointer data);
+	--    str :     the untranslated string
+	--    data :    user data specified when installing the function, e.g. in
+	--              g_option_group_set_translate_func()
+	--    Returns : a translation of the string for the current locale. The returned string
+	--              is owned by GLib and must not be freed.
 
---    The type of functions which are used to translate user-visible strings, for
---    --help output.
+	--    ---------------------------------------------------------------------------------
 
---    str :     the untranslated string
---    data :    user data specified when installing the function, e.g. in
---              g_option_group_set_translate_func()
---    Returns : a translation of the string for the current locale. The returned string
---              is owned by GLib and must not be freed.
+	--   g_option_context_set_translate_func ()
 
---    ---------------------------------------------------------------------------------
+	--  void        g_option_context_set_translate_func
+	--                                              (GOptionContext *context,
+	--                                               GTranslateFunc func,
+	--                                               gpointer data,
+	--                                               GDestroyNotify destroy_notify);
 
---   g_option_context_set_translate_func ()
+	--    Sets the function which is used to translate the contexts user-visible strings,
+	--    for --help output. If func is NULL, strings are not translated.
 
---  void        g_option_context_set_translate_func
---                                              (GOptionContext *context,
---                                               GTranslateFunc func,
---                                               gpointer data,
---                                               GDestroyNotify destroy_notify);
+	--    Note that option groups have their own translation functions, this function only
+	--    affects the parameter_string (see g_option_context_nex()), the summary (see
+	--    g_option_context_set_summary()) and the description (see
+	--    g_option_context_set_description()).
 
---    Sets the function which is used to translate the contexts user-visible strings,
---    for --help output. If func is NULL, strings are not translated.
+	--    If you are using gettext(), you only need to set the translation domain, see
+	--    g_context_group_set_translation_domain().
 
---    Note that option groups have their own translation functions, this function only
---    affects the parameter_string (see g_option_context_nex()), the summary (see
---    g_option_context_set_summary()) and the description (see
---    g_option_context_set_description()).
+	--    context :        a GOptionContext
+	--    func :           the GTranslateFunc, or NULL
+	--    data :           user data to pass to func, or NULL
+	--    destroy_notify : a function which gets called to free data, or NULL
 
---    If you are using gettext(), you only need to set the translation domain, see
---    g_context_group_set_translation_domain().
+	--    Since 2.12
 
---    context :        a GOptionContext
---    func :           the GTranslateFunc, or NULL
---    data :           user data to pass to func, or NULL
---    destroy_notify : a function which gets called to free data, or NULL
+	--    ---------------------------------------------------------------------------------
 
---    Since 2.12
+	--   g_option_context_set_translation_domain ()
 
---    ---------------------------------------------------------------------------------
+	--  void        g_option_context_set_translation_domain
+	--                                              (GOptionContext *context,
+	--                                               const gchar *domain);
 
---   g_option_context_set_translation_domain ()
+	--    A convenience function to use gettext() for translating user-visible strings.
 
---  void        g_option_context_set_translation_domain
---                                              (GOptionContext *context,
---                                               const gchar *domain);
+	--    context : a GOptionContext
+	--    domain :  the domain to use
 
---    A convenience function to use gettext() for translating user-visible strings.
-
---    context : a GOptionContext
---    domain :  the domain to use
-
---    Since 2.12
+	--    Since 2.12
 
 	parse is
 			-- Parses the command line arguments, recognizing options
@@ -343,18 +343,17 @@ feature -- group options
 		require entries_not_void: some_entries /= Void
 		local entries_array: NULL_TERMINATED_C_ARRAY[G_OPTION_ENTRY]
 		do
+			not_yet_implemented
 			-- debug print ("G_OPTION_CONTEXT.add_main_entries%N") end
-			if entries_array ?:= some_entries then
-				entries_array ::= some_entries 
-			else 
-				create entries_array.with_capacity(some_entries.count, create {DUMMY_CACHING_FACTORY[G_OPTION_ENTRY]}) 
-				entries_array.from_collection (some_entries)
-			end
+			-- if entries_array ?:= some_entries then
+			-- entries_array ::= some_entries 
+			-- else create entries_array.from_collection(some_entries) 
+			-- end
 			-- debug print (" entries array created:%N") end
-			debug entries_array.print_on(std_output) std_output.put_new_line end 
-			g_option_context_add_main_entries 
-			(handle, entries_array.storage.to_external,
-			 null_or_string(a_translaction_domain))
+			--debug entries_array.print_on(std_output) std_output.put_new_line end 
+			--g_option_context_add_main_entries 
+			--(handle, entries_array.storage.to_external,
+			-- null_or_string(a_translaction_domain))
 		end
 
 	main_group: G_OPTION_GROUP is
@@ -362,16 +361,9 @@ feature -- group options
 			-- group.
 		local p: POINTER
 		do
-			p:=g_option_context_get_main_group(handle)
+			create Result.from_external_pointer(g_option_context_get_main_group(handle))
 			-- Note that group belongs to context and should not be modified
 			-- or freed.
-			if p.is_not_null then
-				if wrappers.has(p) then Result::=wrappers.at(p)
-				else
-					create Result.from_external_pointer(p)
-					Result.set_shared
-				end
-			end
 		end
 
 	add_group (a_group: G_OPTION_GROUP) is
@@ -383,7 +375,8 @@ feature -- group options
 			-- Note that the added group will be freed together with the context
 			-- when g_option_context_free() is called, so you must not free the
 			-- group yourself after adding it to a context.
-			a_group.set_shared -- avoid freeing the underlying C structure.
+			
+			--a_group.set_shared -- avoid freeing the underlying C structure.
 		end
 
 	set_main_group (a_group: G_OPTION_GROUP) is
@@ -394,7 +387,7 @@ feature -- group options
 		require group_not_void: a_group /= Void
 		do
 			g_option_context_set_main_group (handle, a_group.handle)
-			a_group.set_shared -- avoid freeing the underlying C structure.
+			-- a_group.set_shared -- avoid freeing the underlying C structure.
 		end
 
 feature -- size

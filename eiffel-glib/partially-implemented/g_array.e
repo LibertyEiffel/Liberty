@@ -43,7 +43,7 @@ indexing
 			--   g_array_free (garray, TRUE);
 	
 	
-class G_ARRAY [ITEM->SHARED_C_STRUCT]
+class G_ARRAY [ITEM->C_STRUCT]
 
 inherit C_STRUCT
 	-- TODO: make it a proper heir of ARRAY, FAST_ARRAY or
@@ -51,7 +51,7 @@ inherit C_STRUCT
 	
 insert WRAPPER_FACTORY [ITEM]
 
-creation  make, empty, from_external_pointer 
+creation make, empty, from_external_pointer 
 
 feature {} -- Creation
 

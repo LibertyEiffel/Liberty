@@ -19,48 +19,66 @@ indexing
 					02110-1301 USA
 			]"
 
-class G_COMPARE_DATA_CALLBACK[ITEM->COMPARABLE_SHARED_C_STRUCT]
+class G_COMPARE_DATA_CALLBACK
 
 inherit GLIB_CALLBACK
 
 creation make
 
 feature {} -- Creation
-	make (a_function: FUNCTION[ANY,TUPLE[ITEM,ITEM],INTEGER]) is
-		require function_not_void: a_function/=Void
+	make (a_collection: WRAPPER_COLLECTION[COMPARABLE_C_STRUCT];
+			a_function: FUNCTION[ANY,TUPLE[COMPARABLE_C_STRUCT,COMPARABLE_C_STRUCT],INTEGER]) is
+		-- `a_factory' is typically the container wrapper that creates
+		-- the callback, i.e.: a G_TREE, asyncronous queues, linked
+		-- lists and all Glib containers that require to compare to
+		-- wrapped object.
+		require
+			collection_not_void: a_collection/=Void
+			function_not_void: a_function/=Void
 		do
+			collection:=a_collection
 			function:=a_function
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-	function: FUNCTION[ANY,TUPLE[ITEM,ITEM],INTEGER]
+	collection: WRAPPER_COLLECTION[COMPARABLE_C_STRUCT]
+	
+	function: FUNCTION[ANY,TUPLE[COMPARABLE_C_STRUCT,COMPARABLE_C_STRUCT],INTEGER]
 
-	callback (a,b, a_current: POINTER): INTEGER is
-		local
-			item_a, item_b: ITEM
+	callback (a,b: POINTER): INTEGER is
+		local an_a, an_b: COMPARABLE_C_STRUCT
 		do
-			not_yet_implemented
-			-- Big fat warning: this feature MUST use ONLY local
-			-- objects. No features from the class, only local features.
-			-- In addition this class must compiled with boost and no
-			-- debug, otherwise this feature won't be translated into a C
-			-- function with the correct fingerprint, i.e.:
+			-- export CECIL
 
-			-- gint (*GCompareFunc) (gconstpointer a, gconstpointer b);
-			
-			-- factory.print ("G_COMPARE_DATA_CALLBACK.callback("+a.out+","+b.out+")%N")
-			--item_a ::= factory.wrappers.reference_at(a)
-			-- if item_a=Void then item_a ::= factory.wrapper(a) end
-			
-			-- item_b ::= factory.wrappers.reference_at(b)
-			-- if item_b=Void then item_b ::= factory.wrapper(b) end
-			
-			-- factory.print("G_COMPARE_DATA_CALLBACK: comparing by address and not with the given function.%N")
-			-- Result := item_a.compare(item_b) -- was: (function.item([item_a,item_b]))
+			-- This callback will call FACTORY.`item_from' to build a
+			-- wrapper of the correct type of an unwrapped object.
+
+			-- `item_from' necessarly belong to FACTORY because
+			-- G_COMPARE_DATA_CALLBACK has no knowledge of the effective
+			-- type of the wrappers it handle.
+
+			-- G_COMPARE_DATA_CALLBACK cannot be made generic otherwise
+			-- we should declare the effective types used in the cecil
+			-- file that produce the function called by Glib. A general
+			-- callback class will need several version of the same
+			-- function - one for each effective usage - when Glib's
+			-- callback needs exactly one and only one.
+
+			-- Therefore G_COMPARE_DATA_CALLBACK will call `item_from' on
+			-- its coupled FACTORY that will create the effective
+			-- wrapper.
+
+			-- Note: feel free to ask Paolo further explanation of
+			-- this. 2007-03-04
+			an_a := collection.wrapper(a)
+			an_b := collection.wrapper(b)
+			Result:=(function.item([an_a,an_b]))
 		end
 
 	callback_address: POINTER is
-		do
-			Result:=address_of_callback($callback)
+		external "[
+					 C inline use "glib-callbacks.h"
+															  ]"
+		alias "EiffelGCompareDataFunc"
 		end
 end -- class G_COMPARE_DATA_CALLBACK

@@ -8,14 +8,14 @@ indexing
 class G_LIST_STRING
 
 inherit
-	SHARED_C_STRUCT
+	C_STRUCT
 		rename
 			is_not_null as wrapped_object_exists
 		redefine
-			copy,
-			dispose
+			copy
 		end
-
+	
+		-- TODO: COLLECTION[STRING] or G_LIST[C_STRING]
 	FREEZABLE
 
 insert

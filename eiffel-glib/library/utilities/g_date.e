@@ -8,60 +8,61 @@ indexing
 
 			-- Todo: Implement G_DATES that holds all the constants
 			-- (weekdays, month names etc)
-	
+
 							 
 class G_DATE
-	-- G_DATE represents a day between January 1, Year 1, and sometime
-	-- a few thousand years in the future (right now it will go to the
-	-- year 65535 or so, but `parse' only parses up to the year 8000 or
-	-- so - just count on "a few thousand"). G_DATE is meant to
-	-- represent everyday dates, not astronomical dates or historical
-	-- dates or ISO timestamps or the like. It extrapolates the current
-	-- Gregorian calendar forward and backward in time; there is no
-	-- attempt to change the calendar to match time periods or
-	-- locations. G_DATE does not store time information; it represents
-	-- a day.
+	-- The GDate data structure represents a day between January 1,
+	-- Year 1, and sometime a few thousand years in the future (right
+	-- now it will go to the year 65535 or so, but g_date_set_parse()
+	-- only parses up to the year 8000 or so - just count on "a few
+	-- thousand"). GDate is meant to represent everyday dates, not
+	-- astronomical dates or historical dates or ISO timestamps or the
+	-- like. It extrapolates the current Gregorian calendar forward and
+	-- backward in time; there is no attempt to change the calendar to
+	-- match time periods or locations. GDate does not store time
+	-- information; it represents a day.
 
-	-- Its implementation has several nice features; it is only a
+	-- The GDate implementation has several nice features; it is only a
 	-- 64-bit struct, so storing large numbers of dates is very
 	-- efficient. It can keep both a Julian and day-month-year
 	-- representation of the date, since some calculations are much
 	-- easier with one representation or the other.  A Julian
 	-- representation is simply a count of days since some fixed day in
-	-- the past; the fixed day is January 1, 1 AD.; "Julian" dates in
-	-- the G_DATE API aren't really Julian dates in the technical
-	-- sense; technically, Julian dates count from the start of the
-	-- Julian period, Jan 1, 4713 BC.
+	-- the past; for GDate the fixed day is January 1, 1 AD. ("Julian"
+	-- dates in the GDate API aren't really Julian dates in the
+	-- technical sense; technically, Julian dates count from the start
+	-- of the Julian period, Jan 1, 4713 BC).
 
-	-- Usage: create a "blank" date; you can create a dynamically
-	-- allocated date with `make' creation feature (TODO: provide an
-	-- expanded version, to be cleared with `clear'). A cleared date is
-	-- sane; it's safe to call `set_dmy' and the other mutator
+	-- GDate is simple to use. First you need a "blank" date; you can
+	-- get a dynamically allocated date from g_date_new(), or you can
+	-- declare an automatic variable or array and initialize it to a
+	-- sane state by calling g_date_clear(). A cleared date is sane;
+	-- it's safe to call g_date_set_dmy() and the other mutator
 	-- functions to initialize the value of a cleared date. However, a
 	-- cleared date is initially invalid, meaning that it doesn't
 	-- represent a day that exists. It is undefined to call any of the
 	-- date calculation routines on an invalid date. If you obtain a
 	-- date from a user or other unpredictable source, you should check
-	-- its validity with `is_valid' predicate. `is_valid' is also used
-	-- to check for errors with `parse' and other functions that can
-	-- fail. Dates can be invalidated by calling `clear' again.
+	-- its validity with the g_date_valid() predicate. g_date_valid()
+	-- is also used to check for errors with g_date_set_parse() and
+	-- other functions that can fail. Dates can be invalidated by
+	-- calling g_date_clear() again.
+
+	-- It is very important to use the API to access the GDate
+	-- struct. Often only the day-month-year or only the Julian
+	-- representation is valid.  Sometimes neither is valid. Use the
+	-- API.
 
 	-- GLib doesn't contain any time-manipulation functions; however,
-	-- there is G_TIME (and at C level the GTimeVal struct which
-	-- represents a more precise time, i.e. with microseconds). You can
-	-- request the current time as a GTimeVal with
-	-- g_get_current_time().
+	-- there is a GTime typedef and a GTimeVal struct which represents
+	-- a more precise time (with microseconds). You can request the
+	-- current time as a GTimeVal with g_get_current_time().
 	
 inherit
-	COMPARABLE_SHARED_C_STRUCT
-		redefine
-			is_equal,
-			infix "<",
-			dispose,
-			compare
-		end
+	COMPARABLE_C_STRUCT redefine compare, free end
+	EIFFEL_OWNED redefine free end
 	
-creation  make_dmy, from_tuple
+creation make_dmy, from_tuple
 
 feature {} -- size
 	struct_size: INTEGER is
@@ -113,13 +114,6 @@ feature
 			-- will not contain garbage.
 		do
 			g_date_clear (handle,1)
-		end
-
-feature -- Disposing
-	dispose is
-		do
-			g_date_free (handle)
-			handle:=default_pointer
 		end
 
 feature -- Setters 
@@ -347,12 +341,12 @@ feature -- Date arithmetics
 
 	is_equal (another: like Current): BOOLEAN is
 		do
-			Result := (compare(another) = 0)
+			Result:=(compare(another)=0)
 		end
 	
-	infix "<" (another: like Current): BOOLEAN is
+	infix "<"(another: like Current): BOOLEAN is
 		do
-			Result := (compare(another) < 0)
+			Result:=(compare(another)<0)
 		end
 	
 	compare (another: like Current): INTEGER is
@@ -376,23 +370,21 @@ feature -- Date arithmetics
 			-- min_date : minimum accepted value for date. 
 			-- max_date : maximum accepted value for date.
 		require
-			valid_min: a_min /= Void implies a_min.is_valid
-			valid_max: a_max /= Void implies a_max.is_valid
-			valid_dates: (a_min = Void implies a_max /= Void) and
-							 (a_max = Void implies a_min /= Void)
-		local
-			min_ptr, max_ptr: POINTER
+			valid_min: a_min/=Void implies a_min.is_valid
+			valid_max: a_max/=Void implies a_max.is_valid
+			valid_dates: (a_min=Void implies a_max/=Void) and
+							 (a_max=Void implies a_min/=Void)
+		local min_ptr, max_ptr: POINTER
 		do
-			if a_min /= Void then min_ptr := a_min.handle end
-			if a_max /= Void then max_ptr := a_max.handle end
+			if a_min/=Void then min_ptr := a_min.handle end
+			if a_max/=Void then max_ptr := a_max.handle end
 			g_date_clamp (handle, min_ptr, max_ptr)
 		end
 
 	order (another: like Current) is
 			-- Checks if Current is less than or equal to `another', and swap the values if
 			-- this is not the case.
-		require
-			valid_other: another /= Void
+		require valid_other: another /= Void
 		do
 			g_date_order (handle, another.handle)
 		end
@@ -656,8 +648,9 @@ feature {} -- External features
 		external "C use <glib.h>"
 		end
 	
-	g_date_free (a_date: POINTER) is 
+	free (a_date: POINTER) is 
 		external "C use <glib.h>"
+		alias "g_date_free"
 		end
 
 	g_date_set_day (a_date: POINTER; a_day: INTEGER_8) is 
@@ -1057,47 +1050,43 @@ feature {} --  enum GDateWeekday;
 
 feature {} --
 	to_string_format: STRING is "%%Y-%%m-%%d"
-			-- The format used in feature `to_string'; the double %% is
-			-- becuase both Eiffel and the C function use % as a special
-			-- character.
-	
-feature {} -- Unwrapped code
--- GDate struct access
--- typedef struct {
---   guint julian_days : 32; /* julian days representation - we use a
---                            *  bitfield hoping that 64 bit platforms
---                            *  will pack this whole struct in one big
---                            *  int
---                            */
+			-- The format used in feature `to_string'; the double %% is 
+			-- becuase both Eiffel and the C function use % as a special character.
 
---   guint julian : 1;    /* julian is valid */
---   guint dmy    : 1;    /* dmy is valid */
-	
---   /* DMY representation */
---   guint day    : 6;
---   guint month  : 4;
---   guint year   : 16;
--- } GDate;
+feature {} -- GDate struct access
+	-- typedef struct {
+	--   guint julian_days : 32; /* julian days representation - we use a
+	--                            *  bitfield hoping that 64 bit platforms
+	--                            *  will pack this whole struct in one big
+	--                            *  int
+	--                            */
 
--- Represents a day between January 1, Year 1 and a few thousand
--- years in the future. None of its members should be accessed
--- directly. If the GDate is obtained from g_date_new(), it will be
--- safe to mutate but invalid and thus not safe for calendrical
--- computations. If it's declared on the stack, it will contain
--- garbage so must be initialized with
--- g_date_clear(). g_date_clear() makes the date invalid but
--- sane. An invalid date doesn't represent a day, it's "empty." A
--- date becomes valid after you set it to a Julian day or you set a
--- day, month, and year.
+	--   guint julian : 1;    /* julian is valid */
+	--   guint dmy    : 1;    /* dmy is valid */
 	
--- guint julian_days : 32; 	the Julian representation of the date
--- guint julian : 1; 	this bit is set if julian_days is valid
--- guint dmy : 1; 	this is set if day, month and year are valid
--- guint day : 6; 	the day of the day-month-year representation of the date, as a number between 1 and 31
--- guint month : 4; 	the day of the day-month-year representation of the date, as a number between 1 and 12
--- guint year : 16; 	the day of the day-month-year representation of the date
+	--   /* DMY representation */
+	--   guint day    : 6;
+	--   guint month  : 4;
+	--   guint year   : 16;
+	-- } GDate;
 
+	-- Represents a day between January 1, Year 1 and a few thousand
+	-- years in the future. None of its members should be accessed
+	-- directly. If the GDate is obtained from g_date_new(), it will be
+	-- safe to mutate but invalid and thus not safe for calendrical
+	-- computations. If it's declared on the stack, it will contain
+	-- garbage so must be initialized with
+	-- g_date_clear(). g_date_clear() makes the date invalid but
+	-- sane. An invalid date doesn't represent a day, it's "empty." A
+	-- date becomes valid after you set it to a Julian day or you set a
+	-- day, month, and year.
 	
-	
+	-- guint julian_days : 32; 	the Julian representation of the date
+	-- guint julian : 1; 	this bit is set if julian_days is valid
+	-- guint dmy : 1; 	this is set if day, month and year are valid
+	-- guint day : 6; 	the day of the day-month-year representation of the date, as a number between 1 and 31
+	-- guint month : 4; 	the day of the day-month-year representation of the date, as a number between 1 and 12
+	-- guint year : 16; 	the day of the day-month-year representation of the date
 end
-
+	
+	

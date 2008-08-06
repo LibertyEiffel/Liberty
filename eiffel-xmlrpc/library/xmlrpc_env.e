@@ -27,14 +27,12 @@ class XMLRPC_ENV
 
 inherit
 	C_STRUCT
-		redefine
-			dispose
-		end
+	EIFFEL_OWNED redefine dispose end
 
 insert
 	XMLRPC_ENV_EXTERNALS
 
-creation 
+creation
 	make
 
 feature -- Size
@@ -52,7 +50,7 @@ feature {} -- Creation
 			xmlrpc_env_init (handle)
 		end
 
-feature {} -- Destruction
+feature -- Destruction
 
 	dispose is
 		do

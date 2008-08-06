@@ -33,13 +33,13 @@ inherit
 	-- while the option entry at C level in an integer. rename item as
 	-- hidden_boolean export {} hidden_boolean redefine set_item end
 
-creation  make
+creation make
 	
 feature 
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
 		do
 			Precursor (a_long_name,a_short_name, a_description)
-			set_arg(handle, argument_type.g_option_arg_none)
+			set_arg(handle, g_option_arg_none)
 			set_arg_data(handle, $hidden_value)
 		end
 

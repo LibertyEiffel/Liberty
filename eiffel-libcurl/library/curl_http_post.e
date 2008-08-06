@@ -25,16 +25,16 @@ indexing
 
 class CURL_HTTP_POST
 
-inherit
-	C_STRUCT redefine free end
+inherit 
+	C_STRUCT undefine free end
+	EIFFEL_OWNED undefine free end
 
-insert
-	CURL_HTTP_POST_EXTERNALS
+insert CURL_HTTP_POST_EXTERNALS rename curl_formfree as free end
 
-creation dummy,
+creation
 	make, null--, from_external_pointer
 
-feature {} -- Size
+feature -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <curl/curl.h>"
@@ -55,17 +55,12 @@ feature {} -- Creation
 			error_code := 0
 		end
 
-feature {} -- Destruction
-
-	free (a_ptr: POINTER) is
-			-- `free' is used to clean up data previously
-			-- built/appended with curl_formadd(3). This must be called
-			-- when the data has been used, which typically means after the
-			-- curl_easy_perform(3) has been called.
-		do
-			curl_formfree (a_ptr)
-		end
-
+	
+	-- `free' is used to clean up data previously
+	-- built/appended with curl_formadd(3). This must be called
+	-- when the data has been used, which typically means after the
+	-- curl_easy_perform(3) has been called.
+		
 feature {} -- Representation
 
 	last_item: CURL_HTTP_POST

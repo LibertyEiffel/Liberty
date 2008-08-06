@@ -1,7 +1,5 @@
 deferred class GLIB_WARNINGS_AND_ASSERTIONS
--- Message Output and Debugging Functions
-
-end --  class GLIB_WARNINGS_AND_ASSERTIONS
+--    Message Output and Debugging Functions
 
 --    Message Output and Debugging Functions -- functions to output messages and help
 --    debug applications.
@@ -260,3 +258,4 @@ end --  class GLIB_WARNINGS_AND_ASSERTIONS
 --  #define     G_BREAKPOINT()
 
 --    Inserts a breakpoint instruction into the code (on x86 machines only).
+end --  class GLIB_WARNINGS_AND_ASSERTIONS

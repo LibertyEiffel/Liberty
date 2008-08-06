@@ -28,7 +28,7 @@ class CURL_LIST_TEST
 insert
 	CURL_OPTION
 
-creation dummy,
+creation
 	make
 
 feature {} -- Creation

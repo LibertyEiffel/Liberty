@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class ITERATOR_ON_G_SLIST [ITEM->SHARED_C_STRUCT]
+class ITERATOR_ON_G_SLIST [ITEM->C_STRUCT]
 inherit
 	ITERATOR [ITEM]
 	WRAPPER_HANDLER
@@ -38,8 +38,8 @@ feature {} -- Creation
 	
 feature {} -- Implementation
 	list: G_SLIST[ITEM]
-	
 	current_element: POINTER
+
 feature -- Iterator's features
 	start is
 		do
@@ -55,11 +55,14 @@ feature -- Iterator's features
 		local ptr: POINTER
 		do
 			ptr := g_slist_get_data (current_element)
-			if ptr.is_not_null then Result := list.factory.wrapper(ptr) end
+			if ptr.is_not_null then 
+				Result:=list.cache.reference_at(ptr)
+				if Result=Void then Result:= list.wrapper(ptr) end
+			end
 		end
 	
 	next is
 		do
-			current_element := g_slist_next (current_element)
+			current_element := g_slist_get_next (current_element)
 		end
 end

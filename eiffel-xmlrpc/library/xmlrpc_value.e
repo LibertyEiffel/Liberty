@@ -26,13 +26,13 @@ indexing
 class XMLRPC_VALUE
 
 inherit
-	SHARED_C_STRUCT
-		redefine from_external_pointer end
+	C_STRUCT redefine from_external_pointer end
+	MIXED_MEMORY_HANDLING undefine from_external_pointer end
 
 insert
 	XMLRPC_VALUE_EXTERNALS
 
-creation  from_external_pointer
+creation from_external_pointer
 
 feature -- size
 
@@ -45,8 +45,8 @@ feature -- Creation
 
 	from_external_pointer (a_pointer: POINTER) is
 		do
-			is_shared := True
-			Precursor (a_pointer)
+			set_shared
+			{C_STRUCT} Precursor (a_pointer)
 		end
 
 feature

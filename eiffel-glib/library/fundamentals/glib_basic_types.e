@@ -25,7 +25,41 @@ deferred class GLIB_BASIC_TYPES
 
 insert ANY undefine is_equal, copy end
 
-feature {} -- Basic Types: standard GLib types, defined for ease-of-use and portability.
+feature -- Basic Types: standard GLib types, defined for ease-of-use and portability.
+	--  #include <glib.h>
+
+	--  typedef     gboolean;
+	--  typedef     gpointer;
+	--  typedef     gconstpointer;
+	--  typedef     gchar;
+	--  typedef     guchar;
+
+	--  typedef     gint;
+	--  typedef     guint;
+	--  typedef     gshort;
+	--  typedef     gushort;
+	--  typedef     glong;
+	--  typedef     gulong;
+
+	--  typedef     gint8;
+	--  typedef     guint8;
+	--  typedef     gint16;
+	--  typedef     guint16;
+	--  typedef     gint32;
+	--  typedef     guint32;
+
+	--  #define     G_HAVE_GINT64
+	--  typedef     gint64;
+	--  typedef     guint64;
+	--  #define     G_GINT64_CONSTANT               (val)
+	--  #define     G_GUINT64_CONSTANT              (val)
+
+	--  typedef     gfloat;
+	--  typedef     gdouble;
+
+	--  typedef     gsize;
+	--  typedef     gssize;
+
 	gboolean: INTEGER is	
 			-- The standard boolean typein Glib type system. Variables of
 			-- this type should only contain the value TRUE (i.e. 1) or
@@ -36,13 +70,13 @@ feature {} -- Basic Types: standard GLib types, defined for ease-of-use and port
 			-- Empty by design
 		end
 
-	gpointer: POINTER is
-			-- An untyped pointer. gpointer looks better and is easier to use than void*.
+	--    --------------------------------------------------------------------------
 
-			--  typedef void* gpointer;
-		do
-			-- Empty by design
-		end
+	--   gpointer
+
+	--  typedef void* gpointer;
+
+	--    An untyped pointer. gpointer looks better and is easier to use than void*.
 
 	--   gconstpointer
 
@@ -81,37 +115,33 @@ feature {} -- Basic Types: standard GLib types, defined for ease-of-use and port
 
 	--    --------------------------------------------------------------------------
 
-	guint: INTEGER_64 is
-			--  typedef unsigned int    guint;
-		
-			-- Corresponds to the standard C unsigned int type. Values of
-			-- this type can range from 0 to G_MAXUINT.
+	--   guint
 
-			-- TODO: Shall be NATURAL_32
-		do
-			--Empty by design
-		end
+	--  typedef unsigned int    guint;
 
-	gshort: INTEGER_16 is
-			--  typedef short  gshort;
+	--    Corresponds to the standard C unsigned int type. Values of this type can
+	--    range from 0 to G_MAXUINT.
 
-			--Corresponds to the standard C short type. Values of this
-			--type can range from G_MINSHORT to G_MAXSHORT.
-		do
-		end
+	--    --------------------------------------------------------------------------
 
-	gushort: INTEGER_32 is
-			--  typedef unsigned short  gushort;
-		
-			-- Corresponds to the standard C unsigned short type. Values
-			-- of this type can range from 0 to G_MAXUSHORT.
-		
-			-- TODO: Should be a NATURAL_16
-		do
-		end
+	--   gshort
+
+	--  typedef short  gshort;
+
+	--    Corresponds to the standard C short type. Values of this type can range
+	--    from G_MINSHORT to G_MAXSHORT.
+
+	--    --------------------------------------------------------------------------
+
+	--   gushort
+
+	--  typedef unsigned short  gushort;
+
+	--    Corresponds to the standard C unsigned short type. Values of this type can
+	--    range from 0 to G_MAXUSHORT.
 
 	glong_size: INTEGER is
-		external "C inline use <glib.h>"
+		external "C use <glib.h>"
 		alias "sizeof(glong)"
 		end
 	
@@ -122,56 +152,43 @@ feature {} -- Basic Types: standard GLib types, defined for ease-of-use and port
 			-- range from G_MINLONG to G_MAXLONG.
 		do
 			-- empty by design
+		ensure glong_is_32_bit: glong_size=4
 		end
 
-	gulong: INTEGER_32 is
-			--  typedef unsigned long   gulong;
-		
-			-- Corresponds to the standard C unsigned long type. Values
-			-- of this type can range from 0 to G_MAXULONG.
-		do
-			-- empty by design
-		end
+	--   gulong
 
-	gint8: INTEGER_8 is
-			-- typedef signed char gint8;
+	--  typedef unsigned long   gulong;
 
-			-- A signed integer guaranteed to be 8 bits on all
-			-- platforms. Values of this type can range from -128 to 127.
-		do
-			-- empty by design
-		end
+	--    Corresponds to the standard C unsigned long type. Values of this type can
+	--    range from 0 to G_MAXULONG.
 
-	guint8: INTEGER_16 is
-			--  typedef unsigned char guint8;
+	--   gint8
 
-			-- An unsigned integer guaranteed to be 8 bits on all
-			-- platforms. Values of this type can range from 0 to 255.
+	--  typedef signed char gint8;
 
-			-- TODO: Shall be NATURAL_8
-		do
-			-- empty by design
-		end
+	--    A signed integer guaranteed to be 8 bits on all platforms. Values of this
+	--    type can range from -128 to 127.
 
-	gint16: INTEGER_16 is
-			--  typedef signed short gint16;
-		
-			--    A signed integer guaranteed to be 16 bits on all platforms. Values of this
-			--    type can range from -32,768 to 32,767.
-		do
-			-- empty by design
-		end
+	--   guint8
 
-	guint16: INTEGER_32 is
-			--  typedef unsigned short guint16;
-		
-			-- An unsigned integer guaranteed to be 16 bits on all
-			-- platforms. Values of this type can range from 0 to 65,535.
+	--  typedef unsigned char guint8;
 
-			-- TODO: Shall be NATURAL_16
-		do
-			-- empty by design
-		end
+	--    An unsigned integer guaranteed to be 8 bits on all platforms. Values of
+	--    this type can range from 0 to 255.
+
+	--   gint16
+
+	--  typedef signed short gint16;
+
+	--    A signed integer guaranteed to be 16 bits on all platforms. Values of this
+	--    type can range from -32,768 to 32,767.
+
+	--   guint16
+
+	--  typedef unsigned short guint16;
+
+	--    An unsigned integer guaranteed to be 16 bits on all platforms. Values of
+	--    this type can range from 0 to 65,535.
 
 	--   gint32
 
@@ -180,17 +197,12 @@ feature {} -- Basic Types: standard GLib types, defined for ease-of-use and port
 	--    A signed integer guaranteed to be 32 bits on all platforms. Values of this
 	--    type can range from -2,147,483,648 to 2,147,483,647.
 
-	guint32: INTEGER_64 is
-			-- typedef unsigned int guint32;
+	--   guint32
 
-			--An unsigned integer guaranteed to be 32 bits on all
-			--platforms. Values of this type can range from 0 to
-			--4,294,967,295.
+	--  typedef unsigned int guint32;
 
-			-- TODO: Should be a NATURAL_32
-		do
-			-- empty by design
-		end
+	--    An unsigned integer guaranteed to be 32 bits on all platforms. Values of
+	--    this type can range from 0 to 4,294,967,295.
 
 	--   gint64
 
@@ -200,17 +212,12 @@ feature {} -- Basic Types: standard GLib types, defined for ease-of-use and port
 	--    type can range from -9,223,372,036,854,775,808 to
 	--    9,223,372,036,854,775,807.
 
-	guint64: INTEGER_64 is
-			--  G_GNUC_EXTENSION typedef unsigned long long guint64;
+	--   guint64
 
-			-- An unsigned integer guaranteed to be 64 bits on all
-			-- platforms. Values of this type can range from 0 to
-			-- 18,446,744,073,709,551,615.
+	--  G_GNUC_EXTENSION typedef unsigned long long guint64;
 
-			-- TODO: Should be a NATURAL_64
-		do
-			-- empty by design
-		end
+	--    An unsigned integer guaranteed to be 64 bits on all platforms. Values of
+	--    this type can range from 0 to 18,446,744,073,709,551,615.
 
 	--   G_GINT64_CONSTANT()
 
@@ -265,7 +272,7 @@ feature {} -- Basic Types: standard GLib types, defined for ease-of-use and port
 			-- Empty by design
 		end
 	
-feature {} -- Limits of Basic Types
+feature -- Limits of Basic Types
 	-- Limits of Basic Types:  portable method of determining the limits of the standard types.
 	
 -- #include <glib.h>
@@ -465,7 +472,5 @@ feature {} -- Limits of Basic Types
 -- #define G_MAXDOUBLE	DBL_MAX
 
 -- The maximum value which can be held in a gdouble.
-invariant
-	glong_is_32_bit: glong_size=4
 end
 	

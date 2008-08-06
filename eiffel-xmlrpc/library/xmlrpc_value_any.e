@@ -26,7 +26,8 @@ indexing
 class XMLRPC_VALUE_ANY
 
 inherit
-	SHARED_C_STRUCT redefine dispose end
+	C_STRUCT
+	MIXED_MEMORY_HANDLING 
 
 insert
 	XMLRPC_VALUE_EXTERNALS
@@ -58,7 +59,7 @@ feature {} -- Representation
 
 	value: XMLRPC_VALUE
 		-- This feature is needed to ensure correct garbage collection.
-		-- As this class (and all XMLRPC_VALUE_* classes) are SHARED_C_STRUCTs,
+		-- As this class (and all XMLRPC_VALUE_* classes) are C_STRUCTs,
 		-- we shouldn't release the XMLRPC_VALUE until all XMLRPC_VALUE_*s are
 		-- disposed.
 

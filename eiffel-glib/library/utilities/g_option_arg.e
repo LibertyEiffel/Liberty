@@ -26,7 +26,7 @@ expanded class G_OPTION_ARG
 	-- short option: -x arg, with a long option: --name arg or combined
 	-- in a single argument: --name=arg.
 
-insert ENUM redefine default_create end
+insert ENUM 
 
 creation default_create
 

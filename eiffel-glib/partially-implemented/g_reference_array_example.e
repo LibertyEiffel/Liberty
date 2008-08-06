@@ -6,7 +6,7 @@ indexing
 
 class G_REFERENCE_ARRAY_EXAMPLE
 
-creation  make
+creation make
 
 feature
 	array: G_REFERENCE_ARRAY[G_STRING]

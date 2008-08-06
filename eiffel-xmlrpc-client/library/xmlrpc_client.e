@@ -8,7 +8,7 @@ inherit
 insert
 	XMLRPC_CLIENT_EXTERNALS
 
-creation 
+creation
 	make
 
 feature {} -- Representation
@@ -25,7 +25,7 @@ feature {} -- Creation
 		end
 
 	make (flags: INTEGER; name, version: STRING;
-			client_parms: XMLRPC_CLIENT_PARMS) is
+	      client_parms: XMLRPC_CLIENT_PARMS) is
 			-- Current implementation ignores `client_parms' and uses a
 			-- null pointer instead.
 			
@@ -40,7 +40,7 @@ feature {} -- Creation
 			setup
 			if is_valid then
 				xmlrpc_client_create (env.handle, flags, name.to_external, version.to_external,
-											 default_pointer, 0, $res_ptr)
+				                      default_pointer, 0, $res_ptr)
 				check res_ptr.is_not_null end
 				from_external_pointer (res_ptr)
 			else
@@ -75,7 +75,7 @@ feature -- Representation
 feature -- Operations
 
 	call (server_info: XMLRPC_SERVER_INFO; method_name: STRING;
-			params: XMLRPC_VALUE_ARRAY): XMLRPC_VALUE is
+	      params: XMLRPC_VALUE_ARRAY): XMLRPC_VALUE is
 		require
 			server_info /= Void
 			method_name /= Void
@@ -84,7 +84,7 @@ feature -- Operations
 			res_ptr: POINTER
 		do
 			xmlrpc_client_call2 (env.handle, handle, server_info.handle,
-										method_name.to_external, params.handle, $res_ptr)
+			                     method_name.to_external, params.handle, $res_ptr)
 			create Result.from_external_pointer (res_ptr) -- XXX ver esto
 		end
 

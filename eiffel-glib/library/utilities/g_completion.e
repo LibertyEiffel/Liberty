@@ -41,7 +41,9 @@ class G_COMPLETION
 	-- to change the way in which strings are compared by setting a
 	-- different GCompletionStrncmpFunc in "g_completion_set_compare".
 
-inherit SHARED_C_STRUCT redefine default_create, dispose end 
+inherit 
+		C_STRUCT redefine default_create end 
+		EIFFEL_OWNED redefine default_create , dispose end
 
 insert G_COMPLETION_EXTERNALS redefine default_create end 
 

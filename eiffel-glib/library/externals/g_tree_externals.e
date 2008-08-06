@@ -23,6 +23,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 	
+	--g_tree_new_with_data (a_key_compare_data: POINTER): POINTER is
 	g_tree_new_with_data (a_key_compare_func,a_key_compare_data: POINTER): POINTER is
 			-- GTree* g_tree_new_with_data (GCompareDataFunc
 			-- key_compare_func, gpointer key_compare_data);

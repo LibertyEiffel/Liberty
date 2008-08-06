@@ -30,13 +30,15 @@ class G_OPTION_GROUP
 	-- holding their options, which the application can then add to its
 	-- GOptionContext.
 
-inherit SHARED_C_STRUCT redefine free end
+inherit 
+	C_STRUCT redefine free end
+	EIFFEL_OWNED redefine free end
 
 insert
 	SHARED_G_ERROR 
 	GLIB_COMMANDLINE_OPTION_PARSER_EXTERNALS
 
-creation  make, from_external_pointer
+creation make, from_external_pointer
 
 feature {} -- Creation
 	make (a_name, a_description, an_help_description: STRING) is
@@ -66,11 +68,11 @@ feature {} -- Creation
 		end
 
 	free (p: POINTER) is
-			-- Frees a GOptionGroup. 
 		do
+			-- Frees a GOptionGroup. 
 			-- Note that you must not free groups which have
 			-- been added to a GOptionContext.
-			g_option_group_free(handle)
+			-- g_option_group_free(handle)
 		end
 
 	add_entries (some_entries: C_ARRAY[G_OPTION_ENTRY]) is

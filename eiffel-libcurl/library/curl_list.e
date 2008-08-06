@@ -26,16 +26,15 @@ indexing
 class CURL_LIST
 
 inherit
-	C_STRUCT redefine from_external_pointer, free end
+	C_STRUCT undefine free redefine from_external_pointer end
+	EIFFEL_OWNED undefine free redefine from_external_pointer end
 
-insert
-	CURL_LIST_EXTERNALS
-		-- undefine copy, is_equal end
+insert CURL_LIST_EXTERNALS rename curl_slist_free_all as free end
 
-creation dummy,
+creation
 	null, from_external_pointer
 
-feature {} -- Size
+feature -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <curl/curl.h>"
@@ -54,19 +53,19 @@ feature {WRAPPER, WRAPPER_HANDLER}
 	from_external_pointer (a_ptr: POINTER) is
 		do
 			if a_ptr.is_not_null then
-				Precursor (a_ptr)
+				handle := a_ptr
 				is_valid := True
 			end
 		end
 
-feature {} -- Destruction
+	-- feature {} -- Destruction
 
-	free (a_ptr: POINTER) is
-			-- `free' removes all traces of a previously
-			-- built curl_slist linked list.
-		do
-			curl_slist_free_all (a_ptr)
-		end
+	--	free (a_ptr: POINTER) is
+	--			-- `free' removes all traces of a previously
+	--			-- built curl_slist linked list.
+	--		do
+	--			curl_slist_free_all (a_ptr)
+	--		end
 
 feature  -- Representation
 

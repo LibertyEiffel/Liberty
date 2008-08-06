@@ -1,7 +1,7 @@
 indexing
 	description: "."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, Glib developers
+					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -24,7 +24,11 @@ deferred class G_OPTION_ENTRY
 	-- must be added to a G_OPTION_GROUP with G_OPTION_CONTEXT's
 	-- `add_main_entries' or G_OPTION_GROUP's `add_entries'.
 
-inherit SHARED_C_STRUCT redefine fill_tagged_out_memory end
+inherit
+	C_STRUCT redefine fill_tagged_out_memory end
+	MIXED_MEMORY_HANDLING redefine fill_tagged_out_memory end
+
+insert G_OPTION_ARG_ENUM undefine fill_tagged_out_memory end
 
 feature {} -- Creation
 	make (a_long_name: STRING; a_short_name: CHARACTER; a_description: STRING) is
@@ -79,25 +83,24 @@ feature -- Queries
 		do
 			Result:=get_flags(handle)
 		end
+
 	
-	argument_type: G_OPTION_ARG is
-			-- The type of the option, as a GOptionArg.
-		do
-			Result.set_value(get_arg(handle))
-			--gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then
-			--arg_data must point to a GOptionArgFunc callback function, which
-			--will be called to handle the extra argument. Otherwise, arg_data
-			--is a pointer to a location to store the value, the required type
-			--of the location depends on the arg type:
-			
-			-- G_OPTION_ARG_NONE           gboolean
-			-- G_OPTION_ARG_STRING         gchar*
-			-- G_OPTION_ARG_INT            gint
-			-- G_OPTION_ARG_FILENAME       gchar*
-			-- G_OPTION_ARG_STRING_ARRAY   gchar**
-			-- G_OPTION_ARG_FILENAME_ARRAY gchar**
-			-- G_OPTION_ARG_DOUBLE         gdouble
-		end
+	-- GOptionArg arg; The type of the option, as a GOptionArg.
+	
+	--gpointer arg_data; If the arg type is G_OPTION_ARG_CALLBACK, then
+	--arg_data must point to a GOptionArgFunc callback function, which
+	--will be called to handle the extra argument. Otherwise, arg_data
+	--is a pointer to a location to store the value, the required type
+	--of the location depends on the arg type:
+	
+	-- G_OPTION_ARG_NONE           gboolean
+	-- G_OPTION_ARG_STRING         gchar*
+	-- G_OPTION_ARG_INT            gint
+	-- G_OPTION_ARG_FILENAME       gchar*
+	-- G_OPTION_ARG_STRING_ARRAY   gchar**
+	-- G_OPTION_ARG_FILENAME_ARRAY gchar**
+	-- G_OPTION_ARG_DOUBLE         gdouble
+	
 
 	description: STRING is
 			-- the description for the option in --help output.  The

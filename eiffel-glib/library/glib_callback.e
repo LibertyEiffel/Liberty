@@ -25,12 +25,6 @@ inherit
 	ANY
 	WRAPPER_HANDLER
 	
-feature {} -- Implementation
-	address_of_callback (an_address: POINTER): POINTER is
-			-- Workaround to store the address of an Eiffel function in 
-			-- a pointer attribute, to be invoked later by C. 
-		do
-			Result:=an_address
-		end
+feature {} -- Creation
 	
 end -- class GLIB_CALLBACK

@@ -1,94 +1,93 @@
 indexing
-	description: "Doubly-Linked Lists are linked lists containing integer values or pointers to data, with the ability to iterate over the list in both directions."
+	description: "The GList provides a standard singly-linked list data structure."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
+	date: "$Date:$"
+	revision: "$Revision:$"
 
-class G_LIST [ITEM->SHARED_C_STRUCT]
-	-- Doubly-Linked Lists, with the ability to iterate over the list
-	-- in both directions.
-
-	-- Add "require not is_freezed" where appropriated
+deferred class G_LIST [ITEM->C_STRUCT]
 inherit
 	WRAPPER_COLLECTION [ITEM]
+	C_STRUCT
+		undefine 
+			fill_tagged_out_memory
 		redefine
-			dispose,
-			append_collection, clear_all,
-			has, fast_has, swap
+			copy, from_external_pointer
 		end
 
-	FREEZABLE 
+insert
+	G_LIST_EXTERNALS undefine fill_tagged_out_memory end
 
-insert G_LIST_EXTERNALS undefine fill_tagged_out_memory end
+		-- To add elements, use g_slist_append(), g_slist_prepend(),
+		-- g_slist_insert() and g_slist_insert_sorted().
+	
+		-- To remove elements, use g_list_remove().
+	
+		-- To find elements in the list use g_list_last(),
+		-- g_list_next(), g_list_nth(), g_list_nth_data(), g_list_find()
+		-- and g_list_find_custom().
 
-creation  make, from_external
+		-- To find the index of an element use g_list_position() and
+		-- g_list_index().
+
+		-- To call a function for each element in the list use
+		-- g_list_foreach().
+
+		-- To free the entire list, use g_list_free().
 
 feature
-	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[ITEM]) is
-		require factory_not_void: a_factory/=Void
-		do
-			factory := a_factory
-			handle := a_pointer
-		end
 	
-	make (a_factory: WRAPPER_FACTORY[ITEM]) is
-		require factory_not_void: a_factory/=Void
+	make, empty is
 		do
+			create cache.make
+			-- There is no function to create a GList. NULL is considered
+			-- to be the empty list so you simply set a GList* to NULL.
+			
+			-- Note: a NULL pointer is the actual *valid* empty
+			-- G_LIST. Therefore any handle.is_not_null postcondition
+			-- shall be circumvented. 
+
+			-- Note that most of the GList functions expect to be passed
+			-- a pointer to the first element in the list. The functions
+			-- which insert elements return the new start of the list,
+			-- which may have changed.
 			handle := default_pointer
 		end
 
-	from_collection (model: TRAVERSABLE[ITEM]) is
-			-- Initialize the current object with the contents of `model'.
-		local iter: ITERATOR[ITEM]
+	from_external_pointer (a_ptr: POINTER) is
 		do
-			iter := model.get_new_iterator
-			from iter.start until iter.is_off loop
-				append(iter.item)
-				iter.next
-			end
+			create cache.make
+			Precursor(a_ptr)
 		end
 
 	first: ITEM is
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_get_data (handle)
-			if p.is_not_null then
-				Result := factory.wrapper(p)
-			end
-		ensure then 
-			container_sharedness_maintained: 
-				Result/=Void and then are_items_shared = Result.is_shared
+			if p.is_not_null then Result:=wrapper(p) end
 		end
 
 	last: like first is
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_get_data (g_list_last (handle))
-			if p.is_not_null then
-				Result := factory.wrapper(p)
-			end
-		ensure then 
-			container_sharedness_maintained: 
-				Result/=Void and then are_items_shared = Result.is_shared
+			if p.is_not_null then Result:=wrapper(p) end
 		end
 
 	item (i: INTEGER): like first is
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_nth_data (handle, i)
-			if p.is_not_null then Result::= factory.wrapper(p) end
-		ensure 
-			container_sharedness_maintained: 
-				Result/=Void and then are_items_shared = Result.is_shared
+			if p.is_not_null then Result:=wrapper(p) end
 		end
 
 	put (an_item: like first; i: INTEGER) is
-		require else thawed: not is_freezed
 		do
-			g_list_set_data (g_list_nth(handle,i), null_or(an_item))
+			g_list_set_data (g_list_nth(handle,i), an_item.handle)
+			cache.put(an_item, an_item.handle)
 		end
 
 	swap (i,j: INTEGER) is
-		require else thawed: not is_freezed
 		local ith,jth,tmp: POINTER
 		do
 			ith := g_list_nth_data (handle,i)
@@ -100,9 +99,9 @@ feature
 		end
 
 	set_all_with (v: like first) is
-		require thawed: not is_freezed
 		local ith:POINTER
 		do
+			cache.clear_count
 			from ith:=handle
 			until ith.is_null
 			loop
@@ -114,8 +113,8 @@ feature
 	clear_all is do not_yet_implemented end
 
 	add_first (element: like first) is
-		require thawed: not is_freezed
 		do
+			cache.put(element, element.handle)
 			handle := g_list_prepend (handle, element.handle)
 		end
 
@@ -125,59 +124,52 @@ feature
 			-- elements. A common idiom to avoid the inefficiency is to
 			-- prepend the elements and reverse the list when all
 			-- elements have been added.
-		require thawed: not is_freezed
 		do
 			handle := g_list_append (handle, element.handle)
 		end
 
 	add (element: like first; index: INTEGER) is
-		require else thawed: not is_freezed
 		do
-			handle := g_list_insert (handle, null_or(element), index-1)
+			handle := g_list_insert (handle, element.handle, index-1)
 		end
+
 	
 	append_collection (other: COLLECTION[ITEM]) is
-		require else thawed: not is_freezed		
 		do
-			not_yet_implemented -- TODO
+			other.do_all(agent add_last)
 		end
 
 	force (element: like first; index: INTEGER) is do not_yet_implemented end
 
-	remove_head (n: INTEGER) is
-		require else thawed: not is_freezed
-		local i: INTEGER
-		do
-			from i:=n until i=0 loop
-				remove_first
-				i := i - 1
-			end
-		end
-
 	remove_first is
-		require else thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle, handle)
 		end
 
 	remove (index: INTEGER) is
-		require else thawed: not is_freezed
 		do
 			handle:=g_list_delete_link (handle, g_list_nth_data (handle, index-1))
 		end
 
-	remove_tail (n: INTEGER) is
-		require else thawed: not is_freezed
+	remove_head (n: INTEGER) is
 		local i: INTEGER
 		do
-			from i:=n until i=0 loop
-				remove_last
-				i := i - 1
+			from i:=n until i>0 loop
+				handle:=g_list_delete_link(handle,handle)
+				i:=i-1
 			end
 		end
-	
-	remove_last is	
-		require else thawed: not is_freezed
+
+	remove_tail (n: INTEGER) is
+		local i: INTEGER
+		do
+			from i:=n until i=0 loop 
+				remove_last
+				i:=i-1
+			end
+		end
+
+	remove_last is
 		do
 			handle:=g_list_delete_link (handle,g_list_last (handle))
 		end
@@ -186,25 +178,26 @@ feature
 			-- Discard all items (is_empty is True after that call). Frees
 			-- all of the memory used by a GList. The freed elements are
 			-- added to the GAllocator free list.
-		require thawed: not is_freezed
 		do
 			g_list_free (handle)
 			handle := default_pointer
 		end
 
 	has (x: like first): BOOLEAN is
-			-- Look for x using is_equal for comparison. Note: current
-			-- implementation is just a copy of `fast_has'; try using
-			-- `fast_has' whenever possible since an implementation of
-			-- `has' that really uses `is_equal' will be quite slow.
+			-- Look for `x' using is_equal for comparison. 
+		local i: ITERATOR[ITEM]
 		do
-			Result:=fast_has(x)
+			from i:=get_new_iterator; i.start until Result=True or else i.is_off
+			loop 
+				Result := x.is_equal(i.item)
+				i.next
+			end
 		end
 	
 	fast_has (x: like first): BOOLEAN is
 			-- Look for x using basic = for comparison.
 		do
-			if (g_list_find(handle,null_or(x)).is_not_null)
+			if (g_list_find(handle,x.handle).is_not_null)
 			then Result:=True
 			else check Result=False end
 			end
@@ -215,7 +208,7 @@ feature
 			-- is_equal for comparison. Answer upper + 1 when element is
 			-- not inside.
 		do
-			Result:=g_list_index(handle,null_or(element))
+			Result:=g_list_index(handle,element.handle)
 		end
 
 	index_of (element: like first; start_index: INTEGER): INTEGER is
@@ -243,11 +236,6 @@ feature
 			-- the search fail.
 		do
 			not_yet_implemented -- TODO
-		end
-
-	is_equal (other: like Current): BOOLEAN is
-		do
-			not_yet_implemented
 		end
 
 	is_equal_map (other: like Current): BOOLEAN is
@@ -292,7 +280,7 @@ feature
 			not_yet_implemented -- TODO
 		end
 
-	slice (min, max: INTEGER): like Current is
+	slice (min, max: INTEGER): like Current is 
 		do
 			not_yet_implemented -- TODO
 		end
@@ -304,21 +292,16 @@ feature
 			handle:=g_list_reverse (old_handle)
 		end
 
-	count: INTEGER is
-		do
-			Result:=g_list_length(handle)
-		ensure then positive: Result >= 0
-		end
-
 	lower: INTEGER is 0
 
 	upper: INTEGER is
 		do
-			Result := g_list_length(handle)-1
-			-- Note: the "ensure positive: Result >= 0" postcondition
-			-- actually clashes with TRAVERSABLE definition of count,
-			-- having "ensure definition: Result = upper - lower + 1" as
-			-- a postcondition
+			Result:=count-1
+		end
+	
+	count: INTEGER is
+		do
+			Result:=g_list_length(handle)
 		end
 
 	is_empty: BOOLEAN is
@@ -326,54 +309,13 @@ feature
 			Result:= (handle.is_null)
 		end
 
+	from_collection (model: COLLECTION[ITEM]) is do not_yet_implemented end
+
 	get_new_iterator: ITERATOR[ITEM] is
 		do
 			create {ITERATOR_ON_G_LIST[ITEM]} Result.make (Current)
 		end
 
-	append (an_item: like first) is
-			-- Adds `an_item' on to the end of the list.
-
-			-- Note: `append' traverses the entire list to find the end,
-			-- which is inefficient when adding multiple elements. A
-			-- common idiom to avoid the inefficiency is to prepend the
-			-- elements and reverse the list when all elements have been
-			-- added.
-		do
-			handle:=g_list_append (handle, an_item.handle)
-		end
-
-	prepend  (an_item: like first) is
-			-- Adds a new element on to the start of the list.
-		require 
-			thawed: not is_freezed
-			valid_item: an_item/=Void
-		do
-			handle := g_list_prepend (handle,an_item.handle)
-		end
-
-
-
-	dispose is
-			-- Frees all of the memory used by a GList. The freed
-			-- elements are added to the GAllocator free list.
-		do
-			g_list_free (handle)
-			handle:= default_pointer
-		end
-
-feature -- struct size
-	struct_size: INTEGER is
-		external "C inline use <glib.h>"
-		alias "sizeof(GList)"
-		end
-
-	manifest_put (index: INTEGER_32; element: ITEM) is
-		do
-			put(element,index)
-		end
-
-feature {} -- Unwrapped code
 	-- Glib's doc, useful for implementing unimplemented
 	
 -- typedef struct {
@@ -390,6 +332,45 @@ feature {} -- Unwrapped code
 
 -- Allocates space for one GList element. It is called by the g_list_append(), g_list_prepend(), g_list_insert() and g_list_insert_sorted() functions and so is rarely used on its own.
 -- Returns : 	a pointer to the newly-allocated GList element.
+
+	append (an_item: like first) is
+			-- Adds `an_item' on to the end of the list.
+		do
+			handle:=g_list_append (handle, an_item.handle)
+
+			-- Note: The return value is the new start of the list, which may have changed, so make sure you store the new value.
+			
+			-- Note: g_list_append() has to traverse the entire list to
+			-- find the end, which is inefficient when adding multiple
+			-- elements. A common idiom to avoid the inefficiency is to
+			-- prepend the elements and reverse the list when all
+			-- elements have been added.
+
+			--   /* Notice that these are initialized to the empty list. */
+			--   GList *list = NULL, *number_list = NULL;
+			
+			--   /* This is a list of strings. */
+			--   list = g_list_append (list, "first");
+			--   list = g_list_append (list, "second");
+			
+			--   /* This is a list of integers. */
+			--   number_list = g_list_append (number_list, GINT_TO_POINTER (27));
+			--   number_list = g_list_append (number_list, GINT_TO_POINTER (14));
+		end
+
+	prepend  (an_item: like first) is
+			-- Adds a new element on to the start of the list.
+		require valid_item: an_item/=Void
+		do
+			handle := g_list_prepend (handle,an_item.handle)
+			-- Note: The return value is the new start of the list, which
+			-- may have changed, so make sure you store the new value.
+
+			-- /* Notice that it is initialized to the empty list. */
+			-- GList *list = NULL; list = g_list_prepend (list,
+			-- "last"); list = g_list_prepend (list, "first");
+		end
+
 
 -- g_list_insert ()
 
@@ -450,6 +431,14 @@ feature {} -- Unwrapped code
 -- list : 	a GList.
 -- data : 	data to remove.
 -- Returns : 	new head of list.
+
+	dispose is
+			-- Frees all of the memory used by a GList. The freed
+			-- elements are added to the GAllocator free list.
+		do
+			g_list_free (handle)
+			handle:= default_pointer
+		end
 
 -- g_list_free_1 ()
 
@@ -591,5 +580,17 @@ feature {} -- Unwrapped code
 -- Restores the previous GAllocator, used when allocating GList elements.
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
+
+
+	manifest_put (index: INTEGER; element: like item) is
+		do
+			put (element,index)
+		end
+
+feature -- struct size
+	struct_size: INTEGER is
+		external "C inline use <glib.h>"
+		alias "sizeof(GList)"
+		end
 
 end

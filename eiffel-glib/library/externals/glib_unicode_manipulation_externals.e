@@ -33,7 +33,7 @@ feature {} -- Unicode character size
 		
 			-- A type which can hold any UCS-4 character code.
 
-			-- TODO: should be a NATURAL_32
+			-- TODO: should ba a NATURAL_32
 		do
 			-- Empty by design
 		ensure correct_length: Result.object_size = 4
@@ -44,7 +44,7 @@ feature {} -- Unicode character size
 
 			-- A type which can hold any UTF-16 code point.
 
-			-- TODO: should be a NATURAL_16
+			-- TODO: should ba a NATURAL_16
 		do
 			-- Empty by design
 		ensure correct_length:  Result.object_size = 2
@@ -184,7 +184,7 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_unichar_get_mirror_char (a_ch: like gunichar; a_mirrored_ch: POINTER): INTEGER is
+	g_unichar_get_mirror_char (a_ch: like gunichar; a_mirrored_ch: POITNER): INTEGER is
 			-- gboolean g_unichar_get_mirror_char (gunichar ch, gunichar
 			-- *mirrored_ch);
 		external "C use <glib.h>"

@@ -39,12 +39,12 @@ class G_PATTERN
 	-- avoids the overhead of repeated pattern compilation.
 
 inherit
-	SHARED_C_STRUCT
-		redefine
-			is_equal, free
-		end
+		C_STRUCT redefine is_equal, free end
+		EIFFEL_OWNED redefine free end
 
-creation  make, from_external_pointer
+creation make
+
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature {} -- Creation
 
@@ -137,14 +137,6 @@ feature
 			Result:=g_pattern_match_simple(a_pattern.to_external, a_string.to_external).to_boolean
 		end
 
-feature {} -- Memory handling
-	
-	free (a_pointer: POINTER) is
-			-- Frees the memory allocated for the GPatternSpec.
-		do
-			g_pattern_spec_free(a_pointer)
-		end
-
 feature {} -- External calls
 
 	g_pattern_spec_new (a_pattern: POINTER): POINTER is
@@ -152,9 +144,10 @@ feature {} -- External calls
 		external "C use <glib.h>"
 		end
 
-	g_pattern_spec_free (a_pattern: POINTER) is
+	free (a_pattern: POINTER) is
 			--  void g_pattern_spec_free (GPatternSpec *pspec);
 		external "C use <glib.h>"
+		alias "g_pattern_spec_free"
 		end
 
 	g_pattern_spec_equal (a_pspec1,a_pspec2: POINTER): INTEGER is

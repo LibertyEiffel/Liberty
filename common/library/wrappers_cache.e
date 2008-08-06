@@ -1,8 +1,7 @@
 indexing
-	description: "XMLRPC value bool"
+	description: "."
 	copyright: "[
-					Author: Natalia B. Bidart
-					Copyright (C) 2006 Soluciones Informaticas Libres S.A. (Except)
+					Copyright (C) 2008 Paolo Redaelli
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
@@ -18,37 +17,23 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-				]"
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision "$Revision:$"
+			]"
 
-class XMLRPC_VALUE_BOOL
+deferred class WRAPPERS_CACHE [ITEM->C_STRUCT]
+	-- A cache for other wrapper.
 
-inherit
-	XMLRPC_VALUE_ANY
+inherit WRAPPER_HANDLER
 
-creation make, from_value
+-- insert ANY undefine copy, is_equal, fill_tagged_out_memory end
 
-feature {} -- Creation
+feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
+	cache: HASHED_DICTIONARY [ITEM, POINTER]
+			-- Dictionary storing wrappers; Key is the address (pointer)
+			-- to the wrapped C structure, value is the corresponding
+			-- Eiffel wrapper. This way you can get back an
+			-- already-created Eiffel wrapper. Heirs of SHARED_C_STRUCT,
+			-- i.e. G_OBJECT could provide alternative implementation
+			-- that will not rely on this dictionary.
 
-	make (a_bool: BOOLEAN) is
-		local
-			res_ptr: POINTER
-		do
-			create env.make
-			res_ptr := xmlrpc_int_new (env.handle, a_bool.to_integer)
-			if is_valid then
-				check res_ptr.is_not_null end
-				from_external_pointer (res_ptr)
-			end
-		end
+end -- class WRAPPERS_CACHE
 
-feature -- Operations
-
-	read: BOOLEAN is
-		do
-			xmlrpc_read_bool (env.handle, handle, $Result)
-		end
-
-end -- class XMLRPC_VALUE_BOOL

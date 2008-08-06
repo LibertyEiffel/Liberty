@@ -5,76 +5,96 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class G_SLIST [ITEM->SHARED_C_STRUCT]
-	-- A standard singly-linked list data structure for wrapped object.
-
-	-- TODO: add "require not is_freezed" where appropriated
-inherit
-	WRAPPER_COLLECTION [ITEM]
-		redefine
-			append_collection, clear_all, dispose, 
-			has, fast_has, swap
-		end
-	FREEZABLE
-
-insert G_SLIST_EXTERNALS  
-
-creation  from_external, make
-
-feature {WRAPPER, WRAPPER_HANDLER} -- Creation
-	from_external (a_pointer: POINTER; a_factory: WRAPPER_FACTORY[ITEM]) is
-		require factory_not_void: a_factory/=Void
-		do
-			factory := a_factory
-			handle := a_pointer
-		end
+deferred class G_SLIST [ITEM->C_STRUCT]
+	-- A singly-linked list data structure.
 	
+	-- To add elements, use `add_last', `append', `add_first', `prepend',
+	-- `add' and (TODO `insert_sorted').
+
+	-- To remove elements, use `remove', `remove_first' and `remove_last'.
+
+	-- To find elements in the list use `last', (TODO: `next'), 
+	-- `item', `fast_has' (PS: `has' calls `fast_has' in turn), `first_index_of'.
+
+	-- To find the index of an element use TODO: g_slist_position() and
+	-- g_slist_index().
+	
+	-- TODO: To call a function for each element in the list use
+	-- g_slist_foreach().
+	
+	-- To free the entire list, use g_slist_free().
+
+inherit
+	WRAPPER_COLLECTION[ITEM]
+	C_STRUCT
+		undefine 
+			fill_tagged_out_memory
+		redefine
+			copy, from_external_pointer
+		end
+
+insert
+	G_SLIST_EXTERNALS 
+		undefine
+			fill_tagged_out_memory
+		end
+
 feature
-	make (a_factory: WRAPPER_FACTORY[ITEM]) is
-		require factory_not_void: a_factory/=Void
+	-- At C level a NULL pointer is considered to be the empty list so
+	-- you simply set a GSList* to NULL.
+
+	-- Note that most of the low-level C GSList functions expect to be
+	-- passed a pointer to the first element in the list. The functions
+	-- which insert elements return the new start of the list, which
+	-- may have changed.
+
+	make, empty, make_empty is
 		do
-			factory := a_factory
+			print_all_run_time_stacks
+			create cache.make
 			handle := default_pointer
 		end
 
-	first: ITEM is
-		local p: POINTER
+	from_external_pointer (a_ptr: POINTER) is
 		do
-			p := g_slist_get_data (handle)
-			if p.is_not_null then Result:=factory.wrapper(p) end
-		ensure then 
-			container_sharedness_maintained: 
-				Result/=Void and then are_items_shared = Result.is_shared
+			print_all_run_time_stacks
+			create cache.make
+			Precursor(a_ptr)
+		end
+
+	first: ITEM is
+		local p: POINTER -- Item Pointer
+		do
+			p:=g_slist_get_data (handle)
+			if p.is_not_null then Result := wrapper(p) end
 		end
 
 	last: like first is
-		local p: POINTER
+		require else not_empty: not is_empty
+		local p: POINTER -- Item Pointer
 		do
-			p := g_slist_last(handle)
-			if p.is_not_null then Result:=factory.wrapper(p) end
-		ensure then 
-			container_sharedness_maintained: 
-				Result/=Void and then are_items_shared = Result.is_shared
+			p:=g_slist_get_data (g_slist_last (handle))
+			if p.is_not_null then  Result:=wrapper(p) end
 		end
 
 	item (i: INTEGER): like first is
-		local p: POINTER
+		local p: POINTER -- Item Pointer
 		do
-			p := g_slist_nth_data (handle, i-1)
-			if p.is_not_null then Result:=factory.wrapper(p) end
-		ensure 
-			container_sharedness_maintained: 
-				Result/=Void and then are_items_shared = Result.is_shared
+			p:=g_slist_nth_data (handle, i)
+			if p.is_not_null then Result:=wrapper(p) end
 		end
 
 	put (an_item: like first; i: INTEGER) is
-		require else thawed: not is_freezed
+		require else 
+			valid_item: an_item/=Void 
 		do
-			g_slist_set_data (g_slist_nth(handle,i),null_or(an_item))
+			g_slist_set_data (g_slist_nth(handle,i), an_item.handle)
+			cache.put(an_item, an_item.handle)
 		end
+	
+	slice (min, max: INTEGER): like Current is do not_yet_implemented end
 
-	swap (i,j: INTEGER) is	
-		require else thawed: not is_freezed
+	swap (i,j: INTEGER) is
 		local ith,jth,tmp: POINTER
 		do
 			ith := g_slist_nth_data (handle,i)
@@ -86,9 +106,10 @@ feature
 		end
 
 	set_all_with (v: like first) is
-		require thawed: not is_freezed
 		local ith:POINTER
 		do
+			cache.clear_count
+			cache.put(v,v.handle)
 			from ith:=handle
 			until ith.is_null
 			loop
@@ -101,13 +122,17 @@ feature
 
 	add_first,prepend (an_item: like first) is
 			-- Adds `an_item' on to the start of the list.
-		require thawed: not is_freezed
+		require
+			valid_item: an_item/=Void
 		do
-			handle := g_slist_prepend (handle, null_or(an_item))
-			-- Note: The return value of g_slist_prepend is the new start
-			-- of the list, which may have changed, so make sure you
-			-- store the new value.
+			cache.put(an_item,an_item.handle)
+			handle := g_slist_prepend (handle, an_item.handle)
+			-- Note: The return value is the new start of the list, which
+			-- may have changed, so make sure you store the new value.
 
+			-- /* Notice that it is initialized to the empty list. */
+			-- GSList *list = NULL; list = g_slist_prepend (list,
+			-- "last"); list = g_slist_prepend (list, "first");
 		end
 
 	add_last, append (an_item: like first) is
@@ -116,68 +141,60 @@ feature
 			-- which is inefficient when adding multiple elements. A
 			-- common idiom to avoid the inefficiency is to prepend the
 			-- elements and reverse the list when all elements have been
-			-- added.	
-		require thawed: not is_freezed
+			-- added.
+		require
+			valid_item: an_item/=Void
 		do
-			handle:=g_slist_append (handle, null_or(an_item))
+			cache.put(an_item,an_item.handle)
+			handle:=g_slist_append (handle, an_item.handle)
 
 			-- Note: The return value is the new start of the list, which
 			-- may have changed, so make sure you store the new value.
 		end
 
 	add (element: like first; index: INTEGER) is
-		require else thawed: not is_freezed
 		do
+			cache.put(element,element.handle)
 			handle := g_slist_insert (handle, element.handle, index-1)
 		end
 	
 	append_collection (other: COLLECTION[ITEM]) is
-		require else thawed: not is_freezed
 		do
 			not_yet_implemented -- TODO
 		end
 
-	force (element: like first; index: INTEGER) is 
-		require else thawed: not is_freezed
-		do
-			not_yet_implemented 
-		end
-
-	remove_head (n: INTEGER) is
-		require else thawed: not is_freezed
-		local i: INTEGER
-		do
-			from i:=n until i=0 loop
-				remove_first
-				i := i - 1
-			end
-		end
+	force (element: like first; index: INTEGER) is do not_yet_implemented end
 
 	remove_first is
-		require else thawed: not is_freezed
 		do
+			-- TODO : update cache
 			handle:=g_slist_delete_link (handle, handle)
 		end
 
 	remove (index: INTEGER) is
-		require else thawed: not is_freezed
 		do
 			handle:=g_slist_delete_link (handle,
 												  g_slist_nth_data (handle, index-1))
 		end
 
-	remove_tail (n: INTEGER) is
-		require else thawed: not is_freezed
+	remove_head (n: INTEGER) is
 		local i: INTEGER
 		do
-			from i:=n until i=0 loop
-				remove_last
-				i := i - 1
+			from i:=n until i>0 loop
+				handle:=g_slist_delete_link(handle,handle)
+				i:=i-1
 			end
 		end
-	
+
+	remove_tail (n: INTEGER) is
+		local i: INTEGER
+		do
+			reverse
+			remove_head(n)
+			reverse
+		end
+
 	remove_last is
-		require else thawed: not is_freezed
 		do
 			handle:=g_slist_delete_link (handle,g_slist_last (handle))
 		end
@@ -186,7 +203,6 @@ feature
 			-- Discard all items (is_empty is True after that call). Frees
 			-- all of the memory used by a GSList. The freed elements are
 			-- added to the GAllocator free list.
-		require thawed: not is_freezed
 		do
 			g_slist_free (handle)
 			handle := default_pointer 
@@ -218,9 +234,9 @@ feature
 			Result:=g_slist_index(handle,element.handle)
 		end
 
-	index_of (element: like first; start_index:INTEGER): INTEGER is
+	index_of (element: like first;  start_index: INTEGER ): INTEGER is
 		do
-			Result:=first_index_of(element)
+			Result:= g_slist_index(g_slist_nth(handle,start_index),element.handle)
 		end
 
 	reverse_index_of (element: like first; start_index: INTEGER): INTEGER is do not_yet_implemented end
@@ -243,11 +259,6 @@ feature
 			-- the search fail.
 		do
 			not_yet_implemented -- TODO
-		end
-
-	is_equal (other: like Current): BOOLEAN is
-		do
-			not_yet_implemented
 		end
 
 	is_equal_map (other: like Current): BOOLEAN is
@@ -283,45 +294,34 @@ feature
 	
 
 	replace_all (old_value, new_value: like first) is 
-		require thawed: not is_freezed
 		do
 			not_yet_implemented -- TODO
 		end
 
 	fast_replace_all (old_value, new_value: like first) is 
-		require thawed: not is_freezed
-		do
-			not_yet_implemented -- TODO
-		end
-
-	slice (min, max: INTEGER): like Current is
 		do
 			not_yet_implemented -- TODO
 		end
 
 	reverse is
-		require thawed: not is_freezed
 		local old_handle: POINTER
 		do
 			old_handle := handle
 			handle:=g_slist_reverse (handle)
-			-- g_slist_free (handle) -- TODO is this call correct?
+			g_slist_free (handle) -- TODO is this call correct?
 		end
 	
-	count: INTEGER is 
-		do
-			if is_empty then Result:=0 
-			else Result:=g_slist_length(handle)
-			end
-		ensure then positive: Result >= 0
-		end
-
 	lower: INTEGER is 0
 
 	upper: INTEGER is
 		do
-			Result:=g_slist_length(handle)-1
-		ensure non_empty_implies_non_negative: not is_empty implies Result >= 0
+			Result:=count-1
+		end
+	
+	count: INTEGER is 
+		do
+			Result:=g_slist_length(handle)
+			--	ensure positive: Result >= 0 
 		end
 
 	is_empty: BOOLEAN is 
@@ -329,8 +329,7 @@ feature
 			Result:= (handle.is_null)
 		end
 	
-	from_collection (model: TRAVERSABLE[ITEM]) is
-		require else thawed: not is_freezed
+	from_collection (model: COLLECTION[ITEM]) is
 		local i: ITERATOR[ITEM]
 		do
 			from i:=model.get_new_iterator; i.start
@@ -346,13 +345,16 @@ feature
 		end
 
 feature -- Memory management
+
 	dispose is
 		do
-			g_slist_free(handle)
-			handle := default_pointer
+			-- We override the default dispose routine; list nodes are not
+			-- allocated with malloc() so we should not use free()
+			g_slist_free (handle)
+			handle:= default_pointer
 		end
 
-feature {}	-- Glib's doc, useful for implementing unimplemented
+	-- Glib's doc, useful for implementing unimplemented
 	
 -- typedef struct {
 --   gpointer data;
@@ -576,16 +578,17 @@ feature {}	-- Glib's doc, useful for implementing unimplemented
 
 -- Note that this function is not available if GLib has been compiled with --disable-mem-pools
 
+	manifest_put (index: INTEGER; element: like item) is
+		do
+			put (element,index)
+		end
+
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"
 		alias "sizeof(GSList)"
 		end
 
-	manifest_put (index: INTEGER_32; element: ITEM) is
-		do
-			put(element,index)
-		end
 end
 
 

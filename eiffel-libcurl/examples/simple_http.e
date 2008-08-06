@@ -28,7 +28,7 @@ class SIMPLE_HTTP
 inherit
 	CURL_EXAMPLE redefine make end
 
-creation dummy,
+creation
 	make
 
 feature {} -- Creation

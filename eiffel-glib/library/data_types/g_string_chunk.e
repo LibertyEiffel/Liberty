@@ -26,7 +26,9 @@ class G_STRING_CHUNK
 	-- strings which are already in the GStringChunk, use
 	-- g_string_chunk_insert_const().
 
-inherit SHARED_C_STRUCT
+inherit 
+	C_STRUCT
+	EIFFEL_OWNED
 
 insert GLIB_STRING_CHUNK_EXTERNALS
 	

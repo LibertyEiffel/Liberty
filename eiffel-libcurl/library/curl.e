@@ -26,17 +26,17 @@ indexing
 class CURL
 
 inherit
-	C_STRUCT redefine dispose end
+	C_STRUCT 
 	STREAM_HANDLER
 		undefine copy, is_equal end
 
 insert
 	CURL_EXTERNALS
 		
-creation dummy,
+creation
 	make
 
-feature {} -- Size
+feature -- Size
 
 	struct_size: INTEGER is
 		external "C inline use <curl/curl.h>"
