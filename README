@@ -17,6 +17,9 @@ Some of the libraries that shall be wrapped are:
 * Curl: A full featured HTTP client library
 
 * This is an interesting proejct to follow http://www.clutter-project.org/
+* libsigsegv - Handling page faults in user mode http://www.gnu.org/software/libsigsegv/
+* ColdStore http://coldstore.sourceforge.net/
+* http://www.db4o.com/
 
 USAGE:
 
