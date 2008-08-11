@@ -17,7 +17,7 @@ inherit
 insert
 	GSL_MATRIX_GENERAL[REAL_64]
 
-creation dummy, make, make_zero, make_identity, from_model, from_collection2, manifest_creation
+creation make, make_zero, make_identity, from_model, from_collection2, manifest_creation
 
 feature
 	get_column (i: INTEGER_32): GSL_VECTOR_REAL_64 is

@@ -21,13 +21,16 @@ indexing
    
 deferred class GSL_COMPLEX_GENERAL[TYPE_->COMPARABLE]
 
-inherit C_STRUCT
+inherit
+	C_STRUCT
 		export {GSL_COMPLEX_GENERAL}
 			struct_size
 		redefine
 			out, copy, is_equal
 		end
 	
+		EIFFEL_OWNED undefine out end 
+
 feature {} -- Creating
 	make_rect (a, b: TYPE_) is
 			-- Creates complex number with value (a + bi)
