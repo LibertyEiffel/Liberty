@@ -11,29 +11,37 @@ feature -- Auxiliary features
 		end
 
 	eiffel_class_name (a_name: STRING): STRING is
-			-- Translate `a_name' from CamelCase into CAMEL_CASE
+			-- Translate `a_name' from CamelCase into CAMEL_CASE; dashes are
+			-- converted to underscore 
 		require name_not_void: a_name/=Void
 		do
 			create Result.copy(a_name)
 			eiffellizer.substitute_all_in(Result)
+			Result.replace_all('-','_')
 			Result.to_upper
 		end
-	
+
 	eiffel_argument (a_name: STRING): STRING is
-			-- Translate `a_name' content into a proper argument
-			-- placeholder. "CamelCase" is translated into
-			-- "a_camel_case", "ENOO" is translated into "an_enoo".
-		require name_not_void: a_name/=Void
-		do
-			create Result.copy(a_name)
-			eiffellizer.substitute_all_in(Result)
-			Result.to_lower
-			inspect Result.first 
-			when 'a', 'e', 'o', 'i', 'u' then Result.prepend(once "an_") 
-			else Result.prepend(once "a_") 
-			end
-			Result:=adapt(Result)
+		-- Translate `a_name' content into a proper argument placeholder.
+		-- "CamelCase" is translated into "a_camel_case", "ENOO" is translated
+		-- into "an_enoo". Eventual underscores in front of `a_name' are
+		-- removed: "__foo" becomes "a_foo"
+	require name_not_void: a_name/=Void
+	do
+		create Result.copy(a_name)
+		-- Remove header underscores.
+		from until Result.first/='_' 
+		loop Result.remove_first 
 		end
+		eiffellizer.substitute_all_in(Result)
+		Result.to_lower
+		
+		inspect Result.first 
+		when 'a', 'e', 'o', 'i', 'u' then Result.prepend(once "an_") 
+		else Result.prepend(once "a_") 
+		end
+		Result:=adapt(Result)
+	end
 
 	eiffellizer: REGULAR_EXPRESSION is
 			-- Translate CamelCase into Camel_Case
