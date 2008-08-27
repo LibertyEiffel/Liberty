@@ -1,54 +1,33 @@
-indexing
-	description: "Access to GdaNumeric C structure"
-	copyright: "(C) 2006 Paolo Redaelli "
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
+-- This file have been created by eiffel-gcc-xml.
+-- Any change will be lost by the next execution of the tool.
 deferred class GDA_NUMERIC_STRUCT
 
 inherit ANY undefine is_equal, copy end
 
+feature {} -- Low-level setters
+	low_level_set_number (a_structure: POINTER; a_value: POINTER) is
+		external "C struct GdaNumeric set number use <libgda/libgda.h>"
+		end
 
-feature {} -- Structure getter/setter calls
---  typedef struct {
---          gchar *number;
---          glong precision;
---          glong width;
---  } GdaNumeric;
+	low_level_set_precision (a_structure: POINTER; a_value: INTEGER_32) is
+		external "C struct GdaNumeric set precision use <libgda/libgda.h>"
+		end
 
---          gchar *number;
--- 	get_$field (a_struct: POINTER): $type is
--- 		external "C struct $struct get $field use <libgda/libgda.h>"
--- 		end
+	low_level_set_width (a_structure: POINTER; a_value: INTEGER_32) is
+		external "C struct GdaNumeric set width use <libgda/libgda.h>"
+		end
 
--- 	set_$field (a_struct: POINTER; a_$field: $type) is
--- 		external "C struct $struct set $field use <libgda/libgda.h>"
--- 		end
+feature {} -- Low-level queries
+	get_number (a_structure: POINTER): POINTER is
+		external "C struct GdaNumeric get number use <libgda/libgda.h>"
+		end
 
--- --          glong precision;
--- 	get_$field (a_struct: POINTER): $type is
--- 		external "C struct $struct get $field use <libgda/libgda.h>"
--- 		end
+	get_precision (a_structure: POINTER): INTEGER_32 is
+		external "C struct GdaNumeric get precision use <libgda/libgda.h>"
+		end
 
--- 	set_$field (a_struct: POINTER; a_$field: $type) is
--- 		external "C struct $struct set $field use <libgda/libgda.h>"
--- 		end
-
--- --          glong width;
--- 	get_$field (a_struct: POINTER): $type is
--- 		external "C struct $struct get $field use <libgda/libgda.h>"
--- 		end
-
--- 	set_$field (a_struct: POINTER; a_$field: $type) is
--- 		external "C struct $struct set $field use <libgda/libgda.h>"
--- 		end
-
-feature {} -- size
-
-	struct_size: INTEGER is
-		external "C inline use <libgda/libgda.h>"
-		alias "sizeof(GdaNumeric)"
+	get_width (a_structure: POINTER): INTEGER_32 is
+		external "C struct GdaNumeric get width use <libgda/libgda.h>"
 		end
 
 end

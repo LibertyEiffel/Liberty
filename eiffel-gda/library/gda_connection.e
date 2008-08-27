@@ -1,14 +1,14 @@
 indexing
-	description: "GdaConnection -- Management of connections to data sources."
+	description: "."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli, GDA team
+					Copyright (C) 2007 $EWLC_developer, $original_copyright_holder
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License
 					as published by the Free Software Foundation; either version 2.1 of
 					the License, or (at your option) any later version.
 					
-					This library is distributed in the hope that it will be useful, but
+					This library is distributed in the hopeOA that it will be useful, but
 					WITHOUT ANY WARRANTY; without even the implied warranty of
 					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 					Lesser General Public License for more details.
@@ -17,755 +17,972 @@ indexing
 					License along with this library; if not, write to the Free Software
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
-					]"
+			]"
 
-	wrapped_version: "3.0.1"
+	wrapped_version: "3.0.2"
 
 class GDA_CONNECTION
-	-- The GdaConnection class offers access to all operations
-	-- involving an opened connection to a database. GdaConnection
-	-- objects are obtained via the GdaClient class.
+	-- Management of connections to data sources
+
+	-- The GdaConnection class offers access to all operations involving an
+	-- opened connection to a database. GdaConnection objects are obtained via
+	-- the GdaClient class.
 	
-	-- Once obtained, applications can use GdaConnection to execute
-	-- commands, run transactions, and get information about all
-	-- objects stored in the underlying database.
-	
+	-- Once obtained, applications can use GdaConnection to execute commands,
+	-- run transactions, and get information about all objects stored in the
+	-- underlying database.
+
 inherit
 	G_OBJECT
-		redefine
-			fill_tagged_out_memory
-		end
 
-insert 
-	SHARED_G_ERROR
+insert
 	GDA_CONNECTION_EXTERNALS
-		undefine
-			fill_tagged_out_memory
-		end
-	GDA_CONVENIENT_FUNCTIONS_EXTERNALS
 
-	GDA_CONNECTION_FEATURE_ENUM
-	GDA_CONNECTION_OPTIONS_ENUM
+creation from_external_pointer
 
-creation dummy, from_external_pointer
+feature {} -- Creation
 
-feature {} -- Creation	
-
-	-- TODO: if ever necessary  gda_connection_new ()
-
-	--  GdaConnection* gda_connection_new           (GdaClient *client,
-	--                                               GdaServerProvider *provider,
-	--                                               const gchar *dsn,
-	--                                               const gchar *username,
-	--                                               const gchar *password,
-	--                                               guint options);
-
-	--    This function creates a new GdaConnection object. It is not intended to be
-	--    used directly by applications (use gda_client_open_connection instead).
-
-	--    The connection is not opened at this stage; use gda_connection_open() to
-	--    open the connection.
-
-	--    client :   a GdaClient object.
-	--    provider : a GdaServerProvider object.
-	--    dsn :      GDA data source to connect to.
-	--    username : user name to use to connect.
-	--    password : password for username.
-	--    options :  options for the connection.
-	--    Returns :  a newly allocated GdaConnection object.
-
-feature 
-	open is
-			-- Tries to open the connection.
-			-- `is_successful' will be True if the connection is opened, and False 
-			-- otherwise. `error' will be updated as necessary
-		do
-			is_successful := (gda_connection_open
-									(handle, address_of(error.handle)).to_boolean)
-		end
-
-	close is
-			-- Closes the connection to the underlying data source, but
-			-- first emits the "conn_to_close" signal.
-		do
-			gda_connection_close(handle)
-		end
-
-
-	close_no_warning is
-			-- Closes the connection to the underlying data source,
-			-- without emiting any warning signal.
-		do
-			gda_connection_close_no_warning (handle)
-		end
-	
-	is_opened: BOOLEAN is
-			-- Is the connection opened?
-		do
-			Result := (gda_connection_is_opened(handle).to_boolean)
-		end
-
-	client: GDA_CLIENT is
-			-- the GdaClient object associated with a connection. This is
-			-- always the client that created the connection, as returned
-			-- by GDA_CLIENT `open_connection'.
-		local factory: G_OBJECT_EXPANDED_FACTORY [GDA_CLIENT]
-		do
-			Result := (factory.wrapper(gda_connection_get_client (handle)))
-		ensure not_void: Result /= Void
-		end
-
-		
-	set_client (a_client: GDA_CLIENT) is
-			-- Associates 'a_client' with this connection. This feature
-			-- is not intended to be called by applications.
-		require client_not_void: a_client /= Void
-		do
-			smart_set_property (client_parameter_spec,
-									  create {G_VALUE}.from_object(a_client))
-		end
-
-	options: INTEGER is
-			-- the GdaConnectionOptions used to open this connection.
-		do
-			Result := gda_connection_get_options (handle)
-		ensure are_valid_connection_option (Result)
-		end
-
-	-- TODO: set_options
-	
-	--   gda_connection_get_provider_obj ()
-
-	--  GdaServerProvider* gda_connection_get_provider_obj
-	--                                              (GdaConnection *cnc);
-
-	--    Get a pointer to the GdaServerProvider object used to access the database
-
-	--    cnc :     a GdaConnection object
-	--    Returns : the GdaServerProvider (NEVER NULL)
-
-	--    --------------------------------------------------------------------------
-
-	--   gda_connection_get_infos ()
-
-	--  GdaServerProviderInfo* gda_connection_get_infos
-	--                                              (GdaConnection *cnc);
-
-	--    Get a pointer to a GdaServerProviderInfo structure (which must not be
-	--    modified) to retreive specific information about the provider used by cnc.
-
-	--    cnc :     a GdaConnection object
-	--    Returns :
-
-	--    --------------------------------------------------------------------------
-
-	server_version: STRING is
-			--  the version string of the underlying database server.
-		do
-			create {CONST_STRING} Result.from_external (gda_connection_get_server_version(handle))
-		ensure not_void: Result /= Void
-		end
-
-	database: STRING is
-			-- the name of the currently active database
-		do
-			create {CONST_STRING} Result.from_external (gda_connection_get_database(handle))
-		ensure not_void: Result /= Void
-		end
-
-
-	set_dsn (a_datasource: STRING) is
-			-- Sets the data source of the connection. If the connection
-			-- is already opened, then no action is performed at all and
-			-- `is_successful' will be set to False.
-		
-			-- If the requested datasource does not exist, then nothing
-			-- is done and `is_successful' will be False.
-		require 
-			dsn_not_void: a_datasource /= Void
-		do
-			is_successful := (gda_connection_set_dsn
-									(handle, a_datasource.to_external)).to_boolean
-		end
-	
-	dsn: STRING is
-			--  the data source name the connection object is connected to.
-		do
-			create {CONST_STRING} Result.from_external (gda_connection_get_dsn(handle))
-		ensure
-			not_void: Result /= Void
-		end
-
-	connection_string: STRING is
-			-- the connection string used to open this connection. The
-			-- connection string is the string sent over to the
-			-- underlying database provider, which describes the
-			-- parameters to be used to open a connection on the
-			-- underlying data source.
-		do
-			create {CONST_STRING} Result.from_external (gda_connection_get_cnc_string(handle))
-		ensure not_void: Result /= Void
-		end
-
-	-- TODO set_connection_string
-	
-	provider: STRING is
-			-- the provider id that this connection is connected to.
-		do
-			create {CONST_STRING} Result.from_external (gda_connection_get_provider(handle))
-		ensure not_void: Result /= Void
-		end
-
-	-- TODO: set_provider
-	
-	set_username (a_username: STRING) is
-			-- Sets the user name for the connection. If the connection
-			-- is already opened, then no action is performed at all and
-			-- `is_successful' will be False.
-		require
-			username_not_void: a_username /= Void
-		do
-			is_successful:=(gda_connection_set_username
-								  (handle, a_username.to_external)).to_boolean
-		end
-
-	username: STRING is
-			-- the user name used to open this connection.
-		local
-			ptr: POINTER
-		do
-			ptr := gda_connection_get_username(handle)
-			if ptr.is_not_null then
-				create {CONST_STRING} Result.from_external (ptr)
-			end
-		end
-
-	set_password (a_password: STRING) is
-			-- Sets the user password for the connection to the
-			-- server. If the connection is already opened, then no
-			-- action is performed at all and `is_successful' will be False.
-		require
-			password_not_void: a_password /= Void
-		do
-			is_successful := (gda_connection_set_password
-									 (handle, a_password.to_external)).to_boolean
-		end
-
-	password: STRING is
-			-- the password used to open this connection.
-		do
-			create {CONST_STRING} Result.from_external (gda_connection_get_password(handle))
-		ensure not_void: Result /= Void
-		end
-
-feature -- Events handling
-	add_event (an_error: GDA_CONNECTION_EVENT) is
-			-- Adds `an_event' to the given connection. This function is
-			-- usually called by providers, to inform clients of events
-			-- that happened during some operation.
-		
-			-- As soon as a provider (or a client, it does not matter)
-			-- calls this function with an event object which is an
-			-- error, the connection object (and the associated GdaClient
-			-- object) emits the "error" signal, to which clients can
-			-- connect to be informed of events.
-		do
-			gda_connection_add_event(handle, an_error.handle)
-			-- WARNING: the reference to the event object is stolen by
-			-- this function!
-		end	
-
-	add_events (a_list: G_LIST[GDA_CONNECTION_EVENT]) is
-			-- A convenience function which lets you add a list of
-			-- GdaConnectionEvent's to the Current connection. As with
-			-- `add_event', this function makes the connection object
-			-- emit the "error" signal for each error event.
-		require list_not_void: a_list/=Void
-		do
-			gda_connection_add_events_list(handle,a_list.handle)
-		end
-
-	events: G_OBJECT_LIST[GDA_CONNECTION_EVENT] is
-	--    Retrieves a list of the last errors occurred in the connection. You can
-	--    make a copy of the list using gda_connection_event_list_copy.
-
-	--    cnc :     a GdaConnection.
-		do
-			create Result.from_external_pointer(gda_connection_get_events(handle))
-		end
-
-	clear_events_list is
-			-- Clear the list of GdaConnectionEvent's of the given
-			-- connection.
-		do
-			gda_connection_clear_events_list(handle)
-		end
-
-feature 
-	change_database (a_name: STRING) is
-			-- Changes the current database for the given
-			-- connection. This operation is not available in all
-			-- providers. `is_successful' will be updated.
-		require name_not_void: a_name /= Void
-		do
-			is_successful:=(gda_connection_change_database(handle,a_name.to_external)).to_boolean
-		end
-
-	single_result: GDA_DATA_MODEL
-			-- Results of the last invocation of `execute_command'
-	
-	execute_command (a_command: GDA_COMMAND; some_parameters: GDA_PARAMETER_LIST) is
-			-- Executes a single command on the given connection.
-		
-			-- This feature lets you retrieve a simple data model from
-			-- the underlying difference, instead of having to retrieve a
-			-- list of them, as is the case with `execute_command_l'.
-
-			-- Note that if `a_command' is composed of several SQL
-			-- statements, the data model returned is the one
-			-- corresponding to the last statement.
-
-			-- See the documentation of the `execute_command_l' for
-			-- information about the params list of parameters.
-		require 
-			command_not_void: a_command /= Void
-			parameters_not_void: some_parameters /= Void
-		local model_ptr: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_DATA_MODEL]
-		do
-			-- Returns : a GdaDataModel containing the data returned by
-			-- the data source, NULL if no data was expected, or
-			-- GDA_CONNECTION_EXEC_FAILED if an error occurred.
-			model_ptr:=(gda_connection_execute_command 
-							(handle, a_command.handle,
-							 some_parameters.handle, address_of (error.handle)))
-			if model_ptr.is_null then single_result:=Void
-			else single_result := factory.wrapper(model_ptr)
-			end
-		end
-
-	results: G_LIST [GDA_DATA_MODEL]
-	
-	execute_some_commands (some_commands: GDA_COMMAND; some_parameters: GDA_PARAMETER_LIST) is
-			-- Send several commands at once to the data source being
-			-- accessed by the given GdaConnection object. The GdaCommand
-			-- specified can contain a list of commands in its "text"
-			-- property (usually a set of SQL commands separated by ';').
-
-			-- `results' will store the results.
-
-			-- cnc: a GdaConnection object.  cmd: a GdaCommand.  params:
-			-- parameter list for the commands error: a place to store an
-			-- error, or NULL Returns: a list of GdaDataModel's, as
-			-- returned by the underlying provider, or NULL if an error
-			-- occurred.
-		require 
-			commands_not_void: some_commands /= Void
-			parameters_not_void: some_parameters /= Void
-		local ptr: POINTER
-		do
-			-- The return value is a GList of GdaDataModel's, which you
-			-- are responsible to free when not needed anymore (and unref
-			-- the data models when they are not used anymore). Note that
-			-- some nodes of the returned list may actually not point to
-			-- a GdaDataModel but may be NULL (which corresponds to a
-			-- command which did not return a data set, like UPDATE
-			-- commands).
-
-			-- The params can contain the following parameters: a
-			-- "ITER_MODEL_ONLY" parameter of type G_TYPE_BOOLEAN which,
-			-- if set to TRUE will preferably return a data model which
-			-- can be accessed only using an iterator.
-
-			ptr := (gda_connection_execute_command
-					  (handle, some_commands.handle, some_parameters.handle,
-						address_of (error.handle)))
-			if ptr.is_not_null then
-				unimplemented
-			end
-		end
-	
-	last_insert_id_of (a_record_set: GDA_DATA_MODEL): STRING is
-			-- the ID of the last inserted row. A connection must be
-			-- specified, and, optionally, a result set. If not NULL, the
-			-- underlying provider should try to get the last insert ID
-			-- for the given result set.
-		
-			-- It is Void if an error occurred or no row has been
-			-- inserted. It is the caller's reponsibility to free the
-			-- returned string.
-		require set_not_void: a_record_set /= Void
-		local ptr: POINTER
-		do
-			ptr:=gda_connection_get_last_insert_id(handle, a_record_set.handle)
-			if ptr.is_not_null then
-				create Result.from_external (ptr)
-				-- Note: using plain `from_external' which brings the
-				-- pointer under the jurisdiction of Eiffel'GC, since it
-				-- is wrapper's reponsibility to free the returned string.
-			end
-		end
-
-feature -- Commodity features  - Do quickly some actions
-	--Description
+	--   GdaConnection -- 
 	--
-	--Details
+	--Synopsis
 	--
-	--  gda_open_connection ()
 	--
-	-- GdaConnection*      gda_open_connection                 (const gchar *dsn,
+	--
+	--
+	--                     GdaConnection;
+	-- enum                GdaConnectionOptions;
+	-- enum                GdaConnectionFeature;
+	-- enum                GdaConnectionSchema;
+	-- GdaConnection*      gda_connection_new                  (GdaClient *client,
+	--                                                          GdaServerProvider *provider,
+	--                                                          const gchar *dsn,
 	--                                                          const gchar *username,
 	--                                                          const gchar *password,
-	--                                                          GdaConnectionOptions options,
+	--                                                          GdaConnectionOptions options);
+	-- gboolean            gda_connection_open                 (GdaConnection *cnc,
 	--                                                          GError **error);
-	--
-	--   Convenient function to open a connection to a Data Source, see also
-	--   gda_client_open_connection().
-	--
-	--   dsn :      a data source name
-	--   username :
-	--   password :
-	--   options :
-	--   error :    a place to store errors, or NULL
-	--   Returns :  a GdaConnection object if the connection was sucessfully
-	--              opened, NULL otherwise
-	--
-
-	execute_select_command (an_sql: STRING): GDA_DATA_MODEL is
-			-- Execute `an_sql' SELECT command. Result can be Void. `error' is updated.
-		require 
-			an_sql /= Void
-			-- TODO: a query statament must begin with "SELECT".
-		local ptr: POINTER; a_factory: G_OBJECT_EXPANDED_FACTORY[GDA_DATA_MODEL]
-		do
-			ptr:=gda_execute_select_command(handle,an_sql.to_external, address_of(error.handle))
-			if ptr.is_not_null then Result:=a_factory.wrapper(ptr) end
-		end
-
-	row_affected_by_sql_command (an_sql: STRING): INTEGER is
-			-- the number of rows affected by the execution of `an_sql'
-			-- command. `error' is updated. -1 in case of error.
-		require 
-			an_sql /= Void
-			-- TODO: a query statament must begin with "SELECT".
-		do
-			Result:=gda_execute_sql_command(handle,an_sql.to_external,address_of(error.handle))
-		end
-
-	--  gda_create_table ()
-	--
-	-- gboolean            gda_create_table                    (GdaConnection *cnn,
-	--                                                          const gchar *table_name,
-	--                                                          GError **error,
+	-- void                gda_connection_close                (GdaConnection *cnc);
+	-- void                gda_connection_close_no_warning     (GdaConnection *cnc);
+	-- gboolean            gda_connection_is_opened            (GdaConnection *cnc);
+	-- GdaClient*          gda_connection_get_client           (GdaConnection *cnc);
+	-- GdaConnectionOptions gda_connection_get_options         (GdaConnection *cnc);
+	-- GdaServerProvider*  gda_connection_get_provider_obj     (GdaConnection *cnc);
+	-- GdaServerProviderInfo* gda_connection_get_infos         (GdaConnection *cnc);
+	-- const gchar*        gda_connection_get_server_version   (GdaConnection *cnc);
+	-- const gchar*        gda_connection_get_database         (GdaConnection *cnc);
+	-- gboolean            gda_connection_set_dsn              (GdaConnection *cnc,
+	--                                                          const gchar *datasource);
+	-- const gchar*        gda_connection_get_dsn              (GdaConnection *cnc);
+	-- const gchar*        gda_connection_get_cnc_string       (GdaConnection *cnc);
+	-- const gchar*        gda_connection_get_provider         (GdaConnection *cnc);
+	-- gboolean            gda_connection_set_username         (GdaConnection *cnc,
+	--                                                          const gchar *username);
+	-- const gchar*        gda_connection_get_username         (GdaConnection *cnc);
+	-- gboolean            gda_connection_set_password         (GdaConnection *cnc,
+	--                                                          const gchar *password);
+	-- const gchar*        gda_connection_get_password         (GdaConnection *cnc);
+	-- void                gda_connection_add_event            (GdaConnection *cnc,
+	--                                                          GdaConnectionEvent *event);
+	-- GdaConnectionEvent* gda_connection_add_event_string     (GdaConnection *cnc,
+	--                                                          const gchar *str,
 	--                                                          ...);
+	-- void                gda_connection_add_events_list      (GdaConnection *cnc,
+	--                                                          GList *events_list);
+	-- const GList*        gda_connection_get_events           (GdaConnection *cnc);
+	-- void                gda_connection_clear_events_list    (GdaConnection *cnc);
+	-- gboolean            gda_connection_change_database      (GdaConnection *cnc,
+	--                                                          const gchar *name);
+	-- GdaDataModel*       gda_connection_execute_select_command
+	--                                                         (GdaConnection *cnc,
+	--                                                          GdaCommand *cmd,
+	--                                                          GdaParameterList *params,
+	--                                                          GError **error);
+	-- gint                gda_connection_execute_non_select_command
+	--                                                         (GdaConnection *cnc,
+	--                                                          GdaCommand *cmd,
+	--                                                          GdaParameterList *params,
+	--                                                          GError **error);
+	-- GList*              gda_connection_execute_command      (GdaConnection *cnc,
+	--                                                          GdaCommand *cmd,
+	--                                                          GdaParameterList *params,
+	--                                                          GError **error);
+	-- gchar*              gda_connection_get_last_insert_id   (GdaConnection *cnc,
+	--                                                          GdaDataModel *recset);
+	-- gboolean            gda_connection_begin_transaction    (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GdaTransactionIsolation level,
+	--                                                          GError **error);
+	-- gboolean            gda_connection_commit_transaction   (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	-- gboolean            gda_connection_rollback_transaction (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	-- gboolean            gda_connection_add_savepoint        (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	-- gboolean            gda_connection_rollback_savepoint   (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	-- gboolean            gda_connection_delete_savepoint     (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	-- GdaTransactionStatus* gda_connection_get_transaction_status
+	--                                                         (GdaConnection *cnc);
+	-- gboolean            gda_connection_supports_feature     (GdaConnection *cnc,
+	--                                                          GdaConnectionFeature feature);
+	-- GdaDataModel*       gda_connection_get_schema           (GdaConnection *cnc,
+	--                                                          GdaConnectionSchema schema,
+	--                                                          GdaParameterList *params,
+	--                                                          GError **error);
+	-- gchar*              gda_connection_value_to_sql_string  (GdaConnection *cnc,
+	--                                                          GValue *from);
 	--
-	--   Create a Table over an opened connection using a pair list of colum name
-	--   and GType as arguments, you need to finish the list using NULL.
 	--
-	--   This is just a convenient function to create tables quickly, using
-	--   defaults for the provider and converting the GType passed to the
-	--   corresponding type in the provider; to use a custom type or more advanced
-	--   characteristics in a specific provider use the GdaServerOperation
-	--   framework.
+	--Object Hierarchy
 	--
-	--   cnn :        an opened connection
-	--   table_name : num_columns
-	--   error :      a place to store errors, or NULL
-	--   ... :        pairs of column name and GType, finish with NULL
-	--   Returns :    TRUE if the table was created; FALSE and set error otherwise
+	--
+	--   GObject
+	--    +----GdaConnection
+	--
+	--Properties
+	--
+	--
+	--   "client"                   GdaClient             : Read / Write
+	--   "cnc-string"               gchararray            : Read / Write
+	--   "dsn"                      gchararray            : Read / Write
+	--   "options"                  GdaConnectionOptions  : Read / Write
+	--   "password"                 gchararray            : Read / Write
+	--   "provider-obj"             GdaServerProvider     : Read / Write
+	--   "username"                 gchararray            : Read / Write
+	--
+	--Signals
+	--
+	--
+	--   "conn-closed"                                    : Run First
+	--   "conn-opened"                                    : Run First
+	--   "conn-to-close"                                  : Run First
+	--   "dsn-changed"                                    : Run Last
+	--   "error"                                          : Run Last
+	--   "transaction-status-changed"                     : Run Last
+	--
+	--Description
+	--
+		--
+	--Details
+	--
+	--  GdaConnection
+	--
+	-- typedef struct _GdaConnection GdaConnection;
 	--
 	--   --------------------------------------------------------------------------
 	--
-	--  gda_drop_table ()
+	--  enum GdaConnectionOptions
 	--
-	-- gboolean            gda_drop_table                      (GdaConnection *cnn,
-	--                                                          const gchar *table_name,
+	-- typedef enum {
+	--         GDA_CONNECTION_OPTIONS_NONE = 0,
+	--         GDA_CONNECTION_OPTIONS_READ_ONLY = 1 << 0,
+	--         GDA_CONNECTION_OPTIONS_DONT_SHARE = 2 << 0
+	-- } GdaConnectionOptions;
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum GdaConnectionFeature
+	--
+	-- typedef enum {
+	--         GDA_CONNECTION_FEATURE_AGGREGATES,
+	--         GDA_CONNECTION_FEATURE_BLOBS,
+	--         GDA_CONNECTION_FEATURE_INDEXES,
+	--         GDA_CONNECTION_FEATURE_INHERITANCE,
+	--         GDA_CONNECTION_FEATURE_NAMESPACES,
+	--         GDA_CONNECTION_FEATURE_PROCEDURES,
+	--         GDA_CONNECTION_FEATURE_SEQUENCES,
+	--         GDA_CONNECTION_FEATURE_SQL,
+	--         GDA_CONNECTION_FEATURE_TRANSACTIONS,
+	--         GDA_CONNECTION_FEATURE_SAVEPOINTS,
+	--         GDA_CONNECTION_FEATURE_SAVEPOINTS_REMOVE,
+	--         GDA_CONNECTION_FEATURE_TRIGGERS,
+	--         GDA_CONNECTION_FEATURE_UPDATABLE_CURSOR,
+	--         GDA_CONNECTION_FEATURE_USERS,
+	--         GDA_CONNECTION_FEATURE_VIEWS,
+	--         GDA_CONNECTION_FEATURE_XML_QUERIES
+	-- } GdaConnectionFeature;
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  enum GdaConnectionSchema
+	--
+	-- typedef enum {
+	--         GDA_CONNECTION_SCHEMA_AGGREGATES,
+	--         GDA_CONNECTION_SCHEMA_DATABASES,
+	--         GDA_CONNECTION_SCHEMA_FIELDS,
+	--         GDA_CONNECTION_SCHEMA_INDEXES,
+	--         GDA_CONNECTION_SCHEMA_LANGUAGES,
+	--         GDA_CONNECTION_SCHEMA_NAMESPACES,
+	--         GDA_CONNECTION_SCHEMA_PARENT_TABLES,
+	--         GDA_CONNECTION_SCHEMA_PROCEDURES,
+	--         GDA_CONNECTION_SCHEMA_SEQUENCES,
+	--         GDA_CONNECTION_SCHEMA_TABLES,
+	--         GDA_CONNECTION_SCHEMA_TRIGGERS,
+	--         GDA_CONNECTION_SCHEMA_TYPES,
+	--         GDA_CONNECTION_SCHEMA_USERS,
+	--         GDA_CONNECTION_SCHEMA_VIEWS,
+	--         GDA_CONNECTION_SCHEMA_CONSTRAINTS,
+	--         GDA_CONNECTION_SCHEMA_TABLE_CONTENTS
+	-- } GdaConnectionSchema;
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_new ()
+	--
+	-- GdaConnection*      gda_connection_new                  (GdaClient *client,
+	--                                                          GdaServerProvider *provider,
+	--                                                          const gchar *dsn,
+	--                                                          const gchar *username,
+	--                                                          const gchar *password,
+	--                                                          GdaConnectionOptions options);
+	--
+	--   This function creates a new GdaConnection object. It is not intended to be
+	--   used directly by applications (use gda_client_open_connection instead).
+	--
+	--   The connection is not opened at this stage; use gda_connection_open() to
+	--   open the connection.
+	--
+	--   client :   a GdaClient object.
+	--   provider : a GdaServerProvider object.
+	--   dsn :      GDA data source to connect to.
+	--   username : user name to use to connect.
+	--   password : password for username.
+	--   options :  options for the connection.
+	--   Returns :  a newly allocated GdaConnection object.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_open ()
+	--
+	-- gboolean            gda_connection_open                 (GdaConnection *cnc,
 	--                                                          GError **error);
 	--
-	--   This is just a convenient function to drop a table in an opened
+	--   Tries to open the connection.
+	--
+	--   cnc :     a GdaConnection object
+	--   error :   a place to store errors, or NULL
+	--   Returns : TRUE if the connection is opened, and FALSE otherwise.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_close ()
+	--
+	-- void                gda_connection_close                (GdaConnection *cnc);
+	--
+	--   Closes the connection to the underlying data source, but first emits the
+	--   "conn_to_close" signal.
+	--
+	--   cnc : a GdaConnection object.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_close_no_warning ()
+	--
+	-- void                gda_connection_close_no_warning     (GdaConnection *cnc);
+	--
+	--   Closes the connection to the underlying data source, without emiting any
+	--   warning signal.
+	--
+	--   cnc : a GdaConnection object.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_is_opened ()
+	--
+	-- gboolean            gda_connection_is_opened            (GdaConnection *cnc);
+	--
+	--   Checks whether a connection is open or not.
+	--
+	--   cnc :     a GdaConnection object.
+	--   Returns : TRUE if the connection is open, FALSE if it's not.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_client ()
+	--
+	-- GdaClient*          gda_connection_get_client           (GdaConnection *cnc);
+	--
+	--   Gets the GdaClient object associated with a connection. This is always the
+	--   client that created the connection, as returned by
+	--   gda_client_open_connection.
+	--
+	--   cnc :     a GdaConnection object.
+	--   Returns : the client to which the connection belongs to.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_options ()
+	--
+	-- GdaConnectionOptions gda_connection_get_options         (GdaConnection *cnc);
+	--
+	--   Gets the GdaConnectionOptions used to open this connection.
+	--
+	--   cnc :     a GdaConnection object.
+	--   Returns : the connection options.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_provider_obj ()
+	--
+	-- GdaServerProvider*  gda_connection_get_provider_obj     (GdaConnection *cnc);
+	--
+	--   Get a pointer to the GdaServerProvider object used to access the database
+	--
+	--   cnc :     a GdaConnection object
+	--   Returns : the GdaServerProvider (NEVER NULL)
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_infos ()
+	--
+	-- GdaServerProviderInfo* gda_connection_get_infos         (GdaConnection *cnc);
+	--
+	--   Get a pointer to a GdaServerProviderInfo structure (which must not be
+	--   modified) to retreive specific information about the provider used by cnc.
+	--
+	--   cnc :     a GdaConnection object
+	--   Returns :
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_server_version ()
+	--
+	-- const gchar*        gda_connection_get_server_version   (GdaConnection *cnc);
+	--
+	--   Gets the version string of the underlying database server.
+	--
+	--   cnc :     a GdaConnection object.
+	--   Returns : the server version string.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_database ()
+	--
+	-- const gchar*        gda_connection_get_database         (GdaConnection *cnc);
+	--
+	--   Gets the name of the currently active database in the given GdaConnection.
+	--
+	--   cnc :     A GdaConnection object.
+	--   Returns : the name of the current database.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_set_dsn ()
+	--
+	-- gboolean            gda_connection_set_dsn              (GdaConnection *cnc,
+	--                                                          const gchar *datasource);
+	--
+	--   Sets the data source of the connection. If the connection is already
+	--   opened, then no action is performed at all and FALSE is returned.
+	--
+	--   If the requested datasource does not exist, then nothing is done and FALSE
+	--   is returned.
+	--
+	--   cnc :        a GdaConnection object
+	--   datasource : a gda datasource
+	--   Returns :    TRUE on success
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_dsn ()
+	--
+	-- const gchar*        gda_connection_get_dsn              (GdaConnection *cnc);
+	--
+	--   cnc :     a GdaConnection object
+	--   Returns : the data source name the connection object is connected to.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_cnc_string ()
+	--
+	-- const gchar*        gda_connection_get_cnc_string       (GdaConnection *cnc);
+	--
+	--   Gets the connection string used to open this connection.
+	--
+	--   The connection string is the string sent over to the underlying database
+	--   provider, which describes the parameters to be used to open a connection
+	--   on the underlying data source.
+	--
+	--   cnc :     a GdaConnection object.
+	--   Returns : the connection string used when opening the connection.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_provider ()
+	--
+	-- const gchar*        gda_connection_get_provider         (GdaConnection *cnc);
+	--
+	--   Gets the provider id that this connection is connected to.
+	--
+	--   cnc :     a GdaConnection object.
+	--   Returns : the provider ID used to open this connection.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_set_username ()
+	--
+	-- gboolean            gda_connection_set_username         (GdaConnection *cnc,
+	--                                                          const gchar *username);
+	--
+	--   Sets the user name for the connection. If the connection is already
+	--   opened, then no action is performed at all and FALSE is returned.
+	--
+	--   cnc :      a GdaConnection object
+	--   username :
+	--   Returns :  TRUE on success
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_username ()
+	--
+	-- const gchar*        gda_connection_get_username         (GdaConnection *cnc);
+	--
+	--   Gets the user name used to open this connection.
+	--
+	--   cnc :     a GdaConnection object.
+	--   Returns : the user name.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_set_password ()
+	--
+	-- gboolean            gda_connection_set_password         (GdaConnection *cnc,
+	--                                                          const gchar *password);
+	--
+	--   Sets the user password for the connection to the server. If the connection
+	--   is already opened, then no action is performed at all and FALSE is
+	--   returned.
+	--
+	--   cnc :      a GdaConnection object
+	--   password :
+	--   Returns :  TRUE on success
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_password ()
+	--
+	-- const gchar*        gda_connection_get_password         (GdaConnection *cnc);
+	--
+	--   Gets the password used to open this connection.
+	--
+	--   cnc :     a GdaConnection object.
+	--   Returns : the password.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_add_event ()
+	--
+	-- void                gda_connection_add_event            (GdaConnection *cnc,
+	--                                                          GdaConnectionEvent *event);
+	--
+	--   Adds an event to the given connection. This function is usually called by
+	--   providers, to inform clients of events that happened during some
+	--   operation.
+	--
+	--   As soon as a provider (or a client, it does not matter) calls this
+	--   function with an event object which is an error, the connection object
+	--   (and the associated GdaClient object) emits the "error" signal, to which
+	--   clients can connect to be informed of events.
+	--
+	--   WARNING: the reference to the event object is stolen by this function!
+	--
+	--   cnc :   a GdaConnection object.
+	--   event : is stored internally, so you don't need to unref it.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_add_event_string ()
+	--
+	-- GdaConnectionEvent* gda_connection_add_event_string     (GdaConnection *cnc,
+	--                                                          const gchar *str,
+	--                                                          ...);
+	--
+	--   Adds a new error to the given connection object. This is just a
+	--   convenience function that simply creates a GdaConnectionEvent and then
+	--   calls gda_server_connection_add_error.
+	--
+	--   cnc :     a GdaServerConnection object.
+	--   str :     a format string (see the printf(3) documentation).
+	--   ... :     the arguments to insert in the error message.
+	--   Returns : a new GdaConnectionEvent object, however the caller does not
+	--             hold a reference to the returned object, and if need be the
+	--             caller must call g_object_ref() on it.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_add_events_list ()
+	--
+	-- void                gda_connection_add_events_list      (GdaConnection *cnc,
+	--                                                          GList *events_list);
+	--
+	--   This is just another convenience function which lets you add a list of
+	--   GdaConnectionEvent's to the given connection.* As with
+	--   gda_connection_add_event and gda_connection_add_event_string, this
+	--   function makes the connection object emit the "error" signal for each
+	--   error event.
+	--
+	--   events_list is copied to an internal list and freed.
+	--
+	--   cnc :         a GdaConnection object.
+	--   events_list : a list of GdaConnectionEvent.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_events ()
+	--
+	-- const GList*        gda_connection_get_events           (GdaConnection *cnc);
+	--
+	--   Retrieves a list of the last errors occurred during the connection. You
+	--   can make a copy of the list using gda_connection_event_list_copy.
+	--
+	--   cnc :     a GdaConnection.
+	--   Returns : a GList of GdaConnectionEvent.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_clear_events_list ()
+	--
+	-- void                gda_connection_clear_events_list    (GdaConnection *cnc);
+	--
+	--   This function lets you clear the list of GdaConnectionEvent's of the given
 	--   connection.
 	--
-	--   cnn :        an opened connection
-	--   table_name :
-	--   error :      a place to store errors, or NULL
-	--   Returns :    TRUE if the table was dropped
+	--   cnc : a GdaConnection object.
 	--
 	--   --------------------------------------------------------------------------
 	--
-	--  gda_insert_row_into_table ()
+	--  gda_connection_change_database ()
 	--
-	-- gboolean            gda_insert_row_into_table           (GdaConnection *cnn,
-	--                                                          const gchar *table_name,
-	--                                                          GError **error,
-	--                                                          ...);
+	-- gboolean            gda_connection_change_database      (GdaConnection *cnc,
+	--                                                          const gchar *name);
 	--
-	--   This is just a convenient function to insert a row with the values given
-	--   as argument. The values must correspond with the GType of the column to
-	--   set, otherwise throw to an error. Finish the list with NULL.
+	--   Changes the current database for the given connection. This operation is
+	--   not available in all providers.
 	--
-	--   The arguments must be pairs of column name followed by his value.
-	--
-	--   cnn :        an opened connection
-	--   table_name :
-	--   error :      a place to store errors, or NULL
-	--   ... :        a list of string/GValue pairs where the string is the name of
-	--                the column followed by its GValue to set in the insert
-	--                operation, finished by NULL
-	--   Returns :    TRUE if no error occurred, and FALSE and set error otherwise
+	--   cnc :     a GdaConnection object.
+	--   name :    name of database to switch to.
+	--   Returns : TRUE if successful, FALSE otherwise.
 	--
 	--   --------------------------------------------------------------------------
 	--
-	--  gda_insert_row_into_table_from_string ()
+	--  gda_connection_execute_select_command ()
 	--
-	-- gboolean            gda_insert_row_into_table_from_string
-	--                                                         (GdaConnection *cnn,
-	--                                                          const gchar *table_name,
-	--                                                          GError **error,
-	--                                                          ...);
-	--
-	--   This is just a convenient function to insert a row with the values given
-	--   as arguments. The values must be strings that could be converted to the
-	--   type in the corresponding column. Finish the list with NULL.
-	--
-	--   The arguments must be pairs of column name followed by his value.
-	--
-	--   The SQL command is like: INSERT INTO table_name (column1, column2, ...)
-	--   VALUES (value1, value2, ...)
-	--
-	--   cnn :        an opened connection
-	--   table_name :
-	--   error :      a place to store errors, or NULL
-	--   ... :        a list of strings to be converted as value, finished by NULL
-	--   Returns :    TRUE if no error occurred, and FALSE and set error otherwise
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_update_value_in_table ()
-	--
-	-- gboolean            gda_update_value_in_table           (GdaConnection *cnn,
-	--                                                          const gchar *table_name,
-	--                                                          const gchar *search_for_column,
-	--                                                          const GValue *condition,
-	--                                                          const gchar *column_name,
-	--                                                          const GValue *new_value,
+	-- GdaDataModel*       gda_connection_execute_select_command
+	--                                                         (GdaConnection *cnc,
+	--                                                          GdaCommand *cmd,
+	--                                                          GdaParameterList *params,
 	--                                                          GError **error);
 	--
-	--   This is just a convenient function to update values in a table on a given
-	--   column where the row is fitting the given condition.
+	--   Executes a selection command on the given connection.
 	--
-	--   The SQL command is like: UPDATE INTO table_name SET column_name =
-	--   new_value WHERE search_for_column = condition
+	--   This function returns a GdaDataModel resulting from the SELECT statement,
+	--   or NULL if an error occurred.
 	--
-	--   cnn :               an opened connection
-	--   table_name :
-	--   search_for_column : the name of the column to used in the WHERE condition
-	--                       clause
-	--   condition :         a GValue to used to find the value to be updated; it
-	--                       must correspond with the GType of the column used to
-	--                       search
-	--   column_name :       the column containing the value to be updated
-	--   new_value :         the new value to update to; the GValue must correspond
-	--                       with the GType of the column to update
-	--   error :             a place to store errors, or NULL
-	--   Returns :           TRUE if no error occurred
+	--   Note that no check is made regarding the actual number of statements in
+	--   cmd or if it really contains a SELECT statement. This function is just a
+	--   convenience function around the gda_connection_execute_command() function.
+	--   If cmd contains several statements, the last GdaDataModel is returned.
 	--
-	--   --------------------------------------------------------------------------
+	--   See the documentation of the gda_connection_execute_command() for
+	--   information about the params list of parameters.
 	--
-	--  gda_update_values_in_table ()
-	--
-	-- gboolean            gda_update_values_in_table          (GdaConnection *cnn,
-	--                                                          const gchar *table_name,
-	--                                                          const gchar *condition_column_name,
-	--                                                          const GValue *condition,
-	--                                                          GError **error,
-	--                                                          ...);
-	--
-	--   This is just a convenient function to update values in a table on a given
-	--   column where the row is fitting the given condition.
-	--
-	--   The SQL command is like: UPDATE INTO table_name SET column1 = new_value1,
-	--   column2 = new_value2 ... WHERE condition_column_name = condition
-	--
-	--   cnn :                   an opened connection
-	--   table_name :            the name of the table where the update will be
-	--                           done
-	--   condition_column_name : the name of the column to used in the WHERE
-	--                           condition clause
-	--   condition :             a GValue to used to find the values to be updated;
-	--                           it must correspond with the column's GType
-	--   error :                 a place to store errors, or NULL
-	--   ... :                   a list of string/GValue pairs where the string is
-	--                           the name of the column to be updated followed by
-	--                           the new GValue to set, finished by NULL
-	--   Returns :               TRUE if no error occurred
+	--   cnc :     a GdaConnection object.
+	--   cmd :     a GdaCommand.
+	--   params :  parameter list for the command
+	--   error :   a place to store an error, or NULL
+	--   Returns : a GdaDataModel containing the data returned by the data source,
+	--             or NULL if an error occurred
 	--
 	--   --------------------------------------------------------------------------
 	--
-	--  gda_delete_row_from_table ()
+	--  gda_connection_execute_non_select_command ()
 	--
-	-- gboolean            gda_delete_row_from_table           (GdaConnection *cnn,
-	--                                                          const gchar *table_name,
-	--                                                          const gchar *condition_column_name,
-	--                                                          const GValue *condition,
+	-- gint                gda_connection_execute_non_select_command
+	--                                                         (GdaConnection *cnc,
+	--                                                          GdaCommand *cmd,
+	--                                                          GdaParameterList *params,
 	--                                                          GError **error);
 	--
-	--   This is just a convenient function to delete the row fitting the given
-	--   condition from the given table.
+	--   Executes a non-selection command on the given connection.
 	--
-	--   condition must be a valid GValue and must correspond with the GType of the
-	--   column to use in the WHERE clause.
+	--   This function returns the number of rows affected by the execution of cmd,
+	--   or -1 if an error occurred, or -2 if the provider does not return the
+	--   number of rows affected.
 	--
-	--   The SQL command is like: DELETE FROM table_name WHERE
-	--   contition_column_name = condition
+	--   Note that no check is made regarding the actual number of statements in
+	--   cmd or if it really contains a non SELECT statement. This function is just
+	--   a convenience function around the gda_connection_execute_command()
+	--   function. If cmd contains several statements, the last GdaParameterList is
+	--   returned.
 	--
-	--   cnn :                   an opened connection
-	--   table_name :
-	--   condition_column_name : the name of the column to used in the WHERE
-	--                           condition clause
-	--   condition :             a GValue to used to find the row to be deleted
-	--   error :                 a place to store errors, or NULL
-	--   Returns :               TRUE if no error occurred, and FALSE and set error
-	--                           otherwise
-
-feature {} -- TODO: Signals
-
-
-	--  "conn-closed"
-	--              void        user_function      (GdaConnection *gdaconnection,
-	--                                              gpointer       user_data)          : Run first
-	--  "conn-opened"
-	--              void        user_function      (GdaConnection *gdaconnection,
-	--                                              gpointer       user_data)          : Run first
-	--  "conn-to-close"
-	--              void        user_function      (GdaConnection *gdaconnection,
-	--                                              gpointer       user_data)          : Run first
-	--  "dsn-changed"
-	--              void        user_function      (GdaConnection *gdaconnection,
-	--                                              gpointer       user_data)          : Run last
-	--  "error"     void        user_function      (GdaConnection      *gdaconnection,
-	--                                              GdaConnectionEvent *arg1,
-	--                                              gpointer            user_data)          : Run last
-
-feature {} -- Implementation
-	-- Hidded properties parameters specs
-	client_parameter_spec: G_PARAM_SPEC is
-		once
-			Result := find_property (client_property_name)
-		ensure Result /= Void
-		end
-
-	connection_string_parameter_spec: G_PARAM_SPEC is
-		once
-			Result := find_property (connection_string_property_name)
-		ensure Result /= Void
-		end
-
-	dsn_parameter_spec: G_PARAM_SPEC is
-		once
-			Result := find_property (dsn_property_name)
-		ensure Result /= Void
-		end
-
-	password_parameter_spec: G_PARAM_SPEC is
-		once
-			Result := find_property (password_property_name)
-		ensure Result /= Void
-		end
-
-	provider_parameter_spec: G_PARAM_SPEC is
-		once
-			Result := find_property (provider_object_property_name)
-		ensure Result /= Void
-		end
-
-	username_parameter_spec: G_PARAM_SPEC is
-		once
-			Result := find_property (username_property_name)
-		ensure Result /= Void
-		end
-
-feature {ANY} -- Printing
-	fill_tagged_out_memory is
-		-- TODO: ramack is not sure, whether this should better be 
-		-- feature out
-		do
-			tagged_out_memory.append(" server_version = ")
-			if server_version /= Void then
-				tagged_out_memory.extend('"')
-				tagged_out_memory.append(server_version)
-				tagged_out_memory.extend('"')
-			else
-				tagged_out_memory.append(once "Void")
-			end
-			tagged_out_memory.append("%N dsn = ")
-			if dsn /= Void then
-				tagged_out_memory.extend('"')
-				tagged_out_memory.append(dsn)
-				tagged_out_memory.extend('"')
-			else
-				tagged_out_memory.append(once "Void")
-			end
-			tagged_out_memory.append("%N connection_string = ")
-			if connection_string /= Void then
-				tagged_out_memory.extend('"')
-				tagged_out_memory.append(connection_string)
-				tagged_out_memory.extend('"')
-			else
-				tagged_out_memory.append(once "Void")
-			end
-			tagged_out_memory.append("%N provider = ")
-			if provider /= Void then
-				tagged_out_memory.extend('"')
-				tagged_out_memory.append(provider)
-				tagged_out_memory.extend('"')
-			else
-				tagged_out_memory.append(once "Void")
-			end
-			tagged_out_memory.append("%N username = ")
-
-			if username /= Void then
-				tagged_out_memory.extend('"')
-				tagged_out_memory.append(username)
-				tagged_out_memory.extend('"')
-			else
-				tagged_out_memory.append(once "Void")
-			end
-			tagged_out_memory.append("%N password = %"********%"")
-		end
-
-feature 
-	dummy_gobject: POINTER is
-		do
-			raise("GDA_CONNECTION.dummy_gobject invoked")
-		end
-
-	struct_size: INTEGER is
+	--   See the documentation of the gda_connection_execute_command() for
+	--   information about the params list of parameters.
+	--
+	--   cnc :     a GdaConnection object.
+	--   cmd :     a GdaCommand.
+	--   params :  parameter list for the command
+	--   error :   a place to store an error, or NULL
+	--   Returns : the number of rows affected (>=0) or -1 or -2
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_execute_command ()
+	--
+	-- GList*              gda_connection_execute_command      (GdaConnection *cnc,
+	--                                                          GdaCommand *cmd,
+	--                                                          GdaParameterList *params,
+	--                                                          GError **error);
+	--
+	--   If you know what to expect from command (ie if you know it contains a
+	--   query which will return a data set or a query which will not return a data
+	--   set) and if command contains only one query, then you should use
+	--   gda_connection_execute_select_command() and
+	--   gda_connection_execute_non_select_command() which are easier to use.
+	--
+	--   This function provides the way to send several commands at once to the
+	--   data source being accessed by the given GdaConnection object. The
+	--   GdaCommand specified can contain a list of commands in its "text" property
+	--   (usually a set of SQL commands separated by ';').
+	--
+	--   The return value is a GList of GdaDataModel's, and GdaParameterList which
+	--   you are responsible to free when not needed anymore (and unref the data
+	--   models and parameter lists when they are not used anymore). See the
+	--   documentation of gda_server_provider_execute_command() for more
+	--   information about the returned list.
+	--
+	--   The params can contain the following parameters:
+	--
+	--     o a "ITER_MODEL_ONLY" parameter of type G_TYPE_BOOLEAN which, if set to
+	--       TRUE will preferably return a data model which can be accessed only
+	--       using an iterator.
+	--
+	--   cnc :     a GdaConnection object.
+	--   cmd :     a GdaCommand.
+	--   params :  parameter list for the commands
+	--   error :   a place to store an error, or NULL
+	--   Returns : a list of GdaDataModel and GdaParameterList or NULL, as returned
+	--             by the underlying provider, or NULL if an error occurred.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_last_insert_id ()
+	--
+	-- gchar*              gda_connection_get_last_insert_id   (GdaConnection *cnc,
+	--                                                          GdaDataModel *recset);
+	--
+	--   Retrieve from the given GdaConnection the ID of the last inserted row. A
+	--   connection must be specified, and, optionally, a result set. If not NULL,
+	--   the underlying provider should try to get the last insert ID for the given
+	--   result set.
+	--
+	--   Beware however that the interpretation and usage of this value depends on
+	--   the DBMS type being used, , see the limitations of each DBMS for more
+	--   information.
+	--
+	--   cnc :     a GdaConnection object.
+	--   recset :  recordset.
+	--   Returns : a string representing the ID of the last inserted row, or NULL
+	--             if an error occurred or no row has been inserted. It is the
+	--             caller's reponsibility to free the returned string.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_begin_transaction ()
+	--
+	-- gboolean            gda_connection_begin_transaction    (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GdaTransactionIsolation level,
+	--                                                          GError **error);
+	--
+	--   Starts a transaction on the data source, identified by the xaction
+	--   parameter.
+	--
+	--   Before starting a transaction, you can check whether the underlying
+	--   provider does support transactions or not by using the
+	--   #gda_connection_supports_feature() function.
+	--
+	--   cnc :     a GdaConnection object.
+	--   name :    the name of the transation to start
+	--   level :
+	--   error :   a place to store errors, or NULL
+	--   Returns : TRUE if the transaction was started successfully, FALSE
+	--             otherwise.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_commit_transaction ()
+	--
+	-- gboolean            gda_connection_commit_transaction   (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	--
+	--   Commits the given transaction to the backend database. You need to call
+	--   gda_connection_begin_transaction() first.
+	--
+	--   cnc :     a GdaConnection object.
+	--   name :    the name of the transation to commit
+	--   error :   a place to store errors, or NULL
+	--   Returns : TRUE if the transaction was finished successfully, FALSE
+	--             otherwise.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_rollback_transaction ()
+	--
+	-- gboolean            gda_connection_rollback_transaction (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	--
+	--   Rollbacks the given transaction. This means that all changes made to the
+	--   underlying data source since the last call to
+	--   #gda_connection_begin_transaction() or
+	--   #gda_connection_commit_transaction() will be discarded.
+	--
+	--   cnc :     a GdaConnection object.
+	--   name :    the name of the transation to commit
+	--   error :   a place to store errors, or NULL
+	--   Returns : TRUE if the operation was successful, FALSE otherwise.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_add_savepoint ()
+	--
+	-- gboolean            gda_connection_add_savepoint        (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	--
+	--   Adds a SAVEPOINT named name.
+	--
+	--   cnc :     a GdaConnection object
+	--   name :    name of the savepoint to add
+	--   error :   a place to store errors or NULL
+	--   Returns : TRUE if no error occurred
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_rollback_savepoint ()
+	--
+	-- gboolean            gda_connection_rollback_savepoint   (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	--
+	--   Rollback all the modifications made after the SAVEPOINT named name.
+	--
+	--   cnc :     a GdaConnection object
+	--   name :    name of the savepoint to rollback to
+	--   error :   a place to store errors or NULL
+	--   Returns : TRUE if no error occurred
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_delete_savepoint ()
+	--
+	-- gboolean            gda_connection_delete_savepoint     (GdaConnection *cnc,
+	--                                                          const gchar *name,
+	--                                                          GError **error);
+	--
+	--   Delete the SAVEPOINT named name when not used anymore.
+	--
+	--   cnc :     a GdaConnection object
+	--   name :    name of the savepoint to delete
+	--   error :   a place to store errors or NULL
+	--   Returns : TRUE if no error occurred
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_transaction_status ()
+	--
+	-- GdaTransactionStatus* gda_connection_get_transaction_status
+	--                                                         (GdaConnection *cnc);
+	--
+	--   Get the status of cnc regarding transactions. The returned object should
+	--   not be modified or destroyed; however it may be modified or destroyed by
+	--   the connection itself.
+	--
+	--   If NULL is returned, then no transaction has been associated with cnc
+	--
+	--   cnc :     a GdaConnection object
+	--   Returns : a GdaTransactionStatus object, or NULL
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_supports_feature ()
+	--
+	-- gboolean            gda_connection_supports_feature     (GdaConnection *cnc,
+	--                                                          GdaConnectionFeature feature);
+	--
+	--   Asks the underlying provider for if a specific feature is supported.
+	--
+	--   cnc :     a GdaConnection object.
+	--   feature : feature to ask for.
+	--   Returns : TRUE if the provider supports it, FALSE if not.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_get_schema ()
+	--
+	-- GdaDataModel*       gda_connection_get_schema           (GdaConnection *cnc,
+	--                                                          GdaConnectionSchema schema,
+	--                                                          GdaParameterList *params,
+	--                                                          GError **error);
+	--
+	--   Asks the underlying data source for a list of database objects.
+	--
+	--   This is the function that lets applications ask the different providers
+	--   about all their database objects (tables, views, procedures, etc). The set
+	--   of database objects that are retrieved are given by the 2 parameters of
+	--   this function: schema, which specifies the specific schema required, and
+	--   params, which is a list of parameters that can be used to give more detail
+	--   about the objects to be returned.
+	--
+	--   The list of parameters is specific to each schema type, see the
+	--   get_schema() virtual method for providers for more details.
+	--
+	--   cnc :     a GdaConnection object.
+	--   schema :  database schema to get.
+	--   params :  parameter list.
+	--   error :   a place to store errors, or NULL
+	--   Returns : a GdaDataModel containing the data required. The caller is
+	--             responsible of freeing the returned model using
+	--             g_object_unref().
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  gda_connection_value_to_sql_string ()
+	--
+	-- gchar*              gda_connection_value_to_sql_string  (GdaConnection *cnc,
+	--                                                          GValue *from);
+	--
+	--   Produces a fully quoted and escaped string from a GValue
+	--
+	--   cnc :     a GdaConnection object.
+	--   from :    GValue to convert from
+	--   Returns : escaped and quoted value or NULL if not supported.
+	--
+	--Property Details
+	--
+	--  The "client" property
+	--
+	--   "client"                   GdaClient             : Read / Write
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "cnc-string" property
+	--
+	--   "cnc-string"               gchararray            : Read / Write
+	--
+	--   Default value: NULL
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "dsn" property
+	--
+	--   "dsn"                      gchararray            : Read / Write
+	--
+	--   Default value: NULL
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "options" property
+	--
+	--   "options"                  GdaConnectionOptions  : Read / Write
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "password" property
+	--
+	--   "password"                 gchararray            : Read / Write
+	--
+	--   Default value: NULL
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "provider-obj" property
+	--
+	--   "provider-obj"             GdaServerProvider     : Read / Write
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "username" property
+	--
+	--   "username"                 gchararray            : Read / Write
+	--
+	--   Default value: NULL
+	--
+	--Signal Details
+	--
+	--  The "conn-closed" signal
+	--
+	-- void                user_function                      (GdaConnection *gdaconnection,
+	--                                                         gpointer       user_data)          : Run First
+	--
+	--   gdaconnection : the object which received the signal.
+	--   user_data :     user data set when the signal handler was connected.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "conn-opened" signal
+	--
+	-- void                user_function                      (GdaConnection *gdaconnection,
+	--                                                         gpointer       user_data)          : Run First
+	--
+	--   gdaconnection : the object which received the signal.
+	--   user_data :     user data set when the signal handler was connected.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "conn-to-close" signal
+	--
+	-- void                user_function                      (GdaConnection *gdaconnection,
+	--                                                         gpointer       user_data)          : Run First
+	--
+	--   gdaconnection : the object which received the signal.
+	--   user_data :     user data set when the signal handler was connected.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "dsn-changed" signal
+	--
+	-- void                user_function                      (GdaConnection *gdaconnection,
+	--                                                         gpointer       user_data)          : Run Last
+	--
+	--   gdaconnection : the object which received the signal.
+	--   user_data :     user data set when the signal handler was connected.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "error" signal
+	--
+	-- void                user_function                      (GdaConnection      *gdaconnection,
+	--                                                         GdaConnectionEvent *arg1,
+	--                                                         gpointer            user_data)          : Run Last
+	--
+	--   gdaconnection : the object which received the signal.
+	--   arg1 :
+	--   user_data :     user data set when the signal handler was connected.
+	--
+	--   --------------------------------------------------------------------------
+	--
+	--  The "transaction-status-changed" signal
+	--
+	-- void                user_function                      (GdaConnection *gdaconnection,
+	--                                                         gpointer       user_data)          : Run Last
+	--
+	--   gdaconnection : the object which received the signal.
+	--   user_data :     user data set when the signal handler was connected.
+	--
+	--   --------------------------------------------------------------------------
+feature {}
+	struct_size : INTEGER is
 		external "C inline use <libgda/libgda.h>"
 		alias "sizeof(GdaConnection)"
 		end
 
-feature {} -- Constant property names 
--- TODO: what it this? Should this be initialized here??? ramack 
--- doubts that! Paolo 2007-12-09 
-	client_property_name: STRING is "string"
-	connection_string_property_name: STRING is "cnc-string"
-	dsn_property_name: STRING is "dsn"
-	options_property_name: STRING is "options"
-	password_property_name: STRING is "password"
-	provider_object_property_name: STRING is "provider-obj"
-	username_property_name: STRING is "username"
 
-feature {} -- Unwrapped code
-	-- TODO: if necessary  gda_connection_add_event_string ()
-
-	--  void        gda_connection_add_event_string (GdaConnection *cnc,
-	--                                               const gchar *str,
-	--                                               ...);
-
-	--    Adds a new error to the given connection object. This is just a
-	--    convenience function that simply creates a GdaConnectionEvent and then
-	--    calls gda_server_connection_add_error.
-
-	--    cnc : a GdaServerConnection object.
-	--    str : a format string (see the printf(3) documentation).
-	--    ... : the arguments to insert in the error message.
 end -- class GDA_CONNECTION

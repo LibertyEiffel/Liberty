@@ -1,196 +1,158 @@
-indexing
-	description: "External calls for GDA_CONFIG"
-	copyright: "(C) 2006 Paolo Redaelli "
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
+-- This file have been created by eiffel-gcc-xml.
+-- Any change will be lost by the next execution of the tool.
 deferred class GDA_CONFIG_EXTERNALS
 
-insert ANY undefine copy, is_equal, fill_tagged_out_memory end
+
+inherit ANY undefine is_equal, copy end
+
 
 feature {} -- External calls
 
-	-- void (*GdaConfigListenerFunc) (const gchar *path, gpointer
-	-- user_data);
-
-feature {} -- Gda config external calls
-
-	-- void (*GdaConfigListenerFunc) (const gchar *path, gpointer
-	-- user_data);
-
-	gda_config_get_string (a_path: POINTER): POINTER is
-			-- gchar* gda_config_get_string (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_int (a_path: POINTER): INTEGER is
-			-- gint gda_config_get_int (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_float (a_path: POINTER): REAL is
-			-- gdouble gda_config_get_float (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_boolean (a_path: POINTER): INTEGER is
-			-- gboolean gda_config_get_boolean (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_set_string (a_path, a_new_value: POINTER): INTEGER is
-			-- gboolean gda_config_set_string (const gchar *path, const gchar *new_value);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_set_int (a_path: POINTER; a_new_value: INTEGER): INTEGER is
-					-- gboolean gda_config_set_int (const gchar *path, gint new_value);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_set_float (a_path: POINTER; a_new_value: REAL): INTEGER is
-			-- gboolean gda_config_set_float (const gchar *path, gdouble new_value);
+	gda_config_remove_data_source (a_name: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_config_set_boolean (a_path: POINTER; a_new_value: INTEGER): INTEGER is
-					-- gboolean gda_config_set_boolean (const gchar *path, gboolean new_value);
+	gda_config_save_data_source_info (a_dsn_info: POINTER): INTEGER_32 is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_config_remove_section (a_path: POINTER) is
-			-- void gda_config_remove_section (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_remove_key (a_path: POINTER) is
-			-- void gda_config_remove_key (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_has_section (a_path: POINTER): INTEGER is
-			-- gboolean gda_config_has_section (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_has_key (a_path: POINTER): INTEGER is
-			-- gboolean gda_config_has_key (const gchar *path);
+	gda_config_save_data_source (a_name: POINTER; a_provider: POINTER; a_cnc_string: POINTER; a_description: POINTER; an_username: POINTER; a_password: POINTER; an_is_global: INTEGER_32): INTEGER_32 is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_config_list_sections (a_path: POINTER): POINTER is
-					-- GList* gda_config_list_sections (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_list_keys (a_path: POINTER): POINTER is
-			-- GList* gda_config_list_keys (const gchar *path);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_free_list (a_list: POINTER) is
-			-- void gda_config_free_list (GList *list);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_provider_list: POINTER is
-			-- GList* gda_config_get_provider_list (void);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_free_provider_list (a_list: POINTER) is
-			-- void gda_config_free_provider_list (GList *list);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_get_provider_by_name (a_name: POINTER): POINTER is
-			-- GdaProviderInfo* gda_config_get_provider_by_name (const gchar *name);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_get_provider_model: POINTER is
-			-- GdaDataModel* gda_config_get_provider_model (void);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_provider_info_copy (a_source: POINTER): POINTER is
-			-- GdaProviderInfo* gda_provider_info_copy (GdaProviderInfo *src);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_provider_info_free (a_provider_info: POINTER) is
-			-- void gda_provider_info_free (GdaProviderInfo *provider_info);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_get_data_source_list: POINTER is
-			-- GList* gda_config_get_data_source_list (void);
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_config_find_data_source (a_name: POINTER): POINTER is
-			-- GdaDataSourceInfo* gda_config_find_data_source (const gchar *name);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_data_source_info_copy (a_source: POINTER): POINTER is
-			-- GdaDataSourceInfo* gda_data_source_info_copy (GdaDataSourceInfo *src);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_data_source_info_equal (info_1, info_2: POINTER): INTEGER is
-			-- gboolean gda_data_source_info_equal (GdaDataSourceInfo *info1, GdaDataSourceInfo *info2);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_data_source_info_free (an_info: POINTER) is
-			-- void gda_data_source_info_free (GdaDataSourceInfo *info);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_free_data_source_list (a_list: POINTER) is
-			-- void gda_config_free_data_source_list (GList *list);
+	gda_config_can_modify_global_config: INTEGER_32 is
 		external "C use <libgda/libgda.h>"
 		end
 
 	gda_config_get_data_source_model: POINTER is
-			-- GdaDataModel* gda_config_get_data_source_model (void);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_config_can_modify_global_config: INTEGER is
-			-- gboolean gda_config_can_modify_global_config (void);
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_config_save_data_source (a_name, a_provider, a_cnc_string, a_description, a_username, a_password: POINTER; is_global_bool: INTEGER): INTEGER is
-			-- gboolean gda_config_save_data_source (const gchar *name,
-			-- const gchar *provider, const gchar *cnc_string, const
-			-- gchar *description, const gchar *username, const gchar
-			-- *password, gboolean is_global);
+	gda_config_free_data_source_list (a_list: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_config_save_data_source_info (a_dsn_info: INTEGER): INTEGER is
-					-- gboolean gda_config_save_data_source_info (GdaDataSourceInfo *dsn_info);
+	gda_config_get_data_source_list: POINTER is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_config_remove_data_source (a_name: POINTER) is
-					-- void gda_config_remove_data_source (const gchar *name);
+	gda_data_source_info_free (an_info: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_config_add_listener (a_path, a_gdaconfiglistenerfunc, some_data: POINTER): INTEGER is
-			-- guint gda_config_add_listener (const gchar *path,
-			-- GdaConfigListenerFunc func, gpointer user_data);
-			-- Result should be NATURAL
+	gda_config_find_data_source (a_name: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_config_remove_listener (a_guint_id: INTEGER) is
-			-- void gda_config_remove_listener (guint id);
+	gda_data_source_info_equal (an_info1: POINTER; an_info2: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_source_info_copy (a_src: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_data_source_info_get_type: INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_provider_model: POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_provider_by_name (a_name: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_free_provider_list (a_list: POINTER) is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_provider_list: POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_provider_info_free (a_provider_info: POINTER) is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_provider_info_copy (a_src: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_provider_info_get_type: INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_remove_listener (an_id: INTEGER_32) is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_add_listener (a_path: POINTER; a_func: POINTER; an_user_data: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_free_list (a_list: POINTER) is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_type (a_path: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_list_keys (a_path: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_list_sections (a_path: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_has_key (a_path: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_has_section (a_path: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_remove_key (a_path: POINTER) is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_remove_section (a_path: POINTER) is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_set_boolean (a_path: POINTER; a_new_value: INTEGER_32): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_set_float (a_path: POINTER; a_new_value: REAL_64): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_set_int (a_path: POINTER; a_new_value: INTEGER_32): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_set_string (a_path: POINTER; a_new_value: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_boolean (a_path: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_float (a_path: POINTER): REAL_64 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_int (a_path: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_config_get_string (a_path: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
 

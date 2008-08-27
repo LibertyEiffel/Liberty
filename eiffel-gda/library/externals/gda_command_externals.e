@@ -1,60 +1,50 @@
-indexing
-	description: "External calls for GdaCommand"
-	copyright: "(C) 2006 Paolo Redaelli "
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
+-- This file have been created by eiffel-gcc-xml.
+-- Any change will be lost by the next execution of the tool.
 deferred class GDA_COMMAND_EXTERNALS
+
 
 inherit ANY undefine is_equal, copy end
 
 
-
-insert ANY undefine copy, is_equal end
-
 feature {} -- External calls
-	gda_command_new (a_text: POINTER; a_type, some_options: INTEGER): POINTER is -- GdaCommand*
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_command_free (a_command: POINTER) is
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_command_copy (a_command: POINTER): POINTER is -- GdaCommand*
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_command_get_text (a_command: POINTER): POINTER is -- const gchar* 
+
+	gda_command_set_options (a_cmd: POINTER; an_options: INTEGER_32) is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_set_text (a_command, a_text: POINTER) is
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_command_get_command_type (a_command: POINTER): INTEGER is -- GdaCommandType
+	gda_command_get_options (a_cmd: POINTER): INTEGER_32 is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_set_command_type (a_command: POINTER; a_type: INTEGER) is
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_command_get_options (a_command: POINTER): INTEGER is -- GdaCommandOptions
+	gda_command_set_command_type (a_cmd: POINTER; a_type: INTEGER_32) is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_set_options (a_command: POINTER; some_options: INTEGER) is
+	gda_command_get_command_type (a_cmd: POINTER): INTEGER_32 is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_command_get_transaction (a_command: POINTER): POINTER is -- GdaTransaction*
+	gda_command_set_text (a_cmd: POINTER; a_text: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
-	
-	gda_command_set_transaction (a_command, a_transaction: POINTER) is
+
+	gda_command_get_text (a_cmd: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_command_copy (a_cmd: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_command_free (a_cmd: POINTER) is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_command_new (a_text: POINTER; a_type: INTEGER_32; an_options: INTEGER_32): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_command_get_type: INTEGER_32 is
 		external "C use <libgda/libgda.h>"
 		end
 

@@ -1,54 +1,47 @@
-indexing
-	description: "External calls for GDA_DICT_TABLE"
-	copyright: "(C) 2006 Paolo Redaelli "
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
+-- This file have been created by eiffel-gcc-xml.
+-- Any change will be lost by the next execution of the tool.
 deferred class GDA_DICT_TABLE_EXTERNALS
+
 
 inherit ANY undefine is_equal, copy end
 
 
 feature {} -- External calls
-	 gda_dict_table_new (a_dict: POINTER): POINTER is
-			--  GObject* gda_dict_table_new (GdaDict *dict);
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_dict_table_get_database (a_table: POINTER): POINTER is
-			--  GdaDictDatabase* gda_dict_table_get_database (GdaDictTable *table);
+
+	gda_dict_table_update_dbms_data (a_table: POINTER; an_error: POINTER): INTEGER_32 is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_table_is_view (a_table: POINTER): INTEGER is
-			--  gboolean gda_dict_table_is_view (GdaDictTable *table);
+	gda_dict_table_get_pk_constraint (a_table: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_dict_table_get_constraints (a_table: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
 
 	gda_dict_table_get_parents (a_table: POINTER): POINTER is
-			--  const GSList* gda_dict_table_get_parents (GdaDictTable *table);
 		external "C use <libgda/libgda.h>"
 		end
 
-	 gda_dict_table_get_constraints (a_table: POINTER): POINTER is
-			--  GSList* gda_dict_table_get_constraints (GdaDictTable *table);
+	gda_dict_table_is_view (a_table: POINTER): INTEGER_32 is
 		external "C use <libgda/libgda.h>"
 		end
 
-	 gda_dict_table_get_pk_constraint (a_table: POINTER): POINTER is
-			--  GdaDictConstraint* gda_dict_table_get_pk_constraint (GdaDictTable *table);
+	gda_dict_table_get_database (a_table: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_dict_table_update_dbms_data (a_table, an_error_handle: POINTER): INTEGER is
-			--  gboolean gda_dict_table_update_dbms_data (GdaDictTable *table, GError **error);
+	gda_dict_table_new (a_dict: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
 
-feature {} -- size
-	struct_size: INTEGER is
-		external "C inline use <libgda/libgda.h>"
-		alias "sizeof(GdaDictTable)"
+	gda_dict_table_get_type: INTEGER_32 is
+		external "C use <libgda/libgda.h>"
 		end
+
+	gda_dict_table_error_quark: INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
 end

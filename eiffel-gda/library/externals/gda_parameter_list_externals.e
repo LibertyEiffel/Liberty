@@ -1,117 +1,100 @@
-indexing
-	description: "External calls for "
-	copyright: "(C) 2006 Paolo Redaelli "
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
-
+-- This file have been created by eiffel-gcc-xml.
+-- Any change will be lost by the next execution of the tool.
 deferred class GDA_PARAMETER_LIST_EXTERNALS
+
 
 inherit ANY undefine is_equal, copy end
 
-insert
-	GDA_PARAMETER_LIST_PARAM_HINT_ENUM
-	G_TYPE_EXTERNALS
 
 feature {} -- External calls
-	gda_parameter_list_new (some_params: POINTER): POINTER is
-			-- GdaParameterList* gda_parameter_list_new (GSList *params)
+
+	gda_parameter_list_get_param_default_value (a_paramlist: POINTER; a_param: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
 
-	-- GdaParameterList* gda_parameter_list_new_inline (GdaDict *dict,
-	-- ...);
-		
-	gda_parameter_list_new_from_spec_string (a_dict, an_xml_spec, a_error_ref: POINTER): POINTER is
-			-- GdaParameterList* gda_parameter_list_new_from_spec_string (GdaDict *dict, const gchar *xml_spec, GError **error)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_get_length (a_parameter_list: POINTER): INTEGER is
-			-- guint gda_parameter_list_get_length (GdaParameterList *plist)
+	gda_parameter_list_set_param_default_alias (a_paramlist: POINTER; a_param: POINTER; an_alias: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_parameter_list_get_spec (a_parameter_list: POINTER): POINTER is
-			-- gchar* gda_parameter_list_get_spec (GdaParameterList *paramlist)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_add_param (a_parameter_list, a_parameter: POINTER) is
-			-- void gda_parameter_list_add_param (GdaParameterList *paramlist,
-			-- GdaParameter *param)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_add_param_from_string (a_parameter_list, a_name: POINTER; a_type: like g_type; a_str: POINTER): POINTER is
-			-- GdaParameter* gda_parameter_list_add_param_from_string
-			-- (GdaParameterList *paramlist, const gchar *name, GType type, const
-			-- gchar *str)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_add_param_from_value (a_parameter_list, a_name, a_value: POINTER): POINTER is
-			-- GdaParameter* gda_parameter_list_add_param_from_value
-			-- (GdaParameterList *paramlist, const gchar *name, GValue *value)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_is_coherent (a_parameter_list, an_error_ref: POINTER): INTEGER is
-			-- gboolean gda_parameter_list_is_coherent (GdaParameterList
-			-- *paramlist, GError **error)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_is_valid (a_parameter_list: POINTER): INTEGER is
-			-- gboolean gda_parameter_list_is_valid (GdaParameterList *paramlist)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_find_param (a_parameter_list, a_name: POINTER): POINTER is
-			-- GdaParameter* gda_parameter_list_find_param (GdaParameterList
-			-- *paramlist, const gchar *param_name)
-		external "C use <libgda/libgda.h>"
- end
- 
-	gda_parameter_list_find_node_for_param (a_parameter_list, a_parameter: POINTER): POINTER is
-			-- GdaParameterListNode* gda_parameter_list_find_node_for_param
-			-- (GdaParameterList *paramlist, GdaParameter *param)
+	gda_parameter_list_set_param_default_value (a_paramlist: POINTER; a_param: POINTER; a_value: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_parameter_list_find_source_for_param (a_parameter_list, a_parameter: POINTER): POINTER is
-			-- GdaParameterListSource* gda_parameter_list_find_source_for_param
-			-- (GdaParameterList *paramlist, GdaParameter *param)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_find_source (a_parameter_list, a_model: POINTER): POINTER is
-			-- GdaParameterListSource* gda_parameter_list_find_source
-			-- (GdaParameterList *paramlist, GdaDataModel *model)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_set_param_default_value (a_parameter_list, a_parameter, a_value: POINTER) is
-			-- void gda_parameter_list_set_param_default_value (GdaParameterList
-			-- *paramlist, GdaParameter *param, const GValue *value)
-		external "C use <libgda/libgda.h>"
-		end
-	
-	gda_parameter_list_set_param_default_alias (a_parameter_list, a_parameter, an_alias: POINTER) is
-			-- void gda_parameter_list_set_param_default_alias (GdaParameterList
-			-- *paramlist, GdaParameter *param, GdaParameter *alias)
+	gda_parameter_list_find_group_for_param (a_paramlist: POINTER; a_param: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
 
-	gda_parameter_list_get_param_default_value (a_parameter_list, a_param: POINTER): POINTER is
-			-- const GValue* gda_parameter_list_get_param_default_value
-			-- (GdaParameterList *paramlist, GdaParameter *param)
+	gda_parameter_list_find_source_for_param (a_paramlist: POINTER; a_param: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
-	
-feature {} -- size
-	struct_size: INTEGER is
-		external "C inline use <libgda/libgda.h>"
-		alias "sizeof(GdaParameterList)"
+
+	gda_parameter_list_find_source (a_paramlist: POINTER; a_model: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
 		end
+
+	gda_parameter_list_find_node_for_param (a_paramlist: POINTER; a_param: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_find_param (a_paramlist: POINTER; a_param_name: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_is_valid (a_paramlist: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_is_coherent (a_paramlist: POINTER; an_error: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_merge (a_paramlist: POINTER; a_paramlist_to_merge: POINTER) is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_add_param_from_value (a_paramlist: POINTER; a_name: POINTER; a_value: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_add_param_from_string (a_paramlist: POINTER; a_name: POINTER; a_type: INTEGER_32; a_str: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_add_param (a_paramlist: POINTER; a_param: POINTER) is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_get_length (a_paramlist: POINTER): INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_get_spec (a_paramlist: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_new_from_spec_node (a_dict: POINTER; a_xml_spec: POINTER; an_error: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_new_from_spec_string (a_dict: POINTER; a_xml_spec: POINTER; an_error: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_new_inline (a_dict: POINTER; ): POINTER is
+			-- Variadic call
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_new (a_params: POINTER): POINTER is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_get_type: INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
+	gda_parameter_list_error_quark: INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
 end

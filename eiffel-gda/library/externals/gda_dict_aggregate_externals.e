@@ -1,70 +1,55 @@
-indexing
-	description: "External calls for  GDA_DICT_AGGREGATE"
-	copyright: "(C) 2006 Paolo Redaelli "
-	license: "LGPL v2 or later"
-	date: "$Date:$"
-	revision: "$Revision:$"
+-- This file have been created by eiffel-gcc-xml.
+-- Any change will be lost by the next execution of the tool.
+deferred class GDA_DICT_AGGREGATE_EXTERNALS
 
-deferred class  GDA_DICT_AGGREGATE_EXTERNALS
 
-insert ANY undefine is_equal, copy end
+inherit ANY undefine is_equal, copy end
+
 
 feature {} -- External calls
-	
- gda_dict_aggregate_new (a_dict: POINTER): POINTER is
-			--  GObject* gda_dict_aggregate_new (GdaDict *dict);
+
+	gda_dict_aggregate_get_ret_dict_type (an_agg: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
-	
- gda_dict_aggregate_set_dbms_id (an_aggregate, an_id: POINTER) is
-			-- void gda_dict_aggregate_set_dbms_id (GdaDictAggregate
-			-- *agg, const gchar *id);
+
+	gda_dict_aggregate_set_ret_dict_type (an_agg: POINTER; a_dt: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
-	
- gda_dict_aggregate_get_dbms_id (an_aggregate: POINTER): POINTER is
-			--  gchar* gda_dict_aggregate_get_dbms_id (GdaDictAggregate *agg);
+
+	gda_dict_aggregate_get_arg_dict_type (an_agg: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
-	
-	gda_dict_aggregate_set_sqlname (an_aggregate, an_sqlname: POINTER) is
-			-- void gda_dict_aggregate_set_sqlname (GdaDictAggregate
-			-- *agg, const gchar *sqlname);
+
+	gda_dict_aggregate_set_arg_dict_type (an_agg: POINTER; a_dt: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
-		 
-	gda_dict_aggregate_get_sqlname (an_aggregate: POINTER): POINTER is
-			--  const gchar* gda_dict_aggregate_get_sqlname
-			--  (GdaDictAggregate *agg);
+
+	gda_dict_aggregate_get_sqlname (an_agg: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
-		 
-	gda_dict_aggregate_set_arg_type (an_aggregate, a_dict_type: POINTER) is
-			--  void gda_dict_aggregate_set_arg_type (GdaDictAggregate
-			--  *agg, GdaDictType *dt);
+
+	gda_dict_aggregate_set_sqlname (an_agg: POINTER; a_sqlname: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
-	
-	gda_dict_aggregate_get_arg_type (an_aggregate: POINTER): POINTER is
-			--  GdaDictType* gda_dict_aggregate_get_arg_type (GdaDictAggregate *agg);
+
+	gda_dict_aggregate_get_dbms_id (an_agg: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
-		 
-	gda_dict_aggregate_set_ret_type (an_aggregate, a_dict_type: POINTER) is
-			-- void gda_dict_aggregate_set_ret_type (GdaDictAggregate
-			-- *agg, GdaDictType *dt);
+
+	gda_dict_aggregate_set_dbms_id (an_agg: POINTER; an_id: POINTER) is
 		external "C use <libgda/libgda.h>"
 		end
-		 
-	gda_dict_aggregate_get_ret_type (an_aggregate: POINTER): POINTER is
-			--  GdaDictType* gda_dict_aggregate_get_ret_type
-			--  (GdaDictAggregate *agg);
+
+	gda_dict_aggregate_new (a_dict: POINTER): POINTER is
 		external "C use <libgda/libgda.h>"
 		end
-	
-feature {} -- size
-	struct_size: INTEGER is
-		external "C inline use <libgda/libgda.h>"
-		alias "sizeof(GdaDictAggregate)"
+
+	gda_dict_aggregate_get_type: INTEGER_32 is
+		external "C use <libgda/libgda.h>"
 		end
+
+	gda_dict_aggregate_error_quark: INTEGER_32 is
+		external "C use <libgda/libgda.h>"
+		end
+
 end
