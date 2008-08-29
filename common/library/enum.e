@@ -4,7 +4,7 @@ deferred class ENUM
 inherit ANY undefine default_create end
 
 feature 
-	is_valid: BOOLEAN is 
+	is_valid_state: BOOLEAN is 
 			-- Is the value of the enumeration valid?
 		do
 			Result := is_valid_value(value)
@@ -26,5 +26,5 @@ feature {WRAPPER_HANDLER}
 		deferred
 		end
 
-invariant is_valid
+invariant is_valid_state
 end -- class ENUM
