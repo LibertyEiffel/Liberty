@@ -82,32 +82,32 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_key_file_error_unknown_encoding: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_KEY_FILE_ERROR_UNKNOWN_ENCODING"
 		end
 
 	g_key_file_error_parse: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_KEY_FILE_ERROR_PARSE"
 		end
 
 	g_key_file_error_not_found: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_KEY_FILE_ERROR_NOT_FOUND"
 		end
 
 	g_key_file_error_key_not_found: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_KEY_FILE_ERROR_KEY_NOT_FOUND"
 		end
 
 	g_key_file_error_group_not_found: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_KEY_FILE_ERROR_GROUP_NOT_FOUND"
 		end
 
 	g_key_file_error_invalid_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_KEY_FILE_ERROR_INVALID_VALUE"
 		end
 

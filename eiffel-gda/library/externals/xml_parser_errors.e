@@ -7980,3622 +7980,3622 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_err_ok: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_OK"
 		end
 
 	xml_err_internal_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_INTERNAL_ERROR"
 		end
 
 	xml_err_no_memory: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NO_MEMORY"
 		end
 
 	xml_err_document_start: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_DOCUMENT_START"
 		end
 
 	xml_err_document_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_DOCUMENT_EMPTY"
 		end
 
 	xml_err_document_end: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_DOCUMENT_END"
 		end
 
 	xml_err_invalid_hex_charref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_INVALID_HEX_CHARREF"
 		end
 
 	xml_err_invalid_dec_charref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_INVALID_DEC_CHARREF"
 		end
 
 	xml_err_invalid_charref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_INVALID_CHARREF"
 		end
 
 	xml_err_invalid_char: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_INVALID_CHAR"
 		end
 
 	xml_err_charref_at_eof: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_CHARREF_AT_EOF"
 		end
 
 	xml_err_charref_in_prolog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_CHARREF_IN_PROLOG"
 		end
 
 	xml_err_charref_in_epilog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_CHARREF_IN_EPILOG"
 		end
 
 	xml_err_charref_in_dtd: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_CHARREF_IN_DTD"
 		end
 
 	xml_err_entityref_at_eof: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITYREF_AT_EOF"
 		end
 
 	xml_err_entityref_in_prolog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITYREF_IN_PROLOG"
 		end
 
 	xml_err_entityref_in_epilog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITYREF_IN_EPILOG"
 		end
 
 	xml_err_entityref_in_dtd: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITYREF_IN_DTD"
 		end
 
 	xml_err_peref_at_eof: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PEREF_AT_EOF"
 		end
 
 	xml_err_peref_in_prolog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PEREF_IN_PROLOG"
 		end
 
 	xml_err_peref_in_epilog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PEREF_IN_EPILOG"
 		end
 
 	xml_err_peref_in_int_subset: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PEREF_IN_INT_SUBSET"
 		end
 
 	xml_err_entityref_no_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITYREF_NO_NAME"
 		end
 
 	xml_err_entityref_semicol_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITYREF_SEMICOL_MISSING"
 		end
 
 	xml_err_peref_no_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PEREF_NO_NAME"
 		end
 
 	xml_err_peref_semicol_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PEREF_SEMICOL_MISSING"
 		end
 
 	xml_err_undeclared_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_UNDECLARED_ENTITY"
 		end
 
 	xml_war_undeclared_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_WAR_UNDECLARED_ENTITY"
 		end
 
 	xml_err_unparsed_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_UNPARSED_ENTITY"
 		end
 
 	xml_err_entity_is_external: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITY_IS_EXTERNAL"
 		end
 
 	xml_err_entity_is_parameter: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITY_IS_PARAMETER"
 		end
 
 	xml_err_unknown_encoding: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_UNKNOWN_ENCODING"
 		end
 
 	xml_err_unsupported_encoding: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_UNSUPPORTED_ENCODING"
 		end
 
 	xml_err_string_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_STRING_NOT_STARTED"
 		end
 
 	xml_err_string_not_closed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_STRING_NOT_CLOSED"
 		end
 
 	xml_err_ns_decl_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NS_DECL_ERROR"
 		end
 
 	xml_err_entity_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITY_NOT_STARTED"
 		end
 
 	xml_err_entity_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITY_NOT_FINISHED"
 		end
 
 	xml_err_lt_in_attribute: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_LT_IN_ATTRIBUTE"
 		end
 
 	xml_err_attribute_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ATTRIBUTE_NOT_STARTED"
 		end
 
 	xml_err_attribute_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ATTRIBUTE_NOT_FINISHED"
 		end
 
 	xml_err_attribute_without_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ATTRIBUTE_WITHOUT_VALUE"
 		end
 
 	xml_err_attribute_redefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ATTRIBUTE_REDEFINED"
 		end
 
 	xml_err_literal_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_LITERAL_NOT_STARTED"
 		end
 
 	xml_err_literal_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_LITERAL_NOT_FINISHED"
 		end
 
 	xml_err_comment_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_COMMENT_NOT_FINISHED"
 		end
 
 	xml_err_pi_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PI_NOT_STARTED"
 		end
 
 	xml_err_pi_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PI_NOT_FINISHED"
 		end
 
 	xml_err_notation_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NOTATION_NOT_STARTED"
 		end
 
 	xml_err_notation_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NOTATION_NOT_FINISHED"
 		end
 
 	xml_err_attlist_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ATTLIST_NOT_STARTED"
 		end
 
 	xml_err_attlist_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ATTLIST_NOT_FINISHED"
 		end
 
 	xml_err_mixed_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_MIXED_NOT_STARTED"
 		end
 
 	xml_err_mixed_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_MIXED_NOT_FINISHED"
 		end
 
 	xml_err_elemcontent_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ELEMCONTENT_NOT_STARTED"
 		end
 
 	xml_err_elemcontent_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ELEMCONTENT_NOT_FINISHED"
 		end
 
 	xml_err_xmldecl_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_XMLDECL_NOT_STARTED"
 		end
 
 	xml_err_xmldecl_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_XMLDECL_NOT_FINISHED"
 		end
 
 	xml_err_condsec_not_started: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_CONDSEC_NOT_STARTED"
 		end
 
 	xml_err_condsec_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_CONDSEC_NOT_FINISHED"
 		end
 
 	xml_err_ext_subset_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_EXT_SUBSET_NOT_FINISHED"
 		end
 
 	xml_err_doctype_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_DOCTYPE_NOT_FINISHED"
 		end
 
 	xml_err_misplaced_cdata_end: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_MISPLACED_CDATA_END"
 		end
 
 	xml_err_cdata_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_CDATA_NOT_FINISHED"
 		end
 
 	xml_err_reserved_xml_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_RESERVED_XML_NAME"
 		end
 
 	xml_err_space_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_SPACE_REQUIRED"
 		end
 
 	xml_err_separator_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_SEPARATOR_REQUIRED"
 		end
 
 	xml_err_nmtoken_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NMTOKEN_REQUIRED"
 		end
 
 	xml_err_name_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NAME_REQUIRED"
 		end
 
 	xml_err_pcdata_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PCDATA_REQUIRED"
 		end
 
 	xml_err_uri_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_URI_REQUIRED"
 		end
 
 	xml_err_pubid_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_PUBID_REQUIRED"
 		end
 
 	xml_err_lt_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_LT_REQUIRED"
 		end
 
 	xml_err_gt_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_GT_REQUIRED"
 		end
 
 	xml_err_ltslash_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_LTSLASH_REQUIRED"
 		end
 
 	xml_err_equal_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_EQUAL_REQUIRED"
 		end
 
 	xml_err_tag_name_mismatch: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_TAG_NAME_MISMATCH"
 		end
 
 	xml_err_tag_not_finished: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_TAG_NOT_FINISHED"
 		end
 
 	xml_err_standalone_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_STANDALONE_VALUE"
 		end
 
 	xml_err_encoding_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENCODING_NAME"
 		end
 
 	xml_err_hyphen_in_comment: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_HYPHEN_IN_COMMENT"
 		end
 
 	xml_err_invalid_encoding: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_INVALID_ENCODING"
 		end
 
 	xml_err_ext_entity_standalone: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_EXT_ENTITY_STANDALONE"
 		end
 
 	xml_err_condsec_invalid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_CONDSEC_INVALID"
 		end
 
 	xml_err_value_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_VALUE_REQUIRED"
 		end
 
 	xml_err_not_well_balanced: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NOT_WELL_BALANCED"
 		end
 
 	xml_err_extra_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_EXTRA_CONTENT"
 		end
 
 	xml_err_entity_char_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITY_CHAR_ERROR"
 		end
 
 	xml_err_entity_pe_internal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITY_PE_INTERNAL"
 		end
 
 	xml_err_entity_loop: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITY_LOOP"
 		end
 
 	xml_err_entity_boundary: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITY_BOUNDARY"
 		end
 
 	xml_err_invalid_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_INVALID_URI"
 		end
 
 	xml_err_uri_fragment: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_URI_FRAGMENT"
 		end
 
 	xml_war_catalog_pi: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_WAR_CATALOG_PI"
 		end
 
 	xml_err_no_dtd: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NO_DTD"
 		end
 
 	xml_err_condsec_invalid_keyword: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_CONDSEC_INVALID_KEYWORD"
 		end
 
 	xml_err_version_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_VERSION_MISSING"
 		end
 
 	xml_war_unknown_version: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_WAR_UNKNOWN_VERSION"
 		end
 
 	xml_war_lang_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_WAR_LANG_VALUE"
 		end
 
 	xml_war_ns_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_WAR_NS_URI"
 		end
 
 	xml_war_ns_uri_relative: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_WAR_NS_URI_RELATIVE"
 		end
 
 	xml_err_missing_encoding: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_MISSING_ENCODING"
 		end
 
 	xml_war_space_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_WAR_SPACE_VALUE"
 		end
 
 	xml_err_not_standalone: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NOT_STANDALONE"
 		end
 
 	xml_err_entity_processing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_ENTITY_PROCESSING"
 		end
 
 	xml_err_notation_processing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ERR_NOTATION_PROCESSING"
 		end
 
 	xml_war_ns_column: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_WAR_NS_COLUMN"
 		end
 
 	xml_war_entity_redefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_WAR_ENTITY_REDEFINED"
 		end
 
 	xml_ns_err_xml_namespace: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_NS_ERR_XML_NAMESPACE"
 		end
 
 	xml_ns_err_undefined_namespace: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_NS_ERR_UNDEFINED_NAMESPACE"
 		end
 
 	xml_ns_err_qname: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_NS_ERR_QNAME"
 		end
 
 	xml_ns_err_attribute_redefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_NS_ERR_ATTRIBUTE_REDEFINED"
 		end
 
 	xml_ns_err_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_NS_ERR_EMPTY"
 		end
 
 	xml_dtd_attribute_default: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ATTRIBUTE_DEFAULT"
 		end
 
 	xml_dtd_attribute_redefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ATTRIBUTE_REDEFINED"
 		end
 
 	xml_dtd_attribute_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ATTRIBUTE_VALUE"
 		end
 
 	xml_dtd_content_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_CONTENT_ERROR"
 		end
 
 	xml_dtd_content_model: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_CONTENT_MODEL"
 		end
 
 	xml_dtd_content_not_determinist: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_CONTENT_NOT_DETERMINIST"
 		end
 
 	xml_dtd_different_prefix: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_DIFFERENT_PREFIX"
 		end
 
 	xml_dtd_elem_default_namespace: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ELEM_DEFAULT_NAMESPACE"
 		end
 
 	xml_dtd_elem_namespace: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ELEM_NAMESPACE"
 		end
 
 	xml_dtd_elem_redefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ELEM_REDEFINED"
 		end
 
 	xml_dtd_empty_notation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_EMPTY_NOTATION"
 		end
 
 	xml_dtd_entity_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ENTITY_TYPE"
 		end
 
 	xml_dtd_id_fixed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ID_FIXED"
 		end
 
 	xml_dtd_id_redefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ID_REDEFINED"
 		end
 
 	xml_dtd_id_subset: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ID_SUBSET"
 		end
 
 	xml_dtd_invalid_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_INVALID_CHILD"
 		end
 
 	xml_dtd_invalid_default: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_INVALID_DEFAULT"
 		end
 
 	xml_dtd_load_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_LOAD_ERROR"
 		end
 
 	xml_dtd_missing_attribute: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_MISSING_ATTRIBUTE"
 		end
 
 	xml_dtd_mixed_corrupt: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_MIXED_CORRUPT"
 		end
 
 	xml_dtd_multiple_id: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_MULTIPLE_ID"
 		end
 
 	xml_dtd_no_doc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NO_DOC"
 		end
 
 	xml_dtd_no_dtd: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NO_DTD"
 		end
 
 	xml_dtd_no_elem_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NO_ELEM_NAME"
 		end
 
 	xml_dtd_no_prefix: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NO_PREFIX"
 		end
 
 	xml_dtd_no_root: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NO_ROOT"
 		end
 
 	xml_dtd_notation_redefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NOTATION_REDEFINED"
 		end
 
 	xml_dtd_notation_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NOTATION_VALUE"
 		end
 
 	xml_dtd_not_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NOT_EMPTY"
 		end
 
 	xml_dtd_not_pcdata: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NOT_PCDATA"
 		end
 
 	xml_dtd_not_standalone: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NOT_STANDALONE"
 		end
 
 	xml_dtd_root_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_ROOT_NAME"
 		end
 
 	xml_dtd_standalone_white_space: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_STANDALONE_WHITE_SPACE"
 		end
 
 	xml_dtd_unknown_attribute: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_UNKNOWN_ATTRIBUTE"
 		end
 
 	xml_dtd_unknown_elem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_UNKNOWN_ELEM"
 		end
 
 	xml_dtd_unknown_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_UNKNOWN_ENTITY"
 		end
 
 	xml_dtd_unknown_id: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_UNKNOWN_ID"
 		end
 
 	xml_dtd_unknown_notation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_UNKNOWN_NOTATION"
 		end
 
 	xml_dtd_standalone_defaulted: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_STANDALONE_DEFAULTED"
 		end
 
 	xml_dtd_xmlid_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_XMLID_VALUE"
 		end
 
 	xml_dtd_xmlid_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_XMLID_TYPE"
 		end
 
 	xml_html_strucure_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_HTML_STRUCURE_ERROR"
 		end
 
 	xml_html_unknown_tag: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_HTML_UNKNOWN_TAG"
 		end
 
 	xml_rngp_anyname_attr_ancestor: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ANYNAME_ATTR_ANCESTOR"
 		end
 
 	xml_rngp_attr_conflict: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ATTR_CONFLICT"
 		end
 
 	xml_rngp_attribute_children: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ATTRIBUTE_CHILDREN"
 		end
 
 	xml_rngp_attribute_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ATTRIBUTE_CONTENT"
 		end
 
 	xml_rngp_attribute_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ATTRIBUTE_EMPTY"
 		end
 
 	xml_rngp_attribute_noop: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ATTRIBUTE_NOOP"
 		end
 
 	xml_rngp_choice_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_CHOICE_CONTENT"
 		end
 
 	xml_rngp_choice_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_CHOICE_EMPTY"
 		end
 
 	xml_rngp_create_failure: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_CREATE_FAILURE"
 		end
 
 	xml_rngp_data_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_DATA_CONTENT"
 		end
 
 	xml_rngp_def_choice_and_interleave: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_DEF_CHOICE_AND_INTERLEAVE"
 		end
 
 	xml_rngp_define_create_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_DEFINE_CREATE_FAILED"
 		end
 
 	xml_rngp_define_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_DEFINE_EMPTY"
 		end
 
 	xml_rngp_define_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_DEFINE_MISSING"
 		end
 
 	xml_rngp_define_name_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_DEFINE_NAME_MISSING"
 		end
 
 	xml_rngp_elem_content_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ELEM_CONTENT_EMPTY"
 		end
 
 	xml_rngp_elem_content_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ELEM_CONTENT_ERROR"
 		end
 
 	xml_rngp_element_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ELEMENT_EMPTY"
 		end
 
 	xml_rngp_element_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ELEMENT_CONTENT"
 		end
 
 	xml_rngp_element_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ELEMENT_NAME"
 		end
 
 	xml_rngp_element_no_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ELEMENT_NO_CONTENT"
 		end
 
 	xml_rngp_elem_text_conflict: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ELEM_TEXT_CONFLICT"
 		end
 
 	xml_rngp_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EMPTY"
 		end
 
 	xml_rngp_empty_construct: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EMPTY_CONSTRUCT"
 		end
 
 	xml_rngp_empty_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EMPTY_CONTENT"
 		end
 
 	xml_rngp_empty_not_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EMPTY_NOT_EMPTY"
 		end
 
 	xml_rngp_error_type_lib: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_ERROR_TYPE_LIB"
 		end
 
 	xml_rngp_except_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EXCEPT_EMPTY"
 		end
 
 	xml_rngp_except_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EXCEPT_MISSING"
 		end
 
 	xml_rngp_except_multiple: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EXCEPT_MULTIPLE"
 		end
 
 	xml_rngp_except_no_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EXCEPT_NO_CONTENT"
 		end
 
 	xml_rngp_externalref_emtpy: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EXTERNALREF_EMTPY"
 		end
 
 	xml_rngp_external_ref_failure: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EXTERNAL_REF_FAILURE"
 		end
 
 	xml_rngp_externalref_recurse: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_EXTERNALREF_RECURSE"
 		end
 
 	xml_rngp_forbidden_attribute: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_FORBIDDEN_ATTRIBUTE"
 		end
 
 	xml_rngp_foreign_element: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_FOREIGN_ELEMENT"
 		end
 
 	xml_rngp_grammar_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_GRAMMAR_CONTENT"
 		end
 
 	xml_rngp_grammar_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_GRAMMAR_EMPTY"
 		end
 
 	xml_rngp_grammar_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_GRAMMAR_MISSING"
 		end
 
 	xml_rngp_grammar_no_start: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_GRAMMAR_NO_START"
 		end
 
 	xml_rngp_group_attr_conflict: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_GROUP_ATTR_CONFLICT"
 		end
 
 	xml_rngp_href_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_HREF_ERROR"
 		end
 
 	xml_rngp_include_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INCLUDE_EMPTY"
 		end
 
 	xml_rngp_include_failure: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INCLUDE_FAILURE"
 		end
 
 	xml_rngp_include_recurse: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INCLUDE_RECURSE"
 		end
 
 	xml_rngp_interleave_add: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INTERLEAVE_ADD"
 		end
 
 	xml_rngp_interleave_create_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INTERLEAVE_CREATE_FAILED"
 		end
 
 	xml_rngp_interleave_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INTERLEAVE_EMPTY"
 		end
 
 	xml_rngp_interleave_no_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INTERLEAVE_NO_CONTENT"
 		end
 
 	xml_rngp_invalid_define_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INVALID_DEFINE_NAME"
 		end
 
 	xml_rngp_invalid_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INVALID_URI"
 		end
 
 	xml_rngp_invalid_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_INVALID_VALUE"
 		end
 
 	xml_rngp_missing_href: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_MISSING_HREF"
 		end
 
 	xml_rngp_name_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_NAME_MISSING"
 		end
 
 	xml_rngp_need_combine: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_NEED_COMBINE"
 		end
 
 	xml_rngp_notallowed_not_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_NOTALLOWED_NOT_EMPTY"
 		end
 
 	xml_rngp_nsname_attr_ancestor: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_NSNAME_ATTR_ANCESTOR"
 		end
 
 	xml_rngp_nsname_no_ns: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_NSNAME_NO_NS"
 		end
 
 	xml_rngp_param_forbidden: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PARAM_FORBIDDEN"
 		end
 
 	xml_rngp_param_name_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PARAM_NAME_MISSING"
 		end
 
 	xml_rngp_parentref_create_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PARENTREF_CREATE_FAILED"
 		end
 
 	xml_rngp_parentref_name_invalid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PARENTREF_NAME_INVALID"
 		end
 
 	xml_rngp_parentref_no_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PARENTREF_NO_NAME"
 		end
 
 	xml_rngp_parentref_no_parent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PARENTREF_NO_PARENT"
 		end
 
 	xml_rngp_parentref_not_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PARENTREF_NOT_EMPTY"
 		end
 
 	xml_rngp_parse_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PARSE_ERROR"
 		end
 
 	xml_rngp_pat_anyname_except_anyname: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_ANYNAME_EXCEPT_ANYNAME"
 		end
 
 	xml_rngp_pat_attr_attr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_ATTR_ATTR"
 		end
 
 	xml_rngp_pat_attr_elem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_ATTR_ELEM"
 		end
 
 	xml_rngp_pat_data_except_attr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_DATA_EXCEPT_ATTR"
 		end
 
 	xml_rngp_pat_data_except_elem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_DATA_EXCEPT_ELEM"
 		end
 
 	xml_rngp_pat_data_except_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_DATA_EXCEPT_EMPTY"
 		end
 
 	xml_rngp_pat_data_except_group: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_DATA_EXCEPT_GROUP"
 		end
 
 	xml_rngp_pat_data_except_interleave: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_DATA_EXCEPT_INTERLEAVE"
 		end
 
 	xml_rngp_pat_data_except_list: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_DATA_EXCEPT_LIST"
 		end
 
 	xml_rngp_pat_data_except_onemore: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_DATA_EXCEPT_ONEMORE"
 		end
 
 	xml_rngp_pat_data_except_ref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_DATA_EXCEPT_REF"
 		end
 
 	xml_rngp_pat_data_except_text: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_DATA_EXCEPT_TEXT"
 		end
 
 	xml_rngp_pat_list_attr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_LIST_ATTR"
 		end
 
 	xml_rngp_pat_list_elem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_LIST_ELEM"
 		end
 
 	xml_rngp_pat_list_interleave: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_LIST_INTERLEAVE"
 		end
 
 	xml_rngp_pat_list_list: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_LIST_LIST"
 		end
 
 	xml_rngp_pat_list_ref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_LIST_REF"
 		end
 
 	xml_rngp_pat_list_text: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_LIST_TEXT"
 		end
 
 	xml_rngp_pat_nsname_except_anyname: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_NSNAME_EXCEPT_ANYNAME"
 		end
 
 	xml_rngp_pat_nsname_except_nsname: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_NSNAME_EXCEPT_NSNAME"
 		end
 
 	xml_rngp_pat_onemore_group_attr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_ONEMORE_GROUP_ATTR"
 		end
 
 	xml_rngp_pat_onemore_interleave_attr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_ONEMORE_INTERLEAVE_ATTR"
 		end
 
 	xml_rngp_pat_start_attr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_START_ATTR"
 		end
 
 	xml_rngp_pat_start_data: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_START_DATA"
 		end
 
 	xml_rngp_pat_start_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_START_EMPTY"
 		end
 
 	xml_rngp_pat_start_group: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_START_GROUP"
 		end
 
 	xml_rngp_pat_start_interleave: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_START_INTERLEAVE"
 		end
 
 	xml_rngp_pat_start_list: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_START_LIST"
 		end
 
 	xml_rngp_pat_start_onemore: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_START_ONEMORE"
 		end
 
 	xml_rngp_pat_start_text: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_START_TEXT"
 		end
 
 	xml_rngp_pat_start_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PAT_START_VALUE"
 		end
 
 	xml_rngp_prefix_undefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_PREFIX_UNDEFINED"
 		end
 
 	xml_rngp_ref_create_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_REF_CREATE_FAILED"
 		end
 
 	xml_rngp_ref_cycle: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_REF_CYCLE"
 		end
 
 	xml_rngp_ref_name_invalid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_REF_NAME_INVALID"
 		end
 
 	xml_rngp_ref_no_def: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_REF_NO_DEF"
 		end
 
 	xml_rngp_ref_no_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_REF_NO_NAME"
 		end
 
 	xml_rngp_ref_not_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_REF_NOT_EMPTY"
 		end
 
 	xml_rngp_start_choice_and_interleave: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_START_CHOICE_AND_INTERLEAVE"
 		end
 
 	xml_rngp_start_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_START_CONTENT"
 		end
 
 	xml_rngp_start_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_START_EMPTY"
 		end
 
 	xml_rngp_start_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_START_MISSING"
 		end
 
 	xml_rngp_text_expected: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_TEXT_EXPECTED"
 		end
 
 	xml_rngp_text_has_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_TEXT_HAS_CHILD"
 		end
 
 	xml_rngp_type_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_TYPE_MISSING"
 		end
 
 	xml_rngp_type_not_found: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_TYPE_NOT_FOUND"
 		end
 
 	xml_rngp_type_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_TYPE_VALUE"
 		end
 
 	xml_rngp_unknown_attribute: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_UNKNOWN_ATTRIBUTE"
 		end
 
 	xml_rngp_unknown_combine: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_UNKNOWN_COMBINE"
 		end
 
 	xml_rngp_unknown_construct: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_UNKNOWN_CONSTRUCT"
 		end
 
 	xml_rngp_unknown_type_lib: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_UNKNOWN_TYPE_LIB"
 		end
 
 	xml_rngp_uri_fragment: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_URI_FRAGMENT"
 		end
 
 	xml_rngp_uri_not_absolute: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_URI_NOT_ABSOLUTE"
 		end
 
 	xml_rngp_value_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_VALUE_EMPTY"
 		end
 
 	xml_rngp_value_no_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_VALUE_NO_CONTENT"
 		end
 
 	xml_rngp_xmlns_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_XMLNS_NAME"
 		end
 
 	xml_rngp_xml_ns: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_RNGP_XML_NS"
 		end
 
 	xml_xpath_expression_ok: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_EXPRESSION_OK"
 		end
 
 	xml_xpath_number_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_NUMBER_ERROR"
 		end
 
 	xml_xpath_unfinished_literal_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_UNFINISHED_LITERAL_ERROR"
 		end
 
 	xml_xpath_start_literal_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_START_LITERAL_ERROR"
 		end
 
 	xml_xpath_variable_ref_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_VARIABLE_REF_ERROR"
 		end
 
 	xml_xpath_undef_variable_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_UNDEF_VARIABLE_ERROR"
 		end
 
 	xml_xpath_invalid_predicate_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_INVALID_PREDICATE_ERROR"
 		end
 
 	xml_xpath_expr_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_EXPR_ERROR"
 		end
 
 	xml_xpath_unclosed_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_UNCLOSED_ERROR"
 		end
 
 	xml_xpath_unknown_func_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_UNKNOWN_FUNC_ERROR"
 		end
 
 	xml_xpath_invalid_operand: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_INVALID_OPERAND"
 		end
 
 	xml_xpath_invalid_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_INVALID_TYPE"
 		end
 
 	xml_xpath_invalid_arity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_INVALID_ARITY"
 		end
 
 	xml_xpath_invalid_ctxt_size: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_INVALID_CTXT_SIZE"
 		end
 
 	xml_xpath_invalid_ctxt_position: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_INVALID_CTXT_POSITION"
 		end
 
 	xml_xpath_memory_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_MEMORY_ERROR"
 		end
 
 	xml_xptr_syntax_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPTR_SYNTAX_ERROR"
 		end
 
 	xml_xptr_resource_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPTR_RESOURCE_ERROR"
 		end
 
 	xml_xptr_sub_resource_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPTR_SUB_RESOURCE_ERROR"
 		end
 
 	xml_xpath_undef_prefix_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_UNDEF_PREFIX_ERROR"
 		end
 
 	xml_xpath_encoding_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_ENCODING_ERROR"
 		end
 
 	xml_xpath_invalid_char_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPATH_INVALID_CHAR_ERROR"
 		end
 
 	xml_tree_invalid_hex: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_TREE_INVALID_HEX"
 		end
 
 	xml_tree_invalid_dec: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_TREE_INVALID_DEC"
 		end
 
 	xml_tree_unterminated_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_TREE_UNTERMINATED_ENTITY"
 		end
 
 	xml_save_not_utf8: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SAVE_NOT_UTF8"
 		end
 
 	xml_save_char_invalid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SAVE_CHAR_INVALID"
 		end
 
 	xml_save_no_doctype: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SAVE_NO_DOCTYPE"
 		end
 
 	xml_save_unknown_encoding: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SAVE_UNKNOWN_ENCODING"
 		end
 
 	xml_regexp_compile_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_REGEXP_COMPILE_ERROR"
 		end
 
 	xml_io_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_UNKNOWN"
 		end
 
 	xml_io_eacces: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EACCES"
 		end
 
 	xml_io_eagain: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EAGAIN"
 		end
 
 	xml_io_ebadf: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EBADF"
 		end
 
 	xml_io_ebadmsg: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EBADMSG"
 		end
 
 	xml_io_ebusy: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EBUSY"
 		end
 
 	xml_io_ecanceled: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ECANCELED"
 		end
 
 	xml_io_echild: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ECHILD"
 		end
 
 	xml_io_edeadlk: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EDEADLK"
 		end
 
 	xml_io_edom: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EDOM"
 		end
 
 	xml_io_eexist: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EEXIST"
 		end
 
 	xml_io_efault: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EFAULT"
 		end
 
 	xml_io_efbig: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EFBIG"
 		end
 
 	xml_io_einprogress: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EINPROGRESS"
 		end
 
 	xml_io_eintr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EINTR"
 		end
 
 	xml_io_einval: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EINVAL"
 		end
 
 	xml_io_eio: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EIO"
 		end
 
 	xml_io_eisdir: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EISDIR"
 		end
 
 	xml_io_emfile: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EMFILE"
 		end
 
 	xml_io_emlink: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EMLINK"
 		end
 
 	xml_io_emsgsize: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EMSGSIZE"
 		end
 
 	xml_io_enametoolong: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENAMETOOLONG"
 		end
 
 	xml_io_enfile: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENFILE"
 		end
 
 	xml_io_enodev: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENODEV"
 		end
 
 	xml_io_enoent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOENT"
 		end
 
 	xml_io_enoexec: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOEXEC"
 		end
 
 	xml_io_enolck: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOLCK"
 		end
 
 	xml_io_enomem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOMEM"
 		end
 
 	xml_io_enospc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOSPC"
 		end
 
 	xml_io_enosys: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOSYS"
 		end
 
 	xml_io_enotdir: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOTDIR"
 		end
 
 	xml_io_enotempty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOTEMPTY"
 		end
 
 	xml_io_enotsup: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOTSUP"
 		end
 
 	xml_io_enotty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOTTY"
 		end
 
 	xml_io_enxio: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENXIO"
 		end
 
 	xml_io_eperm: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EPERM"
 		end
 
 	xml_io_epipe: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EPIPE"
 		end
 
 	xml_io_erange: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ERANGE"
 		end
 
 	xml_io_erofs: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EROFS"
 		end
 
 	xml_io_espipe: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ESPIPE"
 		end
 
 	xml_io_esrch: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ESRCH"
 		end
 
 	xml_io_etimedout: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ETIMEDOUT"
 		end
 
 	xml_io_exdev: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EXDEV"
 		end
 
 	xml_io_network_attempt: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_NETWORK_ATTEMPT"
 		end
 
 	xml_io_encoder: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENCODER"
 		end
 
 	xml_io_flush: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_FLUSH"
 		end
 
 	xml_io_write: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_WRITE"
 		end
 
 	xml_io_no_input: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_NO_INPUT"
 		end
 
 	xml_io_buffer_full: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_BUFFER_FULL"
 		end
 
 	xml_io_load_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_LOAD_ERROR"
 		end
 
 	xml_io_enotsock: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENOTSOCK"
 		end
 
 	xml_io_eisconn: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EISCONN"
 		end
 
 	xml_io_econnrefused: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ECONNREFUSED"
 		end
 
 	xml_io_enetunreach: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_ENETUNREACH"
 		end
 
 	xml_io_eaddrinuse: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EADDRINUSE"
 		end
 
 	xml_io_ealready: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EALREADY"
 		end
 
 	xml_io_eafnosupport: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_IO_EAFNOSUPPORT"
 		end
 
 	xml_xinclude_recursion: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_RECURSION"
 		end
 
 	xml_xinclude_parse_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_PARSE_VALUE"
 		end
 
 	xml_xinclude_entity_def_mismatch: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_ENTITY_DEF_MISMATCH"
 		end
 
 	xml_xinclude_no_href: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_NO_HREF"
 		end
 
 	xml_xinclude_no_fallback: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_NO_FALLBACK"
 		end
 
 	xml_xinclude_href_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_HREF_URI"
 		end
 
 	xml_xinclude_text_fragment: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_TEXT_FRAGMENT"
 		end
 
 	xml_xinclude_text_document: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_TEXT_DOCUMENT"
 		end
 
 	xml_xinclude_invalid_char: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_INVALID_CHAR"
 		end
 
 	xml_xinclude_build_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_BUILD_FAILED"
 		end
 
 	xml_xinclude_unknown_encoding: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_UNKNOWN_ENCODING"
 		end
 
 	xml_xinclude_multiple_root: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_MULTIPLE_ROOT"
 		end
 
 	xml_xinclude_xptr_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_XPTR_FAILED"
 		end
 
 	xml_xinclude_xptr_result: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_XPTR_RESULT"
 		end
 
 	xml_xinclude_include_in_include: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_INCLUDE_IN_INCLUDE"
 		end
 
 	xml_xinclude_fallbacks_in_include: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_FALLBACKS_IN_INCLUDE"
 		end
 
 	xml_xinclude_fallback_not_in_include: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_FALLBACK_NOT_IN_INCLUDE"
 		end
 
 	xml_xinclude_deprecated_ns: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_DEPRECATED_NS"
 		end
 
 	xml_xinclude_fragment_id: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_FRAGMENT_ID"
 		end
 
 	xml_catalog_missing_attr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CATALOG_MISSING_ATTR"
 		end
 
 	xml_catalog_entry_broken: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CATALOG_ENTRY_BROKEN"
 		end
 
 	xml_catalog_prefer_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CATALOG_PREFER_VALUE"
 		end
 
 	xml_catalog_not_catalog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CATALOG_NOT_CATALOG"
 		end
 
 	xml_catalog_recursion: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CATALOG_RECURSION"
 		end
 
 	xml_schemap_prefix_undefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_PREFIX_UNDEFINED"
 		end
 
 	xml_schemap_attrformdefault_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_ATTRFORMDEFAULT_VALUE"
 		end
 
 	xml_schemap_attrgrp_noname_noref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_ATTRGRP_NONAME_NOREF"
 		end
 
 	xml_schemap_attr_noname_noref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_ATTR_NONAME_NOREF"
 		end
 
 	xml_schemap_complextype_noname_noref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COMPLEXTYPE_NONAME_NOREF"
 		end
 
 	xml_schemap_elemformdefault_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_ELEMFORMDEFAULT_VALUE"
 		end
 
 	xml_schemap_elem_noname_noref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_ELEM_NONAME_NOREF"
 		end
 
 	xml_schemap_extension_no_base: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_EXTENSION_NO_BASE"
 		end
 
 	xml_schemap_facet_no_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_FACET_NO_VALUE"
 		end
 
 	xml_schemap_failed_build_import: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_FAILED_BUILD_IMPORT"
 		end
 
 	xml_schemap_group_noname_noref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_GROUP_NONAME_NOREF"
 		end
 
 	xml_schemap_import_namespace_not_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_IMPORT_NAMESPACE_NOT_URI"
 		end
 
 	xml_schemap_import_redefine_nsname: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_IMPORT_REDEFINE_NSNAME"
 		end
 
 	xml_schemap_import_schema_not_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_IMPORT_SCHEMA_NOT_URI"
 		end
 
 	xml_schemap_invalid_boolean: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_BOOLEAN"
 		end
 
 	xml_schemap_invalid_enum: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_ENUM"
 		end
 
 	xml_schemap_invalid_facet: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_FACET"
 		end
 
 	xml_schemap_invalid_facet_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_FACET_VALUE"
 		end
 
 	xml_schemap_invalid_maxoccurs: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_MAXOCCURS"
 		end
 
 	xml_schemap_invalid_minoccurs: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_MINOCCURS"
 		end
 
 	xml_schemap_invalid_ref_and_subtype: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_REF_AND_SUBTYPE"
 		end
 
 	xml_schemap_invalid_white_space: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_WHITE_SPACE"
 		end
 
 	xml_schemap_noattr_noref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_NOATTR_NOREF"
 		end
 
 	xml_schemap_notation_no_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_NOTATION_NO_NAME"
 		end
 
 	xml_schemap_notype_noref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_NOTYPE_NOREF"
 		end
 
 	xml_schemap_ref_and_subtype: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_REF_AND_SUBTYPE"
 		end
 
 	xml_schemap_restriction_noname_noref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_RESTRICTION_NONAME_NOREF"
 		end
 
 	xml_schemap_simpletype_noname: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SIMPLETYPE_NONAME"
 		end
 
 	xml_schemap_type_and_subtype: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_TYPE_AND_SUBTYPE"
 		end
 
 	xml_schemap_unknown_all_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_ALL_CHILD"
 		end
 
 	xml_schemap_unknown_anyattribute_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_ANYATTRIBUTE_CHILD"
 		end
 
 	xml_schemap_unknown_attr_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_ATTR_CHILD"
 		end
 
 	xml_schemap_unknown_attrgrp_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_ATTRGRP_CHILD"
 		end
 
 	xml_schemap_unknown_attribute_group: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_ATTRIBUTE_GROUP"
 		end
 
 	xml_schemap_unknown_base_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_BASE_TYPE"
 		end
 
 	xml_schemap_unknown_choice_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_CHOICE_CHILD"
 		end
 
 	xml_schemap_unknown_complexcontent_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_COMPLEXCONTENT_CHILD"
 		end
 
 	xml_schemap_unknown_complextype_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_COMPLEXTYPE_CHILD"
 		end
 
 	xml_schemap_unknown_elem_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_ELEM_CHILD"
 		end
 
 	xml_schemap_unknown_extension_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_EXTENSION_CHILD"
 		end
 
 	xml_schemap_unknown_facet_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_FACET_CHILD"
 		end
 
 	xml_schemap_unknown_facet_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_FACET_TYPE"
 		end
 
 	xml_schemap_unknown_group_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_GROUP_CHILD"
 		end
 
 	xml_schemap_unknown_import_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_IMPORT_CHILD"
 		end
 
 	xml_schemap_unknown_list_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_LIST_CHILD"
 		end
 
 	xml_schemap_unknown_notation_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_NOTATION_CHILD"
 		end
 
 	xml_schemap_unknown_processcontent_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_PROCESSCONTENT_CHILD"
 		end
 
 	xml_schemap_unknown_ref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_REF"
 		end
 
 	xml_schemap_unknown_restriction_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_RESTRICTION_CHILD"
 		end
 
 	xml_schemap_unknown_schemas_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_SCHEMAS_CHILD"
 		end
 
 	xml_schemap_unknown_sequence_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_SEQUENCE_CHILD"
 		end
 
 	xml_schemap_unknown_simplecontent_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_SIMPLECONTENT_CHILD"
 		end
 
 	xml_schemap_unknown_simpletype_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_SIMPLETYPE_CHILD"
 		end
 
 	xml_schemap_unknown_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_TYPE"
 		end
 
 	xml_schemap_unknown_union_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_UNION_CHILD"
 		end
 
 	xml_schemap_elem_default_fixed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_ELEM_DEFAULT_FIXED"
 		end
 
 	xml_schemap_regexp_invalid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_REGEXP_INVALID"
 		end
 
 	xml_schemap_failed_load: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_FAILED_LOAD"
 		end
 
 	xml_schemap_nothing_to_parse: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_NOTHING_TO_PARSE"
 		end
 
 	xml_schemap_noroot: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_NOROOT"
 		end
 
 	xml_schemap_redefined_group: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_REDEFINED_GROUP"
 		end
 
 	xml_schemap_redefined_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_REDEFINED_TYPE"
 		end
 
 	xml_schemap_redefined_element: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_REDEFINED_ELEMENT"
 		end
 
 	xml_schemap_redefined_attrgroup: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_REDEFINED_ATTRGROUP"
 		end
 
 	xml_schemap_redefined_attr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_REDEFINED_ATTR"
 		end
 
 	xml_schemap_redefined_notation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_REDEFINED_NOTATION"
 		end
 
 	xml_schemap_failed_parse: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_FAILED_PARSE"
 		end
 
 	xml_schemap_unknown_prefix: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_PREFIX"
 		end
 
 	xml_schemap_def_and_prefix: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DEF_AND_PREFIX"
 		end
 
 	xml_schemap_unknown_include_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_INCLUDE_CHILD"
 		end
 
 	xml_schemap_include_schema_not_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INCLUDE_SCHEMA_NOT_URI"
 		end
 
 	xml_schemap_include_schema_no_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INCLUDE_SCHEMA_NO_URI"
 		end
 
 	xml_schemap_not_schema: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_NOT_SCHEMA"
 		end
 
 	xml_schemap_unknown_member_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNKNOWN_MEMBER_TYPE"
 		end
 
 	xml_schemap_invalid_attr_use: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_ATTR_USE"
 		end
 
 	xml_schemap_recursive: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_RECURSIVE"
 		end
 
 	xml_schemap_supernumerous_list_item_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SUPERNUMEROUS_LIST_ITEM_TYPE"
 		end
 
 	xml_schemap_invalid_attr_combination: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_ATTR_COMBINATION"
 		end
 
 	xml_schemap_invalid_attr_inline_combination: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_ATTR_INLINE_COMBINATION"
 		end
 
 	xml_schemap_missing_simpletype_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_MISSING_SIMPLETYPE_CHILD"
 		end
 
 	xml_schemap_invalid_attr_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INVALID_ATTR_NAME"
 		end
 
 	xml_schemap_ref_and_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_REF_AND_CONTENT"
 		end
 
 	xml_schemap_ct_props_correct_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_CT_PROPS_CORRECT_1"
 		end
 
 	xml_schemap_ct_props_correct_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_CT_PROPS_CORRECT_2"
 		end
 
 	xml_schemap_ct_props_correct_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_CT_PROPS_CORRECT_3"
 		end
 
 	xml_schemap_ct_props_correct_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_CT_PROPS_CORRECT_4"
 		end
 
 	xml_schemap_ct_props_correct_5: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_CT_PROPS_CORRECT_5"
 		end
 
 	xml_schemap_derivation_ok_restriction_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DERIVATION_OK_RESTRICTION_1"
 		end
 
 	xml_schemap_derivation_ok_restriction_2_1_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DERIVATION_OK_RESTRICTION_2_1_1"
 		end
 
 	xml_schemap_derivation_ok_restriction_2_1_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DERIVATION_OK_RESTRICTION_2_1_2"
 		end
 
 	xml_schemap_derivation_ok_restriction_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DERIVATION_OK_RESTRICTION_2_2"
 		end
 
 	xml_schemap_derivation_ok_restriction_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DERIVATION_OK_RESTRICTION_3"
 		end
 
 	xml_schemap_wildcard_invalid_ns_member: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_WILDCARD_INVALID_NS_MEMBER"
 		end
 
 	xml_schemap_intersection_not_expressible: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INTERSECTION_NOT_EXPRESSIBLE"
 		end
 
 	xml_schemap_union_not_expressible: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_UNION_NOT_EXPRESSIBLE"
 		end
 
 	xml_schemap_src_import_3_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_IMPORT_3_1"
 		end
 
 	xml_schemap_src_import_3_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_IMPORT_3_2"
 		end
 
 	xml_schemap_derivation_ok_restriction_4_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DERIVATION_OK_RESTRICTION_4_1"
 		end
 
 	xml_schemap_derivation_ok_restriction_4_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DERIVATION_OK_RESTRICTION_4_2"
 		end
 
 	xml_schemap_derivation_ok_restriction_4_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DERIVATION_OK_RESTRICTION_4_3"
 		end
 
 	xml_schemap_cos_ct_extends_1_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_CT_EXTENDS_1_3"
 		end
 
 	xml_schemav_noroot: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_NOROOT"
 		end
 
 	xml_schemav_undeclaredelem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_UNDECLAREDELEM"
 		end
 
 	xml_schemav_nottoplevel: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_NOTTOPLEVEL"
 		end
 
 	xml_schemav_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_MISSING"
 		end
 
 	xml_schemav_wrongelem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_WRONGELEM"
 		end
 
 	xml_schemav_notype: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_NOTYPE"
 		end
 
 	xml_schemav_norollback: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_NOROLLBACK"
 		end
 
 	xml_schemav_isabstract: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_ISABSTRACT"
 		end
 
 	xml_schemav_notempty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_NOTEMPTY"
 		end
 
 	xml_schemav_elemcont: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_ELEMCONT"
 		end
 
 	xml_schemav_havedefault: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_HAVEDEFAULT"
 		end
 
 	xml_schemav_notnillable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_NOTNILLABLE"
 		end
 
 	xml_schemav_extracontent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_EXTRACONTENT"
 		end
 
 	xml_schemav_invalidattr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_INVALIDATTR"
 		end
 
 	xml_schemav_invalidelem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_INVALIDELEM"
 		end
 
 	xml_schemav_notdeterminist: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_NOTDETERMINIST"
 		end
 
 	xml_schemav_construct: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CONSTRUCT"
 		end
 
 	xml_schemav_internal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_INTERNAL"
 		end
 
 	xml_schemav_notsimple: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_NOTSIMPLE"
 		end
 
 	xml_schemav_attrunknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_ATTRUNKNOWN"
 		end
 
 	xml_schemav_attrinvalid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_ATTRINVALID"
 		end
 
 	xml_schemav_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_VALUE"
 		end
 
 	xml_schemav_facet: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_FACET"
 		end
 
 	xml_schemav_cvc_datatype_valid_1_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_DATATYPE_VALID_1_2_1"
 		end
 
 	xml_schemav_cvc_datatype_valid_1_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_DATATYPE_VALID_1_2_2"
 		end
 
 	xml_schemav_cvc_datatype_valid_1_2_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_DATATYPE_VALID_1_2_3"
 		end
 
 	xml_schemav_cvc_type_3_1_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_TYPE_3_1_1"
 		end
 
 	xml_schemav_cvc_type_3_1_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_TYPE_3_1_2"
 		end
 
 	xml_schemav_cvc_facet_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_FACET_VALID"
 		end
 
 	xml_schemav_cvc_length_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_LENGTH_VALID"
 		end
 
 	xml_schemav_cvc_minlength_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_MINLENGTH_VALID"
 		end
 
 	xml_schemav_cvc_maxlength_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_MAXLENGTH_VALID"
 		end
 
 	xml_schemav_cvc_mininclusive_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_MININCLUSIVE_VALID"
 		end
 
 	xml_schemav_cvc_maxinclusive_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_MAXINCLUSIVE_VALID"
 		end
 
 	xml_schemav_cvc_minexclusive_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_MINEXCLUSIVE_VALID"
 		end
 
 	xml_schemav_cvc_maxexclusive_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_MAXEXCLUSIVE_VALID"
 		end
 
 	xml_schemav_cvc_totaldigits_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_TOTALDIGITS_VALID"
 		end
 
 	xml_schemav_cvc_fractiondigits_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_FRACTIONDIGITS_VALID"
 		end
 
 	xml_schemav_cvc_pattern_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_PATTERN_VALID"
 		end
 
 	xml_schemav_cvc_enumeration_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ENUMERATION_VALID"
 		end
 
 	xml_schemav_cvc_complex_type_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_2_1"
 		end
 
 	xml_schemav_cvc_complex_type_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_2_2"
 		end
 
 	xml_schemav_cvc_complex_type_2_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_2_3"
 		end
 
 	xml_schemav_cvc_complex_type_2_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_2_4"
 		end
 
 	xml_schemav_cvc_elt_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_1"
 		end
 
 	xml_schemav_cvc_elt_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_2"
 		end
 
 	xml_schemav_cvc_elt_3_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_3_1"
 		end
 
 	xml_schemav_cvc_elt_3_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_3_2_1"
 		end
 
 	xml_schemav_cvc_elt_3_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_3_2_2"
 		end
 
 	xml_schemav_cvc_elt_4_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_4_1"
 		end
 
 	xml_schemav_cvc_elt_4_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_4_2"
 		end
 
 	xml_schemav_cvc_elt_4_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_4_3"
 		end
 
 	xml_schemav_cvc_elt_5_1_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_5_1_1"
 		end
 
 	xml_schemav_cvc_elt_5_1_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_5_1_2"
 		end
 
 	xml_schemav_cvc_elt_5_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_5_2_1"
 		end
 
 	xml_schemav_cvc_elt_5_2_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_5_2_2_1"
 		end
 
 	xml_schemav_cvc_elt_5_2_2_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_5_2_2_2_1"
 		end
 
 	xml_schemav_cvc_elt_5_2_2_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_5_2_2_2_2"
 		end
 
 	xml_schemav_cvc_elt_6: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_6"
 		end
 
 	xml_schemav_cvc_elt_7: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ELT_7"
 		end
 
 	xml_schemav_cvc_attribute_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ATTRIBUTE_1"
 		end
 
 	xml_schemav_cvc_attribute_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ATTRIBUTE_2"
 		end
 
 	xml_schemav_cvc_attribute_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ATTRIBUTE_3"
 		end
 
 	xml_schemav_cvc_attribute_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_ATTRIBUTE_4"
 		end
 
 	xml_schemav_cvc_complex_type_3_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_3_1"
 		end
 
 	xml_schemav_cvc_complex_type_3_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_3_2_1"
 		end
 
 	xml_schemav_cvc_complex_type_3_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_3_2_2"
 		end
 
 	xml_schemav_cvc_complex_type_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_4"
 		end
 
 	xml_schemav_cvc_complex_type_5_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_5_1"
 		end
 
 	xml_schemav_cvc_complex_type_5_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_5_2"
 		end
 
 	xml_schemav_element_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_ELEMENT_CONTENT"
 		end
 
 	xml_schemav_document_element_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_DOCUMENT_ELEMENT_MISSING"
 		end
 
 	xml_schemav_cvc_complex_type_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_COMPLEX_TYPE_1"
 		end
 
 	xml_schemav_cvc_au: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_AU"
 		end
 
 	xml_schemav_cvc_type_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_TYPE_1"
 		end
 
 	xml_schemav_cvc_type_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_TYPE_2"
 		end
 
 	xml_schemav_cvc_idc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_IDC"
 		end
 
 	xml_schemav_cvc_wildcard: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_CVC_WILDCARD"
 		end
 
 	xml_schemav_misc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAV_MISC"
 		end
 
 	xml_xptr_unknown_scheme: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPTR_UNKNOWN_SCHEME"
 		end
 
 	xml_xptr_childseq_start: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPTR_CHILDSEQ_START"
 		end
 
 	xml_xptr_eval_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPTR_EVAL_FAILED"
 		end
 
 	xml_xptr_extra_objects: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XPTR_EXTRA_OBJECTS"
 		end
 
 	xml_c14n_create_ctxt: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_C14N_CREATE_CTXT"
 		end
 
 	xml_c14n_requires_utf8: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_C14N_REQUIRES_UTF8"
 		end
 
 	xml_c14n_create_stack: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_C14N_CREATE_STACK"
 		end
 
 	xml_c14n_invalid_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_C14N_INVALID_NODE"
 		end
 
 	xml_c14n_unknow_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_C14N_UNKNOW_NODE"
 		end
 
 	xml_c14n_relative_namespace: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_C14N_RELATIVE_NAMESPACE"
 		end
 
 	xml_ftp_pasv_answer: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_FTP_PASV_ANSWER"
 		end
 
 	xml_ftp_epsv_answer: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_FTP_EPSV_ANSWER"
 		end
 
 	xml_ftp_accnt: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_FTP_ACCNT"
 		end
 
 	xml_ftp_url_syntax: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_FTP_URL_SYNTAX"
 		end
 
 	xml_http_url_syntax: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_HTTP_URL_SYNTAX"
 		end
 
 	xml_http_use_ip: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_HTTP_USE_IP"
 		end
 
 	xml_http_unknown_host: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_HTTP_UNKNOWN_HOST"
 		end
 
 	xml_schemap_src_simple_type_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_SIMPLE_TYPE_1"
 		end
 
 	xml_schemap_src_simple_type_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_SIMPLE_TYPE_2"
 		end
 
 	xml_schemap_src_simple_type_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_SIMPLE_TYPE_3"
 		end
 
 	xml_schemap_src_simple_type_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_SIMPLE_TYPE_4"
 		end
 
 	xml_schemap_src_resolve: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_RESOLVE"
 		end
 
 	xml_schemap_src_restriction_base_or_simpletype: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_RESTRICTION_BASE_OR_SIMPLETYPE"
 		end
 
 	xml_schemap_src_list_itemtype_or_simpletype: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_LIST_ITEMTYPE_OR_SIMPLETYPE"
 		end
 
 	xml_schemap_src_union_membertypes_or_simpletypes: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_UNION_MEMBERTYPES_OR_SIMPLETYPES"
 		end
 
 	xml_schemap_st_props_correct_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_ST_PROPS_CORRECT_1"
 		end
 
 	xml_schemap_st_props_correct_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_ST_PROPS_CORRECT_2"
 		end
 
 	xml_schemap_st_props_correct_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_ST_PROPS_CORRECT_3"
 		end
 
 	xml_schemap_cos_st_restricts_1_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_1_1"
 		end
 
 	xml_schemap_cos_st_restricts_1_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_1_2"
 		end
 
 	xml_schemap_cos_st_restricts_1_3_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_1_3_1"
 		end
 
 	xml_schemap_cos_st_restricts_1_3_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_1_3_2"
 		end
 
 	xml_schemap_cos_st_restricts_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_2_1"
 		end
 
 	xml_schemap_cos_st_restricts_2_3_1_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_2_3_1_1"
 		end
 
 	xml_schemap_cos_st_restricts_2_3_1_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_2_3_1_2"
 		end
 
 	xml_schemap_cos_st_restricts_2_3_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_2_3_2_1"
 		end
 
 	xml_schemap_cos_st_restricts_2_3_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_2_3_2_2"
 		end
 
 	xml_schemap_cos_st_restricts_2_3_2_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_2_3_2_3"
 		end
 
 	xml_schemap_cos_st_restricts_2_3_2_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_2_3_2_4"
 		end
 
 	xml_schemap_cos_st_restricts_2_3_2_5: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_2_3_2_5"
 		end
 
 	xml_schemap_cos_st_restricts_3_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_3_1"
 		end
 
 	xml_schemap_cos_st_restricts_3_3_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_3_3_1"
 		end
 
 	xml_schemap_cos_st_restricts_3_3_1_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_3_3_1_2"
 		end
 
 	xml_schemap_cos_st_restricts_3_3_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_3_3_2_2"
 		end
 
 	xml_schemap_cos_st_restricts_3_3_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_3_3_2_1"
 		end
 
 	xml_schemap_cos_st_restricts_3_3_2_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_3_3_2_3"
 		end
 
 	xml_schemap_cos_st_restricts_3_3_2_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_3_3_2_4"
 		end
 
 	xml_schemap_cos_st_restricts_3_3_2_5: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_RESTRICTS_3_3_2_5"
 		end
 
 	xml_schemap_cos_st_derived_ok_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_DERIVED_OK_2_1"
 		end
 
 	xml_schemap_cos_st_derived_ok_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ST_DERIVED_OK_2_2"
 		end
 
 	xml_schemap_s4s_elem_not_allowed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_S4S_ELEM_NOT_ALLOWED"
 		end
 
 	xml_schemap_s4s_elem_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_S4S_ELEM_MISSING"
 		end
 
 	xml_schemap_s4s_attr_not_allowed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_S4S_ATTR_NOT_ALLOWED"
 		end
 
 	xml_schemap_s4s_attr_missing: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_S4S_ATTR_MISSING"
 		end
 
 	xml_schemap_s4s_attr_invalid_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_S4S_ATTR_INVALID_VALUE"
 		end
 
 	xml_schemap_src_element_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ELEMENT_1"
 		end
 
 	xml_schemap_src_element_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ELEMENT_2_1"
 		end
 
 	xml_schemap_src_element_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ELEMENT_2_2"
 		end
 
 	xml_schemap_src_element_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ELEMENT_3"
 		end
 
 	xml_schemap_p_props_correct_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_P_PROPS_CORRECT_1"
 		end
 
 	xml_schemap_p_props_correct_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_P_PROPS_CORRECT_2_1"
 		end
 
 	xml_schemap_p_props_correct_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_P_PROPS_CORRECT_2_2"
 		end
 
 	xml_schemap_e_props_correct_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_E_PROPS_CORRECT_2"
 		end
 
 	xml_schemap_e_props_correct_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_E_PROPS_CORRECT_3"
 		end
 
 	xml_schemap_e_props_correct_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_E_PROPS_CORRECT_4"
 		end
 
 	xml_schemap_e_props_correct_5: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_E_PROPS_CORRECT_5"
 		end
 
 	xml_schemap_e_props_correct_6: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_E_PROPS_CORRECT_6"
 		end
 
 	xml_schemap_src_include: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_INCLUDE"
 		end
 
 	xml_schemap_src_attribute_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ATTRIBUTE_1"
 		end
 
 	xml_schemap_src_attribute_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ATTRIBUTE_2"
 		end
 
 	xml_schemap_src_attribute_3_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ATTRIBUTE_3_1"
 		end
 
 	xml_schemap_src_attribute_3_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ATTRIBUTE_3_2"
 		end
 
 	xml_schemap_src_attribute_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ATTRIBUTE_4"
 		end
 
 	xml_schemap_no_xmlns: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_NO_XMLNS"
 		end
 
 	xml_schemap_no_xsi: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_NO_XSI"
 		end
 
 	xml_schemap_cos_valid_default_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_VALID_DEFAULT_1"
 		end
 
 	xml_schemap_cos_valid_default_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_VALID_DEFAULT_2_1"
 		end
 
 	xml_schemap_cos_valid_default_2_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_VALID_DEFAULT_2_2_1"
 		end
 
 	xml_schemap_cos_valid_default_2_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_VALID_DEFAULT_2_2_2"
 		end
 
 	xml_schemap_cvc_simple_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_CVC_SIMPLE_TYPE"
 		end
 
 	xml_schemap_cos_ct_extends_1_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_CT_EXTENDS_1_1"
 		end
 
 	xml_schemap_src_import_1_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_IMPORT_1_1"
 		end
 
 	xml_schemap_src_import_1_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_IMPORT_1_2"
 		end
 
 	xml_schemap_src_import_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_IMPORT_2"
 		end
 
 	xml_schemap_src_import_2_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_IMPORT_2_1"
 		end
 
 	xml_schemap_src_import_2_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_IMPORT_2_2"
 		end
 
 	xml_schemap_internal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_INTERNAL"
 		end
 
 	xml_schemap_not_deterministic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_NOT_DETERMINISTIC"
 		end
 
 	xml_schemap_src_attribute_group_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ATTRIBUTE_GROUP_1"
 		end
 
 	xml_schemap_src_attribute_group_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ATTRIBUTE_GROUP_2"
 		end
 
 	xml_schemap_src_attribute_group_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_ATTRIBUTE_GROUP_3"
 		end
 
 	xml_schemap_mg_props_correct_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_MG_PROPS_CORRECT_1"
 		end
 
 	xml_schemap_mg_props_correct_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_MG_PROPS_CORRECT_2"
 		end
 
 	xml_schemap_src_ct_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_CT_1"
 		end
 
 	xml_schemap_derivation_ok_restriction_2_1_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_DERIVATION_OK_RESTRICTION_2_1_3"
 		end
 
 	xml_schemap_au_props_correct_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_AU_PROPS_CORRECT_2"
 		end
 
 	xml_schemap_a_props_correct_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_A_PROPS_CORRECT_2"
 		end
 
 	xml_schemap_c_props_correct: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_C_PROPS_CORRECT"
 		end
 
 	xml_schemap_src_redefine: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_REDEFINE"
 		end
 
 	xml_schemap_src_import: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_SRC_IMPORT"
 		end
 
 	xml_schemap_warn_skip_schema: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_WARN_SKIP_SCHEMA"
 		end
 
 	xml_schemap_warn_unlocated_schema: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_WARN_UNLOCATED_SCHEMA"
 		end
 
 	xml_schemap_warn_attr_redecl_proh: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_WARN_ATTR_REDECL_PROH"
 		end
 
 	xml_schemap_warn_attr_pointless_proh: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_WARN_ATTR_POINTLESS_PROH"
 		end
 
 	xml_schemap_ag_props_correct: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_AG_PROPS_CORRECT"
 		end
 
 	xml_schemap_cos_ct_extends_1_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_CT_EXTENDS_1_2"
 		end
 
 	xml_schemap_au_props_correct: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_AU_PROPS_CORRECT"
 		end
 
 	xml_schemap_a_props_correct_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_A_PROPS_CORRECT_3"
 		end
 
 	xml_schemap_cos_all_limited: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_SCHEMAP_COS_ALL_LIMITED"
 		end
 
 	xml_module_open: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_MODULE_OPEN"
 		end
 
 	xml_module_close: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_MODULE_CLOSE"
 		end
 
 	xml_check_found_element: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_ELEMENT"
 		end
 
 	xml_check_found_attribute: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_ATTRIBUTE"
 		end
 
 	xml_check_found_text: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_TEXT"
 		end
 
 	xml_check_found_cdata: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_CDATA"
 		end
 
 	xml_check_found_entityref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_ENTITYREF"
 		end
 
 	xml_check_found_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_ENTITY"
 		end
 
 	xml_check_found_pi: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_PI"
 		end
 
 	xml_check_found_comment: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_COMMENT"
 		end
 
 	xml_check_found_doctype: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_DOCTYPE"
 		end
 
 	xml_check_found_fragment: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_FRAGMENT"
 		end
 
 	xml_check_found_notation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_FOUND_NOTATION"
 		end
 
 	xml_check_unknown_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_UNKNOWN_NODE"
 		end
 
 	xml_check_entity_type: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_ENTITY_TYPE"
 		end
 
 	xml_check_no_parent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NO_PARENT"
 		end
 
 	xml_check_no_doc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NO_DOC"
 		end
 
 	xml_check_no_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NO_NAME"
 		end
 
 	xml_check_no_elem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NO_ELEM"
 		end
 
 	xml_check_wrong_doc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_WRONG_DOC"
 		end
 
 	xml_check_no_prev: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NO_PREV"
 		end
 
 	xml_check_wrong_prev: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_WRONG_PREV"
 		end
 
 	xml_check_no_next: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NO_NEXT"
 		end
 
 	xml_check_wrong_next: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_WRONG_NEXT"
 		end
 
 	xml_check_not_dtd: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NOT_DTD"
 		end
 
 	xml_check_not_attr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NOT_ATTR"
 		end
 
 	xml_check_not_attr_decl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NOT_ATTR_DECL"
 		end
 
 	xml_check_not_elem_decl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NOT_ELEM_DECL"
 		end
 
 	xml_check_not_entity_decl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NOT_ENTITY_DECL"
 		end
 
 	xml_check_not_ns_decl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NOT_NS_DECL"
 		end
 
 	xml_check_no_href: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NO_HREF"
 		end
 
 	xml_check_wrong_parent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_WRONG_PARENT"
 		end
 
 	xml_check_ns_scope: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NS_SCOPE"
 		end
 
 	xml_check_ns_ancestor: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NS_ANCESTOR"
 		end
 
 	xml_check_not_utf8: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NOT_UTF8"
 		end
 
 	xml_check_no_dict: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NO_DICT"
 		end
 
 	xml_check_not_ncname: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NOT_NCNAME"
 		end
 
 	xml_check_outside_dict: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_OUTSIDE_DICT"
 		end
 
 	xml_check_wrong_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_WRONG_NAME"
 		end
 
 	xml_check_name_not_null: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHECK_NAME_NOT_NULL"
 		end
 
 	xml_i18n_no_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_I18N_NO_NAME"
 		end
 
 	xml_i18n_no_handler: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_I18N_NO_HANDLER"
 		end
 
 	xml_i18n_excess_handler: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_I18N_EXCESS_HANDLER"
 		end
 
 	xml_i18n_conv_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_I18N_CONV_FAILED"
 		end
 
 	xml_i18n_no_output: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_I18N_NO_OUTPUT"
 		end
 

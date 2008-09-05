@@ -49,17 +49,17 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_checksum_md5: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_CHECKSUM_MD5"
 		end
 
 	g_checksum_sha1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_CHECKSUM_SHA1"
 		end
 
 	g_checksum_sha256: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_CHECKSUM_SHA256"
 		end
 

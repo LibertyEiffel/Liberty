@@ -60,22 +60,22 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xlink_show_none: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XLINK_SHOW_NONE"
 		end
 
 	xlink_show_new: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XLINK_SHOW_NEW"
 		end
 
 	xlink_show_embed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XLINK_SHOW_EMBED"
 		end
 
 	xlink_show_replace: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XLINK_SHOW_REPLACE"
 		end
 

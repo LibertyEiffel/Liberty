@@ -104,42 +104,42 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_normalize_default: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_DEFAULT"
 		end
 
 	g_normalize_nfd: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_NFD"
 		end
 
 	g_normalize_default_compose: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_DEFAULT_COMPOSE"
 		end
 
 	g_normalize_nfc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_NFC"
 		end
 
 	g_normalize_all: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_ALL"
 		end
 
 	g_normalize_nfkd: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_NFKD"
 		end
 
 	g_normalize_all_compose: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_ALL_COMPOSE"
 		end
 
 	g_normalize_nfkc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_NORMALIZE_NFKC"
 		end
 

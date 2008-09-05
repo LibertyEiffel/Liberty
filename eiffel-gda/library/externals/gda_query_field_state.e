@@ -49,17 +49,17 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_entity_field_visible: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_ENTITY_FIELD_VISIBLE"
 		end
 
 	gda_entity_field_invisible: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_ENTITY_FIELD_INVISIBLE"
 		end
 
 	gda_entity_field_any: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_ENTITY_FIELD_ANY"
 		end
 

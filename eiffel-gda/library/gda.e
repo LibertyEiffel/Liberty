@@ -34,16 +34,8 @@ feature {ANY}-- Initialization
 
 	initialization (application_id, version: STRING) is
 		--   Initializes the GDA library.
-	
-		--   application_id :  name of the program.
-		--   version : revision number of the program
 	do
-		gda_init (null_or_string(application_id),
-		null_or_string(version),
-		argument_count,
-		command_arguments.to_external)
-		-- TODO: support providing an argument list.  nargs :   number of arguments, usually argc from main().
-		--   args :    list of arguments, usually argv from main().
+		gda_init 
 	end
 	
 	--  gda_get_default_dict ()
@@ -55,23 +47,4 @@ feature {ANY}-- Initialization
 	--   Returns : a not NULL pointer to the default GdaDict dictionary
 	--
 	
-	run is 
-		-- Runs the GDA main loop, which is nothing more than the glib main loop,
-		-- but with internally added stuff specific for applications using libgda.
-	do
-		gda_main_run (default_pointer, default_pointer) 
-		-- TODO: Implement support for init_func  You can specify a function to
-		-- be called after everything has been correctly initialized (that is,
-		-- for initializing your own stuff).
-	
-		--   init_func : function to be called when everything has been initialized.
-		--   user_data : data to be passed to the init function.
-	end
-	
-	quit is
-		--   Exits the main loop.
-	do
-		gda_main_quit
-	end
-
 end -- class GDA

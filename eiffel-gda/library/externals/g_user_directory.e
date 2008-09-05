@@ -115,47 +115,47 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_user_directory_desktop: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_USER_DIRECTORY_DESKTOP"
 		end
 
 	g_user_directory_documents: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_USER_DIRECTORY_DOCUMENTS"
 		end
 
 	g_user_directory_download: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_USER_DIRECTORY_DOWNLOAD"
 		end
 
 	g_user_directory_music: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_USER_DIRECTORY_MUSIC"
 		end
 
 	g_user_directory_pictures: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_USER_DIRECTORY_PICTURES"
 		end
 
 	g_user_directory_public_share: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_USER_DIRECTORY_PUBLIC_SHARE"
 		end
 
 	g_user_directory_templates: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_USER_DIRECTORY_TEMPLATES"
 		end
 
 	g_user_directory_videos: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_USER_DIRECTORY_VIDEOS"
 		end
 
 	g_user_n_directories: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_USER_N_DIRECTORIES"
 		end
 

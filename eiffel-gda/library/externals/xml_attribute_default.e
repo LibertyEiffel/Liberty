@@ -60,22 +60,22 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_attribute_none: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_NONE"
 		end
 
 	xml_attribute_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_REQUIRED"
 		end
 
 	xml_attribute_implied: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_IMPLIED"
 		end
 
 	xml_attribute_fixed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_FIXED"
 		end
 

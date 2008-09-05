@@ -82,32 +82,32 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_parse_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_UNKNOWN"
 		end
 
 	xml_parse_dom: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_DOM"
 		end
 
 	xml_parse_sax: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_SAX"
 		end
 
 	xml_parse_push_dom: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_PUSH_DOM"
 		end
 
 	xml_parse_push_sax: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_PUSH_SAX"
 		end
 
 	xml_parse_reader: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_READER"
 		end
 

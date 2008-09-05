@@ -478,212 +478,212 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_regex_error_compile: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_COMPILE"
 		end
 
 	g_regex_error_optimize: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_OPTIMIZE"
 		end
 
 	g_regex_error_replace: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_REPLACE"
 		end
 
 	g_regex_error_match: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_MATCH"
 		end
 
 	g_regex_error_internal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_INTERNAL"
 		end
 
 	g_regex_error_stray_backslash: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_STRAY_BACKSLASH"
 		end
 
 	g_regex_error_missing_control_char: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_MISSING_CONTROL_CHAR"
 		end
 
 	g_regex_error_unrecognized_escape: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_UNRECOGNIZED_ESCAPE"
 		end
 
 	g_regex_error_quantifiers_out_of_order: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_QUANTIFIERS_OUT_OF_ORDER"
 		end
 
 	g_regex_error_quantifier_too_big: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_QUANTIFIER_TOO_BIG"
 		end
 
 	g_regex_error_unterminated_character_class: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_UNTERMINATED_CHARACTER_CLASS"
 		end
 
 	g_regex_error_invalid_escape_in_character_class: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_INVALID_ESCAPE_IN_CHARACTER_CLASS"
 		end
 
 	g_regex_error_range_out_of_order: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_RANGE_OUT_OF_ORDER"
 		end
 
 	g_regex_error_nothing_to_repeat: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_NOTHING_TO_REPEAT"
 		end
 
 	g_regex_error_unrecognized_character: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_UNRECOGNIZED_CHARACTER"
 		end
 
 	g_regex_error_posix_named_class_outside_class: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_POSIX_NAMED_CLASS_OUTSIDE_CLASS"
 		end
 
 	g_regex_error_unmatched_parenthesis: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_UNMATCHED_PARENTHESIS"
 		end
 
 	g_regex_error_inexistent_subpattern_reference: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_INEXISTENT_SUBPATTERN_REFERENCE"
 		end
 
 	g_regex_error_unterminated_comment: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_UNTERMINATED_COMMENT"
 		end
 
 	g_regex_error_expression_too_large: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_EXPRESSION_TOO_LARGE"
 		end
 
 	g_regex_error_memory_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_MEMORY_ERROR"
 		end
 
 	g_regex_error_variable_length_lookbehind: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_VARIABLE_LENGTH_LOOKBEHIND"
 		end
 
 	g_regex_error_malformed_condition: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_MALFORMED_CONDITION"
 		end
 
 	g_regex_error_too_many_conditional_branches: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_TOO_MANY_CONDITIONAL_BRANCHES"
 		end
 
 	g_regex_error_assertion_expected: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_ASSERTION_EXPECTED"
 		end
 
 	g_regex_error_unknown_posix_class_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_UNKNOWN_POSIX_CLASS_NAME"
 		end
 
 	g_regex_error_posix_collating_elements_not_supported: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_POSIX_COLLATING_ELEMENTS_NOT_SUPPORTED"
 		end
 
 	g_regex_error_hex_code_too_large: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_HEX_CODE_TOO_LARGE"
 		end
 
 	g_regex_error_invalid_condition: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_INVALID_CONDITION"
 		end
 
 	g_regex_error_single_byte_match_in_lookbehind: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_SINGLE_BYTE_MATCH_IN_LOOKBEHIND"
 		end
 
 	g_regex_error_infinite_loop: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_INFINITE_LOOP"
 		end
 
 	g_regex_error_missing_subpattern_name_terminator: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_MISSING_SUBPATTERN_NAME_TERMINATOR"
 		end
 
 	g_regex_error_duplicate_subpattern_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_DUPLICATE_SUBPATTERN_NAME"
 		end
 
 	g_regex_error_malformed_property: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_MALFORMED_PROPERTY"
 		end
 
 	g_regex_error_unknown_property: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_UNKNOWN_PROPERTY"
 		end
 
 	g_regex_error_subpattern_name_too_long: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_SUBPATTERN_NAME_TOO_LONG"
 		end
 
 	g_regex_error_too_many_subpatterns: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_TOO_MANY_SUBPATTERNS"
 		end
 
 	g_regex_error_invalid_octal_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_INVALID_OCTAL_VALUE"
 		end
 
 	g_regex_error_too_many_branches_in_define: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_TOO_MANY_BRANCHES_IN_DEFINE"
 		end
 
 	g_regex_error_define_repetion: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_DEFINE_REPETION"
 		end
 
 	g_regex_error_inconsistent_newline_options: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_INCONSISTENT_NEWLINE_OPTIONS"
 		end
 
 	g_regex_error_missing_back_reference: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ERROR_MISSING_BACK_REFERENCE"
 		end
 

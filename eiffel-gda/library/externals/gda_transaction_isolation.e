@@ -71,27 +71,27 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_transaction_isolation_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_UNKNOWN"
 		end
 
 	gda_transaction_isolation_read_committed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_READ_COMMITTED"
 		end
 
 	gda_transaction_isolation_read_uncommitted: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED"
 		end
 
 	gda_transaction_isolation_repeatable_read: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_REPEATABLE_READ"
 		end
 
 	gda_transaction_isolation_serializable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_ISOLATION_SERIALIZABLE"
 		end
 

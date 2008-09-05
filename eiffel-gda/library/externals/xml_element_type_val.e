@@ -71,27 +71,27 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_element_type_undefined: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_TYPE_UNDEFINED"
 		end
 
 	xml_element_type_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_TYPE_EMPTY"
 		end
 
 	xml_element_type_any: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_TYPE_ANY"
 		end
 
 	xml_element_type_mixed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_TYPE_MIXED"
 		end
 
 	xml_element_type_element: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_TYPE_ELEMENT"
 		end
 

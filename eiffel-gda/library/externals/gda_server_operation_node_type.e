@@ -93,37 +93,37 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_server_operation_node_paramlist: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_PARAMLIST"
 		end
 
 	gda_server_operation_node_data_model: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_DATA_MODEL"
 		end
 
 	gda_server_operation_node_param: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_PARAM"
 		end
 
 	gda_server_operation_node_sequence: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_SEQUENCE"
 		end
 
 	gda_server_operation_node_sequence_item: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_SEQUENCE_ITEM"
 		end
 
 	gda_server_operation_node_data_model_column: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_DATA_MODEL_COLUMN"
 		end
 
 	gda_server_operation_node_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_NODE_UNKNOWN"
 		end
 

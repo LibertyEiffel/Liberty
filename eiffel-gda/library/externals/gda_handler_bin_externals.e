@@ -9,11 +9,11 @@ inherit ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	gda_handler_bin_new: POINTER is
-		external "C use <libgda/libgda.h>"
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
 	gda_handler_bin_get_type: INTEGER_32 is
-		external "C use <libgda/libgda.h>"
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
 end

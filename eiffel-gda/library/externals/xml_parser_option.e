@@ -293,87 +293,87 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_parse_recover: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_RECOVER"
 		end
 
 	xml_parse_noent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_NOENT"
 		end
 
 	xml_parse_dtdload: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_DTDLOAD"
 		end
 
 	xml_parse_dtdattr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_DTDATTR"
 		end
 
 	xml_parse_dtdvalid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_DTDVALID"
 		end
 
 	xml_parse_noerror: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_NOERROR"
 		end
 
 	xml_parse_nowarning: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_NOWARNING"
 		end
 
 	xml_parse_pedantic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_PEDANTIC"
 		end
 
 	xml_parse_noblanks: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_NOBLANKS"
 		end
 
 	xml_parse_sax1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_SAX1"
 		end
 
 	xml_parse_xinclude: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_XINCLUDE"
 		end
 
 	xml_parse_nonet: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_NONET"
 		end
 
 	xml_parse_nodict: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_NODICT"
 		end
 
 	xml_parse_nsclean: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_NSCLEAN"
 		end
 
 	xml_parse_nocdata: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_NOCDATA"
 		end
 
 	xml_parse_noxincnode: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_NOXINCNODE"
 		end
 
 	xml_parse_compact: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSE_COMPACT"
 		end
 

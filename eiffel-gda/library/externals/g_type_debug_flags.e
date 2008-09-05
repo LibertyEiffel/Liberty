@@ -60,22 +60,22 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_type_debug_none: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_DEBUG_NONE"
 		end
 
 	g_type_debug_objects: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_DEBUG_OBJECTS"
 		end
 
 	g_type_debug_signals: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_DEBUG_SIGNALS"
 		end
 
 	g_type_debug_mask: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_DEBUG_MASK"
 		end
 

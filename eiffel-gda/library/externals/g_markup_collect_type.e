@@ -82,32 +82,32 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_markup_collect_invalid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_COLLECT_INVALID"
 		end
 
 	g_markup_collect_string: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_COLLECT_STRING"
 		end
 
 	g_markup_collect_strdup: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_COLLECT_STRDUP"
 		end
 
 	g_markup_collect_boolean: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_COLLECT_BOOLEAN"
 		end
 
 	g_markup_collect_tristate: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_COLLECT_TRISTATE"
 		end
 
 	g_markup_collect_optional: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_COLLECT_OPTIONAL"
 		end
 

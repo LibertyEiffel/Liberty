@@ -60,22 +60,22 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_io_error_none: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_ERROR_NONE"
 		end
 
 	g_io_error_again: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_ERROR_AGAIN"
 		end
 
 	g_io_error_inval: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_ERROR_INVAL"
 		end
 
 	g_io_error_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_ERROR_UNKNOWN"
 		end
 

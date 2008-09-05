@@ -82,32 +82,32 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_internal_general_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_INTERNAL_GENERAL_ENTITY"
 		end
 
 	xml_external_general_parsed_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_EXTERNAL_GENERAL_PARSED_ENTITY"
 		end
 
 	xml_external_general_unparsed_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_EXTERNAL_GENERAL_UNPARSED_ENTITY"
 		end
 
 	xml_internal_parameter_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_INTERNAL_PARAMETER_ENTITY"
 		end
 
 	xml_external_parameter_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_EXTERNAL_PARAMETER_ENTITY"
 		end
 
 	xml_internal_predefined_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_INTERNAL_PREDEFINED_ENTITY"
 		end
 

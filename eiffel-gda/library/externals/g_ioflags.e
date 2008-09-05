@@ -104,42 +104,42 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_io_flag_append: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_FLAG_APPEND"
 		end
 
 	g_io_flag_nonblock: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_FLAG_NONBLOCK"
 		end
 
 	g_io_flag_is_readable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_FLAG_IS_READABLE"
 		end
 
 	g_io_flag_is_writeable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_FLAG_IS_WRITEABLE"
 		end
 
 	g_io_flag_is_seekable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_FLAG_IS_SEEKABLE"
 		end
 
 	g_io_flag_mask: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_FLAG_MASK"
 		end
 
 	g_io_flag_get_mask: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_FLAG_GET_MASK"
 		end
 
 	g_io_flag_set_mask: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_FLAG_SET_MASK"
 		end
 

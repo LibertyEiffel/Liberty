@@ -133,37 +133,37 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_option_flag_hidden: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_HIDDEN"
 		end
 
 	g_option_flag_in_main: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_IN_MAIN"
 		end
 
 	g_option_flag_reverse: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_REVERSE"
 		end
 
 	g_option_flag_no_arg: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_NO_ARG"
 		end
 
 	g_option_flag_filename: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_FILENAME"
 		end
 
 	g_option_flag_optional_arg: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_OPTIONAL_ARG"
 		end
 
 	g_option_flag_noalias: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_FLAG_NOALIAS"
 		end
 

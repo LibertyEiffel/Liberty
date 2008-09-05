@@ -38,12 +38,12 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_transaction_status_state_ok: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_STATUS_STATE_OK"
 		end
 
 	gda_transaction_status_state_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_STATUS_STATE_FAILED"
 		end
 

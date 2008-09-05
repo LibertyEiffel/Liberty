@@ -38,12 +38,12 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_data_model_io_data_array_xml: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_IO_DATA_ARRAY_XML"
 		end
 
 	gda_data_model_io_text_separated: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_IO_TEXT_SEPARATED"
 		end
 

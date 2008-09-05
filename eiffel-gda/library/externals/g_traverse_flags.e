@@ -82,32 +82,32 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_traverse_leaves: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TRAVERSE_LEAVES"
 		end
 
 	g_traverse_non_leaves: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TRAVERSE_NON_LEAVES"
 		end
 
 	g_traverse_all: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TRAVERSE_ALL"
 		end
 
 	g_traverse_mask: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TRAVERSE_MASK"
 		end
 
 	g_traverse_leafs: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TRAVERSE_LEAFS"
 		end
 
 	g_traverse_non_leafs: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TRAVERSE_NON_LEAFS"
 		end
 

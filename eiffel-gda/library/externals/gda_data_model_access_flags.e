@@ -10,6 +10,7 @@ feature -- Validity
 			Result := ((a_value = gda_data_model_access_random) or else 
 				(a_value = gda_data_model_access_cursor_forward) or else 
 				(a_value = gda_data_model_access_cursor_backward) or else 
+				(a_value = gda_data_model_access_cursor) or else 
 				(a_value = gda_data_model_access_insert) or else 
 				(a_value = gda_data_model_access_update) or else 
 				(a_value = gda_data_model_access_delete) or else 
@@ -31,6 +32,11 @@ feature -- Setters
 	set_cursor_backward is
 		do
 			value := gda_data_model_access_cursor_backward
+		end
+
+	set_cursor is
+		do
+			value := gda_data_model_access_cursor
 		end
 
 	set_insert_external is
@@ -70,6 +76,11 @@ feature -- Queries
 			Result := (value=gda_data_model_access_cursor_backward)
 		end
 
+	is_cursor: BOOLEAN is
+		do
+			Result := (value=gda_data_model_access_cursor)
+		end
+
 	is_insert_external: BOOLEAN is
 		do
 			Result := (value=gda_data_model_access_insert)
@@ -93,37 +104,42 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_data_model_access_random: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_RANDOM"
 		end
 
 	gda_data_model_access_cursor_forward: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_CURSOR_FORWARD"
 		end
 
 	gda_data_model_access_cursor_backward: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_CURSOR_BACKWARD"
 		end
 
+	gda_data_model_access_cursor: INTEGER is
+		external "C macro use <library/externals/all-gda-includes.h>"
+		alias "GDA_DATA_MODEL_ACCESS_CURSOR"
+		end
+
 	gda_data_model_access_insert: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_INSERT"
 		end
 
 	gda_data_model_access_update: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_UPDATE"
 		end
 
 	gda_data_model_access_delete: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_DELETE"
 		end
 
 	gda_data_model_access_write: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_ACCESS_WRITE"
 		end
 

@@ -280,122 +280,122 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_char_encoding_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_ERROR"
 		end
 
 	xml_char_encoding_none: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_NONE"
 		end
 
 	xml_char_encoding_utf8: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_UTF8"
 		end
 
 	xml_char_encoding_utf16le: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_UTF16LE"
 		end
 
 	xml_char_encoding_utf16be: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_UTF16BE"
 		end
 
 	xml_char_encoding_ucs4le: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_UCS4LE"
 		end
 
 	xml_char_encoding_ucs4be: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_UCS4BE"
 		end
 
 	xml_char_encoding_ebcdic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_EBCDIC"
 		end
 
 	xml_char_encoding_ucs4_2143: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_UCS4_2143"
 		end
 
 	xml_char_encoding_ucs4_3412: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_UCS4_3412"
 		end
 
 	xml_char_encoding_ucs2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_UCS2"
 		end
 
 	xml_char_encoding_8859_1: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_8859_1"
 		end
 
 	xml_char_encoding_8859_2: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_8859_2"
 		end
 
 	xml_char_encoding_8859_3: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_8859_3"
 		end
 
 	xml_char_encoding_8859_4: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_8859_4"
 		end
 
 	xml_char_encoding_8859_5: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_8859_5"
 		end
 
 	xml_char_encoding_8859_6: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_8859_6"
 		end
 
 	xml_char_encoding_8859_7: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_8859_7"
 		end
 
 	xml_char_encoding_8859_8: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_8859_8"
 		end
 
 	xml_char_encoding_8859_9: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_8859_9"
 		end
 
 	xml_char_encoding_2022_jp: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_2022_JP"
 		end
 
 	xml_char_encoding_shift_jis: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_SHIFT_JIS"
 		end
 
 	xml_char_encoding_euc_jp: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_EUC_JP"
 		end
 
 	xml_char_encoding_ascii: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CHAR_ENCODING_ASCII"
 		end
 

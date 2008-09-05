@@ -8,43 +8,91 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = gda_data_proxy_commit_error) or else 
-				(a_value = gda_data_proxy_commit_cancelled))
+				(a_value = gda_data_proxy_commit_cancelled) or else 
+				(a_value = gda_data_proxy_read_only_value) or else 
+				(a_value = gda_data_proxy_read_only_row) or else 
+				(a_value = gda_data_proxy_filter_error))
 		end
 
 
 feature -- Setters
-	default_create, set_gda_data_proxy_commit_error is
+	default_create, set_commit_error is
 		do
 			value := gda_data_proxy_commit_error
 		end
 
-	set_gda_data_proxy_commit_cancelled is
+	set_commit_cancelled is
 		do
 			value := gda_data_proxy_commit_cancelled
 		end
 
+	set_read_only_value is
+		do
+			value := gda_data_proxy_read_only_value
+		end
+
+	set_read_only_row is
+		do
+			value := gda_data_proxy_read_only_row
+		end
+
+	set_filter_error is
+		do
+			value := gda_data_proxy_filter_error
+		end
+
 
 feature -- Queries
-	is_gda_data_proxy_commit_error: BOOLEAN is
+	is_commit_error: BOOLEAN is
 		do
 			Result := (value=gda_data_proxy_commit_error)
 		end
 
-	is_gda_data_proxy_commit_cancelled: BOOLEAN is
+	is_commit_cancelled: BOOLEAN is
 		do
 			Result := (value=gda_data_proxy_commit_cancelled)
+		end
+
+	is_read_only_value: BOOLEAN is
+		do
+			Result := (value=gda_data_proxy_read_only_value)
+		end
+
+	is_read_only_row: BOOLEAN is
+		do
+			Result := (value=gda_data_proxy_read_only_row)
+		end
+
+	is_filter_error: BOOLEAN is
+		do
+			Result := (value=gda_data_proxy_filter_error)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_data_proxy_commit_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_PROXY_COMMIT_ERROR"
 		end
 
 	gda_data_proxy_commit_cancelled: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_PROXY_COMMIT_CANCELLED"
+		end
+
+	gda_data_proxy_read_only_value: INTEGER is
+		external "C macro use <library/externals/all-gda-includes.h>"
+		alias "GDA_DATA_PROXY_READ_ONLY_VALUE"
+		end
+
+	gda_data_proxy_read_only_row: INTEGER is
+		external "C macro use <library/externals/all-gda-includes.h>"
+		alias "GDA_DATA_PROXY_READ_ONLY_ROW"
+		end
+
+	gda_data_proxy_filter_error: INTEGER is
+		external "C macro use <library/externals/all-gda-includes.h>"
+		alias "GDA_DATA_PROXY_FILTER_ERROR"
 		end
 
 

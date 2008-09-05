@@ -197,57 +197,57 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_ascii_alnum: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_ALNUM"
 		end
 
 	g_ascii_alpha: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_ALPHA"
 		end
 
 	g_ascii_cntrl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_CNTRL"
 		end
 
 	g_ascii_digit: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_DIGIT"
 		end
 
 	g_ascii_graph: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_GRAPH"
 		end
 
 	g_ascii_lower: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_LOWER"
 		end
 
 	g_ascii_print: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_PRINT"
 		end
 
 	g_ascii_punct: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_PUNCT"
 		end
 
 	g_ascii_space: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_SPACE"
 		end
 
 	g_ascii_upper: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_UPPER"
 		end
 
 	g_ascii_xdigit: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ASCII_XDIGIT"
 		end
 

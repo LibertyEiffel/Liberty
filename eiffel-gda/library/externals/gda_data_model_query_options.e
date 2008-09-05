@@ -37,7 +37,7 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_data_model_query_option_use_all_fields_if_no_pk: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_QUERY_OPTION_USE_ALL_FIELDS_IF_NO_PK"
 		end
 

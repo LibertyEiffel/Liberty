@@ -104,42 +104,42 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_err_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ERR_UNKNOWN"
 		end
 
 	g_err_unexp_eof: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ERR_UNEXP_EOF"
 		end
 
 	g_err_unexp_eof_in_string: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ERR_UNEXP_EOF_IN_STRING"
 		end
 
 	g_err_unexp_eof_in_comment: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ERR_UNEXP_EOF_IN_COMMENT"
 		end
 
 	g_err_non_digit_in_const: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ERR_NON_DIGIT_IN_CONST"
 		end
 
 	g_err_digit_radix: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ERR_DIGIT_RADIX"
 		end
 
 	g_err_float_radix: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ERR_FLOAT_RADIX"
 		end
 
 	g_err_float_malformed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_ERR_FLOAT_MALFORMED"
 		end
 

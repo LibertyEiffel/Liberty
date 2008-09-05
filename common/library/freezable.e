@@ -28,37 +28,46 @@ feature
 	freeze is
 			-- Forbid further changes to Current until thaw is invoked
 		do
-			state := state.bit_set(freezed_bit)
+			state := state.max(freezed_state)
 		end
 
 	thaw is
 			-- Allow changes to Current
+		require can_be_thawed
 		do
-			state := state.bit_reset(freezed_bit)
+			state := mutable_state
 		end
 
 	petrify is
 		do
-			state := state.bit_set(freezed_bit)
-			state := state.bit_set(petrified_bit)
+			state := petrified_state
+		end
+
+	is_mutable: BOOLEAN is
+		do
+			Result := state=mutable_state
 		end
 
 	is_freezed: BOOLEAN is
 		do
-			Result := (state.bit_test(freezed_bit) or 
-						  state.bit_test(petrified_bit))
-			-- Oh yeah it could have been written a-la C. 
+			Result := state>=freezed_state
+		end
+
+	can_be_thawed: BOOLEAN is
+		do
+			Result := not is_petrified
 		end
 
 	is_petrified: BOOLEAN is
 		do
-			Result := state.bit_test(petrified_bit)
+			Result := state>=petrified_state
 		end
 
 feature {} 
 	state: INTEGER_8
 
-	freezed_bit: INTEGER_8 is 0
-	petrified_bit: INTEGER_8 is 1
+	mutable_state: INTEGER_8 is 0
+	freezed_state: INTEGER_8 is 1
+	petrified_state: INTEGER_8 is 2
 		
 end -- class FREEZABLE

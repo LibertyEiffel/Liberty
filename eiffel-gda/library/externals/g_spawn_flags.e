@@ -133,37 +133,37 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_spawn_leave_descriptors_open: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_LEAVE_DESCRIPTORS_OPEN"
 		end
 
 	g_spawn_do_not_reap_child: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_DO_NOT_REAP_CHILD"
 		end
 
 	g_spawn_search_path: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_SEARCH_PATH"
 		end
 
 	g_spawn_stdout_to_dev_null: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_STDOUT_TO_DEV_NULL"
 		end
 
 	g_spawn_stderr_to_dev_null: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_STDERR_TO_DEV_NULL"
 		end
 
 	g_spawn_child_inherits_stdin: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_CHILD_INHERITS_STDIN"
 		end
 
 	g_spawn_file_and_argv_zero: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_FILE_AND_ARGV_ZERO"
 		end
 

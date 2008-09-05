@@ -8,65 +8,73 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
-	gda_utility_find_or_create_data_type (a_dict: POINTER; a_prov: POINTER; a_cnc: POINTER; a_dbms_type: POINTER; a_g_type: POINTER; a_created: POINTER): POINTER is
-		external "C use <libgda/libgda.h>"
+	gda_connection_string_split (a_string: POINTER; an_out_cnc_params: POINTER; an_out_provider: POINTER; an_out_username: POINTER; an_out_password: POINTER) is
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_utility_parameter_load_attributes (a_param: POINTER; a_node: POINTER; a_sources: POINTER) is
-		external "C use <libgda/libgda.h>"
+	gda_dsn_split (a_string: POINTER; an_out_dsn: POINTER; an_out_username: POINTER; an_out_password: POINTER) is
+		external "C use <library/externals/all-gda-includes.h>"
+		end
+
+	gda_rfc1738_decode (a_string: POINTER): INTEGER_32 is
+		external "C use <library/externals/all-gda-includes.h>"
+		end
+
+	gda_rfc1738_encode (a_string: POINTER): POINTER is
+		external "C use <library/externals/all-gda-includes.h>"
+		end
+
+	gda_compute_dml_statements (a_cnc: POINTER; a_select_stmt: POINTER; a_require_pk: INTEGER_32; an_insert_stmt: POINTER; an_update_stmt: POINTER; a_delete_stmt: POINTER; an_error: POINTER): INTEGER_32 is
+		external "C use <library/externals/all-gda-includes.h>"
+		end
+
+	gda_alphanum_to_text (a_text: POINTER): POINTER is
+		external "C use <library/externals/all-gda-includes.h>"
+		end
+
+	gda_text_to_alphanum (a_text: POINTER): POINTER is
+		external "C use <library/externals/all-gda-includes.h>"
+		end
+
+	gda_utility_holder_load_attributes (a_holder: POINTER; a_node: POINTER; a_sources: POINTER) is
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
 	gda_utility_data_model_dump_data_to_xml (a_model: POINTER; a_parent: POINTER; a_cols: POINTER; a_nb_cols: INTEGER_32; a_rows: POINTER; a_nb_rows: INTEGER_32; an_use_col_ids: INTEGER_32) is
-		external "C use <libgda/libgda.h>"
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
 	gda_utility_check_data_model (a_model: POINTER; a_nbcols: INTEGER_32; ): INTEGER_32 is
 			-- Variadic call
-		external "C use <libgda/libgda.h>"
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_utility_build_decoded_id (a_prefix: POINTER; an_id: POINTER): POINTER is
-		external "C use <libgda/libgda.h>"
+	gda_completion_list_get (a_cnc: POINTER; a_text: POINTER; a_start: INTEGER_32; an_end: INTEGER_32): POINTER is
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_utility_build_encoded_id (a_prefix: POINTER; an_id: POINTER): POINTER is
-		external "C use <libgda/libgda.h>"
+	gda_identifier_equal (an_id1: POINTER; an_id2: POINTER): INTEGER_32 is
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
-	gda_utility_table_field_attrs_parse (a_str: POINTER): INTEGER_32 is
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_utility_table_field_attrs_stringify (an_attributes: INTEGER_32): POINTER is
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_file_save (a_filename: POINTER; a_buffer: POINTER; a_len: INTEGER_32): INTEGER_32 is
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_file_load (a_filename: POINTER): POINTER is
-		external "C use <libgda/libgda.h>"
+	gda_identifier_hash (an_id: POINTER): INTEGER_32 is
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
 	gda_default_unescape_string (a_string: POINTER): POINTER is
-		external "C use <libgda/libgda.h>"
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
 	gda_default_escape_string (a_string: POINTER): POINTER is
-		external "C use <libgda/libgda.h>"
-		end
-
-	gda_string_hash_to_list (a_hash_table: POINTER): POINTER is
-		external "C use <libgda/libgda.h>"
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
 	gda_g_type_from_string (a_str: POINTER): INTEGER_32 is
-		external "C use <libgda/libgda.h>"
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
 	gda_g_type_to_string (a_type: INTEGER_32): POINTER is
-		external "C use <libgda/libgda.h>"
+		external "C use <library/externals/all-gda-includes.h>"
 		end
 
 end

@@ -192,82 +192,82 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_connection_schema_aggregates: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_AGGREGATES"
 		end
 
 	gda_connection_schema_databases: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_DATABASES"
 		end
 
 	gda_connection_schema_fields: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_FIELDS"
 		end
 
 	gda_connection_schema_indexes: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_INDEXES"
 		end
 
 	gda_connection_schema_languages: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_LANGUAGES"
 		end
 
 	gda_connection_schema_namespaces: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_NAMESPACES"
 		end
 
 	gda_connection_schema_parent_tables: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_PARENT_TABLES"
 		end
 
 	gda_connection_schema_procedures: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_PROCEDURES"
 		end
 
 	gda_connection_schema_sequences: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_SEQUENCES"
 		end
 
 	gda_connection_schema_tables: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_TABLES"
 		end
 
 	gda_connection_schema_triggers: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_TRIGGERS"
 		end
 
 	gda_connection_schema_types: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_TYPES"
 		end
 
 	gda_connection_schema_users: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_USERS"
 		end
 
 	gda_connection_schema_views: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_VIEWS"
 		end
 
 	gda_connection_schema_constraints: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_CONSTRAINTS"
 		end
 
 	gda_connection_schema_table_contents: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_SCHEMA_TABLE_CONTENTS"
 		end
 

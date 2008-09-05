@@ -49,17 +49,17 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_option_error_unknown_option: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ERROR_UNKNOWN_OPTION"
 		end
 
 	g_option_error_bad_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ERROR_BAD_VALUE"
 		end
 
 	g_option_error_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_OPTION_ERROR_FAILED"
 		end
 

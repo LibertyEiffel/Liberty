@@ -69,17 +69,17 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_markup_do_not_use_this_unsupported_flag: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG"
 		end
 
 	g_markup_treat_cdata_as_text: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_TREAT_CDATA_AS_TEXT"
 		end
 
 	g_markup_prefix_error_position: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_PREFIX_ERROR_POSITION"
 		end
 

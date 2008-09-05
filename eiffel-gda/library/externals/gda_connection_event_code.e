@@ -225,97 +225,97 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_connection_event_code_constraint_violation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_CONSTRAINT_VIOLATION"
 		end
 
 	gda_connection_event_code_restrict_violation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_RESTRICT_VIOLATION"
 		end
 
 	gda_connection_event_code_not_null_violation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_NOT_NULL_VIOLATION"
 		end
 
 	gda_connection_event_code_foreign_key_violation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_FOREIGN_KEY_VIOLATION"
 		end
 
 	gda_connection_event_code_unique_violation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_UNIQUE_VIOLATION"
 		end
 
 	gda_connection_event_code_check_violation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_CHECK_VIOLATION"
 		end
 
 	gda_connection_event_code_insufficient_privileges: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_INSUFFICIENT_PRIVILEGES"
 		end
 
 	gda_connection_event_code_undefined_column: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_UNDEFINED_COLUMN"
 		end
 
 	gda_connection_event_code_undefined_function: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_UNDEFINED_FUNCTION"
 		end
 
 	gda_connection_event_code_undefined_table: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_UNDEFINED_TABLE"
 		end
 
 	gda_connection_event_code_duplicate_column: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_DUPLICATE_COLUMN"
 		end
 
 	gda_connection_event_code_duplicate_database: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_DUPLICATE_DATABASE"
 		end
 
 	gda_connection_event_code_duplicate_function: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_DUPLICATE_FUNCTION"
 		end
 
 	gda_connection_event_code_duplicate_schema: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_DUPLICATE_SCHEMA"
 		end
 
 	gda_connection_event_code_duplicate_table: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_DUPLICATE_TABLE"
 		end
 
 	gda_connection_event_code_duplicate_alias: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_DUPLICATE_ALIAS"
 		end
 
 	gda_connection_event_code_duplicate_object: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_DUPLICATE_OBJECT"
 		end
 
 	gda_connection_event_code_syntax_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_SYNTAX_ERROR"
 		end
 
 	gda_connection_event_code_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_EVENT_CODE_UNKNOWN"
 		end
 

@@ -115,47 +115,47 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_log_flag_recursion: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_FLAG_RECURSION"
 		end
 
 	g_log_flag_fatal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_FLAG_FATAL"
 		end
 
 	g_log_level_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_ERROR"
 		end
 
 	g_log_level_critical: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_CRITICAL"
 		end
 
 	g_log_level_warning: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_WARNING"
 		end
 
 	g_log_level_message: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_MESSAGE"
 		end
 
 	g_log_level_info: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_INFO"
 		end
 
 	g_log_level_debug: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_DEBUG"
 		end
 
 	g_log_level_mask: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_LOG_LEVEL_MASK"
 		end
 

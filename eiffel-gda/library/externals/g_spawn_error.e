@@ -236,102 +236,102 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_spawn_error_fork: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_FORK"
 		end
 
 	g_spawn_error_read: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_READ"
 		end
 
 	g_spawn_error_chdir: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_CHDIR"
 		end
 
 	g_spawn_error_acces: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_ACCES"
 		end
 
 	g_spawn_error_perm: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_PERM"
 		end
 
 	g_spawn_error_2big: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_2BIG"
 		end
 
 	g_spawn_error_noexec: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_NOEXEC"
 		end
 
 	g_spawn_error_nametoolong: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_NAMETOOLONG"
 		end
 
 	g_spawn_error_noent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_NOENT"
 		end
 
 	g_spawn_error_nomem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_NOMEM"
 		end
 
 	g_spawn_error_notdir: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_NOTDIR"
 		end
 
 	g_spawn_error_loop: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_LOOP"
 		end
 
 	g_spawn_error_txtbusy: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_TXTBUSY"
 		end
 
 	g_spawn_error_io: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_IO"
 		end
 
 	g_spawn_error_nfile: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_NFILE"
 		end
 
 	g_spawn_error_mfile: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_MFILE"
 		end
 
 	g_spawn_error_inval: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_INVAL"
 		end
 
 	g_spawn_error_isdir: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_ISDIR"
 		end
 
 	g_spawn_error_libbad: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_LIBBAD"
 		end
 
 	g_spawn_error_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SPAWN_ERROR_FAILED"
 		end
 

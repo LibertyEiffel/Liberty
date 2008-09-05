@@ -214,92 +214,92 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_parser_eof: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_EOF"
 		end
 
 	xml_parser_start: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_START"
 		end
 
 	xml_parser_misc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_MISC"
 		end
 
 	xml_parser_pi: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_PI"
 		end
 
 	xml_parser_dtd: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_DTD"
 		end
 
 	xml_parser_prolog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_PROLOG"
 		end
 
 	xml_parser_comment: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_COMMENT"
 		end
 
 	xml_parser_start_tag: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_START_TAG"
 		end
 
 	xml_parser_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_CONTENT"
 		end
 
 	xml_parser_cdata_section: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_CDATA_SECTION"
 		end
 
 	xml_parser_end_tag: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_END_TAG"
 		end
 
 	xml_parser_entity_decl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_ENTITY_DECL"
 		end
 
 	xml_parser_entity_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_ENTITY_VALUE"
 		end
 
 	xml_parser_attribute_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_ATTRIBUTE_VALUE"
 		end
 
 	xml_parser_system_literal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_SYSTEM_LITERAL"
 		end
 
 	xml_parser_epilog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_EPILOG"
 		end
 
 	xml_parser_ignore: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_IGNORE"
 		end
 
 	xml_parser_public_literal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PARSER_PUBLIC_LITERAL"
 		end
 

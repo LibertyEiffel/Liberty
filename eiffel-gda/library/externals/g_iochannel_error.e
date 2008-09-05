@@ -115,47 +115,47 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_io_channel_error_fbig: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_FBIG"
 		end
 
 	g_io_channel_error_inval: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_INVAL"
 		end
 
 	g_io_channel_error_io: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_IO"
 		end
 
 	g_io_channel_error_isdir: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_ISDIR"
 		end
 
 	g_io_channel_error_nospc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_NOSPC"
 		end
 
 	g_io_channel_error_nxio: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_NXIO"
 		end
 
 	g_io_channel_error_overflow: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_OVERFLOW"
 		end
 
 	g_io_channel_error_pipe: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_PIPE"
 		end
 
 	g_io_channel_error_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_IO_CHANNEL_ERROR_FAILED"
 		end
 

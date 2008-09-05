@@ -49,17 +49,17 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_shell_error_bad_quoting: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SHELL_ERROR_BAD_QUOTING"
 		end
 
 	g_shell_error_empty_string: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SHELL_ERROR_EMPTY_STRING"
 		end
 
 	g_shell_error_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SHELL_ERROR_FAILED"
 		end
 

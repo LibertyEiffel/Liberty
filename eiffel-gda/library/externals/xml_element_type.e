@@ -247,107 +247,107 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_element_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_NODE"
 		end
 
 	xml_attribute_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_NODE"
 		end
 
 	xml_text_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_TEXT_NODE"
 		end
 
 	xml_cdata_section_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_CDATA_SECTION_NODE"
 		end
 
 	xml_entity_ref_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ENTITY_REF_NODE"
 		end
 
 	xml_entity_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ENTITY_NODE"
 		end
 
 	xml_pi_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_PI_NODE"
 		end
 
 	xml_comment_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_COMMENT_NODE"
 		end
 
 	xml_document_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DOCUMENT_NODE"
 		end
 
 	xml_document_type_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DOCUMENT_TYPE_NODE"
 		end
 
 	xml_document_frag_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DOCUMENT_FRAG_NODE"
 		end
 
 	xml_notation_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_NOTATION_NODE"
 		end
 
 	xml_html_document_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_HTML_DOCUMENT_NODE"
 		end
 
 	xml_dtd_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DTD_NODE"
 		end
 
 	xml_element_decl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ELEMENT_DECL"
 		end
 
 	xml_attribute_decl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_DECL"
 		end
 
 	xml_entity_decl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ENTITY_DECL"
 		end
 
 	xml_namespace_decl: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_NAMESPACE_DECL"
 		end
 
 	xml_xinclude_start: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_START"
 		end
 
 	xml_xinclude_end: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_XINCLUDE_END"
 		end
 
 	xml_docb_document_node: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_DOCB_DOCUMENT_NODE"
 		end
 

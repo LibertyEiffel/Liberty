@@ -137,57 +137,57 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_value_attr_none: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_NONE"
 		end
 
 	gda_value_attr_is_null: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_IS_NULL"
 		end
 
 	gda_value_attr_can_be_null: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_CAN_BE_NULL"
 		end
 
 	gda_value_attr_is_default: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_IS_DEFAULT"
 		end
 
 	gda_value_attr_can_be_default: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_CAN_BE_DEFAULT"
 		end
 
 	gda_value_attr_is_unchanged: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_IS_UNCHANGED"
 		end
 
 	gda_value_attr_actions_shown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_ACTIONS_SHOWN"
 		end
 
 	gda_value_attr_data_non_valid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_DATA_NON_VALID"
 		end
 
 	gda_value_attr_has_value_orig: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_HAS_VALUE_ORIG"
 		end
 
 	gda_value_attr_no_modif: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_NO_MODIF"
 		end
 
 	gda_value_attr_unused: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_VALUE_ATTR_UNUSED"
 		end
 

@@ -280,122 +280,122 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_token_eof: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_EOF"
 		end
 
 	g_token_left_paren: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_LEFT_PAREN"
 		end
 
 	g_token_right_paren: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_RIGHT_PAREN"
 		end
 
 	g_token_left_curly: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_LEFT_CURLY"
 		end
 
 	g_token_right_curly: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_RIGHT_CURLY"
 		end
 
 	g_token_left_brace: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_LEFT_BRACE"
 		end
 
 	g_token_right_brace: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_RIGHT_BRACE"
 		end
 
 	g_token_equal_sign: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_EQUAL_SIGN"
 		end
 
 	g_token_comma: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_COMMA"
 		end
 
 	g_token_none: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_NONE"
 		end
 
 	g_token_error: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_ERROR"
 		end
 
 	g_token_char: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_CHAR"
 		end
 
 	g_token_binary: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_BINARY"
 		end
 
 	g_token_octal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_OCTAL"
 		end
 
 	g_token_int: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_INT"
 		end
 
 	g_token_hex: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_HEX"
 		end
 
 	g_token_float: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_FLOAT"
 		end
 
 	g_token_string: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_STRING"
 		end
 
 	g_token_symbol: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_SYMBOL"
 		end
 
 	g_token_identifier: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_IDENTIFIER"
 		end
 
 	g_token_identifier_null: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_IDENTIFIER_NULL"
 		end
 
 	g_token_comment_single: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_COMMENT_SINGLE"
 		end
 
 	g_token_comment_multi: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_COMMENT_MULTI"
 		end
 
 	g_token_last: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TOKEN_LAST"
 		end
 

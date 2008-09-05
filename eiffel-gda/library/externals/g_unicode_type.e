@@ -346,152 +346,152 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_unicode_control: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_CONTROL"
 		end
 
 	g_unicode_format: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_FORMAT"
 		end
 
 	g_unicode_unassigned: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_UNASSIGNED"
 		end
 
 	g_unicode_private_use: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_PRIVATE_USE"
 		end
 
 	g_unicode_surrogate: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SURROGATE"
 		end
 
 	g_unicode_lowercase_letter: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_LOWERCASE_LETTER"
 		end
 
 	g_unicode_modifier_letter: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_MODIFIER_LETTER"
 		end
 
 	g_unicode_other_letter: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_OTHER_LETTER"
 		end
 
 	g_unicode_titlecase_letter: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_TITLECASE_LETTER"
 		end
 
 	g_unicode_uppercase_letter: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_UPPERCASE_LETTER"
 		end
 
 	g_unicode_combining_mark: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_COMBINING_MARK"
 		end
 
 	g_unicode_enclosing_mark: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_ENCLOSING_MARK"
 		end
 
 	g_unicode_non_spacing_mark: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_NON_SPACING_MARK"
 		end
 
 	g_unicode_decimal_number: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_DECIMAL_NUMBER"
 		end
 
 	g_unicode_letter_number: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_LETTER_NUMBER"
 		end
 
 	g_unicode_other_number: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_OTHER_NUMBER"
 		end
 
 	g_unicode_connect_punctuation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_CONNECT_PUNCTUATION"
 		end
 
 	g_unicode_dash_punctuation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_DASH_PUNCTUATION"
 		end
 
 	g_unicode_close_punctuation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_CLOSE_PUNCTUATION"
 		end
 
 	g_unicode_final_punctuation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_FINAL_PUNCTUATION"
 		end
 
 	g_unicode_initial_punctuation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_INITIAL_PUNCTUATION"
 		end
 
 	g_unicode_other_punctuation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_OTHER_PUNCTUATION"
 		end
 
 	g_unicode_open_punctuation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_OPEN_PUNCTUATION"
 		end
 
 	g_unicode_currency_symbol: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_CURRENCY_SYMBOL"
 		end
 
 	g_unicode_modifier_symbol: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_MODIFIER_SYMBOL"
 		end
 
 	g_unicode_math_symbol: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_MATH_SYMBOL"
 		end
 
 	g_unicode_other_symbol: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_OTHER_SYMBOL"
 		end
 
 	g_unicode_line_separator: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_LINE_SEPARATOR"
 		end
 
 	g_unicode_paragraph_separator: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_PARAGRAPH_SEPARATOR"
 		end
 
 	g_unicode_space_separator: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SPACE_SEPARATOR"
 		end
 

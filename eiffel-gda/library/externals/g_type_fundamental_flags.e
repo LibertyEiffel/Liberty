@@ -85,22 +85,22 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_type_flag_classed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_FLAG_CLASSED"
 		end
 
 	g_type_flag_instantiatable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_FLAG_INSTANTIATABLE"
 		end
 
 	g_type_flag_derivable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_FLAG_DERIVABLE"
 		end
 
 	g_type_flag_deep_derivable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TYPE_FLAG_DEEP_DERIVABLE"
 		end
 

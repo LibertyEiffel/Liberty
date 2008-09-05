@@ -49,17 +49,17 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_server_operation_status_optional: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_STATUS_OPTIONAL"
 		end
 
 	gda_server_operation_status_required: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_STATUS_REQUIRED"
 		end
 
 	gda_server_operation_status_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_STATUS_UNKNOWN"
 		end
 

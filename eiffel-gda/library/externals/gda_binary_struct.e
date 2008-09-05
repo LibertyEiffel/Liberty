@@ -6,20 +6,20 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- Low-level setters
 	low_level_set_data (a_structure: POINTER; a_value: POINTER) is
-		external "C struct GdaBinary set data use <libgda/libgda.h>"
+		external "C struct GdaBinary set data use <library/externals/all-gda-includes.h>"
 		end
 
 	low_level_set_binary_length (a_structure: POINTER; a_value: INTEGER_32) is
-		external "C struct GdaBinary set binary_length use <libgda/libgda.h>"
+		external "C struct GdaBinary set binary_length use <library/externals/all-gda-includes.h>"
 		end
 
 feature {} -- Low-level queries
 	get_data (a_structure: POINTER): POINTER is
-		external "C struct GdaBinary get data use <libgda/libgda.h>"
+		external "C struct GdaBinary get data use <library/externals/all-gda-includes.h>"
 		end
 
 	get_binary_length (a_structure: POINTER): INTEGER_32 is
-		external "C struct GdaBinary get binary_length use <libgda/libgda.h>"
+		external "C struct GdaBinary get binary_length use <library/externals/all-gda-includes.h>"
 		end
 
 end

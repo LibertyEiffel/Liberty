@@ -82,32 +82,32 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_convert_error_no_conversion: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_CONVERT_ERROR_NO_CONVERSION"
 		end
 
 	g_convert_error_illegal_sequence: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_CONVERT_ERROR_ILLEGAL_SEQUENCE"
 		end
 
 	g_convert_error_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_CONVERT_ERROR_FAILED"
 		end
 
 	g_convert_error_partial_input: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_CONVERT_ERROR_PARTIAL_INPUT"
 		end
 
 	g_convert_error_bad_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_CONVERT_ERROR_BAD_URI"
 		end
 
 	g_convert_error_not_absolute_path: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_CONVERT_ERROR_NOT_ABSOLUTE_PATH"
 		end
 

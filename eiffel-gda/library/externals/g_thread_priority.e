@@ -60,22 +60,22 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_thread_priority_low: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_THREAD_PRIORITY_LOW"
 		end
 
 	g_thread_priority_normal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_THREAD_PRIORITY_NORMAL"
 		end
 
 	g_thread_priority_high: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_THREAD_PRIORITY_HIGH"
 		end
 
 	g_thread_priority_urgent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_THREAD_PRIORITY_URGENT"
 		end
 

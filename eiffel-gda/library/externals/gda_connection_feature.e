@@ -22,7 +22,8 @@ feature -- Validity
 				(a_value = gda_connection_feature_updatable_cursor) or else 
 				(a_value = gda_connection_feature_users) or else 
 				(a_value = gda_connection_feature_views) or else 
-				(a_value = gda_connection_feature_xml_queries))
+				(a_value = gda_connection_feature_xa_transactions) or else 
+				(a_value = gda_connection_feature_last))
 		end
 
 
@@ -102,9 +103,14 @@ feature -- Setters
 			value := gda_connection_feature_views
 		end
 
-	set_xml_queries is
+	set_xa_transactions is
 		do
-			value := gda_connection_feature_xml_queries
+			value := gda_connection_feature_xa_transactions
+		end
+
+	set_last is
+		do
+			value := gda_connection_feature_last
 		end
 
 
@@ -184,91 +190,101 @@ feature -- Queries
 			Result := (value=gda_connection_feature_views)
 		end
 
-	is_xml_queries: BOOLEAN is
+	is_xa_transactions: BOOLEAN is
 		do
-			Result := (value=gda_connection_feature_xml_queries)
+			Result := (value=gda_connection_feature_xa_transactions)
+		end
+
+	is_last: BOOLEAN is
+		do
+			Result := (value=gda_connection_feature_last)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_connection_feature_aggregates: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_AGGREGATES"
 		end
 
 	gda_connection_feature_blobs: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_BLOBS"
 		end
 
 	gda_connection_feature_indexes: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_INDEXES"
 		end
 
 	gda_connection_feature_inheritance: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_INHERITANCE"
 		end
 
 	gda_connection_feature_namespaces: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_NAMESPACES"
 		end
 
 	gda_connection_feature_procedures: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_PROCEDURES"
 		end
 
 	gda_connection_feature_sequences: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_SEQUENCES"
 		end
 
 	gda_connection_feature_sql: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_SQL"
 		end
 
 	gda_connection_feature_transactions: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_TRANSACTIONS"
 		end
 
 	gda_connection_feature_savepoints: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_SAVEPOINTS"
 		end
 
 	gda_connection_feature_savepoints_remove: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_SAVEPOINTS_REMOVE"
 		end
 
 	gda_connection_feature_triggers: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_TRIGGERS"
 		end
 
 	gda_connection_feature_updatable_cursor: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_UPDATABLE_CURSOR"
 		end
 
 	gda_connection_feature_users: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_USERS"
 		end
 
 	gda_connection_feature_views: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_CONNECTION_FEATURE_VIEWS"
 		end
 
-	gda_connection_feature_xml_queries: INTEGER is
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_CONNECTION_FEATURE_XML_QUERIES"
+	gda_connection_feature_xa_transactions: INTEGER is
+		external "C macro use <library/externals/all-gda-includes.h>"
+		alias "GDA_CONNECTION_FEATURE_XA_TRANSACTIONS"
+		end
+
+	gda_connection_feature_last: INTEGER is
+		external "C macro use <library/externals/all-gda-includes.h>"
+		alias "GDA_CONNECTION_FEATURE_LAST"
 		end
 
 

@@ -115,47 +115,47 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_regex_match_anchored: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MATCH_ANCHORED"
 		end
 
 	g_regex_match_notbol: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MATCH_NOTBOL"
 		end
 
 	g_regex_match_noteol: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MATCH_NOTEOL"
 		end
 
 	g_regex_match_notempty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MATCH_NOTEMPTY"
 		end
 
 	g_regex_match_partial: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MATCH_PARTIAL"
 		end
 
 	g_regex_match_newline_cr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MATCH_NEWLINE_CR"
 		end
 
 	g_regex_match_newline_lf: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MATCH_NEWLINE_LF"
 		end
 
 	g_regex_match_newline_crlf: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MATCH_NEWLINE_CRLF"
 		end
 
 	g_regex_match_newline_any: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MATCH_NEWLINE_ANY"
 		end
 

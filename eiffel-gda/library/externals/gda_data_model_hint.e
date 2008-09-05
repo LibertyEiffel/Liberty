@@ -49,17 +49,17 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_data_model_hint_start_batch_update: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_HINT_START_BATCH_UPDATE"
 		end
 
 	gda_data_model_hint_end_batch_update: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_HINT_END_BATCH_UPDATE"
 		end
 
 	gda_data_model_hint_refresh: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_DATA_MODEL_HINT_REFRESH"
 		end
 

@@ -32,6 +32,10 @@ inherit
 		redefine
 			copy, from_external_pointer
 		end
+	FREEZABLE
+		-- Some GLib using libraries requires that some instances of G_SLIST
+		-- shal be modified only by the library, making it effectively freezed
+		-- for the developer.
 
 insert
 	G_SLIST_EXTERNALS 
@@ -87,6 +91,7 @@ feature
 	put (an_item: like first; i: INTEGER) is
 		require else 
 			valid_item: an_item/=Void 
+			is_mutable
 		do
 			g_slist_set_data (g_slist_nth(handle,i), an_item.handle)
 			cache.put(an_item, an_item.handle)
@@ -95,6 +100,8 @@ feature
 	slice (min, max: INTEGER): like Current is do not_yet_implemented end
 
 	swap (i,j: INTEGER) is
+		require else
+			is_mutable 
 		local ith,jth,tmp: POINTER
 		do
 			ith := g_slist_nth_data (handle,i)
@@ -106,6 +113,7 @@ feature
 		end
 
 	set_all_with (v: like first) is
+		require is_mutable 
 		local ith:POINTER
 		do
 			cache.clear_count
@@ -122,7 +130,8 @@ feature
 
 	add_first,prepend (an_item: like first) is
 			-- Adds `an_item' on to the start of the list.
-		require
+		require 
+			is_mutable
 			valid_item: an_item/=Void
 		do
 			cache.put(an_item,an_item.handle)
@@ -143,6 +152,7 @@ feature
 			-- elements and reverse the list when all elements have been
 			-- added.
 		require
+			is_mutable
 			valid_item: an_item/=Void
 		do
 			cache.put(an_item,an_item.handle)
@@ -153,12 +163,19 @@ feature
 		end
 
 	add (element: like first; index: INTEGER) is
+			-- Add `element' at `index`
+		require else --
+			is_mutable
+			element/=Void
 		do
 			cache.put(element,element.handle)
 			handle := g_slist_insert (handle, element.handle, index-1)
 		end
 	
 	append_collection (other: COLLECTION[ITEM]) is
+			--
+		require else --
+			is_mutable
 		do
 			not_yet_implemented -- TODO
 		end

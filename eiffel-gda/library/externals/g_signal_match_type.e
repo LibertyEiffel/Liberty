@@ -117,32 +117,32 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_signal_match_id: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_MATCH_ID"
 		end
 
 	g_signal_match_detail: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_MATCH_DETAIL"
 		end
 
 	g_signal_match_closure: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_MATCH_CLOSURE"
 		end
 
 	g_signal_match_func: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_MATCH_FUNC"
 		end
 
 	g_signal_match_data: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_MATCH_DATA"
 		end
 
 	g_signal_match_unblocked: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_MATCH_UNBLOCKED"
 		end
 

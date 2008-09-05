@@ -115,47 +115,47 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_param_readable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PARAM_READABLE"
 		end
 
 	g_param_writable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PARAM_WRITABLE"
 		end
 
 	g_param_construct: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PARAM_CONSTRUCT"
 		end
 
 	g_param_construct_only: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PARAM_CONSTRUCT_ONLY"
 		end
 
 	g_param_lax_validation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PARAM_LAX_VALIDATION"
 		end
 
 	g_param_static_name: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PARAM_STATIC_NAME"
 		end
 
 	g_param_private: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PARAM_PRIVATE"
 		end
 
 	g_param_static_nick: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PARAM_STATIC_NICK"
 		end
 
 	g_param_static_blurb: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_PARAM_STATIC_BLURB"
 		end
 

@@ -14,7 +14,10 @@ inherit
 		redefine
 			copy, from_external_pointer
 		end
-
+	FREEZABLE
+		-- Some GLib using libraries requires that some instances of G_LIST
+		-- shal be modified only by the library, making it effectively freezed
+		-- for the developer.
 insert
 	G_LIST_EXTERNALS undefine fill_tagged_out_memory end
 
@@ -82,7 +85,9 @@ feature
 		end
 
 	put (an_item: like first; i: INTEGER) is
-		do
+	--
+require is_
+do
 			g_list_set_data (g_list_nth(handle,i), an_item.handle)
 			cache.put(an_item, an_item.handle)
 		end

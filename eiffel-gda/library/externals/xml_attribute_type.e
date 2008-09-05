@@ -126,52 +126,52 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	xml_attribute_cdata: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_CDATA"
 		end
 
 	xml_attribute_id: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_ID"
 		end
 
 	xml_attribute_idref: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_IDREF"
 		end
 
 	xml_attribute_idrefs: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_IDREFS"
 		end
 
 	xml_attribute_entity: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_ENTITY"
 		end
 
 	xml_attribute_entities: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_ENTITIES"
 		end
 
 	xml_attribute_nmtoken: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_NMTOKEN"
 		end
 
 	xml_attribute_nmtokens: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_NMTOKENS"
 		end
 
 	xml_attribute_enumeration: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_ENUMERATION"
 		end
 
 	xml_attribute_notation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "XML_ATTRIBUTE_NOTATION"
 		end
 

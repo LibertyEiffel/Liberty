@@ -93,37 +93,37 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_markup_error_bad_utf8: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_ERROR_BAD_UTF8"
 		end
 
 	g_markup_error_empty: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_ERROR_EMPTY"
 		end
 
 	g_markup_error_parse: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_ERROR_PARSE"
 		end
 
 	g_markup_error_unknown_element: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_ERROR_UNKNOWN_ELEMENT"
 		end
 
 	g_markup_error_unknown_attribute: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_ERROR_UNKNOWN_ATTRIBUTE"
 		end
 
 	g_markup_error_invalid_content: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_ERROR_INVALID_CONTENT"
 		end
 
 	g_markup_error_missing_attribute: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_MARKUP_ERROR_MISSING_ATTRIBUTE"
 		end
 

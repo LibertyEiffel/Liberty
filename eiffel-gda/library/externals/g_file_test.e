@@ -101,27 +101,27 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_file_test_is_regular: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_TEST_IS_REGULAR"
 		end
 
 	g_file_test_is_symlink: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_TEST_IS_SYMLINK"
 		end
 
 	g_file_test_is_dir: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_TEST_IS_DIR"
 		end
 
 	g_file_test_is_executable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_TEST_IS_EXECUTABLE"
 		end
 
 	g_file_test_exists: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_TEST_EXISTS"
 		end
 

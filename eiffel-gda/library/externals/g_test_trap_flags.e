@@ -69,17 +69,17 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_test_trap_silence_stdout: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TEST_TRAP_SILENCE_STDOUT"
 		end
 
 	g_test_trap_silence_stderr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TEST_TRAP_SILENCE_STDERR"
 		end
 
 	g_test_trap_inherit_stdin: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_TEST_TRAP_INHERIT_STDIN"
 		end
 

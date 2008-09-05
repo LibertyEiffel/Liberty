@@ -16,7 +16,9 @@ feature -- Validity
 				(a_value = gda_server_operation_drop_column) or else 
 				(a_value = gda_server_operation_create_index) or else 
 				(a_value = gda_server_operation_drop_index) or else 
-				(a_value = gda_server_operation_nb))
+				(a_value = gda_server_operation_create_view) or else 
+				(a_value = gda_server_operation_drop_view) or else 
+				(a_value = gda_server_operation_last))
 		end
 
 
@@ -66,9 +68,19 @@ feature -- Setters
 			value := gda_server_operation_drop_index
 		end
 
-	set_nb is
+	set_create_view is
 		do
-			value := gda_server_operation_nb
+			value := gda_server_operation_create_view
+		end
+
+	set_drop_view is
+		do
+			value := gda_server_operation_drop_view
+		end
+
+	set_last is
+		do
+			value := gda_server_operation_last
 		end
 
 
@@ -118,61 +130,81 @@ feature -- Queries
 			Result := (value=gda_server_operation_drop_index)
 		end
 
-	is_nb: BOOLEAN is
+	is_create_view: BOOLEAN is
 		do
-			Result := (value=gda_server_operation_nb)
+			Result := (value=gda_server_operation_create_view)
+		end
+
+	is_drop_view: BOOLEAN is
+		do
+			Result := (value=gda_server_operation_drop_view)
+		end
+
+	is_last: BOOLEAN is
+		do
+			Result := (value=gda_server_operation_last)
 		end
 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_server_operation_create_db: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_CREATE_DB"
 		end
 
 	gda_server_operation_drop_db: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_DROP_DB"
 		end
 
 	gda_server_operation_create_table: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_CREATE_TABLE"
 		end
 
 	gda_server_operation_drop_table: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_DROP_TABLE"
 		end
 
 	gda_server_operation_rename_table: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_RENAME_TABLE"
 		end
 
 	gda_server_operation_add_column: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_ADD_COLUMN"
 		end
 
 	gda_server_operation_drop_column: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_DROP_COLUMN"
 		end
 
 	gda_server_operation_create_index: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_CREATE_INDEX"
 		end
 
 	gda_server_operation_drop_index: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_SERVER_OPERATION_DROP_INDEX"
 		end
 
-	gda_server_operation_nb: INTEGER is
-		external "C macro use <libgda/libgda.h>"
-		alias "GDA_SERVER_OPERATION_NB"
+	gda_server_operation_create_view: INTEGER is
+		external "C macro use <library/externals/all-gda-includes.h>"
+		alias "GDA_SERVER_OPERATION_CREATE_VIEW"
+		end
+
+	gda_server_operation_drop_view: INTEGER is
+		external "C macro use <library/externals/all-gda-includes.h>"
+		alias "GDA_SERVER_OPERATION_DROP_VIEW"
+		end
+
+	gda_server_operation_last: INTEGER is
+		external "C macro use <library/externals/all-gda-includes.h>"
+		alias "GDA_SERVER_OPERATION_LAST"
 		end
 
 

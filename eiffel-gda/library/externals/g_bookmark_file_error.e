@@ -104,42 +104,42 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_bookmark_file_error_invalid_uri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_BOOKMARK_FILE_ERROR_INVALID_URI"
 		end
 
 	g_bookmark_file_error_invalid_value: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_BOOKMARK_FILE_ERROR_INVALID_VALUE"
 		end
 
 	g_bookmark_file_error_app_not_registered: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_BOOKMARK_FILE_ERROR_APP_NOT_REGISTERED"
 		end
 
 	g_bookmark_file_error_uri_not_found: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_BOOKMARK_FILE_ERROR_URI_NOT_FOUND"
 		end
 
 	g_bookmark_file_error_read: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_BOOKMARK_FILE_ERROR_READ"
 		end
 
 	g_bookmark_file_error_unknown_encoding: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_BOOKMARK_FILE_ERROR_UNKNOWN_ENCODING"
 		end
 
 	g_bookmark_file_error_write: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_BOOKMARK_FILE_ERROR_WRITE"
 		end
 
 	g_bookmark_file_error_file_not_found: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_BOOKMARK_FILE_ERROR_FILE_NOT_FOUND"
 		end
 

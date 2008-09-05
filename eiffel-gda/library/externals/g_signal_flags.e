@@ -133,37 +133,37 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_signal_run_first: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_RUN_FIRST"
 		end
 
 	g_signal_run_last: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_RUN_LAST"
 		end
 
 	g_signal_run_cleanup: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_RUN_CLEANUP"
 		end
 
 	g_signal_no_recurse: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_NO_RECURSE"
 		end
 
 	g_signal_detailed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_DETAILED"
 		end
 
 	g_signal_action: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_ACTION"
 		end
 
 	g_signal_no_hooks: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_SIGNAL_NO_HOOKS"
 		end
 

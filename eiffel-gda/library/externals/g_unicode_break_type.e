@@ -412,182 +412,182 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_unicode_break_mandatory: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_MANDATORY"
 		end
 
 	g_unicode_break_carriage_return: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_CARRIAGE_RETURN"
 		end
 
 	g_unicode_break_line_feed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_LINE_FEED"
 		end
 
 	g_unicode_break_combining_mark: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_COMBINING_MARK"
 		end
 
 	g_unicode_break_surrogate: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_SURROGATE"
 		end
 
 	g_unicode_break_zero_width_space: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_ZERO_WIDTH_SPACE"
 		end
 
 	g_unicode_break_inseparable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_INSEPARABLE"
 		end
 
 	g_unicode_break_non_breaking_glue: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_NON_BREAKING_GLUE"
 		end
 
 	g_unicode_break_contingent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_CONTINGENT"
 		end
 
 	g_unicode_break_space: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_SPACE"
 		end
 
 	g_unicode_break_after: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_AFTER"
 		end
 
 	g_unicode_break_before: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_BEFORE"
 		end
 
 	g_unicode_break_before_and_after: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_BEFORE_AND_AFTER"
 		end
 
 	g_unicode_break_hyphen: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_HYPHEN"
 		end
 
 	g_unicode_break_non_starter: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_NON_STARTER"
 		end
 
 	g_unicode_break_open_punctuation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_OPEN_PUNCTUATION"
 		end
 
 	g_unicode_break_close_punctuation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_CLOSE_PUNCTUATION"
 		end
 
 	g_unicode_break_quotation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_QUOTATION"
 		end
 
 	g_unicode_break_exclamation: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_EXCLAMATION"
 		end
 
 	g_unicode_break_ideographic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_IDEOGRAPHIC"
 		end
 
 	g_unicode_break_numeric: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_NUMERIC"
 		end
 
 	g_unicode_break_infix_separator: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_INFIX_SEPARATOR"
 		end
 
 	g_unicode_break_symbol: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_SYMBOL"
 		end
 
 	g_unicode_break_alphabetic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_ALPHABETIC"
 		end
 
 	g_unicode_break_prefix: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_PREFIX"
 		end
 
 	g_unicode_break_postfix: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_POSTFIX"
 		end
 
 	g_unicode_break_complex_context: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_COMPLEX_CONTEXT"
 		end
 
 	g_unicode_break_ambiguous: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_AMBIGUOUS"
 		end
 
 	g_unicode_break_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_UNKNOWN"
 		end
 
 	g_unicode_break_next_line: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_NEXT_LINE"
 		end
 
 	g_unicode_break_word_joiner: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_WORD_JOINER"
 		end
 
 	g_unicode_break_hangul_l_jamo: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_HANGUL_L_JAMO"
 		end
 
 	g_unicode_break_hangul_v_jamo: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_HANGUL_V_JAMO"
 		end
 
 	g_unicode_break_hangul_t_jamo: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_HANGUL_T_JAMO"
 		end
 
 	g_unicode_break_hangul_lv_syllable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_HANGUL_LV_SYLLABLE"
 		end
 
 	g_unicode_break_hangul_lvt_syllable: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_BREAK_HANGUL_LVT_SYLLABLE"
 		end
 

@@ -170,72 +170,72 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_regex_caseless: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_CASELESS"
 		end
 
 	g_regex_multiline: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_MULTILINE"
 		end
 
 	g_regex_dotall: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_DOTALL"
 		end
 
 	g_regex_extended: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_EXTENDED"
 		end
 
 	g_regex_anchored: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_ANCHORED"
 		end
 
 	g_regex_dollar_endonly: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_DOLLAR_ENDONLY"
 		end
 
 	g_regex_ungreedy: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_UNGREEDY"
 		end
 
 	g_regex_raw: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_RAW"
 		end
 
 	g_regex_no_auto_capture: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_NO_AUTO_CAPTURE"
 		end
 
 	g_regex_optimize: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_OPTIMIZE"
 		end
 
 	g_regex_dupnames: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_DUPNAMES"
 		end
 
 	g_regex_newline_cr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_NEWLINE_CR"
 		end
 
 	g_regex_newline_lf: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_NEWLINE_LF"
 		end
 
 	g_regex_newline_crlf: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_REGEX_NEWLINE_CRLF"
 		end
 

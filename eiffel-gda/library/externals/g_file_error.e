@@ -291,127 +291,127 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_file_error_exist: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_EXIST"
 		end
 
 	g_file_error_isdir: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_ISDIR"
 		end
 
 	g_file_error_acces: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_ACCES"
 		end
 
 	g_file_error_nametoolong: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_NAMETOOLONG"
 		end
 
 	g_file_error_noent: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_NOENT"
 		end
 
 	g_file_error_notdir: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_NOTDIR"
 		end
 
 	g_file_error_nxio: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_NXIO"
 		end
 
 	g_file_error_nodev: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_NODEV"
 		end
 
 	g_file_error_rofs: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_ROFS"
 		end
 
 	g_file_error_txtbsy: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_TXTBSY"
 		end
 
 	g_file_error_fault: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_FAULT"
 		end
 
 	g_file_error_loop: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_LOOP"
 		end
 
 	g_file_error_nospc: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_NOSPC"
 		end
 
 	g_file_error_nomem: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_NOMEM"
 		end
 
 	g_file_error_mfile: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_MFILE"
 		end
 
 	g_file_error_nfile: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_NFILE"
 		end
 
 	g_file_error_badf: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_BADF"
 		end
 
 	g_file_error_inval: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_INVAL"
 		end
 
 	g_file_error_pipe: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_PIPE"
 		end
 
 	g_file_error_again: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_AGAIN"
 		end
 
 	g_file_error_intr: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_INTR"
 		end
 
 	g_file_error_io: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_IO"
 		end
 
 	g_file_error_perm: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_PERM"
 		end
 
 	g_file_error_nosys: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_NOSYS"
 		end
 
 	g_file_error_failed: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_FILE_ERROR_FAILED"
 		end
 

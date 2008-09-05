@@ -885,397 +885,397 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	g_unicode_script_invalid_code: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_INVALID_CODE"
 		end
 
 	g_unicode_script_common: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_COMMON"
 		end
 
 	g_unicode_script_inherited: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_INHERITED"
 		end
 
 	g_unicode_script_arabic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_ARABIC"
 		end
 
 	g_unicode_script_armenian: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_ARMENIAN"
 		end
 
 	g_unicode_script_bengali: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_BENGALI"
 		end
 
 	g_unicode_script_bopomofo: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_BOPOMOFO"
 		end
 
 	g_unicode_script_cherokee: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_CHEROKEE"
 		end
 
 	g_unicode_script_coptic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_COPTIC"
 		end
 
 	g_unicode_script_cyrillic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_CYRILLIC"
 		end
 
 	g_unicode_script_deseret: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_DESERET"
 		end
 
 	g_unicode_script_devanagari: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_DEVANAGARI"
 		end
 
 	g_unicode_script_ethiopic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_ETHIOPIC"
 		end
 
 	g_unicode_script_georgian: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_GEORGIAN"
 		end
 
 	g_unicode_script_gothic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_GOTHIC"
 		end
 
 	g_unicode_script_greek: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_GREEK"
 		end
 
 	g_unicode_script_gujarati: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_GUJARATI"
 		end
 
 	g_unicode_script_gurmukhi: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_GURMUKHI"
 		end
 
 	g_unicode_script_han: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_HAN"
 		end
 
 	g_unicode_script_hangul: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_HANGUL"
 		end
 
 	g_unicode_script_hebrew: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_HEBREW"
 		end
 
 	g_unicode_script_hiragana: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_HIRAGANA"
 		end
 
 	g_unicode_script_kannada: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_KANNADA"
 		end
 
 	g_unicode_script_katakana: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_KATAKANA"
 		end
 
 	g_unicode_script_khmer: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_KHMER"
 		end
 
 	g_unicode_script_lao: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_LAO"
 		end
 
 	g_unicode_script_latin: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_LATIN"
 		end
 
 	g_unicode_script_malayalam: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_MALAYALAM"
 		end
 
 	g_unicode_script_mongolian: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_MONGOLIAN"
 		end
 
 	g_unicode_script_myanmar: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_MYANMAR"
 		end
 
 	g_unicode_script_ogham: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_OGHAM"
 		end
 
 	g_unicode_script_old_italic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_OLD_ITALIC"
 		end
 
 	g_unicode_script_oriya: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_ORIYA"
 		end
 
 	g_unicode_script_runic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_RUNIC"
 		end
 
 	g_unicode_script_sinhala: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_SINHALA"
 		end
 
 	g_unicode_script_syriac: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_SYRIAC"
 		end
 
 	g_unicode_script_tamil: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_TAMIL"
 		end
 
 	g_unicode_script_telugu: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_TELUGU"
 		end
 
 	g_unicode_script_thaana: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_THAANA"
 		end
 
 	g_unicode_script_thai: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_THAI"
 		end
 
 	g_unicode_script_tibetan: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_TIBETAN"
 		end
 
 	g_unicode_script_canadian_aboriginal: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_CANADIAN_ABORIGINAL"
 		end
 
 	g_unicode_script_yi: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_YI"
 		end
 
 	g_unicode_script_tagalog: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_TAGALOG"
 		end
 
 	g_unicode_script_hanunoo: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_HANUNOO"
 		end
 
 	g_unicode_script_buhid: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_BUHID"
 		end
 
 	g_unicode_script_tagbanwa: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_TAGBANWA"
 		end
 
 	g_unicode_script_braille: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_BRAILLE"
 		end
 
 	g_unicode_script_cypriot: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_CYPRIOT"
 		end
 
 	g_unicode_script_limbu: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_LIMBU"
 		end
 
 	g_unicode_script_osmanya: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_OSMANYA"
 		end
 
 	g_unicode_script_shavian: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_SHAVIAN"
 		end
 
 	g_unicode_script_linear_b: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_LINEAR_B"
 		end
 
 	g_unicode_script_tai_le: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_TAI_LE"
 		end
 
 	g_unicode_script_ugaritic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_UGARITIC"
 		end
 
 	g_unicode_script_new_tai_lue: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_NEW_TAI_LUE"
 		end
 
 	g_unicode_script_buginese: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_BUGINESE"
 		end
 
 	g_unicode_script_glagolitic: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_GLAGOLITIC"
 		end
 
 	g_unicode_script_tifinagh: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_TIFINAGH"
 		end
 
 	g_unicode_script_syloti_nagri: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_SYLOTI_NAGRI"
 		end
 
 	g_unicode_script_old_persian: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_OLD_PERSIAN"
 		end
 
 	g_unicode_script_kharoshthi: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_KHAROSHTHI"
 		end
 
 	g_unicode_script_unknown: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_UNKNOWN"
 		end
 
 	g_unicode_script_balinese: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_BALINESE"
 		end
 
 	g_unicode_script_cuneiform: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_CUNEIFORM"
 		end
 
 	g_unicode_script_phoenician: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_PHOENICIAN"
 		end
 
 	g_unicode_script_phags_pa: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_PHAGS_PA"
 		end
 
 	g_unicode_script_nko: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_NKO"
 		end
 
 	g_unicode_script_kayah_li: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_KAYAH_LI"
 		end
 
 	g_unicode_script_lepcha: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_LEPCHA"
 		end
 
 	g_unicode_script_rejang: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_REJANG"
 		end
 
 	g_unicode_script_sundanese: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_SUNDANESE"
 		end
 
 	g_unicode_script_saurashtra: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_SAURASHTRA"
 		end
 
 	g_unicode_script_cham: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_CHAM"
 		end
 
 	g_unicode_script_ol_chiki: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_OL_CHIKI"
 		end
 
 	g_unicode_script_vai: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_VAI"
 		end
 
 	g_unicode_script_carian: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_CARIAN"
 		end
 
 	g_unicode_script_lycian: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_LYCIAN"
 		end
 
 	g_unicode_script_lydian: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "G_UNICODE_SCRIPT_LYDIAN"
 		end
 

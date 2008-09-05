@@ -49,17 +49,17 @@ feature -- Queries
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 	gda_transaction_status_event_savepoint: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_STATUS_EVENT_SAVEPOINT"
 		end
 
 	gda_transaction_status_event_sql: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_STATUS_EVENT_SQL"
 		end
 
 	gda_transaction_status_event_sub_transaction: INTEGER is
-		external "C macro use <libgda/libgda.h>"
+		external "C macro use <library/externals/all-gda-includes.h>"
 		alias "GDA_TRANSACTION_STATUS_EVENT_SUB_TRANSACTION"
 		end
 
