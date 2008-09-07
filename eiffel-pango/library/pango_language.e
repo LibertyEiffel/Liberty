@@ -24,7 +24,7 @@ class PANGO_LANGUAGE
 
 inherit 
 	C_STRUCT
-	UNHANDLED_MEMORY
+	C_OWNED
 
 creation allocate, from_external_pointer
 

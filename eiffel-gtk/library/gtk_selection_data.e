@@ -25,7 +25,7 @@ class GTK_SELECTION_DATA
 
 inherit 
 	C_STRUCT
-	UNHANDLED_MEMORY
+	C_OWNED
 
 creation from_external_pointer, make
 

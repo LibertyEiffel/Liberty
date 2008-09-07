@@ -1,5 +1,5 @@
-deferred class SHARED
-	-- A wrapper for a C object whose  memory is handled by the underlying C library
+deferred class C_OWNED 
+	-- A wrapper for a C object whose memory is handled by the underlying C library
 
 inherit DISPOSABLE undefine copy, is_equal end
 

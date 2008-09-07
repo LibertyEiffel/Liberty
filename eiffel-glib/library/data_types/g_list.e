@@ -10,22 +10,22 @@ inherit
 	WRAPPER_COLLECTION [ITEM]
 	C_STRUCT
 		undefine 
-			fill_tagged_out_memory
+		fill_tagged_out_memory
 		redefine
 			copy, from_external_pointer
 		end
-	FREEZABLE
+		FREEZABLE
 		-- Some GLib using libraries requires that some instances of G_LIST
 		-- shal be modified only by the library, making it effectively freezed
 		-- for the developer.
 insert
-	G_LIST_EXTERNALS undefine fill_tagged_out_memory end
+		G_LIST_EXTERNALS undefine fill_tagged_out_memory end
 
 		-- To add elements, use g_slist_append(), g_slist_prepend(),
 		-- g_slist_insert() and g_slist_insert_sorted().
-	
+
 		-- To remove elements, use g_list_remove().
-	
+
 		-- To find elements in the list use g_list_last(),
 		-- g_list_next(), g_list_nth(), g_list_nth_data(), g_list_find()
 		-- and g_list_find_custom().
@@ -39,13 +39,13 @@ insert
 		-- To free the entire list, use g_list_free().
 
 feature
-	
+
 	make, empty is
 		do
 			create cache.make
 			-- There is no function to create a GList. NULL is considered
 			-- to be the empty list so you simply set a GList* to NULL.
-			
+
 			-- Note: a NULL pointer is the actual *valid* empty
 			-- G_LIST. Therefore any handle.is_not_null postcondition
 			-- shall be circumvented. 
@@ -57,53 +57,63 @@ feature
 			handle := default_pointer
 		end
 
-	from_external_pointer (a_ptr: POINTER) is
-		do
-			create cache.make
-			Precursor(a_ptr)
-		end
+		from_external_pointer (a_ptr: POINTER) is
+	do
+		create cache.make
+		Precursor(a_ptr)
+	end
 
 	first: ITEM is
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_get_data (handle)
-			if p.is_not_null then Result:=wrapper(p) end
+			if p.is_not_null 
+				then Result:=wrapper(p) 
+			end
 		end
 
 	last: like first is
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_get_data (g_list_last (handle))
-			if p.is_not_null then Result:=wrapper(p) end
+			if p.is_not_null 
+				then Result:=wrapper(p) 
+			end
 		end
 
 	item (i: INTEGER): like first is
 		local p: POINTER -- Item Pointer
 		do
 			p:=g_list_nth_data (handle, i)
-			if p.is_not_null then Result:=wrapper(p) end
+			if p.is_not_null then 
+				Result:=wrapper(p) 
+			end
 		end
 
 	put (an_item: like first; i: INTEGER) is
-	--
-require is_
-do
-			g_list_set_data (g_list_nth(handle,i), an_item.handle)
-			cache.put(an_item, an_item.handle)
-		end
+		--
+	require is_mutable	
+	do
+		g_list_set_data (g_list_nth(handle,i), an_item.handle)
+		cache.put(an_item, an_item.handle)
+	end
 
 	swap (i,j: INTEGER) is
-		local ith,jth,tmp: POINTER
-		do
-			ith := g_list_nth_data (handle,i)
-			jth := g_list_nth_data (handle,j)
+		--
+	require is_mutable	
+	local ith,jth,tmp: POINTER
+	do
+		ith := g_list_nth_data (handle,i)
+		jth := g_list_nth_data (handle,j)
 
-			tmp := g_list_get_data(ith)
-			g_list_set_data (ith, g_list_get_data(jth))
-			g_list_set_data (jth, tmp)
-		end
+		tmp := g_list_get_data(ith)
+		g_list_set_data (ith, g_list_get_data(jth))
+		g_list_set_data (jth, tmp)
+	end
 
 	set_all_with (v: like first) is
+			--
+		require is_mutable	
 		local ith:POINTER
 		do
 			cache.clear_count
@@ -118,19 +128,22 @@ do
 	clear_all is do not_yet_implemented end
 
 	add_first (element: like first) is
+			-- 
+		require is_mutable	
 		do
 			cache.put(element, element.handle)
 			handle := g_list_prepend (handle, element.handle)
 		end
 
 	add_last (element: like first) is
-			-- Note that add_last has to traverse the entire list to find
-			-- the end, which is inefficient when adding multiple
-			-- elements. A common idiom to avoid the inefficiency is to
-			-- prepend the elements and reverse the list when all
-			-- elements have been added.
-		do
-			handle := g_list_append (handle, element.handle)
+		-- Note that add_last has to traverse the entire list to find
+		-- the end, which is inefficient when adding multiple
+		-- elements. A common idiom to avoid the inefficiency is to
+		-- prepend the elements and reverse the list when all
+		-- elements have been added.
+	require is_mutable	
+	do
+		handle := g_list_append (handle, element.handle)
 		end
 
 	add (element: like first; index: INTEGER) is

@@ -176,9 +176,9 @@ feature
 
 	create_parser, get_new_parser: GDA_SQL_PARSER is
 		-- Creates a new parser object able to parse the SQL dialect understood
-		-- by Current connection. Result is Void if the GDA_SERVER_PROVIDER object used internally does
-		-- not have its own parser; a general SQL
-		-- parser can be obtained creating a GDA_Susing gda_sql_parser_new().
+		-- by Current connection. Result is Void if the GDA_SERVER_PROVIDER
+		-- object used internally does not have its own parser; a general SQL
+		-- parser can be obtained creating a GDA_SQL_PARSER.
 	local p: POINTER; factory: G_OBJECT_EXPANDED_FACTORY[GDA_SQL_PARSER]
 	do
 		p:=gda_connection_create_parser(handle)
@@ -186,102 +186,89 @@ feature
 			Result:=factory.wrapper(p)
 		end
 	end
-	--  gda_connection_statement_to_sql ()
-	--
-	-- gchar*              gda_connection_statement_to_sql     (GdaConnection *cnc,
-	--                                                          GdaStatement *stmt,
-	--                                                          GdaSet *params,
-	--                                                          GdaStatementSqlFlag flags,
-	--                                                          GSList **params_used,
-	--                                                          GError **error);
-	--
-	--   Renders stmt as an SQL statement, adapted to the SQL dialect used by cnc
-	--
-	--   cnc :         a GdaConnection object
-	--   stmt :        a GdaStatement object
-	--   params :      a GdaSet object (which can be obtained using
-	--                 gda_statement_get_parameters()), or NULL
-	--   flags :       SQL rendering flags, as GdaStatementSqlFlag OR'ed values
-	--   params_used : a place to store the list of individual GdaHolder objects
-	--                 within params which have been used
-	--   error :       a place to store errors, or NULL
-	--   Returns :     a new string, or NULL if an error occurred
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_connection_statement_prepare ()
-	--
-	-- gboolean            gda_connection_statement_prepare    (GdaConnection *cnc,
-	--                                                          GdaStatement *stmt,
-	--                                                          GError **error);
-	--
-	--   Ask the database accessed through the cnc connection to prepare the usage
-	--   of stmt. This is only usefull if stmt will be used more than once (however
-	--   some database providers may always prepare stamements before executing
-	--   them).
-	--
-	--   This function is also usefull to make sure stmt is fully understood by the
-	--   database before actually executing it.
-	--
-	--   Note however that it is also possible that
-	--   gda_connection_statement_prepare() fails when
-	--   gda_connection_statement_execute() does not fail (this will usually be the
-	--   case with statements such as "SELECT * FROM ##tablename::string" because
-	--   database usually don't allow variables to be used in place of a table
-	--   name).
-	--
-	--   cnc :     a GdaConnection
-	--   stmt :    a GdaStatement object
-	--   error :   a place to store errors, or NULL
-	--   Returns : TRUE if no error occurred.
-	--
-	--   --------------------------------------------------------------------------
-	--
-	--  gda_connection_statement_execute ()
-	--
-	-- GObject*            gda_connection_statement_execute    (GdaConnection *cnc,
-	--                                                          GdaStatement *stmt,
-	--                                                          GdaSet *params,
-	--                                                          GdaStatementModelUsage model_usage,
-	--                                                          GdaSet **last_insert_row,
-	--                                                          GError **error);
-	--
-	--   Executes stmt.
-	--
-	--   As stmt can, by desing (and if not abused), contain only one SQL
-	--   statement, the return object will either be:
-	--
-	--     o a GdaDataModel if stmt is a SELECT statement (a
-	--       GDA_SQL_STATEMENT_SELECT, see GdaSqlStatementType) containing the
-	--       results of the SELECT. The resulting data model is by default read
-	--       only, but modifications can be made possible using
-	--       gda_pmodel_set_modification_query() and/or
-	--       gda_pmodel_compute_modification_queries().
-	--
-	--     o a GdaSet for any other SQL statement which correctly executed. In this
-	--       case (if the provider supports it), then the GdaSet may contain value
-	--       holders named:
-	--
-	--          o a (gint) GdaHolder named "IMPACTED_ROWS"
-	--
-	--          o a (GObject) GdaHolder named "EVENT" which contains a
-	--            GdaConnectionEvent
-	--
-	--   If last_insert_row is not NULL and stmt is an INSERT statement, then it
-	--   will contain (if the provider used by cnc supports it) a new GdaSet object
-	--   composed of value holders named "+<column number>" starting at column 0
-	--   which contain the actual inserted values. For example if a table is
-	--   composed of an 'id' column which is auto incremented and a 'name' column
-	--   then the execution of a "INSERT INTO mytable (name) VALUES ('joe')" query
-	--   will return a GdaSet with two holders:
-	--
-	--     o one named '+0' which may for example contain 1
-	--
-	--     o one named '+1' which will contain 'joe'
-	--
-	--   See the provider's limitations section for more details about this feature
-	--   depending on which database is accessed.
-	--
+	
+	statement_to_sql (a_statement: GDA_STATEMENT; some_parameters: GDA_SET; some_flags: GDA_STATEMENT_SQL_FLAG): STRING is
+		-- `a_statement' rendered as an SQL statement, adapted to the SQL
+		-- dialect used by Current connection and `some_flags';
+		-- `some_parameters' can be Void. `used_parameters' will contain the
+		-- list of individual GDA_HOLDER objects within `some_parameters' which
+		-- have been used. `error' is updated. Result will be Void if an error
+		-- occurred. 
+	local sql_ptr, params_used: POINTER
+	do
+		sql_ptr := gda_connection_statement_to_sql(handle, a_statement.handle
+		null_or(some_parameters), 
+		some_flags.value,
+		address_of(params_used), error.reference)
+		if sql_ptr.is_not_null 
+			then create Result.from_external(sql_ptr) 
+		end
+		if params_used.is_not_null 
+			then create used_parameters.from_external_pointer(params_used)
+		end
+	end
+
+	used_parameters: G_OBJECT_SLIST[GDA_HOLDER] 
+		-- Parameters used in the last invocation of `statement_to_sql'.
+
+	prepare (a_statement: GDA_STATEMENT) is
+		-- Ask the database accessed through Current connection to prepare the
+		-- usage of `a_statement'. This is only usefull if `a_statement' will
+		-- be used more than once (however some database providers may always
+		-- prepare stamements before executing them).
+	
+		-- This feature is also usefull to make sure `a_statement' is fully
+		-- understood by the database before actually executing it.
+	
+		-- Note however that it is also possible that `prepare' fails when
+		-- `execute' does not fail (this will usually be the case with
+		-- statements such as "SELECT * FROM ##tablename::string" because
+		-- database usually don't allow variables to be used in place of a
+		-- table name).
+
+		-- `is_successful' and `error' are updated.
+	do
+		is_successful:=gda_connection_statement_prepare
+		(handle, a_statement.handle, error.reference).to_boolean
+	end
+	
+	execute (a_statement: GDA_STATEMENT; some_parameters: GDA_SET; a_model_usage: GDA_STATEMENT_MODEL_USAGE): G_OBJECT is
+		-- Executes `a_statement'.
+
+		-- As `a_statement' can, by design (and if not abused), contain only
+		-- one SQL statement, the return object will either be:
+
+		-- * a GdaDataModel if `a_statement' is a SELECT statement (a
+		-- `gda_sql_statement_select', see GDA_SQL_STATEMENT_TYPE containing the
+		-- results of the SELECT. The resulting data model is by default read
+		-- only, but modifications can be made possible using
+		-- gda_pmodel_set_modification_query() and/or
+		-- gda_pmodel_compute_modification_queries().
+
+		--     o a GdaSet for any other SQL statement which correctly executed. In this
+		--       case (if the provider supports it), then the GdaSet may contain value
+		--       holders named:
+
+		--          o a (gint) GdaHolder named "IMPACTED_ROWS"
+
+		--          o a (GObject) GdaHolder named "EVENT" which contains a
+		--            GdaConnectionEvent
+
+		--   If last_insert_row is not NULL and stmt is an INSERT statement, then it
+		--   will contain (if the provider used by cnc supports it) a new GdaSet object
+		--   composed of value holders named "+<column number>" starting at column 0
+		--   which contain the actual inserted values. For example if a table is
+		--   composed of an 'id' column which is auto incremented and a 'name' column
+		--   then the execution of a "INSERT INTO mytable (name) VALUES ('joe')" query
+		--   will return a GdaSet with two holders:
+
+		--     o one named '+0' which may for example contain 1
+
+		--     o one named '+1' which will contain 'joe'
+
+		--   See the provider's limitations section for more details about this feature
+		--   depending on which database is accessed.
+
 	--   cnc :             a GdaConnection
 	--   stmt :            a GdaStatement object
 	--   params :          a GdaSet object (which can be obtained using
@@ -291,7 +278,17 @@ feature
 	--                     values of the last inserted row, or NULL
 	--   error :           a place to store errors, or NULL
 	--   Returns :         a GObject, or NULL if an error occurred
+		do
+
 	--
+	-- GObject*            gda_connection_statement_execute    (GdaConnection *cnc,
+	--                                                          GdaStatement *stmt,
+	--                                                          GdaSet *params,
+	--                                                          GdaStatementModelUsage model_usage,
+	--                                                          GdaSet **last_insert_row,
+	--                                                          GError **error);
+	--
+--
 	--   --------------------------------------------------------------------------
 	--
 	--  gda_connection_statement_execute_select ()

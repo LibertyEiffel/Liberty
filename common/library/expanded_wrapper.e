@@ -24,7 +24,7 @@ deferred class EXPANDED_WRAPPER
 
 inherit 
 	C_STRUCT redefine allocate end
-	UNHANDLED_MEMORY 
+	C_OWNED
 	INTERNALS_HANDLER undefine copy, is_equal end
 
 feature {} -- 

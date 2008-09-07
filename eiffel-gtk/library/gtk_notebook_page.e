@@ -25,7 +25,7 @@ class GTK_NOTEBOOK_PAGE
 
 inherit 
 	C_STRUCT
-	UNHANDLED_MEMORY
+	C_OWNED
 
 creation from_external_pointer
 
