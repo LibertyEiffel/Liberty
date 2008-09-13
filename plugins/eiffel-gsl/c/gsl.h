@@ -9,7 +9,22 @@
 
 void gsl_init();
 
+#include <gsl/gsl_complex.h>
+#include <gsl/gsl_complex_math.h>
+
+#define gsl_complex_zero {{0.0,0.0}}
+
 #define gsl_set_default_err_handler() gsl_set_error_handler(NULL)
+#define gsl_complex_polar_wrapper(c, r, t) c = gsl_complex_polar(r, t)
+#define gsl_complex_rect_wrapper(c, a, b) c = gsl_complex_rect(a, b)
+#define gsl_complex_arg_wrapper(c) gsl_complex_arg(c)
+#define gsl_complex_abs_wrapper(c) gsl_complex_abs(c)
+#define gsl_complex_abs2_wrapper(c) gsl_complex_abs2(c)
+#define gsl_complex_logabs_wrapper(c) gsl_complex_logabs(c)
+#define gsl_complex_add_wrapper(a, b, c) c = gsl_complex_add(a, b)
+#define gsl_complex_sub_wrapper(a, b, c) c = gsl_complex_sub(a, b)
+#define GSL_SET_REAL_W(c, a) GSL_SET_REAL(&c, a)
+#define GSL_SET_IMAG_W(c, a) GSL_SET_IMAG(&c, a)
 
 //matrix_float: GSL_MATRIX_REAL_32
 #include <gsl/gsl_matrix_float.h>
