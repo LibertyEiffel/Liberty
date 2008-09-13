@@ -15,13 +15,12 @@ feature
 		local
 			c, d: GSL_COMPLEX_REAL_64
 		do
-			create c.make_rect(2, 2)
+			c.make_rect(2, 2)
 			assert(c.arg ~= (Pi / 4))
 
 			assert(c.abs ~= 8.0.sqrt)
 
-			create d.make_rect(-1, -2)
-
+			d.make_rect(-1, -2)
 			assert(d.abs2 ~= 5)
 
 			assert(d.logabs ~= 0.804718956217050)

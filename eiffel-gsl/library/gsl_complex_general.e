@@ -1,6 +1,6 @@
 indexing
 	description: "complex number"
-	copyright: "(C) 2006 "
+	copyright: "(C) 2006 - 2008"
 	authors: "Raphael Mack <mail@raphael-mack.de>"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
