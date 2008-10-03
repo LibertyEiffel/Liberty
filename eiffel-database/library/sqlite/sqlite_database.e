@@ -16,7 +16,6 @@ inherit
 		end
 
 	C_STRUCT
-	UNHANDLED_MEMORY 
 
 insert
 	SQLITE3_EXTERNALS

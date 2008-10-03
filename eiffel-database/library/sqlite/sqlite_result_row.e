@@ -20,9 +20,22 @@ inherit
 		end
 
 insert
-	SQLITE3_EXTERNALS undefine copy, is_equal, fill_tagged_out_memory  end
-	SQLITE_ERROR_CODES undefine copy, is_equal, fill_tagged_out_memory  end
-	EXCEPTIONS undefine copy, is_equal, fill_tagged_out_memory end
+	SQLITE3_EXTERNALS
+		undefine
+			fill_tagged_out_memory
+		end
+
+	SQLITE_ERROR_CODES
+		undefine
+			copy, is_equal,
+			fill_tagged_out_memory
+		end
+
+	EXCEPTIONS
+		undefine
+			copy, is_equal,
+			fill_tagged_out_memory
+		end
 
 creation make
 

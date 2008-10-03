@@ -15,17 +15,14 @@ inherit
 
 	C_STRUCT
 
-	UNHANDLED_MEMORY 
-		redefine 
-			dispose
-		end
-
-insert
-	SQLITE3_EXTERNALS
+	DISPOSABLE
 		undefine
 			copy,
 			is_equal
 		end
+
+insert
+	SQLITE3_EXTERNALS
 
 	SQLITE_ERROR_CODES
 		undefine

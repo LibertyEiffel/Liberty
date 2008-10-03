@@ -18,10 +18,6 @@ inherit
 
 insert
 	SQLITE3_EXTERNALS
-		undefine
-			copy,
-			is_equal
-		end
 
 	SQLITE_TYPE_CODES
 		undefine
