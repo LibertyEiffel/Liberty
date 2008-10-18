@@ -47,7 +47,7 @@ feature -- Type queries
 
 	is_real (a_column: INTEGER): BOOLEAN is
 		do
-			Result := False
+			Result := ( {REFERENCE[REAL_64]} ?:= item(a_column) )
 		end
 	
 	is_string (a_column: INTEGER): BOOLEAN is

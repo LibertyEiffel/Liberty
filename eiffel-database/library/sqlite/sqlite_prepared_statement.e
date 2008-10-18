@@ -47,7 +47,7 @@ feature {} -- Disposing
 		end
 
 feature -- parameters validity
-	parameters_count: INTEGER is
+	parameter_count: INTEGER is
 		do
 			Result := sqlite3_bind_parameter_count (handle)
 		end
@@ -94,9 +94,9 @@ feature -- parameters validity
 
 	bind_parameter (a_parameter: ANY; an_index: INTEGER) is
 			-- Bind `a_parameter' to `an_index' placeholder in the statement.
-		require 
+		require
 			parameter_not_void: a_parameter /= Void
-			valid_index: an_index.in_range (1, parameters_count)
+			valid_index: an_index.in_range (1, parameter_count)
 		local		
 			int_ref: REFERENCE[INTEGER]; real_ref: REFERENCE[REAL]; a_string: STRING
 		do

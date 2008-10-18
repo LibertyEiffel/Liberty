@@ -19,6 +19,12 @@ feature {} -- Creation
 
 feature	{ANY}
 	parameters_count: INTEGER is
+      obsolete "use parameter_count instead"
+      do
+         Result := parameter_count
+      end
+   
+	parameter_count: INTEGER is
 			-- The number of paramenters to be provided to execute the
 			-- statement. This number depends on `some_sql' passed to
 			-- `make' feature.
@@ -36,7 +42,7 @@ feature	{ANY}
 			-- Is `a_parameter' placeble in statement's `an_index'-th parameter?
 		require 
 			parameter_not_void: a_parameter /= Void
-			valid_index: an_index.in_range (1, parameters_count)
+			valid_index: an_index.in_range (1, parameter_count)
 			state: is_prepared
 		deferred 
 		end
@@ -46,7 +52,7 @@ feature	{ANY}
 			-- and set last_exec_success
 		require 
 			parameters_not_void: some_parameters /= Void
-			correct_number_of_parameters: some_parameters.count = parameters_count
+			correct_number_of_parameters: some_parameters.count = parameter_count
 			state: is_prepared
 			valid_paramaters: are_valid_parameters (some_parameters)
 		deferred

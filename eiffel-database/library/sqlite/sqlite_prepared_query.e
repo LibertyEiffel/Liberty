@@ -51,6 +51,42 @@ feature
 			fill_in_results
 		end
 
+   execute_callback (some_parameters: TRAVERSABLE[ANY]; callback: ROUTINE[ANY, TUPLE[RESULT_ROW]]) is
+			-- Execute the current query with `some_parameters'
+         -- call callback for every result_row
+      require
+         useful_callback: callback /= Void
+         valid_count: some_parameters.count = parameter_count
+		local 
+			i: INTEGER -- the parameters index, 
+			query_index: INTEGER 
+		do
+         sedb_breakpoint
+			res_code := sqlite3_reset (handle)
+			from
+				i := some_parameters.lower
+				query_index := 1
+			until
+				i > some_parameters.upper
+			loop
+				bind_parameter (some_parameters.item(i), query_index)
+				i := i + 1
+				query_index := query_index + 1
+			end
+
+			create {SQLITE_RESULT_SET} last_result.make
+			from 
+				res_code := sqlite3_step(handle)
+				last_result.set_columns_number (sqlite3_column_count(handle))
+			until
+				res_code /= sqlite_row
+			loop
+            callback.call([fetch_one_row])
+				res_code := sqlite3_step (handle)
+			end
+
+		end
+
 feature {} -- Implementation
 	-- TODO: Evaluate An SQL Statement
 	
@@ -138,7 +174,7 @@ feature {} -- Implementation
 			until
 				res_code /= sqlite_row
 			loop
-				fill_in_row
+            last_result.add_last (fetch_one_row)
 				res_code := sqlite3_step (handle)
 			end
 			debug
@@ -148,33 +184,31 @@ feature {} -- Implementation
 			end
 		end
 	
-	fill_in_row is
+	fetch_one_row: SQLITE_RESULT_ROW is
 		local 
 			a_column: INTEGER
 			a_type_number: INTEGER
-			a_row: SQLITE_RESULT_ROW
 			cstr: POINTER
 		do
-			create a_row.make (last_result.columns)
-			last_result.add_last (a_row)
+			create Result.make (last_result.columns)
 			from
-				a_column := a_row.lower
+				a_column := Result.lower
 			until
-				a_column > a_row.upper
+				a_column > Result.upper
 			loop
 				a_type_number := sqlite3_column_type (handle, a_column)
 				if a_type_number=sqlite_integer then
-					a_row.put (create {REFERENCE[INTEGER]}.set_item
+					Result.put (create {REFERENCE[INTEGER]}.set_item
 								  (sqlite3_column_int (handle,a_column)),
 								  a_column)
 				elseif a_type_number=sqlite_float then 	
-					a_row.put (create {REFERENCE[REAL]}.set_item
+					Result.put (create {REFERENCE[REAL]}.set_item
 								  (sqlite3_column_double (handle, a_column)),
 								  a_column)
 				elseif a_type_number=sqlite_text then 
 					cstr := sqlite3_column_text (handle, a_column)
 					if cstr.is_not_null then 
-						a_row.put (create {STRING}.from_external_copy(cstr),
+						Result.put (create {STRING}.from_external_copy(cstr),
 									  a_column)
 					else
 						debug
@@ -185,9 +219,9 @@ feature {} -- Implementation
 					debug
 						io.put_string ("Warning: an SQLITE_PREPARED_QUERY returned a blob. Since it is currently not handled Void takes its place%N")
 					end
-					a_row.put (Void, a_column)
+					Result.put (Void, a_column)
 				elseif a_type_number=sqlite_null then
-					a_row.put (Void, a_column)
+					Result.put (Void, a_column)
 				else
 					raise ("SQLITE_PREPARED_QUERY.fill_in_row: got unknown type number " + a_type_number.out + "%N")
 				end
