@@ -20,8 +20,14 @@ indexing
 			]"
 
 deferred class FREEZABLE
-	-- An object that can be made temporary or permanently unchangable.
+	-- An object that can be made temporary or permanently
+	-- unchangable.
 
+	-- Note for the developer: this behaviour is
+	-- currently only a hint to the end-user and
+	-- it is not enforced throught an invariant.
+
+	-- TODO: implement an invariant.
 insert ANY undefine copy, is_equal, fill_tagged_out_memory end
 
 feature
@@ -67,7 +73,10 @@ feature {}
 	state: INTEGER_8
 
 	mutable_state: INTEGER_8 is 0
+	-- The object can be changed
 	freezed_state: INTEGER_8 is 1
+	-- The object cannot currently be changed but can be
+	-- made changeable
 	petrified_state: INTEGER_8 is 2
-		
+	-- The object cannot be changed anymore	
 end -- class FREEZABLE
