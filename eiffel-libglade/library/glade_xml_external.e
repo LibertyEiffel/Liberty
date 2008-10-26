@@ -25,7 +25,7 @@ inherit
 	ANY
 		undefine copy, is_equal end
 
-feature {NONE} -- External calls
+feature {} -- External calls
 
 	glade_xml_new (fname, root, domain: POINTER): POINTER is
 		require
