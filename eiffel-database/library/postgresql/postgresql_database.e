@@ -28,6 +28,15 @@ feature {} -- size
 		alias "sizeof(PGconn)"
 		end
 
+	dispose is
+			-- cleanup
+		do
+			if is_connected then
+				-- disconnect
+				not_yet_implemented
+			end
+		end
+
 feature 
 	is_connected: BOOLEAN is
 			-- TODO: Dummy implementation

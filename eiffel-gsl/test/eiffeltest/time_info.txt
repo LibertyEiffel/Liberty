@@ -1,3 +1,3 @@
-Execution of "se test" started: Thursday August 23 14:0:0 2007
-                    terminated: Thursday August 23 14:25:37 2007
-1537 (elapsed seconds.)
+Execution of "se test" started: Sunday October 19 10:15:40 2008
+                    terminated: Sunday October 19 10:25:38 2008
+598 (Elapsed seconds in "/home/r/eiffel/eiffel-libraries/trunk/eiffel-gsl/test/".)

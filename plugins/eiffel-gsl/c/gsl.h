@@ -1,5 +1,5 @@
 //This file is part of the eiffel wrapper of gsl
-//Copyright: Raphael Mack <mail@raphael-mack.de>
+//Copyright: 2008 Raphael Mack <mail@raphael-mack.de>
 #include <gsl/gsl_ieee_utils.h>
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_math.h>
