@@ -14,7 +14,11 @@ deferred class MIXED_MEMORY_HANDLING
 	-- the flag `is_shared': handle will not be freed on dispose of the
 	-- Eiffel wrapper object, when `is_shared' is true.
 
-insert C_STRUCT undefine copy, is_equal end
+insert
+	C_STRUCT
+		undefine
+			copy, is_equal
+		end
 
 feature
 	dispose is
@@ -25,11 +29,11 @@ feature
 			if is_not_null then
 				if is_shared then
 					debug 
-						print("Disposing a shared "+generating_type+"; handle not freed%N")
+						print("Disposing a shared " + generating_type + "; handle not freed%N")
 					end
 				else
 					debug 
-						print("Disposing an unshared "+generating_type+" and freeing its handle.%N")
+						print("Disposing an unshared " + generating_type + " and freeing its handle.%N")
 					end
 					free (handle)
 				end

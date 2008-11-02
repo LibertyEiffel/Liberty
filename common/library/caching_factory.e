@@ -29,7 +29,8 @@ feature
 			not_already_present: 
 		do
 			wrappers.put(a_wrapper,a_wrapper.handle)
-		ensure definition: wrapper(a_wrapper.handle) = a_wrapper 
+		ensure
+         definition: wrapper(a_wrapper.handle) = a_wrapper 
 		end
 
 invariant

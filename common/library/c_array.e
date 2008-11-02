@@ -26,7 +26,11 @@ deferred class C_ARRAY [ITEM -> C_STRUCT]
 
 inherit WRAPPER_COLLECTION [ITEM]
 
-insert EXCEPTIONS undefine fill_tagged_out_memory, copy, is_equal end
+insert
+	EXCEPTIONS
+		undefine
+			fill_tagged_out_memory, copy, is_equal
+		end
 
 -- creation with_capacity, from_collection, from_external_array
 
@@ -59,7 +63,8 @@ feature {} --
 
 feature
 	item (i: INTEGER_32): ITEM is
-		local ptr: POINTER
+		local
+			ptr: POINTER
 		do
 			ptr := storage.item(i)
 			if ptr.is_not_null then 
@@ -67,23 +72,37 @@ feature
 			end
 		end
 
-	first: ITEM is do Result:=item(lower) end
+	first: ITEM	is
+		do
+			Result := item(lower)
+		end
 
-	last: ITEM is do Result:=item(upper) end
+	last: ITEM is
+		do
+			Result := item(upper)
+		end
 	
 feature {ANY} -- Writing:
 	put (element: like item; i: INTEGER) is 
 		do
-			if element/=Void then storage.put(element.handle,i)
-			else storage.put(default_pointer,i)
+			if element /= Void then
+				storage.put(element.handle, i)
+			else
+				storage.put(default_pointer, i)
 			end
 		end
 
 	set_all_with (v: like item) is
-		local i: INTEGER
+		local
+			i: INTEGER
 		do
-			from i:=lower until i>upper
-			loop put(v,i); i:=i+1
+			from
+				i := lower
+			until
+				i > upper
+			loop
+				put(v, i)
+				i := i + 1
 			end
 		end
 

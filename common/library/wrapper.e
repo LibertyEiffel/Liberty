@@ -1,6 +1,6 @@
 indexing
-	description: "Deferred empty class handling low-level C interfaces. Its heirs will fully expose each other their internals"
-	copyright: "(C) 2005 Paolo Redaelli "
+	description: "Deferred empty class handling low-level C interfaces. Its heirs will fully expose each other their internals."
+	copyright: "(C) 2005 Paolo Redaelli"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision "$Revision:$"
@@ -13,7 +13,8 @@ inherit
 			is_equal, -- we really should redefine is_equal and copy for all wrapper classes
 			copy
 		end
-	-- Wrappers conform to ANY. Why? Sometimes we need to get them via a
+
+	-- WRAPPER conforms to ANY, because sometimes we need to get them via a
 	-- POINTER.to_any operation
 	ANY
 		undefine
@@ -22,7 +23,7 @@ inherit
 		end
 
 insert
-	WRAPPER_HANDLER -- to access `null_or', exceptions' strings and external calls
+	WRAPPER_HANDLER -- to access `null_or', `exceptions' strings and external calls
 
 	POINTER_HANDLING -- to access `address_of' and `content_of'
 

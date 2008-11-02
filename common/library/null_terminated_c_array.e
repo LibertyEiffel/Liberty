@@ -26,7 +26,10 @@ deferred class NULL_TERMINATED_C_ARRAY [ITEM -> C_STRUCT]
 	-- The NULL (default_pointer in Eiffel) is not counted as an
 	-- element of the array.
 
-inherit C_ARRAY [ITEM]	redefine with_capacity end
+inherit C_ARRAY [ITEM]
+	redefine
+		with_capacity
+	end
 								 
 -- creation with_capacity, from_collection, from_external
 
@@ -34,18 +37,25 @@ feature {} -- Creation
 	-- Note: space allocated in storage must always be capacity+1 large, to
 	-- store the ending NULL pointer
 
-
 	from_external (an_array: POINTER) is
 			-- Initialize the NULL_TERMINATED_C_ARRAY from `an_array'
 			-- pointer. The array is inspected from the beginning to
 			-- discover the first NULL pointer that marks its end.
-		require array_not_null: an_array.is_not_null
-		local i: INTEGER
+		require
+			array_not_null: an_array.is_not_null
+		local
+			i: INTEGER
 		do
 			storage := storage.from_pointer (an_array)
 			-- Look for NULL
-			from i:=lower until storage.item(i).is_null loop i:=i+1 end
-			upper := i-1
+			from
+				i := lower
+			until
+				storage.item(i).is_null
+			loop
+				i := i + 1
+			end
+			upper := i - 1
 			capacity := count
 		end
 	
@@ -61,7 +71,7 @@ feature
 		do
 			-- 0 1 2 3 4
 			-- a b c d NULL
-			Result:=storage.item(upper+1).is_null
+			Result := storage.item(upper + 1).is_null
 		end
 
 invariant 

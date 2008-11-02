@@ -1,4 +1,4 @@
-class SHARED
+deferred class SHARED
 obsolete "use MIXED_MEMORY_HANDLING instead"
 
 inherit

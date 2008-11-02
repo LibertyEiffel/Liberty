@@ -23,14 +23,20 @@ deferred class EXPANDED_WRAPPER
 	-- A wrapper for an object on the stack
 
 inherit 
-	C_STRUCT redefine allocate end
+	C_STRUCT
+      redefine
+         allocate
+      end
 	C_OWNED
-	INTERNALS_HANDLER undefine copy, is_equal end
+	INTERNALS_HANDLER
+      undefine
+         copy, is_equal
+      end
 
 feature {} -- 
 	allocate is
 		do
-			handle:=alloca(struct_size)
+			handle := alloca(struct_size)
 		end
 
 	alloca (a_size: INTEGER): POINTER is
@@ -54,9 +60,10 @@ feature {} --
 			-- within the stack frame, that space is automatically freed
 			-- if the function return is jumped over by a call to
 			-- longjmp(3) or siglongjmp(3).
-		require positive: a_size>0
+		require positive: a_size > 0
 		external "C use <alloca.h>"
 		end
+   
 invariant
 	used_in_expanded_types: to_internals.type_is_expanded 
 			-- When using previous versions of the compiler (<2.3)

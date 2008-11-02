@@ -1,7 +1,11 @@
 deferred class ENUM
 	-- A wrapper for an enumeration
 
-inherit ANY undefine default_create end
+inherit
+   ANY
+      undefine
+         default_create
+      end
 
 feature 
 	is_valid_state: BOOLEAN is 
@@ -16,7 +20,8 @@ feature {WRAPPER_HANDLER}
 			-- The current value of the enumeration.
 
 	set_value (a_value: INTEGER) is
-		require is_valid_value(a_value)
+		require
+         is_valid_value(a_value)
 		do
 			value:=a_value
 		end
