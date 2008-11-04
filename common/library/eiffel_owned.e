@@ -1,7 +1,11 @@
 deferred class EIFFEL_OWNED
 	-- A wrapper for a C object whose memory is handled by the Eiffel library
 
-inherit WRAPPER
+inherit
+   WRAPPER
+      undefine
+         from_external_pointer
+      end
 
 feature
 	dispose is

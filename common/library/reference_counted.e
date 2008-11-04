@@ -2,7 +2,11 @@ deferred class REFERENCE_COUNTED
 	-- A wrapper for a C object whose memory is handled throught
 	-- reference counting, i.e. GObject
 
-inherit C_STRUCT
+inherit
+   WRAPPER
+      undefine
+         from_external_pointer
+      end
 
 feature {WRAPPER, WRAPPER_HANDLER}
 	ref is 
@@ -19,6 +23,6 @@ feature {WRAPPER, WRAPPER_HANDLER}
 			-- 
 		do 
 			unref 
-			handle:=default_pointer
+			handle := default_pointer
 		end
 end

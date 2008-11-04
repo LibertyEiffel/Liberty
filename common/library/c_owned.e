@@ -2,11 +2,11 @@ deferred class C_OWNED
 	-- A wrapper for a C object whose memory is handled by the underlying C library
 
 inherit
-   DISPOSABLE
+   WRAPPER
       undefine
-         copy, is_equal
+         from_external_pointer
       end
-
+   
 feature
 	dispose is
 		do

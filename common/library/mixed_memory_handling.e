@@ -15,11 +15,11 @@ deferred class MIXED_MEMORY_HANDLING
 	-- Eiffel wrapper object, when `is_shared' is true.
 
 insert
-	C_STRUCT
-		undefine
-			copy, is_equal
-		end
-
+	WRAPPER
+      undefine
+         from_external_pointer
+      end
+   
 feature
 	dispose is
 			-- Action to be executed just before garbage collection
