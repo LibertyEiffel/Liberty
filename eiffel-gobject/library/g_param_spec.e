@@ -40,7 +40,8 @@ inherit
 		redefine 
 			from_external_pointer 
 		end
-	SHARED
+   
+	MIXED_MEMORY_HANDLING
 
 insert
 	G_PARAM_SPEC_EXTERNALS
