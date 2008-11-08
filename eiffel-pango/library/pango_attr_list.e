@@ -34,17 +34,13 @@ class PANGO_ATTR_LIST
 inherit 
    C_STRUCT
       redefine
-         from_external_pointer
-      end
-   
-	REFERENCE_COUNTED
-      redefine
          copy, from_external_pointer
       end
    
+	REFERENCE_COUNTED
+   
 	WRAPPERS_CACHE [PANGO_ATTRIBUTE]
 		-- TODO: improve it and turn into a WRAPPER_COLLECTION
-	
 
 creation make, from_external_pointer
 
