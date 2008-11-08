@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2007 Paolo Redaelli"
 	license: "LGPL v2 or later"
 
-deferred class WRAPPER_DICTIONARY [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
+deferred class WRAPPER_DICTIONARY [VALUE->WRAPPER, KEY->COMPARABLE_WRAPPER]
 	-- A wrapper that is a collection of other wrappers. 
 
 	-- Contains the shared logic used in Glib G_SLIST, G_HASH_TABLE 
@@ -12,7 +12,10 @@ deferred class WRAPPER_DICTIONARY [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARE
 inherit
 	DICTIONARY [VALUE,KEY]
 
-	SHARED_C_STRUCT undefine copy, is_equal, fill_tagged_out_memory end
+	WRAPPER
+      undefine
+         fill_tagged_out_memory
+      end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	are_items_shared: BOOLEAN

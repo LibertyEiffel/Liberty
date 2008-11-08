@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-deferred class CACHING_FACTORY [ITEM->SHARED_C_STRUCT]
+deferred class CACHING_FACTORY [ITEM->WRAPPER]
 	-- A factory that retrieves wrappers from a cache, usually a
 	-- dictionary; used to implement collection of wrapped objects
 

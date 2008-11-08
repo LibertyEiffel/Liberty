@@ -1,5 +1,5 @@
 indexing
-	description: "Deferred empty class handling low-level C interfaces. Its heirs will fully expose each other their internals."
+	description: "Deferred class handling low-level C interfaces. Its heirs will fully expose each other their internals."
 	copyright: "(C) 2005 Paolo Redaelli"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
