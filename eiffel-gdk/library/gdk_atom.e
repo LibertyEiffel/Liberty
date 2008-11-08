@@ -18,11 +18,13 @@ indexing
 					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 					02110-1301 USA
 				]"
+            
+            -- TODO fix this class
 
 expanded class GDK_ATOM
 
-insert
-	EXPANDED_WRAPPER
+--insert
+--	EXPANDED_WRAPPER
 		
 create initialize
 

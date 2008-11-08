@@ -54,14 +54,14 @@ feature
 
 	make, empty, make_empty is
 		do
-			print_all_run_time_stacks
+-- TODO			print_all_run_time_stacks
 			create cache.make
 			handle := default_pointer
 		end
 
 	from_external_pointer (a_ptr: POINTER) is
 		do
-			print_all_run_time_stacks
+-- TODO			print_all_run_time_stacks
 			create cache.make
 			Precursor(a_ptr)
 		end

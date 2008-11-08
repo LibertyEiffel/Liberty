@@ -186,7 +186,7 @@ feature {} -- Creation
 			-- Returns the clipboard object for the given selection. See
 			-- `make_for_display' for complete details.
 		do
-			from_external_pointer (gtk_clipboard_get (selection.handle))
+-- TODO			from_external_pointer (gtk_clipboard_get (selection.handle))
 		end
 
 -- selection : 	a GdkAtom which identifies the clipboard to use.

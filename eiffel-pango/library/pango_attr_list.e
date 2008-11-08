@@ -32,7 +32,16 @@ class PANGO_ATTR_LIST
 	-- more than one paragraph of text.
 
 inherit 
-	REFERENCE_COUNTED redefine copy, from_external_pointer end
+   C_STRUCT
+      redefine
+         from_external_pointer
+      end
+   
+	REFERENCE_COUNTED
+      redefine
+         copy, from_external_pointer
+      end
+   
 	WRAPPERS_CACHE [PANGO_ATTRIBUTE]
 		-- TODO: improve it and turn into a WRAPPER_COLLECTION
 	

@@ -6,7 +6,7 @@ indexing
 
 class HELLO
 
-insert GTK
+insert GTK_MAIN
 	
 creation	make
 	
@@ -23,9 +23,9 @@ feature {} -- creation
 	make is
 		local 
 			w1,w2: GTK_WIDGET; win: GTK_WINDOW; b: GTK_BUTTON 
-			rw: G_RETRIEVER[GTK_WIDGET]; rw: G_RETRIEVER[GTK_WINDOW]; rb: G_RETRIEVER[GTK_BUTTON]
+			rw: GTK_WINDOW; rb: GTK_BUTTON
 		do 
-			gtk.initialize
+			initialize
 			create window.make
 			create button.with_label (label)
 			window.set_title (title)
@@ -37,10 +37,10 @@ feature {} -- creation
 				print ("button is at: "+button.to_pointer.to_string+"%N")
 			end
 			check
-				window = r.wrapper(window.handle)
-				
+--				window = r.wrapper(window.handle)
+         end
 			
-			gtk.run_main_loop -- instead of "gtk_main"
+			run_main_loop -- instead of "gtk_main"
 		end
 feature -- Disposing
 	

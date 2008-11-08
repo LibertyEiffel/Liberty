@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class WRAPPERS_CACHE [ITEM->C_STRUCT]
+deferred class WRAPPERS_CACHE [ITEM->WRAPPER]
 	-- A cache for other wrapper.
 
 inherit WRAPPER_HANDLER

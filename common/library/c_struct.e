@@ -63,7 +63,7 @@ feature {} -- Initialization
 		ensure memory_allocated: handle.is_not_null
 		end
 
-feature -- Copying
+feature {ANY} -- Copying
 
 	copy (other: like Current) is
 		do

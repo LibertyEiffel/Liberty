@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2008 Paolo Redaelli"
 	license: "LGPL v2 or later"
 
-deferred class WRAPPER_COLLECTION [ITEM->C_STRUCT]
+deferred class WRAPPER_COLLECTION [ITEM->WRAPPER]
 	-- A collection of wrappers. 
 
 inherit

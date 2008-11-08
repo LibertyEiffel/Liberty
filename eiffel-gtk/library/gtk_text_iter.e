@@ -1579,7 +1579,7 @@ feature {} -- External call
 		end
 
 feature {} -- GtkTextCharPredicate callback
-	hidden_callback (a_gunichar: INTEGRER_32; data: POINTER): INTEGER is
+	hidden_callback (a_gunichar: INTEGER_32; data: POINTER): INTEGER is
 		external "C inline use <gtk/gtk.h>"
 		alias "$Result = ((*GtkTextCharPredicate)($data[0]) ($a_gunichar, $data[1]));"
 		end

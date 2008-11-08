@@ -75,10 +75,14 @@ deferred class G_OBJECT
 	-- g_obejct_unref (object); /* release previously acquired reference */
 
 inherit
+   C_STRUCT
+      redefine
+         from_external_pointer
+      end
+   
 	REFERENCE_COUNTED
 		redefine
-			dispose,
-			from_external_pointer
+			dispose
 		end
 
 insert
