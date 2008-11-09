@@ -35,27 +35,40 @@ class PKINT
 
 inherit
 	NUMERIC
-		undefine copy end
+		undefine
+         copy
+      end
+   
 	COMPARABLE
-		undefine copy
-		redefine is_equal, infix ">"
+		undefine
+         copy
+		redefine
+         is_equal, infix ">"
 		end
-	SHARED_C_STRUCT
-		undefine is_equal
-		redefine dispose, copy, from_external_pointer
+   
+	C_STRUCT
+		undefine
+         is_equal,
+         from_external_pointer
+		redefine
+         copy,
+         free_handle
 		end
-
+   
+   GLOBALLY_CACHED
+		redefine
+         from_external_pointer
+      end
+   
 insert
 	PKINT_EXTERNALS
 
-creation dummy,
-	make, copy, from_natural, from_integer, from_string, from_external_pointer
+creation make, copy, from_natural, from_integer, from_string, from_external_pointer
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Creation
 
 	from_external_pointer (a_ptr: POINTER) is
 		do
-			set_shared
 			Precursor (a_ptr)
 		end
 
@@ -66,8 +79,6 @@ feature {} -- Creation
 		do
 			allocate
 			pkint_init (handle)
-		ensure
-			not is_shared
 		end
 
 	from_natural (a_natural: INTEGER) is
@@ -77,8 +88,6 @@ feature {} -- Creation
 		do
 			allocate
 			pkint_init_set_ui (handle, a_natural)
-		ensure
-			not is_shared
 		end
 
 	from_integer (an_integer: INTEGER) is
@@ -86,8 +95,6 @@ feature {} -- Creation
 		do
 			allocate
 			pkint_init_set_si (handle, an_integer)
-		ensure
-			not is_shared
 		end
 
 	from_string (a_string: STRING) is
@@ -98,8 +105,6 @@ feature {} -- Creation
 		do
 			allocate
 			from_integer (a_string.to_integer)
-		ensure
-			not is_shared
 		end
 
 feature -- Creation
@@ -111,8 +116,6 @@ feature -- Creation
 				allocate
 				pkint_init_set (handle, other.handle)
 			end
-		ensure then
-			not is_shared
 		end
 
 feature -- Operations
@@ -343,15 +346,11 @@ feature -- Other
 			pkint_print (handle)
 		end
 
-feature {} -- Destruction
-
-	dispose is
-			-- Free the space possibly used by integer. Make sure to
-			-- call this function for all pkint_t variables when you are
-			-- done with them.
+feature {WRAPPER_HANDLER} -- Destruction
+	free_handle is
+			-- release the external memory
 		do
-			if not is_shared then pkint_clear (handle) end
-			Precursor
+         pkint_clear (handle)
 		end
 
 feature {} -- size

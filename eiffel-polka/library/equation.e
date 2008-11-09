@@ -36,9 +36,9 @@ inherit
 insert
 	POLKA_GLOBAL
 	EQUATION_EXTERNALS
+   EIFFEL_OWNED
 
-creation dummy,
-	make
+creation	make
 
 feature {} -- Creation
 

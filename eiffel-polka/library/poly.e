@@ -36,13 +36,19 @@ class POLY
 		-- Otherwise, only the constraints or the generators are available.
 
 inherit
-	C_STRUCT redefine copy, is_equal, dispose end
+	C_STRUCT
+      redefine
+         copy,
+         is_equal,
+         free_handle
+      end
 
 insert
 	POLKA_GLOBAL
 	POLY_EXTERNALS
+   EIFFEL_OWNED
 
-creation dummy, empty, universe, from_constraints, from_frame, copy, from_external_pointer
+creation empty, universe, from_constraints, from_frame, copy, from_external_pointer
 
 feature {} -- Creation
 
@@ -597,14 +603,13 @@ feature {} --  Linear transformations -- Several variables/expressions
 			Result.dimension = dimension
 		end
 
-feature {} -- Destruction
-
-	dispose is
-			-- Frees the Current polyhedron and finalize referenced elements.
+feature {WRAPPER_HANDLER} -- Destruction
+	free_handle is
+			-- release the external memory
 		do
 			poly_free (handle)
-		end
-
+      end
+   
 feature {} -- size
 
 	struct_size: INTEGER is

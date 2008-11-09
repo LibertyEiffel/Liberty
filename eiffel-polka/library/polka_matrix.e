@@ -49,13 +49,19 @@ class POLKA_MATRIX
 		-- } matrix_t;
 
 inherit
-	C_STRUCT redefine copy, dispose end
+	C_STRUCT
+      undefine
+         from_external_pointer
+      redefine
+         copy,
+         free_handle
+		end
+   GLOBALLY_CACHED
 
 insert
-	WRAPPER_FACTORY [PKINT]
-	POLKA_MATRIX_EXTERNALS
+	POLKA_MATRIX_EXTERNALS   
 
-creation dummy, make, copy, copy_from_pointer
+creation make, copy, copy_from_pointer
 
 feature {} -- Creation
 
@@ -149,14 +155,13 @@ feature -- Access
 			Result /= Void
 		end
 
-feature {} -- Destruction
-
-	dispose is
-			-- Frees Current and finalizes referenced elements. 
+feature {WRAPPER_HANDLER} -- Destruction
+	free_handle is
+			-- release the external memory
 		do
 			matrix_free (handle)
-			handle := default_pointer
 		end
+
 
 feature {} -- size
 
