@@ -20,7 +20,7 @@ insert
          from_external_pointer
       end
    
-feature
+feature {}
 	dispose is
 			-- Action to be executed just before garbage collection
 			-- reclaims an object; if not shared frees the memory pointed
@@ -40,7 +40,8 @@ feature
 				handle := default_pointer
 			end
 		end
-
+   
+feature {ANY}
 	is_shared: BOOLEAN
 			-- Does anybody else (Eiffel or non-Eiffel) have a reference 
 			-- to `handle'? If False, then the C-object will be 

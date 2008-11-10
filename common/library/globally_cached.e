@@ -24,11 +24,25 @@ deferred class GLOBALLY_CACHED
 	-- wrapper registered in wrappers dictionary will be the unique wrapper
 	-- used on the Eiffel side.
 
-inherit C_STRUCT
+inherit
+   WRAPPER
+      redefine
+         from_external_pointer
+      end
 
-insert ANY undefine copy, is_equal, fill_tagged_out_memory end
-
+insert
+   ANY
+      undefine
+         copy, is_equal, fill_tagged_out_memory
+      end
+         
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
+   from_external_pointer (a_ptr: POINTER) is
+		do
+         Precursor (a_ptr)
+         wrappers.put (Current, a_ptr)
+      end
+
 	wrappers: HASHED_DICTIONARY [GLOBALLY_CACHED, POINTER] is
 			-- Dictionary storing wrappers created in the program.  Key
 			-- is the address (pointer) to the wrapped C structure, value
@@ -40,7 +54,13 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			create {HASHED_DICTIONARY[GLOBALLY_CACHED,POINTER]}
 			Result.make
 		end
-	
+   
+feature {}
+   dispose is
+		do
+         wrappers.remove (handle)
+      end
+   
 invariant
 	stored: wrappers.has(handle)
 end -- class GLOBALLY_CACHED
