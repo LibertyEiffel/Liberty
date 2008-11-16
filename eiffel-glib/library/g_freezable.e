@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class FREEZABLE
+deferred class G_FREEZABLE
 	-- An object that can be made temporary or permanently
 	-- unchangable.
 

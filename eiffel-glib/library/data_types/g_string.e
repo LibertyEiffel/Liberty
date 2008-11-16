@@ -17,11 +17,7 @@ inherit
 			is_equal 
 		end
 	
-	C_STRUCT
-		redefine
-			copy,
-			is_equal
-		end
+	WRAPPER
 
 insert
 	G_STRING_EXTERNALS
@@ -63,16 +59,16 @@ feature {ANY} -- Creation / Modification:
 			-- characters of storage.
 		do
 			handle := g_string_sized_new (needed_capacity)
-			-- The following is needed to comply with the postcondition
-			handle := g_string_set_size (handle, needed_capacity)
 		ensure
-			count = needed_capacity
+			capacity >= needed_capacity
 		end
 
 	make_empty is
 			-- Create an empty string.
 		do
 			make(0)
+      ensure
+         empty: count = 0
 		end
 
 	from_string (a_string: STRING) is
@@ -86,10 +82,10 @@ feature {ANY}
 	item (i: INTEGER): CHARACTER is
 			-- Character at position `i'.
 		require
-			valid_index: i.in_range (0,count-1)
+			valid_index: i.in_range (1, count)
 		local array: NATIVE_ARRAY[CHARACTER]
 		do
-			Result := array.from_pointer(c_string).item(i)
+			Result := array.from_pointer(c_string).item(i - 1)
 		end
 
 	hash_code: INTEGER is
@@ -131,7 +127,11 @@ feature {ANY}
 feature {ANY} -- Modification:
 	resize (new_count: INTEGER) is
 		do
-			g_string_truncate (handle,new_count)
+         if new_count < count then
+            g_string_truncate (handle, new_count)
+         else
+            handle := g_string_set_size (handle, new_count)
+         end
 		end
 
 	clear is
@@ -162,14 +162,31 @@ feature {ANY} -- Modification:
 		end
 
 	put (c: CHARACTER; i: INTEGER) is
-			-- Put `c' at index `i'.
-		require valid_index: i.in_range (0,count-1)
-		local array: NATIVE_ARRAY[CHARACTER]
+			-- Put `c' at index `i' (start counting with 1).
+		require
+         valid_index: i.in_range (1, count)
+		local
+         array: NATIVE_ARRAY[CHARACTER]
 		do
 			array := array.from_pointer(c_string)
-			array.put(c,i)
+			array.put(c, i - 1)
 		end
-
+   
+   add_last (c: CHARACTER) is
+         -- append `c'
+		local
+         array: NATIVE_ARRAY[CHARACTER]
+         oc: INTEGER
+		do
+         oc := count
+         resize (count + 1)
+			array := array.from_pointer(c_string)
+			array.put(c, oc)         
+      ensure
+         increased: count = old count + 1
+         value_set: item (count) = c
+      end
+   
 feature -- Conversion to STRING
 	to_string: STRING is
 			-- A string holding a copy of Current
@@ -186,16 +203,12 @@ feature -- Conversion to STRING
 	
 feature  -- Disposing
 	dispose is
-		local p: POINTER
+		local
+         p: POINTER
 		do
-			p:=g_string_free (handle, 1)
+			p := g_string_free (handle, 1)
 			handle := default_pointer
 		end
-	
-feature {}
-	struct_size: INTEGER is
-		external "C inline use <glib.h>"
-		alias "sizeof(GString)"
-		end
+
 end
 	
