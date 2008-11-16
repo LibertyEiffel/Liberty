@@ -79,4 +79,4 @@ feature {}
 	-- made changeable
 	petrified_state: INTEGER_8 is 2
 	-- The object cannot be changed anymore	
-end -- class FREEZABLE
+end -- class G_FREEZABLE

@@ -16,7 +16,7 @@ inherit
 		end
 	
 		-- TODO: COLLECTION[STRING] or G_LIST[C_STRING]
-	FREEZABLE
+	G_FREEZABLE
 
 insert
 	G_LIST_EXTERNALS undefine fill_tagged_out_memory end

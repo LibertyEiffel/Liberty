@@ -5,6 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
+-- TODO (ramack): adapt to the same style using COLELCTION/TRAVERSABLE as G_LIST
 deferred class G_SLIST [ITEM->C_STRUCT]
 	-- A singly-linked list data structure.
 	
@@ -32,7 +33,7 @@ inherit
 		redefine
 			copy, from_external_pointer
 		end
-	FREEZABLE
+	G_FREEZABLE
 		-- Some GLib using libraries requires that some instances of G_SLIST
 		-- shal be modified only by the library, making it effectively freezed
 		-- for the developer.
