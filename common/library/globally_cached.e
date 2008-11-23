@@ -26,6 +26,8 @@ deferred class GLOBALLY_CACHED
 
 inherit
    WRAPPER
+      undefine
+         fill_tagged_out_memory
       redefine
          from_external_pointer
       end

@@ -38,7 +38,10 @@ inherit
 			free
 		end
 
-	MIXED_MEMORY_HANDLING redefine free end 
+	MIXED_MEMORY_HANDLING
+      redefine
+         free
+      end 
 
 insert
 	PANGO_ATTR_TYPE
@@ -209,6 +212,7 @@ feature
 	copy (another: like Current) is
 			-- Make a copy of an attribute.
 		do
+         -- TODO: is this a memory leak? Shall we free handle before?
 			handle := (pango_attribute_copy (another.handle))
 			-- pango_attribute_copy returns the newly allocated
 			-- PangoAttribute, which should be freed with
@@ -224,10 +228,10 @@ feature
 		end
 
 feature {} -- Implementation
-	free (an_handle: POINTER) is
+	free (a_handle: POINTER) is
 			-- Destroy a PangoAttribute and free all associated memory.
 		do
-			pango_attribute_destroy (an_handle)
+			pango_attribute_destroy (a_handle)
 		end
 
 --   pango_attr_shape_new ()

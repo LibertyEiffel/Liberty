@@ -63,7 +63,9 @@ inherit
 	EIFFEL_OWNED redefine free end
 	
 creation make_dmy, from_tuple
-
+   
+creation {WRAPPER} from_external_pointer
+   
 feature {} -- size
 	struct_size: INTEGER is
 		external "C inline use <glib.h>"

@@ -5,7 +5,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class ITERATOR_ON_G_LIST [ITEM->C_STRUCT]
+class ITERATOR_ON_G_LIST [ITEM->WRAPPER]
 inherit
 	ITERATOR [ITEM]
 	WRAPPER_HANDLER
@@ -15,14 +15,15 @@ insert G_LIST_EXTERNALS
 creation make
 	
 feature {} -- Creation
-	make (a_list: G_LIST[ITEM]) is
-		require valid_list: a_list/=Void
+	make (a_list: G_LIST_TRAVERSABLE[ITEM]) is
+		require
+         valid_list: a_list /= Void
 		do
 			list := a_list
 		end
 	
 feature {} -- Implementation
-	list: G_LIST[ITEM]
+	list: G_LIST_TRAVERSABLE[ITEM]
 	current_element: POINTER
 
 feature -- Iterator's features
@@ -33,11 +34,12 @@ feature -- Iterator's features
 	
 	is_off: BOOLEAN is
 		do
-			Result:=(current_element.is_null)
+			Result := (current_element.is_null)
 		end
 	
 	item: ITEM is
-		local ptr: POINTER
+		local
+         ptr: POINTER
 		do
 			ptr := g_list_get_data (current_element)
 			if ptr.is_not_null then

@@ -55,7 +55,7 @@ feature {}
 			end
 		end
    
-feature {ANY}
+feature {WRAPPER}
 	is_shared: BOOLEAN
 			-- Does anybody else (Eiffel or non-Eiffel) have a reference 
 			-- to `handle'? If False, then the C-object will be 

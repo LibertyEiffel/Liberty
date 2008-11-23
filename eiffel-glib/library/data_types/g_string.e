@@ -136,7 +136,7 @@ feature {ANY} -- Modification:
 
 	clear is
 		do
-			handle := g_string_set_size (handle,0)
+			handle := g_string_set_size (handle, 0)
 		end
 
 	copy (other: like Current) is
