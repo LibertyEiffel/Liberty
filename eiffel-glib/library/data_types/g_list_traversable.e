@@ -16,6 +16,8 @@ inherit
    TRAVERSABLE[ITEM]
       undefine
          copy
+      redefine
+         is_equal
       end
    
    WRAPPER_FACTORY[ITEM]
@@ -51,7 +53,6 @@ insert
 feature {WRAPPER, WRAPPER_HANDLER} -- object creation
 	make is
 		do
-			create cache.make
 			-- There is no function to create a GList. NULL is considered
 			-- to be the empty list so you simply set a GList* to NULL.
 
@@ -68,7 +69,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- object creation
 
    from_external_pointer (a_ptr: POINTER) is
       do
-         create cache.make
          Precursor(a_ptr)
       end
    
@@ -86,27 +86,34 @@ feature {ANY} -- data access
 	last: like first is
 		local p: POINTER -- Item Pointer
 		do
-			p:=g_list_get_data (g_list_last (handle))
+			p := g_list_get_data (g_list_last (handle))
 			if p.is_not_null 
-				then Result:=wrapper(p) 
+				then Result := wrapper(p) 
 			end
 		end
 
 	item (i: INTEGER): like first is
 		local p: POINTER -- Item Pointer
 		do
-			p:=g_list_nth_data (handle, i)
+			p := g_list_nth_data (handle, i - 1)
 			if p.is_not_null then 
-				Result:=wrapper(p) 
+				Result := wrapper(p) 
 			end
 		end
 
 	put (an_item: like first; i: INTEGER) is
-		--
-	require is_mutable	
+         --
+      require
+         is_mutable	
       do
          g_list_set_data (g_list_nth(handle,i), an_item.handle)
-         cache.put(an_item, an_item.handle)
+         check
+            cache.fast_has(an_item.handle)
+         end
+         check
+            -- TODO
+            --            cache.at (an_item.handle) = an_item
+         end
       end
    
 	swap (i,j: INTEGER) is
@@ -131,9 +138,10 @@ feature {ANY} -- data access
 		local
          ith:POINTER
 		do
-			cache.clear_count
-			from ith:=handle
-			until ith.is_null
+			from
+            ith:=handle
+			until
+            ith.is_null
 			loop
 				g_list_set_data (ith, v.handle)
 				ith := g_list_get_next (ith)
@@ -146,8 +154,11 @@ feature {ANY} -- data access
 			-- 
 		require is_mutable	
 		do
-			cache.put(element, element.handle)
 			handle := g_list_prepend (handle, element.handle)
+			check
+            -- TODO
+            --            cache.at(element.handle) = element
+         end
 		end
 
 	add_last (element: like first) is
@@ -278,9 +289,29 @@ feature {ANY} -- data access
 
 	is_equal_map (other: like Current): BOOLEAN is
 			-- Do both collections have the same lower, upper, and items?
-			-- Feature is_equal is used for comparison of items.
 		do
-			not_yet_implemented -- TODO
+			Result := is_equal(other)
+		end
+
+	is_equal (other: like Current): BOOLEAN is
+			-- Do both collections have the same lower, upper, and items?
+      local
+         i, j: INTEGER
+		do
+			if count = other.count then
+				from
+               Result := lower = other.lower
+					i := lower
+					j := other.lower
+				until
+					not Result or else i > upper
+				loop
+					Result := item(i) = other.item(j)
+					i := i + 1
+					j := j + 1
+				end
+			end
+
 		end
 
 	all_default: BOOLEAN is
@@ -292,8 +323,12 @@ feature {ANY} -- data access
 		end
 
 	copy (other: like Current) is
+         --  make `Current' a "shallow" copy of `other'
 		do
-			not_yet_implemented -- TODO
+         if is_not_null then
+            g_list_free (handle)
+         end
+         from_external_pointer (g_list_copy (other.handle))
 		end
 
 	occurrences (element: like first): INTEGER is
@@ -330,16 +365,16 @@ feature {ANY} -- data access
 			handle:=g_list_reverse (old_handle)
 		end
 
-	lower: INTEGER is 0
+	lower: INTEGER is 1
 
 	upper: INTEGER is
 		do
-			Result:=count-1
+			Result := count
 		end
 	
 	count: INTEGER is
 		do
-			Result:=g_list_length(handle)
+			Result := g_list_length(handle)
 		end
 
 	is_empty: BOOLEAN is

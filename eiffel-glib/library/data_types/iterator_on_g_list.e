@@ -40,10 +40,12 @@ feature -- Iterator's features
 	item: ITEM is
 		local
          ptr: POINTER
+         l: WRAPPER
 		do
 			ptr := g_list_get_data (current_element)
 			if ptr.is_not_null then
-				Result:=list.cache.reference_at(ptr)
+            l := list.cache.reference_at(ptr)
+				Result ?= l -- TODO: this tricks the compiler. Combining the line just above and this one seems to fail
 				if Result=Void then Result:=list.wrapper(ptr) end
 			end
 		end

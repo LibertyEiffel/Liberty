@@ -7,7 +7,7 @@ indexing
 	date: "$Date:$"
 	revision: "$Revision:$"
 
-class G_LIST [ITEM->WRAPPER]
+deferred class G_LIST [ITEM->WRAPPER]
    
 inherit
 	G_LIST_TRAVERSABLE[ITEM]
@@ -23,9 +23,6 @@ inherit
          clear_all,
          append_collection
       end
-   
-creation
-   make, from_external_pointer
    
 invariant
    mutable_by_eiffel_code: is_mutable

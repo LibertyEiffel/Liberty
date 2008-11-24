@@ -59,10 +59,18 @@ class G_DATE
 	-- current time as a GTimeVal with g_get_current_time().
 	
 inherit
-	COMPARABLE_C_STRUCT redefine compare, free end
-	EIFFEL_OWNED redefine free end
+	COMPARABLE_C_STRUCT
+      undefine
+         from_external_pointer
+      redefine
+         compare, free
+      end
+	GLOBALLY_CACHED
+      redefine
+         free
+      end
 	
-creation make_dmy, from_tuple
+creation make_dmy, from_tuple, make
    
 creation {WRAPPER} from_external_pointer
    
