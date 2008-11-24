@@ -48,7 +48,7 @@ insert
 
 		-- To free the entire list, use g_list_free().
    
-feature {} -- object creation
+feature {WRAPPER, WRAPPER_HANDLER} -- object creation
 	make is
 		do
 			create cache.make
