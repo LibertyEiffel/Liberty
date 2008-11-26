@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-deferred class GLOBALLY_CACHED
+deferred class GLOBAL_CACHE
 	-- GLOBAL_CACHE gives access to the shared cache of GLOBALLY_CACHED
 	-- wrappers.
 
