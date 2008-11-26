@@ -1,7 +1,7 @@
 deferred class SHARED
-obsolete "use MIXED_MEMORY_HANDLING instead"
+obsolete once "use MIXED_MEMORY_HANDLING instead"
 
 inherit
 	MIXED_MEMORY_HANDLING
 
-end
+end -- class SHARED

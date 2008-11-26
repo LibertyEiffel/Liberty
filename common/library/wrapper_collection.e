@@ -24,7 +24,7 @@ deferred class WRAPPER_COLLECTION [ITEM->WRAPPER]
 
 inherit
 	WRAPPER_FACTORY[ITEM] 
-	WRAPPERS_CACHE[ITEM]
+	GLOBAL_CACHE
 
 	COLLECTION[ITEM] 
 		undefine 
@@ -46,9 +46,9 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 		deferred
 		ensure then 
 			not_void: Result/=Void
-			cached_result: cache.has(a_pointer) 
-			correct_cached_result: cache.at(a_pointer)=Result
+			cached_result: wrappers.has(a_pointer) 
+			correct_cached_result: wrappers.at(a_pointer)=Result
 		end	
 
-invariant cache_not_void: cache/=Void
+invariant cache_not_void: wrappers /= Void
 end -- class WRAPPER_COLLECTION

@@ -19,25 +19,27 @@ indexing
 					02110-1301 USA
 			]"
 
-class ITERATOR_ON_G_SLIST [ITEM->C_STRUCT]
+class ITERATOR_ON_G_SLIST [ITEM->WRAPPER]
 inherit
 	ITERATOR [ITEM]
 	WRAPPER_HANDLER
 
 insert
 	G_SLIST_EXTERNALS
+   GLOBAL_CACHE
 	
 creation make
 	
 feature {} -- Creation
-	make (a_list: G_SLIST[ITEM]) is
-		require valid_list: a_list/=Void
+	make (a_list: G_SLIST_TRAVERSABLE[ITEM]) is
+		require
+         valid_list: a_list /= Void
 		do
 			list := a_list
 		end
 	
 feature {} -- Implementation
-	list: G_SLIST[ITEM]
+	list: G_SLIST_TRAVERSABLE[ITEM]
 	current_element: POINTER
 
 feature -- Iterator's features
@@ -52,12 +54,17 @@ feature -- Iterator's features
 		end
 	
 	item: ITEM is
-		local ptr: POINTER
+		local
+         ptr: POINTER
+         l: WRAPPER
 		do
 			ptr := g_slist_get_data (current_element)
 			if ptr.is_not_null then 
-				Result:=list.cache.reference_at(ptr)
-				if Result=Void then Result:= list.wrapper(ptr) end
+            l := wrappers.reference_at(ptr)
+				Result ?= l -- TODO: this tricks the compiler. Combining the line just above and this one seems to fail
+				if Result = Void then
+               Result := list.wrapper(ptr)
+            end
 			end
 		end
 	

@@ -20,22 +20,19 @@ indexing
 			]"
 
 deferred class WRAPPERS_CACHE [ITEM->WRAPPER]
+obsolete once "use GLOBAL_CACHE instead"
 	-- A cache for other wrapper.
 
-inherit WRAPPER_HANDLER
+inherit
+   WRAPPER_HANDLER
+
+insert
+   GLOBAL_CACHE
+      rename
+         wrappers as cache
+      end
 
 -- insert ANY undefine copy, is_equal, fill_tagged_out_memory end
-
-feature {WRAPPER,WRAPPER_HANDLER} -- Implementation
-	cache: HASHED_DICTIONARY [GLOBALLY_CACHED, POINTER] is
-			-- Dictionary storing wrappers; Key is the address (pointer)
-			-- to the wrapped C structure, value is the corresponding
-			-- Eiffel wrapper. This way you can get back an
-			-- already-created Eiffel wrapper. Heirs of SHARED_C_STRUCT,
-			-- i.e. G_OBJECT could provide alternative implementation
-			-- that will not rely on this dictionary.
-      deferred
-      end
 
 end -- class WRAPPERS_CACHE
 

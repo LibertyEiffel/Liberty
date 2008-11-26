@@ -10,7 +10,9 @@ inherit
 	ITERATOR [ITEM]
 	WRAPPER_HANDLER
 
-insert G_LIST_EXTERNALS
+insert
+   G_LIST_EXTERNALS
+   GLOBAL_CACHE
 	
 creation make
 	
@@ -44,7 +46,7 @@ feature -- Iterator's features
 		do
 			ptr := g_list_get_data (current_element)
 			if ptr.is_not_null then
-            l := list.cache.reference_at(ptr)
+            l := wrappers.reference_at(ptr)
 				Result ?= l -- TODO: this tricks the compiler. Combining the line just above and this one seems to fail
 				if Result=Void then Result:=list.wrapper(ptr) end
 			end

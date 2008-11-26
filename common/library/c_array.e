@@ -40,7 +40,6 @@ feature {} -- Creation
 			array_not_null: an_array.is_not_null
 			positive_length: a_length > 0
 		do
-			create cache.make
 			upper := a_length - 1 
 			capacity := a_length
 			storage := storage.from_pointer (an_array)
@@ -49,7 +48,6 @@ feature {} -- Creation
 	with_capacity (a_capacity: INTEGER) is
 		require positive_capacity: a_capacity > 0
 		do
-			create cache.make
 			capacity := a_capacity
 			upper := -1
 			storage := storage.calloc(a_capacity)

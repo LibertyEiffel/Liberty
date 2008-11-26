@@ -1,5 +1,5 @@
 indexing
-	description: "The G_LIST_TRAVERSABLE provides a standard singly-linked list data structure. Objects of this class may be in a frozen state. Therefore it cannot conform to the standard class COLLECTION. See also class G_LIST."
+	description: "The G_LIST_TRAVERSABLE provides a standard singly-linked list data structure. Objects of this class may be in a frozen state. Therefore it cannot conform to the standard class COLLECTION. See also classes G_LIST and G_SLIST."
 	copyright: "(C) 2006, 2008 Paolo Redaelli, Raphael Mack "
 	license: "LGPL v2 or later"
 	date: "$Date$"
@@ -9,9 +9,6 @@ deferred class G_LIST_TRAVERSABLE [ITEM->WRAPPER]
    
 inherit
 	WRAPPER
-      redefine
-         from_external_pointer
-      end
    
    TRAVERSABLE[ITEM]
       undefine
@@ -21,11 +18,13 @@ inherit
       end
    
    WRAPPER_FACTORY[ITEM]
-   WRAPPERS_CACHE[ITEM]
+   GLOBAL_CACHE
    G_FREEZABLE
 		-- Some GLib using libraries requires that some instances of G_LIST
 		-- shal be modified only by the library, making it effectively freezed
-		-- for the developer.
+		-- for the developer. These shall return a G_LIST_TRAVERSABLE. 
+		-- If the library expects, that the list is modified by eiffel 
+		-- code G_LIST is the choice.
       
 insert
    G_LIST_EXTERNALS
@@ -66,11 +65,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- object creation
 			-- which may have changed.
 			handle := default_pointer
 		end
-
-   from_external_pointer (a_ptr: POINTER) is
-      do
-         Precursor(a_ptr)
-      end
    
 feature {ANY} -- data access
 	first: ITEM is
@@ -104,15 +98,14 @@ feature {ANY} -- data access
 	put (an_item: like first; i: INTEGER) is
          --
       require
-         is_mutable	
+         is_mutable
       do
          g_list_set_data (g_list_nth(handle,i), an_item.handle)
          check
-            cache.fast_has(an_item.handle)
+            wrappers.fast_has(an_item.handle)
          end
          check
-            -- TODO
-            --            cache.at (an_item.handle) = an_item
+            wrappers.at (an_item.handle) = an_item
          end
       end
    
@@ -152,12 +145,12 @@ feature {ANY} -- data access
 
 	add_first (element: like first) is
 			-- 
-		require is_mutable	
+		require
+         is_mutable	
 		do
 			handle := g_list_prepend (handle, element.handle)
 			check
-            -- TODO
-            --            cache.at(element.handle) = element
+            wrappers.at(element.handle) = element
          end
 		end
 
@@ -167,16 +160,22 @@ feature {ANY} -- data access
          -- elements. A common idiom to avoid the inefficiency is to
          -- prepend the elements and reverse the list when all
          -- elements have been added.
-      require is_mutable	
+      require
+         is_mutable	
       do
          handle := g_list_append (handle, element.handle)
+			check
+            wrappers.at(element.handle) = element
+         end         
 		end
 
 	add (element: like first; index: INTEGER) is
 		do
 			handle := g_list_insert (handle, element.handle, index-1)
+			check
+            wrappers.at(element.handle) = element
+         end
 		end
-
 	
 	append_collection (other: COLLECTION[ITEM]) is
 		do

@@ -1,7 +1,6 @@
 indexing
-	description: "The GList provides a standard singly-linked list data %
-   %structure. Objects of this class may not be immutable.%
-   %See also G_LIST_TRAVERSABLE."
+	description: "The GList provides a standard doubly-linked list data %
+   %structure. See also G_LIST_TRAVERSABLE."
 	copyright: "2008 Raphael Mack"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
