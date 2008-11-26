@@ -22,10 +22,16 @@ deferred class WRAPPER_FACTORY [ITEM->WRAPPER]
 	-- A wrapper factory returns the "fittest" wrapper object given a
 	-- pointer to a wrapped "thing". 
 
-	-- Wrapper factory would be inserted into the class that needs to
-	-- use it; if a class needs to create wrappers of several types it is
-	-- better to use (as a client) one of its expanded variant, i.e.
-	-- G_OBJECT_EXPANDED_WRAPPER.
+	-- A wrapper factory would implement the typing policy described in the
+	-- wrapper library documentation.  In fact some libraries implement their
+	-- own type system like GObject, while other having smaller scopes will
+	-- describe the types of each returned pointer, sometime being polymorphic. 
+
+	-- If the developer needs to create wrappers of several different types and
+	-- those types are pre-defined, known during the development of the
+	-- wrapper, for example when the actual returned type is explained in the
+	-- documentation of the library it is sometimes better to use (as a client)
+	-- one of its expanded variant, i.e.  G_OBJECT_EXPANDED_FACTORY.
 
 inherit WRAPPER_HANDLER 
 

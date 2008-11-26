@@ -20,33 +20,25 @@ indexing
 			]"
 
 deferred class GLOBALLY_CACHED
-	-- A wrapper for an globally cached object. Until disposed by Eiffel the
-	-- wrapper registered in wrappers dictionary will be the one and only
-	-- wrapper linked to the given address pointer. 
+	-- GLOBAL_CACHE gives access to the shared cache of GLOBALLY_CACHED
+	-- wrappers.
 
-inherit
-   WRAPPER
+insert
+   ANY
       undefine
-         fill_tagged_out_memory
-      redefine
-         from_external_pointer
+         copy, is_equal, fill_tagged_out_memory
       end
-
-insert GLOBAL_CACHE
          
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-   from_external_pointer (a_ptr: POINTER) is
-		do
-         Precursor (a_ptr)
-         wrappers.put (Current, a_ptr)
-      end
+	wrappers: HASHED_DICTIONARY [GLOBALLY_CACHED, POINTER] is
+			-- Dictionary storing GLOBALLY_CACHED wrappers created in the program.  Key
+			-- is the address (pointer) to the wrapped C structure, value
+			-- is the corresponding Eiffel wrapper. This way you can get
+			-- back an already-created Eiffel wrapper. 
 
-feature {}
-	dispose is
-		do
-			wrappers.remove (handle)
+			-- 
+		once
+			create {HASHED_DICTIONARY[GLOBALLY_CACHED,POINTER]}
+			Result.make
 		end
-
-invariant
-	stored: wrappers.has(handle)
-end -- class GLOBALLY_CACHED
+end -- class GLOBAL_CACHE
