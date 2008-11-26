@@ -47,7 +47,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 		ensure then 
 			not_void: Result/=Void
 			cached_result: wrappers.has(a_pointer) 
-			correct_cached_result: wrappers.at(a_pointer)=Result
 		end	
 
 invariant cache_not_void: wrappers /= Void
