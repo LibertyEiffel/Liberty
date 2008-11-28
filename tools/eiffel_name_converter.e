@@ -1,5 +1,7 @@
 deferred class EIFFEL_NAME_CONVERTER
 
+insert PLATFORM EXCEPTIONS
+
 feature -- Auxiliary features
 	eiffel_class_file_name (a_name: STRING): STRING is
 			-- `a_name' converted into a proper Eiffel class name
@@ -8,6 +10,7 @@ feature -- Auxiliary features
 		do
 			Result := eiffel_class_name(a_name).as_lower
 			Result.append(once ".e")
+		ensure Result/=a_name
 		end
 
 	eiffel_class_name (a_name: STRING): STRING is
@@ -19,13 +22,15 @@ feature -- Auxiliary features
 			eiffellizer.substitute_all_in(Result)
 			Result.replace_all('-','_')
 			Result.to_upper
+		ensure Result/=a_name
 		end
 
 	eiffel_argument (a_name: STRING): STRING is
-		-- Translate `a_name' content into a proper argument placeholder.
-		-- "CamelCase" is translated into "a_camel_case", "ENOO" is translated
-		-- into "an_enoo". Eventual underscores in front of `a_name' are
-		-- removed: "__foo" becomes "a_foo"
+		-- Translate `a_name' content into a proper argument placeholderi for
+		-- the Gnu-Eiffel language.  "CamelCase" is translated into
+		-- "a_camel_case", "ENOO" is translated into "an_enoo". Eventual
+		-- underscores in front of `a_name' are removed: "__foo" becomes
+		-- "a_foo"
 	require name_not_void: a_name/=Void
 	do
 		create Result.copy(a_name)
@@ -54,7 +59,7 @@ feature -- Auxiliary features
 	is_public (a_name: STRING): BOOLEAN is
 			-- Does `a_name' start with an alphabetical character? Names 
 			-- starting with underscores or other strange characters are 
-			-- considered private.
+			-- usually considered private in C/C++ languages.
 		require 
 			not_void: a_name/=Void
 			meaningful_length: a_name.count>1
@@ -91,7 +96,7 @@ feature -- Auxiliary features
 			end
 		end
 	
-	longest_prefix_of_children_of (a_node: XML_NODE): INTEGER is
+	longest_prefix_of_children_of (a_node: XML_COMPOSITE_NODE): INTEGER is
 			-- The length of longest prefix common to all direct children
 			-- names of `a_node'. Useful to remove the common part of
 			-- many enumeration values.
@@ -99,32 +104,37 @@ feature -- Auxiliary features
 			non_void_node: a_node/=Void
 			node_has_children: a_node.children_count>1
 		local 
-			char_idx,string_n,lenght: INTEGER; c,e: CHARACTER; found: BOOLEAN; 
-			a_name: STRING; some_names: FAST_ARRAY[STRING]
+			char_idx,child_n,lenght: INTEGER; c,e: INTEGER_32; found: BOOLEAN; 
+			a_name: UNICODE_STRING; names: FAST_ARRAY[UNICODE_STRING]
+			a_child: XML_COMPOSITE_NODE
 		do
-			-- Gather the names of the children and find the shortest one
-			create some_names.with_capacity(a_node.children_count)
-			from -- Initialization
-				a_name:=a_node.child(1).attribute_at(once "name")
-				lenght:=a_name.count; string_n:=2
-			until string_n>a_node.children_count
-			loop
-				a_name := a_node.child(string_n).attribute_at(once "name")
-				lenght := lenght.min(a_name.count)
-				some_names.add_last(a_name)
-				string_n:=string_n+1
+			-- Gather XML_COMPOSITE_NODE children, their names and find the
+			-- shortest one.
+			create names.with_capacity(a_node.children_count)
+			from child_n:=1 lenght:=Maximum_integer
+			until child_n>=a_node.children_count
+			loop 
+				a_child ?= a_node.child(child_n)
+				if a_child /= Void then
+					a_name := a_child.attribute_at(once U"name")
+					names.add_last(a_name)
+					lenght := lenght.min(a_name.count)
+				else raise("Found a non-XML_COMPOSITE_NODE xml child")
+				end
+				child_n:=child_n+1
 			end
+
 			-- Find the longest prefix.
 			from char_idx:=1 until found or else char_idx>lenght loop 
-				from c:=some_names.first.item(char_idx); string_n:=2
-				until found or else string_n>=some_names.count 
+				from c:=names.first.item(char_idx); child_n:=2
+				until found or else child_n>=names.count 
 				loop
-					e:=some_names.item(string_n).item(char_idx) 
+					e:=names.item(child_n).item(char_idx) 
 					-- debug print("Examining char "+char_idx.out+", string 
-					-- "+string_n.out+" '"+e.out+"'%N") end
+					-- "+child_n.out+" '"+e.out+"'%N") end
 					if c /= e 
 					then Result:=char_idx-1; found:=True
-					else string_n:=string_n+1
+					else child_n:=child_n+1
 					end
 				end	
 				char_idx:=char_idx+1

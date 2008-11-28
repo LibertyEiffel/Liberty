@@ -80,7 +80,6 @@ feature
 							end
 						else std_error.put_line(once "No plugin location") print_usage
 						end
-						not_yet_implemented
 					elseif arg.is_equal(once "--header") then
 						i:=i+1
 						if i<=argument_count then header := argument(i)

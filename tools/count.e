@@ -11,6 +11,11 @@ feature
 			value:=an_integer
 		end
 
+	inc is 
+	do
+		increment
+	end
+
 	infix "<" (an_integer: INTEGER): BOOLEAN is
 		do
 			Result := value<an_integer
