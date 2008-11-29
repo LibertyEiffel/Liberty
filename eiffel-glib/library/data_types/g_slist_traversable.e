@@ -35,7 +35,6 @@ inherit
       end
    
    WRAPPER_FACTORY[ITEM]
-   GLOBAL_CACHE
 	G_FREEZABLE
 
 insert
@@ -88,12 +87,6 @@ feature
 			mutable: is_mutable
 		do
 			g_slist_set_data (g_slist_nth(handle,i), an_item.handle)
-         check
-            wrappers.fast_has(an_item.handle)
-         end
-         check
-            wrappers.at (an_item.handle) = an_item
-         end
 		end
 	
 	slice (min, max: INTEGER): like Current is do not_yet_implemented end
@@ -155,9 +148,6 @@ feature
 			is_mutable
 			valid_item: an_item/=Void
 		do
-			check
-            wrappers.at(an_item.handle) = an_item
-         end
 			handle := g_slist_append (handle, an_item.handle)
 
 			-- Note: The return value is the new start of the list, which
@@ -170,9 +160,6 @@ feature
 			is_mutable
 			element /= Void
 		do
-			check
-            wrappers.at(element.handle) = element
-         end
 			handle := g_slist_insert (handle, element.handle, index-1)
 		end
 	

@@ -18,7 +18,6 @@ inherit
       end
    
    WRAPPER_FACTORY[ITEM]
-   GLOBAL_CACHE
    G_FREEZABLE
 		-- Some GLib using libraries requires that some instances of G_LIST
 		-- shal be modified only by the library, making it effectively freezed
@@ -101,12 +100,6 @@ feature {ANY} -- data access
          is_mutable
       do
          g_list_set_data (g_list_nth(handle,i), an_item.handle)
-         check
-            wrappers.fast_has(an_item.handle)
-         end
-         check
-            wrappers.at (an_item.handle) = an_item
-         end
       end
    
 	swap (i,j: INTEGER) is
@@ -149,9 +142,6 @@ feature {ANY} -- data access
          is_mutable	
 		do
 			handle := g_list_prepend (handle, element.handle)
-			check
-            wrappers.at(element.handle) = element
-         end
 		end
 
 	add_last (element: like first) is
@@ -164,17 +154,11 @@ feature {ANY} -- data access
          is_mutable	
       do
          handle := g_list_append (handle, element.handle)
-			check
-            wrappers.at(element.handle) = element
-         end         
 		end
 
 	add (element: like first; index: INTEGER) is
 		do
 			handle := g_list_insert (handle, element.handle, index-1)
-			check
-            wrappers.at(element.handle) = element
-         end
 		end
 	
 	append_collection (other: COLLECTION[ITEM]) is

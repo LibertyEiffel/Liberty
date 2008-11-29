@@ -26,6 +26,6 @@ inherit
 	G_SLIST[ITEM]
 	G_OBJECT_FACTORY[ITEM] undefine fill_tagged_out_memory end
 
-creation make, empty, from_external_pointer
+creation make, from_external_pointer
 
 end -- class G_OBJECT_SLIST

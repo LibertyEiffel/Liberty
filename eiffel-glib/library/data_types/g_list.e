@@ -7,6 +7,9 @@ indexing
 	revision: "$Revision:$"
 
 deferred class G_LIST [ITEM->WRAPPER]
+
+   -- TODO: add test for all COLLECTION features (modify the version 
+   -- from SE testsuite?)
    
 inherit
 	G_LIST_TRAVERSABLE[ITEM]

@@ -2,11 +2,15 @@ class G_SLIST_PANGO_ATTRIBUTE
 	-- A singly-linked list of PANGO_ATTRIBUTEs returned by
 	-- PANGO_ATTR_ITERATOR.item
 
-inherit G_SLIST [PANGO_ATTRIBUTE] redefine dispose, from_external_pointer end
+inherit
+	G_SLIST [PANGO_ATTRIBUTE]
+		redefine
+			dispose, from_external_pointer
+		end
 
-creation from_external_pointer
+creation {WRAPPER} from_external_pointer
 
-feature
+feature {WRAPPER, WRAPPER_HANDLER}
 	from_external_pointer (a_pointer: POINTER) is
 		do
 			create cache.make
@@ -21,19 +25,23 @@ feature
 				cache.put (Result, a_pointer)
 			end
 		end
-
+	
+feature {} -- Memory management
 	dispose is
 		do
-			-- Note: Pango C documentation says that
+			-- TODO: Pango C documentation says that
 			-- pango_attr_iterator_get_attrs "returns a list of all
 			-- attributes for the current range. To free this value, call
 			-- pango_attribute_destroy() on each value and g_slist_free()
 			-- on the list." This should be automatically handled by
 			-- `dispose' in PANGO_ATTRIBUTE and in G_SLIST.			
 			g_slist_free(handle)
-			handle:=default_pointer
+			handle := default_pointer
 			debug
 				print("G_SLIST_PANGO_ATTRIBUTE.dispose is implemented partially. Please see the sources%N")
 			end
 		end
+	
+feature {} -- internal storage
+	cache: HASHED_DICTIONARY [PANGO_ATTRIBUTE, POINTER]
 end	
