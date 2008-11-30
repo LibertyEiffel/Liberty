@@ -42,12 +42,6 @@ inherit
 			copy
 		end
 
-	WRAPPERS_CACHE[PANGO_ATTRIBUTE]
-		-- because even if PANGO_ATTR_ITERATOR is not shared it returns
-		-- references to objects that are actually C_STRUCT and stored into
-		-- wrappers dictionary, so we need to retrieve them throught the
-		-- shared dictionary.
-	
 creation from_attribute_list, copy, from_external_pointer
 
 feature {} --

@@ -39,9 +39,6 @@ inherit
    
 	REFERENCE_COUNTED
    
-	WRAPPERS_CACHE [PANGO_ATTRIBUTE]
-		-- TODO: improve it and turn into a WRAPPER_COLLECTION
-
 creation make, from_external_pointer
 
 feature -- Creation
@@ -107,7 +104,7 @@ feature
 		do
 			pango_attr_list_insert (handle, an_attribute.handle)
 			an_attribute.set_shared
-			an_attribute.dispose -- detach Eiffel object from C object 
+			cache.put(an_attribute, an_attribute.handle)
 		end
 
 	insert_before (an_attribute: PANGO_ATTRIBUTE) is
@@ -123,7 +120,7 @@ feature
 		do
 			pango_attr_list_insert_before (handle, an_attribute.handle)
 			an_attribute.set_shared
-			an_attribute.dispose -- detach Eiffel object from C object 
+			cache.put(an_attribute, an_attribute.handle)
 		end
 
 	change  (an_attribute: PANGO_ATTRIBUTE) is
@@ -146,7 +143,7 @@ feature
 		do
 			pango_attr_list_change (handle, an_attribute.handle)
 			an_attribute.set_shared
-			an_attribute.dispose -- detach Eiffel object from C object 
+			cache.put(an_attribute, an_attribute.handle)
 		end
 
 	splice (another: PANGO_ATTR_LIST; a_position, a_length: INTEGER) is
@@ -225,6 +222,9 @@ feature {} -- Unwrapped
 --    Returns :   TRUE if the attribute should be filtered out
 
 --    ------------------------------------------------------------------------------------------------------------------------
+feature {PANGO_ATTR_ITERATOR}
+	cache: HASHED_DICTIONARY [PANGO_ATTRIBUTE, POINTER]
+	
 feature -- size
 	struct_size: INTEGER is
 		external "C inline use <pango/pango.h>"
