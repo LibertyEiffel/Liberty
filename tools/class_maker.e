@@ -269,9 +269,9 @@ feature {ANY} -- Functions-providing external classes oaking
 				log(once "Function @(1) is not wrappable: @(2).%N",
 				<<name, developer_exception_name>>)
 				buffer.reset
-				if is_developer_exception then
-					buffer.put_message(once "%T-- Function @(1) not wrappable: @(2)",
-					<<name, developer_exception_name>>)
+				if translate.last_error/=Void then
+					log("Couldn't wrap function @(1): @(2)%N",
+					<<name, translate.last_error>>)
 				else
 					buffer.put_message(once "%T-- Function @(1) not wrappable: exception code @(2)",
 					<<name, exception_label(exception)>>)
@@ -287,7 +287,6 @@ feature {ANY} -- Functions-providing external classes oaking
 					end
 					append_return_type(a_node)
 					append_function_body(a_node)
-					-- c_function_name := Void -- Is this necessary?
 				else
 					log(once "Skipping 'hidden' function @(1)%N",
 					<<name>>)
@@ -295,17 +294,11 @@ feature {ANY} -- Functions-providing external classes oaking
 			end
 			buffer.print_on(output)
 		rescue
-			unwrappable := True
-			-- Something weird happened
-			if translate.has_type_error then
-				debug
-					log("Coudln't wrap function @(1): @(2)%N",
-					<<name, translate.last_error>>)
-				end
+			if not unwrappable then
+				unwrappable := True
 				retry
-			else
-				-- it's not related to the type traslator:
-				-- don't retry but rethrow the exception
+			else 
+				die_with_code(12)
 			end
 		end
 
@@ -337,6 +330,7 @@ feature {ANY} -- Functions-providing external classes oaking
 		end
 
 	append_function_argument (a_node: XML_NODE) is
+			-- If `a_node' is an XML_COMPOSITE_NODE with the attribute "name" 
 		require
 			a_node /= Void
 		local
@@ -344,26 +338,26 @@ feature {ANY} -- Functions-providing external classes oaking
 		do
 			an_argument?=a_node
 			if an_argument/=Void then
-				placeholder := an_argument.attribute_at(once U"name").to_utf8
-				if placeholder = Void then
-					-- Nameless prototype: providing sound
-					-- default, using line and column, which are
-					-- locally unique.
-					placeholder := "an_argument_l"
-					an_argument.line.append_in(placeholder)
-					placeholder.append(once "_c")
-					an_argument.column.append_in(placeholder)
-				else
-					placeholder := eiffel_argument(placeholder) -- Eiffellize it
-				end
 				if an_argument.name.is_equal(once U"Argument") then
-					buffer.append(placeholder)
-					buffer.append(once ": ")
 					argument_type := translate.eiffel_type_of(an_argument)
-					-- Note that the previous query triggers an exception
-					-- when encounters an unwrappable C type.
-					log(once "@(1): @(2) ", <<placeholder, argument_type>>)
-					buffer.append(argument_type)
+					if argument_type/=Void then
+						placeholder := an_argument.attribute_at(once U"name").to_utf8
+						if placeholder = Void then
+							-- Nameless prototype: providing sound
+							-- default, using line and column, which are
+							-- locally unique.
+							placeholder := "an_argument_l"
+							an_argument.line.append_in(placeholder)
+							placeholder.append(once "_c")
+							an_argument.column.append_in(placeholder)
+						else
+							placeholder := eiffel_argument(placeholder) -- Eiffellize it
+						end
+						log(once "@(1): @(2) ", <<placeholder, argument_type>>)
+						buffer.put_message (once
+						"@(1): @(2)", <<placeholder, argument_type>>)
+						buffer.append(argument_type)
+					end
 				elseif an_argument.name.is_equal(once U"Ellipsis") then
 					log_string(once " .... ")
 					variadic := True
@@ -385,10 +379,10 @@ feature {ANY} -- Functions-providing external classes oaking
 		do
 			returns := translate.eiffel_type_of_string(a_node.attribute_at(once U"returns"))
 			if returns = Void then
-				raise(translate.last_error)
-				-- Unwrappable function found
+				buffer.put_message ("%N%T%T%T-- unwrappable return type: @(1)%N",
+				<<translate.last_error>>)
 			elseif returns.is_empty then
-				-- Nothing; the correct "return type" of a C command
+				-- Nothing; the correct "return type" of a C command is having no result.
 			else
 				buffer.append(once ": ")
 				buffer.append(returns)
@@ -427,10 +421,8 @@ feature {ANY} -- Low-level structure class creator
 						log(once "@(1) structure skipped: it is not declared in a desired header.%N",
 						<<name>>)
 					end
-				else
-					raise("Non XML_COMPOSITE_NODE structure.")
+					-- else raise("Non XML_COMPOSITE_NODE structure.")
 				end
-				--structure/=Void
 				iterator.next
 			end
 			-- Many structures are often "hidden behind" a typedef.
@@ -886,8 +878,7 @@ feature {ANY} -- Flag enumeration
 						is_first := i=1
 						is_last := i=a_node.children_count
 						append_flag_item (a_child, filename, prefix_length,is_first,is_last)
-					else
-						raise("A flag item is not a XML_COMPOSITE_CHILD")
+					-- else raise("A flag item is not a XML_COMPOSITE_CHILD")
 					end
 					i := i + 1
 				end
