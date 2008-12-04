@@ -1,22 +1,42 @@
 deferred class SHARED_SETTINGS
-	 -- Insert this class to access the `settings' singleton.
+	-- Insert this class to access the `settings' singleton.
+	-- It also provide commodity "proxy" setters and queries.
 
-    -- It also provide commodity "proxy" setters and queries.
-	
-feature 
+feature {ANY}
 	settings: SETTINGS is
 			-- The singleton to access all the shared settings
-		once 
+		once
 			create Result
+		end -- Syntactic sugar
+
+	verbose: BOOLEAN is
+		do
+			Result := settings.verbose
 		end
 
-	-- Syntactic sugar
-	verbose: BOOLEAN is do Result:=settings.verbose end
-	global: BOOLEAN is do Result:=settings.global end
-	directory: STRING is do Result:=settings.directory end
-	
-	use_naturals is do settings.use_naturals end
-	use_integers is do settings.use_integers end
-	are_naturals_used: BOOLEAN is do Result:=settings.are_naturals_used end
+	global: BOOLEAN is
+		do
+			Result := settings.global
+		end
 
-end
+	directory: STRING is
+		do
+			Result := settings.directory
+		end
+
+	use_naturals is
+		do
+			settings.use_naturals
+		end
+
+	use_integers is
+		do
+			settings.use_integers
+		end
+
+	are_naturals_used: BOOLEAN is
+		do
+			Result := settings.are_naturals_used
+		end
+
+end -- class SHARED_SETTINGS
