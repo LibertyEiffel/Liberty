@@ -37,7 +37,7 @@ cluster -- section
 
    standard: "${path_lib}/loadpath.se"
 	default
-		assertion (boost)
+		assertion (require) -- boost)
 	end -- standard cluster 
 external -- section for elements written in another language
 generate -- section

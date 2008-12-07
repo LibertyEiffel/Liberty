@@ -46,13 +46,12 @@ feature {ANY}
 		do
 			a_string.append(buffer)
 		end
-	
 	print_on (a_stream: OUTPUT_STREAM) is
 			-- Put current content on `a_stream'
-	 	do
-	 		a_stream.put_string(buffer)
-	 		reset
-	 	end
+		do
+			a_stream.put_string(buffer)
+			reset
+		end
 
 	count: INTEGER is
 		-- Content length

@@ -30,18 +30,19 @@ feature {ANY}
 				<<module_path.to_string>>)
 				raise(cannot_create_module_directory)
 			end
-			create c_include.connect_to((module_path / once "header.h").to_string)
-			create c_source.connect_to((module_path / once "source.c").to_string)
+
+			create include
+			create source
+			create include_file.connect_to((module_path / once "header.h").to_string)
+			create source_file.connect_to((module_path / once "source.c").to_string)
 			check
-				c_include.is_connected
-				c_source.is_connected
+				include_file.is_connected
+				source_file.is_connected
 			end
-			create to_include.make(c_include)
-			create to_source.make(c_source)
 			log(once "C source file: @(1)%NC header file: @(2)%N",
-			<<c_source.path, c_include.path>>)
-			c_include.put_string(automatically_generated_c_header)
-			c_source.put_string(automatically_generated_c_header)
+			<<source_file.path, include_file.path>>)
+			include_file.put_string(automatically_generated_c_header)
+			source_file.put_string(automatically_generated_c_header)
 		end
 
 feature {ANY} -- Function emission
@@ -62,7 +63,7 @@ feature {ANY} -- Function emission
 			%			module_name: %"@(3)%"%N%
 			%			feature_name: %"@(4)%"%N%
 			%		}%"%N%
-			%	end%N%N",
+			%		end%N%N",
 			<<description, location, module, c_function_name>>)
 		end
 
@@ -79,13 +80,13 @@ feature {ANY} -- Structure emission
 			eiffel_field := adapt(c_field)
 			eiffel_type := translate.eiffel_type_of(a_field)
 			if eiffel_type /= Void then
-				setter := a_structure_name + "_set_" + eiffel_field
-				getter := a_structure_name + "_get_" + eiffel_field
+				setter := a_structure_name + once "_set_" + eiffel_field
+				getter := a_structure_name + once "_get_" + eiffel_field
 				setter.to_lower
 				getter.to_lower
-				log(once "Appending query for @(1)%N", <<c_field>>)
+				log(once "Field @(1).@(2) query ", <<c_field, a_structure_name>>)
 				queries.put_message (once 
-				"	@(1) (a_structure: POINTER): @(2) is%
+				"	@(1) (a_structure: POINTER): @(2) is%N%
 				%			-- Query for @(5) field of @(6) structure.%N%
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
@@ -95,11 +96,9 @@ feature {ANY} -- Structure emission
 				%		}%"%N%
 				%		end%N%N",
 				<<getter, eiffel_type, location, module, c_field, a_structure_name>>)
-				
-				log(once "Appending setter for @(1).@(2)%N", 
-				<<a_structure_name,c_field>>)
-				setters.put_message
-				(once 
+				log_string(once "made, setter ")
+
+				setters.put_message (once 
 				"	@(1) (a_structure: POINTER; a_value: @(2)) is%N%
 				%			-- Setter for @(5) field of @(6) structure.%N%
 				%		external %"plug_in%"%N%
@@ -110,17 +109,18 @@ feature {ANY} -- Structure emission
 				%		}%"%N%
 				%		end%N%N",
 				<<setter, eiffel_type, location, module, c_field, a_structure_name>>)
+				log_string(once "made, C macros ")
 
-				log(once "Emitting getter and setter C macros for @(1).@(2)",
-				<<a_structure_name,c_field>>)	
 				-- Note: Type safety is assured by Eiffel and GCC-XML so we can
 				-- be less type-strict-paranoid here and use some type-casts.
-				to_include.put_message (once 
+				include.put_message (once 
 				"#define @(1)(a_structure) (((@(2)*) a_structure).@(3))%N%N",
 				<<getter, a_structure_name, c_field>>)
-				to_include.put_message(once 
-				"#define @(1)(a_structure,a_value) (((@(2)*) a_structure)->@(2) = a_value;%N%N",
+				include.put_message(once 
+				"#define @(1)(a_structure,a_value) ((@(2)*) a_structure)->@(3) = a_value;%N%N",
 				<<setter, a_structure_name, c_field>>)
+				include.print_on(include_file)
+				log_string(once "made.%N")
 			else
 				log(once "Field @(1) in structure @(2) is not wrappable: @(3)",
 				<<c_field, a_structure_name, translate.last_error>>)
@@ -152,16 +152,16 @@ feature {ANY}
 
 	module: STRING
 
-	to_include, to_source: STRING_PRINTER
+	include, source: FORMATTER 
 			-- The message formatters used to print to plug-in's include and source
 			-- file.
 
 	plugin_stream: STRING_OUTPUT_STREAM
 
-	c_include: TEXT_FILE_WRITE
+	include_file: TEXT_FILE_WRITE
 			-- The C include file where all macros are written
 
-	c_source: TEXT_FILE_WRITE
+	source_file: TEXT_FILE_WRITE
 			-- The C source file where all plugin code is outputted
 
 feature {} -- Constants

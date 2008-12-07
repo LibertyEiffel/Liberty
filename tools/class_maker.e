@@ -1,8 +1,6 @@
 deferred class CLASS_MAKER
 	-- Outputs wrapper classes for functions, structures and enumerations.
 	-- Implementation notes
-	
-
 
 	-- Note:
 	-- "XML is born together with Unicode"; trying to use plain ASCII strings
@@ -13,16 +11,16 @@ deferred class CLASS_MAKER
 	-- emission of generated source code.
 
 
-	-- Stylistical note: multi-line strings formatting uses the syntax
+	-- Stylistical note: multi-line strings are formatted like:
 	
 	-- "foo is %N%
 	-- %	do .....%N%
 	-- % end"
 
-	-- to break lines. In fact we are generating Eiffel code; using the "[ ]"
-	-- syntax will confuse code-formatter of some editor. Real tabs are used
-	-- instead of "%T" becuase otherwise the code formatted with the latter
-	-- is difficult to read.
+	-- using '%' to break lines. In fact we are generating Eiffel code; using
+	-- the "[ ]" syntax will confuse code-formatter of some editor. Real tabs
+	-- are used instead of "%T" becuase otherwise the code formatted with the
+	-- latter is difficult to read.
 
 insert
 	SHARED_SETTINGS
@@ -31,7 +29,7 @@ insert
 	FILE_TOOLS
 	MEMORY
 
-feature {ANY}
+feature {ANY} -- Initialization
 	initialize is
 			-- Initialize the data structures
 		do
@@ -77,8 +75,10 @@ feature {ANY} -- Processing XML input
 		local
 			bd: BASIC_DIRECTORY
 		do
+			log_string(once "XML processing file: ")
 			create tree.make(input.url)
 			visit(tree.root)
+			log_string(once "done.%N")
 			if directory = Void then
 				log_string(once "Outputting everything on standard output.")
 			else
@@ -99,15 +99,19 @@ feature {ANY} -- Processing XML input
 			make_structures
 			log_string(once "Making enumerations classes.%N")
 			make_enumerations
+
 		end
 
 	visit (a_node: XML_COMPOSITE_NODE) is
 		require
 			node_not_void: a_node /= Void
 		local
-			i: INTEGER; a_child: XML_COMPOSITE_NODE; name, c_name, file_id, id: UNICODE_STRING
+			i: INTEGER; a_child: XML_COMPOSITE_NODE; 
+			name, c_name, file_id, id: UNICODE_STRING
+			c_name_utf8: STRING
 			functions_in_file: LINKED_LIST[XML_COMPOSITE_NODE]
 		do
+			log_string(once ".")
 			id := a_node.attribute_at(once U"id")
 			c_name := a_node.attribute_at(once U"name")
 			file_id := a_node.attribute_at(once U"file")
@@ -128,14 +132,34 @@ feature {ANY} -- Processing XML input
 				check
 					file_id /= Void
 				end
-				if c_name /= Void then
-					translate.types.put(a_node, id)
-					structures.fast_put(a_node, c_name)
+				if c_name /= Void then 
+					c_name_utf8 := c_name.as_utf8
+					if is_public(c_name_utf8) then
+						debug 
+							log(once " structure @(1) in line @(2) ",
+							<<c_name_utf8, a_node.line.out>>)
+						end
+						translate.types.put(a_node, id)
+						structures.fast_put(a_node, c_name)
+					else
+						-- debug
+						-- 	log(once " skipping non-public structure @(1) in line @(2) ",
+						-- 	<<c_name_utf8,a_node.line.out>>)
+						-- end
+					end
 				else
-					-- void name
-					log(once "Skipping nameless structure in line @(1).%N",
-					<<a_node.line.out>>)
+					-- debug 
+					-- 	log(once " skipping nameless structure in line @(1) ",
+					-- 	<<a_node.line.out>>)
+					-- end
 				end
+			elseif name.is_equal(once U"Typedef") then
+				-- Store typedefs 
+				debug
+					log(once " typedef @(1) ",<<a_node.attribute_at(once U"name").as_utf8>>)
+				end
+				translate.typedefs.add_last(a_node)
+				translate.types.put(a_node,id)
 			elseif name.is_equal(once U"Field") then
 				check
 					id_not_void: id /= Void
@@ -148,8 +172,13 @@ feature {ANY} -- Processing XML input
 				end
 				enumerations.fast_put(a_node, c_name)
 				translate.types.put(a_node, id)
-			elseif name.is_equal(once U"ArrayType" -- Type system
-				) or else name.is_equal(once U"FunctionType") or else name.is_equal(once U"FundamentalType") or else name.is_equal(once U"PointerType") or else name.is_equal(once U"ReferenceType") or else name.is_equal(once U"Typedef") or else name.is_equal(once U"Union") or else name.is_equal(once U"Variable") then
+		elseif (name.is_equal(once U"ArrayType") or else
+				name.is_equal(once U"FunctionType") or else 
+				name.is_equal(once U"FundamentalType") or else 
+				name.is_equal(once U"PointerType") or else 
+				name.is_equal(once U"ReferenceType") or else 
+				name.is_equal(once U"Union") or else
+				name.is_equal(once U"Variable")) then
 				check
 					id /= Void
 				end
@@ -180,7 +209,7 @@ feature {ANY} -- Processing XML input
 			end
 		end
 
-feature {ANY} -- Functions-providing external classes oaking
+feature {ANY} -- Creation of external classes providing access to C functions
 	make_external_classes is
 		do
 			functions.do_all(agent examine_functions)
@@ -292,13 +321,15 @@ feature {ANY} -- Functions-providing external classes oaking
 					<<name>>)
 				end
 			end
+			log_string(once "%N")
 			buffer.print_on(output)
 		rescue
-			if not unwrappable then
+			if unwrappable then
+				die_with_code(12)
+			else 
+				die_with_code(11)
 				unwrappable := True
 				retry
-			else 
-				die_with_code(12)
 			end
 		end
 
@@ -325,7 +356,7 @@ feature {ANY} -- Functions-providing external classes oaking
 				append_function_argument(child)
 				i := i + 1
 			end
-			log_string(once ")%N")
+			log_string(once ")")
 			buffer.append(once ")")
 		end
 
@@ -356,7 +387,6 @@ feature {ANY} -- Functions-providing external classes oaking
 						log(once "@(1): @(2) ", <<placeholder, argument_type>>)
 						buffer.put_message (once
 						"@(1): @(2)", <<placeholder, argument_type>>)
-						buffer.append(argument_type)
 					end
 				elseif an_argument.name.is_equal(once U"Ellipsis") then
 					log_string(once " .... ")
@@ -404,6 +434,41 @@ feature {ANY} -- Low-level structure class creator
 			typedef, structure: XML_COMPOSITE_NODE; iterator: ITERATOR[XML_NODE]; name, file_name: STRING
 			referred_type, file_id: UNICODE_STRING
 		do
+			-- Many structures are often "hidden behind" a typedef.
+			-- typedefs.do_all(agent emit_typedeffed_structure)
+			iterator := translate.typedefs.get_new_iterator
+			from
+				iterator.start
+			until
+				iterator.is_off
+			loop
+				typedef ?= iterator.item
+				if typedef /= Void then
+					referred_type := typedef.attribute_at(once U"type")
+					name := typedef.attribute_at(once U"name").to_utf8
+					check
+						referred_type_not_void: referred_type /= Void
+						name_not_void: name /= Void
+					end
+					structure := structures.reference_at(referred_type)
+					check structures.fast_has(referred_type) end
+					if structure /= Void then
+						-- Referred type is actually a structure
+						file_id := structure.attribute_at(once U"file")
+						file_name := files.at(file_id).attribute_at(once U"name").to_utf8
+						if is_to_be_emitted(file_name) then
+							log(once "Wrapping typedef structure @(1).%N", <<name>>)
+							emit_structure(structure, name)
+							structures.fast_remove(referred_type)
+						else
+							log("Typedef struct @(1) skipped: defined in an non-desired header.%N",
+							<<structure.name.as_utf8>>)
+						end
+					end
+				end
+				iterator.next
+			end
+
 			iterator := structures.get_new_iterator_on_items
 			from
 				iterator.start
@@ -422,39 +487,6 @@ feature {ANY} -- Low-level structure class creator
 						<<name>>)
 					end
 					-- else raise("Non XML_COMPOSITE_NODE structure.")
-				end
-				iterator.next
-			end
-			-- Many structures are often "hidden behind" a typedef.
-			-- typedefs.do_all(agent emit_typedeffed_structure)
-			iterator := translate.typedefs.get_new_iterator
-			from
-				iterator.start
-			until
-				iterator.is_off
-			loop
-				typedef ?= iterator.item
-				if typedef /= Void then
-					referred_type := typedef.attribute_at(once U"type")
-					name := typedef.attribute_at(once U"name").to_utf8
-					check
-						referred_type_not_void: referred_type /= Void
-						name_not_void: name /= Void
-					end
-					structure := structures.reference_at(referred_type)
-					if structure /= Void then
-						-- Referred type is actually a structure
-						file_id := structure.attribute_at(once U"file")
-						file_name := files.at(file_id).attribute_at(once U"name").to_utf8
-						if is_to_be_emitted(file_name) then
-							log(once "Wrapping typedef structure @(1).%N",
-							<<name>>)
-							emit_structure(structure, name)
-						else
-							log("@(1) skipped: defined in an non-desired header.%N",
-							<<structure.name.as_utf8>>)
-						end
-					end
 				end
 				iterator.next
 			end
@@ -483,25 +515,24 @@ feature {ANY} -- Low-level structure class creator
 					if directory = Void then
 						-- Output to standard output
 						output := std_output
-						log(once "Wrapping structure @(1) to class @(2) to standard output%N",
+						log(once "Struct @(1) to class @(2) to standard output%N",
 						<<a_structure_name, classname>>)
 					else
 						create path.make_from_string(directory)
 						path.add_last(eiffel_class_file_name(filename))
 						filename := path.to_string
-						log(once "Wrapping structure @(1) to class @(2) in file @(3)%N",
+						log(once "Struct @(1) to class @(2) in @(3)%N",
 						<<a_structure_name, classname, filename>>)
 						create {TEXT_FILE_WRITE} output.connect_to(filename)
 					end
 					append_structure_header(a_structure_name)
-					append_structure_members(a_node, a_structure_name)
-					buffer.append(once "end%N")
 					buffer.print_on(output)
+					append_structure_members(a_node, a_structure_name)
+					output.put_string(once "end%N")
 					output.flush
 					output.disconnect
 				else
-					log(once "Skipping 'hidden' structure @(1)%N",
-					<<a_structure_name>>)
+					log(once "Struct @(1) skipped%N", <<a_structure_name>>)
 				end
 			end
 		end
@@ -553,12 +584,9 @@ feature {ANY} -- Low-level structure class creator
 				queries.print_on(output)
 			else
 				-- void members
-				buffer.append(once "%T--Fieldless structure%N")
-				log(once "Structure @(1) have no fields",
-				<<a_structure_name>>)
+				buffer.append(once "%T-- Fieldless structure%N")
+				log(once "Structure @(1) have no fields%N", <<a_structure_name>>)
 			end
-		ensure
-			buffer_grew: buffer.count > old buffer.count
 		end
 
 	emit_structure_field (a_field: XML_COMPOSITE_NODE; a_structure_name: STRING) is
@@ -622,7 +650,6 @@ feature {ANY} -- Enumeration class creator
 				log("Skipping 'hidden' enumeration @(1)%N",
 				<<name>>)
 			end
-			-- is_public(name)
 		end
 
 	emit_enumeration_header (an_enum_name: STRING) is
@@ -947,13 +974,14 @@ feature {ANY} -- Flag enumeration
 			setters.put_message (once 
 			"	set_@(1) is%N%
 			%		do%N%
-			%			value := value.bit_or(@(2)%N%
+			%			value := value.bit_or(@(2))%N%
 			%		end%N%
-			%N%
+			%%N%
 			%	unset_@(1) is%N%
 			%		do%N%
 			%			value := value.bit_xor(@(2))%N%
-			%		end%N%N", <<a_name, a_value >>)
+			%		end%N%
+			%%N", <<a_name, a_value >>)
 		end
 
 	append_flag_value_query (a_name, a_value: STRING) is

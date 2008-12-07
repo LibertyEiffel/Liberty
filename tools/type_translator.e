@@ -210,7 +210,7 @@ feature {ANY} -- Type-system translations
 			-- A description of the latest error occurred
 
 	types: HASHED_DICTIONARY[XML_COMPOSITE_NODE, UNICODE_STRING]
-			-- Types by their name
+			-- Types by their id
 
 	typedefs: LINKED_LIST[XML_COMPOSITE_NODE]
 
