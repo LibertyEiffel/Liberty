@@ -23,7 +23,8 @@ class AV_STREAM
 
 inherit
 	C_STRUCT
-	MIXED_MEMORY_HANDLING
+	C_OWNED
+		--	MIXED_MEMORY_HANDLING
 		-- EIFFEL_OWNED was used for a while but it seems that an
 		-- AV_STREAM is handled differently. Perhaps it has
 		-- MIXED_MEMORY_HANDLING but it should be investigated more

@@ -22,10 +22,14 @@ indexing
 class AV_CODEC
 
 inherit
-	C_STRUCT
-	EIFFEL_OWNED
+	GLOBALLY_CACHED
 
 insert
+	C_STRUCT
+		undefine
+			from_external_pointer
+		end
+	
 	AV_CODEC_EXTERNALS
 	AV_CODEC_IDS
 

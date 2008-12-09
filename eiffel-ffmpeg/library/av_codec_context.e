@@ -22,7 +22,7 @@ indexing
 class AV_CODEC_CONTEXT
 
 inherit
-	C_STRUCT redefine from_external_pointer end
+	C_STRUCT
 
 insert
 	AV_CODEC_CONTEXT_EXTERNALS
@@ -42,14 +42,6 @@ feature {} -- Creation
 			-- creates a new AV_CODEC_CONTEXT and sets it to default values
 		do
 			handle := avcodec_alloc_context
-			create cache.make
-		end
-
-feature
-	from_external_pointer (a_pointer: POINTER) is
-		do
-			create cache.make
-			Precursor(a_pointer)
 		end
 
 feature -- Access
@@ -187,7 +179,7 @@ feature -- Operations
 
 	close: BOOLEAN is
 		do
-				Result := avcodec_close (handle) = 0
+			Result := avcodec_close (handle) = 0
 		end
 
 	set_thread_count (a_thread_count: INTEGER) is

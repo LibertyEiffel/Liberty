@@ -24,7 +24,7 @@ deferred class AV_CODEC_FINDER
 insert
 	AV_CODEC_FINDER_EXTERNALS
 	AV_CODEC_IDS
-	WRAPPERS_CACHE [AV_CODEC]
+	GLOBAL_CACHE
 	WRAPPER_FACTORY [AV_CODEC]
 
 feature {} -- Private access
@@ -73,16 +73,15 @@ feature {} -- Private access
 		do
 			codec_ptr := avcodec_find_encoder_by_name (a_name.to_external)
 			if codec_ptr.is_not_null then
-				Result:=wrapper(codec_ptr)
+				Result := wrapper(codec_ptr)
 			end
 		end
 
 	wrapper (a_ptr: POINTER): AV_CODEC is
 		do
-			Result := cache.reference_at(a_ptr)
-			if Result=Void then 
+			Result ?= wrappers.reference_at(a_ptr)
+			if Result = Void then 
 				create Result.from_external_pointer(a_ptr)
-				cache.put(Result,a_ptr)
 			end
 		end
 end -- class AV_CODEC_FINDER

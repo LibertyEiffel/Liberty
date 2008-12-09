@@ -23,7 +23,9 @@ class AV_RATIONAL
 
 inherit
 	C_STRUCT
-	MIXED_MEMORY_HANDLING
+	C_OWNED
+		--	MIXED_MEMORY_HANDLING
+	-- TODO: check memory handling
 
 insert
 	AV_RATIONAL_EXTERNALS

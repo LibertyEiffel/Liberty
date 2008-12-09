@@ -30,7 +30,7 @@ feature
 				if video.is_valid then
 					video.find_stream_info
 					minutes := video.duration // (av_time_base * 60)
-					seconds := (video.duration / av_time_base) - (minutes * 60).to_integer
+					seconds := (video.duration / av_time_base) - (minutes * 60).to_real_32
 					print ("minutes: " + minutes.out + "%Nseconds: " +
 					       seconds.to_string_format (3) + "%Nformat: " +
 					       video.input_format.name + "%N")
