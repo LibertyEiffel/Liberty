@@ -1,11 +1,11 @@
-deferred class XML_PARSER
+deferred class XML2_PARSER
 
-insert LIBXML_EXTERNALS
+insert LIBXML2_EXTERNALS
 feature 
-	parse_file (an_xml_file: STRING): XML_DOC is
+	parse_file (an_xml_file: STRING): XML2_DOC is
 		-- parse the XML file named `an_xml_file' and build a tree. Automatic
 		-- support for ZLIB/Compress compressed document is provided by default
-		-- if found at compile-time. The resulting XML_DOC will be Void if the
+		-- if found at compile-time. The resulting XML2_DOC will be Void if the
 		-- file was not wellformed.
 	require name_not_void: an_xml_file/=Void
 	local p: POINTER
@@ -18,5 +18,5 @@ feature
 			create Result.from_external_pointer(p)
 		end
 	end 
-end -- class XML_PARSER
+end -- class XML2_PARSER
 

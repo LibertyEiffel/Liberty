@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class XML_DOC
+class XML2_DOC
 	-- Minimal wrapper of xmlDoc type from libxml2.
 
 inherit 
@@ -27,13 +27,13 @@ inherit
 		EIFFEL_OWNED redefine free end
 
 insert 
-	LIBXML_EXTERNALS
-	SHARED_XML_NODE_CACHE	
+	LIBXML2_EXTERNALS
+	SHARED_XML2_NODE_CACHE	
 
 creation from_external_pointer
 
 feature 
-	root:  XML_NODE is
+	root:  XML2_NODE is
 		do
 			Result:=cache.wrapper(xml_doc_get_root_element(handle))
 		end
@@ -48,4 +48,4 @@ feature {} -- Implementation
 		external "C use <libxml/tree.h>"
 		alias "size_of (xmlDoc)"
 		end
-end -- class XML_DOC
+end -- class XML2_DOC

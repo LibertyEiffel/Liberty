@@ -19,7 +19,7 @@ indexing
 					02110-1301 USA
 			]"
 
-class XML_NODE
+class XML2_NODE
 	-- Minimal wrapper for xmlNode of libxml2. No effort is made to mimick
 	-- SmartEiffel XML classes: their design does simply not conform.
 
@@ -28,8 +28,8 @@ inherit
 	EIFFEL_OWNED redefine free end
 	
 insert 
-	SHARED_XML_NODE_CACHE
-	LIBXML_EXTERNALS
+	SHARED_XML2_NODE_CACHE
+	LIBXML2_EXTERNALS
 
 creation from_external_pointer
 
@@ -44,7 +44,7 @@ feature -- Name and attributes
 		-- The content of the attribute named `a_name' encoded in UTF8. 
 		-- Void if the attribute does not exist.
 
-		-- TODO: Result should be an heir of STRING like XML_STRING because the
+		-- TODO: Result should be an heir of STRING like XML2_STRING because the
 		-- string pointer shall be free with xmlFree
 	require non_void_name: a_name/=Void
 	local p: POINTER
@@ -55,38 +55,38 @@ feature -- Name and attributes
 		end
 	end
 	
-	-- first_attribute: XML_ATTRIBUTE is
+	-- first_attribute: XML2_ATTRIBUTE is
 	-- 	-- The first attribute/property
 	-- do
 	-- 	not_yet_implemented
 	-- end
 
 feature -- Nodes relationships
-	parent: XML_NODE is
+	parent: XML2_NODE is
 		-- Curren't parent, if any.
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_parent(handle))
 	end
 
-	first: XML_NODE is
+	first: XML2_NODE is
 		-- First child of Current node. Can be Void
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_children(handle))
 	end
 
-	next: XML_NODE is
+	next: XML2_NODE is
 		-- Next "brother" node. Can be Void
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_next(handle))
 	end
 
-	prev: XML_NODE is 
+	prev: XML2_NODE is 
 		-- Previous "brother" node. Can be Void
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_prev(handle))
 	end
 
-	last: XML_NODE is 
+	last: XML2_NODE is 
 		-- Last child node. Can be Void
 	do
 		Result:=cache.wrapper_or_void(xml_node_get_last(handle))
@@ -102,4 +102,4 @@ feature {} -- Implementation
 		external "C use <libxml/tree.h>"
 		alias "size_of (xmlNode)"
 		end
-end -- class XML_NODE
+end -- class XML2_NODE

@@ -1,4 +1,4 @@
-deferred class LIBXML_EXTERNALS
+deferred class LIBXML2_EXTERNALS
 	-- Minimal low-level class to bootstrap eiffel-gcc-xml. This class
 	-- provides minimal wrapping of xml in order to get a working
 	-- eiffel-gcc-xml which can process gccxml output and produce full
