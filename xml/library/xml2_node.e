@@ -25,7 +25,7 @@ class XML2_NODE
 
 inherit
 	C_STRUCT redefine free end
-	EIFFEL_OWNED redefine free end
+	MIXED_MEMORY_HANDLING redefine free end
 	
 insert 
 	SHARED_XML2_NODE_CACHE

@@ -38,7 +38,7 @@ insert
 			fill_tagged_out_memory
 		end
 
-feature
+feature {} -- Utility features 
 	null_or (a_wrapper: WRAPPER): POINTER is
 			-- The handle of `a_wrapper', or the default_pointer if 
 			-- `a_wrapper' is Void
@@ -61,6 +61,7 @@ feature
 			definition: ((Result = default_pointer) or
 							 (a_string/=Void implies Result=a_string.to_external))
 		end
+
 feature {} -- Wrapper related exceptions
 	pointer_to_unwrapped_deferred_object: STRING is
 		"A C function returned a pointer to an unwrapped object which is wrapped by a deferred class. It is not possible to create a correct wrapper."

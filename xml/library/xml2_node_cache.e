@@ -20,6 +20,7 @@ feature
 		if Result=Void then
 			create Result.from_external_pointer(a_pointer)
 			wrappers.put(Result,a_pointer)
+			Result.set_shared
 		end
 	end
 end

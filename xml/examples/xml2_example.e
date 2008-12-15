@@ -1,8 +1,8 @@
-class XML_EXAMPLE
+class XML2_EXAMPLE
 	-- Example for wrappers of libxml2 library
 	
 insert 
-	XML_PARSER
+	XML2_PARSER
 	ARGUMENTS
 
 creation make
@@ -22,11 +22,11 @@ feature
 		end
 	end
 
-	doc: XML_DOC
+	doc: XML2_DOC
 
-	parse (a_node: XML_NODE) is
+	parse (a_node: XML2_NODE) is
 		-- Recursively parse `a_node'.
-	local child: XML_NODE
+	local child: XML2_NODE
 	do
 		a_node.name.print_on(std_output)
 		std_output.put_new_line
@@ -37,4 +37,4 @@ feature
 			child:=child.next
 		end
 	end
-end -- XML_EXAMPLE
+end -- XML2_EXAMPLE
