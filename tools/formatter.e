@@ -1,9 +1,7 @@
 class FORMATTER
-	-- A STRING_FORMATTER class using a buffer string as output. 
-	
+	-- A STRING_FORMATTER class using a buffer string as output.
 	-- Strings and messages can be easily appended with `append' and
 	-- `put_message'.
-	
 	-- The formatted content can be printed on streams with `print_on' and
 	-- appended to other strings with `append_on'
 
@@ -17,35 +15,37 @@ creation {ANY}
 
 feature {ANY}
 	reset is
-		-- Clears the content of Current's buffer. 
+			-- Clears the content of Current's buffer.
 		do
 			buffer.clear_count
 		end
 
 	reset_with (a_string: STRING) is
-		-- Overwrite the content of Current's buffer with a copy of `a_string'.
+			-- Overwrite the content of Current's buffer with a copy of `a_string'.
 		do
 			buffer.copy(a_string)
 		end
 
 	out: STRING is
-		-- A newly create copy of Current content
+			-- A newly create copy of Current content
 		do
 			create Result.copy(buffer)
 		end
 
 	append (a_string: STRING) is
-		-- Append `a_string' to the content of Current
+			-- Append `a_string' to the content of Current
 		do
 			buffer.append(a_string)
 		end
 
 	append_on (a_string: STRING) is
-		-- Append the content of Current to `a_string'
-		require a_string/=Void
+			-- Append the content of Current to `a_string'
+		require
+			a_string /= Void
 		do
 			a_string.append(buffer)
 		end
+
 	print_on (a_stream: OUTPUT_STREAM) is
 			-- Put current content on `a_stream'
 		do
@@ -54,10 +54,11 @@ feature {ANY}
 		end
 
 	count: INTEGER is
-		-- Content length
+			-- Content length
 		do
-			Result:=buffer.count
+			Result := buffer.count
 		end
+
 feature {} -- Implementation
 	default_create is
 		do

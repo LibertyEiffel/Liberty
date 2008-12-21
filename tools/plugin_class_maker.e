@@ -30,7 +30,6 @@ feature {ANY}
 				<<module_path.to_string>>)
 				raise(cannot_create_module_directory)
 			end
-
 			create include
 			create source
 			create include_file.connect_to((module_path / once "header.h").to_string)
@@ -53,7 +52,7 @@ feature {ANY} -- Function emission
 			if variadic then
 				description := c_function_name + variadic_function_note
 			else
-				description := c_function_name 
+				description := c_function_name
 			end
 			buffer.put_message(once " is%N%
 			% 		-- @(1)%N%
@@ -84,9 +83,9 @@ feature {ANY} -- Structure emission
 				getter := a_structure_name + once "_get_" + eiffel_field
 				setter.to_lower
 				getter.to_lower
-				log(once "Field @(1).@(2) query ", <<c_field, a_structure_name>>)
-				queries.put_message (once 
-				"	@(1) (a_structure: POINTER): @(2) is%N%
+				log(once "Field @(1).@(2) query ",
+				<<c_field, a_structure_name>>)
+				queries.put_message(once "	@(1) (a_structure: POINTER): @(2) is%N%
 				%			-- Query for @(5) field of @(6) structure.%N%
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
@@ -97,9 +96,7 @@ feature {ANY} -- Structure emission
 				%		end%N%N",
 				<<getter, eiffel_type, location, module, c_field, a_structure_name>>)
 				log_string(once "made, setter ")
-
-				setters.put_message (once 
-				"	@(1) (a_structure: POINTER; a_value: @(2)) is%N%
+				setters.put_message(once "	@(1) (a_structure: POINTER; a_value: @(2)) is%N%
 				%			-- Setter for @(5) field of @(6) structure.%N%
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
@@ -110,21 +107,18 @@ feature {ANY} -- Structure emission
 				%		end%N%N",
 				<<setter, eiffel_type, location, module, c_field, a_structure_name>>)
 				log_string(once "made, C macros ")
-
 				-- Note: Type safety is assured by Eiffel and GCC-XML so we can
 				-- be less type-strict-paranoid here and use some type-casts.
-				include.put_message (once 
-				"#define @(1)(a_structure) (((@(2)*) a_structure).@(3))%N%N",
+				include.put_message(once "#define @(1)(a_structure) (((@(2)*) a_structure).@(3))%N%N",
 				<<getter, a_structure_name, c_field>>)
-				include.put_message(once 
-				"#define @(1)(a_structure,a_value) ((@(2)*) a_structure)->@(3) = a_value;%N%N",
+				include.put_message(once "#define @(1)(a_structure,a_value) ((@(2)*) a_structure)->@(3) = a_value;%N%N",
 				<<setter, a_structure_name, c_field>>)
 				include.print_on(include_file)
 				log_string(once "made.%N")
 			else
 				log(once "Field @(1) in structure @(2) is not wrappable: @(3)",
 				<<c_field, a_structure_name, translate.last_error>>)
-				queries.put_message(once "%T-- Unwrappable @(1): @(2)%N",
+				queries.put_message(once "%T-- Unwrappable field @(1): @(2)%N",
 				<<c_field, translate.last_error>>)
 			end
 		end
@@ -134,9 +128,8 @@ feature {ANY} -- Enumeration emission
 			-- Append in `low_level_values' a declaration labelled
 			-- `an_eiffel_value' to access `a_low_level_value' found in
 			-- `a_file_name'
-	do
-		low_level_values.put_message(once 
-		"	@(1): INTEGER is%N%
+		do
+			low_level_values.put_message(once "	@(1): INTEGER is%N%
 		%		external %"plug_in%"%N%
 		% 		alias %"{%N%
 		% 			location: %"@(2)%"%N%
@@ -144,15 +137,15 @@ feature {ANY} -- Enumeration emission
 		% 			feature_name: %"@(4)%"%N%
 		% 			}%"%N%
 		% 		end%N%N",
-		<<an_eiffel_value, location, module, a_low_level_value>>)
-	end
+			<<an_eiffel_value, location, module, a_low_level_value>>)
+		end
 
 feature {ANY}
 	location: STRING
 
 	module: STRING
 
-	include, source: FORMATTER 
+	include, source: FORMATTER
 			-- The message formatters used to print to plug-in's include and source
 			-- file.
 
@@ -166,6 +159,7 @@ feature {ANY}
 
 feature {} -- Constants
 	cannot_create_location_directory: STRING is "Cannot create location directory for plugin output"
+
 	cannot_create_module_directory: STRING is "Cannot create module directory for plugin output"
 			-- Message also used as an exception
 

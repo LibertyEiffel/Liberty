@@ -64,14 +64,13 @@ feature {ANY} -- Type-system translations
 			-- not have a proper wrapper type Result is Void and
 			-- `last_error' describes the issue using one of the strings
 			-- from EIFFEL_GCC_XML_EXCEPTIONS. "Expanded" structures,
-			-- unions,
+			-- unions, references, complex reals (float and double) 
 		require
 			argument_not_void: an_argument /= Void
 		local
 			name: STRING; size: INTEGER
 		do
 			Result := Void
-			last_error := Void
 			-- Known nodes: FundamentalType Constructor Ellipsis Typedef
 			-- ArrayType Argument Enumeration PointerType EnumValue
 			-- Struct GCC_XML CvQualifiedType Namespace FunctionType
@@ -90,9 +89,8 @@ feature {ANY} -- Type-system translations
 					elseif name.has_substring(once "complex") then
 						-- could be "complex double" "complex float",
 						-- "complex long double"
-						std_error.put_line("Unhandled complex type found: " + name)
+						log("Unhandled complex type found at line @(1): @(2)%N",<<an_argument.line.out,name>>)
 						last_error := unhandled_complex_type
-						-- raise(unhandled_complex_type)
 					elseif name.has_substring(once "unsigned") then
 						-- check name.has_substring(once "int") end
 						if are_naturals_used then
@@ -107,7 +105,6 @@ feature {ANY} -- Type-system translations
 							else
 								std_error.put_line("Unknown unsigned int of size" + size.out)
 								last_error := unhandled_unsigned_integer_type
-								-- raise(unhandled_unsigned_integer_type)
 							end
 						else
 							inspect
@@ -121,7 +118,6 @@ feature {ANY} -- Type-system translations
 							else
 								std_error.put_line("Unknown unsigned int of size" + size.out)
 								last_error := unhandled_unsigned_integer_type
-								-- raise(unhandled_unsigned_integer_type)
 							end
 						end
 					elseif name.has_substring(once "int") then
@@ -136,7 +132,6 @@ feature {ANY} -- Type-system translations
 						else
 							std_error.put_line("Unknown int of size" + size.out)
 							last_error := unhandled_integer_type
-							-- raise(unhandled_integer_type)
 						end
 					elseif name.has_substring(once "float") then
 						-- check size=32 end
@@ -156,19 +151,17 @@ feature {ANY} -- Type-system translations
 						else
 							std_error.put_line("Double of unhandled length " + size.out + " using REAL_128")
 							last_error := unhandled_double_type
-							-- raise(unhandled_double_type) -- Result:= once "REAL_128"
 						end
 					else
 						std_error.put_line(unhandled_type + name)
 						last_error := unhandled_type
-						-- raise(unhandled_type)
 					end
-					-- searching name substrings
 				end
 				-- if name.is_equal(once "void")
 			when "Argument", "Typedef", "Variable", "Field" then
 				-- Recursively discover the correct type: the actual type
 				-- of a typedef is the type it is referring to.
+				
 				Result := eiffel_type_of(types.at(deconst(an_argument.attribute_at(once U"type"))))
 			when "Enumeration" then
 				Result := once "INTEGER_32"
@@ -178,21 +171,15 @@ feature {ANY} -- Type-system translations
 				std_error.put_line(once "FunctionType wrapped as a POINTER.")
 				Result := once "POINTER"
 			when "Struct" then
-				std_error.put_line(once "TODO: A function argument made by a C structure passed-by-value shall be wrapped using expandended external types.")
 				last_error := unhandled_structure_type
-				-- raise(unhandled_structure_type)
-			when "Function" then
+			when  "Function" then
 				std_error.put_line(once "C functions does not have a valid Eiffel wrapper type (a function pointer does have it).")
 				last_error := unhandled_type
-				-- raise(unhandled_type)
-			when "Union" then
-				std_error.put_line(once "TODO: C unions could be wrapped using external expanded types.")
+			when  "Union" then
 				last_error := unhandled_union_type
-				-- raise(unhandled_union_type)
-			when "ReferenceType" then
+			when  "ReferenceType" then
 				std_error.put_line(once "C++ reference does not have a valid Eiffel wrapper type.")
 				last_error := unhandled_reference_type
-				-- raise(unhandled_reference_type)
 			else
 				last_error := unhandled_type
 			end
@@ -230,6 +217,9 @@ feature {} -- Implementation
 			else
 				Result := a_string
 			end
+			-- debug 
+			-- 	log(once "deconst(@(1))=@(2)",<<a_string.out,Result.out>>)
+			-- end
 		end
 
 feature {ANY} -- Constants

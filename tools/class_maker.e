@@ -47,7 +47,6 @@ feature {ANY} -- Initialization
 			create setters
 			create low_level_values
 			create validity_query
-			create logger.make(std_error)
 		end
 
 	is_initialized: BOOLEAN is
@@ -134,24 +133,21 @@ feature {ANY} -- Processing XML input
 				end
 				if c_name /= Void then 
 					c_name_utf8 := c_name.as_utf8
-					if is_public(c_name_utf8) then
-						debug 
-							log(once " structure @(1) in line @(2) ",
-							<<c_name_utf8, a_node.line.out>>)
-						end
-						translate.types.put(a_node, id)
+					-- non-public structures shall be nevertheless be added to
+					-- the types dictionary otherwise the type translator will
+					-- get confused when dealing with typedefs referring to
+					-- those structures
+					debug
+						log(once " structure @(1) in line @(2) ", <<c_name_utf8, a_node.line.out>>)
+					end
+					translate.types.put(a_node, id)
+					if is_public(c_name_utf8) then 
 						structures.fast_put(a_node, c_name)
-					else
-						-- debug
-						-- 	log(once " skipping non-public structure @(1) in line @(2) ",
-						-- 	<<c_name_utf8,a_node.line.out>>)
-						-- end
 					end
 				else
-					-- debug 
-					-- 	log(once " skipping nameless structure in line @(1) ",
-					-- 	<<a_node.line.out>>)
-					-- end
+					debug 
+						log(once " skipping nameless structure in line @(1) ", <<a_node.line.out>>)
+					end
 				end
 			elseif name.is_equal(once U"Typedef") then
 				-- Store typedefs 
@@ -279,6 +275,9 @@ feature {ANY} -- Creation of external classes providing access to C functions
 	variadic: BOOLEAN
 			-- Is the function currently being emitted variadic?
 
+	unwrappable: BOOLEAN 
+		-- Is the function currently being emitted unwrappable?
+
 	emit_function (a_node: XML_COMPOSITE_NODE) is
 			-- Put the declaration for the function at `a_node' on
 			-- `output'.
@@ -288,48 +287,30 @@ feature {ANY} -- Creation of external classes providing access to C functions
 			output_not_void: output /= Void
 			connected_output: output.is_connected
 		local
-			name: STRING; unwrappable: BOOLEAN
+			name: STRING
 		do
-			if unwrappable then
-				-- TODO: This function logic is not clear at all... in fact
-				-- this if branch is executed only in case of a raised
-				-- exception. That's why name in the log tense is always
-				-- non-Void.
-				log(once "Function @(1) is not wrappable: @(2).%N",
-				<<name, developer_exception_name>>)
-				buffer.reset
-				if translate.last_error/=Void then
-					log("Couldn't wrap function @(1): @(2)%N",
-					<<name, translate.last_error>>)
-				else
-					buffer.put_message(once "%T-- Function @(1) not wrappable: exception code @(2)",
-					<<name, exception_label(exception)>>)
+			unwrappable:=False
+			c_function_name := a_node.attribute_at(once U"name").to_utf8
+			name := c_function_name.as_lower
+			if is_public(name) then
+				log(once "Function @(1)",<<name>>)
+				buffer.put_message(once "%T@(1)", <<adapt(name)>>)
+				if a_node.children_count > 0 then
+					append_function_arguments(a_node)
 				end
-			else
-				c_function_name := a_node.attribute_at(once U"name").to_utf8
-				name := c_function_name.as_lower
-				if is_public(name) then
-					log(once "Function @(1)",<<name>>)
-					buffer.put_message(once "%T@(1)", <<adapt(name)>>)
-					if a_node.children_count > 0 then
-						append_function_arguments(a_node)
-					end
-					append_return_type(a_node)
-					append_function_body(a_node)
-				else
-					log(once "Skipping 'hidden' function @(1)%N",
-					<<name>>)
+				append_return_type(a_node)
+				append_function_body(a_node)
+				if unwrappable then
+					--log(once "Function @(1) is not wrappable: @(2).%N", <<name, developer_exception_name>>)
+					-- buffer.reset
+					check translate.last_error/=Void end
+					-- if translate.last_error/=Void then
+					log("Function @(1) is not wrappable: @(2).%N", <<name, translate.last_error>>)
+					-- else buffer.put_message (once "%T-- Function @(1) not wrappable: exception code @(2)", <<name, exception_label(exception)>>) 
 				end
-			end
-			log_string(once "%N")
-			buffer.print_on(output)
-		rescue
-			if unwrappable then
-				die_with_code(12)
-			else 
-				die_with_code(11)
-				unwrappable := True
-				retry
+				log_string(once "%N")
+				buffer.print_on(output)
+			else log(once "Skipping 'hidden' function @(1)%N", <<name>>)
 			end
 		end
 
@@ -348,11 +329,9 @@ feature {ANY} -- Creation of external classes providing access to C functions
 			buffer.append(once " (")
 			log(once "( (@(1) args) ",<<a_node.children_count.out>>)
 			append_function_argument(a_node.child(1))
-			from i:=2 until i>a_node.children_count or variadic loop
-				buffer.append(once "; ")
-				check a_node/=Void end
-				child:=a_node.child(i)
-				check child/=Void end 
+			from i:=2 until i>a_node.children_count or variadic or unwrappable loop
+				buffer.append(once "; ") -- check a_node/=Void end
+				child:=a_node.child(i) -- check child/=Void end 
 				append_function_argument(child)
 				i := i + 1
 			end
@@ -370,23 +349,25 @@ feature {ANY} -- Creation of external classes providing access to C functions
 			an_argument?=a_node
 			if an_argument/=Void then
 				if an_argument.name.is_equal(once U"Argument") then
+					placeholder := an_argument.attribute_at(once U"name").to_utf8
+					if placeholder = Void then
+						-- Nameless prototype: providing sound default, using
+						-- line and column, which are locally unique.
+						placeholder := "an_argument_l"
+						an_argument.line.append_in(placeholder)
+						placeholder.append(once "_c")
+						an_argument.column.append_in(placeholder)
+					else
+						placeholder := eiffel_argument(placeholder) -- Eiffellize it
+					end
 					argument_type := translate.eiffel_type_of(an_argument)
-					if argument_type/=Void then
-						placeholder := an_argument.attribute_at(once U"name").to_utf8
-						if placeholder = Void then
-							-- Nameless prototype: providing sound
-							-- default, using line and column, which are
-							-- locally unique.
-							placeholder := "an_argument_l"
-							an_argument.line.append_in(placeholder)
-							placeholder.append(once "_c")
-							an_argument.column.append_in(placeholder)
-						else
-							placeholder := eiffel_argument(placeholder) -- Eiffellize it
-						end
+					if argument_type=Void then 
+						unwrappable:=True
+						log(once "Unwrappable argument @(1): @(2).%N", <<placeholder, translate.last_error>>)
+						buffer.put_message (once "%N%T%T%T-- argument @(1) unwrappable: @(2)%N",<<placeholder, translate.last_error>>)
+					else
 						log(once "@(1): @(2) ", <<placeholder, argument_type>>)
-						buffer.put_message (once
-						"@(1): @(2)", <<placeholder, argument_type>>)
+						buffer.put_message (once "@(1): @(2)", <<placeholder, argument_type>>)
 					end
 				elseif an_argument.name.is_equal(once U"Ellipsis") then
 					log_string(once " .... ")
@@ -411,8 +392,9 @@ feature {ANY} -- Creation of external classes providing access to C functions
 			if returns = Void then
 				buffer.put_message ("%N%T%T%T-- unwrappable return type: @(1)%N",
 				<<translate.last_error>>)
+				unwrappable:=True
 			elseif returns.is_empty then
-				-- Nothing; the correct "return type" of a C command is having no result.
+				-- Nothing; the correct "return type" of a C function returning void (i.e. a command) is an empty string.
 			else
 				buffer.append(once ": ")
 				buffer.append(returns)
@@ -451,7 +433,6 @@ feature {ANY} -- Low-level structure class creator
 						name_not_void: name /= Void
 					end
 					structure := structures.reference_at(referred_type)
-					check structures.fast_has(referred_type) end
 					if structure /= Void then
 						-- Referred type is actually a structure
 						file_id := structure.attribute_at(once U"file")
@@ -464,6 +445,8 @@ feature {ANY} -- Low-level structure class creator
 							log("Typedef struct @(1) skipped: defined in an non-desired header.%N",
 							<<structure.name.as_utf8>>)
 						end
+					else
+						log("@(1) will not be wrapped%N",<<referred_type.as_utf8>>)
 					end
 				end
 				iterator.next
@@ -498,7 +481,7 @@ feature {ANY} -- Low-level structure class creator
 			is_function_node: a_node.name.is_equal(once U"Struct")
 			name_not_void: a_structure_name /= Void
 		local
-			classname, filename: STRING; path: POSIX_PATH_NAME; unwrappable: BOOLEAN
+			classname, filename: STRING; path: POSIX_PATH_NAME
 		do
 			if unwrappable then
 				buffer.reset
@@ -1050,9 +1033,6 @@ feature {} -- Implementation
 	validity_query: FORMATTER
 			-- Temporary strings used to build enumerations and structures external classes
 
-	logger: STRING_PRINTER
-			-- The formatter used to log messages
-
 feature {} -- Constants
 	variadic_function_note: STRING is "%T%T%T-- Variadic call%N"
 
@@ -1084,25 +1064,6 @@ feature {} -- Constants
 		]"
 
 feature {} -- Auxiliary features
-	log_string (a_string: STRING) is
-			-- If verbose print `a_string' to logger's output
-		do
-			if verbose then
-				std_error.put_string(a_string)
-			end
-		end
-
-	log (a_message: TRAVERSABLE[CHARACTER]; some_arguments: TRAVERSABLE[ANY]) is
-			-- Utility feature to replace "if verbose then logger.put_message(foo,bar) end" with "log(foo,bar)"
-		require
-			a_message /= Void
-			some_arguments /= Void
-		do
-			if verbose then
-				logger.put_message(a_message, some_arguments)
-			end
-		end
-
 	format (a_string: STRING; some_arguments: TRAVERSABLE[ANY]): STRING is
 			-- `a_string' formatted with the usual rules of a STRING_FORMATTER using `some_arguments'
 		do

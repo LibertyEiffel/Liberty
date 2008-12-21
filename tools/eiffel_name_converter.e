@@ -187,6 +187,10 @@ feature {ANY} -- Auxiliary features
 			-- is somehow unacceptable in a perfect world. Yet computing
 			-- it each and every time would enlarge the memory usage of
 			-- the program wildly, not counting the runtime requirements.
+			-- The following "static" definition of the features of ANY
+			-- is somehow unacceptable in a perfect world. Yet computing
+			-- it each and every time would enlarge the memory usage of
+			-- the program wildly, not counting the runtime requirements.
 		once
 			-- The following "static" definition of the features of ANY
 			-- is somehow unacceptable in a perfect world. Yet computing

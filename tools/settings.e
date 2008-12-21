@@ -1,5 +1,5 @@
 class SETTINGS
-
+	-- 
 inherit
 	SINGLETON
 
