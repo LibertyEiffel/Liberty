@@ -34,7 +34,7 @@ insert
          from_external_pointer
       end
    
-feature {}
+feature 
 	dispose is
 			-- Action to be executed just before garbage collection
 			-- reclaims an object; if not shared frees the memory pointed
@@ -43,11 +43,15 @@ feature {}
 			if is_not_null then
 				if is_shared then
 					debug 
-						print("Disposing a shared " + generating_type + "; handle not freed%N")
+						print(once "Disposing a shared ")
+						print(generating_type)
+						print(once "; handle not freed%N")
 					end
 				else
 					debug 
-						print("Disposing an unshared " + generating_type + " and freeing its handle.%N")
+						print("Disposing an unshared ")
+						print(generating_type)
+						print(" and freeing its handle.%N")
 					end
 					free (handle)
 				end

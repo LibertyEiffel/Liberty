@@ -28,11 +28,13 @@ inherit
          from_external_pointer
       end
 
-feature {} -- Disposing 
+feature -- Disposing 
 	dispose is
 		do
 			debug 
-				print("Disposing an Eiffel owned " + generating_type + " and freeing handle.%N")
+				print(once "Disposing an Eiffel owned ")
+				print(generating_type)
+				print(once " and freeing handle.%N")
 			end
 			free (handle) -- Note: free(NULL) is a NOP and has no side-effects
 			handle := default_pointer -- make sure the C object is not used anymore

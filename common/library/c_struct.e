@@ -31,7 +31,7 @@ feature {} -- Initialization
 
 	from_external_copy (other: POINTER) is
 		do
-			dispose
+			--dispose
 			if other.is_not_null then
 				allocate
 				handle := memcpy (handle, other, struct_size)

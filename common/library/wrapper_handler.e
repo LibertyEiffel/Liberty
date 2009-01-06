@@ -20,6 +20,7 @@ indexing
 			]"
 
 deferred class WRAPPER_HANDLER
+	-- A class that can access some internal representation of a WRAPPER.
 
 inherit
 	ANY
