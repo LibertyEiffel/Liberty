@@ -19,7 +19,13 @@ indexing
 			]"
 
 class GTK_TREE_PATH_LIST
+	-- A list of GTK_TREE_PATH. An instance of this class and its contained
+	-- GTK_TREE_PATH are mostly certainly a temporary, short-lived, transient
+	-- objects used in callback agents of a GTK_TREE_MODEL. Therefore as a
+	-- temporary solution we willingfully don't handle correctly wrapper
+	-- uniqueness. 
 
+	-- TODO: properly implement TRANSIENT
 inherit 	G_LIST[GTK_TREE_PATH] redefine dispose end
 
 insert GTK_TREE_MODEL_EXTERNALS undefine fill_tagged_out_memory end

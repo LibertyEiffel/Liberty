@@ -23,16 +23,36 @@ indexing
 
 class GTK_ACCELERATOR_MAP
 
-inherit SHARED_C_STRUCT
+inherit 
+	C_STRUCT 
+		redefine default_create 
+		end
 
-insert GTK_ACCEL_MAPS_EXTERNALS
+	SINGLETON 
+		undefine copy,is_equal 
+		redefine default_create
+		end
 
--- creation dummy
-	
-feature {} -- Creation
-	-- typedef struct _GtkAccelMap GtkAccelMap;
+insert 
+		GTK_ACCEL_MAPS_EXTERNALS redefine default_create end
 
-	--  gtk_accel_map_add_entry ()
+creation default_create
+
+feature 
+	default_create is
+		-- Create the singleton global GTK_ACCELERATOR_MAP object. This object
+		-- is useful only for notification of changes to the accelerator map
+		-- via the ::changed signal; it isn't a parameter to the other
+		-- accelerator map functions.
+
+	do
+		from_external_pointer (gtk_accel_map_get)
+
+	end
+
+feature {} -- Unwrapped code
+
+	--add_entry ()
 	--
 	-- void        gtk_accel_map_add_entry         (const gchar *accel_path,
 	--                                              guint accel_key,
@@ -178,18 +198,6 @@ feature {} -- Creation
 	--
 	--   data :         data to be passed into foreach_func
 	--   foreach_func : function to be executed for each accel map entry
-
-	--  gtk_accel_map_get ()
-	--
-	-- GtkAccelMap* gtk_accel_map_get              (void);
-	--
-	--   Gets the singleton global GtkAccelMap object. This object is useful only
-	--   for notification of changes to the accelerator map via the ::changed
-	--   signal; it isn't a parameter to the other accelerator map functions.
-	--
-	--   Returns : the global GtkAccelMap object
-	--
-	--   Since 2.4
 
 	--  gtk_accel_map_lock_path ()
 	--
