@@ -22,11 +22,14 @@ indexing
             -- TODO fix this class
 
 expanded class GDK_ATOM
+	-- An opaque type representing a string as an index into a table s on the X server.
+ 
+insert WRAPPER
+	-- Note for the developers of Eiffel Wrapper Libraries Collection (EWLC):
+	-- here I use only the plain wrapper because memory handling in C is
+	-- automatic and it does not matter how an atom is actually implemented.
 
---insert
---	EXPANDED_WRAPPER
-		
-create initialize
+creation initialize
 
 feature
 	initialize is 

@@ -156,7 +156,10 @@ feature -- Common fields
 		local
 			 factory: G_OBJECT_EXPANDED_FACTORY[GDK_WINDOW]
 		do
-			Result := factory.existant_wrapper (gdk_event_any_get_window (handle))
+			if internal_window=Void then
+				internal_window := factory.existant_wrapper (gdk_event_any_get_window (handle))
+			end
+			Result:=internal_window
 		end
 
 	send_event: BOOLEAN is
@@ -185,7 +188,7 @@ feature -- Memory handling
 		alias "sizeof(GdkEvent)"
 		end
 
-
+	internal_window: GDK_WINDOW
 
 	invariant handle_is_not_null: is_not_null
 end -- class GDK_EVENT

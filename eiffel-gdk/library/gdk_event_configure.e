@@ -22,38 +22,11 @@ indexing
 class GDK_EVENT_CONFIGURE
 	-- Generated when a window size or position has changed.
 	
-inherit GDK_EVENT redefine send_event end 
+inherit GDK_EVENT 
 		
 creation  from_external_pointer
 
-feature {WRAPPER, WRAPPER_HANDLER} -- Creation
-	from_external_pointer(a_pointer: POINTER) is
-		do
-			Precursor(a_pointer)
-			create internal_window.from_external_pointer(default_pointer)
-		end
-
 feature
-	type: INTEGER is
-			-- the type of the event (GDK_CONFIGURE).
-		do
-			Result := get_type(handle)
-		end
-
-	window: GDK_WINDOW is
-			-- the window which received the event.
-		do
-			internal_window.from_external_pointer(get_window(handle))
-			Result:=internal_window
-		end
-	
-	send_event: BOOLEAN is
-			-- Have the event been sent explicitly (e.g. using 
-			-- XSendEvent)?
-		do
-			Result:=get_send_event(handle).to_boolean
-		end
-	
 	x: INTEGER is
 			-- the new x coordinate of the window, relative to its 
 			-- parent.
@@ -119,12 +92,5 @@ feature {} -- Structure getter/setter calls
 		external "C struct GdkEventExpose get height use <gdk/gdk.h>"
 		end
 
-	internal_window: GDK_WINDOW
-
--- feature -- size
--- 	struct_size: INTEGER is
--- 		external "C inline use <gdk/gdk.h>"
--- 		alias "sizeof(GdkEventConfigure)"
--- 		end
 
 end -- class GDK_EVENT_CONFIGURE
