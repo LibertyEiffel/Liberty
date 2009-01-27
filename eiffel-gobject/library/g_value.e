@@ -9,6 +9,7 @@ class G_VALUE
 
 inherit
 	C_STRUCT
+	FREEZABLE
 
 insert
 	G_TYPE
@@ -547,13 +548,16 @@ feature
 feature {} -- Disposing
 
 	dispose is
+		-- If not petriefied unset and free the value.
 		do
-			if is_initialized then
-				g_value_unset (handle)
-			else
-				print ("G_VALUE::dispose: disposing an uninitialised G_VALUE%N")
+			if not is_petrified then
+				if is_initialized then
+					g_value_unset (handle)
+				else
+					print ("G_VALUE::dispose: disposing an uninitialised G_VALUE%N")
+				end
+				g_free (handle)
 			end
-			g_free (handle)
 			handle := default_pointer
 		end
 

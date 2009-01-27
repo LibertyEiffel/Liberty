@@ -27,6 +27,11 @@ inherit ANY undefine is_equal, copy end
 
 feature {} -- External calls
 
+	gdk_cairo_create (a_drawable : POINTER) : POINTER is
+    external "C use <gdk/gdk.h>"
+    end
+
+
 	gdk_drawable_get_display (a_gdkdrawable: POINTER): POINTER is -- GdkDisplay*
 		external "C use <gdk/gdk.h>"
 		end

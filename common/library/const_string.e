@@ -21,15 +21,16 @@ indexing
 
 class CONST_STRING
 	-- An efficient wrapper for const pointer to strings returned by
-	-- many C functions.  
+	-- many C functions. No further memory is allocated when a CONST_STRING is created: the buffer of the C library is used directly. 
 
 	-- For example, GTK+ has many calls like this (taken from its
 	-- documentation):
 
 	-- const gchar* gtk_entry_get_text (GtkEntry *entry);
 	
-	-- Changing instances of this class is not the best idea.  Consider
-	-- using feature string to get a (non-const) STRING.
+	-- Memory efficiency is gained with slower changing features. If you need
+	-- to change its content consider using feature string to get a new
+	-- (non-const) STRING with the same content.
 
 inherit 
 	STRING

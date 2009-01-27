@@ -41,9 +41,10 @@ inherit
 		redefine 
 			from_external_pointer 
 		end
-   
-	MIXED_MEMORY_HANDLING
-
+	MIXED_MEMORY_HANDLING 
+		undefine-- TODO: check it C_OWNED is actually better.	
+			from_external_pointer 
+		end
 insert
 	G_PARAM_SPEC_EXTERNALS
 	G_TYPE_EXTERNALS
@@ -54,7 +55,7 @@ feature -- Creation
 	from_external_pointer (a_ptr: POINTER) is
 			-- TODO: G_PARAM_SPEC should be deferred and its place should be taken by specialized heirs such as G_PARAM_SPEC_BOOLEAN
 		do
-			Precursor (a_ptr)
+			Precursor {C_STRUCT} (a_ptr)
 			owner_class := g_type_class_peek (get_owner_type (a_ptr))
 			param_id := get_param_id (a_ptr)
 		end

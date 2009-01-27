@@ -45,6 +45,11 @@ inherit
 			from_external_pointer
 		end
 
+	REFERENCE_COUNTED 
+		redefine 
+			dispose
+		end
+
 insert
 	CAIRO_CONTEXT_EXTERNALS
 	CAIRO_PATH_EXTERNALS

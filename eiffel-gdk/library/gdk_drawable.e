@@ -43,6 +43,17 @@ inherit G_OBJECT
 insert GDK_DRAWABLE_EXTERNALS
 
 feature
+	context: CAIRO_CONTEXT is
+    	-- A (newly allocated) context for drawing to drawable. 
+	do
+    	create Result.from_external_pointer (handle)
+		-- Note: A CAIRO_CONTEXT will automatically call cairo_destroy when
+		-- disposed. In fact, since it is a REFERENCE_COUNTE when disposed. In
+		-- fact, since it is a REFERENCE_COUNTED, its memory will be handled by
+		-- SmartEiffel garbage collector.
+  	end	
+	
+
 
 	-- TODO: display: GDK_DISPLAY is
 	-- the GdkDisplay associated with a GdkDrawable.
