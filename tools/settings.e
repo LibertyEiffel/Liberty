@@ -15,6 +15,8 @@ feature {ANY} -- Queries
 
 	are_naturals_used: BOOLEAN
 
+	patches_are_appliable: BOOLEAN
+
 feature {ANY} -- Setters
 	set_verbose (a_value: BOOLEAN) is
 		do
@@ -41,4 +43,13 @@ feature {ANY} -- Setters
 			are_naturals_used := False
 		end
 
+	apply_patches is
+		do
+			patches_are_appliable := True
+		end
+
+	do_not_apply_patches is
+		do
+			patches_are_appliable:=False
+		end
 end -- class SETTINGS

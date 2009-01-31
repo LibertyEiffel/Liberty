@@ -103,7 +103,8 @@ feature {ANY}
 					elseif arg.is_equal(once "--use-integers") then
 						settings.use_integers
 					elseif arg.is_equal(once "--apply-patches") then
-						print("Patches applying not yet implemented.")
+						settings.apply_patches
+						print("Patches applying is being implemented.")
 					elseif arg.is_equal(once "--verbose") or else arg.is_equal(once "-v") then
 						settings.set_verbose(True)
 					elseif arg.is_equal(once "--directory") then

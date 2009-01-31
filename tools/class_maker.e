@@ -93,11 +93,11 @@ feature {ANY} -- Processing XML input
 				end
 			end
 			log_string(once "Making external functions classes.%N")
-			make_external_classes
+			functions.do_all(agent examine_functions)	
 			log_string(once "Making structure accessing classes.%N")
 			make_structures
 			log_string(once "Making enumerations classes.%N")
-			make_enumerations
+			enumerations.do_all(agent emit_enumeration)	
 
 		end
 
@@ -206,19 +206,16 @@ feature {ANY} -- Processing XML input
 		end
 
 feature {ANY} -- Creation of external classes providing access to C functions
-	make_external_classes is
-		do
-			functions.do_all(agent examine_functions)
-		end
-
 	examine_functions (some_functions: LINKED_LIST[XML_COMPOSITE_NODE]; a_file_id: UNICODE_STRING) is
+	-- Emit the wrappers for each function in `some_functions' that are
+	-- contained in the file idenitied in the XML description by `a_file_id'
+	-- (note that this is not the name of the file).
 		require
 			not_void_functions: some_functions /= Void
 			file_name_not_void: a_file_id /= Void
 		local
 			header_name, wrapper_name: STRING; path, file_path: POSIX_PATH_NAME
 		do
-			-- create header_name.copy(files_by_id.at(a_file_id).attribute_at (once U"name"))
 			header_name := files_by_id.at(a_file_id).attribute_at(once U"name").to_utf8
 			if is_to_be_emitted(header_name) then
 				if directory = Void then
@@ -234,6 +231,10 @@ feature {ANY} -- Creation of external classes providing access to C functions
 					file_path.make_from_string(wrapper_name)
 					create path.make_from_string(directory)
 					path.join(file_path)
+					if file_path.is_file then
+						log(once "Copying existing file @(1) onto @(1).orig.%N",<<path.to_string>>)
+						copy_to(path.to_string, path.to_string+once ".orig")
+					end
 					log(once "Outputting wrapper for functions found in file @(1) on @(2).%N",
 					<<header_name, path.to_string>>)
 					create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
@@ -438,6 +439,10 @@ feature {ANY} -- Low-level structure class creator
 						file_id := structure.attribute_at(once U"file")
 						file_name := files.at(file_id).attribute_at(once U"name").to_utf8
 						if is_to_be_emitted(file_name) then
+							if is_file(file_name) then
+								log(once "Copying existing file @(1) onto @(1).orig.%N",<<file_name>>)
+								copy_to(file_name,file_name+once ".orig")
+							end
 							log(once "Wrapping typedef structure @(1).%N", <<name>>)
 							emit_structure(structure, name)
 							structures.fast_remove(referred_type)
@@ -504,6 +509,11 @@ feature {ANY} -- Low-level structure class creator
 						create path.make_from_string(directory)
 						path.add_last(eiffel_class_file_name(filename))
 						filename := path.to_string
+						if path.is_file then
+							log(once "Copying existing file @(1) onto @(1).orig.%N",<<filename>>)
+							copy_to(filename, filename+once ".orig")
+						end
+	
 						log(once "Struct @(1) to class @(2) in @(3)%N",
 						<<a_structure_name, classname, filename>>)
 						create {TEXT_FILE_WRITE} output.connect_to(filename)
@@ -584,14 +594,6 @@ feature {ANY} -- Low-level structure class creator
 		end
 
 feature {ANY} -- Enumeration class creator
-	make_enumerations is
-		do
-			setters.reset
-			queries.reset
-			low_level_values.reset
-			enumerations.do_all(agent emit_enumeration)
-		end
-
 	emit_enumeration (a_node: XML_COMPOSITE_NODE; an_enum_name: UNICODE_STRING) is
 		require
 			node_not_void: a_node /= Void
@@ -995,6 +997,21 @@ feature {ANY} -- Auxiliary features
 			Result := global or else headers.has(a_file_name)
 		end
 
+	apply_patches (a_file_name: STRING) is
+			-- Apply to `a_file_name' the differences found in the file with name `a_file_name' replacing ".e" suffix with ".diff"
+		local diff_file_name: STRING; system: SYSTEM
+		do
+			if a_file_name.has_suffix(once ".e") and then file_exists(a_file_name) then
+				create diff_file_name.copy(a_file_name)
+				diff_file_name.remove_suffix(once ".e")
+				diff_file_name.append_string(once ".diff")
+				if file_exists(diff_file_name) then
+					log(once "Applying patches from @(1) to @(2)%N",<<diff_file_name,a_file_name>>)
+					system.execute_command_line("patch "+a_file_name+" "+diff_file_name)
+				end	
+			end
+		end
+		
 feature {ANY} -- Data structures
 	input: INPUT_STREAM
 
@@ -1060,6 +1077,17 @@ feature {} -- Constants
 		-- This file have been created by eiffel-gcc-xml.
 		-- Any change will be lost by the next execution of the tool.
 
+
+		]"
+
+	automatically_patched_header: STRING is 
+		-- Label 
+		"[
+		-- This file have been automatically created combining the output file
+		-- of eiffel-gcc-xml @(1)
+		-- with the differences patches found into @(2)
+
+		-- Any change will be lost by the next execution of the tool.
 
 		]"
 
