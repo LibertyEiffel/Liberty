@@ -60,6 +60,7 @@ cluster -- section
 	glib: "${eiffel_libraries}/eiffel-glib/library/loadpath.se"
 	gobject: "${eiffel_libraries}/eiffel-gobject/library/loadpath.se"
 	pango: "${eiffel_libraries}/eiffel-pango/library/loadpath.se"
+	cairo: "${eiffel_libraries}/eiffel-cairo/library/loadpath.se"
 	hello_demo: "."
 
 	standard: "${path_lib}/loadpath.se"

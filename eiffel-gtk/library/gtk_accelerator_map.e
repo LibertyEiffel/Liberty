@@ -27,6 +27,10 @@ inherit
 	C_STRUCT 
 		redefine default_create 
 		end
+	
+	C_OWNED
+		redefine default_create
+		end
 
 	SINGLETON 
 		undefine copy,is_equal 

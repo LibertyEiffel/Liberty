@@ -680,6 +680,8 @@ feature -- global windows features
 			-- (GFunc)g_object_ref, NULL)" (implemented in
 			-- `ref_all_toplevels') first, and then unref all the widgets
 			-- afterwards.
+		
+			-- TODO: I'm not sure toplevels shall be reffed.
 			ref_all_toplevels (Result.handle)
 		end
 
@@ -774,7 +776,7 @@ feature -- Global error
 	
 feature {} -- External calls for global windows features
 	ref_all_toplevels (toplevel_list: POINTER) is
-		external "C use <gtk/gtk.h>"
+		external "C inline use <gtk/gtk.h>"
 		alias "g_list_foreach ($toplevel_list, (GFunc)g_object_ref, NULL)"
 		end
 

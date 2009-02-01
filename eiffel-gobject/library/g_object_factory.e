@@ -40,11 +40,14 @@ insert
 	G_TYPE_EXTERNALS
 	SHARED_CREATION_DICTIONARY
 	SHARED_EIFFEL_KEY
+	EXCEPTIONS undefine copy,is_equal end 
 
 feature {WRAPPER,WRAPPER_HANDLER}
 	existant_wrapper (a_pointer: POINTER): ITEM is
 			-- Retrieve the eiffel wrapper object from gobject's
-			-- `a_pointer' or Void when it does not have a wrapper.
+			-- `a_pointer' or Void when it does not have a wrapper conforming
+			-- to ITEM (i.e. if you ask for GTK_RADIO_BUTTON when it is
+			-- actually a GTK_BUTTON Result is still Void).
 
 			-- Useful when you precisely know the type of a wrapper but
 			-- you still want to avoid wrapper duplication; i.e.:
@@ -54,7 +57,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			-- if Result=Void then create Result.from_external_pointer(pointer) end
 		require pointer_is_gobject: g_is_object(a_pointer)=1
 		do
-			Result := g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
+			Result ?= g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
 		end
 
 	existant_wrapper_or_void (a_pointer: POINTER): ITEM is
@@ -81,60 +84,52 @@ feature {WRAPPER,WRAPPER_HANDLER}
 	unreffed_wrapper (a_pointer: POINTER): ITEM is
 			-- A non-referred wrapper. See `wrapper' for further
 			-- informations
-		require pointer_is_gobject: g_is_object(a_pointer)=1
+		require pointer_is_gobject: g_is_object(a_pointer)/=0
 		local
-			generic_function: FUNCTION[TUPLE[POINTER],G_OBJECT]
+			generic_function: FUNCTION[TUPLE[POINTER],G_OBJECT] 
 			function: FUNCTION[TUPLE[POINTER],ITEM]
 			typename: STRING; type: like g_type --; fundamental_type_found: BOOLEAN
 		do
+			create typename.from_external_copy(g_object_type_name(a_pointer))
 			debug	
-				std_error.put_string(once "G_OBJECT_FACTORY.wrapper(")
-				std_error.put_pointer(a_pointer)
-				std_error.put_string(once "): ")
+				std_error.put_string(once "G_OBJECT_FACTORY.wrapper(") std_error.put_pointer(a_pointer)
+				std_error.put_string(once "): is a ") std_error.put_string(typename)
 			end
 			Result := existant_wrapper (a_pointer)
 			if Result/=Void then
 				debug 
-					std_error.put_string(type_name_from_gobject_pointer(a_pointer))
 					std_error.put_string(once " wrapped by a ")
-					std_error.put_line(Result.generator)					
+					std_error.put_line(Result.generator)
 				end
 			else
-				type :=g_object_type(a_pointer) 
-				create typenamestype_name_from_gobject_pointer(a_pointer)
-				debug 
-					std_error.put_string(once " pointer is a ")
-					std_error.put_string(typename)
-				end
-				typename.from_external_copy(g_type_name(type))
-				function ?= creation_agents.reference_at(typename)
-				if function/=Void then 
-					debug std_error.put_string(once " invoking wrapper-creating function ") end
-					Result:=function.item([a_pointer])
-				else
-					-- Climb the hierarchy until we find and a creation
-					-- function. Starting examining the parent class of the
-					-- object; we already know that current class does not
-					-- have a function.
-					from type:=g_type_parent(type_from_gobject_pointer(a_pointer))
-					until Result/=Void or else g_type_is_fundamental(type)
-					loop
-						typename.from_external_copy(g_type_name(type))
-						function?=creation_agents.reference_at(typename)
-						if function=Void then 
-							debug
-								std_error.put_string(typename+" ("+type.out+") does not have a creation function agent; ")
-							end
-							type:=g_type_parent(type)
-						else 
-							debug
-								std_error.put_line("Invoking "+function.out+" for "+typename+" ("+type.out+").")
-							end
-							Result:=function.item([a_pointer])
+				-- Climb the hierarchy until we find and a creation
+				-- function. Starting examining the parent class of the
+				-- object; we already know that current class does not
+				-- have a function.
+				from 
+					type :=g_object_type(a_pointer) 
+					generic_function := creation_agents.reference_at(typename)
+					function ?= generic_function
+				until Result/=Void or else g_type_is_fundamental(type)
+				loop
+					if function=Void then 
+						debug
+							std_error.put_string(" "+typename+" ("+type.out+") does not have a creation function agent; ")
 						end
-					end
-					debug
-						if g_type_is_fundamental(type) then std_error.put_line("Fundamental type reached.") end
+						type:=g_type_parent(type)
+						typename.from_external_copy(g_object_type_name(a_pointer))
+						if g_type_is_fundamental(type) then 
+							raise("G_OBJECT_FACTORY.(unreffed_)wrapper: %
+							%I climbed GObject hierarchy to find a class known by Eiffel %
+							%but I come to the fundamental type: no known wrapper.") 
+						end
+						generic_function := creation_agents.reference_at(typename)
+						function ?= generic_function
+					else 
+						debug
+							std_error.put_line("Invoking "+function.out+" for "+typename+" ("+type.out+").")
+						end
+						Result:=function.item([a_pointer])
 					end
 				end
 			end
@@ -181,8 +176,9 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			-- we fallback to a less efficient
 			-- create Result.from_external_copy(g_object_type_name(a_pointer))
 		end
+
 feature {} -- External call
-	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: INTEGER_32): ITEM is
+	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: INTEGER_32): G_OBJECT is
 			-- This function gets back the Eiffel wrapper stored using `g_object_set_qdata'
 		external "C use <glib-object.h>"
 		alias "g_object_get_qdata"

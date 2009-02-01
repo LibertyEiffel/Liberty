@@ -39,12 +39,11 @@ class G_PARAM_SPEC
 inherit
 	C_STRUCT
 		redefine 
-			from_external_pointer 
+			from_external_pointer
 		end
 	MIXED_MEMORY_HANDLING 
-		undefine-- TODO: check it C_OWNED is actually better.	
-			from_external_pointer 
-		end
+	-- TODO: check it C_OWNED is actually better.	
+	--	undefine from_external_pointer end
 insert
 	G_PARAM_SPEC_EXTERNALS
 	G_TYPE_EXTERNALS

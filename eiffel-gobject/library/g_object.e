@@ -268,7 +268,16 @@ feature -- Disposing
 			-- cleans its handle. The actual reclaiming of the memory
 			-- allocated on the C side is left to the gobject runtime.
 			check is_g_object end 
-			if is_main_wrapper then unstore_eiffel_wrapper end
+			if is_main_wrapper then 
+				debug
+					std_error.put_line("G_OBJECT.dispose: disposing the main wrapper of a "+type_name)
+				end
+				unstore_eiffel_wrapper
+			else
+				debug
+					std_error.put_line("G_OBJECT.dispose: not disposing "+to_pointer.out+" not a main wrapper of a "+type_name)
+				end
+			end
 			debug print(once "Unreffing a "+generating_type+"%N") end
 			unref
 			-- There are some shared G_OBJECTS that we shouldn't unref.

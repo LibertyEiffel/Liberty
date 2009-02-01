@@ -1053,18 +1053,15 @@ feature -- Focusing
 -- 		end
 
 
--- 	gtk_window_get_title (window: POINTER): POINTER is
--- 			-- Retrieves the title of the window. See
--- 			-- gtk_window_set_title().
-		
--- 			-- window : 	a GtkWindow
-		
--- 			-- Returns : (const gchar*) the title of the window, or NULL
--- 			-- if none has been set explicitely. The returned string is
--- 			-- owned by the widget and must not be modified or freed.
--- 		external "C use <gtk/gtk.h>"
--- 		end
-
+	title: CONST_STRING is
+		-- The title of the window, or Void if none has been set explicitely. 
+	local p: POINTER
+	do
+		p:=gtk_window_get_title (handle)
+		if p.is_not_null then 
+			create Result.from_external(p) 
+		end
+	end
 
 -- 	gtk_window_get_transient_for (window: POINTER): POINTER is
 -- 			-- Fetches the transient parent for this window. See
