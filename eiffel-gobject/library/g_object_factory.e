@@ -99,11 +99,14 @@ feature {WRAPPER,WRAPPER_HANDLER}
 					std_error.put_string(once " wrapped by a ")
 					std_error.put_line(Result.generator)					
 				end
-			else 
+			else
+				type :=g_object_type(a_pointer) 
+				create typenamestype_name_from_gobject_pointer(a_pointer)
 				debug 
 					std_error.put_string(once " pointer is a ")
-					std_error.put_string(type_name_from_gobject_pointer(a_pointer))
+					std_error.put_string(typename)
 				end
+				typename.from_external_copy(g_type_name(type))
 				function ?= creation_agents.reference_at(typename)
 				if function/=Void then 
 					debug std_error.put_string(once " invoking wrapper-creating function ") end
@@ -135,8 +138,6 @@ feature {WRAPPER,WRAPPER_HANDLER}
 					end
 				end
 			end
-		rescue
-			std_error.put_string(generator)
 		end
 
 	unreffed_wrapper_or_void (a_pointer: POINTER): ITEM is
@@ -170,21 +171,15 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			Result := (g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
 		end
 
-	type_from_gobject_pointer (a_pointer: POINTER): INTEGER is
-			-- Retrieve the type id from gobject's `a_pointer'.
-		require
-			pointer_not_null: a_pointer.is_not_null
-		do
-			Result := g_object_type (a_pointer)
-		end
-
 	type_name_from_gobject_pointer (a_pointer: POINTER): STRING is
 			-- Retrieve the type name from gobject's `a_pointer'.
 		require
 			pointer_not_null: a_pointer.is_not_null
 		do
-			--create {CONST_STRING} Result.from_external(g_object_type_name(a_pointer))
-			create Result.from_external_copy(g_object_type_name(a_pointer))
+			-- TODO: use a CONST_STRING... currently the following violates some precondtions in STRING
+			create {CONST_STRING} Result.from_external(g_object_type_name(a_pointer))
+			-- we fallback to a less efficient
+			-- create Result.from_external_copy(g_object_type_name(a_pointer))
 		end
 feature {} -- External call
 	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: INTEGER_32): ITEM is
