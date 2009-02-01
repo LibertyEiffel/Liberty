@@ -14,3 +14,4 @@
 ./eiffel-glib/library/loadpath.se
 ./eiffel-xmlrpc/library/loadpath.se
 ./eiffel-pango/library/loadpath.se
+./eiffel-goocanvas/library/loadpath.se
