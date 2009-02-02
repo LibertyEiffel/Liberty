@@ -19,7 +19,7 @@ insert
 	
 creation
 	make, from_external_pointer, with_gtype,
-	make_boolean, make_integer, make_natural, make_real, make_real_32,
+	make_boolean, make_integer, make_natural, make_real, make_real_64, make_real_32,
 	make_string, make_object, make_pointer,
 	from_boolean, from_integer, from_natural, from_real, from_string,
 	from_object, from_pointer
@@ -81,7 +81,7 @@ feature {} -- Creation
 		ensure is_natural: is_natural
 		end
 
-	make_real is
+	make_real, make_real_64 is
 			-- create a new real G_VALUE (Note: using C type `double'
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
@@ -154,7 +154,7 @@ feature {} -- Creation
 			value_set: natural = a_natural
 		end
 
-	from_real (a_real: REAL) is
+	from_real, from_real_64 (a_real: REAL_64) is
 			-- create a new real G_VALUE (Note: using C type `double'
 		do
 			handle := g_value_init (malloc_g_value, g_type_double)
@@ -316,13 +316,13 @@ feature {ANY} -- Natural
 
 feature {ANY} -- Real
 
-	is_real: BOOLEAN is
+	is_real, is_real_64: BOOLEAN is
 			-- Is current value a real? Note: REAL is mapped to C double
 		do
 			Result := g_value_holds_double (handle).to_boolean
 		end
 
-	real: REAL is
+	real, real_64: REAL is
 			-- If current value is an real, returns it. Note: REAL is mapped to C double
 		require
 			is_real: is_real
@@ -330,7 +330,7 @@ feature {ANY} -- Real
 			Result := g_value_get_double (handle)
 		end
 
-	set_real (a_value: REAL) is
+	set_real, set_real_64 (a_value: REAL_64) is
 			-- If the current value is a real, set it. Note: REAL is mapped to C double
 		require
 			is_real: is_real
@@ -506,7 +506,7 @@ feature {G_OBJECT} -- Type changing features
 			is_natural: is_natural
 		end
 
-	turn_to_real is
+	turn_to_real, turn_to_real_64 is
 			-- Reset Current and make it a real value
 		do
 			if is_initialized then

@@ -350,7 +350,7 @@ feature -- TODO: REAL_32 (float) parameter
 
 	default_real_32: REAL_32 is
 			-- The default integer value
-		require is_integer: is_integer
+		require is_real_32: is_real_32
 		do
 			Result := get_default_float (handle)
 		end
@@ -370,6 +370,32 @@ feature -- TODO: REAL_32 (float) parameter
 		end
 
 feature -- TODO: REAL_64 (double) parameter
+	is_real_64: BOOLEAN is
+			-- Is this an real_64 parameter?
+		do
+			Result := g_is_param_spec_double (handle).to_boolean
+		end
+
+	default_real_64: REAL_64 is
+			-- The default integer value
+		require is_real_64: is_real_64
+		do
+			Result := get_default_double (handle)
+		end
+
+	minimum_real_64: REAL_64 is
+			-- The minimum real_64 value
+		require is_real_64: is_real_64
+		do
+			Result := get_min_double (handle)
+		end
+
+	maximum_real_64: REAL_64 is
+			-- The maximum real_64 value
+		require is_real_64: is_real_64
+		do
+			Result := get_max_double (handle)
+		end
 
 feature -- TODO: enum parameter. Note: this need a wrapper for G_ENUM
 	is_enum: BOOLEAN is

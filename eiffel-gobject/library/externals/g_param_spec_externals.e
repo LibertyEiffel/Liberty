@@ -880,11 +880,11 @@ feature {} -- External calls for parameter specs of float type
 		external "C struct GParamSpecFloat get default_value use <glib-object.h>"
 		end
 
-	get_epsilong_float (spec: POINTER): REAL_32 is
+	get_epsilon_float (spec: POINTER): REAL_32 is
 			-- gfloat epsilon; values closer than epsilon will be
 			-- considered identical by g_param_values_cmp(); the default
 			-- value is 1e-30.
-		external "C struct GParamSpecFloat get default_value use <glib-object.h>"
+		external "C struct GParamSpecFloat get epsilon use <glib-object.h>"
 		end
 	
 	g_param_spec_float (a_const_name, a_const_nick, a_const_blurb: POINTER; a_minimum, a_maximum, a_default_value: REAL_32; some_flags: INTEGER): POINTER is -- GParamSpec* 
@@ -905,7 +905,28 @@ feature {} -- External calls for parameter specs of float type
 		end
 
 feature {} -- External calls for parameter specs of double type
+	get_min_double (spec: POINTER): REAL_64 is
+			-- gfloat minimum; minimum value for the property specified
+		external "C struct GParamSpecDouble get minumum use <glib-object.h>"
+		end
+	
+	get_max_double (spec: POINTER): REAL_64 is
+			-- gfloat maximum; maximum value for the property specified
+		external "C struct GParamSpecDouble get maximum use <glib-object.h>"
+		end
+	
+	get_default_double (spec: POINTER): REAL_64 is
+			-- gfloat maximum; maximum value for the property specified
+		external "C struct GParamSpecDouble get default_value use <glib-object.h>"
+		end
 
+	get_epsilon_double (spec: POINTER): REAL_64 is
+			-- gfloat epsilon; values closer than epsilon will be
+			-- considered identical by g_param_values_cmp(); the default
+			-- value is 1e-30.
+		external "C struct GParamSpecDouble get epsilon use <glib-object.h>"
+		end
+		
 	g_is_param_spec_double (a_pspec: POINTER): INTEGER is
 			-- Return whether the given GParamSpec is of type G_TYPE_PARAM_DOUBLE.
 		external "C macro use <glib-object.h>"
