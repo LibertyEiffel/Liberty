@@ -47,12 +47,94 @@ feature {ANY} -- Initialization
 			create setters
 			create low_level_values
 			create validity_query
+			create class_descriptions.make
+			create feature_descriptions.make
+			read_comments 
 		end
 
 	is_initialized: BOOLEAN is
 		do
 			Result := files /= Void and then functions /= Void and then structures /= Void and then enumerations /= Void and then fields /= Void and then headers /= Void and then translate /= Void
 		end
+
+	read_comments is
+		-- Read description comment for classes and features from
+		-- `comment_file', creating and filling `class_descriptions' and
+		-- `feature_descriptions'. Leading and trailing spaces are removed.
+		-- Lines starting with "--" are ignored as comments. Class descriptions
+		-- are in the form "CLASS_NAME Description text", feature descriptions
+		-- are "CLASS_NAME.feature Description text".
+		-- Nothing is done if comment_file is Void.
+	local line, described: STRING; words: LINKED_LIST[STRING]
+	do
+		if comment_file /= Void then
+			from comment_file.read_line until comment_file.end_of_input
+			loop
+				line := comment_file.last_string
+				line.left_adjust; line.right_adjust
+				if not line.has_prefix(once "--") then 
+					create words.make
+					line.split_in (words)
+					if not words.is_empty then
+						described := words.first
+						words.remove_first
+						read_comment(described,words)
+					end
+				end
+				comment_file.read_line
+			end
+			check 
+				comment_file.end_of_input
+			end
+		else
+			debug 
+				log_tuple([once "Comment ",line])	
+			end
+		end
+	end
+
+	read_comment (a_described: STRING; a_description: COLLECTION[STRING]) is
+		-- Removes leading and trailing spaces from both arguments; if
+		-- a_described does not starts with "--" (a comment) then looks if it
+		-- follow the pattern "CLASS_NAME_01" or
+		-- "ANOTHER_CLASS.my_feature_12_foo" putting `a_description' into
+		-- `class_descriptions' in the former case and into
+		-- `feature_descriptions' in the latter. See `read_comments' for
+		-- further informations.
+	local 
+		described_class, described_feature: STRING; dot: INTEGER
+		subdictionary: HASHED_DICTIONARY[COLLECTION[STRING],STRING]	
+	do
+		-- Remove leading and trailing spaces
+		a_described.left_adjust; a_described.right_adjust
+		if not a_described.has_prefix(once "--") then
+			-- Look for class name and feature name
+			inspect a_described.occurrences('.') 
+			when 0 then -- could be a class
+				if is_valid_class_name(a_described) then
+					log(once "Description for class @(1) is @(2)%N.",<<a_described,a_description.out>>)
+					class_descriptions.put(a_description,a_described)
+				else log_tuple([once "Comment file: invalid class name `",a_described,once "'.%N"])
+				end
+			when 1 then -- could be a feature (i.e. CLASS.feature) 
+				-- Look for the dot and see if has a meaningful position
+				dot:=a_described.first_index_of('.')
+				if dot>a_described.lower and dot<a_described.count then
+					described_class   := a_described.substring(1,dot-1)
+					described_feature := a_described.substring(dot+1,a_described.count)
+					log(once "Description for feature @(1) of @(2) is %"@(3)%"%N.",<<described_feature,described_class,a_description.out>>)
+					subdictionary := feature_descriptions.reference_at(described_class)
+					if subdictionary=Void then
+						create subdictionary.make
+						feature_descriptions.put(subdictionary,described_class)
+					end
+					subdictionary.put(a_description,described_feature)
+				else log_tuple([once "Comment file: empty class or feature name %"",a_described,once "%".%N"])
+				end
+			else log_tuple([once "Comment file: feature name %"",a_described,once "%" has too many dots.%N"])
+			end -- inspect
+		end -- if has "--" prefix
+	end
 
 feature {ANY} -- Settings
 	set_headers (some_headers: HASHED_SET[STRING]) is
@@ -74,7 +156,7 @@ feature {ANY} -- Processing XML input
 		local
 			bd: BASIC_DIRECTORY
 		do
-			log_string(once "XML processing file: ")
+			log_string(once "Processing XML file: ")
 			create tree.make(input.url)
 			visit(tree.root)
 			log_string(once "done.%N")
@@ -94,11 +176,12 @@ feature {ANY} -- Processing XML input
 			end
 			log_string(once "Making external functions classes.%N")
 			functions.do_all(agent examine_functions)	
+			log_string(once "Making typedeffed structure accessing classes.%N")
+			translate.typedefs.do_all(agent examine_typedeffed_structure)
 			log_string(once "Making structure accessing classes.%N")
-			make_structures
+			structures.do_all(agent examine_structure)
 			log_string(once "Making enumerations classes.%N")
 			enumerations.do_all(agent emit_enumeration)	
-
 		end
 
 	visit (a_node: XML_COMPOSITE_NODE) is
@@ -214,7 +297,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 			not_void_functions: some_functions /= Void
 			file_name_not_void: a_file_id /= Void
 		local
-			header_name, wrapper_name: STRING; path, file_path: POSIX_PATH_NAME
+			header_name: STRING; path: POSIX_PATH_NAME
 		do
 			header_name := files_by_id.at(a_file_id).attribute_at(once U"name").to_utf8
 			if is_to_be_emitted(header_name) then
@@ -224,14 +307,10 @@ feature {ANY} -- Creation of external classes providing access to C functions
 					output := std_output
 				else
 					-- Compute Eiffel class name from header name
-					create file_path.make_from_string(header_name)
-					create wrapper_name.copy(file_path.last)
-					wrapper_name.remove_suffix(".h")
-					wrapper_name := eiffel_class_file_name(wrapper_name + "_externals")
-					file_path.make_from_string(wrapper_name)
+					class_name := class_name_from_header(header_name)
 					create path.make_from_string(directory)
-					path.join(file_path)
-					if file_path.is_file then
+					path.add_last(class_name.as_lower+once ".e")
+					if path.is_file then
 						log(once "Copying existing file @(1) onto @(1).orig.%N",<<path.to_string>>)
 						copy_to(path.to_string, path.to_string+once ".orig")
 					end
@@ -239,9 +318,11 @@ feature {ANY} -- Creation of external classes providing access to C functions
 					<<header_name, path.to_string>>)
 					create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
 				end
-				emit_functions_class_headers(header_name)
+				buffer.reset
+				emit_functions_class_headers
 				some_functions.do_all(agent emit_function)
-				output.put_line(footer)
+				buffer.append(footer)
+				buffer.print_on(output)
 				output.disconnect
 			else
 				log(once "Skipping '@(1)'%N",
@@ -249,71 +330,107 @@ feature {ANY} -- Creation of external classes providing access to C functions
 			end
 		end
 
-	emit_functions_class_headers (a_file_name: STRING) is
-			-- Put on `output' the header on an "external" class meant to
-			-- contain the functions declared in `a_file_name', from the
-			-- beginning until the "feature {} -- External calls" label
-			-- included
-		require
-			a_file_name /= Void
-		local
-			class_name: STRING; path: POSIX_PATH_NAME
-		do
-			create path.make_from_string(a_file_name)
-			class_name := path.last -- basaname
-			class_name.remove_suffix(once ".h")
-			class_name := eiffel_class_name(class_name) + once "_EXTERNALS"
-			output.put_string(automatically_generated_header)
-			output.put_string(deferred_class)
-			output.put_line(class_name)
-			output.put_line(struct_inherits)
-			output.put_line(externals_header)
+	emit_functions_class_headers is
+		-- Put on `'output' the header on an "external" class named 'class_name'
+		-- from the beginning until the "feature {} -- External calls" label
+		-- included
+	local description: COLLECTION[STRING]
+	do
+		buffer.append(automatically_generated_header)
+		buffer.append(deferred_class)
+		buffer.append(class_name) -- line
+		buffer.put('%N')
+		description:=class_descriptions.reference_at(class_name)
+		if description/=Void then
+			emit_description(description)
 		end
+		buffer.append(struct_inherits) --line
+		buffer.append(externals_header) --line
+	end
+
+	emit_description (a_description: COLLECTION[STRING]) is
+		-- Put 'a_description' on 'buffer' formatting it as an Eiffel comment
+		-- with lines shorter that 'description_lenght' characters.
+	require a_description/=Void
+	local word: STRING; iter: ITERATOR[STRING]; length,new_length: INTEGER
+	do
+		from 
+			iter:=a_description.get_new_iterator; iter.start; 
+			buffer.append(comment); length:=0
+		until iter.is_off loop
+			word := iter.item
+			new_length := length + word.count
+			if new_length>description_lenght then
+				buffer.append(comment)
+				length := 0
+			else
+				buffer.put(' ')
+				length := new_length + 1
+			end
+			buffer.append(word)
+			iter.next
+		end
+	end
 
 	c_function_name: STRING
-			-- The untranslated C name of the function currently being wrapped
+		-- The untranslated C name of the function currently being wrapped
 
 	variadic: BOOLEAN
-			-- Is the function currently being emitted variadic?
+		-- Is the function currently being emitted variadic?
 
 	unwrappable: BOOLEAN 
 		-- Is the function currently being emitted unwrappable?
 
 	emit_function (a_node: XML_COMPOSITE_NODE) is
-			-- Put the declaration for the function at `a_node' on
-			-- `output'.
-		require
-			node_not_void: a_node /= Void
-			is_function_node: a_node.name.is_equal(once U"Function")
-			output_not_void: output /= Void
-			connected_output: output.is_connected
-		local
-			name: STRING
-		do
-			unwrappable:=False
-			c_function_name := a_node.attribute_at(once U"name").to_utf8
-			name := c_function_name.as_lower
-			if is_public(name) then
-				log(once "Function @(1)",<<name>>)
-				buffer.put_message(once "%T@(1)", <<adapt(name)>>)
-				if a_node.children_count > 0 then
-					append_function_arguments(a_node)
-				end
-				append_return_type(a_node)
-				append_function_body(a_node)
-				if unwrappable then
-					--log(once "Function @(1) is not wrappable: @(2).%N", <<name, developer_exception_name>>)
-					-- buffer.reset
-					check translate.last_error/=Void end
-					-- if translate.last_error/=Void then
-					log("Function @(1) is not wrappable: @(2).%N", <<name, translate.last_error>>)
-					-- else buffer.put_message (once "%T-- Function @(1) not wrappable: exception code @(2)", <<name, exception_label(exception)>>) 
-				end
-				log_string(once "%N")
-				buffer.print_on(output)
-			else log(once "Skipping 'hidden' function @(1)%N", <<name>>)
+		-- Put the declaration for the function at `a_node' on
+		-- `output'.
+	require
+		node_not_void: a_node /= Void
+		is_function_node: a_node.name.is_equal(once U"Function")
+		output_not_void: output /= Void
+		connected_output: output.is_connected
+	local
+		name: STRING; description: COLLECTION[STRING]; 
+		dictionary: HASHED_DICTIONARY[COLLECTION[STRING],STRING]
+	do
+		unwrappable:=False
+		c_function_name := a_node.attribute_at(once U"name").to_utf8
+		name := c_function_name.as_lower
+		-- TODO: this way of assigning feature names is not entirely
+		-- bullet-proof. In fact MyFunction and myfunction will get the same
+		-- Eiffel feature name. Let me say that if the code you are going
+		-- wrapping presents such issues it is not worth your time AFAIK. Paolo
+		-- 2009-02-06.
+		if is_public(name) then
+			log(once "Function @(1)",<<name>>)
+			buffer.put_message(once "%T@(1)", <<adapt(name)>>)
+			if a_node.children_count > 0 then
+				append_function_arguments(a_node)
 			end
+			append_return_type(a_node)
+			dictionary := feature_descriptions.reference_at(class_name)
+			if dictionary/=Void then
+				description:=dictionary.reference_at(name)
+				if description/=Void then
+					emit_description(description)
+				end
+			end
+			append_function_body(a_node)
+			if unwrappable then
+				--log(once "Function @(1) is not wrappable: @(2).%N", <<name, developer_exception_name>>)
+				-- buffer.reset
+				check 
+					translate.last_error/=Void 
+				end
+				-- if translate.last_error/=Void then
+				log("Function @(1) is not wrappable: @(2).%N", <<name, translate.last_error>>)
+				-- else buffer.put_message (once "%T-- Function @(1) not wrappable: exception code @(2)", <<name, exception_label(exception)>>) 
+			end
+			log_string(once "%N")
+			buffer.print_on(output)
+		else log(once "Skipping 'hidden' function @(1)%N", <<name>>)
 		end
+	end
 
 	append_function_arguments (a_node: XML_COMPOSITE_NODE) is
 			-- Append the arguments of function referred by `a_node' into
@@ -413,6 +530,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 
 feature {ANY} -- Low-level structure class creator
 	make_structures is
+		obsolete "Use examine_typedeffed_structure and examine_structure in a do_all command"
 		local
 			typedef, structure: XML_COMPOSITE_NODE; iterator: ITERATOR[XML_NODE]; name, file_name: STRING
 			referred_type, file_id: UNICODE_STRING
@@ -480,13 +598,73 @@ feature {ANY} -- Low-level structure class creator
 			end
 		end
 
+	examine_typedeffed_structure (a_typedef: XML_COMPOSITE_NODE) is
+		-- Many structures are often "hidden behind" a typedef.  If the
+		-- element referred by 'a_typedef' is a structure to be emitted
+		-- emit_structure is invoked for the referred structure and it is
+		-- removed from the 'structures' dictionary.
+	require
+		typedef_not_void: a_typedef/=Void
+		is_typedef_node: a_typedef.name.is_equal(once U"Typedef")
+	local
+		structure: XML_COMPOSITE_NODE; 
+		name, file_name: STRING
+		referred_type, file_id: UNICODE_STRING
+	do
+		-- typedefs.do_all(agent emit_typedeffed_structure)
+		referred_type := a_typedef.attribute_at(once U"type")
+		name := a_typedef.attribute_at(once U"name").to_utf8
+		check
+			referred_type_not_void: referred_type /= Void
+			name_not_void: name /= Void
+		end
+		structure := structures.reference_at(referred_type)
+		if structure /= Void then
+			-- Referred type is actually a structure
+			file_id := structure.attribute_at(once U"file")
+			file_name := files.at(file_id).attribute_at(once U"name").to_utf8
+			if is_to_be_emitted(file_name) then
+				if is_file(file_name) then
+					log(once "Copying existing file @(1) onto @(1).orig.%N",<<file_name>>)
+					copy_to(file_name,file_name+once ".orig")
+				end
+				log(once "Wrapping typedef structure @(1).%N", <<name>>)
+				emit_structure(structure, name)
+				structures.fast_remove(referred_type)
+			else
+				log("Typedef struct @(1) skipped: defined in an non-desired header.%N",
+				<<structure.name.as_utf8>>)
+			end
+		else
+			log("@(1) will not be wrapped%N",<<referred_type.as_utf8>>)
+		end
+	end
+
+	examine_structure (a_structure: XML_COMPOSITE_NODE) is
+		require
+			structure_not_void: a_structure/=Void
+			is_structure_node: a_structure.name.is_equal(once U"Struct")
+		local
+			name, file_name: STRING file_id: UNICODE_STRING
+		do
+			name := a_structure.attribute_at(once U"name").to_utf8
+			file_id := a_structure.attribute_at(once U"file")
+			file_name := files_by_id.reference_at(file_id).attribute_at(once U"name").to_utf8
+			if is_to_be_emitted(file_name) then
+				emit_structure(a_structure, name)
+			else
+				log(once "@(1) structure skipped: it is not declared in a desired header.%N",
+				<<name>>)
+			end
+		end
+
 	emit_structure (a_node: XML_COMPOSITE_NODE; a_structure_name: STRING) is
 		require
 			node_not_void: a_node /= Void
-			is_function_node: a_node.name.is_equal(once U"Struct")
+			is_structure_node: a_node.name.is_equal(once U"Struct")
 			name_not_void: a_structure_name /= Void
 		local
-			classname, filename: STRING; path: POSIX_PATH_NAME
+			filename: STRING; path: POSIX_PATH_NAME
 		do
 			if unwrappable then
 				buffer.reset
@@ -499,12 +677,12 @@ feature {ANY} -- Low-level structure class creator
 				if is_public(a_structure_name) then
 					buffer.reset
 					filename := a_structure_name + once "_struct"
-					classname := eiffel_class_name(filename)
+					class_name := eiffel_class_name(filename)
 					if directory = Void then
 						-- Output to standard output
 						output := std_output
 						log(once "Struct @(1) to class @(2) to standard output%N",
-						<<a_structure_name, classname>>)
+						<<a_structure_name, class_name>>)
 					else
 						create path.make_from_string(directory)
 						path.add_last(eiffel_class_file_name(filename))
@@ -515,7 +693,7 @@ feature {ANY} -- Low-level structure class creator
 						end
 	
 						log(once "Struct @(1) to class @(2) in @(3)%N",
-						<<a_structure_name, classname, filename>>)
+						<<a_structure_name, class_name, filename>>)
 						create {TEXT_FILE_WRITE} output.connect_to(filename)
 					end
 					append_structure_header(a_structure_name)
@@ -534,11 +712,20 @@ feature {ANY} -- Low-level structure class creator
 			-- Append the header of a structure named `a_structure_name' to buffer.
 		require
 			a_structure_name /= Void
+		local 
+			structure_class_name: STRING
+			description: COLLECTION[STRING]
 		do
+			structure_class_name:=eiffel_class_name(a_structure_name)
+			structure_class_name.append(once "_STRUCT")
 			buffer.append(automatically_generated_header)
 			buffer.append(deferred_class)
-			buffer.append(eiffel_class_name(a_structure_name))
-			buffer.append(struct)
+			buffer.append(structure_class_name)
+			description:=class_descriptions.reference_at(class_name)
+			if description/=Void then
+				emit_description(description)
+			end
+
 			buffer.append(struct_inherits)
 		ensure
 			buffer_grew: buffer.count > old buffer.count
@@ -600,28 +787,28 @@ feature {ANY} -- Enumeration class creator
 			is_enumeration: a_node.name.is_equal(once U"Enumeration")
 			name_not_void: an_enum_name /= Void
 		local
-			name, classname, filename: STRING; path: POSIX_PATH_NAME
+			name, filename: STRING; path: POSIX_PATH_NAME
 		do
 			name := an_enum_name.to_utf8
 			if is_public(name) then
-				classname := eiffel_class_name(name)
+				class_name := eiffel_class_name(name)
 				if directory = Void then
 					-- Output to standard output
 					output := std_output
 					log(once "Wrapping enumeration @(1) to class @(2) to standard output%N",
-					<<name, classname>>)
+					<<name, class_name>>)
 				else
 					create path.make_from_string(directory)
 					path.add_last(eiffel_class_file_name(name))
 					filename := path.to_string
 					log(once "Wrapping enumeration @(1) to class @(2) in file @(3)%N",
-					<<name, classname, filename>>)
+					<<name, class_name, filename>>)
 					create {TEXT_FILE_WRITE} output.connect_to(filename)
 				end
 				setters.reset
 				queries.reset
 				low_level_values.reset
-				emit_enumeration_header(classname)
+				emit_enumeration_header(class_name)
 				if have_flags_values(a_node) then
 					append_flag_items(a_node)
 				else
@@ -988,35 +1175,70 @@ feature {ANY} -- Flag enumeration
 
 feature {ANY} -- Auxiliary features
 	is_to_be_emitted (a_file_name: STRING): BOOLEAN is
-			-- Shall the declaration in file named `a_file_name' be
-			-- wrapped? The content of a file will be emitted when global
-			-- is True or if `a_file_name' is in `headers' hashed set.
-		require
-			is_initialized
-		do
-			Result := global or else headers.has(a_file_name)
-		end
+		-- Shall the declaration in file named `a_file_name' be
+		-- wrapped? The content of a file will be emitted when global
+		-- is True or if `a_file_name' is in `headers' hashed set.
+	require
+		is_initialized
+	do
+		Result := global or else headers.has(a_file_name)
+	end
 
 	apply_patches (a_file_name: STRING) is
-			-- Apply to `a_file_name' the differences found in the file with name `a_file_name' replacing ".e" suffix with ".diff"
-		local diff_file_name: STRING; system: SYSTEM
-		do
-			if a_file_name.has_suffix(once ".e") and then file_exists(a_file_name) then
-				create diff_file_name.copy(a_file_name)
-				diff_file_name.remove_suffix(once ".e")
-				diff_file_name.append_string(once ".diff")
-				if file_exists(diff_file_name) then
-					log(once "Applying patches from @(1) to @(2)%N",<<diff_file_name,a_file_name>>)
-					system.execute_command_line("patch "+a_file_name+" "+diff_file_name)
-				end	
+		-- Apply to `a_file_name' the differences found in the file with name `a_file_name' replacing ".e" suffix with ".diff"
+	local diff_file_name: STRING; system: SYSTEM
+	do
+		if a_file_name.has_suffix(once ".e") and then file_exists(a_file_name) then
+			create diff_file_name.copy(a_file_name)
+			diff_file_name.remove_suffix(once ".e")
+			diff_file_name.append_string(once ".diff")
+			if file_exists(diff_file_name) then
+				log(once "Applying patches from @(1) to @(2)%N",<<diff_file_name,a_file_name>>)
+				system.execute_command_line("patch "+a_file_name+" "+diff_file_name)
+			end	
+		end
+	end
+
+	formatted_description (a_description: COLLECTION[STRING]): STRING is
+		-- A newly created string containing 'a_description' formatted as an Eiffel comment
+		-- with lines shorter that 'description_lenght' characters. If
+		-- `a_description' is Void Result is the empty string
+	local word: STRING; iter: ITERATOR[STRING]; length,new_length: INTEGER
+	do
+		if a_description=Void then Result:=""
+		else
+			create Result.with_capacity(a_description.count * 8)
+			-- We assume that the average word is 6 charcter long, plus a
+			-- whitespace between each one. Actually words are usually shorter but
+			-- we shall take in count the space taken by "--" 
+			from 
+				iter:=a_description.get_new_iterator; iter.start; 
+				Result.append(comment); length:=0
+			until iter.is_off loop
+				word := iter.item
+				new_length := length + word.count
+				if new_length>description_lenght then
+					Result.append(comment)
+					length := 0
+				else
+					Result.append_character(' ')
+					length := new_length + 1
+				end
+				Result.append(word)
+				iter.next
 			end
 		end
-		
+	end
+
+	
 feature {ANY} -- Data structures
 	input: INPUT_STREAM
 
 	output: TERMINAL_OUTPUT_STREAM
 
+	class_name: STRING
+		-- The name of the class currently being emitted/outputted.
+	
 	tree: XML_TREE
 
 	translate: TYPE_TRANSLATOR
@@ -1036,6 +1258,15 @@ feature {ANY} -- Data structures
 	fields: HASHED_DICTIONARY[XML_COMPOSITE_NODE, UNICODE_STRING]
 			-- Fields by their id
 
+	class_descriptions: HASHED_DICTIONARY[COLLECTION[STRING],STRING]
+		-- Class description comments. Key is classname.
+
+	feature_descriptions: HASHED_DICTIONARY[HASHED_DICTIONARY[COLLECTION[STRING],STRING],STRING]
+	-- Feature descriptions dictionary. The outer dictionary is indexed by
+	-- classname, the inner one by feature name. So to get the description of
+	-- feature foo in class BAR you shall invoke
+	-- feature_descriptions.at("BAR").at("foo")
+
 feature {} -- Implementation
 	buffer: FORMATTER
 			-- Buffer to render the text of the feature currently being
@@ -1051,6 +1282,8 @@ feature {} -- Implementation
 			-- Temporary strings used to build enumerations and structures external classes
 
 feature {} -- Constants
+	comment: STRING is "%N%T%T-- "
+
 	variadic_function_note: STRING is "%T%T%T-- Variadic call%N"
 
 	unwrappable_function_note: STRING is "%T%T%T-- Unwrappable function%N%T%Tobsolete %"Unwrappable C function%"%N"
@@ -1059,19 +1292,19 @@ feature {} -- Constants
 
 	deferred_class: STRING is "deferred class "
 
-	struct: STRING is "_STRUCT"
+	-- struct: STRING is "_STRUCT"
 
-	enum: STRING is "_ENUM"
+	-- enum: STRING is "_ENUM"
 
 	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%N%N"
 
-	queries_header: STRING is "feature {} -- Low-level queries%N"
+	queries_header: STRING is "feature {} -- Low-level queries%N%N"
 
-	setters_header: STRING is "feature {} -- Low-level setters%N"
+	setters_header: STRING is "feature {} -- Low-level setters%N%N"
 
-	externals_header: STRING is "feature {} -- External calls%N"
+	externals_header: STRING is "feature {} -- External calls%N%N"
 
-	footer: STRING is "end"
+	footer: STRING is "endi%N"
 
 	automatically_generated_header: STRING is "[
 		-- This file have been created by eiffel-gcc-xml.
@@ -1090,6 +1323,8 @@ feature {} -- Constants
 		-- Any change will be lost by the next execution of the tool.
 
 		]"
+
+	description_lenght: INTEGER is 70
 
 feature {} -- Auxiliary features
 	format (a_string: STRING; some_arguments: TRAVERSABLE[ANY]): STRING is

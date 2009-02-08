@@ -49,6 +49,7 @@ feature {ANY} -- Function emission
 		local
 			description: STRING
 		do
+			--if feature_descriptions.has(
 			if variadic then
 				description := c_function_name + variadic_function_note
 			else
@@ -70,6 +71,8 @@ feature {ANY} -- Structure emission
 	emit_structure_field (a_field: XML_COMPOSITE_NODE; a_structure_name: STRING) is
 		local
 			c_field, eiffel_field, eiffel_type, getter, setter: STRING
+			setter_description, getter_description: STRING
+			descriptions: HASHED_DICTIONARY[COLLECTION[STRING],STRING]
 		do
 			-- Setter and getter function names are
 			-- shared by Eiffel and C to make things
@@ -83,10 +86,17 @@ feature {ANY} -- Structure emission
 				getter := a_structure_name + once "_get_" + eiffel_field
 				setter.to_lower
 				getter.to_lower
-				log(once "Field @(1).@(2) query ",
-				<<c_field, a_structure_name>>)
+				descriptions := feature_descriptions.reference_at(a_structure_name)	
+				if descriptions /= Void then
+					setter_description:=formatted_description(descriptions.reference_at(eiffel_field))
+					getter_description:=formatted_description(descriptions.reference_at(eiffel_field))
+				else setter_description:=once ""; getter_description:=once ""
+				end
+				log(once "Field @(1).@(2) (`@(3)', `@(4)') query ",
+				<<a_structure_name, c_field, setter_description,getter_description>>)
 				queries.put_message(once "	@(1) (a_structure: POINTER): @(2) is%N%
 				%			-- Query for @(5) field of @(6) structure.%N%
+				%			@(7)%N%	
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
 				%			location: %"@(3)%"%N%
@@ -94,10 +104,13 @@ feature {ANY} -- Structure emission
 				%			feature_name: %"@(1)%"%N%
 				%		}%"%N%
 				%		end%N%N",
-				<<getter, eiffel_type, location, module, c_field, a_structure_name>>)
+				<<getter, eiffel_type, location, 
+				module, c_field, a_structure_name,
+				getter_description>>)
 				log_string(once "made, setter ")
 				setters.put_message(once "	@(1) (a_structure: POINTER; a_value: @(2)) is%N%
 				%			-- Setter for @(5) field of @(6) structure.%N%
+				%			@(7)%N%
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
 				%			location: %"@(3)%"%N%
@@ -105,7 +118,9 @@ feature {ANY} -- Structure emission
 				%			feature_name: %"@(1)%"%N%
 				%		}%"%N%
 				%		end%N%N",
-				<<setter, eiffel_type, location, module, c_field, a_structure_name>>)
+				<<setter, eiffel_type, location, 
+				module, c_field, a_structure_name,
+				setter_description>>)
 				log_string(once "made, C macros ")
 				-- Note: Type safety is assured by Eiffel and GCC-XML so we can
 				-- be less type-strict-paranoid here and use some type-casts.
@@ -173,3 +188,17 @@ feature {} -- Constants
 		]"
 
 end -- class PLUGIN_CLASS_MAKER
+-- Copyright 2008,2009 Paolo Redaelli
+
+-- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as published by the Free
+-- Software Foundation, either version 2 of the License, or (at your option)
+-- any later version.
+
+-- eiffel-gcc-xml is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+-- more details.
+
+-- You should have received a copy of the GNU General Public License along with
+-- this program.  If not, see <http://www.gnu.org/licenses/>.

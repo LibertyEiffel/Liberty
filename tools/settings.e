@@ -1,8 +1,10 @@
 class SETTINGS
-	-- 
+	-- The setting of eiffel-gcc-xml.
+
 inherit
 	SINGLETON
-
+insert 
+	FILE_TOOLS
 creation {ANY}
 	default_create
 
@@ -16,6 +18,8 @@ feature {ANY} -- Queries
 	are_naturals_used: BOOLEAN
 
 	patches_are_appliable: BOOLEAN
+
+	comment_file: TEXT_FILE_READ
 
 feature {ANY} -- Setters
 	set_verbose (a_value: BOOLEAN) is
@@ -52,4 +56,32 @@ feature {ANY} -- Setters
 		do
 			patches_are_appliable:=False
 		end
+
+	comment_file_from (a_file_name: STRING) is
+		require
+			a_file_name/=Void
+			file_exists(a_file_name)
+			is_file(a_file_name) 
+		do
+			create comment_file.connect_to(a_file_name)
+		ensure 
+			comment_file /= Void
+			comment_file.is_connected
+		end
+
 end -- class SETTINGS
+
+-- Copyright 2008,2009 Paolo Redaelli
+
+-- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as published by the Free
+-- Software Foundation, either version 2 of the License, or (at your option)
+-- any later version.
+
+-- eiffel-gcc-xml is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+-- more details.
+
+-- You should have received a copy of the GNU General Public License along with
+-- this program.  If not, see <http://www.gnu.org/licenses/>.

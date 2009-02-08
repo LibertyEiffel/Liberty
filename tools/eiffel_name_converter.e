@@ -17,6 +17,28 @@ feature {ANY} -- Auxiliary features
 			Result /= a_name
 		end
 
+	class_name_from_header (a_header: STRING): STRING is
+		-- The Eiffel class name for 'a_header'; extension is removed,
+		-- CamelCase is converted into CAMEL_CASE, dashes are converted to
+		-- underscores, "EXTERNALS" is added at the end; i.e.:
+		-- class_name_from_header("/usr/include/foo/bar/maman.h").is_equal("MAMAN_EXTERNALS")
+	require header_not_void: a_header/=Void
+	do
+		class_path.make_from_string(a_header)
+		Result := class_path.last
+		Result.remove_tail(class_path.extension.count)
+		check
+			no_final_dot_if_this_fails_add_one_above: Result.last/='.' 
+		end
+		eiffellizer.substitute_all_in(Result)
+		Result.replace_all('-','_')
+		Result.to_upper
+		Result.append(once "_EXTERNALS")
+	ensure 
+		non_void: Result/=Void
+		is_valid_class_name(Result)
+	end
+
 	eiffel_class_name (a_name: STRING): STRING is
 			-- Translate `a_name' from CamelCase into CAMEL_CASE; dashes are
 			-- converted to underscore
@@ -28,7 +50,9 @@ feature {ANY} -- Auxiliary features
 			Result.replace_all('-', '_')
 			Result.to_upper
 		ensure
+			Result /= Void
 			Result /= a_name
+			is_valid_class_name(Result)
 		end
 
 	eiffel_argument (a_name: STRING): STRING is
@@ -170,6 +194,13 @@ feature {ANY} -- Auxiliary features
 			end
 		end
 
+feature {} -- Constants 
+	class_path: POSIX_PATH_NAME is
+		-- Shared path buffer used in 'class_name_from_header'.
+	once
+		create Result.make_empty
+	end
+
 	keywords: HASHED_SET[STRING] is
 		once
 			Result := {HASHED_SET[STRING] << "indexing", "class", "deferred", "expanded", "separate", "end", "inherit", "insert", "creation", "feature", "rename", "redefine", "undefine", "select", "export", "require", "local", "do", "once", "ensure", "alias", "external", "attribute", "if", "then", "else", "elseif", "when", "from", "until", "loop", "check", "debug", "invariant", "variant", "rescue", "obsolete" >> }
@@ -178,19 +209,6 @@ feature {ANY} -- Auxiliary features
 	any_features: HASHED_SET[STRING] is
 			-- The names of the features contained in class ANY. A
 			-- wrapper can either add a proper prefix or suffix to the
-			-- feature s/he is wrapping or
-			-- The following "static" definition of the features of ANY
-			-- is somehow unacceptable in a perfect world. Yet computing
-			-- it each and every time would enlarge the memory usage of
-			-- the program wildly, not counting the runtime requirements.
-			-- The following "static" definition of the features of ANY
-			-- is somehow unacceptable in a perfect world. Yet computing
-			-- it each and every time would enlarge the memory usage of
-			-- the program wildly, not counting the runtime requirements.
-			-- The following "static" definition of the features of ANY
-			-- is somehow unacceptable in a perfect world. Yet computing
-			-- it each and every time would enlarge the memory usage of
-			-- the program wildly, not counting the runtime requirements.
 		once
 			-- The following "static" definition of the features of ANY
 			-- is somehow unacceptable in a perfect world. Yet computing
@@ -200,3 +218,18 @@ feature {ANY} -- Auxiliary features
 		end
 
 end -- class EIFFEL_NAME_CONVERTER
+
+-- Copyright 2008,2009 Paolo Redaelli
+
+-- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as published by the Free
+-- Software Foundation, either version 2 of the License, or (at your option)
+-- any later version.
+
+-- eiffel-gcc-xml is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+-- more details.
+
+-- You should have received a copy of the GNU General Public License along with
+-- this program.  If not, see <http://www.gnu.org/licenses/>.

@@ -6,9 +6,10 @@ root EIFFEL_GCC_XML: make
 
 default -- section of the system
 
-   assertion (boost); -- or boost, no, require, ensure, invariant, loop, check, all.
+   assertion (require); -- or boost, no, require, ensure, invariant, loop, check, all.
+
    assertion_flat_check (no);
-   debug (no);
+   debug (yes);
    trace (no);
    collect (yes);
    no_style_warning (no);
