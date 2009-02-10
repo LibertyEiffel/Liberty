@@ -55,7 +55,7 @@ feature {ANY} -- Function emission
 			else
 				description := c_function_name
 			end
-			buffer.put_message(once " is%N%
+			buffer.put_message(once "%
 			% 		-- @(1)%N%
 			%		external %"plug_in%"%N%
 			%		alias %"{%N%
@@ -80,7 +80,7 @@ feature {ANY} -- Structure emission
 			-- is also a valid C function name.
 			c_field := a_field.attribute_at(once U"name").to_utf8
 			eiffel_field := adapt(c_field)
-			eiffel_type := translate.eiffel_type_of(a_field)
+			eiffel_type := eiffel_type_of(a_field)
 			if eiffel_type /= Void then
 				setter := a_structure_name + once "_set_" + eiffel_field
 				getter := a_structure_name + once "_get_" + eiffel_field
@@ -132,9 +132,9 @@ feature {ANY} -- Structure emission
 				log_string(once "made.%N")
 			else
 				log(once "Field @(1) in structure @(2) is not wrappable: @(3)",
-				<<c_field, a_structure_name, translate.last_error>>)
+				<<c_field, a_structure_name, last_error>>)
 				queries.put_message(once "%T-- Unwrappable field @(1): @(2)%N",
-				<<c_field, translate.last_error>>)
+				<<c_field, last_error>>)
 			end
 		end
 

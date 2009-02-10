@@ -23,6 +23,7 @@ deferred class CLASS_MAKER
 	-- latter is difficult to read.
 
 insert
+	TYPE_TRANSLATOR
 	SHARED_SETTINGS
 	EIFFEL_NAME_CONVERTER
 	EIFFEL_GCC_XML_EXCEPTIONS
@@ -39,8 +40,9 @@ feature {ANY} -- Initialization
 			create functions.make
 			create structures.make
 			create enumerations.make
-			create translate.make
 			create fields.make
+			create types.make
+			create typedefs.make
 			-- Initialize output formatters for functions, structures and enumerations.
 			create buffer
 			create queries
@@ -54,9 +56,10 @@ feature {ANY} -- Initialization
 
 	is_initialized: BOOLEAN is
 		do
-			Result := files /= Void and then functions /= Void and then structures /= Void and then enumerations /= Void and then fields /= Void and then headers /= Void and then translate /= Void
+			Result := files /= Void and then functions /= Void and then structures /= Void and then enumerations /= Void and then fields /= Void and then headers /= Void and then types /= Void and then typedefs /= Void
 		end
 
+feature -- Descriptions reading
 	read_comments is
 		-- Read description comment for classes and features from
 		-- `comment_file', creating and filling `class_descriptions' and
@@ -72,7 +75,11 @@ feature {ANY} -- Initialization
 			loop
 				line := comment_file.last_string
 				line.left_adjust; line.right_adjust
-				if not line.has_prefix(once "--") then 
+				if line.has_prefix(once "--") then 
+					debug
+						log3([once "Comment %"",line,"%".%N"])
+					end
+				else 
 					create words.make
 					line.split_in (words)
 					if not words.is_empty then
@@ -85,10 +92,6 @@ feature {ANY} -- Initialization
 			end
 			check 
 				comment_file.end_of_input
-			end
-		else
-			debug 
-				log_tuple([once "Comment ",line])	
 			end
 		end
 	end
@@ -112,9 +115,11 @@ feature {ANY} -- Initialization
 			inspect a_described.occurrences('.') 
 			when 0 then -- could be a class
 				if is_valid_class_name(a_described) then
-					log(once "Description for class @(1) is @(2)%N.",<<a_described,a_description.out>>)
+					log(once "Description for class @(1) is %"",<<a_described>>)
+					a_description.do_all(agent log_word)
+					log_string(once "%".%N")
 					class_descriptions.put(a_description,a_described)
-				else log_tuple([once "Comment file: invalid class name `",a_described,once "'.%N"])
+				else log3([once "Comment file: invalid class name `",a_described,once "'.%N"])
 				end
 			when 1 then -- could be a feature (i.e. CLASS.feature) 
 				-- Look for the dot and see if has a meaningful position
@@ -122,16 +127,18 @@ feature {ANY} -- Initialization
 				if dot>a_described.lower and dot<a_described.count then
 					described_class   := a_described.substring(1,dot-1)
 					described_feature := a_described.substring(dot+1,a_described.count)
-					log(once "Description for feature @(1) of @(2) is %"@(3)%"%N.",<<described_feature,described_class,a_description.out>>)
+					log(once "Description for feature @(1) of @(2) is %"",<<described_feature,described_class>>)
+					a_description.do_all(agent log_word)
+					log_string(once "%".%N")
 					subdictionary := feature_descriptions.reference_at(described_class)
 					if subdictionary=Void then
 						create subdictionary.make
 						feature_descriptions.put(subdictionary,described_class)
 					end
 					subdictionary.put(a_description,described_feature)
-				else log_tuple([once "Comment file: empty class or feature name %"",a_described,once "%".%N"])
+				else log3([once "Comment file: empty class or feature name %"",a_described,once "%".%N"])
 				end
-			else log_tuple([once "Comment file: feature name %"",a_described,once "%" has too many dots.%N"])
+			else log3([once "Comment file: feature name %"",a_described,once "%" has too many dots.%N"])
 			end -- inspect
 		end -- if has "--" prefix
 	end
@@ -177,7 +184,7 @@ feature {ANY} -- Processing XML input
 			log_string(once "Making external functions classes.%N")
 			functions.do_all(agent examine_functions)	
 			log_string(once "Making typedeffed structure accessing classes.%N")
-			translate.typedefs.do_all(agent examine_typedeffed_structure)
+			typedefs.do_all(agent examine_typedeffed_structure)
 			log_string(once "Making structure accessing classes.%N")
 			structures.do_all(agent examine_structure)
 			log_string(once "Making enumerations classes.%N")
@@ -223,7 +230,7 @@ feature {ANY} -- Processing XML input
 					debug
 						log(once " structure @(1) in line @(2) ", <<c_name_utf8, a_node.line.out>>)
 					end
-					translate.types.put(a_node, id)
+					types.put(a_node, id)
 					if is_public(c_name_utf8) then 
 						structures.fast_put(a_node, c_name)
 					end
@@ -237,8 +244,8 @@ feature {ANY} -- Processing XML input
 				debug
 					log(once " typedef @(1) ",<<a_node.attribute_at(once U"name").as_utf8>>)
 				end
-				translate.typedefs.add_last(a_node)
-				translate.types.put(a_node,id)
+				typedefs.add_last(a_node)
+				types.put(a_node,id)
 			elseif name.is_equal(once U"Field") then
 				check
 					id_not_void: id /= Void
@@ -250,7 +257,7 @@ feature {ANY} -- Processing XML input
 					c_name /= Void
 				end
 				enumerations.fast_put(a_node, c_name)
-				translate.types.put(a_node, id)
+				types.put(a_node, id)
 		elseif (name.is_equal(once U"ArrayType") or else
 				name.is_equal(once U"FunctionType") or else 
 				name.is_equal(once U"FundamentalType") or else 
@@ -261,7 +268,7 @@ feature {ANY} -- Processing XML input
 				check
 					id /= Void
 				end
-				translate.types.put(a_node, id)
+				types.put(a_node, id)
 			elseif name.is_equal(once U"File") then
 				check
 					c_name /= Void
@@ -395,7 +402,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 	do
 		unwrappable:=False
 		c_function_name := a_node.attribute_at(once U"name").to_utf8
-		name := c_function_name.as_lower
+		name := adapt(c_function_name.as_lower)
 		-- TODO: this way of assigning feature names is not entirely
 		-- bullet-proof. In fact MyFunction and myfunction will get the same
 		-- Eiffel feature name. Let me say that if the code you are going
@@ -403,7 +410,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 		-- 2009-02-06.
 		if is_public(name) then
 			log(once "Function @(1)",<<name>>)
-			buffer.put_message(once "%T@(1)", <<adapt(name)>>)
+			buffer.put_message(once "%T@(1)", <<name>>)
 			if a_node.children_count > 0 then
 				append_function_arguments(a_node)
 			end
@@ -420,10 +427,10 @@ feature {ANY} -- Creation of external classes providing access to C functions
 				--log(once "Function @(1) is not wrappable: @(2).%N", <<name, developer_exception_name>>)
 				-- buffer.reset
 				check 
-					translate.last_error/=Void 
+					last_error/=Void 
 				end
-				-- if translate.last_error/=Void then
-				log("Function @(1) is not wrappable: @(2).%N", <<name, translate.last_error>>)
+				-- if last_error/=Void then
+				log("Function @(1) is not wrappable: @(2).%N", <<name, last_error>>)
 				-- else buffer.put_message (once "%T-- Function @(1) not wrappable: exception code @(2)", <<name, exception_label(exception)>>) 
 			end
 			log_string(once "%N")
@@ -478,11 +485,11 @@ feature {ANY} -- Creation of external classes providing access to C functions
 					else
 						placeholder := eiffel_argument(placeholder) -- Eiffellize it
 					end
-					argument_type := translate.eiffel_type_of(an_argument)
+					argument_type := eiffel_type_of(an_argument)
 					if argument_type=Void then 
 						unwrappable:=True
-						log(once "Unwrappable argument @(1): @(2).%N", <<placeholder, translate.last_error>>)
-						buffer.put_message (once "%N%T%T%T-- argument @(1) unwrappable: @(2)%N",<<placeholder, translate.last_error>>)
+						log(once "Unwrappable argument @(1): @(2).%N", <<placeholder, last_error>>)
+						buffer.put_message (once "%N%T%T%T-- argument @(1) unwrappable: @(2)%N",<<placeholder, last_error>>)
 					else
 						log(once "@(1): @(2) ", <<placeholder, argument_type>>)
 						buffer.put_message (once "@(1): @(2)", <<placeholder, argument_type>>)
@@ -498,18 +505,18 @@ feature {ANY} -- Creation of external classes providing access to C functions
 
 	append_return_type (a_node: XML_COMPOSITE_NODE) is
 			-- Append the Eiffel equivalent type of the return type of
-			-- `a_node' to `buffer', i.e. ": INTEGER_32" or ":
-			-- POINTER". Do nothing when result of `a_node' is "void".
+			-- `a_node' to `buffer' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
+			-- POINTER is". When result of `a_node' is "void" only " is" is appended.
 		require
 			node_not_void: a_node /= Void
 			is_function_node: a_node.name.is_equal(once U"Function")
 		local
 			returns: STRING
 		do
-			returns := translate.eiffel_type_of_string(a_node.attribute_at(once U"returns"))
+			returns := eiffel_type_of_string(a_node.attribute_at(once U"returns"))
 			if returns = Void then
 				buffer.put_message ("%N%T%T%T-- unwrappable return type: @(1)%N",
-				<<translate.last_error>>)
+				<<last_error>>)
 				unwrappable:=True
 			elseif returns.is_empty then
 				-- Nothing; the correct "return type" of a C function returning void (i.e. a command) is an empty string.
@@ -517,6 +524,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 				buffer.append(once ": ")
 				buffer.append(returns)
 			end
+			buffer.append(once " is%N")
 		end
 
 	append_function_body (a_node: XML_COMPOSITE_NODE) is
@@ -529,75 +537,6 @@ feature {ANY} -- Creation of external classes providing access to C functions
 		end
 
 feature {ANY} -- Low-level structure class creator
-	make_structures is
-		obsolete "Use examine_typedeffed_structure and examine_structure in a do_all command"
-		local
-			typedef, structure: XML_COMPOSITE_NODE; iterator: ITERATOR[XML_NODE]; name, file_name: STRING
-			referred_type, file_id: UNICODE_STRING
-		do
-			-- Many structures are often "hidden behind" a typedef.
-			-- typedefs.do_all(agent emit_typedeffed_structure)
-			iterator := translate.typedefs.get_new_iterator
-			from
-				iterator.start
-			until
-				iterator.is_off
-			loop
-				typedef ?= iterator.item
-				if typedef /= Void then
-					referred_type := typedef.attribute_at(once U"type")
-					name := typedef.attribute_at(once U"name").to_utf8
-					check
-						referred_type_not_void: referred_type /= Void
-						name_not_void: name /= Void
-					end
-					structure := structures.reference_at(referred_type)
-					if structure /= Void then
-						-- Referred type is actually a structure
-						file_id := structure.attribute_at(once U"file")
-						file_name := files.at(file_id).attribute_at(once U"name").to_utf8
-						if is_to_be_emitted(file_name) then
-							if is_file(file_name) then
-								log(once "Copying existing file @(1) onto @(1).orig.%N",<<file_name>>)
-								copy_to(file_name,file_name+once ".orig")
-							end
-							log(once "Wrapping typedef structure @(1).%N", <<name>>)
-							emit_structure(structure, name)
-							structures.fast_remove(referred_type)
-						else
-							log("Typedef struct @(1) skipped: defined in an non-desired header.%N",
-							<<structure.name.as_utf8>>)
-						end
-					else
-						log("@(1) will not be wrapped%N",<<referred_type.as_utf8>>)
-					end
-				end
-				iterator.next
-			end
-
-			iterator := structures.get_new_iterator_on_items
-			from
-				iterator.start
-			until
-				iterator.is_off
-			loop
-				structure ?= iterator.item
-				if structure /= Void then
-					name := structure.attribute_at(once U"name").to_utf8
-					file_id := structure.attribute_at(once U"file")
-					file_name := files_by_id.reference_at(file_id).attribute_at(once U"name").to_utf8
-					if is_to_be_emitted(file_name) then
-						emit_structure(structure, name)
-					else
-						log(once "@(1) structure skipped: it is not declared in a desired header.%N",
-						<<name>>)
-					end
-					-- else raise("Non XML_COMPOSITE_NODE structure.")
-				end
-				iterator.next
-			end
-		end
-
 	examine_typedeffed_structure (a_typedef: XML_COMPOSITE_NODE) is
 		-- Many structures are often "hidden behind" a typedef.  If the
 		-- element referred by 'a_typedef' is a structure to be emitted
@@ -653,7 +592,7 @@ feature {ANY} -- Low-level structure class creator
 			if is_to_be_emitted(file_name) then
 				emit_structure(a_structure, name)
 			else
-				log(once "@(1) structure skipped: it is not declared in a desired header.%N",
+				log(once "Skipping @(1) structure since it is not declared in a desired header.%N",
 				<<name>>)
 			end
 		end
@@ -818,7 +757,6 @@ feature {ANY} -- Enumeration class creator
 				output.flush
 				output.disconnect
 			else
-				-- not public
 				log("Skipping 'hidden' enumeration @(1)%N",
 				<<name>>)
 			end
@@ -830,10 +768,16 @@ feature {ANY} -- Enumeration class creator
 		require
 			name_not_void: an_enum_name /= Void
 			is_valid_class_name: is_valid_class_name(an_enum_name)
+		local 
+			description: COLLECTION[STRING]
 		do
+			-- buffer.reset
 			output.put_string(automatically_generated_header)
 			output.put_string(expanded_class)
 			output.put_line(an_enum_name)
+			output.put_new_line
+			description := class_descriptions.reference_at(an_enum_name)
+			-- if description/=Void then emit_description(description) end
 			output.put_string(once "%Ninsert ENUM%N%Ncreation default_create%N")
 		end
 
@@ -1241,8 +1185,6 @@ feature {ANY} -- Data structures
 	
 	tree: XML_TREE
 
-	translate: TYPE_TRANSLATOR
-
 	headers: HASHED_SET[STRING]
 
 	files_by_id: HASHED_DICTIONARY[XML_COMPOSITE_NODE, UNICODE_STRING]
@@ -1304,7 +1246,7 @@ feature {} -- Constants
 
 	externals_header: STRING is "feature {} -- External calls%N%N"
 
-	footer: STRING is "endi%N"
+	footer: STRING is "end%N"
 
 	automatically_generated_header: STRING is "[
 		-- This file have been created by eiffel-gcc-xml.

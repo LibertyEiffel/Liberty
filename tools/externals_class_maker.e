@@ -45,7 +45,6 @@ feature {ANY} -- Functions emittion
 			else
 				function_header := header
 			end
-			buffer.append(once " is%N")
 			if variadic then
 				buffer.append(variadic_function_note)
 			end
@@ -72,7 +71,7 @@ feature {ANY} -- Structure emission
 			fieldname, type: STRING
 		do
 			fieldname := adapt(a_field.attribute_at(once U"name").to_utf8)
-			type := translate.eiffel_type_of(a_field)
+			type := eiffel_type_of(a_field)
 			if type /= Void then
 				log(once "Appending query for @(1)%N",
 				<<fieldname>>)
@@ -88,9 +87,9 @@ feature {ANY} -- Structure emission
 				<<fieldname, type, a_structure_name, fieldname, header>>)
 			else
 				log(once "Field @(1) in structure @(2) is not wrappable: @(3)",
-				<<fieldname, a_structure_name, translate.last_error>>)
+				<<fieldname, a_structure_name, last_error>>)
 				queries.put_message(once "	-- Unwrappable @(1): @(2)%N",
-				<<fieldname, translate.last_error>>)
+				<<fieldname, last_error>>)
 			end
 		end
 

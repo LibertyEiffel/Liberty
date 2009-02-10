@@ -50,15 +50,27 @@ feature {} -- Logging
 		-- The formatter used to log messages
 	once
 		create Result.make(std_error)
+	ensure Result/=Void
 	end
 
 	log_string (a_string: STRING) is
-			-- If verbose print `a_string' to logger's output
-		do
-			if verbose then
-				std_error.put_string(a_string)
-			end
+		-- If verbose print `a_string' to logger's output
+	require a_string/=Void
+	do
+		if verbose then
+			std_error.put_string(a_string)
 		end
+	end
+
+	log_word (a_word: STRING) is
+		-- If verboe print 'a_word' and a whitespace to logger's output 
+	require a_word/=Void
+	do
+		if verbose then
+			std_error.put_string(a_word)
+			std_error.put_character(' ')
+		end
+	end
 
 	log (a_message: TRAVERSABLE[CHARACTER]; some_arguments: TRAVERSABLE[ANY]) is
 			-- Utility feature to replace "if verbose then logger.put_message(foo,bar) end" with "log(foo,bar)"
@@ -71,8 +83,70 @@ feature {} -- Logging
 			end
 		end
 
+	log2 (a_tuple: TUPLE[STRING,STRING]) is
+		-- If verbose log the strings contained in `a_tuple' to std_error.
+	require a_tuple/=Void
+	do
+		if verbose then
+			std_error.put_string(a_tuple.item_1)
+			std_error.put_string(a_tuple.item_2)
+		end
+	end
+
+	log3 (a_tuple: TUPLE[STRING,STRING,STRING]) is
+		-- If verbose log the strings contained in `a_tuple' to std_error.
+	require a_tuple/=Void
+	do
+		if verbose then
+			std_error.put_string(a_tuple.item_1)
+			std_error.put_string(a_tuple.item_2)
+			std_error.put_string(a_tuple.item_3)
+		end
+	end
+
+
+	log4 (a_tuple: TUPLE[STRING,STRING,STRING,STRING]) is
+		-- If verbose log the strings contained in `a_tuple' to std_error.
+	require a_tuple/=Void
+	do
+		if verbose then
+			std_error.put_string(a_tuple.item_1)
+			std_error.put_string(a_tuple.item_2)
+			std_error.put_string(a_tuple.item_3)
+			std_error.put_string(a_tuple.item_4)
+		end
+	end
+
+	log5 (a_tuple: TUPLE[STRING,STRING,STRING,STRING,STRING]) is
+		-- If verbose log the strings contained in `a_tuple' to std_error.
+	require a_tuple/=Void
+	do
+		if verbose then
+			std_error.put_string(a_tuple.item_1)
+			std_error.put_string(a_tuple.item_2)
+			std_error.put_string(a_tuple.item_3)
+			std_error.put_string(a_tuple.item_4)
+			std_error.put_string(a_tuple.item_5)
+		end
+	end
+
+	log6 (a_tuple: TUPLE[STRING,STRING,STRING,STRING,STRING,STRING]) is
+		-- If verbose log the strings contained in `a_tuple' to std_error.
+	require a_tuple/=Void
+	do
+		if verbose then
+			std_error.put_string(a_tuple.item_1)
+			std_error.put_string(a_tuple.item_2)
+			std_error.put_string(a_tuple.item_3)
+			std_error.put_string(a_tuple.item_4)
+			std_error.put_string(a_tuple.item_5)
+			std_error.put_string(a_tuple.item_6)
+		end
+	end
+
 	log_tuple (a_tuple: TUPLE) is
 		-- Log the strings contained in `a_tuple' to std_error up to 5 fields.
+	obsolete "Use log2, log3 ... instead"
 	require a_tuple/=Void
 	local
 		t1: TUPLE[STRING]

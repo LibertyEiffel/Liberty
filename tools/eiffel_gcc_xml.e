@@ -107,13 +107,13 @@ feature {ANY}
 							comment_file_name := argument(i)
 							if not file_exists(comment_file_name) then
 								-- logger.put_message
-								log_tuple([once "Comment file `",comment_file_name,once "' does exists.%N"])
+								log3([once "Comment file `",comment_file_name,once "' does exists.%N"])
 								print_usage
 							elseif not is_file(comment_file_name) then
-								log_tuple([once "Comment file `",comment_file_name,once "'is not a file."])
+								log3([once "Comment file `",comment_file_name,once "'is not a file."])
 								print_usage
 							else 
-								log_tuple([once "Reading comments from `",comment_file_name,"'.%N"])
+								log3([once "Reading comments from `",comment_file_name,"'.%N"])
 								settings.comment_file_from(comment_file_name)
 							end
 						else

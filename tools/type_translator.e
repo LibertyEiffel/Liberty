@@ -1,19 +1,15 @@
-class TYPE_TRANSLATOR
+deferred class TYPE_TRANSLATOR
+	-- Translate names of C symbols into Eiffel features
 
 insert
 	SHARED_SETTINGS
 	EIFFEL_GCC_XML_EXCEPTIONS
 	EXCEPTIONS
 
-creation {ANY}
-	make
-
-feature {ANY} -- Creation
+feature {ANY} -- Initialization
 	make is
 		do
-			create types.make
-			create typedefs.make
-		end
+			end
 
 feature {ANY} -- Type-system translations
 	is_void (an_argument: XML_COMPOSITE_NODE): BOOLEAN is
@@ -224,17 +220,23 @@ feature {} -- Implementation
 
 feature {ANY} -- Constants
 	integer_size: INTEGER is
-		once
-			Result := {INTEGER_32 1}.object_size // 8
-		end
+		-- The size of an INTEGER in bytes
+	once
+		Result := {INTEGER_32 1}.object_size // 8
+	end
 
 	real_size: INTEGER is
-		once
-			Result := {REAL_64 1.0}.object_size // 8
-		end
-		-- External types are described in
-		-- http://smarteiffel.loria.fr/wiki/en/index.php/External_types
-		-- could be obsolete.
+		-- The sice of a REAL_64 in bytes
+	once
+		Result := {REAL_64 1.0}.object_size // 8
+	end
+	-- External types are described in
+	-- http://smarteiffel.loria.fr/wiki/en/index.php/External_types
+	-- could be obsolete.
+
+invariant
+	non_void_types: types /= Void
+	non_void_typedefs: typedefs /= Void
 
 end -- class TYPE_TRANSLATOR
 
