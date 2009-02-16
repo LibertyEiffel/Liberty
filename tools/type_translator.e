@@ -65,18 +65,25 @@ feature {ANY} -- Type-system translations
 			argument_not_void: an_argument /= Void
 		local
 			name: STRING; size: INTEGER
+			referred: XML_COMPOSITE_NODE
+			uniname: UNICODE_STRING
 		do
-			Result := Void
+			check 
+				-- This SHOULD be useless in Eiffel... just to be sure
+				Result = Void 
+				-- In fact previous code explicitly assigned it, i.e.:
+				-- Result:=Void but this should be redundant in Eiffel since
+				-- all reference type Results are set at the beginning of the
+				-- feature to the default value for a reference, i.e. Void!
+			end
 			-- Known nodes: FundamentalType Constructor Ellipsis Typedef
 			-- ArrayType Argument Enumeration PointerType EnumValue
 			-- Struct GCC_XML CvQualifiedType Namespace FunctionType
 			-- Variable File Field Function Union ReferenceType
-			inspect
-				an_argument.name.to_utf8
+			inspect an_argument.name.to_utf8
 			when "FundamentalType" then
 				name := an_argument.attribute_at(once U"name").to_utf8
-				if name.is_equal(once "void") then
-					Result := once ""
+				if name.is_equal(once "void") then Result := once ""
 				else
 					size := an_argument.attribute_at(once U"size").to_utf8.to_integer
 					if name.has_substring(once "char") then
@@ -157,8 +164,18 @@ feature {ANY} -- Type-system translations
 			when "Argument", "Typedef", "Variable", "Field" then
 				-- Recursively discover the correct type: the actual type
 				-- of a typedef is the type it is referring to.
-				
-				Result := eiffel_type_of(types.at(deconst(an_argument.attribute_at(once U"type"))))
+				-- It was Result:=eiffel_type_of(types.at(deconst(an_argument.attribute_at(once U"type"))))
+				-- but it requires that eiffel_type_of accept a Void argument
+				-- and that the types dictionary is always correctly filled.
+				uniname := deconst(an_argument.attribute_at(once U"type"))
+				std_error.put_line("Looking for type of "+uniname.as_utf8+" an Argument/Typedef/Variable/Field")
+				referred := types.reference_at(uniname)
+				if referred/=Void then
+					Result := eiffel_type_of(referred)
+				else
+					name := an_argument.attribute_at(once U"name").to_utf8
+					std_error.put_line("Warning! "+name+" has no Eiffel type")
+				end
 			when "Enumeration" then
 				Result := once "INTEGER_32"
 			when "ArrayType", "PointerType" then

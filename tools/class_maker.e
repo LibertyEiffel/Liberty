@@ -270,9 +270,7 @@ feature {ANY} -- Processing XML input
 				end
 				types.put(a_node, id)
 			elseif name.is_equal(once U"File") then
-				check
-					c_name /= Void
-				end
+				check c_name /= Void end
 				files.fast_put(a_node, c_name)
 				files_by_id.fast_put(a_node, id)
 			else
@@ -281,15 +279,11 @@ feature {ANY} -- Processing XML input
 				-- Argument, EnumValue, GCC_XML,
 				-- CvQualifiedType, Namespace,
 				-- Recursively visit all children:
-				from
-					i := 1
-				until
-					i > a_node.children_count
+				from i := 1
+				until i > a_node.children_count
 				loop
 					a_child ?= a_node.child(i)
-					if a_child /= Void then
-						visit(a_child)
-					end
+					if a_child /= Void then visit(a_child) end
 					i := i + 1
 				end
 			end
@@ -546,36 +540,41 @@ feature {ANY} -- Low-level structure class creator
 		typedef_not_void: a_typedef/=Void
 		is_typedef_node: a_typedef.name.is_equal(once U"Typedef")
 	local
-		structure: XML_COMPOSITE_NODE; 
+		structure, file_node: XML_COMPOSITE_NODE; 
 		name, file_name: STRING
-		referred_type, file_id: UNICODE_STRING
+		referred_id, structure_name, file_id: UNICODE_STRING
 	do
-		-- typedefs.do_all(agent emit_typedeffed_structure)
-		referred_type := a_typedef.attribute_at(once U"type")
+		referred_id := a_typedef.attribute_at(once U"type")
 		name := a_typedef.attribute_at(once U"name").to_utf8
+		file_id := a_typedef.attribute_at(once U"file")
 		check
-			referred_type_not_void: referred_type /= Void
+			referred_id_not_void: referred_id /= Void
 			name_not_void: name /= Void
+			file_id /= Void
 		end
-		structure := structures.reference_at(referred_type)
-		if structure /= Void then
+		structure := types.reference_at(referred_id)
+		if structure /= Void and then 
+			structure.name.is_equal(once U"Struct") then
 			-- Referred type is actually a structure
-			file_id := structure.attribute_at(once U"file")
-			file_name := files.at(file_id).attribute_at(once U"name").to_utf8
-			if is_to_be_emitted(file_name) then
-				if is_file(file_name) then
-					log(once "Copying existing file @(1) onto @(1).orig.%N",<<file_name>>)
-					copy_to(file_name,file_name+once ".orig")
+			log(once "Typedef @(1) (file id @(3)) refers to structure @(2) ", 
+			<<name,structure.attribute_at(once U"name").to_utf8, file_id.to_utf8>>)
+			file_node := files_by_id.reference_at(file_id)
+			if file_node/=Void then 
+				file_name := file_node.attribute_at(once U"name").to_utf8
+				if is_to_be_emitted(file_name) then
+					log_string(once "not wrapping.%N")
+					emit_structure(structure, name)
+					structure_name := structure.attribute_at(once U"name")
+					debug log(once "Removing @(1) from structures",<<structure_name.as_utf8>>) end
+					structures.fast_remove(structure_name)
+				else
+					log("Typedef @(1) skipped: not in a requested header file.%N",<<name>>)
 				end
-				log(once "Wrapping typedef structure @(1).%N", <<name>>)
-				emit_structure(structure, name)
-				structures.fast_remove(referred_type)
 			else
-				log("Typedef struct @(1) skipped: defined in an non-desired header.%N",
-				<<structure.name.as_utf8>>)
+				log_string(once " no file!!!%N")
 			end
 		else
-			log("@(1) will not be wrapped%N",<<referred_type.as_utf8>>)
+			log("Typedef @(1) skipped: not referring to a struct.%N", <<name>>)
 		end
 	end
 
@@ -748,10 +747,10 @@ feature {ANY} -- Enumeration class creator
 				queries.reset
 				low_level_values.reset
 				emit_enumeration_header(class_name)
-				if have_flags_values(a_node) then
-					append_flag_items(a_node)
-				else
-					append_enumeration_items(a_node)
+				if a_node.children_count>0 then
+					if have_flags_values(a_node) then append_flag_items(a_node)
+					else append_enumeration_items(a_node)
+					end
 				end
 				emit_enumeration_items
 				output.flush
@@ -771,16 +770,19 @@ feature {ANY} -- Enumeration class creator
 		local 
 			description: COLLECTION[STRING]
 		do
-			-- buffer.reset
-			output.put_string(automatically_generated_header)
-			output.put_string(expanded_class)
-			output.put_line(an_enum_name)
-			output.put_new_line
+			buffer.reset_with(automatically_generated_header)
+			buffer.append(expanded_class)
+			buffer.append(an_enum_name)
+			buffer.append_new_line
 			description := class_descriptions.reference_at(an_enum_name)
-			-- if description/=Void then emit_description(description) end
-			output.put_string(once "%Ninsert ENUM%N%Ncreation default_create%N")
+			if description/=Void then emit_description(description) end
+			buffer.append(once "%Ninsert ENUM%N%Ncreation default_create%N")
+			buffer.print_on(output)
 		end
 
+	prefix_length: INTEGER 
+		-- The length of the longest common prefix of the enumeration - either plain or flag-like - currently being wrapped.
+		
 	emit_enumeration_items is
 			-- Append to `output' validity queries, setters, getters and
 			-- low level values of current enumeration.
@@ -808,22 +810,19 @@ feature {ANY} -- Enumeration class creator
 		end
 
 	have_flags_values (an_enumeration: XML_COMPOSITE_NODE): BOOLEAN is
-			-- Can the values of `an_enumeration' be used as flags? They
-			-- can be used as flags when they are different powers of 2,
-			-- i.e. setting each a different bit.
+			-- Can the values of `an_enumeration' be used as flags? They can be
+			-- used as flags when they are different powers of 2, i.e.  setting
+			-- each a different bit, and there is no zero value.
 		require
 			node_not_void: an_enumeration /= Void
 			is_enumeration: an_enumeration.name.is_equal(once U"Enumeration")
+			has_children: an_enumeration.children_count>0
 		local
 			i: COUNT; flags_so_far, value: INTEGER; child: XML_COMPOSITE_NODE
 		do
-			from
-				i.set(1)
-				Result := True
-			variant
-				an_enumeration.children_count - i.value
-			until
-				Result = False or else i > an_enumeration.children_count
+			from i.set(1) Result := True
+			variant an_enumeration.children_count - i.value
+			until Result = False or else i > an_enumeration.children_count
 			loop
 				child ?= an_enumeration.child(i.value)
 				if child /= Void then
@@ -832,22 +831,14 @@ feature {ANY} -- Enumeration class creator
 						if value > 0 and then value.is_a_power_of_2 and flags_so_far & value = 0 then
 							-- value is valid and indipendent from values so far.
 							flags_so_far := flags_so_far | value
-						else
-							Result := False
+						else Result := False
 						end
-					else
-						log(once "Unhandled child in Enumeration at line @(1)%N",
-						<<child.line.out>>)
+					else log(once "Unhandled child in Enumeration at line @(1)%N", <<child.line.out>>)
 					end
-					-- Is an EnumValue
-				else
-					-- child is void
-					log(once "CLASS_MAKER.have_flags_values: non-composite child in Enumeration!", Void)
+				else log(once "CLASS_MAKER.have_flags_values: non-composite child in Enumeration!", Void)
 				end
-				-- Void child
 				i.increment
 			end
-			-- loop over childs
 		end
 
 	append_enumeration_items (a_node: XML_COMPOSITE_NODE) is
@@ -859,9 +850,10 @@ feature {ANY} -- Enumeration class creator
 		require
 			node_not_void: a_node /= Void
 			enumeration_node: a_node.name.is_equal(once U"Enumeration")
+			has_children: a_node.children_count>0
 			is_plain_enumeration: not have_flags_values(a_node)
 		local
-			i, prefix_length: INTEGER; filename: STRING; a_child: XML_COMPOSITE_NODE
+			i: INTEGER; filename: STRING; a_child: XML_COMPOSITE_NODE
 			is_first,is_last: BOOLEAN
 		do
 			-- debug log(once "@(1) is a plain enumeration%N", <<an_enum_name>>) end
@@ -874,21 +866,16 @@ feature {ANY} -- Enumeration class creator
 				if a_node.children_count > 1 then
 					prefix_length := longest_prefix_of_children_of(a_node)
 				end
-				-- Obtain the path of the file where the enumeration is
-				-- declared. TODO: make it cleaner, currently it is a
-				-- mess.
-				filename := files_by_id.at(a_node.attribute_at(once U"file")).attribute_at(once U"name").to_utf8
+				filename := file_containing(a_node)
 				initialize_validity_query
-				from
-					i := 1
-				until
-					i > a_node.children_count
+				from i := 1
+				until i > a_node.children_count
 				loop
-					a_child ?= a_node.child(i)
+					a_child ?= a_node.child(i) 
 					if a_child /= Void then
 						is_first := (i = 1)
 						is_last := (i = a_node.children_count)
-						append_enumeration_item(a_child, filename, prefix_length, is_first , is_last)
+						append_enumeration_item(a_child, filename, is_first , is_last)
 					end
 					i := i + 1
 				end
@@ -896,8 +883,7 @@ feature {ANY} -- Enumeration class creator
 			end
 		end
 
-	append_enumeration_item (a_node: XML_COMPOSITE_NODE; a_filename: STRING; prefix_length: INTEGER
-		is_first, is_last: BOOLEAN) is
+	append_enumeration_item (a_node: XML_COMPOSITE_NODE; a_filename: STRING; is_first, is_last: BOOLEAN) is
 		require
 			node_not_void: a_node /= Void
 			node_is_an_enum_value: a_node.name.is_equal(once U"EnumValue")
@@ -927,16 +913,12 @@ feature {ANY} -- Enumeration class creator
 		require
 			value_not_void: a_value /= Void
 		do
-			if is_first then
-				validity_query.append(once "(a_value = ")
-			else
-				validity_query.append(once "%T%T%T%T(a_value = ")
+			if is_first then validity_query.append(once "(a_value = ")
+			else validity_query.append(once "%T%T%T%T(a_value = ")
 			end
 			validity_query.append(a_value)
-			if is_last then
-				validity_query.append(once ")")
-			else
-				validity_query.append(once ") or else %N")
+			if is_last then validity_query.append(once ")")
+			else validity_query.append(once ") or else %N")
 			end
 		ensure
 			validity_query_grew: validity_query.count > old validity_query.count
@@ -993,9 +975,10 @@ feature {ANY} -- Flag enumeration
 		require
 			node_not_void: a_node /= Void
 			enumeration_node: a_node.name.is_equal(once U"Enumeration")
-			is_flag_enumeration: have_flags_values(a_node)
+			has_children: a_node.children_count>0
+			iis_flag_enumeration: have_flags_values(a_node)
 		local
-			i, prefix_length: INTEGER; filename: STRING; a_child: XML_COMPOSITE_NODE
+			i: INTEGER; filename: STRING; a_child: XML_COMPOSITE_NODE
 			is_first, is_last: BOOLEAN
 		do
 			if a_node.children_count = 0 then
@@ -1020,7 +1003,7 @@ feature {ANY} -- Flag enumeration
 					if a_child /= Void then
 						is_first := i=1
 						is_last := i=a_node.children_count
-						append_flag_item (a_child, filename, prefix_length,is_first,is_last)
+						append_flag_item (a_child, filename, is_first,is_last)
 					-- else raise("A flag item is not a XML_COMPOSITE_CHILD")
 					end
 					i := i + 1
@@ -1029,8 +1012,7 @@ feature {ANY} -- Flag enumeration
 			end
 		end
 
-	append_flag_item (a_node: XML_COMPOSITE_NODE; a_filename: STRING; prefix_length: INTEGER
-		is_first, is_last: BOOLEAN) is
+	append_flag_item (a_node: XML_COMPOSITE_NODE; a_filename: STRING; is_first, is_last: BOOLEAN) is
 		require
 			node_not_void: a_node /= Void
 			node_is_enuma_value: a_node.name.is_equal(once U"EnumValue")
@@ -1118,6 +1100,14 @@ feature {ANY} -- Flag enumeration
 		end
 
 feature {ANY} -- Auxiliary features
+	file_containing (a_node: XML_COMPOSITE_NODE): STRING is
+		-- The path of the file where the C entity described by `a_node' is declared.
+	require a_node/=Void
+	do
+		Result := files_by_id.at(a_node.attribute_at(once U"file")).attribute_at(once U"name").to_utf8
+	ensure Result/=Void
+	end
+
 	is_to_be_emitted (a_file_name: STRING): BOOLEAN is
 		-- Shall the declaration in file named `a_file_name' be
 		-- wrapped? The content of a file will be emitted when global
@@ -1125,7 +1115,8 @@ feature {ANY} -- Auxiliary features
 	require
 		is_initialized
 	do
-		Result := global or else headers.has(a_file_name)
+		Result := (global or else 
+					(a_file_name/=Void and then headers.has(a_file_name)))
 	end
 
 	apply_patches (a_file_name: STRING) is

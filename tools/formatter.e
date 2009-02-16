@@ -38,6 +38,12 @@ feature {ANY}
 			buffer.append(a_string)
 		end
 
+	append_new_line is
+		-- Append a new line to Current
+	do
+		buffer.append(once "%N")
+	end
+
 	append_on (a_string: STRING) is
 			-- Append the content of Current to `a_string'
 		require
