@@ -63,19 +63,12 @@ feature {ANY} -- Type-system translations
 			-- unions, references, complex reals (float and double) 
 		require
 			argument_not_void: an_argument /= Void
+			no_previous_errors: last_error = Void
 		local
 			name: STRING; size: INTEGER
 			referred: XML_COMPOSITE_NODE
 			uniname: UNICODE_STRING
 		do
-			check 
-				-- This SHOULD be useless in Eiffel... just to be sure
-				Result = Void 
-				-- In fact previous code explicitly assigned it, i.e.:
-				-- Result:=Void but this should be redundant in Eiffel since
-				-- all reference type Results are set at the beginning of the
-				-- feature to the default value for a reference, i.e. Void!
-			end
 			-- Known nodes: FundamentalType Constructor Ellipsis Typedef
 			-- ArrayType Argument Enumeration PointerType EnumValue
 			-- Struct GCC_XML CvQualifiedType Namespace FunctionType
@@ -97,41 +90,29 @@ feature {ANY} -- Type-system translations
 					elseif name.has_substring(once "unsigned") then
 						-- check name.has_substring(once "int") end
 						if are_naturals_used then
-							inspect
-								size
-							when 16 then
-								Result := once "NATURAL_16"
-							when 32 then
-								Result := once "NATURAL_32"
-							when 64 then
-								Result := once "NATURAL_64"
+							inspect size
+							when 16 then Result := once "NATURAL_16"
+							when 32 then Result := once "NATURAL_32"
+							when 64 then Result := once "NATURAL_64"
 							else
-								std_error.put_line("Unknown unsigned int of size" + size.out)
+								log(once "Unknown unsigned int of sizei @(1)",<<size.out>>)
 								last_error := unhandled_unsigned_integer_type
 							end
 						else
-							inspect
-								size
-							when 16 then
-								Result := once "INTEGER_16"
-							when 32 then
-								Result := once "INTEGER_32"
-							when 64 then
-								Result := once "INTEGER_64"
+							inspect size
+							when 16 then Result := once "INTEGER_16"
+							when 32 then Result := once "INTEGER_32"
+							when 64 then Result := once "INTEGER_64"
 							else
-								std_error.put_line("Unknown unsigned int of size" + size.out)
+								log(once "Unknown unsigned int of size @(1)",<<size.out>>)
 								last_error := unhandled_unsigned_integer_type
 							end
 						end
 					elseif name.has_substring(once "int") then
-						inspect
-							size
-						when 16 then
-							Result := once "INTEGER_16"
-						when 32 then
-							Result := once "INTEGER_32"
-						when 64 then
-							Result := once "INTEGER_64"
+						inspect size
+						when 16 then Result := once "INTEGER_16"
+						when 32 then Result := once "INTEGER_32"
+						when 64 then Result := once "INTEGER_64"
 						else
 							std_error.put_line("Unknown int of size" + size.out)
 							last_error := unhandled_integer_type
@@ -140,27 +121,22 @@ feature {ANY} -- Type-system translations
 						-- check size=32 end
 						Result := once "REAL_32"
 					elseif name.has_substring(once "double") then
-						inspect
-							size
+						inspect size
 						when 32 then
-							std_error.put_line(once "What a pretty strange thing: a 32 bit double! They are usually called float.")
+							log_string(once "What a pretty strange thing: a 32 bit double! They are usually called float.")
 							Result := once "REAL_32"
-						when 64 then
-							Result := once "REAL_64"
-						when 80 then
-							Result := once "REAL_80"
-						when 128 then
-							Result := once "REAL_128"
+						when 64 then Result := once "REAL_64"
+						when 80 then Result := once "REAL_80"
+						when 128 then Result := once "REAL_128"
 						else
-							std_error.put_line("Double of unhandled length " + size.out + " using REAL_128")
+							log(once "Double of unhandled length @(1) using REAL_128",<<size.out>>)
 							last_error := unhandled_double_type
 						end
 					else
-						std_error.put_line(unhandled_type + name)
+						log("@(1) @(2)",<<unhandled_type, name>>)
 						last_error := unhandled_type
 					end
 				end
-				-- if name.is_equal(once "void")
 			when "Argument", "Typedef", "Variable", "Field" then
 				-- Recursively discover the correct type: the actual type
 				-- of a typedef is the type it is referring to.
@@ -168,36 +144,28 @@ feature {ANY} -- Type-system translations
 				-- but it requires that eiffel_type_of accept a Void argument
 				-- and that the types dictionary is always correctly filled.
 				uniname := deconst(an_argument.attribute_at(once U"type"))
-				std_error.put_line("Looking for type of "+uniname.as_utf8+" an Argument/Typedef/Variable/Field")
 				referred := types.reference_at(uniname)
-				if referred/=Void then
-					Result := eiffel_type_of(referred)
+				if referred/=Void then Result := eiffel_type_of(referred)
 				else
 					name := an_argument.attribute_at(once U"name").to_utf8
-					std_error.put_line("Warning! "+name+" has no Eiffel type")
+					log(once "Warning! Type Argument/Typedef/Variable/Field @(1) - @(2) has no Eiffel type",
+					<<name,uniname.as_utf8>>)
+					last_error := unhandled_type
 				end
-			when "Enumeration" then
-				Result := once "INTEGER_32"
-			when "ArrayType", "PointerType" then
-				Result := once "POINTER"
-			when "FunctionType" then
-				std_error.put_line(once "FunctionType wrapped as a POINTER.")
-				Result := once "POINTER"
-			when "Struct" then
-				last_error := unhandled_structure_type
+			when "Enumeration" then Result := once "INTEGER_32"
+			when "ArrayType", "PointerType" then Result := once "POINTER"
+			when "FunctionType" then Result := once "POINTER"
+			when "Struct" then last_error := unhandled_structure_type
 			when  "Function" then
-				std_error.put_line(once "C functions does not have a valid Eiffel wrapper type (a function pointer does have it).")
+				log_string(once "C functions does not have a valid Eiffel wrapper type (a function pointer does have it).")
 				last_error := unhandled_type
-			when  "Union" then
-				last_error := unhandled_union_type
+			when  "Union" then last_error := unhandled_union_type
 			when  "ReferenceType" then
 				std_error.put_line(once "C++ reference does not have a valid Eiffel wrapper type.")
 				last_error := unhandled_reference_type
-			else
-				last_error := unhandled_type
+			else last_error := unhandled_type
 			end
-		ensure
-			when_void_last_error_is_set: Result = Void implies last_error /= Void
+		ensure when_void_last_error_is_set: Result = Void implies last_error /= Void
 		end
 
 	has_type_error: BOOLEAN is

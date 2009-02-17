@@ -51,7 +51,7 @@ feature {ANY} -- Initialization
 			create validity_query
 			create class_descriptions.make
 			create feature_descriptions.make
-			read_comments 
+			read_descriptions
 		end
 
 	is_initialized: BOOLEAN is
@@ -60,7 +60,7 @@ feature {ANY} -- Initialization
 		end
 
 feature -- Descriptions reading
-	read_comments is
+	read_descriptions is
 		-- Read description comment for classes and features from
 		-- `comment_file', creating and filling `class_descriptions' and
 		-- `feature_descriptions'. Leading and trailing spaces are removed.
@@ -85,7 +85,7 @@ feature -- Descriptions reading
 					if not words.is_empty then
 						described := words.first
 						words.remove_first
-						read_comment(described,words)
+						read_description(described,words)
 					end
 				end
 				comment_file.read_line
@@ -96,14 +96,15 @@ feature -- Descriptions reading
 		end
 	end
 
-	read_comment (a_described: STRING; a_description: COLLECTION[STRING]) is
-		-- Removes leading and trailing spaces from both arguments; if
-		-- a_described does not starts with "--" (a comment) then looks if it
-		-- follow the pattern "CLASS_NAME_01" or
-		-- "ANOTHER_CLASS.my_feature_12_foo" putting `a_description' into
-		-- `class_descriptions' in the former case and into
-		-- `feature_descriptions' in the latter. See `read_comments' for
-		-- further informations.
+	read_description (a_described: STRING; a_description: COLLECTION[STRING]) is
+		-- Looks if `a_described' could be a class name (i.e. "CLASS_NAME_01") or a
+		-- class with a feature name ("ANOTHER_CLASS.my_feature_12_foo"); adds
+		-- `a_description' into `class_descriptions' in the former case and into
+		-- `feature_descriptions' in the latter.
+
+		-- Leading and trailing spaces are removed from `a_described'; comments -
+		-- starting with "--" are skipped; See `read_comments' for further
+		-- informations.
 	local 
 		described_class, described_feature: STRING; dot: INTEGER
 		subdictionary: HASHED_DICTIONARY[COLLECTION[STRING],STRING]	
@@ -417,16 +418,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 				end
 			end
 			append_function_body(a_node)
-			if unwrappable then
-				--log(once "Function @(1) is not wrappable: @(2).%N", <<name, developer_exception_name>>)
-				-- buffer.reset
-				check 
-					last_error/=Void 
-				end
-				-- if last_error/=Void then
-				log("Function @(1) is not wrappable: @(2).%N", <<name, last_error>>)
-				-- else buffer.put_message (once "%T-- Function @(1) not wrappable: exception code @(2)", <<name, exception_label(exception)>>) 
-			end
+			-- if unwrappable then log("Function @(1) is not wrappable.%N", <<name>>) end
 			log_string(once "%N")
 			buffer.print_on(output)
 		else log(once "Skipping 'hidden' function @(1)%N", <<name>>)
@@ -484,6 +476,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 						unwrappable:=True
 						log(once "Unwrappable argument @(1): @(2).%N", <<placeholder, last_error>>)
 						buffer.put_message (once "%N%T%T%T-- argument @(1) unwrappable: @(2)%N",<<placeholder, last_error>>)
+						last_error:=Void -- Error handled, reset it.
 					else
 						log(once "@(1): @(2) ", <<placeholder, argument_type>>)
 						buffer.put_message (once "@(1): @(2)", <<placeholder, argument_type>>)
@@ -509,9 +502,10 @@ feature {ANY} -- Creation of external classes providing access to C functions
 		do
 			returns := eiffel_type_of_string(a_node.attribute_at(once U"returns"))
 			if returns = Void then
-				buffer.put_message ("%N%T%T%T-- unwrappable return type: @(1)%N",
-				<<last_error>>)
+				buffer.put_message ("%N%T%T%T-- unwrappable return type: @(1)%N", <<last_error>>)
+				log(once "Unwrappable return type: @(1)... ",<<last_error>>)
 				unwrappable:=True
+				last_error := Void -- Error handled, reset it.
 			elseif returns.is_empty then
 				-- Nothing; the correct "return type" of a C function returning void (i.e. a command) is an empty string.
 			else
@@ -562,7 +556,7 @@ feature {ANY} -- Low-level structure class creator
 			if file_node/=Void then 
 				file_name := file_node.attribute_at(once U"name").to_utf8
 				if is_to_be_emitted(file_name) then
-					log_string(once "not wrapping.%N")
+					log_string(once " wrapping.%N")
 					emit_structure(structure, name)
 					structure_name := structure.attribute_at(once U"name")
 					debug log(once "Removing @(1) from structures",<<structure_name.as_utf8>>) end
@@ -591,7 +585,7 @@ feature {ANY} -- Low-level structure class creator
 			if is_to_be_emitted(file_name) then
 				emit_structure(a_structure, name)
 			else
-				log(once "Skipping @(1) structure since it is not declared in a desired header.%N",
+				log(once "Structure @(1) skipped: not declared in a given header.%N",
 				<<name>>)
 			end
 		end
@@ -676,22 +670,17 @@ feature {ANY} -- Low-level structure class creator
 		local
 			id, members: UNICODE_STRING; members_iter: ITERATOR[UNICODE_STRING]; field: XML_COMPOSITE_NODE
 		do
+			setters.reset; queries.reset
 			members := a_node.attribute_at(once U"members")
 			if members /= Void then
-				from
-					setters.reset
-					queries.reset
-					setters.append(setters_header)
-					queries.append(queries_header)
-					members_iter := members.split.get_new_iterator
-					members_iter.start
-				until
-					members_iter.is_off
+				setters.append(setters_header)
+				queries.append(queries_header)
+				members_iter := members.split.get_new_iterator
+				from members_iter.start until members_iter.is_off
 				loop
 					id := members_iter.item
 					field := fields.reference_at(id)
-					if field /= Void then
-						emit_structure_field(field, a_structure_name)
+					if field /= Void then emit_structure_field(field, a_structure_name)
 					else
 						log(once "@(1) in @(2) is not a field but probably a C++ constructor.%N",
 						<<id.as_utf8, a_structure_name>>)
@@ -701,8 +690,7 @@ feature {ANY} -- Low-level structure class creator
 				setters.print_on(output)
 				queries.print_on(output)
 			else
-				-- void members
-				buffer.append(once "%T-- Fieldless structure%N")
+				output.put_string(once "%T-- Fieldless structure%N")
 				log(once "Structure @(1) have no fields%N", <<a_structure_name>>)
 			end
 		end

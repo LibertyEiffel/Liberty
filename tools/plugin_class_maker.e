@@ -92,7 +92,7 @@ feature {ANY} -- Structure emission
 					getter_description:=formatted_description(descriptions.reference_at(eiffel_field))
 				else setter_description:=once ""; getter_description:=once ""
 				end
-				log(once "Field @(1).@(2) (`@(3)', `@(4)') query ",
+				log(once "Field @(1).@(2) (%"@(3)%", %"@(4)%" ",
 				<<a_structure_name, c_field, setter_description,getter_description>>)
 				queries.put_message(once "	@(1) (a_structure: POINTER): @(2) is%N%
 				%			-- Query for @(5) field of @(6) structure.%N%
@@ -107,7 +107,7 @@ feature {ANY} -- Structure emission
 				<<getter, eiffel_type, location, 
 				module, c_field, a_structure_name,
 				getter_description>>)
-				log_string(once "made, setter ")
+				log_string(once "query, ")
 				setters.put_message(once "	@(1) (a_structure: POINTER; a_value: @(2)) is%N%
 				%			-- Setter for @(5) field of @(6) structure.%N%
 				%			@(7)%N%
@@ -121,7 +121,7 @@ feature {ANY} -- Structure emission
 				<<setter, eiffel_type, location, 
 				module, c_field, a_structure_name,
 				setter_description>>)
-				log_string(once "made, C macros ")
+				log_string(once "command, ")
 				-- Note: Type safety is assured by Eiffel and GCC-XML so we can
 				-- be less type-strict-paranoid here and use some type-casts.
 				include.put_message(once "#define @(1)(a_structure) (((@(2)*) a_structure).@(3))%N%N",
@@ -129,12 +129,13 @@ feature {ANY} -- Structure emission
 				include.put_message(once "#define @(1)(a_structure,a_value) ((@(2)*) a_structure)->@(3) = a_value;%N%N",
 				<<setter, a_structure_name, c_field>>)
 				include.print_on(include_file)
-				log_string(once "made.%N")
+				log_string(once "macros made).%N")
 			else
 				log(once "Field @(1) in structure @(2) is not wrappable: @(3)",
 				<<c_field, a_structure_name, last_error>>)
 				queries.put_message(once "%T-- Unwrappable field @(1): @(2)%N",
 				<<c_field, last_error>>)
+				last_error := Void -- Error handled, resetting it.
 			end
 		end
 
