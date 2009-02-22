@@ -50,10 +50,8 @@ feature {ANY} -- Function emission
 			description: STRING
 		do
 			--if feature_descriptions.has(
-			if variadic then
-				description := c_function_name + variadic_function_note
-			else
-				description := c_function_name
+			if variadic then description := c_function_name + variadic_function_note
+			else description := c_function_name
 			end
 			buffer.put_message(once "%
 			% 		-- @(1)%N%
@@ -82,8 +80,8 @@ feature {ANY} -- Structure emission
 			eiffel_field := adapt(c_field)
 			eiffel_type := eiffel_type_of(a_field)
 			if eiffel_type /= Void then
-				setter := a_structure_name + once "_set_" + eiffel_field
-				getter := a_structure_name + once "_get_" + eiffel_field
+				setter := a_structure_name + once "_struct_set_" + eiffel_field
+				getter := a_structure_name + once "_struct_get_" + eiffel_field
 				setter.to_lower
 				getter.to_lower
 				descriptions := feature_descriptions.reference_at(a_structure_name)	
@@ -138,6 +136,25 @@ feature {ANY} -- Structure emission
 				last_error := Void -- Error handled, resetting it.
 			end
 		end
+
+	append_structure_size (a_node: XML_COMPOSITE_NODE; a_structure_name: STRING) is
+	do 
+		-- buffer.reset
+		buffer.put_message(once 
+		"	struct_size: INTEGER is%N%
+		%		external %"plug_in%"%N%
+		%		alias %"{%N%
+		%			location: %"@(1)%"%N%
+		%			module_name: %"@(2)%"%N%
+		%			feature_name: %"sizeof_@(3)%"%N%
+		%		}%"%N%
+		%		end%N%N",
+		<<location, module, a_structure_name>>)
+		buffer.print_on(output)
+		include.put_message(once
+		"#define sizeof@(1) sizeof(@(1))%N", <<a_structure_name>>)
+	end
+
 
 feature {ANY} -- Enumeration emission
 	append_enumeration_value_low_level (an_eiffel_value, a_low_level_value, a_file_name: STRING) is

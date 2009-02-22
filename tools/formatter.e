@@ -17,6 +17,12 @@ feature {ANY}
 	reset is
 			-- Clears the content of Current's buffer.
 		do
+			debug
+				if buffer.is_empty then
+					std_error.put_line(once "Unnecessary invocation of FORMATTER.reset")
+					print_run_time_stack
+				end
+			end
 			buffer.clear_count
 		end
 

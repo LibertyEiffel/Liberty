@@ -320,7 +320,6 @@ feature {ANY} -- Creation of external classes providing access to C functions
 					<<header_name, path.to_string>>)
 					create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
 				end
-				buffer.reset
 				emit_functions_class_headers
 				some_functions.do_all(agent emit_function)
 				buffer.append(footer)
@@ -336,41 +335,54 @@ feature {ANY} -- Creation of external classes providing access to C functions
 		-- Put on `'output' the header on an "external" class named 'class_name'
 		-- from the beginning until the "feature {} -- External calls" label
 		-- included
-	local description: COLLECTION[STRING]
 	do
 		buffer.append(automatically_generated_header)
 		buffer.append(deferred_class)
 		buffer.append(class_name) -- line
 		buffer.put('%N')
-		description:=class_descriptions.reference_at(class_name)
-		if description/=Void then
-			emit_description(description)
-		end
+		emit_description(class_descriptions.reference_at(class_name))
 		buffer.append(struct_inherits) --line
 		buffer.append(externals_header) --line
 	end
 
+	feature_description (a_class_name, a_feature_name: STRING): COLLECTION[STRING] is
+		-- The description of `a_feature_name' in `a_class_name'. Void when
+		-- there is no description.
+	require a_class_name/=Void
+	local dictionary: HASHED_DICTIONARY[COLLECTION[STRING],STRING] 	
+	do
+		dictionary := feature_descriptions.reference_at(a_class_name)
+		if dictionary/=Void then 
+			Result:=dictionary.reference_at(a_feature_name)
+			-- debug
+			-- 	log(once "feature_description(%"@(1)%",%"@(2)%")=%"@(3)%"%N",<<a_class_name,a_feature_name,formatted_description(Result)>>)
+			-- end
+		end
+	end
+
 	emit_description (a_description: COLLECTION[STRING]) is
 		-- Put 'a_description' on 'buffer' formatting it as an Eiffel comment
-		-- with lines shorter that 'description_lenght' characters.
-	require a_description/=Void
+		-- with lines shorter that 'description_lenght' characters.  Nothing is
+		-- done when `a_description' is Void.
 	local word: STRING; iter: ITERATOR[STRING]; length,new_length: INTEGER
 	do
-		from 
-			iter:=a_description.get_new_iterator; iter.start; 
-			buffer.append(comment); length:=0
-		until iter.is_off loop
-			word := iter.item
-			new_length := length + word.count
-			if new_length>description_lenght then
-				buffer.append(comment)
-				length := 0
-			else
-				buffer.put(' ')
-				length := new_length + 1
+		if a_description/=Void then
+			from 
+				iter:=a_description.get_new_iterator; iter.start; 
+				buffer.append(comment); length:=0
+			until iter.is_off loop
+				word := iter.item
+				new_length := length + word.count
+				if new_length>description_lenght then
+					buffer.append(comment)
+					length := 0
+				else
+					buffer.put(' ')
+					length := new_length + 1
+				end
+				buffer.append(word)
+				iter.next
 			end
-			buffer.append(word)
-			iter.next
 		end
 	end
 
@@ -391,9 +403,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 		is_function_node: a_node.name.is_equal(once U"Function")
 		output_not_void: output /= Void
 		connected_output: output.is_connected
-	local
-		name: STRING; description: COLLECTION[STRING]; 
-		dictionary: HASHED_DICTIONARY[COLLECTION[STRING],STRING]
+	local name: STRING
 	do
 		unwrappable:=False
 		c_function_name := a_node.attribute_at(once U"name").to_utf8
@@ -410,13 +420,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 				append_function_arguments(a_node)
 			end
 			append_return_type(a_node)
-			dictionary := feature_descriptions.reference_at(class_name)
-			if dictionary/=Void then
-				description:=dictionary.reference_at(name)
-				if description/=Void then
-					emit_description(description)
-				end
-			end
+			emit_description(feature_description(class_name, name))
 			append_function_body(a_node)
 			-- if unwrappable then log("Function @(1) is not wrappable.%N", <<name>>) end
 			log_string(once "%N")
@@ -599,7 +603,7 @@ feature {ANY} -- Low-level structure class creator
 			filename: STRING; path: POSIX_PATH_NAME
 		do
 			if unwrappable then
-				buffer.reset
+				-- buffer.reset
 				buffer.put_message(once "%T-- @(1) is not wrappable",
 				<<a_structure_name>>)
 				buffer.print_on(output)
@@ -607,7 +611,7 @@ feature {ANY} -- Low-level structure class creator
 				output.disconnect
 			else
 				if is_public(a_structure_name) then
-					buffer.reset
+					-- buffer.reset
 					filename := a_structure_name + once "_struct"
 					class_name := eiffel_class_name(filename)
 					if directory = Void then
@@ -631,6 +635,7 @@ feature {ANY} -- Low-level structure class creator
 					append_structure_header(a_structure_name)
 					buffer.print_on(output)
 					append_structure_members(a_node, a_structure_name)
+					append_structure_size(a_node,a_structure_name)
 					output.put_string(once "end%N")
 					output.flush
 					output.disconnect
@@ -644,20 +649,14 @@ feature {ANY} -- Low-level structure class creator
 			-- Append the header of a structure named `a_structure_name' to buffer.
 		require
 			a_structure_name /= Void
-		local 
-			structure_class_name: STRING
-			description: COLLECTION[STRING]
+		local structure_class_name: STRING
 		do
 			structure_class_name:=eiffel_class_name(a_structure_name)
 			structure_class_name.append(once "_STRUCT")
 			buffer.append(automatically_generated_header)
 			buffer.append(deferred_class)
 			buffer.append(structure_class_name)
-			description:=class_descriptions.reference_at(class_name)
-			if description/=Void then
-				emit_description(description)
-			end
-
+			emit_description(class_descriptions.reference_at(class_name))
 			buffer.append(struct_inherits)
 		ensure
 			buffer_grew: buffer.count > old buffer.count
@@ -670,7 +669,7 @@ feature {ANY} -- Low-level structure class creator
 		local
 			id, members: UNICODE_STRING; members_iter: ITERATOR[UNICODE_STRING]; field: XML_COMPOSITE_NODE
 		do
-			setters.reset; queries.reset
+			-- setters.reset; queries.reset
 			members := a_node.attribute_at(once U"members")
 			if members /= Void then
 				setters.append(setters_header)
@@ -696,13 +695,22 @@ feature {ANY} -- Low-level structure class creator
 		end
 
 	emit_structure_field (a_field: XML_COMPOSITE_NODE; a_structure_name: STRING) is
-			-- Append a query for `a_field' of a structure named
-			-- `a_structure_name' (defined in `an_header') to `queries'
-			-- and a setter to `setters'.
-		require
-			a_field /= Void
-			a_structure_name /= Void
-			is_field_node: a_field.name.is_equal(once U"Field")
+		-- Append a query for `a_field' of a structure named
+		-- `a_structure_name' (defined in `an_header') to `queries'
+		-- and a setter to `setters'.
+	require
+		a_field /= Void
+		a_structure_name /= Void
+		is_field_node: a_field.name.is_equal(once U"Field")
+		deferred
+		end
+
+	append_structure_size (a_node: XML_COMPOSITE_NODE; a_structure_name: STRING) is
+		-- Append to `output' the `struct_size' query for `a_structure_name'
+	require
+		node_not_void: a_node /= Void
+		is_structure_node: a_node.name.is_equal(once U"Struct")
+		name_not_void: a_structure_name /= Void
 		deferred
 		end
 
@@ -731,9 +739,7 @@ feature {ANY} -- Enumeration class creator
 					<<name, class_name, filename>>)
 					create {TEXT_FILE_WRITE} output.connect_to(filename)
 				end
-				setters.reset
-				queries.reset
-				low_level_values.reset
+				-- setters.reset queries.reset low_level_values.reset
 				emit_enumeration_header(class_name)
 				if a_node.children_count>0 then
 					if have_flags_values(a_node) then append_flag_items(a_node)
@@ -755,15 +761,12 @@ feature {ANY} -- Enumeration class creator
 		require
 			name_not_void: an_enum_name /= Void
 			is_valid_class_name: is_valid_class_name(an_enum_name)
-		local 
-			description: COLLECTION[STRING]
 		do
 			buffer.reset_with(automatically_generated_header)
 			buffer.append(expanded_class)
 			buffer.append(an_enum_name)
 			buffer.append_new_line
-			description := class_descriptions.reference_at(an_enum_name)
-			if description/=Void then emit_description(description) end
+			emit_description(class_descriptions.reference_at(an_enum_name))
 			buffer.append(once "%Ninsert ENUM%N%Ncreation default_create%N")
 			buffer.print_on(output)
 		end
@@ -844,31 +847,26 @@ feature {ANY} -- Enumeration class creator
 			i: INTEGER; filename: STRING; a_child: XML_COMPOSITE_NODE
 			is_first,is_last: BOOLEAN
 		do
-			-- debug log(once "@(1) is a plain enumeration%N", <<an_enum_name>>) end
-			if a_node.children_count = 0 then
-				debug
-					log(once "-- Degenerate case: an enumeration @(1) without values.",
-					<<a_node.attribute_at(once U"name").as_utf8>>)
-				end
-			else
-				if a_node.children_count > 1 then
-					prefix_length := longest_prefix_of_children_of(a_node)
-				end
-				filename := file_containing(a_node)
-				initialize_validity_query
-				from i := 1
-				until i > a_node.children_count
-				loop
-					a_child ?= a_node.child(i) 
-					if a_child /= Void then
-						is_first := (i = 1)
-						is_last := (i = a_node.children_count)
-						append_enumeration_item(a_child, filename, is_first , is_last)
-					end
-					i := i + 1
-				end
-				finalize_validity_query
+			-- Note: no need to handle the degenerate case of an enumeration
+			-- without values, since there is the precondition has_children:
+			-- a_node.children_count>0
+			if a_node.children_count > 1 then
+				prefix_length := longest_prefix_of_children_of(a_node)
 			end
+			filename := file_containing(a_node)
+			initialize_validity_query
+			from i := 1
+			until i > a_node.children_count
+			loop
+				a_child ?= a_node.child(i) 
+				if a_child /= Void then
+					is_first := (i = 1)
+					is_last := (i = a_node.children_count)
+					append_enumeration_item(a_child, filename, is_first , is_last)
+				end
+				i := i + 1
+			end
+			finalize_validity_query
 		end
 
 	append_enumeration_item (a_node: XML_COMPOSITE_NODE; a_filename: STRING; is_first, is_last: BOOLEAN) is
@@ -925,16 +923,21 @@ feature {ANY} -- Enumeration class creator
 			name_not_void: a_name /= Void
 			value_not_void: a_value /= Void
 			setters_not_void: setters /= Void
-		local creation_tense: STRING
+		local creation_tense, setter_name: STRING
 		do
 			if is_first then creation_tense:=once "%Tdefault_create, "
 			else creation_tense := once "%T"
 			end
+			setter_name := "set_"+a_name
 			setters.put_message
 			(once "@(1) set_@(2) is%N%
+			%		@(3)%N%
 			%		do%N%
-			%			value := @(3)%N%
-			%		end%N%N", <<creation_tense, a_name, a_value >>)
+			%			value := @(4)%N%
+			%		end%N%N", 
+			<<creation_tense, setter_name, 
+			formatted_description(feature_description(class_name,setter_name))
+			a_value >>)
 		end
 
 	append_enumeration_value_query (a_name, a_value: STRING) is
@@ -945,12 +948,18 @@ feature {ANY} -- Enumeration class creator
 			queries_not_void: queries /= Void
 			name_not_void: a_name /= Void
 			value_not_void: a_value /= Void
+		local getter_name: STRING
 		do
+			getter_name:="is_"+a_name
 			queries.put_message
-			(once "	is_@(1): BOOLEAN is%N%
+			(once "	@(1): BOOLEAN is%N%
+			%		@(2)%N%
 			%		do%N%
-			%			Result := (value=@(2))%N%
-			%		end%N%N",<<a_name,a_value>>)
+			%			Result := (value=@(3))%N%
+			%		end%N%N",
+			<<getter_name, 
+			formatted_description(feature_description(class_name,getter_name)),
+			a_value>>)
 		end
 
 feature {ANY} -- Flag enumeration
@@ -982,10 +991,8 @@ feature {ANY} -- Flag enumeration
 				-- declared. 
 				filename := files_by_id.at(a_node.attribute_at(once U"file")).attribute_at(once U"name").to_utf8
 				initialize_flag_validity_query
-				from
-					i := 1
-				until
-					i > a_node.children_count
+				from i := 1
+				until i > a_node.children_count
 				loop
 					a_child ?= a_node.child(i)
 					if a_child /= Void then
@@ -1053,21 +1060,31 @@ feature {ANY} -- Flag enumeration
 			name_not_void: a_name /= Void
 			value_not_void: a_value /= Void
 			setters_not_void: setters /= Void
+		local setter_name, unsetter_name: STRING
 		do
+			setter_name:="set_"+a_name
+			unsetter_name:="unset_"+a_name
 			if is_first then
 				setters.append(once "%Tdefault_create is%N%T%T-- Default creation feature; it leaves all the bits cleared.%N%Tdo%N%Tend%N%N")
 			end
 			setters.put_message (once 
-			"	set_@(1) is%N%
-			%		do%N%
-			%			value := value.bit_or(@(2))%N%
-			%		end%N%
+			"	@(1) is%N%
+			%		@(2)%N%
+			%	do%N%
+			%		value := value.bit_or(@(3))%N%
+			%	end%N%
 			%%N%
-			%	unset_@(1) is%N%
-			%		do%N%
-			%			value := value.bit_xor(@(2))%N%
-			%		end%N%
-			%%N", <<a_name, a_value >>)
+			%	@(4) is%N%
+			%		@(5)%N%
+			%	do%N%
+			%		value := value.bit_xor(@(3))%N%
+			%	end%N%
+			%%N", 
+			<<setter_name, 
+			formatted_description(feature_description(class_name,setter_name)),
+			a_value,
+			unsetter_name,
+			formatted_description(feature_description(class_name,unsetter_name))>>)
 		end
 
 	append_flag_value_query (a_name, a_value: STRING) is
@@ -1078,13 +1095,19 @@ feature {ANY} -- Flag enumeration
 			queries_not_void: queries /= Void
 			name_not_void: a_name /= Void
 			value_not_void: a_value /= Void
+		local query_name: STRING
 		do
+			query_name:="is_"+a_name
 			queries.put_message
 			(once 
-			"	is_@(1): BOOLEAN is%N%
-			%		do%N%
-			%			Result := (value & @(2)).to_boolean%N%
-			%		end%N%N", <<a_name, a_value>>)
+			"	@(1): BOOLEAN is%N%
+			%		@(2)%N%
+			%	do%N%
+			%		Result := (value & @(3)).to_boolean%N%
+			%	end%N%N", 
+			<<query_name,
+			formatted_description(feature_description(class_name,query_name)),
+			a_value>>)
 		end
 
 feature {ANY} -- Auxiliary features
@@ -1123,20 +1146,21 @@ feature {ANY} -- Auxiliary features
 	end
 
 	formatted_description (a_description: COLLECTION[STRING]): STRING is
-		-- A newly created string containing 'a_description' formatted as an Eiffel comment
-		-- with lines shorter that 'description_lenght' characters. If
-		-- `a_description' is Void Result is the empty string
+		-- A newly created string containing 'a_description' formatted as an
+		-- Eiffel comment with lines shorter that 'description_lenght'
+		-- characters. If `a_description' is Void Result is the empty string
 	local word: STRING; iter: ITERATOR[STRING]; length,new_length: INTEGER
 	do
 		if a_description=Void then Result:=""
 		else
 			create Result.with_capacity(a_description.count * 8)
 			-- We assume that the average word is 6 charcter long, plus a
-			-- whitespace between each one. Actually words are usually shorter but
-			-- we shall take in count the space taken by "--" 
-			from 
+			-- whitespace between each one. Actually words are usually shorter
+			-- but we shall take in count the space taken by "--" 
+			from
+				Result.append(once "%T--"); 
 				iter:=a_description.get_new_iterator; iter.start; 
-				Result.append(comment); length:=0
+				length:=0
 			until iter.is_off loop
 				word := iter.item
 				new_length := length + word.count
@@ -1151,6 +1175,9 @@ feature {ANY} -- Auxiliary features
 				iter.next
 			end
 		end
+	ensure 
+		Result/=Void
+		a_description=Void implies Result.is_empty
 	end
 
 	
@@ -1248,14 +1275,6 @@ feature {} -- Constants
 	description_lenght: INTEGER is 70
 
 feature {} -- Auxiliary features
-	format (a_string: STRING; some_arguments: TRAVERSABLE[ANY]): STRING is
-			-- `a_string' formatted with the usual rules of a STRING_FORMATTER using `some_arguments'
-		do
-			formatter.reset
-			formatter.put_message(a_string, some_arguments)
-			Result := formatter.out
-		end
-
 	formatter: FORMATTER is
 			-- Shared formatter used to format various strings.
 		once

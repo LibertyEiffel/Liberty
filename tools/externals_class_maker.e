@@ -55,13 +55,9 @@ feature {ANY} -- Functions emittion
 
 feature {ANY} -- Structure emission
 	emit_structure (a_node: XML_COMPOSITE_NODE; a_structure_name: STRING) is
-		local
-			structure_header: STRING
 		do
 			if header = Void then
-				structure_header := files_by_id.at(a_node.attribute_at(once U"file")).attribute_at(once U"name").to_utf8
-			else
-				structure_header := header
+				header := files_by_id.at(a_node.attribute_at(once U"file")).attribute_at(once U"name").to_utf8
 			end
 			Precursor(a_node, a_structure_name)
 		end
@@ -92,6 +88,20 @@ feature {ANY} -- Structure emission
 				<<fieldname, last_error>>)
 			end
 		end
+
+	append_structure_size (a_node: XML_COMPOSITE_NODE; a_structure_name: STRING) is
+	do 
+		buffer.reset
+		buffer.put_message(once 
+		"	struct_size: INTEGER is%N%
+		%	external %"C inline use <@(1)>%"%N%
+		%	alias %"sizeof(@(2))%"%N%
+		%	end%N%
+		%%N",
+		<< header,a_node.attribute_at(once U"name").as_utf8>>)
+		buffer.print_on(output)
+		buffer.reset
+	end
 
 feature {ANY} -- Enumeration emitter
 	append_enumeration_value_low_level (an_eiffel_value, a_c_value, a_file_name: STRING) is
