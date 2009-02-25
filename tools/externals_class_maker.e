@@ -93,7 +93,8 @@ feature {ANY} -- Structure emission
 	do 
 		buffer.reset
 		buffer.put_message(once 
-		"	struct_size: INTEGER is%N%
+		"feature -- Structure size%N%
+		%	struct_size: INTEGER is%N%
 		%	external %"C inline use <@(1)>%"%N%
 		%	alias %"sizeof(@(2))%"%N%
 		%	end%N%

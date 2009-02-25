@@ -930,8 +930,8 @@ feature {ANY} -- Enumeration class creator
 			end
 			setter_name := "set_"+a_name
 			setters.put_message
-			(once "@(1) set_@(2) is%N%
-			%		@(3)%N%
+			(once "@(1) @(2) is%N%
+			%	@(3)%N%
 			%		do%N%
 			%			value := @(4)%N%
 			%		end%N%N", 
