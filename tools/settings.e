@@ -19,8 +19,6 @@ feature {ANY} -- Queries
 
 	patches_are_appliable: BOOLEAN
 
-	comment_file: TEXT_FILE_READ
-
 feature {ANY} -- Setters
 	set_verbose (a_value: BOOLEAN) is
 		do
@@ -55,18 +53,6 @@ feature {ANY} -- Setters
 	do_not_apply_patches is
 		do
 			patches_are_appliable:=False
-		end
-
-	comment_file_from (a_file_name: STRING) is
-		require
-			a_file_name/=Void
-			file_exists(a_file_name)
-			is_file(a_file_name) 
-		do
-			create comment_file.connect_to(a_file_name)
-		ensure 
-			comment_file /= Void
-			comment_file.is_connected
 		end
 
 end -- class SETTINGS

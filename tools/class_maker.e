@@ -51,7 +51,7 @@ feature {ANY} -- Initialization
 			create validity_query
 			create class_descriptions.make
 			create feature_descriptions.make
-			read_descriptions
+			create flags.make
 		end
 
 	is_initialized: BOOLEAN is
@@ -60,20 +60,28 @@ feature {ANY} -- Initialization
 		end
 
 feature -- Descriptions reading
-	read_descriptions is
-		-- Read description comment for classes and features from
-		-- `comment_file', creating and filling `class_descriptions' and
+	read_descriptions_from (a_file_name: STRING) is
+		-- Read description comment for classes and features from the file named
+		-- `a_file_name', creating and filling `class_descriptions' and
 		-- `feature_descriptions'. Leading and trailing spaces are removed.
 		-- Lines starting with "--" are ignored as comments. Class descriptions
 		-- are in the form "CLASS_NAME Description text", feature descriptions
 		-- are "CLASS_NAME.feature Description text".
-		-- Nothing is done if comment_file is Void.
-	local line, described: STRING; words: LINKED_LIST[STRING]
+	require
+		a_file_name/=Void
+		file_exists(a_file_name)
+		is_file(a_file_name) 
+	local 
+		line, described: STRING; 
+		words: LINKED_LIST[STRING]
+		descriptions: TEXT_FILE_READ
 	do
-		if comment_file /= Void then
-			from comment_file.read_line until comment_file.end_of_input
+		create descriptions.connect_to(a_file_name)
+		if descriptions.is_connected then
+			from descriptions.read_line 
+			until descriptions.end_of_input
 			loop
-				line := comment_file.last_string
+				line := descriptions.last_string
 				line.left_adjust; line.right_adjust
 				if line.has_prefix(once "--") then 
 					debug
@@ -88,10 +96,13 @@ feature -- Descriptions reading
 						read_description(described,words)
 					end
 				end
-				comment_file.read_line
+				descriptions.read_line
 			end
-			check 
-				comment_file.end_of_input
+			check descriptions.end_of_input end
+			descriptions.disconnect
+		else
+			debug
+				log(once "Couldn't connect to '@(1)' to read descriptions.%N",<<a_file_name>>)
 			end
 		end
 	end
@@ -742,7 +753,12 @@ feature {ANY} -- Enumeration class creator
 				-- setters.reset queries.reset low_level_values.reset
 				emit_enumeration_header(class_name)
 				if a_node.children_count>0 then
-					if have_flags_values(a_node) then append_flag_items(a_node)
+					if flags.has(name) then 
+						log(once "Forcefully wrapping @(1) as flag.%N",<<name>>)
+						append_flag_items(a_node)
+					elseif have_flags_values(a_node) then 
+						log(once "Wrapping @(1) as flag.%N",<<name>>)
+						append_flag_items(a_node)
 					else append_enumeration_items(a_node)
 					end
 				end
@@ -963,6 +979,34 @@ feature {ANY} -- Enumeration class creator
 		end
 
 feature {ANY} -- Flag enumeration
+	read_flags_from (a_file_name: STRING) is
+		-- Read the list of enumeration that shall be wrapped as flags from the file named `a_file_name'.
+	require
+		a_file_name/=Void
+		file_exists(a_file_name)
+		is_file(a_file_name) 
+	local words: ARRAY[STRING]; line: STRING; file: TEXT_FILE_READ
+	do
+		create file.connect_to(a_file_name)
+		if file.is_connected then
+			debug log_string(once "TODO: remove work-around for Flags:") end
+			from file.read_line
+			until file.end_of_input
+			loop
+				line := file.last_string
+				if line/=Void then 
+					words := line.split
+					if words/=Void then
+						words.do_all(agent flags.add)
+					end
+				end
+				file.read_line
+			end
+			debug log_string(once ".%N") end
+		else debug log(once "Coulnd't read file '@(1)' for the list of flags.%N",<<a_file_name>>) end
+		end
+	end
+
 	append_flag_items (a_node: XML_COMPOSITE_NODE) is
 			-- For each child of `a_node':
 			-- * consider it into the `is_valid' query,
@@ -973,7 +1017,10 @@ feature {ANY} -- Flag enumeration
 			node_not_void: a_node /= Void
 			enumeration_node: a_node.name.is_equal(once U"Enumeration")
 			has_children: a_node.children_count>0
-			iis_flag_enumeration: have_flags_values(a_node)
+			-- Some enumeration are forcefully wrapped as flags, so
+			-- is_flag_enumeration: have_flags_values(a_node) does not hold
+			-- anymore. have_flags_values is not able to soundly distinguish
+			-- between an enumeration and a flag
 		local
 			i: INTEGER; filename: STRING; a_child: XML_COMPOSITE_NODE
 			is_first, is_last: BOOLEAN
@@ -1187,27 +1234,30 @@ feature {ANY} -- Data structures
 	output: TERMINAL_OUTPUT_STREAM
 
 	class_name: STRING
-		-- The name of the class currently being emitted/outputted.
-	
+	-- The name of the class currently being emitted/outputted.
+
 	tree: XML_TREE
 
 	headers: HASHED_SET[STRING]
 
+	flags: HASHED_SET[STRING]
+	-- The enumerations that will be forcefully wrapped as a flag.
+
 	files_by_id: HASHED_DICTIONARY[XML_COMPOSITE_NODE, UNICODE_STRING]
-			-- Files by id
+	-- Files by id
 
 	files, structures, enumerations: HASHED_DICTIONARY[XML_COMPOSITE_NODE, UNICODE_STRING]
-			-- Files, structures, enumeration by their name
+	-- Files, structures, enumeration by their name
 
 	functions: HASHED_DICTIONARY[LINKED_LIST[XML_COMPOSITE_NODE], UNICODE_STRING]
-			-- Functions grouped by the id of the file they are defined
-			-- in, i.e. "f0" "f12".
+	-- Functions grouped by the id of the file they are defined
+	-- in, i.e. "f0" "f12".
 
 	fields: HASHED_DICTIONARY[XML_COMPOSITE_NODE, UNICODE_STRING]
-			-- Fields by their id
+	-- Fields by their id
 
 	class_descriptions: HASHED_DICTIONARY[COLLECTION[STRING],STRING]
-		-- Class description comments. Key is classname.
+	-- Class description comments. Key is classname.
 
 	feature_descriptions: HASHED_DICTIONARY[HASHED_DICTIONARY[COLLECTION[STRING],STRING],STRING]
 	-- Feature descriptions dictionary. The outer dictionary is indexed by
@@ -1217,8 +1267,8 @@ feature {ANY} -- Data structures
 
 feature {} -- Implementation
 	buffer: FORMATTER
-			-- Buffer to render the text of the feature currently being
-			-- wrapped (a function call, a structure or an enumeration).
+	-- Buffer to render the text of the feature currently being
+	-- wrapped (a function call, a structure or an enumeration).
 
 	queries: FORMATTER
 

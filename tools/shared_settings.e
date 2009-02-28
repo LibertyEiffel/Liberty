@@ -26,10 +26,6 @@ feature -- Syntactic sugar
 			Result := settings.directory
 		end
 
-	comment_file: TEXT_FILE_READ is
-		do
-			Result:=settings.comment_file
-		end
 	use_naturals is
 		do
 			settings.use_naturals

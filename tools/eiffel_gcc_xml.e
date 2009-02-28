@@ -49,14 +49,16 @@ feature {ANY}
 	process_arguments is
 		local
 			input: INPUT_STREAM; headers: HASHED_SET[STRING]; 
-			arg, header, location, module, comment_file_name: STRING; plugin: BOOLEAN
-			i: INTEGER
+			arg, header, location, module, descriptions, flags: STRING;
+			plugin: BOOLEAN i: INTEGER
 		do
 			check
 				global = False
 				verbose = False
 			end
 			plugin := False
+			flags := once "flags"
+			descriptions := once "descriptions"
 			create headers.make
 			if argument_count = 0 then
 				print_usage
@@ -68,10 +70,8 @@ feature {ANY}
 					i > argument_count
 				loop
 					arg := argument(i)
-					if arg.is_equal(once "--local") then
-						settings.set_global(False)
-					elseif arg.is_equal(once "--global") then 
-						settings.set_global(True)
+					if arg.is_equal(once "--local") then settings.set_global(False)
+					elseif arg.is_equal(once "--global") then settings.set_global(True)
 					elseif arg.is_equal(once "--plugin") then
 						plugin := True
 						i := i + 1
@@ -94,33 +94,25 @@ feature {ANY}
 							std_error.put_line(once "No header argument")
 							print_usage
 						end
-					elseif arg.is_equal(once "--use-naturals") then
-						settings.use_naturals
-					elseif arg.is_equal(once "--use-integers") then
-						settings.use_integers
-					elseif arg.is_equal(once "--apply-patches") then
-						settings.apply_patches
-						print("Patches applying is being implemented.")
-					elseif arg.is_equal(once "--apply-comments") then
+					elseif arg.is_equal(once "--use-naturals") then settings.use_naturals
+					elseif arg.is_equal(once "--use-integers") then settings.use_integers
+					elseif arg.is_equal(once "--apply-patches") then not_yet_implemented
+					elseif arg.is_equal(once "--descriptions") then
 						i := i + 1
-						if i <= argument_count then
-							comment_file_name := argument(i)
-							if not file_exists(comment_file_name) then
-								-- logger.put_message
-								log3([once "Comment file `",comment_file_name,once "' does exists.%N"])
-								print_usage
-							elseif not is_file(comment_file_name) then
-								log3([once "Comment file `",comment_file_name,once "'is not a file."])
-								print_usage
-							else 
-								log3([once "Reading comments from `",comment_file_name,"'.%N"])
-								settings.comment_file_from(comment_file_name)
-							end
+						if i <= argument_count then descriptions := argument(i)
 						else
-							std_error.put_line(once "No comment-file")
+							std_error.put_line(once "No description file given.")
 							print_usage
 						end
-					elseif arg.is_equal(once "--verbose") or else arg.is_equal(once "-v") then
+					elseif arg.is_equal(once "--flags") then
+						i := i + 1
+						if i <= argument_count then flags:=argument(i)
+						else
+							std_error.put_line(once "No flags file given")
+							print_usage
+						end
+					elseif arg.is_equal(once "--verbose") or else 
+						arg.is_equal(once "-v") then
 						settings.set_verbose(True)
 					elseif arg.is_equal(once "--directory") then
 						i := i + 1
@@ -150,10 +142,9 @@ feature {ANY}
 
 				if plugin then create {PLUGIN_CLASS_MAKER} maker.with_location_and_module(location, module)	
 				else
-					if header /= Void then
-						create {EXTERNALS_CLASS_MAKER} maker.with_header(header)
-					else
-						create {EXTERNALS_CLASS_MAKER} maker.without_header
+					if header /= Void 
+						then create {EXTERNALS_CLASS_MAKER} maker.with_header(header)
+					else create {EXTERNALS_CLASS_MAKER} maker.without_header
 					end
 				end
 								
@@ -163,12 +154,11 @@ feature {ANY}
 						std_error.put_line(once "Using standard input.")
 					end
 					maker.set_input(std_input)
-				else
-					maker.set_input(input)
+				else maker.set_input(input)
 				end
 				if verbose then
 					if global then
-						std_error.put_line(once "Generating low-level wrappers for the C features found.")
+						std_error.put_line(once "Generation wrappers for all the C features found.")
 					else
 						std_error.put_string(once "Generating low-level wrappers only for ")
 						std_error.put_integer(headers.count)
@@ -176,11 +166,17 @@ feature {ANY}
 						headers.do_all(agent put_comma_separated_string(std_error, ?))
 						std_error.put_new_line
 					end
-					if plugin then
-						std_error.put_line(once "Generating plugin wrappers.")
-					else
-						std_error.put_line(once "Generating external wrappers.")
+					if plugin then std_error.put_line(once "Generating plugin wrappers.")
+					else std_error.put_line(once "Generating external wrappers.")
 					end
+				end
+				if file_exists(flags) then 
+					log(once "Reading enumeration that will be forcefully wrapped as flags from '@(1)'.%N",<<flags>>)
+					maker.read_flags_from(flags)
+				end
+ 				if file_exists(descriptions) then
+					log(once "Reading descriptions flags from '@(1)'.%N",<<descriptions>>)
+					maker.read_descriptions_from(descriptions)
 				end
 			end
 		ensure
@@ -193,14 +189,14 @@ feature {ANY}
 			std_error.put_line(once "[
 			  eiffel_gcc_xml [--verbose|-v] [--local] [--global] --plugin location module | --header header output.gcc-xml filenames....
 
-			  --local    produces functions, structures and enumeration
-							 classes only for the given files. Otherwise all the
-							 necessary file will be created. This is the default
-							 Only the last global and local flag will be considered.
+			  --local produces functions, structures and enumeration
+					  classes only for the given files. Otherwise all the
+					  necessary file will be created. This is the default Only
+					  the last global and local flag will be considered.
 
-			  --global   emits wrappers for every features found in the XML
-							 file. For usual wrappers it is normally not needed.
-							 Only the last global and local flag will be considered.
+			  --global emits wrappers for every features found in the XML
+					   file. For usual wrappers it is normally not needed.
+					   Only the last global and local flag will be considered.
 
 			  --plugin location module
 							 Emits classes that uses the plugin mechanism instead
@@ -225,17 +221,23 @@ feature {ANY}
 			  --directory dir
 							 Put the generated class in `dir'. Otherwise everything is outputted to standard output
 
+			  --flags flag-file
+			             Read a list of enumeration that will be forcefully wrapped as 
+						 a flag. In fact sometimes there is no way to distinguish when
+						 an enumeration is used as-it-is or to contain flags. If this
+	                     option is not used the program will look for the "flags" file.
+
 			  --apply-patches (not yet implemented)
 			             Apply the patches found in the output directory to the newly
 						 generated classes, i.e. foo.e will be patched by foo.diff
 			  
-			  --apply-comments comment-file
-                         Apply the comments found in the comment-file. Each line contain the
-						 description of a class or of a class' feature. 
-						 The syntax for a class description is `CLASS description', for a 
-                         feature description is `CLASS.feature description'
-					     Trailing and leading spaces are trimmed; line starting with 
-						 `--' are ignored.					 
+			  --descriptions descriptions-file
+				 Apply the descriptions found in the description-file. Each line contains
+				 the description of a class or of a class' feature. The syntax for a class 
+				 description is `CLASS description', for a feature description is 
+				 `CLASS.feature description' Trailing and leading spaces are trimmed; line
+				 starting with `--' are ignored. If this option is not given the program
+				 will look into file "descriptions".
 
 			  -v --verbose
 							 Turn on verbose output, printing information about the
