@@ -51,7 +51,7 @@ feature
 			fill_in_results
 		end
 
-   execute_callback (some_parameters: TRAVERSABLE[ANY]; callback: ROUTINE[ANY, TUPLE[RESULT_ROW]]) is
+   execute_callback (some_parameters: TRAVERSABLE[ANY]; callback: ROUTINE[TUPLE[RESULT_ROW]]) is
 			-- Execute the current query with `some_parameters'
          -- call callback for every result_row
       require
