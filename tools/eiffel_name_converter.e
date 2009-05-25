@@ -1,4 +1,7 @@
 deferred class EIFFEL_NAME_CONVERTER
+	-- Query features to discover if a symbol name does comply to SmartEiffel's
+	-- naming rules and to convert arbitrary C symbols into valid Eiffel names
+	-- of classes or features.
 
 insert
 	PLATFORM
@@ -55,33 +58,46 @@ feature {ANY} -- Auxiliary features
 			is_valid_class_name(Result)
 		end
 
-	eiffel_argument (a_name: STRING): STRING is
+	eiffel_feature (a_name: STRING): STRING is
+		-- Translate `a_name' content into a proper feature name for
+		-- the Gnu-Eiffel language.  "CamelCase" is translated into
+		-- "camel_case", "ENOO" is translated into "enoo". Eventual
+		-- underscores in front of `a_name' are removed: "__foo" becomes
+		-- "foo"
+	require 
+		name_not_void: a_name /= Void
+	do
+		create Result.copy(a_name)
+		-- Remove header underscores.
+		from
+		until
+			Result.first /= '_'
+		loop
+			Result.remove_first
+		end
+		eiffellizer.substitute_all_in(Result)
+		Result.to_lower
+		Result := adapt(Result)
+	end
+
+ 	eiffel_argument (a_name: STRING): STRING is
 			-- Translate `a_name' content into a proper argument placeholderi for
 			-- the Gnu-Eiffel language.  "CamelCase" is translated into
 			-- "a_camel_case", "ENOO" is translated into "an_enoo". Eventual
 			-- underscores in front of `a_name' are removed: "__foo" becomes
-			-- "a_foo"
+			-- "a_foo". See also `eiffel_feature'.
 		require
 			name_not_void: a_name /= Void
 		do
-			create Result.copy(a_name)
-			-- Remove header underscores.
-			from
-			until
-				Result.first /= '_'
-			loop
-				Result.remove_first
+			Result := eiffel_feature(a_name)
+			inspect Result.first
+			when 'a', 'e', 'o', 'i', 'u' then Result.prepend(once "an_")
+			else Result.prepend(once "a_")
 			end
-			eiffellizer.substitute_all_in(Result)
-			Result.to_lower
-			inspect
-				Result.first
-			when 'a', 'e', 'o', 'i', 'u' then
-				Result.prepend(once "an_")
-			else
-				Result.prepend(once "a_")
-			end
-			Result := adapt(Result)
+			-- The following call should be unnecessary, since we hade already
+			-- prepended an English preposition that does not appear in any
+			-- SmartEiffel keywords.
+			-- Result := adapt(Result)
 		end
 
 	eiffellizer: REGULAR_EXPRESSION is
@@ -129,7 +145,7 @@ feature {ANY} -- Auxiliary features
 			-- A valid, adapted identifier for an Eiffel feature labelled
 			-- `a_name'. Can be either `a_name' itself or a new string
 			-- containing an adapatation. Reserved words and those of
-			-- features belonging to ANY are "escaped".
+			-- features belonging to ANY are "escaped", append "_external".
 		do
 			if keywords.has(a_name) or else any_features.has(a_name) then
 				Result := a_name + once "_external"

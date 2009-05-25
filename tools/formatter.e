@@ -14,7 +14,7 @@ creation {ANY}
 	default_create
 
 feature {ANY}
-	reset is
+	clear, reset is
 			-- Clears the content of Current's buffer.
 		do
 			debug

@@ -4,12 +4,26 @@ deferred class TYPE_TRANSLATOR
 insert
 	SHARED_SETTINGS
 	EIFFEL_GCC_XML_EXCEPTIONS
+	EIFFEL_NAME_CONVERTER
 	EXCEPTIONS
 
-feature {ANY} -- Initialization
-	make is
-		do
-			end
+feature {ANY} -- Typedef handling
+	are_typedefs_anchored: BOOLEAN
+		-- Will typedefs of non-POINTER fundamental types be wrapped using
+		-- anchored declarations?
+
+	use_anchored_typedefs is
+		-- Typedefs of non-POINTER fundamental types will be wrapped using
+		-- anchored declarations.
+	do
+		are_typedefs_anchored:=True
+	end
+	
+	resolve_typedefs is
+		-- Typedefs will be translated into the type it refers to.
+	do
+		are_typedefs_anchored:=False
+	end
 
 feature {ANY} -- Type-system translations
 	is_void (an_argument: XML_COMPOSITE_NODE): BOOLEAN is
@@ -56,11 +70,13 @@ feature {ANY} -- Type-system translations
 		end
 
 	eiffel_type_of (an_argument: XML_COMPOSITE_NODE): STRING is
-			-- The Eiffel type usable to wrap `an_argument'. If it does
-			-- not have a proper wrapper type Result is Void and
-			-- `last_error' describes the issue using one of the strings
-			-- from EIFFEL_GCC_XML_EXCEPTIONS. "Expanded" structures,
-			-- unions, references, complex reals (float and double) 
+			-- The Eiffel type usable to wrap `an_argument'. If it does not
+			-- have a proper wrapper type Result is Void and `last_error'
+			-- describes the issue using one of the strings from
+			-- EIFFEL_GCC_XML_EXCEPTIONS. Constructs currently not
+			-- automatically wrappable are: "Expanded" structures (i.e. passed
+			-- by-value and not by-reference, i.e. non using a pointer),
+			-- unions, C++ references, complex reals (float and double) 
 		require
 			argument_not_void: an_argument /= Void
 			no_previous_errors: last_error = Void
@@ -137,7 +153,29 @@ feature {ANY} -- Type-system translations
 						last_error := unhandled_type
 					end
 				end
-			when "Argument", "Typedef", "Variable", "Field" then
+			when "Typedef" then
+				if are_typedefs_anchored then
+					-- The Eiffel type of a typedef is anchored to a query
+					-- named like the C typedef. The actual type of that query
+					-- is the actual type referred by the typedef. i.e.
+					-- "typedef long int foo; f(foo a);" produce "f(an_a: like
+					-- foo)....", "typedef int PreciousValue; f(PreciousValue
+					-- x)" produce "f(an_a: like precious_value)..."
+					Result := ((once "like ") + 
+					 	eiffel_feature(an_argument.attribute_at(once U"name").as_utf8))
+				else
+					-- Recursively discover the type
+					uniname := deconst(an_argument.attribute_at(once U"type"))
+					referred := types.reference_at(uniname)
+					if referred/=Void then Result := eiffel_type_of(referred)
+					else
+						name := an_argument.attribute_at(once U"name").to_utf8
+						log(once "Warning! Type Argument/Variable/Field @(1) - @(2) has no Eiffel type",
+						<<name,uniname.as_utf8>>)
+						last_error := unhandled_type
+					end
+				end
+			when "Argument", "Variable", "Field" then
 				-- Recursively discover the correct type: the actual type
 				-- of a typedef is the type it is referring to.
 				-- It was Result:=eiffel_type_of(types.at(deconst(an_argument.attribute_at(once U"type"))))
@@ -148,7 +186,7 @@ feature {ANY} -- Type-system translations
 				if referred/=Void then Result := eiffel_type_of(referred)
 				else
 					name := an_argument.attribute_at(once U"name").to_utf8
-					log(once "Warning! Type Argument/Typedef/Variable/Field @(1) - @(2) has no Eiffel type",
+					log(once "Warning! Type Argument/Variable/Field @(1) - @(2) has no Eiffel type",
 					<<name,uniname.as_utf8>>)
 					last_error := unhandled_type
 				end
@@ -156,11 +194,11 @@ feature {ANY} -- Type-system translations
 			when "ArrayType", "PointerType" then Result := once "POINTER"
 			when "FunctionType" then Result := once "POINTER"
 			when "Struct" then last_error := unhandled_structure_type
-			when  "Function" then
+			when "Function" then
 				log_string(once "C functions does not have a valid Eiffel wrapper type (a function pointer does have it).")
 				last_error := unhandled_type
-			when  "Union" then last_error := unhandled_union_type
-			when  "ReferenceType" then
+			when "Union" then last_error := unhandled_union_type
+			when "ReferenceType" then
 				std_error.put_line(once "C++ reference does not have a valid Eiffel wrapper type.")
 				last_error := unhandled_reference_type
 			else last_error := unhandled_type
@@ -181,6 +219,9 @@ feature {ANY} -- Type-system translations
 			-- Types by their id
 
 	typedefs: LINKED_LIST[XML_COMPOSITE_NODE]
+
+	typedefs_to_fundamental_types: LINKED_LIST[XML_COMPOSITE_NODE]
+	-- The typedefs referring to a fundamental type.
 
 feature {} -- Implementation
 	deconst (a_string: UNICODE_STRING): UNICODE_STRING is

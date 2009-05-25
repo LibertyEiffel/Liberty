@@ -1,7 +1,7 @@
 eiffel-gcc-xml: eiffel-gcc-xml.ace *.e
 	compile eiffel-gcc-xml.ace
 
-debug: debug.ace
+debug: debug.ace *.e
 	compile debug.ace
 
 boost: *.e

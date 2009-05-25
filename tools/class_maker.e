@@ -10,7 +10,6 @@ deferred class CLASS_MAKER
 	-- made using UNICODE_STRINGs; conversion to UTF8 is the last step before
 	-- emission of generated source code.
 
-
 	-- Stylistical note: multi-line strings are formatted like:
 	
 	-- "foo is %N%
@@ -43,6 +42,7 @@ feature {ANY} -- Initialization
 			create fields.make
 			create types.make
 			create typedefs.make
+			create typedefs_to_fundamental_types.make
 			-- Initialize output formatters for functions, structures and enumerations.
 			create buffer
 			create queries
@@ -52,6 +52,7 @@ feature {ANY} -- Initialization
 			create class_descriptions.make
 			create feature_descriptions.make
 			create flags.make
+			create avoided.make
 		end
 
 	is_initialized: BOOLEAN is
@@ -85,7 +86,7 @@ feature -- Descriptions reading
 				line.left_adjust; line.right_adjust
 				if line.has_prefix(once "--") then 
 					debug
-						log3([once "Comment %"",line,"%".%N"])
+						log_string(once ".") --log3([once "Comment %"",line,"%".%N"])
 					end
 				else 
 					create words.make
@@ -94,6 +95,7 @@ feature -- Descriptions reading
 						described := words.first
 						words.remove_first
 						read_description(described,words)
+						debug log_string(once ".") end
 					end
 				end
 				descriptions.read_line
@@ -102,7 +104,7 @@ feature -- Descriptions reading
 			descriptions.disconnect
 		else
 			debug
-				log(once "Couldn't connect to '@(1)' to read descriptions.%N",<<a_file_name>>)
+				log(once "Couldn't connect to `@(1)' to read descriptions.%N",<<a_file_name>>)
 			end
 		end
 	end
@@ -127,11 +129,13 @@ feature -- Descriptions reading
 			inspect a_described.occurrences('.') 
 			when 0 then -- could be a class
 				if is_valid_class_name(a_described) then
-					log(once "Description for class @(1) is %"",<<a_described>>)
-					a_description.do_all(agent log_word)
-					log_string(once "%".%N")
+					debug
+						log(once "Description for class @(1) is %"",<<a_described>>)
+						a_description.do_all(agent log_word)
+						log_string(once "%".%N")
+					end
 					class_descriptions.put(a_description,a_described)
-				else log3([once "Comment file: invalid class name `",a_described,once "'.%N"])
+				else log(once "Comment file: invalid class name `@(1)'.%N",<<a_described>>)
 				end
 			when 1 then -- could be a feature (i.e. CLASS.feature) 
 				-- Look for the dot and see if has a meaningful position
@@ -139,9 +143,11 @@ feature -- Descriptions reading
 				if dot>a_described.lower and dot<a_described.count then
 					described_class   := a_described.substring(1,dot-1)
 					described_feature := a_described.substring(dot+1,a_described.count)
-					log(once "Description for feature @(1) of @(2) is %"",<<described_feature,described_class>>)
-					a_description.do_all(agent log_word)
-					log_string(once "%".%N")
+					debug 
+						log(once "Description for feature @(1) of @(2) is %"",<<described_feature,described_class>>)
+						a_description.do_all(agent log_word)
+						log_string(once "%".%N")
+					end
 					subdictionary := feature_descriptions.reference_at(described_class)
 					if subdictionary=Void then
 						create subdictionary.make
@@ -156,7 +162,7 @@ feature -- Descriptions reading
 	end
 
 feature {ANY} -- Settings
-	set_headers (some_headers: HASHED_SET[STRING]) is
+	set_headers (some_headers: like headers) is
 		do
 			headers := some_headers
 		end
@@ -165,6 +171,39 @@ feature {ANY} -- Settings
 		do
 			input := an_input
 		end
+	
+	read_flags_from (a_file_name: STRING) is
+		-- Read the list of enumeration that shall be wrapped as flags from the
+		-- file named `a_file_name'.
+	require
+		a_file_name/=Void
+		file_exists(a_file_name)
+		is_file(a_file_name) 
+	do
+		create flags.make
+		flags.add_from_file(a_file_name)
+	end
+
+	read_avoided_from (a_file_name: STRING) is
+		-- Read from the file named `a_file_name' the list of symbols that will
+		-- be avoided, i.e. not wrapped. 
+	require
+		a_file_name/=Void
+		file_exists(a_file_name)
+		is_file(a_file_name) 
+	do
+		avoided.add_from_file(a_file_name)
+	end
+
+	set_typedefs (a_class_name: STRING) is
+		-- Set the class name that will contains all the aliases of fundamental
+		-- types made using typedef.
+	require
+		name_not_void: a_class_name/=Void
+		valid_name: is_valid_class_name(a_class_name)
+	do
+		create typedefs_class_name.copy(a_class_name)
+	end
 
 feature {ANY} -- Processing XML input
 	process is
@@ -193,10 +232,12 @@ feature {ANY} -- Processing XML input
 					end
 				end
 			end
+			log_string(once "Making anchored types.%N")
+			emit_anchor_queries
 			log_string(once "Making external functions classes.%N")
 			functions.do_all(agent examine_functions)	
 			log_string(once "Making typedeffed structure accessing classes.%N")
-			typedefs.do_all(agent examine_typedeffed_structure)
+			typedefs.do_all(agent examine_typedef)
 			log_string(once "Making structure accessing classes.%N")
 			structures.do_all(agent examine_structure)
 			log_string(once "Making enumerations classes.%N")
@@ -239,24 +280,21 @@ feature {ANY} -- Processing XML input
 					-- the types dictionary otherwise the type translator will
 					-- get confused when dealing with typedefs referring to
 					-- those structures
-					debug
-						log(once " structure @(1) in line @(2) ", <<c_name_utf8, a_node.line.out>>)
-					end
+					
+					-- debug log(once " structure @(1) in line @(2) ", <<c_name_utf8, a_node.line.out>>) end
 					types.put(a_node, id)
 					if is_public(c_name_utf8) then 
-						structures.fast_put(a_node, c_name)
+						structures.fast_put(a_node, c_name) 
 					end
-				else
-					debug 
-						log(once " skipping nameless structure in line @(1) ", <<a_node.line.out>>)
-					end
+					-- else debug log(once " skipping nameless structure in
+					-- line @(1) ", <<a_node.line.out>>) end
 				end
 			elseif name.is_equal(once U"Typedef") then
-				-- Store typedefs 
-				debug
-					log(once " typedef @(1) ",<<a_node.attribute_at(once U"name").as_utf8>>)
+				-- debug log(once " typedef @(1) ",<<a_node.attribute_at(once U"name").as_utf8>>) end
+				if refers_to_fundamental_type(a_node) 
+				then typedefs_to_fundamental_types.add_last(a_node)
+				else typedefs.add_last(a_node)
 				end
-				typedefs.add_last(a_node)
 				types.put(a_node,id)
 			elseif name.is_equal(once U"Field") then
 				check
@@ -270,7 +308,7 @@ feature {ANY} -- Processing XML input
 				end
 				enumerations.fast_put(a_node, c_name)
 				types.put(a_node, id)
-		elseif (name.is_equal(once U"ArrayType") or else
+			elseif (name.is_equal(once U"ArrayType") or else
 				name.is_equal(once U"FunctionType") or else 
 				name.is_equal(once U"FundamentalType") or else 
 				name.is_equal(once U"PointerType") or else 
@@ -336,14 +374,12 @@ feature {ANY} -- Creation of external classes providing access to C functions
 				buffer.append(footer)
 				buffer.print_on(output)
 				output.disconnect
-			else
-				log(once "Skipping '@(1)'%N",
-				<<header_name>>)
+			-- else log(once "Skipping '@(1)'%N", <<header_name>>)
 			end
 		end
 
 	emit_functions_class_headers is
-		-- Put on `'output' the header on an "external" class named 'class_name'
+		-- Put on `output' the header on an "external" class named 'class_name'
 		-- from the beginning until the "feature {} -- External calls" label
 		-- included
 	do
@@ -436,7 +472,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 			-- if unwrappable then log("Function @(1) is not wrappable.%N", <<name>>) end
 			log_string(once "%N")
 			buffer.print_on(output)
-		else log(once "Skipping 'hidden' function @(1)%N", <<name>>)
+		-- else log(once "Skipping 'hidden' function @(1)%N", <<name>>)
 		end
 	end
 
@@ -539,54 +575,179 @@ feature {ANY} -- Creation of external classes providing access to C functions
 		deferred
 		end
 
-feature {ANY} -- Low-level structure class creator
-	examine_typedeffed_structure (a_typedef: XML_COMPOSITE_NODE) is
-		-- Many structures are often "hidden behind" a typedef.  If the
-		-- element referred by 'a_typedef' is a structure to be emitted
-		-- emit_structure is invoked for the referred structure and it is
-		-- removed from the 'structures' dictionary.
+feature {ANY} -- Typedefs 
+	emit_anchor_queries is
+		-- Emit a class named as in `typedefs_class_name' containing dummy
+		-- queries used for anchored declarations.
+		
+		-- Each query is named like a C typedef and its Result type is the
+		-- Eiffel equivalent of the fundamental type the typedef refers to.
+
+		-- For example:
+
+		-- gsize: INTEGER_64 is
+		--    -- typedef unsigned long int gsize;
+		-- do
+		-- end
+
+		-- Those queries shall never be invoked but rather used in other
+		-- features as anchors like: do_stuff (a_size: like gsize)
+	local path: POSIX_PATH_NAME
+	do
+		create path.make_from_string(directory)
+		path.add_last(typedefs_class_name.as_lower+once ".e")
+		log(once "Outputting anchor queries (for typedefs) into @(1) on `@(2)'.%N",
+		<<typedefs_class_name, path.to_string>>)
+		create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
+		buffer.clear
+		append_typedef_class_header
+		typedefs_to_fundamental_types.do_all(agent emit_anchored_typedef)
+		buffer.append(footer)
+		buffer.print_on(output)
+		output.disconnect
+		log_string(once " done.%N")
+	end
+
+	append_typedef_class_header is
+		-- Append on `buffer' the header on the class named `typedefs_class_name'
+	do
+		buffer.append(automatically_generated_header)
+		buffer.append(deferred_class)
+		buffer.append(typedefs_class_name) 
+		buffer.put('%N')
+		buffer.append(struct_inherits) --line
+		buffer.append(typedefs_features_header)
+	end
+
+	emit_anchored_typedef (a_typedef: XML_COMPOSITE_NODE) is
+		-- If `a_typedef' refers to a FundamentalType emit on `buffer' a query named
+		-- like the typedef itself of type of the fundamental referred type. i.e.
+		-- when invoked with the XML representation of "typedef unsigned long
+		-- gulong;" it will produce "gulong: INTEGER_64 is do end" on a 64 bit
+		-- machine and "gulong: INTEGER_32 is do end" on a 32 bit machine. When
+		-- such a query is emitted `a_typedef' is removed from `typedefs'.
 	require
-		typedef_not_void: a_typedef/=Void
-		is_typedef_node: a_typedef.name.is_equal(once U"Typedef")
+		typedef_not_void: a_typedef/=Void 
+		is_typedef_node: a_typedef.name.is_equal(once U"Typedef") 
 	local
-		structure, file_node: XML_COMPOSITE_NODE; 
-		name, file_name: STRING
-		referred_id, structure_name, file_id: UNICODE_STRING
+		fundamental: XML_COMPOSITE_NODE
+		type, typedef_name, query_name: STRING
+	do
+		fundamental := referred_fundamental_type (a_typedef)
+		typedef_name := a_typedef.attribute_at(once U"name").to_utf8
+		if fundamental/=Void then
+			if fundamental.attribute_at(once U"name").is_equal(once U"void") then
+				buffer.put_message (once
+				"%T-- @(1) not wrapped: typedef to void%N",
+				<<typedef_name>>)
+			else
+				type := eiffel_type_of(fundamental)
+				query_name := eiffel_feature(typedef_name)
+				log2([query_name, once ", "])
+				buffer.put_message (once 
+				"%T@(1): @(2) is%N%
+				%%T%T-- typedef @(3)%N%
+				%%Tdo%N%
+				%%Tend%N%
+				%%N",
+				<< query_name, type, typedef_name>>)
+			end
+		end
+	ensure 
+		refers_to_fundamental_type (a_typedef) implies 
+		buffer.count > old buffer.count -- Buffer grew 
+	end
+
+	refers_to_fundamental_type (a_typedef: XML_COMPOSITE_NODE): BOOLEAN is
+		-- Does `a_typedef' refers to a fundamental type?
+	require 
+		non_void: a_typedef/=Void
+		is_typedef_node: a_typedef.name.is_equal(once U"Typedef") 
+	local 
+		referred: XML_COMPOSITE_NODE; referred_id: UNICODE_STRING
 	do
 		referred_id := a_typedef.attribute_at(once U"type")
-		name := a_typedef.attribute_at(once U"name").to_utf8
-		file_id := a_typedef.attribute_at(once U"file")
-		check
-			referred_id_not_void: referred_id /= Void
-			name_not_void: name /= Void
-			file_id /= Void
-		end
-		structure := types.reference_at(referred_id)
-		if structure /= Void and then 
-			structure.name.is_equal(once U"Struct") then
-			-- Referred type is actually a structure
-			log(once "Typedef @(1) (file id @(3)) refers to structure @(2) ", 
-			<<name,structure.attribute_at(once U"name").to_utf8, file_id.to_utf8>>)
-			file_node := files_by_id.reference_at(file_id)
-			if file_node/=Void then 
-				file_name := file_node.attribute_at(once U"name").to_utf8
-				if is_to_be_emitted(file_name) then
-					log_string(once " wrapping.%N")
-					emit_structure(structure, name)
-					structure_name := structure.attribute_at(once U"name")
-					debug log(once "Removing @(1) from structures",<<structure_name.as_utf8>>) end
-					structures.fast_remove(structure_name)
-				else
-					log("Typedef @(1) skipped: not in a requested header file.%N",<<name>>)
-				end
-			else
-				log_string(once " no file!!!%N")
-			end
-		else
-			log("Typedef @(1) skipped: not referring to a struct.%N", <<name>>)
+		referred := types.reference_at(referred_id)	
+		if referred/=Void then
+			Result := referred.name.is_equal(once U"FundamentalType")
 		end
 	end
 
+	referred_type (a_typedef: XML_COMPOSITE_NODE): XML_COMPOSITE_NODE is
+		-- The type `a_typedef' refers to. Void if referred type is not known.
+	require 
+		non_void: a_typedef/=Void
+		is_typedef_node: a_typedef.name.is_equal(once U"Typedef") 
+	local referred_id: UNICODE_STRING
+	do
+		referred_id := a_typedef.attribute_at(once U"type") 
+		check referred_id /= Void end
+		Result := types.reference_at(referred_id)
+	end
+
+
+	referred_fundamental_type (a_typedef: XML_COMPOSITE_NODE): XML_COMPOSITE_NODE is
+		-- The fundamental type `a_typedef' refers to. Void if `a_typedef' does
+		-- not refer to a fundamental type.
+	require 
+		non_void: a_typedef/=Void
+		is_typedef_node: a_typedef.name.is_equal(once U"Typedef") 
+	local 
+		referred: XML_COMPOSITE_NODE; referred_id: UNICODE_STRING
+	do
+		referred_id := a_typedef.attribute_at(once U"type")
+		referred := types.reference_at(referred_id)	
+		if referred/=Void and then
+			referred.name.is_equal(once U"FundamentalType") then
+			Result:=referred
+		end
+	end
+
+	referred_fundamental_non_void_type (a_typedef: XML_COMPOSITE_NODE): XML_COMPOSITE_NODE is
+		-- The fundamental type `a_typedef' refers to, with the exception of
+		-- "void". Void if `a_typedef' does not refer to a fundamental type.
+	require 
+		non_void: a_typedef/=Void
+		is_typedef_node: a_typedef.name.is_equal(once U"Typedef") 
+	do
+		Result:= referred_fundamental_type(a_typedef)
+		if Result.attribute_at(once U"name").is_equal(once U"void") then
+			Result:=Void
+		end
+	end
+
+	examine_typedef (a_typedef: XML_COMPOSITE_NODE) is
+		-- Examine `a_typedef' emitting the proper wrapper depending on the
+		-- actual symbol referred by `a_typedef'.  If the element referred by
+		-- 'a_typedef' is a structure to be emitted emit_structure is invoked
+		-- for the referred structure and it is removed from the 'structures'
+		-- dictionary. In fact many structures that are meant to be used by the
+		-- end-user of a library are often "hidden behind" a typedef: the
+		-- typedef has a meaningful name while the actual name of the used
+		-- structure seems private/non-exported (i.e. "typedef struct
+		-- _GtkButton GtkButton"). 
+	require
+		not_void: a_typedef/=Void 
+		is_typedef_node: a_typedef.name.is_equal(once U"Typedef") 
+		does_not_refer_to_a_fundamental_type: not refers_to_fundamental_type(a_typedef)
+	local 
+		referred: XML_COMPOSITE_NODE; name: STRING	 
+	do
+		name := a_typedef.attribute_at(once U"name").as_utf8
+		referred := referred_type(a_typedef)
+
+		if referred/=Void and then 
+			referred.name.is_equal(once U"Struct") and then
+			is_to_be_emitted(file_containing(referred)) then
+			log(once "Wrapping typedef struct @(1)%N",<<name>>)
+			emit_structure(referred,name)
+			structures.fast_remove(referred.attribute_at(once U"name"))
+		else log("Not wrapping typedef struct @(1)%N", <<name>>)
+		end
+	end
+
+
+feature {ANY} -- Low-level structure class creator
 	examine_structure (a_structure: XML_COMPOSITE_NODE) is
 		require
 			structure_not_void: a_structure/=Void
@@ -614,7 +775,6 @@ feature {ANY} -- Low-level structure class creator
 			filename: STRING; path: POSIX_PATH_NAME
 		do
 			if unwrappable then
-				-- buffer.reset
 				buffer.put_message(once "%T-- @(1) is not wrappable",
 				<<a_structure_name>>)
 				buffer.print_on(output)
@@ -622,13 +782,12 @@ feature {ANY} -- Low-level structure class creator
 				output.disconnect
 			else
 				if is_public(a_structure_name) then
-					-- buffer.reset
 					filename := a_structure_name + once "_struct"
 					class_name := eiffel_class_name(filename)
 					if directory = Void then
 						-- Output to standard output
 						output := std_output
-						log(once "Struct @(1) to class @(2) to standard output%N",
+						log(once "Struct @(1) on @(2) to standard output%N",
 						<<a_structure_name, class_name>>)
 					else
 						create path.make_from_string(directory)
@@ -639,7 +798,7 @@ feature {ANY} -- Low-level structure class creator
 							copy_to(filename, filename+once ".orig")
 						end
 	
-						log(once "Struct @(1) to class @(2) in @(3)%N",
+						log(once "Struct @(1) to @(2) in @(3)%N",
 						<<a_structure_name, class_name, filename>>)
 						create {TEXT_FILE_WRITE} output.connect_to(filename)
 					end
@@ -740,34 +899,34 @@ feature {ANY} -- Enumeration class creator
 				if directory = Void then
 					-- Output to standard output
 					output := std_output
-					log(once "Wrapping enumeration @(1) to class @(2) to standard output%N",
+					log(once "Wrapping enum @(1) as @(2) to standard output ",
 					<<name, class_name>>)
 				else
 					create path.make_from_string(directory)
 					path.add_last(eiffel_class_file_name(name))
 					filename := path.to_string
-					log(once "Wrapping enumeration @(1) to class @(2) in file @(3)%N",
+					log(once "Wrapping enum @(1) as @(2) on @(3)",
 					<<name, class_name, filename>>)
 					create {TEXT_FILE_WRITE} output.connect_to(filename)
 				end
-				-- setters.reset queries.reset low_level_values.reset
 				emit_enumeration_header(class_name)
 				if a_node.children_count>0 then
 					if flags.has(name) then 
-						log(once "Forcefully wrapping @(1) as flag.%N",<<name>>)
+						log_string(once ", forcefully wrapped as flag.%N")
 						append_flag_items(a_node)
 					elseif have_flags_values(a_node) then 
-						log(once "Wrapping @(1) as flag.%N",<<name>>)
+						log_string(once ", as flag.%N")
 						append_flag_items(a_node)
-					else append_enumeration_items(a_node)
+					else 
+						log_string(once ", as an enumeration.%N")
+						append_enumeration_items(a_node)
 					end
+				else log(once "... fieldless.%N",<<name>>)
 				end
 				emit_enumeration_items
 				output.flush
 				output.disconnect
-			else
-				log("Skipping 'hidden' enumeration @(1)%N",
-				<<name>>)
+			-- else log("Skipping 'hidden' enumeration @(1)%N", <<name>>)
 			end
 		end
 
@@ -979,34 +1138,6 @@ feature {ANY} -- Enumeration class creator
 		end
 
 feature {ANY} -- Flag enumeration
-	read_flags_from (a_file_name: STRING) is
-		-- Read the list of enumeration that shall be wrapped as flags from the file named `a_file_name'.
-	require
-		a_file_name/=Void
-		file_exists(a_file_name)
-		is_file(a_file_name) 
-	local words: ARRAY[STRING]; line: STRING; file: TEXT_FILE_READ
-	do
-		create file.connect_to(a_file_name)
-		if file.is_connected then
-			debug log_string(once "TODO: remove work-around for Flags:") end
-			from file.read_line
-			until file.end_of_input
-			loop
-				line := file.last_string
-				if line/=Void then 
-					words := line.split
-					if words/=Void then
-						words.do_all(agent flags.add)
-					end
-				end
-				file.read_line
-			end
-			debug log_string(once ".%N") end
-		else debug log(once "Coulnd't read file '@(1)' for the list of flags.%N",<<a_file_name>>) end
-		end
-	end
-
 	append_flag_items (a_node: XML_COMPOSITE_NODE) is
 			-- For each child of `a_node':
 			-- * consider it into the `is_valid' query,
@@ -1046,7 +1177,6 @@ feature {ANY} -- Flag enumeration
 						is_first := i=1
 						is_last := i=a_node.children_count
 						append_flag_item (a_child, filename, is_first,is_last)
-					-- else raise("A flag item is not a XML_COMPOSITE_CHILD")
 					end
 					i := i + 1
 				end
@@ -1159,10 +1289,14 @@ feature {ANY} -- Flag enumeration
 
 feature {ANY} -- Auxiliary features
 	file_containing (a_node: XML_COMPOSITE_NODE): STRING is
-		-- The path of the file where the C entity described by `a_node' is declared.
+		-- The path of the file where the C entity described by `a_node' is declared. 
 	require a_node/=Void
+	local file: XML_COMPOSITE_NODE
 	do
-		Result := files_by_id.at(a_node.attribute_at(once U"file")).attribute_at(once U"name").to_utf8
+		file := files_by_id.reference_at(a_node.attribute_at(once U"file"))
+		if file/=Void then
+			Result := file.attribute_at(once U"name").to_utf8
+		end
 	ensure Result/=Void
 	end
 
@@ -1174,7 +1308,9 @@ feature {ANY} -- Auxiliary features
 		is_initialized
 	do
 		Result := (global or else 
-					(a_file_name/=Void and then headers.has(a_file_name)))
+		           (a_file_name/=Void and then headers.has(a_file_name)))
+   ensure
+	   void_gets_false: a_file_name=Void implies Result=False
 	end
 
 	apply_patches (a_file_name: STRING) is
@@ -1236,12 +1372,19 @@ feature {ANY} -- Data structures
 	class_name: STRING
 	-- The name of the class currently being emitted/outputted.
 
+	typedefs_class_name: STRING
+	-- The name of the class containing empty queries named like typedefs,
+	-- useful for anchored declarations (i.e. "gsize: INTEGER_32 is do end")
+
 	tree: XML_TREE
 
-	headers: HASHED_SET[STRING]
+	headers: WORDS -- HASHED_SET[STRING]
 
-	flags: HASHED_SET[STRING]
-	-- The enumerations that will be forcefully wrapped as a flag.
+	flags: WORDS -- HASHED_SET[STRING]
+	-- Enumerations that will be forcefully wrapped as a flag.
+
+	avoided: WORDS
+	-- Symbols that will not be wrapped.
 
 	files_by_id: HASHED_DICTIONARY[XML_COMPOSITE_NODE, UNICODE_STRING]
 	-- Files by id
@@ -1302,6 +1445,8 @@ feature {} -- Constants
 
 	externals_header: STRING is "feature {} -- External calls%N%N"
 
+	typedefs_features_header: STRING is "feature -- C type definitions (typedefs)%N"
+
 	footer: STRING is "end%N"
 
 	automatically_generated_header: STRING is "[
@@ -1332,3 +1477,19 @@ feature {} -- Auxiliary features
 		end
 
 end -- class CLASS_MAKER
+
+-- Copyright 2008,2009 Paolo Redaelli
+
+-- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as published by the Free
+-- Software Foundation, either version 2 of the License, or (at your option)
+-- any later version.
+
+-- eiffel-gcc-xml is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+-- more details.
+
+-- You should have received a copy of the GNU General Public License along with
+-- this program.  If not, see <http://www.gnu.org/licenses/>.
+

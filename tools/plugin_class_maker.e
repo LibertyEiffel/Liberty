@@ -207,6 +207,7 @@ feature {} -- Constants
 		]"
 
 end -- class PLUGIN_CLASS_MAKER
+
 -- Copyright 2008,2009 Paolo Redaelli
 
 -- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
@@ -221,3 +222,4 @@ end -- class PLUGIN_CLASS_MAKER
 
 -- You should have received a copy of the GNU General Public License along with
 -- this program.  If not, see <http://www.gnu.org/licenses/>.
+
