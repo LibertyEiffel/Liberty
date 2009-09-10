@@ -6,6 +6,9 @@ inherit
 create {ANY}
 	make
 
+feature {}
+	all_classes_names: DICTIONARY[LIBERTY_AST_CLASS_NAME, STRING]
+
 feature {EIFFEL_GRAMMAR}
 	list (name: STRING): EIFFEL_LIST_NODE is
 		do
@@ -48,16 +51,65 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_TYPE_PARAMETERS}Result.make(name, names)
 			when "Indexing_Clause" then
 				create {LIBERTY_AST_INDEXING_CLAUSE}Result.make(name, names)
+			when "Type_Definition" then
+				create {LIBERTY_AST_TYPE_DEFINITION}Result.make(name, names)
+			when "Parent_Clause" then
+				create {LIBERTY_AST_TYPE_PARENT_CLAUSE}Result.make(name, names)
+			when "Parent" then
+				create {LIBERTY_AST_PARENT}Result.make(name, names)
+			when "Parent_Rename" then
+				create {LIBERTY_AST_PARENT_RENAME}Result.make(name, names)
+			when "Parent_Export" then
+				create {LIBERTY_AST_PARENT_EXPORT}Result.make(name, names)
+			when "Parent_Undefine" then
+				create {LIBERTY_AST_PARENT_UNDEFINE}Result.make(name, names)
+			when "Parent_Redefine" then
+				create {LIBERTY_AST_PARENT_REDEFINE}Result.make(name, names)
+			when "Rename" then
+				create {LIBERTY_AST_RENAME}Result.make(name, names)
+			when "Export" then
+				create {LIBERTY_AST_EXPORT}Result.make(name, names)
+			when "Class_Creation" then
+				create {LIBERTY_AST_CLASS_CREATION}Result.make(name, names)
+			when "Eiffel_Block" then
+				create {LIBERTY_AST_EIFFEL_BLOCK}Result.make(name, names)
+			when "Require" then
+				create {LIBERTY_AST_REQUIRE}Result.make(name, names)
+			when "Local_Block" then
+				create {LIBERTY_AST_LOCAL_BLOCK}Result.make(name, names)
+			when "Do_Block" then
+				create {LIBERTY_AST_DO_BLOCK}Result.make(name, names)
+			when "Rescue_Block" then
+				create {LIBERTY_AST_RESCUE_BLOCK}Result.make(name, names)
+			when "Ensure" then
+				create {LIBERTY_AST_ENSURE}Result.make(name, names)
+			when "External" then
+				create {LIBERTY_AST_EXTERNAL}Result.make(name, names)
+			when "Declaration" then
+				create {LIBERTY_AST_DECLARATION}Result.make(name, names)
+			when "Variable" then
+				create {LIBERTY_AST_VARIABLE}Result.make(name, names)
+			when "Instruction" then
+				create {LIBERTY_AST_INSTRUCTION}Result.make(name, names)
 			end
 		end
 
 	terminal (name: STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
+		local
+			img: like image
 		do
 			inspect
 				name
 			when "KW class name" then
-				create {LIBERTY_AST_CLASS_NAME}.make(image)
-			when "KW end", "KW end of file", "KW indexing", "KW ;" then
+				Result := all_classes.reference_at(image)
+				if Result = Void then
+					img := image.twin
+					create {LIBERTY_AST_CLASS_NAME}Result.make(img)
+					all_classes.put(Result, img)
+				end
+			when "KW entity name" then
+				create {LIBERTY_AST_ENTITY_NAME}Result.make(image.twin)
+			else
 				-- some keywords are pure cosmetics; we don't need to distinguish them.
 				create {EIFFEL_TERMINAL_NODE_IMPL}Result.make(name, image)
 			end
@@ -66,6 +118,7 @@ feature {EIFFEL_GRAMMAR}
 feature {}
 	make is
 		do
+			create {HASHED_DICTIONARY[LIBERTY_AST_CLASS_NAME, STRING]}all_classes.make
 		end
 
 end -- class LIBERTY_NODE_FACTORY

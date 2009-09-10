@@ -1,0 +1,26 @@
+class LIBERTY_AST_VARIABLE
+
+inherit
+	LIBERTY_AST_NON_TERMINAL_NODE
+
+create {LIBERTY_NODE_FACTORY}
+	make
+
+feature {}
+	variable: LIBERTY_AST_ENTITY_NAME is
+		do
+			Result ::= nodes.item(0)
+		end
+
+feature {ANY}
+	count: INTEGER is 1
+
+	name: STRING is "Variable"
+
+feature {}
+	possible_counts: SET[INTEGER] is
+		once
+			Result := {AVL_SET[INTEGER} << 1 >> }
+		end
+
+end
