@@ -1,0 +1,6 @@
+class LIBERTY_AST_ENTITY_NAME
+
+inherit
+	EIFFEL_TERMINAL_NODE_IMPL
+
+end

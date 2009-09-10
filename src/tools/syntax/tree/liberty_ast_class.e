@@ -58,12 +58,12 @@ feature {}
 			Result ::= nodes.item(1)
 		end
 
-	creations: LIBERTY_AST_CREATIONS is
+	creations: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(4)
 		end
 
-	features: LIBERTY_AST_FEATURES is
+	features: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(5)
 		end

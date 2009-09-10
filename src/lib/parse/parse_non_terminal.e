@@ -62,10 +62,11 @@ feature {PARSE_TABLE}
 		end
 
 feature {ESE_PARSER, PARSE_NT_NODE}
-	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): STRING is
+	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
 		do
 			Result := parser_tree.parse(buffer, actions)
-			if Result = Void then
+			if Result then
+				buffer.set_last_error(Void)
 				debug ("parse")
 					std_error.put_string(once "%T-->%Tnon-terminal ")
 					print_error_position(std_error, buffer)
@@ -76,7 +77,6 @@ feature {ESE_PARSER, PARSE_NT_NODE}
 					std_error.put_new_line
 				end
 			else
-				add_error_position(Result, buffer)
 				debug ("parse")
 					std_error.put_string(once "** Expected non-terminal %"")
 					std_error.put_string(name)

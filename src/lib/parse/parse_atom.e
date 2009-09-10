@@ -65,14 +65,14 @@ feature {PARSE_TABLE}
 		end
 
 feature {ESE_PARSER, PARSE_NT_NODE}
-	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): STRING is
-			-- The Result is an error message which is Void if the parse succeeded.
+	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+			-- The Result is True if the parsing succeeded, False otherwise.
 		require
 			actions /= Void
 		deferred
 		ensure
 			actions.count >= old actions.count
-			Result /= Void implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+			not Result implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
 		end
 
 feature {}

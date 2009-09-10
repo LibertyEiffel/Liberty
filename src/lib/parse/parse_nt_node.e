@@ -61,7 +61,7 @@ feature {PARSE_NON_TERMINAL}
 			end
 		end
 
-	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): STRING is
+	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
 		local
 			parse_action: PARSE_ACTION
 		do
@@ -69,9 +69,9 @@ feature {PARSE_NON_TERMINAL}
 				is_root: prefix_name = Void
 			end
 			Result := parse_suffices(buffer, actions)
-			if Result /= Void and then end_of_rule then
+			if not Result and then end_of_rule then
 				-- Epsilon
-				Result := Void
+				Result := True
 				create parse_action.make(action)
 				debug ("parse")
 					parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
@@ -80,12 +80,10 @@ feature {PARSE_NON_TERMINAL}
 			end
 		ensure
 			actions.count >= old actions.count
-			Result /= Void implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+			not Result implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
 		end
 
 feature {PARSE_NON_TERMINAL, PARSE_NT_NODE}
-	error_message: STRING
-
 	is_coherent: BOOLEAN is
 		local
 			i: INTEGER
@@ -237,7 +235,7 @@ feature {PARSE_NT_NODE}
 			end
 		end
 
-	do_parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): STRING is
+	do_parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
 		require
 			not_root: prefix_name /= Void
 		local
@@ -254,42 +252,44 @@ feature {PARSE_NT_NODE}
 			check
 				suffices = Void implies end_of_rule
 			end
-			if suffices = Void then
-				create parse_action.make(action)
-				debug ("parse")
-					parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
-				end
-				actions.add_last(parse_action)
-			elseif Result = Void then
-				Result := parse_suffices(buffer, actions)
-				if end_of_rule then
-					if Result /= Void then
-						-- that's fine: we can end here
-						Result := Void
-						create parse_action.make(action)
-						debug ("parse")
-							parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
+			if Result then
+				if suffices = Void then
+					create parse_action.make(action)
+					debug ("parse")
+						parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
+					end
+					actions.add_last(parse_action)
+				else
+					Result := parse_suffices(buffer, actions)
+					if end_of_rule then
+						if not Result then
+							-- that's fine: we can end here
+							Result := True
+							create parse_action.make(action)
+							debug ("parse")
+								parse_action.set_name(once "Reduce %"" + nt.name + once "%"")
+							end
+							actions.add_last(parse_action)
 						end
-						actions.add_last(parse_action)
 					end
 				end
 			end
-			if Result /= Void then
+			if not Result then
 				buffer.set_current_index(old_index)
 				if actions.count > old_count then
 					actions.remove_tail(actions.count - old_count)
 				end
 			end
 		ensure
-			Result /= Void implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
+			not Result implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
 		end
 
 feature {}
-	parse_suffices (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): STRING is
+	parse_suffices (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
 		require
 			suffices /= Void
 		local
-			old_index, old_count, i: INTEGER; node: PARSE_NT_NODE; msg, m: STRING
+			old_index, old_count, i: INTEGER; node: PARSE_NT_NODE; parsenode: BOOLEAN
 		do
 			debug ("parse")
 				std_error.put_string(once "Scanning non-terminal %"")
@@ -306,29 +306,19 @@ feature {}
 			old_count := actions.count
 			from
 				i := suffices.lower
-				Result := once ""
-				Result.clear_count
+				Result := False
 			until
-				Result = Void or else i > suffices.upper
+				Result or else i > suffices.upper
 			loop
 				node := suffices.item(i)
-				msg := node.do_parse(buffer, actions)
-				if msg = Void then
-					Result := Void
+				parsenode := node.do_parse(buffer, actions)
+				if parsenode then
+					Result := True
 				else
 					buffer.set_current_index(old_index)
 					if actions.count > old_count then
 						actions.remove_tail(actions.count - old_count)
 					end
-					if prefix_name = Void then
-						m := msg
-					else
-						m := prepend(prefix_name, msg)
-					end
-					if not Result.is_empty then
-						Result.extend('%N')
-					end
-					Result.append(m)
 					debug ("parse")
 						std_error.put_string(once "Still scanning non-terminal %"")
 						std_error.put_string(nt.name)
@@ -345,35 +335,8 @@ feature {}
 					i := i + 1
 				end
 			end
-			if Result /= Void then
-				Result := Result.twin
-			end
 		ensure
-			Result /= Void implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
-		end
-
-	prepend (p, msg: STRING): STRING is
-		local
-			i: INTEGER; c: CHARACTER
-		do
-			Result := once ""
-			Result.copy(p)
-			Result.extend(' ')
-			from
-				i := msg.lower
-			until
-				i > msg.upper
-			loop
-				c := msg.item(i)
-				if c = '%N' then
-					Result.extend(c)
-					Result.append(p)
-					Result.extend(' ')
-				else
-					Result.extend(c)
-				end
-				i := i + 1
-			end
+			not Result implies buffer.current_index = old buffer.current_index and then actions.count = old actions.count
 		end
 
 feature {}

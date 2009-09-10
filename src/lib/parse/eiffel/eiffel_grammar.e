@@ -62,7 +62,7 @@ feature {}
 																							{FAST_ARRAY[STRING] << "Parent", "KW ;", "Parent+" >> }, agent build_continue_list("Parent", 1, "Parent+") >> };
 											  "Parent", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition", "Parent_Clause" >> }, Void >> };
 											  "Parent_Clause", {PARSE_NON_TERMINAL << epsilon, Void;
-																									{FAST_ARRAY[STRING] << "KW end of parent clause" >> }, Void;
+																									{FAST_ARRAY[STRING] << "KW end" >> }, Void;
 																									{FAST_ARRAY[STRING] << "Parent_Rename", "Parent_Export", "Parent_Undefine", "Parent_Redefine", "KW end of parent clause" >> }, Void >> };
 											  "Parent_Rename", {PARSE_NON_TERMINAL << epsilon, Void;
 																									{FAST_ARRAY[STRING] << "KW rename", "Rename+" >> }, Void >> };

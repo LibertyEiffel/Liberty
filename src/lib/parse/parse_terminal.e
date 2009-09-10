@@ -42,10 +42,10 @@ feature {PARSE_TABLE}
 		end
 
 feature {ESE_PARSER, PARSE_NT_NODE}
-	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): STRING is
+	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
 		local
 			old_index: INTEGER; image: PARSER_IMAGE
-			parse_action: PARSE_ACTION
+			parse_action: PARSE_ACTION; error: STRING
 		do
 			old_index := buffer.current_index
 			image := parser.item([buffer])
@@ -62,14 +62,21 @@ feature {ESE_PARSER, PARSE_NT_NODE}
 					parse_action.set_name(once "Shift %"" + name + once "%": " + image.out)
 				end
 				actions.add_last(parse_action)
+				Result := True
 			else
 				buffer.set_current_index(old_index)
-				Result := once ""
-				Result.clear_count
-				Result.extend('%"')
-				Result.append(name)
-				Result.extend('%"')
-				add_error_position(Result, buffer)
+				error := buffer.last_error
+				if error = Void then
+					error := once ""
+					error.copy(once "*** ")
+					buffer.set_last_error(error)
+				else
+					error.append(once "%N or ")
+				end
+				error.extend('%"')
+				error.append(name)
+				error.append(once "%" expected")
+				add_error_position(error, buffer)
 				debug ("parse")
 					std_error.put_string(once "** Expected terminal %"")
 					std_error.put_string(name)

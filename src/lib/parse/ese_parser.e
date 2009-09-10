@@ -38,7 +38,12 @@ feature {ANY}
 			atom: PARSE_ATOM
 		do
 			atom := grammar.item(start)
-			error_message := atom.parse(buffer, a_actions)
+			if not atom.parse(buffer, a_actions) then
+				error_message := buffer.last_error
+				if error_message = Void then
+					error_message := once "This does not look like Eiffel, not even remotely."
+				end
+			end
 		ensure
 			a_actions.count >= old a_actions.count
 			error_message /= Void implies a_actions.count = old a_actions.count
