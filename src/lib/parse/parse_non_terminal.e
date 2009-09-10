@@ -66,6 +66,7 @@ feature {ESE_PARSER, PARSE_NT_NODE}
 		do
 			Result := parser_tree.parse(buffer, actions)
 			if Result then
+				buffer.set_last_error(Void)
 				debug ("parse")
 					std_error.put_string(once "%T-->%Tnon-terminal ")
 					print_error_position(std_error, buffer)

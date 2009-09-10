@@ -65,11 +65,17 @@ feature {ESE_PARSER, PARSE_NT_NODE}
 				Result := True
 			else
 				buffer.set_current_index(old_index)
-				error := once ""
-				error.clear_count
+				error := buffer.last_error
+				if error = Void then
+					error := once ""
+					error.copy(once "*** ")
+					buffer.set_last_error(error)
+				else
+					error.append(once "%N or ")
+				end
 				error.extend('%"')
 				error.append(name)
-				error.extend('%"')
+				error.append(once "%" expected")
 				add_error_position(error, buffer)
 				debug ("parse")
 					std_error.put_string(once "** Expected terminal %"")
@@ -78,7 +84,6 @@ feature {ESE_PARSER, PARSE_NT_NODE}
 					print_error_position(std_error, buffer)
 					std_error.put_new_line
 				end
-				buffer.set_last_error(error)
 			end
 		end
 
