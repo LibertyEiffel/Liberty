@@ -34,10 +34,20 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_INVARIANT}Result.make(name, names)
 			when "Indexing" then
 				create {LIBERTY_AST_INDEXING}Result.make(name, names)
+			when "Indexing_Clause" then
+				create {LIBERTY_AST_INDEXING_CLAUSE}Result.make(name, names)
+			when "Class_Marker" then
+				create {LIBERTY_AST_CLASS_MARKER}Result.make(name, names)
+			when "Inherit" then
+				create {LIBERTY_AST_INHERIT}Result.make(name, names)
+			when "Insert" then
+				create {LIBERTY_AST_INSERT}Result.make(name, names)
 			when "Class_Marker" then
 				create {LIBERTY_AST_CLASS_MARKER}Result.make(name, names)
 			when "Type_Parameters" then
 				create {LIBERTY_AST_TYPE_PARAMETERS}Result.make(name, names)
+			when "Indexing_Clause" then
+				create {LIBERTY_AST_INDEXING_CLAUSE}Result.make(name, names)
 			end
 		end
 
@@ -47,7 +57,7 @@ feature {EIFFEL_GRAMMAR}
 				name
 			when "KW class name" then
 				create {LIBERTY_AST_CLASS_NAME}.make(image)
-			when "KW end", "KW end of file", "KW indexing" then
+			when "KW end", "KW end of file", "KW indexing", "KW ;" then
 				-- some keywords are pure cosmetics; we don't need to distinguish them.
 				create {EIFFEL_TERMINAL_NODE_IMPL}Result.make(name, image)
 			end

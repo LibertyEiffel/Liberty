@@ -7,14 +7,34 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {ANY}
-	class_header: LIBERTY_AST_CLASS_HEADER is
+	classname: STRING is
 		do
-			Result ::= nodes.item(0)
+			Result := class_header.classname
 		end
 
-	obsolete_clause: LIBERTY_AST_OBSOLETE is
+	is_deferred: BOOLEAN is
 		do
-			Result ::= nodes.item(1)
+			Result := class_header.is_deferred
+		end
+
+	is_expanded: BOOLEAN is
+		do
+			Result := class_header.is_expanded
+		end
+
+	is_separate: BOOLEAN is
+		do
+			Result := class_header.is_separate
+		end
+
+	obsolete_string: STRING is
+		do
+			Result := obsolete_clause.string
+		end
+
+	indexing_clause: LIBERTY_AST_INDEXING is
+		do
+			Result := class_header.indexing_clause
 		end
 
 	inherit_clause: LIBERTY_AST_INHERIT is
@@ -25,6 +45,17 @@ feature {ANY}
 	insert_clause: LIBERTY_AST_INSERT is
 		do
 			Result ::= nodes.item(3)
+		end
+
+feature {}
+	class_header: LIBERTY_AST_CLASS_HEADER is
+		do
+			Result ::= nodes.item(0)
+		end
+
+	obsolete_clause: LIBERTY_AST_OBSOLETE is
+		do
+			Result ::= nodes.item(1)
 		end
 
 	creations: LIBERTY_AST_CREATIONS is
@@ -42,14 +73,15 @@ feature {ANY}
 			Result ::= nodes.item(6)
 		end
 
-	classname: STRING is
-		do
-			Result := class_header.classname
-		end
-
 feature {ANY}
 	count: INTEGER is 9
 
 	name: STRING is "Class"
+
+feature {}
+	possible_counts: SET[INTEGER] is
+		once
+			Result := {AVL_SET[INTEGER} << 9 >> }
+		end
 
 end

@@ -41,17 +41,24 @@ feature {EIFFEL_GRAMMAR}
 		end
 
 feature {}
+	possible_counts: SET[INTEGER] is
+		deferred
+		end
+
 	nodes: FIXED_ARRAY[EIFFEL_NODE]
 
 	make (a_name: STRING; a_names: COLLECTION[STRING]) is
 		require
 			a_name.is_equal(name)
-			a_names.count = count
+			possible_counts.has(a_names.count)
 		do
-			nodes := nodes.alloc(count)
+			nodes := nodes.alloc(a_names.count)
+		ensure
+			nodes.capacity = a_names.count
 		end
 
 invariant
+	possible_counts.has(count)
 	nodes.capacity = count
 
 end
