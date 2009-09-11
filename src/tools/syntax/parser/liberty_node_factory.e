@@ -91,6 +91,32 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_VARIABLE}Result.make(name, names)
 			when "Instruction" then
 				create {LIBERTY_AST_INSTRUCTION}Result.make(name, names)
+			when "Assignment" then
+				create {LIBERTY_AST_ASSIGNMENT}Result.make(name, names)
+			when "Call" then
+				create {LIBERTY_AST_CALL}Result.make(name, names)
+			when "Target" then
+				create {LIBERTY_AST_TARGET}Result.make(name, names)
+			when "If_Then_Else" then
+				create {LIBERTY_AST_IF_THEN_ELSE}Result.make(name, names)
+			when "Inspect" then
+				create {LIBERTY_AST_INSPECT}Result.make(name, names)
+			when "Loop" then
+				create {LIBERTY_AST_LOOP}Result.make(name, names)
+			when "Check" then
+				create {LIBERTY_AST_CHECK}Result.make(name, names)
+			when "Debug" then
+				create {LIBERTY_AST_DEBUG}Result.make(name, names)
+			when "Old_Creation" then
+				create {LIBERTY_AST_OLD_CREATION}Result.make(name, names)
+			when "Creation" then
+				create {LIBERTY_AST_CREATION}Result.make(name, names)
+			when "Retry" then
+				create {LIBERTY_AST_RETRY}Result.make(name, names)
+			when "Writable" then
+				create {LIBERTY_AST_WRITABLE}Result.make(name, names)
+			when "Expression" then
+				create {LIBERTY_AST_EXPRESSION}Result.make(name, names)
 			end
 		end
 
