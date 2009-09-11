@@ -177,6 +177,14 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_ACTUALS}Result.make(name, names)
 			when "Actual" then
 				create {LIBERTY_AST_ACTUAL}Result.make(name, names)
+			when "Array" then
+				create {LIBERTY_AST_ARRAY}Result.make(name, names)
+			when "Expression_No_Array" then
+				create {LIBERTY_AST_EXPRESSION_NO_ARRAY}Result.make(name, names)
+			when "Agent_Signature" then
+				create {LIBERTY_AST_AGENT_SIGNATURE}Result.make(name, names)
+			when "Manifest_Or_Type_Test" then
+				create {LIBERTY_AST_MANIFEST_OR_TYPE_TEST}Result.make(name, names)
 			end
 		end
 
