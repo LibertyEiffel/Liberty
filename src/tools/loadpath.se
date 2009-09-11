@@ -1,0 +1,6 @@
+./
+./main/
+./syntax/
+./syntax/parser/
+./syntax/tree/
+./semantics/

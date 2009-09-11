@@ -1,0 +1,108 @@
+-- See the Copyright notice at the end of this file.
+--
+deferred class RANDOM_NUMBER_GENERATOR
+	--
+	-- Common abstract definition of a random number generator.
+	-- The SmartEiffel library provides two implementations: MINIMAL_RANDOM_NUMBER_GENERATOR, and 
+	-- PRESS_RANDOM_NUMBER_GENERATOR. Most applications can safely rely on MINIMAL_RANDOM_NUMBER_GENERATOR. 
+	-- If you really need high quality randomizing, consider PRESS_RANDOM_NUMBER_GENERATOR. 
+	--
+	
+feature {ANY}
+	make is
+			-- Create (or reset) the random number generator with an automatic hazardous setting of the 
+			-- `seed_value' based on the CPU clock.
+			--
+			-- See also `with_seed'.
+		deferred
+		end
+
+	with_seed (seed_value: INTEGER) is
+			-- Create (or reset) the random number generator with an explicit `seed_value'.
+			-- By using and explicit `seed_value', one can replay more than once the very same hasardous 
+			-- sequence.
+			--
+			-- See also `make'.
+		deferred
+		end
+
+	next is
+			-- Prepare the next random number in sequence.
+			-- Change internal memory of `Current' in order to prepare the next random number in sequence.
+			--
+			-- See also `last_real', `last_integer'.
+		deferred
+		end
+
+	last_real: REAL is
+			-- The last computed number in range 0.0 to 1.0 excluded (see ensure).
+			-- Internal memory is not changed and two calls will give the same `Result'. 
+			-- Use `next' to get a new random `last_real' value.
+			--
+			-- See also `last_integer'.
+		deferred
+		ensure
+			Result > 0 and Result <= 1
+		end
+
+	last_integer (n: INTEGER): INTEGER is
+			-- The last computed number in range 1 to `n'(see ensure).
+			-- Internal memory is not changed and two calls will give the same `Result'. 
+			-- Use `next' to get a new random `last_integer' value.
+			--
+			-- See also `last_real'.
+		require
+			n >= 1
+		deferred
+		ensure
+			1 <= Result and Result <= n
+		end
+
+feature {}
+	clock_based_random_seed: INTEGER is
+			-- Some positive random value to be used as a seed which may change as much as possible in a random 
+			-- way.
+		local
+			clock: CLOCK; microsecond_time: MICROSECOND_TIME
+		do
+			from
+				microsecond_time.update
+				Result := microsecond_time.microsecond #+ clock.value
+			until
+				Result > 0
+			loop
+				microsecond_time.update
+				Result := ~Result #+ microsecond_time.microsecond
+			end
+		ensure
+			Result > 0
+		end
+	
+end -- class RANDOM_NUMBER_GENERATOR
+--
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- This file is part of the SmartEiffel standard library.
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
