@@ -117,6 +117,66 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_WRITABLE}Result.make(name, names)
 			when "Expression" then
 				create {LIBERTY_AST_EXPRESSION}Result.make(name, names)
+			when "r1" then
+				create {LIBERTY_AST_R1}Result.make(name, names)
+			when "r2" then
+				create {LIBERTY_AST_R2}Result.make(name, names)
+			when "r3" then
+				create {LIBERTY_AST_R3}Result.make(name, names)
+			when "r4" then
+				create {LIBERTY_AST_R4}Result.make(name, names)
+			when "r5" then
+				create {LIBERTY_AST_R5}Result.make(name, names)
+			when "r6" then
+				create {LIBERTY_AST_R6}Result.make(name, names)
+			when "r7" then
+				create {LIBERTY_AST_R7}Result.make(name, names)
+			when "r8" then
+				create {LIBERTY_AST_R8}Result.make(name, names)
+			when "r9" then
+				create {LIBERTY_AST_R9}Result.make(name, names)
+			when "r10" then
+				create {LIBERTY_AST_R10}Result.make(name, names)
+			when "e0" then
+				create {LIBERTY_AST_E0}Result.make(name, names)
+			when "e1" then
+				create {LIBERTY_AST_E1}Result.make(name, names)
+			when "e2" then
+				create {LIBERTY_AST_E2}Result.make(name, names)
+			when "e3" then
+				create {LIBERTY_AST_E3}Result.make(name, names)
+			when "e4" then
+				create {LIBERTY_AST_E4}Result.make(name, names)
+			when "e5" then
+				create {LIBERTY_AST_E5}Result.make(name, names)
+			when "e6" then
+				create {LIBERTY_AST_E6}Result.make(name, names)
+			when "e7" then
+				create {LIBERTY_AST_E7}Result.make(name, names)
+			when "e8" then
+				create {LIBERTY_AST_E8}Result.make(name, names)
+			when "e9" then
+				create {LIBERTY_AST_E9}Result.make(name, names)
+			when "e10" then
+				create {LIBERTY_AST_E10}Result.make(name, names)
+			when "Precursor_Type_Mark" then
+				create {LIBERTY_AST_PRECURSOR_TYPE_MARK}Result.make(name, names)
+			when "If" then
+				create {LIBERTY_AST_IF}Result.make(name, names)
+			when "ElseIf" then
+				create {LIBERTY_AST_IF}Result.make(name, names)
+			when "Else" then
+				create {LIBERTY_AST_ELSE}Result.make(name, names)
+			when "When" then
+				create {LIBERTY_AST_WHEN}Result.make(name, names)
+			when "When_Slice" then
+				create {LIBERTY_AST_WHEN_SLILCE}Result.make(name, names)
+			when "When_Value" then
+				create {LIBERTY_AST_WHEN_VALUE}Result.make(name, names)
+			when "Actuals" then
+				create {LIBERTY_AST_ACTUALS}Result.make(name, names)
+			when "Actual" then
+				create {LIBERTY_AST_ACTUAL}Result.make(name, names)
 			end
 		end
 
@@ -135,6 +195,12 @@ feature {EIFFEL_GRAMMAR}
 				end
 			when "KW entity name" then
 				create {LIBERTY_AST_ENTITY_NAME}Result.make(image.twin)
+			when "KW number" then
+				create {LIBERTY_AST_NUMBER}Result.make(image.twin)
+			when "KW character" then
+				create {LIBERTY_AST_CHARACTER}Result.make(image.twin)
+			when "KW string" then
+				create {LIBERTY_AST_STRING}Result.make(image.twin)
 			else
 				-- some keywords are pure cosmetics; we don't need to distinguish them.
 				create {EIFFEL_TERMINAL_NODE_IMPL}Result.make(name, image)

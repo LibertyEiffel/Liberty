@@ -147,8 +147,8 @@ feature {}
 											  "When+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "When" >> }, agent build_new_list("When", "When+");
 																						 {FAST_ARRAY[STRING] << "When", "When+" >> }, agent build_continue_list("When", 0, "When+") >> };
 											  "When", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW when", "When_Clause", "KW then", "Instruction*" >> }, Void >> };
-											  "When_Clause", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "When_Slice" >> }, Void;
-																								 {FAST_ARRAY[STRING] << "When_Slice", "KW ,", "When_Clause" >> }, Void >> };
+											  "When_Clause", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "When_Slice" >> }, agent build_new_list("When_Slice", "When_Clause");
+																								 {FAST_ARRAY[STRING] << "When_Slice", "KW ,", "When_Clause" >> }, agent build_continue_list("When_Slice", 1, "When_Clause") >> };
 											  "When_Slice", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "When_Value" >> }, Void;
 																								{FAST_ARRAY[STRING] << "When_Value", "KW ..", "When_Value" >> }, Void >> };
 											  "When_Value", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW number" >> }, Void;
