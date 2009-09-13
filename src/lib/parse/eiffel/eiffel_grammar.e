@@ -240,10 +240,10 @@ feature {}
 											  "r10", {PARSE_NON_TERMINAL << epsilon, Void;
 																					  {FAST_ARRAY[STRING] << "KW .", "KW entity name", "Actuals", "r10" >> }, Void >> };
 											  "Array", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW <<", "Array_Content", "KW >>" >> }, Void >> };
-											  "Array_Content", {PARSE_NON_TERMINAL << epsilon, Void;
-																									{FAST_ARRAY[STRING] << "Expression" >> }, Void;
-																									{FAST_ARRAY[STRING] << "Expression", "KW ,", "Array_Content" >> }, Void;
-																									{FAST_ARRAY[STRING] << "Expression", "KW ;", "Array_Content" >> }, Void >> };
+											  "Array_Content", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Array_Content");
+																									{FAST_ARRAY[STRING] << "Expression" >> }, agent build_new_list("Expression", "Array_Content");
+																									{FAST_ARRAY[STRING] << "Expression", "KW ,", "Array_Content" >> }, agent build_continue_list("Expression", 1, "Array_Content");
+																									{FAST_ARRAY[STRING] << "Expression", "KW ;", "Array_Content" >> }, agent build_continue_list("Expression", 1, "Array_Content") >> };
 											  "Feature*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Feature*");
 																							 {FAST_ARRAY[STRING] << "Feature", "Feature*" >> }, agent build_continue_list("Feature", 0, "Feature*") >> };
 											  "Feature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW feature", "KW {", "Clients", "KW }", "Feature_Definition*" >> }, Void >> };
@@ -257,8 +257,8 @@ feature {}
 																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Manifest_Or_Type_Test" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "KW unique" >> }, Void >> };
 											  "Signature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Names" >> }, Void;
-																							  {FAST_ARRAY[STRING] << "Feature_Names", "KW (", "Declaration+", "KW )" >> }, Void;
 																							  {FAST_ARRAY[STRING] << "Feature_Names", "KW :", "Type_Definition" >> }, Void;
+																							  {FAST_ARRAY[STRING] << "Feature_Names", "KW (", "Declaration+", "KW )" >> }, Void;
 																							  {FAST_ARRAY[STRING] << "Feature_Names", "KW (", "Declaration+", "KW )", "KW :", "Type_Definition" >> }, Void >> };
 											  "Feature_Names", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name+" >> }, Void;
 																									{FAST_ARRAY[STRING] << "KW frozen", "Feature_Name+" >> }, Void >> };
@@ -291,6 +291,7 @@ feature {}
 											  "Require", {PARSE_NON_TERMINAL << epsilon, Void;
 																							{FAST_ARRAY[STRING] << "Require_Else", "Assertion*" >> }, Void >> };
 											  "Require_Else", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW require" >> }, Void;
+																								  {FAST_ARRAY[STRING] << "KW require", "KW then" >> }, Void; -- *** Liberty extension
 																								  {FAST_ARRAY[STRING] << "KW require", "KW else" >> }, Void >> };
 											  "Ensure", {PARSE_NON_TERMINAL << epsilon, Void;
 																						  {FAST_ARRAY[STRING] << "Ensure_Then", "Assertion*" >> }, Void >> };

@@ -31,8 +31,6 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_INSERT}Result.make(name, names)
 			when "Class_Creation*" then
 				create {LIBERTY_AST_CREATIONS}Result.make(name, names)
-			when "Feature*" then
-				create {LIBERTY_AST_FEATURES}Result.make(name, names)
 			when "Invariant" then
 				create {LIBERTY_AST_INVARIANT}Result.make(name, names)
 			when "Indexing" then
@@ -49,6 +47,8 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_CLASS_MARKER}Result.make(name, names)
 			when "Type_Parameters" then
 				create {LIBERTY_AST_TYPE_PARAMETERS}Result.make(name, names)
+			when "Type_Parameter" then
+				create {LIBERTY_AST_TYPE_PARAMETER}Result.make(name, names)
 			when "Indexing_Clause" then
 				create {LIBERTY_AST_INDEXING_CLAUSE}Result.make(name, names)
 			when "Type_Definition" then
@@ -185,6 +185,30 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_AGENT_SIGNATURE}Result.make(name, names)
 			when "Manifest_Or_Type_Test" then
 				create {LIBERTY_AST_MANIFEST_OR_TYPE_TEST}Result.make(name, names)
+			when "Feature" then
+				create {LIBERTY_AST_FEATURE}Result.make(name, names)
+			when "Feature_Definition" then
+				create {LIBERTY_AST_FEATURE_DEFINITION}Result.make(name, names)
+			when "Signature" then
+				create {LIBERTY_AST_SIGNATURE}Result.make(name, names)
+			when "Feature_Names" then
+				create {LIBERTY_AST_FEATURE_NAMES}Result.make(name, names)
+			when "Feature_Name" then
+				create {LIBERYT_AST_FEATURE_NAME}Result.make(name, names)
+			when "External" then
+				create {LIBERTY_AST_EXTERNAL}Result.make(name, names)
+			when "Alias" then
+				create {LIBERTY_AST_ALIAS}Result.make(name, names)
+			when "Effective_Type_Parameters" then
+				create {LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS}Result.make(name, names)
+			when "Effective_Type_Parameter" then
+				create {LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER}Result.make(name, names)
+			when "Require_Else" then
+				create {LIBERTY_AST_REQUIRE_ELSE}Result.make(name, names)
+			when "Ensure_Then" then
+				create {LIBERTY_AST_ENSURE_THEN}Result.make(name, names)
+			when "Debug_Keys" then
+				create {LIBERTY_AST_DEBUG_KEYS}Result.make(name, names)
 			end
 		end
 
