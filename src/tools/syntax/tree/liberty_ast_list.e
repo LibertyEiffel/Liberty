@@ -13,7 +13,7 @@ feature {}
 		end
 
 feature {ANY}
-	valid_index (index: INTEGER): BOOLEAN is
+	list_valid_index (index: INTEGER): BOOLEAN is
 		require
 			count > 1
 		do
@@ -27,21 +27,21 @@ feature {ANY}
 			Result := list.count
 		end
 
-	lower: INTEGER is
+	list_lower: INTEGER is
 		require
 			count > 1
 		do
 			Result := list.lower
 		end
 
-	upper: INTEGER is
+	list_upper: INTEGER is
 		require
 			count > 1
 		do
 			Result := list.upper
 		end
 
-	item (index: INTEGER): N_ is
+	list_item (index: INTEGER): N_ is
 		require
 			count > 1
 			valid_index(index)
@@ -58,7 +58,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 0, 2 >> }
+			Result := {AVL_SET[INTEGER] << 0, 2 >> }
 		end
 
 end

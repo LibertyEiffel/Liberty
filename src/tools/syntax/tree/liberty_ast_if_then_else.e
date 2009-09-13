@@ -7,7 +7,7 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {}
-	then_clause: LIBERTY_AST_THEN is
+	then_clause: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(0)
 		end
@@ -30,7 +30,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 4 >> }
+			Result := {AVL_SET[INTEGER] << 4 >> }
 		end
 
 feature {ANY}

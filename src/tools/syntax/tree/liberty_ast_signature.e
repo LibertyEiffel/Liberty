@@ -53,7 +53,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 1, 3, 4, 6 >> }
+			Result := {AVL_SET[INTEGER] << 1, 3, 4, 6 >> }
 		end
 
 feature {ANY}

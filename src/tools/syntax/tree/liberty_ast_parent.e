@@ -7,7 +7,7 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {}
-	type_definition: LIBERTY_AST_TYPE_DEFINTION is
+	type_definition: LIBERTY_AST_TYPE_DEFINITION is
 		do
 			Result ::= nodes.item(0)
 		end
@@ -25,7 +25,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 2 >> }
+			Result := {AVL_SET[INTEGER] << 2 >> }
 		end
 
 feature {ANY}

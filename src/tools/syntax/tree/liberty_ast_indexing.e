@@ -10,18 +10,18 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {ANY}
-	name (index: INTEGER): STRING is
+	tag (index: INTEGER): LIBERTY_AST_ENTITY_NAME is
 		require
 			valid_index(index)
 		do
-			Result := item(index).entity_name.image
+			Result := nodes.item(index).entity_name
 		end
 
-	string (index: INTEGER): STRING is
+	string (index: INTEGER): LIBERTY_AST_STRING is
 		require
 			valid_index(index)
 		do
-			Result := item(index).string.image
+			Result := nodes.item(index).string
 		end
 
 feature {ANY}

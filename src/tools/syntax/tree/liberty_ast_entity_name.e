@@ -2,6 +2,9 @@ class LIBERTY_AST_ENTITY_NAME
 
 inherit
 	EIFFEL_TERMINAL_NODE_IMPL
+		redefine
+			accept
+		end
 
 feature {ANY}
 	accept (visitor: VISITOR) is

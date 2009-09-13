@@ -28,7 +28,7 @@ feature {}
 			end
 		end
 
-	type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS
+	type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS is
 		require
 			is_class_type
 		do
@@ -86,7 +86,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 2, 3 >> }
+			Result := {AVL_SET[INTEGER] << 2, 3 >> }
 		end
 
 feature {ANY}

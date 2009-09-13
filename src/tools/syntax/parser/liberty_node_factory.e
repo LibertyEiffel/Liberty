@@ -49,7 +49,7 @@ feature {EIFFEL_GRAMMAR}
 			when "Type_Definition" then
 				create {LIBERTY_AST_TYPE_DEFINITION}Result.make(name, names)
 			when "Parent_Clause" then
-				create {LIBERTY_AST_TYPE_PARENT_CLAUSE}Result.make(name, names)
+				create {LIBERTY_AST_PARENT_CLAUSE}Result.make(name, names)
 			when "Parent" then
 				create {LIBERTY_AST_PARENT}Result.make(name, names)
 			when "Parent_Rename" then
@@ -128,12 +128,8 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_R7}Result.make(name, names)
 			when "r8" then
 				create {LIBERTY_AST_R8}Result.make(name, names)
-			when "r9" then
-				create {LIBERTY_AST_R9}Result.make(name, names)
 			when "r10" then
 				create {LIBERTY_AST_R10}Result.make(name, names)
-			when "e0" then
-				create {LIBERTY_AST_E0}Result.make(name, names)
 			when "e1" then
 				create {LIBERTY_AST_E1}Result.make(name, names)
 			when "e2" then
@@ -165,7 +161,7 @@ feature {EIFFEL_GRAMMAR}
 			when "When" then
 				create {LIBERTY_AST_WHEN}Result.make(name, names)
 			when "When_Slice" then
-				create {LIBERTY_AST_WHEN_SLILCE}Result.make(name, names)
+				create {LIBERTY_AST_WHEN_SLICE}Result.make(name, names)
 			when "When_Value" then
 				create {LIBERTY_AST_WHEN_VALUE}Result.make(name, names)
 			when "Actuals" then
@@ -189,7 +185,7 @@ feature {EIFFEL_GRAMMAR}
 			when "Feature_Names" then
 				create {LIBERTY_AST_FEATURE_NAMES}Result.make(name, names)
 			when "Feature_Name" then
-				create {LIBERYT_AST_FEATURE_NAME}Result.make(name, names)
+				create {LIBERTY_AST_FEATURE_NAME}Result.make(name, names)
 			when "External" then
 				create {LIBERTY_AST_EXTERNAL}Result.make(name, names)
 			when "Alias" then

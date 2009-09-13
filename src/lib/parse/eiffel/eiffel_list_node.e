@@ -28,63 +28,11 @@ insert
 	TRAVERSABLE[EIFFEL_NODE]
 
 feature {ANY}
-	item (i: INTEGER): EIFFEL_NODE is
-		require
-			valid_index(i)
-		deferred
-		end
-
-	valid_index (index: INTEGER): BOOLEAN is
-		deferred
-		ensure
-			definition: Result = index >= lower and then index <= upper
-		end
-
-	lower: INTEGER is
-		deferred
-		ensure
-			lower >= 0
-		end
-
-	upper: INTEGER is
-		deferred
-		ensure
-			upper >= lower - 1
-		end
-
-	count: INTEGER is
-		deferred
-		ensure
-			definition: Result = upper - lower + 1
-		end
-
-	first: EIFFEL_NODE is
-		require
-			not is_empty
-		deferred
-		ensure
-			definition: Result = item(lower)
-		end
-
-	last: EIFFEL_NODE is
-		require
-			not is_empty
-		deferred
-		ensure
-			definition: Result = item(upper)
-		end
-
 	frozen get_new_iterator: ITERATOR[EIFFEL_NODE] is
 		do
 			check
 				dont_use_this: False
 			end
-		end
-
-	is_empty: BOOLEAN is
-		deferred
-		ensure
-			definition: Result = (count = 0)
 		end
 
 feature {EIFFEL_GRAMMAR}

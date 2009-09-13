@@ -20,7 +20,7 @@ feature {}
 
 	is_require_then: BOOLEAN is
 		local
-			r: LIBERTY_AST_REQUIRE_THEN
+			r: LIBERTY_AST_REQUIRE_ELSE
 		do
 			r ::= nodes.first
 			Result := r.is_require_then

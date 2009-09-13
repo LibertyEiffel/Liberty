@@ -27,7 +27,7 @@ feature {}
 			end
 		end
 
-	tuple_actuals: EIFFEL_NODE_LIST is
+	tuple_actuals: EIFFEL_LIST_NODE is
 			-- Void if empty tuple
 		require
 			is_tuple
@@ -149,7 +149,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 1, 2, 3, 4 >> }
+			Result := {AVL_SET[INTEGER] << 1, 2, 3, 4 >> }
 		end
 
 feature {ANY}

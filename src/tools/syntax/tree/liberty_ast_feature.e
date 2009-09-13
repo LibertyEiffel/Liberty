@@ -9,12 +9,12 @@ create {LIBERTY_NODE_FACTORY}
 feature {}
 	clients: EIFFEL_LIST_NODE is
 		do
-			Result ::= node.item(2)
+			Result ::= nodes.item(2)
 		end
 
 	definition_list: EIFFEL_LIST_NODE is
 		do
-			Result ::= node.item(4)
+			Result ::= nodes.item(4)
 		end
 
 feature {ANY}
@@ -25,7 +25,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 5 >> }
+			Result := {AVL_SET[INTEGER] << 5 >> }
 		end
 
 feature {ANY}

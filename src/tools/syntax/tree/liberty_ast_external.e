@@ -12,7 +12,7 @@ feature {}
 			Result ::= nodes.item(1)
 		end
 
-	alias_clause: LIBERYT_AST_ALIAS is
+	alias_clause: LIBERTY_AST_ALIAS is
 		do
 			Result ::= nodes.item(2)
 		end
@@ -25,7 +25,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 3 >> }
+			Result := {AVL_SET[INTEGER] << 3 >> }
 		end
 
 feature {ANY}

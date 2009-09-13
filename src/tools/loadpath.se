@@ -3,4 +3,5 @@
 ./syntax/
 ./syntax/parser/
 ./syntax/tree/
+./syntax/tree/visitor/
 ./semantics/

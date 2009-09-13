@@ -1,4 +1,4 @@
-wclass LIBERTY_AST_CLASS_MARKER
+class LIBERTY_AST_CLASS_MARKER
 
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
@@ -41,7 +41,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 1, 2 >> }
+			Result := {AVL_SET[INTEGER] << 1, 2 >> }
 		end
 
 feature {ANY}

@@ -44,7 +44,7 @@ feature {}
 			if has_type_definition then
 				Result ::= nodes.item(6)
 			else
-				Result ::= nodeS.item(3)
+				Result ::= nodes.item(3)
 			end
 		end
 
@@ -70,7 +70,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 2, 5, 8 >> }
+			Result := {AVL_SET[INTEGER] << 2, 5, 8 >> }
 		end
 
 feature {ANY}

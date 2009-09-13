@@ -12,7 +12,7 @@ feature {}
 			Result := count > 0
 		end
 
-	variant_expression: LIBERYT_AST_EXPRESSION is
+	variant_expression: LIBERTY_AST_EXPRESSION is
 		require
 			has_variant
 		do
@@ -30,7 +30,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 0, 2 >> }
+			Result := {AVL_SET[INTEGER] << 0, 2 >> }
 		end
 
 feature {ANY}

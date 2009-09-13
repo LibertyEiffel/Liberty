@@ -16,7 +16,7 @@ feature {}
 		require
 			has_prefix_operator
 		do
-			Resul t::= nodes.item(0)
+			Result ::= nodes.item(0)
 		end
 
 	prefixed_expression: LIBERTY_AST_E8 is
@@ -44,7 +44,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 1, 2 >> }
+			Result := {AVL_SET[INTEGER] << 1, 2 >> }
 		end
 
 feature {ANY}

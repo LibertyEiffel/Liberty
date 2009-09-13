@@ -17,7 +17,7 @@ feature {}
 			Result := count = 1 and then nodes.first.name.is_equal(once "KW Current")
 		end
 
-	is_parenthesized_expression: BOOLEAN os
+	is_parenthesized_expression: BOOLEAN is
 		do
 			Result := count = 3 and then nodes.first.name.is_equal(once "KW (")
 		end
@@ -71,7 +71,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 1, 2, 3 >> }
+			Result := {AVL_SET[INTEGER] << 1, 2, 3 >> }
 		end
 
 feature {ANY}

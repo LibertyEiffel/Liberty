@@ -7,13 +7,10 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_CLASS}
-	string: STRING is
-		local
-			string: EIFFEL_TERMINAL_NODE
+	string: EIFFEL_TERMINAL_NODE is
 		do
 			if count = 2 then
-				string ::=  ::= nodes.item(1)
-				Result := string.image
+				Result ::= nodes.item(1)
 			end
 		end
 
@@ -28,7 +25,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 0, 2 >> }
+			Result := {AVL_SET[INTEGER] << 0, 2 >> }
 		end
 
 feature {ANY}

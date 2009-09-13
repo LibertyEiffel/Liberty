@@ -136,7 +136,7 @@ feature {}
 
 	typed_manifest_string: LIBERTY_AST_STRING is
 		require
-			is_typed_manifest_string
+			is_string_typed_manifest
 		do
 			Result ::= nodes.item(2)
 		end
@@ -166,7 +166,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 1, 2, 3, 4, 5 >> }
+			Result := {AVL_SET[INTEGER] << 1, 2, 3, 4, 5 >> }
 		end
 
 feature {ANY}

@@ -28,11 +28,12 @@ feature {ANY}
 
 	count: INTEGER is
 		deferred
-		ensure
-			Result > 0
 		end
 
-	is_empty: BOOLEAN is False
+	is_empty: BOOLEAN is
+		do
+			Result := count = 0
+		end
 
 feature {EIFFEL_GRAMMAR}
 	set (index: INTEGER; node: EIFFEL_NODE) is

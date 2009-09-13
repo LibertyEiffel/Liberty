@@ -6,6 +6,7 @@ inherit
 			has_type_definition, has_creation_feature_call,
 			writable, type_definition, creation_feature_name, creation_feature_actuals,
 			possible_counts, name,
+			accept
 		end
 
 create {LIBERTY_NODE_FACTORY}
@@ -45,7 +46,7 @@ feature {}
 			if has_type_definition then
 				Result ::= nodes.item(5)
 			else
-				Result ::= nodeS.item(4)
+				Result ::= nodes.item(4)
 			end
 		end
 
@@ -66,7 +67,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 3, 4, 6, 7 >> }
+			Result := {AVL_SET[INTEGER] << 3, 4, 6, 7 >> }
 		end
 
 feature {ANY}

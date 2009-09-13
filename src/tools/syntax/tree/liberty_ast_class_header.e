@@ -1,4 +1,4 @@
-wclass LIBERTY_AST_CLASS_HEADER
+class LIBERTY_AST_CLASS_HEADER
 
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
@@ -92,7 +92,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 4 >> }
+			Result := {AVL_SET[INTEGER] << 4 >> }
 		end
 
 feature {ANY}

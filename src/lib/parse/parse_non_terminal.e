@@ -61,7 +61,7 @@ feature {PARSE_TABLE}
 			end
 		end
 
-feature {ESE_PARSER, PARSE_NT_NODE}
+feature {DESCENDING_PARSER, PARSE_NT_NODE}
 	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
 		do
 			Result := parser_tree.parse(buffer, actions)

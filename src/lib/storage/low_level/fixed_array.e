@@ -1,18 +1,34 @@
 expanded class FIXED_ARRAY[E_]
 
+insert
+	SAFE_EQUAL[E_]
+
 creation {ANY}
 	default_create
 
 feature {ANY}
-	capacity: INTEGER is
+	capacity: INTEGER
 			-- The number of slots this array holds
-		external "build_in"
+
+feature {}
+	elements: NATIVE_ARRAY[E_]
+
+feature {FIXED_ARRAY}
+	set_capacity (c: like capacity) is
+		require
+			c >= 0
+		do
+			elements := calloc(c)
+			capacity := c
+		ensure
+			capacity = c
 		end
 
 feature {ANY} -- Basic features:
 	element_sizeof: INTEGER is
 			-- The size in number of bytes for type `E_'.
-		external "built_in"
+		do
+			Result := elements.element_sizeof
 		end
 
 	calloc (nb_elements: INTEGER): like Current is
@@ -20,7 +36,8 @@ feature {ANY} -- Basic features:
 			-- The new array is initialized with default values.
 		require
 			nb_elements > 0
-		external "built_in"
+		do
+			Result.set_capacity(nb_elements)
 		ensure
 			Result.all_default(nb_elements - 1)
 			Result.capacity = nb_elements
@@ -31,7 +48,8 @@ feature {ANY} -- Basic features:
 			-- Assume that `calloc' is already done and that `index' is the range [0 .. `capacity'-1].
 		require
 			index >= 0 and then index < capacity
-		external "built_in"
+		do
+			Result := elements.item(index)
 		end
 
 	put (element: E_; index: INTEGER) is
@@ -40,7 +58,8 @@ feature {ANY} -- Basic features:
 			-- is the range [0 .. `capacity'-1].
 		require
 			index >= 0 and then index < capacity
-		external "built_in"
+		do
+			elements.put(element, index)
 		ensure
 			item(index) = element
 		end
@@ -53,7 +72,6 @@ feature {ANY}
 			-- Old range is copied in the new allocated array.
 			-- New items are initialized with default values.
 		require
-			is_not_null
 			new_nb_elts > capacity
 		do
 			Result := calloc(new_nb_elts)
@@ -142,13 +160,13 @@ feature {ANY} -- Comparison:
 			Result := i < 0
 		end
 
-	deep_memcmp (other: like Current; capacity: INTEGER): BOOLEAN is
+	deep_memcmp (other: like Current; nb_elements: INTEGER): BOOLEAN is
 			-- Same jobs as `memcmp' but uses `is_deep_equal' instead of `is_equal'.
 		local
 			i: INTEGER; e1, e2: like item
 		do
 			from
-				i := capacity - 1
+				i := nb_elements - 1
 				Result := True
 			until
 				not Result or else i < 0
@@ -261,7 +279,7 @@ feature {ANY} -- Searching:
 		do
 			Result := fast_index_of(element, 0)
 		ensure
-			Result.in_range(-1, caoacity - 1)
+			Result.in_range(-1, capacity - 1)
 			Result /= -1 implies element = item(Result)
 		end
 
@@ -284,7 +302,7 @@ feature {ANY} -- Searching:
 				Result := -1
 			end
 		ensure
-			Result.in_range(start_index, upper + 1)
+			Result.in_range(start_index, capacity - 1)
 			Result /= -1 implies element = item(Result)
 		end
 
@@ -426,7 +444,8 @@ feature {ANY} -- Adding:
 			src_max >= src_min - 1
 			at + src_max - src_min < capacity
 			useful_work: src /= Current or at /= src_min
-		external "built_in"
+		do
+			elements.slice_copy(at, src, src_min, src_max)
 		end
 
 feature {ANY} -- Other:
@@ -462,7 +481,7 @@ feature {ANY} -- Other:
 		do
 			set_all_with(e)
 		ensure
-			all_default(upper)
+			all_default
 		end
 
 	clear_slice (lower, upper: INTEGER) is
@@ -513,7 +532,7 @@ feature {ANY} -- Other:
 			lower >= 0
 			upper >= lower
 			lower + offset >= 0
-			upper + offset < capacoty
+			upper + offset < capacity
 		local
 			i: INTEGER
 		do
@@ -633,12 +652,14 @@ feature {ANY} -- Interfacing with other languages:
 	to_external: POINTER is
 			-- Gives access to the C pointer on the area of storage.
 		do
-			Result := to_pointer
+			Result := elements.to_pointer
 		end
 
 	from_pointer (pointer: POINTER; nb_elements: INTEGER): like Current is
 			-- Convert `pointer' into Current type.
-		external "built_in"
+		do
+			elements := from_pointer(pointer)
+			capacity := nb_elements
 		ensure
 			Result.capacity = nb_elements
 		end

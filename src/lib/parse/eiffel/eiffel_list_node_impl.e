@@ -43,11 +43,6 @@ feature {ANY}
 			Result := children.item(children.upper - i)
 		end
 
-	valid_index (i: INTEGER): BOOLEAN is
-		do
-			Result := children.valid_index(i)
-		end
-
 	lower: INTEGER is
 		do
 			Result := children.lower

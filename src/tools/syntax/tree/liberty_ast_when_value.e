@@ -9,7 +9,7 @@ create {LIBERTY_NODE_FACTORY}
 feature {}
 	is_number: BOOLEAN is
 		do
-			result := nodes.first.name.is_equal(once "KW number")
+			Result := nodes.first.name.is_equal(once "KW number")
 		end
 
 	number: LIBERTY_AST_NUMBER is
@@ -21,7 +21,7 @@ feature {}
 
 	is_character: BOOLEAN is
 		do
-			result := nodes.first.name.is_equal(once "KW character")
+			Result := nodes.first.name.is_equal(once "KW character")
 		end
 
 	character: LIBERTY_AST_CHARACTER is
@@ -33,7 +33,7 @@ feature {}
 
 	is_string: BOOLEAN is
 		do
-			result := nodes.first.name.is_equal(once "KW string")
+			Result := nodes.first.name.is_equal(once "KW string")
 		end
 
 	string: LIBERTY_AST_STRING is
@@ -45,7 +45,7 @@ feature {}
 
 	is_entity_name: BOOLEAN is
 		do
-			result := nodes.first.name.is_equal(once "KW entity name")
+			Result := nodes.first.name.is_equal(once "KW entity name")
 		end
 
 	entity_name: LIBERTY_AST_ENTITY_NAME is
@@ -63,7 +63,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 1 >> }
+			Result := {AVL_SET[INTEGER] << 1 >> }
 		end
 
 feature {ANY}

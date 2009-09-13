@@ -40,7 +40,7 @@ feature {ANY}
 	valid_index (index: INTEGER): BOOLEAN is
 		deferred
 		ensure
-			definition: Result = index >= lower and then index <= upper
+			definition: Result = (index >= lower and then index <= upper)
 		end
 
 	lower: INTEGER is

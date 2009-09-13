@@ -41,7 +41,7 @@ feature {PARSE_TABLE}
 			end
 		end
 
-feature {ESE_PARSER, PARSE_NT_NODE}
+feature {DESCENDING_PARSER, PARSE_NT_NODE}
 	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
 		local
 			old_index: INTEGER; image: PARSER_IMAGE

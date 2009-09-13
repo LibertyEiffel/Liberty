@@ -64,7 +64,7 @@ feature {PARSE_TABLE}
 		deferred
 		end
 
-feature {ESE_PARSER, PARSE_NT_NODE}
+feature {DESCENDING_PARSER, PARSE_NT_NODE}
 	parse (buffer: MINI_PARSER_BUFFER; actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
 			-- The Result is True if the parsing succeeded, False otherwise.
 		require

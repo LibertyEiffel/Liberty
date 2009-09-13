@@ -2,6 +2,9 @@ class LIBERTY_AST_CLASS_NAME
 
 inherit
 	EIFFEL_TERMINAL_NODE_IMPL
+		redefine
+			accept
+		end
 
 feature {ANY}
 	refclass: LIBERTY_AST_CLASS
@@ -15,9 +18,6 @@ feature {ANY}
 			refclass = a_refclass
 		end
 
-invariant
-	refclass /= Void implies refclass.classname.is_equal(image)
-
 feature {ANY}
 	accept (visitor: VISITOR) is
 		local
@@ -26,5 +26,8 @@ feature {ANY}
 			v ::= visitor
 			v.visit_liberty_ast_class_name(Current)
 		end
+
+invariant
+	refclass /= Void implies refclass.classname.is_equal(image)
 
 end

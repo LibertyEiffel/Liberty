@@ -27,7 +27,7 @@ feature {}
 			Result ::= nodes.item(0)
 		end
 
-	require_clause: LIBERTY_AST_REQUIRE_CLAUSE is
+	require_clause: LIBERTY_AST_REQUIRE is
 		require
 			is_regular
 		do
@@ -55,7 +55,7 @@ feature {}
 			Result ::= nodes.item(4)
 		end
 
-	ensure_clause: LIBERTY_AST_ENSURE_CLAUSE is
+	ensure_clause: LIBERTY_AST_ENSURE is
 		require
 			is_regular
 		do
@@ -80,7 +80,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 3, 7 >> }
+			Result := {AVL_SET[INTEGER] << 3, 7 >> }
 		end
 
 feature {ANY}

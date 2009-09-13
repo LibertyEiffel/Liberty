@@ -7,11 +7,6 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {}
-	is_empty: BOOLEAN is
-		do
-			Result := count = 0
-		end
-
 	feature_name: LIBERTY_AST_ENTITY_NAME is
 		require
 			not is_empty
@@ -44,7 +39,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 0, 4 >> }
+			Result := {AVL_SET[INTEGER] << 0, 4 >> }
 		end
 
 feature {ANY}
