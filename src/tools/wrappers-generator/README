@@ -1,0 +1,7 @@
+eiffel-gcc-xml taken from Eiffel Wrapper Library Collection.
+
+Mostly working, even if the output is correct not what one would expect from the tool.
+
+Requirements
+SmartEiffel release 2.4 or a snapshot more recent than 9297
+
