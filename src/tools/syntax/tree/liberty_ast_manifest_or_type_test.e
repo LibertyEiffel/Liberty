@@ -169,4 +169,13 @@ feature {}
 			Result := {AVL_SET[INTEGER} << 1, 2, 3, 4, 5 >> }
 		end
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_MANIFEST_OR_TYPE_TEST_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_manifest_or_type_test(Current)
+		end
+
 end

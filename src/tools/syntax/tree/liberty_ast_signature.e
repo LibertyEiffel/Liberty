@@ -56,4 +56,13 @@ feature {}
 			Result := {AVL_SET[INTEGER} << 1, 3, 4, 6 >> }
 		end
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_SIGNATURE_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_signature(Current)
+		end
+
 end

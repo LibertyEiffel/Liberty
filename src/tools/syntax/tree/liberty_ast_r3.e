@@ -1,4 +1,4 @@
-deferred class LIBERTY_AST_R3
+class LIBERTY_AST_R3
 
 inherit
 	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E3]
@@ -33,6 +33,15 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER} << 0, 3, 4 >> }
+		end
+
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_R3_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_r3(Current)
 		end
 
 end

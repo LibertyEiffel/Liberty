@@ -33,4 +33,13 @@ feature {}
 			Result := {AVL_SET[INTEGER} << 1, 3 >> }
 		end
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_WHEN_SLICE_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_when_slice(Current)
+		end
+
 end

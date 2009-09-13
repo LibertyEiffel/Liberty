@@ -1,4 +1,4 @@
-class LIBERTY_AST_E7
+class LIBERTY_AST_ASSERTION
 
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
@@ -7,12 +7,12 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {}
-	e8: LIBERTY_AST_E8 is
+	tag: LIBERTY_AST_ASSERTION_TAG is
 		do
 			Result ::= nodes.item(0)
 		end
 
-	r8: LIBERTY_AST_R8 is
+	expression: LIBERTY_AST_EXPRESSION is
 		do
 			Result ::= nodes.item(1)
 		end
@@ -20,7 +20,7 @@ feature {}
 feature {ANY}
 	count: INTEGER is 2
 
-	name: STRING is "e7"
+	name: STRING is "Assertion"
 
 feature {}
 	possible_counts: SET[INTEGER] is
@@ -31,10 +31,10 @@ feature {}
 feature {ANY}
 	accept (visitor: VISITOR) is
 		local
-			v: LIBERTY_AST_E7_VISITOR
+			v: LIBERTY_AST_ASSERTION_VISITOR
 		do
 			v ::= visitor
-			v.visit_liberty_ast_e7(Current)
+			v.visit_liberty_ast_assertion(Current)
 		end
 
 end

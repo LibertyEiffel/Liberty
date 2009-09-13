@@ -27,4 +27,13 @@ feature {ANY}
 feature {ANY}
 	name: STRING is "Indexing"
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_INDEXING_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_indexing(Current)
+		end
+
 end

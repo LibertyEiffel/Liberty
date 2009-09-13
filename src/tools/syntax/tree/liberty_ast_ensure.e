@@ -21,4 +21,13 @@ feature {}
 feature {ANY}
 	name: STRING is "Ensure"
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_ENSURE_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_ensure(Current)
+		end
+
 end

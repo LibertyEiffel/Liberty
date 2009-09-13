@@ -1,4 +1,4 @@
-class LIBERTY_AST_PRECURSOR_TYPE_MARK
+class LIBERTY_AST_VARIANT
 
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
@@ -7,9 +7,14 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {}
-	class_name: LIBERTY_AST_CLASS_NAME is
+	has_variant: BOOLEAN is
+		do
+			Result := count > 0
+		end
+
+	variant_expression: LIBERYT_AST_EXPRESSION is
 		require
-			count /= 0
+			has_variant
 		do
 			Result ::= nodes.item(1)
 		end
@@ -20,21 +25,21 @@ feature {ANY}
 			Result := nodes.capacity
 		end
 
-	name: STRING is "Precursor_Type_Mark"
+	name: STRING is "Variant"
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 0, 3 >> }
+			Result := {AVL_SET[INTEGER} << 0, 2 >> }
 		end
 
 feature {ANY}
 	accept (visitor: VISITOR) is
 		local
-			v: LIBERTY_AST_PRECURSOR_TYPE_MARK_VISITOR
+			v: LIBERTY_AST_VARIANT_VISITOR
 		do
 			v ::= visitor
-			v.visit_liberty_ast_precursor_type_mark(Current)
+			v.visit_liberty_ast_variant(Current)
 		end
 
 end

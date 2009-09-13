@@ -12,4 +12,13 @@ create {LIBERTY_NODE_FACTORY}
 feature {ANY}
 	name: STRING is "Local_Block"
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_LOCAL_BLOCK_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_local_block(Current)
+		end
+
 end

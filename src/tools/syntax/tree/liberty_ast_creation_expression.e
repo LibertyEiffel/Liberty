@@ -28,4 +28,13 @@ feature {}
 			Result := {AVL_SET[INTEGER} << 5 >> }
 		end
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_CREATION_EXPRESSION_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_creation_expression(Current)
+		end
+
 end

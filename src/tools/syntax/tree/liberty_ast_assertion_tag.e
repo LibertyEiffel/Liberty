@@ -1,4 +1,4 @@
-class LIBERTY_AST_PRECURSOR_TYPE_MARK
+class LIBERTY_AST_ASSERTION_TAG
 
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
@@ -7,11 +7,16 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {}
-	class_name: LIBERTY_AST_CLASS_NAME is
-		require
-			count /= 0
+	has_tag: BOOLEAN is
 		do
-			Result ::= nodes.item(1)
+			Result := count > 0
+		end
+
+	tag: LIBERTY_AST_ENTITY_NAME is
+		require
+			has_tag
+		do
+			Result ::= nodes.item(0)
 		end
 
 feature {ANY}
@@ -20,21 +25,21 @@ feature {ANY}
 			Result := nodes.capacity
 		end
 
-	name: STRING is "Precursor_Type_Mark"
+	name: STRING is "Assertion_Tag"
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER} << 0, 3 >> }
+			Result := {AVL_SET[INTEGER} << 0, 2 >> }
 		end
 
 feature {ANY}
 	accept (visitor: VISITOR) is
 		local
-			v: LIBERTY_AST_PRECURSOR_TYPE_MARK_VISITOR
+			v: LIBERTY_AST_ASSERTION_TAG_VISITOR
 		do
 			v ::= visitor
-			v.visit_liberty_ast_precursor_type_mark(Current)
+			v.visit_liberty_ast_assertion_tag(Current)
 		end
 
 end

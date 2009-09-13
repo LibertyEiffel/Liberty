@@ -54,4 +54,13 @@ feature {}
 			Result := {AVL_SET[INTEGER} << 0, 1, 5 >> }
 		end
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_PARENT_CLAUSE_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_parent_clause(Current)
+		end
+
 end

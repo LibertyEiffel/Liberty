@@ -152,4 +152,13 @@ feature {}
 			Result := {AVL_SET[INTEGER} << 1, 2, 3, 4 >> }
 		end
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_E10_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_e10(Current)
+		end
+
 end

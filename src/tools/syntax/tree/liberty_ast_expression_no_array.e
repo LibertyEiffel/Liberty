@@ -28,4 +28,13 @@ feature {}
 			Result := {AVL_SET[INTEGER} << 2 >> }
 		end
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_EXPRESSION_NO_ARRAY_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_expression_no_array(Current)
+		end
+
 end

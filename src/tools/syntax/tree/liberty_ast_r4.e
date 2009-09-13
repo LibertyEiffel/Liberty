@@ -1,4 +1,4 @@
-deferred class LIBERTY_AST_R4
+class LIBERTY_AST_R4
 
 inherit
 	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E4]
@@ -36,5 +36,14 @@ feature {}
 
 feature {ANY}
 	name: STRING is "r4"
+
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_R4_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_r4(Current)
+		end
 
 end

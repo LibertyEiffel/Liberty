@@ -6,9 +6,6 @@ inherit
 create {ANY}
 	make
 
-feature {}
-	all_classes_names: DICTIONARY[LIBERTY_AST_CLASS_NAME, STRING]
-
 feature {EIFFEL_GRAMMAR}
 	list (name: STRING): EIFFEL_LIST_NODE is
 		do
@@ -29,8 +26,6 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_INHERIT}Result.make(name, names)
 			when "Insert" then
 				create {LIBERTY_AST_INSERT}Result.make(name, names)
-			when "Class_Creation*" then
-				create {LIBERTY_AST_CREATIONS}Result.make(name, names)
 			when "Invariant" then
 				create {LIBERTY_AST_INVARIANT}Result.make(name, names)
 			when "Indexing" then
@@ -209,32 +204,32 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_ENSURE_THEN}Result.make(name, names)
 			when "Debug_Keys" then
 				create {LIBERTY_AST_DEBUG_KEYS}Result.make(name, names)
+			when "Variant" then
+				create {LIBERTY_AST_VARIANT}Result.make(name, names)
+			when "Assertion" then
+				create {LIBERTY_AST_ASSERTION}Result.make(name, names)
+			when "Assertion_Tag" then
+				create {LIBERTY_AST_ASSERTION_TAG}Result.make(name, names)
 			end
 		end
 
 	terminal (name: STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
-		local
-			img: like image
 		do
 			inspect
 				name
 			when "KW class name" then
-				Result := all_classes.reference_at(image)
-				if Result = Void then
-					img := image.twin
-					create {LIBERTY_AST_CLASS_NAME}Result.make(img)
-					all_classes.put(Result, img)
-				end
+				create {LIBERTY_AST_CLASS_NAME}Result.make(image)
 			when "KW entity name" then
-				create {LIBERTY_AST_ENTITY_NAME}Result.make(image.twin)
+				create {LIBERTY_AST_ENTITY_NAME}Result.make(image)
 			when "KW number" then
-				create {LIBERTY_AST_NUMBER}Result.make(image.twin)
+				create {LIBERTY_AST_NUMBER}Result.make(image)
 			when "KW character" then
-				create {LIBERTY_AST_CHARACTER}Result.make(image.twin)
+				create {LIBERTY_AST_CHARACTER}Result.make(image)
 			when "KW string" then
-				create {LIBERTY_AST_STRING}Result.make(image.twin)
+				create {LIBERTY_AST_STRING}Result.make(image)
 			else
-				-- some keywords are pure cosmetics; we don't need to distinguish them.
+				-- most keywords don't hold any information in their image;
+				-- we don't need to distinguish them.
 				create {EIFFEL_TERMINAL_NODE_IMPL}Result.make(name, image)
 			end
 		end
@@ -242,7 +237,6 @@ feature {EIFFEL_GRAMMAR}
 feature {}
 	make is
 		do
-			create {HASHED_DICTIONARY[LIBERTY_AST_CLASS_NAME, STRING]}all_classes.make
 		end
 
 end -- class LIBERTY_NODE_FACTORY

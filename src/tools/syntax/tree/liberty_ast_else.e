@@ -12,4 +12,13 @@ create {LIBERTY_NODE_FACTORY}
 feature {ANY}
 	name: STRING is "Else"
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_ELSE_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_else(Current)
+		end
+
 end

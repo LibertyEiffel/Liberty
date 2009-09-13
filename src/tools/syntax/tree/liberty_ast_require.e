@@ -29,4 +29,13 @@ feature {}
 feature {ANY}
 	name: STRING is "Require"
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_REQUIRE_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_require(Current)
+		end
+
 end

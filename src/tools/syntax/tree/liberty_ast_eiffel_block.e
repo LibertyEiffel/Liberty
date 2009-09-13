@@ -83,4 +83,13 @@ feature {}
 			Result := {AVL_SET[INTEGER} << 3, 7 >> }
 		end
 
+feature {ANY}
+	accept (visitor: VISITOR) is
+		local
+			v: LIBERTY_AST_EIFFEL_BLOCK_VISITOR
+		do
+			v ::= visitor
+			v.visit_liberty_ast_eiffel_block(Current)
+		end
+
 end
