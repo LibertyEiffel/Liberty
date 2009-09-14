@@ -64,7 +64,6 @@ feature {DESCENDING_PARSER, PARSE_NT_NODE}
 				actions.add_last(parse_action)
 				Result := True
 			else
-				buffer.set_current_index(old_index)
 				error := buffer.last_error
 				if error = Void then
 					error := once ""
@@ -84,6 +83,7 @@ feature {DESCENDING_PARSER, PARSE_NT_NODE}
 					print_error_position(std_error, buffer)
 					std_error.put_new_line
 				end
+				buffer.set_current_index(old_index)
 			end
 		end
 
