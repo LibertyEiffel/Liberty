@@ -2,23 +2,33 @@ expanded class FIXED_ARRAY[E_]
 
 insert
 	SAFE_EQUAL[E_]
+	TRAVERSABLE[E_]
 
 creation {ANY}
 	default_create
 
-feature {ANY}
+feature {FIXED_ARRAY}
+	elements: NATIVE_ARRAY[E_]
+
 	capacity: INTEGER
 			-- The number of slots this array holds
 
-feature {}
-	elements: NATIVE_ARRAY[E_]
-
 feature {FIXED_ARRAY}
-	set_capacity (c: like capacity) is
+	do_calloc (c: like capacity) is
 		require
 			c >= 0
 		do
-			elements := calloc(c)
+			elements := elements.calloc(c)
+			capacity := c
+		ensure
+			capacity = c
+		end
+
+	do_realloc (e: like elements; c: like capacity) is
+		require
+			c >= 0
+		do
+			elements := e.realloc(capacity, c)
 			capacity := c
 		ensure
 			capacity = c
@@ -37,10 +47,10 @@ feature {ANY} -- Basic features:
 		require
 			nb_elements > 0
 		do
-			Result.set_capacity(nb_elements)
+			Result.do_calloc(nb_elements)
 		ensure
-			Result.all_default(nb_elements - 1)
 			Result.capacity = nb_elements
+			Result.all_default
 		end
 
 	item (index: INTEGER): E_ is
@@ -64,6 +74,18 @@ feature {ANY} -- Basic features:
 			item(index) = element
 		end
 
+	lower: INTEGER is 0
+
+	upper: INTEGER is
+		do
+			Result := capacity - 1
+		end
+
+	count: INTEGER is
+		do
+			Result := capacity
+		end
+
 feature {ANY}
 	realloc (new_nb_elts: INTEGER): like Current is
 			-- Assume Current is a valid NATIVE_ARRAY in range
@@ -74,10 +96,8 @@ feature {ANY}
 		require
 			new_nb_elts > capacity
 		do
-			Result := calloc(new_nb_elts)
-			Result.copy_from(Current)
+			Result.do_realloc(elements, new_nb_elts)
 		ensure
-			Result.is_not_null
 			Result.capacity = new_nb_elts
 		end
 
@@ -100,23 +120,23 @@ feature {ANY} -- Comparison:
 			Result := i < 0
 		end
 
-	slice_memcmp (at: INTEGER; other: like Current; other_lower, other_upper: INTEGER): BOOLEAN is
-			-- True if all elements in range [`at' .. `at' + `other_upper' - `other_lower'] are identical
-			-- to the elements in range [`other_lower' .. `other_upper'] of `other' using
+	slice_memcmp (at: INTEGER; other: like Current; other_low, other_up: INTEGER): BOOLEAN is
+			-- True if all elements in range [`at' .. `at' + `other_up' - `other_low'] are identical
+			-- to the elements in range [`other_low' .. `other_up'] of `other' using
 			-- `is_equal'. Assume `Current' and `other' are big enough.
 			-- See also `slice_fast_memcmp'.
 		require
 			at >= 0
-			other_lower >= 0
-			other_upper >= other_lower - 1
-			other_upper < other.capacity
+			other_low >= 0
+			other_up >= other_low - 1
+			other_up < other.capacity
 		local
 			i: INTEGER
 		do
 			from
-				i := other_upper - other_lower
+				i := other_up - other_low
 			until
-				i < 0 or else not safe_equal(item(at + i), other.item(other_lower + i))
+				i < 0 or else not safe_equal(item(at + i), other.item(other_low + i))
 			loop
 				i := i - 1
 			end
@@ -140,20 +160,20 @@ feature {ANY} -- Comparison:
 			Result := i < 0
 		end
 
-	slice_fast_memcmp (at: INTEGER; other: like Current; other_lower, other_upper: INTEGER): BOOLEAN is
+	slice_fast_memcmp (at: INTEGER; other: like Current; other_low, other_up: INTEGER): BOOLEAN is
 			-- Same jobs as `slice_memcmp' but uses infix "=" instead of `is_equal'.
 		require
 			at >= 0
-			other_lower >= 0
-			other_upper >= other_lower - 1
-			other_upper < other.capacity
+			other_low >= 0
+			other_up >= other_low - 1
+			other_up < other.capacity
 		local
 			i: INTEGER
 		do
 			from
-				i := other_upper - other_lower
+				i := other_up - other_low
 			until
-				i < 0 or else item(at + i) /= other.item(other_lower + i)
+				i < 0 or else item(at + i) /= other.item(other_low + i)
 			loop
 				i := i - 1
 			end
@@ -187,18 +207,18 @@ feature {ANY} -- Comparison:
 			end
 		end
 
-	slice_deep_memcmp (at: INTEGER; other: like Current; other_lower, other_upper: INTEGER): BOOLEAN is
+	slice_deep_memcmp (at: INTEGER; other: like Current; other_low, other_up: INTEGER): BOOLEAN is
 			-- Same jobs as `slice_memcmp' but uses `is_deep_equal' instead of `is_equal'.
 		require
 			at >= 0
-			other_lower >= 0
-			other_upper >= other_lower - 1
-			other_upper < other.capacity
+			other_low >= 0
+			other_up >= other_low - 1
+			other_up < other.capacity
 		local
 			i: INTEGER; e1, e2: like item
 		do
 			from
-				i := other_upper - other_lower
+				i := other_up - other_low
 				Result := True
 			until
 				not Result or else i < 0
@@ -256,7 +276,7 @@ feature {ANY} -- Searching:
 
 	reverse_index_of (element: like item): INTEGER is
 			-- Using `is_equal' for comparison, gives the index of the first occurrence of `element' at or before
-			-- `capacity'-1. Search is done in reverse direction, which means from `upper' down to the
+			-- `capacity'-1. Search is done in reverse direction, which means from `up' down to the
 			-- `0'. Answer `-1' when the search fail.
 			-- See also `fast_reverse_index_of', `index_of'.
 		do
@@ -308,7 +328,7 @@ feature {ANY} -- Searching:
 
 	fast_reverse_index_of (element: like item): INTEGER is
 			-- Using basic `=' for comparison, gives the index of the first occurrence of `element' at or before
-			-- `capacity'-1. Search is done in reverse direction, which means from `upper' down to the
+			-- `capacity'-1. Search is done in reverse direction, which means from `up' down to the
 			-- `0'. Answer `-1' when the search fail.
 			-- See also `reverse_index_of', `index_of'.
 		do
@@ -445,7 +465,7 @@ feature {ANY} -- Adding:
 			at + src_max - src_min < capacity
 			useful_work: src /= Current or at /= src_min
 		do
-			elements.slice_copy(at, src, src_min, src_max)
+			elements.slice_copy(at, src.elements, src_min, src_max)
 		end
 
 feature {ANY} -- Other:
@@ -455,19 +475,19 @@ feature {ANY} -- Other:
 			set_slice_with(v, 0, capacity - 1)
 		end
 
-	set_slice_with (v: like item; lower, upper: INTEGER) is
-			-- Set all elements in range [`lower' .. `upper'] with value `v'.
+	set_slice_with (v: like item; low, up: INTEGER) is
+			-- Set all elements in range [`low' .. `up'] with value `v'.
 		require
-			lower >= 0
-			upper >= lower - 1
-			upper < capacity
+			low >= 0
+			up >= low - 1
+			up < capacity
 		local
 			i: INTEGER
 		do
 			from
-				i := lower
+				i := low
 			until
-				i > upper
+				i > up
 			loop
 				put(v, i)
 				i := i + 1
@@ -484,16 +504,16 @@ feature {ANY} -- Other:
 			all_default
 		end
 
-	clear_slice (lower, upper: INTEGER) is
-			-- Set all elements in range [`lower' .. `upper'] with the default value.
+	clear_slice (low, up: INTEGER) is
+			-- Set all elements in range [`low' .. `up'] with the default value.
 		require
-			lower >= 0
-			upper >= lower - 1
-			upper < capacity
+			low >= 0
+			up >= low - 1
+			up < capacity
 		local
 			e: E_
 		do
-			set_slice_with(e, lower, upper)
+			set_slice_with(e, low, up)
 		end
 
 	copy_from (src: like Current) is
@@ -525,32 +545,32 @@ feature {ANY} -- Other:
 			end
 		end
 
-	move (lower, upper, offset: INTEGER) is
-			-- Move range [`lower' .. `upper'] by `offset' positions.
+	move (low, up, offset: INTEGER) is
+			-- Move range [`low' .. `up'] by `offset' positions.
 			-- Freed positions are not initialized to default values.
 		require
-			lower >= 0
-			upper >= lower
-			lower + offset >= 0
-			upper + offset < capacity
+			low >= 0
+			up >= low
+			low + offset >= 0
+			up + offset < capacity
 		local
 			i: INTEGER
 		do
 			if offset = 0 then
 			elseif offset < 0 then
 				from
-					i := lower
+					i := low
 				until
-					i > upper
+					i > up
 				loop
 					put(item(i), i + offset)
 					i := i + 1
 				end
 			else
 				from
-					i := upper
+					i := up
 				until
-					i < lower
+					i < low
 				loop
 					put(item(i), i + offset)
 					i := i - 1
@@ -565,20 +585,20 @@ feature {ANY} -- Other:
 			Result := slice_occurrences(element, 0, capacity - 1)
 		end
 
-	slice_occurrences (element: like item; lower, upper: INTEGER): INTEGER is
-			-- Number of occurrences of `element' in range [`lower' .. `upper'] using `is_equal' for comparison.
+	slice_occurrences (element: like item; low, up: INTEGER): INTEGER is
+			-- Number of occurrences of `element' in range [`low' .. `up'] using `is_equal' for comparison.
 			-- See also `slice_fast_occurrences' to chose the apropriate one.
 		require
-			lower >= 0
-			upper >= lower - 1
-			upper < capacity
+			low >= 0
+			up >= low - 1
+			up < capacity
 		local
 			i: INTEGER
 		do
 			from
-				i := lower
+				i := low
 			until
-				i > upper
+				i > up
 			loop
 				if safe_equal(element, item(i)) then
 					Result := Result + 1
@@ -594,21 +614,21 @@ feature {ANY} -- Other:
 			Result := slice_fast_occurrences(element, 0, capacity - 1)
 		end
 
-	slice_fast_occurrences (element: like item; lower, upper: INTEGER): INTEGER is
-			-- Number of occurrences of `element' in range [`lower' .. `upper']
+	slice_fast_occurrences (element: like item; low, up: INTEGER): INTEGER is
+			-- Number of occurrences of `element' in range [`low' .. `up']
 			-- using basic "=" for comparison.
 			-- See also `slice_occurrences' to chose the apropriate one.
 		require
-			lower >= 0
-			upper >= lower - 1
-			upper < capacity
+			low >= 0
+			up >= low - 1
+			up < capacity
 		local
 			i: INTEGER
 		do
 			from
-				i := lower
+				i := low
 			until
-				i > upper
+				i > up
 			loop
 				if element = item(i) then
 					Result := Result + 1
@@ -624,21 +644,21 @@ feature {ANY} -- Other:
 			Result := slice_default(0, capacity - 1)
 		end
 
-	slice_default (lower, upper: INTEGER): BOOLEAN is
-			-- Do all items in range [`lower' .. `upper'] have their type's default value?
+	slice_default (low, up: INTEGER): BOOLEAN is
+			-- Do all items in range [`low' .. `up'] have their type's default value?
 			-- Note: for non Void items, the test is performed with the `is_default' predicate.
 		require
-			lower >= 0
-			upper >= lower - 1
-			upper < capacity
+			low >= 0
+			up >= low - 1
+			up < capacity
 		local
 			i: INTEGER; v: like item
 		do
 			from
 				Result := True
-				i := lower
+				i := low
 			until
-				i > upper or else not Result
+				i > up or else not Result
 			loop
 				v := item(i)
 				if v /= Void then
@@ -658,7 +678,7 @@ feature {ANY} -- Interfacing with other languages:
 	from_pointer (pointer: POINTER; nb_elements: INTEGER): like Current is
 			-- Convert `pointer' into Current type.
 		do
-			elements := from_pointer(pointer)
+			elements := elements.from_pointer(pointer)
 			capacity := nb_elements
 		ensure
 			Result.capacity = nb_elements

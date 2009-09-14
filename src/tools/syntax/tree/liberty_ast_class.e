@@ -6,35 +6,15 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {ANY}
-	classname: STRING is
+feature {}
+	class_header: LIBERTY_AST_CLASS_HEADER is
 		do
-			Result := class_header.classname
+			Result ::= nodes.item(0)
 		end
 
-	is_deferred: BOOLEAN is
+	obsolete_clause: LIBERTY_AST_OBSOLETE is
 		do
-			Result := class_header.is_deferred
-		end
-
-	is_expanded: BOOLEAN is
-		do
-			Result := class_header.is_expanded
-		end
-
-	is_separate: BOOLEAN is
-		do
-			Result := class_header.is_separate
-		end
-
-	obsolete_string: STRING is
-		do
-			Result := obsolete_clause.string
-		end
-
-	indexing_clause: LIBERTY_AST_INDEXING is
-		do
-			Result := class_header.indexing_clause
+			Result ::= nodes.item(1)
 		end
 
 	inherit_clause: LIBERTY_AST_INHERIT is
@@ -45,17 +25,6 @@ feature {ANY}
 	insert_clause: LIBERTY_AST_INSERT is
 		do
 			Result ::= nodes.item(3)
-		end
-
-feature {}
-	class_header: LIBERTY_AST_CLASS_HEADER is
-		do
-			Result ::= nodes.item(0)
-		end
-
-	obsolete_clause: LIBERTY_AST_OBSOLETE is
-		do
-			Result ::= nodes.item(1)
 		end
 
 	creations: EIFFEL_LIST_NODE is

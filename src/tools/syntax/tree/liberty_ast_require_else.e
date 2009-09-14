@@ -20,7 +20,7 @@ feature {LIBERTY_AST_REQUIRE}
 feature {ANY}
 	count: INTEGER is
 		do
-			Result := nodes.capacity
+			Result := nodes.count
 		end
 
 	name: STRING is "Require_Else"

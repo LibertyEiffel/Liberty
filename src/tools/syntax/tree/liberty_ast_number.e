@@ -6,6 +6,9 @@ inherit
 			accept
 		end
 
+create {LIBERTY_NODE_FACTORY}
+	make
+
 feature {ANY}
 	accept (visitor: VISITOR) is
 		local

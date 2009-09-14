@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_REQUIRE}
+feature {LIBERTY_AST_ENSURE}
 	is_ensure_then: BOOLEAN is
 		do
 			Result := count = 2
@@ -18,7 +18,7 @@ feature {LIBERTY_AST_REQUIRE}
 feature {ANY}
 	count: INTEGER is
 		do
-			Result := nodes.capacity
+			Result := nodes.count
 		end
 
 	name: STRING is "Ensure_Then"

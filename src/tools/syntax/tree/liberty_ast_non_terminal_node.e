@@ -23,7 +23,7 @@ feature {ANY}
 
 	upper: INTEGER is
 		do
-			Result := count + 1
+			Result := count - 1
 		end
 
 	count: INTEGER is
@@ -46,20 +46,20 @@ feature {}
 		deferred
 		end
 
-	nodes: FIXED_ARRAY[EIFFEL_NODE]
+	nodes: FAST_ARRAY[EIFFEL_NODE]
 
-	make (a_name: STRING; a_names: COLLECTION[STRING]) is
+	make (a_name: STRING; a_names: TRAVERSABLE[STRING]) is
 		require
 			a_name.is_equal(name)
 			possible_counts.has(a_names.count)
 		do
-			nodes := nodes.alloc(a_names.count)
+			create nodes.make(a_names.count)
 		ensure
-			nodes.capacity = a_names.count
+			nodes.count = a_names.count
 		end
 
 invariant
+	count = nodes.count
 	possible_counts.has(count)
-	nodes.capacity = count
 
 end

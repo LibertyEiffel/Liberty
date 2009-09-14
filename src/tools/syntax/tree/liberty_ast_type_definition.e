@@ -42,21 +42,21 @@ feature {}
 
 	is_like_result: BOOLEAN is
 		do
-			Result := is_anchor and then nodes.item(1).names.is_equal(once "KW Result")
+			Result := is_anchor and then nodes.item(1).name.is_equal(once "KW Result")
 		ensure
 			Result implies is_anchor
 		end
 
 	is_like_current: BOOLEAN is
 		do
-			Result := is_anchor and then nodes.item(1).names.is_equal(once "KW Current")
+			Result := is_anchor and then nodes.item(1).name.is_equal(once "KW Current")
 		ensure
 			Result implies is_anchor
 		end
 
 	is_like_entity: BOOLEAN is
 		do
-			Result := is_anchor and then nodes.item(1).names.is_equal(once "KW entity name")
+			Result := is_anchor and then nodes.item(1).name.is_equal(once "KW entity name")
 		ensure
 			Result implies is_anchor
 		end
@@ -78,7 +78,7 @@ feature {}
 feature {ANY}
 	count: INTEGER is
 		do
-			Result := nodes.capacity
+			Result := nodes.count
 		end
 
 	name: STRING is "Type_Definition"

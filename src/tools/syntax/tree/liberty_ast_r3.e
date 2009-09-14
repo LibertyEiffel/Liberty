@@ -6,6 +6,9 @@ inherit
 			possible_counts
 		end
 
+create {LIBERTY_NODE_FACTORY}
+	make
+
 feature {}
 	is_and_then: BOOLEAN is
 		do

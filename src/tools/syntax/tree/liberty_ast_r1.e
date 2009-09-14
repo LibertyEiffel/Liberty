@@ -3,6 +3,9 @@ class LIBERTY_AST_R1
 inherit
 	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E1]
 
+create {LIBERTY_NODE_FACTORY}
+	make
+
 feature {}
 	is_implies: BOOLEAN is
 		do

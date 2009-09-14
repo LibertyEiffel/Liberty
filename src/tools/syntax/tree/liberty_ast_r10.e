@@ -31,7 +31,7 @@ feature {}
 feature {ANY}
 	count: INTEGER is
 		do
-			Result := count.capacity
+			Result := nodes.count
 		end
 
 	name: STRING is "r10"

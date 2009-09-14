@@ -7,7 +7,7 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {}
-	instruction: EIFFEL_NODE is
+	instruction: LIBERTY_AST_NON_TERMINAL_NODE is
 		do
 			Result ::= nodes.item(0)
 		end

@@ -17,7 +17,7 @@ feature {LIBERTY_AST_CLASS}
 feature {ANY}
 	count: INTEGER is
 		do
-			Result := nodes.capacity
+			Result := nodes.count
 		end
 
 	name: STRING is "Obsolete"

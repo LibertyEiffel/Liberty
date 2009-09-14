@@ -9,7 +9,7 @@ create {LIBERTY_NODE_FACTORY}
 feature {}
 	is_number: BOOLEAN is
 		do
-			Result := count = 1 and then nodes.item(0).is_equal(once "KW number")
+			Result := count = 1 and then nodes.item(0).name.is_equal(once "KW number")
 		end
 
 	number: LIBERTY_AST_NUMBER is
@@ -21,17 +21,17 @@ feature {}
 
 	is_true: BOOLEAN is
 		do
-			Result := count = 1 and then nodes.item(0).is_equal(once "KW True")
+			Result := count = 1 and then nodes.item(0).name.is_equal(once "KW True")
 		end
 
 	is_false: BOOLEAN is
 		do
-			Result := count = 1 and then nodes.item(0).is_equal(once "KW False")
+			Result := count = 1 and then nodes.item(0).name.is_equal(once "KW False")
 		end
 
 	is_character: BOOLEAN is
 		do
-			Result := count = 1 and then nodes.item(0).is_equal(once "KW character")
+			Result := count = 1 and then nodes.item(0).name.is_equal(once "KW character")
 		end
 
 	character: LIBERTY_AST_CHARACTER is
@@ -158,7 +158,7 @@ feature {}
 feature {ANY}
 	count: INTEGER is
 		do
-			Result := nodes.capacity
+			Result := nodes.count
 		end
 
 	name: STRING is "Manifest_Or_Type_Test"

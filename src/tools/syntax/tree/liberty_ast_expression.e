@@ -40,10 +40,10 @@ feature {}
 feature {ANY}
 	accept (visitor: VISITOR) is
 		local
-			v: LIBERTY_AST_EXPRESSION_NO_ARRAY_VISITOR
+			v: LIBERTY_AST_EXPRESSION_VISITOR
 		do
 			v ::= visitor
-			v.visit_liberty_ast_expression_no_array(Current)
+			v.visit_liberty_ast_expression(Current)
 		end
 
 end

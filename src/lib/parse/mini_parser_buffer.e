@@ -96,7 +96,7 @@ feature {ANY}
 		do
 			last_error := error_msg
 		ensure
-			last_errorfr4 = error_msg
+			last_error = error_msg
 		end
 
 	set_current_index (new_index: like current_index) is

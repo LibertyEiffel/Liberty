@@ -29,17 +29,22 @@ feature {EIFFEL_GRAMMAR}
 		end
 
 	non_terminal (name: STRING; names: TRAVERSABLE[STRING]): EIFFEL_NON_TERMINAL_NODE is
+		require
+			not name.is_empty
+			names /= Void
 		deferred
 		ensure
-			Result.name = name
-			-- Result.names = names
+			Result.name.is_equal(name)
 		end
 
 	terminal (name: STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
+		require
+			not name.is_empty
+			image /= Void
 		deferred
 		ensure
-			Result.name = name
-			Result.image = image
+			Result.name.is_equal(name)
+			Result.image.is_equal(image)
 		end
 
 end -- class EIFFEL_NODE_FACTORY

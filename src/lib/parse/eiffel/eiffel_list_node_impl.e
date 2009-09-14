@@ -27,6 +27,9 @@ inherit
 insert
 	TRAVERSABLE[EIFFEL_NODE]
 
+create {EIFFEL_NODE_FACTORY}
+	make
+
 feature {ANY}
 	name: STRING
 
@@ -40,7 +43,7 @@ feature {ANY}
 
 	item (i: INTEGER): EIFFEL_NODE is
 		do
-			Result := children.item(children.upper - i)
+			Result := children.item(i)
 		end
 
 	lower: INTEGER is
@@ -60,12 +63,12 @@ feature {ANY}
 
 	first: EIFFEL_NODE is
 		do
-			Result := children.last
+			Result := children.first
 		end
 
 	last: EIFFEL_NODE is
 		do
-			Result := children.first
+			Result := children.last
 		end
 
 	is_empty: BOOLEAN is

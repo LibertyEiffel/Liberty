@@ -57,7 +57,7 @@ feature {EIFFEL_GRAMMAR, EIFFEL_IMAGE}
 feature {}
 	default_create is
 		do
-			index := 0
+			index := 1
 			line := 1
 			column := 1
 		end

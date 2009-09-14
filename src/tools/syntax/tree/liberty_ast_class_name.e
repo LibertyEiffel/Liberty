@@ -6,17 +6,8 @@ inherit
 			accept
 		end
 
-feature {ANY}
-	refclass: LIBERTY_AST_CLASS
-
-	set_refclass (a_refclass: like refclass) is
-		require
-			a_refclass.classname.is_equal(image)
-		do
-			refclass := a_refclass
-		ensure
-			refclass = a_refclass
-		end
+create {LIBERTY_NODE_FACTORY}
+	make
 
 feature {ANY}
 	accept (visitor: VISITOR) is
@@ -26,8 +17,5 @@ feature {ANY}
 			v ::= visitor
 			v.visit_liberty_ast_class_name(Current)
 		end
-
-invariant
-	refclass /= Void implies refclass.classname.is_equal(image)
 
 end

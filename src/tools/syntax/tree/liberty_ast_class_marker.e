@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_CLASS_HEADER}
+feature {}
 	first_keyword: STRING is
 		local
 			keyword: EIFFEL_TERMINAL_NODE

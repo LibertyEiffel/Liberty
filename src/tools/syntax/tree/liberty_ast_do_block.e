@@ -12,28 +12,28 @@ create {LIBERTY_NODE_FACTORY}
 feature {}
 	is_do: BOOLEAN is
 		do
-			keyword.name.is_equal(once "KW do")
+			Result := keyword.name.is_equal(once "KW do")
 		ensure
 			Result implies count = 2
 		end
 
 	is_once: BOOLEAN is
 		do
-			keyword.name.is_equal(once "KW once")
+			Result := keyword.name.is_equal(once "KW once")
 		ensure
 			Result implies count = 2
 		end
 
 	is_deferred: BOOLEAN is
 		do
-			keyword.name.is_equal(once "KW deferred")
+			Result := keyword.name.is_equal(once "KW deferred")
 		ensure
 			Result implies count = 1
 		end
 
 	is_attribute: BOOLEAN is
 		do
-			keyword.name.is_equal(once "KW attribute")
+			Result := keyword.name.is_equal(once "KW attribute")
 		ensure
 			Result implies count = 1
 		end

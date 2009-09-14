@@ -22,18 +22,12 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_CLASS_HEADER}Result.make(name, names)
 			when "Obsolete" then
 				create {LIBERTY_AST_OBSOLETE}Result.make(name, names)
-			when "Inherit" then
-				create {LIBERTY_AST_INHERIT}Result.make(name, names)
-			when "Insert" then
-				create {LIBERTY_AST_INSERT}Result.make(name, names)
 			when "Invariant" then
 				create {LIBERTY_AST_INVARIANT}Result.make(name, names)
 			when "Indexing" then
 				create {LIBERTY_AST_INDEXING}Result.make(name, names)
 			when "Indexing_Clause" then
 				create {LIBERTY_AST_INDEXING_CLAUSE}Result.make(name, names)
-			when "Class_Marker" then
-				create {LIBERTY_AST_CLASS_MARKER}Result.make(name, names)
 			when "Inherit" then
 				create {LIBERTY_AST_INHERIT}Result.make(name, names)
 			when "Insert" then
@@ -44,8 +38,6 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_TYPE_PARAMETERS}Result.make(name, names)
 			when "Type_Parameter" then
 				create {LIBERTY_AST_TYPE_PARAMETER}Result.make(name, names)
-			when "Indexing_Clause" then
-				create {LIBERTY_AST_INDEXING_CLAUSE}Result.make(name, names)
 			when "Type_Definition" then
 				create {LIBERTY_AST_TYPE_DEFINITION}Result.make(name, names)
 			when "Parent_Clause" then
@@ -66,6 +58,8 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_EXPORT}Result.make(name, names)
 			when "Class_Creation" then
 				create {LIBERTY_AST_CLASS_CREATION}Result.make(name, names)
+			when "Creation_Expression" then
+				create {LIBERTY_AST_CREATION_EXPRESSION}Result.make(name, names)
 			when "Eiffel_Block" then
 				create {LIBERTY_AST_EIFFEL_BLOCK}Result.make(name, names)
 			when "Require" then
@@ -186,8 +180,6 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_FEATURE_NAMES}Result.make(name, names)
 			when "Feature_Name" then
 				create {LIBERTY_AST_FEATURE_NAME}Result.make(name, names)
-			when "External" then
-				create {LIBERTY_AST_EXTERNAL}Result.make(name, names)
 			when "Alias" then
 				create {LIBERTY_AST_ALIAS}Result.make(name, names)
 			when "Effective_Type_Parameters" then
@@ -200,6 +192,8 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_ENSURE_THEN}Result.make(name, names)
 			when "Debug_Keys" then
 				create {LIBERTY_AST_DEBUG_KEYS}Result.make(name, names)
+			when "From" then
+				create {LIBERTY_AST_FROM}Result.make(name, names)
 			when "Variant" then
 				create {LIBERTY_AST_VARIANT}Result.make(name, names)
 			when "Assertion" then
@@ -214,15 +208,15 @@ feature {EIFFEL_GRAMMAR}
 			inspect
 				name
 			when "KW class name" then
-				create {LIBERTY_AST_CLASS_NAME}Result.make(image)
+				create {LIBERTY_AST_CLASS_NAME}Result.make(name, image)
 			when "KW entity name" then
-				create {LIBERTY_AST_ENTITY_NAME}Result.make(image)
+				create {LIBERTY_AST_ENTITY_NAME}Result.make(name, image)
 			when "KW number" then
-				create {LIBERTY_AST_NUMBER}Result.make(image)
+				create {LIBERTY_AST_NUMBER}Result.make(name, image)
 			when "KW character" then
-				create {LIBERTY_AST_CHARACTER}Result.make(image)
+				create {LIBERTY_AST_CHARACTER}Result.make(name, image)
 			when "KW string" then
-				create {LIBERTY_AST_STRING}Result.make(image)
+				create {LIBERTY_AST_STRING}Result.make(name, image)
 			else
 				-- most keywords don't hold any information in their image;
 				-- we don't need to distinguish them.

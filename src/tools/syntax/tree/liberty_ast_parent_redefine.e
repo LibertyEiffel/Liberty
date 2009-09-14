@@ -3,7 +3,7 @@ class LIBERTY_AST_PARENT_REDEFINE
 inherit
 	LIBERTY_AST_LIST[LIBERTY_AST_FEATURE_NAME]
 		export
-			{ANY} valid_index, count, lower, upper, item
+			{ANY} list_valid_index, list_count, list_lower, list_upper, list_item
 		end
 
 create {LIBERTY_NODE_FACTORY}

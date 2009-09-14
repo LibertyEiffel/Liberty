@@ -6,6 +6,9 @@ inherit
 			accept
 		end
 
+create {LIBERTY_NODE_FACTORY}
+	make
+
 feature {ANY}
 	value: CHARACTER is
 		do
