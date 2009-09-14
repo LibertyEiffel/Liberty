@@ -43,7 +43,7 @@ feature {ANY}
 
 	item (i: INTEGER): EIFFEL_NODE is
 		do
-			Result := children.item(i)
+			Result := children.item(children.upper - i)
 		end
 
 	lower: INTEGER is
@@ -63,12 +63,12 @@ feature {ANY}
 
 	first: EIFFEL_NODE is
 		do
-			Result := children.first
+			Result := children.last
 		end
 
 	last: EIFFEL_NODE is
 		do
-			Result := children.last
+			Result := children.first
 		end
 
 	is_empty: BOOLEAN is

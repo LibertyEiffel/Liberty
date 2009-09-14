@@ -41,6 +41,40 @@ feature {EIFFEL_GRAMMAR}
 			nodes.put(node, index)
 		end
 
+feature {EIFFEL_NODE_HANDLER}
+	display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
+		local
+			i: INTEGER
+		do
+			do_indent(output, indent, p)
+			output.put_character('"')
+			output.put_string(name)
+			output.put_line(once "%":")
+			from
+				i := lower
+			until
+				i > upper
+			loop
+				node_at(i).display(output, indent + 1, " * ")
+				i := i + 1
+			end
+		end
+
+	generate (o: OUTPUT_STREAM) is
+		local
+			i: INTEGER
+		do
+			from
+				i := lower
+			until
+				i > upper
+			loop
+				node_at(i).generate(o)
+				i := i + 1
+			end
+			generate_forgotten(o)
+		end
+
 feature {}
 	possible_counts: SET[INTEGER] is
 		deferred
