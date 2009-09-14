@@ -3,7 +3,7 @@ class LIBERTY_AST_TYPE_PARAMETERS
 inherit
 	LIBERTY_AST_LIST[LIBERTY_AST_TYPE_PARAMETER]
 		export
-			{ANY} list_valid_index, list_count, list_lower, list_upper, list_item, possible_counts
+			{ANY} list_valid_index, list_count, list_lower, list_upper, list_item
 		redefine
 			possible_counts
 		end
