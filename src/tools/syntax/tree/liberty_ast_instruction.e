@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_INSTRUCTION_VISITOR}
 	instruction: LIBERTY_AST_NON_TERMINAL_NODE is
 		do
 			Result ::= nodes.item(0)

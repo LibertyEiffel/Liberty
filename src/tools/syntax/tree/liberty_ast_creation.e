@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_CREATION_VISITOR}
 	has_type_definition: BOOLEAN is
 		do
 			Result := nodes.item(1).name.is_equal(once "KW {")

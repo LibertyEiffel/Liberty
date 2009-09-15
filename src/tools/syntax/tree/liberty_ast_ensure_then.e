@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_ENSURE}
+feature {LIBERTY_AST_ENSURE_THEN_VISITOR}
 	is_ensure_then: BOOLEAN is
 		do
 			Result := count = 2

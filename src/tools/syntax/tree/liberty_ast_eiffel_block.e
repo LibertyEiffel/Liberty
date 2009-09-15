@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_EIFFEL_BLOCK_VISITOR}
 	is_external: BOOLEAN is
 		do
 			Result := count = 3

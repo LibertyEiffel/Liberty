@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_DEBUG_VISITOR}
 	debug_keys: LIBERTY_AST_DEBUG_KEYS is
 		do
 			Result ::= nodes.item(1)

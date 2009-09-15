@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_ASSIGNMENT_VISITOR}
 	writable: LIBERTY_AST_WRITABLE is
 		do
 			Result ::= nodes.item(0)

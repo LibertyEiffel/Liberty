@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_ACTUAL_VISITOR}
 	is_expression: BOOLEAN is
 		do
 			Result := count = 1

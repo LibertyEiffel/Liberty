@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_E9_VISITOR}
 	has_old: BOOLEAN is
 		do
 			Result := count = 2

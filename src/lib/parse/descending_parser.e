@@ -18,9 +18,9 @@ feature {ANY}
 		do
 			atom := grammar.item(start)
 			if not atom.parse(buffer, a_actions) then
-				error_message := buffer.last_error
-				if error_message = Void then
-					error_message := once "This does not look like Eiffel, not even remotely."
+				error := buffer.last_error
+				if error = Void then
+					create error.make(1, once "This does not look like Eiffel, not even remotely.", Void)
 				end
 			end
 		ensure
@@ -34,7 +34,7 @@ feature {ANY}
 		do
 			actions.clear_count
 			parse(buffer, grammar, start, actions)
-			if error_message = Void then
+			if error = Void then
 				debug ("parse")
 					std_error.put_line(once "Actions:")
 					std_error.put_line(once "--8<-------- <start actions>")
@@ -67,7 +67,7 @@ feature {ANY}
 			end
 		end
 
-	error_message: STRING
+	error: PARSE_ERROR
 
 feature {}
 	make is

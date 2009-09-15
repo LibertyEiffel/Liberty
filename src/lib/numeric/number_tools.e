@@ -81,7 +81,7 @@ feature {ANY}
 			if Result then
 				if parser_buffer.current_index /= formula.count + 1 then
 					Result := False
-					parser_buffer.set_last_error(once "End of text expected.")
+					parser_buffer.set_last_error_message(once "End of text expected.")
 				end
 			end
 		ensure
@@ -116,7 +116,7 @@ feature {}
 	parse_e3: BOOLEAN is
 		do
 			if parser_buffer.end_reached then
-				parser_buffer.set_last_error(Integer_expected)
+				parser_buffer.set_last_error_message(Integer_expected)
 			else
 				inspect
 					parser_buffer.current_character
@@ -131,7 +131,7 @@ feature {}
 					if Result then
 						if parser_buffer.end_reached or else parser_buffer.current_character /= ')' then
 							Result := False
-							parser_buffer.set_last_error(Integer_expected)
+							parser_buffer.set_last_error_message(Integer_expected)
 						else
 							parser_buffer.next
 							parser_buffer.skip_separators
@@ -192,7 +192,7 @@ feature {}
 			stop: BOOLEAN
 		do
 			if parser_buffer.end_reached or else not parser_buffer.current_character.is_digit then
-				parser_buffer.set_last_error(Integer_expected)
+				parser_buffer.set_last_error_message(Integer_expected)
 			else
 				Result := True
 				from
@@ -293,7 +293,7 @@ feature {}
 					parser_buffer.skip_separators
 					Result := parse_create_e2
 					if Result.is_zero then
-						parser_buffer.set_last_error(once "Attempt to divide " + left.to_string + once " by zero.")
+						parser_buffer.set_last_error_message(once "Attempt to divide " + left.to_string + once " by zero.")
 					else
 						Result := left / Result
 					end
@@ -315,11 +315,11 @@ feature {}
 						if Result.is_positive then
 							Result := Result.factorial
 						else
-							parser_buffer.set_last_error(once "Attempt to compute %
+							parser_buffer.set_last_error_message(once "Attempt to compute %
 		                           %factorial of a negative value (" + Result.to_string + once ").")
 						end
 					else
-						parser_buffer.set_last_error(once "Attempt to compute %
+						parser_buffer.set_last_error_message(once "Attempt to compute %
 		     %factorial with a non integral value (" + Result.to_string + once ").")
 					end
 				end

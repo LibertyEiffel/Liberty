@@ -2,11 +2,14 @@ class LIBERTY_AST_R4
 
 inherit
 	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E4]
+		export {LIBERTY_AST_R4_VISITOR}
+			expression, remainder
+		end
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_R4_VISITOR}
 	is_eq: BOOLEAN is
 		do
 			Result := not is_empty and then nodes.item(0).name.is_equal(once "KW =")

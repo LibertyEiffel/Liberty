@@ -2,11 +2,14 @@ class LIBERTY_AST_R7
 
 inherit
 	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E7]
+		export {LIBERTY_AST_R7_VISITOR}
+			expression, remainder
+		end
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_R7_VISITOR}
 	is_power: BOOLEAN is
 		do
 			Result := not is_empty

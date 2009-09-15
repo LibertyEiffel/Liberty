@@ -25,9 +25,9 @@ feature {}
 			code.append(std_input.last_string)
 			buffer.initialize_with(code)
 			parser.eval(buffer, eiffel.table, once "Class")
-			if parser.error_message /= Void then
-				std_error.put_line(once "Expected:")
-				std_error.put_line(parser.error_message)
+			if parser.error /= Void then
+				std_error.put_line(once "Syntax error:")
+				std_error.put_line(parser.error.message)
 				die_with_code(1)
 			end
 			eiffel.generate(std_output)

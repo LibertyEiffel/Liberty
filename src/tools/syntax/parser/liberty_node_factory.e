@@ -220,7 +220,7 @@ feature {EIFFEL_GRAMMAR}
 			else
 				-- most keywords don't hold any information in their image;
 				-- we don't need to distinguish them.
-				create {EIFFEL_TERMINAL_NODE_IMPL}Result.make(name, image)
+				create {LIBERTY_AST_KEYWORD}Result.make(name, image)
 			end
 		end
 

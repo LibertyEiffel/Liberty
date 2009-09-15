@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_MANIFEST_OR_TYPE_TEST_VISITOR}
 	is_number: BOOLEAN is
 		do
 			Result := count = 1 and then nodes.item(0).name.is_equal(once "KW number")

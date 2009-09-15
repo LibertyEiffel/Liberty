@@ -3,19 +3,16 @@ class LIBERTY_AST_ENSURE
 inherit
 	LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]
 		export
-			{ANY} list_valid_index, list_count, list_lower, list_upper, list_item
+			{LIBERTY_AST_ENSURE_VISITOR} list_valid_index, list_count, list_lower, list_upper, list_item
 		end
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
-	is_ensure_then: BOOLEAN is
-		local
-			r: LIBERTY_AST_ENSURE_THEN
+feature {LIBERTY_AST_ENSURE_VISITOR}
+	ensure_then: LIBERTY_AST_ENSURE_THEN is
 		do
-			r ::= nodes.first
-			Result := r.is_ensure_then
+			Result ::= nodes.first
 		end
 
 feature {ANY}

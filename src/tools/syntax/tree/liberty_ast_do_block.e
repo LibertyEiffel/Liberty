@@ -9,7 +9,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_DO_BLOCK_VISITOR}
 	is_do: BOOLEAN is
 		do
 			Result := keyword.name.is_equal(once "KW do")

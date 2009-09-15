@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_CLASS_MARKER_VISITOR}
 	first_keyword: STRING is
 		local
 			keyword: EIFFEL_TERMINAL_NODE

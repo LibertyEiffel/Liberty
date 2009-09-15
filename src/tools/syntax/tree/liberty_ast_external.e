@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_EXTERNAL_VISITOR}
 	definition: LIBERTY_AST_STRING is
 		do
 			Result ::= nodes.item(1)

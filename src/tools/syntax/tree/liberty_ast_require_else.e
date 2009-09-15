@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_REQUIRE}
+feature {LIBERTY_AST_REQUIRE_ELSE_VISITOR}
 	is_require_else: BOOLEAN is
 		do
 			Result := count = 2 and then nodes.last.name.is_equal(once "KW else")

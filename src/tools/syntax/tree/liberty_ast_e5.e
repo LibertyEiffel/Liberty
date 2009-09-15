@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_E5_VISITOR}
 	e6: LIBERTY_AST_E6 is
 		do
 			Result ::= nodes.item(0)

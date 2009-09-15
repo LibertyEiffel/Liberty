@@ -2,6 +2,8 @@ class LIBERTY_AST_R3
 
 inherit
 	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E3]
+		export {LIBERTY_AST_R3_VISITOR}
+			expression, remainder
 		redefine
 			possible_counts
 		end
@@ -9,7 +11,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_R3_VISITOR}
 	is_and_then: BOOLEAN is
 		do
 			Result := count = 4

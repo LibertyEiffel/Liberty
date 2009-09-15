@@ -89,14 +89,21 @@ feature {ANY}
 			end
 		end
 
-	last_error: STRING
+	last_error: PARSE_ERROR
 			-- Can be used to memorize an error message.
 
-	set_last_error (error_msg: like last_error) is
+	set_last_error (error: like last_error) is
 		do
-			last_error := error_msg
+			last_error := error
 		ensure
 			last_error = error_msg
+		end
+
+	set_last_error_message (error_message: STRING) is
+		do
+			create last_error.make(current_index, error_message, last_error)
+		ensure
+			last_error.message = error_message
 		end
 
 	set_current_index (new_index: like current_index) is

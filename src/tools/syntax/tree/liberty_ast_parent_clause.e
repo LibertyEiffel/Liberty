@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_PARENT_CLAUSE_VISITOR}
 	has_clauses: BOOLEAN is
 		do
 			Result := count = 5

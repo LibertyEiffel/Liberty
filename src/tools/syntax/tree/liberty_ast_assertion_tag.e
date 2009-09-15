@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_ASSERTION_TAG_VISITOR}
 	has_tag: BOOLEAN is
 		do
 			Result := count > 0

@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_FEATURE_DEFINITION_VISITOR}
 	indexing_clause: LIBERTY_AST_INDEXING is
 		do
 			Result ::= nodes.item(0)

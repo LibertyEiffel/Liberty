@@ -9,21 +9,10 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
-	is_require_else: BOOLEAN is
-		local
-			r: LIBERTY_AST_REQUIRE_ELSE
+feature {LIBERTY_AST_REQUIRE_VISITOR}
+	require_else: LIBERTY_AST_REQUIRE_ELSE is
 		do
-			r ::= nodes.first
-			Result := r.is_require_else
-		end
-
-	is_require_then: BOOLEAN is
-		local
-			r: LIBERTY_AST_REQUIRE_ELSE
-		do
-			r ::= nodes.first
-			Result := r.is_require_then
+			Result ::= nodes.first
 		end
 
 feature {ANY}

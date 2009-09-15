@@ -9,8 +9,8 @@ deferred class SINGLETON
 	--
 	-- For examples, look at the tools cluster of SmartEiffel.
 	--
-	-- WARNING: double-check if the object is really a singleton is the conceptual sense.
-	--          Singleton pattern is often used in wrong place. See for example:
+	-- WARNING: double-check if the object is really a singleton in the conceptual sense.
+	--          The singleton pattern is often used in wrong place. See for example:
 	--          http://www.theagiledeveloper.com/articles/2005/03/03/singleton-overuse-disclaimer
 	--          http://blogs.msdn.com/scottdensmore/archive/2004/05/25/140827.aspx
 	--          http://www.softwarereality.com/design/singleton.jsp

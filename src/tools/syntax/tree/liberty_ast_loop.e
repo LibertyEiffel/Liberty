@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_LOOP_VISITOR}
 	from_clause: LIBERTY_AST_FROM is
 		do
 			Result ::= nodes.item(0)

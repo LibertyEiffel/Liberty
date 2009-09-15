@@ -1,10 +1,7 @@
 class LIBERTY_AST_CLASS_NAME
 
 inherit
-	EIFFEL_TERMINAL_NODE_IMPL
-		redefine
-			accept
-		end
+	LIBERTY_AST_TERMINAL_NODE
 
 create {LIBERTY_NODE_FACTORY}
 	make

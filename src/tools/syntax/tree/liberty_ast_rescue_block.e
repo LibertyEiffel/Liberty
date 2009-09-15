@@ -3,7 +3,7 @@ class LIBERTY_AST_RESCUE_BLOCK
 inherit
 	LIBERTY_AST_LIST[LIBERTY_AST_INSTRUCTION]
 		export
-			{ANY} list_valid_index, list_count, list_lower, list_upper, list_item
+			{LIBERTY_AST_RESCUE_BLOCK_VISITOR} list_valid_index, list_count, list_lower, list_upper, list_item
 		end
 
 create {LIBERTY_NODE_FACTORY}

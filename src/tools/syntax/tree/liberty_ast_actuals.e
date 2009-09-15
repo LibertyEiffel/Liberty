@@ -3,7 +3,7 @@ class LIBERTY_AST_ACTUALS
 inherit
 	LIBERTY_AST_LIST[LIBERTY_AST_ACTUAL]
 		export
-			{ANY} list_valid_index, list_count, list_lower, list_upper, list_item
+			{LIBERTY_AST_ACTUALS_VISITOR} list_valid_index, list_count, list_lower, list_upper, list_item
 		redefine
 			possible_counts
 		end

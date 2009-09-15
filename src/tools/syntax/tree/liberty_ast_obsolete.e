@@ -6,12 +6,12 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_CLASS}
-	string: EIFFEL_TERMINAL_NODE is
+feature {LIBERTY_AST_OBSOLETE_VISITOR}
+	string: LIBERTY_AST_STRING is
+		require
+			count > 0
 		do
-			if count = 2 then
-				Result ::= nodes.item(1)
-			end
+			Result ::= nodes.item(1)
 		end
 
 feature {ANY}

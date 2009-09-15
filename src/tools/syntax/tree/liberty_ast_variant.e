@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_VARIANT_VISITOR}
 	has_variant: BOOLEAN is
 		do
 			Result := count > 0

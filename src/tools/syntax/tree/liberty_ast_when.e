@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_WHEN_VISITOR}
 	when_clause: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(1)

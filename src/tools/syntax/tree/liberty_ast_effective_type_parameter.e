@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER_VISITOR}
 	type_definition: LIBERTY_AST_TYPE_DEFINITION is
 		do
 			Result ::= nodes.item(0)

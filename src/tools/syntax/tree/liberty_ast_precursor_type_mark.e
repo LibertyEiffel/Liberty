@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_PRECURSOR_TYPE_MARK_VISITOR}
 	class_name: LIBERTY_AST_CLASS_NAME is
 		require
 			count /= 0

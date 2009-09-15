@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_AGENT_SIGNATURE_VISITOR}
 	has_return_type: BOOLEAN is
 		do
 			Result := (count = 3 or else count = 6)

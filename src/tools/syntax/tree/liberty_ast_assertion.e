@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_ASSERTION_VISITOR}
 	tag: LIBERTY_AST_ASSERTION_TAG is
 		do
 			Result ::= nodes.item(0)

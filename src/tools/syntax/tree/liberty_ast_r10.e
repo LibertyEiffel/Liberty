@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_R10_VISITOR}
 	feature_name: LIBERTY_AST_ENTITY_NAME is
 		require
 			not is_empty

@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_EXPRESSION_VISITOR}
 	is_array: BOOLEAN is
 		do
 			Result := nodes.first.name.is_equal(once "Array")

@@ -12,7 +12,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_OLD_CREATION_VISITOR}
 	has_type_definition: BOOLEAN is
 		do
 			Result := count = 4 or else count = 7

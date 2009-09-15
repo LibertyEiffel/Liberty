@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_WHEN_SLICE_VISITOR}
 	low_value: LIBERTY_AST_WHEN_VALUE is
 		do
 			Result ::= nodes.item(0)

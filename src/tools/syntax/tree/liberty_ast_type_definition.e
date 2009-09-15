@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {}
+feature {LIBERTY_AST_TYPE_DEFINITION_VISITOR}
 	is_class_type: BOOLEAN is
 		do
 			Result := nodes.last.name.is_equal(once "Effective_Type_Parameters")

@@ -1,19 +1,10 @@
 class LIBERTY_AST_CHARACTER
 
 inherit
-	EIFFEL_TERMINAL_NODE_IMPL
-		redefine
-			accept
-		end
+	LIBERTY_AST_TERMINAL_NODE
 
 create {LIBERTY_NODE_FACTORY}
 	make
-
-feature {ANY}
-	value: CHARACTER is
-		do
-			-- TODO
-		end
 
 feature {ANY}
 	accept (visitor: VISITOR) is

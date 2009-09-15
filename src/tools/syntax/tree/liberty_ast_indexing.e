@@ -3,7 +3,7 @@ class LIBERTY_AST_INDEXING
 inherit
 	LIBERTY_AST_LIST[LIBERTY_AST_INDEXING_CLAUSE]
 		export
-			{ANY} list_valid_index, list_count, list_lower, list_upper
+			{LIBERTY_AST_INDEXING_VISITOR} list_valid_index, list_count, list_lower, list_upper
 		end
 
 create {LIBERTY_NODE_FACTORY}
