@@ -19,6 +19,8 @@ feature {ANY} -- Queries
 
 	patches_are_appliable: BOOLEAN
 
+	last_error: STRING
+
 feature {ANY} -- Setters
 	set_verbose (a_value: BOOLEAN) is
 		do
@@ -53,6 +55,11 @@ feature {ANY} -- Setters
 	do_not_apply_patches is
 		do
 			patches_are_appliable:=False
+		end
+
+	set_error (an_error: STRING) is
+		do
+			last_error := an_error
 		end
 
 end -- class SETTINGS

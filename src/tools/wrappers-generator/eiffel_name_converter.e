@@ -1,4 +1,7 @@
 deferred class EIFFEL_NAME_CONVERTER
+	-- Query features to discover if a symbol name does comply to SmartEiffel's
+	-- naming rules and to convert arbitrary C symbols into valid Eiffel names
+	-- of classes or features.
 
 insert
 	PLATFORM
@@ -55,33 +58,46 @@ feature {ANY} -- Auxiliary features
 			is_valid_class_name(Result)
 		end
 
-	eiffel_argument (a_name: STRING): STRING is
+	eiffel_feature (a_name: STRING): STRING is
+		-- Translate `a_name' content into a proper feature name for
+		-- the Gnu-Eiffel language.  "CamelCase" is translated into
+		-- "camel_case", "ENOO" is translated into "enoo". Eventual
+		-- underscores in front of `a_name' are removed: "__foo" becomes
+		-- "foo"
+	require 
+		name_not_void: a_name /= Void
+	do
+		create Result.copy(a_name)
+		-- Remove header underscores.
+		from
+		until
+			Result.first /= '_'
+		loop
+			Result.remove_first
+		end
+		eiffellizer.substitute_all_in(Result)
+		Result.to_lower
+		Result := adapt(Result)
+	end
+
+ 	eiffel_argument (a_name: STRING): STRING is
 			-- Translate `a_name' content into a proper argument placeholderi for
 			-- the Gnu-Eiffel language.  "CamelCase" is translated into
 			-- "a_camel_case", "ENOO" is translated into "an_enoo". Eventual
 			-- underscores in front of `a_name' are removed: "__foo" becomes
-			-- "a_foo"
+			-- "a_foo". See also `eiffel_feature'.
 		require
 			name_not_void: a_name /= Void
 		do
-			create Result.copy(a_name)
-			-- Remove header underscores.
-			from
-			until
-				Result.first /= '_'
-			loop
-				Result.remove_first
+			Result := eiffel_feature(a_name)
+			inspect Result.first
+			when 'a', 'e', 'o', 'i', 'u' then Result.prepend(once "an_")
+			else Result.prepend(once "a_")
 			end
-			eiffellizer.substitute_all_in(Result)
-			Result.to_lower
-			inspect
-				Result.first
-			when 'a', 'e', 'o', 'i', 'u' then
-				Result.prepend(once "an_")
-			else
-				Result.prepend(once "a_")
-			end
-			Result := adapt(Result)
+			-- The following call should be unnecessary, since we hade already
+			-- prepended an English preposition that does not appear in any
+			-- SmartEiffel keywords.
+			-- Result := adapt(Result)
 		end
 
 	eiffellizer: REGULAR_EXPRESSION is
@@ -129,7 +145,7 @@ feature {ANY} -- Auxiliary features
 			-- A valid, adapted identifier for an Eiffel feature labelled
 			-- `a_name'. Can be either `a_name' itself or a new string
 			-- containing an adapatation. Reserved words and those of
-			-- features belonging to ANY are "escaped".
+			-- features belonging to ANY are "escaped", append "_external".
 		do
 			if keywords.has(a_name) or else any_features.has(a_name) then
 				Result := a_name + once "_external"
@@ -140,7 +156,7 @@ feature {ANY} -- Auxiliary features
 
 	longest_prefix_of_children_of (a_node: XML_COMPOSITE_NODE): INTEGER is
 			-- The length of longest prefix common to all direct children
-			-- names of `a_node'. Useful to remove the common part of
+			-- names of `a_node'. Useful to remove the common prefix of
 			-- many enumeration values.
 		require
 			non_void_node: a_node /= Void
@@ -191,6 +207,20 @@ feature {ANY} -- Auxiliary features
 					end
 				end
 				char_idx := char_idx + 1
+			end
+			debug
+				print(once "Longest common prefix of ")
+				from child_n := 1
+				until child_n >= a_node.children_count
+				loop
+					a_child ?= a_node.child(child_n)
+					if a_child /= Void then
+						print (a_child.attribute_at(once U"name").as_utf8)
+						print (once " ")
+					end
+					child_n := child_n + 1
+				end
+				print(once "is ") print(Result.to_string) print(once ".%N")
 			end
 		end
 

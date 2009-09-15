@@ -4,14 +4,22 @@ deferred class TYPE_TRANSLATOR
 insert
 	SHARED_SETTINGS
 	EIFFEL_GCC_XML_EXCEPTIONS
+	EIFFEL_NAME_CONVERTER
 	EXCEPTIONS
 
-feature {ANY} -- Initialization
-	make is
-		do
-			end
-
 feature {ANY} -- Type-system translations
+	referred_type (an_argument: XML_COMPOSITE_NODE): XML_COMPOSITE_NODE is
+		-- The type ultimately referred by `an_argument'. Typedef are followed
+		-- until a non-typedef type is found.  
+	require an_argument /= Void
+	local type: UNICODE_STRING
+	do
+		type := an_argument.attribute_at(once U"type")
+		if an_argument.name.is_equal(once U"Typedef") then Result:=referred_type(types.at(type))
+		else Result:=an_argument
+		end
+	end
+ 
 	is_void (an_argument: XML_COMPOSITE_NODE): BOOLEAN is
 		require
 			argument_not_void: an_argument /= Void
@@ -33,14 +41,6 @@ feature {ANY} -- Type-system translations
 				end
 			end
 		end
-		-- eiffel_type_of_unicode (an_id: UNICODE_STRING): STRING is
-		-- 		-- The Eiffel type name correspondent to the C type contained in `an_id'
-		-- 	require an_id/=Void
-		-- 	local a_type: XML_COMPOSITE_NODE
-		-- 	do
-		-- 		a_type := types.reference_at(deconst(an_id.as_utf8))
-		-- 		if a_type/=Void then Result := eiffel_type_of(a_type) end
-		-- 	end
 
 	eiffel_type_of_string (an_id: UNICODE_STRING): STRING is
 			-- The Eiffel type name correspondent to the C type contained in `an_id'
@@ -49,25 +49,49 @@ feature {ANY} -- Type-system translations
 		local
 			a_type: XML_COMPOSITE_NODE
 		do
-			a_type := types.reference_at(deconst(an_id))
+			a_type := types.reference_at(dequalify(an_id))
 			if a_type /= Void then
 				Result := eiffel_type_of(a_type)
 			end
 		end
 
 	eiffel_type_of (an_argument: XML_COMPOSITE_NODE): STRING is
-			-- The Eiffel type usable to wrap `an_argument'. If it does
-			-- not have a proper wrapper type Result is Void and
-			-- `last_error' describes the issue using one of the strings
-			-- from EIFFEL_GCC_XML_EXCEPTIONS. "Expanded" structures,
-			-- unions, references, complex reals (float and double) 
+			-- The Eiffel type usable to wrap `an_argument'. If it does not
+			-- have a proper wrapper type Result is Void and `last_error'
+			-- describes the issue using one of the strings from
+			-- EIFFEL_GCC_XML_EXCEPTIONS. Constructs currently not
+			-- automatically wrappable are: "Expanded" structures (i.e. passed
+			-- by-value and not by-reference, i.e. non using a pointer),
+			-- unions, C++ references, complex reals (float and double) 
+
+			-- Typedefs are resolved using anchored declarations (i.e. "like
+			-- gchar").
 		require
 			argument_not_void: an_argument /= Void
 			no_previous_errors: last_error = Void
+		do
+			Result:=type_of(an_argument,anchored_typedefs)
+		end
+
+	anchored_typedefs: BOOLEAN is True
+	resolved_typedefs: BOOLEAN is False
+
+	type_of (an_argument: XML_COMPOSITE_NODE; are_typedefs_anchored: BOOLEAN): STRING is
+			-- The Eiffel type usable to wrap `an_argument'. If it does not
+			-- have a proper wrapper type Result is Void and `last_error'
+			-- describes the issue using one of the strings from
+			-- EIFFEL_GCC_XML_EXCEPTIONS. Constructs currently not
+			-- automatically wrappable are: "Expanded" structures (i.e. passed
+			-- by-value and not by-reference, i.e. non using a pointer),
+			-- unions, C++ references, complex reals (float and double) 
+
+			-- If `are_typedefs_anchored' is True typedefs will be resolved
+			-- using anchored declarations (i.e. "like gchar"); otherwise
+			-- Result will be the ultimate fundamental type.
 		local
 			name: STRING; size: INTEGER
-			referred: XML_COMPOSITE_NODE
 			uniname: UNICODE_STRING
+			referred: XML_COMPOSITE_NODE
 		do
 			-- Known nodes: FundamentalType Constructor Ellipsis Typedef
 			-- ArrayType Argument Enumeration PointerType EnumValue
@@ -137,18 +161,39 @@ feature {ANY} -- Type-system translations
 						last_error := unhandled_type
 					end
 				end
-			when "Argument", "Typedef", "Variable", "Field" then
+			when "Typedef" then
+				if are_typedefs_anchored then
+					-- The Eiffel type of a typedef is anchored to a query
+					-- named like the C typedef. The actual type of that query
+					-- is the actual type referred by the typedef. i.e.
+					-- "typedef long int foo; f(foo a);" produce "f(an_a: like
+
+					Result := ((once "like ") + 
+					 	eiffel_feature(an_argument.attribute_at(once U"name").as_utf8))
+				else
+					uniname := dequalify(an_argument.attribute_at(once U"type"))
+					referred := types.at(uniname)
+					Result := type_of(referred,are_typedefs_anchored)
+				end
+			when "CvQualifiedType" then
+				uniname := dequalify(an_argument.attribute_at(once U"type"))	
+				check types.has(uniname) end
+				referred := types.at(uniname)
+				Result := type_of(referred,are_typedefs_anchored)
+			when "Argument", "Variable", "Field" then
+				-- The following note may be outdated:
+				-- -----------------------------------
 				-- Recursively discover the correct type: the actual type
 				-- of a typedef is the type it is referring to.
-				-- It was Result:=eiffel_type_of(types.at(deconst(an_argument.attribute_at(once U"type"))))
+				-- It was Result:=eiffel_type_of(types.at(dequalify(an_argument.attribute_at(once U"type"))))
 				-- but it requires that eiffel_type_of accept a Void argument
 				-- and that the types dictionary is always correctly filled.
-				uniname := deconst(an_argument.attribute_at(once U"type"))
+				uniname := dequalify(an_argument.attribute_at(once U"type"))
 				referred := types.reference_at(uniname)
 				if referred/=Void then Result := eiffel_type_of(referred)
 				else
 					name := an_argument.attribute_at(once U"name").to_utf8
-					log(once "Warning! Type Argument/Typedef/Variable/Field @(1) - @(2) has no Eiffel type",
+					log(once "Warning! Type Argument/Variable/Field @(1) - @(2) has no Eiffel type",
 					<<name,uniname.as_utf8>>)
 					last_error := unhandled_type
 				end
@@ -156,11 +201,11 @@ feature {ANY} -- Type-system translations
 			when "ArrayType", "PointerType" then Result := once "POINTER"
 			when "FunctionType" then Result := once "POINTER"
 			when "Struct" then last_error := unhandled_structure_type
-			when  "Function" then
+			when "Function" then
 				log_string(once "C functions does not have a valid Eiffel wrapper type (a function pointer does have it).")
 				last_error := unhandled_type
-			when  "Union" then last_error := unhandled_union_type
-			when  "ReferenceType" then
+			when "Union" then last_error := unhandled_union_type
+			when "ReferenceType" then
 				std_error.put_line(once "C++ reference does not have a valid Eiffel wrapper type.")
 				last_error := unhandled_reference_type
 			else last_error := unhandled_type
@@ -182,26 +227,39 @@ feature {ANY} -- Type-system translations
 
 	typedefs: LINKED_LIST[XML_COMPOSITE_NODE]
 
-feature {} -- Implementation
+feature {} -- Implementation:
 	deconst (a_string: UNICODE_STRING): UNICODE_STRING is
-			-- `a_string' if it does not end with 'c' or 'r'; otherwise it is a
-			-- copy of `a_string' with the last character ('c' or 'r')
-			-- removed. In gcc-xml output 'c' should mean that the referred id
-			-- shall be constant, 'r' a reference type.
-		require
-			not_void: a_string /= Void
+		obsolete "Use dequalify instead"
 		do
-			inspect
-				a_string.last.to_character
-			when 'c', 'r' then
-				Result := a_string.substring(a_string.lower, a_string.upper - 1)
-			else
-				Result := a_string
-			end
-			-- debug 
-			-- 	log(once "deconst(@(1))=@(2)",<<a_string.out,Result.out>>)
-			-- end
+			Result:=dequalify(a_string)
 		end
+
+	dequalify (an_id: UNICODE_STRING): UNICODE_STRING is
+		-- `an_id' without the type qualifier used by GccXml to mark the
+		-- identification labels.
+
+		-- "const", "reference" and "volatile" qualifier are represented in a
+		-- CvQualifiedType node adding 'c', 'r' and 'v' to the identifies. i.e.
+		-- if "int" has id "_422" a  "const int foo" argument type will be of
+		-- type CvQualifiedType with it "_422c". The same rule is used - as far
+		-- as I know - also for reference and volatile types.
+
+		-- Result is identical to `an_id' if it does not end with 'c', 'r' and
+		-- 'v'; otherwise it is a copy of `an_id' with the last character ('c',
+		-- 'r' or 'v') removed. 
+	require
+		not_void: an_id /= Void
+	do
+		inspect
+		an_id.last.to_character
+		when 'c', 'r', 'v' then
+		Result := an_id.substring(an_id.lower, an_id.upper - 1)
+		else Result := an_id
+		end
+		-- debug 
+		-- 	log(once "dequalify(@(1))=@(2)",<<an_id.out,Result.out>>)
+		-- end
+	end
 
 feature {ANY} -- Constants
 	integer_size: INTEGER is

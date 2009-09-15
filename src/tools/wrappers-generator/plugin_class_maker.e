@@ -47,11 +47,15 @@ feature {ANY}
 feature {ANY} -- Function emission
 	append_function_body (a_node: XML_COMPOSITE_NODE) is
 		local
-			description: STRING
+			actual_c_symbol,description: STRING
 		do
 			--if feature_descriptions.has(
 			if variadic then description := c_function_name + variadic_function_note
 			else description := c_function_name
+			end
+			-- Deal with argument-less functions like "fork". An argument-less function returning an integer 
+			if a_node.children_count=0 then actual_c_symbol := c_function_name+(once "()")
+			else actual_c_symbol := c_function_name
 			end
 			buffer.put_message(once "%
 			% 		-- @(1)%N%
@@ -62,7 +66,7 @@ feature {ANY} -- Function emission
 			%			feature_name: %"@(4)%"%N%
 			%		}%"%N%
 			%		end%N%N",
-			<<description, location, module, c_function_name>>)
+			<<description, location, module, actual_c_symbol>>)
 		end
 
 feature {ANY} -- Structure emission
@@ -207,6 +211,7 @@ feature {} -- Constants
 		]"
 
 end -- class PLUGIN_CLASS_MAKER
+
 -- Copyright 2008,2009 Paolo Redaelli
 
 -- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
@@ -221,3 +226,4 @@ end -- class PLUGIN_CLASS_MAKER
 
 -- You should have received a copy of the GNU General Public License along with
 -- this program.  If not, see <http://www.gnu.org/licenses/>.
+

@@ -1,34 +1,14 @@
-indexing
-	copyright:
-		"[
-					Copyright (C) 2008 Paolo Redaelli
-
-					This library is free software; you can redistribute it and/or
-					modify it under the terms of the GNU Lesser General Public License
-					as published by the Free Software Foundation; either version 2.1 of
-					the License, or (at your option) any later version.
-
-					This library is distributed in the hope that it will be useful, but
-					WITHOUT ANY WARRANTY; without even the implied warranty of
-					MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-					Lesser General Public License for more details.
-
-					You should have received a copy of the GNU Lesser General Public
-					License along with this library; if not, write to the Free Software
-					Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-					02110-1301 USA
-			]"
 class EIFFEL_GCC_XML
-	-- Eiffel-gcc-xml processes the output of gccxml to produce
+	-- An application that processes the output of gccxml to produce
 	-- low-level wrappers for functions, structures and enumerations.
 	-- Function having argument structures passed by value are not
 	-- handled.
-	-- Implementation notes: types are identified by id.
 
 insert
 	ARGUMENTS
 	FILE_TOOLS
 	SHARED_SETTINGS
+	EIFFEL_NAME_CONVERTER
 
 creation {ANY}
 	make
@@ -48,8 +28,9 @@ feature {ANY}
 
 	process_arguments is
 		local
-			input: INPUT_STREAM; headers: HASHED_SET[STRING]; 
-			arg, header, location, module, descriptions, flags: STRING;
+			input: INPUT_STREAM; 
+			headers: WORDS -- previously headers was a HASHED_SET[STRING]; 
+			arg, header, location, avoided, module, descriptions, flags, typedefs: STRING;
 			plugin: BOOLEAN i: INTEGER
 		do
 			check
@@ -59,6 +40,8 @@ feature {ANY}
 			plugin := False
 			flags := once "flags"
 			descriptions := once "descriptions"
+			avoided := once "avoided"
+			typedefs := once "TYPES"
 			create headers.make
 			if argument_count = 0 then
 				print_usage
@@ -111,6 +94,21 @@ feature {ANY}
 							std_error.put_line(once "No flags file given")
 							print_usage
 						end
+					elseif arg.is_equal(once "--avoided") then
+						i := i + 1
+						if i <= argument_count then avoided:=argument(i)
+						else
+							std_error.put_line(once "No avoided file given")
+							print_usage
+						end
+					elseif arg.is_equal(once "--typedefs") then
+						i := i+1
+						if i <= argument_count then
+							typedefs:=argument(i)
+						else
+							std_error.put_line(once "No typedefs file given")
+							print_usage
+						end
 					elseif arg.is_equal(once "--verbose") or else 
 						arg.is_equal(once "-v") then
 						settings.set_verbose(True)
@@ -150,12 +148,15 @@ feature {ANY}
 								
 				maker.set_headers(headers)
 				if input = Void then
-					if verbose then
-						std_error.put_line(once "Using standard input.")
-					end
+					log_string(once "Using standard input.")
 					maker.set_input(std_input)
 				else maker.set_input(input)
 				end
+				if is_valid_class_name(typedefs) then maker.set_typedefs(typedefs)
+				else 
+					std_error.put_line(typedefs+once " is not a valid class name.")
+					print_usage
+				end 
 				if verbose then
 					if global then
 						std_error.put_line(once "Generation wrappers for all the C features found.")
@@ -171,13 +172,18 @@ feature {ANY}
 					end
 				end
 				if file_exists(flags) then 
-					log(once "Reading enumeration that will be forcefully wrapped as flags from '@(1)'.%N",<<flags>>)
+					log(once "Reading enumerations that will be forcefully wrapped as flags from '@(1)'.%N",<<flags>>)
 					maker.read_flags_from(flags)
 				end
  				if file_exists(descriptions) then
 					log(once "Reading descriptions flags from '@(1)'.%N",<<descriptions>>)
 					maker.read_descriptions_from(descriptions)
 				end
+ 				if file_exists(avoided) then
+					log(once "Reading list of avoided symbols from '@(1)'.%N",<<avoided>>)
+					maker.read_avoided_from(avoided)
+				end
+
 			end
 		ensure
 			maker /= Void
@@ -238,6 +244,17 @@ feature {ANY}
 				 `CLASS.feature description' Trailing and leading spaces are trimmed; line
 				 starting with `--' are ignored. If this option is not given the program
 				 will look into file "descriptions".
+
+			  --avoided a_file_name
+			     Do not wrap the symbols found in `a_file_name'. If this option is not 
+				 given the program will look into file "avoided".
+			
+		      --typedefs CLASS_NAME 
+				  Wrap typedefs to fundamental types into class CLASS_NAME as
+				  empty queries named with the typedef name and whose type's
+				  the actual type referred by the typedef. These queries will
+				  not be actually used but are useful as anchored types. If
+				  this option is not given the class name will be TYPES.
 
 			  -v --verbose
 							 Turn on verbose output, printing information about the

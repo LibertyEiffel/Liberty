@@ -1,0 +1,1073 @@
+|standard:storage/loadpath.se:
+99 "STACK" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/stack.e"
+class-name: STACK
+assertion-level: all
+parent-count: 2 insert: 97 13 
+#
+114 "DICTIONARY" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/dictionary.e"
+class-name: DICTIONARY
+assertion-level: all
+parent-count: 1 inherit: 33
+#
+113 "SIMPLE_DICTIONARY" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/simple_dictionary.e"
+class-name: SIMPLE_DICTIONARY
+assertion-level: all
+parent-count: 1 inherit: 114
+#
+79 "COLLECTION" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/collection.e"
+class-name: COLLECTION
+assertion-level: all
+parent-count: 3 inherit: 13 34 33
+#
+|standard:sequencer/loadpath.se:events/
+152 "NETWORK_CONNECTION_OCCURRED" l
+class-path: "/home/paolo/SmartEiffel/lib/sequencer/events/network_connection_occurred.e"
+class-name: NETWORK_CONNECTION_OCCURRED
+assertion-level: all
+parent-count: 1 inherit: 74
+#
+75 "STREAM_EXCEPTION" l
+class-path: "/home/paolo/SmartEiffel/lib/sequencer/events/stream_exception.e"
+class-name: STREAM_EXCEPTION
+assertion-level: all
+parent-count: 1 inherit: 74
+#
+88 "CAN_READ_DATA_FROM_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/sequencer/events/can_read_data_from_stream.e"
+class-name: CAN_READ_DATA_FROM_STREAM
+assertion-level: all
+parent-count: 1 inherit: 74
+#
+77 "CAN_WRITE_DATA_TO_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/sequencer/events/can_write_data_to_stream.e"
+class-name: CAN_WRITE_DATA_TO_STREAM
+assertion-level: all
+parent-count: 1 inherit: 74
+#
+|standard:storage/loadpath.se:low_level/
+120 "STRING_RECYCLING_ITEM" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/low_level/string_recycling_item.e"
+class-name: STRING_RECYCLING_ITEM
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+60 "NATIVE_ARRAY" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/low_level/native_array.e"
+class-name: NATIVE_ARRAY
+assertion-level: all
+parent-count: 1 insert: 61 
+#
+98 "RECYCLING_POOL" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/low_level/recycling_pool.e"
+class-name: RECYCLING_POOL
+assertion-level: all
+parent-count: 2 insert: 99 13 
+#
+9 "NATIVE_ARRAY[CHARACTER]" l
+#
+106 "STRING_RECYCLING_POOL" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/low_level/string_recycling_pool.e"
+class-name: STRING_RECYCLING_POOL
+assertion-level: all
+parent-count: 3 insert: 37 107 32 
+#
+146 "STRING_RECYCLING_ITEM_SORTER" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/low_level/string_recycling_item_sorter.e"
+class-name: STRING_RECYCLING_ITEM_SORTER
+assertion-level: all
+parent-count: 2 insert: 147 32 
+#
+|standard:storage/loadpath.se:collection/
+97 "FAST_ARRAY" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/collection/fast_array.e"
+class-name: FAST_ARRAY
+assertion-level: all
+parent-count: 3 inherit: 79 insert: 84 83 
+#
+82 "ARRAY" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/collection/array.e"
+class-name: ARRAY
+assertion-level: all
+parent-count: 3 inherit: 79 insert: 84 83 
+#
+|glib:library/loadpath.se:utilities/
+52 "G_TIMER" l
+class-path: "/home/paolo/.Eiffel/eiffel-libraries/eiffel-glib/library/utilities/g_timer.e"
+class-name: G_TIMER
+assertion-level: all
+parent-count: 2 inherit: 53 insert: 58 
+c-type: T52 reference: yes
+ref-status: live id-field: yes 
+destination-graph-nodes: none
+run-time-set-count: 1
+run-time-set:
+	G_TIMER (52)
+#
+|standard:io/loadpath.se:
+43 "TERMINAL_INPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal_input_stream.e"
+class-name: TERMINAL_INPUT_STREAM
+assertion-level: all
+parent-count: 1 inherit: 44
+#
+154 "PATH_NAME" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name.e"
+class-name: PATH_NAME
+assertion-level: all
+parent-count: 1 inherit: 135
+#
+42 "TERMINAL_INPUT_OUTPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal_input_output_stream.e"
+class-name: TERMINAL_INPUT_OUTPUT_STREAM
+assertion-level: all
+parent-count: 3 inherit: 43 39 30
+#
+76 "FILTER_OUTPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/io/filter_output_stream.e"
+class-name: FILTER_OUTPUT_STREAM
+assertion-level: all
+parent-count: 2 inherit: 26 insert: 59 
+c-type: T76 reference: yes
+ref-status: dead 
+destination-graph-nodes: none
+run-time-set-count: 0
+#
+59 "FILTER" l
+class-path: "/home/paolo/SmartEiffel/lib/io/filter.e"
+class-name: FILTER
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+39 "TERMINAL_OUTPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal_output_stream.e"
+class-name: TERMINAL_OUTPUT_STREAM
+assertion-level: all
+parent-count: 1 inherit: 26
+#
+87 "FILTER_INPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/io/filter_input_stream.e"
+class-name: FILTER_INPUT_STREAM
+assertion-level: all
+parent-count: 2 inherit: 44 insert: 59 
+#
+26 "OUTPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/io/output_stream.e"
+class-name: OUTPUT_STREAM
+assertion-level: all
+parent-count: 3 inherit: 27 insert: 31 30 
+c-type: T26 reference: yes
+ref-status: dead 
+destination-graph-nodes: empty
+run-time-set-count: 1
+run-time-set:
+	STD_OUTPUT (48)
+#
+136 "DIRECTORY_NOTATION" l
+class-path: "/home/paolo/SmartEiffel/lib/io/directory_notation.e"
+class-name: DIRECTORY_NOTATION
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+27 "STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/io/stream.e"
+class-name: STREAM
+assertion-level: all
+parent-count: 2 insert: 29 28 
+#
+159 "FILE_TOOLS" l
+class-path: "/home/paolo/SmartEiffel/lib/io/file_tools.e"
+class-name: FILE_TOOLS
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+44 "INPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/io/input_stream.e"
+class-name: INPUT_STREAM
+assertion-level: all
+parent-count: 3 inherit: 27 insert: 45 30 
+#
+|glib:library/loadpath.se:externals/
+58 "G_TIMER_EXTERNALS" l
+class-path: "/home/paolo/.Eiffel/eiffel-libraries/eiffel-glib/library/externals/g_timer_externals.e"
+class-name: G_TIMER_EXTERNALS
+assertion-level: all
+parent-count: 1 inherit: 13
+#
+|standard:iterator/loadpath.se:internal/
+100 "ITERATOR_ON_UNICODE_STRING" l
+class-path: "/home/paolo/SmartEiffel/lib/iterator/internal/iterator_on_unicode_string.e"
+class-name: ITERATOR_ON_UNICODE_STRING
+assertion-level: all
+parent-count: 1 inherit: 78
+#
+86 "ITERATOR_ON_STRING" l
+class-path: "/home/paolo/SmartEiffel/lib/iterator/internal/iterator_on_string.e"
+class-name: ITERATOR_ON_STRING
+assertion-level: all
+parent-count: 1 inherit: 78
+#
+125 "ITERATOR_ON_DICTIONARY_ITEMS" l
+class-path: "/home/paolo/SmartEiffel/lib/iterator/internal/iterator_on_dictionary_items.e"
+class-name: ITERATOR_ON_DICTIONARY_ITEMS
+assertion-level: all
+parent-count: 1 inherit: 78
+#
+109 "ITERATOR_ON_TRAVERSABLE" l
+class-path: "/home/paolo/SmartEiffel/lib/iterator/internal/iterator_on_traversable.e"
+class-name: ITERATOR_ON_TRAVERSABLE
+assertion-level: all
+parent-count: 1 inherit: 78
+#
+129 "ITERATOR_ON_DICTIONARY_KEYS" l
+class-path: "/home/paolo/SmartEiffel/lib/iterator/internal/iterator_on_dictionary_keys.e"
+class-name: ITERATOR_ON_DICTIONARY_KEYS
+assertion-level: all
+parent-count: 1 inherit: 78
+#
+|standard:misc/
+110 "MINI_PARSER_BUFFER" l
+class-path: "/home/paolo/SmartEiffel/lib/misc/mini_parser_buffer.e"
+class-name: MINI_PARSER_BUFFER
+assertion-level: all
+parent-count: 1 insert: 32 
+#
+|standard:kernel/
+14 "TUPLE" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE
+assertion-level: all
+parent-count: 1 inherit: 13
+#
+37 "PLATFORM" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/platform.e"
+class-name: PLATFORM
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+81 "ROUTINE" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/routine.e"
+class-name: ROUTINE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+80 "FUNCTION" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/function.e"
+class-name: FUNCTION
+assertion-level: all
+parent-count: 1 inherit: 81
+#
+6 "BOOLEAN" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/boolean.e"
+class-name: BOOLEAN
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+128 "WEAK_REFERENCE" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/weak_reference.e"
+class-name: WEAK_REFERENCE
+assertion-level: all
+parent-count: 1 inherit: 13
+#
+8 "POINTER" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/pointer.e"
+class-name: POINTER
+assertion-level: all
+parent-count: 2 insert: 36 32 
+#
+15 "TUPLE 1" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 1
+assertion-level: all
+parent-count: 1 inherit: 14
+#
+16 "TUPLE 2" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 2
+assertion-level: all
+parent-count: 1 inherit: 15
+#
+17 "TUPLE 3" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 3
+assertion-level: all
+parent-count: 1 inherit: 16
+#
+13 "ANY" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/any.e"
+class-name: ANY
+assertion-level: all
+parent-count: 0
+#
+18 "TUPLE 4" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 4
+assertion-level: all
+parent-count: 1 inherit: 17
+#
+19 "TUPLE 5" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 5
+assertion-level: all
+parent-count: 1 inherit: 18
+#
+20 "TUPLE 6" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 6
+assertion-level: all
+parent-count: 1 inherit: 19
+#
+21 "TUPLE 7" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 7
+assertion-level: all
+parent-count: 1 inherit: 20
+#
+22 "TUPLE 8" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 8
+assertion-level: all
+parent-count: 1 inherit: 21
+#
+23 "TUPLE 9" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 9
+assertion-level: all
+parent-count: 1 inherit: 22
+#
+90 "REFERENCE" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/reference.e"
+class-name: REFERENCE
+assertion-level: all
+parent-count: 1 inherit: 13
+#
+61 "SAFE_EQUAL" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/safe_equal.e"
+class-name: SAFE_EQUAL
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+103 "PROCEDURE" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/procedure.e"
+class-name: PROCEDURE
+assertion-level: all
+parent-count: 1 inherit: 81
+#
+24 "TUPLE 10" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/tuple.e"
+class-name: TUPLE 10
+assertion-level: all
+parent-count: 1 inherit: 23
+#
+57 "EXCEPTIONS" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/exceptions.e"
+class-name: EXCEPTIONS
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+107 "MEMORY" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/memory.e"
+class-name: MEMORY
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:io/loadpath.se:low_level/
+153 "BASIC_DIRECTORY" l
+class-path: "/home/paolo/SmartEiffel/lib/io/low_level/basic_directory.e"
+class-name: BASIC_DIRECTORY
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+40 "REDIRECTION_TOOLS" l
+class-path: "/home/paolo/SmartEiffel/lib/io/low_level/redirection_tools.e"
+class-name: REDIRECTION_TOOLS
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+31 "OUTPUT_STREAM_TOOLS" l
+class-path: "/home/paolo/SmartEiffel/lib/io/low_level/output_stream_tools.e"
+class-name: OUTPUT_STREAM_TOOLS
+assertion-level: all
+parent-count: 1 insert: 32 
+#
+45 "INPUT_STREAM_TOOLS" l
+class-path: "/home/paolo/SmartEiffel/lib/io/low_level/input_stream_tools.e"
+class-name: INPUT_STREAM_TOOLS
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:net/loadpath.se:resource_locators/
+137 "NETWORK_RESOURCE_LOCATOR" l
+class-path: "/home/paolo/SmartEiffel/lib/net/resource_locators/network_resource_locator.e"
+class-name: NETWORK_RESOURCE_LOCATOR
+assertion-level: all
+parent-count: 2 inherit: 105 insert: 119 
+#
+131 "FILE_RESOURCE_LOCATOR" l
+class-path: "/home/paolo/SmartEiffel/lib/net/resource_locators/file_resource_locator.e"
+class-name: FILE_RESOURCE_LOCATOR
+assertion-level: all
+parent-count: 1 inherit: 105
+#
+119 "NETWORK_RESOURCE_VALIDITY" l
+class-path: "/home/paolo/SmartEiffel/lib/net/resource_locators/network_resource_validity.e"
+class-name: NETWORK_RESOURCE_VALIDITY
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:iterator/loadpath.se:
+78 "ITERATOR" l
+class-path: "/home/paolo/SmartEiffel/lib/iterator/iterator.e"
+class-name: ITERATOR
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:kernel/internal/
+111 "NATIVE_ARRAY_INTERNALS" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/internal/native_array_internals.e"
+class-name: NATIVE_ARRAY_INTERNALS
+assertion-level: all
+parent-count: 1 inherit: 46
+#
+83 "NATIVE_ARRAY_COLLECTOR" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/internal/native_array_collector.e"
+class-name: NATIVE_ARRAY_COLLECTOR
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+89 "INTERNALS_HANDLER" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/internal/internals_handler.e"
+class-name: INTERNALS_HANDLER
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+46 "TYPED_INTERNALS" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/internal/typed_internals.e"
+class-name: TYPED_INTERNALS
+assertion-level: all
+parent-count: 1 inherit: 47
+#
+47 "INTERNALS" l
+class-path: "/home/paolo/SmartEiffel/lib/kernel/internal/internals.e"
+class-name: INTERNALS
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:sorting/
+147 "ABSTRACT_SORTER" l
+class-path: "/home/paolo/SmartEiffel/lib/sorting/abstract_sorter.e"
+class-name: ABSTRACT_SORTER
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:io/loadpath.se:terminal/
+70 "TEXT_FILE_READ" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal/text_file_read.e"
+class-name: TEXT_FILE_READ
+assertion-level: all
+parent-count: 3 inherit: 71 43 insert: 32 
+#
+132 "TEXT_FILE_READ_WRITE" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal/text_file_read_write.e"
+class-name: TEXT_FILE_READ_WRITE
+assertion-level: all
+parent-count: 3 inherit: 71 42 insert: 32 
+#
+130 "TEXT_FILE_WRITE" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal/text_file_write.e"
+class-name: TEXT_FILE_WRITE
+assertion-level: all
+parent-count: 2 inherit: 71 39
+#
+38 "STD_ERROR" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal/std_error.e"
+class-name: STD_ERROR
+assertion-level: all
+parent-count: 2 inherit: 39 insert: 40 
+#
+48 "STD_OUTPUT" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal/std_output.e"
+class-name: STD_OUTPUT
+assertion-level: all
+parent-count: 2 inherit: 39 insert: 40 
+c-type: T48 reference: yes
+ref-status: live id-field: yes 
+destination-graph-nodes: ->OUTPUT_STREAM
+run-time-set-count: 1
+run-time-set:
+	STD_OUTPUT (48)
+#
+71 "FILE" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal/file.e"
+class-name: FILE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+49 "STD_INPUT" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal/std_input.e"
+class-name: STD_INPUT
+assertion-level: all
+parent-count: 3 inherit: 43 insert: 32 40 
+#
+41 "STD_INPUT_OUTPUT" l
+class-path: "/home/paolo/SmartEiffel/lib/io/terminal/std_input_output.e"
+class-name: STD_INPUT_OUTPUT
+assertion-level: all
+parent-count: 1 inherit: 42
+#
+|standard:time/loadpath.se:low_level/
+149 "TIME_HANDLER" l
+class-path: "/home/paolo/SmartEiffel/lib/time/low_level/time_handler.e"
+class-name: TIME_HANDLER
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:net/loadpath.se:protocols/
+143 "HTTP_PROXY" l
+class-path: "/home/paolo/SmartEiffel/lib/net/protocols/http_proxy.e"
+class-name: HTTP_PROXY
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+118 "TCP_PROTOCOL" l
+class-path: "/home/paolo/SmartEiffel/lib/net/protocols/tcp_protocol.e"
+class-name: TCP_PROTOCOL
+assertion-level: all
+parent-count: 2 inherit: 102 insert: 119 
+#
+116 "FILE_PROTOCOL" l
+class-path: "/home/paolo/SmartEiffel/lib/net/protocols/file_protocol.e"
+class-name: FILE_PROTOCOL
+assertion-level: all
+parent-count: 1 inherit: 102
+#
+144 "HTTP_CLIENT_INPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/net/protocols/http_client_input_stream.e"
+class-name: HTTP_CLIENT_INPUT_STREAM
+assertion-level: all
+parent-count: 1 inherit: 87
+#
+117 "HTTP_PROTOCOL" l
+class-path: "/home/paolo/SmartEiffel/lib/net/protocols/http_protocol.e"
+class-name: HTTP_PROTOCOL
+assertion-level: all
+parent-count: 1 inherit: 118
+#
+145 "HTTP_CLIENT_OUTPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/net/protocols/http_client_output_stream.e"
+class-name: HTTP_CLIENT_OUTPUT_STREAM
+assertion-level: all
+parent-count: 1 inherit: 76
+#
+104 "STREAM_PROTOCOL" l
+class-path: "/home/paolo/SmartEiffel/lib/net/protocols/stream_protocol.e"
+class-name: STREAM_PROTOCOL
+assertion-level: all
+parent-count: 1 inherit: 102
+#
+|standard:storage/loadpath.se:internal/
+126 "HASHED_DICTIONARY_NODE" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/internal/hashed_dictionary_node.e"
+class-name: HASHED_DICTIONARY_NODE
+assertion-level: all
+parent-count: 1 inherit: 127
+#
+84 "ARRAYED_COLLECTION" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/internal/arrayed_collection.e"
+class-name: ARRAYED_COLLECTION
+assertion-level: all
+parent-count: 1 insert: 79 
+#
+127 "ANY_HASHED_DICTIONARY_NODE" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/internal/any_hashed_dictionary_node.e"
+class-name: ANY_HASHED_DICTIONARY_NODE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+115 "HASH_TABLE_SIZE" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/internal/hash_table_size.e"
+class-name: HASH_TABLE_SIZE
+assertion-level: all
+parent-count: 1 insert: 37 
+#
+|.
+25 "TIMER_EXAMPLE" l
+class-path: "/media/FLASH/eiffel-libraries/trunk/eiffel-glib/examples/timer_example.e"
+class-name: TIMER_EXAMPLE
+assertion-level: all
+parent-count: 1 insert: 13 
+c-type: T25 reference: yes
+ref-status: live id-field: yes 
+destination-graph-nodes: none
+run-time-set-count: 1
+run-time-set:
+	TIMER_EXAMPLE (25)
+#
+|standard:net/loadpath.se:
+102 "PROTOCOL" l
+class-path: "/home/paolo/SmartEiffel/lib/net/protocol.e"
+class-name: PROTOCOL
+assertion-level: all
+parent-count: 2 insert: 29 28 
+#
+140 "ACCESS" l
+class-path: "/home/paolo/SmartEiffel/lib/net/access.e"
+class-name: ACCESS
+assertion-level: all
+parent-count: 1 insert: 124 
+#
+138 "SOCKET_INPUT_OUTPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/net/socket_input_output_stream.e"
+class-name: SOCKET_INPUT_OUTPUT_STREAM
+assertion-level: all
+parent-count: 3 inherit: 42 insert: 124 32 
+#
+73 "URL_VALIDITY" l
+class-path: "/home/paolo/SmartEiffel/lib/net/url_validity.e"
+class-name: URL_VALIDITY
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+105 "RESOURCE_LOCATOR" l
+class-path: "/home/paolo/SmartEiffel/lib/net/resource_locator.e"
+class-name: RESOURCE_LOCATOR
+assertion-level: all
+parent-count: 1 insert: 29 
+#
+142 "ADDRESS" l
+class-path: "/home/paolo/SmartEiffel/lib/net/address.e"
+class-name: ADDRESS
+assertion-level: all
+parent-count: 2 inherit: 36 insert: 13 
+#
+72 "URL" l
+class-path: "/home/paolo/SmartEiffel/lib/net/url.e"
+class-name: URL
+assertion-level: all
+parent-count: 3 insert: 36 29 73 
+#
+101 "PROTOCOLS" l
+class-path: "/home/paolo/SmartEiffel/lib/net/protocols.e"
+class-name: PROTOCOLS
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:string/loadpath.se:
+3 "CHARACTER" l
+class-path: "/home/paolo/SmartEiffel/lib/string/character.e"
+class-name: CHARACTER
+assertion-level: all
+parent-count: 3 insert: 36 35 37 
+#
+7 "STRING" l
+class-path: "/home/paolo/SmartEiffel/lib/string/string.e"
+class-name: STRING
+assertion-level: all
+parent-count: 7 inherit: 13 36 35 34 33 insert: 37 29 
+#
+69 "UNICODE_STRING" l
+class-path: "/home/paolo/SmartEiffel/lib/string/unicode_string.e"
+class-name: UNICODE_STRING
+assertion-level: all
+parent-count: 4 inherit: 36 35 33 29
+#
+|standard:numeric/loadpath.se:internal/
+92 "INTEGER_GENERAL_NUMBER" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/internal/integer_general_number.e"
+class-name: INTEGER_GENERAL_NUMBER
+assertion-level: all
+parent-count: 1 inherit: 68
+#
+91 "INTEGER_64_NUMBER" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/internal/integer_64_number.e"
+class-name: INTEGER_64_NUMBER
+assertion-level: all
+parent-count: 1 inherit: 92
+#
+94 "FRACTION_WITH_BIG_INTEGER_NUMBER" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/internal/fraction_with_big_integer_number.e"
+class-name: FRACTION_WITH_BIG_INTEGER_NUMBER
+assertion-level: all
+parent-count: 1 inherit: 95
+#
+95 "FRACTION_GENERAL_NUMBER" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/internal/fraction_general_number.e"
+class-name: FRACTION_GENERAL_NUMBER
+assertion-level: all
+parent-count: 1 inherit: 68
+#
+96 "BIG_INTEGER_NUMBER" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/internal/big_integer_number.e"
+class-name: BIG_INTEGER_NUMBER
+assertion-level: all
+parent-count: 1 inherit: 92
+#
+|standard:unicode/
+161 "UNICODE_STRING_HANDLER" l
+class-path: "/home/paolo/SmartEiffel/lib/unicode/unicode_string_handler.e"
+class-name: UNICODE_STRING_HANDLER
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:net/loadpath.se:low_level/
+150 "SOCKET" l
+class-path: "/home/paolo/SmartEiffel/lib/net/low_level/socket.e"
+class-name: SOCKET
+assertion-level: all
+parent-count: 5 insert: 32 124 123 29 28 
+#
+122 "SOCKET_SERVER" l
+class-path: "/home/paolo/SmartEiffel/lib/net/low_level/socket_server.e"
+class-name: SOCKET_SERVER
+assertion-level: all
+parent-count: 2 insert: 124 123 
+#
+124 "SOCKET_HANDLER" l
+class-path: "/home/paolo/SmartEiffel/lib/net/low_level/socket_handler.e"
+class-name: SOCKET_HANDLER
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+123 "SOCKET_PLUG_IN" l
+class-path: "/home/paolo/SmartEiffel/lib/net/low_level/socket_plug_in.e"
+class-name: SOCKET_PLUG_IN
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+157 "CLIENT_SOCKET_INPUT_OUTPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/net/low_level/client_socket_input_output_stream.e"
+class-name: CLIENT_SOCKET_INPUT_OUTPUT_STREAM
+assertion-level: all
+parent-count: 1 inherit: 138
+#
+151 "SERVER_SOCKET_INPUT_OUTPUT_STREAM" l
+class-path: "/home/paolo/SmartEiffel/lib/net/low_level/server_socket_input_output_stream.e"
+class-name: SERVER_SOCKET_INPUT_OUTPUT_STREAM
+assertion-level: all
+parent-count: 1 inherit: 138
+#
+|standard:net/loadpath.se:access/
+139 "TCP_ACCESS" l
+class-path: "/home/paolo/SmartEiffel/lib/net/access/tcp_access.e"
+class-name: TCP_ACCESS
+assertion-level: all
+parent-count: 2 inherit: 140 insert: 123 
+#
+|glib:../common/loadpath.se:library/loadpath.se:
+55 "POINTER_HANDLING" l
+class-path: "/home/paolo/.Eiffel/eiffel-libraries/common/library/pointer_handling.e"
+class-name: POINTER_HANDLING
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+56 "WRAPPER_HANDLER" l
+class-path: "/home/paolo/.Eiffel/eiffel-libraries/common/library/wrapper_handler.e"
+class-name: WRAPPER_HANDLER
+assertion-level: all
+parent-count: 2 inherit: 13 insert: 57 
+#
+53 "C_STRUCT" l
+class-path: "/home/paolo/.Eiffel/eiffel-libraries/common/library/c_struct.e"
+class-name: C_STRUCT
+assertion-level: all
+parent-count: 1 inherit: 54
+#
+54 "WRAPPER" l
+class-path: "/home/paolo/.Eiffel/eiffel-libraries/common/library/wrapper.e"
+class-name: WRAPPER
+assertion-level: all
+parent-count: 4 inherit: 28 13 insert: 56 55 
+#
+|standard:storage/loadpath.se:dictionary/
+112 "HASHED_DICTIONARY" l
+class-path: "/home/paolo/SmartEiffel/lib/storage/dictionary/hashed_dictionary.e"
+class-name: HASHED_DICTIONARY
+assertion-level: all
+parent-count: 2 inherit: 113 insert: 115 
+#
+|standard:sequencer/loadpath.se:
+74 "EVENT_DESCRIPTOR" l
+class-path: "/home/paolo/SmartEiffel/lib/sequencer/event_descriptor.e"
+class-name: EVENT_DESCRIPTOR
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+108 "EVENTS_SET" l
+class-path: "/home/paolo/SmartEiffel/lib/sequencer/events_set.e"
+class-name: EVENTS_SET
+assertion-level: all
+parent-count: 2 insert: 13 37 
+#
+|standard:string/loadpath.se:low_level/
+32 "STRING_HANDLER" l
+class-path: "/home/paolo/SmartEiffel/lib/string/low_level/string_handler.e"
+class-name: STRING_HANDLER
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:io/loadpath.se:internal/
+156 "UNIXISH_PATH_NAME" l
+class-path: "/home/paolo/SmartEiffel/lib/io/internal/unixish_path_name.e"
+class-name: UNIXISH_PATH_NAME
+assertion-level: all
+parent-count: 1 inherit: 154
+#
+30 "FILTERABLE" l
+class-path: "/home/paolo/SmartEiffel/lib/io/internal/filterable.e"
+class-name: FILTERABLE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+135 "PATH_JOINER" l
+class-path: "/home/paolo/SmartEiffel/lib/io/internal/path_joiner.e"
+class-name: PATH_JOINER
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:net/loadpath.se:address/
+141 "HOST" l
+class-path: "/home/paolo/SmartEiffel/lib/net/address/host.e"
+class-name: HOST
+assertion-level: all
+parent-count: 2 inherit: 142 insert: 123 
+#
+158 "IP_ADDRESS" l
+class-path: "/home/paolo/SmartEiffel/lib/net/address/ip_address.e"
+class-name: IP_ADDRESS
+assertion-level: all
+parent-count: 1 inherit: 142
+#
+|standard:io/loadpath.se:path_name/
+155 "POSIX_PATH_NAME" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name/posix_path_name.e"
+class-name: POSIX_PATH_NAME
+assertion-level: all
+parent-count: 1 inherit: 156
+#
+165 "WINDOWS_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name/windows_directory_notation.e"
+class-name: WINDOWS_DIRECTORY_NOTATION
+assertion-level: all
+parent-count: 1 inherit: 134
+#
+133 "UNIX_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name/unix_directory_notation.e"
+class-name: UNIX_DIRECTORY_NOTATION
+assertion-level: all
+parent-count: 1 inherit: 134
+#
+167 "CYGWIN_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name/cygwin_directory_notation.e"
+class-name: CYGWIN_DIRECTORY_NOTATION
+assertion-level: all
+parent-count: 1 inherit: 136
+#
+163 "OPENVMS_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name/openvms_directory_notation.e"
+class-name: OPENVMS_DIRECTORY_NOTATION
+assertion-level: all
+parent-count: 1 inherit: 136
+#
+134 "PATH_NAME_NOTATION" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name/path_name_notation.e"
+class-name: PATH_NAME_NOTATION
+assertion-level: all
+parent-count: 2 inherit: 136 135
+#
+162 "MACINTOSH_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name/macintosh_directory_notation.e"
+class-name: MACINTOSH_DIRECTORY_NOTATION
+assertion-level: all
+parent-count: 1 inherit: 136
+#
+166 "MICROSOFT_PATH_NAME" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name/microsoft_path_name.e"
+class-name: MICROSOFT_PATH_NAME
+assertion-level: all
+parent-count: 1 inherit: 156
+#
+164 "AMIGA_DIRECTORY_NOTATION" l
+class-path: "/home/paolo/SmartEiffel/lib/io/path_name/amiga_directory_notation.e"
+class-name: AMIGA_DIRECTORY_NOTATION
+assertion-level: all
+parent-count: 1 inherit: 136
+#
+|standard:time/loadpath.se:
+168 "TIME_FORMATTER" l
+class-path: "/home/paolo/SmartEiffel/lib/time/time_formatter.e"
+class-name: TIME_FORMATTER
+assertion-level: all
+parent-count: 1 insert: 149 
+#
+148 "TIME" l
+class-path: "/home/paolo/SmartEiffel/lib/time/time.e"
+class-name: TIME
+assertion-level: all
+parent-count: 3 insert: 36 35 149 
+#
+121 "MICROSECOND_TIME" l
+class-path: "/home/paolo/SmartEiffel/lib/time/microsecond_time.e"
+class-name: MICROSECOND_TIME
+assertion-level: all
+parent-count: 2 insert: 36 35 
+#
+|standard:abilities/
+34 "STORABLE" l
+class-path: "/home/paolo/SmartEiffel/lib/abilities/storable.e"
+class-name: STORABLE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+29 "RECYCLABLE" l
+class-path: "/home/paolo/SmartEiffel/lib/abilities/recyclable.e"
+class-name: RECYCLABLE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+36 "HASHABLE" l
+class-path: "/home/paolo/SmartEiffel/lib/abilities/hashable.e"
+class-name: HASHABLE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+33 "TRAVERSABLE" l
+class-path: "/home/paolo/SmartEiffel/lib/abilities/traversable.e"
+class-name: TRAVERSABLE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+28 "DISPOSABLE" l
+class-path: "/home/paolo/SmartEiffel/lib/abilities/disposable.e"
+class-name: DISPOSABLE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+35 "COMPARABLE" l
+class-path: "/home/paolo/SmartEiffel/lib/abilities/comparable.e"
+class-name: COMPARABLE
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:exec/loadpath.se:
+160 "SYSTEM" l
+class-path: "/home/paolo/SmartEiffel/lib/exec/system.e"
+class-name: SYSTEM
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+|standard:numeric/loadpath.se:
+85 "NUMBER_TOOLS" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/number_tools.e"
+class-name: NUMBER_TOOLS
+assertion-level: all
+parent-count: 1 insert: 13 
+#
+4 "REAL_32" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/real_32.e"
+class-name: REAL_32
+assertion-level: all
+parent-count: 1 insert: 50 
+#
+67 "NATURAL_64" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/natural_64.e"
+class-name: NATURAL_64
+assertion-level: all
+parent-count: 1 insert: 63 
+#
+65 "NATURAL_8" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/natural_8.e"
+class-name: NATURAL_8
+assertion-level: all
+parent-count: 1 insert: 63 
+#
+11 "INTEGER_64" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/integer_64.e"
+class-name: INTEGER_64
+assertion-level: all
+parent-count: 1 insert: 64 
+#
+68 "NUMBER" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/number.e"
+class-name: NUMBER
+assertion-level: all
+parent-count: 4 inherit: 36 35 51 insert: 37 
+#
+5 "REAL_64" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/real_64.e"
+class-name: REAL_64
+assertion-level: all
+parent-count: 1 insert: 50 
+#
+63 "NATURAL_GENERAL" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/natural_general.e"
+class-name: NATURAL_GENERAL
+assertion-level: all
+parent-count: 2 inherit: 35 insert: 37 
+#
+64 "INTEGER_GENERAL" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/integer_general.e"
+class-name: INTEGER_GENERAL
+assertion-level: all
+parent-count: 3 inherit: 35 insert: 51 37 
+#
+51 "NUMERIC" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/numeric.e"
+class-name: NUMERIC
+assertion-level: all
+parent-count: 1 inherit: 36
+#
+1 "INTEGER_8" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/integer_8.e"
+class-name: INTEGER_8
+assertion-level: all
+parent-count: 1 insert: 64 
+#
+5 "REAL" l
+#
+2 "INTEGER" l
+#
+62 "NATURAL_16" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/natural_16.e"
+class-name: NATURAL_16
+assertion-level: all
+parent-count: 1 insert: 63 
+#
+12 "REAL_EXTENDED" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/real_extended.e"
+class-name: REAL_EXTENDED
+assertion-level: all
+parent-count: 1 insert: 50 
+#
+50 "REAL_GENERAL" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/real_general.e"
+class-name: REAL_GENERAL
+assertion-level: all
+parent-count: 2 inherit: 51 35
+#
+66 "NATURAL_32" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/natural_32.e"
+class-name: NATURAL_32
+assertion-level: all
+parent-count: 1 insert: 63 
+#
+10 "INTEGER_16" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/integer_16.e"
+class-name: INTEGER_16
+assertion-level: all
+parent-count: 1 insert: 64 
+#
+93 "MUTABLE_BIG_INTEGER" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/mutable_big_integer.e"
+class-name: MUTABLE_BIG_INTEGER
+assertion-level: all
+parent-count: 3 inherit: 36 35 insert: 37 
+#
+2 "INTEGER_32" l
+class-path: "/home/paolo/SmartEiffel/lib/numeric/integer_32.e"
+class-name: INTEGER_32
+assertion-level: all
+parent-count: 1 insert: 64 
+#
