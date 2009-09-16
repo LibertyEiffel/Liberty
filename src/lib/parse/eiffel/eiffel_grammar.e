@@ -248,8 +248,10 @@ feature {}
 																							 {FAST_ARRAY[STRING] << "Feature", "Feature*" >> }, agent build_continue_list("Feature", 0, "Feature*") >> };
 											  "Feature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW feature", "KW {", "Clients", "KW }", "Feature_Definition*" >> }, Void >> };
 											  "Clients", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Clients");
-																							{FAST_ARRAY[STRING] << "KW class name" >> }, agent build_new_list("KW class name", "Clients");
-																							{FAST_ARRAY[STRING] << "KW class name", "KW ,", "Clients" >> }, agent build_continue_list("KW class name", 1, "Clients") >> };
+																							{FAST_ARRAY[STRING] << "Client" >> }, agent build_new_list("Client", "Clients");
+																							{FAST_ARRAY[STRING] << "Client", "KW ,", "Clients" >> }, agent build_continue_list("Client", 1, "Clients") >> };
+											  "Client", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void; -- Liberty extension
+																						  {FAST_ARRAY[STRING] << "KW class name" >> }, Void >> };
 											  "Feature_Definition*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Feature_Definition*");
 																											{FAST_ARRAY[STRING] << "Feature_Definition", "Feature_Definition*" >> }, agent build_continue_list("Feature_Definition", 0, "Feature_Definition*") >> };
 											  "Feature_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature" >> }, Void;
@@ -285,7 +287,7 @@ feature {}
 																									  {FAST_ARRAY[STRING] << "KW [", "Effective_Type_Parameter+", "KW ]" >> }, Void >> };
 											  "Effective_Type_Parameter+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Effective_Type_Parameter" >> }, agent build_new_list("Effective_Type_Parameter", "Effective_Type_Parameter+");
 																									  {FAST_ARRAY[STRING] << "Effective_Type_Parameter", "KW ,", "Effective_Type_Parameter+" >> }, agent build_continue_list("Effective_Type_Parameter", 1, "Effective_Type_Parameter+") >> };
-											  "Effective_Type_Parameter", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition", "Effective_Type_Parameters" >> }, Void >> };
+											  "Effective_Type_Parameter", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void >> };
 											  "Invariant", {PARSE_NON_TERMINAL << epsilon, Void;
 																							  {FAST_ARRAY[STRING] << "KW invariant", "Assertion*" >> }, Void >> };
 											  "Require", {PARSE_NON_TERMINAL << epsilon, Void;
@@ -374,8 +376,8 @@ feature {}
 											  "KW Precursor", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "Precursor"), Void);
 											  "KW Current", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "Current"), Void);
 											  "KW Result", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "Result"), Void);
-											  "KW True", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "True"), Void);
-											  "KW False", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "False"), Void);
+											  "KW True", create {PARSE_TERMINAL}.make(agent parse_boolean(?, "True"), Void);
+											  "KW False", create {PARSE_TERMINAL}.make(agent parse_boolean(?, "False"), Void);
 											  "KW Void", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "Void"), Void);
 											  "KW like", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "like"), Void);
 											  "KW !", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "!"), Void);
@@ -570,10 +572,10 @@ feature {}
 			buffer.current_index = last_blanks.count + old buffer.current_index
 		end
 
-	parse_string (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+	parse_string (buffer: MINI_PARSER_BUFFER): TYPED_EIFFEL_IMAGE[STRING] is
 			-- the algorithm is a bit less strict than SmartEiffel's
 		local
-			old_position, start_position: like position; i, t, state: INTEGER; c: CHARACTER; image, end_tag: STRING
+			old_position, start_position: like position; i, t, state, code, scale: INTEGER; c: CHARACTER; image, parsed, end_tag: STRING; unicode: BOOLEAN
 		do
 			old_position := position
 			skip_blanks(buffer)
@@ -582,12 +584,18 @@ feature {}
 				image := once ""
 				image.copy(once "U")
 				next_character(buffer)
+				skip_blanks(buffer)
+				if buffer.end_reached or else buffer.current_character /= '"' then
+					image := Void
+				end
 			end
 			if not buffer.end_reached and then buffer.current_character = '"' then
 				if image = Void then
 					image := once ""
 					image.clear_count
 				end
+				parsed := once ""
+				parsed.clear_count
 				image.extend('"')
 				from
 					next_character(buffer)
@@ -617,19 +625,109 @@ feature {}
 							state := -1
 						else
 							image.extend(c)
+							parsed.extend(c)
 						end
 					when 1 then
 						-- just after a % in a simple string
 						inspect
 							c
-						when '%R', '%N' then
+						when '%R' then
+							parsed.extend('%R')
 							image.extend(c)
 							state := 2
-						when 'A', 'B', 'C', 'D', 'F', 'H', 'L', 'N', 'Q', 'R', 'S', 'T', 'U', 'V', '%%', '%'', '%"', '(', ')', '<', '>' then
+						when '%N' then
+							parsed.extend('%N')
+							image.extend(c)
+							state := 2
+						when 'A' then
+							parsed.extend('%A')
+							image.extend(c)
+							state := 0
+						when 'B' then
+							parsed.extend('%B')
+							image.extend(c)
+							state := 0
+						when 'C' then
+							parsed.extend('%C')
+							image.extend(c)
+							state := 0
+						when 'D' then
+							parsed.extend('%D')
+							image.extend(c)
+							state := 0
+						when 'F' then
+							parsed.extend('%F')
+							image.extend(c)
+							state := 0
+						when 'H' then
+							parsed.extend('%H')
+							image.extend(c)
+							state := 0
+						when 'L' then
+							parsed.extend('%L')
+							image.extend(c)
+							state := 0
+						when 'N' then
+							parsed.extend('%N')
+							image.extend(c)
+							state := 0
+						when 'Q' then
+							parsed.extend('%Q')
+							image.extend(c)
+							state := 0
+						when 'R' then
+							parsed.extend('%R')
+							image.extend(c)
+							state := 0
+						when 'S' then
+							parsed.extend('%S')
+							image.extend(c)
+							state := 0
+						when 'T' then
+							parsed.extend('%T')
+							image.extend(c)
+							state := 0
+						when 'U' then
+							parsed.extend('%U')
+							image.extend(c)
+							state := 0
+						when 'V' then
+							parsed.extend('%V')
+							image.extend(c)
+							state := 0
+						when '%%' then
+							parsed.extend('%%')
+							image.extend(c)
+							state := 0
+						when '%'' then
+							parsed.extend('%'')
+							image.extend(c)
+							state := 0
+						when '%"' then
+							parsed.extend('%"')
+							image.extend(c)
+							state := 0
+						when '(' then
+							parsed.extend('%(')
+							image.extend(c)
+							state := 0
+						when ')' then
+							parsed.extend('%)')
+							image.extend(c)
+							state := 0
+						when '<' then
+							parsed.extend('%<')
+							image.extend(c)
+							state := 0
+						when '>' then
+							parsed.extend('%>')
 							image.extend(c)
 							state := 0
 						when '/' then
 							image.extend(c)
+							code := 0
+							scale := 10
+							unicode := False
 							state := 3
 						else
 							-- unknown escape character
@@ -640,6 +738,7 @@ feature {}
 						inspect
 							c
 						when '%R', '%N', '%T', ' ' then
+							parsed.extend(c)
 							image.extend(c)
 						when '%%' then
 							image.extend(c)
@@ -650,9 +749,21 @@ feature {}
 						end
 					when 3 then
 						inspect c
-						when '0'..'9', 'x', 'U' then
+						when '0'..'9' then
+							code := code * scale + (c.code - '0'.code)
+						when 'x' then
+							scale := 16
+							image.extend(c)
+						when 'U' then
+							scale := 16
+							unicode := True
 							image.extend(c)
 						when '/' then
+							if unicode then
+								parsed.extend(code.to_character)
+							else
+								-- parsed.extend(code.to_unicode_character) -- *** TODO unicode
+							end
 							image.extend('/')
 							state := 0
 						else
@@ -745,6 +856,10 @@ feature {}
 							if c = end_tag.item(t) then
 								t := t + 1
 							else
+								if t > end_tag.lower then
+									parsed.append(end_tag.substring(1, t))
+								end
+								parsed.extend(c)
 								t := end_tag.lower
 							end
 							image.extend(c)
@@ -753,13 +868,17 @@ feature {}
 					next_character(buffer)
 				end
 				if image /= Void then
-					create Result.make(image.twin, last_blanks.twin, start_position)
+					create Result.make(image.twin, parsed.twin, last_blanks.twin, start_position)
 				else
 					restore(buffer, old_position)
 				end
 			end
 		ensure
-			Result /= Void implies Result.image.count >= 2 and then Result.image.first = '"' and then Result.image.last = '"'
+			Result /= Void implies (
+					(Result.image.count >= 2 and then Result.image.first = '"')
+						or else
+					(Result.image.count >= 3 and then Result.image.first = 'U' and then Result.image.item(2) = '"')
+				) and then Result.image.last = '"'
 		end
 
 	is_entity_name_start (c: CHARACTER): BOOLEAN is
@@ -788,7 +907,7 @@ feature {}
 			end
 		end
 
-	parse_entity_name (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+	parse_entity_name (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		local
 			old_position, start_position: like position; image: STRING
 		do
@@ -841,7 +960,7 @@ feature {}
 			end
 		end
 
-	parse_class_name (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+	parse_class_name (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		local
 			old_position, start_position: like position; image: STRING
 		do
@@ -868,25 +987,25 @@ feature {}
 			end
 		end
 
-	parse_keyword (buffer: MINI_PARSER_BUFFER; keyword: STRING): EIFFEL_IMAGE is
+	keyword_image (buffer: MINI_PARSER_BUFFER; keyword: STRING): STRING is
 		local
-			old_position, start_position: like position; i: INTEGER; image: STRING; c: CHARACTER
+			old_position, start_position: like position; i: INTEGER; c: CHARACTER
 		do
 			old_position := position
 			skip_blanks(buffer)
 			start_position := position
 			from
-				image := keyword
+				Result := keyword
 				i := keyword.lower
 			until
-				i > keyword.upper or else image = Void
+				i > keyword.upper or else Result = Void
 			loop
 				if buffer.current_character = keyword.item(i) then
 					next_character(buffer)
 					i := i + 1
 				else
 					restore(buffer, old_position)
-					image := Void
+					Result := Void
 				end
 			end
 			if buffer.end_reached  then
@@ -898,15 +1017,27 @@ feature {}
 				if not c.is_separator then
 					if keyword.first.is_letter_or_digit then
 						if c.is_letter_or_digit or else c = '_' then
-							image := Void
+							Result := Void
 							restore(buffer, old_position)
 						end
 					end
 				end
 			end
+		end
+
+	parse_keyword (buffer: MINI_PARSER_BUFFER; keyword: STRING): UNTYPED_EIFFEL_IMAGE is
+		local
+			old_position, start_position: like position; image: STRING
+		do
+			old_position := position
+			skip_blanks(buffer)
+			start_position := position
+			image := keyword_image(buffer, keyword)
 			if image /= Void then
 				-- `image' may be shared here
 				create Result.make(image, last_blanks.twin, start_position)
+			else
+				restore(buffer, old_position)
 			end
 		end
 
@@ -918,7 +1049,7 @@ feature {}
 
 	in_parent_clause: BOOLEAN
 
-	parse_parent_clause (buffer: MINI_PARSER_BUFFER; keyword: STRING): EIFFEL_IMAGE is
+	parse_parent_clause (buffer: MINI_PARSER_BUFFER; keyword: STRING): UNTYPED_EIFFEL_IMAGE is
 		do
 			Result := parse_keyword(buffer, keyword)
 			if Result /= Void then
@@ -928,7 +1059,7 @@ feature {}
 			Result /= Void implies in_parent_clause
 		end
 
-	parse_end_of_parent_clause (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+	parse_end_of_parent_clause (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		do
 			if in_parent_clause then
 				Result := parse_keyword(buffer, once "end")
@@ -938,7 +1069,7 @@ feature {}
 			not in_parent_clause
 		end
 
-	parse_lt (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+	parse_lt (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		local
 			old_position, start_position: like position; image: STRING
 		do
@@ -959,7 +1090,7 @@ feature {}
 			end
 		end
 
-	parse_gt (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+	parse_gt (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		local
 			old_position, start_position: like position; image: STRING
 		do
@@ -980,7 +1111,7 @@ feature {}
 			end
 		end
 
-	parse_freeop (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+	parse_freeop (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		local
 			old_position, start_position: like position; image: STRING
 		do
@@ -1005,6 +1136,26 @@ feature {}
 					restore(buffer, old_position)
 				end
 			end
+		end
+
+	parse_boolean (buffer: MINI_PARSER_BUFFER; expected: STRING): TYPED_EIFFEL_IMAGE[BOOLEAN] is
+		require
+			expected.is_boolean
+		local
+			old_position, start_position: like position; image: STRING
+		do
+			old_position := position
+			skip_blanks(buffer)
+			start_position := position
+			image := keyword_image(buffer, expected)
+			if image /= Void then
+				-- `image' may be shared here
+				create Result.make(image, False, last_blanks.twin, start_position)
+			else
+				restore(buffer, old_position)
+			end
+		ensure
+			Result /= Void implies Result.decoded = expected.to_boolean
 		end
 
 	parse_number (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
@@ -1136,13 +1287,19 @@ feature {}
 			if image = Void then
 				restore(buffer, old_position)
 			else
-				create Result.make(image.twin, last_blanks.twin, start_position)
+				if image.is_integer_64 then
+					create {TYPED_EIFFEL_IMAGE[INTEGER_64]}Result.make(image.twin, image.to_integer_64, last_blanks.twin, start_position)
+				elseif image.is_real then
+					create {TYPED_EIFFEL_IMAGE[REAL]}Result.make(image.twin, image.to_real, last_blanks.twin, start_position)
+				else
+					create {UNTYPED_EIFFEL_IMAGE}Result.make(image.twin, last_blanks.twin, start_position)
+				end
 			end
 		end
 
-	parse_character (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+	parse_character (buffer: MINI_PARSER_BUFFER): TYPED_EIFFEL_IMAGE[CHARACTER] is
 		local
-			old_position, start_position: like position; c: CHARACTER; image: STRING
+			old_position, start_position: like position; c, character: CHARACTER; image: STRING; invalid_character: BOOLEAN
 		do
 			old_position := position
 			skip_blanks(buffer)
@@ -1157,16 +1314,71 @@ feature {}
 				else
 					c := buffer.current_character
 					next_character(buffer)
-					if c = '%%' then
+					if c /= '%%' then
+						character := c
+					else
 						image.extend('%%')
 						if buffer.end_reached then
 							image := Void
 						else
 							c := buffer.current_character
+							inspect c
+							when '%R' then
+								character := '%R'
+							when '%N' then
+								character := '%N'
+							when 'A' then
+								character := '%A'
+							when 'B' then
+								character := '%B'
+							when 'C' then
+								character := '%C'
+							when 'D' then
+								character := '%D'
+							when 'F' then
+								character := '%F'
+							when 'H' then
+								character := '%H'
+							when 'L' then
+								character := '%L'
+							when 'N' then
+								character := '%N'
+							when 'Q' then
+								character := '%Q'
+							when 'R' then
+								character := '%R'
+							when 'S' then
+								character := '%S'
+							when 'T' then
+								character := '%T'
+							when 'U' then
+								character := '%U'
+							when 'V' then
+								character := '%V'
+							when '%%' then
+								character := '%%'
+							when '%'' then
+								character := '%''
+							when '%"' then
+								character := '%"'
+							when '(' then
+								character := '%('
+							when ')' then
+								character := '%)'
+							when '<' then
+								character := '%<'
+							when '>' then
+								character := '%>'
+							when '/' then
+								not_yet_implemented -- need to parse a number
+							else
+								-- unknown escape character
+								invalid_character := True
+							end
 							next_character(buffer)
 						end
 					end
-					if buffer.end_reached or else buffer.current_character /= '%'' then
+					if invalid_character or else buffer.end_reached or else buffer.current_character /= '%'' then
 						image := Void
 					else
 						image.extend(c)
@@ -1178,11 +1390,11 @@ feature {}
 			if image = Void then
 				restore(buffer, old_position)
 			else
-				create Result.make(image.twin, last_blanks.twin, position)
+				create Result.make(image.twin, character, last_blanks.twin, position)
 			end
 		end
 
-	parse_end (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+	parse_end (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		local
 			old_position, start_position: like position
 		do

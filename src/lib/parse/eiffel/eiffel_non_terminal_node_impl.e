@@ -39,15 +39,11 @@ feature {ANY}
 		end
 
 	name_at (index: INTEGER): STRING is
-		require
-			valid_index(index)
 		do
 			Result := names.item(index - lower + names.lower)
 		end
 
 	node_at (index: INTEGER): EIFFEL_NODE is
-		require
-			valid_index(index)
 		do
 			Result := nodes.item(index)
 		end
@@ -79,13 +75,9 @@ feature {ANY}
 
 feature {EIFFEL_GRAMMAR}
 	set (index: INTEGER; node: EIFFEL_NODE) is
-		require
-			valid_index(index)
 		do
 			nodes.put(node, index)
 			node.set_parent(Current)
-		ensure
-			node_at(index) = node
 		end
 
 feature {EIFFEL_NODE_HANDLER}

@@ -96,7 +96,7 @@ feature {ANY}
 		do
 			last_error := error
 		ensure
-			last_error = error_msg
+			last_error = error
 		end
 
 	set_last_error_message (error_message: STRING) is

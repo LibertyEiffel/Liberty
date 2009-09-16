@@ -25,7 +25,6 @@ feature {ANY}
 			end
 		ensure
 			a_actions.count >= old a_actions.count
-			error_message /= Void implies a_actions.count = old a_actions.count
 		end
 
 	eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE; start: STRING) is

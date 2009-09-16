@@ -48,11 +48,10 @@ feature {EIFFEL_GRAMMAR}
 			Result := Current
 		end
 
-	index: INTEGER
-
 feature {EIFFEL_GRAMMAR, EIFFEL_IMAGE}
 	line: INTEGER
 	column: INTEGER
+	index: INTEGER
 
 feature {}
 	default_create is

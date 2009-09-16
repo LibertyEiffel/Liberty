@@ -33,15 +33,11 @@ feature {LIBERTY_AST_OLD_CREATION_VISITOR}
 		end
 
 	type_definition: LIBERTY_AST_TYPE_DEFINITION is
-		require
-			has_type_definition
 		do
 			Result ::= nodes.item(1)
 		end
 
 	creation_feature_name: LIBERTY_AST_ENTITY_NAME is
-		require
-			has_creation_feature_call
 		do
 			if has_type_definition then
 				Result ::= nodes.item(5)
@@ -51,8 +47,6 @@ feature {LIBERTY_AST_OLD_CREATION_VISITOR}
 		end
 
 	creation_feature_actuals: LIBERTY_AST_ACTUALS is
-		require
-			has_creation_feature_call
 		do
 			if has_type_definition then
 				Result ::= nodes.item(6)

@@ -12,20 +12,15 @@ feature {LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER_VISITOR}
 			Result ::= nodes.item(0)
 		end
 
-	type_parameters: LIBERTY_AST_TYPE_PARAMETERS is
-		do
-			Result ::= nodes.item(1)
-		end
-
 feature {ANY}
-	count: INTEGER is 2
+	count: INTEGER is 1
 
 	name: STRING is "Effective_Type_Parameter"
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 2 >> }
+			Result := {AVL_SET[INTEGER] << 1 >> }
 		end
 
 feature {ANY}

@@ -75,6 +75,16 @@ feature {LIBERTY_AST_TYPE_DEFINITION_VISITOR}
 			Result ::= nodes.item(2)
 		end
 
+	anchor_index: INTEGER is
+		require
+			is_anchor
+		local
+			anchor: EIFFEL_TERMINAL_NODE
+		do
+			anchor ::= nodes.first
+			Result := anchor.image.index
+		end
+
 feature {ANY}
 	count: INTEGER is
 		do
