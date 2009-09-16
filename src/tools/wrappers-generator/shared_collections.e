@@ -11,7 +11,7 @@ feature
 	fundamentals: HASHED_DICTIONARY[C_FUNDAMENTAL_TYPE, UNICODE_STRING] is once create Result.make end
 	structures: HASHED_DICTIONARY[C_STRUCT, UNICODE_STRING] is once create Result.make end
 	typedefs: HASHED_DICTIONARY[C_TYPEDEF, UNICODE_STRING] is once create Result.make end
-	types: HASHED_DICTIONARY[GCCXML_NODE, UNICODE_STRING] is once create Result.make end
+	types: HASHED_DICTIONARY[LIBERTY_TYPED, UNICODE_STRING] is once create Result.make end
 	unions: HASHED_DICTIONARY[C_UNION, UNICODE_STRING] is once create Result.make end
 	fields: HASHED_DICTIONARY[C_FIELD, UNICODE_STRING] is once create Result.make end
 end

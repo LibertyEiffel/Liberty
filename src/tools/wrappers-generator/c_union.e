@@ -5,14 +5,16 @@ inherit
 	IDENTIFIED_NODE
 	NAMED_NODE
 	FILED_NODE
+	STORABLE_NODE
 
 creation make
 
 feature 
-	register_into (a_tree: GCCXML_TREE) is
+	store is
 		do
+			unions.fast_put(Current,id)
 		end
-	fields: FAST_ARRAY[C_FIELD]
+	
 invariant name.is_equal(once U"Union")
 end
 

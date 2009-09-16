@@ -5,16 +5,18 @@ inherit
 	IDENTIFIED_NODE
 	NAMED_NODE
 	LIBERTY_TYPED
+	STORABLE_NODE
 
-insert  EIFFEL_GCC_XML_EXCEPTIONS
+insert EIFFEL_GCC_XML_EXCEPTIONS
 
 creation make
 
 feature 
-	register_into (a_tree: GCCXML_TREE) is
+	store is
 		do
+			types.fast_put(Current,id)
 		end
-	
+
 	is_void: BOOLEAN is do Result := c_name.is_equal(U"void") end
 
 	size: INTEGER is 

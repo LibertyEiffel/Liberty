@@ -1,7 +1,7 @@
 class GCCXML_TREE
 	-- A partially validated representation of an XML file made by gccxml
 
-inherit XML_TREE redefine new_node, open_node, close_node end
+inherit XML_TREE redefine new_node, open_node end
 
 insert SHARED_COLLECTIONS
 
@@ -30,41 +30,14 @@ feature
 		end
 
 	open_node (node_name: UNICODE_STRING; line, column: INTEGER) is
-		local
-			node: XML_COMPOSITE_NODE; gccxml_node: GCCXML_NODE; i: INTEGER
+		local storable: STORABLE_NODE 
 		do
-			-- Taken from XML_TREE
-			node := new_node(node_name.twin, line, column)
-			from
-				i := attributes.lower
-			until
-				i > attributes.upper
-			loop
-				node.set_attribute(attributes.key(i), attributes.item(i))
-				i := i + 1
-			end
-			attributes.clear_count
-			open_nodes.push(node)
-				
-			debug print_node ("Opening: ",node) end
-			if gccxml_node ?:= node then
-				gccxml_node ::= node
-				gccxml_node.register_into(Current)
-			end
+			Precursor (node_name, line, column)
+			-- debug print_node ("Opening: ",open_nodes.top) end
+			storable ?= open_nodes.top 
+			if storable/=Void then storable.store end
 		end
 	
-	close_node (node_name: UNICODE_STRING; line, column: INTEGER_32) is
-		-- Closing node
-		local catalogandum: GCCXML_NODE; node: XML_COMPOSITE_NODE; i: INTEGER
-		do
-			node := open_nodes.top
-			catalogandum ?= node
-			Precursor(node_name,line,column)
-			debug print_node (once "Closing: ",node) end
-			if catalogandum/=Void then
-				catalogandum.register_into(Current)
-			end
-		end
 feature {} -- Auxiliary call
 	print_node (a_label: STRING; a_node: XML_COMPOSITE_NODE) is
 		local i: INTEGER

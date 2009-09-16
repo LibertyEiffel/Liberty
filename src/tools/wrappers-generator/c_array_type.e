@@ -10,11 +10,15 @@ inherit
 	GCCXML_NODE
 	IDENTIFIED_NODE
 	TYPED_NODE
+	STORABLE_NODE
 	LIBERTY_TYPED
+
 creation make 
-feature 
-	register_into (a_tree: GCCXML_TREE) is
+feature
+	store is
 		do
+			types.put(Current,id)
 		end
-	liberty_type: STRING is "POINTER"
+	
+	wrapper_type: STRING is "POINTER"
 end

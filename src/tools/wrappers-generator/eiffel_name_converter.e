@@ -7,7 +7,7 @@ insert
 	PLATFORM
 	EXCEPTIONS
 
-feature {ANY} -- Auxiliary features
+feature {} -- Auxiliary features
 	eiffel_class_file_name (a_name: STRING): STRING is
 			-- `a_name' converted into a proper Eiffel class name
 			-- file, i.e. "GTK_BUTTON" is turned into "gtk_button.e"
