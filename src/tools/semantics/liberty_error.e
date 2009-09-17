@@ -121,6 +121,7 @@ feature {}
 
 	make (a_index: like index; a_message: like message; a_previous: like Current) is
 		require
+			a_index >= 0
 			a_message /= Void
 		do
 			index := a_index

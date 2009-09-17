@@ -2,9 +2,51 @@ class LIBERTY_CLIENTS
 
 inherit
 	LIBERTY_AST_CLIENT_VISITOR
+	TRAVERSABLE[LIBERTY_TYPE]
 
 create {LIBERTY_TYPE_BUILDER}
 	make
+
+feature {ANY}
+	lower: INTEGER is
+		do
+			Result := clients.lower
+		end
+
+	upper: INTEGER is
+		do
+			Result := clients.upper
+		end
+
+	count: INTEGER is
+		do
+			Result := clients.count
+		end
+
+	is_empty: BOOLEAN is
+		do
+			Result := clients.is_empty
+		end
+
+	item (i: INTEGER): E_ is
+		do
+			Result := clients.item(i)
+		end
+
+	first: like item is
+		do
+			Result := clients.first
+		end
+
+	last: like item is
+		do
+			Result := clients.last
+		end
+
+	get_new_iterator: ITERATOR[LIBERTY_TYPE] is
+		do
+			Result := clients.get_new_iterator
+		end
 
 feature {LIBERTY_AST_CLIENT}
 	visit_liberty_ast_client (v: LIBERTY_AST_CLIENT) is

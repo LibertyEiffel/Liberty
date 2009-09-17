@@ -16,10 +16,20 @@ create {ANY}
 feature {ANY}
 	get_type (cluster: LIBERTY_CLUSTER; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_TYPE is
 		local
-			descriptor: LIBERTY_TYPE_DESCRIPTOR
+			descriptor: LIBERTY_TYPE_DESCRIPTOR; c: like cluster
 		do
-			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name), effective_type_parameters)
-			Result := get_type_from_descriptor(descriptor)
+			if cluster /= Void then
+				c := cluster
+			else
+				c := universe.find(class_name)
+			end
+			if c /= Void then
+				last_error := Void
+				create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name), effective_type_parameters)
+				Result := get_type_from_descriptor(descriptor)
+			else
+				create last_error.make(0, once "*** Unknown class: " + class_name, Void)
+			end
 		ensure
 			Result.descriptor.cluster = cluster
 			Result.descriptor.name.is_equal(class_name)
