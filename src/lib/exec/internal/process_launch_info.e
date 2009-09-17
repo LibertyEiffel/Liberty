@@ -21,7 +21,6 @@ feature {ANY}
 			command_line := Void
 		ensure
 			program.is_equal(program_)
---			arguments.is_equal_map(arguments_)
 			keep_environment = keep_environment_
 		end
 
