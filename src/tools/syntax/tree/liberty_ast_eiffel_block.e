@@ -21,7 +21,7 @@ feature {LIBERTY_AST_EIFFEL_BLOCK_VISITOR}
 			Result = not is_external
 		end
 
-feature {}
+feature {LIBERTY_AST_EIFFEL_BLOCK_VISITOR}
 	obsolete_clause: LIBERTY_AST_OBSOLETE is
 		do
 			Result ::= nodes.item(0)

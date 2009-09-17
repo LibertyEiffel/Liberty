@@ -7,7 +7,7 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_SIGNATURE_VISITOR}
-	feature_names: LIBERTY_AST_FEATURE_NAMES is
+	feature_names: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(0)
 		end

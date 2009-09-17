@@ -1,0 +1,2 @@
+deferred class LIBERTY_INSTRUCTION
+end

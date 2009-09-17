@@ -5,3 +5,6 @@
 ./syntax/tree/
 ./syntax/tree/visitor/
 ./semantics/
+./semantics/entities/
+./semantics/instructions/
+./semantics/expressions/

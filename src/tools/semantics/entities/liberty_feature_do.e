@@ -1,0 +1,9 @@
+class LIBERTY_FEATURE_DO
+
+inherit
+	LIBERTY_FEATURE_BLOCK
+
+create {LIBERTY_TYPE_BUILDER}
+	make
+
+end

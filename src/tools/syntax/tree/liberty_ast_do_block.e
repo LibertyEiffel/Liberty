@@ -2,6 +2,8 @@ class LIBERTY_AST_DO_BLOCK
 
 inherit
 	LIBERTY_AST_LIST[LIBERTY_AST_INSTRUCTION]
+		export
+			{LIBERTY_AST_LOCAL_BLOCK_VISITOR} list_valid_index, list_count, list_lower, list_upper, list_item
 		redefine
 			possible_counts
 		end

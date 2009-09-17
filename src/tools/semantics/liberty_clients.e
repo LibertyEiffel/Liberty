@@ -28,7 +28,7 @@ feature {ANY}
 			Result := clients.is_empty
 		end
 
-	item (i: INTEGER): E_ is
+	item (i: INTEGER): LIBERTY_TYPE is
 		do
 			Result := clients.item(i)
 		end

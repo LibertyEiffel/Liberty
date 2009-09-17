@@ -31,9 +31,9 @@ feature {ANY}
 				create last_error.make(0, once "*** Unknown class: " + class_name, Void)
 			end
 		ensure
-			Result.descriptor.cluster = cluster
-			Result.descriptor.name.is_equal(class_name)
-			Result.descriptor.parameters.is_equal(effective_type_parameters)
+			Result.cluster = cluster
+			Result.name.is_equal(class_name)
+			Result.parameters.is_equal(effective_type_parameters)
 		end
 
 	get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE is
@@ -48,7 +48,9 @@ feature {ANY}
 				types.put(Result, descriptor)
 			end
 		ensure
-			Result.descriptor.is_equal(descriptor)
+			Result.cluster.is_equal(descriptor.cluster)
+			Result.name.is_equal(descriptor.name)
+			Result.parameters.is_equal(descriptor.parameters)
 		end
 
 	get_type_from_type_definition (origin: LIBERTY_CLUSTER; type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is

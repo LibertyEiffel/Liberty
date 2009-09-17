@@ -13,7 +13,6 @@ create {LIBERTY_UNIVERSE}
 	make
 
 feature {ANY}
-	descriptor: LIBERTY_TYPE_DESCRIPTOR
 	obsolete_message: STRING
 
 	hash_code: INTEGER is
@@ -31,6 +30,21 @@ feature {ANY}
 			Result := obsolete_message /= Void
 		end
 
+	cluster: LIBERTY_CLUSTER is
+		do
+			Result := descriptor.cluster
+		end
+
+	name: STRING is
+		do
+			Result := descriptor.name
+		end
+
+	parameters: TRAVERSABLE[LIBERTY_TYPE] is
+		do
+			Result := descriptor.parameters
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	set_obsolete (message: like obsolete_message) is
 		require
@@ -40,6 +54,11 @@ feature {LIBERTY_TYPE_BUILDER}
 		ensure
 			is_obsolete
 			obsolete_message = message
+		end
+
+	add_feature (a_feature: LIBERTY_FEATURE) is
+		do
+			features.add(a_feature, a_feature.name)
 		end
 
 feature {} -- Semantincs building
@@ -76,16 +95,21 @@ feature {}
 		do
 			descriptor := a_descriptor
 			ast := a_ast
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE, STRING]}features.make
 			check_and_initialize(universe)
 		ensure
 			descriptor = a_descriptor
 		end
 
+	features: DICTIONARY[LIBERTY_FEATURE, STRING]
+
 feature {LIBERTY_TYPE_BUILDER}
 	ast: LIBERTY_AST_CLASS
+	descriptor: LIBERTY_TYPE_DESCRIPTOR
 
 invariant
 	descriptor /= Void
 	ast /= Void
+	features /= Void
 
 end
