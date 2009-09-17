@@ -16,7 +16,7 @@ insert
 		export {ANY} is_empty, add, remove, first, count;
 			{QUEUE} all
 		redefine
-			get_new_iterator
+			new_iterator
 		end
 	ANY
 		-- To get reasonable default exports
@@ -48,7 +48,7 @@ feature {}
 			collection_with_capacity(needed_capacity, 1)
 		end
 
-	get_new_iterator: ITERATOR[E_] is
+	new_iterator: ITERATOR[E_] is
 		do
 			check
 				False

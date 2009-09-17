@@ -111,16 +111,16 @@ feature {ANY} -- Iterating facilities:
 			at(Result) = item(index)
 		end
 
-	get_new_iterator_on_items: ITERATOR[O_] is
+	new_iterator_on_items: ITERATOR[O_] is
 		do
-			Result := repository.get_new_iterator_on_items
+			Result := repository.new_iterator_on_items
 		ensure
 			Result /= Void
 		end
 
-	get_new_iterator_on_keys: ITERATOR[STRING] is
+	new_iterator_on_keys: ITERATOR[STRING] is
 		do
-			Result := repository.get_new_iterator_on_keys
+			Result := repository.new_iterator_on_keys
 		ensure
 			Result /= Void
 		end

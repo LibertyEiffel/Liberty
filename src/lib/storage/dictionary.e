@@ -14,7 +14,7 @@ deferred class DICTIONARY[V_, K_]
 inherit
 	TRAVERSABLE[V_]
 		rename
-			get_new_iterator as get_new_iterator_on_items,
+			new_iterator as new_iterator_on_items,
 			do_all as do_all_xitems,
 			for_all as for_all_items,
 			exists as exists_item
@@ -317,14 +317,14 @@ feature {ANY} -- To provide iterating facilities:
 			Result := item(upper)
 		end
 
-	get_new_iterator_on_items: ITERATOR[V_] is
+	new_iterator_on_items: ITERATOR[V_] is
 		do
 			create {ITERATOR_ON_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
 		ensure then
 			Result /= Void
 		end
 
-	get_new_iterator_on_keys: ITERATOR[K_] is
+	new_iterator_on_keys: ITERATOR[K_] is
 		deferred
 		ensure
 			Result /= Void

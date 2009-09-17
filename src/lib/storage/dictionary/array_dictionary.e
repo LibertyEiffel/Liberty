@@ -18,7 +18,7 @@ obsolete "Since august 2007, this class is obsolete.%N%
 inherit
 	DICTIONARY[V_, K_]
 		redefine
-			get_new_iterator_on_items
+			new_iterator_on_items
 		end
 
 create {ANY}
@@ -152,14 +152,14 @@ feature {ANY} -- To provide iterating facilities:
 			Result := keys.item(index - 1)
 		end
 
-	get_new_iterator_on_items: ITERATOR[V_] is
+	new_iterator_on_items: ITERATOR[V_] is
 		do
-			Result := items.get_new_iterator
+			Result := items.new_iterator
 		end
 
-	get_new_iterator_on_keys: ITERATOR[K_] is
+	new_iterator_on_keys: ITERATOR[K_] is
 		do
-			Result := keys.get_new_iterator
+			Result := keys.new_iterator
 		end
 
 feature {ANY} -- Other features:

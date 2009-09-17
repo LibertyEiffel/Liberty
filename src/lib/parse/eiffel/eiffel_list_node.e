@@ -28,7 +28,7 @@ insert
 	TRAVERSABLE[EIFFEL_NODE]
 
 feature {ANY}
-	frozen get_new_iterator: ITERATOR[EIFFEL_NODE] is
+	frozen new_iterator: ITERATOR[EIFFEL_NODE] is
 		do
 			check
 				dont_use_this: False

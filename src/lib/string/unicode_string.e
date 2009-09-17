@@ -1716,7 +1716,7 @@ feature {ANY} -- Other features:
 			count >= old count
 		end
 
-	get_new_iterator: ITERATOR[INTEGER] is
+	new_iterator: ITERATOR[INTEGER] is
 		do
 			create {ITERATOR_ON_UNICODE_STRING} Result.make(Current)
 		end

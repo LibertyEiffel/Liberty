@@ -55,9 +55,9 @@ feature {ANY}
 		end
 
 feature {ANY}
-	get_new_iterator: ITERATOR[K_] is
+	new_iterator: ITERATOR[K_] is
 		do
-			Result := dictionary.get_new_iterator_on_keys
+			Result := dictionary.new_iterator_on_keys
 		end
 
 feature {}

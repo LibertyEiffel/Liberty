@@ -13,7 +13,7 @@ insert
 			make as collection_make
 		export {ANY} is_empty, top, pop, push, count;
 			{STACK} all
-		redefine get_new_iterator
+		redefine new_iterator
 		end
 	ANY
 		-- To get reasonable default exports
@@ -34,7 +34,7 @@ feature {}
 			is_empty
 		end
 
-	get_new_iterator: ITERATOR[E_] is
+	new_iterator: ITERATOR[E_] is
 		do
 			check
 				False

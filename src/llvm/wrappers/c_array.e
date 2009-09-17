@@ -188,7 +188,7 @@ feature {ANY} -- Modification:
 		do
 				-- FIXME: signature should be model: TRAVERSABLE, once SE2.3 is out
 			with_capacity(model.count)
-			from i:=model.get_new_iterator; i.start
+			from i:=model.new_iterator; i.start
 			until i.is_off 
 			loop add_last(i.item); i.next
 			end
@@ -432,13 +432,13 @@ feature {ANY} -- Looking and comparison:
 		do
 			-- Number of occurrences of `element' using `is_equal' for comparison.
 			if element/=Void then 
-				from i:=get_new_iterator; i.start; until i.is_off
+				from i:=new_iterator; i.start; until i.is_off
 				loop
 					if element.is_equal(i.item) then Result:=Result+1 end
 					i.next
 				end
 			else
-				from i:=get_new_iterator; i.start; until i.is_off
+				from i:=new_iterator; i.start; until i.is_off
 				loop
 					if i.item=Void then Result:=Result+1 end
 					i.next
@@ -632,7 +632,7 @@ feature
 			Result := (upper = -1) or else storage.is_null
 		end
 
-	get_new_iterator: ITERATOR[ITEM] is
+	new_iterator: ITERATOR[ITEM] is
 		do
 			create {ITERATOR_ON_C_ARRAY[ITEM]} Result.from_array(Current)
 		end

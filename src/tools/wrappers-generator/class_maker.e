@@ -379,7 +379,7 @@ feature {ANY} -- Creation of external classes providing access to C functions
 	do
 		if a_description/=Void then
 			from 
-				iter:=a_description.get_new_iterator; iter.start; 
+				iter:=a_description.new_iterator; iter.start; 
 				buffer.append(comment); length:=0
 			until iter.is_off loop
 				word := iter.item
@@ -685,7 +685,7 @@ feature {ANY} -- Low-level structure class creator
 			if members /= Void then
 				setters.append(setters_header)
 				queries.append(queries_header)
-				members_iter := members.split.get_new_iterator
+				members_iter := members.split.new_iterator
 				from members_iter.start until members_iter.is_off
 				loop
 					id := members_iter.item
@@ -1206,7 +1206,7 @@ feature {ANY} -- Auxiliary features
 			-- but we shall take in count the space taken by "--" 
 			from
 				Result.append(once "%T--"); 
-				iter:=a_description.get_new_iterator; iter.start; 
+				iter:=a_description.new_iterator; iter.start; 
 				length:=0
 			until iter.is_off loop
 				word := iter.item

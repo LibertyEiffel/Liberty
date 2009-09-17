@@ -323,7 +323,7 @@ feature {ANY}
 			Result := cache_node.key
 		end
 
-	get_new_iterator_on_keys: ITERATOR[K_] is
+	new_iterator_on_keys: ITERATOR[K_] is
 		do
 			create {ITERATOR_ON_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
 		end

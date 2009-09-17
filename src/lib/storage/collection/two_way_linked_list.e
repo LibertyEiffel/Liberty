@@ -517,7 +517,7 @@ feature {ANY}
 			end
 		end
 
-	get_new_iterator: ITERATOR[E_] is
+	new_iterator: ITERATOR[E_] is
 		do
 			create {ITERATOR_ON_TWO_WAY_LINKED_LIST[E_]} Result.make(Current)
 		end

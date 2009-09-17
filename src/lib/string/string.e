@@ -1974,7 +1974,7 @@ feature {ANY} -- Other features:
 			count >= old count
 		end
 
-	get_new_iterator: ITERATOR[CHARACTER] is
+	new_iterator: ITERATOR[CHARACTER] is
 		do
 			create {ITERATOR_ON_STRING} Result.make(Current)
 		end

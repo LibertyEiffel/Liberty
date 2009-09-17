@@ -25,7 +25,7 @@ class STRING_ARRAY
 
 	-- Creation: from_external_array
 
-	-- Accessing: item, first,last, get_new_iterator, is_empty
+	-- Accessing: item, first,last, new_iterator, is_empty
 
 	-- Features implementable without making any assumption on memory 
 	-- handling: reverse, swap,
@@ -170,7 +170,7 @@ feature -- Accessing
 			end				
 		end
 
-	get_new_iterator: ITERATOR[STRING] is
+	new_iterator: ITERATOR[STRING] is
 		do
 			create {STRING_ARRAY_ITERATOR} Result.make(Current)
 		end
@@ -255,7 +255,7 @@ feature {ANY} -- Modification:
 		local i: ITERATOR[like item]
 		do
 			not_yet_implemented 
-			-- with_capacity(model.count) from i:=model.get_new_iterator;
+			-- with_capacity(model.count) from i:=model.new_iterator;
 			-- i.start until i.is_off loop add_last i.next end
 		end
 

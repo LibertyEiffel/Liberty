@@ -43,9 +43,9 @@ feature {ANY}
 			Result := clients.last
 		end
 
-	get_new_iterator: ITERATOR[LIBERTY_TYPE] is
+	new_iterator: ITERATOR[LIBERTY_TYPE] is
 		do
-			Result := clients.get_new_iterator
+			Result := clients.new_iterator
 		end
 
 feature {LIBERTY_AST_CLIENT}

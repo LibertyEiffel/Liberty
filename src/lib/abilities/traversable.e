@@ -155,10 +155,16 @@ feature {ANY} -- Agent-based features:
 		end
 
 feature {ANY} -- Other features:
-	get_new_iterator: ITERATOR[E_] is
+	new_iterator: ITERATOR[E_] is
 		deferred
 		ensure
 			Result /= Void
+		end
+
+	frozen get_new_iterator: like new_iterator is
+		obsolete "Please use new_iterator instead. This SmartEiffel historic feature is badly named."
+		do
+			Result := new_iterator
 		end
 
 end -- class TRAVERSABLE

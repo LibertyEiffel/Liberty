@@ -666,7 +666,7 @@ feature {ANY} -- Others:
 		end
 
 feature {ANY} -- Other features:
-	get_new_iterator: ITERATOR[BOOLEAN] is
+	new_iterator: ITERATOR[BOOLEAN] is
 		do
 			create {ITERATOR_ON_BIT_STRING} Result.make(Current)
 		end

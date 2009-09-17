@@ -30,7 +30,7 @@ feature {ANY} -- Testing:
 		local
 			iter: ITERATOR[STRING]; n: INTEGER
 		do
-			iter := strings.get_new_iterator
+			iter := strings.new_iterator
 			from
 				iter.start
 				n := i
@@ -49,8 +49,8 @@ feature {ANY} -- Testing:
 			-- do
 			-- 	if count = other.count then
 			-- 		from
-			-- 			iter:=get_new_iterator
-			-- 			other:=other.get_new_iterator
+			-- 			iter:=new_iterator
+			-- 			other:=other.new_iterator
 			-- 		until iter.is_off or else Result=False
 			-- 		loop
 			-- 			Result := iter.item = another_iter.item
@@ -297,7 +297,7 @@ feature {ANY} -- Other features:
 		end
 
 feature {ANY} -- Other features:
-	get_new_iterator: ITERATOR[CHARACTER] is
+	new_iterator: ITERATOR[CHARACTER] is
 		do
 			create {ITERATOR_ON_LINKED_STRING} Result.make(Current)
 		end

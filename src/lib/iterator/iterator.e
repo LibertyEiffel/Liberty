@@ -7,7 +7,7 @@ deferred class ITERATOR[E_]
 	-- An iterator can be used when you need to do something on all
 	-- elements in the data structure, but there is no order concept.
 	--
-	-- To create a new iterator, use `get_new_iterator' in the
+	-- To create a new iterator, use `new_iterator' in the
 	-- corresponding data structure.
 	--
 	-- See examples in directory SmartEiffel/tutorial/iterator.

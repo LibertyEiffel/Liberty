@@ -344,7 +344,7 @@ feature {ANY} -- Implementation of deferred:
 			upper := upper - 1
 		end
 
-	get_new_iterator: ITERATOR[E_] is
+	new_iterator: ITERATOR[E_] is
 		do
 			create {ITERATOR_ON_TRAVERSABLE[E_]} Result.make(Current)
 		end

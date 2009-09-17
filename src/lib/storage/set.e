@@ -157,7 +157,7 @@ feature {ANY} -- To provide iterating facilities:
 			Result := item(upper)
 		end
 	
-	get_new_iterator: ITERATOR[E_] is
+	new_iterator: ITERATOR[E_] is
 		do
 			create {ITERATOR_ON_SET[E_]} Result.make(Current)
 		end
