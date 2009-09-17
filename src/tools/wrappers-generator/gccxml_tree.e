@@ -11,6 +11,7 @@ feature
 	new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE is
 		do
 			inspect node_name.as_utf8
+			when "Argument" then create {C_ARGUMENT} Result.make(node_name,line,column)
 			when "ArrayType" then create {C_ARRAY_TYPE} Result.make(node_name,line,column)
 			when "CvQualifiedType" then create {C_QUALIFIED_TYPE} Result.make(node_name,line,column)
 			when "Enumeration" then create {C_ENUM} Result.make(node_name, line, column)
@@ -37,7 +38,7 @@ feature
 			storable ?= open_nodes.top 
 			if storable/=Void then storable.store end
 		end
-	
+
 feature {} -- Auxiliary call
 	print_node (a_label: STRING; a_node: XML_COMPOSITE_NODE) is
 		local i: INTEGER

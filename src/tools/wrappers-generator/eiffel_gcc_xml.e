@@ -29,7 +29,6 @@ feature {ANY}
 	process_arguments is
 		local
 			input: INPUT_STREAM; 
-			headers: WORDS -- previously headers was a HASHED_SET[STRING]; 
 			arg, header, location, avoided, module, descriptions, flags, typedefs: STRING;
 			plugin: BOOLEAN i: INTEGER
 		do
@@ -42,7 +41,6 @@ feature {ANY}
 			descriptions := once "descriptions"
 			avoided := once "avoided"
 			typedefs := once "TYPES"
-			create headers.make
 			if argument_count = 0 then
 				print_usage
 				die_with_code(exit_success_code)
@@ -146,7 +144,6 @@ feature {ANY}
 					end
 				end
 								
-				maker.set_headers(headers)
 				if input = Void then
 					log_string(once "Using standard input.")
 					maker.set_input(std_input)

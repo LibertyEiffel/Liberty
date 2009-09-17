@@ -8,7 +8,20 @@ feature {ANY}
 		once
 			create Result
 		end 
-		
+
+	headers: WORDS is once create Result.make end
+
+	is_to_be_emitted (a_file_name: STRING): BOOLEAN is
+		-- Shall the declaration in file named `a_file_name' be
+		-- wrapped? The content of a file will be emitted when global
+		-- is True or if `a_file_name' is in `headers' hashed set.
+	do
+		Result := (global or else 
+		           (a_file_name/=Void and then headers.has(a_file_name)))
+   ensure
+	   void_gets_false: global or (a_file_name=Void implies Result=False)
+	end
+
 feature -- Syntactic sugar
 
 	verbose: BOOLEAN is
@@ -40,6 +53,52 @@ feature -- Syntactic sugar
 		do
 			Result := settings.are_naturals_used
 		end
+
+
+feature {} -- Constants
+	comment: STRING is "%N%T%T-- "
+
+	variadic_function_note: STRING is "%T%T%T-- Variadic call%N"
+
+	unwrappable_function_note: STRING is "%T%T%T-- Unwrappable function%N%T%Tobsolete %"Unwrappable C function%"%N"
+
+	expanded_class: STRING is "expanded class "
+
+	deferred_class: STRING is "deferred class "
+
+	-- struct: STRING is "_STRUCT"
+
+	-- enum: STRING is "_ENUM"
+
+	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%N%N"
+
+	queries_header: STRING is "feature {} -- Low-level queries%N%N"
+
+	setters_header: STRING is "feature {} -- Low-level setters%N%N"
+
+	externals_header: STRING is "feature {} -- External calls%N%N"
+
+	typedefs_features_header: STRING is "feature -- C type definitions (typedefs)%N"
+
+	footer: STRING is "end%N"
+
+	automatically_generated_header: STRING is "[
+		-- This file have been created by eiffel-gcc-xml.
+		-- Any change will be lost by the next execution of the tool.
+
+
+		]"
+
+	automatically_patched_header: STRING is 
+		-- Label 
+		"[
+		-- This file have been automatically created combining the output file
+		-- of eiffel-gcc-xml @(1)
+		-- with the differences patches found into @(2)
+
+		-- Any change will be lost by the next execution of the tool.
+
+		]"
 
 feature {} -- Logging
 	logger: STRING_PRINTER is

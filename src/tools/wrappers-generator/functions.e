@@ -1,5 +1,5 @@
 class FUNCTIONS
-	-- Functions grouped by the file they are defined into.
+	-- Functions grouped by the id of the file they are defined into.
 
 inherit HASHED_DICTIONARY[LINKED_LIST[C_FUNCTION], UNICODE_STRING]
 
@@ -19,4 +19,5 @@ feature
 			end
 			list.add_last(a_function)
 		end
+
 end	
