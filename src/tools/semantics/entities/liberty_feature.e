@@ -19,6 +19,11 @@ feature {ANY}
 			Result := definition.result_type
 		end
 
+	parameters: TRAVERSABLE[LIBERTY_PARAMETER] is
+		do
+			Result := definition.parameters
+		end
+
 	is_regular: BOOLEAN is
 		do
 			Result := name_type = regular_name
@@ -138,6 +143,5 @@ feature {}
 
 invariant
 	clients /= Void
-	locals /= Void
 
 end

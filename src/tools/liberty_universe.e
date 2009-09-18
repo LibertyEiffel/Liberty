@@ -55,7 +55,6 @@ feature {ANY}
 
 	get_type_from_type_definition (origin: LIBERTY_CLUSTER; type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
 		local
-			descriptor: LIBERTY_TYPE_DESCRIPTOR
 			cluster: LIBERTY_CLUSTER
 			class_name: STRING
 			parameters: TRAVERSABLE[LIBERTY_TYPE]
@@ -197,7 +196,7 @@ feature {} -- AST building
 
 	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING): LIBERTY_AST_CLASS is
 		local
-			file, code: STRING
+			code: STRING
 			error: PARSE_ERROR
 		do
 			parse_descriptor.make(cluster, class_name)

@@ -45,6 +45,9 @@ feature {LIBERTY_TYPE}
 			feature_definition_names := Void
 			a_type.ast.accept(Current)
 			Result := last_error
+			if Result /= Void then
+				Result := a_type.check_validity
+			end
 		end
 
 feature {EIFFEL_LIST_NODE_IMPL}
@@ -55,7 +58,7 @@ feature {EIFFEL_LIST_NODE_IMPL}
 			from
 				i := node.lower
 			until
-				i > node.upper
+				last_error /= Void or else i > node.upper
 			loop
 				node.item(i).accept(Current)
 				i := i + 1
@@ -109,7 +112,7 @@ feature {LIBERTY_AST_FEATURE}
 			from
 				i := v.clients.lower
 			until
-				i > v.clients.upper
+				last_error /= Void or else i > v.clients.upper
 			loop
 				client ::= v.clients.item(i)
 				client_list.add_last(client)
@@ -151,22 +154,26 @@ feature {LIBERTY_AST_SIGNATURE}
 				last_feature_definition.set_result_type(last_type_definition)
 			end
 			if v.has_parameters then
-				from
-					i := v.parameters.lower
-				until
-					i > v.parameters.upper
-				loop
-					last_declaration_names.clear_count
-					v.parameters.item(i).accept(Current)
+				if last_feature_definition.can_have_parameters then
 					from
-						j := last_declaration_names.lower
+						i := v.parameters.lower
 					until
-						j > last_declaration_names.upper
+						last_error /= Void or else i > v.parameters.upper
 					loop
-						last_feature_definition.add_parameter(create {LIBERTY_PARAMETER}.make(last_declaration_names.item(j), last_type_definition))
-						j := j + 1
+						last_declaration_names.clear_count
+						v.parameters.item(i).accept(Current)
+						from
+							j := last_declaration_names.lower
+						until
+							last_error /= Void or else j > last_declaration_names.upper
+						loop
+							last_feature_definition.add_parameter(create {LIBERTY_PARAMETER}.make(last_declaration_names.item(j), last_type_definition))
+							j := j + 1
+						end
+						i := i + 1
 					end
-					i := i + 1
+				else
+					create last_error.make(v.source_index, once "*** Unexpected parameters", last_error)
 				end
 			end
 		end
@@ -226,7 +233,7 @@ feature {LIBERTY_AST_REQUIRE}
 			from
 				i := v.list_lower
 			until
-				i > v.list_upper
+				last_error /= Void or else i > v.list_upper
 			loop
 				v.list_item(i).accept(Current)
 				i := i + 1
@@ -254,14 +261,14 @@ feature {LIBERTY_AST_LOCAL_BLOCK}
 			from
 				i := v.list_lower
 			until
-				i > v.list_upper
+				last_error /= Void or else i > v.list_upper
 			loop
 				last_declaration_names.clear_count
 				v.list_item(i).accept(Current)
 				from
 					j := last_declaration_names.lower
 				until
-					j > last_declaration_names.upper
+					last_error /= Void or else j > last_declaration_names.upper
 				loop
 					last_feature_block.add_local(create {LIBERTY_LOCAL}.make(last_declaration_names.item(j), last_type_definition))
 					j := j + 1
@@ -305,7 +312,7 @@ feature {LIBERTY_AST_DO_BLOCK}
 				from
 					i := v.list_lower
 				until
-					i > v.list_upper
+					last_error /= Void or else i > v.list_upper
 				loop
 					v.list_item(i).accept(Current)
 					i := i + 1
@@ -313,7 +320,7 @@ feature {LIBERTY_AST_DO_BLOCK}
 				if v.is_do then
 					create {LIBERTY_FEATURE_DO}last_feature_block.make(last_instructions)
 				elseif v.is_once then
-					create {LIBERTY_FEATURE_ONCE}mast_feature_block.make(last_instructions)
+					create {LIBERTY_FEATURE_ONCE}last_feature_block.make(last_instructions)
 				end
 				last_feature_routine := last_feature_block
 				last_feature_definition := last_feature_routine
@@ -329,7 +336,7 @@ feature {LIBERTY_AST_RESCUE_BLOCK}
 			from
 				i := v.list_lower
 			until
-				i > v.list_upper
+				last_error /= Void or else i > v.list_upper
 			loop
 				v.list_item(i).accept(Current)
 				i := i + 1
@@ -346,7 +353,7 @@ feature {LIBERTY_AST_ENSURE}
 			from
 				i := v.list_lower
 			until
-				i > v.list_upper
+				last_error /= Void or else i > v.list_upper
 			loop
 				v.list_item(i).accept(Current)
 				i := i + 1
@@ -368,7 +375,7 @@ feature {LIBERTY_AST_EXTERNAL}
 	visit_liberty_ast_external (v: LIBERTY_AST_EXTERNAL) is
 		do
 			v.alias_clause.accept(Current)
-			create {LIBERTY_FEATURE_EXTERNAL}last_feature_routine(v.definition.image.decoded, last_alias)
+			create {LIBERTY_FEATURE_EXTERNAL}last_feature_routine.make(decoded_string(v.definition), last_alias)
 			last_feature_definition := last_feature_routine
 			check
 				last_feature_block = Void
@@ -379,7 +386,7 @@ feature {LIBERTY_AST_ALIAS}
 	visit_liberty_ast_alias (v: LIBERTY_AST_ALIAS) is
 		do
 			if v.has_alias then
-				last_alias := v.definition.image.decoded
+				last_alias := decoded_string(v.definition)
 			else
 				last_alias := Void
 			end

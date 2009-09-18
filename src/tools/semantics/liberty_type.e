@@ -61,6 +61,11 @@ feature {LIBERTY_TYPE_BUILDER}
 			features.add(a_feature, a_feature.name)
 		end
 
+	check_validity: LIBERTY_ERROR is
+		do
+			not_yet_implemented
+		end
+
 feature {} -- Semantincs building
 	check_and_initialize (universe: LIBERTY_UNIVERSE) is
 		local
