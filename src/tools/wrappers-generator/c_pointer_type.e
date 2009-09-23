@@ -15,5 +15,5 @@ feature
 			types.fast_put(Current,id)
 		end
 
-invariant name.is_equal(once U"PointerType")
+-- invariant name.is_equal(once U"PointerType")
 end -- class C_POINTER_TYPE

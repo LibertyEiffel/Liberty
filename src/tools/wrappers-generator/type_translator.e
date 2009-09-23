@@ -3,8 +3,8 @@ deferred class TYPE_TRANSLATOR
 
 insert
 	SHARED_SETTINGS
-	EIFFEL_GCC_XML_EXCEPTIONS
-	EIFFEL_NAME_CONVERTER
+	WRAPPER_GENERATOR_EXCEPTIONS
+	NAME_CONVERTER
 	EXCEPTIONS
 
 feature {ANY} -- Type-system translations
@@ -234,32 +234,6 @@ feature {} -- Implementation:
 			Result:=dequalify(a_string)
 		end
 
-	dequalify (an_id: UNICODE_STRING): UNICODE_STRING is
-		-- `an_id' without the type qualifier used by GccXml to mark the
-		-- identification labels.
-
-		-- "const", "reference" and "volatile" qualifier are represented in a
-		-- CvQualifiedType node adding 'c', 'r' and 'v' to the identifies. i.e.
-		-- if "int" has id "_422" a  "const int foo" argument type will be of
-		-- type CvQualifiedType with it "_422c". The same rule is used - as far
-		-- as I know - also for reference and volatile types.
-
-		-- Result is identical to `an_id' if it does not end with 'c', 'r' and
-		-- 'v'; otherwise it is a copy of `an_id' with the last character ('c',
-		-- 'r' or 'v') removed. 
-	require
-		not_void: an_id /= Void
-	do
-		inspect
-		an_id.last.to_character
-		when 'c', 'r', 'v' then
-		Result := an_id.substring(an_id.lower, an_id.upper - 1)
-		else Result := an_id
-		end
-		-- debug 
-		-- 	log(once "dequalify(@(1))=@(2)",<<an_id.out,Result.out>>)
-		-- end
-	end
 
 feature {ANY} -- Constants
 	integer_size: INTEGER is

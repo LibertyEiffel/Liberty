@@ -3,7 +3,9 @@ class GCCXML_TREE
 
 inherit XML_TREE redefine new_node, open_node end
 
-insert SHARED_COLLECTIONS
+insert 
+	SHARED_COLLECTIONS
+	EXCEPTIONS
 
 create {CLASS_MAKER} make
 
@@ -13,21 +15,29 @@ feature
 			inspect node_name.as_utf8
 			when "Argument" then create {C_ARGUMENT} Result.make(node_name,line,column)
 			when "ArrayType" then create {C_ARRAY_TYPE} Result.make(node_name,line,column)
+			when "Constructor" then create {C_CONSTRUCTOR} Result.make(node_name,line,column)
 			when "CvQualifiedType" then create {C_QUALIFIED_TYPE} Result.make(node_name,line,column)
+			when "Ellipsis" then create {C_ELLIPSIS} Result.make(node_name, line, column)
 			when "Enumeration" then create {C_ENUM} Result.make(node_name, line, column)
+			when "EnumValue" then create {C_ENUM_VALUE} Result.make(node_name, line, column)
 			when "Field" then create {C_FIELD} Result.make(node_name, line, column)
 			when "File" then create {C_FILE} Result.make(node_name, line, column)
 			when "Function" then create {C_FUNCTION} Result.make(node_name, line, column)
 			when "FunctionType" then create {C_FUNCTION_TYPE} Result.make(node_name, line, column)
 			when "FundamentalType" then create {C_FUNDAMENTAL_TYPE} Result.make(node_name, line, column)
+			when "GCC_XML" then create {GCC_XML} Result.make(node_name,line,column)
+			when "Namespace" then create {C_NAMESPACE} Result.make(node_name,line,column)
 			when "PointerType" then create {C_POINTER_TYPE} Result.make(node_name, line, column)
 			when "ReferenceType" then create {C_REFERENCE_TYPE} Result.make(node_name, line, column)
 			when "Struct" then create {C_STRUCT} Result.make(node_name, line, column)
 			when "Typedef" then create {C_TYPEDEF} Result.make(node_name, line, column)
 			when "Union" then create {C_UNION} Result.make(node_name, line, column)
 			when "Variable" then create {C_VARIABLE} Result.make(node_name, line, column)
-			else create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+			else 
+				raise(node_name.as_utf8+" does not have an GCCXML_NODE")
+				-- create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
 			end
+			-- TODO: turn this into an inspect when UNICODE_STRING will be comparable
 		end
 
 	open_node (node_name: UNICODE_STRING; line, column: INTEGER) is

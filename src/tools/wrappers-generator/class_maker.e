@@ -26,8 +26,8 @@ insert
 	TYPE_TRANSLATOR
 	SHARED_SETTINGS
 	DESCRIPTIONS
-	EIFFEL_NAME_CONVERTER
-	EIFFEL_GCC_XML_EXCEPTIONS
+	NAME_CONVERTER
+	WRAPPER_GENERATOR_EXCEPTIONS	
 	FILE_TOOLS
 	MEMORY
 
@@ -46,7 +46,6 @@ feature {ANY} -- Initialization
 			create types.make
 			create typedefs.make
 			-- Initialize output formatters for functions, structures and enumerations.
-			create buffer
 			create queries
 			create setters
 			create low_level_values
@@ -111,10 +110,10 @@ feature {ANY} -- Processing XML input
 		local
 			bd: BASIC_DIRECTORY
 		do
-			log_string(once "Loading XML file: ")
+			log(once "@(1) bytes allocated%NLoading XML file: ",<<allocated_bytes.out>>)
 			create tree.make(input.url)
 			-- visit(tree.root)
-			log_string(once "done.%N")
+			log(once "done. @(1) bytes allocated%N",<<allocated_bytes.out>>)
 			if directory = Void then
 				log_string(once "Outputting everything on standard output.")
 			else
@@ -182,7 +181,7 @@ feature {ANY} -- Processing XML input
 						
 						-- debug log(once " structure @(1) in line @(2) ", <<c_name_utf8, a_node.line.out>>) end
 						types.put(a_node, id)
-						if is_public(c_name_utf8) then 
+						if is_public(c_name) then 
 							structures.fast_put(a_node, c_name) 
 						end
 						-- else debug log(once " skipping nameless structure in
@@ -343,7 +342,7 @@ feature {ANY} -- Processing XML input
 			-- Eiffel feature name. Let me say that if the code you are going
 			-- wrapping presents such issues it is not worth your time AFAIK. Paolo
 			-- 2009-02-06.
-			if is_public(name) then
+			if is_public_name(name) then
 				log(once "Function @(1)",<<name>>)
 				buffer.put_message(once "%T@(1)", <<name>>)
 				if a_node.children_count > 0 then
@@ -484,7 +483,7 @@ feature {ANY} -- Processing XML input
 			referred: XML_COMPOSITE_NODE; name: STRING	 
 		do
 			name := a_typedef.attribute_at(once U"name").to_utf8
-			if is_public(name) and then is_to_be_emitted(file_containing(a_typedef)) then
+			if is_public_name(name) and then is_to_be_emitted(file_containing(a_typedef)) then
 				referred := referred_type(a_typedef)
 				inspect referred.name.to_utf8 
 				when "Struct" then 
@@ -610,7 +609,7 @@ feature {ANY} -- Processing XML input
 					output.flush
 					output.disconnect
 				else
-					if is_public(a_structure_name) then
+					if is_public_name(a_structure_name) then
 						filename := a_structure_name + once "_struct"
 						class_name := eiffel_class_name(filename)
 						if directory = Void then
@@ -747,7 +746,7 @@ feature {ANY} -- Processing XML input
 				name, filename: STRING; path: POSIX_PATH_NAME
 			do
 				name := an_enum_name.to_utf8
-				if is_public(name) then
+				if is_public_name(name) then
 					class_name := eiffel_class_name(name)
 					if directory = Void then
 						-- Output to standard output
@@ -1240,11 +1239,7 @@ feature {ANY} -- Processing XML input
 
 
 feature {} -- Implementation
-	buffer: FORMATTER
-	-- Buffer to render the text of the feature currently being
-	-- wrapped (a function call, a structure or an enumeration).
-
-	queries: FORMATTER
+		queries: FORMATTER
 
 	setters: FORMATTER
 
@@ -1254,13 +1249,6 @@ feature {} -- Implementation
 			-- Temporary strings used to build enumerations and structures external classes
 
 	typedef_queries: FORMATTER
-feature {} -- Auxiliary features
-	formatter: FORMATTER is
-			-- Shared formatter used to format various strings.
-		once
-			create Result
-		end
-
 end -- class CLASS_MAKER
 
 -- Copyright 2008,2009 Paolo Redaelli

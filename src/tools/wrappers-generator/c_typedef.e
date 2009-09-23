@@ -23,5 +23,5 @@ feature
 			Result := types.at(type).wrapper_type
 		end
 
-invariant name.is_equal(once U"Typedef")
+-- invariant name.is_equal(once U"Typedef")
 end

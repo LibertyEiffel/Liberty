@@ -15,6 +15,6 @@ feature
 			unions.fast_put(Current,id)
 		end
 	
-invariant name.is_equal(once U"Union")
+-- invariant name.is_equal(once U"Union")
 end
 

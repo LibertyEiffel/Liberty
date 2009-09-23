@@ -4,11 +4,11 @@ deferred class DESCRIPTIONS
 insert 
 	FILE_TOOLS
 	SHARED_SETTINGS
-	EIFFEL_NAME_CONVERTER
+	NAME_CONVERTER
 feature -- Descriptions reading
 	read_descriptions_from (a_file_name: STRING) is
 		-- Read description comment for classes and features from the file
-		-- named `a_file_name', ("creating and" not true! PR 2009-08-24)
+		-- named `a_file_name', 
 		-- filling `class_descriptions' and `feature_descriptions'. Leading and
 		-- trailing spaces are removed.  Lines starting with "--" are ignored
 		-- as comments. Class descriptions are in the form "CLASS_NAME
@@ -108,27 +108,28 @@ feature -- Descriptions reading
 	end
 
 feature -- Outputting descriptions
-	emit_description_on (a_description: COLLECTION[STRING]; a_stream: OUTPUT_STREAM) is
+	emit_description_on (a_description: COLLECTION[STRING]; a_formatter: FORMATTER) is
 			-- Put 'a_description' on 'stream' formatting it as an Eiffel comment
 			-- with lines shorter that 'description_lenght' characters.  Nothing is
 			-- done when `a_description' is Void.
+		require a_formatter/=Void
 		local word: STRING; iter: ITERATOR[STRING]; length,new_length: INTEGER
 		do
 			if a_description/=Void then
 				from 
 					iter:=a_description.get_new_iterator; iter.start; 
-					stream.append(comment); length:=0
+					a_formatter.append(comment); length:=0
 				until iter.is_off loop
 					word := iter.item
 					new_length := length + word.count
 					if new_length>description_lenght then
-						stream.append(comment)
+						a_formatter.append(comment)
 						length := 0
 					else
-						stream.put(' ')
+						a_formatter.put(' ')
 						length := new_length + 1
 					end
-					stream.append(word)
+					a_formatter.append(word)
 					iter.next
 				end
 			end

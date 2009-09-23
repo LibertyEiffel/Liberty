@@ -64,7 +64,7 @@ feature {} -- Constants and notes
 		%March 2009 - deeply rooted in the io cluster. A more direct implementation triggers a %
 		%precondition violation in io cluster.")
 	end
-end
+end -- class WORDS
 
 -- Copyright 2008,2009 Paolo Redaelli
 

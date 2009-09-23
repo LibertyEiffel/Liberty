@@ -7,7 +7,7 @@ inherit
 	LIBERTY_TYPED
 	STORABLE_NODE
 
-insert EIFFEL_GCC_XML_EXCEPTIONS
+insert WRAPPER_GENERATOR_EXCEPTIONS
 
 creation make
 
@@ -69,6 +69,6 @@ feature
 	ensure is_void implies Result.is_equal("")
 	end
 
-invariant name.is_equal(once U"FundamentalType")
+-- invariant name.is_equal(once U"FundamentalType")
 end
 

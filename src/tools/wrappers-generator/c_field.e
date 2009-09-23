@@ -16,6 +16,6 @@ feature
 			fields.put(Current,id)
 		end
 
-invariant name.is_equal(once U"Field")
+-- invariant name.is_equal(once U"Field")
 end
 

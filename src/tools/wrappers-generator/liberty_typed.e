@@ -3,13 +3,14 @@ deferred class LIBERTY_TYPED
 	-- corrispondent wrapper type in Liberty.
 inherit GCCXML_NODE
 
+insert EXCEPTIONS
+
 feature 
 	wrapper_type: STRING is
 		-- The name of the class of Liberty that wraps Current fundamental type.
 
-		-- Result will be 
-		-- * empty when the type is "void"
-		-- * Void whtn there's no type Liberty type. 
+		-- Result will be empty when the type is "void"; an exception will be
+		-- raised when there's no wrapper type. 
 		deferred
 		end
 

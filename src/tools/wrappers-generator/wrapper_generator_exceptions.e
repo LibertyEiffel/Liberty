@@ -1,4 +1,4 @@
-deferred class EIFFEL_GCC_XML_EXCEPTIONS
+deferred class WRAPPER_GENERATOR_EXCEPTIONS
 	-- The exceptions used in eiffel-gcc-xml
 
 insert
@@ -27,7 +27,7 @@ feature {ANY}
 	unhandled_union_type: STRING is "Unhnalded union type"
 
 	unhandled_reference_type: STRING is "Unhnalded reference type: C++ reference does not have a valid Eiffel wrapper type."
-end -- class EIFFEL_GCC_XML_EXCEPTIONS
+end -- class WRAPPER_GENERATOR_EXCEPTIONS
 
 -- Copyright 2008,2009 Paolo Redaelli
 

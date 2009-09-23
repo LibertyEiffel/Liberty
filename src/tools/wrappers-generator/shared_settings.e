@@ -23,7 +23,6 @@ feature {ANY}
 	end
 
 feature -- Syntactic sugar
-
 	verbose: BOOLEAN is
 		do
 			Result := settings.verbose
@@ -33,6 +32,13 @@ feature -- Syntactic sugar
 		do
 			Result := settings.global
 		end
+
+	on_standard_output: BOOLEAN is
+		-- Shall the wrappers be outputted on standard output?
+	do
+		Result := directory=Void
+	end
+
 
 	directory: STRING is
 		do
@@ -54,6 +60,48 @@ feature -- Syntactic sugar
 			Result := settings.are_naturals_used
 		end
 
+feature {} -- Type mangling
+	dequalify (an_id: UNICODE_STRING): UNICODE_STRING is
+		-- `an_id' without the type qualifier used by GccXml to mark the
+		-- identification labels.
+
+		-- "const", "reference" and "volatile" qualifier are represented in a
+		-- CvQualifiedType node adding 'c', 'r' and 'v' to the identifies. i.e.
+		-- if "int" has id "_422" a  "const int foo" argument type will be of
+		-- type CvQualifiedType with it "_422c". The same rule is used - as far
+		-- as I know - also for reference and volatile types.
+
+		-- Result is identical to `an_id' if it does not end with 'c', 'r' and
+		-- 'v'; otherwise it is a copy of `an_id' with the last character ('c',
+		-- 'r' or 'v') removed. 
+	require
+		not_void: an_id /= Void
+	do
+		inspect
+		an_id.last.to_character
+		when 'c', 'r', 'v' then
+		Result := an_id.substring(an_id.lower, an_id.upper - 1)
+		else Result := an_id
+		end
+		-- debug 
+		-- 	log(once "dequalify(@(1))=@(2)",<<an_id.out,Result.out>>)
+		-- end
+	end
+
+
+feature {} -- Auxiliary features
+	buffer: FORMATTER is
+		-- Buffer to render the text of the feature currently being
+		-- wrapped (a function call, a structure or an enumeration).
+	once 
+		create Result
+	end
+
+	formatter: FORMATTER is
+		-- Shared formatter used to format various strings.
+	once
+		create Result
+	end
 
 feature {} -- Constants
 	comment: STRING is "%N%T%T-- "

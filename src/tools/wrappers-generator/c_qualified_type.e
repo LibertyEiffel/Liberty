@@ -22,5 +22,5 @@ feature
 		do
 			Result:= types.at(type).wrapper_type
 		end
-invariant name.is_equal(once U"CvQualifiedType")
+-- invariant name.is_equal(once U"CvQualifiedType")
 end -- class C_QUALIFIED_TYPE

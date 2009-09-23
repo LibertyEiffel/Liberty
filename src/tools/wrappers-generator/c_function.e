@@ -1,116 +1,170 @@
 class C_FUNCTION
 
 inherit
-	GCCXML_NODE 
+	GCCXML_NODE
 	IDENTIFIED_NODE
 	NAMED_NODE
+		rename c_name as function_name
+		end
 	FILED_NODE
 	STORABLE_NODE
 	WRAPPABLE_NODE
-creation make
 
-feature 
+insert EXCEPTIONS
+creation {ANY}
+	make
+
+feature {ANY}
 	store is
 		do
 			functions.store(Current)
 		end
-	
-	returns: UNICODE_STRING is do Result:=attribute_at(once U"returns") end
 
-	wrap_on (a_stream: OUTPUT_STREAM) is
-		local name: STRING
+	returns: UNICODE_STRING is
 		do
-			unwrappable:=False
-			name := adapt(c_name.as_utf8.as_lower)
-			-- TODO: this way of assigning feature names is not entirely
-			-- bullet-proof. In fact MyFunction and myfunction will get the same
-			-- Eiffel feature name. Let me say that if the code you are going
-			-- wrapping presents such issues it is not worth your time AFAIK. Paolo
-			-- 2009-02-06.
-			if is_public(name) then
-				log(once "Function @(1)",<<name>>)
-				a_stream.put_message(once "%T@(1)", <<name>>)
-				if children_count > 0 then put_arguments_on (a_stream) end
-				put_return_type_on (a_stream)
-				emit_description_on(feature_description(class_name, name),a_stream)
-				append_function_body(a_stream)
-				-- if unwrappable then log("Function @(1) is not wrappable.%N", <<name>>) end
+			Result := attribute_at(once U"returns")
+		end
+
+	eiffel_name: STRING is
+		-- The Eiffel version of Current's function_name
+		do
+			if stored_eiffel_name=Void then compute_eiffel_name end
+			Result := stored_eiffel_name
+		end
+
+	wrap_on (a_stream: OUTPUT_STREAM) is 
+		local unwrappable: BOOLEAN; fname: STRING
+		do
+			-- Note: unwrappable is set in the rescue clause if an exception is
+			-- raised. Is it understandable enought? 
+			fname := function_name.as_utf8
+			if unwrappable then
+				log("... `@(1)' is not wrappable%N", <<fname>>) 
+				buffer.put_message(once "		-- function @(1) is not wrappable (TODO: provide the reason; using developer_exception_name triggers some recursion bug AFAIK)",<<fname>>)
+			elseif is_public(function_name) then
+				log(once "Function @(1)",<<fname>>)
+				buffer.put_message(once "%T@(1)", <<eiffel_name>>)
+			 	append_arguments 
+				append_return_type
+				append_description 
+				append_body
 				log_string(once "%N")
-			else log(once "Skipping 'hidden' function @(1)%N", <<name>>)
+			else 
+				log(once "Skipping 'hidden' function `@(1)'%N", <<fname>>)
+				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<fname>>)
 			end
+			buffer.print_on(a_stream)
+		rescue
+			unwrappable := True
+			retry
 		end
-	do
+
+	append_description is
+			-- Put a description on 'buffer' formatting it as an Eiffel comment
+			-- with lines shorter that 'description_lenght' characters.  		
+		
+		-- local description: COLLECTION[STRING];  word: STRING; iter: ITERATOR[STRING];  length,new_length: INTEGER
+
+		do
+			buffer.append("%N%T%T-- TODO: implement C_FUNCTION.append_description%N")
+			-- description := feature_description(class_name, name)
+			-- if description/=Void then
+			-- 	from 
+			-- 		iter:=a_description.get_new_iterator; iter.start; 
+			-- 		buffer.append(once "%N%T%T-- "); length:=0
+			-- 	until iter.is_off loop
+			-- 		word := iter.item
+			-- 		new_length := length + word.count
+			-- 		if new_length>description_lenght then
+			-- 			buffer.append(once "%N%T%T-- ")
+			-- 			length := 0
+			-- 		else
+			-- 			buffer.put(' ')
+			-- 			length := new_length + 1
+			-- 		end
+			-- 		buffer.append(word)
+			-- 		iter.next
+			-- 	end
+			-- end
 		end
-	
-	c_function_name: STRING
-			-- The untranslated C name of the function currently being wrapped
 
-		variadic: BOOLEAN
-			-- Is the function currently being emitted variadic?
+	append_arguments is
+			-- Append the arguments of function referred by `a_node' into
+			-- `buffer'. 
 
-		unwrappable: BOOLEAN 
-			-- Is the function currently being emitted unwrappable?
-
-	
-		append_function_arguments (a_node: XML_COMPOSITE_NODE) is
-				-- Append the arguments of function referred by `a_node' into
-				-- `buffer'. If an Ellipsis ("...") is found `variadic' flag
-				-- is set to True
-			require
-				node_not_void: a_node /= Void
-				is_function_node: a_node.name.is_equal(once U"Function")
-				has_arguments: a_node.children_count > 0
-			local
-				i: INTEGER; child: XML_NODE
-			do
-				variadic := False
+			-- C requires at least one argument before the eventual ellipsis;
+			-- C++ allows ellipsis to be the only argument. (source
+			-- http://publib.boulder.ibm.com/infocenter/iadthelp/v7r0/index.jsp?topic=/com.ibm.etools.iseries.langref.doc/as400clr155.htm)  
+		local i, last: INTEGER
+		do
+			if children_count>0 then 
 				buffer.append(once " (")
-				log(once "(@(1) args: ",<<a_node.children_count.out>>)
-				append_function_argument(a_node.child(1))
-				from i:=2 until i>a_node.children_count or variadic or unwrappable loop
-					buffer.append(once "; ") -- check a_node/=Void end
-					child:=a_node.child(i) -- check child/=Void end 
-					append_function_argument(child)
+				if argument(children_count).is_ellipsis then
+					last:=children_count-1
+				else last:= children_count
+				end
+				log(once "(@(1) args: ",<<children_count.out>>)
+				from i:=1 until i>last-1 loop
+					argument(i).put_on(buffer)
+					buffer.append(once "; ") 
 					i := i + 1
 				end
+				argument(last).put_on(buffer)
 				log_string(once ")")
 				buffer.append(once ")")
 			end
+		end
 
-
-		put_return_type_on (a_stream: OUTPUT_STREAM) is
-				-- Append the Eiffel equivalent type of the return type of
-				-- `a_node' to `a_stream' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
-				-- POINTER is". When result of `a_node' is "void" only " is" is appended.
-			require
-				node_not_void: a_node /= Void
-				is_function_node: a_node.name.is_equal(once U"Function")
-			local eiffel_type
-			do
-				eiffel_type := types.at(returns).wrapper_type
-				if returns = Void then
-					a_stream.put_message ("%N%T%T%T-- unwrappable return type: @(1)%N", <<last_error>>)
-					log(once "Unwrappable return type: @(1)... ",<<last_error>>)
-					unwrappable:=True
-					last_error := Void -- Error handled, reset it.
-				elseif returns.is_empty then
-					-- Nothing; the correct "return type" of a C function returning void (i.e. a command) is an empty string.
-				else
-					a_stream.append(once ": ")
-					a_stream.append(returns)
-				end
-				buffer.append(once " is%N")
+	append_return_type is
+			-- Append the Eiffel equivalent type of the return type of
+			-- `a_node' to `buffer' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
+			-- POINTER is". When result of `a_node' is "void" only " is" is appended.
+		local
+			eiffel_type: STRING
+		do
+			eiffel_type := types.at(returns).wrapper_type
+			if eiffel_type.is_empty then 
+				-- don't print anything; the correct "return type" of a C
+				-- function returning void (i.e. a command) is an empty string.
+			else
+				buffer.append(once ": ")
+				buffer.append(eiffel_type)
 			end
+			buffer.append(once " is%N")
+		rescue
+			log(once "Unwrappable return type: @(1)... ",<<developer_exception_name>>)
+		end
 
-		append_function_body (a_node: XML_COMPOSITE_NODE) is
-				-- Append the body of function referred by `a_node'
-			require
-				node_not_void: a_node /= Void
-				is_function_node: a_node.name.is_equal(once U"Function")
-				c_function_name_not_void: c_function_name /= Void
-			deferred
-			end
+	append_body is
+			-- Append the body of function to `buffer'
+		do 
+			buffer.append("%N%T%Tdo%N%T%T-- TODO: implement C_FUNCTION.append_body; only plugin or also external?%N%T%Tend%N")	
+		end
+		
+feature {} -- Implementation
+	argument (an_index: INTEGER): C_FUNCTION_ARGUMENT is
+		-- The argument at `an_index'.	
+	do
+		Result?=child(an_index)
+	ensure no_child_with_wrong_type: Result/=Void
+	end
 
+	stored_eiffel_name: STRING is
+		-- Buffered Eiffellized name of Current
+		attribute
+		end
 
-invariant name.is_equal(once U"Function")
-end
+	compute_eiffel_name is
+		-- Assign an Eiffel name to Current.
+		-- TODO: this way of assigning feature names is not entirely
+		-- bullet-proof. In fact MyFunction and myfunction will get the same
+		-- Eiffel feature name. Let me say that if the code you are going
+		-- wrapping presents such issues it is not worth your time AFAIK. Paolo
+		-- 2009-02-06.
+	
+		do
+			stored_eiffel_name := eiffel_feature(function_name.as_utf8)
+		end
+
+-- invariant name.is_equal(once U"Function")
+end -- class C_FUNCTION

@@ -4,7 +4,7 @@ deferred class GCCXML_NODE
 inherit XML_COMPOSITE_NODE
 insert 
 	SHARED_SETTINGS
-	--DESCRIPTIONS
+	DESCRIPTIONS
 feature 
 	do_all (a_procedure: PROCEDURE[TUPLE[GCCXML_NODE]]) is
 		local i: INTEGER; node: GCCXML_NODE

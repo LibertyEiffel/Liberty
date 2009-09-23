@@ -18,5 +18,5 @@ feature
 
 	wrapper_type: STRING is "POINTER"
 
-invariant name.is_equal(once U"FunctionType")
+-- invariant name.is_equal(once U"FunctionType")
 end -- class C_FUNCTION_TYPE
