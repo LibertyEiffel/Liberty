@@ -4,7 +4,7 @@ deferred class LIBERTY_AST_LIST[N_ -> EIFFEL_NODE]
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
 
-feature {}
+feature {EIFFEL_LIST_NODE_VISITOR}
 	list: EIFFEL_LIST_NODE is
 		require
 			count > 1

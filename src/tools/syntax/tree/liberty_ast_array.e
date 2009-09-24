@@ -9,11 +9,6 @@ create {LIBERTY_NODE_FACTORY}
 feature {LIBERTY_AST_ARRAY_VISITOR}
 	content: EIFFEL_LIST_NODE is
 		do
-			Result ::= nodes.item(0)
-		end
-
-	r10: LIBERTY_AST_R10 is
-		do
 			Result ::= nodes.item(1)
 		end
 

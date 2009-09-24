@@ -7,12 +7,12 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_INDEXING_CLAUSE_VISITOR}
-	entity_name: EIFFEL_TERMINAL_NODE is
+	entity_name: LIBERTY_AST_ENTITY_NAME is
 		do
 			Result ::= nodes.item(0)
 		end
 
-	string: EIFFEL_TERMINAL_NODE is
+	string: LIBERTY_AST_STRING is
 		do
 			Result ::= nodes.item(2)
 		end

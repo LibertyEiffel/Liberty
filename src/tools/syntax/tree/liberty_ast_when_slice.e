@@ -14,9 +14,14 @@ feature {LIBERTY_AST_WHEN_SLICE_VISITOR}
 
 	up_value: LIBERTY_AST_WHEN_VALUE is
 		require
-			count = 3
+			has_up_value
 		do
 			Result ::= nodes.item(2)
+		end
+
+	has_up_value: BOOLEAN is
+		do
+			Result := count = 3
 		end
 
 feature {ANY}

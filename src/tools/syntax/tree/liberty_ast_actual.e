@@ -30,7 +30,7 @@ feature {LIBERTY_AST_ACTUAL_VISITOR}
 			Result ::= nodes.item(0)
 		end
 
-	entity_name: LIBERTY_AST_ENTITY_NAME is
+	ref_entity_name: LIBERTY_AST_ENTITY_NAME is
 		require
 			is_ref_to_entity
 		do

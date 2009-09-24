@@ -48,7 +48,7 @@ feature {}
 											  "Rename+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Rename" >> }, agent build_new_list("Rename", "Rename+");
 																							{FAST_ARRAY[STRING] << "Rename", "Rename+" >> }, agent build_continue_list("Rename", 0, "Rename+");
 																							{FAST_ARRAY[STRING] << "Rename", "KW ,", "Rename+" >> }, agent build_continue_list("Rename", 1, "Rename+") >> };
-											  "Rename", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "KW as", "KW entity name" >> }, Void >> };
+											  "Rename", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name", "KW as", "Feature_Name" >> }, Void >> };
 											  "Parent_Export", {PARSE_NON_TERMINAL << epsilon, Void;
 																									{FAST_ARRAY[STRING] << "KW export", "Export+" >> }, Void >> };
 											  "Export+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Export" >> }, agent build_new_list("Export", "Export+");

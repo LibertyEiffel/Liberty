@@ -7,12 +7,12 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_RENAME_VISITOR}
-	old_name: EIFFEL_TERMINAL_NODE is
+	old_name: LIBERTY_AST_FEATURE_NAME is
 		do
 			Result ::= nodes.item(0)
 		end
 
-	new_name: EIFFEL_TERMINAL_NODE is
+	new_name: LIBERY_AST_FEATURE_NAME is
 		do
 			Result ::= nodes.item(2)
 		end
