@@ -14,11 +14,12 @@ insert
 	STRING_HANDLER
 
 feature {ANY}
-	initialize_with (string: STRING) is
+	initialize_with (string: ABSTRACT_STRING) is
 			-- Initialize the `Current' buffer using the content of the `string'.
 			-- ''Note:'' The storage is shared between the buffer and the given `string'. Don't change the
 			-- content of the `string' or the parsing may get corrupted!
 			--|*** It looks like a strange design decision to me <CAD 2007.09.25>
+			-- Or use a FIXED_STRING...
 		require
 			string /= Void
 		do

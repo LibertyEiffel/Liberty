@@ -12,7 +12,8 @@ inherit
 		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory
 		end
 	COMPARABLE
-		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal, compare, three_way_comparison
+		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal, compare, three_way_comparison,
+			infix ">", infix "<=", infix ">="
 		end
 	STORABLE
 		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
@@ -25,8 +26,14 @@ insert
 	PLATFORM
 		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
 		end
+	RECYCLABLE
+		undefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
+		end
+	STRING_HANDLER
+		undefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
+		end
 
-feature {ABSTRACT_STRING, STRING_HANDLER}
+feature {STRING_HANDLER}
 	storage: NATIVE_ARRAY[CHARACTER]
 			-- The place where characters are stored.
 
@@ -56,16 +63,10 @@ feature {ANY}
 			Result = count
 		end
 
-	copy (other: ABSTRACT_STRING) is
-			-- Copy `other' onto Current. Will crash if Current is a FIXED_STRING.
+	copy (other: like Current) is
 		deferred
 		ensure then
 			count = other.count
-		end
-
-feature {FIXED_STRING}
-	copy_storage_to_fixed_string (fixed: FIXED_STRING) is
-		deferred
 		end
 
 feature {ANY} -- Testing:
@@ -117,6 +118,21 @@ feature {ANY} -- Testing:
 			else
 				Result := i <= other.count
 			end
+		end
+
+	infix "<=" (other: ABSTRACT_STRING): BOOLEAN is
+		do
+			Result := not (other < Current)
+		end
+
+	infix ">" (other: ABSTRACT_STRING): BOOLEAN is
+		do
+			Result := other < Current
+		end
+
+	infix ">=" (other: ABSTRACT_STRING): BOOLEAN is
+		do
+			Result := not (Current < other)
 		end
 
 	compare, three_way_comparison (other: ABSTRACT_STRING): INTEGER is
@@ -972,51 +988,6 @@ feature {ANY} -- Testing and Conversion:
 			Result = (count = occurrences('0') + occurrences('1'))
 		end
 
-	to_hexadecimal is
-			-- Convert Current bit sequence into the corresponding
-			-- hexadecimal notation.
-		require
-			is_bit
-		local
-			i, k, new_count: INTEGER; value: INTEGER
-		do
-			from
-				i := 1
-				k := count #\\ 4
-				if k > 0 then
-					new_count := 1
-				end
-			until
-				k = 0
-			loop
-				value := value * 2 + item(i).value
-				i := i + 1
-				k := k - 1
-			end
-			if new_count > 0 then
-				put(value.hexadecimal_digit, new_count)
-			end
-			from
-			until
-				i > count
-			loop
-				from
-					value := item(i).value
-					i := i + 1
-					k := 3
-				until
-					k = 0
-				loop
-					value := value * 2 + item(i).value
-					i := i + 1
-					k := k - 1
-				end
-				new_count := new_count + 1
-				put(value.hexadecimal_digit, new_count)
-			end
-			count := new_count
-		end
-
 	binary_to_integer: INTEGER is
 			-- Assume there is enougth space in the INTEGER to store
 			-- the corresponding decimal value.
@@ -1041,7 +1012,7 @@ feature {ANY} -- Testing and Conversion:
 		end
 
 feature {ANY}
-	infix "+" (other: STRING): STRING is
+	infix "+" (other: ABSTRACT_STRING): STRING is
 			-- Create a new STRING which is the concatenation of
 			-- `Current' and `other'.
 			--
@@ -1061,7 +1032,7 @@ feature {ANY}
 			--
 			-- See also `as_upper', `to_lower', `to_upper'.
 		do
-			create Result.copy(Current)
+			create Result.make_from_string(Current)
 			Result.to_lower
 		end
 
@@ -1070,7 +1041,7 @@ feature {ANY}
 			--
 			-- See also `as_lower', `to_upper', `to_lower'.
 		do
-			create Result.copy(Current)
+			create Result.make_from_string(Current)
 			Result.to_upper
 		end
 
@@ -1246,8 +1217,8 @@ feature {ANY} -- Interfacing with C string:
 			-- part of the Eiffel STRING.
 		deferred
 		ensure
+			(is_empty or else storage.item(count) /= '%U') implies (capacity > count and then storage.item(count) = '%U')
 			count = old count
-			(is_empty or else storage.item(count) /= '%U') implies (storage.capacity > count and then storage.item(count+1) = '%U')
 			Result.is_not_null
 		end
 

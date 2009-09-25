@@ -6,11 +6,6 @@ class STRING
 inherit
 	ABSTRACT_STRING
 
-insert
-	RECYCLABLE
-		redefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
-		end
-
 creation {ANY}
 	with_capacity, make, copy, make_empty, make_filled, from_external, from_external_copy,
 	from_external_sized, from_external_sized_copy, make_from_string
@@ -50,6 +45,21 @@ feature {ANY} -- Creation / Modification:
 		ensure
 			count_set: count = n
 			filled: occurrences(c) = count
+		end
+
+	make_from_string (model: ABSTRACT_STRING) is
+			-- Initialize from the characters of `model'.
+		require
+			model /= Void
+		local
+			c: INTEGER
+		do
+			c := model.count
+			ensure_capacity(c)
+			count := c
+			storage.copy_from(model.storage, c - 1)
+		ensure
+			count = model.count
 		end
 
 feature {ANY}
@@ -166,7 +176,7 @@ feature {ANY} -- Modification:
 			old_character /= new_character implies occurrences(old_character) = 0
 		end
 
-	append, append_string (s: STRING) is
+	append, append_string (s: ABSTRACT_STRING) is
 			-- Append a copy of 's' to `Current'.
 			--
 			-- See also `add_last', `add_first', `prepend', '+'.
@@ -183,7 +193,7 @@ feature {ANY} -- Modification:
 			count := needed_capacity
 		end
 
-	append_substring (s: STRING; start_index, end_index: INTEGER) is
+	append_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
 			-- Append the substring from `s' from `start_index' to `end_index'
 			-- to Current.
 		require
@@ -202,7 +212,7 @@ feature {ANY} -- Modification:
 			count := needed_capacity
 		end
 
-	prepend (other: STRING) is
+	prepend (other: ABSTRACT_STRING) is
 			-- Prepend `other' to `Current'.
 			--
 			-- See also `append'.
@@ -222,7 +232,7 @@ feature {ANY} -- Modification:
 			(old other.twin + old Current.twin).is_equal(Current)
 		end
 
-	insert_string (s: STRING; i: INTEGER) is
+	insert_string (s: ABSTRACT_STRING; i: INTEGER) is
 			-- Insert `s' at index `i', shifting characters from index `i'
 			-- to `count' rightwards.
 		require
@@ -240,7 +250,7 @@ feature {ANY} -- Modification:
 			storage.copy_at(i - 1, s.storage, k)
 		end
 
-	replace_substring (s: STRING; start_index, end_index: INTEGER) is
+	replace_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
 			-- Replace the substring from `start_index' to `end_index',
 			-- inclusive, with `s'.
 		require
@@ -552,7 +562,7 @@ feature {ANY} -- Modification:
 			count = old count - (end_index - start_index + 1)
 		end
 
-	remove_suffix (s: STRING) is
+	remove_suffix (s: ABSTRACT_STRING) is
 			-- Remove the suffix `s' of current string.
 			--
 			-- See also `remove_prefix', `remove_tail', `remove'.
@@ -564,7 +574,7 @@ feature {ANY} -- Modification:
 			(old Current.twin).is_equal(Current + old s.twin)
 		end
 
-	remove_prefix (s: STRING) is
+	remove_prefix (s: ABSTRACT_STRING) is
 			-- Remove the prefix `s' of current string.
 			--
 			-- See also `remove_suffix', `remove_head', `remove'.
@@ -745,6 +755,52 @@ feature {ANY} -- Other features:
 			count = old count - old occurrences(ch)
 		end
 
+feature {ANY} -- Testing and Conversion:
+	to_hexadecimal is
+			-- Convert Current bit sequence into the corresponding
+			-- hexadecimal notation.
+		require
+			is_bit
+		local
+			i, k, new_count: INTEGER; value: INTEGER
+		do
+			from
+				i := 1
+				k := count #\\ 4
+				if k > 0 then
+					new_count := 1
+				end
+			until
+				k = 0
+			loop
+				value := value * 2 + item(i).value
+				i := i + 1
+				k := k - 1
+			end
+			if new_count > 0 then
+				put(value.hexadecimal_digit, new_count)
+			end
+			from
+			until
+				i > count
+			loop
+				from
+					value := item(i).value
+					i := i + 1
+					k := 3
+				until
+					k = 0
+				loop
+					value := value * 2 + item(i).value
+					i := i + 1
+					k := k - 1
+				end
+				new_count := new_count + 1
+				put(value.hexadecimal_digit, new_count)
+			end
+			count := new_count
+		end
+
 feature {ANY} -- Other features:
 	extend_unless (ch: CHARACTER) is
 			-- Extend `Current' (using `extend') with `ch' unless `ch' is
@@ -758,9 +814,23 @@ feature {ANY} -- Other features:
 			count >= old count
 		end
 
-	new_iterator: ITERATOR[CHARACTER] is
+	intern: FIXED_STRING is
+			-- A shared version of this string.
 		do
-			create {ITERATOR_ON_STRING} Result.make(Current)
+			intern_key.make_from_string(Current)
+			Result := interned.reference_at(intern_key)
+			if Result = Void then
+				Result := (create {FIXED_STRING}.make_from_string(Current))
+				interned.add(Result)
+				intern_key.recycle
+			end
+		end
+
+feature {}
+	intern_key: FIXED_STRING is
+		once
+			create Result.make_from_string("")
+			Result.recycle
 		end
 
 feature {ANY} -- Interfacing with C string:
@@ -780,9 +850,6 @@ feature {ANY} -- Interfacing with C string:
 			end
 			count := count - 1
 			Result := storage.to_pointer
-		ensure
-			count = old count
-			Result.is_not_null
 		end
 
 	from_external (p: POINTER) is
@@ -878,7 +945,7 @@ feature {ANY} -- Interfacing with C string:
 			count = size
 		end
 
-feature {STRING, STRING_HANDLER}
+feature {STRING_HANDLER}
 	set_count (new_count: like count) is
 		require
 			new_count <= capacity
@@ -907,7 +974,6 @@ feature {STRING, STRING_HANDLER}
 			capacity >= needed_capacity
 		end
 
-feature {STRING_HANDLER}
 	set_storage (new_storage: like storage; new_capacity: like capacity) is
 		require
 			count <= new_capacity
@@ -923,18 +989,6 @@ feature {RECYCLING_POOL, STRING_RECYCLING_POOL}
 	recycle is
 		do
 			clear_count
-		end
-
-feature {}
-	string_buffer: STRING is
-			-- Private, temporary once buffer.
-		once
-			create Result.make(256)
-		end
-
-	split_buffer: ARRAY[STRING] is
-		once
-			create Result.with_capacity(4, 1)
 		end
 
 invariant

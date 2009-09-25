@@ -8,14 +8,14 @@ creation {ANY}
 	make
 
 feature {}
-	string: STRING
+	string: ABSTRACT_STRING
 			-- The one to be traversed.
 
 	item_index: INTEGER
 			--  Memorize the current position.
 
 feature {ANY}
-	make (s: STRING) is
+	make (s: like string) is
 		require
 			s /= Void
 		do

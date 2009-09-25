@@ -2,11 +2,14 @@ class FIXED_STRING
 	--
 	-- Immutable character STRINGs indexed from `1' to `count'.
 	--
-	-- TODO: share storage among substrings (needs offset/length management)
+	-- TODO: share storage among substrings (needs offset/length management -- beware of to_external)
 	--
 
 inherit
 	ABSTRACT_STRING
+		redefine
+			immutable
+		end
 
 creation {ANY}
 	make_from_string, copy, from_external_copy, from_external_sized_copy
@@ -14,10 +17,11 @@ creation {ANY}
 creation {FIXED_STRING}
 	make_from_fixed_string
 
-feature {} -- Creation:
+feature {ANY} -- Creation:
 	make_from_string (model: STRING) is
 			-- Initialize from the characters of `model'.
 		require
+			not immutable
 			model /= Void
 		local
 			c, ca: INTEGER
@@ -57,23 +61,16 @@ feature {ANY}
 			end
 		end
 
-feature {FIXED_STRING}
-	copy_storage_to_fixed_string (fixed: FIXED_STRING) is
-		do
-			fixed.copy_storage_from_fixed_string(Current)
-		end
-
-	copy_storage_from_fixed_string (other: FIXED_STRING) is
-		do
-			storage := other.storage
-		end
-
 feature {ANY}
-	copy (other: ABSTRACT_STRING) is
+	copy (other: like Current) is
 			-- In fact this feature can only be used at creation time (see `immutable').
 		do
-			other.copy_storage_to_fixed_string(Current)
+			check
+				not immutable
+			end
+			storage := other.storage
 			hash_code := other.hash_code
+			count := other.count
 			capacity := other.capacity
 			immutable := True
 		ensure then
@@ -86,7 +83,7 @@ feature {ANY}
 feature {ANY} -- Other features:
 	substring (start_index, end_index: INTEGER): like Current is
 		do
-			create Result.make_from_fixed_string(Current)
+			create Result.make_from_fixed_string(Current, start_index, end_index)
 		end
 
 feature {}
@@ -178,10 +175,22 @@ feature {} -- Creation from C string:
 			count <= size
 		end
 
+feature {RECYCLING_POOL, STRING_RECYCLING_POOL, STRING_HANDLER}
+	recycle is
+		local
+			s: like storage
+		do
+			immutable := False
+			storage := s
+		end
+
 invariant
 	0 <= count
-	capacity = count + 1
+	capacity.in_range(count, count + 1)
 	storage.is_not_null
-	immutable
+	-- immutable or in recycling pool
+	count = 0 implies storage.item(0) = '%U'
+	count > 0 implies (storage.item(count-1) = '%U' or else storage.item(count) = '%U')
+	storage.item(count) = '%U' implies capacity = count + 1
 
-end -- class STRING
+end -- class FIXED_STRING
