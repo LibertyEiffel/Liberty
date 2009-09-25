@@ -27,7 +27,7 @@ feature {LIBERTY_AST_LOOP_VISITOR}
 			Result ::= nodes.item(4)
 		end
 
-	instruction_list: EIFFEL_LIST_NODE is
+	instructions: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(6)
 		end

@@ -66,7 +66,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			not_yet_implemented
 		end
 
-feature {} -- Semantincs building
+feature {LIBERTY_UNIVERSE} -- Semantincs building
 	check_and_initialize (universe: LIBERTY_UNIVERSE) is
 		local
 			error: LIBERTY_ERROR; code: STRING
@@ -83,6 +83,7 @@ feature {} -- Semantincs building
 			end
 		end
 
+feature {}
 	code_stream: STRING_OUTPUT_STREAM is
 		once
 			create Result.make
@@ -94,14 +95,13 @@ feature {} -- Semantincs building
 		end
 
 feature {}
-	make (a_descriptor: like descriptor; a_ast: like ast; universe: LIBERTY_UNIVERSE) is
+	make (a_descriptor: like descriptor; a_ast: like ast) is
 		require
 			a_descriptor /= Void
 		do
 			descriptor := a_descriptor
 			ast := a_ast
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE, STRING]}features.make
-			check_and_initialize(universe)
 		ensure
 			descriptor = a_descriptor
 		end

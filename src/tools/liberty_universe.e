@@ -44,8 +44,9 @@ feature {ANY}
 			Result := types.reference_at(descriptor)
 			if Result = Void then
 				ast := parse_class(descriptor.cluster, descriptor.name)
-				create Result.make(descriptor, ast, Current)
+				create Result.make(descriptor, ast)
 				types.put(Result, descriptor)
+				Result.check_and_initialize(Current)
 			end
 		ensure
 			Result.cluster.is_equal(descriptor.cluster)
@@ -106,8 +107,9 @@ feature {ANY}
 				Result := types.reference_at(td)
 				if Result = Void then
 					ast := parse_class(cluster, class_name)
-					create Result.make(td, ast, Current)
+					create Result.make(td, ast)
 					types.put(Result, td)
+					Result.check_and_initialize(Current)
 				end
 				type_any_memory := Result
 			end

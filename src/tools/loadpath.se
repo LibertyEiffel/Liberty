@@ -5,6 +5,7 @@
 ./syntax/tree/
 ./syntax/tree/visitor/
 ./semantics/
+./semantics/contract/
 ./semantics/entities/
-./semantics/instructions/
 ./semantics/expressions/
+./semantics/instructions/

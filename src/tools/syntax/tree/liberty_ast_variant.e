@@ -12,7 +12,7 @@ feature {LIBERTY_AST_VARIANT_VISITOR}
 			Result := count > 0
 		end
 
-	variant_expression: LIBERTY_AST_EXPRESSION is
+	expression: LIBERTY_AST_EXPRESSION is
 		require
 			has_variant
 		do

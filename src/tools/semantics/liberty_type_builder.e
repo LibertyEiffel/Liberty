@@ -40,6 +40,10 @@ inherit
 	LIBERTY_AST_WHEN_VISITOR
 	LIBERTY_AST_WHEN_SLICE_VISITOR
 	LIBERTY_AST_WHEN_VALUE_VISITOR
+	LIBERTY_AST_FROM_VISITOR
+	LIBERTY_AST_INVARIANT_VISITOR
+	LIBERTY_AST_VARIANT_VISITOR
+	LIBERTY_AST_DEBUG_KEYS_VISITOR
 
 create {LIBERTY_TYPE}
 	make
@@ -60,6 +64,10 @@ feature {LIBERTY_TYPE}
 			last_feature_definition := Void
 			last_feature_routine := Void
 			last_feature_block := Void
+			last_from_instructions := Void
+			last_invariant := Void
+			last_variant := Void
+			last_entity_reference := Void
 			feature_definition := Void
 			feature_definition_names := Void
 			a_type.ast.accept(Current)
@@ -264,11 +272,11 @@ feature {LIBERTY_AST_REQUIRE_ELSE}
 	visit_liberty_ast_require_else (v: LIBERTY_AST_REQUIRE_ELSE) is
 		do
 			if v.is_require_else then
-				last_feature_routine.set_require_else(last_assertions)
+				last_feature_routine.set_require(create {LIBERTY_REQUIRE_ELSE}.make(last_assertions))
 			elseif v.is_require_then then
-				last_feature_routine.set_require_then(last_assertions)
+				last_feature_routine.set_require(create {LIBERTY_REQUIRE_THEN}.make(last_assertions))
 			else
-				last_feature_routine.set_require(last_assertions)
+				last_feature_routine.set_require(create {LIBERTY_REQUIRE}.make(last_assertions))
 			end
 		end
 
@@ -381,9 +389,9 @@ feature {LIBERTY_AST_ENSURE_THEN}
 	visit_liberty_ast_ensure_then (v: LIBERTY_AST_ENSURE_THEN) is
 		do
 			if v.is_ensure_then then
-				last_feature_routine.set_ensure_then(last_assertions)
+				last_feature_routine.set_ensure(create {LIBERTY_ENSURE_THEN}.make(last_assertions))
 			else
-				last_feature_routine.set_ensure(last_assertions)
+				last_feature_routine.set_ensure(create {LIBERTY_ENSURE}.make(last_assertions))
 			end
 		end
 
@@ -531,33 +539,121 @@ feature {LIBERTY_AST_WHEN_VALUE}
 
 feature {LIBERTY_AST_LOOP}
 	visit_liberty_ast_loop (v: LIBERTY_AST_LOOP) is
-		deferred
+		local
+			le: like last_expression; li: like last_invariant; lv: like last_variant
+		do
+			v.from_clause.accept(Current)
+			v.invariant_clause.accept(Current)
+			li := last_invariant
+			v.variant_clause.accept(Current)
+			lv := last_variant
+			v.expression.accept(Current)
+			le := last_expression
+			create {LIBERTY_LOOP}last_instruction.make(last_from_instructions, le, list_instructions(v.instructions), li, lv)
+		end
+
+feature {LIBERTY_AST_FROM}
+	visit_liberty_ast_from (v: LIBERTY_AST_FROM) is
+		do
+			last_from_instructions := list_instructions(v.instructions)
+		end
+
+feature {LIBERTY_AST_INVARIANT}
+	visit_liberty_ast_invariant (v: LIBERTY_AST_INVARIANT) is
+		local
+			i: INTEGER
+		do
+			create {FAST_ARRAY[LIBERTY_ASSERTION]}last_assertions.with_capacity(v.list_count)
+			from
+				i := v.list_lower
+			until
+				last_error /= Void or else i > v.list_upper
+			loop
+				v.list_item(i).accept(Current)
+				i := i + 1
+			end
+			create last_invariant.make(last_assertions)
+		end
+
+feature {LIBERTY_AST_VARIANT}
+	visit_liberty_ast_variant (v: LIBERTY_AST_VARIANT) is
+		do
+			if v.has_variant then
+				v.expression.accept(Current)
+				create last_variant.make(last_expression)
+			else
+				last_variant := Void
+			end
 		end
 
 feature {LIBERTY_AST_CHECK}
 	visit_liberty_ast_check (v: LIBERTY_AST_CHECK) is
-		deferred
+		local
+			i: INTEGER; c: LIBERTY_CHECK
+		do
+			create {FAST_ARRAY[LIBERTY_ASSERTION]}last_assertions.with_capacity(v.list_count)
+			from
+				i := v.list_lower
+			until
+				last_error /= Void or else i > v.list_upper
+			loop
+				v.list_item(i).accept(Current)
+				i := i + 1
+			end
+			create c.make(last_assertions)
+			create {LIBERTY_CHECK_INSTRUCTION}last_instruction.make(c)
 		end
 
 feature {LIBERTY_AST_DEBUG}
 	visit_liberty_ast_debug (v: LIBERTY_AST_DEBUG) is
-		deferred
+		local
+			ldk: like last_debug_keys
+		do
+			ldk := last_debug_keys
+			v.debug_keys.accept(Current)
+			create {LIBERTY_DEBUG}last_instruction.make(last_debug_keys, list_instructions(v.instructions))
+			last_debug_keys := ldk
+		end
+
+feature {LIBERTY_AST_DEBUG_KEYS}
+	visit_liberty_ast_debug_keys (v: LIBERTY_AST_DEBUG_KEYS) is
+		local
+			i: INTEGER
+		do
+			create {FAST_ARRAY[STRING]}last_debug_keys.with_capacity(v.list_count)
+			from
+				i := v.list_lower
+			until
+				i > v.list_upper
+			loop
+				last_debug_keys.add_last(decoded_string(v.list_item(i)))
+				i := i + 1
+			end
 		end
 
 feature {LIBERTY_AST_OLD_CREATION}
 	visit_liberty_ast_old_creation (v: LIBERTY_AST_OLD_CREATION) is
-		deferred
+		do
+			visit_liberty_ast_creation(v)
 		end
 
 feature {LIBERTY_AST_CREATION}
 	visit_liberty_ast_creation (v: LIBERTY_AST_CREATION) is
-		deferred
+		local
+			i: INTEGER; target_type: LIBERTY_TYPE
+		do
+			v.writable.accept(Current)
+			if v.has_type_definition then
+				v.type_definition.accept(Current)
+				target_type := last_type
+			end
+			
 		end
 
 feature {LIBERTY_AST_RETRY}
 	visit_liberty_ast_retry (v: LIBERTY_AST_RETRY) is
 		do
-			last_instructions.add_last(create {LIBERTY_RETRY}.make)
+			create {LIBERTY_RETRY}last_instruction.make
 		end
 
 feature {}
@@ -593,6 +689,11 @@ feature {}
 	last_default: LIBERTY_DEFAULT
 	last_inspect: LIBERTY_INSPECT
 	last_inspect_clause: LIBERTY_INSPECT_CLAUSE
+	last_from_instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
+	last_invariant: LIBERTY_INVARIANT
+	last_variant: LIBERTY_VARIANT
+	last_debug_keys: COLLECTION[STRING]
+	last_entity_reference: LIBERTY_ENTITY_REFERENCE
 
 invariant
 	last_declaration_names /= Void
