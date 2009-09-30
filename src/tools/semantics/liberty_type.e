@@ -8,6 +8,7 @@ insert
 		redefine
 			is_equal
 		end
+	LIBERTY_ERRORS
 
 create {LIBERTY_UNIVERSE}
 	make
@@ -45,6 +46,39 @@ feature {ANY}
 			Result := descriptor.parameters
 		end
 
+	is_deferred: BOOLEAN is
+		require
+			mark_set
+		do
+			Result := mark = deferred_mark
+		end
+
+	is_expanded: BOOLEAN is
+		require
+			mark_set
+		do
+			Result := mark = expanded_mark
+		end
+
+	is_separate: BOOLEAN is
+		require
+			mark_set
+		do
+			Result := mark = separate_mark
+		end
+
+	is_reference: BOOLEAN is
+		require
+			mark_set
+		do
+			Result := mark = reference_mark
+		end
+
+	mark_set: BOOLEAN is
+		do
+			Result := mark /= 0
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	set_obsolete (message: like obsolete_message) is
 		require
@@ -61,37 +95,97 @@ feature {LIBERTY_TYPE_BUILDER}
 			features.add(a_feature, a_feature.name)
 		end
 
-	check_validity: LIBERTY_ERROR is
+	set_deferred is
+		require
+			not mark_set
 		do
-			not_yet_implemented
+			mark := deferred_mark
+		ensure
+			mark_set
+			is_deferred
+		end
+
+	set_expanded is
+		require
+			not mark_set
+		do
+			mark := expanded_mark
+		ensure
+			mark_set
+			is_expanded
+		end
+
+	set_separate is
+		require
+			not mark_set
+		do
+			mark := separate_mark
+		ensure
+			mark_set
+			is_separate
+		end
+
+	set_reference is
+		require
+			not mark_set
+		do
+			mark := reference_mark
+		ensure
+			mark_set
+			is_reference
+		end
+
+	add_parent (a_parent: LIBERTY_TYPE; conformant: BOOLEAN) is
+		do
+			if conformant then
+				if conformant_parents = Void then
+					create {FAST_ARRAY[LIBETRY_TYPE]}conformant_parents.make(0)
+				end
+				conformant_parents.add_last(a_parent)
+			else
+				if non_conformant_parents = Void then
+					create {FAST_ARRAY[LIBETRY_TYPE]}non_conformant_parents.make(0)
+				end
+				non_conformant_parents.add_last(a_parent)
+			end
+		end
+
+	features_twin: like features is
+		local
+			i: INTEGER
+		do
+			create  {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]}Result.with_capacity(features.count)
+			from
+				i := features.lower
+			until
+				i > features.upper
+			loop
+				Result.add(features.item_at(i).twin, features.key_at(i))
+				i := i + 1
+			end
 		end
 
 feature {LIBERTY_UNIVERSE} -- Semantincs building
 	check_and_initialize (universe: LIBERTY_UNIVERSE) is
+		require
+			not has_error
 		local
-			error: LIBERTY_ERROR; code: STRING
+			builder: LIBERTY_TYPE_BUILDER
 		do
-			error := builder.check_and_initialize(Current, universe)
-			if error /= Void then
-				code_stream.clear
-				ast.generate(code_stream)
-				code := once ""
-				code.clear_count
-				code_stream.append_in(code)
-				error.emit(code)
-				die_with_code(1)
+			create builder.make(Current, universe)
+			builder.check_and_initialize
+			if not has_error then
+				check_validity
+			end
+			if has_error_or_warning then
+				emit_semantics_error(ast)
 			end
 		end
 
 feature {}
-	code_stream: STRING_OUTPUT_STREAM is
-		once
-			create Result.make
-		end
-
-	builder: LIBERTY_TYPE_BUILDER is
-		once
-			create Result.make
+	check_validity is
+		do
+			-- TODO
 		end
 
 feature {}
@@ -101,14 +195,22 @@ feature {}
 		do
 			descriptor := a_descriptor
 			ast := a_ast
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE, STRING]}features.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]}features.make
 		ensure
 			descriptor = a_descriptor
 		end
 
-	features: DICTIONARY[LIBERTY_FEATURE, STRING]
+	mark: INTEGER_8
+	conformant_parents: COLLECTION[LIBERTY_TYPE]
+	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
+	features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]
 
-feature {LIBERTY_TYPE_BUILDER}
+	deferred_mark: INTEGER_8 is 1
+	expanded_mark: INTEGER_8 is 2
+	separate_mark: INTEGER_8 is 4
+	reference_mark: INTEGER_8 is 8
+
+feature {LIBERTY_AST_HANDLER}
 	ast: LIBERTY_AST_CLASS
 	descriptor: LIBERTY_TYPE_DESCRIPTOR
 

@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_ASSIGNMENT_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	writable: LIBERTY_AST_WRITABLE is
 		do
 			Result ::= nodes.item(0)
@@ -47,15 +47,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 3 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_ASSIGNMENT_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_assignment(Current)
 		end
 
 end

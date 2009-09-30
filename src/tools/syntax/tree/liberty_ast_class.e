@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_CLASS_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	class_header: LIBERTY_AST_CLASS_HEADER is
 		do
 			Result ::= nodes.item(0)
@@ -51,15 +51,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 9 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_CLASS_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_class(Current)
 		end
 
 end

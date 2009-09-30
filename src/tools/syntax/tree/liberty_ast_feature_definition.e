@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_FEATURE_DEFINITION_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	indexing_clause: LIBERTY_AST_INDEXING is
 		do
 			Result ::= nodes.item(0)
@@ -58,15 +58,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 2, 4 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_FEATURE_DEFINITION_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_feature_definition(Current)
 		end
 
 end

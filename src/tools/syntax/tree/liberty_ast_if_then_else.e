@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_IF_THEN_ELSE_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	then_clause: LIBERTY_AST_IF is
 		do
 			Result ::= nodes.item(0)
@@ -31,15 +31,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 4 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_IF_THEN_ELSE_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_if_then_else(Current)
 		end
 
 end

@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_PARENT_CLAUSE_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	has_clauses: BOOLEAN is
 		do
 			Result := count = 5
@@ -52,15 +52,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 0, 1, 5 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_PARENT_CLAUSE_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_parent_clause(Current)
 		end
 
 end

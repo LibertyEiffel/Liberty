@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_CLASS_MARKER_VISITOR}
+feature {}
 	first_keyword: STRING is
 		local
 			keyword: EIFFEL_TERMINAL_NODE
@@ -15,6 +15,7 @@ feature {LIBERTY_AST_CLASS_MARKER_VISITOR}
 			Result := keyword.name
 		end
 
+feature {LIBERTY_AST_HANDLER}
 	is_deferred: BOOLEAN is
 		do
 			Result := count = 2 and then first_keyword.is_equal(once "KW deferred")
@@ -42,15 +43,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 1, 2 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_CLASS_MARKER_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_class_marker(Current)
 		end
 
 end

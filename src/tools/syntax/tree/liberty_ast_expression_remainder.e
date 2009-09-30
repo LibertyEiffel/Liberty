@@ -3,7 +3,7 @@ deferred class LIBERTY_AST_EXPRESSION_REMAINDER[E_ -> LIBERTY_AST_NON_TERMINAL_N
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
 
-feature {}
+feature {LIBERTY_AST_HANDLER}
 	expression: E_ is
 		require
 			not is_empty

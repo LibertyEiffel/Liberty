@@ -35,6 +35,11 @@ feature {ANY}
 			Result := count = 0
 		end
 
+	accept (v: VISITOR) is
+		do
+			check False end
+		end
+
 feature {EIFFEL_GRAMMAR}
 	set (index: INTEGER; node: EIFFEL_NODE) is
 		do

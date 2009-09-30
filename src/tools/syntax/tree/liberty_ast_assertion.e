@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_ASSERTION_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	tag: LIBERTY_AST_ASSERTION_TAG is
 		do
 			Result ::= nodes.item(0)
@@ -26,15 +26,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 2 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_ASSERTION_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_assertion(Current)
 		end
 
 end

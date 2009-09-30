@@ -229,8 +229,7 @@ feature {}
 											  "Clients", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Clients");
 																							{FAST_ARRAY[STRING] << "Client" >> }, agent build_new_list("Client", "Clients");
 																							{FAST_ARRAY[STRING] << "Client", "KW ,", "Clients" >> }, agent build_continue_list("Client", 1, "Clients") >> };
-											  "Client", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void; -- Liberty extension
-																						  {FAST_ARRAY[STRING] << "KW class name" >> }, Void >> };
+											  "Client", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void >> }; -- Liberty extension
 											  "Feature_Definition*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Feature_Definition*");
 																											{FAST_ARRAY[STRING] << "Feature_Definition", "Feature_Definition*" >> }, agent build_continue_list("Feature_Definition", 0, "Feature_Definition*") >> };
 											  "Feature_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature" >> }, Void;

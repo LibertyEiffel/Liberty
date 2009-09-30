@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_EIFFEL_BLOCK_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	is_external: BOOLEAN is
 		do
 			Result := count = 3
@@ -21,7 +21,6 @@ feature {LIBERTY_AST_EIFFEL_BLOCK_VISITOR}
 			Result = not is_external
 		end
 
-feature {LIBERTY_AST_EIFFEL_BLOCK_VISITOR}
 	obsolete_clause: LIBERTY_AST_OBSOLETE is
 		do
 			Result ::= nodes.item(0)
@@ -81,15 +80,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 3, 7 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_EIFFEL_BLOCK_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_eiffel_block(Current)
 		end
 
 end

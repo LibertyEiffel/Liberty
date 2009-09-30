@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_CREATION_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	has_type_definition: BOOLEAN is
 		do
 			Result := nodes.item(1).name.is_equal(once "KW {")
@@ -71,15 +71,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 2, 5, 8 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_CREATION_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_creation(Current)
 		end
 
 end

@@ -12,7 +12,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_OLD_CREATION_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	has_type_definition: BOOLEAN is
 		do
 			Result := count = 4 or else count = 7
@@ -62,15 +62,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 3, 4, 6, 7 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_OLD_CREATION_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_old_creation(Current)
 		end
 
 end

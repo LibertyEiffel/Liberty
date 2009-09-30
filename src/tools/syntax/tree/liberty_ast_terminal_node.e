@@ -8,6 +8,11 @@ feature {ANY}
 
 	image: EIFFEL_IMAGE
 
+	accept (v: VISITOR) is
+		do
+			check False end
+		end
+
 feature {EIFFEL_NODE_HANDLER}
 	display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
 		do

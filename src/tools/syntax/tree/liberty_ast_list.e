@@ -4,7 +4,7 @@ deferred class LIBERTY_AST_LIST[N_ -> EIFFEL_NODE]
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
 
-feature {EIFFEL_LIST_NODE_VISITOR}
+feature {}
 	list: EIFFEL_LIST_NODE is
 		require
 			count > 1
@@ -12,7 +12,7 @@ feature {EIFFEL_LIST_NODE_VISITOR}
 			Result ::= nodes.item(1)
 		end
 
-feature {}
+feature {LIBERTY_AST_HANDLER}
 	list_valid_index (index: INTEGER): BOOLEAN is
 		require
 			count > 1

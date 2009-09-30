@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_LOOP_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	from_clause: LIBERTY_AST_FROM is
 		do
 			Result ::= nodes.item(0)
@@ -41,15 +41,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 8 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_LOOP_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_loop(Current)
 		end
 
 end

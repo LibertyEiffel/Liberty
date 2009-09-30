@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_FEATURE_NAME_OR_ALIAS_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	is_infix: BOOLEAN is
 		do
 			Result := count = 2 and then nodes.first.name.is_equal(once "KW infix")
@@ -54,15 +54,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 1, 2 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_FEATURE_NAME_OR_ALIAS_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_feature_name_or_alias(Current)
 		end
 
 end
