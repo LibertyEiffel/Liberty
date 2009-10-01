@@ -99,6 +99,7 @@ feature {}
 				parent := universe.get_type_from_type_definition(parent_clause.type_definition)
 				if parent /= Void then
 					type.add_parent(parent, conformant)
+					inject_parent_invariant(parent)
 					inject_parent_features(parent, parent_clause.parent_clause, conformant)
 					has_parent := True
 				end
@@ -111,69 +112,62 @@ feature {}
 			end
 		end
 
+	inject_parent_invariant (parent: LIBERTY_TYPE) is
+		do
+			--|*** TODO
+		end
+
 	inject_parent_features (parent: LIBERTY_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE; conformant: BOOLEAN) is
 		local
-			parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]
+			parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 		do
 			parent_features := parent.features_twin
 			rename_features(parent_features, clause.rename_clause)
 			export_features(parent_features, clause.export_clause)
-			undefine_features(parent_features, clause.undefine_clause)
-			redefine_features(parent_features, clause.redefine_clause)
+			undefine_features(parent_features, clause.undefine_clause, conformant)
+			redefine_features(parent_features, clause.redefine_clause, conformant)
+			push_parent_features_in_type(parent_features)
 		end
 
-	rename_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]; clause: LIBERTY_AST_PARENT_RENAME) is
+	rename_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_RENAME) is
 		local
-			i: INTEGER; r: LIBERTY_AST_RENAME; old_name, new_name: EIFFEL_IMAGE
+			i: INTEGER; r: LIBERTY_AST_RENAME; old_name, new_name: LIBERTY_FEATURE_NAME
 			fd: LIBERTY_FEATURE_DEFINITION
 		do
 			from
 				i := clause.list_lower
+			invariant
+				parent_features.item(i).name.is_equal(parent_features.key(i))
 			until
 				i > clause.list_upper
 			loop
 				r := clause.list_item(i)
-				if r.old_name.feature_name_or_alias.is_regular then
-					old_name := r.old_name.feature_name_or_alias.entity_name.image
-				else
-					old_name := r.old_name.feature_name_or_alias.free_operator_name.image
-				end
-				if r.new_name.feature_name_or_alias.is_regular then
-					new_name := r.new_name.feature_name_or_alias.entity_name.image
-				else
-					new_name := r.new_name.feature_name_or_alias.free_operator_name.image
-				end
-				fd := parent_features.reference_at(old_name.image)
+				create old_name.make_from_ast(r.old_name.feature_name_or_alias)
+				create new_name.make_from_ast(r.new_name.feature_name_or_alias)
+				fd := parent_features.reference_at(old_name)
 				if fd = Void then
-					error(old_name.index, once "Unknown feature name: " + old_name.image)
-				elseif parent_features.reference_at(new_name.image)
-					error(new_name.index, once "Duplicate feature name: " + new_name.image)
+					error(old_name.index, once "Unknown feature name: " + old_name)
+				elseif parent_features.reference_at(new_name)
+					error(new_name.index, once "Duplicate feature name: " + new_name)
 				else
-					parent_features.remove(old_name.image)
-					if r.new_name.feature_name_or_alias.is_regular then
-						fd.rename_regular(new_name.image)
-					elseif r.new_name.feature_name_or_alias.is_prefix then
-						fd.rename_prefix(new_name.image)
-					else
-						check
-							r.new_name.feature_name_or_alias.is_infix
-						end
-						fd.rename_infix(new_name.image)
-					end
-					parent_features.add(fd, new_name.image)
+					parent_features.remove(old_name)
+					fd.set_name(new_name)
+					parent_features.add(fd, new_name)
 				end
 				i := i + 1
 			end
 		end
 
-	export_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]; clause: LIBERTY_AST_PARENT_EXPORT) is
+	export_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_EXPORT) is
 		local
-			i, j: INTEGER; e: LIBERTY_AST_EXPORT; feature_name: LIBERTY_AST_FEATURE_NAME; name: EIFFEL_IMAGE
+			i, j: INTEGER; e: LIBERTY_AST_EXPORT; feature_name: LIBERTY_FEATURE_NAME
 			clients: COLLECTION[LIBERTY_TYPE]; client: LIBERTY_AST_CLIENT
 			fd: LIBERTY_FEATURE_DEFINITION
 		do
 			from
 				i := clause.list_lower
+			invariant
+				parent_features.item(i).name.is_equal(parent_features.key(i))
 			until
 				i > clause.list_upper
 			loop
@@ -193,15 +187,10 @@ feature {}
 				until
 					j > e.feature_names.upper
 				loop
-					feature_name := e.feature_names.item(j)
-					if feature_name.feature_name_or_alias.is_regular then
-						name := feature_name.feature_name_or_alias.entity_name.image
-					else
-						name := feature_name.feature_name_or_alias.free_operator_name.image
-					end
-					fd := parent_features.reference_at(name.image)
+					create feature_name.make_from_ast(e.feature_names.item(j))
+					fd := parent_features.reference_at(feature_name)
 					if fd = Void then
-						error(name.index, once "Unknown feature name: " + name.image)
+						error(feature_name.index, once "Unknown feature name: " + feature_name)
 					else
 						fd.set_clients(clients)
 					end
@@ -211,22 +200,115 @@ feature {}
 			end
 		end
 
-	undefine_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]; clause: LIBERTY_AST_PARENT_UNDEFINE) is
+	undefine_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_UNDEFINE; conformant: BOOLEAN) is
 			-- replace the feature by a LIBERTY_FEATURE_DEFERRED
-			--|*** ATTENTION A L'HERITAGE DES CONTRATS
+		local
+			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
+			inherited_feature: LIBERTY_FEATURE; deferred_feature: LIBERTY_FEATURE_DEFERRED
 		do
+			from
+				i := clause.list_lower
+			invariant
+				parent_features.item(i).name.is_equal(parent_features.key(i))
+			until
+				i > clause.list_upper
+			loop
+				create feature_name.make_from_ast(clause.list_item(i))
+				fd := parent_features.reference_at(feature_name)
+				if fd = Void then
+					error(feature_name.index, once "Unknown feature name: " + feature_name)
+				else
+					inherited_feature := fd.the_feature
+					create deferred_feature.make
+					deferred_feature.set_preconfition(inherited_feature.precondition)
+					deferred_feature.set_postcondition(inherited_feature.postcondition)
+					deferred_feature.set_result_type(inherited_feature.result_type)
+					deferred_feature.add_parameters(inherited_feature.parameters)
+					if conformant then
+						inherited_feature.bind(deferred_feature, type)
+					end
+					fd.set_the_feature(deferred_feature)
+				end
+				i := i + 1
+			end
 		end
 
-	redefine_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]; clause: LIBERTY_AST_PARENT_REDEFINE) is
-			-- replace the feature by a LIBERTY_FEATURE_TO_REDEFINE
-			--|*** ATTENTION A L'HERITAGE DES CONTRATS
+	redefine_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_REDEFINE; conformant: BOOLEAN) is
+			-- replace the feature by a LIBERTY_FEATURE_REDEFINED
+		local
+			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
+			inherited_feature: LIBERTY_FEATURE; redefined_feature: LIBERTY_FEATURE_REDEFINED
 		do
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]}redefined_features.with_capacity(clause.list_count)
+			from
+				i := clause.list_lower
+			invariant
+				parent_features.item(i).name.is_equal(parent_features.key(i))
+			until
+				i > clause.list_upper
+			loop
+				create feature_name.make_from_ast(clause.list_item(i))
+				fd := parent_features.reference_at(feature_name)
+				if fd = Void then
+					error(feature_name.index, once "Unknown feature name: " + feature_name)
+				else
+					inherited_feature := fd.the_feature
+					create redefined_feature.make
+					redefined_feature.set_preconfition(inherited_feature.precondition)
+					redefined_feature.set_postcondition(inherited_feature.postcondition)
+					redefined_feature.set_result_type(inherited_feature.result_type)
+					redefined_feature.add_parameters(inherited_feature.parameters)
+					if conformant then
+						inherited_feature.bind(redefined_feature, type)
+					end
+					fd.set_the_feature(redefined_feature)
+					redefined_features.add(redefined_feature, feature_name)
+				end
+				i := i + 1
+			end
+		end
+
+	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
+
+	push_parent_features_in_type (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]) is
+		local
+			i: INTEGER
+		do
+			from
+				i := parent_features.lower
+			invariant
+				parent_features.item(i).name.is_equal(parent_features.key(i))
+			until
+				i >  parent_features.upper
+			loop
+				type.add_feature(parent_features.item(i))
+				i := i + 1
+			end
 		end
 
 feature {}
 	add_features (features: EIFFEL_LIST_NODE) is
 		do
-			not_yet_implemented
+			not_yet_implemented --|*** TODO
+
+			check_that_all_redefined_features_were_redefined
+		end
+
+	check_that_all_redefined_features_were_redefined is
+		local
+			i: INTEGER; name: EIFFEL_IMAGE
+		do
+			from
+				i := redefined_features.lower
+			until
+				i > redefined_features.upper
+			loop
+				if redefined_features.item(i).redefined_feature = Void then
+					name := redefined_features.key(i)
+					error(name.index, once "Missing redefinition for " + name.image)
+				end
+				i := i + 1
+			end
 		end
 
 feature {}

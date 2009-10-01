@@ -32,6 +32,16 @@ feature {LIBERTY_TYPE_BUILDER}
 			parameters.last = a_parameter
 		end
 
+	set_parameters (a_parameters: like parameters) is
+		require
+			a_parameters /= Void
+		do
+			parameters.clear_count
+			parameters.append_collection(a_parameters)
+		ensure
+			parameters.is_equal(a_parameters)
+		end
+
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_TYPE) is
 		do
 			late_binding.add(child, type)

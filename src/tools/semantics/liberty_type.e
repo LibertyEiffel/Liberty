@@ -144,7 +144,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				conformant_parents.add_last(a_parent)
 			else
 				if non_conformant_parents = Void then
-					create {FAST_ARRAY[LIBETRY_TYPE]}non_conformant_parents.make(0)
+					create {FAST_ARRAY[LIBERTY_TYPE]}non_conformant_parents.make(0)
 				end
 				non_conformant_parents.add_last(a_parent)
 			end
@@ -154,7 +154,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		local
 			i: INTEGER
 		do
-			create  {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]}Result.with_capacity(features.count)
+			create  {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]}Result.with_capacity(features.count)
 			from
 				i := features.lower
 			until
@@ -163,6 +163,20 @@ feature {LIBERTY_TYPE_BUILDER}
 				Result.add(features.item_at(i).twin, features.key_at(i))
 				i := i + 1
 			end
+		end
+
+	add_feature (a_feature: LIBERYT_FEATURE_DEFINITION) is
+		require
+			not has_feature(a_feature.name)
+		do
+			a_features.add(a_feature, a_feature.name)
+		ensure
+			features.at(a_feature.name) = a_feature
+		end
+
+	has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
+		do
+			Result := features.has(a_feature_name)
 		end
 
 feature {LIBERTY_UNIVERSE} -- Semantincs building
@@ -195,7 +209,7 @@ feature {}
 		do
 			descriptor := a_descriptor
 			ast := a_ast
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]}features.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]}features.make
 		ensure
 			descriptor = a_descriptor
 		end
@@ -203,7 +217,7 @@ feature {}
 	mark: INTEGER_8
 	conformant_parents: COLLECTION[LIBERTY_TYPE]
 	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
-	features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, STRING]
+	features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 
 	deferred_mark: INTEGER_8 is 1
 	expanded_mark: INTEGER_8 is 2
@@ -218,5 +232,6 @@ invariant
 	descriptor /= Void
 	ast /= Void
 	features /= Void
+	features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN is do Result := fd.name.is_equal(fd) end)
 
 end

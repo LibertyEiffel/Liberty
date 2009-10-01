@@ -5,7 +5,7 @@ inherit
 
 feature {ANY}
 	precondition: LIBERTY_REQUIRE
-	postconditions: LIBERTY_ENSURE
+	postcondition: LIBERTY_ENSURE
 
 feature {LIBERTY_TYPE_BUILDER}
 	precondition_set: BOOLEAN is
@@ -13,7 +13,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			Result := precondition /= Void
 		end
 
-	set_require (assertions: like preconditions) is
+	set_precondition (assertions: like preconditions) is
 		require
 			not precondition_set
 		do
@@ -27,13 +27,13 @@ feature {LIBERTY_TYPE_BUILDER}
 			Result := postcondition /= Void
 		end
 
-	set_ensure (assertions: like postconditions) is
+	set_postcondition (assertions: like postcondition) is
 		require
 			not postcondition_set
 		do
-			postconditions := assertions
+			postcondition := assertions
 		ensure
-			postconditions = assertions
+			postcondition = assertions
 		end
 
 end
