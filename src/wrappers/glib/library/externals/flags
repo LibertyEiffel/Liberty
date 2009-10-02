@@ -1,0 +1,10 @@
+goo GIOFlags
+GKeyFileFlags
+GLogLevelFlags
+GMarkupParseFlag
+GModuleFlags
+GOptionFlags
+GRegexCompileFlags
+GRegexMatchFlags
+GSpawnFlags
+

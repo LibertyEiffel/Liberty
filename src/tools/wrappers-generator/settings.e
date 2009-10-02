@@ -9,17 +9,30 @@ creation {ANY}
 	default_create
 
 feature {ANY} -- Queries
+	plugins: BOOLEAN is
+		-- Shall the wrapper use "plugin" tenses?
+		attribute
+	end
+
 	global: BOOLEAN
 
 	verbose: BOOLEAN
 
 	directory: STRING
 
+	typedefs: STRING
+		-- Name of the class that will contains queries to typedefs.
+
 	are_naturals_used: BOOLEAN
 
 	patches_are_appliable: BOOLEAN
 
+	last_error: STRING
+
 feature {ANY} -- Setters
+	set_plugins is do plugins:=True end
+	set_externals is do plugins:=False end
+
 	set_verbose (a_value: BOOLEAN) is
 		do
 			verbose := a_value
@@ -34,6 +47,8 @@ feature {ANY} -- Setters
 		do
 			directory := a_directory
 		end
+	
+	set_typedefs (a_typedefs: STRING) is do typedefs:=a_typedefs end
 
 	use_naturals is
 		do
@@ -53,6 +68,11 @@ feature {ANY} -- Setters
 	do_not_apply_patches is
 		do
 			patches_are_appliable:=False
+		end
+
+	set_error (an_error: STRING) is
+		do
+			last_error := an_error
 		end
 
 end -- class SETTINGS

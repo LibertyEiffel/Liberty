@@ -1,8 +1,8 @@
 -- This file is a template for building an ACE file for your own project.
 -- Copy this file into your working directory (the directory used to
 -- run the SmartEiffel compiler) and edit it.
-system "eiffel-gcc-xml"
-root EIFFEL_GCC_XML: make
+system "wrapper-generator.debug"
+root WRAPPER_GENERATOR: make
 
 default -- section of the system
 
@@ -32,9 +32,10 @@ cluster -- section
 	default
 		assertion (all)
 	end -- Eiffel-gcc-xml cluster 
-   -- Pull in SmartEiffel's standard library. Always put this last so 
+   -- Pull in Liberty's standard library. Always put this last so 
    -- that you can override options for parts of the library.
 
+   -- liberty_standard: "../../lib/loadpath.se"
    standard: "${path_lib}/loadpath.se"
 	default
 		assertion (require)

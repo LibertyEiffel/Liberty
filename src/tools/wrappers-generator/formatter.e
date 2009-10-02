@@ -14,13 +14,13 @@ creation {ANY}
 	default_create
 
 feature {ANY}
-	reset is
+	clear, reset is
 			-- Clears the content of Current's buffer.
 		do
 			debug
 				if buffer.is_empty then
 					std_error.put_line(once "Unnecessary invocation of FORMATTER.reset")
-					print_run_time_stack
+					--print_run_time_stack
 				end
 			end
 			buffer.clear_count
@@ -63,6 +63,12 @@ feature {ANY}
 		do
 			a_stream.put_string(buffer)
 			reset
+		end
+
+	is_empty: BOOLEAN is
+			-- Is current empty?
+		do
+			Result := buffer.is_empty
 		end
 
 	count: INTEGER is

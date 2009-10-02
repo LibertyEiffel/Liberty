@@ -1,0 +1,111 @@
+-- This file have been created by eiffel-gcc-xml.
+-- Any change will be lost by the next execution of the tool.
+
+deferred class GCHECKSUM_EXTERNALS
+
+
+inherit ANY undefine is_equal, copy end
+
+feature {} -- External calls
+
+	g_compute_checksum_for_string (a_checksum_type: INTEGER_32; a_str: POINTER; a_length: INTEGER_32): POINTER is
+ 		-- g_compute_checksum_for_string
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_compute_checksum_for_string"
+		}"
+		end
+
+	g_checksum_get_string (a_checksum: POINTER): POINTER is
+ 		-- g_checksum_get_string
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_checksum_get_string"
+		}"
+		end
+
+	g_checksum_type_get_length (a_checksum_type: INTEGER_32): INTEGER_32 is
+ 		-- g_checksum_type_get_length
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_checksum_type_get_length"
+		}"
+		end
+
+	g_checksum_update (a_checksum: POINTER; a_data: POINTER; a_length: INTEGER_32) is
+ 		-- g_checksum_update
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_checksum_update"
+		}"
+		end
+
+	g_checksum_new (a_checksum_type: INTEGER_32): POINTER is
+ 		-- g_checksum_new
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_checksum_new"
+		}"
+		end
+
+	g_checksum_get_digest (a_checksum: POINTER; a_buffer: POINTER; a_digest_len: POINTER) is
+ 		-- g_checksum_get_digest
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_checksum_get_digest"
+		}"
+		end
+
+	g_compute_checksum_for_data (a_checksum_type: INTEGER_32; a_data: POINTER; a_length: NATURAL_32): POINTER is
+ 		-- g_compute_checksum_for_data
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_compute_checksum_for_data"
+		}"
+		end
+
+	g_checksum_reset (a_checksum: POINTER) is
+ 		-- g_checksum_reset
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_checksum_reset"
+		}"
+		end
+
+	g_checksum_free (a_checksum: POINTER) is
+ 		-- g_checksum_free
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_checksum_free"
+		}"
+		end
+
+	g_checksum_copy (a_checksum: POINTER): POINTER is
+ 		-- g_checksum_copy
+		external "plug_in"
+		alias "{
+			location: "../../../plugins"
+			module_name: "glib"
+			feature_name: "g_checksum_copy"
+		}"
+		end
+
+end

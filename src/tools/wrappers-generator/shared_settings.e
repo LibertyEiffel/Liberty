@@ -8,9 +8,21 @@ feature {ANY}
 		once
 			create Result
 		end 
-		
-feature -- Syntactic sugar
 
+	headers: WORDS is once create Result.make end
+
+	is_to_be_emitted (a_file_name: STRING): BOOLEAN is
+		-- Shall the declaration in file named `a_file_name' be
+		-- wrapped? The content of a file will be emitted when global
+		-- is True or if `a_file_name' is in `headers' hashed set.
+	do
+		Result := (global or else 
+		           (a_file_name/=Void and then headers.has(a_file_name)))
+   ensure
+	   void_gets_false: global or (a_file_name=Void implies Result=False)
+	end
+
+feature -- Syntactic sugar
 	verbose: BOOLEAN is
 		do
 			Result := settings.verbose
@@ -20,6 +32,13 @@ feature -- Syntactic sugar
 		do
 			Result := settings.global
 		end
+
+	on_standard_output: BOOLEAN is
+		-- Shall the wrappers be outputted on standard output?
+	do
+		Result := directory=Void
+	end
+
 
 	directory: STRING is
 		do
@@ -40,6 +59,94 @@ feature -- Syntactic sugar
 		do
 			Result := settings.are_naturals_used
 		end
+
+feature {} -- Type mangling
+	dequalify (an_id: UNICODE_STRING): UNICODE_STRING is
+		-- `an_id' without the type qualifier used by GccXml to mark the
+		-- identification labels.
+
+		-- "const", "reference" and "volatile" qualifier are represented in a
+		-- CvQualifiedType node adding 'c', 'r' and 'v' to the identifies. i.e.
+		-- if "int" has id "_422" a  "const int foo" argument type will be of
+		-- type CvQualifiedType with it "_422c". The same rule is used - as far
+		-- as I know - also for reference and volatile types.
+
+		-- Result is identical to `an_id' if it does not end with 'c', 'r' and
+		-- 'v'; otherwise it is a copy of `an_id' with the last character ('c',
+		-- 'r' or 'v') removed. 
+	require
+		not_void: an_id /= Void
+	do
+		inspect
+		an_id.last.to_character
+		when 'c', 'r', 'v' then
+		Result := an_id.substring(an_id.lower, an_id.upper - 1)
+		else Result := an_id
+		end
+		-- debug 
+		-- 	log(once "dequalify(@(1))=@(2)",<<an_id.out,Result.out>>)
+		-- end
+	end
+
+
+feature {} -- Auxiliary features
+	buffer: FORMATTER is
+		-- Buffer to render the text of the feature currently being
+		-- wrapped (a function call, a structure or an enumeration).
+	once 
+		create Result
+	end
+
+	formatter: FORMATTER is
+		-- Shared formatter used to format various strings.
+	once
+		create Result
+	end
+
+feature {} -- Constants
+	comment: STRING is "%N%T%T-- "
+
+	variadic_function_note: STRING is "%T%T%T-- Variadic call%N"
+
+	unwrappable_function_note: STRING is "%T%T%T-- Unwrappable function%N%T%Tobsolete %"Unwrappable C function%"%N"
+
+	expanded_class: STRING is "expanded class "
+
+	deferred_class: STRING is "deferred class "
+
+	-- struct: STRING is "_STRUCT"
+
+	-- enum: STRING is "_ENUM"
+
+	struct_inherits: STRING is "%N%Ninherit ANY undefine is_equal, copy end%N%N"
+
+	queries_header: STRING is "feature {} -- Low-level queries%N%N"
+
+	setters_header: STRING is "feature {} -- Low-level setters%N%N"
+
+	externals_header: STRING is "feature {} -- External calls%N%N"
+
+	typedefs_features_header: STRING is "feature -- C type definitions (typedefs)%N"
+
+	footer: STRING is "end%N"
+
+	automatically_generated_header: STRING is "[
+		-- This file have been created by wrapper-generator.
+		-- Any change will be lost by the next execution of the tool.
+
+
+		]"
+
+	automatically_patched_header: STRING is 
+		-- Label 
+		"[
+		-- This file have been automatically created combining the output file
+		-- of eiffel-gcc-xml @(1)
+		-- with the differences patches found into @(2)
+
+		-- Any change will be lost by the next execution of the tool.
+
+		]"
 
 feature {} -- Logging
 	logger: STRING_PRINTER is

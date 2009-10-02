@@ -1,0 +1,1670 @@
+C source file: ./llvm-plugin/source.c
+C header file: ./llvm-plugin/header.h
+Generating low-level wrappers only for 1 files: 'llvm-liberty.h', 
+Generating plugin wrappers.
+Processing XML file: ........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................done.
+Making external functions classes.
+Skipping '/usr/include/c++/4.2/bits/stl_uninitialized.h'
+Skipping '/usr/include/llvm/ADT/APInt.h'
+Skipping '/usr/include/llvm/LLVMContext.h'
+Skipping '/usr/include/llvm/Support/MathExtras.h'
+Skipping '/usr/include/llvm/Support/ErrorHandling.h'
+Skipping '/usr/include/llvm/Support/Casting.h'
+Skipping '/usr/include/llvm/Attributes.h'
+Skipping '/usr/include/c++/4.2/ext/atomicity.h'
+Skipping '/usr/include/llvm/System/Atomic.h'
+Skipping '/usr/include/stdlib.h'
+Skipping '/usr/include/wchar.h'
+Skipping '/usr/include/sched.h'
+Skipping '/usr/include/libio.h'
+Skipping '/usr/include/wctype.h'
+Skipping '/usr/include/bits/sched.h'
+Skipping '/usr/include/string.h'
+Skipping '/usr/include/ctype.h'
+Skipping '/usr/include/c++/4.2/bits/locale_classes.h'
+Skipping '/usr/include/c++/4.2/x86_64-linux-gnu/bits/gthr-default.h'
+Skipping '/usr/include/assert.h'
+Skipping '/usr/include/sys/select.h'
+Skipping '/usr/include/sys/sysmacros.h'
+Skipping '/usr/include/iconv.h'
+Skipping '/usr/include/math.h'
+Skipping '/usr/include/locale.h'
+Skipping '/usr/include/langinfo.h'
+Skipping '/usr/include/nl_types.h'
+Skipping '/usr/include/alloca.h'
+Skipping '/usr/include/getopt.h'
+Skipping '/usr/include/c++/4.2/bits/ios_base.h'
+Skipping '/usr/include/libintl.h'
+Skipping '/usr/include/c++/4.2/new'
+Skipping '/usr/include/c++/4.2/exception'
+Skipping '/usr/include/llvm/Value.h'
+Skipping '/usr/include/llvm/Type.h'
+Skipping '/usr/include/c++/4.2/bits/functexcept.h'
+Skipping '/usr/include/c++/4.2/bits/istream.tcc'
+Skipping '/usr/include/c++/4.2/cwchar'
+Skipping '/usr/include/c++/4.2/cstring'
+Skipping '/usr/include/c++/4.2/cmath'
+Skipping '/usr/include/c++/4.2/x86_64-linux-gnu/bits/c++locale.h'
+Skipping '/usr/include/c++/4.2/bits/locale_facets.tcc'
+Skipping '/usr/include/c++/4.2/ostream'
+Skipping '/usr/include/c++/4.2/cstdlib'
+Skipping '/usr/include/c++/4.2/bits/stl_algobase.h'
+Skipping '/usr/include/c++/4.2/bits/stl_bvector.h'
+Skipping '/usr/include/c++/4.2/bits/ostream_insert.h'
+Skipping '/usr/include/c++/4.2/streambuf'
+Skipping '/usr/share/gccxml-0.9/GCC/4.2/gccxml_builtins.h'
+Skipping '/usr/include/c++/4.2/bits/basic_string.h'
+Skipping '/usr/include/bits/mathcalls.h'
+Skipping '/usr/include/llvm/Instructions.h'
+Skipping '/usr/include/pthread.h'
+Skipping '/usr/include/c++/4.2/bits/streambuf.tcc'
+Skipping '/usr/include/llvm-c/Core.h'
+Skipping '/usr/include/unistd.h'
+Skipping '/usr/include/c++/4.2/bits/stl_pair.h'
+Skipping '/usr/include/inttypes.h'
+Skipping '/usr/include/time.h'
+Skipping '/usr/include/c++/4.2/bits/locale_facets.h'
+Skipping '/usr/include/stdio.h'
+Making typedeffed structure accessing classes.
+Typedef uint_least64_t skipped: not referring to a struct.
+Typedef __cpu_mask skipped: not referring to a struct.
+Typedef __sig_atomic_t skipped: not referring to a struct.
+Typedef caddr_t skipped: not referring to a struct.
+Typedef clockid_t skipped: not referring to a struct.
+Typedef int_fast32_t skipped: not referring to a struct.
+Typedef fsblkcnt64_t skipped: not referring to a struct.
+Typedef pthread_t skipped: not referring to a struct.
+Typedef __loff_t skipped: not referring to a struct.
+Typedef _G_int16_t skipped: not referring to a struct.
+Typedef useconds_t skipped: not referring to a struct.
+Typedef __io_close_fn skipped: not referring to a struct.
+Typedef int_least8_t skipped: not referring to a struct.
+Typedef u_char skipped: not referring to a struct.
+Typedef _G_uint16_t skipped: not referring to a struct.
+Typedef cookie_write_function_t skipped: not referring to a struct.
+Typedef int_least32_t skipped: not referring to a struct.
+Typedef pthread_spinlock_t skipped: not referring to a struct.
+Typedef __mode_t skipped: not referring to a struct.
+Typedef gid_t skipped: not referring to a struct.
+Typedef __off_t skipped: not referring to a struct.
+Typedef LLVMContextRef skipped: not referring to a struct.
+Typedef __compar_d_fn_t skipped: not referring to a struct.
+Typedef u_short skipped: not referring to a struct.
+Typedef fpos64_t (file id f9) refers to structure _G_fpos64_t Typedef fpos64_t skipped: not in a requested header file.
+Typedef __ino_t skipped: not referring to a struct.
+Typedef quad_t skipped: not referring to a struct.
+Typedef int32_t skipped: not referring to a struct.
+Typedef uint32_t skipped: not referring to a struct.
+Typedef __pid_t skipped: not referring to a struct.
+Typedef uint_least32_t skipped: not referring to a struct.
+Typedef __blkcnt64_t skipped: not referring to a struct.
+Typedef blksize_t skipped: not referring to a struct.
+Typedef _G_uint32_t skipped: not referring to a struct.
+Typedef __pthread_unwind_buf_t skipped: not referring to a struct.
+Typedef LLVMBuilderRef skipped: not referring to a struct.
+Typedef cookie_read_function_t skipped: not referring to a struct.
+Typedef ptrdiff_t skipped: not referring to a struct.
+Typedef __fsfilcnt_t skipped: not referring to a struct.
+Typedef __blkcnt_t skipped: not referring to a struct.
+Typedef __u_int skipped: not referring to a struct.
+Typedef uint_fast64_t skipped: not referring to a struct.
+Typedef mbstate_t (file id f12) refers to structure __mbstate_t Typedef mbstate_t skipped: not in a requested header file.
+Typedef int_least16_t skipped: not referring to a struct.
+Typedef locale_t skipped: not referring to a struct.
+Typedef __fsblkcnt64_t skipped: not referring to a struct.
+Typedef uintptr_t skipped: not referring to a struct.
+Typedef __int64_t skipped: not referring to a struct.
+Typedef register_t skipped: not referring to a struct.
+Typedef __fsblkcnt_t skipped: not referring to a struct.
+Typedef __fsfilcnt64_t skipped: not referring to a struct.
+Typedef __u_char skipped: not referring to a struct.
+Typedef __uid_t skipped: not referring to a struct.
+Typedef __compar_fn_t skipped: not referring to a struct.
+Typedef __uint8_t skipped: not referring to a struct.
+Typedef __gthread_key_t skipped: not referring to a struct.
+Typedef intmax_t skipped: not referring to a struct.
+Typedef __intptr_t skipped: not referring to a struct.
+Typedef LLVMTypeRef skipped: not referring to a struct.
+Typedef uint16_t skipped: not referring to a struct.
+Typedef __fd_mask skipped: not referring to a struct.
+Typedef uint_fast8_t skipped: not referring to a struct.
+Typedef cookie_seek_function_t skipped: not referring to a struct.
+Typedef uint_least16_t skipped: not referring to a struct.
+Typedef uint8_t skipped: not referring to a struct.
+Typedef u_quad_t skipped: not referring to a struct.
+Typedef int_fast16_t skipped: not referring to a struct.
+Typedef int8_t skipped: not referring to a struct.
+Typedef __quad_t skipped: not referring to a struct.
+Typedef wint_t skipped: not referring to a struct.
+Typedef __qaddr_t skipped: not referring to a struct.
+Typedef __u_short skipped: not referring to a struct.
+Typedef int64_t skipped: not referring to a struct.
+Typedef ino_t skipped: not referring to a struct.
+Typedef key_t skipped: not referring to a struct.
+Typedef uint_fast32_t skipped: not referring to a struct.
+Typedef fsfilcnt64_t skipped: not referring to a struct.
+Typedef ushort skipped: not referring to a struct.
+Typedef uint_least8_t skipped: not referring to a struct.
+Typedef __ino64_t skipped: not referring to a struct.
+Typedef u_int64_t skipped: not referring to a struct.
+Typedef __clock_t skipped: not referring to a struct.
+Typedef __int32_t skipped: not referring to a struct.
+Typedef LLVMModuleProviderRef skipped: not referring to a struct.
+Typedef _Atomic_word skipped: not referring to a struct.
+Typedef wctype_t skipped: not referring to a struct.
+Typedef nl_item skipped: not referring to a struct.
+Typedef __swblk_t skipped: not referring to a struct.
+Typedef LLVMPassManagerRef skipped: not referring to a struct.
+Typedef sigset_t (file id f29) refers to structure __sigset_t Typedef sigset_t skipped: not in a requested header file.
+Typedef u_int skipped: not referring to a struct.
+Typedef __uint64_t skipped: not referring to a struct.
+Typedef __id_t skipped: not referring to a struct.
+Typedef clock_t skipped: not referring to a struct.
+Typedef iconv_t skipped: not referring to a struct.
+Typedef __suseconds_t skipped: not referring to a struct.
+Typedef __FILE (file id f9) refers to structure _IO_FILE Typedef __FILE skipped: not in a requested header file.
+Typedef __socklen_t skipped: not referring to a struct.
+Typedef __rlim64_t skipped: not referring to a struct.
+Typedef off_t skipped: not referring to a struct.
+Typedef wctrans_t skipped: not referring to a struct.
+Typedef cookie_io_functions_t (file id f20) refers to structure _IO_cookie_io_functions_t Typedef cookie_io_functions_t skipped: not in a requested header file.
+Typedef nlink_t skipped: not referring to a struct.
+Typedef __gthread_once_t skipped: not referring to a struct.
+Typedef uid_t skipped: not referring to a struct.
+Typedef LLVMBasicBlockRef skipped: not referring to a struct.
+Typedef uint skipped: not referring to a struct.
+Typedef blkcnt64_t skipped: not referring to a struct.
+Typedef va_list skipped: not referring to a struct.
+Typedef u_int8_t skipped: not referring to a struct.
+Typedef fsid_t (file id f24) refers to structure __fsid_t Typedef fsid_t skipped: not in a requested header file.
+Typedef uint_fast16_t skipped: not referring to a struct.
+Typedef __int8_t skipped: not referring to a struct.
+Typedef float_t skipped: not referring to a struct.
+Typedef __useconds_t skipped: not referring to a struct.
+Typedef fsfilcnt_t skipped: not referring to a struct.
+Typedef pid_t skipped: not referring to a struct.
+Typedef u_long skipped: not referring to a struct.
+Typedef ulong skipped: not referring to a struct.
+Typedef u_int32_t skipped: not referring to a struct.
+Typedef __int16_t skipped: not referring to a struct.
+Typedef size_t skipped: not referring to a struct.
+Typedef __jmp_buf skipped: not referring to a struct.
+Typedef __dev_t skipped: not referring to a struct.
+Typedef fsblkcnt_t skipped: not referring to a struct.
+Typedef __uint32_t skipped: not referring to a struct.
+Typedef int_fast8_t skipped: not referring to a struct.
+Typedef int16_t skipped: not referring to a struct.
+Typedef blkcnt_t skipped: not referring to a struct.
+Typedef __daddr_t skipped: not referring to a struct.
+Typedef id_t skipped: not referring to a struct.
+Typedef __ssize_t skipped: not referring to a struct.
+Typedef __pthread_list_t (file id f25) refers to structure __pthread_internal_list Typedef __pthread_list_t skipped: not in a requested header file.
+Typedef FILE (file id f9) refers to structure _IO_FILE Typedef FILE skipped: not in a requested header file.
+Typedef __gthread_recursive_mutex_t skipped: not referring to a struct.
+Typedef time_t skipped: not referring to a struct.
+Typedef __time_t skipped: not referring to a struct.
+Typedef suseconds_t skipped: not referring to a struct.
+Typedef fd_mask skipped: not referring to a struct.
+Typedef daddr_t skipped: not referring to a struct.
+Typedef socklen_t skipped: not referring to a struct.
+Typedef ssize_t skipped: not referring to a struct.
+Typedef __clockid_t skipped: not referring to a struct.
+Typedef _G_int32_t skipped: not referring to a struct.
+Typedef intptr_t skipped: not referring to a struct.
+Typedef loff_t skipped: not referring to a struct.
+Typedef __gnuc_va_list skipped: not referring to a struct.
+Typedef LLVMTypeHandleRef skipped: not referring to a struct.
+Typedef __io_seek_fn skipped: not referring to a struct.
+Typedef LLVMModuleRef skipped: not referring to a struct.
+Typedef __gid_t skipped: not referring to a struct.
+Typedef uintmax_t skipped: not referring to a struct.
+Typedef LLVMMemoryBufferRef skipped: not referring to a struct.
+Typedef __gthread_mutex_t skipped: not referring to a struct.
+Typedef __locale_t skipped: not referring to a struct.
+Typedef __key_t skipped: not referring to a struct.
+Typedef int_fast64_t skipped: not referring to a struct.
+Typedef double_t skipped: not referring to a struct.
+Typedef __nlink_t skipped: not referring to a struct.
+Typedef u_int16_t skipped: not referring to a struct.
+Typedef mode_t skipped: not referring to a struct.
+Typedef LLVMValueRef skipped: not referring to a struct.
+Typedef pthread_key_t skipped: not referring to a struct.
+Typedef __timer_t skipped: not referring to a struct.
+Typedef __off64_t skipped: not referring to a struct.
+Typedef _IO_lock_t skipped: not referring to a struct.
+Typedef int_least64_t skipped: not referring to a struct.
+Typedef __u_long skipped: not referring to a struct.
+Typedef ino64_t skipped: not referring to a struct.
+Typedef __uint16_t skipped: not referring to a struct.
+Typedef pthread_once_t skipped: not referring to a struct.
+Typedef fpos_t (file id f9) refers to structure _G_fpos_t Typedef fpos_t skipped: not in a requested header file.
+Typedef timer_t skipped: not referring to a struct.
+Typedef off64_t skipped: not referring to a struct.
+Typedef __u_quad_t skipped: not referring to a struct.
+Typedef __rlim_t skipped: not referring to a struct.
+Typedef cookie_close_function_t skipped: not referring to a struct.
+Typedef comparison_fn_t skipped: not referring to a struct.
+Typedef __blksize_t skipped: not referring to a struct.
+Typedef dev_t skipped: not referring to a struct.
+Typedef __io_read_fn skipped: not referring to a struct.
+Typedef uint64_t skipped: not referring to a struct.
+Typedef nl_catd skipped: not referring to a struct.
+Typedef __io_write_fn skipped: not referring to a struct.
+Typedef __caddr_t skipped: not referring to a struct.
+Typedef wistringstream (file id f44) refers to structure basic_istringstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef wistringstream skipped: not in a requested header file.
+Typedef __c_lock skipped: not referring to a struct.
+Typedef ifstream (file id f44) refers to structure basic_ifstream&lt;char,std::char_traits&lt;char&gt; &gt; Typedef ifstream skipped: not in a requested header file.
+Typedef wstreambuf (file id f44) refers to structure basic_streambuf&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef wstreambuf skipped: not in a requested header file.
+Typedef __c_locale skipped: not referring to a struct.
+Typedef unexpected_handler skipped: not referring to a struct.
+Typedef wstreampos skipped: not referring to a struct.
+Typedef wostringstream (file id f44) refers to structure basic_ostringstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef wostringstream skipped: not in a requested header file.
+Typedef string (file id f85) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string skipped: not in a requested header file.
+Typedef __c_file skipped: not referring to a struct.
+Typedef streamoff skipped: not referring to a struct.
+Typedef wifstream (file id f44) refers to structure basic_ifstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef wifstream skipped: not in a requested header file.
+Typedef fstream (file id f44) refers to structure basic_fstream&lt;char,std::char_traits&lt;char&gt; &gt; Typedef fstream skipped: not in a requested header file.
+Typedef streampos skipped: not referring to a struct.
+Typedef filebuf (file id f44) refers to structure basic_filebuf&lt;char,std::char_traits&lt;char&gt; &gt; Typedef filebuf skipped: not in a requested header file.
+Typedef wostream (file id f44) refers to structure basic_ostream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef wostream skipped: not in a requested header file.
+Typedef streambuf (file id f44) refers to structure basic_streambuf&lt;char,std::char_traits&lt;char&gt; &gt; Typedef streambuf skipped: not in a requested header file.
+Typedef wstring (file id f85) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef wstring skipped: not in a requested header file.
+Typedef istream (file id f44) refers to structure basic_istream&lt;char,std::char_traits&lt;char&gt; &gt; Typedef istream skipped: not in a requested header file.
+Typedef ofstream (file id f44) refers to structure basic_ofstream&lt;char,std::char_traits&lt;char&gt; &gt; Typedef ofstream skipped: not in a requested header file.
+Typedef stringbuf (file id f44) refers to structure basic_stringbuf&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef stringbuf skipped: not in a requested header file.
+Typedef stringstream (file id f44) refers to structure basic_stringstream&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef stringstream skipped: not in a requested header file.
+Typedef wstringbuf (file id f44) refers to structure basic_stringbuf&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef wstringbuf skipped: not in a requested header file.
+Typedef new_handler skipped: not referring to a struct.
+Typedef iostream (file id f44) refers to structure basic_iostream&lt;char,std::char_traits&lt;char&gt; &gt; Typedef iostream skipped: not in a requested header file.
+Typedef wfstream (file id f44) refers to structure basic_fstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef wfstream skipped: not in a requested header file.
+Typedef streamsize skipped: not referring to a struct.
+Typedef wstringstream (file id f44) refers to structure basic_stringstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef wstringstream skipped: not in a requested header file.
+Typedef wofstream (file id f44) refers to structure basic_ofstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef wofstream skipped: not in a requested header file.
+Typedef wfilebuf (file id f44) refers to structure basic_filebuf&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef wfilebuf skipped: not in a requested header file.
+Typedef istringstream (file id f44) refers to structure basic_istringstream&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef istringstream skipped: not in a requested header file.
+Typedef ios (file id f44) refers to structure basic_ios&lt;char,std::char_traits&lt;char&gt; &gt; Typedef ios skipped: not in a requested header file.
+Typedef _Bit_type skipped: not referring to a struct.
+Typedef wiostream (file id f44) refers to structure basic_iostream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef wiostream skipped: not in a requested header file.
+Typedef wios (file id f44) refers to structure basic_ios&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef wios skipped: not in a requested header file.
+Typedef ostringstream (file id f44) refers to structure basic_ostringstream&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef ostringstream skipped: not in a requested header file.
+Typedef wistream (file id f44) refers to structure basic_istream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef wistream skipped: not in a requested header file.
+Typedef terminate_handler skipped: not referring to a struct.
+Typedef ostream (file id f44) refers to structure basic_ostream&lt;char,std::char_traits&lt;char&gt; &gt; Typedef ostream skipped: not in a requested header file.
+Typedef exponent_t skipped: not referring to a struct.
+Typedef llvm_error_handler_t skipped: not referring to a struct.
+Typedef integerPart skipped: not referring to a struct.
+Typedef Attributes skipped: not referring to a struct.
+Typedef ValueName (file id f60) refers to structure StringMapEntry&lt;llvm::Value*&gt; Typedef ValueName skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef traits_type (file id f93) refers to structure char_traits&lt;wchar_t&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef traits_type (file id f93) refers to structure char_traits&lt;char&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure ostreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure ostreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef _Tp_alloc_type skipped: not referring to a struct.
+Typedef allocator_type skipped: not referring to a struct.
+Typedef _Tp_alloc_type skipped: not referring to a struct.
+Typedef allocator_type skipped: not referring to a struct.
+Typedef _Tp_alloc_type skipped: not referring to a struct.
+Typedef allocator_type skipped: not referring to a struct.
+Typedef _Tp_alloc_type skipped: not referring to a struct.
+Typedef allocator_type skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure random_access_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type (file id f83) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef value_type skipped: not in a requested header file.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure random_access_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure random_access_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference (file id f83) refers to structure _Bit_reference Typedef reference skipped: not in a requested header file.
+Typedef iterator_category (file id f83) refers to structure random_access_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef _Alloc_value_type skipped: not referring to a struct.
+Typedef _Base (file id f77) refers to structure _Vector_base&lt;const llvm::Type*,std::allocator&lt;const llvm::Type*&gt; &gt; Typedef _Base skipped: not in a requested header file.
+Typedef _Tp_alloc_type skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef allocator_type skipped: not referring to a struct.
+Typedef _Alloc_value_type skipped: not referring to a struct.
+Typedef _Base (file id f77) refers to structure _Vector_base&lt;llvm::Constant*,std::allocator&lt;llvm::Constant*&gt; &gt; Typedef _Base skipped: not in a requested header file.
+Typedef _Tp_alloc_type skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef allocator_type skipped: not referring to a struct.
+Typedef _Alloc_value_type (file id f77) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef _Alloc_value_type skipped: not in a requested header file.
+Typedef _Base (file id f77) refers to structure _Vector_base&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;,std::allocator&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; &gt; Typedef _Base skipped: not in a requested header file.
+Typedef _Tp_alloc_type skipped: not referring to a struct.
+Typedef value_type (file id f77) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef value_type skipped: not in a requested header file.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef allocator_type skipped: not referring to a struct.
+Typedef _Alloc_value_type skipped: not referring to a struct.
+Typedef _Base (file id f77) refers to structure _Vector_base&lt;llvm::AbstractTypeUser*,std::allocator&lt;llvm::AbstractTypeUser*&gt; &gt; Typedef _Base skipped: not in a requested header file.
+Typedef _Tp_alloc_type skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef allocator_type skipped: not referring to a struct.
+Typedef _CharT_alloc_type (file id f89) refers to structure allocator&lt;char&gt; Typedef _CharT_alloc_type skipped: not in a requested header file.
+Typedef traits_type (file id f89) refers to structure char_traits&lt;char&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef allocator_type (file id f89) refers to structure allocator&lt;char&gt; Typedef allocator_type skipped: not in a requested header file.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef _CharT_alloc_type (file id f89) refers to structure allocator&lt;wchar_t&gt; Typedef _CharT_alloc_type skipped: not in a requested header file.
+Typedef traits_type (file id f89) refers to structure char_traits&lt;wchar_t&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef allocator_type (file id f89) refers to structure allocator&lt;wchar_t&gt; Typedef allocator_type skipped: not in a requested header file.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef fmtflags skipped: not referring to a struct.
+Typedef iostate skipped: not referring to a struct.
+Typedef openmode skipped: not referring to a struct.
+Typedef seekdir skipped: not referring to a struct.
+Typedef io_state skipped: not referring to a struct.
+Typedef open_mode skipped: not referring to a struct.
+Typedef seek_dir skipped: not referring to a struct.
+Typedef streampos skipped: not referring to a struct.
+Typedef streamoff skipped: not referring to a struct.
+Typedef event_callback skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef __wmask_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef catalog skipped: not referring to a struct.
+Typedef reference (file id f86) refers to structure _Bit_reference Typedef reference skipped: not in a requested header file.
+Typedef pointer skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure ostreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure ostreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef state_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef state_type skipped: not referring to a struct.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __to_type skipped: not referring to a struct.
+Typedef mask skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef __cache_type (file id f8) refers to structure __numpunct_cache&lt;wchar_t&gt; Typedef __cache_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef __cache_type (file id f8) refers to structure __numpunct_cache&lt;char&gt; Typedef __cache_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef traits_type (file id f88) refers to structure char_traits&lt;wchar_t&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __streambuf_type (file id f88) refers to structure basic_streambuf&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef __streambuf_type skipped: not in a requested header file.
+Typedef __ios_type (file id f88) refers to structure basic_ios&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef __ios_type skipped: not in a requested header file.
+Typedef __num_get_type skipped: not referring to a struct.
+Typedef __ctype_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef traits_type (file id f88) refers to structure char_traits&lt;char&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __streambuf_type (file id f88) refers to structure basic_streambuf&lt;char,std::char_traits&lt;char&gt; &gt; Typedef __streambuf_type skipped: not in a requested header file.
+Typedef __ios_type (file id f88) refers to structure basic_ios&lt;char,std::char_traits&lt;char&gt; &gt; Typedef __ios_type skipped: not in a requested header file.
+Typedef __num_get_type skipped: not referring to a struct.
+Typedef __ctype_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure istreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef __string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef __string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure istreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef __string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef __string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure ostreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure ostreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef traits_type (file id f79) refers to structure char_traits&lt;wchar_t&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __streambuf_type (file id f79) refers to structure basic_streambuf&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef __streambuf_type skipped: not in a requested header file.
+Typedef __ios_type (file id f79) refers to structure basic_ios&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef __ios_type skipped: not in a requested header file.
+Typedef __num_put_type skipped: not referring to a struct.
+Typedef __ctype_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure istreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure istreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef __cache_type (file id f8) refers to structure __moneypunct_cache&lt;wchar_t,false&gt; Typedef __cache_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef __cache_type (file id f8) refers to structure __moneypunct_cache&lt;wchar_t,true&gt; Typedef __cache_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef __cache_type (file id f8) refers to structure __moneypunct_cache&lt;char,false&gt; Typedef __cache_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef __cache_type (file id f8) refers to structure __moneypunct_cache&lt;char,true&gt; Typedef __cache_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure istreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure istreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef first_type skipped: not referring to a struct.
+Typedef second_type skipped: not referring to a struct.
+Typedef category skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef traits_type (file id f133) refers to structure char_traits&lt;wchar_t&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __ctype_type skipped: not referring to a struct.
+Typedef __num_put_type skipped: not referring to a struct.
+Typedef __num_get_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef traits_type (file id f133) refers to structure char_traits&lt;char&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __ctype_type skipped: not referring to a struct.
+Typedef __num_put_type skipped: not referring to a struct.
+Typedef __num_get_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef traits_type (file id f88) refers to structure char_traits&lt;char&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __istream_type (file id f88) refers to structure basic_istream&lt;char,std::char_traits&lt;char&gt; &gt; Typedef __istream_type skipped: not in a requested header file.
+Typedef __ostream_type (file id f88) refers to structure basic_ostream&lt;char,std::char_traits&lt;char&gt; &gt; Typedef __ostream_type skipped: not in a requested header file.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type (file id f102) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef value_type skipped: not in a requested header file.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef other skipped: not referring to a struct.
+Typedef other skipped: not referring to a struct.
+Typedef other skipped: not referring to a struct.
+Typedef other skipped: not referring to a struct.
+Typedef other (file id f102) refers to structure allocator&lt;char&gt; Typedef other skipped: not in a requested header file.
+Typedef other (file id f102) refers to structure allocator&lt;wchar_t&gt; Typedef other skipped: not in a requested header file.
+Typedef other (file id f102) refers to structure allocator&lt;char&gt; Typedef other skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure ostreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure ostreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef iterator_type (file id f103) refers to structure _Bit_const_iterator Typedef iterator_type skipped: not in a requested header file.
+Typedef difference_type skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef iterator_type (file id f103) refers to structure _Bit_iterator Typedef iterator_type skipped: not in a requested header file.
+Typedef difference_type skipped: not referring to a struct.
+Typedef reference (file id f103) refers to structure _Bit_reference Typedef reference skipped: not in a requested header file.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef __type (file id f92) refers to structure __false_type Typedef __type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef traits_type (file id f79) refers to structure char_traits&lt;char&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __streambuf_type (file id f79) refers to structure basic_streambuf&lt;char,std::char_traits&lt;char&gt; &gt; Typedef __streambuf_type skipped: not in a requested header file.
+Typedef __ios_type (file id f79) refers to structure basic_ios&lt;char,std::char_traits&lt;char&gt; &gt; Typedef __ios_type skipped: not in a requested header file.
+Typedef __num_put_type skipped: not referring to a struct.
+Typedef __ctype_type skipped: not referring to a struct.
+Typedef __one skipped: not referring to a struct.
+Typedef __two skipped: not referring to a struct.
+Typedef __char_type skipped: not referring to a struct.
+Typedef __string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef __string_type skipped: not in a requested header file.
+Typedef __cache_type (file id f8) refers to structure __timepunct_cache&lt;wchar_t&gt; Typedef __cache_type skipped: not in a requested header file.
+Typedef __char_type skipped: not referring to a struct.
+Typedef __string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef __string_type skipped: not in a requested header file.
+Typedef __cache_type (file id f8) refers to structure __timepunct_cache&lt;char&gt; Typedef __cache_type skipped: not in a requested header file.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure random_access_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure random_access_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference (file id f83) refers to structure _Bit_reference Typedef reference skipped: not in a requested header file.
+Typedef iterator_category (file id f83) refers to structure random_access_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure bidirectional_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure forward_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure forward_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator_category (file id f83) refers to structure output_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef intern_type skipped: not referring to a struct.
+Typedef extern_type skipped: not referring to a struct.
+Typedef state_type skipped: not referring to a struct.
+Typedef intern_type skipped: not referring to a struct.
+Typedef extern_type skipped: not referring to a struct.
+Typedef state_type skipped: not referring to a struct.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef result skipped: not referring to a struct.
+Typedef intern_type skipped: not referring to a struct.
+Typedef extern_type skipped: not referring to a struct.
+Typedef state_type (file id f17) refers to structure __mbstate_t Typedef state_type skipped: not in a requested header file.
+Typedef result skipped: not referring to a struct.
+Typedef intern_type skipped: not referring to a struct.
+Typedef extern_type skipped: not referring to a struct.
+Typedef state_type (file id f17) refers to structure __mbstate_t Typedef state_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef int_type skipped: not referring to a struct.
+Typedef pos_type skipped: not referring to a struct.
+Typedef off_type skipped: not referring to a struct.
+Typedef traits_type (file id f88) refers to structure char_traits&lt;wchar_t&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __istream_type (file id f88) refers to structure basic_istream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef __istream_type skipped: not in a requested header file.
+Typedef __ostream_type (file id f88) refers to structure basic_ostream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef __ostream_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure istreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef string_type (file id f8) refers to structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef char_type skipped: not referring to a struct.
+Typedef iter_type (file id f8) refers to structure istreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; Typedef iter_type skipped: not in a requested header file.
+Typedef string_type (file id f8) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef string_type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef __type (file id f92) refers to structure __true_type Typedef __type skipped: not in a requested header file.
+Typedef param_iterator skipped: not referring to a struct.
+Typedef idx_iterator skipped: not referring to a struct.
+Typedef op_iterator skipped: not referring to a struct.
+Typedef const_op_iterator skipped: not referring to a struct.
+Typedef elem_iterator skipped: not referring to a struct.
+Typedef const_elem_iterator skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef cas_flag skipped: not referring to a struct.
+Typedef const_elem_iterator skipped: not referring to a struct.
+Typedef elem_iterator skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef SimpleType skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef use_iterator skipped: not referring to a struct.
+Typedef use_const_iterator skipped: not referring to a struct.
+Typedef TraitsClass (file id f120) refers to structure ilist_traits&lt;llvm::NamedMDNode&gt; Typedef TraitsClass skipped: not in a requested header file.
+Typedef TraitsClass (file id f120) refers to structure ilist_traits&lt;llvm::GlobalAlias&gt; Typedef TraitsClass skipped: not in a requested header file.
+Typedef TraitsClass (file id f120) refers to structure ilist_traits&lt;llvm::GlobalVariable&gt; Typedef TraitsClass skipped: not in a requested header file.
+Typedef TraitsClass (file id f120) refers to structure ilist_traits&lt;llvm::Function&gt; Typedef TraitsClass skipped: not in a requested header file.
+Typedef TraitsClass (file id f120) refers to structure ilist_traits&lt;llvm::Argument&gt; Typedef TraitsClass skipped: not in a requested header file.
+Typedef TraitsClass (file id f120) refers to structure ilist_traits&lt;llvm::BasicBlock&gt; Typedef TraitsClass skipped: not in a requested header file.
+Typedef TraitsClass (file id f120) refers to structure ilist_traits&lt;llvm::Instruction&gt; Typedef TraitsClass skipped: not in a requested header file.
+Typedef subtype_iterator skipped: not referring to a struct.
+Typedef InstListType skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef element_iterator skipped: not referring to a struct.
+Typedef U skipped: not referring to a struct.
+Typedef U skipped: not referring to a struct.
+Typedef U skipped: not referring to a struct.
+Typedef idx_iterator skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef ret_type skipped: not referring to a struct.
+Typedef GlobalListType skipped: not referring to a struct.
+Typedef FunctionListType skipped: not referring to a struct.
+Typedef AliasListType skipped: not referring to a struct.
+Typedef NamedMDListType skipped: not referring to a struct.
+Typedef LibraryListType skipped: not referring to a struct.
+Typedef global_iterator skipped: not referring to a struct.
+Typedef const_global_iterator skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef alias_iterator skipped: not referring to a struct.
+Typedef const_alias_iterator skipped: not referring to a struct.
+Typedef named_metadata_iterator skipped: not referring to a struct.
+Typedef const_named_metadata_iterator skipped: not referring to a struct.
+Typedef lib_iterator skipped: not referring to a struct.
+Typedef NodeType skipped: not referring to a struct.
+Typedef ChildIteratorType skipped: not referring to a struct.
+Typedef NodeType skipped: not referring to a struct.
+Typedef ChildIteratorType skipped: not referring to a struct.
+Typedef super (file id f113) refers to structure forward_iterator&lt;const llvm::User*,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef super (file id f113) refers to structure forward_iterator&lt;llvm::User*,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef ArgumentListType skipped: not referring to a struct.
+Typedef BasicBlockListType skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef arg_iterator skipped: not referring to a struct.
+Typedef const_arg_iterator skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;const llvm::NamedMDNode&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;const llvm::NamedMDNode,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;llvm::NamedMDNode&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;llvm::NamedMDNode,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;const llvm::GlobalAlias&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;const llvm::GlobalAlias,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;llvm::GlobalAlias&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;llvm::GlobalAlias,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;const llvm::Function&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;const llvm::Function,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;llvm::Function&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;llvm::Function,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;const llvm::GlobalVariable&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;const llvm::GlobalVariable,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;llvm::GlobalVariable&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;llvm::GlobalVariable,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;const llvm::Argument&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;const llvm::Argument,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;llvm::Argument&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;llvm::Argument,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;const llvm::BasicBlock&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;const llvm::BasicBlock,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;llvm::BasicBlock&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;llvm::BasicBlock,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;const llvm::Instruction&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;const llvm::Instruction,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef Traits (file id f112) refers to structure ilist_traits&lt;llvm::Instruction&gt; Typedef Traits skipped: not in a requested header file.
+Typedef super (file id f112) refers to structure bidirectional_iterator&lt;llvm::Instruction,long int&gt; Typedef super skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef U skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef U skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef U skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator skipped: not referring to a struct.
+Typedef const_iterator skipped: not referring to a struct.
+Typedef const_reverse_iterator skipped: not referring to a struct.
+Typedef reverse_iterator skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef PT skipped: not referring to a struct.
+Typedef PT skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type (file id f127) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef value_type skipped: not in a requested header file.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef size_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef const_pointer skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef const_reference skipped: not referring to a struct.
+Typedef value_type skipped: not referring to a struct.
+Typedef iterator_category (file id f103) refers to structure random_access_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type (file id f103) refers to structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; Typedef value_type skipped: not in a requested header file.
+Typedef difference_type skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef iterator_category (file id f103) refers to structure random_access_iterator_tag Typedef iterator_category skipped: not in a requested header file.
+Typedef value_type skipped: not referring to a struct.
+Typedef difference_type skipped: not referring to a struct.
+Typedef reference skipped: not referring to a struct.
+Typedef pointer skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef __type skipped: not referring to a struct.
+Typedef _Raw_bytes_alloc (file id f89) refers to structure allocator&lt;char&gt; Typedef _Raw_bytes_alloc skipped: not in a requested header file.
+Typedef _Raw_bytes_alloc (file id f89) refers to structure allocator&lt;char&gt; Typedef _Raw_bytes_alloc skipped: not in a requested header file.
+Typedef traits_type (file id f88) refers to structure char_traits&lt;wchar_t&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __streambuf_type (file id f88) refers to structure basic_streambuf&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef __streambuf_type skipped: not in a requested header file.
+Typedef __istream_type (file id f88) refers to structure basic_istream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; Typedef __istream_type skipped: not in a requested header file.
+Typedef __ctype_type skipped: not referring to a struct.
+Typedef __int_type skipped: not referring to a struct.
+Typedef traits_type (file id f88) refers to structure char_traits&lt;char&gt; Typedef traits_type skipped: not in a requested header file.
+Typedef __streambuf_type (file id f88) refers to structure basic_streambuf&lt;char,std::char_traits&lt;char&gt; &gt; Typedef __streambuf_type skipped: not in a requested header file.
+Typedef __istream_type (file id f88) refers to structure basic_istream&lt;char,std::char_traits&lt;char&gt; &gt; Typedef __istream_type skipped: not in a requested header file.
+Typedef __ctype_type skipped: not referring to a struct.
+Typedef __int_type skipped: not referring to a struct.
+Making structure accessing classes.
+Structure bidirectional_iterator&lt;llvm::GlobalAlias,long int&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::AddOperator,llvm::BinaryOperator*&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,const llvm::NamedMDNode,long int,const llvm::NamedMDNode*,const llvm::NamedMDNode&amp;&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::CallbackVH&gt; skipped: not declared in a given header.
+Structure ilist_sentinel_traits&lt;llvm::Argument&gt; skipped: not declared in a given header.
+Structure DenseMapInfo&lt;char&gt; skipped: not declared in a given header.
+Structure ilist_node_traits&lt;llvm::Argument&gt; skipped: not declared in a given header.
+Structure allocator&lt;wchar_t&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::Instruction,const llvm::User*&gt; skipped: not declared in a given header.
+Structure basic_istringstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::InsertElementInst&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,llvm::NamedMDNode,long int,llvm::NamedMDNode*,llvm::NamedMDNode&amp;&gt; skipped: not declared in a given header.
+Structure ilist_default_traits&lt;llvm::NamedMDNode&gt; skipped: not declared in a given header.
+Structure TypeMap&lt;llvm::StructValType,llvm::StructType&gt; skipped: not declared in a given header.
+Structure forward_iterator&lt;llvm::User*,long int&gt; skipped: not declared in a given header.
+Structure TypeMap&lt;llvm::PointerValType,llvm::PointerType&gt; skipped: not declared in a given header.
+Structure drand48_data skipped: not declared in a given header.
+Structure PointerValType skipped: not declared in a given header.
+Structure random_access_iterator_tag skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::ConstantExpr,const llvm::Value*,const llvm::Value*&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::Instruction,llvm::User*,llvm::User*&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::CmpInst&gt; skipped: not declared in a given header.
+Structure istreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::GEPOperator,llvm::GetElementPtrInst*,llvm::GetElementPtrInst*&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::InvokeInst&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::SwitchInst&gt; skipped: not declared in a given header.
+Structure rebind&lt;const llvm::Type*&gt; skipped: not declared in a given header.
+Structure locale_data skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::BasicBlock,llvm::Value*&gt; skipped: not declared in a given header.
+Structure sched_param skipped: not declared in a given header.
+Structure ConstantCreator&lt;llvm::MDNode,llvm::Type,std::vector&lt;llvm::Value*, std::allocator&lt;llvm::Value*&gt; &gt; &gt; skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::Use*&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;llvm::Instruction,long int&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,llvm::Instruction,long int,llvm::Instruction*,llvm::Instruction&amp;&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::PATypeHolder&gt; skipped: not declared in a given header.
+Structure DenseMapInfo&lt;unsigned int&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::UnaryInstruction&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::ConstantArray&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;const llvm::NamedMDNode,long int&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::BinaryOperator&gt; skipped: not declared in a given header.
+Structure IntegerValType skipped: not declared in a given header.
+Structure basic_istream&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure SymbolTableListTraits&lt;llvm::Instruction,llvm::BasicBlock&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,const llvm::Argument,long int,const llvm::Argument*,const llvm::Argument&amp;&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,const llvm::Function,long int,const llvm::Function*,const llvm::Function&amp;&gt; skipped: not declared in a given header.
+Structure random_data skipped: not declared in a given header.
+Structure basic_ostream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure messages_base skipped: not declared in a given header.
+Structure iterator_traits&lt;std::_Bit_iterator&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::Use&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::Instruction,const llvm::User*&gt; skipped: not declared in a given header.
+Structure DenseMapInfo&lt;llvm::Value*&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::Constant,llvm::Value*&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::ReturnInst&gt; skipped: not declared in a given header.
+Structure pattern skipped: not declared in a given header.
+Structure ilist_sentinel_traits&lt;llvm::NamedMDNode&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::Constant,llvm::Use,llvm::Value*&gt; skipped: not declared in a given header.
+Structure ostreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::ConstantExpr&gt; skipped: not declared in a given header.
+Structure FixedNumOperandTraits&lt;3u&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::Instruction,const llvm::Value*&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::PATypeHolder&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::Instruction,const llvm::User*,const llvm::User*&gt; skipped: not declared in a given header.
+Structure TypeMap&lt;llvm::FunctionValType,llvm::FunctionType&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;char&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::ShuffleVectorInst&gt; skipped: not declared in a given header.
+Structure output_iterator_tag skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::Constant,llvm::Value*&gt; skipped: not declared in a given header.
+Structure basic_streambuf&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::Function,llvm::Value*,llvm::Value*&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::Constant,const llvm::Use*,llvm::Value*&gt; skipped: not declared in a given header.
+Structure LLVMOpaqueBasicBlock skipped: not declared in a given header.
+Structure ilist_node_traits&lt;llvm::NamedMDNode&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::ConstantExpr,const llvm::Value*&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;llvm::GlobalVariable,long int&gt; skipped: not declared in a given header.
+Structure basic_fstream&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure ModuleProvider skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::User*&gt; skipped: not declared in a given header.
+Structure lldiv_t skipped: not declared in a given header.
+Structure ilist_node_traits&lt;llvm::Instruction&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::AddOperator,llvm::BinaryOperator*,llvm::BinaryOperator*&gt; skipped: not declared in a given header.
+Structure rebind&lt;llvm::Constant*&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,const llvm::GlobalAlias,long int,const llvm::GlobalAlias*,const llvm::GlobalAlias&amp;&gt; skipped: not declared in a given header.
+Structure input_iterator_tag skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::GlobalAlias&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::Instruction,const llvm::Value*,const llvm::Value*&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::MetadataBase,llvm::Value*&gt; skipped: not declared in a given header.
+Structure ilist_traits&lt;const llvm::Argument&gt; skipped: not declared in a given header.
+Structure FixedNumOperandTraits&lt;2u&gt; skipped: not declared in a given header.
+Structure forward_iterator_tag skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::GetElementPtrInst*&gt; skipped: not declared in a given header.
+Structure timeval skipped: not declared in a given header.
+Structure TypeSymbolTable skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::Use* const&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::WeakVH&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::PointerType,const llvm::Type*&gt; skipped: not declared in a given header.
+Structure ilist_sentinel_traits&lt;llvm::GlobalAlias&gt; skipped: not declared in a given header.
+Structure ilist_nextprev_traits&lt;llvm::GlobalAlias&gt; skipped: not declared in a given header.
+Structure ilist_traits&lt;llvm::GlobalAlias&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;const llvm::GlobalVariable,long int&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;signed char&gt; skipped: not declared in a given header.
+Structure basic_ios&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure basic_ofstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::ConstantExpr,const llvm::Value*&gt; skipped: not declared in a given header.
+Structure ilist_sentinel_traits&lt;llvm::BasicBlock&gt; skipped: not declared in a given header.
+Structure iterator_traits&lt;const std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt;*&gt; skipped: not declared in a given header.
+Structure basic_istringstream&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::SDivOperator,llvm::BinaryOperator*,llvm::BinaryOperator*&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::WeakVH&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;const llvm::VectorType,const llvm::Type*,const llvm::Type*&gt; skipped: not declared in a given header.
+Structure AssemblyAnnotationWriter skipped: not declared in a given header.
+Structure AttributeWithIndex skipped: not declared in a given header.
+Structure iterator&lt;std::output_iterator_tag,void,void,void,void&gt; skipped: not declared in a given header.
+Structure FixedNumOperandTraits&lt;1u&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;const llvm::GlobalAlias,long int&gt; skipped: not declared in a given header.
+Structure rebind&lt;wchar_t&gt; skipped: not declared in a given header.
+Structure TypeMap&lt;llvm::IntegerValType,llvm::IntegerType&gt; skipped: not declared in a given header.
+Structure ConstantCreator&lt;llvm::ConstantArray,llvm::ArrayType,std::vector&lt;llvm::Constant*, std::allocator&lt;llvm::Constant*&gt; &gt; &gt; skipped: not declared in a given header.
+Structure ilist_traits&lt;llvm::Argument&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::ConstantExpr,const llvm::Operator*,const llvm::Operator*&gt; skipped: not declared in a given header.
+Structure lconv skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::ExtractElementInst&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;const llvm::BasicBlock,long int&gt; skipped: not declared in a given header.
+Structure SmallVectorImpl&lt;char&gt; skipped: not declared in a given header.
+Structure LLVMOpaqueBuilder skipped: not declared in a given header.
+Structure prefix skipped: not declared in a given header.
+Structure prefix skipped: not declared in a given header.
+Structure prefix skipped: not declared in a given header.
+Structure SmallVectorImpl&lt;llvm::Constant*&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::CallbackVH&gt; skipped: not declared in a given header.
+Structure ilist_nextprev_traits&lt;llvm::Argument&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;unsigned char&gt; skipped: not declared in a given header.
+Structure basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure timespec skipped: not declared in a given header.
+Structure numeric_limits&lt;long long int&gt; skipped: not declared in a given header.
+Structure ConstantRange skipped: not declared in a given header.
+Structure basic_ifstream&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure allocator&lt;char&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;const llvm::Function,long int&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator_tag skipped: not declared in a given header.
+Structure ostreambuf_iterator&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::BranchInst&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;llvm::Argument,long int&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::Instruction,const llvm::Operator*,const llvm::Operator*&gt; skipped: not declared in a given header.
+Structure ilist_node_traits&lt;llvm::GlobalVariable&gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;const llvm::Argument,long int&gt; skipped: not declared in a given header.
+Structure imaxdiv_t skipped: not declared in a given header.
+Structure ilist_traits&lt;const llvm::BasicBlock&gt; skipped: not declared in a given header.
+Structure pair&lt;llvm::StringRef,llvm::StringRef&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,llvm::GlobalAlias,long int,llvm::GlobalAlias*,llvm::GlobalAlias&amp;&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::FunctionType,const llvm::Type*&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,llvm::GlobalVariable,long int,llvm::GlobalVariable*,llvm::GlobalVariable&amp;&gt; skipped: not declared in a given header.
+Structure ilist_default_traits&lt;llvm::GlobalVariable&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::User&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::BasicBlock,llvm::Value*,llvm::Value*&gt; skipped: not declared in a given header.
+Structure TypeMapBase skipped: not declared in a given header.
+Structure rebind&lt;llvm::AbstractTypeUser*&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::ConstantExpr,const llvm::Operator*&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;wchar_t&gt; skipped: not declared in a given header.
+Structure SymbolTable skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;llvm::BasicBlock,long int&gt; skipped: not declared in a given header.
+Structure MemoryBuffer skipped: not declared in a given header.
+Structure ilist_traits&lt;llvm::GlobalVariable&gt; skipped: not declared in a given header.
+Structure iterator_traits&lt;char*&gt; skipped: not declared in a given header.
+Structure TypeMap&lt;llvm::ArrayValType,llvm::ArrayType&gt; skipped: not declared in a given header.
+Structure fltSemantics skipped: not declared in a given header.
+Structure LLVMOpaqueType skipped: not declared in a given header.
+Structure ilist_default_traits&lt;llvm::Function&gt; skipped: not declared in a given header.
+Structure AttributeListImpl skipped: not declared in a given header.
+Structure ilist_traits&lt;const llvm::GlobalVariable&gt; skipped: not declared in a given header.
+Structure GraphTraits&lt;llvm::Type*&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;short int&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;float&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;bool&gt; skipped: not declared in a given header.
+Structure basic_ios&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;int&gt; skipped: not declared in a given header.
+Structure basic_fstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure basic_iostream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure LLVMOpaqueMemoryBuffer skipped: not declared in a given header.
+Structure ConstantCreator&lt;llvm::ConstantExpr,llvm::Type,std::pair&lt;unsigned int, std::vector&lt;llvm::Constant*, std::allocator&lt;llvm::Constant*&gt; &gt; &gt; &gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::MetadataBase,llvm::Value*,llvm::Value*&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::value_use_iterator&lt;llvm::User&gt; &gt; skipped: not declared in a given header.
+Structure ilist_nextprev_traits&lt;llvm::GlobalVariable&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::forward_iterator_tag,llvm::User*,long int,llvm::User**,llvm::User*&amp;&gt; skipped: not declared in a given header.
+Structure GlobalValueRefMap skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;llvm::Function,long int&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::value_use_iterator&lt;const llvm::User&gt; &gt; skipped: not declared in a given header.
+Structure basic_ostringstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,const llvm::Instruction,long int,const llvm::Instruction*,const llvm::Instruction&amp;&gt; skipped: not declared in a given header.
+Structure ilist_sentinel_traits&lt;llvm::Function&gt; skipped: not declared in a given header.
+Structure InlineAsm skipped: not declared in a given header.
+Structure ilist_node_traits&lt;llvm::Function&gt; skipped: not declared in a given header.
+Structure ctype_base skipped: not declared in a given header.
+Structure rebind&lt;char&gt; skipped: not declared in a given header.
+Structure rebind&lt;char&gt; skipped: not declared in a given header.
+Structure basic_ostringstream&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure LLVMOpaqueModule skipped: not declared in a given header.
+Structure ilist_default_traits&lt;llvm::Instruction&gt; skipped: not declared in a given header.
+Structure OptionalOperandTraits&lt;1u&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::value_use_iterator&lt;llvm::User&gt; &gt; skipped: not declared in a given header.
+Structure ilist_traits&lt;const llvm::Instruction&gt; skipped: not declared in a given header.
+Structure raw_ostream skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::AssertingVH&lt;llvm::Value&gt; &gt; skipped: not declared in a given header.
+Structure sigevent skipped: not declared in a given header.
+Structure LLVMOpaqueValue skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::Use* const&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::PointerType,const llvm::Type*&gt; skipped: not declared in a given header.
+Structure istreambuf_iterator&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;long double&gt; skipped: not declared in a given header.
+Structure VectorValType skipped: not declared in a given header.
+Structure ilist_sentinel_traits&lt;llvm::Instruction&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::StoreInst&gt; skipped: not declared in a given header.
+Structure ilist_node_traits&lt;llvm::BasicBlock&gt; skipped: not declared in a given header.
+Structure ilist_nextprev_traits&lt;llvm::NamedMDNode&gt; skipped: not declared in a given header.
+Structure ilist_traits&lt;llvm::Instruction&gt; skipped: not declared in a given header.
+Structure FunctionValType skipped: not declared in a given header.
+Structure VariadicOperandTraits&lt;3u&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::PointerType,const llvm::Type*,const llvm::Type*&gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::Constant,llvm::Value*,llvm::Value*&gt; skipped: not declared in a given header.
+Structure basic_istream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,llvm::Argument,long int,llvm::Argument*,llvm::Argument&amp;&gt; skipped: not declared in a given header.
+Structure ConstantCreator&lt;llvm::ConstantPointerNull,llvm::PointerType,char&gt; skipped: not declared in a given header.
+Structure basic_stringstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::CallInst&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::GlobalVariable&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::Instruction,llvm::User*&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::PHINode&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::GEPOperator,llvm::GetElementPtrInst*&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::SDivOperator,llvm::BinaryOperator*&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::Instruction,const llvm::Operator*&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;short unsigned int&gt; skipped: not declared in a given header.
+Structure cpu_set_t skipped: not declared in a given header.
+Structure ilist_traits&lt;const llvm::Function&gt; skipped: not declared in a given header.
+Structure itimerspec skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::SelectInst&gt; skipped: not declared in a given header.
+Structure PassManagerBase skipped: not declared in a given header.
+Structure char_traits&lt;wchar_t&gt; skipped: not declared in a given header.
+Structure basic_stringstream&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,const llvm::GlobalVariable,long int,const llvm::GlobalVariable*,const llvm::GlobalVariable&amp;&gt; skipped: not declared in a given header.
+Structure basic_iostream&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,const llvm::BasicBlock,long int,const llvm::BasicBlock*,const llvm::BasicBlock&amp;&gt; skipped: not declared in a given header.
+Structure ilist_traits&lt;llvm::BasicBlock&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,llvm::Function,long int,llvm::Function*,llvm::Function&amp;&gt; skipped: not declared in a given header.
+Structure basic_filebuf&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure ConstantCreator&lt;llvm::UndefValue,llvm::Type,char&gt; skipped: not declared in a given header.
+Structure Serializer skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::Constant,llvm::Use&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::value_use_iterator&lt;const llvm::User&gt; &gt; skipped: not declared in a given header.
+Structure cast_retty&lt;const llvm::VectorType,const llvm::Type*&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::BinaryOperator*&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::AssertingVH&lt;llvm::Value&gt; &gt; skipped: not declared in a given header.
+Structure char_traits&lt;char&gt; skipped: not declared in a given header.
+Structure fd_set skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::FunctionType,const llvm::Type*,const llvm::Type*&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::SDivOperator,llvm::BinaryOperator*&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::Function,llvm::Value*&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::GEPOperator,llvm::GetElementPtrInst*&gt; skipped: not declared in a given header.
+Structure basic_ofstream&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure iterator&lt;std::bidirectional_iterator_tag,llvm::BasicBlock,long int,llvm::BasicBlock*,llvm::BasicBlock&amp;&gt; skipped: not declared in a given header.
+Structure basic_ifstream&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::Function,llvm::Use&gt; skipped: not declared in a given header.
+Structure VariadicOperandTraits&lt;1u&gt; skipped: not declared in a given header.
+Structure ArrayValType skipped: not declared in a given header.
+Structure basic_stringbuf&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure ilist_traits&lt;llvm::Function&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::Instruction,const llvm::Value*&gt; skipped: not declared in a given header.
+Structure LLVMOpaqueTypeHandle skipped: not declared in a given header.
+Structure pair&lt;unsigned int,std::vector&lt;llvm::Constant*, std::allocator&lt;llvm::Constant*&gt; &gt; &gt; skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;const llvm::Instruction,long int&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::Instruction,const llvm::Operator*&gt; skipped: not declared in a given header.
+Structure ValueSymbolTable skipped: not declared in a given header.
+Structure ilist_nextprev_traits&lt;llvm::BasicBlock&gt; skipped: not declared in a given header.
+Structure ilist_nextprev_traits&lt;llvm::Function&gt; skipped: not declared in a given header.
+Structure basic_filebuf&lt;wchar_t,std::char_traits&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure HungoffOperandTraits&lt;2u&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::BasicBlock,llvm::Value*&gt; skipped: not declared in a given header.
+Structure LLVMOpaqueContext skipped: not declared in a given header.
+Structure bidirectional_iterator&lt;llvm::NamedMDNode,long int&gt; skipped: not declared in a given header.
+Structure forward_iterator&lt;const llvm::User*,long int&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::Function,llvm::Value*&gt; skipped: not declared in a given header.
+Structure ilist_traits&lt;llvm::NamedMDNode&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::ConstantStruct&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;const llvm::VectorType,const llvm::Type*&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;unsigned int&gt; skipped: not declared in a given header.
+Structure ldiv_t skipped: not declared in a given header.
+Structure numeric_limits&lt;long long unsigned int&gt; skipped: not declared in a given header.
+Structure basic_string&lt;wchar_t,std::char_traits&lt;wchar_t&gt;,std::allocator&lt;wchar_t&gt; &gt; skipped: not declared in a given header.
+Structure VariadicOperandTraits&lt;0u&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::Operator*&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::Use&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::InsertValueInst&gt; skipped: not declared in a given header.
+Structure ms skipped: not declared in a given header.
+Structure rebind&lt;std::basic_string&lt;char, std::char_traits&lt;char&gt;, std::allocator&lt;char&gt; &gt; &gt; skipped: not declared in a given header.
+Structure mu skipped: not declared in a given header.
+Structure FoldingSetNodeID skipped: not declared in a given header.
+Structure obstack skipped: not declared in a given header.
+Structure basic_ostream&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::Value*&gt; skipped: not declared in a given header.
+Structure StringMapEntry&lt;llvm::Value*&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::Constant,const llvm::Use*&gt; skipped: not declared in a given header.
+Structure nothrow_t skipped: not declared in a given header.
+Structure ilist_node_traits&lt;llvm::GlobalAlias&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;long unsigned int&gt; skipped: not declared in a given header.
+Structure LLVMOpaquePassManager skipped: not declared in a given header.
+Structure LLVMOpaqueModuleProvider skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::ConstantVector&gt; skipped: not declared in a given header.
+Structure tm skipped: not declared in a given header.
+Structure StructValType skipped: not declared in a given header.
+Structure ConvertConstant&lt;llvm::ConstantExpr,llvm::Type&gt; skipped: not declared in a given header.
+Structure cast_retty&lt;llvm::AddOperator,llvm::BinaryOperator*&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::forward_iterator_tag,const llvm::User*,long int,const llvm::User**,const llvm::User*&amp;&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::Value*&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;long int&gt; skipped: not declared in a given header.
+Structure iterator_traits&lt;std::_Bit_const_iterator&gt; skipped: not declared in a given header.
+Structure ilist_nextprev_traits&lt;llvm::Instruction&gt; skipped: not declared in a given header.
+Structure ConstantCreator&lt;llvm::ConstantAggregateZero,llvm::Type,char&gt; skipped: not declared in a given header.
+Structure basic_stringbuf&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::Use*&gt; skipped: not declared in a given header.
+Structure basic_streambuf&lt;char,std::char_traits&lt;char&gt; &gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::ConstantExpr,const llvm::Operator*&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::MetadataBase,llvm::Value*&gt; skipped: not declared in a given header.
+Structure div_t skipped: not declared in a given header.
+Structure ilist_traits&lt;const llvm::NamedMDNode&gt; skipped: not declared in a given header.
+Structure ilist_default_traits&lt;llvm::BasicBlock&gt; skipped: not declared in a given header.
+Structure ilist_sentinel_traits&lt;llvm::GlobalVariable&gt; skipped: not declared in a given header.
+Structure OperandTraits&lt;llvm::GetElementPtrInst&gt; skipped: not declared in a given header.
+Structure ilist_default_traits&lt;llvm::GlobalAlias&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::random_access_iterator_tag,bool,long int,bool*,bool&amp;&gt; skipped: not declared in a given header.
+Structure ilist_default_traits&lt;llvm::Argument&gt; skipped: not declared in a given header.
+Structure sentry skipped: not declared in a given header.
+Structure sentry skipped: not declared in a given header.
+Structure simplify_type&lt;const llvm::Type*&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::FunctionType,const llvm::Type*&gt; skipped: not declared in a given header.
+Structure ilist_traits&lt;const llvm::GlobalAlias&gt; skipped: not declared in a given header.
+Structure cast_retty_impl&lt;llvm::Instruction,llvm::User*&gt; skipped: not declared in a given header.
+Structure simplify_type&lt;llvm::User*&gt; skipped: not declared in a given header.
+Structure numeric_limits&lt;double&gt; skipped: not declared in a given header.
+Structure DenseMapInfo&lt;long unsigned int&gt; skipped: not declared in a given header.
+Structure ConstantCreator&lt;llvm::ConstantStruct,llvm::StructType,std::vector&lt;llvm::Constant*, std::allocator&lt;llvm::Constant*&gt; &gt; &gt; skipped: not declared in a given header.
+Structure cast_retty_wrap&lt;llvm::Function,llvm::Use,llvm::Value*&gt; skipped: not declared in a given header.
+Structure GraphTraits&lt;const llvm::Type*&gt; skipped: not declared in a given header.
+Structure TypeMap&lt;llvm::VectorValType,llvm::VectorType&gt; skipped: not declared in a given header.
+Structure iterator&lt;std::random_access_iterator_tag,bool,long int,const bool*,bool&gt; skipped: not declared in a given header.
+Structure LLVMContextImpl skipped: not declared in a given header.
+Structure iterator&lt;std::random_access_iterator_tag,bool,long int,std::_Bit_reference*,std::_Bit_reference&gt; skipped: not declared in a given header.
+Structure ConstantCreator&lt;llvm::ConstantVector,llvm::VectorType,std::vector&lt;llvm::Constant*, std::allocator&lt;llvm::Constant*&gt; &gt; &gt; skipped: not declared in a given header.
+Structure Deserializer skipped: not declared in a given header.
+Making enumerations classes.
+Wrapping enumeration LLVMIntPredicate to class L_LVMINT_PREDICATE in file ./l_lvmint_predicate.e
+Wrapping enumeration cmpResult to class CMP_RESULT in file ./cmp_result.e
+Skipping 'hidden' enumeration _Ios_Fmtflags
+Wrapping enumeration NodeKind to class NODE_KIND in file ./node_kind.e
+Wrapping enumeration event to class EVENT in file ./event.e
+Wrapping enumeration CastOps to class CAST_OPS in file ./cast_ops.e
+Skipping 'hidden' enumeration _Ios_Seekdir
+Wrapping enumeration Endianness to class ENDIANNESS in file ./endianness.e
+Wrapping enumeration BinaryOps to class BINARY_OPS in file ./binary_ops.e
+Wrapping enumeration LLVMTypeKind to class L_LVMTYPE_KIND in file ./l_lvmtype_kind.e
+Skipping 'hidden' enumeration __codecvt_result
+Wrapping enumeration dateorder to class DATEORDER in file ./dateorder.e
+Wrapping enumeration PrevPtrTag to class PREV_PTR_TAG in file ./prev_ptr_tag.e
+Wrapping enumeration MemoryOps to class MEMORY_OPS in file ./memory_ops.e
+Wrapping enumeration float_round_style to class FLOAT_ROUND_STYLE in file ./float_round_style.e
+Wrapping enumeration lostFraction to class LOST_FRACTION in file ./lost_fraction.e
+Skipping 'hidden' enumeration ._100
+Skipping 'hidden' enumeration ._100
+Skipping 'hidden' enumeration ._100
+Skipping 'hidden' enumeration ._101
+Skipping 'hidden' enumeration ._103
+Wrapping enumeration LLVMCallConv to class L_LVMCALL_CONV in file ./l_lvmcall_conv.e
+Skipping 'hidden' enumeration ._108
+Wrapping enumeration TermOps to class TERM_OPS in file ./term_ops.e
+Wrapping enumeration opStatus to class OP_STATUS in file ./op_status.e
+Wrapping enumeration OtherOps to class OTHER_OPS in file ./other_ops.e
+Wrapping enumeration ValueTy to class VALUE_TY in file ./value_ty.e
+Skipping 'hidden' enumeration _Ios_Iostate
+Wrapping enumeration LLVMLinkage to class L_LVMLINKAGE in file ./l_lvmlinkage.e
+Wrapping enumeration PointerSize to class POINTER_SIZE in file ./pointer_size.e
+Wrapping enumeration VisibilityTypes to class VISIBILITY_TYPES in file ./visibility_types.e
+Skipping 'hidden' enumeration ._10
+Skipping 'hidden' enumeration ._11
+Wrapping enumeration LLVMRealPredicate to class L_LVMREAL_PREDICATE in file ./l_lvmreal_predicate.e
+Skipping 'hidden' enumeration ._12
+Skipping 'hidden' enumeration ._13
+Skipping 'hidden' enumeration ._14
+Skipping 'hidden' enumeration ._20
+Skipping 'hidden' enumeration ._15
+Skipping 'hidden' enumeration ._21
+Skipping 'hidden' enumeration ._16
+Skipping 'hidden' enumeration ._22
+Skipping 'hidden' enumeration ._17
+Wrapping enumeration part to class PART in file ./part.e
+Skipping 'hidden' enumeration ._18
+Skipping 'hidden' enumeration _Ios_Openmode
+Skipping 'hidden' enumeration ._30
+Skipping 'hidden' enumeration ._31
+Skipping 'hidden' enumeration ._1
+Skipping 'hidden' enumeration ._32
+Skipping 'hidden' enumeration ._4
+Wrapping enumeration Predicate to class PREDICATE in file ./predicate.e
+Skipping 'hidden' enumeration ._6
+Skipping 'hidden' enumeration ._7
+Skipping 'hidden' enumeration ._8
+Skipping 'hidden' enumeration ._9
+Wrapping enumeration LLVMAttribute to class L_LVMATTRIBUTE in file ./l_lvmattribute.e
+Wrapping LLVMAttribute as flag.
+Skipping 'hidden' enumeration ._54
+Skipping 'hidden' enumeration _LIB_VERSION_TYPE
+Skipping 'hidden' enumeration ._60
+Skipping 'hidden' enumeration ._55
+Skipping 'hidden' enumeration ._61
+Skipping 'hidden' enumeration ._62
+Skipping 'hidden' enumeration ._57
+Skipping 'hidden' enumeration ._63
+Skipping 'hidden' enumeration ._58
+Skipping 'hidden' enumeration ._64
+Skipping 'hidden' enumeration ._59
+Skipping 'hidden' enumeration ._70
+Skipping 'hidden' enumeration ._65
+Skipping 'hidden' enumeration ._71
+Skipping 'hidden' enumeration ._66
+Wrapping enumeration float_denorm_style to class FLOAT_DENORM_STYLE in file ./float_denorm_style.e
+Wrapping enumeration HandleBaseKind to class HANDLE_BASE_KIND in file ./handle_base_kind.e
+Skipping 'hidden' enumeration ._72
+Wrapping enumeration fltCategory to class FLT_CATEGORY in file ./flt_category.e
+Skipping 'hidden' enumeration ._69
+Wrapping enumeration LLVMVisibility to class L_LVMVISIBILITY in file ./l_lvmvisibility.e
+Skipping 'hidden' enumeration ._80
+Skipping 'hidden' enumeration ._81
+Wrapping enumeration TypeID to class TYPE_ID in file ./type_id.e
+Skipping 'hidden' enumeration ._82
+Skipping 'hidden' enumeration ._78
+Skipping 'hidden' enumeration ._83
+Skipping 'hidden' enumeration ._79
+Skipping 'hidden' enumeration ._84
+Skipping 'hidden' enumeration ._85
+Skipping 'hidden' enumeration ._91
+Skipping 'hidden' enumeration ._92
+Skipping 'hidden' enumeration ._88
+Skipping 'hidden' enumeration ._93
+Skipping 'hidden' enumeration ._89
+Skipping 'hidden' enumeration ._89
+Skipping 'hidden' enumeration ._98
+Wrapping enumeration roundingMode to class ROUNDING_MODE in file ./rounding_mode.e
+Wrapping enumeration PossibleRelocationsTy to class POSSIBLE_RELOCATIONS_TY in file ./possible_relocations_ty.e
+Wrapping enumeration Tag to class TAG in file ./tag.e
+Wrapping enumeration LinkageTypes to class LINKAGE_TYPES in file ./linkage_types.e
+Wrapping enumeration result to class RESULT in file ./result.e
