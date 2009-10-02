@@ -1,5 +1,5 @@
 class C_ARGUMENT
-	-- An "Argument" node of in an XML file produced by gccxml.
+	-- An "Argument" node of an XML file made by gccxml.
 
 inherit
 	C_FUNCTION_ARGUMENT

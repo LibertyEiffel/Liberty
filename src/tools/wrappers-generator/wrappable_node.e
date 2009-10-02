@@ -10,7 +10,7 @@ feature
 		-- Put the wrapper on `a_stream'
 	require 
 		a_stream /= Void
-		buffer.is_empty
+		-- buffer.is_empty
 	deferred 
 	ensure buffer.is_empty
 	end

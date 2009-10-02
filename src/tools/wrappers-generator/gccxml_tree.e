@@ -1,13 +1,15 @@
 class GCCXML_TREE
 	-- A partially validated representation of an XML file made by gccxml
 
+	-- Effective heirs will emit wrappers that use either plain external clauses or plugins.
 inherit XML_TREE redefine new_node, open_node end
 
 insert 
 	SHARED_COLLECTIONS
 	EXCEPTIONS
+	FILE_TOOLS
 
-create {CLASS_MAKER} make
+creation make
 
 feature 
 	new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE is
@@ -48,6 +50,30 @@ feature
 			storable ?= open_nodes.top 
 			if storable/=Void then storable.store end
 		end
+
+feature 
+	read_flags_from (a_file_name: STRING) is
+		-- Read the list of enumeration that shall be wrapped as flags from the
+		-- file named `a_file_name'.
+	require
+		a_file_name/=Void
+		file_exists(a_file_name)
+		is_file(a_file_name) 
+	do
+		flags.add_from_file(a_file_name)
+	end
+
+	read_avoided_from (a_file_name: STRING) is
+		-- Read from the file named `a_file_name' the list of symbols that will
+		-- be avoided, i.e. not wrapped. 
+	require
+		a_file_name/=Void
+		file_exists(a_file_name)
+		is_file(a_file_name) 
+	do
+		avoided.add_from_file(a_file_name)
+	end
+
 
 feature {} -- Auxiliary call
 	print_node (a_label: STRING; a_node: XML_COMPOSITE_NODE) is

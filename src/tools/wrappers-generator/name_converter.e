@@ -76,6 +76,10 @@ feature {} -- Auxiliary features
 		loop
 			Result.remove_first
 		end
+		-- If first character is a number prepend an `a_'
+		if Result.first.is_digit then
+			Result.prepend(once "a_")
+		end
 		eiffellizer.substitute_all_in(Result)
 		Result.to_lower
 		Result := adapt(Result)

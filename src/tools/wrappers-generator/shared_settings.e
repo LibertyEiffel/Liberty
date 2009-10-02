@@ -131,7 +131,7 @@ feature {} -- Constants
 	footer: STRING is "end%N"
 
 	automatically_generated_header: STRING is "[
-		-- This file have been created by eiffel-gcc-xml.
+		-- This file have been created by wrapper-generator.
 		-- Any change will be lost by the next execution of the tool.
 
 

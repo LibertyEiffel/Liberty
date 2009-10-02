@@ -1,14 +1,14 @@
-class EIFFEL_GCC_XML
-	-- An application that processes the output of gccxml to produce
-	-- low-level wrappers for functions, structures and enumerations.
-	-- Function having argument structures passed by value are not
-	-- handled.
+class WRAPPER_GENERATOR
+	-- An application that processes the output of gccxml to produce low-level
+	-- wrappers for functions, structures and enumerationsi and unions.
+	-- Function having argument structures passed by value are not handled.
 
 insert
 	ARGUMENTS
 	FILE_TOOLS
 	SHARED_SETTINGS
 	NAME_CONVERTER
+	MEMORY
 
 creation {ANY}
 	make
@@ -17,19 +17,38 @@ feature {ANY}
 	make is
 		do
 			process_arguments
-			if maker = Void then
-				print_usage
-			else
-				maker.process
+			log(once "@(1) bytes allocated%NLoading XML file: ",<<allocated_bytes.out>>)
+			create tree.make(input.url)
+			-- visit(tree.root)
+			log(once "done. @(1) bytes allocated%N",<<allocated_bytes.out>>)
+			if directory = Void then
+				log_string(once "Outputting everything on standard output.")
 			end
+			-- log_string(once "Processing typedefs.%N")
+			-- setup_typedefs_file
+			-- typedefs.do_all(agent examine_typedef)
+			-- finalize_typedefs_file
+			log_string(once "Making enumerations classes.%N")
+			tree.enumerations.do_all(agent {C_ENUM}.emit_wrapper)	
+
+			log_string(once "Making external functions classes.%N")
+			tree.files.do_all (agent {C_FILE}.emit_wrapper)
+			-- log_string(once "Making structure accessing classes.%N")
+			-- structures.do_all(agent examine_structure)
+			-- log_string(once "Making union accessing classes.%N")
 		end
 
 	maker: CLASS_MAKER
 
+	tree: GCCXML_TREE
+
+	input: INPUT_STREAM
+
 	process_arguments is
+		-- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits. 
 		local
-			input: INPUT_STREAM; 
-			arg, header, location, avoided, module, descriptions, flags, typedefs: STRING;
+			
+			arg, header, avoided, descriptions, flags, typedefs: STRING;
 			plugin: BOOLEAN i: INTEGER
 		do
 			check
@@ -53,21 +72,7 @@ feature {ANY}
 					arg := argument(i)
 					if arg.is_equal(once "--local") then settings.set_global(False)
 					elseif arg.is_equal(once "--global") then settings.set_global(True)
-					elseif arg.is_equal(once "--plugin") then
-						plugin := True
-						i := i + 1
-						if i <= argument_count then
-							location := argument(i)
-							i := i + 1
-							if i <= argument_count then module := argument(i)
-							else
-								std_error.put_line(once "No plugin module")
-								print_usage
-							end
-						else
-							std_error.put_line(once "No plugin location")
-							print_usage
-						end
+					elseif arg.is_equal(once "--plugin") then settings.set_plugins
 					elseif arg.is_equal(once "--header") then
 						i := i + 1
 						if i <= argument_count then header := argument(i)
@@ -136,20 +141,19 @@ feature {ANY}
 					i := i + 1
 				end
 
-				if plugin then create {PLUGIN_CLASS_MAKER} maker.with_location_and_module(location, module)	
-				else
-					if header /= Void 
-						then create {EXTERNALS_CLASS_MAKER} maker.with_header(header)
-					else create {EXTERNALS_CLASS_MAKER} maker.without_header
-					end
-				end
+				--if plugin then create {PLUGIN_TREE} tree.with_location_and_module(location, module)	
+				--else
+				--	if header /= Void 
+				--		then create {EXTERNALS_CLASS_MAKER} maker.with_header(header)
+				--	else create {EXTERNALS_CLASS_MAKER} maker.without_header
+				--	end
+				--end
 								
 				if input = Void then
 					log_string(once "Using standard input.")
-					maker.set_input(std_input)
-				else maker.set_input(input)
+					input := std_input
 				end
-				if is_valid_class_name(typedefs) then maker.set_typedefs(typedefs)
+				if is_valid_class_name(typedefs) then settings.set_typedefs(typedefs)
 				else 
 					std_error.put_line(typedefs+once " is not a valid class name.")
 					print_usage
@@ -164,99 +168,97 @@ feature {ANY}
 						headers.do_all(agent put_comma_separated_string(std_error, ?))
 						std_error.put_new_line
 					end
-					if plugin then std_error.put_line(once "Generating plugin wrappers.")
+					if settings.plugins then std_error.put_line(once "Generating plugin wrappers.")
 					else std_error.put_line(once "Generating external wrappers.")
 					end
 				end
 				if file_exists(flags) then 
-					log(once "Reading enumerations that will be forcefully wrapped as flags from '@(1)'.%N",<<flags>>)
-					maker.read_flags_from(flags)
+					log(once "TODO: Reading enumerations that will be forcefully wrapped as flags from '@(1)'.%N",<<flags>>)
+					-- maker.read_flags_from(flags)
 				end
  				if file_exists(descriptions) then
-					log(once "Reading descriptions flags from '@(1)'.%N",<<descriptions>>)
-					maker.read_descriptions_from(descriptions)
+					log(once "TODO: Reading descriptions flags from '@(1)'.%N",<<descriptions>>)
+					-- maker.read_descriptions_from(descriptions)
 				end
  				if file_exists(avoided) then
-					log(once "Reading list of avoided symbols from '@(1)'.%N",<<avoided>>)
-					maker.read_avoided_from(avoided)
+					log(once "TODO: Reading list of avoided symbols from '@(1)'.%N",<<avoided>>)
+					-- maker.read_avoided_from(avoided)
 				end
 
 			end
-		ensure
-			maker /= Void
-			maker.input.is_connected
 		end
 
 	print_usage is
 		do
-			std_error.put_line(once "[
-			  eiffel_gcc_xml [--verbose|-v] [--local] [--global] --plugin location module | --header header output.gcc-xml filenames....
-
-			  --local produces functions, structures and enumeration
-					  classes only for the given files. Otherwise all the
-					  necessary file will be created. This is the default Only
-					  the last global and local flag will be considered.
-
-			  --global emits wrappers for every features found in the XML
-					   file. For usual wrappers it is normally not needed.
-					   Only the last global and local flag will be considered.
-
-			  --plugin location module
-							 Emits classes that uses the plugin mechanism instead
-							 of the more traditional C external clauses. location
-							 and module arguments are mandatory; it often useful
-							 to quote them.
-
-			  --header file
-							 Use file as header file in external features instead
-							 of the file where the feature actually reside. Useful
-							 for many libraries which provides a single header that
-							 includes all the library features.
-
-			  --use-naturals
-							 Wrap unsigned integers with NATURAL classes. This is the
-							 default behaviour.
-
-			  --use-integers
-							 Wrap unsigned integers with INTEGER classes. Note that
-							 this leads to silent overflows and trimming.
-
-			  --directory dir
-							 Put the generated class in `dir'. Otherwise everything is outputted to standard output
-
-			  --flags flag-file
-			             Read a list of enumeration that will be forcefully wrapped as 
-						 a flag. In fact sometimes there is no way to distinguish when
-						 an enumeration is used as-it-is or to contain flags. If this
-	                     option is not used the program will look for the "flags" file.
-
-			  --apply-patches (not yet implemented)
-			             Apply the patches found in the output directory to the newly
-						 generated classes, i.e. foo.e will be patched by foo.diff
-			  
-			  --descriptions descriptions-file
-				 Apply the descriptions found in the description-file. Each line contains
-				 the description of a class or of a class' feature. The syntax for a class 
-				 description is `CLASS description', for a feature description is 
-				 `CLASS.feature description' Trailing and leading spaces are trimmed; line
-				 starting with `--' are ignored. If this option is not given the program
-				 will look into file "descriptions".
-
-			  --avoided a_file_name
-			     Do not wrap the symbols found in `a_file_name'. If this option is not 
-				 given the program will look into file "avoided".
-			
-		      --typedefs CLASS_NAME 
-				  Wrap typedefs to fundamental types into class CLASS_NAME as
-				  empty queries named with the typedef name and whose type's
-				  the actual type referred by the typedef. These queries will
-				  not be actually used but are useful as anchored types. If
-				  this option is not given the class name will be TYPES.
-
-			  -v --verbose
-							 Turn on verbose output, printing information about the
-							 ongoing operations.
-			  ]")
+			std_error.put_line
+			(once "wrapper-generator [--verbose|-v] [--local] [--global] [--plugin | --header header] [--directory dir] output.gcc-xml filenames....%N%
+			%%N%
+			%	--local %N%
+			%		produces functions, structures and enumeration%N%
+			%		classes only for the given files. Otherwise all the%N%
+			%		necessary file will be created. This is the default Only%N%
+			%		the last global and local flag will be considered.%N%
+			%%N%
+			%	--global emits wrappers for every features found in the XML%N%
+			%		file. For usual wrappers it is normally not needed.%N%
+			%		Only the last global and local flag will be considered.%N%
+			%%N%
+			%  --plugin%N%
+			%		Emits classes that uses the plugin mechanism instead%N%
+			%		of the more traditional C external clauses. location%N%
+			%		and module arguments are mandatory; it often useful%N%
+			%		to quote them.%N%
+			%%N%
+			%  --header file%N%
+			%		Use file as header file in external features instead%N%
+			%		of the file where the feature actually reside. Useful%N%
+			%		for many libraries which provides a single header that%N%
+			%		includes all the library features.%N%
+			%%N%
+			%  --use-naturals%N%
+			%		Wrap unsigned integers with NATURAL classes. This is the%N%
+			%		default behaviour.%N%
+			%%N%
+			%	--use-integers%N%
+			%		Wrap unsigned integers with INTEGER classes. Note that%N%
+			%		this leads to silent overflows and trimming.%N%
+			%%N%
+			%  --directory dir%N%
+			%		Put the generated classes in `dir'. Otherwise everything is%N%
+			%		outputted to standard output%N%
+			%%N%
+			%  --flags flag-file%N%
+			%		Read a list of enumeration that will be forcefully wrapped as %N%
+			%		a flag. In fact sometimes there is no way to distinguish when%N%
+			%		an enumeration is used as-it-is or to contain flags. If this%N%
+			%	    option is not used the program will look for the %"flags%" file.%N%
+			%%N%
+			%	--apply-patches (not yet implemented)%N%
+			%		Apply the patches found in the output directory to the newly%N%
+			%		generated classes, i.e. foo.e will be patched by foo.diff%N%
+			%%N%
+			%	--descriptions descriptions-file%N%
+			%		Apply the descriptions found in the description-file. Each line contains%N%
+			%		the description of a class or of a class' feature. The syntax for a class %N%
+			%		description is `CLASS description', for a feature description is %N%
+			%		`CLASS.feature description' Trailing and leading spaces are trimmed; line%N%
+			%		starting with `--' are ignored. If this option is not given the program%N%
+			%		will look into file %"descriptions%".%N%
+			%%N%
+			%	--avoided a_file_name%N%
+			%		Do not wrap the symbols found in `a_file_name'. If this option is not %N%
+			%		given the program will look into file %"avoided%".%N%
+			%%N%
+			%	--typedefs CLASS_NAME %N%
+			%		Wrap typedefs to fundamental types into class CLASS_NAME as%N%
+			%		empty queries named with the typedef name and whose type's%N%
+			%		the actual type referred by the typedef. These queries will%N%
+			%		not be actually used but are useful as anchored types. If%N%
+			%		this option is not given the class name will be TYPES.%N%
+			%%N%
+			%	-v --verbose%N%
+			%		Turn on verbose output, printing information about the%N%
+			%		ongoing operations.%N")
 			die_with_code(exit_success_code)
 		end
 
@@ -267,7 +269,7 @@ feature {ANY}
 			a_stream.put_string(once "', ")
 		end
 
-end -- class EIFFEL_GCC_XML
+end -- class WRAPPER_GENERATOR
 
 -- Copyright 2008,2009 Paolo Redaelli
 

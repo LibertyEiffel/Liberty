@@ -1,4 +1,5 @@
 class C_FUNCTION
+	-- A "Function" node of an XML file made by gccxml. 
 
 inherit
 	GCCXML_NODE
@@ -10,10 +11,10 @@ inherit
 	STORABLE_NODE
 	WRAPPABLE_NODE
 
-insert EXCEPTIONS
-creation {ANY}
-	make
+insert 
+	EXCEPTIONS
 
+creation make
 feature {ANY}
 	store is
 		do
@@ -31,6 +32,9 @@ feature {ANY}
 			if stored_eiffel_name=Void then compute_eiffel_name end
 			Result := stored_eiffel_name
 		end
+	
+	variadic: BOOLEAN 
+		-- Does current function accept a variable number of arguments?
 
 	wrap_on (a_stream: OUTPUT_STREAM) is 
 		local unwrappable: BOOLEAN; fname: STRING
@@ -40,7 +44,10 @@ feature {ANY}
 			fname := function_name.as_utf8
 			if unwrappable then
 				log("... `@(1)' is not wrappable%N", <<fname>>) 
-				buffer.put_message(once "		-- function @(1) is not wrappable (TODO: provide the reason; using developer_exception_name triggers some recursion bug AFAIK)",<<fname>>)
+				buffer.reset
+				buffer.put_message(once "		-- function @(1) is not wrappable%N",<<fname>>)
+				-- TODO: provide the reason; using developer_exception_name
+				-- triggers some recursion bug AFAIK. Paolo 2009-10-02
 			elseif is_public(function_name) then
 				log(once "Function @(1)",<<fname>>)
 				buffer.put_message(once "%T@(1)", <<eiffel_name>>)
@@ -66,7 +73,8 @@ feature {ANY}
 		-- local description: COLLECTION[STRING];  word: STRING; iter: ITERATOR[STRING];  length,new_length: INTEGER
 
 		do
-			buffer.append("%N%T%T-- TODO: implement C_FUNCTION.append_description%N")
+			-- TODO: implement C_FUNCTION.append_description%N")
+
 			-- description := feature_description(class_name, name)
 			-- if description/=Void then
 			-- 	from 
@@ -99,8 +107,10 @@ feature {ANY}
 		do
 			if children_count>0 then 
 				buffer.append(once " (")
+				-- Omit the eventual ellipsis
 				if argument(children_count).is_ellipsis then
 					last:=children_count-1
+					variadic := True
 				else last:= children_count
 				end
 				log(once "(@(1) args: ",<<children_count.out>>)
@@ -137,8 +147,44 @@ feature {ANY}
 
 	append_body is
 			-- Append the body of function to `buffer'
-		do 
-			buffer.append("%N%T%Tdo%N%T%T-- TODO: implement C_FUNCTION.append_body; only plugin or also external?%N%T%Tend%N")	
+		local
+			actual_c_symbol,description,dir,header: STRING
+		do
+			description := function_name.to_utf8
+			if variadic then
+				description.append(once "%N%T%T%T-- Variadic call%N")
+			end
+			-- Deal with argument-less functions like "fork". An
+			-- argument-less function returning an integer shall be marked with
+			-- "()", the empty argument list, otherwise the C compiler will
+			-- interpret it as the address of the call casted to an integer.
+			if children_count=0 then actual_c_symbol := function_name.as_utf8+(once "()")
+			else actual_c_symbol := function_name.to_utf8
+			end
+			-- Temporary code to handle output to standard output.
+			if directory=Void then dir:=once "the almighty standard output"
+			else dir := directory
+			end
+			-- end of temporary. TODO: remove when the tool is robust enought.
+			if settings.plugins then buffer.put_message(once "%
+				% 		-- @(1)%N%
+				%		external %"plug_in%"%N%
+				%		alias %"{%N%
+				%			location: %".%"%N%
+				%			module_name: %"plugin%"%N%
+				%			feature_name: %"@(2)%"%N%
+				%		}%"%N%
+				%		end%N%N",
+				<<description, actual_c_symbol>>)
+			else 
+				header := files.at(file_id).c_name.as_utf8
+				buffer.put_message(once "%
+				%		-- @(1)%N%
+				%		external %"C use <@(2)>%"%N%
+				%		end%N",
+				<<description, header>>)
+				-- TODO: header is the file where @(1) is actually defined; header given in the command line is ignored.%N%
+			end	
 		end
 		
 feature {} -- Implementation

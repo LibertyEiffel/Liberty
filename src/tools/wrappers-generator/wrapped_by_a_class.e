@@ -40,10 +40,16 @@ feature {}
 			eiffellizer.substitute_all_in(stored_class_name)
 			stored_class_name.replace_all('-','_')
 			stored_class_name.to_upper
-			stored_class_name.append(once "_EXTERNALS")
+			stored_class_name.append(suffix)
 		ensure 
 			stored_class_name/=Void
 			is_valid_class_name(stored_class_name)
 		end
 
+	output: TERMINAL_OUTPUT_STREAM
+
+	suffix: STRING is
+		-- The suffix that will be added to class_name, i.e. "_EXTERNALS", "_ENUM", "_STRUCT"
+		deferred
+		end
 end -- class WRAPPED_BY_A_CLASS

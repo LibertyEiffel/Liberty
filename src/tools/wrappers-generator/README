@@ -1,7 +1,9 @@
-eiffel-gcc-xml taken from Eiffel Wrapper Library Collection.
+wrapper-generator is a finished eiffel-gcc-xml from Eiffel Wrapper Library Collection.
 
 Mostly working, even if the output is correct not what one would expect from the tool.
 
 Requirements
 SmartEiffel release 2.4 or a snapshot more recent than 9297
 
+TODO: remove externals-emission, since it is way too rought. To be reintroduced
+when the tool mature a little.

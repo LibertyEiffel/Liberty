@@ -4,11 +4,10 @@ inherit
 	GCCXML_NODE 
 	IDENTIFIED_NODE
 	NAMED_NODE
-		rename c_name as struct_name
-		end
 	FILED_NODE
 	STORABLE_NODE
 	LIBERTY_TYPED
+	WRAPPED_BY_A_CLASS
 
 insert NAME_CONVERTER
 
@@ -18,9 +17,7 @@ feature
 	store is
 		do
 			types.put(Current,id)
-			-- TODO: suboptimal implementation. Turn is_public signature into
-			-- (a_name: UNICODE_STRING) accepting void.
-			if struct_name/=Void and then is_public(struct_name) then 
+			if c_name/=Void and then is_public(c_name) then 
 				structures.fast_put(Current,id)
 			end
 		end
@@ -31,10 +28,16 @@ feature
 				print(once 
 				"C_STRUCT.wrapper_type requires creation%
 				% of external/expanded types")
-				not_yet_implemented
 			end
-			Result := ""
+			Result := class_name
 		end
+
+	emit_wrapper is
+		do
+			log_string(once "TODO: implement C_STRUCT.emit_wrapper")
+		end
+
+	suffix: STRING is "_STRUCT"
 -- invariant name.is_equal(once U"Struct")
 end
 

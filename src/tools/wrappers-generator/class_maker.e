@@ -129,7 +129,7 @@ feature {ANY} -- Processing XML input
 				end
 			end
 			log_string(once "Making external functions classes.%N")
-			tree.files.do_all (agent {C_FILE}.emit_functions)
+			tree.files.do_all (agent {C_FILE}.emit_wrapper)
 			log_string(once "Processing typedefs.%N")
 			--setup_typedefs_file
 			--typedefs.do_all(agent examine_typedef)

@@ -14,5 +14,33 @@ feature
 	types: HASHED_DICTIONARY[LIBERTY_TYPED, UNICODE_STRING] is once create Result.make end
 	unions: HASHED_DICTIONARY[C_UNION, UNICODE_STRING] is once create Result.make end
 	fields: HASHED_DICTIONARY[C_FIELD, UNICODE_STRING] is once create Result.make end
+
+feature
+	typedefs_class_name: STRING
+		-- The name of the class containing empty queries named like typedefs,
+		-- useful for anchored declarations (i.e. "gsize: INTEGER_32 is do end")
+
+	flags: WORDS is
+		-- Enumerations that will be forcefully wrapped as a flag.
+	do
+		create Result.make
+	end
+
+	avoided: WORDS is
+		-- Symbols that will not be wrapped.
+	do
+		create Result.make
+	end
+
+feature {} -- Buffers
+	-- Temporary buffers used to build enumerations and structures external classes
+	queries: FORMATTER is once create Result end 
+
+	setters: FORMATTER is once create Result end 
+
+	low_level_values: FORMATTER is once create Result end 
+
+	validity_query: FORMATTER is once create Result end 
+
 end
 
