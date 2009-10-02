@@ -1,20 +1,17 @@
 class LIBERTY_UNIVERSE
 
-inherit
-	LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS_VISITOR
-	LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER_VISITOR
-	LIBERTY_AST_FEATURE_VISITOR
-	LIBERTY_AST_TYPE_DEFINITION_VISITOR
-	LIBERTY_AST_TYPE_PARAMETERS_VISITOR
-	LIBERTY_AST_TYPE_PARAMETER_VISITOR
-	LIBERTY_AST_CLASS_VISITOR
-	LIBERTY_AST_CLASS_HEADER_VISITOR
+insert
+	LIBERTY_AST_HANDLER
+	LIBERTY_ERRORS
 
 create {ANY}
 	make
 
 feature {ANY}
 	get_type (cluster: LIBERTY_CLUSTER; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_TYPE is
+			-- the class must be in the given cluster
+		require
+			not has_error
 		local
 			descriptor: LIBERTY_TYPE_DESCRIPTOR; c: like cluster
 		do
@@ -24,71 +21,39 @@ feature {ANY}
 				c := universe.find(class_name)
 			end
 			if c /= Void then
-				last_error := Void
 				create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name), effective_type_parameters)
 				Result := get_type_from_descriptor(descriptor)
 			else
-				create last_error.make(0, once "*** Unknown class: " + class_name, Void)
+				create error(0, once "Unknown class: " + class_name)
 			end
 		ensure
-			Result.descriptor.cluster = cluster
-			Result.descriptor.name.is_equal(class_name)
-			Result.descriptor.parameters.is_equal(effective_type_parameters)
+			Result.cluster = cluster
+			Result.name.is_equal(class_name)
+			Result.parameters.is_equal(effective_type_parameters)
 		end
 
 	get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE is
+		require
+			not has_error
 		local
 			ast: LIBERTY_AST_CLASS
 		do
-			last_error := Void
 			Result := types.reference_at(descriptor)
 			if Result = Void then
 				ast := parse_class(descriptor.cluster, descriptor.name)
-				create Result.make(descriptor, ast, Current)
+				create Result.make(descriptor, ast)
 				types.put(Result, descriptor)
+				Result.check_and_initialize(Current)
 			end
 		ensure
-			Result.descriptor.is_equal(descriptor)
-		end
-
-	get_type_from_type_definition (origin: LIBERTY_CLUSTER; type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
-		local
-			descriptor: LIBERTY_TYPE_DESCRIPTOR
-			cluster: LIBERTY_CLUSTER
-			class_name: STRING
-			parameters: TRAVERSABLE[LIBERTY_TYPE]
-		do
-			if type_definition.is_anchor then
-				create last_error.make(type_definition.anchor_index, "*** Cannot use an anchor here", Void)
-			else
-				cluster := origin.find(class_name)
-				class_name := type_definition.type_name.image.image
-				parameters := get_parameters(origin, type_definition.type_parameters)
-				Result := get_type(cluster, class_name, parameters)
-			end
-		end
-
-	get_type_from_client (origin: LIBERTY_CLUSTER; client: LIBERTY_AST_CLIENT): LIBERTY_TYPE is
-		local
-			descriptor: LIBERTY_TYPE_DESCRIPTOR
-			cluster: LIBERTY_CLUSTER
-			class_name: STRING
-			parameters: TRAVERSABLE[LIBERTY_TYPE]
-		do
-			last_error := Void
-			if client.is_type_definition then
-				Result := get_type_from_type_definition(origin, client.type_definition)
-			else
-				-- legacy
-				class_name := client.class_name.image.image
-				cluster := origin.find(class_name)
-				parameters := get_parameter_constraints(origin, parse_class(cluster, class_name))
-				create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name), parameters)
-				Result := get_type_from_descriptor(descriptor)
-			end
+			Result.cluster.is_equal(descriptor.cluster)
+			Result.name.is_equal(descriptor.name)
+			Result.parameters.is_equal(descriptor.parameters)
 		end
 
 	type_any: LIBERTY_TYPE is
+		require
+			not has_error
 		local
 			cd: LIBERTY_CLASS_DESCRIPTOR; td: LIBERTY_TYPE_DESCRIPTOR
 			ast: LIBERTY_AST_CLASS
@@ -97,7 +62,6 @@ feature {ANY}
 		do
 			Result := type_any_memory
 			if Result = Void then
-				last_error := Void
 				class_name := once "ANY"
 				cluster := universe.find(class_name)
 				create cd.make(cluster, class_name)
@@ -105,8 +69,9 @@ feature {ANY}
 				Result := types.reference_at(td)
 				if Result = Void then
 					ast := parse_class(cluster, class_name)
-					create Result.make(td, ast, Current)
+					create Result.make(td, ast)
 					types.put(Result, td)
+					Result.check_and_initialize(Current)
 				end
 				type_any_memory := Result
 			end
@@ -114,10 +79,88 @@ feature {ANY}
 			Result /= Void
 		end
 
-	last_error: LIBERTY_ERROR
+	type_pointer: LIBERTY_TYPE is
+		require
+			not has_error
+		local
+			cd: LIBERTY_CLASS_DESCRIPTOR; td: LIBERTY_TYPE_DESCRIPTOR
+			ast: LIBERTY_AST_CLASS
+			class_name: STRING
+			cluster: LIBERTY_CLUSTER
+		do
+			Result := type_any_memory
+			if Result = Void then
+				class_name := once "POINTER"
+				cluster := universe.find(class_name)
+				create cd.make(cluster, class_name)
+				create td.make(cd, create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
+				Result := types.reference_at(td)
+				if Result = Void then
+					ast := parse_class(cluster, class_name)
+					create Result.make(td, ast)
+					types.put(Result, td)
+					Result.check_and_initialize(Current)
+				end
+				type_any_memory := Result
+			end
+		ensure
+			Result /= Void
+		end
+
+feature {LIBERTY_TYPE_BUILDER}
+	get_type_from_type_definition (origin: LIBERTY_CLUSTER; type_definition: LIBERTY_AST_TYPE_DEFINITION; effective_parameters: DICTIONARY[LIBERTY_TYPE, STRING]): LIBERTY_TYPE is
+		require
+			origin /= Void
+			type_definition /= Void
+			effective_parameters /= Void
+			not type_definition.is_anchor
+			not has_error
+		local
+			cluster: LIBERTY_CLUSTER
+			class_name: STRING
+			parameters: TRAVERSABLE[LIBERTY_TYPE]
+		do
+			class_name := type_definition.type_name.image.image
+			cluster := origin.find(class_name)
+			if cluster = Void then
+				create error(type_definition.type_name.image.index, once "Unknown class: " + class_name)
+			else
+				parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
+				Result := get_type(cluster, class_name, parameters)
+			end
+		end
+
+	get_type_from_client (origin: LIBERTY_CLUSTER; client: LIBERTY_AST_CLIENT; effective_parameters: DICTIONARY[LIBERTY_TYPE, STRING]): LIBERTY_TYPE is
+		require
+			origin /= Void
+			client /= Void
+			effective_parameters /= Void
+			not client.type_definition.is_anchor
+			not has_error
+		local
+			descriptor: LIBERTY_TYPE_DESCRIPTOR
+			cluster: LIBERTY_CLUSTER
+			class_name: STRING
+			parameters: TRAVERSABLE[LIBERTY_TYPE]
+		do
+			if client.type_definition.type_parameters.list_count /= effective_parameters.count then
+				if client.type_definition.type_parameters.list_count = 0 then
+					-- legacy: only a class name is given
+					class_name := client.class_name.image.image
+					cluster := origin.find(class_name)
+					parameters := get_parameter_constraints(origin, parse_class(cluster, class_name), effective_parameters)
+					create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name), parameters)
+					Result := get_type_from_descriptor(descriptor)
+				else
+					create error(client.class_name.image.index, "Bad generics list")
+				end
+			else
+				Result := get_type_from_type_definition(origin, client.type_definition, effective_parameters)
+			end
+		end
 
 feature {} -- Type parameters fetching
-	get_parameter_constraints (origin: LIBERTY_CLUSTER; a_class: LIBERTY_AST_CLASS): COLLECTION[LIBERTY_TYPE] is
+	get_parameter_constraints (origin: LIBERTY_CLUSTER; a_class: LIBERTY_AST_CLASS; effective_parameters: DICTIONARY[LIBERTY_TYPE, STRING]): COLLECTION[LIBERTY_TYPE] is
 		local
 			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
 			type_parameter: LIBERTY_AST_TYPE_PARAMETER
@@ -135,7 +178,7 @@ feature {} -- Type parameters fetching
 				loop
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
-						Result.add_last(get_type_from_type_definition(origin, type_parameter.constraint))
+						Result.add_last(get_type_from_type_definition(origin, type_parameter.constraint, effective_parameters))
 					else
 						Result.add_last(type_any)
 					end
@@ -144,9 +187,11 @@ feature {} -- Type parameters fetching
 			end
 		end
 
-	get_parameters (origin: LIBERTY_CLUSTER; type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS): COLLECTION[LIBERTY_TYPE] is
+	get_parameters (origin: LIBERTY_CLUSTER; type_parameters: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS; effective_parameters: DICTIONARY[LIBERTY_TYPE, STRING]): COLLECTION[LIBERTY_TYPE] is
 		local
 			type_parameter: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER
+			type_definition: LIBERTY_AST_TYPE_DEFINITION
+			type: LIBERTY_TYPE
 			i: INTEGER
 		do
 			if type_parameters.is_empty then
@@ -159,7 +204,16 @@ feature {} -- Type parameters fetching
 					i > type_parameters.upper
 				loop
 					type_parameter := type_parameters.list_item(i)
-					Result.add_last(get_type_from_type_definition(origin, type_parameter.type_definition))
+					type_definition := type_parameter.type_definition
+					if type_definition.is_class_type then
+						type := effective_parameters.reference_at(type_definition.type_name.image.image)
+						if type = Void then
+							type := get_type_from_type_definition(origin, type_parameter.type_definition, effective_parameters)
+						end
+					else
+						not_yet_implemented
+					end
+					Result.add_last(type)
 					i := i + 1
 				end
 			end
@@ -195,7 +249,7 @@ feature {} -- AST building
 
 	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING): LIBERTY_AST_CLASS is
 		local
-			file, code: STRING
+			code: STRING
 			error: PARSE_ERROR
 		do
 			parse_descriptor.make(cluster, class_name)
@@ -209,8 +263,7 @@ feature {} -- AST building
 				parser.eval(parser_buffer, eiffel.table, once "Class")
 				error := parser.error
 				if error /= Void then
-					(create {LIBERTY_ERROR}.from_parse_error(error)).emit(code)
-					die_with_code(1)
+					emit_syntax_error(error, code)
 				end
 				Result ::= eiffel.root_node
 				classes.put(Result, parse_descriptor.twin)

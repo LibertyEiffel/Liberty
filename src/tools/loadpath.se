@@ -3,5 +3,9 @@
 ./syntax/
 ./syntax/parser/
 ./syntax/tree/
-./syntax/tree/visitor/
 ./semantics/
+./semantics/contract/
+./semantics/entities/
+./semantics/expressions/
+./semantics/features/
+./semantics/instructions/

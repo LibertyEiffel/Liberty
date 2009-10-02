@@ -6,13 +6,13 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_INDEXING_CLAUSE_VISITOR}
-	entity_name: EIFFEL_TERMINAL_NODE is
+feature {LIBERTY_AST_HANDLER}
+	entity_name: LIBERTY_AST_ENTITY_NAME is
 		do
 			Result ::= nodes.item(0)
 		end
 
-	string: EIFFEL_TERMINAL_NODE is
+	string: LIBERTY_AST_STRING is
 		do
 			Result ::= nodes.item(2)
 		end
@@ -26,15 +26,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 3 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_INDEXING_CLAUSE_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_indexing_clause(Current)
 		end
 
 end

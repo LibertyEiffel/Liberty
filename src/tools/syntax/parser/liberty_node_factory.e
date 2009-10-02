@@ -176,10 +176,10 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_FEATURE_DEFINITION}Result.make(name, names)
 			when "Signature" then
 				create {LIBERTY_AST_SIGNATURE}Result.make(name, names)
-			when "Feature_Names" then
-				create {LIBERTY_AST_FEATURE_NAMES}Result.make(name, names)
 			when "Feature_Name" then
 				create {LIBERTY_AST_FEATURE_NAME}Result.make(name, names)
+			when "Feature_Name_Or_Alias" then
+				create {LIBERTY_AST_FEATURE_NAME_OR_ALIAS}Result.make(name, names)
 			when "Alias" then
 				create {LIBERTY_AST_ALIAS}Result.make(name, names)
 			when "Effective_Type_Parameters" then

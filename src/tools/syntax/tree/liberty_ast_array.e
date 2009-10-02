@@ -6,13 +6,8 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_ARRAY_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	content: EIFFEL_LIST_NODE is
-		do
-			Result ::= nodes.item(0)
-		end
-
-	r10: LIBERTY_AST_R10 is
 		do
 			Result ::= nodes.item(1)
 		end
@@ -26,15 +21,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 3 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_ARRAY_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_array(Current)
 		end
 
 end

@@ -8,6 +8,11 @@ feature {ANY}
 
 	image: EIFFEL_IMAGE
 
+	accept (v: VISITOR) is
+		do
+			check False end
+		end
+
 feature {EIFFEL_NODE_HANDLER}
 	display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
 		do
@@ -28,7 +33,7 @@ feature {EIFFEL_NODE_HANDLER}
 feature {}
 	make (a_name: like name; a_image: like image) is
 		require
-			a_name.starts_with(once "KW ")
+			a_name.has_prefix(once "KW ")
 		do
 			name := a_name
 			image := a_image

@@ -48,7 +48,7 @@ feature {}
 											  "Rename+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Rename" >> }, agent build_new_list("Rename", "Rename+");
 																							{FAST_ARRAY[STRING] << "Rename", "Rename+" >> }, agent build_continue_list("Rename", 0, "Rename+");
 																							{FAST_ARRAY[STRING] << "Rename", "KW ,", "Rename+" >> }, agent build_continue_list("Rename", 1, "Rename+") >> };
-											  "Rename", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "KW as", "KW entity name" >> }, Void >> };
+											  "Rename", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name", "KW as", "Feature_Name" >> }, Void >> };
 											  "Parent_Export", {PARSE_NON_TERMINAL << epsilon, Void;
 																									{FAST_ARRAY[STRING] << "KW export", "Export+" >> }, Void >> };
 											  "Export+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Export" >> }, agent build_new_list("Export", "Export+");
@@ -229,25 +229,24 @@ feature {}
 											  "Clients", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Clients");
 																							{FAST_ARRAY[STRING] << "Client" >> }, agent build_new_list("Client", "Clients");
 																							{FAST_ARRAY[STRING] << "Client", "KW ,", "Clients" >> }, agent build_continue_list("Client", 1, "Clients") >> };
-											  "Client", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void; -- Liberty extension
-																						  {FAST_ARRAY[STRING] << "KW class name" >> }, Void >> };
+											  "Client", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void >> }; -- Liberty extension
 											  "Feature_Definition*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Feature_Definition*");
 																											{FAST_ARRAY[STRING] << "Feature_Definition", "Feature_Definition*" >> }, agent build_continue_list("Feature_Definition", 0, "Feature_Definition*") >> };
 											  "Feature_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Eiffel_Block" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Manifest_Or_Type_Test" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "KW unique" >> }, Void >> };
-											  "Signature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Names" >> }, Void;
-																							  {FAST_ARRAY[STRING] << "Feature_Names", "KW :", "Type_Definition" >> }, Void;
-																							  {FAST_ARRAY[STRING] << "Feature_Names", "KW (", "Declaration+", "KW )" >> }, Void;
-																							  {FAST_ARRAY[STRING] << "Feature_Names", "KW (", "Declaration+", "KW )", "KW :", "Type_Definition" >> }, Void >> };
-											  "Feature_Names", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name+" >> }, Void;
-																									{FAST_ARRAY[STRING] << "KW frozen", "Feature_Name+" >> }, Void >> };
+											  "Signature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name+" >> }, Void;
+																							  {FAST_ARRAY[STRING] << "Feature_Name+", "KW :", "Type_Definition" >> }, Void;
+																							  {FAST_ARRAY[STRING] << "Feature_Name+", "KW (", "Declaration+", "KW )" >> }, Void;
+																							  {FAST_ARRAY[STRING] << "Feature_Name+", "KW (", "Declaration+", "KW )", "KW :", "Type_Definition" >> }, Void >> };
 											  "Feature_Name+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name" >> }, agent build_new_list("Feature_Name", "Feature_Name+");
 																									{FAST_ARRAY[STRING] << "Feature_Name", "KW ,", "Feature_Name+" >> }, agent build_continue_list("Feature_Name", 1, "Feature_Name+") >> };
-											  "Feature_Name", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name" >> }, Void;
-																								  {FAST_ARRAY[STRING] << "KW infix", "KW string" >> }, Void;
-																								  {FAST_ARRAY[STRING] << "KW prefix", "KW string" >> }, Void >> };
+											  "Feature_Name", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW frozen", "Feature_Name_Or_Alias" >> }, Void;
+																								  {FAST_ARRAY[STRING] << "Feature_Name_Or_Alias" >> }, Void >> };
+											  "Feature_Name_Or_Alias", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name" >> }, Void;
+																											  {FAST_ARRAY[STRING] << "KW infix", "KW string" >> }, Void;
+																											  {FAST_ARRAY[STRING] << "KW prefix", "KW string" >> }, Void >> };
 											  "External", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW external", "KW string", "Alias" >> }, Void >> };
 											  "Alias", {PARSE_NON_TERMINAL << epsilon, Void;
 																						 {FAST_ARRAY[STRING] << "KW alias", "KW string" >> }, Void >> };

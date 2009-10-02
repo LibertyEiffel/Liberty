@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_AGENT_SIGNATURE_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	has_return_type: BOOLEAN is
 		do
 			Result := (count = 3 or else count = 6)
@@ -49,15 +49,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 1, 3, 4, 6 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_AGENT_SIGNATURE_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_agent_signature(Current)
 		end
 
 end

@@ -13,7 +13,6 @@ feature {ANY}
 feature {LIBERTY_UNIVERSE}
 	file: STRING is
 		local
-			location: STRING
 			n: STRING
 		do
 			n := once ""

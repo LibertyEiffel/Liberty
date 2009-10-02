@@ -6,8 +6,8 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_WHEN_VISITOR}
-	when_clause: EIFFEL_LIST_NODE is
+feature {LIBERTY_AST_HANDLER}
+	when_clauses: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(1)
 		end
@@ -26,15 +26,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 4 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_WHEN_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_when(Current)
 		end
 
 end

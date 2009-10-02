@@ -1,0 +1,2 @@
+class LIBERTY_ASSERTION
+end

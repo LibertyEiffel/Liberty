@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_R10_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	feature_name: LIBERTY_AST_ENTITY_NAME is
 		require
 			not is_empty
@@ -40,15 +40,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 0, 4 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_R10_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_r10(Current)
 		end
 
 end

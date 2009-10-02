@@ -88,11 +88,15 @@ feature {ANY} -- Duplication:
 			-- to `other', so as to yield equal objects.
 			-- Note: you can't copy object from a different dynamic type.
 		require
+			not immutable
 			same_dynamic_type(other)
 		external "built_in"
 		ensure
 			is_equal(other)
 		end
+
+	immutable: BOOLEAN is False
+			-- Is the object immutable?
 
 	frozen standard_twin: like Current is
 			-- Return a new object with the dynamic type of Current.

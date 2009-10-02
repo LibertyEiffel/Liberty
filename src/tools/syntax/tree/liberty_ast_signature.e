@@ -6,8 +6,8 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_SIGNATURE_VISITOR}
-	feature_names: LIBERTY_AST_FEATURE_NAMES is
+feature {LIBERTY_AST_HANDLER}
+	feature_names: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(0)
 		end
@@ -54,15 +54,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 1, 3, 4, 6 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_SIGNATURE_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_signature(Current)
 		end
 
 end

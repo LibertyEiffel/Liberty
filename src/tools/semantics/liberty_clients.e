@@ -28,7 +28,7 @@ feature {ANY}
 			Result := clients.is_empty
 		end
 
-	item (i: INTEGER): E_ is
+	item (i: INTEGER): LIBERTY_TYPE is
 		do
 			Result := clients.item(i)
 		end
@@ -51,7 +51,7 @@ feature {ANY}
 feature {LIBERTY_AST_CLIENT}
 	visit_liberty_ast_client (v: LIBERTY_AST_CLIENT) is
 		do
-			clients.add_last(universe.get_type_from_client(v))
+			clients.add_last(universe.get_type_from_client(origin.cluster, v))
 		end
 
 feature {}

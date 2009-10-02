@@ -9,7 +9,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_REQUIRE_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	require_else: LIBERTY_AST_REQUIRE_ELSE is
 		do
 			Result ::= nodes.first
@@ -17,14 +17,5 @@ feature {LIBERTY_AST_REQUIRE_VISITOR}
 
 feature {ANY}
 	name: STRING is "Require"
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_REQUIRE_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_require(Current)
-		end
 
 end

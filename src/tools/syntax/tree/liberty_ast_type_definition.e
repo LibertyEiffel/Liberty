@@ -6,7 +6,7 @@ inherit
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_TYPE_DEFINITION_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	is_class_type: BOOLEAN is
 		do
 			Result := nodes.last.name.is_equal(once "Effective_Type_Parameters")
@@ -97,15 +97,6 @@ feature {}
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 2, 3 >> }
-		end
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_TYPE_DEFINITION_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_type_definition(Current)
 		end
 
 end

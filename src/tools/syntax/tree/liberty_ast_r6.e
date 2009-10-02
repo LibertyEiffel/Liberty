@@ -2,14 +2,11 @@ class LIBERTY_AST_R6
 
 inherit
 	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E6]
-		export {LIBERTY_AST_R6_VISITOR}
-			expression, remainder
-		end
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_R6_VISITOR}
+feature {LIBERTY_AST_HANDLER}
 	is_times: BOOLEAN is
 		do
 			Result := not is_empty and then nodes.item(0).name.is_equal(once "KW *")
@@ -32,14 +29,5 @@ feature {LIBERTY_AST_R6_VISITOR}
 
 feature {ANY}
 	name: STRING is "r6"
-
-feature {ANY}
-	accept (visitor: VISITOR) is
-		local
-			v: LIBERTY_AST_R6_VISITOR
-		do
-			v ::= visitor
-			v.visit_liberty_ast_r6(Current)
-		end
 
 end

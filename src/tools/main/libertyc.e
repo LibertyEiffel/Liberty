@@ -12,7 +12,7 @@ feature {}
 			universe: LIBERTY_UNIVERSE
 			root: LIBERTY_TYPE
 		do
-			if argument_count /= 1 then
+			if argument_count /= 2 then
 				std_error.put_line("This is a bootstrap version of the compiler; it only accepts two arguments - the path to loadpath.se and the name of the root class which must have a %"make%" creation procedure.")
 				die_with_code(1)
 			end

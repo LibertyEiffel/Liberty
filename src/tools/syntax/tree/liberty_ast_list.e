@@ -12,7 +12,7 @@ feature {}
 			Result ::= nodes.item(1)
 		end
 
-feature {}
+feature {LIBERTY_AST_HANDLER}
 	list_valid_index (index: INTEGER): BOOLEAN is
 		require
 			count > 1

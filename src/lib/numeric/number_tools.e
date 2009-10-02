@@ -22,7 +22,7 @@ feature {ANY}
 			Result.to_integer_64 = n
 		end
 
-	from_string (formula: STRING): NUMBER is
+	from_string (formula: ABSTRACT_STRING): NUMBER is
 			-- Parse the contents of `formula' to create a new NUMBER. If some
 			-- error occurs (like for example a division by zero), the `Result'
 			-- is Void and the error report is left in the `parser_buffer'.
@@ -55,7 +55,7 @@ feature {ANY}
 			Result /= Void xor parser_buffer.last_error /= Void
 		end
 
-	is_number (formula: STRING): BOOLEAN is
+	is_number (formula: ABSTRACT_STRING): BOOLEAN is
 			-- Is the `formula' a correct notation to create a NUMBER ?
 			-- Actually, any correct `formula' using a combination of litteral
 			-- integer constants with + - * / () and ! is a correct notation to

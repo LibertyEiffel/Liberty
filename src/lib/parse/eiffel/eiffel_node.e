@@ -28,6 +28,18 @@ feature {ANY}
 			name /= Void
 		end
 
+	source_line: INTEGER is
+		deferred
+		end
+
+	source_column: INTEGER is
+		deferred
+		end
+
+	source_index: INTEGER is
+		deferred
+		end
+
 feature {EIFFEL_GRAMMAR}
 	set_forgotten (a_forgotten: like forgotten) is
 		do

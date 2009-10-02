@@ -46,6 +46,27 @@ feature {ANY}
 			definition: Result = (count = 0)
 		end
 
+	source_line: INTEGER is
+		do
+			if count > 0 then
+				Result := node_at(0).source_line
+			end
+		end
+
+	source_column: INTEGER is
+		do
+			if count > 0 then
+				Result := node_at(0).source_column
+			end
+		end
+
+	source_index: INTEGER is
+		do
+			if count > 0 then
+				Result := node_at(0).source_index
+			end
+		end
+
 feature {EIFFEL_GRAMMAR}
 	set (index: INTEGER; node: EIFFEL_NODE) is
 		require

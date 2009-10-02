@@ -14,6 +14,27 @@ feature {ANY}
 			end
 		end
 
+	source_line: INTEGER is
+		do
+			if count > 0 then
+				Result := first.source_line
+			end
+		end
+
+	source_column: INTEGER is
+		do
+			if count > 0 then
+				Result := first.source_column
+			end
+		end
+
+	source_index: INTEGER is
+		do
+			if count > 0 then
+				Result := first.source_index
+			end
+		end
+
 feature {EIFFEL_GRAMMAR}
 	add (a_child: like item) is
 		deferred

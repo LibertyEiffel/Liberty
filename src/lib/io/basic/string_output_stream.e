@@ -77,7 +77,7 @@ feature {}
 
 	connect_to (a_string: like string) is
 		require
-			a_string /= Void
+			not a_string.immutable
 		do
 			string := a_string
 			is_connected := True
@@ -89,6 +89,6 @@ feature {}
 			-- where the characters go to
 
 invariant
-	string /= Void
+	not string.immutable
 
 end -- class STRING_OUTPUT_STREAM
