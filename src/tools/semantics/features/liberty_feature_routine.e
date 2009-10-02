@@ -7,6 +7,13 @@ feature {ANY}
 	precondition: LIBERTY_REQUIRE
 	postcondition: LIBERTY_ENSURE
 
+	obsolete_message: STRING
+
+	is_obsolete: BOOLEAN is
+		do
+			Result := obsolete_message /= Void
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	precondition_set: BOOLEAN is
 		do
@@ -34,6 +41,14 @@ feature {LIBERTY_TYPE_BUILDER}
 			postcondition := assertions
 		ensure
 			postcondition = assertions
+		end
+
+	set_obsolete (a_obsolete: like obsolete_message) is
+		do
+			obsolete_message := a_obsolete
+		ensure
+			a_obsolete /= Void implies is_obsolete
+			obsolete_message = a_obsolete
 		end
 
 end

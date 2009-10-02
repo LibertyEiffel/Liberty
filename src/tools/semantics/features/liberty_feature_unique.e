@@ -7,8 +7,16 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {}
-	make is
+	make (a_type: like result_type) is
+		require
+			a_type /= Void
 		do
+			result_type := a_type
+		ensure
+			result_type = a_type
 		end
+
+invariant
+	result_type /= Void
 
 end

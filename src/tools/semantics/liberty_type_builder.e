@@ -161,7 +161,7 @@ feature {}
 	export_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_EXPORT) is
 		local
 			i, j: INTEGER; e: LIBERTY_AST_EXPORT; feature_name: LIBERTY_FEATURE_NAME
-			clients: COLLECTION[LIBERTY_TYPE]; client: LIBERTY_AST_CLIENT
+			clients: COLLECTION[LIBERTY_TYPE]
 			fd: LIBERTY_FEATURE_DEFINITION
 		do
 			from
@@ -172,16 +172,7 @@ feature {}
 				i > clause.list_upper
 			loop
 				e := clause.list_item(i)
-				create {FAST_ARRAY[LIBERTY_TYPE]}clients.with_capacity(e.clients.count)
-				from
-					j := e.clients.lower
-				until
-					j > e.clients.upper
-				loop
-					client := e.clients.item(j)
-					clients.add_last(universe.get_type_from_client(type.cluster, client, generic_effective_parameters))
-					j := j + 1
-				end
+				clients := list_clients(e.clients)
 				from
 					j := e.feature_names.lower
 				until
@@ -217,6 +208,8 @@ feature {}
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
 					error(feature_name.index, once "Unknown feature name: " + feature_name)
+				elseif fd.is_frozen then
+					error(feature_name.index, once "Cannot undefine frozen feature: " + feature_name)
 				else
 					inherited_feature := fd.the_feature
 					create deferred_feature.make
@@ -251,6 +244,8 @@ feature {}
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
 					error(feature_name.index, once "Unknown feature name: " + feature_name)
+				elseif fd.is_frozen then
+					error(feature_name.index, once "Cannot redefine frozen feature: " + feature_name)
 				else
 					inherited_feature := fd.the_feature
 					create redefined_feature.make
@@ -288,10 +283,93 @@ feature {}
 
 feature {}
 	add_features (features: EIFFEL_LIST_NODE) is
+		local
+			i, j: INTEGER; clients: COLLECTION[LIBERTY_TYPE]
+			f: LIBERTY_AST_FEATURE; fd: LIBERTY_AST_FEATURE_DEFINITION
 		do
-			not_yet_implemented --|*** TODO
+			from
+				i := features.lower
+			until
+				i > features.upper
+			loop
+				f ::= features.item(i)
+				clients := list_clients(f.clients)
+				from
+					j := f.definition_list.lower
+				until
+					j > f.definition_list.upper
+				loop
+					fd ::= f.definition_list.item(i)
+					add_feature(clients, fd)
+					j := j + 1
+				end
+				i := i + 1
+			end
 
 			check_that_all_redefined_features_were_redefined
+		end
+
+	add_feature (clients: COLLECTION[LIBERTY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION) is
+		local
+			result_type: LIBETY_TYPE; parameters: COLLECTION[LIBERTY_TYPE]
+			fd: LIBERTY_FEATURE_DEFINITION
+		do
+			if a_feature.signature.has_result_type then
+				result_type := universe.get_type_from_type_definition(type.cluster, a_feature.signature.result_type, generic_effective_parameters)
+			end
+			if a_feature.has_block then
+				if a_feature.signature.has_parameters then
+					parameters := list_parameters(a_feature.signature.parameters)
+				else
+					parameters := empty_list_parameters
+				end
+				fd := feature_block(parameters, result_type, a_feature.block)
+			else
+				if a_feature.has_parameters then
+					error(a_feature.signature.index, once "Unexpected parameters")
+				elseif not a_feature.has_result_type then
+					error(a_feature.signature, once "Missing entity type")
+				else
+					if a_feature.is_constant then
+						fd := feature_constant(result_type, a_feature.constant)
+					else
+						check a_feature.is_unique end
+						create {LIBERTY_FEATURE_UNIQUE}fd.make(result_type)
+					end
+				end
+			end
+			add_feature_definition(fd, a_feature.signature.feature_names, clients)
+		end
+
+	feature_block (parameters: COLLECTION[LIBERTY_PARAMETER]; result_type: LIBERTY_TYPE; block: LIBERTY_AST_EIFFEL_BLOCK): LIBERTY_FEATURE_ROUTINE is
+		require
+			parameters /= Void
+		do
+		end
+
+	feature_constant (result_type: LIBERTY_TYPE; constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST): LIBERTY_FEATURE_CONSTANT is
+		require
+			result_type /= Void
+		do
+		end
+
+	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; a_obsolete: STRING; clients: COLLECTION[LIBERTY_CLIENT]) is
+		require
+			result_type /= Void
+		local
+			i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
+			fd: LIBERTY_FEATURE_DEFINITION
+		do
+			from
+				i := names.lower
+			until
+				i > names.upper
+			loop
+				name ::= names.item(i)
+				create feature_name.make_from_ast(name.feature_name_or_alias)
+				create fd.make(feature_name, clients, name.is_frozen)
+				i := i + 1
+			end
 		end
 
 	check_that_all_redefined_features_were_redefined is
@@ -330,6 +408,41 @@ feature {}
 		do
 			img ::= image.image
 			Result := img.decoded
+		end
+
+	list_clients (clients: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_TPYE] is
+		local
+			i: INTEGER; client: LIBERTY_AST_CLIENT
+		do
+			if clients.is_empty then
+				Result := empty_client_list
+			else
+				create {FAST_ARRAY[LIBERTY_TYPE]}Result.with_capacity(e.clients.count)
+				from
+					i := clients.lower
+				until
+					i > clients.upper
+				loop
+					client ::= clients.item(i)
+					Result.add_last(universe.get_type_from_client(type.cluster, client, generic_effective_parameters))
+					i := i + 1
+				end
+			end
+		end
+
+	empty_client_list: COLLECTION[LIBERTY_TYPE] is
+		once
+			create {FAST_ARRAY[LIBERYT_TYPE]}.with_capacity(0)
+		end
+
+	list_parameters (parameters: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_PARAMETER] is
+		local
+			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; parameter: LIBERTY_AST_VARIABLE
+		do
+			if parameters.is_empty then
+				Result := empty_list_parameters
+			else
+			end
 		end
 
 feature {}
