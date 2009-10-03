@@ -10,6 +10,7 @@ inherit
 	FILED_NODE
 	STORABLE_NODE
 	WRAPPABLE_NODE
+	CONTEXTED_NODE
 
 insert 
 	EXCEPTIONS
@@ -27,9 +28,16 @@ feature {ANY}
 		end
 
 	eiffel_name: STRING is
-		-- The Eiffel version of Current's function_name
+		-- The Eiffel version of Current's function name.
+		-- NOTE: this way of assigning feature names is not entirely
+		-- bullet-proof. In fact MyFunction and myfunction will get the same
+		-- Eiffel feature name. I could say that such code is not worth your
+		-- time; such cases are handled much more effectively by the developer
+		-- of a wrapper library with case-by-case inspection.
 		do
-			if stored_eiffel_name=Void then compute_eiffel_name end
+			if stored_eiffel_name=Void then 
+				stored_eiffel_name := eiffel_feature(function_name.as_utf8)	
+			end
 			Result := stored_eiffel_name
 		end
 	
@@ -37,28 +45,32 @@ feature {ANY}
 		-- Does current function accept a variable number of arguments?
 
 	wrap_on (a_stream: OUTPUT_STREAM) is 
-		local unwrappable: BOOLEAN; fname: STRING
+		local unwrappable: BOOLEAN
 		do
 			-- Note: unwrappable is set in the rescue clause if an exception is
 			-- raised. Is it understandable enought? 
-			fname := function_name.as_utf8
 			if unwrappable then
-				log("... `@(1)' is not wrappable%N", <<fname>>) 
+				log("... `@(1)' is not wrappable%N", <<function_name.to_utf8>>) 
 				buffer.reset
-				buffer.put_message(once "		-- function @(1) is not wrappable%N",<<fname>>)
+				buffer.put_message(once "		-- function @(1) is not wrappable%N",<<function_name.to_utf8>>)
 				-- TODO: provide the reason; using developer_exception_name
 				-- triggers some recursion bug AFAIK. Paolo 2009-10-02
-			elseif is_public(function_name) then
-				log(once "Function @(1)",<<fname>>)
+			elseif not is_public(function_name) then
+				log(once "Skipping 'hidden' function `@(1)'%N", <<function_name.to_utf8>>)
+				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<function_name.to_utf8>>)
+			elseif not is_in_main_namespace then
+				log(once "Skipping function `@(1)' belonging to namespace @(2)%N",
+				<<function_name.to_utf8, namespace.c_name.as_utf8>>)
+				buffer.put_message(once "%T-- function @(1) in namespace @(2) skipped.%N",
+				<<function_name.to_utf8, namespace.c_name.as_utf8>>)
+			else
+				log(once "Function @(1)",<<function_name.to_utf8>>)
 				buffer.put_message(once "%T@(1)", <<eiffel_name>>)
 			 	append_arguments 
 				append_return_type
 				append_description 
 				append_body
 				log_string(once "%N")
-			else 
-				log(once "Skipping 'hidden' function `@(1)'%N", <<fname>>)
-				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<fname>>)
 			end
 			buffer.print_on(a_stream)
 		rescue
@@ -148,7 +160,7 @@ feature {ANY}
 	append_body is
 			-- Append the body of function to `buffer'
 		local
-			actual_c_symbol,description,dir,header: STRING
+			actual_c_symbol,description,dir: STRING
 		do
 			description := function_name.to_utf8
 			if variadic then
@@ -166,25 +178,16 @@ feature {ANY}
 			else dir := directory
 			end
 			-- end of temporary. TODO: remove when the tool is robust enought.
-			if settings.plugins then buffer.put_message(once "%
-				% 		-- @(1)%N%
-				%		external %"plug_in%"%N%
-				%		alias %"{%N%
-				%			location: %".%"%N%
-				%			module_name: %"plugin%"%N%
-				%			feature_name: %"@(2)%"%N%
-				%		}%"%N%
-				%		end%N%N",
-				<<description, actual_c_symbol>>)
-			else 
-				header := files.at(file_id).c_name.as_utf8
-				buffer.put_message(once "%
-				%		-- @(1)%N%
-				%		external %"C use <@(2)>%"%N%
-				%		end%N",
-				<<description, header>>)
-				-- TODO: header is the file where @(1) is actually defined; header given in the command line is ignored.%N%
-			end	
+			buffer.put_message(once "%
+			% 		-- @(1) (node at line @(3))%N%
+			%		external %"plug_in%"%N%
+			%		alias %"{%N%
+			%			location: %".%"%N%
+			%			module_name: %"plugin%"%N%
+			%			feature_name: %"@(2)%"%N%
+			%		}%"%N%
+			%		end%N%N",
+			<<description, actual_c_symbol, line.out>>)
 		end
 		
 feature {} -- Implementation
@@ -201,15 +204,9 @@ feature {} -- Implementation
 		end
 
 	compute_eiffel_name is
-		-- Assign an Eiffel name to Current.
-		-- TODO: this way of assigning feature names is not entirely
-		-- bullet-proof. In fact MyFunction and myfunction will get the same
-		-- Eiffel feature name. Let me say that if the code you are going
-		-- wrapping presents such issues it is not worth your time AFAIK. Paolo
-		-- 2009-02-06.
-	
+			
 		do
-			stored_eiffel_name := eiffel_feature(function_name.as_utf8)
+			
 		end
 
 -- invariant name.is_equal(once U"Function")

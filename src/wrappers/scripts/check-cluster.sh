@@ -225,40 +225,32 @@ EOF
 
 }
 
-if check_position ; then
-	until [ -z $1 ]  # Until all parameters used up...
-	do
-		case $1 in 
-			test )
-			# run tests
-			run_tests
-			;;
-			library )
-			# check library classes
-			check_classes
-			;;
-			examples )
-			# check library examples
-			compile_examples
-			;;
-			clean )
-			# Remove temporary files
-			clear_temporary_files
-			;;
-			all )
-			check_classes
-			compile_examples
-			;;
-			* )
-			print_usage
-			;;
-		esac 
-		shift
-	done
-
-
-	#  (in a further version) run all tests of the cluster.
-else
-	echo "Couldn't find a proper cluster directory; exiting"
-	exit 5
-fi
+until [ -z $1 ]  # Until all parameters used up...
+do
+	case $1 in 
+		test )
+		# run tests
+		run_tests
+		;;
+		library )
+		# check library classes
+		check_classes
+		;;
+		examples )
+		# check library examples
+		compile_examples
+		;;
+		clean )
+		# Remove temporary files
+		clear_temporary_files
+		;;
+		all )
+		check_classes
+		compile_examples
+		;;
+		* )
+		print_usage
+		;;
+	esac 
+	shift
+done

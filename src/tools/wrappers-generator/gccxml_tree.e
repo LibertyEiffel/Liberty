@@ -1,7 +1,7 @@
 class GCCXML_TREE
 	-- A partially validated representation of an XML file made by gccxml
 
-	-- Effective heirs will emit wrappers that use either plain external clauses or plugins.
+	-- Effective heirs will emit wrappers using the plugin machanism.
 inherit XML_TREE redefine new_node, open_node end
 
 insert 
@@ -17,8 +17,14 @@ feature
 			inspect node_name.as_utf8
 			when "Argument" then create {C_ARGUMENT} Result.make(node_name,line,column)
 			when "ArrayType" then create {C_ARRAY_TYPE} Result.make(node_name,line,column)
+			when "Base" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+			when "Class" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
 			when "Constructor" then create {C_CONSTRUCTOR} Result.make(node_name,line,column)
+			when "Converter" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+
 			when "CvQualifiedType" then create {C_QUALIFIED_TYPE} Result.make(node_name,line,column)
+			when "Destructor" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+
 			when "Ellipsis" then create {C_ELLIPSIS} Result.make(node_name, line, column)
 			when "Enumeration" then create {C_ENUM} Result.make(node_name, line, column)
 			when "EnumValue" then create {C_ENUM_VALUE} Result.make(node_name, line, column)
@@ -28,7 +34,15 @@ feature
 			when "FunctionType" then create {C_FUNCTION_TYPE} Result.make(node_name, line, column)
 			when "FundamentalType" then create {C_FUNDAMENTAL_TYPE} Result.make(node_name, line, column)
 			when "GCC_XML" then create {GCC_XML} Result.make(node_name,line,column)
+			when "Method" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+
 			when "Namespace" then create {C_NAMESPACE} Result.make(node_name,line,column)
+			when "OffsetType" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+
+			when "OperatorFunction" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+
+			when "OperatorMethod" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+
 			when "PointerType" then create {C_POINTER_TYPE} Result.make(node_name, line, column)
 			when "ReferenceType" then create {C_REFERENCE_TYPE} Result.make(node_name, line, column)
 			when "Struct" then create {C_STRUCT} Result.make(node_name, line, column)

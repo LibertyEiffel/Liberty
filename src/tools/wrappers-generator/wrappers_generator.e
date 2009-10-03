@@ -1,4 +1,4 @@
-class WRAPPER_GENERATOR
+class WRAPPERS_GENERATOR
 	-- An application that processes the output of gccxml to produce low-level
 	-- wrappers for functions, structures and enumerationsi and unions.
 	-- Function having argument structures passed by value are not handled.
@@ -38,8 +38,6 @@ feature {ANY}
 			-- log_string(once "Making union accessing classes.%N")
 		end
 
-	maker: CLASS_MAKER
-
 	tree: GCCXML_TREE
 
 	input: INPUT_STREAM
@@ -47,15 +45,13 @@ feature {ANY}
 	process_arguments is
 		-- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits. 
 		local
-			
-			arg, header, avoided, descriptions, flags, typedefs: STRING;
-			plugin: BOOLEAN i: INTEGER
+			arg, avoided, descriptions, flags, typedefs: STRING;
+			i: INTEGER
 		do
 			check
 				global = False
 				verbose = False
 			end
-			plugin := False
 			flags := once "flags"
 			descriptions := once "descriptions"
 			avoided := once "avoided"
@@ -72,14 +68,6 @@ feature {ANY}
 					arg := argument(i)
 					if arg.is_equal(once "--local") then settings.set_global(False)
 					elseif arg.is_equal(once "--global") then settings.set_global(True)
-					elseif arg.is_equal(once "--plugin") then settings.set_plugins
-					elseif arg.is_equal(once "--header") then
-						i := i + 1
-						if i <= argument_count then header := argument(i)
-						else 
-							std_error.put_line(once "No header argument")
-							print_usage
-						end
 					elseif arg.is_equal(once "--use-naturals") then settings.use_naturals
 					elseif arg.is_equal(once "--use-integers") then settings.use_integers
 					elseif arg.is_equal(once "--apply-patches") then not_yet_implemented
@@ -141,14 +129,6 @@ feature {ANY}
 					i := i + 1
 				end
 
-				--if plugin then create {PLUGIN_TREE} tree.with_location_and_module(location, module)	
-				--else
-				--	if header /= Void 
-				--		then create {EXTERNALS_CLASS_MAKER} maker.with_header(header)
-				--	else create {EXTERNALS_CLASS_MAKER} maker.without_header
-				--	end
-				--end
-								
 				if input = Void then
 					log_string(once "Using standard input.")
 					input := std_input
@@ -167,9 +147,6 @@ feature {ANY}
 						std_error.put_string(once " files: ")
 						headers.do_all(agent put_comma_separated_string(std_error, ?))
 						std_error.put_new_line
-					end
-					if settings.plugins then std_error.put_line(once "Generating plugin wrappers.")
-					else std_error.put_line(once "Generating external wrappers.")
 					end
 				end
 				if file_exists(flags) then 
@@ -191,7 +168,7 @@ feature {ANY}
 	print_usage is
 		do
 			std_error.put_line
-			(once "wrapper-generator [--verbose|-v] [--local] [--global] [--plugin | --header header] [--directory dir] output.gcc-xml filenames....%N%
+			(once "wrappers-generator [--verbose|-v] [--local] [--global] [--directory dir] output.gcc-xml filenames....%N%
 			%%N%
 			%	--local %N%
 			%		produces functions, structures and enumeration%N%
@@ -202,18 +179,6 @@ feature {ANY}
 			%	--global emits wrappers for every features found in the XML%N%
 			%		file. For usual wrappers it is normally not needed.%N%
 			%		Only the last global and local flag will be considered.%N%
-			%%N%
-			%  --plugin%N%
-			%		Emits classes that uses the plugin mechanism instead%N%
-			%		of the more traditional C external clauses. location%N%
-			%		and module arguments are mandatory; it often useful%N%
-			%		to quote them.%N%
-			%%N%
-			%  --header file%N%
-			%		Use file as header file in external features instead%N%
-			%		of the file where the feature actually reside. Useful%N%
-			%		for many libraries which provides a single header that%N%
-			%		includes all the library features.%N%
 			%%N%
 			%  --use-naturals%N%
 			%		Wrap unsigned integers with NATURAL classes. This is the%N%
@@ -273,12 +238,12 @@ end -- class WRAPPER_GENERATOR
 
 -- Copyright 2008,2009 Paolo Redaelli
 
--- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
+-- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as published by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
--- eiffel-gcc-xml is distributed in the hope that it will be useful, but
+-- wrappers-generator is distributed in the hope that it will be useful, but
 -- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 -- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 -- more details.

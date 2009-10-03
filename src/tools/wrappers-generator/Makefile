@@ -1,10 +1,6 @@
-eiffel-gcc-xml: eiffel-gcc-xml.ace *.e
-	compile eiffel-gcc-xml.ace
+wrappers-generator: wrappers-generator.ace *.e
+	compile wrappers-generator.ace
 
-debug: debug.ace
+wrappers-generator.debug: debug.ace *.e
 	compile debug.ace
 
-boost: *.e
-	compile -boost -o eiffel-gcc-xml.boost eiffel_gcc_xml
-
-	

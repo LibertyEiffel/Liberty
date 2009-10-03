@@ -1,5 +1,4 @@
-obsolete class PLUGIN_CLASS_MAKER
-	"Move PLUGIN_CLASS_MAKER's logic into heirs of GCCXML_NODE"
+class PLUGIN_CLASS_MAKER
 
 inherit
 	CLASS_MAKER

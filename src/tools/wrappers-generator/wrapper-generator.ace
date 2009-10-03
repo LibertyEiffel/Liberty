@@ -1,8 +1,8 @@
 -- This file is a template for building an ACE file for your own project.
 -- Copy this file into your working directory (the directory used to
 -- run the SmartEiffel compiler) and edit it.
-system "wrapper-generator"
-root WRAPPER_GENERATOR: make
+system "wrappers-generator"
+root WRAPPERS_GENERATOR: make
 
 default -- section of the system
 

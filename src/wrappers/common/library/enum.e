@@ -42,7 +42,7 @@ feature {WRAPPER_HANDLER}
 	value: INTEGER
 			-- The current value of the enumeration.
 
-	set_value (a_value: INTEGER) is
+	change_value (a_value: INTEGER) is
 		require
          is_valid_value(a_value)
 		do

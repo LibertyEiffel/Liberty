@@ -32,7 +32,7 @@ feature
 						log_string("A C_ENUM_VALUE has a parent that is not a C_ENUM%N")
 					end
 				end
-				stored_eiffel_name:=eiffel_argument(stored_eiffel_name)
+				stored_eiffel_name:=eiffel_feature(stored_eiffel_name)
 			end
 			Result:=stored_eiffel_name
 		end

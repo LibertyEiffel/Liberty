@@ -9,6 +9,7 @@ feature
 		-- grouped in lists by the id of the file they are defined in, i.e. "f0" "f12"
 		once create Result.make end
 	fundamentals: HASHED_DICTIONARY[C_FUNDAMENTAL_TYPE, UNICODE_STRING] is once create Result.make end
+	namespaces: HASHED_DICTIONARY[C_NAMESPACE, UNICODE_STRING] is once create Result.make end
 	structures: HASHED_DICTIONARY[C_STRUCT, UNICODE_STRING] is once create Result.make end
 	typedefs: HASHED_DICTIONARY[C_TYPEDEF, UNICODE_STRING] is once create Result.make end
 	types: HASHED_DICTIONARY[LIBERTY_TYPED, UNICODE_STRING] is once create Result.make end

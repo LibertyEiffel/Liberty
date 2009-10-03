@@ -97,7 +97,7 @@ feature
 			buffer.print_on(output)
 		end
 	
-	suffix: STRING is "_ENUM"
+	suffix: STRING is "ENUM"
 	
 	prefix_length: INTEGER 
 		-- The length of the longest common prefix of the enumeration - either plain or flag-like - currently being wrapped.
@@ -234,7 +234,6 @@ feature {C_ENUM_VALUE} -- Implementation
 		-- Useful to remove the common prefix of many enumeration values.
 	require has_values: values.count > 1 
 	local char_idx, value_idx ,upper: INTEGER; c: INTEGER_32; found: BOOLEAN
-		i: INTEGER; -- used in debug
 	do
 		-- Find the shortest name
 		from value_idx:=values.lower; upper:=Maximum_integer
@@ -258,18 +257,20 @@ feature {C_ENUM_VALUE} -- Implementation
 			end
 			char_idx := char_idx+1
 		end
-		debug
-			print(once "Longest common prefix of ") 
-			from print(values.first.c_value.out); i:=2 until i>=values.count loop
-				print(once ", ") print(values.item(i).c_value.out)
-				i:=i+1
-			end
-			-- Could bevalues.do_all(agent (x:C_ENUM_VALUE) do x.out.print_on(std_output) end) 
-			print(once "is ") print(Result.to_string) 
-			print(once " characters long `")
-			print(values.first.c_name.as_utf8.substring(1,Result))
-			print(once "'.%N")
-		end
+		-- debug -- Used during development of this feature. Disabled because it's too verbose
+		-- 	if verbose then
+		-- 		print(once "Longest common prefix of ") 
+		-- 		from print(values.first.c_value.out); value_idx=2 until value_idx>=values.count loop
+		-- 			print(once ", ") print(values.item(value_idx).c_value.out)
+		-- 			value_idx:=value_idx+1
+		-- 		end
+		-- 		-- Could bevalues.do_all(agent (x:C_ENUM_VALUE) do x.out.print_on(std_output) end) 
+		-- 		print(once "is ") print(Result.to_string) 
+		-- 		print(once " characters long `")
+		-- 		print(values.first.c_name.as_utf8.substring(1,Result))
+		-- 		print(once "'.%N")
+		-- 	end
+		-- end
 	end
 
 	values: FAST_ARRAY[C_ENUM_VALUE] is

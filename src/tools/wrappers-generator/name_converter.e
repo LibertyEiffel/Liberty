@@ -8,63 +8,13 @@ insert
 	EXCEPTIONS
 
 feature {} -- Auxiliary features
-	eiffel_class_file_name (a_name: STRING): STRING is
-			-- `a_name' converted into a proper Eiffel class name
-			-- file, i.e. "GTK_BUTTON" is turned into "gtk_button.e"
-		require
-			name_not_void: a_name /= Void
-		do
-			Result := eiffel_class_name(a_name).as_lower
-			Result.append(once ".e")
-		ensure
-			Result /= a_name
-		end
-
-	class_name_from_header (a_header: STRING): STRING is
-		-- The Eiffel class name for 'a_header'; extension is removed,
-		-- CamelCase is converted into CAMEL_CASE, dashes are converted to
-		-- underscores, "EXTERNALS" is added at the end; i.e.:
-		-- class_name_from_header("/usr/include/foo/bar/maman.h").is_equal("MAMAN_EXTERNALS")
-	obsolete "Move class_name_from_header logic into more proper places."
-	require header_not_void: a_header/=Void
-	do
-		class_path.make_from_string(a_header)
-		Result := class_path.last
-		Result.remove_tail(class_path.extension.count)
-		check
-			no_final_dot_if_this_fails_add_one_above: Result.last/='.' 
-		end
-		eiffellizer.substitute_all_in(Result)
-		Result.replace_all('-','_')
-		Result.to_upper
-		Result.append(once "_EXTERNALS")
-	ensure 
-		non_void: Result/=Void
-		is_valid_class_name(Result)
-	end
-
-	eiffel_class_name (a_name: STRING): STRING is
-			-- Translate `a_name' from CamelCase into CAMEL_CASE; dashes are
-			-- converted to underscore
-		require
-			name_not_void: a_name /= Void
-		do
-			create Result.copy(a_name)
-			eiffellizer.substitute_all_in(Result)
-			Result.replace_all('-', '_')
-			Result.to_upper
-		ensure
-			Result /= Void
-			Result /= a_name
-			is_valid_class_name(Result)
-		end
-
 	eiffel_feature (a_name: STRING): STRING is
-		-- Translate `a_name' content into a proper feature name for
-		-- the Gnu-Eiffel language.  "CamelCase" is translated into
-		-- "camel_case", "ENOO" is translated into "enoo". Eventual
-		-- underscores in front of `a_name' are removed: "__foo" becomes
-		-- "foo"
+		-- Translate `a_name' content into a proper feature name for the
+		-- Gnu-Eiffel language.  "CamelCase" is translated into "camel_case",
+		-- "ENOO" is translated into "enoo". Eventual underscores in front of
+		-- `a_name' are removed: "__foo" becomes "foo"; symbols starting with
+		-- underscores folloed by a number are prefixed with "a_"; reserved
+		-- language names and names of features of class ANY are escaped.
 	require 
 		name_not_void: a_name /= Void
 	do
@@ -81,6 +31,8 @@ feature {} -- Auxiliary features
 			Result.prepend(once "a_")
 		end
 		eiffellizer.substitute_all_in(Result)
+		-- Remove spurious underscores and the end
+		from until Result.last/='_' loop Result.remove_last end
 		Result.to_lower
 		Result := adapt(Result)
 	end
@@ -110,8 +62,10 @@ feature {} -- Auxiliary features
 		local
 			builder: REGULAR_EXPRESSION_BUILDER
 		once
-			Result := builder.convert_perl_pattern("\B([A-Z]+)")
-			Result.prepare_substitution("_\1")
+			-- Result := builder.convert_perl_pattern("\B([A-Z]+)")
+			-- Result.prepare_substitution("_\1")
+			Result := builder.convert_perl_pattern("([A-Z]+[a-z]*)")
+			Result.prepare_substitution("\1_")
 		end
 
 	is_public_name (a_name: STRING): BOOLEAN is
@@ -175,76 +129,6 @@ feature {} -- Auxiliary features
 		ensure Result/=Void
 		end
 
-	longest_prefix_of_children_of (a_node: XML_COMPOSITE_NODE): INTEGER is
-			-- The length of longest prefix common to all direct children
-			-- names of `a_node'. Useful to remove the common prefix of
-			-- many enumeration values.
-		require
-			non_void_node: a_node /= Void
-			node_has_children: a_node.children_count > 1
-		local
-			char_idx, child_n, lenght: INTEGER; c, e: INTEGER_32; found: BOOLEAN; a_name: UNICODE_STRING
-			names: FAST_ARRAY[UNICODE_STRING]; a_child: XML_COMPOSITE_NODE
-		do
-			-- Gather XML_COMPOSITE_NODE children, their names and find the
-			-- shortest one.
-			create names.with_capacity(a_node.children_count)
-			from
-				child_n := 1
-				lenght := Maximum_integer
-			until
-				child_n >= a_node.children_count
-			loop
-				a_child ?= a_node.child(child_n)
-				if a_child /= Void then
-					a_name := a_child.attribute_at(once U"name")
-					names.add_last(a_name)
-					lenght := lenght.min(a_name.count)
-				else
-					raise("Found a non-XML_COMPOSITE_NODE xml child")
-				end
-				child_n := child_n + 1
-			end
-			-- Find the longest prefix.
-			from
-				char_idx := 1
-			until
-				found or else char_idx > lenght
-			loop
-				from
-					c := names.first.item(char_idx)
-					child_n := 2
-				until
-					found or else child_n >= names.count
-				loop
-					e := names.item(child_n).item(char_idx)
-					-- debug print("Examining char "+char_idx.out+", string
-					-- "+child_n.out+" '"+e.out+"'%N") end
-					if c /= e then
-						Result := char_idx - 1
-						found := True
-					else
-						child_n := child_n + 1
-					end
-				end
-				char_idx := char_idx + 1
-			end
-			debug
-				print(once "Longest common prefix of ")
-				from child_n := 1
-				until child_n >= a_node.children_count
-				loop
-					a_child ?= a_node.child(child_n)
-					if a_child /= Void then
-						print (a_child.attribute_at(once U"name").as_utf8)
-						print (once " ")
-					end
-					child_n := child_n + 1
-				end
-				print(once "is ") print(Result.to_string) print(once ".%N")
-			end
-		end
-
 feature {} -- Constants 
 	class_path: POSIX_PATH_NAME is
 		-- Shared path buffer used in 'class_name_from_header'.
@@ -258,8 +142,7 @@ feature {} -- Constants
 		end
 
 	any_features: HASHED_SET[STRING] is
-			-- The names of the features contained in class ANY. A
-			-- wrapper can either add a proper prefix or suffix to the
+			-- The names of the features contained in class ANY. 
 		once
 			-- The following "static" definition of the features of ANY
 			-- is somehow unacceptable in a perfect world. Yet computing
@@ -272,12 +155,12 @@ end -- class NAME_CONVERTER
 
 -- Copyright 2008,2009 Paolo Redaelli
 
--- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
+-- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as published by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
--- eiffel-gcc-xml is distributed in the hope that it will be useful, but
+-- wrappers-generator is distributed in the hope that it will be useful, but
 -- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 -- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 -- more details.

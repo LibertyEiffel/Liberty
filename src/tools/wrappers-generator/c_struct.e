@@ -1,5 +1,5 @@
 class C_STRUCT
-
+	-- A "Struct" node of an XML file made by gccxml.
 inherit 
 	GCCXML_NODE 
 	IDENTIFIED_NODE
@@ -33,9 +33,13 @@ feature
 		end
 
 	emit_wrapper is
-		do
-			log_string(once "TODO: implement C_STRUCT.emit_wrapper")
-		end
+		-- Emit a reference wrapper for Current C structure.
+
+		-- A reference wrapper handles the structure as a memory area referred by a pointer.
+		-- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types" 
+	do
+		log_string(once "TODO: implement C_STRUCT.emit_wrapper")
+	end
 
 	suffix: STRING is "_STRUCT"
 -- invariant name.is_equal(once U"Struct")

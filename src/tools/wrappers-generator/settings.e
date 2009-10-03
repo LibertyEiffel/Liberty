@@ -9,11 +9,6 @@ creation {ANY}
 	default_create
 
 feature {ANY} -- Queries
-	plugins: BOOLEAN is
-		-- Shall the wrapper use "plugin" tenses?
-		attribute
-	end
-
 	global: BOOLEAN
 
 	verbose: BOOLEAN
@@ -30,9 +25,6 @@ feature {ANY} -- Queries
 	last_error: STRING
 
 feature {ANY} -- Setters
-	set_plugins is do plugins:=True end
-	set_externals is do plugins:=False end
-
 	set_verbose (a_value: BOOLEAN) is
 		do
 			verbose := a_value

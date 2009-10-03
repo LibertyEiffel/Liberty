@@ -73,7 +73,7 @@ feature
 			a_stream.put_line  (class_name)
 		end
 
-	suffix: STRING is "_EXTERNALS"
+	suffix: STRING is "EXTERNALS"
 
 -- invariant name.is_equal(once U"File")
 end

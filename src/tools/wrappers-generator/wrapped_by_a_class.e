@@ -16,35 +16,31 @@ feature
 
 	class_name: STRING is
 		-- the name of the Eiffel class that wraps Current.
+	local path: POSIX_PATH_NAME
 	do
-		if stored_class_name=Void then compute_class_name end
-		Result := stored_class_name
-	end
-
-feature {}
-	stored_class_name: STRING
-
-	compute_class_name is
-		local path: POSIX_PATH_NAME
-		do
-			-- The Eiffel class name for 'c_name'; extension is removed,
+		if stored_class_name=Void then 
+			-- The Eiffel class name for `c_name'; extension is removed,
 			-- CamelCase is converted into CAMEL_CASE, dashes are converted to
-			-- underscores, "EXTERNALS" is added at the end; i.e.:
+			-- underscores, `suffix' is added at the end; i.e.:
 			-- class_name_from_header("/usr/include/foo/bar/maman.h").is_equal("MAMAN_EXTERNALS")
 			create path.make_from_string(c_name.as_utf8)
 			stored_class_name := path.last
 			stored_class_name.remove_tail(path.extension.count)
-			check
-				no_final_dot_if_this_fails_add_one_above: stored_class_name.last/='.' 
-			end
 			eiffellizer.substitute_all_in(stored_class_name)
+			-- Remove spurious underscores at the end
+			-- from until stored_class_name.last/='_' loop stored_class_name.remove_last end
 			stored_class_name.replace_all('-','_')
 			stored_class_name.to_upper
 			stored_class_name.append(suffix)
-		ensure 
-			stored_class_name/=Void
-			is_valid_class_name(stored_class_name)
 		end
+		Result := stored_class_name
+	ensure 
+		non_void: Result/=Void
+		is_valid_class_name(Result)
+	end
+
+feature {}
+	stored_class_name: STRING
 
 	output: TERMINAL_OUTPUT_STREAM
 

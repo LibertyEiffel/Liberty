@@ -3,7 +3,7 @@
 export GCCXML_COMPILER = gcc-4.2
 
 wrappers: llvm.gcc-xml
-	wrapper-generator --local --directory . --plugin llvm.gcc-xml /usr/include/llvm-c/*
+	wrappers-generator --local --directory . llvm.gcc-xml /usr/include/llvm-c/*
 #	llvm-liberty.h  
 #	eiffel-gcc-xml --typedefs LLVM_TYPES --use-naturals --local --directory . --plugin . llvm-plugin llvm.gcc-xml llvm-liberty.h  
 
