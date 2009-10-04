@@ -2,39 +2,45 @@ Dear Eiffel users, hackers, and believers,
 
 We are happy to announce the birth Liberty Eiffel.
 
-Liberty Eiffel is born from a simple idea: the Open Source and Free Software
-community needs a free-as-in-freedom Eiffel compiler that tries to be follow
-the principles that made Eiffel so appealing
+Liberty Eiffel is born from a simple idea: the Open Source and Free
+Software community needs a free-as-in-freedom Eiffel compiler that
+tries to be follow the principles that made Eiffel so appealing
 
-SmartEiffel is academic project; an academic software project is a tool for its
-developers to test and prove ideas that made their way into papers; such a goal
-naturally requires the development model to follow the rules of the academia,
-for example keeping all the coding in-house.
+SmartEiffel is an academic project; as such it is a tool for its
+developers to test and prove ideas that made their way into papers;
+such a goal naturally requires the development model to follow the
+rules of the academia, for example keeping all the coding in-house.
 
-This applies also to software licensed under GPL and being part of GNU such as SmartEiffel.
+This applies also to software licensed under GPL and being part of GNU
+such as SmartEiffel.
 
-We are designing and developing an Eiffel compiler - compatible with SmartEiffel - with different goals:
+We are designing and developing an Eiffel compiler - compatible with
+SmartEiffel - with different goals:
 
-- keep the language and the required run-time system as simple as possible;
+- keep the language and the required run-time system as simple as
+  possible;
 
-- stick to the same high quality requirements that made SmartEiffel such a good
-  piece of Free Software
+- stick to the same high quality requirements that make SmartEiffel
+  such a good piece of Free Software;
 
-- "exiting the ivory tower", being a community-driven proeject without the
-  requirements of academic goals; being easily or automatically interoperable
-  with most mainstream languages (C, Java, .NET...) is an absolute need;
+- "exiting the ivory tower", being a community-driven project without
+  the requirements of academic goals; being easily or automatically
+  interoperable with most mainstream languages (C, Java, .NET...) is
+  an absolute need;
 
-- "standing on the shoulder of giants", using the Low Level Virtual Machine
-  Compier Infrastructure (http://www.llvm.org) for the backend; 
+- "standing on the shoulder of giants", using the Low Level Virtual
+  Machine Compier Infrastructure (http://www.llvm.org) for the
+  backend;
 
-- "provide the batteries", without "reinveinting the wheel"; the best compiler
-  in the world is useful without a wide set of libraries; there are a
-  huge set of free-as-in-freedom libraries that many programmers and developers
-  would like to use in Eiffel;
+- "provide the batteries", without "reinveinting the wheel"; the best
+  compiler in the world is useless without a wide set of libraries;
+  there are a huge set of free-as-in-freedom libraries that many
+  programmers and developers would like to use in Eiffel;
 
-- give simple technical means to add more bindings wrappers;  
+- give simple technical means to add more bindings wrappers;
 
-- maintain a simple and understandable design, striving to be an good Eiffel code.
+- maintain a simple and understandable design, striving to write the
+  most excellent Eiffel code;
 
 - be available on most platforms.
 
