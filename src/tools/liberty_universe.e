@@ -52,45 +52,46 @@ feature {ANY}
 		end
 
 	type_any: LIBERTY_TYPE is
-		require
-			not has_error
-		local
-			cd: LIBERTY_CLASS_DESCRIPTOR; td: LIBERTY_TYPE_DESCRIPTOR
-			ast: LIBERTY_AST_CLASS
-			class_name: STRING
-			cluster: LIBERTY_CLUSTER
 		do
-			Result := type_any_memory
-			if Result = Void then
-				class_name := once "ANY"
-				cluster := universe.find(class_name)
-				create cd.make(cluster, class_name)
-				create td.make(cd, create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
-				Result := types.reference_at(td)
-				if Result = Void then
-					ast := parse_class(cluster, class_name)
-					create Result.make(td, ast)
-					types.put(Result, td)
-					Result.check_and_initialize(Current)
-				end
-				type_any_memory := Result
-			end
-		ensure
-			Result /= Void
+			Result := kernel_type(once "ANY")
 		end
 
 	type_pointer: LIBERTY_TYPE is
+		do
+			Result := kernel_type(once "POINTER")
+		end
+
+	type_integer_64: LIBERTY_TYPE is
+		do
+			Result := kernel_type(once "INTEGER_64")
+		end
+
+	type_real: LIBERTY_TYPE is
+		do
+			Result := kernel_type(once "REAL")
+		end
+
+	type_character: LIBERTY_TYPE is
+		do
+			Result := kernel_type(once "CHARACTER")
+		end
+
+	type_string: LIBERTY_TYPE is
+		do
+			Result := kernel_type(once "STRING")
+		end
+
+feature {}
+	kernel_type (class_name: STRING): LIBERTY_TYPE is
 		require
 			not has_error
 		local
 			cd: LIBERTY_CLASS_DESCRIPTOR; td: LIBERTY_TYPE_DESCRIPTOR
 			ast: LIBERTY_AST_CLASS
-			class_name: STRING
 			cluster: LIBERTY_CLUSTER
 		do
-			Result := type_any_memory
+			Result := kernel_types.reference_at(class_name)
 			if Result = Void then
-				class_name := once "POINTER"
 				cluster := universe.find(class_name)
 				create cd.make(cluster, class_name)
 				create td.make(cd, create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
@@ -101,7 +102,7 @@ feature {ANY}
 					types.put(Result, td)
 					Result.check_and_initialize(Current)
 				end
-				type_any_memory := Result
+				kernel_types.add(Result, class_name.twin)
 			end
 		ensure
 			Result /= Void
@@ -307,7 +308,10 @@ feature {}
 	classes: DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]
 	types: DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]
 
-	type_any_memory: LIBERTY_TYPE
+	kernel_types: DICTIONARY[LIBERTY_TYPE, STRING] is
+		once
+			create {HASHED_DICTIONARY[LIBERTY_TYPE, STRING]}Result.make
+		end
 
 feature {LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS}
 	visit_liberty_ast_effective_type_parameters (v: LIBERTY_AST_EFFECTIVE_TYPE_PARAMETERS) is

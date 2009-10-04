@@ -351,6 +351,73 @@ feature {}
 		require
 			result_type /= Void
 		do
+			if constant.is_assignment_test then
+				error(constant.index, once "Unexpected assignment test")
+			elseif constant.is_typed_open_argument then
+				error(constant.index, once "Unexpected open argument")
+			elseif constant.is_number then
+				Result := number(constant.number.image)
+			elseif constant.is_true then
+				create {LIBERTY_FEATURE_TYPED_CONSTANT[BOOLEAN]}Result.make(universe.type_boolean, True)
+			elseif constant.is_false then
+				create {LIBERTY_FEATURE_TYPED_CONSTANT[BOOLEAN]}Result.make(universe.type_boolean, False)
+			elseif constant.is_character then
+				Result := character(constant.character.image)
+			elseif constant.is_string then
+				create {LIBERTY_FEATURE_STRING_CONSTANT} Result.make(universe.type_string, decoded_string(constant.string), False)
+			elseif constant.is_once_string then
+				create {LIBERTY_FEATURE_STRING_CONSTANT} Result.make(universe.type_string, decoded_string(constant.string), True)
+			elseif constant.is_number_typed_manifest then
+				--|*** TODO
+			elseif constant.is_string_typed_manifest then
+				--|*** TODO
+			elseif constant.is_array_typed_manifest then
+				--|*** TODO
+			else
+				check False end
+			end
+		end
+
+	number (number_image: EIFFEL_IMAGE): LIBERTY_FEATURE_CONSTANT is
+		require
+			TYPED_EIFFEL_IMAGE[INTEGER_64] ?:= number_image
+				or else TYPED_EIFFEL_IMAGE[REAL] ?:= number_image
+		local
+			i: TYPED_EIFFEL_IMAGE[INTEGER_64]
+			r: TYPED_EIFFEL_IMAGE[REAL]
+			i64: INTEGER_64
+		do
+			-- That's not pretty! but doing without all those type tests would incur big changes and code
+			-- duplication in the eiffel parser :-/
+			if i ?:= number_image then
+				i ::= number_image
+				i64 := i.decoded
+				if i64.fit_integer_8 then
+					create {LIBERTY_FEATURE_TYPED_CONSTANT[INTEGER_8]}Result.make(universe.type_integer_64, i64.to_integer_8)
+				elseif i64.fit_integer_16 then
+					create {LIBERTY_FEATURE_TYPED_CONSTANT[INTEGER_16]}Result.make(universe.type_integer_64, i64.to_integer_16)
+				elseif i64.fit_integer_32 then
+					create {LIBERTY_FEATURE_TYPED_CONSTANT[INTEGER_32]}Result.make(universe.type_integer_64, i64.to_integer_32)
+				else
+					create {LIBERTY_FEATURE_TYPED_CONSTANT[INTEGER_64]}Result.make(universe.type_integer_64, i64)
+				end
+			else
+				check
+					r ?:= number_image
+				end
+				r ::= number_image
+				create {LIBERTY_FEATURE_TYPED_CONSTANT[REAL]}Result.make(universe.type_real, r.decoded)
+			end
+		end
+
+	character (character_image: EIFFEL_IMAGE): LIBERTY_FEATURE_CONSTANT is
+		require
+			TYPED_EIFFEL_IMAGE[CHARACTER] ?:= character_image
+		local
+			c: TYPED_EIFFEL_IMAGE[CHARACTER]
+		do
+			c ::= character_image
+			create {LIBERTY_FEATURE_TYPED_CONSTANT[CHARACTER]}Result.make(universe.type_character, c.decoded)
 		end
 
 	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; a_obsolete: STRING; clients: COLLECTION[LIBERTY_CLIENT]) is
@@ -402,12 +469,14 @@ feature {}
 		end
 
 feature {}
-	decoded_string (image: LIBERTY_AST_STRING): STRING is
+	decoded_string (string_image: LIBERTY_AST_STRING): STRING is
+		require
+			TYPED_EIFFEL_IMAGE[STRING] ?:= string_image
 		local
-			img: TYPED_EIFFEL_IMAGE[STRING]
+			s: TYPED_EIFFEL_IMAGE[STRING]
 		do
-			img ::= image.image
-			Result := img.decoded
+			s ::= string_image.image
+			Result := s.decoded
 		end
 
 	list_clients (clients: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_TPYE] is
