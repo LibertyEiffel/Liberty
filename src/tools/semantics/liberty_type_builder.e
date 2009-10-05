@@ -368,9 +368,11 @@ feature {}
 			elseif constant.is_once_string then
 				create {LIBERTY_FEATURE_STRING_CONSTANT} Result.make(universe.type_string, decoded_string(constant.string), True)
 			elseif constant.is_number_typed_manifest then
-				--|*** TODO
+				Result := number_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
+														  constant.typed_manifest_number.image)
 			elseif constant.is_string_typed_manifest then
-				--|*** TODO
+				create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[STRING]} Result.make(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
+																											decoded_string(constant.typed_manifest_number))
 			elseif constant.is_array_typed_manifest then
 				--|*** TODO
 			else
@@ -418,6 +420,38 @@ feature {}
 		do
 			c ::= character_image
 			create {LIBERTY_FEATURE_TYPED_CONSTANT[CHARACTER]}Result.make(universe.type_character, c.decoded)
+		end
+
+	number_typed_manifest (manifest_type: LIBERTY_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_FEATURE_CONSTANT is
+		require
+			TYPED_EIFFEL_IMAGE[INTEGER_64] ?:= number_image
+				or else TYPED_EIFFEL_IMAGE[REAL] ?:= number_image
+		local
+			i: TYPED_EIFFEL_IMAGE[INTEGER_64]
+			r: TYPED_EIFFEL_IMAGE[REAL]
+			i64: INTEGER_64
+		do
+			-- That's not pretty! but doing without all those type tests would incur big changes and code
+			-- duplication in the eiffel parser :-/
+			if i ?:= number_image then
+				i ::= number_image
+				i64 := i.decoded
+				if i64.fit_integer_8 then
+					create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[INTEGER_8]}Result.make(manifest_type, i64.to_integer_8)
+				elseif i64.fit_integer_16 then
+					create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[INTEGER_16]}Result.make(manifest_type, i64.to_integer_16)
+				elseif i64.fit_integer_32 then
+					create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[INTEGER_32]}Result.make(manifest_type, i64.to_integer_32)
+				else
+					create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[INTEGER_64]}Result.make(manifest_type, i64)
+				end
+			else
+				check
+					r ?:= number_image
+				end
+				r ::= number_image
+				create {LIBERTY_FEATURE_TYPED_CONSTANT[REAL]}Result.make(manifest_type, r.decoded)
+			end
 		end
 
 	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; a_obsolete: STRING; clients: COLLECTION[LIBERTY_CLIENT]) is
