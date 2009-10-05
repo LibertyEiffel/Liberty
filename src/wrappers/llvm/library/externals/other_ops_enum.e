@@ -11,27 +11,27 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = otheropsbegin_low_level)  or else
+			Result := ((a_value = other_ops_begin_low_level)  or else
 				(a_value = fcmp_low_level)  or else
 				(a_value = phi_low_level)  or else
 				(a_value = call_low_level)  or else
 				(a_value = select_external_low_level)  or else
-				(a_value = userop1_low_level)  or else
-				(a_value = userop2_low_level)  or else
+				(a_value = user_op_1_low_level)  or else
+				(a_value = user_op_2_low_level)  or else
 				(a_value = vaarg_low_level)  or else
-				(a_value = extractelement_low_level)  or else
-				(a_value = insertelement_low_level)  or else
-				(a_value = shufflevector_low_level)  or else
-				(a_value = extractvalue_low_level)  or else
-				(a_value = insertvalue_low_level)  or else
-				(a_value = otheropsend_low_level) )
+				(a_value = extract_element_low_level)  or else
+				(a_value = insert_element_low_level)  or else
+				(a_value = shuffle_vector_low_level)  or else
+				(a_value = extract_value_low_level)  or else
+				(a_value = insert_value_low_level)  or else
+				(a_value = other_ops_end_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_otheropsbegin is
+	set_other_ops_begin is
 		do
-			value := otheropsbegin_low_level
+			value := other_ops_begin_low_level
 		end
 
 	set_fcmp is
@@ -54,14 +54,14 @@ feature -- Setters
 			value := select_external_low_level
 		end
 
-	set_userop1 is
+	set_user_op_1 is
 		do
-			value := userop1_low_level
+			value := user_op_1_low_level
 		end
 
-	set_userop2 is
+	set_user_op_2 is
 		do
-			value := userop2_low_level
+			value := user_op_2_low_level
 		end
 
 	set_vaarg is
@@ -69,40 +69,40 @@ feature -- Setters
 			value := vaarg_low_level
 		end
 
-	set_extractelement is
+	set_extract_element is
 		do
-			value := extractelement_low_level
+			value := extract_element_low_level
 		end
 
-	set_insertelement is
+	set_insert_element is
 		do
-			value := insertelement_low_level
+			value := insert_element_low_level
 		end
 
-	set_shufflevector is
+	set_shuffle_vector is
 		do
-			value := shufflevector_low_level
+			value := shuffle_vector_low_level
 		end
 
-	set_extractvalue is
+	set_extract_value is
 		do
-			value := extractvalue_low_level
+			value := extract_value_low_level
 		end
 
-	set_insertvalue is
+	set_insert_value is
 		do
-			value := insertvalue_low_level
+			value := insert_value_low_level
 		end
 
-	set_otheropsend is
+	set_other_ops_end is
 		do
-			value := otheropsend_low_level
+			value := other_ops_end_low_level
 		end
 
 feature -- Queries
-	is_otheropsbegin: BOOLEAN is
+	is_other_ops_begin: BOOLEAN is
 		do
-			Result := (value=otheropsbegin_low_level)
+			Result := (value=other_ops_begin_low_level)
 		end
 
 	is_fcmp: BOOLEAN is
@@ -125,14 +125,14 @@ feature -- Queries
 			Result := (value=select_external_low_level)
 		end
 
-	is_userop1: BOOLEAN is
+	is_user_op_1: BOOLEAN is
 		do
-			Result := (value=userop1_low_level)
+			Result := (value=user_op_1_low_level)
 		end
 
-	is_userop2: BOOLEAN is
+	is_user_op_2: BOOLEAN is
 		do
-			Result := (value=userop2_low_level)
+			Result := (value=user_op_2_low_level)
 		end
 
 	is_vaarg: BOOLEAN is
@@ -140,38 +140,38 @@ feature -- Queries
 			Result := (value=vaarg_low_level)
 		end
 
-	is_extractelement: BOOLEAN is
+	is_extract_element: BOOLEAN is
 		do
-			Result := (value=extractelement_low_level)
+			Result := (value=extract_element_low_level)
 		end
 
-	is_insertelement: BOOLEAN is
+	is_insert_element: BOOLEAN is
 		do
-			Result := (value=insertelement_low_level)
+			Result := (value=insert_element_low_level)
 		end
 
-	is_shufflevector: BOOLEAN is
+	is_shuffle_vector: BOOLEAN is
 		do
-			Result := (value=shufflevector_low_level)
+			Result := (value=shuffle_vector_low_level)
 		end
 
-	is_extractvalue: BOOLEAN is
+	is_extract_value: BOOLEAN is
 		do
-			Result := (value=extractvalue_low_level)
+			Result := (value=extract_value_low_level)
 		end
 
-	is_insertvalue: BOOLEAN is
+	is_insert_value: BOOLEAN is
 		do
-			Result := (value=insertvalue_low_level)
+			Result := (value=insert_value_low_level)
 		end
 
-	is_otheropsend: BOOLEAN is
+	is_other_ops_end: BOOLEAN is
 		do
-			Result := (value=otheropsend_low_level)
+			Result := (value=other_ops_end_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	otheropsbegin_low_level: INTEGER is
+	other_ops_begin_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -216,7 +216,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	userop1_low_level: INTEGER is
+	user_op_1_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -225,7 +225,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	userop2_low_level: INTEGER is
+	user_op_2_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -243,7 +243,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	extractelement_low_level: INTEGER is
+	extract_element_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -252,7 +252,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	insertelement_low_level: INTEGER is
+	insert_element_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -261,7 +261,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	shufflevector_low_level: INTEGER is
+	shuffle_vector_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -270,7 +270,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	extractvalue_low_level: INTEGER is
+	extract_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -279,7 +279,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	insertvalue_low_level: INTEGER is
+	insert_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -288,7 +288,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	otheropsend_low_level: INTEGER is
+	other_ops_end_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

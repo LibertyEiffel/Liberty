@@ -1,9 +1,0 @@
-library/externals/result.e
-library/externals/predicate.e
-library/externals/part.e
-library/externals/other_ops.e
-library/externals/lost_fraction.e
-library/externals/cmp_result.e
-library/externals/binary_ops.e
-library/llvm_real_predicate.e
-library/llvm_call_convention.e

@@ -11,21 +11,21 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = lessthan_low_level)  or else
-				(a_value = greaterthan_low_level)  or else
+			Result := ((a_value = less_than_low_level)  or else
+				(a_value = greater_than_low_level)  or else
 				(a_value = unordered_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_lessthan is
+	set_less_than is
 		do
-			value := lessthan_low_level
+			value := less_than_low_level
 		end
 
-	set_greaterthan is
+	set_greater_than is
 		do
-			value := greaterthan_low_level
+			value := greater_than_low_level
 		end
 
 	set_unordered is
@@ -34,14 +34,14 @@ feature -- Setters
 		end
 
 feature -- Queries
-	is_lessthan: BOOLEAN is
+	is_less_than: BOOLEAN is
 		do
-			Result := (value=lessthan_low_level)
+			Result := (value=less_than_low_level)
 		end
 
-	is_greaterthan: BOOLEAN is
+	is_greater_than: BOOLEAN is
 		do
-			Result := (value=greaterthan_low_level)
+			Result := (value=greater_than_low_level)
 		end
 
 	is_unordered: BOOLEAN is
@@ -50,7 +50,7 @@ feature -- Queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	lessthan_low_level: INTEGER is
+	less_than_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -59,7 +59,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	greaterthan_low_level: INTEGER is
+	greater_than_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

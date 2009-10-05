@@ -11,35 +11,35 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = norelocation_low_level)  or else
-				(a_value = globalrelocations_low_level) )
+			Result := ((a_value = no_relocation_low_level)  or else
+				(a_value = global_relocations_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_norelocation is
+	set_no_relocation is
 		do
-			value := norelocation_low_level
+			value := no_relocation_low_level
 		end
 
-	set_globalrelocations is
+	set_global_relocations is
 		do
-			value := globalrelocations_low_level
+			value := global_relocations_low_level
 		end
 
 feature -- Queries
-	is_norelocation: BOOLEAN is
+	is_no_relocation: BOOLEAN is
 		do
-			Result := (value=norelocation_low_level)
+			Result := (value=no_relocation_low_level)
 		end
 
-	is_globalrelocations: BOOLEAN is
+	is_global_relocations: BOOLEAN is
 		do
-			Result := (value=globalrelocations_low_level)
+			Result := (value=global_relocations_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	norelocation_low_level: INTEGER is
+	no_relocation_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -48,7 +48,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	globalrelocations_low_level: INTEGER is
+	global_relocations_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

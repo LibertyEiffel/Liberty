@@ -11,57 +11,57 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = ccallconv_low_level)  or else
-				(a_value = coldcallconv_low_level)  or else
-				(a_value = x86stdcallcallconv_low_level)  or else
-				(a_value = x86fastcallcallconv_low_level) )
+			Result := ((a_value = ccall_conv_low_level)  or else
+				(a_value = cold_call_conv_low_level)  or else
+				(a_value = x_86stdcall_call_conv_low_level)  or else
+				(a_value = x_86fastcall_call_conv_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_ccallconv is
+	set_ccall_conv is
 		do
-			value := ccallconv_low_level
+			value := ccall_conv_low_level
 		end
 
-	set_coldcallconv is
+	set_cold_call_conv is
 		do
-			value := coldcallconv_low_level
+			value := cold_call_conv_low_level
 		end
 
-	set_x86stdcallcallconv is
+	set_x_86stdcall_call_conv is
 		do
-			value := x86stdcallcallconv_low_level
+			value := x_86stdcall_call_conv_low_level
 		end
 
-	set_x86fastcallcallconv is
+	set_x_86fastcall_call_conv is
 		do
-			value := x86fastcallcallconv_low_level
+			value := x_86fastcall_call_conv_low_level
 		end
 
 feature -- Queries
-	is_ccallconv: BOOLEAN is
+	is_ccall_conv: BOOLEAN is
 		do
-			Result := (value=ccallconv_low_level)
+			Result := (value=ccall_conv_low_level)
 		end
 
-	is_coldcallconv: BOOLEAN is
+	is_cold_call_conv: BOOLEAN is
 		do
-			Result := (value=coldcallconv_low_level)
+			Result := (value=cold_call_conv_low_level)
 		end
 
-	is_x86stdcallcallconv: BOOLEAN is
+	is_x_86stdcall_call_conv: BOOLEAN is
 		do
-			Result := (value=x86stdcallcallconv_low_level)
+			Result := (value=x_86stdcall_call_conv_low_level)
 		end
 
-	is_x86fastcallcallconv: BOOLEAN is
+	is_x_86fastcall_call_conv: BOOLEAN is
 		do
-			Result := (value=x86fastcallcallconv_low_level)
+			Result := (value=x_86fastcall_call_conv_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	ccallconv_low_level: INTEGER is
+	ccall_conv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -70,7 +70,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	coldcallconv_low_level: INTEGER is
+	cold_call_conv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,7 +79,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	x86stdcallcallconv_low_level: INTEGER is
+	x_86stdcall_call_conv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	x86fastcallcallconv_low_level: INTEGER is
+	x_86fastcall_call_conv_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

@@ -11,20 +11,20 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = termopsbegin_low_level)  or else
+			Result := ((a_value = term_ops_begin_low_level)  or else
 				(a_value = br_low_level)  or else
 				(a_value = switch_low_level)  or else
 				(a_value = invoke_low_level)  or else
 				(a_value = unwind_low_level)  or else
 				(a_value = unreachable_low_level)  or else
-				(a_value = termopsend_low_level) )
+				(a_value = term_ops_end_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_termopsbegin is
+	set_term_ops_begin is
 		do
-			value := termopsbegin_low_level
+			value := term_ops_begin_low_level
 		end
 
 	set_br is
@@ -52,15 +52,15 @@ feature -- Setters
 			value := unreachable_low_level
 		end
 
-	set_termopsend is
+	set_term_ops_end is
 		do
-			value := termopsend_low_level
+			value := term_ops_end_low_level
 		end
 
 feature -- Queries
-	is_termopsbegin: BOOLEAN is
+	is_term_ops_begin: BOOLEAN is
 		do
-			Result := (value=termopsbegin_low_level)
+			Result := (value=term_ops_begin_low_level)
 		end
 
 	is_br: BOOLEAN is
@@ -88,13 +88,13 @@ feature -- Queries
 			Result := (value=unreachable_low_level)
 		end
 
-	is_termopsend: BOOLEAN is
+	is_term_ops_end: BOOLEAN is
 		do
-			Result := (value=termopsend_low_level)
+			Result := (value=term_ops_end_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	termopsbegin_low_level: INTEGER is
+	term_ops_begin_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -148,7 +148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	termopsend_low_level: INTEGER is
+	term_ops_end_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

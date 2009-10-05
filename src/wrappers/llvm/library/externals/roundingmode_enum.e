@@ -11,57 +11,57 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = nearesttiestoeven_low_level)  or else
-				(a_value = towardnegative_low_level)  or else
-				(a_value = towardzero_low_level)  or else
-				(a_value = nearesttiestoaway_low_level) )
+			Result := ((a_value = nearest_ties_to_even_low_level)  or else
+				(a_value = toward_negative_low_level)  or else
+				(a_value = toward_zero_low_level)  or else
+				(a_value = nearest_ties_to_away_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_nearesttiestoeven is
+	set_nearest_ties_to_even is
 		do
-			value := nearesttiestoeven_low_level
+			value := nearest_ties_to_even_low_level
 		end
 
-	set_towardnegative is
+	set_toward_negative is
 		do
-			value := towardnegative_low_level
+			value := toward_negative_low_level
 		end
 
-	set_towardzero is
+	set_toward_zero is
 		do
-			value := towardzero_low_level
+			value := toward_zero_low_level
 		end
 
-	set_nearesttiestoaway is
+	set_nearest_ties_to_away is
 		do
-			value := nearesttiestoaway_low_level
+			value := nearest_ties_to_away_low_level
 		end
 
 feature -- Queries
-	is_nearesttiestoeven: BOOLEAN is
+	is_nearest_ties_to_even: BOOLEAN is
 		do
-			Result := (value=nearesttiestoeven_low_level)
+			Result := (value=nearest_ties_to_even_low_level)
 		end
 
-	is_towardnegative: BOOLEAN is
+	is_toward_negative: BOOLEAN is
 		do
-			Result := (value=towardnegative_low_level)
+			Result := (value=toward_negative_low_level)
 		end
 
-	is_towardzero: BOOLEAN is
+	is_toward_zero: BOOLEAN is
 		do
-			Result := (value=towardzero_low_level)
+			Result := (value=toward_zero_low_level)
 		end
 
-	is_nearesttiestoaway: BOOLEAN is
+	is_nearest_ties_to_away: BOOLEAN is
 		do
-			Result := (value=nearesttiestoaway_low_level)
+			Result := (value=nearest_ties_to_away_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	nearesttiestoeven_low_level: INTEGER is
+	nearest_ties_to_even_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -70,7 +70,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	towardnegative_low_level: INTEGER is
+	toward_negative_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,7 +79,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	towardzero_low_level: INTEGER is
+	toward_zero_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nearesttiestoaway_low_level: INTEGER is
+	nearest_ties_to_away_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

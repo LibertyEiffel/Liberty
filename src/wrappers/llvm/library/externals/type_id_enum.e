@@ -11,200 +11,200 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = voidtyid_low_level)  or else
-				(a_value = doubletyid_low_level)  or else
-				(a_value = x86_fp80tyid_low_level)  or else
-				(a_value = fp128tyid_low_level)  or else
-				(a_value = ppc_fp128tyid_low_level)  or else
-				(a_value = labeltyid_low_level)  or else
-				(a_value = metadatatyid_low_level)  or else
-				(a_value = integertyid_low_level)  or else
-				(a_value = functiontyid_low_level)  or else
-				(a_value = structtyid_low_level)  or else
-				(a_value = arraytyid_low_level)  or else
-				(a_value = pointertyid_low_level)  or else
-				(a_value = opaquetyid_low_level)  or else
-				(a_value = vectortyid_low_level)  or else
-				(a_value = numtypeids_low_level)  or else
-				(a_value = lastprimitivetyid_low_level)  or else
-				(a_value = firstderivedtyid_low_level) )
+			Result := ((a_value = void_ty_id_low_level)  or else
+				(a_value = double_ty_id_low_level)  or else
+				(a_value = x_86_fp_80ty_id_low_level)  or else
+				(a_value = fp_128ty_id_low_level)  or else
+				(a_value = ppc__fp_128ty_id_low_level)  or else
+				(a_value = label_ty_id_low_level)  or else
+				(a_value = metadata_ty_id_low_level)  or else
+				(a_value = integer_ty_id_low_level)  or else
+				(a_value = function_ty_id_low_level)  or else
+				(a_value = struct_ty_id_low_level)  or else
+				(a_value = array_ty_id_low_level)  or else
+				(a_value = pointer_ty_id_low_level)  or else
+				(a_value = opaque_ty_id_low_level)  or else
+				(a_value = vector_ty_id_low_level)  or else
+				(a_value = num_type_ids_low_level)  or else
+				(a_value = last_primitive_ty_id_low_level)  or else
+				(a_value = first_derived_ty_id_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_voidtyid is
+	set_void_ty_id is
 		do
-			value := voidtyid_low_level
+			value := void_ty_id_low_level
 		end
 
-	set_doubletyid is
+	set_double_ty_id is
 		do
-			value := doubletyid_low_level
+			value := double_ty_id_low_level
 		end
 
-	set_x86_fp80tyid is
+	set_x_86_fp_80ty_id is
 		do
-			value := x86_fp80tyid_low_level
+			value := x_86_fp_80ty_id_low_level
 		end
 
-	set_fp128tyid is
+	set_fp_128ty_id is
 		do
-			value := fp128tyid_low_level
+			value := fp_128ty_id_low_level
 		end
 
-	set_ppc_fp128tyid is
+	set_ppc__fp_128ty_id is
 		do
-			value := ppc_fp128tyid_low_level
+			value := ppc__fp_128ty_id_low_level
 		end
 
-	set_labeltyid is
+	set_label_ty_id is
 		do
-			value := labeltyid_low_level
+			value := label_ty_id_low_level
 		end
 
-	set_metadatatyid is
+	set_metadata_ty_id is
 		do
-			value := metadatatyid_low_level
+			value := metadata_ty_id_low_level
 		end
 
-	set_integertyid is
+	set_integer_ty_id is
 		do
-			value := integertyid_low_level
+			value := integer_ty_id_low_level
 		end
 
-	set_functiontyid is
+	set_function_ty_id is
 		do
-			value := functiontyid_low_level
+			value := function_ty_id_low_level
 		end
 
-	set_structtyid is
+	set_struct_ty_id is
 		do
-			value := structtyid_low_level
+			value := struct_ty_id_low_level
 		end
 
-	set_arraytyid is
+	set_array_ty_id is
 		do
-			value := arraytyid_low_level
+			value := array_ty_id_low_level
 		end
 
-	set_pointertyid is
+	set_pointer_ty_id is
 		do
-			value := pointertyid_low_level
+			value := pointer_ty_id_low_level
 		end
 
-	set_opaquetyid is
+	set_opaque_ty_id is
 		do
-			value := opaquetyid_low_level
+			value := opaque_ty_id_low_level
 		end
 
-	set_vectortyid is
+	set_vector_ty_id is
 		do
-			value := vectortyid_low_level
+			value := vector_ty_id_low_level
 		end
 
-	set_numtypeids is
+	set_num_type_ids is
 		do
-			value := numtypeids_low_level
+			value := num_type_ids_low_level
 		end
 
-	set_lastprimitivetyid is
+	set_last_primitive_ty_id is
 		do
-			value := lastprimitivetyid_low_level
+			value := last_primitive_ty_id_low_level
 		end
 
-	set_firstderivedtyid is
+	set_first_derived_ty_id is
 		do
-			value := firstderivedtyid_low_level
+			value := first_derived_ty_id_low_level
 		end
 
 feature -- Queries
-	is_voidtyid: BOOLEAN is
+	is_void_ty_id: BOOLEAN is
 		do
-			Result := (value=voidtyid_low_level)
+			Result := (value=void_ty_id_low_level)
 		end
 
-	is_doubletyid: BOOLEAN is
+	is_double_ty_id: BOOLEAN is
 		do
-			Result := (value=doubletyid_low_level)
+			Result := (value=double_ty_id_low_level)
 		end
 
-	is_x86_fp80tyid: BOOLEAN is
+	is_x_86_fp_80ty_id: BOOLEAN is
 		do
-			Result := (value=x86_fp80tyid_low_level)
+			Result := (value=x_86_fp_80ty_id_low_level)
 		end
 
-	is_fp128tyid: BOOLEAN is
+	is_fp_128ty_id: BOOLEAN is
 		do
-			Result := (value=fp128tyid_low_level)
+			Result := (value=fp_128ty_id_low_level)
 		end
 
-	is_ppc_fp128tyid: BOOLEAN is
+	is_ppc__fp_128ty_id: BOOLEAN is
 		do
-			Result := (value=ppc_fp128tyid_low_level)
+			Result := (value=ppc__fp_128ty_id_low_level)
 		end
 
-	is_labeltyid: BOOLEAN is
+	is_label_ty_id: BOOLEAN is
 		do
-			Result := (value=labeltyid_low_level)
+			Result := (value=label_ty_id_low_level)
 		end
 
-	is_metadatatyid: BOOLEAN is
+	is_metadata_ty_id: BOOLEAN is
 		do
-			Result := (value=metadatatyid_low_level)
+			Result := (value=metadata_ty_id_low_level)
 		end
 
-	is_integertyid: BOOLEAN is
+	is_integer_ty_id: BOOLEAN is
 		do
-			Result := (value=integertyid_low_level)
+			Result := (value=integer_ty_id_low_level)
 		end
 
-	is_functiontyid: BOOLEAN is
+	is_function_ty_id: BOOLEAN is
 		do
-			Result := (value=functiontyid_low_level)
+			Result := (value=function_ty_id_low_level)
 		end
 
-	is_structtyid: BOOLEAN is
+	is_struct_ty_id: BOOLEAN is
 		do
-			Result := (value=structtyid_low_level)
+			Result := (value=struct_ty_id_low_level)
 		end
 
-	is_arraytyid: BOOLEAN is
+	is_array_ty_id: BOOLEAN is
 		do
-			Result := (value=arraytyid_low_level)
+			Result := (value=array_ty_id_low_level)
 		end
 
-	is_pointertyid: BOOLEAN is
+	is_pointer_ty_id: BOOLEAN is
 		do
-			Result := (value=pointertyid_low_level)
+			Result := (value=pointer_ty_id_low_level)
 		end
 
-	is_opaquetyid: BOOLEAN is
+	is_opaque_ty_id: BOOLEAN is
 		do
-			Result := (value=opaquetyid_low_level)
+			Result := (value=opaque_ty_id_low_level)
 		end
 
-	is_vectortyid: BOOLEAN is
+	is_vector_ty_id: BOOLEAN is
 		do
-			Result := (value=vectortyid_low_level)
+			Result := (value=vector_ty_id_low_level)
 		end
 
-	is_numtypeids: BOOLEAN is
+	is_num_type_ids: BOOLEAN is
 		do
-			Result := (value=numtypeids_low_level)
+			Result := (value=num_type_ids_low_level)
 		end
 
-	is_lastprimitivetyid: BOOLEAN is
+	is_last_primitive_ty_id: BOOLEAN is
 		do
-			Result := (value=lastprimitivetyid_low_level)
+			Result := (value=last_primitive_ty_id_low_level)
 		end
 
-	is_firstderivedtyid: BOOLEAN is
+	is_first_derived_ty_id: BOOLEAN is
 		do
-			Result := (value=firstderivedtyid_low_level)
+			Result := (value=first_derived_ty_id_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	voidtyid_low_level: INTEGER is
+	void_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -213,7 +213,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	doubletyid_low_level: INTEGER is
+	double_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -222,7 +222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	x86_fp80tyid_low_level: INTEGER is
+	x_86_fp_80ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -231,7 +231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fp128tyid_low_level: INTEGER is
+	fp_128ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -240,7 +240,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ppc_fp128tyid_low_level: INTEGER is
+	ppc__fp_128ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -249,7 +249,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	labeltyid_low_level: INTEGER is
+	label_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -258,7 +258,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	metadatatyid_low_level: INTEGER is
+	metadata_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -267,7 +267,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	integertyid_low_level: INTEGER is
+	integer_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -276,7 +276,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	functiontyid_low_level: INTEGER is
+	function_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -285,7 +285,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	structtyid_low_level: INTEGER is
+	struct_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -294,7 +294,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	arraytyid_low_level: INTEGER is
+	array_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -303,7 +303,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	pointertyid_low_level: INTEGER is
+	pointer_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -312,7 +312,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	opaquetyid_low_level: INTEGER is
+	opaque_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -321,7 +321,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	vectortyid_low_level: INTEGER is
+	vector_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -330,7 +330,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	numtypeids_low_level: INTEGER is
+	num_type_ids_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -339,7 +339,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	lastprimitivetyid_low_level: INTEGER is
+	last_primitive_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -348,7 +348,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	firstderivedtyid_low_level: INTEGER is
+	first_derived_ty_id_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

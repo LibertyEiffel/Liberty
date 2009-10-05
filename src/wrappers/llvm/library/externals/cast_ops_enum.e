@@ -11,26 +11,26 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = castopsbegin_low_level)  or else
+			Result := ((a_value = cast_ops_begin_low_level)  or else
 				(a_value = zext_low_level)  or else
 				(a_value = sext_low_level)  or else
-				(a_value = fptoui_low_level)  or else
-				(a_value = fptosi_low_level)  or else
-				(a_value = uitofp_low_level)  or else
-				(a_value = sitofp_low_level)  or else
+				(a_value = fpto_ui_low_level)  or else
+				(a_value = fpto_si_low_level)  or else
+				(a_value = uito_fp_low_level)  or else
+				(a_value = sito_fp_low_level)  or else
 				(a_value = fptrunc_low_level)  or else
 				(a_value = fpext_low_level)  or else
-				(a_value = ptrtoint_low_level)  or else
-				(a_value = inttoptr_low_level)  or else
-				(a_value = bitcast_low_level)  or else
-				(a_value = castopsend_low_level) )
+				(a_value = ptr_to_int_low_level)  or else
+				(a_value = int_to_ptr_low_level)  or else
+				(a_value = bit_cast_low_level)  or else
+				(a_value = cast_ops_end_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_castopsbegin is
+	set_cast_ops_begin is
 		do
-			value := castopsbegin_low_level
+			value := cast_ops_begin_low_level
 		end
 
 	set_zext is
@@ -43,24 +43,24 @@ feature -- Setters
 			value := sext_low_level
 		end
 
-	set_fptoui is
+	set_fpto_ui is
 		do
-			value := fptoui_low_level
+			value := fpto_ui_low_level
 		end
 
-	set_fptosi is
+	set_fpto_si is
 		do
-			value := fptosi_low_level
+			value := fpto_si_low_level
 		end
 
-	set_uitofp is
+	set_uito_fp is
 		do
-			value := uitofp_low_level
+			value := uito_fp_low_level
 		end
 
-	set_sitofp is
+	set_sito_fp is
 		do
-			value := sitofp_low_level
+			value := sito_fp_low_level
 		end
 
 	set_fptrunc is
@@ -73,30 +73,30 @@ feature -- Setters
 			value := fpext_low_level
 		end
 
-	set_ptrtoint is
+	set_ptr_to_int is
 		do
-			value := ptrtoint_low_level
+			value := ptr_to_int_low_level
 		end
 
-	set_inttoptr is
+	set_int_to_ptr is
 		do
-			value := inttoptr_low_level
+			value := int_to_ptr_low_level
 		end
 
-	set_bitcast is
+	set_bit_cast is
 		do
-			value := bitcast_low_level
+			value := bit_cast_low_level
 		end
 
-	set_castopsend is
+	set_cast_ops_end is
 		do
-			value := castopsend_low_level
+			value := cast_ops_end_low_level
 		end
 
 feature -- Queries
-	is_castopsbegin: BOOLEAN is
+	is_cast_ops_begin: BOOLEAN is
 		do
-			Result := (value=castopsbegin_low_level)
+			Result := (value=cast_ops_begin_low_level)
 		end
 
 	is_zext: BOOLEAN is
@@ -109,24 +109,24 @@ feature -- Queries
 			Result := (value=sext_low_level)
 		end
 
-	is_fptoui: BOOLEAN is
+	is_fpto_ui: BOOLEAN is
 		do
-			Result := (value=fptoui_low_level)
+			Result := (value=fpto_ui_low_level)
 		end
 
-	is_fptosi: BOOLEAN is
+	is_fpto_si: BOOLEAN is
 		do
-			Result := (value=fptosi_low_level)
+			Result := (value=fpto_si_low_level)
 		end
 
-	is_uitofp: BOOLEAN is
+	is_uito_fp: BOOLEAN is
 		do
-			Result := (value=uitofp_low_level)
+			Result := (value=uito_fp_low_level)
 		end
 
-	is_sitofp: BOOLEAN is
+	is_sito_fp: BOOLEAN is
 		do
-			Result := (value=sitofp_low_level)
+			Result := (value=sito_fp_low_level)
 		end
 
 	is_fptrunc: BOOLEAN is
@@ -139,28 +139,28 @@ feature -- Queries
 			Result := (value=fpext_low_level)
 		end
 
-	is_ptrtoint: BOOLEAN is
+	is_ptr_to_int: BOOLEAN is
 		do
-			Result := (value=ptrtoint_low_level)
+			Result := (value=ptr_to_int_low_level)
 		end
 
-	is_inttoptr: BOOLEAN is
+	is_int_to_ptr: BOOLEAN is
 		do
-			Result := (value=inttoptr_low_level)
+			Result := (value=int_to_ptr_low_level)
 		end
 
-	is_bitcast: BOOLEAN is
+	is_bit_cast: BOOLEAN is
 		do
-			Result := (value=bitcast_low_level)
+			Result := (value=bit_cast_low_level)
 		end
 
-	is_castopsend: BOOLEAN is
+	is_cast_ops_end: BOOLEAN is
 		do
-			Result := (value=castopsend_low_level)
+			Result := (value=cast_ops_end_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	castopsbegin_low_level: INTEGER is
+	cast_ops_begin_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -187,7 +187,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fptoui_low_level: INTEGER is
+	fpto_ui_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -196,7 +196,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fptosi_low_level: INTEGER is
+	fpto_si_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -205,7 +205,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uitofp_low_level: INTEGER is
+	uito_fp_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -214,7 +214,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sitofp_low_level: INTEGER is
+	sito_fp_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -241,7 +241,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ptrtoint_low_level: INTEGER is
+	ptr_to_int_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -250,7 +250,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inttoptr_low_level: INTEGER is
+	int_to_ptr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -259,7 +259,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	bitcast_low_level: INTEGER is
+	bit_cast_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -268,7 +268,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	castopsend_low_level: INTEGER is
+	cast_ops_end_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

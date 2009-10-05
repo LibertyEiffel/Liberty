@@ -11,20 +11,20 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = memoryopsbegin_low_level)  or else
+			Result := ((a_value = memory_ops_begin_low_level)  or else
 				(a_value = free_low_level)  or else
 				(a_value = alloca_low_level)  or else
 				(a_value = load_low_level)  or else
 				(a_value = store_low_level)  or else
-				(a_value = getelementptr_low_level)  or else
-				(a_value = memoryopsend_low_level) )
+				(a_value = get_element_ptr_low_level)  or else
+				(a_value = memory_ops_end_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_memoryopsbegin is
+	set_memory_ops_begin is
 		do
-			value := memoryopsbegin_low_level
+			value := memory_ops_begin_low_level
 		end
 
 	set_free is
@@ -47,20 +47,20 @@ feature -- Setters
 			value := store_low_level
 		end
 
-	set_getelementptr is
+	set_get_element_ptr is
 		do
-			value := getelementptr_low_level
+			value := get_element_ptr_low_level
 		end
 
-	set_memoryopsend is
+	set_memory_ops_end is
 		do
-			value := memoryopsend_low_level
+			value := memory_ops_end_low_level
 		end
 
 feature -- Queries
-	is_memoryopsbegin: BOOLEAN is
+	is_memory_ops_begin: BOOLEAN is
 		do
-			Result := (value=memoryopsbegin_low_level)
+			Result := (value=memory_ops_begin_low_level)
 		end
 
 	is_free: BOOLEAN is
@@ -83,18 +83,18 @@ feature -- Queries
 			Result := (value=store_low_level)
 		end
 
-	is_getelementptr: BOOLEAN is
+	is_get_element_ptr: BOOLEAN is
 		do
-			Result := (value=getelementptr_low_level)
+			Result := (value=get_element_ptr_low_level)
 		end
 
-	is_memoryopsend: BOOLEAN is
+	is_memory_ops_end: BOOLEAN is
 		do
-			Result := (value=memoryopsend_low_level)
+			Result := (value=memory_ops_end_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	memoryopsbegin_low_level: INTEGER is
+	memory_ops_begin_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -139,7 +139,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	getelementptr_low_level: INTEGER is
+	get_element_ptr_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -148,7 +148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	memoryopsend_low_level: INTEGER is
+	memory_ops_end_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

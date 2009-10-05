@@ -11,145 +11,145 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = nullkind_low_level)  or else
-				(a_value = twinekind_low_level)  or else
-				(a_value = cstringkind_low_level)  or else
-				(a_value = stdstringkind_low_level)  or else
-				(a_value = stringrefkind_low_level)  or else
-				(a_value = decuikind_low_level)  or else
-				(a_value = decikind_low_level)  or else
-				(a_value = deculkind_low_level)  or else
-				(a_value = declkind_low_level)  or else
-				(a_value = decullkind_low_level)  or else
-				(a_value = decllkind_low_level)  or else
-				(a_value = uhexkind_low_level) )
+			Result := ((a_value = null_kind_low_level)  or else
+				(a_value = twine_kind_low_level)  or else
+				(a_value = cstring_kind_low_level)  or else
+				(a_value = std_string_kind_low_level)  or else
+				(a_value = string_ref_kind_low_level)  or else
+				(a_value = dec_uikind_low_level)  or else
+				(a_value = dec_ikind_low_level)  or else
+				(a_value = dec_ulkind_low_level)  or else
+				(a_value = dec_lkind_low_level)  or else
+				(a_value = dec_ullkind_low_level)  or else
+				(a_value = dec_llkind_low_level)  or else
+				(a_value = uhex_kind_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_nullkind is
+	set_null_kind is
 		do
-			value := nullkind_low_level
+			value := null_kind_low_level
 		end
 
-	set_twinekind is
+	set_twine_kind is
 		do
-			value := twinekind_low_level
+			value := twine_kind_low_level
 		end
 
-	set_cstringkind is
+	set_cstring_kind is
 		do
-			value := cstringkind_low_level
+			value := cstring_kind_low_level
 		end
 
-	set_stdstringkind is
+	set_std_string_kind is
 		do
-			value := stdstringkind_low_level
+			value := std_string_kind_low_level
 		end
 
-	set_stringrefkind is
+	set_string_ref_kind is
 		do
-			value := stringrefkind_low_level
+			value := string_ref_kind_low_level
 		end
 
-	set_decuikind is
+	set_dec_uikind is
 		do
-			value := decuikind_low_level
+			value := dec_uikind_low_level
 		end
 
-	set_decikind is
+	set_dec_ikind is
 		do
-			value := decikind_low_level
+			value := dec_ikind_low_level
 		end
 
-	set_deculkind is
+	set_dec_ulkind is
 		do
-			value := deculkind_low_level
+			value := dec_ulkind_low_level
 		end
 
-	set_declkind is
+	set_dec_lkind is
 		do
-			value := declkind_low_level
+			value := dec_lkind_low_level
 		end
 
-	set_decullkind is
+	set_dec_ullkind is
 		do
-			value := decullkind_low_level
+			value := dec_ullkind_low_level
 		end
 
-	set_decllkind is
+	set_dec_llkind is
 		do
-			value := decllkind_low_level
+			value := dec_llkind_low_level
 		end
 
-	set_uhexkind is
+	set_uhex_kind is
 		do
-			value := uhexkind_low_level
+			value := uhex_kind_low_level
 		end
 
 feature -- Queries
-	is_nullkind: BOOLEAN is
+	is_null_kind: BOOLEAN is
 		do
-			Result := (value=nullkind_low_level)
+			Result := (value=null_kind_low_level)
 		end
 
-	is_twinekind: BOOLEAN is
+	is_twine_kind: BOOLEAN is
 		do
-			Result := (value=twinekind_low_level)
+			Result := (value=twine_kind_low_level)
 		end
 
-	is_cstringkind: BOOLEAN is
+	is_cstring_kind: BOOLEAN is
 		do
-			Result := (value=cstringkind_low_level)
+			Result := (value=cstring_kind_low_level)
 		end
 
-	is_stdstringkind: BOOLEAN is
+	is_std_string_kind: BOOLEAN is
 		do
-			Result := (value=stdstringkind_low_level)
+			Result := (value=std_string_kind_low_level)
 		end
 
-	is_stringrefkind: BOOLEAN is
+	is_string_ref_kind: BOOLEAN is
 		do
-			Result := (value=stringrefkind_low_level)
+			Result := (value=string_ref_kind_low_level)
 		end
 
-	is_decuikind: BOOLEAN is
+	is_dec_uikind: BOOLEAN is
 		do
-			Result := (value=decuikind_low_level)
+			Result := (value=dec_uikind_low_level)
 		end
 
-	is_decikind: BOOLEAN is
+	is_dec_ikind: BOOLEAN is
 		do
-			Result := (value=decikind_low_level)
+			Result := (value=dec_ikind_low_level)
 		end
 
-	is_deculkind: BOOLEAN is
+	is_dec_ulkind: BOOLEAN is
 		do
-			Result := (value=deculkind_low_level)
+			Result := (value=dec_ulkind_low_level)
 		end
 
-	is_declkind: BOOLEAN is
+	is_dec_lkind: BOOLEAN is
 		do
-			Result := (value=declkind_low_level)
+			Result := (value=dec_lkind_low_level)
 		end
 
-	is_decullkind: BOOLEAN is
+	is_dec_ullkind: BOOLEAN is
 		do
-			Result := (value=decullkind_low_level)
+			Result := (value=dec_ullkind_low_level)
 		end
 
-	is_decllkind: BOOLEAN is
+	is_dec_llkind: BOOLEAN is
 		do
-			Result := (value=decllkind_low_level)
+			Result := (value=dec_llkind_low_level)
 		end
 
-	is_uhexkind: BOOLEAN is
+	is_uhex_kind: BOOLEAN is
 		do
-			Result := (value=uhexkind_low_level)
+			Result := (value=uhex_kind_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	nullkind_low_level: INTEGER is
+	null_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -158,7 +158,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	twinekind_low_level: INTEGER is
+	twine_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -167,7 +167,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	cstringkind_low_level: INTEGER is
+	cstring_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -176,7 +176,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	stdstringkind_low_level: INTEGER is
+	std_string_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -185,7 +185,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	stringrefkind_low_level: INTEGER is
+	string_ref_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -194,7 +194,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	decuikind_low_level: INTEGER is
+	dec_uikind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -203,7 +203,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	decikind_low_level: INTEGER is
+	dec_ikind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -212,7 +212,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	deculkind_low_level: INTEGER is
+	dec_ulkind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -221,7 +221,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	declkind_low_level: INTEGER is
+	dec_lkind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -230,7 +230,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	decullkind_low_level: INTEGER is
+	dec_ullkind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -239,7 +239,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	decllkind_low_level: INTEGER is
+	dec_llkind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -248,7 +248,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uhexkind_low_level: INTEGER is
+	uhex_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

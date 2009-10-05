@@ -11,167 +11,167 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = voidtypekind_low_level)  or else
-				(a_value = doubletypekind_low_level)  or else
-				(a_value = x86_fp80typekind_low_level)  or else
-				(a_value = fp128typekind_low_level)  or else
-				(a_value = ppc_fp128typekind_low_level)  or else
-				(a_value = labeltypekind_low_level)  or else
-				(a_value = integertypekind_low_level)  or else
-				(a_value = functiontypekind_low_level)  or else
-				(a_value = structtypekind_low_level)  or else
-				(a_value = arraytypekind_low_level)  or else
-				(a_value = pointertypekind_low_level)  or else
-				(a_value = opaquetypekind_low_level)  or else
-				(a_value = vectortypekind_low_level)  or else
-				(a_value = metadatatypekind_low_level) )
+			Result := ((a_value = void_type_kind_low_level)  or else
+				(a_value = double_type_kind_low_level)  or else
+				(a_value = x_86_fp_80type_kind_low_level)  or else
+				(a_value = fp_128type_kind_low_level)  or else
+				(a_value = ppc__fp_128type_kind_low_level)  or else
+				(a_value = label_type_kind_low_level)  or else
+				(a_value = integer_type_kind_low_level)  or else
+				(a_value = function_type_kind_low_level)  or else
+				(a_value = struct_type_kind_low_level)  or else
+				(a_value = array_type_kind_low_level)  or else
+				(a_value = pointer_type_kind_low_level)  or else
+				(a_value = opaque_type_kind_low_level)  or else
+				(a_value = vector_type_kind_low_level)  or else
+				(a_value = metadata_type_kind_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_voidtypekind is
+	set_void_type_kind is
 		do
-			value := voidtypekind_low_level
+			value := void_type_kind_low_level
 		end
 
-	set_doubletypekind is
+	set_double_type_kind is
 		do
-			value := doubletypekind_low_level
+			value := double_type_kind_low_level
 		end
 
-	set_x86_fp80typekind is
+	set_x_86_fp_80type_kind is
 		do
-			value := x86_fp80typekind_low_level
+			value := x_86_fp_80type_kind_low_level
 		end
 
-	set_fp128typekind is
+	set_fp_128type_kind is
 		do
-			value := fp128typekind_low_level
+			value := fp_128type_kind_low_level
 		end
 
-	set_ppc_fp128typekind is
+	set_ppc__fp_128type_kind is
 		do
-			value := ppc_fp128typekind_low_level
+			value := ppc__fp_128type_kind_low_level
 		end
 
-	set_labeltypekind is
+	set_label_type_kind is
 		do
-			value := labeltypekind_low_level
+			value := label_type_kind_low_level
 		end
 
-	set_integertypekind is
+	set_integer_type_kind is
 		do
-			value := integertypekind_low_level
+			value := integer_type_kind_low_level
 		end
 
-	set_functiontypekind is
+	set_function_type_kind is
 		do
-			value := functiontypekind_low_level
+			value := function_type_kind_low_level
 		end
 
-	set_structtypekind is
+	set_struct_type_kind is
 		do
-			value := structtypekind_low_level
+			value := struct_type_kind_low_level
 		end
 
-	set_arraytypekind is
+	set_array_type_kind is
 		do
-			value := arraytypekind_low_level
+			value := array_type_kind_low_level
 		end
 
-	set_pointertypekind is
+	set_pointer_type_kind is
 		do
-			value := pointertypekind_low_level
+			value := pointer_type_kind_low_level
 		end
 
-	set_opaquetypekind is
+	set_opaque_type_kind is
 		do
-			value := opaquetypekind_low_level
+			value := opaque_type_kind_low_level
 		end
 
-	set_vectortypekind is
+	set_vector_type_kind is
 		do
-			value := vectortypekind_low_level
+			value := vector_type_kind_low_level
 		end
 
-	set_metadatatypekind is
+	set_metadata_type_kind is
 		do
-			value := metadatatypekind_low_level
+			value := metadata_type_kind_low_level
 		end
 
 feature -- Queries
-	is_voidtypekind: BOOLEAN is
+	is_void_type_kind: BOOLEAN is
 		do
-			Result := (value=voidtypekind_low_level)
+			Result := (value=void_type_kind_low_level)
 		end
 
-	is_doubletypekind: BOOLEAN is
+	is_double_type_kind: BOOLEAN is
 		do
-			Result := (value=doubletypekind_low_level)
+			Result := (value=double_type_kind_low_level)
 		end
 
-	is_x86_fp80typekind: BOOLEAN is
+	is_x_86_fp_80type_kind: BOOLEAN is
 		do
-			Result := (value=x86_fp80typekind_low_level)
+			Result := (value=x_86_fp_80type_kind_low_level)
 		end
 
-	is_fp128typekind: BOOLEAN is
+	is_fp_128type_kind: BOOLEAN is
 		do
-			Result := (value=fp128typekind_low_level)
+			Result := (value=fp_128type_kind_low_level)
 		end
 
-	is_ppc_fp128typekind: BOOLEAN is
+	is_ppc__fp_128type_kind: BOOLEAN is
 		do
-			Result := (value=ppc_fp128typekind_low_level)
+			Result := (value=ppc__fp_128type_kind_low_level)
 		end
 
-	is_labeltypekind: BOOLEAN is
+	is_label_type_kind: BOOLEAN is
 		do
-			Result := (value=labeltypekind_low_level)
+			Result := (value=label_type_kind_low_level)
 		end
 
-	is_integertypekind: BOOLEAN is
+	is_integer_type_kind: BOOLEAN is
 		do
-			Result := (value=integertypekind_low_level)
+			Result := (value=integer_type_kind_low_level)
 		end
 
-	is_functiontypekind: BOOLEAN is
+	is_function_type_kind: BOOLEAN is
 		do
-			Result := (value=functiontypekind_low_level)
+			Result := (value=function_type_kind_low_level)
 		end
 
-	is_structtypekind: BOOLEAN is
+	is_struct_type_kind: BOOLEAN is
 		do
-			Result := (value=structtypekind_low_level)
+			Result := (value=struct_type_kind_low_level)
 		end
 
-	is_arraytypekind: BOOLEAN is
+	is_array_type_kind: BOOLEAN is
 		do
-			Result := (value=arraytypekind_low_level)
+			Result := (value=array_type_kind_low_level)
 		end
 
-	is_pointertypekind: BOOLEAN is
+	is_pointer_type_kind: BOOLEAN is
 		do
-			Result := (value=pointertypekind_low_level)
+			Result := (value=pointer_type_kind_low_level)
 		end
 
-	is_opaquetypekind: BOOLEAN is
+	is_opaque_type_kind: BOOLEAN is
 		do
-			Result := (value=opaquetypekind_low_level)
+			Result := (value=opaque_type_kind_low_level)
 		end
 
-	is_vectortypekind: BOOLEAN is
+	is_vector_type_kind: BOOLEAN is
 		do
-			Result := (value=vectortypekind_low_level)
+			Result := (value=vector_type_kind_low_level)
 		end
 
-	is_metadatatypekind: BOOLEAN is
+	is_metadata_type_kind: BOOLEAN is
 		do
-			Result := (value=metadatatypekind_low_level)
+			Result := (value=metadata_type_kind_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	voidtypekind_low_level: INTEGER is
+	void_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -180,7 +180,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	doubletypekind_low_level: INTEGER is
+	double_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -189,7 +189,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	x86_fp80typekind_low_level: INTEGER is
+	x_86_fp_80type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -198,7 +198,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fp128typekind_low_level: INTEGER is
+	fp_128type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -207,7 +207,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ppc_fp128typekind_low_level: INTEGER is
+	ppc__fp_128type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -216,7 +216,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	labeltypekind_low_level: INTEGER is
+	label_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -225,7 +225,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	integertypekind_low_level: INTEGER is
+	integer_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -234,7 +234,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	functiontypekind_low_level: INTEGER is
+	function_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -243,7 +243,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	structtypekind_low_level: INTEGER is
+	struct_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -252,7 +252,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	arraytypekind_low_level: INTEGER is
+	array_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -261,7 +261,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	pointertypekind_low_level: INTEGER is
+	pointer_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -270,7 +270,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	opaquetypekind_low_level: INTEGER is
+	opaque_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -279,7 +279,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	vectortypekind_low_level: INTEGER is
+	vector_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -288,7 +288,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	metadatatypekind_low_level: INTEGER is
+	metadata_type_kind_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

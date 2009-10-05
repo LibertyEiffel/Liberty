@@ -17,15 +17,13 @@ feature
 
 	c_value: STRING is do Result:=c_name.to_utf8 end
 
-	eiffel_value: STRING is do Result:=c_name.as_utf8.as_lower end 
-
 	eiffel_name: STRING is 
 		local enum: C_ENUM
 		do 
 			if stored_eiffel_name=Void then
-				create stored_eiffel_name.copy(eiffel_value)
+				create stored_eiffel_name.copy(c_name.as_utf8)
 				enum ?= parent
-				if enum/=Void then
+				if enum/=Void and then enum.prefix_length > 0 then
 					stored_eiffel_name.remove_head(enum.prefix_length)
 				else
 					debug

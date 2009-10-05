@@ -11,7 +11,7 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = predicatefalse_low_level)  or else
+			Result := ((a_value = predicate_false_low_level)  or else
 				(a_value = ogt_low_level)  or else
 				(a_value = oge_low_level)  or else
 				(a_value = olt_low_level)  or else
@@ -25,14 +25,14 @@ feature -- Validity
 				(a_value = ult_low_level)  or else
 				(a_value = ule_low_level)  or else
 				(a_value = une_low_level)  or else
-				(a_value = predicatetrue_low_level) )
+				(a_value = predicate_true_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_predicatefalse is
+	set_predicate_false is
 		do
-			value := predicatefalse_low_level
+			value := predicate_false_low_level
 		end
 
 	set_ogt is
@@ -100,15 +100,15 @@ feature -- Setters
 			value := une_low_level
 		end
 
-	set_predicatetrue is
+	set_predicate_true is
 		do
-			value := predicatetrue_low_level
+			value := predicate_true_low_level
 		end
 
 feature -- Queries
-	is_predicatefalse: BOOLEAN is
+	is_predicate_false: BOOLEAN is
 		do
-			Result := (value=predicatefalse_low_level)
+			Result := (value=predicate_false_low_level)
 		end
 
 	is_ogt: BOOLEAN is
@@ -176,13 +176,13 @@ feature -- Queries
 			Result := (value=une_low_level)
 		end
 
-	is_predicatetrue: BOOLEAN is
+	is_predicate_true: BOOLEAN is
 		do
-			Result := (value=predicatetrue_low_level)
+			Result := (value=predicate_true_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	predicatefalse_low_level: INTEGER is
+	predicate_false_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -308,7 +308,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	predicatetrue_low_level: INTEGER is
+	predicate_true_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

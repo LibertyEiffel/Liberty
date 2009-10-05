@@ -11,35 +11,35 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = anypointersize_low_level)  or else
-				(a_value = pointer64_low_level) )
+			Result := ((a_value = any_pointer_size_low_level)  or else
+				(a_value = pointer_64_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_anypointersize is
+	set_any_pointer_size is
 		do
-			value := anypointersize_low_level
+			value := any_pointer_size_low_level
 		end
 
-	set_pointer64 is
+	set_pointer_64 is
 		do
-			value := pointer64_low_level
+			value := pointer_64_low_level
 		end
 
 feature -- Queries
-	is_anypointersize: BOOLEAN is
+	is_any_pointer_size: BOOLEAN is
 		do
-			Result := (value=anypointersize_low_level)
+			Result := (value=any_pointer_size_low_level)
 		end
 
-	is_pointer64: BOOLEAN is
+	is_pointer_64: BOOLEAN is
 		do
-			Result := (value=pointer64_low_level)
+			Result := (value=pointer_64_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	anypointersize_low_level: INTEGER is
+	any_pointer_size_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -48,7 +48,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	pointer64_low_level: INTEGER is
+	pointer_64_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

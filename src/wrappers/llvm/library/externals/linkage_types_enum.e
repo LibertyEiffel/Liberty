@@ -11,167 +11,167 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = externallinkage_low_level)  or else
-				(a_value = linkonceanylinkage_low_level)  or else
-				(a_value = linkonceodrlinkage_low_level)  or else
-				(a_value = weakanylinkage_low_level)  or else
-				(a_value = weakodrlinkage_low_level)  or else
-				(a_value = appendinglinkage_low_level)  or else
-				(a_value = internallinkage_low_level)  or else
-				(a_value = privatelinkage_low_level)  or else
-				(a_value = linkerprivatelinkage_low_level)  or else
-				(a_value = dllimportlinkage_low_level)  or else
-				(a_value = dllexportlinkage_low_level)  or else
-				(a_value = externalweaklinkage_low_level)  or else
-				(a_value = ghostlinkage_low_level)  or else
-				(a_value = commonlinkage_low_level) )
+			Result := ((a_value = external_linkage_low_level)  or else
+				(a_value = link_once_any_linkage_low_level)  or else
+				(a_value = link_once_odrlinkage_low_level)  or else
+				(a_value = weak_any_linkage_low_level)  or else
+				(a_value = weak_odrlinkage_low_level)  or else
+				(a_value = appending_linkage_low_level)  or else
+				(a_value = internal_linkage_low_level)  or else
+				(a_value = private_linkage_low_level)  or else
+				(a_value = linker_private_linkage_low_level)  or else
+				(a_value = dllimport_linkage_low_level)  or else
+				(a_value = dllexport_linkage_low_level)  or else
+				(a_value = external_weak_linkage_low_level)  or else
+				(a_value = ghost_linkage_low_level)  or else
+				(a_value = common_linkage_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_externallinkage is
+	set_external_linkage is
 		do
-			value := externallinkage_low_level
+			value := external_linkage_low_level
 		end
 
-	set_linkonceanylinkage is
+	set_link_once_any_linkage is
 		do
-			value := linkonceanylinkage_low_level
+			value := link_once_any_linkage_low_level
 		end
 
-	set_linkonceodrlinkage is
+	set_link_once_odrlinkage is
 		do
-			value := linkonceodrlinkage_low_level
+			value := link_once_odrlinkage_low_level
 		end
 
-	set_weakanylinkage is
+	set_weak_any_linkage is
 		do
-			value := weakanylinkage_low_level
+			value := weak_any_linkage_low_level
 		end
 
-	set_weakodrlinkage is
+	set_weak_odrlinkage is
 		do
-			value := weakodrlinkage_low_level
+			value := weak_odrlinkage_low_level
 		end
 
-	set_appendinglinkage is
+	set_appending_linkage is
 		do
-			value := appendinglinkage_low_level
+			value := appending_linkage_low_level
 		end
 
-	set_internallinkage is
+	set_internal_linkage is
 		do
-			value := internallinkage_low_level
+			value := internal_linkage_low_level
 		end
 
-	set_privatelinkage is
+	set_private_linkage is
 		do
-			value := privatelinkage_low_level
+			value := private_linkage_low_level
 		end
 
-	set_linkerprivatelinkage is
+	set_linker_private_linkage is
 		do
-			value := linkerprivatelinkage_low_level
+			value := linker_private_linkage_low_level
 		end
 
-	set_dllimportlinkage is
+	set_dllimport_linkage is
 		do
-			value := dllimportlinkage_low_level
+			value := dllimport_linkage_low_level
 		end
 
-	set_dllexportlinkage is
+	set_dllexport_linkage is
 		do
-			value := dllexportlinkage_low_level
+			value := dllexport_linkage_low_level
 		end
 
-	set_externalweaklinkage is
+	set_external_weak_linkage is
 		do
-			value := externalweaklinkage_low_level
+			value := external_weak_linkage_low_level
 		end
 
-	set_ghostlinkage is
+	set_ghost_linkage is
 		do
-			value := ghostlinkage_low_level
+			value := ghost_linkage_low_level
 		end
 
-	set_commonlinkage is
+	set_common_linkage is
 		do
-			value := commonlinkage_low_level
+			value := common_linkage_low_level
 		end
 
 feature -- Queries
-	is_externallinkage: BOOLEAN is
+	is_external_linkage: BOOLEAN is
 		do
-			Result := (value=externallinkage_low_level)
+			Result := (value=external_linkage_low_level)
 		end
 
-	is_linkonceanylinkage: BOOLEAN is
+	is_link_once_any_linkage: BOOLEAN is
 		do
-			Result := (value=linkonceanylinkage_low_level)
+			Result := (value=link_once_any_linkage_low_level)
 		end
 
-	is_linkonceodrlinkage: BOOLEAN is
+	is_link_once_odrlinkage: BOOLEAN is
 		do
-			Result := (value=linkonceodrlinkage_low_level)
+			Result := (value=link_once_odrlinkage_low_level)
 		end
 
-	is_weakanylinkage: BOOLEAN is
+	is_weak_any_linkage: BOOLEAN is
 		do
-			Result := (value=weakanylinkage_low_level)
+			Result := (value=weak_any_linkage_low_level)
 		end
 
-	is_weakodrlinkage: BOOLEAN is
+	is_weak_odrlinkage: BOOLEAN is
 		do
-			Result := (value=weakodrlinkage_low_level)
+			Result := (value=weak_odrlinkage_low_level)
 		end
 
-	is_appendinglinkage: BOOLEAN is
+	is_appending_linkage: BOOLEAN is
 		do
-			Result := (value=appendinglinkage_low_level)
+			Result := (value=appending_linkage_low_level)
 		end
 
-	is_internallinkage: BOOLEAN is
+	is_internal_linkage: BOOLEAN is
 		do
-			Result := (value=internallinkage_low_level)
+			Result := (value=internal_linkage_low_level)
 		end
 
-	is_privatelinkage: BOOLEAN is
+	is_private_linkage: BOOLEAN is
 		do
-			Result := (value=privatelinkage_low_level)
+			Result := (value=private_linkage_low_level)
 		end
 
-	is_linkerprivatelinkage: BOOLEAN is
+	is_linker_private_linkage: BOOLEAN is
 		do
-			Result := (value=linkerprivatelinkage_low_level)
+			Result := (value=linker_private_linkage_low_level)
 		end
 
-	is_dllimportlinkage: BOOLEAN is
+	is_dllimport_linkage: BOOLEAN is
 		do
-			Result := (value=dllimportlinkage_low_level)
+			Result := (value=dllimport_linkage_low_level)
 		end
 
-	is_dllexportlinkage: BOOLEAN is
+	is_dllexport_linkage: BOOLEAN is
 		do
-			Result := (value=dllexportlinkage_low_level)
+			Result := (value=dllexport_linkage_low_level)
 		end
 
-	is_externalweaklinkage: BOOLEAN is
+	is_external_weak_linkage: BOOLEAN is
 		do
-			Result := (value=externalweaklinkage_low_level)
+			Result := (value=external_weak_linkage_low_level)
 		end
 
-	is_ghostlinkage: BOOLEAN is
+	is_ghost_linkage: BOOLEAN is
 		do
-			Result := (value=ghostlinkage_low_level)
+			Result := (value=ghost_linkage_low_level)
 		end
 
-	is_commonlinkage: BOOLEAN is
+	is_common_linkage: BOOLEAN is
 		do
-			Result := (value=commonlinkage_low_level)
+			Result := (value=common_linkage_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	externallinkage_low_level: INTEGER is
+	external_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -180,7 +180,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	linkonceanylinkage_low_level: INTEGER is
+	link_once_any_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -189,7 +189,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	linkonceodrlinkage_low_level: INTEGER is
+	link_once_odrlinkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -198,7 +198,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	weakanylinkage_low_level: INTEGER is
+	weak_any_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -207,7 +207,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	weakodrlinkage_low_level: INTEGER is
+	weak_odrlinkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -216,7 +216,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	appendinglinkage_low_level: INTEGER is
+	appending_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -225,7 +225,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	internallinkage_low_level: INTEGER is
+	internal_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -234,7 +234,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	privatelinkage_low_level: INTEGER is
+	private_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -243,7 +243,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	linkerprivatelinkage_low_level: INTEGER is
+	linker_private_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -252,7 +252,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dllimportlinkage_low_level: INTEGER is
+	dllimport_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -261,7 +261,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dllexportlinkage_low_level: INTEGER is
+	dllexport_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -270,7 +270,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	externalweaklinkage_low_level: INTEGER is
+	external_weak_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -279,7 +279,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ghostlinkage_low_level: INTEGER is
+	ghost_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -288,7 +288,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	commonlinkage_low_level: INTEGER is
+	common_linkage_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

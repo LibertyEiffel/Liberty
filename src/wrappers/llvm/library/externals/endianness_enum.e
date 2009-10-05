@@ -11,35 +11,35 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = anyendianness_low_level)  or else
-				(a_value = bigendian_low_level) )
+			Result := ((a_value = any_endianness_low_level)  or else
+				(a_value = big_endian_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_anyendianness is
+	set_any_endianness is
 		do
-			value := anyendianness_low_level
+			value := any_endianness_low_level
 		end
 
-	set_bigendian is
+	set_big_endian is
 		do
-			value := bigendian_low_level
+			value := big_endian_low_level
 		end
 
 feature -- Queries
-	is_anyendianness: BOOLEAN is
+	is_any_endianness: BOOLEAN is
 		do
-			Result := (value=anyendianness_low_level)
+			Result := (value=any_endianness_low_level)
 		end
 
-	is_bigendian: BOOLEAN is
+	is_big_endian: BOOLEAN is
 		do
-			Result := (value=bigendian_low_level)
+			Result := (value=big_endian_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	anyendianness_low_level: INTEGER is
+	any_endianness_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -48,7 +48,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	bigendian_low_level: INTEGER is
+	big_endian_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

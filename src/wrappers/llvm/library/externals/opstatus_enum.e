@@ -12,7 +12,7 @@ feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
 			Result := ((a_value = ok_low_level)  or else
-				(a_value = divbyzero_low_level)  or else
+				(a_value = div_by_zero_low_level)  or else
 				(a_value = overflow_low_level)  or else
 				(a_value = underflow_low_level)  or else
 				(a_value = inexact_low_level) )
@@ -25,9 +25,9 @@ feature -- Setters
 			value := ok_low_level
 		end
 
-	set_divbyzero is
+	set_div_by_zero is
 		do
-			value := divbyzero_low_level
+			value := div_by_zero_low_level
 		end
 
 	set_overflow is
@@ -51,9 +51,9 @@ feature -- Queries
 			Result := (value=ok_low_level)
 		end
 
-	is_divbyzero: BOOLEAN is
+	is_div_by_zero: BOOLEAN is
 		do
-			Result := (value=divbyzero_low_level)
+			Result := (value=div_by_zero_low_level)
 		end
 
 	is_overflow: BOOLEAN is
@@ -81,7 +81,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	divbyzero_low_level: INTEGER is
+	div_by_zero_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

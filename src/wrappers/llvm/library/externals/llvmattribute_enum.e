@@ -11,317 +11,317 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := (a_value & (zextattribute_low_level | 
-				noreturnattribute_low_level | 
-				inregattribute_low_level | 
-				structretattribute_low_level | 
-				nounwindattribute_low_level | 
-				noaliasattribute_low_level | 
-				byvalattribute_low_level | 
-				nestattribute_low_level | 
-				readnoneattribute_low_level | 
-				readonlyattribute_low_level | 
-				noinlineattribute_low_level | 
-				alwaysinlineattribute_low_level | 
-				optimizeforsizeattribute_low_level | 
-				stackprotectattribute_low_level | 
-				stackprotectreqattribute_low_level | 
-				nocaptureattribute_low_level | 
-				noredzoneattribute_low_level | 
-				noimplicitfloatattribute_low_level | 
-				nakedattribute_low_level)).to_boolean
+			Result := (a_value & (zext_attribute_low_level | 
+				no_return_attribute_low_level | 
+				in_reg_attribute_low_level | 
+				struct_ret_attribute_low_level | 
+				no_unwind_attribute_low_level | 
+				no_alias_attribute_low_level | 
+				by_val_attribute_low_level | 
+				nest_attribute_low_level | 
+				read_none_attribute_low_level | 
+				read_only_attribute_low_level | 
+				no_inline_attribute_low_level | 
+				always_inline_attribute_low_level | 
+				optimize_for_size_attribute_low_level | 
+				stack_protect_attribute_low_level | 
+				stack_protect_req_attribute_low_level | 
+				no_capture_attribute_low_level | 
+				no_red_zone_attribute_low_level | 
+				no_implicit_float_attribute_low_level | 
+				naked_attribute_low_level)).to_boolean
 		end
 
 feature -- Setters
 	default_create,
-	set_zextattribute is
+	set_zext_attribute is
 		do
-			value := value.bit_or(zextattribute_low_level)
+			value := value.bit_or(zext_attribute_low_level)
 		end
 
-	unset_zextattribute is
+	unset_zext_attribute is
 		do
-			value := value.bit_xor(zextattribute_low_level)
+			value := value.bit_xor(zext_attribute_low_level)
 		end
 
-	set_noreturnattribute is
+	set_no_return_attribute is
 		do
-			value := value.bit_or(noreturnattribute_low_level)
+			value := value.bit_or(no_return_attribute_low_level)
 		end
 
-	unset_noreturnattribute is
+	unset_no_return_attribute is
 		do
-			value := value.bit_xor(noreturnattribute_low_level)
+			value := value.bit_xor(no_return_attribute_low_level)
 		end
 
-	set_inregattribute is
+	set_in_reg_attribute is
 		do
-			value := value.bit_or(inregattribute_low_level)
+			value := value.bit_or(in_reg_attribute_low_level)
 		end
 
-	unset_inregattribute is
+	unset_in_reg_attribute is
 		do
-			value := value.bit_xor(inregattribute_low_level)
+			value := value.bit_xor(in_reg_attribute_low_level)
 		end
 
-	set_structretattribute is
+	set_struct_ret_attribute is
 		do
-			value := value.bit_or(structretattribute_low_level)
+			value := value.bit_or(struct_ret_attribute_low_level)
 		end
 
-	unset_structretattribute is
+	unset_struct_ret_attribute is
 		do
-			value := value.bit_xor(structretattribute_low_level)
+			value := value.bit_xor(struct_ret_attribute_low_level)
 		end
 
-	set_nounwindattribute is
+	set_no_unwind_attribute is
 		do
-			value := value.bit_or(nounwindattribute_low_level)
+			value := value.bit_or(no_unwind_attribute_low_level)
 		end
 
-	unset_nounwindattribute is
+	unset_no_unwind_attribute is
 		do
-			value := value.bit_xor(nounwindattribute_low_level)
+			value := value.bit_xor(no_unwind_attribute_low_level)
 		end
 
-	set_noaliasattribute is
+	set_no_alias_attribute is
 		do
-			value := value.bit_or(noaliasattribute_low_level)
+			value := value.bit_or(no_alias_attribute_low_level)
 		end
 
-	unset_noaliasattribute is
+	unset_no_alias_attribute is
 		do
-			value := value.bit_xor(noaliasattribute_low_level)
+			value := value.bit_xor(no_alias_attribute_low_level)
 		end
 
-	set_byvalattribute is
+	set_by_val_attribute is
 		do
-			value := value.bit_or(byvalattribute_low_level)
+			value := value.bit_or(by_val_attribute_low_level)
 		end
 
-	unset_byvalattribute is
+	unset_by_val_attribute is
 		do
-			value := value.bit_xor(byvalattribute_low_level)
+			value := value.bit_xor(by_val_attribute_low_level)
 		end
 
-	set_nestattribute is
+	set_nest_attribute is
 		do
-			value := value.bit_or(nestattribute_low_level)
+			value := value.bit_or(nest_attribute_low_level)
 		end
 
-	unset_nestattribute is
+	unset_nest_attribute is
 		do
-			value := value.bit_xor(nestattribute_low_level)
+			value := value.bit_xor(nest_attribute_low_level)
 		end
 
-	set_readnoneattribute is
+	set_read_none_attribute is
 		do
-			value := value.bit_or(readnoneattribute_low_level)
+			value := value.bit_or(read_none_attribute_low_level)
 		end
 
-	unset_readnoneattribute is
+	unset_read_none_attribute is
 		do
-			value := value.bit_xor(readnoneattribute_low_level)
+			value := value.bit_xor(read_none_attribute_low_level)
 		end
 
-	set_readonlyattribute is
+	set_read_only_attribute is
 		do
-			value := value.bit_or(readonlyattribute_low_level)
+			value := value.bit_or(read_only_attribute_low_level)
 		end
 
-	unset_readonlyattribute is
+	unset_read_only_attribute is
 		do
-			value := value.bit_xor(readonlyattribute_low_level)
+			value := value.bit_xor(read_only_attribute_low_level)
 		end
 
-	set_noinlineattribute is
+	set_no_inline_attribute is
 		do
-			value := value.bit_or(noinlineattribute_low_level)
+			value := value.bit_or(no_inline_attribute_low_level)
 		end
 
-	unset_noinlineattribute is
+	unset_no_inline_attribute is
 		do
-			value := value.bit_xor(noinlineattribute_low_level)
+			value := value.bit_xor(no_inline_attribute_low_level)
 		end
 
-	set_alwaysinlineattribute is
+	set_always_inline_attribute is
 		do
-			value := value.bit_or(alwaysinlineattribute_low_level)
+			value := value.bit_or(always_inline_attribute_low_level)
 		end
 
-	unset_alwaysinlineattribute is
+	unset_always_inline_attribute is
 		do
-			value := value.bit_xor(alwaysinlineattribute_low_level)
+			value := value.bit_xor(always_inline_attribute_low_level)
 		end
 
-	set_optimizeforsizeattribute is
+	set_optimize_for_size_attribute is
 		do
-			value := value.bit_or(optimizeforsizeattribute_low_level)
+			value := value.bit_or(optimize_for_size_attribute_low_level)
 		end
 
-	unset_optimizeforsizeattribute is
+	unset_optimize_for_size_attribute is
 		do
-			value := value.bit_xor(optimizeforsizeattribute_low_level)
+			value := value.bit_xor(optimize_for_size_attribute_low_level)
 		end
 
-	set_stackprotectattribute is
+	set_stack_protect_attribute is
 		do
-			value := value.bit_or(stackprotectattribute_low_level)
+			value := value.bit_or(stack_protect_attribute_low_level)
 		end
 
-	unset_stackprotectattribute is
+	unset_stack_protect_attribute is
 		do
-			value := value.bit_xor(stackprotectattribute_low_level)
+			value := value.bit_xor(stack_protect_attribute_low_level)
 		end
 
-	set_stackprotectreqattribute is
+	set_stack_protect_req_attribute is
 		do
-			value := value.bit_or(stackprotectreqattribute_low_level)
+			value := value.bit_or(stack_protect_req_attribute_low_level)
 		end
 
-	unset_stackprotectreqattribute is
+	unset_stack_protect_req_attribute is
 		do
-			value := value.bit_xor(stackprotectreqattribute_low_level)
+			value := value.bit_xor(stack_protect_req_attribute_low_level)
 		end
 
-	set_nocaptureattribute is
+	set_no_capture_attribute is
 		do
-			value := value.bit_or(nocaptureattribute_low_level)
+			value := value.bit_or(no_capture_attribute_low_level)
 		end
 
-	unset_nocaptureattribute is
+	unset_no_capture_attribute is
 		do
-			value := value.bit_xor(nocaptureattribute_low_level)
+			value := value.bit_xor(no_capture_attribute_low_level)
 		end
 
-	set_noredzoneattribute is
+	set_no_red_zone_attribute is
 		do
-			value := value.bit_or(noredzoneattribute_low_level)
+			value := value.bit_or(no_red_zone_attribute_low_level)
 		end
 
-	unset_noredzoneattribute is
+	unset_no_red_zone_attribute is
 		do
-			value := value.bit_xor(noredzoneattribute_low_level)
+			value := value.bit_xor(no_red_zone_attribute_low_level)
 		end
 
-	set_noimplicitfloatattribute is
+	set_no_implicit_float_attribute is
 		do
-			value := value.bit_or(noimplicitfloatattribute_low_level)
+			value := value.bit_or(no_implicit_float_attribute_low_level)
 		end
 
-	unset_noimplicitfloatattribute is
+	unset_no_implicit_float_attribute is
 		do
-			value := value.bit_xor(noimplicitfloatattribute_low_level)
+			value := value.bit_xor(no_implicit_float_attribute_low_level)
 		end
 
-	set_nakedattribute is
+	set_naked_attribute is
 		do
-			value := value.bit_or(nakedattribute_low_level)
+			value := value.bit_or(naked_attribute_low_level)
 		end
 
-	unset_nakedattribute is
+	unset_naked_attribute is
 		do
-			value := value.bit_xor(nakedattribute_low_level)
+			value := value.bit_xor(naked_attribute_low_level)
 		end
 
 feature -- Queries
-	is_zextattribute: BOOLEAN is
+	is_zext_attribute: BOOLEAN is
 		do
-			Result := (value=zextattribute_low_level)
+			Result := (value=zext_attribute_low_level)
 		end
 
-	is_noreturnattribute: BOOLEAN is
+	is_no_return_attribute: BOOLEAN is
 		do
-			Result := (value=noreturnattribute_low_level)
+			Result := (value=no_return_attribute_low_level)
 		end
 
-	is_inregattribute: BOOLEAN is
+	is_in_reg_attribute: BOOLEAN is
 		do
-			Result := (value=inregattribute_low_level)
+			Result := (value=in_reg_attribute_low_level)
 		end
 
-	is_structretattribute: BOOLEAN is
+	is_struct_ret_attribute: BOOLEAN is
 		do
-			Result := (value=structretattribute_low_level)
+			Result := (value=struct_ret_attribute_low_level)
 		end
 
-	is_nounwindattribute: BOOLEAN is
+	is_no_unwind_attribute: BOOLEAN is
 		do
-			Result := (value=nounwindattribute_low_level)
+			Result := (value=no_unwind_attribute_low_level)
 		end
 
-	is_noaliasattribute: BOOLEAN is
+	is_no_alias_attribute: BOOLEAN is
 		do
-			Result := (value=noaliasattribute_low_level)
+			Result := (value=no_alias_attribute_low_level)
 		end
 
-	is_byvalattribute: BOOLEAN is
+	is_by_val_attribute: BOOLEAN is
 		do
-			Result := (value=byvalattribute_low_level)
+			Result := (value=by_val_attribute_low_level)
 		end
 
-	is_nestattribute: BOOLEAN is
+	is_nest_attribute: BOOLEAN is
 		do
-			Result := (value=nestattribute_low_level)
+			Result := (value=nest_attribute_low_level)
 		end
 
-	is_readnoneattribute: BOOLEAN is
+	is_read_none_attribute: BOOLEAN is
 		do
-			Result := (value=readnoneattribute_low_level)
+			Result := (value=read_none_attribute_low_level)
 		end
 
-	is_readonlyattribute: BOOLEAN is
+	is_read_only_attribute: BOOLEAN is
 		do
-			Result := (value=readonlyattribute_low_level)
+			Result := (value=read_only_attribute_low_level)
 		end
 
-	is_noinlineattribute: BOOLEAN is
+	is_no_inline_attribute: BOOLEAN is
 		do
-			Result := (value=noinlineattribute_low_level)
+			Result := (value=no_inline_attribute_low_level)
 		end
 
-	is_alwaysinlineattribute: BOOLEAN is
+	is_always_inline_attribute: BOOLEAN is
 		do
-			Result := (value=alwaysinlineattribute_low_level)
+			Result := (value=always_inline_attribute_low_level)
 		end
 
-	is_optimizeforsizeattribute: BOOLEAN is
+	is_optimize_for_size_attribute: BOOLEAN is
 		do
-			Result := (value=optimizeforsizeattribute_low_level)
+			Result := (value=optimize_for_size_attribute_low_level)
 		end
 
-	is_stackprotectattribute: BOOLEAN is
+	is_stack_protect_attribute: BOOLEAN is
 		do
-			Result := (value=stackprotectattribute_low_level)
+			Result := (value=stack_protect_attribute_low_level)
 		end
 
-	is_stackprotectreqattribute: BOOLEAN is
+	is_stack_protect_req_attribute: BOOLEAN is
 		do
-			Result := (value=stackprotectreqattribute_low_level)
+			Result := (value=stack_protect_req_attribute_low_level)
 		end
 
-	is_nocaptureattribute: BOOLEAN is
+	is_no_capture_attribute: BOOLEAN is
 		do
-			Result := (value=nocaptureattribute_low_level)
+			Result := (value=no_capture_attribute_low_level)
 		end
 
-	is_noredzoneattribute: BOOLEAN is
+	is_no_red_zone_attribute: BOOLEAN is
 		do
-			Result := (value=noredzoneattribute_low_level)
+			Result := (value=no_red_zone_attribute_low_level)
 		end
 
-	is_noimplicitfloatattribute: BOOLEAN is
+	is_no_implicit_float_attribute: BOOLEAN is
 		do
-			Result := (value=noimplicitfloatattribute_low_level)
+			Result := (value=no_implicit_float_attribute_low_level)
 		end
 
-	is_nakedattribute: BOOLEAN is
+	is_naked_attribute: BOOLEAN is
 		do
-			Result := (value=nakedattribute_low_level)
+			Result := (value=naked_attribute_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	zextattribute_low_level: INTEGER is
+	zext_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -330,7 +330,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	noreturnattribute_low_level: INTEGER is
+	no_return_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -339,7 +339,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inregattribute_low_level: INTEGER is
+	in_reg_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -348,7 +348,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	structretattribute_low_level: INTEGER is
+	struct_ret_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -357,7 +357,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nounwindattribute_low_level: INTEGER is
+	no_unwind_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -366,7 +366,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	noaliasattribute_low_level: INTEGER is
+	no_alias_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -375,7 +375,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	byvalattribute_low_level: INTEGER is
+	by_val_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -384,7 +384,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nestattribute_low_level: INTEGER is
+	nest_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -393,7 +393,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	readnoneattribute_low_level: INTEGER is
+	read_none_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -402,7 +402,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	readonlyattribute_low_level: INTEGER is
+	read_only_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -411,7 +411,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	noinlineattribute_low_level: INTEGER is
+	no_inline_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -420,7 +420,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	alwaysinlineattribute_low_level: INTEGER is
+	always_inline_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -429,7 +429,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	optimizeforsizeattribute_low_level: INTEGER is
+	optimize_for_size_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -438,7 +438,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	stackprotectattribute_low_level: INTEGER is
+	stack_protect_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -447,7 +447,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	stackprotectreqattribute_low_level: INTEGER is
+	stack_protect_req_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -456,7 +456,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nocaptureattribute_low_level: INTEGER is
+	no_capture_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -465,7 +465,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	noredzoneattribute_low_level: INTEGER is
+	no_red_zone_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -474,7 +474,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	noimplicitfloatattribute_low_level: INTEGER is
+	no_implicit_float_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -483,7 +483,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nakedattribute_low_level: INTEGER is
+	naked_attribute_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

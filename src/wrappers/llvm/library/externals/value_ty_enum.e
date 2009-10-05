@@ -11,244 +11,244 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = argumentval_low_level)  or else
-				(a_value = functionval_low_level)  or else
-				(a_value = globalaliasval_low_level)  or else
-				(a_value = globalvariableval_low_level)  or else
-				(a_value = undefvalueval_low_level)  or else
-				(a_value = constantexprval_low_level)  or else
-				(a_value = constantaggregatezeroval_low_level)  or else
-				(a_value = constantintval_low_level)  or else
-				(a_value = constantfpval_low_level)  or else
-				(a_value = constantarrayval_low_level)  or else
-				(a_value = constantstructval_low_level)  or else
-				(a_value = constantvectorval_low_level)  or else
-				(a_value = constantpointernullval_low_level)  or else
-				(a_value = mdnodeval_low_level)  or else
-				(a_value = mdstringval_low_level)  or else
-				(a_value = namedmdnodeval_low_level)  or else
-				(a_value = inlineasmval_low_level)  or else
-				(a_value = pseudosourcevalueval_low_level)  or else
-				(a_value = instructionval_low_level)  or else
-				(a_value = constantfirstval_low_level)  or else
-				(a_value = constantlastval_low_level) )
+			Result := ((a_value = argument_val_low_level)  or else
+				(a_value = function_val_low_level)  or else
+				(a_value = global_alias_val_low_level)  or else
+				(a_value = global_variable_val_low_level)  or else
+				(a_value = undef_value_val_low_level)  or else
+				(a_value = constant_expr_val_low_level)  or else
+				(a_value = constant_aggregate_zero_val_low_level)  or else
+				(a_value = constant_int_val_low_level)  or else
+				(a_value = constant_fpval_low_level)  or else
+				(a_value = constant_array_val_low_level)  or else
+				(a_value = constant_struct_val_low_level)  or else
+				(a_value = constant_vector_val_low_level)  or else
+				(a_value = constant_pointer_null_val_low_level)  or else
+				(a_value = mdnode_val_low_level)  or else
+				(a_value = mdstring_val_low_level)  or else
+				(a_value = named_mdnode_val_low_level)  or else
+				(a_value = inline_asm_val_low_level)  or else
+				(a_value = pseudo_source_value_val_low_level)  or else
+				(a_value = instruction_val_low_level)  or else
+				(a_value = constant_first_val_low_level)  or else
+				(a_value = constant_last_val_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_argumentval is
+	set_argument_val is
 		do
-			value := argumentval_low_level
+			value := argument_val_low_level
 		end
 
-	set_functionval is
+	set_function_val is
 		do
-			value := functionval_low_level
+			value := function_val_low_level
 		end
 
-	set_globalaliasval is
+	set_global_alias_val is
 		do
-			value := globalaliasval_low_level
+			value := global_alias_val_low_level
 		end
 
-	set_globalvariableval is
+	set_global_variable_val is
 		do
-			value := globalvariableval_low_level
+			value := global_variable_val_low_level
 		end
 
-	set_undefvalueval is
+	set_undef_value_val is
 		do
-			value := undefvalueval_low_level
+			value := undef_value_val_low_level
 		end
 
-	set_constantexprval is
+	set_constant_expr_val is
 		do
-			value := constantexprval_low_level
+			value := constant_expr_val_low_level
 		end
 
-	set_constantaggregatezeroval is
+	set_constant_aggregate_zero_val is
 		do
-			value := constantaggregatezeroval_low_level
+			value := constant_aggregate_zero_val_low_level
 		end
 
-	set_constantintval is
+	set_constant_int_val is
 		do
-			value := constantintval_low_level
+			value := constant_int_val_low_level
 		end
 
-	set_constantfpval is
+	set_constant_fpval is
 		do
-			value := constantfpval_low_level
+			value := constant_fpval_low_level
 		end
 
-	set_constantarrayval is
+	set_constant_array_val is
 		do
-			value := constantarrayval_low_level
+			value := constant_array_val_low_level
 		end
 
-	set_constantstructval is
+	set_constant_struct_val is
 		do
-			value := constantstructval_low_level
+			value := constant_struct_val_low_level
 		end
 
-	set_constantvectorval is
+	set_constant_vector_val is
 		do
-			value := constantvectorval_low_level
+			value := constant_vector_val_low_level
 		end
 
-	set_constantpointernullval is
+	set_constant_pointer_null_val is
 		do
-			value := constantpointernullval_low_level
+			value := constant_pointer_null_val_low_level
 		end
 
-	set_mdnodeval is
+	set_mdnode_val is
 		do
-			value := mdnodeval_low_level
+			value := mdnode_val_low_level
 		end
 
-	set_mdstringval is
+	set_mdstring_val is
 		do
-			value := mdstringval_low_level
+			value := mdstring_val_low_level
 		end
 
-	set_namedmdnodeval is
+	set_named_mdnode_val is
 		do
-			value := namedmdnodeval_low_level
+			value := named_mdnode_val_low_level
 		end
 
-	set_inlineasmval is
+	set_inline_asm_val is
 		do
-			value := inlineasmval_low_level
+			value := inline_asm_val_low_level
 		end
 
-	set_pseudosourcevalueval is
+	set_pseudo_source_value_val is
 		do
-			value := pseudosourcevalueval_low_level
+			value := pseudo_source_value_val_low_level
 		end
 
-	set_instructionval is
+	set_instruction_val is
 		do
-			value := instructionval_low_level
+			value := instruction_val_low_level
 		end
 
-	set_constantfirstval is
+	set_constant_first_val is
 		do
-			value := constantfirstval_low_level
+			value := constant_first_val_low_level
 		end
 
-	set_constantlastval is
+	set_constant_last_val is
 		do
-			value := constantlastval_low_level
+			value := constant_last_val_low_level
 		end
 
 feature -- Queries
-	is_argumentval: BOOLEAN is
+	is_argument_val: BOOLEAN is
 		do
-			Result := (value=argumentval_low_level)
+			Result := (value=argument_val_low_level)
 		end
 
-	is_functionval: BOOLEAN is
+	is_function_val: BOOLEAN is
 		do
-			Result := (value=functionval_low_level)
+			Result := (value=function_val_low_level)
 		end
 
-	is_globalaliasval: BOOLEAN is
+	is_global_alias_val: BOOLEAN is
 		do
-			Result := (value=globalaliasval_low_level)
+			Result := (value=global_alias_val_low_level)
 		end
 
-	is_globalvariableval: BOOLEAN is
+	is_global_variable_val: BOOLEAN is
 		do
-			Result := (value=globalvariableval_low_level)
+			Result := (value=global_variable_val_low_level)
 		end
 
-	is_undefvalueval: BOOLEAN is
+	is_undef_value_val: BOOLEAN is
 		do
-			Result := (value=undefvalueval_low_level)
+			Result := (value=undef_value_val_low_level)
 		end
 
-	is_constantexprval: BOOLEAN is
+	is_constant_expr_val: BOOLEAN is
 		do
-			Result := (value=constantexprval_low_level)
+			Result := (value=constant_expr_val_low_level)
 		end
 
-	is_constantaggregatezeroval: BOOLEAN is
+	is_constant_aggregate_zero_val: BOOLEAN is
 		do
-			Result := (value=constantaggregatezeroval_low_level)
+			Result := (value=constant_aggregate_zero_val_low_level)
 		end
 
-	is_constantintval: BOOLEAN is
+	is_constant_int_val: BOOLEAN is
 		do
-			Result := (value=constantintval_low_level)
+			Result := (value=constant_int_val_low_level)
 		end
 
-	is_constantfpval: BOOLEAN is
+	is_constant_fpval: BOOLEAN is
 		do
-			Result := (value=constantfpval_low_level)
+			Result := (value=constant_fpval_low_level)
 		end
 
-	is_constantarrayval: BOOLEAN is
+	is_constant_array_val: BOOLEAN is
 		do
-			Result := (value=constantarrayval_low_level)
+			Result := (value=constant_array_val_low_level)
 		end
 
-	is_constantstructval: BOOLEAN is
+	is_constant_struct_val: BOOLEAN is
 		do
-			Result := (value=constantstructval_low_level)
+			Result := (value=constant_struct_val_low_level)
 		end
 
-	is_constantvectorval: BOOLEAN is
+	is_constant_vector_val: BOOLEAN is
 		do
-			Result := (value=constantvectorval_low_level)
+			Result := (value=constant_vector_val_low_level)
 		end
 
-	is_constantpointernullval: BOOLEAN is
+	is_constant_pointer_null_val: BOOLEAN is
 		do
-			Result := (value=constantpointernullval_low_level)
+			Result := (value=constant_pointer_null_val_low_level)
 		end
 
-	is_mdnodeval: BOOLEAN is
+	is_mdnode_val: BOOLEAN is
 		do
-			Result := (value=mdnodeval_low_level)
+			Result := (value=mdnode_val_low_level)
 		end
 
-	is_mdstringval: BOOLEAN is
+	is_mdstring_val: BOOLEAN is
 		do
-			Result := (value=mdstringval_low_level)
+			Result := (value=mdstring_val_low_level)
 		end
 
-	is_namedmdnodeval: BOOLEAN is
+	is_named_mdnode_val: BOOLEAN is
 		do
-			Result := (value=namedmdnodeval_low_level)
+			Result := (value=named_mdnode_val_low_level)
 		end
 
-	is_inlineasmval: BOOLEAN is
+	is_inline_asm_val: BOOLEAN is
 		do
-			Result := (value=inlineasmval_low_level)
+			Result := (value=inline_asm_val_low_level)
 		end
 
-	is_pseudosourcevalueval: BOOLEAN is
+	is_pseudo_source_value_val: BOOLEAN is
 		do
-			Result := (value=pseudosourcevalueval_low_level)
+			Result := (value=pseudo_source_value_val_low_level)
 		end
 
-	is_instructionval: BOOLEAN is
+	is_instruction_val: BOOLEAN is
 		do
-			Result := (value=instructionval_low_level)
+			Result := (value=instruction_val_low_level)
 		end
 
-	is_constantfirstval: BOOLEAN is
+	is_constant_first_val: BOOLEAN is
 		do
-			Result := (value=constantfirstval_low_level)
+			Result := (value=constant_first_val_low_level)
 		end
 
-	is_constantlastval: BOOLEAN is
+	is_constant_last_val: BOOLEAN is
 		do
-			Result := (value=constantlastval_low_level)
+			Result := (value=constant_last_val_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	argumentval_low_level: INTEGER is
+	argument_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -257,7 +257,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	functionval_low_level: INTEGER is
+	function_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -266,7 +266,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	globalaliasval_low_level: INTEGER is
+	global_alias_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -275,7 +275,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	globalvariableval_low_level: INTEGER is
+	global_variable_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -284,7 +284,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	undefvalueval_low_level: INTEGER is
+	undef_value_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -293,7 +293,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantexprval_low_level: INTEGER is
+	constant_expr_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -302,7 +302,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantaggregatezeroval_low_level: INTEGER is
+	constant_aggregate_zero_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -311,7 +311,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantintval_low_level: INTEGER is
+	constant_int_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -320,7 +320,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantfpval_low_level: INTEGER is
+	constant_fpval_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -329,7 +329,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantarrayval_low_level: INTEGER is
+	constant_array_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -338,7 +338,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantstructval_low_level: INTEGER is
+	constant_struct_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -347,7 +347,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantvectorval_low_level: INTEGER is
+	constant_vector_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -356,7 +356,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantpointernullval_low_level: INTEGER is
+	constant_pointer_null_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -365,7 +365,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mdnodeval_low_level: INTEGER is
+	mdnode_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -374,7 +374,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mdstringval_low_level: INTEGER is
+	mdstring_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -383,7 +383,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	namedmdnodeval_low_level: INTEGER is
+	named_mdnode_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -392,7 +392,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inlineasmval_low_level: INTEGER is
+	inline_asm_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -401,7 +401,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	pseudosourcevalueval_low_level: INTEGER is
+	pseudo_source_value_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -410,7 +410,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	instructionval_low_level: INTEGER is
+	instruction_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -419,7 +419,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantfirstval_low_level: INTEGER is
+	constant_first_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -428,7 +428,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constantlastval_low_level: INTEGER is
+	constant_last_val_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

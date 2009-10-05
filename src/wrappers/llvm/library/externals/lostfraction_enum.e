@@ -11,46 +11,46 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = exactlyzero_low_level)  or else
-				(a_value = exactlyhalf_low_level)  or else
-				(a_value = morethanhalf_low_level) )
+			Result := ((a_value = exactly_zero_low_level)  or else
+				(a_value = exactly_half_low_level)  or else
+				(a_value = more_than_half_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_exactlyzero is
+	set_exactly_zero is
 		do
-			value := exactlyzero_low_level
+			value := exactly_zero_low_level
 		end
 
-	set_exactlyhalf is
+	set_exactly_half is
 		do
-			value := exactlyhalf_low_level
+			value := exactly_half_low_level
 		end
 
-	set_morethanhalf is
+	set_more_than_half is
 		do
-			value := morethanhalf_low_level
+			value := more_than_half_low_level
 		end
 
 feature -- Queries
-	is_exactlyzero: BOOLEAN is
+	is_exactly_zero: BOOLEAN is
 		do
-			Result := (value=exactlyzero_low_level)
+			Result := (value=exactly_zero_low_level)
 		end
 
-	is_exactlyhalf: BOOLEAN is
+	is_exactly_half: BOOLEAN is
 		do
-			Result := (value=exactlyhalf_low_level)
+			Result := (value=exactly_half_low_level)
 		end
 
-	is_morethanhalf: BOOLEAN is
+	is_more_than_half: BOOLEAN is
 		do
-			Result := (value=morethanhalf_low_level)
+			Result := (value=more_than_half_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	exactlyzero_low_level: INTEGER is
+	exactly_zero_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -59,7 +59,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	exactlyhalf_low_level: INTEGER is
+	exactly_half_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	morethanhalf_low_level: INTEGER is
+	more_than_half_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

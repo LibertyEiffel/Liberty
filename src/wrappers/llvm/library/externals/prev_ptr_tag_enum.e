@@ -11,16 +11,16 @@ creation default_create
 feature -- Validity
 	is_valid_value (a_value: INTEGER): BOOLEAN is
 		do
-			Result := ((a_value = zerodigittag_low_level)  or else
+			Result := ((a_value = zerodigit_tag_low_level)  or else
 				(a_value = stoptag_low_level)  or else
-				(a_value = fullstoptag_low_level) )
+				(a_value = fullstop_tag_low_level) )
 		end
 
 feature -- Setters
 	default_create,
-	set_zerodigittag is
+	set_zerodigit_tag is
 		do
-			value := zerodigittag_low_level
+			value := zerodigit_tag_low_level
 		end
 
 	set_stoptag is
@@ -28,15 +28,15 @@ feature -- Setters
 			value := stoptag_low_level
 		end
 
-	set_fullstoptag is
+	set_fullstop_tag is
 		do
-			value := fullstoptag_low_level
+			value := fullstop_tag_low_level
 		end
 
 feature -- Queries
-	is_zerodigittag: BOOLEAN is
+	is_zerodigit_tag: BOOLEAN is
 		do
-			Result := (value=zerodigittag_low_level)
+			Result := (value=zerodigit_tag_low_level)
 		end
 
 	is_stoptag: BOOLEAN is
@@ -44,13 +44,13 @@ feature -- Queries
 			Result := (value=stoptag_low_level)
 		end
 
-	is_fullstoptag: BOOLEAN is
+	is_fullstop_tag: BOOLEAN is
 		do
-			Result := (value=fullstoptag_low_level)
+			Result := (value=fullstop_tag_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	zerodigittag_low_level: INTEGER is
+	zerodigit_tag_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fullstoptag_low_level: INTEGER is
+	fullstop_tag_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
