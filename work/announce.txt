@@ -34,7 +34,7 @@ SmartEiffel - with different goals:
 
 - "provide the batteries", without "reinveinting the wheel"; the best
   compiler in the world is useless without a wide set of libraries;
-  there are a huge set of free-as-in-freedom libraries that many
+  there is a huge set of free-as-in-freedom libraries that many
   programmers and developers would like to use in Eiffel;
 
 - give simple technical means to add more bindings wrappers;
