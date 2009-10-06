@@ -1,4 +1,4 @@
-deferred class LIBERTY_FEATURE_BLOCK
+deferred class LIBERTY_FEATURE_ROUTINE
 
 inherit
 	LIBERTY_FEATURE
