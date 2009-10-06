@@ -263,8 +263,6 @@ feature {}
 			end
 		end
 
-	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
-
 	push_parent_features_in_type (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]) is
 		local
 			i: INTEGER
@@ -346,8 +344,25 @@ feature {}
 	feature_block (parameters: COLLECTION[LIBERTY_PARAMETER]; result_type: LIBERTY_TYPE; block: LIBERTY_AST_EIFFEL_BLOCK): LIBERTY_FEATURE is
 		require
 			parameters /= Void
+		local
+			obsolete_message: STRING
+			locals: COLLECTION[LIBERTY_LOCAL]
 		do
-			not_yet_implemented
+			if block.obsolete_clause.count > 0 then
+				obsolete_message := decoded_string(block.obsolete_clause.string)
+			end
+			if block.is_external then
+				if block.external_clause.alias_clause.has_alias then
+					create {LIBERTY_FEATURE_EXTERNAL} Result.make(decoded_string(block.external_clause.definition), decoded_string(block.external_clause.alias_clause.definition))
+				else
+					create {LIBERTY_FEATURE_EXTERNAL} Result.make(decoded_string(block.external_clause.definition), Void)
+				end
+			else
+				locals := list_locals(block.local_block)
+				
+			end
+			Result.set_parameters(parameters)
+			Result.set_result_type(result_type)
 		end
 
 	feature_constant (result_type: LIBERTY_TYPE; constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST): LIBERTY_FEATURE_CONSTANT is
@@ -380,6 +395,9 @@ feature {}
 		local
 			i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
 			fd: LIBERTY_FEATURE_DEFINITION
+			a_ast_terminal: LIBERTY_AST_TERMINAL_NODE
+			name_or_alias: LIBERTY_AST_FEATURE_NAME_OR_ALIAS
+			redefined: LIBERTY_FEATURE_REDEFINED
 		do
 			from
 				i := names.lower
@@ -388,9 +406,76 @@ feature {}
 			loop
 				name ::= names.item(i)
 				create feature_name.make_from_ast(name.feature_name_or_alias)
-				create fd.make(feature_name, clients, name.is_frozen)
+				if type.has_feature(feature_name) then
+					redefined := redefined_features.reference_at(feature_name)
+					if redefined /= Void and then redefined.redefined_feature = Void then
+						if parameters_match(a_feature.parameters, redefined.parameters, name, feature_name) then
+							if a_feature.result_type.is_conform_to(redefined.result_type) then
+								redefined.set_redefined_feature(a_feature)
+							else
+								name_or_alias := name.feature_name_or_alias
+								a_ast_terminal ::= name_or_alias.node_at(0)
+								error(a_ast_terminal.image.index, once "Cannot redefine feature (result types don't conform): " + feature_name.name)
+							end
+						else
+							-- an error was emitted by `parameters_match'
+							check has_error end
+						end
+					else
+						name_or_alias := name.feature_name_or_alias
+						a_ast_terminal ::= name_or_alias.node_at(0)
+						error(a_ast_terminal.image.index, once "Duplicate feature: " + feature_name.name)
+					end
+				else
+					create fd.make(feature_name, clients, name.is_frozen)
+					type.add_feature(fd)
+				end
 				i := i + 1
 			end
+		end
+
+	parameters_match (child_parameters, parent_parameters: COLLECTION[LIBERTY_PARAMETER]; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
+		local
+			a_ast_terminal: LIBERTY_AST_TERMINAL_NODE
+			name_or_alias: LIBERTY_AST_FEATURE_NAME_OR_ALIAS
+			i: INTEGER
+		do
+			if child_parameters = Void then
+				Result := parent_parameters = Void
+				name_or_alias := name.feature_name_or_alias
+				a_ast_terminal ::= name_or_alias.node_at(0)
+				error(a_ast_terminal.image.index, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
+			elseif parent_parameters /= Void then
+				if child_parameters.count < parent_parameters.count then
+					name_or_alias := name.feature_name_or_alias
+					a_ast_terminal ::= name_or_alias.node_at(0)
+					error(a_ast_terminal.image.index, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
+				elseif child_parameters.count > parent_parameters.count then
+					name_or_alias := name.feature_name_or_alias
+					a_ast_terminal ::= name_or_alias.node_at(0)
+					error(a_ast_terminal.image.index, once "Cannot redefine feature (too many parameters): " + feature_name.name)
+				else
+					from
+						Result := True
+						check
+							child_parameters.lower = parent_parameters.lower
+						end
+						i := child_parameters.lower
+					until
+						not Result or else i > child_parameters.upper
+					loop
+						Result := child_parameters.item(i).result_type.is_conform_to(parent_parameters.item(i).result_type)
+						i := i + 1
+					end
+					if not Result then
+						name_or_alias := name.feature_name_or_alias
+						a_ast_terminal ::= name_or_alias.node_at(0)
+						error(a_ast_terminal.image.index, once "Cannot redefine feature (parameter types don't conform): " + feature_name.name)
+					end
+				end
+			end
+		ensure
+			not Result implies has_error
 		end
 
 	check_that_all_redefined_features_were_redefined is
@@ -609,17 +694,78 @@ feature {}
 
 	list_parameters (parameters: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_PARAMETER] is
 		local
-			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; parameter: LIBERTY_AST_VARIABLE
+			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
+			typedef: LIBERTY_TYPE; parameter: LIBERTY_PARAMETER
 		do
 			if parameters.is_empty then
 				Result := empty_parameter_list
 			else
+				create {FAST_ARRAY[LIBERTY_PARAMETER]}Result.make(0)
+				from
+					i := parameters.lower
+				until
+					i > parameters.upper
+				loop
+					declaration ::= parameters.item(i)
+					typedef := universe.get_type_from_type_definition(type.cluster, declaration.type_definition, effective_generic_parameters)
+					if typedef /= Void then
+						from
+							j := declaration.variables.lower
+						until
+							j > declaration.variables.upper
+						loop
+							variable ::= declaration.variables.item(j)
+							create parameter.make(variable.variable.image.image, typedef)
+							Result.add_last(parameter)
+							j := j + 1
+						end
+					end
+					i := i + 1
+				end
 			end
 		end
 
 	empty_parameter_list: COLLECTION[LIBERTY_PARAMETER] is
 		once
 			create {FAST_ARRAY[LIBERTY_PARAMETER]} Result.with_capacity(0)
+		end
+
+	list_locals (locals: LIBERTY_AST_LOCAL_BLOCK): COLLECTION[LIBERTY_LOCAL] is
+		local
+			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
+			typedef: LIBERTY_TYPE; localdef: LIBERTY_LOCAL
+		do
+			if locals.list_count = 0 then
+				Result := empty_local_list
+			else
+				create {FAST_ARRAY[LIBERTY_LOCAL]}Result.make(0)
+				from
+					i := locals.list_lower
+				until
+					i > locals.list_upper
+				loop
+					declaration := locals.list_item(i)
+					typedef := universe.get_type_from_type_definition(type.cluster, declaration.type_definition, effective_generic_parameters)
+					if typedef /= Void then
+						from
+							j := declaration.variables.lower
+						until
+							j > declaration.variables.upper
+						loop
+							variable ::= declaration.variables.item(j)
+							create localdef.make(variable.variable.image.image, typedef)
+							Result.add_last(localdef)
+							j := j + 1
+						end
+					end
+					i := i + 1
+				end
+			end
+		end
+
+	empty_local_list: COLLECTION[LIBERTY_LOCAL] is
+		once
+			create {FAST_ARRAY[LIBERTY_LOCAL]} Result.with_capacity(0)
 		end
 
 feature {}
@@ -641,6 +787,8 @@ feature {}
 	effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, STRING]
 			-- key: generic parameter name (e.g. E_)
 			-- value: effective parameter (e.g. STRING)
+
+	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 
 invariant
 	type /= Void

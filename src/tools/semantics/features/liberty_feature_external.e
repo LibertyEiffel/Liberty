@@ -2,6 +2,9 @@ class LIBERTY_FEATURE_EXTERNAL
 
 inherit
 	LIBERTY_FEATURE
+		rename
+			make as make_late_binding
+		end
 
 create {LIBERTY_TYPE_BUILDER}
 	make
@@ -15,6 +18,7 @@ feature {}
 		require
 			a_external /= Void
 		do
+			make_late_binding
 			external_def := a_external
 			alias_def := a_alias
 		ensure
