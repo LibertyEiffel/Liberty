@@ -350,107 +350,22 @@ feature {}
 	feature_constant (result_type: LIBERTY_TYPE; constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST): LIBERTY_FEATURE_CONSTANT is
 		require
 			result_type /= Void
+		local
+			tm: like typed_manifest
 		do
 			if constant.is_assignment_test then
 				error(constant.index, once "Unexpected assignment test")
 			elseif constant.is_typed_open_argument then
 				error(constant.index, once "Unexpected open argument")
-			elseif constant.is_number then
-				Result := number(constant.number.image)
-			elseif constant.is_true then
-				create {LIBERTY_FEATURE_TYPED_CONSTANT[BOOLEAN]}Result.make(universe.type_boolean, True)
-			elseif constant.is_false then
-				create {LIBERTY_FEATURE_TYPED_CONSTANT[BOOLEAN]}Result.make(universe.type_boolean, False)
-			elseif constant.is_character then
-				Result := character(constant.character.image)
-			elseif constant.is_string then
-				create {LIBERTY_FEATURE_STRING_CONSTANT} Result.make(universe.type_string, decoded_string(constant.string), False)
-			elseif constant.is_once_string then
-				create {LIBERTY_FEATURE_STRING_CONSTANT} Result.make(universe.type_string, decoded_string(constant.string), True)
-			elseif constant.is_number_typed_manifest then
-				Result := number_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
-														  constant.typed_manifest_number.image)
-			elseif constant.is_string_typed_manifest then
-				create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[STRING]} Result.make(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
-																											decoded_string(constant.typed_manifest_number))
-			elseif constant.is_array_typed_manifest then
-				--|*** TODO
 			else
-				check False end
-			end
-		end
-
-	number (number_image: EIFFEL_IMAGE): LIBERTY_FEATURE_CONSTANT is
-		require
-			TYPED_EIFFEL_IMAGE[INTEGER_64] ?:= number_image
-				or else TYPED_EIFFEL_IMAGE[REAL] ?:= number_image
-		local
-			i: TYPED_EIFFEL_IMAGE[INTEGER_64]
-			r: TYPED_EIFFEL_IMAGE[REAL]
-			i64: INTEGER_64
-		do
-			-- That's not pretty! but doing without all those type tests would incur big changes and code
-			-- duplication in the eiffel parser :-/
-			if i ?:= number_image then
-				i ::= number_image
-				i64 := i.decoded
-				if i64.fit_integer_8 then
-					create {LIBERTY_FEATURE_TYPED_CONSTANT[INTEGER_8]}Result.make(universe.type_integer_64, i64.to_integer_8)
-				elseif i64.fit_integer_16 then
-					create {LIBERTY_FEATURE_TYPED_CONSTANT[INTEGER_16]}Result.make(universe.type_integer_64, i64.to_integer_16)
-				elseif i64.fit_integer_32 then
-					create {LIBERTY_FEATURE_TYPED_CONSTANT[INTEGER_32]}Result.make(universe.type_integer_64, i64.to_integer_32)
-				else
-					create {LIBERTY_FEATURE_TYPED_CONSTANT[INTEGER_64]}Result.make(universe.type_integer_64, i64)
+				tm := typed_manifest_or_type_test(constant)
+				if not has_error then
+					if tm.conforms_to(result_type) then
+						create Result.make(result_type, tm)
+					else
+						error(constant.index, once "That expression does not conform to " + result_type.name)
+					end
 				end
-			else
-				check
-					r ?:= number_image
-				end
-				r ::= number_image
-				create {LIBERTY_FEATURE_TYPED_CONSTANT[REAL]}Result.make(universe.type_real, r.decoded)
-			end
-		end
-
-	character (character_image: EIFFEL_IMAGE): LIBERTY_FEATURE_CONSTANT is
-		require
-			TYPED_EIFFEL_IMAGE[CHARACTER] ?:= character_image
-		local
-			c: TYPED_EIFFEL_IMAGE[CHARACTER]
-		do
-			c ::= character_image
-			create {LIBERTY_FEATURE_TYPED_CONSTANT[CHARACTER]}Result.make(universe.type_character, c.decoded)
-		end
-
-	number_typed_manifest (manifest_type: LIBERTY_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_FEATURE_CONSTANT is
-		require
-			TYPED_EIFFEL_IMAGE[INTEGER_64] ?:= number_image
-				or else TYPED_EIFFEL_IMAGE[REAL] ?:= number_image
-		local
-			i: TYPED_EIFFEL_IMAGE[INTEGER_64]
-			r: TYPED_EIFFEL_IMAGE[REAL]
-			i64: INTEGER_64
-		do
-			-- That's not pretty! but doing without all those type tests would incur big changes and code
-			-- duplication in the eiffel parser :-/
-			if i ?:= number_image then
-				i ::= number_image
-				i64 := i.decoded
-				if i64.fit_integer_8 then
-					create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[INTEGER_8]}Result.make(manifest_type, i64.to_integer_8)
-				elseif i64.fit_integer_16 then
-					create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[INTEGER_16]}Result.make(manifest_type, i64.to_integer_16)
-				elseif i64.fit_integer_32 then
-					create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[INTEGER_32]}Result.make(manifest_type, i64.to_integer_32)
-				else
-					create {LIBERTY_FEATURE_TYPED_MANIFEST_CONSTANT[INTEGER_64]}Result.make(manifest_type, i64)
-				end
-			else
-				check
-					r ?:= number_image
-				end
-				r ::= number_image
-				create {LIBERTY_FEATURE_TYPED_CONSTANT[REAL]}Result.make(manifest_type, r.decoded)
 			end
 		end
 
@@ -500,6 +415,155 @@ feature {}
 	add_invariant (invariant_clause: LIBERTY_AST_INVARIANT) is
 		do
 			not_yet_implemented
+		end
+
+feature {} -- Expressions
+	expression (exp: LIBERTY_AST_EXPRESSION): LIBERTY_EXPRESSION is
+		do
+			not_yet_implemented
+		end
+
+	expression_array (array: LIBERTY_AST_ARRAY): LIBERTY_EXPRESSION is
+		do
+			not_yet_implemented
+		end
+
+	expression_no_array (exp: LIBERTY_AST_EXPRESSION_NO_ARRAY): LIBERTY_EXPRESSION is
+		do
+			not_yet_implemented
+		end
+
+	typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST): LIBERTY_EXPRESSION is
+		require
+			constant /= Void
+		do
+			if constant.is_assignment_test then
+				--|*** TODO
+			elseif constant.is_typed_open_argument then
+				--|*** TODO
+			elseif constant.is_number then
+				Result := number(constant.number.image)
+			elseif constant.is_true then
+				create {LIBERTY_TYPED_MANIFEST[BOOLEAN]}Result.make(universe.type_boolean, True)
+			elseif constant.is_false then
+				create {LIBERTY_TYPED_MANIFEST[BOOLEAN]}Result.make(universe.type_boolean, False)
+			elseif constant.is_character then
+				Result := character(constant.character.image)
+			elseif constant.is_string then
+				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), False)
+			elseif constant.is_once_string then
+				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True)
+			elseif constant.is_number_typed_manifest then
+				Result := number_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
+														  constant.typed_manifest_number.image)
+			elseif constant.is_string_typed_manifest then
+				create {LIBERTY_TYPED_MANIFEST[STRING]} Result.make(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
+																					 decoded_string(constant.typed_manifest_number))
+			elseif constant.is_array_typed_manifest then
+				Result := array_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
+														 constant.typed_manifest_array_parameters, constant.typed_manifest_array)
+			else
+				check False end
+			end
+		end
+
+	number (number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
+		require
+			TYPED_EIFFEL_IMAGE[INTEGER_64] ?:= number_image
+				or else TYPED_EIFFEL_IMAGE[REAL] ?:= number_image
+		local
+			i: TYPED_EIFFEL_IMAGE[INTEGER_64]
+			r: TYPED_EIFFEL_IMAGE[REAL]
+			i64: INTEGER_64
+		do
+			-- That's not pretty! but doing without all those type tests would incur big changes and code
+			-- duplication in the eiffel parser :-/
+			if i ?:= number_image then
+				i ::= number_image
+				i64 := i.decoded
+				if i64.fit_integer_8 then
+					create {LIBERTY_TYPED_MANIFEST[INTEGER_8]}Result.make(universe.type_integer_64, i64.to_integer_8)
+				elseif i64.fit_integer_16 then
+					create {LIBERTY_TYPED_MANIFEST[INTEGER_16]}Result.make(universe.type_integer_64, i64.to_integer_16)
+				elseif i64.fit_integer_32 then
+					create {LIBERTY_TYPED_MANIFEST[INTEGER_32]}Result.make(universe.type_integer_64, i64.to_integer_32)
+				else
+					create {LIBERTY_TYPED_MANIFEST[INTEGER_64]}Result.make(universe.type_integer_64, i64)
+				end
+			else
+				check
+					r ?:= number_image
+				end
+				r ::= number_image
+				create {LIBERTY_TYPED_MANIFEST[REAL]}Result.make(universe.type_real, r.decoded)
+			end
+		end
+
+	character (character_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
+		require
+			TYPED_EIFFEL_IMAGE[CHARACTER] ?:= character_image
+		local
+			c: TYPED_EIFFEL_IMAGE[CHARACTER]
+		do
+			c ::= character_image
+			create {LIBERTY_TYPED_MANIFEST[CHARACTER]}Result.make(universe.type_character, c.decoded)
+		end
+
+	number_typed_manifest (manifest_type: LIBERTY_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
+		require
+			TYPED_EIFFEL_IMAGE[INTEGER_64] ?:= number_image
+				or else TYPED_EIFFEL_IMAGE[REAL] ?:= number_image
+		local
+			i: TYPED_EIFFEL_IMAGE[INTEGER_64]
+			r: TYPED_EIFFEL_IMAGE[REAL]
+			i64: INTEGER_64
+		do
+			-- That's not pretty! but doing without all those type tests would incur big changes and code
+			-- duplication in the eiffel parser :-/
+			if i ?:= number_image then
+				i ::= number_image
+				i64 := i.decoded
+				if i64.fit_integer_8 then
+					create {LIBERTY_TYPED_MANIFEST[INTEGER_8]}Result.make(manifest_type, i64.to_integer_8)
+				elseif i64.fit_integer_16 then
+					create {LIBERTY_TYPED_MANIFEST[INTEGER_16]}Result.make(manifest_type, i64.to_integer_16)
+				elseif i64.fit_integer_32 then
+					create {LIBERTY_TYPED_MANIFEST[INTEGER_32]}Result.make(manifest_type, i64.to_integer_32)
+				else
+					create {LIBERTY_TYPED_MANIFEST[INTEGER_64]}Result.make(manifest_type, i64)
+				end
+			else
+				check
+					r ?:= number_image
+				end
+				r ::= number_image
+				create {LIBERTY_TYPED_MANIFEST[REAL]}Result.make(manifest_type, r.decoded)
+			end
+		end
+
+	array_typed_manifest (manifest_type: LIBERTY_TYPE; array_parameters: EIFFEL_LIST_NODE; array: LIBERTY_AST_ARRAY): LIBERTY_ARRAY_MANIFEST is
+		local
+			i: INTEGER; ena: LIBERTY_AST_EXPRESSION_NO_ARRAY; exp: LIBERTY_AST_EXPRESSION
+		do
+			create Result.make(manifest_type)
+			from
+				i := array_parameters.lower
+			until
+				i > array_parameters.upper
+			loop
+				ena ::= array_parameters.item(i)
+				Result.add_parameter(expression_no_array(ena))
+				i := i + 1
+			end
+			from
+				i := array.content.lower
+			until
+				i > array.content.upper
+			loop
+				exp ::= array.content.item(i)
+				Result.add_content(expression(exp))
+				i := i + 1
+			end
 		end
 
 feature {}

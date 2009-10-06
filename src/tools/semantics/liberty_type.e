@@ -90,11 +90,6 @@ feature {LIBERTY_TYPE_BUILDER}
 			obsolete_message = message
 		end
 
-	add_feature (a_feature: LIBERTY_FEATURE) is
-		do
-			features.add(a_feature, a_feature.name)
-		end
-
 	set_deferred is
 		require
 			not mark_set
