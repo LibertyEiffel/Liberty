@@ -13,15 +13,15 @@ feature {ANY}
 	is_once: BOOLEAN
 
 feature {}
-	make (a_type: like result_type; a_value: like value; a_once: like is_once) is
+	make (a_type: like result_type; a_manifest: like manifest; a_once: like is_once) is
 		require
 			a_type /= Void
 		do
-			typed_make(a_type, a_value)
+			typed_make(a_type, a_manifest)
 			is_once := a_once
 		ensure
 			result_type = a_type
-			value = a_value
+			manifest = a_manifest
 			is_once = a_once
 		end
 

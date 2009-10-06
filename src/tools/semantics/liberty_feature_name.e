@@ -1,33 +1,24 @@
 class LIBERTY_FEATURE_NAME
 
-inherit
-	FIXED_STRING
-		redefine
-			is_equal, copy
-		end
-
 insert
+	HASHABLE
 	LIBERTY_AST_HANDLER
+		redefine
+			is_equal
+		end
 
 create {LIBERTY_TYPE_BUILDER}
 	make_regular, make_prefix, make_infix, make_from_ast
 
 feature {ANY}
-	is_equal (other: ABSTRACT_STRING): BOOLEAN is
+	name: FIXED_STRING
+
+	is_equal (other: like Current): BOOLEAN is
 		local
 			lfn: LIBERTY_FEATURE_NAME
 		do
-			Result := Precursor(other)
-			if Result and then lfn ?:= other then
-				lfn ::= other
-				Result := lfn.type = type
-			end
-		end
-
-	copy (other: like Current) is
-		do
-			Precursor(other)
-			type := other.type
+			Result := name.is_equal(other.name)
+				and then type = other.type
 		end
 
 	is_regular: BOOLEAN is
@@ -46,32 +37,34 @@ feature {ANY}
 		end
 
 	index: INTEGER
+	hash_code: INTEGER
 
 feature {LIBERTY_FEATURE_NAME}
 	type: INTEGER_8
 
 feature {}
-	make_regular (name: STRING) is
+	make_regular (a_name: STRING) is
 		do
-			make_from_string(name)
+			create name.make_from_string(a_name)
 			type := type_regular
+			hash_code := name.hash_code
 		end
 
-	make_prefix (name: STRING) is
+	make_prefix (a_name: STRING) is
 		do
-			make_from_string(name)
+			create name.make_from_string(a_name)
 			type := type_prefix
-			hash_code := hash_code #* 17
+			hash_code := name.hash_code #* 17
 			if hash_code < 0 then
 				hash_code := ~hash_code
 			end
 		end
 
-	make_infix (name: STRING) is
+	make_infix (a_name: STRING) is
 		do
-			make_from_string(name)
+			create name.make_from_string(a_name)
 			type := type_infix
-			hash_code := hash_code #* 31
+			hash_code := name.hash_code #* 31
 			if hash_code < 0 then
 				hash_code := ~hash_code
 			end

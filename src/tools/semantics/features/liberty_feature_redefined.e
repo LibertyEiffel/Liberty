@@ -1,7 +1,7 @@
 class LIBERTY_FEATURE_REDEFINED
 
 inherit
-	LIBERTY_FEATURE_ROUTINE
+	LIBERTY_FEATURE
 
 create {LIBERTY_TYPE_BUILDER}
 	make
@@ -18,10 +18,5 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 	redefined_feature: LIBERTY_FEATURE
-
-feature {}
-	make is
-		do
-		end
 
 end

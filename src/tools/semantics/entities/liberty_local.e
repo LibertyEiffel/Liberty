@@ -7,7 +7,7 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
-	name: STRING
+	name: FIXED_STRING
 	result_type: LIBERTY_TYPE
 
 feature {}

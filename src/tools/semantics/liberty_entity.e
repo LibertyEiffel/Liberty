@@ -1,7 +1,7 @@
 deferred class LIBERTY_ENTITY
 
 feature {ANY}
-	name: STRING is
+	name: FIXED_STRING is
 		deferred
 		end
 

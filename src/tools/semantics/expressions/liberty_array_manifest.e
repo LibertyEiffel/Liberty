@@ -33,7 +33,7 @@ feature {}
 		require
 			a_type /= Void
 		do
-			result_type := type
+			result_type := a_type
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} parameters_list.make(0)
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} contents_list.make(0)
 		ensure

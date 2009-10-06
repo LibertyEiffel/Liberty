@@ -1,9 +1,12 @@
 class LIBERTY_ERROR
 
-create {LIBERTY_ERRORS}
+insert
+	EIFFEL_NODE_HANDLER
+
+create {LIBERTY_ERROR, LIBERTY_ERRORS}
 	from_parse_error, error, warning
 
-feature {LIBERTY_ERROR}
+feature {LIBERTY_ERROR, LIBERTY_ERRORS}
 	index: INTEGER
 	message: STRING
 	next: LIBERTY_ERROR
@@ -84,7 +87,7 @@ feature {LIBERTY_ERROR}
 	do_emit (code: STRING) is
 		local
 			l, c, i, a: INTEGER
-			code, arrow: STRING
+			arrow: STRING
 		do
 			if next /= Void then
 				next.do_emit(code)
@@ -204,15 +207,12 @@ feature {}
 	from_parse_error (p: PARSE_ERROR) is
 		require
 			p /= Void
-		local
-			n: LIBERTY_ERROR
 		do
-			if p.next /= Void then
-				create n.make(p.next.index, p.next.message, Current)
-			end
 			index := p.index
 			message := p.message
-			next := n
+			if p.next /= Void then
+				create next.error(p.next.index, p.next.message, Current)
+			end
 		ensure
 			(p.next /= Void) = (next /= Void)
 			index = p.index

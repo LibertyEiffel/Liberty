@@ -1,5 +1,8 @@
 deferred class LIBERTY_COMPOSED_ASSERTIONS
 
+inherit
+	LIBERTY_ASSERTIONS
+
 feature {}
 	left, right: LIBERTY_ASSERTIONS
 

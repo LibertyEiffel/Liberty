@@ -5,8 +5,7 @@ inherit
 		redefine
 			has_type_definition, has_creation_feature_call,
 			writable, type_definition, creation_feature_name, creation_feature_actuals,
-			possible_counts, name,
-			accept
+			possible_counts, name
 		end
 
 create {LIBERTY_NODE_FACTORY}

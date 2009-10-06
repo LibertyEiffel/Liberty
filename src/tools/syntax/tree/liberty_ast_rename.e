@@ -12,7 +12,7 @@ feature {LIBERTY_AST_HANDLER}
 			Result ::= nodes.item(0)
 		end
 
-	new_name: LIBERY_AST_FEATURE_NAME is
+	new_name: LIBERTY_AST_FEATURE_NAME is
 		do
 			Result ::= nodes.item(2)
 		end

@@ -8,8 +8,6 @@ create {LIBERTY_NODE_FACTORY}
 
 feature {LIBERTY_AST_HANDLER}
 	type_definition: LIBERTY_AST_TYPE_DEFINITION is
-		require
-			is_type_definition
 		do
 			Result ::= nodes.first
 		end

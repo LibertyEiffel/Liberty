@@ -24,7 +24,7 @@ feature {ANY}
 				create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name), effective_type_parameters)
 				Result := get_type_from_descriptor(descriptor)
 			else
-				create error(0, once "Unknown class: " + class_name)
+				error(0, once "Unknown class: " + class_name)
 			end
 		ensure
 			Result.cluster = cluster
@@ -81,6 +81,11 @@ feature {ANY}
 			Result := kernel_type(once "STRING")
 		end
 
+	type_boolean: LIBERTY_TYPE is
+		do
+			Result := kernel_type(once "BOOLEAN")
+		end
+
 feature {}
 	kernel_type (class_name: STRING): LIBERTY_TYPE is
 		require
@@ -124,7 +129,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			class_name := type_definition.type_name.image.image
 			cluster := origin.find(class_name)
 			if cluster = Void then
-				create error(type_definition.type_name.image.index, once "Unknown class: " + class_name)
+				error(type_definition.type_name.image.index, once "Unknown class: " + class_name)
 			else
 				parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
 				Result := get_type(cluster, class_name, parameters)
@@ -147,13 +152,13 @@ feature {LIBERTY_TYPE_BUILDER}
 			if client.type_definition.type_parameters.list_count /= effective_parameters.count then
 				if client.type_definition.type_parameters.list_count = 0 then
 					-- legacy: only a class name is given
-					class_name := client.class_name.image.image
+					class_name := client.type_definition.type_name.image.image
 					cluster := origin.find(class_name)
 					parameters := get_parameter_constraints(origin, parse_class(cluster, class_name), effective_parameters)
 					create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name), parameters)
 					Result := get_type_from_descriptor(descriptor)
 				else
-					create error(client.class_name.image.index, "Bad generics list")
+					error(client.type_definition.type_name.image.index, "Bad generics list (generics count mismatch)")
 				end
 			else
 				Result := get_type_from_type_definition(origin, client.type_definition, effective_parameters)
@@ -251,7 +256,6 @@ feature {} -- AST building
 	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING): LIBERTY_AST_CLASS is
 		local
 			code: STRING
-			error: PARSE_ERROR
 		do
 			parse_descriptor.make(cluster, class_name)
 			Result := classes.reference_at(parse_descriptor)
@@ -262,9 +266,8 @@ feature {} -- AST building
 
 				parser_buffer.initialize_with(code)
 				parser.eval(parser_buffer, eiffel.table, once "Class")
-				error := parser.error
-				if error /= Void then
-					emit_syntax_error(error, code)
+				if parser.error /= Void then
+					emit_syntax_error(parser.error, code)
 				end
 				Result ::= eiffel.root_node
 				classes.put(Result, parse_descriptor.twin)

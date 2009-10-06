@@ -9,6 +9,9 @@ insert
 			is_equal
 		end
 	LIBERTY_ERRORS
+		redefine
+			is_equal
+		end
 
 create {LIBERTY_UNIVERSE}
 	make
@@ -79,6 +82,63 @@ feature {ANY}
 			Result := mark /= 0
 		end
 
+	is_conform_to (other: LIBERTY_TYPE): BOOLEAN is
+		local
+			i: INTEGER
+		do
+			if other = Current then
+				Result := True
+			elseif conformant_parents /= Void then
+				from
+					i := conformant_parents.lower
+				until
+					Result or else i > conformant_parents.upper
+				loop
+					Result := conformant_parents.item(i).is_conform_to(other)
+					i := i + 1
+				end
+			end
+		ensure
+			Result implies is_child_of(other)
+		end
+
+	is_child_of (other: LIBERTY_TYPE): BOOLEAN is
+		do
+			Result := is_conform_to(other) or else is_non_conformant_child_of(other)
+		end
+
+	is_non_conformant_child_of (other: LIBERTY_TYPE): BOOLEAN is
+		local
+			i: INTEGER
+		do
+			if other = Current then
+				Result := True
+			else
+				if non_conformant_parents /= Void then
+					from
+						i := non_conformant_parents.lower
+					until
+						Result or else i > non_conformant_parents.upper
+					loop
+						Result := non_conformant_parents.item(i).is_non_conformant_child_of(other)
+						i := i + 1
+					end
+				end
+				if conformant_parents /= Void then
+					from
+						i := conformant_parents.lower
+					until
+						Result or else i > conformant_parents.upper
+					loop
+						Result := conformant_parents.item(i).is_non_conformant_child_of(other)
+						i := i + 1
+					end
+				end
+			end
+		ensure
+			Result implies is_child_of(other)
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	set_obsolete (message: like obsolete_message) is
 		require
@@ -134,7 +194,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		do
 			if conformant then
 				if conformant_parents = Void then
-					create {FAST_ARRAY[LIBETRY_TYPE]}conformant_parents.make(0)
+					create {FAST_ARRAY[LIBERTY_TYPE]}conformant_parents.make(0)
 				end
 				conformant_parents.add_last(a_parent)
 			else
@@ -155,18 +215,18 @@ feature {LIBERTY_TYPE_BUILDER}
 			until
 				i > features.upper
 			loop
-				Result.add(features.item_at(i).twin, features.key_at(i))
+				Result.add(features.item(i).twin, features.key(i))
 				i := i + 1
 			end
 		end
 
-	add_feature (a_feature: LIBERYT_FEATURE_DEFINITION) is
+	add_feature (a_feature: LIBERTY_FEATURE_DEFINITION) is
 		require
-			not has_feature(a_feature.name)
+			not has_feature(a_feature.feature_name)
 		do
-			a_features.add(a_feature, a_feature.name)
+			features.add(a_feature, a_feature.feature_name)
 		ensure
-			features.at(a_feature.name) = a_feature
+			features.at(a_feature.feature_name) = a_feature
 		end
 
 	has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
@@ -186,7 +246,7 @@ feature {LIBERTY_UNIVERSE} -- Semantincs building
 			if not has_error then
 				check_validity
 			end
-			if has_error_or_warning then
+			if has_warning_or_error then
 				emit_semantics_error(ast)
 			end
 		end
@@ -227,6 +287,6 @@ invariant
 	descriptor /= Void
 	ast /= Void
 	features /= Void
-	features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN is do Result := fd.name.is_equal(fd) end)
+	features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN is do Result := fd.feature_name.is_equal(fn) end)
 
 end

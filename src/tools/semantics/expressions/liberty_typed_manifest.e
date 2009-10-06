@@ -14,7 +14,7 @@ feature {}
 		require
 			a_type /= Void
 		do
-			result_type := type
+			result_type := a_type
 			manifest := a_manifest
 		ensure
 			result_type = a_type

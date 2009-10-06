@@ -2,6 +2,9 @@ class LIBERTY_FEATURE_CONSTANT
 
 inherit
 	LIBERTY_FEATURE
+		rename
+			make as make_late_binding
+		end
 
 create {LIBERTY_TYPE_BUILDER}
 	make
@@ -14,8 +17,9 @@ feature {}
 		require
 			a_expression /= Void
 			a_type /= Void
-			a_expression.result_type.conforms_to(a_type)
+			a_expression.result_type.is_conform_to(a_type)
 		do
+			make_late_binding
 			expression := a_expression
 			result_type := a_type
 		ensure

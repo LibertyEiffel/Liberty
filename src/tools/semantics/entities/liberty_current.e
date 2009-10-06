@@ -6,6 +6,14 @@ inherit
 create {LIBERTY_TYPE_BUILDER}
 	make
 
+feature {ANY}
+	name: FIXED_STRING is
+		once
+			create Result.make_from_string("Current")
+		end
+
+	result_type: LIBERTY_TYPE
+
 feature {}
 	make (type: like result_type) is
 		require

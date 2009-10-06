@@ -14,13 +14,11 @@ feature {LIBERTY_TYPE}
 		local
 			ast: LIBERTY_AST_CLASS
 		do
-			ast := a_type.ast
-			type := a_type
-			universe := a_universe
+			ast := type.ast
 			init_header(ast.class_header)
 			if not has_error then
 				if ast.obsolete_clause.count > 0 then
-					create warning(ast.obsolete_clause.string.image.index, decoded_string(ast.obsolete_clause.string))
+					warning(ast.obsolete_clause.string.image.index, decoded_string(ast.obsolete_clause.string))
 				end
 				add_parents(ast.inherit_clause, True)
 				add_parents(ast.insert_clause, False)
@@ -59,12 +57,12 @@ feature {}
 			name := a_header.class_name.image.image
 			type_parameters := a_header.type_parameters
 			if type_parameters.list_count /= type.parameters.count then
-				create last_error.error(a_header.class_name.image.index, once "Bad number of generic parameters", last_error)
+				error(a_header.class_name.image.index, once "Bad number of generic parameters")
 			else
 				check
 					same_indexes: type_parameters.list_lower = type.parameters.lower
 				end
-				create {HASHED_DICTIONARY[LIBERTY_TYPE, STRING]}generic_effective_parameters.with_capacity(type_parameters.list_count)
+				create {HASHED_DICTIONARY[LIBERTY_TYPE, STRING]}effective_generic_parameters.with_capacity(type_parameters.list_count)
 				from
 					i := type_parameters.list_lower
 				until
@@ -72,12 +70,12 @@ feature {}
 				loop
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
-						constraint := universe.get_type_from_type_definition(type.cluster, type_parameter.constraint, generic_effective_parameters)
-						if not constraint.is_parent_of(type.parameters.item(i)) then
-							create last_error.error(type_parameter.class_name.image.index, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name, last_error)
+						constraint := universe.get_type_from_type_definition(type.cluster, type_parameter.constraint, effective_generic_parameters)
+						if not type.parameters.item(i).is_child_of(constraint) then
+							error(type_parameter.class_name.image.index, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
 						end
 					end
-					generic_effective_parameters.add(type.parameters.item(i), type_parameter.class_name.image.image)
+					effective_generic_parameters.add(type.parameters.item(i), type_parameter.class_name.image.image)
 					i := i + 1
 				end
 			end
@@ -96,7 +94,7 @@ feature {}
 				has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
-				parent := universe.get_type_from_type_definition(parent_clause.type_definition)
+				parent := universe.get_type_from_type_definition(type.cluster, parent_clause.type_definition, effective_generic_parameters)
 				if parent /= Void then
 					type.add_parent(parent, conformant)
 					inject_parent_invariant(parent)
@@ -108,7 +106,8 @@ feature {}
 			if not has_parent then
 				parent := universe.type_any
 				type.add_parent(parent, False)
-				import_features(parent, Void)
+				inject_parent_invariant(parent)
+				inject_parent_features(parent, Void, False)
 			end
 		end
 
@@ -137,7 +136,7 @@ feature {}
 			from
 				i := clause.list_lower
 			invariant
-				parent_features.item(i).name.is_equal(parent_features.key(i))
+				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
 			until
 				i > clause.list_upper
 			loop
@@ -146,9 +145,9 @@ feature {}
 				create new_name.make_from_ast(r.new_name.feature_name_or_alias)
 				fd := parent_features.reference_at(old_name)
 				if fd = Void then
-					error(old_name.index, once "Unknown feature name: " + old_name)
-				elseif parent_features.reference_at(new_name)
-					error(new_name.index, once "Duplicate feature name: " + new_name)
+					error(old_name.index, once "Unknown feature name: " + old_name.name)
+				elseif parent_features.reference_at(new_name) /= Void then
+					error(new_name.index, once "Duplicate feature name: " + new_name.name)
 				else
 					parent_features.remove(old_name)
 					fd.set_name(new_name)
@@ -160,14 +159,14 @@ feature {}
 
 	export_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_EXPORT) is
 		local
-			i, j: INTEGER; e: LIBERTY_AST_EXPORT; feature_name: LIBERTY_FEATURE_NAME
+			i, j: INTEGER; e: LIBERTY_AST_EXPORT; feature_name: LIBERTY_FEATURE_NAME; fn: LIBERTY_AST_FEATURE_NAME
 			clients: COLLECTION[LIBERTY_TYPE]
 			fd: LIBERTY_FEATURE_DEFINITION
 		do
 			from
 				i := clause.list_lower
 			invariant
-				parent_features.item(i).name.is_equal(parent_features.key(i))
+				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
 			until
 				i > clause.list_upper
 			loop
@@ -178,10 +177,11 @@ feature {}
 				until
 					j > e.feature_names.upper
 				loop
-					create feature_name.make_from_ast(e.feature_names.item(j))
+					fn ::= e.feature_names.item(j)
+					create feature_name.make_from_ast(fn.feature_name_or_alias)
 					fd := parent_features.reference_at(feature_name)
 					if fd = Void then
-						error(feature_name.index, once "Unknown feature name: " + feature_name)
+						error(feature_name.index, once "Unknown feature name: " + feature_name.name)
 					else
 						fd.set_clients(clients)
 					end
@@ -200,23 +200,23 @@ feature {}
 			from
 				i := clause.list_lower
 			invariant
-				parent_features.item(i).name.is_equal(parent_features.key(i))
+				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
 			until
 				i > clause.list_upper
 			loop
-				create feature_name.make_from_ast(clause.list_item(i))
+				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias)
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
-					error(feature_name.index, once "Unknown feature name: " + feature_name)
+					error(feature_name.index, once "Unknown feature name: " + feature_name.name)
 				elseif fd.is_frozen then
-					error(feature_name.index, once "Cannot undefine frozen feature: " + feature_name)
+					error(feature_name.index, once "Cannot undefine frozen feature: " + feature_name.name)
 				else
 					inherited_feature := fd.the_feature
 					create deferred_feature.make
-					deferred_feature.set_preconfition(inherited_feature.precondition)
+					deferred_feature.set_precondition(inherited_feature.precondition)
 					deferred_feature.set_postcondition(inherited_feature.postcondition)
 					deferred_feature.set_result_type(inherited_feature.result_type)
-					deferred_feature.add_parameters(inherited_feature.parameters)
+					deferred_feature.set_parameters(inherited_feature.parameters)
 					if conformant then
 						inherited_feature.bind(deferred_feature, type)
 					end
@@ -236,23 +236,23 @@ feature {}
 			from
 				i := clause.list_lower
 			invariant
-				parent_features.item(i).name.is_equal(parent_features.key(i))
+				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
 			until
 				i > clause.list_upper
 			loop
-				create feature_name.make_from_ast(clause.list_item(i))
+				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias)
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
-					error(feature_name.index, once "Unknown feature name: " + feature_name)
+					error(feature_name.index, once "Unknown feature name: " + feature_name.name)
 				elseif fd.is_frozen then
-					error(feature_name.index, once "Cannot redefine frozen feature: " + feature_name)
+					error(feature_name.index, once "Cannot redefine frozen feature: " + feature_name.name)
 				else
 					inherited_feature := fd.the_feature
 					create redefined_feature.make
-					redefined_feature.set_preconfition(inherited_feature.precondition)
+					redefined_feature.set_precondition(inherited_feature.precondition)
 					redefined_feature.set_postcondition(inherited_feature.postcondition)
 					redefined_feature.set_result_type(inherited_feature.result_type)
-					redefined_feature.add_parameters(inherited_feature.parameters)
+					redefined_feature.set_parameters(inherited_feature.parameters)
 					if conformant then
 						inherited_feature.bind(redefined_feature, type)
 					end
@@ -272,7 +272,7 @@ feature {}
 			from
 				i := parent_features.lower
 			invariant
-				parent_features.item(i).name.is_equal(parent_features.key(i))
+				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
 			until
 				i >  parent_features.upper
 			loop
@@ -311,67 +311,72 @@ feature {}
 
 	add_feature (clients: COLLECTION[LIBERTY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION) is
 		local
-			result_type: LIBETY_TYPE; parameters: COLLECTION[LIBERTY_TYPE]
-			fd: LIBERTY_FEATURE_DEFINITION
+			result_type: LIBERTY_TYPE; parameters: COLLECTION[LIBERTY_PARAMETER]
+			the_feature: LIBERTY_FEATURE; a_ast_terminal: LIBERTY_AST_TERMINAL_NODE
 		do
 			if a_feature.signature.has_result_type then
-				result_type := universe.get_type_from_type_definition(type.cluster, a_feature.signature.result_type, generic_effective_parameters)
+				result_type := universe.get_type_from_type_definition(type.cluster, a_feature.signature.result_type, effective_generic_parameters)
 			end
 			if a_feature.has_block then
 				if a_feature.signature.has_parameters then
 					parameters := list_parameters(a_feature.signature.parameters)
 				else
-					parameters := empty_list_parameters
+					parameters := empty_parameter_list
 				end
-				fd := feature_block(parameters, result_type, a_feature.block)
+				the_feature := feature_block(parameters, result_type, a_feature.block)
 			else
-				if a_feature.has_parameters then
-					error(a_feature.signature.index, once "Unexpected parameters")
-				elseif not a_feature.has_result_type then
-					error(a_feature.signature, once "Missing entity type")
+				if a_feature.signature.has_parameters then
+					a_ast_terminal ::= a_feature.signature.node_at(1)
+					error(a_ast_terminal.image.index, once "Unexpected parameters")
+				elseif not a_feature.signature.has_result_type then
+					a_ast_terminal ::= a_feature.signature.node_at(3)
+					error(a_ast_terminal.image.index + 1, once "Missing entity type")
 				else
 					if a_feature.is_constant then
-						fd := feature_constant(result_type, a_feature.constant)
+						the_feature := feature_constant(result_type, a_feature.constant)
 					else
 						check a_feature.is_unique end
-						create {LIBERTY_FEATURE_UNIQUE}fd.make(result_type)
+						create {LIBERTY_FEATURE_UNIQUE}the_feature.make(result_type)
 					end
 				end
 			end
-			add_feature_definition(fd, a_feature.signature.feature_names, clients)
+			add_feature_definition(the_feature, a_feature.signature.feature_names, clients)
 		end
 
-	feature_block (parameters: COLLECTION[LIBERTY_PARAMETER]; result_type: LIBERTY_TYPE; block: LIBERTY_AST_EIFFEL_BLOCK): LIBERTY_FEATURE_ROUTINE is
+	feature_block (parameters: COLLECTION[LIBERTY_PARAMETER]; result_type: LIBERTY_TYPE; block: LIBERTY_AST_EIFFEL_BLOCK): LIBERTY_FEATURE is
 		require
 			parameters /= Void
 		do
+			not_yet_implemented
 		end
 
 	feature_constant (result_type: LIBERTY_TYPE; constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST): LIBERTY_FEATURE_CONSTANT is
 		require
 			result_type /= Void
 		local
-			tm: like typed_manifest
+			tm: like typed_manifest_or_type_test
+			a_ast_terminal: LIBERTY_AST_TERMINAL_NODE
 		do
 			if constant.is_assignment_test then
-				error(constant.index, once "Unexpected assignment test")
+				a_ast_terminal ::= constant.node_at(0)
+				error(a_ast_terminal.image.index, once "Unexpected assignment test")
 			elseif constant.is_typed_open_argument then
-				error(constant.index, once "Unexpected open argument")
+				a_ast_terminal ::= constant.node_at(0)
+				error(a_ast_terminal.image.index, once "Unexpected open argument")
 			else
 				tm := typed_manifest_or_type_test(constant)
 				if not has_error then
-					if tm.conforms_to(result_type) then
+					if tm.result_type.is_conform_to(result_type) then
 						create Result.make(result_type, tm)
 					else
-						error(constant.index, once "That expression does not conform to " + result_type.name)
+						a_ast_terminal ::= constant.node_at(0)
+						error(a_ast_terminal.image.index, once "That expression does not conform to " + result_type.name)
 					end
 				end
 			end
 		end
 
-	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; a_obsolete: STRING; clients: COLLECTION[LIBERTY_CLIENT]) is
-		require
-			result_type /= Void
+	add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; clients: COLLECTION[LIBERTY_TYPE]) is
 		local
 			i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
 			fd: LIBERTY_FEATURE_DEFINITION
@@ -390,7 +395,7 @@ feature {}
 
 	check_that_all_redefined_features_were_redefined is
 		local
-			i: INTEGER; name: EIFFEL_IMAGE
+			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME
 		do
 			from
 				i := redefined_features.lower
@@ -398,8 +403,8 @@ feature {}
 				i > redefined_features.upper
 			loop
 				if redefined_features.item(i).redefined_feature = Void then
-					name := redefined_features.key(i)
-					error(name.index, once "Missing redefinition for " + name.image)
+					feature_name := redefined_features.key(i)
+					error(feature_name.index, once "Missing redefinition for " + feature_name.name)
 				end
 				i := i + 1
 			end
@@ -454,13 +459,13 @@ feature {} -- Expressions
 			elseif constant.is_once_string then
 				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True)
 			elseif constant.is_number_typed_manifest then
-				Result := number_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
+				Result := number_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, effective_generic_parameters),
 														  constant.typed_manifest_number.image)
 			elseif constant.is_string_typed_manifest then
-				create {LIBERTY_TYPED_MANIFEST[STRING]} Result.make(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
-																					 decoded_string(constant.typed_manifest_number))
+				create {LIBERTY_TYPED_MANIFEST[STRING]} Result.make(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, effective_generic_parameters),
+																					 decoded_string(constant.typed_manifest_string))
 			elseif constant.is_array_typed_manifest then
-				Result := array_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, generic_effective_parameters),
+				Result := array_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, effective_generic_parameters),
 														 constant.typed_manifest_array_parameters, constant.typed_manifest_array)
 			else
 				check False end
@@ -469,8 +474,8 @@ feature {} -- Expressions
 
 	number (number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
 		require
-			TYPED_EIFFEL_IMAGE[INTEGER_64] ?:= number_image
-				or else TYPED_EIFFEL_IMAGE[REAL] ?:= number_image
+			({TYPED_EIFFEL_IMAGE[INTEGER_64]} ?:= number_image)
+				or else ({TYPED_EIFFEL_IMAGE[REAL]} ?:= number_image)
 		local
 			i: TYPED_EIFFEL_IMAGE[INTEGER_64]
 			r: TYPED_EIFFEL_IMAGE[REAL]
@@ -501,7 +506,7 @@ feature {} -- Expressions
 
 	character (character_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
 		require
-			TYPED_EIFFEL_IMAGE[CHARACTER] ?:= character_image
+			{TYPED_EIFFEL_IMAGE[CHARACTER]} ?:= character_image
 		local
 			c: TYPED_EIFFEL_IMAGE[CHARACTER]
 		do
@@ -511,8 +516,8 @@ feature {} -- Expressions
 
 	number_typed_manifest (manifest_type: LIBERTY_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
 		require
-			TYPED_EIFFEL_IMAGE[INTEGER_64] ?:= number_image
-				or else TYPED_EIFFEL_IMAGE[REAL] ?:= number_image
+			({TYPED_EIFFEL_IMAGE[INTEGER_64]} ?:= number_image)
+				or else ({TYPED_EIFFEL_IMAGE[REAL]} ?:= number_image)
 		local
 			i: TYPED_EIFFEL_IMAGE[INTEGER_64]
 			r: TYPED_EIFFEL_IMAGE[REAL]
@@ -569,7 +574,7 @@ feature {} -- Expressions
 feature {}
 	decoded_string (string_image: LIBERTY_AST_STRING): STRING is
 		require
-			TYPED_EIFFEL_IMAGE[STRING] ?:= string_image
+			{TYPED_EIFFEL_IMAGE[STRING]} ?:= string_image.image
 		local
 			s: TYPED_EIFFEL_IMAGE[STRING]
 		do
@@ -577,21 +582,21 @@ feature {}
 			Result := s.decoded
 		end
 
-	list_clients (clients: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_TPYE] is
+	list_clients (clients: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_TYPE] is
 		local
 			i: INTEGER; client: LIBERTY_AST_CLIENT
 		do
 			if clients.is_empty then
 				Result := empty_client_list
 			else
-				create {FAST_ARRAY[LIBERTY_TYPE]}Result.with_capacity(e.clients.count)
+				create {FAST_ARRAY[LIBERTY_TYPE]}Result.with_capacity(clients.count)
 				from
 					i := clients.lower
 				until
 					i > clients.upper
 				loop
 					client ::= clients.item(i)
-					Result.add_last(universe.get_type_from_client(type.cluster, client, generic_effective_parameters))
+					Result.add_last(universe.get_type_from_client(type.cluster, client, effective_generic_parameters))
 					i := i + 1
 				end
 			end
@@ -599,7 +604,7 @@ feature {}
 
 	empty_client_list: COLLECTION[LIBERTY_TYPE] is
 		once
-			create {FAST_ARRAY[LIBERYT_TYPE]}.with_capacity(0)
+			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 
 	list_parameters (parameters: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_PARAMETER] is
@@ -607,9 +612,14 @@ feature {}
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; parameter: LIBERTY_AST_VARIABLE
 		do
 			if parameters.is_empty then
-				Result := empty_list_parameters
+				Result := empty_parameter_list
 			else
 			end
+		end
+
+	empty_parameter_list: COLLECTION[LIBERTY_PARAMETER] is
+		once
+			create {FAST_ARRAY[LIBERTY_PARAMETER]} Result.with_capacity(0)
 		end
 
 feature {}
@@ -628,7 +638,7 @@ feature {}
 	type: LIBERTY_TYPE
 	universe: LIBERTY_UNIVERSE
 
-	generic_effective_parameters: DICTIONARY[LIBERTY_TYPE, STRING]
+	effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, STRING]
 			-- key: generic parameter name (e.g. E_)
 			-- value: effective parameter (e.g. STRING)
 

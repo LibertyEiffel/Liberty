@@ -33,12 +33,12 @@ feature {}
 	emit_semantics_error (ast: LIBERTY_AST_CLASS) is
 		do
 			if last_error /= Void then
-				last_error.emit_semantics
+				last_error.emit_semantics(ast)
 				last_error_memory.clear
 			end
 		end
 
-	last_error_memory: REFERENCE[LAST_ERROR] is
+	last_error_memory: REFERENCE[LIBERTY_ERROR] is
 		once
 			create Result
 		end
@@ -48,7 +48,7 @@ feature {}
 			e: LIBERTY_ERROR
 		do
 			create e.from_parse_error(perr)
-			e.emit_syntax
+			e.emit_syntax(code)
 		ensure
 			does_not_return: False
 		end
