@@ -2,6 +2,9 @@ deferred class LIBERTY_FEATURE_ROUTINE
 
 inherit
 	LIBERTY_FEATURE
+		rename
+			make as make_late_binding
+		end
 
 feature {ANY}
 	locals: DICTIONARY[LIBERTY_LOCAL, STRING]
@@ -21,13 +24,9 @@ feature {LIBERTY_TYPE_BUILDER}
 			rescue_instructions = a_rescue
 		end
 
-	add_local (a_local: LIBERTY_LOCAL) is
-		require
-			not locals.has(a_local.name)
+	set_locals (a_locals: like locals) is
 		do
-			locals.add(a_local, a_local.name)
-		ensure
-			locals.has(a_local.name)
+			locals := a_locals
 		end
 
 feature {}
@@ -35,14 +34,13 @@ feature {}
 		require
 			a_instructions /= Void
 		do
+			make_late_binding
 			block_instructions := a_instructions
-			create {HASHED_DICTIONARY[LIBERTY_LOCAL, STRING]}locals.make
 		ensure
 			block_instructions = a_instructions
 		end
 
 invariant
 	block_instructions /= Void
-	locals /= Void
 
 end

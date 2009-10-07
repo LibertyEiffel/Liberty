@@ -8,7 +8,7 @@ create {LIBERTY_TYPE_BUILDER}
 
 feature {ANY}
 	result_type: LIBERTY_TYPE
-	parameters: COLLECTION[LIBERTY_PARAMETER]
+	parameters: TRAVERSABLE[LIBERTY_PARAMETER]
 
 	precondition: LIBERTY_REQUIRE
 	postcondition: LIBERTY_ENSURE
@@ -40,28 +40,14 @@ feature {LIBERTY_TYPE_BUILDER}
 			result_type = a_result_type
 		end
 
-	precondition_set: BOOLEAN is
-		do
-			Result := precondition /= Void
-		end
-
 	set_precondition (assertions: like precondition) is
-		require
-			not precondition_set
 		do
 			precondition := assertions
 		ensure
 			precondition = assertions
 		end
 
-	postcondition_set: BOOLEAN is
-		do
-			Result := postcondition /= Void
-		end
-
 	set_postcondition (assertions: like postcondition) is
-		require
-			not postcondition_set
 		do
 			postcondition := assertions
 		ensure
