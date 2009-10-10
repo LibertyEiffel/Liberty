@@ -11,7 +11,7 @@ inherit
 insert CORE_EXTERNALS
 
 feature 
-	type: LLVMTYPE_KIND is
+	type: LLVMTYPE_KIND_ENUM is
 		-- The actual type of Current
 		do
 			Result.change_value
@@ -21,8 +21,16 @@ feature
 	context: LLVM_CONTEXT is
 		do
 			-- TODO: cache the result.
-			create Result.from_external(llvmget_type_context(handle))
+			create Result.from_external_pointer(llvmget_type_context(handle))
 		end
-end
+
+	struct_size: INTEGER is
+		-- LLVM_TYPE actually wraps a polymorphic C++ class; temporarly this query always fails.
+	require implemented: False
+		do
+			not_yet_implemented -- or mostly unuseful
+		end
+end -- class LLVM_TYPE
+
 
 -- Copyright 2009 Paolo Redaelli

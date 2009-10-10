@@ -2,9 +2,12 @@ class LLVM_CONTEXT
 
 inherit 
 	C_STRUCT
-	EIFFEL_OWNED -- TODO: check if it is the correct behaviour.
+	EIFFEL_OWNED 
+		-- TODO: check if it is the correct behaviour.
+		redefine dispose
+		end
 insert CORE_EXTERNALS
-creation make
+creation make, from_external_pointer
 feature 
 	make is
 		do
@@ -13,7 +16,11 @@ feature
 
 	dispose is
 		do
-			llvmcontext_dispose
+			llvmcontext_dispose(handle)
 		end
-end  LLVM_CONTEXT
 
+	struct_size: INTEGER is do not_yet_implemented end 
+
+end -- class LLVM_CONTEXT
+
+-- Copyright 2009 Paolo Redaelli

@@ -1,9 +1,16 @@
 class LLVM_INTEGER_TYPE
 	-- Integer representation type in LLVM.
 
-	-- It represents integer types, including the built-in 1-bit. 8-bit, 16-bit, 32-bit and 64-bit.
+	-- It represents integer types, including the built-in 1-bit. 8-bit,
+	-- 16-bit, 32-bit and 64-bit.
 
-	-- TODO: This API looks horrible as soon as I finished translating it from C. 
+	-- The underlying C++ function to get or create an IntegerType pointer is
+	-- "const IntegerType *IntegerType::get ( LLVMContext & C, unsigned
+	-- NumBits )" and is a static method and it's the primary way of
+	-- constructing an IntegerType. If an IntegerType with the same NumBits
+	-- value was previously instantiated, that instance will be returned.
+	-- Otherwise a new one will be created. Only one instance with a given
+	-- NumBits value is ever created.
 
 inherit
 	LLVM_TYPE
@@ -13,9 +20,10 @@ creation {ANY}
 	with_8_bits, with_8_bits_in_context, 
 	with_16_bits, with_16_bits_in_context, 
 	with_32_bits, with_32_bits_in_context, 
-	with_64_bits, with_64_bits_in_contexti --, with_n_bits, with_n_bits_in_context
+	with_64_bits, with_64_bits_in_context, 
+	with_bits, with_bits_in_context
 
-feature {} -- Creation
+feature {} -- Creation in a specific context
 	with_1_bit_in_context (a_context: LLVM_CONTEXT) is
 		require
 			a_context /= Void
@@ -51,6 +59,13 @@ feature {} -- Creation
 			handle := llvmint_1type_in_context(a_context.handle)
 		end
 
+	with_bits_in_context (a_bit_count: NATURAL_32) is
+		do
+			handle := llvmint_type(a_bit_count)
+		end
+
+
+feature {} -- Creation in global context
 	with_1_bit is
 		do
 			handle := llvmint_1type
@@ -75,9 +90,17 @@ feature {} -- Creation
 		do
 			handle := llvmint_64type
 		end
-		-- LLVMTypeRef LLVMIntType(unsigned NumBits);
-		-- unsigned LLVMGetIntTypeWidth(LLVMTypeRef IntegerTy);
+	
+	with_bits (a_bit_count: NATURAL_32) is
+		do
+			handle := llvmint_type(a_bit_count)
+		end
 
+feature 
+	width: NATURAL_32 is
+		do
+			Result := llvmget_int_type_width(handle)
+		end
 invariant
 	type.is_integer_type_kind
 

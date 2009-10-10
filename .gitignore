@@ -1,3 +1,12 @@
 ## Ignore backups
 *~
 *.back
+*.bak
+## Ignore object files
+*.[oa]
+## Ignore logs of any kind
+*log
+## Ignore tags
+tags
+TAGS
+
