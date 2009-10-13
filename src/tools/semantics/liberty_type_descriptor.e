@@ -17,9 +17,14 @@ feature {ANY}
 			Result := class_descriptor.cluster
 		end
 
-	name: STRING is
+	name: FIXED_STRING is
 		do
 			Result := class_descriptor.name
+		end
+
+	position: LIBERTY_POSITION is
+		do
+			Result := class_descriptor.position
 		end
 
 feature {ANY}

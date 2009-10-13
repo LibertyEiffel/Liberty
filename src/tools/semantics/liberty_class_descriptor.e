@@ -8,7 +8,8 @@ create {ANY}
 
 feature {ANY}
 	cluster: LIBERTY_CLUSTER
-	name: STRING
+	name: FIXED_STRING
+	position: LIBERTY_POSITION
 
 feature {LIBERTY_UNIVERSE}
 	file: STRING is
@@ -38,17 +39,19 @@ feature {ANY}
 			Result := name.is_equal(other.name) and then cluster.is_equal(other.cluster)
 		end
 
-	make (a_cluster: LIBERTY_CLUSTER; a_name: STRING) is
+	make (a_cluster: like cluster; a_name: like name; a_position: like position) is
 		require
 			a_cluster /= Void
 			a_name /= Void
 		do
 			cluster := a_cluster
 			name := a_name
+			position := a_position
 			compute_hash_code
 		ensure
 			cluster = a_cluster
 			name = a_name
+			position = a_position
 		end
 
 feature {}

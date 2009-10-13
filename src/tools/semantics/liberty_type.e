@@ -8,10 +8,7 @@ insert
 		redefine
 			is_equal
 		end
-	LIBERTY_ERRORS
-		redefine
-			is_equal
-		end
+	LIBERTY_ERROR_LEVELS
 
 create {LIBERTY_UNIVERSE}
 	make
@@ -39,7 +36,7 @@ feature {ANY}
 			Result := descriptor.cluster
 		end
 
-	name: STRING is
+	name: FIXED_STRING is
 		do
 			Result := descriptor.name
 		end
@@ -139,6 +136,34 @@ feature {ANY}
 			Result implies is_child_of(other)
 		end
 
+	complete_name: FIXED_STRING is
+		local
+			s: STRING; i: INTEGER
+		do
+			Result := complete_name_memory
+			if Result = Void then
+				s := ""
+				s.append(name)
+				if not parameters.is_empty then
+					s.extend('[')
+					from
+						i := parameters.lower
+					until
+						i > parameters.upper
+					loop
+						if i > parameters.lower then
+							s.append(once ", ")
+						end
+						s.append(parameters.item(i).complete_name)
+						i := i + 1
+					end
+					s.extend(']')
+				end
+				Result := s.intern
+				complete_name_memory := Result
+			end
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	set_obsolete (message: like obsolete_message) is
 		require
@@ -194,12 +219,12 @@ feature {LIBERTY_TYPE_BUILDER}
 		do
 			if conformant then
 				if conformant_parents = Void then
-					create {FAST_ARRAY[LIBERTY_TYPE]}conformant_parents.make(0)
+					create {FAST_ARRAY[LIBERTY_TYPE]} conformant_parents.make(0)
 				end
 				conformant_parents.add_last(a_parent)
 			else
 				if non_conformant_parents = Void then
-					create {FAST_ARRAY[LIBERTY_TYPE]}non_conformant_parents.make(0)
+					create {FAST_ARRAY[LIBERTY_TYPE] }non_conformant_parents.make(0)
 				end
 				non_conformant_parents.add_last(a_parent)
 			end
@@ -209,7 +234,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		local
 			i: INTEGER
 		do
-			create  {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]}Result.with_capacity(features.count)
+			create  {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} Result.with_capacity(features.count)
 			from
 				i := features.lower
 			until
@@ -243,18 +268,23 @@ feature {LIBERTY_UNIVERSE} -- Semantincs building
 		do
 			create builder.make(Current, universe)
 			builder.check_and_initialize
-			if not has_error then
+			if not errors.has_error then
 				check_validity
 			end
-			if has_warning_or_error then
-				emit_semantics_error(ast)
+			if errors.has_error then
+				errors.set(level_fatal_error, once "Errors detected while building " + complete_name + ".%NPlease fix those errors first.")
+				check
+					dead: False
+				end
+			elseif errors.has_warning_or_error then
+				errors.emit
 			end
 		end
 
 feature {}
 	check_validity is
 		do
-			-- TODO
+			--| TODO
 		end
 
 feature {}
@@ -264,7 +294,7 @@ feature {}
 		do
 			descriptor := a_descriptor
 			ast := a_ast
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]}features.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} features.make
 		ensure
 			descriptor = a_descriptor
 		end
@@ -274,6 +304,8 @@ feature {}
 	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
 	features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 
+	complete_name_memory: FIXED_STRING
+
 	deferred_mark: INTEGER_8 is 1
 	expanded_mark: INTEGER_8 is 2
 	separate_mark: INTEGER_8 is 4
@@ -282,6 +314,8 @@ feature {}
 feature {LIBERTY_AST_HANDLER}
 	ast: LIBERTY_AST_CLASS
 	descriptor: LIBERTY_TYPE_DESCRIPTOR
+
+	errors: LIBERTY_ERRORS
 
 invariant
 	descriptor /= Void

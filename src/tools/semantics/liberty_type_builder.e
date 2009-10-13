@@ -2,7 +2,7 @@ class LIBERTY_TYPE_BUILDER
 
 insert
 	LIBERTY_AST_HANDLER
-	LIBERTY_ERRORS
+	LIBERTY_ERROR_LEVELS
 
 create {LIBERTY_TYPE}
 	make
@@ -16,17 +16,18 @@ feature {LIBERTY_TYPE}
 		do
 			ast := type.ast
 			init_header(ast.class_header)
-			if not has_error then
+			if not errors.has_error then
 				if ast.obsolete_clause.count > 0 then
-					warning(ast.obsolete_clause.string.image.index, decoded_string(ast.obsolete_clause.string))
+					errors.add_position(errors.semantics_position(ast.obsolete_clause.string.image.index, ast))
+					errors.set(level_warning, decoded_string(ast.obsolete_clause.string))
 				end
 				add_parents(ast.inherit_clause, True)
 				add_parents(ast.insert_clause, False)
-				if not has_error then
+				if not errors.has_error then
 					add_features(ast.features)
-					if not has_error then
+					if not errors.has_error then
 						add_creations(ast.creations)
-						if not has_error then
+						if not errors.has_error then
 							add_invariant(ast.invariant_clause)
 						end
 					end
@@ -38,7 +39,7 @@ feature {}
 	init_header (a_header: LIBERTY_AST_CLASS_HEADER) is
 		local
 			marker: LIBERTY_AST_CLASS_MARKER
-			name: STRING
+			name: FIXED_STRING
 			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
 			type_parameter: LIBERTY_AST_TYPE_PARAMETER
 			constraint: LIBERTY_TYPE
@@ -54,10 +55,14 @@ feature {}
 			else
 				type.set_reference
 			end
-			name := a_header.class_name.image.image
+			name := a_header.class_name.image.image.intern
+			if name /= type.name then
+				errors.set(level_fatal_error, "Expected type " + type.name + ", but got " + name)
+			end
 			type_parameters := a_header.type_parameters
 			if type_parameters.list_count /= type.parameters.count then
-				error(a_header.class_name.image.index, once "Bad number of generic parameters")
+				errors.add_position(errors.semantics_position(a_header.class_name.image.index, type.ast))
+				errors.set(level_error, once "Bad number of generic parameters")
 			else
 				check
 					same_indexes: type_parameters.list_lower = type.parameters.lower
@@ -72,7 +77,8 @@ feature {}
 					if type_parameter.has_constraint then
 						constraint := universe.get_type_from_type_definition(type.cluster, type_parameter.constraint, effective_generic_parameters)
 						if not type.parameters.item(i).is_child_of(constraint) then
-							error(type_parameter.class_name.image.index, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
+							errors.add_position(errors.semantics_position(type_parameter.class_name.image.index, type.ast))
+							errors.set(level_error, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
 						end
 					end
 					effective_generic_parameters.add(type.parameters.item(i), type_parameter.class_name.image.image)
@@ -141,13 +147,15 @@ feature {}
 				i > clause.list_upper
 			loop
 				r := clause.list_item(i)
-				create old_name.make_from_ast(r.old_name.feature_name_or_alias)
-				create new_name.make_from_ast(r.new_name.feature_name_or_alias)
+				create old_name.make_from_ast(r.old_name.feature_name_or_alias, type.ast)
+				create new_name.make_from_ast(r.new_name.feature_name_or_alias, type.ast)
 				fd := parent_features.reference_at(old_name)
 				if fd = Void then
-					error(old_name.index, once "Unknown feature name: " + old_name.name)
+					errors.add_position(errors.semantics_position(old_name.index, type.ast))
+					errors.set(level_error, once "Unknown feature name: " + old_name.name)
 				elseif parent_features.reference_at(new_name) /= Void then
-					error(new_name.index, once "Duplicate feature name: " + new_name.name)
+					errors.add_position(errors.semantics_position(new_name.index, type.ast))
+					errors.set(level_error, once "Duplicate feature name: " + new_name.name)
 				else
 					parent_features.remove(old_name)
 					fd.set_name(new_name)
@@ -178,10 +186,11 @@ feature {}
 					j > e.feature_names.upper
 				loop
 					fn ::= e.feature_names.item(j)
-					create feature_name.make_from_ast(fn.feature_name_or_alias)
+					create feature_name.make_from_ast(fn.feature_name_or_alias, type.ast)
 					fd := parent_features.reference_at(feature_name)
 					if fd = Void then
-						error(feature_name.index, once "Unknown feature name: " + feature_name.name)
+						errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+						errors.set(level_error, once "Unknown feature name: " + feature_name.name)
 					else
 						fd.set_clients(clients)
 					end
@@ -204,12 +213,14 @@ feature {}
 			until
 				i > clause.list_upper
 			loop
-				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias)
+				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast)
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
-					error(feature_name.index, once "Unknown feature name: " + feature_name.name)
+					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					errors.set(level_error, once "Unknown feature name: " + feature_name.name)
 				elseif fd.is_frozen then
-					error(feature_name.index, once "Cannot undefine frozen feature: " + feature_name.name)
+					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					errors.set(level_error, once "Cannot undefine frozen feature: " + feature_name.name)
 				else
 					inherited_feature := fd.the_feature
 					create deferred_feature.make
@@ -240,12 +251,14 @@ feature {}
 			until
 				i > clause.list_upper
 			loop
-				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias)
+				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast)
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
-					error(feature_name.index, once "Unknown feature name: " + feature_name.name)
+					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					errors.set(level_error, once "Unknown feature name: " + feature_name.name)
 				elseif fd.is_frozen then
-					error(feature_name.index, once "Cannot redefine frozen feature: " + feature_name.name)
+					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
 				else
 					inherited_feature := fd.the_feature
 					create redefined_feature.make
@@ -326,10 +339,12 @@ feature {}
 			else
 				if a_feature.signature.has_parameters then
 					a_ast_terminal ::= a_feature.signature.node_at(1)
-					error(a_ast_terminal.image.index, once "Unexpected parameters")
+					errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+					errors.set(level_error, once "Unexpected parameters")
 				elseif not a_feature.signature.has_result_type then
 					a_ast_terminal ::= a_feature.signature.node_at(3)
-					error(a_ast_terminal.image.index + 1, once "Missing entity type")
+					errors.add_position(errors.semantics_position(a_ast_terminal.image.index + 1, type.ast))
+					errors.set(level_error, once "Missing entity type")
 				else
 					if a_feature.is_constant then
 						the_feature := feature_constant(result_type, a_feature.constant)
@@ -384,17 +399,17 @@ feature {}
 						Result := routine
 					end
 				end
-				if not has_error then
+				if not errors.has_error then
 					Result.set_precondition(feature_precondition(block.require_clause, parameters))
 					Result.set_postcondition(feature_postcondition(block.ensure_clause, parameters))
 				end
 			end
-			if not has_error then
+			if not errors.has_error then
 				Result.set_parameters(parameters)
 				Result.set_result_type(result_type)
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	feature_precondition (precondition: LIBERTY_AST_REQUIRE; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]): LIBERTY_REQUIRE is
@@ -405,7 +420,7 @@ feature {}
 			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
 		do
 			assertions := feature_assertions(precondition, parameters)
-			if not has_error then
+			if not errors.has_error then
 				if precondition.require_else.is_require_else then
 					create {LIBERTY_REQUIRE_ELSE}Result.make(assertions)
 				elseif precondition.require_else.is_require_then then
@@ -415,7 +430,7 @@ feature {}
 				end
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	feature_postcondition (postcondition: LIBERTY_AST_ENSURE; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]): LIBERTY_ENSURE is
@@ -426,7 +441,7 @@ feature {}
 			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
 		do
 			assertions := feature_assertions(postcondition, parameters)
-			if not has_error then
+			if not errors.has_error then
 				if postcondition.ensure_then.is_ensure_then then
 					create {LIBERTY_ENSURE_THEN}Result.make(assertions)
 				else
@@ -434,7 +449,7 @@ feature {}
 				end
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	feature_assertions (assertions: LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]): COLLECTION[LIBERTY_ASSERTION] is
@@ -449,7 +464,7 @@ feature {}
 			from
 				i := assertions.list_lower
 			until
-				has_error or else i > assertions.list_upper
+				errors.has_error or else i > assertions.list_upper
 			loop
 				assertion := assertions.list_item(i)
 				if assertion.tag.has_tag then
@@ -487,7 +502,7 @@ feature {}
 				i := i + 1
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	feature_constant (result_type: LIBERTY_TYPE; constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST): LIBERTY_FEATURE_CONSTANT is
@@ -499,18 +514,21 @@ feature {}
 		do
 			if constant.is_assignment_test then
 				a_ast_terminal ::= constant.node_at(0)
-				error(a_ast_terminal.image.index, once "Unexpected assignment test")
+				errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+				errors.set(level_error, once "Unexpected assignment test")
 			elseif constant.is_typed_open_argument then
 				a_ast_terminal ::= constant.node_at(0)
-				error(a_ast_terminal.image.index, once "Unexpected open argument")
+				errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+				errors.set(level_error, once "Unexpected open argument")
 			else
 				tm := typed_manifest_or_type_test(constant)
-				if not has_error then
+				if not errors.has_error then
 					if tm.result_type.is_conform_to(result_type) then
 						create Result.make(result_type, tm)
 					else
 						a_ast_terminal ::= constant.node_at(0)
-						error(a_ast_terminal.image.index, once "That expression does not conform to " + result_type.name)
+						errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+						errors.set(level_error, once "That expression does not conform to " + result_type.name)
 					end
 				end
 			end
@@ -530,7 +548,7 @@ feature {}
 				i > names.upper
 			loop
 				name ::= names.item(i)
-				create feature_name.make_from_ast(name.feature_name_or_alias)
+				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast)
 				if type.has_feature(feature_name) then
 					redefined := redefined_features.reference_at(feature_name)
 					if redefined /= Void and then redefined.redefined_feature = Void then
@@ -540,16 +558,18 @@ feature {}
 							else
 								name_or_alias := name.feature_name_or_alias
 								a_ast_terminal ::= name_or_alias.node_at(0)
-								error(a_ast_terminal.image.index, once "Cannot redefine feature (result types don't conform): " + feature_name.name)
+								errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+								errors.set(level_error, once "Cannot redefine feature (result types don't conform): " + feature_name.name)
 							end
 						else
 							-- an error was emitted by `parameters_match'
-							check has_error end
+							check errors.has_error end
 						end
 					else
 						name_or_alias := name.feature_name_or_alias
 						a_ast_terminal ::= name_or_alias.node_at(0)
-						error(a_ast_terminal.image.index, once "Duplicate feature: " + feature_name.name)
+						errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+						errors.set(level_error, once "Duplicate feature: " + feature_name.name)
 					end
 				else
 					create fd.make(feature_name, clients, name.is_frozen)
@@ -569,16 +589,19 @@ feature {}
 				Result := parent_parameters = Void
 				name_or_alias := name.feature_name_or_alias
 				a_ast_terminal ::= name_or_alias.node_at(0)
-				error(a_ast_terminal.image.index, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
+				errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+				error(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
 			elseif parent_parameters /= Void then
 				if child_parameters.count < parent_parameters.count then
 					name_or_alias := name.feature_name_or_alias
 					a_ast_terminal ::= name_or_alias.node_at(0)
-					error(a_ast_terminal.image.index, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
+					errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+					error(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
 				elseif child_parameters.count > parent_parameters.count then
 					name_or_alias := name.feature_name_or_alias
 					a_ast_terminal ::= name_or_alias.node_at(0)
-					error(a_ast_terminal.image.index, once "Cannot redefine feature (too many parameters): " + feature_name.name)
+					errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+					error(level_error, once "Cannot redefine feature (too many parameters): " + feature_name.name)
 				else
 					from
 						Result := True
@@ -595,12 +618,13 @@ feature {}
 					if not Result then
 						name_or_alias := name.feature_name_or_alias
 						a_ast_terminal ::= name_or_alias.node_at(0)
-						error(a_ast_terminal.image.index, once "Cannot redefine feature (parameter types don't conform): " + feature_name.name)
+						errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
+						error(level_error, once "Cannot redefine feature (parameter types don't conform): " + feature_name.name)
 					end
 				end
 			end
 		ensure
-			not Result implies has_error
+			not Result implies errors.has_error
 		end
 
 	check_that_all_redefined_features_were_redefined is
@@ -614,7 +638,8 @@ feature {}
 			loop
 				if redefined_features.item(i).redefined_feature = Void then
 					feature_name := redefined_features.key(i)
-					error(feature_name.index, once "Missing redefinition for " + feature_name.name)
+					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					error(level_error, once "Missing redefinition for " + feature_name.name)
 				end
 				i := i + 1
 			end
@@ -640,7 +665,7 @@ feature {} -- Instructions
 			locals /= Void
 		do
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 feature {} -- Expressions
@@ -650,7 +675,7 @@ feature {} -- Expressions
 		do
 			not_yet_implemented
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	expression_array (array: LIBERTY_AST_ARRAY; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): LIBERTY_EXPRESSION is
@@ -659,7 +684,7 @@ feature {} -- Expressions
 		do
 			not_yet_implemented
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	expression_no_array (exp: LIBERTY_AST_EXPRESSION_NO_ARRAY; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): LIBERTY_EXPRESSION is
@@ -668,7 +693,7 @@ feature {} -- Expressions
 		do
 			not_yet_implemented
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): LIBERTY_EXPRESSION is
@@ -705,7 +730,7 @@ feature {} -- Expressions
 				check False end
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	number (number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
@@ -739,7 +764,7 @@ feature {} -- Expressions
 				create {LIBERTY_TYPED_MANIFEST[REAL]}Result.make(universe.type_real, r.decoded)
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	character (character_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
@@ -751,7 +776,7 @@ feature {} -- Expressions
 			c ::= character_image
 			create {LIBERTY_TYPED_MANIFEST[CHARACTER]}Result.make(universe.type_character, c.decoded)
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	number_typed_manifest (manifest_type: LIBERTY_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
@@ -785,7 +810,7 @@ feature {} -- Expressions
 				create {LIBERTY_TYPED_MANIFEST[REAL]}Result.make(manifest_type, r.decoded)
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	array_typed_manifest (manifest_type: LIBERTY_TYPE; array_parameters: EIFFEL_LIST_NODE; array: LIBERTY_AST_ARRAY;
@@ -813,7 +838,7 @@ feature {} -- Expressions
 				i := i + 1
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 feature {}
@@ -884,7 +909,7 @@ feature {}
 				end
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	empty_parameter_list: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING] is
@@ -924,7 +949,7 @@ feature {}
 				end
 			end
 		ensure
-			not has_error implies Result /= Void
+			not errors.has_error implies Result /= Void
 		end
 
 	empty_local_list: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING] is
@@ -953,6 +978,8 @@ feature {}
 			-- value: effective parameter (e.g. STRING)
 
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
+
+	errors: LIBERTY_ERRORS
 
 invariant
 	type /= Void
