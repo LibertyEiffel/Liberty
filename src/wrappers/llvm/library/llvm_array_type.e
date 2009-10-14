@@ -1,9 +1,9 @@
 class LLVM_ARRAY_TYPE
-
+	-- 
 inherit LLVM_SEQUENCE_TYPE
 
 invariant type.is_array_type_kind
-end 
+end -- class LLVM_ARRAY_TYPE
 
 -- Copyright 2009 Paolo Redaelli
 

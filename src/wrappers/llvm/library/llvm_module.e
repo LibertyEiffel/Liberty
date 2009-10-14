@@ -15,10 +15,8 @@ class LLVM_MODULE
 
 inherit 
 	C_STRUCT
-	EIFFEL_OWNED
-	CACHING_FACTORY[LLVM_TYPE] 
-		rename wrappers as types 
-		end
+	EIFFEL_OWNED redefine dispose end
+	CACHING_FACTORY[LLVM_TYPE] rename wrappers as types end
 
 insert CORE_EXTERNALS
 
@@ -63,7 +61,7 @@ feature -- Types
 	require
 		a_name/=Void
 		a_type/=Void
-	local res: INTEGER
+	local res: INTEGER_32
 	do
 		res := llvmadd_type_name(handle,a_name.to_external,a_type.handle)
 	ensure 
@@ -74,7 +72,7 @@ feature -- Types
 	require
 		a_name/=Void
 	do
-		res := llvmdelete_type_name(handle,a_name.to_external)
+		llvmdelete_type_name(handle,a_name.to_external)
 	ensure 
 		name_untouched: a_name.is_equal(old a_name)
 	end
@@ -89,8 +87,9 @@ feature -- Types
 			-- TODO: cache the Eiffel wrapper
 			Result:=types.reference_at(r)
 			if Result=Void then
-				create Result.from_external(r)
-				types.add(Result,r)
+				not_yet_implemented
+				--create Result.from_external_pointer(r)
+				--types.add(Result,r)
 			end
 		end
 	ensure 
