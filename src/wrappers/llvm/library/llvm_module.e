@@ -15,10 +15,14 @@ class LLVM_MODULE
 
 inherit 
 	C_STRUCT
-	EIFFEL_OWNED redefine dispose end
+	EIFFEL_OWNED 
 	CACHING_FACTORY[LLVM_TYPE] rename wrappers as types end
+	STREAM_HANDLER
 
-insert CORE_EXTERNALS
+insert 
+	CORE_EXTERNALS 
+	STDIOEXTERNALS -- to use low-level fileno function
+	EXCEPTIONS
 
 creation with_name, with_name_in_context
 
@@ -95,10 +99,31 @@ feature -- Types
 	ensure 
 		name_untouched: a_name.is_equal(old a_name)
 	end
+feature -- Outputting
 
+	write_bitcode_to_file (a_path: STRING) is
+		-- Writes Current module to `a_path'. TODO: in case of error raises an exception; errors shall be more properly handled.
+	require a_path/=Void
+	local res: INTEGER_32
+	do
+		res:=llvmwrite_bitcode_to_file(handle,a_path.to_external)
+		if res/=0 
+		then raise(once "Error during LLVM_MODULE.write_bitcode_to_file") 
+		end
+	end
 
-feature -- Disposing
-	dispose is
+	write_bitcode_to (a_stream: OUTPUT_STREAM) is
+		require a_stream/=Void
+		local res: INTEGER_32
+		do
+			res:=llvmwrite_bitcode_to_file_handle(handle,fileno(a_stream.stream_pointer))
+			if res/=0 
+			then raise(once "Error during LLVM_MODULE.write_bitcode_to") 
+			end
+		end
+	
+	dump is
+		-- Output Current on standard error.
 		do
 			llvmdump_module(handle)
 		end

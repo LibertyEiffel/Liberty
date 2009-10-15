@@ -28,18 +28,22 @@ cluster -- section
    -- searching for an Eiffel source file. Each cluster is described
    -- as follows:
 
-   eiffel_gcc_xml: "."
+   wrappers_generator: "."
+	-- All the classes of wrappers-generator, including a sligthly patched
+	-- xml cluster from SmartEiffel
 	default
 		assertion (all)
-	end -- Eiffel-gcc-xml cluster 
+	end 
+
+   wrapping_facilities: "../../wrappers/common/loadpath.se"
+   xml: "./xml/loadpath.se" -- A slightly patched copy of SmartEiffel's xml cluster
+   unicode: "./unicode/" -- SmartEiffel Unicode support 
+
    -- Pull in Liberty's standard library. Always put this last so 
    -- that you can override options for parts of the library.
 
-   -- liberty_standard: "../../lib/loadpath.se"
-   standard: "${path_lib}/loadpath.se"
-	default
-		assertion (require)
-	end -- standard cluster 
+   liberty_standard: "../../lib/loadpath.se"
+   -- standard: "${path_lib}/loadpath.se" default assertion (require) end -- standard cluster 
 external -- section for elements written in another language
 generate -- section
 

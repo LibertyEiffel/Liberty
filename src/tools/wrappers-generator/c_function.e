@@ -164,7 +164,7 @@ feature {ANY}
 		do
 			description := function_name.to_utf8
 			if variadic then
-				description.append(once "%N%T%T%T-- Variadic call%N")
+				description.append(once " (variadic) ")
 			end
 			-- Deal with argument-less functions like "fork". An
 			-- argument-less function returning an integer shall be marked with
