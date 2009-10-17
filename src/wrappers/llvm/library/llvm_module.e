@@ -16,13 +16,15 @@ class LLVM_MODULE
 inherit 
 	C_STRUCT
 	EIFFEL_OWNED 
-	CACHING_FACTORY[LLVM_TYPE] rename wrappers as types end
-	STREAM_HANDLER
+	-- TODO: make it a CACHING_FACTORY[LLVM_TYPE] 
+	LLVM_TYPE_FACTORY
+	STREAM_HANDLER undefine copy, is_equal end
 
 insert 
 	CORE_EXTERNALS 
+	BIT_WRITER_EXTERNALS
 	STDIOEXTERNALS -- to use low-level fileno function
-	EXCEPTIONS
+	EXCEPTIONS undefine copy, is_equal end
 
 creation with_name, with_name_in_context
 
@@ -42,9 +44,9 @@ feature
 		(a_name.to_external, a_context.handle)
 	end
 feature 
-	data_layout: CONST_STRING is
+	data_layout: FIXED_STRING is
 		do
-			create Result.from_external(llvmget_data_layout(handle))
+			create Result.from_external_copy(llvmget_data_layout(handle))
 		ensure Result/=Void
 		end
 	
@@ -54,9 +56,9 @@ feature
 			llvmset_data_layout(handle,a_triple.to_external)
 		end
 
-	target: CONST_STRING is
+	target: FIXED_STRING is
 		do
-			create Result.from_external(llvmget_target(handle))
+			create Result.from_external_copy(llvmget_target(handle))
 		ensure Result/=Void
 		end
 
@@ -88,13 +90,8 @@ feature -- Types
 	do
 		r := llvmget_type_by_name(handle,a_name.to_external)
 		if r.is_not_null then
-			-- TODO: cache the Eiffel wrapper
-			Result:=types.reference_at(r)
-			if Result=Void then
-				not_yet_implemented
-				--create Result.from_external_pointer(r)
-				--types.add(Result,r)
-			end
+			-- TODO: cache the Eiffel wrapper Result:=types.reference_at(r)
+			Result:=wrapper(r)
 		end
 	ensure 
 		name_untouched: a_name.is_equal(old a_name)
@@ -128,6 +125,11 @@ feature -- Outputting
 			llvmdump_module(handle)
 		end
 
+feature 
+	struct_size: INTEGER is
+		do
+			not_yet_implemented
+		end
 end -- class LLVM_MODULE
 
 

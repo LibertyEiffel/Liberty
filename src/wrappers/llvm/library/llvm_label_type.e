@@ -2,6 +2,8 @@ class LLVM_LABEL_TYPE
 
 inherit LLVM_TYPE
 
+creation from_external_pointer
+
 invariant type.is_label_type_kind
 end -- class LLVM_LABEL_TYPE
 

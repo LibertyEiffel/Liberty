@@ -7,7 +7,8 @@ class LLVM_REAL_TYPE
 
 inherit LLVM_TYPE
 
-creation 
+creation
+	from_external_pointer,
 	as_float, as_float_in_context,
 	as_double, as_double_in_context,
 	as_x86, as_x86_in_context

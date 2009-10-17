@@ -15,6 +15,7 @@ class LLVM_INTEGER_TYPE
 inherit
 	LLVM_TYPE
 
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 creation {ANY}
 	with_1_bit, with_1_bit_in_context, 
 	with_8_bits, with_8_bits_in_context, 

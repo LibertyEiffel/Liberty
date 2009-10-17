@@ -4,7 +4,7 @@ inherit
 	C_STRUCT
 	EIFFEL_OWNED redefine dispose end
 
-insert LLVM_TYPE_FACTORY undefine copy, is_equal end
+insert LLVM_TYPE_FACTORY
 
 creation from_type
 
@@ -28,6 +28,7 @@ feature -- Disposing
 			llvmdispose_type_handle(handle)
 		end
 
+	struct_size: INTEGER is do not_yet_implemented end 
 end -- class LLVM_TYPE_HANDLE
 
 -- Copyright 2009 Paolo Redaelli

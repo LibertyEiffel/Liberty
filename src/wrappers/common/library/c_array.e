@@ -647,4 +647,11 @@ feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 			put(element, index)
 		end
 
+feature -- TODO: unimplemented 
+	clear_all is do not_yet_implemented end
+	fast_has (an_item: ITEM): BOOLEAN is do not_yet_implemented end 
+	has (an_item: ITEM): BOOLEAN is do not_yet_implemented end 
+	swap (i1,i2: INTEGER) is do not_yet_implemented end 
+	append_collection (another: COLLECTION [ITEM]) is do not_yet_implemented end 
+
 end -- class C_ARRAY
