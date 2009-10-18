@@ -18,6 +18,10 @@ feature
 			(llvmget_type_kind(handle))
 		end
 
+
+	-- TODO: C binding offers a call "LLVMTypeRef
+	-- LLVMGetElementType(LLVMTypeRef Ty);"; provide a meaningful Eiffel
+	-- equivalent.
 	context: LLVM_CONTEXT is
 		do
 			-- TODO: cache the result.

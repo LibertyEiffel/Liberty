@@ -1,5 +1,7 @@
 class LLVM_FUNCTION_TYPE
+	-- A type representing a function. 
 
+	-- It is a COLLECTION of LLVM_TYPEs, the types of its arguments.
 
 	-- TODO: ask LLVM developers if parameter list may change during object's lifetime. In that case how to be notied? When noti
 
@@ -30,7 +32,7 @@ feature
 		-- `a_variadic_function' is True the Result will be variadic.
 
 		-- Initialize `storage' with the parameters of the function
-		storage := storage.calloc(parameter_counts.to_integer_32)
+		storage := storage.calloc(llvmcount_param_types(handle).to_integer_32)
 		llvmget_param_types(handle, storage.to_pointer)
 		-- ensure a_variadic_function=is_variadic
 	end
@@ -45,12 +47,6 @@ feature
 	return_type: LLVM_TYPE is
 		do
 			Result:=wrapper(llvmget_return_type(handle))
-		end
-
-	parameter_counts: NATURAL_32 is
-		-- The number of parameters
-		do
-			Result := llvmcount_param_types(handle)
 		end
 
 invariant type.is_function_type_kind
