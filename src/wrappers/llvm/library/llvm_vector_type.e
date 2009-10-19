@@ -9,6 +9,12 @@ feature -- Creation
 	do
 		handle:=llvmvector_type(a_type.handle,a_count)
 	end
+feature 
+	size: NATURAL_32 is
+		-- Size of current vector
+	do
+		Result:=llvmget_vector_size(handle)
+	end
 invariant type.is_vector_type_kind
 end -- class LLVM_VECTOR_TYPE
 

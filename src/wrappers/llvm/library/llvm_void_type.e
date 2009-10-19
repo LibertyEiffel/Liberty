@@ -1,8 +1,18 @@
 class LLVM_VOID_TYPE
 
 inherit LLVM_TYPE
-creation from_external_pointer
+creation make, in_context, from_external_pointer
+feature -- Creation 
+	make is
+		do
+			handle:=llvmvoid_type
+		end
 
+	in_context (a_context: LLVM_CONTEXT) is
+	require a_context/=Void
+	do
+		handle:=llvmvoid_type_in_context(a_context.handle)
+	end
 invariant type.is_void_type_kind
 end -- class LLVM_VOID_TYPE
 

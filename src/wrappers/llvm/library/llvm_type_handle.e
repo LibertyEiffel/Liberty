@@ -6,7 +6,7 @@ inherit
 
 insert LLVM_TYPE_FACTORY
 
-creation from_type
+creation from_type, from_external_pointer
 
 feature 
 	from_type (a_type: LLVM_TYPE) is
@@ -21,6 +21,8 @@ feature
 	do
 		Result:=wrapper(llvmresolve_type_handle(handle))
 	end
+
+	-- TODO: provide refining support:  void LLVMRefineType(LLVMTypeRef AbstractTy, LLVMTypeRef ConcreteTy);
 
 feature -- Disposing
 	dispose is

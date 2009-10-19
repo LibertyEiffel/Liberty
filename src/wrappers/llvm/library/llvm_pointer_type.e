@@ -13,6 +13,12 @@ feature -- Creation
 	do
 		handle:=llvmpointer_type(a_type.handle, 0.to_natural_32)
 	end
+
+	address_space: NATURAL_32 is
+		-- The address space of the pointer
+	do
+		Result:=llvmget_pointer_address_space(handle)
+	end
 invariant type.is_pointer_type_kind
 end -- class LLVM_POINTER_TYPE
 

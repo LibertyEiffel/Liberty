@@ -10,6 +10,12 @@ feature -- Creation
 	do
 		handle:=llvmarray_type(a_type.handle, a_count)
 	end
+feature 
+	length: NATURAL_32 is
+		-- The number of elements in array
+	do
+		Result:=llvmget_array_length(handle)
+	end
 invariant type.is_array_type_kind
 end -- class LLVM_ARRAY_TYPE
 

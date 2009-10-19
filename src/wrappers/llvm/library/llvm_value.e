@@ -17,5 +17,52 @@ class LLVM_VALUE
 inherit 
 	C_STRUCT
 	EIFFEL_OWNED
+	LLVM_TYPE_FACTORY
 feature 
-end
+	type: LLVM_TYPE is
+		do
+			Result:=wrapper(llvmtype_of(handle))
+		end
+	
+	name: FIXED_STRING is
+		-- The name of the value. TODO: currently the content is copied from a
+		-- "const char*" into Result; turn Result into a CONST_STRING.
+	do
+	
+		create Result.from_external_copy(llvmget_value_name(handle))
+	end
+
+	set_name (a_name: ABSTRACT_STRING) is
+		require a_name /= Void
+		do
+			llvmset_value_name(handle,a_name.to_external)
+		end
+		
+	dump is
+		do
+			llvmdump_value(handle)
+		end
+
+feature -- Queries
+	is_basic_block: BOOLEAN is
+		do
+			Result:=llvmvalue_is_basic_block(handle).to_boolean
+		end
+
+	-- TODO: may be unnecessary "as_basic_block: LLVM_BASIC_BLOCK is do Result:=wrapper_or_void(llvmvalue_as_basic_block(handle)) end"
+
+feature
+	struct_size: INTEGER is
+		-- LLVM_VALUE wraps a polymorphic C++ class; temporarly this query
+		-- always fails; it should not hamper proper usage, since it is used
+		-- only to allocate memory during object copying with the standard
+		-- feature.
+	require implemented: False
+		do
+			not_yet_implemented -- or mostly unuseful
+		end
+
+end -- class LLVM_VALUE
+
+-- Copyright 2009 Paolo Redaelli
+
