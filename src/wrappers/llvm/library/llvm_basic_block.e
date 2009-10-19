@@ -31,20 +31,43 @@ feature
 	-- TODO: "as_value: LLVM_VALUE is -- Current basic block as a value do LLVMValueRef LLVMBasicBlockAsValue(LLVMBasicBlockRef BB);:w" and
 
 	parent: LLVM_VALUE is
+		--- The value that contains Current block
 		local p: POINTER
 		do
 			p:=llvmget_basic_block_parent(handle)
 			if p.is_not_null then Result:=value(p) end
 		end
 
--- unsigned LLVMCountBasicBlocks(LLVMValueRef Fn);
--- void LLVMGetBasicBlocks(LLVMValueRef Fn, LLVMBasicBlockRef *BasicBlocks);
--- LLVMBasicBlockRef LLVMGetFirstBasicBlock(LLVMValueRef Fn);
--- LLVMBasicBlockRef LLVMGetLastBasicBlock(LLVMValueRef Fn);
--- LLVMBasicBlockRef LLVMGetNextBasicBlock(LLVMBasicBlockRef BB);
--- LLVMBasicBlockRef LLVMGetPreviousBasicBlock(LLVMBasicBlockRef BB);
--- LLVMBasicBlockRef LLVMGetEntryBasicBlock(LLVMValueRef Fn);
+	next: LLVM_BASIC_BLOCK is
+		-- The block after Current. May be Void
+	local p: POINTER
+	do
+		p:=llvmget_next_basic_block(handle)
+		if p.is_not_null then 
+			create Result.from_external_pointer(p)
+		end
+	end
 
+	previous: LLVM_BASIC_BLOCK is
+		-- The block before Current. May be Void
+	local p: POINTER
+	do
+		p:= llvmget_previous_basic_block(handle)
+		if p.is_not_null then
+			create Result.from_external_pointer(p)
+		end
+	end
+-- LLVMBasicBlockRef LLVMAppendBasicBlockInContext(LLVMContextRef C,
+--                                                 LLVMValueRef Fn,
+--                                                 const char *Name);
+-- LLVMBasicBlockRef LLVMInsertBasicBlockInContext(LLVMContextRef C,
+--                                                 LLVMBasicBlockRef BB,
+--                                                 const char *Name);
+-- 
+-- LLVMBasicBlockRef LLVMAppendBasicBlock(LLVMValueRef Fn, const char *Name);
+-- LLVMBasicBlockRef LLVMInsertBasicBlock(LLVMBasicBlockRef InsertBeforeBB,
+--                                        const char *Name);
+-- void LLVMDeleteBasicBlock(LLVMBasicBlockRef BB);
 
 end -- class LLVM_BASIC_BLOCK
 
