@@ -1,0 +1,5 @@
+class LLVM_CONSTANT_AGGREGATE_ZERO
+inherit LLVM_CONSTANT
+end -- class LLVM_CONSTANT_AGGREGATE_ZERO
+-- Copyright 2009 Paolo Redaelli
+
