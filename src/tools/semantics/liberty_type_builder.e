@@ -10,7 +10,7 @@ create {LIBERTY_TYPE}
 feature {LIBERTY_TYPE}
 	check_and_initialize is
 		require
-			not has_error
+			not errors.has_error
 		local
 			ast: LIBERTY_AST_CLASS
 		do
@@ -97,7 +97,7 @@ feature {}
 				has_parent := False
 				i := parents.list_lower
 			until
-				has_error or else i > parents.list_upper
+				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
 				parent := universe.get_type_from_type_definition(type.cluster, parent_clause.type_definition, effective_generic_parameters)
@@ -308,7 +308,7 @@ feature {}
 				from
 					j := f.definition_list.lower
 				until
-					has_error or else j > f.definition_list.upper
+					errors.has_error or else j > f.definition_list.upper
 				loop
 					fd ::= f.definition_list.item(i)
 					add_feature(clients, fd)
@@ -316,7 +316,7 @@ feature {}
 				end
 				i := i + 1
 			end
-			if not has_error then
+			if not errors.has_error then
 				check_that_all_redefined_features_were_redefined
 			end
 		end
@@ -354,14 +354,14 @@ feature {}
 					end
 				end
 			end
-			if not has_error then
+			if not errors.has_error then
 				add_feature_definition(the_feature, a_feature.signature.feature_names, clients)
 			end
 		end
 
-	feature_block (parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; result_type: LIBERTY_TYPE; block: LIBERTY_AST_EIFFEL_BLOCK): LIBERTY_FEATURE is
+	feature_block (local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; result_type: LIBERTY_TYPE; block: LIBERTY_AST_EIFFEL_BLOCK): LIBERTY_FEATURE is
 		require
-			parameters /= Void
+			local_context /= Void
 		local
 			obsolete_message: STRING
 			locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]
@@ -386,40 +386,40 @@ feature {}
 					create {LIBERTY_FEATURE_ATTRIBUTE} Result.make
 				else
 					locals := list_locals(block.local_block)
-					instructions := feature_instructions(block.do_block, parameters, locals)
-					if not has_error then
+					instructions := feature_instructions(block.do_block, local_context)
+					if not errors.has_error then
 						if do_block.is_do then
 							create {LIBERTY_FEATURE_DO} routine.make(instructions)
 						else
 							check do_block.is_once end
 							create {LIBERTY_FEATURE_ONCE} routine.make(instructions)
 						end
-						routine.set_rescue(feature_instructions(block.rescue_block, parameters, locals))
-						routine.set_locals(locals)
+						routine.set_rescue(feature_instructions(block.rescue_block, local_context))
+						routine.set_locals(local_context.locals)
 						Result := routine
 					end
 				end
 				if not errors.has_error then
-					Result.set_precondition(feature_precondition(block.require_clause, parameters))
-					Result.set_postcondition(feature_postcondition(block.ensure_clause, parameters))
+					Result.set_precondition(feature_precondition(block.require_clause, local_context))
+					Result.set_postcondition(feature_postcondition(block.ensure_clause, local_context))
 				end
 			end
 			if not errors.has_error then
-				Result.set_parameters(parameters)
+				Result.set_parameters(local_context.parameters)
 				Result.set_result_type(result_type)
 			end
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_precondition (precondition: LIBERTY_AST_REQUIRE; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]): LIBERTY_REQUIRE is
+	feature_precondition (precondition: LIBERTY_AST_REQUIRE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_REQUIRE is
 		require
 			precondition /= Void
-			parameters /= Void
+			local_context /= Void
 		local
 			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
 		do
-			assertions := feature_assertions(precondition, parameters)
+			assertions := feature_assertions(precondition, local_context)
 			if not errors.has_error then
 				if precondition.require_else.is_require_else then
 					create {LIBERTY_REQUIRE_ELSE}Result.make(assertions)
@@ -433,14 +433,14 @@ feature {}
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_postcondition (postcondition: LIBERTY_AST_ENSURE; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]): LIBERTY_ENSURE is
+	feature_postcondition (postcondition: LIBERTY_AST_ENSURE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENSURE is
 		require
 			postcondition /= Void
-			parameters /= Void
+			local_context /= Void
 		local
 			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
 		do
-			assertions := feature_assertions(postcondition, parameters)
+			assertions := feature_assertions(postcondition, local_context)
 			if not errors.has_error then
 				if postcondition.ensure_then.is_ensure_then then
 					create {LIBERTY_ENSURE_THEN}Result.make(assertions)
@@ -452,10 +452,10 @@ feature {}
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_assertions (assertions: LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]): COLLECTION[LIBERTY_ASSERTION] is
+	feature_assertions (assertions: LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_ASSERTION] is
 		require
 			assertions /= Void
-			parameters /= Void
+			local_context /= Void
 		local
 			i: INTEGER; assertion: LIBERTY_AST_ASSERTION
 			tag: FIXED_STRING; exp: LIBERTY_EXPRESSION
@@ -472,7 +472,7 @@ feature {}
 				else
 					tag := Void
 				end
-				exp := expression(assertion.expression, parameters, Void)
+				exp := expression(assertion.expression, local_context)
 				if exp.result_type /= universe.type_boolean then
 					--| TODO: error
 					not_yet_implemented
@@ -483,11 +483,10 @@ feature {}
 			end
 		end
 
-	feature_instructions (instructions: LIBERTY_AST_LIST[LIBERTY_AST_INSTRUCTION]; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): COLLECTION[LIBERTY_INSTRUCTION] is
+	feature_instructions (instructions: LIBERTY_AST_LIST[LIBERTY_AST_INSTRUCTION]; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_INSTRUCTION] is
 		require
 			instructions /= Void
-			parameters /= Void
-			locals /= Void
+			local_context /= Void
 		local
 			i: INTEGER; inst: LIBERTY_AST_INSTRUCTION
 		do
@@ -498,7 +497,7 @@ feature {}
 				i > instructions.list_upper
 			loop
 				inst := instructions.list_item(i)
-				Result.add_last(instruction(inst, parameters, locals))
+				Result.add_last(instruction(inst, local_context))
 				i := i + 1
 			end
 		ensure
@@ -590,18 +589,18 @@ feature {}
 				name_or_alias := name.feature_name_or_alias
 				a_ast_terminal ::= name_or_alias.node_at(0)
 				errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
-				error(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
+				errors.set(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
 			elseif parent_parameters /= Void then
 				if child_parameters.count < parent_parameters.count then
 					name_or_alias := name.feature_name_or_alias
 					a_ast_terminal ::= name_or_alias.node_at(0)
 					errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
-					error(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
+					errors.set(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
 				elseif child_parameters.count > parent_parameters.count then
 					name_or_alias := name.feature_name_or_alias
 					a_ast_terminal ::= name_or_alias.node_at(0)
 					errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
-					error(level_error, once "Cannot redefine feature (too many parameters): " + feature_name.name)
+					errors.set(level_error, once "Cannot redefine feature (too many parameters): " + feature_name.name)
 				else
 					from
 						Result := True
@@ -619,7 +618,7 @@ feature {}
 						name_or_alias := name.feature_name_or_alias
 						a_ast_terminal ::= name_or_alias.node_at(0)
 						errors.add_position(errors.semantics_position(a_ast_terminal.image.index, type.ast))
-						error(level_error, once "Cannot redefine feature (parameter types don't conform): " + feature_name.name)
+						errors.set(level_error, once "Cannot redefine feature (parameter types don't conform): " + feature_name.name)
 					end
 				end
 			end
@@ -639,7 +638,7 @@ feature {}
 				if redefined_features.item(i).redefined_feature = Void then
 					feature_name := redefined_features.key(i)
 					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
-					error(level_error, once "Missing redefinition for " + feature_name.name)
+					errors.set(level_error, once "Missing redefinition for " + feature_name.name)
 				end
 				i := i + 1
 			end
@@ -658,47 +657,50 @@ feature {}
 		end
 
 feature {} -- Instructions
-	instruction (inst: LIBERTY_AST_INSTRUCTION; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): LIBERTY_INSTRUCTION is
+	instruction (inst: LIBERTY_AST_INSTRUCTION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
 		require
 			inst /= Void
-			parameters /= Void
-			locals /= Void
+			local_context /= Void
 		do
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
 feature {} -- Expressions
-	expression (exp: LIBERTY_AST_EXPRESSION; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): LIBERTY_EXPRESSION is
+	expression (exp: LIBERTY_AST_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		require
 			exp /= Void
+			local_context /= Void
 		do
 			not_yet_implemented
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	expression_array (array: LIBERTY_AST_ARRAY; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): LIBERTY_EXPRESSION is
+	expression_array (array: LIBERTY_AST_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		require
 			array /= Void
+			local_context /= Void
 		do
 			not_yet_implemented
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	expression_no_array (exp: LIBERTY_AST_EXPRESSION_NO_ARRAY; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): LIBERTY_EXPRESSION is
+	expression_no_array (exp: LIBERTY_AST_EXPRESSION_NO_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		require
 			exp /= Void
+			local_context /= Void
 		do
 			not_yet_implemented
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): LIBERTY_EXPRESSION is
+	typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		require
 			constant /= Void
+			local_context /= Void
 		do
 			if constant.is_assignment_test then
 				--|*** TODO
@@ -725,7 +727,7 @@ feature {} -- Expressions
 			elseif constant.is_array_typed_manifest then
 				Result := array_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, effective_generic_parameters),
 														 constant.typed_manifest_array_parameters, constant.typed_manifest_array,
-														 parameters, locals)
+														 local_context)
 			else
 				check False end
 			end
@@ -814,7 +816,9 @@ feature {} -- Expressions
 		end
 
 	array_typed_manifest (manifest_type: LIBERTY_TYPE; array_parameters: EIFFEL_LIST_NODE; array: LIBERTY_AST_ARRAY;
-								 parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]; locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]): LIBERTY_ARRAY_MANIFEST is
+								 local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ARRAY_MANIFEST is
+		require
+			local_context /= Void
 		local
 			i: INTEGER; ena: LIBERTY_AST_EXPRESSION_NO_ARRAY; exp: LIBERTY_AST_EXPRESSION
 		do
@@ -825,7 +829,7 @@ feature {} -- Expressions
 				i > array_parameters.upper
 			loop
 				ena ::= array_parameters.item(i)
-				Result.add_parameter(expression_no_array(ena, parameters, locals))
+				Result.add_parameter(expression_no_array(ena, local_context))
 				i := i + 1
 			end
 			from
@@ -834,7 +838,7 @@ feature {} -- Expressions
 				i > array.content.upper
 			loop
 				exp ::= array.content.item(i)
-				Result.add_content(expression(exp, parameters, locals))
+				Result.add_content(expression(exp, local_context))
 				i := i + 1
 			end
 		ensure

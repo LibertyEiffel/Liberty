@@ -124,7 +124,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			cluster := origin.cluster.find(class_name)
 			if cluster = Void then
 				errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast))
-				errors.set(level_fatal_error once "Unknown class: " + class_name)
+				errors.set(level_fatal_error, once "Unknown class: " + class_name)
 			else
 				parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
 				Result := get_type(cluster, class_name, parameters)
@@ -151,7 +151,7 @@ feature {LIBERTY_TYPE_BUILDER}
 					cluster := origin.cluster.find(class_name)
 					if cluster = Void then
 						errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast))
-						errors.set(level_fatal_error once "Unknown class: " + class_name)
+						errors.set(level_fatal_error, once "Unknown class: " + class_name)
 					else
 						parameters := get_parameter_constraints(origin, parse_class(cluster, class_name), effective_parameters)
 						create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name), parameters)

@@ -2,6 +2,9 @@ class LIBERTY_FEATURE_NAME
 
 inherit
 	LIBERTY_POSITIONABLE
+		redefine
+			is_equal
+		end
 
 insert
 	HASHABLE
@@ -45,7 +48,7 @@ feature {LIBERTY_FEATURE_NAME}
 	type: INTEGER_8
 
 feature {}
-	make_from_ast (ast: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; class_ast: LIBERYT_AST_CLASS) is
+	make_from_ast (ast: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; class_ast: LIBERTY_AST_CLASS) is
 		require
 			ast /= Void
 			class_ast /= Void
@@ -60,6 +63,33 @@ feature {}
 				check ast.is_infix end
 				make_infix(ast.free_operator_name.image.image)
 				create {LIBERTY_SEMANTICS_POSITION} position.make(ast.free_operator_name.image.index, class_ast)
+			end
+		end
+
+	make_regular (a_name: like name) is
+		do
+			name := a_name
+			type := type_regular
+			hash_code := name.hash_code
+		end
+
+	make_prefix (a_name: like name) is
+		do
+			name := a_name
+			type := type_prefix
+			hash_code := name.hash_code #* 17
+			if hash_code < 0 then
+				hash_code := ~hash_code
+			end
+		end
+
+	make_infix (a_name: like name) is
+		do
+			name := a_name
+			type := type_infix
+			hash_code := name.hash_code #*31
+			if hash_code < 0 then
+				hash_code := ~hash_code
 			end
 		end
 

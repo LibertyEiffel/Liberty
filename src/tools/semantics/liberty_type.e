@@ -9,6 +9,9 @@ insert
 			is_equal
 		end
 	LIBERTY_ERROR_LEVELS
+		redefine
+			is_equal
+		end
 
 create {LIBERTY_UNIVERSE}
 	make
@@ -262,7 +265,7 @@ feature {LIBERTY_TYPE_BUILDER}
 feature {LIBERTY_UNIVERSE} -- Semantincs building
 	check_and_initialize (universe: LIBERTY_UNIVERSE) is
 		require
-			not has_error
+			not errors.has_error
 		local
 			builder: LIBERTY_TYPE_BUILDER
 		do
