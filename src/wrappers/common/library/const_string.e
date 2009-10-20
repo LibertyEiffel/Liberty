@@ -19,7 +19,9 @@ indexing
 					02110-1301 USA
 			]"
 
-class CONST_STRING
+obsolete class CONST_STRING
+ 	"Shall be adapted for Liberty Eiffel"
+
 	-- An efficient wrapper for const pointer to strings returned by
 	-- many C functions. No further memory is allocated when a CONST_STRING is created: the buffer of the C library is used directly. 
 
@@ -33,12 +35,12 @@ class CONST_STRING
 	-- (non-const) STRING with the same content.
 
 inherit 
-	STRING
+	ABSTRACT_STRING
 		undefine is_equal
 		redefine 
 			resize, clear_count, wipe_out,
 			clear_count_and_capacity,
-			copy, fill_with, replace_all, 
+			fill_with, replace_all, 
 			append, append_string,
 			append_substring,
 			infix "+",
@@ -49,7 +51,6 @@ inherit
 			compare, three_way_comparison,
 			as_upper, as_lower,
 			--is_equal,
-			substring,
 			prepend,
 			insert_string, replace_substring,
 			put, swap, insert_character, shrink,
@@ -58,7 +59,6 @@ inherit
 			add_last, append_character,
 			extend,
 			to_lower, to_upper,
-			keep_head, keep_tail,
 			-- remove_first, remove_head,
 			-- remove_last, remove_tail,
 			remove_substring, remove_between, 
@@ -364,13 +364,13 @@ feature
 	keep_head (n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
-			Precursor (n)
+			not_yet_implemented
 		end
 
 	keep_tail (n: INTEGER_32) is
 		do
 			if is_unchanged then modify end
-			Precursor (n)
+			not_yet_implemented
 		end
 
 feature -- commented out to achieve compatibility with both SE 2.2 and 2.3

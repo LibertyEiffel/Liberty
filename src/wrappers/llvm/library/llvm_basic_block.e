@@ -20,6 +20,54 @@ class LLVM_BASIC_BLOCK
 	-- useful in the intermediate stage of constructing or
 	-- modifying a program. However, the verifier will ensure
 	-- that basic blocks are "well formed".
+inherit LLVM_VALUE
+insert 	LLVM_VALUE_FACTORY 
+		rename 
+			wrapper as value, 
+			wrapper_or_void as value_or_void 
+		end
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+feature	
+	-- TODO: "as_value: LLVM_VALUE is -- Current basic block as a value do LLVMValueRef LLVMBasicBlockAsValue(LLVMBasicBlockRef BB);:w" and
+
+	parent: LLVM_VALUE is
+		--- The value that contains Current block
+		local p: POINTER
+		do
+			p:=llvmget_basic_block_parent(handle)
+			if p.is_not_null then Result:=value(p) end
+		end
+
+	next: LLVM_BASIC_BLOCK is
+		-- The block after Current. May be Void
+	local p: POINTER
+	do
+		p:=llvmget_next_basic_block(handle)
+		if p.is_not_null then 
+			create Result.from_external_pointer(p)
+		end
+	end
+
+	previous: LLVM_BASIC_BLOCK is
+		-- The block before Current. May be Void
+	local p: POINTER
+	do
+		p:= llvmget_previous_basic_block(handle)
+		if p.is_not_null then
+			create Result.from_external_pointer(p)
+		end
+	end
+-- LLVMBasicBlockRef LLVMAppendBasicBlockInContext(LLVMContextRef C,
+--                                                 LLVMValueRef Fn,
+--                                                 const char *Name);
+-- LLVMBasicBlockRef LLVMInsertBasicBlockInContext(LLVMContextRef C,
+--                                                 LLVMBasicBlockRef BB,
+--                                                 const char *Name);
+-- 
+-- LLVMBasicBlockRef LLVMAppendBasicBlock(LLVMValueRef Fn, const char *Name);
+-- LLVMBasicBlockRef LLVMInsertBasicBlock(LLVMBasicBlockRef InsertBeforeBB,
+--                                        const char *Name);
+-- void LLVMDeleteBasicBlock(LLVMBasicBlockRef BB);
 
 end -- class LLVM_BASIC_BLOCK
 

@@ -1,0 +1,218 @@
+<html>
+<head>
+</head>
+<body>
+Networking: client-side and server-side sockets.
+
+<h2>How to use the "net" cluster</h2>
+<p>
+This page is divided into the following sections:
+</p>
+<ul>
+ <li><a href="#vocabulary">vocabulary</a></li>
+ <li><a href="#be_client">how to be a client</a></li>
+ <li><a href="#be_server">how to be a server</a></li>
+ <li><a href="#use_server">how to use the provided servers</a></li>
+ <li><a href="#technical">some technical aspects</a></li>
+</ul>
+
+
+<a name="vocabulary"><h3>Vocabulary</h3></a>
+
+<table border="0" width="100%">
+<tr>
+<td>
+<b>Access</b>
+</td>
+<td>
+A word used by this cluster to design a server access on a host.
+</td>
+</tr>
+
+<tr>
+<td>
+<b>Address</b>
+</td>
+<td>
+A word used by this cluster to design a host.
+</td>
+</tr>
+
+<tr>
+<td>
+<b>Host</b>
+</td>
+<td>
+A machine connected to a network. Such a machine has an address and, usually, a name.
+</td>
+</tr>
+
+<tr>
+<td>
+<b>Server</b>
+</td>
+<td>
+A program that runs on a host. Such a programs listens on a "port number".
+</td>
+</tr>
+</table>
+
+
+
+<a name="be_client"><h3>Be a Client</h3></a>
+
+<p>
+To be client means trying to reach some server and getting some data from it.
+</p>
+
+<p>
+There are two concepts to grasp before making a connection:
+</p>
+
+<nl>
+
+<li> <b>Address</b>: that's the network address of a machine (a "host"), given either by its name or its IP
+   number. The net cluster knows of three kinds of addresses: the host name, the IP address and the local
+   address which represents the local machine.</li>
+
+<li> <b>Access</b>: it allows to connect to some server that runs on a machine and listens on a port. The net
+   cluster knows of three kinds of accesses: TCP and UDP access, and the special Local access that reaches the
+   local machine.</li> </nl>
+
+<p>
+To be a client, you have to do three things, in that order:
+</p>
+
+<ul>
+ <li>create an address object</li>
+ <li>create an access object, using the address object</li>
+ <li>query a stream from the access object</li>
+</ul>
+
+<p>
+In SmartEiffel, you would write it this way:
+</p>
+
+<pre>
+   connect_to_funet: <a href="index/TERMINAL_INPUT_OUTPUT_STREAM.html">TERMINAL_INPUT_OUTPUT_STREAM</a> <b>is</b>
+      <b>local</b>
+         funet: <a href="index/HOST.html">HOST</a>
+         tcp: <a href="index/TCP_ACCESS.html">TCP_ACCESS</a>
+      <b>do</b>
+         <b>create</b> funet.make(<b>once</b> "ftp.funet.fi")
+         <b>create</b> tcp.make(funet, 21)
+         Result := tcp.stream
+      <b>end</b>
+</pre>
+
+<p>
+(See also the tutorial: class <code>SOCKETS</code>)
+</p>
+
+
+
+<a name="be_server"><h3>Be a Server</h3></a>
+
+<p>
+To be a server, things are a bit more complex but not tremendously so.
+</p>
+
+<p>
+First note that you must know something of the <a
+href="_summary@lib.sequencer.html"><code>lib/sequencer</code></a> cluster. You must also be familiar with
+agents.
+</p>
+
+<p>
+To create a server, start by creating an address and an access. The address will filter which connections are
+allowed<sup><a href="#footnote1">1</a></sup>, and the access port will determine which port the server
+will listen to.
+</p>
+
+<p>
+Now you must create a <a href="index/SOCKET_SERVER.html"><code>SOCKET_SERVER</code></a>, give it one or more
+agents using the <code>`when_connect'</code> feature. Those agents are called whenever a new client connects;
+each agent is given the same stream that represents the connection to the client.
+</p>
+
+<p>
+Note that having multiple agents is <i>potentially dangerous</i>.  Either all the agents cooperate, either
+having one registered is enough. Remember that all agents share the same stream.
+</p>
+
+</p>
+At last, start the sequencer (see the <a href="_summary@lib.sequencer.html"><code>lib/sequencer</code></a>
+cluster and tutorial).
+</p>
+
+<p>
+You also want to look at the <a href="_summary@lib.net.servers.html"><code>lib/net/servers</code></a> cluster.
+</p>
+
+<p>
+(See also the tutorial: class <code>MULTIPLEX_SERVER</code>)
+</p>
+
+
+<a name="use_server"><h3>Use a standard Server</h3></a>
+
+<p>
+SmartEiffel provides (or will provide) some standard servers, such as HTTP 1.1 or FTP. Those servers are
+designed to either start their own sequencer stack (stand-alone mode), or integrate in a stack you provide
+(e.g. when you start multiple servers or use the server concurrently with <a
+href="_summary@lib.vision.html">Vision</a>).
+</p>
+
+<p>
+Currently only a minimal <a href="_summary@lib.net.servers.http.html">HTTP server</a> is provided. The
+tutorial gives an instance of this server in stand-alone mode. We call it Papoose :-)
+</p>
+
+
+
+<a name="technical"><h3>Technical aspects</h3></a>
+
+<p>
+The net cluster is quite simple.
+</p>
+
+<ul>
+
+ <li>The <a href="index/ADDRESS.html"><code>ADDRESS</code></a> class is an abstract class that represents an
+  address. There are three implementations, in the `address' sub-cluster.</li>
+
+ <li>The <a href="index/ACCESS.html"><code>ACCESS</code></a> class is an abstract class that represents an
+  access. There are three implementations, in the `access' sub-cluster.</li>
+
+ <li>The <a href="index/SOCKET_INPUT_OUTPUT_STREAM.html"><code>SOCKET_INPUT_OUTPUT_STREAM</code></a> is a
+  bi-directional stream. You cannot create such an object directly, it must be given to you either by <a
+  href="index/ACCESS.html"><code>ACCESS</code></a><code>.stream</code> (client usage) or by the server
+  (server usage: when an inbound connection occurs, agents are given a stream).</li>
+
+ <li>The <a href="index/SOCKET_SERVER.html"><code>SOCKET_SERVER</code></a> is the basic implementation of a
+  server. It is a <a href="index/JOB.html"><code>JOB</code></a> in the `sequencer' terminology, hence it has
+  to be used in conjunction with a <a href="index/LOOP_STACK.html"><code>LOOP_STACK</code></a>.</li>
+
+ <li>The <a href="_summary@lib.net.low_level.html"><code>lib/net/low_level</code<</a> cluster contains really
+  low-level classes, that should be used only by the cluster itself. Use at your own risk.
+
+  <ul>
+
+   <li><a href="index/SOCKET.html"><code>SOCKET</code></a> is the basic implementation of a socket.</li>
+
+   <li><a href="index/SOCKET_HANDLER.html"><code>SOCKET_HANDLER</code></a> allows low-level access to a <a
+    href="index/SOCKET.html"><code>SOCKET</code></a>. Usual code doesn't need that, only the cluster itself
+    should use this class.</li>
+
+   <li><a href="index/SOCKET_PLUG_IN.html"><code>SOCKET_PLUG_IN</code></a> is the Eiffel side of the net
+    plugin.</li>
+
+  </ul></li>
+</ul>
+
+<hr align="left" width="20%"/>
+<a name="footnote1"><b>Note</b></a> that the address is not currently used to allow only some
+    connections. It will be used in a future release.
+
+</body>
+</html>

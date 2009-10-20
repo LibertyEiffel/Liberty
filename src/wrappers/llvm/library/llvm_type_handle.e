@@ -4,9 +4,9 @@ inherit
 	C_STRUCT
 	EIFFEL_OWNED redefine dispose end
 
-insert LLVM_TYPE_FACTORY undefine copy, is_equal end
+insert LLVM_TYPE_FACTORY
 
-creation from_type
+creation from_type, from_external_pointer
 
 feature 
 	from_type (a_type: LLVM_TYPE) is
@@ -22,12 +22,15 @@ feature
 		Result:=wrapper(llvmresolve_type_handle(handle))
 	end
 
+	-- TODO: provide refining support:  void LLVMRefineType(LLVMTypeRef AbstractTy, LLVMTypeRef ConcreteTy);
+
 feature -- Disposing
 	dispose is
 		do
 			llvmdispose_type_handle(handle)
 		end
 
+	struct_size: INTEGER is do not_yet_implemented end 
 end -- class LLVM_TYPE_HANDLE
 
 -- Copyright 2009 Paolo Redaelli

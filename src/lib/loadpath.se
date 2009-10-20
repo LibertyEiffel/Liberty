@@ -6,6 +6,8 @@
 ./iterator/loadpath.se
 ./kernel/loadpath.se
 ./misc/
+./message_formatter/
+./net/loadpath.se
 ./ncurses/loadpath.se
 ./numeric/loadpath.se
 ./parse/loadpath.se

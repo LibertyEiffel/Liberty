@@ -1,0 +1,2 @@
+[UNIX]
+llvm: "$(llvm-config --libs)"
