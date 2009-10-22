@@ -483,23 +483,12 @@ feature {}
 			end
 		end
 
-	feature_instructions (instructions: LIBERTY_AST_LIST[LIBERTY_AST_INSTRUCTION]; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_INSTRUCTION] is
+	feature_instructions (insts: LIBERTY_AST_LIST[LIBERTY_AST_INSTRUCTION]; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_INSTRUCTION] is
 		require
-			instructions /= Void
+			insts /= Void
 			local_context /= Void
-		local
-			i: INTEGER; inst: LIBERTY_AST_INSTRUCTION
 		do
-			create {FAST_ARRAY[LIBERTY_INSTRUCTION]} Result.with_capacity(instructions.list_count)
-			from
-				i := instructions.list_lower
-			until
-				i > instructions.list_upper
-			loop
-				inst := instructions.list_item(i)
-				Result.add_last(instruction(inst, local_context))
-				i := i + 1
-			end
+			Result := instructions(insts.list, local_context)
 		ensure
 			not errors.has_error implies Result /= Void
 		end
@@ -657,13 +646,166 @@ feature {}
 		end
 
 feature {} -- Instructions
+	instructions (insts: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_INSTRUCTION] is
+		require
+			insts /= Void
+			local_context /= Void
+		local
+			i: INTEGER; inst: LIBERTY_AST_INSTRUCTION
+		do
+			create {FAST_ARRAY[LIBERTY_INSTRUCTION]} Result.with_capacity(insts.count)
+			from
+				i := insts.lower
+			until
+				i > insts.upper
+			loop
+				inst ::= insts.item(i)
+				Result.add_last(instruction(inst, local_context))
+				i := i + 1
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
 	instruction (inst: LIBERTY_AST_INSTRUCTION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
 		require
 			inst /= Void
 			local_context /= Void
 		do
+			inspect
+				inst.instruction.name
+			when "Assignment" then
+				Result := instruction_assignment(inst.instruction, local_context)
+			when "Call" then
+				Result := instruction_call(inst.instruction, local_context)
+			when "If_Then_Else" then
+				Result := instruction_ifthenelse(inst.instruction, local_context)
+			when "Inspect" then
+				Result := instruction_inspect(inst.instruction, local_context)
+			when "Loop" then
+				Result := instruction_loop(inst.instruction, local_context)
+			when "Check" then
+				Result := instruction_check(inst.instruction, local_context)
+			when "Debug" then
+				Result := instruction_debug(inst.instruction, local_context)
+			when "Creation", "Old_Creation" then
+				Result := instruction_creation(inst.instruction, local_context)
+			when "Retry" then
+				Result := instruction_retry(inst.instruction, local_context)
 		ensure
 			not errors.has_error implies Result /= Void
+			end
+
+	instruction_assignment (a_assignment: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ASSIGNMENT is
+		require
+			a_assignment /= Void
+			LIBERTY_AST_ASSIGNMENT ?:= a_assignment
+		local
+			assignment: LIBERTY_AST_ASSIGNMENT
+		do
+			assignment ::= a_assignment
+			not_yet_implemented
+		end
+
+	instruction_call (a_call: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CALL is
+		require
+			a_call /= Void
+			LIBERTY_AST_CALL ?:= a_call
+		local
+			call: LIBERTY_AST_CALL
+		do
+			call ::= a_call
+			not_yet_implemented
+		end
+
+	instruction_ifthenelse (a_cond: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CONDITIONAL is
+		require
+			a_cond /= Void
+			LIBERTY_AST_IF_THEN_ELSE ?:= a_cond
+		local
+			ifthenelse: LIBERTY_AST_IF_THEN_ELSE
+		do
+			ifthenelse ::= a_cond
+			not_yet_implemented
+		end
+
+	instruction_inspect (a_inspect: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSPECT is
+		require
+			a_inspect /= Void
+			LIBERTY_AST_INSPECT ?:= a_inspect
+		local
+			inspct: LIBERTY_AST_INSPECT
+		do
+			inspct ::= a_inspect
+			not_yet_implemented
+		end
+
+	instruction_loop (a_loop: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_LOOP is
+		require
+			a_loop /= Void
+			LIBERTY_AST_LOOP ?:= a_loop
+		local
+			l00p: LIBERTY_AST_LOOP
+		do
+			l00p ::= a_loop
+			not_yet_implemented
+		end
+
+	instruction_check (a_check: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CHECK is
+		require
+			a_check /= Void
+			LIBERTY_AST_CHECK ?:= a_check
+		local
+			chk: LIBERTY_AST_CHECK
+		do
+			chk ::= a_check
+			not_yet_implemented
+		end
+
+	instruction_debug (a_debug: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEBUG is
+		require
+			a_debug /= Void
+			LIBERTY_AST_DEBUG ?:= a_debug
+		local
+			dbg: LIBERTY_AST_DEBUG
+			keys: FAST_ARRAY[STRING]; inst: like instructions
+			i: INTEGER
+		do
+			dbg ::= a_debug
+			if dbg.debug_keys.list_count > 0 then
+				create keys.with_capacity(dbg.debug_keys.list_count)
+				from
+					i := dbg.debug_keys.list_lower
+				until
+					i > dbg.debug_keys.list_upper
+				loop
+					keys.add_last(decoded_string(dbg.debug_keys.list_item(i)))
+					i := i + 1
+				end
+			end
+			inst := instructions(dbg.instructions, local_context)
+			create Result.make(keys, inst)
+		ensure
+			Result /= Void
+		end
+
+	instruction_creation (a_creation: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CREATION is
+		require
+			a_creation /= Void
+			LIBERTY_AST_CREATION ?:= a_creation
+		local
+			creat: LIBERTY_AST_CREATION
+		do
+			creat ::= a_creation
+			not_yet_implemented
+		end
+
+	instruction_retry (a_retry: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_RETRY is
+		require
+			a_retry /= Void
+			LIBERTY_AST_RETRY ?:= a_retry
+		do
+			create Result.make
 		end
 
 feature {} -- Expressions
