@@ -19,8 +19,8 @@ indexing
 					02110-1301 USA
 			]"
 
-obsolete class CONST_STRING
- 	"Shall be adapted for Liberty Eiffel"
+class CONST_STRING
+obsolete "Shall be adapted for Liberty Eiffel"
 
 	-- An efficient wrapper for const pointer to strings returned by
 	-- many C functions. No further memory is allocated when a CONST_STRING is created: the buffer of the C library is used directly. 

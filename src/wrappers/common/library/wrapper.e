@@ -99,19 +99,19 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			handle = a_ptr
 		end
 
-	is_null: BOOLEAN is
-		do
-			Result := handle.is_null
-		ensure
-			definition: Result = handle.is_null
-		end
+	-- is_null: BOOLEAN is
+	-- 	do
+	-- 		Result := handle.is_null
+	-- 	ensure
+	-- 		definition: Result = handle.is_null
+	-- 	end
 
-	is_not_null: BOOLEAN is
-		do
-			Result := handle.is_not_null
-		ensure
-			definition: Result = handle.is_not_null
-		end
+	-- is_not_null: BOOLEAN is
+	-- 	do
+	-- 		Result := handle.is_not_null
+	-- 	ensure
+	-- 		definition: Result = handle.is_not_null
+	-- 	end
 
 	set_handle (a_ptr: POINTER) is
 			-- Set a non-null handle. Raises an No_more_memory exception 

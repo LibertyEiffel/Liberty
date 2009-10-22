@@ -38,8 +38,6 @@ feature
 	put (a_wrapper: ITEM) is
 		require 
 			wrapper_not_void: a_wrapper /= Void
-			non_dummy_wrapper: a_wrapper.is_not_null
-			not_already_present: 
 		do
 			wrappers.put(a_wrapper,a_wrapper.handle)
 		ensure

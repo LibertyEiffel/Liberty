@@ -1,3 +1,4 @@
-externals/
 .
-
+types/
+values/
+externals/

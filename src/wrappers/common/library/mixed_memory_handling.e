@@ -40,7 +40,7 @@ feature
 			-- reclaims an object; if not shared frees the memory pointed
 			-- by `handle'
 		do
-			if is_not_null then
+			if handle.is_not_null then
 				if is_shared then
 					debug 
 						print(once "Disposing a shared ")

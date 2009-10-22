@@ -19,4 +19,39 @@ deferred class LLVM_CONSTANT
 	-- Constants are created on demand as needed and never deleted: thus
 	-- clients don't have to worry about the lifetime of the objects.
 inherit LLVM_USER
+insert CORE_EXTERNALS
+feature 
+	null_from (a_type: LLVM_TYPE) is
+	-- Create a null constant of `a_type'
+	require a_type/=Void
+	do
+		handle:=llvmconst_null(a_type.handle)
+	end
+
+	undef_from (a_type: LLVM_TYPE) is
+	-- Create an undefined constant of `a_type'
+	require a_type/=Void
+	do
+		handle:=llvmget_undef(a_type.handle)
+	end
+
+feature -- Queries
+	is_constant: BOOLEAN is 
+		-- TODO: as far as I understand this feature shall belong to LLVM_VALUE. 
+	do
+		Result := llvmis_constant(handle).to_boolean
+	end
+
+	is_null: BOOLEAN is
+		-- Is Current constant null?
+	do
+		Result := llvmis_null(handle).to_boolean
+	end
+
+	is_undefined: BOOLEAN is
+		-- Is Current constant not defined?
+	do
+		Result := llvmis_undef(handle).to_boolean
+	end
+
 end -- class LLVM_CONSTANT
