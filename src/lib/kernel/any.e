@@ -305,18 +305,13 @@ feature {} -- Various useful tools:
 	not_yet_implemented is
 		do
 			sedb_breakpoint
-			std_error.put_string("%
-            %Some feature is not yet implemented (i.e. feature `not_yet_implemented' of%N%
-            %class ANY has been called somewhere). Just run this code under the debugger%N%
-            %to know the `not_yet_implemented' caller. If this is a feature of the%N%
-            %SmartEiffel library, you may consider to post your implementation on the%N%
-            %SmartEiffel mailing list.%N%
-            %                                    e-mail: SmartEiffel@loria.fr%N%
-            %                              Happy debug and thanks in advance.%N%
-            %                                     http://SmartEiffel.loria.fr%N%
-            %                                           The SmartEiffel team.%N%
-%%N%
-            %The error occured in the type ")
+			std_error.put_string("[
+										 Some feature is not yet implemented (i.e. feature `not_yet_implemented' of
+										 class ANY has been called somewhere). Just run this code under the debugger
+										 to know the `not_yet_implemented' caller.
+										 
+										 The error occured in the type
+										 ]")
 			std_error.put_string(generating_type)
 			std_error.put_string(".%N%N")
 			crash
