@@ -28,7 +28,7 @@ feature {LIBERTY_TYPE}
 					if not errors.has_error then
 						add_creations(ast.creations)
 						if not errors.has_error then
-							add_invariant(ast.invariant_clause)
+							type.set_invariant(class_invariant(ast.invariant_clause))
 						end
 					end
 				end
@@ -630,7 +630,7 @@ feature {}
 		end
 
 feature {}
-	add_invariant (invariant_clause: LIBERTY_AST_INVARIANT) is
+	class_invariant (invariant_clause: LIBERTY_AST_INVARIANT): LIBERTY_INVARIANT is
 		do
 			not_yet_implemented
 		end
@@ -820,9 +820,32 @@ feature {} -- Instructions
 			LIBERTY_AST_LOOP ?:= a_loop
 		local
 			l00p: LIBERTY_AST_LOOP
+			init, body: like instructions
+			exp, variant_clause: LIBERTY_EXPRESSION
+			invariant_clause: LIBERTY_INVARIANT
 		do
 			l00p ::= a_loop
-			not_yet_implemented
+			init := instructions(l00p.instructions, local_context)
+			invariant_clause := loop_invariant(l00p.invariant_clause)
+			variant_clause := expression(l00p.variant_clause, local_context)
+			exp := expression(l00p.expression, local_context)
+			body := instructions(l00p.instructions, local_context)
+			create Result.make(init, invariant_clause, variant_clause, exp, body)
+		end
+
+	loop_invariant (invariant_clause: LIBERTY_AST_INVARIANT; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INVARIANT is
+		require
+			invariant_clause /= Void
+			local_context /= Void
+		local
+			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
+		do
+			assertions := feature_assertions(precondition, local_context)
+			if not errors.has_error then
+				create Result.make(assertions)
+			end
+		ensure
+			not errors.has_error implies Result /= Void
 		end
 
 	instruction_check (a_check: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CHECK is
