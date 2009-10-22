@@ -7,7 +7,7 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	when_clauses: EIFFEL_LIST_NODE is
+	when_slices: EIFFEL_LIST_NODE is
 		do
 			Result ::= nodes.item(1)
 		end
