@@ -48,6 +48,11 @@ feature {ANY}
 			the_feature := other.the_feature
 		end
 
+	is_result_type_set: BOOLEAN is
+		do
+			Result := the_feature /= Void
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	set_name (a_name: like feature_name) is
 		require
@@ -74,6 +79,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			the_feature := a_feature
 		ensure
 			the_feature = a_feature
+			is_result_type_set
 		end
 
 feature {}

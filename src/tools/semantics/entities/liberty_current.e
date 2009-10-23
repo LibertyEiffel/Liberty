@@ -14,6 +14,8 @@ feature {ANY}
 
 	result_type: LIBERTY_TYPE
 
+	is_result_type_set: BOOLEAN is True
+
 feature {}
 	make (type: like result_type) is
 		require
@@ -23,8 +25,5 @@ feature {}
 		ensure
 			result_type = type
 		end
-
-invariant
-	result_type /= Void
 
 end

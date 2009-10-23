@@ -8,7 +8,10 @@ create {LIBERTY_TYPE_BUILDER}
 
 feature {ANY}
 	name: FIXED_STRING
+
 	result_type: LIBERTY_TYPE
+
+	is_result_type_set: BOOLEAN is True
 
 feature {}
 	make (a_name: STRING; a_result_type: like result_type) is
