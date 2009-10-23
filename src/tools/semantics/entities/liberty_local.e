@@ -13,15 +13,15 @@ feature {ANY}
 	is_result_type_set: BOOLEAN is True
 
 feature {}
-	make (a_name: STRING; a_result_type: like result_type) is
+	make (a_name: like name; a_result_type: like result_type) is
 		require
 			a_name /= Void
 			a_result_type /= Void
 		do
-			create name.make_from_string(a_name)
+			name := a_name
 			result_type := a_result_type
 		ensure
-			name.is_equal(a_name)
+			name = a_name
 			result_type = a_result_type
 		end
 

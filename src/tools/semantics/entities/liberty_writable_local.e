@@ -28,7 +28,7 @@ feature {}
 		do
 			the_local := a_local
 		ensure
-			the_local = local
+			the_local = a_local
 		end
 
 end

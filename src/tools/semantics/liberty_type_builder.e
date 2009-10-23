@@ -29,10 +29,26 @@ feature {LIBERTY_TYPE}
 						add_creations(ast.creations)
 						if not errors.has_error then
 							type.set_invariant(class_invariant(ast.invariant_clause))
+							if not errors.has_error then
+								reconcile_and_check
+							end
 						end
 					end
 				end
 			end
+		end
+
+feature {}
+	reconcile_and_check is
+		do
+			--| TODO:
+			--| * attach feature_entities to actual features
+			--|     - all the feature entities must be attached to a known feature
+			--| * check the result types of expressions
+			--|     - if expressions must be booleans
+			--|     - inspect expressions must be comparables
+			--|     - contract expressions must be booleans
+			--| * what else?
 		end
 
 feature {}
@@ -323,19 +339,19 @@ feature {}
 
 	add_feature (clients: COLLECTION[LIBERTY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION) is
 		local
-			result_type: LIBERTY_TYPE; parameters: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]
+			result_type: LIBERTY_TYPE
 			the_feature: LIBERTY_FEATURE; a_ast_terminal: LIBERTY_AST_TERMINAL_NODE
+			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
 		do
 			if a_feature.signature.has_result_type then
 				result_type := universe.get_type_from_type_definition(type.cluster, a_feature.signature.result_type, effective_generic_parameters)
 			end
 			if a_feature.has_block then
+				create local_context.make(result_type)
 				if a_feature.signature.has_parameters then
-					parameters := list_parameters(a_feature.signature.parameters)
-				else
-					parameters := empty_parameter_list
+					list_parameters(a_feature.signature.parameters, local_context)
 				end
-				the_feature := feature_block(parameters, result_type, a_feature.block)
+				the_feature := feature_block(a_feature.block, local_context)
 			else
 				if a_feature.signature.has_parameters then
 					a_ast_terminal ::= a_feature.signature.node_at(1)
@@ -359,7 +375,7 @@ feature {}
 			end
 		end
 
-	feature_block (local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; result_type: LIBERTY_TYPE; block: LIBERTY_AST_EIFFEL_BLOCK): LIBERTY_FEATURE is
+	feature_block (block: LIBERTY_AST_EIFFEL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_FEATURE is
 		require
 			local_context /= Void
 		local
@@ -385,7 +401,7 @@ feature {}
 				elseif do_block.is_attribute then
 					create {LIBERTY_FEATURE_ATTRIBUTE} Result.make
 				else
-					locals := list_locals(block.local_block)
+					list_locals(block.local_block, local_context)
 					instructions := instructions(block.do_block.list, local_context)
 					if not errors.has_error then
 						if do_block.is_do then
@@ -406,7 +422,7 @@ feature {}
 			end
 			if not errors.has_error then
 				Result.set_parameters(local_context.parameters)
-				Result.set_result_type(result_type)
+				Result.set_result_type(local_context.result_type)
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -892,9 +908,31 @@ feature {} -- Instructions
 			LIBERTY_AST_CREATION ?:= a_creation
 		local
 			creat: LIBERTY_AST_CREATION
+			w: LIBERTY_WRITABLE
+			type: LIBERTY_TYPE
+			feature_entity: LIBERTY_ENTITY
+			feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
 			creat ::= a_creation
-			not_yet_implemented
+			w := writable(creat.writable)
+			if creat.has_type_definition then
+				type := universe.get(type, creat.type_definition, effective_generic_parameters)
+				if not errors.has_error then
+					if not type.is_conform_to(w.result_type) then
+						--|*** TODO: the given creation type must be a conformant subtype of the writable type
+						not_yet_implemented
+					end
+				end
+			else
+				type := w.result_type
+			end
+			if w.has_creation_feature_call then
+				feature_entity := entity(w.creation_feature_name)
+				feature_arguments := actuals(w.actuals, local_context)
+				create Result.make_create_call(w, type, feature_entity, feature_arguments)
+			else
+				create Result.make_default_create(w, type)
+			end
 		end
 
 	instruction_retry (a_retry: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_RETRY is
@@ -905,7 +943,80 @@ feature {} -- Instructions
 			create Result.make
 		end
 
+feature {} -- Entities and writables
+	writable (a_writable: LIBERTY_AST_WRITABLE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_WRITABLE is
+		local
+			name: FIXED_STRING
+		do
+			if writable.is_result then
+				create {LIBERTY_RESULT} Result.make(local_context.result_type)
+			else
+				name := writable.entity_name.image.image.intern
+				if local_context.is_local(name) then
+					create {LIBERTY_WRITABLE_LOCAL} Result.make(local_context.local_var(name))
+				elseif local_context.is_parameter(name) then
+					--|*** TODO: error! (not writable)
+					not_yet_implemented
+				else
+					create {LIBERTY_WRITABLE_FEATURE} Result.make(name)
+				end
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	entity (a_entity: LIBERTY_AST_ENTITY_NAME; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENTITY is
+		local
+			name: FIXED_STRING
+		do
+			name := a_entity.image.image.intern
+			if name.is_equal(once "Current") then
+				Result := current_entity
+			elseif name.is_equal(once "Result") then
+				Result := local_context.result_entity
+			elseif local_context.is_local(name) then
+				Result := local_context.local_var(name)
+			elseif local_context.is_parameter(name) then
+				Result := local_context.parameter(name)
+			else
+				Result := feature_entities.reference_at(name)
+				if Result = Void then
+					create {LIBERTY_FEATURE_ENTITY} Result.make(name)
+					feature_entities.put(Result, name)
+				end
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	current_entity: LIBERTY_CURRENT
+	feature_entities: DICTIONARY[LIBERTY_FEATURE_ENTITY, FIXED_STRING]
+
 feature {} -- Expressions
+	actuals (a_actuals: LIBERTY_AST_ACTUALS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_EXPRESSION] is
+		local
+			i: INTEGER
+			act: LIBERTY_AST_ACTUAL
+		do
+			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.with_capacity(a_actuals.list_count)
+			from
+				i = a_actuals.list_lower
+			until
+				i > a_actuals.list_upper
+			loop
+				act := a_actuals.list_item(i)
+				if act.is_expression then
+					Result.add_last(expression(act.expression), local_context)
+				else
+					check act.is_ref_to_entity end
+					Result.add_last(create {LIBERTY_REFERENCE_TO_ENTITY}.make(entity(act.ref_entity_name, local_context))
+				end
+				i := i + 1
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
 	expression (exp: LIBERTY_AST_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		require
 			exp /= Void
@@ -1120,15 +1231,12 @@ feature {}
 			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 
-	list_parameters (parameters: EIFFEL_LIST_NODE): DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING] is
+	list_parameters (parameters: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT) is
 		local
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
 			typedef: LIBERTY_TYPE; parameter: LIBERTY_PARAMETER
 		do
-			if parameters.is_empty then
-				Result := empty_parameter_list
-			else
-				create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]}Result.make
+			if not parameters.is_empty then
 				from
 					i := parameters.lower
 				until
@@ -1143,32 +1251,22 @@ feature {}
 							j > declaration.variables.upper
 						loop
 							variable ::= declaration.variables.item(j)
-							create parameter.make(variable.variable.image.image, typedef)
-							Result.add(parameter, variable.variable.image.image.intern)
+							create parameter.make(variable.variable.image.image.intern, typedef)
+							local_context.add_parameter(parameter)
 							j := j + 1
 						end
 					end
 					i := i + 1
 				end
 			end
-		ensure
-			not errors.has_error implies Result /= Void
 		end
 
-	empty_parameter_list: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING] is
-		once
-			create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]} Result.with_capacity(0)
-		end
-
-	list_locals (locals: LIBERTY_AST_LOCAL_BLOCK): DICTIONARY[LIBERTY_LOCAL, FIXED_STRING] is
+	list_locals (locals: LIBERTY_AST_LOCAL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT) is
 		local
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
 			typedef: LIBERTY_TYPE; localdef: LIBERTY_LOCAL
 		do
-			if locals.list_count = 0 then
-				Result := empty_local_list
-			else
-				create {HASHED_DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]}Result.make
+			if locals.list_count > 0 then
 				from
 					i := locals.list_lower
 				until
@@ -1183,21 +1281,14 @@ feature {}
 							j > declaration.variables.upper
 						loop
 							variable ::= declaration.variables.item(j)
-							create localdef.make(variable.variable.image.image, typedef)
-							Result.add(localdef, variable.variable.image.image.intern)
+							create localdef.make(variable.variable.image.image.intern, typedef)
+							local_context.add_local(localdef)
 							j := j + 1
 						end
 					end
 					i := i + 1
 				end
 			end
-		ensure
-			not errors.has_error implies Result /= Void
-		end
-
-	empty_local_list: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING] is
-		once
-			create {HASHED_DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]} Result.with_capacity(0)
 		end
 
 feature {}
@@ -1208,6 +1299,8 @@ feature {}
 		do
 			type := a_type
 			universe := a_universe
+			create current_entity.make(a_type)
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, FIXED_STRING]} feature_entities.make
 		ensure
 			type = a_type
 			universe = a_universe
@@ -1227,5 +1320,7 @@ feature {}
 invariant
 	type /= Void
 	universe /= Void
+	current_entity /= Void
+	feature_entities /= Void
 
 end

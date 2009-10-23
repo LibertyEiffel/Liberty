@@ -26,4 +26,7 @@ feature {}
 			result_type = a_result_type
 		end
 
+invariant
+	result_type /= Void
+
 end

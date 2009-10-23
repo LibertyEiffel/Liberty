@@ -13,7 +13,7 @@ feature {ANY}
 			is_result_type_set
 		deferred
 		ensure
-			Result /= Void
+			-- Result may be Void in the particular cas of features having no result type.
 		end
 
 	is_result_type_set: BOOLEAN is
