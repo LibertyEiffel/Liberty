@@ -1,4 +1,9 @@
 class LIBERTY_FEATURE_ENTITY
+--
+-- A proxy to the feature itself.
+--
+-- See also LIBERTY_WRITABLE_FEATURE
+--
 
 inherit
 	LIBERTY_ENTITY

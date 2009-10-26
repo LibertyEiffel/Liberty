@@ -1,7 +1,7 @@
 class LIBERTY_LOCAL
 
 inherit
-	LIBERTY_ENTITY
+	LIBERTY_WRITABLE
 
 create {LIBERTY_TYPE_BUILDER}
 	make

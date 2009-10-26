@@ -44,10 +44,13 @@ feature {}
 			--| TODO:
 			--| * attach feature_entities to actual features
 			--|     - all the feature entities must be attached to a known feature
+			--|     - check that all the writable features are attributes
 			--| * check the result types of expressions
 			--|     - if expressions must be booleans
 			--|     - inspect expressions must be comparables
 			--|     - contract expressions must be booleans
+			--| * "retry" only in rescue blocks
+			--| * "old" only in postconditions
 			--| * what else?
 		end
 
@@ -421,8 +424,8 @@ feature {}
 				end
 			end
 			if not errors.has_error then
-				Result.set_parameters(local_context.parameters)
-				Result.set_result_type(local_context.result_type)
+				local_context.reconcile_retry_instruction(Result)
+				Result.set_context(local_context)
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -940,7 +943,7 @@ feature {} -- Instructions
 			a_retry /= Void
 			LIBERTY_AST_RETRY ?:= a_retry
 		do
-			create Result.make
+			Result := local_context.retry_instruction
 		end
 
 feature {} -- Entities and writables
@@ -949,16 +952,16 @@ feature {} -- Entities and writables
 			name: FIXED_STRING
 		do
 			if writable.is_result then
-				create {LIBERTY_RESULT} Result.make(local_context.result_type)
+				Result := local_context.result_entity
 			else
 				name := writable.entity_name.image.image.intern
 				if local_context.is_local(name) then
-					create {LIBERTY_WRITABLE_LOCAL} Result.make(local_context.local_var(name))
+					Result := local_context.local_var(name)
 				elseif local_context.is_parameter(name) then
 					--|*** TODO: error! (not writable)
 					not_yet_implemented
 				else
-					create {LIBERTY_WRITABLE_FEATURE} Result.make(name)
+					Result := feature_writable(name)
 				end
 			end
 		ensure
@@ -979,18 +982,41 @@ feature {} -- Entities and writables
 			elseif local_context.is_parameter(name) then
 				Result := local_context.parameter(name)
 			else
-				Result := feature_entities.reference_at(name)
-				if Result = Void then
-					create {LIBERTY_FEATURE_ENTITY} Result.make(name)
-					feature_entities.put(Result, name)
-				end
+				Result := feature_entity(name)
 			end
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
+	feature_writable (name: FIXED_STRING): LIBERTY_WRITABLE_FEATURE is
+		require
+			name = name.intern
+		do
+			Result := feature_writables.reference_at(name)
+			if Result = Void then
+				create {LIBERTY_WRITABLE_FEATURE} Result.make(feature_entity(name))
+				feature_writables.put(Result, name)
+			end
+		ensure
+			Result.name = name
+		end
+
+	feature_entity (name: FIXED_STRING): LIBERTY_FEATURE_ENTITY is
+		require
+			name = name.intern
+		do
+			Result := feature_entities.reference_at(name)
+			if Result = Void then
+				create {LIBERTY_FEATURE_ENTITY} Result.make(name)
+				feature_entities.put(Result, name)
+			end
+		ensure
+			Result.name = name
+		end
+
 	current_entity: LIBERTY_CURRENT
 	feature_entities: DICTIONARY[LIBERTY_FEATURE_ENTITY, FIXED_STRING]
+	feature_writables: DICTIONARY[LIBERTY_FEATURE_WRITABLE, FIXED_STRING]
 
 feature {} -- Expressions
 	actuals (a_actuals: LIBERTY_AST_ACTUALS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_EXPRESSION] is

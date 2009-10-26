@@ -63,6 +63,15 @@ feature {ANY}
 
 	result_entity: LIBERTY_RESULT
 
+	retry_instruction: LIBERTY_RETRY is
+		do
+			Result := retry_memory
+			if Result = Void then
+				create Result.make
+			end
+			retry_memory := Result
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	add_parameter (a_parameter: LIBERTY_PARAMETER) is
 		require
@@ -80,11 +89,19 @@ feature {LIBERTY_TYPE_BUILDER}
 			locals_map.add(a_local, a_local.name)
 		end
 
+	reconcile_retry_instruction (a_feature: LIBERTY_FEATURE) is
+		do
+			if retry_memory /= Void then
+				retry_memory.set_feature(a_feature)
+			end
+		end
+
 feature {}
 	parameters_map: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]
 	parameters_list: COLLECTION[LIBERTY_PARAMETER]
 	locals_map: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]
 	locals_list: COLLECTION[LIBERTY_LOCAL]
+	retry_memory: LIBERTY_RETRY
 
 	make (a_result_type: like result_type) is
 		do

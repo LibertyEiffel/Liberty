@@ -7,8 +7,12 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
-	result_type: LIBERTY_TYPE
-	parameters: TRAVERSABLE[LIBERTY_PARAMETER]
+	result_type: LIBERTY_TYPE is
+		do
+			Result := context.result_type
+		end
+
+	context: LIBERTY_FEATURE_LOCAL_CONTEXT
 
 	precondition: LIBERTY_REQUIRE
 	postcondition: LIBERTY_ENSURE
@@ -26,18 +30,13 @@ feature {LIBERTY_TYPE_BUILDER}
 			late_binding.add(child, type)
 		end
 
-	set_parameters (a_parameters: like parameters) is
+	set_context (a_context: like context) is
+		require
+			a_context /= Void
 		do
-			parameters := a_parameters
+			context := a_context
 		ensure
-			parameters = a_parameters
-		end
-
-	set_result_type (a_result_type: like result_type) is
-		do
-			result_type := a_result_type
-		ensure
-			result_type = a_result_type
+			context = a_context
 		end
 
 	set_precondition (assertions: like precondition) is
