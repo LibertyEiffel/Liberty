@@ -1,0 +1,9 @@
+class LIBERTY_ASSIGNMENT_REGULAR
+
+inherit
+	LIBERTY_ASSIGNMENT
+
+create {LIBERTY_TYPE_BUILDER}
+	make
+
+end

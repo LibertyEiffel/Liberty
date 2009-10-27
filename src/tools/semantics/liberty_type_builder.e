@@ -711,9 +711,21 @@ feature {} -- Instructions
 			LIBERTY_AST_ASSIGNMENT ?:= a_assignment
 		local
 			assignment: LIBERTY_AST_ASSIGNMENT
+			w: LIBERTY_WRITABLE
+			exp: LIBERTY_EXPRESSION
 		do
 			assignment ::= a_assignment
-			not_yet_implemented
+			w := writable(assignment.writable, local_context)
+			exp := expression(assignment.expression, local_context)
+			if assignment.is_regular_assignment then
+				create {LIBERTY_ASSIGNMENT_REGULAR} Result.make(w, exp)
+			elseif assignment.is_forced_assignment then
+				create {LIBERTY_ASSIGNMENT_FORCED} Result.make(w, exp)
+			elseif assignment.is_assignment_attempt then
+				create {LIBERTY_ASSIGNMENT_ATTEMPT} Result.make(w, exp)
+			else
+				check False end
+			end
 		end
 
 	instruction_call (a_call: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CALL is
@@ -739,7 +751,6 @@ feature {} -- Instructions
 		do
 			ifthenelse ::= a_cond
 			create conditional.make
-
 			conditional.add_condition(condition(a_cond.then_clause, local_context))
 			from
 				i := a_cond.elseif_list.lower
@@ -751,7 +762,6 @@ feature {} -- Instructions
 				i := i + 1
 			end
 			conditional.set_default(default(a_cond.else_clause, local_context))
-
 			Result := conditional
 		end
 
@@ -776,7 +786,6 @@ feature {} -- Instructions
 		do
 			inspct ::= a_inspect
 			create insp.make(expression(inspct.expression, local_context))
-
 			from
 				i := inspct.when_list.lower
 			until
@@ -786,7 +795,6 @@ feature {} -- Instructions
 				i := i + 1
 			end
 			insp.set_default(inspct.else_clause, local_context))
-
 			Result := insp
 		end
 
@@ -875,7 +883,7 @@ feature {} -- Instructions
 			chk: LIBERTY_AST_CHECK
 		do
 			chk ::= a_check
-			not_yet_implemented
+			create Result.make(feature_assertions(chk, local_context))
 		end
 
 	instruction_debug (a_debug: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEBUG is
@@ -905,7 +913,7 @@ feature {} -- Instructions
 			Result /= Void
 		end
 
-	instruction_creation (a_creation: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CREATION is
+	instruction_creation (a_creation: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CREATION_INSTRUCTION is
 		require
 			a_creation /= Void
 			LIBERTY_AST_CREATION ?:= a_creation
@@ -913,8 +921,8 @@ feature {} -- Instructions
 			creat: LIBERTY_AST_CREATION
 			w: LIBERTY_WRITABLE
 			type: LIBERTY_TYPE
-			feature_entity: LIBERTY_ENTITY
-			feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
+			fe: LIBERTY_FEATURE_ENTITY
+			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
 			creat ::= a_creation
 			w := writable(creat.writable)
@@ -930,12 +938,13 @@ feature {} -- Instructions
 				type := w.result_type
 			end
 			if w.has_creation_feature_call then
-				feature_entity := entity(w.creation_feature_name)
-				feature_arguments := actuals(w.actuals, local_context)
-				create Result.make_create_call(w, type, feature_entity, feature_arguments)
+				fe := feature_entity(w.creation_feature_name.image.image.intern)
+				fa := actuals(w.actuals, local_context)
 			else
-				create Result.make_default_create(w, type)
+				fe := feature_entity(once "default_create".intern)
+				fa := empty_actuals
 			end
+			create Result.make(w, type, fe, fa)
 		end
 
 	instruction_retry (a_retry: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_RETRY is
@@ -1024,23 +1033,32 @@ feature {} -- Expressions
 			i: INTEGER
 			act: LIBERTY_AST_ACTUAL
 		do
-			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.with_capacity(a_actuals.list_count)
-			from
-				i = a_actuals.list_lower
-			until
-				i > a_actuals.list_upper
-			loop
-				act := a_actuals.list_item(i)
-				if act.is_expression then
-					Result.add_last(expression(act.expression), local_context)
-				else
-					check act.is_ref_to_entity end
-					Result.add_last(create {LIBERTY_REFERENCE_TO_ENTITY}.make(entity(act.ref_entity_name, local_context))
+			if a_actuals.list_count= 0 then
+				Result := empty_actuals
+			else
+				create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.with_capacity(a_actuals.list_count)
+				from
+					i = a_actuals.list_lower
+				until
+					i > a_actuals.list_upper
+				loop
+					act := a_actuals.list_item(i)
+					if act.is_expression then
+						Result.add_last(expression(act.expression), local_context)
+					else
+						check act.is_ref_to_entity end
+						Result.add_last(create {LIBERTY_REFERENCE_TO_ENTITY}.make(entity(act.ref_entity_name, local_context))
+					end
+					i := i + 1
 				end
-				i := i + 1
 			end
 		ensure
 			not errors.has_error implies Result /= Void
+		end
+
+	empty_actuals: like actuals is
+		once
+			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.make(0)
 		end
 
 	expression (exp: LIBERTY_AST_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is

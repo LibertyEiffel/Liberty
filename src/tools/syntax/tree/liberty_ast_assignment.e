@@ -17,7 +17,7 @@ feature {LIBERTY_AST_HANDLER}
 			Result ::= nodes.item(2)
 		end
 
-	is_normal_assignment: BOOLEAN is
+	is_regular_assignment: BOOLEAN is
 		do
 			Result := nodes.item(1).name.is_equal(once "KW :=")
 		ensure
