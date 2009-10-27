@@ -30,14 +30,14 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := nodes.item(1).name.is_equal(once "KW ?=")
 		ensure
-			Result = not is_normal_assignment and then not is_forced_assignment
+			Result = not is_regular_assignment and then not is_forced_assignment
 		end
 
 	is_forced_assignment: BOOLEAN is
 		do
 			Result := nodes.item(1).name.is_equal(once "KW ::=")
 		ensure
-			Result = not is_assignment_attempt and then not is_normal_assignment
+			Result = not is_assignment_attempt and then not is_regular_assignment
 		end
 
 feature {ANY}

@@ -8,6 +8,9 @@ inherit
 create {LIBERTY_ERRORS}
 	make
 
+feature {ANY}
+	source: STRING
+
 feature {}
 	make (a_index: like index; a_source: like source) is
 		require

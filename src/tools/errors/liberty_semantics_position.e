@@ -30,7 +30,7 @@ feature {LIBERTY_ERROR}
 feature {}
 	make (a_index: like index; a_ast: like ast) is
 		require
-			a_source /= Void
+			a_ast /= Void
 			a_index > 0
 		do
 			index := a_index

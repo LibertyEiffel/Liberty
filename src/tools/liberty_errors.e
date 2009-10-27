@@ -46,6 +46,26 @@ feature {ANY} -- Errors
 			dead_if_fatal: not old (last_error.is_fatal)
 		end
 
+	emit_syntax_error (error: PARSE_ERROR; code: STRING) is
+			-- utility method that adds all the syntax errors and emit as a fatal error
+		local
+			e: PARSE_ERROR
+		do
+			from
+				e := error
+			until
+				e = Void
+			loop
+				add_position(syntax_position(e.index, code))
+				set(level_error, e.message)
+				e := e.next
+			end
+			emit
+			die_with_code(1)
+		ensure
+			syntax_error_is_death: False
+		end
+
 feature {ANY} -- Error positions
 	has_positions: BOOLEAN is
 		do
@@ -54,7 +74,7 @@ feature {ANY} -- Error positions
 
 	syntax_position (a_index: INTEGER; a_source: STRING): LIBERTY_SYNTAX_POSITION is
 		require
-			a_index.in_range(source.lower, source.upper)
+			a_index.in_range(a_source.lower, a_source.upper)
 		do
 			create Result.make(a_index, a_source)
 		ensure

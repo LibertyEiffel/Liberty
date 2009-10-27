@@ -16,7 +16,7 @@ feature {ANY}
 			Result = conditions_list
 		end
 
-	default: LIBERTY_DEFAULT
+	else_clause: LIBERTY_DEFAULT
 
 feature {LIBERTY_TYPE_BUILDER}
 	add_condition (a_condition: LIBERTY_CONDITION) is
@@ -26,11 +26,11 @@ feature {LIBERTY_TYPE_BUILDER}
 			conditions.last = a_condition
 		end
 
-	set_default (a_default: like default) is
+	set_else_clause (a_else_clause: like else_clause) is
 		do
-			default := a_default
+			else_clause := a_else_clause
 		ensure
-			default = a_default
+			else_clause = a_else_clause
 		end
 
 feature {}

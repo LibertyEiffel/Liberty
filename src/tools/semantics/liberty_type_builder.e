@@ -91,7 +91,7 @@ feature {}
 				check
 					same_indexes: type_parameters.list_lower = type.parameters.lower
 				end
-				create {HASHED_DICTIONARY[LIBERTY_TYPE, STRING]}effective_generic_parameters.with_capacity(type_parameters.list_count)
+				create {HASHED_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]}effective_generic_parameters.with_capacity(type_parameters.list_count)
 				from
 					i := type_parameters.list_lower
 				until
@@ -99,13 +99,13 @@ feature {}
 				loop
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
-						constraint := universe.get_type_from_type_definition(type.cluster, type_parameter.constraint, effective_generic_parameters)
+						constraint := universe.get_type_from_type_definition(type, type_parameter.constraint, effective_generic_parameters)
 						if not type.parameters.item(i).is_child_of(constraint) then
 							errors.add_position(errors.semantics_position(type_parameter.class_name.image.index, type.ast))
 							errors.set(level_error, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
 						end
 					end
-					effective_generic_parameters.add(type.parameters.item(i), type_parameter.class_name.image.image)
+					effective_generic_parameters.add(type.parameters.item(i), type_parameter.class_name.image.image.intern)
 					i := i + 1
 				end
 			end
@@ -124,7 +124,7 @@ feature {}
 				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
-				parent := universe.get_type_from_type_definition(type.cluster, parent_clause.type_definition, effective_generic_parameters)
+				parent := universe.get_type_from_type_definition(type, parent_clause.type_definition, effective_generic_parameters)
 				if parent /= Void then
 					type.add_parent(parent, conformant)
 					inject_parent_invariant(parent)
@@ -175,10 +175,10 @@ feature {}
 				create new_name.make_from_ast(r.new_name.feature_name_or_alias, type.ast)
 				fd := parent_features.reference_at(old_name)
 				if fd = Void then
-					errors.add_position(errors.semantics_position(old_name.index, type.ast))
+					errors.add_position(old_name.position)
 					errors.set(level_error, once "Unknown feature name: " + old_name.name)
 				elseif parent_features.reference_at(new_name) /= Void then
-					errors.add_position(errors.semantics_position(new_name.index, type.ast))
+					errors.add_position(new_name.position)
 					errors.set(level_error, once "Duplicate feature name: " + new_name.name)
 				else
 					parent_features.remove(old_name)
@@ -240,18 +240,17 @@ feature {}
 				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast)
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
-					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					errors.add_position(feature_name.position)
 					errors.set(level_error, once "Unknown feature name: " + feature_name.name)
 				elseif fd.is_frozen then
-					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					errors.add_position(feature_name.position)
 					errors.set(level_error, once "Cannot undefine frozen feature: " + feature_name.name)
 				else
 					inherited_feature := fd.the_feature
 					create deferred_feature.make
 					deferred_feature.set_precondition(inherited_feature.precondition)
 					deferred_feature.set_postcondition(inherited_feature.postcondition)
-					deferred_feature.set_result_type(inherited_feature.result_type)
-					deferred_feature.set_parameters(inherited_feature.parameters)
+					deferred_feature.set_context(inherited_feature.context)
 					if conformant then
 						inherited_feature.bind(deferred_feature, type)
 					end
@@ -278,18 +277,17 @@ feature {}
 				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast)
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
-					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					errors.add_position(feature_name.position)
 					errors.set(level_error, once "Unknown feature name: " + feature_name.name)
 				elseif fd.is_frozen then
-					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					errors.add_position(feature_name.position)
 					errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
 				else
 					inherited_feature := fd.the_feature
 					create redefined_feature.make
 					redefined_feature.set_precondition(inherited_feature.precondition)
 					redefined_feature.set_postcondition(inherited_feature.postcondition)
-					redefined_feature.set_result_type(inherited_feature.result_type)
-					redefined_feature.set_parameters(inherited_feature.parameters)
+					redefined_feature.set_context(inherited_feature.context)
 					if conformant then
 						inherited_feature.bind(redefined_feature, type)
 					end
@@ -352,7 +350,7 @@ feature {}
 			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
 		do
 			if a_feature.signature.has_result_type then
-				result_type := universe.get_type_from_type_definition(type.cluster, a_feature.signature.result_type, effective_generic_parameters)
+				result_type := universe.get_type_from_type_definition(type, a_feature.signature.result_type, effective_generic_parameters)
 			end
 			if a_feature.has_block then
 				create local_context.make(result_type)
@@ -640,7 +638,7 @@ feature {}
 			loop
 				if redefined_features.item(i).redefined_feature = Void then
 					feature_name := redefined_features.key(i)
-					errors.add_position(errors.semantics_position(feature_name.index, type.ast))
+					errors.add_position(feature_name.position)
 					errors.set(level_error, once "Missing redefinition for " + feature_name.name)
 				end
 				i := i + 1
@@ -756,7 +754,7 @@ feature {} -- Instructions
 					errors.has_error or else Result /= Void
 				loop
 					fe ::= entity(r10.feature_name, local_context)
-					fa := actuals(r10.actuals)
+					fa := actuals(r10.actuals, local_context)
 					r10 := r10.remainder
 					if r10.is_empty then
 						create Result.make(tgt, fe, fa)
@@ -782,17 +780,17 @@ feature {} -- Instructions
 		do
 			ifthenelse ::= a_cond
 			create conditional.make
-			conditional.add_condition(condition(a_cond.then_clause, local_context))
+			conditional.add_condition(condition(ifthenelse.then_clause, local_context))
 			from
-				i := a_cond.elseif_list.lower
+				i := ifthenelse.elseif_list.lower
 			until
-				i > a_cond.elseif_list.upper
+				i > ifthenelse.elseif_list.upper
 			loop
-				ifthen ::= a_cond.elseif_list.item(i)
+				ifthen ::= ifthenelse.elseif_list.item(i)
 				conditional.add_condition(condition(ifthen, local_context))
 				i := i + 1
 			end
-			conditional.set_default(else_clause(a_cond.else_clause, local_context))
+			conditional.set_else_clause(else_clause(ifthenelse.else_clause, local_context))
 			Result := conditional
 		end
 
@@ -803,7 +801,7 @@ feature {} -- Instructions
 
 	else_clause (a_else: LIBERTY_AST_ELSE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEFAULT is
 		do
-			create Result.make(instructions(a_else.instructions.list, local_context))
+			create Result.make(instructions(a_else.list, local_context))
 		end
 
 	instruction_inspect (a_inspect: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSPECT is
@@ -822,10 +820,10 @@ feature {} -- Instructions
 			until
 				i > inspct.when_list.upper
 			loop
-				insp.add_clause(inspect_clause(insp.when_list.item(i), local_context))
+				insp.add_clause(inspect_clause(inspct.when_list.item(i), local_context))
 				i := i + 1
 			end
-			insp.set_default(else_clause(inspct.else_clause, local_context))
+			insp.set_else_clause(else_clause(inspct.else_clause, local_context))
 			Result := insp
 		end
 
@@ -864,7 +862,7 @@ feature {} -- Instructions
 			elseif value.is_character then
 				Result := character(value.character.image)
 			elseif value.is_string then
-				Result := decoded_string(value.string)
+				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(value.string), True)
 			elseif value.is_entity_name then
 				not_yet_implemented
 			else
@@ -906,15 +904,16 @@ feature {} -- Instructions
 			not errors.has_error implies Result /= Void
 		end
 
-	instruction_check (a_check: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CHECK is
+	instruction_check (a_check: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CHECK_INSTRUCTION is
 		require
 			a_check /= Void
 			{LIBERTY_AST_CHECK} ?:= a_check
 		local
-			chk: LIBERTY_AST_CHECK
+			chk: LIBERTY_AST_CHECK; ck: LIBERTY_CHECK
 		do
 			chk ::= a_check
-			create Result.make(feature_assertions(chk, local_context))
+			create ck.make(feature_assertions(chk, local_context))
+			create Result.make(ck)
 		end
 
 	instruction_debug (a_debug: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEBUG is
@@ -956,9 +955,9 @@ feature {} -- Instructions
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
 			creat ::= a_creation
-			w := writable(creat.writable)
+			w := writable(creat.writable, local_context)
 			if creat.has_type_definition then
-				creation_type := universe.get(type, creat.type_definition, effective_generic_parameters)
+				creation_type := universe.get_type_from_type_definition(type, creat.type_definition, effective_generic_parameters)
 				if not errors.has_error then
 					if not creation_type.is_conform_to(w.result_type) then
 						--|*** TODO: the given creation_type must be a conformant subtype of the writable type
@@ -968,9 +967,9 @@ feature {} -- Instructions
 			else
 				creation_type := w.result_type
 			end
-			if w.has_creation_feature_call then
-				fe := feature_entity(w.creation_feature_name.image.image.intern)
-				fa := actuals(w.actuals, local_context)
+			if creat.has_creation_feature_call then
+				fe := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(creat.creation_feature_name.image.image.intern))
+				fa := actuals(creat.creation_feature_actuals, local_context)
 			else
 				fe := feature_entity(default_create_name)
 				fa := empty_actuals
@@ -978,9 +977,9 @@ feature {} -- Instructions
 			create Result.make(w, creation_type, fe, fa)
 		end
 
-	default_create_name: FIXED_STRING is
+	default_create_name: LIBERTY_FEATURE_NAME is
 		once
-			Result := "default_create".intern
+			create Result.make_regular("default_create".intern)
 		end
 
 	instruction_retry (a_retry: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_RETRY is
@@ -996,10 +995,10 @@ feature {} -- Entities and writables
 		local
 			name: FIXED_STRING
 		do
-			if writable.is_result then
+			if a_writable.is_result then
 				Result := local_context.result_entity
 			else
-				name := writable.entity_name.image.image.intern
+				name := a_writable.entity_name.image.image.intern
 				if local_context.is_local(name) then
 					Result := local_context.local_var(name)
 				elseif local_context.is_parameter(name) then
@@ -1057,14 +1056,14 @@ feature {} -- Entities and writables
 						not_yet_implemented
 					else
 						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
-						create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals))
+						create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
 					end
 				elseif fn.is_prefix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals))
+					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
 				elseif fn.is_infix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals))
+					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
 				else
 					check False end
 				end
@@ -1073,7 +1072,7 @@ feature {} -- Entities and writables
 					name := a_target.precursor_type_mark.class_name.image.image.intern
 				end
 				f := type.find_precursor(local_context.feature_name, name)
-				create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals))
+				create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals, local_context))
 			elseif a_target.is_parenthesized_expression then
 				--| TODO: error
 				not_yet_implemented
@@ -1106,14 +1105,14 @@ feature {} -- Entities and writables
 						--| TODO: check no actuals
 					else
 						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
-						create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals))
+						create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
 					end
 				elseif fn.is_prefix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
 				elseif fn.is_infix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
 				else
 					check False end
 				end
@@ -1121,8 +1120,8 @@ feature {} -- Entities and writables
 				if a_target.precursor_type_mark.count /= 0 then
 					name := a_target.precursor_type_mark.class_name.image.image.intern
 				end
-				f := type.find_precursor(local_context.feature_name, name)
-				create {LIBERTY_PRECURSOR_EXPRESSION} Result.make(f, actuals(a_target.actuals))
+				f := local_context.find_precursor(name)
+				create {LIBERTY_PRECURSOR_EXPRESSION} Result.make(f, actuals(a_target.actuals, local_context))
 			elseif a_target.is_parenthesized_expression then
 				Result := expression(a_target.parenthesized_expression, local_context)
 			else
@@ -1153,7 +1152,7 @@ feature {} -- Entities and writables
 				feature_entities.put(Result, name)
 			end
 		ensure
-			Result.name = name
+			Result.feature_name = name
 		end
 
 	current_entity: LIBERTY_CURRENT
@@ -1177,10 +1176,10 @@ feature {} -- Expressions
 				loop
 					act := a_actuals.list_item(i)
 					if act.is_expression then
-						Result.add_last(expression(act.expression), local_context)
+						Result.add_last(expression(act.expression, local_context))
 					else
 						check act.is_ref_to_entity end
-						Result.add_last(create {LIBERTY_REFERENCE_TO_ENTITY}.make(entity(act.ref_entity_name, local_context)))
+						Result.add_last(create {LIBERTY_ENTITY_REFERENCE}.make(universe.type_pointer, entity(act.ref_entity_name, local_context)))
 					end
 					i := i + 1
 				end
@@ -1246,13 +1245,13 @@ feature {} -- Expressions
 			elseif constant.is_once_string then
 				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True)
 			elseif constant.is_number_typed_manifest then
-				Result := number_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, effective_generic_parameters),
+				Result := number_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 														  constant.typed_manifest_number.image)
 			elseif constant.is_string_typed_manifest then
-				create {LIBERTY_TYPED_MANIFEST[STRING]} Result.make(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, effective_generic_parameters),
+				create {LIBERTY_TYPED_MANIFEST[STRING]} Result.make(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 																					 decoded_string(constant.typed_manifest_string))
 			elseif constant.is_array_typed_manifest then
-				Result := array_typed_manifest(universe.get_type_from_type_definition(type.cluster, constant.typed_manifest_type, effective_generic_parameters),
+				Result := array_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 														 constant.typed_manifest_array_parameters, constant.typed_manifest_array,
 														 local_context)
 			else
@@ -1397,7 +1396,7 @@ feature {}
 					i > clients.upper
 				loop
 					client ::= clients.item(i)
-					Result.add_last(universe.get_type_from_client(type.cluster, client, effective_generic_parameters))
+					Result.add_last(universe.get_type_from_client(type, client, effective_generic_parameters))
 					i := i + 1
 				end
 			end
@@ -1420,7 +1419,7 @@ feature {}
 					i > parameters.upper
 				loop
 					declaration ::= parameters.item(i)
-					typedef := universe.get_type_from_type_definition(type.cluster, declaration.type_definition, effective_generic_parameters)
+					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower
@@ -1450,7 +1449,7 @@ feature {}
 					i > locals.list_upper
 				loop
 					declaration := locals.list_item(i)
-					typedef := universe.get_type_from_type_definition(type.cluster, declaration.type_definition, effective_generic_parameters)
+					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower
@@ -1487,7 +1486,7 @@ feature {}
 	type: LIBERTY_TYPE
 	universe: LIBERTY_UNIVERSE
 
-	effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, STRING]
+	effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]
 			-- key: generic parameter name (e.g. E_)
 			-- value: effective parameter (e.g. STRING)
 

@@ -2,7 +2,7 @@
 --
 deferred class LIBERTY_POSITIONABLE
 
-feature {LIBERTY_ERRORS}
+feature {ANY}
 	position: LIBERTY_POSITION
 
 invariant

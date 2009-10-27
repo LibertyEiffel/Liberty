@@ -45,13 +45,13 @@ feature {LIBERTY_TYPE_BUILDER}
 feature {}
 	the_feature: LIBERTY_FEATURE
 
-	make (a_name: like name) is
+	make (a_name: like feature_name) is
 		require
 			a_name /= Void
 		do
-			name := a_name
+			feature_name := a_name
 		ensure
-			name = a_name
+			feature_name = a_name
 		end
 
 end

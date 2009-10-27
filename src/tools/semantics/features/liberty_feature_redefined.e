@@ -17,8 +17,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			redefined_feature := a_feature
 			set_precondition(a_feature.precondition)
 			set_postcondition(a_feature.postcondition)
-			set_result_type(a_feature.result_type)
-			set_parameters(a_feature.parameters)
+			set_context(a_feature.context)
 			set_obsolete(a_feature.obsolete_message)
 		ensure
 			redefined_feature = a_feature

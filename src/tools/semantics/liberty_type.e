@@ -84,6 +84,8 @@ feature {ANY}
 			Result := mark /= 0
 		end
 
+	the_invariant: LIBERTY_INVARIANT
+
 	is_conform_to (other: LIBERTY_TYPE): BOOLEAN is
 		local
 			i: INTEGER
@@ -254,6 +256,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		require
 			not has_feature(a_feature.feature_name)
 		do
+			--|*** TODO: manage feature join! => the precondition is wrong
 			features.add(a_feature, a_feature.feature_name)
 		ensure
 			features.at(a_feature.feature_name) = a_feature
@@ -262,6 +265,13 @@ feature {LIBERTY_TYPE_BUILDER}
 	has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
 		do
 			Result := features.has(a_feature_name)
+		end
+
+	set_invariant (a_invariant: like the_invariant) is
+		do
+			the_invariant := a_invariant
+		ensure
+			the_invariant = a_invariant
 		end
 
 feature {LIBERTY_UNIVERSE} -- Semantincs building

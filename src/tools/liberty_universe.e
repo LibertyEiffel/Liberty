@@ -152,7 +152,7 @@ feature {LIBERTY_TYPE_BUILDER}
 					class_name := client.type_definition.type_name.image.image
 					cluster := origin.cluster.find(class_name)
 					if cluster = Void then
-						errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast))
+						errors.add_position(errors.semantics_position(client.type_definition.type_name.image.index, origin.ast))
 						errors.set(level_fatal_error, once "Unknown class: " + class_name)
 					else
 						parameters := get_parameter_constraints(origin, parse_class(cluster, class_name), effective_parameters)
@@ -160,7 +160,7 @@ feature {LIBERTY_TYPE_BUILDER}
 						Result := get_type_from_descriptor(descriptor)
 					end
 				else
-					errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast))
+					errors.add_position(errors.semantics_position(client.type_definition.type_name.image.index, origin.ast))
 					errors.set(level_fatal_error, "Bad generics list (generics count mismatch)")
 				end
 			else
@@ -272,7 +272,7 @@ feature {} -- AST building
 				parser_buffer.initialize_with(code)
 				parser.eval(parser_buffer, eiffel.table, once "Class")
 				if parser.error /= Void then
-					emit_syntax_error(parser.error, code)
+					errors.emit_syntax_error(parser.error, code)
 				end
 				Result ::= eiffel.root_node
 				classes.put(Result, parse_descriptor.twin)

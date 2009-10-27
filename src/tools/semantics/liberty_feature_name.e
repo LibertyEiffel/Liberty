@@ -16,7 +16,7 @@ insert
 		end
 
 create {LIBERTY_TYPE_BUILDER}
-	make_from_ast
+	make_from_ast, make_regular, make_prefix, make_infix
 
 feature {ANY}
 	name: FIXED_STRING

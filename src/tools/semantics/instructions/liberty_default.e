@@ -6,7 +6,7 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
-	instructions: TRAVERSABLE[LIBERTY_CONDITION]
+	instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
 
 feature {}
 	make (a_instructions: like instructions) is

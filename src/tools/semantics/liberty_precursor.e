@@ -4,7 +4,7 @@ deferred class LIBERTY_PRECURSOR
 
 feature {ANY}
 	the_feature: LIBERTY_FEATURE
-	actuals: TRAVERSABLE[LIBETRY_EXPRESSION]
+	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 
 feature {}
 	make (a_feature: like the_feature; a_actuals: like actuals) is

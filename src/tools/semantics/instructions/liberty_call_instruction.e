@@ -9,6 +9,6 @@ insert
 	LIBERTY_CALL
 
 create {LIBERTY_TYPE_BUILDER}
-	make
+	make, implicit_current
 
 end

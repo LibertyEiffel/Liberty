@@ -14,14 +14,11 @@ create {LIBERTY_TYPE_BUILDER}
 feature {ANY}
 	is_once: BOOLEAN
 
-	result_type: LIBERTY_TYPE
-
-	is_result_type_set: BOOLEAN is True
-
 feature {}
 	make (a_type: like result_type; a_manifest: like manifest; a_once: like is_once) is
 		require
 			a_type /= Void
+			-- a_type is STRING
 		do
 			typed_make(a_type, a_manifest)
 			is_once := a_once
@@ -33,5 +30,6 @@ feature {}
 
 invariant
 	result_type /= Void
+	-- result_type is STRING
 
 end
