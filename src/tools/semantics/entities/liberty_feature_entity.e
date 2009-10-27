@@ -12,7 +12,12 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
-	name: FIXED_STRING
+	name: FIXED_STRING is
+		do
+			Result := feature_name.name
+		end
+
+	feature_name: LIBERTY_FEATURE_NAME
 
 	result_type: LIBERTY_TYPE is
 		do

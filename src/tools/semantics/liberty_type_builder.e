@@ -45,6 +45,9 @@ feature {}
 			--| * attach feature_entities to actual features
 			--|     - all the feature entities must be attached to a known feature
 			--|     - check that all the writable features are attributes
+			--|     - check that all FEATURE_CALL_INSTRUCTIONs point to resultless feature entities
+			--|     - check that all FEATURE_CALL_EXPRESSIONs point to feature entities with a conforming
+			--|       result_type
 			--| * check the result types of expressions
 			--|     - if expressions must be booleans
 			--|     - inspect expressions must be comparables
@@ -728,15 +731,40 @@ feature {} -- Instructions
 			end
 		end
 
-	instruction_call (a_call: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CALL is
+	instruction_call (a_call: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CALL_INSTRUCTION is
 		require
 			a_call /= Void
 			LIBERTY_AST_CALL ?:= a_call
 		local
 			call: LIBERTY_AST_CALL
+			tgt: LIBERTY_EXPRESSION
+			fe: LIBERTY_FEATURE_ENTITY
+			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
+			r10: LIBERTY_AST_R10
 		do
 			call ::= a_call
-			not_yet_implemented
+			r10 := call.r10
+			if r10.is_empty then
+				Result := target_as_instruction(call.target, local_context)
+			else
+				from
+					tgt := target(call.target, local_context)
+				until
+					errors.has_error or else Result /= Void
+				loop
+					fe ::= entity(r10.feature_name, local_context)
+					fa := actuals(r10.actuals)
+					r10 := r10.remainder
+					if r10.is_empty then
+						create Result.make(tgt, fe, fa)
+					else
+						create {LIBERTY_CALL_EXPRESSION} tgt.make(tgt, fe, fa)
+					end
+				end
+			end
+			check
+				errors.has_error or else r10.is_empty
+			end
 		end
 
 	instruction_ifthenelse (a_cond: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CONDITIONAL is
@@ -997,22 +1025,119 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
+	target_as_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
+		local
+			e: LIBERTY_FEATURE_ENTITY; fn: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; name: FIXED_STRING
+			f: LIBERTY_FEATURE
+		do
+			if a_target.is_current then
+				--| TODO: error
+				not_yet_implemented
+			elseif a_target.is_result then
+				--| TODO: error
+				not_yet_implemented
+			elseif a_target.is_implicit_feature_call then
+				fn := a_target.implicit_feature_name.feature_name_or_alias
+				if fn.is_regular then
+					-- may be a local or a parameter of a regular feature name
+					name := a_entity.image.image.intern
+					if local_context.is_local(name) then
+						--| TODO: error
+						not_yet_implemented
+					elseif local_context.is_parameter(name) then
+						--| TODO: error
+						not_yet_implemented
+					else
+						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
+						create {LIBERTY_CALL_INSTRUCTION} Result.make(e, actuals(a_target.actuals))
+					end
+				elseif fn.is_prefix then
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
+					create {LIBERTY_CALL_INSTRUCTION} Result.make(e, actuals(a_target.actuals))
+				elseif fn.is_infix then
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
+					create {LIBERTY_CALL_INSTRUCTION} Result.make(e, actuals(a_target.actuals))
+				else
+					check False end
+				end
+			elseif a_target.is_precursor then
+				if a_target.precursor_type_mark.count /= 0 then
+					name := a_target.precursor_type_mark.class_name.image.image.intern
+				end
+				f := type.find_precursor(local_context.feature_name, name)
+				create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals))
+			elseif a_target.is_parenthesized_expression then
+				--| TODO: error
+				not_yet_implemented
+			else
+				check False end
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	target (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+		local
+			e: LIBERTY_FEATURE_ENTITY; fn: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; name: FIXED_STRING
+			f: LIBERTY_FEATURE
+		do
+			if a_target.is_current then
+				create {LIBERTY_ENTITY_EXPRESSION} Result.make(current_entity)
+			elseif a_target.is_result then
+				create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.result_entity)
+			elseif a_target.is_implicit_feature_call then
+				fn := a_target.implicit_feature_name.feature_name_or_alias
+				if fn.is_regular then
+					-- may be a local or a parameter of a regular feature name
+					name := a_entity.image.image.intern
+					if local_context.is_local(name) then
+						create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name))
+						--| TODO: check no actuals
+					elseif local_context.is_parameter(name) then
+						create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name))
+						--| TODO: check no actuals
+					else
+						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
+						create {LIBERTY_CALL_EXPRESSION} Result.make(e, actuals(a_target.actuals))
+					end
+				elseif fn.is_prefix then
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
+					create {LIBERTY_CALL_EXPRESSION} Result.make(e, actuals(a_target.actuals))
+				elseif fn.is_infix then
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
+					create {LIBERTY_CALL_EXPRESSION} Result.make(e, actuals(a_target.actuals))
+				else
+					check False end
+				end
+			elseif a_target.is_precursor then
+				if a_target.precursor_type_mark.count /= 0 then
+					name := a_target.precursor_type_mark.class_name.image.image.intern
+				end
+				f := type.find_precursor(local_context.feature_name, name)
+				create {LIBERTY_PRECURSOR_EXPRESSION} Result.make(f, actuals(a_target.actuals))
+			elseif a_target.is_parenthesized_expression then
+				Result := expression(a_target.parenthesized_expression, local_context)
+			else
+				check False end
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
 	feature_writable (name: FIXED_STRING): LIBERTY_WRITABLE_FEATURE is
 		require
 			name = name.intern
 		do
 			Result := feature_writables.reference_at(name)
 			if Result = Void then
-				create {LIBERTY_WRITABLE_FEATURE} Result.make(feature_entity(name))
+				create {LIBERTY_WRITABLE_FEATURE} Result.make(feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name)))
 				feature_writables.put(Result, name)
 			end
 		ensure
 			Result.name = name
 		end
 
-	feature_entity (name: FIXED_STRING): LIBERTY_FEATURE_ENTITY is
-		require
-			name = name.intern
+	feature_entity (name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_ENTITY is
 		do
 			Result := feature_entities.reference_at(name)
 			if Result = Void then
@@ -1024,7 +1149,7 @@ feature {} -- Entities and writables
 		end
 
 	current_entity: LIBERTY_CURRENT
-	feature_entities: DICTIONARY[LIBERTY_FEATURE_ENTITY, FIXED_STRING]
+	feature_entities: DICTIONARY[LIBERTY_FEATURE_ENTITY, LIBERTY_FEATURE_NAME]
 	feature_writables: DICTIONARY[LIBERTY_FEATURE_WRITABLE, FIXED_STRING]
 
 feature {} -- Expressions
@@ -1344,7 +1469,8 @@ feature {}
 			type := a_type
 			universe := a_universe
 			create current_entity.make(a_type)
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, FIXED_STRING]} feature_entities.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, FIXED_STRING]} feature_writables.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, LIBERTY_FEATURE_NAME]} feature_entities.make
 		ensure
 			type = a_type
 			universe = a_universe
@@ -1365,6 +1491,7 @@ invariant
 	type /= Void
 	universe /= Void
 	current_entity /= Void
+	feature_writables /= Void
 	feature_entities /= Void
 
 end

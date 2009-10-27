@@ -4,6 +4,8 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
+	feature_name: LIBERTY_FEATURE_NAME
+
 	result_type: LIBERTY_TYPE is
 		do
 			if result_entity /= Void then
@@ -103,18 +105,23 @@ feature {}
 	locals_list: COLLECTION[LIBERTY_LOCAL]
 	retry_memory: LIBERTY_RETRY
 
-	make (a_result_type: like result_type) is
+	make (a_feature_name: like feature_name; a_result_type: like result_type) is
+		require
+			a_feature_name /= Void
 		do
+			feature_name := a_feature_name
 			create {FAST_ARRAY[LIBERTY_PARAMETER]} parameters_list.make(0)
 			create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]} parameters_map.make
 			create {FAST_ARRAY[LIBERTY_LOCAL]} locals_list.make(0)
 			create {HASHED_DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]} locals_map.make
 			create result_entity.make(a_result_type)
 		ensure
+			feature_name = a_feature_name
 			result_type = a_result_type
 		end
 
 invariant
+	feature_name /= Void
 	parameters_list /= Void
 	locals_list /= Void
 	parameters_map /= Void

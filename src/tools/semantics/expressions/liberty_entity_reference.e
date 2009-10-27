@@ -9,6 +9,7 @@ create {LIBERTY_TYPE_BUILDER}
 
 feature {ANY}
 	entity: LIBERTY_ENTITY
+	result_type: LIBERTY_TYPE
 
 feature {}
 	make (type: like result_type; a_entity: like entity) is
