@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 deferred class LIBERTY_AST_LIST[N_ -> EIFFEL_NODE]
 	-- An optional list preceded by a keyword.
 

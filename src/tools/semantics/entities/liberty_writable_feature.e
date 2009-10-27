@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 class LIBERTY_WRITABLE_FEATURE
 --
 -- A proxy to the feature itself, which must be an attribute.

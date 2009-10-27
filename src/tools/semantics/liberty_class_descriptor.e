@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 class LIBERTY_CLASS_DESCRIPTOR
 
 insert

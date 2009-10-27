@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 class LIBERTY_FEATURE_LOCAL_CONTEXT
 
 create {LIBERTY_TYPE_BUILDER}

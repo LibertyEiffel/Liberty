@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 deferred class LIBERTY_AST_EXPRESSION_REMAINDER[E_ -> LIBERTY_AST_NON_TERMINAL_NODE]
 
 inherit

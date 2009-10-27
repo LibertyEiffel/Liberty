@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 expanded class LIBERTY_ERROR_LEVELS
 
 feature {ANY} -- Error levels

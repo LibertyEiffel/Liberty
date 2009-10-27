@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 deferred class LIBERTY_POSITIONABLE
 
 feature {LIBERTY_ERRORS}

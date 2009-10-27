@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 class LIBERTY_INSPECT_SLICE
 
 create {LIBERTY_TYPE_BUILDER}

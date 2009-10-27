@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 class LIBERTY_AST_EFFECTIVE_TYPE_PARAMETER
 
 inherit

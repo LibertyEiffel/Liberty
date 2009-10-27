@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 class LIBERTY_ENTITY_EXPRESSION
 	-- expressions like "entity"
 

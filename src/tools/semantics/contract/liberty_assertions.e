@@ -1,3 +1,5 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
 deferred class LIBERTY_ASSERTIONS
 
 feature {LIBERTY_TYPE_BUILDER}
