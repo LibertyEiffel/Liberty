@@ -1,0 +1,14 @@
+-- Copyright (C) 2009 Cyril ADRIAN
+--
+class LIBERTY_PRECURSOR_INSTRUCTION
+
+inherit
+	LIBERTY_INSTRUCTION
+
+insert
+	LIBERTY_PRECURSOR
+
+create {LIBERTY_TYPE_BUILDER}
+	make
+
+end
