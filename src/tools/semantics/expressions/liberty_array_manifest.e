@@ -19,6 +19,10 @@ feature {ANY}
 			Result := contents_list
 		end
 
+	result_type: LIBERTY_TYPE
+
+	is_result_type_set: BOOLEAN is True
+
 feature {LIBERTY_TYPE_BUILDER}
 	add_parameter (a_parameter: LIBERTY_EXPRESSION) is
 		do

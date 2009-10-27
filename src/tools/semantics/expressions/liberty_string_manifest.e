@@ -14,6 +14,10 @@ create {LIBERTY_TYPE_BUILDER}
 feature {ANY}
 	is_once: BOOLEAN
 
+	result_type: LIBERTY_TYPE
+
+	is_result_type_set: BOOLEAN is True
+
 feature {}
 	make (a_type: like result_type; a_manifest: like manifest; a_once: like is_once) is
 		require

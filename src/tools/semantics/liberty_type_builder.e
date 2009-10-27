@@ -747,10 +747,10 @@ feature {} -- Instructions
 			call ::= a_call
 			r10 := call.r10
 			if r10.is_empty then
-				Result := target_as_instruction(call.target, local_context)
+				Result := implicit_feature_call_instruction(call.target, local_context)
 			else
 				from
-					tgt := target(call.target, local_context)
+					tgt := target_or_implicit_feature_call_expression(call.target, local_context)
 				until
 					errors.has_error or else Result /= Void
 				loop
@@ -1027,7 +1027,7 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
-	target_as_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
+	implicit_feature_call_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; fn: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; name: FIXED_STRING
 			f: LIBERTY_FEATURE
@@ -1051,14 +1051,14 @@ feature {} -- Entities and writables
 						not_yet_implemented
 					else
 						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
-						create {LIBERTY_CALL_INSTRUCTION} Result.make(e, actuals(a_target.actuals))
+						create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals))
 					end
 				elseif fn.is_prefix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_INSTRUCTION} Result.make(e, actuals(a_target.actuals))
+					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals))
 				elseif fn.is_infix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_INSTRUCTION} Result.make(e, actuals(a_target.actuals))
+					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals))
 				else
 					check False end
 				end
@@ -1078,7 +1078,7 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
-	target (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	target_or_implicit_feature_call_expression (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; fn: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; name: FIXED_STRING
 			f: LIBERTY_FEATURE
@@ -1100,14 +1100,14 @@ feature {} -- Entities and writables
 						--| TODO: check no actuals
 					else
 						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
-						create {LIBERTY_CALL_EXPRESSION} Result.make(e, actuals(a_target.actuals))
+						create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals))
 					end
 				elseif fn.is_prefix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_EXPRESSION} Result.make(e, actuals(a_target.actuals))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals))
 				elseif fn.is_infix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_EXPRESSION} Result.make(e, actuals(a_target.actuals))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals))
 				else
 					check False end
 				end
