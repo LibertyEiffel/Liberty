@@ -1,0 +1,17 @@
+Liberty Eiffel's licencing scheme is a bit complex.
+
+- The tools are licenced under the GPLv3 [1]. See the COPYING file at
+  the root of the project, i.e. in the same directory as this file.
+
+- Each library has its own licence:
+
+  - Kernel libraries are licenced under the MIT-X11 [2] licence.
+
+  - Other "100% Eiffel" libraries are usually licenced under the
+    MIT-X11 [2] licence.
+
+  - Wrapper libraries use the same licence as the underlyiong library
+
+--------------------
+	[1] http://www.opensource.org/licenses/gpl-3.0.html
+	[2] http://www.opensource.org/licenses/mit-license.php
