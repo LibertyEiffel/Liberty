@@ -1206,6 +1206,7 @@ feature {ANY} -- Other features:
 		ensure
 			Result /= Void
 			Result.is_equal(Current)
+			Result.is_interned
 			interned.fast_has(Result)
 		end
 

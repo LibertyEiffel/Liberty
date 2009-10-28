@@ -54,10 +54,14 @@ feature {ANY}
 	intern: FIXED_STRING is
 			-- A shared version of this string.
 		do
-			Result := interned.reference_at(Current)
-			if Result = Void then
-				interned.add(Current)
+			if is_interned then
 				Result := Current
+			else
+				Result := interned.reference_at(Current)
+				if Result = Void then
+					do_intern
+					Result := Current
+				end
 			end
 		end
 
@@ -79,6 +83,20 @@ feature {ANY}
 		end
 
 	immutable: BOOLEAN
+
+feature {ABSTRACT_STRING}
+	do_intern is
+		require
+			not is_interned
+			not interned.has(Current)
+		do
+			interned.add(Current)
+			is_interned := True
+		ensure
+			is_interned
+		end
+
+	is_interned: BOOLEAN
 
 feature {ANY} -- Other features:
 	substring (start_index, end_index: INTEGER): like Current is
@@ -192,5 +210,6 @@ invariant
 	count = 0 implies storage.item(0) = '%U'
 	count > 0 implies (storage.item(count-1) = '%U' or else storage.item(count) = '%U')
 	storage.item(count) = '%U' implies capacity = count + 1
+	is_interned = interned.fast_has(Current)
 
 end -- class FIXED_STRING

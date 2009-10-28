@@ -821,7 +821,7 @@ feature {ANY} -- Other features:
 			Result := interned.reference_at(intern_key)
 			if Result = Void then
 				Result := (create {FIXED_STRING}.make_from_string(Current))
-				interned.add(Result)
+				Result.do_intern
 				intern_key.recycle
 			end
 		end
