@@ -8,7 +8,7 @@ class FIXED_STRING
 inherit
 	ABSTRACT_STRING
 		redefine
-			immutable
+			immutable, out_in_tagged_out_memory, fill_tagged_out_memory
 		end
 
 creation {ANY}
@@ -63,6 +63,16 @@ feature {ANY}
 					Result := Current
 				end
 			end
+		end
+
+	out_in_tagged_out_memory is
+		do
+			fill_tagged_out_memory
+		end
+
+	fill_tagged_out_memory is
+		do
+			tagged_out_memory.append(Current)
 		end
 
 feature {ANY}
