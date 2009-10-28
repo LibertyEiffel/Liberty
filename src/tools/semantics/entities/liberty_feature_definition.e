@@ -84,6 +84,88 @@ feature {LIBERTY_TYPE_BUILDER}
 			is_result_type_set
 		end
 
+	add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_TYPE) is
+		require
+			not has_precursor(a_precursor_type)
+		do
+			if precursors = Void then
+				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} precursors.make
+			end
+			precursors.add(a_precursor_feature, a_precursor_type)
+		ensure
+			precursor_feature(a_precursor_type) = a_precursor_feature
+		end
+
+	has_precursor (a_precursor_type: LIBERTY_TYPE): BOOLEAN is
+		do
+			if precursors /= Void then
+				Result := precursors.has(a_precursor_type)
+			end
+		end
+
+	precursor_feature (a_precursor_type: LIBERTY_TYPE): LIBERTY_FEATURE is
+		require
+			has_precursor(a_precursor_type)
+		do
+			Result := precursors.at(a_precursor_type)
+		end
+
+	join (fd: like Current; a_type: LIBERTY_TYPE) is
+		require
+			fd /= Void
+			fd.has_precursor(a_type)
+		local
+			i: INTEGER
+		do
+			if not same_clients(fd.clients) then
+				--| *** WARNING: the inherited features don't have the same export clauses (the second set is
+				--| ignored)
+			end
+			if fd.the_feature /= Void then
+				if the_feature = Void then
+					the_feature := fd.the_feature
+				else
+					the_feature := the_feature.join(fd.the_feature)
+				end
+			end
+			if not has_precursor(a_type) then
+				add_precursor(fd.precursor_feature(a_type), a_type)
+			else
+				check
+					precursor_feature(a_type) = fd.precursor_feature(a_type)
+				end
+			end
+		end
+
+feature {}
+	same_clients (a_clients: like clients): BOOLEAN is
+		do
+			Result := include(clients, a_clients) and then include(a_clients, clients)
+		end
+
+	include (set, subset: like clients): BOOLEAN is
+		local
+			i, j: INTEGER
+		do
+			from
+				Result := True
+				i := subset.lower
+			until
+				not Result or else i > subset.upper
+			loop
+				from
+					Result := False
+					j := set.lower
+				until
+					Result or else j > set.upper
+				loop
+					Result := set.item(j) = subset.item(i)
+					j := j + 1
+				end
+				i := i + 1
+			end
+		end
+
 feature {}
 	make (a_name: like feature_name; a_clients: like clients; a_frozen: like is_frozen) is
 		require
@@ -98,6 +180,8 @@ feature {}
 			clients = a_clients
 			is_frozen = a_frozen
 		end
+
+	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]
 
 invariant
 	feature_name /= Void

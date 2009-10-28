@@ -86,6 +86,19 @@ feature {ANY}
 
 	the_invariant: LIBERTY_INVARIANT
 
+	has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
+		do
+			Result := features.has(a_feature_name)
+		end
+
+	feature_definition (a_feature_name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_DEFINITION is
+		require
+			has_feature(a_feature_name)
+		do
+			Result := features.at(a_feature_name)
+		end
+
+feature {ANY} -- Inheritance
 	is_conform_to (other: LIBERTY_TYPE): BOOLEAN is
 		local
 			i: INTEGER
@@ -237,34 +250,15 @@ feature {LIBERTY_TYPE_BUILDER}
 			end
 		end
 
-	features_twin: like features is
-		local
-			i: INTEGER
-		do
-			create  {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} Result.with_capacity(features.count)
-			from
-				i := features.lower
-			until
-				i > features.upper
-			loop
-				Result.add(features.item(i).twin, features.key(i))
-				i := i + 1
-			end
-		end
+	features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 
 	add_feature (a_feature: LIBERTY_FEATURE_DEFINITION) is
 		require
 			not has_feature(a_feature.feature_name)
 		do
-			--|*** TODO: manage feature join! => the precondition is wrong
 			features.add(a_feature, a_feature.feature_name)
 		ensure
 			features.at(a_feature.feature_name) = a_feature
-		end
-
-	has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
-		do
-			Result := features.has(a_feature_name)
 		end
 
 	set_invariant (a_invariant: like the_invariant) is
@@ -317,7 +311,6 @@ feature {}
 	mark: INTEGER_8
 	conformant_parents: COLLECTION[LIBERTY_TYPE]
 	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
-	features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 
 	complete_name_memory: FIXED_STRING
 

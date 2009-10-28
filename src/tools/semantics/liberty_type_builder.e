@@ -15,6 +15,7 @@ feature {LIBERTY_TYPE}
 			not errors.has_error
 		local
 			ast: LIBERTY_AST_CLASS
+			parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 		do
 			ast := type.ast
 			init_header(ast.class_header)
@@ -23,8 +24,9 @@ feature {LIBERTY_TYPE}
 					errors.add_position(errors.semantics_position(ast.obsolete_clause.string.image.index, ast))
 					errors.set(level_warning, decoded_string(ast.obsolete_clause.string))
 				end
-				add_parents(ast.inherit_clause, True)
-				add_parents(ast.insert_clause, False)
+				create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} parent_features.make
+				add_parents(ast.inherit_clause, True, parent_features)
+				add_parents(ast.insert_clause, False, parent_features)
 				if not errors.has_error then
 					add_features(ast.features)
 					if not errors.has_error then
@@ -111,7 +113,7 @@ feature {}
 			end
 		end
 
-	add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN) is
+	add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN; parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]) is
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
 			parent: LIBERTY_TYPE
@@ -128,7 +130,7 @@ feature {}
 				if parent /= Void then
 					type.add_parent(parent, conformant)
 					inject_parent_invariant(parent)
-					inject_parent_features(parent, parent_clause.parent_clause, conformant)
+					inject_parent_features(parent, parent_clause.parent_clause, conformant, parent_features)
 					has_parent := True
 				end
 				i := i + 1
@@ -137,8 +139,9 @@ feature {}
 				parent := universe.type_any
 				type.add_parent(parent, False)
 				inject_parent_invariant(parent)
-				inject_parent_features(parent, Void, False)
+				inject_parent_features(parent, Void, False, parent_features)
 			end
+			push_parent_features_in_type(parent_features)
 		end
 
 	inject_parent_invariant (parent: LIBERTY_TYPE) is
@@ -146,16 +149,43 @@ feature {}
 			--|*** TODO
 		end
 
-	inject_parent_features (parent: LIBERTY_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE; conformant: BOOLEAN) is
+	inject_parent_features (parent: LIBERTY_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE; conformant: BOOLEAN; parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]) is
 		local
-			parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
+			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; name: LIBERTY_FEATURE_NAME
+			pf: like parent_features
 		do
-			parent_features := parent.features_twin
-			rename_features(parent_features, clause.rename_clause)
-			export_features(parent_features, clause.export_clause)
-			undefine_features(parent_features, clause.undefine_clause, conformant)
-			redefine_features(parent_features, clause.redefine_clause, conformant)
-			push_parent_features_in_type(parent_features)
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} pf.with_capacity(parent.features.count)
+			from
+				i := parent.features.lower
+			until
+				i > parent.features.upper
+			loop
+				name := parent.features.key(i)
+				parent_fd := parent.features.item(i)
+				create fd.make(name, parent_fd.clients, parent_fd.is_frozen)
+				fd.add_precursor(parent_fd.the_feature, parent)
+				pf.add(fd, name)
+				i := i + 1
+			end
+			rename_features(pf, clause.rename_clause)
+			export_features(pf, clause.export_clause)
+			undefine_features(pf, clause.undefine_clause, conformant)
+			redefine_features(pf, clause.redefine_clause, conformant)
+			from
+				i := pf.lower
+			until
+				i > pf.upper
+			loop
+				name := pf.key(i)
+				fd := pf.item(i)
+				actual_fd := parent_features.reference_at(name)
+				if actual_fd = Void then
+					parent_features.add(fd, name)
+				else
+					actual_fd.join(fd, parent)
+				end
+				i := i + 1
+			end
 		end
 
 	rename_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_RENAME) is
@@ -348,7 +378,9 @@ feature {}
 			result_type: LIBERTY_TYPE
 			the_feature: LIBERTY_FEATURE; a_ast_terminal: LIBERTY_AST_TERMINAL_NODE
 			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
+			fd: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]
 		do
+			fd := feature_redefinitions(a_feature.signature.feature_names)
 			if a_feature.signature.has_result_type then
 				result_type := universe.get_type_from_type_definition(type, a_feature.signature.result_type, effective_generic_parameters)
 			end
@@ -357,7 +389,7 @@ feature {}
 				if a_feature.signature.has_parameters then
 					list_parameters(a_feature.signature.parameters, local_context)
 				end
-				the_feature := feature_block(a_feature.block, local_context)
+				the_feature := feature_block(a_feature.block, local_context, fd)
 			else
 				if a_feature.signature.has_parameters then
 					a_ast_terminal ::= a_feature.signature.node_at(1)
@@ -381,7 +413,7 @@ feature {}
 			end
 		end
 
-	feature_block (block: LIBERTY_AST_EIFFEL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_FEATURE is
+	feature_block (block: LIBERTY_AST_EIFFEL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_FEATURE is
 		require
 			local_context /= Void
 		local
@@ -407,8 +439,8 @@ feature {}
 				elseif do_block.is_attribute then
 					create {LIBERTY_FEATURE_ATTRIBUTE} Result.make
 				else
-					list_locals(block.local_block, local_context)
-					insts := instructions(block.do_block.list, local_context)
+					list_locals(block.local_block, local_context, redefinitions)
+					insts := instructions(block.do_block.list, local_context, redefinitions)
 					if not errors.has_error then
 						if do_block.is_do then
 							create {LIBERTY_FEATURE_DO} routine.make(insts)
@@ -416,14 +448,14 @@ feature {}
 							check do_block.is_once end
 							create {LIBERTY_FEATURE_ONCE} routine.make(insts)
 						end
-						routine.set_rescue(instructions(block.rescue_block.list, local_context))
+						routine.set_rescue(instructions(block.rescue_block.list, local_context, redefinitions))
 						routine.set_locals(local_context.locals)
 						Result := routine
 					end
 				end
 				if not errors.has_error then
-					Result.set_precondition(feature_precondition(block.require_clause, local_context))
-					Result.set_postcondition(feature_postcondition(block.ensure_clause, local_context))
+					Result.set_precondition(feature_precondition(block.require_clause, local_context, redefinitions))
+					Result.set_postcondition(feature_postcondition(block.ensure_clause, local_context, redefinitions))
 				end
 			end
 			if not errors.has_error then
@@ -434,14 +466,14 @@ feature {}
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_precondition (precondition: LIBERTY_AST_REQUIRE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_REQUIRE is
+	feature_precondition (precondition: LIBERTY_AST_REQUIRE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_REQUIRE is
 		require
 			precondition /= Void
 			local_context /= Void
 		local
 			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
 		do
-			assertions := feature_assertions(precondition, local_context)
+			assertions := feature_assertions(precondition, local_context, redefinitions)
 			if not errors.has_error then
 				if precondition.require_else.is_require_else then
 					create {LIBERTY_REQUIRE_ELSE}Result.make(assertions)
@@ -455,14 +487,14 @@ feature {}
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_postcondition (postcondition: LIBERTY_AST_ENSURE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENSURE is
+	feature_postcondition (postcondition: LIBERTY_AST_ENSURE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_ENSURE is
 		require
 			postcondition /= Void
 			local_context /= Void
 		local
 			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
 		do
-			assertions := feature_assertions(postcondition, local_context)
+			assertions := feature_assertions(postcondition, local_context, redefinitions)
 			if not errors.has_error then
 				if postcondition.ensure_then.is_ensure_then then
 					create {LIBERTY_ENSURE_THEN}Result.make(assertions)
@@ -474,7 +506,7 @@ feature {}
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_assertions (assertions: LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_ASSERTION] is
+	feature_assertions (assertions: LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): COLLECTION[LIBERTY_ASSERTION] is
 		require
 			assertions /= Void
 			local_context /= Void
@@ -494,7 +526,7 @@ feature {}
 				else
 					tag := Void
 				end
-				exp := expression(assertion.expression, local_context)
+				exp := expression(assertion.expression, local_context, redefinitions)
 				if exp.result_type /= universe.type_boolean then
 					--| TODO: error
 					not_yet_implemented
@@ -531,6 +563,29 @@ feature {}
 						errors.set(level_error, once "That expression does not conform to " + result_type.name)
 					end
 				end
+			end
+		end
+
+	feature_redefinitions (names: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_FEATURE_DEFINITION] is
+		local
+			i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
+			fd: LIBERTY_FEATURE_DEFINITION
+		do
+			from
+				create {FAST_ARRAY[LIBERTY_FEATURE_DEFINITION]} Result.with_capacity(1) -- usual case
+				i := names.lower
+			until
+				Result /= Void or else i > names.upper
+			loop
+				name ::= names.item(i)
+				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast)
+				if type.has_feature(feature_name) then
+					fd := type.feature_definition(feature_name)
+					if not Result.fast_has(fd) then
+						Result.add_last(fd)
+					end
+				end
+				i := i + 1
 			end
 		end
 
@@ -658,7 +713,7 @@ feature {}
 		end
 
 feature {} -- Instructions
-	instructions (insts: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_INSTRUCTION] is
+	instructions (insts: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): COLLECTION[LIBERTY_INSTRUCTION] is
 		require
 			insts /= Void
 			local_context /= Void
@@ -672,14 +727,14 @@ feature {} -- Instructions
 				i > insts.upper
 			loop
 				inst ::= insts.item(i)
-				Result.add_last(instruction(inst, local_context))
+				Result.add_last(instruction(inst, local_context, redefinitions))
 				i := i + 1
 			end
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	instruction (inst: LIBERTY_AST_INSTRUCTION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
+	instruction (inst: LIBERTY_AST_INSTRUCTION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_INSTRUCTION is
 		require
 			inst /= Void
 			local_context /= Void
@@ -687,29 +742,29 @@ feature {} -- Instructions
 			inspect
 				inst.instruction.name
 			when "Assignment" then
-				Result := instruction_assignment(inst.instruction, local_context)
+				Result := instruction_assignment(inst.instruction, local_context, redefinitions)
 			when "Call" then
-				Result := instruction_call(inst.instruction, local_context)
+				Result := instruction_call(inst.instruction, local_context, redefinitions)
 			when "If_Then_Else" then
-				Result := instruction_ifthenelse(inst.instruction, local_context)
+				Result := instruction_ifthenelse(inst.instruction, local_context, redefinitions)
 			when "Inspect" then
-				Result := instruction_inspect(inst.instruction, local_context)
+				Result := instruction_inspect(inst.instruction, local_context, redefinitions)
 			when "Loop" then
-				Result := instruction_loop(inst.instruction, local_context)
+				Result := instruction_loop(inst.instruction, local_context, redefinitions)
 			when "Check" then
-				Result := instruction_check(inst.instruction, local_context)
+				Result := instruction_check(inst.instruction, local_context, redefinitions)
 			when "Debug" then
-				Result := instruction_debug(inst.instruction, local_context)
+				Result := instruction_debug(inst.instruction, local_context, redefinitions)
 			when "Creation", "Old_Creation" then
-				Result := instruction_creation(inst.instruction, local_context)
+				Result := instruction_creation(inst.instruction, local_context, redefinitions)
 			when "Retry" then
-				Result := instruction_retry(inst.instruction, local_context)
+				Result := instruction_retry(inst.instruction, local_context, redefinitions)
 			end
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	instruction_assignment (a_assignment: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ASSIGNMENT is
+	instruction_assignment (a_assignment: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_ASSIGNMENT is
 		require
 			a_assignment /= Void
 			{LIBERTY_AST_ASSIGNMENT} ?:= a_assignment
@@ -719,8 +774,8 @@ feature {} -- Instructions
 			exp: LIBERTY_EXPRESSION
 		do
 			assignment ::= a_assignment
-			w := writable(assignment.writable, local_context)
-			exp := expression(assignment.expression, local_context)
+			w := writable(assignment.writable, local_context, redefinitions)
+			exp := expression(assignment.expression, local_context, redefinitions)
 			if assignment.is_regular_assignment then
 				create {LIBERTY_ASSIGNMENT_REGULAR} Result.make(w, exp)
 			elseif assignment.is_forced_assignment then
@@ -732,7 +787,7 @@ feature {} -- Instructions
 			end
 		end
 
-	instruction_call (a_call: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CALL_INSTRUCTION is
+	instruction_call (a_call: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_CALL_INSTRUCTION is
 		require
 			a_call /= Void
 			{LIBERTY_AST_CALL} ?:= a_call
@@ -746,15 +801,15 @@ feature {} -- Instructions
 			call ::= a_call
 			r10 := call.r10
 			if r10.is_empty then
-				Result := implicit_feature_call_instruction(call.target, local_context)
+				Result := implicit_feature_call_instruction(call.target, local_context, redefinitions)
 			else
 				from
-					tgt := target_or_implicit_feature_call_expression(call.target, local_context)
+					tgt := target_or_implicit_feature_call_expression(call.target, local_context, redefinitions)
 				until
 					errors.has_error or else Result /= Void
 				loop
-					fe ::= entity(r10.feature_name, local_context)
-					fa := actuals(r10.actuals, local_context)
+					fe ::= entity(r10.feature_name, local_context, redefinitions)
+					fa := actuals(r10.actuals, local_context, redefinitions)
 					r10 := r10.remainder
 					if r10.is_empty then
 						create Result.make(tgt, fe, fa)
@@ -768,7 +823,7 @@ feature {} -- Instructions
 			end
 		end
 
-	instruction_ifthenelse (a_cond: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CONDITIONAL is
+	instruction_ifthenelse (a_cond: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_CONDITIONAL is
 		require
 			a_cond /= Void
 			{LIBERTY_AST_IF_THEN_ELSE} ?:= a_cond
@@ -780,31 +835,31 @@ feature {} -- Instructions
 		do
 			ifthenelse ::= a_cond
 			create conditional.make
-			conditional.add_condition(condition(ifthenelse.then_clause, local_context))
+			conditional.add_condition(condition(ifthenelse.then_clause, local_context, redefinitions))
 			from
 				i := ifthenelse.elseif_list.lower
 			until
 				i > ifthenelse.elseif_list.upper
 			loop
 				ifthen ::= ifthenelse.elseif_list.item(i)
-				conditional.add_condition(condition(ifthen, local_context))
+				conditional.add_condition(condition(ifthen, local_context, redefinitions))
 				i := i + 1
 			end
-			conditional.set_else_clause(else_clause(ifthenelse.else_clause, local_context))
+			conditional.set_else_clause(else_clause(ifthenelse.else_clause, local_context, redefinitions))
 			Result := conditional
 		end
 
-	condition (a_if: LIBERTY_AST_IF; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CONDITION is
+	condition (a_if: LIBERTY_AST_IF; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_CONDITION is
 		do
-			create Result.make(expression(a_if.expression, local_context), instructions(a_if.instructions, local_context))
+			create Result.make(expression(a_if.expression, local_context, redefinitions), instructions(a_if.instructions, local_context, redefinitions))
 		end
 
-	else_clause (a_else: LIBERTY_AST_ELSE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEFAULT is
+	else_clause (a_else: LIBERTY_AST_ELSE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_DEFAULT is
 		do
-			create Result.make(instructions(a_else.list, local_context))
+			create Result.make(instructions(a_else.list, local_context, redefinitions))
 		end
 
-	instruction_inspect (a_inspect: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSPECT is
+	instruction_inspect (a_inspect: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_INSPECT is
 		require
 			a_inspect /= Void
 			{LIBERTY_AST_INSPECT} ?:= a_inspect
@@ -814,20 +869,20 @@ feature {} -- Instructions
 			i: INTEGER
 		do
 			inspct ::= a_inspect
-			create insp.make(expression(inspct.expression, local_context))
+			create insp.make(expression(inspct.expression, local_context, redefinitions))
 			from
 				i := inspct.when_list.lower
 			until
 				i > inspct.when_list.upper
 			loop
-				insp.add_clause(inspect_clause(inspct.when_list.item(i), local_context))
+				insp.add_clause(inspect_clause(inspct.when_list.item(i), local_context, redefinitions))
 				i := i + 1
 			end
-			insp.set_else_clause(else_clause(inspct.else_clause, local_context))
+			insp.set_else_clause(else_clause(inspct.else_clause, local_context, redefinitions))
 			Result := insp
 		end
 
-	inspect_clause (a_clause: EIFFEL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSPECT_CLAUSE is
+	inspect_clause (a_clause: EIFFEL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_INSPECT_CLAUSE is
 		require
 			{LIBERTY_AST_WHEN} ?:= a_clause
 		local
@@ -837,16 +892,16 @@ feature {} -- Instructions
 			low, up: LIBERTY_EXPRESSION
 		do
 			when_clause ::= a_clause
-			create Result.make(instructions(when_clause.instructions, local_context))
+			create Result.make(instructions(when_clause.instructions, local_context, redefinitions))
 			from
 				i := when_clause.when_slices.lower
 			until
 				i > when_clause.when_slices.upper
 			loop
 				when_slice ::= when_clause.when_slices.item(i)
-				low := when_value(when_slice.low_value, local_context)
+				low := when_value(when_slice.low_value, local_context, redefinitions)
 				if when_slice.has_up_value then
-					up := when_value(when_slice.up_value, local_context)
+					up := when_value(when_slice.up_value, local_context, redefinitions)
 				else
 					up := Void
 				end
@@ -855,7 +910,7 @@ feature {} -- Instructions
 			end
 		end
 
-	when_value (value: LIBERTY_AST_WHEN_VALUE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	when_value (value: LIBERTY_AST_WHEN_VALUE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_EXPRESSION is
 		do
 			if value.is_number then
 				Result := number(value.number.image)
@@ -870,7 +925,7 @@ feature {} -- Instructions
 			end
 		end
 
-	instruction_loop (a_loop: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_LOOP is
+	instruction_loop (a_loop: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_LOOP is
 		require
 			a_loop /= Void
 			{LIBERTY_AST_LOOP} ?:= a_loop
@@ -881,22 +936,22 @@ feature {} -- Instructions
 			invariant_clause: LIBERTY_INVARIANT
 		do
 			l00p ::= a_loop
-			init := instructions(l00p.instructions, local_context)
+			init := instructions(l00p.instructions, local_context, redefinitions)
 			invariant_clause := loop_invariant(l00p.invariant_clause)
-			variant_clause := expression(l00p.variant_clause, local_context)
-			exp := expression(l00p.expression, local_context)
-			body := instructions(l00p.instructions, local_context)
+			variant_clause := expression(l00p.variant_clause, local_context, redefinitions)
+			exp := expression(l00p.expression, local_context, redefinitions)
+			body := instructions(l00p.instructions, local_context, redefinitions)
 			create Result.make(init, invariant_clause, variant_clause, exp, body)
 		end
 
-	loop_invariant (invariant_clause: LIBERTY_AST_INVARIANT; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INVARIANT is
+	loop_invariant (invariant_clause: LIBERTY_AST_INVARIANT; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_INVARIANT is
 		require
 			invariant_clause /= Void
 			local_context /= Void
 		local
 			assertions: TRAVERSABLE[LIBERTY_ASSERTION]
 		do
-			assertions := feature_assertions(invariant_clause, local_context)
+			assertions := feature_assertions(invariant_clause, local_context, redefinitions)
 			if not errors.has_error then
 				create Result.make(assertions)
 			end
@@ -904,7 +959,7 @@ feature {} -- Instructions
 			not errors.has_error implies Result /= Void
 		end
 
-	instruction_check (a_check: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CHECK_INSTRUCTION is
+	instruction_check (a_check: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_CHECK_INSTRUCTION is
 		require
 			a_check /= Void
 			{LIBERTY_AST_CHECK} ?:= a_check
@@ -912,11 +967,11 @@ feature {} -- Instructions
 			chk: LIBERTY_AST_CHECK; ck: LIBERTY_CHECK
 		do
 			chk ::= a_check
-			create ck.make(feature_assertions(chk, local_context))
+			create ck.make(feature_assertions(chk, local_context, redefinitions))
 			create Result.make(ck)
 		end
 
-	instruction_debug (a_debug: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEBUG is
+	instruction_debug (a_debug: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_DEBUG is
 		require
 			a_debug /= Void
 			{LIBERTY_AST_DEBUG} ?:= a_debug
@@ -937,13 +992,13 @@ feature {} -- Instructions
 					i := i + 1
 				end
 			end
-			inst := instructions(dbg.instructions, local_context)
+			inst := instructions(dbg.instructions, local_context, redefinitions)
 			create Result.make(keys, inst)
 		ensure
 			Result /= Void
 		end
 
-	instruction_creation (a_creation: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CREATION_INSTRUCTION is
+	instruction_creation (a_creation: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_CREATION_INSTRUCTION is
 		require
 			a_creation /= Void
 			{LIBERTY_AST_CREATION} ?:= a_creation
@@ -955,7 +1010,7 @@ feature {} -- Instructions
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
 			creat ::= a_creation
-			w := writable(creat.writable, local_context)
+			w := writable(creat.writable, local_context, redefinitions)
 			if creat.has_type_definition then
 				creation_type := universe.get_type_from_type_definition(type, creat.type_definition, effective_generic_parameters)
 				if not errors.has_error then
@@ -969,7 +1024,7 @@ feature {} -- Instructions
 			end
 			if creat.has_creation_feature_call then
 				fe := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(creat.creation_feature_name.image.image.intern))
-				fa := actuals(creat.creation_feature_actuals, local_context)
+				fa := actuals(creat.creation_feature_actuals, local_context, redefinitions)
 			else
 				fe := feature_entity(default_create_name)
 				fa := empty_actuals
@@ -982,7 +1037,7 @@ feature {} -- Instructions
 			create Result.make_regular("default_create".intern)
 		end
 
-	instruction_retry (a_retry: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_RETRY is
+	instruction_retry (a_retry: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_RETRY is
 		require
 			a_retry /= Void
 			{LIBERTY_AST_RETRY} ?:= a_retry
@@ -991,7 +1046,7 @@ feature {} -- Instructions
 		end
 
 feature {} -- Entities and writables
-	writable (a_writable: LIBERTY_AST_WRITABLE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_WRITABLE is
+	writable (a_writable: LIBERTY_AST_WRITABLE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_WRITABLE is
 		local
 			name: FIXED_STRING
 		do
@@ -1012,7 +1067,7 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
-	entity (a_entity: LIBERTY_AST_ENTITY_NAME; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENTITY is
+	entity (a_entity: LIBERTY_AST_ENTITY_NAME; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_ENTITY is
 		local
 			name: FIXED_STRING
 		do
@@ -1032,7 +1087,7 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
-	implicit_feature_call_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
+	implicit_feature_call_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_INSTRUCTION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; fn: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; name: FIXED_STRING
 			f: LIBERTY_FEATURE
@@ -1056,14 +1111,14 @@ feature {} -- Entities and writables
 						not_yet_implemented
 					else
 						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
-						create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
+						create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions))
 					end
 				elseif fn.is_prefix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
+					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions))
 				elseif fn.is_infix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
+					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions))
 				else
 					check False end
 				end
@@ -1071,8 +1126,8 @@ feature {} -- Entities and writables
 				if a_target.precursor_type_mark.count /= 0 then
 					name := a_target.precursor_type_mark.class_name.image.image.intern
 				end
-				f := type.find_precursor(local_context.feature_name, name)
-				create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals, local_context))
+				f := find_precursor(redefinitions, name) --| TODO not a name but a type
+				create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals, local_context, redefinitions))
 			elseif a_target.is_parenthesized_expression then
 				--| TODO: error
 				not_yet_implemented
@@ -1083,7 +1138,26 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
-	target_or_implicit_feature_call_expression (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	find_precursor (redefinitions: like feature_redefinitions; parent: LIBERTY_TYPE): LIBERTY_FEATURE is
+		local
+			i: INTEGER; fd: LIBERTY_FEATURE_DEFINITION
+		do
+			from
+				i := redefinitions.lower
+			until
+				i > redefinitions.upper
+			loop
+				fd := redefinitions.item(i)
+				if fd.has_precursor(parent) then
+					Result := fd.precursor_feature(parent)
+				end
+				i := i + 1
+			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	target_or_implicit_feature_call_expression (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_EXPRESSION is
 		local
 			e: LIBERTY_FEATURE_ENTITY; fn: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; name: FIXED_STRING
 			f: LIBERTY_FEATURE
@@ -1105,14 +1179,14 @@ feature {} -- Entities and writables
 						--| TODO: check no actuals
 					else
 						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
-						create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
+						create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions))
 					end
 				elseif fn.is_prefix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions))
 				elseif fn.is_infix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions))
 				else
 					check False end
 				end
@@ -1120,10 +1194,10 @@ feature {} -- Entities and writables
 				if a_target.precursor_type_mark.count /= 0 then
 					name := a_target.precursor_type_mark.class_name.image.image.intern
 				end
-				f := local_context.find_precursor(name)
-				create {LIBERTY_PRECURSOR_EXPRESSION} Result.make(f, actuals(a_target.actuals, local_context))
+				f := find_precursor(redefinitions, name) --| TODO not a name but a type
+				create {LIBERTY_PRECURSOR_EXPRESSION} Result.make(f, actuals(a_target.actuals, local_context, redefinitions))
 			elseif a_target.is_parenthesized_expression then
-				Result := expression(a_target.parenthesized_expression, local_context)
+				Result := expression(a_target.parenthesized_expression, local_context, redefinitions)
 			else
 				check False end
 			end
@@ -1160,7 +1234,7 @@ feature {} -- Entities and writables
 	feature_writables: DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]
 
 feature {} -- Expressions
-	actuals (a_actuals: LIBERTY_AST_ACTUALS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_EXPRESSION] is
+	actuals (a_actuals: LIBERTY_AST_ACTUALS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): COLLECTION[LIBERTY_EXPRESSION] is
 		local
 			i: INTEGER
 			act: LIBERTY_AST_ACTUAL
@@ -1176,10 +1250,10 @@ feature {} -- Expressions
 				loop
 					act := a_actuals.list_item(i)
 					if act.is_expression then
-						Result.add_last(expression(act.expression, local_context))
+						Result.add_last(expression(act.expression, local_context, redefinitions))
 					else
 						check act.is_ref_to_entity end
-						Result.add_last(create {LIBERTY_ENTITY_REFERENCE}.make(universe.type_pointer, entity(act.ref_entity_name, local_context)))
+						Result.add_last(create {LIBERTY_ENTITY_REFERENCE}.make(universe.type_pointer, entity(act.ref_entity_name, local_context, redefinitions)))
 					end
 					i := i + 1
 				end
@@ -1193,7 +1267,7 @@ feature {} -- Expressions
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.make(0)
 		end
 
-	expression (exp: LIBERTY_AST_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	expression (exp: LIBERTY_AST_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_EXPRESSION is
 		require
 			exp /= Void
 			local_context /= Void
@@ -1203,7 +1277,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	expression_array (array: LIBERTY_AST_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	expression_array (array: LIBERTY_AST_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_EXPRESSION is
 		require
 			array /= Void
 			local_context /= Void
@@ -1213,7 +1287,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	expression_no_array (exp: LIBERTY_AST_EXPRESSION_NO_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	expression_no_array (exp: LIBERTY_AST_EXPRESSION_NO_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_EXPRESSION is
 		require
 			exp /= Void
 			local_context /= Void
@@ -1223,7 +1297,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+	typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_EXPRESSION is
 		require
 			constant /= Void
 			local_context /= Void
@@ -1253,7 +1327,7 @@ feature {} -- Expressions
 			elseif constant.is_array_typed_manifest then
 				Result := array_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 														 constant.typed_manifest_array_parameters, constant.typed_manifest_array,
-														 local_context)
+														 local_context, redefinitions)
 			else
 				check False end
 			end
@@ -1342,7 +1416,7 @@ feature {} -- Expressions
 		end
 
 	array_typed_manifest (manifest_type: LIBERTY_TYPE; array_parameters: EIFFEL_LIST_NODE; array: LIBERTY_AST_ARRAY;
-								 local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ARRAY_MANIFEST is
+								 local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions): LIBERTY_ARRAY_MANIFEST is
 		require
 			local_context /= Void
 		local
@@ -1355,7 +1429,7 @@ feature {} -- Expressions
 				i > array_parameters.upper
 			loop
 				ena ::= array_parameters.item(i)
-				Result.add_parameter(expression_no_array(ena, local_context))
+				Result.add_parameter(expression_no_array(ena, local_context, redefinitions))
 				i := i + 1
 			end
 			from
@@ -1364,7 +1438,7 @@ feature {} -- Expressions
 				i > array.content.upper
 			loop
 				exp ::= array.content.item(i)
-				Result.add_content(expression(exp, local_context))
+				Result.add_content(expression(exp, local_context, redefinitions))
 				i := i + 1
 			end
 		ensure
@@ -1407,7 +1481,7 @@ feature {}
 			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 
-	list_parameters (parameters: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT) is
+	list_parameters (parameters: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions) is
 		local
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
 			typedef: LIBERTY_TYPE; parameter: LIBERTY_PARAMETER
@@ -1437,7 +1511,7 @@ feature {}
 			end
 		end
 
-	list_locals (locals: LIBERTY_AST_LOCAL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT) is
+	list_locals (locals: LIBERTY_AST_LOCAL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: like feature_redefinitions) is
 		local
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
 			typedef: LIBERTY_TYPE; localdef: LIBERTY_LOCAL
