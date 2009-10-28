@@ -13,7 +13,7 @@ feature {ANY}
 	invariant_clause: LIBERTY_INVARIANT
 	variant_clause: LIBERTY_EXPRESSION
 	expression: LIBERTY_EXPRESSION
-	body: TRAVERSABLE[LIBERTY_EXPRESSION]
+	body: TRAVERSABLE[LIBERTY_INSTRUCTION]
 
 feature {}
 	make (a_init: like init; a_invariant_clause: like invariant_clause; a_variant_clause: like variant_clause; a_expression: like expression; a_body: like body) is

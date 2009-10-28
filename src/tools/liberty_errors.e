@@ -5,6 +5,21 @@ expanded class LIBERTY_ERRORS
 insert
 	LIBERTY_ERROR_LEVELS
 
+feature {ANY}
+	set_error_threshold (a_threshold: INTEGER_8) is
+		require
+			valid_level(a_threshold)
+		do
+			threshold_memory.set_item(a_threshold)
+		ensure
+			threshold = a_threshold
+		end
+
+	threshold: INTEGER_8 is
+		do
+			Result := threshold_memory.item
+		end
+
 feature {ANY} -- Errors
 	last_error: LIBERTY_ERROR is
 		do
@@ -39,7 +54,7 @@ feature {ANY} -- Errors
 		require
 			has_warning_or_error
 		do
-			last_error.emit
+			last_error.emit(threshold)
 			last_error_memory.set_item(Void)
 		ensure
 			not has_warning_or_error
@@ -116,6 +131,11 @@ feature {}
 	positions: COLLECTION[LIBERTY_POSITION] is
 		once
 			create {FAST_ARRAY[LIBERTY_POSITION]} Result.with_capacity(4)
+		end
+
+	threshold_memory: REFERENCE[INTEGER_8] is
+		once
+			create Result.set_item(level_error)
 		end
 
 end

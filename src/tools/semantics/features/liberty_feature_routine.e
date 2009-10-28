@@ -9,8 +9,6 @@ inherit
 		end
 
 feature {ANY}
-	locals: DICTIONARY[LIBERTY_LOCAL, STRING]
-
 	block_instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
 
 	rescue_instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
@@ -24,11 +22,6 @@ feature {LIBERTY_TYPE_BUILDER}
 			rescue_instructions := a_rescue
 		ensure
 			rescue_instructions = a_rescue
-		end
-
-	set_locals (a_locals: like locals) is
-		do
-			locals := a_locals
 		end
 
 feature {}

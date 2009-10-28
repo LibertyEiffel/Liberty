@@ -9,7 +9,7 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	class_name: LIBERTY_AST_CLASS_NAME is
+	type_definition: LIBERTY_AST_TYPE_DEFINITION is
 		require
 			count /= 0
 		do

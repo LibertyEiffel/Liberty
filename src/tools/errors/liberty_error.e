@@ -99,7 +99,7 @@ feature {LIBERTY_ERROR}
 
 			if next /= Void then
 				std_error.put_new_line
-				next.do_emit
+				next.do_emit(threshold)
 			end
 		end
 

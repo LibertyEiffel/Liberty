@@ -7,6 +7,8 @@ insert
 
 feature {ANY}
 	result_type: LIBERTY_TYPE is
+		require
+			has_context
 		do
 			Result := context.result_type
 		end
@@ -21,6 +23,20 @@ feature {ANY}
 	is_obsolete: BOOLEAN is
 		do
 			Result := obsolete_message /= Void
+		end
+
+	parameters: TRAVERSABLE[LIBERTY_PARAMETER] is
+		require
+			has_context
+		do
+			Result := context.parameters
+		ensure
+			exists: Result /= Void
+		end
+
+	has_context: BOOLEAN is
+		do
+			Result := context /= Void
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}

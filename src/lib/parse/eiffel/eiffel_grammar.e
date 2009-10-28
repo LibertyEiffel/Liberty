@@ -114,7 +114,7 @@ feature {}
 											  "Writable", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW Result" >> }, Void;
 																							 {FAST_ARRAY[STRING] << "KW entity name" >> }, Void >> };
 											  "Precursor_Type_Mark", {PARSE_NON_TERMINAL << epsilon, Void;
-																											{FAST_ARRAY[STRING] << "KW {", "KW class name", "KW }" >> }, Void >> };
+																											{FAST_ARRAY[STRING] << "KW {", "Type_Definition", "KW }" >> }, Void >> };
 											  "If_Then_Else", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "If", "ElseIf*", "Else", "KW end" >> }, Void >> };
 											  "If", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW if", "Expression", "KW then", "Instruction*" >> }, Void >> };
 											  "ElseIf*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("ElseIf*");

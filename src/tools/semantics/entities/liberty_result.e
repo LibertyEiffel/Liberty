@@ -5,7 +5,7 @@ class LIBERTY_RESULT
 inherit
 	LIBERTY_WRITABLE
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_FEATURE_LOCAL_CONTEXT}
 	make
 
 feature {ANY}

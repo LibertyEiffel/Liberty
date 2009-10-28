@@ -25,12 +25,12 @@ feature {}
 			writable := a_writable
 			type := a_type
 			feature_entity := a_feature_entity
-			feature_arguments := a_feature_entity
+			feature_arguments := a_feature_arguments
 		ensure
 			writable = a_writable
 			type = a_type
 			feature_entity = a_feature_entity
-			feature_arguments = a_feature_entity
+			feature_arguments = a_feature_arguments
 		end
 
 invariant

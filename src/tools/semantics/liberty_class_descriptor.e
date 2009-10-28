@@ -19,7 +19,8 @@ feature {LIBERTY_UNIVERSE}
 			n: STRING
 		do
 			n := once ""
-			n.copy(name)
+			n.clear_count
+			n.append(name)
 			n.to_lower
 			n.append(once ".e")
 			Result := once ""

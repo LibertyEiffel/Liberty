@@ -17,7 +17,7 @@ feature {ANY}
 		local
 			descriptor: LIBERTY_TYPE_DESCRIPTOR
 		do
-			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name, position), effective_type_parameters)
+			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name.intern, position), effective_type_parameters)
 			Result := get_type_from_descriptor(descriptor)
 		ensure
 			Result.cluster = cluster
@@ -33,7 +33,7 @@ feature {ANY}
 		do
 			Result := types.reference_at(descriptor)
 			if Result = Void then
-				ast := parse_class(descriptor.cluster, descriptor.name)
+				ast := parse_class(descriptor.cluster, descriptor.name.out, descriptor.position)
 				create Result.make(descriptor, ast)
 				types.put(Result, descriptor)
 				Result.check_and_initialize(Current)
@@ -80,7 +80,7 @@ feature {ANY}
 		end
 
 feature {}
-	kernel_type (class_name: FIXED_STRING): LIBERTY_TYPE is
+	kernel_type (class_name: STRING): LIBERTY_TYPE is
 		require
 			not errors.has_error
 		local
@@ -94,16 +94,16 @@ feature {}
 				if cluster = Void then
 					errors.set(level_fatal_error, once "Kernel class not found: " + class_name)
 				end
-				create cd.make(cluster, class_name)
+				create cd.make(cluster, class_name.intern, Void)
 				create td.make(cd, create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
 				Result := types.reference_at(td)
 				if Result = Void then
-					ast := parse_class(cluster, class_name)
+					ast := parse_class(cluster, class_name, Void)
 					create Result.make(td, ast)
 					types.put(Result, td)
 					Result.check_and_initialize(Current)
 				end
-				kernel_types.add(Result, class_name.twin)
+				kernel_types.add(Result, class_name)
 			end
 		ensure
 			Result /= Void
@@ -129,7 +129,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				errors.set(level_fatal_error, once "Unknown class: " + class_name)
 			else
 				parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
-				Result := get_type(cluster, class_name, parameters)
+				Result := get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast), class_name, parameters)
 			end
 		end
 
@@ -140,31 +140,62 @@ feature {LIBERTY_TYPE_BUILDER}
 			effective_parameters /= Void
 			not client.type_definition.is_anchor
 			not errors.has_error
+		do
+			Result := type_from_legacy_class_name_or_full_liberty_type(origin, client.type_definition, effective_parameters)
+		ensure
+			type_found_or_fatal_error: Result /= Void
+		end
+
+	get_type_from_precursor (origin: LIBERTY_TYPE; precursor_type_mark: LIBERTY_AST_PRECURSOR_TYPE_MARK; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
+		require
+			origin /= Void
+			precursor_type_mark /= Void
+			effective_parameters /= Void
+			precursor_type_mark.count > 0
+			not precursor_type_mark.type_definition.is_anchor
+			not errors.has_error
+		do
+			Result := type_from_legacy_class_name_or_full_liberty_type(origin, precursor_type_mark.type_definition, effective_parameters)
+		ensure
+			type_found_or_fatal_error: Result /= Void
+		end
+
+feature {}
+	type_from_legacy_class_name_or_full_liberty_type (origin: LIBERTY_TYPE; a_type_definition: LIBERTY_AST_TYPE_DEFINITION; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
+			-- Special code to handle legacy Eiffel class marks (in exports and precursors) or full-fledged type
+			-- marks Liberty recommends
+		require
+			origin /= Void
+			effective_parameters /= Void
+			not a_type_definition.is_anchor
+			not errors.has_error
 		local
 			descriptor: LIBERTY_TYPE_DESCRIPTOR
 			cluster: LIBERTY_CLUSTER
 			class_name: STRING
 			parameters: TRAVERSABLE[LIBERTY_TYPE]
+			pos: LIBERTY_POSITION
 		do
-			if client.type_definition.type_parameters.list_count /= effective_parameters.count then
-				if client.type_definition.type_parameters.list_count = 0 then
+			if a_type_definition.type_parameters.list_count /= effective_parameters.count then
+				pos := errors.semantics_position(a_type_definition.type_name.image.index, origin.ast)
+				if a_type_definition.type_parameters.list_count = 0 then
 					-- legacy: only a class name is given
-					class_name := client.type_definition.type_name.image.image
+					class_name := a_type_definition.type_name.image.image
 					cluster := origin.cluster.find(class_name)
 					if cluster = Void then
-						errors.add_position(errors.semantics_position(client.type_definition.type_name.image.index, origin.ast))
+						errors.add_position(pos)
 						errors.set(level_fatal_error, once "Unknown class: " + class_name)
 					else
-						parameters := get_parameter_constraints(origin, parse_class(cluster, class_name), effective_parameters)
-						create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name), parameters)
+						parameters := get_parameter_constraints(origin, parse_class(cluster, class_name, pos), effective_parameters)
+						create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name.intern, pos), parameters)
 						Result := get_type_from_descriptor(descriptor)
 					end
 				else
-					errors.add_position(errors.semantics_position(client.type_definition.type_name.image.index, origin.ast))
+					errors.add_position(pos)
 					errors.set(level_fatal_error, "Bad generics list (generics count mismatch)")
 				end
 			else
-				Result := get_type_from_type_definition(origin, client.type_definition, effective_parameters)
+				Result := get_type_from_type_definition(origin, a_type_definition, effective_parameters)
 			end
 		ensure
 			type_found_or_fatal_error: Result /= Void
@@ -258,11 +289,11 @@ feature {} -- AST building
 			parser_file.disconnect
 		end
 
-	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING): LIBERTY_AST_CLASS is
+	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING; pos: LIBERTY_POSITION): LIBERTY_AST_CLASS is
 		local
 			code: STRING
 		do
-			parse_descriptor.make(cluster, class_name)
+			parse_descriptor.make(cluster, class_name.intern, pos)
 			Result := classes.reference_at(parse_descriptor)
 			if Result = Void then
 				code := once ""
@@ -310,13 +341,13 @@ feature {}
 			create universe.make(universe_path)
 			create {HASHED_DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.make
 			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.make
-			create {HASHED_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]} kernel_types.make
+			create {HASHED_DICTIONARY[LIBERTY_TYPE, STRING]} kernel_types.make
 		end
 
 	universe: LIBERTY_CLUSTER
 	classes: DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]
 	types: DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]
-	kernel_types: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]
+	kernel_types: DICTIONARY[LIBERTY_TYPE, STRING]
 
 feature {}
 	errors: LIBERTY_ERRORS

@@ -31,7 +31,7 @@ feature {}
 			a_instructions /= Void
 		do
 			instructions := a_instructions
-			create {FAST_ARRAY[LIBERTY_INSPECT_SLICE]}values.make
+			create {FAST_ARRAY[LIBERTY_INSPECT_SLICE]} values_list.with_capacity(2)
 		ensure
 			instructions = a_instructions
 		end

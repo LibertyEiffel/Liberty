@@ -84,32 +84,6 @@ feature {LIBERTY_TYPE_BUILDER}
 			is_result_type_set
 		end
 
-	add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_TYPE) is
-		require
-			not has_precursor(a_precursor_type)
-		do
-			if precursors = Void then
-				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} precursors.make
-			end
-			precursors.add(a_precursor_feature, a_precursor_type)
-		ensure
-			precursor_feature(a_precursor_type) = a_precursor_feature
-		end
-
-	has_precursor (a_precursor_type: LIBERTY_TYPE): BOOLEAN is
-		do
-			if precursors /= Void then
-				Result := precursors.has(a_precursor_type)
-			end
-		end
-
-	precursor_feature (a_precursor_type: LIBERTY_TYPE): LIBERTY_FEATURE is
-		require
-			has_precursor(a_precursor_type)
-		do
-			Result := precursors.at(a_precursor_type)
-		end
-
 	join (fd: like Current; a_type: LIBERTY_TYPE) is
 		require
 			fd /= Void
@@ -135,6 +109,33 @@ feature {LIBERTY_TYPE_BUILDER}
 					precursor_feature(a_type) = fd.precursor_feature(a_type)
 				end
 			end
+		end
+
+feature {LIBERTY_TYPE_BUILDER, LIBERTY_FEATURE_DEFINITION}
+	add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_TYPE) is
+		require
+			not has_precursor(a_precursor_type)
+		do
+			if precursors = Void then
+				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} precursors.make
+			end
+			precursors.add(a_precursor_feature, a_precursor_type)
+		ensure
+			precursor_feature(a_precursor_type) = a_precursor_feature
+		end
+
+	has_precursor (a_precursor_type: LIBERTY_TYPE): BOOLEAN is
+		do
+			if precursors /= Void then
+				Result := precursors.has(a_precursor_type)
+			end
+		end
+
+	precursor_feature (a_precursor_type: LIBERTY_TYPE): LIBERTY_FEATURE is
+		require
+			has_precursor(a_precursor_type)
+		do
+			Result := precursors.at(a_precursor_type)
 		end
 
 feature {}

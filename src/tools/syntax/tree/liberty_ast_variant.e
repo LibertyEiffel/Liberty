@@ -9,14 +9,14 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	has_variant: BOOLEAN is
+	has_expression: BOOLEAN is
 		do
 			Result := count > 0
 		end
 
 	expression: LIBERTY_AST_EXPRESSION is
 		require
-			has_variant
+			has_expression
 		do
 			Result ::= nodes.item(1)
 		end

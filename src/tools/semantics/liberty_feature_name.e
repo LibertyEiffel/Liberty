@@ -56,15 +56,15 @@ feature {}
 			class_ast /= Void
 		do
 			if ast.is_regular then
-				make_regular(ast.entity_name.image.image)
-				create {LIBERTY_SEMANTICS_POSITION} position.make(ast.entity_name.image.index, class_ast)
+				make_regular(ast.entity_name.image.image.intern)
+				position := errors.semantics_position(ast.entity_name.image.index, class_ast)
 			elseif ast.is_prefix then
-				make_prefix(ast.free_operator_name.image.image)
-				create {LIBERTY_SEMANTICS_POSITION} position.make(ast.free_operator_name.image.index, class_ast)
+				make_prefix(ast.free_operator_name.image.image.intern)
+				position := errors.semantics_position(ast.free_operator_name.image.index, class_ast)
 			else
 				check ast.is_infix end
-				make_infix(ast.free_operator_name.image.image)
-				create {LIBERTY_SEMANTICS_POSITION} position.make(ast.free_operator_name.image.index, class_ast)
+				make_infix(ast.free_operator_name.image.image.intern)
+				position := errors.semantics_position(ast.free_operator_name.image.index, class_ast)
 			end
 		end
 

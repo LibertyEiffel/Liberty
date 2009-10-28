@@ -5,7 +5,7 @@ class LIBERTY_RETRY
 inherit
 	LIBERTY_INSTRUCTION
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_FEATURE_LOCAL_CONTEXT}
 	make
 
 feature {ANY}

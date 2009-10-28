@@ -8,6 +8,9 @@ inherit
 			emit
 		end
 
+insert
+	EIFFEL_NODE_HANDLER
+
 create {LIBERTY_ERRORS}
 	make
 

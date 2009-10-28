@@ -33,7 +33,7 @@ feature {ANY}
 		require
 			name /= Void
 		do
-			Result := parameters_map.has(name)
+			Result := parameters_map.has(name.intern)
 		end
 
 	parameter (name: ABSTRACT_STRING): LIBERTY_PARAMETER is
@@ -41,7 +41,7 @@ feature {ANY}
 			name /= Void
 			is_parameter(name)
 		do
-			Result := parameters_map.reference_at(name)
+			Result := parameters_map.reference_at(name.intern)
 		ensure
 			Result /= Void
 		end
@@ -50,7 +50,7 @@ feature {ANY}
 		require
 			name /= Void
 		do
-			Result := locals_map.has(name)
+			Result := locals_map.has(name.intern)
 		end
 
 	local_var (name: ABSTRACT_STRING): LIBERTY_LOCAL is
@@ -58,7 +58,7 @@ feature {ANY}
 			name /= Void
 			is_local(name)
 		do
-			Result := locals_map.has(name)
+			Result := locals_map.reference_at(name.intern)
 		ensure
 			Result /= Void
 		end
