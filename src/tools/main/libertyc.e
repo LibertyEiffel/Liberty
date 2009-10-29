@@ -32,7 +32,7 @@ feature {}
 			end
 
 			create universe.make(argument(1))
-			root := universe.get_type(Void, argument(2), create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
+			root := universe.get_type(Void, Void, argument(2), create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
 
 			std_output.put_line("Done: root=" + root.hash_code.out)
 		end

@@ -26,6 +26,9 @@ create {LIBERTY_CLUSTER}
 feature {ANY}
 	location: STRING
 
+feature {}
+	location_directory: STRING
+
 feature {ANY}
 	hash_code: INTEGER is
 		do
@@ -100,14 +103,27 @@ feature {} -- find
 
 feature {}
 	make (a_location: like location) is
+		require
+			a_location /= Void
 		do
+			std_output.put_line("Cluster: " + a_location)
+sedb_breakpoint
 			location := a_location
+			if ft.is_directory(a_location)
+				location_directory := a_location
+			else
+				dir.compute_parent_directory_of(location)
+				location_directory := dir.last_entry.twin
+			end
 			create_children
 		ensure
 			location = a_location
 		end
 
 	make_subcluster (a_location: like location; a_parent: like parent) is
+		require
+			a_location /= Void
+			a_parent /= Void
 		do
 			make(a_location)
 			parent := a_parent
@@ -127,24 +143,29 @@ feature {}
 		end
 
 	subdirectories: TRAVERSABLE[STRING] is
-		require
-			dir.is_connected
 		do
-			if ft.is_file(location) then
+			if location = location_directory then
 				check
+					ft.is_directory(location)
+				end
+				Result := scan_subdirectories
+			else
+				check
+					ft.is_file(location)
 					-- location's basename is "loadpath.se"
 				end
-				Result := read_loadpath(location)
-			else
-				Result := scan_subdirectories
+				Result := read_loadpath
 			end
 		ensure
 			Result /= Void
 		end
 
-	read_loadpath (loadpath: STRING): COLLECTION[STRING] is
+	read_loadpath: COLLECTION[STRING] is
+		require
+			ft.is_file(location)
 		do
-			tfr.connect_to(loadpath)
+			create {FAST_ARRAY[STRING]} Result.with_capacity(4)
+			tfr.connect_to(location)
 			if tfr.is_connected then
 				from
 					tfr.read_line
@@ -161,44 +182,72 @@ feature {}
 
 	process_loadpath (subdirs: like read_loadpath; loadpath_line: STRING) is
 		require
+			ft.is_file(location)
 			subdirs /= Void
 			loadpath_line /= Void
 		local
 			sublocation, loadpath_last: STRING
 		do
 			if not loadpath_line.is_empty and then not loadpath_line.has_prefix(once "--") then
-				sublocation := location.twin
-				loadpath_entry.make_from_string(loadpath_line)
-				loadpath_last := loadpath_entry.last
+				sublocation := ""
 				dir.ensure_system_notation
 				dir.system_notation.from_notation(loadpath_notation, loadpath_line)
-				dir.compute_subdirectory_with(sublocation, loadpath_line)
-				if not ft.is_directory(sublocation) then
-					dir.compute_parent_directory_of(loadpath_line)
-					sublocation.copy(location)
-					dir.compute_subdirectory_with(sublocation, loadpath_line)
-					dir.compute_file_path_with(sublocation, loadpath_last)
-					subdirs.add_last(sublocation)
+
+				dir.compute_subdirectory_with(location_directory, loadpath_line)
+				if dir.last_entry.is_empty then
+					--| *** TODO error: the loadpath line does not contain a valid path
+					not_yet_implemented
 				end
+				sublocation.copy(dir.last_entry)
+				if not ft.is_directory(sublocation) then
+					loadpath_entry.make_from_string(loadpath_line)
+					loadpath_last := loadpath_entry.last
+
+					dir.compute_parent_directory_of(loadpath_line)
+					loadpath_line.copy(dir.last_entry)
+					dir.compute_subdirectory_with(location_directory, loadpath_line)
+					check
+						not dir.last_entry.is_empty
+					end
+					sublocation.copy(dir.last_entry)
+					dir.compute_file_path_with(sublocation, loadpath_last)
+					check
+						not dir.last_entry.is_empty
+					end
+					sublocation.copy(dir.last_entry)
+				end
+				subdirs.add_last(sublocation)
 			end
 		end
 
 	scan_subdirectories: COLLECTION[STRING] is
+		require
+			ft.is_directory(location)
+			in_other_words: location = location_directory
 		local
-			sublocation: STRING
+			sublocation, entry: STRING
 		do
 			create {FAST_ARRAY[STRING]}Result.make(0)
 			dir.connect_to(location)
 			if dir.is_connected then
+				entry := once ""
 				from
 					dir.read_entry
 				until
 					dir.end_of_input
 				loop
-					sublocation := location.twin
-					dir.compute_subdirectory_with(sublocation, dir.last_entry)
-					if not sublocation.is_empty and then ft.is_directory(sublocation) then
-						Result.add_last(sublocation)
+					inspect
+						dir.last_entry
+					when ".", ".." then
+						-- forget those
+					else
+						sublocation := location_directory.twin
+						entry.copy(dir.last_entry)
+						dir.compute_subdirectory_with(sublocation, entry)
+						sublocation.copy(dir.last_entry)
+						if not sublocation.is_empty and then ft.is_directory(sublocation) then
+							Result.add_last(sublocation)
+						end
 					end
 					dir.read_entry
 				end
@@ -244,5 +293,8 @@ feature {}
 		once
 			create Result
 		end
+
+invariant
+	ft.is_directory(location) implies location_directory = location
 
 end
