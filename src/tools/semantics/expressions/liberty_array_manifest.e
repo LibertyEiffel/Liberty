@@ -18,7 +18,7 @@ inherit
 	LIBERTY_EXPRESSION
 
 create {LIBERTY_TYPE_BUILDER}
-	make
+	make, make_array
 
 feature {ANY}
 	parameters: TRAVERSABLE[LIBERTY_EXPRESSION] is
@@ -56,6 +56,20 @@ feature {}
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} contents_list.make(0)
 		ensure
 			result_type = a_type
+		end
+
+	make_array (a_type: like result_type; a_contents: like contents_list) is
+		require
+			a_type /= Void
+			a_contents /= Void
+			-- all a_contents items conform to a_type
+		do
+			result_type := a_type
+			create {FAST_ARRAY[LIBERTY_EXPRESSION]} parameters_list.make(0)
+			contents_list := a_contents
+		ensure
+			result_type = a_type
+			contents = a_contents
 		end
 
 	parameters_list: COLLECTION[LIBERTY_EXPRESSION]

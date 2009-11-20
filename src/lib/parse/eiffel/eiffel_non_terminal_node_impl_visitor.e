@@ -13,7 +13,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
 		deferred
 		end
 
-end
+end -- class EIFFEL_NON_TERMINAL_NODE_IMPL_VISITOR
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

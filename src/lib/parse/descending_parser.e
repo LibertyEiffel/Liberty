@@ -81,7 +81,7 @@ feature {}
 			create Result.make(0)
 		end
 
-end
+end -- class DESCENDING_PARSER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

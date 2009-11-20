@@ -1285,19 +1285,64 @@ feature {} -- Expressions
 			exp /= Void
 			local_context /= Void
 		do
-			not_yet_implemented
+			if exp.is_array then
+				Result := expression_array(exp.array, local_context, redefinitions)
+			else
+				Result := expression_no_array(exp.no_array, local_context, redefinitions)
+			end
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	expression_array (array: LIBERTY_AST_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+	expression_array (array: LIBERTY_AST_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_ARRAY_MANIFEST is
 		require
 			array /= Void
 			local_context /= Void
+		local
+			i: INTEGER; content: COLLECTION[LIBERTY_EXPRESSION]
+			exp: LIBERTY_AST_EXPRESSION; t: LIBERTY_TYPE
 		do
-			not_yet_implemented
+			create {FAST_ARRAY[LIBERTY_EXPRESSION]} content.with_capacity(array.content.count)
+			from
+				i := array.content.lower
+			until
+				i > array.content.upper or else errors.has_error
+			loop
+				exp ::= array.content.item(i)
+				content.add_last(expression(exp, local_context, redefinitions))
+				i := i + 1
+			end
+			if not errors.has_error then
+				t := common_conformant_type(content)
+				create Result.make_array(t, content)
+			end
 		ensure
 			not errors.has_error implies Result /= Void
+		end
+
+	common_conformant_type (a_contents: TRAVERSABLE[LIBERTY_EXPRESSION]): LIBERTY_TYPE is
+		local
+			i: INTEGER
+		do
+			if a_contents.is_empty then
+				Result := universe.type_any
+			else
+				from
+					Result := a_contents.first.result_type
+					i := a_contents.lower + 1
+				until
+					i > a_contents.upper
+				loop
+					Result := a_contents.item(i).result_type.common_conformant_parent_with(Result)
+					if Result = Void then
+						--| *** TODO fatal error
+						not_yet_implemented
+					end
+					i := i + 1
+				end
+			end
+		ensure
+			no_common_parent_is_fatal: Result /= Void
 		end
 
 	expression_no_array (exp: LIBERTY_AST_EXPRESSION_NO_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is

@@ -109,7 +109,7 @@ feature {}
 			std_output.put_line("Cluster: " + a_location)
 sedb_breakpoint
 			location := a_location
-			if ft.is_directory(a_location)
+			if ft.is_directory(a_location) then
 				location_directory := a_location
 			else
 				dir.compute_parent_directory_of(location)

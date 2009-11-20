@@ -53,7 +53,7 @@ feature {}
 			a_previous /= Void implies a_previous.last = Current
 		end
 
-end
+end -- class PARSE_ERROR
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

@@ -133,7 +133,7 @@ feature {}
 	internal_index: INTEGER
 			-- Of the current character in `storage'.
 
-end
+end -- class MINI_PARSER_BUFFER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

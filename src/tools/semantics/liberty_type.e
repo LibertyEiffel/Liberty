@@ -196,6 +196,50 @@ feature {ANY} -- Inheritance
 			end
 		end
 
+	common_conformant_parent_with (other: LIBERTY_TYPE): LIBERTY_TYPE is
+		do
+			if other = Current then
+				Result := Current
+			elseif other.is_conform_to(Current) then
+				Result := Current
+			elseif is_conform_to(other) then
+				Result := other
+			else
+				Result := common_parent(other)
+				if Result = Void then
+					--| *** TODO: check if the symmetric lookup is mandatory
+					Result := other.common_parent(Current)
+				end
+			end
+		end
+
+feature {LIBERTY_TYPE}
+	common_parent (other: LIBERTY_TYPE): LIBERTY_TYPE is
+			-- To implement `common_conformant_parent_with'.
+			-- Conformant common parent lookup.
+		require
+			not_trivial: Current /= other and then not is_conform_to(other) and then not other.is_conform_to(Current)
+		local
+			i: INTEGER; t: LIBERTY_TYPE
+		do
+			from
+				i := conformant_parents.lower
+			until
+				Result /= Void or else i > conformant_parents.upper
+			loop
+				t := conformant_parents.item(i)
+				check
+					by_definition: other /= t -- because of the `not_trivial' precondition: not is_conform_to(other)
+				end
+				if other.is_conform_to(t) then
+					Result := t
+				else
+					Result := t.common_parent(other)
+				end
+				i := i + 1
+			end
+		end
+
 feature {LIBERTY_TYPE_BUILDER}
 	set_obsolete (message: like obsolete_message) is
 		require

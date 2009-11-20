@@ -23,7 +23,7 @@ feature {}
 			position = a_position
 		end
 
-end
+end -- class UNTYPED_EIFFEL_IMAGE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

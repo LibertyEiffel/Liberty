@@ -32,7 +32,7 @@ feature {}
 invariant
 	decoded /= Void
 
-end
+end -- class TYPED_EIFFEL_IMAGE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

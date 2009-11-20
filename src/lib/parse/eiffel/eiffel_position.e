@@ -43,7 +43,7 @@ feature {}
 			column := 1
 		end
 
-end
+end -- class EIFFEL_POSITION
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
