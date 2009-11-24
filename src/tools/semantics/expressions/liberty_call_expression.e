@@ -24,6 +24,10 @@ create {LIBERTY_TYPE_BUILDER}
 	make, implicit_current
 
 feature {ANY}
+	target: LIBERTY_EXPRESSION
+	entity: LIBERTY_FEATURE_ENTITY
+	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
+
 	result_type: LIBERTY_TYPE is
 		do
 			Result := entity.result_type
@@ -32,6 +36,35 @@ feature {ANY}
 	is_result_type_set: BOOLEAN is
 		do
 			Result := entity.is_result_type_set
+		end
+
+feature {}
+	make (a_target: like target; a_entity: like entity; a_actuals: like actuals) is
+		require
+			a_target /= Void
+			a_entity /= Void
+			a_actuals /= Void
+		do
+			target := a_target
+			entity := a_entity
+			actuals := a_actuals
+		ensure
+			target = a_target
+			entity = a_entity
+			actuals = a_actuals
+		end
+
+	implicit_current (a_entity: like entity; a_actuals: like actuals) is
+		require
+			a_entity /= Void
+			a_actuals /= Void
+		do
+			entity := a_entity
+			actuals := a_actuals
+		ensure
+			is_implicit_current
+			entity = a_entity
+			actuals = a_actuals
 		end
 
 end

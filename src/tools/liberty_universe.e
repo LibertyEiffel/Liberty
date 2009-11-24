@@ -91,6 +91,12 @@ feature {ANY}
 			Result := kernel_type(once "BOOLEAN")
 		end
 
+	type_tuple (tuple_count: INTEGER): LIBERTY_TYPE is
+		do
+			--|*** TODO
+			not_yet_implemented
+		end
+
 feature {}
 	kernel_type (class_name: STRING): LIBERTY_TYPE is
 		require

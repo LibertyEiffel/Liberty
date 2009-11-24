@@ -28,17 +28,21 @@ insert
 		end
 
 create {LIBERTY_TYPE_BUILDER}
-	make_from_ast, make_regular, make_prefix, make_infix
+	make_from_ast, make_regular
+
+create {LIBERTY_TYPE_BUILDER, LIBERTY_PREFIX_CALL}
+	make_prefix
+
+create {LIBERTY_TYPE_BUILDER, LIBERTY_INFIX_CALL}
+	make_infix
 
 feature {ANY}
 	name: FIXED_STRING
 
 	is_equal (other: like Current): BOOLEAN is
-		local
-			lfn: LIBERTY_FEATURE_NAME
 		do
-			Result := name.is_equal(other.name)
-				and then type = other.type
+			Result := type = other.type
+				and then name.is_equal(other.name)
 		end
 
 	is_regular: BOOLEAN is

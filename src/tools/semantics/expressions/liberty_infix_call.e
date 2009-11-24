@@ -12,49 +12,52 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_CALL_INSTRUCTION
+deferred class LIBERTY_INFIX_CALL
 
 inherit
-	LIBERTY_INSTRUCTION
+	LIBERTY_EXPRESSION
 
 insert
 	LIBERTY_CALL
-
-create {LIBERTY_TYPE_BUILDER}
-	make, implicit_current
 
 feature {ANY}
 	target: LIBERTY_EXPRESSION
 	entity: LIBERTY_FEATURE_ENTITY
 	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 
-feature {}
-	make (a_target: like target; a_entity: like entity; a_actuals: like actuals) is
-		require
-			a_target /= Void
-			a_entity /= Void
-			a_actuals /= Void
+	result_type: LIBERTY_TYPE is
 		do
-			target := a_target
-			entity := a_entity
-			actuals := a_actuals
-		ensure
-			target = a_target
-			entity = a_entity
-			actuals = a_actuals
+			Result := entity.result_type
 		end
 
-	implicit_current (a_entity: like entity; a_actuals: like actuals) is
-		require
-			a_entity /= Void
-			a_actuals /= Void
+	is_result_type_set: BOOLEAN is
 		do
-			entity := a_entity
-			actuals := a_actuals
-		ensure
-			is_implicit_current
-			entity = a_entity
-			actuals = a_actuals
+			Result := entity.is_result_type_set
 		end
+
+feature {}
+	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity_builder: FUNCTION[TUPLE[LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]) is
+		require
+			a_left /= Void
+			a_right /= Void
+			a_entity_builder /= Void
+		do
+			target := a_left
+			actuals := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
+			entity := a_entity_builder.item([infix_name])
+		ensure
+			target = a_left
+			actuals.first = a_right
+		end
+
+	infix_name: LIBERTY_FEATURE_NAME is
+		deferred
+		ensure
+			Result.is_infix
+		end
+
+invariant
+	actuals.count = 1
+	not is_implicit_current
 
 end

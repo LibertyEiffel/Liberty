@@ -12,49 +12,36 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_CALL_INSTRUCTION
+class LIBERTY_OPEN_ARGUMENT
 
 inherit
-	LIBERTY_INSTRUCTION
-
-insert
-	LIBERTY_CALL
+	LIBERTY_EXPRESSION
 
 create {LIBERTY_TYPE_BUILDER}
-	make, implicit_current
+	make
 
 feature {ANY}
-	target: LIBERTY_EXPRESSION
-	entity: LIBERTY_FEATURE_ENTITY
-	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
+	result_type: LIBERTY_TYPE
 
-feature {}
-	make (a_target: like target; a_entity: like entity; a_actuals: like actuals) is
-		require
-			a_target /= Void
-			a_entity /= Void
-			a_actuals /= Void
+	is_result_type_set: BOOLEAN is
 		do
-			target := a_target
-			entity := a_entity
-			actuals := a_actuals
-		ensure
-			target = a_target
-			entity = a_entity
-			actuals = a_actuals
+			Result := result_type /= Void
 		end
 
-	implicit_current (a_entity: like entity; a_actuals: like actuals) is
+feature {LIBERTY_TYPE_BUILDER}
+	set_result_type (a_result_type: like result_type) is
 		require
-			a_entity /= Void
-			a_actuals /= Void
+			a_result_type /= Void
 		do
-			entity := a_entity
-			actuals := a_actuals
+			result_type := a_result_type
 		ensure
-			is_implicit_current
-			entity = a_entity
-			actuals = a_actuals
+			is_result_type_set
+			result_type = a_result_type
+		end
+
+feature {}
+	make is
+		do
 		end
 
 end

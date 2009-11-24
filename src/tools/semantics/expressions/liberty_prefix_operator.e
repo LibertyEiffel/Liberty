@@ -12,49 +12,34 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_CALL_INSTRUCTION
+class LIBERTY_PREFIX_OPERATOR
 
 inherit
-	LIBERTY_INSTRUCTION
-
-insert
-	LIBERTY_CALL
+	LIBERTY_PREFIX_CALL
+		rename
+			make as prefix_make
+		end
 
 create {LIBERTY_TYPE_BUILDER}
-	make, implicit_current
-
-feature {ANY}
-	target: LIBERTY_EXPRESSION
-	entity: LIBERTY_FEATURE_ENTITY
-	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
+	make
 
 feature {}
-	make (a_target: like target; a_entity: like entity; a_actuals: like actuals) is
+	make (a_target: like target; a_entity: like entity) is
 		require
 			a_target /= Void
-			a_entity /= Void
-			a_actuals /= Void
+			a_entity.feature_name.is_prefix
 		do
 			target := a_target
 			entity := a_entity
-			actuals := a_actuals
-		ensure
-			target = a_target
-			entity = a_entity
-			actuals = a_actuals
 		end
 
-	implicit_current (a_entity: like entity; a_actuals: like actuals) is
-		require
-			a_entity /= Void
-			a_actuals /= Void
+	prefix_name: LIBERTY_FEATURE_NAME is
 		do
-			entity := a_entity
-			actuals := a_actuals
-		ensure
-			is_implicit_current
-			entity = a_entity
-			actuals = a_actuals
+			check False end
 		end
+
+invariant
+	actuals.is_empty
+	not is_implicit_current
 
 end

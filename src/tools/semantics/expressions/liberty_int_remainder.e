@@ -12,34 +12,18 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_R8
+class LIBERTY_INT_REMAINDER
 
 inherit
-	LIBERTY_AST_EXPRESSION_REMAINDER[LIBERTY_AST_E8]
-		export {LIBERTY_AST_HANDLER}
-			expression, remainder
-		end
+	LIBERTY_INFIX_CALL
 
-create {LIBERTY_NODE_FACTORY}
+create {LIBERTY_TYPE_BUILDER}
 	make
 
-feature {LIBERTY_AST_HANDLER}
-	is_free_operator: BOOLEAN is
-		do
-			Result := not is_empty
-			check
-				Result implies nodes.item(0).name.is_equal(once "KW free operator")
-			end
-		end
-
-	free_operator: LIBERTY_AST_TERMINAL_NODE is
-		require
-			is_free_operator
-		do
-			Result ::= nodes.first
-		end
-
 feature {ANY}
-	name: STRING is "r8"
+	infix_name: LIBERTY_FEATURE_NAME is
+		once
+			create Result.make_infix("\\".intern)
+		end
 
 end

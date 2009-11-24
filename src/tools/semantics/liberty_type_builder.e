@@ -13,6 +13,10 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_TYPE_BUILDER
+	--
+	-- OK, this class is ugly and should be refactored.
+	-- But let's make it bootstrap first.
+	--
 
 insert
 	LIBERTY_AST_HANDLER
@@ -1232,6 +1236,8 @@ feature {} -- Entities and writables
 		end
 
 	feature_entity (name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_ENTITY is
+		require
+			name /= Void
 		do
 			Result := feature_entities.reference_at(name)
 			if Result = Void then
@@ -1350,9 +1356,230 @@ feature {} -- Expressions
 			exp /= Void
 			local_context /= Void
 		do
-			not_yet_implemented
+			Result := expression_1(exp.e1, exp.r1, local_context, redefinitions)
 		ensure
 			not errors.has_error implies Result /= Void
+		end
+
+	expression_1 (e1: LIBERTY_AST_E1; r1: LIBERTY_AST_R1; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		do
+			Result := expression_2(e1.e2, e1.r2, local_context, redefinitions)
+			if r1.is_implies then
+				create {LIBERTY_IMPLIES} Result.make(Result, expression_1(r1.expression, r1.remainder, local_context, redefinitions), agent feature_entity)
+			end
+		end
+
+	expression_2 (e2: LIBERTY_AST_E2; r2: LIBERTY_AST_R2; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		do
+			Result := expression_3(e2.e3, e2.r3, local_context, redefinitions)
+			if r2.is_or_else then
+				create {LIBERTY_OR_ELSE} Result.make(Result, expression_2(r2.expression, r2.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r2.is_or then
+				create {LIBERTY_OR} Result.make(Result, expression_2(r2.expression, r2.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r2.is_xor then
+				create {LIBERTY_XOR} Result.make(Result, expression_2(r2.expression, r2.remainder, local_context, redefinitions), agent feature_entity)
+			end
+		end
+
+	expression_3 (e3: LIBERTY_AST_E3; r3: LIBERTY_AST_R3; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		do
+			Result := expression_4(e3.e4, e3.r4, local_context, redefinitions)
+			if r3.is_and_then then
+				create {LIBERTY_AND_THEN} Result.make(Result, expression_3(r3.expression, r3.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r3.is_and then
+				create {LIBERTY_AND} Result.make(Result, expression_3(r3.expression, r3.remainder, local_context, redefinitions), agent feature_entity)
+			end
+		end
+
+	expression_4 (e4: LIBERTY_AST_E4; r4: LIBERTY_AST_R4; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		do
+			Result := expression_5(e4.e5, e4.r5, local_context, redefinitions)
+			if r4.is_eq then
+				create {LIBERTY_EQUALS} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context, redefinitions), universe.type_boolean)
+			elseif r4.is_ne then
+				create {LIBERTY_NOT_EQUALS} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context, redefinitions), universe.type_boolean)
+			elseif r4.is_le then
+				create {LIBERTY_LESS_OR_EQUAL} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r4.is_lt then
+				create {LIBERTY_LESS_THAN} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r4.is_ge then
+				create {LIBERTY_GREATER_OR_EQUAL} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r4.is_gt then
+				create {LIBERTY_GREATER_THAN} Result.make(Result, expression_4(r4.expression, r4.remainder, local_context, redefinitions), agent feature_entity)
+			end
+		end
+
+	expression_5 (e5: LIBERTY_AST_E5; r5: LIBERTY_AST_R5; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		do
+			Result := expression_6(e5.e6, e5.r6, local_context, redefinitions)
+			if r5.is_plus then
+				create {LIBERTY_ADD} Result.make(Result, expression_5(r5.expression, r5.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r5.is_minus then
+				create {LIBERTY_SUBTRACT} Result.make(Result, expression_5(r5.expression, r5.remainder, local_context, redefinitions), agent feature_entity)
+			end
+		end
+
+	expression_6 (e6: LIBERTY_AST_E6; r6: LIBERTY_AST_R6; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		do
+			Result := expression_7(e6.e7, e6.r7, local_context, redefinitions)
+			if r6.is_times then
+				create {LIBERTY_TIMES} Result.make(Result, expression_6(r6.expression, r6.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r6.is_divide then
+				create {LIBERTY_DIVIDE} Result.make(Result, expression_6(r6.expression, r6.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r6.is_int_divide then
+				create {LIBERTY_INT_DIVIDE} Result.make(Result, expression_6(r6.expression, r6.remainder, local_context, redefinitions), agent feature_entity)
+			elseif r6.is_int_remainder then
+				create {LIBERTY_INT_REMAINDER} Result.make(Result, expression_6(r6.expression, r6.remainder, local_context, redefinitions), agent feature_entity)
+			end
+		end
+
+	expression_7 (e7: LIBERTY_AST_E7; r7: LIBERTY_AST_R7; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		do
+			Result := expression_8(e7.e8, e7.r8, local_context, redefinitions)
+			if r7.is_power then
+				create {LIBERTY_POWER} Result.make(Result, expression_7(r7.expression, r7.remainder, local_context, redefinitions), agent feature_entity)
+			end
+		end
+
+	expression_8 (e8: LIBERTY_AST_E8; r8: LIBERTY_AST_R8; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		local
+			fn: LIBERTY_FEATURE_NAME
+		do
+			if e8.has_prefix_operator then
+				inspect
+					e8.prefix_operator.name
+				when "KW +" then
+					create {LIBERTY_POSITIVE} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity)
+				when "KW -" then
+					create {LIBERTY_NEGATIVE} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity)
+				when "KW not" then
+					create {LIBERTY_NOT} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity)
+				else
+					create fn.make_prefix(e8.prefix_operator.image.image.intern)
+					create {LIBERTY_PREFIX_OPERATOR} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), feature_entity(fn))
+				end
+			else
+				Result := expression_9(e8.e9, local_context, redefinitions)
+			end
+			if r8.is_free_operator then
+				create fn.make_infix(r8.free_operator.image.image.intern)
+				create {LIBERTY_INFIX_OPERATOR} Result.make(Result, expression_8(r8.expression, r8.remainder, local_context, redefinitions), feature_entity(fn))
+			end
+		end
+
+	expression_9 (e9: LIBERTY_AST_E9; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		do
+			Result := expression_10(e9.e10, local_context, redefinitions)
+			if e9.has_old then
+				create {LIBERTY_OLD} Result.make(Result)
+			end
+		end
+
+	expression_10 (e10: LIBERTY_AST_E10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		local
+			fe: LIBERTY_FEATURE_ENTITY
+			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
+			r10: LIBERTY_AST_R10
+			exp: LIBERTY_EXPRESSION
+		do
+			if e10.is_call then
+				Result := expression_call(e10.call, local_context, redefinitions)
+			elseif e10.is_tuple then
+				Result := expression_tuple(e10.tuple_actuals, local_context, redefinitions)
+			elseif e10.is_open_argument then
+				create {LIBERTY_OPEN_ARGUMENT} Result.make
+			elseif e10.is_manifest_or_type_test then
+				exp := typed_manifest_or_type_test(e10.manifest_or_type_test, local_context, redefinitions)
+				if e10.manifest_or_type_test_r10.is_empty then
+					Result := exp
+				else
+					from
+						fe ::= entity(e10.manifest_or_type_test_r10.feature_name, local_context, redefinitions)
+						fa := actuals(e10.manifest_or_type_test_r10.actuals, local_context, redefinitions)
+						create {LIBERTY_CALL_EXPRESSION} exp.make(exp, fe, fa)
+						r10 := e10.manifest_or_type_test_r10.remainder
+						if r10.is_empty then
+							Result := exp
+						end
+					until
+						errors.has_error or else Result /= Void
+					loop
+						fe ::= entity(r10.feature_name, local_context, redefinitions)
+						fa := actuals(r10.actuals, local_context, redefinitions)
+						r10 := r10.remainder
+						if r10.is_empty then
+							create {LIBERTY_CALL_EXPRESSION} Result.make(exp, fe, fa)
+						else
+							create {LIBERTY_CALL_EXPRESSION} exp.make(exp, fe, fa)
+						end
+					end
+				end
+			elseif e10.is_inline_agent then
+				--|*** TODO
+				not_yet_implemented
+			elseif e10.is_agent_creation then
+				--|*** TODO
+				not_yet_implemented
+			elseif e10.is_creation_expression then
+				--|*** TODO
+				not_yet_implemented
+			elseif e10.is_void then
+				create {LIBERTY_VOID} Result.make
+			elseif e10.is_assignment_test then
+				--|*** TODO
+				not_yet_implemented
+			else
+				check False end
+			end
+		end
+
+	expression_call (a_call: LIBERTY_AST_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		require
+			a_call /= Void
+		local
+			tgt: LIBERTY_EXPRESSION
+			fe: LIBERTY_FEATURE_ENTITY
+			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
+			r10: LIBERTY_AST_R10
+		do
+			r10 := a_call.r10
+			from
+				tgt := target_or_implicit_feature_call_expression(a_call.target, local_context, redefinitions)
+				if r10.is_empty then
+					Result := tgt
+				end
+			until
+				errors.has_error or else Result /= Void
+			loop
+				fe ::= entity(r10.feature_name, local_context, redefinitions)
+				fa := actuals(r10.actuals, local_context, redefinitions)
+				r10 := r10.remainder
+				if r10.is_empty then
+					create {LIBERTY_CALL_EXPRESSION} Result.make(tgt, fe, fa)
+				else
+					create {LIBERTY_CALL_EXPRESSION} tgt.make(tgt, fe, fa)
+				end
+			end
+			check
+				errors.has_error or else r10.is_empty
+			end
+		end
+
+	expression_tuple (a_tuple: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_TUPLE is
+		local
+			exp: LIBERTY_AST_EXPRESSION
+			i: INTEGER
+		do
+			create Result.make(universe.type_tuple(a_tuple.count), a_tuple.count)
+			from
+				i := a_tuple.lower
+			until
+				i > a_tuple.upper
+			loop
+				exp ::= a_tuple.item(i)
+				Result.add(expression(exp, local_context, redefinitions))
+				i := i + 1
+			end
 		end
 
 	typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is

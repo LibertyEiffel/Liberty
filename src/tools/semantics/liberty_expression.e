@@ -30,4 +30,7 @@ feature {ANY}
 		deferred
 		end
 
+invariant
+	is_result_type_set implies result_type /= Void
+
 end

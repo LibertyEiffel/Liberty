@@ -12,49 +12,35 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_CALL_INSTRUCTION
+class LIBERTY_INFIX_OPERATOR
 
 inherit
-	LIBERTY_INSTRUCTION
-
-insert
-	LIBERTY_CALL
-
-create {LIBERTY_TYPE_BUILDER}
-	make, implicit_current
-
-feature {ANY}
-	target: LIBERTY_EXPRESSION
-	entity: LIBERTY_FEATURE_ENTITY
-	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
-
-feature {}
-	make (a_target: like target; a_entity: like entity; a_actuals: like actuals) is
-		require
-			a_target /= Void
-			a_entity /= Void
-			a_actuals /= Void
-		do
-			target := a_target
-			entity := a_entity
-			actuals := a_actuals
-		ensure
-			target = a_target
-			entity = a_entity
-			actuals = a_actuals
+	LIBERTY_INFIX_CALL
+		rename
+			make as infix_make
 		end
 
-	implicit_current (a_entity: like entity; a_actuals: like actuals) is
+create {LIBERTY_TYPE_BUILDER}
+	make
+
+feature {}
+	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity: like entity) is
 		require
-			a_entity /= Void
-			a_actuals /= Void
+			a_left /= Void
+			a_right /= Void
+			a_entity.feature_name.is_infix
 		do
+			target := a_left
+			actuals := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
 			entity := a_entity
-			actuals := a_actuals
 		ensure
-			is_implicit_current
-			entity = a_entity
-			actuals = a_actuals
+			target = a_left
+			actuals.first = a_right
+		end
+
+	infix_name: LIBERTY_FEATURE_NAME is
+		do
+			check False end
 		end
 
 end
