@@ -437,7 +437,7 @@ feature {}
 			obsolete_message: STRING
 			locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]
 			do_block: LIBERTY_AST_DO_BLOCK; routine: LIBERTY_FEATURE_ROUTINE
-			insts: TRAVERSABLE[LIBERTY_INSTRUCTION]
+			comp: LIBERTY_INSTRUCTION
 		do
 			if block.obsolete_clause.count > 0 then
 				obsolete_message := decoded_string(block.obsolete_clause.string)
@@ -457,15 +457,15 @@ feature {}
 					create {LIBERTY_FEATURE_ATTRIBUTE} Result.make
 				else
 					list_locals(block.local_block, local_context, redefinitions)
-					insts := instructions(block.do_block.list, local_context, redefinitions)
+					comp := compound(block.do_block.list, local_context, redefinitions)
 					if not errors.has_error then
 						if do_block.is_do then
-							create {LIBERTY_FEATURE_DO} routine.make(insts)
+							create {LIBERTY_FEATURE_DO} routine.make(comp)
 						else
 							check do_block.is_once end
-							create {LIBERTY_FEATURE_ONCE} routine.make(insts)
+							create {LIBERTY_FEATURE_ONCE} routine.make(comp)
 						end
-						routine.set_rescue(instructions(block.rescue_block.list, local_context, redefinitions))
+						routine.set_rescue(compound(block.rescue_block.list, local_context, redefinitions))
 						Result := routine
 					end
 				end
@@ -728,22 +728,39 @@ feature {}
 		end
 
 feature {} -- Instructions
-	instructions (insts: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): COLLECTION[LIBERTY_INSTRUCTION] is
+	empty_instruction: LIBERTY_EMPTY is
+		once
+			create Result.make
+		end
+
+	compound (insts: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_INSTRUCTION is
 		require
 			insts /= Void
 			local_context /= Void
 		local
-			i: INTEGER; inst: LIBERTY_AST_INSTRUCTION
+			i, n: INTEGER; inst: LIBERTY_AST_INSTRUCTION
+			instructions: COLLECTION[LIBERTY_INSTRUCTION]
 		do
-			create {FAST_ARRAY[LIBERTY_INSTRUCTION]} Result.with_capacity(insts.count)
-			from
-				i := insts.lower
-			until
-				i > insts.upper
-			loop
-				inst ::= insts.item(i)
-				Result.add_last(instruction(inst, local_context, redefinitions))
-				i := i + 1
+			n := insts.count
+			inspect
+				n
+			when 0 then
+				Result := empty_instruction
+			when 1 then
+				inst ::= insts.first
+				Result := instruction(inst, local_context, redefinitions)
+			else
+				create {FAST_ARRAY[LIBERTY_INSTRUCTION]} instructions.with_capacity(n)
+				from
+					i := insts.lower
+				until
+					i > insts.upper
+				loop
+					inst ::= insts.item(i)
+					instructions.add_last(instruction(inst, local_context, redefinitions))
+					i := i + 1
+				end
+				create {LIBERTY_COMPOUND} Result.make(instructions)
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -866,12 +883,12 @@ feature {} -- Instructions
 
 	condition (a_if: LIBERTY_AST_IF; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_CONDITION is
 		do
-			create Result.make(expression(a_if.expression, local_context, redefinitions), instructions(a_if.instructions, local_context, redefinitions))
+			create Result.make(expression(a_if.expression, local_context, redefinitions), compound(a_if.instructions, local_context, redefinitions))
 		end
 
 	else_clause (a_else: LIBERTY_AST_ELSE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_DEFAULT is
 		do
-			create Result.make(instructions(a_else.list, local_context, redefinitions))
+			create Result.make(compound(a_else.list, local_context, redefinitions))
 		end
 
 	instruction_inspect (a_inspect: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_INSPECT is
@@ -907,7 +924,7 @@ feature {} -- Instructions
 			low, up: LIBERTY_EXPRESSION
 		do
 			when_clause ::= a_clause
-			create Result.make(instructions(when_clause.instructions, local_context, redefinitions))
+			create Result.make(compound(when_clause.instructions, local_context, redefinitions))
 			from
 				i := when_clause.when_slices.lower
 			until
@@ -946,18 +963,18 @@ feature {} -- Instructions
 			{LIBERTY_AST_LOOP} ?:= a_loop
 		local
 			l00p: LIBERTY_AST_LOOP
-			init, body: like instructions
+			init, body: like compound
 			exp, variant_clause: LIBERTY_EXPRESSION
 			invariant_clause: LIBERTY_INVARIANT
 		do
 			l00p ::= a_loop
-			init := instructions(l00p.instructions, local_context, redefinitions)
+			init := compound(l00p.instructions, local_context, redefinitions)
 			invariant_clause := loop_invariant(l00p.invariant_clause, local_context, redefinitions)
 			if l00p.variant_clause.has_expression then
 				variant_clause := expression(l00p.variant_clause.expression, local_context, redefinitions)
 			end
 			exp := expression(l00p.expression, local_context, redefinitions)
-			body := instructions(l00p.instructions, local_context, redefinitions)
+			body := compound(l00p.instructions, local_context, redefinitions)
 			create Result.make(init, invariant_clause, variant_clause, exp, body)
 		end
 
@@ -994,7 +1011,7 @@ feature {} -- Instructions
 			{LIBERTY_AST_DEBUG} ?:= a_debug
 		local
 			dbg: LIBERTY_AST_DEBUG
-			keys: FAST_ARRAY[STRING]; inst: like instructions
+			keys: FAST_ARRAY[STRING]; inst: like compound
 			i: INTEGER
 		do
 			dbg ::= a_debug
@@ -1009,7 +1026,7 @@ feature {} -- Instructions
 					i := i + 1
 				end
 			end
-			inst := instructions(dbg.instructions, local_context, redefinitions)
+			inst := compound(dbg.instructions, local_context, redefinitions)
 			create Result.make(keys, inst)
 		ensure
 			Result /= Void

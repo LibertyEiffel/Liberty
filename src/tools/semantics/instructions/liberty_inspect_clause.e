@@ -18,7 +18,7 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
-	instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
+	instruction: LIBERTY_INSTRUCTION
 
 	values: TRAVERSABLE[LIBERTY_INSPECT_SLICE] is
 		do
@@ -38,20 +38,20 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
-	make (a_instructions: like instructions) is
+	make (a_instruction: like instruction) is
 		require
-			a_instructions /= Void
+			a_instruction /= Void
 		do
-			instructions := a_instructions
+			instruction := a_instruction
 			create {FAST_ARRAY[LIBERTY_INSPECT_SLICE]} values_list.with_capacity(2)
 		ensure
-			instructions = a_instructions
+			instruction = a_instruction
 		end
 
 	values_list: COLLECTION[LIBERTY_INSPECT_SLICE]
 
 invariant
-	instructions /= Void
+	instruction /= Void
 	values_list /= Void
 
 end

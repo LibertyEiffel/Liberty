@@ -12,25 +12,18 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_DEFAULT
+class LIBERTY_EMPTY
+
+inherit
+	LIBERTY_INSTRUCTION
 
 create {LIBERTY_TYPE_BUILDER}
 	make
 
-feature {ANY}
-	instruction: LIBERTY_INSTRUCTION
-
 feature {}
-	make (a_instruction: like instruction) is
-		require
-			a_instruction /= Void
+	make is
 		do
-			instruction := a_instruction
-		ensure
-			instruction = a_instruction
 		end
 
-invariant
-	instruction /= Void
-
 end
+

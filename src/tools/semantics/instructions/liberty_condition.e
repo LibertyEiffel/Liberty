@@ -20,23 +20,22 @@ create {LIBERTY_TYPE_BUILDER}
 feature {ANY}
 	expression: LIBERTY_EXPRESSION
 
-	instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
+	instruction: LIBERTY_INSTRUCTION
 
 feature {}
-	make (a_expression: like expression; a_instructions: like instructions) is
+	make (a_expression: like expression; a_instruction: like instruction) is
 		require
 			a_expression /= Void
-			a_instructions /= Void
+			a_instruction /= Void
 		do
 			expression := a_expression
-			instructions := a_instructions
+			instruction := a_instruction
 		ensure
 			expression = a_expression
-			instructions = a_instructions
+			instruction = a_instruction
 		end
 
 invariant
 	expression /= Void
-	instructions /= Void
 
 end

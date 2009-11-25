@@ -22,23 +22,23 @@ create {LIBERTY_TYPE_BUILDER}
 
 feature {ANY}
 	keys: TRAVERSABLE[STRING]
-	instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
+	instruction: LIBERTY_INSTRUCTION
 
 feature {}
-	make (a_keys: like keys; a_instructions: like instructions) is
+	make (a_keys: like keys; a_instruction: like instruction) is
 		require
 			a_keys /= Void
-			a_instructions /= Void
+			a_instruction /= Void
 		do
 			keys := a_keys
-			instructions := a_instructions
+			instruction := a_instruction
 		ensure
 			keys = a_keys
-			instructions = a_instructions
+			instruction = a_instruction
 		end
 
 invariant
 	keys /= Void
-	instructions /= Void
+	instruction /= Void
 
 end

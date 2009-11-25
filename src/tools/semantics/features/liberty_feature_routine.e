@@ -21,33 +21,33 @@ inherit
 		end
 
 feature {ANY}
-	block_instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
+	block_instruction: LIBERTY_INSTRUCTION
 
-	rescue_instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
+	rescue_instruction: LIBERTY_INSTRUCTION
 
 feature {LIBERTY_TYPE_BUILDER}
-	set_rescue (a_rescue: like rescue_instructions) is
+	set_rescue (a_rescue: like rescue_instruction) is
 		require
-			rescue_instructions = Void
+			rescue_instruction = Void
 			a_rescue /= Void
 		do
-			rescue_instructions := a_rescue
+			rescue_instruction := a_rescue
 		ensure
-			rescue_instructions = a_rescue
+			rescue_instruction = a_rescue
 		end
 
 feature {}
-	make (a_instructions: like block_instructions) is
+	make (a_instruction: like block_instruction) is
 		require
-			a_instructions /= Void
+			a_instruction /= Void
 		do
 			make_late_binding
-			block_instructions := a_instructions
+			block_instruction := a_instruction
 		ensure
-			block_instructions = a_instructions
+			block_instruction = a_instruction
 		end
 
 invariant
-	block_instructions /= Void
+	block_instruction /= Void
 
 end

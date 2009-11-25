@@ -12,57 +12,69 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_INSPECT
+class LIBERTY_COMPOUND
 
 inherit
 	LIBERTY_INSTRUCTION
+	TRAVERSABLE[LIBERTY_INSTRUCTION]
 
 create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
-	expression: LIBERTY_EXPRESSION
-
-	clauses: TRAVERSABLE[LIBERTY_INSPECT_CLAUSE] is
+	count: INTEGER is
 		do
-			Result := clauses_list
-		ensure
-			Result = clauses_list
+			Result := instructions.count
+		ensure then
+			Result > 1
 		end
 
-	else_clause: LIBERTY_DEFAULT
+	is_empty: BOOLEAN is False
 
-feature {LIBERTY_TYPE_BUILDER}
-	add_clause (a_clause: LIBERTY_INSPECT_CLAUSE) is
-		require
-			a_clause /= Void
+	lower: INTEGER is
 		do
-			clauses_list.add_last(a_clause)
-		ensure
-			clauses.last = a_clause
+			Result := instructions.lower
 		end
 
-	set_else_clause (a_else_clause: like else_clause) is
+	upper: INTEGER is
 		do
-			else_clause := a_else_clause
-		ensure
-			else_clause = a_else_clause
+			Result := instructions.upper
+		end
+
+	first: LIBERTY_INSTRUCTION is
+		do
+			Result := instructions.first
+		end
+
+	last: LIBERTY_INSTRUCTION is
+		do
+			Result := instructions.last
+		end
+
+	item (i: INTEGER): LIBERTY_INSTRUCTION is
+		do
+			Result := instructions.item(i)
+		end
+
+	new_iterator: ITERATOR[LIBERTY_INSTRUCTION] is
+		do
+			Result := instructions.new_iterator
 		end
 
 feature {}
-	make (a_expression: like expression) is
+	make (a_instructions: like instructions) is
 		require
-			a_expression /= Void
+			a_instructions.count > 1
 		do
-			create {FAST_ARRAY[LIBERTY_INSPECT_CLAUSE]} clauses_list.with_capacity(8)
+			instructions := a_instructions
 		ensure
-			expression = a_expression
+			instructions = a_instructions
 		end
 
-	clauses_list: COLLECTION[LIBERTY_INSPECT_CLAUSE]
+	instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
 
 invariant
-	expression /= Void
-	clauses_list /= Void
+	instructions /= Void
 
 end
+

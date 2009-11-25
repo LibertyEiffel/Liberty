@@ -48,7 +48,7 @@ feature {LIBERTY_TYPE_BUILDER}
 feature {}
 	make is
 		do
-			create {FAST_ARRAY[LIBERTY_CONDITION]}conditions_list.with_capacity(4)
+			create {FAST_ARRAY[LIBERTY_CONDITION]} conditions_list.with_capacity(4)
 		end
 
 	conditions_list: COLLECTION[LIBERTY_CONDITION]
