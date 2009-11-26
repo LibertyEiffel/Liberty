@@ -18,7 +18,7 @@ inherit
 	LIBERTY_EXPRESSION
 
 create {LIBERTY_TYPE_BUILDER}
-	make
+	make, set_result_type
 
 feature {ANY}
 	result_type: LIBERTY_TYPE

@@ -1543,8 +1543,9 @@ feature {} -- Expressions
 			elseif e10.is_void then
 				create {LIBERTY_VOID} Result.make
 			elseif e10.is_assignment_test then
-				--|*** TODO
-				not_yet_implemented
+				create {LIBERTY_ASSIGNMENT_TEST} Result.test_entity(entity(e10.assignment_test_entity_name, local_context, redefinitions),
+																					 expression(e10.assignment_test_expression, local_context, redefinitions),
+																					 universe.type_boolean)
 			else
 				check False end
 			end
@@ -1605,9 +1606,11 @@ feature {} -- Expressions
 			local_context /= Void
 		do
 			if constant.is_assignment_test then
-				--|*** TODO
+				create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(universe.get_type_from_type_definition(type, constant.assignment_test_type, effective_generic_parameters),
+																				  expression(constant.assignment_test_expression),
+																				  universe.type_boolean)
 			elseif constant.is_typed_open_argument then
-				--|*** TODO
+				create {LIBERTY_OPEN_ARGUMENT} Result.set_result_type(universe.get_type_from_type_definition(type, constant.open_argument_type, effective_generic_parameters))
 			elseif constant.is_number then
 				Result := number(constant.number.image)
 			elseif constant.is_true then
