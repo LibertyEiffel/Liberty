@@ -12,25 +12,13 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_EXPRESSION
-
-inherit
-	LIBERTY_POSITIONABLE, LIBERTY_TAGGED
+deferred class LIBERTY_TAG
 
 feature {ANY}
-	result_type: LIBERTY_TYPE is
-		require
-			is_result_type_set
+	id: FIXED_STRING is
 		deferred
 		ensure
 			Result /= Void
 		end
-
-	is_result_type_set: BOOLEAN is
-		deferred
-		end
-
-invariant
-	is_result_type_set implies result_type /= Void
 
 end

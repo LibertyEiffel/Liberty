@@ -10,3 +10,4 @@
 ./semantics/expressions/
 ./semantics/features/
 ./semantics/instructions/
+./semantics/tags/

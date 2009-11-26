@@ -12,25 +12,25 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_EXPRESSION
+expanded class LIBERTY_TAGS
 
-inherit
-	LIBERTY_POSITIONABLE, LIBERTY_TAGGED
-
-feature {ANY}
-	result_type: LIBERTY_TYPE is
-		require
-			is_result_type_set
-		deferred
-		ensure
-			Result /= Void
+feature {ANY} -- Tags on expressions
+	is_void: LIBERTY_TAG_REF[TRISTATE] is
+			-- This tag checks if the expression is always Void.
+		once
+			create Result.make("is void".intern)
 		end
 
-	is_result_type_set: BOOLEAN is
-		deferred
+	has_side_effect: LIBERTY_TAG_REF[TRISTATE] is
+			-- This tag checks if the expression has side effects (useful to drop targets when optimizing).
+		once
+			create Result.make("has side effect".intern)
 		end
 
-invariant
-	is_result_type_set implies result_type /= Void
+	runtime_set: LIBERTY_TAG_REF[COLLECTION[LIBERTY_TYPE]] is
+			-- This tag contains the complete set of actual types an expression may have at runtime.
+		once
+			create Result.make("runtime set".intern)
+		end
 
 end
