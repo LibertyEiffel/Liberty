@@ -23,7 +23,9 @@ feature {ANY}
 			s /= Void
 		do
 			string := s
-			item_index := 1
+			-- Note: the following assignment more properly belongs to feature `start'
+			-- item_index := 1
+
 		ensure
 			string = s
 		end

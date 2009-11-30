@@ -3,36 +3,40 @@ class ROPE
    -- A string of characters allowing for efficient concatenation.
    --
    -- See also FIXED_STRING and STRING
+   -- http://en.wikipedia.org/Rope_(computer_science) and
+   -- http://pcplus.techradar.com/node/3079/
 
-inherit ABSTRACT_STRING redefine new_iterator end
+inherit ABSTRACT_STRING redefine new_iterator, infix "<" end
 
-creation --from_strings, 
-	{ANY} concatenating
+creation {ANY} from_strings
 
 feature -- Creation
-	concatenating (a_string, another: ABSTRACT_STRING) is
+	from_strings (first_string, second_string: ABSTRACT_STRING) is
 	do
-		content := a_string
-		next := another
+		left := first_string
+		right := second_string
+		separation := left.count
 	end
 
 	copy (another: like Current) is
 	do
-		content:=another.content
-		next:=another.next
+		left:=another.left
+		right:=another.right
+		separation:=another.separation
 	end
 
 feature 
 	count: INTEGER is
 		do
-			Result:= content.count+next.count
+			Result := left.count +right.count
 		end
 
 	item (an_index: INTEGER): CHARACTER is
 		-- Random access is an O(count) operation for a ROPE.
 		do
-			if an_index<content.count then Result := content.item(an_index)
-			else Result := next.item(an_index-content.count)
+			if an_index<=separation 
+			then Result := left.item(an_index)
+			else Result := right.item(an_index-separation)
 			end
 		end
 
@@ -50,7 +54,27 @@ feature
 				i.next
 			end
 		end
-	
+feature {ANY} 
+	infix "<" (other: ABSTRACT_STRING): BOOLEAN is
+		local ci, oi: ITERATOR[CHARACTER]
+		do
+			from 
+				ci:=new_iterator; ci.start
+				oi:=other.new_iterator; oi.start
+			until (ci.is_off or oi.is_off) and then ci.item=oi.item 
+			loop ci.next; oi.next
+			end
+			if ci.is_off then
+				if oi.is_off then Result := False
+				else Result := True
+				end
+			else
+				if oi.is_off then Result := False
+				else Result := (ci.item < oi.item)
+				end
+			end
+		end
+
 	is_equal (other: ABSTRACT_STRING): BOOLEAN is
 		-- O(min(count,other.count))
 		local ci,oi: ITERATOR[CHARACTER]
@@ -76,21 +100,22 @@ feature
 			from 
 				ci:=new_iterator; ci.start
 				oi:=other.new_iterator; oi.start
-			until not (ci.is_off or oi.is_off) and then ci.item.to_lower=oi.item 
+			until 
+				not (ci.is_off or oi.is_off) and then 
+				ci.item.to_lower=oi.item.to_lower
 			loop ci.next; oi.next
 			end
 			Result := ci.is_off and oi.is_off
 		end
 
-
 	first: CHARACTER is
 		do
-			Result:=content.first
+			Result:=left.first
 		end
 
 	last: CHARACTER is
 		do
-			Result:=next.last
+			Result:=right.last
 		end
 
 	has (c: CHARACTER): BOOLEAN is
@@ -136,7 +161,7 @@ feature -- Concatenation
 feature -- Iterating and other features
 	new_iterator: ITERATOR[CHARACTER] is
 		do
-			-- create {ITERATOR_ON_ROPE} Result.make(Current)
+			create {ITERATOR_ON_ROPE} Result.make(Current)
 		end
 	
 	intern: FIXED_STRING is
@@ -159,7 +184,13 @@ feature
 		do
 			not_yet_implemented
 		end
-feature {ROPE} -- Implementation
-	content, next: ABSTRACT_STRING
-
+feature {ABSTRACT_STRING,ITERATOR_ON_ROPE} -- Implementation
+	separation: INTEGER
+		-- The index where 
+	left,right: ABSTRACT_STRING
+		-- The left and right part of the ROPE
+invariant
+	left/=Void
+	right/=Void
+	separation=left.count
 end -- class ROPE 

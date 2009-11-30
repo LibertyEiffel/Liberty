@@ -49,7 +49,7 @@ feature {ANY} -- Status report:
 		end
 
 feature {ANY} -- Comparison:
-	is_equal (other: like Current): BOOLEAN is
+	infix "~", is_equal (other: like Current): BOOLEAN is
 			-- Is `other' attached to an object considered equal to current object?
 		require
 			other /= Void

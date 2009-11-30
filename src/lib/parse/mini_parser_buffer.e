@@ -18,50 +18,16 @@ insert
 
 feature {ANY}
 	initialize_with (string: ABSTRACT_STRING) is
-			-- Initialize the `Current' buffer using the content of the `string'.
-			-- ''Note:'' The storage is shared between the buffer and the given `string'. Don't change the
-			-- content of the `string' or the parsing may get corrupted!
-			--|*** It looks like a strange design decision to me <CAD 2007.09.25>
-			-- Or use a FIXED_STRING...
+			-- Initialize the `Current' buffer interning `string'.
 		require
 			string /= Void
 		do
-			internal_index := 0
-			upper := string.count - 1
-			capacity := string.capacity
-			storage := string.storage
+			storage := string.intern
+			current_index := storage.lower
 			last_error := Void
 		ensure
 			count = string.count
 			last_error = Void
-		end
-
-	count: INTEGER is
-			-- The length of the `Current' buffer which is also the maximum valid index.
-		do
-			Result := upper + 1
-		end
-
-	current_index: INTEGER is
-			-- Index of the current character.
-		do
-			Result := internal_index + 1
-		end
-
-	current_character: CHARACTER is
-			-- The current character (the one at `current_index').
-		require
-			current_index.in_range(1, count)
-		do
-			Result := storage.item(internal_index)
-		end
-
-	end_reached: BOOLEAN is
-			-- Is the end of the buffer reached?
-		do
-			Result := internal_index > upper
-		ensure
-			Result = (current_index > count)
 		end
 
 	next is
@@ -69,7 +35,7 @@ feature {ANY}
 		require
 			not end_reached
 		do
-			internal_index := internal_index + 1
+			current_index := current_index + 1
 		ensure
 			current_index = 1 + old current_index
 		end
@@ -83,10 +49,10 @@ feature {ANY}
 			until
 				stop
 			loop
-				if internal_index > upper then
+				if current_index > upper then
 					stop := True
-				elseif storage.item(internal_index).is_separator then
-					internal_index := internal_index + 1
+				elseif storage.item(current_index).is_separator then
+					current_index := current_index + 1
 				else
 					stop := True
 				end
@@ -113,27 +79,62 @@ feature {ANY}
 	set_current_index (new_index: like current_index) is
 			-- To be able to move (usually back) in the buffer
 		require
-			new_index.in_range(1, count + 1)
+			new_index.in_range(lower, upper)
 		do
-			internal_index := new_index - 1
+			current_index := new_index 
 		ensure
 			current_index = new_index
 		end
 
-feature {}
-	storage: NATIVE_ARRAY[CHARACTER]
-			-- The `storage' area to be parsed.
+feature -- Queries
+	lower: INTEGER is
+		do
+			Result:=storage.lower
+		end
 
-	capacity: INTEGER
-			-- Of `storage'.
-
-	upper: INTEGER
+	upper: INTEGER is
 			-- Maximum valid index in storage.
+		do
+			Result:=storage.upper
+		end
+	
+	count: INTEGER is
+			-- The length of the `Current' buffer which is also the maximum valid index.
+		do
+			Result := storage.count
+		end
 
-	internal_index: INTEGER
-			-- Of the current character in `storage'.
+	capacity: INTEGER is
+			-- Of `storage'.
+		do 
+			Result:=storage.capacity
+		end
 
-end
+	current_index: INTEGER
+			-- Index of the current character.
+
+	current_character: CHARACTER is
+			-- The current character (the one at `current_index').
+		require
+			current_index.in_range(1, count)
+		do
+			Result := storage.item(current_index)
+		end
+
+	end_reached: BOOLEAN is
+			-- Is the end of the buffer reached?
+		do
+			Result := current_index > upper
+		ensure
+			Result = (current_index > count)
+		end
+
+
+
+feature {}
+	storage: FIXED_STRING
+			-- The `storage' area to be parsed.
+end -- class MINI_PARSER_BUFFER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

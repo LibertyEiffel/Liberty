@@ -39,7 +39,7 @@ feature {ANY}
 					Result := True 
 					ci := new_iterator;	oi := other.new_iterator
 					ci.start; oi.start
-				until Result=True or else not ci.is_off or not oi.is_off
+				until Result=False or else ci.is_off or oi.is_off
 				loop
 					Result := (ci.item = oi.item)
 					ci.next; oi.next
@@ -85,7 +85,7 @@ feature {ANY}
 					Result := True 
 					ci := new_iterator;	oi := other.new_iterator
 					ci.start; oi.start
-				until Result=True or else not ci.is_off or not oi.is_off
+				until Result=False or else ci.is_off or oi.is_off
 				loop
 					Result := (ci.item.same_as(oi.item))
 					ci.next; oi.next

@@ -36,18 +36,13 @@ insert
 		undefine copy, out_in_tagged_out_memory, fill_tagged_out_memory, is_equal
 		end
 
-feature {STRING_HANDLER}
-	storage: NATIVE_ARRAY[CHARACTER]
-			-- The place where characters are stored.
-
 feature {ANY}
-	count: INTEGER
+	count: INTEGER is
 			-- String length which is also the maximum valid index.
 			--
 			-- See also `is_empty', `lower', `upper'.
-
-	capacity: INTEGER
-			-- Capacity of the `storage' area.
+		deferred
+		end
 
 	lower: INTEGER is 1
 			-- Minimum index; actually, this is always 1 (this feature is
@@ -85,8 +80,7 @@ feature {ANY} -- Testing:
 			-- Character at position `i'.
 			--
 			-- See also `lower', `upper', `valid_index', `put'.
-		do
-			Result := storage.item(i - 1)
+		deferred
 		end
 
 	frozen infix "@" (i: INTEGER): CHARACTER is
@@ -168,41 +162,14 @@ feature {ANY} -- Testing:
 			-- Do both strings have the same character sequence?
 			--
 			-- See also `same_as'.
-		do
-			if count = other.count then
-				Result := storage.fast_memcmp(other.storage, count)
-			end
+		deferred 
 		end
 
 	same_as (other: ABSTRACT_STRING): BOOLEAN is
 			-- Case insensitive `is_equal'.
 		require
 			other /= Void
-		local
-			s1, s2: like storage; i: INTEGER
-		do
-			i := count
-			if i = other.count then
-				if storage.fast_memcmp(other.storage, i) then
-					Result := True
-				else
-					from
-						i := i - 1
-						s1 := storage
-						s2 := other.storage
-						Result := True
-					until
-						i < 0
-					loop
-						if s1.item(i).same_as(s2.item(i)) then
-							i := i - 1
-						else
-							i := -1
-							Result := False
-						end
-					end
-				end
-			end
+		deferred
 		end
 
 	item_code (i: INTEGER): INTEGER is
@@ -212,7 +179,9 @@ feature {ANY} -- Testing:
 		require
 			valid_index: valid_index(i)
 		do
-			Result := storage.item(i - 1).code
+			-- TODO: find any technically sound reason to restore previous
+			-- implementation: "Result := storage.item(i - 1).code"
+			Result := item(i).code
 		ensure
 			definition: Result = item(i).code
 		end
@@ -223,15 +192,7 @@ feature {ANY} -- Testing:
 			-- See also `reverse_index_of', `first_index_of', `last_index_of', `has'.
 		require
 			valid_start_index: start_index >= 1 and start_index <= count + 1
-		do
-			if start_index <= count then
-				Result := storage.fast_index_of(c, start_index - 1, count - 1)
-				if Result = count then
-					Result := 0
-				else
-					Result := Result + 1
-				end
-			end
+		deferred
 		ensure
 			Result /= 0 implies item(Result) = c
 		end
@@ -244,10 +205,7 @@ feature {ANY} -- Testing:
 			-- See also `index_of', `last_index_of', `first_index_of'.
 		require
 			valid_start_index: start_index >= 0 and start_index <= count
-		do
-			if count > 0 then
-				Result := storage.fast_reverse_index_of(c, start_index - 1) + 1
-			end
+		deferred
 		ensure
 			Result /= 0 implies item(Result) = c
 		end
@@ -276,8 +234,7 @@ feature {ANY} -- Testing:
 			-- True if `c' is in the STRING.
 			--
 			-- See also `index_of', `occurrences', `has_substring'.
-		do
-			Result := storage.fast_has(c, count - 1)
+		deferred 
 		end
 
 	has_substring (other: ABSTRACT_STRING): BOOLEAN is
@@ -294,8 +251,7 @@ feature {ANY} -- Testing:
 			-- Number of times character `c' appears in the string.
 			--
 			-- See also `remove_all_occurrences', `has'.
-		do
-			Result := storage.fast_occurrences(c, count - 1)
+		deferred
 		ensure
 			Result >= 0
 		end
@@ -1014,7 +970,7 @@ feature {ANY} -- Testing and Conversion:
 			end
 		end
 
-feature {ANY}
+feature {ANY} -- Concatenation
 	infix "+" (other: ABSTRACT_STRING): STRING is
 			-- Create a new STRING which is the concatenation of
 			-- `Current' and `other'.
@@ -1030,6 +986,29 @@ feature {ANY}
 			result_count: Result.count = count + other.count
 		end
 
+	infix "|" (another: ABSTRACT_STRING): ROPE is
+		-- Current and `another' concatenated into a new ROPE, an
+		-- ABSTRACT_STRING that can be efficiently concatenated.
+	require another_exists: another/=Void
+	do
+		-- (once "Making ROPE: <<").print_on(std_output)
+		-- Current.print_on(std_output)
+		-- (once ">>|<<").print_on(std_output)
+		-- another. print_on(std_output)
+		-- (once ">>%N").print_on(std_output)
+		create Result.from_strings(Current,another)
+	end
+
+	infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING is
+		-- Current and `another' concatenating into a new object. The actual
+		-- effective type of Result is chosen by the implementation, possibly
+		-- based on heuristics.
+	require another_exists: another/=Void
+	deferred	
+	end
+
+	
+feature -- Case convertion
 	as_lower: STRING is
 			-- New object with all letters in lower case.
 			--
@@ -1055,14 +1034,7 @@ feature {ANY} -- Printing:
 		end
 
 	fill_tagged_out_memory is
-		do
-			tagged_out_memory.append(once "count: ")
-			count.append_in(tagged_out_memory)
-			tagged_out_memory.append(once "capacity: ")
-			capacity.append_in(tagged_out_memory)
-			tagged_out_memory.append(once "storage: %"")
-			tagged_out_memory.append(Current)
-			tagged_out_memory.add_last('%"')
+		deferred
 		end
 
 feature {ANY} -- Other features:
@@ -1070,16 +1042,14 @@ feature {ANY} -- Other features:
 			-- Access to the very `first' character.
 			--
 			-- See also `last', `item'.
-		do
-			Result := storage.item(0)
+		deferred
 		end
 
 	last: CHARACTER is
 			-- Access to the very `last' character.
 			--
 			-- See also `first', `item'.
-		do
-			Result := storage.item(count - 1)
+		deferred
 		end
 
 	substring (start_index, end_index: INTEGER): like Current is
@@ -1216,12 +1186,16 @@ feature {ANY} -- Other features:
 feature {ANY} -- Interfacing with C string:
 	to_external: POINTER is
 			-- Gives C access to the internal `storage' (may be dangerous).
+
 			-- To be compatible with C, a null character is added at the end
 			-- of the internal `storage'. This extra null character is not
 			-- part of the Eiffel STRING.
-		deferred
+
+			-- TODO: clarify the meaning of this feature for non-natively stored heirs of ABSTRACT_STRING.
+			deferred
 		ensure
-			(is_empty or else storage.item(count) /= '%U') implies (capacity > count and then storage.item(count) = '%U')
+			-- TODO: generalize this postcondition 
+			-- (is_empty or else storage.item(count) /= '%U') implies (capacity > count and then storage.item(count) = '%U')
 			count = old count
 			Result.is_not_null
 		end
@@ -1264,9 +1238,6 @@ feature {}
 
 invariant
 	0 <= count
-	count <= capacity
-	capacity > 0 implies storage.is_not_null
-
 end -- class ABSTRACT_STRING
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
