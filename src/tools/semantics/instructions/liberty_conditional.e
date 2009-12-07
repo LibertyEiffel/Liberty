@@ -59,7 +59,7 @@ feature {ANY}
 			v0: LIBERTY_CONDITIONAL_VISITOR
 		do
 			v0 ::= v
-			visit_liberty_conditional(Current)
+			v0.visit_liberty_conditional(Current)
 		end
 
 invariant

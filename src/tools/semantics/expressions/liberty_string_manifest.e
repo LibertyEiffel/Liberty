@@ -18,8 +18,6 @@ inherit
 	LIBERTY_TYPED_MANIFEST[STRING]
 		rename
 			make as typed_make
-		redefine
-			accept
 		end
 
 create {LIBERTY_TYPE_BUILDER}

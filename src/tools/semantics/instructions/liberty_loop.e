@@ -55,7 +55,7 @@ feature {ANY}
 			v0: LIBERTY_LOOP_VISITOR
 		do
 			v0 ::= v
-			visit_liberty_loop(Current)
+			v0.visit_liberty_loop(Current)
 		end
 
 invariant

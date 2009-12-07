@@ -12,31 +12,24 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_TYPED_MANIFEST[E_]
+class LIBERTY_STRING_TYPED_MANIFEST
+	--
+	-- Not a STRING, but a typed manifest built from a STRING
+	--
 
 inherit
-	LIBERTY_EXPRESSION
+	LIBERTY_TYPED_MANIFEST[STRING]
+
+create {LIBERTY_TYPE_BUILDER}
+	make
 
 feature {ANY}
-	manifest: E_
-
-	result_type: LIBERTY_TYPE
-
-	is_result_type_set: BOOLEAN is True
-
-feature {}
-	make (a_type: like result_type; a_manifest: like manifest) is
-		require
-			a_type /= Void
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_STRING_TYPED_MANIFEST_VISITOR
 		do
-			result_type := a_type
-			manifest := a_manifest
-		ensure
-			result_type = a_type
-			manifest = a_manifest
+			v0 ::= v
+			v0.visit_liberty_string_typed_manifest(Current)
 		end
-
-invariant
-	result_type /= Void
 
 end

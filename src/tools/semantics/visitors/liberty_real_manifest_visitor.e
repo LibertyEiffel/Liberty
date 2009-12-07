@@ -12,31 +12,14 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_TYPED_MANIFEST[E_]
+deferred class LIBERTY_REAL_MANIFEST_VISITOR
 
 inherit
-	LIBERTY_EXPRESSION
+	VISITOR
 
 feature {ANY}
-	manifest: E_
-
-	result_type: LIBERTY_TYPE
-
-	is_result_type_set: BOOLEAN is True
-
-feature {}
-	make (a_type: like result_type; a_manifest: like manifest) is
-		require
-			a_type /= Void
-		do
-			result_type := a_type
-			manifest := a_manifest
-		ensure
-			result_type = a_type
-			manifest = a_manifest
+	visit_liberty_real_manifest (v: LIBERTY_REAL_MANIFEST) is
+		deferred
 		end
 
-invariant
-	result_type /= Void
-
-end
+end -- class LIBERTY_REAL_MANIFEST_VISITOR

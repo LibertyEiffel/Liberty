@@ -12,14 +12,24 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_TYPED_MANIFEST_VISITOR
+class LIBERTY_REAL_TYPED_MANIFEST
+	--
+	-- Not a REAL, but a typed manifest built from a REAL
+	--
 
 inherit
-	VISITOR
+	LIBERTY_TYPED_MANIFEST[REAL]
+
+create {LIBERTY_TYPE_BUILDER}
+	make
 
 feature {ANY}
-	visit_liberty_typed_manifest (v: LIBERTY_TYPED_MANIFEST) is
-		deferred
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_REAL_TYPED_MANIFEST_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_real_typed_manifest(Current)
 		end
 
-end -- class LIBERTY_TYPED_MANIFEST_VISITOR
+end

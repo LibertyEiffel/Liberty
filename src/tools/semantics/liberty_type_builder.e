@@ -1618,9 +1618,9 @@ feature {} -- Expressions
 			elseif constant.is_number then
 				Result := number(constant.number.image)
 			elseif constant.is_true then
-				create {LIBERTY_TYPED_MANIFEST[BOOLEAN]}Result.make(universe.type_boolean, True)
+				create {LIBERTY_BOOLEAN_MANIFEST}Result.make(universe.type_boolean, True)
 			elseif constant.is_false then
-				create {LIBERTY_TYPED_MANIFEST[BOOLEAN]}Result.make(universe.type_boolean, False)
+				create {LIBERTY_BOOLEAN_MANIFEST}Result.make(universe.type_boolean, False)
 			elseif constant.is_character then
 				Result := character(constant.character.image)
 			elseif constant.is_string then
@@ -1631,8 +1631,8 @@ feature {} -- Expressions
 				Result := number_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 														  constant.typed_manifest_number.image)
 			elseif constant.is_string_typed_manifest then
-				create {LIBERTY_TYPED_MANIFEST[STRING]} Result.make(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
-																					 decoded_string(constant.typed_manifest_string))
+				create {LIBERTY_STRING_TYPED_MANIFEST} Result.make(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
+														  decoded_string(constant.typed_manifest_string))
 			elseif constant.is_array_typed_manifest then
 				Result := array_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 														 constant.typed_manifest_array_parameters, constant.typed_manifest_array,
@@ -1659,20 +1659,20 @@ feature {} -- Expressions
 				i ::= number_image
 				i64 := i.decoded
 				if i64.fit_integer_8 then
-					create {LIBERTY_TYPED_MANIFEST[INTEGER_8]}Result.make(universe.type_integer_64, i64.to_integer_8)
+					create {LIBERTY_INTEGER_8_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_8)
 				elseif i64.fit_integer_16 then
-					create {LIBERTY_TYPED_MANIFEST[INTEGER_16]}Result.make(universe.type_integer_64, i64.to_integer_16)
+					create {LIBERTY_INTEGER_16_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_16)
 				elseif i64.fit_integer_32 then
-					create {LIBERTY_TYPED_MANIFEST[INTEGER_32]}Result.make(universe.type_integer_64, i64.to_integer_32)
+					create {LIBERTY_INTEGER_32_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_32)
 				else
-					create {LIBERTY_TYPED_MANIFEST[INTEGER_64]}Result.make(universe.type_integer_64, i64)
+					create {LIBERTY_INTEGER_64_MANIFEST}Result.make(universe.type_integer_64, i64)
 				end
 			else
 				check
 					r ?:= number_image
 				end
 				r ::= number_image
-				create {LIBERTY_TYPED_MANIFEST[REAL]}Result.make(universe.type_real, r.decoded)
+				create {LIBERTY_REAL_MANIFEST}Result.make(universe.type_real, r.decoded)
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -1685,7 +1685,7 @@ feature {} -- Expressions
 			c: TYPED_EIFFEL_IMAGE[CHARACTER]
 		do
 			c ::= character_image
-			create {LIBERTY_TYPED_MANIFEST[CHARACTER]}Result.make(universe.type_character, c.decoded)
+			create {LIBERTY_CHARACTER_MANIFEST}Result.make(universe.type_character, c.decoded)
 		ensure
 			not errors.has_error implies Result /= Void
 		end
@@ -1697,28 +1697,16 @@ feature {} -- Expressions
 		local
 			i: TYPED_EIFFEL_IMAGE[INTEGER_64]
 			r: TYPED_EIFFEL_IMAGE[REAL]
-			i64: INTEGER_64
 		do
-			-- That's not pretty! but doing without all those type tests would incur big changes and code
-			-- duplication in the eiffel parser :-/
 			if i ?:= number_image then
 				i ::= number_image
-				i64 := i.decoded
-				if i64.fit_integer_8 then
-					create {LIBERTY_TYPED_MANIFEST[INTEGER_8]}Result.make(manifest_type, i64.to_integer_8)
-				elseif i64.fit_integer_16 then
-					create {LIBERTY_TYPED_MANIFEST[INTEGER_16]}Result.make(manifest_type, i64.to_integer_16)
-				elseif i64.fit_integer_32 then
-					create {LIBERTY_TYPED_MANIFEST[INTEGER_32]}Result.make(manifest_type, i64.to_integer_32)
-				else
-					create {LIBERTY_TYPED_MANIFEST[INTEGER_64]}Result.make(manifest_type, i64)
-				end
+				create {LIBERTY_INTEGER_TYPED_MANIFEST}Result.make(manifest_type, i.decoded)
 			else
 				check
 					r ?:= number_image
 				end
 				r ::= number_image
-				create {LIBERTY_TYPED_MANIFEST[REAL]}Result.make(manifest_type, r.decoded)
+				create {LIBERTY_REAL_TYPED_MANIFEST}Result.make(manifest_type, r.decoded)
 			end
 		ensure
 			not errors.has_error implies Result /= Void
