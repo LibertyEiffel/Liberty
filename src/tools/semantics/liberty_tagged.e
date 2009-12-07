@@ -15,23 +15,23 @@
 deferred class LIBERTY_TAGGED
 
 feature {LIBERTY_TAG_REF}
-	add_tag (tag: LIBERTY_TAG) is
+	add_tag (a_tag: LIBERTY_TAG) is
 		require
-			not tag_set(tag.id)
+			not tag_set(a_tag.id)
 		do
-			tags.add(tag, tag.id)
+			tags.add(a_tag, a_tag.id)
 		ensure
-			tag_set(tag.id)
+			tag_set(a_tag.id)
 		end
 
-	set_tag (tag: LIBERTY_TAG) is
+	set_tag (a_tag: LIBERTY_TAG) is
 		do
-			tags.put(tag, tag.id)
+			tags.put(a_tag, a_tag.id)
 		ensure
-			tag_set(tag.id)
+			tag_set(a_tag.id)
 		end
 
-	tag_set (tag_id: FIXED_STRING) is
+	tag_set (tag_id: FIXED_STRING): BOOLEAN is
 		do
 			if tags_memory /= Void then
 				Result := tags_memory.fast_has(tag_id)
@@ -46,13 +46,13 @@ feature {LIBERTY_TAG_REF}
 		end
 
 feature {}
-	tags_memory: DICTIONARY[LIBERTY_TAG, STRING]
+	tags_memory: DICTIONARY[LIBERTY_TAG, FIXED_STRING]
 
 	tags: like tags_memory is
 		do
 			Result := tags_memory
 			if Result = Void then
-				create {HASHED_DICTIONARY[LIBERTY_TAG, STRING]} Result.make
+				create {HASHED_DICTIONARY[LIBERTY_TAG, FIXED_STRING]} Result.make
 				tags_memory := Result
 			end
 		end
