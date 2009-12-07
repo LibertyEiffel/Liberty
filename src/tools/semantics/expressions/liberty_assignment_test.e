@@ -63,9 +63,6 @@ feature {}
 	expression: LIBERTY_EXPRESSION
 	type: LIBERTY_TYPE
 
-invariant
-	(entity /= Void) /= (type /= Void)
-
 feature {ANY}
 	accept (v: VISITOR) is
 		local
@@ -74,5 +71,8 @@ feature {ANY}
 			v0 ::= v
 			v0.visit_liberty_assignment_test(Current)
 		end
+
+invariant
+	(entity /= Void) /= (type /= Void)
 
 end

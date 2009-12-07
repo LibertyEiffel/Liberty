@@ -38,10 +38,6 @@ feature {}
 			check False end
 		end
 
-invariant
-	actuals.is_empty
-	not is_implicit_current
-
 feature {ANY}
 	accept (v: VISITOR) is
 		local
@@ -50,5 +46,9 @@ feature {ANY}
 			v0 ::= v
 			v0.visit_liberty_prefix_operator(Current)
 		end
+
+invariant
+	actuals.is_empty
+	not is_implicit_current
 
 end

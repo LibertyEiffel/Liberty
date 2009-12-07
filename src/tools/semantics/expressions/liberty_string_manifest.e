@@ -18,6 +18,8 @@ inherit
 	LIBERTY_TYPED_MANIFEST[STRING]
 		rename
 			make as typed_make
+		redefine
+			accept
 		end
 
 create {LIBERTY_TYPE_BUILDER}
@@ -40,10 +42,6 @@ feature {}
 			is_once = a_once
 		end
 
-invariant
-	result_type /= Void
-	-- result_type is STRING
-
 feature {ANY}
 	accept (v: VISITOR) is
 		local
@@ -52,5 +50,9 @@ feature {ANY}
 			v0 ::= v
 			v0.visit_liberty_string_manifest(Current)
 		end
+
+invariant
+	result_type /= Void
+	-- result_type is STRING
 
 end

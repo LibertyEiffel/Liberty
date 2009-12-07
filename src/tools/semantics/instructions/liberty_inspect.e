@@ -67,7 +67,7 @@ feature {ANY}
 			v0: LIBERTY_INSPECT_VISITOR
 		do
 			v0 ::= v
-			Result := visit_liberty_inspect(Current)
+			visit_liberty_inspect(Current)
 		end
 
 invariant

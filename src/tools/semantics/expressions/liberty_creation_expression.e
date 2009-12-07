@@ -43,11 +43,6 @@ feature {}
 			feature_arguments = a_feature_arguments
 		end
 
-invariant
-	result_type /= Void
-	feature_entity /= Void
-	feature_arguments /= Void
-
 feature {ANY}
 	accept (v: VISITOR) is
 		local
@@ -56,5 +51,10 @@ feature {ANY}
 			v0 ::= v
 			v0.visit_liberty_creation_expression(Current)
 		end
+
+invariant
+	result_type /= Void
+	feature_entity /= Void
+	feature_arguments /= Void
 
 end

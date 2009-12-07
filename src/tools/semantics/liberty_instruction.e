@@ -17,10 +17,6 @@ deferred class LIBERTY_INSTRUCTION
 inherit
 	LIBERTY_POSITIONABLE
 	LIBERTY_TAGGED
-
-feature {ANY}
-	accept (v: VISITOR): LIBERTY_INSTRUCTION is
-		deferred
-		end
+	VISITABLE
 
 end

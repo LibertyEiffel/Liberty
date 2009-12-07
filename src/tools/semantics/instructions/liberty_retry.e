@@ -44,7 +44,7 @@ feature {ANY}
 			v0: LIBERTY_RETRY_VISITOR
 		do
 			v0 ::= v
-			Result := v0.visit_liberty_retry(Current)
+			v0.visit_liberty_retry(Current)
 		end
 
 end

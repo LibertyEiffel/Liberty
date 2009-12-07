@@ -17,6 +17,7 @@ deferred class LIBERTY_EXPRESSION
 inherit
 	LIBERTY_POSITIONABLE
 	LIBERTY_TAGGED
+	VISITABLE
 
 feature {ANY}
 	result_type: LIBERTY_TYPE is
@@ -28,10 +29,6 @@ feature {ANY}
 		end
 
 	is_result_type_set: BOOLEAN is
-		deferred
-		end
-
-	accept (v: VISITOR): LIBERTY_EXPRESSION is
 		deferred
 		end
 

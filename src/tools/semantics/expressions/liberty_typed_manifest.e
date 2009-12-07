@@ -39,9 +39,6 @@ feature {}
 			manifest = a_manifest
 		end
 
-invariant
-	result_type /= Void
-
 feature {ANY}
 	accept (v: VISITOR) is
 		local
@@ -50,5 +47,8 @@ feature {ANY}
 			v0 ::= v
 			v0.visit_liberty_typed_manifest(Current)
 		end
+
+invariant
+	result_type /= Void
 
 end

@@ -60,13 +60,4 @@ invariant
 	actuals.count = 1
 	not is_implicit_current
 
-feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_INFIX_CALL_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_infix_call(Current)
-		end
-
 end

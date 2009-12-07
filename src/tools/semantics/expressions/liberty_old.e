@@ -43,10 +43,6 @@ feature {}
 			expression = a_expression
 		end
 
-invariant
-	expression /= Void
-	is_result_type_set implies (expression.is_result_type_set and then result_type = expression.result_type)
-
 feature {ANY}
 	accept (v: VISITOR) is
 		local
@@ -55,5 +51,9 @@ feature {ANY}
 			v0 ::= v
 			v0.visit_liberty_old(Current)
 		end
+
+invariant
+	expression /= Void
+	is_result_type_set implies (expression.is_result_type_set and then result_type = expression.result_type)
 
 end

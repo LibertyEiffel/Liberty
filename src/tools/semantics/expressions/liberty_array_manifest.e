@@ -75,10 +75,6 @@ feature {}
 	parameters_list: COLLECTION[LIBERTY_EXPRESSION]
 	contents_list: COLLECTION[LIBERTY_EXPRESSION]
 
-invariant
-	result_type /= Void
-	parameters_list /= Void
-
 feature {ANY}
 	accept (v: VISITOR) is
 		local
@@ -87,5 +83,9 @@ feature {ANY}
 			v0 ::= v
 			v0.visit_liberty_array_manifest(Current)
 		end
+
+invariant
+	result_type /= Void
+	parameters_list /= Void
 
 end

@@ -45,13 +45,4 @@ invariant
 	right /= Void
 	is_result_type_set
 
-feature {ANY}
-	accept (v: VISITOR) is
-		local
-			v0: LIBERTY_COMPARISON_VISITOR
-		do
-			v0 ::= v
-			v0.visit_liberty_comparison(Current)
-		end
-
 end

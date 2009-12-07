@@ -44,9 +44,6 @@ feature {}
 			entity = a_entity
 		end
 
-invariant
-	entity /= Void
-
 feature {ANY}
 	accept (v: VISITOR) is
 		local
@@ -55,5 +52,8 @@ feature {ANY}
 			v0 ::= v
 			v0.visit_liberty_entity_expression(Current)
 		end
+
+invariant
+	entity /= Void
 
 end
