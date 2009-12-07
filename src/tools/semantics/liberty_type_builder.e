@@ -1494,10 +1494,7 @@ feature {} -- Expressions
 
 	expression_10 (e10: LIBERTY_AST_E10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
 		local
-			fe: LIBERTY_FEATURE_ENTITY
-			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
-			r10: LIBERTY_AST_R10
-			exp: LIBERTY_EXPRESSION
+			tgt: LIBERTY_EXPRESSION
 		do
 			if e10.is_call then
 				Result := expression_call(e10.call, local_context, redefinitions)
@@ -1506,31 +1503,8 @@ feature {} -- Expressions
 			elseif e10.is_open_argument then
 				create {LIBERTY_OPEN_ARGUMENT} Result.make
 			elseif e10.is_manifest_or_type_test then
-				exp := typed_manifest_or_type_test(e10.manifest_or_type_test, local_context, redefinitions)
-				if e10.manifest_or_type_test_r10.is_empty then
-					Result := exp
-				else
-					from
-						fe ::= entity(e10.manifest_or_type_test_r10.feature_name, local_context, redefinitions)
-						fa := actuals(e10.manifest_or_type_test_r10.actuals, local_context, redefinitions)
-						create {LIBERTY_CALL_EXPRESSION} exp.make(exp, fe, fa)
-						r10 := e10.manifest_or_type_test_r10.remainder
-						if r10.is_empty then
-							Result := exp
-						end
-					until
-						errors.has_error or else Result /= Void
-					loop
-						fe ::= entity(r10.feature_name, local_context, redefinitions)
-						fa := actuals(r10.actuals, local_context, redefinitions)
-						r10 := r10.remainder
-						if r10.is_empty then
-							create {LIBERTY_CALL_EXPRESSION} Result.make(exp, fe, fa)
-						else
-							create {LIBERTY_CALL_EXPRESSION} exp.make(exp, fe, fa)
-						end
-					end
-				end
+				tgt := typed_manifest_or_type_test(e10.manifest_or_type_test, local_context, redefinitions)
+				Result := expression_remainder(tgt, e10.manifest_or_type_test_r10, local_context, redefinitions)
 			elseif e10.is_inline_agent then
 				--|*** TODO
 				not_yet_implemented
@@ -1538,8 +1512,7 @@ feature {} -- Expressions
 				--|*** TODO
 				not_yet_implemented
 			elseif e10.is_creation_expression then
-				--|*** TODO
-				not_yet_implemented
+				Result := expression_creation(e10.creation_expression, local_context, redefinitions)
 			elseif e10.is_void then
 				create {LIBERTY_VOID} Result.make
 			elseif e10.is_assignment_test then
@@ -1549,6 +1522,32 @@ feature {} -- Expressions
 			else
 				check False end
 			end
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	expression_creation (a_creation: LIBERTY_AST_CREATION_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		require
+			a_creation /= Void
+		local
+			creation_type: LIBERTY_TYPE
+			tgt: LIBERTY_EXPRESSION
+			fe: LIBERTY_FEATURE_ENTITY
+			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
+		do
+			creation_type := universe.get_type_from_type_definition(type, a_creation.type_definition, effective_generic_parameters)
+			if a_creation.r10.is_empty then
+				fe := feature_entity(default_create_name)
+				fa := empty_actuals
+				create {LIBERTY_CREATION_EXPRESSION} Result.make(creation_type, fe, fa)
+			else
+				fe := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(a_creation.r10.feature_name.image.image.intern))
+				fa := actuals(a_creation.r10.actuals, local_context, redefinitions)
+				create {LIBERTY_CREATION_EXPRESSION} tgt.make(creation_type, fe, fa)
+				Result := expression_remainder(tgt, a_creation.r10.remainder, local_context, redefinitions)
+			end
+		ensure
+			not errors.has_error implies Result /= Void
 		end
 
 	expression_call (a_call: LIBERTY_AST_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
@@ -1556,31 +1555,36 @@ feature {} -- Expressions
 			a_call /= Void
 		local
 			tgt: LIBERTY_EXPRESSION
+		do
+			tgt := target_or_implicit_feature_call_expression(a_call.target, local_context, redefinitions)
+			Result := expression_remainder(tgt, a_call.r10, local_context, redefinitions)
+		ensure
+			not errors.has_error implies Result /= Void
+		end
+
+	expression_remainder (a_target: LIBERTY_EXPRESSION; a_remainder: LIBERTY_AST_R10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
+		require
+			a_target /= Void
+			a_remainder /= Void
+		local
+			tgt: LIBERTY_EXPRESSION
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
-			r10: LIBERTY_AST_R10
 		do
-			r10 := a_call.r10
-			from
-				tgt := target_or_implicit_feature_call_expression(a_call.target, local_context, redefinitions)
-				if r10.is_empty then
-					Result := tgt
-				end
-			until
-				errors.has_error or else Result /= Void
-			loop
-				fe ::= entity(r10.feature_name, local_context, redefinitions)
-				fa := actuals(r10.actuals, local_context, redefinitions)
-				r10 := r10.remainder
-				if r10.is_empty then
-					create {LIBERTY_CALL_EXPRESSION} Result.make(tgt, fe, fa)
+			-- We may derecursivate this thing (algorithm similar to `instruction_call')
+			-- but I guess modern compilers are smart enough to do that anyway :-)
+			if not errors.has_error then
+				if a_remainder.is_empty then
+					Result := a_target
 				else
+					fe ::= entity(a_remainder.feature_name, local_context, redefinitions)
+					fa := actuals(a_remainder.actuals, local_context, redefinitions)
 					create {LIBERTY_CALL_EXPRESSION} tgt.make(tgt, fe, fa)
+					Result := expression_remainder(tgt, a_remainder.remainder, local_context, redefinitions)
 				end
 			end
-			check
-				errors.has_error or else r10.is_empty
-			end
+		ensure
+			not errors.has_error implies Result /= Void
 		end
 
 	expression_tuple (a_tuple: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_TUPLE is
@@ -1607,7 +1611,7 @@ feature {} -- Expressions
 		do
 			if constant.is_assignment_test then
 				create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(universe.get_type_from_type_definition(type, constant.assignment_test_type, effective_generic_parameters),
-																				  expression(constant.assignment_test_expression),
+																				  expression(constant.assignment_test_expression, local_context, redefinitions),
 																				  universe.type_boolean)
 			elseif constant.is_typed_open_argument then
 				create {LIBERTY_OPEN_ARGUMENT} Result.set_result_type(universe.get_type_from_type_definition(type, constant.open_argument_type, effective_generic_parameters))
