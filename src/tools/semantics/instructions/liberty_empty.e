@@ -25,5 +25,14 @@ feature {}
 		do
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_EMPTY_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_empty(Current)
+		end
+
 end
 

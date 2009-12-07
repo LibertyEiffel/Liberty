@@ -79,4 +79,13 @@ invariant
 	result_type /= Void
 	parameters_list /= Void
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_ARRAY_MANIFEST_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_array_manifest(Current)
+		end
+
 end

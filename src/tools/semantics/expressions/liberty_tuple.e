@@ -67,4 +67,13 @@ feature {}
 
 	elements: COLLECTION[LIBERTY_EXPRESSION]
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_TUPLE_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_tuple(Current)
+		end
+
 end

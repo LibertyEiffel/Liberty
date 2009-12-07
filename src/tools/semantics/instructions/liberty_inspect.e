@@ -61,6 +61,15 @@ feature {}
 
 	clauses_list: COLLECTION[LIBERTY_INSPECT_CLAUSE]
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_INSPECT_VISITOR
+		do
+			v0 ::= v
+			Result := visit_liberty_inspect(Current)
+		end
+
 invariant
 	expression /= Void
 	clauses_list /= Void

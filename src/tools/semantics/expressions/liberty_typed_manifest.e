@@ -42,4 +42,13 @@ feature {}
 invariant
 	result_type /= Void
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_TYPED_MANIFEST_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_typed_manifest(Current)
+		end
+
 end

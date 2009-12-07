@@ -37,6 +37,15 @@ feature {}
 			a_upper = Void implies upper = a_lower
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_INSPECT_SLICE_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_inspect_slice(Current)
+		end
+
 invariant
 	lower /= Void
 	upper /= Void

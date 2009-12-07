@@ -45,6 +45,15 @@ feature {}
 			feature_arguments = a_feature_arguments
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_CREATION_INSTRUCTION_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_creation_instruction(Current)
+		end
+
 invariant
 	writable /= Void
 	type /= Void

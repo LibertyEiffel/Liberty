@@ -23,4 +23,13 @@ insert
 create {LIBERTY_TYPE_BUILDER}
 	make
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_PRECURSOR_INSTRUCTION_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_precursor_instruction(Current)
+		end
+
 end

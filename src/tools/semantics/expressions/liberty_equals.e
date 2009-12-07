@@ -20,4 +20,13 @@ inherit
 create {LIBERTY_TYPE_BUILDER}
 	make
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_EQUALS_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_equals(Current)
+		end
+
 end

@@ -26,4 +26,13 @@ feature {ANY}
 			create Result.make_prefix("not".intern)
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_NOT_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_not(Current)
+		end
+
 end

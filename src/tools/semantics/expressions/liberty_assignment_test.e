@@ -66,4 +66,13 @@ feature {}
 invariant
 	(entity /= Void) /= (type /= Void)
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_ASSIGNMENT_TEST_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_assignment_test(Current)
+		end
+
 end

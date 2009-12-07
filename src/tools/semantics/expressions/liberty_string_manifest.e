@@ -44,4 +44,13 @@ invariant
 	result_type /= Void
 	-- result_type is STRING
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_STRING_MANIFEST_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_string_manifest(Current)
+		end
+
 end

@@ -26,4 +26,13 @@ feature {ANY}
 			create Result.make_infix("xor".intern)
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_XOR_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_xor(Current)
+		end
+
 end

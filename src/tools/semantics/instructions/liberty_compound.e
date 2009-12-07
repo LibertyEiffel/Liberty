@@ -73,6 +73,15 @@ feature {}
 
 	instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_COMPOUND_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_compound(Current)
+		end
+
 invariant
 	instructions /= Void
 

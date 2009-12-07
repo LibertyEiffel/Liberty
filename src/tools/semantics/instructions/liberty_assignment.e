@@ -34,6 +34,15 @@ feature {}
 			expression = a_expression
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_ASSIGNMENT_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_assignment(Current)
+		end
+
 invariant
 	writable /= Void
 	expression /= Void

@@ -53,6 +53,15 @@ feature {}
 
 	conditions_list: COLLECTION[LIBERTY_CONDITION]
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_CONDITIONAL_VISITOR
+		do
+			v0 ::= v
+			Result := visit_liberty_conditional(Current)
+		end
+
 invariant
 	conditions_list /= Void
 

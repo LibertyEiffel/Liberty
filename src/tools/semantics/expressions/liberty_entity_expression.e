@@ -47,4 +47,13 @@ feature {}
 invariant
 	entity /= Void
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_ENTITY_EXPRESSION_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_entity_expression(Current)
+		end
+
 end

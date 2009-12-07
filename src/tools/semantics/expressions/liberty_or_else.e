@@ -26,4 +26,13 @@ feature {ANY}
 			create Result.make_infix("or else".intern)
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_OR_ELSE_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_or_else(Current)
+		end
+
 end

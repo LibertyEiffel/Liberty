@@ -11,3 +11,4 @@
 ./semantics/features/
 ./semantics/instructions/
 ./semantics/tags/
+./semantics/visitors/

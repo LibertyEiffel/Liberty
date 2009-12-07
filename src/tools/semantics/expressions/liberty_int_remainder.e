@@ -26,4 +26,13 @@ feature {ANY}
 			create Result.make_infix("\\".intern)
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_INT_REMAINDER_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_int_remainder(Current)
+		end
+
 end

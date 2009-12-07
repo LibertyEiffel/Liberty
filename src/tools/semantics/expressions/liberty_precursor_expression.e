@@ -31,4 +31,13 @@ feature {ANY}
 
 	is_result_type_set: BOOLEAN is True
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_PRECURSOR_EXPRESSION_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_precursor_expression(Current)
+		end
+
 end

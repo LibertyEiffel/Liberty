@@ -43,4 +43,13 @@ feature {}
 			check False end
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_INFIX_OPERATOR_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_infix_operator(Current)
+		end
+
 end

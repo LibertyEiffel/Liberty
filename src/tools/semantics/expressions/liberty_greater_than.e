@@ -26,4 +26,13 @@ feature {ANY}
 			create Result.make_infix(">".intern)
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_GREATER_THAN_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_greater_than(Current)
+		end
+
 end

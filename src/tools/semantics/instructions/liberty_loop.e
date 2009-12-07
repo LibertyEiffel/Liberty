@@ -49,6 +49,15 @@ feature {}
 			body = a_body
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_LOOP_VISITOR
+		do
+			v0 ::= v
+			Result := visit_liberty_loop(Current)
+		end
+
 invariant
 	init /= Void
 	invariant_clause /= Void

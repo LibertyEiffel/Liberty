@@ -48,4 +48,13 @@ invariant
 	feature_entity /= Void
 	feature_arguments /= Void
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_CREATION_EXPRESSION_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_creation_expression(Current)
+		end
+
 end

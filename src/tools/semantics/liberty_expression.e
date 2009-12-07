@@ -31,6 +31,10 @@ feature {ANY}
 		deferred
 		end
 
+	accept (v: VISITOR): LIBERTY_EXPRESSION is
+		deferred
+		end
+
 invariant
 	is_result_type_set implies result_type /= Void
 

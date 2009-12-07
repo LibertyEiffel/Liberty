@@ -57,4 +57,13 @@ feature {}
 			actuals = a_actuals
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_CALL_INSTRUCTION_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_call_instruction(Current)
+		end
+
 end

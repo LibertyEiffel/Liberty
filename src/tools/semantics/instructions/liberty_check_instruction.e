@@ -33,6 +33,15 @@ feature {}
 			checks = a_checks
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_CHECK_INSTRUCTION_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_check_instruction(Current)
+		end
+
 invariant
 	checks /= Void
 

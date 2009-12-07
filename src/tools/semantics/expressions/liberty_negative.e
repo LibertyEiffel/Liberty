@@ -26,4 +26,13 @@ feature {ANY}
 			create Result.make_prefix("-".intern)
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_NEGATIVE_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_negative(Current)
+		end
+
 end

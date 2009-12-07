@@ -37,6 +37,15 @@ feature {}
 			instruction = a_instruction
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_DEBUG_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_debug(Current)
+		end
+
 invariant
 	keys /= Void
 	instruction /= Void

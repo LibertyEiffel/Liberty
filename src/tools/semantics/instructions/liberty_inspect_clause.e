@@ -50,6 +50,15 @@ feature {}
 
 	values_list: COLLECTION[LIBERTY_INSPECT_SLICE]
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_INSPECT_CLAUSE_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_inspect_clause(Current)
+		end
+
 invariant
 	instruction /= Void
 	values_list /= Void

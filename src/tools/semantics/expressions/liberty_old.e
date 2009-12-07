@@ -47,4 +47,13 @@ invariant
 	expression /= Void
 	is_result_type_set implies (expression.is_result_type_set and then result_type = expression.result_type)
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_OLD_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_old(Current)
+		end
+
 end

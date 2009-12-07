@@ -59,4 +59,13 @@ invariant
 	actuals.is_empty
 	not is_implicit_current
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_PREFIX_CALL_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_prefix_call(Current)
+		end
+
 end

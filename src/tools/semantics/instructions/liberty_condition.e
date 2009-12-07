@@ -35,6 +35,15 @@ feature {}
 			instruction = a_instruction
 		end
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_CONDITION_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_condition(Current)
+		end
+
 invariant
 	expression /= Void
 

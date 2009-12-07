@@ -44,4 +44,13 @@ invariant
 	result_type /= Void -- result_type is POINTER
 	entity /= Void
 
+feature {ANY}
+	accept (v: VISITOR) is
+		local
+			v0: LIBERTY_ENTITY_REFERENCE_VISITOR
+		do
+			v0 ::= v
+			v0.visit_liberty_entity_reference(Current)
+		end
+
 end
