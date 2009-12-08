@@ -62,13 +62,16 @@ feature {ANY}
 		end
 
 feature {}
-	make (a_instructions: like instructions) is
+	make (a_instructions: like instructions; a_position: like position) is
 		require
 			a_instructions.count > 1
+			a_position /= Void
 		do
 			instructions := a_instructions
+			position := a_position
 		ensure
 			instructions = a_instructions
+			position = a_position
 		end
 
 	instructions: TRAVERSABLE[LIBERTY_INSTRUCTION]

@@ -22,7 +22,10 @@ create {LIBERTY_TYPE_BUILDER}
 
 feature {}
 	make is
+		local
+			errors: LIBERTY_ERRORS
 		do
+			position := errors.unknown_position
 		end
 
 feature {ANY}

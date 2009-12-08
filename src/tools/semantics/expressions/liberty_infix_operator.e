@@ -24,18 +24,21 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {}
-	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity: like entity) is
+	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity: like entity; a_position: like position) is
 		require
 			a_left /= Void
 			a_right /= Void
 			a_entity.feature_name.is_infix
+			a_position /= Void
 		do
 			target := a_left
 			actuals := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
 			entity := a_entity
+			position := a_position
 		ensure
 			target = a_left
 			actuals.first = a_right
+			position = a_position
 		end
 
 	infix_name: LIBERTY_FEATURE_NAME is

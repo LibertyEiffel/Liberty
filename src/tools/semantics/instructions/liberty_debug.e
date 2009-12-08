@@ -25,16 +25,19 @@ feature {ANY}
 	instruction: LIBERTY_INSTRUCTION
 
 feature {}
-	make (a_keys: like keys; a_instruction: like instruction) is
+	make (a_keys: like keys; a_instruction: like instruction; a_position: like position) is
 		require
 			a_keys /= Void
 			a_instruction /= Void
+			a_position /= Void
 		do
 			keys := a_keys
 			instruction := a_instruction
+			position := a_position
 		ensure
 			keys = a_keys
 			instruction = a_instruction
+			position = a_position
 		end
 
 feature {ANY}

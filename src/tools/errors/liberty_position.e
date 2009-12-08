@@ -49,7 +49,7 @@ feature {}
 		end
 
 feature {LIBERTY_ERROR}
-	emit is
+	emit (stream: OUTPUT_STREAM) is
 		local
 			l, c, i, a: INTEGER
 			arrow: STRING
@@ -78,27 +78,27 @@ feature {LIBERTY_ERROR}
 				else
 					arrow.extend(' ')
 				end
-				std_error.put_character(source.item(i))
+				stream.put_character(source.item(i))
 				i := i + 1
 			end
 			from
 			until
 				i > source.count or else source.item(i) = '%N'
 			loop
-				std_error.put_character(source.item(i))
+				stream.put_character(source.item(i))
 				i := i + 1
 			end
-			std_error.put_new_line
+			stream.put_new_line
 			from
 				a := 1
 			until
 				a > arrow.count
 			loop
-				std_error.put_character(arrow.item(a))
+				stream.put_character(arrow.item(a))
 				a := a + 1
 			end
-			std_error.put_character('^')
-			std_error.put_new_line
+			stream.put_character('^')
+			stream.put_new_line
 		end
 
 end

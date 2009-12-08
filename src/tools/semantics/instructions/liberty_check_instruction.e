@@ -24,13 +24,16 @@ feature {ANY}
 	checks: LIBERTY_CHECK
 
 feature {}
-	make (a_checks: like checks) is
+	make (a_checks: like checks; a_position: like position) is
 		require
 			a_checks /= Void
+			a_position /= Void
 		do
 			checks := a_checks
+			position := a_position
 		ensure
 			checks = a_checks
+			position = a_position
 		end
 
 feature {ANY}

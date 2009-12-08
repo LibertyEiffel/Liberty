@@ -14,21 +14,27 @@
 --
 deferred class LIBERTY_PRECURSOR
 
+insert
+	LIBERTY_POSITIONABLE
+
 feature {ANY}
 	the_feature: LIBERTY_FEATURE
 	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 
 feature {}
-	make (a_feature: like the_feature; a_actuals: like actuals) is
+	make (a_feature: like the_feature; a_actuals: like actuals; a_position: like position) is
 		require
 			a_feature /= Void
 			a_actuals /= Void
+			a_position /= Void
 		do
 			the_feature := a_feature
 			actuals := a_actuals
+			position := a_position
 		ensure
 			the_feature = a_feature
 			actuals = a_actuals
+			position = a_position
 		end
 
 invariant

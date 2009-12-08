@@ -28,19 +28,22 @@ feature {ANY}
 	is_result_type_set: BOOLEAN is True
 
 feature {}
-	make (a_type: like result_type; a_feature_entity: like feature_entity; a_feature_arguments: like feature_arguments) is
+	make (a_type: like result_type; a_feature_entity: like feature_entity; a_feature_arguments: like feature_arguments; a_position: like position) is
 		require
 			a_type /= Void
 			a_feature_entity /= Void
 			a_feature_arguments /= Void
+			a_position /= Void
 		do
 			result_type := a_type
 			feature_entity := a_feature_entity
 			feature_arguments := a_feature_arguments
+			position := a_position
 		ensure
 			result_type = a_type
 			feature_entity = a_feature_entity
 			feature_arguments = a_feature_arguments
+			position = a_position
 		end
 
 feature {ANY}

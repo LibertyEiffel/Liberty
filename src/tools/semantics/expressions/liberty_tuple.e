@@ -54,15 +54,19 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
-	make (a_result_type: like result_type; a_count: like count) is
+	make (a_result_type: like result_type; a_count: like count; a_position: like position) is
 		require
 			a_result_type /= Void
 			-- a_result_type is a TUPLE type
 			a_count >= 0
+			a_position /= Void
 		do
 			result_type := a_result_type
 			count := a_count
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} elements.with_capacity(a_count)
+			position := a_position
+		ensure
+			position = a_position
 		end
 
 	elements: COLLECTION[LIBERTY_EXPRESSION]

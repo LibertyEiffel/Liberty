@@ -14,6 +14,9 @@
 --
 class LIBERTY_INSPECT_CLAUSE
 
+insert
+	LIBERTY_POSITIONABLE
+
 create {LIBERTY_TYPE_BUILDER}
 	make
 
@@ -38,14 +41,17 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
-	make (a_instruction: like instruction) is
+	make (a_instruction: like instruction; a_position: like position) is
 		require
 			a_instruction /= Void
+			a_position /= Void
 		do
 			instruction := a_instruction
 			create {FAST_ARRAY[LIBERTY_INSPECT_SLICE]} values_list.with_capacity(2)
+			position := a_position
 		ensure
 			instruction = a_instruction
+			position = a_position
 		end
 
 	values_list: COLLECTION[LIBERTY_INSPECT_SLICE]

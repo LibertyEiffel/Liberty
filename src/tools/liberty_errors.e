@@ -17,8 +17,8 @@ expanded class LIBERTY_ERRORS
 insert
 	LIBERTY_ERROR_LEVELS
 
-feature {ANY}
-	set_error_threshold (a_threshold: INTEGER_8) is
+feature {ANY} -- Threshold
+	set_error_threshold (a_threshold: like threshold) is
 		require
 			valid_level(a_threshold)
 		do
@@ -30,6 +30,21 @@ feature {ANY}
 	threshold: INTEGER_8 is
 		do
 			Result := threshold_memory.item
+		end
+
+feature {ANY} -- Emit stream
+	set_stream (a_stream: like stream) is
+		require
+			a_stream.is_connected
+		do
+			stream_memory.set_item(a_stream)
+		ensure
+			stream = a_stream
+		end
+
+	stream: OUTPUT_STREAM is
+		do
+			Result := stream_memory.item
 		end
 
 feature {ANY} -- Errors
@@ -58,15 +73,16 @@ feature {ANY} -- Errors
 			if level < level_error then
 				emit
 			end
+			cancel_positions
 		ensure
-			fatal_means_die: level >= level_error
+			dead_if_fatal: level >= level_error
 		end
 
 	emit is
 		require
 			has_warning_or_error
 		do
-			last_error.emit(threshold)
+			last_error.emit(stream, threshold)
 			last_error_memory.set_item(Void)
 		ensure
 			not has_warning_or_error
@@ -93,7 +109,7 @@ feature {ANY} -- Errors
 			syntax_error_is_death: False
 		end
 
-feature {ANY} -- Error positions
+feature {ANY} -- Positions
 	has_positions: BOOLEAN is
 		do
 			Result := not positions.is_empty
@@ -116,6 +132,11 @@ feature {ANY} -- Error positions
 			create Result.make(a_index, a_ast)
 		ensure
 			Result /= Void
+		end
+
+	unknown_position: LIBERTY_UNKNOWN_POSITION is
+		once
+			create Result.make
 		end
 
 	add_position (a_position: LIBERTY_POSITION) is
@@ -148,6 +169,11 @@ feature {}
 	threshold_memory: REFERENCE[INTEGER_8] is
 		once
 			create Result.set_item(level_error)
+		end
+
+	stream_memory: REFERENCE[OUTPUT_STREAM] is
+		once
+			create Result.set_item(std_output)
 		end
 
 end

@@ -25,15 +25,18 @@ feature {ANY}
 	is_result_type_set: BOOLEAN is True
 
 feature {}
-	make (a_type: like result_type; a_manifest: like manifest) is
+	make (a_type: like result_type; a_manifest: like manifest; a_position: like position) is
 		require
 			a_type /= Void
+			a_position /= Void
 		do
 			result_type := a_type
 			manifest := a_manifest
+			position := a_position
 		ensure
 			result_type = a_type
 			manifest = a_manifest
+			position = a_position
 		end
 
 invariant

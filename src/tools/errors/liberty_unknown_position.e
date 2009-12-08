@@ -12,33 +12,31 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_ASSIGNMENT
+class LIBERTY_UNKNOWN_POSITION
 
 inherit
-	LIBERTY_INSTRUCTION
-
-feature {ANY}
-	writable: LIBERTY_WRITABLE
-	expression: LIBERTY_EXPRESSION
-
-feature {}
-	make (a_writable: like writable; a_expression: like expression; a_position: like position) is
-		require
-			a_writable /= Void
-			a_expression /= Void
-			a_position /= Void
-		do
-			writable := a_writable
-			expression := a_expression
-			position := a_position
-		ensure
-			writable = a_writable
-			expression = a_expression
-			position = a_position
+	LIBERTY_POSITION
+		redefine
+			emit
 		end
 
-invariant
-	writable /= Void
-	expression /= Void
+insert
+	EIFFEL_NODE_HANDLER
+
+create {LIBERTY_ERRORS}
+	make
+
+feature {LIBERTY_ERROR}
+	emit (stream: OUTPUT_STREAM) is
+		do
+			stream.put_line(once "Unknown position")
+		end
+
+feature {}
+	make is
+		do
+		end
+
+	source: STRING is ""
 
 end

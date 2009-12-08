@@ -34,8 +34,13 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
 		end
 
 feature {}
-	make is
+	make (a_position: like position) is
+		require
+			a_position /= Void
 		do
+			position := a_position
+		ensure
+			position = a_position
 		end
 
 feature {ANY}

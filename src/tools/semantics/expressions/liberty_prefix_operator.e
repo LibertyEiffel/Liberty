@@ -24,13 +24,17 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {}
-	make (a_target: like target; a_entity: like entity) is
+	make (a_target: like target; a_entity: like entity; a_position: like position) is
 		require
 			a_target /= Void
 			a_entity.feature_name.is_prefix
+			a_position /= Void
 		do
 			target := a_target
 			entity := a_entity
+			position := a_position
+		ensure
+			position = a_position
 		end
 
 	prefix_name: LIBERTY_FEATURE_NAME is

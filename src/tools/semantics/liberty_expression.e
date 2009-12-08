@@ -14,7 +14,7 @@
 --
 deferred class LIBERTY_EXPRESSION
 
-inherit
+insert
 	LIBERTY_POSITIONABLE
 	LIBERTY_TAGGED
 	VISITABLE

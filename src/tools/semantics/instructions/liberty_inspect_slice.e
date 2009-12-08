@@ -14,6 +14,9 @@
 --
 class LIBERTY_INSPECT_SLICE
 
+insert
+	LIBERTY_POSITIONABLE
+
 create {LIBERTY_TYPE_BUILDER}
 	make
 
@@ -21,9 +24,10 @@ feature {ANY}
 	lower, upper: LIBERTY_EXPRESSION
 
 feature {}
-	make (a_lower: like lower; a_upper: like upper) is
+	make (a_lower: like lower; a_upper: like upper; a_position: like position) is
 		require
 			a_lower /= Void
+			a_position /= Void
 		do
 			lower := a_lower
 			if a_upper /= Void then
@@ -31,10 +35,12 @@ feature {}
 			else
 				upper := a_lower
 			end
+			position := a_position
 		ensure
 			lower = a_lower
 			a_upper /= Void implies upper = a_upper
 			a_upper = Void implies upper = a_lower
+			position = a_position
 		end
 
 feature {ANY}

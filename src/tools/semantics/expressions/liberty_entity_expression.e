@@ -35,13 +35,16 @@ feature {ANY}
 		end
 
 feature {}
-	make (a_entity: like entity) is
+	make (a_entity: like entity; a_position: like position) is
 		require
 			a_entity.result_type /= Void
+			a_position /= Void
 		do
 			entity := a_entity
+			position := a_position
 		ensure
 			entity = a_entity
+			position = a_position
 		end
 
 feature {ANY}

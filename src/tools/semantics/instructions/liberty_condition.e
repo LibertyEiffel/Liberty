@@ -14,6 +14,9 @@
 --
 class LIBERTY_CONDITION
 
+insert
+	LIBERTY_POSITIONABLE
+
 create {LIBERTY_TYPE_BUILDER}
 	make
 
@@ -23,16 +26,19 @@ feature {ANY}
 	instruction: LIBERTY_INSTRUCTION
 
 feature {}
-	make (a_expression: like expression; a_instruction: like instruction) is
+	make (a_expression: like expression; a_instruction: like instruction; a_position: like position) is
 		require
 			a_expression /= Void
 			a_instruction /= Void
+			a_position /= Void
 		do
 			expression := a_expression
 			instruction := a_instruction
+			position := a_position
 		ensure
 			expression = a_expression
 			instruction = a_instruction
+			position = a_position
 		end
 
 feature {ANY}

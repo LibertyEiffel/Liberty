@@ -25,19 +25,22 @@ feature {ANY}
 	is_result_type_set: BOOLEAN is True
 
 feature {}
-	make (a_left: like left; a_right: like right; a_result_type: like result_type) is
+	make (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position) is
 		require
 			a_left /= Void
 			a_right /= Void
 			a_result_type /= Void
+			a_position /= Void
 		do
 			left := a_left
 			right := a_right
 			result_type := a_result_type
+			position := a_position
 		ensure
 			left = a_left
 			right = a_right
 			result_type = a_result_type
+			position = a_position
 		end
 
 invariant

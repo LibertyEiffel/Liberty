@@ -47,29 +47,35 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
-	make (a_type: like result_type) is
+	make (a_type: like result_type; a_position: like position) is
 		require
 			a_type /= Void
+			a_position /= Void
 		do
 			result_type := a_type
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} parameters_list.make(0)
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} contents_list.make(0)
+			position := a_position
 		ensure
 			result_type = a_type
+			position = a_position
 		end
 
-	make_array (a_type: like result_type; a_contents: like contents_list) is
+	make_array (a_type: like result_type; a_contents: like contents_list; a_position: like position) is
 		require
 			a_type /= Void
 			a_contents /= Void
 			-- all a_contents items conform to a_type
+			a_position /= Void
 		do
 			result_type := a_type
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} parameters_list.make(0)
 			contents_list := a_contents
+			position := a_position
 		ensure
 			result_type = a_type
 			contents = a_contents
+			position = a_position
 		end
 
 	parameters_list: COLLECTION[LIBERTY_EXPRESSION]

@@ -36,18 +36,21 @@ feature {ANY}
 		end
 
 feature {}
-	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity_builder: FUNCTION[TUPLE[LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]) is
+	make (a_left, a_right: LIBERTY_EXPRESSION; a_entity_builder: FUNCTION[TUPLE[LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]; a_position: like position) is
 		require
 			a_left /= Void
 			a_right /= Void
 			a_entity_builder /= Void
+			a_position /= Void
 		do
 			target := a_left
 			actuals := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
 			entity := a_entity_builder.item([infix_name])
+			position := a_position
 		ensure
 			target = a_left
 			actuals.first = a_right
+			position = a_position
 		end
 
 	infix_name: LIBERTY_FEATURE_NAME is

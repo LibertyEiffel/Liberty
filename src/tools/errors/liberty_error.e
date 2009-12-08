@@ -71,12 +71,12 @@ feature {LIBERTY_ERROR, LIBERTY_ERRORS}
 		end
 
 feature {LIBERTY_ERRORS}
-	emit (threshold: like level) is
+	emit (stream: OUTPUT_STREAM; threshold: like level) is
 			-- May not return.
 		require
 			filter_only_warnings: threshold > errors.level_error
 		do
-			do_emit(threshold)
+			do_emit(stream, threshold)
 			if is_fatal then
 				die_with_code(1)
 			end
@@ -86,7 +86,7 @@ feature {LIBERTY_ERRORS}
 		end
 
 feature {LIBERTY_ERROR}
-	do_emit (threshold: like level) is
+	do_emit (stream: OUTPUT_STREAM; threshold: like level) is
 			-- May not return.
 		require
 			filter_only_warnings: threshold > errors.level_error
@@ -94,24 +94,24 @@ feature {LIBERTY_ERROR}
 			i: INTEGER
 		do
 			if level <= threshold then
-				std_error.put_string(once "*** ")
-				std_error.put_string(errors.level_tag(level))
-				std_error.put_string(once ": ")
-				std_error.put_line(message)
+				stream.put_string(once "*** ")
+				stream.put_string(errors.level_tag(level))
+				stream.put_string(once ": ")
+				stream.put_line(message)
 
 				from
 					i := positions.lower
 				until
 					i > positions.upper
 				loop
-					positions.item(i).emit
+					positions.item(i).emit(stream)
 					i := i + 1
 				end
 			end
 
 			if next /= Void then
-				std_error.put_new_line
-				next.do_emit(threshold)
+				stream.put_new_line
+				next.do_emit(stream, threshold)
 			end
 		end
 

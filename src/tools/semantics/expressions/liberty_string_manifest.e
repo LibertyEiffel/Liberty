@@ -27,17 +27,19 @@ feature {ANY}
 	is_once: BOOLEAN
 
 feature {}
-	make (a_type: like result_type; a_manifest: like manifest; a_once: like is_once) is
+	make (a_type: like result_type; a_manifest: like manifest; a_once: like is_once; a_position: like position) is
 		require
 			a_type /= Void
 			-- a_type is STRING
+			a_position /= Void
 		do
-			typed_make(a_type, a_manifest)
+			typed_make(a_type, a_manifest, a_position)
 			is_once := a_once
 		ensure
 			result_type = a_type
 			manifest = a_manifest
 			is_once = a_once
+			position = a_position
 		end
 
 feature {ANY}

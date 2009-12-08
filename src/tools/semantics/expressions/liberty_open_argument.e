@@ -18,7 +18,7 @@ inherit
 	LIBERTY_EXPRESSION
 
 create {LIBERTY_TYPE_BUILDER}
-	make, set_result_type
+	make
 
 feature {ANY}
 	result_type: LIBERTY_TYPE
@@ -40,8 +40,13 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
-	make is
+	make (a_position: like position) is
+		require
+			a_position /= Void
 		do
+			position := a_position
+		ensure
+			position = a_position
 		end
 
 feature {ANY}

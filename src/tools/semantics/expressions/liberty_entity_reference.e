@@ -28,16 +28,19 @@ feature {ANY}
 	is_result_type_set: BOOLEAN is True
 
 feature {}
-	make (type: like result_type; a_entity: like entity) is
+	make (type: like result_type; a_entity: like entity; a_position: like position) is
 		require
 			type /= Void -- type is POINTER
 			a_entity /= Void
+			a_position /= Void
 		do
 			result_type := type
 			entity := a_entity
+			position := a_position
 		ensure
 			result_type = type
 			entity = a_entity
+			position = a_position
 		end
 
 feature {ANY}

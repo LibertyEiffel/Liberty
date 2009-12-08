@@ -28,25 +28,28 @@ feature {ANY}
 	body: LIBERTY_INSTRUCTION
 
 feature {}
-	make (a_init: like init; a_invariant_clause: like invariant_clause; a_variant_clause: like variant_clause; a_expression: like expression; a_body: like body) is
+	make (a_init: like init; a_invariant_clause: like invariant_clause; a_variant_clause: like variant_clause; a_expression: like expression; a_body: like body; a_position: like position) is
 		require
 			a_init /= Void
 			a_invariant_clause /= Void
 			a_variant_clause /= Void
 			a_expression /= Void
 			a_body /= Void
+			a_position /= Void
 		do
 			init := a_init
 			invariant_clause := a_invariant_clause
 			variant_clause := a_variant_clause
 			expression := a_expression
 			body := a_body
+			position := a_position
 		ensure
 			init = a_init
 			invariant_clause = a_invariant_clause
 			variant_clause = a_variant_clause
 			expression = a_expression
 			body = a_body
+			position = a_position
 		end
 
 feature {ANY}

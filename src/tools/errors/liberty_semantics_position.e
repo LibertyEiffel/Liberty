@@ -30,14 +30,14 @@ feature {}
 	ast: LIBERTY_AST_CLASS
 
 feature {LIBERTY_ERROR}
-	emit is
+	emit (stream: OUTPUT_STREAM) is
 		do
 			generate_source
 			if index <= source.upper then
-				Precursor
+				Precursor(stream)
 			else
 				debug
-					std_error.put_line(once "Invalid position " + index.out)
+					stream.put_line(once "Invalid position " + index.out)
 				end
 			end
 		end

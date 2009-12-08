@@ -50,13 +50,16 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
-	make (a_expression: like expression) is
+	make (a_expression: like expression; a_position: like position) is
 		require
 			a_expression /= Void
+			a_position /= Void
 		do
 			create {FAST_ARRAY[LIBERTY_INSPECT_CLAUSE]} clauses_list.with_capacity(8)
+			position := a_position
 		ensure
 			expression = a_expression
+			position = a_position
 		end
 
 	clauses_list: COLLECTION[LIBERTY_INSPECT_CLAUSE]

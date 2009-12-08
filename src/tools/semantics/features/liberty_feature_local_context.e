@@ -77,13 +77,10 @@ feature {ANY}
 
 	result_entity: LIBERTY_RESULT
 
-	retry_instruction: LIBERTY_RETRY is
+	retry_instruction (a_position: LIBERTY_POSITION): LIBERTY_RETRY is
 		do
-			Result := retry_memory
-			if Result = Void then
-				create Result.make
-			end
-			retry_memory := Result
+			create Result.make(a_position)
+			retries.add_last(Result)
 		end
 
 feature {LIBERTY_TYPE_BUILDER}
@@ -103,11 +100,9 @@ feature {LIBERTY_TYPE_BUILDER}
 			locals_map.add(a_local, a_local.name)
 		end
 
-	reconcile_retry_instruction (a_feature: LIBERTY_FEATURE) is
+	reconcile_retry_instructions (a_feature: LIBERTY_FEATURE) is
 		do
-			if retry_memory /= Void then
-				retry_memory.set_feature(a_feature)
-			end
+			retries.do_all(agent {LIBERTY_RETRY}.set_feature(a_feature))
 		end
 
 feature {}
@@ -115,7 +110,7 @@ feature {}
 	parameters_list: COLLECTION[LIBERTY_PARAMETER]
 	locals_map: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]
 	locals_list: COLLECTION[LIBERTY_LOCAL]
-	retry_memory: LIBERTY_RETRY
+	retries: COLLECTION[LIBERTY_RETRY]
 
 	make (a_result_type: like result_type) is
 		do
@@ -123,6 +118,7 @@ feature {}
 			create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]} parameters_map.make
 			create {FAST_ARRAY[LIBERTY_LOCAL]} locals_list.make(0)
 			create {HASHED_DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]} locals_map.make
+			create {FAST_ARRAY[LIBERTY_RETRY]} retries.with_capacity(1)
 			create result_entity.make(a_result_type)
 		ensure
 			result_type = a_result_type
@@ -133,5 +129,6 @@ invariant
 	locals_list /= Void
 	parameters_map /= Void
 	locals_map /= Void
+	retries /= Void
 
 end

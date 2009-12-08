@@ -29,32 +29,38 @@ feature {ANY}
 	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 
 feature {}
-	make (a_target: like target; a_entity: like entity; a_actuals: like actuals) is
+	make (a_target: like target; a_entity: like entity; a_actuals: like actuals; a_position: like position) is
 		require
 			a_target /= Void
 			a_entity /= Void
 			a_actuals /= Void
+			a_position /= Void
 		do
 			target := a_target
 			entity := a_entity
 			actuals := a_actuals
+			position := a_position
 		ensure
 			target = a_target
 			entity = a_entity
 			actuals = a_actuals
+			position = a_position
 		end
 
-	implicit_current (a_entity: like entity; a_actuals: like actuals) is
+	implicit_current (a_entity: like entity; a_actuals: like actuals; a_position: like position) is
 		require
 			a_entity /= Void
 			a_actuals /= Void
+			a_position /= Void
 		do
 			entity := a_entity
 			actuals := a_actuals
+			position := a_position
 		ensure
 			is_implicit_current
 			entity = a_entity
 			actuals = a_actuals
+			position = a_position
 		end
 
 feature {ANY}
