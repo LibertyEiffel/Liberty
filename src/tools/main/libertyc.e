@@ -25,6 +25,7 @@ feature {}
 		local
 			universe: LIBERTY_UNIVERSE
 			root: LIBERTY_TYPE
+			errors: LIBERTY_ERRORS
 		do
 			if argument_count /= 2 then
 				std_error.put_line("This is a bootstrap version of the compiler; it only accepts two arguments - the path to loadpath.se and the name of the root class which must have a %"make%" creation procedure.")
@@ -32,7 +33,7 @@ feature {}
 			end
 
 			create universe.make(argument(1))
-			root := universe.get_type(Void, Void, argument(2), create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
+			root := universe.get_type(universe.root, errors.unknown_position, argument(2), create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
 
 			std_output.put_line("Done: root=" + root.hash_code.out)
 		end

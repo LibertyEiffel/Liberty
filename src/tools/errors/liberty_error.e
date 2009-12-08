@@ -74,7 +74,8 @@ feature {LIBERTY_ERRORS}
 	emit (stream: OUTPUT_STREAM; threshold: like level) is
 			-- May not return.
 		require
-			filter_only_warnings: threshold > errors.level_error
+			stream.is_connected
+			filter_only_warnings: threshold >= errors.level_error
 		do
 			do_emit(stream, threshold)
 			if is_fatal then
@@ -89,7 +90,8 @@ feature {LIBERTY_ERROR}
 	do_emit (stream: OUTPUT_STREAM; threshold: like level) is
 			-- May not return.
 		require
-			filter_only_warnings: threshold > errors.level_error
+			stream.is_connected
+			filter_only_warnings: threshold >= errors.level_error
 		local
 			i: INTEGER
 		do

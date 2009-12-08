@@ -81,6 +81,7 @@ feature {ANY} -- Errors
 	emit is
 		require
 			has_warning_or_error
+			stream.is_connected
 		do
 			last_error.emit(stream, threshold)
 			last_error_memory.set_item(Void)
@@ -91,6 +92,8 @@ feature {ANY} -- Errors
 
 	emit_syntax_error (error: PARSE_ERROR; code: STRING) is
 			-- utility method that adds all the syntax errors and emit as a fatal error
+		require
+			stream.is_connected
 		local
 			e: PARSE_ERROR
 		do

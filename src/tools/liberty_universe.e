@@ -22,6 +22,8 @@ create {ANY}
 	make
 
 feature {ANY}
+	root: LIBERTY_CLUSTER
+
 	get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_TYPE is
 		require
 			position /= Void
@@ -108,7 +110,7 @@ feature {}
 		do
 			Result := kernel_types.reference_at(class_name)
 			if Result = Void then
-				cluster := universe.find(class_name)
+				cluster := root.find(class_name)
 				if cluster = Void then
 					errors.set(level_fatal_error, once "Kernel class not found: " + class_name)
 				end
@@ -356,13 +358,12 @@ feature {} -- AST building
 feature {}
 	make (universe_path: STRING) is
 		do
-			create universe.make(universe_path)
+			create root.make(universe_path)
 			create {HASHED_DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.make
 			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.make
 			create {HASHED_DICTIONARY[LIBERTY_TYPE, STRING]} kernel_types.make
 		end
 
-	universe: LIBERTY_CLUSTER
 	classes: DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]
 	types: DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]
 	kernel_types: DICTIONARY[LIBERTY_TYPE, STRING]

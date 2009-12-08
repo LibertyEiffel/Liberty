@@ -30,7 +30,7 @@ feature {ANY} -- Creation:
 			c, ca: INTEGER
 		do
 			c := model.count
-			if model.last = '%U' then
+			if c > 0 and then model.last = '%U' then
 				ca := c
 				if ca > 0 then
 					storage := storage.calloc(ca)

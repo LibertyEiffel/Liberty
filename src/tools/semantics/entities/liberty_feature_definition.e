@@ -100,8 +100,6 @@ feature {LIBERTY_TYPE_BUILDER}
 		require
 			fd /= Void
 			fd.has_precursor(a_type)
-		local
-			i: INTEGER
 		do
 			if not same_clients(fd.clients) then
 				--| *** WARNING: the inherited features don't have the same export clauses (the second set is

@@ -433,7 +433,6 @@ feature {}
 			local_context /= Void
 		local
 			obsolete_message: STRING
-			locals: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]
 			do_block: LIBERTY_AST_DO_BLOCK; routine: LIBERTY_FEATURE_ROUTINE
 			comp: LIBERTY_INSTRUCTION
 		do
