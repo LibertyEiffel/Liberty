@@ -86,8 +86,7 @@ feature {}
 											  "Instruction*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Instruction*");
 																								  {FAST_ARRAY[STRING] << "Instruction", "Instruction*" >> }, agent build_continue_list("Instruction", 0, "Instruction*");
 																								  {FAST_ARRAY[STRING] << "Instruction", "KW ;", "Instruction*" >> }, agent build_continue_list("Instruction", 1, "Instruction*") >> };
-											  "Instruction", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Assignment" >> }, Void;
-																								 {FAST_ARRAY[STRING] << "Call" >> }, Void;
+											  "Instruction", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Assignment_Or_Call" >> }, Void;
 																								 {FAST_ARRAY[STRING] << "If_Then_Else" >> }, Void;
 																								 {FAST_ARRAY[STRING] << "Inspect" >> }, Void;
 																								 {FAST_ARRAY[STRING] << "Loop" >> }, Void;
@@ -105,9 +104,10 @@ feature {}
 																								  {FAST_ARRAY[STRING] << "KW !", "KW !", "Writable", "KW .", "KW entity name", "Actuals" >> }, Void;
 																								  {FAST_ARRAY[STRING] << "KW !", "Type_Definition", "KW !", "Writable" >> }, Void;
 																								  {FAST_ARRAY[STRING] << "KW !", "Type_Definition", "KW !", "Writable", "KW .", "KW entity name", "Actuals" >> }, Void >> };
-											  "Assignment", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Writable", "KW :=", "Expression" >> }, Void;
-																								{FAST_ARRAY[STRING] << "Writable", "KW ?=", "Expression" >> }, Void;
-																								{FAST_ARRAY[STRING] << "Writable", "KW ::=", "Expression" >> }, Void >> };
+											  "Assignment_Or_Call", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Writable", "KW :=", "Expression" >> }, Void;
+																										  {FAST_ARRAY[STRING] << "Writable", "KW ?=", "Expression" >> }, Void;
+																										  {FAST_ARRAY[STRING] << "Writable", "KW ::=", "Expression" >> }, Void;
+																										  {FAST_ARRAY[STRING] << "Target", "r10" >> }, Void >> };
 											  "Call", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Target", "r10" >> }, Void >> };
 											  "Target", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW (", "Expression", "KW )" >> }, Void;
 																						  {FAST_ARRAY[STRING] << "KW Precursor", "Precursor_Type_Mark", "Actuals" >> }, Void;

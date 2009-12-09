@@ -94,8 +94,8 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_VARIABLE}Result.make(name, names)
 			when "Instruction" then
 				create {LIBERTY_AST_INSTRUCTION}Result.make(name, names)
-			when "Assignment" then
-				create {LIBERTY_AST_ASSIGNMENT}Result.make(name, names)
+			when "Assignment_Or_Call" then
+				create {LIBERTY_AST_ASSIGNMENT_OR_CALL}Result.make(name, names)
 			when "Call" then
 				create {LIBERTY_AST_CALL}Result.make(name, names)
 			when "Target" then

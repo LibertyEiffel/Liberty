@@ -28,36 +28,37 @@ feature {LIBERTY_AST_HANDLER}
 
 feature {LIBERTY_AST_HANDLER}
 	list_valid_index (index: INTEGER): BOOLEAN is
-		require
-			count > 1
 		do
-			Result := list.valid_index(index)
+			if count > 1 then
+				Result := list.valid_index(index)
+			end
 		end
 
 	list_count: INTEGER is
-		require
-			count > 1
 		do
-			Result := list.count
+			if count > 1 then
+				Result := list.count
+			end
 		end
 
 	list_lower: INTEGER is
-		require
-			count > 1
 		do
-			Result := list.lower
+			if count > 1 then
+				Result := list.lower
+			end
 		end
 
 	list_upper: INTEGER is
-		require
-			count > 1
 		do
-			Result := list.upper
+			if count > 1 then
+				Result := list.upper
+			else
+				Result := -1
+			end
 		end
 
 	list_item (index: INTEGER): N_ is
 		require
-			count > 1
 			valid_index(index)
 		do
 			Result ::= list.item(index)

@@ -78,6 +78,13 @@ feature {}
 		end
 
 feature {}
+	empty_effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING] is
+		once
+			-- Special common case (no effective parameters) factored out, using the smallest possible structure
+			-- (an empty AVL tree)
+			create {AVL_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]} Result.make
+		end
+
 	init_header (a_header: LIBERTY_AST_CLASS_HEADER) is
 		local
 			marker: LIBERTY_AST_CLASS_MARKER
@@ -85,7 +92,7 @@ feature {}
 			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
 			type_parameter: LIBERTY_AST_TYPE_PARAMETER
 			constraint: LIBERTY_TYPE
-			i: INTEGER
+			i, n: INTEGER
 		do
 			marker := a_header.class_marker
 			if marker.is_deferred then
@@ -102,14 +109,17 @@ feature {}
 				errors.set(level_fatal_error, "Expected type " + type.name + ", but got " + name)
 			end
 			type_parameters := a_header.type_parameters
-			if type_parameters.list_count /= type.parameters.count then
+			n := type_parameters.list_count
+			if n /= type.parameters.count then
 				errors.add_position(semantics_position(a_header.class_name))
 				errors.set(level_error, once "Bad number of generic parameters")
+			elseif n = 0 then
+				effective_generic_parameters := empty_effective_generic_parameters
 			else
 				check
 					same_indexes: type_parameters.list_lower = type.parameters.lower
 				end
-				create {HASHED_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]}effective_generic_parameters.with_capacity(type_parameters.list_count)
+				create {HASHED_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]}effective_generic_parameters.with_capacity(n)
 				from
 					i := type_parameters.list_lower
 				until
@@ -755,13 +765,18 @@ feature {} -- Instructions
 		require
 			inst /= Void
 			local_context /= Void
+		local
+			assignment_or_call: LIBERTY_AST_ASSIGNMENT_OR_CALL
 		do
 			inspect
 				inst.instruction.name
-			when "Assignment" then
-				Result := instruction_assignment(inst.instruction, local_context, redefinitions)
-			when "Call" then
-				Result := instruction_call(inst.instruction, local_context, redefinitions)
+			when "Assignment_Or_Call" then
+				assignment_or_call ::= inst.instruction
+				if assignment_or_call.is_assignment then
+					Result := instruction_assignment(assignment_or_call, local_context, redefinitions)
+				else
+					Result := instruction_call(assignment_or_call, local_context, redefinitions)
+				end
 			when "If_Then_Else" then
 				Result := instruction_ifthenelse(inst.instruction, local_context, redefinitions)
 			when "Inspect" then
@@ -781,47 +796,41 @@ feature {} -- Instructions
 			not errors.has_error implies Result /= Void
 		end
 
-	instruction_assignment (a_assignment: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_ASSIGNMENT is
+	instruction_assignment (a_assignment: LIBERTY_AST_ASSIGNMENT_OR_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_ASSIGNMENT is
 		require
-			a_assignment /= Void
-			{LIBERTY_AST_ASSIGNMENT} ?:= a_assignment
+			a_assignment.is_assignment
 		local
-			assignment: LIBERTY_AST_ASSIGNMENT
 			w: LIBERTY_WRITABLE
 			exp: LIBERTY_EXPRESSION
 		do
-			assignment ::= a_assignment
-			w := writable(assignment.writable, local_context, redefinitions)
-			exp := expression(assignment.expression, local_context, redefinitions)
-			if assignment.is_regular_assignment then
+			w := writable(a_assignment.writable, local_context, redefinitions)
+			exp := expression(a_assignment.expression, local_context, redefinitions)
+			if a_assignment.is_regular_assignment then
 				create {LIBERTY_ASSIGNMENT_REGULAR} Result.make(w, exp, w.position)
-			elseif assignment.is_forced_assignment then
+			elseif a_assignment.is_forced_assignment then
 				create {LIBERTY_ASSIGNMENT_FORCED} Result.make(w, exp, w.position)
-			elseif assignment.is_assignment_attempt then
+			elseif a_assignment.is_assignment_attempt then
 				create {LIBERTY_ASSIGNMENT_ATTEMPT} Result.make(w, exp, w.position)
 			else
 				check False end
 			end
 		end
 
-	instruction_call (a_call: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_INSTRUCTION is
+	instruction_call (a_call: LIBERTY_AST_ASSIGNMENT_OR_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_INSTRUCTION is
 		require
-			a_call /= Void
-			{LIBERTY_AST_CALL} ?:= a_call
+			a_call.is_call
 		local
-			call: LIBERTY_AST_CALL
 			tgt: LIBERTY_EXPRESSION
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 			r10: LIBERTY_AST_R10
 		do
-			call ::= a_call
-			r10 := call.r10
+			r10 := a_call.r10
 			if r10.is_empty then
-				Result := implicit_feature_call_instruction(call.target, local_context, redefinitions)
+				Result := implicit_feature_call_instruction(a_call.target, local_context, redefinitions)
 			else
 				from
-					tgt := target_or_implicit_feature_call_expression(call.target, local_context, redefinitions)
+					tgt := target_or_implicit_feature_call_expression(a_call.target, local_context, redefinitions)
 				until
 					errors.has_error or else Result /= Void
 				loop
