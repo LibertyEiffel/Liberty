@@ -68,6 +68,13 @@ feature {ANY}
 			Result := descriptor.parameters
 		end
 
+	full_name: STRING is
+		do
+			Result := once ""
+			Result.clear_count
+			full_name_in(Result)
+		end
+
 	is_deferred: BOOLEAN is
 		require
 			mark_set
@@ -113,6 +120,31 @@ feature {ANY}
 			has_feature(a_feature_name)
 		do
 			Result := features.at(a_feature_name)
+		end
+
+feature {LIBERTY_TYPE}
+	full_name_in (buffer: STRING) is
+		require
+			buffer /= Void
+		local
+			i: INTEGER
+		do
+			buffer.append(name.out)
+			if not parameters.is_empty then
+				buffer.extend('[')
+				from
+					i := parameters.lower
+				until
+					i > parameters.upper
+				loop
+					if i > parameters.upper then
+						buffer.append(once ", ")
+					end
+					parameters.item(i).full_name_in(buffer)
+					i := i + 1
+				end
+				buffer.extend(']')
+			end
 		end
 
 feature {ANY} -- Inheritance
@@ -336,6 +368,8 @@ feature {LIBERTY_UNIVERSE} -- Semantincs building
 		local
 			builder: LIBERTY_TYPE_BUILDER
 		do
+			std_output.put_line(once "Initializing " + full_name)
+sedb_breakpoint
 			create builder.make(Current, universe)
 			builder.check_and_initialize
 			if not errors.has_error then
@@ -392,5 +426,6 @@ invariant
 	file /= Void
 	features /= Void
 	features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN is do Result := fd.feature_name.is_equal(fn) end)
+	parameters /= Void
 
 end

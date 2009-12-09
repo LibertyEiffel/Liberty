@@ -103,5 +103,6 @@ feature {LIBERTY_TYPE_DESCRIPTOR}
 
 invariant
 	file /= Void
+	parameters /= Void
 
 end

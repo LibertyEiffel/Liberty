@@ -129,7 +129,7 @@ feature {}
 				loop
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
-						constraint := universe.get_type_from_type_definition(type, type_parameter.constraint, effective_generic_parameters)
+						constraint := universe.get_type_from_type_definition(type, type_parameter.constraint, effective_generic_parameters, False)
 						if not type.parameters.item(i).is_child_of(constraint) then
 							errors.add_position(semantics_position_at(type_parameter.class_name))
 							errors.set(level_error, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
@@ -164,7 +164,7 @@ feature {}
 				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
-				parent := universe.get_type_from_type_definition(type, parent_clause.type_definition, effective_generic_parameters)
+				parent := universe.get_type_from_type_definition(type, parent_clause.type_definition, effective_generic_parameters, True)
 				if parent /= Void then
 					type.add_parent(parent, conformant)
 					inject_parent_invariant(parent)
@@ -244,10 +244,10 @@ feature {}
 				fd := parent_features.reference_at(old_name)
 				if fd = Void then
 					errors.add_position(old_name.position)
-					errors.set(level_error, once "Unknown feature name: " + old_name.name)
+					errors.set(level_error, once "Cannot rename inexistent feature: " + old_name.name)
 				elseif parent_features.reference_at(new_name) /= Void then
 					errors.add_position(new_name.position)
-					errors.set(level_error, once "Duplicate feature name: " + new_name.name)
+					errors.set(level_error, once "Cannot rename feature (another feature with the same name exists): " + new_name.name)
 				else
 					parent_features.remove(old_name)
 					fd.set_name(new_name)
@@ -282,7 +282,7 @@ feature {}
 					fd := parent_features.reference_at(feature_name)
 					if fd = Void then
 						errors.add_position(feature_name.position)
-						errors.set(level_error, once "Unknown feature name: " + feature_name.name)
+						errors.set(level_error, once "Cannot change export of inexistent feature: " + feature_name.name)
 					else
 						fd.set_clients(clients)
 					end
@@ -309,7 +309,7 @@ feature {}
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
 					errors.add_position(feature_name.position)
-					errors.set(level_error, once "Unknown feature name: " + feature_name.name)
+					errors.set(level_error, once "Cannot undefine inexistent feature: " + feature_name.name)
 				elseif fd.is_frozen then
 					errors.add_position(feature_name.position)
 					errors.set(level_error, once "Cannot undefine frozen feature: " + feature_name.name)
@@ -347,7 +347,7 @@ feature {}
 					fd := parent_features.reference_at(feature_name)
 					if fd = Void then
 						errors.add_position(feature_name.position)
-						errors.set(level_error, once "Unknown feature name: " + feature_name.name)
+						errors.set(level_error, once "Cannot redefine inexistent feature: " + feature_name.name)
 					elseif fd.is_frozen then
 						errors.add_position(feature_name.position)
 						errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
@@ -412,7 +412,7 @@ feature {}
 				until
 					errors.has_error or else j > f.definition_list.upper
 				loop
-					fd ::= f.definition_list.item(i)
+					fd ::= f.definition_list.item(j)
 					add_feature(clients, fd)
 					j := j + 1
 				end
@@ -433,7 +433,7 @@ feature {}
 		do
 			redefinitions := feature_redefinitions(a_feature.signature.feature_names)
 			if a_feature.signature.has_result_type then
-				result_type := universe.get_type_from_type_definition(type, a_feature.signature.result_type, effective_generic_parameters)
+				result_type := universe.get_type_from_type_definition(type, a_feature.signature.result_type, effective_generic_parameters, False)
 			end
 			if a_feature.has_routine_definition then
 				create local_context.make(result_type)
@@ -1095,7 +1095,7 @@ feature {} -- Instructions
 			creat ::= a_creation
 			w := writable(creat.writable, local_context, redefinitions)
 			if creat.has_type_definition then
-				creation_type := universe.get_type_from_type_definition(type, creat.type_definition, effective_generic_parameters)
+				creation_type := universe.get_type_from_type_definition(type, creat.type_definition, effective_generic_parameters, False)
 				if not errors.has_error then
 					if not creation_type.is_conform_to(w.result_type) then
 						--|*** TODO: the given creation_type must be a conformant subtype of the writable type
@@ -1587,7 +1587,7 @@ feature {} -- Expressions
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
-			creation_type := universe.get_type_from_type_definition(type, a_creation.type_definition, effective_generic_parameters)
+			creation_type := universe.get_type_from_type_definition(type, a_creation.type_definition, effective_generic_parameters, False)
 			if a_creation.r10.is_empty then
 				fe := feature_entity(default_create_name)
 				fa := empty_actuals
@@ -1664,12 +1664,12 @@ feature {} -- Expressions
 			openarg: LIBERTY_OPEN_ARGUMENT
 		do
 			if constant.is_assignment_test then
-				create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(universe.get_type_from_type_definition(type, constant.assignment_test_type, effective_generic_parameters),
+				create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(universe.get_type_from_type_definition(type, constant.assignment_test_type, effective_generic_parameters, False),
 																				  expression(constant.assignment_test_expression, local_context, redefinitions),
 																				  universe.type_boolean, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_typed_open_argument then
 				create openarg.make(semantics_position_at(constant.node_at(0)))
-				openarg.set_result_type(universe.get_type_from_type_definition(type, constant.open_argument_type, effective_generic_parameters))
+				openarg.set_result_type(universe.get_type_from_type_definition(type, constant.open_argument_type, effective_generic_parameters, False))
 				Result := openarg
 			elseif constant.is_number then
 				Result := number(constant.number.image)
@@ -1684,13 +1684,13 @@ feature {} -- Expressions
 			elseif constant.is_once_string then
 				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_number_typed_manifest then
-				Result := number_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
+				Result := number_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters, False),
 														  constant.typed_manifest_number.image)
 			elseif constant.is_string_typed_manifest then
-				create {LIBERTY_STRING_TYPED_MANIFEST} Result.make(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
+				create {LIBERTY_STRING_TYPED_MANIFEST} Result.make(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters, False),
 																				   decoded_string(constant.typed_manifest_string), semantics_position_at(constant.node_at(0)))
 			elseif constant.is_array_typed_manifest then
-				Result := array_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
+				Result := array_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters, False),
 														 constant.typed_manifest_array_parameters, constant.typed_manifest_array,
 														 local_context, redefinitions, semantics_position_at(constant.node_at(0)))
 			else
@@ -1847,7 +1847,7 @@ feature {}
 					i > parameters.upper
 				loop
 					declaration ::= parameters.item(i)
-					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters)
+					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters, False)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower
@@ -1877,7 +1877,7 @@ feature {}
 					i > locals.list_upper
 				loop
 					declaration := locals.list_item(i)
-					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters)
+					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters, False)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower
