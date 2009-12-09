@@ -62,9 +62,12 @@ feature {LIBERTY_ERROR}
 			stream.put_integer(line)
 			stream.put_string(once ", column ")
 			stream.put_integer(column)
-			stream.put_string(once " (index: ")
-			stream.put_integer(index)
-			stream.put_line(once "):")
+			debug
+				stream.put_string(once " (index: ")
+				stream.put_integer(index)
+				stream.put_string(once "):")
+			end
+			stream.put_new_line
 
 			i := 1
 			from
