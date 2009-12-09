@@ -410,12 +410,12 @@ feature {}
 			if a_feature.signature.has_result_type then
 				result_type := universe.get_type_from_type_definition(type, a_feature.signature.result_type, effective_generic_parameters)
 			end
-			if a_feature.has_block then
+			if a_feature.has_routine_definition then
 				create local_context.make(result_type)
 				if a_feature.signature.has_parameters then
 					list_parameters(a_feature.signature.parameters, local_context, redefinitions)
 				end
-				the_feature := feature_block(a_feature.block, local_context, redefinitions)
+				the_feature := routine_definition(a_feature.routine_definition, local_context, redefinitions)
 			else
 				if a_feature.signature.has_parameters then
 					errors.add_position(semantics_position(a_feature.signature.node_at(1)))
@@ -438,33 +438,35 @@ feature {}
 			end
 		end
 
-	feature_block (block: LIBERTY_AST_EIFFEL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_FEATURE is
+	routine_definition (routine_def: LIBERTY_AST_ROUTINE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_FEATURE is
 		require
 			local_context /= Void
 		local
 			obsolete_message: STRING
+			routine_execution: LIBERTY_AST_ROUTINE_EXECUTION
 			do_block: LIBERTY_AST_DO_BLOCK; routine: LIBERTY_FEATURE_ROUTINE
 			comp: LIBERTY_INSTRUCTION
 		do
-			if block.obsolete_clause.count > 0 then
-				obsolete_message := decoded_string(block.obsolete_clause.string)
+			if routine_def.obsolete_clause.count > 0 then
+				obsolete_message := decoded_string(routine_def.obsolete_clause.string)
 			end
-			if block.is_external then
-				if block.external_clause.alias_clause.has_alias then
-					create {LIBERTY_FEATURE_EXTERNAL} Result.make(decoded_string(block.external_clause.definition), decoded_string(block.external_clause.alias_clause.definition))
+			routine_execution := routine_def.execution
+			if routine_execution.is_external then
+				if routine_execution.external_clause.alias_clause.has_alias then
+					create {LIBERTY_FEATURE_EXTERNAL} Result.make(decoded_string(routine_execution.external_clause.definition), decoded_string(routine_execution.external_clause.alias_clause.definition))
 				else
-					create {LIBERTY_FEATURE_EXTERNAL} Result.make(decoded_string(block.external_clause.definition), Void)
+					create {LIBERTY_FEATURE_EXTERNAL} Result.make(decoded_string(routine_execution.external_clause.definition), Void)
 				end
 			else
-				check block.is_regular end
-				do_block := block.do_block
+				check routine_execution.is_regular end
+				do_block := routine_execution.do_block
 				if do_block.is_deferred then
 					create {LIBERTY_FEATURE_DEFERRED} Result.make
 				elseif do_block.is_attribute then
 					create {LIBERTY_FEATURE_ATTRIBUTE} Result.make
 				else
-					list_locals(block.local_block, local_context, redefinitions)
-					comp := compound(block.do_block.list, local_context, redefinitions)
+					list_locals(routine_execution.local_block, local_context, redefinitions)
+					comp := compound(routine_execution.do_block.list, local_context, redefinitions)
 					if not errors.has_error then
 						if do_block.is_do then
 							create {LIBERTY_FEATURE_DO} routine.make(comp)
@@ -472,17 +474,17 @@ feature {}
 							check do_block.is_once end
 							create {LIBERTY_FEATURE_ONCE} routine.make(comp)
 						end
-						routine.set_rescue(compound(block.rescue_block.list, local_context, redefinitions))
+						routine.set_rescue(compound(routine_execution.rescue_block.list, local_context, redefinitions))
 						Result := routine
 					end
 				end
-				if not errors.has_error then
-					Result.set_precondition(feature_precondition(block.require_clause, local_context, redefinitions))
-					Result.set_postcondition(feature_postcondition(block.ensure_clause, local_context, redefinitions))
-				end
 			end
 			if not errors.has_error then
-				local_context.reconcile_retry_instructions(Result)
+				Result.set_precondition(feature_precondition(routine_def.require_clause, local_context, redefinitions))
+				Result.set_postcondition(feature_postcondition(routine_def.ensure_clause, local_context, redefinitions))
+				if not errors.has_error then
+					local_context.reconcile_retry_instructions(Result)
+				end
 			end
 		ensure
 			not errors.has_error implies Result /= Void

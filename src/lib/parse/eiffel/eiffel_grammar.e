@@ -66,8 +66,9 @@ feature {}
 																									  {FAST_ARRAY[STRING] << "Class_Creation", "Class_Creation*" >> }, agent build_continue_list("Class_Creation", 0, "Class_Creation*") >> };
 											  "Class_Creation", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW creation", "KW {", "Clients", "KW }", "Feature_Name+" >> }, Void;
 																									 {FAST_ARRAY[STRING] << "KW create", "KW {", "Clients", "KW }", "Feature_Name+" >> }, Void >> };
-											  "Eiffel_Block", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Obsolete", "Require", "Local_Block", "Do_Block", "Rescue_Block", "Ensure", "KW end" >> }, Void;
-																								  {FAST_ARRAY[STRING] << "Obsolete", "External", "KW end" >> }, Void >> };
+											  "Routine_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Obsolete", "Require", "Routine_Execution", "Ensure", "KW end" >> }, Void >> };
+											  "Routine_Execution", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Local_Block", "Do_Block", "Rescue_Block" >> }, Void;
+																										 {FAST_ARRAY[STRING] << "External" >> }, Void >> };
 											  "Local_Block", {PARSE_NON_TERMINAL << epsilon, Void;
 																								 {FAST_ARRAY[STRING] << "KW local", "Declaration+" >> }, Void >> };
 											  "Declaration+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Declaration" >> }, agent build_new_list("Declaration", "Declaration+");
@@ -167,7 +168,7 @@ feature {}
 																					  {FAST_ARRAY[STRING] << "KW [", "Actual+", "KW ]" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW ?" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "Manifest_Or_Type_Test", "r10" >> }, Void;
-																					  {FAST_ARRAY[STRING] << "Agent_Signature", "KW is", "Eiffel_Block", "Actuals" >> }, Void;
+																					  {FAST_ARRAY[STRING] << "Agent_Signature", "KW is", "Routine_Definition", "Actuals" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW agent", "Expression" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "Creation_Expression" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW Void" >> }, Void;
@@ -236,7 +237,7 @@ feature {}
 											  "Feature_Definition*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Feature_Definition*");
 																											{FAST_ARRAY[STRING] << "Feature_Definition", "Feature_Definition*" >> }, agent build_continue_list("Feature_Definition", 0, "Feature_Definition*") >> };
 											  "Feature_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature" >> }, Void;
-																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Eiffel_Block" >> }, Void;
+																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Routine_Definition" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Manifest_Or_Type_Test" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "KW unique" >> }, Void >> };
 											  "Signature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name+" >> }, Void;

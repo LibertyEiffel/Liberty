@@ -90,7 +90,7 @@ feature {LIBERTY_AST_HANDLER}
 			Result ::= nodes.item(0)
 		end
 
-	inline_agent_block: LIBERTY_AST_EIFFEL_BLOCK is
+	inline_agent_definition: LIBERTY_AST_ROUTINE_DEFINITION is
 		require
 			is_inline_agent
 		do

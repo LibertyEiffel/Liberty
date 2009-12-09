@@ -315,6 +315,7 @@ feature {} -- AST building
 		local
 			code: STRING
 		do
+			std_output.put_line(once "Parsing " + class_name)
 			parse_descriptor.make(cluster, class_name.intern, pos)
 			Result := classes.reference_at(parse_descriptor)
 			if Result = Void then

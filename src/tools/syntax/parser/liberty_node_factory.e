@@ -74,8 +74,10 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_CLASS_CREATION}Result.make(name, names)
 			when "Creation_Expression" then
 				create {LIBERTY_AST_CREATION_EXPRESSION}Result.make(name, names)
-			when "Eiffel_Block" then
-				create {LIBERTY_AST_EIFFEL_BLOCK}Result.make(name, names)
+			when "Routine_Definition" then
+				create {LIBERTY_AST_ROUTINE_DEFINITION}Result.make(name, names)
+			when "Routine_Execution" then
+				create {LIBERTY_AST_ROUTINE_EXECUTION}Result.make(name, names)
 			when "Require" then
 				create {LIBERTY_AST_REQUIRE}Result.make(name, names)
 			when "Local_Block" then

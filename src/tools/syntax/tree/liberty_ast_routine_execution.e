@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_EIFFEL_BLOCK
+class LIBERTY_AST_ROUTINE_EXECUTION
 
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
@@ -23,63 +23,44 @@ create {LIBERTY_NODE_FACTORY}
 feature {LIBERTY_AST_HANDLER}
 	is_external: BOOLEAN is
 		do
-			Result := count = 3
+			Result := count = 1
 		ensure
 			Result = not is_regular
 		end
 
 	is_regular: BOOLEAN is
 		do
-			Result := count = 7
+			Result := count = 3
 		ensure
 			Result = not is_external
-		end
-
-	obsolete_clause: LIBERTY_AST_OBSOLETE is
-		do
-			Result ::= nodes.item(0)
-		end
-
-	require_clause: LIBERTY_AST_REQUIRE is
-		require
-			is_regular
-		do
-			Result ::= nodes.item(1)
 		end
 
 	local_block: LIBERTY_AST_LOCAL_BLOCK is
 		require
 			is_regular
 		do
-			Result ::= nodes.item(2)
+			Result ::= nodes.item(0)
 		end
 
 	do_block: LIBERTY_AST_DO_BLOCK is
 		require
 			is_regular
 		do
-			Result ::= nodes.item(3)
+			Result ::= nodes.item(1)
 		end
 
 	rescue_block: LIBERTY_AST_RESCUE_BLOCK is
 		require
 			is_regular
 		do
-			Result ::= nodes.item(4)
-		end
-
-	ensure_clause: LIBERTY_AST_ENSURE is
-		require
-			is_regular
-		do
-			Result ::= nodes.item(5)
+			Result ::= nodes.item(2)
 		end
 
 	external_clause: LIBERTY_AST_EXTERNAL is
 		require
 			is_external
 		do
-			Result ::= nodes.item(1)
+			Result ::= nodes.item(0)
 		end
 
 feature {ANY}
@@ -88,12 +69,12 @@ feature {ANY}
 			Result := nodes.count
 		end
 
-	name: STRING is "Eiffel_Block"
+	name: STRING is "Routine_Execution"
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 3, 7 >> }
+			Result := {AVL_SET[INTEGER] << 1, 3 >> }
 		end
 
 end
