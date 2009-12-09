@@ -823,10 +823,10 @@ feature {ANY} -- Other features:
 			intern_key.make_from_string(Current)
 			Result := interned.reference_at(intern_key)
 			if Result = Void then
-				Result := (create {FIXED_STRING}.make_from_string(Current))
+				Result := intern_key.twin
 				Result.do_intern
-				intern_key.recycle
 			end
+			intern_key.recycle
 		end
 
 feature {}
@@ -998,6 +998,7 @@ invariant
 	0 <= count
 	count <= capacity
 	capacity > 0 implies storage.is_not_null
+	not intern_key.is_immutable
 
 end -- class STRING
 --
