@@ -59,7 +59,7 @@ feature {LIBERTY_AST_HANDLER}
 
 	list_item (index: INTEGER): N_ is
 		require
-			valid_index(index)
+			list_valid_index(index)
 		do
 			Result ::= list.item(index)
 		end

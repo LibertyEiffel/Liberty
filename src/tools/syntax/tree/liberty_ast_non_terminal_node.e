@@ -101,14 +101,19 @@ feature {}
 
 	nodes: FAST_ARRAY[EIFFEL_NODE]
 
-	make (a_name: STRING; a_names: TRAVERSABLE[STRING]) is
+	make (a_name: like name; a_names: TRAVERSABLE[STRING]) is
 		require
-			a_name.is_equal(name)
+			valid_name(a_name)
 			possible_counts.has(a_names.count)
 		do
 			create nodes.make(a_names.count)
 		ensure
 			nodes.count = a_names.count
+		end
+
+	valid_name (a_name: like name): BOOLEAN is
+		do
+			Result := a_name.is_equal(name)
 		end
 
 invariant

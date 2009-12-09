@@ -13,9 +13,15 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_AST_IF
+	--
+	-- This class handles both "if" and "elseif" hence the redefines
+	--
 
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
+		redefine
+			valid_name, make
+		end
 
 create {LIBERTY_NODE_FACTORY}
 	make
@@ -34,12 +40,29 @@ feature {LIBERTY_AST_HANDLER}
 feature {ANY}
 	count: INTEGER is 4
 
-	name: STRING is "If"
+	name: STRING
 
 feature {}
+	make (a_name: like name; a_names: TRAVERSABLE[STRING]) is
+		do
+			name := a_name
+			Precursor(a_name, a_names)
+		end
+
 	possible_counts: SET[INTEGER] is
 		once
 			Result := {AVL_SET[INTEGER] << 4 >> }
+		end
+
+	valid_name (a_name: like name): BOOLEAN is
+		do
+			inspect
+				a_name
+			when "If", "ElseIf" then
+				Result := True
+			else
+				--Result := False
+			end
 		end
 
 end

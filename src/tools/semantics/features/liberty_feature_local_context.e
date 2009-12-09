@@ -119,7 +119,9 @@ feature {}
 			create {FAST_ARRAY[LIBERTY_LOCAL]} locals_list.make(0)
 			create {HASHED_DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]} locals_map.make
 			create {FAST_ARRAY[LIBERTY_RETRY]} retries.with_capacity(1)
-			create result_entity.make(a_result_type)
+			if a_result_type /= Void then
+				create result_entity.make(a_result_type)
+			end
 		ensure
 			result_type = a_result_type
 		end

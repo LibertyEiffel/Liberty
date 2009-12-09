@@ -173,7 +173,7 @@ feature {}
 				end
 				i := i + 1
 			end
-			if not has_parent then
+			if not has_parent and then not errors.has_error then
 				parent := universe.type_any
 				type.add_parent(parent, False)
 				inject_parent_invariant(parent)
@@ -334,41 +334,45 @@ feature {}
 			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
 			inherited_feature: LIBERTY_FEATURE; redefined_feature: LIBERTY_FEATURE_REDEFINED
 		do
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]}redefined_features.with_capacity(clause.list_count)
-			from
-				i := clause.list_lower
-			invariant
-				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
-			until
-				i > clause.list_upper
-			loop
-				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast, type.file)
-				fd := parent_features.reference_at(feature_name)
-				if fd = Void then
-					errors.add_position(feature_name.position)
-					errors.set(level_error, once "Unknown feature name: " + feature_name.name)
-				elseif fd.is_frozen then
-					errors.add_position(feature_name.position)
-					errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
-				else
-					inherited_feature := fd.the_feature
-					create redefined_feature.make
-					redefined_feature.set_precondition(inherited_feature.precondition)
-					redefined_feature.set_postcondition(inherited_feature.postcondition)
-					redefined_feature.set_context(inherited_feature.context)
-					if conformant then
-						inherited_feature.bind(redefined_feature, type)
+			if clause.list_count > 0 then
+				create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]}redefined_features.with_capacity(clause.list_count)
+				from
+					i := clause.list_lower
+				invariant
+					parent_features.item(i).feature_name.is_equal(parent_features.key(i))
+				until
+					i > clause.list_upper
+				loop
+					create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast, type.file)
+					fd := parent_features.reference_at(feature_name)
+					if fd = Void then
+						errors.add_position(feature_name.position)
+						errors.set(level_error, once "Unknown feature name: " + feature_name.name)
+					elseif fd.is_frozen then
+						errors.add_position(feature_name.position)
+						errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
+					else
+						inherited_feature := fd.the_feature
+						create redefined_feature.make
+						redefined_feature.set_precondition(inherited_feature.precondition)
+						redefined_feature.set_postcondition(inherited_feature.postcondition)
+						redefined_feature.set_context(inherited_feature.context)
+						if conformant then
+							inherited_feature.bind(redefined_feature, type)
+						end
+						fd.set_the_feature(redefined_feature)
+						redefined_features.add(redefined_feature, feature_name)
 					end
-					fd.set_the_feature(redefined_feature)
-					redefined_features.add(redefined_feature, feature_name)
+					i := i + 1
 				end
-				i := i + 1
 			end
 		end
 
 	push_parent_features_in_type (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]) is
 		local
 			i: INTEGER
+			fn: LIBERTY_FEATURE_NAME
+			f: LIBERTY_FEATURE_DEFINITION
 		do
 			from
 				i := parent_features.lower
@@ -377,7 +381,15 @@ feature {}
 			until
 				i >  parent_features.upper
 			loop
-				type.add_feature(parent_features.item(i))
+				f := parent_features.item(i)
+				fn := f.feature_name
+				if not type.has_feature(fn) then
+					type.add_feature(f)
+				else
+					check
+						type.features.reference_at(fn) = f
+					end
+				end
 				i := i + 1
 			end
 		end
@@ -488,7 +500,9 @@ feature {}
 							check do_block.is_once end
 							create {LIBERTY_FEATURE_ONCE} routine.make(comp)
 						end
-						routine.set_rescue(compound(routine_execution.rescue_block.list, local_context, redefinitions))
+						if not routine_execution.rescue_block.is_empty then
+							routine.set_rescue(compound(routine_execution.rescue_block.list, local_context, redefinitions))
+						end
 						Result := routine
 					end
 				end
@@ -513,7 +527,9 @@ feature {}
 		do
 			assertions := feature_assertions(precondition, local_context, redefinitions)
 			if not errors.has_error then
-				if precondition.require_else.is_require_else then
+				if precondition.count = 0 then
+					create Result.make(assertions)
+				elseif precondition.require_else.is_require_else then
 					create {LIBERTY_REQUIRE_ELSE}Result.make(assertions)
 				elseif precondition.require_else.is_require_then then
 					create {LIBERTY_REQUIRE_THEN}Result.make(assertions)
@@ -534,7 +550,9 @@ feature {}
 		do
 			assertions := feature_assertions(postcondition, local_context, redefinitions)
 			if not errors.has_error then
-				if postcondition.ensure_then.is_ensure_then then
+				if postcondition.count = 0 then
+					create Result.make(assertions)
+				elseif postcondition.ensure_then.is_ensure_then then
 					create {LIBERTY_ENSURE_THEN}Result.make(assertions)
 				else
 					create Result.make(assertions)
@@ -542,6 +560,11 @@ feature {}
 			end
 		ensure
 			not errors.has_error implies Result /= Void
+		end
+
+	empty_feature_assertions: COLLECTION[LIBERTY_ASSERTION] is
+		once
+			create {FAST_ARRAY[LIBERTY_ASSERTION]} Result.with_capacity(0)
 		end
 
 	feature_assertions (assertions: LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): COLLECTION[LIBERTY_ASSERTION] is
@@ -552,26 +575,30 @@ feature {}
 			i: INTEGER; assertion: LIBERTY_AST_ASSERTION
 			tag: FIXED_STRING; exp: LIBERTY_EXPRESSION
 		do
-			create {FAST_ARRAY[LIBERTY_ASSERTION]} Result.with_capacity(assertions.list_count)
-			from
-				i := assertions.list_lower
-			until
-				errors.has_error or else i > assertions.list_upper
-			loop
-				assertion := assertions.list_item(i)
-				if assertion.tag.has_tag then
-					tag := assertion.tag.tag.image.image.intern
-				else
-					tag := Void
+			if assertions.list_count = 0 then
+				Result := empty_feature_assertions
+			else
+				create {FAST_ARRAY[LIBERTY_ASSERTION]} Result.with_capacity(assertions.list_count)
+				from
+					i := assertions.list_lower
+				until
+					errors.has_error or else i > assertions.list_upper
+				loop
+					assertion := assertions.list_item(i)
+					if assertion.tag.has_tag then
+						tag := assertion.tag.tag.image.image.intern
+					else
+						tag := Void
+					end
+					exp := expression(assertion.expression, local_context, redefinitions)
+					if exp.result_type /= universe.type_boolean then
+						--| TODO: error
+						not_yet_implemented
+					else
+						Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
+					end
+					i := i + 1
 				end
-				exp := expression(assertion.expression, local_context, redefinitions)
-				if exp.result_type /= universe.type_boolean then
-					--| TODO: error
-					not_yet_implemented
-				else
-					Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
-				end
-				i := i + 1
 			end
 		end
 
@@ -638,8 +665,14 @@ feature {}
 				name ::= names.item(i)
 				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast, type.file)
 				if type.has_feature(feature_name) then
-					redefined := redefined_features.reference_at(feature_name)
-					if redefined /= Void and then redefined.redefined_feature = Void then
+					if redefined_features = Void then
+						redefined := Void
+					else
+						redefined := redefined_features.reference_at(feature_name)
+					end
+					if redefined = Void then
+						-- Nothing, not a redefined feature
+					elseif redefined.redefined_feature = Void then
 						if parameters_match(a_feature.parameters, redefined.parameters, name, feature_name) then
 							if a_feature.result_type.is_conform_to(redefined.result_type) then
 								redefined.set_redefined_feature(a_feature)
@@ -712,17 +745,19 @@ feature {}
 		local
 			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME
 		do
-			from
-				i := redefined_features.lower
-			until
-				i > redefined_features.upper
-			loop
-				if redefined_features.item(i).redefined_feature = Void then
-					feature_name := redefined_features.key(i)
-					errors.add_position(feature_name.position)
-					errors.set(level_error, once "Missing redefinition for " + feature_name.name)
+			if redefined_features /= Void then
+				from
+					i := redefined_features.lower
+				until
+					i > redefined_features.upper
+				loop
+					if redefined_features.item(i).redefined_feature = Void then
+						feature_name := redefined_features.key(i)
+						errors.add_position(feature_name.position)
+						errors.set(level_error, once "Missing redefinition for " + feature_name.name)
+					end
+					i := i + 1
 				end
-				i := i + 1
 			end
 		end
 

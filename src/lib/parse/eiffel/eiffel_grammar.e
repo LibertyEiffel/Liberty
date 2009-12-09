@@ -236,10 +236,10 @@ feature {}
 											  "Client", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void >> }; -- Liberty extension
 											  "Feature_Definition*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Feature_Definition*");
 																											{FAST_ARRAY[STRING] << "Feature_Definition", "Feature_Definition*" >> }, agent build_continue_list("Feature_Definition", 0, "Feature_Definition*") >> };
-											  "Feature_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature" >> }, Void;
-																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Routine_Definition" >> }, Void;
+											  "Feature_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Routine_Definition" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Manifest_Or_Type_Test" >> }, Void;
-																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "KW unique" >> }, Void >> };
+																										  {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "KW unique" >> }, Void;
+																										  {FAST_ARRAY[STRING] << "Indexing", "Signature" >> }, Void >> };
 											  "Signature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name+" >> }, Void;
 																							  {FAST_ARRAY[STRING] << "Feature_Name+", "KW :", "Type_Definition" >> }, Void;
 																							  {FAST_ARRAY[STRING] << "Feature_Name+", "KW (", "Declaration+", "KW )" >> }, Void;

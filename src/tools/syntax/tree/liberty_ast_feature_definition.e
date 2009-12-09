@@ -33,7 +33,7 @@ feature {LIBERTY_AST_HANDLER}
 
 	has_routine_definition: BOOLEAN is
 		do
-			Result := count = 4 and then nodes.item(3).name.is_equal(once "Eiffel_Block")
+			Result := count = 4 and then nodes.item(3).name.is_equal(once "Routine_Definition")
 		end
 
 	is_constant: BOOLEAN is
