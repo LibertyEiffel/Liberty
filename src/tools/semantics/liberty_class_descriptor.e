@@ -38,6 +38,7 @@ feature {LIBERTY_UNIVERSE}
 			Result := once ""
 			Result.copy(cluster.location)
 			dir.compute_file_path_with(Result, n)
+			Result.copy(dir.last_entry)
 			if Result.is_empty or else not file_tools.is_file(Result) then
 				std_error.put_string(" *** Unknown class: " + name + " in cluster " + cluster.location)
 				die_with_code(1)

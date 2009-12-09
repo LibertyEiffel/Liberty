@@ -22,16 +22,18 @@ create {ANY}
 	make
 
 feature {ANY}
-	root: LIBERTY_CLUSTER
-
 	get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_TYPE is
 		require
 			position /= Void
-			cluster /= Void
 		local
 			descriptor: LIBERTY_TYPE_DESCRIPTOR
+			c: like cluster
 		do
-			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name.intern, position), effective_type_parameters)
+			c := cluster
+			if c = Void then
+				c := root.find(class_name)
+			end
+			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name.intern, position), effective_type_parameters)
 			Result := get_type_from_descriptor(descriptor)
 		ensure
 			Result.cluster = cluster
@@ -364,11 +366,12 @@ feature {}
 			create {HASHED_DICTIONARY[LIBERTY_TYPE, STRING]} kernel_types.make
 		end
 
+	root: LIBERTY_CLUSTER
+
 	classes: DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]
 	types: DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]
 	kernel_types: DICTIONARY[LIBERTY_TYPE, STRING]
 
-feature {}
 	errors: LIBERTY_ERRORS
 
 invariant

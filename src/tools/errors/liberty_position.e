@@ -27,14 +27,14 @@ feature {}
 			source /= Void
 			index.in_range(source.lower, source.upper)
 		local
-			i, n, l, c: INTEGER
+			i, l, c: INTEGER
 		do
-			n := index
 			from
 				l := 1
 				c := 1
+				i := 1
 			until
-				i = n
+				i = index
 			loop
 				if source.item(i) = '%N' then
 					l := l + 1
@@ -79,6 +79,7 @@ feature {LIBERTY_ERROR}
 					arrow.extend(' ')
 				end
 				stream.put_character(source.item(i))
+				c := c + 1
 				i := i + 1
 			end
 			from
