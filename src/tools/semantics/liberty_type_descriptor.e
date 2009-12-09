@@ -24,6 +24,7 @@ create {ANY}
 	make, default_create
 
 feature {ANY}
+	file: FIXED_STRING
 	parameters: TRAVERSABLE[LIBERTY_TYPE]
 
 	cluster: LIBERTY_CLUSTER is
@@ -73,6 +74,7 @@ feature {ANY}
 		do
 			class_descriptor := a_class_descriptor
 			parameters := a_parameters
+			file := a_class_descriptor.file.intern
 			compute_hash_code
 		ensure
 			class_descriptor = a_class_descriptor
@@ -98,5 +100,8 @@ feature {}
 
 feature {LIBERTY_TYPE_DESCRIPTOR}
 	class_descriptor: LIBERTY_CLASS_DESCRIPTOR
+
+invariant
+	file /= Void
 
 end

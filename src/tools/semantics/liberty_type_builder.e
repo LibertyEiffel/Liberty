@@ -37,12 +37,14 @@ feature {LIBERTY_TYPE}
 			init_header(ast.class_header)
 			if not errors.has_error then
 				if ast.obsolete_clause.count > 0 then
-					errors.add_position(semantics_position(ast.obsolete_clause))
+					errors.add_position(semantics_position_at(ast.obsolete_clause))
 					errors.set(level_warning, decoded_string(ast.obsolete_clause.string))
 				end
-				create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} parent_features.make
-				add_parents(ast.inherit_clause, True, parent_features)
-				add_parents(ast.insert_clause, False, parent_features)
+				if not is_any then
+					create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} parent_features.make
+					add_parents(ast.inherit_clause, True, parent_features)
+					add_parents(ast.insert_clause, False, parent_features)
+				end
 				if not errors.has_error then
 					add_features(ast.features)
 					if not errors.has_error then
@@ -111,7 +113,7 @@ feature {}
 			type_parameters := a_header.type_parameters
 			n := type_parameters.list_count
 			if n /= type.parameters.count then
-				errors.add_position(semantics_position(a_header.class_name))
+				errors.add_position(semantics_position_at(a_header.class_name))
 				errors.set(level_error, once "Bad number of generic parameters")
 			elseif n = 0 then
 				effective_generic_parameters := empty_effective_generic_parameters
@@ -129,7 +131,7 @@ feature {}
 					if type_parameter.has_constraint then
 						constraint := universe.get_type_from_type_definition(type, type_parameter.constraint, effective_generic_parameters)
 						if not type.parameters.item(i).is_child_of(constraint) then
-							errors.add_position(semantics_position(type_parameter.class_name))
+							errors.add_position(semantics_position_at(type_parameter.class_name))
 							errors.set(level_error, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
 						end
 					end
@@ -137,6 +139,16 @@ feature {}
 					i := i + 1
 				end
 			end
+		end
+
+	is_any: BOOLEAN is
+		do
+			Result := type.name = any_type_name
+		end
+
+	any_type_name: FIXED_STRING is
+		once
+			Result := "ANY".intern
 		end
 
 	add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN; parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]) is
@@ -227,8 +239,8 @@ feature {}
 				i > clause.list_upper
 			loop
 				r := clause.list_item(i)
-				create old_name.make_from_ast(r.old_name.feature_name_or_alias, type.ast)
-				create new_name.make_from_ast(r.new_name.feature_name_or_alias, type.ast)
+				create old_name.make_from_ast(r.old_name.feature_name_or_alias, type.ast, type.file)
+				create new_name.make_from_ast(r.new_name.feature_name_or_alias, type.ast, type.file)
 				fd := parent_features.reference_at(old_name)
 				if fd = Void then
 					errors.add_position(old_name.position)
@@ -266,7 +278,7 @@ feature {}
 					j > e.feature_names.upper
 				loop
 					fn ::= e.feature_names.item(j)
-					create feature_name.make_from_ast(fn.feature_name_or_alias, type.ast)
+					create feature_name.make_from_ast(fn.feature_name_or_alias, type.ast, type.file)
 					fd := parent_features.reference_at(feature_name)
 					if fd = Void then
 						errors.add_position(feature_name.position)
@@ -293,7 +305,7 @@ feature {}
 			until
 				i > clause.list_upper
 			loop
-				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast)
+				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast, type.file)
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
 					errors.add_position(feature_name.position)
@@ -330,7 +342,7 @@ feature {}
 			until
 				i > clause.list_upper
 			loop
-				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast)
+				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast, type.file)
 				fd := parent_features.reference_at(feature_name)
 				if fd = Void then
 					errors.add_position(feature_name.position)
@@ -405,6 +417,7 @@ feature {}
 			the_feature: LIBERTY_FEATURE
 			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
 			redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]
+			fn: LIBERTY_AST_FEATURE_NAME
 		do
 			redefinitions := feature_redefinitions(a_feature.signature.feature_names)
 			if a_feature.signature.has_result_type then
@@ -418,10 +431,11 @@ feature {}
 				the_feature := routine_definition(a_feature.routine_definition, local_context, redefinitions)
 			else
 				if a_feature.signature.has_parameters then
-					errors.add_position(semantics_position(a_feature.signature.node_at(1)))
+					errors.add_position(semantics_position_at(a_feature.signature.node_at(1)))
 					errors.set(level_error, once "Unexpected parameters")
 				elseif not a_feature.signature.has_result_type then
-					errors.add_position(semantics_position(a_feature.signature.node_at(3)))
+					fn ::= a_feature.signature.feature_names.last
+					errors.add_position(semantics_position_after(fn.feature_name_or_alias.node_at(fn.feature_name_or_alias.upper)))
 					errors.set(level_error, once "Missing entity type")
 				else
 					if a_feature.is_constant then
@@ -568,10 +582,10 @@ feature {}
 			tm: like typed_manifest_or_type_test
 		do
 			if constant.is_assignment_test then
-				errors.add_position(semantics_position(constant.node_at(0)))
+				errors.add_position(semantics_position_at(constant.node_at(0)))
 				errors.set(level_error, once "Unexpected assignment test")
 			elseif constant.is_typed_open_argument then
-				errors.add_position(semantics_position(constant.node_at(0)))
+				errors.add_position(semantics_position_at(constant.node_at(0)))
 				errors.set(level_error, once "Unexpected open argument")
 			else
 				tm := typed_manifest_or_type_test(constant, local_context, redefinitions)
@@ -579,7 +593,7 @@ feature {}
 					if tm.result_type.is_conform_to(local_context.result_type) then
 						create Result.make(tm)
 					else
-						errors.add_position(semantics_position(constant.node_at(0)))
+						errors.add_position(semantics_position_at(constant.node_at(0)))
 						errors.set(level_error, once "That expression does not conform to " + local_context.result_type.name)
 					end
 				end
@@ -598,7 +612,7 @@ feature {}
 				Result /= Void or else i > names.upper
 			loop
 				name ::= names.item(i)
-				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast)
+				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast, type.file)
 				if type.has_feature(feature_name) then
 					fd := type.feature_definition(feature_name)
 					if not Result.fast_has(fd) then
@@ -622,7 +636,7 @@ feature {}
 				i > names.upper
 			loop
 				name ::= names.item(i)
-				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast)
+				create feature_name.make_from_ast(name.feature_name_or_alias, type.ast, type.file)
 				if type.has_feature(feature_name) then
 					redefined := redefined_features.reference_at(feature_name)
 					if redefined /= Void and then redefined.redefined_feature = Void then
@@ -631,7 +645,7 @@ feature {}
 								redefined.set_redefined_feature(a_feature)
 							else
 								name_or_alias := name.feature_name_or_alias
-								errors.add_position(semantics_position(name_or_alias.node_at(0)))
+								errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
 								errors.set(level_error, once "Cannot redefine feature (result types don't conform): " + feature_name.name)
 							end
 						else
@@ -640,7 +654,7 @@ feature {}
 						end
 					else
 						name_or_alias := name.feature_name_or_alias
-						errors.add_position(semantics_position(name_or_alias.node_at(0)))
+						errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
 						errors.set(level_error, once "Duplicate feature: " + feature_name.name)
 					end
 				else
@@ -659,16 +673,16 @@ feature {}
 			if child_parameters = Void then
 				Result := parent_parameters = Void
 				name_or_alias := name.feature_name_or_alias
-				errors.add_position(semantics_position(name_or_alias.node_at(0)))
+				errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
 				errors.set(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
 			elseif parent_parameters /= Void then
 				if child_parameters.count < parent_parameters.count then
 					name_or_alias := name.feature_name_or_alias
-					errors.add_position(semantics_position(name_or_alias.node_at(0)))
+					errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
 					errors.set(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
 				elseif child_parameters.count > parent_parameters.count then
 					name_or_alias := name.feature_name_or_alias
-					errors.add_position(semantics_position(name_or_alias.node_at(0)))
+					errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
 					errors.set(level_error, once "Cannot redefine feature (too many parameters): " + feature_name.name)
 				else
 					from
@@ -685,7 +699,7 @@ feature {}
 					end
 					if not Result then
 						name_or_alias := name.feature_name_or_alias
-						errors.add_position(semantics_position(name_or_alias.node_at(0)))
+						errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
 						errors.set(level_error, once "Cannot redefine feature (parameter types don't conform): " + feature_name.name)
 					end
 				end
@@ -862,7 +876,7 @@ feature {} -- Instructions
 			i: INTEGER
 		do
 			ifthenelse ::= a_cond
-			create conditional.make(semantics_position(ifthenelse.then_clause.node_at(0)))
+			create conditional.make(semantics_position_at(ifthenelse.then_clause.node_at(0)))
 			conditional.add_condition(condition(ifthenelse.then_clause, local_context, redefinitions))
 			from
 				i := ifthenelse.elseif_list.lower
@@ -880,13 +894,13 @@ feature {} -- Instructions
 	condition (a_if: LIBERTY_AST_IF; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_CONDITION is
 		do
 			create Result.make(expression(a_if.expression, local_context, redefinitions), compound(a_if.instructions, local_context, redefinitions),
-									 semantics_position(a_if.node_at(0)))
+									 semantics_position_at(a_if.node_at(0)))
 		end
 
 	else_clause (a_else: LIBERTY_AST_ELSE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_DEFAULT is
 		do
 			create Result.make(compound(a_else.list, local_context, redefinitions),
-									 semantics_position(a_else.node_at(0)))
+									 semantics_position_at(a_else.node_at(0)))
 		end
 
 	instruction_inspect (a_inspect: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_INSPECT is
@@ -899,7 +913,7 @@ feature {} -- Instructions
 			i: INTEGER
 		do
 			inspct ::= a_inspect
-			create insp.make(expression(inspct.expression, local_context, redefinitions), semantics_position(inspct.node_at(0)))
+			create insp.make(expression(inspct.expression, local_context, redefinitions), semantics_position_at(inspct.node_at(0)))
 			from
 				i := inspct.when_list.lower
 			until
@@ -922,7 +936,7 @@ feature {} -- Instructions
 			low, up: LIBERTY_EXPRESSION
 		do
 			when_clause ::= a_clause
-			create Result.make(compound(when_clause.instructions, local_context, redefinitions), semantics_position(when_clause.node_at(0)))
+			create Result.make(compound(when_clause.instructions, local_context, redefinitions), semantics_position_at(when_clause.node_at(0)))
 			from
 				i := when_clause.when_slices.lower
 			until
@@ -947,7 +961,7 @@ feature {} -- Instructions
 			elseif value.is_character then
 				Result := character(value.character.image)
 			elseif value.is_string then
-				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(value.string), True, semantics_position(value.node_at(0)))
+				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(value.string), True, semantics_position_at(value.node_at(0)))
 			elseif value.is_entity_name then
 				not_yet_implemented
 			else
@@ -1002,7 +1016,7 @@ feature {} -- Instructions
 		do
 			chk ::= a_check
 			create ck.make(feature_assertions(chk, local_context, redefinitions))
-			create Result.make(ck, semantics_position(chk.node_at(0)))
+			create Result.make(ck, semantics_position_at(chk.node_at(0)))
 		end
 
 	instruction_debug (a_debug: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_DEBUG is
@@ -1027,7 +1041,7 @@ feature {} -- Instructions
 				end
 			end
 			inst := compound(dbg.instructions, local_context, redefinitions)
-			create Result.make(keys, inst, semantics_position(dbg.node_at(0)))
+			create Result.make(keys, inst, semantics_position_at(dbg.node_at(0)))
 		ensure
 			Result /= Void
 		end
@@ -1063,7 +1077,7 @@ feature {} -- Instructions
 				fe := feature_entity(default_create_name)
 				fa := empty_actuals
 			end
-			create Result.make(w, creation_type, fe, fa, semantics_position(creat.node_at(0)))
+			create Result.make(w, creation_type, fe, fa, semantics_position_at(creat.node_at(0)))
 		end
 
 	default_create_name: LIBERTY_FEATURE_NAME is
@@ -1079,7 +1093,7 @@ feature {} -- Instructions
 			re: LIBERTY_AST_RETRY
 		do
 			re ::= a_retry
-			Result := local_context.retry_instruction(semantics_position(re.node_at(0)))
+			Result := local_context.retry_instruction(semantics_position_at(re.node_at(0)))
 		end
 
 feature {} -- Entities and writables
@@ -1148,14 +1162,14 @@ feature {} -- Entities and writables
 						not_yet_implemented
 					else
 						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
-						create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position(fn.node_at(0)))
+						create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 					end
 				elseif fn.is_prefix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position(fn.node_at(0)))
+					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 				elseif fn.is_infix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position(fn.node_at(0)))
+					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 				else
 					check False end
 				end
@@ -1164,7 +1178,7 @@ feature {} -- Entities and writables
 					precursor_type := universe.get_type_from_precursor(type, a_target.precursor_type_mark, effective_generic_parameters)
 				end
 				f := find_precursor(redefinitions, precursor_type)
-				create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals, local_context, redefinitions), semantics_position(a_target.node_at(0)))
+				create {LIBERTY_PRECURSOR_INSTRUCTION} Result.make(f, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(a_target.node_at(0)))
 			elseif a_target.is_parenthesized_expression then
 				--| TODO: error
 				not_yet_implemented
@@ -1200,30 +1214,30 @@ feature {} -- Entities and writables
 			f: LIBERTY_FEATURE; precursor_type: LIBERTY_TYPE
 		do
 			if a_target.is_current then
-				create {LIBERTY_ENTITY_EXPRESSION} Result.make(current_entity, semantics_position(a_target.node_at(0)))
+				create {LIBERTY_ENTITY_EXPRESSION} Result.make(current_entity, semantics_position_at(a_target.node_at(0)))
 			elseif a_target.is_result then
-				create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.result_entity, semantics_position(a_target.node_at(0)))
+				create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.result_entity, semantics_position_at(a_target.node_at(0)))
 			elseif a_target.is_implicit_feature_call then
 				fn := a_target.implicit_feature_name.feature_name_or_alias
 				if fn.is_regular then
 					-- may be a local or a parameter of a regular feature name
 					name := fn.entity_name.image.image.intern
 					if local_context.is_local(name) then
-						create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name), semantics_position(fn.node_at(0)))
+						create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name), semantics_position_at(fn.node_at(0)))
 						--| TODO: check no actuals
 					elseif local_context.is_parameter(name) then
-						create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), semantics_position(fn.node_at(0)))
+						create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), semantics_position_at(fn.node_at(0)))
 						--| TODO: check no actuals
 					else
 						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
-						create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position(fn.node_at(0)))
+						create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 					end
 				elseif fn.is_prefix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position(fn.node_at(0)))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 				elseif fn.is_infix then
 					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position(fn.node_at(0)))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 				else
 					check False end
 				end
@@ -1232,7 +1246,7 @@ feature {} -- Entities and writables
 					precursor_type := universe.get_type_from_precursor(type, a_target.precursor_type_mark, effective_generic_parameters)
 				end
 				f := find_precursor(redefinitions, precursor_type)
-				create {LIBERTY_PRECURSOR_EXPRESSION} Result.make(f, actuals(a_target.actuals, local_context, redefinitions), semantics_position(a_target.node_at(0)))
+				create {LIBERTY_PRECURSOR_EXPRESSION} Result.make(f, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(a_target.node_at(0)))
 			elseif a_target.is_parenthesized_expression then
 				Result := expression(a_target.parenthesized_expression, local_context, redefinitions)
 			else
@@ -1292,7 +1306,7 @@ feature {} -- Expressions
 						Result.add_last(expression(act.expression, local_context, redefinitions))
 					else
 						check act.is_ref_to_entity end
-						Result.add_last(create {LIBERTY_ENTITY_REFERENCE}.make(universe.type_pointer, entity(act.ref_entity_name, local_context, redefinitions), semantics_position(act.node_at(0))))
+						Result.add_last(create {LIBERTY_ENTITY_REFERENCE}.make(universe.type_pointer, entity(act.ref_entity_name, local_context, redefinitions), semantics_position_at(act.node_at(0))))
 					end
 					i := i + 1
 				end
@@ -1340,7 +1354,7 @@ feature {} -- Expressions
 			end
 			if not errors.has_error then
 				t := common_conformant_type(content)
-				create Result.make_array(t, content, semantics_position(array.node_at(0)))
+				create Result.make_array(t, content, semantics_position_at(array.node_at(0)))
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -1469,14 +1483,14 @@ feature {} -- Expressions
 				inspect
 					e8.prefix_operator.name
 				when "KW +" then
-					create {LIBERTY_POSITIVE} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity, semantics_position(e8.prefix_operator))
+					create {LIBERTY_POSITIVE} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity, semantics_position_at(e8.prefix_operator))
 				when "KW -" then
-					create {LIBERTY_NEGATIVE} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity, semantics_position(e8.prefix_operator))
+					create {LIBERTY_NEGATIVE} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity, semantics_position_at(e8.prefix_operator))
 				when "KW not" then
-					create {LIBERTY_NOT} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity, semantics_position(e8.prefix_operator))
+					create {LIBERTY_NOT} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity, semantics_position_at(e8.prefix_operator))
 				else
 					create fn.make_prefix(e8.prefix_operator.image.image.intern)
-					create {LIBERTY_PREFIX_OPERATOR} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), feature_entity(fn), semantics_position(e8.prefix_operator))
+					create {LIBERTY_PREFIX_OPERATOR} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), feature_entity(fn), semantics_position_at(e8.prefix_operator))
 				end
 			else
 				Result := expression_9(e8.e9, local_context, redefinitions)
@@ -1491,7 +1505,7 @@ feature {} -- Expressions
 		do
 			Result := expression_10(e9.e10, local_context, redefinitions)
 			if e9.has_old then
-				create {LIBERTY_OLD} Result.make(Result, semantics_position(e9.node_at(0)))
+				create {LIBERTY_OLD} Result.make(Result, semantics_position_at(e9.node_at(0)))
 			end
 		end
 
@@ -1502,9 +1516,9 @@ feature {} -- Expressions
 			if e10.is_call then
 				Result := expression_call(e10.call, local_context, redefinitions)
 			elseif e10.is_tuple then
-				Result := expression_tuple(e10.tuple_actuals, local_context, redefinitions, semantics_position(e10.node_at(0)))
+				Result := expression_tuple(e10.tuple_actuals, local_context, redefinitions, semantics_position_at(e10.node_at(0)))
 			elseif e10.is_open_argument then
-				create {LIBERTY_OPEN_ARGUMENT} Result.make(semantics_position(e10.node_at(0)))
+				create {LIBERTY_OPEN_ARGUMENT} Result.make(semantics_position_at(e10.node_at(0)))
 			elseif e10.is_manifest_or_type_test then
 				tgt := typed_manifest_or_type_test(e10.manifest_or_type_test, local_context, redefinitions)
 				Result := expression_remainder(tgt, e10.manifest_or_type_test_r10, local_context, redefinitions)
@@ -1517,11 +1531,11 @@ feature {} -- Expressions
 			elseif e10.is_creation_expression then
 				Result := expression_creation(e10.creation_expression, local_context, redefinitions)
 			elseif e10.is_void then
-				create {LIBERTY_VOID} Result.make(semantics_position(e10.node_at(0)))
+				create {LIBERTY_VOID} Result.make(semantics_position_at(e10.node_at(0)))
 			elseif e10.is_assignment_test then
 				create {LIBERTY_ASSIGNMENT_TEST} Result.test_entity(entity(e10.assignment_test_entity_name, local_context, redefinitions),
 																					 expression(e10.assignment_test_expression, local_context, redefinitions),
-																					 universe.type_boolean, semantics_position(e10.assignment_test_entity_name))
+																					 universe.type_boolean, semantics_position_at(e10.assignment_test_entity_name))
 			else
 				check False end
 			end
@@ -1542,11 +1556,11 @@ feature {} -- Expressions
 			if a_creation.r10.is_empty then
 				fe := feature_entity(default_create_name)
 				fa := empty_actuals
-				create {LIBERTY_CREATION_EXPRESSION} Result.make(creation_type, fe, fa, semantics_position(a_creation.node_at(0)))
+				create {LIBERTY_CREATION_EXPRESSION} Result.make(creation_type, fe, fa, semantics_position_at(a_creation.node_at(0)))
 			else
 				fe := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(a_creation.r10.feature_name.image.image.intern))
 				fa := actuals(a_creation.r10.actuals, local_context, redefinitions)
-				create {LIBERTY_CREATION_EXPRESSION} tgt.make(creation_type, fe, fa, semantics_position(a_creation.node_at(0)))
+				create {LIBERTY_CREATION_EXPRESSION} tgt.make(creation_type, fe, fa, semantics_position_at(a_creation.node_at(0)))
 				Result := expression_remainder(tgt, a_creation.r10.remainder, local_context, redefinitions)
 			end
 		ensure
@@ -1582,7 +1596,7 @@ feature {} -- Expressions
 				else
 					fe ::= entity(a_remainder.feature_name, local_context, redefinitions)
 					fa := actuals(a_remainder.actuals, local_context, redefinitions)
-					create {LIBERTY_CALL_EXPRESSION} tgt.make(a_target, fe, fa, a_target.position) --|*** or semantics_position(a_remainder.node_at(0)) ??
+					create {LIBERTY_CALL_EXPRESSION} tgt.make(a_target, fe, fa, a_target.position) --|*** or semantics_position_at(a_remainder.node_at(0)) ??
 					Result := expression_remainder(tgt, a_remainder.remainder, local_context, redefinitions)
 				end
 			end
@@ -1617,33 +1631,33 @@ feature {} -- Expressions
 			if constant.is_assignment_test then
 				create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(universe.get_type_from_type_definition(type, constant.assignment_test_type, effective_generic_parameters),
 																				  expression(constant.assignment_test_expression, local_context, redefinitions),
-																				  universe.type_boolean, semantics_position(constant.node_at(0)))
+																				  universe.type_boolean, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_typed_open_argument then
-				create openarg.make(semantics_position(constant.node_at(0)))
+				create openarg.make(semantics_position_at(constant.node_at(0)))
 				openarg.set_result_type(universe.get_type_from_type_definition(type, constant.open_argument_type, effective_generic_parameters))
 				Result := openarg
 			elseif constant.is_number then
 				Result := number(constant.number.image)
 			elseif constant.is_true then
-				create {LIBERTY_BOOLEAN_MANIFEST}Result.make(universe.type_boolean, True, semantics_position(constant.node_at(0)))
+				create {LIBERTY_BOOLEAN_MANIFEST}Result.make(universe.type_boolean, True, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_false then
-				create {LIBERTY_BOOLEAN_MANIFEST}Result.make(universe.type_boolean, False, semantics_position(constant.node_at(0)))
+				create {LIBERTY_BOOLEAN_MANIFEST}Result.make(universe.type_boolean, False, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_character then
 				Result := character(constant.character.image)
 			elseif constant.is_string then
-				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), False, semantics_position(constant.node_at(0)))
+				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), False, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_once_string then
-				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True, semantics_position(constant.node_at(0)))
+				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_number_typed_manifest then
 				Result := number_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 														  constant.typed_manifest_number.image)
 			elseif constant.is_string_typed_manifest then
 				create {LIBERTY_STRING_TYPED_MANIFEST} Result.make(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
-																				   decoded_string(constant.typed_manifest_string), semantics_position(constant.node_at(0)))
+																				   decoded_string(constant.typed_manifest_string), semantics_position_at(constant.node_at(0)))
 			elseif constant.is_array_typed_manifest then
 				Result := array_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 														 constant.typed_manifest_array_parameters, constant.typed_manifest_array,
-														 local_context, redefinitions, semantics_position(constant.node_at(0)))
+														 local_context, redefinitions, semantics_position_at(constant.node_at(0)))
 			else
 				check False end
 			end
@@ -1666,20 +1680,20 @@ feature {} -- Expressions
 				i ::= number_image
 				i64 := i.decoded
 				if i64.fit_integer_8 then
-					create {LIBERTY_INTEGER_8_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_8, image_semantics_position(number_image))
+					create {LIBERTY_INTEGER_8_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_8, image_semantics_position_at(number_image))
 				elseif i64.fit_integer_16 then
-					create {LIBERTY_INTEGER_16_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_16, image_semantics_position(number_image))
+					create {LIBERTY_INTEGER_16_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_16, image_semantics_position_at(number_image))
 				elseif i64.fit_integer_32 then
-					create {LIBERTY_INTEGER_32_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_32, image_semantics_position(number_image))
+					create {LIBERTY_INTEGER_32_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_32, image_semantics_position_at(number_image))
 				else
-					create {LIBERTY_INTEGER_64_MANIFEST}Result.make(universe.type_integer_64, i64, image_semantics_position(number_image))
+					create {LIBERTY_INTEGER_64_MANIFEST}Result.make(universe.type_integer_64, i64, image_semantics_position_at(number_image))
 				end
 			else
 				check
 					r ?:= number_image
 				end
 				r ::= number_image
-				create {LIBERTY_REAL_MANIFEST}Result.make(universe.type_real, r.decoded, image_semantics_position(number_image))
+				create {LIBERTY_REAL_MANIFEST}Result.make(universe.type_real, r.decoded, image_semantics_position_at(number_image))
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -1692,7 +1706,7 @@ feature {} -- Expressions
 			c: TYPED_EIFFEL_IMAGE[CHARACTER]
 		do
 			c ::= character_image
-			create {LIBERTY_CHARACTER_MANIFEST}Result.make(universe.type_character, c.decoded, image_semantics_position(character_image))
+			create {LIBERTY_CHARACTER_MANIFEST}Result.make(universe.type_character, c.decoded, image_semantics_position_at(character_image))
 		ensure
 			not errors.has_error implies Result /= Void
 		end
@@ -1707,13 +1721,13 @@ feature {} -- Expressions
 		do
 			if i ?:= number_image then
 				i ::= number_image
-				create {LIBERTY_INTEGER_TYPED_MANIFEST}Result.make(manifest_type, i.decoded, image_semantics_position(number_image))
+				create {LIBERTY_INTEGER_TYPED_MANIFEST}Result.make(manifest_type, i.decoded, image_semantics_position_at(number_image))
 			else
 				check
 					r ?:= number_image
 				end
 				r ::= number_image
-				create {LIBERTY_REAL_TYPED_MANIFEST}Result.make(manifest_type, r.decoded, image_semantics_position(number_image))
+				create {LIBERTY_REAL_TYPED_MANIFEST}Result.make(manifest_type, r.decoded, image_semantics_position_at(number_image))
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -1772,7 +1786,7 @@ feature {}
 				from
 					i := clients.lower
 				until
-					i > clients.upper
+					errors.has_error or else i > clients.upper
 				loop
 					client ::= clients.item(i)
 					Result.add_last(universe.get_type_from_client(type, client, effective_generic_parameters))
@@ -1873,19 +1887,34 @@ feature {}
 
 	errors: LIBERTY_ERRORS
 
-	semantics_position (a_node: EIFFEL_NODE): LIBERTY_POSITION is
+	semantics_position_at (a_node: EIFFEL_NODE): LIBERTY_POSITION is
 		require
 			{LIBERTY_AST_TERMINAL_NODE} ?:= a_node
 		local
 			node: LIBERTY_AST_TERMINAL_NODE
 		do
 			node ::= a_node
-			Result := image_semantics_position(node.image)
+			Result := image_semantics_position_at(node.image)
 		end
 
-	image_semantics_position (a_image: EIFFEL_IMAGE): LIBERTY_POSITION is
+	image_semantics_position_at (a_image: EIFFEL_IMAGE): LIBERTY_POSITION is
 		do
-			Result := errors.semantics_position(a_image.index, type.ast)
+			Result := errors.semantics_position(a_image.index, type.ast, type.file)
+		end
+
+	semantics_position_after (a_node: EIFFEL_NODE): LIBERTY_POSITION is
+		require
+			{LIBERTY_AST_TERMINAL_NODE} ?:= a_node
+		local
+			node: LIBERTY_AST_TERMINAL_NODE
+		do
+			node ::= a_node
+			Result := image_semantics_position_after(node.image)
+		end
+
+	image_semantics_position_after (a_image: EIFFEL_IMAGE): LIBERTY_POSITION is
+		do
+			Result := errors.semantics_position(a_image.index + a_image.image.count, type.ast, type.file)
 		end
 
 invariant

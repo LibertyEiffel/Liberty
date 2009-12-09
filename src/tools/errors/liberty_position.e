@@ -21,6 +21,7 @@ feature {}
 		end
 
 	line, column: INTEGER
+	file: FIXED_STRING
 
 	set_error_position is
 		require
@@ -55,6 +56,15 @@ feature {LIBERTY_ERROR}
 			arrow: STRING
 		do
 			set_error_position
+			stream.put_string(once "In file ")
+			stream.put_string(file.out)
+			stream.put_string(once " at line ")
+			stream.put_integer(line)
+			stream.put_string(once ", column ")
+			stream.put_integer(column)
+			stream.put_string(once " (index: ")
+			stream.put_integer(index)
+			stream.put_line(once "):")
 
 			i := 1
 			from
@@ -101,5 +111,8 @@ feature {LIBERTY_ERROR}
 			stream.put_character('^')
 			stream.put_new_line
 		end
+
+invariant
+	file /= Void
 
 end

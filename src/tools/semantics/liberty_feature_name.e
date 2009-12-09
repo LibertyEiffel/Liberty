@@ -66,21 +66,21 @@ feature {LIBERTY_FEATURE_NAME}
 	type: INTEGER_8
 
 feature {}
-	make_from_ast (ast: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; class_ast: LIBERTY_AST_CLASS) is
+	make_from_ast (ast: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; class_ast: LIBERTY_AST_CLASS; file: FIXED_STRING) is
 		require
 			ast /= Void
 			class_ast /= Void
 		do
 			if ast.is_regular then
 				make_regular(ast.entity_name.image.image.intern)
-				position := errors.semantics_position(ast.entity_name.image.index, class_ast)
+				position := errors.semantics_position(ast.entity_name.image.index, class_ast, file)
 			elseif ast.is_prefix then
 				make_prefix(ast.free_operator_name.image.image.intern)
-				position := errors.semantics_position(ast.free_operator_name.image.index, class_ast)
+				position := errors.semantics_position(ast.free_operator_name.image.index, class_ast, file)
 			else
 				check ast.is_infix end
 				make_infix(ast.free_operator_name.image.image.intern)
-				position := errors.semantics_position(ast.free_operator_name.image.index, class_ast)
+				position := errors.semantics_position(ast.free_operator_name.image.index, class_ast, file)
 			end
 		end
 

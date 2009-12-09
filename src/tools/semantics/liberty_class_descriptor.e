@@ -25,7 +25,7 @@ feature {ANY}
 	name: FIXED_STRING
 	position: LIBERTY_POSITION
 
-feature {LIBERTY_UNIVERSE}
+feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_DESCRIPTOR}
 	file: STRING is
 		local
 			n: STRING

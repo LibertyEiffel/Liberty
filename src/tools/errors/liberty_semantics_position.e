@@ -43,16 +43,19 @@ feature {LIBERTY_ERROR}
 		end
 
 feature {}
-	make (a_index: like index; a_ast: like ast) is
+	make (a_index: like index; a_ast: like ast; a_file: like file) is
 		require
 			a_ast /= Void
 			a_index > 0
+			a_file /= Void
 		do
 			index := a_index
 			ast := a_ast
+			file := a_file
 		ensure
 			index = a_index
 			ast = a_ast
+			file = a_file
 		end
 
 	generate_source is

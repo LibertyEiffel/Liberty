@@ -68,8 +68,12 @@ feature {ANY} -- Errors
 	set (level: INTEGER_8; message: STRING) is
 		require
 			valid_level(level)
+		local
+			err: LIBERTY_ERROR
 		do
-			last_error_memory.set_item(create {LIBERTY_ERROR}.make(level, positions.twin, message, last_error))
+			err := last_error
+			create err.make(level, positions.twin, message, err)
+			last_error_memory.set_item(err)
 			if level < level_error then
 				emit
 			end
@@ -90,7 +94,7 @@ feature {ANY} -- Errors
 			dead_if_fatal: not old (last_error.is_fatal)
 		end
 
-	emit_syntax_error (error: PARSE_ERROR; code: STRING) is
+	emit_syntax_error (error: PARSE_ERROR; code: STRING; file: FIXED_STRING) is
 			-- utility method that adds all the syntax errors and emit as a fatal error
 		require
 			stream.is_connected
@@ -102,7 +106,7 @@ feature {ANY} -- Errors
 			until
 				e = Void
 			loop
-				add_position(syntax_position(e.index, code))
+				add_position(syntax_position(e.index, code, file))
 				set(level_error, e.message)
 				e := e.next
 			end
@@ -118,21 +122,23 @@ feature {ANY} -- Positions
 			Result := not positions.is_empty
 		end
 
-	syntax_position (a_index: INTEGER; a_source: STRING): LIBERTY_SYNTAX_POSITION is
+	syntax_position (a_index: INTEGER; a_source: STRING; a_file: FIXED_STRING): LIBERTY_SYNTAX_POSITION is
 		require
 			a_index.in_range(a_source.lower, a_source.upper)
+			a_file /= Void
 		do
-			create Result.make(a_index, a_source)
+			create Result.make(a_index, a_source, a_file)
 		ensure
 			Result /= Void
 		end
 
-	semantics_position (a_index: INTEGER; a_ast: LIBERTY_AST_CLASS): LIBERTY_SEMANTICS_POSITION is
+	semantics_position (a_index: INTEGER; a_ast: LIBERTY_AST_CLASS; a_file: FIXED_STRING): LIBERTY_SEMANTICS_POSITION is
 		require
 			a_index > 0
 			a_ast /= Void
+			a_file /= Void
 		do
-			create Result.make(a_index, a_ast)
+			create Result.make(a_index, a_ast, a_file)
 		ensure
 			Result /= Void
 		end

@@ -24,40 +24,15 @@ create {LIBERTY_ERRORS}
 feature {LIBERTY_ERROR, LIBERTY_ERRORS}
 	positions: TRAVERSABLE[LIBERTY_POSITION]
 	message: STRING
-	next: LIBERTY_ERROR
+	previous: LIBERTY_ERROR
 	level: INTEGER_8
-
-	set_next (a_next: like next) is
-		require
-			a_next /= Void
-			a_next /= Current
-		do
-			if next /= Void then
-				next.set_next(a_next)
-			else
-				next := a_next
-			end
-		ensure
-			last = a_next
-		end
-
-	last: like next is
-		do
-			if next = Void then
-				Result := Current
-			else
-				Result := next.last
-			end
-		ensure
-			Result /= Void
-		end
 
 	is_fatal: BOOLEAN is
 		do
 			if level < level_error then
 				Result := True
-			elseif next /= Void then
-				Result := next.is_fatal
+			elseif previous /= Void then
+				Result := previous.is_fatal
 			end
 		end
 
@@ -65,8 +40,8 @@ feature {LIBERTY_ERROR, LIBERTY_ERRORS}
 		do
 			if level <= level_error then
 				Result := True
-			elseif next /= Void then
-				Result := next.is_error
+			elseif previous /= Void then
+				Result := previous.is_error
 			end
 		end
 
@@ -95,12 +70,15 @@ feature {LIBERTY_ERROR}
 		local
 			i: INTEGER
 		do
+			if previous /= Void then
+				previous.do_emit(stream, threshold)
+				stream.put_new_line
+			end
 			if level <= threshold then
 				stream.put_string(once "*** ")
 				stream.put_string(errors.level_tag(level))
 				stream.put_string(once ": ")
 				stream.put_line(message)
-
 				from
 					i := positions.lower
 				until
@@ -109,11 +87,6 @@ feature {LIBERTY_ERROR}
 					positions.item(i).emit(stream)
 					i := i + 1
 				end
-			end
-
-			if next /= Void then
-				stream.put_new_line
-				next.do_emit(stream, threshold)
 			end
 		end
 
@@ -126,14 +99,12 @@ feature {}
 		do
 			positions := a_positions
 			message := a_message
-			if a_previous /= Void then
-				a_previous.set_next(Current)
-			end
+			previous := a_previous
 			level := a_level
 		ensure
 			positions = a_positions
 			message = a_message
-			a_previous /= Void implies a_previous.last = Current
+			previous = a_previous
 		end
 
 	errors: LIBERTY_ERRORS

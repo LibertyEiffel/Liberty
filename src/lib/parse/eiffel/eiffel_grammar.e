@@ -566,7 +566,6 @@ feature {}
 				image := once ""
 				image.copy(once "U")
 				next_character(buffer)
-				skip_blanks(buffer)
 				if buffer.end_reached or else buffer.current_character /= '"' then
 					image := Void
 				end
@@ -974,7 +973,6 @@ feature {}
 			old_position, start_position: like position; i: INTEGER; c: CHARACTER
 		do
 			old_position := position
-			skip_blanks(buffer)
 			start_position := position
 			from
 				Result := keyword

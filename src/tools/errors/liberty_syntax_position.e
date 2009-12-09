@@ -24,16 +24,19 @@ feature {ANY}
 	source: STRING
 
 feature {}
-	make (a_index: like index; a_source: like source) is
+	make (a_index: like index; a_source: like source; a_file: like file) is
 		require
 			a_source /= Void
 			a_index.in_range(a_source.lower, a_source.upper)
+			a_file /= Void
 		do
 			index := a_index
 			source := a_source
+			file := a_file
 		ensure
 			index = a_index
 			source = a_source
+			file = a_file
 		end
 
 invariant

@@ -147,11 +147,11 @@ feature {LIBERTY_TYPE_BUILDER}
 			class_name := type_definition.type_name.image.image
 			cluster := origin.cluster.find(class_name)
 			if cluster = Void then
-				errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast))
+				errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file))
 				errors.set(level_fatal_error, once "Unknown class: " + class_name)
 			else
 				parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
-				Result := get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast), class_name, parameters)
+				Result := get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
 			end
 		end
 
@@ -199,7 +199,7 @@ feature {}
 			pos: LIBERTY_POSITION
 		do
 			if a_type_definition.type_parameters.list_count /= effective_parameters.count then
-				pos := errors.semantics_position(a_type_definition.type_name.image.index, origin.ast)
+				pos := errors.semantics_position(a_type_definition.type_name.image.index, origin.ast, origin.file)
 				if a_type_definition.type_parameters.list_count = 0 then
 					-- legacy: only a class name is given
 					class_name := a_type_definition.type_name.image.image
@@ -313,23 +313,25 @@ feature {} -- AST building
 
 	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING; pos: LIBERTY_POSITION): LIBERTY_AST_CLASS is
 		local
-			code: STRING
+			code: STRING; parse_desc: like parse_descriptor
 		do
 			std_output.put_line(once "Parsing " + class_name)
 			parse_descriptor.make(cluster, class_name.intern, pos)
 			Result := classes.reference_at(parse_descriptor)
 			if Result = Void then
+				parse_desc := parse_descriptor.twin
 				code := once ""
 				code.clear_count
-				read_file_in(parse_descriptor, code)
-
+				read_file_in(parse_desc, code)
 				parser_buffer.initialize_with(code)
+
+				eiffel.reset
 				parser.eval(parser_buffer, eiffel.table, once "Class")
 				if parser.error /= Void then
-					errors.emit_syntax_error(parser.error, code)
+					errors.emit_syntax_error(parser.error, code, parse_desc.file.intern)
 				end
 				Result ::= eiffel.root_node
-				classes.put(Result, parse_descriptor.twin)
+				classes.put(Result, parse_desc)
 			end
 		end
 
