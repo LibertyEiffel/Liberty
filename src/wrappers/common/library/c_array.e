@@ -53,12 +53,6 @@ feature {} -- Creation
 			storage := storage.calloc(a_capacity)
 		end
 
-feature {} -- 	
-	object_materialization_notice: STRING is
-			-- The notice printed when creating a new wrapper object from
-			-- no-where.
-		"Warning: C_ARRAY is going to create a new wrapper; if ITEM is deferred the program will almost surely crash. The actual ITEM must be made non-deferred.%N"
-
 feature
 	item (i: INTEGER_32): ITEM is
 		local

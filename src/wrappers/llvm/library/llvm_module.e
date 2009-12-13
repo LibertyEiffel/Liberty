@@ -96,6 +96,47 @@ feature -- Types
 	ensure 
 		name_untouched: a_name.is_equal(old a_name)
 	end
+feature -- Operation on functions
+	add_function  (a_name: ABSTRACT_STRING; a_type: LLVM_FUNCTION_TYPE): LLVM_FUNCTION is
+		-- A newly created function with `a_name' of `a_type'; this function is already added to Current module.
+	require
+		name_not_void: a_name /= Void
+		type_not_void: a_type /= Void
+	local p: POINTER
+	do
+		p:= llvmadd_function(handle,a_name.to_external, a_type.to_external)
+		check p.is_not_null end
+		create Result.from_external_pointer(p)
+	end
+
+	function_iterator: ITERATOR[LLVM_FUNCTION] is
+		do
+			create {ITERATOR_ON_MODULE_FUNCTIONS} Result.from_module(Current)
+		end
+
+	function_with_name (a_name: ABSTRACT_STRING): LLVM_FUNCTION is
+			-- The function named with `a_name'.
+		require name_not_void: a_name/=Void
+		local p: POINTER
+		do
+			p:=llvmget_named_function(handle,a_name.to_external)
+			if p.is_not_null then
+				Result?=wrapper(p)
+				if Result=Void then
+					create Result.from_external_pointer(p)
+				end
+			end
+		end
+	first_function: LLVM_FUNCTION is
+		do
+			-- LLVMValueRef LLVMGetFirstFunction(LLVMModuleRef M);	
+		end
+
+	last_function: LLVM_FUNCTION is
+		do
+			-- LLVMValueRef LLVMGetLastFunction(LLVMModuleRef M);
+		end
+
 feature -- Outputting
 
 	write_bitcode_to_file (a_path: STRING) is
@@ -125,10 +166,209 @@ feature -- Outputting
 			llvmdump_module(handle)
 		end
 
+
+feature {} -- Documentation from doxygen documentation of LLVM's Module
+	
+	-- Global lists: functions, symbols and variables
+	-- const GlobalListType & 	getGlobalList () const
+	--  	Get the Module's list of global variables (constant). 
+	-- GlobalListType & 	getGlobalList ()
+	--  	Get the Module's list of global variables. 
+	-- const FunctionListType & 	getFunctionList () const
+	--  	Get the Module's list of functions (constant). 
+	-- FunctionListType & 	getFunctionList ()
+	--  	Get the Module's list of functions. 
+	-- const AliasListType & 	getAliasList () const
+	--  	Get the Module's list of aliases (constant). 
+	-- AliasListType & 	getAliasList ()
+	--  	Get the Module's list of aliases. 
+	-- const NamedMDListType & 	getNamedMDList () const
+	--  	Get the Module's list of named metadata (constant). 
+	-- NamedMDListType & 	getNamedMDList ()
+	--  	Get the Module's list of named metadata. 
+	-- const ValueSymbolTable & 	getValueSymbolTable () const
+	--  	Get the symbol table of global variable and function identifiers. 
+	-- ValueSymbolTable & 	getValueSymbolTable ()
+	--  	Get the Module's symbol table of global variable and function identifiers. 
+	-- const TypeSymbolTable & 	getTypeSymbolTable () const
+	--  	Get the symbol table of types. 
+	-- TypeSymbolTable & 	getTypeSymbolTable ()
+	--  	Get the Module's symbol table of types. 
+	-- static iplist< GlobalVariable >
+	-- Module::* 	getSublistAccess (GlobalVariable *)
+	-- static iplist< Function > Module::* 	getSublistAccess (Function *)
+	-- static iplist< GlobalAlias >
+	-- Module::* 	getSublistAccess (GlobalAlias *)
+	-- static iplist< NamedMDNode >
+	-- Module::* 	getSublistAccess (NamedMDNode *)
+
+	-- Public Types
+
+	-- Types And Enumerations
+	-- enum  	Endianness { AnyEndianness, LittleEndian, BigEndian }
+	--  	An enumeration for describing the endianess of the target machine. More...
+	-- enum  	PointerSize { AnyPointerSize, Pointer32, Pointer64 }
+	--  	An enumeration for describing the size of a pointer on the target machine. More...
+	-- typedef iplist< GlobalVariable > 	GlobalListType
+	--  	The type for the list of global variables. 
+	-- typedef iplist< Function > 	FunctionListType
+	--  	The type for the list of functions. 
+	-- typedef iplist< GlobalAlias > 	AliasListType
+	--  	The type for the list of aliases. 
+	-- typedef iplist< NamedMDNode > 	NamedMDListType
+	--  	The type for the list of named metadata. 
+	-- typedef std::vector< std::string > 	LibraryListType
+	--  	The type for the list of dependent libraries. 
+	-- typedef GlobalListType::iterator 	global_iterator
+	--  	The Global Variable iterator. 
+	-- typedef 
+	-- GlobalListType::const_iterator 	const_global_iterator
+	--  	The Global Variable constant iterator. 
+	-- typedef FunctionListType::iterator 	iterator
+	--  	The Function iterators. 
+	-- typedef 
+	-- FunctionListType::const_iterator 	const_iterator
+	--  	The Function constant iterator. 
+	-- typedef AliasListType::iterator 	alias_iterator
+	--  	The Global Alias iterators. 
+	-- typedef 
+	-- AliasListType::const_iterator 	const_alias_iterator
+	--  	The Global Alias constant iterator. 
+	-- typedef NamedMDListType::iterator 	named_metadata_iterator
+	--  	The named metadata iterators. 
+	-- typedef 
+	-- NamedMDListType::const_iterator 	const_named_metadata_iterator
+	--  	The named metadata constant interators. 
+	-- typedef 
+	-- LibraryListType::const_iterator 	lib_iterator
+	--  	The Library list iterator. 
+
+	-- Public Member Functions
+
+	-- Constructors
+	--  	Module (const StringRef &ModuleID, LLVMContext &C)
+	--  	~Module ()
+	--  	The module destructor. This will dropAllReferences. 
+	-- Module Level Accessors
+	-- const std::string & 	getModuleIdentifier () const
+	-- const std::string & 	getDataLayout () const
+	-- const std::string & 	getTargetTriple () const
+	-- Endianness 	getEndianness () const
+	--  	Target endian information... 
+	-- PointerSize 	getPointerSize () const
+	--  	Target Pointer Size information... 
+	-- LLVMContext & 	getContext () const
+	-- const std::string & 	getModuleInlineAsm () const
+	-- Module Level Mutators
+	-- void 	setModuleIdentifier (const StringRef &ID)
+	--  	Set the module identifier. 
+	-- void 	setDataLayout (const StringRef &DL)
+	--  	Set the data layout. 
+	-- void 	setTargetTriple (const StringRef &T)
+	--  	Set the target triple. 
+	-- void 	setModuleInlineAsm (const StringRef &Asm)
+	--  	Set the module-scope inline assembly blocks. 
+	-- void 	appendModuleInlineAsm (const StringRef &Asm)
+	-- Generic Value Accessors
+	-- GlobalValue * 	getNamedValue (const StringRef &Name) const
+	-- Function Accessors
+	-- Constant * 	getOrInsertFunction (const StringRef &Name, const FunctionType *T, AttrListPtr AttributeList)
+	-- Constant * 	getOrInsertFunction (const StringRef &Name, const FunctionType *T)
+	-- Constant * 	getOrInsertFunction (const StringRef &Name, AttrListPtr AttributeList, const Type *RetTy,...) END_WITH_NULL
+	-- Constant * 	getOrInsertFunction (const StringRef &Name, const Type *RetTy,...) END_WITH_NULL
+	-- Constant * 	getOrInsertTargetIntrinsic (const StringRef &Name, const FunctionType *Ty, AttrListPtr AttributeList)
+	-- Function * 	getFunction (const StringRef &Name) const
+	-- Global Variable Accessors
+	-- GlobalVariable * 	getGlobalVariable (const StringRef &Name, bool AllowInternal=false) const
+	-- GlobalVariable * 	getNamedGlobal (const StringRef &Name) const
+	-- Constant * 	getOrInsertGlobal (const StringRef &Name, const Type *Ty)
+	-- Global Alias Accessors
+	-- GlobalAlias * 	getNamedAlias (const StringRef &Name) const
+	-- Named Metadata Accessors
+	-- NamedMDNode * 	getNamedMetadata (const StringRef &Name) const
+	-- NamedMDNode * 	getOrInsertNamedMetadata (const StringRef &Name)
+	-- Type Accessors
+	-- bool 	addTypeName (const StringRef &Name, const Type *Ty)
+	-- std::string 	getTypeName (const Type *Ty) const
+	-- const Type * 	getTypeByName (const StringRef &Name) const
+	-- Global Variable Iteration
+	-- global_iterator 	global_begin ()
+	--  	Get an iterator to the first global variable. 
+	-- const_global_iterator 	global_begin () const
+	--  	Get a constant iterator to the first global variable. 
+	-- global_iterator 	global_end ()
+	--  	Get an iterator to the last global variable. 
+	-- const_global_iterator 	global_end () const
+	--  	Get a constant iterator to the last global variable. 
+	-- bool 	global_empty () const
+	--  	Determine if the list of globals is empty. 
+	-- Function Iteration
+	-- iterator 	begin ()
+	--  	Get an iterator to the first function. 
+	-- const_iterator 	begin () const
+	--  	Get a constant iterator to the first function. 
+	-- iterator 	end ()
+	--  	Get an iterator to the last function. 
+	-- const_iterator 	end () const
+	--  	Get a constant iterator to the last function. 
+	-- size_t 	size () const
+	--  	Determine how many functions are in the Module's list of functions. 
+	-- bool 	empty () const
+	--  	Determine if the list of functions is empty. 
+	-- Dependent Library Iteration
+	-- lib_iterator 	lib_begin () const
+	--  	Get a constant iterator to beginning of dependent library list. 
+	-- lib_iterator 	lib_end () const
+	--  	Get a constant iterator to end of dependent library list. 
+	-- size_t 	lib_size () const
+	--  	Returns the number of items in the list of libraries. 
+	-- void 	addLibrary (const StringRef &Lib)
+	--  	Add a library to the list of dependent libraries. 
+	-- void 	removeLibrary (const StringRef &Lib)
+	--  	Remove a library from the list of dependent libraries. 
+	-- const LibraryListType & 	getLibraries () const
+	--  	Get all the libraries. 
+	-- Alias Iteration
+	-- alias_iterator 	alias_begin ()
+	--  	Get an iterator to the first alias. 
+	-- const_alias_iterator 	alias_begin () const
+	--  	Get a constant iterator to the first alias. 
+	-- alias_iterator 	alias_end ()
+	--  	Get an iterator to the last alias. 
+	-- const_alias_iterator 	alias_end () const
+	--  	Get a constant iterator to the last alias. 
+	-- size_t 	alias_size () const
+	--  	Determine how many aliases are in the Module's list of aliases. 
+	-- bool 	alias_empty () const
+	--  	Determine if the list of aliases is empty. 
+	-- Named Metadata Iteration
+	-- named_metadata_iterator 	named_metadata_begin ()
+	--  	Get an iterator to the first named metadata. 
+	-- const_named_metadata_iterator 	named_metadata_begin () const
+	--  	Get a constant iterator to the first named metadata. 
+	-- named_metadata_iterator 	named_metadata_end ()
+	--  	Get an iterator to the last named metadata. 
+	-- const_named_metadata_iterator 	named_metadata_end () const
+	--  	Get a constant iterator to the last named metadata. 
+	-- size_t 	named_metadata_size () const
+	--  	Determine how many NamedMDNodes are in the Module's list of named metadata. 
+	-- bool 	named_metadata_empty () const
+	--  	Determine if the list of named metadata is empty. 
+	-- Utility functions for printing and dumping Module objects
+	-- void 	print (raw_ostream &OS, AssemblyAnnotationWriter *AAW) const
+	--  	Print the module to an output stream with AssemblyAnnotationWriter. 
+	-- void 	dump () const
+	--  	Dump the module to stderr (for debugging). 
+	-- void 	dropAllReferences ()
 feature 
 	struct_size: INTEGER is
 		do
 			not_yet_implemented
+		end
+
+	dispose is 
+		do
+			llvmdispose_module(handle)
 		end
 end -- class LLVM_MODULE
 

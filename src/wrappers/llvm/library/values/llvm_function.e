@@ -1,10 +1,26 @@
 class LLVM_FUNCTION
 	-- A function in LLVM 
+
+	-- Note: variadic functions - functions accepting
+	-- a variable number of arguments - are not
+	-- supported. 
 inherit 
 	LLVM_GLOBAL_VALUE
+	GLOBALLY_CACHED
 
 creation from_external_pointer
 
+feature 
+	make (a_return_type: LLVM_TYPE; some_parameters: WRAPPER_COLLECTION[LLVM_TYPE]) is
+	do
+		from_external_pointer
+		(llvmfunction_type
+		(null_or(a_return_type),
+		 null_or_array(some_parameters),
+		0 -- i.e. False, non-variadic
+		))
+
+	end
 feature -- Iterating over blocks
 
 	-- `first', `last' from LLVM_FUNCTION and `next', `previous' from

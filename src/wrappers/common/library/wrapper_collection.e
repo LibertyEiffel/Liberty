@@ -23,9 +23,6 @@ deferred class WRAPPER_COLLECTION [ITEM->WRAPPER]
 	-- A collection of wrappers. 
 
 inherit
-	WRAPPER_FACTORY[ITEM] 
-	GLOBAL_CACHE
-
 	COLLECTION[ITEM] 
 		undefine 
 			append_collection,
@@ -37,6 +34,7 @@ inherit
 			-- reverse,
 			swap
 		end
+	WRAPPER_FACTORY[ITEM] 
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 	wrapper(a_pointer: POINTER): ITEM is
@@ -44,10 +42,13 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 			-- retrieved from a cache, a dictionary, from the underlying
 			-- object, depending on the implementation.
 		deferred
-		ensure then 
-			not_void: Result/=Void
-			cached_result: wrappers.has(a_pointer) 
 		end	
 
-invariant cache_not_void: wrappers /= Void
+	as_c_array: NATIVE_ARRAY[POINTER] is
+		-- Current collection as a C array meant to be passed to C functions
+		-- expectiong an array of wrapped items. Result - at C level - will be
+		-- a Item**, i.e. a pointer to pointers to Item structures or - in
+		-- other words - an array of pointers to Items. 
+		deferred 
+		end
 end -- class WRAPPER_COLLECTION
