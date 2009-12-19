@@ -70,48 +70,103 @@ feature {ANY}
 		end
 
 	type_any: LIBERTY_TYPE is
-		do
-			Result := kernel_type(once "ANY", True)
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("ANY", True)
 		end
 
 	type_pointer: LIBERTY_TYPE is
-		do
-			Result := kernel_type(once "POINTER", False)
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("POINTER", False)
 		end
 
 	type_integer_64: LIBERTY_TYPE is
-		do
-			Result := kernel_type(once "INTEGER_64", False)
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("INTEGER_64", False)
 		end
 
 	type_real: LIBERTY_TYPE is
-		do
-			Result := kernel_type(once "REAL", False)
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("REAL", False)
 		end
 
 	type_character: LIBERTY_TYPE is
-		do
-			Result := kernel_type(once "CHARACTER", False)
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("CHARACTER", False)
 		end
 
 	type_string: LIBERTY_TYPE is
-		do
-			Result := kernel_type(once "STRING", False)
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("STRING", False)
 		end
 
 	type_boolean: LIBERTY_TYPE is
-		do
-			Result := kernel_type(once "BOOLEAN", False)
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("BOOLEAN", False)
 		end
 
-	type_tuple (tuple_count: INTEGER): LIBERTY_TYPE is
+	type_tuple (effective_generics: COLLECTION[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
+		require
+			effective_generics /= Void
+			not errors.has_error
+		local
+			td: LIBERTY_TYPE_DESCRIPTOR
+			tuple_ast: LIBERTY_AST_CLASSES
+			ast: LIBERTY_AST_CLASS
+			tuple_count: INTEGER
 		do
-			--|*** TODO
-			not_yet_implemented
+			tuple_count := effective_generics.count
+			create td.make(tuple_class_descriptor, effective_generics)
+			Result := types.reference_at(td)
+			if Result = Void then
+				tuple_ast := parse_tuple_classes(Void)
+				if tuple_count = 0 then
+					ast := tuple_ast.first_class
+				else
+					check tuple_ast.next_classes.list_lower = 0 end
+					if tuple_count > tuple_ast.next_classes.list_count then
+						errors.add_position(position)
+						errors.set(level_fatal_error, "TUPLE does not support more than " + tuple_ast.next_classes.list_count.out
+									  + " generic parameters")
+					end
+					ast := tuple_ast.next_classes.list_item(tuple_count - 1)
+				end
+				create Result.make(td, ast)
+				types.put(Result, td)
+				if init_now then
+					Result.check_and_initialize(Current)
+				else
+					to_init.add_last(Result)
+				end
+			elseif init_now and then to_init.fast_has(Result) then
+				Result.check_and_initialize(Current)
+				to_init.remove(to_init.fast_first_index_of(Result))
+			end
+		ensure
+			Result /= Void
 		end
 
 feature {}
+	tuple_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
+		once
+			create Result.make(cluster, "TUPLE".intern, Void)
+		end
+
 	kernel_type (class_name: STRING; init_now: BOOLEAN): LIBERTY_TYPE is
+			-- Called only once per kernel type
 		require
 			not errors.has_error
 		local
@@ -119,29 +174,22 @@ feature {}
 			ast: LIBERTY_AST_CLASS
 			cluster: LIBERTY_CLUSTER
 		do
-			Result := kernel_types.reference_at(class_name)
-			if Result = Void then
-				cluster := root.find(class_name)
-				if cluster = Void then
-					errors.set(level_fatal_error, once "Kernel class not found: " + class_name)
-				end
-				create cd.make(cluster, class_name.intern, Void)
-				create td.make(cd, create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
-				Result := types.reference_at(td)
-				if Result = Void then
-					ast := parse_class(cluster, class_name, Void)
-					create Result.make(td, ast)
-					types.put(Result, td)
-					if init_now then
-						Result.check_and_initialize(Current)
-					else
-						to_init.add_last(Result)
-					end
-				elseif init_now and then to_init.fast_has(Result) then
-					Result.check_and_initialize(Current)
-					to_init.remove(to_init.fast_first_index_of(Result))
-				end
-				kernel_types.add(Result, class_name)
+			cluster := root.find(class_name)
+			if cluster = Void then
+				errors.set(level_fatal_error, "Kernel class not found: " + class_name)
+			end
+			create cd.make(cluster, class_name.intern, Void)
+			create td.make(cd, create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
+			check
+				not types.has(td)
+			end
+			ast := parse_class(cluster, class_name, Void)
+			create Result.make(td, ast)
+			types.put(Result, td)
+			if init_now then
+				Result.check_and_initialize(Current)
+			else
+				to_init.add_last(Result)
 			end
 		ensure
 			Result /= Void
@@ -398,6 +446,70 @@ feature {} -- AST building
 				Result ::= eiffel.root_node
 				classes.put(Result, parse_desc)
 			end
+		ensure
+			Result /= Void
+		end
+
+	parse_tuple_classes (pos: LIBERTY_POSITION): like tuple_classes is
+		local
+			code: STRING; parse_desc: like parse_descriptor
+			tuple_cluster: LIBERTY_CLUSTER
+			i: INTEGER; file: FIXED_STRING
+		once
+			std_output.put_line(once "Parsing TUPLE")
+			tuple_cluster := root.find("TUPLE")
+			if tuple_cluster = Void then
+				errors.set(level_fatal_error, "Kernel class not found: TUPLE")
+			end
+			create parse_desc.make(tuple_cluster, "TUPLE".intern, pos)
+			code := once ""
+			code.clear_count
+			read_file_in(parse_desc, code)
+			parser_buffer.initialize_with(code)
+
+			eiffel.reset
+			parser.eval(parser_buffer, eiffel.table, once "Classes")
+			if parser.error /= Void then
+				errors.emit_syntax_error(parser.error, code, parse_desc.file.intern)
+			end
+			Result ::= eiffel.root_node
+			file := parse_desc.file
+			check_tuple_class(Result.first_class, 0, Result, file)
+			from
+				i := Result.next_class.list_lower
+				check i = 0 end
+			until
+				i > Result.next_class.list_upper
+			loop
+				check_tuple_class(Result.next_classes.list_item(i), i + 1, Result, file)
+				i := i + 1
+			end
+		ensure
+			Result /= Void
+		end
+
+	check_tuple_class (a_tuple_class: LIBERTY_AST_CLASS; generics_count: INTEGER; ast: LIBERTY_AST_CLASSES; file: FIEXED_STRING) is
+			-- minimal integrity check
+		local
+			classname: STRING
+			gencount: INTEGER
+		do
+			classname := a_tuple_class.class_header.class_name.image.image
+			if not classname.is_equal(once "TUPLE") then
+				errors.add_position(errors.semantics_position(a_tuple_class.class_header.class_name.image.index, ast, file))
+				errors.set(level_fatal_error, "Invalid TUPLE class: does not contain TUPLE")
+			end
+			gencount := a_tuple_class.class_header.type_parameters.list_count
+			if gencount /= generics_count then
+				errors.add_position(errors.semantics_position(a_tuple_class.class_header.class_name.image.index, ast, file))
+				if generics_count = 1 then
+					errors.set(level_fatal_error, "Invalid TUPLE class: expected 1 generic parameter")
+				else
+					errors.set(level_fatal_error, "Invalid TUPLE class: expected " + generics_count.out + " generic parameters")
+				end
+			end
+		ensure
+			not errors.has_error
 		end
 
 	parse_descriptor: LIBERTY_CLASS_DESCRIPTOR is
@@ -431,7 +543,6 @@ feature {}
 			create root.make(universe_path)
 			create {HASHED_DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.make
 			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.make
-			create {HASHED_DICTIONARY[LIBERTY_TYPE, STRING]} kernel_types.make
 			create {FAST_ARRAY[LIBERTY_TYPE]} to_init.with_capacity(64)
 		end
 
@@ -439,7 +550,6 @@ feature {}
 
 	classes: DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]
 	types: DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]
-	kernel_types: DICTIONARY[LIBERTY_TYPE, STRING]
 	to_init: COLLECTION[LIBERTY_TYPE]
 
 	errors: LIBERTY_ERRORS
