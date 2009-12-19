@@ -19,8 +19,11 @@ feature {ANY}
 
 feature {}
 	the_table: PARSE_TABLE is
-		do
+		once
 			Result := {PARSE_TABLE << "Class", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Class_Header", "Obsolete", "Inherit", "Insert", "Class_Creation*", "Feature*", "Invariant", "KW end", "KW end of file" >> }, agent build_root >> };
+											  "Classes", { PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Class", "Class*" >> }, agent build_root };
+											  "Class*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Class*");
+																						  {FAST_ARRAY[STRING] << "Class", "Class*" >> }, agent build_continue_list("Class", 0, "Class+") >> };
 											  "Class_Header", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Class_Marker", "KW class name", "Type_Parameters" >> }, Void >> };
 											  "Indexing", {PARSE_NON_TERMINAL << epsilon, Void;
 																							 {FAST_ARRAY[STRING] << "KW indexing", "Indexing_Clause*" >> }, Void >> };
