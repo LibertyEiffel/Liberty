@@ -130,12 +130,12 @@ feature {}
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
 						constraint := universe.get_type_from_type_definition(type, type_parameter.constraint, effective_generic_parameters, False)
-						if not type.parameters.item(i).is_child_of(constraint) then
+						if not type.parameters.item(i).type.is_child_of(constraint) then
 							errors.add_position(semantics_position_at(type_parameter.class_name))
 							errors.set(level_error, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
 						end
 					end
-					effective_generic_parameters.add(type.parameters.item(i), type_parameter.class_name.image.image.intern)
+					effective_generic_parameters.add(type.parameters.item(i).type, type_parameter.class_name.image.image.intern)
 					i := i + 1
 				end
 			end
@@ -1644,12 +1644,12 @@ feature {} -- Expressions
 			exp: LIBERTY_AST_EXPRESSION
 			expr: LIBERTY_EXPRESSION
 			expressions: COLLECTION[LIBERTY_EXPRESSION]
-			exp_types: COLLECTION[LIBERTY_TYPES]
+			exp_types: COLLECTION[LIBERTY_ENTITY_TYPE]
 			i: INTEGER
 		do
 			from
 				create {FAST_ARRAY[LIBERTY_EXPRESSION]} expressions.with_capacity(a_tuple.count)
-				create {FAST_ARRAY[LIBERTy_TYPE]} exp_types.with_capacity(a_tuple.count)
+				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} exp_types.with_capacity(a_tuple.count)
 				i := a_tuple.lower
 			until
 				errors.has_error or else i > a_tuple.upper

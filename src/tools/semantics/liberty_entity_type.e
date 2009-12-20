@@ -17,6 +17,9 @@ deferred class LIBERTY_ENTITY_TYPE
 	-- The type referenced in entity definitions
 	--
 
+inherit
+	HASHABLE
+
 feature {ANY}
 	type: LIBERTY_TYPE is
 		require
@@ -25,6 +28,19 @@ feature {ANY}
 		end
 
 	is_type_set: BOOLEAN is
+		deferred
+		end
+
+	full_name: FIXED_STRING is
+		deferred
+		ensure
+			Result /= Void
+		end
+
+feature {LIBERTY_TYPE}
+	full_name_in (buffer: STRING) is
+		require
+			buffer /= Void
 		deferred
 		end
 

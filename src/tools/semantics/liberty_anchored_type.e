@@ -14,6 +14,9 @@
 --
 deferred class LIBERTY_ANCHORED_TYPE
 
+inherit
+	LIBERTY_ENTITY_TYPE
+
 creation {LIBERTY_TYPE_BUILDER}
 	make
 
@@ -32,13 +35,36 @@ feature {ANY}
 			Result := anchor.is_result_type_set
 		end
 
+	full_name: FIXED_STRING is
+		do
+			if is_type_set then
+				Result := type.full_name
+			else
+				Result := full_name_memory
+			end
+		end
+
+	hash_code: INTEGER is
+		do
+			Result := full_name_memory.hash_code
+		end
+
+feature {LIBERTY_TYPE}
+	full_name_in (buffer: STRING) is
+		do
+			buffer.append(full_name)
+		end
+
 feature {}
 	make (a_anchor: like anchor) is
 		do
 			anchor := a_anchor
+			full_name_memory := once "like " + anchor.name
 		ensure
 			anchor = a_anchor
 		end
+
+	full_name_memory: FIXED_STRING
 
 invariant
 	anchor /= Void

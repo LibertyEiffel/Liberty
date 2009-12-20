@@ -27,7 +27,7 @@ create {LIBERTY_ERRORS}
 	make
 
 feature {}
-	ast: LIBERTY_AST_CLASS
+	ast: LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {LIBERTY_ERROR}
 	emit (stream: OUTPUT_STREAM) is

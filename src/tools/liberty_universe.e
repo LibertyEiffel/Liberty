@@ -118,7 +118,7 @@ feature {ANY}
 			Result := kernel_type("BOOLEAN", False)
 		end
 
-	type_tuple (effective_generics: COLLECTION[LIBERTY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
+	type_tuple (effective_generics: COLLECTION[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
 		require
 			effective_generics /= Void
 			not errors.has_error
@@ -146,14 +146,7 @@ feature {ANY}
 				end
 				create Result.make(td, ast)
 				types.put(Result, td)
-				if init_now then
-					Result.check_and_initialize(Current)
-				else
-					to_init.add_last(Result)
-				end
-			elseif init_now and then to_init.fast_has(Result) then
-				Result.check_and_initialize(Current)
-				to_init.remove(to_init.fast_first_index_of(Result))
+				to_init.add_last(Result)
 			end
 		ensure
 			Result /= Void
@@ -161,7 +154,10 @@ feature {ANY}
 
 feature {}
 	tuple_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
+		local
+			cluster: LIBERTY_CLUSTER
 		once
+			cluster := root.find("TUPLE")
 			create Result.make(cluster, "TUPLE".intern, Void)
 		end
 
@@ -450,7 +446,7 @@ feature {} -- AST building
 			Result /= Void
 		end
 
-	parse_tuple_classes (pos: LIBERTY_POSITION): like tuple_classes is
+	parse_tuple_classes (pos: LIBERTY_POSITION): LIBERTY_AST_CLASSES is
 		local
 			code: STRING; parse_desc: like parse_descriptor
 			tuple_cluster: LIBERTY_CLUSTER
@@ -473,13 +469,13 @@ feature {} -- AST building
 				errors.emit_syntax_error(parser.error, code, parse_desc.file.intern)
 			end
 			Result ::= eiffel.root_node
-			file := parse_desc.file
+			file := parse_desc.file.intern
 			check_tuple_class(Result.first_class, 0, Result, file)
 			from
-				i := Result.next_class.list_lower
+				i := Result.next_classes.list_lower
 				check i = 0 end
 			until
-				i > Result.next_class.list_upper
+				i > Result.next_classes.list_upper
 			loop
 				check_tuple_class(Result.next_classes.list_item(i), i + 1, Result, file)
 				i := i + 1
@@ -488,7 +484,7 @@ feature {} -- AST building
 			Result /= Void
 		end
 
-	check_tuple_class (a_tuple_class: LIBERTY_AST_CLASS; generics_count: INTEGER; ast: LIBERTY_AST_CLASSES; file: FIEXED_STRING) is
+	check_tuple_class (a_tuple_class: LIBERTY_AST_CLASS; generics_count: INTEGER; ast: LIBERTY_AST_CLASSES; file: FIXED_STRING) is
 			-- minimal integrity check
 		local
 			classname: STRING

@@ -25,7 +25,7 @@ create {ANY}
 
 feature {ANY}
 	file: FIXED_STRING
-	parameters: TRAVERSABLE[LIBERTY_TYPE]
+	parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE]
 
 	cluster: LIBERTY_CLUSTER is
 		do
@@ -67,7 +67,7 @@ feature {ANY}
 			parameters := other.parameters
 		end
 
-	make (a_class_descriptor: like class_descriptor; a_parameters: TRAVERSABLE[LIBERTY_TYPE]) is
+	make (a_class_descriptor: like class_descriptor; a_parameters: like parameters) is
 		require
 			a_class_descriptor /= Void
 			a_parameters /= Void
