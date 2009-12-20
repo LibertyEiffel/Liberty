@@ -25,8 +25,10 @@ feature {ANY}
 
 	is_result_type_set: BOOLEAN is True
 
-	count: INTEGER
-			-- size of the tuple
+	count: INTEGER is
+		do
+			Result := elements.count
+		end
 
 	lower: INTEGER is 1
 
@@ -45,31 +47,24 @@ feature {ANY}
 			Result := elements.item(i - lower)
 		end
 
-feature {LIBERTY_TYPE_BUILDER}
-	add (a_element: LIBERTY_EXPRESSION) is
-		require
-			a_element /= Void
-		do
-			elements.add_last(a_element)
-		end
-
 feature {}
-	make (a_result_type: like result_type; a_count: like count; a_position: like position) is
+	make (a_result_type: like result_type; a_elements: like elements; a_position: like position) is
 		require
 			a_result_type /= Void
 			-- a_result_type is a TUPLE type
-			a_count >= 0
+			a_elements /= Void
 			a_position /= Void
 		do
 			result_type := a_result_type
-			count := a_count
-			create {FAST_ARRAY[LIBERTY_EXPRESSION]} elements.with_capacity(a_count)
+			elements := a_elements
 			position := a_position
 		ensure
+			result_type = a_result_type
+			elements = a_elements
 			position = a_position
 		end
 
-	elements: COLLECTION[LIBERTY_EXPRESSION]
+	elements: TRAVERSABLE[LIBERTY_EXPRESSION]
 
 feature {ANY}
 	accept (v: VISITOR) is
@@ -79,5 +74,8 @@ feature {ANY}
 			v0 ::= v
 			v0.visit_liberty_tuple(Current)
 		end
+
+invariant
+	elements /= Void implies elements.count = count
 
 end

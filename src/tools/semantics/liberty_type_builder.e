@@ -1642,18 +1642,31 @@ feature {} -- Expressions
 	expression_tuple (a_tuple: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]; a_position: LIBERTY_POSITION): LIBERTY_TUPLE is
 		local
 			exp: LIBERTY_AST_EXPRESSION
+			expr: LIBERTY_EXPRESSION
+			expressions: COLLECTION[LIBERTY_EXPRESSION]
+			exp_types: COLLECTION[LIBERTY_TYPES]
 			i: INTEGER
 		do
-			create Result.make(universe.type_tuple(a_tuple.count), a_tuple.count, a_position)
 			from
+				create {FAST_ARRAY[LIBERTY_EXPRESSION]} expressions.with_capacity(a_tuple.count)
+				create {FAST_ARRAY[LIBERTy_TYPE]} exp_types.with_capacity(a_tuple.count)
 				i := a_tuple.lower
 			until
-				i > a_tuple.upper
+				errors.has_error or else i > a_tuple.upper
 			loop
 				exp ::= a_tuple.item(i)
-				Result.add(expression(exp, local_context, redefinitions))
+				expr := expression(exp, local_context, redefinitions)
+				if not errors.has_error then
+					expressions.add_last(expr)
+					exp_types.add_last(expr.result_type)
+				end
 				i := i + 1
 			end
+			if not errors.has_error then
+				create Result.make(universe.type_tuple(exp_types, a_position), expressions, a_position)
+			end
+		ensure
+			not errors.has_error implies Result /= Void
 		end
 
 	typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
