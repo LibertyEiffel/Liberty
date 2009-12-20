@@ -7,7 +7,8 @@ class LLVM_FUNCTION
 inherit 
 	LLVM_GLOBAL_VALUE
 	GLOBALLY_CACHED
-
+insert
+	LLVM_VALUE_FACTORY
 creation from_external_pointer
 
 feature 
@@ -19,8 +20,18 @@ feature
 		 null_or_array(some_parameters),
 		0 -- i.e. False, non-variadic
 		))
-
 	end
+feature -- 
+	calling_convention: LLVMCALL_CONV_ENUM is
+		do
+			Result.change_value(llvmget_function_call_conv(handle))
+		end
+			
+	set_calling_convention (a_calling_convention: LLVMCALL_CONV_ENUM) is
+		-- Set calling convention
+	do
+		llvmset_function_call_conv(a_calling_convention.value)	
+	end	
 feature -- Iterating over blocks
 
 	-- `first', `last' from LLVM_FUNCTION and `next', `previous' from
@@ -59,6 +70,46 @@ feature -- Iterating over blocks
 -- LLVMBasicBlockRef LLVMGetNextBasicBlock(LLVMBasicBlockRef BB);
 -- LLVMBasicBlockRef LLVMGetPreviousBasicBlock(LLVMBasicBlockRef BB);
 -- LLVMBasicBlockRef LLVMGetEntryBasicBlock(LLVMValueRef Fn);
+feature -- Parameters
+	parameters_count: NATURAL_32 is
+		do
+			Result:=llvmcount_params(handle)
+		end
+
+	-- Note: "void LLVMGetParams(LLVMValueRef Fn,
+	-- LLVMValueRef *Params);" will not be wrapped because
+	-- the C interface doe not allow an efficient
+	-- implementation.
+
+	parameter (an_index: NATURAL_32): LLVM_VALUE is
+		require is_valid_parameter_index(an_index)
+		local p: POINTER
+		do
+			p := llvmget_param(handle,an_index)
+			check
+				p.is_not_null 
+			end
+			Result:=wrapper(p)
+		ensure Result/=Void
+		end
+		
+	-- TODO: Find the meaning of "LLVMValueRef LLVMGetParamParent(LLVMValueRef Inst);"
+
+	new_parameter_iterator: BIDIRECTIONAL_ITERATOR[LLVM_VALUE] is
+		do
+			create {ITERATOR_OVER_FUNCTION_PARAMENTERS}
+			Result.from_function(Current)
+		end
+
+	
+-- LLVMValueRef LLVMGetFirstParam(LLVMValueRef Fn);
+-- LLVMValueRef LLVMGetLastParam(LLVMValueRef Fn);
+-- LLVMValueRef LLVMGetNextParam(LLVMValueRef Arg);
+-- LLVMValueRef LLVMGetPreviousParam(LLVMValueRef Arg);
+-- void LLVMAddAttribute(LLVMValueRef Arg, LLVMAttribute PA);
+-- void LLVMRemoveAttribute(LLVMValueRef Arg, LLVMAttribute PA);
+-- void LLVMSetParamAlignment(LLVMValueRef Arg, unsigned align);
+
 
 end -- class LLVM_FUNCTION
 

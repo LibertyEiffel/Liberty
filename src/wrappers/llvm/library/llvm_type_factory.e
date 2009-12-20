@@ -1,14 +1,14 @@
 deferred class LLVM_TYPE_FACTORY
 	-- A factory of LLVM_TYPEs
 
-inherit WRAPPER_FACTORY[LLVM_TYPE]  
+inherit WRAPPER_FACTORY[LLVM_TYPE]
 
 insert 
 	CORE_EXTERNALS undefine fill_tagged_out_memory end 
 	EXCEPTIONS undefine copy, fill_tagged_out_memory, is_equal end 
 
 feature 
-	wrapper (a_pointer: POINTER): LLVM_TYPE is
+	type_from_pointer (a_pointer: POINTER): LLVM_TYPE is
 		-- The LLVM_TYPE for `a_pointer' of the fittest type.
 	local type: LLVMTYPE_KIND_ENUM
 	do

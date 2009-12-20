@@ -50,7 +50,21 @@ feature -- Queries
 		end
 
 	-- TODO: may be unnecessary "as_basic_block: LLVM_BASIC_BLOCK is do Result:=wrapper_or_void(llvmvalue_as_basic_block(handle)) end"
+feature 
+	basic_blocks_count: NATURAL_32 is
+		do
+			Result := llvmcount_basic_blocks(handle)
+		end
 
+	-- TODO: basic_blocks: COLLECTION[LLVM_BASIC_BLOCK] is
+	-- May be not efficiently implemented.
+	-- void LLVMGetBasicBlocks(LLVMValueRef Fn, LLVMBasicBlockRef *BasicBlocks);
+
+	basic_block_iterator: BIDIRECTIONAL_ITERATOR[LLVM_BASIC_BLOCK] is
+		do
+			create {ITERATOR_OVER_BASIC_BLOCKS} Result.from_value(Current)
+		ensure Result/=Void
+		end
 feature
 	struct_size: INTEGER is
 		-- LLVM_VALUE wraps a polymorphic C++ class; temporarly this query
