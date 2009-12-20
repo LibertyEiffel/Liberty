@@ -12,48 +12,61 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_WRITABLE_FEATURE
---
--- A proxy to the feature itself, which must be an attribute.
---
--- See also LIBERTY_FEATURE_ENTITY
---
+deferred class LIBERTY_ANCHORED_TYPE
 
 inherit
-	LIBERTY_WRITABLE
+	LIBERTY_ENTITY_TYPE
 
-create {LIBERTY_TYPE_BUILDER}
+creation {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
-	name: FIXED_STRING is
+	anchor: LIBERTY_ENTITY
+
+	type: LIBERTY_TYPE is
 		do
-			Result := entity.name
+			Result := anchor.result_type.type
+		ensure
+			Result = anchor.result_type.type
 		end
 
-	result_type: LIBERTY_ENTITY_TYPE is
+	is_type_set: BOOLEAN is
 		do
-			Result := entity.result_type
+			Result := anchor.is_result_type_set
 		end
 
-	is_result_type_set: BOOLEAN is
+	full_name: FIXED_STRING is
 		do
-			Result := entity.is_result_type_set
+			if is_type_set then
+				Result := type.full_name
+			else
+				Result := full_name_memory
+			end
+		end
+
+	hash_code: INTEGER is
+		do
+			Result := full_name_memory.hash_code
+		end
+
+feature {LIBERTY_TYPE}
+	full_name_in (buffer: STRING) is
+		do
+			buffer.append(full_name)
 		end
 
 feature {}
-	entity: LIBERTY_FEATURE_ENTITY
-
-	make (a_entity: like entity) is
-		require
-			a_entity /= Void
+	make (a_anchor: like anchor) is
 		do
-			entity := a_entity
+			anchor := a_anchor
+			full_name_memory := once "like " + anchor.name
 		ensure
-			entity = a_entity
+			anchor = a_anchor
 		end
 
+	full_name_memory: FIXED_STRING
+
 invariant
-	entity /= Void
+	anchor /= Void
 
 end

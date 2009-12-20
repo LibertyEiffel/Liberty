@@ -998,7 +998,7 @@ invariant
 	0 <= count
 	count <= capacity
 	capacity > 0 implies storage.is_not_null
-	not intern_key.is_immutable
+	not intern_key.immutable
 
 end -- class STRING
 --

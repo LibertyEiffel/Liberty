@@ -29,7 +29,7 @@ feature {ANY}
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.make(0)
 		end
 
-	result_type: LIBERTY_TYPE is
+	result_type: LIBERTY_ENTITY_TYPE is
 		do
 			Result := entity.result_type
 		end
