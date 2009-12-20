@@ -20,7 +20,7 @@ inherit
 feature {ANY}
 	left, right: LIBERTY_EXPRESSION
 
-	result_type: LIBERTY_TYPE
+	result_type: LIBERTY_ENTITY_TYPE
 
 	is_result_type_set: BOOLEAN is True
 

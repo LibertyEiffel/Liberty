@@ -16,6 +16,10 @@ class LIBERTY_TYPE
 
 inherit
 	HASHABLE
+	LIBERTY_ENTITY_TYPE
+		redefine
+			is_equal
+		end
 
 insert
 	EIFFEL_NODE_HANDLER
@@ -31,6 +35,13 @@ create {LIBERTY_UNIVERSE}
 	make
 
 feature {ANY}
+	type: LIBERTY_TYPE is
+		do
+			Result := Current
+		end
+
+	is_type_set: BOOLEAN is True
+
 	file: FIXED_STRING is
 		do
 			Result := descriptor.file
@@ -369,7 +380,6 @@ feature {LIBERTY_UNIVERSE} -- Semantincs building
 			builder: LIBERTY_TYPE_BUILDER
 		do
 			std_output.put_line(once "Initializing " + full_name)
-sedb_breakpoint
 			create builder.make(Current, universe)
 			builder.check_and_initialize
 			if not errors.has_error then
@@ -383,6 +393,7 @@ sedb_breakpoint
 			elseif errors.has_warning_or_error then
 				errors.emit
 			end
+			std_output.put_line(full_name + once " initialized.")
 		end
 
 feature {}

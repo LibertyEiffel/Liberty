@@ -21,7 +21,7 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
-	result_type: LIBERTY_TYPE
+	result_type: LIBERTY_ENTITY_TYPE
 
 	is_result_type_set: BOOLEAN is True
 

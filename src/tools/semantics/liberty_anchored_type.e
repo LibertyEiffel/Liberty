@@ -12,27 +12,35 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_EXPRESSION
+deferred class LIBERTY_ANCHORED_TYPE
 
-insert
-	LIBERTY_POSITIONABLE
-	LIBERTY_TAGGED
-	VISITABLE
+creation {LIBERTY_TYPE_BUILDER}
+	make
 
 feature {ANY}
-	result_type: LIBERTY_ENTITY_TYPE is
-		require
-			is_result_type_set
-		deferred
+	anchor: LIBERTY_ENTITY
+
+	type: LIBERTY_TYPE is
+		do
+			Result := anchor.result_type.type
 		ensure
-			Result /= Void
+			Result = anchor.result_type.type
 		end
 
-	is_result_type_set: BOOLEAN is
-		deferred
+	is_type_set: BOOLEAN is
+		do
+			Result := anchor.is_result_type_set
+		end
+
+feature {}
+	make (a_anchor: like anchor) is
+		do
+			anchor := a_anchor
+		ensure
+			anchor = a_anchor
 		end
 
 invariant
-	is_result_type_set implies result_type /= Void
+	anchor /= Void
 
 end

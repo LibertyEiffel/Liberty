@@ -28,7 +28,7 @@ feature {ANY}
 		deferred
 		end
 
-	result_type: LIBERTY_TYPE is
+	result_type: LIBERTY_ENTITY_TYPE is
 		require
 			is_result_type_set
 		deferred

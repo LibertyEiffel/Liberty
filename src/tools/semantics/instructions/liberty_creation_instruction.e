@@ -22,7 +22,7 @@ create {LIBERTY_TYPE_BUILDER}
 
 feature {ANY}
 	writable: LIBERTY_WRITABLE
-	type: LIBERTY_TYPE
+	type: LIBERTY_ENTITY_TYPE
 	feature_entity: LIBERTY_FEATURE_ENTITY
 	feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
 
