@@ -15,7 +15,7 @@
 class LIBERTY_TYPE
 
 inherit
-	HASHABLE
+	LIBERTY_ENTITY_TYPE
 
 insert
 	EIFFEL_NODE_HANDLER
@@ -31,6 +31,13 @@ create {LIBERTY_UNIVERSE}
 	make
 
 feature {ANY}
+	type: LIBERTY_TYPE is
+		do
+			Result := Current
+		end
+
+	is_type_set: BOOLEAN is True
+
 	file: FIXED_STRING is
 		do
 			Result := descriptor.file
@@ -63,16 +70,19 @@ feature {ANY}
 			Result := descriptor.name
 		end
 
-	parameters: TRAVERSABLE[LIBERTY_TYPE] is
+	parameters: TRAVERSABLE[LIBERTY_ENTITY_TYPE] is
 		do
 			Result := descriptor.parameters
 		end
 
-	full_name: STRING is
+	full_name: FIXED_STRING is
+		local
+			fn: STRING
 		do
-			Result := once ""
-			Result.clear_count
-			full_name_in(Result)
+			fn := once ""
+			fn.clear_count
+			full_name_in(fn)
+			Result := fn.intern
 		end
 
 	is_deferred: BOOLEAN is
@@ -124,8 +134,6 @@ feature {ANY}
 
 feature {LIBERTY_TYPE}
 	full_name_in (buffer: STRING) is
-		require
-			buffer /= Void
 		local
 			i: INTEGER
 		do
@@ -203,34 +211,6 @@ feature {ANY} -- Inheritance
 			end
 		ensure
 			Result implies is_child_of(other)
-		end
-
-	complete_name: FIXED_STRING is
-		local
-			s: STRING; i: INTEGER
-		do
-			Result := complete_name_memory
-			if Result = Void then
-				s := ""
-				s.append(name)
-				if not parameters.is_empty then
-					s.extend('[')
-					from
-						i := parameters.lower
-					until
-						i > parameters.upper
-					loop
-						if i > parameters.lower then
-							s.append(once ", ")
-						end
-						s.append(parameters.item(i).complete_name)
-						i := i + 1
-					end
-					s.extend(']')
-				end
-				Result := s.intern
-				complete_name_memory := Result
-			end
 		end
 
 	common_conformant_parent_with (other: LIBERTY_TYPE): LIBERTY_TYPE is
@@ -369,20 +349,20 @@ feature {LIBERTY_UNIVERSE} -- Semantincs building
 			builder: LIBERTY_TYPE_BUILDER
 		do
 			std_output.put_line(once "Initializing " + full_name)
-sedb_breakpoint
 			create builder.make(Current, universe)
 			builder.check_and_initialize
 			if not errors.has_error then
 				check_validity
 			end
 			if errors.has_error then
-				errors.set(level_fatal_error, once "Errors detected while building " + complete_name + ".%NPlease fix those errors first.")
+				errors.set(level_fatal_error, once "Errors detected while building " + full_name + ".%NPlease fix those errors first.")
 				check
 					dead: False
 				end
 			elseif errors.has_warning_or_error then
 				errors.emit
 			end
+			std_output.put_line(full_name + once " initialized.")
 		end
 
 feature {}
@@ -406,8 +386,6 @@ feature {}
 	mark: INTEGER_8
 	conformant_parents: COLLECTION[LIBERTY_TYPE]
 	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
-
-	complete_name_memory: FIXED_STRING
 
 	deferred_mark: INTEGER_8 is 1
 	expanded_mark: INTEGER_8 is 2

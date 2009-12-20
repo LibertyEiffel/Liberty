@@ -28,7 +28,7 @@ feature {ANY}
 	entity: LIBERTY_FEATURE_ENTITY
 	actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
 
-	result_type: LIBERTY_TYPE is
+	result_type: LIBERTY_ENTITY_TYPE is
 		do
 			Result := entity.result_type
 		end

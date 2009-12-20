@@ -130,12 +130,12 @@ feature {}
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
 						constraint := universe.get_type_from_type_definition(type, type_parameter.constraint, effective_generic_parameters, False)
-						if not type.parameters.item(i).is_child_of(constraint) then
+						if not type.parameters.item(i).type.is_child_of(constraint) then
 							errors.add_position(semantics_position_at(type_parameter.class_name))
 							errors.set(level_error, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
 						end
 					end
-					effective_generic_parameters.add(type.parameters.item(i), type_parameter.class_name.image.image.intern)
+					effective_generic_parameters.add(type.parameters.item(i).type, type_parameter.class_name.image.image.intern)
 					i := i + 1
 				end
 			end
@@ -617,11 +617,11 @@ feature {}
 			else
 				tm := typed_manifest_or_type_test(constant, local_context, redefinitions)
 				if not errors.has_error then
-					if tm.result_type.is_conform_to(local_context.result_type) then
+					if tm.result_type.type.is_conform_to(local_context.result_type.type) then
 						create Result.make(tm)
 					else
 						errors.add_position(semantics_position_at(constant.node_at(0)))
-						errors.set(level_error, once "That expression does not conform to " + local_context.result_type.name)
+						errors.set(level_error, once "That expression does not conform to " + local_context.result_type.type.name)
 					end
 				end
 			end
@@ -674,7 +674,7 @@ feature {}
 						-- Nothing, not a redefined feature
 					elseif redefined.redefined_feature = Void then
 						if parameters_match(a_feature.parameters, redefined.parameters, name, feature_name) then
-							if a_feature.result_type.is_conform_to(redefined.result_type) then
+							if a_feature.result_type.type.is_conform_to(redefined.result_type.type) then
 								redefined.set_redefined_feature(a_feature)
 							else
 								name_or_alias := name.feature_name_or_alias
@@ -727,7 +727,7 @@ feature {}
 					until
 						not Result or else i > child_parameters.upper
 					loop
-						Result := child_parameters.item(i).result_type.is_conform_to(parent_parameters.item(i).result_type)
+						Result := child_parameters.item(i).result_type.type.is_conform_to(parent_parameters.item(i).result_type.type)
 						i := i + 1
 					end
 					if not Result then
@@ -1088,7 +1088,7 @@ feature {} -- Instructions
 		local
 			creat: LIBERTY_AST_CREATION
 			w: LIBERTY_WRITABLE
-			creation_type: LIBERTY_TYPE
+			creation_type: LIBERTY_ENTITY_TYPE
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
@@ -1097,7 +1097,7 @@ feature {} -- Instructions
 			if creat.has_type_definition then
 				creation_type := universe.get_type_from_type_definition(type, creat.type_definition, effective_generic_parameters, False)
 				if not errors.has_error then
-					if not creation_type.is_conform_to(w.result_type) then
+					if not creation_type.type.is_conform_to(w.result_type.type) then
 						--|*** TODO: the given creation_type must be a conformant subtype of the writable type
 						not_yet_implemented
 					end
@@ -1375,7 +1375,7 @@ feature {} -- Expressions
 			local_context /= Void
 		local
 			i: INTEGER; content: COLLECTION[LIBERTY_EXPRESSION]
-			exp: LIBERTY_AST_EXPRESSION; t: LIBERTY_TYPE
+			exp: LIBERTY_AST_EXPRESSION; t: LIBERTY_ENTITY_TYPE
 		do
 			create {FAST_ARRAY[LIBERTY_EXPRESSION]} content.with_capacity(array.content.count)
 			from
@@ -1395,7 +1395,7 @@ feature {} -- Expressions
 			not errors.has_error implies Result /= Void
 		end
 
-	common_conformant_type (a_contents: TRAVERSABLE[LIBERTY_EXPRESSION]): LIBERTY_TYPE is
+	common_conformant_type (a_contents: TRAVERSABLE[LIBERTY_EXPRESSION]): LIBERTY_ENTITY_TYPE is
 		local
 			i: INTEGER
 		do
@@ -1408,7 +1408,7 @@ feature {} -- Expressions
 				until
 					i > a_contents.upper
 				loop
-					Result := a_contents.item(i).result_type.common_conformant_parent_with(Result)
+					Result := a_contents.item(i).result_type.type.common_conformant_parent_with(Result.type)
 					if Result = Void then
 						--| *** TODO fatal error
 						not_yet_implemented
@@ -1644,12 +1644,12 @@ feature {} -- Expressions
 			exp: LIBERTY_AST_EXPRESSION
 			expr: LIBERTY_EXPRESSION
 			expressions: COLLECTION[LIBERTY_EXPRESSION]
-			exp_types: COLLECTION[LIBERTY_TYPES]
+			exp_types: COLLECTION[LIBERTY_ENTITY_TYPE]
 			i: INTEGER
 		do
 			from
 				create {FAST_ARRAY[LIBERTY_EXPRESSION]} expressions.with_capacity(a_tuple.count)
-				create {FAST_ARRAY[LIBERTy_TYPE]} exp_types.with_capacity(a_tuple.count)
+				create {FAST_ARRAY[LIBERTY_ENTITY_TYPE]} exp_types.with_capacity(a_tuple.count)
 				i := a_tuple.lower
 			until
 				errors.has_error or else i > a_tuple.upper

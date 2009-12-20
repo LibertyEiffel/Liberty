@@ -18,7 +18,7 @@ insert
 	ANY
 
 feature {ANY}
-	result_type: LIBERTY_TYPE is
+	result_type: LIBERTY_ENTITY_TYPE is
 		require
 			has_context
 		do

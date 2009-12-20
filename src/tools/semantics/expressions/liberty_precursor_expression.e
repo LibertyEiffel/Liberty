@@ -24,7 +24,7 @@ create {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {ANY}
-	result_type: LIBERTY_TYPE is
+	result_type: LIBERTY_ENTITY_TYPE is
 		do
 			Result := the_feature.result_type
 		end

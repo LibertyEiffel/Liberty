@@ -12,27 +12,36 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_EXPRESSION
+deferred class LIBERTY_ENTITY_TYPE
+	--
+	-- The type referenced in entity definitions
+	--
 
-insert
-	LIBERTY_POSITIONABLE
-	LIBERTY_TAGGED
-	VISITABLE
+inherit
+	HASHABLE
 
 feature {ANY}
-	result_type: LIBERTY_ENTITY_TYPE is
+	type: LIBERTY_TYPE is
 		require
-			is_result_type_set
+			is_type_set
+		deferred
+		end
+
+	is_type_set: BOOLEAN is
+		deferred
+		end
+
+	full_name: FIXED_STRING is
 		deferred
 		ensure
 			Result /= Void
 		end
 
-	is_result_type_set: BOOLEAN is
+feature {LIBERTY_TYPE}
+	full_name_in (buffer: STRING) is
+		require
+			buffer /= Void
 		deferred
 		end
-
-invariant
-	is_result_type_set implies result_type /= Void
 
 end

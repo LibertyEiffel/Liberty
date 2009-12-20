@@ -132,7 +132,7 @@ feature {ANY} -- Positions
 			Result /= Void
 		end
 
-	semantics_position (a_index: INTEGER; a_ast: LIBERTY_AST_CLASS; a_file: FIXED_STRING): LIBERTY_SEMANTICS_POSITION is
+	semantics_position (a_index: INTEGER; a_ast: LIBERTY_AST_NON_TERMINAL_NODE; a_file: FIXED_STRING): LIBERTY_SEMANTICS_POSITION is
 		require
 			a_index > 0
 			a_ast /= Void

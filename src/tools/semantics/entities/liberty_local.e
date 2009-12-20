@@ -22,7 +22,7 @@ create {LIBERTY_TYPE_BUILDER}
 
 feature {ANY}
 	name: FIXED_STRING
-	result_type: LIBERTY_TYPE
+	result_type: LIBERTY_ENTITY_TYPE
 
 	is_result_type_set: BOOLEAN is True
 

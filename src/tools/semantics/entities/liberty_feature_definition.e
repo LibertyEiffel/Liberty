@@ -49,7 +49,7 @@ feature {ANY}
 			Result := feature_name.is_infix
 		end
 
-	result_type: LIBERTY_TYPE is
+	result_type: LIBERTY_ENTITY_TYPE is
 		do
 			Result := the_feature.result_type
 		end
