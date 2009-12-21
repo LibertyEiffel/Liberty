@@ -29,7 +29,7 @@ feature {}
 			--
 			-- Note: you may change that default behaviour by calling `when_test_fails'.
 		do
-			message_assert(agent label_to_message(Void), test)
+			message_assert(counter_to_message, test)
 		end
 
 	label_assert (label: STRING; test: BOOLEAN) is
@@ -39,6 +39,8 @@ feature {}
 			-- (assuming you are using the -sedb debugger); and the program exits with a non-zero status.
 			--
 			-- Note: you may change that default behaviour by calling `when_test_fails'.
+		require
+			label /= Void
 		do
 			message_assert(agent label_to_message(label), test)
 		end
@@ -50,6 +52,8 @@ feature {}
 			-- (assuming you are using the -sedb debugger); and the program exits with a non-zero status.
 			--
 			-- Note: you may change that default behaviour by calling `when_test_fails'.
+		require
+			message_generator /= Void
 		local
 			actual_label: STRING
 		do
@@ -164,13 +168,23 @@ feature {}
 			die_with_code(1)
 		end
 
-	label_to_message (label: STRING): STRING is
+	counter_to_message: FUNCTION[TUPLE, STRING] is
+		once
+			Result := agent count_to_message
+		end
+
+	count_to_message: STRING is
 		do
-			if label /= Void then
-				Result := label
-			else
-				Result := "number " + assert_counter.value.out
-			end
+			Result := "number " + assert_counter.value.out
+		end
+
+	label_to_message (label: STRING): STRING is
+		require
+			label /= Void
+		do
+			Result := label
+		ensure
+			Result = label
 		end
 
 invariant
