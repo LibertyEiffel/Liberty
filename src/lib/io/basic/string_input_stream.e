@@ -8,7 +8,8 @@ class STRING_INPUT_STREAM
 
 inherit
 	TERMINAL_INPUT_STREAM
-		redefine valid_last_character, dispose
+		redefine
+			valid_last_character, dispose
 		end
 
 creation {ANY}
@@ -21,6 +22,8 @@ feature {ANY}
 		end
 
 	is_connected: BOOLEAN
+
+	must_disconnect: BOOLEAN is False
 
 	can_unread_character: BOOLEAN is
 		do
@@ -76,7 +79,7 @@ feature {}
 		do
 			-- No need to force people to disconnect such a STREAM.
 		end
-	
+
 	from_string (a_string: like string) is
 		require
 			a_string /= Void

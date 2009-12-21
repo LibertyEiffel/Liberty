@@ -9,7 +9,8 @@ class NULL_INPUT_STREAM
 
 inherit
 	TERMINAL_INPUT_STREAM
-		redefine filtered_read_line_in
+		redefine
+			filtered_read_line_in, dispose
 		end
 
 feature {ANY}
@@ -55,6 +56,12 @@ feature {FILTER}
 		end
 
 	filtered_has_stream_pointer: BOOLEAN is False
+
+feature {}
+	dispose is
+		do
+			-- No need to force people to disconnect such a STREAM.
+		end
 
 end -- class NULL_INPUT_STREAM
 --

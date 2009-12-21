@@ -64,6 +64,20 @@ feature {LIBERTY_AST_HANDLER}
 			Result ::= list.item(index)
 		end
 
+	list_first: N_ is
+		require
+			list_valid_index(list_lower)
+		do
+			Result := list_item(list_lower)
+		end
+
+	list_last: N_ is
+		require
+			list_valid_index(list_upper)
+		do
+			Result := list_item(list_upper)
+		end
+
 feature {ANY}
 	count: INTEGER is
 		do

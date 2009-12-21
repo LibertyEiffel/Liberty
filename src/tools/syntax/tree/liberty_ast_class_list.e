@@ -15,12 +15,12 @@
 class LIBERTY_AST_CLASS_LIST
 
 inherit
-	LIBERTY_AST_LIST[LIBERTY_AST_CLASS]
+	LIBERTY_AST_LIST[LIBERTY_AST_ONE_CLASS]
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {ANY}
-	name: STRING is "Class*"
+	name: STRING is "One_Class+"
 
 end

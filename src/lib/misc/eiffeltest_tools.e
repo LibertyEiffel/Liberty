@@ -10,39 +10,53 @@ deferred class EIFFELTEST_TOOLS
 insert
 	ANY
 
+feature {ANY}
+	when_test_fails (what_to_do: PROCEDURE[TUPLE[INTEGER, STRING, STRING, STRING]]) is
+		require
+			what_to_do /= Void
+		do
+			test_failed.set_item(what_to_do)
+		ensure
+			test_failed.item = what_to_do
+		end
+
 feature {}
 	assert (test: BOOLEAN) is
+			-- Check that `test' is actually True. If `test' is True, nothing happens except that the
+			-- `assert_counter' is incremented by one. When `test' is False, an error message is printed
+			-- on `std_output'; an `sedb_breakpoint' allow you to find out what is going wrong
+			-- (assuming you are using the -sedb debugger); and the program exits with a non-zero status.
+			--
+			-- Note: you may change that default behaviour by calling `when_test_fails'.
 		do
-			label_assert(Void, test)
+			message_assert(agent label_to_message(Void), test)
 		end
 
 	label_assert (label: STRING; test: BOOLEAN) is
 			-- Check that `test' is actually True. If `test' is True, nothing happens except that the
-			-- `assert_counter' is incremented by one. When `test' is False, an error message is printed 
-			-- on `std_output' and an `sedb_breakpoint' allow you to find out what is going wrong 
-			-- (assuming you are using the -sedb debugger).
+			-- `assert_counter' is incremented by one. When `test' is False, the label is printed
+			-- on `std_output'; an `sedb_breakpoint' allow you to find out what is going wrong
+			-- (assuming you are using the -sedb debugger); and the program exits with a non-zero status.
+			--
+			-- Note: you may change that default behaviour by calling `when_test_fails'.
+		do
+			message_assert(agent label_to_message(label), test)
+		end
+
+	message_assert (message_generator: FUNCTION[TUPLE, STRING]; test: BOOLEAN) is
+			-- Check that `test' is actually True. If `test' is True, nothing happens except that the
+			-- `assert_counter' is incremented by one. When `test' is False, the generated message is printed
+			-- on `std_output'; an `sedb_breakpoint' allow you to find out what is going wrong
+			-- (assuming you are using the -sedb debugger); and the program exits with a non-zero status.
+			--
+			-- Note: you may change that default behaviour by calling `when_test_fails'.
 		local
 			actual_label: STRING
 		do
 			assert_counter.increment
 			if not test then
-				sedb_breakpoint
-				if label /= Void then
-					actual_label := label
-				else
-					actual_label := once ""
-					actual_label.copy(once "number ")
-					assert_counter.value.append_in(actual_label)
-				end
-				std_output.put_string(once "ERROR: {EIFFELTEST_TOOLS}.assert call ")
-				std_output.put_string(actual_label)
-				std_output.put_string(once " in class ")
-				std_output.put_string(generator)
-				std_output.put_string(once " failed.%NRerun this test under the -sedb debugger to find out what is going wrong.%N")
-				std_output.put_string(once "Assertion level was ")
-				std_output.put_string(assertion_flag)
-				std_output.put_character('.')
-				std_output.put_new_line
+				actual_label := message_generator.item([])
+				test_failed.item.call([assert_counter.value, actual_label, generator, assertion_flag])
 			end
 		end
 
@@ -129,8 +143,39 @@ feature {EIFFELTEST_TOOLS}
 			set_ensure
 		end
 
+feature {}
+	test_failed: REFERENCE[PROCEDURE[TUPLE[INTEGER, STRING, STRING, STRING]]] is
+		once
+			create Result.set_item(agent default_test_failed)
+		end
+
+	default_test_failed (id: INTEGER; lbl, gen, ass_flag: STRING) is
+		do
+			std_output.put_string(once "ERROR: (label_)assert call ")
+			std_output.put_string(lbl)
+			std_output.put_string(once " in class ")
+			std_output.put_string(gen)
+			std_output.put_string(once " failed.%NRerun this test under the -sedb debugger to find out what is going wrong.%N")
+			std_output.put_string(once "Assertion level was ")
+			std_output.put_string(ass_flag)
+			std_output.put_character('.')
+			std_output.put_new_line
+			sedb_breakpoint
+			die_with_code(1)
+		end
+
+	label_to_message (label: STRING): STRING is
+		do
+			if label /= Void then
+				Result := label
+			else
+				Result := "number " + assert_counter.value.out
+			end
+		end
+
 invariant
 	set_class_invariant
+	test_failed.item /= Void
 
 end -- class EIFFELTEST_TOOLS
 --

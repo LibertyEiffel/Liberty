@@ -30,7 +30,7 @@ feature {LIBERTY_TYPE}
 		require
 			not errors.has_error
 		local
-			ast: LIBERTY_AST_CLASS
+			ast: LIBERTY_AST_ONE_CLASS
 			parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 		do
 			ast := type.ast
