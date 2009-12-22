@@ -44,7 +44,7 @@ feature {ANY} -- State of `Current' basic directory stream:
 		end
 
 feature {ANY} -- Connect and disconnect:
-	connect_to (directory_path: STRING) is
+	connect_to (directory_path: ABSTRACT_STRING) is
 			-- Try to connect `Current' to some existing `directory_path'. After this call, the client 
 			-- is supposed to use `is_connected' to check that the stream is ready to be used.
 		require
@@ -62,7 +62,7 @@ feature {ANY} -- Connect and disconnect:
 			is_connected implies not end_of_input
 		end
 
-	connect_with (some_path: STRING) is
+	connect_with (some_path: ABSTRACT_STRING) is
 			-- Try to connect `Current' to some directory using `some_path' which may be either an 
 			-- existing directory path or some arbitrary file path name. When `some_path' is the 
 			-- path of some readable existing directory, this directory is opened and the effect 
@@ -81,7 +81,7 @@ feature {ANY} -- Connect and disconnect:
 		do
 			connect_to(some_path)
 			if is_connected then
-				last_entry.copy(some_path)
+				last_entry.copy(some_path.out)
 			else
 				compute_parent_directory_of(some_path)
 				if last_entry.count > 0 then
@@ -169,7 +169,7 @@ feature {ANY} -- Scanning:
 		end
 
 feature {ANY} -- File path handling tools:
-	compute_parent_directory_of (some_path: STRING) is
+	compute_parent_directory_of (some_path: ABSTRACT_STRING) is
 			-- Using `some_path' (which may be either a file path or a directory path) tries to compute 
 			-- in the `last_entry' buffer the parent directory of `some_path'. When `some_path' is a 
 			-- path with no parent directory, the `last_entry' buffer `is_empty' after this call. This
@@ -179,12 +179,12 @@ feature {ANY} -- File path handling tools:
 			common_buffer_protection: last_entry /= some_path
 		do
 			if system_notation /= Void then
-				last_entry.copy(some_path)
+				last_entry.copy(some_path.out)
 				system_notation.to_parent_directory(last_entry)
 			else
 				set_notation_using(some_path)
 				if system_notation /= Void then
-					last_entry.copy(some_path)
+					last_entry.copy(some_path.out)
 					system_notation.to_parent_directory(last_entry)
 				else
 					last_entry.clear_count
@@ -192,7 +192,7 @@ feature {ANY} -- File path handling tools:
 			end
 		end
 
-	compute_subdirectory_with (parent_path, entry_name: STRING) is
+	compute_subdirectory_with (parent_path, entry_name: ABSTRACT_STRING) is
 			-- Try to compute in the `last_entry' buffer the new subdirectory path obtained when trying 
 			-- to concatenate smartly `parent_path' whith some `entry_name'. When this fails the 
 			-- `last_entry' buffer `is_empty' after this call. This operation does not perform any disk 
@@ -204,20 +204,20 @@ feature {ANY} -- File path handling tools:
 			common_buffer_protection2: last_entry /= entry_name
 		do
 			if system_notation /= Void then
-				last_entry.copy(parent_path)
-				system_notation.to_subdirectory_with(last_entry, entry_name)
+				last_entry.copy(parent_path.out)
+				system_notation.to_subdirectory_with(last_entry, entry_name.out)
 			else
-				set_notation_using(parent_path)
+				set_notation_using(parent_path.out)
 				if system_notation /= Void then
-					last_entry.copy(parent_path)
-					system_notation.to_subdirectory_with(last_entry, entry_name)
+					last_entry.copy(parent_path.out)
+					system_notation.to_subdirectory_with(last_entry, entry_name.out)
 				else
 					last_entry.clear_count
 				end
 			end
 		end
 
-	compute_file_path_with (parent_path, file_name: STRING) is
+	compute_file_path_with (parent_path, file_name: ABSTRACT_STRING) is
 			-- Try to compute in the `last_entry' buffer the new file path obtained when trying to 
 			-- concatenate smartly `parent_path' whith some `file_name'. When this fails the 
 			-- `last_entry' buffer `is_empty' after this call. This operation does not perform any 
@@ -229,20 +229,20 @@ feature {ANY} -- File path handling tools:
 			common_buffer_protection2: last_entry /= file_name
 		do
 			if system_notation /= Void then
-				last_entry.copy(parent_path)
-				system_notation.to_file_path_with(last_entry, file_name)
+				last_entry.copy(parent_path.out)
+				system_notation.to_file_path_with(last_entry, file_name.out)
 			else
 				set_notation_using(parent_path)
 				if system_notation /= Void then
-					last_entry.copy(parent_path)
-					system_notation.to_file_path_with(last_entry, file_name)
+					last_entry.copy(parent_path.out)
+					system_notation.to_file_path_with(last_entry, file_name.out)
 				else
 					last_entry.clear_count
 				end
 			end
 		end
 
-	compute_absolute_file_path_with (path: STRING) is
+	compute_absolute_file_path_with (path: ABSTRACT_STRING) is
 			-- Try to compute an absolute path equivalent to `path' and store it in `last_entry'. When 
 			-- this fails the `last_entry' buffer `is_empty' after this call. This operation does not
 			-- perform any disk access.  Whatever the result, `path' is left unchanged.
@@ -251,35 +251,35 @@ feature {ANY} -- File path handling tools:
 			common_buffer_protection: last_entry /= path
 		do
 			if system_notation /= Void then
-				last_entry.copy(current_working_directory)
-				system_notation.to_absolute_path_in(last_entry, path)
+				last_entry.copy(current_working_directory.out)
+				system_notation.to_absolute_path_in(last_entry, path.out)
 			else
 				set_notation_using(path)
 				if system_notation /= Void then
-					last_entry.copy(current_working_directory)
-					system_notation.to_absolute_path_in(last_entry, path)
+					last_entry.copy(current_working_directory.out)
+					system_notation.to_absolute_path_in(last_entry, path.out)
 				else
 					last_entry.clear_count
 				end
 			end
 		ensure
-			last_entry.is_empty or else system_notation.is_absolute_path(last_entry)
+			last_entry.is_empty or else system_notation.is_absolute_path(last_entry.out)
 		end
 
-	valid_path (path: STRING): BOOLEAN is
+	valid_path (path: ABSTRACT_STRING): BOOLEAN is
 			-- Is the syntax of `path' valid for the system notation?
 		do
 			if system_notation_detected then
-				Result := system_notation.is_valid_path(path)
+				Result := system_notation.is_valid_path(path.out)
 			else
 				Result := not path.is_empty
 			end
 		ensure
-			system_notation_detected implies Result = system_notation.is_valid_path(path)
+			system_notation_detected implies Result = system_notation.is_valid_path(path.out)
 			not system_notation_detected implies Result = not path.is_empty
 		end
 
-	change_current_working_directory (directory_path: STRING) is
+	change_current_working_directory (directory_path: ABSTRACT_STRING) is
 			-- Try to change the current working directory using some `directory_path'. 
 			-- When the operation is possible, the `last_entry' buffer is updated with the new current  
 			-- working directory path, otherwise, when the modification is not possible the `last_entry' 
@@ -308,25 +308,26 @@ feature {ANY} -- File path handling tools:
 			not is_connected
 		end
 
-	current_working_directory: STRING is
+	current_working_directory: FIXED_STRING is
 			-- The current working directory. Always returns the same once STRING.
 		local
-			path: POINTER
+			path: POINTER; cwd: STRING
 		do
 			path := directory_current_working_directory
 			if path.is_not_null then
-				Result := once ""
-				Result.from_external_copy(path)
+				cwd := once ""
+				cwd.from_external_copy(path)
 				if not system_notation_detected then
-					set_notation_using(Result)
+					set_notation_using(cwd)
 				end
-				system_notation.to_directory_path(Result)
+				system_notation.to_directory_path(cwd)
+				Result := cwd.intern
 			end
 		end
 
 	ensure_system_notation is
 		local
-			p: STRING
+			p: FIXED_STRING
 		once
 			p := current_working_directory
 		ensure
@@ -334,7 +335,7 @@ feature {ANY} -- File path handling tools:
 		end
 
 feature {ANY} -- Disk modification:
-	create_new_directory (directory_path: STRING): BOOLEAN is
+	create_new_directory (directory_path: ABSTRACT_STRING): BOOLEAN is
 			-- Try to create a new directory using the `directory_path' name.
 			-- Returns True on success.
 		require
@@ -348,7 +349,7 @@ feature {ANY} -- Disk modification:
 			not is_connected
 		end
 
-	remove_directory (directory_path: STRING): BOOLEAN is
+	remove_directory (directory_path: ABSTRACT_STRING): BOOLEAN is
 			-- Try to remove directory `directory_path' which must be empty.
 			-- Returns True on success.
 		require
@@ -362,7 +363,7 @@ feature {ANY} -- Disk modification:
 			not is_connected
 		end
 
-	remove_files_of (directory_path: STRING) is
+	remove_files_of (directory_path: ABSTRACT_STRING) is
 			-- Try to remove all files (not subdirectories) of directory specified by `directory_path'.
 		require
 			not is_connected
@@ -390,7 +391,7 @@ feature {ANY} -- Disk modification:
 			not is_connected
 		end
 
-	remove_recursively (directory_path: STRING): BOOLEAN is
+	remove_recursively (directory_path: ABSTRACT_STRING): BOOLEAN is
 			-- Try to remove all files and all subdirectories of directory specified by 
 			-- `directory_path'.
 		require
@@ -515,7 +516,7 @@ feature {DIRECTORY_NOTATION_HANDLER}
 			Result := {OPENVMS_DIRECTORY_NOTATION} ?:= system_notation
 		end
 
-	set_notation_using (some_path: STRING) is
+	set_notation_using (some_path: ABSTRACT_STRING) is
 			-- Try to detect automatically the file system notation.
 		require
 			not some_path.is_empty
@@ -573,7 +574,7 @@ feature {DIRECTORY_NOTATION_HANDLER}
 			end
 		end
 
-	reset_notation_using (some_path: STRING) is
+	reset_notation_using (some_path: ABSTRACT_STRING) is
 			-- Try to detect automatically the file system notation.
 		do
 			system_notation_buffer.set_item(Void)

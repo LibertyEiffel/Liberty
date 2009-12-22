@@ -180,7 +180,7 @@ feature {ANY} -- Operations
 		do
 			if not is_absolute then
 				tmp.copy(Current)
-				to_string := bd.current_working_directory.twin
+				to_string := bd.current_working_directory.out.twin
 				join(tmp)
 				tmp.to_string.make_empty
 			end
