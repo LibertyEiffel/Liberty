@@ -21,14 +21,9 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	first_class: LIBERTY_AST_CLASS is
+	classes: LIBERTY_AST_CLASS_LIST is
 		do
 			Result ::= nodes.item(0)
-		end
-
-	next_classes: LIBERTY_AST_CLASS_LIST is
-		do
-			Result ::= nodes.item(1)
 		end
 
 feature {ANY}

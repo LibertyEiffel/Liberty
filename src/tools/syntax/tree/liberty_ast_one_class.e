@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_CLASS
+class LIBERTY_AST_ONE_CLASS
 
 inherit
 	LIBERTY_AST_NON_TERMINAL_NODE
@@ -21,20 +21,50 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	one_class: LIBERTY_AST_ONE_CLASS is
+	class_header: LIBERTY_AST_CLASS_HEADER is
 		do
 			Result ::= nodes.item(0)
 		end
 
-feature {ANY}
-	count: INTEGER is 2
+	obsolete_clause: LIBERTY_AST_OBSOLETE is
+		do
+			Result ::= nodes.item(1)
+		end
 
-	name: STRING is "Class"
+	inherit_clause: LIBERTY_AST_INHERIT is
+		do
+			Result ::= nodes.item(2)
+		end
+
+	insert_clause: LIBERTY_AST_INSERT is
+		do
+			Result ::= nodes.item(3)
+		end
+
+	creations: EIFFEL_LIST_NODE is
+		do
+			Result ::= nodes.item(4)
+		end
+
+	features: EIFFEL_LIST_NODE is
+		do
+			Result ::= nodes.item(5)
+		end
+
+	invariant_clause: LIBERTY_AST_INVARIANT is
+		do
+			Result ::= nodes.item(6)
+		end
+
+feature {ANY}
+	count: INTEGER is 8
+
+	name: STRING is "One_Class"
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 2 >> }
+			Result := {AVL_SET[INTEGER] << 8 >> }
 		end
 
 end
