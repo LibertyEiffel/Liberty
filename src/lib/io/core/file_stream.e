@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class FILE
+deferred class FILE_STREAM
 	--
 	-- Common parent class to all the file-related streams. Provides a common
 	-- connection interface to the "real" files of the operating system.
@@ -41,7 +41,7 @@ feature {ANY}
 			not is_connected
 		end
 
-end -- class FILE
+end -- class FILE_STREAM
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

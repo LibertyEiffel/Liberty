@@ -277,7 +277,7 @@ feature {ANY} -- Access:
 		end
 
 feature {ANY} -- File access:
-	connect_to_file (file: FILE; filename: STRING) is
+	connect_to_file (file: FILE_STREAM; filename: STRING) is
 			-- Connect the `file' to the operating system file given by its `filename'.
 		require
 			not file.is_connected
