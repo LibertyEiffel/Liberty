@@ -9,8 +9,49 @@ create {}
 feature {}
 	make is
 		do
-			parse_code("../../src/tools/main/libertyc.e")
-			parse_code("test_parser.e")
+			parse_all("../../src")
+			parse_all(".")
+		end
+
+	parse_all (dirname: STRING) is
+		require
+			file_tools.is_directory(dirname)
+		local
+			dir: DIRECTORY
+			i: INTEGER
+			childname, childpath: STRING
+		do
+			create dir.scan(dirname)
+			label_assert(dirname, dir.last_scan_status)
+			from
+				i := dir.lower
+				childpath := ""
+			until
+				i > dir.upper
+			loop
+				childname := dir.item(i)
+				if childname.has_suffix(once ".e") then
+					bd.compute_file_path_with(dirname, childname)
+					childpath.copy(bd.last_entry)
+					std_output.put_line(once "Parsing " + childpath)
+					parse_code(childpath)
+				else
+					inspect
+						childname
+					when "eiffeltest", ".svn", "CVS", ".git", ".", ".." then
+						-- ignored
+					else
+						bd.compute_subdirectory_with(dirname, childname)
+						if file_tools.is_directory(bd.last_entry) then
+							childpath.copy(bd.last_entry)
+							parse_all(childpath)
+						else
+							-- ignored
+						end
+					end
+				end
+				i := i + 1
+			end
 		end
 
 	read_code (filename: STRING) is
@@ -82,5 +123,8 @@ feature {}
 		once
 			create Result.make(create {LIBERTY_NODE_FACTORY}.make)
 		end
+
+	bd: BASIC_DIRECTORY
+	file_tools: FILE_TOOLS
 
 end

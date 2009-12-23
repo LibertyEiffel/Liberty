@@ -9,7 +9,7 @@ class TEXT_FILE_READ_WRITE
 	-- both an INPUT_STREAM and an OUTPUT_STREAM.
 
 inherit
-	FILE
+	FILE_STREAM
 	TERMINAL_INPUT_OUTPUT_STREAM
 		redefine filtered_read_line_in
 		end

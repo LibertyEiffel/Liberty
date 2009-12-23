@@ -11,7 +11,7 @@ class TEXT_FILE_WRITE
 	--
 
 inherit
-	FILE
+	FILE_STREAM
 	TERMINAL_OUTPUT_STREAM
 
 creation {ANY}

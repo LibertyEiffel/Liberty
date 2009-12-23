@@ -267,7 +267,7 @@ feature {ANY} -- Operations
 		do
 			if not is_absolute then
 				tmp.copy(Current)
-				make_from_string(bd.current_working_directory.twin)
+				make_from_string(bd.current_working_directory.out.twin)
 				join(tmp)
 				tmp.make_empty
 			end

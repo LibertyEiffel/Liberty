@@ -8,7 +8,7 @@ class BINARY_FILE_WRITE
 
 inherit
 	DISPOSABLE
-	FILE
+	FILE_STREAM
 
 creation {ANY}
 	make, connect_to, connect_for_appending_to
