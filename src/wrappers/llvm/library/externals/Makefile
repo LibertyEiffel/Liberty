@@ -7,7 +7,7 @@ wrappers: llvm.gcc-xml
 #	llvm-liberty.h  
 #	eiffel-gcc-xml --typedefs LLVM_TYPES --use-naturals --local --directory . --plugin . llvm-plugin llvm.gcc-xml llvm-liberty.h  
 
-llvm.gcc-xml: llvm-liberty.h
+llvm.gcc-xml: plugin/c/llvm-liberty.h
 	gccxml `llvm-config --cflags` llvm-liberty.h -fxml=llvm.gcc-xml
 
 
