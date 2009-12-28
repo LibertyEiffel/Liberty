@@ -1,8 +1,8 @@
 class LLVM_BUILDER
 	-- An instruction builder representing a point within an LLVM_BASIC_BLOCK; it allows to build instructions using the C interface.
 
-inherit C_STRUCT
-insert CORE_EXTERNALS
+inherit C_STRUCT redefine default_create end 
+insert CORE_EXTERNALS redefine default_create end 
 creation in_context, default_create
 feature -- Creation
 	in_context (a_context: LLVM_CONTEXT) is
@@ -41,8 +41,10 @@ feature -- Positioning
 	end
 
 	insert_block: LLVM_BASIC_BLOCK is
+	local p: POINTER
 	do
-		Result:=wrapper_or_void(llvmget_insert_block(handle))
+		p := llvmget_insert_block(handle)
+		if p.is_not_null then create Result.from_external_pointer(p) end
 	end
 
 	clear_insertion_position is
@@ -58,10 +60,11 @@ feature -- Positioning
 
 	insert_with_name (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING) is
 	require 
--- void LLVMInsertIntoBuilderWithName(LLVMBuilderRef Builder, LLVMValueRef Instr,
---                                    const char *Name);
-
--- 
+		a_value/=Void
+		a_name/=Void
+	do
+		llvminsert_into_builder_with_name(handle,a_value.handle,a_name.to_external)
+	end
 -- /* Terminators */
 -- LLVMValueRef LLVMBuildRetVoid(LLVMBuilderRef);
 -- LLVMValueRef LLVMBuildRet(LLVMBuilderRef, LLVMValueRef V);

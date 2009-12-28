@@ -6,5 +6,11 @@ imposes some compromises, like "exposing" C_ARRAYs. This should be fixed with a
 direct interface with C++ after bootstrap or after wrappers-generator tool will
 be upgraded to deal with C++.
 
+Currently is creates a new wrapper everytime a new pointer is received from
+the C library. This is obviously not efficient and does not allow to have
+collections of wrappers of LLVM objects otherwise we will violate several
+COLLECTION postcondition like those of put feature. 
+
+Ideally it should be possible to avoid the usage of wrapper objects.
 
 Copyright 2009 Paolo Redaelli

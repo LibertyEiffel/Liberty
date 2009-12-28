@@ -1,5 +1,25 @@
 deferred class LLVM_TYPE
-	-- The representation of the base type of all datatypes in LLVM. Anchestor
+	--	Type is a superclass of all type classes.
+	--	Every Value has a Type. Type cannot be
+	--	instantiated directly but only through its
+	--	subclasses. Certain primitive types
+	--	(VoidType, LabelType, FloatType and
+	--	DoubleType) have hidden subclasses. They are
+	--	hidden because they offer no useful
+	--	functionality beyond what the Type class
+	--	offers except to distinguish themselves from
+	--	other subclasses of Type.
+
+	-- All other types are subclasses of
+	-- DerivedType. Types can be named, but this is
+	-- not a requirement. There exists exactly one
+	-- instance of a given shape at any one time.
+	-- This allows type equality to be performed
+	-- with address equality of the Type Instance.
+	-- That is, given two Type* values, the types
+	-- are identical if the pointers are identical.
+
+-- The representation of the base type of all datatypes in LLVM. Anchestor
 	-- of all hierarchy of types. See
 	-- http://llvm.org/doxygen/classllvm_1_1Type.html for a clean graph of its
 	-- heirs.
@@ -34,6 +54,12 @@ feature
 		do
 			not_yet_implemented -- or mostly unuseful
 		end
+
+	-- is_integer: BOOLEAN is -- Is Current an integer type.
+	-- is_floating_point: BOOLEAN -- Is Current a floating point type.
+	-- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.
+	-- is_sized: BOOLEAN is -- Has the type a known size? Things that don't have a size are abstract types, labels and void.
+	
 end -- class LLVM_TYPE
 
 

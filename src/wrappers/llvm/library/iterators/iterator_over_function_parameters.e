@@ -1,10 +1,13 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-		deferred
 class ITERATOR_OVER_FUNCTION_PARAMETERS
-inherit BIDIRECTIONAL_ITERATOR[LLVM_VALUE]
-insert LLVM_VALUE_FACTORY
+inherit 
+	BIDIRECTIONAL_ITERATOR[LLVM_VALUE]
+	WRAPPER_HANDLER
+insert 
+	LLVM_VALUE_FACTORY
+	CORE_EXTERNALS
 creation {LLVM_FUNCTION} from_function
 
 feature {LLVM_FUNCTION}
@@ -22,46 +25,30 @@ feature {ANY}
 		end
 
 	start is
-		local p: POINTER
 		do
-			p:=wrapper(llvmget_first_param(function.handle))
-			if p.is_not_null 
-				then item:=wrapper(p)
-			else item:=Void
-			end
+			item:=wrapper_or_void(llvmget_first_param(function.handle))
 		end	
 
 	finish is
-			local p: POINTER
 		do
-			p:=wrapper(llvmget_last_param(function.handle))
-			if p.is_not_null 
-				then item:=wrapper(p)
-			else item:=Void
-			end
+			item:=wrapper_or_void(llvmget_last_param(function.handle))
 		end	
 
 	next is
-		local p: POINTER
 		do
-			p:=wrapper(llvmget_next_param(function.handle))
-			if p.is_not_null 
-				then item:=wrapper(p)
-			else item:=Void
-			end
+			item:=wrapper_or_void(llvmget_next_param(function.handle))
 		end	
 
 	previous is
-				local p: POINTER
 		do
-			p:=wrapper(llvmget_previous_param(function.handle))
-			if p.is_not_null 
-				then item:=wrapper(p)
-			else item:=Void
-			end
+			item:=wrapper_or_void(llvmget_previous_param(function.handle))
 		end	
 
 	item: LLVM_VALUE is attribute end 
+
+	-- This feature is unnecessary when inheriting from LLVM_VALUE_FACTORY: wrapper (p: POINTER): LLVM_VALUE is do create Result.from_external_pointer(p) end
+
+invariant function/=Void
 end -- class ITERATOR_OVER_FUNCTION_PARAMETERS
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.

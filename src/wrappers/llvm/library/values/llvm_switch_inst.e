@@ -11,6 +11,7 @@ feature
 		a_destionation/=Void
 	do
 		llvmadd_case(handle,a_value.handle,a_destionation.handle)
+	end
 end -- class LLVM_SWITCH_INST
 
 -- Copyright 2009 Paolo Redaelli

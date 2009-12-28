@@ -1,44 +1,44 @@
-
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class ITERATOR_OVER_BASIC_BLOCKS
+class ITERATOR_OVER_MODULE_FUNCTIONS
 
 inherit 
-	BIDIRECTIONAL_ITERATOR[LLVM_BASIC_BLOCK]
-	WRAPPER_FACTORY[LLVM_BASIC_BLOCK]
+	BIDIRECTIONAL_ITERATOR[LLVM_FUNCTION]
+	LLVM_FUNCTION_FACTORY
+
 insert CORE_EXTERNALS
 
-creation from_value
+creation from_module
 
-feature {LLVM_VALUE}
-	from_value (a_value: LLVM_VALUE) is
-		require a_value/=Void
+feature {LLVM_MODULE}
+	from_module (a_module: LLVM_MODULE) is
+		require a_module/=Void
 		do
-			value:=a_value
+			module:=a_module
 		end
 
-feature {ANY}
-	value: LLVM_VALUE
+feature 
+	module: LLVM_MODULE
 
 	start is
 		do
-			item := wrapper_or_void(llvmget_first_basic_block(value.handle))
+			item := wrapper_or_void(llvmget_first_function(module.handle))
 		end
 	
 	finish is
 		do
-			item := wrapper_or_void(llvmget_last_basic_block(value.handle))
+			item := wrapper_or_void(llvmget_last_function(module.handle))
 		end
 
 	next is
 		do
-			item := wrapper_or_void(llvmget_next_basic_block(item.handle))
+			item := wrapper_or_void(llvmget_next_function(module.handle))
 		end
 		
 	previous is
 		do
-			item := wrapper_or_void(llvmget_previous_basic_block(item.handle))
+			item := wrapper_or_void(llvmget_previous_function(module.handle))
 		end
 
 	is_off: BOOLEAN is
@@ -46,15 +46,11 @@ feature {ANY}
 			Result:=(item=Void)
 		end
 
-	item: LLVM_BASIC_BLOCK is attribute end
-feature 
-	wrapper (p: POINTER): LLVM_BASIC_BLOCK is
-		do
-			create Result.from_external_pointer(p)
-		end
-invariant value/=Void
+	item: LLVM_FUNCTION is attribute end
 
-end -- class ITERATOR_OVER_BASIC_BLOCKS 
+invariant module/=Void
+
+end -- class ITERATOR_OVER_MODULE_FUNCTIONS
 
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
