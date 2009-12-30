@@ -10,6 +10,7 @@ class EIFFEL_GRAMMAR
 
 insert
 	EIFFEL_NODE_HANDLER
+	PLATFORM
 
 create {ANY}
 	make, make_default
@@ -48,7 +49,7 @@ feature {}
 																							{FAST_ARRAY[STRING] << "Parent", "KW ;", "Parent+" >> }, agent build_continue_list("Parent", 1, "Parent+") >> };
 											  "Parent", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition", "Parent_Clause" >> }, Void >> };
 											  "Parent_Clause", {PARSE_NON_TERMINAL << epsilon, Void;
-																									{FAST_ARRAY[STRING] << "KW end" >> }, Void;
+																									--|*** VALID BUT AMBIGUOUS: {FAST_ARRAY[STRING] << "KW end" >> }, Void;
 																									{FAST_ARRAY[STRING] << "Parent_Rename", "Parent_Export", "Parent_Undefine", "Parent_Redefine", "KW end of parent clause" >> }, Void >> };
 											  "Parent_Rename", {PARSE_NON_TERMINAL << epsilon, Void;
 																									{FAST_ARRAY[STRING] << "KW rename", "Rename+" >> }, Void >> };
@@ -61,15 +62,15 @@ feature {}
 											  "Export+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Export" >> }, agent build_new_list("Export", "Export+");
 																							{FAST_ARRAY[STRING] << "Export", "Export+" >> }, agent build_continue_list("Export", 0, "Export+");
 																							{FAST_ARRAY[STRING] << "Export", "KW ;", "Export+" >> }, agent build_continue_list("Export", 1, "Export+") >> };
-											  "Export", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW {", "Clients", "KW }", "Feature_Name+" >> }, Void >> };
+											  "Export", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Clients", "Feature_Name+" >> }, Void >> };
 											  "Parent_Undefine", {PARSE_NON_TERMINAL << epsilon, Void;
 																									  {FAST_ARRAY[STRING] << "KW undefine", "Feature_Name+" >> }, Void >> };
 											  "Parent_Redefine", {PARSE_NON_TERMINAL << epsilon, Void;
 																									  {FAST_ARRAY[STRING] << "KW redefine", "Feature_Name+" >> }, Void >> };
 											  "Class_Creation*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Class_Creation*");
 																									  {FAST_ARRAY[STRING] << "Class_Creation", "Class_Creation*" >> }, agent build_continue_list("Class_Creation", 0, "Class_Creation*") >> };
-											  "Class_Creation", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW creation", "KW {", "Clients", "KW }", "Feature_Name+" >> }, Void;
-																									 {FAST_ARRAY[STRING] << "KW create", "KW {", "Clients", "KW }", "Feature_Name+" >> }, Void >> };
+											  "Class_Creation", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW creation", "Clients", "Feature_Name+" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW create", "Clients", "Feature_Name+" >> }, Void >> };
 											  "Routine_Definition", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Obsolete", "Require", "Routine_Execution", "Ensure", "KW end" >> }, Void >> };
 											  "Routine_Execution", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Local_Block", "Do_Block", "Rescue_Block" >> }, Void;
 																										 {FAST_ARRAY[STRING] << "External" >> }, Void >> };
@@ -113,7 +114,8 @@ feature {}
 																										  {FAST_ARRAY[STRING] << "Writable", "KW ?=", "Expression" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "Writable", "KW ::=", "Expression" >> }, Void;
 																										  {FAST_ARRAY[STRING] << "Target", "r10" >> }, Void >> };
-											  "Call", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Target", "r10" >> }, Void >> };
+											  "Call", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "KW ?:=", "Expression" >> }, Void;
+																						{FAST_ARRAY[STRING] << "Target", "r10" >> }, Void >> };
 											  "Target", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW (", "Expression", "KW )" >> }, Void;
 																						  {FAST_ARRAY[STRING] << "KW Precursor", "Precursor_Type_Mark", "Actuals" >> }, Void;
 																						  {FAST_ARRAY[STRING] << "KW Current" >> }, Void;
@@ -175,8 +177,7 @@ feature {}
 																					  {FAST_ARRAY[STRING] << "Agent_Signature", "KW is", "Routine_Definition", "Actuals" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW agent", "Expression" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "Creation_Expression" >> }, Void;
-																					  {FAST_ARRAY[STRING] << "KW Void" >> }, Void;
-																					  {FAST_ARRAY[STRING] << "KW entity name", "KW ?:=", "Expression" >> }, Void >> };
+																					  {FAST_ARRAY[STRING] << "KW Void" >> }, Void >> };
 											  "Agent_Signature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW agent" >> }, Void;
 																									  {FAST_ARRAY[STRING] << "KW agent", "KW :", "Type_Definition" >> }, Void;
 																									  {FAST_ARRAY[STRING] << "KW agent", "KW (", "Declaration+", "KW )" >> }, Void;
@@ -233,10 +234,12 @@ feature {}
 																									{FAST_ARRAY[STRING] << "Expression", "KW ;", "Array_Content" >> }, agent build_continue_list("Expression", 1, "Array_Content") >> };
 											  "Feature*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Feature*");
 																							 {FAST_ARRAY[STRING] << "Feature", "Feature*" >> }, agent build_continue_list("Feature", 0, "Feature*") >> };
-											  "Feature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW feature", "KW {", "Clients", "KW }", "Feature_Definition*" >> }, Void >> };
-											  "Clients", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Clients");
-																							{FAST_ARRAY[STRING] << "Client" >> }, agent build_new_list("Client", "Clients");
-																							{FAST_ARRAY[STRING] << "Client", "KW ,", "Clients" >> }, agent build_continue_list("Client", 1, "Clients") >> };
+											  "Feature", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW feature", "Clients", "Feature_Definition*" >> }, Void >> };
+											  "Clients", {PARSE_NON_TERMINAL << epsilon, Void;
+																							{FAST_ARRAY[STRING] << "KW {", "Client*", "KW }" >> }, Void >> };
+											  "Client*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Client*");
+																							{FAST_ARRAY[STRING] << "Client" >> }, agent build_new_list("Client", "Client*");
+																							{FAST_ARRAY[STRING] << "Client", "KW ,", "Client*" >> }, agent build_continue_list("Client", 1, "Client*") >> };
 											  "Client", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void >> }; -- Liberty extension
 											  "Feature_Definition*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Feature_Definition*");
 																											{FAST_ARRAY[STRING] << "Feature_Definition", "Feature_Definition*" >> }, agent build_continue_list("Feature_Definition", 0, "Feature_Definition*") >> };
@@ -326,8 +329,8 @@ feature {}
 											  "KW frozen", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "frozen"), Void);
 											  "KW end", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "end"), Void);
 											  "KW rename", create {PARSE_TERMINAL}.make(agent parse_parent_clause(?, "rename"), Void);
-											  "KW redefine", create {PARSE_TERMINAL}.make(agent parse_parent_clause(?, "undefine"), Void);
-											  "KW undefine", create {PARSE_TERMINAL}.make(agent parse_parent_clause(?, "redefine"), Void);
+											  "KW redefine", create {PARSE_TERMINAL}.make(agent parse_parent_clause(?, "redefine"), Void);
+											  "KW undefine", create {PARSE_TERMINAL}.make(agent parse_parent_clause(?, "undefine"), Void);
 											  "KW export", create {PARSE_TERMINAL}.make(agent parse_parent_clause(?, "export"), Void);
 											  "KW end of parent clause", create {PARSE_TERMINAL}.make(agent parse_end_of_parent_clause, Void);
 											  "KW local", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "local"), Void);
@@ -984,12 +987,12 @@ feature {}
 			until
 				i > keyword.upper or else Result = Void
 			loop
-				if buffer.current_character = keyword.item(i) then
-					next_character(buffer)
-					i := i + 1
-				else
+				if buffer.end_reached or else buffer.current_character /= keyword.item(i) then
 					restore(buffer, old_position)
 					Result := Void
+				else
+					next_character(buffer)
+					i := i + 1
 				end
 			end
 			if buffer.end_reached  then
@@ -1283,7 +1286,8 @@ feature {}
 
 	parse_character (buffer: MINI_PARSER_BUFFER): TYPED_EIFFEL_IMAGE[CHARACTER] is
 		local
-			old_position, start_position: like position; c, character: CHARACTER; image: STRING; invalid_character: BOOLEAN
+			old_position, start_position: like position; c, character: CHARACTER; image: STRING
+			invalid_character, ok_image: BOOLEAN; code: INTEGER
 		do
 			old_position := position
 			skip_blanks(buffer)
@@ -1354,7 +1358,60 @@ feature {}
 							when '>' then
 								character := '%>'
 							when '/' then
-								not_yet_implemented -- need to parse a number
+								image.extend('/')
+								from
+									next_character(buffer)
+									if buffer.end_reached then
+										invalid_character := True
+									else
+										c := buffer.current_character
+										inspect
+											c
+										when '0'..'9' then
+											image.extend(c)
+											code := c.code - '0'.code
+											next_character(buffer)
+											if buffer.end_reached then
+												invalid_character := True
+											else
+												c := buffer.current_character
+											end
+										else
+											invalid_character := True
+										end
+									end
+								invariant
+									not buffer.end_reached
+								until
+									invalid_character or else c = '/'
+								loop
+									c := buffer.current_character
+									inspect
+										c
+									when '0'..'9' then
+										image.extend(c)
+										code := code * 10 + (c.code - '0'.code)
+										next_character(buffer)
+										if buffer.end_reached then
+											invalid_character := True
+										else
+											c := buffer.current_character
+										end
+									when '/' then
+										-- OK, done
+									else
+										invalid_character := True
+									end
+								end
+								if not invalid_character then
+									image.extend(c)
+									if code > Maximum_character_code then
+										invalid_character := True
+									else
+										character := code.to_character
+										ok_image := True
+									end
+								end
 							else
 								-- unknown escape character
 								invalid_character := True
@@ -1365,7 +1422,9 @@ feature {}
 					if invalid_character or else buffer.end_reached or else buffer.current_character /= '%'' then
 						image := Void
 					else
-						image.extend(c)
+						if not ok_image then
+							image.extend(c)
+						end
 						image.extend('%'')
 						next_character(buffer)
 					end

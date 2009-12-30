@@ -1567,10 +1567,6 @@ feature {} -- Expressions
 				Result := expression_creation(e10.creation_expression, local_context, redefinitions)
 			elseif e10.is_void then
 				create {LIBERTY_VOID} Result.make(semantics_position_at(e10.node_at(0)))
-			elseif e10.is_assignment_test then
-				create {LIBERTY_ASSIGNMENT_TEST} Result.test_entity(entity(e10.assignment_test_entity_name, local_context, redefinitions),
-																					 expression(e10.assignment_test_expression, local_context, redefinitions),
-																					 universe.type_boolean, semantics_position_at(e10.assignment_test_entity_name))
 			else
 				check False end
 			end
@@ -1608,8 +1604,17 @@ feature {} -- Expressions
 		local
 			tgt: LIBERTY_EXPRESSION
 		do
-			tgt := target_or_implicit_feature_call_expression(a_call.target, local_context, redefinitions)
-			Result := expression_remainder(tgt, a_call.r10, local_context, redefinitions)
+			if a_call.is_call then
+				tgt := target_or_implicit_feature_call_expression(a_call.target, local_context, redefinitions)
+				Result := expression_remainder(tgt, a_call.r10, local_context, redefinitions)
+			else
+				check
+					a_call.is_assignment_test
+				end
+				create {LIBERTY_ASSIGNMENT_TEST} Result.test_entity(entity(a_call.assignment_test_entity_name, local_context, redefinitions),
+																					 expression(a_call.assignment_test_expression, local_context, redefinitions),
+																					 universe.type_boolean, semantics_position_at(a_call.assignment_test_entity_name))
+			end
 		ensure
 			not errors.has_error implies Result /= Void
 		end
@@ -1823,21 +1828,23 @@ feature {}
 			Result := s.decoded
 		end
 
-	list_clients (clients: EIFFEL_LIST_NODE): COLLECTION[LIBERTY_TYPE] is
+	list_clients (clients: LIBERTY_AST_CLIENTS): COLLECTION[LIBERTY_TYPE] is
 		local
-			i: INTEGER; client: LIBERTY_AST_CLIENT
+			i: INTEGER
 		do
 			if clients.is_empty then
+				--|*** TODO: add warning (client list should always be set)
+				Result := any_client_list
+			elseif clients.list_is_empty then
 				Result := empty_client_list
 			else
-				create {FAST_ARRAY[LIBERTY_TYPE]}Result.with_capacity(clients.count)
+				create {FAST_ARRAY[LIBERTY_TYPE]}Result.with_capacity(clients.list_count)
 				from
-					i := clients.lower
+					i := clients.list_lower
 				until
-					errors.has_error or else i > clients.upper
+					errors.has_error or else i > clients.list_upper
 				loop
-					client ::= clients.item(i)
-					Result.add_last(universe.get_type_from_client(type, client, effective_generic_parameters))
+					Result.add_last(universe.get_type_from_client(type, clients.list_item(i), effective_generic_parameters))
 					i := i + 1
 				end
 			end
@@ -1846,6 +1853,11 @@ feature {}
 	empty_client_list: COLLECTION[LIBERTY_TYPE] is
 		once
 			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+		end
+
+	any_client_list: COLLECTION[LIBERTY_TYPE] is
+		once
+			Result := {FAST_ARRAY[LIBERTY_TYPE] << universe.type_any >> }
 		end
 
 	list_parameters (parameters: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]) is

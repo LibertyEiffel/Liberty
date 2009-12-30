@@ -222,6 +222,8 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_ASSERTION} Result.make(name, names)
 			when "Assertion_Tag" then
 				create {LIBERTY_AST_ASSERTION_TAG} Result.make(name, names)
+			when "Clients" then
+				create {LIBERTY_AST_CLIENTS} Result.make(name, names)
 			when "Client" then
 				create {LIBERTY_AST_CLIENT} Result.make(name, names)
 			end

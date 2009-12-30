@@ -12,34 +12,24 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_AST_CLASS_CREATION
+class LIBERTY_AST_CLIENTS
 
 inherit
-	LIBERTY_AST_NON_TERMINAL_NODE
+	LIBERTY_AST_LIST[LIBERTY_AST_CLIENT]
+		redefine
+			possible_counts
+		end
 
 create {LIBERTY_NODE_FACTORY}
 	make
 
-feature {LIBERTY_AST_HANDLER}
-	clients: LIBERTY_AST_CLIENTS is
-		do
-			Result ::= nodes.item(1)
-		end
-
-	feature_names: EIFFEL_LIST_NODE is
-		do
-			Result ::= nodes.item(2)
-		end
-
 feature {ANY}
-	count: INTEGER is 3
-
-	name: STRING is "Class_Creation"
+	name: STRING is "Clients"
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 3 >> }
+			Result := {AVL_SET[INTEGER] << 0, 3 >> }
 		end
 
 end

@@ -34,6 +34,13 @@ feature {LIBERTY_AST_HANDLER}
 			end
 		end
 
+	list_is_empty: BOOLEAN is
+		do
+			if count > 1 then
+				Result := list.is_empty
+			end
+		end
+
 	list_count: INTEGER is
 		do
 			if count > 1 then

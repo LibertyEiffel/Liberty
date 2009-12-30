@@ -133,25 +133,6 @@ feature {LIBERTY_AST_HANDLER}
 			Result := count = 1 and then nodes.item(0).name.is_equal(once "KW Void")
 		end
 
-	is_assignment_test: BOOLEAN is
-		do
-			Result := count = 3 and then nodes.item(1).name.is_equal(once "KW ?:=")
-		end
-
-	assignment_test_entity_name: LIBERTY_AST_ENTITY_NAME is
-		require
-			is_assignment_test
-		do
-			Result ::= nodes.item(0)
-		end
-
-	assignment_test_expression: LIBERTY_AST_EXPRESSION is
-		require
-			is_assignment_test
-		do
-			Result ::= nodes.item(2)
-		end
-
 feature {ANY}
 	count: INTEGER is
 		do

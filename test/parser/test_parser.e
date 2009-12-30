@@ -9,6 +9,8 @@ create {}
 feature {}
 	make is
 		do
+			--parse_code(create {REGULAR_FILE}.make("../../src/bootstrap/net/low_level/socket.e"))
+			--die_with_code(0)
 			parse_all(create {DIRECTORY}.scan("../../src"))
 			parse_all(create {DIRECTORY}.scan("."))
 		end
@@ -74,6 +76,7 @@ feature {}
 
 	parse_code (file: REGULAR_FILE) is
 		do
+			std_output.put_line(once "Parsing " + file.path)
 			read_code(file)
 			buffer.initialize_with(code)
 			eiffel.reset
@@ -85,8 +88,25 @@ feature {}
 		end
 
 	generate_syntax_error (file: REGULAR_FILE): STRING is
+		local
+			line, column, index: INTEGER
 		do
-			Result := "Syntax error in " + file.path + " - " + parser.error.message
+			from
+				index := 1
+				line := 1
+				column := 1
+			until
+				index = parser.error.index
+			loop
+				if code.item(index) = '%N' then
+					line := line + 1
+					column := 1
+				else
+					column := column + 1
+				end
+				index := index + 1
+			end
+			Result := "Syntax error in " + file.path + ", line " + line.out + ", column " + column.out + ":%N" + parser.error.message
 		end
 
 	code: STRING is
