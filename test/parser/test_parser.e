@@ -9,7 +9,7 @@ create {}
 feature {}
 	make is
 		do
-			--parse_code(create {REGULAR_FILE}.make("../../src/bootstrap/net/low_level/socket.e"))
+			--parse_code(create {REGULAR_FILE}.make("../../src/bootstrap/xml/xml_parser.e"))
 			--die_with_code(0)
 			parse_all(create {DIRECTORY}.scan("../../src"))
 			parse_all(create {DIRECTORY}.scan("."))
@@ -80,11 +80,28 @@ feature {}
 			read_code(file)
 			buffer.initialize_with(code)
 			eiffel.reset
-			parser.eval(buffer, eiffel.table, once "Class")
+			if file.name.out.is_equal(once "tuple.e") then
+				parser.eval(buffer, eiffel.table, once "Classes")
+			else
+				parser.eval(buffer, eiffel.table, once "Class")
+			end
 			message_assert(agent generate_syntax_error(file), parser.error = Void)
 			generated.clear
 			eiffel.generate(generated)
-			label_assert(file.path.out, code.is_equal(generated.to_string))
+			message_assert(agent generate_generated_error(file), code.is_equal(generated.to_string))
+		end
+
+	generate_generated_error (file: REGULAR_FILE): STRING is
+		local
+			tfw: TEXT_FILE_WRITE
+		do
+			create tfw.connect_to(file.name.out)
+			tfw.put_string(code)
+			tfw.disconnect
+			tfw.connect_to(file.name.out + ".gen")
+			tfw.put_string(generated.to_string)
+			tfw.disconnect
+			Result := "Bad generation from " + file.path.out + "%N> diff " + file.name.out + " " + file.name.out + ".gen%N"
 		end
 
 	generate_syntax_error (file: REGULAR_FILE): STRING is

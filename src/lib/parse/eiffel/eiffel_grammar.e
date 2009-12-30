@@ -739,6 +739,7 @@ feature {}
 						inspect c
 						when '0'..'9' then
 							code := code * scale + (c.code - '0'.code)
+							image.extend(c)
 						when 'x' then
 							scale := 16
 							image.extend(c)
@@ -1148,6 +1149,7 @@ feature {}
 	parse_number (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
 		local
 			old_position, start_position: like position; state: INTEGER; c: CHARACTER; image: STRING
+			valid, valid_before_dot, valid_before_exp: BOOLEAN
 		do
 			old_position := position
 			skip_blanks(buffer)
@@ -1160,24 +1162,28 @@ feature {}
 					image.extend(c)
 					next_character(buffer)
 					inspect c
-					when '+' then
+					when '+', '-' then
 						c := buffer.current_character
 						image.extend(c)
-						next_character(buffer)
-						if buffer.current_character = '0' then
+						inspect c
+						when '0' then
+							valid := True
 							state := 1
+						when '1' .. '9' then
+							valid := True
+							-- state := 0
+						else
+							state := -1
 						end
-					when '-' then
-						c := buffer.current_character
-						image.extend(c)
 						next_character(buffer)
-						if buffer.current_character = '0' then
-							state := 1
-						end
+					when '.' then
+						-- state := 0
 					when '0' then
+						valid := True
 						state := 1
-					when '1'..'9', '.' then
-						-- nothing; `state' stays 0
+					when '1'..'9' then
+						valid := True
+						-- state := 0
 					else
 						image := Void
 						state := -1
@@ -1192,29 +1198,43 @@ feature {}
 						-- decimal integer
 						inspect
 							c
-						when '0' .. '9', '_' then
+						when '_' then
 							image.extend(c)
+						when '0' .. '9' then
+							image.extend(c)
+							valid := True
 						when '.' then
 							image.extend(c)
+							valid_before_dot := valid
+							valid := False
 							state := 3
 						when 'e', 'E' then
 							image.extend(c)
+							valid_before_exp := valid
+							valid := False
 							state := 4
 						else
 							state := -1
 						end
 					when 1 then
 						-- first character was zero; just read the second.
+						check not valid end
 						inspect
 							c
 						when 'x', 'X' then
 							image.extend(c)
 							state := 2
-						when '0' .. '9', '_' then
+						when '_' then
 							image.extend(c)
+							state := 0
+						when '0' .. '9' then
+							image.extend(c)
+							valid := True
 							state := 0
 						when '.' then
 							image.extend(c)
+							valid_before_dot := valid
+							valid := False
 							state := 3
 						else
 							state := -1
@@ -1225,6 +1245,7 @@ feature {}
 							c
 						when '0' .. '9', '_', 'A' .. 'F', 'a' .. 'f' then
 							image.extend(c)
+							valid := True
 						else
 							state := -1
 						end
@@ -1232,33 +1253,51 @@ feature {}
 						-- fractional part
 						inspect
 							c
-						when '0' .. '9', '_' then
+						when '_' then
 							image.extend(c)
+						when '0' .. '9' then
+							image.extend(c)
+							valid := True
+						when 'e', 'E' then
+							image.extend(c)
+							valid_before_exp := valid
+							valid := False
+							state := 4
 						else
 							if image.last = '.' then
 								image.remove_last
 								buffer.set_current_index(buffer.current_index - 1)
+								valid := valid_before_dot
 							end
 							state := -1
 						end
 					when 4 then
 						-- just read the 'e' of the exponential part
+						check not valid end
 						inspect
 							c
-						when '+', '-', '0' .. '9' then
+						when '+', '-' then
 							image.extend(c)
+							state := 5
+						when '0' .. '9' then
+							image.extend(c)
+							valid := True
 							state := 5
 						else
 							image.remove_last
 							buffer.set_current_index(buffer.current_index - 1)
+							valid := valid_before_exp
 							state := -1
 						end
 					when 5 then
 						-- exponential part
 						inspect
 							c
-						when '0' .. '9', '_' then
+						when '_' then
 							image.extend(c)
+						when '0' .. '9' then
+							image.extend(c)
+							valid := True
 						else
 							state := -1
 						end
@@ -1267,7 +1306,7 @@ feature {}
 						next_character(buffer)
 					end
 				end
-				if not buffer.end_reached and then buffer.current_character.is_letter then
+				if not valid or (not buffer.end_reached and then buffer.current_character.is_letter) then
 					image := Void
 				end
 			end
@@ -1404,6 +1443,7 @@ feature {}
 									end
 								end
 								if not invalid_character then
+									check c = '/' end
 									image.extend(c)
 									if code > Maximum_character_code then
 										invalid_character := True
