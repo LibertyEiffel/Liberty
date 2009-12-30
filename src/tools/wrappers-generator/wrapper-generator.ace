@@ -27,7 +27,7 @@ cluster -- section
    -- searching for an Eiffel source file. Each cluster is described
    -- as follows:
 
-   eiffel_gcc_xml: "."
+   eiffel_gcc_xml: "./loadpath.se"
 	default
 		assertion (all)
 	end -- Eiffel-gcc-xml cluster 

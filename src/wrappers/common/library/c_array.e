@@ -53,12 +53,6 @@ feature {} -- Creation
 			storage := storage.calloc(a_capacity)
 		end
 
-feature {} -- 	
-	object_materialization_notice: STRING is
-			-- The notice printed when creating a new wrapper object from
-			-- no-where.
-		"Warning: C_ARRAY is going to create a new wrapper; if ITEM is deferred the program will almost surely crash. The actual ITEM must be made non-deferred.%N"
-
 feature
 	item (i: INTEGER_32): ITEM is
 		local
@@ -637,12 +631,23 @@ feature
 			create {ITERATOR_ON_C_ARRAY[ITEM]} Result.from_array(Current)
 		end
 
+	as_c_array: NATIVE_ARRAY[POINTER] is
+		do
+			Result:=storage
+		end
 feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 	storage: NATIVE_ARRAY[POINTER]
 
 	capacity: INTEGER
 
-	manifest_put (index: INTEGER_32; element: ITEM) is
+feature {} -- Implement manifest generic creation (very low-level):
+        manifest_make (needed_capacity: INTEGER) is
+                        -- Manifest creation of a LLVM_TYPE_ARRAY
+                require
+                        needed_capacity > 0
+                do
+                        with_capacity(needed_capacity)
+                end	manifest_put (index: INTEGER_32; element: ITEM) is
 		do
 			put(element, index)
 		end

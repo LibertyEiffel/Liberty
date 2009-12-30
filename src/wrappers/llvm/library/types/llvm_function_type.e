@@ -15,7 +15,7 @@ inherit
 
 creation make, from_external_pointer
 feature 
-	make (a_return_type: LLVM_TYPE; some_parameters: C_ARRAY[LLVM_TYPE]; a_variadic_function: BOOLEAN) is
+	make (a_return_type: LLVM_TYPE; some_parameters: WRAPPER_COLLECTION[LLVM_TYPE]; a_variadic_function: BOOLEAN) is
 	-- Create a function type with `a_return_type' and `some_parameters'
 	-- Variadic functions, allowed by LLVM don't fit Eiffel design rules therefore are not supported
 	
@@ -27,7 +27,7 @@ feature
 		a_return_type/=Void
 		some_parameters/=Void
 	do
-		handle := llvmfunction_type(a_return_type.handle, some_parameters.to_pointer, some_parameters.count.to_natural_32, 0)
+		handle := llvmfunction_type(a_return_type.handle, some_parameters.as_c_array.to_external, some_parameters.count.to_natural_32, 0)
 		-- 0 stands for an eventual `a_variadic_function'.to_integer_32; if
 		-- `a_variadic_function' is True the Result will be variadic.
 

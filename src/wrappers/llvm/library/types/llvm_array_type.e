@@ -2,7 +2,8 @@ class LLVM_ARRAY_TYPE
 	-- 
 inherit LLVM_SEQUENCE_TYPE
 
-creation make, from_external_pointer
+creation {ANY} make
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature -- Creation
 	make (a_type: LLVM_TYPE; a_count: NATURAL_32) is
 		-- Create an LLVM_ARRAY_TYPE holding `a_count' elements of `a_type'
