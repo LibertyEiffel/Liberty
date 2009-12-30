@@ -133,6 +133,12 @@ feature {ANY} -- DIRECTORY_NOTATION interface
 			Result := tmp1.is_valid_file_name(name)
 		end
 
+	to_short_name_in (buffer, path: STRING) is
+		do
+			tmp1.make_from_string(path)
+			buffer.copy(tmp1.short_name)
+		end
+
 feature {DIRECTORY_NOTATION}
 	to_notation (path: STRING; destination: DIRECTORY_NOTATION): STRING is
 		local

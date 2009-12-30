@@ -72,34 +72,6 @@ feature {}
 	basic_directory: BASIC_DIRECTORY
 			-- Provide low level access to directories.
 
-	short_name (a_filepath: FIXED_STRING): FIXED_STRING is
-		local
-			p: like parent; i: INTEGER
-		do
-			p := parent
-			if p = Void then
-				Result := a_filepath
-			else
-				from
-					i := p.lower
-				until
-					Result /= Void or else i > p.upper
-				loop
-					Result := child_of(p.path, p.item(i))
-					if not Result.is_equal(a_filepath) then
-						Result := Void
-					end
-					i := i + 1
-				end
-				check Result /= Void end
-			end
-		end
-
-	child_of (a_directory_path, a_name: ABSTRACT_STRING): FIXED_STRING is
-			-- To implement `short_name'.
-		deferred
-		end
-
 invariant
 	name /= Void
 	path /= Void

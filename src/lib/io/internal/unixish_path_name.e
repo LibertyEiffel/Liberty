@@ -100,6 +100,21 @@ feature {ANY} -- Operations
 			end
 		end
 
+	short_name: STRING is
+		local
+			i: INTEGER
+		do
+			Result := once ""
+			Result.copy(path)
+			if Result.last = directory_separator then
+				Result.remove_last
+			end
+			i := Result.last_index_of(directory_separator)
+			if i >= 0 then
+				Result.shrink(i + 1, Result.count)
+			end
+		end
+
 feature {ANY} -- Constants
 	extension_separator: CHARACTER is
 			-- Character used to separate filenames from extensions

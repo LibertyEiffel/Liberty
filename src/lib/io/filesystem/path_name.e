@@ -216,6 +216,12 @@ feature {ANY} -- Access
 			Result.last.is_equal(elem)
 		end
 
+	short_name: STRING is
+		deferred
+		ensure
+			Result /= Void
+		end
+
 feature {ANY} -- Operations
 	to_absolute is
 			-- Transform into equivalent absolute path

@@ -3,27 +3,24 @@
 --
 expanded class BASIC_DIRECTORY
 	--
-	-- Very low-level basic tools for file-system directory handling and file path manipulation. 
-	-- This class is intended to be platform independant as much as possible. In order to remove 
-	-- from the client side the burden of file path computation, this class tries to compute 
-	-- automatically the system file notation using argument(s) of some of the very first call(s).
-	-- As soon as the system notation has been properly detected, the result is internally 
-	-- memorized for all objects of type BASIC_DIRECTORY in a common private buffer. Besides the 
-	-- low-level nature of operations one can found in this class, all file path manipulations 
-	-- are done in a smart way (except when the system file path notation has not been detected
-	-- automatically, which is quite uncommon). As an example, even if the directory separator 
-	-- is internally detected, this information is _intentionaly_ kept private to avoid low-level 
-	-- manipulation from the client side. Finally, this class is expanded in order to avoid as 
-	-- much as possible memory allocations.
+	-- Very low-level basic tools for file-system directory handling and file path manipulation.  This class is
+	-- intended to be platform independant as much as possible. In order to remove from the client side the
+	-- burden of file path computation, this class tries to compute automatically the system file notation
+	-- using argument(s) of some of the very first call(s).  As soon as the system notation has been properly
+	-- detected, the result is internally memorized for all objects of type BASIC_DIRECTORY in a common private
+	-- buffer. Besides the low-level nature of operations one can found in this class, all file path
+	-- manipulations are done in a smart way (except when the system file path notation has not been detected
+	-- automatically, which is quite uncommon). As an example, even if the directory separator is internally
+	-- detected, this information is _intentionaly_ kept private to avoid low-level manipulation from the
+	-- client side. Finally, this class is expanded in order to avoid as much as possible memory allocations.
 	--
-	-- Also consider high level facade class DIRECTORY if you don't want to deal directly with low 
-	-- level directory streams.
+	-- Also consider high level facade class DIRECTORY if you don't want to deal directly with low level
+	-- directory streams.
 	--
 
 feature {}
 	directory_stream: POINTER
-			-- This pointer memorize the current directory stream being scanned (used to compute 
-			-- `is_connected').
+			-- This pointer memorize the current directory stream being scanned (used to compute `is_connected').
 
 	current_entry: POINTER
 			-- When `is_connected', memorize the current entry in the current  `directory_stream'.
@@ -45,8 +42,8 @@ feature {ANY} -- State of `Current' basic directory stream:
 
 feature {ANY} -- Connect and disconnect:
 	connect_to (directory_path: ABSTRACT_STRING) is
-			-- Try to connect `Current' to some existing `directory_path'. After this call, the client 
-			-- is supposed to use `is_connected' to check that the stream is ready to be used.
+			-- Try to connect `Current' to some existing `directory_path'. After this call, the client is
+			-- supposed to use `is_connected' to check that the stream is ready to be used.
 		require
 			not is_connected
 			not directory_path.is_empty
@@ -63,15 +60,14 @@ feature {ANY} -- Connect and disconnect:
 		end
 
 	connect_with (some_path: ABSTRACT_STRING) is
-			-- Try to connect `Current' to some directory using `some_path' which may be either an 
-			-- existing directory path or some arbitrary file path name. When `some_path' is the 
-			-- path of some readable existing directory, this directory is opened and the effect 
-			-- of `connect_with' is equivalent to `connect_to'. When `some_path' is not an existing 
-			-- readable directory path, `connect_with' tries to open the directory which may 
-			-- contains `some_path' viewed as a file path name. After this call, the client is 
-			-- supposed to use `is_connected' to check that the stream is ready to be used and the 
-			-- `last_entry' buffer to know about the corresponding opened directory path. Whatever 
-			-- the result, `some_path' is left unchanged.
+			-- Try to connect `Current' to some directory using `some_path' which may be either an existing
+			-- directory path or some arbitrary file path name. When `some_path' is the path of some readable
+			-- existing directory, this directory is opened and the effect of `connect_with' is equivalent to
+			-- `connect_to'. When `some_path' is not an existing readable directory path, `connect_with' tries to
+			-- open the directory which may contains `some_path' viewed as a file path name. After this call, the
+			-- client is supposed to use `is_connected' to check that the stream is ready to be used and the
+			-- `last_entry' buffer to know about the corresponding opened directory path. Whatever the result,
+			-- `some_path' is left unchanged.
 		require
 			not is_connected
 			not some_path.is_empty
@@ -100,9 +96,9 @@ feature {ANY} -- Connect and disconnect:
 		end
 
 	connect_to_current_working_directory is
-			-- Try to connect `Current' to the current working directory. After this call, the client 
-			-- is supposed to use `is_connected' to check that the stream is ready to be used and the 
-			-- `last_entry' buffer to know about the name of the current working directory.
+			-- Try to connect `Current' to the current working directory. After this call, the client is supposed
+			-- to use `is_connected' to check that the stream is ready to be used and the `last_entry' buffer to
+			-- know about the name of the current working directory.
 		require
 			not is_connected
 		local
@@ -129,8 +125,8 @@ feature {ANY} -- Connect and disconnect:
 		end
 
 	disconnect is
-			-- Do not forget to call this feature when you have finished with some previously opened 
-			-- directory stream.
+			-- Do not forget to call this feature when you have finished with some previously opened directory
+			-- stream.
 		require
 			is_connected
 		local
@@ -146,8 +142,8 @@ feature {ANY} -- Connect and disconnect:
 
 feature {ANY} -- Scanning:
 	last_entry: STRING is
-			-- Unique global buffer (once object) to get the last information computed by many routines 
-			-- of this class: `read_entry', `connect_with' `connect_to_current_working_directory', 
+			-- Unique global buffer (once object) to get the last information computed by many routines of this
+			-- class: `read_entry', `connect_with' `connect_to_current_working_directory',
 			-- `compute_parent_directory_of', ...
 		once
 			create Result.make(256)
@@ -170,10 +166,10 @@ feature {ANY} -- Scanning:
 
 feature {ANY} -- File path handling tools:
 	compute_parent_directory_of (some_path: ABSTRACT_STRING) is
-			-- Using `some_path' (which may be either a file path or a directory path) tries to compute 
-			-- in the `last_entry' buffer the parent directory of `some_path'. When `some_path' is a 
-			-- path with no parent directory, the `last_entry' buffer `is_empty' after this call. This
-			-- operation does not perform any disk access.
+			-- Using `some_path' (which may be either a file path or a directory path) tries to compute in the
+			-- `last_entry' buffer the parent directory of `some_path'. When `some_path' is a path with no parent
+			-- directory, the `last_entry' buffer `is_empty' after this call. This operation does not perform any
+			-- disk access.
 		require
 			not some_path.is_empty
 			common_buffer_protection: last_entry /= some_path
@@ -193,10 +189,10 @@ feature {ANY} -- File path handling tools:
 		end
 
 	compute_subdirectory_with (parent_path, entry_name: ABSTRACT_STRING) is
-			-- Try to compute in the `last_entry' buffer the new subdirectory path obtained when trying 
-			-- to concatenate smartly `parent_path' whith some `entry_name'. When this fails the 
-			-- `last_entry' buffer `is_empty' after this call. This operation does not perform any disk 
-			-- access. Whatever the result, `parent_path' and `entry_name' are left unchanged.
+			-- Try to compute in the `last_entry' buffer the new subdirectory path obtained when trying to
+			-- concatenate smartly `parent_path' whith some `entry_name'. When this fails the `last_entry' buffer
+			-- `is_empty' after this call. This operation does not perform any disk access. Whatever the result,
+			-- `parent_path' and `entry_name' are left unchanged.
 		require
 			not parent_path.is_empty
 			not entry_name.is_empty
@@ -218,10 +214,10 @@ feature {ANY} -- File path handling tools:
 		end
 
 	compute_file_path_with (parent_path, file_name: ABSTRACT_STRING) is
-			-- Try to compute in the `last_entry' buffer the new file path obtained when trying to 
-			-- concatenate smartly `parent_path' whith some `file_name'. When this fails the 
-			-- `last_entry' buffer `is_empty' after this call. This operation does not perform any 
-			-- disk access. Whatever the result, `parent_path' and `file_name' are left unchanged.
+			-- Try to compute in the `last_entry' buffer the new file path obtained when trying to concatenate
+			-- smartly `parent_path' whith some `file_name'. When this fails the `last_entry' buffer `is_empty'
+			-- after this call. This operation does not perform any disk access. Whatever the result,
+			-- `parent_path' and `file_name' are left unchanged.
 		require
 			not parent_path.is_empty
 			not file_name.is_empty
@@ -243,9 +239,9 @@ feature {ANY} -- File path handling tools:
 		end
 
 	compute_absolute_file_path_with (path: ABSTRACT_STRING) is
-			-- Try to compute an absolute path equivalent to `path' and store it in `last_entry'. When 
-			-- this fails the `last_entry' buffer `is_empty' after this call. This operation does not
-			-- perform any disk access.  Whatever the result, `path' is left unchanged.
+			-- Try to compute an absolute path equivalent to `path' and store it in `last_entry'. When this fails
+			-- the `last_entry' buffer `is_empty' after this call. This operation does not perform any disk
+			-- access.  Whatever the result, `path' is left unchanged.
 		require
 			valid_path(path)
 			common_buffer_protection: last_entry /= path
@@ -266,6 +262,25 @@ feature {ANY} -- File path handling tools:
 			last_entry.is_empty or else system_notation.is_absolute_path(last_entry.out)
 		end
 
+	compute_short_name_of (path: ABSTRACT_STRING) is
+			-- Try to find the short name of the file or directory given by its `path' and store it in
+			-- `last_entry'. When this fails the `last_entry' buffer `is_empty' after the call. This operation
+			-- does not perform any disk access.  Whatever the result, `path' is left unchanged.
+		do
+			if system_notation /= Void then
+				last_entry.copy(current_working_directory.out)
+				system_notation.to_short_name_in(last_entry, path.out)
+			else
+				set_notation_using(path)
+				if system_notation /= Void then
+					last_entry.copy(current_working_directory.out)
+					system_notation.to_short_name_in(last_entry, path.out)
+				else
+					last_entry.clear_count
+				end
+			end
+		end
+
 	valid_path (path: ABSTRACT_STRING): BOOLEAN is
 			-- Is the syntax of `path' valid for the system notation?
 		do
@@ -280,10 +295,10 @@ feature {ANY} -- File path handling tools:
 		end
 
 	change_current_working_directory (directory_path: ABSTRACT_STRING) is
-			-- Try to change the current working directory using some `directory_path'. 
-			-- When the operation is possible, the `last_entry' buffer is updated with the new current  
-			-- working directory path, otherwise, when the modification is not possible the `last_entry' 
-			-- buffer `is_empty' after this call. Whatever the result, `directory_path' is left unchanged.
+			-- Try to change the current working directory using some `directory_path'.  When the operation is
+			-- possible, the `last_entry' buffer is updated with the new current working directory path,
+			-- otherwise, when the modification is not possible the `last_entry' buffer `is_empty' after this
+			-- call. Whatever the result, `directory_path' is left unchanged.
 		require
 			not is_connected
 			common_buffer_protection1: last_entry /= directory_path
@@ -392,8 +407,7 @@ feature {ANY} -- Disk modification:
 		end
 
 	remove_recursively (directory_path: ABSTRACT_STRING): BOOLEAN is
-			-- Try to remove all files and all subdirectories of directory specified by 
-			-- `directory_path'.
+			-- Try to remove all files and all subdirectories of directory specified by `directory_path'.
 		require
 			not is_connected
 		local
@@ -593,11 +607,11 @@ feature {}
 		end
 
 	directory_open (path_pointer: POINTER): POINTER is
-			-- Try to open some existing directory using `path'. When `Result' `is_not_null', the 
-			-- directory is correctly opened and `Result' is a valid handle for this directory. 
-			-- Using `Result', one can then scan the content of the directory using function
-			-- `basic_directory_read_entry' and `basic_directory_get_entry_name'. Finally, a 
-			-- `is_not_null' directory must be closed using function `basic_directory_close'.
+			-- Try to open some existing directory using `path'. When `Result' `is_not_null', the directory is
+			-- correctly opened and `Result' is a valid handle for this directory.  Using `Result', one can then
+			-- scan the content of the directory using function `basic_directory_read_entry' and
+			-- `basic_directory_get_entry_name'. Finally, a `is_not_null' directory must be closed using function
+			-- `basic_directory_close'.
 		require
 			path_pointer.is_not_null
 		external "plug_in"
@@ -609,7 +623,7 @@ feature {}
 		end
 
 	directory_read_entry (dirstream: POINTER): POINTER is
-			-- Read an return a new entry using the directory handle `dirstream' obtained with function 
+			-- Read an return a new entry using the directory handle `dirstream' obtained with function
 			-- `basic_directory_open'. When there is no more entry, the `Result' becomes `is_null'.
 		require
 			dirstream.is_not_null
@@ -622,7 +636,7 @@ feature {}
 		end
 
 	directory_get_entry_name (entry: POINTER): POINTER is
-			-- Read an return a new entry using the directory handle `dirstream' obtained with function 
+			-- Read an return a new entry using the directory handle `dirstream' obtained with function
 			-- `basic_directory_open'. When there is no more entry, the `Result' becomes `is_null'.
 		require
 			entry.is_not_null
@@ -635,8 +649,8 @@ feature {}
 		end
 
 	directory_close (dirstream: POINTER): BOOLEAN is
-			-- Try to close some opened `dirstream' directory. A True result indicates that the 
-			-- directory is correctly closed.
+			-- Try to close some opened `dirstream' directory. A True result indicates that the directory is
+			-- correctly closed.
 		require
 			dirstream.is_not_null
 		external "plug_in"

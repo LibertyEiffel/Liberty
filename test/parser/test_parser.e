@@ -9,42 +9,36 @@ create {}
 feature {}
 	make is
 		do
-			parse_all("../../src")
-			parse_all(".")
+			parse_all(create {DIRECTORY}.scan("../../src"))
+			parse_all(create {DIRECTORY}.scan("."))
 		end
 
-	parse_all (dirname: STRING) is
+	parse_all (a_directory: DIRECTORY) is
 		require
-			file_tools.is_directory(dirname)
+			a_directory /= Void
 		local
-			dir: DIRECTORY
+			dir: DIRECTORY; file: FILE; regular: REGULAR_FILE
 			i: INTEGER
-			childname, childpath: STRING
 		do
-			create dir.scan(dirname)
-			label_assert(dirname, dir.last_scan_status)
+			label_assert(a_directory.path.out, a_directory.exists)
 			from
-				i := dir.lower
-				childpath := ""
+				i := a_directory.lower
 			until
-				i > dir.upper
+				i > a_directory.upper
 			loop
-				childname := dir.item(i)
-				if childname.has_suffix(once ".e") then
-					bd.compute_file_path_with(dirname, childname)
-					childpath.copy(bd.last_entry)
-					std_output.put_line(once "Parsing " + childpath)
-					parse_code(childpath)
+				file := a_directory.file_at(i)
+				if file.is_regular and then file.name.has_suffix(once ".e") then
+					regular ::= file
+					parse_code(regular)
 				else
 					inspect
-						childname
+						file.name.out
 					when "eiffeltest", ".svn", "CVS", ".git", ".", ".." then
 						-- ignored
 					else
-						bd.compute_subdirectory_with(dirname, childname)
-						if file_tools.is_directory(bd.last_entry) then
-							childpath.copy(bd.last_entry)
-							parse_all(childpath)
+						if file.is_directory then
+							dir ::= file
+							parse_all(dir)
 						else
 							-- ignored
 						end
@@ -54,22 +48,23 @@ feature {}
 			end
 		end
 
-	read_code (filename: STRING) is
+	read_code (file: REGULAR_FILE) is
+		local
+			in: INPUT_STREAM
 		do
 			code.clear_count
-			tfr.connect_to(filename)
-			message_assert(agent generate_not_connected(filename), tfr.is_connected)
+			in := file.read
 			from
-				tfr.read_line
+				in.read_line
 			until
-				tfr.end_of_input
+				in.end_of_input
 			loop
-				code.append(tfr.last_string)
+				code.append(in.last_string)
 				code.extend('%N')
-				tfr.read_line
+				in.read_line
 			end
-			code.append(tfr.last_string)
-			tfr.disconnect
+			code.append(in.last_string)
+			in.disconnect
 		end
 
 	generate_not_connected (filename: STRING): STRING is
@@ -77,26 +72,21 @@ feature {}
 			Result := "Could not connect to " + filename
 		end
 
-	parse_code (filename: STRING) is
+	parse_code (file: REGULAR_FILE) is
 		do
-			read_code(filename)
+			read_code(file)
 			buffer.initialize_with(code)
 			eiffel.reset
 			parser.eval(buffer, eiffel.table, once "Class")
-			message_assert(agent generate_syntax_error(filename), parser.error = Void)
+			message_assert(agent generate_syntax_error(file), parser.error = Void)
 			generated.clear
 			eiffel.generate(generated)
-			label_assert(filename, code.is_equal(generated.to_string))
+			label_assert(file.path.out, code.is_equal(generated.to_string))
 		end
 
-	generate_syntax_error (filename: STRING): STRING is
+	generate_syntax_error (file: REGULAR_FILE): STRING is
 		do
-			Result := "Syntax error in " + filename + " - " + parser.error.message
-		end
-
-	tfr: TEXT_FILE_READ is
-		once
-			create Result.make
+			Result := "Syntax error in " + file.path + " - " + parser.error.message
 		end
 
 	code: STRING is
@@ -123,8 +113,5 @@ feature {}
 		once
 			create Result.make(create {LIBERTY_NODE_FACTORY}.make)
 		end
-
-	bd: BASIC_DIRECTORY
-	file_tools: FILE_TOOLS
 
 end

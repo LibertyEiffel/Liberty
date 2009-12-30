@@ -95,13 +95,8 @@ feature {}
 	make (a_file_path: ABSTRACT_STRING) is
 		do
 			path := a_file_path.intern
-			name := short_name(path)
-		end
-
-	child_of (a_directory_path, a_name: ABSTRACT_STRING): FIXED_STRING is
-		do
-			basic_directory.compute_file_path_with(a_directory_path, a_name)
-			Result := basic_directory.last_entry.intern
+			basic_directory.compute_short_name_of(path)
+			name := basic_directory.last_entry.intern
 		end
 
 	read_memory: TEXT_FILE_READ

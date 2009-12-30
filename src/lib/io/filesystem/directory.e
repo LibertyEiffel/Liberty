@@ -58,10 +58,19 @@ feature {ANY}
 			fn: FIXED_STRING
 		do
 			fn := case_canonical_filename(a_file_name)
-			Result := files.fast_reference_at(fn)
+			if files /= Void then
+				Result := files.fast_reference_at(fn)
+			end
 			if Result = Void then
 				Result := create_file(fn)
 			end
+		end
+
+	file_at (index: INTEGER): FILE is
+		require
+			valid_index(index)
+		do
+			Result := file(item(index))
 		end
 
 feature {} -- Disk access:
@@ -104,7 +113,8 @@ feature {} -- Disk access:
 				basic_directory.disconnect
 				collection_sorter.sort(name_list)
 				exists := True
-				name := short_name(path)
+				basic_directory.compute_short_name_of(path)
+				name := basic_directory.last_entry.intern
 			end
 		ensure
 			path /= directory_path
@@ -129,7 +139,8 @@ feature {} -- Disk access:
 				basic_directory.disconnect
 				collection_sorter.sort(name_list)
 				exists := True
-				name := short_name(path)
+				basic_directory.compute_short_name_of(path)
+				name := basic_directory.last_entry.intern
 			end
 		end
 
@@ -199,7 +210,7 @@ feature {ANY} -- File access:
 feature {FILE}
 	set_file (a_file_name: ABSTRACT_STRING; a_file: FILE) is
 		require
-			not has_file(a_file_name)
+			not file_set(a_file_name)
 		do
 			if files = Void then
 				create {HASHED_DICTIONARY[FILE, FIXED_STRING]} files.make
@@ -207,6 +218,13 @@ feature {FILE}
 			files.add(a_file, case_canonical_filename(a_file_name))
 		ensure
 			file(a_file_name) = a_file
+		end
+
+	file_set (a_file_name: ABSTRACT_STRING): BOOLEAN is
+		do
+			if files /= Void then
+				Result := files.fast_has(case_canonical_filename(a_file_name))
+			end
 		end
 
 feature {}
@@ -232,6 +250,8 @@ feature {}
 			-- Actual list of entries (files or subdirectories).
 
 	create_file (a_file_name: FIXED_STRING): FILE is
+		require
+			not file_set(a_file_name)
 		local
 			p: STRING
 		do
@@ -250,12 +270,6 @@ feature {}
 			if Result /= Void then
 				set_file(a_file_name, Result)
 			end
-		end
-
-	child_of (a_directory_path, a_name: ABSTRACT_STRING): FIXED_STRING is
-		do
-			basic_directory.compute_subdirectory_with(a_directory_path, a_name)
-			Result := basic_directory.last_entry.intern
 		end
 
 	file_tools: FILE_TOOLS
