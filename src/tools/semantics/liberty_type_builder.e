@@ -1256,7 +1256,6 @@ feature {} -- Entities and writables
 				create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.result_entity, semantics_position_at(a_target.node_at(0)))
 			elseif a_target.is_manifest_or_type_test then
 				Result := typed_manifest_or_type_test(a_target.manifest_or_type_test, local_context, redefinitions)
-				Result := expression_remainder(Result, a_target.manifest_or_type_test_r10, local_context, redefinitions)
 			elseif a_target.is_implicit_feature_call then
 				fn := a_target.implicit_feature_name.feature_name_or_alias
 				if fn.is_regular then
@@ -1603,12 +1602,10 @@ feature {} -- Expressions
 	expression_call (a_call: LIBERTY_AST_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
 		require
 			a_call /= Void
-		local
-			tgt: LIBERTY_EXPRESSION
 		do
 			if a_call.is_call then
-				tgt := target_or_implicit_feature_call_expression(a_call.call_target, local_context, redefinitions)
-				Result := expression_remainder(tgt, a_call.call_r10, local_context, redefinitions)
+				Result := target_or_implicit_feature_call_expression(a_call.call_target, local_context, redefinitions)
+				Result := expression_remainder(Result, a_call.call_r10, local_context, redefinitions)
 			else
 				check
 					a_call.is_assignment_test
