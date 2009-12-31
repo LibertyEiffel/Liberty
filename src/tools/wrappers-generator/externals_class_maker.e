@@ -1,5 +1,6 @@
-obsolete class EXTERNALS_CLASS_MAKER
-	"Move EXTERNALS_CLASS_MAKER's logic into heirs of GCCXML_NODE"
+class EXTERNALS_CLASS_MAKER
+obsolete
+		"Move EXTERNALS_CLASS_MAKER's logic into heirs of GCCXML_NODE"
 inherit
 	CLASS_MAKER
 		redefine is_initialized, emit_structure

@@ -970,7 +970,7 @@ feature {ANY} -- Enumeration class creator
 			%			value := @(4)%N%
 			%		end%N%N", 
 			<<creation_tense, setter_name, 
-			formatted_description(feature_description(class_name,setter_name))
+			formatted_description(feature_description(class_name,setter_name)),
 			a_value >>)
 		end
 
