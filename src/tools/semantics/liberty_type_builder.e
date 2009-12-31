@@ -1607,8 +1607,8 @@ feature {} -- Expressions
 			tgt: LIBERTY_EXPRESSION
 		do
 			if a_call.is_call then
-				tgt := target_or_implicit_feature_call_expression(a_call.target, local_context, redefinitions)
-				Result := expression_remainder(tgt, a_call.r10, local_context, redefinitions)
+				tgt := target_or_implicit_feature_call_expression(a_call.call_target, local_context, redefinitions)
+				Result := expression_remainder(tgt, a_call.call_r10, local_context, redefinitions)
 			else
 				check
 					a_call.is_assignment_test
