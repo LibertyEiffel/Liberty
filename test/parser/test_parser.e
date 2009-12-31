@@ -37,6 +37,8 @@ feature {}
 						file.name.out
 					when "eiffeltest", ".svn", "CVS", ".git", ".", ".." then
 						-- ignored
+					when "broken" then
+						-- ignored
 					else
 						if file.is_directory then
 							dir ::= file

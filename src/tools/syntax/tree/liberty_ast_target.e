@@ -46,6 +46,25 @@ feature {LIBERTY_AST_HANDLER}
 			Result := count = 2 and then nodes.first.name.is_equal(once "KW entity name")
 		end
 
+	is_manifest_or_type_test: BOOLEAN is
+		do
+			Result := count = 1 and then nodes.first.name.is_equal(once "Manifest_Or_Type_Test")
+		end
+
+	manifest_or_type_test: LIBERTY_AST_MANIFEST_OR_TYPE_TEST is
+		require
+			is_manifest_or_type_test
+		do
+			Result ::= nodes.item(0)
+		end
+
+	manifest_or_type_test_r10: LIBERTY_AST_R10 is
+		require
+			is_manifest_or_type_test
+		do
+			Result ::= nodes.item(1)
+		end
+
 	parenthesized_expression: LIBERTY_AST_EXPRESSION is
 		require
 			is_parenthesized_expression

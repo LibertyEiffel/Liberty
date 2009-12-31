@@ -2,7 +2,7 @@ indexing
 	copyright: "(C) 2005 Paolo Redaelli, 2007 Soluciones Informaticas Libres S.A. (Except)"
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision: "$REvision:$"
 
 class G_IO_CHANNEL
 	-- IO Channels -- portable support for using files, pipes and sockets.

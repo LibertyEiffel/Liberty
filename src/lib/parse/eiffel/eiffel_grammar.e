@@ -110,7 +110,8 @@ feature {}
 																										  {FAST_ARRAY[STRING] << "Target", "r10" >> }, Void >> };
 											  "Call", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "KW ?:=", "Expression" >> }, Void;
 																						{FAST_ARRAY[STRING] << "Target", "r10" >> }, Void >> };
-											  "Target", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW (", "Expression", "KW )" >> }, Void;
+											  "Target", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Manifest_Or_Type_Test" >> }, Void;
+																						  {FAST_ARRAY[STRING] << "KW (", "Expression", "KW )" >> }, Void;
 																						  {FAST_ARRAY[STRING] << "KW Precursor", "Precursor_Type_Mark", "Actuals" >> }, Void;
 																						  {FAST_ARRAY[STRING] << "KW Current" >> }, Void;
 																						  {FAST_ARRAY[STRING] << "KW Result" >> }, Void;
@@ -167,7 +168,6 @@ feature {}
 																					  {FAST_ARRAY[STRING] << "KW [", "KW ]" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW [", "Actual+", "KW ]" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW ?" >> }, Void;
-																					  {FAST_ARRAY[STRING] << "Manifest_Or_Type_Test", "r10" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "Agent_Signature", "KW is", "Routine_Definition", "Actuals" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW agent", "Expression" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "Creation_Expression" >> }, Void;

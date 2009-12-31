@@ -1254,6 +1254,9 @@ feature {} -- Entities and writables
 				create {LIBERTY_ENTITY_EXPRESSION} Result.make(current_entity, semantics_position_at(a_target.node_at(0)))
 			elseif a_target.is_result then
 				create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.result_entity, semantics_position_at(a_target.node_at(0)))
+			elseif a_target.is_manifest_or_type_test then
+				Result := typed_manifest_or_type_test(a_target.manifest_or_type_test, local_context, redefinitions)
+				Result := expression_remainder(Result, a_target.manifest_or_type_test_r10, local_context, redefinitions)
 			elseif a_target.is_implicit_feature_call then
 				fn := a_target.implicit_feature_name.feature_name_or_alias
 				if fn.is_regular then
@@ -1556,9 +1559,6 @@ feature {} -- Expressions
 				Result := expression_tuple(e10.tuple_actuals, local_context, redefinitions, semantics_position_at(e10.node_at(0)))
 			elseif e10.is_open_argument then
 				create {LIBERTY_OPEN_ARGUMENT} Result.make(semantics_position_at(e10.node_at(0)))
-			elseif e10.is_manifest_or_type_test then
-				tgt := typed_manifest_or_type_test(e10.manifest_or_type_test, local_context, redefinitions)
-				Result := expression_remainder(tgt, e10.manifest_or_type_test_r10, local_context, redefinitions)
 			elseif e10.is_inline_agent then
 				--|*** TODO
 				not_yet_implemented

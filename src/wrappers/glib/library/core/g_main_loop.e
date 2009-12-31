@@ -2,7 +2,7 @@ indexing
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision: "$REvision:$"
 
 class G_MAIN_LOOP
 -- Prev 	Up 	Home 	GLib Reference Manual 	Next

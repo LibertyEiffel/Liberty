@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision: "$REvision:$"
 
 class G_REFERENCE_ARRAY [ITEM->C_STRUCT]
 	-- Warning: this class will be soon called G_ARRAY and the "old" 
