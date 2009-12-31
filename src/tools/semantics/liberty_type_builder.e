@@ -585,17 +585,19 @@ feature {}
 					errors.has_error or else i > assertions.list_upper
 				loop
 					assertion := assertions.list_item(i)
-					if assertion.tag.has_tag then
-						tag := assertion.tag.tag.image.image.intern
-					else
-						tag := Void
-					end
-					exp := expression(assertion.expression, local_context, redefinitions)
-					if exp.result_type /= universe.type_boolean then
-						--| TODO: error
-						not_yet_implemented
-					else
-						Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
+					if assertion.expression.has_expression then
+						if assertion.tag.has_tag then
+							tag := assertion.tag.tag.image.image.intern
+						else
+							tag := Void
+						end
+						exp := expression(assertion.expression.expression, local_context, redefinitions)
+						if exp.result_type /= universe.type_boolean then
+							--| TODO: error
+							not_yet_implemented
+						else
+							Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
+						end
 					end
 					i := i + 1
 				end

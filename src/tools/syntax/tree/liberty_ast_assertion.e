@@ -26,7 +26,7 @@ feature {LIBERTY_AST_HANDLER}
 			Result ::= nodes.item(0)
 		end
 
-	expression: LIBERTY_AST_EXPRESSION is
+	expression: LIBERTY_AST_ASSERTION_EXPRESSION is
 		do
 			Result ::= nodes.item(1)
 		end
