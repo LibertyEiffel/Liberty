@@ -212,20 +212,20 @@ feature {RECYCLING_POOL, STRING_RECYCLING_POOL, STRING_HANDLER}
 			s: like storage
 		do
 			immutable := False
-			debug 
-				print("FIXED_STRING.recycle: 'storage := s' must be commented out because it violates the 'storage.is_not_null' precondition.")
-			end
+			storage := s
+			capacity := 0
+			count := 0
 		end
 
 invariant
 	0 <= count
 	capacity.in_range(count, count + 1)
-	storage.is_not_null
-	-- immutable or in recycling pool
-	count = 0 implies storage.item(0) = '%U'
-	count > 0 implies (storage.item(count-1) = '%U' or else storage.item(count) = '%U')
-	storage.item(count) = '%U' implies capacity = count + 1
+	immutable implies storage.is_not_null
+	immutable implies (count = 0 implies storage.item(0) = '%U')
+	immutable implies (count > 0 implies (storage.item(count-1) = '%U' or else storage.item(count) = '%U'))
+	immutable implies (storage.item(count) = '%U' implies capacity = count + 1)
 	is_interned = interned.fast_has(Current)
+	is_interned implies immutable
 
 end -- class FIXED_STRING
 --

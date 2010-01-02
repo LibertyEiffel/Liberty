@@ -1,17 +1,19 @@
-class TEST_STRING 
-insert EIFFELTEST_TOOLS
+class TEST_STRING
+
+insert
+	EIFFELTEST_TOOLS
 
 creation make
 
-feature 
+feature
 	make is
 		do
-			echo("a string")
+			echo("a string%N")
+			echo("a fixed string%N".intern)
 		end
 
 	echo (s: ABSTRACT_STRING) is
 		do
 			s.print_on(std_output)
 		end
-	end
-
+end
