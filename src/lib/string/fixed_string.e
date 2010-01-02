@@ -212,7 +212,9 @@ feature {RECYCLING_POOL, STRING_RECYCLING_POOL, STRING_HANDLER}
 			s: like storage
 		do
 			immutable := False
-			storage := s
+			debug 
+				print("FIXED_STRING.recycle: 'storage := s' must be commented out because it violates the 'storage.is_not_null' precondition.")
+			end
 		end
 
 invariant
