@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class ITERATOR_ON_STRING
+class ITERATOR_ON_ROPE
 	-- Please do not use this class directly. Look at `ITERATOR'.
 
 inherit
@@ -11,46 +11,61 @@ creation {ANY}
 	make
 
 feature {}
-	string: ABSTRACT_STRING
-			-- The one to be traversed.
+	root: ROPE
+		-- The beginning of the rope to be traversed.
 
-	item_index: INTEGER
-			--  Memorize the current position.
+	right_visited: BOOLEAN
+		-- Has `right' been iterated onto?
+
+	iter: ITERATOR[CHARACTER]
+		--  Current position on `piece'.
 
 feature {ANY}
-	make (s: like string) is
-		require
-			s /= Void
+	make (r: like root) is
+	require
+			r /= Void
 		do
-			string := s
-			-- Note: the following assignment more properly belongs to feature `start'
-			-- item_index := 1
-
+			root:=r
 		ensure
-			string = s
+			root=r
 		end
 
 	start is
 		do
-			item_index := 1
+			-- debug 
+			-- 	print("Starting ROPE iterator `")
+			-- 	root.left.print_on(std_output) 
+			-- 	print("'-`") 
+			-- 	root.right.print_on(std_output) 
+			-- 	print("'. ") 
+			-- end
+			right_visited:=False
+			iter := root.left.new_iterator
+			iter.start
+		ensure iter/=Void
 		end
 
 	is_off: BOOLEAN is
 		do
-			Result := item_index > string.count
+			Result := iter=Void
 		end
 
 	item: CHARACTER is
 		do
-			Result := string.item(item_index)
+			Result := iter.item
 		end
 
 	next is
 		do
-			item_index := item_index + 1
+			iter.next
+			if iter.is_off then -- switch to the next piece of rope
+				if right_visited then iter:=Void
+			 	else right_visited:=True; iter:=root.right.new_iterator; iter.start
+				end
+			end
 		end
 
-end -- class ITERATOR_ON_STRING
+end -- class ITERATOR_ON_ROPE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

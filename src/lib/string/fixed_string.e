@@ -9,7 +9,7 @@ class FIXED_STRING
 	--
 
 inherit
-	ABSTRACT_STRING
+	NATIVELY_STORED_STRING
 		redefine
 			immutable, out_in_tagged_out_memory, fill_tagged_out_memory
 		end

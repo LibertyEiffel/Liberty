@@ -7,7 +7,7 @@ class STRING
 	--
 
 inherit
-	ABSTRACT_STRING
+	NATIVELY_STORED_STRING
 
 creation {ANY}
 	with_capacity, make, copy, make_empty, make_filled, from_external, from_external_copy,
@@ -55,12 +55,15 @@ feature {ANY} -- Creation / Modification:
 		require
 			model /= Void
 		local
-			c: INTEGER
+			c: INTEGER; nss: NATIVELY_STORED_STRING
 		do
 			c := model.count
 			ensure_capacity(c)
 			count := c
-			storage.copy_from(model.storage, c - 1)
+			nss ?= model
+			if nss/=Void then storage.copy_from(nss.storage, c - 1)
+			else append(model)
+			end
 		ensure
 			count = model.count
 		end
@@ -187,12 +190,23 @@ feature {ANY} -- Modification:
 			s_not_void: s /= Void
 		local
 			needed_capacity: INTEGER
+			nss: NATIVELY_STORED_STRING
+			i: like new_iterator
 		do
+			-- Note: pre-computing needed capacity may be costly for ROPEs. Consider moving it into the NATIVELY_STORED_STRING-specific part of the feature.
 			needed_capacity := count + s.count
 			if needed_capacity > capacity then
 				ensure_capacity(needed_capacity)
 			end
-			storage.copy_at(count, s.storage, s.count)
+			nss ?= s
+			if nss/=Void then storage.copy_at(count, nss.storage, nss.count)
+			else 
+				from i:=s.new_iterator; i.start until not i.is_off
+				loop
+					Current.append_character(i.item)
+					i.next
+				end
+			end
 			count := needed_capacity
 		end
 
@@ -206,12 +220,16 @@ feature {ANY} -- Modification:
 			meaningful_interval: start_index <= end_index + 1
 		local
 			needed_capacity: INTEGER
+			nss: NATIVELY_STORED_STRING
 		do
 			needed_capacity := count + end_index - start_index + 1
 			if needed_capacity > capacity then
 				ensure_capacity(needed_capacity)
 			end
-			storage.slice_copy(count, s.storage, start_index - 1, end_index - 1)
+			nss ?= s
+			if nss/=Void then storage.slice_copy(count, nss.storage, start_index - 1, end_index - 1)
+			else not_yet_implemented 
+			end
 			count := needed_capacity
 		end
 
@@ -222,7 +240,7 @@ feature {ANY} -- Modification:
 		require
 			other /= Void
 		local
-			i, j: INTEGER
+			i, j: INTEGER; nss: NATIVELY_STORED_STRING
 		do
 			i := count
 			j := other.count
@@ -230,7 +248,10 @@ feature {ANY} -- Modification:
 			if i > 0 and then j > 0 then
 				storage.move(0, i - 1, j)
 			end
-			storage.copy_from(other.storage, j - 1)
+			nss ?= other
+			if nss/=Void then storage.copy_from(nss.storage, j - 1)
+			else not_yet_implemented
+			end
 		ensure
 			(old other.twin + old Current.twin).is_equal(Current)
 		end
@@ -242,7 +263,7 @@ feature {ANY} -- Modification:
 			string_not_void: s /= Void
 			valid_insertion_index: 1 <= i and i <= count + 1
 		local
-			j, k: INTEGER
+			j, k: INTEGER; nss: NATIVELY_STORED_STRING
 		do
 			j := count
 			k := s.count
@@ -250,7 +271,10 @@ feature {ANY} -- Modification:
 			if i <= j then
 				storage.move(i - 1, j - 1, k)
 			end
-			storage.copy_at(i - 1, s.storage, k)
+			nss ?= s
+			if nss /= Void then storage.copy_at(i - 1, nss.storage, k)
+			else not_yet_implemented
+			end
 		end
 
 	replace_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
@@ -263,6 +287,8 @@ feature {ANY} -- Modification:
 			meaningful_interval: start_index <= end_index + 1
 		local
 			remove_len, insert_len, difference, old_count: INTEGER
+			nss: NATIVELY_STORED_STRING
+			i: INTEGER; iter: ITERATOR[CHARACTER]
 		do
 			old_count := count
 			remove_len := end_index - start_index + 1
@@ -281,7 +307,17 @@ feature {ANY} -- Modification:
 				end
 				resize(old_count + difference)
 			end
-			storage.copy_at(start_index - 1, s.storage, s.count)
+			nss ?= s
+			if nss/=Void then storage.copy_at(start_index - 1, nss.storage, s.count)
+			else
+				from i:=start_index; iter:=s.new_iterator; iter.start
+				until not iter.is_off
+				loop
+					put(iter.item,i)
+					i:=i+1
+					iter.next
+				end
+			end
 		end
 
 	put (c: CHARACTER; i: INTEGER) is
