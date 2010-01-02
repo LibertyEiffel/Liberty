@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision: "$REvision:$"
 
 deferred class GLIB_TYPE_CONVERSION_MACROS
 	-- Many times GLib, GTK+, and other libraries allow you to pass

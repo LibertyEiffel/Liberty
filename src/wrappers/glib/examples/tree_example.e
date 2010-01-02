@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2007 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision: "$REvision:$"
 
 class TREE_EXAMPLE
 

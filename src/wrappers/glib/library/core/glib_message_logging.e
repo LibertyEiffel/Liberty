@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision: "$REvision:$"
 	
 deferred class GLIB_MESSAGE_LOGGING
 	-- Support for logging error messages or messages used for

@@ -585,17 +585,19 @@ feature {}
 					errors.has_error or else i > assertions.list_upper
 				loop
 					assertion := assertions.list_item(i)
-					if assertion.tag.has_tag then
-						tag := assertion.tag.tag.image.image.intern
-					else
-						tag := Void
-					end
-					exp := expression(assertion.expression, local_context, redefinitions)
-					if exp.result_type /= universe.type_boolean then
-						--| TODO: error
-						not_yet_implemented
-					else
-						Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
+					if assertion.expression.has_expression then
+						if assertion.tag.has_tag then
+							tag := assertion.tag.tag.image.image.intern
+						else
+							tag := Void
+						end
+						exp := expression(assertion.expression.expression, local_context, redefinitions)
+						if exp.result_type /= universe.type_boolean then
+							--| TODO: error
+							not_yet_implemented
+						else
+							Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
+						end
 					end
 					i := i + 1
 				end
@@ -1252,6 +1254,8 @@ feature {} -- Entities and writables
 				create {LIBERTY_ENTITY_EXPRESSION} Result.make(current_entity, semantics_position_at(a_target.node_at(0)))
 			elseif a_target.is_result then
 				create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.result_entity, semantics_position_at(a_target.node_at(0)))
+			elseif a_target.is_manifest_or_type_test then
+				Result := typed_manifest_or_type_test(a_target.manifest_or_type_test, local_context, redefinitions)
 			elseif a_target.is_implicit_feature_call then
 				fn := a_target.implicit_feature_name.feature_name_or_alias
 				if fn.is_regular then
@@ -1554,9 +1558,6 @@ feature {} -- Expressions
 				Result := expression_tuple(e10.tuple_actuals, local_context, redefinitions, semantics_position_at(e10.node_at(0)))
 			elseif e10.is_open_argument then
 				create {LIBERTY_OPEN_ARGUMENT} Result.make(semantics_position_at(e10.node_at(0)))
-			elseif e10.is_manifest_or_type_test then
-				tgt := typed_manifest_or_type_test(e10.manifest_or_type_test, local_context, redefinitions)
-				Result := expression_remainder(tgt, e10.manifest_or_type_test_r10, local_context, redefinitions)
 			elseif e10.is_inline_agent then
 				--|*** TODO
 				not_yet_implemented
@@ -1601,12 +1602,10 @@ feature {} -- Expressions
 	expression_call (a_call: LIBERTY_AST_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
 		require
 			a_call /= Void
-		local
-			tgt: LIBERTY_EXPRESSION
 		do
 			if a_call.is_call then
-				tgt := target_or_implicit_feature_call_expression(a_call.target, local_context, redefinitions)
-				Result := expression_remainder(tgt, a_call.r10, local_context, redefinitions)
+				Result := target_or_implicit_feature_call_expression(a_call.call_target, local_context, redefinitions)
+				Result := expression_remainder(Result, a_call.call_r10, local_context, redefinitions)
 			else
 				check
 					a_call.is_assignment_test

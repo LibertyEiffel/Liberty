@@ -28,11 +28,9 @@ feature {}
 											  "One_Class", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Class_Header", "Obsolete", "Inherit", "Insert", "Class_Creation*", "Feature*", "Invariant", "KW end" >> }, Void >> };
 											  "Class_Header", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Class_Marker", "KW class name", "Type_Parameters" >> }, Void >> };
 											  "Indexing", {PARSE_NON_TERMINAL << epsilon, Void;
-																							 {FAST_ARRAY[STRING] << "KW indexing", "Indexing_Clause*" >> }, Void >> };
+																							 {FAST_ARRAY[STRING] << "KW indexing", "Indexing_Clause*", "KW ;;" >> }, Void >> };
 											  "Indexing_Clause*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Indexing_Clause*");
-																										{FAST_ARRAY[STRING] << "Indexing_Clause" >> }, agent build_new_list("Indexing_Clause", "Indexing_Clause*");
-																										{FAST_ARRAY[STRING] << "Indexing_Clause", "Indexing_Clause*" >> }, agent build_continue_list("Indexing_Clause", 0, "Indexing_Clause*");
-																										{FAST_ARRAY[STRING] << "Indexing_Clause", "KW ;", "Indexing_Clause*" >> }, agent build_continue_list("Indexing_Clause", 1, "Indexing_Clause*") >> };
+																										{FAST_ARRAY[STRING] << "Indexing_Clause", "KW ;;", "Indexing_Clause*" >> }, agent build_continue_list("Indexing_Clause", 1, "Indexing_Clause*") >> };
 											  "Indexing_Clause", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "KW :", "KW string" >> }, Void >> };
 											  "Class_Marker", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW class" >> }, Void;
 																								  {FAST_ARRAY[STRING] << "KW deferred", "KW class" >> }, Void;
@@ -41,12 +39,11 @@ feature {}
 											  "Obsolete", {PARSE_NON_TERMINAL << epsilon, Void;
 																							 {FAST_ARRAY[STRING] << "KW obsolete", "KW string" >> }, Void >> };
 											  "Inherit", {PARSE_NON_TERMINAL << epsilon, Void;
-																							{FAST_ARRAY[STRING] << "KW inherit", "Parent+" >> }, Void >> };
+																							{FAST_ARRAY[STRING] << "KW inherit", "Parent+", "KW ;;" >> }, Void >> };
 											  "Insert", {PARSE_NON_TERMINAL << epsilon, Void;
-																						  {FAST_ARRAY[STRING] << "KW insert", "Parent+" >> }, Void >> };
+																						  {FAST_ARRAY[STRING] << "KW insert", "Parent+", "KW ;;" >> }, Void >> };
 											  "Parent+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Parent" >> }, agent build_new_list("Parent", "Parent+");
-																							{FAST_ARRAY[STRING] << "Parent", "Parent+" >> }, agent build_continue_list("Parent", 0, "Parent+");
-																							{FAST_ARRAY[STRING] << "Parent", "KW ;", "Parent+" >> }, agent build_continue_list("Parent", 1, "Parent+") >> };
+																							{FAST_ARRAY[STRING] << "Parent", "KW ;;", "Parent+" >> }, agent build_continue_list("Parent", 1, "Parent+") >> };
 											  "Parent", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition", "Parent_Clause" >> }, Void >> };
 											  "Parent_Clause", {PARSE_NON_TERMINAL << epsilon, Void;
 																									--|*** VALID BUT AMBIGUOUS: {FAST_ARRAY[STRING] << "KW end" >> }, Void;
@@ -58,10 +55,9 @@ feature {}
 																							{FAST_ARRAY[STRING] << "Rename", "KW ,", "Rename+" >> }, agent build_continue_list("Rename", 1, "Rename+") >> };
 											  "Rename", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name", "KW as", "Feature_Name" >> }, Void >> };
 											  "Parent_Export", {PARSE_NON_TERMINAL << epsilon, Void;
-																									{FAST_ARRAY[STRING] << "KW export", "Export+" >> }, Void >> };
+																									{FAST_ARRAY[STRING] << "KW export", "Export+", "KW ;;" >> }, Void >> };
 											  "Export+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Export" >> }, agent build_new_list("Export", "Export+");
-																							{FAST_ARRAY[STRING] << "Export", "Export+" >> }, agent build_continue_list("Export", 0, "Export+");
-																							{FAST_ARRAY[STRING] << "Export", "KW ;", "Export+" >> }, agent build_continue_list("Export", 1, "Export+") >> };
+																							{FAST_ARRAY[STRING] << "Export", "KW ;;", "Export+" >> }, agent build_continue_list("Export", 1, "Export+") >> };
 											  "Export", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Clients", "Feature_Name+" >> }, Void >> };
 											  "Parent_Undefine", {PARSE_NON_TERMINAL << epsilon, Void;
 																									  {FAST_ARRAY[STRING] << "KW undefine", "Feature_Name+" >> }, Void >> };
@@ -75,23 +71,21 @@ feature {}
 											  "Routine_Execution", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Local_Block", "Do_Block", "Rescue_Block" >> }, Void;
 																										 {FAST_ARRAY[STRING] << "External" >> }, Void >> };
 											  "Local_Block", {PARSE_NON_TERMINAL << epsilon, Void;
-																								 {FAST_ARRAY[STRING] << "KW local", "Declaration+" >> }, Void >> };
+																								 {FAST_ARRAY[STRING] << "KW local", "Declaration+", "KW ;;" >> }, Void >> };
 											  "Declaration+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Declaration" >> }, agent build_new_list("Declaration", "Declaration+");
-																								  {FAST_ARRAY[STRING] << "Declaration", "Declaration+" >> }, agent build_continue_list("Declaration", 0, "Declaration+");
-																								  {FAST_ARRAY[STRING] << "Declaration", "KW ;", "Declaration+" >> }, agent build_continue_list("Declaration", 1, "Declaration+") >> };
+																								  {FAST_ARRAY[STRING] << "Declaration", "KW ;;", "Declaration+" >> }, agent build_continue_list("Declaration", 1, "Declaration+") >> };
 											  "Declaration", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Variable+", "KW :", "Type_Definition" >> }, Void >> };
 											  "Variable+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Variable" >> }, agent build_new_list("Variable", "Variable+");
 																							  {FAST_ARRAY[STRING] << "Variable", "KW ,", "Variable+" >> }, agent build_continue_list("Variable", 1, "Variable+") >> };
 											  "Variable", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name" >> }, Void >> };
-											  "Do_Block", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW do", "Instruction*" >> }, Void;
-																							 {FAST_ARRAY[STRING] << "KW once", "Instruction*" >> }, Void;
+											  "Do_Block", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW do", "Instruction*", "KW ;;" >> }, Void;
+																							 {FAST_ARRAY[STRING] << "KW once", "Instruction*", "KW ;;" >> }, Void;
 																							 {FAST_ARRAY[STRING] << "KW deferred" >> }, Void;
 																							 {FAST_ARRAY[STRING] << "KW attribute" >> }, Void >> };
 											  "Rescue_Block", {PARSE_NON_TERMINAL << epsilon, Void;
-																								  {FAST_ARRAY[STRING] << "KW rescue", "Instruction*" >> }, Void >> };
+																								  {FAST_ARRAY[STRING] << "KW rescue", "Instruction*", "KW ;;" >> }, Void >> };
 											  "Instruction*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Instruction*");
-																								  {FAST_ARRAY[STRING] << "Instruction", "Instruction*" >> }, agent build_continue_list("Instruction", 0, "Instruction*");
-																								  {FAST_ARRAY[STRING] << "Instruction", "KW ;", "Instruction*" >> }, agent build_continue_list("Instruction", 1, "Instruction*") >> };
+																								  {FAST_ARRAY[STRING] << "Instruction", "KW ;;", "Instruction*" >> }, agent build_continue_list("Instruction", 1, "Instruction*") >> };
 											  "Instruction", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Assignment_Or_Call" >> }, Void;
 																								 {FAST_ARRAY[STRING] << "If_Then_Else" >> }, Void;
 																								 {FAST_ARRAY[STRING] << "Inspect" >> }, Void;
@@ -116,7 +110,8 @@ feature {}
 																										  {FAST_ARRAY[STRING] << "Target", "r10" >> }, Void >> };
 											  "Call", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "KW ?:=", "Expression" >> }, Void;
 																						{FAST_ARRAY[STRING] << "Target", "r10" >> }, Void >> };
-											  "Target", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW (", "Expression", "KW )" >> }, Void;
+											  "Target", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Manifest_Or_Type_Test" >> }, Void;
+																						  {FAST_ARRAY[STRING] << "KW (", "Expression", "KW )" >> }, Void;
 																						  {FAST_ARRAY[STRING] << "KW Precursor", "Precursor_Type_Mark", "Actuals" >> }, Void;
 																						  {FAST_ARRAY[STRING] << "KW Current" >> }, Void;
 																						  {FAST_ARRAY[STRING] << "KW Result" >> }, Void;
@@ -173,7 +168,6 @@ feature {}
 																					  {FAST_ARRAY[STRING] << "KW [", "KW ]" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW [", "Actual+", "KW ]" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW ?" >> }, Void;
-																					  {FAST_ARRAY[STRING] << "Manifest_Or_Type_Test", "r10" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "Agent_Signature", "KW is", "Routine_Definition", "Actuals" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "KW agent", "Expression" >> }, Void;
 																					  {FAST_ARRAY[STRING] << "Creation_Expression" >> }, Void;
@@ -278,17 +272,17 @@ feature {}
 																									  {FAST_ARRAY[STRING] << "Effective_Type_Parameter", "KW ,", "Effective_Type_Parameter+" >> }, agent build_continue_list("Effective_Type_Parameter", 1, "Effective_Type_Parameter+") >> };
 											  "Effective_Type_Parameter", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void >> };
 											  "Invariant", {PARSE_NON_TERMINAL << epsilon, Void;
-																							  {FAST_ARRAY[STRING] << "KW invariant", "Assertion*" >> }, Void >> };
+																							  {FAST_ARRAY[STRING] << "KW invariant", "Assertion*", "KW ;;" >> }, Void >> };
 											  "Require", {PARSE_NON_TERMINAL << epsilon, Void;
-																							{FAST_ARRAY[STRING] << "Require_Else", "Assertion*" >> }, Void >> };
+																							{FAST_ARRAY[STRING] << "Require_Else", "Assertion*", "KW ;;" >> }, Void >> };
 											  "Require_Else", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW require" >> }, Void;
 																								  {FAST_ARRAY[STRING] << "KW require", "KW then" >> }, Void; -- *** Liberty extension
 																								  {FAST_ARRAY[STRING] << "KW require", "KW else" >> }, Void >> };
 											  "Ensure", {PARSE_NON_TERMINAL << epsilon, Void;
-																						  {FAST_ARRAY[STRING] << "Ensure_Then", "Assertion*" >> }, Void >> };
+																						  {FAST_ARRAY[STRING] << "Ensure_Then", "Assertion*", "KW ;;" >> }, Void >> };
 											  "Ensure_Then", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW ensure" >> }, Void;
 																								 {FAST_ARRAY[STRING] << "KW ensure", "KW then" >> }, Void >> };
-											  "Check", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW check", "Assertion*", "KW end" >> }, Void >> };
+											  "Check", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW check", "Assertion*", "KW ;;", "KW end" >> }, Void >> };
 											  "Debug", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW debug", "Debug_Keys", "Instruction*", "KW end" >> }, Void >> };
 											  "Debug_Keys", {PARSE_NON_TERMINAL << epsilon, Void;
 																								{FAST_ARRAY[STRING] << "KW (", "Debug_Key*", "KW )" >> }, Void >> };
@@ -297,11 +291,13 @@ feature {}
 											  "Variant", {PARSE_NON_TERMINAL << epsilon, Void;
 																							{FAST_ARRAY[STRING] << "KW variant", "Expression" >> }, Void >> };
 											  "Assertion*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Assertion*");
-																								{FAST_ARRAY[STRING] << "Assertion", "Assertion*" >> }, agent build_continue_list("Assertion", 0, "Assertion*");
-																								{FAST_ARRAY[STRING] << "Assertion", "KW ;", "Assertion*" >> }, agent build_continue_list("Assertion", 1, "Assertion*") >> };
-											  "Assertion", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Assertion_Tag", "Expression" >> }, Void >> };
+																								{FAST_ARRAY[STRING] << "Assertion", "KW ;;", "Assertion*" >> }, agent build_continue_list("Assertion", 1, "Assertion*") >> };
+											  "Assertion", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Assertion_Tag", "Assertion_Expression" >> }, Void >> };
 											  "Assertion_Tag", {PARSE_NON_TERMINAL << epsilon, Void;
 																									{FAST_ARRAY[STRING] << "KW entity name", "KW :" >> }, Void >> };
+											  "Assertion_Expression", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW assertion comment" >> }, Void;
+																											 {FAST_ARRAY[STRING] << "Expression" >> }, Void >> };
+
 											  "KW as", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "as"), Void);
 											  "KW creation", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "creation"), Void);
 											  "KW class", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "class"), Void);
@@ -378,6 +374,7 @@ feature {}
 											  "KW ?=", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "?="), Void);
 											  "KW |", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "|"), Void);
 											  "KW ;", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ";"), Void);
+											  "KW ;;", create {PARSE_TERMINAL}.make(agent parse_semi_colons, Void);
 											  "KW (", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "("), Void);
 											  "KW )", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ")"), Void);
 											  "KW )*", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ")*"), Void);
@@ -408,6 +405,7 @@ feature {}
 											  "KW ..", create {PARSE_TERMINAL}.make(agent parse_keyword(?, ".."), Void);
 											  "KW $", create {PARSE_TERMINAL}.make(agent parse_keyword(?, "$"), Void);
 											  "KW free operator", create {PARSE_TERMINAL}.make(agent parse_freeop, Void);
+											  "KW assertion comment", create {PARSE_TERMINAL}.make(agent parse_assertion_comment, Void);
 											  "KW end of file", create {PARSE_TERMINAL}.make(agent parse_end, Void) >> }
 		end
 
@@ -508,8 +506,10 @@ feature {}
 		end
 
 	last_blanks: STRING is ""
+	comment_position: like position
+	has_comment: BOOLEAN
 
-	skip_blank (buffer: MINI_PARSER_BUFFER): BOOLEAN is
+	skip_blank (buffer: MINI_PARSER_BUFFER; skip_semi_colons: BOOLEAN): BOOLEAN is
 		local
 			old_position: like position
 		do
@@ -519,12 +519,20 @@ feature {}
 					last_blanks.extend(buffer.current_character)
 					next_character(buffer)
 					Result := True
+				elseif skip_semi_colons and then buffer.current_character = ';' then
+					last_blanks.extend(buffer.current_character)
+					next_character(buffer)
+					Result := True
 				elseif buffer.current_character = '-' then
 					next_character(buffer)
 					if buffer.current_character /= '-' then
 						restore(buffer, old_position)
 					else
 						Result := True
+						if not has_comment then
+							comment_position := position
+							has_comment := True
+						end
 						last_blanks.extend('-')
 						last_blanks.extend('-')
 						from
@@ -552,13 +560,52 @@ feature {}
 	skip_blanks (buffer: MINI_PARSER_BUFFER) is
 		do
 			from
+				has_comment := False
 				last_blanks.clear_count
 			until
-				not skip_blank(buffer)
+				not skip_blank(buffer, False)
 			loop
 			end
 		ensure
 			buffer.current_index = last_blanks.count + old buffer.current_index
+		end
+
+	skip_blanks_and_semi_colons (buffer: MINI_PARSER_BUFFER) is
+		do
+			from
+				has_comment := False
+				last_blanks.clear_count
+			until
+				not skip_blank(buffer, True)
+			loop
+			end
+		ensure
+			buffer.current_index = last_blanks.count + old buffer.current_index
+		end
+
+	parse_assertion_comment (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+		local
+			old_position: like position; image: STRING; i: INTEGER
+		do
+			old_position := position
+			skip_blanks(buffer)
+			if has_comment then
+				check
+					last_blanks.has('-')
+				end
+				image := once ""
+				image.copy(last_blanks)
+				from
+					i := 1
+				until
+					image.item(i) = '-'
+				loop
+					i := i + 1
+				end
+				image.shrink(i, image.upper)
+				last_blanks.shrink(last_blanks.lower, i - 1)
+				create Result.make(image.twin, last_blanks.twin, comment_position)
+			end
 		end
 
 	parse_string (buffer: MINI_PARSER_BUFFER): TYPED_EIFFEL_IMAGE[STRING] is
@@ -919,7 +966,12 @@ feature {}
 			if image = Void or else is_a_keyword(image) then
 				restore(buffer, old_position)
 			else
-				create Result.make(image.twin, last_blanks.twin, start_position)
+				if image.is_equal(once "U") and then not buffer.end_reached and then buffer.current_character = '"' then
+					-- It's not an entity name but the beginning of a Unicode string
+					restore(buffer, old_position)
+				else
+					create Result.make(image.twin, last_blanks.twin, start_position)
+				end
 			end
 		end
 
@@ -1027,6 +1079,15 @@ feature {}
 			else
 				restore(buffer, old_position)
 			end
+		end
+
+	parse_semi_colons (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+		local
+			old_position: like position
+		do
+			old_position := position
+			skip_blanks_and_semi_colons(buffer)
+			create Result.make(once "", last_blanks.twin, position)
 		end
 
 	-- This "in parent clause" features handle the ambiguity of the following construction:
@@ -1479,13 +1540,12 @@ feature {}
 
 	parse_end (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
 		local
-			old_position, start_position: like position
+			old_position: like position
 		do
 			old_position := position
 			skip_blanks(buffer)
-			start_position := position
 			if buffer.end_reached then
-				create Result.make(once "", last_blanks.twin, start_position)
+				create Result.make(once "", last_blanks.twin, position)
 			else
 				restore(buffer, old_position)
 			end

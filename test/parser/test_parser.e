@@ -9,7 +9,7 @@ create {}
 feature {}
 	make is
 		do
-			--parse_code(create {REGULAR_FILE}.make("../../src/bootstrap/xml/xml_parser.e"))
+			--parse_code(create {REGULAR_FILE}.make("../../src/tools/wrappers-generator/class_maker.e"))
 			--die_with_code(0)
 			parse_all(create {DIRECTORY}.scan("../../src"))
 			parse_all(create {DIRECTORY}.scan("."))
@@ -36,6 +36,8 @@ feature {}
 					inspect
 						file.name.out
 					when "eiffeltest", ".svn", "CVS", ".git", ".", ".." then
+						-- ignored
+					when "broken", "wrappers" then
 						-- ignored
 					else
 						if file.is_directory then
