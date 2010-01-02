@@ -25,12 +25,18 @@ class LLVM_MODULE
 	-- make common operations easy.
 inherit 
 	C_STRUCT
-		EIFFEL_OWNED redefine dispose end 
-	-- TODO: make it a CACHING_FACTORY[LLVM_TYPE] 
+	EIFFEL_OWNED redefine dispose end 
 	LLVM_TYPE_FACTORY
+	-- TODO: make it a CACHING_FACTORY[LLVM_TYPE] 
 	STREAM_HANDLER undefine copy, is_equal end
 
 insert 
+	LLVM_FUNCTION_FACTORY 
+		rename
+			wrapper as function_wrapper,
+			wrapper_or_void as function_wrapper_or_void
+		end
+
 	CORE_EXTERNALS 
 	BIT_WRITER_EXTERNALS
 	STDIOEXTERNALS -- to use low-level fileno function
@@ -107,14 +113,15 @@ feature -- Types
 		name_untouched: a_name.is_equal(old a_name)
 	end
 feature -- Operation on functions
-	add_function  (a_name: ABSTRACT_STRING; a_type: LLVM_FUNCTION_TYPE): LLVM_FUNCTION is
-		-- A newly created function with `a_name' of `a_type'; this function is already added to Current module.
+	new_function  (a_name: ABSTRACT_STRING; a_type: LLVM_FUNCTION_TYPE): LLVM_FUNCTION is
+		-- A newly created function with `a_name' of `a_type'
+		-- contained in Current module.
 	require
 		name_not_void: a_name /= Void
 		type_not_void: a_type /= Void
 	local p: POINTER
 	do
-		p:= llvmadd_function(handle,a_name.to_external, a_type.to_external)
+		p:= llvmadd_function(handle,a_name.to_external, a_type.handle)
 		check p.is_not_null end
 		create Result.from_external_pointer(p)
 	end
@@ -131,20 +138,17 @@ feature -- Operation on functions
 		do
 			p:=llvmget_named_function(handle,a_name.to_external)
 			if p.is_not_null then
-				Result?=wrapper(p)
-				if Result=Void then
-					create Result.from_external_pointer(p)
-				end
+				Result:=function_wrapper(p) --create Result.from_external_pointer(p)
 			end
 		end
 	first_function: LLVM_FUNCTION is
 		do
-			-- LLVMValueRef LLVMGetFirstFunction(LLVMModuleRef M);	
+			Result:=function_wrapper_or_void(llvmget_first_function(handle))
 		end
 
 	last_function: LLVM_FUNCTION is
 		do
-			-- LLVMValueRef LLVMGetLastFunction(LLVMModuleRef M);
+			Result:=function_wrapper_or_void (llvmget_last_function(handle))
 		end
 
 feature -- Outputting
