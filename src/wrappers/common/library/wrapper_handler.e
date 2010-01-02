@@ -51,18 +51,27 @@ feature {} -- Utility features
 		end
 
 	null_or_string(a_string: STRING): POINTER is
-			-- 
+		-- A pointer to a memory area containing the content of `a_string' or
+		-- default_pointer if `a_string' is Void. The memory area may be the
+		-- internal buffer of `a_string' or a newly allocated one.
 		do
 			if a_string/=Void 
 			 then Result:=a_string.to_external
 			else
 				check Result.is_null end 
 			end
-		ensure definition:
-			definition: ((Result = default_pointer) or
+		ensure definition: ((Result = default_pointer) or
 							 (a_string/=Void implies Result=a_string.to_external))
 		end
 
+	null_or_array (a_collection: WRAPPER_COLLECTION[WRAPPER]): POINTER is
+		-- A pointer to the contenct of `a_collection' or NULL (default_pointer) if `a_collection' is Void
+		do
+			if a_collection/=Void then
+				Result:=a_collection.as_c_array.to_pointer
+			end
+		ensure definition: a_collection=Void implies Result.is_null and a_collection/=Void implies Result.is_not_null
+		end
 feature {} -- Wrapper related exceptions
 	pointer_to_unwrapped_deferred_object: STRING is
 		"A C function returned a pointer to an unwrapped object which is wrapped by a deferred class. It is not possible to create a correct wrapper."

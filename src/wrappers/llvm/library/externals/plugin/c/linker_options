@@ -1,2 +1,2 @@
 [UNIX]
-llvm: "$(llvm-config --libs)"
+llvm: "$(llvm-config --cflags --libs --ldflags core)"

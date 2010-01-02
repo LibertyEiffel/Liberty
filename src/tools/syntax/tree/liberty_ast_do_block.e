@@ -28,14 +28,14 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := keyword.name.is_equal(once "KW do")
 		ensure
-			Result implies count = 2
+			Result implies count = 3
 		end
 
 	is_once: BOOLEAN is
 		do
 			Result := keyword.name.is_equal(once "KW once")
 		ensure
-			Result implies count = 2
+			Result implies count = 3
 		end
 
 	is_deferred: BOOLEAN is
@@ -64,7 +64,7 @@ feature {ANY}
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 1, 2 >> }
+			Result := {AVL_SET[INTEGER] << 1, 3 >> }
 		end
 
 end

@@ -43,7 +43,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "erase_event"
  			}"
  		end
@@ -52,7 +52,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "copyfmt_event"
  			}"
  		end

@@ -54,7 +54,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "lfExactlyZero"
  			}"
  		end
@@ -63,7 +63,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "lfExactlyHalf"
  			}"
  		end
@@ -72,7 +72,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "lfMoreThanHalf"
  			}"
  		end

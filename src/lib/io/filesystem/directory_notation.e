@@ -86,6 +86,13 @@ feature {ANY}
 			is_absolute_path(possible_parent)
 		end
 
+	to_short_name_in (buffer, path: STRING) is
+		require
+			is_valid_path(path)
+			buffer /= Void
+		deferred
+		end
+
 feature {ANY}
 	frozen from_notation (source_notation: DIRECTORY_NOTATION; path: STRING) is
 			-- Convert `path' from `source_notation' to `Current'

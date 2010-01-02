@@ -21,25 +21,25 @@ create {LIBERTY_NODE_FACTORY}
 	make
 
 feature {LIBERTY_AST_HANDLER}
-	clients: EIFFEL_LIST_NODE is
+	clients: LIBERTY_AST_CLIENTS is
 		do
-			Result ::= nodes.item(2)
+			Result ::= nodes.item(1)
 		end
 
 	definition_list: EIFFEL_LIST_NODE is
 		do
-			Result ::= nodes.item(4)
+			Result ::= nodes.item(2)
 		end
 
 feature {ANY}
-	count: INTEGER is 5
+	count: INTEGER is 3
 
 	name: STRING is "Feature"
 
 feature {}
 	possible_counts: SET[INTEGER] is
 		once
-			Result := {AVL_SET[INTEGER] << 5 >> }
+			Result := {AVL_SET[INTEGER] << 3 >> }
 		end
 
 end

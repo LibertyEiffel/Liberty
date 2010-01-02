@@ -164,7 +164,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "CastOpsBegin"
  			}"
  		end
@@ -173,7 +173,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "ZExt"
  			}"
  		end
@@ -182,7 +182,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "SExt"
  			}"
  		end
@@ -191,7 +191,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "FPToUI"
  			}"
  		end
@@ -200,7 +200,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "FPToSI"
  			}"
  		end
@@ -209,7 +209,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "UIToFP"
  			}"
  		end
@@ -218,7 +218,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "SIToFP"
  			}"
  		end
@@ -227,7 +227,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "FPTrunc"
  			}"
  		end
@@ -236,7 +236,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "FPExt"
  			}"
  		end
@@ -245,7 +245,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "PtrToInt"
  			}"
  		end
@@ -254,7 +254,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "IntToPtr"
  			}"
  		end
@@ -263,7 +263,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "BitCast"
  			}"
  		end
@@ -272,7 +272,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "CastOpsEnd"
  			}"
  		end

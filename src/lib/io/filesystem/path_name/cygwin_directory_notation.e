@@ -99,6 +99,20 @@ feature {ANY}
 			path.extend_unless('/')
 		end
 
+	to_short_name_in (buffer, path: STRING) is
+		local
+			i: INTEGER
+		do
+			buffer.copy(path)
+			if buffer.last = '/' then
+				buffer.remove_last
+			end
+			i := buffer.last_index_of('/')
+			if i >= 0 then
+				buffer.shrink(i + 1, buffer.count)
+			end
+		end
+
 feature {ANY}
 	can_map_drive (source_notation: DIRECTORY_NOTATION; drive: STRING): BOOLEAN is
 		do

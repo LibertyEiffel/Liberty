@@ -13,7 +13,7 @@ class TEXT_FILE_READ
 	--
 
 inherit
-	FILE
+	FILE_STREAM
 	TERMINAL_INPUT_STREAM
 		redefine filtered_read_line_in, filtered_read_available_in
 		end

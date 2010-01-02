@@ -26,7 +26,7 @@ inherit
 	WRAPPER_FACTORY[ITEM]
 
 feature 
-	wrappers: HASHED_DICTIONARY [ITEM, POINTER]
+	wrappers: HASHED_DICTIONARY [ITEM, POINTER] is
 			-- Dictionary cache storing wrappers; usually used in 
 			-- WRAPPER_COLLECTIONs or WRAPPER_DICTIONARY
 			-- Key is the address (pointer) to the wrapped C structure,
@@ -34,6 +34,13 @@ feature
 			-- can get back an already-created Eiffel wrapper. Heirs of
 			-- SHARED_C_STRUCT, i.e. G_OBJECT could provide alternative
 			-- implementation that will not rely on this dictionary.
+		deferred
+		end
+
+	wrapper (a_pointer: POINTER): ITEM is
+		deferred
+		ensure then wrappers.has(a_pointer)
+		end
 
 	put (a_wrapper: ITEM) is
 		require 

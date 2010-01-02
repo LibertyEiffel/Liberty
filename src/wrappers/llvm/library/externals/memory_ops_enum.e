@@ -98,7 +98,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "MemoryOpsBegin"
  			}"
  		end
@@ -107,7 +107,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "Free"
  			}"
  		end
@@ -116,7 +116,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "Alloca"
  			}"
  		end
@@ -125,7 +125,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "Load"
  			}"
  		end
@@ -134,7 +134,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "Store"
  			}"
  		end
@@ -143,7 +143,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "GetElementPtr"
  			}"
  		end
@@ -152,7 +152,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "MemoryOpsEnd"
  			}"
  		end

@@ -26,17 +26,17 @@ feature {}
 																						  {FAST_ARRAY[STRING] << "KW default", "Assertion", "Debug" >> }, Void >> };
 											 "Assertion", {PARSE_NON_TERMINAL << epsilon, Void;
 																							 {FAST_ARRAY[STRING] << "KW assertion", "Assertion_Level" >> }, Void >> };
-											 "Assertion_Level", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW none" >>, Void;
-																									 {FAST_ARRAY[STRING] << "KW require" >>, Void;
-																									 {FAST_ARRAY[STRING] << "KW ensure" >>, Void;
-																									 {FAST_ARRAY[STRING] << "KW loop" >>, Void;
-																									 {FAST_ARRAY[STRING] << "KW check" >>, Void;
-																									 {FAST_ARRAY[STRING] << "KW all" >>, Void >> };
+											 "Assertion_Level", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW none" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW require" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW ensure" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW loop" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW check" >> }, Void;
+																									 {FAST_ARRAY[STRING] << "KW all" >> }, Void >> };
 											 "Needs", {PARSE_NON_TERMINAL << epsilon, Void;
 																						{FAST_ARRAY[STRING] << "KW needs", "Cluster_Configuration*" >>}, Void >> };
 											 "Cluster_Configuration*", {PARSE_NON_TERMINAL << epsilon, agent build_empty_list("Cluster_Configuration*");
-																										  {FAST_ARRAY[STRING] << "Cluster_Configuration", "Cluster_Configuration*" >>, agent build_continue_list("Cluster_Configuration", 0, "Cluster_Configuration*");
-																										  {FAST_ARRAY[STRING] << "Cluster_Configuration", "KW ;", "Cluster_Configuration*" >>, agent build_continue_list("Cluster_Configuration", 1, "Cluster_Configuration*") >> };
+																										  {FAST_ARRAY[STRING] << "Cluster_Configuration", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 0, "Cluster_Configuration*");
+																										  {FAST_ARRAY[STRING] << "Cluster_Configuration", "KW ;", "Cluster_Configuration*" >> }, agent build_continue_list("Cluster_Configuration", 1, "Cluster_Configuration*") >> };
 											 "Cluster_Configuration", { PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW cluster name", "Cluster_Constraints", "Cluster_Details" >> }, Void >> };
 											 "Cluster_Constraints", {PARSE_NON_TERMINAL << epsilon, Void;
 																										  {FAST_ARRAY[STRING] << "KW (", "Cluster_Version_Constraint", "KW )" >> }, Void >> };
@@ -112,7 +112,7 @@ feature {}
 											 "KW cluster name", create {PARSE_TERMINAL}.make(agent parse_class_or_cluster_name, Void);
 											 "KW class name", create {PARSE_TERMINAL}.make(agent parse_class_or_cluster_name, Void);
 											 "KW entity name", create {PARSE_TERMINAL}.make(agent parse_entity_name, Void);
-											 "KW end of file", create {PARSE_TERMINAL}.make(agent parse_end, Void) >> }
+											 "KW end of file", create {PARSE_TERMINAL}.make(agent parse_end, Void)
 											 >> };
 		end
 

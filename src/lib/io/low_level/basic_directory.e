@@ -3,27 +3,24 @@
 --
 expanded class BASIC_DIRECTORY
 	--
-	-- Very low-level basic tools for file-system directory handling and file path manipulation. 
-	-- This class is intended to be platform independant as much as possible. In order to remove 
-	-- from the client side the burden of file path computation, this class tries to compute 
-	-- automatically the system file notation using argument(s) of some of the very first call(s).
-	-- As soon as the system notation has been properly detected, the result is internally 
-	-- memorized for all objects of type BASIC_DIRECTORY in a common private buffer. Besides the 
-	-- low-level nature of operations one can found in this class, all file path manipulations 
-	-- are done in a smart way (except when the system file path notation has not been detected
-	-- automatically, which is quite uncommon). As an example, even if the directory separator 
-	-- is internally detected, this information is _intentionaly_ kept private to avoid low-level 
-	-- manipulation from the client side. Finally, this class is expanded in order to avoid as 
-	-- much as possible memory allocations.
+	-- Very low-level basic tools for file-system directory handling and file path manipulation.  This class is
+	-- intended to be platform independant as much as possible. In order to remove from the client side the
+	-- burden of file path computation, this class tries to compute automatically the system file notation
+	-- using argument(s) of some of the very first call(s).  As soon as the system notation has been properly
+	-- detected, the result is internally memorized for all objects of type BASIC_DIRECTORY in a common private
+	-- buffer. Besides the low-level nature of operations one can found in this class, all file path
+	-- manipulations are done in a smart way (except when the system file path notation has not been detected
+	-- automatically, which is quite uncommon). As an example, even if the directory separator is internally
+	-- detected, this information is _intentionaly_ kept private to avoid low-level manipulation from the
+	-- client side. Finally, this class is expanded in order to avoid as much as possible memory allocations.
 	--
-	-- Also consider high level facade class DIRECTORY if you don't want to deal directly with low 
-	-- level directory streams.
+	-- Also consider high level facade class DIRECTORY if you don't want to deal directly with low level
+	-- directory streams.
 	--
 
 feature {}
 	directory_stream: POINTER
-			-- This pointer memorize the current directory stream being scanned (used to compute 
-			-- `is_connected').
+			-- This pointer memorize the current directory stream being scanned (used to compute `is_connected').
 
 	current_entry: POINTER
 			-- When `is_connected', memorize the current entry in the current  `directory_stream'.
@@ -44,9 +41,9 @@ feature {ANY} -- State of `Current' basic directory stream:
 		end
 
 feature {ANY} -- Connect and disconnect:
-	connect_to (directory_path: STRING) is
-			-- Try to connect `Current' to some existing `directory_path'. After this call, the client 
-			-- is supposed to use `is_connected' to check that the stream is ready to be used.
+	connect_to (directory_path: ABSTRACT_STRING) is
+			-- Try to connect `Current' to some existing `directory_path'. After this call, the client is
+			-- supposed to use `is_connected' to check that the stream is ready to be used.
 		require
 			not is_connected
 			not directory_path.is_empty
@@ -62,16 +59,15 @@ feature {ANY} -- Connect and disconnect:
 			is_connected implies not end_of_input
 		end
 
-	connect_with (some_path: STRING) is
-			-- Try to connect `Current' to some directory using `some_path' which may be either an 
-			-- existing directory path or some arbitrary file path name. When `some_path' is the 
-			-- path of some readable existing directory, this directory is opened and the effect 
-			-- of `connect_with' is equivalent to `connect_to'. When `some_path' is not an existing 
-			-- readable directory path, `connect_with' tries to open the directory which may 
-			-- contains `some_path' viewed as a file path name. After this call, the client is 
-			-- supposed to use `is_connected' to check that the stream is ready to be used and the 
-			-- `last_entry' buffer to know about the corresponding opened directory path. Whatever 
-			-- the result, `some_path' is left unchanged.
+	connect_with (some_path: ABSTRACT_STRING) is
+			-- Try to connect `Current' to some directory using `some_path' which may be either an existing
+			-- directory path or some arbitrary file path name. When `some_path' is the path of some readable
+			-- existing directory, this directory is opened and the effect of `connect_with' is equivalent to
+			-- `connect_to'. When `some_path' is not an existing readable directory path, `connect_with' tries to
+			-- open the directory which may contains `some_path' viewed as a file path name. After this call, the
+			-- client is supposed to use `is_connected' to check that the stream is ready to be used and the
+			-- `last_entry' buffer to know about the corresponding opened directory path. Whatever the result,
+			-- `some_path' is left unchanged.
 		require
 			not is_connected
 			not some_path.is_empty
@@ -81,7 +77,7 @@ feature {ANY} -- Connect and disconnect:
 		do
 			connect_to(some_path)
 			if is_connected then
-				last_entry.copy(some_path)
+				last_entry.copy(some_path.out)
 			else
 				compute_parent_directory_of(some_path)
 				if last_entry.count > 0 then
@@ -100,9 +96,9 @@ feature {ANY} -- Connect and disconnect:
 		end
 
 	connect_to_current_working_directory is
-			-- Try to connect `Current' to the current working directory. After this call, the client 
-			-- is supposed to use `is_connected' to check that the stream is ready to be used and the 
-			-- `last_entry' buffer to know about the name of the current working directory.
+			-- Try to connect `Current' to the current working directory. After this call, the client is supposed
+			-- to use `is_connected' to check that the stream is ready to be used and the `last_entry' buffer to
+			-- know about the name of the current working directory.
 		require
 			not is_connected
 		local
@@ -129,8 +125,8 @@ feature {ANY} -- Connect and disconnect:
 		end
 
 	disconnect is
-			-- Do not forget to call this feature when you have finished with some previously opened 
-			-- directory stream.
+			-- Do not forget to call this feature when you have finished with some previously opened directory
+			-- stream.
 		require
 			is_connected
 		local
@@ -146,8 +142,8 @@ feature {ANY} -- Connect and disconnect:
 
 feature {ANY} -- Scanning:
 	last_entry: STRING is
-			-- Unique global buffer (once object) to get the last information computed by many routines 
-			-- of this class: `read_entry', `connect_with' `connect_to_current_working_directory', 
+			-- Unique global buffer (once object) to get the last information computed by many routines of this
+			-- class: `read_entry', `connect_with' `connect_to_current_working_directory',
 			-- `compute_parent_directory_of', ...
 		once
 			create Result.make(256)
@@ -169,22 +165,22 @@ feature {ANY} -- Scanning:
 		end
 
 feature {ANY} -- File path handling tools:
-	compute_parent_directory_of (some_path: STRING) is
-			-- Using `some_path' (which may be either a file path or a directory path) tries to compute 
-			-- in the `last_entry' buffer the parent directory of `some_path'. When `some_path' is a 
-			-- path with no parent directory, the `last_entry' buffer `is_empty' after this call. This
-			-- operation does not perform any disk access.
+	compute_parent_directory_of (some_path: ABSTRACT_STRING) is
+			-- Using `some_path' (which may be either a file path or a directory path) tries to compute in the
+			-- `last_entry' buffer the parent directory of `some_path'. When `some_path' is a path with no parent
+			-- directory, the `last_entry' buffer `is_empty' after this call. This operation does not perform any
+			-- disk access.
 		require
 			not some_path.is_empty
 			common_buffer_protection: last_entry /= some_path
 		do
 			if system_notation /= Void then
-				last_entry.copy(some_path)
+				last_entry.copy(some_path.out)
 				system_notation.to_parent_directory(last_entry)
 			else
 				set_notation_using(some_path)
 				if system_notation /= Void then
-					last_entry.copy(some_path)
+					last_entry.copy(some_path.out)
 					system_notation.to_parent_directory(last_entry)
 				else
 					last_entry.clear_count
@@ -192,11 +188,11 @@ feature {ANY} -- File path handling tools:
 			end
 		end
 
-	compute_subdirectory_with (parent_path, entry_name: STRING) is
-			-- Try to compute in the `last_entry' buffer the new subdirectory path obtained when trying 
-			-- to concatenate smartly `parent_path' whith some `entry_name'. When this fails the 
-			-- `last_entry' buffer `is_empty' after this call. This operation does not perform any disk 
-			-- access. Whatever the result, `parent_path' and `entry_name' are left unchanged.
+	compute_subdirectory_with (parent_path, entry_name: ABSTRACT_STRING) is
+			-- Try to compute in the `last_entry' buffer the new subdirectory path obtained when trying to
+			-- concatenate smartly `parent_path' whith some `entry_name'. When this fails the `last_entry' buffer
+			-- `is_empty' after this call. This operation does not perform any disk access. Whatever the result,
+			-- `parent_path' and `entry_name' are left unchanged.
 		require
 			not parent_path.is_empty
 			not entry_name.is_empty
@@ -204,24 +200,24 @@ feature {ANY} -- File path handling tools:
 			common_buffer_protection2: last_entry /= entry_name
 		do
 			if system_notation /= Void then
-				last_entry.copy(parent_path)
-				system_notation.to_subdirectory_with(last_entry, entry_name)
+				last_entry.copy(parent_path.out)
+				system_notation.to_subdirectory_with(last_entry, entry_name.out)
 			else
-				set_notation_using(parent_path)
+				set_notation_using(parent_path.out)
 				if system_notation /= Void then
-					last_entry.copy(parent_path)
-					system_notation.to_subdirectory_with(last_entry, entry_name)
+					last_entry.copy(parent_path.out)
+					system_notation.to_subdirectory_with(last_entry, entry_name.out)
 				else
 					last_entry.clear_count
 				end
 			end
 		end
 
-	compute_file_path_with (parent_path, file_name: STRING) is
-			-- Try to compute in the `last_entry' buffer the new file path obtained when trying to 
-			-- concatenate smartly `parent_path' whith some `file_name'. When this fails the 
-			-- `last_entry' buffer `is_empty' after this call. This operation does not perform any 
-			-- disk access. Whatever the result, `parent_path' and `file_name' are left unchanged.
+	compute_file_path_with (parent_path, file_name: ABSTRACT_STRING) is
+			-- Try to compute in the `last_entry' buffer the new file path obtained when trying to concatenate
+			-- smartly `parent_path' whith some `file_name'. When this fails the `last_entry' buffer `is_empty'
+			-- after this call. This operation does not perform any disk access. Whatever the result,
+			-- `parent_path' and `file_name' are left unchanged.
 		require
 			not parent_path.is_empty
 			not file_name.is_empty
@@ -229,61 +225,80 @@ feature {ANY} -- File path handling tools:
 			common_buffer_protection2: last_entry /= file_name
 		do
 			if system_notation /= Void then
-				last_entry.copy(parent_path)
-				system_notation.to_file_path_with(last_entry, file_name)
+				last_entry.copy(parent_path.out)
+				system_notation.to_file_path_with(last_entry, file_name.out)
 			else
 				set_notation_using(parent_path)
 				if system_notation /= Void then
-					last_entry.copy(parent_path)
-					system_notation.to_file_path_with(last_entry, file_name)
+					last_entry.copy(parent_path.out)
+					system_notation.to_file_path_with(last_entry, file_name.out)
 				else
 					last_entry.clear_count
 				end
 			end
 		end
 
-	compute_absolute_file_path_with (path: STRING) is
-			-- Try to compute an absolute path equivalent to `path' and store it in `last_entry'. When 
-			-- this fails the `last_entry' buffer `is_empty' after this call. This operation does not
-			-- perform any disk access.  Whatever the result, `path' is left unchanged.
+	compute_absolute_file_path_with (path: ABSTRACT_STRING) is
+			-- Try to compute an absolute path equivalent to `path' and store it in `last_entry'. When this fails
+			-- the `last_entry' buffer `is_empty' after this call. This operation does not perform any disk
+			-- access.  Whatever the result, `path' is left unchanged.
 		require
 			valid_path(path)
 			common_buffer_protection: last_entry /= path
 		do
 			if system_notation /= Void then
-				last_entry.copy(current_working_directory)
-				system_notation.to_absolute_path_in(last_entry, path)
+				last_entry.copy(current_working_directory.out)
+				system_notation.to_absolute_path_in(last_entry, path.out)
 			else
 				set_notation_using(path)
 				if system_notation /= Void then
-					last_entry.copy(current_working_directory)
-					system_notation.to_absolute_path_in(last_entry, path)
+					last_entry.copy(current_working_directory.out)
+					system_notation.to_absolute_path_in(last_entry, path.out)
 				else
 					last_entry.clear_count
 				end
 			end
 		ensure
-			last_entry.is_empty or else system_notation.is_absolute_path(last_entry)
+			last_entry.is_empty or else system_notation.is_absolute_path(last_entry.out)
 		end
 
-	valid_path (path: STRING): BOOLEAN is
+	compute_short_name_of (path: ABSTRACT_STRING) is
+			-- Try to find the short name of the file or directory given by its `path' and store it in
+			-- `last_entry'. When this fails the `last_entry' buffer `is_empty' after the call. This operation
+			-- does not perform any disk access.  Whatever the result, `path' is left unchanged.
+		do
+			if system_notation /= Void then
+				last_entry.copy(current_working_directory.out)
+				system_notation.to_short_name_in(last_entry, path.out)
+			else
+				set_notation_using(path)
+				if system_notation /= Void then
+					last_entry.copy(current_working_directory.out)
+					system_notation.to_short_name_in(last_entry, path.out)
+				else
+					last_entry.clear_count
+				end
+			end
+		end
+
+	valid_path (path: ABSTRACT_STRING): BOOLEAN is
 			-- Is the syntax of `path' valid for the system notation?
 		do
 			if system_notation_detected then
-				Result := system_notation.is_valid_path(path)
+				Result := system_notation.is_valid_path(path.out)
 			else
 				Result := not path.is_empty
 			end
 		ensure
-			system_notation_detected implies Result = system_notation.is_valid_path(path)
+			system_notation_detected implies Result = system_notation.is_valid_path(path.out)
 			not system_notation_detected implies Result = not path.is_empty
 		end
 
-	change_current_working_directory (directory_path: STRING) is
-			-- Try to change the current working directory using some `directory_path'. 
-			-- When the operation is possible, the `last_entry' buffer is updated with the new current  
-			-- working directory path, otherwise, when the modification is not possible the `last_entry' 
-			-- buffer `is_empty' after this call. Whatever the result, `directory_path' is left unchanged.
+	change_current_working_directory (directory_path: ABSTRACT_STRING) is
+			-- Try to change the current working directory using some `directory_path'.  When the operation is
+			-- possible, the `last_entry' buffer is updated with the new current working directory path,
+			-- otherwise, when the modification is not possible the `last_entry' buffer `is_empty' after this
+			-- call. Whatever the result, `directory_path' is left unchanged.
 		require
 			not is_connected
 			common_buffer_protection1: last_entry /= directory_path
@@ -308,25 +323,26 @@ feature {ANY} -- File path handling tools:
 			not is_connected
 		end
 
-	current_working_directory: STRING is
+	current_working_directory: FIXED_STRING is
 			-- The current working directory. Always returns the same once STRING.
 		local
-			path: POINTER
+			path: POINTER; cwd: STRING
 		do
 			path := directory_current_working_directory
 			if path.is_not_null then
-				Result := once ""
-				Result.from_external_copy(path)
+				cwd := once ""
+				cwd.from_external_copy(path)
 				if not system_notation_detected then
-					set_notation_using(Result)
+					set_notation_using(cwd)
 				end
-				system_notation.to_directory_path(Result)
+				system_notation.to_directory_path(cwd)
+				Result := cwd.intern
 			end
 		end
 
 	ensure_system_notation is
 		local
-			p: STRING
+			p: FIXED_STRING
 		once
 			p := current_working_directory
 		ensure
@@ -334,7 +350,7 @@ feature {ANY} -- File path handling tools:
 		end
 
 feature {ANY} -- Disk modification:
-	create_new_directory (directory_path: STRING): BOOLEAN is
+	create_new_directory (directory_path: ABSTRACT_STRING): BOOLEAN is
 			-- Try to create a new directory using the `directory_path' name.
 			-- Returns True on success.
 		require
@@ -348,7 +364,7 @@ feature {ANY} -- Disk modification:
 			not is_connected
 		end
 
-	remove_directory (directory_path: STRING): BOOLEAN is
+	remove_directory (directory_path: ABSTRACT_STRING): BOOLEAN is
 			-- Try to remove directory `directory_path' which must be empty.
 			-- Returns True on success.
 		require
@@ -362,7 +378,7 @@ feature {ANY} -- Disk modification:
 			not is_connected
 		end
 
-	remove_files_of (directory_path: STRING) is
+	remove_files_of (directory_path: ABSTRACT_STRING) is
 			-- Try to remove all files (not subdirectories) of directory specified by `directory_path'.
 		require
 			not is_connected
@@ -390,9 +406,8 @@ feature {ANY} -- Disk modification:
 			not is_connected
 		end
 
-	remove_recursively (directory_path: STRING): BOOLEAN is
-			-- Try to remove all files and all subdirectories of directory specified by 
-			-- `directory_path'.
+	remove_recursively (directory_path: ABSTRACT_STRING): BOOLEAN is
+			-- Try to remove all files and all subdirectories of directory specified by `directory_path'.
 		require
 			not is_connected
 		local
@@ -515,7 +530,7 @@ feature {DIRECTORY_NOTATION_HANDLER}
 			Result := {OPENVMS_DIRECTORY_NOTATION} ?:= system_notation
 		end
 
-	set_notation_using (some_path: STRING) is
+	set_notation_using (some_path: ABSTRACT_STRING) is
 			-- Try to detect automatically the file system notation.
 		require
 			not some_path.is_empty
@@ -573,7 +588,7 @@ feature {DIRECTORY_NOTATION_HANDLER}
 			end
 		end
 
-	reset_notation_using (some_path: STRING) is
+	reset_notation_using (some_path: ABSTRACT_STRING) is
 			-- Try to detect automatically the file system notation.
 		do
 			system_notation_buffer.set_item(Void)
@@ -592,11 +607,11 @@ feature {}
 		end
 
 	directory_open (path_pointer: POINTER): POINTER is
-			-- Try to open some existing directory using `path'. When `Result' `is_not_null', the 
-			-- directory is correctly opened and `Result' is a valid handle for this directory. 
-			-- Using `Result', one can then scan the content of the directory using function
-			-- `basic_directory_read_entry' and `basic_directory_get_entry_name'. Finally, a 
-			-- `is_not_null' directory must be closed using function `basic_directory_close'.
+			-- Try to open some existing directory using `path'. When `Result' `is_not_null', the directory is
+			-- correctly opened and `Result' is a valid handle for this directory.  Using `Result', one can then
+			-- scan the content of the directory using function `basic_directory_read_entry' and
+			-- `basic_directory_get_entry_name'. Finally, a `is_not_null' directory must be closed using function
+			-- `basic_directory_close'.
 		require
 			path_pointer.is_not_null
 		external "plug_in"
@@ -608,7 +623,7 @@ feature {}
 		end
 
 	directory_read_entry (dirstream: POINTER): POINTER is
-			-- Read an return a new entry using the directory handle `dirstream' obtained with function 
+			-- Read an return a new entry using the directory handle `dirstream' obtained with function
 			-- `basic_directory_open'. When there is no more entry, the `Result' becomes `is_null'.
 		require
 			dirstream.is_not_null
@@ -621,7 +636,7 @@ feature {}
 		end
 
 	directory_get_entry_name (entry: POINTER): POINTER is
-			-- Read an return a new entry using the directory handle `dirstream' obtained with function 
+			-- Read an return a new entry using the directory handle `dirstream' obtained with function
 			-- `basic_directory_open'. When there is no more entry, the `Result' becomes `is_null'.
 		require
 			entry.is_not_null
@@ -634,8 +649,8 @@ feature {}
 		end
 
 	directory_close (dirstream: POINTER): BOOLEAN is
-			-- Try to close some opened `dirstream' directory. A True result indicates that the 
-			-- directory is correctly closed.
+			-- Try to close some opened `dirstream' directory. A True result indicates that the directory is
+			-- correctly closed.
 		require
 			dirstream.is_not_null
 		external "plug_in"

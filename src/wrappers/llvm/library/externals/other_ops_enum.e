@@ -175,7 +175,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "OtherOpsBegin"
  			}"
  		end
@@ -184,7 +184,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "FCmp"
  			}"
  		end
@@ -193,7 +193,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "PHI"
  			}"
  		end
@@ -202,7 +202,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "Call"
  			}"
  		end
@@ -211,7 +211,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "Select"
  			}"
  		end
@@ -220,7 +220,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "UserOp1"
  			}"
  		end
@@ -229,7 +229,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "UserOp2"
  			}"
  		end
@@ -238,7 +238,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "VAArg"
  			}"
  		end
@@ -247,7 +247,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "ExtractElement"
  			}"
  		end
@@ -256,7 +256,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "InsertElement"
  			}"
  		end
@@ -265,7 +265,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "ShuffleVector"
  			}"
  		end
@@ -274,7 +274,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "ExtractValue"
  			}"
  		end
@@ -283,7 +283,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "InsertValue"
  			}"
  		end
@@ -292,7 +292,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
 		external "plug_in"
  		alias "{
  			location: "."
- 			module: "plugin"
+ 			module_name: "plugin"
  			feature_name: "OtherOpsEnd"
  			}"
  		end

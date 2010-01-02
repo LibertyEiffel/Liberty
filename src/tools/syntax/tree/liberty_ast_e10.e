@@ -56,25 +56,6 @@ feature {LIBERTY_AST_HANDLER}
 			Result := count = 1 and then nodes.first.name.is_equal(once "KW ?")
 		end
 
-	is_manifest_or_type_test: BOOLEAN is
-		do
-			Result := count = 2 and then nodes.first.name.is_equal(once "Manifest_Or_Type_Test")
-		end
-
-	manifest_or_type_test: LIBERTY_AST_MANIFEST_OR_TYPE_TEST is
-		require
-			is_manifest_or_type_test
-		do
-			Result ::= nodes.item(0)
-		end
-
-	manifest_or_type_test_r10: LIBERTY_AST_R10 is
-		require
-			is_manifest_or_type_test
-		do
-			Result ::= nodes.item(1)
-		end
-
 	is_inline_agent: BOOLEAN is
 		do
 			Result := count = 4
@@ -131,25 +112,6 @@ feature {LIBERTY_AST_HANDLER}
 	is_void: BOOLEAN is
 		do
 			Result := count = 1 and then nodes.item(0).name.is_equal(once "KW Void")
-		end
-
-	is_assignment_test: BOOLEAN is
-		do
-			Result := count = 3 and then nodes.item(1).name.is_equal(once "KW ?:=")
-		end
-
-	assignment_test_entity_name: LIBERTY_AST_ENTITY_NAME is
-		require
-			is_assignment_test
-		do
-			Result ::= nodes.item(0)
-		end
-
-	assignment_test_expression: LIBERTY_AST_EXPRESSION is
-		require
-			is_assignment_test
-		do
-			Result ::= nodes.item(2)
 		end
 
 feature {ANY}

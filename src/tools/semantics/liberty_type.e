@@ -393,7 +393,7 @@ feature {}
 	reference_mark: INTEGER_8 is 8
 
 feature {LIBERTY_AST_HANDLER}
-	ast: LIBERTY_AST_CLASS
+	ast: LIBERTY_AST_ONE_CLASS
 	descriptor: LIBERTY_TYPE_DESCRIPTOR
 
 	errors: LIBERTY_ERRORS

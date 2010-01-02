@@ -20,7 +20,7 @@ indexing
 			]"
 
 deferred class WRAPPERS_CACHE [ITEM->WRAPPER]
-obsolete once "use GLOBAL_CACHE instead"
+obsolete "use GLOBAL_CACHE instead"
 	-- A cache for other wrapper.
 
 inherit

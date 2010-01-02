@@ -3,7 +3,8 @@ class LLVM_CONSTANT_INT
 
 inherit LLVM_CONSTANT
 
-creation from_integer, from_string
+creation {ANY} from_integer, from_string
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 
 feature -- Creation
 	from_integer (a_type: LLVM_INTEGER_TYPE; a_value: NATURAL_64; a_sign_extend: INTEGER_32) is

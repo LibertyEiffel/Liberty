@@ -13,14 +13,30 @@ class LLVM_MODULE
 	-- variable is destroyed, it should have no entries in the
 	-- GlobalValueRefMap.
 
+	-- The Module class represents the top level
+	-- structure present in LLVM programs. An LLVM
+	-- module is effectively either a translation
+	-- unit of the original program or a combination
+	-- of several translation units merged by the
+	-- linker. The Module class keeps track of a
+	-- list of Functions, a list of GlobalVariables,
+	-- and a SymbolTable. Additionally, it contains
+	-- a few helpful member functions that try to
+	-- make common operations easy.
 inherit 
 	C_STRUCT
-	EIFFEL_OWNED 
-	-- TODO: make it a CACHING_FACTORY[LLVM_TYPE] 
+	EIFFEL_OWNED redefine dispose end 
 	LLVM_TYPE_FACTORY
+	-- TODO: make it a CACHING_FACTORY[LLVM_TYPE] 
 	STREAM_HANDLER undefine copy, is_equal end
 
 insert 
+	LLVM_FUNCTION_FACTORY 
+		rename
+			wrapper as function_wrapper,
+			wrapper_or_void as function_wrapper_or_void
+		end
+
 	CORE_EXTERNALS 
 	BIT_WRITER_EXTERNALS
 	STDIOEXTERNALS -- to use low-level fileno function
@@ -97,21 +113,22 @@ feature -- Types
 		name_untouched: a_name.is_equal(old a_name)
 	end
 feature -- Operation on functions
-	add_function  (a_name: ABSTRACT_STRING; a_type: LLVM_FUNCTION_TYPE): LLVM_FUNCTION is
-		-- A newly created function with `a_name' of `a_type'; this function is already added to Current module.
+	new_function  (a_name: ABSTRACT_STRING; a_type: LLVM_FUNCTION_TYPE): LLVM_FUNCTION is
+		-- A newly created function with `a_name' of `a_type'
+		-- contained in Current module.
 	require
 		name_not_void: a_name /= Void
 		type_not_void: a_type /= Void
 	local p: POINTER
 	do
-		p:= llvmadd_function(handle,a_name.to_external, a_type.to_external)
+		p:= llvmadd_function(handle,a_name.to_external, a_type.handle)
 		check p.is_not_null end
 		create Result.from_external_pointer(p)
 	end
 
 	function_iterator: ITERATOR[LLVM_FUNCTION] is
 		do
-			create {ITERATOR_ON_MODULE_FUNCTIONS} Result.from_module(Current)
+			create {ITERATOR_OVER_MODULE_FUNCTIONS} Result.from_module(Current)
 		end
 
 	function_with_name (a_name: ABSTRACT_STRING): LLVM_FUNCTION is
@@ -121,20 +138,17 @@ feature -- Operation on functions
 		do
 			p:=llvmget_named_function(handle,a_name.to_external)
 			if p.is_not_null then
-				Result?=wrapper(p)
-				if Result=Void then
-					create Result.from_external_pointer(p)
-				end
+				Result:=function_wrapper(p) --create Result.from_external_pointer(p)
 			end
 		end
 	first_function: LLVM_FUNCTION is
 		do
-			-- LLVMValueRef LLVMGetFirstFunction(LLVMModuleRef M);	
+			Result:=function_wrapper_or_void(llvmget_first_function(handle))
 		end
 
 	last_function: LLVM_FUNCTION is
 		do
-			-- LLVMValueRef LLVMGetLastFunction(LLVMModuleRef M);
+			Result:=function_wrapper_or_void (llvmget_last_function(handle))
 		end
 
 feature -- Outputting
@@ -166,7 +180,44 @@ feature -- Outputting
 			llvmdump_module(handle)
 		end
 
+feature 
 
+-- 	Important Public Members of the Module class
+-- Module::Module(std::string name = "")
+-- Constructing a Module is easy. You can optionally provide a name for it (probably based on the name of the translation unit).
+-- 
+-- Module::iterator - Typedef for function list iterator
+-- Module::const_iterator - Typedef for const_iterator.
+-- begin(), end() size(), empty()
+-- These are forwarding methods that make it easy to access the contents of a Module object's Function list.
+-- 
+-- Module::FunctionListType &getFunctionList()
+-- Returns the list of Functions. This is necessary to use when you need to update the list or perform a complex action that doesn't have a forwarding method.
+-- 
+-- Module::global_iterator - Typedef for global variable list iterator
+-- Module::const_global_iterator - Typedef for const_iterator.
+-- global_begin(), global_end() global_size(), global_empty()
+-- These are forwarding methods that make it easy to access the contents of a Module object's GlobalVariable list.
+-- 
+-- Module::GlobalListType &getGlobalList()
+-- Returns the list of GlobalVariables. This is necessary to use when you need to update the list or perform a complex action that doesn't have a forwarding method.
+-- 
+-- SymbolTable *getSymbolTable()
+-- Return a reference to the SymbolTable for this Module.
+-- 
+-- Function *getFunction(const std::string &Name, const FunctionType *Ty)
+-- Look up the specified function in the Module SymbolTable. If it does not exist, return null.
+-- 
+-- Function *getOrInsertFunction(const std::string &Name, const FunctionType *T)
+-- Look up the specified function in the Module SymbolTable. If it does not exist, add an external declaration for the function and return it.
+-- 
+-- std::string getTypeName(const Type *Ty)
+-- If there is at least one entry in the SymbolTable for the specified Type, return it. Otherwise return the empty string.
+-- 
+-- bool addTypeName(const std::string &Name, const Type *Ty)
+-- Insert an entry in the SymbolTable mapping Name to Ty. If there is already an entry for this name, true is returned and the SymbolTable is not modified.
+-- 
+-- 
 feature {} -- Documentation from doxygen documentation of LLVM's Module
 	
 	-- Global lists: functions, symbols and variables

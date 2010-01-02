@@ -98,7 +98,7 @@ feature {ANY} -- Structure emission
 				<<a_structure_name, c_field, setter_description,getter_description>>)
 				queries.put_message(once "	@(1) (a_structure: POINTER): @(2) is%N%
 				%			-- Query for @(5) field of @(6) structure.%N%
-				%			@(7)%N%	
+				%			@(7)%N%
 				%		external %"plug_in%"%N%
 				%		alias %"{%N%
 				%			location: %"@(3)%"%N%

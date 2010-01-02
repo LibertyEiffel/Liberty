@@ -16,8 +16,8 @@ class LIBERTY_AST_REQUIRE
 
 inherit
 	LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]
-		export
-			{ANY} list_valid_index, list_count, list_lower, list_upper, list_item
+		redefine
+			possible_counts
 		end
 
 create {LIBERTY_NODE_FACTORY}
@@ -31,5 +31,11 @@ feature {LIBERTY_AST_HANDLER}
 
 feature {ANY}
 	name: STRING is "Require"
+
+feature {}
+	possible_counts: SET[INTEGER] is
+		once
+			Result := {AVL_SET[INTEGER] << 0, 3 >> }
+		end
 
 end

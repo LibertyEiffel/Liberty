@@ -2,44 +2,79 @@
 -- See the full copyright at the end.
 --
 deferred class FILE
-	--
-	-- Common parent class to all the file-related streams. Provides a common
-	-- connection interface to the "real" files of the operating system.
-	--
-
-insert
-	ANY
 
 feature {ANY}
-	path: STRING
-			-- Not Void when connected to the corresponding file on the disk.
+	name: FIXED_STRING is
+			-- The short name of the file.
+		deferred
+		end
 
-	is_connected: BOOLEAN is
-			-- Is this file connected to some file of the operating system?
+	path: FIXED_STRING is
+			-- The file path.
+		deferred
+		end
+
+	frozen parent: DIRECTORY is
+		local
+			parent_path: STRING
 		do
-			Result := path /= Void
-		ensure
-			definition: Result = (path /= Void)
+			Result := parent_memory
+			if Result = Void then
+				basic_directory.compute_parent_directory_of(path)
+				if not basic_directory.last_entry.is_empty then
+					parent_path := once ""
+					parent_path.copy(basic_directory.last_entry)
+					create Result.scan(parent_path)
+					Result.set_file(name, Current)
+					parent_memory := Result
+				end
+			end
 		end
 
-	connect_to (new_path: STRING) is
-			-- Try to connect to an existing file of the operating system.
-		require
-			not is_connected
-			not_malformed_path: not new_path.is_empty
+	is_directory: BOOLEAN is
 		deferred
-		ensure
-			is_connected implies path.same_as(new_path)
 		end
 
-	disconnect is
-			-- Disconnect from any file.
+	is_regular: BOOLEAN is
+		deferred
+		end
+
+	as_directory: DIRECTORY is
 		require
-			is_connected
+			is_directory
 		deferred
 		ensure
-			not is_connected
+			Result = Current
 		end
+
+	as_regular: REGULAR_FILE is
+		require
+			is_regular
+		deferred
+		ensure
+			Result = Current
+		end
+
+	exists: BOOLEAN is
+		deferred
+		end
+
+feature {DIRECTORY}
+	set_parent (a_parent: like parent) is
+		do
+		ensure
+			parent = a_parent
+		end
+
+feature {}
+	parent_memory: DIRECTORY
+
+	basic_directory: BASIC_DIRECTORY
+			-- Provide low level access to directories.
+
+invariant
+	name /= Void
+	path /= Void
 
 end -- class FILE
 --

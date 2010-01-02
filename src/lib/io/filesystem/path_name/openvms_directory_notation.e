@@ -120,6 +120,11 @@ feature {ANY}
 			not_yet_implemented
 		end
 
+	to_short_name_in (buffer, path: STRING) is
+		do
+			not_yet_implemented
+		end
+
 feature {ANY}
 	can_map_drive (source_notation: DIRECTORY_NOTATION; drive: STRING): BOOLEAN is
 		do

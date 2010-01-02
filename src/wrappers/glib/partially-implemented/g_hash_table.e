@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2005 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision: "$REvision:$"
 
 class G_HASH_TABLE [VALUE->SHARED_C_STRUCT, KEY->COMPARABLE_SHARED_C_STRUCT]
 	-- A G_HASH_TABLE provides associations between keys and values

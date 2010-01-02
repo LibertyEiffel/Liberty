@@ -34,8 +34,10 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_CLASS} Result.make(name, names)
 			when "Classes" then
 				create {LIBERTY_AST_CLASSES} Result.make(name, names)
-			when "Class*" then
+			when "One_Class+" then
 				create {LIBERTY_AST_CLASS_LIST} Result.make(name, names)
+			when "One_Class" then
+				create {LIBERTY_AST_ONE_CLASS} Result.make(name, names)
 			when "Class_Header" then
 				create {LIBERTY_AST_CLASS_HEADER} Result.make(name, names)
 			when "Obsolete" then
@@ -220,6 +222,10 @@ feature {EIFFEL_GRAMMAR}
 				create {LIBERTY_AST_ASSERTION} Result.make(name, names)
 			when "Assertion_Tag" then
 				create {LIBERTY_AST_ASSERTION_TAG} Result.make(name, names)
+			when "Assertion_Expression" then
+				create {LIBERTY_AST_ASSERTION_EXPRESSION} Result.make(name, names)
+			when "Clients" then
+				create {LIBERTY_AST_CLIENTS} Result.make(name, names)
 			when "Client" then
 				create {LIBERTY_AST_CLIENT} Result.make(name, names)
 			end

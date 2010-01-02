@@ -8,6 +8,9 @@ class STRING_OUTPUT_STREAM
 
 inherit
 	TERMINAL_OUTPUT_STREAM
+		redefine
+			dispose
+		end
 
 creation {ANY}
 	make, connect_to
@@ -90,6 +93,11 @@ feature {}
 
 	string: STRING
 			-- where the characters go to
+
+	dispose is
+		do
+			-- No need to force people to disconnect such a STREAM.
+		end
 
 invariant
 	not string.immutable

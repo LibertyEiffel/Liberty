@@ -9,6 +9,9 @@ class NULL_OUTPUT_STREAM
 
 inherit
 	TERMINAL_OUTPUT_STREAM
+		redefine
+			dispose
+		end
 
 feature {ANY}
 	is_connected: BOOLEAN is True
@@ -43,6 +46,12 @@ feature {FILTER}
 		end
 
 	filtered_has_stream_pointer: BOOLEAN is False
+
+feature {}
+	dispose is
+		do
+			-- No need to force people to disconnect such a STREAM.
+		end
 
 end -- class NULL_OUTPUT_STREAM
 --

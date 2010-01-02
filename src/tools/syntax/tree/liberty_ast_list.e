@@ -34,6 +34,13 @@ feature {LIBERTY_AST_HANDLER}
 			end
 		end
 
+	list_is_empty: BOOLEAN is
+		do
+			if count > 1 then
+				Result := list.is_empty
+			end
+		end
+
 	list_count: INTEGER is
 		do
 			if count > 1 then
@@ -62,6 +69,20 @@ feature {LIBERTY_AST_HANDLER}
 			list_valid_index(index)
 		do
 			Result ::= list.item(index)
+		end
+
+	list_first: N_ is
+		require
+			list_valid_index(list_lower)
+		do
+			Result := list_item(list_lower)
+		end
+
+	list_last: N_ is
+		require
+			list_valid_index(list_upper)
+		do
+			Result := list_item(list_upper)
 		end
 
 feature {ANY}

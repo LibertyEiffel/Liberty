@@ -27,6 +27,8 @@ insert 	LLVM_VALUE_FACTORY
 			wrapper_or_void as value_or_void 
 		end
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+feature 
+	
 feature	
 	-- TODO: "as_value: LLVM_VALUE is -- Current basic block as a value do LLVMValueRef LLVMBasicBlockAsValue(LLVMBasicBlockRef BB);:w" and
 
@@ -69,6 +71,11 @@ feature
 --                                        const char *Name);
 -- void LLVMDeleteBasicBlock(LLVMBasicBlockRef BB);
 
+	new_iterator: ITERATOR[LLVM_INSTRUCTION] is
+		do
+			create {ITERATOR_OVER_INSTRUCTIONS} Result.from_block(Current)
+		ensure Result/=Void
+		end
 end -- class LLVM_BASIC_BLOCK
 
 -- Copyright 2009 Paolo Redaelli, partially derived from LLVM documentation

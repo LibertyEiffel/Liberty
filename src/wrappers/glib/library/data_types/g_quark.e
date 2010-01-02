@@ -3,7 +3,7 @@ indexing
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
-	revision "$REvision:$"
+	revision: "$REvision:$"
 	
 expanded class G_QUARK
 

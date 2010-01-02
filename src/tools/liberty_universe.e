@@ -125,7 +125,7 @@ feature {ANY}
 		local
 			td: LIBERTY_TYPE_DESCRIPTOR
 			tuple_ast: LIBERTY_AST_CLASSES
-			ast: LIBERTY_AST_CLASS
+			ast: LIBERTY_AST_ONE_CLASS
 			tuple_count: INTEGER
 		do
 			tuple_count := effective_generics.count
@@ -133,17 +133,13 @@ feature {ANY}
 			Result := types.reference_at(td)
 			if Result = Void then
 				tuple_ast := parse_tuple_classes(Void)
-				if tuple_count = 0 then
-					ast := tuple_ast.first_class
-				else
-					check tuple_ast.next_classes.list_lower = 0 end
-					if tuple_count > tuple_ast.next_classes.list_count then
-						errors.add_position(position)
-						errors.set(level_fatal_error, "TUPLE does not support more than " + tuple_ast.next_classes.list_count.out
-									  + " generic parameters")
-					end
-					ast := tuple_ast.next_classes.list_item(tuple_count - 1)
+				check tuple_ast.classes.list_lower = 0 end
+				if tuple_count > tuple_ast.classes.list_upper then
+					errors.add_position(position)
+					errors.set(level_fatal_error, "TUPLE does not support more than " + tuple_ast.classes.list_upper.out
+								  + " generic parameters. Shouldln't you consider using a named class with real attributes instead?")
 				end
+				ast := tuple_ast.classes.list_item(tuple_count)
 				create Result.make(td, ast)
 				types.put(Result, td)
 				to_init.add_last(Result)
@@ -167,7 +163,7 @@ feature {}
 			not errors.has_error
 		local
 			cd: LIBERTY_CLASS_DESCRIPTOR; td: LIBERTY_TYPE_DESCRIPTOR
-			ast: LIBERTY_AST_CLASS
+			ast: LIBERTY_AST_ONE_CLASS
 			cluster: LIBERTY_CLUSTER
 		do
 			cluster := root.find(class_name)
@@ -269,7 +265,7 @@ feature {}
 		require
 			not errors.has_error
 		local
-			ast: LIBERTY_AST_CLASS
+			ast: LIBERTY_AST_ONE_CLASS
 		do
 			Result := types.reference_at(descriptor)
 			if Result = Void then
@@ -333,7 +329,7 @@ feature {}
 		end
 
 feature {} -- Type parameters fetching
-	get_parameter_constraints (origin: LIBERTY_TYPE; a_class: LIBERTY_AST_CLASS; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): COLLECTION[LIBERTY_TYPE] is
+	get_parameter_constraints (origin: LIBERTY_TYPE; a_class: LIBERTY_AST_ONE_CLASS; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): COLLECTION[LIBERTY_TYPE] is
 		local
 			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
 			type_parameter: LIBERTY_AST_TYPE_PARAMETER
@@ -420,9 +416,10 @@ feature {} -- AST building
 			parser_file.disconnect
 		end
 
-	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING; pos: LIBERTY_POSITION): LIBERTY_AST_CLASS is
+	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING; pos: LIBERTY_POSITION): LIBERTY_AST_ONE_CLASS is
 		local
 			code: STRING; parse_desc: like parse_descriptor
+			ast: LIBERTY_AST_CLASS
 		do
 			std_output.put_line(once "Parsing " + class_name)
 			parse_descriptor.make(cluster, class_name.intern, pos)
@@ -439,7 +436,8 @@ feature {} -- AST building
 				if parser.error /= Void then
 					errors.emit_syntax_error(parser.error, code, parse_desc.file.intern)
 				end
-				Result ::= eiffel.root_node
+				ast ::= eiffel.root_node
+				Result := ast.one_class
 				classes.put(Result, parse_desc)
 			end
 		ensure
@@ -470,21 +468,20 @@ feature {} -- AST building
 			end
 			Result ::= eiffel.root_node
 			file := parse_desc.file.intern
-			check_tuple_class(Result.first_class, 0, Result, file)
 			from
-				i := Result.next_classes.list_lower
+				i := Result.classes.list_lower
 				check i = 0 end
 			until
-				i > Result.next_classes.list_upper
+				i > Result.classes.list_upper
 			loop
-				check_tuple_class(Result.next_classes.list_item(i), i + 1, Result, file)
+				check_tuple_class(Result.classes.list_item(i), i, Result, file)
 				i := i + 1
 			end
 		ensure
 			Result /= Void
 		end
 
-	check_tuple_class (a_tuple_class: LIBERTY_AST_CLASS; generics_count: INTEGER; ast: LIBERTY_AST_CLASSES; file: FIXED_STRING) is
+	check_tuple_class (a_tuple_class: LIBERTY_AST_ONE_CLASS; generics_count: INTEGER; ast: LIBERTY_AST_CLASSES; file: FIXED_STRING) is
 			-- minimal integrity check
 		local
 			classname: STRING
@@ -537,14 +534,14 @@ feature {}
 	make (universe_path: STRING) is
 		do
 			create root.make(universe_path)
-			create {HASHED_DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.make
+			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.make
 			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.make
 			create {FAST_ARRAY[LIBERTY_TYPE]} to_init.with_capacity(64)
 		end
 
 	root: LIBERTY_CLUSTER
 
-	classes: DICTIONARY[LIBERTY_AST_CLASS, LIBERTY_CLASS_DESCRIPTOR]
+	classes: DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]
 	types: DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]
 	to_init: COLLECTION[LIBERTY_TYPE]
 

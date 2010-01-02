@@ -66,7 +66,7 @@ feature {LIBERTY_FEATURE_NAME}
 	type: INTEGER_8
 
 feature {}
-	make_from_ast (ast: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; class_ast: LIBERTY_AST_CLASS; file: FIXED_STRING) is
+	make_from_ast (ast: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; class_ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING) is
 		require
 			ast /= Void
 			class_ast /= Void
