@@ -1,3 +1,0 @@
-Execution of "se test" started: Saturday January 2 22:10:58 2010
-                    terminated: Saturday January 2 22:11:30 2010
-32 (Elapsed seconds in "/home/cadrian/Desktop/Workspace/Dev/Liberty/test/lib/string/".)

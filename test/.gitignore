@@ -1,3 +1,4 @@
 log.new
+time_info.txt
 *.o
 *.id
