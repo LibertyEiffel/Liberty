@@ -75,7 +75,7 @@ feature {ANY}
 	set_current_index (new_index: like current_index) is
 			-- To be able to move (usually back) in the buffer
 		require
-			new_index.in_range(lower, upper)
+			new_index.in_range(lower, upper + 1)
 		do
 			current_index := new_index
 		ensure
@@ -122,7 +122,7 @@ feature {ANY} -- Queries
 		do
 			Result := current_index > upper
 		ensure
-			Result = (current_index > count)
+			Result = (current_index > upper)
 		end
 
 feature {}
