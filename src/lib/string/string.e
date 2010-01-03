@@ -856,20 +856,11 @@ feature {ANY} -- Other features:
 	intern: FIXED_STRING is
 			-- A shared version of this string.
 		do
-			intern_key.make_from_string(Current)
-			Result := interned.reference_at(intern_key)
+			Result := interned.reference_at(hash_code)
 			if Result = Void then
-				Result := intern_key.twin
+				create Result.make_from_string(Current)
 				Result.do_intern
 			end
-			intern_key.recycle
-		end
-
-feature {}
-	intern_key: FIXED_STRING is
-		once
-			create Result.make_from_string("")
-			Result.recycle
 		end
 
 feature {ANY} -- Interfacing with C string:
@@ -1034,7 +1025,6 @@ invariant
 	0 <= count
 	count <= capacity
 	capacity > 0 implies storage.is_not_null
-	not intern_key.immutable
 
 end -- class STRING
 --

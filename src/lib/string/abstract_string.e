@@ -1180,7 +1180,7 @@ feature {ANY} -- Other features:
 			Result /= Void
 			Result.is_equal(Current)
 			Result.is_interned
-			interned.fast_has(Result)
+			interned.fast_has(Result.hash_code)
 		end
 
 feature {ANY} -- Interfacing with C string:
@@ -1231,9 +1231,11 @@ feature {}
 			end
 		end
 
-	interned: SET[FIXED_STRING] is
+	interned: DICTIONARY[FIXED_STRING, INTEGER] is
+			-- Key: `hash_code'
+			-- Item: interned string
 		once
-			create {HASHED_SET[FIXED_STRING]}Result.make
+			create {HASHED_DICTIONARY[FIXED_STRING, INTEGER]} Result.make
 		end
 
 invariant

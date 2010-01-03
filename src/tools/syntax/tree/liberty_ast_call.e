@@ -30,7 +30,7 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := count = 3
 		ensure
-			Result = nodes.item(1).name.is_equal(once "KW ?:=")
+			Result implies nodes.item(1).name.is_equal(once "KW ?:=")
 		end
 
 	call_target: LIBERTY_AST_TARGET is

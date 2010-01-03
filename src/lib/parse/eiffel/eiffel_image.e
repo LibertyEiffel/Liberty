@@ -6,7 +6,15 @@ deferred class EIFFEL_IMAGE
 inherit
 	PARSER_IMAGE
 		redefine
-			out_in_tagged_out_memory
+			out_in_tagged_out_memory, is_equal
+		end
+
+feature {ANY}
+	is_equal (other: like Current): BOOLEAN is
+			-- Redefined because SmartEiffel's default is_equal generates bad code in some strange situations
+		do
+			Result := position = other.position
+				and then image.is_equal(other.image)
 		end
 
 feature {ANY}
@@ -36,7 +44,7 @@ feature {ANY}
 			tagged_out_memory.append(image)
 		end
 
-feature {}
+feature {EIFFEL_IMAGE}
 	position: EIFFEL_POSITION
 			-- the position of the `image' (discarding the leading `blanks')
 

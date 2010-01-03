@@ -1279,11 +1279,11 @@ feature {}
 						end
 					when 1 then
 						-- first character was zero; just read the second.
-						check not valid end
 						inspect
 							c
 						when 'x', 'X' then
 							image.extend(c)
+							valid := False
 							state := 2
 						when '_' then
 							image.extend(c)
