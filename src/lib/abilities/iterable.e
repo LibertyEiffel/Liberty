@@ -9,6 +9,9 @@ deferred class ITERABLE[E_]
 	-- TODO: implement iterator-based `do_all', `for_all' and `exists' features.
 	--
 
+inherit
+	HOARD[E_]
+
 feature {ANY} -- Other features:
 	new_iterator: ITERATOR[E_] is
 		deferred
@@ -27,8 +30,6 @@ feature {ANY} -- Agent-based features:
 			-- Apply `action' to every item of `Current'.
 			--
 			-- See also `for_all', `exists'.
-		require
-			action /= Void
 		local
 			i: like new_iterator
 		do
@@ -47,8 +48,6 @@ feature {ANY} -- Agent-based features:
 			-- Do all items satisfy `test'?
 			--
 			-- See also `do_all', `exists'.
-		require
-			test /= Void
 		local
 			i: like new_iterator
 		do
@@ -68,8 +67,6 @@ feature {ANY} -- Agent-based features:
 			-- Does at least one item satisfy `test'?
 			--
 			-- See also `do_all', `for_all'.
-		require
-			test /= Void
 		local
 			i: like new_iterator
 		do
