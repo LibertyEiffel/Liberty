@@ -116,4 +116,67 @@ feature {}
 											 >> };
 		end
 
+	parse_class_or_cluster_name (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+		local
+			old_position, start_position, dot_position: like position; image: STRING; c: CHARACTER; s: INTEGER
+		do
+			old_position := position
+			skip_blanks(buffer)
+			start_position := position
+			from
+				image := once ""
+				image.clear_count
+			until
+				s < 0
+			loop
+				if buffer.end_reached then
+					s := -1
+				else
+					c := buffer.current_character
+					inspect s
+					when 0 then
+						-- expecting a letter
+						inspect c
+						when 'A'..'Z' then
+							image.extend(c)
+							next_character(buffer)
+							s := 1
+						else
+							s := -1
+						end
+					when 1 then
+						-- at least a letter read
+						inspect c
+						when 'A'..'Z' then
+							image.extend(c)
+							next_character(buffer)
+						when '.' then
+							dot_position := position
+							next_character(buffer)
+							s := 2
+						else
+							s := -1
+						end
+					when 2 then
+						-- after a dot
+						inspect c
+						when 'A'..'Z' then
+							image.extend('.')
+							image.extend(c)
+							next_character(buffer)
+							s := 1
+						else
+							restore(buffer, dot_position)
+							s := -1
+						end
+					end
+				end
+			end
+			if image.is_empty then
+				restore(buffer, old_position)
+			else
+				create Result.make(image, last_blanks.twin, start_position)
+			end
+		end
+
 end
