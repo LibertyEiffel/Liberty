@@ -7,10 +7,6 @@ class MINI_PARSER_BUFFER
 	-- From the user point of view, an object of this class can be considered
 	-- as the combination of a STRING to be parsed with an extra INTEGER
 	-- index to memorize the current position in this STRING.
-	-- Beside the fact that this object provides the current position
-	-- memorization inside the STRING to be parsed, the implementation is
-	-- also more efficient than the one you may get by using the traditional
-	-- STRING interface.
 	--
 
 insert
@@ -81,23 +77,23 @@ feature {ANY}
 		require
 			new_index.in_range(lower, upper)
 		do
-			current_index := new_index 
+			current_index := new_index
 		ensure
 			current_index = new_index
 		end
 
-feature -- Queries
+feature {ANY} -- Queries
 	lower: INTEGER is
 		do
-			Result:=storage.lower
+			Result := storage.lower
 		end
 
 	upper: INTEGER is
 			-- Maximum valid index in storage.
 		do
-			Result:=storage.upper
+			Result := storage.upper
 		end
-	
+
 	count: INTEGER is
 			-- The length of the `Current' buffer which is also the maximum valid index.
 		do
@@ -106,8 +102,8 @@ feature -- Queries
 
 	capacity: INTEGER is
 			-- Of `storage'.
-		do 
-			Result:=storage.capacity
+		do
+			Result := storage.capacity
 		end
 
 	current_index: INTEGER
@@ -132,6 +128,7 @@ feature -- Queries
 feature {}
 	storage: FIXED_STRING
 			-- The `storage' area to be parsed.
+
 end -- class MINI_PARSER_BUFFER
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
