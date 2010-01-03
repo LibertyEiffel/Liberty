@@ -30,7 +30,7 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := count = 3
 		ensure
-			Result implies nodes.item(1).name.is_equal(once "KW ?:=")
+			Result = nodes.item(1).name.is_equal(once "KW ?:=")
 		end
 
 	call_target: LIBERTY_AST_TARGET is
@@ -74,8 +74,5 @@ feature {}
 		once
 			Result := {AVL_SET[INTEGER] << 2, 3 >> }
 		end
-
-invariant
-	is_call xor is_assignment_test
 
 end
