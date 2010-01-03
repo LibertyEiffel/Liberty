@@ -1199,7 +1199,7 @@ feature {}
 			image := keyword_image(buffer, expected)
 			if image /= Void then
 				-- `image' may be shared here
-				create Result.make(image, False, last_blanks.twin, start_position)
+				create Result.make(image, image.to_boolean, last_blanks.twin, start_position)
 			else
 				restore(buffer, old_position)
 			end
