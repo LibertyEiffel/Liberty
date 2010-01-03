@@ -2,7 +2,6 @@ deferred class LLVM_FUNCTION_FACTORY
 	-- A factory of LLVM_FUNCTIONs
 
 inherit 
-	WRAPPER_FACTORY[LLVM_FUNCTION]
 	CACHING_FACTORY[LLVM_FUNCTION] 
 	-- It could be CACHING_FACTORY[LLVM_FUNCTION] but currently
 	-- CACHING_FACTORY requires wrappers dictionary to be an attribute and

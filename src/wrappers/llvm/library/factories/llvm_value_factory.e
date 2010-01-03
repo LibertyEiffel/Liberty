@@ -7,8 +7,7 @@ insert
 	EXCEPTIONS undefine copy, is_equal end
 feature 
 	wrapper (p: POINTER): LLVM_VALUE is
-		local type_ptr, res: POINTER
-			type: LLVMTYPE_KIND_ENUM
+		local type: LLVMTYPE_KIND_ENUM
 		do
 			raise("Not all heirs of LLVM_VALUE taken in count in value factory")
 			type.change_value(llvmget_type_kind(llvmtype_of(p)))
@@ -34,7 +33,8 @@ feature
 			end
 		-- TODO: This alternative implementation (also O(n) - with n the number of effective classes inheriting from
 		-- LLVM_VALUE) is based on the C interface
-		-- res := llvmis_abasic_block(p)
+		--		local type_ptr, res: POINTER
+		-- - res := llvmis_abasic_block(p)
 		-- if res.is_not_null then create {LLVM_BASIC_BLOCK} Result.from_external_pointer(res)
 		-- 	-- elseif llvmis_aglobal_alias(p).to_boolean then create {IS_AGLOBAL_ALIAS} Result.from_external_pointer(p)
 		-- 	-- elseif llvmis_acall_inst(p).to_boolean then create {IS_ACALL_INST} Result.from_external_pointer(p)

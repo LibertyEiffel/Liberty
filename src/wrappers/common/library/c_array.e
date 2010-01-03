@@ -641,13 +641,16 @@ feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
 	capacity: INTEGER
 
 feature {} -- Implement manifest generic creation (very low-level):
-        manifest_make (needed_capacity: INTEGER) is
-                        -- Manifest creation of a LLVM_TYPE_ARRAY
-                require
-                        needed_capacity > 0
-                do
-                        with_capacity(needed_capacity)
-                end	manifest_put (index: INTEGER_32; element: ITEM) is
+	manifest_make (needed_capacity: INTEGER) is
+	-- Manifest creation of a LLVM_TYPE_ARRAY
+		require
+			needed_capacity > 0
+		do
+			with_capacity(needed_capacity)
+			upper := needed_capacity-1
+		end	
+
+	manifest_put (index: INTEGER_32; element: ITEM) is
 		do
 			put(element, index)
 		end

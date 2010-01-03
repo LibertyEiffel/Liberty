@@ -42,15 +42,6 @@ feature
 		ensure then wrappers.has(a_pointer)
 		end
 
-	put (a_wrapper: ITEM) is
-		require 
-			wrapper_not_void: a_wrapper /= Void
-		do
-			wrappers.put(a_wrapper,a_wrapper.handle)
-		ensure
-         definition: wrapper(a_wrapper.handle) = a_wrapper 
-		end
-
 invariant
 	dictionary_not_void: wrappers /= Void
 end

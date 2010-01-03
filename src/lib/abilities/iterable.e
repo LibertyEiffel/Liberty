@@ -6,8 +6,6 @@ deferred class ITERABLE[E_]
 	-- An `ITERABLE[E_]' is a (potentially infinite) readable sequence of objects of type E_ that can be
 	-- accessed through an ITERATOR[E]
 	--
-	-- TODO: implement iterator-based `do_all', `for_all' and `exists' features.
-	--
 
 inherit
 	HOARD[E_]
