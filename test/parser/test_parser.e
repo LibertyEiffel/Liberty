@@ -9,7 +9,7 @@ create {}
 feature {}
 	make is
 		do
-			--parse_code(create {REGULAR_FILE}.make("../../src/tools/wrappers-generator/class_maker.e"))
+			--parse_code(create {REGULAR_FILE}.make("../../src/lib/kernel/tuple.e"))
 			--die_with_code(0)
 			parse_all(create {DIRECTORY}.scan("../../src"))
 			parse_all(create {DIRECTORY}.scan("."))

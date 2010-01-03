@@ -24,7 +24,7 @@ feature {}
 			Result := {PARSE_TABLE << "Class", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class", "KW end of file" >> }, agent build_root >> };
 											  "Classes", { PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class+", "KW end of file" >> }, agent build_root >> };
 											  "One_Class+", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "One_Class" >> }, agent build_new_list("One_Class", "One_Class+");
-																						  {FAST_ARRAY[STRING] << "One_Class", "One_Class+" >> }, agent build_continue_list("One_Class", 0, "One_Class*") >> };
+																						  {FAST_ARRAY[STRING] << "One_Class", "One_Class+" >> }, agent build_continue_list("One_Class", 0, "One_Class+") >> };
 											  "One_Class", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Class_Header", "Obsolete", "Inherit", "Insert", "Class_Creation*", "Feature*", "Invariant", "KW end" >> }, Void >> };
 											  "Class_Header", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Class_Marker", "KW class name", "Type_Parameters" >> }, Void >> };
 											  "Indexing", {PARSE_NON_TERMINAL << epsilon, Void;
