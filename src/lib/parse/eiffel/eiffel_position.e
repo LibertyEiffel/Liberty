@@ -6,7 +6,7 @@ expanded class EIFFEL_POSITION
 insert
 	ANY
 		redefine
-			default_create
+			default_create, is_equal
 		end
 
 creation {EIFFEL_GRAMMAR}
@@ -30,10 +30,16 @@ feature {EIFFEL_GRAMMAR}
 			Result := Current
 		end
 
-feature {EIFFEL_GRAMMAR, EIFFEL_IMAGE}
+feature {EIFFEL_GRAMMAR, EIFFEL_IMAGE, EIFFEL_POSITION}
 	line: INTEGER
 	column: INTEGER
 	index: INTEGER
+
+feature {ANY}
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := index = other.index
+		end
 
 feature {}
 	default_create is

@@ -1,33 +1,60 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class TRAVERSABLE[E_]
-	-- A `TRAVERSABLE[E_]' is a finite readable sequence of objects of type E_.
-	-- For instance, `COLLECTION's and `STRING's are `TRAVERSABLE'.
+deferred class HOARD[E_]
 	--
-	-- A good performance should always be obtained by sequentially acessing a `TRAVERSABLE' with increasing
-	-- indexes (from `lower' to `upper'), as demonstrated in the following code snippet :
+	-- A hoard of objects is a collation of many objects sharing the same type. This meta type defines some
+	-- traversal features using agents, as long as very simple hoard properties: `count' and `is_empty'.
 	--
-	--  from
-	--     i := a_traversable.lower
-	--  until
-	--     i > a_traversable.upper
-	--  loop
-	--     do_something_with(a_traversable.item(i))
-	--     i := i + 1
-	--  end
-	--
-	-- Other accessing methods (including random access and sequential access from `upper' to `lower') may or
-	-- may not lead to acceptable performance, depending on the particular implementation of `TRAVERSABLE'.
 
-inherit
-	ITERABLE[E_]
-		undefine
-			do_all, for_all, exists
+feature {ANY} -- Counting:
+	count: INTEGER is
+			-- Number of available items in the hoard.
+			--
+			-- See also `is_empty'
+		deferred
+		ensure
+			Result >= 0
 		end
-	INDEXABLE[E_]
 
-end -- class TRAVERSABLE
+	is_empty: BOOLEAN is
+			-- Is the hoard empty ?
+			--
+			-- See also `count'.
+		deferred
+		ensure
+			definition: Result = (count = 0)
+		end
+
+feature {ANY} -- Agent-based features:
+	do_all (action: ROUTINE[TUPLE[E_]]) is
+			-- Apply `action' to every item of `Current'.
+			--
+			-- See also `for_all', `exists'.
+		require
+			action /= Void
+		deferred
+		end
+
+	for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+			-- Do all items satisfy `test'?
+			--
+			-- See also `do_all', `exists'.
+		require
+			test /= Void
+		deferred
+		end
+
+	exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+			-- Does at least one item satisfy `test'?
+			--
+			-- See also `do_all', `for_all'.
+		require
+			test /= Void
+		deferred
+		end
+
+end -- class HOARD
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --

@@ -277,7 +277,6 @@ feature {}
 invariant
 	path /= Void
 	name_list /= Void
-	files /= Void
 	collection_sorter.is_sorted(name_list)
 	not exists implies is_empty
 

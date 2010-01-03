@@ -60,7 +60,7 @@ feature {ANY}
 			if is_interned then
 				Result := Current
 			else
-				Result := interned.reference_at(Current)
+				Result := interned.reference_at(hash_code)
 				if Result = Void then
 					do_intern
 					Result := Current
@@ -101,9 +101,9 @@ feature {ABSTRACT_STRING}
 	do_intern is
 		require
 			not is_interned
-			not interned.has(Current)
+			not interned.fast_has(hash_code)
 		do
-			interned.add(Current)
+			interned.add(Current, hash_code)
 			is_interned := True
 		ensure
 			is_interned
@@ -224,7 +224,7 @@ invariant
 	immutable implies (count = 0 implies storage.item(0) = '%U')
 	immutable implies (count > 0 implies (storage.item(count-1) = '%U' or else storage.item(count) = '%U'))
 	immutable implies (storage.item(count) = '%U' implies capacity = count + 1)
-	is_interned = interned.fast_has(Current)
+	is_interned = interned.fast_has(hash_code)
 	is_interned implies immutable
 
 end -- class FIXED_STRING

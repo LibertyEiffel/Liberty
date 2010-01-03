@@ -75,7 +75,4 @@ feature {}
 			Result := {AVL_SET[INTEGER] << 2, 3 >> }
 		end
 
-invariant
-	is_call xor is_assignment_test
-
 end

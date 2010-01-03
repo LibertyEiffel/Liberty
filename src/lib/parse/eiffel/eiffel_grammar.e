@@ -1199,7 +1199,7 @@ feature {}
 			image := keyword_image(buffer, expected)
 			if image /= Void then
 				-- `image' may be shared here
-				create Result.make(image, False, last_blanks.twin, start_position)
+				create Result.make(image, image.to_boolean, last_blanks.twin, start_position)
 			else
 				restore(buffer, old_position)
 			end
@@ -1279,11 +1279,11 @@ feature {}
 						end
 					when 1 then
 						-- first character was zero; just read the second.
-						check not valid end
 						inspect
 							c
 						when 'x', 'X' then
 							image.extend(c)
+							valid := False
 							state := 2
 						when '_' then
 							image.extend(c)
