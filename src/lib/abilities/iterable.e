@@ -4,7 +4,7 @@
 deferred class ITERABLE[E_]
 	--
 	-- An `ITERABLE[E_]' is a (potentially infinite) readable sequence of objects of type E_ that can be
-	-- accessed trought an ITERATOR[E]
+	-- accessed through an ITERATOR[E]
 	--
 	-- TODO: implement iterator-based `do_all', `for_all' and `exists' features.
 	--
@@ -20,6 +20,68 @@ feature {ANY} -- Other features:
 		obsolete "Please use new_iterator instead. This SmartEiffel historic feature is badly named."
 		do
 			Result := new_iterator
+		end
+
+feature {ANY} -- Agent-based features:
+	do_all (action: ROUTINE[TUPLE[E_]]) is
+			-- Apply `action' to every item of `Current'.
+			--
+			-- See also `for_all', `exists'.
+		require
+			action /= Void
+		local
+			i: like new_iterator
+		do
+			from
+				i := new_iterator
+				i.start
+			until
+				i.is_off
+			loop
+				action.call([i.item])
+				i.next
+			end
+		end
+
+	for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+			-- Do all items satisfy `test'?
+			--
+			-- See also `do_all', `exists'.
+		require
+			test /= Void
+		local
+			i: like new_iterator
+		do
+			from
+				Result := True
+				i := new_iterator
+				i.start
+			until
+				not Result or else i.is_off
+			loop
+				Result := test.item([i.item])
+				i.next
+			end
+		end
+
+	exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+			-- Does at least one item satisfy `test'?
+			--
+			-- See also `do_all', `for_all'.
+		require
+			test /= Void
+		local
+			i: like new_iterator
+		do
+			from
+				i := new_iterator
+				i.start
+			until
+				Result or else i.is_off
+			loop
+				Result := test.item([i.item])
+				i.next
+			end
 		end
 
 end -- class ITERABLE

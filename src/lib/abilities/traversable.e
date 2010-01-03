@@ -20,7 +20,11 @@ deferred class TRAVERSABLE[E_]
 	-- Other accessing methods (including random access and sequential access from `upper' to `lower') may or
 	-- may not lead to acceptable performance, depending on the particular implementation of `TRAVERSABLE'.
 
-inherit ITERABLE[E_]
+inherit
+	ITERABLE[E_]
+		redefine
+			do_all, for_all, exists
+		end
 
 feature {ANY} -- Indexing:
 	lower: INTEGER is
@@ -103,8 +107,6 @@ feature {ANY} -- Agent-based features:
 			-- Apply `action' to every item of `Current'.
 			--
 			-- See also `for_all', `exists'.
-		require
-			action /= Void
 		local
 			i: INTEGER
 		do
@@ -122,8 +124,6 @@ feature {ANY} -- Agent-based features:
 			-- Do all items satisfy `test'?
 			--
 			-- See also `do_all', `exists'.
-		require
-			test /= Void
 		local
 			i: INTEGER
 		do
@@ -142,8 +142,6 @@ feature {ANY} -- Agent-based features:
 			-- Does at least one item satisfy `test'?
 			--
 			-- See also `do_all', `for_all'.
-		require
-			test /= Void
 		local
 			i: INTEGER
 		do
