@@ -6,6 +6,7 @@ class ROPE
    -- http://en.wikipedia.org/Rope_(computer_science) and
    -- http://pcplus.techradar.com/node/3079/
 
+   -- Known bugs: using out with temporary 
 inherit ABSTRACT_STRING redefine new_iterator, infix "<" end
 
 creation {ANY} from_strings
@@ -54,6 +55,7 @@ feature
 				i.next
 			end
 		end
+
 feature {ANY} 
 	infix "<" (other: ABSTRACT_STRING): BOOLEAN is
 		local ci, oi: ITERATOR[CHARACTER]
@@ -61,9 +63,10 @@ feature {ANY}
 			from 
 				ci:=new_iterator; ci.start
 				oi:=other.new_iterator; oi.start
-			until (ci.is_off or oi.is_off) and then ci.item=oi.item 
+			until (ci.is_off or oi.is_off) or else ci.item/=oi.item 
 			loop ci.next; oi.next
 			end
+			-- TODO: turn this if statement into something more concise.
 			if ci.is_off then
 				if oi.is_off then Result := False
 				else Result := True
@@ -82,7 +85,7 @@ feature {ANY}
 			from 
 				ci:=new_iterator; ci.start
 				oi:=other.new_iterator; oi.start
-			until not (ci.is_off or oi.is_off) and then ci.item=oi.item 
+			until (ci.is_off or oi.is_off) or else ci.item/=oi.item 
 			loop ci.next; oi.next
 			end
 			Result := ci.is_off and oi.is_off
@@ -100,9 +103,7 @@ feature {ANY}
 			from 
 				ci:=new_iterator; ci.start
 				oi:=other.new_iterator; oi.start
-			until 
-				not (ci.is_off or oi.is_off) and then 
-				ci.item.to_lower=oi.item.to_lower
+			until (ci.is_off or oi.is_off) or else ci.item.same_as(oi.item)
 			loop ci.next; oi.next
 			end
 			Result := ci.is_off and oi.is_off

@@ -20,6 +20,8 @@ deferred class TRAVERSABLE[E_]
 	-- Other accessing methods (including random access and sequential access from `upper' to `lower') may or
 	-- may not lead to acceptable performance, depending on the particular implementation of `TRAVERSABLE'.
 
+inherit ITERABLE[E_]
+
 feature {ANY} -- Indexing:
 	lower: INTEGER is
 			-- Minimum index.
@@ -153,19 +155,6 @@ feature {ANY} -- Agent-based features:
 				Result := test.item([item(i)])
 				i := i + 1
 			end
-		end
-
-feature {ANY} -- Other features:
-	new_iterator: ITERATOR[E_] is
-		deferred
-		ensure
-			Result /= Void
-		end
-
-	frozen get_new_iterator: like new_iterator is
-		obsolete "Please use new_iterator instead. This SmartEiffel historic feature is badly named."
-		do
-			Result := new_iterator
 		end
 
 end -- class TRAVERSABLE
