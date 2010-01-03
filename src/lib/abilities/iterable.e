@@ -2,9 +2,12 @@
 -- See the full copyright at the end.
 --
 deferred class ITERABLE[E_]
-	-- An `ITERABLE[E_]' is a (potentially infinite) readable sequence of objects of type E_ that can be accessed trought an ITERATOR[E]
-
+	--
+	-- An `ITERABLE[E_]' is a (potentially infinite) readable sequence of objects of type E_ that can be
+	-- accessed trought an ITERATOR[E]
+	--
 	-- TODO: implement iterator-based `do_all', `for_all' and `exists' features.
+	--
 
 feature {ANY} -- Other features:
 	new_iterator: ITERATOR[E_] is
@@ -19,7 +22,7 @@ feature {ANY} -- Other features:
 			Result := new_iterator
 		end
 
-end -- class TRAVERSABLE
+end -- class ITERABLE
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
 --
