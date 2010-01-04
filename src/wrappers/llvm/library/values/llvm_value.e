@@ -69,7 +69,7 @@ inherit
 feature 
 	type: LLVM_TYPE is
 		do
-			Result:=wrapper(llvmtype_of(handle))
+			Result:=type_wrapper(llvmtype_of(handle))
 		end
 	
 	name: FIXED_STRING is

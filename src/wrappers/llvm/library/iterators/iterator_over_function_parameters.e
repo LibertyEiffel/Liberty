@@ -1,13 +1,15 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
+
 class ITERATOR_OVER_FUNCTION_PARAMETERS
+
 inherit 
 	BIDIRECTIONAL_ITERATOR[LLVM_VALUE]
 	WRAPPER_HANDLER
-insert 
 	LLVM_VALUE_FACTORY
-	CORE_EXTERNALS
+
+insert CORE_EXTERNALS
 creation {LLVM_FUNCTION} from_function
 
 feature {LLVM_FUNCTION}
@@ -26,22 +28,22 @@ feature {ANY}
 
 	start is
 		do
-			item:=wrapper_or_void(llvmget_first_param(function.handle))
+			item:=value_wrapper_or_void(llvmget_first_param(function.handle))
 		end	
 
 	finish is
 		do
-			item:=wrapper_or_void(llvmget_last_param(function.handle))
+			item:=value_wrapper_or_void(llvmget_last_param(function.handle))
 		end	
 
 	next is
 		do
-			item:=wrapper_or_void(llvmget_next_param(function.handle))
+			item:=value_wrapper_or_void(llvmget_next_param(function.handle))
 		end	
 
 	previous is
 		do
-			item:=wrapper_or_void(llvmget_previous_param(function.handle))
+			item:=value_wrapper_or_void(llvmget_previous_param(function.handle))
 		end	
 
 	item: LLVM_VALUE is attribute end 

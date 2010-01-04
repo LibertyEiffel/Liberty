@@ -1,35 +1,48 @@
 deferred class LLVM_VALUE_FACTORY
 	-- A factory of values
 
-inherit WRAPPER_FACTORY[LLVM_VALUE]
+inherit 
+	CACHING_FACTORY[LLVM_VALUE]
+		rename 
+			wrappers as value_wrappers,
+			wrapper as value_wrapper,
+			wrapper_or_void as value_wrapper_or_void
+		end
 insert
 	CORE_EXTERNALS undefine fill_tagged_out_memory end 
 	EXCEPTIONS undefine copy, is_equal end
-feature 
-	wrapper (p: POINTER): LLVM_VALUE is
+
+feature {WRAPPER, WRAPPER_HANDLER}
+	value_wrappers: HASHED_DICTIONARY [LLVM_VALUE, POINTER] is once create Result.make end
+	
+	value_wrapper (p: POINTER): LLVM_VALUE is
 		local type: LLVMTYPE_KIND_ENUM
 		do
-			raise("Not all heirs of LLVM_VALUE taken in count in value factory")
-			type.change_value(llvmget_type_kind(llvmtype_of(p)))
-			-- Note: of course the following if elseif chain should be
-			-- substituted by an inspect instruction, if only inspect allowed
-			-- compound values like type.void_type_kind_low_level as when
-			-- values.
-			if     type.is_void_type_kind then not_yet_implemented 
-			elseif type.is_double_type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-			elseif type.is_x_86_fp_80type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-			elseif type.is_fp_128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-			elseif type.is_ppc__fp_128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
-			elseif type.is_label_type_kind then raise("LLVM_VALUE_FACTORY got a label type")
-			elseif type.is_integer_type_kind then create {LLVM_CONSTANT_INT} Result.from_external_pointer(p)
-			elseif type.is_function_type_kind then create {LLVM_FUNCTION} Result.from_external_pointer(p)
-			elseif type.is_struct_type_kind then not_yet_implemented
-			elseif type.is_array_type_kind then not_yet_implemented
-			elseif type.is_pointer_type_kind then not_yet_implemented
-			elseif type.is_opaque_type_kind then not_yet_implemented
-			elseif type.is_vector_type_kind then not_yet_implemented
-			elseif type.is_metadata_type_kind then not_yet_implemented
-			else not_yet_implemented
+			Result:=value_wrappers.reference_at(p)
+			if Result=Void then
+				raise("Not all heirs of LLVM_VALUE taken in count in value factory")
+				type.change_value(llvmget_type_kind(llvmtype_of(p)))
+				-- Note: of course the following if elseif chain should be
+				-- substituted by an inspect instruction, if only inspect allowed
+				-- compound values like type.void_type_kind_low_level as when
+				-- values.
+				if     type.is_void_type_kind then not_yet_implemented 
+				elseif type.is_double_type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+				elseif type.is_x_86_fp_80type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+				elseif type.is_fp_128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+				elseif type.is_ppc__fp_128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
+				elseif type.is_label_type_kind then raise("LLVM_VALUE_FACTORY got a label type")
+				elseif type.is_integer_type_kind then create {LLVM_CONSTANT_INT} Result.from_external_pointer(p)
+				elseif type.is_function_type_kind then create {LLVM_FUNCTION} Result.from_external_pointer(p)
+				elseif type.is_struct_type_kind then not_yet_implemented
+				elseif type.is_array_type_kind then not_yet_implemented
+				elseif type.is_pointer_type_kind then not_yet_implemented
+				elseif type.is_opaque_type_kind then not_yet_implemented
+				elseif type.is_vector_type_kind then not_yet_implemented
+				elseif type.is_metadata_type_kind then not_yet_implemented
+				else not_yet_implemented
+				end
+				value_wrappers.put(Result,p)
 			end
 		-- TODO: This alternative implementation (also O(n) - with n the number of effective classes inheriting from
 		-- LLVM_VALUE) is based on the C interface

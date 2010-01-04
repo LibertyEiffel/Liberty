@@ -25,7 +25,7 @@ deferred class CACHING_FACTORY [ITEM->WRAPPER]
 inherit
 	WRAPPER_FACTORY[ITEM]
 
-feature 
+feature {WRAPPER, WRAPPER_HANDLER}
 	wrappers: HASHED_DICTIONARY [ITEM, POINTER] is
 			-- Dictionary cache storing wrappers; usually used in 
 			-- WRAPPER_COLLECTIONs or WRAPPER_DICTIONARY

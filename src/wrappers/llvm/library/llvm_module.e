@@ -26,17 +26,11 @@ class LLVM_MODULE
 inherit 
 	C_STRUCT
 	EIFFEL_OWNED redefine dispose end 
-	LLVM_TYPE_FACTORY
-	-- TODO: make it a CACHING_FACTORY[LLVM_TYPE] 
 	STREAM_HANDLER undefine copy, is_equal end
+	LLVM_FUNCTION_FACTORY 
 
 insert 
-	LLVM_FUNCTION_FACTORY 
-		rename
-			wrapper as function_wrapper,
-			wrapper_or_void as function_wrapper_or_void
-		end
-
+	LLVM_TYPE_FACTORY
 	CORE_EXTERNALS 
 	BIT_WRITER_EXTERNALS
 	STDIOEXTERNALS -- to use low-level fileno function
@@ -44,7 +38,7 @@ insert
 
 creation with_name, with_name_in_context
 
-feature
+feature {ANY}
 	with_name (a_name: STRING) is
 	require a_name/=Void
 	do
@@ -59,7 +53,8 @@ feature
 		handle := llvmmodule_create_with_name_in_context
 		(a_name.to_external, a_context.handle)
 	end
-feature 
+
+feature {ANY} -- Queries
 	data_layout: FIXED_STRING is
 		do
 			create Result.from_external_copy(llvmget_data_layout(handle))
@@ -78,7 +73,7 @@ feature
 		ensure Result/=Void
 		end
 
-feature -- Types
+feature {ANY} -- Types
 	add_type (a_name: STRING; a_type: LLVM_TYPE) is
 	require
 		a_name/=Void
@@ -102,17 +97,13 @@ feature -- Types
 	type_at (a_name: STRING): LLVM_TYPE is
 	require
 		a_name/=Void
-	local r: POINTER
 	do
-		r := llvmget_type_by_name(handle,a_name.to_external)
-		if r.is_not_null then
-			-- TODO: cache the Eiffel wrapper Result:=types.reference_at(r)
-			Result:=wrapper(r)
-		end
+		Result := type_wrapper_or_void(llvmget_type_by_name(handle,a_name.to_external))
 	ensure 
 		name_untouched: a_name.is_equal(old a_name)
 	end
-feature -- Operation on functions
+
+feature {ANY} -- Operation on functions
 	new_function  (a_name: ABSTRACT_STRING; a_type: LLVM_FUNCTION_TYPE): LLVM_FUNCTION is
 		-- A newly created function with `a_name' of `a_type'
 		-- contained in Current module.
@@ -134,13 +125,10 @@ feature -- Operation on functions
 	function_with_name (a_name: ABSTRACT_STRING): LLVM_FUNCTION is
 			-- The function named with `a_name'.
 		require name_not_void: a_name/=Void
-		local p: POINTER
 		do
-			p:=llvmget_named_function(handle,a_name.to_external)
-			if p.is_not_null then
-				Result:=function_wrapper(p) --create Result.from_external_pointer(p)
-			end
+			Result:=function_wrapper_or_void(llvmget_named_function(handle,a_name.to_external))
 		end
+
 	first_function: LLVM_FUNCTION is
 		do
 			Result:=function_wrapper_or_void(llvmget_first_function(handle))
@@ -151,7 +139,7 @@ feature -- Operation on functions
 			Result:=function_wrapper_or_void (llvmget_last_function(handle))
 		end
 
-feature -- Outputting
+feature {ANY} -- Outputting
 
 	write_bitcode_to_file (a_path: STRING) is
 		-- Writes Current module to `a_path'. TODO: in case of error raises an exception; errors shall be more properly handled.

@@ -23,22 +23,22 @@ feature
 
 	start is
 		do
-			item := wrapper_or_void(llvmget_first_function(module.handle))
+			item := function_wrapper_or_void(llvmget_first_function(module.handle))
 		end
 	
 	finish is
 		do
-			item := wrapper_or_void(llvmget_last_function(module.handle))
+			item := function_wrapper_or_void(llvmget_last_function(module.handle))
 		end
 
 	next is
 		do
-			item := wrapper_or_void(llvmget_next_function(module.handle))
+			item := function_wrapper_or_void(llvmget_next_function(module.handle))
 		end
 		
 	previous is
 		do
-			item := wrapper_or_void(llvmget_previous_function(module.handle))
+			item := function_wrapper_or_void(llvmget_previous_function(module.handle))
 		end
 
 	is_off: BOOLEAN is

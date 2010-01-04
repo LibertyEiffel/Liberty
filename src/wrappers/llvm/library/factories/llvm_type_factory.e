@@ -1,19 +1,25 @@
 deferred class LLVM_TYPE_FACTORY
 	-- A factory of LLVM_TYPEs
 
-inherit CACHING_FACTORY[LLVM_TYPE] 
+inherit 
+	CACHING_FACTORY[LLVM_TYPE] 
+		rename
+			wrappers as type_wrappers,
+			wrapper as type_wrapper,
+			wrapper_or_void as type_wrapper_or_void
+		end
 insert 
 	CORE_EXTERNALS undefine fill_tagged_out_memory end 
 	EXCEPTIONS undefine copy, fill_tagged_out_memory, is_equal end 
 
-feature 
-	wrappers: HASHED_DICTIONARY [LLVM_TYPE, POINTER] is once create Result.make end
+feature {WRAPPER, WRAPPER_HANDLER} 
+	type_wrappers: HASHED_DICTIONARY [LLVM_TYPE, POINTER] is once create Result.make end
 
-	wrapper (a_pointer: POINTER): LLVM_TYPE is
+	type_wrapper (a_pointer: POINTER): LLVM_TYPE is
 		-- The LLVM_TYPE for `a_pointer' of the fittest type.
 	local a_type: LLVMTYPE_KIND_ENUM
 	do
-		Result := wrappers.reference_at(a_pointer)
+		Result := type_wrappers.reference_at(a_pointer)
 		if Result=Void then
 			a_type.change_value(llvmget_type_kind(a_pointer))
 			-- The following long conditional instruction ideally should be an
@@ -35,7 +41,7 @@ feature
 			--elseif a_type.is_metadata_type_kind  then create {} Result
 			else raise("LLVM_TYPE_FACTORY.wrapper: unknown type")
 			end
-			wrappers.put(Result,a_pointer)
+			type_wrappers.put(Result,a_pointer)
 		end
 	end
 end -- class LLVM_TYPE_FACTORY

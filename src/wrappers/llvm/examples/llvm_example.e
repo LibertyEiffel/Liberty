@@ -21,7 +21,7 @@ feature
 			
 			-- Create the type for the function
 			create muladd_type.make(integer_32bit_type,
-			{LLVM_TYPE_ARRAY <<integer_32bit_type,integer_32bit_type,integer_32bit_type>>},False)
+			<<integer_32bit_type,integer_32bit_type,integer_32bit_type>>,False)
 
 			muladd := module.new_function("mul_add func",muladd_type)
 			calling_convention.set_ccall_conv
