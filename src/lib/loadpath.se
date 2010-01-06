@@ -1,4 +1,5 @@
 ./abilities/loadpath.se
+./automaton/
 ./backtracking/loadpath.se
 ./design_patterns/
 ./exec/loadpath.se
