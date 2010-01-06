@@ -37,10 +37,6 @@ class LLVM_FUNCTION
 inherit LLVM_GLOBAL_VALUE
 insert 
 	LLVM_VALUE_FACTORY 
-		rename
-			wrapper as wrapper_value,
-			wrapper_or_void as wrapper_value_or_void
-		end
 
 creation {ANY} make 
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
@@ -147,7 +143,7 @@ feature -- Parameters
 			check
 				p.is_not_null 
 			end
-			Result:=wrapper_value(p)
+			Result:=value_wrapper(p)
 		ensure Result/=Void
 		end
 	

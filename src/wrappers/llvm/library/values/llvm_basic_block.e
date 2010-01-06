@@ -22,10 +22,6 @@ class LLVM_BASIC_BLOCK
 	-- that basic blocks are "well formed".
 inherit LLVM_VALUE
 insert 	LLVM_VALUE_FACTORY 
-		rename 
-			wrapper as value, 
-			wrapper_or_void as value_or_void 
-		end
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature 
 	
@@ -34,10 +30,8 @@ feature
 
 	parent: LLVM_VALUE is
 		--- The value that contains Current block
-		local p: POINTER
 		do
-			p:=llvmget_basic_block_parent(handle)
-			if p.is_not_null then Result:=value(p) end
+			Result:=value_wrapper_or_void(llvmget_basic_block_parent(handle))
 		end
 
 	next: LLVM_BASIC_BLOCK is

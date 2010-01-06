@@ -2,7 +2,7 @@ class LLVM_VOID_TYPE
 
 inherit LLVM_TYPE
 creation make, in_context, from_external_pointer
-feature -- Creation 
+feature {ANY} -- Creation 
 	make is
 		do
 			handle:=llvmvoid_type
