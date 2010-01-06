@@ -40,6 +40,7 @@ feature {ANY}
 		loop
 			params.put(ti.item.handle,i)
 			i:=i+1
+			ti.next
 		end
 
 		handle := llvmfunction_type

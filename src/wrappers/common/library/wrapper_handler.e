@@ -120,6 +120,6 @@ feature {} -- External calls
 			-- the memory areas s1 and s2. It returns an integer less than, equal to,
 			-- or greater than zero if s1 is found, respectively, to be less
 			-- than, to match, or be greater than s2.
-			external "C use <string.h>"
-			end
+		external "C use <string.h>"
+		end
 end

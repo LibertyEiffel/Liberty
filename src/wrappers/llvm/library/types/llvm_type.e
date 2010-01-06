@@ -44,7 +44,6 @@ feature
 	-- equivalent.
 	context: LLVM_CONTEXT is
 		do
-			-- TODO: cache the result.
 			create Result.from_external_pointer(llvmget_type_context(handle))
 		end
 

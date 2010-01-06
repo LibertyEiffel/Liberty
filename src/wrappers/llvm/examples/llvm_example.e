@@ -20,8 +20,7 @@ feature
 			-- A function computes Result=x*y+z.
 			
 			-- Create the type for the function
-			create muladd_type.make(integer_32bit_type,
-			<<integer_32bit_type,integer_32bit_type,integer_32bit_type>>,False)
+			create muladd_type.make(int_32, <<int_32,int_32,int_32>>,False)
 
 			muladd := module.new_function("mul_add func",muladd_type)
 			calling_convention.set_ccall_conv

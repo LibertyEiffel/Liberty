@@ -23,7 +23,7 @@ feature {LLVM_FUNCTION}
 feature {ANY}
 	is_off: BOOLEAN is
 		do
-			Result:=(item/=Void)
+			Result:=(item=Void)
 		end
 
 	start is
