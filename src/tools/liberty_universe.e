@@ -418,27 +418,26 @@ feature {} -- AST building
 
 	parse_class (cluster: LIBERTY_CLUSTER; class_name: STRING; pos: LIBERTY_POSITION): LIBERTY_AST_ONE_CLASS is
 		local
-			code: STRING; parse_desc: like parse_descriptor
+			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
 			ast: LIBERTY_AST_CLASS
 		do
 			std_output.put_line(once "Parsing " + class_name)
-			parse_descriptor.make(cluster, class_name.intern, pos)
-			Result := classes.reference_at(parse_descriptor)
+			create class_descriptor.make(cluster, class_name.intern, pos)
+			Result := classes.reference_at(class_descriptor)
 			if Result = Void then
-				parse_desc := parse_descriptor.twin
 				code := once ""
 				code.clear_count
-				read_file_in(parse_desc, code)
+				read_file_in(class_descriptor, code)
 				parser_buffer.initialize_with(code)
 
 				eiffel.reset
 				parser.eval(parser_buffer, eiffel.table, once "Class")
 				if parser.error /= Void then
-					errors.emit_syntax_error(parser.error, code, parse_desc.file.intern)
+					errors.emit_syntax_error(parser.error, code, class_descriptor.file.intern)
 				end
 				ast ::= eiffel.root_node
 				Result := ast.one_class
-				classes.put(Result, parse_desc)
+				classes.put(Result, class_descriptor)
 			end
 		ensure
 			Result /= Void
@@ -446,7 +445,7 @@ feature {} -- AST building
 
 	parse_tuple_classes (pos: LIBERTY_POSITION): LIBERTY_AST_CLASSES is
 		local
-			code: STRING; parse_desc: like parse_descriptor
+			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
 			tuple_cluster: LIBERTY_CLUSTER
 			i: INTEGER; file: FIXED_STRING
 		once
@@ -455,19 +454,19 @@ feature {} -- AST building
 			if tuple_cluster = Void then
 				errors.set(level_fatal_error, "Kernel class not found: TUPLE")
 			end
-			create parse_desc.make(tuple_cluster, "TUPLE".intern, pos)
+			create class_descriptor.make(tuple_cluster, "TUPLE".intern, pos)
 			code := once ""
 			code.clear_count
-			read_file_in(parse_desc, code)
+			read_file_in(class_descriptor, code)
 			parser_buffer.initialize_with(code)
 
 			eiffel.reset
 			parser.eval(parser_buffer, eiffel.table, once "Classes")
 			if parser.error /= Void then
-				errors.emit_syntax_error(parser.error, code, parse_desc.file.intern)
+				errors.emit_syntax_error(parser.error, code, class_descriptor.file.intern)
 			end
 			Result ::= eiffel.root_node
-			file := parse_desc.file.intern
+			file := class_descriptor.file.intern
 			from
 				i := Result.classes.list_lower
 				check i = 0 end
@@ -503,11 +502,6 @@ feature {} -- AST building
 			end
 		ensure
 			not errors.has_error
-		end
-
-	parse_descriptor: LIBERTY_CLASS_DESCRIPTOR is
-		once
-			create Result
 		end
 
 	parser_file: TEXT_FILE_READ is

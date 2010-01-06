@@ -35,8 +35,14 @@ feature {LIBERTY_ERROR}
 feature {}
 	make is
 		do
+			file := unknown_file
 		end
 
 	source: STRING is ""
+
+	unknown_file: FIXED_STRING is
+		once
+			Result := "Unknown file".intern
+		end
 
 end

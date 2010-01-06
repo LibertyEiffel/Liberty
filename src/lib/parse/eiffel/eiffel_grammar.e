@@ -1595,7 +1595,7 @@ feature {}
 	build_root (root_name: STRING; root_content: TRAVERSABLE[STRING]) is
 		do
 			build_non_terminal(root_name, root_content)
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/ast")
 				std_error.put_line(once "Final AST:")
 				display(std_error)
 			end
@@ -1607,7 +1607,7 @@ feature {}
 		local
 			i: INTEGER; new_node: EIFFEL_NON_TERMINAL_NODE; node: EIFFEL_NODE
 		do
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				std_error.put_string(once "Building non-terminal node: ")
 				std_error.put_character('"')
 				std_error.put_string(node_name)
@@ -1623,14 +1623,14 @@ feature {}
 				node := stack.last
 				stack.remove_last
 				new_node.set(i, node)
-				debug ("parse/eiffel")
+				debug ("parse/eiffel/build")
 					std_error.put_string(once "   aggregating: ")
 					std_error.put_line(node_content.item(i))
 				end
 				i := i - 1
 			end
 			stack.add_last(new_node)
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				show_stack
 			end
 		ensure
@@ -1644,7 +1644,7 @@ feature {}
 			eiffel_image: EIFFEL_IMAGE
 		do
 			eiffel_image ::= node_image
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				std_error.put_string(once "Building terminal node: ")
 				std_error.put_character('"')
 				std_error.put_string(node_name)
@@ -1652,7 +1652,7 @@ feature {}
 				std_error.put_line(eiffel_image.image)
 			end
 			stack.add_last(factory.terminal(node_name, eiffel_image))
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				show_stack
 			end
 		ensure
@@ -1664,7 +1664,7 @@ feature {}
 		local
 			list: EIFFEL_LIST_NODE
 		do
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				std_error.put_string(once "Building new empty list %"")
 				std_error.put_string(list_name)
 				std_error.put_character('"')
@@ -1672,7 +1672,7 @@ feature {}
 			end
 			list := factory.list(list_name)
 			stack.add_last(list)
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				show_stack
 			end
 		ensure
@@ -1689,7 +1689,7 @@ feature {}
 		do
 			atom := stack.last
 			stack.remove_last
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				std_error.put_string(once "Building new list %"")
 				std_error.put_string(list_name)
 				std_error.put_string(once "%" with one atom: atom should be %"")
@@ -1702,7 +1702,7 @@ feature {}
 			list := factory.list(list_name)
 			list.add(atom)
 			stack.add_last(list)
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				show_stack
 			end
 		ensure
@@ -1742,7 +1742,7 @@ feature {}
 			check
 				atom.name.is_equal(atom_name)
 			end
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				std_error.put_string(once "Building list %"")
 				std_error.put_string(list_name)
 				std_error.put_string(once "%" (continuation): atom should be %"")
@@ -1756,7 +1756,7 @@ feature {}
 			end
 			list.add(atom)
 			stack.add_last(list)
-			debug ("parse/eiffel")
+			debug ("parse/eiffel/build")
 				show_stack
 			end
 		ensure

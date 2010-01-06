@@ -120,11 +120,13 @@ feature {}
 			create {HASHED_DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]} locals_map.make
 			create {FAST_ARRAY[LIBERTY_RETRY]} retries.with_capacity(1)
 			if a_result_type /= Void then
-				create result_entity.make(a_result_type)
+				create result_entity.make(a_result_type, errors.unknown_position)
 			end
 		ensure
 			result_type = a_result_type
 		end
+
+	errors: LIBERTY_ERRORS
 
 invariant
 	parameters_list /= Void

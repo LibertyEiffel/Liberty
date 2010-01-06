@@ -200,7 +200,7 @@ feature {}
 			loop
 				name := parent.features.key(i)
 				parent_fd := parent.features.item(i)
-				create fd.make(name, parent_fd.clients, parent_fd.is_frozen)
+				create fd.make(name, parent_fd.clients, parent_fd.is_frozen, name.position)
 				fd.add_precursor(parent_fd.the_feature, parent)
 				pf.add(fd, name)
 				i := i + 1
@@ -693,7 +693,7 @@ feature {}
 						errors.set(level_error, once "Duplicate feature: " + feature_name.name)
 					end
 				else
-					create fd.make(feature_name, clients, name.is_frozen)
+					create fd.make(feature_name, clients, name.is_frozen, feature_name.position)
 					type.add_feature(fd)
 				end
 				i := i + 1
@@ -1549,8 +1549,6 @@ feature {} -- Expressions
 		end
 
 	expression_10 (e10: LIBERTY_AST_E10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
-		local
-			tgt: LIBERTY_EXPRESSION
 		do
 			if e10.is_call then
 				Result := expression_call(e10.call, local_context, redefinitions)
@@ -1927,7 +1925,7 @@ feature {}
 		do
 			type := a_type
 			universe := a_universe
-			create current_entity.make(a_type)
+			create current_entity.make(a_type, errors.unknown_position)
 			create {HASHED_DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]} feature_writables.make
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, LIBERTY_FEATURE_NAME]} feature_entities.make
 		ensure

@@ -178,18 +178,21 @@ feature {}
 		end
 
 feature {}
-	make (a_name: like feature_name; a_clients: like clients; a_frozen: like is_frozen) is
+	make (a_name: like feature_name; a_clients: like clients; a_frozen: like is_frozen; a_position: like position) is
 		require
 			a_name /= Void
 			a_clients /= Void
+			a_position /= Void
 		do
 			feature_name := a_name
 			clients := a_clients
 			is_frozen := a_frozen
+			position := a_position
 		ensure
 			feature_name = a_name
 			clients = a_clients
 			is_frozen = a_frozen
+			position = a_position
 		end
 
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]

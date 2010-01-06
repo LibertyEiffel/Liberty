@@ -78,7 +78,7 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := count = 3
 			check
-				Result = nodes.item(1).name.is_equal(once "Type_Definition")
+				Result implies nodes.item(1).name.is_equal(once "Type_Definition")
 			end
 		end
 

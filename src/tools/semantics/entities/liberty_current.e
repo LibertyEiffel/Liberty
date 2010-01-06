@@ -31,12 +31,15 @@ feature {ANY}
 	is_result_type_set: BOOLEAN is True
 
 feature {}
-	make (type: like result_type) is
+	make (type: like result_type; a_position: like position) is
 		require
 			type /= Void
+			a_position /= Void
 		do
+			position := a_position
 			result_type := type
 		ensure
+			position = a_position
 			result_type = type
 		end
 

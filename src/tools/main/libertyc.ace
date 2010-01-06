@@ -17,7 +17,7 @@ cluster
 		default
 			assertion(require)
 		option
-			debug("parse/eiffel"): EIFFEL_GRAMMAR
+			debug("parse/eiffel/ast"): EIFFEL_GRAMMAR
 		end
 
 	tools: "${path_liberty}/src/tools/loadpath.se"

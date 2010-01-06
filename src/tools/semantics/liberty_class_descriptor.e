@@ -18,7 +18,7 @@ insert
 	HASHABLE
 
 create {ANY}
-	make, default_create
+	make
 
 feature {ANY}
 	cluster: LIBERTY_CLUSTER
