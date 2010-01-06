@@ -1,0 +1,33 @@
+system "libertyc"
+
+root LIBERTYC: make
+
+default
+	assertion(no)
+	debug(no)
+	collect(yes)
+	verbose(yes)
+	manifest_string_trace(no)
+	profile(no)
+	relax(yes)
+	trace(yes)
+
+cluster
+	lib: "${path_liberty}/src/lib/loadpath.se"
+		default
+			assertion(require)
+		option
+			debug("parse/eiffel"): EIFFEL_GRAMMAR
+		end
+
+	tools: "${path_liberty}/src/tools/loadpath.se"
+		default
+			assertion(all)
+		end
+
+generate
+	no_strip(yes)
+	no_split(no)
+	clean(no)
+
+end
