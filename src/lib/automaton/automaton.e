@@ -15,14 +15,14 @@ feature {ANY}
 			state: STATE[E_]
 		do
 			from
-				state := transition(Void, start_state, e)
+				state := next_transition(Void, start_state, e)
 				next := state.run(Current, e)
 			invariant
 				next /= Void implies has(next)
 			until
 				next = Void
 			loop
-				state := transition(state, next, e)
+				state := next_transition(state, next, e)
 				next := state.run(Current, e)
 			end
 			last_transition(state, e)
@@ -36,7 +36,7 @@ feature {ANY}
 		end
 
 feature {}
-	transition (from_state: STATE[E_]; state_name: ABSTRACT_STRING; e: E_): STATE[E_] is
+	next_transition (from_state: STATE[E_]; state_name: ABSTRACT_STRING; e: E_): STATE[E_] is
 		do
 			debug ("automaton/transition")
 				if from_state = Void then
@@ -45,9 +45,8 @@ feature {}
 					std_output.put_line(from_state.name.out + " => " + state_name.out)
 				end
 			end
-			before_transition.call([e, from_state])
 			Result := states.fast_reference_at(state_name.intern)
-			after_transition.call([e, from_state, Result])
+			transition.call([e, from_state, Result])
 		end
 
 	last_transition (from_state: STATE[E_]; e: E_) is
@@ -55,19 +54,18 @@ feature {}
 			debug ("automaton/transition")
 				std_output.put_line(from_state.name.out + " => Void")
 			end
-			before_transition.call([e, from_state])
-			after_transition.call([e, from_state, Void])
+			transition.call([e, from_state, Void])
 		end
 
 feature {STATE} --|* TODO: should be STATE[E_] (when Liberty can bootstrap)
-	call_before_guards (e: E_) is
+	call_before_guards (e: E_; state: STATE[E_]) is
 		do
-			before_guards.call([e])
+			before_guards.call([e, state])
 		end
 
-	call_after_guards (e: E_) is
+	call_after_guards (e: E_; state: STATE[E_]) is
 		do
-			after_guards.call([e])
+			after_guards.call([e, state])
 		end
 
 feature {ANY}
@@ -85,28 +83,29 @@ feature {ANY}
 			after_guards = p
 		end
 
-	set_before_transition (p: like before_transition) is
+	set_transition (p: like transition) is
 		do
-			before_transition := p
+			transition := p
 		ensure
-			before_transition = p
-		end
-
-	set_after_transition (p: like after_transition) is
-		do
-			after_transition := p
-		ensure
-			after_transition = p
+			transition = p
 		end
 
 feature {}
 	states: DICTIONARY[STATE[E_], FIXED_STRING]
-	before_guards: PROCEDURE[TUPLE[E_]]
-	after_guards: PROCEDURE[TUPLE[E_]]
-	before_transition: PROCEDURE[TUPLE[E_, STATE[E_]]]
-	after_transition: PROCEDURE[TUPLE[E_, STATE[E_], STATE[E_]]]
+			-- A dictionary of all the states
 
-	default_before_guards, default_after_guards, default_before_transition, default_after_transition is
+	before_guards: PROCEDURE[TUPLE[E_, STATE[E_]]]
+			-- That agent is called before checking guards. The given state is the current one.
+
+	after_guards: PROCEDURE[TUPLE[E_, STATE[E_]]]
+			-- That agent is called after checking guards, whether a guard was raised or not. The given state is
+			-- the current one.
+
+	transition: PROCEDURE[TUPLE[E_, STATE[E_], STATE[E_]]]
+			-- That agent is called when the next state was found. The given states are resp. the current one
+			-- (Void if first transition) and the successor (Void is last transition).
+
+	default_before_guards, default_after_guards, default_transition is
 		do
 		end
 
@@ -116,8 +115,7 @@ feature {}
 			create {HASHED_DICTIONARY[STATE[E_], FIXED_STRING]} states.with_capacity(needed_capacity)
 			before_guards := agent default_before_guards
 			after_guards := agent default_after_guards
-			before_transition := agent default_before_transition
-			after_transition := agent default_after_transition
+			transition := agent default_transition
 		end
 
 	manifest_put (index: INTEGER; state_name: ABSTRACT_STRING; state: STATE[E_]) is
@@ -140,8 +138,7 @@ invariant
 	states /= Void
 	before_guards /= Void
 	after_guards /= Void
-	before_transition /= Void
-	after_transition /= Void
+	transition /= Void
 
 end -- class AUTOMATON
 --
