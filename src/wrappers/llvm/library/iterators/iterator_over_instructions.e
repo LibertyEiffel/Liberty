@@ -33,12 +33,12 @@ feature
 
 	next is
 		do
-			item := wrapper_or_void(llvmget_next_instruction(block.handle))
+			item := wrapper_or_void(llvmget_next_instruction(item.handle))
 		end
 		
 	previous is
 		do
-			item := wrapper_or_void(llvmget_previous_instruction(block.handle))
+			item := wrapper_or_void(llvmget_previous_instruction(item.handle))
 		end
 
 	is_off: BOOLEAN is

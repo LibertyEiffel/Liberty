@@ -38,12 +38,12 @@ feature {ANY}
 
 	next is
 		do
-			item:=value_wrapper_or_void(llvmget_next_param(function.handle))
+			item:=value_wrapper_or_void(llvmget_next_param(item.handle))
 		end	
 
 	previous is
 		do
-			item:=value_wrapper_or_void(llvmget_previous_param(function.handle))
+			item:=value_wrapper_or_void(llvmget_previous_param(item.handle))
 		end	
 
 	item: LLVM_VALUE is attribute end 

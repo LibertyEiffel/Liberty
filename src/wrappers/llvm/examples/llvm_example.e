@@ -33,11 +33,15 @@ feature
 			param_iter.start; param_iter.item.set_name("x")
 			param_iter.next;  param_iter.item.set_name("y")
 			param_iter.next;  param_iter.item.set_name("z")
+			muladd.do_all_parameters (agent {LLVM_VALUE}.print_on(std_output))
 			check 
-				muladd.parameter(1.to_natural_32).name.is_equal("x")
-				muladd.parameter(2.to_natural_32).name.is_equal("y")
-				muladd.parameter(3.to_natural_32).name.is_equal("z")
+				muladd.parameter(0.to_natural_32).name.is_equal("x")
+				muladd.parameter(1.to_natural_32).name.is_equal("y")
+				muladd.parameter(2.to_natural_32).name.is_equal("z")
+				muladd.for_all_parameters(agent name_not_void)
+				muladd.exists_parameter(agent name_is(?,"y"))
 			end
+			
 			-- Add function body
 
 			-- verifyModule(*Mod, PrintMessageAction);
@@ -47,6 +51,19 @@ feature
 			-- pass_manager.run(module)
 		end
 
+	name_not_void (a_value: LLVM_VALUE): BOOLEAN is
+		require a_value/=Void
+		do
+			Result := a_value.name/=Void
+		end
+
+	name_is (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING): BOOLEAN is
+		require
+			a_value/=Void
+			a_name/=Void
+		do
+			Result := a_value.name.is_equal(a_name)
+		end
 	calling_convention: LLVMCALL_CONV_ENUM
 
 	module: LLVM_MODULE

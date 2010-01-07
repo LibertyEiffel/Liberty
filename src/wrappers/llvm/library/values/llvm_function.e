@@ -34,7 +34,17 @@ class LLVM_FUNCTION
 	-- Eiffel specific note: variadic functions - functions accepting a
 	-- variable number of arguments - are not supported. 
 
-inherit LLVM_GLOBAL_VALUE
+inherit 
+	LLVM_GLOBAL_VALUE
+	ITERABLE[LLVM_VALUE]
+		-- to provide iteration over parameters
+		rename 
+			new_iterator as new_parameter_iterator,
+			do_all as do_all_parameters
+			for_all as for_all_parameters
+			exists as exists_parameter
+		undefine is_equal, copy 
+		end
 insert 
 	LLVM_VALUE_FACTORY 
 
