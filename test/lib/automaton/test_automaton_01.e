@@ -25,6 +25,7 @@ feature {}
 			aux: AUX_AUTOMATON_01
 		do
 			create aux.make(num)
+			aux.run
 			if is_num then
 				message_assert(agent is_a_number(num), aux.is_number)
 				message_assert(agent expected(num, aux) + " was expected", num.is_equal(aux.found_number))

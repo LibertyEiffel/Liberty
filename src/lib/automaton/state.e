@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class STATE
+class STATE[E_]
 
 creation {ANY}
 	manifest_creation
@@ -18,37 +18,37 @@ feature {AUTOMATON}
 			name = a_name
 		end
 
-	run (a: AUTOMATON): ABSTRACT_STRING is
+	run (a: AUTOMATON[E_]; e: E_): ABSTRACT_STRING is
 		local
 			i: INTEGER; found: BOOLEAN
 		do
-			a.call_before_guards
+			a.call_before_guards(e)
 			from
 				i := guards.lower
 			until
 				found
 			loop
-				found := guards.item(i).item([])
+				found := guards.item(i).item([e])
 				if found then
-					a.call_after_guards
-					Result := actions.item(i).item([])
+					a.call_after_guards(e)
+					Result := actions.item(i).item([e])
 				end
 				i := i + 1
 			end
 		end
 
 feature {}
-	guards: COLLECTION[PREDICATE[TUPLE]]
-	actions: COLLECTION[FUNCTION[TUPLE, ABSTRACT_STRING]]
+	guards: COLLECTION[PREDICATE[TUPLE[E_]]]
+	actions: COLLECTION[FUNCTION[TUPLE[E_], ABSTRACT_STRING]]
 
 feature {}
 	manifest_make (needed_capacity: INTEGER) is
 		do
-			create {FAST_ARRAY[PREDICATE[TUPLE]]} guards.with_capacity(needed_capacity)
-			create {FAST_ARRAY[FUNCTION[TUPLE, ABSTRACT_STRING]]} actions.with_capacity(needed_capacity)
+			create {FAST_ARRAY[PREDICATE[TUPLE[E_]]]} guards.with_capacity(needed_capacity)
+			create {FAST_ARRAY[FUNCTION[TUPLE[E_], ABSTRACT_STRING]]} actions.with_capacity(needed_capacity)
 		end
 
-	manifest_put (index: INTEGER; guard: PREDICATE[TUPLE]; action: FUNCTION[TUPLE, ABSTRACT_STRING]) is
+	manifest_put (index: INTEGER; guard: PREDICATE[TUPLE[E_]]; action: FUNCTION[TUPLE[E_], ABSTRACT_STRING]) is
 		require
 			index >= 0
 		do

@@ -1,31 +1,31 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class AUTOMATON
+class AUTOMATON[E_]
 
 creation {ANY}
 	manifest_creation
 
 feature {ANY}
-	run (start_state: ABSTRACT_STRING) is
+	run (start_state: ABSTRACT_STRING; e: E_) is
 		require
 			has(start_state)
 		local
 			next: ABSTRACT_STRING
-			state: STATE
+			state: STATE[E_]
 		do
 			from
-				state := transition(Void, start_state)
-				next := state.run(Current)
+				state := transition(Void, start_state, e)
+				next := state.run(Current, e)
 			invariant
 				next /= Void implies has(next)
 			until
 				next = Void
 			loop
-				state := transition(state, next)
-				next := state.run(Current)
+				state := transition(state, next, e)
+				next := state.run(Current, e)
 			end
-			last_transition(state)
+			last_transition(state, e)
 		end
 
 	has (state_name: ABSTRACT_STRING): BOOLEAN is
@@ -36,7 +36,7 @@ feature {ANY}
 		end
 
 feature {}
-	transition (from_state: STATE; state_name: ABSTRACT_STRING): STATE is
+	transition (from_state: STATE[E_]; state_name: ABSTRACT_STRING; e: E_): STATE[E_] is
 		do
 			debug ("automaton/transition")
 				if from_state = Void then
@@ -45,29 +45,29 @@ feature {}
 					std_output.put_line(from_state.name.out + " => " + state_name.out)
 				end
 			end
-			before_transition.call([from_state])
+			before_transition.call([e, from_state])
 			Result := states.fast_reference_at(state_name.intern)
-			after_transition.call([from_state, Result])
+			after_transition.call([e, from_state, Result])
 		end
 
-	last_transition (from_state: STATE) is
+	last_transition (from_state: STATE[E_]; e: E_) is
 		do
 			debug ("automaton/transition")
 				std_output.put_line(from_state.name.out + " => Void")
 			end
-			before_transition.call([from_state])
-			after_transition.call([from_state, Void])
+			before_transition.call([e, from_state])
+			after_transition.call([e, from_state, Void])
 		end
 
-feature {STATE}
-	call_before_guards is
+feature {STATE} --|* TODO: should be STATE[E_] (when Liberty can bootstrap)
+	call_before_guards (e: E_) is
 		do
-			before_guards.call([])
+			before_guards.call([e])
 		end
 
-	call_after_guards is
+	call_after_guards (e: E_) is
 		do
-			after_guards.call([])
+			after_guards.call([e])
 		end
 
 feature {ANY}
@@ -100,11 +100,11 @@ feature {ANY}
 		end
 
 feature {}
-	states: DICTIONARY[STATE, FIXED_STRING]
-	before_guards: PROCEDURE[TUPLE]
-	after_guards: PROCEDURE[TUPLE]
-	before_transition: PROCEDURE[TUPLE[STATE]]
-	after_transition: PROCEDURE[TUPLE[STATE, STATE]]
+	states: DICTIONARY[STATE[E_], FIXED_STRING]
+	before_guards: PROCEDURE[TUPLE[E_]]
+	after_guards: PROCEDURE[TUPLE[E_]]
+	before_transition: PROCEDURE[TUPLE[E_, STATE[E_]]]
+	after_transition: PROCEDURE[TUPLE[E_, STATE[E_], STATE[E_]]]
 
 	default_before_guards, default_after_guards, default_before_transition, default_after_transition is
 		do
@@ -113,14 +113,14 @@ feature {}
 feature {}
 	manifest_make (needed_capacity: INTEGER) is
 		do
-			create {HASHED_DICTIONARY[STATE, FIXED_STRING]} states.with_capacity(needed_capacity)
+			create {HASHED_DICTIONARY[STATE[E_], FIXED_STRING]} states.with_capacity(needed_capacity)
 			before_guards := agent default_before_guards
 			after_guards := agent default_after_guards
 			before_transition := agent default_before_transition
 			after_transition := agent default_after_transition
 		end
 
-	manifest_put (index: INTEGER; state_name: ABSTRACT_STRING; state: STATE) is
+	manifest_put (index: INTEGER; state_name: ABSTRACT_STRING; state: STATE[E_]) is
 		require
 			index >= 0
 			not states.fast_has(state_name.intern)
