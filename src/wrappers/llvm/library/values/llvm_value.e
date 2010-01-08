@@ -66,6 +66,7 @@ inherit
 	EIFFEL_OWNED
 	LLVM_TYPE_FACTORY
 
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
 feature 
 	type: LLVM_TYPE is
 		do

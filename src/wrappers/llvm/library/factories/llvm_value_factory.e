@@ -23,8 +23,8 @@ feature {WRAPPER, WRAPPER_HANDLER}
 			-- compound values like type.void_type_kind_low_level as when
 			-- values.
 			if     type.is_void_type_kind then 
-				debug print("What's the correct value of a Void type? Creating an LLVM_CONSTANT_POINTER_NULL.%N") end
-				create {LLVM_CONSTANT_POINTER_NULL} Result.from_external_pointer(p)
+				debug print("What's the correct value of a Void type? Creating a plain LLVM_VALUE.%N") std_output.flush end
+				create {LLVM_VALUE} Result.from_external_pointer(p)
 			elseif type.is_double_type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
 			elseif type.is_x_86_fp_80type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
 			elseif type.is_fp_128type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)

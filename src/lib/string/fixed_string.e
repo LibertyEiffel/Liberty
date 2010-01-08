@@ -51,8 +51,24 @@ feature {ANY} -- Creation:
 			immutable
 		end
 
+-- feature {} -- Implementation
+-- 	stored_hash_code: like hash_code is 
+-- 		-- The cached value of precomputed hash_code 
+-- 		attribute
+-- 		end
+-- 
+-- 	is_hash_code_not_cached: BOOLEAN is do Result := stored_hash_code=0 end
+
+		-- Has 
 feature {ANY}
-	hash_code: INTEGER
+	hash_code: INTEGER is attribute end
+	-- 	do
+	-- 		if is_hash_code_not_cached then
+	-- 			-- compute and cache the result.
+	-- 			stored_hash_code := computed_hash_code
+	-- 		end
+	-- 		Result := stored_hash_code
+	-- 	end
 
 	intern: FIXED_STRING is
 			-- A shared version of this string.
@@ -177,6 +193,8 @@ feature {} -- Creation from C string:
 			capacity := i + 1
 			storage := storage.calloc(capacity)
 			storage.copy_from(s, count)
+
+			hash_code := computed_hash_code
 		end
 
 	from_external_sized_copy (p: POINTER; size: INTEGER) is
@@ -202,6 +220,8 @@ feature {} -- Creation from C string:
 			storage := storage.calloc(capacity)
 			storage.copy_from(s, count - 1)
 			storage.put('%U', count)
+
+			hash_code := computed_hash_code
 		ensure
 			count <= size
 		end
