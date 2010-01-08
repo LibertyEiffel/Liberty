@@ -6,26 +6,20 @@ class AUTOMATON[E_]
 creation {ANY}
 	manifest_creation
 
-feature {ANY}
+feature {ANY} -- Simple one-shot execution
 	run (start_state: ABSTRACT_STRING; e: E_) is
 		require
 			has(start_state)
 		local
-			next: ABSTRACT_STRING
-			state: STATE[E_]
+			context: AUTOMATON_CONTEXT[E_]
 		do
 			from
-				state := next_transition(Void, start_state, e)
-				next := state.run(Current, e)
-			invariant
-				next /= Void implies has(next)
+				context := start(start_state, e)
 			until
-				next = Void
+				not context.is_valid
 			loop
-				state := next_transition(state, next, e)
-				next := state.run(Current, e)
+				next(context)
 			end
-			last_transition(state, e)
 		end
 
 	has (state_name: ABSTRACT_STRING): BOOLEAN is
@@ -33,6 +27,38 @@ feature {ANY}
 			state_name /= Void
 		do
 			Result := states.fast_has(state_name.intern)
+		end
+
+feature {ANY} -- Step-by-step execution
+	start (start_state: ABSTRACT_STRING; e: E_): AUTOMATON_CONTEXT[E_] is
+		require
+			has(start_state)
+		local
+			state: STATE[E_]
+		do
+			create Result.make(e)
+			state := next_transition(Void, start_state, e)
+			Result.set_current_state(state)
+		ensure
+			Result.is_valid
+		end
+
+	next (context: AUTOMATON_CONTEXT[E_]) is
+		require
+			context.is_valid
+		local
+			next_state: ABSTRACT_STRING
+			state: STATE[E_]
+		do
+			next_state := context.current_state.run(Current, context.data)
+			if next_state /= Void then
+				check has(next_state) end
+				state := next_transition(state, next_state, context.data)
+				context.set_current_state(state)
+			else
+				last_transition(state, context.data)
+				context.invalidate
+			end
 		end
 
 feature {}
