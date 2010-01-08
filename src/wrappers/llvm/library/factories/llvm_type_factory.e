@@ -8,8 +8,8 @@ inherit
 			wrapper_or_void as type_wrapper_or_void
 		end
 insert 
-	CORE_EXTERNALS undefine fill_tagged_out_memory end 
-	EXCEPTIONS undefine copy, fill_tagged_out_memory, is_equal end 
+	CORE_EXTERNALS
+	EXCEPTIONS undefine copy, is_equal end 
 
 feature {WRAPPER, WRAPPER_HANDLER} 
 	type_wrappers: HASHED_DICTIONARY [LLVM_TYPE, POINTER] is once create Result.make end

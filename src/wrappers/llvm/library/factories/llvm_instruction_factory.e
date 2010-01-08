@@ -2,8 +2,8 @@ deferred class LLVM_INSTRUCTION_FACTORY
 	-- A factory of values
 
 inherit WRAPPER_FACTORY[LLVM_INSTRUCTION]
-insert
-	CORE_EXTERNALS undefine fill_tagged_out_memory end 
+insert	
+	CORE_EXTERNALS 
 	EXCEPTIONS undefine copy, is_equal end
 feature 
 	wrapper (p: POINTER): LLVM_INSTRUCTION is
