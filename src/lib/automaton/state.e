@@ -6,12 +6,14 @@ class STATE[E_]
 creation {ANY}
 	manifest_creation
 
-feature {AUTOMATON}
+feature {ANY}
 	name: FIXED_STRING
 
+feature {AUTOMATON}
 	set_name (a_name: like name) is
 		require
 			a_name /= Void
+			set_once: name = Void
 		do
 			name := a_name
 		ensure
