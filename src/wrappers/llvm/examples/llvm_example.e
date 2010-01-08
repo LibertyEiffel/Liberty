@@ -1,11 +1,10 @@
 class LLVM_EXAMPLE
-	-- A plain example of LLVM usage producing an executable that
-	-- computes a little math and outputs "Hello world!" and some
-	-- other niceties.
+	-- A plain example of LLVM that outputs bytecode of a module. Pass it to llvm-dis
 
-
-
-	-- See http://npcontemplation.blogspot.com/2008/06/secret-of-llvm-c-bindings.html
+	-- Currently we must use Makefile becuase even if we used C bindings we
+	-- must use C++ linker. This could be achieved changind compile modes; it
+	-- is more easily approached using make. See
+	-- http://npcontemplation.blogspot.com/2008/06/secret-of-llvm-c-bindings.html 
 
 insert 
 	SHARED_LLVM
@@ -22,7 +21,7 @@ feature {} -- Creation
 
 			create muladd_type.make(int_32, <<int_32,int_32,int_32>>,False)
 			-- `muladd' is a function that takes three 32-bit integers, returns a 32bit integer and is not variadic.
-			muladd := module.new_function("mul_add func",muladd_type)
+			muladd := module.new_function("mul_add",muladd_type)
 			calling_convention.set_ccall_conv
 			muladd.set_calling_convention(calling_convention)
 			-- set parameters name
@@ -34,6 +33,7 @@ feature {} -- Creation
 			param_iter.start; x:=param_iter.item; x.set_name("x")
 			param_iter.next;  y:=param_iter.item; y.set_name("y")
 			param_iter.next;  z:=param_iter.item; z.set_name("z")
+			muladd.do_all_parameters (agent {LLVM_VALUE}.print_on(std_output))
 			check 
 				muladd.parameter(0).name.is_equal("x")
 				muladd.parameter(1).name.is_equal("y")
@@ -44,11 +44,13 @@ feature {} -- Creation
 			-- Add function body
 			create block.appended_in_context(global_context,muladd,"entry-block")
 			create builder
+			builder.position_at_end_of(block)
 			tmp := builder.mul(x,y,"tmp")
 			tmp2 := builder.add(tmp,z,"tmp2")
 			ret := builder.return(tmp2)
-			muladd.do_all_parameters (agent {LLVM_VALUE}.print_on(std_output))
-				-- verifyModule(*Mod, PrintMessageAction);
+		
+			module.write_bitcode_to(std_output)
+			-- verifyModule(*Mod, PrintMessageAction);
 
 			-- create pass_manager
 			-- pass_manager.add(createPrintModulePass(&outs()));
