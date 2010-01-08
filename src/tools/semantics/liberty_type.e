@@ -342,33 +342,36 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {LIBERTY_UNIVERSE} -- Semantincs building
-	check_and_initialize (universe: LIBERTY_UNIVERSE) is
+	start_build (universe: LIBERTY_UNIVERSE) is
 		require
 			not errors.has_error
-		local
-			builder: LIBERTY_TYPE_BUILDER
 		do
-			std_output.put_line(once "Initializing " + full_name)
 			create builder.make(Current, universe)
-			builder.check_and_initialize
-			if not errors.has_error then
-				check_validity
-			end
-			if errors.has_error then
-				errors.set(level_fatal_error, once "Errors detected while building " + full_name + ".%NPlease fix those errors first.")
-				check
-					dead: False
-				end
-			elseif errors.has_warning_or_error then
-				errors.emit
-			end
-			std_output.put_line(full_name + once " initialized.")
+		end
+
+	build_more is
+		do
+			builder.build_more
+		end
+
+	is_built: BOOLEAN is
+		do
+			Result := builder.is_built
 		end
 
 feature {}
 	check_validity is
 		do
 			--| TODO
+		end
+
+feature {LIBERYT_TYPE_BUILDER}
+	conformant_parents: COLLECTION[LIBERTY_TYPE]
+	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
+
+	has_loaded_entities: BOOLEAN is
+		do
+			Result := builder.has_loaded_entities
 		end
 
 feature {}
@@ -384,19 +387,22 @@ feature {}
 		end
 
 	mark: INTEGER_8
-	conformant_parents: COLLECTION[LIBERTY_TYPE]
-	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
 
 	deferred_mark: INTEGER_8 is 1
 	expanded_mark: INTEGER_8 is 2
 	separate_mark: INTEGER_8 is 4
 	reference_mark: INTEGER_8 is 8
 
-feature {LIBERTY_AST_HANDLER}
-	ast: LIBERTY_AST_ONE_CLASS
+feature {LIBERTY_UNIVERSE}
 	descriptor: LIBERTY_TYPE_DESCRIPTOR
 
+feature {LIBERTY_TYPE_BUILDER}
+	ast: LIBERTY_AST_ONE_CLASS
+
+feature {}
 	errors: LIBERTY_ERRORS
+
+	builder: LIBERTY_TYPE_BUILDER_AUTOMATON
 
 invariant
 	descriptor /= Void

@@ -26,7 +26,7 @@ feature {ANY}
 		require
 			position /= Void
 		do
-			Result := do_get_type(cluster, position, class_name, effective_type_parameters, True)
+			Result := do_get_type(cluster, position, class_name, effective_type_parameters)
 		ensure
 			Result.cluster = cluster
 			Result.name.is_equal(class_name)
@@ -37,7 +37,7 @@ feature {ANY}
 		require
 			not errors.has_error
 		do
-			Result := do_get_type_from_descriptor(descriptor, True)
+			Result := do_get_type_from_descriptor(descriptor)
 		ensure
 			Result.cluster.is_equal(descriptor.cluster)
 			Result.name.is_equal(descriptor.name)
@@ -46,26 +46,37 @@ feature {ANY}
 
 	check_and_initialize_types is
 		local
-			i, mark, head: INTEGER
+			type: LIBERTY_TYPE
+			beat: LIBERTY_HEART_BEAT_MEMO
+			incubator, tmp: like type_incubator
 		do
+			create incubator.make
 			from
+				beat := heart_beat.pressure
 			until
-				to_init.is_empty
+				types_incubator.is_empty
 			loop
 				from
-					i := to_init.lower
-					mark := to_init.upper
-					head := to_init.count
-					check
-						head = mark - i + 1
-					end
 				until
-					i > mark
+					types_incubator.is_empty
 				loop
-					to_init.item(i).check_and_initialize(Current)
-					i := i + 1
+					type := types_incubator.first
+					types_incubator.remove
+					type.build_more
+					if not type.is_built then
+						incubator.add(type)
+					end
 				end
-				to_init.remove_head(head)
+				if heart_beat.is_alive(beat) then
+					if not incubator.is_empty thrn
+						tmp := incubator
+						incubator := types_incubator
+						types_incubator := tmp
+					end
+				else
+					--|*** TODO
+					die_with_code(1)
+				end
 			end
 		end
 
@@ -73,49 +84,49 @@ feature {ANY}
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("ANY", True)
+			Result := kernel_type("ANY")
 		end
 
 	type_pointer: LIBERTY_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("POINTER", False)
+			Result := kernel_type("POINTER")
 		end
 
 	type_integer_64: LIBERTY_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("INTEGER_64", False)
+			Result := kernel_type("INTEGER_64")
 		end
 
 	type_real: LIBERTY_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL", False)
+			Result := kernel_type("REAL")
 		end
 
 	type_character: LIBERTY_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("CHARACTER", False)
+			Result := kernel_type("CHARACTER")
 		end
 
 	type_string: LIBERTY_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("STRING", False)
+			Result := kernel_type("STRING")
 		end
 
 	type_boolean: LIBERTY_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("BOOLEAN", False)
+			Result := kernel_type("BOOLEAN")
 		end
 
 	type_tuple (effective_generics: COLLECTION[LIBERTY_ENTITY_TYPE]; position: LIBERTY_POSITION): LIBERTY_TYPE is
@@ -141,14 +152,22 @@ feature {ANY}
 				end
 				ast := tuple_ast.classes.list_item(tuple_count)
 				create Result.make(td, ast)
-				types.put(Result, td)
-				to_init.add_last(Result)
+				start_built_type(Result)
 			end
 		ensure
 			Result /= Void
 		end
 
 feature {}
+	start_built_type (type: LIBERTY_TYPE) is
+		do
+			types.put(type, type.descriptor)
+			type.start_build(Current)
+			if not type.is_built then
+				types_incubator.add(type)
+			end
+		end
+
 	tuple_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
 		local
 			cluster: LIBERTY_CLUSTER
@@ -157,7 +176,7 @@ feature {}
 			create Result.make(cluster, "TUPLE".intern, Void)
 		end
 
-	kernel_type (class_name: STRING; init_now: BOOLEAN): LIBERTY_TYPE is
+	kernel_type (class_name: STRING): LIBERTY_TYPE is
 			-- Called only once per kernel type
 		require
 			not errors.has_error
@@ -177,21 +196,13 @@ feature {}
 			end
 			ast := parse_class(cluster, class_name, Void)
 			create Result.make(td, ast)
-			types.put(Result, td)
-			if init_now then
-				Result.check_and_initialize(Current)
-			else
-				to_init.add_last(Result)
-			end
+			start_built_type(Result)
 		ensure
 			Result /= Void
 		end
 
 feature {LIBERTY_TYPE_BUILDER}
-	get_type_from_type_definition (origin: LIBERTY_TYPE; type_definition: LIBERTY_AST_TYPE_DEFINITION; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]; init_now: BOOLEAN): LIBERTY_TYPE is
-			-- `init_now' should be True only when looking up a type's parent or a type asked by the user via
-			-- `get_type' or `get_type_from_descriptor'; otherwise it should be set to False to be initialized
-			-- later by `check_and_initialize_types'
+	get_type_from_type_definition (origin: LIBERTY_TYPE; type_definition: LIBERTY_AST_TYPE_DEFINITION; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
 		require
 			origin /= Void
 			type_definition /= Void
@@ -210,7 +221,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				errors.set(level_fatal_error, once "Unknown class: " + class_name)
 			else
 				parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
-				Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters, init_now)
+				Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
 			end
 		end
 
@@ -242,7 +253,7 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 feature {}
-	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]; init_now: BOOLEAN): LIBERTY_TYPE is
+	do_get_type (cluster: LIBERTY_CLUSTER; position: LIBERTY_POSITION; class_name: STRING; effective_type_parameters: TRAVERSABLE[LIBERTY_TYPE]): LIBERTY_TYPE is
 		require
 			position /= Void
 		local
@@ -254,14 +265,14 @@ feature {}
 				c := root.find(class_name)
 			end
 			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name.intern, position), effective_type_parameters)
-			Result := do_get_type_from_descriptor(descriptor, init_now)
+			Result := do_get_type_from_descriptor(descriptor)
 		ensure
 			Result.cluster = cluster
 			Result.name.is_equal(class_name)
 			Result.parameters.is_equal(effective_type_parameters)
 		end
 
-	do_get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR; init_now: BOOLEAN): LIBERTY_TYPE is
+	do_get_type_from_descriptor (descriptor: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE is
 		require
 			not errors.has_error
 		local
@@ -271,15 +282,7 @@ feature {}
 			if Result = Void then
 				ast := parse_class(descriptor.cluster, descriptor.name.out, descriptor.position)
 				create Result.make(descriptor, ast)
-				types.put(Result, descriptor)
-				if init_now then
-					Result.check_and_initialize(Current)
-				else
-					to_init.add_last(Result)
-				end
-			elseif init_now and then to_init.fast_has(Result) then
-				Result.check_and_initialize(Current)
-				to_init.remove(to_init.fast_first_index_of(Result))
+				start_built_type(Result)
 			end
 		ensure
 			Result.cluster.is_equal(descriptor.cluster)
@@ -530,20 +533,23 @@ feature {}
 			create root.make(universe_path)
 			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.make
 			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.make
-			create {FAST_ARRAY[LIBERTY_TYPE]} to_init.with_capacity(64)
+			create types_incubator.make
 		end
 
 	root: LIBERTY_CLUSTER
 
 	classes: DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]
 	types: DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]
-	to_init: COLLECTION[LIBERTY_TYPE]
+
+	types_incubator: QUEUE[LIBERTY_TYPE]
 
 	errors: LIBERTY_ERRORS
+
+	heart_beat: LIBERTY_HEART_BEAT
 
 invariant
 	types /= Void
 	classes /= Void
-	to_init /= Void
+	types_incubator /= Void
 
 end
