@@ -44,39 +44,20 @@ feature {ANY}
 			Result.parameters.is_equal(descriptor.parameters)
 		end
 
-	check_and_initialize_types is
+	build_types is
 		local
 			type: LIBERTY_TYPE
-			beat: LIBERTY_HEART_BEAT_MEMO
-			incubator, tmp: like type_incubator
+			pressure: like LIBERTY_HEART_BEAT_PRESSURE
+			incubator: like type_incubator
 		do
 			create incubator.make
 			from
-				beat := heart_beat.pressure
 			until
 				types_incubator.is_empty
 			loop
-				from
-				until
-					types_incubator.is_empty
-				loop
-					type := types_incubator.first
-					types_incubator.remove
-					type.build_more
-					if not type.is_built then
-						incubator.add(type)
-					end
-				end
-				if heart_beat.is_alive(beat) then
-					if not incubator.is_empty thrn
-						tmp := incubator
-						incubator := types_incubator
-						types_incubator := tmp
-					end
-				else
-					--|*** TODO
-					die_with_code(1)
-				end
+				pressure := heart_beat.pressure
+				build_to_incubator(incubator)
+				check_and_swap_incubator(pressure, incubator)
 			end
 		end
 
@@ -156,6 +137,37 @@ feature {ANY}
 			end
 		ensure
 			Result /= Void
+		end
+
+feature {}
+	build_to_incubator (incubator: like types_incubator) is
+		require
+			not types_incubator.is_empty
+		do
+			from
+			until
+				types_incubator.is_empty
+			loop
+				type := types_incubator.first
+				types_incubator.remove
+				type.build_more
+				if not type.is_built then
+					incubator.add(type)
+				end
+			end
+		end
+
+	check_and_swap_incubator (pressure: like LIBERTY_HEART_BEAT_PRESSURE; incubator: like types_incubator is
+		local
+			tmp: like types_incubator
+		do
+			if heart_beat.is_alive(pressure) then
+				tmp := incubator
+				incubator := types_incubator
+				types_incubator := tmp
+			else
+				not_yet_implemented
+			end
 		end
 
 feature {}

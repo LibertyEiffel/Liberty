@@ -36,38 +36,17 @@ feature {LIBERTY_TYPE_BUILDER}
 		end
 
 	load_parents is
-			-- Just load the parent types, not trying to import anyting yet, just to let the universe know that
-			-- those classes will be needed
+			-- Just load the parent types, not trying to import anything yet, just to let the universe know that
+			-- those classes will be needed, and for us to be able to iterate through all the type's parents
 		do
 			create {LIBERTY_TYPE_PARENT_LOADER}.load(type, universe)
 		end
 
 	can_load_parent_entities: BOOLEAN is
 			-- True if all the parents have finished loading their entities
-		local
-			i: INTEGER
 		do
-			Result := True
-			if type.conformant_parents /= Void then
-				from
-					i := type.conformant_parents.lower
-				until
-					not Result or else i > type.conformant_parents.upper
-				loop
-					Result := type.conformant_parents.item(i).has_loaded_entities
-					i := i + 1
-				end
-			end
-			if type.non_conformant_parents /= Void then
-				from
-					i := type.non_conformant_parents.lower
-				until
-					not Result or else i > type.non_conformant_parents.upper
-				loop
-					Result := type.non_conformant_parents.item(i).has_loaded_entities
-					i := i + 1
-				end
-			end
+			Result := check_have_loaded_entities(type.conformant_parents)
+				and then check_have_loaded_entities(type.non_conformant_parents)
 		end
 
 	load_parent_entities is
@@ -93,6 +72,24 @@ feature {LIBERTY_TYPE_BUILDER}
 			-- Try to reconcile anchors using other entities' result types
 		do
 			create {LIBERTY_TYPE_ANCHORS_RESOLVER}.resolve(type, universe)
+		end
+
+feature {}
+	check_have_loaded_entities (parents: INDEXABLE[LIBERTY_TYPE]): BOOLEAN is
+		local
+			i: INTEGER
+		do
+			Result := True
+			if parents /= Void then
+				from
+					i := parents.lower
+				until
+					not Result or else i > parents.upper
+				loop
+					Result := parents.item(i).has_loaded_entities
+					i := i + 1
+				end
+			end
 		end
 
 feature {}

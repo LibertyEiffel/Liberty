@@ -25,12 +25,12 @@ feature {LIBERTY_TYPE}
 		require
 			not is_built
 		do
-			builder.next(context.automaton_context)
+			automaton.next(builder.automaton_context)
 		end
 
 	is_built: BOOLEAN is
 		do
-			Result := not context.automaton_context.is_valid
+			Result := not builder.automaton_context.is_valid
 		end
 
 feature {}
@@ -39,17 +39,17 @@ feature {}
 			a_type /= Void
 			a_universe /= Void
 		do
-			create context.make(a_type, a_universe)
-			context.set_automaton_context(builder.start(once "loading parents", Result))
+			create builder.make(a_type, a_universe)
+			builder.set_automaton_context(automaton.start(once "loading parents", Result))
 		ensure
-			context.is_valid
+			builder.is_valid
 		end
 
-	context: LIBERTY_TYPE_BUILDER
+	builder: LIBERTY_TYPE_BUILDER
 
 	errors: LIBERTY_ERRORS
 
-	builder: AUTOMATON[LIBERTY_TYPE_BUILDER] is
+	automaton: AUTOMATON[LIBERTY_TYPE_BUILDER] is
 		once
 			Result := {AUTOMATON[LIBERTY_TYPE_BUILDER] <<
 																				  "loading parents", {STATE[LIBERTY_TYPE_BUILDER] <<

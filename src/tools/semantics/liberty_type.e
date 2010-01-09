@@ -350,6 +350,8 @@ feature {LIBERTY_UNIVERSE} -- Semantincs building
 		end
 
 	build_more is
+		require
+			not is_built
 		do
 			builder.build_more
 		end
