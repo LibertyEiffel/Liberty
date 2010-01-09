@@ -47,7 +47,7 @@ feature {ANY}
 	build_types is
 		local
 			type: LIBERTY_TYPE
-			pressure: like LIBERTY_HEART_BEAT_PRESSURE
+			pressure: LIBERTY_HEART_BEAT_PRESSURE
 			incubator: like type_incubator
 		do
 			create incubator.make
@@ -57,7 +57,7 @@ feature {ANY}
 			loop
 				pressure := heart_beat.pressure
 				build_to_incubator(incubator)
-				check_and_swap_incubator(pressure, incubator)
+				incubator := check_heart_beat_and_swap_incubator(pressure, incubator)
 			end
 		end
 
@@ -129,7 +129,7 @@ feature {ANY}
 				if tuple_count > tuple_ast.classes.list_upper then
 					errors.add_position(position)
 					errors.set(level_fatal_error, "TUPLE does not support more than " + tuple_ast.classes.list_upper.out
-								  + " generic parameters. Shouldln't you consider using a named class with real attributes instead?")
+								  + " generic parameters.%NYou may want a named class with real typed attributes instead.")
 				end
 				ast := tuple_ast.classes.list_item(tuple_count)
 				create Result.make(td, ast)
@@ -157,14 +157,11 @@ feature {}
 			end
 		end
 
-	check_and_swap_incubator (pressure: like LIBERTY_HEART_BEAT_PRESSURE; incubator: like types_incubator is
-		local
-			tmp: like types_incubator
+	check_heart_beat_and_swap_incubator (pressure: LIBERTY_HEART_BEAT_PRESSURE; incubator: like types_incubator): like type_incubator is
 		do
 			if heart_beat.is_alive(pressure) then
-				tmp := incubator
-				incubator := types_incubator
-				types_incubator := tmp
+				Result := types_incubator
+				types_incubator := incubator
 			else
 				not_yet_implemented
 			end
