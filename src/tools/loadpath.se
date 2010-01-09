@@ -1,6 +1,7 @@
 ./
 configuration/
 errors/
+heart_beat/
 main/
 syntax/
 syntax/parser/
@@ -12,4 +13,5 @@ semantics/expressions/
 semantics/features/
 semantics/instructions/
 semantics/tags/
+semantics/type_builder/
 semantics/visitors/

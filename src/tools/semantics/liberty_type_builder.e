@@ -18,6 +18,9 @@ class LIBERTY_TYPE_BUILDER
 	-- But let's make it bootstrap first.
 	--
 
+obsolete
+		"This class is really ugly and cannot be maintained by any sane mind. Must be removed. Use LIBERTY_TYPE_FACTORY instead."
+
 insert
 	LIBERTY_AST_HANDLER
 	LIBERTY_ERROR_LEVELS

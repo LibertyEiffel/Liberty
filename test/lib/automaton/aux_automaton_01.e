@@ -4,13 +4,21 @@ creation {TEST_AUTOMATON_01}
 	make
 
 feature {TEST_AUTOMATON_01}
-	is_number: BOOLEAN
+	run is
+		do
+			automaton.run(once "start", context);
+		end
+
+	is_number: BOOLEAN is
+		do
+			Result := context.success
+		end
 
 	found_number: FIXED_STRING is
 		require
 			is_number
 		do
-			Result := last_numeric.intern
+			Result := context.output
 		end
 
 feature {}
@@ -18,49 +26,45 @@ feature {}
 		require
 			a_input /= Void
 		do
-			last_numeric.clear_count
-			create input.from_string(a_input.out.twin)
-			automaton.run(once "start");
-			input.disconnect
+			create context.make(a_input)
 		end
 
-	input: STRING_INPUT_STREAM
+	context: AUX_AUTOMATON_01_CONTEXT
 
-	last_character: CHARACTER
-	last_numeric: STRING is ""
+feature {} -- automaton implementation
 
-	read_next is
+	-- Note: since the automaton is a once function, no agent may rely on Current.
+	-- That's why the automaton allows us to pass some context around.
+
+	read_next (ctx: like context) is
 		do
-			input.read_character
-			if input.end_of_input then
-				debug("test/aux_automaton_01")
+			ctx.next
+			debug("test/aux_automaton_01")
+				if ctx.is_off then
 					std_output.put_line("No more characters")
-				end
-			else
-				last_character := input.last_character
-				debug("test/aux_automaton_01")
-					std_output.put_line("Read character '" + last_character.out + "'")
+				else
+					std_output.put_line("Read character '" + ctx.current_character.out + "'")
 				end
 			end
 		end
 
-	on_read_figure: BOOLEAN is
+	on_read_figure (ctx: like context): BOOLEAN is
 		do
-			if not input.end_of_input then
-				Result := last_character.is_digit
+			if not ctx.is_off then
+				Result := ctx.current_character.is_digit
 			end
 		end
 
-	on_read_dot: BOOLEAN is
+	on_read_dot (ctx: like context): BOOLEAN is
 		do
-			if not input.end_of_input then
-				Result := last_character = '.'
+			if not ctx.is_off then
+				Result := ctx.current_character = '.'
 			end
 		end
 
-	on_end_of_text: BOOLEAN is
+	on_end_of_text (ctx: like context): BOOLEAN is
 		do
-			Result := input.end_of_input
+			Result := ctx.is_off
 		end
 
 	otherwise: BOOLEAN is
@@ -68,19 +72,19 @@ feature {}
 			Result := True
 		end
 
-	transition (next: STRING): STRING is
+	transition (next: STRING; ctx: like context): STRING is
 		do
-			last_numeric.extend(last_character)
+			ctx.extend
 			Result := next
 		end
 
-	transition_end (next: STRING): STRING is
+	transition_end (next: STRING; ctx: like context): STRING is
 		do
 			inspect next
 			when "success" then
-				is_number := True
+				ctx.set_success(True)
 			when "error" then
-				is_number := False
+				ctx.set_success(False)
 			end
 			Result := next
 		end
@@ -90,37 +94,40 @@ feature {}
 			check Result = Void end
 		end
 
-	automaton: AUTOMATON is
-		do -- not once!
-			Result := {AUTOMATON <<
-										  "start", {STATE <<
-																  agent on_read_figure, agent transition("integral");
-																  agent on_read_dot, agent transition("after_dot");
-																  agent otherwise, agent transition_end("error")
-																  >>};
-										  "integral", {STATE <<
-																	  agent on_read_figure, agent transition("integral");
-																	  agent on_read_dot, agent transition("after_dot");
-																	  agent on_end_of_text, agent transition_end("success");
-																	  agent otherwise, agent transition_end("error")
-																	  >>};
-										  "after_dot", {STATE <<
-																		agent on_read_figure, agent transition("fractional");
-																		agent otherwise, agent transition_end("error")
-																		>>};
-										  "fractional", {STATE <<
-																		 agent on_read_figure, agent transition("fractional");
-																		 agent on_end_of_text, agent transition_end("success");
-																		 agent otherwise, agent transition_end("error")
-																		 >>};
-										  "success", {STATE <<
-																agent otherwise, agent finished
-																>>};
-										  "error", {STATE <<
-																  agent otherwise, agent finished
-																  >>}
-										  >>}
+	automaton: AUTOMATON[AUX_AUTOMATON_01_CONTEXT] is
+		once
+			Result := {AUTOMATON[AUX_AUTOMATON_01_CONTEXT] <<
+																			 "start", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
+																																		agent on_read_figure, agent transition("integral", ?);
+																																		agent on_read_dot, agent transition("after_dot", ?);
+																																		agent otherwise, agent transition_end("error", ?)
+																																		>>};
+																			 "integral", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
+																																			agent on_read_figure, agent transition("integral", ?);
+																																			agent on_read_dot, agent transition("after_dot", ?);
+																																			agent on_end_of_text, agent transition_end("success", ?);
+																																			agent otherwise, agent transition_end("error", ?)
+																																			>>};
+																			 "after_dot", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
+																																			 agent on_read_figure, agent transition("fractional", ?);
+																																			 agent otherwise, agent transition_end("error", ?)
+																																			 >>};
+																			 "fractional", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
+																																			  agent on_read_figure, agent transition("fractional", ?);
+																																			  agent on_end_of_text, agent transition_end("success", ?);
+																																			  agent otherwise, agent transition_end("error", ?)
+																																			  >>};
+																			 "success", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
+																																		  agent otherwise, agent finished
+																																		  >>};
+																			 "error", {STATE[AUX_AUTOMATON_01_CONTEXT] <<
+																																		agent otherwise, agent finished
+																																		>>}
+																			 >>}
 			Result.set_before_guards(agent read_next)
 		end
+
+invariant
+	context /= Void
 
 end
