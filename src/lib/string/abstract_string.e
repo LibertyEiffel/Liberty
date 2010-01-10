@@ -1229,6 +1229,10 @@ feature {}
 			if Result < 0 then
 				Result := ~Result
 			end
+
+			debug
+				debug_string := out.twin
+			end
 		end
 
 	interned: DICTIONARY[FIXED_STRING, INTEGER] is
@@ -1238,8 +1242,13 @@ feature {}
 			create {HASHED_DICTIONARY[FIXED_STRING, INTEGER]} Result.make
 		end
 
+feature {}
+	debug_string: STRING
+			-- only used to display the content of the FIXED_STRING in the trace stack
+
 invariant
 	0 <= count
+
 end -- class ABSTRACT_STRING
 --
 -- Copyright (c) 2009 by all the people cited in the AUTHORS file.
