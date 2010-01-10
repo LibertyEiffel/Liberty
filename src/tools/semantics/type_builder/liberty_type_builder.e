@@ -17,10 +17,10 @@ class LIBERTY_TYPE_BUILDER
 insert
 	LIBERTY_ERROR_LEVELS
 
-creation {LIBERTY_TYPE_BUILDER}
+creation {LIBERTY_TYPE_BUILDER_AUTOMATON}
 	make
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 	type: LIBERTY_TYPE
 	universe: LIBERTY_UNIVERSE
 	automaton_context: AUTOMATON_CONTEXT[LIBERTY_TYPE_BUILDER]
@@ -38,8 +38,11 @@ feature {LIBERTY_TYPE_BUILDER}
 	load_parents is
 			-- Just load the parent types, not trying to import anything yet, just to let the universe know that
 			-- those classes will be needed, and for us to be able to iterate through all the type's parents
+		local
+			loader: LIBERTY_TYPE_PARENT_LOADER
 		do
-			create {LIBERTY_TYPE_PARENT_LOADER}.load(type, universe)
+			create loader.make(Current, type, universe)
+			loader.load
 		end
 
 	can_load_parent_entities: BOOLEAN is
@@ -52,7 +55,7 @@ feature {LIBERTY_TYPE_BUILDER}
 	load_parent_entities is
 			-- Load the parent entities, considering renamings, redefinitions and so on
 		do
-			create {LIBERTY_TYPE_PARENT_ENTITIES_LOADER}.load(type, universe)
+			--create {LIBERTY_TYPE_PARENT_ENTITIES_LOADER}.load(type, universe)
 		end
 
 	can_load_entities: BOOLEAN is True
@@ -62,16 +65,17 @@ feature {LIBERTY_TYPE_BUILDER}
 			-- Load the type's own entities, not trying to reconcile anchors yet.
 			-- The full semantics tree of each feature is built here.
 		do
-			create {LIBERTY_TYPE_ENTITIES_LOADER}.load(type, universe)
+			--create {LIBERTY_TYPE_ENTITIES_LOADER}.load(type, universe)
 		end
 
 	can_reconcile_anchors: BOOLEAN is True
 			-- Currently always True
 
-	reconcile_anchors is
-			-- Try to reconcile anchors using other entities' result types
+	reconcile_anchors: BOOLEAN is
+			-- Try to reconcile anchors using other entities' result types.
+			-- True if all the anchors were reconciled, False if some are left to do later.
 		do
-			create {LIBERTY_TYPE_ANCHORS_RESOLVER}.resolve(type, universe)
+			--create {LIBERTY_TYPE_ANCHORS_RESOLVER}.resolve(type, universe)
 		end
 
 feature {}
@@ -92,6 +96,47 @@ feature {}
 			end
 		end
 
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
+	effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): LIBERTY_TYPE is
+		require
+			formal_parameter_name /= Void
+			has_effective_generic_parameter(formal_parameter_name)
+		do
+			Result := effective_generic_parameters.reference_at(formal_parameter_name.intern)
+		end
+
+	has_effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): BOOLEAN is
+		require
+			formal_parameter_name /= Void
+		do
+			Result := effective_generic_parameters.fast_has(formal_parameter_name.intern)
+		end
+
+	get_type_from_type_definition (origin: LIBERTY_TYPE; type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+		do
+			Result := universe.get_type_from_type_definition(origin, type_definition, effective_generic_parameters)
+		end
+
+feature {LIBERTY_TYPE_PARENT_LOADER}
+	set_effective_generic_parameters (effective: like effective_generic_parameters) is
+		require
+			useful: not effective.is_empty
+		do
+			effective_generic_parameters := effective
+		end
+
+feature {}
+	effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]
+			-- key: generic parameter name (e.g. E_)
+			-- value: effective parameter (e.g. STRING)
+
+	empty_effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING] is
+		once
+			-- Special common case (no effective parameters) factored out, using the smallest possible structure
+			-- (an empty AVL tree)
+			create {AVL_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]} Result.make
+		end
+
 feature {}
 	make (a_type: like type; a_universe: like universe) is
 		require
@@ -100,11 +145,15 @@ feature {}
 		do
 			type := a_type
 			universe := a_universe
+			effective_generic_parameters := empty_effective_generic_parameters
 		ensure
 			type = a_type
 			universe = a_universe
 		end
 
 	errors: LIBERTY_ERRORS
+
+invariant
+	effective_generic_parameters /= Void
 
 end -- class LIBERTY_TYPE_BUILDER

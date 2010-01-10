@@ -12,19 +12,19 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-expanded class LIBERTY_HEART_BEAT_PRESSURE
+expanded class LIBERTY_HEART_BEAT_COUNT
 --
 -- LIBERTY_HEART_BEAT state save ("Memo" design pattern)
 --
 
 feature {LIBERTY_HEART_BEAT}
-	item: INTEGER
+	count: INTEGER
 
-	set (i: like item) is
+	set (i: like count) is
 		do
-			item := i
+			count := i
 		ensure
-			item = i
+			count = i
 		end
 
-end -- class LIBERTY_HEART_BEAT_PRESSURE
+end -- class LIBERTY_HEART_BEAT_COUNT

@@ -20,21 +20,21 @@ expanded class LIBERTY_HEART_BEAT
 feature {ANY}
 	beat is
 		do
-			magic.set_item(magic.item + 1)
+			heart_beat_count.increment
 		end
 
-	pressure: LIBERTY_HEART_BEAT_PRESSURE is
+	count: LIBERTY_HEART_BEAT_COUNT is
 		do
-			Result.set(magic.item)
+			Result.set(heart_beat_count.value)
 		end
 
-	is_alive (a_memo: like memo): BOOLEAN is
+	is_alive (a_count: like count): BOOLEAN is
 		do
-			Result := magic.item > a_memo.item
+			Result := heart_beat_count.value > a_count.count
 		end
 
 feature {}
-	magic: REFERENCE[INTEGER] is
+	heart_beat_count: COUNTER is
 		once
 			create Result
 		end

@@ -257,7 +257,7 @@ feature {LIBERTY_TYPE}
 			end
 		end
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_PARENT_LOADER}
 	set_obsolete (message: like obsolete_message) is
 		require
 			message /= Void
@@ -367,7 +367,7 @@ feature {}
 			--| TODO
 		end
 
-feature {LIBERYT_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER}
 	conformant_parents: COLLECTION[LIBERTY_TYPE]
 	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
 
@@ -398,12 +398,11 @@ feature {}
 feature {LIBERTY_UNIVERSE}
 	descriptor: LIBERTY_TYPE_DESCRIPTOR
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_AST_HANDLER}
 	ast: LIBERTY_AST_ONE_CLASS
 
 feature {}
 	errors: LIBERTY_ERRORS
-
 	builder: LIBERTY_TYPE_BUILDER_AUTOMATON
 
 invariant

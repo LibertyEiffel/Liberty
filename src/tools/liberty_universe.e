@@ -46,18 +46,17 @@ feature {ANY}
 
 	build_types is
 		local
-			type: LIBERTY_TYPE
-			pressure: LIBERTY_HEART_BEAT_PRESSURE
-			incubator: like type_incubator
+			count: LIBERTY_HEART_BEAT_COUNT
+			incubator: like types_incubator
 		do
 			create incubator.make
 			from
 			until
 				types_incubator.is_empty
 			loop
-				pressure := heart_beat.pressure
+				count := heart_beat.count
 				build_to_incubator(incubator)
-				incubator := check_heart_beat_and_swap_incubator(pressure, incubator)
+				incubator := check_heart_beat_and_swap_incubator(count, incubator)
 			end
 		end
 
@@ -143,6 +142,8 @@ feature {}
 	build_to_incubator (incubator: like types_incubator) is
 		require
 			not types_incubator.is_empty
+		local
+			type: LIBERTY_TYPE
 		do
 			from
 			until
@@ -157,9 +158,9 @@ feature {}
 			end
 		end
 
-	check_heart_beat_and_swap_incubator (pressure: LIBERTY_HEART_BEAT_PRESSURE; incubator: like types_incubator): like type_incubator is
+	check_heart_beat_and_swap_incubator (count: LIBERTY_HEART_BEAT_COUNT; incubator: like types_incubator): like types_incubator is
 		do
-			if heart_beat.is_alive(pressure) then
+			if heart_beat.is_alive(count) then
 				Result := types_incubator
 				types_incubator := incubator
 			else
@@ -210,7 +211,7 @@ feature {}
 			Result /= Void
 		end
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_PARENT_LOADER}
 	get_type_from_type_definition (origin: LIBERTY_TYPE; type_definition: LIBERTY_AST_TYPE_DEFINITION; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
 		require
 			origin /= Void
@@ -334,7 +335,7 @@ feature {}
 					errors.set(level_fatal_error, "Bad generics list (generics count mismatch)")
 				end
 			else
-				Result := get_type_from_type_definition(origin, a_type_definition, effective_parameters, False)
+				Result := get_type_from_type_definition(origin, a_type_definition, effective_parameters)
 			end
 		ensure
 			type_found_or_fatal_error: Result /= Void
@@ -359,7 +360,7 @@ feature {} -- Type parameters fetching
 				loop
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
-						Result.add_last(get_type_from_type_definition(origin, type_parameter.constraint, effective_parameters, False))
+						Result.add_last(get_type_from_type_definition(origin, type_parameter.constraint, effective_parameters))
 					else
 						Result.add_last(type_any)
 					end
@@ -389,7 +390,7 @@ feature {} -- Type parameters fetching
 					if type_definition.is_class_type then
 						type := effective_parameters.reference_at(type_definition.type_name.image.image.intern)
 						if type = Void then
-							type := get_type_from_type_definition(origin, type_parameter.type_definition, effective_parameters, False)
+							type := get_type_from_type_definition(origin, type_parameter.type_definition, effective_parameters)
 						end
 					else
 						not_yet_implemented

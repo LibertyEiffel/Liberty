@@ -33,16 +33,16 @@ feature {LIBERTY_TYPE}
 			Result := not builder.automaton_context.is_valid
 		end
 
+	has_loaded_entities: BOOLEAN
+
 feature {}
-	make (a_type: like type; a_universe: like universe) is
+	make (a_type: LIBERTY_TYPE; a_universe: LIBERTY_UNIVERSE) is
 		require
 			a_type /= Void
 			a_universe /= Void
 		do
 			create builder.make(a_type, a_universe)
-			builder.set_automaton_context(automaton.start(once "loading parents", Result))
-		ensure
-			builder.is_valid
+			builder.set_automaton_context(automaton.start(once "loading parents", builder))
 		end
 
 	builder: LIBERTY_TYPE_BUILDER
@@ -76,11 +76,9 @@ feature {}
 
 	otherwise: BOOLEAN is True
 
-	errors: LIBERTY_ERRORS
-
 	no_errors: BOOLEAN is
 		do
-			Result := not errors.has_errors
+			Result := not errors.has_error
 		end
 
 	stay (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): FIXED_STRING is
@@ -90,7 +88,7 @@ feature {}
 
 	abort (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): FIXED_STRING is
 		require
-			errors.has_errors
+			errors.has_error
 		do
 			errors.set(level_fatal_error,
 						  "Errors were found while " + state.name.out + " of type " + ctx.type.name.out + " (see above). Please fix them first.")
@@ -125,6 +123,7 @@ feature {}
 		do
 			ctx.load_entities
 			Result := once "reconciling anchors"
+			has_loaded_entities := True
 		end
 
 	can_reconcile_anchors (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is
@@ -134,8 +133,7 @@ feature {}
 
 	reconcile_anchors (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
-			ctx.reconcile_anchors
-			if ctx.type.entities_have_anchors then
+			if not ctx.reconcile_anchors then
 				Result := once "reconciling anchors"
 			else
 				check
