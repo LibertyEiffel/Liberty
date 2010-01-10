@@ -1,5 +1,14 @@
 ## A crude Makefile to compile Smart/Liberty Eiffel programs using LLVM , because it requires C++ linkage even if Eiffel is usually lowered/compiled to C.
 
+example: example.s
+	as example.s -o example
+
+example.s: example.bc
+	llc example.bc
+
+example.bc: llvm_example
+	./llvm_example >example.bc
+
 llvm_example: *.o
 	g++ *.o -o llvm_example `llvm-config --libs --cflags --ldflags core bitwriter` 
 

@@ -67,30 +67,91 @@ feature -- Positioning
 		llvminsert_into_builder_with_name(handle,a_value.handle,a_name.to_external)
 	end
 feature {ANY} -- Terminators 
-	return_void: LLVM_VALUE is
+	return_void: LLVM_RETURN_INST is
 		do
 			create Result.from_external_pointer(llvmbuild_ret_void(handle))
 		end
 	
-	return (a_value: LLVM_VALUE): LLVM_VALUE is
+	return (a_value: LLVM_VALUE): LLVM_RETURN_INST is
 		-- A "ret" instruction returing `a_value'
 	require a_value/=Void
 	do
 		create Result.from_external_pointer(llvmbuild_ret(handle,a_value.handle))
+	ensure Result/=Void
+	end
+	
+	aggregate_return (some_values: COLLECTION[LLVM_VALUE]): LLVM_RETURN_INST is
+		-- A "ret" instruction returning `some_values'.
+	require some_values/=Void; not some_values.is_empty
+	local sv: FAST_ARRAY[POINTER]; i: ITERATOR[LLVM_VALUE]
+	do
+		create sv.with_capacity(some_values.count)
+		from i:=some_values.new_iterator; i.start 
+		until i.is_off loop
+			sv.add_last(i.item.handle); i.next
+		end
+		create Result.from_external_pointer
+		(llvmbuild_aggregate_ret(handle,sv.to_external,some_values.count.to_natural_32))
+	ensure Result/=Void
+	end
+	
+	unconditional_branch (a_destination: LLVM_BASIC_BLOCK): LLVM_BRANCH_INST is
+		-- An unconditional branch "br" instruction that transfer the control
+		-- flow to a different basic block in the current function.
+	require a_destination/=Void
+	do
+		create Result.from_external_pointer(llvmbuild_br(handle,a_destination.handle))
+	ensure Result/=Void
 	end
 
--- LLVMValueRef LLVMBuildAggregateRet(LLVMBuilderRef, LLVMValueRef *RetVals,
---                                    unsigned N);
--- LLVMValueRef LLVMBuildBr(LLVMBuilderRef, LLVMBasicBlockRef Dest);
--- LLVMValueRef LLVMBuildCondBr(LLVMBuilderRef, LLVMValueRef If,
---                              LLVMBasicBlockRef Then, LLVMBasicBlockRef Else);
--- LLVMValueRef LLVMBuildSwitch(LLVMBuilderRef, LLVMValueRef V,
---                              LLVMBasicBlockRef Else, unsigned NumCases);
--- LLVMValueRef LLVMBuildInvoke(LLVMBuilderRef, LLVMValueRef Fn,
---                              LLVMValueRef *Args, unsigned NumArgs,
---                              LLVMBasicBlockRef Then, LLVMBasicBlockRef Catch,
---                              const char *Name);
+	conditional_branch (an_if: LLVM_VALUE; a_then, an_else: LLVM_BASIC_BLOCK): LLVM_BRANCH_INST is
+		-- A conditional branch "br" instruction that will pass control flow to
+		-- `a_then' if `an_if' evaluates to True, to `an_else' otherwise
+	require 
+		an_if/=Void
+		a_then/=Void
+		an_else/=Void
+	do
+		create Result.from_external_pointer (llvmbuild_cond_br
+		(handle, an_if.handle, a_then.handle, an_else.handle))
+	ensure Result/=Void
+	end
 
+	switch (a_value: LLVM_VALUE; an_else: LLVM_BASIC_BLOCK; a_number_of_cases: NATURAL_32): LLVM_SWITCH_INST is
+		-- A 'switch' instruction, used to transfer control flow to one of
+		-- several different places. It is a generalization of the 'br'
+		-- instruction, allowing a branch to occur to one of many possible
+		-- destinations. `an_else' is executed when `a_value' will not match
+		-- one of the cases added later with `add_case' which must be exactly
+		-- `a_number_of_cases'.
+	require 
+		a_value/=Void
+		an_else/=Void
+	do
+		create Result.from_external_pointer
+		(llvmbuild_switch(handle,a_value.handle,an_else.handle,a_number_of_cases))
+	ensure Result/=Void
+	end
+
+	invoke (a_function: LLVM_FUNCTION_TYPE; some_arguments: COLLECTION[LLVM_VALUE]; a_then, a_catch: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING): LLVM_INVOKE_INST is
+		-- An "invoke" instruction. If parameterless `some_arguments' will be Void for a parameterless function. 
+		-- TODO: specify the meaning of `a_then' and `a_catch'.
+		require
+			a_function/=Void
+			a_then/=Void
+			a_catch/=Void
+			a_name/=Void
+		local args: FAST_ARRAY[POINTER]; args_p: POINTER
+		do
+			if some_arguments/=Void and then not some_arguments.is_empty then
+				args:=collection_to_c_array(some_arguments)
+				args_p := args.to_external
+			end
+			create Result.from_external_pointer
+			(llvmbuild_invoke(handle,a_function.handle,
+			args_p,args.count.to_natural_32,
+			a_then.handle,a_catch.handle, a_name.to_external))
+		end
 -- LLVMValueRef LLVMBuildUnwind(LLVMBuilderRef);
 -- LLVMValueRef LLVMBuildUnreachable(LLVMBuilderRef);
 
