@@ -151,9 +151,26 @@ feature {ANY} -- Terminators
 			(llvmbuild_invoke(handle,a_function.handle,
 			args_p,args.count.to_natural_32,
 			a_then.handle,a_catch.handle, a_name.to_external))
+		ensure Result/=Void
 		end
--- LLVMValueRef LLVMBuildUnwind(LLVMBuilderRef);
--- LLVMValueRef LLVMBuildUnreachable(LLVMBuilderRef);
+
+	unwind: LLVM_VALUE is
+		-- A newly created 'unwind' instruction that will unwind the stack, continuing control flow at the first callee in the dynamic call stack which used an invoke instruction to perform the call. This is primarily used to implement exception handling.
+	do
+		create Result.from_external_pointer(llvmbuild_unwind(handle))
+	ensure Result/=Void
+	end
+
+	unreachable: LLVM_VALUE is
+		-- A newly create 'unreachable' instruction; it has no defined
+		-- semantics. This instruction is used to inform the optimizer that a
+		-- particular portion of the code is not reachable. This can be used to
+		-- indicate that the code after a no-return function cannot be reached,
+		-- and other facts.
+	do
+		create Result.from_external_pointer (llvmbuild_unreachable(handle))
+	ensure Result/=Void
+	end
 
 feature {ANY} -- Arithmetic
 	add (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is

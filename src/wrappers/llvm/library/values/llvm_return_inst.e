@@ -5,6 +5,6 @@ class LLVM_RETURN_INST
 inherit LLVM_TERMINATOR_INST
 creation {LLVM_BUILDER} from_external_pointer
 
-end -- class LLVM_INVOKE_INST
+end -- class LLVM_RETURN_INST
 
 -- Copyright 2009 Paolo Redaelli
