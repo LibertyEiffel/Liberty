@@ -23,6 +23,8 @@ cluster
 	tools: "${path_liberty}/src/tools/loadpath.se"
 		default
 			assertion(all)
+		option
+			debug(all): LIBERTY_TYPE_BUILDER_AUTOMATON
 		end
 
 generate

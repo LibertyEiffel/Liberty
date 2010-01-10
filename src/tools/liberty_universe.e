@@ -28,7 +28,6 @@ feature {ANY}
 		do
 			Result := do_get_type(cluster, position, class_name, effective_type_parameters)
 		ensure
-			Result.cluster = cluster
 			Result.name.is_equal(class_name)
 			Result.parameters.is_equal(effective_type_parameters)
 		end
@@ -270,14 +269,14 @@ feature {}
 			descriptor: LIBERTY_TYPE_DESCRIPTOR
 			c: like cluster
 		do
-			c := cluster
 			if c = Void then
 				c := root.find(class_name)
+			else
+				c := cluster.find(class_name)
 			end
 			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name.intern, position), effective_type_parameters)
 			Result := do_get_type_from_descriptor(descriptor)
 		ensure
-			Result.cluster = cluster
 			Result.name.is_equal(class_name)
 			Result.parameters.is_equal(effective_type_parameters)
 		end
