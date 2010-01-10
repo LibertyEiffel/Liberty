@@ -8,7 +8,7 @@ inherit
 			wrapper_or_void as value_wrapper_or_void
 		end
 insert
-	CORE_EXTERNALS undefine fill_tagged_out_memory end 
+	CORE_EXTERNALS
 	EXCEPTIONS undefine copy, is_equal end
 
 feature {WRAPPER, WRAPPER_HANDLER}

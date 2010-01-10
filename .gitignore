@@ -2,6 +2,7 @@
 *~
 *.back
 *.bak
+*.swp
 ## Ignore object files
 *.[oa]
 ## Ignore logs of any kind

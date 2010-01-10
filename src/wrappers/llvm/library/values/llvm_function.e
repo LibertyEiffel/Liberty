@@ -39,14 +39,15 @@ inherit
 	ITERABLE[LLVM_VALUE]
 		-- to provide iteration over parameters
 		rename 
+			count as parameters_count,
+			is_empty as is_parameterless
 			new_iterator as new_parameter_iterator,
 			do_all as do_all_parameters
 			for_all as for_all_parameters
 			exists as exists_parameter
-		undefine is_equal, copy 
+		undefine is_equal, copy, fill_tagged_out_memory
 		end
-insert 
-	LLVM_VALUE_FACTORY 
+insert LLVM_VALUE_FACTORY 
 
 creation {ANY} make 
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
@@ -130,26 +131,31 @@ feature -- Iterating over blocks
 	end
 
 feature -- Parameters
-	parameters_count: NATURAL_32 is
+	parameters_count: INTEGER is
+		-- The number of parameters. TODO: should be NATURAL
 		do
-			Result:=llvmcount_params(handle)
+			Result:=llvmcount_params(handle).to_integer_32
 		end
+
+	is_parameterless: BOOLEAN is do Result:=(parameters_count=0) end
 
 	-- Note: "void LLVMGetParams(LLVMValueRef Fn,
 	-- LLVMValueRef *Params);" will not be wrapped because
 	-- the C interface doe not allow an efficient
 	-- implementation.
 
-	is_valid_parameter_index (an_index: NATURAL_32): BOOLEAN is
+	is_valid_parameter_index (an_index: INTEGER): BOOLEAN is
 		do
-			Result := an_index.in_range(0.to_natural_32, parameters_count)
+			Result := an_index.in_range(0, parameters_count)
 		end
 
-	parameter (an_index: NATURAL_32): LLVM_VALUE is
+	parameter (an_index: INTEGER): LLVM_VALUE is
+		-- The parameter at `an_index'
+		-- TODO: `an_index' should be a NATURAL_32 as in C it's an unsigned. 
 		require is_valid_parameter_index(an_index)
 		local p: POINTER
 		do
-			p := llvmget_param(handle,an_index)
+			p := llvmget_param(handle,an_index.to_natural_32)
 			check
 				p.is_not_null 
 			end

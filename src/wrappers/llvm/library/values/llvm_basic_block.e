@@ -23,9 +23,55 @@ class LLVM_BASIC_BLOCK
 inherit LLVM_VALUE
 insert 	LLVM_VALUE_FACTORY 
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
-feature 
+creation {ANY} appended_in_context, inserted_in_context, appended_to, inserted_before
+feature {} -- Creation
+	appended_in_context (a_context: LLVM_CONTEXT; a_function: LLVM_FUNCTION; a_name: ABSTRACT_STRING) is
+	-- TODO: documentation
+	-- TODO: `a_function' may be an more general LLVM_VALUE but any actual
+	-- usage of something other that an LLVM_FUNCTION is not clear to me. 
+	require 
+		a_context/=Void
+		a_function/=Void
+		a_name/=Void
+	do
+		handle:=llvmappend_basic_block_in_context
+		(a_context.handle, a_function.handle, a_name.to_external)
+	ensure name_not_changed: a_name.is_equal(old a_name)
+	end
+
+	inserted_in_context (a_context: LLVM_CONTEXT; a_block: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING) is
+		-- TODO: doc.
+	require
+		a_context/=Void
+		a_block/=Void
+		a_name/=Void
+	do
+		handle:=llvminsert_basic_block_in_context
+		(a_context.handle, a_block.handle, a_name.to_external)
+	ensure name_not_changed: a_name.is_equal(old a_name)
+	end
+
+	appended_to (a_value: LLVM_VALUE; a_name: ABSTRACT_STRING) is
+		-- TODO: doc
+	require 
+		a_value/=Void
+		a_name/=Void
+	do
+		handle:=llvmappend_basic_block(a_value.handle,a_name.to_external)
+		ensure name_not_changed: a_name.is_equal(old a_name)
+	end
 	
-feature	
+	inserted_before (a_block: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING) is
+		-- TODO: doc
+	require
+		a_block/=Void
+		a_name/=Void
+	do
+		handle:=llvminsert_basic_block(a_block.handle,a_name.to_external)
+	ensure name_not_changed: a_name.is_equal(old a_name)
+	end
+
+feature	{ANY} -- queries
 	-- TODO: "as_value: LLVM_VALUE is -- Current basic block as a value do LLVMValueRef LLVMBasicBlockAsValue(LLVMBasicBlockRef BB);:w" and
 
 	parent: LLVM_VALUE is
@@ -53,18 +99,15 @@ feature
 			create Result.from_external_pointer(p)
 		end
 	end
--- LLVMBasicBlockRef LLVMAppendBasicBlockInContext(LLVMContextRef C,
---                                                 LLVMValueRef Fn,
---                                                 const char *Name);
--- LLVMBasicBlockRef LLVMInsertBasicBlockInContext(LLVMContextRef C,
---                                                 LLVMBasicBlockRef BB,
---                                                 const char *Name);
--- 
--- LLVMBasicBlockRef LLVMAppendBasicBlock(LLVMValueRef Fn, const char *Name);
--- LLVMBasicBlockRef LLVMInsertBasicBlock(LLVMBasicBlockRef InsertBeforeBB,
---                                        const char *Name);
--- void LLVMDeleteBasicBlock(LLVMBasicBlockRef BB);
 
+	delete is
+		-- Delete current block.
+	do
+		llvmdelete_basic_block(handle)
+	end
+
+-- void LLVMDeleteBasicBlock(LLVMBasicBlockRef BB);
+feature {ANY} -- Iterating over instructions
 	new_iterator: ITERATOR[LLVM_INSTRUCTION] is
 		do
 			create {ITERATOR_OVER_INSTRUCTIONS} Result.from_block(Current)

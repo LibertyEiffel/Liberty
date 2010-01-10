@@ -63,7 +63,7 @@ class LLVM_VALUE
 
 inherit 
 	C_STRUCT
-	EIFFEL_OWNED
+	C_OWNED
 	LLVM_TYPE_FACTORY
 
 creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
@@ -138,7 +138,7 @@ feature -- TODO: Important Public Members of the Value class
 -- Inst->replaceAllUsesWith(ConstVal);
 -- 
 
-feature
+feature {WRAPPER, WRAPPER_HANDLER}
 	struct_size: INTEGER is
 		-- LLVM_VALUE wraps a polymorphic C++ class; temporarly this query
 		-- always fails; it should not hamper proper usage, since it is used
@@ -148,7 +148,6 @@ feature
 		do
 			not_yet_implemented -- or mostly unuseful
 		end
-
 end -- class LLVM_VALUE
 
 -- Copyright 2009 Paolo Redaelli

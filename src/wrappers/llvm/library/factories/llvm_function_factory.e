@@ -8,8 +8,8 @@ inherit
 			wrapper_or_void as function_wrapper_or_void
 		end
 insert 
-	CORE_EXTERNALS undefine fill_tagged_out_memory end 
-	EXCEPTIONS undefine copy, fill_tagged_out_memory, is_equal end 
+	CORE_EXTERNALS 
+	EXCEPTIONS undefine copy, is_equal end 
 
 feature {WRAPPER, WRAPPER_HANDLER}
 	function_wrapper (a_pointer: POINTER): LLVM_FUNCTION is
