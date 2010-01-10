@@ -72,6 +72,22 @@ feature {} -- Utility features
 			end
 		ensure definition: a_collection=Void implies Result.is_null and a_collection/=Void implies Result.is_not_null
 		end
+	
+	collection_to_c_array (a_collection: COLLECTION[WRAPPER]): FAST_ARRAY[POINTER] is
+		-- An array containing the pointers to the objects wrapped by `a_collection' wrappers. 
+	require 
+		a_collection/=Void
+		not a_collection.is_empty
+	local i: ITERATOR[WRAPPER]
+	do
+		create Result.with_capacity(a_collection.count)
+		from i:=a_collection.new_iterator; i.start 
+		until i.is_off loop
+			Result.add_last(i.item.handle); i.next
+		end
+	end
+
+
 feature {} -- Wrapper related exceptions
 	pointer_to_unwrapped_deferred_object: STRING is
 		"A C function returned a pointer to an unwrapped object which is wrapped by a deferred class. It is not possible to create a correct wrapper."
