@@ -15,9 +15,12 @@ llvm_example: *.o
 *.o: *.c
 	gcc `llvm-config --cflags all` -c *.c
 
-*.c : llvm_example.e 
+debug: llvm_example.e
+	compile_to_c -debug llvm_example 
+
+*.c : llvm_example.e
 	compile_to_c -all-check llvm_example 
 
 clean:
-	rm *.c *.o llvm_example
+	rm *.c *.o llvm_example example example.bc example.s
 

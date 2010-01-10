@@ -54,7 +54,7 @@ feature
 			not_yet_implemented -- or mostly unuseful
 		end
 
-	-- is_integer: BOOLEAN is -- Is Current an integer type.
+	-- is_integer: sOOLEAN is -- Is Current an integer type.
 	-- is_floating_point: BOOLEAN -- Is Current a floating point type.
 	-- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.
 	-- is_sized: BOOLEAN is -- Has the type a known size? Things that don't have a size are abstract types, labels and void.

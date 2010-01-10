@@ -33,7 +33,7 @@ feature {} -- Creation
 			param_iter.start; x:=param_iter.item; x.set_name("x")
 			param_iter.next;  y:=param_iter.item; y.set_name("y")
 			param_iter.next;  z:=param_iter.item; z.set_name("z")
-			muladd.do_all_parameters (agent {LLVM_VALUE}.print_on(std_output))
+			muladd.do_all_parameters (agent {LLVM_VALUE}.print_on(std_error))
 			check 
 				muladd.parameter(0).name.is_equal("x")
 				muladd.parameter(1).name.is_equal("y")

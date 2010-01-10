@@ -16,14 +16,17 @@ feature {WRAPPER, WRAPPER_HANDLER}
 		local type: LLVMTYPE_KIND_ENUM
 		do
 			debug
-				print("Not all heirs of LLVM_VALUE taken in count in value factory%N")
+				std_error.put_string("Not all heirs of LLVM_VALUE taken in count in value factory%N")
 			end
 			-- Note: of course the following if elseif chain should be
 			-- substituted by an inspect instruction, if only inspect allowed
 			-- compound values like type.void_type_kind_low_level as when
 			-- values.
 			if     type.is_void_type_kind then 
-				debug print("What's the correct value of a Void type? Creating a plain LLVM_VALUE.%N") std_output.flush end
+				debug 
+					std_error.put_string("What's the correct value of a Void type? Creating a plain LLVM_VALUE.%N")
+					std_output.flush 
+				end
 				create {LLVM_VALUE} Result.from_external_pointer(p)
 			elseif type.is_double_type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)
 			elseif type.is_x_86_fp_80type_kind then create {LLVM_CONSTANT_FP} Result.from_external_pointer(p)

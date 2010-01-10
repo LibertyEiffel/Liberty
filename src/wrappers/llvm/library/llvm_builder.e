@@ -174,20 +174,22 @@ feature {ANY} -- Terminators
 
 feature {ANY} -- Arithmetic
 	add (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
-		-- Create an `add' instruction with `a_name' summing `a_left' and `a_right'.
+		-- A newly created `add' instruction with `a_name' summing `a_left' and `a_right'.
+		-- The two arguments to the 'add' instruction must be integer or vector of integer values. Both arguments must have identical types.
 	require 
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
+		-- TODO: arguments_must_be_integers_or_vectors_of_integers:
+		-- a_left.type.type_is.is_integer_ty_id or a_left.is_vector
+		-- arguments_have_the_same_type: a_left.type ~ a_right.type
 		do
 			create Result.from_external_pointer
 			(llvmbuild_add(handle,a_left.handle, a_right.handle, a_name.to_external))
 		ensure Result/=Void
 		end
 
--- LLVMValueRef LLVMBuildAdd(LLVMBuilderRef, LLVMValueRef LHS, LLVMValueRef RHS,
---                           const char *Name);
--- LLVMValueRef LLVMBuildNSWAdd(LLVMBuilderRef, LLVMValueRef LHS, LLVMValueRef RHS,
+	-- LLVMValueRef LLVMBuildNSWAdd(LLVMBuilderRef, LLVMValueRef LHS, LLVMValueRef RHS,
 --                              const char *Name);
 -- LLVMValueRef LLVMBuildFAdd(LLVMBuilderRef, LLVMValueRef LHS, LLVMValueRef RHS,
 --                            const char *Name);
