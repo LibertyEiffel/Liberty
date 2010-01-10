@@ -316,11 +316,17 @@ feature {LIBERTY_TYPE_PARENT_LOADER}
 					create {FAST_ARRAY[LIBERTY_TYPE]} conformant_parents.make(0)
 				end
 				conformant_parents.add_last(a_parent)
+				debug
+					std_output.put_line(name + ": adding conformant parent " + a_parent.name)
+				end
 			else
 				if non_conformant_parents = Void then
 					create {FAST_ARRAY[LIBERTY_TYPE] }non_conformant_parents.make(0)
 				end
 				non_conformant_parents.add_last(a_parent)
+				debug
+					std_output.put_line(name + ": adding non-conformant parent " + a_parent.name)
+				end
 			end
 		end
 

@@ -163,7 +163,10 @@ feature {}
 				Result := types_incubator
 				types_incubator := incubator
 			else
-				not_yet_implemented
+				errors.set(level_system_error, "Compiler staled.")
+				check
+					dead: False
+				end
 			end
 		end
 
@@ -433,10 +436,10 @@ feature {} -- AST building
 			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
 			ast: LIBERTY_AST_CLASS
 		do
-			std_output.put_line(once "Parsing " + class_name)
 			create class_descriptor.make(cluster, class_name.intern, pos)
 			Result := classes.reference_at(class_descriptor)
 			if Result = Void then
+				std_output.put_line(once "Parsing " + class_name)
 				code := once ""
 				code.clear_count
 				read_file_in(class_descriptor, code)
@@ -450,6 +453,7 @@ feature {} -- AST building
 				ast ::= eiffel.root_node
 				Result := ast.one_class
 				classes.put(Result, class_descriptor)
+				std_output.put_line(class_name + once " parsed.")
 			end
 		ensure
 			Result /= Void
