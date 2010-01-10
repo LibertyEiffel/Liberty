@@ -310,16 +310,23 @@ feature {LIBERTY_TYPE_PARENT_LOADER}
 
 	add_parent (a_parent: LIBERTY_TYPE; conformant: BOOLEAN) is
 		do
+			heart_beat.beat
 			if conformant then
 				if conformant_parents = Void then
 					create {FAST_ARRAY[LIBERTY_TYPE]} conformant_parents.make(0)
 				end
 				conformant_parents.add_last(a_parent)
+				debug
+					std_output.put_line(name + ": adding conformant parent " + a_parent.name)
+				end
 			else
 				if non_conformant_parents = Void then
 					create {FAST_ARRAY[LIBERTY_TYPE] }non_conformant_parents.make(0)
 				end
 				non_conformant_parents.add_last(a_parent)
+				debug
+					std_output.put_line(name + ": adding non-conformant parent " + a_parent.name)
+				end
 			end
 		end
 
@@ -404,6 +411,8 @@ feature {LIBERTY_AST_HANDLER}
 feature {}
 	errors: LIBERTY_ERRORS
 	builder: LIBERTY_TYPE_BUILDER_AUTOMATON
+
+	heart_beat: LIBERTY_HEART_BEAT
 
 invariant
 	descriptor /= Void

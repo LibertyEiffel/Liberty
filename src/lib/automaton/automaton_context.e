@@ -15,6 +15,8 @@ feature {AUTOMATON} -- state memo
 	current_state: STATE[E_]
 
 	set_current_state (s: like current_state) is
+		require
+			s /= Void
 		do
 			current_state := s
 		ensure

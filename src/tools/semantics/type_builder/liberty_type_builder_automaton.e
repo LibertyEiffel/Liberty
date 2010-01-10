@@ -99,8 +99,11 @@ feature {}
 
 	load_parents (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
+			debug
+				std_output.put_line(ctx.type.name + once ": load parents")
+			end
 			ctx.load_parents
-			Result := once "loading parent entities"
+			Result := once "loading parents entities"
 		end
 
 	can_load_parent_entities (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is
@@ -110,6 +113,9 @@ feature {}
 
 	load_parent_entities (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
+			debug
+				std_output.put_line(ctx.type.name + once ": load parent entities")
+			end
 			ctx.load_parent_entities
 			Result := once "loading entities"
 		end
@@ -121,6 +127,9 @@ feature {}
 
 	load_entities (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
+			debug
+				std_output.put_line(ctx.type.name + once ": load entities")
+			end
 			ctx.load_entities
 			Result := once "reconciling anchors"
 			has_loaded_entities := True
@@ -133,6 +142,9 @@ feature {}
 
 	reconcile_anchors (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
+			debug
+				std_output.put_line(ctx.type.name + once ": reconcile anchors")
+			end
 			if not ctx.reconcile_anchors then
 				Result := once "reconciling anchors"
 			else

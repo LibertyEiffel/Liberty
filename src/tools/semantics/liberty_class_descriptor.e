@@ -72,8 +72,14 @@ feature {ANY}
 
 feature {}
 	compute_hash_code is
+		local
+			h: like hash_code
 		do
-			hash_code := name.hash_code #*31 + cluster.hash_code
+			h := name.hash_code #*31 #+ cluster.hash_code
+			if h < 0 then
+				h := ~h
+			end
+			hash_code := h
 		end
 
 	file_tools: FILE_TOOLS

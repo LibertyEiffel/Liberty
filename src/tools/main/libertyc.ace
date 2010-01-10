@@ -16,13 +16,15 @@ cluster
 	lib: "${path_liberty}/src/lib/loadpath.se"
 		default
 			assertion(require)
-		--option
-		--	debug("parse/eiffel/ast"): EIFFEL_GRAMMAR
+		option
+			debug(all): FIXED_STRING
 		end
 
 	tools: "${path_liberty}/src/tools/loadpath.se"
 		default
 			assertion(all)
+		option
+			debug(all): LIBERTY_TYPE_BUILDER_AUTOMATON, LIBERTY_TYPE
 		end
 
 generate

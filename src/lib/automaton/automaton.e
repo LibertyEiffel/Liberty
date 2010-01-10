@@ -38,6 +38,9 @@ feature {ANY} -- Step-by-step execution
 		do
 			create Result.make(e)
 			state := next_transition(Void, start_state, e)
+			check
+				state_exists: state /= Void
+			end
 			Result.set_current_state(state)
 		ensure
 			Result.is_valid
@@ -54,6 +57,9 @@ feature {ANY} -- Step-by-step execution
 			if next_state /= Void then
 				check has(next_state) end
 				state := next_transition(state, next_state, context.data)
+				check
+					state_exists: state /= Void
+				end
 				context.set_current_state(state)
 			else
 				last_transition(state, context.data)

@@ -28,7 +28,6 @@ feature {ANY}
 		do
 			Result := do_get_type(cluster, position, class_name, effective_type_parameters)
 		ensure
-			Result.cluster = cluster
 			Result.name.is_equal(class_name)
 			Result.parameters.is_equal(effective_type_parameters)
 		end
@@ -164,7 +163,10 @@ feature {}
 				Result := types_incubator
 				types_incubator := incubator
 			else
-				not_yet_implemented
+				errors.set(level_system_error, "Compiler staled.")
+				check
+					dead: False
+				end
 			end
 		end
 
@@ -270,14 +272,14 @@ feature {}
 			descriptor: LIBERTY_TYPE_DESCRIPTOR
 			c: like cluster
 		do
-			c := cluster
 			if c = Void then
 				c := root.find(class_name)
+			else
+				c := cluster.find(class_name)
 			end
 			create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(c, class_name.intern, position), effective_type_parameters)
 			Result := do_get_type_from_descriptor(descriptor)
 		ensure
-			Result.cluster = cluster
 			Result.name.is_equal(class_name)
 			Result.parameters.is_equal(effective_type_parameters)
 		end
@@ -434,10 +436,10 @@ feature {} -- AST building
 			code: STRING; class_descriptor: LIBERTY_CLASS_DESCRIPTOR
 			ast: LIBERTY_AST_CLASS
 		do
-			std_output.put_line(once "Parsing " + class_name)
 			create class_descriptor.make(cluster, class_name.intern, pos)
 			Result := classes.reference_at(class_descriptor)
 			if Result = Void then
+				std_output.put_line(once "Parsing " + class_name)
 				code := once ""
 				code.clear_count
 				read_file_in(class_descriptor, code)
@@ -451,6 +453,7 @@ feature {} -- AST building
 				ast ::= eiffel.root_node
 				Result := ast.one_class
 				classes.put(Result, class_descriptor)
+				std_output.put_line(class_name + once " parsed.")
 			end
 		ensure
 			Result /= Void
