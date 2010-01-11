@@ -44,6 +44,7 @@ feature {LIBERTY_TYPE_BUILDER}
 	load is
 		local
 			ast: LIBERTY_AST_ONE_CLASS
+			has_parents: BOOLEAN
 		do
 			ast := type.ast
 			init_header(ast.class_header)
@@ -53,8 +54,11 @@ feature {LIBERTY_TYPE_BUILDER}
 					errors.set(level_warning, decoded_string(ast.obsolete_clause.string))
 				end
 				if not is_any then
-					add_parents(ast.inherit_clause, True)
-					add_parents(ast.insert_clause, False)
+					has_parents := add_parents(ast.inherit_clause, True, False)
+					has_parents := add_parents(ast.insert_clause, False, has_parents)
+					check
+						has_parents
+					end
 				end
 			end
 		end
@@ -114,14 +118,21 @@ feature {}
 			end
 		end
 
-	add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN) is
+	add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant, had_parents: BOOLEAN): BOOLEAN is
+			-- Returns True if at least a parent was added
 		local
 			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
 			parent: LIBERTY_TYPE
-			has_parent: BOOLEAN
 		do
+			debug
+				if conformant then
+					std_output.put_line("Adding conformant parents to " + type.name)
+				else
+					std_output.put_line("Adding non-conformant parents to " + type.name)
+				end
+			end
 			from
-				has_parent := False
+				Result := had_parents
 				i := parents.list_lower
 			until
 				errors.has_error or else i > parents.list_upper
@@ -130,13 +141,17 @@ feature {}
 				parent := builder.get_type_from_type_definition(type, parent_clause.type_definition)
 				if parent /= Void then
 					type.add_parent(parent, conformant)
-					has_parent := True
+					Result := True
 				end
 				i := i + 1
 			end
-			if not has_parent and then not errors.has_error then
+			if not conformant and then not Result and then not errors.has_error then
+				debug
+					std_output.put_line(type.name + ": adding default parent ANY")
+				end
 				parent := universe.type_any
 				type.add_parent(parent, False)
+				Result := True
 			end
 		end
 

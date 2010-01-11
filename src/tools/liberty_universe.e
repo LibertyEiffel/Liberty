@@ -131,7 +131,7 @@ feature {ANY}
 				end
 				ast := tuple_ast.classes.list_item(tuple_count)
 				create Result.make(td, ast)
-				start_built_type(Result)
+				start_to_build_type(Result)
 			end
 		ensure
 			Result /= Void
@@ -171,9 +171,14 @@ feature {}
 		end
 
 feature {}
-	start_built_type (type: LIBERTY_TYPE) is
+	start_to_build_type (type: LIBERTY_TYPE) is
+		require
+			not types.has(type.descriptor)
 		do
-			types.put(type, type.descriptor)
+			debug
+				std_output.put_line("Starting to build " + type.name)
+			end
+			types.add(type, type.descriptor)
 			type.start_build(Current)
 			if not type.is_built then
 				types_incubator.add(type)
@@ -208,7 +213,7 @@ feature {}
 			end
 			ast := parse_class(cluster, class_name, Void)
 			create Result.make(td, ast)
-			start_built_type(Result)
+			start_to_build_type(Result)
 		ensure
 			Result /= Void
 		end
@@ -294,7 +299,7 @@ feature {}
 			if Result = Void then
 				ast := parse_class(descriptor.cluster, descriptor.name.out, descriptor.position)
 				create Result.make(descriptor, ast)
-				start_built_type(Result)
+				start_to_build_type(Result)
 			end
 		ensure
 			Result.cluster.is_equal(descriptor.cluster)

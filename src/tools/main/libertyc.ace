@@ -24,7 +24,7 @@ cluster
 		default
 			assertion(all)
 		option
-			debug(all): LIBERTY_TYPE_BUILDER_AUTOMATON, LIBERTY_TYPE
+			debug(all): LIBERTY_TYPE_BUILDER_AUTOMATON, LIBERTY_TYPE, LIBERTY_TYPE_PARENT_LOADER, LIBERTY_UNIVERSE
 		end
 
 generate
