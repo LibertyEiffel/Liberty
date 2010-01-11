@@ -33,7 +33,7 @@ feature {LIBERTY_TYPE}
 			Result := not builder.automaton_context.is_valid
 		end
 
-	has_loaded_entities: BOOLEAN
+	has_loaded_features: BOOLEAN
 
 feature {}
 	make (a_type: LIBERTY_TYPE; a_universe: LIBERTY_UNIVERSE) is
@@ -56,13 +56,13 @@ feature {}
 																																								agent no_errors, agent load_parents;
 																																								agent otherwise, agent abort
 																																								>>};
-																				  "loading parents entities", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																											agent can_load_parent_entities, agent load_parent_entities;
+																				  "loading parents features", {STATE[LIBERTY_TYPE_BUILDER] <<
+																																											agent can_load_parent_features, agent load_parent_features;
 																																											agent no_errors, agent stay;
 																																											agent otherwise, agent abort
 																																											>>};
-																				  "loading entities", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																								 agent can_load_entities, agent load_entities;
+																				  "loading features", {STATE[LIBERTY_TYPE_BUILDER] <<
+																																								 agent can_load_features, agent load_features;
 																																								 agent no_errors, agent stay;
 																																								 agent otherwise, agent abort
 																																								 >>};
@@ -103,36 +103,40 @@ feature {}
 				std_output.put_line(ctx.type.name + once ": load parents")
 			end
 			ctx.load_parents
-			Result := once "loading parents entities"
+			if ctx.type = ctx.universe.type_any then
+				Result := once "loading features"
+			else
+				Result := once "loading parents features"
+			end
 		end
 
-	can_load_parent_entities (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is
+	can_load_parent_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is
 		do
-			Result := ctx.can_load_entities
+			Result := ctx.can_load_features
 		end
 
-	load_parent_entities (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
+	load_parent_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
 			debug
-				std_output.put_line(ctx.type.name + once ": load parent entities")
+				std_output.put_line(ctx.type.name + once ": load parent features")
 			end
-			ctx.load_parent_entities
-			Result := once "loading entities"
+			ctx.load_parent_features
+			Result := once "loading features"
 		end
 
-	can_load_entities (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is
+	can_load_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is
 		do
-			Result := ctx.can_load_entities
+			Result := ctx.can_load_features
 		end
 
-	load_entities (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
+	load_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
 			debug
-				std_output.put_line(ctx.type.name + once ": load entities")
+				std_output.put_line(ctx.type.name + once ": load features")
 			end
-			ctx.load_entities
+			ctx.load_features
+			has_loaded_features := True
 			Result := once "reconciling anchors"
-			has_loaded_entities := True
 		end
 
 	can_reconcile_anchors (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is

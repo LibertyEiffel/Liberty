@@ -20,7 +20,7 @@ inherit
 			copy
 		end
 
-creation {LIBERTY_TYPE_BUILDER}
+creation {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
@@ -67,7 +67,7 @@ feature {ANY}
 			Result := the_feature /= Void
 		end
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_name (a_name: like feature_name) is
 		require
 			a_name /= Void
@@ -121,7 +121,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			end
 		end
 
-feature {LIBERTY_TYPE_BUILDER, LIBERTY_FEATURE_DEFINITION}
+feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 	add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_TYPE) is
 		require
 			not has_precursor(a_precursor_type)

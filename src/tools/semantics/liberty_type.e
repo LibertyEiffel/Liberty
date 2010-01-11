@@ -257,7 +257,7 @@ feature {LIBERTY_TYPE}
 			end
 		end
 
-feature {LIBERTY_TYPE_PARENT_LOADER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_obsolete (message: like obsolete_message) is
 		require
 			message /= Void
@@ -332,6 +332,13 @@ feature {LIBERTY_TYPE_PARENT_LOADER}
 
 	features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 
+	set_invariant (a_invariant: like the_invariant) is
+		do
+			the_invariant := a_invariant
+		ensure
+			the_invariant = a_invariant
+		end
+
 	add_feature (a_feature: LIBERTY_FEATURE_DEFINITION) is
 		require
 			not has_feature(a_feature.feature_name)
@@ -339,13 +346,6 @@ feature {LIBERTY_TYPE_PARENT_LOADER}
 			features.add(a_feature, a_feature.feature_name)
 		ensure
 			features.at(a_feature.feature_name) = a_feature
-		end
-
-	set_invariant (a_invariant: like the_invariant) is
-		do
-			the_invariant := a_invariant
-		ensure
-			the_invariant = a_invariant
 		end
 
 feature {LIBERTY_UNIVERSE} -- Semantincs building
@@ -378,9 +378,9 @@ feature {LIBERTY_TYPE_BUILDER}
 	conformant_parents: COLLECTION[LIBERTY_TYPE]
 	non_conformant_parents: COLLECTION[LIBERTY_TYPE]
 
-	has_loaded_entities: BOOLEAN is
+	has_loaded_features: BOOLEAN is
 		do
-			Result := builder.has_loaded_entities
+			Result := builder.has_loaded_features
 		end
 
 feature {}

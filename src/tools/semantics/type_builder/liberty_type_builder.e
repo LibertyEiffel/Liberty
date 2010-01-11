@@ -13,6 +13,20 @@
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
 class LIBERTY_TYPE_BUILDER
+			--| TODO:
+			--| * attach feature_entities to actual features
+			--|     - all the feature entities must be attached to a known feature
+			--|     - check that all the writable features are attributes
+			--|     - check that all FEATURE_CALL_INSTRUCTIONs point to resultless feature entities
+			--|     - check that all FEATURE_CALL_EXPRESSIONs point to feature entities with a conforming
+			--|       result_type
+			--| * check the result types of expressions
+			--|     - if expressions must be booleans
+			--|     - inspect expressions must be comparables
+			--|     - contract expressions must be booleans
+			--| * "retry" only in rescue blocks
+			--| * "old" only in postconditions
+			--| * what else?
 
 insert
 	LIBERTY_ERROR_LEVELS
@@ -41,45 +55,51 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 		local
 			loader: LIBERTY_TYPE_PARENT_LOADER
 		do
-			create loader.make(Current, type, universe)
+			check
+				effective_generic_parameters = empty_effective_generic_parameters
+			end
+			create loader.make(Current, type, universe, empty_effective_generic_parameters)
 			loader.load
 		end
 
-	can_load_parent_entities: BOOLEAN is
-			-- True if all the parents have finished loading their entities
+	can_load_parent_features: BOOLEAN is
+			-- True if all the parents have finished loading their features
 		do
-			Result := check_have_loaded_entities(type.conformant_parents)
-				and then check_have_loaded_entities(type.non_conformant_parents)
+			Result := check_have_loaded_features(type.conformant_parents)
+				and then check_have_loaded_features(type.non_conformant_parents)
 		end
 
-	load_parent_entities is
-			-- Load the parent entities, considering renamings, redefinitions and so on
+	load_parent_features is
+			-- Load the parent features, considering renamings, redefinitions and so on
+		local
+			loader: LIBERTY_TYPE_PARENT_FEATURES_LOADER
 		do
-			--create {LIBERTY_TYPE_PARENT_ENTITIES_LOADER}.load(type, universe)
+			create loader.make(Current, type, universe, effective_generic_parameters)
+			loader.load
 		end
 
-	can_load_entities: BOOLEAN is True
+	can_load_features: BOOLEAN is True
 			-- Currently always True
 
-	load_entities is
-			-- Load the type's own entities, not trying to reconcile anchors yet.
+	load_features is
+			-- Load the type's own features, not trying to reconcile anchors yet.
 			-- The full semantics tree of each feature is built here.
 		do
-			--create {LIBERTY_TYPE_ENTITIES_LOADER}.load(type, universe)
+			--create {LIBERTY_TYPE_FEATURES_LOADER}.load(type, universe)
 		end
 
 	can_reconcile_anchors: BOOLEAN is True
 			-- Currently always True
 
 	reconcile_anchors: BOOLEAN is
-			-- Try to reconcile anchors using other entities' result types.
+			-- Try to reconcile anchors using other features' result types.
 			-- True if all the anchors were reconciled, False if some are left to do later.
 		do
 			--create {LIBERTY_TYPE_ANCHORS_RESOLVER}.resolve(type, universe)
 		end
 
 feature {}
-	check_have_loaded_entities (parents: INDEXABLE[LIBERTY_TYPE]): BOOLEAN is
+	check_have_loaded_features (parents: INDEXABLE[LIBERTY_TYPE]): BOOLEAN is
 		local
 			i: INTEGER
 		do
@@ -90,7 +110,7 @@ feature {}
 				until
 					not Result or else i > parents.upper
 				loop
-					Result := parents.item(i).has_loaded_entities
+					Result := parents.item(i).has_loaded_features
 					i := i + 1
 				end
 			end

@@ -17,7 +17,7 @@ class LIBERTY_FEATURE_REDEFINED
 inherit
 	LIBERTY_FEATURE
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {LIBERTY_FEATURE_DEFINITION}
@@ -68,7 +68,7 @@ feature {LIBERTY_FEATURE}
 			fatal_join_error_redefined_concrete(Current, a_feature)
 		end
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_redefined_feature (a_feature: like redefined_feature) is
 		require
 			only_once: redefined_feature = Void

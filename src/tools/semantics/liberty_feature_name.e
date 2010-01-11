@@ -27,13 +27,13 @@ insert
 			is_equal
 		end
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make_from_ast, make_regular
 
-create {LIBERTY_TYPE_BUILDER, LIBERTY_PREFIX_CALL}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_PREFIX_CALL}
 	make_prefix
 
-create {LIBERTY_TYPE_BUILDER, LIBERTY_INFIX_CALL}
+create {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_INFIX_CALL}
 	make_infix
 
 feature {ANY}

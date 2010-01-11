@@ -162,7 +162,7 @@ feature {}
 		end
 
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_TYPE) is
 		do
 			late_binding.add(child, type)

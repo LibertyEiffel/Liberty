@@ -218,7 +218,7 @@ feature {}
 			Result /= Void
 		end
 
-feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_PARENT_LOADER}
+feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 	get_type_from_type_definition (origin: LIBERTY_TYPE; type_definition: LIBERTY_AST_TYPE_DEFINITION; effective_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]): LIBERTY_TYPE is
 		require
 			origin /= Void

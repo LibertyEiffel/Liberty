@@ -25,7 +25,7 @@ creation {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {}
-	make (a_builder: like builder; a_type: like type; a_universe: like universe) is
+	make (a_builder: like builder; a_type: like type; a_universe: like universe; default_effective_generic_parameters: like effective_generic_parameters) is
 		require
 			a_builder /= Void
 			a_type /= Void
@@ -34,10 +34,12 @@ feature {}
 			builder := a_builder
 			type := a_type
 			universe := a_universe
+			effective_generic_parameters := default_effective_generic_parameters
 		ensure
 			builder = a_builder
 			type = a_type
 			universe = a_universe
+			effective_generic_parameters = default_effective_generic_parameters
 		end
 
 feature {LIBERTY_TYPE_BUILDER}
@@ -72,7 +74,6 @@ feature {}
 			type_parameter: LIBERTY_AST_TYPE_PARAMETER
 			constraint: LIBERTY_TYPE
 			i, n: INTEGER
-			effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]
 		do
 			marker := a_header.class_marker
 			if marker.is_deferred then
@@ -97,7 +98,7 @@ feature {}
 				check
 					same_indexes: type_parameters.list_lower = type.parameters.lower
 				end
-				create {HASHED_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]}effective_generic_parameters.with_capacity(n)
+				create {HASHED_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]} effective_generic_parameters.with_capacity(n)
 				from
 					i := type_parameters.list_lower
 				until
