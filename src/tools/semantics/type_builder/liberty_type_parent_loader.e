@@ -50,7 +50,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			init_header(ast.class_header)
 			if not errors.has_error then
 				if ast.obsolete_clause.count > 0 then
-					errors.add_position(semantics_position_at(ast.obsolete_clause))
+					errors.add_position(semantics_position_at(ast.obsolete_clause.string))
 					errors.set(level_warning, decoded_string(ast.obsolete_clause.string))
 				end
 				if not is_any then
