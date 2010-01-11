@@ -26,7 +26,7 @@ deferred class LLVM_TYPE
 
 inherit 
 	C_STRUCT
-	EIFFEL_OWNED
+	C_OWNED
 
 insert CORE_EXTERNALS
 

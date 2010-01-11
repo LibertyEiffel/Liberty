@@ -50,6 +50,7 @@ feature {} -- Creation
 			ret := builder.return(tmp2)
 		
 			module.write_bitcode_to(std_output)
+			std_error.put_string(once "End of example reached.%N")
 			-- verifyModule(*Mod, PrintMessageAction);
 
 			-- create pass_manager
