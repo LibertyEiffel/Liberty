@@ -312,16 +312,16 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		do
 			heart_beat.beat
 			if conformant then
-				if conformant_parents = Void then
-					create {FAST_ARRAY[LIBERTY_TYPE]} conformant_parents.make(0)
+				if conformant_parents = no_parents then
+					create {FAST_ARRAY[LIBERTY_TYPE]} conformant_parents.with_capacity(2)
 				end
 				conformant_parents.add_last(a_parent)
 				debug
 					std_output.put_line(name + ": adding conformant parent " + a_parent.name)
 				end
 			else
-				if non_conformant_parents = Void then
-					create {FAST_ARRAY[LIBERTY_TYPE] }non_conformant_parents.make(0)
+				if non_conformant_parents = no_parents then
+					create {FAST_ARRAY[LIBERTY_TYPE] }non_conformant_parents.with_capacity(2)
 				end
 				non_conformant_parents.add_last(a_parent)
 				debug
@@ -391,6 +391,8 @@ feature {}
 			descriptor := a_descriptor
 			ast := a_ast
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} features.make
+			conformant_parents := no_parents
+			non_conformant_parents := no_parents
 		ensure
 			descriptor = a_descriptor
 		end
@@ -414,6 +416,11 @@ feature {}
 
 	heart_beat: LIBERTY_HEART_BEAT
 
+	no_parents: COLLECTION[LIBERTY_TYPE] is
+		do
+			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+		end
+
 invariant
 	descriptor /= Void
 	ast /= Void
@@ -421,5 +428,8 @@ invariant
 	features /= Void
 	features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN is do Result := fd.feature_name.is_equal(fn) end)
 	parameters /= Void
+
+	conformant_parents /= Void
+	non_conformant_parents /= Void
 
 end

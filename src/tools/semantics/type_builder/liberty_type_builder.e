@@ -67,6 +67,11 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 		do
 			Result := check_have_loaded_features(type.conformant_parents)
 				and then check_have_loaded_features(type.non_conformant_parents)
+			debug
+				if Result then
+					std_output.put_line(type.name + " can load its parent's features")
+				end
+			end
 		end
 
 	load_parent_features is
@@ -104,15 +109,13 @@ feature {}
 			i: INTEGER
 		do
 			Result := True
-			if parents /= Void then
-				from
-					i := parents.lower
-				until
-					not Result or else i > parents.upper
-				loop
-					Result := parents.item(i).has_loaded_features
-					i := i + 1
-				end
+			from
+				i := parents.lower
+			until
+				not Result or else i > parents.upper
+			loop
+				Result := parents.item(i).has_loaded_features
+				i := i + 1
 			end
 		end
 

@@ -112,7 +112,7 @@ feature {}
 
 	can_load_parent_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is
 		do
-			Result := ctx.can_load_features
+			Result := ctx.can_load_parent_features
 		end
 
 	load_parent_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is

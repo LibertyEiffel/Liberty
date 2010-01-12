@@ -183,6 +183,7 @@ feature {}
 			if not type.is_built then
 				types_incubator.add(type)
 			end
+			heart_beat.beat
 		end
 
 	tuple_class_descriptor: LIBERTY_CLASS_DESCRIPTOR is
@@ -546,12 +547,14 @@ feature {} -- AST building
 		end
 
 feature {}
+	default_type_capacity: INTEGER is 4096
+
 	make (universe_path: STRING) is
 		do
 			create root.make(universe_path)
-			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.make
-			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.make
-			create types_incubator.make
+			create {HASHED_DICTIONARY[LIBERTY_AST_ONE_CLASS, LIBERTY_CLASS_DESCRIPTOR]} classes.with_capacity(default_type_capacity)
+			create {HASHED_DICTIONARY[LIBERTY_TYPE, LIBERTY_TYPE_DESCRIPTOR]} types.with_capacity(default_type_capacity)
+			create types_incubator.with_capacity(default_type_capacity)
 		end
 
 	root: LIBERTY_CLUSTER

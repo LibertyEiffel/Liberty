@@ -283,6 +283,7 @@ feature {}
 				f := parent_features.item(i)
 				fn := f.feature_name
 				if not type.has_feature(fn) then
+					heart_beat.beat
 					type.add_feature(f)
 				else
 					check
@@ -296,6 +297,8 @@ feature {}
 feature {}
 	parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
+
+	heart_beat: LIBERTY_HEART_BEAT
 
 invariant
 	parent_features /= Void
