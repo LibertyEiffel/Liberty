@@ -55,7 +55,7 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := nodes.item(1).name.is_equal(once "KW :=")
 		ensure
-			Result = not is_assignment_attempt and then not is_forced_assignment
+			Result implies not is_assignment_attempt and then not is_forced_assignment
 		end
 
 	is_assignment_attempt: BOOLEAN is
@@ -64,7 +64,7 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := nodes.item(1).name.is_equal(once "KW ?=")
 		ensure
-			Result = not is_regular_assignment and then not is_forced_assignment
+			Result implies not is_regular_assignment and then not is_forced_assignment
 		end
 
 	is_forced_assignment: BOOLEAN is
@@ -73,7 +73,7 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			Result := nodes.item(1).name.is_equal(once "KW ::=")
 		ensure
-			Result = not is_assignment_attempt and then not is_regular_assignment
+			Result implies not is_assignment_attempt and then not is_regular_assignment
 		end
 
 	is_assignment: BOOLEAN is

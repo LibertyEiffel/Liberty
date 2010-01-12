@@ -39,6 +39,8 @@ feature {}
 			effective_generic_parameters := a_effective_generic_parameters
 			redefined_features := a_redefined_features
 			create current_entity.make(a_type, errors.unknown_position)
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, LIBERTY_FEATURE_NAME]} feature_entities.make
+			create {HASHED_DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]} feature_writables.make
 		ensure
 			builder = a_builder
 			type = a_type
@@ -261,12 +263,7 @@ feature {}
 							tag := Void
 						end
 						exp := expression(assertion.expression.expression, local_context, redefinitions)
-						if exp.result_type /= universe.type_boolean then
-							--| TODO: error
-							not_yet_implemented
-						else
-							Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
-						end
+						Result.add_last(create {LIBERTY_ASSERTION}.make(tag, exp))
 					end
 					i := i + 1
 				end
@@ -969,7 +966,7 @@ feature {} -- Entities and writables
 				heart_beat.beat
 			end
 		ensure
-			Result.feature_name = name
+			Result.feature_name.is_equal(name)
 		end
 
 	current_entity: LIBERTY_CURRENT
@@ -1592,5 +1589,9 @@ feature {}
 
 feature {}
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
+
+invariant
+	feature_entities /= Void
+	feature_writables /= Void
 
 end -- class LIBERTY_TYPE_FEATURES_LOADER

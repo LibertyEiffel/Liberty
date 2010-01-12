@@ -62,8 +62,10 @@ feature {}
 			a_name /= Void
 		do
 			feature_name := a_name
+			position := a_name.position
 		ensure
 			feature_name = a_name
+			position = a_name.position
 		end
 
 end
