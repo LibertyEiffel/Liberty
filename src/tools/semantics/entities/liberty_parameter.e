@@ -17,7 +17,7 @@ class LIBERTY_PARAMETER
 inherit
 	LIBERTY_ENTITY
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}

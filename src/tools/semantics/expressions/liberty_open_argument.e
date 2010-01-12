@@ -17,7 +17,7 @@ class LIBERTY_OPEN_ARGUMENT
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
@@ -28,7 +28,7 @@ feature {ANY}
 			Result := result_type /= Void
 		end
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_result_type (a_result_type: like result_type) is
 		require
 			a_result_type /= Void

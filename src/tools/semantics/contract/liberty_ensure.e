@@ -17,7 +17,7 @@ class LIBERTY_ENSURE
 inherit
 	LIBERTY_WRITTEN_ASSERTIONS
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {}

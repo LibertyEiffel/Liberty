@@ -202,7 +202,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {}
 	make is
 		do
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]}late_binding.make
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} late_binding.make
 		end
 
 	late_binding: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]

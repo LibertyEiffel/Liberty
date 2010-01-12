@@ -17,7 +17,7 @@ class LIBERTY_ENSURE_THEN
 inherit
 	LIBERTY_ENSURE
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 end

@@ -17,7 +17,7 @@ class LIBERTY_OLD
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}

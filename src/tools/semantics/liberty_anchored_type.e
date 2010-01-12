@@ -17,7 +17,7 @@ deferred class LIBERTY_ANCHORED_TYPE
 inherit
 	LIBERTY_ENTITY_TYPE
 
-creation {LIBERTY_TYPE_BUILDER}
+creation {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}

@@ -17,7 +17,7 @@ class LIBERTY_ARRAY_MANIFEST
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make, make_array
 
 feature {ANY}
@@ -35,7 +35,7 @@ feature {ANY}
 
 	is_result_type_set: BOOLEAN is True
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	add_parameter (a_parameter: LIBERTY_EXPRESSION) is
 		do
 			parameters_list.add_last(a_parameter)

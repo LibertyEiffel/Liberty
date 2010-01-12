@@ -17,7 +17,7 @@ class LIBERTY_INSPECT
 inherit
 	LIBERTY_INSTRUCTION
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
@@ -32,7 +32,7 @@ feature {ANY}
 
 	else_clause: LIBERTY_DEFAULT
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	add_clause (a_clause: LIBERTY_INSPECT_CLAUSE) is
 		require
 			a_clause /= Void

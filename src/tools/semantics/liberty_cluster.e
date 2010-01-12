@@ -226,7 +226,7 @@ feature {}
 		local
 			sublocation, entry: STRING
 		do
-			create {FAST_ARRAY[STRING]}Result.make(0)
+			create {FAST_ARRAY[STRING]} Result.make(0)
 			dir.connect_to(location)
 			if dir.is_connected then
 				entry := once ""
@@ -260,7 +260,7 @@ feature {}
 		local
 			i: INTEGER
 		do
-			create {FAST_ARRAY[LIBERTY_CLUSTER]}Result.with_capacity(subdirs.count)
+			create {FAST_ARRAY[LIBERTY_CLUSTER]} Result.with_capacity(subdirs.count)
 			from
 				i := subdirs.lower
 			until

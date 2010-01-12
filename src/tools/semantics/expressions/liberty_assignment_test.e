@@ -17,7 +17,7 @@ class LIBERTY_ASSIGNMENT_TEST
 inherit
 	LIBERTY_EXPRESSION
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	test_entity, test_type
 
 feature {ANY}

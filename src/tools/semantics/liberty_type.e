@@ -321,7 +321,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 				end
 			else
 				if non_conformant_parents = no_parents then
-					create {FAST_ARRAY[LIBERTY_TYPE] }non_conformant_parents.with_capacity(2)
+					create {FAST_ARRAY[LIBERTY_TYPE]} non_conformant_parents.with_capacity(2)
 				end
 				non_conformant_parents.add_last(a_parent)
 				debug
@@ -344,6 +344,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			not has_feature(a_feature.feature_name)
 		do
 			features.add(a_feature, a_feature.feature_name)
+			heart_beat.beat
 		ensure
 			features.at(a_feature.feature_name) = a_feature
 		end

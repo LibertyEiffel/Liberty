@@ -18,7 +18,7 @@ inherit
 	LIBERTY_AST_CLIENT_VISITOR
 	TRAVERSABLE[LIBERTY_TYPE]
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
@@ -77,7 +77,7 @@ feature {}
 			i: INTEGER
 		do
 			universe := a_universe
-			create {FAST_ARRAY[LIBERTY_TYPE]}clients.with_capacity(clients.count)
+			create {FAST_ARRAY[LIBERTY_TYPE]} clients.with_capacity(clients.count)
 			from
 				i := a_clients.lower
 			until

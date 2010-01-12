@@ -25,7 +25,7 @@ feature {ANY}
 
 	rescue_instruction: LIBERTY_INSTRUCTION
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_rescue (a_rescue: like rescue_instruction) is
 		require
 			rescue_instruction = Void

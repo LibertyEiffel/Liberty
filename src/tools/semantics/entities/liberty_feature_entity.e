@@ -22,7 +22,7 @@ class LIBERTY_FEATURE_ENTITY
 inherit
 	LIBERTY_ENTITY
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
@@ -43,7 +43,7 @@ feature {ANY}
 			Result := the_feature /= Void
 		end
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_feature (a_feature: like the_feature) is
 		require
 			a_feature.result_type /= Void

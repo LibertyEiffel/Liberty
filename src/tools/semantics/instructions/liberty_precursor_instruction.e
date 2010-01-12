@@ -20,7 +20,7 @@ inherit
 insert
 	LIBERTY_PRECURSOR
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}

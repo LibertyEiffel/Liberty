@@ -12,388 +12,52 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_TYPE_BUILDER
+class LIBERTY_TYPE_FEATURES_LOADER
 	--
-	-- OK, this class is ugly and should be refactored.
-	-- But let's make it bootstrap first.
+	-- Loads the type's own features.
 	--
-
-obsolete
-		"This class is really ugly and cannot be maintained by any sane mind. Must be removed. Use LIBERTY_TYPE_FACTORY instead."
+	-- Also loads the type's invariant.
+	--
 
 insert
-	LIBERTY_AST_HANDLER
-	LIBERTY_ERROR_LEVELS
+	LIBERTY_TYPE_BUILDER_TOOLS
 
-create {LIBERTY_TYPE}
+creation {LIBERTY_TYPE_BUILDER}
 	make
 
-feature {LIBERTY_TYPE}
-	check_and_initialize is
+feature {}
+	make (a_builder: like builder; a_type: like type; a_universe: like universe; a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features) is
 		require
-			not errors.has_error
+			a_builder /= Void
+			a_type /= Void
+			a_universe /= Void
+			a_redefined_features /= Void
+		do
+			builder := a_builder
+			type := a_type
+			universe := a_universe
+			effective_generic_parameters := a_effective_generic_parameters
+			redefined_features := a_redefined_features
+		ensure
+			builder = a_builder
+			type = a_type
+			universe = a_universe
+			effective_generic_parameters = a_effective_generic_parameters
+			redefined_features = a_redefined_features
+		end
+
+feature {LIBERTY_TYPE_BUILDER}
+	load is
 		local
 			ast: LIBERTY_AST_ONE_CLASS
-			parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 		do
 			ast := type.ast
-			init_header(ast.class_header)
+			add_features(ast.features)
 			if not errors.has_error then
-				if ast.obsolete_clause.count > 0 then
-					errors.add_position(semantics_position_at(ast.obsolete_clause))
-					errors.set(level_warning, decoded_string(ast.obsolete_clause.string))
-				end
-				if not is_any then
-					create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} parent_features.make
-					add_parents(ast.inherit_clause, True, parent_features)
-					add_parents(ast.insert_clause, False, parent_features)
-				end
+				add_creations(ast.creations)
 				if not errors.has_error then
-					add_features(ast.features)
-					if not errors.has_error then
-						add_creations(ast.creations)
-						if not errors.has_error then
-							type.set_invariant(class_invariant(ast.invariant_clause))
-							if not errors.has_error then
-								reconcile_and_check
-							end
-						end
-					end
+					type.set_invariant(class_invariant(ast.invariant_clause))
 				end
-			end
-		end
-
-feature {}
-	reconcile_and_check is
-		do
-			--| TODO:
-			--| * attach feature_entities to actual features
-			--|     - all the feature entities must be attached to a known feature
-			--|     - check that all the writable features are attributes
-			--|     - check that all FEATURE_CALL_INSTRUCTIONs point to resultless feature entities
-			--|     - check that all FEATURE_CALL_EXPRESSIONs point to feature entities with a conforming
-			--|       result_type
-			--| * check the result types of expressions
-			--|     - if expressions must be booleans
-			--|     - inspect expressions must be comparables
-			--|     - contract expressions must be booleans
-			--| * "retry" only in rescue blocks
-			--| * "old" only in postconditions
-			--| * what else?
-		end
-
-feature {}
-	empty_effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING] is
-		once
-			-- Special common case (no effective parameters) factored out, using the smallest possible structure
-			-- (an empty AVL tree)
-			create {AVL_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]} Result.make
-		end
-
-	init_header (a_header: LIBERTY_AST_CLASS_HEADER) is
-		local
-			marker: LIBERTY_AST_CLASS_MARKER
-			name: FIXED_STRING
-			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
-			type_parameter: LIBERTY_AST_TYPE_PARAMETER
-			constraint: LIBERTY_TYPE
-			i, n: INTEGER
-		do
-			marker := a_header.class_marker
-			if marker.is_deferred then
-				type.set_deferred
-			elseif marker.is_expanded then
-				type.set_expanded
-			elseif marker.is_separate then
-				type.set_separate
-			else
-				type.set_reference
-			end
-			name := a_header.class_name.image.image.intern
-			if name /= type.name then
-				errors.set(level_fatal_error, "Expected type " + type.name + ", but got " + name)
-			end
-			type_parameters := a_header.type_parameters
-			n := type_parameters.list_count
-			if n /= type.parameters.count then
-				errors.add_position(semantics_position_at(a_header.class_name))
-				errors.set(level_error, once "Bad number of generic parameters")
-			elseif n = 0 then
-				effective_generic_parameters := empty_effective_generic_parameters
-			else
-				check
-					same_indexes: type_parameters.list_lower = type.parameters.lower
-				end
-				create {HASHED_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]}effective_generic_parameters.with_capacity(n)
-				from
-					i := type_parameters.list_lower
-				until
-					i > type_parameters.list_upper
-				loop
-					type_parameter := type_parameters.list_item(i)
-					if type_parameter.has_constraint then
-						constraint := universe.get_type_from_type_definition(type, type_parameter.constraint, effective_generic_parameters, False)
-						if not type.parameters.item(i).type.is_child_of(constraint) then
-							errors.add_position(semantics_position_at(type_parameter.class_name))
-							errors.set(level_error, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
-						end
-					end
-					effective_generic_parameters.add(type.parameters.item(i).type, type_parameter.class_name.image.image.intern)
-					i := i + 1
-				end
-			end
-		end
-
-	is_any: BOOLEAN is
-		do
-			Result := type.name = any_type_name
-		end
-
-	any_type_name: FIXED_STRING is
-		once
-			Result := "ANY".intern
-		end
-
-	add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN; parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]) is
-		local
-			i: INTEGER; parent_clause: LIBERTY_AST_PARENT
-			parent: LIBERTY_TYPE
-			has_parent: BOOLEAN
-		do
-			from
-				has_parent := False
-				i := parents.list_lower
-			until
-				errors.has_error or else i > parents.list_upper
-			loop
-				parent_clause := parents.list_item(i)
-				parent := universe.get_type_from_type_definition(type, parent_clause.type_definition, effective_generic_parameters, True)
-				if parent /= Void then
-					type.add_parent(parent, conformant)
-					inject_parent_invariant(parent)
-					inject_parent_features(parent, parent_clause.parent_clause, conformant, parent_features)
-					has_parent := True
-				end
-				i := i + 1
-			end
-			if not has_parent and then not errors.has_error then
-				parent := universe.type_any
-				type.add_parent(parent, False)
-				inject_parent_invariant(parent)
-				inject_parent_features(parent, Void, False, parent_features)
-			end
-			push_parent_features_in_type(parent_features)
-		end
-
-	inject_parent_invariant (parent: LIBERTY_TYPE) is
-		do
-			--|*** TODO
-		end
-
-	inject_parent_features (parent: LIBERTY_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE; conformant: BOOLEAN; parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]) is
-		local
-			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; name: LIBERTY_FEATURE_NAME
-			pf: like parent_features
-		do
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} pf.with_capacity(parent.features.count)
-			from
-				i := parent.features.lower
-			until
-				i > parent.features.upper
-			loop
-				name := parent.features.key(i)
-				parent_fd := parent.features.item(i)
-				create fd.make(name, parent_fd.clients, parent_fd.is_frozen, name.position)
-				fd.add_precursor(parent_fd.the_feature, parent)
-				pf.add(fd, name)
-				i := i + 1
-			end
-			rename_features(pf, clause.rename_clause)
-			export_features(pf, clause.export_clause)
-			undefine_features(pf, clause.undefine_clause, conformant)
-			redefine_features(pf, clause.redefine_clause, conformant)
-			from
-				i := pf.lower
-			until
-				i > pf.upper
-			loop
-				name := pf.key(i)
-				fd := pf.item(i)
-				actual_fd := parent_features.reference_at(name)
-				if actual_fd = Void then
-					parent_features.add(fd, name)
-				else
-					actual_fd.join(fd, parent)
-				end
-				i := i + 1
-			end
-		end
-
-	rename_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_RENAME) is
-		local
-			i: INTEGER; r: LIBERTY_AST_RENAME; old_name, new_name: LIBERTY_FEATURE_NAME
-			fd: LIBERTY_FEATURE_DEFINITION
-		do
-			from
-				i := clause.list_lower
-			invariant
-				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
-			until
-				i > clause.list_upper
-			loop
-				r := clause.list_item(i)
-				create old_name.make_from_ast(r.old_name.feature_name_or_alias, type.ast, type.file)
-				create new_name.make_from_ast(r.new_name.feature_name_or_alias, type.ast, type.file)
-				fd := parent_features.reference_at(old_name)
-				if fd = Void then
-					errors.add_position(old_name.position)
-					errors.set(level_error, once "Cannot rename inexistent feature: " + old_name.name)
-				elseif parent_features.reference_at(new_name) /= Void then
-					errors.add_position(new_name.position)
-					errors.set(level_error, once "Cannot rename feature (another feature with the same name exists): " + new_name.name)
-				else
-					parent_features.remove(old_name)
-					fd.set_name(new_name)
-					parent_features.add(fd, new_name)
-				end
-				i := i + 1
-			end
-		end
-
-	export_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_EXPORT) is
-		local
-			i, j: INTEGER; e: LIBERTY_AST_EXPORT; feature_name: LIBERTY_FEATURE_NAME; fn: LIBERTY_AST_FEATURE_NAME
-			clients: COLLECTION[LIBERTY_TYPE]
-			fd: LIBERTY_FEATURE_DEFINITION
-		do
-			from
-				i := clause.list_lower
-			invariant
-				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
-			until
-				i > clause.list_upper
-			loop
-				e := clause.list_item(i)
-				clients := list_clients(e.clients)
-				from
-					j := e.feature_names.lower
-				until
-					j > e.feature_names.upper
-				loop
-					fn ::= e.feature_names.item(j)
-					create feature_name.make_from_ast(fn.feature_name_or_alias, type.ast, type.file)
-					fd := parent_features.reference_at(feature_name)
-					if fd = Void then
-						errors.add_position(feature_name.position)
-						errors.set(level_error, once "Cannot change export of inexistent feature: " + feature_name.name)
-					else
-						fd.set_clients(clients)
-					end
-					j := j + 1
-				end
-				i := i + 1
-			end
-		end
-
-	undefine_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_UNDEFINE; conformant: BOOLEAN) is
-			-- replace the feature by a LIBERTY_FEATURE_DEFERRED
-		local
-			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
-			inherited_feature: LIBERTY_FEATURE; deferred_feature: LIBERTY_FEATURE_DEFERRED
-		do
-			from
-				i := clause.list_lower
-			invariant
-				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
-			until
-				i > clause.list_upper
-			loop
-				create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast, type.file)
-				fd := parent_features.reference_at(feature_name)
-				if fd = Void then
-					errors.add_position(feature_name.position)
-					errors.set(level_error, once "Cannot undefine inexistent feature: " + feature_name.name)
-				elseif fd.is_frozen then
-					errors.add_position(feature_name.position)
-					errors.set(level_error, once "Cannot undefine frozen feature: " + feature_name.name)
-				else
-					inherited_feature := fd.the_feature
-					create deferred_feature.make
-					deferred_feature.set_precondition(inherited_feature.precondition)
-					deferred_feature.set_postcondition(inherited_feature.postcondition)
-					deferred_feature.set_context(inherited_feature.context)
-					if conformant then
-						inherited_feature.bind(deferred_feature, type)
-					end
-					fd.set_the_feature(deferred_feature)
-				end
-				i := i + 1
-			end
-		end
-
-	redefine_features (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]; clause: LIBERTY_AST_PARENT_REDEFINE; conformant: BOOLEAN) is
-			-- replace the feature by a LIBERTY_FEATURE_REDEFINED
-		local
-			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
-			inherited_feature: LIBERTY_FEATURE; redefined_feature: LIBERTY_FEATURE_REDEFINED
-		do
-			if clause.list_count > 0 then
-				create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]}redefined_features.with_capacity(clause.list_count)
-				from
-					i := clause.list_lower
-				invariant
-					parent_features.item(i).feature_name.is_equal(parent_features.key(i))
-				until
-					i > clause.list_upper
-				loop
-					create feature_name.make_from_ast(clause.list_item(i).feature_name_or_alias, type.ast, type.file)
-					fd := parent_features.reference_at(feature_name)
-					if fd = Void then
-						errors.add_position(feature_name.position)
-						errors.set(level_error, once "Cannot redefine inexistent feature: " + feature_name.name)
-					elseif fd.is_frozen then
-						errors.add_position(feature_name.position)
-						errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
-					else
-						inherited_feature := fd.the_feature
-						create redefined_feature.make
-						redefined_feature.set_precondition(inherited_feature.precondition)
-						redefined_feature.set_postcondition(inherited_feature.postcondition)
-						redefined_feature.set_context(inherited_feature.context)
-						if conformant then
-							inherited_feature.bind(redefined_feature, type)
-						end
-						fd.set_the_feature(redefined_feature)
-						redefined_features.add(redefined_feature, feature_name)
-					end
-					i := i + 1
-				end
-			end
-		end
-
-	push_parent_features_in_type (parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]) is
-		local
-			i: INTEGER
-			fn: LIBERTY_FEATURE_NAME
-			f: LIBERTY_FEATURE_DEFINITION
-		do
-			from
-				i := parent_features.lower
-			invariant
-				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
-			until
-				i >  parent_features.upper
-			loop
-				f := parent_features.item(i)
-				fn := f.feature_name
-				if not type.has_feature(fn) then
-					type.add_feature(f)
-				else
-					check
-						type.features.reference_at(fn) = f
-					end
-				end
-				i := i + 1
 			end
 		end
 
@@ -436,7 +100,7 @@ feature {}
 		do
 			redefinitions := feature_redefinitions(a_feature.signature.feature_names)
 			if a_feature.signature.has_result_type then
-				result_type := universe.get_type_from_type_definition(type, a_feature.signature.result_type, effective_generic_parameters, False)
+				result_type := universe.get_type_from_type_definition(type, a_feature.signature.result_type, effective_generic_parameters)
 			end
 			if a_feature.has_routine_definition then
 				create local_context.make(result_type)
@@ -457,7 +121,7 @@ feature {}
 						the_feature := feature_constant(a_feature.constant, local_context, redefinitions)
 					else
 						check a_feature.is_unique end
-						create {LIBERTY_FEATURE_UNIQUE}the_feature.make
+						create {LIBERTY_FEATURE_UNIQUE} the_feature.make
 					end
 				end
 			end
@@ -533,9 +197,9 @@ feature {}
 				if precondition.count = 0 then
 					create Result.make(assertions)
 				elseif precondition.require_else.is_require_else then
-					create {LIBERTY_REQUIRE_ELSE}Result.make(assertions)
+					create {LIBERTY_REQUIRE_ELSE} Result.make(assertions)
 				elseif precondition.require_else.is_require_then then
-					create {LIBERTY_REQUIRE_THEN}Result.make(assertions)
+					create {LIBERTY_REQUIRE_THEN} Result.make(assertions)
 				else
 					create Result.make(assertions)
 				end
@@ -556,7 +220,7 @@ feature {}
 				if postcondition.count = 0 then
 					create Result.make(assertions)
 				elseif postcondition.ensure_then.is_ensure_then then
-					create {LIBERTY_ENSURE_THEN}Result.make(assertions)
+					create {LIBERTY_ENSURE_THEN} Result.make(assertions)
 				else
 					create Result.make(assertions)
 				end
@@ -1100,7 +764,7 @@ feature {} -- Instructions
 			creat ::= a_creation
 			w := writable(creat.writable, local_context, redefinitions)
 			if creat.has_type_definition then
-				creation_type := universe.get_type_from_type_definition(type, creat.type_definition, effective_generic_parameters, False)
+				creation_type := universe.get_type_from_type_definition(type, creat.type_definition, effective_generic_parameters)
 				if not errors.has_error then
 					if not creation_type.type.is_conform_to(w.result_type.type) then
 						--|*** TODO: the given creation_type must be a conformant subtype of the writable type
@@ -1585,7 +1249,7 @@ feature {} -- Expressions
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
-			creation_type := universe.get_type_from_type_definition(type, a_creation.type_definition, effective_generic_parameters, False)
+			creation_type := universe.get_type_from_type_definition(type, a_creation.type_definition, effective_generic_parameters)
 			if a_creation.r10.is_empty then
 				fe := feature_entity(default_create_name)
 				fa := empty_actuals
@@ -1682,19 +1346,19 @@ feature {} -- Expressions
 			openarg: LIBERTY_OPEN_ARGUMENT
 		do
 			if constant.is_assignment_test then
-				create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(universe.get_type_from_type_definition(type, constant.assignment_test_type, effective_generic_parameters, False),
+				create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(universe.get_type_from_type_definition(type, constant.assignment_test_type, effective_generic_parameters),
 																				  expression(constant.assignment_test_expression, local_context, redefinitions),
 																				  universe.type_boolean, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_typed_open_argument then
 				create openarg.make(semantics_position_at(constant.node_at(0)))
-				openarg.set_result_type(universe.get_type_from_type_definition(type, constant.open_argument_type, effective_generic_parameters, False))
+				openarg.set_result_type(universe.get_type_from_type_definition(type, constant.open_argument_type, effective_generic_parameters))
 				Result := openarg
 			elseif constant.is_number then
 				Result := number(constant.number.image)
 			elseif constant.is_true then
-				create {LIBERTY_BOOLEAN_MANIFEST}Result.make(universe.type_boolean, True, semantics_position_at(constant.node_at(0)))
+				create {LIBERTY_BOOLEAN_MANIFEST} Result.make(universe.type_boolean, True, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_false then
-				create {LIBERTY_BOOLEAN_MANIFEST}Result.make(universe.type_boolean, False, semantics_position_at(constant.node_at(0)))
+				create {LIBERTY_BOOLEAN_MANIFEST} Result.make(universe.type_boolean, False, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_character then
 				Result := character(constant.character.image)
 			elseif constant.is_string then
@@ -1702,13 +1366,13 @@ feature {} -- Expressions
 			elseif constant.is_once_string then
 				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_number_typed_manifest then
-				Result := number_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters, False),
+				Result := number_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 														  constant.typed_manifest_number.image)
 			elseif constant.is_string_typed_manifest then
-				create {LIBERTY_STRING_TYPED_MANIFEST} Result.make(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters, False),
+				create {LIBERTY_STRING_TYPED_MANIFEST} Result.make(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 																				   decoded_string(constant.typed_manifest_string), semantics_position_at(constant.node_at(0)))
 			elseif constant.is_array_typed_manifest then
-				Result := array_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters, False),
+				Result := array_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
 														 constant.typed_manifest_array_parameters, constant.typed_manifest_array,
 														 local_context, redefinitions, semantics_position_at(constant.node_at(0)))
 			else
@@ -1733,20 +1397,20 @@ feature {} -- Expressions
 				i ::= number_image
 				i64 := i.decoded
 				if i64.fit_integer_8 then
-					create {LIBERTY_INTEGER_8_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_8, image_semantics_position_at(number_image))
+					create {LIBERTY_INTEGER_8_MANIFEST} Result.make(universe.type_integer_64, i64.to_integer_8, image_semantics_position_at(number_image))
 				elseif i64.fit_integer_16 then
-					create {LIBERTY_INTEGER_16_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_16, image_semantics_position_at(number_image))
+					create {LIBERTY_INTEGER_16_MANIFEST} Result.make(universe.type_integer_64, i64.to_integer_16, image_semantics_position_at(number_image))
 				elseif i64.fit_integer_32 then
-					create {LIBERTY_INTEGER_32_MANIFEST}Result.make(universe.type_integer_64, i64.to_integer_32, image_semantics_position_at(number_image))
+					create {LIBERTY_INTEGER_32_MANIFEST} Result.make(universe.type_integer_64, i64.to_integer_32, image_semantics_position_at(number_image))
 				else
-					create {LIBERTY_INTEGER_64_MANIFEST}Result.make(universe.type_integer_64, i64, image_semantics_position_at(number_image))
+					create {LIBERTY_INTEGER_64_MANIFEST} Result.make(universe.type_integer_64, i64, image_semantics_position_at(number_image))
 				end
 			else
 				check
 					r ?:= number_image
 				end
 				r ::= number_image
-				create {LIBERTY_REAL_MANIFEST}Result.make(universe.type_real, r.decoded, image_semantics_position_at(number_image))
+				create {LIBERTY_REAL_MANIFEST} Result.make(universe.type_real, r.decoded, image_semantics_position_at(number_image))
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -1759,7 +1423,7 @@ feature {} -- Expressions
 			c: TYPED_EIFFEL_IMAGE[CHARACTER]
 		do
 			c ::= character_image
-			create {LIBERTY_CHARACTER_MANIFEST}Result.make(universe.type_character, c.decoded, image_semantics_position_at(character_image))
+			create {LIBERTY_CHARACTER_MANIFEST} Result.make(universe.type_character, c.decoded, image_semantics_position_at(character_image))
 		ensure
 			not errors.has_error implies Result /= Void
 		end
@@ -1774,13 +1438,13 @@ feature {} -- Expressions
 		do
 			if i ?:= number_image then
 				i ::= number_image
-				create {LIBERTY_INTEGER_TYPED_MANIFEST}Result.make(manifest_type, i.decoded, image_semantics_position_at(number_image))
+				create {LIBERTY_INTEGER_TYPED_MANIFEST} Result.make(manifest_type, i.decoded, image_semantics_position_at(number_image))
 			else
 				check
 					r ?:= number_image
 				end
 				r ::= number_image
-				create {LIBERTY_REAL_TYPED_MANIFEST}Result.make(manifest_type, r.decoded, image_semantics_position_at(number_image))
+				create {LIBERTY_REAL_TYPED_MANIFEST} Result.make(manifest_type, r.decoded, image_semantics_position_at(number_image))
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -1818,48 +1482,6 @@ feature {} -- Expressions
 		end
 
 feature {}
-	decoded_string (string_image: LIBERTY_AST_STRING): STRING is
-		require
-			{TYPED_EIFFEL_IMAGE[STRING]} ?:= string_image.image
-		local
-			s: TYPED_EIFFEL_IMAGE[STRING]
-		do
-			s ::= string_image.image
-			Result := s.decoded
-		end
-
-	list_clients (clients: LIBERTY_AST_CLIENTS): COLLECTION[LIBERTY_TYPE] is
-		local
-			i: INTEGER
-		do
-			if clients.is_empty then
-				--|*** TODO: add warning (client list should always be set)
-				Result := any_client_list
-			elseif clients.list_is_empty then
-				Result := empty_client_list
-			else
-				create {FAST_ARRAY[LIBERTY_TYPE]}Result.with_capacity(clients.list_count)
-				from
-					i := clients.list_lower
-				until
-					errors.has_error or else i > clients.list_upper
-				loop
-					Result.add_last(universe.get_type_from_client(type, clients.list_item(i), effective_generic_parameters))
-					i := i + 1
-				end
-			end
-		end
-
-	empty_client_list: COLLECTION[LIBERTY_TYPE] is
-		once
-			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
-		end
-
-	any_client_list: COLLECTION[LIBERTY_TYPE] is
-		once
-			Result := {FAST_ARRAY[LIBERTY_TYPE] << universe.type_any >> }
-		end
-
 	list_parameters (parameters: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]) is
 		local
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
@@ -1872,7 +1494,7 @@ feature {}
 					i > parameters.upper
 				loop
 					declaration ::= parameters.item(i)
-					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters, False)
+					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower
@@ -1902,7 +1524,7 @@ feature {}
 					i > locals.list_upper
 				loop
 					declaration := locals.list_item(i)
-					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters, False)
+					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower
@@ -1921,67 +1543,6 @@ feature {}
 		end
 
 feature {}
-	make (a_type: like type; a_universe: like universe) is
-		require
-			a_type /= Void
-			a_universe /= Void
-		do
-			type := a_type
-			universe := a_universe
-			create current_entity.make(a_type, errors.unknown_position)
-			create {HASHED_DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]} feature_writables.make
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, LIBERTY_FEATURE_NAME]} feature_entities.make
-		ensure
-			type = a_type
-			universe = a_universe
-		end
-
-	type: LIBERTY_TYPE
-	universe: LIBERTY_UNIVERSE
-
-	effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]
-			-- key: generic parameter name (e.g. E_)
-			-- value: effective parameter (e.g. STRING)
-
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 
-	errors: LIBERTY_ERRORS
-
-	semantics_position_at (a_node: EIFFEL_NODE): LIBERTY_POSITION is
-		require
-			{LIBERTY_AST_TERMINAL_NODE} ?:= a_node
-		local
-			node: LIBERTY_AST_TERMINAL_NODE
-		do
-			node ::= a_node
-			Result := image_semantics_position_at(node.image)
-		end
-
-	image_semantics_position_at (a_image: EIFFEL_IMAGE): LIBERTY_POSITION is
-		do
-			Result := errors.semantics_position(a_image.index, type.ast, type.file)
-		end
-
-	semantics_position_after (a_node: EIFFEL_NODE): LIBERTY_POSITION is
-		require
-			{LIBERTY_AST_TERMINAL_NODE} ?:= a_node
-		local
-			node: LIBERTY_AST_TERMINAL_NODE
-		do
-			node ::= a_node
-			Result := image_semantics_position_after(node.image)
-		end
-
-	image_semantics_position_after (a_image: EIFFEL_IMAGE): LIBERTY_POSITION is
-		do
-			Result := errors.semantics_position(a_image.index + a_image.image.count, type.ast, type.file)
-		end
-
-invariant
-	type /= Void
-	universe /= Void
-	current_entity /= Void
-	feature_writables /= Void
-	feature_entities /= Void
-
-end
+end -- class LIBERTY_TYPE_FEATURES_LOADER

@@ -17,7 +17,7 @@ class LIBERTY_CONDITIONAL
 inherit
 	LIBERTY_INSTRUCTION
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
@@ -30,7 +30,7 @@ feature {ANY}
 
 	else_clause: LIBERTY_DEFAULT
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	add_condition (a_condition: LIBERTY_CONDITION) is
 		do
 			conditions_list.add_last(a_condition)

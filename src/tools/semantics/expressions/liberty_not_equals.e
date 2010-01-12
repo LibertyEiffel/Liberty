@@ -17,7 +17,7 @@ class LIBERTY_NOT_EQUALS
 inherit
 	LIBERTY_COMPARISON
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}

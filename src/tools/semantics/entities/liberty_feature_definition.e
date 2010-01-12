@@ -130,6 +130,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 				create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} precursors.make
 			end
 			precursors.add(a_precursor_feature, a_precursor_type)
+			heart_beat.beat
 		ensure
 			precursor_feature(a_precursor_type) = a_precursor_feature
 		end
@@ -151,7 +152,9 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
 feature {}
 	same_clients (a_clients: like clients): BOOLEAN is
 		do
-			Result := include(clients, a_clients) and then include(a_clients, clients)
+			Result := clients.count = a_clients.count
+				and then include(clients, a_clients)
+				and then include(a_clients, clients)
 		end
 
 	include (set, subset: like clients): BOOLEAN is
@@ -159,7 +162,7 @@ feature {}
 			i, j: INTEGER
 		do
 			from
-				Result := True
+				Result := set.count >= subset.count
 				i := subset.lower
 			until
 				not Result or else i > subset.upper
@@ -196,6 +199,8 @@ feature {}
 		end
 
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]
+
+	heart_beat: LIBERTY_HEART_BEAT
 
 invariant
 	feature_name /= Void

@@ -6,6 +6,7 @@ insert
 
 feature {}
 	errors: LIBERTY_ERRORS
+	heart_beat: LIBERTY_HEART_BEAT
 
 	builder: LIBERTY_TYPE_BUILDER
 	type: LIBERTY_TYPE

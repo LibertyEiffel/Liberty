@@ -20,7 +20,7 @@ inherit
 insert
 	LIBERTY_CALL
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make, implicit_current
 
 feature {ANY}

@@ -14,7 +14,7 @@
 --
 class LIBERTY_TYPE_PARENT_FEATURES_LOADER
 	--
-	-- Loads the type's parents' entities.
+	-- Loads the type's parents' features.
 	--
 	-- Also loads the parent invariant.
 	--
@@ -37,11 +37,13 @@ feature {}
 			universe := a_universe
 			effective_generic_parameters := a_effective_generic_parameters
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} parent_features.make
+			redefined_features := no_redefined_features
 		ensure
 			builder = a_builder
 			type = a_type
 			universe = a_universe
 			effective_generic_parameters = a_effective_generic_parameters
+			redefined_features = no_redefined_features
 		end
 
 feature {LIBERTY_TYPE_BUILDER}
@@ -50,6 +52,8 @@ feature {LIBERTY_TYPE_BUILDER}
 			inject_parents(type.ast.inherit_clause, True)
 			inject_parents(type.ast.insert_clause, False)
 		end
+
+	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 
 feature {}
 	inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant: BOOLEAN) is
@@ -234,7 +238,7 @@ feature {}
 			inherited_feature: LIBERTY_FEATURE; redefined_feature: LIBERTY_FEATURE_REDEFINED
 		do
 			if clause.list_count > 0 then
-				create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]}redefined_features.with_capacity(clause.list_count)
+				create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} redefined_features.with_capacity(clause.list_count)
 				from
 					i := clause.list_lower
 				invariant
@@ -295,12 +299,15 @@ feature {}
 		end
 
 feature {}
-	parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
-	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
+	no_redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]is
+		once
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} Result.make
+		end
 
-	heart_beat: LIBERTY_HEART_BEAT
+	parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 
 invariant
 	parent_features /= Void
+	redefined_features /= Void
 
 end -- class LIBERTY_TYPE_PARENT_FEATURES_LOADER

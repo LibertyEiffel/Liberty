@@ -14,7 +14,7 @@
 --
 class LIBERTY_FEATURE_LOCAL_CONTEXT
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
@@ -83,7 +83,7 @@ feature {ANY}
 			retries.add_last(Result)
 		end
 
-feature {LIBERTY_TYPE_BUILDER}
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	add_parameter (a_parameter: LIBERTY_PARAMETER) is
 		require
 			a_parameter /= Void

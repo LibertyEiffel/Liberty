@@ -65,11 +65,13 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 	can_load_parent_features: BOOLEAN is
 			-- True if all the parents have finished loading their features
 		do
-			Result := check_have_loaded_features(type.conformant_parents)
-				and then check_have_loaded_features(type.non_conformant_parents)
-			debug
-				if Result then
-					std_output.put_line(type.name + " can load its parent's features")
+			if not errors.has_error then
+				Result := check_have_loaded_features(type.conformant_parents)
+					and then check_have_loaded_features(type.non_conformant_parents)
+				debug
+					if Result then
+						std_output.put_line(type.name + " can load its parent's features")
+					end
 				end
 			end
 		end
@@ -81,20 +83,30 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 		do
 			create loader.make(Current, type, universe, effective_generic_parameters)
 			loader.load
+			redefined_features := loader.redefined_features
 		end
 
-	can_load_features: BOOLEAN is True
+	can_load_features: BOOLEAN is
 			-- Currently always True
+		do
+			Result := not errors.has_error
+		end
 
 	load_features is
 			-- Load the type's own features, not trying to reconcile anchors yet.
 			-- The full semantics tree of each feature is built here.
+		local
+			loader: LIBERTY_TYPE_FEATURES_LOADER
 		do
-			--create {LIBERTY_TYPE_FEATURES_LOADER}.load(type, universe)
+			create loader.make(Current, type, universe, effective_generic_parameters, redefined_features)
+			loader.load
 		end
 
-	can_reconcile_anchors: BOOLEAN is True
+	can_reconcile_anchors: BOOLEAN is
 			-- Currently always True
+		do
+			Result := not errors.has_error
+		end
 
 	reconcile_anchors: BOOLEAN is
 			-- Try to reconcile anchors using other features' result types.
@@ -175,6 +187,8 @@ feature {}
 		end
 
 	errors: LIBERTY_ERRORS
+
+	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 
 invariant
 	effective_generic_parameters /= Void

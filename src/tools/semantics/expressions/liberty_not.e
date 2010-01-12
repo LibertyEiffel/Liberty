@@ -17,7 +17,7 @@ class LIBERTY_NOT
 inherit
 	LIBERTY_PREFIX_CALL
 
-create {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
 feature {ANY}
