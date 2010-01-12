@@ -26,24 +26,26 @@ creation {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {}
-	make (a_builder: like builder; a_type: like type; a_universe: like universe; a_effective_generic_parameters: like effective_generic_parameters) is
+	make (a_builder: like builder; a_type: like type; a_universe: like universe; a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features) is
 		require
 			a_builder /= Void
 			a_type /= Void
 			a_universe /= Void
+			a_effective_generic_parameters /= Void
+			a_redefined_features /= Void
 		do
 			builder := a_builder
 			type := a_type
 			universe := a_universe
 			effective_generic_parameters := a_effective_generic_parameters
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} parent_features.make
-			redefined_features := no_redefined_features
+			redefined_features := a_redefined_features
 		ensure
 			builder = a_builder
 			type = a_type
 			universe = a_universe
 			effective_generic_parameters = a_effective_generic_parameters
-			redefined_features = no_redefined_features
+			redefined_features = a_redefined_features
 		end
 
 feature {LIBERTY_TYPE_BUILDER}
@@ -51,6 +53,9 @@ feature {LIBERTY_TYPE_BUILDER}
 		do
 			inject_parents(type.ast.inherit_clause, True)
 			inject_parents(type.ast.insert_clause, False)
+			if not redefined_features.is_empty then
+				builder.set_redefined_features(redefined_features)
+			end
 		end
 
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
@@ -238,7 +243,10 @@ feature {}
 			inherited_feature: LIBERTY_FEATURE; redefined_feature: LIBERTY_FEATURE_REDEFINED
 		do
 			if clause.list_count > 0 then
-				create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} redefined_features.with_capacity(clause.list_count)
+				if redefined_features.is_empty then
+					-- create a new collection because the default empty collection is shared between all instances
+					create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} redefined_features.with_capacity(clause.list_count)
+				end
 				from
 					i := clause.list_lower
 				invariant
@@ -299,11 +307,6 @@ feature {}
 		end
 
 feature {}
-	no_redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]is
-		once
-			create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} Result.make
-		end
-
 	parent_features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 
 invariant

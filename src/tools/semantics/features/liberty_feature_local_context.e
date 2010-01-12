@@ -105,6 +105,15 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			retries.do_all(agent {LIBERTY_RETRY}.set_feature(a_feature))
 		end
 
+	set_result_type (a_result_type: like result_type) is
+		require
+			a_result_type /= Void
+		do
+				create result_entity.make(a_result_type, errors.unknown_position)
+		ensure
+			result_type = a_result_type
+		end
+
 feature {}
 	parameters_map: DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]
 	parameters_list: COLLECTION[LIBERTY_PARAMETER]
@@ -112,18 +121,13 @@ feature {}
 	locals_list: COLLECTION[LIBERTY_LOCAL]
 	retries: COLLECTION[LIBERTY_RETRY]
 
-	make (a_result_type: like result_type) is
+	make is
 		do
 			create {FAST_ARRAY[LIBERTY_PARAMETER]} parameters_list.make(0)
 			create {HASHED_DICTIONARY[LIBERTY_PARAMETER, FIXED_STRING]} parameters_map.make
 			create {FAST_ARRAY[LIBERTY_LOCAL]} locals_list.make(0)
 			create {HASHED_DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]} locals_map.make
 			create {FAST_ARRAY[LIBERTY_RETRY]} retries.with_capacity(1)
-			if a_result_type /= Void then
-				create result_entity.make(a_result_type, errors.unknown_position)
-			end
-		ensure
-			result_type = a_result_type
 		end
 
 	errors: LIBERTY_ERRORS

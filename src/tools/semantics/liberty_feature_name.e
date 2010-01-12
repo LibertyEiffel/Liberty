@@ -72,26 +72,27 @@ feature {}
 			class_ast /= Void
 		do
 			if ast.is_regular then
-				make_regular(ast.entity_name.image.image.intern)
+				make_regular(ast.entity_name.image.image.intern, errors.semantics_position(ast.entity_name.image.index, class_ast, file))
 				position := errors.semantics_position(ast.entity_name.image.index, class_ast, file)
 			elseif ast.is_prefix then
-				make_prefix(ast.free_operator_name.image.image.intern)
+				make_prefix(ast.free_operator_name.image.image.intern, errors.semantics_position(ast.free_operator_name.image.index, class_ast, file))
 				position := errors.semantics_position(ast.free_operator_name.image.index, class_ast, file)
 			else
 				check ast.is_infix end
-				make_infix(ast.free_operator_name.image.image.intern)
+				make_infix(ast.free_operator_name.image.image.intern, errors.semantics_position(ast.free_operator_name.image.index, class_ast, file))
 				position := errors.semantics_position(ast.free_operator_name.image.index, class_ast, file)
 			end
 		end
 
-	make_regular (a_name: like name) is
+	make_regular (a_name: like name; a_position: like position) is
 		do
 			name := a_name
 			type := type_regular
 			hash_code := name.hash_code
+			position := a_position
 		end
 
-	make_prefix (a_name: like name) is
+	make_prefix (a_name: like name; a_position: like position) is
 		do
 			name := a_name
 			type := type_prefix
@@ -99,9 +100,10 @@ feature {}
 			if hash_code < 0 then
 				hash_code := ~hash_code
 			end
+			position := a_position
 		end
 
-	make_infix (a_name: like name) is
+	make_infix (a_name: like name; a_position: like position) is
 		do
 			name := a_name
 			type := type_infix
@@ -109,6 +111,7 @@ feature {}
 			if hash_code < 0 then
 				hash_code := ~hash_code
 			end
+			position := a_position
 		end
 
 	type_regular: INTEGER_8 is 1

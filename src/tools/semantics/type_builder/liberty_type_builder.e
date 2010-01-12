@@ -81,9 +81,9 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 		local
 			loader: LIBERTY_TYPE_PARENT_FEATURES_LOADER
 		do
-			create loader.make(Current, type, universe, effective_generic_parameters)
+			check redefined_features = no_redefined_features end
+			create loader.make(Current, type, universe, effective_generic_parameters, no_redefined_features)
 			loader.load
-			redefined_features := loader.redefined_features
 		end
 
 	can_load_features: BOOLEAN is
@@ -158,6 +158,18 @@ feature {LIBERTY_TYPE_PARENT_LOADER}
 			useful: not effective.is_empty
 		do
 			effective_generic_parameters := effective
+		ensure
+			effective_generic_parameters = effective
+		end
+
+feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
+	set_redefined_features (redefined: like redefined_features) is
+		require
+			useful: not redefined.is_empty
+		do
+			redefined_features := redefined
+		ensure
+			redefined_features = redefined
 		end
 
 feature {}
@@ -172,6 +184,13 @@ feature {}
 			create {AVL_DICTIONARY[LIBERTY_TYPE, FIXED_STRING]} Result.make
 		end
 
+	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
+
+	no_redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]is
+		once
+			create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} Result.make
+		end
+
 feature {}
 	make (a_type: like type; a_universe: like universe) is
 		require
@@ -181,6 +200,7 @@ feature {}
 			type := a_type
 			universe := a_universe
 			effective_generic_parameters := empty_effective_generic_parameters
+			redefined_features := no_redefined_features
 		ensure
 			type = a_type
 			universe = a_universe
@@ -188,9 +208,8 @@ feature {}
 
 	errors: LIBERTY_ERRORS
 
-	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
-
 invariant
 	effective_generic_parameters /= Void
+	redefined_features /= Void
 
 end -- class LIBERTY_TYPE_BUILDER

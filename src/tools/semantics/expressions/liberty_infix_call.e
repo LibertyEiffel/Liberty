@@ -43,6 +43,7 @@ feature {}
 			a_entity_builder /= Void
 			a_position /= Void
 		do
+			create infix_name.make_infix(the_infix_name, a_position)
 			target := a_left
 			actuals := {FAST_ARRAY[LIBERTY_EXPRESSION] << a_right >> }
 			entity := a_entity_builder.item([infix_name])
@@ -54,9 +55,15 @@ feature {}
 		end
 
 	infix_name: LIBERTY_FEATURE_NAME is
-		deferred
+		attribute
 		ensure
 			Result.is_infix
+		end
+
+	the_infix_name: FIXED_STRING is
+		deferred
+		ensure
+			Result /= Void
 		end
 
 invariant

@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-deferred class LIBERTY_ANCHORED_TYPE
+class LIBERTY_ANCHORED_TYPE
 
 inherit
 	LIBERTY_ENTITY_TYPE
@@ -49,6 +49,11 @@ feature {ANY}
 			Result := full_name_memory.hash_code
 		end
 
+	is_equal (other: like Current): BOOLEAN is
+		do
+			Result := full_name_memory.is_equal(other.full_name_memory)
+		end
+
 feature {LIBERTY_TYPE}
 	full_name_in (buffer: STRING) is
 		do
@@ -59,14 +64,15 @@ feature {}
 	make (a_anchor: like anchor) is
 		do
 			anchor := a_anchor
-			full_name_memory := once "like " + anchor.name
+			full_name_memory := (once "like " + anchor.name).intern
 		ensure
 			anchor = a_anchor
 		end
 
+feature {LIBERTY_ANCHORED_TYPE}
 	full_name_memory: FIXED_STRING
 
 invariant
 	anchor /= Void
 
-end
+end -- class LIBERTY_ANCHORED_TYPE

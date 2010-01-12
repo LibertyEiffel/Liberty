@@ -20,10 +20,10 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
-feature {ANY}
-	prefix_name: LIBERTY_FEATURE_NAME is
+feature {}
+	the_prefix_name: FIXED_STRING is
 		once
-			create Result.make_prefix("not".intern)
+			Result := "not".intern
 		end
 
 feature {ANY}

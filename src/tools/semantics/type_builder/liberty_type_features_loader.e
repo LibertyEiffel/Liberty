@@ -38,6 +38,7 @@ feature {}
 			universe := a_universe
 			effective_generic_parameters := a_effective_generic_parameters
 			redefined_features := a_redefined_features
+			create current_entity.make(a_type, errors.unknown_position)
 		ensure
 			builder = a_builder
 			type = a_type
@@ -92,18 +93,19 @@ feature {}
 
 	add_feature (clients: COLLECTION[LIBERTY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION) is
 		local
-			result_type: LIBERTY_TYPE
+			result_type: LIBERTY_ENTITY_TYPE
 			the_feature: LIBERTY_FEATURE
 			local_context: LIBERTY_FEATURE_LOCAL_CONTEXT
 			redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]
 			fn: LIBERTY_AST_FEATURE_NAME
 		do
+			create local_context.make
 			redefinitions := feature_redefinitions(a_feature.signature.feature_names)
 			if a_feature.signature.has_result_type then
-				result_type := universe.get_type_from_type_definition(type, a_feature.signature.result_type, effective_generic_parameters)
+				result_type := get_type(a_feature.signature.result_type, local_context)
+				local_context.set_result_type(result_type)
 			end
 			if a_feature.has_routine_definition then
-				create local_context.make(result_type)
 				if a_feature.signature.has_parameters then
 					list_parameters(a_feature.signature.parameters, local_context, redefinitions)
 				end
@@ -764,7 +766,7 @@ feature {} -- Instructions
 			creat ::= a_creation
 			w := writable(creat.writable, local_context, redefinitions)
 			if creat.has_type_definition then
-				creation_type := universe.get_type_from_type_definition(type, creat.type_definition, effective_generic_parameters)
+				creation_type := get_type(creat.type_definition, local_context)
 				if not errors.has_error then
 					if not creation_type.type.is_conform_to(w.result_type.type) then
 						--|*** TODO: the given creation_type must be a conformant subtype of the writable type
@@ -775,7 +777,7 @@ feature {} -- Instructions
 				creation_type := w.result_type
 			end
 			if creat.has_creation_feature_call then
-				fe := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(creat.creation_feature_name.image.image.intern))
+				fe := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(creat.creation_feature_name.image.image.intern, errors.semantics_position(creat.creation_feature_name.image.index, type.ast, type.file)))
 				fa := actuals(creat.creation_feature_actuals, local_context, redefinitions)
 			else
 				fe := feature_entity(default_create_name)
@@ -786,7 +788,7 @@ feature {} -- Instructions
 
 	default_create_name: LIBERTY_FEATURE_NAME is
 		once
-			create Result.make_regular("default_create".intern)
+			create Result.make_regular("default_create".intern, errors.unknown_position)
 		end
 
 	instruction_retry (a_retry: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_RETRY is
@@ -815,7 +817,7 @@ feature {} -- Entities and writables
 					--|*** TODO: error! (not writable)
 					not_yet_implemented
 				else
-					Result := feature_writable(name)
+					Result := feature_writable(name, errors.semantics_position(a_writable.entity_name.image.index, type.ast, type.file))
 				end
 			end
 		ensure
@@ -836,7 +838,7 @@ feature {} -- Entities and writables
 			elseif local_context.is_parameter(name) then
 				Result := local_context.parameter(name)
 			else
-				Result := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
+				Result := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(a_entity.image.index, type.ast, type.file)))
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -865,14 +867,14 @@ feature {} -- Entities and writables
 						--| TODO: error
 						not_yet_implemented
 					else
-						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
+						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
 						create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 					end
 				elseif fn.is_prefix then
-					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
 					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 				elseif fn.is_infix then
-					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
 					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 				else
 					check False end
@@ -935,14 +937,14 @@ feature {} -- Entities and writables
 						create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), semantics_position_at(fn.node_at(0)))
 						--| TODO: check no actuals
 					else
-						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name))
+						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
 						create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 					end
 				elseif fn.is_prefix then
-					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern))
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
 					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 				elseif fn.is_infix then
-					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern))
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
 					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
 				else
 					check False end
@@ -962,14 +964,15 @@ feature {} -- Entities and writables
 			not errors.has_error implies Result /= Void
 		end
 
-	feature_writable (name: FIXED_STRING): LIBERTY_WRITABLE_FEATURE is
+	feature_writable (name: FIXED_STRING; position: LIBERTY_POSITION): LIBERTY_WRITABLE_FEATURE is
 		require
 			name = name.intern
 		do
 			Result := feature_writables.reference_at(name)
 			if Result = Void then
-				create {LIBERTY_WRITABLE_FEATURE} Result.make(feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name)))
+				create {LIBERTY_WRITABLE_FEATURE} Result.make(feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, position)))
 				feature_writables.put(Result, name)
+				heart_beat.beat
 			end
 		ensure
 			Result.name = name
@@ -983,6 +986,7 @@ feature {} -- Entities and writables
 			if Result = Void then
 				create {LIBERTY_FEATURE_ENTITY} Result.make(name)
 				feature_entities.put(Result, name)
+				heart_beat.beat
 			end
 		ensure
 			Result.feature_name = name
@@ -1195,14 +1199,14 @@ feature {} -- Expressions
 				when "KW not" then
 					create {LIBERTY_NOT} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), agent feature_entity, semantics_position_at(e8.prefix_operator))
 				else
-					create fn.make_prefix(e8.prefix_operator.image.image.intern)
+					create fn.make_prefix(e8.prefix_operator.image.image.intern, errors.semantics_position(e8.prefix_operator.image.index, type.ast, type.file))
 					create {LIBERTY_PREFIX_OPERATOR} Result.make(expression_8(e8.prefixed_expression, r8, local_context, redefinitions), feature_entity(fn), semantics_position_at(e8.prefix_operator))
 				end
 			else
 				Result := expression_9(e8.e9, local_context, redefinitions)
 			end
 			if r8.is_free_operator then
-				create fn.make_infix(r8.free_operator.image.image.intern)
+				create fn.make_infix(r8.free_operator.image.image.intern, errors.semantics_position(r8.free_operator.image.index, type.ast, type.file))
 				create {LIBERTY_INFIX_OPERATOR} Result.make(Result, expression_8(r8.expression, r8.remainder, local_context, redefinitions), feature_entity(fn), Result.position)
 			end
 		end
@@ -1244,21 +1248,28 @@ feature {} -- Expressions
 		require
 			a_creation /= Void
 		local
+			entity_type: LIBERTY_ENTITY_TYPE
 			creation_type: LIBERTY_TYPE
 			tgt: LIBERTY_EXPRESSION
 			fe: LIBERTY_FEATURE_ENTITY
 			fa: TRAVERSABLE[LIBERTY_EXPRESSION]
 		do
-			creation_type := universe.get_type_from_type_definition(type, a_creation.type_definition, effective_generic_parameters)
-			if a_creation.r10.is_empty then
-				fe := feature_entity(default_create_name)
-				fa := empty_actuals
-				create {LIBERTY_CREATION_EXPRESSION} Result.make(creation_type, fe, fa, semantics_position_at(a_creation.node_at(0)))
+			entity_type := get_type(a_creation.type_definition, local_context)
+			if creation_type ?:= entity_type then
+				creation_type ::= entity_type
+				if a_creation.r10.is_empty then
+					fe := feature_entity(default_create_name)
+					fa := empty_actuals
+					create {LIBERTY_CREATION_EXPRESSION} Result.make(creation_type, fe, fa, semantics_position_at(a_creation.node_at(0)))
+				else
+					fe := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(a_creation.r10.feature_name.image.image.intern, errors.semantics_position(a_creation.r10.feature_name.image.index, type.ast, type.file)))
+					fa := actuals(a_creation.r10.actuals, local_context, redefinitions)
+					create {LIBERTY_CREATION_EXPRESSION} tgt.make(creation_type, fe, fa, semantics_position_at(a_creation.node_at(0)))
+					Result := expression_remainder(tgt, a_creation.r10.remainder, local_context, redefinitions)
+				end
 			else
-				fe := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(a_creation.r10.feature_name.image.image.intern))
-				fa := actuals(a_creation.r10.actuals, local_context, redefinitions)
-				create {LIBERTY_CREATION_EXPRESSION} tgt.make(creation_type, fe, fa, semantics_position_at(a_creation.node_at(0)))
-				Result := expression_remainder(tgt, a_creation.r10.remainder, local_context, redefinitions)
+				--|*** TODO: error: no anchor in creation type
+				not_yet_implemented
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -1344,14 +1355,23 @@ feature {} -- Expressions
 			local_context /= Void
 		local
 			openarg: LIBERTY_OPEN_ARGUMENT
+			entity_type: LIBERTY_ENTITY_TYPE
+			actual_type: LIBERTY_TYPE
 		do
 			if constant.is_assignment_test then
-				create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(universe.get_type_from_type_definition(type, constant.assignment_test_type, effective_generic_parameters),
-																				  expression(constant.assignment_test_expression, local_context, redefinitions),
-																				  universe.type_boolean, semantics_position_at(constant.node_at(0)))
+				entity_type := get_type(constant.assignment_test_type, local_context)
+				if actual_type ?:= entity_type then
+					actual_type ::= entity_type
+					create {LIBERTY_ASSIGNMENT_TEST} Result.test_type(actual_type,
+																					  expression(constant.assignment_test_expression, local_context, redefinitions),
+																					  universe.type_boolean, semantics_position_at(constant.node_at(0)))
+				else
+					--|*** TODO: error: cannot use an anchor for assignment test
+					not_yet_implemented
+				end
 			elseif constant.is_typed_open_argument then
 				create openarg.make(semantics_position_at(constant.node_at(0)))
-				openarg.set_result_type(universe.get_type_from_type_definition(type, constant.open_argument_type, effective_generic_parameters))
+				openarg.set_result_type(get_type(constant.open_argument_type, local_context))
 				Result := openarg
 			elseif constant.is_number then
 				Result := number(constant.number.image)
@@ -1366,15 +1386,36 @@ feature {} -- Expressions
 			elseif constant.is_once_string then
 				create {LIBERTY_STRING_MANIFEST} Result.make(universe.type_string, decoded_string(constant.string), True, semantics_position_at(constant.node_at(0)))
 			elseif constant.is_number_typed_manifest then
-				Result := number_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
-														  constant.typed_manifest_number.image)
+				entity_type := get_type(constant.typed_manifest_type, local_context)
+				if actual_type ?:= entity_type then
+					actual_type ::= entity_type
+					Result := number_typed_manifest(actual_type,
+															  constant.typed_manifest_number.image)
+				else
+					--|*** TODO: error: cannot use an anchor for array type definition
+					not_yet_implemented
+				end
 			elseif constant.is_string_typed_manifest then
-				create {LIBERTY_STRING_TYPED_MANIFEST} Result.make(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
-																				   decoded_string(constant.typed_manifest_string), semantics_position_at(constant.node_at(0)))
+				entity_type := get_type(constant.typed_manifest_type, local_context)
+				if actual_type ?:= entity_type then
+					actual_type ::= entity_type
+					create {LIBERTY_STRING_TYPED_MANIFEST} Result.make(actual_type,
+																					   decoded_string(constant.typed_manifest_string), semantics_position_at(constant.node_at(0)))
+				else
+					--|*** TODO: error: cannot use an anchor for array type definition
+					not_yet_implemented
+				end
 			elseif constant.is_array_typed_manifest then
-				Result := array_typed_manifest(universe.get_type_from_type_definition(type, constant.typed_manifest_type, effective_generic_parameters),
-														 constant.typed_manifest_array_parameters, constant.typed_manifest_array,
-														 local_context, redefinitions, semantics_position_at(constant.node_at(0)))
+				entity_type := get_type(constant.typed_manifest_type, local_context)
+				if actual_type ?:= entity_type then
+					actual_type ::= entity_type
+					Result := array_typed_manifest(actual_type,
+															 constant.typed_manifest_array_parameters, constant.typed_manifest_array,
+															 local_context, redefinitions, semantics_position_at(constant.node_at(0)))
+				else
+					--|*** TODO: error: cannot use an anchor for array type definition
+					not_yet_implemented
+				end
 			else
 				check False end
 			end
@@ -1485,7 +1526,7 @@ feature {}
 	list_parameters (parameters: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]) is
 		local
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
-			typedef: LIBERTY_TYPE; parameter: LIBERTY_PARAMETER
+			typedef: LIBERTY_ENTITY_TYPE; parameter: LIBERTY_PARAMETER
 		do
 			if not parameters.is_empty then
 				from
@@ -1494,7 +1535,7 @@ feature {}
 					i > parameters.upper
 				loop
 					declaration ::= parameters.item(i)
-					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters)
+					typedef := get_type(declaration.type_definition, local_context)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower
@@ -1515,7 +1556,7 @@ feature {}
 	list_locals (locals: LIBERTY_AST_LOCAL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]) is
 		local
 			i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
-			typedef: LIBERTY_TYPE; localdef: LIBERTY_LOCAL
+			typedef: LIBERTY_ENTITY_TYPE; localdef: LIBERTY_LOCAL
 		do
 			if locals.list_count > 0 then
 				from
@@ -1524,7 +1565,7 @@ feature {}
 					i > locals.list_upper
 				loop
 					declaration := locals.list_item(i)
-					typedef := universe.get_type_from_type_definition(type, declaration.type_definition, effective_generic_parameters)
+					typedef := get_type(declaration.type_definition, local_context)
 					if typedef /= Void then
 						from
 							j := declaration.variables.lower
@@ -1540,6 +1581,33 @@ feature {}
 					i := i + 1
 				end
 			end
+		end
+
+feature {}
+	get_type (type_definition: LIBERTY_AST_TYPE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENTITY_TYPE is
+		local
+			feature_name: LIBERTY_FEATURE_NAME
+		do
+			if type_definition.is_like_current then
+				Result := type
+			elseif type_definition.is_like_result then
+				Result := local_context.result_type
+				if Result = Void then
+					--|*** TODO: error: not a function
+					not_yet_implemented
+				end
+			elseif type_definition.is_like_entity then
+				create feature_name.make_regular(type_definition.entity_anchor.image.image.intern, errors.semantics_position(type_definition.entity_anchor.image.index, type.ast, type.file))
+				if not type.has_feature(feature_name) then
+					--|*** TODO: error: unknown feature
+					not_yet_implemented
+				end
+				create {LIBERTY_ANCHORED_TYPE} Result.make(type.feature_definition(feature_name))
+			else
+				Result := universe.get_type_from_type_definition(type, type_definition, effective_generic_parameters)
+			end
+		ensure
+			Result /= Void
 		end
 
 feature {}

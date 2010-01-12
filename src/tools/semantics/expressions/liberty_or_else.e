@@ -20,10 +20,10 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
-feature {ANY}
-	infix_name: LIBERTY_FEATURE_NAME is
+feature {}
+	the_infix_name: FIXED_STRING is
 		once
-			create Result.make_infix("or else".intern)
+			Result := "or else".intern
 		end
 
 feature {ANY}

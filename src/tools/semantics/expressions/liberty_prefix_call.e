@@ -46,6 +46,7 @@ feature {}
 			a_entity_builder /= Void
 			a_position /= Void
 		do
+			create prefix_name.make_prefix(the_prefix_name, a_position)
 			target := a_target
 			entity := a_entity_builder.item([prefix_name])
 			position := a_position
@@ -54,9 +55,15 @@ feature {}
 		end
 
 	prefix_name: LIBERTY_FEATURE_NAME is
-		deferred
+		attribute
 		ensure
 			Result.is_prefix
+		end
+
+	the_prefix_name: FIXED_STRING is
+		deferred
+		ensure
+			Result /= Void
 		end
 
 invariant

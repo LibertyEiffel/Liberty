@@ -41,7 +41,7 @@ feature {}
 			position = a_position
 		end
 
-	infix_name: LIBERTY_FEATURE_NAME is
+	the_infix_name: FIXED_STRING is
 		do
 			check False end
 		end
