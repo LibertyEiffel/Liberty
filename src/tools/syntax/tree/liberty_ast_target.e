@@ -72,7 +72,7 @@ feature {LIBERTY_AST_HANDLER}
 			Result ::= nodes.item(1)
 		end
 
-	implicit_feature_name: LIBERTY_AST_FEATURE_NAME is
+	implicit_feature_name: LIBERTY_AST_ENTITY_NAME is
 		require
 			is_implicit_feature_call
 		do

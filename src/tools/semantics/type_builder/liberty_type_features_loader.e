@@ -846,7 +846,7 @@ feature {} -- Entities and writables
 
 	implicit_feature_call_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_INSTRUCTION is
 		local
-			e: LIBERTY_FEATURE_ENTITY; fn: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; name: FIXED_STRING
+			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
 			f: LIBERTY_FEATURE; precursor_type: LIBERTY_TYPE
 		do
 			if a_target.is_current then
@@ -856,28 +856,18 @@ feature {} -- Entities and writables
 				--| TODO: error
 				not_yet_implemented
 			elseif a_target.is_implicit_feature_call then
-				fn := a_target.implicit_feature_name.feature_name_or_alias
-				if fn.is_regular then
-					-- may be a local or a parameter of a regular feature name
-					name := fn.entity_name.image.image.intern
-					if local_context.is_local(name) then
-						--| TODO: error
-						not_yet_implemented
-					elseif local_context.is_parameter(name) then
-						--| TODO: error
-						not_yet_implemented
-					else
-						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
-						create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
-					end
-				elseif fn.is_prefix then
-					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
-					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
-				elseif fn.is_infix then
-					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
-					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
+				entity_name := a_target.implicit_feature_name
+				name := entity_name.image.image.intern
+				-- may be a local or a parameter of a regular feature name
+				if local_context.is_local(name) then
+					--| TODO: error
+					not_yet_implemented
+				elseif local_context.is_parameter(name) then
+					--| TODO: error
+					not_yet_implemented
 				else
-					check False end
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, type.ast, type.file)))
+					create {LIBERTY_CALL_INSTRUCTION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), errors.semantics_position(entity_name.image.index, type.ast, type.file))
 				end
 			elseif a_target.is_precursor then
 				if a_target.precursor_type_mark.count /= 0 then
@@ -916,7 +906,7 @@ feature {} -- Entities and writables
 
 	target_or_implicit_feature_call_expression (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_EXPRESSION is
 		local
-			e: LIBERTY_FEATURE_ENTITY; fn: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; name: FIXED_STRING
+			e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
 			f: LIBERTY_FEATURE; precursor_type: LIBERTY_TYPE
 		do
 			if a_target.is_current then
@@ -926,28 +916,18 @@ feature {} -- Entities and writables
 			elseif a_target.is_manifest_or_type_test then
 				Result := typed_manifest_or_type_test(a_target.manifest_or_type_test, local_context, redefinitions)
 			elseif a_target.is_implicit_feature_call then
-				fn := a_target.implicit_feature_name.feature_name_or_alias
-				if fn.is_regular then
-					-- may be a local or a parameter of a regular feature name
-					name := fn.entity_name.image.image.intern
-					if local_context.is_local(name) then
-						create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name), semantics_position_at(fn.node_at(0)))
-						--| TODO: check no actuals
-					elseif local_context.is_parameter(name) then
-						create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), semantics_position_at(fn.node_at(0)))
-						--| TODO: check no actuals
-					else
-						e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
-						create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
-					end
-				elseif fn.is_prefix then
-					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_prefix(decoded_string(fn.free_operator_name).intern, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
-				elseif fn.is_infix then
-					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_infix(decoded_string(fn.free_operator_name).intern, errors.semantics_position(fn.entity_name.image.index, type.ast, type.file)))
-					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), semantics_position_at(fn.node_at(0)))
+				entity_name := a_target.implicit_feature_name
+				name := entity_name.image.image.intern
+				-- may be a local or a parameter of a regular feature name
+				if local_context.is_local(name) then
+					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.local_var(name), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					--| TODO: check no actuals
+				elseif local_context.is_parameter(name) then
+					create {LIBERTY_ENTITY_EXPRESSION} Result.make(local_context.parameter(name), errors.semantics_position(entity_name.image.index, type.ast, type.file))
+					--| TODO: check no actuals
 				else
-					check False end
+					e := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(entity_name.image.index, type.ast, type.file)))
+					create {LIBERTY_CALL_EXPRESSION} Result.implicit_current(e, actuals(a_target.actuals, local_context, redefinitions), errors.semantics_position(entity_name.image.index, type.ast, type.file))
 				end
 			elseif a_target.is_precursor then
 				if a_target.precursor_type_mark.count /= 0 then
@@ -1543,7 +1523,7 @@ feature {}
 							j > declaration.variables.upper
 						loop
 							variable ::= declaration.variables.item(j)
-							create parameter.make(variable.variable.image.image.intern, typedef)
+							create parameter.make(variable.variable.image.image.intern, typedef, errors.semantics_position(variable.variable.image.index, type.ast, type.file))
 							local_context.add_parameter(parameter)
 							j := j + 1
 						end
@@ -1573,7 +1553,7 @@ feature {}
 							j > declaration.variables.upper
 						loop
 							variable ::= declaration.variables.item(j)
-							create localdef.make(variable.variable.image.image.intern, typedef)
+							create localdef.make(variable.variable.image.image.intern, typedef, errors.semantics_position(variable.variable.image.index, type.ast, type.file))
 							local_context.add_local(localdef)
 							j := j + 1
 						end
