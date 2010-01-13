@@ -426,14 +426,50 @@ feature {}
 
 feature {}
 	add_creations (creations: EIFFEL_LIST_NODE) is
+		local
+			i, j: INTEGER; clients: COLLECTION[LIBERTY_TYPE]
+			c: LIBERTY_AST_CLASS_CREATION; fn: LIBERTY_AST_FEATURE_NAME
 		do
-			not_yet_implemented
+			from
+				i := creations.lower
+			until
+				i > creations.upper
+			loop
+				c ::= creations.item(i)
+				clients := list_clients(c.clients)
+				from
+					j := c.feature_names.lower
+				until
+					errors.has_error or else j > c.feature_names.upper
+				loop
+					fn ::= c.feature_names.item(j)
+					add_creation(clients, fn)
+					j := j + 1
+				end
+				i := i + 1
+			end
+		end
+
+	add_creation (a_clients: COLLECTION[LIBERTY_TYPE]; fn: LIBERTY_AST_FEATURE_NAME) is
+		local
+			the_feature: LIBERTY_FEATURE_DEFINITION
+			feature_name: LIBERTY_FEATURE_NAME
+		do
+			create feature_name.make_from_ast(fn.feature_name_or_alias, type.ast, type.file)
+			if type.has_feature(feature_name) then
+				the_feature := type.feature_definition(feature_name)
+				the_feature.set_creation_clients(a_clients)
+				heart_beat.beat
+			else
+				--|*** TODO: error: unknown feature
+				not_yet_implemented
+			end
 		end
 
 feature {}
 	class_invariant (invariant_clause: LIBERTY_AST_INVARIANT): LIBERTY_INVARIANT is
 		do
-			not_yet_implemented
+			--|*** TODO
 		end
 
 feature {} -- Instructions

@@ -25,6 +25,7 @@ creation {LIBERTY_TYPE_BUILDER_TOOLS}
 
 feature {ANY}
 	feature_name: LIBERTY_FEATURE_NAME
+	creation_clients: TRAVERSABLE[LIBERTY_TYPE]
 	clients: TRAVERSABLE[LIBERTY_TYPE]
 	is_frozen: BOOLEAN
 	the_feature: LIBERTY_FEATURE
@@ -47,6 +48,11 @@ feature {ANY}
 	is_infix: BOOLEAN is
 		do
 			Result := feature_name.is_infix
+		end
+
+	is_creation: BOOLEAN is
+		do
+			Result := creation_clients /= Void
 		end
 
 	result_type: LIBERTY_ENTITY_TYPE is
@@ -94,6 +100,16 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		ensure
 			the_feature = a_feature
 			is_result_type_set
+		end
+
+	set_creation_clients (a_creation_clients: like creation_clients) is
+		require
+			a_creation_clients /= Void
+		do
+			creation_clients := a_creation_clients
+		ensure
+			is_creation
+			creation_clients = a_creation_clients
 		end
 
 	join (fd: like Current; a_type: LIBERTY_TYPE) is
