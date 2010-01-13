@@ -80,11 +80,53 @@ feature {ANY}
 			Result := kernel_type("INTEGER_64")
 		end
 
-	type_real: LIBERTY_TYPE is
+	type_integer, type_integer_32: LIBERTY_TYPE is
 		require
 			not errors.has_error
 		once
-			Result := kernel_type("REAL")
+			Result := kernel_type("INTEGER_32")
+		end
+
+	type_integer_16: LIBERTY_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("INTEGER_16")
+		end
+
+	type_integer_8: LIBERTY_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("INTEGER_8")
+		end
+
+	type_real, type_real_64: LIBERTY_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("REAL_64")
+		end
+
+	type_real_32: LIBERTY_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("REAL_32")
+		end
+
+	type_real_80: LIBERTY_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("REAL_80")
+		end
+
+	type_real_128: LIBERTY_TYPE is
+		require
+			not errors.has_error
+		once
+			Result := kernel_type("REAL_128")
 		end
 
 	type_character: LIBERTY_TYPE is
@@ -209,12 +251,12 @@ feature {}
 			end
 			create cd.make(cluster, class_name.intern, Void)
 			create td.make(cd, create {FAST_ARRAY[LIBERTY_TYPE]}.with_capacity(0))
-			check
-				not types.has(td)
+			Result := types.reference_at(td)
+			if Result = Void then
+				ast := parse_class(cluster, class_name, Void)
+				create Result.make(td, ast)
+				start_to_build_type(Result)
 			end
-			ast := parse_class(cluster, class_name, Void)
-			create Result.make(td, ast)
-			start_to_build_type(Result)
 		ensure
 			Result /= Void
 		end
@@ -233,13 +275,51 @@ feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 			parameters: TRAVERSABLE[LIBERTY_TYPE]
 		do
 			class_name := type_definition.type_name.image.image
-			cluster := origin.cluster.find(class_name)
-			if cluster = Void then
-				errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file))
-				errors.set(level_fatal_error, once "Unknown class: " + class_name)
+			inspect
+				class_name
+			when "INTEGER" then
+				Result := type_integer
+			when "INTEGER_64" then
+				Result := type_integer_64
+			when "INTEGER_32" then
+				Result := type_integer_32
+			when "INTEGER_16" then
+				Result := type_integer_16
+			when "INTEGER_8" then
+				Result := type_integer_8
+			when "ANY" then
+				Result := type_any
+			when "REAL" then
+				Result := type_real
+			when "REAL_32" then
+				Result := type_real_32
+			when "REAL_64" then
+				Result := type_real_64
+			when "REAL_80" then
+				Result := type_real_80
+			when "REAL_128" then
+				Result := type_real_128
+			when "POINTER" then
+				Result := type_pointer
+			when "CHARACTER" then
+				Result := type_character
+			when "STRING" then
+				Result := type_string
+			when "BOOLEAN" then
+				Result := type_boolean
+			when "TUPLE" then
+				--|*** TODO: system error - should not be here
+				check False end
+				crash
 			else
-				parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
-				Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
+				cluster := origin.cluster.find(class_name)
+				if cluster = Void then
+					errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file))
+					errors.set(level_fatal_error, once "Unknown class: " + class_name)
+				else
+					parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
+					Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
+				end
 			end
 		end
 

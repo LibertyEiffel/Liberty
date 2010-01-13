@@ -285,12 +285,7 @@ feature {}
 			else
 				tm := typed_manifest_or_type_test(constant, local_context, redefinitions)
 				if not errors.has_error then
-					if tm.result_type.type.is_conform_to(local_context.result_type.type) then
-						create Result.make(tm)
-					else
-						errors.add_position(semantics_position_at(constant.node_at(0)))
-						errors.set(level_error, once "That expression does not conform to " + local_context.result_type.type.name)
-					end
+					create Result.make(tm)
 				end
 			end
 		end
@@ -602,8 +597,10 @@ feature {} -- Instructions
 
 	else_clause (a_else: LIBERTY_AST_ELSE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_DEFAULT is
 		do
-			create Result.make(compound(a_else.list, local_context, redefinitions),
-									 semantics_position_at(a_else.node_at(0)))
+			if not a_else.is_empty then
+				create Result.make(compound(a_else.list, local_context, redefinitions),
+										 semantics_position_at(a_else.node_at(0)))
+			end
 		end
 
 	instruction_inspect (a_inspect: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; redefinitions: TRAVERSABLE[LIBERTY_FEATURE_DEFINITION]): LIBERTY_INSPECT is

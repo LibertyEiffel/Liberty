@@ -52,26 +52,31 @@ feature {}
 	automaton: AUTOMATON[LIBERTY_TYPE_BUILDER] is
 		once
 			Result := {AUTOMATON[LIBERTY_TYPE_BUILDER] <<
-																				  "loading parents", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																								agent no_errors, agent load_parents;
-																																								agent otherwise, agent abort
-																																								>>};
-																				  "loading parents features", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																											agent can_load_parent_features, agent load_parent_features;
-																																											agent no_errors, agent stay;
-																																											agent otherwise, agent abort
-																																											>>};
-																				  "loading features", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																								 agent can_load_features, agent load_features;
-																																								 agent no_errors, agent stay;
-																																								 agent otherwise, agent abort
-																																								 >>};
-																				  "reconciling anchors", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																									 agent can_reconcile_anchors, agent reconcile_anchors;
-																																									 agent no_errors, agent stay;
-																																									 agent otherwise, agent abort
-																																									 >>};
-																				  >>};
+																		"loading parents", {STATE[LIBERTY_TYPE_BUILDER] <<
+																																		  agent no_errors, agent load_parents;
+																																		  agent otherwise, agent abort
+																																		  >>};
+																		"loading parents features", {STATE[LIBERTY_TYPE_BUILDER] <<
+																																					  agent can_load_parent_features, agent load_parent_features;
+																																					  agent no_errors, agent stay;
+																																					  agent otherwise, agent abort
+																																					  >>};
+																		"loading features", {STATE[LIBERTY_TYPE_BUILDER] <<
+																																			agent can_load_features, agent load_features;
+																																			agent no_errors, agent stay;
+																																			agent otherwise, agent abort
+																																			>>};
+																		"reconciling anchors", {STATE[LIBERTY_TYPE_BUILDER] <<
+																																				agent can_reconcile_anchors, agent reconcile_anchors;
+																																				agent no_errors, agent stay;
+																																				agent otherwise, agent abort
+																																				>>};
+																		"check type", {STATE[LIBERTY_TYPE_BUILDER] <<
+																																	agent can_check_type, agent check_type;
+																																	agent no_errors, agent stay;
+																																	agent otherwise, agent abort
+																																	>>}
+																		>>}
 		end
 
 	otherwise: BOOLEAN is True
@@ -152,9 +157,22 @@ feature {}
 			if not ctx.reconcile_anchors then
 				Result := once "reconciling anchors"
 			else
-				check
-					done: Result = Void
-				end
+				Result := once "check type"
+			end
+		end
+
+	can_check_type (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is
+		do
+			Result := ctx.can_check_type
+		end
+
+	check_type (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
+		do
+			debug
+				std_output.put_line(ctx.type.name + once ": check type")
+			end
+			check
+				Result = Void
 			end
 		end
 

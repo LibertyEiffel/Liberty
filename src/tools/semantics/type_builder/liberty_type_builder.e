@@ -115,6 +115,19 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 			--create {LIBERTY_TYPE_ANCHORS_RESOLVER}.resolve(type, universe)
 		end
 
+	can_check_type: BOOLEAN is
+			-- Currently always True
+		do
+			Result := not errors.has_error
+		end
+
+	check_type is
+			-- Check the type integrity: types conformance (assignments), BOOLEAN (assertions, if, until....)
+			-- and so on
+		do
+			--create {LIBERTY_TYPE_CHECKER}.check_type(type, universe)
+		end
+
 feature {}
 	check_have_loaded_features (parents: INDEXABLE[LIBERTY_TYPE]): BOOLEAN is
 		local
