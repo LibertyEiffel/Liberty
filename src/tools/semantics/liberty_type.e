@@ -411,6 +411,18 @@ feature {LIBERTY_UNIVERSE}
 feature {LIBERTY_AST_HANDLER}
 	ast: LIBERTY_AST_ONE_CLASS
 
+feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
+	has_no_parents: BOOLEAN is
+		do
+			Result := conformant_parents = no_parents and then non_conformant_parents = no_parents
+		end
+
+feature {LIBERTY_TYPE_BUILDER_TOOLS}
+	descriptor_position: LIBERTY_POSITION is
+		do
+			Result := descriptor.position
+		end
+
 feature {}
 	errors: LIBERTY_ERRORS
 	builder: LIBERTY_TYPE_BUILDER_AUTOMATON
@@ -418,7 +430,7 @@ feature {}
 	heart_beat: LIBERTY_HEART_BEAT
 
 	no_parents: COLLECTION[LIBERTY_TYPE] is
-		do
+		once
 			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 

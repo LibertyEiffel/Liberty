@@ -52,6 +52,10 @@ feature {}
 	automaton: AUTOMATON[LIBERTY_TYPE_BUILDER] is
 		once
 			Result := {AUTOMATON[LIBERTY_TYPE_BUILDER] <<
+																		"checking header", {STATE[LIBERTY_TYPE_BUILDER] <<
+																																		  agent no_errors, agent init_header;
+																																		  agent otherwise, agent abort
+																																		  >>};
 																		"loading parents", {STATE[LIBERTY_TYPE_BUILDER] <<
 																																		  agent no_errors, agent load_parents;
 																																		  agent otherwise, agent abort
@@ -95,11 +99,19 @@ feature {}
 		require
 			errors.has_error
 		do
-			errors.set(level_fatal_error,
-						  "Errors were found while " + state.name.out + " of type " + ctx.type.name.out + " (see above). Please fix them first.")
+			errors.set(level_fatal_error, "Errors have to be fixed, see above.")
 			errors.emit
 		ensure
 			dead: False
+		end
+
+	init_header (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
+		do
+			debug
+				std_output.put_line(ctx.type.name + once ": init header")
+			end
+			ctx.init_header
+			Result := once "loading parents"
 		end
 
 	load_parents (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
@@ -108,7 +120,10 @@ feature {}
 				std_output.put_line(ctx.type.name + once ": load parents")
 			end
 			ctx.load_parents
-			if ctx.type = ctx.universe.type_any then
+			if ctx.type.has_no_parents then
+				-- meaning it's ANY, but
+				--    ctx.type = ctx.universe.type_any
+				-- may raise a precondition failure if errors.has_error
 				Result := once "loading features"
 			else
 				Result := once "loading parents features"

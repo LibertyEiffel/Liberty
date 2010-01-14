@@ -49,16 +49,26 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 			automaton_context = a
 		end
 
+	init_header is
+			-- Initialize the type using its header: check the name and compare the formal type parameters to the
+			-- given effective parameters.
+		local
+			init: LIBERTY_TYPE_INIT
+		do
+			check
+				effective_generic_parameters = empty_effective_generic_parameters
+			end
+			create init.make(Current, type, universe, empty_effective_generic_parameters)
+			init.init_type_header
+		end
+
 	load_parents is
 			-- Just load the parent types, not trying to import anything yet, just to let the universe know that
 			-- those classes will be needed, and for us to be able to iterate through all the type's parents
 		local
 			loader: LIBERTY_TYPE_PARENT_LOADER
 		do
-			check
-				effective_generic_parameters = empty_effective_generic_parameters
-			end
-			create loader.make(Current, type, universe, empty_effective_generic_parameters)
+			create loader.make(Current, type, universe, effective_generic_parameters)
 			loader.load
 		end
 
@@ -165,7 +175,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			Result := universe.get_type_from_type_definition(origin, type_definition, effective_generic_parameters)
 		end
 
-feature {LIBERTY_TYPE_PARENT_LOADER}
+feature {LIBERTY_TYPE_INIT}
 	set_effective_generic_parameters (effective: like effective_generic_parameters) is
 		require
 			useful: not effective.is_empty
