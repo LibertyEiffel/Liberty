@@ -15,6 +15,8 @@ inherit
 
 insert
 	HASH_TABLE_SIZE
+		undefine out_in_tagged_out_memory
+		end
 
 creation {ANY}
 	make, with_capacity, manifest_creation

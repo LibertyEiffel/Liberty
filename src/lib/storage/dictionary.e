@@ -19,7 +19,7 @@ inherit
 			do_all as do_all_xitems,
 			for_all as for_all_items,
 			exists as exists_item
-		redefine is_equal, copy
+		redefine is_equal, copy, out_in_tagged_out_memory
 		end
 
 feature {ANY} -- Counting:
@@ -454,6 +454,39 @@ feature {ANY}
 				put(other.item(i), other.key(i))
 				i := i + 1
 			end
+		end
+
+feature {ANY} -- Display support:
+	out_in_tagged_out_memory is
+		local
+			i: INTEGER; k: like key; v: like item
+		do
+			tagged_out_memory.extend('{')
+			tagged_out_memory.append(generating_type)
+			tagged_out_memory.append(once ":[")
+			from
+				i := lower
+			until
+				i > upper
+			loop
+				k := key(i)
+				if k = Void then
+					tagged_out_memory.append(once "Void")
+				else
+					k.out_in_tagged_out_memory
+				end
+				tagged_out_memory.extend('=')
+				if v = Void then
+					tagged_out_memory.append(once "Void")
+				else
+					v.out_in_tagged_out_memory
+				end
+				if i < upper then
+					tagged_out_memory.extend(';')
+				end
+				i := i + 1
+			end
+			tagged_out_memory.append(once "]}")
 		end
 
 feature {ANY} -- Agents based features:

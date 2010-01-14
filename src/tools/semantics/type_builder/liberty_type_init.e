@@ -86,7 +86,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				loop
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
-						constraint := universe.get_type_from_type_definition(type, type_parameter.constraint, effective_generic_parameters)
+						constraint := builder.get_type_from_type_definition(type_parameter.constraint)
 						if not type.parameters.item(i).type.is_child_of(constraint) then
 							errors.add_position(semantics_position_at(type_parameter.class_name))
 							errors.set(level_error, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
@@ -97,6 +97,7 @@ feature {LIBERTY_TYPE_BUILDER}
 				end
 				builder.set_effective_generic_parameters(effective_generic_parameters)
 			end
+			heart_beat.beat
 		end
 
 end -- class LIBERTY_TYPE_PARENT_LOADER

@@ -74,7 +74,7 @@ feature {}
 				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
-				parent := universe.get_type_from_type_definition(type, parent_clause.type_definition, effective_generic_parameters)
+				parent := builder.get_type_from_type_definition(parent_clause.type_definition)
 				if parent /= Void then
 					inject_parent_invariant(parent)
 					inject_parent_features(parent, parent_clause.parent_clause, conformant)

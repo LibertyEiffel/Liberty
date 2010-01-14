@@ -1614,7 +1614,7 @@ feature {}
 				end
 				create {LIBERTY_ANCHORED_TYPE} Result.make(type.feature_definition(feature_name))
 			else
-				Result := universe.get_type_from_type_definition(type, type_definition, effective_generic_parameters)
+				Result := builder.get_type_from_type_definition(type_definition)
 			end
 		ensure
 			Result /= Void

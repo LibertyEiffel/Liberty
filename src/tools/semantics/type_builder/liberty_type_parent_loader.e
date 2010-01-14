@@ -53,7 +53,9 @@ feature {LIBERTY_TYPE_BUILDER}
 				errors.add_position(semantics_position_at(ast.obsolete_clause.string))
 				errors.set(level_warning, decoded_string(ast.obsolete_clause.string))
 			end
-			if not is_any then
+			if is_any then
+				heart_beat.beat
+			else
 				has_parents := add_parents(ast.inherit_clause, True, False)
 				has_parents := add_parents(ast.insert_clause, False, has_parents)
 				check
@@ -71,9 +73,9 @@ feature {}
 		do
 			debug
 				if conformant then
-					std_output.put_line("Adding conformant parents to " + type.name)
+					std_output.put_line("Adding conformant parents to " + type.full_name)
 				else
-					std_output.put_line("Adding non-conformant parents to " + type.name)
+					std_output.put_line("Adding non-conformant parents to " + type.full_name)
 				end
 			end
 			from
@@ -83,7 +85,14 @@ feature {}
 				errors.has_error or else i > parents.list_upper
 			loop
 				parent_clause := parents.list_item(i)
-				parent := builder.get_type_from_type_definition(type, parent_clause.type_definition)
+				parent := builder.get_type_from_type_definition(parent_clause.type_definition)
+				debug
+					if conformant then
+						std_output.put_line("  " + type.full_name + " <-- " + parent.full_name)
+					else
+						std_output.put_line("  " + type.full_name + " <+- " + parent.full_name)
+					end
+				end
 				if parent /= Void then
 					type.add_parent(parent, conformant)
 					Result := True

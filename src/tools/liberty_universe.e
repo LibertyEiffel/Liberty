@@ -312,13 +312,16 @@ feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 				check False end
 				crash
 			else
-				cluster := origin.cluster.find(class_name)
-				if cluster = Void then
-					errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file))
-					errors.set(level_fatal_error, once "Unknown class: " + class_name)
-				else
-					parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
-					Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
+				Result := effective_parameters.fast_reference_at(class_name.intern)
+				if Result = Void then
+					cluster := origin.cluster.find(class_name)
+					if cluster = Void then
+						errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file))
+						errors.set(level_fatal_error, once "Unknown class: " + class_name)
+					else
+						parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
+						Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
+					end
 				end
 			end
 		end
@@ -437,14 +440,14 @@ feature {} -- Type parameters fetching
 			i: INTEGER
 		do
 			type_parameters := a_class.class_header.type_parameters
-			if type_parameters.is_empty then
-				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+			if type_parameters.list_is_empty then
+				Result := no_parameters
 			else
 				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(type_parameters.list_count)
 				from
-					i := type_parameters.lower
+					i := type_parameters.list_lower
 				until
-					i > type_parameters.upper
+					i > type_parameters.list_upper
 				loop
 					type_parameter := type_parameters.list_item(i)
 					if type_parameter.has_constraint then
@@ -453,6 +456,9 @@ feature {} -- Type parameters fetching
 						Result.add_last(type_any)
 					end
 					i := i + 1
+				end
+				debug
+					std_output.put_line("Inferred parameters of " + a_class.class_header.class_name.image.image + ": " + Result.out)
 				end
 			end
 		end
@@ -464,14 +470,14 @@ feature {} -- Type parameters fetching
 			type: LIBERTY_TYPE
 			i: INTEGER
 		do
-			if type_parameters.is_empty then
-				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
+			if type_parameters.list_is_empty then
+				Result := no_parameters
 			else
 				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(type_parameters.list_count)
 				from
-					i := type_parameters.lower
+					i := type_parameters.list_lower
 				until
-					i > type_parameters.upper
+					i > type_parameters.list_upper
 				loop
 					type_parameter := type_parameters.list_item(i)
 					type_definition := type_parameter.type_definition
@@ -487,6 +493,11 @@ feature {} -- Type parameters fetching
 					i := i + 1
 				end
 			end
+		end
+
+	no_parameters: COLLECTION[LIBERTY_TYPE] is
+		once
+			create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
 		end
 
 feature {} -- AST building
