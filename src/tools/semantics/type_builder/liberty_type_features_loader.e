@@ -26,18 +26,22 @@ creation {LIBERTY_TYPE_BUILDER}
 	make
 
 feature {}
-	make (a_builder: like builder; a_type: like type; a_universe: like universe; a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features) is
+	make (a_builder: like builder; a_type: like type; a_universe: like universe;
+		a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features;
+		a_anchored_types: like anchored_types) is
 		require
 			a_builder /= Void
 			a_type /= Void
 			a_universe /= Void
 			a_redefined_features /= Void
+			a_anchored_types /= Void
 		do
 			builder := a_builder
 			type := a_type
 			universe := a_universe
 			effective_generic_parameters := a_effective_generic_parameters
 			redefined_features := a_redefined_features
+			anchored_types := a_anchored_types
 			create current_entity.make(a_type, errors.unknown_position)
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, LIBERTY_FEATURE_NAME]} feature_entities.make
 			create {HASHED_DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]} feature_writables.make
@@ -47,6 +51,7 @@ feature {}
 			universe = a_universe
 			effective_generic_parameters = a_effective_generic_parameters
 			redefined_features = a_redefined_features
+			anchored_types = a_anchored_types
 		end
 
 feature {LIBERTY_TYPE_BUILDER}
@@ -1597,6 +1602,7 @@ feature {}
 	get_type (type_definition: LIBERTY_AST_TYPE_DEFINITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENTITY_TYPE is
 		local
 			feature_name: LIBERTY_FEATURE_NAME
+			anchored_type: LIBERTY_ANCHORED_TYPE
 		do
 			if type_definition.is_like_current then
 				Result := type
@@ -1612,7 +1618,13 @@ feature {}
 					--|*** TODO: error: unknown feature
 					not_yet_implemented
 				end
-				create {LIBERTY_ANCHORED_TYPE} Result.make(type.feature_definition(feature_name))
+				if anchored_types.is_empty then
+					create {FAST_ARRAY[LIBERTY_ANCHORED_TYPE]} anchored_types.with_capacity(64)
+					builder.set_anchored_types(anchored_types)
+				end
+				create anchored_type.make(type.feature_definition(feature_name))
+				anchored_types.add_last(anchored_type)
+				Result := anchored_type
 			else
 				Result := builder.get_type_from_type_definition(type_definition)
 			end
@@ -1622,9 +1634,12 @@ feature {}
 
 feature {}
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
+	anchored_types: COLLECTION[LIBERTY_ANCHORED_TYPE]
 
 invariant
 	feature_entities /= Void
 	feature_writables /= Void
+	redefined_features /= Void
+	anchored_types /= Void
 
 end -- class LIBERTY_TYPE_FEATURES_LOADER

@@ -108,8 +108,12 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 		local
 			loader: LIBERTY_TYPE_FEATURES_LOADER
 		do
-			create loader.make(Current, type, universe, effective_generic_parameters, redefined_features)
+			check anchored_types = no_anchored_types end
+			create loader.make(Current, type, universe, effective_generic_parameters, redefined_features, anchored_types)
 			loader.load
+			if not anchored_types.is_empty then
+				sedb_breakpoint
+			end
 		end
 
 	can_reconcile_anchors: BOOLEAN is
@@ -199,6 +203,16 @@ feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
 			redefined_features = redefined
 		end
 
+feature {LIBERTY_TYPE_FEATURES_LOADER}
+	set_anchored_types (anchored: like anchored_types) is
+		require
+			useful: not anchored.is_empty
+		do
+			anchored_types := anchored
+		ensure
+			anchored_types = anchored
+		end
+
 feature {}
 	effective_generic_parameters: DICTIONARY[LIBERTY_TYPE, FIXED_STRING]
 			-- key: generic parameter name (e.g. E_)
@@ -213,9 +227,16 @@ feature {}
 
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 
-	no_redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]is
+	no_redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME] is
 		once
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} Result.make
+		end
+
+	anchored_types: COLLECTION[LIBERTY_ANCHORED_TYPE]
+
+	no_anchored_types: COLLECTION[LIBERTY_ANCHORED_TYPE] is
+		once
+			create {FAST_ARRAY[LIBERTY_ANCHORED_TYPE]} Result.with_capacity(0)
 		end
 
 feature {}
@@ -228,6 +249,7 @@ feature {}
 			universe := a_universe
 			effective_generic_parameters := empty_effective_generic_parameters
 			redefined_features := no_redefined_features
+			anchored_types := no_anchored_types
 		ensure
 			type = a_type
 			universe = a_universe
@@ -238,5 +260,6 @@ feature {}
 invariant
 	effective_generic_parameters /= Void
 	redefined_features /= Void
+	anchored_types /= Void
 
 end -- class LIBERTY_TYPE_BUILDER
