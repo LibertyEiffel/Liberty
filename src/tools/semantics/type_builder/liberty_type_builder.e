@@ -126,7 +126,10 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 			-- Try to reconcile anchors using other features' result types.
 			-- True if all the anchors were reconciled, False if some are left to do later.
 		do
-			--create {LIBERTY_TYPE_ANCHORS_RESOLVER}.resolve(type, universe)
+			if resolver = Void then
+				create resolver.make(Current, type, universe, effective_generic_parameters, anchored_types)
+			end
+			Result := resolver.resolve_anchors
 		end
 
 	can_check_type: BOOLEAN is
@@ -141,6 +144,9 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 		do
 			--create {LIBERTY_TYPE_CHECKER}.check_type(type, universe)
 		end
+
+feature {}
+	resolver: LIBERTY_TYPE_ANCHORS_RESOLVER
 
 feature {}
 	check_have_loaded_features (parents: INDEXABLE[LIBERTY_TYPE]): BOOLEAN is

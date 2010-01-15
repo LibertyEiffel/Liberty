@@ -168,6 +168,7 @@ feature {}
 		do
 			debug
 				std_output.put_line(ctx.type.full_name + ": reconcile anchors")
+				sedb_breakpoint
 			end
 			if not ctx.reconcile_anchors then
 				Result := once "reconciling anchors"

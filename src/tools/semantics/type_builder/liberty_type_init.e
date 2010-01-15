@@ -94,4 +94,4 @@ feature {LIBERTY_TYPE_BUILDER}
 			heart_beat.beat
 		end
 
-end -- class LIBERTY_TYPE_PARENT_LOADER
+end -- class LIBERTY_TYPE_INIT
