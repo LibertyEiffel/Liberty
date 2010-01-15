@@ -16,7 +16,7 @@ inherit
 	TRAVERSABLE[V_]
 		rename
 			new_iterator as new_iterator_on_items,
-			do_all as do_all_xitems,
+			do_all as do_all_items,
 			for_all as for_all_items,
 			exists as exists_item
 		redefine is_equal, copy, out_in_tagged_out_memory
@@ -476,6 +476,7 @@ feature {ANY} -- Display support:
 					k.out_in_tagged_out_memory
 				end
 				tagged_out_memory.extend('=')
+				v := item(i)
 				if v = Void then
 					tagged_out_memory.append(once "Void")
 				else
