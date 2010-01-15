@@ -108,7 +108,7 @@ feature {}
 	init_header (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
 			debug
-				std_output.put_line(ctx.type.full_name + once ": init header")
+				std_output.put_line(ctx.type.full_name + ": init header")
 			end
 			ctx.init_header
 			Result := once "loading parents"
@@ -117,7 +117,7 @@ feature {}
 	load_parents (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
 			debug
-				std_output.put_line(ctx.type.full_name + once ": load parents")
+				std_output.put_line(ctx.type.full_name + ": load parents")
 			end
 			ctx.load_parents
 			if ctx.type.has_no_parents then
@@ -138,7 +138,7 @@ feature {}
 	load_parent_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
 			debug
-				std_output.put_line(ctx.type.full_name + once ": load parent features")
+				std_output.put_line(ctx.type.full_name + ": load parent features")
 			end
 			ctx.load_parent_features
 			Result := once "loading features"
@@ -152,7 +152,7 @@ feature {}
 	load_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
 			debug
-				std_output.put_line(ctx.type.full_name + once ": load features")
+				std_output.put_line(ctx.type.full_name + ": load features")
 			end
 			ctx.load_features
 			has_loaded_features := True
@@ -167,7 +167,7 @@ feature {}
 	reconcile_anchors (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
 			debug
-				std_output.put_line(ctx.type.full_name + once ": reconcile anchors")
+				std_output.put_line(ctx.type.full_name + ": reconcile anchors")
 			end
 			if not ctx.reconcile_anchors then
 				Result := once "reconciling anchors"
@@ -184,7 +184,7 @@ feature {}
 	check_type (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
 		do
 			debug
-				std_output.put_line(ctx.type.full_name + once ": check type")
+				std_output.put_line(ctx.type.full_name + ": check type")
 			end
 			check
 				Result = Void

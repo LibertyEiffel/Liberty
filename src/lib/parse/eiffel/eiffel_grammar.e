@@ -1373,14 +1373,12 @@ feature {}
 			end
 			if image = Void then
 				restore(buffer, old_position)
+			elseif image.is_integer_64 then
+				create {TYPED_EIFFEL_IMAGE[INTEGER_64]}Result.make(image.twin, image.to_integer_64, last_blanks.twin, start_position)
+			elseif image.is_real then
+				create {TYPED_EIFFEL_IMAGE[REAL]}Result.make(image.twin, image.to_real, last_blanks.twin, start_position)
 			else
-				if image.is_integer_64 then
-					create {TYPED_EIFFEL_IMAGE[INTEGER_64]}Result.make(image.twin, image.to_integer_64, last_blanks.twin, start_position)
-				elseif image.is_real then
-					create {TYPED_EIFFEL_IMAGE[REAL]}Result.make(image.twin, image.to_real, last_blanks.twin, start_position)
-				else
-					create {UNTYPED_EIFFEL_IMAGE}Result.make(image.twin, last_blanks.twin, start_position)
-				end
+				create {UNTYPED_EIFFEL_IMAGE}Result.make(image.twin, last_blanks.twin, start_position)
 			end
 		end
 

@@ -50,7 +50,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			name: FIXED_STRING
 			type_parameters: LIBERTY_AST_TYPE_PARAMETERS
 			type_parameter: LIBERTY_AST_TYPE_PARAMETER
-			constraint: LIBERTY_TYPE
+			effective_type: LIBERTY_TYPE
 			i, n: INTEGER
 		do
 			ast := type.ast.class_header
@@ -85,14 +85,8 @@ feature {LIBERTY_TYPE_BUILDER}
 					i > type_parameters.list_upper
 				loop
 					type_parameter := type_parameters.list_item(i)
-					if type_parameter.has_constraint then
-						constraint := builder.get_type_from_type_definition(type_parameter.constraint)
-						if not type.parameters.item(i).type.is_child_of(constraint) then
-							errors.add_position(semantics_position_at(type_parameter.class_name))
-							errors.set(level_error, once "Bad effective parameter: does not inherit or insert the constraint " + constraint.name)
-						end
-					end
-					effective_generic_parameters.add(type.parameters.item(i).type, type_parameter.class_name.image.image.intern)
+					effective_type := type.parameters.item(i).type
+					effective_generic_parameters.add(effective_type, type_parameter.class_name.image.image.intern)
 					i := i + 1
 				end
 				builder.set_effective_generic_parameters(effective_generic_parameters)

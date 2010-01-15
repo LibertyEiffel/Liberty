@@ -23,6 +23,8 @@ feature {EIFFEL_GRAMMAR}
 				when '%N' then
 					line := line + 1
 					column := 1
+				when '%R' then
+					-- ignored
 				else
 					column := column + 1
 				end

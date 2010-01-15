@@ -63,9 +63,6 @@ feature {LIBERTY_AST_HANDLER}
 
 	is_like_current: BOOLEAN is
 		do
-				if is_anchor then
-					sedb_breakpoint
-				end
 			Result := is_anchor and then nodes.item(1).name.is_equal(once "KW Current")
 		ensure
 			Result implies is_anchor

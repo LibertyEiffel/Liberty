@@ -217,9 +217,6 @@ feature {}
 		require
 			not types.has(type.descriptor)
 		do
-			debug
-				std_output.put_line("Starting to build " + type.name)
-			end
 			types.add(type, type.descriptor)
 			type.start_build(Current)
 			if not type.is_built then
@@ -317,7 +314,7 @@ feature {LIBERTY_TYPE_BUILDER, LIBERTY_TYPE_BUILDER_TOOLS}
 					cluster := origin.cluster.find(class_name)
 					if cluster = Void then
 						errors.add_position(errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file))
-						errors.set(level_fatal_error, once "Unknown class: " + class_name)
+						errors.set(level_fatal_error, "Unknown class: " + class_name)
 					else
 						parameters := get_parameters(origin, type_definition.type_parameters, effective_parameters)
 						Result := do_get_type(cluster, errors.semantics_position(type_definition.type_name.image.index, origin.ast, origin.file), class_name, parameters)
@@ -412,7 +409,7 @@ feature {}
 				cluster := origin.cluster.find(class_name)
 				if cluster = Void then
 					errors.add_position(pos)
-					errors.set(level_fatal_error, once "Unknown class: " + class_name)
+					errors.set(level_fatal_error, "Unknown class: " + class_name)
 				else
 					parameters := get_parameter_constraints(origin, parse_class(cluster, class_name, pos), effective_parameters)
 					create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name.intern, pos), parameters)
@@ -453,7 +450,6 @@ feature {} -- Type parameters fetching
 				debug
 					std_output.put_line(" ***** inferred implicit parameters of " + a_class.class_header.class_name.image.image + ": " + Result.out)
 					check
-						not Result.is_empty
 						Result.count = type_parameters.list_count
 					end
 				end
@@ -533,7 +529,9 @@ feature {} -- AST building
 			create class_descriptor.make(cluster, class_name.intern, pos)
 			Result := classes.reference_at(class_descriptor)
 			if Result = Void then
-				std_output.put_line(once "Parsing " + class_name)
+				debug
+					std_output.put_line("Parsing " + class_name)
+				end
 				code := once ""
 				code.clear_count
 				read_file_in(class_descriptor, code)
@@ -547,7 +545,9 @@ feature {} -- AST building
 				ast ::= eiffel.root_node
 				Result := ast.one_class
 				classes.put(Result, class_descriptor)
-				std_output.put_line(class_name + once " parsed.")
+				debug
+					std_output.put_line(class_name + " parsed.")
+				end
 			end
 		ensure
 			Result /= Void
@@ -559,7 +559,9 @@ feature {} -- AST building
 			tuple_cluster: LIBERTY_CLUSTER
 			i: INTEGER; file: FIXED_STRING
 		once
-			std_output.put_line(once "Parsing TUPLE")
+			debug
+				std_output.put_line("Parsing TUPLE")
+			end
 			tuple_cluster := root.find("TUPLE")
 			if tuple_cluster = Void then
 				errors.set(level_fatal_error, "Kernel class not found: TUPLE")

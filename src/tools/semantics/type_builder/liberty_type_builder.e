@@ -185,8 +185,7 @@ feature {LIBERTY_TYPE_INIT}
 			useful: not effective.is_empty
 		do
 			debug
-				std_output.put_line(" -> now using effective generic parameters: " + effective.out)
-				sedb_breakpoint
+				std_output.put_line(type.full_name + ": computed effective generic parameters: " + effective.out)
 			end
 			effective_generic_parameters := effective
 		ensure
