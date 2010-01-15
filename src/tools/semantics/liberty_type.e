@@ -16,15 +16,18 @@ class LIBERTY_TYPE
 
 inherit
 	LIBERTY_ENTITY_TYPE
+		redefine
+			out_in_tagged_out_memory
+		end
 
 insert
 	EIFFEL_NODE_HANDLER
 		redefine
-			is_equal
+			is_equal, out_in_tagged_out_memory
 		end
 	LIBERTY_ERROR_LEVELS
 		redefine
-			is_equal
+			is_equal, out_in_tagged_out_memory
 		end
 
 create {LIBERTY_UNIVERSE}
@@ -137,7 +140,7 @@ feature {LIBERTY_TYPE}
 		local
 			i: INTEGER
 		do
-			buffer.append(name.out)
+			buffer.append(name)
 			if not parameters.is_empty then
 				buffer.extend('[')
 				from
@@ -146,7 +149,7 @@ feature {LIBERTY_TYPE}
 					i > parameters.upper
 				loop
 					if i > parameters.upper then
-						buffer.append(once ", ")
+						buffer.extend(',')
 					end
 					parameters.item(i).full_name_in(buffer)
 					i := i + 1
@@ -228,6 +231,12 @@ feature {ANY} -- Inheritance
 					Result := other.common_parent(Current)
 				end
 			end
+		end
+
+feature {ANY} -- Representation
+	out_in_tagged_out_memory is
+		do
+			full_name.out_in_tagged_out_memory
 		end
 
 feature {LIBERTY_TYPE}

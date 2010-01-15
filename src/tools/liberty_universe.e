@@ -407,23 +407,16 @@ feature {}
 			parameters: TRAVERSABLE[LIBERTY_TYPE]
 			pos: LIBERTY_POSITION
 		do
-			if a_type_definition.type_parameters.list_count /= effective_parameters.count then
-				pos := errors.semantics_position(a_type_definition.type_name.image.index, origin.ast, origin.file)
-				if a_type_definition.type_parameters.list_count = 0 then
-					-- legacy: only a class name is given
-					class_name := a_type_definition.type_name.image.image
-					cluster := origin.cluster.find(class_name)
-					if cluster = Void then
-						errors.add_position(pos)
-						errors.set(level_fatal_error, once "Unknown class: " + class_name)
-					else
-						parameters := get_parameter_constraints(origin, parse_class(cluster, class_name, pos), effective_parameters)
-						create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name.intern, pos), parameters)
-						Result := get_type_from_descriptor(descriptor)
-					end
-				else
+			if a_type_definition.type_parameters.list_count = 0 then
+				class_name := a_type_definition.type_name.image.image
+				cluster := origin.cluster.find(class_name)
+				if cluster = Void then
 					errors.add_position(pos)
-					errors.set(level_fatal_error, "Bad generics list (generics count mismatch)")
+					errors.set(level_fatal_error, once "Unknown class: " + class_name)
+				else
+					parameters := get_parameter_constraints(origin, parse_class(cluster, class_name, pos), effective_parameters)
+					create descriptor.make(create {LIBERTY_CLASS_DESCRIPTOR}.make(cluster, class_name.intern, pos), parameters)
+					Result := get_type_from_descriptor(descriptor)
 				end
 			else
 				Result := get_type_from_type_definition(origin, a_type_definition, effective_parameters)
@@ -440,7 +433,7 @@ feature {} -- Type parameters fetching
 			i: INTEGER
 		do
 			type_parameters := a_class.class_header.type_parameters
-			if type_parameters.list_is_empty then
+			if type_parameters.is_empty or else type_parameters.list_is_empty then
 				Result := no_parameters
 			else
 				create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(type_parameters.list_count)
@@ -458,7 +451,11 @@ feature {} -- Type parameters fetching
 					i := i + 1
 				end
 				debug
-					std_output.put_line("Inferred parameters of " + a_class.class_header.class_name.image.image + ": " + Result.out)
+					std_output.put_line(" ***** inferred implicit parameters of " + a_class.class_header.class_name.image.image + ": " + Result.out)
+					check
+						not Result.is_empty
+						Result.count = type_parameters.list_count
+					end
 				end
 			end
 		end

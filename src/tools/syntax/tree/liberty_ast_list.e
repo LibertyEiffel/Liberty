@@ -38,6 +38,8 @@ feature {LIBERTY_AST_HANDLER}
 		do
 			if count > 1 then
 				Result := list.is_empty
+			else
+				Result := True
 			end
 		end
 

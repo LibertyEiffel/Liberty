@@ -24,7 +24,9 @@ insert
 		redefine first, to_external
 		end
 	NATIVE_ARRAY_COLLECTOR[E_]
-	
+		undefine out_in_tagged_out_memory
+		end
+
 creation {ANY}
 	make, with_capacity, from_collection, manifest_creation
 

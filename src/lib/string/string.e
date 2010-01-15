@@ -199,9 +199,14 @@ feature {ANY} -- Modification:
 				ensure_capacity(needed_capacity)
 			end
 			nss ?= s
-			if nss/=Void then storage.copy_at(count, nss.storage, nss.count)
-			else 
-				from i:=s.new_iterator; i.start until not i.is_off
+			if nss/=Void then
+				storage.copy_at(count, nss.storage, nss.count)
+			else
+				from
+					i := s.new_iterator
+					i.start
+				until
+					not i.is_off
 				loop
 					Current.append_character(i.item)
 					i.next

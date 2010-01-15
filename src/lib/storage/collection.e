@@ -20,13 +20,13 @@ deferred class COLLECTION[E_]
 
 inherit
 	ANY
-		redefine copy, is_equal, fill_tagged_out_memory
+		redefine copy, is_equal, out_in_tagged_out_memory
 		end
 	STORABLE
-		redefine copy, is_equal, fill_tagged_out_memory
+		redefine copy, is_equal, out_in_tagged_out_memory
 		end
 	TRAVERSABLE[E_]
-		redefine copy, is_equal, fill_tagged_out_memory
+		redefine copy, is_equal, out_in_tagged_out_memory
 		end
 
 feature {ANY} -- Accessing:
@@ -481,19 +481,17 @@ feature {ANY} -- Looking and comparison:
 		end
 
 feature {ANY} -- Printing:
-	frozen fill_tagged_out_memory is
+	out_in_tagged_out_memory is
 		local
 			i: INTEGER; v: like item
 		do
-			tagged_out_memory.append(once "lower: ")
-			lower.append_in(tagged_out_memory)
-			tagged_out_memory.append(once " upper: ")
-			upper.append_in(tagged_out_memory)
-			tagged_out_memory.append(once " [")
+			tagged_out_memory.extend('{')
+			tagged_out_memory.append(generating_type)
+			tagged_out_memory.append(once ":[")
 			from
 				i := lower
 			until
-				i > upper or else tagged_out_memory.count > 2048
+				i > upper
 			loop
 				v := item(i)
 				if v = Void then
@@ -506,10 +504,7 @@ feature {ANY} -- Printing:
 				end
 				i := i + 1
 			end
-			if i <= upper then
-				tagged_out_memory.append(once " ...")
-			end
-			tagged_out_memory.extend(']')
+			tagged_out_memory.append(once "]}")
 		end
 
 feature {ANY} -- Other features:

@@ -88,9 +88,9 @@ feature {}
 				parent := builder.get_type_from_type_definition(parent_clause.type_definition)
 				debug
 					if conformant then
-						std_output.put_line("  " + type.full_name + " <-- " + parent.full_name)
+						std_output.put_line("  " + type.full_name + " --> " + parent.full_name)
 					else
-						std_output.put_line("  " + type.full_name + " <+- " + parent.full_name)
+						std_output.put_line("  " + type.full_name + " -+> " + parent.full_name)
 					end
 				end
 				if parent /= Void then

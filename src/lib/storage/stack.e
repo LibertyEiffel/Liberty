@@ -18,7 +18,7 @@ insert
 		end
 	ANY
 		-- To get reasonable default exports
-		undefine fill_tagged_out_memory, copy, is_equal
+		undefine out_in_tagged_out_memory, copy, is_equal
 		end
 
 creation {ANY}

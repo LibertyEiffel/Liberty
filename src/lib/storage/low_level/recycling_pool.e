@@ -28,7 +28,7 @@ insert
 		end
 	ANY
 		undefine
-			fill_tagged_out_memory, copy, is_equal
+			out_in_tagged_out_memory, copy, is_equal
 		end
 
 creation {ANY}

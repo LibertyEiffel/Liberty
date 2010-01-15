@@ -482,7 +482,7 @@ feature {ANY} -- Display support:
 					v.out_in_tagged_out_memory
 				end
 				if i < upper then
-					tagged_out_memory.extend(';')
+					tagged_out_memory.extend(' ')
 				end
 				i := i + 1
 			end

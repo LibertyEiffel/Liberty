@@ -92,10 +92,14 @@ feature {}
 			until
 				i > parameters.upper
 			loop
-				h := h #*31 + parameters.item(i).hash_code
+				h := h #*31 #+ parameters.item(i).hash_code
 				i := i + 1
 			end
-			hash_code := h
+			if h > 0 then
+				hash_code := h
+			else
+				hash_code := ~h
+			end
 		end
 
 feature {LIBERTY_TYPE_DESCRIPTOR}
