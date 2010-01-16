@@ -68,6 +68,12 @@ feature {ANY}
 			Result:=type_wrapper(llvmget_return_type(handle))
 		end
 
+	parameters_count: INTEGER_32 is
+		-- The number of parameters accepted by Current function
+	do
+		Result:=llvmcount_params(handle).to_integer_32
+	end
+
 invariant type.is_function_type_kind
 end -- LLVM_FUNCTION_TYPE
 

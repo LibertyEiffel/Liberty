@@ -29,7 +29,10 @@ inherit WRAPPER_COLLECTION [ITEM]
 insert
 	EXCEPTIONS
 		undefine
-			fill_tagged_out_memory, copy, is_equal
+			copy, 
+			fill_tagged_out_memory, 
+			is_equal,
+			out_in_tagged_out_memory
 		end
 
 -- creation with_capacity, from_collection, from_external_array

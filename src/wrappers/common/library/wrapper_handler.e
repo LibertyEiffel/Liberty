@@ -27,6 +27,7 @@ inherit
 		undefine
 			is_equal,
 			copy,
+			out_in_tagged_out_memory,
 			fill_tagged_out_memory
 		end
 
@@ -36,6 +37,7 @@ insert
 		undefine
 			is_equal,
 			copy,
+			out_in_tagged_out_memory,
 			fill_tagged_out_memory
 		end
 

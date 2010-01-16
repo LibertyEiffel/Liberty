@@ -134,13 +134,15 @@ feature {ANY} -- Terminators
 	end
 
 	invoke (a_function: LLVM_FUNCTION_TYPE; some_arguments: COLLECTION[LLVM_VALUE]; a_then, a_catch: LLVM_BASIC_BLOCK; a_name: ABSTRACT_STRING): LLVM_INVOKE_INST is
-		-- An "invoke" instruction. If parameterless `some_arguments' will be Void for a parameterless function. 
+		-- An "invoke" instruction. If `a_function' is parameterless `some_arguments' is not used and can be Void. 
 		-- TODO: specify the meaning of `a_then' and `a_catch'.
 		require
 			a_function/=Void
 			a_then/=Void
 			a_catch/=Void
 			a_name/=Void
+			some_arguments=Void implies a_function.parameters_count=0
+			some_arguments/=Void implies a_function.parameters_count>0 and not some_arguments.is_empty
 		local args: FAST_ARRAY[POINTER]; args_p: POINTER
 		do
 			if some_arguments/=Void and then not some_arguments.is_empty then
@@ -175,24 +177,75 @@ feature {ANY} -- Terminators
 feature {ANY} -- Arithmetic
 	add (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
 		-- A newly created `add' instruction with `a_name' summing `a_left' and `a_right'.
-		-- The two arguments to the 'add' instruction must be integer or vector of integer values. Both arguments must have identical types.
+		-- The two arguments to the 'add' instruction must be integer or vector
+		-- of integer values. Both arguments must have identical types.
+		
+		-- If the sum has unsigned overflow, the result returned is the
+		-- mathematical result modulo 2n, where n is the bit width of the
+		-- result.
+
+		-- Because LLVM integers use a two's complement representation, this
+		-- instruction is appropriate for both signed and unsigned integers.
+
+		-- The "nuw" and "nsw" variant of this instruction stand for "No
+		-- Unsigned Wrap" and "No Signed Wrap", respectively. If the nuw and/or
+		-- nsw keywords are present, the result value of the add is undefined
+		-- if unsigned and/or signed overflow, respectively, occurs.
 	require 
 		a_left/=Void
 		a_right/=Void
 		a_name/=Void
-		-- TODO: arguments_must_be_integers_or_vectors_of_integers:
-		-- a_left.type.type_is.is_integer_ty_id or a_left.is_vector
-		-- arguments_have_the_same_type: a_left.type ~ a_right.type
+		arguments_must_be_integers_or_vectors_of_integers:
+		(a_left.is_constant_int implies a_right.is_constant_int) or else
+		(a_left.is_constant_vector implies a_right.is_constant_vector)
+		-- TODO: a_left.is_constant_vector implies a_left.as_constant_vector.element_type ~ a_right.as_constant_vector.element_type
+		-- TODO: they should have the same integer size?
+		-- TODO: Is it true? same_number_of_elements_in_vector: a_left.is_constant_vector implies a_left.as_constant_vector.size = a_right.as_constant_vector.size 
 		do
 			create Result.from_external_pointer
 			(llvmbuild_add(handle,a_left.handle, a_right.handle, a_name.to_external))
-		ensure Result/=Void
+		ensure 
+			Result/=Void
+			result_has_the_same_type_of_the_arguments:
+			a_left.is_constant_int = Result.is_constant_int
+			a_left.is_constant_vector = Result.is_constant_vector
+			
 		end
 
-	-- LLVMValueRef LLVMBuildNSWAdd(LLVMBuilderRef, LLVMValueRef LHS, LLVMValueRef RHS,
---                              const char *Name);
--- LLVMValueRef LLVMBuildFAdd(LLVMBuilderRef, LLVMValueRef LHS, LLVMValueRef RHS,
---                            const char *Name);
+	nsw_add (a_left, a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_ADD_OPERATOR is
+		-- A newly created `no-signed-wrap-add' instruction with `a_name' summing `a_left' and `a_right'. See `add' for further informations.
+	require 
+	do
+		create Result.from_external_pointer
+		(llvmbuild_nswadd(handle,a_left.handle,a_right.handle,a_name.to_external))
+	ensure
+		Result/=Void
+		result_has_the_same_type_of_the_arguments:
+		a_left.is_constant_int = Result.is_constant_int
+		a_left.is_constant_vector = Result.is_constant_vector
+	end
+
+	fadd (a_left,a_right: LLVM_VALUE; a_name: ABSTRACT_STRING): LLVM_VALUE is
+		-- The 'fadd' instruction returns the sum of its two operands that must
+		-- be floating point or vector of floating point values and must have
+		-- identical types. The value produced is the floating point sum of the
+		-- two operands.
+	require
+		a_left/=Void
+		a_right/=Void
+		a_name/=Void
+		(a_left.is_constant_fp implies a_right.is_constant_fp) or else
+		(a_left.is_constant_vector implies a_right.is_constant_vector)
+		-- TODO: when arguments are vectors shall they have the same number of elements?
+	do
+		create Result.from_external_pointer
+		(llvmbuild_fadd(handle,a_left.handle,a_right.handle,a_name.to_external))
+	ensure 
+		Result/=Void
+		a_left.is_constant_fp = Result.is_constant_fp
+		a_left.is_constant_vector = Result.is_constant_vector
+	end
+
 -- LLVMValueRef LLVMBuildSub(LLVMBuilderRef, LLVMValueRef LHS, LLVMValueRef RHS,
 --                           const char *Name);
 -- LLVMValueRef LLVMBuildFSub(LLVMBuilderRef, LLVMValueRef LHS, LLVMValueRef RHS,
