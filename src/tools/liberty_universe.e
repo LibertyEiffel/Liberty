@@ -204,12 +204,21 @@ feature {}
 			if heart_beat.is_alive(count) then
 				Result := types_incubator
 				types_incubator := incubator
+				debug
+					std_output.put_line("Swapped incubator")
+				end
 			else
+				debug
+					std_output.put_line("Incubator: " + incubator.out)
+				end
 				errors.set(level_system_error, "Compiler staled.")
 				check
 					dead: False
 				end
 			end
+		ensure
+			types_incubator = incubator
+			Result = old types_incubator
 		end
 
 feature {}

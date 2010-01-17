@@ -75,11 +75,11 @@ feature {}
 																																				agent no_errors, agent stay;
 																																				agent otherwise, agent abort
 																																				>>};
-																		"check type", {STATE[LIBERTY_TYPE_BUILDER] <<
-																																	agent can_check_type, agent check_type;
-																																	agent no_errors, agent stay;
-																																	agent otherwise, agent abort
-																																	>>}
+																		"checking type", {STATE[LIBERTY_TYPE_BUILDER] <<
+																																		agent can_check_type, agent check_type;
+																																		agent no_errors, agent stay;
+																																		agent otherwise, agent abort
+																																		>>}
 																		>>}
 		end
 
@@ -168,12 +168,11 @@ feature {}
 		do
 			debug
 				std_output.put_line(ctx.type.full_name + ": reconcile anchors")
-				sedb_breakpoint
 			end
 			if not ctx.reconcile_anchors then
 				Result := once "reconciling anchors"
 			else
-				Result := once "check type"
+				Result := once "checking type"
 			end
 		end
 

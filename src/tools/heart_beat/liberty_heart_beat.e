@@ -20,17 +20,26 @@ expanded class LIBERTY_HEART_BEAT
 feature {ANY}
 	beat is
 		do
+			debug
+				std_output.put_line("--------  <3        <3        <3        <3  --------")
+			end
 			heart_beat_count.increment
 		end
 
 	count: LIBERTY_HEART_BEAT_COUNT is
 		do
+			debug
+				std_output.put_line("--------  <3  -------- MEMO: " + heart_beat_count.value.out)
+			end
 			Result.set(heart_beat_count.value)
 		end
 
 	is_alive (a_count: like count): BOOLEAN is
 		do
 			Result := heart_beat_count.value > a_count.count
+			debug
+				std_output.put_line("--------  <3  -------- ALIVE: " + heart_beat_count.value.out + " vs. " + a_count.count.out + " => " + Result.out)
+			end
 		end
 
 feature {}

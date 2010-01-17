@@ -56,7 +56,7 @@ feature {ANY} -- Step-by-step execution
 			next_state := context.current_state.run(Current, context.data)
 			if next_state /= Void then
 				check has(next_state) end
-				state := next_transition(state, next_state, context.data)
+				state := next_transition(context.current_state, next_state, context.data)
 				check
 					state_exists: state /= Void
 				end
