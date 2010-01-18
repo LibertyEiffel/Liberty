@@ -27,6 +27,13 @@ feature {ANY}
 	external_def: STRING
 	alias_def: STRING
 
+feature {ANY}
+	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+		do
+			tabulate(o, tab)
+			o.put_line(once "external...")
+		end
+
 feature {LIBERTY_FEATURE_DEFINITION}
 	join (a_feature: LIBERTY_FEATURE): LIBERTY_FEATURE is
 		do

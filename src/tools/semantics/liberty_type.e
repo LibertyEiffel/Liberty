@@ -135,6 +135,35 @@ feature {ANY}
 			Result := features.at(a_feature_name)
 		end
 
+feature {ANY}
+	debug_display (o: OUTPUT_STREAM) is
+		local
+			i: INTEGER
+		do
+			if is_expanded then
+				o.put_string(once "expanded type ")
+			elseif is_separate then
+				o.put_string(once "separate type ")
+			elseif is_deferred then
+				o.put_string(once "deferred type ")
+			else
+				o.put_string(once "type ")
+			end
+			o.put_line(full_name.out)
+			o.put_string(once "   building state: ")
+			o.put_line(builder.current_state.out)
+			from
+				i := features.lower
+			until
+				i > features.upper
+			loop
+				features.item(i).debug_display(o)
+				i := i + 1
+			end
+			o.put_string(once "end -- type ")
+			o.put_line(full_name.out)
+		end
+
 feature {LIBERTY_TYPE}
 	full_name_in (buffer: STRING) is
 		local
@@ -358,7 +387,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			features.at(a_feature.feature_name) = a_feature
 		end
 
-feature {LIBERTY_UNIVERSE} -- Semantincs building
+feature {LIBERTY_UNIVERSE} -- Semantics building
 	start_build (universe: LIBERTY_UNIVERSE) is
 		require
 			not errors.has_error

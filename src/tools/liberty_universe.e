@@ -200,6 +200,8 @@ feature {}
 		end
 
 	check_heart_beat_and_swap_incubator (count: LIBERTY_HEART_BEAT_COUNT; incubator: like types_incubator): like types_incubator is
+		require
+			types_incubator.is_empty
 		do
 			if heart_beat.is_alive(count) then
 				Result := types_incubator
@@ -209,9 +211,9 @@ feature {}
 				end
 			else
 				debug
-					std_output.put_line("Incubator: " + incubator.out)
+					debug_incubator(incubator)
 				end
-				errors.set(level_system_error, "Compiler staled.")
+				errors.set(level_system_error, "Compiler stalled.")
 				check
 					dead: False
 				end
@@ -219,6 +221,26 @@ feature {}
 		ensure
 			types_incubator = incubator
 			Result = old types_incubator
+		end
+
+feature {}
+	debug_incubator (incubator: like types_incubator) is
+		local
+			inc: like types_incubator
+		do
+			std_output.put_line(once "--8<--------")
+			from
+			inc := incubator.twin
+			until
+				inc.is_empty
+			loop
+				inc.first.debug_display(std_output)
+				inc.remove
+				if not inc.is_empty then
+					std_output.put_new_line
+				end
+			end
+			std_output.put_line(once "-------->8--")
 		end
 
 feature {}

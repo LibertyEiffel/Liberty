@@ -39,6 +39,11 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 	universe: LIBERTY_UNIVERSE
 	automaton_context: AUTOMATON_CONTEXT[LIBERTY_TYPE_BUILDER]
 
+	current_state: FIXED_STRING is
+		do
+			Result := automaton_context.current_state.name
+		end
+
 	set_automaton_context (a: like automaton_context) is
 		require
 			a /= Void
@@ -160,6 +165,12 @@ feature {}
 				not Result or else i > parents.upper
 			loop
 				Result := parents.item(i).has_loaded_features
+				debug
+					if not Result then
+						std_output.put_line(type.full_name + ": waiting for " + parents.item(i).full_name
+												  + " to having loaded its features")
+					end
+				end
 				i := i + 1
 			end
 		end

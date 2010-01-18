@@ -73,6 +73,51 @@ feature {ANY}
 			Result := the_feature /= Void
 		end
 
+feature {ANY}
+	debug_display (o: OUTPUT_STREAM) is
+		do
+			o.put_string(once "   feature ")
+			debug_clients(o, clients)
+			if is_creation then
+				o.put_string(once "create ")
+				debug_clients(o, creation_clients)
+			end
+			if is_frozen then
+				o.put_string(once "frozen ")
+			end
+			if is_prefix then
+				o.put_string(once "prefix ")
+			elseif is_infix then
+				o.put_string(once "infix ")
+			else
+				o.put_character(' ')
+			end
+			o.put_string(name.out)
+			o.put_line(once " is")
+			the_feature.debug_display(o, 2)
+			o.put_line(once "      end")
+		end
+
+feature {}
+	debug_clients (o: OUTPUT_STREAM; c: like clients) is
+		local
+			i: INTEGER
+		do
+			o.put_character('{')
+			from
+				i := c.lower
+			until
+				i > c.upper
+			loop
+				o.put_string(c.item(i).full_name.out)
+				if i < c.upper then
+					o.put_string(once ", ")
+				end
+				i := i + 1
+			end
+			o.put_character('}')
+		end
+
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	set_name (a_name: like feature_name) is
 		require

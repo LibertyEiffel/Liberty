@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Liberty Eiffel.  If not, see <http://www.gnu.org/licenses/>.
 --
-class LIBERTY_FEATURE
+deferred class LIBERTY_FEATURE
 
 insert
 	ANY
@@ -49,6 +49,26 @@ feature {ANY}
 	has_context: BOOLEAN is
 		do
 			Result := context /= Void
+		end
+
+feature {ANY}
+	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+		deferred
+		end
+
+feature {}
+	tabulate (o: OUTPUT_STREAM; tab: INTEGER) is
+		local
+			i: INTEGER
+		do
+			from
+				i := 1
+			until
+				i > tab
+			loop
+				o.put_string(once "   ")
+				i := i + 1
+			end
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}

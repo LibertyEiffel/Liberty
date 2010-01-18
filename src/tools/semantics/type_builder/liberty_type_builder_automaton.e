@@ -35,6 +35,11 @@ feature {LIBERTY_TYPE}
 
 	has_loaded_features: BOOLEAN
 
+	current_state: FIXED_STRING is
+		do
+			Result := builder.current_state
+		end
+
 feature {}
 	make (a_type: LIBERTY_TYPE; a_universe: LIBERTY_UNIVERSE) is
 		require
@@ -133,6 +138,11 @@ feature {}
 	can_load_parent_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): BOOLEAN is
 		do
 			Result := ctx.can_load_parent_features
+			debug
+				if not Result then
+					std_output.put_line(ctx.type.full_name + " cannot load parent features yet")
+				end
+			end
 		end
 
 	load_parent_features (ctx: LIBERTY_TYPE_BUILDER; state: STATE[LIBERTY_TYPE_BUILDER]): STRING is
@@ -156,6 +166,9 @@ feature {}
 			end
 			ctx.load_features
 			has_loaded_features := True
+			debug
+				std_output.put_line(ctx.type.full_name + ": features loaded")
+			end
 			Result := once "reconciling anchors"
 		end
 

@@ -20,6 +20,19 @@ inherit
 create {LIBERTY_TYPE_BUILDER_TOOLS}
 	make
 
+feature {ANY}
+	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+		do
+			tabulate(o, tab)
+			o.put_line(once "redefine")
+			if redefined_feature = Void then
+				tabulate(o, tab + 1)
+				o.put_line(once "(unknown or unattached redefined feature)")
+			else
+				redefined_feature.debug_display(o, tab + 1)
+			end
+		end
+
 feature {LIBERTY_FEATURE_DEFINITION}
 	join (a_feature: LIBERTY_FEATURE): LIBERTY_FEATURE is
 		do

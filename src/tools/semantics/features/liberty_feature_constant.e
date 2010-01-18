@@ -26,6 +26,13 @@ create {LIBERTY_TYPE_BUILDER_TOOLS}
 feature {ANY}
 	expression: LIBERTY_EXPRESSION
 
+feature {ANY}
+	debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+		do
+			tabulate(o, tab)
+			o.put_line(once "constant")
+		end
+
 feature {LIBERTY_FEATURE_DEFINITION}
 	join (a_feature: LIBERTY_FEATURE): LIBERTY_FEATURE is
 		do
