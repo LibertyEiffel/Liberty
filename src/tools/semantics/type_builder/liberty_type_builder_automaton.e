@@ -33,12 +33,18 @@ feature {LIBERTY_TYPE}
 			Result := not builder.automaton_context.is_valid
 		end
 
-	has_loaded_features: BOOLEAN
+	has_loaded_features: BOOLEAN is
+		do
+			Result := builder.has_loaded_features
+		end
 
 	current_state: FIXED_STRING is
 		do
 			Result := builder.current_state
 		end
+
+feature {LIBERTY_TYPE}
+	builder: LIBERTY_TYPE_BUILDER
 
 feature {}
 	make (a_type: LIBERTY_TYPE; a_universe: LIBERTY_UNIVERSE) is
@@ -49,8 +55,6 @@ feature {}
 			create builder.make(a_type, a_universe)
 			builder.set_automaton_context(automaton.start(once "checking header", builder))
 		end
-
-	builder: LIBERTY_TYPE_BUILDER
 
 	errors: LIBERTY_ERRORS
 
@@ -165,7 +169,6 @@ feature {}
 				std_output.put_line(ctx.type.full_name + ": load features")
 			end
 			ctx.load_features
-			has_loaded_features := True
 			debug
 				std_output.put_line(ctx.type.full_name + ": features loaded")
 			end
@@ -203,5 +206,8 @@ feature {}
 				Result = Void
 			end
 		end
+
+invariant
+	builder /= Void
 
 end -- class LIBERTY_TYPE_BUILDER_AUTOMATON

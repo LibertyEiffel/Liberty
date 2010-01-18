@@ -113,10 +113,12 @@ feature {}
 				pf.add(fd, name)
 				i := i + 1
 			end
-			rename_features(pf, clause.rename_clause)
-			export_features(pf, clause.export_clause)
-			undefine_features(pf, clause.undefine_clause, conformant)
-			redefine_features(pf, clause.redefine_clause, conformant)
+			if clause /= Void then
+				rename_features(pf, clause.rename_clause)
+				export_features(pf, clause.export_clause)
+				undefine_features(pf, clause.undefine_clause, conformant)
+				redefine_features(pf, clause.redefine_clause, conformant)
+			end
 			from
 				i := pf.lower
 			until

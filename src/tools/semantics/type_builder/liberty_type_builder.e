@@ -34,16 +34,18 @@ insert
 creation {LIBERTY_TYPE_BUILDER_AUTOMATON}
 	make
 
-feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
+feature {LIBERTY_TYPE_BUILDER_AUTOMATON, LIBERTY_TYPE}
 	type: LIBERTY_TYPE
 	universe: LIBERTY_UNIVERSE
 	automaton_context: AUTOMATON_CONTEXT[LIBERTY_TYPE_BUILDER]
+	has_loaded_features: BOOLEAN
 
 	current_state: FIXED_STRING is
 		do
 			Result := automaton_context.current_state.name
 		end
 
+feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 	set_automaton_context (a: like automaton_context) is
 		require
 			a /= Void
@@ -116,6 +118,7 @@ feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
 			check anchored_types = no_anchored_types end
 			create loader.make(Current, type, universe, effective_generic_parameters, redefined_features, anchored_types)
 			loader.load
+			has_loaded_features := True
 			if not anchored_types.is_empty then
 				sedb_breakpoint
 			end
@@ -274,6 +277,8 @@ feature {}
 	errors: LIBERTY_ERRORS
 
 invariant
+	type /= Void
+	universe /= Void
 	effective_generic_parameters /= Void
 	redefined_features /= Void
 	anchored_types /= Void

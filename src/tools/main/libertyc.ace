@@ -18,7 +18,6 @@ cluster
 			assertion(require)
 		option
 			debug(all): FIXED_STRING
-			--debug("automaton/transition"): AUTOMATON
 		end
 
 	tools: "${path_liberty}/src/tools/loadpath.se"

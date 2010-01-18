@@ -211,7 +211,7 @@ feature {}
 				end
 			else
 				debug
-					debug_incubator(incubator)
+					debug_types
 				end
 				errors.set(level_system_error, "Compiler stalled.")
 				check
@@ -223,24 +223,45 @@ feature {}
 			Result = old types_incubator
 		end
 
-feature {}
-	debug_incubator (incubator: like types_incubator) is
+feature {} -- debug
+	debug_types is
 		local
-			inc: like types_incubator
+			i: INTEGER
+			all_types: FAST_ARRAY[LIBERTY_TYPE]
+			c: COMPARATOR_COLLECTION_SORTER[LIBERTY_TYPE]
 		do
+			from
+				create all_types.with_capacity(types.count)
+				c.set_comparator(agent debug_compare_type_names)
+				i := types.lower
+			until
+				i > types.upper
+			loop
+				c.add(all_types, types.item(i))
+				i := i + 1
+			end
+			check
+				all_types.count = types.count
+			end
 			std_output.put_line(once "--8<--------")
 			from
-			inc := incubator.twin
+				i := all_types.lower
 			until
-				inc.is_empty
+				i > all_types.upper
 			loop
-				inc.first.debug_display(std_output)
-				inc.remove
-				if not inc.is_empty then
+				all_types.item(i).debug_display(std_output)
+				if i < types.upper then
 					std_output.put_new_line
 				end
+				i := i + 1
 			end
 			std_output.put_line(once "-------->8--")
+			sedb_breakpoint
+		end
+
+	debug_compare_type_names (t1, t2: LIBERTY_TYPE): BOOLEAN is
+		do
+			Result := t1.full_name < t2.full_name
 		end
 
 feature {}

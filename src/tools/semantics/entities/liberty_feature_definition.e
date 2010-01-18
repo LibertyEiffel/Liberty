@@ -83,19 +83,23 @@ feature {ANY}
 				debug_clients(o, creation_clients)
 			end
 			if is_frozen then
-				o.put_string(once "frozen ")
+				o.put_string(once " frozen")
 			end
 			if is_prefix then
-				o.put_string(once "prefix ")
+				o.put_string(once " prefix ")
 			elseif is_infix then
-				o.put_string(once "infix ")
+				o.put_string(once " infix ")
 			else
 				o.put_character(' ')
 			end
 			o.put_string(name.out)
-			o.put_line(once " is")
-			the_feature.debug_display(o, 2)
-			o.put_line(once "      end")
+			if the_feature = Void then
+				o.put_line(once " is not yet attached")
+			else
+				o.put_line(once " is")
+				the_feature.debug_display(o, 2)
+				o.put_line(once "      end")
+			end
 		end
 
 feature {}

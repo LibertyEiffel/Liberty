@@ -360,6 +360,7 @@ feature {}
 					end
 				else
 					create fd.make(feature_name, clients, name.is_frozen, feature_name.position)
+					fd.set_the_feature(a_feature)
 					type.add_feature(fd)
 				end
 				i := i + 1

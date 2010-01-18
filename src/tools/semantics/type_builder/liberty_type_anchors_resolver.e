@@ -50,7 +50,7 @@ feature {}
 feature {LIBERTY_TYPE_BUILDER}
 	resolve_anchors: BOOLEAN is
 		local
-			i: INTEGER; anchored_type: LIBERTY_ANCHORED_TYPE; solved: BOOLEAN
+			i: INTEGER; anchored_type: LIBERTY_ANCHORED_TYPE
 		do
 			from
 				Result := True

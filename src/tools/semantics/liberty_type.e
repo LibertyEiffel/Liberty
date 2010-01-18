@@ -483,4 +483,6 @@ invariant
 	conformant_parents /= Void
 	non_conformant_parents /= Void
 
+	builder /= Void implies builder.builder.type = Current
+
 end
