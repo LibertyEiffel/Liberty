@@ -21,7 +21,7 @@ feature {ANY}
 	beat is
 		do
 			debug
-				std_output.put_line("--------  <3        <3        <3        <3  --------")
+				std_output.put_line("--------  <3  -------- BEAT: " + heart_beat_count.value.out)
 			end
 			heart_beat_count.increment
 		end

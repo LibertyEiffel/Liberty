@@ -113,7 +113,7 @@ feature {}
 				pf.add(fd, name)
 				i := i + 1
 			end
-			if clause /= Void then
+			if clause /= Void and then clause.has_clauses then
 				rename_features(pf, clause.rename_clause)
 				export_features(pf, clause.export_clause)
 				undefine_features(pf, clause.undefine_clause, conformant)
@@ -131,6 +131,9 @@ feature {}
 					parent_features.add(fd, name)
 				else
 					actual_fd.join(fd, parent)
+					check
+						actual_fd.feature_name.is_equal(name)
+					end
 				end
 				i := i + 1
 			end
@@ -143,8 +146,6 @@ feature {}
 		do
 			from
 				i := clause.list_lower
-			invariant
-				pf.item(i).feature_name.is_equal(pf.key(i))
 			until
 				i > clause.list_upper
 			loop
@@ -175,8 +176,6 @@ feature {}
 		do
 			from
 				i := clause.list_lower
-			invariant
-				pf.item(i).feature_name.is_equal(pf.key(i))
 			until
 				i > clause.list_upper
 			loop
@@ -210,8 +209,6 @@ feature {}
 		do
 			from
 				i := clause.list_lower
-			invariant
-				pf.item(i).feature_name.is_equal(pf.key(i))
 			until
 				i > clause.list_upper
 			loop
@@ -251,8 +248,6 @@ feature {}
 				end
 				from
 					i := clause.list_lower
-				invariant
-					pf.item(i).feature_name.is_equal(pf.key(i))
 				until
 					i > clause.list_upper
 				loop
@@ -284,18 +279,22 @@ feature {}
 	push_parent_features_in_type is
 		local
 			i: INTEGER
-			fn: LIBERTY_FEATURE_NAME
+			fn, k: LIBERTY_FEATURE_NAME
 			f: LIBERTY_FEATURE_DEFINITION
 		do
 			from
 				i := parent_features.lower
-			invariant
-				parent_features.item(i).feature_name.is_equal(parent_features.key(i))
 			until
 				i >  parent_features.upper
 			loop
 				f := parent_features.item(i)
 				fn := f.feature_name
+				debug
+					k := parent_features.key(i)
+					check
+						fn.is_equal(k)
+					end
+				end
 				if not type.has_feature(fn) then
 					heart_beat.beat
 					type.add_feature(f)
