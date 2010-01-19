@@ -42,33 +42,62 @@ feature {LIBERTY_FEATURE_DEFINITION}
 feature {LIBERTY_FEATURE}
 	joined_attribute (a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_redefined_concrete(other_fd)
+			if redefined_feature = Void then
+				redefined_feature := a_feature
+			elseif redefined_feature /= a_feature then
+				current_fd.fatal_join_error_redefined_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_constant (a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_redefined_concrete(other_fd)
+			if redefined_feature = Void then
+				redefined_feature := a_feature
+			elseif redefined_feature /= a_feature then
+				current_fd.fatal_join_error_redefined_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_deferred (a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			--| *** TODO: warning, mixed undefine and redefine, expected redefinition
+			if redefined_feature = Void then
+				redefined_feature := a_feature
+			elseif redefined_feature /= a_feature then
+				--| *** TODO: warning, mixed undefine and redefine, expected redefinition
+			end
 			Result := Current
 		end
 
 	joined_do (a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_redefined_concrete(other_fd)
+			if redefined_feature = Void then
+				redefined_feature := a_feature
+			elseif redefined_feature /= a_feature then
+				current_fd.fatal_join_error_redefined_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_external (a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_redefined_concrete(other_fd)
+			if redefined_feature = Void then
+				redefined_feature := a_feature
+			elseif redefined_feature /= a_feature then
+				current_fd.fatal_join_error_redefined_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_once (a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_redefined_concrete(other_fd)
+			if redefined_feature = Void then
+				redefined_feature := a_feature
+			elseif redefined_feature /= a_feature then
+				current_fd.fatal_join_error_redefined_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_redefined (a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
@@ -78,7 +107,12 @@ feature {LIBERTY_FEATURE}
 
 	joined_unique (a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_redefined_concrete(other_fd)
+			if redefined_feature = Void then
+				redefined_feature := a_feature
+			elseif redefined_feature /= a_feature then
+				current_fd.fatal_join_error_redefined_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
