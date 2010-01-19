@@ -449,7 +449,7 @@ feature {LIBERTY_UNIVERSE}
 feature {LIBERTY_AST_HANDLER}
 	ast: LIBERTY_AST_ONE_CLASS
 
-feature {LIBERTY_TYPE_BUILDER_AUTOMATON}
+feature {LIBERTY_TYPE_BUILDER}
 	has_no_parents: BOOLEAN is
 		do
 			Result := conformant_parents = no_parents and then non_conformant_parents = no_parents
@@ -463,7 +463,7 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 
 feature {}
 	errors: LIBERTY_ERRORS
-	builder: LIBERTY_TYPE_BUILDER_AUTOMATON
+	builder: LIBERTY_TYPE_BUILDER
 
 	heart_beat: LIBERTY_HEART_BEAT
 
@@ -483,6 +483,6 @@ invariant
 	conformant_parents /= Void
 	non_conformant_parents /= Void
 
-	builder /= Void implies builder.builder.type = Current
+	builder /= Void implies builder.type = Current
 
 end
