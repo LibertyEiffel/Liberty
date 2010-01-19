@@ -81,13 +81,15 @@ feature {LIBERTY_FEATURE}
 		end
 
 feature {}
-	make (a_expression: like expression) is
+	make (a_definition_type: like definition_type; a_expression: like expression) is
 		require
+			a_definition_type /= Void
 			a_expression /= Void
 		do
-			make_late_binding
+			make_late_binding(a_definition_type)
 			expression := a_expression
 		ensure
+			definition_type = a_definition_type
 			expression = a_expression
 		end
 

@@ -18,6 +18,9 @@ insert
 	ANY
 
 feature {ANY}
+	definition_type: LIBERTY_TYPE
+			-- the type where the feature is written
+
 	result_type: LIBERTY_ENTITY_TYPE is
 		require
 			has_context
@@ -201,9 +204,14 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		end
 
 feature {}
-	make is
+	make (a_definition_type: like definition_type) is
+		require
+			a_definition_type /= Void
 		do
+			definition_type := a_definition_type
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]} late_binding.make
+		ensure
+			definition_type = a_definition_type
 		end
 
 	late_binding: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]
@@ -212,5 +220,6 @@ feature {}
 
 invariant
 	late_binding /= Void
+	definition_type /= Void
 
 end

@@ -82,14 +82,16 @@ feature {LIBERTY_FEATURE}
 		end
 
 feature {}
-	make (a_external, a_alias: STRING) is
+	make (a_definition_type: like definition_type; a_external, a_alias: STRING) is
 		require
+			a_definition_type /= Void
 			a_external /= Void
 		do
-			make_late_binding
+			make_late_binding(a_definition_type)
 			external_def := a_external
 			alias_def := a_alias
 		ensure
+			definition_type = a_definition_type
 			external_def = a_external
 			alias_def = a_alias
 		end

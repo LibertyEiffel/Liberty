@@ -37,13 +37,15 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 		end
 
 feature {}
-	make (a_instruction: like block_instruction) is
+	make (a_definition_type: like definition_type; a_instruction: like block_instruction) is
 		require
+			a_definition_type /= Void
 			a_instruction /= Void
 		do
-			make_late_binding
+			make_late_binding(a_definition_type)
 			block_instruction := a_instruction
 		ensure
+			definition_type = a_definition_type
 			block_instruction = a_instruction
 		end
 

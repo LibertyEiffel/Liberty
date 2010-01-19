@@ -130,7 +130,7 @@ feature {}
 						the_feature := feature_constant(a_feature.constant, local_context, redefinitions)
 					else
 						check a_feature.is_unique end
-						create {LIBERTY_FEATURE_UNIQUE} the_feature.make
+						create {LIBERTY_FEATURE_UNIQUE} the_feature.make(type)
 					end
 				end
 			end
@@ -155,26 +155,30 @@ feature {}
 			routine_execution := routine_def.execution
 			if routine_execution.is_external then
 				if routine_execution.external_clause.alias_clause.has_alias then
-					create {LIBERTY_FEATURE_EXTERNAL} Result.make(decoded_string(routine_execution.external_clause.definition), decoded_string(routine_execution.external_clause.alias_clause.definition))
+					create {LIBERTY_FEATURE_EXTERNAL} Result.make(type,
+																				 decoded_string(routine_execution.external_clause.definition),
+																				 decoded_string(routine_execution.external_clause.alias_clause.definition))
 				else
-					create {LIBERTY_FEATURE_EXTERNAL} Result.make(decoded_string(routine_execution.external_clause.definition), Void)
+					create {LIBERTY_FEATURE_EXTERNAL} Result.make(type,
+																				 decoded_string(routine_execution.external_clause.definition),
+																				 Void)
 				end
 			else
 				check routine_execution.is_regular end
 				do_block := routine_execution.do_block
 				if do_block.is_deferred then
-					create {LIBERTY_FEATURE_DEFERRED} Result.make
+					create {LIBERTY_FEATURE_DEFERRED} Result.make(type)
 				elseif do_block.is_attribute then
-					create {LIBERTY_FEATURE_ATTRIBUTE} Result.make
+					create {LIBERTY_FEATURE_ATTRIBUTE} Result.make(type)
 				else
 					list_locals(routine_execution.local_block, local_context, redefinitions)
 					comp := compound(routine_execution.do_block.list, local_context, redefinitions)
 					if not errors.has_error then
 						if do_block.is_do then
-							create {LIBERTY_FEATURE_DO} routine.make(comp)
+							create {LIBERTY_FEATURE_DO} routine.make(type, comp)
 						else
 							check do_block.is_once end
-							create {LIBERTY_FEATURE_ONCE} routine.make(comp)
+							create {LIBERTY_FEATURE_ONCE} routine.make(type, comp)
 						end
 						if not routine_execution.rescue_block.is_empty then
 							routine.set_rescue(compound(routine_execution.rescue_block.list, local_context, redefinitions))
@@ -290,7 +294,7 @@ feature {}
 			else
 				tm := typed_manifest_or_type_test(constant, local_context, redefinitions)
 				if not errors.has_error then
-					create Result.make(tm)
+					create Result.make(type, tm)
 				end
 			end
 		end

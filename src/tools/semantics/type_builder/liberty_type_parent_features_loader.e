@@ -223,7 +223,7 @@ feature {}
 					errors.set(level_error, once "Cannot undefine frozen feature: " + feature_name.name)
 				else
 					inherited_feature := fd.the_feature
-					create deferred_feature.make
+					create deferred_feature.make(type)
 					deferred_feature.set_precondition(inherited_feature.precondition)
 					deferred_feature.set_postcondition(inherited_feature.postcondition)
 					deferred_feature.set_context(inherited_feature.context)
@@ -262,7 +262,7 @@ feature {}
 						errors.set(level_error, once "Cannot redefine frozen feature: " + feature_name.name)
 					else
 						inherited_feature := fd.the_feature
-						create redefined_feature.make
+						create redefined_feature.make(type)
 						redefined_feature.set_precondition(inherited_feature.precondition)
 						redefined_feature.set_postcondition(inherited_feature.postcondition)
 						redefined_feature.set_context(inherited_feature.context)
