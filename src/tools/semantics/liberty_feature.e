@@ -72,115 +72,96 @@ feature {}
 		end
 
 feature {LIBERTY_FEATURE_DEFINITION}
-	join (a_feature: LIBERTY_FEATURE): LIBERTY_FEATURE is
+	join (a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
 		deferred
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
 feature {LIBERTY_FEATURE}
-	joined_attribute (a_feature: LIBERTY_FEATURE_ATTRIBUTE): LIBERTY_FEATURE is
+	joined_attribute (a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
 		deferred
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_constant (a_feature: LIBERTY_FEATURE_CONSTANT): LIBERTY_FEATURE is
+	joined_constant (a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
 		deferred
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_deferred (a_feature: LIBERTY_FEATURE_DEFERRED): LIBERTY_FEATURE is
+	joined_deferred (a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
 		deferred
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_do (a_feature: LIBERTY_FEATURE_DO): LIBERTY_FEATURE is
+	joined_do (a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
 		deferred
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_external (a_feature: LIBERTY_FEATURE_EXTERNAL): LIBERTY_FEATURE is
+	joined_external (a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
 		deferred
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_once (a_feature: LIBERTY_FEATURE_ONCE): LIBERTY_FEATURE is
+	joined_once (a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
 		deferred
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_redefined (a_feature: LIBERTY_FEATURE_REDEFINED): LIBERTY_FEATURE is
+	joined_redefined (a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
 		deferred
 		ensure
 			not errors.has_error implies Result /= Void
 		end
 
-	joined_unique (a_feature: LIBERTY_FEATURE_UNIQUE): LIBERTY_FEATURE is
+	joined_unique (a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		require
 			a_feature /= Void
+			current_fd.the_feature = Current
+			other_fd.the_feature = a_feature
 		deferred
 		ensure
 			not errors.has_error implies Result /= Void
 		end
-
-feature {}
-	fatal_join_error_redefined_concrete (f1, f2: LIBERTY_FEATURE) is
-		do
-			not_yet_implemented
-		ensure
-			errors.has_error
-		end
-
-	fatal_join_error_deferred_concrete (f1, f2: LIBERTY_FEATURE) is
-		do
-			not_yet_implemented
-		ensure
-			errors.has_error
-		end
-
-	fatal_join_error_concrete_concrete (f1, f2: LIBERTY_FEATURE) is
-		do
-			not_yet_implemented
-		ensure
-			errors.has_error
-		end
-
-	fatal_join_error_concrete_deferred (f1, f2: LIBERTY_FEATURE) is
-		do
-			fatal_join_error_deferred_concrete(f2, f1)
-		ensure
-			errors.has_error
-		end
-
-	fatal_join_error_concrete_redefined (f1, f2: LIBERTY_FEATURE) is
-		do
-			fatal_join_error_redefined_concrete(f2, f1)
-		ensure
-			errors.has_error
-		end
-
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS}
 	bind (child: LIBERTY_FEATURE; type: LIBERTY_TYPE) is

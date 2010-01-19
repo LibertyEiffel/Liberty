@@ -167,14 +167,14 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 			fd.has_precursor(a_type)
 		do
 			if not same_clients(fd.clients) then
-				--| *** WARNING: the inherited features don't have the same export clauses (the second set is
-				--| ignored)
+				--| *** TODO: warning: the inherited features don't have the same export clauses (the second set
+				--| is ignored)
 			end
 			if fd.the_feature /= Void then
 				if the_feature = Void then
 					the_feature := fd.the_feature
-				else
-					the_feature := the_feature.join(fd.the_feature)
+				elseif the_feature /= fd.the_feature then
+					the_feature := the_feature.join(fd.the_feature, Current, fd)
 				end
 			end
 			if not has_precursor(a_type) then
@@ -184,6 +184,57 @@ feature {LIBERTY_TYPE_BUILDER_TOOLS}
 					precursor_feature(a_type) = fd.precursor_feature(a_type)
 				end
 			end
+		end
+
+feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
+	fatal_join_error_redefined_concrete (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			debug
+				std_output.put_line("Cannot join redefined feature " + feature_name.name
+										  + " with concrete feature " + with.feature_name.name)
+				sedb_breakpoint
+			end
+			not_yet_implemented
+		ensure
+			errors.has_error
+		end
+
+	fatal_join_error_deferred_concrete (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			debug
+				std_output.put_line("Cannot join deferred feature " + feature_name.name
+										  + " with concrete feature " + with.feature_name.name)
+				sedb_breakpoint
+			end
+			not_yet_implemented
+		ensure
+			errors.has_error
+		end
+
+	fatal_join_error_concrete_redefined (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			with.fatal_join_error_redefined_concrete(Current)
+		ensure
+			errors.has_error
+		end
+
+	fatal_join_error_concrete_deferred (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			with.fatal_join_error_deferred_concrete(Current)
+		ensure
+			errors.has_error
+		end
+
+	fatal_join_error_concrete_concrete (with: LIBERTY_FEATURE_DEFINITION) is
+		do
+			debug
+				std_output.put_line("Cannot join concrete feature " + feature_name.name
+										  + " with concrete feature " + with.feature_name.name)
+				sedb_breakpoint
+			end
+			not_yet_implemented
+		ensure
+			errors.has_error
 		end
 
 feature {LIBERTY_TYPE_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
@@ -266,6 +317,8 @@ feature {}
 	precursors: DICTIONARY[LIBERTY_FEATURE, LIBERTY_TYPE]
 
 	heart_beat: LIBERTY_HEART_BEAT
+
+	errors: LIBERTY_ERRORS
 
 invariant
 	feature_name /= Void

@@ -110,6 +110,7 @@ feature {}
 				parent_fd := parent.features.item(i)
 				create fd.make(name, parent_fd.clients, parent_fd.is_frozen, name.position)
 				fd.add_precursor(parent_fd.the_feature, parent)
+				fd.set_the_feature(parent_fd.the_feature)
 				pf.add(fd, name)
 				i := i + 1
 			end
