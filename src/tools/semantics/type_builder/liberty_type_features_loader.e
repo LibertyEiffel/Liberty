@@ -45,6 +45,7 @@ feature {}
 			create current_entity.make(a_type, errors.unknown_position)
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_ENTITY, LIBERTY_FEATURE_NAME]} feature_entities.make
 			create {HASHED_DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]} feature_writables.make
+			create {HASHED_DICTIONARY[LIBERTY_ANCHORED_TYPE, LIBERTY_FEATURE_NAME]} anchors.make
 		ensure
 			builder = a_builder
 			type = a_type
@@ -62,6 +63,7 @@ feature {LIBERTY_TYPE_BUILDER}
 			ast := type.ast
 			add_features(ast.features)
 			if not errors.has_error then
+				resolve_anchors
 				add_creations(ast.creations)
 				if not errors.has_error then
 					type.set_invariant(class_invariant(ast.invariant_clause))
@@ -1618,12 +1620,11 @@ feature {}
 				end
 			elseif type_definition.is_like_entity then
 				create feature_name.make_regular(type_definition.entity_anchor.image.image.intern, errors.semantics_position(type_definition.entity_anchor.image.index, type.ast, type.file))
-				if anchored_types.is_empty then
-					create {FAST_ARRAY[LIBERTY_ANCHORED_TYPE]} anchored_types.with_capacity(64)
-					builder.set_anchored_types(anchored_types)
+				anchored_type := anchors.reference_at(feature_name)
+				if anchored_type = Void then
+					create anchored_type.make
+					anchors.add(anchored_type, feature_name)
 				end
-				create anchored_type.make(type.feature_definition(feature_name))
-				anchored_types.add_last(anchored_type)
 				Result := anchored_type
 			else
 				Result := builder.get_type_from_type_definition(type_definition)
@@ -1632,13 +1633,35 @@ feature {}
 			Result /= Void
 		end
 
+	resolve_anchors is
+		local
+			i: INTEGER; anchor: LIBERTY_ANCHORED_TYPE
+		do
+			if not anchors.is_empty then
+				create {FAST_ARRAY[LIBERTY_ANCHORED_TYPE]} anchored_types.with_capacity(anchors.count)
+				from
+					i := anchors.lower
+				until
+					i > anchors.upper
+				loop
+					anchor := anchors.item(i)
+					anchor.set_anchor(type.feature_definition(anchors.key(i)))
+					anchored_types.add_last(anchor)
+					i := i + 1
+				end
+				builder.set_anchored_types(anchored_types)
+			end
+		end
+
 feature {}
+	anchors: DICTIONARY[LIBERTY_ANCHORED_TYPE, LIBERTY_FEATURE_NAME]
 	redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 	anchored_types: COLLECTION[LIBERTY_ANCHORED_TYPE]
 
 invariant
 	feature_entities /= Void
 	feature_writables /= Void
+	anchors /= Void
 	redefined_features /= Void
 	anchored_types /= Void
 
