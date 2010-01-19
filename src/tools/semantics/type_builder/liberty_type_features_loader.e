@@ -128,9 +128,14 @@ feature {}
 				else
 					if a_feature.is_constant then
 						the_feature := feature_constant(a_feature.constant, local_context, redefinitions)
-					else
-						check a_feature.is_unique end
+					elseif a_feature.is_unique then
 						create {LIBERTY_FEATURE_UNIQUE} the_feature.make(type)
+					else
+						if a_feature.signature.has_parameters then
+							--|*** TODO: error: an attribute cannot have parameters!
+							not_yet_implemented
+						end
+						create {LIBERTY_FEATURE_ATTRIBUTE} the_feature.make(type)
 					end
 				end
 			end
@@ -346,13 +351,7 @@ feature {}
 						-- Nothing, not a redefined feature
 					elseif redefined.redefined_feature = Void then
 						if parameters_match(a_feature.parameters, redefined.parameters, name, feature_name) then
-							if a_feature.result_type.type.is_conform_to(redefined.result_type.type) then
-								redefined.set_redefined_feature(a_feature)
-							else
-								name_or_alias := name.feature_name_or_alias
-								errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
-								errors.set(level_error, once "Cannot redefine feature (result types don't conform): " + feature_name.name)
-							end
+							redefined.set_redefined_feature(a_feature)
 						else
 							-- an error was emitted by `parameters_match'
 							check errors.has_error end

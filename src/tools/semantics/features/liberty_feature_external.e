@@ -73,7 +73,10 @@ feature {LIBERTY_FEATURE}
 
 	joined_redefined (a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_concrete_redefined(other_fd)
+			if a_feature.definition_type = definition_type then
+				current_fd.fatal_join_error_concrete_redefined(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_unique (a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is

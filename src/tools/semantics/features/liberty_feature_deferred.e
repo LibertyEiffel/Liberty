@@ -66,7 +66,9 @@ feature {LIBERTY_FEATURE}
 
 	joined_redefined (a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			--| *** TODO: warning, mixed undefine and redefine, expected redefinition
+			if a_feature.definition_type = definition_type then
+				--| *** TODO: warning, mixed undefine and redefine, expected redefinition
+			end
 			Result := a_feature
 		end
 
