@@ -1618,10 +1618,6 @@ feature {}
 				end
 			elseif type_definition.is_like_entity then
 				create feature_name.make_regular(type_definition.entity_anchor.image.image.intern, errors.semantics_position(type_definition.entity_anchor.image.index, type.ast, type.file))
-				if not type.has_feature(feature_name) then
-					--|*** TODO: error: unknown feature
-					not_yet_implemented
-				end
 				if anchored_types.is_empty then
 					create {FAST_ARRAY[LIBERTY_ANCHORED_TYPE]} anchored_types.with_capacity(64)
 					builder.set_anchored_types(anchored_types)

@@ -293,8 +293,6 @@ feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
 
 feature {LIBERTY_TYPE_FEATURES_LOADER}
 	set_anchored_types (anchored: like anchored_types) is
-		require
-			useful: not anchored.is_empty
 		do
 			anchored_types := anchored
 		ensure
