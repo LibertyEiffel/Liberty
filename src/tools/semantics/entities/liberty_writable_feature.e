@@ -44,13 +44,16 @@ feature {ANY}
 feature {}
 	entity: LIBERTY_FEATURE_ENTITY
 
-	make (a_entity: like entity) is
+	make (a_entity: like entity; a_position: like position) is
 		require
 			a_entity /= Void
+			a_position /= Void
 		do
 			entity := a_entity
+			position := a_position
 		ensure
 			entity = a_entity
+			position = a_position
 		end
 
 invariant

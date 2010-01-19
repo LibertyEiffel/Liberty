@@ -991,7 +991,7 @@ feature {} -- Entities and writables
 		do
 			Result := feature_writables.reference_at(name)
 			if Result = Void then
-				create {LIBERTY_WRITABLE_FEATURE} Result.make(feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, position)))
+				create {LIBERTY_WRITABLE_FEATURE} Result.make(feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, position)), position)
 				feature_writables.put(Result, name)
 				heart_beat.beat
 			end
