@@ -31,7 +31,7 @@ inherit
 insert CORE_EXTERNALS
 
 feature 
-	type: LLVMTYPE_KIND_ENUM is
+	type_kind: LLVMTYPE_KIND_ENUM is
 		-- The actual type of Current
 		do
 			Result.change_value
@@ -54,8 +54,22 @@ feature
 			not_yet_implemented -- or mostly unuseful
 		end
 
-	-- is_integer: sOOLEAN is -- Is Current an integer type.
-	-- is_floating_point: BOOLEAN -- Is Current a floating point type.
+	is_integer: BOOLEAN is 
+		-- Is Current an integer type?
+	do
+		Result := type_kind.is_integer_type_kind
+	end
+
+	is_floating_point: BOOLEAN is
+		-- Is Current a floating point type?
+	do
+		Result := type_kind.is_double_type_kind or else
+		type_kind.is_x_86_fp_80type_kind or else
+		type_kind.is_fp_128type_kind or else
+		type_kind.is_ppc__fp_128type_kind
+	end
+		
+
 	-- is_abstract: BOOLEAN is -- is Current abstract, i.e. does it contain opaque type anywhere in its definition.
 	-- is_sized: BOOLEAN is -- Has the type a known size? Things that don't have a size are abstract types, labels and void.
 	

@@ -1,7 +1,9 @@
 class LLVM_VECTOR_TYPE
 	-- A type representing a vector
 inherit LLVM_SEQUENCE_TYPE
-creation make, from_external_pointer
+creation {ANY} make
+creation {WRAPPER, WRAPPER_HANDLER} from_external_pointer
+
 feature -- Creation
 	make (a_type: LLVM_TYPE; a_count: NATURAL_32) is
 		-- Creates a vector type with `a_count' elements of `a_type'.
@@ -15,7 +17,7 @@ feature
 	do
 		Result:=llvmget_vector_size(handle)
 	end
-invariant type.is_vector_type_kind
+invariant type_kind.is_vector_type_kind
 end -- class LLVM_VECTOR_TYPE
 
 -- Copyright 2009 Paolo Redaelli

@@ -14,7 +14,7 @@ feature -- Creation
 		handle:=llvmopaque_type_in_context(a_context.handle)
 	end
 
-invariant type.is_opaque_type_kind
+invariant type_kind.is_opaque_type_kind
 end -- class LLVM_OPAQUE_TYPE
 
 -- Copyright 2009 Paolo Redaelli

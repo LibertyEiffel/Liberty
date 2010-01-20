@@ -74,7 +74,7 @@ feature {ANY}
 		Result:=llvmcount_params(handle).to_integer_32
 	end
 
-invariant type.is_function_type_kind
+invariant type_kind.is_function_type_kind
 end -- LLVM_FUNCTION_TYPE
 
 -- Copyright 2009 Paolo Redaelli

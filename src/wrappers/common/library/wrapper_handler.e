@@ -52,7 +52,7 @@ feature {} -- Utility features
 							(a_wrapper/=Void and then Result = a_wrapper.handle)
 		end
 
-	null_or_string(a_string: STRING): POINTER is
+	null_or_string (a_string: ABSTRACT_STRING): POINTER is
 		-- A pointer to a memory area containing the content of `a_string' or
 		-- default_pointer if `a_string' is Void. The memory area may be the
 		-- internal buffer of `a_string' or a newly allocated one.
