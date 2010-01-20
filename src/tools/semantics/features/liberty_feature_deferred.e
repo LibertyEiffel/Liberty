@@ -36,12 +36,18 @@ feature {LIBERTY_FEATURE_DEFINITION}
 feature {LIBERTY_FEATURE}
 	joined_attribute (a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_deferred_concrete(other_fd)
+			if a_feature.definition_type = definition_type then
+				current_fd.fatal_join_error_deferred_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_constant (a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_deferred_concrete(other_fd)
+			if a_feature.definition_type = definition_type then
+				current_fd.fatal_join_error_deferred_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_deferred (a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
@@ -51,17 +57,26 @@ feature {LIBERTY_FEATURE}
 
 	joined_do (a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_deferred_concrete(other_fd)
+			if a_feature.definition_type = definition_type then
+				current_fd.fatal_join_error_deferred_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_external (a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_deferred_concrete(other_fd)
+			if a_feature.definition_type = definition_type then
+				current_fd.fatal_join_error_deferred_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_once (a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_deferred_concrete(other_fd)
+			if a_feature.definition_type = definition_type then
+				current_fd.fatal_join_error_deferred_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 	joined_redefined (a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
@@ -74,7 +89,10 @@ feature {LIBERTY_FEATURE}
 
 	joined_unique (a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
 		do
-			current_fd.fatal_join_error_deferred_concrete(other_fd)
+			if a_feature.definition_type = definition_type then
+				current_fd.fatal_join_error_deferred_concrete(other_fd)
+			end
+			Result := Current
 		end
 
 end
