@@ -547,7 +547,7 @@ feature {} -- Instructions
 				until
 					errors.has_error or else Result /= Void
 				loop
-					fe ::= entity(r10.feature_name, local_context, redefinitions)
+					fe ::= entity(r10.feature_name, Void, redefinitions)
 					fa := actuals(r10.actuals, local_context, redefinitions)
 					r10 := r10.remainder
 					if r10.is_empty then
@@ -822,16 +822,20 @@ feature {} -- Entities and writables
 			name: FIXED_STRING
 		do
 			name := a_entity.image.image.intern
-			if name.is_equal(once "Current") then
-				Result := current_entity
-			elseif name.is_equal(once "Result") then
-				Result := local_context.result_entity
-			elseif local_context.is_local(name) then
-				Result := local_context.local_var(name)
-			elseif local_context.is_parameter(name) then
-				Result := local_context.parameter(name)
-			else
+			if local_context = Void then
 				Result := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(a_entity.image.index, type.ast, type.file)))
+			else
+				if name.is_equal(once "Current") then
+					Result := current_entity
+				elseif name.is_equal(once "Result") then
+					Result := local_context.result_entity
+				elseif local_context.is_local(name) then
+					Result := local_context.local_var(name)
+				elseif local_context.is_parameter(name) then
+					Result := local_context.parameter(name)
+				else
+					Result := feature_entity(create {LIBERTY_FEATURE_NAME}.make_regular(name, errors.semantics_position(a_entity.image.index, type.ast, type.file)))
+				end
 			end
 		ensure
 			not errors.has_error implies Result /= Void
@@ -989,7 +993,9 @@ feature {} -- Expressions
 						Result.add_last(expression(act.expression, local_context, redefinitions))
 					else
 						check act.is_ref_to_entity end
-						Result.add_last(create {LIBERTY_ENTITY_REFERENCE}.make(universe.type_pointer, entity(act.ref_entity_name, local_context, redefinitions), semantics_position_at(act.node_at(0))))
+						Result.add_last(create {LIBERTY_ENTITY_REFERENCE}.make(universe.type_pointer,
+																								 entity(act.ref_entity_name, local_context, redefinitions),
+																								 semantics_position_at(act.node_at(0))))
 					end
 					i := i + 1
 				end
@@ -1282,7 +1288,7 @@ feature {} -- Expressions
 				if a_remainder.is_empty then
 					Result := a_target
 				else
-					fe ::= entity(a_remainder.feature_name, local_context, redefinitions)
+					fe ::= entity(a_remainder.feature_name, Void, redefinitions)
 					fa := actuals(a_remainder.actuals, local_context, redefinitions)
 					create {LIBERTY_CALL_EXPRESSION} tgt.make(a_target, fe, fa, a_target.position) --|*** or semantics_position_at(a_remainder.node_at(0)) ??
 					Result := expression_remainder(tgt, a_remainder.remainder, local_context, redefinitions)
