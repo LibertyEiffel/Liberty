@@ -352,12 +352,7 @@ feature {}
 					if redefined = Void then
 						-- Nothing, not a redefined feature
 					elseif redefined.redefined_feature = Void then
-						if parameters_match(a_feature.parameters, redefined.parameters, name, feature_name) then
-							redefined.set_redefined_feature(a_feature)
-						else
-							-- an error was emitted by `parameters_match'
-							check errors.has_error end
-						end
+						redefined.set_redefined_feature(a_feature)
 					else
 						name_or_alias := name.feature_name_or_alias
 						errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
@@ -370,49 +365,6 @@ feature {}
 				end
 				i := i + 1
 			end
-		end
-
-	parameters_match (child_parameters, parent_parameters: TRAVERSABLE[LIBERTY_PARAMETER]; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
-		local
-			name_or_alias: LIBERTY_AST_FEATURE_NAME_OR_ALIAS
-			i: INTEGER
-		do
-			if child_parameters = Void then
-				Result := parent_parameters = Void
-				name_or_alias := name.feature_name_or_alias
-				errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
-				errors.set(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
-			elseif parent_parameters /= Void then
-				if child_parameters.count < parent_parameters.count then
-					name_or_alias := name.feature_name_or_alias
-					errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
-					errors.set(level_error, once "Cannot redefine feature (not enough parameters): " + feature_name.name)
-				elseif child_parameters.count > parent_parameters.count then
-					name_or_alias := name.feature_name_or_alias
-					errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
-					errors.set(level_error, once "Cannot redefine feature (too many parameters): " + feature_name.name)
-				else
-					from
-						Result := True
-						check
-							child_parameters.lower = parent_parameters.lower
-						end
-						i := child_parameters.lower
-					until
-						not Result or else i > child_parameters.upper
-					loop
-						Result := child_parameters.item(i).result_type.type.is_conform_to(parent_parameters.item(i).result_type.type)
-						i := i + 1
-					end
-					if not Result then
-						name_or_alias := name.feature_name_or_alias
-						errors.add_position(semantics_position_at(name_or_alias.node_at(0)))
-						errors.set(level_error, once "Cannot redefine feature (parameter types don't conform): " + feature_name.name)
-					end
-				end
-			end
-		ensure
-			not Result implies errors.has_error
 		end
 
 	check_that_all_redefined_features_were_redefined is

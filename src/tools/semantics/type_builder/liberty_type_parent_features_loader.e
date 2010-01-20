@@ -98,7 +98,7 @@ feature {}
 	inject_parent_features (parent: LIBERTY_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE; conformant: BOOLEAN) is
 		local
 			i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; name: LIBERTY_FEATURE_NAME
-			pf: like parent_features
+			pf: like parent_features; rf_count: INTEGER; r: LIBERTY_FEATURE_REDEFINED
 		do
 			create {HASHED_DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]} pf.with_capacity(parent.features.count)
 			from
@@ -118,7 +118,11 @@ feature {}
 				rename_features(pf, clause.rename_clause)
 				export_features(pf, clause.export_clause)
 				undefine_features(pf, clause.undefine_clause, conformant)
-				redefine_features(pf, clause.redefine_clause, conformant)
+				rf_count := redefine_features(pf, clause.redefine_clause, conformant)
+				if rf_count > 0 and then redefined_features.is_empty then
+					-- create a new collection because the default empty collection is shared
+					create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} redefined_features.with_capacity(rf_count)
+				end
 			end
 			from
 				i := pf.lower
@@ -130,11 +134,20 @@ feature {}
 				actual_fd := parent_features.reference_at(name)
 				if actual_fd = Void then
 					parent_features.add(fd, name)
+					actual_fd := fd
 				else
 					actual_fd.join(fd, parent)
 					check
 						actual_fd.feature_name.is_equal(name)
 					end
+				end
+				--|*** TODO: below, that code is a dirty hack.
+				if actual_fd.the_feature.definition_type = type and then (r ?:= actual_fd.the_feature) and then not redefined_features.has(name) then
+					check
+						fd.the_feature = actual_fd.the_feature
+					end
+					r ::= actual_fd.the_feature
+					redefined_features.add(r, name)
 				end
 				i := i + 1
 			end
@@ -236,17 +249,14 @@ feature {}
 			end
 		end
 
-	redefine_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE; conformant: BOOLEAN) is
+	redefine_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE; conformant: BOOLEAN): INTEGER is
 			-- replace the feature by a LIBERTY_FEATURE_REDEFINED
 		local
 			i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
 			inherited_feature: LIBERTY_FEATURE; redefined_feature: LIBERTY_FEATURE_REDEFINED
 		do
-			if clause.list_count > 0 then
-				if redefined_features.is_empty then
-					-- create a new collection because the default empty collection is shared between all instances
-					create {HASHED_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} redefined_features.with_capacity(clause.list_count)
-				end
+			Result := clause.list_count
+			if Result > 0 then
 				from
 					i := clause.list_lower
 				until
@@ -270,7 +280,6 @@ feature {}
 							inherited_feature.bind(redefined_feature, type)
 						end
 						fd.set_the_feature(redefined_feature)
-						redefined_features.add(redefined_feature, feature_name)
 					end
 					i := i + 1
 				end
